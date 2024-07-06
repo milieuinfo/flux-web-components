@@ -41,7 +41,7 @@ export class VlSelectComponent extends FormControl {
             placeholder: { type: String },
             autocomplete: { type: String },
             notDeletable: { type: Boolean, attribute: 'not-deletable' },
-            value: { type: String, state: true },
+            value: { type: String },
         };
     }
 
@@ -54,7 +54,7 @@ export class VlSelectComponent extends FormControl {
 
         const selectedOption = this.getSelectedOption();
         this.value = selectedOption?.value || '';
-        this.initialOptions = JSON.parse(JSON.stringify(this.options));
+        this.initialOptions = structuredClone(this.options);
     }
 
     updated(changedProperties: Map<string, unknown>) {
@@ -161,7 +161,7 @@ export class VlSelectComponent extends FormControl {
     resetFormControl() {
         super.resetFormControl();
 
-        this.options = JSON.parse(JSON.stringify(this.initialOptions));
+        this.options = structuredClone(this.initialOptions);
         const selectedOption = this.getSelectedOption();
         this.value = selectedOption?.value || '';
     }

@@ -1,18 +1,25 @@
-import { registerWebComponents, webComponent } from '@domg-wc/common';
-import { vlGridStyles, vlLegacyStyles } from '@domg-wc/styles';
-import { VlButtonComponent } from '@domg-wc/components/atom';
+import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common';
+import { VlButtonComponent, VlTitleComponent } from '@domg-wc/components/atom';
 import {
     parseFormData,
+    SelectOption,
     SelectRichOption,
-    VlFormMessageComponent,
+    setFormData,
+    VlCheckboxComponent,
+    VlDatepickerComponent,
     VlFormLabelComponent,
+    VlFormMessageComponent,
     VlInputFieldComponent,
+    VlInputFieldMaskedComponent,
     VlSelectRichComponent,
+    VlTextareaRichComponent,
+    VlUploadComponent,
 } from '@domg-wc/components/form';
-import { css, CSSResult, html, LitElement } from 'lit';
+import { vlGridStyles, vlLegacyStyles } from '@domg-wc/styles';
+import { css, CSSResult, html } from 'lit';
 
 @webComponent('vl-form-data')
-export class VlFormDataComponent extends LitElement {
+export class VlFormDataComponent extends BaseLitElement {
     private hobbies: SelectRichOption[] = [
         { label: 'Padel', value: 'padel' },
         { label: 'Dans', value: 'dans' },
@@ -22,6 +29,15 @@ export class VlFormDataComponent extends LitElement {
         { label: 'Fietsen', value: 'fietsen' },
         { label: 'Cocktails', value: 'cocktails' },
     ];
+
+    private geboorteplaatsen: SelectOption[] = [
+        { label: 'Hasselt', value: 'hasselt' },
+        { label: 'Turnhout', value: 'turnhout' },
+        { label: 'Knokke-Heist', value: 'knokke-heist' },
+        { label: 'Waregem', value: 'waregem' },
+        { label: 'Lier', value: 'lier' },
+    ];
+
     private parsedFormData: { naam: FormDataEntryValue; hobbies: FormDataEntryValue[] } | null = null;
 
     static {
@@ -31,6 +47,12 @@ export class VlFormDataComponent extends LitElement {
             VlSelectRichComponent,
             VlFormMessageComponent,
             VlButtonComponent,
+            VlCheckboxComponent,
+            VlInputFieldMaskedComponent,
+            VlDatepickerComponent,
+            VlTextareaRichComponent,
+            VlTitleComponent,
+            VlUploadComponent,
         ]);
     }
 
@@ -55,49 +77,115 @@ export class VlFormDataComponent extends LitElement {
                         margin-right: 1.4rem;
                     }
                 }
+
+                pre {
+                    font-size: 1rem;
+                }
             `,
         ];
     }
 
     override render() {
         return html`
-            <form id="form" class="vl-form" @submit=${this.onSubmit} @reset=${this.onReset}>
+            <form id="form" class="vl-form" @submit=${this.onSubmit} @reset=${this.onReset} autocomplete="off">
                 <div class="vl-grid">
                     <div class="vl-column vl-column--4">
-                        <vl-form-label for="naam" label="Naam *" block></vl-form-label>
+                        <vl-form-label for="naam" label="Naam" block></vl-form-label>
                     </div>
                     <div class="vl-column vl-column--8">
                         <vl-input-field id="naam" name="naam" block></vl-input-field>
                     </div>
                     <div class="vl-column vl-column--4">
-                        <vl-form-label for="hobbies" label="Hobbies *" block></vl-form-label>
+                        <vl-form-label for="geboorteplaats" label="Geboorteplaats" block></vl-form-label>
+                    </div>
+                    <div class="vl-column vl-column--8">
+                        <vl-select
+                            id="geboorteplaats"
+                            name="geboorteplaats"
+                            .options=${this.geboorteplaatsen}
+                            placeholder="Selecteer geboorteplaats"
+                        >
+                        </vl-select>
+                    </div>
+                    <div class="vl-column vl-column--4">
+                        <vl-form-label for="hobbies" label="Hobbies" block></vl-form-label>
                     </div>
                     <div class="vl-column vl-column--8">
                         <vl-select-rich
                             id="hobbies"
                             name="hobbies"
                             multiple
-                            deletable
                             .options=${this.hobbies}
                             placeholder="Selecteer je hobbies"
                             no-results-text="Geen hobbies gevonden"
                             no-choices-text="Geen resterende hobbies gevonden"
                         >
                         </vl-select-rich>
-                        <vl-form-message for="hobbies" state="valueMissing"
-                            >Gelieve een hobby te selecteren.
-                        </vl-form-message>
+                    </div>
+                    <div class="vl-column vl-column--4">
+                        <vl-form-label for="betrokkenheid" label="Betrokkenheid" block></vl-form-label>
                     </div>
                     <div class="vl-column vl-column--8 vl-column--start-5">
+                        <vl-checkbox
+                            id="betrokkenheid-plannende-overheid"
+                            name="betrokkenheid"
+                            value="plannende-overheid"
+                            multiple
+                        >
+                            <span>Plannende overheid</span>
+                        </vl-checkbox>
+                        <vl-checkbox
+                            id="betrokkenheid-adviesverlener"
+                            name="betrokkenheid"
+                            value="adviesverlener"
+                            multiple
+                        >
+                            <span>Adviesverlener</span>
+                        </vl-checkbox>
+                        <vl-checkbox
+                            id="betrokkenheid-hogere-overheid"
+                            name="betrokkenheid"
+                            value="hogere-overheid"
+                            multiple
+                        >
+                            <span>Hogere overheid</span>
+                        </vl-checkbox>
+                    </div>
+                    <div class="vl-column vl-column--4">
+                        <vl-form-label for="vervoer" label="Vervoer" block></vl-form-label>
+                    </div>
+                    <div class="vl-column vl-column--8">
+                        <vl-radio-group name="vervoer">
+                            <vl-radio value="land">Land</vl-radio>
+                            <vl-radio value="zee">Zee</vl-radio>
+                            <vl-radio value="lucht">Lucht</vl-radio>
+                        </vl-radio-group>
+                    </div>
+                    <div class="vl-column vl-column--4">
+                        <vl-form-label for="startDate" label="Aanvangsdatum" block></vl-form-label>
+                    </div>
+                    <div class="vl-column vl-column--8">
+                        <vl-datepicker static name="startDate"> </vl-datepicker>
+                    </div>
+                    <div class="vl-column vl-column--4">
+                        <vl-form-label for="file" label="Bestand" block></vl-form-label>
+                    </div>
+                    <div class="vl-column vl-column--8">
+                        <vl-upload url="test" name="file" max-files="2"> </vl-upload>
+                    </div>
+                    <div class="vl-column vl-column--12">
                         <div class="form-buttons">
-                            <vl-button type="submit">Verstuur</vl-button>
+                            <vl-button type="button" title="setFormData()" @click=${this.onSetFormData}
+                                >Stel in
+                            </vl-button>
+                            <vl-button type="submit" title="parseFormData()">Verstuur</vl-button>
                             <vl-button type="reset" secondary>Reset</vl-button>
                         </div>
                     </div>
                     ${this.parsedFormData
                         ? html`
                               <div class="vl-column vl-column--4">
-                                  <label class="vl-form__label">Formulier data</label>
+                                  <vl-form-label class="vl-form__label">Formulier data</vl-form-label>
                               </div>
                               <div class="vl-column vl-column--8">
                                   <pre>${JSON.stringify(this.parsedFormData, null, 10)}</pre>
@@ -107,6 +195,12 @@ export class VlFormDataComponent extends LitElement {
                 </div>
             </form>
         `;
+    }
+
+    get formData() {
+        const form = this.shadowRoot?.querySelector<HTMLFormElement>('form');
+        console.log('[formData] form', form);
+        return form ? parseFormData<{ betrokkenheid: FormData }>(form) : null;
     }
 
     private onSubmit(event: Event): void {
@@ -119,6 +213,31 @@ export class VlFormDataComponent extends LitElement {
 
     private onReset(): void {
         this.parsedFormData = null;
+        const form = this.shadowRoot?.querySelector<HTMLFormElement>('form');
+        form?.reset();
+    }
+
+    private onSetFormData(): void {
+        const form = this.shadowRoot?.querySelector<HTMLFormElement>('form');
+        const data = {
+            naam: 'Dehbi',
+            geboorteplaats: 'knokke-heist',
+            hobbies: ['drummen', 'dans'],
+            betrokkenheid: ['plannende-overheid', 'hogere-overheid'],
+            vervoer: 'zee',
+            startDate: 'today',
+            file: [
+                new File(['Hallo, world!'], 'dossier.txt', {
+                    type: 'text/plain',
+                    lastModified: new Date().getMilliseconds(),
+                }),
+                new File(['Konichua, world!'], 'aanbeveling.txt', {
+                    type: 'text/plain',
+                    lastModified: new Date().getMilliseconds(),
+                }),
+            ],
+        };
+        setFormData(form!, data);
     }
 }
 

@@ -1,4 +1,4 @@
-import { Canvas } from '@storybook/blocks';
+import { Canvas, Markdown } from '@storybook/blocks';
 import * as formDataStories from './form-data.stories';
 
 # Form - Data
@@ -8,19 +8,39 @@ Om de form data te verzamelen, kan je de [FormData](https://developer.mozilla.or
 
 Echter, deze API is niet altijd even handig in gebruik. Als je `FormData.entries()` gebruikt, dan krijg je een iterator van de waardes.
 Dit is voldoende voor inputs met 1 waarde, maar voor inputs met meerdere waardes krijg je enkel de laatst gekozen waarde terug.
+ Wanneer je `FormData.getAll()` gebruikt, krijg je dan weer altijd een array van waardes terug, ook voor inputs die maar 1 waarde kunnen bevatten.
 
-Daarom leek het ons aangewezen dat je altijd met een consistent object kan werken:
-- voor inputs met 1 waarde, krijg je altijd een enkele waarde
-- voor inputs met meerdere waardes (bv. multiselect), krijg je altijd een array van waardes
+Het gebruik is niet intuïtief en kan leiden tot verwarring, vooral wanneer je werkt met form controls die meerdere
+waardes kunnen bevatten, zoals een multiselect.
 
-## parseFormData(formElement: Form, multiFormControlNames?: string[])
+## formaat
 
-We hebben een helper functie voorzien om de form data te parsen naar een object met de waardes van de velden.
+Daarom leek het ons aangewezen dat je altijd met een consistent object werkt voor de form data:
+- voor form controls met 1 waarde, krijg je altijd een enkele waarde
+- voor form controls met meerdere waardes (bv. multiselect), krijg je altijd een array van waardes
+
+Dan kun je op een vereenvoudigde manier de form data verwerken,
+zonder dat je rekening moet houden met het type van de form control.
+
+bv.
+```js
+{
+          "naam": "Dehbi",
+          "startDate": "2025-07-11"
+}
+```
+
+## parseFormData(formElement)
+
+We hebben een helper functie voorzien om de data uit de form te parsen naar een object met de waardes van de velden,
+in het voorgestelde formaat zoals hierboven beschreven. Intern gebruikt deze functie
+de [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData) API en werkt die ook met native form controls.
 
 Deze functie aanvaard 2 parameters:
 - `formElement: Form`: het Form element waarvan je de data wil parsen
-- `multiFormControlNames?: string[]`: een array van form control namen die meerdere waardes kunnen hebben.
-Als deze parameter niet wordt meegegeven, dan wordt er gezocht naar alle form controls die meerdere waardes kunnen hebben aan de hand van het `multiple` attribuut.
+- `multiFormControlNames?: string[]`: (optioneel) een array van form control namen die meerdere waardes kunnen bevatten.
+Als deze parameter niet wordt meegegeven, dan zoekt de functie zelf naar form controls die meerdere waardes kunnen
+bevatten (bv. vl-select-rich met `multiple` attribuut...). Deze parameter is in de meeste gevallen niet nodig.
 
 ### Gebruik
 
@@ -47,6 +67,79 @@ onSubmit(event: Event): void {
 }
 ```
 
-### Voorbeeld
+### Voorbeeld resultaat
+
+```js
+{
+          "naam": "Dehbi",
+          "startDate": "2025-07-11"
+}
+```
+
+## setFormData(formElement, data)
+
+We hebben een helper functie voorzien om de data in te stellen op een form element, zodat je op een eenvoudiger manier
+ de waardes van de form controls kan aanpassen. Deze functie is compatibel met al onze vl-form componenten maar ook met
+native HTML form controls.
+
+Deze functie aanvaard 2 parameters:
+- `formElement: Form`: het Form element waarvan je de data wil zetten
+- `data: { [p: string]: FormDataEntryValue[] | File | string }`: een object met de waardes van de velden
+
+### Gebruik
+
+```js
+import { setFormData } from "@domg-wc/components/form";
+```
+
+```html
+<form id="example-form">
+    <input type="text" name="naam" />
+    <select name="hobbies" multiple>
+        <option value="value1">Value 1</option>
+        <option value="value2">Value 2</option>
+        <option value="value3">Value 3</option>
+    </select>
+    <input type="checkbox" name="waarheidsgetrouw" value="spreekt-de-waarheid">
+</form>
+```
+
+```typescript
+const formElement = document.getElementById('example-form') as HTMLFormElement;
+// stel de form data in
+setFormData(formElement, {
+    naam: 'Dehbi',
+    hobbies: ['Drummen', 'Zwemmen']
+    });
+```
+
+<vl-alert type="info" title="Ter info" icon="info-circle" size="small" custom-css=".vl-alert{margin-bottom: 3rem;}">
+ <Markdown options={{ forceInline: true }} style={{ fontSize: '14px' }}>
+ {`
+ De parameter om form data in te stellen bij setFormData() is hetzelfde formaat als de data die parseFormData()
+  functie retourneert.
+ `}
+ </Markdown>
+</vl-alert>
+
+### Checkbox
+
+De checkbox werkt op een andere manier dan de andere form controls.
+De value die meegegeven wordt gaat het `checked` attribuut van de checkbox bepalen maar gaat nooit de `value` van de checkbox wijzigen.
+
+- Om een checkbox aan te vinken, dien je de value mee te geven die op de checkbox ingesteld staat. Als je de verkeerde string meegeeft wordt niets veranderd.
+- Om een checkbox uit te vinken kan je de value `null` of `undefined` meegeven.
+- Je kan tevens ook ofwel een boolean meegeven, waarbij `true` de checkbox aanvinkt en `false` de checkbox uitvinkt.
+
+Meer info vind je bij de [Checkbox Documentatie - FormData](?path=/docs/components-form-checkbox--documentatie#formdata).
+
+## Voorbeeld
+
+Dit component toont een formulier met verschillende types van form controls. Het formulier kan worden ingevuld met
+[setFormData()](#setformdataformelement-data) en de data kan worden opgehaald met
+ [parseFormData()](#parseformdataformelement) (die wordt dan onderaan de form geprint).
+
+- De data kan worden ingesteld met de `Stel in` knop. ([setFormData()](#setformdataformelement-data))
+- De data kan worden opgehaald met de `Verstuur` knop. ([parseFormData()](#parseformdataformelement))
 
 <Canvas of={formDataStories.FormData} sourceState='none' />

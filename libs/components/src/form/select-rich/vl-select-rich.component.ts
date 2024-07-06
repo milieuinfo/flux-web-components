@@ -40,10 +40,10 @@ export class VlSelectRichComponent extends FormControl {
     private value: FormValue = null;
     private dropdownInitialised = false;
     private isDropdownOpen = false;
+    private dispatchInput = false;
 
     constructor() {
         super();
-
         this.submitFormOnEnter = false;
     }
 
@@ -87,15 +87,11 @@ export class VlSelectRichComponent extends FormControl {
         };
     }
 
-    get validationTarget(): HTMLSelectElement | null | undefined {
-        return this.shadowRoot?.querySelector('select');
-    }
-
     firstUpdated(changedProperties: Map<string, unknown>) {
         super.firstUpdated(changedProperties);
 
         this.choices = new Choices(this.validationTarget!, this.getChoicesConfig());
-        this.initialOptions = [...JSON.parse(JSON.stringify(this.options))];
+        this.initialOptions = structuredClone(this.options);
 
         setTimeout(() => {
             // Fix voor required validator
@@ -172,6 +168,7 @@ export class VlSelectRichComponent extends FormControl {
 
     disconnectedCallback() {
         super.disconnectedCallback();
+
         this.getChoicesElement()?.removeEventListener('click', this.onClickChoices);
         this.internals.labels[0]?.removeEventListener('click', this.onClickChoices);
         this.choices?.input?.element?.removeEventListener('input', this.onSearchInput);
@@ -205,6 +202,10 @@ export class VlSelectRichComponent extends FormControl {
         `;
     }
 
+    get validationTarget(): HTMLSelectElement | null | undefined {
+        return this.shadowRoot?.querySelector('select');
+    }
+
     /**
      * Reset de form control naar de initiële staat.
      */
@@ -225,7 +226,7 @@ export class VlSelectRichComponent extends FormControl {
         if (!options || !options.length) {
             return;
         }
-        this.options = [...JSON.parse(JSON.stringify(options))];
+        this.options = structuredClone(options);
     }
 
     /**
@@ -237,6 +238,15 @@ export class VlSelectRichComponent extends FormControl {
         const unselectedValues = options.filter((option) => !option.selected).map((option) => option.value);
         this.removeSelectionByValue(unselectedValues);
         this.selectByValue(selectedValues);
+    }
+
+    /**
+     * Stelt de geselecteerde optie(s) in op basis van de opgegeven waarde(s).
+     * @param value
+     */
+    setSelectedValues(value: string | string[]): void {
+        this.removeAllSelections();
+        this.selectByValue(value);
     }
 
     getSelected(): string | string[] | null {
@@ -257,6 +267,7 @@ export class VlSelectRichComponent extends FormControl {
         } else {
             this.choices.setChoiceByValue([value]);
         }
+        this.setValue(this.collectFormData());
     }
 
     /**
@@ -273,6 +284,7 @@ export class VlSelectRichComponent extends FormControl {
         } else {
             this.choices.removeActiveItemsByValue(value);
         }
+        this.setValue(this.collectFormData());
     }
 
     /**
@@ -284,6 +296,7 @@ export class VlSelectRichComponent extends FormControl {
         }
 
         this.choices.removeActiveItems();
+        this.setValue(this.collectFormData());
     }
 
     protected onKeydown(event: KeyboardEvent) {
