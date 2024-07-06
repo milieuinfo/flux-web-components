@@ -3,6 +3,7 @@
     "include": [
         ".storybook/**/*.ts",
         ".storybook/**/*.tsx",
+        "docs/**/*.ts",
         "../../resources/cypress-commands/*.d.ts",
         "../../resources/cypress-component/support/*.d.ts"
     ],

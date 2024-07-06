@@ -1,5 +1,3 @@
-import { FormControl } from '../form-control';
-
 /**
  * Haalt de form data op van een form element en zet deze om naar een object.
  * Als een form control meerdere waarden kan hebben, dan wordt deze omgezet naar een array van waarden.
@@ -14,21 +12,19 @@ import { FormControl } from '../form-control';
 export const parseFormData = <T = { [key: string]: FormDataEntryValue[] | File | string }>(
     formElement: HTMLFormElement,
     multiFormControlNames?: string[]
-): T | unknown | undefined => {
+): T | null => {
     if (!formElement) {
-        return undefined;
+        return null;
     }
     const data = new FormData(formElement);
-    const isValidFormInterface = (element: Element) =>
-        element instanceof FormControl ||
-        element instanceof HTMLInputElement ||
-        element instanceof HTMLSelectElement ||
-        element instanceof HTMLTextAreaElement;
     // alle form controls die een array van waarden moeten geven
     // Form controls met dezelfde name attribuut worden samengevoegd in een array
-    const duplicateNames = Array.from(data.keys()).filter((key) => data.getAll(key).length > 1);
-    const multipleFormControlKeys = Array.from(formElement.querySelectorAll('*'))
-        .filter((element) => isValidFormInterface(element) && element.hasAttribute('multiple'))
+    const duplicateNames = Array.from(formElement.elements)
+        .filter((el) => !(el instanceof HTMLInputElement && el.type === 'radio') && el.hasAttribute('name'))
+        .map((el) => el.getAttribute('name'))
+        .filter((name, index, names) => names.indexOf(name) !== index);
+    const multipleFormControlKeys = Array.from(formElement.elements)
+        .filter((element) => element.hasAttribute('multiple'))
         .map((el) => el.getAttribute('name'));
     const multipleValueFormControls = multiFormControlNames
         ? multiFormControlNames
@@ -39,6 +35,6 @@ export const parseFormData = <T = { [key: string]: FormDataEntryValue[] | File |
             ...result,
             [key]: multipleValueFormControls.includes(key) ? data.getAll(key) : data.get(key),
         }),
-        {}
+        <T>{}
     );
 };
