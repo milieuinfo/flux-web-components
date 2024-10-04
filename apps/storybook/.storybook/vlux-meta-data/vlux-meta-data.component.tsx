@@ -28,6 +28,9 @@ const buildType = (vluxMetaDataModel: VluxMetaDataModel): string => {
         case 'v1-todo':
             return 'warning';
         case 'v2-next':
+        case 'v2-next-style-base':
+        case 'v2-next-style-layout':
+        case 'v2-next-style-new':
             return 'success';
         default:
             return 'info';
@@ -43,6 +46,11 @@ const buildTitle = (vluxMetaDataModel: VluxMetaDataModel): string => {
             return 'legacy-component';
         case 'v2-next':
             return 'next-component';
+        case 'v2-next-style-layout':
+        case 'v2-next-style-new':
+            return 'next-style-layout';
+        case 'v2-next-style-base':
+            return 'next-style-base';
         default:
             return '';
     }
@@ -65,6 +73,16 @@ const buildText = (vluxMetaDataModel: VluxMetaDataModel): string => {
         case 'v2-next':
             return `De **${vluxMetaDataModel.nextText}** is een next-component die ${vluxMetaDataModel.legacyText}
                     vervangt, zie ${vluxMetaDataModel.planningInfo} voor bijkomende informatie.`;
+        case 'v2-next-style-base':
+            return `De **${vluxMetaDataModel.nextText}** is een intern onderdeel van de next-style opzet; deze
+                    documentatie is bedoeld voor bijdragers / beheerders!<br/>
+                    Enkel wat onder 'Layout (afnemers)' staat is bedoeld voor afnemers.`;
+        case 'v2-next-style-layout':
+            return `De **${vluxMetaDataModel.nextText}** is een next-style die ${vluxMetaDataModel.legacyText}
+                    vervangt, zie ${vluxMetaDataModel.planningInfo} voor bijkomende informatie.`;
+        case 'v2-next-style-new':
+            return `De **${vluxMetaDataModel.nextText}** is een nieuwe next-style, zie ${vluxMetaDataModel.planningInfo}
+                    voor bijkomende informatie.`;
         default:
             return '';
     }

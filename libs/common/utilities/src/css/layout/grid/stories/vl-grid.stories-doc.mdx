@@ -1,0 +1,160 @@
+import {Canvas} from '@storybook/blocks';
+import {Meta} from '@storybook/addon-docs';
+import {Source} from '@storybook/blocks';
+import gridLarge from './grid-large.png';
+import gridMedium from './grid-medium.png';
+import gridSmall from './grid-small.png';
+import gridExtraSmall from './grid-extra-small.png';
+import cssLarge from './css-large.png';
+import cssMedium from './css-medium.png';
+import cssSmall from './css-small.png';
+import cssExtraSmall from './css-extra-small.png';
+import vlGridSource from '!!raw-loader!../vl-grid.css.ts';
+import vlGridVariables from '!!raw-loader!../vl-grid.raw.css';
+import * as VlGridStories from './vl-grid.stories';
+
+<Meta title="Styles-next/Layout (afnemers)/grid"/>
+
+# Grid - next
+
+<VluxMetaData id="styles-next-layout-afnemers-grid" />
+<br/>
+
+
+## Inhoudstafel
+
+- [Doel](#doel)
+- [Grid Opzet](#grid-opzet)
+- [Column Opzet](#column-opzet)
+- [Responsief Voorbeeld](#responsief-voorbeeld)
+
+
+## Doel
+
+`vl-grid-next` implementeert een [12-kolom grid layout](https://www.w3schools.com/css/css_rwd_grid.asp). De CSS
+is een specifieke implementatie gebruikmakend van de [CSS Grid Layout](https://css-tricks.com/snippets/css/complete-guide-grid/),
+die standaard door [browsers](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout) voorzien wordt.
+
+De opzet is responsief, er zijn style-classes voor 4 verschillende scherm groottes: **large** (&gt;1023px),
+**medium** (&lt;1023px), **small** (&lt;767px) en **extra-small** (&lt;500px). De style-classes volgen de naamgeving
+van CSS-grid, bestaande kennis of documentatie blijft dus representatief. Afwijkingen kunnen desgewenst in de afnemende
+code voorzien worden door de naamgeving door te trekken: de CSS-grid naamgeving overnemen in
+[kebab case](https://developer.mozilla.org/en-US/docs/Glossary/Kebab_case).
+
+
+## Grid Opzet
+
+### **vl-grid-next - opzet**
+
+Op container niveau - `vl-grid-next` - wordt m.b.v. de standaard CSS Grid Layout een 12-kolom grid opgezet waarbij de
+waardes via variabelen worden gezet.
+
+De responsieve kolom opzet zit in aparte bestanden, belangrijk hierbij is dat:
+
+- de aanpak 'desktop first' is
+- de media query breedte wordt van groot naar klein gedefinieerd: &gt;1023 (large) / &lt;1023 (medium) /
+  &lt;767 (small) / &lt;500 (extra-small)
+- de grotere hebben dus voorrang op de kleinere, als je enkel de default specifieert wordt dit ook toegepast voor
+  de smallere
+- als je daarnaast bvb. voor 'small' kolom afwijkingen opgeeft dan gelden die ook voor 'extra-small'
+
+### **vl-grid-next - variabelen**
+
+Met onderstaande variabelen kan je grid settings overrulen.
+
+<Source code={vlGridVariables} language="css" dark={true}/>
+
+### **vl-grid-next - code**
+
+<Source code={vlGridSource} language="ts" dark={true}/>
+
+### **vl-grid-next - justify-items / align-items**
+
+Op grid niveau worden css-classes voorzien voor uitlijning: **horizontaal met [justify-items](https://css-tricks.com/snippets/css/complete-guide-grid/#prop-justify-items)**
+en **verticaal met [align-items](https://css-tricks.com/snippets/css/complete-guide-grid/#aa-align-items)**.
+Volgende classes zijn hiervoor beschikbaar:
+
+```
+vl-grid-next--justify-items-start
+vl-grid-next--justify-items-end
+vl-grid-next--justify-items-center
+vl-grid-next--justify-items-stretch
+
+vl-grid-next--align-items-start
+vl-grid-next--align-items-end
+vl-grid-next--align-items-center
+vl-grid-next--align-items-stretch
+```
+
+### **vl-grid-next - responsive**
+
+Op grid niveau kan je voor de uitlijning responsieve afwijkingen gebruiken: `vl-grid-next--X-justify-items-start`
+waarbij X `[m, s, xs]` kan zijn. Als je dus `vl-grid-next--s-align-items-center` gebruikt zal die kolom enkel
+gecentreerd zijn op smalle (s) en extra-smalle (xs) schermen.
+
+
+## Column Opzet
+
+### **vl-column-next - kolom**
+
+Voor het specifiëren van kolommen is er `vl-column-next--1` t.e.m. `vl-column-next--12` met de responsieve varianten
+`vl-column-next--X-N` waarbij X [m, s, xs] kan zijn.<br />
+
+Om de start van een kolom te verschuiven is er `vl-column-next--offset-2` t.e.m. `vl-column-next--offset-12` met de
+responsieve varianten `vl-column-next--X-offset-N` waarbij X [m, s, xs] kan zijn.
+
+<Canvas of={VlGridStories.GridOffset} />
+
+### **vl-column-next - justify-self / align-self**
+
+Conform het grid niveau worden er css-classes voorzien voor uitlijning in een cel: **horizontaal met
+[justify-self](https://css-tricks.com/snippets/css/complete-guide-grid/#aa-justify-self)**
+en **verticaal met [align-self](https://css-tricks.com/snippets/css/complete-guide-grid/#aa-align-items)**.
+Volgende classes zijn hiervoor beschikbaar:
+
+```
+vl-column-next--justify-self-start
+vl-column-next--justify-self-end
+vl-column-next--justify-self-center
+vl-column-next--justify-self-stretch
+
+vl-column-next--align-self-start
+vl-column-next--align-self-end
+vl-column-next--align-self-center
+vl-column-next--align-self-stretch
+```
+
+<Canvas of={VlGridStories.GridJustifyAlign} />
+
+### **vl-column-next - responsive**
+
+Ook de responsieve varianten zijn beschikbaar: bvb. `vl-grid-next--X-justify-self-start` en
+`vl-column-next--X-align-self-start`.
+
+
+## Responsief Voorbeeld
+
+### Large - default (&gt;1023px)
+
+<img src={gridLarge} alt="grid large" style={{maxWidth: 600 + 'px'}} />
+<br />
+<img src={cssLarge} alt="css large" style={{maxWidth: 600 + 'px'}} />
+
+### Medium (&lt;1023)
+
+<img src={gridMedium} alt="grid medium" style={{maxWidth: 500 + 'px'}} />
+<br />
+<img src={cssMedium} alt="css medium" style={{maxWidth: 600 + 'px'}} />
+
+### Small (&lt;767)
+
+<img src={gridSmall} alt="grid small" style={{maxWidth: 400 + 'px'}} />
+<br />
+<img src={cssSmall} alt="css small" style={{maxWidth: 600 + 'px'}} />
+
+### Extra-Small (&lt;500)
+
+<img src={gridExtraSmall} alt="grid extra small" style={{maxWidth: 300 + 'px'}} />
+<br />
+<img src={cssExtraSmall} alt="css extra small" style={{maxWidth: 600 + 'px'}} />
+

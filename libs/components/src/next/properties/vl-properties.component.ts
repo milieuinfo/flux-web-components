@@ -1,5 +1,5 @@
 import { BaseLitElement, onChildListChange, webComponent } from '@domg-wc/common-utilities';
-import { globalStylesNext } from '@domg-wc/common-utilities/css/global-styles-decorator';
+import { globalStylesNext } from '@domg-wc/common-utilities/css';
 import { vlElementsStyle } from '@domg-wc/elements';
 import { CSSResult, html, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
 import { buildProperties } from './vl-properties.builder';

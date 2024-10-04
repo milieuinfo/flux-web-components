@@ -1,33 +1,40 @@
+import {
+    vlHeading1,
+    vlHeading2,
+    vlHeading3,
+    vlHeading4,
+    vlHeading5,
+    vlHeading6,
+    vlMediaScreenSmall,
+} from '@domg-wc/common-utilities/css';
 import { css, CSSResult } from 'lit';
-import { mediaQuerySmall } from '@domg-wc/common-utilities/css/mixin/media-queries.mixin.css';
-import { title } from '@domg-wc/common-utilities/css/mixin/title.mixin.css';
 
 const headingList = [1, 2, 3, 4, 5, 6];
 
 const styles: CSSResult[] = [
     css`
         h1 {
-            ${title(1)}
+            ${vlHeading1}
         }
 
         h2 {
-            ${title(2)}
+            ${vlHeading2}
         }
 
         h3 {
-            ${title(3)}
+            ${vlHeading3}
         }
 
         h4 {
-            ${title(4)}
+            ${vlHeading4}
         }
 
         h5 {
-            ${title(5)}
+            ${vlHeading5}
         }
 
         h6 {
-            ${title(6)}
+            ${vlHeading6}
         }
     `,
     ...headingList.map(
@@ -55,13 +62,11 @@ const styles: CSSResult[] = [
                     margin-bottom: 0;
                 }
 
-                ${mediaQuerySmall(
-                    css`
-                        h${heading}.underline {
-                            margin-bottom: 1rem;
-                        }
-                    `
-                )}
+                @media screen and (max-width: ${vlMediaScreenSmall}px) {
+                    h${heading}.underline {
+                        margin-bottom: 1rem;
+                    }
+                }
             `
     ),
 ];

@@ -1,13 +1,30 @@
-import colors from './vars/colors.var.css';
-import general from './vars/general.var.css';
-import spacing from './vars/spacing.var.css';
-import typography from './vars/typography.var.css';
-import fonts from './font/fonts.css';
-import base from './base.css';
+import { vlGridStyles } from './layout/grid/vl-grid.css';
+import { vlMarginStyles } from './layout/margin/vl-margin.css';
+import { vlPaddingStyles } from './layout/padding/vl-padding.css';
+import { vlSectionStyles } from './layout/section/vl-section.css';
+import { vlBodyStyles } from './base/body/vl-body.css';
+import { vlColorStyles } from './base/var/vl-color.css';
+import { vlGeneralStyles } from './base/var/vl-general.css';
+import { vlSpacingStyles } from './base/var/vl-spacing.css';
+import { vlTypographyStyles } from './base/var/vl-typography.css';
+import { vlFontStyles } from './base/font/vl-font.css';
+import { vlGroupStyles } from './layout/group/vl-group.css';
 
-const globalStyles = [colors, general, spacing, typography, fonts, base];
+const globalStyles = [
+    vlFontStyles,
+    vlColorStyles,
+    vlGeneralStyles,
+    vlSpacingStyles,
+    vlTypographyStyles,
+    vlBodyStyles,
+    vlSectionStyles,
+    vlGridStyles,
+    vlGroupStyles,
+    vlMarginStyles,
+    vlPaddingStyles,
+];
 
-class RegisterGlobalStyles {
+export class RegisterGlobalStyles {
     static registered = false;
 
     static register() {

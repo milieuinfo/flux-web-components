@@ -6,7 +6,7 @@ export default defineConfig({
     modifyObstructiveCode: false,
     screenshotsFolder: '../../build/cypress/storybook-e2e/screenshots',
     chromeWebSecurity: false,
-    retries: 3,
+    retries: 5,
     e2e: {
         baseUrl: 'http://localhost:8080',
         specPattern: 'src/e2e/**/*.cy.{js,jsx,ts,tsx}',

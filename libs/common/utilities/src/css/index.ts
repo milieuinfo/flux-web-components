@@ -1,0 +1,18 @@
+export { vlColorStyles } from './base/var/vl-color.css';
+export { globalStylesNext, RegisterGlobalStyles } from './global-styles-decorator';
+export { iconFontLocation } from './base/font/vl-font.css';
+export { vlFocusOutlineMixin } from './base/mixin/vl-outlines.css';
+export { vlWaveAnimationMixin } from './base/mixin/vl-animations.css';
+export { vlHeading1, vlHeading2, vlHeading3, vlHeading4, vlHeading5, vlHeading6 } from './base/heading/vl-heading.css';
+export { vlGridStyles } from './layout/grid/vl-grid.css';
+export { vlGroupStyles } from './layout/group/vl-group.css';
+export { vlMarginStyles } from './layout/margin/vl-margin.css';
+export { vlPaddingStyles } from './layout/padding/vl-padding.css';
+export { vlIconStyles } from './base/icon/vl-icon.css';
+export { vlLinkStyles } from './base/link/vl-link.css';
+export {
+    vlMediaScreenExtraSmall,
+    vlMediaScreenSmall,
+    vlMediaScreenMedium,
+    vlMediaScreenLarge,
+} from './base/var/vl-media-screen.css';

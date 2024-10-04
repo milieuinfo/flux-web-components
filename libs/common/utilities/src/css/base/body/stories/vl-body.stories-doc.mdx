@@ -1,0 +1,36 @@
+import {Source} from '@storybook/blocks';
+import {Meta} from '@storybook/addon-docs';
+import vlBodyCss from '!!raw-loader!../vl-body.css';
+
+<Meta title="Styles-next/Base (intern)/body"/>
+
+# Body - next
+
+<VluxMetaData id="styles-next-base-intern-body" />
+<br/>
+
+
+## Inhoudstafel
+
+- [Doel](#doel)
+- [Implementatie](#implementatie)
+
+
+## Doel
+
+Op het document wordt automatisch de specifieke styling voor de native `<html>` en `<body>` tags voorzien.
+
+Dit zorgt er voor dat:
+
+- het specifieke 'Vlaanderen' font gebruikt wordt
+- de [62,5% font size trick](https://www.aleksandrhovhannisyan.com/blog/62-5-percent-font-size-trick/) wordt toegepast,
+waardoor `1rem == 10px`
+- op kleine schermen (&lt;767) het font en de lijn hoogte iets kleiner gemaakt worden
+
+
+## Implementatie
+
+<details open>
+    <summary>Html / Body Code</summary>
+    <Source code={vlBodyCss} language="css" dark={true}/>
+</details>

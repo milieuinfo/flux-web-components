@@ -1,7 +1,5 @@
 import { BaseLitElement, ICON_PLACEMENT, webComponent } from '@domg-wc/common-utilities';
-import { globalStylesNext } from '@domg-wc/common-utilities/css/global-styles-decorator';
-import iconStyle from '@domg-wc/common-utilities/css/icon/icon.css';
-import linkStyle from '@domg-wc/common-utilities/css/link/link.css';
+import { globalStylesNext, vlIconStyles, vlLinkStyles } from '@domg-wc/common-utilities/css';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { linkDefaults } from './vl-link.defaults';
@@ -19,7 +17,7 @@ export class VlLinkComponent extends BaseLitElement {
     private iconPlacement = linkDefaults.iconPlacement;
 
     static get styles(): CSSResult[] {
-        return [linkStyle, iconStyle];
+        return [vlLinkStyles, vlIconStyles];
     }
 
     static get properties(): PropertyDeclarations {

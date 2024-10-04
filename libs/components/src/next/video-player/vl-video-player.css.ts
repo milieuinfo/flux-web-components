@@ -25,7 +25,7 @@ const styles: CSSResult[] = [
         }
 
         .plyr__control {
-            border-radius: var(--vl-border-radius);
+            border-radius: var(--vl-border--radius);
         }
 
         .plyr > .plyr__control {

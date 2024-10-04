@@ -1,12 +1,13 @@
 import { story } from '@domg-wc/common-storybook';
-import { iconArgs, iconArgTypes } from './vl-icon.stories-arg';
+import { registerWebComponents } from '@domg-wc/common-utilities';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit';
+import { VlAllIconsComponent } from '../vl-all-icons.component';
 import { VlIconComponent } from '../vl-icon.component';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { iconArgs, iconArgTypes } from './vl-icon.stories-arg';
 import iconDoc from './vl-icon.stories-doc.mdx';
 
-registerWebComponents([VlIconComponent]);
+registerWebComponents([VlIconComponent, VlAllIconsComponent]);
 
 export default {
     id: 'components-next-icon',
@@ -118,3 +119,6 @@ IconAfterText.args = {
     icon: 'calendar',
     leftMargin: true,
 };
+
+export const AllIcons = () => html` <vl-all-icons></vl-all-icons>`;
+AllIcons.storyName = 'vl-icon-next - alle iconen';

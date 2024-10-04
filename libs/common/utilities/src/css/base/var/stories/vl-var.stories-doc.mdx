@@ -1,0 +1,90 @@
+import {Canvas,Source} from '@storybook/blocks';
+import {Meta} from '@storybook/addon-docs';
+import colorSource from '!!raw-loader!../vl-color.raw.css';
+import generalSource from '!!raw-loader!../vl-general.raw.css';
+import mediaScreenSource from '!!raw-loader!../vl-media-screen.css.ts';
+import spacingSource from '!!raw-loader!../vl-spacing.raw.css';
+import typographySource from '!!raw-loader!../vl-typography.raw.css';
+import * as VlVarStories from './vl-var.stories';
+
+<Meta title="Styles-next/Base (intern)/var"/>
+
+# Var - next
+
+<VluxMetaData id="styles-next-base-intern-var" />
+<br/>
+
+
+## Inhoudstafel
+
+- [Doel](#doel)
+- [Gebruik](#gebruik)
+- [Voorbeeld](#voorbeeld)
+- [Variabelen](#variabelen)
+
+
+## Doel
+
+Voor consistentie in de styling en soms om waardes een naam te geven worden standaard CSS variabelen gebruikt.
+De variabelen worden steeds globaal gespecifieerd en kunnen in een concrete component (in die scope) een afwijkende
+waarde krijgen. Dit moet niet gezien worden als theming, er is maar 1 stijl: die van Vlaanderen.
+
+
+## Gebruik
+
+Het zijn standaard [CSS variabelen](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties):
+ze beginnen dus met `--` en zijn te gebruiken met `var()`.
+
+```
+.my-details {
+  background-color: var(--vl-background-alt-color);
+}
+```
+
+
+## Voorbeeld
+
+<Canvas of={VlVarStories.VarColor} />
+
+
+## Variabelen
+
+Hieronder volgt een overzicht van alle variabelen, dit is een representatie van de code, ze zijn dus steeds up-to-date.
+
+### Color
+
+<details open>
+    <summary>Color Variables</summary>
+    <Source code={colorSource} language="css" dark={true}/>
+</details>
+
+### General
+
+<details open>
+    <summary>General Variables</summary>
+    <Source code={generalSource} language="css" dark={true}/>
+</details>
+
+### Media Screen
+
+De resolutie in een media query specifiëren via een css variabele wordt niet door browsers ondersteund. Om toch de
+'breakpoints' eenduidig te specifiëren worden ze als standaard TypeScript variabelen gedefinieerd.
+
+<details open>
+    <summary>Media Screen Variables</summary>
+    <Source code={mediaScreenSource} language="ts" dark={true}/>
+</details>
+
+### Spacing
+
+<details open>
+    <summary>Spacing Variables</summary>
+    <Source code={spacingSource} language="css" dark={true}/>
+</details>
+
+### Typography
+
+<details open>
+    <summary>Typography Variables</summary>
+    <Source code={typographySource} language="css" dark={true}/>
+</details>

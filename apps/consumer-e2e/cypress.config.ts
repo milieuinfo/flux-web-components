@@ -6,7 +6,7 @@ export default defineConfig({
     modifyObstructiveCode: false,
     screenshotsFolder: '../../build/cypress/consumer-e2e/screenshots',
     chromeWebSecurity: false,
-    // retries: 3,
+    // retries: 5,
     e2e: {
         baseUrl: 'http://127.0.0.1:4213',
         specPattern: 'src/e2e/**/*.cy.{js,jsx,ts,tsx}',
