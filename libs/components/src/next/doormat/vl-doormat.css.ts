@@ -1,5 +1,5 @@
 import { css, CSSResult, unsafeCSS } from 'lit';
-import { title } from '@domg-wc/common-utilities/css/mixin/title.mixin.css';
+import { vlHeading5 } from '@domg-wc/common-utilities/css';
 
 const borderWidth = '1px';
 const borderLeftWidth = '0.5rem';
@@ -38,7 +38,7 @@ const styles: CSSResult = css`
         }
 
         .vl-doormat__title {
-            ${title(5)}
+            ${vlHeading5}
         }
 
         .vl-doormat__text {

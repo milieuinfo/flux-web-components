@@ -1,0 +1,74 @@
+import {Canvas, Source} from '@storybook/blocks';
+import {Meta} from '@storybook/addon-docs';
+import * as VlSectionStories from './vl-section.stories';
+import sectionOverlap from './section-overlap.png';
+import sectionCentered from './section-centered.png';
+
+<Meta title="Styles-next/Layout (afnemers)/section"/>
+
+# Section - next
+
+<VluxMetaData id="styles-next-layout-afnemers-section" />
+<br/>
+
+
+## Inhoudstafel
+
+- [Doel](#doel)
+- [Gebruik](#gebruik)
+
+
+## Doel
+
+De `vl-section-next` verdeeld de toepassing in delen en zorgt voor consistente witruimte.
+
+
+## Gebruik
+
+### Default Secties
+
+Er is de standaard `vl-section-next` en de `vl-section-next--alt` waarbij de laatste een lichtgrijze achtergrond
+krijgt krijgt. Om minder (dan de standaard) witruimte te krijgen zijn er de optionele classes `vl-section-next--small`
+en `vl-section-next--medium`. Scheidingslijnen worden verkregen door `vl-section-next--bordered` te gebruiken.
+
+In onderstaand voorbeeld wordt dit alles toegepast, als ook kleur variabelen overschreven (om de kleuren prominenter
+te maken).
+
+<Canvas of={VlSectionStories.SectionLightBlue}/>
+
+
+### Overlappende Sectie
+
+Voor specifieke gevallen kan er een overlappende sectie voorzien worden.
+
+<img src={sectionOverlap} alt="section overlap" style={{border: 'lightgray 1px solid'}}/>
+
+<br/>
+<br/>
+
+<details>
+    <summary>section overlap - code</summary>
+    <Source
+        code={VlSectionStories.SectionOverlap.toString()}
+        language="html" dark format={true}
+    ></Source>
+</details>
+
+
+### Sectie met Gecentreerde Inhoud
+
+Wat bij Digitaal Vlaanderen als [Layout](https://overheid.vlaanderen.be/webuniversum/v3/documentation/grid) styling
+voorzien wordt, is bij ons - BEM gewijs - `vl-section-next__centered`.
+
+<img src={sectionCentered} alt="section centered" style={{border: 'lightgray 1px solid'}}/>
+
+<br/>
+<br/>
+
+<details>
+    <summary>section centered - code</summary>
+    <Source
+        code={VlSectionStories.SectionCentered.toString()}
+        language="html" dark format={true}
+    ></Source>
+</details>

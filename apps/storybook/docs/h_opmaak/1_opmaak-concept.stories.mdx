@@ -1,0 +1,84 @@
+import {Meta} from '@storybook/addon-docs';
+
+<Meta title="Styles-next/Concept"/>
+
+# Styles - next
+
+<VluxAlert type="success">
+    {`
+    Dit is de next / v2 aanpak voor **opmaak** in toepassingen. Deze is bedoeld om te gebruiken in de
+    ['next' opzet](/docs/planning-aanpak-v2-2024-v3-2025--documentatie#next-conventies) in
+    combinatie met [next-componenten](/docs/planning-aanpak-v2-2024-v3-2025--documentatie#waarom-next-componenten).
+`}
+</VluxAlert>
+<br/>
+
+
+## Inhoudstafel
+
+- [Concept](#concept)
+- [Conventies](#conventies)
+- [Base (intern)](#base-intern)
+- [Layout](#layout)
+
+
+## Concept
+
+In de next / v2 opzet worden de [elementen weggewerkt](/docs/planning-aanpak-v2-2024-v3-2025--documentatie#element-complicatie),
+dit heeft impact op de globale styling. De elementen uit v1, bvb. button moeten gebruikt worden als `<button is="vl-button">`;
+hierdoor hebben die geen shadow-dom en wordt die CSS globaal (op het document) voorzien. In v2 wordt `button` een
+volwaardige web-component, te gebruiken via `<vl-button>`, met een shadow-dom. Hierdoor kan de 'button' style
+nu in de shadow-dom gestoken worden.
+
+Alle styling voor componenten wordt in v2 op die manier aangeboden. Naast het stylen van componenten is er nog andere
+opmaak nodig:
+
+- **font definities** voor gebruik van het Vlaanderen font
+- **mixins** en **variabelen** om duplicatie tegen te gaan
+- **layout** en **witruimte** voor pagina-opmaak
+
+Onder het hoofd-item 'STYLES-NEXT' wordt de aanpak voor de desbetreffend opmaak beschreven: alles wat **niet** in de
+shadow-dom van een component kan.
+
+
+## Conventies
+
+- alle CSS wordt geschreven als CSS-in-TS en aangeboden als **CSS-in-JS**
+- de CSS volgt de [**BEM**](https://getbem.com/) methodologie
+- om styling eenduidig te specifiëren worden [**CSS-variabelen**](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) gebruikt
+- CSS-variabelen worden globaal gedefiniëerd maar kunnen lokaal (in een component) een afwijkende waarde krijgen
+- we gebruiken het **mixin concept** in de vorm van geparametriseerde typescript methodes
+
+
+## Base (intern)
+
+Dit is basis CSS, bouwstenen die intern gebruikt worden. Afnemers dienen dit nooit rechtstreeks te gebruiken, deze CSS
+wordt ofwel globaal op het document gezet of in web-componenten gebruikt. Hierin zitten:
+
+- de specifieke Vlaanderen **fonts**
+- de **mixins** voor bvb. animaties, ...
+- de **variabelen** voor kleuren, media-queries, ...
+- styling voor **native elementen**
+
+
+## Layout (afnemers)
+
+Dit is de basis voor algemene layout: alles wat orde en structuur geeft. Het zijn containers waar andere componenten
+in gestoken worden. Dit wordt aangeboden in de vorm van CSS-classes die typisch op `<div>` elementen gezet worden.
+
+In v1 waren deze zaken als 'element' geïmplementeerd (wat als concept verdwijnt), er web-componenten van maken leek
+niet de geschikte keuze:
+
+- CSS vormt samen met HTML en JavaScript de basis van een webpagina - er is dus niets mis met dit rechtstreeks te
+  gebruiken
+- container's zijn niet visueel zoals componenten, ze bepalen de plaats en ruimte van componenten
+- met CSS op native elementen kan er zoveel als nodig genest worden zonder shadow-dom problematiek
+- door met CSS-variabelen te werken kunnen deze globaal voorzien worden maar kan er lokaal (in een web-component)
+van afgeweken worden
+
+De containers die aangeboden worden zijn:
+
+- **vl-grid**: biedt de opzet van een 12-kolom layout aan
+- **vl-group** is bedoeld om componenten horizontaal of verticaal te groeperen
+- met **vl-margin** en **vl-padding** kan desgewenst witruimte aangepast worden
+- via **vl-section** kan structuur gedefinieerd worden

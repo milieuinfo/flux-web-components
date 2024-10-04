@@ -34,6 +34,7 @@
         "libs:component-tests:run": "cd ./resources/cypress-component && npx cypress run --component",
         "libs:component-tests:watch": "cd ./resources/cypress-component && npx cypress open --component",
         "libs:eslint": "cd ./resources/bash-scripts && bash ./libs-eslint.sh",
+        "libs:icons:generate": "cd ./resources/bash-scripts && bash ./libs-icons-generate.sh",
         "libs:jest": "cd ./resources/bash-scripts && bash ./libs-jest.sh",
         "libs:pack:develop": "cd ./resources/bash-scripts && bash ./libs-pack.sh develop",
         "libs:pack:release": "cd ./resources/bash-scripts && bash ./libs-pack.sh release",

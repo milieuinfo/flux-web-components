@@ -1,13 +1,83 @@
 {
+    "styles-next-base-intern": {
+        "vStatus": "v2-next-style-base"
+    },
+    "styles-next-base-intern-body": {
+        "vStatus": "v2-next-style-base",
+        "nextText": "body-next"
+    },
+    "styles-next-base-intern-font": {
+        "vStatus": "v2-next-style-base",
+        "nextText": "font-next"
+    },
+    "styles-next-base-intern-heading": {
+        "vStatus": "v2-next-style-base",
+        "nextText": "heading-next"
+    },
+    "styles-next-base-intern-icon": {
+        "vStatus": "v2-next-style-base",
+        "nextText": "icon-next"
+    },
+    "styles-next-base-intern-link": {
+        "vStatus": "v2-next-style-base",
+        "nextText": "link-next"
+    },
+    "styles-next-base-intern-mixin": {
+        "vStatus": "v2-next-style-base",
+        "nextText": "mixin-next"
+    },
+    "styles-next-base-intern-var": {
+        "vStatus": "v2-next-style-base",
+        "nextText": "var-next"
+    },
+    "styles-next-layout-afnemers": {
+        "vStatus": "v2-next-style-layout"
+    },
+    "styles-next-layout-afnemers-grid": {
+        "vStatus": "v2-next-style-layout",
+        "legacyText": "[vl-grid](/docs/elements-grid-grid--documentatie) (+ [vl-grid-column](/docs/elements-grid-grid-column--documentatie), [vl-form-grid](/docs/elements-form-grid-form-grid--documentatie) en [vl-form-column](/docs/elements-form-grid-form-column--documentatie))",
+        "nextText": "vl-grid-next (en vl-column-next)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#grid)"
+    },
+    "styles-next-layout-afnemers-group": {
+        "vStatus": "v2-next-style-layout",
+        "legacyText": "o.a. [vl-action-group](/docs/elements-action-group--documentatie), [vl-accordion-list](/docs/components-accordion-list--documentatie), [vl-link-list](/docs/elements-link-list--documentatie) en [vl-icon-wrapper](/docs/elements-icon-icon-wrapper--documentatie)",
+        "nextText": "vl-group-next",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#group)"
+    },
+    "styles-next-layout-afnemers-margin": {
+        "vStatus": "v2-next-style-new",
+        "nextText": "vl-margin-next",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#margin)"
+    },
+    "styles-next-layout-afnemers-padding": {
+        "vStatus": "v2-next-style-new",
+        "nextText": "vl-padding-next",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#padding)"
+    },
+    "styles-next-layout-afnemers-section": {
+        "vStatus": "v2-next-style-layout",
+        "legacyText": "[vl-grid-region](/docs/elements-grid-grid-region--documentatie) en [vl-grid-layout](/docs/elements-grid-grid-layout--documentatie)",
+        "nextText": "vl-section-next",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#section)"
+    },
+    "components-accordion-list": {
+        "vStatus": "v1-replace",
+        "legacyText": "vl-accordion-list",
+        "nextText": "[vl-group-next](/docs/styles-next-layout-afnemers-group--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#group)"
+    },
     "elements-action-group": {
-        "vStatus": "v1-todo",
+        "vStatus": "v1-replace",
         "legacyText": "vl-action-group",
-        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie)"
+        "nextText": "[vl-group-next](/docs/styles-next-layout-afnemers-group--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#group)"
     },
     "elements-body": {
-        "vStatus": "v1-todo",
+        "vStatus": "v1-replace",
         "legacyText": "vl-body",
-        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie)"
+        "nextText": "[body-next](/docs/styles-next-base-intern-body--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#body)"
     },
     "elements-button": {
         "vStatus": "v1-replace"
@@ -84,19 +154,19 @@
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#form-validation-message--error-message)"
     },
     "elements-form-grid": {
-        "vStatus": "v1-todo",
-        "legacyText": "vl-form-grid",
-        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie)"
+        "vStatus": "v1-replace"
     },
     "elements-form-grid-form-column": {
-        "vStatus": "v1-todo",
+        "vStatus": "v1-replace",
         "legacyText": "vl-form-column",
-        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie)"
+        "nextText": "[vl-grid-next](/docs/styles-next-layout-afnemers-grid--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#grid)"
     },
     "elements-form-grid-form-grid": {
-        "vStatus": "v1-todo",
+        "vStatus": "v1-replace",
         "legacyText": "vl-form-grid",
-        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie)"
+        "nextText": "[vl-grid-next](/docs/styles-next-layout-afnemers-grid--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#grid)"
     },
     "elements-form": {
         "vStatus": "v1-remove",
@@ -130,27 +200,31 @@
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#form-label)"
     },
     "elements-grid": {
-        "vStatus": "v1-todo"
+        "vStatus": "v1-replace"
     },
     "elements-grid-grid-column": {
-        "vStatus": "v1-todo",
+        "vStatus": "v1-replace",
         "legacyText": "vl-grid-column",
-        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie)"
+        "nextText": "[vl-grid-next](/docs/styles-next-layout-afnemers-grid--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#grid)"
     },
     "elements-grid-grid-layout": {
-        "vStatus": "v1-todo",
+        "vStatus": "v1-replace",
         "legacyText": "vl-grid-layout",
-        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie)"
+        "nextText": "[vl-section-next](/docs/styles-next-layout-afnemers-section--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#section)"
     },
     "elements-grid-grid-region": {
-        "vStatus": "v1-todo",
+        "vStatus": "v1-replace",
         "legacyText": "vl-grid-region",
-        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie)"
+        "nextText": "[vl-section-next](/docs/styles-next-layout-afnemers-section--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#section)"
     },
     "elements-grid-grid": {
-        "vStatus": "v1-todo",
+        "vStatus": "v1-replace",
         "legacyText": "vl-grid",
-        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie)"
+        "nextText": "[vl-grid-next](/docs/styles-next-layout-afnemers-grid--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#grid)"
     },
     "form-next-input-field-masked": {
         "vStatus": "v2-next",
@@ -174,9 +248,10 @@
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#icon)"
     },
     "elements-icon-icon-wrapper": {
-        "vStatus": "v1-remove",
+        "vStatus": "v1-replace",
         "legacyText": "vl-icon-wrapper",
-        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#icon)"
+        "nextText": "[vl-group-next](/docs/styles-next-layout-afnemers-group--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#group)"
     },
     "components-next-icon": {
         "vStatus": "v2-next",
@@ -245,9 +320,10 @@
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#link)"
     },
     "elements-link-list": {
-        "vStatus": "v1-todo",
+        "vStatus": "v1-replace",
         "legacyText": "vl-link-list",
-        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie)"
+        "nextText": "[vl-group-next](/docs/styles-next-layout-afnemers-group--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#group)"
     },
     "components-next-link": {
         "vStatus": "v2-next",

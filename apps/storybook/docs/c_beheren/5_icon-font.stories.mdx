@@ -7,33 +7,36 @@ import {Meta} from '@storybook/addon-docs';
 ## Inhoudstafel
 
 - [Beschrijving](#beschrijving)
-- [Oude opzet](#oude-opzet)
-- [Huidige opzet](#nieuwe-opzet)
-- [Updaten van font](#updaten-van-font)
+- [Legacy opzet](#oude-opzet)
+- [Next opzet](#nieuwe-opzet)
+- [Het font updaten](#het-font-updaten)
 
 
 ## Beschrijving
 
-Het icon-font is deel van de uigov-assets repository en wordt geversioneerd gepubliceerd op de CDN van dOMG.<br/>
-De uigov-web-components refereren intern naar dit font via CSS classes die een mapping voorzien tussen de icoon-naam en de unicode waarde van het icoon in het font.
+Het icon-font is deel van de uigov-assets repository en wordt geversioneerd gepubliceerd op de CDN van Departement
+Omgeving.<br/>
+De uigov-web-components refereren intern naar dit font via CSS-classes die een mapping voorzien tussen de icoon-naam
+en de unicode waarde van het icoon in het font.
 
-## Oude opzet
+## Legacy opzet
 
-In de oude opzet bevatten alle componenten die een icoon nodig hebben de icon-mapping CSS classes.<br/>
-Dit zorgt voor veel duplicatie van CSS code.
+In de oude opzet bevatten alle componenten die een icoon nodig hebben de icon-mapping CSS-classes. Dit zorgt voor
+veel duplicatie van CSS code.
 
-## Nieuwe opzet
+## Next opzet
 
-Er is een centrale plaats in de uigov-web-components repository waar de icon-mapping CSS classes gedefinieerd worden als CSS-in-JS.<br/>
-Elk component dat een icoon nodig heeft importeert dit icon-mapping bestand.<br/>
-Er is geen duplicatie van CSS code omdat overal dezelfde instantie van het CSS-in-JS object gebruikt wordt.<br/>
-Dit icon-mapping bestand wordt gegenereerd door het `generate-icon-files.mjs` script.
+Er is een centrale plaats in de uigov-web-components repository waar de icon-mapping CSS-classes gedefinieerd worden
+als CSS-in-JS. Elk component dat een icoon nodig heeft importeert dit icon-mapping bestand. Er is geen duplicatie
+van CSS omdat overal dezelfde instantie van het CSS-in-JS object gebruikt wordt. Dit icon-mapping bestand wordt
+gegenereerd m.b.v. het script `resources/generate-icons/generate-icon-files.ts`.
 
-## Updaten van font
+## Het font updaten
 
 Volg de volgende stappen om het icon-font te updaten:
-- Plaats de nieuwe versie van het font in de uigov-assets repository
-- Deploy de nieuwe versie van het font geversioneerd op de CDN van dOMG
-- Refereer in de uigov-web-components repository naar de nieuwe versie van het font
-- Voer het `generate-icon-files.mjs` script uit in de uigov-web-components repository
-- Verifieer dat de icon-mapping correct is gegenereerd met behulp van de [Alle Iconen](/docs/ontwerp-iconen-alle-iconen--documentatie) pagina
+- plaats de nieuwe versie van het font in de uigov-assets repository
+- deploy de nieuwe versie van het font geversioneerd op de CDN van Departement Omgeving
+- refereer in de uigov-web-components repository naar de nieuwe versie van het font
+- voer het `generate-icon-files.ts` script uit in de uigov-web-components repository (`npm run libs:icons:generate`)
+- verifieer dat de icon-mapping correct is gegenereerd met behulp van de
+  [icon pagina](/story/components-next-icon--all-icons)

@@ -1,0 +1,62 @@
+import {Canvas} from '@storybook/blocks';
+import {Meta} from '@storybook/addon-docs';
+import * as VlGroupStories from './vl-group.stories';
+
+<Meta title="Styles-next/Layout (afnemers)/group"/>
+
+# Group - next
+
+<VluxMetaData id="styles-next-layout-afnemers-group" />
+<br/>
+
+
+## Inhoudstafel
+
+- [Doel](#doel)
+- [Gebruik](#gebruik)
+
+
+## Doel
+
+`vl-group-next` voorziet style-classes om horizontaal en verticaal (identieke) componenten te groeperen. De CSS
+is een specifieke implementatie gebruik makend van de [CSS Flexbox Layout](https://css-tricks.com/snippets/css/a-guide-to-flexbox/),
+die standaard door [browsers](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout) voorzien wordt.
+
+
+## Gebruik
+
+### Default
+
+Default worden items in een `vl-group-next` naast elkaar (horizontaal) gegroepeerd.
+
+<Canvas of={VlGroupStories.GroupButtons} />
+
+### Verticaal Groeperen
+
+Met `vl-group-next--column` worden items onder elkaar gegroepeerd, in onderstaand voorbeeld wordt ook
+`vl-group-next--separator-column` toegevoegd.
+
+<Canvas of={VlGroupStories.GroupAccordions} />
+
+### Uitlijning
+
+Default worden items links uitgelijnd, centreren kan met `vl-group-next--justify-center`, rechts uitlijnen
+met `vl-group-next--justify-end`. In kolom layout wijzigt de richting, dan wordt er respectievelijk boven, midden
+of onderaan uitgelijnd.
+
+Met `vl-group-next--space-between` wordt het eerste item uiterst links gezet, het laaste uiterst rechts en de
+overige ertussen, gelijkmatig verdeeld.
+
+De container waarin uitgelijnd wordt dient ruimte te hebben om uit te lijnen!
+
+### Scheidingslijnen
+
+Tussen items kan een grijze lijn getoond worden. In row layout (default) gebruik je `vl-group-next--separator-row`,
+in kolom layout `vl-group-next--separator-column`.
+
+### Responsief
+
+Er zijn de responsieve style-classes `vl-group-next--collapse-l` / `vl-group-next--collapse-m` /
+`vl-group-next--collapse-s` / `vl-group-next--collapse-cs` voor 4 verschillende scherm groottes: **large** (&gt;1023px),
+**medium** (&lt;1023px), **small** (&lt;767px) en **extra-small** (&lt;500px). Door de desbetreffende class toe te
+voegen wordt er bij / vanaf die desbetreffende scherm grootte links uitgelijnd in kolom layout.

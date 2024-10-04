@@ -1,0 +1,58 @@
+import {Canvas, Source} from '@storybook/blocks';
+import {Meta} from '@storybook/addon-docs';
+import vlFontCss from '!!raw-loader!../vl-font.css';
+import * as VlFontStories from './vl-font.stories';
+
+<Meta title="Styles-next/Base (intern)/font"/>
+
+# Font - next
+
+<VluxMetaData id="styles-next-base-intern-font" />
+<br/>
+
+
+## Inhoudstafel
+
+- [Doel](#doel)
+- [Implementatie](#implementatie)
+- [Voorbeelden](#voorbeelden)
+
+
+## Doel
+
+Vanuit Digitaal Vlaanderen worden er 3 fonts voorzien: `Flanders Art Sans`, `Flanders Art Serif` en
+`vlaanderen-icon-classic`.
+
+Het `Flanders Art Sans` font is het default font, wat zowel voor de normale als de italic styling dient.
+`Flanders Art Serif` is het accent font. Deze fonts zijn beschikbaar in de gewichten:
+300, 400, 500 en 700.
+
+[Alle iconen](/docs/components-next-icon--documentatie#overzicht) komen uit het font `vlaanderen-icon-classic`.
+
+
+## Implementatie
+
+<details open>
+    <summary>Font Code</summary>
+    <Source code={vlFontCss} language="ts" dark={true}/>
+</details>
+
+
+## Voorbeelden
+
+In deze voorbeelden zie je de verschillende fonts in gebruikt, er worden telkens specifieke wrappers voorzien via een
+custom style-class.
+
+<br/>
+
+### Flanders Art Sans - normal
+
+<Canvas of={VlFontStories.FontFlandersArtSansNormal} />
+
+### Flanders Art Sans - italic
+
+<Canvas of={VlFontStories.FontFlandersArtSansItalic} />
+
+### Flanders Art Serif - normal
+
+<Canvas of={VlFontStories.FontFlandersArtSerif} />

@@ -8,7 +8,7 @@
             "@domg-wc/common-storybook": ["libs/common/storybook/src/index.ts"],
             "@domg-wc/common-utilities": ["libs/common/utilities/src/index.ts"],
             "@domg-wc/common-utilities/constants": ["libs/common/utilities/src/constants/index.ts"],
-            "@domg-wc/common-utilities/css/*": ["libs/common/utilities/src/css/*"],
+            "@domg-wc/common-utilities/css": ["libs/common/utilities/src/css/index.ts"],
             "@domg-wc/components": ["libs/components/src/index.ts"],
             "@domg-wc/components/next/*": ["libs/components/src/next/*"],
             "@domg-wc/elements": ["libs/elements/src/index.ts"],

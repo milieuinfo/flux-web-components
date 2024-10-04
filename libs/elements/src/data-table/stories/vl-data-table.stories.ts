@@ -1,10 +1,10 @@
+import { formattedSourceCode, story } from '@domg-wc/common-storybook';
+import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../vl-data-table.element';
-import { dataTableArgs, dataTableArgTypes } from './vl-data-table.stories-arg';
-import { Meta } from '@storybook/web-components';
-import dataTableDoc from './vl-data-table.stories-doc.mdx';
-import { story } from '@domg-wc/common-storybook';
 import { VlDataTable } from '../vl-data-table.element';
+import { dataTableArgs, dataTableArgTypes } from './vl-data-table.stories-arg';
+import dataTableDoc from './vl-data-table.stories-doc.mdx';
 
 export default {
     id: 'elements-data-table',
@@ -336,12 +336,4 @@ export const DataTableExpandableCustomToggleDetailsColumn = story(
     }
 );
 DataTableExpandableCustomToggleDetailsColumn.storyName = 'vl-data-table - expandable custom toggle details column';
-DataTableExpandableCustomToggleDetailsColumn.parameters = {
-    docs: {
-        language: 'html',
-        source: {
-            format: true,
-            type: 'code',
-        },
-    },
-};
+DataTableExpandableCustomToggleDetailsColumn.parameters = formattedSourceCode;

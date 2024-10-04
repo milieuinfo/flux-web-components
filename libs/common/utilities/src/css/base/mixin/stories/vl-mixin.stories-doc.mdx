@@ -1,0 +1,41 @@
+import {Canvas} from '@storybook/blocks';
+import {Meta} from '@storybook/addon-docs';
+import * as VlMixinStories from './vl-mixin.stories';
+
+<Meta title="Styles-next/Base (intern)/mixin"/>
+
+# Mixin - next
+
+<VluxMetaData id="styles-next-base-intern-mixin" />
+<br/>
+
+
+## Inhoudstafel
+
+- [Doel](#doel)
+- [Voorbeelden](#voorbeelden)
+
+
+## Doel
+
+Om in CSS duplicatie tegen te gaan voorzien we mixins. Het concept is gelijk aan SCSS mixins: geparametriseerde
+methodes die styling encapsuleren. Al onze code wordt in TypeScript geschreven, daardoor zijn de mixins geschreven als
+'css-in-ts'.
+
+
+## Voorbeelden
+
+### vlWaveAnimationMixin
+
+De `vlWaveAnimationMixin` wordt hier ge-wrapped in een custom style-class. Dit is de animatie die gebruikt wordt in
+`<vl-button>`.
+
+<Canvas of={VlMixinStories.WaveAnimationMixinDefault} />
+
+### vlFocusOutlineMixin
+
+De `vlFocusOutlineMixin` wordt hier ge-wrapped in een custom style-class. Dit zorgt voor de specifieke stijl van een
+item dat de focus krijgt. Wordt gebruikt in `<vl-link>`, `<vl-button>` en `vl-link-button.`
+
+<Canvas of={VlMixinStories.FocusOutlineMixinDefault} />
+

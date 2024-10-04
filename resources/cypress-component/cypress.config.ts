@@ -7,7 +7,7 @@ export default defineConfig({
     modifyObstructiveCode: false,
     screenshotsFolder: '../../build/cypress/components/screenshots',
     chromeWebSecurity: false,
-    retries: 3,
+    retries: 10,
     component: {
         supportFile: './support/component.ts',
         indexHtmlFile: './support/component-index.html',

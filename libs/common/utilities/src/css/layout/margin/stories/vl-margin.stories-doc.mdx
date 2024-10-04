@@ -1,0 +1,75 @@
+import {Canvas} from '@storybook/blocks';
+import {Meta} from '@storybook/addon-docs';
+import marginEnPadding from './margin-en-padding.png';
+import * as VlMarginStories from './vl-margin.stories';
+
+<Meta title="Styles-next/Layout (afnemers)/margin"/>
+
+# Margin - next
+
+<VluxMetaData id="styles-next-layout-afnemers-margin" />
+<br/>
+
+
+## Inhoudstafel
+
+- [Doel](#doel)
+- [Gebruik](#gebruik)
+
+
+## Doel
+
+Met deze style-classes kan de margin beïnvloed worden. De implementatie en gebruik van margin en padding zijn
+gelijklopend. Op [web.dev](https://web.dev) vind je meer informatie
+[over margin](https://web.dev/learn/css/spacing#margin).
+
+<img src={marginEnPadding} alt="margin en padding" style={{maxWidth: 300 + 'px'}} />
+
+
+## Gebruik
+
+De mogelijkheden zijn bewust beperkt gehouden. Afnemers moeten er naar streven zich te beperken tot de
+hieronder besproken (voorziene) style-classes. Echter, zoals steeds: het is niet verboden om eigen styling
+(en dus een afwijking) te voorzien als dat de layout en bladspiegel ten goede komt.
+
+In onderstaande voorbeelden wordt bij het 'default voorbeeld' de margin expliciet op 15px gezet, de overige voorbeelden
+tonen de impact op het 'default voorbeeld'.
+
+### vl-margin-next - default
+
+De default marge wordt beïnvloed door de container, typisch wat er voor die resolutie bepaald is door
+[vl-section-next](/docs/styles-next-layout-afnemers-section--documentatie).
+
+<Canvas of={VlMarginStories.MarginDefault} />
+
+### vl-margin-next--small
+
+De margin onderaan en bovenaan wordt op de variabele `--vl-spacing--small` (1.5rem) gezet, links en rechts is er geen
+margin (0), voor kleine schermen (&lt;767px) wordt de `--vl-spacing--normal` (2rem) gebruikt (boven- en onderaan).
+
+<Canvas of={VlMarginStories.MarginSmall} />
+
+### vl-margin-next--medium
+
+De margin onderaan en bovenaan wordt op de variabele `--vl-spacing--medium` (3rem) gezet, links en rechts is er geen
+margin (0), voor kleine schermen (&lt;767px) wordt de `--vl-spacing--normal` (2rem) gebruikt (boven- en onderaan).
+
+<Canvas of={VlMarginStories.MarginMedium} />
+
+### vl-margin-next--no
+
+Nergens margin: alle margin rondom staat op 0.
+
+<Canvas of={VlMarginStories.MarginNo} />
+
+### vl-margin-next--no-bottom
+
+Onderaan geen margin: deze wordt op 0 gezet.
+
+<Canvas of={VlMarginStories.MarginNoBottom} />
+
+### vl-margin-next--no-top
+
+Bovenaan geen margin: deze wordt op 0 gezet.
+
+<Canvas of={VlMarginStories.MarginNoTop} />

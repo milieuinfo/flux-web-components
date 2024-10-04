@@ -27,6 +27,7 @@ const componentWCDeprecated = [
 const componentWCMismatch = [
     'vl-cascader-next', // in next folder - verwacht een -next suffix, maar deze component heeft die niet
     'vl-cascader-item-next', // in next folder - verwacht een -next suffix, maar deze component heeft die niet
+    'vl-all-icons-next', // is een demo component, niet bedoeld om af te nemen
 ];
 const componentWTMismatch = [
     'vl-cascader', // in next folder - verwacht een -next suffix, maar die is er niet voor deze component

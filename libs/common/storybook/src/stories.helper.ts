@@ -42,16 +42,6 @@ export const filterOutClasses = (input: string) => {
     return input?.replace(/ class=".*?"/, '');
 };
 
-export const filterOutStoryClasses = (input: string) => {
-    // verwijdert alle class attributes van de storybook componenten die beginnen met 'story--'
-    return input?.replace(/ class="story--.*?"/g, '');
-};
-
-export const filterOutStoryStyleTags = (input: string) => {
-    // alle style tags verwijderen
-    return input?.replace(/<style>[\s\S]*?<\/style>/, '');
-};
-
 // een upgrade naar Prettier v3 kan niet, v3 geeft een Promise<string> terug bij de format methode en dat wordt niet
 // ondersteund door Storybook - er is ook geen manier in Javascript om van een async-call een sync-call te maken
 export const formatHTML = (input: string) => {
@@ -131,4 +121,15 @@ const setDefaultArgsToNothing = <T extends object>(args: T, defaultArgs: T): T =
 
         return result;
     }, {} as T);
+};
+
+// door dit op de parameters van een story te zetten wordt de code as-is getoond (niet verwerkt),
+// variabelen blijven variabelen
+export const formattedSourceCode = {
+    docs: {
+        source: {
+            format: true,
+            type: 'code',
+        },
+    },
 };

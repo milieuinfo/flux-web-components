@@ -1216,7 +1216,7 @@
                 },
                 {
                     "name": "vl-icon-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `icon-next` component om een icoon af te beelden op een pagina.<br/>\nZie de [Alle Iconen](/docs/ontwerp-iconen-alle-iconen--documentatie) documentatie voor een overzicht van alle iconen die gebruikt kunnen worden.",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `icon-next` component om een icoon af te beelden op een pagina.<br/>\nZie het [overzicht](#overzicht) hieronder voor alle beschikbare iconen.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-icon--documentatie",
                     "attributes": [
                         {

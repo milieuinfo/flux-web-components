@@ -1,0 +1,16 @@
+:root {
+    --vl-page--min-width: 768px;
+    --vl-page--max-width: 1024px;
+    --vl-page--max-width-wide: 1280px;
+    --vl-page--padding: 30px;
+
+    /* breakpoints */
+    --vl-bp--xsmall: 500px;
+    --vl-bp--small: 767px;
+    --vl-bp--medium: 1023px;
+    --vl-bp--large: 1600px;
+
+    --vl-box--max-width: 1600px;
+
+    --vl-border--radius: 0.3rem;
+}
