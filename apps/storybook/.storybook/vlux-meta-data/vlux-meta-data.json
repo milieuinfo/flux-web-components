@@ -260,9 +260,9 @@
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#icon)"
     },
     "elements-image": {
-        "vStatus": "v1-todo",
+        "vStatus": "v1-remove",
         "legacyText": "vl-image",
-        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie)"
+        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#image)"
     },
     "elements-infotext": {
         "vStatus": "v1-replace",
