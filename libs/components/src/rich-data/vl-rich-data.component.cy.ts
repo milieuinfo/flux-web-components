@@ -43,7 +43,7 @@ describe('component - vl-rich-data', () => {
             .then((child) => {
                 expect(child[0]).to.contain('1-5');
             });
-        cy.get('vl-pager').shadow().find('li[data-vl-pager-page=2]').click();
+        cy.get('vl-pager').shadow().find('li[data-vl-pager-page=2]').click({ force: true });
         cy.get('vl-pager')
             .shadow()
             .find('li[id=bounds]')

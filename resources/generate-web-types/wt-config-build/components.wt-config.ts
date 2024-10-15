@@ -7,6 +7,7 @@ import { infotextArgTypes } from '@domg-wc/components/next/infotext/stories/vl-i
 import { linkArgTypes } from '@domg-wc/components/next/link/stories/vl-link.stories-arg';
 import { paragraphArgTypes } from '@domg-wc/components/next/paragraph/stories/vl-paragraph.stories-arg';
 import { propertiesArgTypes } from '@domg-wc/components/next/properties/stories/vl-properties.stories-arg';
+import { searchFilterArgTypes } from '@domg-wc/components/next/search-filter/stories/vl-search-filter.stories-arg';
 import { stepArgTypes } from '@domg-wc/components/next/steps/stories/vl-step.stories-arg';
 import { stepsArgTypes } from '@domg-wc/components/next/steps/stories/vl-steps.stories-arg';
 import { textArgTypes } from '@domg-wc/components/next/text/stories/vl-text.stories-arg';
@@ -234,6 +235,12 @@ export const buildWTConfigComponents: WTConfigArray = [
     buildWTConfig('vl-side-navigation-h5-next', null, null, '/docs/components-next-side-navigation--documentatie'),
     buildWTConfig('vl-side-navigation-h6-next', null, null, '/docs/components-next-side-navigation--documentatie'),
     buildWTConfig('vl-side-navigation-toggle-next', null, null, '/docs/components-next-side-navigation--documentatie'),
+    buildWTConfig(
+        'vl-search-filter-next',
+        searchFilterArgTypes,
+        '../../libs/components/src/next/search-filter/stories/vl-search-filter.stories-doc.mdx',
+        '/docs/components-next-search-filter--documentatie'
+    ),
     buildWTConfig(
         'vl-steps-next',
         stepsArgTypes,
