@@ -87,6 +87,9 @@ const searchFilterTemplate = ({ title, alt, mobileModal, mobileModalTitle, maxWi
 // TODO kspeltin: 'as any' is een vuile fix
 export const searchFilterDefault = searchFilterTemplate.bind({}) as any;
 searchFilterDefault.storyName = 'vl-search-filter - default';
+searchFilterDefault.args = {
+    title: 'Lorem ipsum',
+};
 searchFilterDefault.argTypes = {
     mobileModal: {
         control: {

@@ -1,5 +1,14 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { VlButtonElement, VlColumnElement, VlFormLabel, VlGridElement, VlIconElement } from '@domg-wc/elements';
+import {
+    VlButtonElement,
+    VlColumnElement,
+    VlFormLabel,
+    VlGridElement,
+    VlIconElement,
+    VlSearchFilterElement,
+} from '@domg-wc/elements';
+import { number } from 'prop-types';
+import { VlSearchFilterComponent } from '../next/search-filter';
 import { Pagination, VlPagerComponent } from '../pager/vl-pager.component';
 import styles from './vl-rich-data.uig-css';
 
@@ -126,7 +135,7 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
         return this.shadowRoot.querySelector('#content');
     }
 
-    get __searchFilter(): HTMLFormElement {
+    get __searchFilter(): (VlSearchFilterElement & HTMLElement) | VlSearchFilterComponent {
         return this.querySelector('[slot="filter"]');
     }
 
@@ -187,7 +196,9 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
     }
 
     get __searchFilterForm(): HTMLFormElement | null {
-        return this.__searchFilter ? this.__searchFilter.querySelector('form') : this.__searchFilter;
+        return this.__searchFilter
+            ? this.__searchFilter.querySelector('form')
+            : (<VlSearchFilterComponent>this.__searchFilter).form;
     }
 
     get __contentSlot(): HTMLSlotElement {
@@ -239,7 +250,7 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
 
     set _filter(filter: any) {
         if (filter && this.__searchFilter) {
-            const form = this.__searchFilter.querySelector('form');
+            const form = this.__searchFilter.querySelector('form') || this.__searchFilter.form;
             if (form) {
                 filter.forEach((entry: { value: string; name: number }) => {
                     const formElements = form.elements;
@@ -299,6 +310,7 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
         } else {
             this.__hideSearchColumn();
         }
+        this.__handleSearchFilterClosing();
     }
 
     __observeFilterButtons() {
@@ -312,7 +324,11 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
             this.setAttribute('data-vl-filter-closed', '');
             this._element.appendChild(this.__filterSlot);
             this.__hideHiddenInModalElements();
-            this.__searchFilter.setAttribute('data-vl-mobile-modal', '');
+            if (!(this.__searchFilter instanceof VlSearchFilterComponent)) {
+                this.__searchFilter.setAttribute('data-vl-mobile-modal', '');
+            } else {
+                this.__searchFilter.removeAttribute('hidden');
+            }
         });
     }
 
@@ -358,16 +374,34 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
 
     __processSearchFilter(): void {
         if (this.__searchFilter) {
-            this.__searchFilter.setAttribute('data-vl-alt', '');
+            if (!(this.__searchFilter instanceof VlSearchFilterComponent)) {
+                this.__searchFilter.setAttribute('data-vl-mobile-modal', '');
+            } else {
+                this.__searchFilter.setAttribute('alt', '');
+            }
             if (!this.hasAttribute('data-vl-filter-closed')) {
                 this.__showSearchColumn();
             }
             this.__showSearchResults();
             this.__addSearchFilterEventListeners();
-            this.__observeMobileModal(() => this.__processScrollableBody());
+            this.__observeMobileModal(() => {
+                this.__processScrollableBody();
+
+                this.__handleSearchFilterClosing();
+            });
         } else {
             this.__hideSearchColumn();
             this.__hideSearchResults();
+        }
+    }
+
+    __handleSearchFilterClosing(): void {
+        if (this.__searchFilter instanceof VlSearchFilterComponent) {
+            if (this.hasAttribute('data-vl-filter-closed')) {
+                this.__searchFilter.setAttribute('hidden', 'true');
+            } else {
+                this.__searchFilter.removeAttribute('hidden');
+            }
         }
     }
 
@@ -441,14 +475,20 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
         }
     }
 
+    private stopPropagationPreventDefault = (e: any) => {
+        e.stopPropagation();
+        e.preventDefault();
+    };
+
     __addSearchFilterEventListeners() {
-        this.__searchFilter.addEventListener('change', (e: any) => {
-            e.stopPropagation();
-            e.preventDefault();
-        });
-        this.__searchFilter.addEventListener('input', (e: any) => {
-            this.__onFilterFieldChanged(e);
-        });
+        if (!(this.__searchFilter instanceof VlSearchFilterComponent)) {
+            this.__searchFilter.addEventListener('change', this.stopPropagationPreventDefault);
+            this.__searchFilter.addEventListener('input', this.__onFilterFieldChanged);
+        } else {
+            this.__searchFilter.addEventListener('vl-change', this.stopPropagationPreventDefault);
+            this.__searchFilter.addEventListener('vl-input', this.__onFilterFieldChanged);
+        }
+
         if (this.__searchFilterForm) {
             this.__searchFilterForm.addEventListener('reset', (e: any) => {
                 setTimeout(() => {
@@ -458,20 +498,27 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
         }
     }
 
-    __onFilterFieldChanged(event: any) {
+    __onFilterFieldChanged = (event: any) => {
         event.stopPropagation();
         event.preventDefault();
         this.__onStateChange(event);
-    }
+    };
 
     __observeMobileModal(callback: any) {
         const observer = new MutationObserver(callback);
-        observer.observe(this.__searchFilter, { attributeFilter: ['data-vl-mobile-modal'] });
+        if (!(this.__searchFilter instanceof VlSearchFilterComponent)) {
+            observer.observe(this.__searchFilter, { attributeFilter: ['data-vl-mobile-modal'] });
+        } else {
+            observer.observe(this.__searchFilter, { attributeFilter: ['mobile-modal'] });
+        }
         return observer;
     }
 
     __processScrollableBody() {
-        if (this.__searchFilter.hasAttribute('data-vl-mobile-modal')) {
+        if (
+            this.__searchFilter.hasAttribute('data-vl-mobile-modal') ||
+            this.__searchFilter.hasAttribute('mobile-modal')
+        ) {
             this.__disableBodyScroll();
         } else {
             this.__enableBodyScroll();

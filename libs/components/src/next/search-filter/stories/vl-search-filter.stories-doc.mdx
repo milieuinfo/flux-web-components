@@ -1,0 +1,41 @@
+import {ArgTypes, Canvas} from '@storybook/addon-docs';
+
+import * as VlSearchFilterStories from './vl-search-filter.stories';
+
+# Search Filter - next
+
+<VluxMetaData id="components-next-search-filter" />
+
+<br/>
+
+<VluxAlert type="info">
+{`
+    In de v2 versie van deze component gebruik je hem via de custom-tag, de interne implementatie is voor de rest gelijk gebleven aan deze van de v1 versie.
+    In v3 zal deze component grondig herwerkt worden; in de context van een herwerking van de vl-data-table.
+`}
+</VluxAlert>
+
+Gebruik de `search-filter-next` component om een zoek filter te tonen op een pagina.
+
+
+## Voorbeeld
+
+```js
+import { VlSearchFilterComponent } from '@domg-wc/components/next/search-filter';
+```
+
+```html
+<vl-search-filter-next></vl-search-filter-next>
+```
+
+<Canvas of={VlSearchFilterStories.SearchFilterDefault}/>
+
+
+## Configuratie
+
+<ArgTypes of={VlSearchFilterStories.SearchFilterDefault}/>
+
+
+## Referenties
+
+[Documentatie Digitaal Vlaanderen - Search Filter](https://overheid.vlaanderen.be/webuniversum/v3/documentation/components/vl-ui-search-filter)
