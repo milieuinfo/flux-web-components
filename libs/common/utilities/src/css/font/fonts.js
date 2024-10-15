@@ -5,8 +5,8 @@
 export const baseFontLocation = 'https://cdn.omgeving.vlaanderen.be/domg/govflanders-font/22.0.2';
 
 // Flanders font
-export const fontFamily = 'FlandersArtSans';
-export const serifFontFamily = 'FlandersArtSerif';
+export const fontFamily = 'Flanders Art Sans';
+export const serifFontFamily = 'Flanders Art Serif';
 
 // Icon font
 export const iconFontFamily = 'vlaanderen-icon-classic';

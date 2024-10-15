@@ -210,17 +210,17 @@ describe('story vl-rich-data-table - filter', () => {
     });
 
     it('should be able to filter on a field', () => {
-        cy.get('vl-rich-data-table').find(`input[name="${filterField}"]`).type(filterValue);
+        cy.get('vl-rich-data-table').find(`[name="${filterField}"]`).shadow().find('input').type(filterValue);
     });
 
     it('should be able to find the filtered data in the table', () => {
-        cy.get('vl-rich-data-table').find(`input[name="${filterField}"]`).type(filterValue);
+        cy.get('vl-rich-data-table').find(`[name="${filterField}"]`).shadow().find('input').type(filterValue);
         const filteredData = data.filter((row) => row[filterField].indexOf(filterValue) !== -1);
         shouldMatchTableData(filteredData);
     });
 
     it('should not be able to find data not corresponding to search fields', () => {
-        cy.get('vl-rich-data-table').find(`input[name="${filterField}"]`).type(filterValue);
+        cy.get('vl-rich-data-table').find(`[name="${filterField}"]`).shadow().find('input').type(filterValue);
         executeForEveryRow((row, rowIndex) => shouldNotMatchCellWithData(row, rowIndex, data));
     });
 });

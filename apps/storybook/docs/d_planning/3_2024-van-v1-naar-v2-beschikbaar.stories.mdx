@@ -9,7 +9,6 @@ import {Meta} from '@storybook/blocks';
 - [Aanpak](#aanpak)
 - [Geïmpacteerde Web Componenten](#geïmpacteerde-web-componenten)
 
-
 ## Aanpak
 
 Op deze pagina vind je een overzicht van de web componenten die geïmpacteerd zijn door de migratie van v1 naar v2
@@ -24,24 +23,6 @@ beschikbaar is (zal zijn), je kan doorklikken op de naam om naar de documentatie
 - voor de next variant staat gespecifieerd sinds welke release hij beschikbaar is
 - typisch hebben de legacy en de next variant dezelfde naam, maar niet altijd
 - momenteel zijn er enkel v1 releases, wat is er zal gebeuren in v2 is informatief; er is nog geen v2 beschikbaar
-
-
-[//]: # (## Releases)
-[//]: # (### tem v1.37.x)
-[//]: # ()
-[//]: # (Sinds een jaar zijn we stelselmatig next componenten aan het introduceren. )
-[//]: # ()
-[//]: # (Van de volgende web componenten bestaat er een next variant: [Button]&#40;#button&#41;, [Checkbox]&#40;#checkbox&#41;,)
-[//]: # ([Datepicker]&#40;#datepicker&#41;, [Doormat]&#40;#doormat&#41;, [Form Label]&#40;#form-label&#41;,)
-[//]: # ([Form Validation Message / Error Message]&#40;#form-validation-message--error-message&#41;, [Icon]&#40;#icon&#41;,)
-[//]: # ([Infotext]&#40;#infotext&#41;, [Input Field]&#40;#input-field&#41;, [Link]&#40;#link&#41;, [Pattern]&#40;#pattern&#41;, [Properties]&#40;#properties&#41;,)
-[//]: # ([Radio Group / Radio]&#40;#radio-group--radio&#41;, [Select / MultiSelect / Select Rich]&#40;#select--multiselect--select-rich&#41;,)
-[//]: # ([Steps / Step]&#40;#steps--step&#41;, [Textarea / Textarea Rich]&#40;#textarea--textarea-rich&#41;, [Title]&#40;#title&#41;,)
-[//]: # ([Upload]&#40;#upload&#41;)
-[//]: # ()
-[//]: # (Volgende componenten werden geschrapt, zie hieronder voor de nieuwe aanpak: [Form]&#40;#form&#41;,)
-[//]: # ([Form Annotation]&#40;#form-annotation&#41;, [Form Validation]&#40;#form-validation&#41;)
-
 
 ## Geïmpacteerde Web Componenten
 
@@ -425,38 +406,6 @@ gebruiken dit niet meer.
     </tr>
 </table>
 
-
-[//]: # (### Introduction)
-
-[//]: # ()
-[//]: # (<table  style={{width: 100 + '%'}}>)
-[//]: # (    <tr>)
-[//]: # (        <th>Naam</th>)
-[//]: # (        <th>Toestand</th>)
-[//]: # (        <th>v1 - Artifact</th>)
-[//]: # (        <th>v1 - Gebruik</th>)
-[//]: # (        <th>v2 - Artifact</th>)
-[//]: # (        <th>v2 - Gebruik</th>)
-[//]: # (    </tr>)
-[//]: # (    <tr>)
-[//]: # (        <td>[Introduction [legacy]]&#40;/docs/elements-introduction--documentatie&#41;</td>)
-[//]: # (        <td>wordt deprecated</td>)
-[//]: # (        <td>elements</td>)
-[//]: # (        <td><code>{`<p is="vl-introduction">`}</code></td>)
-[//]: # (        <td>-</td>)
-[//]: # (        <td>-</td>)
-[//]: # (    </tr>)
-[//]: # (    <tr>)
-[//]: # (        <td>[Introduction [next]]&#40;TODO&#41;</td>)
-[//]: # (        <td>release 1.40.0 [te bevestigen]]</td>)
-[//]: # (        <td>tokens/next</td>)
-[//]: # (        <td><code>{`<p class="vl-introduction-next">`}</code></td>)
-[//]: # (        <td>tokens</td>)
-[//]: # (        <td><code>{`<p class="vl-introduction">`}</code></td>)
-[//]: # (    </tr>)
-[//]: # (</table>)
-
-
 ### Link
 
 `Button Link [legacy]` verdwijnt in v2, gebruik een `<vl-link>` of een `<vl-button>`.
@@ -557,7 +506,6 @@ gebruiken dit niet meer.
     </tr>
 </table>
 
-
 ### Radio Group / Radio
 
 <table  style={{width: 100 + '%'}}>
@@ -600,6 +548,36 @@ gebruiken dit niet meer.
         <td><code>{`<vl-radio-next>`}</code></td>
         <td>form</td>
         <td><code>{`<vl-radio>`}</code></td>
+    </tr>
+</table>
+
+
+### Search Filter
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>[Search Filter [legacy]](/docs/elements-search-filter--documentatie)</td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<vl-search-filter>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Search Filter [next]](/docs/components-next-search-filter--documentatie)</td>
+        <td>release v1.42.0</td>
+        <td>components/next</td>
+        <td><code>{`<vl-search-filter-next>`}</code></td>
+        <td>components</td>
+        <td><code>{`<vl-search-filter>`}</code></td>
     </tr>
 </table>
 

@@ -6,6 +6,7 @@ import { iconArgTypes } from '@domg-wc/components/next/icon/stories/vl-icon.stor
 import { infotextArgTypes } from '@domg-wc/components/next/infotext/stories/vl-infotext.stories-arg';
 import { linkArgTypes } from '@domg-wc/components/next/link/stories/vl-link.stories-arg';
 import { propertiesArgTypes } from '@domg-wc/components/next/properties/stories/vl-properties.stories-arg';
+import { searchFilterArgTypes } from '@domg-wc/components/next/search-filter/stories/vl-search-filter.stories-arg';
 import { stepArgTypes } from '@domg-wc/components/next/steps/stories/vl-step.stories-arg';
 import { stepsArgTypes } from '@domg-wc/components/next/steps/stories/vl-steps.stories-arg';
 import { titleArgTypes } from '@domg-wc/components/next/title/stories/vl-title.stories-arg';
@@ -202,6 +203,12 @@ export const buildWTConfigComponents: WTConfigArray = [
         propertiesArgTypes,
         '../../libs/components/src/next/properties/stories/vl-properties.stories-doc.mdx',
         '/docs/components-next-properties--documentatie'
+    ),
+    buildWTConfig(
+        'vl-search-filter-next',
+        searchFilterArgTypes,
+        '../../libs/components/src/next/search-filter/stories/vl-search-filter.stories-doc.mdx',
+        '/docs/components-next-search-filter--documentatie'
     ),
     buildWTConfig(
         'vl-steps-next',

@@ -1,10 +1,11 @@
 import { ArgTypes } from '@storybook/web-components';
+import { CATEGORIES, TYPES } from '@domg-wc/common-storybook';
 
 export const searchFilterArgs = {
-    title: 'Lorem ipsum',
+    title: '',
     alt: false,
     mobileModal: false,
-    mobileModalTitle: 'Lorem ipsum dolor set',
+    mobileModalTitle: '',
     maxWidth: '800px',
 };
 
@@ -13,27 +14,27 @@ export const searchFilterArgTypes: ArgTypes<typeof searchFilterArgs> = {
         name: 'data-vl-title',
         description: 'The title of this search filter.',
         table: {
-            type: { summary: 'string' },
-            category: 'Attributes',
-            defaultValue: { summary: '' },
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: searchFilterArgs.title },
         },
     },
     alt: {
         name: 'data-vl-alt',
         description: 'Alternative (transparent) background.',
         table: {
-            type: { summary: 'boolean' },
-            category: 'Attributes',
-            defaultValue: { summary: 'false' },
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: searchFilterArgs.alt },
         },
     },
     mobileModal: {
         name: 'data-vl-mobile-modal',
         description: 'Activates optimized display for mobile devices.',
         table: {
-            type: { summary: 'boolean' },
-            category: 'Attributes',
-            defaultValue: { summary: 'false' },
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: searchFilterArgs.mobileModal },
         },
     },
     mobileModalTitle: {
@@ -41,9 +42,9 @@ export const searchFilterArgTypes: ArgTypes<typeof searchFilterArgs> = {
         description:
             'The title of this search filter on mobile devices. If not declared, the value of data-vl-title will be used.',
         table: {
-            type: { summary: 'string' },
-            category: 'Attributes',
-            defaultValue: { summary: '' },
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: searchFilterArgs.mobileModalTitle },
         },
     },
     maxWidth: {

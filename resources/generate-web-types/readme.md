@@ -2,7 +2,7 @@
 
 ## genereren
 
-npm run generate-web-types
+    npm run generate-web-types
 
 
 ## testen
@@ -13,14 +13,14 @@ Rechter klikken in de IDE en op `web-types.spec.ts` en laten lopen lukt, alleen 
 In plaats van er verder tijd in te steken: de oorzaak is de Nx verwevenheid, die wordt weggewerkt, in die aanpak ook Jest testen toevoegen voor
 de web-types!
 
-tsx ./tools/web-types-generator/tests/compare-wc-wt-components.ts
-tsx ./tools/web-types-generator/tests/compare-wc-wt-elements.ts
-tsx ./tools/web-types-generator/tests/compare-wc-wt-form.ts
-tsx ./tools/web-types-generator/tests/compare-wc-wt-map.ts
-tsx ./tools/web-types-generator/tests/compare-wc-wt-qlik.ts
-tsx ./tools/web-types-generator/tests/compare-wc-wt-sections.ts
+    tsx ./tools/web-types-generator/tests/compare-wc-wt-components.ts
+    tsx ./tools/web-types-generator/tests/compare-wc-wt-elements.ts
+    tsx ./tools/web-types-generator/tests/compare-wc-wt-form.ts
+    tsx ./tools/web-types-generator/tests/compare-wc-wt-map.ts
+    tsx ./tools/web-types-generator/tests/compare-wc-wt-qlik.ts
+    tsx ./tools/web-types-generator/tests/compare-wc-wt-sections.ts
 
 
 ## schema validatie
 
-tsx ./tools/web-types-generator/schema/validate-schema.ts
+    tsx ./tools/web-types-generator/schema/validate-schema.ts

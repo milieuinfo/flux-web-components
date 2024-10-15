@@ -1382,6 +1382,38 @@
                     }
                 },
                 {
+                    "name": "vl-search-filter-next",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/><br/>\n\n<VluxAlert type=\"info\">\n{`\n    In de v2 versie van deze component gebruik je hem via de custom-tag, de interne implementatie is voor de rest gelijk gebleven aan deze van de v1 versie.\n    In v3 zal deze component grondig herwerkt worden; in de context van een herwerking van de vl-data-table.\n`}\n</VluxAlert>\n\nGebruik de `search-filter-next` component om een zoek filter te tonen op een pagina.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-search-filter--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "filter-title",
+                            "description": "De titel van deze zoekfilter.",
+                            "default": ""
+                        },
+                        {
+                            "name": "alt",
+                            "description": "Alternatieve (transparante) achtergrond.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "mobile-modal",
+                            "description": "Activeert geoptimaliseerde weergave voor mobiele apparaten.<br>Dit wordt ook geactiveerd als de viewport kleiner is dan 768px.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "mobile-modal-title",
+                            "description": "Stelt de titel in van deze zoekfilter op mobiele apparaten.<br> Als die niet gedeclareerd is, wordt de waarde van filter-title gebruikt.",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
                     "name": "vl-steps-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `steps-next` component om een verticale lijst van stappen af te beelden om de gebruiker door een procedure te begeleiden.<br/>\n\nDeze component is de nieuwe versie van de [vl-steps](/docs/components-steps--documentatie) component, we raden aan deze versie te gebruiken.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-steps-steps--documentatie",
