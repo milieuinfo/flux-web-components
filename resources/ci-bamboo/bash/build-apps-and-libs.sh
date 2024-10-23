@@ -41,6 +41,9 @@ if [[ $? -eq 0 ]]
 fi
 set -e
 
+echo "validate the generated web-types"
+npm run libs:web-types:validate
+
 echo "build libraries"
 set +e
 npm run libs:build 2> buffer-stderr.txt 1> buffer-stdout.txt

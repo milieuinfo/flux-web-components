@@ -95,6 +95,21 @@ if [[ $? -eq 0 ]]
 fi
 set -e
 
+echo "generate web-types - bring them up-to-date, semantic-release will commit them"
+set +e
+npm run libs:web-types:generate 2> buffer-stderr.txt 1> buffer-stdout.txt
+if [[ $? -eq 0 ]]
+  then
+    echo "generate web-types - success"
+  else
+    echo "generate web-types - error - buffer-stderr.txt" >&2
+    cat buffer-stderr.txt >&2
+    cat buffer-stdout.txt >&2
+    set -e
+    exit 1
+fi
+set -e
+
 if [[ ${RELEASE_BRANCH} == true ]];
   then
     echo "semantic-release - '.releaserc-release' script wordt gebruikt"

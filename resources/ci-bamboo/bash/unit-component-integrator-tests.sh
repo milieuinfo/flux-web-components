@@ -28,9 +28,6 @@ touch build/dummy.txt
 echo "run all jest (unit) tests"
 npm run libs:jest
 
-echo "validate the generated web-types"
-npm run libs:web-types:validate
-
 echo "run all web component tests (cypress)"
 npm run libs:component-tests:run
 
