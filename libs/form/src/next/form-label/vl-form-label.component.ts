@@ -1,10 +1,12 @@
 import { BaseLitElement, webComponent } from '@domg-wc/common-utilities';
+import { globalStylesNext } from '@domg-wc/common-utilities/css/global-styles-decorator';
 import { resetStyle } from '@domg/govflanders-style/common';
-import { formMessageStyle } from '@domg/govflanders-style/component';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { formLabelStyles } from './vl-form-label.css';
 import { formLabelDefaults } from './vl-form-label.defaults';
 
+@globalStylesNext()
 @webComponent('vl-form-label-next')
 export class VlFormLabelComponent extends BaseLitElement {
     // Attributes
@@ -14,7 +16,7 @@ export class VlFormLabelComponent extends BaseLitElement {
     private light = formLabelDefaults.light;
 
     static get styles(): CSSResult[] {
-        return [resetStyle, formMessageStyle];
+        return [resetStyle, formLabelStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -54,7 +56,7 @@ export class VlFormLabelComponent extends BaseLitElement {
             'vl-form__label--light': this.light,
         };
 
-        return html`<label for=${this.for} class=${classMap(classList)}>${this.label}</label>`;
+        return html` <label for=${this.for} class=${classMap(classList)} part="label"> ${this.label} </label> `;
     }
 
     private getFormControl(): HTMLElement | null {
