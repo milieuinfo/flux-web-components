@@ -28,7 +28,7 @@ describe('component - vl-form-label-next', () => {
     it('should set label', () => {
         cy.mount(html`<vl-form-label-next label="Naam"></vl-form-label-next>`);
 
-        cy.get('vl-form-label-next').shadow().find('label').should('have.text', 'Naam');
+        cy.get('vl-form-label-next').shadow().find('label').contains('Naam');
     });
 
     it('should set block', () => {

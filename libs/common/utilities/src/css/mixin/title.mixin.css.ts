@@ -1,82 +1,82 @@
-import { CSSResult, css } from 'lit';
+import { css, CSSResult } from 'lit';
 import { mediaQueryMedium, mediaQuerySmall } from './media-queries.mixin.css';
 
 const titleSizes = {
     1: css`
-        font-size: 4.4rem;
+        font-size: var(--vl-h1-font-size);
         margin-bottom: 6rem;
         line-height: 1.18;
 
         ${mediaQueryMedium(
             css`
-                font-size: 4rem;
+                font-size: var(--vl-h1-font-size-medium);
                 margin-bottom: 4.5rem;
             `
         )}
 
         ${mediaQuerySmall(
             css`
-                font-size: 3rem;
+                font-size: var(--vl-h1-font-size-small);
                 margin-bottom: 3rem;
             `
         )}
     `,
     2: css`
-        font-size: 3.2rem;
+        font-size: var(--vl-h2-font-size);
         margin-bottom: 2rem;
         line-height: 1.24;
 
         ${mediaQuerySmall(
             css`
-                font-size: 2.6rem;
+                font-size: var(--vl-h2-font-size-small);
                 margin-bottom: 1.5rem;
             `
         )}
     `,
     3: css`
-        font-size: 2.6rem;
+        font-size: var(--vl-h3-font-size);
         margin-bottom: 2rem;
         line-height: 1.3;
 
         ${mediaQuerySmall(
             css`
-                font-size: 2.2rem;
+                font-size: var(--vl-h3-font-size-small);
                 margin-bottom: 1.5rem;
             `
         )}
     `,
     4: css`
-        font-size: 2.2rem;
+        font-size: var(--vl-h4-font-size);
         margin-bottom: 1.8rem;
         line-height: 1.36;
 
         ${mediaQuerySmall(
             css`
-                font-size: 2rem;
+                font-size: var(--vl-h4-font-size-small);
                 margin-bottom: 1.4rem;
             `
         )}
     `,
     5: css`
-        font-size: 2rem;
+        font-size: var(--vl-h5-font-size);
         margin-bottom: 1.6rem;
         line-height: 1.4;
 
         ${mediaQuerySmall(
             css`
-                font-size: 1.8rem;
+                font-size: var(--vl-h5-font-size-small);
                 margin-bottom: 1.2rem;
             `
         )}
     `,
     6: css`
-        font-size: 1.8rem;
+        font-size: var(--vl-h6-font-size);
         margin-bottom: 1.4rem;
         line-height: 1.44;
 
         ${mediaQuerySmall(
             css`
-                font-size: 1.8rem;
+                font-size: var(--vl-h6-font-size-small);
                 margin-bottom: 1rem;
             `
         )}
