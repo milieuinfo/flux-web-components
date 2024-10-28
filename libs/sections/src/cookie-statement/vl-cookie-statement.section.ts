@@ -22,7 +22,7 @@ import {
     VlSideNavigationReferenceElement,
     VlSideNavigationToggleElement,
 } from '@domg-wc/elements';
-import { header, cookieStatementHeaderElements } from './child/header.section';
+import { cookieStatementHeaderElements, header } from './child/header.section';
 import './cookie/vl-authentication-cookie.section';
 import './cookie/vl-cookie.section';
 import './cookie/vl-header-authentication-cookie.section';
@@ -206,7 +206,7 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
                         <vl-properties slot="properties">
                             <dl is="vl-properties-list">
                                 <dt is="vl-property-term">Adres</dt>
-                                <dd is="vl-property-value">Graaf de Ferrarisgebouw<br/>Koning Albert II laan 20 (bus 8)<br/>1000 Brussel, België</dd>
+                                <dd is="vl-property-value">Herman Teirlinckgebouw<br/>Havenlaan 88<br/>1000 Brussel, België</dd>
                                 <dt is="vl-property-term">Telefoon</dt>
                                 <dd is="vl-property-value"><a is="vl-link" href="tel:02 553 80 11">02 553 80 11<span is="vl-icon" data-vl-icon="phone" data-vl-after></span></a></dd>
                                 <dt is="vl-property-term">E-mail</dt>

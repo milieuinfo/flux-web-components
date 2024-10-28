@@ -110,9 +110,7 @@ export const content = ({
                                     <vl-properties slot="properties">
                                         <dl is="vl-properties-list">
                                             <dt is="vl-property-term">Adres</dt>
-                                            <dd is="vl-property-value">
-                                                Koning Albert II-laan 20 bus 8<br />1000 Brussel<br />België
-                                            </dd>
+                                            <dd is="vl-property-value">Havenlaan 88<br />1000 Brussel<br />België</dd>
                                             <dt is="vl-property-term">Telefoon</dt>
                                             <dd is="vl-property-value">
                                                 <p>
@@ -154,9 +152,7 @@ export const content = ({
                                     <vl-properties slot="properties">
                                         <dl is="vl-properties-list">
                                             <dt is="vl-property-term">Adres</dt>
-                                            <dd is="vl-property-value">
-                                                Koning Albert II-laan 20 bus 8<br />1000 Brussel<br />België
-                                            </dd>
+                                            <dd is="vl-property-value">Havenlaan 88<br />1000 Brussel<br />België</dd>
                                             <dt is="vl-property-term">E-mail</dt>
                                             <dd is="vl-property-value">
                                                 <a is="vl-link" href="mailto:klachten.omgeving@vlaanderen.be"

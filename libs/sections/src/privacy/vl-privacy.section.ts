@@ -222,8 +222,8 @@ export class VlPrivacy extends BaseLitElement {
                                                                 <dl is="vl-properties-list">
                                                                     <dt is="vl-property-term">Adres</dt>
                                                                     <dd is="vl-property-value">
-                                                                        Graaf de Ferrarisgebouw<br />Koning Albert II
-                                                                        laan 20 (bus 8)<br />1000 Brussel, België
+                                                                        Herman Teirlinckgebouw<br />Havenlaan 88
+                                                                        <br />1000 Brussel, België
                                                                     </dd>
                                                                     <dt is="vl-property-term">Telefoon</dt>
                                                                     <dd is="vl-property-value">
@@ -1053,8 +1053,7 @@ export class VlPrivacy extends BaseLitElement {
                                     <dl is="vl-properties-list">
                                         <dt is="vl-property-term">Adres</dt>
                                         <dd is="vl-property-value">
-                                            Graaf de Ferrarisgebouw<br />Koning Albert II laan 20 (bus 8)<br />1000
-                                            Brussel, België
+                                            Herman Teirlinckgebouw<br />Havenlaan 88<br />1000 Brussel, België
                                         </dd>
                                         <dt is="vl-property-term">E-mail</dt>
                                         <dd is="vl-property-value">
