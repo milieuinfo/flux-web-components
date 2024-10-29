@@ -20,14 +20,14 @@ export default {
 
 const Template = story(
     privacyArgs,
-    ({ date, disableBackLink, version, onClickBack, headerSlot }) => html`
+    ({ date, disableBackLink, version, onClickBack, headerSlot, versionSlot, contentSlot, bottomSlot }) => html`
         <vl-privacy
             data-vl-date=${date}
             ?data-vl-disable-back-link=${disableBackLink}
             data-vl-version=${version}
             @vl-click-back=${onClickBack}
         >
-            ${unsafeHTML(headerSlot)}
+            ${unsafeHTML(headerSlot)} ${unsafeHTML(versionSlot)} ${unsafeHTML(contentSlot)} ${unsafeHTML(bottomSlot)}
         </vl-privacy>
     `
 );

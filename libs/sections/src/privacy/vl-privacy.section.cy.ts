@@ -1,28 +1,22 @@
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { type PrivacyProps, VlPrivacy } from './vl-privacy.section';
+import { VlPrivacy } from './vl-privacy.section';
+import { privacyDefaults } from './vl-privacy.defaults';
 
 registerWebComponents([VlPrivacy]);
 
-type MountDefaultProps = PrivacyProps & { onClickBack?: () => void; headerSlot?: string };
-
-const mountDefault = ({ ...props }: MountDefaultProps) =>
-    cy.mount(html`<vl-privacy
+const mountDefault = ({ ...props }: typeof privacyDefaults) =>
+    cy.mount(html` <vl-privacy
         data-vl-date=${props.date}
         data-vl-version=${props.version}
         ?data-vl-disable-back-link=${props.disableBackLink}
     >
-        ${unsafeHTML(props.headerSlot)}
+        ${unsafeHTML(props.headerSlot)} ${unsafeHTML(props.versionSlot)} ${unsafeHTML(props.contentSlot)}
+        ${unsafeHTML(props.bottomSlot)}
     </vl-privacy>`);
 
-const defaultProps: MountDefaultProps = {
-    date: '3 maart 2021',
-    version: '1.0.0',
-    disableBackLink: false,
-    onClickBack: () => {},
-    headerSlot: undefined,
-};
+const defaultProps = privacyDefaults;
 
 describe('vl-privacy component', () => {
     beforeEach(() => {
@@ -68,6 +62,7 @@ describe('vl-privacy component- properties reflect ', () => {
         mountDefault({ ...defaultProps, disableBackLink: true });
 
         cy.get('vl-privacy').should('have.attr', 'data-vl-disable-back-link');
+        cy.get('vl-privacy').shadow().find('vl-functional-header').should('have.attr', 'data-vl-disable-back-link');
     });
 
     it('should reflect the <version> attribute', () => {
@@ -105,7 +100,7 @@ describe('vl-privacy component - properties functionality', () => {
     });
 });
 
-describe('vl-privacy component - header slot', () => {
+describe('vl-privacy component - slots', () => {
     it('should replace default header with custom header', () => {
         mountDefault({
             ...defaultProps,
@@ -122,5 +117,32 @@ describe('vl-privacy component - header slot', () => {
         });
 
         cy.get('vl-privacy').find('vl-functional-header').should('exist');
+    });
+
+    it('should replace default version with custom version', () => {
+        mountDefault({
+            ...defaultProps,
+            versionSlot: `<div slot="version"> <p>Version 2.0.0</p> </div>`,
+        });
+
+        cy.get('vl-privacy').find('p').contains('Version 2.0.0');
+    });
+
+    it('should replace default content with custom content in shadow dom', () => {
+        mountDefault({
+            ...defaultProps,
+            contentSlot: `<div slot="content"> <p>Content</p> </div>`,
+        });
+
+        cy.get('vl-privacy').shadow().find('p').contains('Content');
+    });
+
+    it('should replace default bottom part with custom bottom part', () => {
+        mountDefault({
+            ...defaultProps,
+            bottomSlot: `<div slot="bottom"> <p>Ending note</p> </div>`,
+        });
+
+        cy.get('vl-privacy').find('p').contains('Ending note');
     });
 });

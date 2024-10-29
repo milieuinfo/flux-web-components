@@ -1,9 +1,9 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { type PrivacyHeaderProps, header, privacyHeaderElements } from './header.section';
+import { header, privacyHeaderElements } from './header.section';
 
 registerWebComponents(privacyHeaderElements());
 
-const mountDefault = (props: PrivacyHeaderProps) => cy.mount(header(props));
+const mountDefault = (props: { disableBackLink: boolean }) => cy.mount(header(props));
 
 describe('header component', () => {
     beforeEach(() => {
