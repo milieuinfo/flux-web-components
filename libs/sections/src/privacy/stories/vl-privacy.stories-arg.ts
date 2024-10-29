@@ -1,13 +1,11 @@
 import { CATEGORIES, TYPES } from '@domg-wc/common-storybook';
 import { action } from '@storybook/addon-actions';
 import { ArgTypes } from '@storybook/web-components';
+import { privacyDefaults } from '../vl-privacy.defaults';
 
 export const privacyArgs = {
-    date: '3 maart 2021',
-    disableBackLink: false,
-    version: '1.0.0',
+    ...privacyDefaults,
     onClickBack: action('vl-click-back'),
-    headerSlot: '',
 };
 
 export const privacyArgTypes: ArgTypes<typeof privacyArgs> = {
@@ -53,6 +51,33 @@ export const privacyArgTypes: ArgTypes<typeof privacyArgs> = {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
             defaultValue: privacyArgs.headerSlot,
+        },
+    },
+    versionSlot: {
+        name: 'version',
+        description: 'Hiermee kan je de standaard versie sectie vervangen door een sectie naar keuze.',
+        table: {
+            type: { summary: TYPES.HTML },
+            category: CATEGORIES.SLOTS,
+            defaultValue: privacyArgs.versionSlot,
+        },
+    },
+    contentSlot: {
+        name: 'content',
+        description: 'Hiermee kan je de standaard content sectie vervangen door een sectie naar keuze.',
+        table: {
+            type: { summary: TYPES.HTML },
+            category: CATEGORIES.SLOTS,
+            defaultValue: privacyArgs.contentSlot,
+        },
+    },
+    bottomSlot: {
+        name: 'bottom',
+        description: 'Hiermee kan je de standaard footer sectie vervangen door een sectie naar keuze.',
+        table: {
+            type: { summary: TYPES.HTML },
+            category: CATEGORIES.SLOTS,
+            defaultValue: privacyArgs.bottomSlot,
         },
     },
 };
