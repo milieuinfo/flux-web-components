@@ -5,7 +5,7 @@ const dataTableExpandableUrl =
 const dataTableExpandableWithCustomToggleUrl =
     'http://localhost:8080/iframe.html?args=&id=elements-data-table--data-table-expandable-custom-toggle-details-column&viewMode=story';
 
-describe('story - vl-data-table - default', () => {
+describe('story - vl-table - default', () => {
     it('should render', () => {
         cy.visit(dataTableDefaultUrl);
 
@@ -13,7 +13,7 @@ describe('story - vl-data-table - default', () => {
     });
 });
 
-describe('story - vl-data-table - expandable', () => {
+describe('story - vl-table - expandable', () => {
     it('should render', () => {
         cy.visit(dataTableExpandableUrl);
 
@@ -21,7 +21,7 @@ describe('story - vl-data-table - expandable', () => {
     });
 });
 
-describe('story - vl-data-table - expandable with custom toggle', () => {
+describe('story - vl-table - expandable with custom toggle', () => {
     it('should render', () => {
         cy.visit(dataTableExpandableWithCustomToggleUrl);
 

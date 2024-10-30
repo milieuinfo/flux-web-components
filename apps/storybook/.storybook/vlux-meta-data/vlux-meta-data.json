@@ -148,9 +148,16 @@
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#checkbox)"
     },
     "elements-data-table": {
-        "vStatus": "v1-todo",
+        "vStatus": "v1-replace",
         "legacyText": "vl-data-table",
+        "nextText": "[vl-table-next](/docs/components-next-table--documentatie)",
         "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie)"
+    },
+    "components-next-table": {
+        "vStatus": "v2-next",
+        "legacyText": "[vl-data-table](/docs/elements-data-table--documentatie)",
+        "nextText": "vl-table-next",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#data-table)"
     },
     "components-datepicker": {
         "vStatus": "v1-replace",
