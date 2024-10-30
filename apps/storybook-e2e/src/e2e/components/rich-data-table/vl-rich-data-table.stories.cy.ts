@@ -136,7 +136,7 @@ const selectPage = (pageNumber: number) => {
     cy.get('vl-rich-data-table').find('vl-pager').shadow().find(`[data-vl-pager-page=${pageNumber}]`).click();
 };
 
-describe('story vl-rich-data-table default', () => {
+describe('story vl-rich-table default', () => {
     it('should set data in the table', () => {
         cy.visit(richDataTableUrl);
 
@@ -151,7 +151,7 @@ describe('story vl-rich-data-table default', () => {
     });
 });
 
-describe('story vl-rich-data-table - sorting', () => {
+describe('story vl-rich-table - sorting', () => {
     beforeEach(() => cy.visit(`${richDataTableSortingUrl}`));
 
     const { data: rowData } = {
@@ -199,7 +199,7 @@ describe('story vl-rich-data-table - sorting', () => {
     });
 });
 
-describe('story vl-rich-data-table - filter', () => {
+describe('story vl-rich-table - filter', () => {
     beforeEach(() => cy.visit(`${richDataTableFilterUrl}`));
     const data = rowsForFiltering;
     const filterField = 'name';
@@ -225,7 +225,7 @@ describe('story vl-rich-data-table - filter', () => {
     });
 });
 
-describe('story vl-rich-data-table - paging', () => {
+describe('story vl-rich-table - paging', () => {
     beforeEach(() => cy.visit(`${richDataTablePagingUrl}`));
 
     const data = rowsForPagination;

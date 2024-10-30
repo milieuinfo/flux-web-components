@@ -1,6 +1,7 @@
 import { buttonArgTypes } from '@domg-wc/components/next/button/stories/vl-button.stories-arg';
 import { cascaderItemArgTypes } from '@domg-wc/components/next/cascader/stories/vl-cascader-item.stories-arg';
 import { cascaderArgTypes } from '@domg-wc/components/next/cascader/stories/vl-cascader.stories-arg';
+import { tableArgTypes } from '@domg-wc/components/next/table/stories/vl-table.stories-arg';
 import { doormatArgTypes } from '@domg-wc/components/next/doormat/stories/vl-doormat.stories-arg';
 import { iconArgTypes } from '@domg-wc/components/next/icon/stories/vl-icon.stories-arg';
 import { infotextArgTypes } from '@domg-wc/components/next/infotext/stories/vl-infotext.stories-arg';
@@ -176,6 +177,12 @@ export const buildWTConfigComponents: WTConfigArray = [
         cascaderItemArgTypes,
         null,
         '/docs/components-next-cascader-cascader-item--documentatie'
+    ),
+    buildWTConfig(
+        'vl-table-next',
+        tableArgTypes,
+        '../../libs/components/src/next/table/stories/vl-table.stories-doc.mdx',
+        '/docs/components-next-table--documentatie'
     ),
     buildWTConfig(
         'vl-doormat-next',
