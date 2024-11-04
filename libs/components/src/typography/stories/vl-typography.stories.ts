@@ -2,6 +2,7 @@ import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../vl-typography.component';
 import { typographyArgs, typographyArgTypes } from './vl-typography.stories-arg';
+import typographyDocs from './vl-typography.stories-doc.mdx';
 
 export default {
     id: 'components-typography',
@@ -10,13 +11,16 @@ export default {
     args: typographyArgs,
     argTypes: typographyArgTypes,
     parameters: {
+        docs: {
+            page: typographyDocs,
+        },
         controls: {
             hideNoControlsWarning: true,
         },
     },
 } as Meta<typeof typographyArgs>;
 
-export const typographyDefault = () => html` <vl-typography data-cy="typography">
+export const TypographyDefault = () => html` <vl-typography data-cy="typography">
     <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
         <a href="#">tempor incididunt</a> ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
@@ -26,9 +30,9 @@ export const typographyDefault = () => html` <vl-typography data-cy="typography"
     </p>
     <p>Lorem dolor sit amet, consectetur adipisicing elit. Deleniti, in.</p>
 </vl-typography>`;
-typographyDefault.storyName = 'vl-typography - default';
+TypographyDefault.storyName = 'vl-typography - default';
 
-export const typographyTitles = () => html` <vl-typography data-cy="typography">
+export const TypographyTitles = () => html` <vl-typography data-cy="typography">
     <h1>Heading 1</h1>
     <h2>Heading 2</h2>
     <h3>Heading 3</h3>
@@ -36,9 +40,9 @@ export const typographyTitles = () => html` <vl-typography data-cy="typography">
     <h5>Heading 5</h5>
     <h6>Heading 6</h6>
 </vl-typography>`;
-typographyTitles.storyName = 'vl-typography - titles';
+TypographyTitles.storyName = 'vl-typography - titles';
 
-export const typographyLists = () => html` <vl-typography data-cy="typography">
+export const TypographyLists = () => html` <vl-typography data-cy="typography">
     <ul>
         <li>Lorem ipsum dolor sit amet.</li>
         <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</li>
@@ -112,9 +116,9 @@ export const typographyLists = () => html` <vl-typography data-cy="typography">
         </li>
     </ul>
 </vl-typography>`;
-typographyLists.storyName = 'vl-typography - lists';
+TypographyLists.storyName = 'vl-typography - lists';
 
-export const typographyMarkup = () => html` <vl-typography data-cy="typography">
+export const TypographyMarkup = () => html` <vl-typography data-cy="typography">
     <p><strong>strong-tag</strong></p>
     <p><b>b-tag</b></p>
     <p><em>em-tag</em></p>
@@ -134,9 +138,9 @@ export const typographyMarkup = () => html` <vl-typography data-cy="typography">
     <blockquote>Lorem ipsum dolor sit amet.</blockquote>
     <p></p>
 </vl-typography>`;
-typographyMarkup.storyName = 'vl-typography - markup';
+TypographyMarkup.storyName = 'vl-typography - markup';
 
-export const typographyTable = () => html` <vl-typography data-cy="typography">
+export const TypographyTable = () => html` <vl-typography data-cy="typography">
     <table>
         <caption>
             table title
@@ -167,9 +171,9 @@ export const typographyTable = () => html` <vl-typography data-cy="typography">
         </tbody>
     </table>
 </vl-typography>`;
-typographyTable.storyName = 'vl-typography - table';
+TypographyTable.storyName = 'vl-typography - table';
 
-export const typographyParameters = ({ parameters, key1, key2 }: any) => {
+export const TypographyParameters = ({ parameters, key1, key2 }: any) => {
     return html` <vl-typography data-vl-parameters=${parameters} data-cy="typography">
         <p>
             Lorem <b>${key1}</b> dolor sit amet, consectetur adipiscing elit. Duis iaculis molestie feugiat. Lorem
@@ -186,12 +190,12 @@ export const typographyParameters = ({ parameters, key1, key2 }: any) => {
         </p>
     </vl-typography>`;
 };
-typographyParameters.storyName = 'vl-typography - parameters';
-typographyParameters.args = {
+TypographyParameters.storyName = 'vl-typography - parameters';
+TypographyParameters.args = {
     key1: '${parameter.key1}',
     key2: '${parameter.key1}',
 };
-typographyParameters.argTypes = {
+TypographyParameters.argTypes = {
     parameters: { control: { disable: false } },
     key1: { name: 'key1 (for demo purposes)' },
     key2: { name: 'key1 (for demo purposes)' },
