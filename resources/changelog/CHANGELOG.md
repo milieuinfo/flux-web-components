@@ -1,3 +1,10 @@
+## [1.39.1](https://github.com/milieuinfo/uigov-web-components/compare/v1.39.0...v1.39.1) (2024-11-05)
+
+
+### Bug Fixes
+
+* UIG-3113 - web-types build verbeteringen ([5a0ee1e](https://github.com/milieuinfo/uigov-web-components/commit/5a0ee1e37054001ec5b2e85223041498c0afee2b))
+
 # [1.39.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.38.1...v1.39.0) (2024-11-05)
 
 

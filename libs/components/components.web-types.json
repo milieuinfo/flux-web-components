@@ -916,7 +916,7 @@
                 },
                 {
                     "name": "vl-button-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `button-next` component om een button af te beelden op een pagina.\n\nDit component is de volgende versie van de [vl-button](/docs/elements-button-button--documentatie) component.",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `button-next` component om een button af te beelden op een pagina.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-button--documentatie",
                     "attributes": [
                         {
@@ -928,11 +928,6 @@
                             "name": "type",
                             "description": "Het type van de button.",
                             "default": "button"
-                        },
-                        {
-                            "name": "cta-link",
-                            "description": "Specifieert de cta-link (call to action link), zorgt ervoor dat de component een link (`<a>`) wordt met button-styling.",
-                            "default": ""
                         },
                         {
                             "name": "disabled",
@@ -1007,6 +1002,16 @@
                         {
                             "name": "controlled",
                             "description": "Duidt aan dat de state van de toggle button gecontroleerd wordt door een parent component.<br>De button zal zijn eigen `on` attribuut niet veranderen.<br>Te gebruiken in combinatie met het `toggle` attribuut.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "cta-link",
+                            "description": "Specifieert de cta-link (call to action link), zorgt ervoor dat de component een link (`<a>`) wordt met button-styling.",
+                            "default": ""
+                        },
+                        {
+                            "name": "external",
+                            "description": "Opent de link in een nieuw tabblad. Dit attribuut wordt enkel gebruikt als de `cta-link` is ingesteld.",
                             "default": "false"
                         }
                     ],
@@ -1147,7 +1152,7 @@
                 },
                 {
                     "name": "vl-doormat-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `doormat-next` component om een snel en duidelijk overzicht weer te geven van de informatie op je website.<br/>\nElke doormat krijgt zijn eigen titel, tekst, optionele afbeelding en linkt naar een pagina binnen je website.\n\nDeze component is de volgende versie van de [vl-doormat](/docs/elements-doormat--documentatie) component.",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `doormat-next` component om een snel en duidelijk overzicht weer te geven van de informatie op je website.<br/>\nElke doormat krijgt zijn eigen titel, tekst, optionele afbeelding en linkt naar een pagina binnen je website.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-doormat--documentatie",
                     "attributes": [
                         {
@@ -1211,7 +1216,7 @@
                 },
                 {
                     "name": "vl-icon-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `icon-next` component om een icoon af te beelden op een pagina.<br/>\nZie de [Alle Iconen](/docs/ontwerp-iconen-alle-iconen--documentatie) documentatie voor een overzicht van alle iconen die gebruikt kunnen worden.\n\nDit component is de volgende versie van het [vl-icon](/docs/elements-icon-icon--documentatie) element.",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `icon-next` component om een icoon af te beelden op een pagina.<br/>\nZie de [Alle Iconen](/docs/ontwerp-iconen-alle-iconen--documentatie) documentatie voor een overzicht van alle iconen die gebruikt kunnen worden.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-icon--documentatie",
                     "attributes": [
                         {
@@ -1258,7 +1263,7 @@
                 },
                 {
                     "name": "vl-infotext-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `infotext-next` component om belangrijke nummers duidelijk weer te gevem.<br/>\n\nDit component is de volgende versie van de [vl-infotext](/docs/elements-infotext--documentatie) component.",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `infotext-next` component om belangrijke nummers duidelijk weer te gevem.<br/>",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-infotext--documentatie",
                     "attributes": [
                         {
@@ -1297,7 +1302,7 @@
                 },
                 {
                     "name": "vl-link-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `link-next` component om een link af te beelden op een pagina.<br/>\n\nDit component is de volgende versie van de [vl-link](/docs/elements-link-link--documentatie) component.",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `link-next` component om een link af te beelden op een pagina.<br/>",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-link--documentatie",
                     "attributes": [
                         {
@@ -1356,7 +1361,7 @@
                 },
                 {
                     "name": "vl-properties-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `properties-next` component om properties te tonen op een pagina. Je kan de properties specifiëren als\ninner-html of als json-structuur meegeven aan het `props` attribuut.\n\nDeze component is de nieuwste variant die de (nog als element geschreven)\n[vl-properties](/docs/elements-properties--documentatie) vervangt.",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `properties-next` component om properties te tonen op een pagina. Je kan de properties specifiëren als\ninner-html of als json-structuur meegeven aan het `props` attribuut.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-properties--documentatie",
                     "attributes": [
                         {
@@ -1449,14 +1454,17 @@
                             "default": "null"
                         },
                         {
+                            "name": "type",
                             "description": "Het type van de titel.",
                             "default": "h1"
                         },
                         {
+                            "name": "underline",
                             "description": "Voegt een subtiele lijn toe onder de titel.",
                             "default": "false"
                         },
                         {
+                            "name": "alt",
                             "description": "Zet alle letters om in uppercase en zal altijd een lijn toevoegen onder de titel.",
                             "default": "false"
                         },

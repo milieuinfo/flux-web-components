@@ -9,7 +9,7 @@
             "elements": [
                 {
                     "name": "vl-checkbox-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `checkbox-next` component om de gebruiker de mogelijkheid te geven om 1 of meerdere dingen te selecteren in een lijst.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.\n\nDit component is de volgende versie van de [vl-checkbox](/docs/components-checkbox--documentatie) component, we raden aan op termijn deze versie te gebruiken.",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `checkbox-next` component om de gebruiker de mogelijkheid te geven om 1 of meerdere dingen te selecteren in een lijst.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-checkbox--documentatie",
                     "attributes": [
                         {
@@ -87,8 +87,13 @@
                                 "description": "Event dat afgevuurd wordt wanneer het veld gereset wordt."
                             },
                             {
-                                "name": "vl-checked",
-                                "description": "Event dat afgevuurd wordt als de checkbox aangevinkt of uitgevinkt wordt.<br>Het detail object van het event bevat de checked state en de waarde van de checkbox indien deze aangevinkt is.",
+                                "name": "vl-change",
+                                "description": "Event dat afgevuurd wordt als de checkbox aangevinkt of uitgevinkt wordt (zowel programmatorisch als door een gebruiker).<br>Het detail object van het event bevat de checked state en de waarde van de checkbox indien deze aangevinkt is.",
+                                "type": "{ value: string }"
+                            },
+                            {
+                                "name": "vl-input",
+                                "description": "Event dat alleen afgevuurd wordt als de gebruiker de checkbox aanvinkt of uitvinkt.<br>Het detail object van het event bevat de checked state en de waarde van de checkbox indien deze aangevinkt is.",
                                 "type": "{ checked: boolean, value?: string }"
                             },
                             {
@@ -101,7 +106,7 @@
                 },
                 {
                     "name": "vl-datepicker-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `datepicker-next` component om de gebruiker op een gebruiksvriendelijke manier een datum of tijd te laten selecteren.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.\n\nDit component is de volgende versie van de [vl-datepicker](/docs/components-datepicker--documentatie) component, we raden aan op termijn deze versie te gebruiken.",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `datepicker-next` component om de gebruiker op een gebruiksvriendelijke manier een datum of tijd te laten selecteren.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-datepicker--documentatie",
                     "attributes": [
                         {
@@ -231,7 +236,12 @@
                             },
                             {
                                 "name": "vl-input",
-                                "description": "Event dat afgevuurd wordt als de waarde van het datepicker-input veld verandert.<br>Het detail object van het event bevat de ingegeven waarde.",
+                                "description": "Event dat alleen afgevuurd wordt als de gebruiker de waarde van het datepicker-input veld verandert.<br>Het detail object van het event bevat de ingegeven waarde.",
+                                "type": "{ value: string }"
+                            },
+                            {
+                                "name": "vl-change",
+                                "description": "Event dat afgevuurd wordt als de waarde van het datepicker-input veld verandert (zowel programmatorisch als door een gebruiker).<br>Het detail object van het event bevat de ingegeven waarde.",
                                 "type": "{ value: string }"
                             },
                             {
@@ -244,7 +254,7 @@
                 },
                 {
                     "name": "vl-error-message-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `error-message-next` component om een error af te beelden voor een input veld.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.\n\nDit component is de volgende versie van de [vl-form-validation-message](/docs/elements-form-message-form-validation-message--documentatie) component, we raden aan op termijn deze versie te gebruiken.",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `error-message-next` component om een error af te beelden voor een input veld.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-error-message--documentatie",
                     "attributes": [
                         {
@@ -278,7 +288,7 @@
                 },
                 {
                     "name": "vl-form-label-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `form-label-next` component om een form label af te beelden.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.\n\nDit component is de volgende versie van de [vl-form-label](/docs/elements-form-message-form-label--documentatie) component, we raden aan deze versie te gebruiken.",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `form-label-next` component om een form label af te beelden.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-form-label--documentatie",
                     "attributes": [
                         {
@@ -310,7 +320,7 @@
                 },
                 {
                     "name": "vl-input-field-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `input-field-next` component om een input veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.\n\nDit component is de volgende versie van de [vl-input-field](/docs/elements-input-field--documentatie) component, we raden aan op termijn deze versie te gebruiken.",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `input-field-next` component om een input veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-input-field--documentatie",
                     "attributes": [
                         {
@@ -434,8 +444,13 @@
                                 "description": "Event dat afgevuurd wordt wanneer het veld gereset wordt."
                             },
                             {
+                                "name": "vl-change",
+                                "description": "Event dat afgevuurd wordt als de waarde van het input veld verandert (zowel programmatorisch als door een gebruiker).<br>Het detail object van het event bevat de ingegeven waarde.",
+                                "type": "{ value: string }"
+                            },
+                            {
                                 "name": "vl-input",
-                                "description": "Event dat afgevuurd wordt als de waarde van het input veld verandert.<br>Het detail object van het event bevat de ingegeven waarde.",
+                                "description": "Event dat alleen afgevuurd wordt als de gebruiker de waarde van het input veld verandert.<br>Het detail object van het event bevat de ingegeven waarde.",
                                 "type": "{ value: string }"
                             },
                             {
@@ -592,8 +607,13 @@
                                 "description": "Event dat afgevuurd wordt wanneer het veld gereset wordt."
                             },
                             {
+                                "name": "vl-change",
+                                "description": "Event dat afgevuurd wordt als de waarde van het input veld verandert (zowel programmatorisch als door een gebruiker).<br>Het detail object van het event bevat de ingegeven waarde.",
+                                "type": "{ value: string }"
+                            },
+                            {
                                 "name": "vl-input",
-                                "description": "Event dat afgevuurd wordt als de waarde van het input veld verandert.<br>Het detail object van het event bevat de ingegeven waarde.",
+                                "description": "Event dat alleen afgevuurd wordt als de gebruiker de waarde van het input veld verandert.<br>Het detail object van het event bevat de ingegeven waarde.",
                                 "type": "{ value: string }"
                             },
                             {
@@ -674,7 +694,12 @@
                     "js": {
                         "events": [
                             {
-                                "name": "vl-checked",
+                                "name": "vl-change",
+                                "description": "Event dat afgevuurd wordt als de radio aangevinkt of uitgevinkt wordt (zowel programmatorisch als door een gebruiker).<br>Het detail object van het event bevat de checked state en de waarde van de radio.",
+                                "type": "{ checked: boolean, value?: string }"
+                            },
+                            {
+                                "name": "vl-input",
                                 "description": "Event dat afgevuurd wordt als de radio aangevinkt wordt.<br>Het detail object van het event bevat de checked state en de waarde van de radio.",
                                 "type": "{ checked: boolean, value?: string }"
                             },
@@ -688,7 +713,7 @@
                 },
                 {
                     "name": "vl-radio-group-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `radio-group-next` component om de gebruiker de mogelijkheid te geven om 1 keuze te selecteren in een lijst.<br/>\nWanneer mogelijk, selecteer geen `radio` van vooraf zodat de gebruiker een bewuste keuze kan maken.<br/>\nDe `radio-next` component is een onderdeel van de `radio-group-next` component.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.\n\nDit component is de volgende versie van het [vl-radio](/docs/components-radio--documentatie) component, we raden aan op termijn deze versie te gebruiken.",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `radio-group-next` component om de gebruiker de mogelijkheid te geven om 1 keuze te selecteren in een lijst.<br/>\nWanneer mogelijk, selecteer geen `radio` van vooraf zodat de gebruiker een bewuste keuze kan maken.<br/>\nDe `radio-next` component is een onderdeel van de `radio-group-next` component.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-radio-group--documentatie",
                     "attributes": [
                         {
@@ -749,8 +774,13 @@
                                 "description": "Event dat afgevuurd wordt wanneer het veld gereset wordt."
                             },
                             {
-                                "name": "vl-checked",
-                                "description": "Event dat afgevuurd wordt als een radio aangevinkt wordt.<br>Het detail object van het event bevat de checked state en de waarde van de radio.",
+                                "name": "vl-change",
+                                "description": "Event dat afgevuurd wordt als een radio aangevinkt of uitgevinkt wordt (zowel programmatorisch als door een gebruiker).<br>Het detail object van het event bevat de checked state en de waarde van de radio.",
+                                "type": "{ checked: boolean, value?: string }"
+                            },
+                            {
+                                "name": "vl-input",
+                                "description": "Event dat alleen afgevuurd wordt als een gebruiker een radio aanvinkt.<br>Het detail object van het event bevat de checked state en de waarde van de radio.",
                                 "type": "{ checked: boolean, value?: string }"
                             },
                             {
@@ -763,7 +793,7 @@
                 },
                 {
                     "name": "vl-select-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `select-next` component om een select veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.\n\nDit component is de volgende versie van de [vl-select](/docs/elements-select--documentatie) component, we raden aan op termijn deze versie te gebruiken.",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `select-next` component om een select veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-select--documentatie",
                     "attributes": [
                         {
@@ -842,8 +872,13 @@
                                 "description": "Event dat afgevuurd wordt wanneer het veld gereset wordt."
                             },
                             {
-                                "name": "vl-select",
-                                "description": "Event dat afgevuurd wordt als er een optie selecteerd of verwijderd wordt.<br>Het detail object van het event bevat de waarde van de geselecteerde optie.",
+                                "name": "vl-change",
+                                "description": "Event dat afgevuurd wordt als er een optie selecteerd of verwijderd wordt (zowel programmatorisch als door een gebruiker).<br>Het detail object van het event bevat de waarde van de geselecteerde optie.",
+                                "type": "{ value: string }"
+                            },
+                            {
+                                "name": "vl-input",
+                                "description": "Event dat alleen afgevuurd wordt als de gebruiker een optie selecteert of verwijdert.<br>Het detail object van het event bevat de waarde van de geselecteerde optie.",
                                 "type": "{ value: string }"
                             },
                             {
@@ -856,7 +891,7 @@
                 },
                 {
                     "name": "vl-select-rich-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `select-rich-next` component om een uitgebreid select of multiselect veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.\n\nDit component is de volgende versie van de [vl-select](/docs/elements-select--documentatie) component en de [vl-multiselect](/docs/elements-multiselect--documentatie) component, we raden aan op termijn deze versie te gebruiken.",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `select-rich-next` component om een uitgebreid select of multiselect veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-select-rich--documentatie",
                     "attributes": [
                         {
@@ -960,8 +995,13 @@
                                 "description": "Event dat afgevuurd wordt wanneer het veld gereset wordt."
                             },
                             {
-                                "name": "vl-select",
+                                "name": "vl-change",
                                 "description": "Event dat afgevuurd wordt als er een optie selecteerd of verwijderd wordt.<br>Het detail object van het event bevat de waarde van de geselecteerde optie.<br>Bij de multiselect bevat het detail object een array van waarden van de geselecteerde opties.",
+                                "type": "{ value: string | string[] }"
+                            },
+                            {
+                                "name": "vl-input",
+                                "description": "Event dat enkel afgevuurd wordt als de gebruiker een optie selecteert of verwijdert.<br>Het detail object van het event bevat de waarde van de geselecteerde optie.<br>Bij de multiselect bevat het detail object een array van waarden van de geselecteerde opties.",
                                 "type": "{ value: string | string[] }"
                             },
                             {
@@ -979,7 +1019,7 @@
                 },
                 {
                     "name": "vl-textarea-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `textarea-next` component om een textarea veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.\n\nDit component is de volgende versie van de [vl-textarea](/docs/components-textarea--documentatie) component, we raden aan op termijn deze versie te gebruiken.<br />\nIn tegenstelling tot de vorige [vl-textarea](/docs/components-textarea--documentatie) bevat dit component geen rich-text modus, hier wordt op termijn een ander component voor voorzien.",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `textarea-next` component om een textarea veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.\n\nDeze component bevat geen rich-text modus: gebruik daarvoor\n[vl-textarea-rich-next](/docs/form-next--text-area-rich--documentatie).",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-textarea--documentatie",
                     "attributes": [
                         {
@@ -1075,8 +1115,13 @@
                                 "description": "Event dat afgevuurd wordt wanneer het veld gereset wordt."
                             },
                             {
+                                "name": "vl-change",
+                                "description": "Event dat afgevuurd wordt als de waarde van het textarea veld verandert (zowel programmatorisch als door een gebruiker).<br>Het detail object van het event bevat de ingegeven waarde.",
+                                "type": "{ value: string }"
+                            },
+                            {
                                 "name": "vl-input",
-                                "description": "Event dat afgevuurd wordt als de waarde van het textarea veld verandert.<br>Het detail object van het event bevat de ingegeven waarde.",
+                                "description": "Event dat alleen afgevuurd wordt als een gebruiker de waarde van het textarea veld verandert.<br>Het detail object van het event bevat de ingegeven waarde.",
                                 "type": "{ value: string }"
                             },
                             {
@@ -1089,7 +1134,7 @@
                 },
                 {
                     "name": "vl-textarea-rich-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `textarea-rich-next` component om een rich textarea veld toe te voegen aan een pagina.<br/>\n\nDit component is de volgende versie van de rich modus van de [vl-textarea](/docs/components-textarea--documentatie) component, we raden aan deze versie te gebruiken.<br />",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `textarea-rich-next` component om een rich textarea veld toe te voegen aan een pagina.<br/>",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-textarea-rich--documentatie",
                     "attributes": [
                         {
@@ -1208,8 +1253,13 @@
                                 "description": "Event dat afgevuurd wordt wanneer het veld gereset wordt."
                             },
                             {
+                                "name": "vl-change",
+                                "description": "Event dat afgevuurd wordt als de waarde van het textarea veld verandert (zowel programmatorisch als door een gebruiker).<br>Het detail object van het event bevat de ingegeven waarde.",
+                                "type": "{ value: string }"
+                            },
+                            {
                                 "name": "vl-input",
-                                "description": "Event dat afgevuurd wordt als de waarde van het textarea veld verandert.<br>Het detail object van het event bevat de ingegeven waarde.",
+                                "description": "Event dat alleen afgevuurd wordt als een gebruiker de waarde van het textarea veld verandert.<br>Het detail object van het event bevat de ingegeven waarde.",
                                 "type": "{ value: string }"
                             },
                             {
@@ -1222,7 +1272,7 @@
                 },
                 {
                     "name": "vl-upload-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `upload-next` component om één of meerdere bestanden te selecteren of te slepen naar het upload-veld.\n\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.\n\nDit component is de volgende versie van de [vl-upload](/docs/components-upload--documentatie) component, we raden aan op termijn deze versie te gebruiken.",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `upload-next` component om één of meerdere bestanden te selecteren of te slepen naar het upload-veld.\n\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-upload--documentatie",
                     "attributes": [
                         {
@@ -1333,8 +1383,13 @@
                                 "description": "Event dat afgevuurd wordt wanneer het veld gereset wordt."
                             },
                             {
+                                "name": "vl-change",
+                                "description": "Event dat afgevuurd wordt als bestanden worden toegevoegd of verwijderd (zowel programmatorisch als door een gebruiker).<br>Het detail object van het event bevat de ingegeven waarde.<br>Daarnaast geeft het ook aan welke file werd verwijderd of toegevoegd.",
+                                "type": "{ value: string, type: string, file: File}"
+                            },
+                            {
                                 "name": "vl-input",
-                                "description": "Event dat afgevuurd wordt als bestanden worden toegevoegd of verwijderd.<br>Het detail object van het event bevat de ingegeven waarde.<br>Daarnaast geeft het ook aan welke file werd verwijderd of toegevoegd.",
+                                "description": "Event dat alleen afgevuurd wordt als bestanden worden toegevoegd of verwijderd door een gebruiker.<br>Het detail object van het event bevat de ingegeven waarde.<br>Daarnaast geeft het ook aan welke file werd verwijderd of toegevoegd.",
                                 "type": "{ value: string, type: string, file: File}"
                             },
                             {

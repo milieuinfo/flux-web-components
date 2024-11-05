@@ -317,6 +317,18 @@
                         {
                             "name": "header",
                             "description": "Hiermee kan je de standaard functional header vervangen door een header naar keuze."
+                        },
+                        {
+                            "name": "version",
+                            "description": "Hiermee kan je de standaard versie sectie vervangen door een sectie naar keuze."
+                        },
+                        {
+                            "name": "content",
+                            "description": "Hiermee kan je de standaard content sectie vervangen door een sectie naar keuze."
+                        },
+                        {
+                            "name": "bottom",
+                            "description": "Hiermee kan je de standaard footer sectie vervangen door een sectie naar keuze."
                         }
                     ],
                     "js": {
