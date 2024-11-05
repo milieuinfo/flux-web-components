@@ -1,3 +1,15 @@
+# [1.39.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.38.1...v1.39.0) (2024-11-05)
+
+
+### Features
+
+* UIG-2062 - vl-accessibility, vl-cookie-statement, vl-privacy - adres van Departement Omgeving bijgewerkt ([c630bf9](https://github.com/milieuinfo/uigov-web-components/commit/c630bf974f38cf9168f4f08982247f73dd4e03a8))
+* UIG-2062 - vl-privacy-section - privacy verklaring slots toegevoegd ([aed1439](https://github.com/milieuinfo/uigov-web-components/commit/aed1439f0986922caf70007b853d4d8061389490))
+* UIG-3103 - storybook - documentatie verbetering voor next-componenten ([fe4df0f](https://github.com/milieuinfo/uigov-web-components/commit/fe4df0febbf94c5e12595c44c82d998b998d9853))
+* UIG-3113 - web-types build verbeteringen ([1c57e49](https://github.com/milieuinfo/uigov-web-components/commit/1c57e4945af57182f5ce93aa4d2b465682336995))
+* UIG-3116 - vl-button-next - cta-link attribuut toegevoegd ([d59207f](https://github.com/milieuinfo/uigov-web-components/commit/d59207f1d26aeea5822723b94d979804bd23cb37))
+* UIG-3126 - vl-typography - gekende beperking gedocumenteerd in verband met event handling ([3784efa](https://github.com/milieuinfo/uigov-web-components/commit/3784efaf6fe0e15709db67686a7b5b1e22b0afe6))
+
 ## [1.38.1](https://github.com/milieuinfo/uigov-web-components/compare/v1.38.0...v1.38.1) (2024-10-08)
 
 
