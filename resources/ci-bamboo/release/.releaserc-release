@@ -1,7 +1,7 @@
 {
     "branches": [
         "release",
-        "release-1.25"
+        "release-1.39"
     ],
     "plugins": [
         [
@@ -26,7 +26,18 @@
         [
             "@semantic-release/git",
             {
-                "assets": ["resources/changelog/CHANGELOG.md", "package.json", "package-lock.json"],
+                "assets":
+                [
+                    "resources/changelog/CHANGELOG.md",
+                    "package.json",
+                    "package-lock.json",
+                    "libs/components/components.web-types.json",
+                    "libs/elements/elements.web-types.json",
+                    "libs/form/form.web-types.json",
+                    "libs/map/map.web-types.json",
+                    "libs/qlik/qlik.web-types.json",
+                    "libs/sections/sections.web-types.json"
+                ],
                 "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
             }
         ],
