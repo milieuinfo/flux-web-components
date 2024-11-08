@@ -85,6 +85,12 @@ describe('component - vl-link-next', () => {
             .should('have.class', 'vl-icon--left-margin');
     });
 
+    it('should not render icon when no icon value is set', () => {
+        cy.mount(html`<vl-link-next>Vlaanderen</vl-link-next>`);
+
+        cy.get('vl-link-next').shadow().find('a').find('span.vl-icon').should('not.exist');
+    });
+
     it('should set content', () => {
         cy.mount(html`<vl-link-next>Vlaanderen</vl-link-next>`);
 

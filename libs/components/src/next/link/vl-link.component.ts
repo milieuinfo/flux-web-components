@@ -76,7 +76,7 @@ export class VlLinkComponent extends BaseLitElement {
             'vl-icon--left-margin': this.iconPlacement === 'after',
         };
 
-        return html`<span class=${classMap(classes)}></span>`;
+        return this.icon ? html`<span class=${classMap(classes)}></span>` : nothing;
     }
 
     renderExternalIcon(): TemplateResult {
