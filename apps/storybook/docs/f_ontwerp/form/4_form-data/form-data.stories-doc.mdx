@@ -8,18 +8,19 @@ Om de form data te verzamelen, kan je de [FormData](https://developer.mozilla.or
 
 Echter, deze API is niet altijd even handig in gebruik. Als je `FormData.entries()` gebruikt, dan krijg je een iterator van de waardes.
 Dit is voldoende voor inputs met 1 waarde, maar voor inputs met meerdere waardes krijg je enkel de laatst gekozen waarde terug.
+ Wanneer je `FormData.getAll()` gebruikt, krijg je dan weer altijd een array van waardes terug, ook voor inputs die maar 1 waarde kunnen bevatten.
 
-Daarom leek het ons aangewezen dat je altijd met een consistent object kan werken:
-- voor inputs met 1 waarde, krijg je altijd een enkele waarde
-- voor inputs met meerdere waardes (bv. multiselect), krijg je altijd een array van waardes
+Daarom leek het ons aangewezen dat je altijd met een consistent object werkt:
+- voor form controls met 1 waarde, krijg je altijd een enkele waarde
+- voor form controls met meerdere waardes (bv. multiselect), krijg je altijd een array van waardes
 
-## parseFormData(formElement: Form, multiFormControlNames?: string[])
+## parseFormData(formElement, multiFormControlNames?)
 
-We hebben een helper functie voorzien om de form data te parsen naar een object met de waardes van de velden.
+We hebben een helper functie voorzien om de data uit de form te parsen naar een object met de waardes van de velden, in het voorgestelde formaat zoals hierboven beschreven.
 
 Deze functie aanvaard 2 parameters:
 - `formElement: Form`: het Form element waarvan je de data wil parsen
-- `multiFormControlNames?: string[]`: een array van form control namen die meerdere waardes kunnen hebben.
+- `multiFormControlNames?: string[]`: (optioneel) een array van form control namen die meerdere waardes kunnen hebben.
 Als deze parameter niet wordt meegegeven, dan wordt er gezocht naar alle form controls die meerdere waardes kunnen hebben aan de hand van het `multiple` attribuut.
 
 ### Gebruik
@@ -45,6 +46,40 @@ onSubmit(event: Event): void {
     // print de form data in de console
     console.log(data);
 }
+```
+
+## setFormData(formElement, data)
+
+We hebben een helper functie voorzien om de form data te zetten naar een object met de waardes van de velden.
+
+Deze functie aanvaard 2 parameters:
+- `formElement: Form`: het Form element waarvan je de data wil zetten
+- `data: { [p: string]: FormDataEntryValue[] | File | string }`: een object met de waardes van de velden
+
+### Gebruik
+
+```js
+import { setFormData } from "@domg-wc/form/utils";
+```
+
+```html
+<form id="example-form">
+    <input type="text" name="input1" />
+    <select name="input2" multiple>
+        <option value="value1">Value 1</option>
+        <option value="value2">Value 2</option>
+        <option value="value3">Value 3</option>
+    </select>
+</form>
+```
+
+```typescript
+const formElement = document.getElementById('example-form') as HTMLFormElement;
+// stel de form data in
+setFormData(formElement, {
+    input1: 'value1',
+    input2: ['value2', 'value3']
+});
 ```
 
 ### Voorbeeld

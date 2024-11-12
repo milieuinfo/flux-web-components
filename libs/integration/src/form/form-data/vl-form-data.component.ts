@@ -4,11 +4,10 @@ import { VlErrorMessageComponent } from '@domg-wc/form/next/error-message';
 import { vlElementsStyle } from '@domg-wc/elements';
 import { VlInputFieldComponent } from '@domg-wc/form/next/input-field';
 import { SelectRichOption, VlSelectRichComponent } from '@domg-wc/form/next/select-rich';
-import { parseFormData } from '@domg-wc/form/utils';
+import { parseFormData, setFormData } from '@domg-wc/form/utils';
 import { VlFormLabelComponent } from '@domg-wc/form/next/form-label';
 import { VlButtonComponent } from '@domg-wc/components/next/button';
 import { VlCheckboxComponent } from '@domg-wc/form/next/checkbox';
-import { setFormData } from '@domg-wc/form/utils/form.util';
 import { VlInputFieldMaskedComponent } from '@domg-wc/form/next/input-field-masked';
 import { VlDatepickerComponent } from '@domg-wc/form/next/datepicker';
 import { VlTextareaRichComponent } from '@domg-wc/form/next/textarea-rich';
@@ -228,18 +227,33 @@ export class VlFormDataComponent extends LitElement {
                             >
                         </div>
                     </div>
-                    ${this.parsedFormData
-                        ? html`
-                              <div class="vl-form-col--4-12">
-                                  <label class="vl-form__label">Formulier data</label>
-                              </div>
-                              <div class="vl-form-col--8-12">
-                                  <pre>${JSON.stringify(this.parsedFormData, null, 10)}</pre>
-                              </div>
-                          `
-                        : ''}
+                    ${
+                        this.parsedFormData
+                            ? html`
+                                  <div class="vl-form-col--4-12">
+                                      <label class="vl-form__label">Formulier data</label>
+                                  </div>
+                                  <div class="vl-form-col--8-12">
+                                      <pre>${JSON.stringify(this.parsedFormData, null, 10)}</pre>
+                                  </div>
+                              `
+                            : ''
+                    }
                 </div>
             </form>
+
+            <vl-title-next type="h2"> Form Data</vl-title-next>
+            <p>
+                Dit component toont een formulier met verschillende types van form controls. Het formulier kan worden
+                ingevuld en de data kan worden opgehaald.
+                <ul>
+                    <li>De data kan worden opgehaald met de "Verstuur" knop.></li>
+                    <li>De data kan worden ingesteld met de "Set Form Data" knop.</li>
+                </ul>
+            </p>
+            <pre>
+                ${JSON.stringify(this.parsedFormData, null, 10)}
+            </pre>
         `;
     }
 
@@ -281,12 +295,12 @@ export class VlFormDataComponent extends LitElement {
         event.preventDefault();
 
         const data = <typeof this.parsedFormData>parseFormData(event.target as HTMLFormElement);
-        // this.parsedFormData = data;
+        this.parsedFormData = data;
         console.log(data);
     }
 
     private onReset(): void {
-        // this.parsedFormData = null;
+        this.parsedFormData = null;
         const form = this.shadowRoot?.querySelector<HTMLFormElement>('form');
         form?.reset();
     }

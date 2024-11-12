@@ -15,10 +15,10 @@ describe('integration - form data', () => {
         cy.mount(html`<vl-form-data></vl-form-data>`);
 
         cy.get('vl-form-data').shadow().find('vl-input-field-next').shadow().find('input').type('John Doe');
-        cy.get('vl-form-data').shadow().find('vl-select-rich-next').shadow().find('.vl-select__inner').click();
+        cy.get('vl-form-data').shadow().find('vl-select-rich-next#hobbies').shadow().find('.vl-select__inner').click();
         cy.get('vl-form-data')
             .shadow()
-            .find('vl-select-rich-next')
+            .find('vl-select-rich-next#hobbies')
             .shadow()
             .find('.vl-select__list')
             .find('.vl-select__item')
@@ -26,7 +26,7 @@ describe('integration - form data', () => {
             .click();
         cy.get('vl-form-data')
             .shadow()
-            .find('vl-select-rich-next')
+            .find('vl-select-rich-next#hobbies')
             .shadow()
             .find('.vl-select__list')
             .find('.vl-select__item')
