@@ -253,7 +253,7 @@ export class VlUploadComponent extends vlFormValidationElement(BaseHTMLElement) 
                 this.__triggerChange(file);
             });
             this._dropzone.on('duplicateRemoved', (file: File) => this.__duplicateRemoved(file));
-            this._dropzone.timeout = 0; // 0 value will disable the connection timeout
+            this._dropzone.options.timeout = 0; // 0 value will disable the connection timeout
         }
     }
 
