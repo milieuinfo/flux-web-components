@@ -29,6 +29,7 @@ describe('component - vl-input-field-masked-next', () => {
         });
         cy.get('vl-input-field-masked-next').shadow().find('input').type('1234567sya8901234');
         cy.get('vl-input-field-masked-next').shadow().find('input').should('have.value', 'BE12 3456 7890 1234');
+        cy.get('vl-input-field-masked-next').shadow().find('input').should('have.attr', 'inputmode', 'numeric');
         cy.checkA11y('vl-input-field-masked-next');
     });
 
@@ -43,6 +44,7 @@ describe('component - vl-input-field-masked-next', () => {
         });
         cy.get('vl-input-field-masked-next').shadow().find('input').type('123456iuh78912');
         cy.get('vl-input-field-masked-next').shadow().find('input').should('have.value', '12.34.56-789.12');
+        cy.get('vl-input-field-masked-next').shadow().find('input').should('have.attr', 'inputmode', 'numeric');
         cy.checkA11y('vl-input-field-masked-next');
     });
 
@@ -60,6 +62,7 @@ describe('component - vl-input-field-masked-next', () => {
             .shadow()
             .find('input')
             .should('have.value', '12345678-aaaa-bbbb-cccc-ddddeeeeffff');
+        cy.get('vl-input-field-masked-next').shadow().find('input').should('have.attr', 'inputmode', 'text');
         cy.checkA11y('vl-input-field-masked-next');
     });
 
@@ -74,6 +77,7 @@ describe('component - vl-input-field-masked-next', () => {
         });
         cy.get('vl-input-field-masked-next').shadow().find('input').type('0206aa1991');
         cy.get('vl-input-field-masked-next').shadow().find('input').should('have.value', '02.06.1991');
+        cy.get('vl-input-field-masked-next').shadow().find('input').should('have.attr', 'inputmode', 'decimal');
         cy.checkA11y('vl-input-field-masked-next');
     });
 
@@ -88,6 +92,7 @@ describe('component - vl-input-field-masked-next', () => {
         });
         cy.get('vl-input-field-masked-next').shadow().find('input').type('0200fgh99,78');
         cy.get('vl-input-field-masked-next').shadow().find('input').should('have.value', '20.099,78');
+        cy.get('vl-input-field-masked-next').shadow().find('input').should('have.attr', 'inputmode', 'text');
         cy.checkA11y('vl-input-field-masked-next');
     });
 
@@ -102,6 +107,7 @@ describe('component - vl-input-field-masked-next', () => {
         });
         cy.get('vl-input-field-masked-next').shadow().find('input').type('0200sdf99,78');
         cy.get('vl-input-field-masked-next').shadow().find('input').should('have.value', '€20.099,78');
+        cy.get('vl-input-field-masked-next').shadow().find('input').should('have.attr', 'inputmode', 'text');
         cy.checkA11y('vl-input-field-masked-next');
     });
 
@@ -116,6 +122,7 @@ describe('component - vl-input-field-masked-next', () => {
         });
         cy.get('vl-input-field-masked-next').shadow().find('input').type('11849gtd372');
         cy.get('vl-input-field-masked-next').shadow().find('input').should('have.value', '+32 11 84 93 72');
+        cy.get('vl-input-field-masked-next').shadow().find('input').should('have.attr', 'inputmode', 'numeric');
         cy.checkA11y('vl-input-field-masked-next');
     });
 
@@ -132,6 +139,7 @@ describe('component - vl-input-field-masked-next', () => {
         });
         cy.get('vl-input-field-masked-next').shadow().find('input').type('11849372234aa');
         cy.get('vl-input-field-masked-next').shadow().find('input').should('have.value', '11849372234');
+        cy.get('vl-input-field-masked-next').shadow().find('input').should('have.attr', 'inputmode', 'numeric');
         cy.checkA11y('vl-input-field-masked-next');
     });
 
@@ -146,6 +154,7 @@ describe('component - vl-input-field-masked-next', () => {
         });
         cy.get('vl-input-field-masked-next').shadow().find('input').type('476849fwe372');
         cy.get('vl-input-field-masked-next').shadow().find('input').should('have.value', '+32 476 84 93 72');
+        cy.get('vl-input-field-masked-next').shadow().find('input').should('have.attr', 'inputmode', 'numeric');
         cy.checkA11y('vl-input-field-masked-next');
     });
 
@@ -163,6 +172,7 @@ describe('component - vl-input-field-masked-next', () => {
         cy.get('vl-input-field-masked-next').shadow().find('input').should('have.value', '26.');
         cy.get('vl-input-field-masked-next').shadow().find('input').type('345678912');
         cy.get('vl-input-field-masked-next').shadow().find('input').should('have.value', '26.34.56-789.12');
+        cy.get('vl-input-field-masked-next').shadow().find('input').should('have.attr', 'inputmode', 'numeric');
         cy.checkA11y('vl-input-field-masked-next');
     });
 
