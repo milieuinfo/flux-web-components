@@ -49,7 +49,7 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
     acceptedFiles: {
         name: 'accepted-files',
         description:
-            'Attribuut om te bepalen welke bestanden worden geaccepteerd door component (extensie en mimetype).',
+            'Attribuut om te bepalen welke bestanden worden geaccepteerd door de component (extensie en mimetype).<br>Bv. `image/*,application/pdf,.psd`',
         table: {
             type: {
                 summary: TYPES.STRING,
@@ -145,7 +145,7 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
     },
     subTitle: {
         name: 'sub-title',
-        description: 'De annotatietekst voor de upload knop.',
+        description: 'De annotatietekst voor de upload knop.\nNiet reactief.',
         table: {
             type: {
                 summary: TYPES.STRING,
@@ -156,7 +156,7 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
     },
     mainTitle: {
         name: 'main-title',
-        description: 'De tekst die op de upload knop komt te staan.',
+        description: 'De tekst die op de upload knop komt te staan.\nNiet reactief.',
         table: {
             type: {
                 summary: TYPES.STRING,
@@ -178,7 +178,7 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
     },
     url: {
         name: 'url',
-        description: 'Bepaalt de upload url',
+        description: 'Bepaalt de upload url.\nNiet reactief.',
         table: {
             type: {
                 summary: TYPES.STRING,

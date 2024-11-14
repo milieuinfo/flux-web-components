@@ -9,103 +9,6 @@ const txtFileFixturePath = 'fixtures/upload/file.txt';
 const mockedResponseFixturePath = 'upload/upload-mock-response-200.json';
 const uploadTargetUrl = 'fake-url';
 
-const shouldAddJpgFilesProgrammatically = (number = 1): File[] => {
-    const filesAdded: File[] = [];
-    for (let i = 0; i < number; i++) {
-        cy.readFile('fixtures/upload/cat.jpeg', 'base64').then((fileContent) => {
-            const blob = Cypress.Blob.base64StringToBlob(fileContent);
-            const lastModified = new Date().getTime();
-            const fileToAdd = new File([blob], 'cat.jpeg', {
-                type: 'image/jpeg',
-                lastModified,
-            });
-            cy.get('vl-upload-next').then((uploadNext) => {
-                // gebruiken hier addFile omdat we File object niet kunnen toevoegen met cy.selectFile() (enkel referenties)
-                (<HTMLElement & { addFile(file: File): void }>uploadNext[0]).addFile(fileToAdd);
-                // we maken de file hier opnieuw aan omdat de file gemuteerd wordt door de upload component
-                // meer specifiek worden er Dropzone specifieke properties toegevoegd aan de file, die dan niet gaan matchen met de file die we in de formData terechtkomt
-                filesAdded.push(
-                    new File([blob], 'cat.jpeg', {
-                        type: 'image/jpeg',
-                        lastModified,
-                    })
-                );
-            });
-        });
-    }
-    return filesAdded;
-};
-
-const shouldRemoveAllFilesProgrammatically = (): void => {
-    cy.get('vl-upload-next').then((element) => {
-        const uploadComponent = element[0];
-        uploadComponent.removeAllFiles();
-    });
-};
-
-const shouldAddPdfFiles = (number = 1) => {
-    const filesToAdd = Array<Cypress.FileReference>(number).fill(pdfFileFixturePath);
-    cy.get('vl-upload-next')
-        .shadow()
-        .find('input[type=file]')
-        .selectFile(number === 1 ? pdfFileFixturePath : filesToAdd, { force: true });
-};
-const shouldAddTxtFiles = (number = 1) => {
-    const filesToAdd = Array<Cypress.FileReference>(number).map(() => txtFileFixturePath);
-    cy.get('vl-upload-next')
-        .shadow()
-        .find('input[type=file]')
-        .selectFile(number === 1 ? txtFileFixturePath : filesToAdd, { force: true });
-};
-
-const shouldRemoveFile = () => {
-    cy.get('vl-upload-next').shadow().find('button.vl-upload__files__close').click();
-};
-
-const shouldHaveUploadFiles = (number: number) => {
-    cy.get('vl-upload-next').shadow().find('div.vl-upload__file').its('length').should('eq', number);
-};
-const shouldHaveValidUploadFiles = (number: number) => {
-    cy.get('vl-upload-next').shadow().find('div.vl-upload__file').not('.dz-error').its('length').should('eq', number);
-};
-const shouldHaveUploadFilesWithNoSuccess = (number: number) => {
-    cy.get('vl-upload-next').shadow().find('div.vl-upload__file').not('.dz-success').its('length').should('eq', number);
-};
-
-const shouldHaveSuccessUploadFiles = (number: number) => {
-    cy.get('vl-upload-next').shadow().find('div.dz-success').its('length').should('eq', number);
-};
-
-const shouldOnlyHaveUnprocessedUploadFiles = (number: number) => {
-    cy.get('vl-upload-next')
-        .shadow()
-        .find('div.vl-upload__file')
-        .not('.dz-error')
-        .not('.dz-success')
-        .its('length')
-        .should('eq', number);
-};
-
-const shouldSuccessfullyUploadFiles = (
-    numberOfFiles: number,
-    targetUrl = uploadTargetUrl,
-    callback?: (...args: unknown[]) => void
-) => {
-    // intercepts outgoing requests so can test them
-    cy.intercept('POST', targetUrl, (req) => {
-        req.reply({
-            statusCode: 200,
-            fixture: mockedResponseFixturePath,
-        });
-    }).as('uploadPost');
-    if (callback) callback();
-    cy.wait('@uploadPost');
-    cy.get('@uploadPost.all').then((interceptions) => {
-        expect(interceptions).to.have.length(numberOfFiles);
-    });
-    shouldHaveSuccessUploadFiles(numberOfFiles);
-};
-
 describe('component - vl-upload-next', () => {
     it('should mount', () => {
         cy.mount(html` <vl-upload-next label="test-label"></vl-upload-next>`);
@@ -367,7 +270,12 @@ describe('component - vl-upload-next', () => {
     it('should generate error when adding a file with the wrong extension', () => {
         const errorMessage = 'Dit bestandstype is niet toegestaan';
         cy.mount(
-            html` <vl-upload-next accepted-files="txt" error-message-accepted-files=${errorMessage}></vl-upload-next>`
+            html`
+                <vl-upload-next
+                    accepted-files="txt"
+                    error-message-accepted-files=${errorMessage}
+                ></vl-upload-next>
+            `
         );
 
         cy.get('vl-upload-next').shadow().find('input[type=file]').selectFile(pdfFileFixturePath, { force: true });
@@ -443,8 +351,8 @@ describe('component - vl-upload-next', () => {
         cy.mount(html` <vl-upload-next max-files="2" error-message-max-files=${errorMessage}></vl-upload-next>`);
 
         shouldAddPdfFiles(3);
-        shouldHaveUploadFiles(3);
-        shouldHaveValidUploadFiles(2);
+        shouldHaveUploadFiles(3, true);
+        shouldHaveValidUploadFiles(2, true);
         cy.get('vl-upload-next').shadow().find('.dz-error-message').should('contain', errorMessage, '');
     });
 
@@ -512,3 +420,110 @@ describe('component - vl-upload-next', () => {
         cy.get('vl-upload-next').contains(subTitel);
     });
 });
+
+const shouldAddPdfFiles = (number = 1) => {
+    for (let i = 0; i < number; i++) {
+        cy.get('vl-upload-next').shadow().find('input[type=file]').selectFile(pdfFileFixturePath, { force: true });
+    }
+};
+const shouldAddTxtFiles = (number = 1) => {
+    for (let i = 0; i < number; i++) {
+        cy.get('vl-upload-next').shadow().find('input[type=file]').selectFile(txtFileFixturePath, { force: true });
+    }
+};
+
+const shouldRemoveFile = () => {
+    cy.get('vl-upload-next').shadow().find('button.vl-upload__files__close').click();
+};
+
+const shouldHaveUploadFiles = (number: number, isMultiple?: boolean) => {
+    const previewFileSelector = `${isMultiple ? 'li' : 'div'}.vl-upload__file`;
+    cy.get('vl-upload-next').shadow().find(previewFileSelector).its('length').should('eq', number);
+};
+
+const shouldHaveValidUploadFiles = (number: number, isMultiple?: boolean) => {
+    cy.get('vl-upload-next')
+        .shadow()
+        .find(`${isMultiple ? 'li' : 'div'}.vl-upload__file`)
+        .not('.dz-error')
+        .its('length')
+        .should('eq', number);
+};
+
+const shouldHaveUploadFilesWithNoSuccess = (number: number, isMultiple?: boolean) => {
+    cy.get('vl-upload-next')
+        .shadow()
+        .find(`${isMultiple ? 'li' : 'div'}.vl-upload__file`)
+        .not('.dz-success')
+        .its('length')
+        .should('eq', number);
+};
+
+const shouldHaveSuccessUploadFiles = (number: number) => {
+    cy.get('vl-upload-next').shadow().find('.dz-success').its('length').should('eq', number);
+};
+
+const shouldOnlyHaveUnprocessedUploadFiles = (number: number, isMultiple?: boolean) => {
+    cy.get('vl-upload-next')
+        .shadow()
+        .find(`${isMultiple ? 'li' : 'div'}.vl-upload__file`)
+        .not('.dz-error')
+        .not('.dz-success')
+        .its('length')
+        .should('eq', number);
+};
+
+const shouldSuccessfullyUploadFiles = (
+    numberOfFiles: number,
+    targetUrl = uploadTargetUrl,
+    callback?: (...args: unknown[]) => void
+) => {
+    // intercepts outgoing requests so can test them
+    cy.intercept('POST', targetUrl, (req) => {
+        req.reply({
+            statusCode: 200,
+            fixture: mockedResponseFixturePath,
+        });
+    }).as('uploadPost');
+    if (callback) callback();
+    cy.wait('@uploadPost');
+    cy.get('@uploadPost.all').then((interceptions) => {
+        expect(interceptions).to.have.length(numberOfFiles);
+    });
+    shouldHaveSuccessUploadFiles(numberOfFiles);
+};
+
+const shouldAddJpgFilesProgrammatically = (number = 1): File[] => {
+    const filesAdded: File[] = [];
+    for (let i = 0; i < number; i++) {
+        cy.readFile('fixtures/upload/cat.jpeg', 'base64').then((fileContent) => {
+            const blob = Cypress.Blob.base64StringToBlob(fileContent);
+            const lastModified = new Date().getTime();
+            const fileToAdd = new File([blob], 'cat.jpeg', {
+                type: 'image/jpeg',
+                lastModified,
+            });
+            cy.get('vl-upload-next').then((uploadNext) => {
+                // gebruiken hier addFile omdat we File object niet kunnen toevoegen met cy.selectFile() (enkel referenties)
+                (<HTMLElement & { addFile(file: File): void }>uploadNext[0]).addFile(fileToAdd);
+                // we maken de file hier opnieuw aan omdat de file gemuteerd wordt door de upload component
+                // meer specifiek worden er Dropzone specifieke properties toegevoegd aan de file, die dan niet gaan matchen met de file die we in de formData terechtkomt
+                filesAdded.push(
+                    new File([blob], 'cat.jpeg', {
+                        type: 'image/jpeg',
+                        lastModified,
+                    })
+                );
+            });
+        });
+    }
+    return filesAdded;
+};
+
+const shouldRemoveAllFilesProgrammatically = (): void => {
+    cy.get('vl-upload-next').then((element) => {
+        const uploadComponent = element[0];
+        uploadComponent.removeAllFiles();
+    });
+};
+
