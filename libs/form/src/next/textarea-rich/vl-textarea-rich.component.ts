@@ -43,7 +43,10 @@ export class VlTextareaRichComponent extends VlTextareaComponent {
     firstUpdated(changedProperties: Map<string, unknown>) {
         super.firstUpdated(changedProperties);
 
-        this.initTinyMCE();
+        this.initTinyMCE().then(() => {
+            // TinyMCE stelt aria-hidden in op true, maar dit is problematisch voor screenreaders
+            this.removeAttribute('aria-hidden');
+        });
     }
 
     updated(changedProperties: Map<string, unknown>) {
