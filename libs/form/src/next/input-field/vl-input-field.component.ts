@@ -60,6 +60,7 @@ export class VlInputFieldComponent extends FormControl {
             max: { type: Number },
             minExclusive: { type: Boolean, attribute: 'min-exclusive' },
             maxExclusive: { type: Boolean, attribute: 'max-exclusive' },
+            inputMode: { type: String, state: true },
             pattern: { type: String },
             inputGroup: { type: Boolean, attribute: 'input-group' },
             regex: { type: Object },
@@ -109,6 +110,7 @@ export class VlInputFieldComponent extends FormControl {
                 class=${classMap(classes)}
                 type=${this.type}
                 aria-label=${this.label || nothing}
+                aria-invalid=${this.isInvalid || nothing}
                 ?required=${this.required}
                 ?disabled=${this.disabled}
                 ?error=${this.error}
@@ -121,6 +123,7 @@ export class VlInputFieldComponent extends FormControl {
                 min=${this.min ?? nothing}
                 max=${this.max ?? nothing}
                 pattern=${this.pattern}
+                inputmode=${this.inputMode}
                 @input=${this.onInput}
             />
         `;
