@@ -47,7 +47,7 @@ export class VlUploadComponent extends FormControl {
 
     // State
     private value: FormValue = null;
-    private multiple = false;
+    private multiple = false; // Wordt gebruikt in form.util om aan te duiden dat dit een multiple form control is.
 
     // Variables
     private dropzoneInstance: DropzoneInstance | undefined | null;
@@ -111,8 +111,8 @@ export class VlUploadComponent extends FormControl {
             const input = this.getInput();
 
             if (this.disabled) {
-                this.dropzoneInstance?.hiddenFileInput?.setAttribute('disabled', 'disabled');
-                this.getUploadButton()?.setAttribute('disabled', 'disabled');
+                this.dropzoneInstance?.hiddenFileInput?.setAttribute('disabled', 'true');
+                this.getUploadButton()?.setAttribute('disabled', 'true');
                 this.dropzoneInstance?.disable();
             } else {
                 this.dropzoneInstance?.hiddenFileInput?.removeAttribute('disabled');
@@ -130,19 +130,20 @@ export class VlUploadComponent extends FormControl {
             const input = this.getInput();
 
             this.updateInputForAttribute('readonly');
-            // add files on click aan of uit zetten
             if (!this.disabled) {
-                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-                this.readonly ? input?.setAttribute('disabled', '') : input?.removeAttribute('disabled');
-            }
-            // drag & drop aan of uit zetten
-            if (this.dropzoneInstance) {
                 const dropzoneInstance = this.dropzoneInstance as DropzoneInstance & {
                     setupEventListeners: () => void;
                     removeEventListeners: () => void;
                 };
-                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-                this.readonly ? dropzoneInstance.removeEventListeners() : dropzoneInstance.setupEventListeners();
+                if (this.readonly) {
+                    dropzoneInstance?.disable();
+                    dropzoneInstance.removeEventListeners();
+                    input?.setAttribute('disabled', '');
+                } else {
+                    dropzoneInstance?.enable();
+                    dropzoneInstance.setupEventListeners();
+                    input?.removeAttribute('disabled');
+                }
             }
         }
 
@@ -163,6 +164,13 @@ export class VlUploadComponent extends FormControl {
 
         if (changedProperties.has('isInvalid')) {
             this.updateInputForAttribute('isInvalid');
+            if (this.isInvalid) {
+                if (this.errorMessageText) {
+                    this.getUploadButton()?.setAttribute('aria-description', this.errorMessageText);
+                }
+            } else {
+                this.getUploadButton()?.removeAttribute('aria-description');
+            }
         }
 
         if (changedProperties.has('success')) {
@@ -174,6 +182,11 @@ export class VlUploadComponent extends FormControl {
 
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             this.label ? input?.setAttribute('aria-label', this.label) : input?.removeAttribute('aria-label');
+
+            this.getUploadButton()?.setAttribute(
+                'aria-label',
+                (this.label ? this.label + ', ' : '') + this.mainTitle ?? ''
+            );
         }
 
         if (changedProperties.has('autoProcess')) {
@@ -218,29 +231,34 @@ export class VlUploadComponent extends FormControl {
             'vl-upload__element__label': true,
         };
 
+        // Als er meer dan 1 bestand getoond wordt, is het beter een lijst te tonen.
+        // Dit verbetert toegankelijkheid voor gebruikers die een screenreader gebruiken
+        // Echter, als er maar 1 bestand kan upgeload worden, dan is het beter geen lijst te gebruiken
+        // omdat een lijst 4 extra onnodige stappen geeft in de screenreader
+        const shouldShowPreviewList = this.maxFiles <= 1;
+
         return html`
-            ${this.getUploadElementTemplate()} ${this.getPreviewTemplate()}
-            <div class="vl-upload__files">
-                <div class="vl-upload__files__container"></div>
-                <div class="vl-upload__files__input__container"></div>
-                <button class="vl-upload__files__close vl-link vl-link--icon">
-                    <span class="vl-link__icon vl-vi vl-vi-trash" aria-hidden="true"></span>
-                    Verwijder alle bestanden
-                </button>
-            </div>
-            <div class=${classMap(uploadClasses)} aria-label=${this.label}>
+            ${this.getUploadElementTemplate()}
+            ${shouldShowPreviewList ? this.getPreviewTemplate() : this.getPreviewTemplateListItem()}
+            <div class=${classMap(uploadClasses)}>
                 <div class="vl-upload__element">
                     <div class="vl-upload__overlay">
                         <p class="vl-upload__overlay__text">
                             <span class="vl-link__icon vl-vi vl-vi-paperclip" aria-hidden="true"></span>
                         </p>
                     </div>
-                    <div
-                        id="dropzone-container"
-                        class=${classMap(dropzoneContainerClasses)}
-                        aria-label=${this.label}
-                    ></div>
+                    <div id="dropzone-container" class=${classMap(dropzoneContainerClasses)}></div>
                 </div>
+            </div>
+            <div class="vl-upload__files">
+                ${shouldShowPreviewList
+                    ? html`<div class="vl-upload__files__container"></div>`
+                    : html`<ul class="vl-upload__files__container"></ul>`}
+                <div class="vl-upload__files__input__container"></div>
+                <button class="vl-upload__files__close vl-link vl-link--icon" type="button">
+                    <span class="vl-link__icon vl-vi vl-vi-trash" aria-hidden="true"></span>
+                    Verwijder alle bestanden
+                </button>
             </div>
         `;
     }
@@ -365,6 +383,26 @@ export class VlUploadComponent extends FormControl {
                         <span class="vl-vi vl-vi-cross" aria-hidden="true"></span>
                     </button>
                 </div>
+            </template>
+        `;
+    }
+
+    private getPreviewTemplateListItem(): TemplateResult {
+        return html`
+            <template id="previewTemplate">
+                <li class="vl-upload__file">
+                    <p class="vl-upload__file__name">
+                        <span class="vl-upload__file__name__icon vl-vi vl-vi-document" aria-hidden="true"></span>
+                        <span data-dz-name></span>
+                        <span class="vl-upload__file__size"> (<span data-dz-size></span>) </span>
+                    </p>
+                    <div class="dz-error-message">
+                        <span data-dz-errormessage></span>
+                    </div>
+                    <button type="button" class="vl-upload__file__close vl-link vl-link--icon" data-dz-remove>
+                        <span class="vl-vi vl-vi-cross" aria-hidden="true"></span>
+                    </button>
+                </li>
             </template>
         `;
     }

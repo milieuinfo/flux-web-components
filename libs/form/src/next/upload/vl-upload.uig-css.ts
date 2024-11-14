@@ -20,5 +20,9 @@ const styles: CSSResult = css`
         outline: rgba(0, 85, 204, 0.65) solid 3px;
         outline-offset: 2px;
     }
+
+    slot[name='sub-title'] {
+        white-space: pre-line;
+    }
 `;
 export default styles;
