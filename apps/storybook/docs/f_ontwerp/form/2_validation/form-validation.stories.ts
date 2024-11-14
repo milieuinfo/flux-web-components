@@ -21,7 +21,7 @@ export default {
 export const ValidationRequired: StoryFn = () => html`
     <form onsubmit="return false;">
         <vl-form-label-next for="voornaam" label="Voornaam *"></vl-form-label-next>
-        <vl-input-field-next id="voornaam" name="voornaam" required></vl-input-field-next>
+        <vl-input-field-next id="voornaam" name="voornaam" autocomplete="given-name" required></vl-input-field-next>
         <vl-error-message-next for="voornaam" state="valueMissing">
             Gelieve een voornaam in te vullen.
         </vl-error-message-next>
@@ -31,7 +31,12 @@ export const ValidationRequired: StoryFn = () => html`
 export const ValidationPattern: StoryFn = () => html`
     <form onsubmit="return false;">
         <vl-form-label-next for="familienaam" label="Familienaam"></vl-form-label-next>
-        <vl-input-field-next id="familienaam" name="familienaam" pattern="^[a-zA-Z]*$"></vl-input-field-next>
+        <vl-input-field-next
+            id="familienaam"
+            name="familienaam"
+            autocomplete="family-name"
+            pattern="^[a-zA-Z]*$"
+        ></vl-input-field-next>
         <vl-error-message-next for="familienaam" state="patternMismatch">
             Gelieve geen nummers of speciale tekens in te vullen.
         </vl-error-message-next>
