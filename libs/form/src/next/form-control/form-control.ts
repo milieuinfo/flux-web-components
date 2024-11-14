@@ -21,6 +21,7 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
 
     // Variables
     protected submitFormOnEnter = true;
+    protected errorMessageText: string | undefined | null;
 
     static formControlValidators = [requiredValidator, programmaticValidator];
 
@@ -121,12 +122,22 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
             errorMessage = this.form?.querySelector(`${ERROR_MESSAGE_CUSTOM_TAG}[for="${this.id}"]:not([state])`);
         }
 
+        this.errorMessageText = errorMessage?.textContent;
+
+        if (this.errorMessageText) {
+            this.validationTarget?.setAttribute('aria-description', this.errorMessageText);
+        } else {
+            this.validationTarget?.removeAttribute('aria-description');
+        }
+
         errorMessage?.setAttribute('validation-message', this.validationMessage);
         errorMessage?.setAttribute('show', '');
     }
 
     private hideErrorMessages() {
         const errorMessages = this.form?.querySelectorAll(`${ERROR_MESSAGE_CUSTOM_TAG}[for="${this.id}"]`);
+
+        this.errorMessageText = null;
 
         errorMessages?.forEach((errorMessage) => {
             errorMessage.removeAttribute('show');
