@@ -40,6 +40,8 @@ export const DatepickerDefault = story(
         error,
         readonly,
         required,
+        disableMobileNativeInput,
+        disableMaskValidation,
         value,
         placeholder,
         autocomplete,
@@ -67,6 +69,8 @@ export const DatepickerDefault = story(
                     ?readonly=${readonly}
                     ?disabled=${disabled}
                     ?block=${block}
+                    ?disable-mobile-native-input=${disableMobileNativeInput}
+                    ?disable-mask-validation=${disableMaskValidation}
                     type=${type}
                     format=${format}
                     min-date=${formatEpoch(minDate, format)}
