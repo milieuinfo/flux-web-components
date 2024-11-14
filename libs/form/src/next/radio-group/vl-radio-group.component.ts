@@ -74,9 +74,15 @@ export class VlRadioGroupComponent extends FormControl {
         }
 
         if (changedProperties.has('isInvalid')) {
-            this.getRadios()?.forEach((radio) =>
-                this.isInvalid ? radio.setAttribute('error', '') : radio.removeAttribute('error')
-            );
+            this.getRadios()?.forEach((radio) => {
+                if (this.isInvalid) {
+                    radio.setAttribute('error', '');
+                    radio?.validationTarget?.setAttribute('aria-invalid', 'true');
+                } else {
+                    radio.removeAttribute('error');
+                    radio?.validationTarget?.removeAttribute('aria-invalid');
+                }
+            });
         }
 
         if (changedProperties.has('success')) {
@@ -91,7 +97,12 @@ export class VlRadioGroupComponent extends FormControl {
     }
 
     render(): TemplateResult {
-        return html` <slot></slot> `;
+        return html`
+            <fieldset>
+                <legend class="vl-u-visually-hidden">${this.label}</legend>
+                <slot></slot>
+            </fieldset>
+        `;
     }
 
     resetFormControl() {
