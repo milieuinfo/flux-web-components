@@ -84,6 +84,7 @@ export class VlTextareaComponent extends FormControl {
                 name=${this.name || nothing}
                 class=${classMap(classes)}
                 aria-label=${this.label || nothing}
+                aria-invalid=${this.isInvalid || nothing}
                 ?required=${this.required}
                 ?disabled=${this.disabled}
                 ?error=${this.error}
