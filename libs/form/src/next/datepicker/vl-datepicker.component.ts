@@ -46,9 +46,12 @@ export class VlDatepickerComponent extends FormControl {
     private maxTime = datepickerDefaults.maxTime;
     private disableMaskValidation = datepickerDefaults.disableMaskValidation; // Wordt enkel gebruikt in de mask validator
     private pattern = datepickerDefaults.pattern; // Wordt enkel gebruikt in de mask validator
+    private disableMobileNativeInput = datepickerDefaults.disableMobileNativeInput;
 
     // Variables
     private initialValue = '';
+    private inputHasFocus = false;
+    private isOpen: boolean | undefined;
     private flatpickrInstance: Instance | null = null;
     private maskOptions: MaskOptions | null = null; // Wordt enkel gebruikt in de mask validator
     private cleaveInstance: CleaveInstance | null = null;
@@ -89,10 +92,13 @@ export class VlDatepickerComponent extends FormControl {
             maxDate: { type: String, attribute: 'max-date' },
             minTime: { type: String, attribute: 'min-time' },
             maxTime: { type: String, attribute: 'max-time' },
-            rawValue: { type: Boolean, attribute: 'raw-value' },
-            inputValue: { type: String, state: true }, // Houdt de waarde van het getoonde inputveld bij
             pattern: { type: String },
             disableMaskValidation: { type: Boolean, attribute: 'disable-mask-validation' },
+            disableMobileNativeInput: { type: Boolean, attribute: 'disable-mobile-native-input' },
+            rawValue: { type: Boolean, attribute: 'raw-value' },
+            inputValue: { type: String, state: true }, // Houdt de waarde van het getoonde inputveld bij
+            inputHasFocus: { type: Boolean, state: true },
+            isOpen: { type: Boolean, state: true },
         };
     }
 
@@ -100,7 +106,14 @@ export class VlDatepickerComponent extends FormControl {
         super.connectedCallback();
 
         if (Dutch?.nl) {
-            Dutch.nl.rangeSeparator = dateRangeSeparator;
+            Dutch.nl = {
+                ...Dutch.nl,
+                rangeSeparator: dateRangeSeparator,
+                yearAriaLabel: 'Jaar',
+                monthAriaLabel: 'Maand',
+                hourAriaLabel: 'Uur',
+                minuteAriaLabel: 'Minuut',
+            };
             flatpickr.l10ns.default.rangeSeparator = dateRangeSeparator;
         }
 
@@ -145,9 +158,15 @@ export class VlDatepickerComponent extends FormControl {
 
         const options = this.getDynamicOptions();
         const dynamicAttributes = ['disabled', 'readonly', 'minDate', 'maxDate', 'minTime', 'maxTime'];
+        const nativeInputAttributes = ['disabled', 'readonly', 'placeholder', 'required', 'block', 'error', 'success'];
 
         if (dynamicAttributes.some((prop) => changedProperties.has(prop))) {
             this.updateOptionsForInstance(options);
+        }
+
+        const changedNativeAttributes = nativeInputAttributes.filter((prop) => changedProperties.has(prop));
+        if (changedNativeAttributes.length) {
+            this.updateOptionsForNativeInput(changedNativeAttributes, nativeInputAttributes);
         }
 
         if (changedProperties.has('value')) {
@@ -193,6 +212,16 @@ export class VlDatepickerComponent extends FormControl {
                 this.getFlatpickrWrapper()?.classList.remove('flatpickr-wrapper--block');
             }
         }
+
+        if (this.flatpickrInstance?.isMobile && !this.disableMobileNativeInput) {
+            this.getNativeDateInput()?.classList.add(
+                'js-vl-datepicker-input',
+                'vl-input-field',
+                'flatpickr-input',
+                'flatpickr-mobile'
+            );
+            this.getNativeDateInput()?.classList.remove('vl-input-group');
+        }
     }
 
     disconnectedCallback() {
@@ -221,32 +250,42 @@ export class VlDatepickerComponent extends FormControl {
 
         return html`
             <div class="vl-input-group" id="datepicker-wrapper">
-                <input
-                    id=${this.id || nothing}
-                    name=${this.name || nothing}
-                    class=${classMap(inputClasses)}
-                    type="text"
-                    aria-label=${this.label || nothing}
-                    ?required=${this.required}
-                    ?disabled=${this.disabled}
-                    ?error=${this.error}
-                    ?readonly=${this.readonly}
-                    .value=${live(this.inputValue)}
-                    placeholder=${this.placeholder || nothing}
-                    autocomplete=${this.autocomplete || nothing}
-                    pattern=${this.pattern || nothing}
-                    @input=${!this.cleaveInstance ? this.onInput : nothing}
-                />
-                <button
-                    id="toggle-calendar"
-                    type="button"
-                    class=${classMap(buttonClasses)}
-                    ?disabled=${this.disabled}
-                    aria-label="toggle calendar"
-                    @click=${this.toggleCalendar}
-                >
-                    <span class="vl-icon vl-icon--small vl-vi vl-vi-calendar" aria-hidden="true"></span>
-                </button>
+                ${!(this.flatpickrInstance?.isMobile && !this.disableMobileNativeInput)
+                    ? html`
+                          <input
+                              id=${this.id || nothing}
+                              name=${this.name || nothing}
+                              class=${classMap(inputClasses)}
+                              type="text"
+                              aria-label=${this.label || nothing}
+                              aria-invalid=${this.isInvalid || nothing}
+                              ?required=${this.required}
+                              ?disabled=${this.disabled}
+                              ?error=${this.error}
+                              ?readonly=${this.readonly}
+                              .value=${live(this.inputValue)}
+                              placeholder=${this.placeholder || nothing}
+                              autocomplete=${this.autocomplete || nothing}
+                              pattern=${this.pattern || nothing}
+                              inputmode=${this.cleaveInstance ? 'numeric' : nothing}
+                              @focus="${this.onInputFocus}"
+                              @blur="${this.onInputBlur}"
+                              @input=${!this.cleaveInstance ? this.onInput : nothing}
+                          />
+                          <button
+                              id="toggle-calendar"
+                              type="button"
+                              class=${classMap(buttonClasses)}
+                              ?disabled=${this.disabled || this.readonly}
+                              aria-label="datumkiezer${this.label ? ` ${this.label}` : ''}"
+                              aria-expanded=${this.isOpen}
+                              aria-controls=${this.id || nothing}
+                              @click=${this.toggleCalendar}
+                          >
+                              <span class="vl-icon vl-icon--small vl-vi vl-vi-calendar" aria-hidden="true"></span>
+                          </button>
+                      `
+                    : nothing}
             </div>
         `;
     }
@@ -301,7 +340,7 @@ export class VlDatepickerComponent extends FormControl {
     private getDynamicOptions(): Options {
         const minimumDateTime = flatpickr.parseDate(this.minTime, this.format);
         return {
-            allowInput: !(this.disabled || this.readonly),
+            allowInput: this.inputHasFocus && !(this.disabled || this.readonly),
             maxDate: this.maxDate,
             minDate: this.minDate,
             minTime: this.minTime,
@@ -310,6 +349,36 @@ export class VlDatepickerComponent extends FormControl {
             defaultMinute: minimumDateTime?.getMinutes() ?? 0,
         };
     }
+
+    private addAccessibilityAttributes() {
+        const calendar = this.shadowRoot?.querySelector('.flatpickr-calendar');
+        calendar?.querySelectorAll('.flatpickr-day').forEach((day) => {
+            // extend aria-label with the day of the week
+            const dateString = day.getAttribute('aria-label');
+            if (dateString) {
+                const dateObj = new Date(dateString);
+                const dayOfWeek = dateObj.toLocaleDateString('nl-NL', { weekday: 'long' });
+                day.setAttribute('aria-label', `${dateString}, ${dayOfWeek}`);
+                day.setAttribute('role', `button`);
+            }
+        });
+        calendar?.querySelectorAll('.flatpickr-prev-month, .flatpickr-next-month')?.forEach((button) => {
+            button.setAttribute(
+                'aria-label',
+                button.classList.contains('flatpickr-prev-month') ? 'Vorige maand' : 'Volgende maand'
+            );
+            button.setAttribute('role', 'button');
+            button.querySelector('svg')?.setAttribute('aria-hidden', 'true');
+        });
+        calendar?.querySelector('.flatpickr-weekdays')?.setAttribute('aria-hidden', 'true');
+    }
+
+    private handleOpenChange = (isOpen: boolean) => {
+        this.isOpen = isOpen;
+        if (isOpen) {
+            this.addAccessibilityAttributes();
+        }
+    };
 
     private getOptions(): Options {
         const datepickerButton = this.shadowRoot?.querySelector('button');
@@ -330,6 +399,7 @@ export class VlDatepickerComponent extends FormControl {
             noCalendar: this.type === 'time',
             time_24hr: !this.amPm,
             mode: this.type !== 'range' ? 'single' : 'range',
+            disableMobile: this.disableMobileNativeInput,
         };
 
         const options = {
@@ -344,11 +414,15 @@ export class VlDatepickerComponent extends FormControl {
     }
 
     private getDatePicker(): HTMLDivElement | undefined | null {
-        return this.shadowRoot?.querySelector('#datepicker-wrapper') as HTMLDivElement;
+        return this.shadowRoot?.querySelector<HTMLDivElement>('#datepicker-wrapper');
     }
 
-    private getFlatpickrWrapper(): HTMLDivElement {
-        return this.shadowRoot?.querySelector('.flatpickr-wrapper') as HTMLDivElement;
+    private getFlatpickrWrapper(): HTMLDivElement | undefined | null {
+        return this.shadowRoot?.querySelector<HTMLDivElement>('.flatpickr-wrapper');
+    }
+
+    private getNativeDateInput(): HTMLInputElement | undefined | null {
+        return this.renderRoot?.querySelector<HTMLInputElement>('input[type="date"]');
     }
 
     private updateOptionsForInstance(options: Options) {
@@ -359,10 +433,30 @@ export class VlDatepickerComponent extends FormControl {
             });
     }
 
+    private updateOptionsForNativeInput(changedNativeAttributes: string[], nativeInputAttributes: string[]) {
+        nativeInputAttributes.forEach((attribute) => {
+            if (changedNativeAttributes.includes(attribute) && this.getNativeDateInput()) {
+                this.updateInputForAttribute(attribute, this.getNativeDateInput()!);
+            }
+        });
+    }
+
+    private updateInputForAttribute(attribute: string, inputElement: HTMLInputElement) {
+        const attributeKey = attribute as unknown as keyof VlDatepickerComponent;
+        if (this[attributeKey]) {
+            inputElement.setAttribute(attribute, typeof this[attributeKey] === 'boolean' ? '' : this[attributeKey]);
+            inputElement.classList.add(`vl-input-field--${attributeKey}`);
+        } else {
+            inputElement.removeAttribute(attribute);
+            inputElement.classList.remove(`vl-input-field--${attributeKey}`);
+        }
+    }
+
     private initializeComponent() {
         if (this.getDatePicker() && !this.flatpickrInstance) {
             this.flatpickrInstance = flatpickr(this.getDatePicker()!, this.getOptions()) as unknown as Instance;
             this.getDatePicker()?.classList.add('static');
+            this.getDatePicker()?.removeAttribute('readonly');
         }
     }
 
@@ -373,6 +467,14 @@ export class VlDatepickerComponent extends FormControl {
     private handleCalendarClicked() {
         this.dispatchInput = true;
     }
+
+    private onInputFocus = () => {
+        this.inputHasFocus = true;
+    };
+
+    private onInputBlur = () => {
+        this.inputHasFocus = false;
+    };
 
     private onInput = (event: Event & { target: HTMLInputElement }) => {
         this.handleInputValueChanged(event.target?.value ?? '');
@@ -414,6 +516,7 @@ export class VlDatepickerComponent extends FormControl {
             const regex = this.regex || patternRegExp;
             isValidFormat = regex ? regex.test(dateString) : true;
             if (isValidFormat) parsedDate = flatpickr.parseDate(dateString, this.format);
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
             // we vangen de error op, maar behandelen we die niet en gaan verder met de default waarde
         } finally {
@@ -451,10 +554,12 @@ export class VlDatepickerComponent extends FormControl {
     };
 
     private handleOpenCalendar = () => {
+        this.handleOpenChange(true);
         this.addEventListener('click', this.handleCalendarClicked);
     };
 
     private handleCloseCalendar = () => {
+        this.handleOpenChange(false);
         this.removeEventListener('click', this.handleCalendarClicked);
     };
 

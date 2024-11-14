@@ -87,6 +87,8 @@ describe('component - vl-datepicker-next', () => {
 
         cy.get('vl-datepicker-next').should('have.attr', 'readonly');
         cy.get('vl-datepicker-next').shadow().find('input').should('have.attr', 'readonly');
+        cy.get('vl-datepicker-next').shadow().find('button').should('have.attr', 'disabled');
+
         cy.checkA11y('vl-datepicker-next');
     });
 
@@ -384,6 +386,468 @@ describe('component - vl-datepicker-next', () => {
     // deze test slaagt in Electron/Firefox, maar niet in Chromium browsers gezien verschil in event werking
     it('should dispatch vl-valid event on valid input', () => {
         cy.mount(html`<vl-datepicker-next required></vl-datepicker-next>`);
+        cy.createStubForEvent('vl-datepicker-next', 'vl-valid');
+
+        cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.flatpickr-day:not(.prevMonthDay):not(.nextMonthDay)')
+            .contains('15')
+            .click();
+        cy.get('@vl-valid')
+            .should('have.been.calledOnce')
+            .its('firstCall.args.0.detail')
+            .should('deep.equal', { value: createIsoDateString({ day: 15 }) });
+    });
+});
+
+describe.only('component - vl-datepicker-next - native input on mobile', () => {
+    beforeEach(() => {
+        cy.viewport(320, 480);
+    });
+
+    it('should test', () => {});
+
+    it('should mount', () => {
+        cy.mount(html`<vl-datepicker-next disable-mobile-native-input></vl-datepicker-next>`);
+
+        cy.get('vl-datepicker-next').shadow();
+    });
+
+    it('should be accessible', () => {
+        cy.mount(html`
+            <vl-datepicker-next disable-mobile-native-input id="date" name="date" label="date"></vl-datepicker-next>
+        `);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-datepicker-next');
+    });
+
+    it('should open the datepicker on button click', () => {
+        cy.mount(html`<vl-datepicker-next disable-mobile-native-input></vl-datepicker-next>`);
+
+        cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker-next').shadow().find('.flatpickr-calendar').should('be.visible');
+    });
+
+    it('should set id', () => {
+        cy.mount(html`<vl-datepicker-next disable-mobile-native-input id="test-id"></vl-datepicker-next>`);
+
+        cy.get('vl-datepicker-next').should('have.id', 'test-id');
+        cy.get('vl-datepicker-next').shadow().find('input').should('have.id', 'test-id');
+    });
+
+    it('should set name', () => {
+        cy.mount(html`<vl-datepicker-next
+            disable-mobile-native-input
+            name="test-name"
+            label="geboortedatum"
+        ></vl-datepicker-next>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker-next').should('have.attr', 'name', 'test-name');
+        cy.get('vl-datepicker-next').shadow().find('input').should('have.attr', 'name', 'test-name');
+        cy.checkA11y('vl-datepicker-next');
+    });
+
+    it('should set label', () => {
+        cy.mount(html`<vl-datepicker-next disable-mobile-native-input label="test-label"></vl-datepicker-next>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker-next').should('have.attr', 'label', 'test-label');
+        cy.get('vl-datepicker-next').shadow().find('input').should('have.attr', 'aria-label', 'test-label');
+        cy.checkA11y('vl-datepicker-next');
+    });
+
+    it('should set block', () => {
+        cy.mount(html`<vl-datepicker-next
+            disable-mobile-native-input
+            block
+            label="geboortedatum"
+        ></vl-datepicker-next>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker-next').should('have.attr', 'block');
+        cy.get('vl-datepicker-next').shadow().find('input').should('have.class', 'vl-input-field--block');
+        cy.checkA11y('vl-datepicker-next');
+    });
+
+    it('should set required', () => {
+        cy.mount(html`<vl-datepicker-next
+            disable-mobile-native-input
+            required
+            label="geboortedatum"
+        ></vl-datepicker-next>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker-next').should('have.attr', 'required');
+        cy.get('vl-datepicker-next').shadow().find('input').should('have.attr', 'required');
+        cy.checkA11y('vl-datepicker-next');
+    });
+
+    it('should set disabled', () => {
+        cy.mount(html`<vl-datepicker-next
+            disable-mobile-native-input
+            disabled
+            label="geboortedatum"
+        ></vl-datepicker-next>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker-next').should('have.attr', 'disabled');
+        cy.get('vl-datepicker-next').should('be.disabled');
+        cy.get('vl-datepicker-next').shadow().find('input').should('have.class', 'vl-input-field--disabled');
+        cy.get('vl-datepicker-next').shadow().find('input').should('be.disabled');
+        cy.checkA11y('vl-datepicker-next');
+    });
+
+    it('should set readonly', () => {
+        cy.mount(html`<vl-datepicker-next
+            disable-mobile-native-input
+            readonly
+            label="geboortedatum"
+        ></vl-datepicker-next>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker-next').should('have.attr', 'readonly');
+        cy.get('vl-datepicker-next').shadow().find('input').should('have.attr', 'readonly');
+        cy.get('vl-datepicker-next').shadow().find('button').should('have.attr', 'disabled');
+
+        cy.checkA11y('vl-datepicker-next');
+    });
+
+    it('should set error', () => {
+        cy.mount(html`<vl-datepicker-next
+            disable-mobile-native-input
+            error
+            label="geboortedatum"
+        ></vl-datepicker-next>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker-next').should('have.attr', 'error');
+        cy.get('vl-datepicker-next').shadow().find('input').should('have.class', 'vl-input-field--error');
+        cy.get('vl-datepicker-next').shadow().find('input').should('have.attr', 'error');
+        cy.checkA11y('vl-datepicker-next');
+    });
+
+    it('should set success', () => {
+        cy.mount(html`<vl-datepicker-next
+            disable-mobile-native-input
+            success
+            label="geboortedatum"
+        ></vl-datepicker-next>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker-next').should('have.attr', 'success');
+        cy.get('vl-datepicker-next').shadow().find('input').should('have.class', 'vl-input-field--success');
+        cy.checkA11y('vl-datepicker-next');
+    });
+
+    it('should set date in format', () => {
+        const format = 'd-m-Y';
+        cy.mount(html`<vl-datepicker-next disable-mobile-native-input format=${format}></vl-datepicker-next>`);
+
+        const testDate = createDateString({ day: 15, format: format });
+        cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.flatpickr-day:not(.prevMonthDay):not(.nextMonthDay)')
+            .contains('15')
+            .click();
+        cy.get('vl-datepicker-next').shadow().find('input.vl-input-field').should('have.value', testDate);
+        cy.get('vl-datepicker-next').should('have.value', createIsoDateString({ day: 15 }));
+    });
+
+    it('should set initial date', () => {
+        const date = '2021-11-01';
+        cy.mount(html`<vl-datepicker-next
+            disable-mobile-native-input
+            value=${date}
+            label="date"
+        ></vl-datepicker-next>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker-next').shadow().find('input.vl-input-field').should('have.value', '01.11.2021');
+        cy.get('vl-datepicker-next').should('have.value', '2021-11-01');
+        cy.checkA11y('vl-datepicker-next');
+    });
+
+    it('should set initial time', () => {
+        const value = '09:06';
+        cy.mount(html`<vl-datepicker-next
+            disable-mobile-native-input
+            value=${value}
+            type="time"
+            label="time"
+        ></vl-datepicker-next>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker-next').shadow().find('input.vl-input-field').should('have.value', '09:06');
+        cy.get('vl-datepicker-next').should('have.value', '09:06');
+        cy.checkA11y('vl-datepicker-next');
+    });
+
+    it('should set initial date-time', () => {
+        const date = '2024-04-17T09:06:35';
+        cy.mount(html`<vl-datepicker-next
+            disable-mobile-native-input
+            value=${date}
+            type="date-time"
+            label="date-time"
+        ></vl-datepicker-next>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker-next').shadow().find('input.vl-input-field').should('have.value', '17.04.2024 09:06');
+        cy.get('vl-datepicker-next').should('have.value', '2024-04-17T09:06');
+        cy.checkA11y('vl-datepicker-next');
+    });
+
+    it('should set initial date in long ISO format', () => {
+        const date = '2024-04-17T09:06:35';
+        cy.mount(html`<vl-datepicker-next
+            disable-mobile-native-input
+            value=${date}
+            label="date"
+        ></vl-datepicker-next>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker-next').shadow().find('input.vl-input-field').should('have.value', '17.04.2024');
+        cy.get('vl-datepicker-next').should('have.value', '2024-04-17');
+        cy.checkA11y('vl-datepicker-next');
+    });
+
+    it("should set today's date", () => {
+        cy.mount(html`<vl-datepicker-next
+            disable-mobile-native-input
+            value="today"
+            label="startdatum"
+        ></vl-datepicker-next>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker-next').shadow().find('input.vl-input-field').should('have.value', createDateString({}));
+        cy.get('vl-datepicker-next').should('have.value', createIsoDateString({}));
+        cy.checkA11y('vl-datepicker-next');
+    });
+
+    it('should set min date', () => {
+        const minDate = createDateString({ day: 15 });
+        cy.mount(html`<vl-datepicker-next disable-mobile-native-input min-date=${minDate}></vl-datepicker-next>`);
+
+        cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('span.flatpickr-day')
+            .contains('14')
+            .and('contain.class', 'flatpickr-disabled');
+    });
+
+    it('should set max date', () => {
+        const maxDate = createDateString({ day: 20 });
+        cy.mount(html`<vl-datepicker-next disable-mobile-native-input max-date=${maxDate}></vl-datepicker-next>`);
+
+        cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.flatpickr-day:not(.prevMonthDay):not(.nextMonthDay)')
+            .contains('21')
+            .and('contain.class', 'flatpickr-disabled');
+    });
+
+    it('should set min time', () => {
+        const minTime = '09:15';
+        cy.mount(html`<vl-datepicker-next
+            disable-mobile-native-input
+            type="time"
+            min-time=${minTime}
+        ></vl-datepicker-next>`);
+
+        cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.numInput.flatpickr-hour')
+            .should('have.value', '09');
+
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.numInput.flatpickr-minute')
+            .should('have.value', '15');
+
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.numInput.flatpickr-minute + .arrowUp')
+            .click();
+
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.numInput.flatpickr-minute')
+            .should('have.value', '20');
+
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.numInput.flatpickr-minute + .arrowUp + .arrowDown')
+            .click()
+            .click()
+            .click();
+
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.numInput.flatpickr-minute')
+            .should('have.value', '15');
+    });
+
+    it('should set max time', () => {
+        const maxTime = '16:45';
+        cy.mount(html`<vl-datepicker-next
+            disable-mobile-native-input
+            type="time"
+            max-time=${maxTime}
+        ></vl-datepicker-next>`);
+
+        cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
+
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.numInput.flatpickr-hour')
+            .should('have.value', '12');
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.numInput.flatpickr-minute')
+            .should('have.value', '00');
+
+        cy.get('vl-datepicker-next').invoke('attr', 'value', '16:45');
+
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.numInput.flatpickr-minute + .arrowUp')
+            .click();
+
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.numInput.flatpickr-minute')
+            .should('have.value', '45');
+
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.numInput.flatpickr-minute + .arrowUp + .arrowDown')
+            .click();
+
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.numInput.flatpickr-minute')
+            .should('have.value', '40');
+    });
+
+    it('should set range', () => {
+        cy.mount(html`<vl-datepicker-next disable-mobile-native-input type="range"></vl-datepicker-next>`);
+        cy.injectAxe();
+
+        const startDate = createDateString({ day: 15 });
+        const endDate = createDateString({ day: 25 });
+
+        cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.flatpickr-day:not(.prevMonthDay):not(.nextMonthDay)')
+            .contains('15')
+            .click();
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.flatpickr-day:not(.prevMonthDay):not(.nextMonthDay)')
+            .contains('25')
+            .click();
+
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('input.vl-input-field')
+            .should('have.value', `${startDate} tot en met ${endDate}`);
+
+        cy.get('vl-datepicker-next').should(
+            'have.value',
+            `${createIsoDateString({ day: 15 })}/${createIsoDateString({ day: 25 })}`
+        );
+    });
+
+    it('should set range by manual input', () => {
+        cy.mount(html`<vl-datepicker-next disable-mobile-native-input type="range"></vl-datepicker-next>`);
+        cy.injectAxe();
+
+        const startDate = createDateString({ day: 15 });
+        const endDate = createDateString({ day: 25 });
+
+        cy.get('vl-datepicker-next').shadow().find('input.vl-input-field').type(`${startDate} tot en met ${endDate}`);
+
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('input.vl-input-field')
+            .should('have.value', `${startDate} tot en met ${endDate}`);
+
+        cy.get('vl-datepicker-next').should(
+            'have.value',
+            `${createIsoDateString({ day: 15 })}/${createIsoDateString({ day: 25 })}`
+        );
+    });
+
+    // deze test slaagt in Electron/Firefox, maar niet in Chromium browsers gezien verschil in event werking
+    it('should dispatch vl-input event on user input', () => {
+        cy.mount(html`<vl-datepicker-next disable-mobile-native-input></vl-datepicker-next>`);
+        cy.createStubForEvent('vl-datepicker-next', 'vl-input');
+
+        cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.flatpickr-day:not(.prevMonthDay):not(.nextMonthDay)')
+            .contains('15')
+            .click();
+        cy.get('@vl-input')
+            .should('have.been.called')
+            .its('lastCall.args.0.detail')
+            .should('deep.equal', { value: createIsoDateString({ day: 15 }) });
+    });
+
+    // deze test slaagt in Electron/Firefox, maar niet in Chromium browsers gezien verschil in event werking
+    it('should dispatch vl-change event and not vl-input event on when changing value programmatically', () => {
+        const value = createIsoDateString({ day: 21, month: 12, year: 2023 });
+
+        cy.mount(html`<vl-datepicker-next disable-mobile-native-input></vl-datepicker-next>`);
+        cy.createStubForEvent('vl-datepicker-next', 'vl-change');
+        cy.createStubForEvent('vl-datepicker-next', 'vl-input');
+
+        cy.get('vl-datepicker-next').shadow().find('div.flatpickr-calendar');
+        cy.get('vl-datepicker-next').then((datepicker$) => {
+            const datepicker = datepicker$[0];
+            datepicker.setAttribute('value', value);
+        });
+        cy.get('vl-datepicker-next').should('have.value', value);
+        cy.get('vl-datepicker-next').shadow().find('input.vl-input-field').should('have.value', '21.12.2023');
+
+        cy.get('@vl-change')
+            .should('have.been.calledTwice')
+            .its('secondCall.args.0.detail')
+            .should('deep.equal', { value });
+        cy.get('@vl-input').should('to.not.have.been.called.at.all');
+    });
+
+    // deze test slaagt in Electron/Firefox, maar niet in Chromium browsers gezien verschil in event werking
+    it('should dispatch vl-valid event on valid input', () => {
+        cy.mount(html`<vl-datepicker-next disable-mobile-native-input required></vl-datepicker-next>`);
         cy.createStubForEvent('vl-datepicker-next', 'vl-valid');
 
         cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();

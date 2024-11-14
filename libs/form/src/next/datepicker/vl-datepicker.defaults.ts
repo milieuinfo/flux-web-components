@@ -16,6 +16,7 @@ export const datepickerDefaults = {
     minTime: '' as string,
     maxTime: '' as string,
     disableMaskValidation: false as boolean,
+    disableMobileNativeInput: false as boolean,
     pattern: '' as string,
     regex: null as RegExp | null,
 } as const;

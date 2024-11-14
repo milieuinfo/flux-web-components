@@ -76,9 +76,13 @@ De uitgelezen waarde volgt eveneens het [ISO-formaat](https://en.wikipedia.org/w
 - Als de mask validatie is uitgeschakeld, kan je met het `pattern` attribuut een regex patroon instellen. Je kan ook de `regex` property gebruiken voor complexere validatie.
 - De `patternMismatch` ValidityState key wordt gebruikt voor de pattern validatie error.
 
+## Mobile ondersteuning
+
+Standaard wordt de datepicker weergegeven als een kalender. Voor mobiele toestellen is het mogelijk de datepicker weer te geven als een input veld met een datepicker door het `enable-mobile-native-input` attribuut toe te voegen.
+
 ## Gekende Beperkingen
 
-- De datepicker is niet toegankelijk voor gebruikers die enkel met het toetsenbord navigeren. Ze kunnen wel manueel een datum invullen.
+- De datepicker is gedeeltelijk toegankelijk voor gebruikers die enkel met het toetsenbord navigeren. Ze kunnen wel manueel een datum invullen.
 - Voor datepicker met type `date-time` & `range` is er geen standaard mask validatie voorzien gezien `cleave.js` hiervoor geen ondersteuning biedt.
 
 
