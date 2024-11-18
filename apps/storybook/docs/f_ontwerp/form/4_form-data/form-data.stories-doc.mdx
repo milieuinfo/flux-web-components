@@ -56,6 +56,8 @@ Deze functie aanvaard 2 parameters:
 - `formElement: Form`: het Form element waarvan je de data wil zetten
 - `data: { [p: string]: FormDataEntryValue[] | File | string }`: een object met de waardes van de velden
 
+```html
+
 ### Gebruik
 
 ```js
@@ -64,12 +66,13 @@ import { setFormData } from "@domg-wc/form/utils";
 
 ```html
 <form id="example-form">
-    <input type="text" name="input1" />
-    <select name="input2" multiple>
+    <input type="text" name="naam" />
+    <select name="hobbies" multiple>
         <option value="value1">Value 1</option>
         <option value="value2">Value 2</option>
         <option value="value3">Value 3</option>
     </select>
+    <input type="checkbox" name="waarheidsgetrouw" value="spreekt-de-waarheid">
 </form>
 ```
 
@@ -77,11 +80,27 @@ import { setFormData } from "@domg-wc/form/utils";
 const formElement = document.getElementById('example-form') as HTMLFormElement;
 // stel de form data in
 setFormData(formElement, {
-    input1: 'value1',
-    input2: ['value2', 'value3']
+    naam: 'Dehbi',
+    hobbies: ['Drummen', 'Zwemmen'],
+    waarheidsgetrouw: "spreekt-de-waarheid"
 });
 ```
 
+### Checkbox
+
+De checkbox werkt op een andere manier dan de andere form controls.
+De value die meegegeven wordt gaat het `checked` attribuut van de checkbox bepalen maar gaat nooit de `value` van de checkbox wijzigen.
+
+- Om een checkbox aan te vinken, dien je de value mee te geven die op de checkbox ingesteld staat. Als je de verkeerde string meegeeft wordt niets veranderd.
+- Om een checkbox uit te vinken kan je de value `null` of `undefined` meegeven.
+- Je kan tevens ook ofwel een boolean meegeven, waarbij `true` de checkbox aanvinkt en `false` de checkbox uitvinkt.
+
+Meer info vind je bij de [Checkbox Documentatie - FormData](?path=/docs/form-next-checkbox--documentatie#formdata).
+
 ### Voorbeeld
+
+Dit component toont een formulier met verschillende types van form controls. Het formulier kan worden ingevuld en de data kan worden opgehaald.
+- De data kan worden opgehaald met de "Verstuur" knop.
+- De data kan worden ingesteld met de "Set Form Data" knop.
 
 <Canvas of={formDataStories.FormData} sourceState='none' />

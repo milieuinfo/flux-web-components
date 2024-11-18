@@ -55,6 +55,18 @@ Semantisch gezien moet een switch gebruikt worden om onmiddellijk een actie te o
 ## Validatie
 > Meer info over validatie binnen onze form componenten vind je hier: [Form - Validatie](/docs/ontwerp-form-validation--documentatie)
 
+### FormData
+
+De value van een checkbox werkt op een andere manier dan de value van een input.
+- Als een checkbox gecheckt is, dan pas komt de value van de checkbox mee in de data.
+- Als een checkbox niet gecheckt is, dan is er geen value voor de checkbox in de FormData, ook al is de value van de checkbox ingesteld.
+- Als er geen value is ingesteld, dan krijgt de checkbox de value `on` mee in de FormData als de checkbox gecheckt is.
+
+De werking volgt het native gedrag (en gebruikt ook een native checkbox input).
+
+Meer info hier: [Checkbox - Value op MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox#value)
+
+
 ### Read only
 
 Readonly zorgt ervoor dat de value van een input niet aangepast kan worden, hierdoor heeft readonly plaatsen op een checkbox geen effect aangezien het aan- en uitvinken de checked state aanpast en niet de value.<br/>

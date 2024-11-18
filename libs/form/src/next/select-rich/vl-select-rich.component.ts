@@ -421,6 +421,7 @@ export class VlSelectRichComponent extends FormControl {
 
     private onChange() {
         this.value = this.collectFormData();
+        this.setValue(this.value);
     }
 
     private onSelect() {
