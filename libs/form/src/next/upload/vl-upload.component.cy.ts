@@ -8,7 +8,6 @@ const pdfFileFixturePath = 'fixtures/upload/file.pdf';
 const txtFileFixturePath = 'fixtures/upload/file.txt';
 const mockedResponseFixturePath = 'upload/upload-mock-response-200.json';
 const uploadTargetUrl = 'fake-url';
-const defaultTargetUrl = 'http://httpbin.org/post';
 
 const shouldAddJpgFilesProgrammatically = (number = 1): File[] => {
     const filesAdded: File[] = [];
@@ -105,48 +104,48 @@ const shouldSuccessfullyUploadFiles = (
 
 describe('component - vl-upload-next', () => {
     it('should mount', () => {
-        cy.mount(html` <vl-upload-next url=${defaultTargetUrl} label="test-label"></vl-upload-next>`);
+        cy.mount(html` <vl-upload-next label="test-label"></vl-upload-next>`);
 
         cy.get('vl-upload-next').shadow().find('input');
     });
 
     it('should be accessible', () => {
-        cy.mount(html` <vl-upload-next url=${defaultTargetUrl} label="test-label"></vl-upload-next>`);
+        cy.mount(html` <vl-upload-next label="test-label"></vl-upload-next>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-upload-next');
     });
 
     it('should set id', () => {
-        cy.mount(html` <vl-upload-next url=${defaultTargetUrl} id="test-id"></vl-upload-next>`);
+        cy.mount(html` <vl-upload-next id="test-id"></vl-upload-next>`);
 
         cy.get('vl-upload-next').should('have.id', 'test-id');
         cy.get('vl-upload-next').shadow().find('input').should('have.id', 'test-id');
     });
 
     it('should set name', () => {
-        cy.mount(html` <vl-upload-next url=${defaultTargetUrl} name="test-name"></vl-upload-next>`);
+        cy.mount(html` <vl-upload-next name="test-name"></vl-upload-next>`);
 
         cy.get('vl-upload-next').should('have.attr', 'name', 'test-name');
         cy.get('vl-upload-next').shadow().find('input').should('have.attr', 'name', 'test-name');
     });
 
     it('should set label', () => {
-        cy.mount(html` <vl-upload-next url=${defaultTargetUrl} label="test-label"></vl-upload-next>`);
+        cy.mount(html` <vl-upload-next label="test-label"></vl-upload-next>`);
 
         cy.get('vl-upload-next').should('have.attr', 'label', 'test-label');
         cy.get('vl-upload-next').shadow().find('input').should('have.attr', 'aria-label', 'test-label');
     });
 
     it('should set required', () => {
-        cy.mount(html` <vl-upload-next url=${defaultTargetUrl} required></vl-upload-next>`);
+        cy.mount(html` <vl-upload-next required></vl-upload-next>`);
 
         cy.get('vl-upload-next').should('have.attr', 'required');
         cy.get('vl-upload-next').shadow().find('input').should('have.attr', 'required');
     });
 
     it('should set disabled', () => {
-        cy.mount(html` <vl-upload-next url=${defaultTargetUrl} disabled></vl-upload-next>`);
+        cy.mount(html` <vl-upload-next disabled></vl-upload-next>`);
 
         cy.get('vl-upload-next').should('have.attr', 'disabled');
         cy.get('vl-upload-next').should('be.disabled');
@@ -161,7 +160,7 @@ describe('component - vl-upload-next', () => {
     });
 
     it('should set readonly', () => {
-        cy.mount(html` <vl-upload-next url=${defaultTargetUrl} readonly></vl-upload-next>`);
+        cy.mount(html` <vl-upload-next readonly></vl-upload-next>`);
 
         cy.get('vl-upload-next').should('have.attr', 'readonly');
         cy.get('vl-upload-next').shadow().find('input').should('have.attr', 'readonly');
@@ -169,7 +168,7 @@ describe('component - vl-upload-next', () => {
     });
 
     it('should manually add file while readonly', () => {
-        cy.mount(html` <vl-upload-next url=${defaultTargetUrl} readonly></vl-upload-next>`);
+        cy.mount(html` <vl-upload-next readonly></vl-upload-next>`);
 
         cy.get('vl-upload-next').should('have.attr', 'readonly');
 
@@ -198,7 +197,7 @@ describe('component - vl-upload-next', () => {
     });
 
     it('should set error', () => {
-        cy.mount(html` <vl-upload-next url=${defaultTargetUrl} error></vl-upload-next>`);
+        cy.mount(html` <vl-upload-next error></vl-upload-next>`);
 
         cy.get('vl-upload-next').should('have.attr', 'error');
         cy.get('vl-upload-next').shadow().find('div').should('have.class', 'vl-upload--error');
@@ -211,7 +210,7 @@ describe('component - vl-upload-next', () => {
     });
 
     it('should set success', () => {
-        cy.mount(html` <vl-upload-next url=${defaultTargetUrl} success></vl-upload-next>`);
+        cy.mount(html` <vl-upload-next success></vl-upload-next>`);
 
         cy.get('vl-upload-next').should('have.attr', 'success');
         cy.get('vl-upload-next').shadow().find('div').should('have.class', 'vl-upload--success');
@@ -223,7 +222,7 @@ describe('component - vl-upload-next', () => {
     });
 
     it('should dispatch vl-change events when adding file', () => {
-        cy.mount(html` <vl-upload-next url=${defaultTargetUrl} max-files="4"></vl-upload-next>`);
+        cy.mount(html` <vl-upload-next max-files="4"></vl-upload-next>`);
 
         cy.createStubForEvent('vl-upload-next', 'vl-change');
         cy.createStubForEvent('vl-upload-next', 'vl-input');
@@ -234,7 +233,7 @@ describe('component - vl-upload-next', () => {
     });
 
     it('should dispatch vl-change events when removing a file', () => {
-        cy.mount(html` <vl-upload-next url=${defaultTargetUrl} max-files="4"></vl-upload-next>`);
+        cy.mount(html` <vl-upload-next max-files="4"></vl-upload-next>`);
 
         cy.createStubForEvent('vl-upload-next', 'vl-change');
         cy.createStubForEvent('vl-upload-next', 'vl-input');
@@ -245,7 +244,7 @@ describe('component - vl-upload-next', () => {
     });
 
     it('should dispatch vl-input events when adding file', () => {
-        cy.mount(html` <vl-upload-next url=${defaultTargetUrl} max-files="4"></vl-upload-next>`);
+        cy.mount(html` <vl-upload-next max-files="4"></vl-upload-next>`);
 
         cy.createStubForEvent('vl-upload-next', 'vl-input');
         shouldAddPdfFiles(1);
@@ -254,7 +253,7 @@ describe('component - vl-upload-next', () => {
     });
 
     it('should dispatch vl-input events when removing a file', () => {
-        cy.mount(html` <vl-upload-next url=${defaultTargetUrl} max-files="4"></vl-upload-next>`);
+        cy.mount(html` <vl-upload-next max-files="4"></vl-upload-next>`);
 
         shouldAddPdfFiles(1);
         cy.createStubForEvent('vl-upload-next', 'vl-input');
@@ -263,7 +262,7 @@ describe('component - vl-upload-next', () => {
     });
 
     it('should dispatch vl-input events when adding files in batch', () => {
-        cy.mount(html` <vl-upload-next url=${defaultTargetUrl} max-files="4"></vl-upload-next>`);
+        cy.mount(html` <vl-upload-next max-files="4"></vl-upload-next>`);
 
         cy.createStubForEvent('vl-upload-next', 'vl-change');
         cy.createStubForEvent('vl-upload-next', 'vl-input');
@@ -332,11 +331,7 @@ describe('component - vl-upload-next', () => {
     it('should generate error when adding a file with the wrong extension', () => {
         const errorMessage = 'Dit bestandstype is niet toegestaan';
         cy.mount(
-            html` <vl-upload-next
-                url=${defaultTargetUrl}
-                accepted-files="txt"
-                error-message-accepted-files=${errorMessage}
-            ></vl-upload-next>`
+            html` <vl-upload-next accepted-files="txt" error-message-accepted-files=${errorMessage}></vl-upload-next>`
         );
 
         cy.get('vl-upload-next').shadow().find('input[type=file]').selectFile(pdfFileFixturePath, { force: true });
@@ -345,9 +340,7 @@ describe('component - vl-upload-next', () => {
 
     it('should only allow one file by default', () => {
         const errorMessage = 'U mag maar 1 bestand tegelijk uploaden';
-        cy.mount(
-            html` <vl-upload-next url=${defaultTargetUrl} error-message-max-files=${errorMessage}></vl-upload-next>`
-        );
+        cy.mount(html` <vl-upload-next error-message-max-files=${errorMessage}></vl-upload-next>`);
 
         shouldAddPdfFiles(2);
         cy.get('vl-upload-next').shadow().find('.dz-error-message').should('contain', errorMessage, '');
@@ -355,13 +348,7 @@ describe('component - vl-upload-next', () => {
 
     it('should generate error when exceeding the number of files allowed', () => {
         const errorMessage = 'Het maximum aantal toegelaten bestanden is overschreden';
-        cy.mount(
-            html` <vl-upload-next
-                url=${defaultTargetUrl}
-                max-files="2"
-                error-message-max-files=${errorMessage}
-            ></vl-upload-next>`
-        );
+        cy.mount(html` <vl-upload-next max-files="2" error-message-max-files=${errorMessage}></vl-upload-next>`);
 
         shouldAddPdfFiles(3);
         shouldHaveUploadFiles(3);
@@ -370,7 +357,7 @@ describe('component - vl-upload-next', () => {
     });
 
     it('should remove duplicate files', () => {
-        cy.mount(html` <vl-upload-next url=${defaultTargetUrl} disallow-duplicates></vl-upload-next>`);
+        cy.mount(html` <vl-upload-next disallow-duplicates></vl-upload-next>`);
 
         cy.createStubForEvent('vl-upload-next', 'vl-input');
         shouldAddPdfFiles(2);
@@ -382,13 +369,7 @@ describe('component - vl-upload-next', () => {
 
     it('should generate error when adding a file that is bigger than allowed', () => {
         const errorMessage = 'Dit bestand heeft de maximale bestandsgrootte overschreden';
-        cy.mount(html`
-            <vl-upload-next
-                url=${defaultTargetUrl}
-                max-size="0.01"
-                error-message-filesize=${errorMessage}
-            ></vl-upload-next>
-        `);
+        cy.mount(html` <vl-upload-next max-size="0.01" error-message-filesize=${errorMessage}></vl-upload-next> `);
 
         cy.createStubForEvent('vl-upload-next', 'vl-error');
         cy.get('vl-upload-next').shadow().find('.dz-default');
