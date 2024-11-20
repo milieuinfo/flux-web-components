@@ -13,5 +13,5 @@ export const uploadDefaults = {
     maxSize: 2 as number,
     subTitle: 'Sleep de bijlage naar hier om toe te voegen' as string,
     mainTitle: 'Bijlage toevoegen' as string,
-    url: '' as string,
+    url: 'dummy-url' as string,
 } as const;

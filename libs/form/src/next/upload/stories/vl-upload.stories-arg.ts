@@ -151,7 +151,6 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
     url: {
         name: 'url',
         description: 'Bepaalt de upload url',
-        type: { name: 'string', required: true },
         table: {
             type: {
                 summary: TYPES.STRING,
