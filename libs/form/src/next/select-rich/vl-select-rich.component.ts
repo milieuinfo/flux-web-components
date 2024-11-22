@@ -3,6 +3,7 @@ import { SelectRichOption } from '@domg-wc/form/next/select-rich/vl-select-rich.
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { iconStyle, inputFieldStyle } from '@domg/govflanders-style/component';
 import { FormValue } from '@open-wc/form-control/src/types';
+import * as choices from 'choices.js';
 import { Item, Options } from 'choices.js';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
@@ -11,7 +12,6 @@ import multiselectStyle from './styles/vl-multiselect.dv-css';
 import selectRichUigStyle from './styles/vl-select-rich.uig-css';
 import selectStyle from './styles/vl-select.dv-css';
 import { selectRichDefaults } from './vl-select-rich.defaults';
-import * as choices from 'choices.js';
 
 // web-dev-server (rollup) fix: ambiguous indirect export
 export const DEFAULT_CLASSNAMES = choices.DEFAULT_CLASSNAMES;
@@ -85,21 +85,29 @@ export class VlSelectRichComponent extends FormControl {
         this.choices = new Choices(this.validationTarget!, this.getChoicesConfig());
         this.initialOptions = [...JSON.parse(JSON.stringify(this.options))];
 
-        setTimeout(() => {
-            // Fix voor Choices.js dropdown te openen in een Shadow DOM
-            this.getChoicesElement()?.addEventListener('click', this.onClickChoices);
-
-            // Fix voor Choices.js dropdown te openen als er geklikt wordt op het label
-            this.internals.labels[0]?.addEventListener('click', this.onClickChoices);
-
+        this.updateComplete.then(() => {
             // Fix voor required validator
             if (!this.value) {
                 this.setValue(null);
             }
+        });
 
-            // Fix voor Choices.js search event dat niet afgevuurd wordt als de search value verwijderd wordt.
-            this.choices?.input?.element?.addEventListener('input', this.onSearchInput);
-        }, 0);
+        const checkInputReady = () => {
+            if (this.choices?.input) {
+                // Fix voor Choices.js dropdown te openen in een Shadow DOM
+                this.getChoicesElement()?.addEventListener('click', this.onClickChoices);
+
+                // Fix voor Choices.js dropdown te openen als er geklikt wordt op het label
+                this.internals.labels[0]?.addEventListener('click', this.onClickChoices);
+
+                // Fix voor Choices.js search event dat niet afgevuurd wordt als de search value verwijderd wordt.
+                this.choices?.input?.element?.addEventListener('input', this.onSearchInput);
+            } else {
+                // indien input nog niet klaar is, wachten we tot deze klaar is
+                requestAnimationFrame(checkInputReady);
+            }
+        };
+        checkInputReady();
     }
 
     updated(changedProperties: Map<string, unknown>) {
