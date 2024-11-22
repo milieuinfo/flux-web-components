@@ -23,6 +23,10 @@ export default defineConfig({
                             loader: 'ts-loader',
                             test: /\.[t]sx?$/,
                         },
+                        {
+                            resourceQuery: /raw/,
+                            type: 'asset/source',
+                        },
                     ],
                 },
                 resolve: {
