@@ -188,3 +188,10 @@ export const findDeepestElementThroughShadowRoot = (
 export const findNodesForSlot = (element: HTMLElement, slotName: string) => {
     return element?.querySelectorAll<Element>(`:scope > [slot=${slotName}]`);
 };
+
+/**
+ * Zet een hex-string in het formaat '0x22 0xF12D 0x22' om naar een echte string
+ */
+export const hexToString = (hex: string): string => {
+    return hex.split(' ').map(s => String.fromCharCode(parseInt(s,16))).join('');
+}

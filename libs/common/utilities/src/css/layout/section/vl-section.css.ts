@@ -18,10 +18,7 @@ export const vlSectionStyles: CSSResult = css`
             }
         }
 
-        /*
-            bij opeenvolgende sectie's heeft alles na de eerste geen top-padding (default)
-            behalve als minstens 1 van de 2 een alt-sectie is, dan blijft er top-padding
-         */
+        /* opeenvolgende sectie's die geen alt-secties zijn krijgen geen top-padding */
         &:not(.vl-section-next--alt) + .vl-section-next:not(.vl-section-next--alt) {
             padding-top: 0;
         }
