@@ -40,7 +40,7 @@ export const FontFlandersArtSansNormal = ({}) => html`
             font-weight: 700;
         }
     </style>
-    <div class="sb-font-normal vl-font--weight 300">
+    <div class="sb-font-normal vl-font--weight-300">
         <div class="sb-font-title">Flanders Art Sans - normal - weight 300</div>
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
@@ -115,7 +115,7 @@ export const FontFlandersArtSansItalic = ({}) => html`
             font-weight: 700;
         }
     </style>
-    <div class="sb-font-italic vl-font--weight 300">
+    <div class="sb-font-italic vl-font--weight-300">
         <div class="sb-font-title">Flanders Art Sans - italic - weight 300</div>
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
@@ -189,7 +189,7 @@ export const FontFlandersArtSerif = ({}) => html`
             font-weight: 700;
         }
     </style>
-    <div class="sb-font-serif vl-font--weight 300">
+    <div class="sb-font-serif vl-font--weight-300">
         <div class="sb-font-title">Flanders Art Serif - weight 300</div>
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et

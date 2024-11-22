@@ -25,6 +25,7 @@ fi
 ' --tag-name-filter cat -- --branches --tags
 ```
 
+
 ### Opkuisen Git - dangling commits
 
 ```
@@ -32,6 +33,7 @@ git reflog expire --expire-unreachable=now --all
 git gc --prune=now
 du -sh .git 
 ```
+
 
 ### Opkuisen Git - old tags
 
@@ -51,6 +53,12 @@ Delete local tags
 
 Delete remote tags
 `git push origin --delete $(git tag -l "v1.24.*-develop*")`
+
+
+### Git - bestanden uit commit halen
+
+git reset HEAD^ -- apps/storybook/docs/f_ontwerp/popover/1_menu/popover-menu.stories-doc.mdx
+git commit --amend --no-edit
 
 
 ### Semantic Release
@@ -93,15 +101,18 @@ sudo lsof -ti:4600
 npx http-server ./dist -p9090 --cors
 ```
 
+
 ## SCSS verwerking
 
 uit te voeren vanuit de folder waar de scss staan, de node_modules folder moet relatief kloppen !!!
 npx sass vl-elements.scss > vl-elements.css --load-path ../../../../node_modules
 npx sass ./libs/elements/src/vl-elements.scss > ./dist/libs/elements/src/lib/vl-elements.css --load-path ./node_modules
 
+
 ## Nuttige links
 
 https://www.compart.com/en/unicode/category/So
+
 
 ## Bash
 
