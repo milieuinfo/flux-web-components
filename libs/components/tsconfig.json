@@ -1,6 +1,10 @@
 {
     "extends": "../../tsconfig.base.json",
-    "include": ["./src/**/*.ts", "../../resources/cypress-commands/*.d.ts"],
+    "include": [
+        "./src/**/*.ts",
+        "../../resources/cypress-commands/*.d.ts",
+        "../../resources/cypress-component/support/*.d.ts"
+    ],
     "compilerOptions": {
         "outDir": "../../build/tsc/lib-components",
         "strict": true
