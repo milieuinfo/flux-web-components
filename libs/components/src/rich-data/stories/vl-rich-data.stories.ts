@@ -4,6 +4,8 @@ import { html } from 'lit-html';
 import '../../rich-data-table/vl-rich-data-field.component';
 import '../vl-rich-data.component';
 import { richDataArgs, richDataArgTypes } from './vl-rich-data.stories-arg';
+import { richDataPaginationImplementation } from './vl-rich-data.stories-util';
+import richDataDoc from './vl-rich-data.stories-doc.mdx';
 
 export default {
     id: 'components-rich-data',
@@ -11,80 +13,88 @@ export default {
     tags: ['autodocs'],
     args: richDataArgs,
     argTypes: richDataArgTypes,
+    parameters: {
+        docs: {
+            page: richDataDoc,
+        },
+    },
 } as Meta<typeof richDataArgs>;
 
-export const richDataDefault = ({ filterCloseable, filterClosed }: typeof richDataArgs) => {
+export const RichDataDefault = ({ filterCloseable, filterClosed }: typeof richDataArgs) => {
     return html` <vl-rich-data ?data-vl-filter-closable=${filterCloseable} ?data-vl-filter-closed=${filterClosed}>
         <span slot="no-content">Geen resultaten gevonden</span>
+        <ul is="vl-search-results" slot="content"></ul>
     </vl-rich-data>`;
 };
-richDataDefault.storyName = 'vl-rich-data - default';
+RichDataDefault.storyName = 'vl-rich-data - default';
 
-export const richDataPager = story(richDataArgs, ({ filterCloseable, filterClosed }: typeof richDataArgs) => {
+export const RichDataPager = story(richDataArgs, ({ filterCloseable, filterClosed }: typeof richDataArgs) => {
+    richDataPaginationImplementation();
     return html`
         <vl-rich-data
-            data-vl-filter-title="title"
-            ?data-vl-filter-closable=${filterCloseable}
+            id="rich-data"
+            ?data-vl-filter-closeable=${filterCloseable}
             ?data-vl-filter-closed=${filterClosed}
         >
-            <div is="vl-search-filter" slot="filter">
-                <form is="vl-form" id="form">
-                    <label>Hier kunnen filtervelden komen</label>
-                    <input is="vl-input-field" type="text" name="filter1" />
+            <span slot="no-content">Geen resultaten</span>
+            <ul is="vl-search-results" slot="content"></ul>
+            <select is="vl-select" slot="sorter" aria-label="Sorteer">
+                <option value="id">ID</option>
+                <option value="manager.lastName">Naam manager</option>
+            </select>
+            <div is="vl-search-filter" data-vl-alt slot="filter">
+                <form is="vl-form" id="rich-data-table-filter-form">
+                    <section>
+                        <h2>Doorzoek projecten</h2>
+                        <div>
+                            <label is="vl-form-label" for="filterOpId">Project id</label>
+                            <input is="vl-input-field" id="filterOpId" type="text" name="id" value="" data-vl-block />
+                        </div>
+                    </section>
+                    <section>
+                        <h2>Project details</h2>
+                        <div>
+                            <label is="vl-form-label" for="filterOpNaamProject">Project naam</label>
+                            <input
+                                is="vl-input-field"
+                                id="filterOpNaamProject"
+                                type="text"
+                                name="name"
+                                value=""
+                                data-vl-block
+                            />
+                        </div>
+                        <div>
+                            <label is="vl-form-label" for="filterOpNaamManager">Manager familienaam</label>
+                            <input
+                                is="vl-input-field"
+                                id="filterOpNaamManager"
+                                type="text"
+                                name="manager.lastName"
+                                value=""
+                                data-vl-block
+                            />
+                        </div>
+                    </section>
+                    <div>
+                        <button is="vl-button" type="submit">Zoeken</button>
+                    </div>
                 </form>
                 <div>
-                    <button is="vl-button-link" type="reset" form="form">Zoekopdracht verwijderen</button>
+                    <button is="vl-button-link" type="reset" form="rich-data-table-filter-form">
+                        Zoekopdracht verwijderen
+                    </button>
                 </div>
             </div>
-            <vl-pager slot="pager" total-items="25" items-per-page="5" current-page="1"></vl-pager>
-            <vl-search-results slot="content">
-                <vl-search-result>
-                    <div>Resultaat 1</div>
-                </vl-search-result>
-            </vl-search-results>
-            <span slot="no-content">Geen resultaten gevonden</span>
+            <vl-pager
+                id="rich-data-table-filter-sorting-paging-pager"
+                slot="pager"
+                data-vl-total-items="25"
+                data-vl-items-per-page="10"
+                data-vl-current-page="1"
+                data-vl-align-center
+            ></vl-pager>
         </vl-rich-data>
     `;
 });
-richDataPager.storyName = 'vl-rich-data - pager';
-
-export const richDataClosableFilter = story(richDataArgs, ({ filterCloseable, filterClosed }: typeof richDataArgs) => {
-    return html`
-        <vl-rich-data
-            data-vl-filter-title="title"
-            ?data-vl-filter-closable=${filterCloseable}
-            ?data-vl-filter-closed=${filterClosed}
-        >
-            <div is="vl-search-filter" slot="filter">
-                <form is="vl-form" id="form">
-                    <label>Hier kunnen filtervelden komen</label>
-                    <input is="vl-input-field" type="text" name="filter1" />
-                </form>
-                <div>
-                    <button is="vl-button-link" type="reset" form="form">Zoekopdracht verwijderen</button>
-                </div>
-            </div>
-            <vl-pager slot="pager" total-items="20" items-per-page="5" current-page="1"></vl-pager>
-            <vl-search-results slot="content">
-                <vl-search-result>
-                    <div>Resultaat 1</div>
-                </vl-search-result>
-                <vl-search-result>
-                    <div>Resultaat 2</div>
-                </vl-search-result>
-                <vl-search-result>
-                    <div>Resultaat 3</div>
-                </vl-search-result>
-                <vl-search-result>
-                    <div>Resultaat 4</div>
-                </vl-search-result>
-                <vl-search-result>
-                    <div>Resultaat 5</div>
-                </vl-search-result>
-            </vl-search-results>
-            <span slot="toggle-filter-button-text">Filter</span>
-            <span slot="close-filter-button-text">Sluit</span>
-        </vl-rich-data>
-    `;
-});
-richDataClosableFilter.storyName = 'vl-rich-data - closable filter';
+RichDataPager.storyName = 'vl-rich-data - pager';
