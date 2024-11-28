@@ -195,3 +195,15 @@ export const findNodesForSlot = (element: HTMLElement, slotName: string) => {
 export const hexToString = (hex: string): string => {
     return hex.split(' ').map(s => String.fromCharCode(parseInt(s,16))).join('');
 }
+
+/**
+ * Checkt of een slot leeg is (en geen nodes of text bevat)
+ * @param slot
+ */
+export const isSlotEmpty = (slot: HTMLSlotElement): boolean =>
+    slot
+        .assignedNodes({ flatten: true })
+        .every(
+            (node) =>
+                (node.nodeType === Node.TEXT_NODE && !node.textContent?.trim()) || node.nodeType === Node.COMMENT_NODE
+        );

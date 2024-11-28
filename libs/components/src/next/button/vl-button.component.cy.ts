@@ -112,11 +112,12 @@ describe('component - vl-button-next', () => {
             .should('have.class', 'vl-icon--left-margin');
     });
 
-    it('should set icon-only', () => {
-        cy.mount(html`<vl-button-next icon="pin" icon-only></vl-button-next>`);
+    it('should set empty-slot style when slot does not have content', () => {
+        cy.mount(html`<vl-button-next icon="pin"></vl-button-next>`);
 
         cy.get('vl-button-next').should('have.attr', 'icon', 'pin');
-        cy.get('vl-button-next').should('have.attr', 'icon-only', '');
+        cy.get('vl-button-next').shadow().find('slot').should('be.empty');
+        cy.get('vl-button-next').shadow().find('button').should('have.class', 'empty-slot');
         cy.get('vl-button-next')
             .shadow()
             .find('button')
@@ -293,13 +294,18 @@ describe('component - vl-button-next - cta-link', () => {
     it('should set icon-only', () => {
         cy.mount(html`<vl-button-next icon="pin" icon-only cta-link="https://www.vlaanderen.be"></vl-button-next>`);
 
-        cy.get('vl-button-next').should('have.attr', 'icon', 'pin');
-        cy.get('vl-button-next').should('have.attr', 'icon-only', '');
-        cy.get('vl-button-next')
-            .shadow()
-            .find('a')
-            .shouldHaveComputedStyle({ style: 'padding', value: '0px' })
-            .shouldHaveComputedStyle({ style: 'width', value: '35px' });
+        it('should set empty-slot style when slot does not have content', () => {
+            cy.mount(html`<vl-button-next icon="pin"></vl-button-next>`);
+
+            cy.get('vl-button-next').should('have.attr', 'icon', 'pin');
+            cy.get('vl-button-next').shadow().find('slot').should('be.empty');
+            cy.get('vl-button-next').shadow().find('button').should('have.class', 'empty-slot');
+            cy.get('vl-button-next')
+                .shadow()
+                .find('button')
+                .shouldHaveComputedStyle({ style: 'padding', value: '0px' })
+                .shouldHaveComputedStyle({ style: 'width', value: '35px' });
+        });
     });
 
     it('should set content', () => {

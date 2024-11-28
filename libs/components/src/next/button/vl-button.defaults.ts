@@ -13,7 +13,6 @@ export const buttonDefaults = {
     loading: false as boolean,
     icon: '' as string,
     iconPlacement: 'before' as ICON_PLACEMENT,
-    iconOnly: false as boolean,
     toggle: false as boolean,
     on: false as boolean,
     controlled: false as boolean,

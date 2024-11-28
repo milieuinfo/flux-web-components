@@ -136,16 +136,6 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
             defaultValue: { summary: buttonArgs.iconPlacement },
         },
     },
-    iconOnly: {
-        name: 'icon-only',
-        description:
-            'Beeldt de button correct af als er enkel een icoon is en geen tekst.<br/>Te gebruiken in combinatie met het `icon` attribuut.',
-        table: {
-            type: { summary: TYPES.BOOLEAN },
-            category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: buttonArgs.iconOnly },
-        },
-    },
     toggle: {
         name: 'toggle',
         description: 'Beeldt de button af als een toggle button.',
