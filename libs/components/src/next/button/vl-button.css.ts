@@ -256,11 +256,17 @@ export const buttonStyles: CSSResult = css`
             }
         }
 
-        /* Icon styles */
-
-        &.icon-only {
+        /* Empty slot styles */
+        &.empty-slot {
             width: 3.5rem;
             padding: 0;
+            &.tertiary {
+                padding: 0;
+            }
+            .vl-icon {
+                margin-left: 0;
+                margin-right: 0;
+            }
         }
     }
 `;

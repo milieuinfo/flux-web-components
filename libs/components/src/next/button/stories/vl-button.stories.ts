@@ -38,7 +38,6 @@ const ButtonTemplate = story(
         icon,
         ctaLink,
         iconPlacement,
-        iconOnly,
         toggle,
         on,
         controlled,
@@ -61,7 +60,6 @@ const ButtonTemplate = story(
             icon=${icon}
             cta-link=${ctaLink}
             icon-placement=${iconPlacement}
-            ?icon-only=${iconOnly}
             ?toggle=${toggle}
             ?on=${on}
             ?controlled=${controlled}
@@ -154,7 +152,6 @@ export const ButtonIconOnly = ButtonTemplate.bind({});
 ButtonIconOnly.storyName = 'vl-button-next - icon only';
 ButtonIconOnly.args = {
     icon: 'location',
-    iconOnly: true,
 };
 
 export const ButtonToggle = ButtonTemplate.bind({});

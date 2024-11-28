@@ -60,6 +60,7 @@ export const linkButtonStyles: CSSResult = css`
             background-color: transparent;
             border: ${unsafeCSS(borderWidth)} solid currentColor;
             transition: color 0.2s, border-color 0.2s;
+            min-height: 3.1rem;
 
             &:focus {
                 color: var(--vl-action-color--active);
@@ -260,11 +261,26 @@ export const linkButtonStyles: CSSResult = css`
             }
         }
 
-        /* Icon styles */
-
-        &.icon-only {
+        /* Empty slot styles */
+        &.empty-slot {
             width: 3.5rem;
             padding: 0;
+            min-height: 3.5rem;
+
+            &.secondary {
+                width: 3.1rem;
+                min-height: 3.1rem;
+                padding: 0;
+            }
+            &.tertiary {
+                width: 3.1rem;
+                min-height: 3.1rem;
+                padding: 0.1rem;
+            }
+            .vl-icon {
+                margin-left: 0;
+                margin-right: 0;
+            }
         }
     }
 `;
