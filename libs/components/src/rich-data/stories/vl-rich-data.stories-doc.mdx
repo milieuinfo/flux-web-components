@@ -1,0 +1,53 @@
+import { ArgTypes, Canvas, Source } from '@storybook/blocks';
+import * as VlRichDataStories from './vl-rich-data.stories';
+import richDataMockData from './vl-rich-data.stories-mock.ts?raw';
+import richDataPaginationImplementation from './vl-rich-data.stories-util.ts?raw';
+
+# Rich Data
+
+<VluxMetaData id="components-rich-data" />
+
+Gebruik de `rich-data` component om een lijst van data te tonen.
+
+## Voorbeeld
+
+```js
+import { VlRichData } from '@domg-wc/components';
+```
+
+```html
+<vl-rich-data></vl-rich-data>
+```
+
+<Canvas of={VlRichDataStories.RichDataDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlRichDataStories.RichDataDefault} />
+
+## Varianten
+
+Een uitgewerkt voorbeeld vind je hier:
+
+<Canvas of={VlRichDataStories.RichDataPager} />
+
+<details>
+    <summary>klik hier om een voorbeeld implementatie te zien</summary>
+    <Source code={richDataPaginationImplementation} language="ts" dark={true} />
+</details>
+
+<details>
+    <summary>mock data voor voorbeeld kan je hier vinden</summary>
+    <Source code={richDataMockData} language="ts" dark={true} />
+</details>
+
+## Referenties
+
+### Legacy Documentatie
+
+[Legacy Storybook - Rich Data](https://webcomponenten.omgeving.vlaanderen.be/storybook/?path=/story/legacy-vl-rich-data--default)
+
+[Legacy Documentatie - Rich Data](https://webcomponenten.omgeving.vlaanderen.be/doc/VlRichData.html)
+
+[Legacy Demo - Rich Data](https://webcomponenten.omgeving.vlaanderen.be/demo/vl-rich-data.html)
