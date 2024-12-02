@@ -491,6 +491,11 @@
         "nextText": "vl-title-next",
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#title)"
     },
+    "elements-toaster": {
+        "vStatus": "v1-todo",
+        "legacyText": "vl-toaster",
+        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie)"
+    },
     "components-tooltip": {
         "vStatus": "replaced",
         "legacyText": "vl-tooltip",
