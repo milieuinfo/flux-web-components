@@ -21,50 +21,27 @@ Op deze pagina vind je de planning van in welke release de resterende (te implem
 [[2024] van v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie).
 
 
-## v1.39.x
-
-Focus op backlog en verbeteringen, geen 'next' impact.
-
-- o.a. WCAG compliancy forms: laag hangend fruit [UIG-2823]
-
-
-## v1.40.x
-
-Dit is een release met 'next' impact.
-
-- de herwerking met het 'token' en het 'common-legacy' artifact
-- de zaken waar al aan gewerkt is releasen
-  * introduction - beschikbaar in de branch van ticket [UIG-2923]
-  * text - beschikbaar in de branch van ticket [UIG-2933]
-- de pure css next-componenten
-  * action-group -> 'css'-component: 'vl-group' [UIG-2907]
-  * form-group -> 'css'-component: 'vl-group' [geen expliciet ticket]
-  * input-group -> 'css'-component: 'vl-group' [UIG-2922]
-  * accordion-list -> 'css'-component: 'vl-group' [geen expliciet ticket]
-  * link-list -> 'css'-component: 'vl-group' [UIG-2925]
-  * icon-wrapper -> 'css'-component: 'vl-group' [geen expliciet ticket]
-  * form-grid -> 'css'-component: 'vl-grid'
-  * grid -> 'css'-component: 'vl-grid'
-- de te verwijderen componenten bekijken
-  * image -> kan (vermoedelijk) weg, als het iets nuttig doet in de globale css dat voorzien op `<img>`
-  * body -> kan (vermoedelijk) weg, als het iets nuttig doet in de globale css dat voorzien op `<body>`
-
-
 ## v1.41.x
 
-Focus op backlog en verbeteringen, geen 'next' impact.
+'next' impact:
+
+- common-utilities/css in een apart artifact 'styles' [UIG-3056]
+- introduction - beschikbaar in de branch van ticket [UIG-2923] - gedane werk evalueren
+- text - beschikbaar in de branch van ticket [UIG-2933] - gedane werk evalueren
+- input-addon -> te bekijken, kan dat niet als speciaal geval van een icoon of button voorzien worden ?
+- input-group [UIG-2922] -> te bekijken hoe we dit herzien
+- button die eruitziet als een link [UIG-3138]
 
 
 ## v1.42.x
 
-Dit is een release met 'next' impact.
+'next' impact:
 
-- input-addon -> te bekijken, kan dat niet als speciaal geval van een icoon of button voorzien worden ?
-- input-group -> te bekijken, we moeten er wel iets voor voorzien
-- search-results -> er een component van maken
-- search-filter -> te bekijken, er vermoedelijk een component van maken
-- side-navigation -> er een component van maken
-- data-table [UIG-2910] -> te bekijken samen met rich-data + rich-data-table
+- search-result -> er een component van maken
+- search-filter -> er een component van maken, interne werking blijft hetzelfde
+- side-navigation -> er een component van maken, interne werking blijft hetzelfde
+- data-table [UIG-2910] -> er een component van maken, interne werking blijft hetzelfde
+- toaster [UIG-3071]
 
 Na deze release is de epic
 [[2024] - Elementen herschrijven als Component](https://www.milieuinfo.be/jira/browse/UIG-2906) volledig afgewerkt.
