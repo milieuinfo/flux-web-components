@@ -47,7 +47,7 @@
         "tinymce": "5.10.6"
     },
     "devDependencies": {
-        "@cypress/mount-utils": "4.0.0",
+        "@cypress/mount-utils": "4.1.1",
         "@eslint/js": "9.1.0",
         "@mdx-js/react": "3.0.1",
         "@semantic-release/changelog": "6.0.3",
@@ -75,9 +75,9 @@
         "color-name": "2.0.0",
         "conventional-changelog-conventionalcommits": "7.0.2",
         "css-loader": "6.10.0",
-        "cypress": "13.14.2",
+        "cypress": "13.16.0",
         "cypress-axe": "1.5.0",
-        "cypress-wait-until": "3.0.1",
+        "cypress-wait-until": "3.0.2",
         "depcheck": "1.4.7",
         "eslint": "9.1.0",
         "fetch-mock": "9.11.0",
