@@ -115,7 +115,12 @@ describe('component - vl-datepicker-next', () => {
 
         const testDate = createDateString({ day: 15, format: format });
         cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
-        cy.get('vl-datepicker-next').shadow().find('.flatpickr-calendar').find('.flatpickr-day').contains('15').click();
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.flatpickr-day:not(.prevMonthDay):not(.nextMonthDay)')
+            .contains('15')
+            .click();
         cy.get('vl-datepicker-next').shadow().find('input.vl-input-field').should('have.value', testDate);
         cy.get('vl-datepicker-next').should('have.value', createIsoDateString({ day: 15 }));
     });
@@ -190,7 +195,7 @@ describe('component - vl-datepicker-next', () => {
         cy.get('vl-datepicker-next')
             .shadow()
             .find('.flatpickr-calendar')
-            .find('.flatpickr-day')
+            .find('.flatpickr-day:not(.prevMonthDay):not(.nextMonthDay)')
             .contains('21')
             .and('contain.class', 'flatpickr-disabled');
     });
@@ -291,8 +296,18 @@ describe('component - vl-datepicker-next', () => {
         const endDate = createDateString({ day: 25 });
 
         cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
-        cy.get('vl-datepicker-next').shadow().find('.flatpickr-calendar').find('.flatpickr-day').contains('15').click();
-        cy.get('vl-datepicker-next').shadow().find('.flatpickr-calendar').find('.flatpickr-day').contains('25').click();
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.flatpickr-day:not(.prevMonthDay):not(.nextMonthDay)')
+            .contains('15')
+            .click();
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.flatpickr-day:not(.prevMonthDay):not(.nextMonthDay)')
+            .contains('25')
+            .click();
 
         cy.get('vl-datepicker-next')
             .shadow()
@@ -331,7 +346,12 @@ describe('component - vl-datepicker-next', () => {
         cy.createStubForEvent('vl-datepicker-next', 'vl-input');
 
         cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
-        cy.get('vl-datepicker-next').shadow().find('.flatpickr-calendar').find('.flatpickr-day').contains('15').click();
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.flatpickr-day:not(.prevMonthDay):not(.nextMonthDay)')
+            .contains('15')
+            .click();
         cy.get('@vl-input')
             .should('have.been.called')
             .its('lastCall.args.0.detail')
@@ -367,7 +387,12 @@ describe('component - vl-datepicker-next', () => {
         cy.createStubForEvent('vl-datepicker-next', 'vl-valid');
 
         cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
-        cy.get('vl-datepicker-next').shadow().find('.flatpickr-calendar').find('.flatpickr-day').contains('15').click();
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.flatpickr-day:not(.prevMonthDay):not(.nextMonthDay)')
+            .contains('15')
+            .click();
         cy.get('@vl-valid')
             .should('have.been.calledOnce')
             .its('firstCall.args.0.detail')
@@ -451,7 +476,12 @@ describe('component - vl-datepicker-next - in form', () => {
         cy.checkA11y('vl-datepicker-next');
 
         cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
-        cy.get('vl-datepicker-next').shadow().find('.flatpickr-calendar').find('.flatpickr-day').contains('15').click();
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.flatpickr-day:not(.prevMonthDay):not(.nextMonthDay)')
+            .contains('15')
+            .click();
         cy.get('vl-datepicker-next').should('have.value', createIsoDateString({ day: 15 }));
         cy.get('vl-datepicker-next')
             .shadow()
