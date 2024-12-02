@@ -5,6 +5,7 @@ import { html } from 'lit-html';
 import { VlAlert } from '../../alert/vl-alert.component';
 import { VlToasterElement } from '../vl-toaster.element';
 import { toasterArgs, toasterArgTypes } from './vl-toaster.stories-arg';
+import toasterDoc from './vl-toaster.stories-doc.mdx';
 
 registerWebComponents([VlAlert, VlButtonElement, VlToasterElement]);
 
@@ -15,24 +16,16 @@ export default {
     args: toasterArgs,
     argTypes: toasterArgTypes,
     parameters: {
+        docs: {
+            page: toasterDoc,
+        },
         controls: {
             hideNoControlsWarning: true,
         },
     },
 } as Meta<typeof toasterArgs>;
 
-export const toasterDefault = ({ topLeft, topRight, bottomLeft, bottomRight, fadeOut }: typeof toasterArgTypes) => html`
-    <div
-        id="dynamic-toaster"
-        is="vl-toaster"
-        ?data-vl-top-left=${topLeft}
-        ?data-vl-top-right=${topRight}
-        ?data-vl-bottom-left=${bottomLeft}
-        ?data-vl-bottom-right=${bottomRight}
-        ?data-vl-fadeout=${fadeOut}
-        data-cy="dynamic-toaster"
-    ></div>
-
+export const ToasterDefault = ({ topLeft, topRight, bottomLeft, bottomRight, fadeOut }: typeof toasterArgTypes) => html`
     <div id="top-left-toaster" is="vl-toaster" data-vl-top-left data-vl-fadeout data-cy="toaster-top-left"></div>
     <div id="top-right-toaster" is="vl-toaster" data-vl-top-right data-cy="toaster-top-right"></div>
     <div id="bottom-left-toaster" is="vl-toaster" data-vl-bottom-left data-cy="toaster-bottom-left"></div>
@@ -65,7 +58,6 @@ export const toasterDefault = ({ topLeft, topRight, bottomLeft, bottomRight, fad
 
     <br />
     <br />
-
     <vl-alert
         id="alert-1"
         data-vl-type="warning"
@@ -88,6 +80,16 @@ export const toasterDefault = ({ topLeft, topRight, bottomLeft, bottomRight, fad
         <p>U heeft geen rechten om deze actie uit te voeren. <a href="#">Vraag rechten aan</a>.</p>
         <button slot="actions" is="vl-button" id="b1">Fout melden</button>
     </vl-alert>
+    <div
+        id="dynamic-toaster"
+        is="vl-toaster"
+        ?data-vl-top-left=${topLeft}
+        ?data-vl-top-right=${topRight}
+        ?data-vl-bottom-left=${bottomLeft}
+        ?data-vl-bottom-right=${bottomRight}
+        ?data-vl-fadeout=${fadeOut}
+        data-cy="dynamic-toaster"
+    ></div>
     <script>
         const newWarningAlert = () => document.querySelector('#alert-1').cloneNode(true);
         const newErrorAlert = () => document.querySelector('#alert-2').cloneNode(true);
@@ -102,4 +104,4 @@ export const toasterDefault = ({ topLeft, topRight, bottomLeft, bottomRight, fad
         const dynamicToaster = () => document.querySelector('#dynamic-toaster');
     </script>
 `;
-toasterDefault.storyName = 'vl-toaster - default';
+ToasterDefault.storyName = 'vl-toaster - default';
