@@ -7,7 +7,7 @@ import { Meta } from '@storybook/addon-docs';
 ## Elementen & CSS
 
 Alle `@domg-wc elementen`, zijnde de web-componenten die zich in de package `@domg-wc/elements` bevinden, zorgen
-ervoor dat eenmalig alle css op document niveau geregistreerd wordt. Technisch gebeurd dat door de decorator
+ervoor dat eenmalig alle css op document niveau geregistreerd wordt. Technisch gebeurt dat door de decorator
 `@elementStyles` die de onderstaande `RegisterStyles.registerElementsStyles()` methode uitvoert:
 
 ```
@@ -23,6 +23,31 @@ class RegisterStyles {
             this.elementStylesRegistered = true;
             console.log('RegisterStyles: element-styling toegevoegd aan het document');
         }
+    }
+}
+```
+
+## Eigen componenten met shadow DOM
+
+Zoals hierboven vermeld injecteren de `@domg-wc elementen` hun eigen styling op root niveau.
+Dit is voldoende in een applicatie waar de elementen niet gebruikt worden binnen andere shadow DOM's.
+
+<VluxAlert type="warning">
+{`
+    Als je zelf componenten ontwikkelt met een shadow DOM, dan moet je onze styling opnieuw injecteren in je component.<br>
+    De shadow DOM zal de styling niet doorlaten die globaal op het document niveau geregistreerd is.
+`}
+</VluxAlert>
+
+In `Lit` kan je dit bvb. zo doen:
+
+```ts
+import { vlElementsStyle } from '@domg-wc/elements';
+
+export class ComponentMetShadowDom extends LitElement {
+
+    static get styles(): CSSResult[] {
+        return [...vlElementsStyle];
     }
 }
 ```

@@ -133,7 +133,7 @@ export const unwrap = (element: Element) => {
  *
  * @param func - de aan te roepen functie
  * @param ms - het aantal milliseconden dat er gewacht wordt alvorens de functie aan te roepen; als er in die
- *             tijdspanne een nieuwe aanroep gebeurd herstart de timer
+ *             tijdspanne een nieuwe aanroep gebeurt herstart de timer
  */
 export const debounce = (func: any, ms: number) => {
     let timer: any = undefined; // type van timer is number in oudere browsers, Timeout in nieuwste (wij kennen dat type niet)
@@ -193,8 +193,11 @@ export const findNodesForSlot = (element: HTMLElement, slotName: string) => {
  * Zet een hex-string in het formaat '0x22 0xF12D 0x22' om naar een echte string
  */
 export const hexToString = (hex: string): string => {
-    return hex.split(' ').map(s => String.fromCharCode(parseInt(s,16))).join('');
-}
+    return hex
+        .split(' ')
+        .map((s) => String.fromCharCode(parseInt(s, 16)))
+        .join('');
+};
 
 /**
  * Checkt of een slot leeg is (en geen nodes of text bevat)
