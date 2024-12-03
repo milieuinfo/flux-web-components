@@ -1,3 +1,27 @@
+# [1.40.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.39.1...v1.40.0) (2024-12-03)
+
+
+### Bug Fixes
+
+* UIG-3129 - vl-link-next - onnodige witruimte verwijderd wanneer er geen icon is ingesteld ([ca006a0](https://github.com/milieuinfo/uigov-web-components/commit/ca006a00057d62bd5a6efd334af468e71137cf84))
+* UIG-3137 - vl-upload - upload timeout uitgeschakeld ([375bd0e](https://github.com/milieuinfo/uigov-web-components/commit/375bd0e7dd93fceb3939e76f9dc33ca045ccf194))
+* UIG-3155 - vl-button-next - tertiary styling on hover ([1144378](https://github.com/milieuinfo/uigov-web-components/commit/1144378147709b583cd47a4063b0ff5e1e013954))
+* UIG-3162 - vl-datepicker-next - datum selectie in testen verbeterd ([324113c](https://github.com/milieuinfo/uigov-web-components/commit/324113c2bcb329af3b697333f9b9a72674913a25))
+
+
+### Features
+
+* UIG-2907 / UIG-2908 / UIG-2913 / UIG-2916 / UIG-2917 / UIG-2924 / UIG-2925 / UIG-2934 / UIG-3122 / UIG-3124 / UIG-3132 / UIG-3133 - nieuwe next / v2 'styles' opzet ([927e5fb](https://github.com/milieuinfo/uigov-web-components/commit/927e5fb5d40e63559ac2017e90041cf150bb7022))
+* UIG-2908 - vl-body wordt geschrapt in v2 ([187ec29](https://github.com/milieuinfo/uigov-web-components/commit/187ec29c4fec661b15917ecf4b1ad6bf5e9ba62b))
+* UIG-2918 - vl-image wordt geschrapt in v2 ([a4285b4](https://github.com/milieuinfo/uigov-web-components/commit/a4285b458a51ec4dd41a8f0371029692704b4236))
+* UIG-3022 - planning update ([67a6a12](https://github.com/milieuinfo/uigov-web-components/commit/67a6a12f3e09c8c434f3b6dad96ab95abab36c1f))
+* UIG-3136 - storybook - documentatie verbeterd ([a92dc62](https://github.com/milieuinfo/uigov-web-components/commit/a92dc6294d17f3e4e4fbb07b4af11a6b5e57d187))
+* UIG-3143 - vl-upload-next - default voor url toegevoegd ([3c78413](https://github.com/milieuinfo/uigov-web-components/commit/3c78413a4d53799899f919f712013672bc443174))
+* UIG-3145 - technische (console) fouten opgelost bij het uitvoeren van component testen ([eadcc35](https://github.com/milieuinfo/uigov-web-components/commit/eadcc3545033ba3ccfe00d4db1c5e20b586bb7a6))
+* UIG-3146 - component en Storybook testen voor de styles ([3362485](https://github.com/milieuinfo/uigov-web-components/commit/33624859d04c1207de908aeeba9205d318e58192))
+* UIG-3159 - vl-toaster - storybook verbeterd ([14bc8ce](https://github.com/milieuinfo/uigov-web-components/commit/14bc8cec97c3b39650ee8474489c3791daf0e0db))
+* UIG-3161 - Cypress update ([24aaf34](https://github.com/milieuinfo/uigov-web-components/commit/24aaf34b9a43b15fb9cd34c8fb728684d2760a85))
+
 ## [1.39.1](https://github.com/milieuinfo/uigov-web-components/compare/v1.39.0...v1.39.1) (2024-11-05)
 
 

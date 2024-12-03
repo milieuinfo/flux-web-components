@@ -1373,7 +1373,7 @@
                         {
                             "name": "url",
                             "description": "Bepaalt de upload url",
-                            "default": ""
+                            "default": "dummy-url"
                         }
                     ],
                     "js": {

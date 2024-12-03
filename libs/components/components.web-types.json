@@ -92,7 +92,7 @@
                 },
                 {
                     "name": "vl-accordion-list",
-                    "description": "Een lijst component die kan gebruikt worden als je meerdere accordions wilt afbeelden.\nVoor meer informatie over accordions zie de [accordion](/docs/components-accordion--documentatie) component.",
+                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Een lijst component die kan gebruikt worden als je meerdere accordions wilt afbeelden.\nVoor meer informatie over accordions zie de [accordion](/docs/components-accordion--documentatie) component.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-accordion-list--documentatie",
                     "attributes": [
                         {
@@ -983,11 +983,6 @@
                             "name": "icon-placement",
                             "description": "De positie van het icoon ten opzichte van de tekst.",
                             "default": "before"
-                        },
-                        {
-                            "name": "icon-only",
-                            "description": "Beeldt de button correct af als er enkel een icoon is en geen tekst.<br/>Te gebruiken in combinatie met het `icon` attribuut.",
-                            "default": "false"
                         },
                         {
                             "name": "toggle",
