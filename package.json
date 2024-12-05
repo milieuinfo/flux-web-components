@@ -120,7 +120,7 @@
     },
     "dependencies": {
         "@domg/govflanders-style": "21.2.0",
-        "@domg/qlik-lib": "1.0.15",
+        "@domg/qlik-lib": "1.0.16",
         "@floating-ui/dom": "1.6.3",
         "@govflanders/vl-ui-accordion": "21.0.2",
         "@govflanders/vl-ui-code-preview": "21.0.2",
