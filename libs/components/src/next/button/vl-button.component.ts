@@ -1,6 +1,6 @@
 import { BaseLitElement, ICON_PLACEMENT, isSlotEmpty, webComponent } from '@domg-wc/common-utilities';
 import { globalStylesNext, vlIconStyles } from '@domg-wc/common-utilities/css';
-import {CSSResult, html, nothing, PropertyDeclarations, PropertyValues, TemplateResult} from 'lit';
+import { CSSResult, html, nothing, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { buttonStyles } from './vl-button.css';
 import { linkButtonStyles } from './vl-link-button.css';
@@ -26,6 +26,7 @@ export class VlButtonComponent extends BaseLitElement {
     private controlled = buttonDefaults.controlled;
     private ctaLink = buttonDefaults.ctaLink;
     private external = buttonDefaults.external;
+    private inputGroup = buttonDefaults.inputGroup;
 
     private hasEmptySlot = false;
 
@@ -63,6 +64,7 @@ export class VlButtonComponent extends BaseLitElement {
             controlled: { type: Boolean },
             ctaLink: { type: String, attribute: 'cta-link' },
             external: { type: Boolean },
+            inputGroup: { type: Boolean, attribute: 'input-group' },
             hasEmptySlot: { type: Boolean },
         };
     }
@@ -89,6 +91,17 @@ export class VlButtonComponent extends BaseLitElement {
         }
     }
 
+    private isInputGroupPosition = (position: 'first' | 'last') => {
+        switch (position) {
+            case 'first':
+                return this.parentElement?.firstElementChild === this;
+            case 'last':
+                return this.parentElement?.lastElementChild === this;
+            default:
+                return false;
+        }
+    };
+
     render(): TemplateResult {
         const isInMap = this.closest('vl-map') !== null;
         const displayAsTertiaryButton = this.tertiary || (this.toggle && !this.on);
@@ -102,6 +115,8 @@ export class VlButtonComponent extends BaseLitElement {
             secondary: this.secondary,
             tertiary: displayAsTertiaryButton,
             loading: this.loading,
+            'input-group-left': this.inputGroup && this.isInputGroupPosition('first'),
+            'input-group-right': this.inputGroup && this.isInputGroupPosition('last'),
             'button-in-map': isInMap,
             'empty-slot': this.hasEmptySlot,
         };

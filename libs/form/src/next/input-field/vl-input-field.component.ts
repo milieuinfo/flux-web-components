@@ -1,12 +1,11 @@
 import { webComponent } from '@domg-wc/common-utilities';
-import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
-import { inputFieldStyle } from '@domg/govflanders-style/component';
 import { maxLengthValidator, minLengthValidator } from '@open-wc/form-control';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
 import { FormControl } from '../form-control/form-control';
 import { maxValueValidator, minValueValidator, patternValidator } from './validators';
+import { inputFieldStyles } from './vl-input-field.css';
 import { inputFieldDefaults } from './vl-input-field.defaults';
 
 @webComponent('vl-input-field-next')
@@ -28,6 +27,7 @@ export class VlInputFieldComponent extends FormControl {
     private minExclusive = inputFieldDefaults.minExclusive; // Wordt enkel gebruikt in de min validator
     private maxExclusive = inputFieldDefaults.maxExclusive; // Wordt enkel gebruikt in de max validator
     private pattern = inputFieldDefaults.pattern;
+    private inputGroup = inputFieldDefaults.inputGroup;
 
     // Variables
     protected initialValue = '';
@@ -43,7 +43,7 @@ export class VlInputFieldComponent extends FormControl {
     ];
 
     static get styles(): CSSResult[] {
-        return [resetStyle, baseStyle, inputFieldStyle];
+        return [inputFieldStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -61,6 +61,7 @@ export class VlInputFieldComponent extends FormControl {
             minExclusive: { type: Boolean, attribute: 'min-exclusive' },
             maxExclusive: { type: Boolean, attribute: 'max-exclusive' },
             pattern: { type: String },
+            inputGroup: { type: Boolean, attribute: 'input-group' },
             regex: { type: Object },
         };
     }
@@ -79,6 +80,17 @@ export class VlInputFieldComponent extends FormControl {
         this.onUpdated(changedProperties);
     }
 
+    private isInputGroupPosition = (position: 'first' | 'last') => {
+        switch (position) {
+            case 'first':
+                return this.parentElement?.firstElementChild === this;
+            case 'last':
+                return this.parentElement?.lastElementChild === this;
+            default:
+                return false;
+        }
+    };
+
     render(): TemplateResult {
         const classes = {
             'vl-input-field': true,
@@ -86,6 +98,8 @@ export class VlInputFieldComponent extends FormControl {
             'vl-input-field--error': this.isInvalid || this.error,
             'vl-input-field--success': this.success,
             'vl-input-field--block': this.block,
+            'vl-input-field--input-group-left': this.inputGroup && this.isInputGroupPosition('first'),
+            'vl-input-field--input-group-right': this.inputGroup && this.isInputGroupPosition('last'),
         };
 
         return html`

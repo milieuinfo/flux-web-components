@@ -51,6 +51,10 @@ export const vlGroupStyles: CSSResult = css`
             }
         }
 
+        &.vl-group-next--input-group {
+            gap: 0;
+        }
+
         @media screen and (min-width: ${vlMediaScreenMedium}px) {
             &.vl-group-next--collapse-l {
                 flex-direction: column;

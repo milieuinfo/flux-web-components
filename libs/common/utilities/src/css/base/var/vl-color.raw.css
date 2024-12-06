@@ -15,6 +15,7 @@
 
     --vl-border-color: #cbd2da;
     --vl-alt-border-color: #8695a8;
+    --vl-alt-border-color--background: #f3f5f6;
     --vl-doormat-graphic-border-color: #33333233;
 
     --vl-action-color: #0055cc;
@@ -31,6 +32,10 @@
 
     --vl-error-color: #d2373c;
     --vl-error-color--hover: #aa2729;
+    --vl-error-color--background: #fbebec;
+
+    --vl-color--success: #009e47;
+    --vl-color--success-bg: #e6f5ed;
 
     --vl-focus-color: #0055cca6; /* --vl-action-color 65% opacity */
 

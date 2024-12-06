@@ -265,4 +265,23 @@ describe('group styles', () => {
             value: 'column',
         });
     });
+
+    const inputGroupHtml = html`
+        <style>
+            ${vlGroupStyles}
+        </style>
+        <div class="vl-group-next vl-group-next--input-group">
+            <span class="item-1">item-1</span>
+            <span class="item-2">item-2</span>
+        </div>
+    `;
+
+    it('should have no gap when its an input-group', () => {
+        cy.mount(inputGroupHtml);
+        cy.viewport(400, 800);
+        cy.get('.vl-group-next').shouldHaveComputedStyle({
+            style: 'gap',
+            value: '0px',
+        });
+    });
 });

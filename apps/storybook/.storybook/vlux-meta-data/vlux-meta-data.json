@@ -238,6 +238,12 @@
         "nextText": "vl-input-field-next",
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#input-field)"
     },
+    "form-next-input-group": {
+        "vStatus": "v2-next",
+        "legacyText": "[vl-input-group](/docs/elements-input-group--documentatie)",
+        "nextText": "vl-input-group-next",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#input-group)"
+    },
     "elements-icon": {
         "vStatus": "v1-replace"
     },
@@ -277,17 +283,19 @@
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#infotext)"
     },
     "elements-input-addon": {
-        "vStatus": "v1-todo"
+        "vStatus": "v1-replace"
     },
     "elements-input-addon-button-input-addon": {
-        "vStatus": "v1-todo",
+        "vStatus": "v1-replace",
         "legacyText": "vl-button-input-addon",
-        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie)"
+        "nextText": "[vl-input-group-next](/docs/form-next-input-group--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#input-group)"
     },
     "elements-input-addon-input-addon": {
-        "vStatus": "v1-todo",
+        "vStatus": "v1-replace",
         "legacyText": "vl-input-addon",
-        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie)"
+        "nextText": "[vl-input-group-next](/docs/form-next-input-group--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#input-group)"
     },
     "elements-input-field": {
         "vStatus": "v1-replace",
@@ -296,9 +304,10 @@
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#input-field)"
     },
     "elements-input-group": {
-        "vStatus": "v1-todo",
+        "vStatus": "v1-replace",
         "legacyText": "vl-input-group",
-        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie)"
+        "nextText": "[vl-input-group-next](/docs/form-next-input-group--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#input-group)"
     },
     "elements-introduction": {
         "vStatus": "v1-todo",
