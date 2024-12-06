@@ -1,3 +1,11 @@
+# [1.41.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.40.0...v1.41.0) (2024-12-06)
+
+
+### Features
+
+* UIG-3022 - planning update ([7c37a8b](https://github.com/milieuinfo/uigov-web-components/commit/7c37a8b7c8774f346831a01afd988146b04bcc37))
+* UIG-3166 - qlik - dependencies bijgewerkt ([e070c99](https://github.com/milieuinfo/uigov-web-components/commit/e070c991be845b07514e1194ee673c4eff4ec913))
+
 # [1.40.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.39.1...v1.40.0) (2024-12-03)
 
 
