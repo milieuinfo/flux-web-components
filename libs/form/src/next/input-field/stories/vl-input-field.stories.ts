@@ -44,6 +44,7 @@ const InputFieldTemplate = story(
         minExclusive,
         maxExclusive,
         pattern,
+        inputGroup,
         regex,
         onVlInput,
         onVlReset,
@@ -71,6 +72,7 @@ const InputFieldTemplate = story(
             min-exclusive=${minExclusive}
             max-exclusive=${maxExclusive}
             pattern=${pattern}
+            inputGroup=${inputGroup}
             .regex=${regex}
             @vl-change=${onVlChange}
             @vl-input=${onVlInput}

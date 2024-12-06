@@ -268,5 +268,35 @@ export const buttonStyles: CSSResult = css`
                 margin-right: 0;
             }
         }
+
+        &.input-group-left {
+            border-radius: 0.3rem 0px 0px 0.3rem;
+
+            &.tertiary&:has(.vl-icon) {
+                border: solid 0.1rem rgb(134, 149, 168);
+            }
+
+            &.tertiary&:hover {
+                /* specifieke kleuren, anders dan de gewone tertiary:hover */
+                box-shadow: rgba(0, 85, 204, 0.65) 0px 0px 0px 0.1rem inset;
+                border-color: rgba(0, 85, 204, 0.65);
+                background: rgba(179, 207, 245, 0.3);
+            }
+        }
+
+        &.input-group-right {
+            border-radius: 0px 0.3rem 0.3rem 0px;
+
+            &.tertiary&:has(.vl-icon) {
+                border: solid 0.1rem rgb(134, 149, 168);
+            }
+
+            &.tertiary&:hover {
+                /* specifieke kleuren, anders dan de gewone tertiary:hover */
+                box-shadow: rgba(0, 85, 204, 0.65) 0px 0px 0px 0.1rem inset;
+                border-color: rgba(0, 85, 204, 0.65);
+                background: rgba(179, 207, 245, 0.3);
+            }
+        }
     }
 `;

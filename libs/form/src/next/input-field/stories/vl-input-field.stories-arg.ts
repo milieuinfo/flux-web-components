@@ -141,6 +141,15 @@ export const inputFieldArgTypes: ArgTypes<InputFieldArgs> = {
             defaultValue: { summary: inputFieldArgs.pattern },
         },
     },
+    inputGroup: {
+        name: 'input-group',
+        description: 'Duidt aan dat de component deel is van een input-group.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: inputFieldArgs.inputGroup },
+        },
+    },
     regex: {
         name: 'regex',
         description:
@@ -178,5 +187,5 @@ export const inputFieldArgTypes: ArgTypes<InputFieldArgs> = {
             type: { summary: '{ value: string }' },
             category: CATEGORIES.EVENTS,
         },
-    },
+    }
 };

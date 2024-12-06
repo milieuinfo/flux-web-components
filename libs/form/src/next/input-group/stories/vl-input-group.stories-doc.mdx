@@ -1,0 +1,54 @@
+import {Canvas} from '@storybook/blocks';
+import {Meta, Source} from '@storybook/addon-docs';
+import * as VlInputGroupStories from './vl-input-group.stories';
+
+<Meta title="Form-next/input-group"/>
+
+# Input Group - next
+
+<VluxMetaData id="form-next-input-group"/>
+
+De `Input Group [next]` combineert een `Input Field [next]` met een `Button [next]`. Deze combinatie kan eender waar
+gebruikt worden, het moet niet persé in een formulier! `Input Group [next]` is geen aparte component:
+[Group [next]](/docs/styles-next-layout-afnemers-group--documentatie), [Button [next]](/docs/components-next-button--documentatie)
+en [Input Field [next]](/docs/form-next-input-field--documentatie) kunnen in de juiste toestand gebracht worden om
+deze functionaliteit te ondersteunen.
+
+
+## Gebruik
+
+Om de componenten in de juiste stijl te zetten dien je het volgende te doen:
+
+- een overkoepelende `div` voorzien met classes `vl-group-next` en `vl-group-next--input-group` (conform de BEM conventie)
+- een 'button' kind `vl-button-next` met attribuut `input-group`
+- een 'input field' kind `vl-input-field-next` met attribuut `input-group`
+
+```html
+<div class="vl-group-next vl-group-next--input-group">
+    <vl-button-next input-group>Locatie kiezen</vl-button-next>
+    <vl-input-field-next input-group></vl-input-field-next>
+</div>
+```
+
+Naar keuze kan de knop links of rechts gezet worden, afhankelijk van de volgorde wordt automatisch de juiste style
+toegepast. De stijl van de knop kan naar keuze aangepast worden (conform de button mogelijkheden), bvb. bij een icoon
+kan er voor de `tertiary` stijl gekozen worden.
+
+
+## Voorbeelden
+
+### input-group - button left
+
+<Canvas of={VlInputGroupStories.InputGroupButtonLeft}/>
+
+### input-group - button right
+
+<Canvas of={VlInputGroupStories.InputGroupButtonRight}/>
+
+### input-group - icon left
+
+<Canvas of={VlInputGroupStories.InputGroupIconLeft}/>
+
+### input-group - icon right (tertiary style)
+
+<Canvas of={VlInputGroupStories.InputGroupIconRight}/>

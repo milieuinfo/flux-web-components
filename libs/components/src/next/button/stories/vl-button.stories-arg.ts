@@ -8,6 +8,7 @@ import {
 } from '@domg-wc/common-storybook';
 // de import is bewust op deze manier om voor de web-types.generator 'binnen' de monorepo geen side-effect te geven
 import { ICON_PLACEMENT } from '@domg-wc/common-utilities/constants';
+import {inputFieldArgs} from "@domg-wc/form/next/input-field/stories/vl-input-field.stories-arg";
 import { action } from '@storybook/addon-actions';
 import { ArgTypes } from '@storybook/web-components';
 import { buttonDefaults } from '../vl-button.defaults';
@@ -183,6 +184,15 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: buttonArgs.external },
+        },
+    },
+    inputGroup: {
+        name: 'input-group',
+        description: 'Duidt aan dat de component deel is van een input-group.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: buttonArgs.inputGroup },
         },
     },
     defaultSlot: {

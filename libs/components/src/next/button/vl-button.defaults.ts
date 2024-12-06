@@ -18,4 +18,5 @@ export const buttonDefaults = {
     controlled: false as boolean,
     ctaLink: '' as string,
     external: false as boolean,
+    inputGroup: false as boolean,
 } as const;

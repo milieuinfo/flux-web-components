@@ -42,6 +42,7 @@ const ButtonTemplate = story(
         on,
         controlled,
         external,
+        inputGroup,
         defaultSlot,
         onVlClick,
         onVlToggle,
@@ -64,6 +65,7 @@ const ButtonTemplate = story(
             ?on=${on}
             ?controlled=${controlled}
             ?external=${external}
+            ?inputGroup=${inputGroup}
             @vl-click=${onVlClick}
             @vl-toggle=${onVlToggle}
         >
@@ -167,4 +169,11 @@ ButtonCtaLink.args = {
     icon: 'add',
     defaultSlot: 'Voeg nieuw object toe.',
     ctaLink: 'https://www.vlaanderen.be',
+};
+
+export const ButtonInputGroup = ButtonTemplate.bind({});
+ButtonInputGroup.storyName = 'vl-button-next - input-group';
+ButtonInputGroup.args = {
+    defaultSlot: 'Klik op mij',
+    inputGroup: true,
 };
