@@ -10,20 +10,20 @@ describe('outline styles', () => {
             <style>
                 ${vlIconStyles}
             </style>
-            <span class="vl-icon vl-icon--bike cy-icon-default" />
-            <span class="vl-icon vl-icon--small vl-icon--bike cy-icon-small" />
-            <span class="vl-icon vl-icon--large vl-icon--bike cy-icon-large" />
-            <span class="vl-icon vl-icon--light vl-icon--bike cy-icon-light" />
-            <span class="vl-icon vl-icon--right-margin vl-icon--bike cy-icon-right-margin" />
-            <span class="vl-icon vl-icon--left-margin vl-icon--bike cy-icon-left-margin" />
-            <span class="vl-icon vl-icon--clickable vl-icon--bike cy-icon-clickable" />
+            <span class="vl-icon vl-icon--paperplane cy-icon-default" />
+            <span class="vl-icon vl-icon--small vl-icon--paperplane cy-icon-small" />
+            <span class="vl-icon vl-icon--large vl-icon--paperplane cy-icon-large" />
+            <span class="vl-icon vl-icon--light vl-icon--paperplane cy-icon-light" />
+            <span class="vl-icon vl-icon--right-margin vl-icon--paperplane cy-icon-right-margin" />
+            <span class="vl-icon vl-icon--left-margin vl-icon--paperplane cy-icon-left-margin" />
+            <span class="vl-icon vl-icon--clickable vl-icon--paperplane cy-icon-clickable" />
         `);
     });
 
     it('should have the correct default styles', () => {
         cy.get('.cy-icon-default').shouldHaveComputedStyle({
             style: 'font-family',
-            value: 'vlaanderen-icon-classic',
+            value: 'vlaanderen-icon',
         });
         cy.get('.cy-icon-default').shouldHaveComputedStyle({
             style: 'font-size',
@@ -31,14 +31,14 @@ describe('outline styles', () => {
         });
     });
 
-    it('should display the bike icon', () => {
-        // het bike icon is gespecifieerd als
-        // .vl-icon--bike::before {
-        //     content: '\F12D';
+    it('should display the paperplane icon', () => {
+        // het paperplane icon is gespecifieerd als
+        // .vl-icon--paperplane::before {
+        //     content: '\F231';
         // }
-        cy.get('.vl-icon--bike').shouldHaveComputedStyle({
+        cy.get('.vl-icon--paperplane').shouldHaveComputedStyle({
             style: 'content',
-            value: hexToString('0x22 0xF12D 0x22'),
+            value: hexToString('0x22 0xF231 0x22'),
             pseudo: '::before',
         });
     });

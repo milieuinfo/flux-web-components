@@ -15,13 +15,13 @@ describe('story - icon-next - default', () => {
                 expect(text).to.equal('icon - default');
             });
 
-        // het bike icon is gespecifieerd als
-        // .vl-icon--bike::before {
-        //     content: '\F12D';
+        // het paperplane icon is gespecifieerd als
+        // .vl-icon--paperplane::before {
+        //     content: '\F231';
         // }
-        cy.get('.vl-icon--bike').shouldHaveComputedStyle({
+        cy.get('.vl-icon--paperplane').shouldHaveComputedStyle({
             style: 'content',
-            value: hexToString('0x22 0xF12D 0x22'),
+            value: hexToString('0x22 0xF231 0x22'),
             pseudo: '::before',
         });
     });

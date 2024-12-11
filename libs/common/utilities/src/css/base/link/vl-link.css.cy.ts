@@ -19,9 +19,9 @@ describe('link styles', () => {
                 <a class="large cy-link-large">link - large</a>
                 <a class="error cy-link-error">link - error</a>
                 <a class="cy-link-icon">
-                    <span class="vl-icon vl-icon--before vl-icon--bike"></span>
+                    <span class="vl-icon vl-icon--before vl-icon--paperplane"></span>
                     link - fiets
-                    <span class="vl-icon vl-icon--after vl-icon--bike"></span>
+                    <span class="vl-icon vl-icon--after vl-icon--paperplane"></span>
                 </a>
             </div>
         `);
@@ -82,16 +82,16 @@ describe('link styles', () => {
         });
     });
 
-    it('should display the bike icon', () => {
-        // het bike icon is gespecifieerd als
-        // .vl-icon--bike::before {
-        //     content: '\F12D';
+    it('should display the paperplane icon', () => {
+        // het paperplane icon is gespecifieerd als
+        // .vl-icon--paperplane::before {
+        //     content: '\F231';
         // }
         cy.get('.cy-link-icon')
             .find('.vl-icon--before')
             .shouldHaveComputedStyle({
                 style: 'content',
-                value: hexToString('0x22 0xF12D 0x22'),
+                value: hexToString('0x22 0xF231 0x22'),
                 pseudo: '::before',
             });
     });

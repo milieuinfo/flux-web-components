@@ -2,9 +2,9 @@ import { css, CSSResult, unsafeCSS } from 'lit';
 
 const sansFontFamily = 'Flanders Art Sans';
 const serifFontFamily = 'Flanders Art Serif';
-const iconFontFamily = 'vlaanderen-icon-classic';
+const iconFontFamily = 'vlaanderen-icon';
 const fontLocation = 'https://cdn.omgeving.vlaanderen.be/domg/govflanders-font/22.0.2';
-export const iconFontLocation = `${fontLocation}/iconfont/vlaanderen-icon-classic`;
+export const iconFontLocation = `${fontLocation}/iconfont/vlaanderen-icon`;
 
 const fontFace = (
     fontFamily: string,
