@@ -24,7 +24,7 @@ export default {
 
 const LinkTemplate = story(
     linkArgs,
-    ({ href, bold, small, large, error, external, icon, iconPlacement, defaultSlot }) =>
+    ({ href, bold, small, large, error, external, buttonAsLink, icon, iconPlacement, defaultSlot }) =>
         html`
             <vl-link-next
                 href=${href}
@@ -33,6 +33,7 @@ const LinkTemplate = story(
                 ?large=${large}
                 ?error=${error}
                 ?external=${external}
+                ?button-as-link=${buttonAsLink}
                 icon=${icon}
                 icon-placement=${iconPlacement}
                 >${unsafeHTML(defaultSlot)}</vl-link-next
@@ -93,4 +94,11 @@ LinkIcon.args = {
     href: 'https://www.vlaanderen.be',
     defaultSlot: 'Vlaanderen',
     icon: 'arrow-right-fat',
+};
+
+export const ButtonStyledAsLink = LinkTemplate.bind({});
+ButtonStyledAsLink.storyName = 'vl-link-next - button as link';
+ButtonStyledAsLink.args = {
+    defaultSlot: 'Annuleren',
+    buttonAsLink: true,
 };

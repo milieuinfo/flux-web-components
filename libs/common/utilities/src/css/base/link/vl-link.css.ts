@@ -1,9 +1,9 @@
-import { css, CSSResult } from 'lit';
+import { css, unsafeCSS } from 'lit';
 import { vlFocusOutlineMixin } from '../../base/mixin/vl-outlines.css';
 import { vlMediaScreenSmall } from '../../base/var/vl-media-screen.css';
 
-export const vlLinkStyles: CSSResult = css`
-    a {
+export const vlLinkStyles = (selector = 'a') => css`
+    ${unsafeCSS(selector)} {
         /* Reset styles (gebaseerd op DV _reset.scss) */
         margin: 0;
         border: 0;

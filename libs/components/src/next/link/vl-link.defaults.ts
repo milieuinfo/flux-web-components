@@ -9,4 +9,5 @@ export const linkDefaults = {
     external: false as boolean,
     icon: '' as string,
     iconPlacement: 'before' as ICON_PLACEMENT,
+    buttonAsLink: false as boolean,
 } as const;

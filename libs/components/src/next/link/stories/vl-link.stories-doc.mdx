@@ -52,6 +52,18 @@ import { VlLinkComponent } from '@domg-wc/components/next/link';
 
 <Canvas of={VlLinkStories.LinkIcon} />
 
+### Button als link
+
+Soms wil je een button stylen als een link. Een specifieke use-case is bvb. om van `Annuleren` een link te maken
+zodat die visueel minder prominent is dan de knop `Opslaan`.
+
+Als richtlijn geldt:
+- gebruik een `<button>`-element wanneer het een actie is die op dezelfde pagina blijft
+  bvb. het sluiten van een modal, het gaan naar een volgende stap, het openklappen van een accordion, enzovoort.
+- gebruik een `<a>`-element om te navigeren naar een andere pagina.
+
+<Canvas of={VlLinkStories.ButtonStyledAsLink} />
+
 
 ## Referenties
 

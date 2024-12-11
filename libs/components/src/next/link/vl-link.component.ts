@@ -2,6 +2,7 @@ import { BaseLitElement, ICON_PLACEMENT, webComponent } from '@domg-wc/common-ut
 import { globalStylesNext, vlIconStyles, vlLinkStyles } from '@domg-wc/common-utilities/css';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { buttonAsLinkStyles } from './vl-button-as-link.css';
 import { linkDefaults } from './vl-link.defaults';
 
 @globalStylesNext()
@@ -15,9 +16,10 @@ export class VlLinkComponent extends BaseLitElement {
     private external = linkDefaults.external;
     private icon = linkDefaults.icon;
     private iconPlacement = linkDefaults.iconPlacement;
+    private buttonAsLink = linkDefaults.buttonAsLink;
 
     static get styles(): CSSResult[] {
-        return [vlLinkStyles, vlIconStyles];
+        return [vlLinkStyles(), buttonAsLinkStyles, vlIconStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -31,6 +33,7 @@ export class VlLinkComponent extends BaseLitElement {
             external: { type: Boolean },
             icon: { type: String },
             iconPlacement: { type: String, attribute: 'icon-placement', reflect: true },
+            buttonAsLink: { type: Boolean, attribute: 'button-as-link' },
         };
     }
 
@@ -53,13 +56,21 @@ export class VlLinkComponent extends BaseLitElement {
         };
         const target = this.external ? '_blank' : nothing;
 
-        return html`
-            <a class=${classMap(classes)} href=${this.href} target=${target}>
-                ${this.renderIcon(ICON_PLACEMENT.BEFORE)}
-                <slot></slot>
-                ${this.renderIcon(ICON_PLACEMENT.AFTER)} ${this.external ? this.renderExternalIcon() : ''}
-            </a>
-        `;
+        return !this.buttonAsLink
+            ? html`
+                  <a class=${classMap(classes)} href=${this.href} target=${target}>
+                      ${this.renderIcon(ICON_PLACEMENT.BEFORE)}
+                      <slot></slot>
+                      ${this.renderIcon(ICON_PLACEMENT.AFTER)} ${this.external ? this.renderExternalIcon() : ''}
+                  </a>
+              `
+            : html`
+                  <button class="vl-button-as-link ${classMap(classes)}">
+                      ${this.renderIcon(ICON_PLACEMENT.BEFORE)}
+                      <slot></slot>
+                      ${this.renderIcon(ICON_PLACEMENT.AFTER)} ${this.external ? this.renderExternalIcon() : ''}
+                  </button>
+              `;
     }
 
     renderIcon(iconPlacement: ICON_PLACEMENT): TemplateResult | typeof nothing {

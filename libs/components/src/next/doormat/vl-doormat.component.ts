@@ -19,7 +19,7 @@ export class VlDoormatComponent extends BaseLitElement {
     private graphic = doormatDefaults.graphic;
 
     static get styles(): CSSResult[] {
-        return [vlLinkStyles, doormatStyle];
+        return [vlLinkStyles(), doormatStyle];
     }
 
     static get properties(): PropertyDeclarations {
