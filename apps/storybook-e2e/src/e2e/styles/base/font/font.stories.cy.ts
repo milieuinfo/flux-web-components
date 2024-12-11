@@ -28,15 +28,3 @@ describe('story - font-next - italic', () => {
             .should('contain', 'Flanders Art Sans - italic - weight 300');
     });
 });
-
-describe('story - font-next - serif', () => {
-    it('should render', () => {
-        cy.visit(fontNextSerifUrl);
-
-        cy.get('.sb-font-serif.vl-font--weight-300')
-            .find('.sb-font-title')
-            .shouldHaveComputedStyle({ style: 'font-size', value: '20px' })
-            .invoke('text')
-            .should('contain', 'Flanders Art Serif - weight 300');
-    });
-});

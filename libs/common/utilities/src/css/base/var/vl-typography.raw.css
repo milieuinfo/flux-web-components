@@ -1,7 +1,6 @@
 :root {
     --vl-font: 'Flanders Art Sans', sans-serif;
-    --vl-accent-font: 'Flanders Art Serif', serif;
-    --vl-icon-font: 'vlaanderen-icon';
+    --vl-icon-font: 'vlaanderen-icon-classic';
 
     --vl-font-size--xxlarge: 2.8rem;
     --vl-font-size--xlarge: 2.2rem;
