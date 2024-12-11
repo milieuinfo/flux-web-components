@@ -22,31 +22,31 @@ export const IconDefault = ({}) => html`
     </style>
     <div class="sb-icon">
         <div>icon - default</div>
-        <span class="vl-icon vl-icon--bike">
+        <span class="vl-icon vl-icon--paperplane">
     </div>
     <div class="sb-icon">
         <div>icon - small</div>
-        <span class="vl-icon vl-icon--small vl-icon--bike">
+        <span class="vl-icon vl-icon--small vl-icon--paperplane">
     </div>
     <div class="sb-icon">
         <div>icon - large</div>
-        <span class="vl-icon vl-icon--large vl-icon--bike">
+        <span class="vl-icon vl-icon--large vl-icon--paperplane">
     </div>
     <div class="sb-icon">
         <div>icon - light</div>
-        <span class="vl-icon vl-icon--light vl-icon--bike">
+        <span class="vl-icon vl-icon--light vl-icon--paperplane">
     </div>
     <div class="sb-icon">
         <div>icon - right-margin</div>
-        <span class="vl-icon vl-icon--right-margin vl-icon--bike">
+        <span class="vl-icon vl-icon--right-margin vl-icon--paperplane">
     </div>
     <div class="sb-icon">
         <div>icon - left-margin</div>
-        <span class="vl-icon vl-icon--left-margin vl-icon--bike">
+        <span class="vl-icon vl-icon--left-margin vl-icon--paperplane">
     </div>
     <div class="sb-icon">
         <div>icon - clickable</div>
-        <span class="vl-icon vl-icon--clickable vl-icon--bike">
+        <span class="vl-icon vl-icon--clickable vl-icon--paperplane">
     </div>
 `;
 IconDefault.storyName = 'icon - default';
