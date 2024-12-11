@@ -9,7 +9,7 @@ describe('link styles', () => {
         cy.then(() => RegisterGlobalStyles.register());
         cy.mount(html`
             <style>
-                ${vlLinkStyles}
+                ${vlLinkStyles()}
                 ${vlIconStyles}
             </style>
             <div>

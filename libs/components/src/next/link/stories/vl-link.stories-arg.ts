@@ -23,7 +23,7 @@ export const linkArgTypes: ArgTypes<LinkArgs> = {
     ...defaultArgTypes(true),
     href: {
         name: 'href',
-        description: 'De url waar de link naar verwijst.',
+        description: 'De url waar de link naar verwijst.<br/>Werkt niet in combinatie met `button-as-link`-attribuut.',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
@@ -68,7 +68,7 @@ export const linkArgTypes: ArgTypes<LinkArgs> = {
     },
     external: {
         name: 'external',
-        description: 'Opent de link in een nieuw tabblad.',
+        description: 'Opent de link in een nieuw tabblad.<br/>Werkt niet in combinatie met `button-as-link`-attribuut.',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
@@ -93,6 +93,15 @@ export const linkArgTypes: ArgTypes<LinkArgs> = {
             type: { summary: getSelectControlOptions(Object.values(ICON_PLACEMENT)) },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: linkArgs.iconPlacement },
+        },
+    },
+    buttonAsLink: {
+        name: 'button-as-link',
+        description: 'Maakt van de link een button maar behoudt de link-stijl.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: linkArgs.buttonAsLink },
         },
     },
     defaultSlot: {
