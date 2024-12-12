@@ -74,23 +74,8 @@ export const vlLinkStyles: CSSResult = css`
 
         /* Icon styles */
 
-        .vl-icon {
-            &:before {
-                display: inline-block;
-                text-decoration: none;
-            }
-
-            &.vl-icon--before {
-                margin-right: 0.4rem;
-            }
-
-            &.vl-icon--after {
-                margin-left: 0.4rem;
-            }
-
-            &.vl-icon--external {
-                color: var(--vl-light-text-color);
-            }
+        .vl-icon.vl-icon--external {
+            color: var(--vl-light-text-color);
         }
 
         &:hover,

@@ -17,6 +17,12 @@ export const vlIconStyles: CSSResult = css`
         display: inline;
         color: inherit;
 
+        &:before,
+        &:after {
+            display: inline-block;
+            text-decoration: none;
+        }
+
         &.vl-icon--small {
             font-size: 0.8em;
         }
@@ -34,6 +40,14 @@ export const vlIconStyles: CSSResult = css`
         }
 
         &.vl-icon--left-margin {
+            margin-left: 0.5em;
+        }
+
+        &.vl-icon--before {
+            margin-right: 0.5em;
+        }
+
+        &.vl-icon--after {
             margin-left: 0.5em;
         }
 
