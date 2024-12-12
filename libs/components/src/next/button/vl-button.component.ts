@@ -176,10 +176,7 @@ export class VlButtonComponent extends BaseLitElement {
         this.hasEmptySlot = Boolean(slot && isSlotEmpty(slot!));
     }
 
-    protected handleClick(event: Event) {
-        event.preventDefault();
-        event.stopPropagation();
-
+    protected handleClick() {
         if (this.toggle && !this.controlled) {
             this.on = !this.on;
         }
@@ -195,9 +192,7 @@ export class VlButtonComponent extends BaseLitElement {
         this.dispatchEvent(new CustomEvent('vl-click', { bubbles: true, composed: true }));
     }
 
-    protected handleLinkClick(event: Event) {
-        event.stopPropagation();
-
+    protected handleLinkClick() {
         if (this.toggle && !this.controlled) {
             this.on = !this.on;
         }
