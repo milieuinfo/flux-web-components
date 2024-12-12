@@ -26,6 +26,10 @@
         "vStatus": "v2-next-style-base",
         "nextText": "mixin-next"
     },
+    "styles-next-base-intern-paragraph": {
+        "vStatus": "v2-next-style-base",
+        "nextText": "paragraph-next"
+    },
     "styles-next-base-intern-var": {
         "vStatus": "v2-next-style-base",
         "nextText": "var-next"
@@ -310,9 +314,10 @@
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#input-group)"
     },
     "elements-introduction": {
-        "vStatus": "v1-todo",
+        "vStatus": "v1-replace",
         "legacyText": "vl-introduction",
-        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie)"
+        "nextText": "[vl-paragraph-next](/docs/components-next-paragraph--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#paragraph)"
     },
     "elements-link": {
         "vStatus": "v1-replace"
@@ -339,6 +344,12 @@
         "legacyText": "[vl-link](/docs/elements-link-link--documentatie)",
         "nextText": "vl-link-next",
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#link)"
+    },
+    "components-next-paragraph": {
+        "vStatus": "v2-next",
+        "legacyText": "[vl-introduction](/docs/elements-introduction--documentatie)",
+        "nextText": "vl-link-next",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#paragraph)"
     },
     "elements-properties": {
         "vStatus": "v1-replace",
