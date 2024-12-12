@@ -5,6 +5,7 @@ import { doormatArgTypes } from '@domg-wc/components/next/doormat/stories/vl-doo
 import { iconArgTypes } from '@domg-wc/components/next/icon/stories/vl-icon.stories-arg';
 import { infotextArgTypes } from '@domg-wc/components/next/infotext/stories/vl-infotext.stories-arg';
 import { linkArgTypes } from '@domg-wc/components/next/link/stories/vl-link.stories-arg';
+import { paragraphArgTypes } from '@domg-wc/components/next/paragraph/stories/vl-paragraph.stories-arg';
 import { propertiesArgTypes } from '@domg-wc/components/next/properties/stories/vl-properties.stories-arg';
 import { stepArgTypes } from '@domg-wc/components/next/steps/stories/vl-step.stories-arg';
 import { stepsArgTypes } from '@domg-wc/components/next/steps/stories/vl-steps.stories-arg';
@@ -196,6 +197,12 @@ export const buildWTConfigComponents: WTConfigArray = [
         linkArgTypes,
         '../../libs/components/src/next/link/stories/vl-link.stories-doc.mdx',
         '/docs/components-next-link--documentatie'
+    ),
+    buildWTConfig(
+        'vl-paragraph-next',
+        paragraphArgTypes,
+        '../../libs/components/src/next/paragraph/stories/vl-paragraph.stories-doc.mdx',
+        '/docs/components-next-paragraph--documentatie'
     ),
     buildWTConfig(
         'vl-properties-next',
