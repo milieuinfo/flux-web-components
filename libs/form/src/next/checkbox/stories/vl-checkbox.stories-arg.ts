@@ -32,6 +32,16 @@ export const checkboxArgTypes: ArgTypes<CheckboxArgs> = {
             defaultValue: { summary: checkboxArgs.block },
         },
     },
+    id: {
+        name: 'id',
+        description: 'De id van het veld.<br>Bij de switch variant moet je een id instellen.',
+        type: { name: 'boolean', required: true },
+        table: {
+            type: { summary: TYPES.STRING, required: true },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: formControlArgs.id },
+        },
+    },
     value: {
         name: 'value',
         description: 'De value van de checkbox.',

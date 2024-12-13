@@ -107,7 +107,7 @@ describe('component - vl-checkbox-next', () => {
     });
 
     it('should be checked', () => {
-        cy.mount(html` <vl-checkbox-next value=${value} checked>Bevestig.</vl-checkbox-next> `);
+        cy.mount(html` <vl-checkbox-next id="cy-test-id" value=${value} checked>Bevestig.</vl-checkbox-next> `);
 
         shouldToggleCheckedWithClick('.vl-checkbox__label');
         cy.get('vl-checkbox-next')
@@ -145,7 +145,7 @@ describe('component - vl-checkbox-next', () => {
         cy.createStubForEvent('vl-checkbox-next', 'vl-change');
         cy.createStubForEvent('vl-checkbox-next', 'vl-input');
 
-        cy.get('vl-checkbox-next').shadow().find('.vl-checkbox__toggle').click({ force: true });
+        cy.get('vl-checkbox-next').shadow().find('.vl-checkbox__label').click({ force: true });
         cy.get('@vl-input')
             .should('have.been.calledOnce')
             .its('lastCall.args.0.detail')
@@ -154,7 +154,7 @@ describe('component - vl-checkbox-next', () => {
             .should('have.been.calledTwice')
             .its('lastCall.args.0.detail')
             .should('deep.equal', { checked: true, value });
-        cy.get('vl-checkbox-next').shadow().find('.vl-checkbox__toggle').click({ force: true });
+        cy.get('vl-checkbox-next').shadow().find('.vl-checkbox__label').click({ force: true });
         cy.get('@vl-change').its('callCount').should('eq', 3);
         cy.get('@vl-change').its('lastCall.args.0.detail').should('deep.equal', { checked: false });
         cy.get('@vl-input').its('callCount').should('eq', 2);
@@ -266,7 +266,9 @@ describe('component - vl-checkbox-next - switch', () => {
 
     it('should be accessible', () => {
         cy.mount(
-            html` <vl-checkbox-next id="test-id" value=${value} switch label="test-label">Bevestig.</vl-checkbox-next> `
+            html`
+                <vl-checkbox-next id="cy-test-id" value=${value} switch label="test-label">Bevestig.</vl-checkbox-next>
+            `
         );
         cy.injectAxe();
 
@@ -274,7 +276,7 @@ describe('component - vl-checkbox-next - switch', () => {
     });
 
     it('should be checked', () => {
-        cy.mount(html` <vl-checkbox-next value=${value} switch checked>Bevestig.</vl-checkbox-next> `);
+        cy.mount(html` <vl-checkbox-next id="cy-test-id" value=${value} switch checked>Bevestig.</vl-checkbox-next> `);
 
         shouldToggleCheckedWithClick('.vl-checkbox__label');
         cy.get('vl-checkbox-next')
@@ -301,7 +303,7 @@ describe('component - vl-checkbox-next - switch', () => {
     });
 
     it('should dispatch vl-change & vl-input event on check and uncheck', () => {
-        cy.mount(html` <vl-checkbox-next value=${value} switch>Bevestig.</vl-checkbox-next> `);
+        cy.mount(html` <vl-checkbox-next id="cy-test-id" value=${value} switch>Bevestig.</vl-checkbox-next> `);
         cy.createStubForEvent('vl-checkbox-next', 'vl-change');
         cy.createStubForEvent('vl-checkbox-next', 'vl-input');
 
@@ -323,7 +325,7 @@ describe('component - vl-checkbox-next - switch', () => {
     });
 
     it('should dispatch vl-change but not vl-input event on programmatic check and uncheck', () => {
-        cy.mount(html` <vl-checkbox-next value=${value} switch>Bevestig.</vl-checkbox-next> `);
+        cy.mount(html` <vl-checkbox-next id="cy-test-id" value=${value} switch>Bevestig.</vl-checkbox-next> `);
         cy.createStubForEvent('vl-checkbox-next', 'vl-change');
         cy.createStubForEvent('vl-checkbox-next', 'vl-input');
 
@@ -341,7 +343,7 @@ describe('component - vl-checkbox-next - switch', () => {
     });
 
     it('should dispatch vl-valid event on valid input', () => {
-        cy.mount(html` <vl-checkbox-next value=${value} switch required>Bevestig.</vl-checkbox-next> `);
+        cy.mount(html` <vl-checkbox-next id="cy-test-id" value=${value} switch required>Bevestig.</vl-checkbox-next> `);
         cy.createStubForEvent('vl-checkbox-next', 'vl-valid');
 
         cy.get('vl-checkbox-next').shadow().find('.vl-checkbox__label').click({ force: true });
