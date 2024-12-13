@@ -122,8 +122,9 @@ export class VlCheckboxComponent extends FormControl {
                     ?error=${this.error}
                     .value=${this.value}
                     .checked=${this.checked}
+                    @click=${this.toggle}
                 />
-                <label for=${this.id} class="vl-checkbox__label" @click=${this.toggle}>
+                <label for=${this.id} class="vl-checkbox__label">
                     <span class="vl-checkbox--switch__label">
                         <span aria-hidden="true"></span>
                     </span>
