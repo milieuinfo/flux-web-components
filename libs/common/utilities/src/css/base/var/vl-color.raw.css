@@ -36,6 +36,11 @@
 
     --vl-color--success: #009e47;
     --vl-color--success-bg: #e6f5ed;
+    --vl-color--success-text: #007a37;
+
+    --vl-color--warning: #ffa10a;
+    --vl-color--warning-bg: #fff3e0;
+    --vl-color--warning-text: #9f5804;
 
     --vl-focus-color: #0055cca6; /* --vl-action-color 65% opacity */
 

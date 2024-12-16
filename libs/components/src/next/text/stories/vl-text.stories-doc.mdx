@@ -1,0 +1,56 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs';
+import * as VlTextStories from './vl-text.stories';
+
+# Text - next
+
+<VluxMetaData id="components-next-text" />
+
+Gebruik de `text-next` component om een tekst af te beelden op andere wijze.<br/>
+
+
+## Voorbeeld
+
+```js
+import { VlTextComponent } from '@domg-wc/components/next/text';
+```
+
+```html
+<vl-text-next></vl-text-next>
+```
+
+<Canvas of={VlTextStories.TextDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlTextStories.TextDefault} />
+
+## Varianten
+
+### Bold
+
+<Canvas of={VlTextStories.TextBold} />
+
+### Italic
+
+<Canvas of={VlTextStories.TextItalic} />
+
+### Underline
+
+<Canvas of={VlTextStories.TextUnderline} />
+
+### Success
+
+<Canvas of={VlTextStories.TextSuccess} />
+
+### Warning
+
+<Canvas of={VlTextStories.TextWarning} />
+
+### Error
+
+<Canvas of={VlTextStories.TextError} />
+
+
+
+
