@@ -9,6 +9,7 @@ import { paragraphArgTypes } from '@domg-wc/components/next/paragraph/stories/vl
 import { propertiesArgTypes } from '@domg-wc/components/next/properties/stories/vl-properties.stories-arg';
 import { stepArgTypes } from '@domg-wc/components/next/steps/stories/vl-step.stories-arg';
 import { stepsArgTypes } from '@domg-wc/components/next/steps/stories/vl-steps.stories-arg';
+import { textArgTypes } from '@domg-wc/components/next/text/stories/vl-text.stories-arg';
 import { titleArgTypes } from '@domg-wc/components/next/title/stories/vl-title.stories-arg';
 import { videoPlayerArgTypes } from '@domg-wc/components/next/video-player/stories/vl-video-player.stories-arg';
 import { accordionListArgTypes } from '../../../libs/components/src/accordion-list/stories/vl-accordion-list.stories-arg';
@@ -218,6 +219,12 @@ export const buildWTConfigComponents: WTConfigArray = [
     ),
     buildWTConfig('vl-step-next', stepArgTypes, null, '/docs/components-next-steps-step--documentatie'),
     buildWTConfig('vl-duration-step-next', null, null, '/docs/components-next-steps-steps--documentatie'),
+    buildWTConfig(
+        'vl-text-next',
+        textArgTypes,
+        '../../libs/components/src/next/text/stories/vl-text.stories-doc.mdx',
+        '/docs/components-next-text-text--documentatie'
+    ),
     buildWTConfig(
         'vl-title-next',
         titleArgTypes,
