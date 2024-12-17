@@ -212,6 +212,23 @@ export const buildWTConfigComponents: WTConfigArray = [
         '/docs/components-next-properties--documentatie'
     ),
     buildWTConfig(
+        'vl-side-navigation-next',
+        null,
+        '../../libs/components/src/next/side-navigation/stories/vl-side-navigation.stories-doc.mdx',
+        '/docs/components-next-side-navigation--documentatie'
+    ),
+    buildWTConfig('vl-side-navigation-content-next', null, null, '/docs/components-next-side-navigation--documentatie'),
+    buildWTConfig('vl-side-navigation-group-next', null, null, '/docs/components-next-side-navigation--documentatie'),
+    buildWTConfig('vl-side-navigation-item-next', null, null, '/docs/components-next-side-navigation--documentatie'),
+    buildWTConfig('vl-side-navigation-reference-next', null, null, '/docs/components-next-side-navigation--documentatie'),
+    buildWTConfig('vl-side-navigation-h1-next', null, null, '/docs/components-next-side-navigation--documentatie'),
+    buildWTConfig('vl-side-navigation-h2-next', null, null, '/docs/components-next-side-navigation--documentatie'),
+    buildWTConfig('vl-side-navigation-h3-next', null, null, '/docs/components-next-side-navigation--documentatie'),
+    buildWTConfig('vl-side-navigation-h4-next', null, null, '/docs/components-next-side-navigation--documentatie'),
+    buildWTConfig('vl-side-navigation-h5-next', null, null, '/docs/components-next-side-navigation--documentatie'),
+    buildWTConfig('vl-side-navigation-h6-next', null, null, '/docs/components-next-side-navigation--documentatie'),
+    buildWTConfig('vl-side-navigation-toggle-next', null, null, '/docs/components-next-side-navigation--documentatie'),
+    buildWTConfig(
         'vl-steps-next',
         stepsArgTypes,
         '../../libs/components/src/next/steps/stories/vl-steps.stories-doc.mdx',

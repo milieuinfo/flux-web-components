@@ -154,6 +154,7 @@ export interface VL {
     scrollspy: any;
     sticky: any;
     sideNavigation: SideNavigation;
+    sideNavigationNext: SideNavigation;
     tabs: Tabs;
     toaster: Toaster;
     tooltip: Tooltip$$1;

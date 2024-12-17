@@ -1421,6 +1421,55 @@
                     }
                 },
                 {
+                    "name": "vl-side-navigation-next",
+                    "description": "Gebruik het `vl-side-navigation` component om een compact navigatie-element aan een pagina toe te voegen.<br/>\nHet vat de inhoud van lange pagina's samen, leidt de gebruiker door de pagina inhoud en kan ook naar externe pagina's\nverwijzen.\n\nDe `vl-side-navigation` wordt opgebouwd uit volgende elementen:\n\n- VlSideNavigation\n- VlSideNavigationTitle\n- VlSideNavigationContent\n- VlSideNavigationGroup\n- VlSideNavigationItem\n- VlSideNavigationToggle\n- VlSideNavigationReference\n\n```js\nimport { VlSideNavigation } from '@domg-wc/elements';\n```\n\n```html\n<nav is=\"vl-side-navigation\"></nav>\n```\n\n<Canvas of={VlSideNavigationStories.SideNavigationDefault}/>",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-content-next",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-group-next",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-item-next",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-reference-next",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-h1-next",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-h2-next",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-h3-next",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-h4-next",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-h5-next",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-h6-next",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-toggle-next",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                },
+                {
                     "name": "vl-steps-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `steps-next` component om een verticale lijst van stappen af te beelden om de gebruiker door een procedure te begeleiden.<br/>\n\nDeze component is de nieuwe versie van de [vl-steps](/docs/components-steps--documentatie) component, we raden aan deze versie te gebruiken.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-steps-steps--documentatie",
