@@ -19,7 +19,7 @@
                         },
                         {
                             "name": "id",
-                            "description": "Het id van het veld.",
+                            "description": "De id van het veld.<br>Bij de switch variant moet je een id instellen.",
                             "default": ""
                         },
                         {
@@ -427,6 +427,11 @@
                             "name": "pattern",
                             "description": "Het patroon dat je moet volgen bij het ingeven van een waarde.<br>Dit kan gebruikt worden voor eenvoudige validatie.<br>Gebruik de `regex` property voor complexe validatie.",
                             "default": ""
+                        },
+                        {
+                            "name": "input-group",
+                            "description": "Duidt aan dat de component deel is van een input-group.",
+                            "default": "false"
                         }
                     ],
                     "js": {
@@ -570,6 +575,11 @@
                             "name": "pattern",
                             "description": "Het patroon dat je moet volgen bij het ingeven van een waarde.<br>Dit kan gebruikt worden voor eenvoudige validatie.<br>Gebruik de `regex` property voor complexe validatie.",
                             "default": ""
+                        },
+                        {
+                            "name": "input-group",
+                            "description": "Duidt aan dat de component deel is van een input-group.",
+                            "default": "false"
                         },
                         {
                             "name": "mask",

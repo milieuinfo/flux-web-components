@@ -1,3 +1,24 @@
+# [1.42.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.41.0...v1.42.0) (2024-12-19)
+
+
+### Bug Fixes
+
+* Storybook logo Vlaamse Overheid ([0528481](https://github.com/milieuinfo/uigov-web-components/commit/052848192ff267e6133bc814567f93cd22537f1e))
+* UIG-3128 - vl-checkbox-next - switch variant verbeterd ([5c0d497](https://github.com/milieuinfo/uigov-web-components/commit/5c0d49719545ac87229ba8c9d18b978766853503))
+* UIG-3169 - vl-icon-next - icon font aangepast ([3ab46d2](https://github.com/milieuinfo/uigov-web-components/commit/3ab46d2474cacca3a1f310b02ae1e108e3a15a90))
+* UIG-3170 - vl-button-next - native click event wordt ontsloten ([28e0d39](https://github.com/milieuinfo/uigov-web-components/commit/28e0d39d4dd38dd11de3b994f5dc411a4200cfa4))
+* UIG-3171 - vl-icon-next - icon margins verbeterd ([f1ddbdd](https://github.com/milieuinfo/uigov-web-components/commit/f1ddbdd608635fe3fff60c4ae0aecbf1a439e012))
+
+
+### Features
+
+* UIG-2922 - input-group-next ([fadd357](https://github.com/milieuinfo/uigov-web-components/commit/fadd35721e36dd9f026e19d62d4af8e4f4082730))
+* UIG-2923 - vl-paragraph-next ([ff8d0a6](https://github.com/milieuinfo/uigov-web-components/commit/ff8d0a609facdb88858cb22b4a2f4979fcb25bc1))
+* UIG-2933 - vl-text-next - introductie component ([ca83351](https://github.com/milieuinfo/uigov-web-components/commit/ca8335117cad7b4acc99e154a1eea02db10e916d))
+* UIG-3122 - het font 'Flanders Art Serif' wordt nergens gebruikt ([6bf3873](https://github.com/milieuinfo/uigov-web-components/commit/6bf387301ab6aed73ed76588babea510ac4fbdae))
+* UIG-3138 - vl-link-next - optie toegevoegd die een button als link stileert ([112980e](https://github.com/milieuinfo/uigov-web-components/commit/112980e396f44030cf8ee613d8845bbea449b2b8))
+* UIG-3161 - webpack upgrade en component-test fix ([1058181](https://github.com/milieuinfo/uigov-web-components/commit/1058181ce2cedc82c758f6985c06b5ed3a37b0f2))
+
 # [1.41.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.40.0...v1.41.0) (2024-12-06)
 
 
