@@ -158,8 +158,11 @@ export class VlSelectComponent extends FormControl {
             this.options.pop();
         }
         this.initialOptions.forEach((option) => this.options.push({ ...option }));
-        // Aangezien we de referentie van de array niet veranderen, moeten we expliciet een update aanvragen voor de options array.
-        this.requestUpdate('options');
+        // We renderen enkel de options opnieuw als de value niet leeg is.
+        if (this.value) {
+            // Aangezien we de referentie van de array niet veranderen, moeten we expliciet een update aanvragen voor de options array.
+            this.requestUpdate('options');
+        }
     }
 
     private onChange(event: Event & { target: HTMLSelectElement }) {
