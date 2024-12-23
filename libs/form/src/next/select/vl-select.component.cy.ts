@@ -409,8 +409,15 @@ describe('component - vl-select-next - in form', () => {
                     e.preventDefault();
                 }}
             >
-                <vl-select-next id="geboorteplaats" name="geboorteplaats" .options=${options} required></vl-select-next>
+                <vl-select-next
+                    id="geboorteplaats"
+                    name="geboorteplaats"
+                    placeholder="Selecteer je geboorteplaats"
+                    .options=${options}
+                    required
+                ></vl-select-next>
                 <button class="vl-button" type="submit">Verstuur</button>
+                <button class="vl-button" type="reset">Reset</button>
             </form>
         `);
     });
@@ -429,6 +436,32 @@ describe('component - vl-select-next - in form', () => {
             const formData = Object.fromEntries(new FormData($el.get(0) as HTMLFormElement));
             expect(formData).to.deep.equal(submittedFormData);
         });
+    });
+
+    it('should reset value', () => {
+        cy.createStubForEvent('form', 'reset');
+
+        cy.get('vl-select-next').shadow().find('select').select('hasselt').trigger('change');
+        cy.get('form').find('button[type="reset"]').click();
+        cy.get('@reset').should('have.been.calledOnce');
+        cy.get('form').then(($el) => {
+            const formData = Object.fromEntries(new FormData($el.get(0) as HTMLFormElement));
+            expect(formData).to.deep.equal({});
+        });
+        cy.get('vl-select-next')
+            .shadow()
+            .find('select')
+            .find('option:selected')
+            .should('contain', 'Selecteer je geboorteplaats');
+
+        // we resetten een lege select; in dat geval moet de placeholder hetzelfde blijven
+        cy.get('form').find('button[type="reset"]').click();
+
+        cy.get('vl-select-next')
+            .shadow()
+            .find('select')
+            .find('option:selected')
+            .should('contain', 'Selecteer je geboorteplaats');
     });
 
     it('should prevent form submission on validation error', () => {
