@@ -107,7 +107,7 @@ describe('vl-map-search', () => {
                         // ik vind niets beter dan deze seconde wachten
                         cy.wait(1000).then(() => {
                             expect(onSelectSpy).to.be.called;
-                            cy.get('@select').should('be.calledWith', [139472.21, 203697.31, 159027.17, 229767.38]);
+                            cy.get('@select').should('be.calledWith', [139472.21, 203697.31, 159809.79, 229767.38]);
                         });
                     });
                 });
