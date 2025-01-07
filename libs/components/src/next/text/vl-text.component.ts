@@ -1,11 +1,9 @@
 import { BaseLitElement, webComponent } from '@domg-wc/common-utilities';
-import { globalStylesNext } from '@domg-wc/common-utilities/css';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { vlTextStyles } from './vl-text.css';
 import { textDefaults } from './vl-text.defaults';
 
-@globalStylesNext()
 @webComponent('vl-text-next')
 export class VlTextComponent extends BaseLitElement {
     private bold = textDefaults.bold;

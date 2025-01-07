@@ -1,11 +1,10 @@
 import { BaseLitElement, ICON_PLACEMENT, webComponent } from '@domg-wc/common-utilities';
-import { globalStylesNext, vlIconStyles, vlLinkStyles } from '@domg-wc/common-utilities/css';
+import { vlIconStyles, vlLinkStyles } from '@domg-wc/common-utilities/css';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { buttonAsLinkStyles } from './vl-button-as-link.css';
 import { linkDefaults } from './vl-link.defaults';
 
-@globalStylesNext()
 @webComponent('vl-link-next')
 export class VlLinkComponent extends BaseLitElement {
     private href = linkDefaults.href;

@@ -24,7 +24,7 @@ const globalStyles = [
     vlPaddingStyles,
 ];
 
-export class RegisterGlobalStyles {
+export class GlobalStyles {
     static registered = false;
 
     static register() {
@@ -34,14 +34,7 @@ export class RegisterGlobalStyles {
                 ...(globalStyles.map((style) => style.styleSheet) as CSSStyleSheet[]),
             ];
             this.registered = true;
-            console.log('RegisterGlobalStyles: global styling toegevoegd aan het document');
+            console.log('GlobalStyles: global styling toegevoegd aan het document');
         }
     }
 }
-
-export const globalStylesNext =
-    () =>
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    (constructor: Function) => {
-        RegisterGlobalStyles.register();
-    };
