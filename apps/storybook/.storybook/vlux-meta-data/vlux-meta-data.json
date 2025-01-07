@@ -537,9 +537,16 @@
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#title)"
     },
     "elements-toaster": {
-        "vStatus": "v1-todo",
+        "vStatus": "v1-replace",
         "legacyText": "vl-toaster",
-        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie)"
+        "nextText": "[vl-toaster-next](/docs/components-next-toaster--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#toaster)"
+    },
+    "components-next-toaster": {
+        "vStatus": "v2-next",
+        "legacyText": "[vl-toaster](/docs/components-toaster--documentatie)",
+        "nextText": "vl-toaster-next",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#toaster)"
     },
     "components-tooltip": {
         "vStatus": "replaced",
