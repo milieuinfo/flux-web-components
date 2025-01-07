@@ -3,15 +3,15 @@ import { customElement } from 'lit/decorators.js';
 import { BaseLitElement, findNodesForSlot } from '@domg-wc/common-utilities';
 import { alertStyle, iconStyle } from '@domg/govflanders-style/component';
 import { accessibilityStyle, resetStyle, markStyle } from '@domg/govflanders-style/common';
-import { VlAlertClosedEvent } from './vl-alert.model';
+import { VlAlertClosedEvent, VlAlertModel } from './vl-alert.model';
 import { classMap } from 'lit/directives/class-map.js';
 import vlAlertUigCss from './vl-alert.uig-css';
 
 @customElement('vl-alert')
-export class VlAlert extends BaseLitElement {
+export class VlAlert extends BaseLitElement implements VlAlertModel {
     icon = '';
     title = '';
-    type = '';
+    type?: 'info' | 'success' | 'warning' | 'error';
     size = '';
     message = '';
     naked = false;
@@ -80,7 +80,7 @@ export class VlAlert extends BaseLitElement {
     }
 
     private removeAlert() {
-        this.parentElement?.removeChild(this);
+        this.remove();
         this.dispatchEvent(new VlAlertClosedEvent());
     }
 

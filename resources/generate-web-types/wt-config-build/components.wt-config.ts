@@ -49,7 +49,8 @@ import { tabsPaneArgTypes } from '../../../libs/components/src/tabs/stories/vl-t
 import { tabsArgTypes } from '../../../libs/components/src/tabs/stories/vl-tabs.stories-arg';
 import { templateArgTypes } from '../../../libs/components/src/template/stories/vl-template.stories-arg';
 import { textareaArgTypes } from '../../../libs/components/src/textarea/stories/vl-textarea.stories-arg';
-import { toasterArgTypes } from '../../../libs/components/src/toaster/stories/vl-toaster.stories-arg';
+import { toasterArgTypes as toasterElementArgTypes } from '../../../libs/components/src/toaster/stories/vl-toaster.stories-arg';
+import { toasterArgTypes } from '@domg-wc/components/next/toaster/stories/vl-toaster.stories-arg';
 import { toggleButtonArgTypes } from '../../../libs/components/src/toggle-button/stories/vl-toggle-button.stories-arg';
 import { tooltipArgTypes } from '../../../libs/components/src/tooltip/stories/vl-tooltip.stories-arg';
 import { typographyArgTypes } from '../../../libs/components/src/typography/stories/vl-typography.stories-arg';
@@ -220,7 +221,12 @@ export const buildWTConfigComponents: WTConfigArray = [
     buildWTConfig('vl-side-navigation-content-next', null, null, '/docs/components-next-side-navigation--documentatie'),
     buildWTConfig('vl-side-navigation-group-next', null, null, '/docs/components-next-side-navigation--documentatie'),
     buildWTConfig('vl-side-navigation-item-next', null, null, '/docs/components-next-side-navigation--documentatie'),
-    buildWTConfig('vl-side-navigation-reference-next', null, null, '/docs/components-next-side-navigation--documentatie'),
+    buildWTConfig(
+        'vl-side-navigation-reference-next',
+        null,
+        null,
+        '/docs/components-next-side-navigation--documentatie'
+    ),
     buildWTConfig('vl-side-navigation-h1-next', null, null, '/docs/components-next-side-navigation--documentatie'),
     buildWTConfig('vl-side-navigation-h2-next', null, null, '/docs/components-next-side-navigation--documentatie'),
     buildWTConfig('vl-side-navigation-h3-next', null, null, '/docs/components-next-side-navigation--documentatie'),
@@ -333,7 +339,13 @@ export const buildWTConfigComponents: WTConfigArray = [
         '/docs/components-textarea--documentatie'
     ),
     buildWTConfig('vl-textarea-modal', null, null, '/docs/components-textarea--documentatie'),
-    buildWTConfig('vl-toaster', toasterArgTypes, null, '/docs/components-toaster--documentatie'),
+    buildWTConfig('vl-toaster', toasterElementArgTypes, null, '/docs/components-toaster--documentatie'),
+    buildWTConfig(
+        'vl-toaster-next',
+        toasterArgTypes,
+        '../../libs/components/src/next/toaster/stories/vl-toaster.stories-doc.mdx',
+        '/docs/components-next-toaster--documentatie'
+    ),
     buildWTConfig('vl-toggle-button', toggleButtonArgTypes, null, '/docs/components-toggle-button--documentatie'),
     buildWTConfig(
         'vl-tooltip',
