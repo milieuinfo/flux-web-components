@@ -1,15 +1,13 @@
 import { html } from 'lit';
-import { RegisterGlobalStyles } from '../../global-styles-decorator';
+import { GlobalStyles } from '../../global-styles';
 import { vlMarginStyles } from './vl-margin.css';
 
 describe('margin styles', () => {
     beforeEach(() => {
-        cy.then(() => RegisterGlobalStyles.register());
+        cy.then(() => GlobalStyles.register());
         cy.mount(html`
             <style>
-                ${vlMarginStyles}
-
-                div {
+                ${vlMarginStyles} div {
                     margin: 10px;
                 }
             </style>
@@ -75,5 +73,4 @@ describe('margin styles', () => {
             value: '10px',
         });
     });
-
 });

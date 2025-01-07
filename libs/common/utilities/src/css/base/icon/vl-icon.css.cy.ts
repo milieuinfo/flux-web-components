@@ -1,11 +1,11 @@
 import { html } from 'lit';
 import { hexToString } from '../../../util/utils';
-import { RegisterGlobalStyles } from '../../global-styles-decorator';
+import { GlobalStyles } from '../../global-styles';
 import { vlIconStyles } from '../icon/vl-icon.css';
 
 describe('outline styles', () => {
     beforeEach(() => {
-        cy.then(() => RegisterGlobalStyles.register());
+        cy.then(() => GlobalStyles.register());
         cy.mount(html`
             <style>
                 ${vlIconStyles}
