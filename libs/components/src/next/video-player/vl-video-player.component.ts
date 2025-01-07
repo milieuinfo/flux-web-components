@@ -1,5 +1,4 @@
 import { BaseLitElement, webComponent } from '@domg-wc/common-utilities';
-import { globalStylesNext } from '@domg-wc/common-utilities/css';
 import { CSSResult, html, PropertyDeclarations, PropertyValues } from 'lit';
 import { TextTrackInit } from 'vidstack';
 import { MediaPlayerElement } from 'vidstack/elements';
@@ -7,7 +6,6 @@ import { PlyrLayout, VidstackPlayer } from 'vidstack/global/player';
 import videoPlayerStyles from './vl-video-player.css';
 import { plyrTranslations } from './vl-video-player.translations';
 
-@globalStylesNext()
 @webComponent('vl-video-player-next')
 export class VlVideoPlayerComponent extends BaseLitElement {
     private playerInstance: MediaPlayerElement | undefined;

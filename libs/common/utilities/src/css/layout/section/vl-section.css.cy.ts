@@ -1,9 +1,9 @@
 import { html } from 'lit';
-import { RegisterGlobalStyles } from '../../global-styles-decorator';
+import { GlobalStyles } from '../../global-styles';
 
 describe('section styles', () => {
     it('should style the defaults', () => {
-        cy.then(() => RegisterGlobalStyles.register());
+        cy.then(() => GlobalStyles.register());
         cy.mount(html`
             <section class="vl-section-next vl-section-next--alt cy-section-first">
                 <p>vl-section-next vl-section-next--alt</p>
@@ -73,7 +73,7 @@ describe('section styles', () => {
     });
 
     it('should style with overlap', () => {
-        cy.then(() => RegisterGlobalStyles.register());
+        cy.then(() => GlobalStyles.register());
         cy.mount(html`
             <section class="vl-section-next vl-section-next--overlap cy-section-overlap">
                 <p class="vl-section-next__centered cy-section-centered">vl-section-next__centered</p>
@@ -136,7 +136,7 @@ describe('section styles', () => {
     });
 
     it('should style centered', () => {
-        cy.then(() => RegisterGlobalStyles.register());
+        cy.then(() => GlobalStyles.register());
         cy.mount(html`
             <section class="vl-section-next cy-section">
                 <p class="vl-section-next__centered cy-section-centered">vl-section-next__centered</p>
