@@ -194,7 +194,10 @@ describe('component - vl-select-rich-next - single', () => {
         // Hack om de select dropdown te sluiten zodat de a11y check slaagt
         // TODO: Dit komt omdat Choices.js het aria-activedescendant attribuut niet weghaalt van het input veld als er geen opties zijn, kijk of er een betere oplossing is.
         cy.get('body').click(0, 0);
-        cy.checkA11y('vl-select-rich-next');
+        cy.checkA11y('vl-select-rich-next', undefined, (violations) => {
+            const axeResultString = JSON.stringify(violations);
+            cy.log(axeResultString);
+        });
     });
 
     it('should set no choices text', () => {
@@ -218,7 +221,10 @@ describe('component - vl-select-rich-next - single', () => {
         // Hack om de select dropdown te sluiten zodat de a11y check slaagt
         // TODO: Dit komt omdat Choices.js het aria-activedescendant attribuut niet weghaalt van het input veld als er geen opties zijn, kijk of er een betere oplossing is.
         cy.get('body').click(0, 0);
-        cy.checkA11y('vl-select-rich-next');
+        cy.checkA11y('vl-select-rich-next', undefined, (violations) => {
+            const axeResultString = JSON.stringify(violations);
+            cy.log(axeResultString);
+        });
     });
 
     it('should set search placeholder', () => {
@@ -342,7 +348,10 @@ describe('component - vl-select-rich-next - single', () => {
         // Hack om de select dropdown te sluiten zodat de a11y check slaagt
         // TODO: Dit komt omdat Choices.js het role="treeitem" attribuut zet op opties bij het gebruik van groups ipv role="option", kijk of er een betere oplossing is.
         cy.get('body').click(0, 0);
-        cy.checkA11y('vl-select-rich-next');
+        cy.checkA11y('vl-select-rich-next', undefined, (violations) => {
+            const axeResultString = JSON.stringify(violations);
+            cy.log(axeResultString);
+        });
     });
 
     it('should dispatch vl-change event on select and delete option', () => {
