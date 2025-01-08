@@ -5,4 +5,6 @@ export const textDefaults = {
     success: false as boolean,
     warning: false as boolean,
     error: false as boolean,
+    annotation: false as boolean,
+    small: false as boolean,
 } as const;

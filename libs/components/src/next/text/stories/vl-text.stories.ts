@@ -24,7 +24,7 @@ export default {
 
 const TextTemplate = story(
     textArgs,
-    ({ bold, success, warning, error, italic, underline, defaultSlot }) => html`
+    ({ bold, success, warning, error, italic, underline, annotation, small, defaultSlot }) => html`
         <vl-text-next
             ?bold=${bold}
             ?success=${success}
@@ -32,6 +32,8 @@ const TextTemplate = story(
             ?error=${error}
             ?italic=${italic}
             ?underline=${underline}
+            ?annotation=${annotation}
+            ?small=${small}
         >
             ${unsafeHTML(defaultSlot)}
         </vl-text-next>
@@ -84,4 +86,18 @@ TextError.storyName = 'vl-text-next - error';
 TextError.args = {
     defaultSlot: 'text - error',
     error: true,
+};
+
+export const TextAnnotation = TextTemplate.bind({});
+TextAnnotation.storyName = 'vl-text-next - annotation';
+TextAnnotation.args = {
+    defaultSlot: 'text - annotation',
+    annotation: true,
+};
+
+export const TextSmall = TextTemplate.bind({});
+TextSmall.storyName = 'vl-text-next - small';
+TextSmall.args = {
+    defaultSlot: 'text - small',
+    small: true,
 };

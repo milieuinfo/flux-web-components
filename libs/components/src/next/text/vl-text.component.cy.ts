@@ -51,4 +51,16 @@ describe('component - vl-text-next', () => {
         cy.get('vl-text-next').should('have.attr', 'error');
         cy.get('vl-text-next').shadow().find('span').should('have.class', 'vl-text-next--error');
     });
+
+    it('should set annotation', () => {
+        cy.mount(html` <vl-text-next annotation>tekst - annotation</vl-text-next>`);
+        cy.get('vl-text-next').should('have.attr', 'annotation');
+        cy.get('vl-text-next').shadow().find('span').should('have.class', 'vl-text-next--annotation');
+    });
+
+    it('should set small', () => {
+        cy.mount(html` <vl-text-next small>tekst - small</vl-text-next>`);
+        cy.get('vl-text-next').should('have.attr', 'small');
+        cy.get('vl-text-next').shadow().find('span').should('have.class', 'vl-text-next--small');
+    });
 });

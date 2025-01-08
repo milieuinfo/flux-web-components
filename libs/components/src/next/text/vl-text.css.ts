@@ -1,3 +1,4 @@
+import {vlMediaScreenSmall} from "@domg-wc/common-utilities/css";
 import { css, CSSResult } from 'lit';
 
 export const vlTextStyles: CSSResult = css`
@@ -24,6 +25,20 @@ export const vlTextStyles: CSSResult = css`
 
         &.vl-text-next--underline {
             text-decoration: underline;
+        }
+
+        &.vl-text-next--annotation {
+            color: var(--vl-text-alt-color);
+        }
+
+        &.vl-text-next--small {
+            font-size: 1.4rem;
+        }
+
+        @media screen and (max-width: ${vlMediaScreenSmall}px) {
+            &.vl-text-next--small {
+                font-size: 1.3rem;
+            }
         }
     }
 `;

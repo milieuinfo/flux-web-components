@@ -1,19 +1,20 @@
-import { CSSResult, LitElement, css, html } from 'lit';
 import { registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { VlFormLabelComponent } from '@domg-wc/form/next/form-label';
-import { VlErrorMessageComponent } from '@domg-wc/form/next/error-message';
+import { VlButtonComponent } from '@domg-wc/components/next/button';
+import { VlTextComponent } from '@domg-wc/components/next/text';
 import { vlElementsStyle } from '@domg-wc/elements';
+import { VlCheckboxComponent } from '@domg-wc/form/next/checkbox';
+import { VlDatepickerComponent } from '@domg-wc/form/next/datepicker';
+import { VlErrorMessageComponent } from '@domg-wc/form/next/error-message';
+import { VlFormLabelComponent } from '@domg-wc/form/next/form-label';
 import { VlInputFieldComponent } from '@domg-wc/form/next/input-field';
 import { VlInputFieldMaskedComponent } from '@domg-wc/form/next/input-field-masked';
-import { VlTextareaComponent } from '@domg-wc/form/next/textarea';
-import { SelectRichOption, VlSelectRichComponent } from '@domg-wc/form/next/select-rich';
-import { SelectOption, VlSelectComponent } from '@domg-wc/form/next/select';
-import { VlCheckboxComponent } from '@domg-wc/form/next/checkbox';
 import { VlRadioComponent, VlRadioGroupComponent } from '@domg-wc/form/next/radio-group';
-import { VlDatepickerComponent } from '@domg-wc/form/next/datepicker';
+import { SelectOption, VlSelectComponent } from '@domg-wc/form/next/select';
+import { SelectRichOption, VlSelectRichComponent } from '@domg-wc/form/next/select-rich';
+import { VlTextareaComponent } from '@domg-wc/form/next/textarea';
 import { VlUploadComponent } from '@domg-wc/form/next/upload';
-import { VlButtonComponent } from '@domg-wc/components/next/button';
 import { parseFormData } from '@domg-wc/form/utils';
+import { css, CSSResult, html, LitElement } from 'lit';
 
 @webComponent('vl-form-demo')
 export class VlFormDemoComponent extends LitElement {
@@ -69,6 +70,7 @@ export class VlFormDemoComponent extends LitElement {
             VlCheckboxComponent,
             VlErrorMessageComponent,
             VlButtonComponent,
+            VlTextComponent,
         ]);
     }
 
@@ -95,7 +97,8 @@ export class VlFormDemoComponent extends LitElement {
             <form id="form" class="vl-form" @submit=${this.onSubmit}>
                 <div class="vl-form-grid vl-form-grid--is-stacked">
                     <div class="vl-form-col--4-12">
-                        <vl-form-label-next for="naam" label="Naam *" block></vl-form-label-next>
+                        <vl-form-label-next for="naam" label="Naam *"></vl-form-label-next>
+                        <vl-text-next annotation small>(enkel achternaam)</vl-text-next>
                     </div>
                     <div class="vl-form-col--8-12">
                         <vl-input-field-next
@@ -134,11 +137,11 @@ export class VlFormDemoComponent extends LitElement {
                             placeholder="Vul je rijksregisternummer in"
                         ></vl-input-field-masked-next>
                         <vl-error-message-next for="rrn" state="valueMissing"
-                            >Gelieve een rijksregisternummer in te vullen.</vl-error-message-next
-                        >
+                            >Gelieve een rijksregisternummer in te vullen.
+                        </vl-error-message-next>
                         <vl-error-message-next for="rrn" state="patternMismatch"
-                            >Gelieve een geldig rijksregisternummer in te vullen.</vl-error-message-next
-                        >
+                            >Gelieve een geldig rijksregisternummer in te vullen.
+                        </vl-error-message-next>
                     </div>
                     <div class="vl-form-col--4-12">
                         <vl-form-label-next for="geboortedatum" label="Geboortedatum *" block></vl-form-label-next>

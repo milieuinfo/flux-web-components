@@ -75,6 +75,12 @@
         "nextText": "[vl-group-next](/docs/styles-next-layout-afnemers-group--documentatie)",
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#group)"
     },
+    "components-annotation": {
+        "vStatus": "v1-replace",
+        "legacyText": "vl-annotation",
+        "nextText": "[vl-text-next](/docs/components-next-text--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#text)"
+    },
     "elements-action-group": {
         "vStatus": "v1-replace",
         "legacyText": "vl-action-group",

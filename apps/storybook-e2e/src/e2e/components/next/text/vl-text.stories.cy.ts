@@ -5,6 +5,8 @@ const textNextWarningUrl = 'http://localhost:8080/iframe.html?id=components-next
 const textNextErrorUrl = 'http://localhost:8080/iframe.html?id=components-next-text--text-error&viewMode=story';
 const textNextItalicUrl = 'http://localhost:8080/iframe.html?id=components-next-text--text-italic&viewMode=story';
 const textNextUnderlineUrl = 'http://localhost:8080/iframe.html?id=components-next-text--text-underline&viewMode=story';
+const textNextAnnotationUrl = 'http://localhost:8080/iframe.html?id=components-next-text--text-annotation&viewMode=story';
+const textNextSmallUrl = 'http://localhost:8080/iframe.html?id=components-next-text--text-small&viewMode=story';
 
 describe('story - vl-text-next - default', () => {
     it('should render', () => {
@@ -51,6 +53,20 @@ describe('story - vl-text-next - italic', () => {
 describe('story - vl-text-next - underline', () => {
     it('should render', () => {
         cy.visit(textNextUnderlineUrl);
+        cy.get('vl-text-next').shadow().find('span');
+    });
+});
+
+describe('story - vl-text-next - annotation', () => {
+    it('should render', () => {
+        cy.visit(textNextAnnotationUrl);
+        cy.get('vl-text-next').shadow().find('span');
+    });
+});
+
+describe('story - vl-text-next - small', () => {
+    it('should render', () => {
+        cy.visit(textNextSmallUrl);
         cy.get('vl-text-next').shadow().find('span');
     });
 });
