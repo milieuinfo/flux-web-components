@@ -1,9 +1,10 @@
 import { BaseLitElement, webComponent } from '@domg-wc/common-utilities';
-import { vlIconStyles } from '@domg-wc/common-utilities/css';
+import { globalStylesNext, vlIconStyles } from '@domg-wc/common-utilities/css';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { iconDefaults } from './vl-icon.defaults';
 
+@globalStylesNext()
 @webComponent('vl-icon-next')
 export class VlIconComponent extends BaseLitElement {
     private icon = iconDefaults.icon;

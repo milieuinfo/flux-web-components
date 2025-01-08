@@ -1,10 +1,10 @@
 import { html } from 'lit';
-import { GlobalStyles } from '../../global-styles';
+import { RegisterGlobalStyles } from '../../global-styles-decorator';
 import { vlFocusOutlineMixin } from './vl-outlines.css';
 
 describe('outline styles', () => {
     beforeEach(() => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => RegisterGlobalStyles.register());
         cy.mount(html`
             <style>
                 .cy-outline-focus {

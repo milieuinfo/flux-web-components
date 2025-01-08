@@ -1,16 +1,9 @@
-import { GlobalStyles } from '@domg-wc/common-utilities/css';
 import { LitElement, PropertyDeclarations } from 'lit';
 
 export class BaseLitElement extends LitElement {
     protected allowCustomCSS = true;
     private customCSS: string | null = null;
     private customCSSPrefix: string | null = null;
-
-    constructor() {
-        super();
-
-        GlobalStyles.register();
-    }
 
     static get properties(): PropertyDeclarations {
         return {

@@ -1,9 +1,11 @@
 import { BaseLitElement, throttle, webComponent } from '@domg-wc/common-utilities';
+import { globalStylesNext } from '@domg-wc/common-utilities/css';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import infotextStyle from './vl-infotext.css';
 import { infotextDefaults } from './vl-infotext.defaults';
 
+@globalStylesNext()
 @webComponent('vl-infotext-next')
 export class VlInfotextComponent extends BaseLitElement {
     // Attribute(s)

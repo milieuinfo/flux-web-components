@@ -1,12 +1,12 @@
 import { html } from 'lit';
 import { hexToString } from '../../../util/utils';
-import { GlobalStyles } from '../../global-styles';
+import { RegisterGlobalStyles } from '../../global-styles-decorator';
 import { vlIconStyles } from '../icon/vl-icon.css';
 import { vlLinkStyles } from './vl-link.css';
 
 describe('link styles', () => {
     beforeEach(() => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => RegisterGlobalStyles.register());
         cy.mount(html`
             <style>
                 ${vlLinkStyles()}

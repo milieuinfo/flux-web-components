@@ -1,10 +1,10 @@
 import { html } from 'lit';
-import { GlobalStyles } from '../../global-styles';
+import { RegisterGlobalStyles } from '../../global-styles-decorator';
 import { vlParagraphStyles } from './vl-paragraph.css';
 
 describe('paragraph styles', () => {
     beforeEach(() => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => RegisterGlobalStyles.register());
         cy.mount(html`
             <style>
                 ${vlParagraphStyles}

@@ -1,7 +1,7 @@
 import { filterOutClasses, filterOutDataCy, formatHTML } from '@domg-wc/common-storybook';
 import { registerWebComponents } from '@domg-wc/common-utilities';
 import { VlAlert } from '@domg-wc/components';
-import { GlobalStyles } from '@domg-wc/common-utilities/css';
+import { RegisterGlobalStyles } from '@domg-wc/common-utilities/css';
 import { VlIconElement } from '@domg-wc/elements';
 import './styles.css';
 import 'reflect-metadata';
@@ -35,4 +35,4 @@ export const parameters = {
 registerWebComponents([VlIconElement, VlAlert]);
 
 // zonder deze register() missen initieel de global-styles, ze verschijnen dan wel maar pas na 30 seconden - onduidelijk waarom
-GlobalStyles.register();
+RegisterGlobalStyles.register();

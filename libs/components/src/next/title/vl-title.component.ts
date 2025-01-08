@@ -1,4 +1,5 @@
 import { BaseLitElement, webComponent } from '@domg-wc/common-utilities';
+import { globalStylesNext } from '@domg-wc/common-utilities/css';
 import { CSSResult, PropertyDeclarations } from 'lit';
 import { html } from 'lit-element';
 import { choose } from 'lit/directives/choose.js';
@@ -6,6 +7,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import titleStyle from './vl-title.css';
 import { titleDefaults } from './vl-title.defaults';
 
+@globalStylesNext()
 @webComponent('vl-title-next')
 export class VlTitleComponent extends BaseLitElement {
     private type = titleDefaults.type;

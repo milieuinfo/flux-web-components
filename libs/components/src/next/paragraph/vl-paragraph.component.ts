@@ -1,9 +1,10 @@
 import { BaseLitElement, webComponent } from '@domg-wc/common-utilities';
-import { vlParagraphStyles } from '@domg-wc/common-utilities/css';
+import { globalStylesNext, vlParagraphStyles } from '@domg-wc/common-utilities/css';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { paragraphDefaults } from './vl-paragraph.defaults';
 
+@globalStylesNext()
 @webComponent('vl-paragraph-next')
 export class VlParagraphComponent extends BaseLitElement {
     private bold = paragraphDefaults.bold;

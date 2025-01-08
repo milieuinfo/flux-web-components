@@ -1,9 +1,9 @@
 import { html } from 'lit';
-import { GlobalStyles } from '../../global-styles';
+import { RegisterGlobalStyles } from '../../global-styles-decorator';
 
 describe('body styles', () => {
     beforeEach(() => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => RegisterGlobalStyles.register());
         cy.mount(html` <div class="cy-div">een div</div> `);
     });
 
