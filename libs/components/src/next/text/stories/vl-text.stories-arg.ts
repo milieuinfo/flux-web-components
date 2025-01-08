@@ -50,7 +50,7 @@ export const textArgTypes: ArgTypes<TextArgs> = {
     },
     italic: {
         name: 'italic',
-        description: 'Geeft de tekst een cursieve stijl.',
+        description: 'Toont de tekst cursief.',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
@@ -59,11 +59,29 @@ export const textArgTypes: ArgTypes<TextArgs> = {
     },
     underline: {
         name: 'underline',
-        description: 'Geeft de tekst een onderstreepte stijl.',
+        description: 'Toont de tekst onderstreept.',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: textDefaults.underline },
+        },
+    },
+    annotation: {
+        name: 'annotation',
+        description: 'Toont de tekst minder opvallend - hij krijgt een grijze kleur.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: textDefaults.annotation },
+        },
+    },
+    small: {
+        name: 'small',
+        description: 'Toont de tekst kleiner.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: textDefaults.small },
         },
     },
     defaultSlot: {

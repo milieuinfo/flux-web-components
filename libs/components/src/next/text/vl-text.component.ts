@@ -14,6 +14,8 @@ export class VlTextComponent extends BaseLitElement {
     private success = textDefaults.success;
     private warning = textDefaults.warning;
     private error = textDefaults.error;
+    private annotation = textDefaults.annotation;
+    private small = textDefaults.small;
 
     static get styles(): CSSResult[] {
         return [vlTextStyles];
@@ -27,6 +29,8 @@ export class VlTextComponent extends BaseLitElement {
             success: { type: Boolean },
             warning: { type: Boolean },
             error: { type: Boolean },
+            annotation: { type: Boolean },
+            small: { type: Boolean },
         };
     }
 
@@ -38,6 +42,8 @@ export class VlTextComponent extends BaseLitElement {
             'vl-text-next--success': this.success,
             'vl-text-next--warning': this.warning,
             'vl-text-next--error': this.error,
+            'vl-text-next--annotation': this.annotation,
+            'vl-text-next--small': this.small,
         };
 
         return html`
