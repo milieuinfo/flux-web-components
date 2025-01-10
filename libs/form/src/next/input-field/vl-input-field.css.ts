@@ -1,6 +1,11 @@
 import { css } from 'lit';
 
 export const inputFieldStyles = css`
+    :host([block]) {
+        display: block;
+        width: 100%;
+    }
+
     * {
         box-sizing: border-box;
     }
