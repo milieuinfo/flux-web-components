@@ -25,14 +25,14 @@ export const InputGroupButtonLeft = () => html` <div class="vl-group-next vl-gro
 InputGroupButtonLeft.storyName = 'input-group - button left';
 
 export const InputGroupButtonRight = () => html` <div class="vl-group-next vl-group-next--input-group">
-    <vl-input-field-next input-group></vl-input-field-next>
+    <vl-input-field-next input-group block></vl-input-field-next>
     <vl-button-next input-group>Locatie kiezen</vl-button-next>
 </div>`;
 InputGroupButtonRight.storyName = 'input-group - button right';
 
 export const InputGroupIconLeft = () => html` <div class="vl-group-next vl-group-next--input-group">
     <vl-button-next input-group icon="location"></vl-button-next>
-    <vl-input-field-next input-group></vl-input-field-next>
+    <vl-input-field-next input-group block></vl-input-field-next>
 </div>`;
 InputGroupIconLeft.storyName = 'input-group - icon left';
 

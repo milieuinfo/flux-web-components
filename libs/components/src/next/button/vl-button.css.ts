@@ -270,7 +270,13 @@ export const buttonStyles: CSSResult = css`
         }
 
         &.input-group-left {
+            width: max-content;
+            min-width: 3.5rem;
             border-radius: 0.3rem 0px 0px 0.3rem;
+
+            @media screen and (max-width: ${vlMediaScreenSmall}px) {
+                padding: var(--vl-spacing--xxsmall) var(--vl-spacing--xsmall);
+            }
 
             &.tertiary&:has(.vl-icon) {
                 border: solid 0.1rem rgb(134, 149, 168);
@@ -285,7 +291,13 @@ export const buttonStyles: CSSResult = css`
         }
 
         &.input-group-right {
+            width: max-content;
+            min-width: 3.5rem;
             border-radius: 0px 0.3rem 0.3rem 0px;
+
+            @media screen and (max-width: ${vlMediaScreenSmall}px) {
+                padding: var(--vl-spacing--xxsmall) var(--vl-spacing--xsmall);
+            }
 
             &.tertiary&:has(.vl-icon) {
                 border: solid 0.1rem rgb(134, 149, 168);
