@@ -69,6 +69,21 @@
         "nextText": "vl-section-next",
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#section)"
     },
+    "styles-next-layout-afnemers-separator": {
+        "vStatus": "v2-next-style-new",
+        "nextText": "vl-separator-next",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#separator)"
+    },
+    "styles-next-layout-afnemers-spacer": {
+        "vStatus": "v2-next-style-new",
+        "nextText": "vl-spacer-next",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#spacer)"
+    },
+    "styles-next-layout-afnemers-stacked": {
+        "vStatus": "v2-next-style-new",
+        "nextText": "vl-stacked-next",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#stacked)"
+    },
     "components-accordion-list": {
         "vStatus": "v1-replace",
         "legacyText": "vl-accordion-list",

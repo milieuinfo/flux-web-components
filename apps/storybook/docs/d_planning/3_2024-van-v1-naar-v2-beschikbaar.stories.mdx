@@ -329,7 +329,8 @@ Wordt niet meer voorzien in v2, indien het om een foutboodschap gaat dient `<vl-
 
 ### Form Grid
 
-`Grid [next]` voorziet style-classes voor `Form Grid [legacy]` en `Form Grid Column [legacy]`.
+`Grid [next]` voorziet style-classes voor `Form Grid [legacy]` en `Form Grid Column [legacy]`.<br/>
+Zie [Stacked](#stacked) voor de vervanger van de vroegere `stacked` attributen.
 
 <table  style={{width: 100 + '%'}}>
     <tr>
@@ -351,7 +352,7 @@ Wordt niet meer voorzien in v2, indien het om een foutboodschap gaat dient `<vl-
     <tr>
         <td>[Grid [next]](/docs/styles-next-layout-afnemers-grid--documentatie)</td>
         <td>release v1.40.0</td>
-        <td>styles/next</td>
+        <td>common-utilities/css</td>
         <td><code>{`class="vl-grid-next"`}</code></td>
         <td>styles</td>
         <td><code>{`class="vl-grid"`}</code></td>
@@ -367,7 +368,7 @@ Wordt niet meer voorzien in v2, indien het om een foutboodschap gaat dient `<vl-
     <tr>
         <td>[Grid Column [next]](/docs/styles-next-layout-afnemers-grid--documentatie)</td>
         <td>release v1.40.0</td>
-        <td>styles/next</td>
+        <td>common-utilities/css</td>
         <td><code>{`class="vl-column-next"`}</code></td>
         <td>styles</td>
         <td><code>{`class="vl-column"`}</code></td>
@@ -462,8 +463,9 @@ gebruiken dit niet meer.
 
 ### Grid
 
-`Grid [next]` voorziet style-classes voor `Grid [legacy]` en `Grid Column [legacy]`,
-zie [Section](#section) voor `Grid Layout [legacy]` en `Grid Region [legacy]`.
+`Grid [next]` voorziet style-classes voor `Grid [legacy]` en `Grid Column [legacy]`.<br/>
+Zie [Section](#section) voor `Grid Layout [legacy]` en `Grid Region [legacy]`.<br/>
+Zie [Stacked](#stacked) voor de vervanger van de vroegere `stacked` attributen.
 
 <table  style={{width: 100 + '%'}}>
     <tr>
@@ -485,7 +487,7 @@ zie [Section](#section) voor `Grid Layout [legacy]` en `Grid Region [legacy]`.
     <tr>
         <td>[Grid [next]](/docs/styles-next-layout-afnemers-grid--documentatie)</td>
         <td>release v1.40.0</td>
-        <td>styles/next</td>
+        <td>common-utilities/css</td>
         <td><code>{`class="vl-grid-next"`}</code></td>
         <td>styles</td>
         <td><code>{`class="vl-grid"`}</code></td>
@@ -501,7 +503,7 @@ zie [Section](#section) voor `Grid Layout [legacy]` en `Grid Region [legacy]`.
     <tr>
         <td>[Grid Column [next]](/docs/styles-next-layout-afnemers-grid--documentatie)</td>
         <td>release v1.40.0</td>
-        <td>styles/next</td>
+        <td>common-utilities/css</td>
         <td><code>{`class="vl-column-next"`}</code></td>
         <td>styles</td>
         <td><code>{`class="vl-column"`}</code></td>
@@ -558,7 +560,7 @@ zie [Section](#section) voor `Grid Layout [legacy]` en `Grid Region [legacy]`.
     <tr>
         <td>[Group [next]](/docs/styles-next-layout-afnemers-group--documentatie)</td>
         <td>release v1.40.0</td>
-        <td>styles/next</td>
+        <td>common-utilities/css</td>
         <td><code>{`class="vl-group-next"`}</code></td>
         <td>styles</td>
         <td><code>{`class="vl-group"`}</code></td>
@@ -859,7 +861,7 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
     <tr>
         <td>[Margin [next]](/docs/styles-next-layout-afnemers-margin--documentatie)</td>
         <td>release v1.40.0</td>
-        <td>styles/next</td>
+        <td>common-utilities/css</td>
         <td><code>{`class="vl-margin-next"`}</code></td>
         <td>styles</td>
         <td><code>{`class="vl-margin"`}</code></td>
@@ -881,7 +883,7 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
     <tr>
         <td>[Padding [next]](/docs/styles-next-layout-afnemers-padding--documentatie)</td>
         <td>release v1.40.0</td>
-        <td>styles/next</td>
+        <td>common-utilities/css</td>
         <td><code>{`class="vl-padding-next"`}</code></td>
         <td>styles</td>
         <td><code>{`class="vl-padding"`}</code></td>
@@ -1020,7 +1022,7 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
     <tr>
         <td>[Section [next]](/docs/styles-next-layout-afnemers-section--documentatie)</td>
         <td>release v1.40.0</td>
-        <td>styles/next</td>
+        <td>common-utilities/css</td>
         <td><code>{`class="vl-section-next"`}</code></td>
         <td>styles</td>
         <td><code>{`class="vl-section"`}</code></td>
@@ -1036,7 +1038,7 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
     <tr>
         <td>[Section - centered [next]](/docs/styles-next-layout-afnemers-section--documentatie)</td>
         <td>release v1.40.0</td>
-        <td>styles/next</td>
+        <td>common-utilities/css</td>
         <td><code>{`class="vl-section-next__centered"`}</code></td>
         <td>styles</td>
         <td><code>{`class="vl-section__centered"`}</code></td>
@@ -1086,6 +1088,73 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
         <td><code>{`<vl-select-rich-next>`}</code></td>
         <td>form</td>
         <td><code>{`<vl-select-rich>`}</code></td>
+    </tr>
+</table>
+
+
+### Separator
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>[Separator [next]](/docs/styles-next-layout-afnemers-separator--documentatie)</td>
+        <td>release v1.43.0</td>
+        <td>common-utilities/css</td>
+        <td><code>{`class="vl-separator-next"`}</code></td>
+        <td>styles</td>
+        <td><code>{`class="vl-separator"`}</code></td>
+    </tr>
+</table>
+
+
+### Spacer
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>[Spacer [next]](/docs/styles-next-layout-afnemers-spacer--documentatie)</td>
+        <td>release v1.43.0</td>
+        <td>common-utilities/css</td>
+        <td><code>{`class="vl-spacer-next"`}</code></td>
+        <td>styles</td>
+        <td><code>{`class="vl-spacer"`}</code></td>
+    </tr>
+</table>
+
+
+### Stacked
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr></tr>
+    <tr>
+        <td>[Stacked [next]](/docs/styles-next-layout-afnemers-stacked--documentatie)</td>
+        <td>release v1.43.0</td>
+        <td>common-utilities/css</td>
+        <td><code>{`class="vl-stacked-next"`}</code></td>
+        <td>styles</td>
+        <td><code>{`class="vl-stacked"`}</code></td>
     </tr>
 </table>
 
