@@ -40,6 +40,7 @@ const Template = story(
         date,
         dateModified,
         disableBackLink,
+        hideBackLink,
         evaluation,
         version,
         limitations,
@@ -52,6 +53,7 @@ const Template = story(
             data-vl-date=${date}
             data-vl-date-modified=${dateModified}
             ?data-vl-disable-back-link=${disableBackLink}
+            ?data-vl-hide-back-link=${hideBackLink}
             data-vl-evaluation=${evaluation}
             data-vl-version=${version}
             .limitations=${limitations}

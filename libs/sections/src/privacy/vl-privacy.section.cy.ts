@@ -11,6 +11,7 @@ const mountDefault = ({ ...props }: typeof privacyDefaults) =>
         data-vl-date=${props.date}
         data-vl-version=${props.version}
         ?data-vl-disable-back-link=${props.disableBackLink}
+        ?data-vl-hide-back-link=${props.hideBackLink}
     >
         ${unsafeHTML(props.headerSlot)} ${unsafeHTML(props.versionSlot)} ${unsafeHTML(props.contentSlot)}
         ${unsafeHTML(props.bottomSlot)}
@@ -51,7 +52,7 @@ describe('vl-privacy component - properties default ', () => {
     });
 });
 
-describe('vl-privacy component- properties reflect ', () => {
+describe('vl-privacy component - properties reflect ', () => {
     it('should reflect the <date> attribute', () => {
         mountDefault({ ...defaultProps, date: '27 januari 2024' });
 
@@ -63,6 +64,13 @@ describe('vl-privacy component- properties reflect ', () => {
 
         cy.get('vl-privacy').should('have.attr', 'data-vl-disable-back-link');
         cy.get('vl-privacy').shadow().find('vl-functional-header').should('have.attr', 'data-vl-disable-back-link');
+    });
+
+    it('should reflect the <hideBackLink> attribute', () => {
+        mountDefault({ ...defaultProps, hideBackLink: true });
+
+        cy.get('vl-privacy').should('have.attr', 'data-vl-hide-back-link');
+        cy.get('vl-privacy').shadow().find('vl-functional-header').should('have.attr', 'data-vl-hide-back-link');
     });
 
     it('should reflect the <version> attribute', () => {

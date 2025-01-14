@@ -47,6 +47,11 @@ export class VlAccessibility extends BaseLitElement {
                 attribute: 'data-vl-disable-back-link',
                 reflect: true,
             },
+            hideBackLink: {
+                type: Boolean,
+                attribute: 'data-vl-hide-back-link',
+                reflect: true,
+            },
             evaluation: {
                 type: String,
                 attribute: 'data-vl-evaluation',
@@ -68,6 +73,7 @@ export class VlAccessibility extends BaseLitElement {
     private date: string;
     private dateModified: string;
     private disableBackLink: boolean;
+    private hideBackLink: boolean;
     private evaluation: EVALUATION_STATUS;
     private version: string;
     private limitations?: Limitations;
@@ -81,6 +87,7 @@ export class VlAccessibility extends BaseLitElement {
         this.date = '20 juli 2021';
         this.dateModified = '20 juli 2021';
         this.disableBackLink = false;
+        this.hideBackLink = false;
         this.evaluation = 'NOT_EVALUATED';
         this.version = '1.0.0';
     }
@@ -92,6 +99,7 @@ export class VlAccessibility extends BaseLitElement {
             date: this.date,
             dateModified: this.dateModified,
             disableBackLink: this.disableBackLink,
+            hideBackLink: this.hideBackLink,
             evaluation: this.evaluation,
             version: this.version,
             limitations: this.limitations,

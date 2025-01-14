@@ -66,7 +66,7 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
     }
 
     static get _observedAttributes() {
-        return ['date', 'disable-back-link', 'version'];
+        return ['date', 'disable-back-link', 'hide-back-link', 'version'];
     }
 
     constructor() {
@@ -243,6 +243,16 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
             functionalHeader.setAttribute('data-vl-disable-back-link', '');
         } else {
             functionalHeader.removeAttribute('data-vl-disable-back-link');
+        }
+    }
+
+    _hideBackLinkChangedCallback() {
+        const functionalHeader = this._shadow.querySelector('vl-functional-header');
+
+        if (this.hasAttribute('hide-back-link')) {
+            functionalHeader.setAttribute('data-vl-hide-back-link', '');
+        } else {
+            functionalHeader.removeAttribute('data-vl-hide-back-link');
         }
     }
 }
