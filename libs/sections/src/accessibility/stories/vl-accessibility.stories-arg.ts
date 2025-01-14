@@ -9,6 +9,7 @@ export const accessibilityArgs = {
     date: '20 juli 2021',
     dateModified: '20 juli 2021',
     disableBackLink: false,
+    hideBackLink: false,
     evaluation: `${EVALUATION_STATUS.NOT_EVALUATED}`,
     version: '1.0.0',
     limitations: null as unknown as object,
@@ -62,6 +63,15 @@ export const accessibilityArgTypes: ArgTypes<typeof accessibilityArgs> = {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: accessibilityArgs.disableBackLink },
+        },
+    },
+    hideBackLink: {
+        name: 'data-vl-hide-back-link',
+        description: 'Verwijdert de terug-link.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: accessibilityArgs.hideBackLink },
         },
     },
     evaluation: {

@@ -15,6 +15,7 @@ const mountDefault = ({ ...props }: MountDefaultProps) =>
         data-vl-date=${props.date}
         data-vl-date-modified=${props.dateModified}
         ?data-vl-disable-back-link=${props.disableBackLink}
+        ?data-vl-hide-back-link=${props.hideBackLink}
         data-vl-evaluation=${props.evaluation}
         data-vl-version=${props.version}
         .limitations=${props.limitations}
@@ -28,6 +29,7 @@ const defaultProps: MountDefaultProps = {
     date: '20 juli 2021',
     dateModified: '20 juli 2021',
     disableBackLink: false,
+    hideBackLink: false,
     evaluation: 'NOT_EVALUATED',
     version: '1.0.0',
     limitations: undefined,
@@ -59,6 +61,7 @@ describe('component vl-accessibility - properties default ', () => {
         cy.get('vl-accessibility').should('have.attr', 'data-vl-date', defaultProps.date);
         cy.get('vl-accessibility').should('have.attr', 'data-vl-date-modified', defaultProps.dateModified);
         cy.get('vl-accessibility').should('not.have.attr', 'data-vl-disable-back-link', defaultProps.disableBackLink);
+        cy.get('vl-accessibility').should('not.have.attr', 'data-vl-hide-back-link', defaultProps.hideBackLink);
         cy.get('vl-accessibility').should('have.attr', 'data-vl-evaluation', defaultProps.evaluation);
         cy.get('vl-accessibility').should('have.attr', 'data-vl-version', defaultProps.version);
         cy.get('vl-accessibility').should('not.have.attr', 'data-vl-limitations', defaultProps.limitations);
@@ -96,6 +99,12 @@ describe('component vl-accessibility - properties reflect ', () => {
         cy.get('vl-accessibility').should('have.attr', 'data-vl-disable-back-link');
     });
 
+    it('should reflect the <hideBackLink> attribute', () => {
+        mountDefault({ ...defaultProps, hideBackLink: true });
+
+        cy.get('vl-accessibility').should('have.attr', 'data-vl-hide-back-link');
+    });
+
     it('should reflect the <evaluation> attribute', () => {
         mountDefault({ ...defaultProps, evaluation: 'EXPERT_EVALUATED' });
 
@@ -106,6 +115,24 @@ describe('component vl-accessibility - properties reflect ', () => {
         mountDefault({ ...defaultProps, version: 'v24' });
 
         cy.get('vl-accessibility').should('have.attr', 'data-vl-version', 'v24');
+    });
+});
+
+describe('component vl-accessibility - hide-back-link', () => {
+    it('back-link should be visible', () => {
+        mountDefault({ ...defaultProps, hideBackLink: false });
+
+        cy.get('vl-accessibility').should('not.have.attr', 'data-vl-hide-back-link');
+        cy.get('vl-accessibility').shadow().find('vl-functional-header').should('not.have.attr', 'data-vl-hide-back-link');
+        cy.get('vl-accessibility').shadow().find('vl-functional-header').shadow().find('a#back-link').should('exist');
+    });
+
+    it('back-link should be hidden', () => {
+        mountDefault({ ...defaultProps, hideBackLink: true });
+
+        cy.get('vl-accessibility').should('have.attr', 'data-vl-hide-back-link');
+        cy.get('vl-accessibility').shadow().find('vl-functional-header').should('have.attr', 'data-vl-hide-back-link');
+        cy.get('vl-accessibility').shadow().find('vl-functional-header').shadow().find('a#back-link').should('not.exist');
     });
 });
 

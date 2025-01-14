@@ -5,6 +5,7 @@ import { ArgTypes } from '@storybook/web-components';
 export const cookieStatementArgs = {
     date: '3 maart 2021',
     disableBackLink: false,
+    hideBackLink: false,
     version: '1.0.0',
     onClickBack: action('vl-click-back'),
     headerSlot: '',
@@ -27,6 +28,15 @@ export const cookieStatementArgTypes: ArgTypes<typeof cookieStatementArgs> = {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: cookieStatementArgs.disableBackLink },
+        },
+    },
+    hideBackLink: {
+        name: 'data-vl-hide-back-link',
+        description: 'Verwijdert de terug-link.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: cookieStatementArgs.hideBackLink },
         },
     },
     version: {

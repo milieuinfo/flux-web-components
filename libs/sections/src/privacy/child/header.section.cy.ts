@@ -3,11 +3,11 @@ import { header, privacyHeaderElements } from './header.section';
 
 registerWebComponents(privacyHeaderElements());
 
-const mountDefault = (props: { disableBackLink: boolean }) => cy.mount(header(props));
+const mountDefault = (props: { disableBackLink: boolean, hideBackLink: boolean }) => cy.mount(header(props));
 
 describe('header component', () => {
     beforeEach(() => {
-        mountDefault({ disableBackLink: false });
+        mountDefault({ disableBackLink: false, hideBackLink: false });
     });
 
     it('should mount', () => {
@@ -54,13 +54,25 @@ describe('header component', () => {
 
 describe('header component - with disableBackLink set to true', () => {
     it('should disable the back link when disableBackLink is true', () => {
-        mountDefault({ disableBackLink: true });
+        mountDefault({ disableBackLink: true, hideBackLink: false });
         cy.get('vl-functional-header').should('have.attr', 'data-vl-disable-back-link');
     });
 
     it('should NOT disable the back link when disableBackLink is false', () => {
-        mountDefault({ disableBackLink: false });
+        mountDefault({ disableBackLink: false, hideBackLink: false });
         cy.get('vl-functional-header').should('not.have.attr', 'data-vl-disable-back-link');
+    });
+});
+
+describe('header component - with hideBackLink set to true', () => {
+    it('should hide the back link when hideBackLink is true', () => {
+        mountDefault({ disableBackLink: false, hideBackLink: true });
+        cy.get('vl-functional-header').should('have.attr', 'data-vl-hide-back-link');
+    });
+
+    it('should NOT hide the back link when hideBackLink is false', () => {
+        mountDefault({ disableBackLink: false, hideBackLink: false });
+        cy.get('vl-functional-header').should('not.have.attr', 'data-vl-hide-back-link');
     });
 });
 

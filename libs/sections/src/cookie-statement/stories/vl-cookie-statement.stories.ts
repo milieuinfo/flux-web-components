@@ -22,10 +22,11 @@ export default {
 
 const Template = story(
     cookieStatementArgs,
-    ({ date, disableBackLink, version, onClickBack, headerSlot }) => html`
+    ({ date, disableBackLink, hideBackLink, version, onClickBack, headerSlot }) => html`
         <vl-cookie-statement
             data-vl-date=${date}
             ?data-vl-disable-back-link=${disableBackLink}
+            ?data-vl-hide-back-link=${hideBackLink}
             data-vl-version=${version}
             @vl-click-back=${onClickBack}
         >

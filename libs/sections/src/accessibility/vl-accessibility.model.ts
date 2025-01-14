@@ -25,6 +25,7 @@ export interface AccessibilityProperties {
     date: string;
     dateModified: string;
     disableBackLink: boolean;
+    hideBackLink: boolean;
     evaluation: EVALUATION_STATUS;
     limitations?: Limitations;
     version: string;

@@ -38,6 +38,7 @@ export class VlPrivacy extends BaseLitElement {
     private date = privacyDefaults.date;
     private version = privacyDefaults.version;
     private disableBackLink = privacyDefaults.disableBackLink;
+    private hideBackLink = privacyDefaults.hideBackLink;
 
     static {
         registerWebComponents([
@@ -83,6 +84,7 @@ export class VlPrivacy extends BaseLitElement {
         return {
             date: { type: String, attribute: 'data-vl-date' },
             disableBackLink: { type: Boolean, attribute: 'data-vl-disable-back-link' },
+            hideBackLink: { type: Boolean, attribute: 'data-vl-hide-back-link' },
             version: { type: String, attribute: 'data-vl-version' },
         };
     }
@@ -94,7 +96,9 @@ export class VlPrivacy extends BaseLitElement {
 
     render() {
         return html`
-            <slot name="header">${header({ disableBackLink: this.disableBackLink })}</slot>
+            <slot name="header"
+                >${header({ disableBackLink: this.disableBackLink, hideBackLink: this.hideBackLink })}
+            </slot>
             <section is="vl-region">
                 <slot name="version"> ${privacyVersionSection(this.version, this.date)}</slot>
             </section>

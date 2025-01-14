@@ -27,6 +27,15 @@ export const privacyArgTypes: ArgTypes<typeof privacyArgs> = {
             defaultValue: { summary: privacyArgs.disableBackLink },
         },
     },
+    hideBackLink: {
+        name: 'data-vl-hide-back-link',
+        description: 'Verwijdert de terug-link.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: privacyArgs.hideBackLink },
+        },
+    },
     version: {
         name: 'data-vl-version',
         description: 'De pagina versie.',
