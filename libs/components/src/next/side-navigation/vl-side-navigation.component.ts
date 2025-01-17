@@ -9,10 +9,6 @@ declare const vl: VL;
 @elementStyles()
 @webComponent('vl-side-navigation-next')
 export class VlSideNavigationComponent extends BaseLitElement {
-    static get _observedAttributes() {
-        return ['side-navigation-id'];
-    }
-
     static initializedSideNavigationId = '';
 
     constructor() {

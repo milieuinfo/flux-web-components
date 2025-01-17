@@ -15,6 +15,10 @@ export const vlGroupStyles: CSSResult = css`
             }
         }
 
+        &.vl-group-next--no-gap {
+            gap: 0;
+        }
+
         &.vl-group-next--space-between {
             justify-content: space-between;
         }
