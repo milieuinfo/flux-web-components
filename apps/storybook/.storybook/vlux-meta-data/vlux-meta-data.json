@@ -426,18 +426,26 @@
         "nextText": "vl-search-filter-next",
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#search-filter)"
     },
+    "components-next-search-result": {
+        "vStatus": "v2-next",
+        "legacyText": "[vl-search-result](/docs/elements-search-results-search-result--documentatie)",
+        "nextText": "vl-search-result-next",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#search-result)"
+    },
     "elements-search-results": {
-        "vStatus": "v1-todo"
+        "vStatus": "v1-replace"
     },
     "elements-search-results-search-result": {
-        "vStatus": "v1-todo",
+        "vStatus": "v1-replace",
         "legacyText": "vl-search-result",
-        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie)"
+        "nextText": "[vl-search-result-next](/docs/components-next-search-result--documentatie)",
+        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie#search-result)"
     },
     "elements-search-results-search-results": {
-        "vStatus": "v1-todo",
+        "vStatus": "v1-replace",
         "legacyText": "vl-search-results",
-        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie)"
+        "nextText": "[vl-search-result-next](/docs/components-next-search-result--documentatie)",
+        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie#search-result)"
     },
     "elements-select": {
         "vStatus": "v1-replace",

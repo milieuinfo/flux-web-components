@@ -1,0 +1,14 @@
+import { BaseLitElement, webComponent } from '@domg-wc/common-utilities';
+
+@webComponent('vl-search-result-text-next')
+export class VlSearchResultTextComponent extends BaseLitElement {
+    protected createRenderRoot(): HTMLElement | DocumentFragment {
+        return this;
+    }
+}
+
+declare global {
+    interface HTMLElementTagNameMap {
+        'vl-search-result-text-next': VlSearchResultTextComponent;
+    }
+}

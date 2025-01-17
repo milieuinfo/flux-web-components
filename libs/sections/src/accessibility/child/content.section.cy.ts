@@ -13,6 +13,7 @@ describe('component content', () => {
         date: '2021-01-01',
         dateModified: '2021-01-01',
         disableBackLink: false,
+        hideBackLink: false,
         evaluation: EVALUATION_STATUS.SELF_EVALUATED,
         limitations: {
             withTiming: ['Limitation 1', 'Limitation 2'],
