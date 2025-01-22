@@ -1,7 +1,6 @@
-import { VlCheckboxComponent } from '@domg-wc/components';
-
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
 import { vlElementsStyle } from '@domg-wc/elements';
+import { VlCheckboxComponent } from '@domg-wc/form/next/checkbox';
 import { VlTextComponent } from '@domg-wc/components/next/text';
 
 @webComponent('vl-cookie-consent-opt-in')
@@ -20,7 +19,7 @@ export class VlCookieConsentOptIn extends BaseElementOfType(HTMLElement) {
         ${vlElementsStyle.join('')}
       </style>
       <div>
-          <vl-checkbox></vl-checkbox>
+          <vl-checkbox-next></vl-checkbox-next>
       </div>
     `);
     }
@@ -30,7 +29,7 @@ export class VlCookieConsentOptIn extends BaseElementOfType(HTMLElement) {
     }
 
     get _checkboxElement() {
-        return this._element.querySelector('vl-checkbox');
+        return this._element.querySelector('vl-checkbox-next');
     }
 
     get _descriptionElement() {
@@ -38,11 +37,12 @@ export class VlCookieConsentOptIn extends BaseElementOfType(HTMLElement) {
     }
 
     _getDescriptionTemplate(description: string) {
-        return this._template(`<p><vl-text-next id="description" small>${description}</vl-text-next></p>`);
+        return this._template(`<p><vl-text id="description" small>${description}</vl-text></p>`);
     }
 
     _labelChangedCallback(oldValue: string, newValue: string) {
-        this._checkboxElement.setAttribute('data-vl-label', newValue);
+        this._checkboxElement.setAttribute('label', newValue);
+        this._checkboxElement.innerText = newValue;
     }
 
     _descriptionChangedCallback(oldValue: string, newValue: string) {
@@ -59,14 +59,14 @@ export class VlCookieConsentOptIn extends BaseElementOfType(HTMLElement) {
 
     _checkedChangedCallback(oldValue: string, newValue: string) {
         if (newValue != undefined) {
-            this._checkboxElement.setAttribute('data-vl-checked', '');
+            this._checkboxElement.setAttribute('checked', '');
         }
     }
 
     _mandatoryChangedCallback(oldValue: string, newValue: string) {
         if (newValue != undefined) {
-            this._checkboxElement.setAttribute('data-vl-checked', '');
-            this._checkboxElement.setAttribute('data-vl-disabled', '');
+            this._checkboxElement.setAttribute('checked', '');
+            this._checkboxElement.setAttribute('disabled', '');
         }
     }
 }

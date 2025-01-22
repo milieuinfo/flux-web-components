@@ -21,7 +21,7 @@ const clickLayerSwitcherCheckboxOf = (layerName: string): void => {
     cy.get('vl-map')
         .find('vl-map-layer-switcher')
         .shadow()
-        .find(`vl-checkbox[data-vl-layer="${layerName}"]`)
+        .find(`vl-checkbox-next[data-vl-layer="${layerName}"]`)
         .shadow()
         .find('input')
         .click({ force: true });

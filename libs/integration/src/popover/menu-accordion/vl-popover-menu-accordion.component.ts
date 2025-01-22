@@ -91,7 +91,7 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
                             </div>
                         </div>
                     </span>
-                    <vl-text annotation slot="subtitle">Lorem ipsum</vl-text>
+                    <vl-text-next slot="subtitle" annotation>Lorem ipsum</vl-text-next>
                     <span slot="menu">
                         <vl-button-next id="btn-acties1" icon="nav-show-more-vertical" ghost></vl-button-next>
                         <vl-popover for="btn-acties1" placement="bottom-end" distance="5">
