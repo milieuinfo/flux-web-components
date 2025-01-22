@@ -13,6 +13,7 @@ export class VlErrorMessageComponent extends BaseLitElement {
     private show = errorMessageDefaults.show;
     private for = errorMessageDefaults.for; // Wordt enkel gebruikt in de form-control basis klasse
     private state = errorMessageDefaults.state; // Wordt enkel gebruikt in de form-control basis klasse
+    private validationMessage = '';
 
     static get styles(): CSSResult[] {
         return [resetStyle, formMessageStyle, errorMessageUigStyle];
@@ -23,13 +24,14 @@ export class VlErrorMessageComponent extends BaseLitElement {
             show: { type: Boolean, reflect: true },
             for: { type: String },
             state: { type: String },
+            validationMessage: { type: String, attribute: 'validation-message' },
         };
     }
 
     render(): TemplateResult {
         return html`
             <p class="vl-form__error" ?hidden=${!this.show}>
-                <slot></slot>
+                <slot>${this.validationMessage}</slot>
             </p>
         `;
     }

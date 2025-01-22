@@ -121,6 +121,7 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
             errorMessage = this.form?.querySelector(`${ERROR_MESSAGE_CUSTOM_TAG}[for="${this.id}"]:not([state])`);
         }
 
+        errorMessage?.setAttribute('validation-message', this.validationMessage);
         errorMessage?.setAttribute('show', '');
     }
 
