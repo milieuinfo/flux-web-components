@@ -1,7 +1,6 @@
-import { VlCheckboxComponent } from '@domg-wc/components';
-
-import { BaseElementOfType, webComponent, registerWebComponents } from '@domg-wc/common-utilities';
+import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
 import { vlElementsStyle } from '@domg-wc/elements';
+import { VlCheckboxComponent } from '@domg-wc/form/next/checkbox';
 
 @webComponent('vl-cookie-consent-opt-in')
 export class VlCookieConsentOptIn extends BaseElementOfType(HTMLElement) {
@@ -19,7 +18,7 @@ export class VlCookieConsentOptIn extends BaseElementOfType(HTMLElement) {
         ${vlElementsStyle}
       </style>
       <div>
-          <vl-checkbox></vl-checkbox>
+          <vl-checkbox-next></vl-checkbox-next>
       </div>
     `);
     }
@@ -29,7 +28,7 @@ export class VlCookieConsentOptIn extends BaseElementOfType(HTMLElement) {
     }
 
     get _checkboxElement() {
-        return this._element.querySelector('vl-checkbox');
+        return this._element.querySelector('vl-checkbox-next');
     }
 
     get _descriptionElement() {
@@ -43,7 +42,7 @@ export class VlCookieConsentOptIn extends BaseElementOfType(HTMLElement) {
     }
 
     _labelChangedCallback(oldValue: string, newValue: string) {
-        this._checkboxElement.setAttribute('data-vl-label', newValue);
+        this._checkboxElement.innerHTML = newValue;
     }
 
     _descriptionChangedCallback(oldValue: string, newValue: string) {
@@ -60,14 +59,14 @@ export class VlCookieConsentOptIn extends BaseElementOfType(HTMLElement) {
 
     _checkedChangedCallback(oldValue: string, newValue: string) {
         if (newValue != undefined) {
-            this._checkboxElement.setAttribute('data-vl-checked', '');
+            this._checkboxElement.setAttribute('checked', '');
         }
     }
 
     _mandatoryChangedCallback(oldValue: string, newValue: string) {
         if (newValue != undefined) {
-            this._checkboxElement.setAttribute('data-vl-checked', '');
-            this._checkboxElement.setAttribute('data-vl-disabled', '');
+            this._checkboxElement.setAttribute('checked', '');
+            this._checkboxElement.setAttribute('disabled', '');
         }
     }
 }

@@ -1,6 +1,6 @@
 import { awaitUntil, BaseLitElement, registerWebComponents } from '@domg-wc/common-utilities';
-import { VlCheckboxComponent } from '@domg-wc/components';
 import { vlElementsStyle, VlFormLabel } from '@domg-wc/elements';
+import { VlCheckboxComponent } from '@domg-wc/form/next/checkbox';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { VlMap } from '../../vl-map';
@@ -86,12 +86,13 @@ export class VlMapLayerSwitcher extends BaseLitElement {
                 <label is="vl-form-label">${this.componentTitle}</label>
                 ${this.vlMapLayers.map(
                     (layer) => html`
-                        <vl-checkbox
-                            data-vl-label=${layer.title}
-                            data-vl-layer=${layer.title}
-                            checked=${layer.visible}
-                            @change=${() => (layer.visible = !layer.visible)}
-                        ></vl-checkbox>
+                        <vl-checkbox-next
+                            data-layer=${layer.title}
+                            .checked=${layer.visible}
+                            block
+                            @vl-input=${() => (layer.visible = !layer.visible)}
+                            >${layer.title}
+                        </vl-checkbox-next>
                     `
                 )}
             </div>
@@ -118,7 +119,7 @@ export class VlMapLayerSwitcher extends BaseLitElement {
         const resolution = this.mapElement?.resolution;
 
         this.vlMapLayers.forEach((layer) => {
-            const checkbox = this.shadowRoot?.querySelector(`vl-checkbox[data-vl-layer="${layer.title}"]`);
+            const checkbox = this.shadowRoot?.querySelector(`vl-checkbox-next[data-layer="${layer.title}"]`);
 
             if (!layer.isVisibleAtResolution(resolution)) {
                 checkbox?.setAttribute('disabled', '');

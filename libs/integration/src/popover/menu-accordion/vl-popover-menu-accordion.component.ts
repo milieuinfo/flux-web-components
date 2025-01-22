@@ -1,7 +1,8 @@
-import { CSSResult, LitElement, css, html } from 'lit';
 import { registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { VlAccordionComponent, VlPopoverComponent } from '@domg-wc/components';
+import { VlTextComponent } from '@domg-wc/components/next/text';
 import { vlElementsStyle } from '@domg-wc/elements';
-import { VlAccordionComponent, VlAnnotation, VlPopoverComponent } from '@domg-wc/components';
+import { css, CSSResult, html, LitElement } from 'lit';
 
 const topLevelAccordionCss = `
     .vl-accordion {background-color: white border-radius: 4px;}
@@ -21,7 +22,7 @@ const subAccordionCss = `
 @webComponent('vl-popover-menu-accordion')
 export class VlPopoverMenuAccordionComponent extends LitElement {
     static {
-        registerWebComponents([VlAccordionComponent, VlAnnotation, VlPopoverComponent]);
+        registerWebComponents([VlAccordionComponent, VlPopoverComponent, VlTextComponent]);
     }
 
     static override get styles(): (CSSResult | CSSResult[])[] {
@@ -90,7 +91,7 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
                             </div>
                         </div>
                     </span>
-                    <vl-annotation slot="subtitle">Lorem ipsum</vl-annotation>
+                    <vl-text-next slot="subtitle" annotation>Lorem ipsum</vl-text-next>
                     <span slot="menu">
                         <a is="vl-link" id="btn-acties1">
                             <span is="vl-icon" data-vl-icon="nav-show-more-vertical"></span>
