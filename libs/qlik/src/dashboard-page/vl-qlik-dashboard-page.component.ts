@@ -1,5 +1,6 @@
-import { CSSResult, html, PropertyDeclarations } from 'lit';
 import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { VlAlert, VlLoaderComponent } from '@domg-wc/components';
+import {VlTextComponent} from "@domg-wc/components/next/text";
 import {
     VlActionGroup,
     VlButtonElement,
@@ -16,9 +17,9 @@ import {
     VlIconWrapperElement,
     VlSelect,
 } from '@domg-wc/elements';
-import { VlQlikDashboardComponent } from '../dashboard';
-import { DashboardVisualization, Filter, Views } from '../utils/vl-qlik.model';
 import { exportCSVFile, exportExcelFile, Qlik } from '@domg/qlik-lib';
+import { CSSResult, html, PropertyDeclarations } from 'lit';
+import { VlQlikDashboardComponent } from '../dashboard';
 import {
     bindVlSelect,
     comparingWithFunction,
@@ -26,7 +27,7 @@ import {
     queryById,
     renderStack,
 } from '../utils/qlik-render-utils';
-import { VlAlert, VlAnnotation, VlLoaderComponent } from '@domg-wc/components';
+import { DashboardVisualization, Filter, Views } from '../utils/vl-qlik.model';
 
 const DEFAULT = {
     name: 'default',
@@ -59,7 +60,6 @@ export class VlQlikDashboardPageComponent extends BaseLitElement {
         registerWebComponents([
             VlAlert,
             VlLoaderComponent,
-            VlAnnotation,
             VlQlikDashboardComponent,
             VlActionGroup,
             VlIconWrapperElement,
@@ -74,6 +74,7 @@ export class VlQlikDashboardPageComponent extends BaseLitElement {
             VlH5Element,
             VlH6Element,
             VlSelect,
+            VlTextComponent
         ]);
     }
 
@@ -235,13 +236,13 @@ export class VlQlikDashboardPageComponent extends BaseLitElement {
             size: this.exportId ? 9 : 12,
             template: html` <h1 is="vl-h1" data-vl-no-space-bottom style="padding-top: 3rem">${this.title}</h1>
                 <p is="vl-icon-wrapper">
-                    <vl-annotation>
+                    <vl-text-next annotation>
                         <span>Laatste wijziging:</span>
-                    </vl-annotation>
+                    </vl-text-next>
                     <span is="vl-icon" data-vl-icon="calendar" data-vl-before data-vl-after data-vl-light></span>
-                    <vl-annotation>
+                    <vl-text-next annotation>
                         <span>${this.refresh}</span>
-                    </vl-annotation>
+                    </vl-text-next>
                 </p>`,
         };
     }

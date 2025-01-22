@@ -1,8 +1,8 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
+import { VlDatepickerComponent } from '@domg-wc/form/next/datepicker';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../vl-modal.component';
-import { VlDatepickerComponent } from '../../datepicker/vl-datepicker.component';
 import { modalArgs, modalArgTypes } from './vl-modal.stories-arg';
 
 registerWebComponents([VlDatepickerComponent]);
@@ -38,7 +38,7 @@ export const modalDefault = ({
             data-cy="modal"
         >
             <span slot="content">
-                <vl-datepicker></vl-datepicker>
+                <vl-datepicker-next block></vl-datepicker-next>
                 Lorem ipsum dolor sit amet.
             </span>
             <button is="vl-button" slot="button">Start aanvraag</button>
