@@ -1286,62 +1286,6 @@
                     ]
                 },
                 {
-                    "name": "vl-select-location",
-                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik de `select-location` component om een zoekbalk af te beelden waarmee er een adres geselecteerd kan worden.<br/>\nDeze component erft over van de [select](/docs/elements-select--select-default) component.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-select-location--documentatie",
-                    "attributes": [
-                        {
-                            "name": "data-vl-custom-css",
-                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
-                        },
-                        {
-                            "name": "data-vl-placeholder",
-                            "description": "De placeholder van het select element.<br>Dit attribuut is niet reactief.",
-                            "default": "Zoeken op kaart"
-                        },
-                        {
-                            "name": "data-vl-search-empty-text",
-                            "description": "De tekst wanneer er geen zoekresultaten zijn.<br>Dit attribuut is niet reactief.",
-                            "default": "Geen adres gevonden"
-                        },
-                        {
-                            "name": "data-vl-search-no-results-text",
-                            "description": "De tekst wanneer er geen zoekresultaten zijn.<br>Dit attribuut is niet reactief.",
-                            "default": "Geen adres gevonden"
-                        },
-                        {
-                            "name": "data-vl-search-placeholder",
-                            "description": "De placeholder van het input element.<br>Dit attribuut is niet reactief.",
-                            "default": "Zoeken op adres of coördinaat"
-                        },
-                        {
-                            "name": "data-vl-select-deletable",
-                            "description": "Het geselecteerde adres kan verwijderd worden.<br>Dit attribuut is niet reactief.",
-                            "default": "false"
-                        },
-                        {
-                            "name": "data-vl-select-search-result-limit",
-                            "description": "Limiteert het aantal zoekresultaten.<br>Dit attribuut is niet reactief.",
-                            "default": "null"
-                        }
-                    ],
-                    "js": {
-                        "events": [
-                            {
-                                "name": "change",
-                                "description": "Afgevuurd als er een adres geselecteerd wordt.<br>Het detail object van het event bevat het geselecteerde adres.",
-                                "type": "{ value: string }"
-                            },
-                            {
-                                "name": "search",
-                                "description": "Afgevuurd als de gebruiker een karakter ingeeft in de zoekbalk.<br>Het detail object van het event bevat de input van de zoekbalk en het aantal resultaten.",
-                                "type": "{ value: string, resultCount: number }"
-                            }
-                        ]
-                    }
-                },
-                {
                     "name": "vl-select-location-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `vl-select-location-next` component om een zoekbalk af te beelden waarmee er een adres geselecteerd kan worden.\n\nDeze component erft over van de [vl-select-rich](/docs/form-next-select-rich--documentatie) component.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-select-location-next--documentatie",

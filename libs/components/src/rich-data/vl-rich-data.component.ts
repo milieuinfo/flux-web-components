@@ -142,7 +142,7 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
         return this.shadowRoot.querySelector('#content');
     }
 
-    get __searchFilter(): (VlSearchFilterElement & HTMLElement) | VlSearchFilterComponent {
+    get __searchFilter(): (VlSearchFilterElement & HTMLElement) | VlSearchFilterComponent & HTMLElement {
         return this.querySelector('[slot="filter"]');
     }
 
@@ -333,9 +333,7 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
             this.setAttribute('data-vl-filter-closed', '');
             this._element.appendChild(this.__filterSlot);
             this.__hideHiddenInModalElements();
-            if (!(this.__searchFilter instanceof VlSearchFilterComponent)) {
-                this.__searchFilter.setAttribute('data-vl-mobile-modal', '');
-            } else {
+            if (this.__searchFilter instanceof VlSearchFilterComponent) {
                 this.__searchFilter.removeAttribute('hidden');
             }
         });
@@ -383,11 +381,8 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
 
     __processSearchFilter(): void {
         if (this.__searchFilter) {
-            if (!(this.__searchFilter instanceof VlSearchFilterComponent)) {
-                this.__searchFilter.setAttribute('data-vl-alt', '');
-            } else {
-                this.__searchFilter.setAttribute('alt', '');
-            }
+            this.__searchFilter.setAttribute('alt', '');
+
             if (!this.hasAttribute('data-vl-filter-closed')) {
                 this.__showSearchColumn();
             }
@@ -490,13 +485,8 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
     };
 
     __addSearchFilterEventListeners() {
-        if (!(this.__searchFilter instanceof VlSearchFilterComponent)) {
-            this.__searchFilter.addEventListener('change', this.stopPropagationPreventDefault);
-            this.__searchFilter.addEventListener('input', this.__onFilterFieldChanged);
-        } else {
-            this.__searchFilter.addEventListener('vl-change', this.stopPropagationPreventDefault);
-            this.__searchFilter.addEventListener('vl-input', this.__onFilterFieldChanged);
-        }
+        this.__searchFilter?.addEventListener('vl-change', this.stopPropagationPreventDefault);
+        this.__searchFilter?.addEventListener('vl-input', this.__onFilterFieldChanged);
 
         if (this.__searchFilterForm) {
             this.__searchFilterForm.addEventListener('reset', (e: any) => {

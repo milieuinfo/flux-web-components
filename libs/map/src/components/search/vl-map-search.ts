@@ -1,13 +1,14 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
 import { VlSearchComponent } from '@domg-wc/components';
-import { SELECT_POSITION, vlElementsStyle, VlSelect } from '@domg-wc/elements';
+import { vlElementsStyle } from '@domg-wc/elements';
+import { SelectRichPosition } from '@domg-wc/form/next/select-rich';
 import OlOverlay from 'ol/Overlay';
 import { VlSelectLocationComponent } from '../next/select-location/vl-select-location';
 
 @webComponent('vl-map-search')
 export class VlMapSearch extends BaseElementOfType(HTMLElement) {
     static {
-        registerWebComponents([VlSelect, VlSelectLocationComponent, VlSearchComponent]);
+        registerWebComponents([VlSelectLocationComponent, VlSearchComponent]);
     }
 
     static get _observedAttributes() {
@@ -37,14 +38,14 @@ export class VlMapSearch extends BaseElementOfType(HTMLElement) {
             ::part(vl-select-rich__combobox)::before {
                 display: none;
             }
-                
+
             vl-search {
                 display: block;
                 height: 3.5rem;
             }
           </style>
           <vl-search id="search" data-vl-inline>
-            <vl-select-location-next slot="input" not-deletable position=${SELECT_POSITION.BOTTOM}></vl-select-location-next>
+            <vl-select-location-next slot="input" not-deletable position=${SelectRichPosition.BOTTOM}></vl-select-location-next>
           </vl-search>
         `);
         this.configure();

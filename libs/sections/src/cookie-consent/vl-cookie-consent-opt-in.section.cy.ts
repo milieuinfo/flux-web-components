@@ -56,8 +56,9 @@ describe('vl-cookie-consent-opt-in - properties reflect', () => {
 
         cy.get('vl-cookie-consent-opt-in')
             .shadow()
-            .find('vl-checkbox')
-            .should('have.attr', 'data-vl-label', 'Test Cookies');
+            .find('vl-checkbox-next')
+            .should('have.attr', 'label', 'Test Cookies')
+            .should('have.text', 'Test Cookies');
     });
 
     it('should correctly reflect the <description> attribute', () => {
@@ -70,11 +71,12 @@ describe('vl-cookie-consent-opt-in - properties reflect', () => {
 
     it('should be checked when the <checked> attribute is set', () => {
         mountDefault({ ...props });
-        cy.get('vl-cookie-consent-opt-in').shadow().find('vl-checkbox').should('have.attr', 'data-vl-checked');
+        cy.get('vl-cookie-consent-opt-in').shadow().find('vl-checkbox-next').should('have.attr', 'checked');
     });
 
     it('should be disabled and checked when the <disable> attribute is set', () => {
         mountDefault({ ...props });
-        cy.get('vl-cookie-consent-opt-in').shadow().find('vl-checkbox').should('have.attr', 'data-vl-checked');
+        cy.get('vl-cookie-consent-opt-in').shadow().find('vl-checkbox-next').should('have.attr', 'checked');
+        cy.get('vl-cookie-consent-opt-in').shadow().find('vl-checkbox-next').should('have.attr', 'disabled');
     });
 });

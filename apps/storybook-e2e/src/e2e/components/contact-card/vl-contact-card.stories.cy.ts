@@ -11,33 +11,50 @@ describe('story vl-contact-card', () => {
         cy.get('vl-contact-card').find('vl-infoblock').shadow().find('h2').contains('Departement Onderwijs en Vorming');
     });
 
-    // TODO wordt gefixt in `vl-properties-next`-vervangingsbranch
-    it.skip('should contain an address', () => {
+    it('should contain an address', () => {
         cy.visit(`${contactCardUrl}`);
+
         cy.get('vl-contact-card')
-            .get('.vl-properties__list')
+            .find(`vl-properties-next`)
+            .shadow()
             .children()
             .eq(0)
             .contains('Adres')
             .next()
             .contains('Hendrik Consciencegebouw')
             .next()
+            .contains('Koning Albert II-laan 15')
+            .next()
+            .contains('1210 Brussel')
+            .next()
+            .contains('Routeplanner');
+
+        cy.get('vl-contact-card')
+            .find(`vl-properties-next`)
+            .shadow()
+            .children()
+            .eq(0)
             .contains('Telefoon')
             .next()
-            .find('.vl-link')
             .contains('02 553 72 02')
-            .parent()
-            .parent()
-            .next()
+            .parent();
+
+        cy.get('vl-contact-card')
+            .find(`vl-properties-next`)
+            .shadow()
+            .children()
+            .eq(0)
             .contains('E-mail')
             .next()
-            .find('.vl-link')
-            .contains('onderwijs.vlaanderen@vlaanderen.be')
-            .parent()
-            .next()
+            .contains('onderwijs.vlaanderen@vlaanderen.be');
+
+        cy.get('vl-contact-card')
+            .find(`vl-properties-next`)
+            .shadow()
+            .children()
+            .eq(0)
             .contains('Website')
             .next()
-            .find('.vl-link')
             .contains('http://onderwijs.vlaanderen.be');
     });
 });

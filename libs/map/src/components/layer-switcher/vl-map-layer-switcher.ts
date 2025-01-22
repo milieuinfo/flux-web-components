@@ -1,6 +1,6 @@
 import { awaitUntil, BaseLitElement, registerWebComponents } from '@domg-wc/common-utilities';
-import { VlCheckboxComponent } from '@domg-wc/components';
 import { vlElementsStyle } from '@domg-wc/elements';
+import { VlCheckboxComponent } from '@domg-wc/form/next/checkbox';
 import { formLabelStyles } from '@domg-wc/form/next/form-label/vl-form-label.css';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
@@ -46,10 +46,6 @@ export class VlMapLayerSwitcher extends BaseLitElement {
         };
     }
 
-    constructor() {
-        super();
-    }
-
     async connectedCallback(): Promise<void> {
         super.connectedCallback();
 
@@ -63,6 +59,13 @@ export class VlMapLayerSwitcher extends BaseLitElement {
         }
     }
 
+    disconnectedCallback(): void {
+        super.disconnectedCallback();
+
+        this.layerObserver?.disconnect();
+        this.mapElement?.un('moveend', this.computeDisabledAttributes);
+    }
+
     protected async willUpdate(changedProperties: Map<string, unknown>): Promise<void> {
         if (changedProperties.has('layers')) {
             await this.layersReady();
@@ -74,25 +77,19 @@ export class VlMapLayerSwitcher extends BaseLitElement {
         this.computeDisabledAttributes();
     }
 
-    disconnectedCallback(): void {
-        super.disconnectedCallback();
-
-        this.layerObserver?.disconnect();
-        this.mapElement?.un('moveend', this.computeDisabledAttributes);
-    }
-
     protected render(): TemplateResult {
         return html`
             <div>
                 <label class="vl-form__label">${this.componentTitle}</label>
                 ${this.vlMapLayers.map(
                     (layer) => html`
-                        <vl-checkbox
-                            data-vl-label=${layer.title}
+                        <vl-checkbox-next
+                            label=${layer.title}
                             data-vl-layer=${layer.title}
                             checked=${layer.visible}
-                            @change=${() => (layer.visible = !layer.visible)}
-                        ></vl-checkbox>
+                            @vl-input=${() => (layer.visible = !layer.visible)}
+                            >${layer.title}</vl-checkbox-next
+                        >
                     `
                 )}
             </div>
@@ -119,7 +116,7 @@ export class VlMapLayerSwitcher extends BaseLitElement {
         const resolution = this.mapElement?.resolution;
 
         this.vlMapLayers.forEach((layer) => {
-            const checkbox = this.shadowRoot?.querySelector(`vl-checkbox[data-vl-layer="${layer.title}"]`);
+            const checkbox = this.shadowRoot?.querySelector(`vl-checkbox-next[data-layer="${layer.title}"]`);
 
             if (!layer.isVisibleAtResolution(resolution)) {
                 checkbox?.setAttribute('disabled', '');
