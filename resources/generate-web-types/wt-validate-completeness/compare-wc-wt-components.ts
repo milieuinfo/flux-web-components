@@ -6,27 +6,6 @@ const componentWTNames = extractComponentWTNames();
 const componentWCIgnore = [
     'vl-side-navigation-title-next', // base class
 ];
-const componentWCDeprecated = [
-    'vl-http-400-message',
-    'vl-http-401-message',
-    'vl-http-403-message',
-    'vl-http-404-message',
-    'vl-http-405-message',
-    'vl-http-408-message',
-    'vl-http-410-message',
-    'vl-http-411-message',
-    'vl-http-412-message',
-    'vl-http-413-message',
-    'vl-http-414-message',
-    'vl-http-415-message',
-    'vl-http-500-message',
-    'vl-http-501-message',
-    'vl-http-502-message',
-    'vl-http-503-message',
-    'vl-http-504-message',
-    'vl-http-505-message',
-    'vl-http-506-message',
-];
 const componentWCMismatch = [
     'vl-cascader-next', // in next folder - verwacht een -next suffix, maar deze component heeft die niet
     'vl-cascader-item-next', // in next folder - verwacht een -next suffix, maar deze component heeft die niet
@@ -48,7 +27,6 @@ export const componentWTNameCount = componentWTNames.length;
 export const componentWCWithoutWT = componentWCNames.filter(
     (name) =>
         !componentWCIgnore.includes(name) &&
-        !componentWCDeprecated.includes(name) &&
         !componentWCMismatch.includes(name) &&
         !componentWTNames.includes(name)
 );

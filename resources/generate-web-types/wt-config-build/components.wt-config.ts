@@ -18,15 +18,11 @@ import { textArgTypes } from '@domg-wc/components/next/text/stories/vl-text.stor
 import { titleArgTypes } from '@domg-wc/components/next/title/stories/vl-title.stories-arg';
 import { toasterArgTypes } from '@domg-wc/components/next/toaster/stories/vl-toaster.stories-arg';
 import { videoPlayerArgTypes } from '@domg-wc/components/next/video-player/stories/vl-video-player.stories-arg';
-import { accordionListArgTypes } from '../../../libs/components/src/accordion-list/stories/vl-accordion-list.stories-arg';
 import { accordionArgTypes } from '../../../libs/components/src/accordion/stories/vl-accordion.stories-arg';
 import { alertArgTypes } from '../../../libs/components/src/alert/stories/vl-alert.stories-arg';
-import { annotationArgTypes } from '../../../libs/components/src/annotation/stories/vl-annotation.stories-arg';
 import { autocompleteArgTypes } from '../../../libs/components/src/autocomplete/stories/vl-autocomplete.stories-arg';
 import { breadcrumbItemArgTypes } from '../../../libs/components/src/breadcrumb/stories/vl-breadcrumb-item.stories-arg';
-import { checkboxArgTypes } from '../../../libs/components/src/checkbox/stories/vl-checkbox.stories-arg';
 import { contentHeaderArgTypes } from '../../../libs/components/src/content-header/stories/vl-content-header.stories-arg';
-import { datepickerArgTypes } from '../../../libs/components/src/datepicker/stories/vl-datepicker.stories-arg';
 import { descriptionDataItemArgTypes } from '../../../libs/components/src/description-data/stories/vl-description-data-item.stories-arg';
 import { descriptionDataArgTypes } from '../../../libs/components/src/description-data/stories/vl-description-data.stories-arg';
 import { documentArgTypes } from '../../../libs/components/src/document/stories/vl-document.stories-arg';
@@ -44,22 +40,14 @@ import { popoverArgTypes } from '../../../libs/components/src/popover/stories/vl
 import { progressBarArgTypes } from '../../../libs/components/src/progress-bar/stories/vl-progress-bar.stories-arg';
 import { prozaMessagePreloaderArgTypes } from '../../../libs/components/src/proza-message/stories/vl-proza-message-preloader.stories-arg';
 import { prozaMessageArgTypes } from '../../../libs/components/src/proza-message/stories/vl-proza-message.stories-arg';
-import { radioArgTypes } from '../../../libs/components/src/radio/stories/vl-radio.stories-arg';
 import { richDataTableArgTypes } from '../../../libs/components/src/rich-data-table/stories/vl-rich-data-table.stories-arg';
 import { richDataArgTypes } from '../../../libs/components/src/rich-data/stories/vl-rich-data.stories-arg';
 import { shareButtonArgTypes } from '../../../libs/components/src/share-buttons/stories/vl-share-button.stories-arg';
 import { shareButtonsArgTypes } from '../../../libs/components/src/share-buttons/stories/vl-share-buttons.stories-arg';
 import { sideSheetArgTypes } from '../../../libs/components/src/side-sheet/stories/vl-side-sheet.stories-arg';
 import { spotlightArgTypes } from '../../../libs/components/src/spotlight/stories/vl-spotlight.stories-arg';
-import { tabsPaneArgTypes } from '../../../libs/components/src/tabs/stories/vl-tabs-pane.stories-arg';
-import { tabsArgTypes } from '../../../libs/components/src/tabs/stories/vl-tabs.stories-arg';
 import { templateArgTypes } from '../../../libs/components/src/template/stories/vl-template.stories-arg';
-import { textareaArgTypes } from '../../../libs/components/src/textarea/stories/vl-textarea.stories-arg';
-import { toasterArgTypes as toasterElementArgTypes } from '../../../libs/components/src/toaster/stories/vl-toaster.stories-arg';
-import { toggleButtonArgTypes } from '../../../libs/components/src/toggle-button/stories/vl-toggle-button.stories-arg';
-import { tooltipArgTypes } from '../../../libs/components/src/tooltip/stories/vl-tooltip.stories-arg';
 import { typographyArgTypes } from '../../../libs/components/src/typography/stories/vl-typography.stories-arg';
-import { uploadArgTypes } from '../../../libs/components/src/upload/stories/vl-upload.stories-args';
 import { wizardPaneArgTypes } from '../../../libs/components/src/wizard/stories/vl-wizard-pane.stories-arg';
 import { wizardArgTypes } from '../../../libs/components/src/wizard/stories/vl-wizard.stories-arg';
 import { WTConfigArray } from '../web-types.model';
@@ -73,18 +61,11 @@ export const buildWTConfigComponents: WTConfigArray = [
         '/docs/components-accordion--documentatie'
     ),
     buildWTConfig(
-        'vl-accordion-list',
-        accordionListArgTypes,
-        '../../libs/components/src/accordion-list/stories/vl-accordion-list.stories-doc.mdx',
-        '/docs/components-accordion-list--documentatie'
-    ),
-    buildWTConfig(
         'vl-alert',
         alertArgTypes,
         '../../libs/components/src/alert/stories/vl-alert.stories-doc.mdx',
         '/docs/components-alert--documentatie'
     ),
-    buildWTConfig('vl-annotation', annotationArgTypes, null, '/docs/components-annotation--documentatie'),
     buildWTConfig(
         'vl-autocomplete',
         autocompleteArgTypes,
@@ -98,12 +79,6 @@ export const buildWTConfigComponents: WTConfigArray = [
         '/docs/components-breadcrumb--documentatie'
     ),
     buildWTConfig('vl-breadcrumb-item', breadcrumbItemArgTypes, null, '/docs/components-breadcrumb--documentatie'),
-    buildWTConfig(
-        'vl-checkbox',
-        checkboxArgTypes,
-        '../../libs/components/src/checkbox/stories/vl-checkbox.stories-doc.mdx',
-        '/docs/components-checkbox--documentatie'
-    ),
     buildWTConfig('vl-code-preview', null, null, '/docs/components-code-preview--documentatie'),
     buildWTConfig('vl-contact-card', null, null, '/docs/components-contact-card--documentatie'),
     buildWTConfig(
@@ -111,12 +86,6 @@ export const buildWTConfigComponents: WTConfigArray = [
         contentHeaderArgTypes,
         '../../libs/components/src/content-header/stories/vl-content-header.stories-doc.mdx',
         '/docs/components-content-header--documentatie'
-    ),
-    buildWTConfig(
-        'vl-datepicker',
-        datepickerArgTypes,
-        '../../libs/components/src/datepicker/stories/vl-datepicker.stories-doc.mdx',
-        '/docs/components-datepicker--documentatie'
     ),
     buildWTConfig(
         'vl-description-data',
@@ -309,13 +278,6 @@ export const buildWTConfigComponents: WTConfigArray = [
         '../../libs/components/src/proza-message/stories/vl-proza-message-preloader.stories-doc.mdx',
         '/docs/components-proza-message-preloader--documentatie'
     ),
-    buildWTConfig(
-        'vl-radio',
-        radioArgTypes,
-        '../../libs/components/src/radio/stories/vl-radio.stories-doc.mdx',
-        '/docs/components-radio--documentatie'
-    ),
-    buildWTConfig('vl-radio-group', null, null, '/docs/components-radio--documentatie'),
     buildWTConfig('vl-rich-data', richDataArgTypes, null, '/docs/components-rich-data--documentatie'),
     buildWTConfig(
         'vl-rich-data-table',
@@ -341,23 +303,6 @@ export const buildWTConfigComponents: WTConfigArray = [
     ),
     buildWTConfig('vl-spotlight', spotlightArgTypes, null, '/docs/components-spotlight--documentatie'),
     buildWTConfig(
-        'vl-steps',
-        stepsArgTypes,
-        '../../libs/components/src/steps/stories/vl-steps.stories-doc.mdx',
-        '/docs/components-steps--documentatie'
-    ),
-    buildWTConfig('vl-step', null, null, '/docs/components-steps--documentatie'),
-    buildWTConfig('vl-duration-step', null, null, '/docs/components-steps--documentatie'),
-    buildWTConfig(
-        'vl-tabs',
-        tabsArgTypes,
-        '../../libs/components/src/tabs/stories/vl-tabs.stories-doc.mdx',
-        '/docs/components-tabs--documentatie'
-    ),
-    buildWTConfig('vl-tabs-pane', tabsPaneArgTypes, null, '/docs/components-tabs--documentatie'),
-    buildWTConfig('vl-tab', null, null, '/docs/components-tabs--documentatie'),
-    buildWTConfig('vl-tab-section', null, null, '/docs/components-tabs--documentatie'),
-    buildWTConfig(
         'vl-tabs-next',
         tabsNextArgTypes,
         '../../libs/components/src/next/tabs/stories/vl-tabs.stories-doc.mdx',
@@ -368,33 +313,12 @@ export const buildWTConfigComponents: WTConfigArray = [
     buildWTConfig('vl-tab-section-next', null, null, '/docs/components-next-tabs--documentatie'),
     buildWTConfig('vl-template', templateArgTypes, null, '/docs/components-template--documentatie'),
     buildWTConfig(
-        'vl-textarea',
-        textareaArgTypes,
-        '../../libs/components/src/textarea/stories/vl-textarea.stories-doc.mdx',
-        '/docs/components-textarea--documentatie'
-    ),
-    buildWTConfig('vl-textarea-modal', null, null, '/docs/components-textarea--documentatie'),
-    buildWTConfig('vl-toaster', toasterElementArgTypes, null, '/docs/components-toaster--documentatie'),
-    buildWTConfig(
         'vl-toaster-next',
         toasterArgTypes,
         '../../libs/components/src/next/toaster/stories/vl-toaster.stories-doc.mdx',
         '/docs/components-next-toaster--documentatie'
     ),
-    buildWTConfig('vl-toggle-button', toggleButtonArgTypes, null, '/docs/components-toggle-button--documentatie'),
-    buildWTConfig(
-        'vl-tooltip',
-        tooltipArgTypes,
-        '../../libs/components/src/tooltip/stories/vl-tooltip.stories-doc.mdx',
-        '/docs/components-tooltip--documentatie'
-    ),
     buildWTConfig('vl-typography', typographyArgTypes, null, '/docs/components-typography--documentatie'),
-    buildWTConfig(
-        'vl-upload',
-        uploadArgTypes,
-        '../../libs/components/src/upload/stories/vl-upload.stories-doc.mdx',
-        '/docs/components-upload--documentatie'
-    ),
     buildWTConfig(
         'vl-video-player-next',
         videoPlayerArgTypes,
