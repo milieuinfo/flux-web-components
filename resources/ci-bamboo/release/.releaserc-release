@@ -1,7 +1,7 @@
 {
     "branches": [
-        "release",
-        "release-1.44"
+        "release-v2",
+        { "name": "release-v2-rc", "prerelease": "rc" }
     ],
     "plugins": [
         [

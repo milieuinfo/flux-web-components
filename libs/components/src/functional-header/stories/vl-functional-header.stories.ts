@@ -1,5 +1,6 @@
 import { story } from '@domg-wc/common-storybook';
 import { registerWebComponents } from '@domg-wc/common-utilities';
+import { VlTabsComponent } from '@domg-wc/components/next/tabs';
 import { action } from '@storybook/addon-actions';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
@@ -7,7 +8,6 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { VlBreadcrumbItemComponent } from '../../breadcrumb/vl-breadcrumb-item.component';
 import { VlBreadcrumbComponent } from '../../breadcrumb/vl-breadcrumb.component';
 import { VlSearchComponent } from '../../search';
-import { VlTabsComponent } from '../../tabs/vl-tabs.component';
 import { VlFunctionalHeaderComponent } from '../vl-functional-header.component';
 import { functionalHeaderArgs, functionalHeaderArgTypes } from './vl-functional-header.stories-arg';
 import functionalHeaderDoc from './vl-functional-header.stories-doc.mdx';
@@ -114,17 +114,17 @@ export const FunctionalHeaderTabs = story(
             data-vl-margin-bottom=${marginBottom}
             data-vl-title=${title}
         >
-            <vl-tabs
+            <vl-tabs-next
                 slot="sub-header"
-                data-vl-disable-links
-                data-vl-within-functional-header
-                data-vl-active-tab="trein"
+                disable-links
+                within-functional-header
+                active-tab="trein"
                 @change=${(event: CustomEvent) => action('change')(event.detail)}
             >
-                <vl-tabs-pane data-vl-id="trein" data-vl-title="Trein"></vl-tabs-pane>
-                <vl-tabs-pane data-vl-id="metro" data-vl-title="Metro, tram en bus"></vl-tabs-pane>
-                <vl-tabs-pane data-vl-id="fiets" data-vl-title="Fiets"></vl-tabs-pane>
-            </vl-tabs>
+                <vl-tabs-pane-next id="trein" title="Trein"></vl-tabs-pane-next>
+                <vl-tabs-pane-next id="metro" title="Metro, tram en bus"></vl-tabs-pane-next>
+                <vl-tabs-pane-next id="fiets" title="Fiets"></vl-tabs-pane-next>
+            </vl-tabs-next>
         </vl-functional-header>
     `
 );
