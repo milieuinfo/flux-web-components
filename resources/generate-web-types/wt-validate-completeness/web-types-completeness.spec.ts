@@ -30,8 +30,8 @@ describe('valideer de volledigheid van de gegenereerde web-types', () => {
         expect(elementWTWithoutWC).toStrictEqual([]);
     });
     it('components - valideer de volledigheid van de web-types', () => {
-        expect(componentWCNameCount).toEqual(112);
-        expect(componentWTNameCount).toEqual(97);
+        expect(componentWCNameCount).toEqual(74);
+        expect(componentWTNameCount).toEqual(78);
         expect(componentWCWithoutWT).toStrictEqual([]);
         expect(componentWTWithoutWC).toStrictEqual([]);
     });
@@ -42,8 +42,8 @@ describe('valideer de volledigheid van de gegenereerde web-types', () => {
         expect(formWTWithoutWC).toStrictEqual([]);
     });
     it('map - valideer de volledigheid van de web-types', () => {
-        expect(mapWCNameCount).toEqual(46);
-        expect(mapWTNameCount).toEqual(41);
+        expect(mapWCNameCount).toEqual(45);
+        expect(mapWTNameCount).toEqual(40);
         expect(mapWCWithoutWT).toStrictEqual([]);
         expect(mapWTWithoutWC).toStrictEqual([]);
     });
