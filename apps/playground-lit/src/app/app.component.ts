@@ -1,32 +1,31 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { vlGridStyles, vlGroupStyles } from '@domg-wc/common-utilities/css';
+import { vlGroupStyles } from '@domg-wc/common-utilities/css';
 import {
     VlAccordionComponent,
-    VlAnnotation,
     VlModalComponent,
     VlPillComponent,
     VlPopoverComponent,
     VlSideSheet,
-    VlTabsComponent,
 } from '@domg-wc/components';
 import { VlButtonComponent } from '@domg-wc/components/next/button';
 import { VlLinkComponent } from '@domg-wc/components/next/link';
 import { VlParagraphComponent } from '@domg-wc/components/next/paragraph';
+import { VlTabsComponent } from '@domg-wc/components/next/tabs';
 import { VlTitleComponent } from '@domg-wc/components/next/title';
 import { vlElementsStyle } from '@domg-wc/elements';
 import { VlDatepickerComponent } from '@domg-wc/form/next/datepicker';
 import { VlSelectComponent } from '@domg-wc/form/next/select';
 import { SelectRichOption, VlSelectRichComponent } from '@domg-wc/form/next/select-rich';
 import { vlStackedStyles } from 'libs/common/utilities/src/css/layout/stacked/vl-stacked.css';
-import { CSSResult, LitElement, html } from 'lit';
+import { CSSResult, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { VlFormDemoComponent } from '../../../../libs/integration/src/form/demo/vl-form-demo.component';
+
 @customElement('app-component')
 export class AppComponent extends LitElement {
     static {
         registerWebComponents([
             VlAccordionComponent,
-            VlAnnotation,
             VlButtonComponent,
             VlDatepickerComponent,
             VlFormDemoComponent,
@@ -43,70 +42,50 @@ export class AppComponent extends LitElement {
         ]);
     }
 
-    static get styles(): (CSSResult | CSSResult[])[] {
-        return [vlElementsStyle, vlGroupStyles, vlStackedStyles, vlGridStyles];
-    }
-
-    constructor() {
-        super();
-    }
-
     private selectOptions = [
         { value: 'value1', label: 'option 1' },
         { value: 'value2', label: 'option 2' },
         { value: 'value3', label: 'option 3' },
     ];
+    private geboorteplaatsen: SelectRichOption[] = [
+        {
+            label: 'België',
+            value: '',
+            choices: [
+                { label: 'Hasselt', value: 'hasselt' },
+                { label: 'Turnhout', value: 'turnhout' },
+                { label: 'Knokke-Heist', value: 'knokke-heist' },
+                { label: 'Waregem', value: 'waregem' },
+                { label: 'Lier', value: 'lier' },
+            ],
+        },
+        {
+            label: 'Puerto Rico',
+            value: '',
+            choices: [{ label: 'Rio Piedras', value: 'rio piedras' }],
+        },
+    ];
+
+    constructor() {
+        super();
+    }
+
+    static get styles(): (CSSResult | CSSResult[])[] {
+        return [vlElementsStyle, vlGroupStyles, vlStackedStyles];
+    }
 
     private _selectElement: VlSelectComponent;
 
     private get selectElement() {
-        this._selectElement = this._selectElement ?? (this.querySelector('#select') as VlSelectComponent);
+        this._selectElement = this._selectElement ?? (this.shadowRoot?.querySelector('#select') as VlSelectComponent);
         return this._selectElement;
-    }
-
-    private addOptions = (selectElement?: VlSelectComponent) => {
-        const select = selectElement || this.selectElement;
-        if (select.options.length === 0) {
-            select.options = this.selectOptions;
-        }
-    };
-
-    private addPlaceholder = (selectElement?: VlSelectComponent) => {
-        const select = selectElement || this.selectElement;
-        console.log({ select });
-        select.setAttribute('placeholder', 'My placeholder');
-    };
-
-    private addSelect = () => {
-        if (this.selectElement) {
-            const newSelect = document.createElement('vl-select-next');
-            this.addPlaceholder(newSelect);
-            this.addOptions(newSelect);
-            this.selectElement.insertAdjacentElement('afterend', newSelect);
-        }
-    };
-
-    private applyError = () => {
-        if (this.selectElement) {
-            this.selectElement.setAttribute('error', 'Fout!');
-        }
-    };
-
-    private openSidesheet = () => {
-        const sidesheet = this.querySelector('#sidesheet') as unknown as VlSideSheet;
-        sidesheet.toggle();
-    };
-
-    protected createRenderRoot(): HTMLElement | DocumentFragment {
-        // gaat shadow dom uitzetten
-        return this;
     }
 
     render() {
         return html`
             <main>
-                <vl-tabs data-vl-active-tab="vl-select-rich-next" data-vl-disable-links="">
-                    <vl-tabs-pane data-vl-id="vl-select-rich-next" data-vl-title="vl-select-rich-next">
+                <vl-tabs-next active-tab="vl-select-rich-next" disable-links="">
+                    <vl-tabs-pane-next id="vl-select-rich-next" title="vl-select-rich-next">
                         <vl-select-rich-next
                             style="width: 300px; display: block"
                             id="geboorteplaats"
@@ -116,25 +95,24 @@ export class AppComponent extends LitElement {
                             search=""
                         >
                         </vl-select-rich-next>
-                    </vl-tabs-pane>
-                    <vl-tabs-pane data-vl-id="vl-select-next" data-vl-title="vl-select-next">
+                    </vl-tabs-pane-next>
+                    <vl-tabs-pane-next id="vl-select-next" title="vl-select-next">
                         <div class="vl-stacked-next-small">
                             <vl-title-next type="h2">Select</vl-title-next>
                             <vl-paragraph-next
-                                >Test om te zien hoe de select placeholder zich gedraagt bij dynamische
-                                selects.</vl-paragraph-next
-                            >
+                                >Test om te zien hoe de select placeholder zich gedraagt bij dynamische selects.
+                            </vl-paragraph-next>
                             <vl-title-next type="h3">Gerelateerd aan:</vl-title-next>
                             <vl-pill
                                 data-vl-clickable
                                 @click=${() => window.open('https://www.milieuinfo.be/jira/browse/UIG-3214')}
-                                >UIG-3214</vl-pill
-                            >
+                                >UIG-3214
+                            </vl-pill>
                             <vl-pill
                                 data-vl-clickable
                                 @click=${() => window.open('https://www.milieuinfo.be/jira/browse/UIG-3203')}
-                                >UIG-3202</vl-pill
-                            >
+                                >UIG-3202
+                            </vl-pill>
                             <div class="vl-group-next">
                                 <vl-button-next @click=${() => this.addPlaceholder()}>Add placeholder</vl-button-next>
                                 <vl-button-next @click=${() => this.addOptions()}>Add options</vl-button-next>
@@ -144,88 +122,9 @@ export class AppComponent extends LitElement {
                             <div>
                                 <vl-select-next id="select"></vl-select-next>
                             </div>
-                            <vl-paragraph-next>
-                                Overzicht van de verschillende selects en hun layout (hoogte, hover).
-                            </vl-paragraph-next>
-                            <div class="vl-grid-next vl-grid-next--is-stacked">
-                                <div
-                                    style="display: flex;flex-direction: column;align-items: flex-start;margin-top: 1em;"
-                                >
-                                    <vl-form-label-next label="Input:" for="form1-input"></vl-form-label-next>
-                                    <vl-input-field-next type="text" id="form1-input" name="form1-input" value="">
-                                    </vl-input-field-next>
-                                </div>
-                                <div
-                                    style="display: flex;flex-direction: column;align-items: flex-start;margin-top: 1em;"
-                                >
-                                    <vl-form-label-next label="Select:" for="form1-select"></vl-form-label-next>
-                                    <vl-select-next
-                                        id="form1-select"
-                                        .options=${this.selectOptions}
-                                        placeholder="Select"
-                                    ></vl-select-next>
-                                </div>
-                                <div
-                                    style="display: flex;flex-direction: column;align-items: flex-start;margin-top: 1em;"
-                                >
-                                    <vl-form-label-next
-                                        label="Select Rich:"
-                                        for="form1-select-rich"
-                                    ></vl-form-label-next>
-                                    <vl-select-rich-next
-                                        id="form1-select-rich"
-                                        .options=${this.geboorteplaatsen}
-                                        placeholder="Select Rich"
-                                    ></vl-select-rich-next>
-                                </div>
-                                <div
-                                    style="display: flex;flex-direction: column;align-items: flex-start;margin-top: 1em;"
-                                >
-                                    <vl-form-label-next
-                                        label="Select Rich Multiple:"
-                                        for="form1-select-rich-multiple"
-                                    ></vl-form-label-next>
-                                    <vl-select-rich-next
-                                        id="form1-select-rich-multiple"
-                                        .options=${this.geboorteplaatsen}
-                                        placeholder="Select Rich"
-                                        multiple
-                                    ></vl-select-rich-next>
-                                </div>
-                                <div
-                                    style="display: flex;flex-direction: column;align-items: flex-start;margin-top: 1em;"
-                                >
-                                    <vl-form-label-next label="Datepicker:" for="form1-datepicker"></vl-form-label-next>
-                                    <vl-datepicker-next id="form1-datepicker"></vl-datepicker-next>
-                                </div>
-                                <div
-                                    style="display: flex;flex-direction: column;align-items: flex-start;margin-top: 1em;"
-                                >
-                                    <vl-form-label-next
-                                        label="Group left button:"
-                                        for="group-left"
-                                    ></vl-form-label-next>
-                                    <div class="vl-group-next vl-group-next--input-group">
-                                        <vl-button-next input-group="">Locatie kiezen</vl-button-next>
-                                        <vl-input-field-next input-group="" id="group-left"></vl-input-field-next>
-                                    </div>
-                                </div>
-                                <div
-                                    style="display: flex;flex-direction: column;align-items: flex-start;margin-top: 1em;"
-                                >
-                                    <vl-form-label-next
-                                        label="Group right button:"
-                                        for="group-right"
-                                    ></vl-form-label-next>
-                                    <div class="vl-group-next vl-group-next--input-group">
-                                        <vl-input-field-next input-group="" id="group-right"></vl-input-field-next>
-                                        <vl-button-next input-group="">Locatie kiezen</vl-button-next>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                    </vl-tabs-pane>
-                    <vl-tabs-pane data-vl-id="vl-datepicker-next" data-vl-title="vl-datepicker-next">
+                    </vl-tabs-pane-next>
+                    <vl-tabs-pane-next id="vl-datepicker-next" title="vl-datepicker-next">
                         <div class="vl-stacked-next-small">
                             <vl-title-next type="h2">Datepicker</vl-title-next>
                             <vl-paragraph-next>
@@ -235,8 +134,8 @@ export class AppComponent extends LitElement {
                             <vl-datepicker-next></vl-datepicker-next>
                             <div class="vl-group-next">
                                 <vl-button-next data-vl-modal-open="modal-with-datepicker"
-                                    >Open modal with datepicker</vl-button-next
-                                >
+                                    >Open modal with datepicker
+                                </vl-button-next>
                                 <vl-button-next @click=${this.openSidesheet}>Open sidesheet</vl-button-next>
                             </div>
                         </div>
@@ -248,8 +147,8 @@ export class AppComponent extends LitElement {
                         <vl-side-sheet id="sidesheet">
                             <vl-form-demo></vl-form-demo>
                         </vl-side-sheet>
-                    </vl-tabs-pane>
-                    <vl-tabs-pane data-vl-id="vl-group-next__column">
+                    </vl-tabs-pane-next>
+                    <vl-tabs-pane-next id="vl-group-next__column">
                         <span slot="title">vl-group-next__column</span>
                         <div class="vl-stacked-next-small">
                             <vl-title-next type="h2">vl-group-next__column</vl-title-next>
@@ -258,8 +157,8 @@ export class AppComponent extends LitElement {
                             <vl-pill
                                 data-vl-clickable
                                 @click=${() => window.open('https://www.milieuinfo.be/jira/browse/UIG-3226')}
-                                >UIG-3226</vl-pill
-                            >
+                                >UIG-3226
+                            </vl-pill>
                             <div
                                 class="vl-group-next vl-group-next--column vl-group-next--separator-column vl-group-next--stretch-children"
                             >
@@ -284,8 +183,8 @@ export class AppComponent extends LitElement {
                                 </vl-accordion>
                             </div>
                         </div>
-                    </vl-tabs-pane>
-                    <vl-tabs-pane data-vl-id="vl-group-next--baseline" data-vl-title="vl-group-next--baseline">
+                    </vl-tabs-pane-next>
+                    <vl-tabs-pane-next id="vl-group-next--baseline" title="vl-group-next--baseline">
                         <div class="vl-stacked-next-small">
                             <vl-title-next type="h2">vl-group-next--baseline</vl-title-next>
                             <vl-paragraph-next>Baseline alignering test voor links in vl-group-next.</vl-paragraph-next>
@@ -293,8 +192,8 @@ export class AppComponent extends LitElement {
                             <vl-pill
                                 data-vl-clickable
                                 @click=${() => window.open('https://www.milieuinfo.be/jira/browse/UIG-3225')}
-                                >UIG-3225</vl-pill
-                            >
+                                >UIG-3225
+                            </vl-pill>
                             <div class="vl-group-next vl-group-next--baseline">
                                 <vl-title-next type="h1">Pagina titel</vl-title-next>
                                 <vl-link-next href="#" icon="pencil" icon-placement="before">Link</vl-link-next>
@@ -310,32 +209,50 @@ export class AppComponent extends LitElement {
                             <div class="vl-group-next vl-group-next--baseline">
                                 <vl-title-next type="h3">Pagina titel</vl-title-next>
                                 <vl-link-next href="#" button-as-link icon="pencil" icon-placement="before"
-                                    >Link as button</vl-link-next
-                                >
+                                    >Link as button
+                                </vl-link-next>
                             </div>
                         </div>
-                    </vl-tabs-pane>
-                </vl-tabs>
+                    </vl-tabs-pane-next>
+                </vl-tabs-next>
             </main>
         `;
     }
 
-    private geboorteplaatsen: SelectRichOption[] = [
-        {
-            label: 'België',
-            value: '',
-            choices: [
-                { label: 'Hasselt', value: 'hasselt' },
-                { label: 'Turnhout', value: 'turnhout' },
-                { label: 'Knokke-Heist', value: 'knokke-heist' },
-                { label: 'Waregem', value: 'waregem' },
-                { label: 'Lier', value: 'lier' },
-            ],
-        },
-        {
-            label: 'Puerto Rico',
-            value: '',
-            choices: [{ label: 'Rio Piedras', value: 'rio piedras' }],
-        },
-    ];
+    protected createRenderRoot(): HTMLElement | DocumentFragment {
+        // gaat shadow dom uitzetten
+        return this;
+    }
+
+    private addOptions = (selectElement?: VlSelectComponent) => {
+        const select = selectElement || this.selectElement;
+        if (select.options.length === 0) {
+            select.options = this.selectOptions;
+        }
+    };
+
+    private addPlaceholder = (selectElement?: VlSelectComponent) => {
+        const select = selectElement || this.selectElement;
+        select.setAttribute('placeholder', 'My placeholder');
+    };
+
+    private addSelect = () => {
+        if (this.selectElement) {
+            const newSelect = document.createElement('vl-select-next');
+            this.addPlaceholder(newSelect);
+            this.addOptions(newSelect);
+            this.selectElement.insertAdjacentElement('afterend', newSelect);
+        }
+    };
+
+    private applyError = () => {
+        if (this.selectElement) {
+            this.selectElement.setAttribute('error', 'Fout!');
+        }
+    };
+
+    private openSidesheet = () => {
+        const sidesheet = this.querySelector('#sidesheet') as unknown as VlSideSheet;
+        sidesheet.toggle();
+    };
 }
