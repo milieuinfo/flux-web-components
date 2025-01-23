@@ -43,6 +43,7 @@ export class VlUploadComponent extends FormControl {
     private subTitle = uploadDefaults.subTitle;
     private mainTitle = uploadDefaults.mainTitle;
     private url = uploadDefaults.url;
+    private parallelUploads = uploadDefaults.parallelUploads;
 
     // State
     private value: FormValue = null;
@@ -69,6 +70,7 @@ export class VlUploadComponent extends FormControl {
             errorMessageMaxFiles: { type: String, attribute: 'error-message-max-files' },
             maxFiles: { type: Number, attribute: 'max-files' },
             maxSize: { type: Number, attribute: 'max-size' },
+            parallelUploads: { type: Number, attribute: 'parallel-uploads' },
             subTitle: { type: String, attribute: 'sub-title' },
             mainTitle: { type: String, attribute: 'main-title' },
             url: { type: String },
@@ -394,6 +396,7 @@ export class VlUploadComponent extends FormControl {
             autoProcessQueue: this.autoProcess,
             maxFiles: this.maxFiles,
             maxFilesize: this.maxSize,
+            parallelUploads: this.parallelUploads,
             acceptedFiles: this.acceptedFiles,
             createImageThumbnails: false,
             previewsContainer: this.shadowRoot?.querySelector<HTMLElement>('.vl-upload__files__container') || undefined,

@@ -167,6 +167,18 @@ describe('component - vl-upload-next', () => {
         cy.get('vl-upload-next').shadow().find('input').should('have.attr', 'disabled');
     });
 
+    it('should set parallel uploads', () => {
+        cy.mount(html` <vl-upload-next parallel-uploads="3"></vl-upload-next>`);
+
+        cy.createStubForEvent('vl-upload-next', 'vl-initialised');
+        cy.get('@vl-initialised').its('callCount').should('eq', 1);
+        cy.get('vl-upload-next').should('have.attr', 'parallel-uploads', '3');
+        cy.get('vl-upload-next').then((vlUploadQuery) => {
+            // @ts-expect-error private access toelaten
+            expect(vlUploadQuery[0].dropzoneInstance.options.parallelUploads).to.equal(3);
+        });
+    });
+
     it('should manually add file while readonly', () => {
         cy.mount(html` <vl-upload-next readonly></vl-upload-next>`);
 

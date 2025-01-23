@@ -11,6 +11,7 @@ export const uploadDefaults = {
     errorMessageMaxFiles: 'Je kan maximaal {{maxFiles}} bestand(en) uploaden.' as string,
     maxFiles: 1 as number,
     maxSize: 2 as number,
+    parallelUploads: 2 as number,
     subTitle: 'Sleep de bijlage naar hier om toe te voegen' as string,
     mainTitle: 'Bijlage toevoegen' as string,
     url: 'dummy-url' as string,
