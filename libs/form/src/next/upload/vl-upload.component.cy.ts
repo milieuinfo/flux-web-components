@@ -44,14 +44,18 @@ const shouldRemoveAllFilesProgrammatically = (): void => {
 };
 
 const shouldAddPdfFiles = (number = 1) => {
-    for (let i = 0; i < number; i++) {
-        cy.get('vl-upload-next').shadow().find('input[type=file]').selectFile(pdfFileFixturePath, { force: true });
-    }
+    const filesToAdd = Array<Cypress.FileReference>(number).fill(pdfFileFixturePath);
+    cy.get('vl-upload-next')
+        .shadow()
+        .find('input[type=file]')
+        .selectFile(number === 1 ? pdfFileFixturePath : filesToAdd, { force: true });
 };
 const shouldAddTxtFiles = (number = 1) => {
-    for (let i = 0; i < number; i++) {
-        cy.get('vl-upload-next').shadow().find('input[type=file]').selectFile(txtFileFixturePath, { force: true });
-    }
+    const filesToAdd = Array<Cypress.FileReference>(number).map(() => txtFileFixturePath);
+    cy.get('vl-upload-next')
+        .shadow()
+        .find('input[type=file]')
+        .selectFile(number === 1 ? txtFileFixturePath : filesToAdd, { force: true });
 };
 
 const shouldRemoveFile = () => {
@@ -114,6 +118,13 @@ describe('component - vl-upload-next', () => {
         cy.injectAxe();
 
         cy.checkA11y('vl-upload-next');
+    });
+
+    it('should initialise', () => {
+        cy.mount(html` <vl-upload-next label="test-label"></vl-upload-next>`);
+
+        cy.createStubForEvent('vl-upload-next', 'vl-initialised');
+        cy.get('@vl-initialised').its('callCount').should('eq', 1);
     });
 
     it('should set id', () => {
@@ -191,6 +202,7 @@ describe('component - vl-upload-next', () => {
         cy.mount(html` <vl-upload-next readonly></vl-upload-next>`);
 
         cy.get('vl-upload-next').should('have.attr', 'readonly');
+        cy.createStubForEvent('vl-upload-next', 'vl-addedfile');
 
         cy.fixture('upload/file.txt').as('txtFile');
         cy.get('@txtFile').then((fileContent) => {
@@ -201,11 +213,15 @@ describe('component - vl-upload-next', () => {
             });
         });
 
+        cy.get('@vl-addedfile').should('have.been.called');
         shouldHaveUploadFiles(1);
     });
 
     it('should manually upload', () => {
         cy.mount(html` <vl-upload-next url="http://httpbin.org/post"></vl-upload-next>`);
+
+        cy.get('vl-upload-next').shadow();
+
         shouldAddPdfFiles(1);
         shouldHaveUploadFiles(1);
 
@@ -354,8 +370,18 @@ describe('component - vl-upload-next', () => {
             html` <vl-upload-next accepted-files="txt" error-message-accepted-files=${errorMessage}></vl-upload-next>`
         );
 
+        cy.createStubForEvent('vl-upload-next', 'vl-error');
+        cy.createStubForEvent('vl-upload-next', 'vl-success');
+        cy.createStubForEvent('vl-upload-next', 'vl-complete');
+        cy.createStubForEvent('vl-upload-next', 'vl-queuecomplete');
+
         cy.get('vl-upload-next').shadow().find('input[type=file]').selectFile(pdfFileFixturePath, { force: true });
         cy.get('vl-upload-next').shadow().find('.dz-error-message').should('contain', errorMessage, '');
+
+        cy.get('@vl-success').should('not.have.been.called');
+        cy.get('@vl-error').should('have.been.called');
+        cy.get('@vl-complete').should('have.been.called');
+        cy.get('@vl-queuecomplete').should('have.been.called');
     });
 
     it('should only allow one file by default', () => {
@@ -380,10 +406,12 @@ describe('component - vl-upload-next', () => {
         cy.mount(html` <vl-upload-next disallow-duplicates></vl-upload-next>`);
 
         cy.createStubForEvent('vl-upload-next', 'vl-input');
+        cy.createStubForEvent('vl-upload-next', 'vl-removedfile');
         shouldAddPdfFiles(2);
         shouldHaveUploadFiles(2);
         cy.get('@vl-input').should('have.been.called');
         cy.get('@vl-input').its('firstCall.args.0.detail').should('deep.include', { type: 'addedfile' });
+        cy.get('@vl-removedfile').should('have.been.called');
         shouldHaveUploadFiles(1);
     });
 
@@ -399,7 +427,11 @@ describe('component - vl-upload-next', () => {
     });
 
     it('should select a file to upload and automatically start the upload', () => {
-        cy.mount(html` <vl-upload-next url=${uploadTargetUrl} auto-process></vl-upload-next>`);
+        cy.mount(html`<vl-upload-next url=${uploadTargetUrl} auto-process></vl-upload-next>`);
+
+        cy.createStubForEvent('vl-upload-next', 'vl-success');
+        cy.createStubForEvent('vl-upload-next', 'vl-complete');
+        cy.createStubForEvent('vl-upload-next', 'vl-error');
 
         cy.intercept('POST', uploadTargetUrl, (req) => {
             req.reply({
@@ -417,6 +449,10 @@ describe('component - vl-upload-next', () => {
             expect(interceptions).to.have.length(1);
         });
         shouldHaveSuccessUploadFiles(1);
+
+        cy.get('@vl-error').should('not.have.been.called');
+        cy.get('@vl-success').should('have.been.called');
+        cy.get('@vl-complete').should('have.been.called');
     });
 
     it('should change the subtitle and title of the upload component', () => {

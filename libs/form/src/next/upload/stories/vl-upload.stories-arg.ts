@@ -8,8 +8,14 @@ type UploadArgs = typeof uploadDefaults &
     typeof formControlArgs & {
         onVlChange: () => void;
         onVlInput: () => void;
-        onVlError: () => void;
         onVlValid: () => void;
+        onVlAddedFile: () => void;
+        onVlRemovedFile: () => void;
+        onVlSuccess: () => void;
+        onVlError: () => void;
+        onVlComplete: () => void;
+        onVlQueueComplete: () => void;
+        onVlInitialised: () => void;
     };
 
 export const uploadArgs: UploadArgs = {
@@ -18,7 +24,13 @@ export const uploadArgs: UploadArgs = {
     onVlChange: action('vl-change'),
     onVlInput: action('vl-input'),
     onVlValid: action('vl-valid'),
+    onVlAddedFile: action('vl-addedfile'),
+    onVlRemovedFile: action('vl-removedfile'),
+    onVlSuccess: action('vl-success'),
     onVlError: action('vl-error'),
+    onVlComplete: action('vl-complete'),
+    onVlQueueComplete: action('vl-queuecomplete'),
+    onVlInitialised: action('vl-initialised'),
 };
 
 export const uploadArgTypes: ArgTypes<UploadArgs> = {
@@ -71,7 +83,8 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
     errorMessageAcceptedFiles: {
         name: 'error-message-accepted-files',
         description:
-            'Attribuut om de message te definiëren wanneer er bestanden zijn toegevoegd die niet voldoen aan het gevraagde bestandstype.',
+            'Attribuut om de message te definiëren wanneer er bestanden zijn toegevoegd die niet voldoen aan het' +
+            'gevraagde bestandstype.',
         table: {
             type: {
                 summary: TYPES.STRING,
@@ -83,7 +96,8 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
     errorMessageFilesize: {
         name: 'error-message-filesize',
         description:
-            'Attribuut om de message te definiëren wanneer er te grote bestanden zijn toegevoegd. <br> Gebruik {{maxSize}} om de maximum grootte weer te geven in MB.',
+            'Attribuut om de message te definiëren wanneer er te grote bestanden zijn toegevoegd. <br> Gebruik' +
+            ' {{maxSize}} om de maximum grootte weer te geven in MB.',
         table: {
             type: {
                 summary: TYPES.STRING,
@@ -95,7 +109,8 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
     errorMessageMaxFiles: {
         name: 'error-message-maxfiles',
         description:
-            'Attribuut om de boodschap te bepalen wanneer er te veel bestanden zijn toegevoegd. <br> Gebruik {{maxFiles}} om het maximum aantal bestanden weer te geven.',
+            'Attribuut om de boodschap te bepalen wanneer er te veel bestanden zijn toegevoegd. <br> Gebruik' +
+            ' {{maxFiles}} om het maximum aantal bestanden weer te geven.',
         table: {
             type: {
                 summary: TYPES.STRING,
@@ -150,8 +165,7 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
     },
     parallelUploads: {
         name: 'parallel-uploads',
-        description: 'Bepaalt het aantal bestanden dat tegelijkertijd ' +
-            'geüpload kan worden.',
+        description: 'Bepaalt het aantal bestanden dat tegelijkertijd ' + 'geüpload kan worden.',
         table: {
             type: {
                 summary: 'number',
@@ -174,7 +188,8 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
     onVlChange: {
         name: 'vl-change',
         description:
-            'Event dat afgevuurd wordt als bestanden worden toegevoegd of verwijderd (zowel programmatorisch als door een gebruiker).<br>Het detail object van het event bevat de ingegeven waarde.<br>Daarnaast geeft het ook aan welke file werd verwijderd of toegevoegd.',
+            'Event dat afgevuurd wordt als bestanden worden toegevoegd of verwijderd (zowel programmatorisch als door ' +
+            'een gebruiker).<br>Het detail object van het event bevat de ingegeven waarde.<br>Daarnaast geeft het ook aan welke file werd verwijderd of toegevoegd.',
         table: {
             type: {
                 summary: '{ value: string, type: string, file: File}',
@@ -196,19 +211,87 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
     onVlValid: {
         name: 'vl-valid',
         description:
-            'Event dat afgevuurd wordt als de waarde van het input veld valid is.<br>Het detail object van het event bevat de ingegeven waarde.',
+            'Event dat afgevuurd wordt als de waarde van het input veld valid is.<br>Het detail object van het event ' +
+            'bevat de ingegeven waarde.',
         table: {
             type: { summary: '{ value: string }' },
+            category: CATEGORIES.EVENTS,
+        },
+    },
+    onVlAddedFile: {
+        name: 'vl-addedfile',
+        description:
+            'Event dat afgevuurd wordt als een bestand wordt toegevoegd.<br>Daarnaast geeft het ook de file die werd ' +
+            'toegevoegd.',
+        table: {
+            type: {
+                summary: '{ value: string, type: string, file: File}',
+            },
+            category: CATEGORIES.EVENTS,
+        },
+    },
+    onVlRemovedFile: {
+        name: 'vl-removedfile',
+        description:
+            'Event dat afgevuurd wordt als een bestand wordt verwijderd.<br>Daarnaast geeft het ook de file die werd ' +
+            'verwijderd.',
+        table: {
+            type: {
+                summary: '{ value: string, type: string, file: File}',
+            },
             category: CATEGORIES.EVENTS,
         },
     },
     onVlError: {
         name: 'vl-error',
         description:
-            'Event dat afgevuurd wordt als een bestand niet voldoet aan de validatie.<br>Het detail object van het event bevat de ingegeven waarde.<br>Daarnaast geeft het ook de file met de fout.',
+            'Event dat afgevuurd wordt als een bestand niet voldoet aan de validatie.<br>Het detail object van het' +
+            ' event bevat de ingegeven waarde.<br>Daarnaast geeft het ook de file met de fout.',
         table: {
             type: {
                 summary: '{ value: string, type: string, file: File, errorMessage: string}',
+            },
+            category: CATEGORIES.EVENTS,
+        },
+    },
+    onVlSuccess: {
+        name: 'vl-success',
+        description: 'Event dat afgevuurd wordt als de upload van een bestand succesvol is.',
+        table: {
+            type: {
+                summary: '{ value: string, type: string, file: File, response: object | string}',
+            },
+            category: CATEGORIES.EVENTS,
+        },
+    },
+    onVlComplete: {
+        name: 'vl-complete',
+        description: 'Event dat afgevuurd wordt als de upload van een bestand compleet is.',
+        table: {
+            type: {
+                summary: '{ value: string, type: string, file: File}',
+            },
+            category: CATEGORIES.EVENTS,
+        },
+    },
+    onVlQueueComplete: {
+        name: 'vl-queuecomplete',
+        description: 'Event dat afgevuurd wordt als de upload van alle bestanden compleet is.',
+        table: {
+            type: {
+                summary: '{ value: string, type: string, file: File}',
+            },
+            category: CATEGORIES.EVENTS,
+        },
+    },
+    onVlInitialised: {
+        name: 'vl-initialised',
+        description:
+            'Event dat afgevuurd wordt als de upload component geïnitialiseerd is. Hierna kunnen bv. events ' +
+            'geregistreerd worden.',
+        table: {
+            type: {
+                summary: '{ type: string}',
             },
             category: CATEGORIES.EVENTS,
         },
