@@ -47,6 +47,12 @@ export const UploadDefault = story(
         onVlInput,
         onVlValid,
         onVlError,
+        onVlSuccess,
+        onVlComplete,
+        onVlQueueComplete,
+        onVlInitialised,
+        onVlRemovedFile,
+        onVlAddedFile,
     }) => {
         return html`
             <vl-upload-next
@@ -73,6 +79,12 @@ export const UploadDefault = story(
                 @vl-input=${onVlInput}
                 @vl-valid=${onVlValid}
                 @vl-error=${onVlError}
+                @vl-success=${onVlSuccess}
+                @vl-complete=${onVlComplete}
+                @vl-queuecomplete=${onVlQueueComplete}
+                @vl-initialised=${onVlInitialised}
+                @vl-addedfile=${onVlAddedFile}
+                @vl-removedfile=${onVlRemovedFile}
             >
             </vl-upload-next>
         `;

@@ -243,11 +243,19 @@ export class VlUploadComponent extends FormControl {
     }
 
     on(event: string, callback: (...args: unknown[]) => void) {
-        this.dropzoneInstance?.on(event, callback);
+        if (this.dropzoneInstance) {
+            this.dropzoneInstance.on(event, callback);
+        } else {
+            console.warn('[VlUploadComponent] Dropzone instance is nog niet geïnitialiseerd. ');
+        }
     }
 
     off(event: string, callback: (...args: unknown[]) => void) {
-        this.dropzoneInstance?.off(event, callback);
+        if (this.dropzoneInstance) {
+            this.dropzoneInstance.off(event, callback);
+        } else {
+            console.warn('[VlUploadComponent] Dropzone instance is nog niet geïnitialiseerd. ');
+        }
     }
 
     getFiles(): DropzoneFile[] {
@@ -413,10 +421,15 @@ export class VlUploadComponent extends FormControl {
             dictRemoveFile: 'Verwijder bestand',
             dictCancelUpload: 'Annuleer upload',
             dictCancelUploadConfirmation: 'Ben je zeker dat je de upload wil annuleren?',
+            init: () => {
+                // hiermee is enkel Dropzone geïnitialiseerd, maar nog niet de volledige component
+                // meerbepaald event listeners zijn op dit moment nog niet toegevoegd
+                this.dispatchEvent(new CustomEvent('vl-initialised', { composed: true, bubbles: true }));
+            },
         };
 
         if (dropzoneContainer) {
-            // afhankelijk van de configuratie van build tools, kan Dropzone geinitialiseerd worden als named of als default export
+            // afhankelijk van de configuratie van build tools, kan Dropzone geïnitialiseerd worden als named of als default export
             try {
                 this.dropzoneInstance = new Dropzone(dropzoneContainer, dropzoneOptions);
             } catch (error) {
@@ -454,6 +467,9 @@ export class VlUploadComponent extends FormControl {
         this.dropzoneInstance.on('addedfile', this.handleAddedFile);
         this.dropzoneInstance.on('removedfile', this.handleRemovedFile);
         this.dropzoneInstance.on('error', this.handleError);
+        this.dropzoneInstance.on('success', this.handleSuccess);
+        this.dropzoneInstance.on('complete', this.handleComplete);
+        this.dropzoneInstance.on('queuecomplete', this.handleQueueComplete);
         this.dropzoneInstance.on('dragover', this.handleDragOver);
         this.dropzoneInstance.on('dragleave', this.handleDragLeave);
         this.dropzoneInstance.on('drop', this.handleDragLeave);
@@ -474,6 +490,9 @@ export class VlUploadComponent extends FormControl {
         this.dropzoneInstance.off('addedfile', this.handleAddedFile);
         this.dropzoneInstance.off('removedfile', this.handleRemovedFile);
         this.dropzoneInstance.off('error', this.handleError);
+        this.dropzoneInstance.off('success', this.handleSuccess);
+        this.dropzoneInstance.off('complete', this.handleComplete);
+        this.dropzoneInstance.off('queuecomplete', this.handleQueueComplete);
         this.dropzoneInstance.off('dragover', this.handleDragOver);
         this.dropzoneInstance.off('dragleave', this.handleDragLeave);
         this.dropzoneInstance.off('drop', this.handleDragLeave);
@@ -506,11 +525,25 @@ export class VlUploadComponent extends FormControl {
     private handleAddedFile = async (file: DropzoneFile): Promise<void> => {
         await this.updateFileList(this.dropzoneInstance!, file);
         this.updateValue({ type: 'addedfile', file: file, value: this.value });
+        this.dispatchEvent(
+            new CustomEvent('vl-addedfile', {
+                composed: true,
+                bubbles: true,
+                detail: { type: 'vl-addedfile', file, value: this.value },
+            })
+        );
     };
 
     private handleRemovedFile = async (file: DropzoneFile): Promise<void> => {
         await this.updateFileList(this.dropzoneInstance!);
         this.updateValue({ type: 'removedfile', file: file, value: this.value });
+        this.dispatchEvent(
+            new CustomEvent('vl-removedfile', {
+                composed: true,
+                bubbles: true,
+                detail: { type: 'vl-removedfile', file, value: this.value },
+            })
+        );
     };
 
     private handleError = (file: DropzoneFile, errorMessage: string) => {
@@ -518,7 +551,37 @@ export class VlUploadComponent extends FormControl {
             new CustomEvent('vl-error', {
                 composed: true,
                 bubbles: true,
-                detail: { type: 'error', file, value: this.value, errorMessage },
+                detail: { type: 'vl-error', file, value: this.value, errorMessage },
+            })
+        );
+    };
+
+    private handleSuccess = (file: DropzoneFile, response: object | string) => {
+        this.dispatchEvent(
+            new CustomEvent('vl-success', {
+                composed: true,
+                bubbles: true,
+                detail: { type: 'vl-success', file, value: this.value, response },
+            })
+        );
+    };
+
+    private handleComplete = (file: DropzoneFile) => {
+        this.dispatchEvent(
+            new CustomEvent('vl-complete', {
+                composed: true,
+                bubbles: true,
+                detail: { type: 'vl-complete', file, value: this.value },
+            })
+        );
+    };
+
+    private handleQueueComplete = () => {
+        this.dispatchEvent(
+            new CustomEvent('vl-queuecomplete', {
+                composed: true,
+                bubbles: true,
+                detail: { type: 'vl-queuecomplete', value: this.value },
             })
         );
     };

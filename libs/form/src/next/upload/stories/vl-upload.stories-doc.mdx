@@ -51,16 +51,20 @@ Handmatig de upload aanroepen. Indien een url gegeven is, laad op naar die url.
 
 Event listener toevoegen aan de Dropzone instantie van het upload component.
 
+> Opgelet: je kan pas events registeren nadat de component geïnitialiseerd is met behulp van het `vl-initialised`-event
+
 ### off(event: string, callback: (...args: unknown[]) => void)
 
 Event listener verwijderen van de Dropzone instantie van het upload component.
 
 ## Validatie
-> Meer info over validatie binnen onze form componenten vind je hier: [Form - Validatie](/docs/ontwerp-form-validation--documentatie)
+> Meer info over validatie binnen onze form componenten vind je hier:
+[Form - Validatie](/docs/ontwerp-form-validation--documentatie)
 
 De component gebruikt achterliggend de [Dropzone](https://www.dropzonejs.com/) library.
 
-Dropzone genereert achterliggend ook fouten, typisch wanneer er een bestand te veel is toegevoegd of het bestand te groot is.
+Dropzone genereert achterliggend ook fouten, typisch wanneer er een bestand te veel is toegevoegd of het bestand
+te groot is.
 Deze fouten worden getoond in de preview van het toegevoegde bestand en tellen mee in de validatie van het formulier.
 
 Om deze functionaliteit te bekomen wordt er een `dropzoneValidator` gebruikt die overeenkomt met de `customError` [ValidityState](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) key.
@@ -69,7 +73,8 @@ Via de `customError` ValidityState key kan je een error message linken aan de `d
 
 ## Toevoegen van bestanden
 
-Naast het slepen van bestanden, kan de gebruiker ook één of meerdere bestanden uploaden door op de link in het upload-veld te klikken en de bestanden
+Naast het slepen van bestanden, kan de gebruiker ook één of meerdere bestanden uploaden door op de
+link in het upload-veld te klikken en de bestanden
 selecteren in het bestandsmenu. Tenslotte is ook het ook mogelijk bestanden programmatorisch toe te voegen via de `addFile()` methode.
 
 ### Duplicaat detectie
@@ -83,7 +88,8 @@ dat bestanden werden verwijderd wegens duplicaat detectie.
 
 ### Content Security Policy
 
-De `vl-upload` component maakt gebruik van de [Dropzone](https://www.dropzonejs.com/) library. Deze library maakt gebruik van inline styles. Deze inline styles worden niet toegelaten in een strikte [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) policy.
+De `vl-upload` component maakt gebruik van de [Dropzone](https://www.dropzonejs.com/) library. Deze library maakt
+gebruik van inline styles. Deze inline styles worden niet toegelaten in een strikte [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) policy.
 Deze inline styles zijn echter niet nodig voor de werking van de `vl-upload` component.
 
 
