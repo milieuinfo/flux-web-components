@@ -393,6 +393,7 @@ export class VlUploadComponent extends FormControl {
         const previewTemplate = this.shadowRoot?.querySelector(`#previewTemplate`) as HTMLTemplateElement;
 
         const dropzoneOptions = {
+            paramName: this.name,
             autoProcessQueue: this.autoProcess,
             maxFiles: this.maxFiles,
             maxFilesize: this.maxSize,

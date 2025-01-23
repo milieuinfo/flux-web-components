@@ -125,9 +125,17 @@ describe('component - vl-upload-next', () => {
 
     it('should set name', () => {
         cy.mount(html` <vl-upload-next name="test-name"></vl-upload-next>`);
+        cy.createStubForEvent('vl-upload-next', 'vl-initialised');
+
+        cy.get('@vl-initialised').its('callCount').should('eq', 1);
 
         cy.get('vl-upload-next').should('have.attr', 'name', 'test-name');
         cy.get('vl-upload-next').shadow().find('input').should('have.attr', 'name', 'test-name');
+
+        cy.get('vl-upload-next').then((vlUploadQuery) => {
+            // @ts-expect-error private access toelaten
+            expect(vlUploadQuery[0].dropzoneInstance.options.paramName).to.equal('test-name');
+        });
     });
 
     it('should set label', () => {
