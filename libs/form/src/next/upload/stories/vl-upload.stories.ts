@@ -35,6 +35,7 @@ export const UploadDefault = story(
         disallowDuplicates,
         maxSize,
         maxFiles,
+        parallelUploads,
         autoProcess,
         acceptedFiles,
         subTitle,
@@ -61,6 +62,7 @@ export const UploadDefault = story(
                 accepted-files=${acceptedFiles}
                 max-size=${maxSize}
                 max-files=${maxFiles}
+                parallel-uploads=${parallelUploads}
                 url=${url}
                 sub-title=${subTitle}
                 main-title=${mainTitle}

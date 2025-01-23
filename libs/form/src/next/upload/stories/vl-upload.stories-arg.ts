@@ -148,6 +148,18 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
             defaultValue: { summary: uploadArgs.mainTitle },
         },
     },
+    parallelUploads: {
+        name: 'parallel-uploads',
+        description: 'Bepaalt het aantal bestanden dat tegelijkertijd ' +
+            'geüpload kan worden.',
+        table: {
+            type: {
+                summary: 'number',
+            },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: uploadArgs.parallelUploads },
+        },
+    },
     url: {
         name: 'url',
         description: 'Bepaalt de upload url',
