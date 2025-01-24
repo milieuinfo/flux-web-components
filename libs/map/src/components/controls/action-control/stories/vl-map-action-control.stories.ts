@@ -74,12 +74,12 @@ export const MapActionControlMultiple = story(
             <vl-map-action-controls>
                 <vl-map-action-control data-vl-action-id="draw-action" data-vl-label="Teken"></vl-map-action-control>
                 <vl-map-action-control
-                    data-vl-action-id="modify-action"
-                    data-vl-label="Editeer"
+                        data-vl-action-id="modify-action"
+                        data-vl-label="Editeer"
                 ></vl-map-action-control>
                 <vl-map-action-control
-                    data-vl-action-id="delete-action"
-                    data-vl-label="Verwijder"
+                        data-vl-action-id="delete-action"
+                        data-vl-label="Verwijder"
                 ></vl-map-action-control>
             </vl-map-action-controls>
         </vl-map>

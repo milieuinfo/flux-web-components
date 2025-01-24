@@ -9,7 +9,6 @@ import { buttonDefaults } from './vl-button.defaults';
 @webComponent('vl-button-next')
 export class VlButtonComponent extends BaseLitElement {
     private type = buttonDefaults.type;
-    private disabled = buttonDefaults.disabled;
     private error = buttonDefaults.error;
     private block = buttonDefaults.block;
     private large = buttonDefaults.large;
@@ -21,13 +20,15 @@ export class VlButtonComponent extends BaseLitElement {
     private icon = buttonDefaults.icon;
     private iconPlacement = buttonDefaults.iconPlacement;
     private toggle = buttonDefaults.toggle;
-    private on = buttonDefaults.on;
     private controlled = buttonDefaults.controlled;
     private ctaLink = buttonDefaults.ctaLink;
     private external = buttonDefaults.external;
     private inputGroup = buttonDefaults.inputGroup;
-
+    private label = buttonDefaults.label;
     private hasEmptySlot = false;
+
+    public disabled = buttonDefaults.disabled;
+    public on = buttonDefaults.on;
 
     static get styles(): CSSResult[] {
         return [buttonStyles, linkButtonStyles, vlIconStyles];
@@ -36,7 +37,6 @@ export class VlButtonComponent extends BaseLitElement {
     static get properties(): PropertyDeclarations {
         return {
             type: { type: String },
-            disabled: { type: Boolean },
             error: { type: Boolean },
             block: { type: Boolean },
             large: { type: Boolean },
@@ -48,6 +48,13 @@ export class VlButtonComponent extends BaseLitElement {
             icon: { type: String },
             iconPlacement: { type: String, attribute: 'icon-placement', reflect: true },
             toggle: { type: Boolean },
+            controlled: { type: Boolean },
+            ctaLink: { type: String, attribute: 'cta-link' },
+            external: { type: Boolean },
+            inputGroup: { type: Boolean, attribute: 'input-group' },
+            label: { type: String },
+            hasEmptySlot: { type: Boolean },
+            disabled: { type: Boolean, reflect: true },
             on: {
                 type: Boolean,
                 reflect: true,
@@ -56,15 +63,9 @@ export class VlButtonComponent extends BaseLitElement {
                         // Sla de eerste change over omdat anders het vl-toggle event 2x wordt getriggerd bij de eerste render.
                         return false;
                     }
-
                     return true;
                 },
             },
-            controlled: { type: Boolean },
-            ctaLink: { type: String, attribute: 'cta-link' },
-            external: { type: Boolean },
-            inputGroup: { type: Boolean, attribute: 'input-group' },
-            hasEmptySlot: { type: Boolean },
         };
     }
 
@@ -123,10 +124,12 @@ export class VlButtonComponent extends BaseLitElement {
         return !this.ctaLink
             ? html`
                   <button
+                      part="button"
                       class=${classMap(classes)}
                       type=${this.type}
                       ?disabled=${this.disabled}
                       @click=${this.handleClick}
+                      aria-label=${this.label}
                   >
                       ${this.renderIcon(ICON_PLACEMENT.BEFORE)}
                       <slot @slotchange=${this.isSlotEmpty}></slot>
@@ -135,12 +138,14 @@ export class VlButtonComponent extends BaseLitElement {
               `
             : html`
                   <a
+                      part="button"
                       href=${this.disabled ? 'javascript:void(0);' : this.ctaLink}
                       tabindex=${this.disabled ? '-1' : nothing}
                       class=${classMap(classes)}
                       role="button"
                       target=${this.ctaLink && this.external ? '_blank' : nothing}
                       @click=${this.handleLinkClick}
+                      aria-label=${this.label}
                       ?aria-pressed=${this.on}
                       ?aria-disabled=${this.disabled}
                   >

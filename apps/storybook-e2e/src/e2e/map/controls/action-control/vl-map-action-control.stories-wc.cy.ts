@@ -1,4 +1,4 @@
-import { VlToggleButtonComponent } from '@domg-wc/components';
+import { VlButtonComponent } from '@domg-wc/components/next/button';
 import { VlMapAction, VlMapActionControl } from '@domg-wc/map';
 
 const mapActionControlMultipleUrl =
@@ -7,11 +7,12 @@ const mapActionControlMultipleUrl =
 const drawActionId = 'draw-action';
 const modifyActionId = 'modify-action';
 const deleteActionId = 'delete-action';
-const getToggleButtonForAction = (actionId: string) => {
+
+const getButtonForAction = (actionId: string) => {
     return cy
         .get('vl-map')
         .find(`vl-map-action-control[data-vl-action-id="${actionId}"]`)
-        .find('vl-toggle-button')
+        .find('vl-button-next')
         .shadow()
         .find('button');
 };
@@ -20,25 +21,25 @@ describe('story vl-map-action-control multiple', () => {
     it('should activate/deactivate action and toggle button on click toggle', () => {
         cy.visit(mapActionControlMultipleUrl);
 
-        getToggleButtonForAction(drawActionId).click({ force: true });
+        getButtonForAction(drawActionId).click({ force: true });
         cy.runTestFor<VlMapAction>(`#${drawActionId}`, (action) => {
             expect(action.active).to.be.true;
         });
-        cy.runTestFor<VlToggleButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${drawActionId}"]>vl-toggle-button`,
-            (toggleButton) => {
-                expect(toggleButton.active).to.be.true;
+        cy.runTestFor<VlButtonComponent>(
+            `vl-map-action-control[data-vl-action-id="${drawActionId}"] > vl-button-next`,
+            (button) => {
+                expect(button.on).to.be.true;
             }
         );
 
-        getToggleButtonForAction(drawActionId).click({ force: true });
+        getButtonForAction(drawActionId).click({ force: true });
         cy.runTestFor<VlMapAction>(`#${drawActionId}`, (action) => {
             expect(action.active).to.be.false;
         });
-        cy.runTestFor<VlToggleButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${drawActionId}"]>vl-toggle-button`,
-            (toggleButton) => {
-                expect(toggleButton.active).to.be.false;
+        cy.runTestFor<VlButtonComponent>(
+            `vl-map-action-control[data-vl-action-id="${drawActionId}"] > vl-button-next`,
+            (button) => {
+                expect(button.on).to.be.false;
             }
         );
     });
@@ -55,10 +56,10 @@ describe('story vl-map-action-control multiple', () => {
         cy.runTestFor<VlMapAction>(`#${drawActionId}`, (action) => {
             expect(action.active).to.be.true;
         });
-        cy.runTestFor<VlToggleButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${drawActionId}"]>vl-toggle-button`,
-            (toggleButton) => {
-                expect(toggleButton.active).to.be.true;
+        cy.runTestFor<VlButtonComponent>(
+            `vl-map-action-control[data-vl-action-id="${drawActionId}"] > vl-button-next`,
+            (button) => {
+                expect(button.on).to.be.true;
             }
         );
 
@@ -71,10 +72,10 @@ describe('story vl-map-action-control multiple', () => {
         cy.runTestFor<VlMapAction>(`#${drawActionId}`, (action) => {
             expect(action.active).to.be.false;
         });
-        cy.runTestFor<VlToggleButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${drawActionId}"]>vl-toggle-button`,
-            (toggleButton) => {
-                expect(toggleButton.active).to.be.false;
+        cy.runTestFor<VlButtonComponent>(
+            `vl-map-action-control[data-vl-action-id="${drawActionId}"] > vl-button-next`,
+            (button) => {
+                expect(button.on).to.be.false;
             }
         );
     });
@@ -82,90 +83,92 @@ describe('story vl-map-action-control multiple', () => {
     it('should deactivate action and toggle button when activating another action', () => {
         cy.visit(mapActionControlMultipleUrl);
 
-        getToggleButtonForAction(drawActionId).click({ force: true });
+        getButtonForAction(drawActionId).click({ force: true });
         cy.runTestFor<VlMapAction>(`#${drawActionId}`, (action) => {
             expect(action.active).to.be.true;
         });
-        cy.runTestFor<VlToggleButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${drawActionId}"]>vl-toggle-button`,
-            (toggleButton) => {
-                expect(toggleButton.active).to.be.true;
-            }
-        );
-        cy.runTestFor<VlMapAction>(`#${modifyActionId}`, (action) => {
-            expect(action.active).to.be.false;
-        });
-        cy.runTestFor<VlToggleButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${modifyActionId}"]>vl-toggle-button`,
-            (toggleButton) => {
-                expect(toggleButton.active).to.be.false;
-            }
-        );
-        cy.runTestFor<VlMapAction>(`#${deleteActionId}`, (action) => {
-            expect(action.active).to.be.false;
-        });
-        cy.runTestFor<VlToggleButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${deleteActionId}"]>vl-toggle-button`,
-            (toggleButton) => {
-                expect(toggleButton.active).to.be.false;
+        cy.runTestFor<VlButtonComponent>(
+            `vl-map-action-control[data-vl-action-id="${drawActionId}"] > vl-button-next`,
+            (button) => {
+                expect(button.on).to.be.true;
             }
         );
 
-        getToggleButtonForAction(modifyActionId).click({ force: true });
-        cy.runTestFor<VlMapAction>(`#${drawActionId}`, (action) => {
-            expect(action.active).to.be.false;
-        });
-        cy.runTestFor<VlToggleButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${drawActionId}"]>vl-toggle-button`,
-            (toggleButton) => {
-                expect(toggleButton.active).to.be.false;
-            }
-        );
         cy.runTestFor<VlMapAction>(`#${modifyActionId}`, (action) => {
-            expect(action.active).to.be.true;
-        });
-        cy.runTestFor<VlToggleButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${modifyActionId}"]>vl-toggle-button`,
-            (toggleButton) => {
-                expect(toggleButton.active).to.be.true;
-            }
-        );
-        cy.runTestFor<VlMapAction>(`#${deleteActionId}`, (action) => {
             expect(action.active).to.be.false;
         });
-        cy.runTestFor<VlToggleButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${deleteActionId}"]>vl-toggle-button`,
-            (toggleButton) => {
-                expect(toggleButton.active).to.be.false;
+        cy.runTestFor<VlButtonComponent>(
+            `vl-map-action-control[data-vl-action-id="${modifyActionId}"] > vl-button-next`,
+            (button) => {
+                expect(button.on).to.be.false;
             }
         );
 
-        getToggleButtonForAction(deleteActionId).click({ force: true });
+        cy.runTestFor<VlMapAction>(`#${deleteActionId}`, (action) => {
+            expect(action.active).to.be.false;
+        });
+        cy.runTestFor<VlButtonComponent>(
+            `vl-map-action-control[data-vl-action-id="${deleteActionId}"] > vl-button-next`,
+            (button) => {
+                expect(button.on).to.be.false;
+            }
+        );
+
+        getButtonForAction(modifyActionId).click({ force: true });
         cy.runTestFor<VlMapAction>(`#${drawActionId}`, (action) => {
             expect(action.active).to.be.false;
         });
-        cy.runTestFor<VlToggleButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${drawActionId}"]>vl-toggle-button`,
-            (toggleButton) => {
-                expect(toggleButton.active).to.be.false;
+        cy.runTestFor<VlButtonComponent>(
+            `vl-map-action-control[data-vl-action-id="${drawActionId}"] > vl-button-next`,
+            (button) => {
+                expect(button.on).to.be.false;
+            }
+        );
+        cy.runTestFor<VlMapAction>(`#${modifyActionId}`, (action) => {
+            expect(action.active).to.be.true;
+        });
+        cy.runTestFor<VlButtonComponent>(
+            `vl-map-action-control[data-vl-action-id="${modifyActionId}"] > vl-button-next`,
+            (button) => {
+                expect(button.on).to.be.true;
+            }
+        );
+        cy.runTestFor<VlMapAction>(`#${deleteActionId}`, (action) => {
+            expect(action.active).to.be.false;
+        });
+        cy.runTestFor<VlButtonComponent>(
+            `vl-map-action-control[data-vl-action-id="${deleteActionId}"] > vl-button-next`,
+            (button) => {
+                expect(button.on).to.be.false;
+            }
+        );
+
+        getButtonForAction(deleteActionId).click({ force: true });
+        cy.runTestFor<VlMapAction>(`#${drawActionId}`, (action) => {
+            expect(action.active).to.be.false;
+        });
+        cy.runTestFor<VlButtonComponent>(
+            `vl-map-action-control[data-vl-action-id="${drawActionId}"] > vl-button-next`,
+            (button) => {
+                expect(button.on).to.be.false;
             }
         );
         cy.runTestFor<VlMapAction>(`#${modifyActionId}`, (action) => {
             expect(action.active).to.be.false;
         });
-        cy.runTestFor<VlToggleButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${modifyActionId}"]>vl-toggle-button`,
-            (toggleButton) => {
-                expect(toggleButton.active).to.be.false;
+        cy.runTestFor<VlButtonComponent>(
+            `vl-map-action-control[data-vl-action-id="${modifyActionId}"] > vl-button-next`,
+            (button) => {
+                expect(button.on).to.be.false;
             }
         );
         cy.runTestFor<VlMapAction>(`#${deleteActionId}`, (action) => {
             expect(action.active).to.be.true;
         });
-        cy.runTestFor<VlToggleButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${deleteActionId}"]>vl-toggle-button`,
-            (toggleButton) => {
-                expect(toggleButton.active).to.be.true;
+        cy.runTestFor<VlButtonComponent>(
+            `vl-map-action-control[data-vl-action-id="${deleteActionId}"] > vl-button-next`,
+            (button) => {
+                expect(button.on).to.be.true;
             }
         );
     });
