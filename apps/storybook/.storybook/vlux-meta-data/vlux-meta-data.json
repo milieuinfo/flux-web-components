@@ -131,7 +131,7 @@
     },
     "components-next-button": {
         "vStatus": "v2-next",
-        "legacyText": "o.a. [vl-button](/docs/elements-button-button--documentatie), [vl-icon-button](/docs/elements-button-icon-button--documentatie) en [vl-link-button](/docs/elements-button-link-button--documentatie)",
+        "legacyText": "[vl-button](/docs/elements-button-button--documentatie), [vl-icon-button](/docs/elements-button-icon-button--documentatie), [vl-link-button](/docs/elements-button-link-button--documentatie) en [vl-toggle-button](/docs/components-toggle-button--documentatie)",
         "nextText": "vl-button-next",
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#button)"
     },
@@ -584,6 +584,12 @@
         "legacyText": "[vl-toaster](/docs/components-toaster--documentatie)",
         "nextText": "vl-toaster-next",
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#toaster)"
+    },
+    "components-toggle-button": {
+        "vStatus": "v1-replace",
+        "legacyText": "vl-toggle-button",
+        "nextText": "[vl-button-next](/docs/components-next-button--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#button)"
     },
     "components-tooltip": {
         "vStatus": "replaced",
