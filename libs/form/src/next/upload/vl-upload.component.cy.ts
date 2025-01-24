@@ -384,6 +384,36 @@ describe('component - vl-upload-next', () => {
         cy.get('@vl-queuecomplete').should('have.been.called');
     });
 
+    it('should register events via `on()` public method', () => {
+        const app = {
+            handleError: () => {
+                console.log('handleError');
+            },
+            handleComplete: () => {
+                console.log('handleComplete');
+            },
+            handleQueueComplete: () => {
+                console.log('handleQueueComplete');
+            },
+        };
+
+        const handleInitialised = (event: CustomEvent) => {
+            const uploadComponent = event.target as VlUploadComponent;
+            uploadComponent.on('error', app.handleError);
+            uploadComponent.on('complete', app.handleComplete);
+            uploadComponent.on('queuecomplete', app.handleQueueComplete);
+        };
+
+        cy.mount(html` <vl-upload-next @vl-initialised=${handleInitialised} accepted-files="txt"></vl-upload-next>`);
+        cy.spy(app, 'handleError').as('handleError');
+        cy.spy(app, 'handleComplete').as('handleComplete');
+        cy.spy(app, 'handleQueueComplete').as('handleQueueComplete');
+        cy.get('vl-upload-next').shadow().find('input[type=file]').selectFile(pdfFileFixturePath, { force: true });
+        cy.get('@handleError').should('have.been.called');
+        cy.get('@handleComplete').should('have.been.called');
+        cy.get('@handleQueueComplete').should('have.been.called');
+    });
+
     it('should only allow one file by default', () => {
         const errorMessage = 'U mag maar 1 bestand tegelijk uploaden';
         cy.mount(html` <vl-upload-next error-message-max-files=${errorMessage}></vl-upload-next>`);

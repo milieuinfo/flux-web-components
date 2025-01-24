@@ -51,6 +51,7 @@ export class VlUploadComponent extends FormControl {
 
     // Variables
     private dropzoneInstance: DropzoneInstance | undefined | null;
+    private isDropzoneInitialised = false;
     private dispatchInput = false;
 
     static formControlValidators = [...FormControl.formControlValidators, dropzoneValidator];
@@ -77,13 +78,14 @@ export class VlUploadComponent extends FormControl {
             readonly: { type: Boolean },
             value: { type: Object, state: true },
             multiple: { type: Boolean, reflect: true },
+            dropzoneInstance: { type: Object, state: true },
         };
     }
 
     firstUpdated(changedProperties: Map<string, unknown>) {
         super.firstUpdated(changedProperties);
 
-        this.initializeComponent();
+        this.setupDropzone();
     }
 
     updated(changedProperties: Map<string, unknown>) {
@@ -91,6 +93,14 @@ export class VlUploadComponent extends FormControl {
 
         if (changedProperties.has('value')) {
             this.setValue(this.value);
+        }
+
+        if (changedProperties.has('dropzoneInstance')) {
+            if (this.dropzoneInstance && !this.isDropzoneInitialised) {
+                this.initializeComponent();
+                this.dispatchEvent(new CustomEvent('vl-initialised', { composed: true, bubbles: true }));
+                this.isDropzoneInitialised = true;
+            }
         }
 
         if (changedProperties.has('disabled')) {
@@ -388,10 +398,8 @@ export class VlUploadComponent extends FormControl {
     }
 
     private initializeComponent() {
-        this.setupDropzone();
         this.setupTitles();
         this.setupEventListeners();
-
         this.dropzoneInstance?.hiddenFileInput?.classList.add('vl-upload__element__input');
     }
 
@@ -421,11 +429,6 @@ export class VlUploadComponent extends FormControl {
             dictRemoveFile: 'Verwijder bestand',
             dictCancelUpload: 'Annuleer upload',
             dictCancelUploadConfirmation: 'Ben je zeker dat je de upload wil annuleren?',
-            init: () => {
-                // hiermee is enkel Dropzone geïnitialiseerd, maar nog niet de volledige component
-                // meerbepaald event listeners zijn op dit moment nog niet toegevoegd
-                this.dispatchEvent(new CustomEvent('vl-initialised', { composed: true, bubbles: true }));
-            },
         };
 
         if (dropzoneContainer) {
