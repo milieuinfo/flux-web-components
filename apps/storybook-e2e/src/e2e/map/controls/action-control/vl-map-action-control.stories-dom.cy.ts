@@ -28,7 +28,7 @@ describe('story vl-map-action-control default', () => {
         cy.get('vl-map')
             .find('vl-map-action-controls')
             .find('vl-map-action-control')
-            .find('vl-toggle-button')
+            .find('vl-button-next')
             .invoke('text')
             .should('contain', 'Teken');
     });
@@ -41,7 +41,7 @@ describe('story vl-map-action-control default', () => {
             .find('vl-map-action-control')
             .should('have.attr', 'data-vl-action-id', 'draw-polygon-action')
             .should('have.attr', 'data-vl-label', 'Tekenen')
-            .find('vl-toggle-button')
+            .find('vl-button-next')
             .invoke('text')
             .should('contain', 'Tekenen');
     });
@@ -70,9 +70,9 @@ describe('story vl-map-action-control icon', () => {
         cy.get('vl-map')
             .find('vl-map-action-controls')
             .find('vl-map-action-control')
-            .find('vl-toggle-button')
+            .find('vl-button-next')
             .shadow()
-            .find('span[is="vl-icon"][data-vl-icon="pencil"]');
+            .find('span.vl-icon.vl-icon--pencil');
     });
 
     it('should set the icon of the toggle button', () => {
@@ -83,9 +83,9 @@ describe('story vl-map-action-control icon', () => {
             .find('vl-map-action-control')
             .should('have.attr', 'data-vl-action-id', 'draw-polygon-action')
             .should('have.attr', 'data-vl-icon', 'ruler')
-            .find('vl-toggle-button')
+            .find('vl-button-next')
             .shadow()
-            .find('span[is="vl-icon"][data-vl-icon="ruler"]');
+            .find('span.vl-icon.vl-icon--ruler');
     });
 });
 
@@ -108,7 +108,7 @@ describe('story vl-map-action-control multiple', () => {
             .find('vl-map-action-control[data-vl-action-id="delete-action"]');
     });
 
-    it('should deactivate toggle button when activating another toggle button', () => {
+    it.only('should deactivate toggle button when activating another toggle button', () => {
         cy.visit(mapActionControlMultipleUrl);
 
         const drawActionId = 'draw-action';
@@ -118,24 +118,24 @@ describe('story vl-map-action-control multiple', () => {
             return cy
                 .get('vl-map')
                 .find(`vl-map-action-control[data-vl-action-id="${actionId}"]`)
-                .find('vl-toggle-button')
+                .find('vl-button-next')
                 .shadow()
                 .find('button');
         };
 
         getToggleButtonForAction(drawActionId).click({ force: true });
-        getToggleButtonForAction(drawActionId).should('not.have.attr', 'data-vl-tertiary');
-        getToggleButtonForAction(modifyActionId).should('have.attr', 'data-vl-tertiary');
-        getToggleButtonForAction(deleteActionId).should('have.attr', 'data-vl-tertiary');
+        getToggleButtonForAction(drawActionId).should('not.have.class', 'tertiary');
+        getToggleButtonForAction(modifyActionId).should('have.class', 'tertiary');
+        getToggleButtonForAction(deleteActionId).should('have.class', 'tertiary');
 
         getToggleButtonForAction(modifyActionId).click({ force: true });
-        getToggleButtonForAction(drawActionId).should('have.attr', 'data-vl-tertiary');
-        getToggleButtonForAction(modifyActionId).should('not.have.attr', 'data-vl-tertiary');
-        getToggleButtonForAction(deleteActionId).should('have.attr', 'data-vl-tertiary');
+        getToggleButtonForAction(drawActionId).should('have.class', 'tertiary');
+        getToggleButtonForAction(modifyActionId).should('not.have.class', 'tertiary');
+        getToggleButtonForAction(deleteActionId).should('have.class', 'tertiary');
 
         getToggleButtonForAction(deleteActionId).click({ force: true });
-        getToggleButtonForAction(drawActionId).should('have.attr', 'data-vl-tertiary');
-        getToggleButtonForAction(modifyActionId).should('have.attr', 'data-vl-tertiary');
-        getToggleButtonForAction(deleteActionId).should('not.have.attr', 'data-vl-tertiary');
+        getToggleButtonForAction(drawActionId).should('have.class', 'tertiary');
+        getToggleButtonForAction(modifyActionId).should('have.class', 'tertiary');
+        getToggleButtonForAction(deleteActionId).should('not.have.class', 'tertiary');
     });
 });

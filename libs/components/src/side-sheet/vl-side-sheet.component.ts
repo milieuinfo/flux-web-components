@@ -1,5 +1,6 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { VlToggleButtonComponent } from '../toggle-button';
+import { vlAccessibilityStyles } from '@domg-wc/common-utilities/css';
+import { VlButtonComponent } from '@domg-wc/components/next/button';
 import { VlLayoutElement, VlRegionElement, VlText } from '@domg-wc/elements';
 import swipeDetect from 'swipe-detect/dist/';
 import styles from './vl-side-sheet.uig-css';
@@ -7,7 +8,7 @@ import styles from './vl-side-sheet.uig-css';
 @webComponent('vl-side-sheet')
 export class VlSideSheet extends BaseElementOfType(HTMLElement) {
     static {
-        registerWebComponents([VlLayoutElement, VlRegionElement, VlText, VlToggleButtonComponent]);
+        registerWebComponents([VlLayoutElement, VlRegionElement, VlText, VlButtonComponent]);
     }
 
     static get _observedAttributes() {
@@ -31,16 +32,18 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
         super(`
           <style>
             ${styles}
+            ${vlAccessibilityStyles.toString()}
           </style>
           <div>
-              <vl-toggle-button
+              <vl-button-next
                   aria-expanded="false"
-                  data-vl-icon="nav-left"
-                  data-vl-icon-placement="before"
+                  icon="nav-left"
+                  tertiary
+                  part="toggle-button"
                   class="vl-side-sheet__toggle"
+                  label="toggle side-sheet"
               >
-                <span id="vl-side-sheet-toggle-text" is="vl-text"></span>
-              </vl-toggle-button>
+              </vl-button-next>
               <div id="vl-side-sheet-backdrop"></div>
               <div id="vl-side-sheet">
                 <section is="vl-region">
@@ -58,12 +61,11 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
 
         this._toggle = () => this.toggle();
         this._toggleButton.addEventListener('click', this._toggle);
-        this._toggleButton.active = false;
-        this.updateToggleText(this.toggleText);
+        this._toggleButton.on = false;
         if (this.iconPlacement !== 'after') {
-            this._toggleButton.setAttribute('data-vl-icon-placement', 'before');
+            this._toggleButton.setAttribute('icon-placement', 'before');
         } else {
-            this._toggleButton.setAttribute('data-vl-icon-placement', 'after');
+            this._toggleButton.setAttribute('icon-placement', 'after');
         }
     }
 
@@ -149,7 +151,7 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
         } else {
             openIcon = this.customIcon;
         }
-        this._toggleButton.setAttribute('data-vl-icon', openIcon);
+        this._toggleButton.setAttribute('icon', openIcon);
     }
 
     /**
@@ -170,7 +172,7 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
         } else {
             closeIcon = this.customIcon;
         }
-        this._toggleButton.setAttribute('data-vl-icon', closeIcon);
+        this._toggleButton.setAttribute('icon', closeIcon);
         if (this._onClose) {
             this._onClose();
         }
@@ -224,17 +226,8 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
         }
     }
 
-    updateToggleText(value: string): void {
-        if (value && value !== '') {
-            this._toggleButton.removeAttribute('data-vl-text-hidden');
-        } else {
-            this._toggleButton.setAttribute('data-vl-text-hidden', '');
-        }
-        this._toggleButtonTextElement.textContent = value;
-    }
-
     _toggleTextChangedCallback(oldValue: any, newValue: any) {
-        this.updateToggleText(newValue);
+        this._toggleButton.innerHTML = newValue;
     }
 
     _tooltipTextChangedCallback(oldValue: any, newValue: any) {
@@ -249,15 +242,15 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
     _hideToggleButtonChangedCallback(oldValue: any, newValue: any) {
         const hideToggleButton = Boolean(newValue === null);
         if (!hideToggleButton) {
-            this._toggleButton.classList.add('vl-u-visually-hidden');
+            this._toggleButton.classList.add('vl-visually-hidden');
         } else {
-            this._toggleButton.classList.remove('vl-u-visually-hidden');
+            this._toggleButton.classList.remove('vl-visually-hidden');
         }
     }
 
     _customIconChangedCallback(oldValue: string, newValue: string) {
         if (newValue) {
-            this._toggleButton.setAttribute('data-vl-icon', newValue);
+            this._toggleButton.setAttribute('icon', newValue);
         }
     }
 }

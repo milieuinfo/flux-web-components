@@ -50,8 +50,7 @@ describe('vl-side-sheet', () => {
 
         cy.get('vl-side-sheet')
             .shadow()
-            .find('vl-toggle-button')
-            .find('span#vl-side-sheet-toggle-text')
+            .find('vl-button-next')
             .should('not.contain.text');
     });
 
@@ -61,8 +60,7 @@ describe('vl-side-sheet', () => {
 
         cy.get('vl-side-sheet')
             .shadow()
-            .find('vl-toggle-button')
-            .find('span#vl-side-sheet-toggle-text')
+            .find('vl-button-next')
             .contains(toggleText);
     });
 
@@ -85,14 +83,14 @@ describe('vl-side-sheet', () => {
     it('should not contain a tooltip by default', () => {
         mountDefault({});
 
-        cy.get('vl-side-sheet').shadow().find('vl-toggle-button').should('not.have.attr', 'title');
+        cy.get('vl-side-sheet').shadow().find('vl-button-next').should('not.have.attr', 'title');
     });
 
     it('should contain a custom tooltip', () => {
         const tooltipText = 'text on native tooltip';
         mountDefault({ tooltipText: tooltipText });
 
-        cy.get('vl-side-sheet').shadow().find('vl-toggle-button').should('have.attr', 'title', tooltipText);
+        cy.get('vl-side-sheet').shadow().find('vl-button-next').should('have.attr', 'title', tooltipText);
     });
 
     it('should be right by default & change default icon direction when opening or closing', () => {
@@ -102,7 +100,7 @@ describe('vl-side-sheet', () => {
         shouldHaveIcon('nav-left');
         shouldClickToggleButton();
         shouldHaveIcon('nav-right');
-        shouldClickToggleButton();
+        shouldClickToggleButton()
         shouldHaveIcon('nav-left');
     });
 
@@ -131,7 +129,7 @@ describe('vl-side-sheet', () => {
     it('should hide toggle button', () => {
         mountDefault({ hideToggleButton: true });
 
-        cy.get('vl-side-sheet').shadow().find('vl-toggle-button').should('have.class', 'vl-u-visually-hidden');
+        cy.get('vl-side-sheet').shadow().find('vl-button-next').should('have.class', 'vl-visually-hidden');
     });
 
     it('should open and close the side-sheet when toggle button is hidden', () => {
@@ -149,9 +147,9 @@ describe('vl-side-sheet', () => {
 
         cy.get('vl-side-sheet')
             .shadow()
-            .find('vl-toggle-button')
+            .find('vl-button-next')
             .shadow()
-            .find('button.vl-button')
+            .find('button')
             .children()
             .first()
             .should('have.class', 'vl-icon');
@@ -162,9 +160,9 @@ describe('vl-side-sheet', () => {
 
         cy.get('vl-side-sheet')
             .shadow()
-            .find('vl-toggle-button')
+            .find('vl-button-next')
             .shadow()
-            .find('button.vl-button')
+            .find('button')
             .children()
             .last()
             .should('have.class', 'vl-icon');
@@ -175,12 +173,11 @@ describe('vl-side-sheet', () => {
 
         cy.get('vl-side-sheet')
             .shadow()
-            .find('vl-toggle-button')
+            .find('vl-button-next')
             .shadow()
-            .find('button.vl-button')
-            .find('span[is="vl-icon"]')
+            .find('button span')
             .should('have.class', 'vl-icon')
-            .and('have.class', 'vl-vi-nav-right');
+            .and('have.class', 'vl-icon--nav-right');
     });
 
     it('should have arrow in correct position when starting in open position from left', () => {
@@ -188,17 +185,16 @@ describe('vl-side-sheet', () => {
 
         cy.get('vl-side-sheet')
             .shadow()
-            .find('vl-toggle-button')
+            .find('vl-button-next')
             .shadow()
-            .find('button.vl-button')
-            .find('span[is="vl-icon"]')
+            .find('button span')
             .should('have.class', 'vl-icon')
-            .and('have.class', 'vl-vi-nav-left');
+            .and('have.class', 'vl-icon--nav-left');
     });
 });
 
 const shouldClickToggleButton = () => {
-    cy.get('vl-side-sheet').shadow().find('vl-toggle-button').shadow().find('button').click({ force: true });
+    cy.get('vl-side-sheet').shadow().find('vl-button-next').shadow().find('button').click({ force: true });
 };
 
 const shouldBeOpen = () => {
@@ -220,11 +216,10 @@ const shouldBeClosed = () => {
 const shouldHaveIcon = (iconName: string) => {
     cy.get('vl-side-sheet')
         .shadow()
-        .find('vl-toggle-button')
+        .find('vl-button-next')
         .shadow()
-        .find('button')
-        .find('span[is=vl-icon]')
-        .should('have.class', `vl-vi-${iconName}`);
+        .find('button span')
+        .should('have.class', `vl-icon--${iconName}`);
 };
 
 const mountDefault = ({

@@ -14,9 +14,10 @@ export const buttonDefaults = {
     icon: '' as string,
     iconPlacement: 'before' as ICON_PLACEMENT,
     toggle: false as boolean,
-    on: false as boolean,
     controlled: false as boolean,
     ctaLink: '' as string,
     external: false as boolean,
     inputGroup: false as boolean,
+    label: '' as string,
+    on: false as boolean,
 } as const;

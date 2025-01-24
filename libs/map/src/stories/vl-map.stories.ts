@@ -205,22 +205,20 @@ export const MapPlayground = story(
                 <h6 is="vl-h6">Measure</h6>
 
                 <div>
-                    <button
-                        is="vl-button"
+                    <vl-button-next
                         @click=${() => {
                             getActionElement('measure').active = true;
                         }}
                     >
                         Start
-                    </button>
-                    <button
-                        is="vl-button"
+                    </vl-button-next>
+                    <vl-button-next
                         @click=${() => {
                             getActionElement('measure').active = false;
                         }}
                     >
                         Stop
-                    </button>
+                    </vl-button-next>
                 </div>
 
                 <hr />
@@ -229,63 +227,65 @@ export const MapPlayground = story(
                     <h6 is="vl-h6">Shapes</h6>
 
                     <div style="margin-bottom: 2rem;">
-                        <vl-toggle-button
+                        <vl-button-next
+                            toggle
                             class="modify-toggle-button"
                             @click=${() => {
-                                getActionElement('modify').active = !getToggleButton('modify').active;
+                                getActionElement('modify').active = getToggleButton('modify').on;
                             }}
                         >
                             Modify
-                        </vl-toggle-button>
-                        <vl-toggle-button
+                        </vl-button-next>
+                        <vl-button-next
+                            toggle
                             class="delete-toggle-button"
                             @click=${() => {
-                                getActionElement('delete').active = !getToggleButton('delete').active;
+                                getActionElement('delete').active = getToggleButton('delete').on;
                             }}
                         >
                             Delete
-                        </vl-toggle-button>
+                        </vl-button-next>
                     </div>
 
                     <div style=${toggleItemStyling}>
-                        <vl-toggle-button
+                        <vl-button-next
+                            toggle
+                            icon="pencil"
+                            label="Toggle draw point action"
                             class="draw-point-toggle-button"
-                            data-vl-icon="pencil"
-                            data-vl-text-hidden
                             @click=${() => {
-                                getActionElement('draw-point').active = !getToggleButton('draw-point').active;
+                                getActionElement('draw-point').active =  getToggleButton('draw-point').on;
                             }}
                         >
-                            Toggle draw point action
-                        </vl-toggle-button>
+                        </vl-button-next>
                         <p>Draw point</p>
                     </div>
 
                     <div style=${toggleItemStyling}>
-                        <vl-toggle-button
+                        <vl-button-next
+                            toggle
+                            icon="pencil"
+                            label="Toggle draw line action"
                             class="draw-line-toggle-button"
-                            data-vl-icon="pencil"
-                            data-vl-text-hidden
                             @click=${() => {
-                                getActionElement('draw-line').active = !getToggleButton('draw-line').active;
+                                getActionElement('draw-line').active = getToggleButton('draw-line').on;
                             }}
                         >
-                            Toggle draw line action
-                        </vl-toggle-button>
+                        </vl-button-next>
                         <p>Draw line</p>
                     </div>
 
                     <div style=${toggleItemStyling}>
-                        <vl-toggle-button
+                        <vl-button-next
+                            toggle
+                            icon="pencil"
+                            label="Toggle draw polygon action"
                             class="draw-polygon-toggle-button"
-                            data-vl-icon="pencil"
-                            data-vl-text-hidden
                             @click=${() => {
-                                getActionElement('draw-polygon').active = !getToggleButton('draw-polygon').active;
+                                getActionElement('draw-polygon').active = getToggleButton('draw-polygon').on;
                             }}
                         >
-                            Toggle draw polygon action
-                        </vl-toggle-button>
+                        </vl-button-next>
                         <p>Draw Polygon</p>
                     </div>
                 </div>

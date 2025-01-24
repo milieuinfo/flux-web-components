@@ -65,7 +65,7 @@ const styles: CSSResult = css`
         width: 100%;
         height: 100%;
         padding-top: 43px;
-        /* 
+        /*
             UIG-3004: z-index op dit niveau verwijderd, de z-index staat ook al op de host.
             Zoek andere oplossing indien dit voor problemen zorgt.
         */
@@ -92,10 +92,15 @@ const styles: CSSResult = css`
         cursor: pointer !important;
         z-index: 1;
     }
-    :host .vl-side-sheet__toggle::part(button template) {
+    :host .vl-side-sheet__toggle::part(button) {
         border: 1px solid #cbd2da !important;
         border-right-width: 0px !important;
         border-radius: 0.3rem 0px 0px 0.3rem;
+        min-width: 3.5rem;
+        padding: 0;
+    }
+    :host([data-vl-toggle-text]) .vl-side-sheet__toggle::part(button) {
+        padding: 0 1rem;
     }
 
     :host(.vl-side-sheet--left) {
@@ -106,7 +111,7 @@ const styles: CSSResult = css`
         right: initial;
         left: 0px;
     }
-    :host(.vl-side-sheet--left) .vl-side-sheet__toggle::part(button template) {
+    :host(.vl-side-sheet--left) .vl-side-sheet__toggle::part(button) {
         border-right-width: 1px !important;
         border-left-width: 0px !important;
         border-radius: 0px 0.3rem 0.3rem 0px;
@@ -157,7 +162,7 @@ const styles: CSSResult = css`
     :host(.vl-side-sheet--absolute) .vl-side-sheet__toggle {
         top: 1rem;
     }
-    :host(.vl-side-sheet--absolute) .vl-side-sheet__toggle::part(button template) {
+    :host(.vl-side-sheet--absolute) .vl-side-sheet__toggle::part(button) {
         border-left-width: 1px !important;
         border-right-width: 1px !important;
     }
@@ -167,13 +172,13 @@ const styles: CSSResult = css`
         left: 0px;
     }
 
-    :host(.vl-side-sheet--absolute[data-vl-open]) .vl-side-sheet__toggle::part(button template) {
+    :host(.vl-side-sheet--absolute[data-vl-open]) .vl-side-sheet__toggle::part(button) {
         border-right-width: 0px !important;
         border-top-right-radius: 0px;
         border-bottom-right-radius: 0px;
     }
 
-    :host(.vl-side-sheet--absolute.vl-side-sheet--left[data-vl-open]) .vl-side-sheet__toggle::part(button template) {
+    :host(.vl-side-sheet--absolute.vl-side-sheet--left[data-vl-open]) .vl-side-sheet__toggle::part(button) {
         border-right-width: 1px !important;
         border-left-width: 0px !important;
         border-radius: 0px 0.3rem 0.3rem 0px;

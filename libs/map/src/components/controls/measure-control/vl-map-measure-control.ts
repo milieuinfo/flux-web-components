@@ -1,21 +1,22 @@
 import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { VlToggleButtonComponent } from '@domg-wc/components';
+import { VlButtonComponent } from '@domg-wc/components/next/button';
 import { unByKey } from 'ol/Observable';
 import { CONTROL_TYPE, IDENTIFIER } from '../../../vl-map.model';
 import { VlMapControl } from '../vl-map-control.mixin';
 
 @webComponent('vl-map-measure-control')
 export class VlMapMeasureControl extends VlMapControl(BaseLitElement) {
+    controlElement: VlButtonComponent = null;
+
     static {
-        registerWebComponents([VlToggleButtonComponent]);
+        registerWebComponents([VlButtonComponent]);
     }
 
     constructor() {
         super();
-        this.controlElement = document.createElement('vl-toggle-button');
-        // TODO: When upgrading component versions; replace text by icon
-        // this.controlElement.icon = 'ruler';
-        // this.controlElement.textHidden = true;
+        this.controlElement = document.createElement('vl-button-next');
+        this.controlElement.setAttribute('tertiary', '');
+        this.controlElement.setAttribute('toggle', ''); // maak er een toggle knop van
         this.controlElement.innerText = 'Meten';
         this.identifier = IDENTIFIER.MEASURE;
         this.type = CONTROL_TYPE.ACTION;
@@ -31,19 +32,27 @@ export class VlMapMeasureControl extends VlMapControl(BaseLitElement) {
     }
 
     handleMeasureControlClick() {
+        // de default click handler van de button zorgt (omdat hij in toggle mode staat) al voor de 'on' wissel
         const measureAction = this.getAction();
-
         if (measureAction) {
-            if (this.controlElement.active) {
-                measureAction.element.deactivate();
-            } else {
+            if (this.controlElement.on) {
                 measureAction.element.activate();
+                this.controlElement.removeAttribute('tertiary');
+            } else {
+                measureAction.element.deactivate();
+                this.controlElement.setAttribute('tertiary', '');
             }
         }
     }
 
-    setActive(set) {
-        this.controlElement.active = set;
+    setActive(active: boolean) {
+        if (active) {
+            this.controlElement.on = true;
+            this.controlElement.removeAttribute('tertiary');
+        } else {
+            this.controlElement.on = false;
+            this.controlElement.setAttribute('tertiary', '');
+        }
     }
 
     setDisabled(set) {
