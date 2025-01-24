@@ -1,5 +1,5 @@
 import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { VlToggleButtonComponent } from '@domg-wc/components';
+import { VlButtonComponent } from '@domg-wc/components/next/button';
 import { PropertyDeclarations } from 'lit';
 import { VlMapAction } from '../../action/vl-map-action';
 import { VlMapControl } from '../vl-map-control.mixin';
@@ -9,10 +9,10 @@ export class VlMapActionControl extends VlMapControl(BaseLitElement) {
     private actionId = '';
     private icon = '';
     private label = '';
-    public active = false;
+    private controlElement: VlButtonComponent = null;
 
     static {
-        registerWebComponents([VlToggleButtonComponent]);
+        registerWebComponents([VlButtonComponent]);
     }
 
     static get properties(): PropertyDeclarations {
@@ -33,42 +33,40 @@ export class VlMapActionControl extends VlMapControl(BaseLitElement) {
     }
 
     connectedCallback(): void {
-        this.controlElement = document.createElement('vl-toggle-button');
-        this.controlElement.active = false; // Set controlElement.active to turn it into a controlled toggle button (see VlToggleButtonComponent).
+        this.controlElement = document.createElement('vl-button-next');
+        this.controlElement.on = false;
+        this.controlElement.setAttribute('tertiary', '');
+        this.controlElement.setAttribute('toggle', ''); // maak er een toggle knop van
         this.controlElement.addEventListener('click', () => this.handleClickToggle());
 
         if (this.icon) {
-            this.controlElement.setAttribute('data-vl-icon', this.icon);
+            this.controlElement.setAttribute('icon', this.icon);
         }
 
         if (this.label) {
             this.controlElement.innerText = this.label;
         } else {
-            this.controlElement.setAttribute('data-vl-text-hidden', '');
+            this.controlElement.setAttribute('text-hidden', '');
         }
 
         super.connectedCallback();
     }
 
-    activate(): void {
-        this.active = true;
+    public get active(): boolean {
+        return this.controlElement.on;
+    }
 
-        if (this.controlElement) {
-            this.controlElement.active = true;
-        }
-
+    public activate(): void {
+        this.controlElement.on = true;
+        this.controlElement.removeAttribute('tertiary');
         if (this.action) {
             this.action.active = true;
         }
     }
 
-    deactivate(): void {
-        this.active = false;
-
-        if (this.controlElement) {
-            this.controlElement.active = false;
-        }
-
+    public deactivate(): void {
+        this.controlElement.on = false;
+        this.controlElement.setAttribute('tertiary', '');
         if (this.action) {
             this.action.active = false;
         }
@@ -79,7 +77,7 @@ export class VlMapActionControl extends VlMapControl(BaseLitElement) {
     }
 
     private handleClickToggle(): void {
-        if (!this.active) {
+        if (this.controlElement.on) {
             this.activate();
         } else {
             this.deactivate();
@@ -88,7 +86,7 @@ export class VlMapActionControl extends VlMapControl(BaseLitElement) {
         this.dispatchEvent(
             new CustomEvent('change-control', {
                 detail: {
-                    isActive: this.active,
+                    isActive: this.controlElement.on,
                 },
             })
         );

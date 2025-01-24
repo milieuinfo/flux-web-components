@@ -25,12 +25,11 @@ describe('vl-map-side-sheet', () => {
 
         cy.get('vl-map-side-sheet')
             .shadow()
-            .find('vl-toggle-button')
+            .find('vl-button-next')
             .shadow()
-            .find('button.vl-button')
-            .find('span[is="vl-icon"]')
+            .find('button span')
             .should('have.class', 'vl-icon')
-            .and('have.class', 'vl-vi-nav-right');
+            .and('have.class', 'vl-icon--nav-right');
     });
 
     it('should be right by default & change default icon direction when opening or closing', () => {
@@ -38,9 +37,9 @@ describe('vl-map-side-sheet', () => {
 
         cy.get('vl-map-side-sheet').shouldHaveComputedStyle({ style: 'left', value: '0px' });
         shouldHaveIcon('nav-right');
-        cy.get('vl-map-side-sheet').shadow().find('vl-toggle-button').shadow().find('button').click({ force: true });
+        cy.get('vl-map-side-sheet').shadow().find('vl-button-next').shadow().find('button').click({ force: true });
         shouldHaveIcon('nav-left');
-        cy.get('vl-map-side-sheet').shadow().find('vl-toggle-button').shadow().find('button').click({ force: true });
+        cy.get('vl-map-side-sheet').shadow().find('vl-button-next').shadow().find('button').click({ force: true });
         shouldHaveIcon('nav-right');
     });
 
@@ -49,12 +48,11 @@ describe('vl-map-side-sheet', () => {
 
         cy.get('vl-map-side-sheet')
             .shadow()
-            .find('vl-toggle-button')
+            .find('vl-button-next')
             .shadow()
-            .find('button.vl-button')
-            .find('span[is="vl-icon"]')
+            .find('button span')
             .should('have.class', 'vl-icon')
-            .and('have.class', 'vl-vi-nav-left');
+            .and('have.class', 'vl-icon--nav-left');
     });
 
     it('should have arrow in correct position when starting in open position from the right', () => {
@@ -62,21 +60,20 @@ describe('vl-map-side-sheet', () => {
 
         cy.get('vl-map-side-sheet')
             .shadow()
-            .find('vl-toggle-button')
+            .find('vl-button-next')
             .shadow()
-            .find('button.vl-button')
-            .find('span[is="vl-icon"]')
+            .find('button span')
             .should('have.class', 'vl-icon')
-            .and('have.class', 'vl-vi-nav-right');
+            .and('have.class', 'vl-icon--nav-right');
     });
 });
 
 const shouldHaveIcon = (iconName: string) => {
     cy.get('vl-map-side-sheet')
         .shadow()
-        .find('vl-toggle-button')
+        .find('vl-button-next')
         .shadow()
         .find('button')
-        .find('span[is=vl-icon]')
-        .should('have.class', `vl-vi-${iconName}`);
+        .find('span')
+        .should('have.class', `vl-icon--${iconName}`);
 };
