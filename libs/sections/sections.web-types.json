@@ -38,6 +38,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "data-vl-hide-back-link",
+                            "description": "Verwijdert de terug-link.",
+                            "default": "false"
+                        },
+                        {
                             "name": "data-vl-evaluation",
                             "description": "De evaluatiestatus van de verklaring.",
                             "default": "NOT_EVALUATED"
@@ -138,6 +143,11 @@
                         {
                             "name": "data-vl-disable-back-link",
                             "description": "Zet de terug-link uit.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-hide-back-link",
+                            "description": "Verwijdert de terug-link.",
                             "default": "false"
                         },
                         {
@@ -305,6 +315,11 @@
                         {
                             "name": "data-vl-disable-back-link",
                             "description": "Zet de terug-link uit.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-hide-back-link",
+                            "description": "Verwijdert de terug-link.",
                             "default": "false"
                         },
                         {

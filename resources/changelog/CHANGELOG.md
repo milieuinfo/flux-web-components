@@ -1,3 +1,34 @@
+# [1.43.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.42.0...v1.43.0) (2025-01-24)
+
+
+### Bug Fixes
+
+* er faalde een Jest test door raw-loader ([c8d5023](https://github.com/milieuinfo/uigov-web-components/commit/c8d50230f441c340628fcf5417bdf290cd8c860b))
+* UIG-3120 - vl-select-next - placeholder werking verbeterd ([48c75fb](https://github.com/milieuinfo/uigov-web-components/commit/48c75fbf9de2f016747c6ea2e6f8f6d2fbd4afd5))
+* UIG-3183 - vl-upload-next - name attribuut stelt nu ook paramName in ([606b425](https://github.com/milieuinfo/uigov-web-components/commit/606b425183ee095a0450a2d39ee488e946418b34))
+* vl-map-search - test faalde door bounding box wijziging van Antwerpen (gemeente fusie) ([574ac20](https://github.com/milieuinfo/uigov-web-components/commit/574ac202d3852342ffbd5fc96dd7fa56efcc721d))
+
+
+### Features
+
+* UIG-2910 - vl-table-next - introductie component ([318c6b9](https://github.com/milieuinfo/uigov-web-components/commit/318c6b9cd760c10b046f4bf3c3307b7703ab2a0c))
+* UIG-2929 - vl-search-filter-next - introductie component ([fc9e541](https://github.com/milieuinfo/uigov-web-components/commit/fc9e5416d99045c7d607afe1da2dd6986150536e))
+* UIG-2930 - search-result-next - introductie component ([35ceae6](https://github.com/milieuinfo/uigov-web-components/commit/35ceae6ca4b1e2a4eea362c724d3e596faca57ec))
+* UIG-2932 - vl-side-navigation-next - introductie component ([42551d7](https://github.com/milieuinfo/uigov-web-components/commit/42551d764ad746af033262e3ee98fd47f11c6aba))
+* UIG-3071 - vl-toaster-next - introductie component ([8ffc145](https://github.com/milieuinfo/uigov-web-components/commit/8ffc1451392ae7af4f3e1363ca621ecefb59f8a7))
+* UIG-3123 - vl-title-next, vl-form-label-next - styling stuurbaar gemaakt ([abeaf1c](https://github.com/milieuinfo/uigov-web-components/commit/abeaf1c3c2d0bfb7cfffb8c9f61a928af83f3af3))
+* UIG-3139 - annotation - uitbreidingen aan vl-text-next ([b21e829](https://github.com/milieuinfo/uigov-web-components/commit/b21e8295c1e229b4db4f0e3601da326ba652b5be))
+* UIG-3154 - vl-rich-data - storybook verbeterd ([a6efd3f](https://github.com/milieuinfo/uigov-web-components/commit/a6efd3f7309a38305d36f77a354446757e1398ae))
+* UIG-3163 - layout uitbreiding met vl-separator-next, vl-spacer-next en vl-stacked-next ([3748713](https://github.com/milieuinfo/uigov-web-components/commit/3748713e8dfedafb43cdb2a475b6fb292a239c47))
+* UIG-3172 - input-group / input-field - met block attribuut de volledige breedte innemen ([0b39ac2](https://github.com/milieuinfo/uigov-web-components/commit/0b39ac27f4d8828fa320ad146769a748f41e8660))
+* UIG-3175 - global-styles - registratie van global styles verbeterd ([2cb14eb](https://github.com/milieuinfo/uigov-web-components/commit/2cb14eb8dec1a31df97ff4a066bf5941921d627a))
+* UIG-3180 - privacy / accessibility / cookie-statement uitbreiden met hide-back-link ([55c06a4](https://github.com/milieuinfo/uigov-web-components/commit/55c06a4b4f70305dd0e8bbadf512ff8f2b97abb4))
+* UIG-3181 - vl-upload-next - dropzone event handling uitgebreid ([9b1c924](https://github.com/milieuinfo/uigov-web-components/commit/9b1c9248c1e389b76d699234837d6d92f07c2ab2))
+* UIG-3182 - form-control - resetFormControl methode verder toegelicht ([1bf3bde](https://github.com/milieuinfo/uigov-web-components/commit/1bf3bde48579222639ceb1fccb2764b60b1ce325))
+* UIG-3188 - vl-error-message-next - validator message wordt nu fallback foutboodschap ([516a4fa](https://github.com/milieuinfo/uigov-web-components/commit/516a4fa54e6b2e66c3f0a44ebdb3e1f9f2493db5))
+* UIG-3189 - vl-upload-next - parallel-uploads attribuut toegevoegd ([fd74f4b](https://github.com/milieuinfo/uigov-web-components/commit/fd74f4b55983c1b8d71c1e9b1473547bcec8a176))
+* UIG-3192 - vl-toggle-button - wordt vervangen door vl-button-next ([644d537](https://github.com/milieuinfo/uigov-web-components/commit/644d53730884794c2c2b5287cefbb5376f99255e))
+
 # [1.42.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.41.0...v1.42.0) (2024-12-19)
 
 

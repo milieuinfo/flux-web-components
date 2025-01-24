@@ -1151,6 +1151,53 @@
                     ]
                 },
                 {
+                    "name": "vl-table-next",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `table` component om op een gestructureerde manier (grote hoeveelheden) relationele data te tonen.\n\n<VluxAlert type=\"info\">\n{`\n    In de v2 versie van deze component gebruik je hem via de custom-tag, de interne implementatie is voor de rest\n    gelijk gebleven aan deze van de v1 versie. In de toekomst zal deze component grondig herwerkt worden; in de\n    context van een herwerking van de vl-table.\n`}\n</VluxAlert>",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-table--documentatie",
+                    "attributes": [
+                        {
+                            "name": "hover",
+                            "description": "Attribuut wordt gebruikt om een rij te highlighten wanneer de gebruiker erover hovert met muiscursor.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "matrix",
+                            "description": "Attribuut wordt gebruikt om data in 2 dimensies te tonen. Zowel de rijen als de kolommen krijgen een titel. Deze titels worden gescheiden door een dikke lijn.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "grid",
+                            "description": "Variant met een lijn tussen elke rij en kolom.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "zebra",
+                            "description": "Variant waarin de rijen afwisselend een andere achtergrondkleur krijgen. Dit maakt de tabel makkelijker leesbaar. Deze zebra werkt niet voor tabellen met detail rijen, gebruik hiervoor uig-zebra.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "uig-zebra",
+                            "description": "Variant waarin de rijen afwisselend een andere achtergrondkleur krijgen. Dit maakt de tabel makkelijker leesbaar. Deze zebra werkt voor tabellen met en zonder detail rijen.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "collapsed-m",
+                            "description": "Vanaf een medium schermgrootte zullen de cellen van elke rij onder elkaar ipv naast elkaar getoond worden.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "collapsed-s",
+                            "description": "Vanaf een small schermgrootte zullen de cellen van elke rij onder elkaar ipv naast elkaar getoond worden.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "collapsed-xs",
+                            "description": "Vanaf een extra small schermgrootte zullen de cellen van elke rij onder elkaar ipv naast elkaar getoond worden.",
+                            "default": "false"
+                        }
+                    ]
+                },
+                {
                     "name": "vl-doormat-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `doormat-next` component om een snel en duidelijk overzicht weer te geven van de informatie op je website.<br/>\nElke doormat krijgt zijn eigen titel, tekst, optionele afbeelding en linkt naar een pagina binnen je website.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-doormat--documentatie",
@@ -1421,8 +1468,39 @@
                     }
                 },
                 {
+                    "name": "vl-search-result-next",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `search-result-next` component om een zoekresultaat weer te geven.<br/>\n\nVolgende sub-componenten zijn beschikbaar om het zoekresultaat op te bouwen:\n\n- VlSearchResultProperties `[vl-search-result-properties-next]`\n- VlSearchResultText `[vl-search-result-text-next]`\n- VlSearchResultTitle `[vl-search-result-title-next]`",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-search-result--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "[default]",
+                            "description": "De inhoud van het zoekresultaat",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-search-result-title-next",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-search-result--documentatie"
+                },
+                {
+                    "name": "vl-search-result-text-next",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-search-result--documentatie"
+                },
+                {
+                    "name": "vl-search-result-properties-next",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-search-result--documentatie"
+                },
+                {
                     "name": "vl-side-navigation-next",
-                    "description": "Gebruik het `vl-side-navigation` component om een compact navigatie-element aan een pagina toe te voegen.<br/>\nHet vat de inhoud van lange pagina's samen, leidt de gebruiker door de pagina inhoud en kan ook naar externe pagina's\nverwijzen.\n\nDe `vl-side-navigation` wordt opgebouwd uit volgende elementen:\n\n- VlSideNavigation\n- VlSideNavigationTitle\n- VlSideNavigationContent\n- VlSideNavigationGroup\n- VlSideNavigationItem\n- VlSideNavigationToggle\n- VlSideNavigationReference\n\n```js\nimport { VlSideNavigation } from '@domg-wc/elements';\n```\n\n```html\n<nav is=\"vl-side-navigation\"></nav>\n```\n\n<Canvas of={VlSideNavigationStories.SideNavigationDefault}/>",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/><br/>\n\n<VluxAlert type=\"info\">\n{`\n    De v2 versie van deze component gebruik je via custom-tags, de interne implementatie is gelijk gebleven aan\n    de v1 versie. In v3 zal deze component grondig herwerkt worden.\n`}\n</VluxAlert>\n\n<br/>\n\nGebruik de `side-navigation-next` component om een compact navigatie-element aan een pagina toe te voegen. Het vat de\ninhoud van lange pagina's samen, leidt de gebruiker door de pagina inhoud en kan ook naar externe pagina's verwijzen.\n\nDe `vl-side-navigation-next` wordt opgebouwd uit volgende sub-componenten:\n\n- VlSideNavigation `[vl-side-navigation-next]`\n- VlSideNavigationTitle<br/>\n    `[vl-side-navigation-h1-next / vl-side-navigation-h2-next / vl-side-navigation-h3-next /`\n    `vl-side-navigation-h4-next / vl-side-navigation-h5-next / vl-side-navigation-h6-next]`\n- VlSideNavigationContent `[vl-side-navigation-content-next]`\n- VlSideNavigationGroup `[vl-side-navigation-group-next]`\n- VlSideNavigationItem `[vl-side-navigation-item-next]`\n- VlSideNavigationToggle `[vl-side-navigation-toggle-next]`\n- VlSideNavigationReference `[vl-side-navigation-reference-next]`\n\n```js\nimport { VlSideNavigation } from '@domg-wc/components';\n```\n\n```html\n<vl-side-navigation-next></vl-side-navigation-next>\n```\n\n<Canvas of={VlSideNavigationStories.SideNavigationDefault}/>",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
                 },
                 {
@@ -1468,6 +1546,38 @@
                 {
                     "name": "vl-side-navigation-toggle-next",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-search-filter-next",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/><br/>\n\n<VluxAlert type=\"info\">\n{`\n    In de v2 versie van deze component gebruik je hem via de custom-tag, de interne implementatie is voor de rest\n    gelijk gebleven aan deze van de v1 versie. In de toekomst zal deze component grondig herwerkt worden; in de context\n    van een herwerking van de vl-table.\n`}\n</VluxAlert>\n\nGebruik de `search-filter-next` component om een zoek filter te tonen op een pagina.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-search-filter--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "filter-title",
+                            "description": "De titel van deze zoekfilter.",
+                            "default": ""
+                        },
+                        {
+                            "name": "alt",
+                            "description": "Alternatieve (transparante) achtergrond.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "mobile-modal",
+                            "description": "Activeert geoptimaliseerde weergave voor mobiele apparaten.<br>Dit wordt ook geactiveerd als de viewport kleiner is dan 768px.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "mobile-modal-title",
+                            "description": "Stelt de titel in van deze zoekfilter op mobiele apparaten.<br> Als die niet gedeclareerd is, wordt de waarde van filter-title gebruikt.",
+                            "default": ""
+                        }
+                    ]
                 },
                 {
                     "name": "vl-steps-next",
@@ -1558,12 +1668,22 @@
                         },
                         {
                             "name": "italic",
-                            "description": "Geeft de tekst een cursieve stijl.",
+                            "description": "Toont de tekst cursief.",
                             "default": "false"
                         },
                         {
                             "name": "underline",
-                            "description": "Geeft de tekst een onderstreepte stijl.",
+                            "description": "Toont de tekst onderstreept.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "annotation",
+                            "description": "Toont de tekst minder opvallend - hij krijgt een grijze kleur.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "small",
+                            "description": "Toont de tekst kleiner.",
                             "default": "false"
                         }
                     ],
@@ -2337,6 +2457,33 @@
                             "name": "data-vl-fadeout",
                             "description": "Elke alert verdwijnt automatisch 5 seconden na openen.",
                             "default": "false"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-toaster-next",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `toaster-next` component om een toaster af te beelden.<br/>\n\nDeze component is de nieuwe versie van het [vl-toaster](/docs/elements-toaster-h1--documentatie) element.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-toaster--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "fade-out",
+                            "description": "Elke alert verdwijnt automatisch 5 seconden na openen. \n Dit attribuut is niet reactief.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "placement",
+                            "description": "Positioneert de toaster. \nStandaard worden die geplaatst in de rechterbovenhoek.",
+                            "default": "false"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "[default]"
                         }
                     ]
                 },

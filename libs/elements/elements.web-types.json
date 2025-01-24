@@ -154,7 +154,7 @@
                 },
                 {
                     "name": "vl-data-table",
-                    "description": "<span style=\"color: rgb(200,140,0)\">[legacy-component]</span><br/>Gebruik de `data-table` component om op een gestructureerde manier (grote hoeveelheden) relationele data te tonen.",
+                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik de `data-table` component om op een gestructureerde manier (grote hoeveelheden) relationele data te tonen.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/elements-data-table--documentatie",
                     "attributes": [
                         {
@@ -909,7 +909,7 @@
                 },
                 {
                     "name": "vl-side-navigation",
-                    "description": "<span style=\"color: rgb(200,140,0)\">[legacy-component]</span><br/>Gebruik het `vl-side-navigation` component om een compact navigatie-element aan een pagina toe te voegen.<br/>\nHet vat de inhoud van lange pagina's samen, leidt de gebruiker door de pagina inhoud en kan ook naar externe pagina's\nverwijzen.\n\nDe `vl-side-navigation` wordt opgebouwd uit volgende elementen:\n\n- VlSideNavigation\n- VlSideNavigationTitle\n- VlSideNavigationContent\n- VlSideNavigationGroup\n- VlSideNavigationItem\n- VlSideNavigationToggle\n- VlSideNavigationReference\n\n```js\nimport { VlSideNavigation } from '@domg-wc/elements';\n```\n\n```html\n<nav is=\"vl-side-navigation\"></nav>\n```\n\n<Canvas of={VlSideNavigationStories.SideNavigationDefault} />",
+                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik het `vl-side-navigation` component om een compact navigatie-element aan een pagina toe te voegen.<br/>\nHet vat de inhoud van lange pagina's samen, leidt de gebruiker door de pagina inhoud en kan ook naar externe pagina's\nverwijzen.\n\nDe `vl-side-navigation` wordt opgebouwd uit volgende elementen:\n\n- VlSideNavigation\n- VlSideNavigationTitle\n- VlSideNavigationContent\n- VlSideNavigationGroup\n- VlSideNavigationItem\n- VlSideNavigationToggle\n- VlSideNavigationReference\n\n```js\nimport { VlSideNavigation } from '@domg-wc/elements';\n```\n\n```html\n<nav is=\"vl-side-navigation\"></nav>\n```\n\n<Canvas of={VlSideNavigationStories.SideNavigationDefault} />",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/elements-side-navigation--documentatie"
                 },
                 {

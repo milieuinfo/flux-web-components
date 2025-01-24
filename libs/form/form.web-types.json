@@ -1347,7 +1347,7 @@
                         },
                         {
                             "name": "error-message-accepted-files",
-                            "description": "Attribuut om de message te definiëren wanneer er bestanden zijn toegevoegd die niet voldoen aan het gevraagde bestandstype.",
+                            "description": "Attribuut om de message te definiëren wanneer er bestanden zijn toegevoegd die niet voldoen aan hetgevraagde bestandstype.",
                             "default": "Dit bestandstype is niet toegestaan."
                         },
                         {
@@ -1381,6 +1381,11 @@
                             "default": "Bijlage toevoegen"
                         },
                         {
+                            "name": "parallel-uploads",
+                            "description": "Bepaalt het aantal bestanden dat tegelijkertijd geüpload kan worden.",
+                            "default": "2"
+                        },
+                        {
                             "name": "url",
                             "description": "Bepaalt de upload url",
                             "default": "dummy-url"
@@ -1408,9 +1413,39 @@
                                 "type": "{ value: string }"
                             },
                             {
+                                "name": "vl-addedfile",
+                                "description": "Event dat afgevuurd wordt als een bestand wordt toegevoegd.<br>Daarnaast geeft het ook de file die werd toegevoegd.",
+                                "type": "{ value: string, type: string, file: File}"
+                            },
+                            {
+                                "name": "vl-removedfile",
+                                "description": "Event dat afgevuurd wordt als een bestand wordt verwijderd.<br>Daarnaast geeft het ook de file die werd verwijderd.",
+                                "type": "{ value: string, type: string, file: File}"
+                            },
+                            {
                                 "name": "vl-error",
                                 "description": "Event dat afgevuurd wordt als een bestand niet voldoet aan de validatie.<br>Het detail object van het event bevat de ingegeven waarde.<br>Daarnaast geeft het ook de file met de fout.",
                                 "type": "{ value: string, type: string, file: File, errorMessage: string}"
+                            },
+                            {
+                                "name": "vl-success",
+                                "description": "Event dat afgevuurd wordt als de upload van een bestand succesvol is.",
+                                "type": "{ value: string, type: string, file: File, response: object | string}"
+                            },
+                            {
+                                "name": "vl-complete",
+                                "description": "Event dat afgevuurd wordt als de upload van een bestand compleet is.",
+                                "type": "{ value: string, type: string, file: File}"
+                            },
+                            {
+                                "name": "vl-queuecomplete",
+                                "description": "Event dat afgevuurd wordt als de upload van alle bestanden compleet is.",
+                                "type": "{ value: string, type: string, file: File}"
+                            },
+                            {
+                                "name": "vl-initialised",
+                                "description": "Event dat afgevuurd wordt als de upload component geïnitialiseerd is. Hierna kunnen bv. events geregistreerd worden.",
+                                "type": "{ type: string}"
                             }
                         ]
                     }
