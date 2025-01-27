@@ -1,3 +1,11 @@
+## [1.43.1](https://github.com/milieuinfo/uigov-web-components/compare/v1.43.0...v1.43.1) (2025-01-27)
+
+
+### Bug Fixes
+
+* UIG-3195 - vl-upload-next - vl-initialised event timing verbeterd ([b174420](https://github.com/milieuinfo/uigov-web-components/commit/b174420a53aedfd50a7a1e11fa643c9e6999c114))
+* UIG-3197 - vl-rich-data - body scroll probleem opgelost in context van search-filter ([344449c](https://github.com/milieuinfo/uigov-web-components/commit/344449cb9164f150f2b19d17562e28d54f95628b))
+
 # [1.43.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.42.0...v1.43.0) (2025-01-24)
 
 
