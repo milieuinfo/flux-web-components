@@ -7,7 +7,6 @@ import {
     VlIconElement,
     VlSearchFilterElement,
 } from '@domg-wc/elements';
-import { number } from 'prop-types';
 import { VlSearchFilterComponent } from '../next/search-filter';
 import { Pagination, VlPagerComponent } from '../pager/vl-pager.component';
 import styles from './vl-rich-data.uig-css';
@@ -375,7 +374,7 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
     __processSearchFilter(): void {
         if (this.__searchFilter) {
             if (!(this.__searchFilter instanceof VlSearchFilterComponent)) {
-                this.__searchFilter.setAttribute('data-vl-mobile-modal', '');
+                this.__searchFilter.setAttribute('data-vl-alt', '');
             } else {
                 this.__searchFilter.setAttribute('alt', '');
             }
