@@ -1,9 +1,10 @@
+import { vlAccessibilityStyles } from './base/accessibility/vl-accessibility.css';
 import { vlBodyStyles } from './base/body/vl-body.css';
 import { vlFontStyles } from './base/font/vl-font.css';
-import { vlColorStyles } from './base/var/vl-color.css';
-import { vlGeneralStyles } from './base/var/vl-general.css';
-import { vlSpacingStyles } from './base/var/vl-spacing.css';
-import { vlTypographyStyles } from './base/var/vl-typography.css';
+import { vlColorVars } from './base/var/vl-color.css';
+import { vlGeneralVars } from './base/var/vl-general.css';
+import { vlSpacingVars } from './base/var/vl-spacing.css';
+import { vlTypographyVars } from './base/var/vl-typography.css';
 import { vlGridStyles } from './layout/grid/vl-grid.css';
 import { vlGroupStyles } from './layout/group/vl-group.css';
 import { vlMarginStyles } from './layout/margin/vl-margin.css';
@@ -14,11 +15,12 @@ import { vlSpacerStyles } from './layout/spacer/vl-spacer.css';
 import { vlStackedStyles } from './layout/stacked/vl-stacked.css';
 
 const globalStyles = [
+    vlGeneralVars,
+    vlColorVars,
+    vlSpacingVars,
+    vlTypographyVars,
+    vlAccessibilityStyles,
     vlFontStyles,
-    vlColorStyles,
-    vlGeneralStyles,
-    vlSpacingStyles,
-    vlTypographyStyles,
     vlBodyStyles,
     vlSectionStyles,
     vlGridStyles,
