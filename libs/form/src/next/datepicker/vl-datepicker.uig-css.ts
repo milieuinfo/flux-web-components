@@ -2,7 +2,7 @@ import { css, CSSResult } from 'lit';
 
 const styles: CSSResult = css`
     :host {
-        --vl-error-color: rgb(210, 55, 60);
+        --vl-color--error: rgb(210, 55, 60);
         --vl-success-color: rgb(0, 158, 71);
     }
     button {
@@ -19,10 +19,10 @@ const styles: CSSResult = css`
         color: var(--vl-success-color) !important;
     }
     .vl-input-addon--error {
-        border-color: var(--vl-error-color);
+        border-color: var(--vl-color--error);
     }
     .vl-input-addon--error .vl-vi {
-        color: var(--vl-error-color) !important;
+        color: var(--vl-color--error) !important;
     }
 
     .flatpickr-calendar {

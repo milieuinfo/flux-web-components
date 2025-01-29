@@ -13,11 +13,11 @@ export const vlLinkStyles = (selector = 'a') => css`
         display: inline-flex;
         align-items: center;
         word-break: break-word;
-        color: var(--vl-action-color);
+        color: var(--vl-color--action);
         cursor: pointer;
 
         &:hover {
-            color: var(--vl-action-color--hover);
+            color: var(--vl-color--action-hover);
             text-decoration: none;
         }
 
@@ -27,11 +27,11 @@ export const vlLinkStyles = (selector = 'a') => css`
 
         &:focus,
         &:active {
-            color: var(--vl-action-color--active);
+            color: var(--vl-color--action-active);
         }
 
         &:visited {
-            color: var(--vl-action-color--visited);
+            color: var(--vl-color--action-visited);
         }
 
         &.bold {
@@ -62,46 +62,46 @@ export const vlLinkStyles = (selector = 'a') => css`
         }
 
         &.error {
-            color: var(--vl-error-color);
+            color: var(--vl-color--error);
 
             &:hover,
             &:focus,
             &:active,
             &:visited {
-                color: var(--vl-error-color--hover);
+                color: var(--vl-color--error-hover);
             }
         }
 
         /* Icon styles */
 
         .vl-icon.vl-icon--external {
-            color: var(--vl-light-text-color);
+            color: var(--vl-color--text-light);
         }
 
         &:hover,
         &:focus,
         &:active {
             .vl-icon.vl-icon--external {
-                color: var(--vl-light-text-color);
+                color: var(--vl-color--text-light);
             }
         }
 
         /* Moet op deze manier gedefinieerd worden of de styles werken niet, visited doet raar. */
 
         &:visited .vl-icon {
-            color: var(--vl-action-color--visited);
+            color: var(--vl-color--action-visited);
         }
 
         &:visited .vl-icon.vl-icon--external {
-            color: var(--vl-light-text-color);
+            color: var(--vl-color--text-light);
         }
 
         &.error:visited .vl-icon {
-            color: var(--vl-error-color--hover);
+            color: var(--vl-color--error-hover);
         }
 
         &.error:visited .vl-icon.vl-icon--external {
-            color: var(--vl-light-text-color);
+            color: var(--vl-color--text-light);
         }
     }
 `;

@@ -3,7 +3,7 @@ import { css, CSSResult } from 'lit';
 export const vlSeparatorStyles: CSSResult = css`
     .vl-separator-next {
         border: none;
-        border-bottom: 1px solid var(--vl-border-color);
+        border-bottom: 1px solid var(--vl-color--border);
         margin-top: 0;
         margin-bottom: 0;
     }
