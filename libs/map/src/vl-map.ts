@@ -166,6 +166,7 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
         if (this.observer) {
             this.observer.disconnect();
         }
+        this.map.setTarget(null);
     }
 
     private observeRemovedMapLayers(): void {
