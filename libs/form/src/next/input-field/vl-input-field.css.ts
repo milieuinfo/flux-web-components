@@ -16,28 +16,28 @@ export const inputFieldStyles = css`
 
     .vl-input-field {
         display: inline-block;
-        background: var(--vl-white);
+        background: var(--vl-color--white);
         font-family: var(--vl-font);
         font-size: var(--vl-font-size--small);
-        color: var(--vl-text-color);
+        color: var(--vl-color--text);
         max-width: 100%;
         height: 3.5rem;
         line-height: 3.5rem;
         border-radius: 0.3rem;
-        border: 0.1rem solid var(--vl-alt-border-color);
+        border: 0.1rem solid var(--vl-color--border-alt);
         padding: 0 1rem;
         transition: background-color 0.2s;
 
         &:hover,
         &.vl-input-field--input-group-left:hover,
         &.vl-input-field--input-group-right:hover {
-            border: 0.2rem solid var(--vl-focus-color);
+            border: 0.2rem solid var(--vl-color--focus);
             padding: 0 0.9rem;
             border-right-width: 1px;
         }
 
         &:hover.vl-input-field--error {
-            border-color: var(--vl-error-color);
+            border-color: var(--vl-color--error);
         }
 
         &:hover.vl-input-field--success {
@@ -46,14 +46,14 @@ export const inputFieldStyles = css`
 
         &:focus {
             box-shadow: none;
-            outline: 3px solid var(--vl-focus-color);
+            outline: 3px solid var(--vl-color--focus);
             outline-offset: 2px;
-            border: 0.1rem solid var(--vl-light-text-color);
+            border: 0.1rem solid var(--vl-color--text-light);
             padding: 0 1rem;
         }
 
         &:focus.vl-input-field--error {
-            border-color: var(--vl-error-color);
+            border-color: var(--vl-color--error);
         }
 
         &:focus.vl-input-field--success {
@@ -70,8 +70,8 @@ export const inputFieldStyles = css`
         }
 
         &.vl-input-field--error {
-            border-color: var(--vl-error-color);
-            background-color: var(--vl-error-color--background);
+            border-color: var(--vl-color--error);
+            background-color: var(--vl-color--error-background);
             display: inline;
         }
 
@@ -82,8 +82,8 @@ export const inputFieldStyles = css`
         }
 
         &.vl-input-field--disabled {
-            border-color: var(--vl-alt-border-color);
-            background-color: var(--vl-alt-border-color--background);
+            border-color: var(--vl-color--border-alt);
+            background-color: var(--vl-color--border-alt--background);
         }
 
         &.vl-input-field--disabled:hover {

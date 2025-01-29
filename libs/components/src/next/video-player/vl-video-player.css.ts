@@ -11,14 +11,14 @@ const styles: CSSResult[] = [
     `,
     css`
         :host {
-            --plyr-color-main: var(--vl-action-color);
+            --plyr-color-main: var(--vl-color--action);
 
             --plyr-font-family: inherit;
 
             --plyr-control-spacing: 15px;
 
             --plyr-tooltip-bg: var(--vl-page-bg);
-            --plyr-tooltip-color: var(--vl-text-color);
+            --plyr-tooltip-color: var(--vl-color--text);
             --plyr-tooltip-padding: 3px;
             --plyr-tooltip-arrow-size: 6px;
             --plyr-tooltip-radius: 0;
@@ -35,7 +35,7 @@ const styles: CSSResult[] = [
         .plyr .plyr__slider__track {
             background-image: linear-gradient(
                 to right,
-                var(--vl-accent-color) var(--value, 0%),
+                var(--vl-color--accent) var(--value, 0%),
                 transparent var(--value, 0%)
             );
         }

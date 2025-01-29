@@ -9,7 +9,7 @@ const loadingAnimationName = 'waving-light';
 export const buttonStyles: CSSResult = css`
     /* Importeer loading animation, moet op dit niveau geïmporteerd worden. */
 
-    ${vlWaveAnimationMixin(loadingAnimationName, 'var(--vl-action-color--disabled)')}
+    ${vlWaveAnimationMixin(loadingAnimationName, 'var(--vl-color--action-disabled)')}
     button {
         /* Reset styles - gebaseerd op DV mixin > _buttons.scss */
         border-radius: 0;
@@ -28,10 +28,10 @@ export const buttonStyles: CSSResult = css`
         font-size: var(--vl-font-size--small);
         font-weight: 500;
         padding: var(--vl-spacing--xxsmall) var(--vl-spacing--normal);
-        background-color: var(--vl-action-color);
-        border: ${unsafeCSS(borderWidth)} solid var(--vl-action-color);
+        background-color: var(--vl-color--action);
+        border: ${unsafeCSS(borderWidth)} solid var(--vl-color--action);
         border-radius: var(--vl-border--radius);
-        color: var(--vl-white);
+        color: var(--vl-color--white);
         max-width: 100%;
 
         @media screen and (max-width: ${vlMediaScreenSmall}px) {
@@ -43,47 +43,47 @@ export const buttonStyles: CSSResult = css`
         }
 
         &:hover {
-            border-color: var(--vl-action-color--hover);
-            background-color: var(--vl-action-color--hover);
+            border-color: var(--vl-color--action-hover);
+            background-color: var(--vl-color--action-hover);
         }
 
         &:active {
-            border-color: var(--vl-action-color--active);
-            background-color: var(--vl-action-color--active);
+            border-color: var(--vl-color--action-active);
+            background-color: var(--vl-color--action-active);
         }
 
         &.secondary {
-            color: var(--vl-action-color);
+            color: var(--vl-color--action);
             background-color: transparent;
             border: ${unsafeCSS(borderWidth)} solid currentColor;
             transition: color 0.2s, border-color 0.2s;
 
             &:focus {
-                color: var(--vl-action-color--active);
+                color: var(--vl-color--action-active);
             }
 
             &:hover,
             &:active {
-                color: var(--vl-action-color--hover);
+                color: var(--vl-color--action-hover);
             }
         }
 
         &.tertiary {
-            color: var(--vl-action-color);
+            color: var(--vl-color--action);
             background-color: transparent;
-            border: ${unsafeCSS(borderWidthSmall)} var(--vl-action-tertiary-border-color) solid;
+            border: ${unsafeCSS(borderWidthSmall)} var(--vl-color--action-tertiary-border) solid;
             transition: background-color 0.2s;
             padding: 0 calc(var(--vl-spacing--normal) + ${unsafeCSS(differenceBetweenRegularBorderAndSmallBorder)});
 
             &:focus {
-                color: var(--vl-action-tertiary-color--hover);
-                border-color: var(--vl-action-tertiary-border-color);
+                color: var(--vl-color--action-tertiary-hover);
+                border-color: var(--vl-color--action-tertiary-border);
             }
 
             &:hover,
             &:active {
-                color: var(--vl-action-tertiary-color--hover);
-                border-color: var(--vl-action-tertiary-border-color--hover);
+                color: var(--vl-color--action-tertiary-hover);
+                border-color: var(--vl-color--action-tertiary-border-hover);
                 border-width: ${unsafeCSS(borderWidth)};
                 padding: 0 var(--vl-spacing--normal);
             }
@@ -99,34 +99,34 @@ export const buttonStyles: CSSResult = css`
         }
 
         &.error {
-            background-color: var(--vl-error-color);
-            border-color: var(--vl-error-color);
+            background-color: var(--vl-color--error);
+            border-color: var(--vl-color--error);
 
             &:hover,
             &:active {
-                background-color: var(--vl-error-color--hover);
-                border-color: var(--vl-error-color--hover);
+                background-color: var(--vl-color--error-hover);
+                border-color: var(--vl-color--error-hover);
             }
 
             &.secondary {
-                color: var(--vl-error-color);
+                color: var(--vl-color--error);
                 background-color: transparent;
 
                 &:hover,
                 &:active {
-                    color: var(--vl-error-color--hover);
+                    color: var(--vl-color--error-hover);
                 }
             }
 
             &.tertiary {
-                color: var(--vl-error-color);
-                border-color: var(--vl-error-color);
+                color: var(--vl-color--error);
+                border-color: var(--vl-color--error);
                 background-color: transparent;
 
                 &:hover,
                 &:active {
-                    color: var(--vl-error-color--hover);
-                    border-color: var(--vl-error-color--hover);
+                    color: var(--vl-color--error-hover);
+                    border-color: var(--vl-color--error-hover);
                 }
             }
         }
@@ -199,24 +199,24 @@ export const buttonStyles: CSSResult = css`
         }
 
         &.disabled {
-            color: var(--vl-action-color--disabled);
-            background-color: var(--vl-action-background-color--disabled);
-            border-color: var(--vl-action-background-color--disabled);
+            color: var(--vl-color--action-disabled);
+            background-color: var(--vl-color--action-disabled-background);
+            border-color: var(--vl-color--action-disabled-background);
             cursor: not-allowed;
 
             &:focus,
             &:hover,
             &:active {
-                color: var(--vl-action-color--disabled);
-                background-color: var(--vl-action-background-color--disabled);
-                border-color: var(--vl-action-background-color--disabled);
+                color: var(--vl-color--action-disabled);
+                background-color: var(--vl-color--action-disabled-background);
+                border-color: var(--vl-color--action-disabled-background);
             }
         }
 
         &.loading {
-            color: var(--vl-white);
-            background-color: var(--vl-action-background-color--disabled);
-            border-color: var(--vl-action-background-color--disabled);
+            color: var(--vl-color--white);
+            background-color: var(--vl-color--action-disabled-background);
+            border-color: var(--vl-color--action-disabled-background);
             padding: var(--vl-spacing--xsmall) 8rem var(--vl-spacing--xsmall) 4rem;
             position: relative;
 
@@ -231,16 +231,16 @@ export const buttonStyles: CSSResult = css`
                 margin-right: 3.2rem;
                 width: 0.4rem;
                 height: 0.4rem;
-                background-color: var(--vl-action-background-color--disabled);
+                background-color: var(--vl-color--action-disabled-background);
                 border-radius: 50%;
-                box-shadow: 1rem 0 var(--vl-background-color), 2rem 0 var(--vl-background-color),
-                    3rem 0 var(--vl-background-color);
+                box-shadow: 1rem 0 var(--vl-color--background), 2rem 0 var(--vl-color--background),
+                    3rem 0 var(--vl-color--background);
             }
 
             &:focus,
             &:hover,
             &:active {
-                color: var(--vl-white);
+                color: var(--vl-color--white);
             }
 
             &.disabled {
@@ -252,7 +252,7 @@ export const buttonStyles: CSSResult = css`
 
         &.button-in-map {
             &.tertiary {
-                background-color: var(--vl-map-background-color);
+                background-color: var(--vl-color--map-background);
             }
         }
 

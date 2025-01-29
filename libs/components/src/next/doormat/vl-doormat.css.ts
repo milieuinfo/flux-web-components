@@ -10,9 +10,9 @@ const styles: CSSResult = css`
         display: flex;
         position: relative;
         padding: var(--vl-spacing--small) var(--vl-spacing--normal);
-        background-color: var(--vl-background-color);
+        background-color: var(--vl-color--background);
         text-decoration: none;
-        border: ${unsafeCSS(borderWidth)} solid var(--vl-border-color);
+        border: ${unsafeCSS(borderWidth)} solid var(--vl-color--border);
         align-items: flex-start;
 
         &:before,
@@ -21,7 +21,7 @@ const styles: CSSResult = css`
             position: absolute;
             top: 0;
             left: 0;
-            background-color: var(--vl-accent-color);
+            background-color: var(--vl-color--accent);
             width: ${unsafeCSS(borderLeftWidth)};
             height: 100%;
         }
@@ -42,7 +42,7 @@ const styles: CSSResult = css`
         }
 
         .vl-doormat__text {
-            color: var(--vl-text-color);
+            color: var(--vl-color--text);
             margin-top: var(--vl-spacing--xsmall);
         }
 
@@ -53,7 +53,7 @@ const styles: CSSResult = css`
         }
 
         &.vl-doormat--alt {
-            background-color: var(--vl-background-alt-color);
+            background-color: var(--vl-color--background-alt);
         }
 
         &.vl-doormat--graphic {
@@ -72,7 +72,7 @@ const styles: CSSResult = css`
             margin-bottom: var(--vl-spacing--small);
 
             &:before {
-                background-color: var(--vl-doormat-graphic-border-color);
+                background-color: var(--vl-color--doormat-background);
                 width: calc(${unsafeCSS(borderLeftWidth)} + ${unsafeCSS(borderWidth)});
                 z-index: 2;
             }

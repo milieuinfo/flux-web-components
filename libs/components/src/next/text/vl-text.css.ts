@@ -12,7 +12,7 @@ export const vlTextStyles: CSSResult = css`
         }
 
         &.vl-text-next--error {
-            color: var(--vl-error-color);
+            color: var(--vl-color--error);
         }
 
         &.vl-text-next--bold {
@@ -28,7 +28,7 @@ export const vlTextStyles: CSSResult = css`
         }
 
         &.vl-text-next--annotation {
-            color: var(--vl-text-alt-color);
+            color: var(--vl-color--text-alt);
         }
 
         &.vl-text-next--small {
