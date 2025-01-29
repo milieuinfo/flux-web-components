@@ -106,9 +106,8 @@ describe('component vl-accordion', () => {
     it('should show the menu item using the menu slot', () => {
         const spanElement = `
             <span slot="menu">
-                <a is="vl-link" id="btn-acties">
-                    <span is="vl-icon" data-vl-icon="menu"></span>
-                </a>
+                <vl-link-next id="btn-acties" icon="menu" button-as-link>
+                </vl-link-next>
             </span>`;
 
         cy.get('vl-accordion').then(($accordion) => {
@@ -120,7 +119,7 @@ describe('component vl-accordion', () => {
                 shadowRoot?.querySelector('slot[name=menu]') as HTMLSlotElement
             )?.assignedNodes()[0] as HTMLElement;
 
-            cy.wrap(menuElement).find('a > span[is="vl-icon"]').should('exist');
+            cy.wrap(menuElement).find('a > span[class="vl-icon"]').should('exist');
         });
     });
 });

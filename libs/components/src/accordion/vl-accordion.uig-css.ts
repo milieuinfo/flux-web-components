@@ -19,6 +19,7 @@ const styles: CSSResult = css`
         display: none;
     }
 
+    .vl-accordion.vl-accordion--has-icon #toggle-icon,
     .vl-accordion.vl-accordion--has-icon .vl-vi-arrow-right-fat {
         order: 2;
         margin-left: auto;
@@ -35,8 +36,15 @@ const styles: CSSResult = css`
         display: flex;
     }
 
-    .js-vl-accordion--open > .vl-accordion__button-container > .vl-toggle > .vl-vi-arrow-right-fat::before {
-        transform: rotate(-90deg);
+    .js-vl-accordion--open vl-icon-next#toggle-icon::part(icon)::before {
+        transform: rotate(-180deg);
+    }
+
+    .vl-accordion-next__icon {
+        flex: 0 0 22px;
+        flex-shrink: 0;
+        /* top: 5px; */
+        /* align-self: flex-start; */
     }
 `;
 export default styles;
