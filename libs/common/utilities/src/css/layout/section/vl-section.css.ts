@@ -56,7 +56,7 @@ export const vlSectionStyles: CSSResult = css`
 
             /* opeenvolgende 'alt' sectie's krijgen een witte scheidingslijn */
             &.vl-section-next--alt {
-                border-top-color: var(--vl-white);
+                border-top-color: var(--vl-color--white);
             }
         }
 
@@ -86,10 +86,10 @@ export const vlSectionStyles: CSSResult = css`
             );
 
             .vl-section-next__centered {
-                border: 1px var(--vl-border-color) solid;
+                border: 1px var(--vl-color--border) solid;
                 padding-top: 50px;
                 padding-bottom: 50px;
-                background: var(--vl-white);
+                background: var(--vl-color--white);
 
                 @media only screen and (max-width: calc(${vlPageMaxWidthWide}px + 15px)) {
                     margin: 15px;

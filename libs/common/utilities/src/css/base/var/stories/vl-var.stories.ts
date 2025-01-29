@@ -14,8 +14,8 @@ export default {
 
 export const VarColor = ({}) => html` <style>
         .sb-var {
-            background-color: var(--vl-background-alt-color);
-            border: var(--vl-alt-border-color) 1px solid;
+            background-color: var(--vl-color--background-alt);
+            border: var(--vl-color--border-alt) 1px solid;
             width: 240px;
             padding: 10px;
             text-align: center;

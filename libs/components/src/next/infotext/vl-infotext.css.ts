@@ -9,7 +9,7 @@ const styles: CSSResult = css`
         justify-content: center;
         text-align: center;
         font-weight: 500;
-        color: var(--vl-text-alt-color);
+        color: var(--vl-color--text-alt);
         max-width: 14rem;
 
         @media screen and (max-width: ${vlMediaScreenSmall}px) {
@@ -19,8 +19,8 @@ const styles: CSSResult = css`
         }
 
         &.vl-infotext--badge {
-            background-color: var(--vl-background-alt-color);
-            border: 1px solid var(--vl-alt-border-color);
+            background-color: var(--vl-color--background-alt);
+            border: 1px solid var(--vl-color--border-alt);
             border-radius: 50%;
             width: 14rem;
             height: 14rem;
@@ -39,12 +39,12 @@ const styles: CSSResult = css`
     }
 
     a.vl-infotext {
-        color: var(--vl-action-color);
+        color: var(--vl-color--action);
         text-decoration: none;
 
         &:hover,
         &:focus {
-            color: var(--vl-action-color--hover);
+            color: var(--vl-color--action-hover);
 
             .vl-infotext__text {
                 text-decoration: underline;

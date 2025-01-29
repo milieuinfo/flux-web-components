@@ -11,7 +11,7 @@ export const vlBodyStyles: CSSResult = css`
     body {
         font-size: var(--vl-font-size);
         line-height: var(--vl-line-height);
-        color: var(--vl-text-color);
+        color: var(--vl-color--text);
 
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;

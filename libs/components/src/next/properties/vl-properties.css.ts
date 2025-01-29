@@ -62,7 +62,7 @@ const styles: CSSResult = css`
 
     dt {
         font-size: 1.8rem;
-        color: var(--vl-label-color);
+        color: var(--vl-color--label);
         padding-right: 1rem;
         grid-column: 1;
     }

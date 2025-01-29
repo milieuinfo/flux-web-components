@@ -32,7 +32,7 @@ export const vlIconStyles: CSSResult = css`
         }
 
         &.vl-icon--light {
-            color: var(--vl-light-text-color);
+            color: var(--vl-color--text-light);
         }
 
         &.vl-icon--right-margin {
@@ -53,10 +53,10 @@ export const vlIconStyles: CSSResult = css`
 
         &.vl-icon--clickable {
             cursor: pointer;
-            color: var(--vl-action-color);
+            color: var(--vl-color--action);
 
             &:hover {
-                color: var(--vl-action-color--hover);
+                color: var(--vl-color--action-hover);
             }
 
             &:focus {
@@ -65,7 +65,7 @@ export const vlIconStyles: CSSResult = css`
 
             &:focus,
             &:active {
-                color: var(--vl-action-color--active);
+                color: var(--vl-color--action-active);
             }
         }
     }
