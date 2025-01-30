@@ -27,7 +27,7 @@ describe('story - grid-next - offset', () => {
     });
 });
 
-describe.only('story - grid-next - justify/align', () => {
+describe('story - grid-next - justify/align', () => {
     it('should render', () => {
         cy.visit(gridNextJustifyAlignUrl);
 
