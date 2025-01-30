@@ -8,6 +8,6 @@ export const linkDefaults = {
     error: false as boolean,
     external: false as boolean,
     icon: '' as string,
-    iconPlacement: 'before' as ICON_PLACEMENT,
+    iconPlacement: '' as ICON_PLACEMENT,
     buttonAsLink: false as boolean,
 } as const;

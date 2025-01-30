@@ -97,6 +97,14 @@ describe('component - vl-button-next', () => {
             .find('button')
             .find('span.vl-icon')
             .should('have.class', 'vl-icon--pin')
+            .should('not.have.class', 'vl-icon--right-margin');
+
+        cy.get('vl-button-next').invoke('attr', 'icon-placement', 'before');
+
+        cy.get('vl-button-next')
+            .shadow()
+            .find('button')
+            .find('span.vl-icon')
             .should('have.class', 'vl-icon--right-margin');
     });
 
@@ -113,12 +121,10 @@ describe('component - vl-button-next', () => {
             .should('have.class', 'vl-icon--left-margin');
     });
 
-    it('should set empty-slot style when slot does not have content', () => {
+    it('should not set extra margin with icon-placement is not set', () => {
         cy.mount(html` <vl-button-next icon="pin"></vl-button-next>`);
 
         cy.get('vl-button-next').should('have.attr', 'icon', 'pin');
-        cy.get('vl-button-next').shadow().find('slot').should('be.empty');
-        cy.get('vl-button-next').shadow().find('button').should('have.class', 'empty-slot');
         cy.get('vl-button-next')
             .shadow()
             .find('button')
@@ -131,6 +137,13 @@ describe('component - vl-button-next', () => {
 
         cy.get('vl-button-next').shadow().find('button').find('slot');
         cy.get('vl-button-next').contains('Klik op mij');
+    });
+
+    it('should set label', () => {
+        cy.mount(html`<vl-button-next label="test-label"></vl-button-next>`);
+
+        cy.get('vl-button-next').should('have.attr', 'label', 'test-label');
+        cy.get('vl-button-next').shadow().find('button').should('have.attr', 'aria-label', 'test-label');
     });
 
     it('should set class if displayed in map', () => {
@@ -274,7 +287,11 @@ describe('component - vl-button-next - cta-link', () => {
             .find('a')
             .find('span.vl-icon')
             .should('have.class', 'vl-icon--pin')
-            .should('have.class', 'vl-icon--right-margin');
+            .should('not.have.class', 'vl-icon--right-margin');
+
+        cy.get('vl-button-next').invoke('attr', 'icon-placement', 'before');
+
+        cy.get('vl-button-next').shadow().find('a').find('span.vl-icon').should('have.class', 'vl-icon--right-margin');
     });
 
     it('should set icon-placement', () => {
@@ -294,21 +311,15 @@ describe('component - vl-button-next - cta-link', () => {
             .should('have.class', 'vl-icon--left-margin');
     });
 
-    it('should set icon-only', () => {
-        cy.mount(html` <vl-button-next icon="pin" icon-only cta-link="https://www.vlaanderen.be"></vl-button-next>`);
+    it('should not set extra margin with icon-placement is not set', () => {
+        cy.mount(html` <vl-button-next cta-link="https://www.vlaanderen.be" icon="pin"></vl-button-next>`);
 
-        it('should set empty-slot style when slot does not have content', () => {
-            cy.mount(html` <vl-button-next icon="pin"></vl-button-next>`);
-
-            cy.get('vl-button-next').should('have.attr', 'icon', 'pin');
-            cy.get('vl-button-next').shadow().find('slot').should('be.empty');
-            cy.get('vl-button-next').shadow().find('button').should('have.class', 'empty-slot');
-            cy.get('vl-button-next')
-                .shadow()
-                .find('button')
-                .shouldHaveComputedStyle({ style: 'padding', value: '0px' })
-                .shouldHaveComputedStyle({ style: 'width', value: '35px' });
-        });
+        cy.get('vl-button-next').should('have.attr', 'icon', 'pin');
+        cy.get('vl-button-next')
+            .shadow()
+            .find('a')
+            .shouldHaveComputedStyle({ style: 'padding', value: '0px' })
+            .shouldHaveComputedStyle({ style: 'width', value: '31px' });
     });
 
     it('should set content', () => {
@@ -408,7 +419,7 @@ describe('component - vl-button-next - in form', () => {
     });
 });
 
-describe.only('component - vl-button-next - in input-group', () => {
+describe('component - vl-button-next - in input-group', () => {
     it('should have no radius depending on the side', () => {
         cy.mount(html` <style>
                 ${vlGroupStyles}

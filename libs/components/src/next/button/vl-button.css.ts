@@ -261,11 +261,10 @@ export const buttonStyles: CSSResult = css`
             width: 3.5rem;
             padding: 0;
             &.tertiary {
-                padding: 0;
-            }
-            .vl-icon {
-                margin-left: 0;
-                margin-right: 0;
+                &:hover,
+                &:active {
+                    padding: 0;
+                }
             }
         }
 

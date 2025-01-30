@@ -43,6 +43,7 @@ const ButtonTemplate = story(
         controlled,
         external,
         inputGroup,
+        label,
         defaultSlot,
         onVlClick,
         onVlToggle,
@@ -58,6 +59,7 @@ const ButtonTemplate = story(
             ?secondary=${secondary}
             ?tertiary=${tertiary}
             ?loading=${loading}
+            label=${label}
             icon=${icon}
             cta-link=${ctaLink}
             icon-placement=${iconPlacement}
@@ -148,6 +150,7 @@ ButtonIcon.storyName = 'vl-button-next - icon';
 ButtonIcon.args = {
     defaultSlot: 'Klik op mij',
     icon: 'location',
+    iconPlacement: 'before',
 };
 
 export const ButtonIconOnly = ButtonTemplate.bind({});

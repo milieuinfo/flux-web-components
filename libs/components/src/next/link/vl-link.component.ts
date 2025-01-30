@@ -31,19 +31,9 @@ export class VlLinkComponent extends BaseLitElement {
             large: { type: Boolean },
             external: { type: Boolean },
             icon: { type: String },
-            iconPlacement: { type: String, attribute: 'icon-placement', reflect: true },
+            iconPlacement: { type: String, attribute: 'icon-placement' },
             buttonAsLink: { type: Boolean, attribute: 'button-as-link' },
         };
-    }
-
-    updated(changedProperties: Map<string, unknown>) {
-        super.updated(changedProperties);
-
-        if (changedProperties.has('iconPlacement')) {
-            if (!this.iconPlacement) {
-                this.iconPlacement = linkDefaults.iconPlacement;
-            }
-        }
     }
 
     render(): TemplateResult {
@@ -54,29 +44,27 @@ export class VlLinkComponent extends BaseLitElement {
             large: this.large,
         };
         const target = this.external ? '_blank' : nothing;
-
+        const positionIconBefore = this.iconPlacement !== ICON_PLACEMENT.AFTER;
         return !this.buttonAsLink
             ? html`
                   <a class=${classMap(classes)} href=${this.href} target=${target}>
-                      ${this.renderIcon(ICON_PLACEMENT.BEFORE)}
+                      ${positionIconBefore ? this.renderIcon() : nothing}
                       <slot></slot>
-                      ${this.renderIcon(ICON_PLACEMENT.AFTER)} ${this.external ? this.renderExternalIcon() : ''}
+                      ${!positionIconBefore ? this.renderIcon() : nothing}
+                      ${this.external ? this.renderExternalIcon() : ''}
                   </a>
               `
             : html`
                   <button class="vl-button-as-link ${classMap(classes)}">
-                      ${this.renderIcon(ICON_PLACEMENT.BEFORE)}
+                      ${positionIconBefore ? this.renderIcon() : nothing}
                       <slot></slot>
-                      ${this.renderIcon(ICON_PLACEMENT.AFTER)} ${this.external ? this.renderExternalIcon() : ''}
+                      ${!positionIconBefore ? this.renderIcon() : nothing}
+                      ${this.external ? this.renderExternalIcon() : ''}
                   </button>
               `;
     }
 
-    renderIcon(iconPlacement: ICON_PLACEMENT): TemplateResult | typeof nothing {
-        if (iconPlacement !== this.iconPlacement) {
-            return nothing;
-        }
-
+    private renderIcon(): TemplateResult | typeof nothing {
         const classes = {
             'vl-icon': true,
             [`vl-icon--${this.icon}`]: true,
@@ -87,7 +75,7 @@ export class VlLinkComponent extends BaseLitElement {
         return this.icon ? html`<span class=${classMap(classes)}></span>` : nothing;
     }
 
-    renderExternalIcon(): TemplateResult {
+    private renderExternalIcon(): TemplateResult {
         return html`<span class="vl-icon vl-icon--external vl-icon--after"></span>`;
     }
 }

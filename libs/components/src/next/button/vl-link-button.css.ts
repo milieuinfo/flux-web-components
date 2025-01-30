@@ -23,16 +23,17 @@ export const linkButtonStyles: CSSResult = css`
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        min-height: 2.5rem; /* verschilt van button styling */
+        min-height: 2.1rem; /* verschilt van button styling */
         font-family: inherit;
         font-size: var(--vl-font-size--small);
         font-weight: 500;
         padding: var(--vl-spacing--xxsmall) var(--vl-spacing--normal);
         background-color: var(--vl-color--action);
-        border: 0 solid var(--vl-color--action);
+        border: 0.2rem  solid var(--vl-color--action);
         border-radius: var(--vl-border--radius);
         color: var(--vl-color--white);
         max-width: 100%;
+        line-height: normal;
 
         /* link-button styles */
         text-decoration: none;
@@ -263,23 +264,15 @@ export const linkButtonStyles: CSSResult = css`
 
         /* Empty slot styles */
         &.empty-slot {
-            width: 3.5rem;
+            width: 3.1rem;
             padding: 0;
-            min-height: 3.5rem;
+            min-height: 3.1rem;
 
             &.secondary {
-                width: 3.1rem;
-                min-height: 3.1rem;
                 padding: 0;
             }
             &.tertiary {
-                width: 3.1rem;
-                min-height: 3.1rem;
                 padding: 0.1rem;
-            }
-            .vl-icon {
-                margin-left: 0;
-                margin-right: 0;
             }
         }
     }
