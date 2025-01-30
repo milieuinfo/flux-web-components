@@ -58,7 +58,7 @@ const shouldEmitEventOnToggle = () => {
 };
 
 describe('story vl-accordion default', () => {
-    it.only('should display story', () => {
+    it('should display story', () => {
         cy.visit(accordionDefaultUrl);
 
         cy.get('vl-accordion').shadow();
