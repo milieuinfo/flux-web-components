@@ -5,10 +5,6 @@ import { vlIconMapping } from './vl-icon-mapping.css';
 export const vlIconStyles: CSSResult = css`
     ${unsafeCSS(vlIconMapping)}
 
-    :host {
-        display: inline-flex;
-    }
-
     /* Icon styles - gebaseerd op DV _icon.scss */
     .vl-icon {
         font-family: var(--vl-icon-font);

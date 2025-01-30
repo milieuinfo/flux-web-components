@@ -125,7 +125,6 @@ export class VlTableComponent extends LitElement {
         button.setAttribute('narrow', '');
         button.setAttribute('secondary', '');
         button.setAttribute('icon', 'arrow-down-fat');
-        button.setAttribute('icon-only', '');
 
         button.addEventListener('vl-click', (e: Event) => {
             e.preventDefault();

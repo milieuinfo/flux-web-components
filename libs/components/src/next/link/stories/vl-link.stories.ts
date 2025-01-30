@@ -94,6 +94,14 @@ LinkIcon.args = {
     href: 'https://www.vlaanderen.be',
     defaultSlot: 'Vlaanderen',
     icon: 'arrow-right-fat',
+    iconPlacement: 'before',
+};
+
+export const LinkIconOnly = LinkTemplate.bind({});
+LinkIconOnly.storyName = 'vl-link-next - icon only';
+LinkIconOnly.args = {
+    href: 'https://www.vlaanderen.be',
+    icon: 'arrow-right-fat',
 };
 
 export const ButtonStyledAsLink = LinkTemplate.bind({});

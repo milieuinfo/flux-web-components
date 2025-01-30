@@ -8,7 +8,6 @@ import {
 } from '@domg-wc/common-storybook';
 // de import is bewust op deze manier om voor de web-types.generator 'binnen' de monorepo geen side-effect te geven
 import { ICON_PLACEMENT } from '@domg-wc/common-utilities/constants';
-import {inputFieldArgs} from "@domg-wc/form/next/input-field/stories/vl-input-field.stories-arg";
 import { action } from '@storybook/addon-actions';
 import { ArgTypes } from '@storybook/web-components';
 import { buttonDefaults } from '../vl-button.defaults';
@@ -128,13 +127,14 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
     },
     iconPlacement: {
         name: 'icon-placement',
-        description: 'De positie van het icoon ten opzichte van de tekst.',
+        description:
+            'De positie van het icoon ten opzichte van de tekst.<br>Voegt margin toe tussen het icoon en de tekst.',
         control: { type: CONTROLS.SELECT },
-        options: Object.values(ICON_PLACEMENT),
+        options: ['', ...Object.values(ICON_PLACEMENT)],
         table: {
             type: { summary: getSelectControlOptions(Object.values(ICON_PLACEMENT)) },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: buttonArgs.iconPlacement },
+            defaultArgs: { summary: buttonArgs.iconPlacement },
         },
     },
     toggle: {
@@ -193,6 +193,15 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: buttonArgs.inputGroup },
+        },
+    },
+    label: {
+        name: 'label',
+        description: 'Stelt het aria-label attribuut van de button in.',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: buttonArgs.label },
         },
     },
     defaultSlot: {

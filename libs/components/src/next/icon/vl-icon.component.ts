@@ -2,6 +2,7 @@ import { BaseLitElement, webComponent } from '@domg-wc/common-utilities';
 import { vlIconStyles } from '@domg-wc/common-utilities/css';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { vlIconWebComponentStyles } from './vl-icon.css';
 import { iconDefaults } from './vl-icon.defaults';
 
 @webComponent('vl-icon-next')
@@ -15,7 +16,7 @@ export class VlIconComponent extends BaseLitElement {
     private clickable = iconDefaults.clickable;
 
     static get styles(): CSSResult[] {
-        return [vlIconStyles];
+        return [vlIconStyles, vlIconWebComponentStyles];
     }
 
     static get properties(): PropertyDeclarations {

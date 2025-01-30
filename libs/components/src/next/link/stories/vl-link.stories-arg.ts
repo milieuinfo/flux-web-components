@@ -86,13 +86,14 @@ export const linkArgTypes: ArgTypes<LinkArgs> = {
     },
     iconPlacement: {
         name: 'icon-placement',
-        description: 'De positie van het icoon ten opzichte van de tekst.',
+        description:
+            'De positie van het icoon ten opzichte van de tekst.<br>Voegt margin toe tussen het icoon en de tekst.',
         control: { type: CONTROLS.SELECT },
-        options: Object.values(ICON_PLACEMENT),
+        options: ['', ...Object.values(ICON_PLACEMENT)],
         table: {
             type: { summary: getSelectControlOptions(Object.values(ICON_PLACEMENT)) },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: linkArgs.iconPlacement },
+            defaultArgs: { summary: linkArgs.iconPlacement },
         },
     },
     buttonAsLink: {

@@ -1,7 +1,7 @@
 import { BaseLitElement, ICON_PLACEMENT, isSlotEmpty, webComponent } from '@domg-wc/common-utilities';
 import { vlIconStyles } from '@domg-wc/common-utilities/css';
 import { CSSResult, html, nothing, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
-import { classMap } from 'lit/directives/class-map.js';
+import { ClassInfo, classMap } from 'lit/directives/class-map.js';
 import { buttonStyles } from './vl-button.css';
 import { linkButtonStyles } from './vl-link-button.css';
 import { buttonDefaults } from './vl-button.defaults';
@@ -25,7 +25,7 @@ export class VlButtonComponent extends BaseLitElement {
     private external = buttonDefaults.external;
     private inputGroup = buttonDefaults.inputGroup;
     private label = buttonDefaults.label;
-    private hasEmptySlot = false;
+    private slotIsEmpty = true;
 
     public disabled = buttonDefaults.disabled;
     public on = buttonDefaults.on;
@@ -53,8 +53,8 @@ export class VlButtonComponent extends BaseLitElement {
             external: { type: Boolean },
             inputGroup: { type: Boolean, attribute: 'input-group' },
             label: { type: String },
-            hasEmptySlot: { type: Boolean },
             disabled: { type: Boolean, reflect: true },
+            slotIsEmpty: { type: Boolean, state: true },
             on: {
                 type: Boolean,
                 reflect: true,
@@ -69,12 +69,6 @@ export class VlButtonComponent extends BaseLitElement {
         };
     }
 
-    protected firstUpdated(_changedProperties: PropertyValues) {
-        super.firstUpdated(_changedProperties);
-
-        this.isSlotEmpty();
-    }
-
     updated(changedProperties: Map<string, unknown>) {
         super.updated(changedProperties);
 
@@ -82,12 +76,6 @@ export class VlButtonComponent extends BaseLitElement {
             this.dispatchEvent(
                 new CustomEvent('vl-toggle', { detail: { on: this.on }, bubbles: true, composed: true })
             );
-        }
-
-        if (changedProperties.has('iconPlacement')) {
-            if (!this.iconPlacement) {
-                this.iconPlacement = buttonDefaults.iconPlacement;
-            }
         }
     }
 
@@ -118,66 +106,69 @@ export class VlButtonComponent extends BaseLitElement {
             'input-group-left': this.inputGroup && this.isInputGroupPosition('first'),
             'input-group-right': this.inputGroup && this.isInputGroupPosition('last'),
             'button-in-map': isInMap,
-            'empty-slot': this.hasEmptySlot,
+            'empty-slot': this.slotIsEmpty,
         };
 
-        return !this.ctaLink
-            ? html`
-                  <button
-                      part="button"
-                      class=${classMap(classes)}
-                      type=${this.type}
-                      ?disabled=${this.disabled}
-                      @click=${this.handleClick}
-                      aria-label=${this.label}
-                  >
-                      ${this.renderIcon(ICON_PLACEMENT.BEFORE)}
-                      <slot @slotchange=${this.isSlotEmpty}></slot>
-                      ${this.renderIcon(ICON_PLACEMENT.AFTER)}
-                  </button>
-              `
-            : html`
-                  <a
-                      part="button"
-                      href=${this.disabled ? 'javascript:void(0);' : this.ctaLink}
-                      tabindex=${this.disabled ? '-1' : nothing}
-                      class=${classMap(classes)}
-                      role="button"
-                      target=${this.ctaLink && this.external ? '_blank' : nothing}
-                      @click=${this.handleLinkClick}
-                      aria-label=${this.label}
-                      ?aria-pressed=${this.on}
-                      ?aria-disabled=${this.disabled}
-                  >
-                      ${this.renderIcon(ICON_PLACEMENT.BEFORE)}
-                      <slot @slotchange=${this.isSlotEmpty}></slot>
-                      ${this.renderIcon(ICON_PLACEMENT.AFTER)}
-                  </a>
-              `;
+        return !this.ctaLink ? this.renderButton(classes) : this.renderCtaLink(classes);
     }
 
-    renderIcon(iconPlacement: ICON_PLACEMENT): TemplateResult | typeof nothing {
-        if (!this.icon) {
-            return nothing;
-        }
+    private renderButton(classes: ClassInfo): TemplateResult {
+        const positionIconBefore = this.iconPlacement !== ICON_PLACEMENT.AFTER;
 
-        if (iconPlacement !== this.iconPlacement) {
-            return nothing;
-        }
+        return html`
+            <button
+                part="button"
+                class=${classMap(classes)}
+                type=${this.type}
+                ?disabled=${this.disabled}
+                @click=${this.handleClick}
+                aria-label=${this.label ?? nothing}
+            >
+                ${positionIconBefore ? this.renderIcon() : nothing}
+                <slot @slotchange=${this.handleSlotChange}></slot>
+                ${!positionIconBefore ? this.renderIcon() : nothing}
+            </button>
+        `;
+    }
 
+    private renderCtaLink(classes: ClassInfo): TemplateResult {
+        const positionIconBefore = this.iconPlacement !== ICON_PLACEMENT.AFTER;
+
+        return html`
+            <a
+                part="button"
+                href=${this.disabled ? 'javascript:void(0);' : this.ctaLink}
+                tabindex=${this.disabled ? '-1' : nothing}
+                class=${classMap(classes)}
+                role="button"
+                target=${this.ctaLink && this.external ? '_blank' : nothing}
+                @click=${this.handleLinkClick}
+                aria-label=${this.label ?? nothing}
+                ?aria-pressed=${this.on}
+                ?aria-disabled=${this.disabled}
+            >
+                ${positionIconBefore ? this.renderIcon() : nothing}
+                <slot @slotchange=${this.handleSlotChange}></slot>
+                ${!positionIconBefore ? this.renderIcon() : nothing}
+                ${this.external ? html`<span class="vl-icon vl-icon--external vl-icon--after"></span>` : nothing}
+            </a>
+        `;
+    }
+
+    private renderIcon(): TemplateResult | typeof nothing {
         const classes = {
             'vl-icon': true,
             [`vl-icon--${this.icon}`]: true,
-            'vl-icon--right-margin': !this.hasEmptySlot && this.iconPlacement === 'before',
-            'vl-icon--left-margin': !this.hasEmptySlot && this.iconPlacement === 'after',
+            'vl-icon--right-margin': this.iconPlacement === 'before',
+            'vl-icon--left-margin': this.iconPlacement === 'after',
         };
 
-        return html`<span class=${classMap(classes)}></span>`;
+        return this.icon ? html`<span class=${classMap(classes)}></span>` : nothing;
     }
 
-    isSlotEmpty() {
+    handleSlotChange() {
         const slot = this.shadowRoot?.querySelector('slot');
-        this.hasEmptySlot = Boolean(slot && isSlotEmpty(slot!));
+        this.slotIsEmpty = Boolean(slot && isSlotEmpty(slot!));
     }
 
     protected handleClick() {

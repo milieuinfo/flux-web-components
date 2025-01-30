@@ -12,7 +12,7 @@ export const buttonDefaults = {
     tertiary: false as boolean,
     loading: false as boolean,
     icon: '' as string,
-    iconPlacement: 'before' as ICON_PLACEMENT,
+    iconPlacement: '' as ICON_PLACEMENT,
     toggle: false as boolean,
     controlled: false as boolean,
     ctaLink: '' as string,
