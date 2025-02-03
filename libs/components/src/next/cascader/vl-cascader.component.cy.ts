@@ -27,9 +27,7 @@ const mountWithSlots = (
                 <vl-autocomplete data-vl-placeholder=${placeholderText}></vl-autocomplete>
             </p>
             <vl-cascader-item label=${label}>
-                <h5 is="vl-h5" data-vl-has-border="" data-vl-alt="" data-vl-no-space-bottom="" slot="label">
-                    ${labelSlotText}
-                </h5>
+                <vl-title-next type="h5" underline alt no-space-bottom slot="label"> ${labelSlotText} </vl-title-next>
                 <p slot="content">${contentSlotText}</p>
                 <vl-cascader-item label="2e niveau"> </vl-cascader-item>
             </vl-cascader-item>
@@ -135,14 +133,14 @@ describe('component vl-cascader default', () => {
             .shadow()
             .find('vl-cascader-item[label="West-Vlaanderen"]')
             .shadow()
-            .find('vl-annotation')
-            .should('have.text', 'ondertitel');
+            .find('vl-text-next[annotation]')
+            .should('contain.text', 'ondertitel');
 
         cy.get('vl-cascader')
             .shadow()
             .find('vl-cascader-item[label="Oost-Vlaanderen"]')
             .shadow()
-            .find('vl-annotation')
+            .find('vl-text-next[annotation]')
             .should('not.exist');
     });
 
@@ -221,7 +219,7 @@ describe('component vl-cascader - slots', () => {
     });
 
     it('should set label slot', () => {
-        getCascaderNodeByLabel(label).find('h5').contains(labelSlotText);
+        getCascaderNodeByLabel(label).find('vl-title-next[type="h5"]').contains(labelSlotText);
     });
 
     it('should set header slot', () => {
@@ -250,7 +248,7 @@ describe('component vl-cascader - slots', () => {
             });
 
         cy.get('vl-cascader').should('have.attr', 'level', 0);
-        getCascaderNodeByLabel(label).find('h5').contains(labelSlotText).click();
+        getCascaderNodeByLabel(label).find('vl-title-next[type="h5"]').contains(labelSlotText).click();
         cy.get('vl-cascader').should('have.attr', 'level', 1);
         getCascaderNodeByLabel('2e niveau');
 
@@ -273,7 +271,7 @@ describe('component vl-cascader - slots', () => {
         cy.get('vl-cascader').shadow().find('span.vl-breadcrumb-home-slot').should('not.exist');
 
         cy.get('vl-cascader').should('have.attr', 'level', 0);
-        getCascaderNodeByLabel(label).find('h5').contains(labelSlotText).click();
+        getCascaderNodeByLabel(label).find('vl-title-next[type="h5"]').contains(labelSlotText).click();
         cy.get('vl-cascader').should('have.attr', 'level', 1);
 
         cy.get('vl-cascader')
@@ -288,7 +286,7 @@ describe('component vl-cascader - slots', () => {
         cy.get('vl-cascader').invoke('attr', 'level', '0');
         cy.get('vl-cascader').shadow().find('span.vl-breadcrumb-home-slot').should('not.exist');
 
-        getCascaderNodeByLabel(label).find('h5').contains(labelSlotText).click();
+        getCascaderNodeByLabel(label).find('vl-title-next[type="h5"]').contains(labelSlotText).click();
 
         cy.get('vl-cascader')
             .shadow()
@@ -408,7 +406,7 @@ const mountWithTemplates = (templates: Map<string, TemplateFn>) => {
                 </vl-cascader-item>
             </vl-cascader-item>
             <vl-cascader-item label="Provincie: Oost-Vlaanderen" template-type="provincie">
-                <h3 is="vl-h3" slot="label">Provincie: Oost-Vlaanderen</h3>
+                <vl-title-next type="h3" slot="label">Provincie: Oost-Vlaanderen</vl-title-next>
                 <vl-info-tile data-vl-toggleable="" slot="content">
                     <span slot="title">Meer Info</span>
                     <span slot="subtitle">Provincie Beschrijving</span>

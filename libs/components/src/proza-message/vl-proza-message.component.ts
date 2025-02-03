@@ -1,5 +1,5 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { VlButtonElement, VlIconElement, VlText } from '@domg-wc/elements';
+import { VlButtonComponent } from '@domg-wc/components/next/button';
 import { VlTypography } from '../typography/vl-typography.component';
 import { VlProzaMessagePreloader } from './vl-proza-message-preloader.component';
 import elementStyles from './vl-proza-message.uig-css';
@@ -8,7 +8,7 @@ import { ProzaRestClient } from './vl-proza-rest-client.util';
 @webComponent('vl-proza-message')
 export class VlProzaMessage extends BaseElementOfType(HTMLElement) {
     static {
-        registerWebComponents([VlButtonElement, VlIconElement, VlText, VlTypography]);
+        registerWebComponents([VlButtonComponent, VlTypography]);
     }
 
     static get _observedAttributes() {
@@ -239,10 +239,7 @@ export class VlProzaMessage extends BaseElementOfType(HTMLElement) {
 
     __editButtonTemplate() {
         const button = this._template(`
-        <button is="vl-button" id="edit-button">
-            <span is="vl-icon" data-vl-icon="pencil"></span>
-            <span is="vl-text" data-vl-visually-hidden>edit</span>
-        </button>
+        <vl-button-next id="edit-button" icon="pencil" label="edit"></vl-button-next>
     `);
         button.firstElementChild.addEventListener('click', (event: Event) => {
             event.stopPropagation();
@@ -254,10 +251,7 @@ export class VlProzaMessage extends BaseElementOfType(HTMLElement) {
 
     __refreshButtonTemplate() {
         const button = this._template(`
-        <button is="vl-button" id="refresh-button">
-            <span is="vl-icon" data-vl-icon="text-redo"></span>
-            <span is="vl-text" data-vl-visually-hidden>refresh</span>
-        </button>
+        <vl-button-next id="refresh-button" icon="text-redo" label="refresh"></vl-button-next>
     `);
         button.firstElementChild.addEventListener('click', (event: Event) => {
             event.stopPropagation();

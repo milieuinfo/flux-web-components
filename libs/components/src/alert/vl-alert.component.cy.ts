@@ -47,7 +47,7 @@ describe('component vl-alert', () => {
     });
 
     it('should contain an icon', () => {
-        cy.get('vl-alert').shadow().find('.vl-alert__icon > span').should('have.attr', 'data-vl-icon', 'warning');
+        cy.get('vl-alert').shadow().find('.vl-alert__icon > span.vl-icon--warning');
     });
 
     it('should contain a close button', () => {
@@ -56,7 +56,7 @@ describe('component vl-alert', () => {
 
     it('should change icon', () => {
         cy.get('vl-alert').invoke('attr', 'data-vl-icon', 'check');
-        cy.get('vl-alert').shadow().find('.vl-alert__icon > span').should('have.attr', 'data-vl-icon', 'check');
+        cy.get('vl-alert').shadow().find('.vl-alert__icon > span.vl-icon--check');
     });
 
     it('should be removed after clicking the close button and send a VlAlertClosedEvent', () => {
@@ -170,6 +170,6 @@ describe('component vl-alert naked', () => {
     });
 
     it('should contain an icon', () => {
-        cy.get('vl-alert').shadow().find('.vl-alert__icon > span').should('have.attr', 'data-vl-icon', 'warning');
+        cy.get('vl-alert').shadow().find('.vl-alert__icon > span.vl-icon--warning');
     });
 });

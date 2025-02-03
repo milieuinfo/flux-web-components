@@ -23,6 +23,8 @@ export class VlSideNavigationToggleComponent extends BaseLitElement {
     }
 
     updated() {
+        // TODO in vl-side-navigation(oude v1), komt het arrow icon binnen de a-tag
+        // TODO hier komt dit erbuiten, dit heeft gevolgen naar de styling toe
         const childNodes = this.childNodes;
         const aNode = document.createElement('a');
         // aNode.classList.add('vl-side-navigation-next__toggle');

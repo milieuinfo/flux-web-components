@@ -15,25 +15,17 @@ export default {
 export const descriptionDataDefault = ({
     bordered,
     size,
-    maxSize,
     mediumSize,
-    mediumMaxSize,
     smallSize,
-    smallMaxSize,
     extraSmallSize,
-    extraSmallMaxSize,
 }: typeof descriptionDataArgs) =>
     html`
         <vl-description-data
             ?data-vl-bordered=${bordered}
             data-vl-items-size=${size}
-            data-vl-items-max-size=${maxSize}
             data-vl-items-medium-size=${mediumSize}
-            data-vl-items-medium-max-size=${mediumMaxSize}
             data-vl-items-small-size=${smallSize}
-            data-vl-items-small-max-size=${smallMaxSize}
             data-vl-items-extra-small-size=${extraSmallSize}
-            data-vl-items-extra-small-max-size=${extraSmallMaxSize}
             data-cy="description-data"
         >
             <vl-description-data-item
@@ -55,7 +47,13 @@ export const descriptionDataDefault = ({
                 data-vl-label="Categorie"
                 data-vl-value="Kinderen en jongeren"
                 data-cy="description-data-item-4"
-            ></vl-description-data-item>
-        </vl-description-data>
+            ></vl-description-data-item
+        ></vl-description-data>
     `;
 descriptionDataDefault.storyName = 'vl-description-data - default';
+descriptionDataDefault.args = {
+    size: 2,
+    mediumSize: 3,
+    smallSize: 6,
+    extraSmallSize: 12,
+};

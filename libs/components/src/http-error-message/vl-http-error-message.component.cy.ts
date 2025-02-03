@@ -38,7 +38,7 @@ describe('component vl-http-error-message - default', () => {
             image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
             imageAlt: 'image url alt',
             textSlot: '<p slot="text">Sorry, er liep iets onverwachts mis.</p>',
-            actionsSlot: '<div slot="actions"><a is="vl-link-button" href="#">Opnieuw opstarten</a></div>',
+            actionsSlot: '<div slot="actions"><a href="#">Opnieuw opstarten</a></div>',
         });
     });
 
@@ -82,8 +82,7 @@ describe('component vl-http-error-message - default', () => {
                 expect($slot).to.have.length(1);
                 cy.wrap(($slot[0] as HTMLSlotElement).assignedNodes())
                     .find('a')
-                    .contains('Opnieuw opstarten')
-                    .should('have.attr', 'is', 'vl-link-button');
+                    .contains('Opnieuw opstarten');
             });
     });
 
@@ -194,9 +193,8 @@ describe('component vl-http-error-message - error-code', () => {
     it('should contain an action button', () => {
         cy.get('vl-http-error-message')
             .shadow()
-            .find('div#error-actions > div > a')
-            .contains('Terug naar de startpagina')
-            .should('have.attr', 'is', 'vl-link-button');
+            .find('div#error-actions > div > vl-link-next')
+            .contains('Terug naar de startpagina');
     });
 
     it('should contain debugging info', () => {
@@ -238,7 +236,7 @@ describe('component vl-http-error-message - error-code - overwritten fields', ()
             image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
             imageAlt: 'image url alt',
             textSlot: '<p slot="text">Sorry, er liep iets onverwachts mis.</p>',
-            actionsSlot: '<div slot="actions"><a is="vl-link-button" href="#">Opnieuw opstarten</a></div>',
+            actionsSlot: '<div slot="actions"><a href="#">Opnieuw opstarten</a></div>',
             errorCode: '404',
         });
     });
@@ -299,8 +297,7 @@ describe('component vl-http-error-message - error-code - overwritten fields', ()
                 expect($slot).to.have.length(1);
                 cy.wrap(($slot[0] as HTMLSlotElement).assignedNodes())
                     .find('a')
-                    .contains('Opnieuw opstarten')
-                    .should('have.attr', 'is', 'vl-link-button');
+                    .contains('Opnieuw opstarten');
             });
     });
 

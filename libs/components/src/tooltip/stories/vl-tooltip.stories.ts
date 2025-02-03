@@ -26,10 +26,10 @@ export const TooltipDefault = ({ placement, tooltipContent, vlStatic }: typeof t
             margin: '64px 124px',
         })}
     >
-        <button is="vl-button">
+        <vl-button-next>
             <vl-tooltip ?data-vl-static=${vlStatic} data-vl-placement=${placement}>${tooltipContent}</vl-tooltip>
             Tooltip
-        </button>
+        </vl-button-next>
     </div>`;
 };
 TooltipDefault.storyName = 'vl-tooltip - default';

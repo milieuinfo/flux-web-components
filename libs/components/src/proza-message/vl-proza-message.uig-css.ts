@@ -30,23 +30,25 @@ const styles: CSSResult = css`
         align-items: end;
     }
 
-    [is='vl-button'] {
+    vl-button-next::part(button) {
         cursor: pointer !important;
         height: 1.5em !important;
         width: 1.5em !important;
         background-color: #e8ebee !important;
+        border: 0;
     }
-    [is='vl-button']:hover {
+    vl-button-next::part(button):hover {
         background-color: #cbd2da !important;
     }
-    [is='vl-button'] [is='vl-icon'] {
+
+    vl-button-next::part(icon) {
         color: #000;
     }
-    [is='vl-button'] [is='vl-icon']:hover {
+    vl-button-next::part(icon):hover {
         mix-blend-mode: hard-light;
     }
 
-    [is='vl-icon'] {
+    vl-icon-next::part(icon) {
         font: icon !important;
         vertical-align: middle !important;
     }

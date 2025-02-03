@@ -1,8 +1,7 @@
 import { css } from 'lit';
 
-export const vlIconWebComponentStyles = css`
+export const vlLinkUigStyle = css`
     :host {
         display: inline-flex;
-        vertical-align: middle;
     }
 `;

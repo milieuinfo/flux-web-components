@@ -20,7 +20,7 @@ const errorCodes: ErrorCode = {
             URL hierboven en de foutcode 400.
         </p>`,
         errorActions: html` <div>
-            <a is="vl-link-button" href="/">Terug naar de startpagina</a>
+            <vl-link-next href="/">Terug naar de startpagina</vl-link-next>
         </div>`,
     },
     '401': {
@@ -33,7 +33,7 @@ const errorCodes: ErrorCode = {
             URL hierboven en de foutcode 401.
         </p>`,
         errorActions: html` <div>
-            <a is="vl-link-button" href="/">Terug naar de startpagina</a>
+            <vl-link-next href="/">Terug naar de startpagina</vl-link-next>
         </div>`,
     },
     '403': {
@@ -46,7 +46,7 @@ const errorCodes: ErrorCode = {
             URL hierboven en de foutcode 403.
         </p>`,
         errorActions: html` <div>
-            <a is="vl-link-button" href="/">Terug naar de startpagina</a>
+            <vl-link-next href="/">Terug naar de startpagina</vl-link-next>
         </div>`,
     },
     '404': {
@@ -60,7 +60,7 @@ const errorCodes: ErrorCode = {
             daarbij de URL hierboven en de foutcode 404.
         </p>`,
         errorActions: html` <div>
-            <a is="vl-link-button" href="/">Terug naar de startpagina</a>
+            <vl-link-next href="/">Terug naar de startpagina</vl-link-next>
         </div>`,
     },
     '405': {
@@ -73,7 +73,7 @@ const errorCodes: ErrorCode = {
             URL hierboven en de foutcode 405.
         </p>`,
         errorActions: html` <div>
-            <a is="vl-link-button" href="/">Terug naar de startpagina</a>
+            <vl-link-next href="/">Terug naar de startpagina</vl-link-next>
         </div>`,
     },
     '408': {
@@ -86,7 +86,7 @@ const errorCodes: ErrorCode = {
             daarbij de URL hierboven en de foutcode 408.
         </p>`,
         errorActions: html` <div>
-            <a is="vl-link-button" href="/">Terug naar de startpagina</a>
+            <vl-link-next href="/">Terug naar de startpagina</vl-link-next>
         </div>`,
     },
     '410': {
@@ -99,7 +99,7 @@ const errorCodes: ErrorCode = {
             URL hierboven en de foutcode 410.
         </p>`,
         errorActions: html` <div>
-            <a is="vl-link-button" href="/">Terug naar de startpagina</a>
+            <vl-link-next href="/">Terug naar de startpagina</vl-link-next>
         </div>`,
     },
     '411': {
@@ -112,7 +112,7 @@ const errorCodes: ErrorCode = {
             URL hierboven en de foutcode 411.
         </p>`,
         errorActions: html` <div>
-            <a is="vl-link-button" href="/">Terug naar de startpagina</a>
+            <vl-link-next href="/">Terug naar de startpagina</vl-link-next>
         </div>`,
     },
     '412': {
@@ -125,7 +125,7 @@ const errorCodes: ErrorCode = {
             URL hierboven en de foutcode 412.
         </p>`,
         errorActions: html` <div>
-            <a is="vl-link-button" href="/">Terug naar de startpagina</a>
+            <vl-link-next href="/">Terug naar de startpagina</vl-link-next>
         </div>`,
     },
     '413': {
@@ -138,7 +138,7 @@ const errorCodes: ErrorCode = {
             URL hierboven en de foutcode 413.
         </p>`,
         errorActions: html` <div>
-            <a is="vl-link-button" href="/">Terug naar de startpagina</a>
+            <vl-link-next href="/">Terug naar de startpagina</vl-link-next>
         </div>`,
     },
     '414': {
@@ -151,7 +151,7 @@ const errorCodes: ErrorCode = {
             URL hierboven en de foutcode 414.
         </p>`,
         errorActions: html` <div>
-            <a is="vl-link-button" href="/">Terug naar de startpagina</a>
+            <vl-link-next href="/">Terug naar de startpagina</vl-link-next>
         </div>`,
     },
     '415': {
@@ -164,7 +164,7 @@ const errorCodes: ErrorCode = {
             URL hierboven en de foutcode 415.
         </p>`,
         errorActions: html` <div>
-            <a is="vl-link-button" href="/">Terug naar de startpagina</a>
+            <vl-link-next href="/">Terug naar de startpagina</vl-link-next>
         </div>`,
     },
     '500': {
@@ -177,7 +177,7 @@ const errorCodes: ErrorCode = {
             daarbij de URL hierboven en de foutcode 500.
         </p>`,
         errorActions: html` <div>
-            <a is="vl-link-button" href="/">Terug naar de startpagina</a>
+            <vl-link-next href="/">Terug naar de startpagina</vl-link-next>
         </div>`,
     },
     '501': {
@@ -190,7 +190,7 @@ const errorCodes: ErrorCode = {
             URL hierboven en de foutcode 501.
         </p>`,
         errorActions: html` <div>
-            <a is="vl-link-button" href="/">Terug naar de startpagina</a>
+            <vl-link-next href="/">Terug naar de startpagina</vl-link-next>
         </div>`,
     },
     '502': {
@@ -203,7 +203,7 @@ const errorCodes: ErrorCode = {
             daarbij de URL hierboven en de foutcode 502.
         </p>`,
         errorActions: html` <div>
-            <a is="vl-link-button" href="/">Terug naar de startpagina</a>
+            <vl-link-next href="/">Terug naar de startpagina</vl-link-next>
         </div>`,
     },
     '503': {
@@ -216,7 +216,7 @@ const errorCodes: ErrorCode = {
             daarbij de URL hierboven en de foutcode 503.
         </p>`,
         errorActions: html` <div>
-            <a is="vl-link-button" href="/">Terug naar de startpagina</a>
+            <vl-link-next href="/">Terug naar de startpagina</vl-link-next>
         </div>`,
     },
     '504': {
@@ -229,7 +229,7 @@ const errorCodes: ErrorCode = {
             daarbij de URL hierboven en de foutcode 504.
         </p>`,
         errorActions: html` <div>
-            <a is="vl-link-button" href="/">Terug naar de startpagina</a>
+            <vl-link-next href="/">Terug naar de startpagina</vl-link-next>
         </div>`,
     },
     '505': {
@@ -242,7 +242,7 @@ const errorCodes: ErrorCode = {
             URL hierboven en de foutcode 505.
         </p>`,
         errorActions: html` <div>
-            <a is="vl-link-button" href="/">Terug naar de startpagina</a>
+            <vl-link-next href="/">Terug naar de startpagina</vl-link-next>
         </div>`,
     },
     '506': {
@@ -255,7 +255,7 @@ const errorCodes: ErrorCode = {
             URL hierboven en de foutcode 506.
         </p>`,
         errorActions: html` <div>
-            <a is="vl-link-button" href="/">Terug naar de startpagina</a>
+            <vl-link-next href="/">Terug naar de startpagina</vl-link-next>
         </div>`,
     },
 };

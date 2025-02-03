@@ -1,9 +1,12 @@
 import { story } from '@domg-wc/common-storybook';
+import { registerWebComponents } from '@domg-wc/common-utilities';
 import { Meta } from '@storybook/web-components';
 import { nothing } from 'lit';
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import '../vl-cascader.component';
+import { VlIconComponent } from '../../icon';
+import { VlLinkComponent } from '../../link';
 import { CascaderArgs, cascaderArgs, cascaderArgTypes } from './vl-cascader.stories-arg';
 import cascaderDoc from './vl-cascader.stories-doc.mdx';
 import { nodeData } from './vl-cascader.stories-util.data';
@@ -22,6 +25,8 @@ export default {
         },
     },
 } as Meta<CascaderArgs>;
+
+registerWebComponents([VlIconComponent, VlLinkComponent]);
 
 const mediumWidthDecorator = (story: () => unknown) => {
     return html` <div style="width: 600px;margin: auto auto;">${story()}</div>`;
@@ -148,7 +153,7 @@ export const CascaderDynamicTemplating = story(
                     </vl-cascader-item>
                 </vl-cascader-item>
                 <vl-cascader-item label="Provincie: Oost-Vlaanderen" template-type="provincie">
-                    <h3 is="vl-h3" slot="label">Provincie: Oost-Vlaanderen</h3>
+                    <vl-title-next type="vl-h3" slot="label">Provincie: Oost-Vlaanderen</vl-title-next>
                     <vl-info-tile data-vl-toggleable="" slot="content">
                         <span slot="title">Meer Info</span>
                         <span slot="subtitle">Provincie Beschrijving</span>

@@ -172,7 +172,7 @@ describe('component - vl-link-next - button as link', () => {
             .find('button')
             .find('span.vl-icon')
             .should('have.class', 'vl-icon--pin')
-            .should('not.have.class', 'vl-icon--right-margin');
+            .should('not.have.class', 'vl-link-next__icon--before');
 
         cy.get('vl-link-next').invoke('attr', 'icon-placement', 'before');
 
@@ -180,7 +180,7 @@ describe('component - vl-link-next - button as link', () => {
             .shadow()
             .find('button')
             .find('span.vl-icon')
-            .should('have.class', 'vl-icon--right-margin');
+            .should('have.class', 'vl-link-next__icon--before');
     });
 
     it('should set icon-placement', () => {
@@ -197,7 +197,7 @@ describe('component - vl-link-next - button as link', () => {
             .find('button')
             .find('span.vl-icon')
             .should('have.class', 'vl-icon--pin')
-            .should('not.have.class', 'vl-icon--right-margin');
+            .should('not.have.class', 'vl-link-next__icon--before');
 
         cy.get('vl-link-next').invoke('attr', 'icon-placement', 'before');
 
@@ -205,7 +205,7 @@ describe('component - vl-link-next - button as link', () => {
             .shadow()
             .find('button')
             .find('span.vl-icon')
-            .should('have.class', 'vl-icon--right-margin');
+            .should('have.class', 'vl-link-next__icon--before');
     });
 
     it('should not render icon when no icon value is set', () => {

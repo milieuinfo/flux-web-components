@@ -10,7 +10,7 @@ const styles: CSSResult = css`
     #sorter {
         text-align: right;
     }
-    #sorter label {
+    #sorter vl-form-label-next::part(label) {
         margin-right: 10px;
     }
 

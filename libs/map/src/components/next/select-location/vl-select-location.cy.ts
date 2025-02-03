@@ -288,7 +288,9 @@ describe('vl-select-location-next', () => {
 
         cy.mount(selectLocationFixture);
         cy.runTestFor<VlSelectLocationComponent>('vl-select-location-next', (vlSelectLocationComponent) => {
+            // @ts-expect-error: choices is private
             cy.waitUntil(() => vlSelectLocationComponent.choices).then(async () => {
+                // @ts-expect-error: choices is private
                 vlSelectLocationComponent.choices.setChoices([
                     {
                         value: locationAntwerpen1,

@@ -85,7 +85,7 @@ const shouldHaveActiveSorterAndMatchExpectedDirection = (sortField: string, dire
         .find(`[data-vl-for="${sortField}"]`)
         .shadow()
         .find('#direction')
-        .should('have.attr', 'data-vl-icon', direction === 'asc' ? 'arrow-down' : 'arrow-up');
+        .should('have.attr', 'icon', direction === 'asc' ? 'arrow-down' : 'arrow-up');
 };
 
 const shouldHaveSorterAndDirectionShouldBeHidden = (sortField: string) => {

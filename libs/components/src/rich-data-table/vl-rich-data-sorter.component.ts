@@ -1,11 +1,11 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { VlIconElement } from '@domg-wc/elements';
+import { VlIconComponent } from '@domg-wc/components/next/icon';
 import styles from './vl-rich-data-table.uig-css';
 
 @webComponent('vl-rich-data-sorter')
 export class VlRichDataSorter extends BaseElementOfType(HTMLElement) {
     static {
-        registerWebComponents([VlIconElement]);
+        registerWebComponents([VlIconComponent]);
     }
 
     static get DIRECTIONS() {
@@ -42,7 +42,7 @@ export class VlRichDataSorter extends BaseElementOfType(HTMLElement) {
             }
           </style>
           <div id="container" class="vl-u-visually-hidden">
-            <span id="direction" is="vl-icon"></span>
+            <vl-icon-next id="direction"></vl-icon-next>
             <label id="priority"></label>
           </div>
         `);
@@ -62,7 +62,7 @@ export class VlRichDataSorter extends BaseElementOfType(HTMLElement) {
 
             const directionIcon = this._directionIcon;
             if (directionIcon) {
-                this.__directionElement.setAttribute('data-vl-icon', directionIcon);
+                this.__directionElement.setAttribute('icon', directionIcon);
                 this.__containerElement.classList.remove('vl-u-visually-hidden');
             } else {
                 this.__containerElement.classList.add('vl-u-visually-hidden');

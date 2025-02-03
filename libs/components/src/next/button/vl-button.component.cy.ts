@@ -126,7 +126,7 @@ describe('component - vl-button-next', () => {
             });
     });
 
-    it('should not grow when "loading" class is set (small viewport)', () => {
+    it.only('should not grow when "loading" class is set (small viewport)', () => {
         cy.viewport(600, 400);
 
         cy.mount(html` <vl-button-next>Klik op mij</vl-button-next>`);

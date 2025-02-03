@@ -1,9 +1,14 @@
 import { story } from '@domg-wc/common-storybook';
+import { registerWebComponents } from '@domg-wc/common-utilities';
 import { Meta } from '@storybook/web-components';
+import { css } from 'lit';
 import { html } from 'lit-html';
 import '../vl-steps.component';
+import { VlSideNavigationComponent } from '../../side-navigation';
 import { stepsArgs, stepsArgTypes } from './vl-steps.stories-arg';
 import stepsDoc from './vl-steps.stories-doc.mdx';
+
+registerWebComponents([VlSideNavigationComponent]);
 
 export default {
     id: 'components-next-steps-steps',
@@ -50,19 +55,19 @@ export const StepsIcons = story(
     ({ line, timeline, lastStepNoLine }) => html`
         <vl-steps-next ?data-vl-line=${line} ?data-vl-timeline=${timeline} ?data-vl-last-step-no-line=${lastStepNoLine}>
             <vl-step-next>
-                <span slot="icon" is="vl-icon" data-vl-icon="search"></span>
+                <vl-icon-next slot="icon" icon="search"></vl-icon-next>
                 <span slot="title">Stap 1: eerste actie</span>
                 <span slot="subtitle">Dit is de eerste subtitel.</span>
                 <span slot="content">Dit is de eerste stap content.</span>
             </vl-step-next>
             <vl-step-next>
-                <span slot="icon" is="vl-icon" data-vl-icon="calendar"></span>
+                <vl-icon-next slot="icon" icon="calendar"></vl-icon-next>
                 <span slot="title">Stap 2: tweede actie</span>
                 <span slot="subtitle">Dit is de tweede subtitel.</span>
                 <span slot="content">Dit is de tweede stap content.</span>
             </vl-step-next>
             <vl-step-next>
-                <span slot="icon" is="vl-icon" data-vl-icon="clock"></span>
+                <vl-icon-next slot="icon" icon="clock"></vl-icon-next>
                 <span slot="title">Stap 3: derde actie</span>
                 <span slot="subtitle">Dit is de derde subtitel.</span>
                 <span slot="content">Dit is de derde stap content.</span>
@@ -170,17 +175,13 @@ StepsSimpleTimeline.args = {
 export const StepsSideNavigation = story(
     stepsArgs,
     () => html`
-        <section is="vl-region">
-            <div is="vl-layout">
-                <div is="vl-grid" data-vl-is-stacked>
+        <section class="vl-section-next" id="steps-side-navigation-example">
+            <div class="vl-content-block-next">
+                <div class="vl-grid-next vl-stacked-next-small">
                     <div
-                        is="vl-column"
-                        data-vl-size="8"
-                        data-vl-medium-size="8"
-                        data-vl-small-size="8"
-                        data-vl-extra-small-size="12"
+                        class="vl-column-next vl-column-next--8 vl-column-next--m-8 vl-column-next--s-8 vl-column-next--xs-12"
                     >
-                        <div is="vl-side-navigation-reference">
+                        <vl-side-navigation-reference-next>
                             <vl-steps-next>
                                 <vl-step-next>
                                     <span slot="icon">1</span>
@@ -274,7 +275,9 @@ export const StepsSideNavigation = story(
                                     </span>
                                     <span slot="content">
                                         <div>
-                                            <h4 is="vl-h4" id="vl-steps-vl-step-2-abstract">Abstract</h4>
+                                            <vl-title-next type="h4" underline id="vl-steps-vl-step-2-abstract"
+                                                >Abstract</vl-title-next
+                                            >
                                             <p>
                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                                                 tempor incididunt ut labore et dolore magna aliqua. Consequat nisl vel
@@ -335,7 +338,9 @@ export const StepsSideNavigation = story(
                                                 netus et. Tristique et egestas quis ipsum suspendisse ultrices gravida.
                                                 Tortor consequat id porta nibh venenatis cras.
                                             </p>
-                                            <h4 is="vl-h4" id="vl-steps-vl-step-2-volledig">Volledig</h4>
+                                            <vl-title-next type="h4" id="vl-steps-vl-step-2-volledig"
+                                                >Volledig</vl-title-next
+                                            >
                                             <p>
                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                                                 tempor incididunt ut labore et dolore magna aliqua. Consequat nisl vel
@@ -470,60 +475,45 @@ export const StepsSideNavigation = story(
                                     </span>
                                 </vl-step-next>
                             </vl-steps-next>
-                        </div>
+                        </vl-side-navigation-reference-next>
                     </div>
                     <div
-                        is="vl-column"
-                        data-vl-size="3"
-                        data-vl-medium-size="3"
-                        data-vl-small-size="3"
-                        data-vl-extra-small-size="0"
+                        class="vl-column-next vl-column-next--3 vl-column-next--m-3 vl-column-next--s-3 vl-column-next--xs-0"
                     >
-                        <nav is="vl-side-navigation" aria-label="inhoudsopgave">
-                            <h5 is="vl-side-navigation-h5">Op deze pagina</h5>
-                            <div is="vl-side-navigation-content">
-                                <ul is="vl-side-navigation-group">
-                                    <li is="vl-side-navigation-item">
-                                        <a is="vl-side-navigation-toggle" href="#vl-steps-vl-step-1">
+                        <vl-side-navigation-next aria-label="inhoudsopgave">
+                            <vl-side-navigation-h5-next>Op deze pagina</vl-side-navigation-h5-next>
+                            <vl-side-navigation-content-next>
+                                <vl-side-navigation-group-next>
+                                    <vl-side-navigation-item-next>
+                                        <vl-side-navigation-toggle-next href="#vl-steps-vl-step-1">
                                             step 1
-                                            <i class="vl-vi vl-vi-arrow-right-fat"></i>
-                                        </a>
-                                    </li>
-                                    <li is="vl-side-navigation-item" data-vl-parent="step-2">
-                                        <a
-                                            is="vl-side-navigation-toggle"
-                                            href="#vl-steps-vl-step-2"
-                                            data-vl-child="step-2"
-                                        >
+                                        </vl-side-navigation-toggle-next>
+                                    </vl-side-navigation-item-next>
+                                    <vl-side-navigation-item-next parent="step-2">
+                                        <vl-side-navigation-toggle-next href="#vl-steps-vl-step-2" child="step-2">
                                             step 2
-                                            <i class="vl-vi vl-vi-arrow-right-fat"></i>
-                                        </a>
+                                        </vl-side-navigation-toggle-next>
                                         <ul>
-                                            <li is="vl-side-navigation-item">
+                                            <vl-side-navigation-item-next>
                                                 <div>
-                                                    <a href="#vl-steps-vl-step-2-abstract" data-vl-parent="step-2"
-                                                        >Abstract</a
-                                                    >
+                                                    <a href="#vl-steps-vl-step-2-abstract" parent="step-2">Abstract</a>
                                                 </div>
-                                            </li>
-                                            <li is="vl-side-navigation-item">
+                                            </vl-side-navigation-item-next>
+                                            <vl-side-navigation-item-next>
                                                 <div>
-                                                    <a href="#vl-steps-vl-step-2-volledig" data-vl-parent="step-2"
-                                                        >Volledig</a
-                                                    >
+                                                    <a href="#vl-steps-vl-step-2-volledig" parent="step-2">Volledig</a>
                                                 </div>
-                                            </li>
+                                            </vl-side-navigation-item-next>
                                         </ul>
-                                    </li>
-                                    <li is="vl-side-navigation-item">
-                                        <a is="vl-side-navigation-toggle" href="#vl-steps-vl-step-3">
+                                    </vl-side-navigation-item-next>
+                                    <vl-side-navigation-item-next>
+                                        <vl-side-navigation-toggle-next href="#vl-steps-vl-step-3">
                                             step 3
-                                            <i class="vl-vi vl-vi-arrow-right-fat"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
+                                        </vl-side-navigation-toggle-next>
+                                    </vl-side-navigation-item-next>
+                                </vl-side-navigation-group-next>
+                            </vl-side-navigation-content-next>
+                        </vl-side-navigation-next>
                     </div>
                 </div>
             </div>

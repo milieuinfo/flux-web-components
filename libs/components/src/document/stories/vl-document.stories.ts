@@ -20,15 +20,13 @@ export default {
 
 export const DocumentDefault = story(
     documentArgs,
-    ({ href, target, type, title, metadata }) => html` <div is="vl-grid">
-        <div is="vl-column" data-vl-size="3" data-vl-medium-size="6">
-            <vl-document data-vl-href=${href} data-vl-target=${target}>
-                <span slot="type">${type}</span>
-                <span slot="title">${title}</span>
-                <span slot="metadata">${metadata}</span>
-            </vl-document>
-        </div>
-    </div>`
+    ({ href, target, type, title, metadata }) => html`
+        <vl-document data-vl-href=${href} data-vl-target=${target}>
+            <span slot="type">${type}</span>
+            <span slot="title">${title}</span>
+            <span slot="metadata">${metadata}</span>
+        </vl-document>
+    `
 );
 DocumentDefault.storyName = 'vl-document - default';
 DocumentDefault.args = {

@@ -1,7 +1,7 @@
 import { css, CSSResult } from 'lit';
 
 // deze css is gegenereerd uit de oude custom scss
-const styles: CSSResult = css`
+export const functionalHeaderUigStyle: CSSResult = css`
     .uig-functional-header__content {
         display: flex;
         flex-flow: column;
@@ -31,5 +31,8 @@ const styles: CSSResult = css`
     .sub-header-hidden {
         padding-bottom: 1.3rem;
     }
+
+    .vl-functional-header h1 {
+        font-size: 2rem;
+    }
 `;
-export default styles;
