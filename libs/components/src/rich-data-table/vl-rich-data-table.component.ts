@@ -1,5 +1,6 @@
 import { registerWebComponents, webComponentPromised } from '@domg-wc/common-utilities';
-import { VlDataTable } from '@domg-wc/elements';
+import { VlTableComponent } from '@domg-wc/components/next/table/vl-table.component';
+import { tableStyles } from '@domg-wc/components/next/table/vl-table.css';
 import { RichData, VlRichData } from '../rich-data/vl-rich-data.component';
 import { VlRichDataField } from './vl-rich-data-field.component';
 import { VlRichDataSorter } from './vl-rich-data-sorter.component';
@@ -14,7 +15,7 @@ type Sorter = Pick<VlRichDataSorter, 'name' | 'direction' | 'priority'>;
 )
 export class VlRichDataTable extends VlRichData {
     static {
-        registerWebComponents([VlDataTable]);
+        registerWebComponents([VlTableComponent]);
     }
 
     static get _observedAttributes() {
@@ -34,14 +35,16 @@ export class VlRichDataTable extends VlRichData {
             `
           <style>
             ${styles}
-          </style>`,
-            `
-          <table is="vl-data-table" slot="content">
+            ${tableStyles}
+          </style>
+        <vl-table-next slot="content">
+          <table>
             <thead>
               <tr></tr>
             </thead>
             <tbody></tbody>
           </table>
+        </vl-table-next>
         `
         );
         this.__observeSorters();

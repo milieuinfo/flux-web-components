@@ -1,12 +1,12 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlGridElement, VlH1Element, VlLayoutElement } from '@domg-wc/elements';
+import { VlTitleComponent } from '@domg-wc/components/next/title';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { VlContentHeaderComponent } from '../../content-header/vl-content-header.component';
 import '../vl-template.component';
 import { templateArgs, templateArgTypes } from './vl-template.stories-arg';
 
-registerWebComponents([VlContentHeaderComponent, VlGridElement, VlH1Element, VlLayoutElement]);
+registerWebComponents([VlContentHeaderComponent, VlTitleComponent]);
 
 export default {
     id: 'components-template',
@@ -21,7 +21,6 @@ const version = '1.2.3'; // TODO uit de package.json halen, om een json te kunne
 const mainHtml = html`
     <vl-content-header>
         <img
-            is="vl-image"
             slot="image"
             src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
             srcset="
@@ -39,19 +38,16 @@ const mainHtml = html`
         <a slot="context-link" href="https://webcomponenten.omgeving.vlaanderen.be/storybook/">uig-webcomponents</a>
         <a slot="title-link" href="https://webcomponenten.omgeving.vlaanderen.be/storybook/">${version}</a>
     </vl-content-header>
-    <section data-cy="template-content" is="vl-region">
-        <div is="vl-layout">
-            <div id="grid" is="vl-grid" is-stacked slot="main">
-                <h1 is="vl-h1">vl-template</h1>
+    <section data-cy="template-content" class="vl-grid-next">
+        <div class="vl-content-block-next">
+            <div id="grid" class="vl-grid-next vl-stacked-next-medium" slot="main">
+                <vl-title-next type="h1" class="vl-column-next vl-column-next--12">vl-template</vl-title-next>
             </div>
         </div>
     </section>
 `;
 
-const bodySimulation = (component: any, withClass: boolean) => html` <div
-    is="vl-body"
-    class=${withClass ? 'vl-u-sticky-gf' : ''}
->
+const bodySimulation = (component: any, withClass: boolean) => html` <div class=${withClass ? 'vl-u-sticky-gf' : ''}>
     ${component}
 </div>`;
 

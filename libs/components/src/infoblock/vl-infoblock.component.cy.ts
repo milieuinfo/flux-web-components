@@ -1,8 +1,9 @@
+import { VlTitleComponent } from '@domg-wc/components/next/title';
 import { html } from 'lit-html';
 import { registerWebComponents } from '@domg-wc/common-utilities';
 import { VlInfoblockComponent } from './index';
 
-registerWebComponents([VlInfoblockComponent]);
+registerWebComponents([VlInfoblockComponent, VlTitleComponent]);
 
 const mountDefault = ({ title, content, type, icon }: { title: string; content: string; type: string; icon: string }) =>
     cy.mount(html`
@@ -23,7 +24,7 @@ export const mountWithSlotElements = ({
 }) =>
     cy.mount(html`
         <vl-infoblock data-vl-type=${type}>
-            <h2 is="vl-h2" slot="title">${title}</h2>
+            <vl-title-next type="h2" slot="title">${title}</vl-title-next>
             ${content}
         </vl-infoblock>
     `);
@@ -63,7 +64,9 @@ describe('component vl-infoblock - default', () => {
             .shadow()
             .find('#infoblock_icon')
             .should('have.class', 'vl-infoblock__header__icon')
-            .should('have.attr', 'data-vl-icon', 'calendar');
+            .shadow()
+            .find('span')
+            .should('have.class', 'vl-icon--calendar');
     });
 });
 

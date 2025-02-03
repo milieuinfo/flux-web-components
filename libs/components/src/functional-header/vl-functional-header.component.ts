@@ -1,12 +1,23 @@
 import { BaseElementOfType, MARGINS, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { vlElementsStyle, VlIconElement, VlLinkElement } from '@domg-wc/elements';
+import {
+    vlContentBlockStyles,
+    vlGridStyles,
+    vlIconStyles,
+    vlLinkIconStyles,
+    vlLinkStyles,
+    vlResetStyles,
+    vlSectionStyles,
+} from '@domg-wc/common-utilities/css';
+import { VlIconComponent } from '@domg-wc/components/next/icon';
+import { vlTitleStyles } from '@domg-wc/components/next/title/vl-title.css';
+import { vlElementsStyle } from '@domg-wc/elements';
 import { functionalHeaderStyle } from '@domg/govflanders-style/component';
-import functionalHeaderUigStyle from './vl-functional-header.uig-css';
+import { functionalHeaderUigStyle } from './vl-functional-header.uig-css';
 
 @webComponent('vl-functional-header')
 export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) {
     static {
-        registerWebComponents([VlIconElement, VlLinkElement]);
+        registerWebComponents([VlIconComponent]);
     }
 
     static get _observedAttributes() {
@@ -33,21 +44,16 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
 
     constructor() {
         super(`
-          <style>
-            ${vlElementsStyle}
-            ${functionalHeaderStyle}
-            ${functionalHeaderUigStyle}
-          </style>
           <header class="vl-functional-header">
-            <div class="vl-layout">
+            <div class="vl-content-block-next">
               <div class="vl-functional-header__row uig-functional-header__row">
                 <div class="uig-functional-header__content">
                     <div class="vl-functional-header__content">
                         <slot name="top-left"></slot>
                     </div>
                     <div class="vl-functional-header__content">
-                        <h1 class="vl-functional-header__title vl-title vl-title--h1 vl-title--no-space-bottom">
-                            <a id="title" class="vl-link vl-link--neutral" tabindex="0">
+                        <h1 class="vl-functional-header__title no-space-bottom">
+                            <a id="title" class="vl-link-next neutral" tabindex="0">
                                 <slot name="title"></slot>
                             </a>
                         </h1>
@@ -65,8 +71,8 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
                   <ul class="vl-functional-header__sub-row vl-functional-header__sub-actions">
                       <li id="back-link-container" class="vl-functional-header__sub__action">
                           <slot name="back-link">
-                              <a id="back-link" is="vl-link" tabindex="0" href="${document.referrer}">
-                                  <span is="vl-icon" data-vl-icon="arrow-left-fat" data-vl-before></span><slot id="back-link-text" name="back"><span>Terug</span></slot>
+                              <a id="back-link" class="vl-link-next" tabindex="0" href="${document.referrer}">
+                                  <span class="vl-icon vl-icon--arrow-left-fat vl-link-next__icon vl-link-next__icon--before"></span><slot id="back-link-text" name="back"><span>Terug</span></slot>
                               </a>
                           </slot>
                       </li>
@@ -89,6 +95,22 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
 
         if (this._backLinkElement) {
             this._backLinkElement.onclick = (event: Event) => this._handleClickBackLink(event);
+        }
+
+        if (this.shadowRoot) {
+            this.shadowRoot.adoptedStyleSheets = [
+                ...this.shadowRoot.adoptedStyleSheets,
+                ...vlElementsStyle.map((style) => style.styleSheet),
+                vlGridStyles.styleSheet,
+                vlSectionStyles.styleSheet,
+                vlContentBlockStyles.styleSheet,
+                ...vlTitleStyles.map((style) => style.styleSheet),
+                functionalHeaderStyle.styleSheet,
+                functionalHeaderUigStyle.styleSheet,
+                vlLinkStyles('.vl-link-next').styleSheet,
+                vlLinkIconStyles.styleSheet,
+                vlIconStyles.styleSheet,
+            ];
         }
     }
 

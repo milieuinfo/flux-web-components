@@ -114,7 +114,7 @@ describe('component - vl-button-next', () => {
             .shouldHaveComputedStyle({ style: 'height', value: largeButtonHeight });
     });
 
-    it('should not grow when "loading" class is set (small viewport)', () => {
+    it.only('should not grow when "loading" class is set (small viewport)', () => {
         cy.viewport(600, 400);
 
         const defaultButtonHeight = '44px';

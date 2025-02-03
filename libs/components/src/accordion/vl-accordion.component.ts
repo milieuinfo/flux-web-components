@@ -1,11 +1,15 @@
 /* eslint-disable no-undef */
-import { BaseElementOfType, PADDINGS, webComponent } from '@domg-wc/common-utilities';
+import { BaseElementOfType, PADDINGS, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { VlIconComponent } from '@domg-wc/components/next/icon';
+import { vlLinkIconStyles } from '@domg-wc/common-utilities/css';
 import { accordionStyle, buttonStyle, iconStyle, linkStyle, toggleStyle } from '@domg/govflanders-style/component';
 import { resetStyle } from '@domg/govflanders-style/common';
 import accordionUigStyle from './vl-accordion.uig-css';
 import '@govflanders/vl-ui-util/dist/js/util.js';
 import '@govflanders/vl-ui-accordion/dist/js/accordion.js';
 import 'reflect-metadata';
+
+registerWebComponents([VlIconComponent]);
 
 declare const vl: any;
 
@@ -33,12 +37,13 @@ export class VlAccordionComponent extends BaseElementOfType(HTMLElement) {
            ${toggleStyle}
            ${accordionStyle}
            ${accordionUigStyle}
+           ${vlLinkIconStyles}
           </style>
           <div class="js">
             <div class="vl-accordion" data-vl-accordion>
             <div class="vl-accordion__button-container">
               <button class="vl-toggle vl-link vl-link--bold" data-vl-accordion-toggle>
-                <i class="vl-accordion__icon vl-link__icon vl-link__icon--before vl-toggle__icon vl-vi vl-vi-arrow-right-fat" aria-hidden="true"></i>
+                <vl-icon-next id="toggle-icon" icon="arrow-down-fat" class="vl-accordion-next__icon vl-link-next__icon vl-link-next__icon--before"></vl-icon-next>
                 <slot name="title" class="vl-accordion__title"></slot>
               </button>
               <div class="vl-accordion__menu">
@@ -101,15 +106,14 @@ export class VlAccordionComponent extends BaseElementOfType(HTMLElement) {
 
     _addIconElement() {
         const icon = this.getAttribute('icon');
-        const iconEl = document.createElement('i');
+        const iconEl = document.createElement('vl-icon-next');
         iconEl.classList.add(
-            'vl-accordion__icon',
-            'vl-link__icon',
-            'vl-link__icon--before',
-            'vl-toggle__icon',
-            'vl-vi',
-            `vl-vi-${icon}`
+            'vl-accordion-next__icon',
+            'vl-link-next__icon',
+            'vl-link-next__icon--before',
+            'vl-toggle__icon'
         );
+        iconEl.setAttribute('icon', icon);
         iconEl.setAttribute('aria-hidden', 'true');
         this._buttonElement?.prepend(iconEl);
     }

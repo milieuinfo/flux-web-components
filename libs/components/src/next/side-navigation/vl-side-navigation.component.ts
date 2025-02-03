@@ -1,6 +1,7 @@
 import { BaseLitElement, unwrap, VL, webComponent } from '@domg-wc/common-utilities';
 import '@govflanders/vl-ui-util/dist/js/util.js';
 import './vl-side-navigation.lib.js';
+import { vlContentBlockStyles, vlGridStyles, vlSectionStyles } from '@domg-wc/common-utilities/css';
 import { elementStyles } from '@domg-wc/elements';
 import { vlSideNavigationStyles } from './vl-side-navigation.css';
 
@@ -28,6 +29,17 @@ export class VlSideNavigationComponent extends BaseLitElement {
             ...document.adoptedStyleSheets,
             vlSideNavigationStyles.styleSheet as CSSStyleSheet,
         ];
+        // retrieve first surrounding shadow dom & attach vlSideNavigationStyles on it
+        const shadowRoot = this.shadowRoot || this.getRootNode();
+        if (shadowRoot instanceof ShadowRoot) {
+            shadowRoot.adoptedStyleSheets = [
+                ...shadowRoot.adoptedStyleSheets,
+                vlSideNavigationStyles.styleSheet as CSSStyleSheet,
+                vlGridStyles.styleSheet as CSSStyleSheet,
+                vlSectionStyles.styleSheet as CSSStyleSheet,
+                vlContentBlockStyles.styleSheet as CSSStyleSheet,
+            ];
+        }
     }
 
     private rerender() {

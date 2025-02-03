@@ -1,7 +1,12 @@
+import { registerWebComponents } from '@domg-wc/common-utilities';
+import { VlIconComponent } from '../icon';
+import { VlLinkComponent } from '../link';
+import { VlTextComponent } from '../text';
 import { CascaderItem, VlCascaderComponent } from './index';
 import { html, TemplateResult, nothing } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 
+registerWebComponents([VlLinkComponent, VlIconComponent, VlTextComponent]);
 export const getTemplateFunctionForType = (
     item: CascaderItem,
     cascader: VlCascaderComponent
@@ -39,15 +44,15 @@ export const getDefaultItemTemplate = (
 
 export const defaultItemActionTemplate = (item: CascaderItem): TemplateResult => {
     const hasChildren = (item.children && item.children.length) || item.narrowDown;
-    const linkClasses = {
-        'space-between': Boolean(hasChildren),
-    };
     return html`
-        <a is="vl-link" class="vl-link--bold vl-cascader-link ${classMap(linkClasses)}">
-            <span>${item.label}</span> ${hasChildren
-                ? html` <span is="vl-icon" data-vl-icon="arrow-right-fat"></span> `
-                : ''}
-        </a>
-        ${item.annotation ? html`<vl-annotation>${item.annotation}</vl-annotation>` : nothing}
+        <vl-link-next
+            bold
+            button-as-link
+            icon="${hasChildren ? 'arrow-right-fat' : nothing}"
+            icon-placement="after"
+            class="vl-cascader-link"
+            >${item.label}
+        </vl-link-next>
+        ${item.annotation ? html`<vl-text-next annotation>${item.annotation}</vl-text-next>` : nothing}
     `;
 };

@@ -1,12 +1,13 @@
 import { BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { VlH2Element, VlIconElement } from '@domg-wc/elements';
+import { VlIconComponent } from '@domg-wc/components/next/icon';
+import { vlTitleStyles } from '@domg-wc/components/next/title/vl-title.css';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { infoblockStyle } from '@domg/govflanders-style/component';
 
 @webComponent('vl-infoblock')
 export class VlInfoblockComponent extends BaseHTMLElement {
     static {
-        registerWebComponents([VlH2Element, VlIconElement]);
+        registerWebComponents([VlIconComponent]);
     }
 
     static get _observedAttributes() {
@@ -17,13 +18,14 @@ export class VlInfoblockComponent extends BaseHTMLElement {
         super(`
           <style>
             ${resetStyle}
+            ${vlTitleStyles.map((style) => style.cssText).join('')}
             ${infoblockStyle}
           </style>
           <section id="infoblock-element" class="vl-infoblock">
             <header class="vl-infoblock__header" role="presentation">
-              <span is="vl-icon" id="infoblock_icon" class="vl-infoblock__header__icon"></span>
+              <vl-icon-next id="infoblock_icon" class="vl-infoblock__header__icon"></vl-icon-next>
               <slot name="title">
-                    <h2 id="title_content" is="vl-h2" class="vl-infoblock__title"></h2>
+                  <h2 id="title_content" class="vl-infoblock__title">tester</h2>
               </slot>
             </header>
             <div class="vl-infoblock__content" id="infoblock_content">
@@ -38,19 +40,21 @@ export class VlInfoblockComponent extends BaseHTMLElement {
 
         const title = this.getAttribute('title');
         if (title) {
+            console.log('title', title);
             this._titleChangedCallback('', title);
         }
     }
 
     _titleChangedCallback(oldValue: string, newValue: string) {
         const currentSlot = this.shadowRoot?.querySelector('#title_content');
+        console.log('currentSlot', currentSlot);
         if (currentSlot) {
             (currentSlot as HTMLElement).innerText = newValue;
         }
     }
 
     _iconChangedCallback(oldValue: string, newValue: string) {
-        this._iconElement.setAttribute('data-vl-icon', newValue);
+        this._iconElement.setAttribute('icon', newValue);
     }
 
     _typeChangedCallback(oldValue: string, newValue: string) {

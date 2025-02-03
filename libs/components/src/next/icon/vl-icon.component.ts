@@ -43,7 +43,7 @@ export class VlIconComponent extends BaseLitElement {
             'vl-icon--clickable': this.clickable,
         };
 
-        return html`<span class=${classMap(classes)} tabindex=${this.clickable ? 0 : nothing}></span>`;
+        return html` <span class=${classMap(classes)} tabindex=${this.clickable ? 0 : nothing} part="icon"></span> `;
     }
 }
 

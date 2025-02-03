@@ -2,12 +2,13 @@ import { story } from '@domg-wc/common-storybook';
 import { registerWebComponents } from '@domg-wc/common-utilities';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
+import { VlIconComponent } from '../../icon';
 import { VlPropertiesComponent } from '../vl-properties.component';
 import { dummyProps } from './vl-properties.stories-util';
 import propertiesDoc from './vl-properties.stories-doc.mdx';
 import { propertiesArgs, propertiesArgTypes } from './vl-properties.stories-arg';
 
-registerWebComponents([VlPropertiesComponent]);
+registerWebComponents([VlPropertiesComponent, VlIconComponent]);
 
 export default {
     id: 'components-next-properties',
@@ -47,13 +48,13 @@ export const PropertiesHtmlEnriched = story(
     propertiesArgs,
     ({ labelWidth, props }) => html`
         <vl-properties-next label-width=${labelWidth} .props=${props}>
-            <label
-                ><span is="vl-icon" data-vl-icon="location" data-vl-size="small" data-vl-before></span
-                ><span>Woonplaats</span></label
+            <label>
+                <vl-icon-next icon="location" small right-margin=""></vl-icon-next>
+                <span>Woonplaats</span></label
             >
-            <data
-                ><span is="vl-icon" data-vl-icon="alert-triangle" data-vl-size="small" data-vl-before></span
-                ><span>Brussel</span></data
+            <data>
+                <vl-icon-next icon="alert-triangle" small right-margin=""></vl-icon-next>
+                <span>Brussel</span></data
             >
             <label>Postcode</label>
             <data>1000</data>

@@ -1,5 +1,5 @@
-import { BaseLitElement, registerWebComponents } from '@domg-wc/common-utilities';
-import { VlIconElement } from '@domg-wc/elements';
+import { BaseLitElement } from '@domg-wc/common-utilities';
+import { vlIconStyles } from '@domg-wc/common-utilities/css';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { autocompleteStyle, inputFieldStyle } from '@domg/govflanders-style/component';
 import { html, PropertyValues } from 'lit';
@@ -13,12 +13,8 @@ import autocompleteUigStyle from './vl-autocomplete.uig-css';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export class VlAutocomplete extends BaseLitElement {
-    static {
-        registerWebComponents([VlIconElement]);
-    }
-
     static get styles() {
-        return [resetStyle, baseStyle, autocompleteStyle, inputFieldStyle, autocompleteUigStyle];
+        return [resetStyle, baseStyle, autocompleteStyle, inputFieldStyle, autocompleteUigStyle, vlIconStyles];
     }
 
     static get properties() {
@@ -460,9 +456,7 @@ export class VlAutocomplete extends BaseLitElement {
         if (this.showClear && (this._hasSearchTerm() || (!this.initialised && this.initialValue))) {
             return html` <div class="uig-autocomplete__clear" aria-hidden="true">
                 <span
-                    class="uig-autocomplete__clear-icon"
-                    is="vl-icon"
-                    icon="close"
+                    class="uig-autocomplete__clear-icon vl-icon vl-icon--close"
                     @click="${this._clear}"
                     title="${this.clearTooltip}"
                 ></span>

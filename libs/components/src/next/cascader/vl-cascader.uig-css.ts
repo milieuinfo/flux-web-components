@@ -12,7 +12,7 @@ const styles: CSSResult = css`
         padding-left: 1.5rem;
     }
 
-    h4 {
+    header h4 {
         margin: 1.8rem 0;
     }
 
@@ -60,7 +60,7 @@ const styles: CSSResult = css`
 
     .vl-breadcrumb-placeholder {
         padding: 0.5rem 1.5rem;
-        min-height: 4rem;
+        min-height: 3.1rem;
         border-bottom: 1px solid rgb(203, 210, 218);
         display: flex;
         align-items: center;
@@ -68,7 +68,7 @@ const styles: CSSResult = css`
 
     .vl-breadcrumb {
         padding: 0.5rem 1.5rem;
-        min-height: 4rem;
+        min-height: 3.1rem;
         border-bottom: 1px solid rgb(203, 210, 218);
     }
 
@@ -107,15 +107,12 @@ const styles: CSSResult = css`
         padding: 1rem 0;
         display: flex;
         flex-direction: column;
+        margin-right: 3rem;
     }
 
     .vl-cascader-item:not(:last-child),
     vl-cascader-item:not(:last-child) {
         border-bottom: 1px solid #cbd2da;
-    }
-
-    .space-between {
-        justify-content: space-between;
     }
 `;
 export default styles;

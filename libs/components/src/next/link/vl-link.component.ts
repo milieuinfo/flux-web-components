@@ -1,9 +1,10 @@
 import { BaseLitElement, ICON_PLACEMENT, webComponent } from '@domg-wc/common-utilities';
-import { vlIconStyles, vlLinkStyles } from '@domg-wc/common-utilities/css';
+import { vlIconStyles, vlLinkIconStyles, vlLinkStyles } from '@domg-wc/common-utilities/css';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { buttonAsLinkStyles } from './vl-button-as-link.css';
 import { linkDefaults } from './vl-link.defaults';
+import { vlLinkUigStyle } from './vl-link.uig-css';
 
 @webComponent('vl-link-next')
 export class VlLinkComponent extends BaseLitElement {
@@ -18,7 +19,7 @@ export class VlLinkComponent extends BaseLitElement {
     private buttonAsLink = linkDefaults.buttonAsLink;
 
     static get styles(): CSSResult[] {
-        return [vlLinkStyles(), buttonAsLinkStyles, vlIconStyles];
+        return [vlLinkUigStyle, vlLinkStyles(), vlLinkIconStyles, buttonAsLinkStyles, vlIconStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -47,7 +48,7 @@ export class VlLinkComponent extends BaseLitElement {
         const positionIconBefore = this.iconPlacement !== ICON_PLACEMENT.AFTER;
         return !this.buttonAsLink
             ? html`
-                  <a class=${classMap(classes)} href=${this.href} target=${target}>
+                  <a class=${classMap(classes)} href=${this.href} target=${target} part="link">
                       ${positionIconBefore ? this.renderIcon() : nothing}
                       <slot></slot>
                       ${!positionIconBefore ? this.renderIcon() : nothing}
@@ -55,7 +56,7 @@ export class VlLinkComponent extends BaseLitElement {
                   </a>
               `
             : html`
-                  <button class="vl-button-as-link ${classMap(classes)}">
+                  <button class="vl-button-as-link ${classMap(classes)}" part="button">
                       ${positionIconBefore ? this.renderIcon() : nothing}
                       <slot></slot>
                       ${!positionIconBefore ? this.renderIcon() : nothing}
@@ -65,11 +66,14 @@ export class VlLinkComponent extends BaseLitElement {
     }
 
     private renderIcon(): TemplateResult | typeof nothing {
+        const beforeClass = !this.buttonAsLink ? 'vl-icon--right-margin' : 'vl-link-next__icon--before';
+        const afterClass = !this.buttonAsLink ? 'vl-icon--left-margin' : 'vl-link-next__icon--after';
         const classes = {
             'vl-icon': true,
             [`vl-icon--${this.icon}`]: true,
-            'vl-icon--right-margin': this.iconPlacement === 'before',
-            'vl-icon--left-margin': this.iconPlacement === 'after',
+            'vl-link-next__icon': this.buttonAsLink,
+            [beforeClass]: this.iconPlacement === 'before',
+            [afterClass]: this.iconPlacement === 'after',
         };
 
         return this.icon ? html`<span class=${classMap(classes)}></span>` : nothing;

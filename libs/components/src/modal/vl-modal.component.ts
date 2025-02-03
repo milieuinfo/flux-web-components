@@ -1,8 +1,8 @@
 import { awaitUntil, BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { vlGroupStyles } from '@domg-wc/common-utilities/css';
-import { VlActionGroup, VlButtonLinkElement, VlColumnElement, VlGridElement, VlIconElement } from '@domg-wc/elements';
-import { accessibilityStyle, gridStyle, resetStyle } from '@domg/govflanders-style/common';
-import { iconStyle, linkStyle, modalStyle } from '@domg/govflanders-style/component';
+import { vlGridStyles, vlGroupStyles, vlIconStyles, vlStackedStyles } from '@domg-wc/common-utilities/css';
+import { VlLinkComponent } from '@domg-wc/components/next/link';
+import { accessibilityStyle, resetStyle } from '@domg/govflanders-style/common';
+import { modalStyle } from '@domg/govflanders-style/component';
 import '@govflanders/vl-ui-core/dist/js/core.js';
 import '@govflanders/vl-ui-util/dist/js/util.js';
 import './vl-modal.lib.js';
@@ -13,7 +13,7 @@ declare const vl: any;
 @webComponent('vl-modal')
 export class VlModalComponent extends BaseElementOfType(HTMLElement) {
     static {
-        registerWebComponents([VlActionGroup, VlButtonLinkElement, VlColumnElement, VlGridElement, VlIconElement]);
+        registerWebComponents([VlLinkComponent]);
     }
 
     static get _observedAttributes() {
@@ -35,24 +35,24 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
                 ${modalStyle}
                 ${modalUigStyle}
                 ${accessibilityStyle}
-                ${iconStyle}
-                ${linkStyle}
-                ${gridStyle}
                 ${vlGroupStyles}
+                ${vlGridStyles}
+                ${vlStackedStyles}
+                ${vlIconStyles}
             </style>
             <div class="vl-modal">
                 <dialog class="vl-modal-dialog" data-vl-modal tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-toggle-title" aria-describedby="modal-toggle-description">
                     <div class="vl-modal-dialog__wrapper" id="modal-dialog-wrapper">
-                        <div is="vl-grid" data-vl-is-stacked>
-                            <div id="modal-toggle-description" is="vl-column" data-vl-size="12" data-vl-medium-size="12" class="vl-modal-dialog__content">
+                        <div class="vl-grid-next vl-stacked-next-small">
+                            <div id="modal-toggle-description" class="vl-column-next vl-column-next--12 vl-column-next--m-12 vl-modal-dialog__content">
                                 <slot name="content">Modal content</slot>
                             </div>
-                            <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
+                            <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
                                 <div id="modal-action-group" class="vl-group-next">
                                     <slot name="button" data-vl-modal-close></slot>
-                                    <button is="vl-button-link" id="modal-toggle-cancellable" data-vl-modal-close>
-                                        <span is="vl-icon" icon="cross" before></span>Annuleer
-                                    </button>
+                                    <vl-link-next id="modal-toggle-cancellable"
+                                     button-as-link icon="cross" icon-placement="before"
+                                     data-vl-modal-close>Annuleer</vl-link-next>
                                 </div>
                             </div>
                         </div>
@@ -166,7 +166,7 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
     _getCloseButtonTemplate() {
         return this._template(`
       <button id="close" type="button" class="vl-modal-dialog__close" data-vl-modal-close>
-        <i class="vl-modal-dialog__close__icon vl-vi vl-vi-cross" aria-hidden="true"></i>
+        <span class="vl-modal-dialog__close__icon vl-icon vl-icon--cross" aria-hidden="true"></span>
         <span class="vl-u-visually-hidden">Venster sluiten</span>
       </button>
     `);
@@ -179,9 +179,10 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
 
     _getCancelTemplate() {
         return this._template(`
-      <button is="vl-button-link" data-vl-modal-close id="modal-toggle-cancellable">
-          <span is="vl-icon" icon="cross" before data-vl-modal-close></span>Annuleer
-      </button>`);
+      <vl-link-next id="modal-toggle-cancellable" button-as-link icon="cross" icon-placement="before"
+      data-vl-modal-close
+      >Annuleer</vl-link-next>
+`);
     }
 
     _idChangedCallback(oldValue: string, newValue: string) {

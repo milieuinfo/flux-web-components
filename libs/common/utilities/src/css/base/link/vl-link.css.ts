@@ -103,5 +103,15 @@ export const vlLinkStyles = (selector = 'a') => css`
         &.error:visited .vl-icon.vl-icon--external {
             color: var(--vl-color--text-light);
         }
+
+        &.neutral {
+            color: var(--vl-color--text);
+        }
+        &.neutral:hover,
+        &.neutral:focus,
+        &.neutral:active,
+        &.neutral:visited {
+            color: var(--vl-color--text);
+        }
     }
 `;

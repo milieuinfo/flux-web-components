@@ -80,7 +80,7 @@ const closeByPressingEscape = () => {
     // Cypress verwacht echter dat `.type()` uitgevoerd wordt op een "typeable" element.
     // `{ force: true }` is nodig om in de shadow dom te kunnen typen.
     // (https://github.com/cypress-io/cypress/issues/7741)
-    cy.getDataCy('modal').shadow().find('button').first().type('{esc}', { force: true });
+    cy.getDataCy('modal').shadow().find('vl-link-next').shadow().find('button').first().type('{esc}', { force: true });
 };
 
 describe('component - vl-modal', () => {
