@@ -108,9 +108,9 @@ const styles: CSSResult = css`
     }
     .vl-search--inline .vl-search__submit:focus,
     .vl-search--inline .vl-search__submit:focus + .vl-search__submit,
-    .vl-search--inline .vl-search__input:focus,
+    .vl-search--inline .vl-search__input::part(input):focus,
     .vl-search--inline slot[name='input']:focus,
-    .vl-search--inline .vl-search__input:focus + .vl-search__submit,
+    .vl-search--inline .vl-search__input::part(input):focus + .vl-search__submit,
     .vl-search--inline slot[name='input']:focus + .vl-search__submit {
         z-index: 1;
         opacity: 1;
@@ -119,18 +119,18 @@ const styles: CSSResult = css`
     .vl-search--inline .vl-search__submit:focus {
         transition: none;
     }
-    .vl-search--inline .vl-search__input,
+    .vl-search--inline .vl-search__input::part(input),
     .vl-search--inline slot[name='input'] {
         display: block;
         width: 100%;
         text-align: left;
     }
-    .vl-search--inline .vl-search__input:focus,
+    .vl-search--inline .vl-search__input::part(input):focus,
     .vl-search--inline slot[name='input']:focus {
         width: calc(100% - 4.7rem);
         padding-right: 0;
     }
-    .vl-search--inline .vl-search__input:valid + .vl-search__submit,
+    .vl-search--inline .vl-search__input::part(input):valid + .vl-search__submit,
     .vl-search--inline slot[name='input']:valid + .vl-search__submit {
         transition: none;
         z-index: 1;
@@ -176,20 +176,20 @@ const styles: CSSResult = css`
             font-size: 1.6rem;
         }
     }
-    .vl-search--block .vl-search__input,
+    .vl-search--block .vl-search__input::part(input),
     .vl-search--block slot[name='input'] {
         flex: 6;
         margin: 0 2rem;
     }
     @media screen and (max-width: 1023px) {
-        .vl-search--block .vl-search__input,
+        .vl-search--block .vl-search__input::part(input),
         .vl-search--block slot[name='input'] {
             margin: 0 1rem;
             flex: 4;
         }
     }
     @media screen and (max-width: 767px) {
-        .vl-search--block .vl-search__input,
+        .vl-search--block .vl-search__input::part(input),
         .vl-search--block slot[name='input'] {
             margin: 0;
             display: block;

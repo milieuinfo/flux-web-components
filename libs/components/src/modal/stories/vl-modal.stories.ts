@@ -1,12 +1,13 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
+import { VlButtonComponent } from '@domg-wc/components/next/button';
+import { VlLinkComponent } from '@domg-wc/components/next/link';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../vl-modal.component';
 import { VlDatepickerComponent } from '../../datepicker/vl-datepicker.component';
 import { modalArgs, modalArgTypes } from './vl-modal.stories-arg';
-import { VlButtonComponent } from '@domg-wc/components/next/button';
 
-registerWebComponents([VlDatepickerComponent, VlButtonComponent]);
+registerWebComponents([VlDatepickerComponent, VlButtonComponent, VlLinkComponent]);
 
 export default {
     id: 'components-modal',
@@ -25,9 +26,9 @@ export const modalDefault = ({
     allowOverflow,
 }: typeof modalArgs) => html`
     <div>
-        <button id="button-open-modal-vt" is="vl-button" data-vl-modal-open="modal-vt" data-cy="button-modal-toggle">
+        <vl-button-next id="button-open-modal-vt" data-vl-modal-open="modal-vt" data-cy="button-modal-toggle">
             Open
-        </button>
+        </vl-button-next>
         <vl-modal
             id="modal-vt"
             data-vl-title=${title}
@@ -50,20 +51,14 @@ modalDefault.storyName = 'vl-modal - default';
 
 export const modalWithOtherAction = () => html`
     <div>
-        <button
-            id="button-open-modal-vt"
-            is="vl-button"
-            data-vl-modal-open="modal-cl-nc-li"
-            data-cy="button-modal-toggle"
-        >
+        <vl-button-next id="button-open-modal-vt" data-vl-modal-open="modal-cl-nc-li" data-cy="button-modal-toggle">
             Open
-        </button>
+        </vl-button-next>
         <vl-modal id="modal-cl-nc-li" data-vl-title="Modal" data-vl-closable data-vl-not-cancellable data-cy="modal">
             <span slot="content">Lorem ipsum dolor sit amet.</span>
-            <button is="vl-button-link" class="custom-action-button" slot="button">
-                <span is="vl-icon" data-vl-icon="cross" before="" data-vl-modal-close=""></span>
+            <vl-link-next slot="button" button-as-link icon="cross" icon-placement="before" data-vl-modal-close>
                 Andere actie
-            </button>
+            </vl-link-next>
         </vl-modal>
     </div>
 `;

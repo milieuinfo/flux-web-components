@@ -1,7 +1,8 @@
+import { vlIconStyles } from '@domg-wc/common-utilities/css';
 import { html, PropertyDeclarations, TemplateResult, CSSResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { BaseLitElement, findNodesForSlot } from '@domg-wc/common-utilities';
-import { alertStyle, iconStyle } from '@domg/govflanders-style/component';
+import { alertStyle } from '@domg/govflanders-style/component';
 import { accessibilityStyle, resetStyle, markStyle } from '@domg/govflanders-style/common';
 import { VlAlertClosedEvent, VlAlertModel } from './vl-alert.model';
 import { classMap } from 'lit/directives/class-map.js';
@@ -18,7 +19,7 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
     closable = false;
 
     static get styles(): CSSResult[] {
-        return [resetStyle, alertStyle, iconStyle, accessibilityStyle, markStyle, vlAlertUigCss];
+        return [resetStyle, alertStyle, accessibilityStyle, markStyle, vlAlertUigCss, vlIconStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -53,7 +54,7 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
             <div id="alert" class=${classMap(classes)} role="alert">
                 ${this.icon &&
                 html` <div class="vl-alert__icon">
-                    <span is="vl-icon" data-vl-icon="${this.icon}"></span>
+                    <span class="vl-icon vl-icon--${this.icon}"></span>
                 </div>`}
                 <div id="content" class="vl-alert__content">
                     <p id="title" class="vl-alert__title">

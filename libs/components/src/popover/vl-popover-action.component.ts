@@ -1,7 +1,7 @@
-import { CSSResult, PropertyDeclarations, TemplateResult, html, nothing } from 'lit';
 import { BaseLitElement } from '@domg-wc/common-utilities';
+import { vlIconStyles } from '@domg-wc/common-utilities/css';
 import { resetStyle } from '@domg/govflanders-style/common';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import popoverActionUigStyle from './vl-popover-action.uig-css';
 
@@ -14,7 +14,7 @@ export class VlPopoverActionComponent extends BaseLitElement {
     selected = false;
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, vlElementsStyle, popoverActionUigStyle];
+        return [resetStyle, vlIconStyles, popoverActionUigStyle];
     }
 
     static get properties(): PropertyDeclarations {
@@ -27,7 +27,7 @@ export class VlPopoverActionComponent extends BaseLitElement {
 
     protected render(): TemplateResult {
         return html`
-            ${this.icon && this.icon !== '' ? html`<span is="vl-icon" data-vl-icon=${this.icon}></span>` : nothing}
+            ${this.icon && this.icon !== '' ? html`<span class="vl-icon vl-icon--${this.icon}"></span>` : nothing}
             <slot></slot>
         `;
     }

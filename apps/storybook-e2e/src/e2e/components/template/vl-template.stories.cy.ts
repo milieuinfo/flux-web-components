@@ -3,6 +3,10 @@ const templateUrl = 'http://localhost:8080/iframe.html?args=&id=components-templ
 describe('story vl-template', () => {
     it('should render', () => {
         cy.visit(`${templateUrl}`);
-        cy.get('vl-template').shadow().getDataCy('template-content').find('h1').contains('vl-template');
+        cy.get('vl-template')
+            .shadow()
+            .getDataCy('template-content')
+            .find('vl-title-next[type="h1"]')
+            .contains('vl-template');
     });
 });

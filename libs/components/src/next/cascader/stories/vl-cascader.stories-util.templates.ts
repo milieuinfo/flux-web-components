@@ -7,26 +7,25 @@ export const cascaderItemTemplates = new Map<string, TemplateFn>([
         'provincie',
         (item, processNarrowDown) => {
             const hasChildren = item.children || item.narrowDown;
+            const childrenAnnotation = html`Bekijk deelgemeentes
+            ${item.children?.length
+                ? html` <vl-text-next annotation>( ${item.children.length} )</vl-text-next> `
+                : 'Bekijk deelgemeentes '}`;
             return html`
                 <div class="vl-cascader-item">
-                    <h3>${item.label}</h3>
-                    <a
-                        is="vl-link"
-                        class="vl-link--bold vl-cascader-link space-between"
+                    <vl-title-next type="h3">${item.label}</vl-title-next>
+                    <vl-link-next
+                        bold
+                        button-as-link
+                        icon="${hasChildren ? 'arrow-right-fat' : nothing}"
+                        icon-placement="after"
+                        class="vl-cascader-link"
                         @click=${() => processNarrowDown(item)}
                     >
                         <span>
-                            ${item.children
-                                ? 'Bekijk deelgemeentes '
-                                : item.narrowDown
-                                ? 'Haal deelgemeentes op'
-                                : 'Actie'}
-                            ${item.children?.length
-                                ? html` <vl-annotation>( ${item.children.length} )</vl-annotation> `
-                                : nothing}
+                            ${item.children ? childrenAnnotation : item.narrowDown ? 'Haal deelgemeentes op' : 'Actie'}
                         </span>
-                        ${hasChildren ? html` <span is="vl-icon" data-vl-icon="arrow-right-fat"></span> ` : ''}
-                    </a>
+                    </vl-link-next>
                 </div>
             `;
         },

@@ -1,14 +1,16 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { VlColumnElement, vlElementsStyle, VlGridElement, VlH2Element } from '@domg-wc/elements';
-import { VlTypography } from '../typography/vl-typography.component';
-import httpErrorMessageUigStyle from './vl-http-error-message.uig-css';
-import errorCodes from './error-codes';
+import { vlGridStyles, vlGroupStyles, vlResetStyles, vlStackedStyles } from '@domg-wc/common-utilities/css';
+import { VlLinkComponent } from '@domg-wc/components/next/link';
+import { vlTitleStyles } from '@domg-wc/components/next/title/vl-title.css';
 import { render } from 'lit';
+import { VlTypography } from '../typography/vl-typography.component';
+import errorCodes from './error-codes';
+import httpErrorMessageUigStyle from './vl-http-error-message.uig-css';
 
 @webComponent('vl-http-error-message')
 export class VlHttpErrorMessage extends BaseElementOfType(HTMLElement) {
     static {
-        registerWebComponents([VlColumnElement, VlGridElement, VlH2Element, VlTypography]);
+        registerWebComponents([VlLinkComponent, VlTypography]);
     }
 
     static get _observedAttributes() {
@@ -18,23 +20,26 @@ export class VlHttpErrorMessage extends BaseElementOfType(HTMLElement) {
     constructor() {
         super(`
           <style>
-            ${vlElementsStyle}
+            ${vlResetStyles}
+            ${vlTitleStyles}
             ${httpErrorMessageUigStyle}
+            ${vlGroupStyles}
+            ${vlGridStyles}
+            ${vlStackedStyles}
           </style>
-          <div is="vl-grid" data-vl-is-stacked data-vl-align-center data-vl-v-center>
-            <div is="vl-column" data-vl-size="6" data-vl-medium-size="6" data-vl-small-size="6" data-vl-extra-small-size="6" class="vl-u-hidden vl-u-visible--s">
-              <div class="vl-u-display-flex vl-u-flex-align-center vl-u-flex-v-center">
-                <img id="image-small"/>
-              </div>
+          <div class="vl-grid-next vl-stacked-next-small" data-vl-align-center data-vl-v-center>
+
+            <div class="vl-hidden-next vl-visible-next--s vl-column-next vl-column-next--justify-self-center vl-column-next--12  vl-column-next--m-12  vl-column-next--s-12 vl-column-next--xs-12">
+                                                                          <img id="image-small" alt="fiets met platte band" />
             </div>
-            <div is="vl-column" data-vl-size="6" data-vl-medium-size="6" data-vl-small-size="8">
-              <div is="vl-grid" data-vl-is-stacked>
-                <div is="vl-column" data-vl-size="12">
-                  <h2 id="title" is="vl-h2"></h2>
+            <div class="vl-column-next vl-column-next--6  vl-column-next--m-6  vl-column-next--s-8 vl-column-next--xs-12">
+              <div class="vl-grid-next vl-stacked-next-small">
+                <div class="vl-column-next vl-column-next--12">
+                  <h2 id="title"></h2>
                   <vl-typography id="text"><slot slot="text" name="text"></slot></vl-typography>
                   <vl-typography id="error-text"></vl-typography>
                 </div>
-                <div id="info">
+                <div id="info" class="vl-column-next vl-column-next--12">
                   <table>
                     <tr>
                       <td>URL:</td>
@@ -50,10 +55,10 @@ export class VlHttpErrorMessage extends BaseElementOfType(HTMLElement) {
                     </tr>
                   </table>
                 </div>
-                <div id="actions" is="vl-column" data-vl-size="12"><div id="error-actions"><slot name="actions"></slot></div></div>
+                <div id="actions" class="vl-column-next vl-column-next--12"><div id="error-actions"><slot name="actions"></slot></div></div>
               </div>
             </div>
-            <div is="vl-column" data-vl-size="6" data-vl-medium-size="6" data-vl-small-size="6" class="vl-u-hidden--s">
+            <div class="vl-column-next vl-column-next--6  vl-column-next--m-6  vl-column-next--s-8 vl-column-next--xs-12 vl-hidden-next--s">
               <div class="vl-u-display-flex vl-u-flex-align-center vl-u-flex-v-center">
                 <img id="image-normal"/>
               </div>

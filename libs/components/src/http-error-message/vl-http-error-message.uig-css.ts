@@ -10,5 +10,11 @@ const styles: CSSResult = css`
     table {
         color: dimgray;
     }
+
+    #image-small {
+        width: 50%;
+        justify-self: center; /* Dit is nodig omdat binnen een grid bij procentuele breedte, nog altijd de volledige
+        breedte wordt in acht genomen om te centreren */
+    }
 `;
 export default styles;

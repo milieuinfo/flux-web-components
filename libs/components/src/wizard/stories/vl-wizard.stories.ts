@@ -1,4 +1,9 @@
 import { story } from '@domg-wc/common-storybook';
+import { registerWebComponents } from '@domg-wc/common-utilities';
+import { VlLinkComponent } from '@domg-wc/components/next/link';
+import { VlTitleComponent } from '@domg-wc/components/next/title';
+import { VlFormLabelComponent } from '@domg-wc/form/next/form-label';
+import { VlInputFieldComponent } from '@domg-wc/form/next/input-field';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../vl-wizard-pane.component';
@@ -6,6 +11,8 @@ import '../vl-wizard.component';
 import { wizardArgs, wizardArgTypes } from './vl-wizard.stories-arg';
 import wizardDoc from './vl-wizard.stories-doc.mdx';
 import { getWizard } from './vl-wizard.stories-util';
+
+registerWebComponents([VlTitleComponent, VlFormLabelComponent, VlInputFieldComponent, VlLinkComponent]);
 
 interface VlClickStepDetail {
     number: number;
@@ -42,42 +49,48 @@ export const WizardDefault = story(
                 getWizard().activeStep = event.detail.number;
             }}
         >
-            <h2 slot="title" is="vl-h2">${title}</h2>
+            <vl-title-next slot="title" type="h2">${title}</vl-title-next>
             <p slot="header">${header}</p>
             <vl-wizard-pane data-vl-name="Stap 1">
-                <h3 is="vl-h3">Stap 1</h3>
-                <div is="vl-grid" data-vl-is-stacked>
-                    <div is="vl-column" data-vl-size="12">
-                        <div is="vl-form-grid" data-vl-is-stacked>
-                            <div is="vl-form-column" data-vl-size="12">
-                                <label is="vl-form-label" for="naam" data-vl-block> Naam </label>
-                                <input id="naam" is="vl-input-field" data-vl-block />
+                <vl-title-next type="h3">Stap 1</vl-title-next>
+                <div class="vl-grid-next vl-stacked-next-small">
+                    <div class="vl-column-next vl-column-next--12">
+                        <div class="vl-grid-next vl-stacked-next-small">
+                            <div class="vl-column-next vl-column-next--12">
+                                <vl-form-label-next for="naam" block> Naam </vl-form-label-next>
+                                <vl-input-field-next id="naam" block></vl-input-field-next>
                             </div>
                         </div>
                     </div>
-                    <div is="vl-column">
-                        <button @click=${() => (getWizard().activeStep += 1)} is="vl-button" type="button">
+                    <div class="vl-column-next">
+                        <vl-button-next @click=${() => (getWizard().activeStep += 1)} type="button">
                             Volgende
-                        </button>
+                        </vl-button-next>
                     </div>
                 </div>
             </vl-wizard-pane>
             <vl-wizard-pane data-vl-name="Stap 2">
-                <h3 is="vl-h3">Stap 2</h3>
-                <div is="vl-grid" data-vl-is-stacked>
-                    <div is="vl-column" data-vl-size="12">
-                        <div is="vl-form-grid" data-vl-is-stacked>
-                            <div is="vl-form-column" data-vl-size="12">
-                                <label is="vl-form-label" for="years" data-vl-block> Aantal jaren dienst </label>
-                                <input id="years" is="vl-input-field" data-vl-block />
+                <vl-title-next type="h3">Stap 2</vl-title-next>
+                <div class="vl-grid-next vl-stacked-next-small">
+                    <div class="vl-column-next vl-column-next--12">
+                        <div class="vl-grid-next vl-stacked-next-small">
+                            <div class="vl-column-next vl-column-next--12">
+                                <vl-form-label-next for="years" block> Aantal jaren dienst </vl-form-label-next>
+                                <vl-input-field-next id="years" block></vl-input-field-next>
                             </div>
                         </div>
                     </div>
-                    <div is="vl-column">
-                        <button @click=${() => (getWizard().activeStep -= 1)} is="vl-button-link" type="button">
-                            <span is="vl-icon" data-vl-icon="arrow-left-fat" data-vl-before></span>
+                    <div class="vl-column-next vl-column-next--12">
+                        <vl-link-next
+                            @click=${() => (getWizard().activeStep -= 1)}
+                            button-as-link
+                            label="vorige"
+                            type="button"
+                            icon="arrow-left-fat"
+                            icon-placement="before"
+                        >
                             Vorige
-                        </button>
+                        </vl-link-next>
                     </div>
                 </div>
             </vl-wizard-pane>

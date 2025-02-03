@@ -96,9 +96,9 @@ describe('story vl-steps-next icons', () => {
     it('should contain steps with icons', () => {
         cy.visit(stepsNextIconsUrl);
 
-        cy.get('vl-steps-next').find('vl-step-next').find('span[slot="icon"][data-vl-icon="search"]');
-        cy.get('vl-steps-next').find('vl-step-next').find('span[slot="icon"][data-vl-icon="calendar"]');
-        cy.get('vl-steps-next').find('vl-step-next').find('span[slot="icon"][data-vl-icon="clock"]');
+        cy.get('vl-steps-next').find('vl-step-next').find('vl-icon-next[slot="icon"][icon="search"]');
+        cy.get('vl-steps-next').find('vl-step-next').find('vl-icon-next[slot="icon"][icon="calendar"]');
+        cy.get('vl-steps-next').find('vl-step-next').find('vl-icon-next[slot="icon"][icon="clock"]');
     });
 });
 
@@ -404,8 +404,8 @@ describe('story vl-steps-next side-navigation', () => {
             .scrollIntoView({ duration: 1000 })
             .should('be.visible');
 
-        cy.get('nav[is="vl-side-navigation"]')
-            .find('a[is="vl-side-navigation-toggle"][href="#vl-steps-vl-step-2"]')
+        cy.get('vl-side-navigation-next')
+            .find('vl-side-navigation-toggle-next[href="#vl-steps-vl-step-2"]')
             .should('have.attr', 'aria-expanded', 'true');
     });
 });

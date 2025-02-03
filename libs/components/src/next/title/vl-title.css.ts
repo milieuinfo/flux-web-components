@@ -11,7 +11,7 @@ import { css, CSSResult } from 'lit';
 
 const headingList = [1, 2, 3, 4, 5, 6];
 
-const styles: CSSResult[] = [
+export const vlTitleStyles: CSSResult[] = [
     css`
         h1 {
             ${vlHeading1}
@@ -70,4 +70,3 @@ const styles: CSSResult[] = [
             `
     ),
 ];
-export default styles;

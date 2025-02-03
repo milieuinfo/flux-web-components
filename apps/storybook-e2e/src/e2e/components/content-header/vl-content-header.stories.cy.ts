@@ -14,6 +14,6 @@ describe('story vl-content-header', () => {
 
     it('should contain an image', () => {
         cy.visit(`${contentHeaderUrl}`);
-        cy.get('vl-content-header').get('img').should('have.class', 'vl-image');
+        cy.get('vl-content-header').get('img');
     });
 });

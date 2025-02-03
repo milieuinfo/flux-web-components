@@ -1,11 +1,14 @@
 import { BaseLitElement, findNodesForSlot, registerWebComponents } from '@domg-wc/common-utilities';
-import { vlElementsStyle } from '@domg-wc/elements';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { breadcrumbStyle } from '@domg/govflanders-style/component';
 import { CSSResult, html, nothing, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { VlIconComponent } from '../icon';
+import { VlLinkComponent } from '../link';
+import { vlTitleStyles } from '../title/vl-title.css';
 import { VlCascaderItemComponent } from './vl-cascader-item.component';
+import vlCascaderItemUigCss from './vl-cascader-item.uig-css';
 import { cascaderDefaults } from './vl-cascader.defaults';
 import { CASCADER_SLOTS, CascaderItem, ItemListFn, NarrowDownFn, TemplateFn } from './vl-cascader.model';
 import cascaderUigStyle from './vl-cascader.uig-css';
@@ -34,7 +37,7 @@ export class VlCascaderComponent extends BaseLitElement {
     private slidingOut = false;
 
     static {
-        registerWebComponents([VlCascaderItemComponent]);
+        registerWebComponents([VlCascaderItemComponent, VlIconComponent, VlLinkComponent]);
     }
 
     static get properties(): PropertyDeclarations {
@@ -51,7 +54,7 @@ export class VlCascaderComponent extends BaseLitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, vlElementsStyle, breadcrumbStyle, cascaderUigStyle];
+        return [resetStyle, breadcrumbStyle, cascaderUigStyle, vlCascaderItemUigCss, vlTitleStyles];
     }
 
     connectedCallback() {
@@ -165,7 +168,7 @@ export class VlCascaderComponent extends BaseLitElement {
             : this.headerText
             ? html`
                   <header class="vl-header">
-                      <h4 is="vl-h4" class="vl-header__title vl-label vl-label--h4">${this.headerText}</h4>
+                      <h4 class="vl-header__title vl-label vl-label--h4">${this.headerText}</h4>
                   </header>
               `
             : nothing;
@@ -179,12 +182,11 @@ export class VlCascaderComponent extends BaseLitElement {
                 ${
                     !hasBreadcrumbPlaceholderSlot
                         ? html`
-                              <span
-                                  is="vl-icon"
-                                  data-vl-icon="places-home"
+                              <vl-icon-next
+                                  icon="places-home"
                                   class="vl-breadcrumb__list__item__cta"
                                   @click=${() => this.handleBreadcrumbClick(0)}
-                              ></span>
+                              ></vl-icon-next>
                           `
                         : html`
                               <span
