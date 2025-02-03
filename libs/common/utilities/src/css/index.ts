@@ -11,6 +11,7 @@ export { vlMarginStyles } from './layout/margin/vl-margin.css';
 export { vlPaddingStyles } from './layout/padding/vl-padding.css';
 export { vlIconStyles } from './base/icon/vl-icon.css';
 export { vlLinkStyles } from './base/link/vl-link.css';
+export { vlLinkIconStyles } from './base/link/vl-link-icon.css';
 export { vlParagraphStyles } from './base/paragraph/vl-paragraph.css';
 export {
     vlMediaScreenExtraSmall,
