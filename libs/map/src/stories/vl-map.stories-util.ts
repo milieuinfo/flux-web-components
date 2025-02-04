@@ -12,9 +12,9 @@ export const handleActiveActionChange = ({ detail: { previous, current } }: Cust
     // Activate/deactivate external controls when an action changes its state
     actionIdentifiers.forEach((actionIdentifier) => {
         if (previous === getActionElement(actionIdentifier)) {
-            getToggleButton(actionIdentifier).active = false;
+            getToggleButton(actionIdentifier).on = false;
         } else if (current === getActionElement(actionIdentifier)) {
-            getToggleButton(actionIdentifier).active = true;
+            getToggleButton(actionIdentifier).on = true;
         }
     });
 };

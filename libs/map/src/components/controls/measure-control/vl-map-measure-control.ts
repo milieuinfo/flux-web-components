@@ -45,8 +45,14 @@ export class VlMapMeasureControl extends VlMapControl(BaseLitElement) {
         }
     }
 
-    setActive(set) {
-        // niet meer nodig, maar je krijgt een console fout als deze methode verwijderd wordt
+    setActive(active: boolean) {
+        if (active) {
+            this.controlElement.on = true;
+            this.controlElement.removeAttribute('tertiary');
+        } else {
+            this.controlElement.on = false;
+            this.controlElement.setAttribute('tertiary', '');
+        }
     }
 
     setDisabled(set) {
