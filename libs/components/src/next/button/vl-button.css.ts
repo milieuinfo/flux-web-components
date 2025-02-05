@@ -196,6 +196,14 @@ export const buttonStyles: CSSResult = css`
                     }
                 }
             }
+
+            &.loading {
+                padding-right: 5rem;
+
+                &::after {
+                    right: 1rem;
+                }
+            }
         }
 
         &.disabled {
@@ -217,7 +225,7 @@ export const buttonStyles: CSSResult = css`
             color: var(--vl-color--white);
             background-color: var(--vl-color--action-disabled-background);
             border-color: var(--vl-color--action-disabled-background);
-            padding: var(--vl-spacing--xsmall) 8rem var(--vl-spacing--xsmall) 4rem;
+            padding-right: 8rem;
             position: relative;
 
             &::after {
@@ -225,9 +233,8 @@ export const buttonStyles: CSSResult = css`
                 content: '';
                 display: block;
                 position: absolute;
-                top: 50%;
-                right: 4rem;
-                margin-top: -0.2rem;
+                top: calc(50% - 0.2rem);
+                right: 2rem;
                 margin-right: 3.2rem;
                 width: 0.4rem;
                 height: 0.4rem;
@@ -264,6 +271,16 @@ export const buttonStyles: CSSResult = css`
                 &:hover,
                 &:active {
                     padding: 0;
+                }
+            }
+
+            &.loading {
+                &::after {
+                    right: 0.1rem;
+                    background-color: transparent;
+                }
+                .vl-icon {
+                    display: none;
                 }
             }
         }

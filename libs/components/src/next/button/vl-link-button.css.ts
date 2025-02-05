@@ -29,7 +29,7 @@ export const linkButtonStyles: CSSResult = css`
         font-weight: 500;
         padding: var(--vl-spacing--xxsmall) var(--vl-spacing--normal);
         background-color: var(--vl-color--action);
-        border: 0.2rem  solid var(--vl-color--action);
+        border: ${unsafeCSS(borderWidth)} solid var(--vl-color--action);
         border-radius: var(--vl-border--radius);
         color: var(--vl-color--white);
         max-width: 100%;
@@ -202,6 +202,14 @@ export const linkButtonStyles: CSSResult = css`
                     }
                 }
             }
+
+            &.loading {
+                padding-right: 5rem;
+
+                &::after {
+                    right: 1rem;
+                }
+            }
         }
 
         &.disabled {
@@ -223,7 +231,7 @@ export const linkButtonStyles: CSSResult = css`
             color: var(--vl-color--white);
             background-color: var(--vl-color--action-disabled-background);
             border-color: var(--vl-color--action-disabled-background);
-            padding: var(--vl-spacing--xsmall) 8rem var(--vl-spacing--xsmall) 4rem;
+            padding-right: 8rem;
             position: relative;
 
             &::after {
@@ -231,9 +239,8 @@ export const linkButtonStyles: CSSResult = css`
                 content: '';
                 display: block;
                 position: absolute;
-                top: 50%;
-                right: 4rem;
-                margin-top: -0.2rem;
+                top: calc(50% - 0.2rem);
+                right: 2rem;
                 margin-right: 3.2rem;
                 width: 0.4rem;
                 height: 0.4rem;
@@ -273,6 +280,16 @@ export const linkButtonStyles: CSSResult = css`
             }
             &.tertiary {
                 padding: 0.1rem;
+            }
+
+            &.loading {
+                &::after {
+                    right: 0.1rem;
+                    background-color: transparent;
+                }
+                .vl-icon {
+                    display: none;
+                }
             }
         }
     }
