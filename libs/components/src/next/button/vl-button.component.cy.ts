@@ -88,6 +88,58 @@ describe('component - vl-button-next', () => {
         cy.get('vl-button-next').shadow().find('button').should('have.class', 'loading');
     });
 
+    it('should not grow when "loading" class is set (large viewport)', () => {
+        cy.viewport(1024, 786);
+
+        const defaultButtonHeight = '35px';
+        const largeButtonHeight = '56px';
+
+        cy.mount(html` <vl-button-next>Klik op mij</vl-button-next>`);
+
+        cy.get('vl-button-next')
+            .shadow()
+            .find('button')
+            .shouldHaveComputedStyle({ style: 'height', value: defaultButtonHeight });
+
+        cy.get('vl-button-next')
+            .invoke('attr', 'loading', true)
+            .shadow()
+            .find('button')
+            .shouldHaveComputedStyle({ style: 'height', value: defaultButtonHeight });
+
+        cy.get('vl-button-next')
+            .invoke('attr', 'large', true)
+            .shadow()
+            .find('button')
+            .shouldHaveComputedStyle({ style: 'height', value: largeButtonHeight });
+    });
+
+    it('should not grow when "loading" class is set (small viewport)', () => {
+        cy.viewport(600, 400);
+
+        const defaultButtonHeight = '44px';
+        const largeButtonHeight = '56px';
+
+        cy.mount(html` <vl-button-next>Klik op mij</vl-button-next>`);
+
+        cy.get('vl-button-next')
+            .shadow()
+            .find('button')
+            .shouldHaveComputedStyle({ style: 'height', value: defaultButtonHeight });
+
+        cy.get('vl-button-next')
+            .invoke('attr', 'loading', true)
+            .shadow()
+            .find('button')
+            .shouldHaveComputedStyle({ style: 'height', value: defaultButtonHeight });
+
+        cy.get('vl-button-next')
+            .invoke('attr', 'large', true)
+            .shadow()
+            .find('button')
+            .shouldHaveComputedStyle({ style: 'height', value: largeButtonHeight });
+    });
+
     it('should set icon', () => {
         cy.mount(html` <vl-button-next icon="pin">Klik op mij</vl-button-next>`);
 
@@ -276,6 +328,34 @@ describe('component - vl-button-next - cta-link', () => {
 
         cy.get('vl-button-next').should('have.attr', 'loading');
         cy.get('vl-button-next').shadow().find('a').should('have.class', 'loading');
+    });
+
+    it('should not grow when "loading" class is set', () => {
+        // In tegenstelling tot de gewone vl-button-next is er hier geen verschil tussen small en large viewports.
+        // De computed height van de a-tag houdt geen rekening met de extra margin of padding en is dus in beide
+        // viewports hetzelfde.
+        const defaultButtonHeight = '21px';
+        const largeButtonHeight = '22px';
+
+        cy.mount(html` <vl-button-next>Klik op mij</vl-button-next>`);
+
+        cy.get('vl-button-next')
+            .invoke('attr', 'cta-link', 'https://www.vlaanderen.be')
+            .shadow()
+            .find('a')
+            .shouldHaveComputedStyle({ style: 'height', value: defaultButtonHeight });
+
+        cy.get('vl-button-next')
+            .invoke('attr', 'loading', true)
+            .shadow()
+            .find('a')
+            .shouldHaveComputedStyle({ style: 'height', value: defaultButtonHeight });
+
+        cy.get('vl-button-next')
+            .invoke('attr', 'large', true)
+            .shadow()
+            .find('a')
+            .shouldHaveComputedStyle({ style: 'height', value: largeButtonHeight });
     });
 
     it('should set icon', () => {
