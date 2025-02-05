@@ -1,4 +1,5 @@
 import { BaseLitElement, registerWebComponents } from '@domg-wc/common-utilities';
+import { vlIconStyles } from '@domg-wc/common-utilities/css';
 import { VlIconElement } from '@domg-wc/elements';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { autocompleteStyle, inputFieldStyle } from '@domg/govflanders-style/component';
@@ -18,7 +19,7 @@ export class VlAutocomplete extends BaseLitElement {
     }
 
     static get styles() {
-        return [resetStyle, baseStyle, autocompleteStyle, inputFieldStyle, autocompleteUigStyle];
+        return [resetStyle, baseStyle, autocompleteStyle, inputFieldStyle, autocompleteUigStyle, vlIconStyles];
     }
 
     static get properties() {
@@ -460,9 +461,7 @@ export class VlAutocomplete extends BaseLitElement {
         if (this.showClear && (this._hasSearchTerm() || (!this.initialised && this.initialValue))) {
             return html` <div class="uig-autocomplete__clear" aria-hidden="true">
                 <span
-                    class="uig-autocomplete__clear-icon"
-                    is="vl-icon"
-                    icon="close"
+                    class="uig-autocomplete__clear-icon vl-icon vl-icon--close"
                     @click="${this._clear}"
                     title="${this.clearTooltip}"
                 ></span>
