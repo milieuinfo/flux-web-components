@@ -1009,4 +1009,14 @@ describe('component - vl-select-rich-next - single - in form', () => {
         cy.get('vl-select-rich-next').shadow().find('input.vl-input-field').type('{enter}');
         cy.get('@submit').should('not.have.been.called');
     });
+
+    it('mouse events should bubble, type events should not', () => {
+        cy.createStubForEvent('form', 'mouseover');
+        cy.createStubForEvent('form', 'keydown');
+
+        cy.get('vl-select-rich-next').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich-next').shadow().find('input.vl-input-field').type('Ha');
+        cy.get('@mouseover').should('have.been.called');
+        cy.get('@keydown').should('not.have.been.called');
+    });
 });

@@ -3,6 +3,7 @@ import { SelectRichOption } from '@domg-wc/form/next/select-rich/vl-select-rich.
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { iconStyle, inputFieldStyle } from '@domg/govflanders-style/component';
 import { FormValue } from '@open-wc/form-control/src/types';
+import * as choices from 'choices.js';
 import { Item, Options } from 'choices.js';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
@@ -11,7 +12,6 @@ import multiselectStyle from './styles/vl-multiselect.dv-css';
 import selectRichUigStyle from './styles/vl-select-rich.uig-css';
 import selectStyle from './styles/vl-select.dv-css';
 import { selectRichDefaults } from './vl-select-rich.defaults';
-import * as choices from 'choices.js';
 
 // web-dev-server (rollup) fix: ambiguous indirect export
 export const DEFAULT_CLASSNAMES = choices.DEFAULT_CLASSNAMES;
@@ -320,7 +320,16 @@ export class VlSelectRichComponent extends FormControl {
                     },
                     input: () => {
                         return template(
-                            `<input type="text" class="vl-input-field vl-input-field-cloned" autocomplete="off" autocapitalize="off" spellcheck="false" role="textbox" aria-autocomplete="list" aria-label="zoek item">`
+                            `<input
+                                    @keydown=${this.onKeydown}
+                                    type="text"
+                                    class="vl-input-field vl-input-field-cloned"
+                                    autocomplete="off"
+                                    autocapitalize="off"
+                                    spellcheck="false"
+                                    role="textbox"
+                                    aria-autocomplete="list"
+                                    aria-label="zoek item">`
                         );
                     },
                     dropdown: () => {
@@ -336,6 +345,13 @@ export class VlSelectRichComponent extends FormControl {
                 };
             },
         };
+    }
+
+    protected onKeydown(event: KeyboardEvent) {
+        // de keyboard-events mogen niet buiten deze component bubbelen
+        // om te vermijden dat - bij integratie in bvb. de tabs - navigeren met de pijltjes een tab wissel veroorzaakt
+        event.stopPropagation();
+        super.onKeydown(event);
     }
 
     private getOptions(): SelectRichOption[] {
