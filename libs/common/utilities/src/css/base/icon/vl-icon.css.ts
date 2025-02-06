@@ -9,14 +9,16 @@ export const vlIconStyles: CSSResult = css`
     .vl-icon {
         font-family: var(--vl-icon-font);
         font-size: 1em;
-        line-height: 1;
+        /* line-height: 1; */ /* onduidelijk waarom line-height: 1 hier stond, is ook niet zo bij DV */
         display: inline;
         color: inherit;
+        vertical-align: middle;
 
         &:before,
         &:after {
             display: inline-block;
             text-decoration: none;
+            transition: transform 0.2s;
         }
 
         &.vl-icon--small {
@@ -31,18 +33,12 @@ export const vlIconStyles: CSSResult = css`
             color: var(--vl-color--text-light);
         }
 
-        &.vl-icon--right-margin {
-            margin-right: 0.5em;
-        }
-
-        &.vl-icon--left-margin {
-            margin-left: 0.5em;
-        }
-
+        &.vl-icon--right-margin,
         &.vl-icon--before {
             margin-right: 0.5em;
         }
 
+        &.vl-icon--left-margin,
         &.vl-icon--after {
             margin-left: 0.5em;
         }
