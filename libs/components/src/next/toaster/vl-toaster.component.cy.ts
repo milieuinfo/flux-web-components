@@ -58,6 +58,12 @@ describe('component - vl-toaster', () => {
         cy.get('vl-toaster-next').shouldHaveComputedStyle({ style: 'right', value: '0px' });
     });
 
+    it('should set z-index', () => {
+        cy.mount(html`<vl-toaster-next></vl-toaster-next>`);
+
+        cy.get('vl-toaster-next').shouldHaveComputedStyle({ style: 'z-index', value: '10012' });
+    });
+
     it('should show a toast', () => {
         cy.mount(html`
             <vl-toaster-next>

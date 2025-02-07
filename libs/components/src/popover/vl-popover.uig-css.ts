@@ -6,7 +6,7 @@ const styles: CSSResult = css`
         width: max-content;
         top: 0;
         left: 0;
-        z-index: 10010;
+        z-index: var(--vl-z-layer--popover);
     }
 
     i#popover-arrow {

@@ -69,7 +69,7 @@ const style = css`
     .js-vl-select {
         position: relative;
         border-radius: 0.3rem;
-        z-index: 999;
+        z-index: var(--vl-z-layer--select-dropdown);
     }
     .js-vl-select.is-disabled {
         border-color: #687483;
@@ -95,7 +95,7 @@ const style = css`
         }
     }
     .js-vl-select.is-open {
-        z-index: 1000;
+        z-index: var(--vl-z-layer--select-dropdown-open);
     }
     .js-vl-select.is-open .vl-select__inner {
         border-bottom-left-radius: 0;

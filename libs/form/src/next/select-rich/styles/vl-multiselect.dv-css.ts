@@ -136,7 +136,7 @@ const style = css`
         opacity: 0.6;
     }
     .vl-multiselect .multiselect--active {
-        z-index: 10013;
+        z-index: var(--vl-z-layer--multiselect);
     }
     .vl-multiselect .multiselect--active .multiselect__input {
         position: relative !important;
