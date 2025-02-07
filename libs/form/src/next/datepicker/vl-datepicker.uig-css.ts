@@ -26,7 +26,7 @@ const styles: CSSResult = css`
     }
 
     .flatpickr-calendar {
-        z-index: 1000 !important;
+        z-index: var(--vl-z-layer--datepicker) !important;
     }
 
     .flatpickr-wrapper--block {

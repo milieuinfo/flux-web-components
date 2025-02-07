@@ -5,6 +5,7 @@ import { vlColorVars } from './base/var/vl-color.css';
 import { vlGeneralVars } from './base/var/vl-general.css';
 import { vlSpacingVars } from './base/var/vl-spacing.css';
 import { vlTypographyVars } from './base/var/vl-typography.css';
+import { vlZLayerVars } from './base/var/vl-z-layer.css';
 import { vlGridStyles } from './layout/grid/vl-grid.css';
 import { vlGroupStyles } from './layout/group/vl-group.css';
 import { vlMarginStyles } from './layout/margin/vl-margin.css';
@@ -19,6 +20,7 @@ const globalStyles = [
     vlColorVars,
     vlSpacingVars,
     vlTypographyVars,
+    vlZLayerVars,
     vlAccessibilityStyles,
     vlFontStyles,
     vlBodyStyles,

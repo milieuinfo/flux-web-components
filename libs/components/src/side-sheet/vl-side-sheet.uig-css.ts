@@ -56,7 +56,7 @@ const styles: CSSResult = css`
         position: fixed;
         top: 0px;
         right: 0px;
-        z-index: 1001;
+        z-index: var(--vl-z-layer--side-sheet);
         width: var(--vl-side-sheet-width, 33.3333333333%);
     }
     :host #vl-side-sheet {
@@ -119,7 +119,7 @@ const styles: CSSResult = css`
 
     :host([data-vl-open]) {
         height: 100%;
-        z-index: 1002;
+        z-index: var(--vl-z-layer--side-sheet-open);
     }
     @media screen and (max-width: 767px) {
         :host([data-vl-open]) {

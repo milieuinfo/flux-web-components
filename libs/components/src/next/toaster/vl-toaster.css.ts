@@ -6,6 +6,7 @@ export const toasterStyles = css`
         width: 30rem;
         top: 0;
         right: 0;
+        z-index: var(--vl-z-layer--toaster);
     }
 
     :host([placement='top-left']) {

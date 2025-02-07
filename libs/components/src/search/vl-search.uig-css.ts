@@ -206,7 +206,7 @@ const styles: CSSResult = css`
     }
 
     :host([data-vl-inline][data-vl-has-input-slot]) .vl-search__label {
-        z-index: 1000;
+        z-index: var(--vl-z-layer--search);
     }
 
     :host([data-vl-inline]) .vl-search {
@@ -220,7 +220,7 @@ const styles: CSSResult = css`
     }
     :host([data-vl-inline]) slot[name='input'].is-open + .vl-search__submit {
         transition: opacity 0.2s, transform 0.2s;
-        z-index: 1000;
+        z-index: var(--vl-z-layer--search);
         opacity: 1;
         transform: translateX(0%);
         display: block;

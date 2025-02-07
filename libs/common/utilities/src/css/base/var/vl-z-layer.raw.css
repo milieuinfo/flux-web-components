@@ -1,0 +1,19 @@
+:root {
+    /* 
+    Waardes overgenomen uit @domg/govflanders-style
+    */
+    --vl-z-layer--toaster: 10012;
+    --vl-z-layer--multiselect: 10013;
+    --vl-z-layer--select-dropdown: 999;
+    --vl-z-layer--select-dropdown-open: 1000;
+    /*
+    Waardes gedefinieerd in uigov-web-components
+    */
+    --vl-z-layer--select-list-dropdown: 100;
+    --vl-z-layer--select-list-dropdown-open: 101;
+    --vl-z-layer--datepicker: 1000;
+    --vl-z-layer--search: 1000;
+    --vl-z-layer--side-sheet: 1001;
+    --vl-z-layer--side-sheet-open: 1002;
+    --vl-z-layer--popover: 10010;
+}
