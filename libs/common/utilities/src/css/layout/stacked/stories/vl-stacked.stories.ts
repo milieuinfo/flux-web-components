@@ -28,6 +28,22 @@ export const StackedLarge = ({}) => html`
 `;
 StackedLarge.storyName = 'vl-stacked - large';
 
+export const StackedMedium = ({}) => html`
+    <style>
+        .vl-grid-next .vl-column-next {
+            background-color: mediumspringgreen;
+            border: lightseagreen 2px solid;
+        }
+    </style>
+    <div class="vl-grid-next vl-stacked-next-medium">
+        <div class="vl-column-next vl-column-next--8 vl-column-next--offset-3"></div>
+        <div class="vl-column-next vl-column-next--8 vl-column-next--offset-3"></div>
+        <div class="vl-column-next vl-column-next--8 vl-column-next--offset-3"></div>
+        <div class="vl-column-next vl-column-next--8 vl-column-next--offset-3"></div>
+    </div>
+`;
+StackedMedium.storyName = 'vl-stacked - medium';
+
 export const StackedSmall = ({}) => html`
     <style>
         .vl-grid-next .vl-column-next {
