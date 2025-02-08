@@ -3,7 +3,7 @@ import { CSSResult, PropertyDeclarations } from 'lit';
 import { html } from 'lit-element';
 import { choose } from 'lit/directives/choose.js';
 import { classMap } from 'lit/directives/class-map.js';
-import titleStyle from './vl-title.css';
+import { vlTitleStyles } from './vl-title.css';
 import { titleDefaults } from './vl-title.defaults';
 
 @webComponent('vl-title-next')
@@ -14,7 +14,7 @@ export class VlTitleComponent extends BaseLitElement {
     private alt = titleDefaults.alt;
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [titleStyle];
+        return [vlTitleStyles];
     }
 
     static get properties(): PropertyDeclarations {
