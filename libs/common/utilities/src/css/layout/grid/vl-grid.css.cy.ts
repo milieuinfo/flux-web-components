@@ -8,8 +8,10 @@ describe('grid styles', () => {
                 --vl-column-min-height: 8vmax;
                 --vl-grid-row-gap: 0px;
                 --vl-grid-col-gap: 0px;
+                padding: 1vmax;
 
                 .vl-column-next {
+                    min-height: 8vmax;
                     background-color: mediumspringgreen;
                     border: lightseagreen 2px solid;
                 }

@@ -69,6 +69,27 @@ export const vlGroupStyles: CSSResult = css`
 
         &.vl-group-next--input-group {
             gap: 0;
+
+            .vl-input-field:focus,
+            input:focus,
+            .vl-input-addon-next:focus {
+                z-index: 1;
+                border-left-width: 1px;
+            }
+
+            .vl-input-field:hover {
+                border-width: 0.2rem;
+                padding: 0 0.9rem;
+            }
+
+            :first-child {
+                border-right-width: 0 !important;
+            }
+
+            :first-child:focus {
+                z-index: 1;
+                border-right-width: 1px;
+            }
         }
 
         @media screen and (min-width: ${vlMediaScreenMedium}px) {
