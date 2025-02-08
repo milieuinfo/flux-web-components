@@ -19,3 +19,4 @@ export {
     vlMediaScreenMedium,
     vlMediaScreenLarge,
 } from './base/var/vl-media-screen.css';
+export { globalStyles } from './global-styles';
