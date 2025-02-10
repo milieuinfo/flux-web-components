@@ -7,13 +7,13 @@ import storybookVoorbeeld from '!!raw-loader!../../resources/bijdragen/storybook
 
 ## Inhoudstafel
 
-- [Referenties](#referenties)
-- [Bestanden](#bestanden)
-- [Story Opbouw](#story-opbouw)
-- [Args](#args)
-- [ArgTypes](#argtypes)
-- [Docs](#docs)
-
+-   [Referenties](#referenties)
+-   [Bestanden](#bestanden)
+-   [Story Opbouw](#story-opbouw)
+-   [Args](#args)
+-   [ArgTypes](#argtypes)
+-   [Docs](#docs)
+-   [Storybook lokaal opstarten](#storybook-lokaal-opstarten)
 
 ## Referenties
 
@@ -265,7 +265,7 @@ activeStep: {
 De docs voor Storybook worden geschreven in [MDX](https://mdxjs.com) formaat.
 Het bestand heeft een naam conform: `[component].stories-doc.mdx` en volgt onderstaande template:
 
-```
+````
 import { ArgsTable, DocsStory, PRIMARY_STORY } from '@storybook/addon-docs';
 
 # <naam>
@@ -276,11 +276,11 @@ import { ArgsTable, DocsStory, PRIMARY_STORY } from '@storybook/addon-docs';
 
 ```js
 <import statement>
-`` `
+```
 
 ```html
 <custom tag>
-`` `
+```
 
 <DocsStory id="<default story id>" />
 
@@ -311,4 +311,12 @@ import { ArgsTable, DocsStory, PRIMARY_STORY } from '@storybook/addon-docs';
 **Legacy Documentatie:** [url-legacy-documentatie]
 
 **Legacy Demo:**  <url legacy demo>
+````
+
+## Storybook lokaal opstarten
+
+Voer onderstaande script uit om Storybook lokaal op te starten op http://localhost:8080:
+
+```
+npm run apps:storybook:dev
 ```

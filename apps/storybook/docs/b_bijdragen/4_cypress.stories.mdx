@@ -1,19 +1,19 @@
-import {Meta} from '@storybook/addon-docs';
+import { Meta } from '@storybook/addon-docs';
 
-<Meta title="Bijdragen/Cypress"/>
+<Meta title="Bijdragen/Cypress" />
 
 # Cypress
 
 ## Inhoudstafel
 
-- [Richtlijnen](#richtlijnen)
-- [Naamgeving](#naamgeving)
-- [Structuur](#structuur)
-- [DOM- vs WC-testen](#dom--vs-wc-testen)
-- [Fijnmazigheid](#fijnmazigheid)
-- [WCAG-compliancy](#wcag-compliancy)
-- [Styling Aftesten](#styling-aftesten)
-
+-   [Richtlijnen](#richtlijnen)
+-   [Naamgeving](#naamgeving)
+-   [Structuur](#structuur)
+-   [DOM- vs WC-testen](#dom--vs-wc-testen)
+-   [Fijnmazigheid](#fijnmazigheid)
+-   [WCAG-compliancy](#wcag-compliancy)
+-   [Styling Aftesten](#styling-aftesten)
+-   [Uitvoeren](#uitvoeren)
 
 ## Richtlijnen
 
@@ -118,4 +118,68 @@ aftesten.
 bvb.:
 ```ts
 cy.get('vl-document').find('span[slot="title"]').shouldHaveStyle('color', 'rgb(0, 85, 204)');
+```
+
+## Uitvoeren
+
+### Integrator E2E tests
+
+Start volgende scripts in parallel:
+
+Terminal 1:
+
+```
+npm run apps:integrator:dev
+```
+
+Terminal 2:
+
+Optie 1: Met Cypress UI en hot reloading:
+
+```
+npm run apps:integrator-e2e:watch
+```
+
+Optie 2: Alle tests zonder UI:
+
+```
+npm run apps:integrator-e2e:run
+```
+
+### Storybook E2E tests
+
+Start volgende scripts in parallel:
+
+Terminal 1:
+
+```
+npm run apps:storybook:dev
+```
+
+Terminal 2:
+
+Optie 1: Met Cypress UI en hot reloading:
+
+```
+npm run apps:storybook-e2e:watch
+```
+
+Optie 2: Alle tests zonder UI:
+
+```
+npm run apps:storybook-e2e:run
+```
+
+### Component tests
+
+Met Cypress UI en hot reloading:
+
+```
+npm run libs:component-tests:watch
+```
+
+Alle tests:
+
+```
+npm run libs:component-tests:run
 ```

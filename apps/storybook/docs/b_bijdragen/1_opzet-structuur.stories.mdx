@@ -21,6 +21,33 @@ Ontwikkeling gebeurt [branch-based](/docs/bijdragen-git-branching-strategie--doc
 
 Naast de web-componenten bibliotheek zijn er nog [andere repositories](/docs/beheren-repositories--documentatie).
 
+### Private dependencies
+
+Een aantal dependencies zijn interne private npm packages. Om deze te kunnen installeren moet de Artifactory registry
+correct geconfigureerd worden, met een persoonlijke authToken, in het root `~/.npmrc` bestand. Meer informatie vind je
+[hier](/docs/recepten-artifactory-configuratie--documentatie).
+
+### Node versie en Volta
+
+We gebruiken Node en npm om dependencies te beheren en scripts uit te voeren.
+
+De Node versie is vastgelegd in package.json.
+
+We gebruiken [Volta](https://get.volta.sh) om deze Node versie te installeren:
+
+```
+volta install node@20.11.0
+node -v
+v20.11.0
+```
+
+Indien de versie niet klopt, moet je de `PATH` variabele aanpassen en de Volta bin vooraan zetten.
+In `~/.zprofile` kan je daarvoor deze lijn toevoegen:
+
+```
+export PATH="/Users/(your user)/.volta/bin:$PATH"
+```
+
 ## Structuur
 
 Hieronder staat de projectstructuur van de [uigov-web-components](https://github.com/milieuinfo/uigov-web-components)
