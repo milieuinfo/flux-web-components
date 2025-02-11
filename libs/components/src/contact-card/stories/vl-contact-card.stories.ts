@@ -27,36 +27,36 @@ export const contactCardDefault = story(
             <dl is="vl-properties-list">
                 <dt is="vl-property-term">Adres</dt>
                 <dd is="vl-property-value">
-                    Hendrik Consciencegebouw<br />Koning Albert II-laan 15<br />1210 Brussel<br /><a
-                        is="vl-link"
-                        href="#"
-                        >Routeplanner</a
+                    Hendrik Consciencegebouw<br />Koning Albert II-laan 15<br />1210 Brussel<br /><vl-link-next href="#"
+                        >Routeplanner</vl-link-next
                     >
                 </dd>
                 <dt is="vl-property-term">Telefoon</dt>
                 <dd is="vl-property-value">
                     <p>
-                        <a is="vl-link" href="#"
+                        <vl-link-next href="#"
                             >02 553 72 02<span is="vl-icon" data-vl-icon="phone" data-vl-after></span
-                        ></a>
+                        ></vl-link-next>
                         (Onthaal Consciencegebouw)
                     </p>
                     <p>
-                        <a is="vl-link" href="#">1700<span is="vl-icon" data-vl-icon="phone" data-vl-after></span></a>
+                        <vl-link-next href="#"
+                            >1700<span is="vl-icon" data-vl-icon="phone" data-vl-after></span
+                        ></vl-link-next>
                         (Infolijn Onderwijs)
                     </p>
                 </dd>
                 <dt is="vl-property-term">E-mail</dt>
                 <dd is="vl-property-value">
-                    <a is="vl-link" href="#"
+                    <vl-link-next href="#"
                         >onderwijs.vlaanderen@vlaanderen.be<span is="vl-icon" data-vl-icon="mail" data-vl-after></span
-                    ></a>
+                    ></vl-link-next>
                 </dd>
                 <dt is="vl-property-term">Website</dt>
                 <dd is="vl-property-value">
-                    <a is="vl-link" href="#"
+                    <vl-link-next href="#"
                         >http://onderwijs.vlaanderen.be<span is="vl-icon" data-vl-icon="external" data-vl-after></span
-                    ></a>
+                    ></vl-link-next>
                 </dd>
             </dl>
         </vl-properties>

@@ -1,6 +1,6 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { vlGridStyles, vlResetStyles } from '@domg-wc/common-utilities/css';
 import { VlColumnElement, VlGridElement } from '@domg-wc/elements';
-import { gridStyle, resetStyle } from '@domg/govflanders-style/common';
 import { contactCardStyle } from '@domg/govflanders-style/component';
 import contactCardUigStyle from './vl-contact-card.uig-css';
 
@@ -13,17 +13,17 @@ export class VlContactCardComponent extends BaseElementOfType(HTMLElement) {
     constructor() {
         super(`
             <style>
-                ${resetStyle}
-                ${gridStyle}
+                ${vlResetStyles}
                 ${contactCardStyle}
                 ${contactCardUigStyle}
+                ${vlGridStyles}
             </style>
             <div class="vl-contact-data">
-                <div is="vl-grid" data-vl-is-stacked>
-                    <div is="vl-column" data-vl-size="3" data-vl-medium-size="12">
+                <div class="vl-grid-next">
+                    <div class="vl-column-next vl-column-next--4 vl-column-next--m-12">
                         <slot name="info"></slot>
                     </div>
-                    <div is="vl-column" data-vl-size="8" data-vl-medium-size="12" data-vl-push="1" class="vl-push--reset--m">
+                    <div class="vl-column-next vl-column-next--8 vl-column-next--m-12">
                         <slot name="properties"></slot>
                     </div>
                 </div>
