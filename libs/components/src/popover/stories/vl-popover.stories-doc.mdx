@@ -66,7 +66,7 @@ Je kan een lijst van acties toevoegen aan de popover en die acties markeren als 
 
 <Canvas of={VlPopoverStories.PopoverActions} />
 
-Hieronder vind je een voorbeeld implementatie met LitElement
+Hieronder vind je een voorbeeld implementatie met LitElement:
 
 <details>
     <summary>Toon HTML template voorbeeld</summary>
@@ -94,6 +94,21 @@ Hieronder vind je een voorbeeld implementatie met LitElement
     `} language="ts" dark={true} />
 </details>
 
+### Popover Actions Divider
+
+Een lijst van acties kan visueel opgesplitst worden adhv de horizontale regel: `<hr class="vl-separator-next" />`.
+
+<Source
+    code={`<vl-popover-action-list>
+    <vl-popover-action icon="search">Zoeken</vl-popover-action>
+    <vl-popover-action icon="bell">Rapportenoverzicht</vl-popover-action>
+    <vl-popover-action icon="pin">Vind locatie</vl-popover-action>
+    <hr class="vl-separator-next" />
+    <vl-popover-action icon="save">Bewaren</vl-popover-action>
+    <vl-popover-action icon="trash">Verwijderen</vl-popover-action>
+</vl-popover-action-list>`}
+/>
+<Canvas of={VlPopoverStories.PopoverActionsDivider} />
 
 ## Referenties
 

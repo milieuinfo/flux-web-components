@@ -6,9 +6,9 @@ import { html } from 'lit-html';
 import { VlPopoverActionListComponent } from '../vl-popover-action-list.component';
 import { VlPopoverActionComponent } from '../vl-popover-action.component';
 import { VlPopoverComponent } from '../vl-popover.component';
+import { popoverActionArgs, popoverActionArgTypes } from './vl-popover-action.stories-arg';
 import { popoverArgTypes, popoverDefaultArgs } from './vl-popover.stories-arg';
 import popoverDoc from './vl-popover.stories-doc.mdx';
-import { popoverActionArgs, popoverActionArgTypes } from './vl-popover-action.stories-arg';
 
 registerWebComponents([VlPopoverComponent, VlPopoverActionComponent, VlPopoverActionListComponent]);
 
@@ -118,6 +118,38 @@ PopoverActions.storyName = 'vl-popover - actions';
 PopoverActions.args = popoverActionArgs;
 PopoverActions.argTypes = popoverActionArgTypes;
 PopoverActions.parameters = {
+    controls: {
+        include: ['selected'],
+    },
+};
+
+export const PopoverActionsDivider = story(popoverActionArgs, ({ selected }) => {
+    const actionListClickHandler = (event: CustomEvent) => {
+        const actionElement = event.target as VlPopoverActionComponent;
+        action('click')('vl-popover-action clicked > ' + actionElement.action);
+        const allActions = Array.from(actionElement.parentElement?.querySelectorAll('vl-popover-action') || []);
+        allActions.forEach((action) => {
+            if (action !== actionElement) {
+                action.removeAttribute('selected');
+            }
+        });
+        actionElement.setAttribute('selected', '');
+    };
+    return html`
+        <vl-popover-action-list @click=${actionListClickHandler}>
+            <vl-popover-action selected=${selected} icon="search">Zoeken</vl-popover-action>
+            <vl-popover-action icon="bell">Rapportenoverzicht</vl-popover-action>
+            <vl-popover-action icon="pin">Vind locatie</vl-popover-action>
+            <hr class="vl-separator-next" />
+            <vl-popover-action icon="save">Bewaren</vl-popover-action>
+            <vl-popover-action icon="trash">Verwijderen</vl-popover-action>
+        </vl-popover-action-list>
+    `;
+});
+PopoverActionsDivider.storyName = 'vl-popover - actions divider';
+PopoverActionsDivider.args = popoverActionArgs;
+PopoverActionsDivider.argTypes = popoverActionArgTypes;
+PopoverActionsDivider.parameters = {
     controls: {
         include: ['selected'],
     },

@@ -7,8 +7,6 @@ const styles: CSSResult = css`
         gap: 1rem;
         cursor: pointer;
         color: #0055cc;
-        font-weight: 500;
-        font-size: 16px;
         padding-left: 0.7rem;
         padding-right: 0.7rem;
     }
