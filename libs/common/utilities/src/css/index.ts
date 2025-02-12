@@ -19,4 +19,5 @@ export {
     vlMediaScreenMedium,
     vlMediaScreenLarge,
 } from './base/var/vl-media-screen.css';
-export { globalStyles } from './global-styles';
+export { vlResetStyles } from './base/reset/vl-reset.css';
+export { visibilityStyles } from './layout/visibility/visibility.css';
