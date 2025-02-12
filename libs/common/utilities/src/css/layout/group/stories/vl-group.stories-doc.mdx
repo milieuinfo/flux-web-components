@@ -33,19 +33,22 @@ Default worden items in een `vl-group-next` naast elkaar (horizontaal) gegroepee
 
 ### Verticaal Groeperen
 
-Met `vl-group-next--column` worden items onder elkaar gegroepeerd, in onderstaand voorbeeld wordt ook
+Met `vl-group-next--column` worden items onder elkaar gegroepeerd. In onderstaand voorbeeld wordt ook
 `vl-group-next--separator-column` toegevoegd.
 
 <Canvas of={VlGroupStories.GroupAccordions} />
 
 ### Uitlijning
 
-Default worden items links uitgelijnd, centreren kan met `vl-group-next--justify-center`, rechts uitlijnen
-met `vl-group-next--justify-end`. In kolom layout wijzigt de richting, dan wordt er respectievelijk boven, midden
-of onderaan uitgelijnd.
+Default worden items links uitgelijnd. Centreren kan met `vl-group-next--justify-center`, rechts uitlijnen
+met `vl-group-next--justify-end`. In combinatie met de kolom layout (`vl-group-next--column`), wijzigt de richting.
+Er wordt dan respectievelijk boven, midden of onderaan uitgelijnd.
 
 Met `vl-group-next--space-between` wordt het eerste item uiterst links gezet, het laaste uiterst rechts en de
 overige ertussen, gelijkmatig verdeeld.
+
+Met `vl-group-next--baseline` worden de items uitgelijnd volgens de tekst basis van hun eerste element.
+Dit is vooral handig voor items met een verschillende `font-size`, zoals een heading met daarnaast een tekstuele link.
 
 De container waarin uitgelijnd wordt dient ruimte te hebben om uit te lijnen!
 
@@ -56,13 +59,13 @@ in kolom layout `vl-group-next--separator-column`.
 
 ### Responsief
 
-Er zijn de responsieve style-classes `vl-group-next--collapse-l` / `vl-group-next--collapse-m` /
-`vl-group-next--collapse-s` / `vl-group-next--collapse-cs` voor 4 verschillende scherm groottes: **large** (&gt;1023px),
+Er bestaan 4 responsieve style-classes `vl-group-next--collapse-l` / `vl-group-next--collapse-m` /
+`vl-group-next--collapse-s` / `vl-group-next--collapse-cs` voor de verschillende scherm groottes: **large** (&gt;1023px),
 **medium** (&lt;1023px), **small** (&lt;767px) en **extra-small** (&lt;500px). Door de desbetreffende class toe te
 voegen wordt er bij / vanaf die desbetreffende scherm grootte links uitgelijnd in kolom layout.
 
 ### Input Group
 
-De style-class `vl-group-next--input-group` is er om de groep een specifieke stijl te geven in combinatie met een knop
-en een input veld. De class doet enkel iets in die combinatie. Zie [Input Group [next]](/docs/form-next-input-group--documentatie)
+De style-class `vl-group-next--input-group` is er om de groep een specifieke stijl te geven bij een combinatie van een knop
+en een input veld. De class heeft enkel effect bij die combinatie. Zie [Input Group [next]](/docs/form-next-input-group--documentatie)
 voor meer informatie en voorbeelden.

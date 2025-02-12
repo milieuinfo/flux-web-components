@@ -31,6 +31,10 @@ export const vlGroupStyles: CSSResult = css`
             justify-content: flex-end;
         }
 
+        &.vl-group-next--baseline {
+            align-items: baseline;
+        }
+
         &.vl-group-next--separator-row {
             > * + * {
                 &::before {

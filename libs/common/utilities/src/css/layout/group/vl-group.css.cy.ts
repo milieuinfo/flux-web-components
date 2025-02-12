@@ -94,6 +94,22 @@ describe('group styles', () => {
         });
     });
 
+    it('should have content at the text baseline when specified', () => {
+        cy.mount(html`
+            <style>
+                ${vlGroupStyles}
+            </style>
+            <div class="vl-group-next vl-group-next--baseline cy-group-baseline">
+                <span>item-1</span>
+                <span>item-2</span>
+            </div>
+        `);
+        cy.get('.cy-group-baseline').shouldHaveComputedStyle({
+            style: 'align-items',
+            value: 'baseline',
+        });
+    });
+
     it('should have row separators when specified', () => {
         cy.mount(html`
             <style>
