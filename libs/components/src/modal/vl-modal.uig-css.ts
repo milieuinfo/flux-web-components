@@ -9,9 +9,5 @@ const styles: CSSResult = css`
     .vl-modal-dialog__close {
         cursor: pointer;
     }
-
-    ::slotted(button) {
-        margin-right: 1.4rem;
-    }
 `;
 export default styles;

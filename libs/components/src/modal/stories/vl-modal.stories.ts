@@ -4,8 +4,9 @@ import { html } from 'lit-html';
 import '../vl-modal.component';
 import { VlDatepickerComponent } from '../../datepicker/vl-datepicker.component';
 import { modalArgs, modalArgTypes } from './vl-modal.stories-arg';
+import { VlButtonComponent } from '@domg-wc/components/next/button';
 
-registerWebComponents([VlDatepickerComponent]);
+registerWebComponents([VlDatepickerComponent, VlButtonComponent]);
 
 export default {
     id: 'components-modal',
@@ -41,7 +42,7 @@ export const modalDefault = ({
                 <vl-datepicker></vl-datepicker>
                 Lorem ipsum dolor sit amet.
             </span>
-            <button is="vl-button" slot="button">Start aanvraag</button>
+            <vl-button-next slot="button">Start aanvraag</vl-button-next>
         </vl-modal>
     </div>
 `;
