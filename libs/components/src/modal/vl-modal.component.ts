@@ -1,7 +1,8 @@
 import { awaitUntil, BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { vlGroupStyles } from '@domg-wc/common-utilities/css';
 import { VlActionGroup, VlButtonLinkElement, VlColumnElement, VlGridElement, VlIconElement } from '@domg-wc/elements';
 import { accessibilityStyle, gridStyle, resetStyle } from '@domg/govflanders-style/common';
-import { actionGroupStyle, iconStyle, linkStyle, modalStyle } from '@domg/govflanders-style/component';
+import { iconStyle, linkStyle, modalStyle } from '@domg/govflanders-style/component';
 import '@govflanders/vl-ui-core/dist/js/core.js';
 import '@govflanders/vl-ui-util/dist/js/util.js';
 import './vl-modal.lib.js';
@@ -34,10 +35,10 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
                 ${modalStyle}
                 ${modalUigStyle}
                 ${accessibilityStyle}
-                ${actionGroupStyle}
                 ${iconStyle}
                 ${linkStyle}
                 ${gridStyle}
+                ${vlGroupStyles}
             </style>
             <div class="vl-modal">
                 <dialog class="vl-modal-dialog" data-vl-modal tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-toggle-title" aria-describedby="modal-toggle-description">
@@ -47,7 +48,7 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
                                 <slot name="content">Modal content</slot>
                             </div>
                             <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                                <div id="modal-action-group" is="vl-action-group">
+                                <div id="modal-action-group" class="vl-group-next">
                                     <slot name="button" data-vl-modal-close></slot>
                                     <button is="vl-button-link" id="modal-toggle-cancellable" data-vl-modal-close>
                                         <span is="vl-icon" icon="cross" before></span>Annuleer
@@ -89,6 +90,10 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
 
     get _slotButtonElement() {
         return this._element.querySelector('slot[name="button"]');
+    }
+
+    get _closeButtonElement() {
+        return this._element.querySelector('#close');
     }
 
     get _dressed() {
@@ -198,18 +203,19 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
         }
     }
 
-    _openChangedCallback(oldValue: string, newValue: string) {
+    _openChangedCallback() {
         this.open();
     }
 
     _closableChangedCallback(oldValue: string, newValue: string) {
         if (newValue != undefined) {
-            this._closeButtonElement = this._getCloseButtonTemplate();
             this._dialogElement.setAttribute(VlModalComponent._closableAttribute, '');
-            this._dialogElement.appendChild(this._closeButtonElement);
-        } else if (this._closeButtonElement) {
-            this._closeButtonElement.remove();
+            if (!this._closeButtonElement) {
+                this._dialogElement.appendChild(this._getCloseButtonTemplate());
+            }
+        } else {
             this._dialogElement.removeAttribute(VlModalComponent._closableAttribute);
+            this._closeButtonElement?.remove();
         }
     }
 
