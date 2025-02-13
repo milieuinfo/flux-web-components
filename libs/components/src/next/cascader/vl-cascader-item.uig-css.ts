@@ -8,16 +8,17 @@ const styles: CSSResult = css`
         gap: 1rem;
     }
 
-    .space-between {
-        justify-content: space-between;
-        align-items: center;
-    }
-
     .vl-cascader-link {
         display: flex;
         min-height: 4rem;
         align-items: center;
         width: 100%;
+    }
+
+    vl-link-next::part(button) {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
     }
 `;
 export default styles;

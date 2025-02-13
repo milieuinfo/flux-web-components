@@ -34,5 +34,5 @@ CascaderItemSlots.args = {
     contentSlot:
         '<p slot="content"> Het is de meest westelijk gelegen provincie van Vlaanderen en België en is de enige Belgische provincie die aan de Noordzee ligt. De provincie heeft een oppervlakte van 3.197 km² en telt ruim 1,2 miljoen inwoners. De hoofdstad van West-Vlaanderen is Brugge. </p>',
     label: 'West-Vlaanderen',
-    labelSlot: `<h5 is="vl-h5" data-vl-has-border="" data-vl-alt="" data-vl-no-space-bottom="" slot="label">Provincie: West-Vlaanderen</h5>`,
+    labelSlot: `<vl-title-next type="h5" underline="" alt="" no-space-bottom="" slot="label">Provincie: West-Vlaanderen</vl-title-next>`,
 };
