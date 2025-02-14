@@ -18,6 +18,7 @@ export const tabsArgs = {
     responsiveLabel: '',
     displayStyle: 'default',
     onChangeActiveTab: action('change'),
+    onClickActiveTab: action('vl-click')
 };
 
 export const tabsArgTypes: ArgTypes<typeof tabsArgs> = {
@@ -76,6 +77,14 @@ export const tabsArgTypes: ArgTypes<typeof tabsArgs> = {
     onChangeActiveTab: {
         name: 'change',
         description: 'Afgevuurd na het klikken op een niet actieve tab. Het event bevat het id van de tab.',
+        table: {
+            type: { summary: '{ activeTab: string }' },
+            category: CATEGORIES.EVENTS,
+        },
+    },
+    onClickActiveTab: {
+        name: 'vl-click',
+        description: 'Afgevuurd na het klikken op een tab. Het event bevat het id van de tab.',
         table: {
             type: { summary: '{ activeTab: string }' },
             category: CATEGORIES.EVENTS,

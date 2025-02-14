@@ -21,14 +21,15 @@ export default {
 
 export const TabsDefault = story(
     tabsArgs,
-    ({ activeTab, alt, disableLinks, responsiveLabel, onChangeActiveTab, displayStyle }) => html`
+    ({ activeTab, alt, disableLinks, responsiveLabel, onChangeActiveTab, onClickActiveTab, displayStyle }) => html`
         <vl-tabs
-            data-vl-active-tab=${activeTab}
-            data-vl-display-style=${displayStyle}
-            ?data-vl-alt=${alt}
-            data-vl-responsive-label=${responsiveLabel}
-            ?data-vl-disable-links=${disableLinks}
-            @change=${(event: CustomEvent) => onChangeActiveTab(event.detail)}
+                data-vl-active-tab=${activeTab}
+                data-vl-display-style=${displayStyle}
+                ?data-vl-alt=${alt}
+                data-vl-responsive-label=${responsiveLabel}
+                ?data-vl-disable-links=${disableLinks}
+                @change=${(event: CustomEvent) => onChangeActiveTab(event.detail)}
+                @vl-click=${(event: CustomEvent) => onClickActiveTab(event.detail)}
         >
             <vl-tabs-pane data-vl-id="trein" data-vl-title="Trein">
                 Nullam quis risus eget urna mollis ornare vel eu leo. Duis mollis, est non commodo luctus, nisi erat

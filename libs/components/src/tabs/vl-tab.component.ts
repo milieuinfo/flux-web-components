@@ -47,13 +47,19 @@ export class VlTabComponent extends BaseElementOfType(HTMLLIElement) {
         const a = this.__linkElementTemplate.firstElementChild;
         const slot = this.querySelector('slot');
         a.appendChild(slot);
-        a.addEventListener('click', () => this.__dispatchActiveTabChangedEvent());
+        a.addEventListener('click', (event: any) => {
+            this.__dispatchActiveTabChangedEvent(event);
+        });
         this.appendChild(a);
     }
 
-    __dispatchActiveTabChangedEvent() {
+    __dispatchActiveTabChangedEvent(event: any) {
         if (!this.isActive) {
             this.dispatchEvent(new CustomEvent('change', { detail: { activeTab: this.id }, composed: true }));
+        }
+        // enkel als de gebruiker expliciet klikte een `vl-click` event sturen
+        if (event.screenX && event.screenY) {
+            this.dispatchEvent(new CustomEvent('vl-click', { detail: { activeTab: this.id }, composed: true }));
         }
     }
 
