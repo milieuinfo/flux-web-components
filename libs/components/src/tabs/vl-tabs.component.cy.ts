@@ -39,6 +39,7 @@ type MountDefaultProps = {
     observeTitle?: boolean;
     displayStyle?: DisplayStyle;
     onChangeActiveTab: (activeTab: string) => void;
+    onVlClickActiveTab: (activeTab: string) => void;
 };
 
 const props: MountDefaultProps = {
@@ -52,6 +53,9 @@ const props: MountDefaultProps = {
     onChangeActiveTab: (activeTab) => {
         console.log(activeTab);
     },
+    onVlClickActiveTab: (activeTab) => {
+        console.log(activeTab);
+    },
     displayStyle: 'default',
 };
 
@@ -61,6 +65,7 @@ const mountDefault = ({
     responsiveLabel,
     disableLinks,
     onChangeActiveTab,
+    onVlClickActiveTab,
     observeTitle,
     displayStyle,
 }: MountDefaultProps) => {
@@ -72,6 +77,7 @@ const mountDefault = ({
             ?data-vl-disable-links=${disableLinks}
             data-vl-display-style=${displayStyle}
             @change=${(event: CustomEvent) => onChangeActiveTab(event.detail)}
+            @vl-click=${(event: CustomEvent) => onVlClickActiveTab(event.detail)}
         >
             <vl-tabs-pane data-vl-id="trein" data-vl-title="Trein" ?data-vl-observe-title=${observeTitle}>
                 Nullam quis risus eget urna mollis ornare vel eu leo. Duis mollis, est non commodo luctus, nisi erat
@@ -220,18 +226,22 @@ describe('component vl-tabs-pane - functionality on larger devices', () => {
         document.querySelector('div')?.setAttribute('style', 'width:768px');
     });
 
-    it('should emit event on click tab', () => {
+    it('should emit events on click tab', () => {
         mountDefault({ ...props });
 
         cy.createStubForEvent('vl-tabs', 'change');
+        cy.createStubForEvent('vl-tabs', 'vl-click');
         cy.get('vl-tabs').shadow().find('a#trein').click();
         cy.get('@change').should('have.been.called');
+        cy.get('@vl-click').should('have.been.called');
 
         cy.get('vl-tabs').shadow().find('a#metro').click();
         cy.get('@change').should('have.been.called');
+        cy.get('@vl-click').should('have.been.called');
 
         cy.get('vl-tabs').shadow().find('a#fiets').click();
         cy.get('@change').should('have.been.called');
+        cy.get('@vl-click').should('have.been.called');
     });
 
     it('should show/hide content on click tab', () => {
