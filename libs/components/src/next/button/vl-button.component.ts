@@ -139,7 +139,7 @@ export class VlButtonComponent extends BaseLitElement {
 
         return html`
             <a
-                part="button"
+                part="link"
                 href=${this.disabled ? 'javascript:void(0);' : this.ctaLink}
                 tabindex=${this.disabled ? '-1' : nothing}
                 class=${classMap(classes)}
@@ -166,7 +166,7 @@ export class VlButtonComponent extends BaseLitElement {
             'vl-icon--left-margin': this.iconPlacement === 'after',
         };
 
-        return this.icon ? html`<span class=${classMap(classes)}></span>` : nothing;
+        return this.icon ? html`<span class=${classMap(classes)} part="icon"></span>` : nothing;
     }
 
     handleSlotChange() {
