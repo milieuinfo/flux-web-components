@@ -66,6 +66,12 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
         super.connectedCallback();
 
         this.dress();
+
+        this._shadow.host.addEventListener('keyup', this._onEscape);
+    }
+
+    disconnectedCallback() {
+        this._shadow.host.removeEventListener('keyup', this._onEscape);
     }
 
     get _dialogElement(): HTMLDialogElement {
@@ -117,7 +123,6 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
         if (!this.isOpen()) {
             awaitUntil(() => this._dialogElement.isConnected).then(() => {
                 vl.modal.toggle(this._dialogElement);
-                this._dialogElement?.focus();
             });
         }
     }
@@ -208,8 +213,8 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
     }
 
     _closableChangedCallback(oldValue: string, newValue: string) {
-        if (newValue != undefined) {
-            this._dialogElement.setAttribute(VlModalComponent._closableAttribute, '');
+        if (newValue !== null) {
+            this._dialogElement.setAttribute(VlModalComponent._closableAttribute, newValue);
             if (!this._closeButtonElement) {
                 this._dialogElement.appendChild(this._getCloseButtonTemplate());
             }
@@ -226,6 +231,19 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
             this._slotButtonElement.removeAttribute(VlModalComponent._closeAttribute);
         }
     }
+
+    private _onEscape = (e: KeyboardEvent) => {
+        if (e.code.toLowerCase() === 'escape') {
+            e.preventDefault();
+            e.stopPropagation();
+            const canEscape =
+                this._dialogElement.hasAttribute(VlModalComponent._closableAttribute) &&
+                this._dialogElement.getAttribute(VlModalComponent._closableAttribute) !== 'false';
+            if (canEscape) {
+                this.close();
+            }
+        }
+    };
 }
 
 declare global {

@@ -76,7 +76,11 @@ const clickCustomActionButton = () => {
 };
 
 const closeByPressingEscape = () => {
-    cy.get('body').type('{esc}');
+    // Dit zou moeten werken met `cy.get('body').type('{esc}')`,
+    // Cypress verwacht echter dat `.type()` uitgevoerd wordt op een "typeable" element.
+    // `{ force: true }` is nodig om in de shadow dom te kunnen typen.
+    // (https://github.com/cypress-io/cypress/issues/7741)
+    cy.getDataCy('modal').shadow().find('button').first().type('{esc}', { force: true });
 };
 
 describe('component - vl-modal', () => {
@@ -92,7 +96,7 @@ describe('component - vl-modal', () => {
         isDialogVisible();
     });
 
-    it('should contain a toggable modal by using the cancel button', () => {
+    it('should be able to close the modal by using the cancel button', () => {
         cy.mount(html`${renderOpenButton()} ${renderModal({})}`);
 
         isDialogHidden();
@@ -102,7 +106,7 @@ describe('component - vl-modal', () => {
         isDialogHidden();
     });
 
-    it('should contain a toggable modal by using the close button', () => {
+    it('should be able to close the modal by using the close button', () => {
         // Test met desktop viewport omdat de close button verborgen wordt op mobiel
         cy.viewport(1024, 768);
         cy.mount(html`${renderOpenButton()} ${renderModal({ closable: true })}`);
@@ -114,7 +118,19 @@ describe('component - vl-modal', () => {
         isDialogHidden();
     });
 
-    it('should contain a non closable modal when using the action button', () => {
+    it('should close the modal by pressing escape', () => {
+        cy.mount(html`${renderOpenButton()} ${renderModal({ button: otherActionButton })}`);
+
+        isDialogHidden();
+        openModal();
+        isDialogVisible();
+        closeByPressingEscape();
+        isDialogHidden();
+    });
+});
+
+describe('component - vl-modal - notAutoClosable (true)', () => {
+    it('should NOT automatically close the modal when using the action button', () => {
         cy.mount(html`${renderOpenButton()} ${renderModal({ notAutoClosable: true })}`);
 
         isDialogHidden();
@@ -126,24 +142,37 @@ describe('component - vl-modal', () => {
         isDialogHidden();
     });
 
-    it('should contain an automatically closable modal by clicking the custom action link', () => {
-        cy.mount(html`${renderOpenButton()} ${renderModal({ button: otherActionButton })}`);
+    it('should NOT automatically close the modal when using a custom action', () => {
+        cy.mount(html`${renderOpenButton()} ${renderModal({ notAutoClosable: true, button: otherActionButton })}`);
 
         isDialogHidden();
         openModal();
         isDialogVisible();
         clickCustomActionButton();
+        isDialogVisible();
+        closeWithCancelButton();
         isDialogHidden();
     });
+});
 
-    // TODO: deze test faalt
-    it.skip('should contain a closable modal by pressing escape', () => {
-        cy.mount(html`${renderOpenButton()} ${renderModal({ button: otherActionButton })}`);
+describe('component - vl-modal - notAutoClosable (false)', () => {
+    it('should automatically close the modal when using the action button', () => {
+        cy.mount(html`${renderOpenButton()} ${renderModal({ notAutoClosable: false })}`);
 
         isDialogHidden();
         openModal();
         isDialogVisible();
-        closeByPressingEscape();
+        clickActionButton();
+        isDialogHidden();
+    });
+
+    it('should automatically close the modal when using a custom action', () => {
+        cy.mount(html`${renderOpenButton()} ${renderModal({ notAutoClosable: false, button: otherActionButton })}`);
+
+        isDialogHidden();
+        openModal();
+        isDialogVisible();
+        clickCustomActionButton();
         isDialogHidden();
     });
 });
