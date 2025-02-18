@@ -34,7 +34,6 @@ export default defineConfig({
                         '@domg-wc/form': path.resolve('../../libs/form/src/'),
                         '@domg-wc/map': path.resolve('../../libs/map/src/'),
                         '@domg-wc/sections': path.resolve('../../libs/sections/src/'),
-                        '@domg-wc/qlik': path.resolve('../../libs/qlik/src/'),
                     },
                 },
             },

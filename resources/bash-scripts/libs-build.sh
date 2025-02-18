@@ -40,11 +40,6 @@ tsc -p ./libs/map/tsconfig.lib.json
 node ./resources/utils-build/copy-map-js.mjs
 echo '[done] - build-libs - map'
 
-#qlik
-tsc -p ./libs/qlik/tsconfig.lib.json
-node ./resources/utils-build/copy-qlik-js.mjs
-echo '[done] - build-libs - qlik'popd >/dev/null
-
 ## sections
 tsc -p ./libs/sections/tsconfig.lib.json
 node ./resources/utils-build/copy-sections-js.mjs

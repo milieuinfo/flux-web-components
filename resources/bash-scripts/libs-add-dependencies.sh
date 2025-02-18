@@ -19,7 +19,6 @@ npm list $(npx depcheck ./build/dist/libs/elements --oneline | tail -n +2) --jso
 npm list $(npx depcheck ./build/dist/libs/components --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/components-dta.json
 npm list $(npx depcheck ./build/dist/libs/form --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/form-dta.json
 npm list $(npx depcheck ./build/dist/libs/map --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/map-dta.json
-npm list $(npx depcheck ./build/dist/libs/qlik --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/qlik-dta.json
 npm list $(npx depcheck ./build/dist/libs/sections --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/sections-dta.json
 
 # breidt de package.json's van de libraries uit met de ontbrekende dependencies
@@ -35,8 +34,6 @@ cd ../form
 jq -r '.dependencies | to_entries[] | "jq '\''.dependencies[\"\(.key)\"]=\"\(.value.version)\"'\'' package.json > tmp.json && mv tmp.json package.json"' ../../../dep-to-add/form-dta.json | bash
 cd ../map
 jq -r '.dependencies | to_entries[] | "jq '\''.dependencies[\"\(.key)\"]=\"\(.value.version)\"'\'' package.json > tmp.json && mv tmp.json package.json"' ../../../dep-to-add/map-dta.json | bash
-cd ../qlik
-jq -r '.dependencies | to_entries[] | "jq '\''.dependencies[\"\(.key)\"]=\"\(.value.version)\"'\'' package.json > tmp.json && mv tmp.json package.json"' ../../../dep-to-add/qlik-dta.json | bash
 cd ../sections
 jq -r '.dependencies | to_entries[] | "jq '\''.dependencies[\"\(.key)\"]=\"\(.value.version)\"'\'' package.json > tmp.json && mv tmp.json package.json"' ../../../dep-to-add/sections-dta.json | bash
 

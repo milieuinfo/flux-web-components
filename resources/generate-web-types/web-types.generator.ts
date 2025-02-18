@@ -16,7 +16,6 @@ import { buildWTConfigComponents } from './wt-config-build/components.wt-config'
 import { buildWTConfigElements } from './wt-config-build/elements.wt-config';
 import { buildWTConfigForm } from './wt-config-build/form.wt-config';
 import { buildWTConfigMap } from './wt-config-build/map.wt-config';
-import { buildWTConfigQlik } from './wt-config-build/qlik.wt-config';
 import { buildWTConfigSections } from './wt-config-build/sections.wt-config';
 import vluxMetaData from '../../apps/storybook/.storybook/vlux-meta-data/vlux-meta-data.json';
 
@@ -206,5 +205,4 @@ generateWebTypesFile('components', buildWTConfigComponents, '../../libs/componen
 generateWebTypesFile('elements', buildWTConfigElements, '../../libs/elements');
 generateWebTypesFile('form', buildWTConfigForm, '../../libs/form');
 generateWebTypesFile('map', buildWTConfigMap, '../../libs/map');
-generateWebTypesFile('qlik', buildWTConfigQlik, '../../libs/qlik');
 generateWebTypesFile('sections', buildWTConfigSections, '../../libs/sections');

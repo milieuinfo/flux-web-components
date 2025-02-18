@@ -120,7 +120,6 @@
     },
     "dependencies": {
         "@domg/govflanders-style": "21.3.0",
-        "@domg/qlik-lib": "1.0.16",
         "@floating-ui/dom": "1.6.3",
         "@govflanders/vl-ui-accordion": "21.0.2",
         "@govflanders/vl-ui-code-preview": "21.0.2",
@@ -129,11 +128,9 @@
         "@govflanders/vl-ui-progress-bar": "21.0.2",
         "@govflanders/vl-ui-util": "21.0.2",
         "@lit/react": "1.0.3",
-        "@nebula.js/stardust": "4.13.0",
         "@open-wc/form-control": "1.0.0",
         "@open-wc/form-helpers": "1.0.0",
         "@swc/helpers": "0.5.12",
-        "@types/qlik-engineapi": "12.67.16",
         "@ungap/custom-elements": "1.3.0",
         "bootstrap-sass": "3.4.3",
         "choices.js": "10.2.0",
@@ -161,7 +158,6 @@
         "./libs/components/components.web-types.json",
         "./libs/form/form.web-types.json",
         "./libs/map/map.web-types.json",
-        "./libs/qlik/qlik.web-types.json",
         "./libs/sections/sections.web-types.json"
     ],
     "overrides": {

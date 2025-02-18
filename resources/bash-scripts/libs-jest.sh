@@ -36,10 +36,6 @@ cd ./libs/map
 jest
 cd ../..
 
-cd ./libs/qlik
-jest
-cd ../..
-
 cd ./libs/sections
 jest
 cd ../..

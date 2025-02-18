@@ -14,7 +14,6 @@ cd ../..
 #npx eslint ./libs/form/src
 #npx eslint ./libs/integration/src
 #npx eslint ./libs/map/src
-#npx eslint ./libs/qlik/src
 #npx eslint ./libs/sections/src
 
 # back to the initial folder
