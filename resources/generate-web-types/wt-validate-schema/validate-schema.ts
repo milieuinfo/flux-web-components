@@ -2,7 +2,6 @@ import componentsWebTypes from '../../../libs/components/components.web-types.js
 import elementsWebTypes from '../../../libs/elements/elements.web-types.json';
 import formWebTypes from '../../../libs/form/form.web-types.json';
 import mapWebTypes from '../../../libs/map/map.web-types.json';
-import qlikWebTypes from '../../../libs/qlik/qlik.web-types.json';
 import sectionsWebTypes from '../../../libs/sections/sections.web-types.json';
 import webTypesSchema from './web-types.schema.json';
 
@@ -20,9 +19,6 @@ console.log('form - schema errors', schemaValidator.getLastErrors());
 
 console.log('map - schema valid:', schemaValidator.validate(mapWebTypes, webTypesSchema));
 console.log('map - schema errors', schemaValidator.getLastErrors());
-
-console.log('qlik - schema valid:', schemaValidator.validate(qlikWebTypes, webTypesSchema));
-console.log('qlik - schema errors', schemaValidator.getLastErrors());
 
 console.log('sections - schema valid:', schemaValidator.validate(sectionsWebTypes, webTypesSchema));
 console.log('sections - schema errors', schemaValidator.getLastErrors());

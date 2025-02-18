@@ -12,7 +12,6 @@ import {
 } from './compare-wc-wt-elements';
 import { formWCNameCount, formWCWithoutWT, formWTNameCount, formWTWithoutWC } from './compare-wc-wt-form';
 import { mapWCNameCount, mapWCWithoutWT, mapWTNameCount, mapWTWithoutWC } from './compare-wc-wt-map';
-import { qlikWCNameCount, qlikWCWithoutWT, qlikWTNameCount, qlikWTWithoutWC } from './compare-wc-wt-qlik';
 import {
     sectionWCNameCount,
     sectionWCWithoutWT,
@@ -47,12 +46,6 @@ describe('valideer de volledigheid van de gegenereerde web-types', () => {
         expect(mapWTNameCount).toEqual(40);
         expect(mapWCWithoutWT).toStrictEqual([]);
         expect(mapWTWithoutWC).toStrictEqual([]);
-    });
-    it('qlik - valideer de volledigheid van de web-types', () => {
-        expect(qlikWCNameCount).toEqual(4);
-        expect(qlikWTNameCount).toEqual(3);
-        expect(qlikWCWithoutWT).toStrictEqual([]);
-        expect(qlikWTWithoutWC).toStrictEqual([]);
     });
     it('sections - valideer de volledigheid van de web-types', () => {
         expect(sectionWCNameCount).toEqual(13);

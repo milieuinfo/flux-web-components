@@ -17,7 +17,6 @@ const config: StorybookConfig = {
         '../../../libs/form/src/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/map/src/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/sections/src/**/*.stories.@(js|jsx|ts|tsx)',
-        '../../../libs/qlik/src/**/*.stories.@(js|jsx|ts|tsx)',
     ],
     addons: [
         '@storybook/addon-essentials',

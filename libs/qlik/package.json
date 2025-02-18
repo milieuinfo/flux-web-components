@@ -1,9 +1,0 @@
-{
-    "name": "@domg-wc/qlik",
-    "version": "DOMG-WC-VERSION",
-    "author": "UIG <uig@vlaanderen.be>",
-    "publishConfig": {
-        "registry": "https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/"
-    },
-    "web-types": "./qlik.web-types.json"
-}

@@ -100,13 +100,4 @@ fi
 npm pack &> /dev/null
 echo '[done] - pack - map'
 
-cd ../qlik
-npm pkg set sideEffects='["./*/**"]' --json >/dev/null
-echo '[done] - set sideEffects - qlik'
-if [[ $1 == "develop" ]]; then
-    npm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'
-    echo '[done] - set publishConfig to snapshot-npm - qlik'
-fi
-npm pack &> /dev/null
-echo '[done] - pack - qlik'
 cd ..

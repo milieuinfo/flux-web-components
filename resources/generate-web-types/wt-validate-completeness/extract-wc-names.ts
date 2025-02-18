@@ -99,9 +99,6 @@ export const extractMapWCNames = () =>
         ]
     );
 
-export const extractQlikWCNames = () =>
-    extractWCNames(path.resolve('../../../libs/qlik/src'), ['.component.ts'], null, null);
-
 export const extractSectionWCNames = () =>
     extractWCNames(path.resolve('../../../libs/sections/src'), ['.section.ts'], ['vl-'], null);
 

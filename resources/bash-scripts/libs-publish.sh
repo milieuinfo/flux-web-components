@@ -41,7 +41,3 @@ echo "[done] - publish - @domg-wc/sections-${RELEASE_VERSION}"
 cd ../map
 npm publish domg-wc-map-${RELEASE_VERSION}.tgz
 echo "[done] - publish - @domg-wc/map-${RELEASE_VERSION}"
-
-cd ../qlik
-npm publish domg-wc-qlik-${RELEASE_VERSION}.tgz
-echo "[done] - publish - @domg-wc/qlik-${RELEASE_VERSION}"

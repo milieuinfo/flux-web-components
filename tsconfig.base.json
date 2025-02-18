@@ -16,7 +16,6 @@
             "@domg-wc/form/*": ["libs/form/src/*"],
             "@domg-wc/integration/*": ["libs/integration/src/*"],
             "@domg-wc/map": ["libs/map/src/index.ts"],
-            "@domg-wc/qlik": ["libs/qlik/src/index.ts"],
             "@domg-wc/sections": ["libs/sections/src/index.ts"],
             "@domg-wc/test-support": ["libs/support/test-support/src/index.ts"]
         },
