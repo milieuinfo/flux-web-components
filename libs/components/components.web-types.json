@@ -2381,6 +2381,84 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-tabs--documentatie"
                 },
                 {
+                    "name": "vl-tabs-next",
+                    "description": "Gebruik de `tabs` component om gerelateerde informatie op te splitsen in kleinere stukken content.\nOp mobiel wordt de tab navigatie omgevormd tot een uitklapbaar menu.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-tabs--documentatie",
+                    "attributes": [
+                        {
+                            "name": "data-vl-custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "data-vl-active-tab",
+                            "description": "Het id van de actieve tab. De tab in kwestie wordt geselecteerd bij het aanpassen van dit id.",
+                            "default": ""
+                        },
+                        {
+                            "name": "data-vl-alt",
+                            "description": "Toont de alt variant van de tabs. Deze variant dient gebruikt te worden als subnavigatie onder de functional header.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-disable-links",
+                            "description": "Zet de automatische url manipulaties uit.<br>Dit attribuut wordt enkel bij de initiële render van een tab gebruikt en werkt niet dynamisch.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-responsive-label",
+                            "description": "Wordt afgebeeld op mobile wanneer de tabs samengevoegd worden tot een uitklapbaar menu. Wordt enkel afgebeeld wanneer er geen tab geselecteerd is.",
+                            "default": ""
+                        },
+                        {
+                            "name": "data-vl-display-style",
+                            "description": "Geeft aan op welke manier de tabs getoond worden.<br>Standaard gedrag (`default`) is responsief; bij een breedte groter dan 768px is stijl de `tabs` stijl, anders is het de `collapsed` stijl.<br>Je kan ook expliciet de `tabs` of `collapsed` stijl kiezen die respectievelijk altijd de tabs of altijd de collapsed stijl toont.",
+                            "default": "default"
+                        }
+                    ],
+                    "js": {
+                        "events": [
+                            {
+                                "name": "change",
+                                "description": "Afgevuurd na het klikken op een niet actieve tab. Het event bevat het id van de tab.",
+                                "type": "{ activeTab: string }"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-tabs-pane-next",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-tabs--documentatie",
+                    "attributes": [
+                        {
+                            "name": "data-vl-custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "data-vl-id",
+                            "description": "De id van de tabs-pane."
+                        },
+                        {
+                            "name": "data-vl-title",
+                            "description": "De titel van de tabs-pane."
+                        },
+                        {
+                            "name": "data-vl-observe-title",
+                            "description": "Duidt aan of de titel van de tabs-pane geobserveerd wordt.",
+                            "default": "false"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-tab-next",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-tabs--documentatie"
+                },
+                {
+                    "name": "vl-tab-section-next",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-tabs--documentatie"
+                },
+                {
                     "name": "vl-template",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-template--documentatie",
                     "attributes": [
