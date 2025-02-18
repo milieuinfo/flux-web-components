@@ -1,4 +1,4 @@
-import { defaultArgs, defaultArgTypes } from '@domg-wc/common-storybook';
+import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@domg-wc/common-storybook';
 import { ArgTypes } from '@storybook/web-components';
 
 export const modalArgs = {
@@ -15,7 +15,8 @@ export const modalArgTypes: ArgTypes = {
     ...defaultArgTypes(),
     title: {
         name: 'data-vl-title',
-        description: 'Attribute used to add an heading 2 (h2) title. When empty there is no heading element created.',
+        description:
+            'Attribuut gebruikt om een `<h2>` titel toe te voegen. Indien leeg, wordt er geen titel element aangemaakt.',
         table: {
             type: { summary: 'String' },
             defaultValue: { summary: '' },
@@ -24,7 +25,7 @@ export const modalArgTypes: ArgTypes = {
     },
     open: {
         name: 'data-vl-open',
-        description: 'Attribute to immediately open up the modal after rendering.',
+        description: 'Attribuut om de modal onmiddellijk te openen na de rendering.',
         table: {
             type: { summary: 'Boolean' },
             defaultValue: { summary: 'false' },
@@ -33,7 +34,8 @@ export const modalArgTypes: ArgTypes = {
     },
     closable: {
         name: 'data-vl-closable',
-        description: 'Attribute to make the modal closable through the close icon in the top right corner.',
+        description:
+            'Attribuut om de modal sluitbaar te maken via het "Sluit"-icoon in de rechterbovenhoek of door de "Escape"-toets te gebruiken.',
         table: {
             type: { summary: 'Boolean' },
             defaultValue: { summary: 'false' },
@@ -42,7 +44,7 @@ export const modalArgTypes: ArgTypes = {
     },
     notCancellable: {
         name: 'data-vl-not-cancellable',
-        description: 'Attribute used to make the modal non cancellable',
+        description: 'Attribuut gebruikt om de modal niet annuleerbaar te maken.',
         table: {
             type: { summary: 'Boolean' },
             defaultValue: { summary: 'false' },
@@ -51,7 +53,8 @@ export const modalArgTypes: ArgTypes = {
     },
     notAutoClosable: {
         name: 'data-vl-not-auto-closable',
-        description: 'Attribute to disable the closing of the modal when clicking the action in the button slot.',
+        description:
+            'Attribuut om het afsluiten van de modal uit te schakelen bij het klikken op de actie in het button-slot.',
         table: {
             type: { summary: 'Boolean' },
             defaultValue: { summary: 'false' },
@@ -60,11 +63,27 @@ export const modalArgTypes: ArgTypes = {
     },
     allowOverflow: {
         name: 'data-vl-allow-overflow',
-        description: 'Attribute to allow the content of the modal to overflow.',
+        description: 'Attribuut om de afgesneden inhoud van de modal zichtbaar te maken.',
         table: {
             type: { summary: 'Boolean' },
             defaultValue: { summary: 'false' },
             category: 'Attributes',
+        },
+    },
+    contentSlot: {
+        name: 'content',
+        description: 'Dit slot bevat de HTML inhoud van de modal.',
+        table: {
+            type: { summary: TYPES.HTML },
+            category: CATEGORIES.SLOTS,
+        },
+    },
+    buttonSlot: {
+        name: 'button',
+        description: 'Gebruik dit slot om de primaire actie mee te geven.',
+        table: {
+            type: { summary: TYPES.HTML },
+            category: CATEGORIES.SLOTS,
         },
     },
 };
