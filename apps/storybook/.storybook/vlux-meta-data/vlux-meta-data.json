@@ -504,6 +504,36 @@
         "nextText": "vl-steps-next",
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#steps--step)"
     },
+    "components-tabs": {
+        "vStatus": "v1-replace"
+    },
+    "components-tabs-tabs": {
+        "vStatus": "v1-replace",
+        "legacyText": "vl-tabs",
+        "nextText": "[vl-tabs-next](/docs/components-next-tabs-tabs--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#tabs--tabs-pane)"
+    },
+    "components-tabs-tabs-pane": {
+        "vStatus": "v1-replace",
+        "legacyText": "vl-tabs-pane",
+        "nextText": "[vl-tabs-pane-next](/docs/components-next-tabs-tabs-pane--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#tabs--tabs-pane)"
+    },
+    "components-next-tabs": {
+        "vStatus": "v2-next"
+    },
+    "components-next-tabs-tabs": {
+        "vStatus": "v2-next",
+        "legacyText": "[vl-tabs](/docs/components-tabs-tabs--documentatie)",
+        "nextText": "vl-tabs-next",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#tabs--tabs-pane)"
+    },
+    "components-next-tabs-tabs-pane": {
+        "vStatus": "v2-next",
+        "legacyText": "[vl-tabs-pane](/docs/components-tabs-tabs-pane--documentatie)",
+        "nextText": "vl-tabs-pane-next",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#tabs--tabs-pane)"
+    },
     "elements-text": {
         "vStatus": "v1-replace",
         "legacyText": "vl-text",

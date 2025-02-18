@@ -30,8 +30,8 @@ describe('valideer de volledigheid van de gegenereerde web-types', () => {
         expect(elementWTWithoutWC).toStrictEqual([]);
     });
     it('components - valideer de volledigheid van de web-types', () => {
-        expect(componentWCNameCount).toEqual(108);
-        expect(componentWTNameCount).toEqual(93);
+        expect(componentWCNameCount).toEqual(112);
+        expect(componentWTNameCount).toEqual(97);
         expect(componentWCWithoutWT).toStrictEqual([]);
         expect(componentWTWithoutWC).toStrictEqual([]);
     });

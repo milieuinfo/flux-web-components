@@ -1,7 +1,6 @@
 import { buttonArgTypes } from '@domg-wc/components/next/button/stories/vl-button.stories-arg';
 import { cascaderItemArgTypes } from '@domg-wc/components/next/cascader/stories/vl-cascader-item.stories-arg';
 import { cascaderArgTypes } from '@domg-wc/components/next/cascader/stories/vl-cascader.stories-arg';
-import { tableArgTypes } from '@domg-wc/components/next/table/stories/vl-table.stories-arg';
 import { doormatArgTypes } from '@domg-wc/components/next/doormat/stories/vl-doormat.stories-arg';
 import { iconArgTypes } from '@domg-wc/components/next/icon/stories/vl-icon.stories-arg';
 import { infotextArgTypes } from '@domg-wc/components/next/infotext/stories/vl-infotext.stories-arg';
@@ -12,8 +11,12 @@ import { searchFilterArgTypes } from '@domg-wc/components/next/search-filter/sto
 import { searchResultArgTypes } from '@domg-wc/components/next/search-result/stories/vl-search-result.stories-arg';
 import { stepArgTypes } from '@domg-wc/components/next/steps/stories/vl-step.stories-arg';
 import { stepsArgTypes } from '@domg-wc/components/next/steps/stories/vl-steps.stories-arg';
+import { tableArgTypes } from '@domg-wc/components/next/table/stories/vl-table.stories-arg';
+import { tabsPaneNextArgTypes } from '@domg-wc/components/next/tabs/stories/vl-tabs-pane.stories-arg';
+import { tabsNextArgTypes } from '@domg-wc/components/next/tabs/stories/vl-tabs.stories-arg';
 import { textArgTypes } from '@domg-wc/components/next/text/stories/vl-text.stories-arg';
 import { titleArgTypes } from '@domg-wc/components/next/title/stories/vl-title.stories-arg';
+import { toasterArgTypes } from '@domg-wc/components/next/toaster/stories/vl-toaster.stories-arg';
 import { videoPlayerArgTypes } from '@domg-wc/components/next/video-player/stories/vl-video-player.stories-arg';
 import { accordionListArgTypes } from '../../../libs/components/src/accordion-list/stories/vl-accordion-list.stories-arg';
 import { accordionArgTypes } from '../../../libs/components/src/accordion/stories/vl-accordion.stories-arg';
@@ -53,7 +56,6 @@ import { tabsArgTypes } from '../../../libs/components/src/tabs/stories/vl-tabs.
 import { templateArgTypes } from '../../../libs/components/src/template/stories/vl-template.stories-arg';
 import { textareaArgTypes } from '../../../libs/components/src/textarea/stories/vl-textarea.stories-arg';
 import { toasterArgTypes as toasterElementArgTypes } from '../../../libs/components/src/toaster/stories/vl-toaster.stories-arg';
-import { toasterArgTypes } from '@domg-wc/components/next/toaster/stories/vl-toaster.stories-arg';
 import { toggleButtonArgTypes } from '../../../libs/components/src/toggle-button/stories/vl-toggle-button.stories-arg';
 import { tooltipArgTypes } from '../../../libs/components/src/tooltip/stories/vl-tooltip.stories-arg';
 import { typographyArgTypes } from '../../../libs/components/src/typography/stories/vl-typography.stories-arg';
@@ -355,6 +357,15 @@ export const buildWTConfigComponents: WTConfigArray = [
     buildWTConfig('vl-tabs-pane', tabsPaneArgTypes, null, '/docs/components-tabs--documentatie'),
     buildWTConfig('vl-tab', null, null, '/docs/components-tabs--documentatie'),
     buildWTConfig('vl-tab-section', null, null, '/docs/components-tabs--documentatie'),
+    buildWTConfig(
+        'vl-tabs-next',
+        tabsNextArgTypes,
+        '../../libs/components/src/next/tabs/stories/vl-tabs.stories-doc.mdx',
+        '/docs/components-next-tabs--documentatie'
+    ),
+    buildWTConfig('vl-tabs-pane-next', tabsPaneNextArgTypes, null, '/docs/components-next-tabs--documentatie'),
+    buildWTConfig('vl-tab-next', null, null, '/docs/components-next-tabs--documentatie'),
+    buildWTConfig('vl-tab-section-next', null, null, '/docs/components-next-tabs--documentatie'),
     buildWTConfig('vl-template', templateArgTypes, null, '/docs/components-template--documentatie'),
     buildWTConfig(
         'vl-textarea',
