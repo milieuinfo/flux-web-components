@@ -1,20 +1,19 @@
 import { LitElement, html } from 'lit';
 import { registerWebComponents, webComponent } from '@domg-wc/common-utilities';
 import { VlPopoverComponent } from '@domg-wc/components';
+import { VlButtonComponent } from '@domg-wc/components/next/button';
 
 @webComponent('vl-popover-menu')
 export class VlPopoverMenuComponent extends LitElement {
     static {
-        registerWebComponents([VlPopoverComponent]);
+        registerWebComponents([VlPopoverComponent, VlButtonComponent]);
     }
 
     override render() {
         return html`
             <div>
-                <a is="vl-link" id="btn-acties">
-                    <span is="vl-icon" data-vl-icon="nav-show-more-vertical"></span>
-                </a>
-                <vl-popover for="btn-acties" placement="bottom-end" distance="5">
+                <vl-button-next ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button-next>
+                <vl-popover for="btn-acties" placement="bottom-end">
                     <vl-popover-action-list>
                         <vl-popover-action icon="search">Zoeken</vl-popover-action>
                         <vl-popover-action icon="edit">Aanpassen</vl-popover-action>

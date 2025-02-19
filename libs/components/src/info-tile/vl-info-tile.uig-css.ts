@@ -2,9 +2,12 @@ import { css, CSSResult } from 'lit';
 
 // deze css is gegenereerd uit de oude custom scss
 const styles: CSSResult = css`
-    :host([data-vl-toggleable]) .vl-info-tile__header__wrapper {
-        width: 100%;
-        z-index: 1;
+    :host .vl-info-tile__header {
+        flex-direction: column;
+    }
+    :host .vl-info-tile__header__wrapper {
+        display: flex;
+        justify-content: space-between;
     }
     :host([data-vl-toggleable]) .vl-info-tile__header__wrapper .vl-toggle {
         width: 100%;
@@ -13,6 +16,9 @@ const styles: CSSResult = css`
     :host([data-vl-toggleable]) .vl-info-tile__header__wrapper .vl-toggle:hover,
     :host([data-vl-toggleable]) .vl-info-tile__header__wrapper .vl-toggle:focus {
         text-decoration: underline;
+    }
+    :host([data-vl-toggleable]) .vl-info-tile__title-wrapper {
+        flex: 1;
     }
     :host([data-vl-toggleable]) .vl-info-tile__header__title {
         flex-grow: 1;
