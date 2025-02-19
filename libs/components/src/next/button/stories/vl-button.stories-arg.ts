@@ -106,6 +106,15 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
             defaultValue: { summary: buttonArgs.tertiary },
         },
     },
+    ghost: {
+        name: 'ghost',
+        description: 'Beeldt de button af als een ghost button.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: buttonArgs.ghost },
+        },
+    },
     loading: {
         name: 'loading',
         description:

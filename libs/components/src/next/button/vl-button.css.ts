@@ -68,7 +68,8 @@ export const buttonStyles: CSSResult = css`
             }
         }
 
-        &.tertiary {
+        &.tertiary,
+        &.ghost {
             color: var(--vl-color--action);
             background-color: transparent;
             border: ${unsafeCSS(borderWidthSmall)} var(--vl-color--action-tertiary-border) solid;
@@ -98,6 +99,11 @@ export const buttonStyles: CSSResult = css`
             }
         }
 
+        &.ghost {
+            /* .ghost bouwt voort op .tertiary, alleen initieel zonder border */
+            border-color: transparent;
+        }
+
         &.error {
             background-color: var(--vl-color--error);
             border-color: var(--vl-color--error);
@@ -118,7 +124,8 @@ export const buttonStyles: CSSResult = css`
                 }
             }
 
-            &.tertiary {
+            &.tertiary,
+            &.ghost {
                 color: var(--vl-color--error);
                 border-color: var(--vl-color--error);
                 background-color: transparent;
@@ -128,6 +135,10 @@ export const buttonStyles: CSSResult = css`
                     color: var(--vl-color--error-hover);
                     border-color: var(--vl-color--error-hover);
                 }
+            }
+
+            &.ghost {
+                border-color: transparent;
             }
         }
 
@@ -141,7 +152,8 @@ export const buttonStyles: CSSResult = css`
             padding-bottom: var(--vl-spacing--small);
             font-size: var(--vl-font-size);
 
-            &.tertiary {
+            &.tertiary,
+            &.ghost {
                 padding-top: calc(
                     var(--vl-spacing--small) + ${unsafeCSS(differenceBetweenRegularBorderAndSmallBorder)}
                 );
@@ -161,7 +173,8 @@ export const buttonStyles: CSSResult = css`
             padding-left: 6rem;
             padding-right: 6rem;
 
-            &.tertiary {
+            &.tertiary,
+            &.ghost {
                 padding-left: calc(6rem + ${unsafeCSS(differenceBetweenRegularBorderAndSmallBorder)});
                 padding-right: calc(6rem + ${unsafeCSS(differenceBetweenRegularBorderAndSmallBorder)});
 
@@ -177,7 +190,8 @@ export const buttonStyles: CSSResult = css`
             padding-left: var(--vl-spacing--xsmall);
             padding-right: var(--vl-spacing--xsmall);
 
-            &.tertiary {
+            &.tertiary,
+            &.ghost {
                 padding: 0 calc(var(--vl-spacing--xsmall) + ${unsafeCSS(differenceBetweenRegularBorderAndSmallBorder)});
 
                 &:hover,
@@ -197,7 +211,7 @@ export const buttonStyles: CSSResult = css`
                 }
             }
 
-            &.loading {
+            &.loading:not(.empty-slot) {
                 padding-right: 5rem;
 
                 &::after {
@@ -253,12 +267,17 @@ export const buttonStyles: CSSResult = css`
             &.disabled {
                 cursor: not-allowed;
             }
+
+            &.ghost {
+                border-color: transparent;
+            }
         }
 
         /* In map styles */
 
         &.button-in-map {
-            &.tertiary {
+            &.tertiary,
+            &.ghost {
                 background-color: var(--vl-color--map-background);
             }
         }
@@ -267,7 +286,9 @@ export const buttonStyles: CSSResult = css`
         &.empty-slot {
             width: 3.5rem;
             padding: 0;
-            &.tertiary {
+            &.tertiary,
+            &.ghost {
+                padding: 0;
                 &:hover,
                 &:active {
                     padding: 0;
@@ -285,10 +306,10 @@ export const buttonStyles: CSSResult = css`
             }
         }
 
-        &.input-group-left {
+        &.input-group-left,
+        &.input-group-right {
             width: max-content;
             min-width: 3.5rem;
-            border-radius: 0.3rem 0px 0px 0.3rem;
 
             @media screen and (max-width: ${vlMediaScreenSmall}px) {
                 padding: var(--vl-spacing--xxsmall) var(--vl-spacing--xsmall);
@@ -298,7 +319,12 @@ export const buttonStyles: CSSResult = css`
                 border: solid 0.1rem rgb(134, 149, 168);
             }
 
-            &.tertiary&:hover {
+            &.ghost&:has(.vl-icon) {
+                border-color: transparent;
+            }
+
+            &.tertiary&:hover,
+            &.ghost&:hover {
                 /* specifieke kleuren, anders dan de gewone tertiary:hover */
                 box-shadow: rgba(0, 85, 204, 0.65) 0px 0px 0px 0.1rem inset;
                 border-color: rgba(0, 85, 204, 0.65);
@@ -306,25 +332,12 @@ export const buttonStyles: CSSResult = css`
             }
         }
 
+        &.input-group-left {
+            border-radius: 0.3rem 0px 0px 0.3rem;
+        }
+
         &.input-group-right {
-            width: max-content;
-            min-width: 3.5rem;
             border-radius: 0px 0.3rem 0.3rem 0px;
-
-            @media screen and (max-width: ${vlMediaScreenSmall}px) {
-                padding: var(--vl-spacing--xxsmall) var(--vl-spacing--xsmall);
-            }
-
-            &.tertiary&:has(.vl-icon) {
-                border: solid 0.1rem rgb(134, 149, 168);
-            }
-
-            &.tertiary&:hover {
-                /* specifieke kleuren, anders dan de gewone tertiary:hover */
-                box-shadow: rgba(0, 85, 204, 0.65) 0px 0px 0px 0.1rem inset;
-                border-color: rgba(0, 85, 204, 0.65);
-                background: rgba(179, 207, 245, 0.3);
-            }
         }
     }
 `;

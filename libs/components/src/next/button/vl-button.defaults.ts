@@ -10,6 +10,7 @@ export const buttonDefaults = {
     narrow: false as boolean,
     secondary: false as boolean,
     tertiary: false as boolean,
+    ghost: false as boolean,
     loading: false as boolean,
     icon: '' as string,
     iconPlacement: '' as ICON_PLACEMENT,
