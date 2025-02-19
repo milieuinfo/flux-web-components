@@ -1,6 +1,6 @@
 import { BaseLitElement, ICON_PLACEMENT, isSlotEmpty, webComponent } from '@domg-wc/common-utilities';
 import { vlIconStyles } from '@domg-wc/common-utilities/css';
-import { CSSResult, html, nothing, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
+import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { ClassInfo, classMap } from 'lit/directives/class-map.js';
 import { buttonStyles } from './vl-button.css';
 import { linkButtonStyles } from './vl-link-button.css';
@@ -16,6 +16,7 @@ export class VlButtonComponent extends BaseLitElement {
     private narrow = buttonDefaults.narrow;
     private secondary = buttonDefaults.secondary;
     private tertiary = buttonDefaults.tertiary;
+    private ghost = buttonDefaults.ghost;
     private loading = buttonDefaults.loading;
     private icon = buttonDefaults.icon;
     private iconPlacement = buttonDefaults.iconPlacement;
@@ -44,6 +45,7 @@ export class VlButtonComponent extends BaseLitElement {
             narrow: { type: Boolean },
             secondary: { type: Boolean },
             tertiary: { type: Boolean },
+            ghost: { type: Boolean },
             loading: { type: Boolean },
             icon: { type: String },
             iconPlacement: { type: String, attribute: 'icon-placement', reflect: true },
@@ -102,6 +104,7 @@ export class VlButtonComponent extends BaseLitElement {
             narrow: this.narrow,
             secondary: this.secondary,
             tertiary: displayAsTertiaryButton,
+            ghost: this.ghost,
             loading: this.loading,
             'input-group-left': this.inputGroup && this.isInputGroupPosition('first'),
             'input-group-right': this.inputGroup && this.isInputGroupPosition('last'),
@@ -169,6 +172,11 @@ export class VlButtonComponent extends BaseLitElement {
     handleSlotChange() {
         const slot = this.shadowRoot?.querySelector('slot');
         this.slotIsEmpty = Boolean(slot && isSlotEmpty(slot!));
+        if (this.slotIsEmpty && !this.label) {
+            console.warn(
+                'Wil je een `<vl-button-next></vl-button-next>` component zonder inhoud renderen, bv. een icon-only knop, dan is het invullen van het `label` attribuut verplicht (https://www.w3.org/TR/WCAG22/#name-role-value).'
+            );
+        }
     }
 
     protected handleClick() {

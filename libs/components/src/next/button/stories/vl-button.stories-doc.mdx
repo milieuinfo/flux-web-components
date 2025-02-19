@@ -41,6 +41,13 @@ Een tertiary button is subtieler dan een secondary button.
 
 <Canvas of={VlButtonStories.ButtonTertiary} />
 
+### Ghost
+
+Gebruik een ghost button om enkel de knop tekst of icoon af te beelden, zonder opmaak (border, background).
+Een ghost button neemt de andere variaties over van de tertiary button (hover, focus, disabled, error, ...).
+
+<Canvas of={VlButtonStories.ButtonGhost} />
+
 ### Disabled
 
 Gebruik een disabled button om aan te tonen dat een actie niet uitgevoerd kan worden.
@@ -85,7 +92,14 @@ attribuut gebruiken.
 
 ### Enkel icoon
 
+Om een icon-only button weer te geven kan je onderstaande code gebruiken.
+Het invullen van het `label` attribuut is hierbij verplicht ([WCAG richtlijn](https://www.w3.org/TR/WCAG22/#name-role-value)).
+
 <Canvas of={VlButtonStories.ButtonIconOnly} />
+
+Voor een variant zonder opmaak (border, background), kan je het `ghost` attribuut gebruiken.
+
+<Canvas of={VlButtonStories.ButtonIconOnlyGhost} />
 
 ### Toggle
 
@@ -105,17 +119,19 @@ button. Bij voorkeur wordt de `vl-button-next` gebruikt om een actie uit te voer
 naar een andere pagina te navigeren.
 
 Aanbevelingen:
-- probeer `cta-link` enkel te gebruiken als het echt nodig is, zoals om de aandacht te vestigen op een link
-  voor het uitvoeren van een belangrijke actie, bv.:
-    - een link, die in een overzicht van objecten, wijst naar een formulier om een nieuw object aan te maken
-    - de "Begin hier" link in een onboarding flow
-    - bij "Registreer" of "Maak een account aan"
-- zorg ervoor dat de stijl verschillend is t.o.v. een standaard button (gebruik bv. een icoon)
+
+-   probeer `cta-link` enkel te gebruiken als het echt nodig is, zoals om de aandacht te vestigen op een link
+    voor het uitvoeren van een belangrijke actie, bv.:
+    -   een link, die in een overzicht van objecten, wijst naar een formulier om een nieuw object aan te maken
+    -   de "Begin hier" link in een onboarding flow
+    -   bij "Registreer" of "Maak een account aan"
+-   zorg ervoor dat de stijl verschillend is t.o.v. een standaard button (gebruik bv. een icoon)
 
 Beperkingen:
-- bij gebruik van `cta-link` wordt de `<button>` tag vervangen door een `<a>` tag, hierdoor kan dit niet binnen een
-  form gebruikt worden
-- het type attribuut heeft geen effect bij gebruik van `cta-link`
+
+-   bij gebruik van `cta-link` wordt de `<button>` tag vervangen door een `<a>` tag, hierdoor kan dit niet binnen een
+    form gebruikt worden
+-   het type attribuut heeft geen effect bij gebruik van `cta-link`
 
 Meer context over wanneer een button of een link te gebruiken kan je vinden in de blogpost
 ['but sometimes buttons look like links'](https://adamsilver.io/blog/but-sometimes-buttons-look-like-links/).

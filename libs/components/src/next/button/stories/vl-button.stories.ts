@@ -34,6 +34,7 @@ const ButtonTemplate = story(
         narrow,
         secondary,
         tertiary,
+        ghost,
         loading,
         icon,
         ctaLink,
@@ -58,6 +59,7 @@ const ButtonTemplate = story(
             ?narrow=${narrow}
             ?secondary=${secondary}
             ?tertiary=${tertiary}
+            ?ghost=${ghost}
             ?loading=${loading}
             label=${label}
             icon=${icon}
@@ -94,6 +96,13 @@ ButtonTertiary.storyName = 'vl-button-next - tertiary';
 ButtonTertiary.args = {
     defaultSlot: 'Klik op mij',
     tertiary: true,
+};
+
+export const ButtonGhost = ButtonTemplate.bind({});
+ButtonGhost.storyName = 'vl-button-next - ghost';
+ButtonGhost.args = {
+    defaultSlot: 'Klik op mij',
+    ghost: true,
 };
 
 export const ButtonDisabled = ButtonTemplate.bind({});
@@ -157,6 +166,15 @@ export const ButtonIconOnly = ButtonTemplate.bind({});
 ButtonIconOnly.storyName = 'vl-button-next - icon only';
 ButtonIconOnly.args = {
     icon: 'location',
+    label: 'Locatie',
+};
+
+export const ButtonIconOnlyGhost = ButtonTemplate.bind({});
+ButtonIconOnlyGhost.storyName = 'vl-button-next - icon only - ghost';
+ButtonIconOnlyGhost.args = {
+    icon: 'trash',
+    label: 'Verwijder',
+    ghost: true,
 };
 
 export const ButtonToggle = ButtonTemplate.bind({});
