@@ -1,12 +1,12 @@
 import { BaseHTMLElement, registerWebComponents, VL, webComponent } from '@domg-wc/common-utilities';
-import { accordionStyle, iconStyle, infoTileStyle, linkStyle, toggleStyle } from '@domg/govflanders-style/component';
-import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
-import infoTileUigStyle from './vl-info-tile.uig-css';
-import '@govflanders/vl-ui-util/dist/js/util.js';
-import '@govflanders/vl-ui-accordion/dist/js/accordion.js';
-import 'reflect-metadata';
 import { vlElementsStyle } from '@domg-wc/elements';
+import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
+import { accordionStyle, iconStyle, infoTileStyle, linkStyle, toggleStyle } from '@domg/govflanders-style/component';
+import '@govflanders/vl-ui-accordion/dist/js/accordion.js';
+import '@govflanders/vl-ui-util/dist/js/util.js';
+import 'reflect-metadata';
 import { VlAccordionComponent } from '../accordion/vl-accordion.component';
+import infoTileUigStyle from './vl-info-tile.uig-css';
 
 declare const vl: VL;
 
@@ -36,12 +36,17 @@ export class VlInfoTile extends BaseHTMLElement {
           <div class="vl-info-tile">
             <header class="vl-info-tile__header" role="presentation">
               <div id="wrapper" class="vl-info-tile__header__wrapper">
-                <h3 id="title" class="vl-info-tile__header__title">
-                  <slot name="title"></slot><slot name="title-label"></slot>
-                </h3>
-                <p class="vl-info-tile__header__subtitle">
-                  <slot name="subtitle"></slot>
-                </p>
+                <div class="vl-info-tile__title-wrapper">
+                  <h3 id="title" class="vl-info-tile__header__title">
+                    <slot name="title"></slot><slot name="title-label"></slot>
+                  </h3>
+                  <p class="vl-info-tile__header__subtitle">
+                    <slot name="subtitle"></slot>
+                  </p>
+                </div>  
+                <div class="vl-info-tile__menu">
+                    <slot name="menu"></slot>
+                </div>
               </div>
             </header>
 
@@ -77,6 +82,10 @@ export class VlInfoTile extends BaseHTMLElement {
 
     get _headerWrapperElement(): HTMLDivElement | null {
         return this._element?.querySelector('#wrapper');
+    }
+
+    get _titleWrapperElement(): HTMLDivElement {
+        return this._element.querySelector('.vl-info-tile__title-wrapper') as HTMLDivElement;
     }
 
     get _titleElement(): HTMLHeadingElement | undefined | null {
@@ -155,13 +164,13 @@ export class VlInfoTile extends BaseHTMLElement {
           </button>
         `).firstElementChild;
         if (this._titleElement) button?.appendChild(this._titleElement);
-        if (button) this._headerWrapperElement?.prepend(button);
+        if (button) this._titleWrapperElement.prepend(button);
     }
 
     __removeAccordionElements() {
         this._element?.classList.remove('js-vl-accordion');
         if (this._titleElement && this._buttonElement)
-            this._headerWrapperElement?.replaceChild(this._titleElement, this._buttonElement);
+            this._titleWrapperElement?.replaceChild(this._titleElement, this._buttonElement);
     }
 
     __preventContentClickPropagation() {

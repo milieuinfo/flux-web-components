@@ -14,7 +14,7 @@ export default {
             page: PopoverMenuDoc,
             story: {
                 inline: false,
-                iframeHeight: 175,
+                iframeHeight: 250,
             },
         },
     },

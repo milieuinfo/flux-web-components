@@ -40,7 +40,7 @@ export const PopoverDefault = story(
             actionElement.setAttribute('selected', '');
         };
         return html`
-            <a is="vl-link" id="btn-acties">Acties</a>
+            <vl-button-next ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button-next>
             <vl-popover
                 for="btn-acties"
                 open="${open}"

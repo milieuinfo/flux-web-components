@@ -1,9 +1,10 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlPopoverActionListComponent, VlPopoverComponent } from './index';
 import { html, nothing } from 'lit';
+import { VlButtonComponent } from '../next/button';
+import { VlPopoverActionListComponent, VlPopoverComponent } from './index';
 import { VlPopoverActionComponent } from './vl-popover-action.component';
 
-registerWebComponents([VlPopoverComponent, VlPopoverActionComponent, VlPopoverActionListComponent]);
+registerWebComponents([VlPopoverComponent, VlPopoverActionComponent, VlPopoverActionListComponent, VlButtonComponent]);
 
 const mountDefault = ({
     trigger,
@@ -23,7 +24,7 @@ const mountDefault = ({
     distance?: number;
 }) => {
     return cy.mount(html`
-        <a is="vl-link" id="btn-acties">Acties</a>
+        <vl-button-next ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button-next>
         <vl-popover
             for="btn-acties"
             open=${open || nothing}
@@ -88,42 +89,42 @@ describe('component vl-popover - default', () => {
         mountDefault({});
 
         cy.injectAxe();
-        cy.get('a#btn-acties').click({ force: true });
+        cy.get('#btn-acties').click();
         cy.checkA11y('vl-popover');
     });
 
     it('should open', () => {
         mountDefault({});
 
-        cy.get('a#btn-acties').click();
+        cy.get('#btn-acties').click();
 
         cy.get('vl-popover').should('have.attr', 'open');
-        cy.get('a#btn-acties').click({ force: true });
+        cy.get('#btn-acties').click();
         cy.get('vl-popover').should('not.have.attr', 'open');
     });
 
     it('should close when clicking an action', () => {
         mountDefault({ hideOnClick: true });
 
-        cy.get('a#btn-acties').click();
+        cy.get('#btn-acties').click();
         cy.get('vl-popover').should('have.attr', 'open');
-        cy.get('vl-popover').find('vl-popover-action').first().click({ force: true });
+        cy.get('vl-popover').find('vl-popover-action').first().click();
         cy.get('vl-popover').should('not.have.attr', 'open');
     });
 
     it('should not close when clicking an action', () => {
         mountDefault({});
 
-        cy.get('a#btn-acties').click();
+        cy.get('#btn-acties').click();
         cy.get('vl-popover').should('have.attr', 'open');
-        cy.get('vl-popover').find('vl-popover-action').first().click({ force: true });
+        cy.get('vl-popover').find('vl-popover-action').first().click();
         cy.get('vl-popover').should('have.attr', 'open');
     });
 
     it('should have default bottom placement', () => {
         mountDefault({});
 
-        cy.get('a#btn-acties').click();
+        cy.get('#btn-acties').click();
         cy.get('vl-popover').should('have.attr', 'placement', 'bottom');
     });
 });

@@ -9,6 +9,7 @@ export const infoTileArgs = {
     contentSlot: '',
     subtitleSlot: '',
     titleSlot: '',
+    menuSlot: '',
 };
 
 export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
@@ -66,6 +67,15 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
             category: CATEGORIES.SLOTS,
             type: { summary: TYPES.HTML },
             defaultValue: { summary: infoTileArgs.titleSlot },
+        },
+    },
+    menuSlot: {
+        name: 'menu',
+        description: 'Slotelement om menu item toe te voegen in rechterbovenhoek.',
+        table: {
+            category: CATEGORIES.SLOTS,
+            type: { summary: TYPES.HTML },
+            defaultValue: { summary: infoTileArgs.menuSlot },
         },
     },
 };

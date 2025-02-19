@@ -21,9 +21,9 @@ export default {
 
 const Template = story(
     infoTileArgs,
-    ({ autoOpen, toggleable, center, contentSlot, subtitleSlot, titleSlot }) => html`
+    ({ autoOpen, toggleable, center, contentSlot, subtitleSlot, titleSlot, menuSlot }) => html`
         <vl-info-tile ?data-vl-toggleable=${toggleable} ?data-vl-auto-open=${autoOpen} ?data-vl-center=${center}>
-            ${unsafeHTML(titleSlot)}${unsafeHTML(subtitleSlot)}${unsafeHTML(contentSlot)}
+            ${unsafeHTML(titleSlot)}${unsafeHTML(menuSlot)}${unsafeHTML(subtitleSlot)}${unsafeHTML(contentSlot)}
         </vl-info-tile>
     `
 );
@@ -43,4 +43,22 @@ InfoTileToggleable.args = {
     titleSlot: `<span slot="title">Broos Deprez</span>`,
     subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
     contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+};
+
+export const InfoTileMenuSlot = Template.bind({});
+InfoTileMenuSlot.storyName = 'vl-info-tile - menu slot';
+InfoTileMenuSlot.args = {
+    titleSlot: `<span slot="title">Broos Deprez</span>`,
+    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    menuSlot: `<span slot="menu">
+        <vl-button-next ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button-next>
+        <vl-popover for="btn-acties" placement="bottom-end">
+            <vl-popover-action-list>
+                <vl-popover-action icon="search">Zoeken</vl-popover-action>
+                <vl-popover-action icon="edit">Aanpassen</vl-popover-action>
+                <vl-popover-action icon="bin">Verwijderen</vl-popover-action>
+            </vl-popover-action-list>
+        </vl-popover>
+    </span>`,
 };
