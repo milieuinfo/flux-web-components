@@ -1,3 +1,29 @@
+# [1.44.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.43.1...v1.44.0) (2025-02-19)
+
+
+### Bug Fixes
+
+* .only vergetelheid verwijderd in test bestanden ([bdf422b](https://github.com/milieuinfo/uigov-web-components/commit/bdf422baca30786bbb7d008627bc24a847989a1b))
+
+
+### Features
+
+* UIG-3142 - vl-select-richt-next - pijltjestoetsen veroorzaakten een tab-wissel bij integratie in de vl-tabs ([43787e6](https://github.com/milieuinfo/uigov-web-components/commit/43787e65a0160490e7b353c88ddd04a4babe8007))
+* UIG-3144 - vl-map - map disposen in disconnectedCallback ([85bbd07](https://github.com/milieuinfo/uigov-web-components/commit/85bbd077353c4f0c993d2db11590d85e3c434981))
+* UIG-3147 - vl-group-next - `.vl-group-next--baseline` uitlijning toegevoegd ([43fe6c1](https://github.com/milieuinfo/uigov-web-components/commit/43fe6c116bc8053afc1f00aec662bb686c8d89d3))
+* UIG-3148 - vl-popover - styling volgens DV, ondersteuning voor action-list dividers ([c2f3d6c](https://github.com/milieuinfo/uigov-web-components/commit/c2f3d6c433778c946bab287f4a05683bc9e004f6))
+* UIG-3156 - vl-modal - sluiten adhv 'Escape' key verbeterd ([d9d5790](https://github.com/milieuinfo/uigov-web-components/commit/d9d5790f9780d131f05fe16906fcca0c65ba8da3))
+* UIG-3168 - vl-button-next - loading state hoogte verbeterd ([323b2a3](https://github.com/milieuinfo/uigov-web-components/commit/323b2a32acfe8af11ab1df68153ac504df18b66b))
+* UIG-3178 - vl-toaster - gebruikt nu z-index waarde uit DV ([aa11513](https://github.com/milieuinfo/uigov-web-components/commit/aa11513097c14fb307af300236ae6758fb3a43d4))
+* UIG-3179 - vl-modal - vl-action-group vervangen door vl-group-next ([84ac67b](https://github.com/milieuinfo/uigov-web-components/commit/84ac67b46cba82f123dabd71b35a858b17863955))
+* UIG-3190 - vl-tabs - vl-click event bij tab klik ([aeafe92](https://github.com/milieuinfo/uigov-web-components/commit/aeafe92be32388ec9b0515a51bdb6194f10f0894))
+* UIG-3192 - vl-button-next - gebruik van vl-toggle-button vervangen door vl-button-next ([99657f6](https://github.com/milieuinfo/uigov-web-components/commit/99657f6172da09201e4395dcce2f9a9dbc105363))
+* UIG-3196 - vl-accessibility - vl-visually-hidden css introductie ([6708990](https://github.com/milieuinfo/uigov-web-components/commit/670899000ba68d5447d6fafeebf5ad73f452f98f))
+* UIG-3198 - vl-color-raw - consistente kleur variabelen ([2d31d67](https://github.com/milieuinfo/uigov-web-components/commit/2d31d67acb88c4a0efa98c3ec05f39664e936c77))
+* UIG-3199 - vl-button-next, vl-link-next - icon-placement verbeteringen doorgevoerd ([df607b6](https://github.com/milieuinfo/uigov-web-components/commit/df607b6d38d318e97b7d46fd0347794ccbc873d4))
+* UIG-3201 - vl-error-message-next - mogelijkheid meerdere lijnen toegevoegd ([ece7bc1](https://github.com/milieuinfo/uigov-web-components/commit/ece7bc1072691ea8678880b74b314e0404dfdd94))
+* UIG-3204 - qlik componenten volledig verwijderd ([2329ff6](https://github.com/milieuinfo/uigov-web-components/commit/2329ff63b3bb5e9a9eb5844cb917392d49720245))
+
 ## [1.43.1](https://github.com/milieuinfo/uigov-web-components/compare/v1.43.0...v1.43.1) (2025-01-27)
 
 

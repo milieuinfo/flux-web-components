@@ -91,6 +91,23 @@
                     }
                 },
                 {
+                    "name": "vl-accordion-list",
+                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Een lijst component die kan gebruikt worden als je meerdere accordions wilt afbeelden.\nVoor meer informatie over accordions zie de [accordion](/docs/components-accordion--documentatie) component.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-accordion-list--documentatie",
+                    "attributes": [
+                        {
+                            "name": "data-vl-custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "data-vl-bordered",
+                            "description": "Beeldt een border af boven en onder de accordions.",
+                            "default": "false"
+                        }
+                    ]
+                },
+                {
                     "name": "vl-alert",
                     "description": "Gebruik de `alert` component om de gebruiker op de hoogte te houden van belangrijke informatie.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-alert--documentatie",
@@ -162,6 +179,29 @@
                             }
                         ]
                     }
+                },
+                {
+                    "name": "vl-annotation",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-annotation--documentatie",
+                    "attributes": [
+                        {
+                            "name": "data-vl-custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "data-vl-small",
+                            "description": "Zorgt ervoor zat de annotation klein getoond wordt.",
+                            "default": "false"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "content",
+                            "description": "Inhoud van de annotation.",
+                            "default": ""
+                        }
+                    ]
                 },
                 {
                     "name": "vl-autocomplete",
@@ -273,6 +313,63 @@
                     ]
                 },
                 {
+                    "name": "vl-checkbox",
+                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik een `checkbox` om de gebruiker de mogelijkheid te geven 1 of meerdere items te selecteren uit een lijst.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-checkbox--documentatie",
+                    "attributes": [
+                        {
+                            "name": "data-vl-custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "data-vl-block",
+                            "description": "Beeldt de checkbox af als een block element.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-checked",
+                            "description": "Vinkt de checkbox aan of uit.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-disabled",
+                            "description": "Schakelt de checkbox uit.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-error",
+                            "description": "Beeldt de checkbox af in een error state.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-label",
+                            "description": "Het label van de checkbox.",
+                            "default": ""
+                        },
+                        {
+                            "name": "data-vl-name",
+                            "description": "De naam van de checkbox.",
+                            "default": "checkbox"
+                        },
+                        {
+                            "name": "data-vl-single",
+                            "description": "Beeldt de checkbox af zonder label.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-switch",
+                            "description": "Beeldt de checkbox af als een switch.<br>Dit attribuut is niet reactief.",
+                            "default": "true"
+                        },
+                        {
+                            "name": "data-vl-value",
+                            "description": "De value van de checkbox.",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
                     "name": "vl-code-preview",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-code-preview--documentatie"
                 },
@@ -305,6 +402,83 @@
                         {
                             "name": "image (slot)",
                             "description": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-datepicker",
+                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik de `datepicker` component om de gebruiker op een gebruiksvriendelijke manier een datum of tijd te laten selecteren.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-datepicker--documentatie",
+                    "attributes": [
+                        {
+                            "name": "data-vl-type",
+                            "description": "Type van de datepicker; range | time | date-time | '' (default)",
+                            "default": ""
+                        },
+                        {
+                            "name": "data-vl-format",
+                            "description": "Formaat van de datum/tijd waarde, standaard 'd.m.Y' (-> 31.12.2019). Bv. 'l d M Y' geeft dinsdag 03 jan 2023.",
+                            "default": "d.m.Y"
+                        },
+                        {
+                            "name": "data-vl-visual-format",
+                            "description": "Visueel formaat van de datum/tijd waarde.",
+                            "default": ""
+                        },
+                        {
+                            "name": "data-vl-selected-date",
+                            "description": "Vooraf ingestelde datum conform het ingestelde formaat (bv. '03-10-2019') of 'today' voor vandaag.",
+                            "default": ""
+                        },
+                        {
+                            "name": "data-vl-min-date",
+                            "description": "Minimum datum conform het ingestelde formaat (bv. '01-01-2019') of 'today' voor vandaag.",
+                            "default": ""
+                        },
+                        {
+                            "name": "data-vl-max-date",
+                            "description": "Maximum datum conform het ingestelde format (bv. '31-12-2019') of 'today' voor vandaag.",
+                            "default": ""
+                        },
+                        {
+                            "name": "data-vl-min-time",
+                            "description": "Minimum tijd conform het ingestelde formaat (bv. '09:00').",
+                            "default": ""
+                        },
+                        {
+                            "name": "data-vl-max-time",
+                            "description": "Maximum tijd conform het ingestelde format (bv. '17:00').",
+                            "default": ""
+                        },
+                        {
+                            "name": "data-vl-am-pm",
+                            "description": "Activeert de 12-uurs AM/PM timepicker.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-error",
+                            "description": "Stelt een error in op de datepicker.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-success",
+                            "description": "Geeft aan dat de datepicker geen error bevat.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-value",
+                            "description": "De waarde van de datepicker.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-pattern",
+                            "description": "Patroon waaraan de input moet voldoen.",
+                            "default": ""
+                        },
+                        {
+                            "name": "data-vl-name",
+                            "description": "Naam van de input.",
+                            "default": ""
                         }
                     ]
                 },
@@ -710,33 +884,43 @@
                         },
                         {
                             "name": "data-vl-title",
-                            "description": "Attribute used to add an heading 2 (h2) title. When empty there is no heading element created.",
+                            "description": "Attribuut gebruikt om een `<h2>` titel toe te voegen. Indien leeg, wordt er geen titel element aangemaakt.",
                             "default": ""
                         },
                         {
                             "name": "data-vl-open",
-                            "description": "Attribute to immediately open up the modal after rendering.",
+                            "description": "Attribuut om de modal onmiddellijk te openen na de rendering.",
                             "default": "false"
                         },
                         {
                             "name": "data-vl-closable",
-                            "description": "Attribute to make the modal closable through the close icon in the top right corner.",
+                            "description": "Attribuut om de modal sluitbaar te maken via het \"Sluit\"-icoon in de rechterbovenhoek of door de \"Escape\"-toets te gebruiken.",
                             "default": "false"
                         },
                         {
                             "name": "data-vl-not-cancellable",
-                            "description": "Attribute used to make the modal non cancellable",
+                            "description": "Attribuut gebruikt om de modal niet annuleerbaar te maken.",
                             "default": "false"
                         },
                         {
                             "name": "data-vl-not-auto-closable",
-                            "description": "Attribute to disable the closing of the modal when clicking the action in the button slot.",
+                            "description": "Attribuut om het afsluiten van de modal uit te schakelen bij het klikken op de actie in het button-slot.",
                             "default": "false"
                         },
                         {
                             "name": "data-vl-allow-overflow",
-                            "description": "Attribute to allow the content of the modal to overflow.",
+                            "description": "Attribuut om de afgesneden inhoud van de modal zichtbaar te maken.",
                             "default": "false"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "content",
+                            "description": "Dit slot bevat de HTML inhoud van de modal."
+                        },
+                        {
+                            "name": "button",
+                            "description": "Gebruik dit slot om de primaire actie mee te geven."
                         }
                     ]
                 },
@@ -807,8 +991,7 @@
                         },
                         {
                             "name": "icon-placement",
-                            "description": "De positie van het icoon ten opzichte van de tekst.",
-                            "default": "before"
+                            "description": "De positie van het icoon ten opzichte van de tekst.<br>Voegt margin toe tussen het icoon en de tekst."
                         },
                         {
                             "name": "toggle",
@@ -839,6 +1022,11 @@
                             "name": "input-group",
                             "description": "Duidt aan dat de component deel is van een input-group.",
                             "default": "false"
+                        },
+                        {
+                            "name": "label",
+                            "description": "Stelt het aria-label attribuut van de button in.",
+                            "default": ""
                         }
                     ],
                     "slots": [
@@ -1220,8 +1408,7 @@
                         },
                         {
                             "name": "icon-placement",
-                            "description": "De positie van het icoon ten opzichte van de tekst.",
-                            "default": "before"
+                            "description": "De positie van het icoon ten opzichte van de tekst.<br>Voegt margin toe tussen het icoon en de tekst."
                         },
                         {
                             "name": "button-as-link",
@@ -1848,6 +2035,62 @@
                     ]
                 },
                 {
+                    "name": "vl-radio",
+                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>De `radio` laat de gebruiker toe om een enkele optie te selecteren uit een lijst. Gebruik de `radio` in formulieren.<br/>\nVermijd een voorgedefinieerde keuze vast te leggen zodat de gebruiker een bewuste keuze dient te maken.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-radio--documentatie",
+                    "attributes": [
+                        {
+                            "name": "data-vl-custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "data-vl-block",
+                            "description": "Beeldt de checkbox af als een block element.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-checked",
+                            "description": "Vinkt de radio standaard aan.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-disabled",
+                            "description": "Schakelt de radio uit.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-error",
+                            "description": "Beeldt de radio af in een error state.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-label",
+                            "description": "Het label van de radio.",
+                            "default": ""
+                        },
+                        {
+                            "name": "data-vl-name",
+                            "description": "De naam van de radio.",
+                            "default": ""
+                        },
+                        {
+                            "name": "data-vl-single",
+                            "description": "Beeldt de radio af zonder label.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-value",
+                            "description": "Bepaalt waarde van de radio.",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-radio-group",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-radio--documentatie"
+                },
+                {
                     "name": "vl-rich-data",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-rich-data--documentatie",
                     "attributes": [
@@ -2015,6 +2258,46 @@
                     ]
                 },
                 {
+                    "name": "vl-steps",
+                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik de `steps` component om een verticale lijst van stappen af te beelden om de gebruiker door een procedure te begeleiden.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-steps--documentatie",
+                    "attributes": [
+                        {
+                            "name": "data-vl-custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "data-vl-line",
+                            "description": "Beeldt een verticale lijn af tussen de stappen.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-timeline",
+                            "description": "Beeldt een verticale tijdlijn af tussen de stappen.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-simple-timeline",
+                            "description": "Beeldt een simpele verticale tijdlijn af tussen de stappen.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-last-step-no-line",
+                            "description": "Laat de verticale lijn na de laatste stap weg bij gebruik van de line, timeline of simple-timeline attributen.",
+                            "default": "false"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-step",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-steps--documentatie"
+                },
+                {
+                    "name": "vl-duration-step",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-steps--documentatie"
+                },
+                {
                     "name": "vl-tabs",
                     "description": "Gebruik de `tabs` component om gerelateerde informatie op te splitsen in kleinere stukken content.\nOp mobiel wordt de tab navigatie omgevormd tot een uitklapbaar menu.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-tabs--documentatie",
@@ -2055,6 +2338,11 @@
                             {
                                 "name": "change",
                                 "description": "Afgevuurd na het klikken op een niet actieve tab. Het event bevat het id van de tab.",
+                                "type": "{ activeTab: string }"
+                            },
+                            {
+                                "name": "vl-click",
+                                "description": "Afgevuurd na het klikken op een tab. Het event bevat het id van de tab.",
                                 "type": "{ activeTab: string }"
                             }
                         ]
@@ -2102,6 +2390,62 @@
                             "default": "null"
                         }
                     ]
+                },
+                {
+                    "name": "vl-textarea",
+                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik een `textarea` als invoervak in een formulier, waarin de gebruiker over meerdere regels tekst kan invoeren.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-textarea--documentatie",
+                    "attributes": [
+                        {
+                            "name": "data-vl-custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "data-vl-block",
+                            "description": "Attribuut wordt gebruikt om ervoor te zorgen dat de textarea getoond wordt als een block element en bijgevolg de breedte van de parent zal aannemen.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-error",
+                            "description": "Attribuut wordt gebruikt om aan te duiden dat de textarea verplicht is of ongeldige tekst bevat.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-success",
+                            "description": "Attribuut wordt gebruikt om aan te duiden dat de textarea correct werd ingevuld.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-disabled",
+                            "description": "Attribuut wordt gebruikt om te voorkomen dat de gebruiker tekst in de textarea kan ingeven. Dit gaat ook een disabled styling toepassen op het invoerveld.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-focus",
+                            "description": "Attribuut wordt gebruikt om de textarea focus te geven.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-readonly",
+                            "description": "Geeft aan dat de tekst van de textarea in rich-text-modus niet gewijzigd kan worden door de gebruiker. \nDit gaat standaard ook de toolbar verwijderen.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-rich",
+                            "description": "Attribuut om aan te geven of het om een rich textarea gaat.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-toolbar",
+                            "description": "Attribuut bepaalt welke WYSIWYG toolbar items gevisualiseerd worden zodat de toolbar naar wens samengesteld kan worden. Toolbar items kunnen visueel gescheiden worden door een | character. Enkel van belang als `data-vl-rich` `true` is.",
+                            "default": "undo redo | bold italic underline strikethrough"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-textarea-modal",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-textarea--documentatie"
                 },
                 {
                     "name": "vl-toaster",
@@ -2162,6 +2506,104 @@
                     ]
                 },
                 {
+                    "name": "vl-toggle-button",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-toggle-button--documentatie",
+                    "attributes": [
+                        {
+                            "name": "data-vl-custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "description": "Used to indicate to the user that the functionality is not active.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-error",
+                            "description": "Used to emphasize the importance or consequences of an action.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-block",
+                            "description": "Used to ensure that the button is shown as a block element and will therefore take the width of the parent.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-large",
+                            "description": "Used to grab the user's attention by increasing the font size.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-wide",
+                            "description": "Makes the button appear wider on the screen.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-narrow",
+                            "description": "Causes the button to appear narrower on the screen.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-loading",
+                            "description": "Used to indicate to the user that their action is currently being processed.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-icon",
+                            "description": "Sets the icon of the toggle button."
+                        },
+                        {
+                            "name": "data-vl-icon-placement",
+                            "description": "Determines where the icon should be rendered before or after the text.",
+                            "default": "after"
+                        },
+                        {
+                            "name": "data-vl-text-hidden",
+                            "description": "Determines whether the toggle button text is shown.",
+                            "default": "false"
+                        }
+                    ],
+                    "js": {
+                        "properties": [
+                            {
+                                "name": "active",
+                                "description": "Controls the active state of the toggle button.",
+                                "type": "Boolean"
+                            }
+                        ],
+                        "events": [
+                            {
+                                "name": "change",
+                                "description": "Custom event that is triggered when the active state of the toggle button changes."
+                            },
+                            {
+                                "name": "click",
+                                "description": "Event fired on click of the toggle button."
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-tooltip",
+                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik de `tooltip` component om beschrijvende informatie over de functie van een knop, label of ander element weer te\ngeven. Wanneer een gebruiker met de muis over een element beweegt of het selecteert, verschijnt de tooltip om extra\ninformatie te geven.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-tooltip--documentatie",
+                    "attributes": [
+                        {
+                            "name": "data-vl-custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "data-vl-placement",
+                            "description": "The position of the tooltip"
+                        },
+                        {
+                            "name": "data-vl-static",
+                            "description": "Adds a tooltip that is always visible"
+                        }
+                    ]
+                },
+                {
                     "name": "vl-typography",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-typography--documentatie",
                     "attributes": [
@@ -2171,6 +2613,117 @@
                             "default": "null"
                         }
                     ]
+                },
+                {
+                    "name": "vl-upload",
+                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik de `upload`-component om één of meerdere bestanden te selecteren of te slepen naar het upload-veld. De gebruiker\nkan alternatief ook één of meerdere bestanden uploaden door op de link in het upload-veld te klikken en de bestanden\nselecteren in het bestand-menu.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-upload--documentatie",
+                    "attributes": [
+                        {
+                            "name": "data-vl-custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "data-vl-accepted-files",
+                            "description": "Attribuut om te bepalen welke bestanden worden geaccepteerd door component (extensie en mimetype).",
+                            "default": ""
+                        },
+                        {
+                            "name": "data-vl-autoprocess",
+                            "description": "Attribuut om te activeren of deactiveren dat het het gedropte bestand direct moet opgeladen worden.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-disabled",
+                            "description": "Attribuut om te voorkomen dat de gebruiker een bijlage kan opladen.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-disallow-duplicates",
+                            "description": "Bepaalt dat het niet is toegelaten om dezelfde bijlage meerdere keren te uploaden. Niet reactief.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-error",
+                            "description": "Attribuut om aan te geven dat het upload element een fout bevat.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-error-message-accepted-files",
+                            "description": "Attribuut om de message te definiëren wanneer er niet-geaccepteerde bestanden zijn toegevoegd.",
+                            "default": ""
+                        },
+                        {
+                            "name": "data-vl-error-message-filesize",
+                            "description": "Attribuut om de message te definiëren wanneer er te grote bestanden zijn toegevoegd.",
+                            "default": ""
+                        },
+                        {
+                            "name": "data-vl-error-message-maxfiles",
+                            "description": "Attribuut om de message te definiëren wanneer er teveel bestanden zijn toegevoegd.",
+                            "default": ""
+                        },
+                        {
+                            "name": "data-vl-full-body-drop",
+                            "description": "Attribuut om te activeren of deactiveren dat de dropzone over het heel scherm is.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-input-name",
+                            "description": "Attribuut om de key te definiëren waarmee het bestand wordt opgeladen.",
+                            "default": ""
+                        },
+                        {
+                            "name": "data-vl-max-files",
+                            "description": "Bepaalt aantal upload-bestanden",
+                            "default": "1"
+                        },
+                        {
+                            "name": "data-vl-max-size",
+                            "description": "Bepaalt de maximum grootte van de combineerde upload-bestanden (2000000 = 2MB).",
+                            "default": "2000000"
+                        },
+                        {
+                            "name": "data-vl-sub-title",
+                            "description": "Attribuut om de subtitel te bepalen.",
+                            "default": "Sleep de bijlage naar hier om toe te voegen"
+                        },
+                        {
+                            "name": "data-vl-success",
+                            "description": "Geeft aan dat de geüploade bestanden gevalideerd zijn.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-title",
+                            "description": "Attribuut om de titel te bepalen.",
+                            "default": ""
+                        },
+                        {
+                            "name": "data-vl-url",
+                            "description": "Bepaalt de upload url",
+                            "default": "http://httpbin.org/post"
+                        },
+                        {
+                            "name": "data-vl-reset-form-on-clear",
+                            "description": "Als dit ingesteld staat, zal de `form` waarin de `vl-upload` zich bevindt ook zijn validatie resetten",
+                            "default": "false"
+                        }
+                    ],
+                    "js": {
+                        "events": [
+                            {
+                                "name": "change",
+                                "description": "Afgevuurd na het toevoegen of verwijderen van een bestand of een succesvolle upload",
+                                "type": "change"
+                            },
+                            {
+                                "name": "duplicateRemoved",
+                                "description": "Afgevuurd nadat een file is verwijderd die dezelfde content had als een file die reeds geselecteerd was.",
+                                "type": "duplicateRemoved"
+                            }
+                        ]
+                    }
                 },
                 {
                     "name": "vl-video-player-next",
