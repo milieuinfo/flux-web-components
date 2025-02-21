@@ -1,6 +1,10 @@
 import { css, CSSResult } from 'lit';
 
 const styles: CSSResult = css`
+    .vl-select {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
     .vl-select__container {
         position: relative;
         display: inline-block;
@@ -36,11 +40,16 @@ const styles: CSSResult = css`
             margin-top: -0.2rem;
         }
 
-        &:hover {
+        &:hover,
+        &:focus {
             border: #05c 0.1rem solid;
             background-color: #e6eefa;
             color: #003bb0;
         }
+    }
+
+    .vl-select:not(.vl-select--disabled):has(~ .vl-select__button) {
+        padding-right: 6rem;
     }
 
     .vl-vi.vl-vi-nav-down:before {
