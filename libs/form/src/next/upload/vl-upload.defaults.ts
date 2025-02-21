@@ -1,3 +1,4 @@
+import { DropzoneFile } from '../../dropzone-types';
 import { formControlDefaults } from '../form-control/form-control.defaults';
 
 export const uploadDefaults = {
@@ -15,4 +16,6 @@ export const uploadDefaults = {
     subTitle: 'Sleep de bijlage naar hier om toe te voegen' as string,
     mainTitle: 'Bijlage toevoegen' as string,
     url: 'dummy-url' as string,
+    uploadProgressFn: null as ((file: DropzoneFile, progress: number, bytesSent: number) => void) | null,
+    chunking: false as boolean,
 } as const;

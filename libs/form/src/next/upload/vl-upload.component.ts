@@ -54,6 +54,9 @@ export class VlUploadComponent extends FormControl {
     private isDropzoneInitialised = false;
     private dispatchInput = false;
 
+    // Properties
+    uploadProgressFn: ((file: DropzoneFile, progress: number, bytesSent: number) => void) | undefined;
+
     static formControlValidators = [...FormControl.formControlValidators, dropzoneValidator];
 
     static get styles(): CSSResult[] {
@@ -79,6 +82,7 @@ export class VlUploadComponent extends FormControl {
             value: { type: Object, state: true },
             multiple: { type: Boolean, reflect: true },
             dropzoneInstance: { type: Object, state: true },
+            uploadProgressFn: { type: Function },
         };
     }
 
@@ -128,6 +132,7 @@ export class VlUploadComponent extends FormControl {
             this.updateInputForAttribute('readonly');
             // add files on click aan of uit zetten
             if (!this.disabled) {
+                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                 this.readonly ? input?.setAttribute('disabled', '') : input?.removeAttribute('disabled');
             }
             // drag & drop aan of uit zetten
@@ -136,6 +141,7 @@ export class VlUploadComponent extends FormControl {
                     setupEventListeners: () => void;
                     removeEventListeners: () => void;
                 };
+                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                 this.readonly ? dropzoneInstance.removeEventListeners() : dropzoneInstance.setupEventListeners();
             }
         }
@@ -166,6 +172,7 @@ export class VlUploadComponent extends FormControl {
         if (changedProperties.has('label')) {
             const input = this.getInput();
 
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             this.label ? input?.setAttribute('aria-label', this.label) : input?.removeAttribute('aria-label');
         }
 
@@ -364,6 +371,7 @@ export class VlUploadComponent extends FormControl {
 
     private updateInputForAttribute(attribute: string) {
         const attributeKey = attribute as unknown as keyof VlUploadComponent;
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         this[attributeKey]
             ? this.getInput()?.setAttribute(
                   attribute,
@@ -429,12 +437,15 @@ export class VlUploadComponent extends FormControl {
             dictRemoveFile: 'Verwijder bestand',
             dictCancelUpload: 'Annuleer upload',
             dictCancelUploadConfirmation: 'Ben je zeker dat je de upload wil annuleren?',
+            chunking: true,
+            ...(this.uploadProgressFn && { uploadprogress: this.uploadProgressFn }),
         };
 
         if (dropzoneContainer) {
             // afhankelijk van de configuratie van build tools, kan Dropzone geïnitialiseerd worden als named of als default export
             try {
                 this.dropzoneInstance = new Dropzone(dropzoneContainer, dropzoneOptions);
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
             } catch (error) {
                 this.dropzoneInstance = new Dropzone.default(dropzoneContainer, dropzoneOptions);
             }
@@ -476,11 +487,22 @@ export class VlUploadComponent extends FormControl {
         this.dropzoneInstance.on('dragover', this.handleDragOver);
         this.dropzoneInstance.on('dragleave', this.handleDragLeave);
         this.dropzoneInstance.on('drop', this.handleDragLeave);
+        this.dropzoneInstance.on('uploadprogress', this.handleUploadProgress);
 
         this.getInput()?.addEventListener('input', () => {
             this.dispatchInput = true;
         });
     }
+
+    handleUploadProgress = (file: DropzoneFile) => {
+        this.dispatchEvent(
+            new CustomEvent('vl-upload-progress', {
+                composed: true,
+                bubbles: true,
+                detail: { file, bytesSent: file.upload?.bytesSent, progress: file.upload?.progress },
+            })
+        );
+    };
 
     private removeDropzoneEvents() {
         this.getFilesCloseButton()?.removeEventListener('click', this.handleFilesCloseButtonClick);
@@ -499,6 +521,7 @@ export class VlUploadComponent extends FormControl {
         this.dropzoneInstance.off('dragover', this.handleDragOver);
         this.dropzoneInstance.off('dragleave', this.handleDragLeave);
         this.dropzoneInstance.off('drop', this.handleDragLeave);
+        this.dropzoneInstance.off('uploadprogress', this.handleUploadProgress);
     }
 
     private updateValue(detail: { type: string; file?: DropzoneFile; value: FormValue }) {
@@ -519,6 +542,7 @@ export class VlUploadComponent extends FormControl {
         const name = this.name || this.id;
         return this.getFiles()?.length
             ? this.getFiles().reduce((formData: FormData, file, currentIndex) => {
+                  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                   currentIndex ? formData.append(name, file, file.name) : formData.set(name, file, file.name);
                   return formData;
               }, new FormData())

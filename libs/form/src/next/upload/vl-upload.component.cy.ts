@@ -370,10 +370,25 @@ describe('component - vl-upload-next', () => {
             html` <vl-upload-next accepted-files="txt" error-message-accepted-files=${errorMessage}></vl-upload-next>`
         );
 
+        cy.get('vl-upload-next').shadow().find('input[type=file]').selectFile(pdfFileFixturePath, { force: true });
+        cy.get('vl-upload-next').shadow().find('.dz-error-message').should('contain', errorMessage, '');
+    });
+
+    it('should handle upload events when error occurs', () => {
+        const errorMessage = 'Dit bestandstype is niet toegestaan';
+        cy.mount(
+            html` <vl-upload-next
+                chunking
+                accepted-files="txt"
+                error-message-accepted-files=${errorMessage}
+            ></vl-upload-next>`
+        );
+
         cy.createStubForEvent('vl-upload-next', 'vl-error');
         cy.createStubForEvent('vl-upload-next', 'vl-success');
         cy.createStubForEvent('vl-upload-next', 'vl-complete');
         cy.createStubForEvent('vl-upload-next', 'vl-queuecomplete');
+        cy.createStubForEvent('vl-upload-next', 'vl-upload-progress');
 
         cy.get('vl-upload-next').shadow().find('input[type=file]').selectFile(pdfFileFixturePath, { force: true });
         cy.get('vl-upload-next').shadow().find('.dz-error-message').should('contain', errorMessage, '');
@@ -381,6 +396,7 @@ describe('component - vl-upload-next', () => {
         cy.get('@vl-success').should('not.have.been.called');
         cy.get('@vl-error').should('have.been.called');
         cy.get('@vl-complete').should('have.been.called');
+        cy.get('@vl-upload-progress').should('not.have.been.called');
         cy.get('@vl-queuecomplete').should('have.been.called');
     });
 
@@ -459,6 +475,7 @@ describe('component - vl-upload-next', () => {
     it('should select a file to upload and automatically start the upload', () => {
         cy.mount(html`<vl-upload-next url=${uploadTargetUrl} auto-process></vl-upload-next>`);
 
+        cy.createStubForEvent('vl-upload-next', 'vl-upload-progress');
         cy.createStubForEvent('vl-upload-next', 'vl-success');
         cy.createStubForEvent('vl-upload-next', 'vl-complete');
         cy.createStubForEvent('vl-upload-next', 'vl-error');
@@ -481,6 +498,7 @@ describe('component - vl-upload-next', () => {
         shouldHaveSuccessUploadFiles(1);
 
         cy.get('@vl-error').should('not.have.been.called');
+        cy.get('@vl-upload-progress').should('have.been.called');
         cy.get('@vl-success').should('have.been.called');
         cy.get('@vl-complete').should('have.been.called');
     });
