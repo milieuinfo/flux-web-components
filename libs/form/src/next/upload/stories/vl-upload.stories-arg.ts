@@ -9,6 +9,7 @@ type UploadArgs = typeof uploadDefaults &
         onVlChange: () => void;
         onVlInput: () => void;
         onVlValid: () => void;
+        onVlUploadProgress: () => void;
         onVlAddedFile: () => void;
         onVlRemovedFile: () => void;
         onVlSuccess: () => void;
@@ -28,6 +29,7 @@ export const uploadArgs: UploadArgs = {
     onVlRemovedFile: action('vl-removedfile'),
     onVlSuccess: action('vl-success'),
     onVlError: action('vl-error'),
+    onVlUploadProgress: action('vl-upload-progress'),
     onVlComplete: action('vl-complete'),
     onVlQueueComplete: action('vl-queuecomplete'),
     onVlInitialised: action('vl-initialised'),
@@ -185,6 +187,30 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
             defaultValue: { summary: uploadArgs.url },
         },
     },
+    chunking: {
+        name: 'chunking',
+        description:
+            'Attribuut om te activeren of deactiveren dat het bestand in stukken wordt geüpload.<br> Dit moet aanstaan om upload progress te verkrijgen.',
+        table: {
+            type: {
+                summary: TYPES.BOOLEAN,
+            },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: uploadArgs.chunking },
+        },
+    },
+    uploadProgressFn: {
+        name: 'uploadProgressFn',
+        description:
+            'Functie die wordt aangeroepen wanneer een bestand wordt geüpload.<br> Deze functie geeft de voortgang van de upload in percentage en de bytes die zijn verzonden.',
+        table: {
+            type: {
+                summary: TYPES.FUNCTION,
+            },
+            category: CATEGORIES.PROPERTIES,
+            defaultValue: { summary: uploadArgs.uploadProgressFn },
+        },
+    },
     onVlChange: {
         name: 'vl-change',
         description:
@@ -250,6 +276,17 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
         table: {
             type: {
                 summary: '{ value: string, type: string, file: File, errorMessage: string}',
+            },
+            category: CATEGORIES.EVENTS,
+        },
+    },
+    onVlUploadProgress: {
+        name: 'vl-upload-progress',
+        description:
+            'Event dat afgevuurd wordt als een bestand wordt geüpload.<br>Het detail object van het event bevat de voortgang van de upload in percentage en de bytes die zijn verzonden.<br>Dit werkt alleen als het `chunking` attribuut ingesteld is.',
+        table: {
+            type: {
+                summary: '{ file: File, progress: number, bytesSent: number }',
             },
             category: CATEGORIES.EVENTS,
         },

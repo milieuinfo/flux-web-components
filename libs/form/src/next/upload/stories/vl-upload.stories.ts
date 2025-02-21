@@ -53,6 +53,7 @@ export const UploadDefault = story(
         onVlInitialised,
         onVlRemovedFile,
         onVlAddedFile,
+        onVlUploadProgress,
     }) => {
         return html`
             <vl-upload-next
@@ -75,6 +76,7 @@ export const UploadDefault = story(
                 error-message-max-files=${errorMessageMaxFiles}
                 error-message-filesize=${errorMessageFilesize}
                 error-message-accepted-files=${errorMessageAcceptedFiles}
+                @vl-upload-progress=${onVlUploadProgress}
                 @vl-change=${onVlChange}
                 @vl-input=${onVlInput}
                 @vl-valid=${onVlValid}
