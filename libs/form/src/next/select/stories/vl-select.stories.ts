@@ -154,6 +154,7 @@ SelectReadOnly.args = {
     id: 'geboorteplaats',
     name: 'geboorteplaats',
     placeholder: 'Kies je geboorteplaats',
+    notDeletable: true,
     // ! Vergeet niet de options op de docs pagina aan te passen als je deze opties aanpast
     options: [
         { label: 'Hasselt', value: 'hasselt', disabled: true, selected: true },
