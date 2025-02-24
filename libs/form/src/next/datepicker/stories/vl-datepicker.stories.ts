@@ -1,11 +1,11 @@
-import { Meta } from '@storybook/web-components';
-import { html } from 'lit-html';
-import { datepickerArgs, datepickerArgTypes } from './vl-datepicker.stories-arg';
 import { story } from '@domg-wc/common-storybook';
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { formatEpoch } from './vl-datepicker.stories-util';
-import datepickerDocs from './vl-datepicker.stories-doc.mdx';
+import { Meta } from '@storybook/web-components';
+import { html } from 'lit-html';
 import { VlDatepickerComponent } from '../vl-datepicker.component';
+import { datepickerArgs, datepickerArgTypes } from './vl-datepicker.stories-arg';
+import datepickerDocs from './vl-datepicker.stories-doc.mdx';
+import { formatEpoch } from './vl-datepicker.stories-util';
 
 registerWebComponents([VlDatepickerComponent]);
 
@@ -18,12 +18,15 @@ export default {
     parameters: {
         docs: {
             page: datepickerDocs,
+            story: {
+                inline: false,
+                iframeHeight: 400,
+            },
         },
     },
-    decorators: [(story: () => unknown) => html` <div style="height: 400px;">${story()}</div>`],
 } as Meta<typeof datepickerArgs>;
 
-export const DatepickerDefault = story(
+const DatepickerTemplate = story(
     datepickerArgs,
     ({
         id,
@@ -53,6 +56,8 @@ export const DatepickerDefault = story(
         onVlInput,
         onVlReset,
         onVlValid,
+        position,
+        isStatic,
     }) => {
         return html`
             <div style="height: 400px;">
@@ -84,10 +89,26 @@ export const DatepickerDefault = story(
                     @vl-input=${onVlInput}
                     @vl-reset=${onVlReset}
                     @vl-valid=${onVlValid}
+                    position=${position}
+                    static=${isStatic}
                 >
                 </vl-datepicker-next>
             </div>
         `;
     }
 );
+
+export const DatepickerDefault = DatepickerTemplate.bind({});
 DatepickerDefault.storyName = 'vl-datepicker-next - default';
+DatepickerDefault.args = {
+    id: 'datepicker-default',
+    name: 'datepicker-default',
+};
+
+export const DatepickerStatic = DatepickerTemplate.bind({});
+DatepickerStatic.storyName = 'vl-datepicker-next - static';
+DatepickerStatic.args = {
+    id: 'datepicker-static',
+    name: 'datepicker-static',
+    isStatic: true,
+};

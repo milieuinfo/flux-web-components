@@ -1,5 +1,5 @@
 import { formControlDefaults } from '../form-control/form-control.defaults';
-import { DATEPICKER_TYPES } from './vl-datepicker.model';
+import { DATEPICKER_POSITIONS, DATEPICKER_TYPES } from './vl-datepicker.model';
 
 export const datepickerDefaults = {
     ...formControlDefaults,
@@ -19,4 +19,6 @@ export const datepickerDefaults = {
     disableMobileNativeInput: false as boolean,
     pattern: '' as string,
     regex: null as RegExp | null,
+    position: 'auto' as (typeof DATEPICKER_POSITIONS)[number],
+    isStatic: false as boolean,
 } as const;

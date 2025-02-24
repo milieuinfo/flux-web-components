@@ -210,3 +210,5 @@ export const isSlotEmpty = (slot: HTMLSlotElement): boolean =>
             (node) =>
                 (node.nodeType === Node.TEXT_NODE && !node.textContent?.trim()) || node.nodeType === Node.COMMENT_NODE
         );
+
+export const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);

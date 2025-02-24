@@ -28,6 +28,7 @@ export {
     findDeepestElementThroughShadowRoot,
     findNodesForSlot,
     hexToString,
+    isSafari,
     isSlotEmpty,
 } from './util/utils';
 export { onChildListChange } from './util/mutation-utils';

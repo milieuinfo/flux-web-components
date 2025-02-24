@@ -1,4 +1,4 @@
-import { registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { isSafari, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
 import { VlButtonInputAddon, VlIconElement } from '@domg-wc/elements';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import {
@@ -47,6 +47,8 @@ export class VlDatepickerComponent extends FormControl {
     private disableMaskValidation = datepickerDefaults.disableMaskValidation; // Wordt enkel gebruikt in de mask validator
     private pattern = datepickerDefaults.pattern; // Wordt enkel gebruikt in de mask validator
     private disableMobileNativeInput = datepickerDefaults.disableMobileNativeInput;
+    private position = datepickerDefaults.position;
+    private isStatic = datepickerDefaults.isStatic;
 
     // Variables
     private initialValue = '';
@@ -99,6 +101,8 @@ export class VlDatepickerComponent extends FormControl {
             inputValue: { type: String, state: true }, // Houdt de waarde van het getoonde inputveld bij
             inputHasFocus: { type: Boolean, state: true },
             isOpen: { type: Boolean, state: true },
+            position: { type: String },
+            isStatic: { type: Boolean, attribute: 'static' },
         };
     }
 
@@ -157,7 +161,7 @@ export class VlDatepickerComponent extends FormControl {
         super.updated(changedProperties);
 
         const options = this.getDynamicOptions();
-        const dynamicAttributes = ['disabled', 'readonly', 'minDate', 'maxDate', 'minTime', 'maxTime'];
+        const dynamicAttributes = ['disabled', 'readonly', 'minDate', 'maxDate', 'minTime', 'maxTime', 'position'];
         const nativeInputAttributes = ['disabled', 'readonly', 'placeholder', 'required', 'block', 'error', 'success'];
 
         if (dynamicAttributes.some((prop) => changedProperties.has(prop))) {
@@ -287,6 +291,7 @@ export class VlDatepickerComponent extends FormControl {
                       `
                     : nothing}
             </div>
+            <div id="datepicker-calendar-placeholder"></div>
         `;
     }
 
@@ -347,6 +352,7 @@ export class VlDatepickerComponent extends FormControl {
             maxTime: this.maxTime,
             defaultHour: minimumDateTime?.getHours() ?? 12,
             defaultMinute: minimumDateTime?.getMinutes() ?? 0,
+            position: this.position || 'auto',
         };
     }
 
@@ -382,7 +388,6 @@ export class VlDatepickerComponent extends FormControl {
 
     private getOptions(): Options {
         const datepickerButton = this.shadowRoot?.querySelector('button');
-        const datepicker = this.shadowRoot?.querySelector('#datepicker-wrapper') as HTMLInputElement;
         const defaultDate = this.type !== 'range' && this.parseTodayDate(this.initialValue);
         const staticOptions = {
             dateFormat: this.format,
@@ -392,8 +397,8 @@ export class VlDatepickerComponent extends FormControl {
             onOpen: this.handleOpenCalendar,
             onClose: this.handleCloseCalendar,
             positionElement: datepickerButton,
-            static: true,
-            appendTo: datepicker,
+            static: this.isStatic,
+            appendTo: this.getCalendarPlaceholder(),
             defaultDate: defaultDate,
             enableTime: this.type === 'time' || this.type === 'date-time',
             noCalendar: this.type === 'time',
@@ -423,6 +428,10 @@ export class VlDatepickerComponent extends FormControl {
 
     private getNativeDateInput(): HTMLInputElement | undefined | null {
         return this.renderRoot?.querySelector<HTMLInputElement>('input[type="date"]');
+    }
+
+    private getCalendarPlaceholder(): HTMLDivElement {
+        return this.shadowRoot?.querySelector('#datepicker-calendar-placeholder') as HTMLDivElement;
     }
 
     private updateOptionsForInstance(options: Options) {
@@ -457,10 +466,24 @@ export class VlDatepickerComponent extends FormControl {
             this.flatpickrInstance = flatpickr(this.getDatePicker()!, this.getOptions()) as unknown as Instance;
             this.getDatePicker()?.classList.add('static');
             this.getDatePicker()?.removeAttribute('readonly');
+
+            if (!this.isStatic) {
+                this.calculateCalendarPlaceholderPosition();
+            }
+        }
+    }
+
+    private calculateCalendarPlaceholderPosition() {
+        if (this.getDatePicker()) {
+            const { top, left, height } = this.getDatePicker()!.getBoundingClientRect();
+            const calendarPlaceholder = this.getCalendarPlaceholder();
+            calendarPlaceholder.style.top = isSafari ? `calc(-${top}px - ${height}px)` : `-${top}px`;
+            calendarPlaceholder.style.left = `-${left}px`;
         }
     }
 
     private toggleCalendar = () => {
+        this.calculateCalendarPlaceholderPosition();
         this.flatpickrInstance?.toggle();
     };
 
