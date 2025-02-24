@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 import { ArgTypes } from '@storybook/web-components';
 import { formControlArgs, formControlArgTypes } from '../../form-control/stories/form-control.stories-arg';
 import { datepickerDefaults } from '../vl-datepicker.defaults';
-import { DATEPICKER_TYPES } from '../vl-datepicker.model';
+import { DATEPICKER_POSITIONS, DATEPICKER_TYPES } from '../vl-datepicker.model';
 
 type DatepickerArgs = typeof formControlArgs &
     typeof datepickerDefaults & { onVlChange: () => void; onVlInput: () => void; onVlValid: () => void };
@@ -200,5 +200,26 @@ export const datepickerArgTypes: ArgTypes<DatepickerArgs> = {
             type: { summary: '{ value: string }' },
             category: CATEGORIES.EVENTS,
         },
+    },
+    position: {
+        name: 'position',
+        description: 'Configuratie optie overgenomen van Flatpickr. (https://flatpickr.js.org/options/)',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: datepickerArgs.position },
+        },
+        options: DATEPICKER_POSITIONS,
+        control: { type: 'select' },
+    },
+    isStatic: {
+        name: 'static',
+        description: 'Configuratie optie overgenomen van Flatpickr. (https://flatpickr.js.org/options/)',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: datepickerArgs.isStatic },
+        },
+        control: false,
     },
 };

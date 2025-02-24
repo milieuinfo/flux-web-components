@@ -1,8 +1,8 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
+import { html, nothing } from 'lit';
 import { VlErrorMessageComponent } from '../error-message';
 import { VlDatepickerComponent } from './vl-datepicker.component';
 import { datepickerDefaults } from './vl-datepicker.defaults';
-import { html, nothing } from 'lit';
 
 registerWebComponents([VlDatepickerComponent, VlErrorMessageComponent]);
 
@@ -400,9 +400,95 @@ describe('component - vl-datepicker-next', () => {
             .its('firstCall.args.0.detail')
             .should('deep.equal', { value: createIsoDateString({ day: 15 }) });
     });
+
+    it('should open the calendar above when there is not enough space below', () => {
+        cy.mount(
+            html`
+                <div style="margin-top: calc(100vh - 50px); margin-left: calc(100vw - 250px)">
+                    <vl-datepicker-next></vl-datepicker-next>
+                </div>
+            `
+        );
+        cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
+
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .should('not.have.class', 'static')
+            // 'style' wordt toegevoegd bij het automatisch positioneren
+            .should('have.attr', 'style');
+
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .invoke('attr', 'style')
+            .should('contain', 'top')
+            .should('contain', 'left')
+            .should('contain', 'right');
+    });
+
+    it('should open the calendar below the input when static is true', () => {
+        cy.mount(
+            html`
+                <div style="margin-top: calc(100vh - 50px); margin-left: calc(100vw - 250px)">
+                    <vl-datepicker-next static></vl-datepicker-next>
+                </div>
+            `
+        );
+        cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
+
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .should('have.class', 'static')
+            // 'style' wordt toegevoegd bij het automatisch positioneren
+            .should('not.have.attr', 'style');
+    });
+
+    it('should pass the position property to Flatpickr', () => {
+        cy.mount(html`<vl-datepicker-next position="below left"></vl-datepicker-next>`);
+        cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .shouldHaveComputedStyle({ style: 'top', value: '37px' })
+            .shouldHaveComputedStyle({ style: 'left', value: '192px' });
+    });
+
+    it('should position the calendar correctly after adding HTML elements to the DOM', () => {
+        cy.mount(
+            html`<div>
+                <button
+                    id="add-line"
+                    onclick="document.getElementById('add-line').insertAdjacentElement('afterend', document.createElement('br'))"
+                >
+                    add line</button
+                ><vl-datepicker-next position="below left"></vl-datepicker-next>
+            </div>`
+        );
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('#datepicker-calendar-placeholder')
+            .shouldHaveComputedStyle({ style: 'top', value: '-22px' });
+        cy.get('#add-line').click();
+        cy.get('#add-line').click();
+        cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('#datepicker-calendar-placeholder')
+            .shouldHaveComputedStyle({ style: 'top', value: '-43.2656px' });
+        cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
+        cy.get('#add-line').click();
+        cy.get('#add-line').click();
+        cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('#datepicker-calendar-placeholder')
+            .shouldHaveComputedStyle({ style: 'top', value: '-85.7969px' });
+    });
 });
 
-describe.only('component - vl-datepicker-next - native input on mobile', () => {
+describe('component - vl-datepicker-next - native input on mobile', () => {
     beforeEach(() => {
         cy.viewport(320, 480);
     });
