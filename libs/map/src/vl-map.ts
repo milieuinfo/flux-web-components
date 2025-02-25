@@ -26,7 +26,7 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
     constructor() {
         super(`
           <style>
-           ${vlMapStyles}
+            ${vlMapStyles.join('')}
           </style>
           <div id='map'>
             <slot></slot>
