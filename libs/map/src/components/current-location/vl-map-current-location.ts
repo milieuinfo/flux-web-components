@@ -20,7 +20,6 @@ export class VlMapCurrentLocation extends BaseLitElement {
         return [
             css`
                 ${unsafeCSS(styles)}
-            }
             `,
         ];
     }
