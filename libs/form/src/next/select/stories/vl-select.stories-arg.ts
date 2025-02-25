@@ -17,6 +17,15 @@ export const selectArgs: SelectArgs = {
 
 export const selectArgTypes: ArgTypes<SelectArgs> = {
     ...formControlArgTypes,
+    value: {
+        name: 'value',
+        description: 'De waarde van de form control.',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: selectArgs.value },
+        },
+    },
     block: {
         name: 'block',
         description: 'Duidt aan dat de component de volledige breedte van zijn parent mag innemen.',

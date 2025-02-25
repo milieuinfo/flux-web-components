@@ -3,6 +3,7 @@ import { SelectOption } from './vl-select.model';
 
 export const selectDefaults = {
     ...formControlDefaults,
+    value: '' as string,
     options: [] as SelectOption[],
     block: false as boolean,
     placeholder: '' as string,

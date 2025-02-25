@@ -1,6 +1,7 @@
 import { webComponent } from '@domg-wc/common-utilities';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { iconStyle } from '@domg/govflanders-style/component';
+import { FormValue } from '@open-wc/form-control/src/types';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
@@ -20,12 +21,11 @@ export class VlSelectComponent extends FormControl {
     private placeholder = selectDefaults.placeholder;
     private autocomplete = selectDefaults.autocomplete;
     private notDeletable = selectDefaults.notDeletable;
-
-    // State
-    public value = '';
+    private value: FormValue = null;
 
     // Variables
-    private initialOptions = [] as SelectOption[];
+    private initialOptions: SelectOption[] = [];
+    private initialValue: FormValue = null;
     private DEFAULT_GROUP_LABEL = 'Overig';
     private dispatchInput = false;
 
@@ -41,16 +41,29 @@ export class VlSelectComponent extends FormControl {
             placeholder: { type: String },
             autocomplete: { type: String },
             notDeletable: { type: Boolean, attribute: 'not-deletable' },
-            value: { type: String, state: true },
+            value: { type: String, reflect: true },
         };
     }
 
     connectedCallback() {
         super.connectedCallback();
 
-        const selectedOption = this.getSelectedOption();
-        this.value = selectedOption?.value || '';
-        this.initialOptions = JSON.parse(JSON.stringify(this.options));
+        let initialOptions = this.options;
+        this.initialValue = this.value;
+
+        if (this.value === null) {
+            const selectedOption = this.getSelectedOption();
+            if (selectedOption) {
+                this.value = selectedOption.value || '';
+            }
+        } else {
+            initialOptions = this.options.map((option) => {
+                option.selected = option.value === this.value;
+                return option;
+            });
+        }
+
+        this.initialOptions = JSON.parse(JSON.stringify(initialOptions));
     }
 
     updated(changedProperties: Map<string, unknown>) {
@@ -58,13 +71,16 @@ export class VlSelectComponent extends FormControl {
 
         if (changedProperties.has('options')) {
             const selectedOption = this.getSelectedOption();
-            this.value = selectedOption?.value || '';
+            if (this.options) {
+                this.value = selectedOption?.value || '';
+            }
         }
 
         if (changedProperties.has('value')) {
             const detail = { value: this.value };
 
-            this.setValue(this.value);
+            this.setValue(this.value ?? null);
+
             this.dispatchEvent(new CustomEvent('vl-change', { composed: true, bubbles: true, detail }));
             if (this.dispatchInput) {
                 this.dispatchEvent(new CustomEvent('vl-input', { bubbles: true, composed: true, detail }));
@@ -101,12 +117,12 @@ export class VlSelectComponent extends FormControl {
                     ?disabled=${this.disabled}
                     ?aria-disabled=${this.disabled}
                     ?error=${this.error}
-                    .value=${live(this.value)}
+                    .value=${live(this.value ?? '')}
                     autocomplete=${this.autocomplete || nothing}
                     @change=${this.onChange}
                     @input=${this.onSelect}
                 >
-                    ${this.placeholder ? this.renderPlaceholder(hasValue) : nothing}
+                    ${this.placeholder ? this.renderPlaceholder(!hasValue) : nothing}
                     ${hasGroups ? this.renderGroupedOptions() : this.renderSelectOptions(this.options)}
                 </select>
                 ${hasValue && !this.notDeletable ? this.renderClearButton() : nothing}
@@ -115,10 +131,12 @@ export class VlSelectComponent extends FormControl {
         `;
     }
 
-    renderPlaceholder(hasValue: boolean): TemplateResult {
-        return html` <option class="vl-select__placeholder" value="" ?selected=${!hasValue} disabled>
-            ${this.placeholder}
-        </option>`;
+    renderPlaceholder(isPlaceholderSelected: boolean): TemplateResult {
+        return html`
+            <option class="vl-select__placeholder" value="" disabled ?selected=${isPlaceholderSelected}>
+                ${this.placeholder}
+            </option>
+        `;
     }
 
     renderClearButton(): TemplateResult {
@@ -136,21 +154,18 @@ export class VlSelectComponent extends FormControl {
 
     renderGroupedOptions(): TemplateResult[] {
         const groupedOptions = this.getGroupedOptions();
-
-        return Object.entries(groupedOptions).map(([group, options]) => {
-            return html` <optgroup label=${group}>${this.renderSelectOptions(options)}</optgroup>`;
+        return Object.entries(groupedOptions).map(([groupLabel, options]) => {
+            return html` <optgroup label=${groupLabel}>${this.renderSelectOptions(options)}</optgroup> `;
         });
     }
 
     renderSelectOptions(options: SelectOption[]): TemplateResult[] {
         return options.map((option) => {
-            return html` <option
-                value=${option.value}
-                ?selected=${this.value === option.value}
-                ?disabled=${option.disabled}
-            >
-                ${option.label || option.value}
-            </option>`;
+            return html`
+                <option value=${option.value} ?disabled=${option.disabled} ?selected=${this.value === option.value}>
+                    ${option.label ?? option.value}
+                </option>
+            `;
         });
     }
 
@@ -167,11 +182,8 @@ export class VlSelectComponent extends FormControl {
             this.options.pop();
         }
         this.initialOptions.forEach((option) => this.options.push({ ...option }));
-        // We renderen enkel de options opnieuw als de value niet leeg is.
-        if (this.value) {
-            // Aangezien we de referentie van de array niet veranderen, moeten we expliciet een update aanvragen voor de options array.
-            this.requestUpdate('options');
-        }
+
+        this.value = this.initialValue;
     }
 
     private onChange(event: Event & { target: HTMLSelectElement }) {
@@ -187,7 +199,7 @@ export class VlSelectComponent extends FormControl {
         this.value = '';
     }
 
-    private getSelectedOption(): SelectOption | undefined {
+    private getSelectedOption(): SelectOption | undefined | null {
         // Zoek de laatste optie met selected true, dit is dezelfde werking als een native select element.
         return [...this.options].reverse().find((option) => option.selected);
     }
