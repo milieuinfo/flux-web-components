@@ -312,13 +312,15 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
         this.__handleSearchFilterClosing();
     }
 
+    _onToggleFilter = () => {
+        this.__filterSlotContainer.appendChild(this.__filterSlot);
+        this.__searchFilter.hidden = false;
+        this.__showHiddenInModalElements();
+        this.toggleAttribute('data-vl-filter-closed');
+    };
+
     __observeFilterButtons() {
-        this.__filterToggleButton.addEventListener('click', () => {
-            this.__filterSlotContainer.appendChild(this.__filterSlot);
-            this.__searchFilter.hidden = false;
-            this.__showHiddenInModalElements();
-            this.toggleAttribute('data-vl-filter-closed');
-        });
+        this.__filterToggleButton.addEventListener('click', this._onToggleFilter);
         this.__filterOpenButton.addEventListener('click', () => {
             this.setAttribute('data-vl-filter-closed', '');
             this._element.appendChild(this.__filterSlot);
@@ -493,6 +495,11 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
                 setTimeout(() => {
                     this.__onFilterFieldChanged(e);
                 });
+            });
+            this.__searchFilterForm.addEventListener('keyup', ({ code }: KeyboardEvent) => {
+                if (code.toLowerCase() === 'escape' && !this.hasAttribute('data-vl-filter-closed')) {
+                    this._onToggleFilter();
+                }
             });
         }
     }
