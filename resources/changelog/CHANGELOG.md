@@ -1,3 +1,10 @@
+## [1.44.1](https://github.com/milieuinfo/uigov-web-components/compare/v1.44.0...v1.44.1) (2025-02-26)
+
+
+### Bug Fixes
+
+* UIG-3218 - Storybook - 'Show Code' was gebroken door onnodige package upgrades ([0032f53](https://github.com/milieuinfo/uigov-web-components/commit/0032f5396e1b0fabf9120a76065f41eb9c3ef94c))
+
 # [1.44.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.43.1...v1.44.0) (2025-02-19)
 
 
