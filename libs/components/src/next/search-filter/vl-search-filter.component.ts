@@ -47,11 +47,6 @@ export class VlSearchFilterComponent extends BaseLitElement {
 
         this.form?.classList.add('vl-search-filter-next--form');
         this.form?.addEventListener('submit', this.handleSubmitModal);
-        this.form?.addEventListener('keydown', (event: KeyboardEvent) => {
-            if (event.key === 'Escape') {
-                this.setAttribute('hidden', 'true');
-            }
-        });
         const buttonContainer = this.form?.querySelector<HTMLElement>(
             'div:has(vl-button-next[type="submit"],button[type="submit"])'
         );

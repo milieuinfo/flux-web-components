@@ -3,20 +3,20 @@ import { ArgTypes } from '@storybook/web-components';
 
 export const richDataArgs = {
     ...defaultArgs,
-    filterCloseable: false,
+    filterClosable: false,
     filterClosed: false,
 };
 
 export const richDataArgTypes: ArgTypes<typeof richDataArgs> = {
     ...defaultArgTypes(),
-    filterCloseable: {
-        name: 'data-vl-filter-closeable',
+    filterClosable: {
+        name: 'data-vl-filter-closable',
         description:
             'Filter sluitbaar maken en knop tonen om de filter te tonen en terug te verbergen.\n * Op een klein scherm wordt een modal geopend bij het klikken op de filter knop ipv een de filter naast de tabel te tonen.\n\n * Om elementen van de filter te verbergen enkel in de modal, kan het attribuut `data-vl-hidden-in-modal` gezet worden.',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: richDataArgs.filterCloseable },
+            defaultValue: { summary: richDataArgs.filterClosable },
         },
     },
     filterClosed: {

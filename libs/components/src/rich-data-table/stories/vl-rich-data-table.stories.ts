@@ -118,7 +118,7 @@ RichDataTableSorting.args = {
 
 const TemplateFilter = story(
     richDataTableArgs,
-    ({ collapsedM, collapsedS, collapsedXS, filterCloseable, filterClosed }) => {
+    ({ collapsedM, collapsedS, collapsedXS, filterClosable, filterClosed }) => {
         filterRichTableImplementation();
         return html`
             <vl-rich-data-table
@@ -126,7 +126,7 @@ const TemplateFilter = story(
                 ?data-vl-collapsed-m=${collapsedM}
                 ?data-vl-collapsed-s=${collapsedS}
                 ?data-vl-collapsed-xs=${collapsedXS}
-                ?data-vl-filter-closable=${filterCloseable}
+                ?data-vl-filter-closable=${filterClosable}
                 ?data-vl-filter-closed=${filterClosed}
             >
                 <vl-rich-data-field data-vl-label="ID" data-vl-selector="id"></vl-rich-data-field>
@@ -196,12 +196,12 @@ const TemplateFilter = story(
 export const RichDataTableFilter = TemplateFilter.bind({});
 RichDataTableFilter.storyName = 'vl-rich-data-table - filter';
 RichDataTableFilter.args = {
-    filterCloseable: true,
+    filterClosable: true,
 };
 
 const TemplateFilterPaging = story(
     richDataTableArgs,
-    ({ collapsedM, collapsedS, collapsedXS, filterCloseable, filterClosed }) => {
+    ({ collapsedM, collapsedS, collapsedXS, filterClosable, filterClosed }) => {
         paginationRichTableImplementation();
         return html`
             <vl-rich-data-table
@@ -209,7 +209,7 @@ const TemplateFilterPaging = story(
                 ?data-vl-collapsed-m=${collapsedM}
                 ?data-vl-collapsed-s=${collapsedS}
                 ?data-vl-collapsed-xs=${collapsedXS}
-                ?data-vl-filter-closable=${filterCloseable}
+                ?data-vl-filter-closable=${filterClosable}
                 ?data-vl-filter-closed=${filterClosed}
             >
                 <vl-rich-data-field data-vl-label="ID" data-vl-selector="id"></vl-rich-data-field>
@@ -288,6 +288,6 @@ const TemplateFilterPaging = story(
 export const RichDataTableFilterAndPagination = TemplateFilterPaging.bind({});
 RichDataTableFilterAndPagination.storyName = 'vl-rich-data-table - filter and pagination';
 RichDataTableFilterAndPagination.args = {
-    filterCloseable: true,
+    filterClosable: true,
     filterClosed: true,
 };
