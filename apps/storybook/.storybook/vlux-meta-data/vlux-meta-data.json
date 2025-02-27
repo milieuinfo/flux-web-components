@@ -111,6 +111,11 @@
     "elements-button": {
         "vStatus": "v1-replace"
     },
+    "components-pill-button-pill": {
+        "vStatus": "v1-remove",
+        "legacyText": "vl-button-pill",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#button-pill)"
+    },
     "elements-button-button": {
         "vStatus": "v1-replace",
         "legacyText": "vl-button",
