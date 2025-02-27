@@ -1,3 +1,10 @@
+## [1.44.2](https://github.com/milieuinfo/uigov-web-components/compare/v1.44.1...v1.44.2) (2025-02-27)
+
+
+### Bug Fixes
+
+* UIG-3222 - vl-error-message-next - pre-line wordt nu enkel met attribuut gestuurd ([379f504](https://github.com/milieuinfo/uigov-web-components/commit/379f504466c25dacdc18aee721a2547c265d64b3))
+
 ## [1.44.1](https://github.com/milieuinfo/uigov-web-components/compare/v1.44.0...v1.44.1) (2025-02-26)
 
 

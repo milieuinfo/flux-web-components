@@ -276,6 +276,11 @@
                             "name": "show",
                             "description": "Duidt aan of de error message getoond moet worden.<br>Dit kan gebruikt worden om de error message manueel te tonen of te verbergen.",
                             "default": "false"
+                        },
+                        {
+                            "name": "preLine",
+                            "description": "Duidt aan of de nieuwe lijnen (`\n`) in de  error message behouden worden.",
+                            "default": "false"
                         }
                     ],
                     "slots": [
