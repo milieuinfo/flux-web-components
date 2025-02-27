@@ -32,6 +32,15 @@ describe('component - vl-error-message-next', () => {
         cy.get('vl-error-message-next').shadow().find('.vl-form__error').should('be.visible');
     });
 
+    it('should set pre-line attribute', () => {
+        cy.mount(html`<vl-error-message-next pre-line>Test error message</vl-error-message-next>`);
+
+        cy.get('vl-error-message-next').shadow().find('p').should('have.css', 'white-space', 'pre-line');
+
+        cy.get('vl-error-message-next').invoke('removeAttr', 'pre-line');
+        cy.get('vl-error-message-next').shadow().find('p').should('not.have.css', 'white-space', 'pre-line');
+    });
+
     it('should set for', () => {
         cy.mount(html`<vl-error-message-next for="test-input">Test error message</vl-error-message-next>`);
 
