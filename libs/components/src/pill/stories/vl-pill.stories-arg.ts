@@ -10,6 +10,8 @@ export const pillArgs = {
     disabled: false,
     close: action('close'),
     check: action('check'),
+    click: action('click'),
+    clickable: false,
 };
 
 export const pillArgTypes = {
@@ -17,7 +19,7 @@ export const pillArgTypes = {
     closable: {
         name: 'data-vl-closable',
         description:
-            'The attribute that determines whether the pill can be removed or not (cannot be used in combination with checkable).',
+            'The attribute that determines whether the pill can be removed or not (cannot be used in combination with checkable or clickable).',
         table: {
             type: { summary: 'boolean' },
             category: 'Attributes',
@@ -27,7 +29,7 @@ export const pillArgTypes = {
     checkable: {
         name: 'data-vl-checkable',
         description:
-            'The attribute that determines whether the pill can be checked or not (cannot be used in combination with closable).',
+            'The attribute that determines whether the pill can be checked or not (cannot be used in combination with closable or clickable).',
         table: {
             type: { summary: 'boolean' },
             category: 'Attributes',
@@ -72,6 +74,22 @@ export const pillArgTypes = {
         name: 'check',
         description:
             "The custom event that is triggered on input of the pill's checkbox. In the detail of the event you can find whether the pill is getting checked or unchecked.",
+        table: { category: 'Events' },
+    },
+    clickable: {
+        name: 'data-vl-clickable',
+        description:
+            'The attribute that determines whether the pill can be clicked or not (cannot be used in combination with closable or checkable).',
+        table: {
+            type: { summary: 'boolean' },
+            category: 'Attributes',
+            defaultValue: { summary: 'false' },
+        },
+    },
+    click: {
+        name: 'click',
+        description:
+            'The custom event that is triggered on click of a pill button. Requires the clickable attribute to be set.',
         table: { category: 'Events' },
     },
 };

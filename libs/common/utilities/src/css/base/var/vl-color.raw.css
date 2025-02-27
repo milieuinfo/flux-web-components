@@ -21,6 +21,7 @@
 
     --vl-color--action: #0055cc;
     --vl-color--action-hover: #003bb0;
+    --vl-color--action-hover-background: #e6eefa;
     --vl-color--action-active: #004099; /* --vl-color--action 10% darker */
     --vl-color--action-visited: #660599;
     --vl-color--action-disabled: #687483;
