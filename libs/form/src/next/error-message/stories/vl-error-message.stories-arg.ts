@@ -40,6 +40,15 @@ export const errorMessageArgTypes: ArgTypes<ErrorMessageArgs> = {
             defaultValue: { summary: errorMessageArgs.show },
         },
     },
+    preLine: {
+        name: 'preLine',
+        description: 'Duidt aan of de nieuwe lijnen (`\n`) in de  error message behouden worden.',
+        table: {
+            category: CATEGORIES.ATTRIBUTES,
+            type: { summary: TYPES.BOOLEAN },
+            defaultValue: { summary: errorMessageArgs.preLine },
+        },
+    },
     defaultSlot: {
         name: '[default]',
         description: 'De inhoud van de error message.',
