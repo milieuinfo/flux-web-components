@@ -119,7 +119,11 @@ export class VlSearchComponent extends BaseElementOfType(HTMLElement) {
         if (this.__labelElement) {
             this.__labelElement.addEventListener('click', () => {
                 const slottedInput = this.querySelector(`:scope > [slot=input]`);
-                slottedInput?.querySelector('input')?.click();
+                if (slottedInput.nodeName.toLowerCase() === 'vl-select-location-next') {
+                    slottedInput.shadowRoot.querySelector('select').click();
+                } else {
+                    slottedInput?.querySelector('input')?.click();
+                }
             });
         }
     }
@@ -196,6 +200,18 @@ export class VlSearchComponent extends BaseElementOfType(HTMLElement) {
                         }
                     });
                     this.append(slot._wrapperElement);
+                }
+            });
+
+            customElements.whenDefined('vl-select-location-next').then(async () => {
+                if (slot.nodeName.toLowerCase() === 'vl-select-location-next') {
+                    this.setAttribute('data-vl-has-input-slot', '');
+                    slot.addEventListener('focusin', () => {
+                        this.__inputSlotElement.classList.add('is-open');
+                    });
+                    slot.addEventListener('focusout', () => {
+                        this.__inputSlotElement.classList.remove('is-open');
+                    });
                 }
             });
 

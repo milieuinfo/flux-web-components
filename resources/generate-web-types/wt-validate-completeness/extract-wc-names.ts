@@ -96,6 +96,7 @@ export const extractMapWCNames = () =>
             '.model.ts',
             '.sub-story.ts',
             '.uig-css.ts',
+            '.css.ts',
         ]
     );
 
