@@ -20,6 +20,7 @@ import { mapWmsStyleArgTypes } from '../../../libs/map/src/components/layer/wms-
 import { mapWmtsLayerArgTypes } from '../../../libs/map/src/components/layer/wmts-layer/stories/vl-map-wmts-layer.stories-arg';
 import { mapLegendItemArgTypes } from '../../../libs/map/src/components/legend-item/stories/vl-map-legend-item.stories-arg';
 import { mapLegendArgTypes } from '../../../libs/map/src/components/legend/stories/vl-map-legend.stories-arg';
+import { selectLocationArgTypes as selectLocationNextArgTypes } from '../../../libs/map/src/components/next/select-location/stories/vl-select-location.stories-arg';
 import { mapSearchArgTypes } from '../../../libs/map/src/components/search/stories/vl-map-search.stories-arg';
 import { selectLocationArgTypes } from '../../../libs/map/src/components/select-location/stories/vl-select-location.stories-arg';
 import { mapSideSheetMenuItemArgTypes } from '../../../libs/map/src/components/side-sheet/stories/vl-map-side-sheet-menu-item.stories-arg';
@@ -234,6 +235,12 @@ export const buildWTConfigMap: WTConfigArray = [
         selectLocationArgTypes,
         '../../libs/map/src/components/select-location/stories/vl-select-location.stories-doc.mdx',
         '/docs/map-select-location--documentatie'
+    ),
+    buildWTConfig(
+        'vl-select-location-next',
+        selectLocationNextArgTypes,
+        '../../libs/map/src/components/next/select-location/stories/vl-select-location.stories-doc.mdx',
+        '/docs/map-select-location-next--documentatie'
     ),
     buildWTConfig(
         'vl-map-side-sheet',

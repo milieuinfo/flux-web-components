@@ -62,6 +62,7 @@ export { VlMapActionControl } from './components/controls/action-control/vl-map-
 export { VlMapMeasureControl } from './components/controls/measure-control/vl-map-measure-control';
 export { VlMapLegend } from './components/legend/vl-map-legend';
 export { VlSelectLocation } from './components/select-location/vl-select-location';
+export { VlSelectLocationComponent } from './components/next/select-location/vl-select-location';
 export { VlMapCurrentLocation } from './components/current-location/vl-map-current-location';
 export { VlMapClickAction } from './components/action/click-action/vl-map-click-action';
 export { VlMapLoadingIndicator } from './components/loading-indicator/vl-map-loading-indicator';

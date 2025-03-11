@@ -24,22 +24,22 @@ export class VlSelectRichComponent extends FormControl {
     options = selectRichDefaults.options;
 
     // Attributes
-    private placeholder = selectRichDefaults.placeholder;
     private notDeletable = selectRichDefaults.notDeletable;
     private multiple = selectRichDefaults.multiple;
-    private search = selectRichDefaults.search;
     private position = selectRichDefaults.position;
     private resultLimit = selectRichDefaults.resultLimit;
     private noResultsText = selectRichDefaults.noResultsText;
     private noChoicesText = selectRichDefaults.noChoicesText;
-    private searchPlaceholder = selectRichDefaults.searchPlaceholder;
+    protected placeholder = selectRichDefaults.placeholder;
+    protected search = selectRichDefaults.search;
+    protected searchPlaceholder = selectRichDefaults.searchPlaceholder;
 
     // State
     private value: FormValue = null;
     private dispatchInput = false;
 
     // Variables
-    private choices: Choices | null = null;
+    protected choices: Choices | null = null;
     private initialOptions: SelectRichOption[] = [];
 
     static get styles(): CSSResult[] {
@@ -259,6 +259,7 @@ export class VlSelectRichComponent extends FormControl {
                                 data-type="${this.multiple ? 'select-multiple' : 'select-one'}"
                                 ${this.search ? 'aria-autocomplete="list"' : ''}
                                 role="combobox"
+                                part="vl-select-rich__combobox"
                                 aria-haspopup="true"
                                 aria-expanded="false"
                                 tabindex="0"

@@ -471,6 +471,18 @@
         "nextText": "vl-select-rich-next",
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#select--multiselect--select-rich)"
     },
+    "map-select-location": {
+        "vStatus": "v1-replace",
+        "legacyText": "vl-select-location",
+        "nextText": "[vl-select-location-next](/docs/map-select-location-next--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#select-location)"
+    },
+    "map-select-location-next": {
+        "vStatus": "v2-next",
+        "legacyText": "vl-select-location",
+        "nextText": "[vl-select-location-next](/docs/map-select-location-next--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#select-location)"
+    },
     "elements-side-navigation": {
         "vStatus": "v1-replace",
         "legacyText": "vl-side-navigation",

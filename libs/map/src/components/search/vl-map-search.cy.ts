@@ -1,8 +1,15 @@
-import { registerWebComponents, sleep } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common-utilities';
 import { html } from 'lit';
 import { VlMap } from '../../vl-map';
 import { VlMapBaseLayerGRB } from '../baselayer/vl-map-base-layer-grb/vl-map-base-layer-grb';
-import { VlSelectLocation } from '../select-location/vl-select-location';
+import {
+    enterSelectLocationValue,
+    interceptLocation,
+    interceptSuggestions,
+    locationAntwerpen1,
+    selectLocationSuggestion,
+    suggestionsAntwerpen,
+} from '../next/select-location/vl-select-location.cy';
 import { VlMapSearch } from './vl-map-search';
 
 registerWebComponents([VlMap, VlMapBaseLayerGRB, VlMapSearch]);
@@ -23,25 +30,23 @@ const standaloneVlMapSearchFixture = html`
     </div>
 `;
 
+const getSearchComponent = () => cy.get('vl-map-search').shadow().find('vl-search');
+
+const getSelectLocationComponent = () =>
+    cy.get('vl-map').shadow().find('vl-map-search').shadow().find('vl-search').find('vl-select-location-next');
+
 describe('vl-map-search', () => {
     it('bevat een search element met correct geconfigureerd select element als input slot', () => {
         cy.mount(mapSearchFixture);
-        cy.runTestFor<VlMapSearch>('vl-map-search', (vlMapSearch) => {
-            const searchElement = vlMapSearch.shadowRoot.querySelector('vl-search');
-            expect(searchElement).to.exist;
-            expect(searchElement.getAttribute('data-vl-inline')).to.exist;
-            const selectElement = searchElement.querySelector('select');
-            expect(selectElement).to.exist;
-            expect(selectElement.getAttribute('is')).to.be.equal('vl-select-location');
-        });
+        getSearchComponent().should('exist').should('have.attr', 'data-vl-inline');
+        getSearchComponent().find('vl-select-location-next').should('exist');
+        getSearchComponent().find('vl-select-location-next').shadow().find('select').should('exist');
     });
 
     it('indien vl-map-search element binnen een vl-map element zit, zal dit element toegevoegd worden aan de shadow dom', () => {
         cy.mount(mapWithSearchFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
-            cy.wrap(vlMap.ready).then(() => {
-                expect(vlMap.shadowRoot.querySelector('vl-map-search')).to.exist;
-            });
+            cy.wrap(vlMap.ready).then(() => expect(vlMap.shadowRoot.querySelector('vl-map-search')).to.exist);
         });
     });
 
@@ -56,62 +61,36 @@ describe('vl-map-search', () => {
     });
 
     it('wanneer een locatie geselecteerd wordt zal de map zoomen naar deze locatie', () => {
-        const value = 'Antwerpen';
-        const choices = [
-            {
-                value,
-                label: value,
-            },
-        ];
         cy.mount(mapWithSearchFixture);
+        interceptSuggestions(suggestionsAntwerpen);
+        interceptLocation([locationAntwerpen1]);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
-            cy.wrap(vlMap.ready).then(() => {
-                const searchElement = vlMap.shadowRoot.querySelector('vl-map-search') as VlMapSearch;
-                const zoomToSpy = cy.spy(vlMap, 'zoomTo');
-                cy.wait(0).then(() => {
-                    const selectElement = searchElement._selectElement as VlSelectLocation;
-                    cy.wrap(selectElement.ready).then(() => {
-                        selectElement.choices = choices;
-                        selectElement.value = choices[0].value;
-                        searchElement._selectElement.dispatchEvent(new Event('change'));
-                        // ik vind niets beter dan deze halve seconde wachten
-                        cy.wait(500).then(() => {
-                            expect(zoomToSpy).to.be.called;
-                        });
-                    });
-                });
-            });
+            const searchElement = vlMap.shadowRoot.querySelector('vl-map-search') as VlMapSearch;
+            const onZoomSpy = cy.spy(searchElement, 'zoomTo');
+            enterSelectLocationValue(suggestionsAntwerpen[0], getSelectLocationComponent);
+            selectLocationSuggestion(0, getSelectLocationComponent).should(() => expect(onZoomSpy).to.be.called);
         });
     });
 
-    it('wanneer een locatie geselecteerd wordt zal uitsluitend de on select callback met de locatie bounding box aangeroepen worden indien deze bestaat', () => {
-        const value = 'Antwerpen';
-        const choices = [
-            {
-                value,
-                label: value,
-            },
-        ];
+    it('wanneer een locatie geselecteerd wordt zal de map niet zoomen naar deze locatie indien de _onSelect callback gedefineerd is', () => {
         cy.mount(mapWithSearchFixture);
+        interceptSuggestions(suggestionsAntwerpen);
+        interceptLocation([locationAntwerpen1]);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
-            cy.wrap(vlMap.ready).then(() => {
-                const searchElement = vlMap.shadowRoot.querySelector('vl-map-search') as VlMapSearch;
-                cy.wait(0).then(() => {
-                    const selectElement = searchElement._selectElement as VlSelectLocation;
-                    cy.wrap(selectElement.ready).then(() => {
-                        selectElement.choices = choices;
-                        selectElement.value = choices[0].value;
-                        searchElement.onSelect(() => {});
-                        const onSelectSpy = cy.spy(searchElement as any, '_onSelect').as('select');
-                        searchElement._selectElement.dispatchEvent(new Event('change'));
-                        // ik vind niets beter dan deze seconde wachten
-                        cy.wait(1000).then(() => {
-                            expect(onSelectSpy).to.be.called;
-                            cy.get('@select').should('be.calledWith', [139472.21, 203697.31, 159809.79, 229767.38]);
-                        });
-                    });
-                });
-            });
+            const searchElement = vlMap.shadowRoot.querySelector('vl-map-search') as VlMapSearch;
+            const onZoomSpy = cy.spy(searchElement, 'zoomTo');
+            searchElement.onSelect(() => {});
+            const onSelectSpy = cy.spy(searchElement, '_onSelect');
+            enterSelectLocationValue(suggestionsAntwerpen[0], getSelectLocationComponent);
+            selectLocationSuggestion(0, getSelectLocationComponent).should(
+                () =>
+                    expect(onSelectSpy).to.be.calledWith([
+                        locationAntwerpen1.BoundingBox.LowerLeft.X_Lambert72,
+                        locationAntwerpen1.BoundingBox.LowerLeft.Y_Lambert72,
+                        locationAntwerpen1.BoundingBox.UpperRight.X_Lambert72,
+                        locationAntwerpen1.BoundingBox.UpperRight.Y_Lambert72,
+                    ]) && expect(onZoomSpy).not.to.be.called
+            );
         });
     });
 
@@ -122,12 +101,12 @@ describe('vl-map-search', () => {
             ['placeholder', 'search-placeholder', 'search-empty-text', 'search-no-results-text'].forEach(
                 (item, index) => {
                     const attribute = `data-vl-${item}`;
-                    expect(select.hasAttribute(attribute)).to.be.false;
+                    expect(select.hasAttribute(attribute)).to.be.equal(false);
                     const value = `text-${index}`;
                     vlMapSearch.setAttribute(attribute, value);
                     expect(select.getAttribute(attribute)).to.be.equal(value);
                     vlMapSearch.removeAttribute(attribute);
-                    expect(select.hasAttribute(attribute)).to.be.false;
+                    expect(select.hasAttribute(attribute)).to.be.equal(false);
                 }
             );
         });

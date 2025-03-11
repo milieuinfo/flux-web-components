@@ -1,13 +1,13 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { vlElementsStyle, VlSelect, SELECT_POSITION } from '@domg-wc/elements';
 import { VlSearchComponent } from '@domg-wc/components';
+import { SELECT_POSITION, vlElementsStyle, VlSelect } from '@domg-wc/elements';
 import OlOverlay from 'ol/Overlay';
-import { VlSelectLocation } from '../select-location/vl-select-location';
+import { VlSelectLocationComponent } from '../next/select-location/vl-select-location';
 
 @webComponent('vl-map-search')
 export class VlMapSearch extends BaseElementOfType(HTMLElement) {
     static {
-        registerWebComponents([VlSelect, VlSelectLocation, VlSearchComponent]);
+        registerWebComponents([VlSelect, VlSelectLocationComponent, VlSearchComponent]);
     }
 
     static get _observedAttributes() {
@@ -30,25 +30,33 @@ export class VlMapSearch extends BaseElementOfType(HTMLElement) {
               display: block;
             }
 
+            ::part(vl-select-rich__combobox) {
+                background-color: white;
+            }
+
+            ::part(vl-select-rich__combobox)::before {
+                display: none;
+            }
+                
             vl-search {
                 display: block;
                 height: 3.5rem;
             }
           </style>
           <vl-search id="search" data-vl-inline>
-            <select is="vl-select-location" slot="input" data-vl-position=${SELECT_POSITION.BOTTOM}></select>
+            <vl-select-location-next slot="input" not-deletable position=${SELECT_POSITION.BOTTOM}></vl-select-location-next>
           </vl-search>
         `);
         this.configure();
     }
 
     connectedCallback() {
-        this._selectElement.addEventListener('change', this.changeLocation);
+        this.addEventListener('vl-input', this.changeLocation);
         this.addEventListener('keypress', this.stopPropagation);
     }
 
     get _selectElement() {
-        return this._shadow.querySelector('select');
+        return this._shadow.querySelector('vl-select-location-next') as VlSelectLocationComponent;
     }
 
     bindMap(map) {
@@ -82,15 +90,18 @@ export class VlMapSearch extends BaseElementOfType(HTMLElement) {
         });
     }
 
-    private changeLocation = (e) => {
-        if (e.target.location) {
-            e.target.location.then((location) => {
+    private changeLocation = async () => {
+        try {
+            const location = await this._selectElement.location;
+            if (location) {
                 if (this._onSelect) {
                     this._onSelect(location);
                 } else {
                     this.zoomTo(location);
                 }
-            });
+            }
+        } catch (error) {
+            console.error('Locatie kan niet opgehaald worden.', error);
         }
     };
 
@@ -124,7 +135,7 @@ export class VlMapSearch extends BaseElementOfType(HTMLElement) {
 
     disconnectedCallback() {
         this.removeEventListener('keypress', this.stopPropagation);
-        this._selectElement?.removeEventListener('change', this.changeLocation);
+        this._selectElement.removeEventListener('vl-input', this.changeLocation);
     }
 }
 
