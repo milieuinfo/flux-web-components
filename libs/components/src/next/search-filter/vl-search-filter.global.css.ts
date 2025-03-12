@@ -89,6 +89,14 @@ export const searchFilterGlobalStyles: CSSResult = css`
             vl-button-next {
                 width: 100%;
             }
+
+            vl-button-next {
+                display: inline-flex;
+            }
+
+            vl-button-next::part(button) {
+                flex: 1;
+            }
         }
         .vl-search-filter-next--form:has(> section) {
             height: calc(120vh + 100px);
