@@ -797,6 +797,11 @@
                             "name": "title",
                             "description": "De titel van de info-tile.",
                             "default": ""
+                        },
+                        {
+                            "name": "menu",
+                            "description": "Slotelement om menu item toe te voegen in rechterbovenhoek.",
+                            "default": ""
                         }
                     ]
                 },
@@ -977,6 +982,11 @@
                         {
                             "name": "tertiary",
                             "description": "Beeldt de button af als een tertiary button.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "ghost",
+                            "description": "Beeldt de button af als een ghost button.",
                             "default": "false"
                         },
                         {
@@ -1805,12 +1815,12 @@
                         },
                         {
                             "name": "data-vl-closable",
-                            "description": "The attribute that determines whether the pill can be removed or not (cannot be used in combination with checkable).",
+                            "description": "The attribute that determines whether the pill can be removed or not (cannot be used in combination with checkable or clickable).",
                             "default": "false"
                         },
                         {
                             "name": "data-vl-checkable",
-                            "description": "The attribute that determines whether the pill can be checked or not (cannot be used in combination with closable).",
+                            "description": "The attribute that determines whether the pill can be checked or not (cannot be used in combination with closable or clickable).",
                             "default": "false"
                         },
                         {
@@ -1821,6 +1831,11 @@
                         {
                             "name": "data-vl-disabled",
                             "description": "The attribute that determines whether the pill is disabled or not.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-clickable",
+                            "description": "The attribute that determines whether the pill can be clicked or not (cannot be used in combination with closable or checkable).",
                             "default": "false"
                         }
                     ],
@@ -1841,6 +1856,10 @@
                             {
                                 "name": "check",
                                 "description": "The custom event that is triggered on input of the pill's checkbox. In the detail of the event you can find whether the pill is getting checked or unchecked."
+                            },
+                            {
+                                "name": "click",
+                                "description": "The custom event that is triggered on click of a pill button. Requires the clickable attribute to be set."
                             }
                         ]
                     }
@@ -2100,7 +2119,7 @@
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-filter-closeable",
+                            "name": "data-vl-filter-closable",
                             "description": "Filter sluitbaar maken en knop tonen om de filter te tonen en terug te verbergen.\n * Op een klein scherm wordt een modal geopend bij het klikken op de filter knop ipv een de filter naast de tabel te tonen.\n\n * Om elementen van de filter te verbergen enkel in de modal, kan het attribuut `data-vl-hidden-in-modal` gezet worden.",
                             "default": "false"
                         },
@@ -2122,7 +2141,7 @@
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-filter-closeable",
+                            "name": "data-vl-filter-closable",
                             "description": "Filter sluitbaar maken en knop tonen om de filter te tonen en terug te verbergen.\n * Op een klein scherm wordt een modal geopend bij het klikken op de filter knop ipv een de filter naast de tabel te tonen.\n\n * Om elementen van de filter te verbergen enkel in de modal, kan het attribuut `data-vl-hidden-in-modal` gezet worden.",
                             "default": "false"
                         },
@@ -2299,7 +2318,7 @@
                 },
                 {
                     "name": "vl-tabs",
-                    "description": "Gebruik de `tabs` component om gerelateerde informatie op te splitsen in kleinere stukken content.\nOp mobiel wordt de tab navigatie omgevormd tot een uitklapbaar menu.",
+                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik de `tabs` component om gerelateerde informatie op te splitsen in kleinere stukken content.\nOp mobiel wordt de tab navigatie omgevormd tot een uitklapbaar menu.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-tabs--documentatie",
                     "attributes": [
                         {
@@ -2382,7 +2401,7 @@
                 },
                 {
                     "name": "vl-tabs-next",
-                    "description": "Gebruik de `tabs` component om gerelateerde informatie op te splitsen in kleinere stukken content.\nOp mobiel wordt de tab navigatie omgevormd tot een uitklapbaar menu.",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `tabs-next` component om gerelateerde informatie op te splitsen in kleinere stukken content.\nOp mobiel wordt de tab navigatie omgevormd tot een uitklapbaar menu.\n\n<VluxAlert type=\"info\">\n{`\n    De v2 versie van deze component gebruik je via de custom-tag, de interne implementatie is voor de rest\n    gelijk gebleven aan de v1 versie. In de toekomst zal deze component grondig herwerkt worden.\n`}\n</VluxAlert>",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-next-tabs--documentatie",
                     "attributes": [
                         {
@@ -2391,27 +2410,27 @@
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-active-tab",
+                            "name": "active-tab",
                             "description": "Het id van de actieve tab. De tab in kwestie wordt geselecteerd bij het aanpassen van dit id.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-alt",
+                            "name": "alt",
                             "description": "Toont de alt variant van de tabs. Deze variant dient gebruikt te worden als subnavigatie onder de functional header.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-disable-links",
+                            "name": "disable-links",
                             "description": "Zet de automatische url manipulaties uit.<br>Dit attribuut wordt enkel bij de initiële render van een tab gebruikt en werkt niet dynamisch.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-responsive-label",
+                            "name": "responsive-label",
                             "description": "Wordt afgebeeld op mobile wanneer de tabs samengevoegd worden tot een uitklapbaar menu. Wordt enkel afgebeeld wanneer er geen tab geselecteerd is.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-display-style",
+                            "name": "display-style",
                             "description": "Geeft aan op welke manier de tabs getoond worden.<br>Standaard gedrag (`default`) is responsief; bij een breedte groter dan 768px is stijl de `tabs` stijl, anders is het de `collapsed` stijl.<br>Je kan ook expliciet de `tabs` of `collapsed` stijl kiezen die respectievelijk altijd de tabs of altijd de collapsed stijl toont.",
                             "default": "default"
                         }
@@ -2421,6 +2440,11 @@
                             {
                                 "name": "change",
                                 "description": "Afgevuurd na het klikken op een niet actieve tab. Het event bevat het id van de tab.",
+                                "type": "{ activeTab: string }"
+                            },
+                            {
+                                "name": "vl-click",
+                                "description": "Afgevuurd na het klikken op een tab. Het event bevat het id van de tab.",
                                 "type": "{ activeTab: string }"
                             }
                         ]
@@ -2436,15 +2460,15 @@
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-id",
+                            "name": "id",
                             "description": "De id van de tabs-pane."
                         },
                         {
-                            "name": "data-vl-title",
+                            "name": "title",
                             "description": "De titel van de tabs-pane."
                         },
                         {
-                            "name": "data-vl-observe-title",
+                            "name": "observe-title",
                             "description": "Duidt aan of de titel van de tabs-pane geobserveerd wordt.",
                             "default": "false"
                         }

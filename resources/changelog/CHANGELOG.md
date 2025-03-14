@@ -1,3 +1,36 @@
+# [1.45.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.44.0...v1.45.0) (2025-03-14)
+
+
+### Bug Fixes
+
+* UIG-2929 - vl-search-filter-next - footer styling rechtgezet ([ed99ee7](https://github.com/milieuinfo/uigov-web-components/commit/ed99ee7de5c22c12b19a3372dd0069dc12f6fe54))
+* UIG-3218 - Storybook - 'Show Code' was gebroken door onnodige package upgrades ([746b5ac](https://github.com/milieuinfo/uigov-web-components/commit/746b5ac0e36b5884e94612ee6c77c454e306f5cc))
+* UIG-3222 - vl-error-message-next - pre-line wordt nu enkel met attribuut gestuurd ([00c2847](https://github.com/milieuinfo/uigov-web-components/commit/00c2847d30a3493550ca893d6b5c2e5a965eeee2))
+
+
+### Features
+
+* UIG-2868 - form-next - form-validation documentatie bijgewerkt ([3521905](https://github.com/milieuinfo/uigov-web-components/commit/352190567eb1778345b8c9a13f3aa647d5da144c))
+* UIG-2868 - vl-form-demo - WCAG verbeteringen doorgevoerd ([b256c95](https://github.com/milieuinfo/uigov-web-components/commit/b256c953528a06f42422aa9a546482fa2dbd9fb7))
+* UIG-3074 - vl-checkbox-next - WCAG verbeteringen doorgevoerd ([4cbeb4c](https://github.com/milieuinfo/uigov-web-components/commit/4cbeb4c33a9d786c2ba0dbd5cb87fb8a32c55107))
+* UIG-3075 - vl-form-control - aria-description van de form-control wordt nu aangepast op basis van de foutboodschap ([d0757d6](https://github.com/milieuinfo/uigov-web-components/commit/d0757d6487a5059481421123becee170da20393d))
+* UIG-3077, UIG-3076 - vl-input-field-next, vl-input-field-masked-next - WCAG verbeteringen doorgevoerd ([2591f81](https://github.com/milieuinfo/uigov-web-components/commit/2591f811676d19fcffe9a82bcd4d3408a4d0123b))
+* UIG-3078 - vl-radio-group-next - WCAG verbeteringen doorgevoerd ([83fdfe3](https://github.com/milieuinfo/uigov-web-components/commit/83fdfe3d86db2d3b6efad79b03d1cfb8092f0056))
+* UIG-3080 - vl-select-next, vl-select-rich-next - WCAG verbeteringen doorgevoerd ([7b0b779](https://github.com/milieuinfo/uigov-web-components/commit/7b0b779b3b9ef62e6880fbe7d3e6feec66cb4650))
+* UIG-3081 - vl-textarea-next - WCAG verbeteringen doorgevoerd ([c22d331](https://github.com/milieuinfo/uigov-web-components/commit/c22d3311c0166f86eb347b65030a4d68bc7acf2f))
+* UIG-3082 - vl-upload-next - WCAG verbeteringen doorgevoerd ([0db92bb](https://github.com/milieuinfo/uigov-web-components/commit/0db92bb8637d3ae84eccb9a5257cf5e59aadf873))
+* UIG-3084 - vl-datepicker-next - WCAG verbeteringen doorgevoerd ([f2a6926](https://github.com/milieuinfo/uigov-web-components/commit/f2a692684089a7da67bde7db941a76cfd9189240))
+* UIG-3097 - vl-textarea-rich-next - WCAG verbeteringen doorgevoerd ([9fac920](https://github.com/milieuinfo/uigov-web-components/commit/9fac920c8dc1acab62ef79a453759a1d4fb9840a))
+* UIG-3141 - vl-map - het selectiekader is terug zichtbaar bij de delete action ([6aa526d](https://github.com/milieuinfo/uigov-web-components/commit/6aa526d3879d3aa6bed7607b797f30127d4b91a7))
+* UIG-3150 - vl-info-tile - extra slot toegevoegd voor menu ([a823d08](https://github.com/milieuinfo/uigov-web-components/commit/a823d0896a4735743e409206d32de0f0e200ea48))
+* UIG-3151 - vl-select-next - ellipsis toegevoegd bij lange opties ([12a9ce8](https://github.com/milieuinfo/uigov-web-components/commit/12a9ce827b29d70b123ffd67b1b3b1b996cd986c))
+* UIG-3164 - vl-upload-next - upload progress event & callback voorzien ([3c6f13b](https://github.com/milieuinfo/uigov-web-components/commit/3c6f13b931f86e36f7d4d566ec1fb4d525174548))
+* UIG-3184 - vl-datepicker - automatische positionering hersteld en extra attributen "position" en "static" ([f4b6c03](https://github.com/milieuinfo/uigov-web-components/commit/f4b6c03433edff4b7aa7b5adeaaeb9c4eea2003f))
+* UIG-3208 - vl-search-filter - Escape functionaliteit verplaatst naar vl-rich-data ([f3c2914](https://github.com/milieuinfo/uigov-web-components/commit/f3c29147f9faa72189fdb34ac771a55307b63ca9))
+* UIG-3211 - vl-tab-next - introductie naïeve next component (wegwerken elementen) ([14b3573](https://github.com/milieuinfo/uigov-web-components/commit/14b35737336faf8a7fb2b93b000f45f30a5ff7ff))
+* UIG-3212 - vl-button-next - ghost variant aangemaakt ([dc05789](https://github.com/milieuinfo/uigov-web-components/commit/dc057899feb80d03f9dcdc7ad3d11da504a7945d))
+* UIG-3219 - vl-pill - is="vl-button-pill" is nu <vl-pill clickable> ([73348d8](https://github.com/milieuinfo/uigov-web-components/commit/73348d8e0d845f23f2c09ce3ac1b2c410e286695))
+
 # [1.44.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.43.1...v1.44.0) (2025-02-19)
 
 

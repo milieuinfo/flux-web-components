@@ -215,9 +215,24 @@
                             "default": "false"
                         },
                         {
+                            "name": "disable-mobile-native-input",
+                            "description": "Rendert de native datepicker op mobiele toestellen in plaats van flatpickr calendar. [Meer Info](https://flatpickr.js.org/mobile-support/)",
+                            "default": "false"
+                        },
+                        {
                             "name": "pattern",
                             "description": "Het patroon dat je moet volgen bij het ingeven van een waarde.<br>Dit kan gebruikt worden voor eenvoudige validatie.<br>Gebruik de `regex` property voor complexe validatie.",
                             "default": ""
+                        },
+                        {
+                            "name": "position",
+                            "description": "Configuratie optie overgenomen van Flatpickr. (https://flatpickr.js.org/options/)",
+                            "default": "auto"
+                        },
+                        {
+                            "name": "static",
+                            "description": "Configuratie optie overgenomen van Flatpickr. (https://flatpickr.js.org/options/)",
+                            "default": "false"
                         }
                     ],
                     "js": {
@@ -275,6 +290,11 @@
                         {
                             "name": "show",
                             "description": "Duidt aan of de error message getoond moet worden.<br>Dit kan gebruikt worden om de error message manueel te tonen of te verbergen.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "preLine",
+                            "description": "Duidt aan of de nieuwe lijnen (`\n`) in de  error message behouden worden.",
                             "default": "false"
                         }
                     ],
@@ -1332,7 +1352,7 @@
                         },
                         {
                             "name": "accepted-files",
-                            "description": "Attribuut om te bepalen welke bestanden worden geaccepteerd door component (extensie en mimetype).",
+                            "description": "Attribuut om te bepalen welke bestanden worden geaccepteerd door de component (extensie en mimetype).<br>Bv. `image/*,application/pdf,.psd`",
                             "default": ""
                         },
                         {
@@ -1348,17 +1368,17 @@
                         {
                             "name": "error-message-accepted-files",
                             "description": "Attribuut om de message te definiëren wanneer er bestanden zijn toegevoegd die niet voldoen aan hetgevraagde bestandstype.",
-                            "default": "Dit bestandstype is niet toegestaan."
+                            "default": "Dit bestand is niet toegevoegd. Dit bestandstype is niet toegestaan."
                         },
                         {
                             "name": "error-message-filesize",
                             "description": "Attribuut om de message te definiëren wanneer er te grote bestanden zijn toegevoegd. <br> Gebruik {{maxSize}} om de maximum grootte weer te geven in MB.",
-                            "default": "Het bestand mag maximaal {{maxFilesize}} MB zijn."
+                            "default": "Dit bestand is niet toegevoegd. Het bestand mag maximaal {{maxFilesize}} MB zijn."
                         },
                         {
                             "name": "error-message-maxfiles",
                             "description": "Attribuut om de boodschap te bepalen wanneer er te veel bestanden zijn toegevoegd. <br> Gebruik {{maxFiles}} om het maximum aantal bestanden weer te geven.",
-                            "default": "Je kan maximaal {{maxFiles}} bestand(en) uploaden."
+                            "default": "Dit bestand is niet toegevoegd. Je kan maximaal {{maxFiles}} bestand(en) uploaden."
                         },
                         {
                             "name": "max-files",
@@ -1372,12 +1392,12 @@
                         },
                         {
                             "name": "sub-title",
-                            "description": "De annotatietekst voor de upload knop.",
+                            "description": "De annotatietekst voor de upload knop.\nNiet reactief.",
                             "default": "Sleep de bijlage naar hier om toe te voegen"
                         },
                         {
                             "name": "main-title",
-                            "description": "De tekst die op de upload knop komt te staan.",
+                            "description": "De tekst die op de upload knop komt te staan.\nNiet reactief.",
                             "default": "Bijlage toevoegen"
                         },
                         {
@@ -1387,11 +1407,24 @@
                         },
                         {
                             "name": "url",
-                            "description": "Bepaalt de upload url",
+                            "description": "Bepaalt de upload url.\nNiet reactief.",
                             "default": "dummy-url"
+                        },
+                        {
+                            "name": "chunking",
+                            "description": "Attribuut om te activeren of deactiveren dat het bestand in stukken wordt geüpload.<br> Dit moet aanstaan om upload progress te verkrijgen.",
+                            "default": "false"
                         }
                     ],
                     "js": {
+                        "properties": [
+                            {
+                                "name": "uploadProgressFn",
+                                "description": "Functie die wordt aangeroepen wanneer een bestand wordt geüpload.<br> Deze functie geeft de voortgang van de upload in percentage en de bytes die zijn verzonden.",
+                                "type": "function",
+                                "default": "null"
+                            }
+                        ],
                         "events": [
                             {
                                 "name": "vl-reset",
@@ -1426,6 +1459,11 @@
                                 "name": "vl-error",
                                 "description": "Event dat afgevuurd wordt als een bestand niet voldoet aan de validatie.<br>Het detail object van het event bevat de ingegeven waarde.<br>Daarnaast geeft het ook de file met de fout.",
                                 "type": "{ value: string, type: string, file: File, errorMessage: string}"
+                            },
+                            {
+                                "name": "vl-upload-progress",
+                                "description": "Event dat afgevuurd wordt als een bestand wordt geüpload.<br>Het detail object van het event bevat de voortgang van de upload in percentage en de bytes die zijn verzonden.<br>Dit werkt alleen als het `chunking` attribuut ingesteld is.",
+                                "type": "{ file: File, progress: number, bytesSent: number }"
                             },
                             {
                                 "name": "vl-success",
