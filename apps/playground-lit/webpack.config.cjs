@@ -11,6 +11,7 @@ const config = {
             directory: path.resolve(__dirname, '../../build/dist/apps/playground-lit'),
             publicPath: '/',
         },
+        hot: true,
     },
     module: {
         rules: [

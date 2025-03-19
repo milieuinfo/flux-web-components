@@ -226,6 +226,7 @@ describe('integration - form demo', () => {
             interesses: '',
             leeftijd: '',
             geboortedatum: '',
+            kinderen: '',
         };
 
         cy.mount(html`<vl-form-demo></vl-form-demo>`);
