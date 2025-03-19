@@ -22,7 +22,7 @@ export class VlSelectComponent extends FormControl {
     private notDeletable = selectDefaults.notDeletable;
 
     // State
-    private value: string | null = null;
+    private value = '';
 
     // Variables
     private initialOptions = [] as SelectOption[];
@@ -49,7 +49,7 @@ export class VlSelectComponent extends FormControl {
         super.connectedCallback();
 
         const selectedOption = this.getSelectedOption();
-        this.value = selectedOption?.value ?? null;
+        this.value = selectedOption?.value || '';
         this.initialOptions = JSON.parse(JSON.stringify(this.options));
     }
 
@@ -58,7 +58,7 @@ export class VlSelectComponent extends FormControl {
 
         if (changedProperties.has('options')) {
             const selectedOption = this.getSelectedOption();
-            this.value = selectedOption?.value ?? null;
+            this.value = selectedOption?.value || '';
         }
 
         if (changedProperties.has('value')) {
@@ -86,7 +86,7 @@ export class VlSelectComponent extends FormControl {
             'vl-select--success': this.success,
             'vl-select--block': this.block,
         };
-        const hasValue = this.value !== null;
+        const hasValue = !!this.value;
         const hasGroups = this.options.some((option) => option.group);
 
         return html`
@@ -184,7 +184,7 @@ export class VlSelectComponent extends FormControl {
 
     private clearValue() {
         this.dispatchInput = true;
-        this.value = null;
+        this.value = '';
     }
 
     private getSelectedOption(): SelectOption | undefined {
