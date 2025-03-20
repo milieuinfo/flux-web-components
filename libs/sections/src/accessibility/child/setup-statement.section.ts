@@ -1,11 +1,7 @@
 import { html } from 'lit';
 import type { AccessibilityProperties } from '../vl-accessibility.model';
-import { VlColumnElement, VlH2Element } from '@domg-wc/elements';
 
 export type SetupStatementProps = Pick<AccessibilityProperties, 'evaluation' | 'date' | 'dateModified'>;
-
-export const setupStatementElements = () => [VlColumnElement, VlH2Element];
-
 export const setupStatement = ({ evaluation, date, dateModified }: SetupStatementProps) => {
     const setupStatementTemplate = () => {
         switch (evaluation) {
@@ -23,8 +19,8 @@ export const setupStatement = ({ evaluation, date, dateModified }: SetupStatemen
                 return null;
         }
     };
-    return html` <div id="setup-accessibility-statement" is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-        <h2 is="vl-h2">Opstelling van deze toegankelijkheidsverklaring</h2>
+    return html` <div id="setup-accessibility-statement" class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+        <vl-title-next type="h2">Opstelling van deze toegankelijkheidsverklaring</vl-title-next>
         <p>${setupStatementTemplate()}</p>
     </div>`;
 };

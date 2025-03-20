@@ -1,12 +1,8 @@
 import { html } from 'lit';
 import type { AccessibilityProperties } from '../vl-accessibility.model';
-import { VlColumnElement } from '@domg-wc/elements';
 import { wcagLink } from './wcag-link.section';
 
 export type ComplianceStatusProps = Pick<AccessibilityProperties, 'compliance' | 'evaluation'>;
-
-export const complianceStatusElements = () => [VlColumnElement];
-
 export const complianceStatus = ({ compliance, evaluation }: ComplianceStatusProps) => {
     const complianceTemplate = () => {
         switch (compliance) {
@@ -22,8 +18,12 @@ export const complianceStatus = ({ compliance, evaluation }: ComplianceStatusPro
                 return null;
         }
     };
-    return html` <div id="compliance-status" is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-        <h2 is="vl-h2">Nalevingsstatus</h2>
-        ${evaluation === 'NOT_EVALUATED' ? html`Deze website voldoet niet aan de ${wcagLink()}.` : complianceTemplate()}
-    </div>`;
+    return html`
+        <div id="compliance-status" class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+            <vl-title-next type="h2">Nalevingsstatus</vl-title-next>
+            ${evaluation === 'NOT_EVALUATED'
+                ? html`Deze website voldoet niet aan de ${wcagLink()}.`
+                : complianceTemplate()}
+        </div>
+    `;
 };

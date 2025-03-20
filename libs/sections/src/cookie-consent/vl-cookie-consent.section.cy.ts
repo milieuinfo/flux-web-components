@@ -58,7 +58,7 @@ describe('component vl-cookie-consent - content', () => {
         mountDefault();
 
         cy.createStubForEvent('vl-cookie-consent', 'vl-close');
-        cy.get('vl-cookie-consent').shadow().find('vl-modal').find('button[slot="button"]').click();
+        cy.get('vl-cookie-consent').shadow().find('vl-modal').find('vl-button-next[slot="button"]').click();
         cy.get('@vl-close').should('have.been.calledOnce');
     });
 });

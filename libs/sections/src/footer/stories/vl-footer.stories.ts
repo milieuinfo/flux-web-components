@@ -24,13 +24,13 @@ export default {
 export const FooterDefault = story(
     footerArgs,
     ({ identifier, development, onReady }) => html`
-        <div is="vl-body">
+        <body>
             <vl-footer
                 ?data-vl-development=${development}
                 data-vl-identifier=${identifier}
                 @ready=${(event: CustomEvent) => onReady(event)}
             ></vl-footer>
-        </div>
+        </body>
     `
 );
 FooterDefault.storyName = 'vl-footer - default';

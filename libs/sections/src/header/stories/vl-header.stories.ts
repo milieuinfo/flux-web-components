@@ -37,7 +37,7 @@ export const HeaderDefault = story(
         applicationLinks,
         onReady,
     }) => html`
-        <div is="vl-body">
+        <body>
             <vl-header
                 data-vl-authenticated-user-url=${authenticatedUserUrl}
                 ?data-vl-development=${development}
@@ -53,7 +53,7 @@ export const HeaderDefault = story(
                 .applicationLinks=${applicationLinks}
                 @ready=${onReady}
             ></vl-header>
-        </div>
+        </body>
     `
 );
 

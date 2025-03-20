@@ -119,7 +119,7 @@ export class VlHeader extends BaseLitElement {
     }
 
     private injectHeaderContainer() {
-        const vlBody = document.querySelector('[is="vl-body"]');
+        const vlBody = document.querySelector('body');
 
         (vlBody || document.body).insertAdjacentHTML(
             'afterbegin',
