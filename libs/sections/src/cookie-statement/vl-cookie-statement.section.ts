@@ -1,6 +1,17 @@
+import { vlContentBlockStyles, vlGridStyles, vlSectionStyles } from '@domg-wc/common-utilities/css';
+import { VlLinkComponent } from '@domg-wc/components/next/link';
+import { VlParagraphComponent } from '@domg-wc/components/next/paragraph';
+import { VlSideNavigationComponent } from '@domg-wc/components/next/side-navigation';
+import { VlTitleComponent } from '@domg-wc/components/next/title';
+import { css } from 'lit';
 import { render } from 'lit-html';
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { VlContactCardComponent, VlInfoblockComponent, VlTypography } from '@domg-wc/components';
+import {
+    VlContactCardComponent,
+    VlFunctionalHeaderComponent,
+    VlInfoblockComponent,
+    VlTypography,
+} from '@domg-wc/components';
 import {
     VlColumnElement,
     VlGridElement,
@@ -14,13 +25,6 @@ import {
     VlPropertyTermElement,
     VlPropertyValueElement,
     VlRegionElement,
-    VlSideNavigation,
-    VlSideNavigationContentElement,
-    VlSideNavigationGroupElement,
-    VlSideNavigationH2,
-    VlSideNavigationItemElement,
-    VlSideNavigationReferenceElement,
-    VlSideNavigationToggleElement,
 } from '@domg-wc/elements';
 import { cookieStatementHeaderElements, header } from './child/header.section';
 import './cookie/vl-authentication-cookie.section';
@@ -48,18 +52,15 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
             VlPropertyTermElement,
             VlPropertyValueElement,
             VlRegionElement,
-            VlSideNavigation,
-            VlSideNavigationContentElement,
-            VlSideNavigationGroupElement,
-            VlSideNavigationH2,
-            VlSideNavigationItemElement,
-            VlSideNavigationReferenceElement,
-            VlSideNavigationToggleElement,
             // components
             VlContactCardComponent,
             VlInfoblockComponent,
             VlTypography,
-
+            VlSideNavigationComponent,
+            VlTitleComponent,
+            VlLinkComponent,
+            VlParagraphComponent,
+            VlFunctionalHeaderComponent,
             // child components
             ...cookieStatementHeaderElements(),
         ]);
@@ -73,6 +74,9 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
         super(`
             <style>
                 ${styles}
+                ${vlSectionStyles.cssText}
+                ${vlGridStyles.cssText}
+                ${vlContentBlockStyles.cssText}
             </style>
              <slot name="header"></slot>
             `);
@@ -87,19 +91,19 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
         this._element.insertAdjacentHTML(
             'afterend',
             `
-        <section is="vl-region">
-            <div is="vl-layout">
-                <div is="vl-grid" data-vl-is-stacked>
-                    <div is="vl-column" data-vl-size="10">
-                        <h1 is="vl-h1" data-vl-no-space-bottom>Cookieverklaring</h1>
+        <section class="vl-section-next">
+            <div class="vl-section-next__centered">
+                <div class="vl-grid-next vl-stacked-next-small vl-content-block-next">
+                    <div class="vl-column-next vl-column-next--10">
+                        <vl-title-next type="h1" no-space-bottom>Cookieverklaring</vl-title-next>
                     </div>
-                    <div is="vl-column" data-vl-size="10">
-                        <p is="vl-introduction">
+                    <div class="vl-column-next vl-column-next--10">
+                        <vl-paragraph-next introduction>
                             <span>Versie</span> <span id="introduction-version">1.0.0</span> - <span id="introduction-date">3 maart 2021</span>
-                        </p>
+                        </vl-paragraph-next>
                     </div>
 
-                    <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
+                    <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
                         <vl-typography>
                             <hr/>
                         </vl-typography>
@@ -108,14 +112,14 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
             </div>
         </section>
 
-        <section is="vl-region">
-            <div is="vl-layout">
-                <div is="vl-grid" data-vl-is-stacked>
-                    <div is="vl-column" data-vl-size="8" data-vl-medium-size="8" data-vl-small-size="8" data-vl-extra-small-size="12">
-                        <div is="vl-side-navigation-reference" data-vl--scrollspy-content>
-                            <div is="vl-grid" data-vl-is-stacked-large>
-                                <div id="cookie-policy" is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                                    <h2 is="vl-h2">Cookiebeleid</h2>
+        <section class="vl-section-next">
+            <div class="vl-section-next__centered">
+                <div class="vl-grid-next vl-stacked-next-medium vl-content-block-next">
+                    <div class="vl-column-next vl-column-next--8 vl-column-next--m-8 vl-column-next--s-8 vl-column-next--xs-8">
+                        <vl-side-navigation-reference-next  data-vl--scrollspy-content>
+                            <div class="vl-grid-next vl-stacked-next-large">
+                                <div id="cookie-policy" class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                                    <vl-title-next type="h2">Cookiebeleid</vl-title-next>
                                     <p>Departement Omgeving (verder ‘dOMG’) vindt het belangrijk dat u op iedere plaats en elk ogenblik haar dOMG-inhoud kan bekijken, beluisteren, lezen of beleven via diverse mediaplatformen. dOMG wil ook werken aan interactieve diensten en diensten op uw maat. Op dOMG-onlinediensten worden technieken gehanteerd om dit mogelijk te maken, bijvoorbeeld met behulp van cookies en scripts. Deze technieken worden hierna gemakkelijkheidshalve cookies genoemd. In dit cookiebeleid wenst dOMG u te informeren welke cookies worden gebruikt en waarom dit gebeurt. Verder wordt toegelicht in welke mate u als gebruiker het gebruik kan controleren. dOMG wil namelijk graag uw privacy en de gebruiksvriendelijkheid van haar onlinediensten zoveel mogelijk waarborgen.</p>
                                     <br/>
                                     <p>Dit cookiebeleid is van toepassing op alle 'dOMG-onlinediensten', met name alle websites, (mobiele) applicaties en internetdiensten die dOMG aanbiedt en die toegang geven tot dOMG-inhoud.</p>
@@ -123,30 +127,30 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
                                     <p>dOMG kan het cookiebeleid op elk moment veranderen. Dat kan bijvoorbeeld gebeuren in het kader van veranderingen aan haar diensten of de geldende wetgeving. Het gewijzigde beleid wordt dan bekendgemaakt op de relevante onlinediensten en geldt vanaf het moment dat deze bekendgemaakt wordt.</p>
                                 </div>
 
-                                <div id="cookie-definition" is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                                    <h2 is="vl-h2">Wat zijn cookies precies?</h2>
+                                <div id="cookie-definition" class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                                    <vl-title-next type="h2">Wat zijn cookies precies?</vl-title-next>
                                     <p>Cookies zijn kleine gegevens- of tekstbestanden die op uw computer of mobiele apparaat worden geïnstalleerd wanneer u een website bezoekt of een (mobiele) toepassing gebruikt. Het cookiebestand bevat een unieke code waarmee uw browser herkend kan worden tijdens het bezoek aan de online service of tijdens opeenvolgende, herhaalde bezoeken. Cookies kunnen worden geplaatst door de server van de website of applicatie die u bezoekt, maar ook door servers van derden die al dan niet met deze website of applicatie samenwerken.</p>
                                     <br/>
                                     <p>Cookies maken over het algemeen de interactie tussen de bezoeker en de website of applicatie gemakkelijker en sneller en helpen de bezoeker om te navigeren tussen de verschillende delen van een website of applicatie.</p>
                                 </div>
 
-                                <div id="cookie-management" is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                                    <h2 is="vl-h2">Hoe kan ik het gebruik van cookies op deze onlinediensten weigeren of beheren?</h2>
+                                <div id="cookie-management" class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                                    <vl-title-next type="h2">Hoe kan ik het gebruik van cookies op deze onlinediensten weigeren of beheren?</vl-title-next>
                                     <vl-typography>
                                         <p>U kunt de installatie van cookies weigeren via uw browserinstellingen. U kunt op elk gewenst moment ook de reeds geïnstalleerde cookies van uw computer of mobiele apparaat verwijderen. Instructies vindt u op de website van uw browser:</p>
                                         <ul>
-                                            <li><a is="vl-link" href="https://support.microsoft.com/nl-be/help/17479/windows-internet-explorer-11-change-security-privacy-settings" target="_blank">Microsoft Internet Explorer<span is="vl-icon" data-vl-icon="external" data-vl-after></span></a></li>
-                                            <li><a is="vl-link" href="https://support.microsoft.com/nl-nl/help/4468242/microsoft-edge-browsing-data-and-privacy-microsoft-privacy" target="_blank">Microsoft Edge<span is="vl-icon" data-vl-icon="external" data-vl-after></span></a></li>
-                                            <li><a is="vl-link" href="http://support.google.com/chrome/bin/answer.py?hl=nl&amp;answer=95647" target="_blank">Google Chrome<span is="vl-icon" data-vl-icon="external" data-vl-after></span></a></li>
-                                            <li><a is="vl-link" href="http://support.mozilla.org/nl/kb/cookies-in-en-uitschakelen-websites-voorkeuren?redirectlocale=nl&amp;redirectslug=Cookies+in-+en+uitschakelen" target="_blank">Mozilla Firefox<span is="vl-icon" data-vl-icon="external" data-vl-after></span></a></li>
-                                            <li><a is="vl-link" href="http://support.apple.com/kb/PH5042" target="_blank">Apple Safari<span is="vl-icon" data-vl-icon="external" data-vl-after></span></a></li>
-                                        </ul>
+                                            <li><vl-link-next href="https://support.microsoft.com/nl-be/help/17479/windows-internet-explorer-11-change-security-privacy-settings" external >Microsoft Internet Explorer</vl-link-next></vl-side-navigation-item-next>
+                                            <li><vl-link-next href="https://support.microsoft.com/nl-nl/help/4468242/microsoft-edge-browsing-data-and-privacy-microsoft-privacy" external >Microsoft Edge</vl-link-next></vl-side-navigation-item-next>
+                                            <li><vl-link-next href="http://support.google.com/chrome/bin/answer.py?hl=nl&amp;answer=95647" external >Google Chrome</vl-link-next></vl-side-navigation-item-next>
+                                            <li><vl-link-next href="http://support.mozilla.org/nl/kb/cookies-in-en-uitschakelen-websites-voorkeuren?redirectlocale=nl&amp;redirectslug=Cookies+in-+en+uitschakelen" external >Mozilla Firefox</vl-link-next></vl-side-navigation-item-next>
+                                            <li><vl-link-next href="http://support.apple.com/kb/PH5042" external >Apple Safari</vl-link-next></vl-side-navigation-item-next>
+                                        </vl-side-navigation-group-next>
                                         <p>Wanneer u cookies uitschakelt, moet u er rekening mee houden dat bepaalde grafische elementen er niet mooi kunnen uitzien, of dat u bepaalde toepassingen niet kunt gebruiken. Hieronder vindt u een gedetailleerde lijst van alle cookies die in deze website of toepassing worden gebruikt.</p>
                                     </vl-typography>
                                 </div>
 
-                                <div id="cookie-usage" is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                                    <h2 is="vl-h2">Gebruikte cookies</h2>
+                                <div id="cookie-usage" class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                                    <vl-title-next type="h2">Gebruikte cookies</vl-title-next>
                                     <vl-header-cookie></vl-header-cookie>
                                     <vl-header-authentication-cookie></vl-header-authentication-cookie>
                                     <vl-authentication-cookie></vl-authentication-cookie>
@@ -155,50 +159,46 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
                                     <slot></slot>
                                 </div>
                             </div>
-                        </div>
+                        </vl-side-navigation-reference-next>
                     </div>
 
-                    <div is="vl-column" data-vl-size="4" data-vl-medium-size="4" data-vl-small-size="4" data-vl-extra-small-size="0">
-                        <nav is="vl-side-navigation" aria-label="inhoudsopgave">
-                            <h2 is="vl-side-navigation-h2">Op deze pagina</h2>
-                            <div is="vl-side-navigation-content">
-                                <ul is="vl-side-navigation-group">
-                                    <li is="vl-side-navigation-item" data-vl-parent>
-                                        <a is="vl-side-navigation-toggle" href="#cookie-policy">
+                    <div class="vl-column-next vl-column-next--4 vl-column-next--m-4 vl-column-next--s-4 vl-column-next--xs-0">
+                        <vl-side-navigation-next  aria-label="inhoudsopgave">
+                            <vl-side-navigation-h2-next >Op deze pagina</vl-side-navigation-h2-next>
+                            <vl-side-navigation-content-next >
+                                <vl-side-navigation-group-next >
+                                    <vl-side-navigation-item-next  parent>
+                                        <vl-side-navigation-toggle-next  href="#cookie-policy">
                                             Cookiebeleid
-                                            <i class="vl-vi vl-vi-arrow-right-fat"></i>
-                                        </a>
-                                    </li>
-                                    <li is="vl-side-navigation-item" data-vl-parent>
-                                        <a is="vl-side-navigation-toggle" href="#cookie-definition">
+                                        </vl-side-navigation-toggle-next>
+                                    </vl-side-navigation-item-next>
+                                    <vl-side-navigation-item-next  parent>
+                                        <vl-side-navigation-toggle-next  href="#cookie-definition">
                                             Wat zijn cookies precies
-                                            <i class="vl-vi vl-vi-arrow-right-fat"></i>
-                                        </a>
-                                    </li>
-                                    <li is="vl-side-navigation-item" data-vl-parent>
-                                        <a is="vl-side-navigation-toggle" href="#cookie-management">
+                                        </vl-side-navigation-toggle-next>
+                                    </vl-side-navigation-item-next>
+                                    <vl-side-navigation-item-next  parent>
+                                        <vl-side-navigation-toggle-next  href="#cookie-management">
                                             Hoe kan ik het gebruik van cookies op deze onlinediensten weigeren of beheren?
-                                            <i class="vl-vi vl-vi-arrow-right-fat"></i>
-                                        </a>
-                                    </li>
-                                    <li is="vl-side-navigation-item" data-vl-parent>
-                                        <a is="vl-side-navigation-toggle" href="#cookie-usage">
+                                        </vl-side-navigation-toggle-next>
+                                    </vl-side-navigation-item-next>
+                                    <vl-side-navigation-item-next  parent>
+                                        <vl-side-navigation-toggle-next  href="#cookie-usage">
                                             Gebruikte cookies
-                                            <i class="vl-vi vl-vi-arrow-right-fat"></i>
-                                        </a>
-                                    </li>
-                                </ul>
+                                        </vl-side-navigation-toggle-next>
+                                    </vl-side-navigation-item-next>
+                                </vl-side-navigation-group-next>
                             </div>
-                        </nav>
+                        </vl-side-navigation-next>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section is="vl-region" data-vl-overlap>
-            <div is="vl-layout">
-                <div is="vl-grid" data-vl-is-stacked>
-                    <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
+        <section class="vl-section-next vl-section-next--overlap">
+            <div class="vl-section-next__centered">
+                <div class="vl-grid-next vl-stacked-next-medium">
+                    <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
                     <vl-contact-card>
                         <vl-infoblock slot="info" data-vl-type="contact">
                             <h3 slot="title">Departement Omgeving</h3>
@@ -208,11 +208,11 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
                                 <dt is="vl-property-term">Adres</dt>
                                 <dd is="vl-property-value">Herman Teirlinckgebouw<br/>Havenlaan 88<br/>1000 Brussel, België</dd>
                                 <dt is="vl-property-term">Telefoon</dt>
-                                <dd is="vl-property-value"><a is="vl-link" href="tel:02 553 80 11">02 553 80 11<span is="vl-icon" data-vl-icon="phone" data-vl-after></span></a></dd>
+                                <dd is="vl-property-value"><vl-link-next href="tel:02 553 80 11" icon="phone" icon-placement="after">02 553 80 11</vl-link-next></dd>
                                 <dt is="vl-property-term">E-mail</dt>
-                                <dd is="vl-property-value"><a is="vl-link" href="mailto:omgeving@vlaanderen.be">omgeving@vlaanderen.be<span is="vl-icon" data-vl-icon="mail" data-vl-after></span></a></dd>
+                                <dd is="vl-property-value"><vl-link-next href="mailto:omgeving@vlaanderen.be" icon="mail" icon-placement="after">omgeving@vlaanderen.be</vl-link-next></dd>
                                 <dt is="vl-property-term">Website</dt>
-                                <dd is="vl-property-value"><a is="vl-link" href="https://omgeving.vlaanderen.be" target="_blank">https://omgeving.vlaanderen.be<span is="vl-icon" data-vl-icon="external" data-vl-after></span></a></dd>
+                                <dd is="vl-property-value"><vl-link-next href="https://omgeving.vlaanderen.be" external>https://omgeving.vlaanderen.be</vl-link-next></dd>
                             </dl>
                         </vl-properties>
                     </vl-contact-card>

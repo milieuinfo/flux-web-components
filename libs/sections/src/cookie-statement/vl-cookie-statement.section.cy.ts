@@ -87,8 +87,8 @@ describe('vl-cookie-statement component - default content', () => {
             .contains('Hoe kan ik het gebruik van cookies op deze onlinediensten weigeren of beheren?');
     });
 
-    it('should have a vl-side-navigation', () => {
-        cy.get('vl-cookie-statement').shadow().find('nav[is="vl-side-navigation"]');
+    it('should have a vl-side-navigation-next', () => {
+        cy.get('vl-cookie-statement').shadow().find('nav[is="vl-side-navigation-next"]');
     });
 
     it('should have default version', () => {
