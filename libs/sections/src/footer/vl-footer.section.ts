@@ -48,7 +48,7 @@ export class VlFooter extends BaseLitElement {
     }
 
     private injectFooterContainer() {
-        const vlBody = document.querySelector('[is="vl-body"]');
+        const vlBody = document.querySelector('body');
         (vlBody || document.body).insertAdjacentHTML(
             'beforeend',
             '<div id="footer__container"><div id="footer"></div></div>'

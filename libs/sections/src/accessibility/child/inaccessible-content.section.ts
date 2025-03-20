@@ -1,11 +1,11 @@
+import { VlTypography } from '@domg-wc/components';
+import { VlTitleComponent } from '@domg-wc/components/next/title';
 import { html } from 'lit';
 import { AccessibilityProperties } from '../vl-accessibility.model';
-import { VlTypography } from '@domg-wc/components';
-import { VlColumnElement, VlH2Element } from '@domg-wc/elements';
 
 export type InaccessibleContentProps = Pick<AccessibilityProperties, 'compliance' | 'evaluation' | 'limitations'>;
 
-export const inaccessibleContentElements = () => [VlTypography, VlColumnElement, VlH2Element];
+export const inaccessibleContentElements = () => [VlTypography, VlTitleComponent];
 
 export const inaccessibleContent = ({ compliance, evaluation, limitations }: InaccessibleContentProps) => {
     const inaccessibleContentTemplate = () => {
@@ -44,11 +44,9 @@ export const inaccessibleContent = ({ compliance, evaluation, limitations }: Ina
     return html` <div
         style=${compliance === 'FULLY_COMPLIANT' && 'display: none'}
         id="inaccessible-content"
-        is="vl-column"
-        data-vl-size="12"
-        data-vl-medium-size="12"
+        class="vl-column-next vl-column-next--12 vl-column-next--m-12"
     >
-        <h2 is="vl-h2">Niet-toegankelijke inhoud</h2>
+        <vl-title-next type="h2">Niet-toegankelijke inhoud</vl-title-next>
         ${inaccessibleContentTemplate()}
     </div>`;
 };

@@ -1,10 +1,11 @@
+import { registerWebComponents } from '@domg-wc/common-utilities';
+import { VlLinkComponent } from '@domg-wc/components/next/link';
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import type { AccessibilityProperties } from './vl-accessibility.model';
-import { registerWebComponents } from '@domg-wc/common-utilities';
 import { VlAccessibility } from './vl-accessibility.section';
 
-registerWebComponents([VlAccessibility]);
+registerWebComponents([VlAccessibility, VlLinkComponent]);
 
 type MountDefaultProps = AccessibilityProperties & { onClickBack?: () => void; headerSlot?: string };
 
@@ -123,7 +124,10 @@ describe('component vl-accessibility - hide-back-link', () => {
         mountDefault({ ...defaultProps, hideBackLink: false });
 
         cy.get('vl-accessibility').should('not.have.attr', 'data-vl-hide-back-link');
-        cy.get('vl-accessibility').shadow().find('vl-functional-header').should('not.have.attr', 'data-vl-hide-back-link');
+        cy.get('vl-accessibility')
+            .shadow()
+            .find('vl-functional-header')
+            .should('not.have.attr', 'data-vl-hide-back-link');
         cy.get('vl-accessibility').shadow().find('vl-functional-header').shadow().find('a#back-link').should('exist');
     });
 
@@ -132,7 +136,12 @@ describe('component vl-accessibility - hide-back-link', () => {
 
         cy.get('vl-accessibility').should('have.attr', 'data-vl-hide-back-link');
         cy.get('vl-accessibility').shadow().find('vl-functional-header').should('have.attr', 'data-vl-hide-back-link');
-        cy.get('vl-accessibility').shadow().find('vl-functional-header').shadow().find('a#back-link').should('not.exist');
+        cy.get('vl-accessibility')
+            .shadow()
+            .find('vl-functional-header')
+            .shadow()
+            .find('a#back-link')
+            .should('not.exist');
     });
 });
 
@@ -146,9 +155,9 @@ describe('component vl-accessibility - header slot', () => {
         data-vl-no-border
         data-vl-no-background
     >
-        <a id="back-link" is="vl-link" href="https://overheid.vlaanderen.be" data-vl-link-back>
+        <vl-link-next id="back-link" href="https://overheid.vlaanderen.be">
             Start
-        </a>
+        </vl-link-next>
     </vl-functional-header>`,
         });
 

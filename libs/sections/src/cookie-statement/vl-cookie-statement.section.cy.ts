@@ -73,22 +73,22 @@ describe('vl-cookie-statement component - default content', () => {
     });
 
     it('should have an h1 with "Cookieverklaring"', () => {
-        cy.get('vl-cookie-statement').shadow().find('h1').contains('Cookieverklaring');
+        cy.get('vl-cookie-statement').shadow().find('vl-title-next[type="h1"').contains('Cookieverklaring');
     });
 
     it('should have an h2 with "Cookiebeleid"', () => {
-        cy.get('vl-cookie-statement').shadow().find('h2').contains('Cookiebeleid');
+        cy.get('vl-cookie-statement').shadow().find('vl-title-next[type="h2"').contains('Cookiebeleid');
     });
 
     it('should have an h2 describing how to customize cookies', () => {
         cy.get('vl-cookie-statement')
             .shadow()
-            .find('h2[is="vl-h2"]')
+            .find('vl-title-next[type="h2"')
             .contains('Hoe kan ik het gebruik van cookies op deze onlinediensten weigeren of beheren?');
     });
 
-    it('should have a vl-side-navigation', () => {
-        cy.get('vl-cookie-statement').shadow().find('nav[is="vl-side-navigation"]');
+    it('should have a vl-side-navigation-next', () => {
+        cy.get('vl-cookie-statement').shadow().find('vl-side-navigation-next');
     });
 
     it('should have default version', () => {
@@ -118,13 +118,19 @@ describe('vl-cookie-statement component - properties reflect', () => {
     it('should have hide back link attribute', () => {
         mountDefault({ ...props, hideBackLink: true });
 
-        cy.get('vl-cookie-statement').shadow().find('vl-functional-header').should('have.attr', 'data-vl-hide-back-link');
+        cy.get('vl-cookie-statement')
+            .shadow()
+            .find('vl-functional-header')
+            .should('have.attr', 'data-vl-hide-back-link');
     });
 
     it('should NOT have hide back link attribute', () => {
         mountDefault({ ...props, hideBackLink: false });
 
-        cy.get('vl-cookie-statement').shadow().find('vl-functional-header').should('have.not.attr', 'data-vl-hide-back-link');
+        cy.get('vl-cookie-statement')
+            .shadow()
+            .find('vl-functional-header')
+            .should('have.not.attr', 'data-vl-hide-back-link');
     });
 
     it('should set version', () => {
@@ -138,15 +144,31 @@ describe('vl-cookie-statement component - hide-back-link', () => {
         mountDefault({ ...props, hideBackLink: false });
 
         cy.get('vl-cookie-statement').should('not.have.attr', 'data-vl-hide-back-link');
-        cy.get('vl-cookie-statement').shadow().find('vl-functional-header').should('not.have.attr', 'data-vl-hide-back-link');
-        cy.get('vl-cookie-statement').shadow().find('vl-functional-header').shadow().find('a#back-link').should('exist');
+        cy.get('vl-cookie-statement')
+            .shadow()
+            .find('vl-functional-header')
+            .should('not.have.attr', 'data-vl-hide-back-link');
+        cy.get('vl-cookie-statement')
+            .shadow()
+            .find('vl-functional-header')
+            .shadow()
+            .find('a#back-link')
+            .should('exist');
     });
 
     it('back-link should be hidden', () => {
         mountDefault({ ...props, hideBackLink: true });
 
         cy.get('vl-cookie-statement').should('have.attr', 'data-vl-hide-back-link');
-        cy.get('vl-cookie-statement').shadow().find('vl-functional-header').should('have.attr', 'data-vl-hide-back-link');
-        cy.get('vl-cookie-statement').shadow().find('vl-functional-header').shadow().find('a#back-link').should('not.exist');
+        cy.get('vl-cookie-statement')
+            .shadow()
+            .find('vl-functional-header')
+            .should('have.attr', 'data-vl-hide-back-link');
+        cy.get('vl-cookie-statement')
+            .shadow()
+            .find('vl-functional-header')
+            .shadow()
+            .find('a#back-link')
+            .should('not.exist');
     });
 });
