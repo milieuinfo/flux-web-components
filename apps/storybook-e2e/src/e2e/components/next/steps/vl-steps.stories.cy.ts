@@ -404,8 +404,8 @@ describe('story vl-steps-next side-navigation', () => {
             .scrollIntoView({ duration: 1000 })
             .should('be.visible');
 
-        cy.get('nav[is="vl-side-navigation"]')
-            .find('a[is="vl-side-navigation-toggle"][href="#vl-steps-vl-step-2"]')
+        cy.get('vl-side-navigation-next')
+            .find('vl-side-navigation-toggle-next[href="#vl-steps-vl-step-2"]')
             .should('have.attr', 'aria-expanded', 'true');
     });
 });
