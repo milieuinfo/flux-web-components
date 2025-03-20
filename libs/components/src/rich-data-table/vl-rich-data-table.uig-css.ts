@@ -1,9 +1,9 @@
 import { vlElementsStyle } from '@domg-wc/elements';
 import { css, CSSResult } from 'lit';
 
-const styles: CSSResult = css`
+export const richDataSortingStyle: CSSResult = css`
     th[data-vl-sortable] a {
         cursor: pointer;
     }
 `;
-export default [...vlElementsStyle, styles] as CSSResult[];
+export default [...vlElementsStyle, richDataSortingStyle] as CSSResult[];
