@@ -1,10 +1,10 @@
+import { story } from '@domg-wc/common-storybook';
+import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../vl-cookie-statement.section';
-import { Meta } from '@storybook/web-components';
-import cookieStatementDoc from './vl-cookie-statement.stories-doc.mdx';
-import { cookieStatementArgs, cookieStatementArgTypes } from './vl-cookie-statement.stories-arg';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { story } from '@domg-wc/common-storybook';
+import { cookieStatementArgs, cookieStatementArgTypes } from './vl-cookie-statement.stories-arg';
+import cookieStatementDoc from './vl-cookie-statement.stories-doc.mdx';
 
 export default {
     id: 'sections-cookie-statement',

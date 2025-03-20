@@ -1,6 +1,7 @@
 import { BaseElementOfType, registerWebComponents, webComponentConditional } from '@domg-wc/common-utilities';
 import { VlModalComponent } from '@domg-wc/components';
-import { VlButtonElement, vlElementsStyle, VlFormColumn, VlFormGridElement } from '@domg-wc/elements';
+import { VlButtonComponent } from '@domg-wc/components/next/button';
+import { vlElementsStyle, VlFormColumn, VlFormGridElement } from '@domg-wc/elements';
 import { analytics } from './util/analytics.util';
 import './vl-cookie-consent-opt-in.section';
 
@@ -9,7 +10,7 @@ export class VlCookieConsent extends BaseElementOfType(HTMLElement) {
     private initialized = false;
 
     static {
-        registerWebComponents([VlButtonElement, VlFormColumn, VlFormGridElement, VlModalComponent]);
+        registerWebComponents([VlButtonComponent, VlFormColumn, VlFormGridElement, VlModalComponent]);
     }
 
     static get _observedAttributes() {
@@ -209,9 +210,9 @@ export class VlCookieConsent extends BaseElementOfType(HTMLElement) {
         const filteredOptIns = Object.values(this._optIns).filter((optIn: any) => optIn.name !== 'functional');
         const text = filteredOptIns.length > 0 ? 'Bewaar keuze' : 'Ik begrijp het';
         const template = this._template(`
-      <button is="vl-button" slot="button">${text}</button>
+      <vl-button-next slot="button">${text}</vl-button-next>
     `);
-        template.querySelector('button').addEventListener('click', () => {
+        template.querySelector('vl-button-next').addEventListener('click', () => {
             this.close();
         });
         return template;

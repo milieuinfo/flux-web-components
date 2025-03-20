@@ -10,7 +10,7 @@ describe('story vl-cookie-consent - default', () => {
     it('should contain the `Cookie-toestemming`', () => {
         cy.visit(cookieConsentUrl);
 
-        cy.get('button#button-open-cookie-consent').click();
+        cy.get('vl-button-next#button-open-cookie-consent').click();
         cy.get('vl-cookie-consent').shadow().find('vl-modal').shadow().find('h2').contains('Cookie-toestemming');
     });
 });

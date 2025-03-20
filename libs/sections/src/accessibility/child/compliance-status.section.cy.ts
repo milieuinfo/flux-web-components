@@ -1,8 +1,5 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
 import { COMPLIANCE_STATUS, EVALUATION_STATUS } from '../vl-accessibility.model';
-import { type ComplianceStatusProps, complianceStatus, complianceStatusElements } from './compliance-status.section';
-
-registerWebComponents(complianceStatusElements());
+import { type ComplianceStatusProps, complianceStatus } from './compliance-status.section';
 
 const mountDefault = ({ compliance, evaluation }: ComplianceStatusProps) =>
     cy.mount(complianceStatus({ compliance, evaluation }));
@@ -30,8 +27,7 @@ describe('component compliance-status ', () => {
     });
 
     it('should render with some basic styling from DV - h2 should have the correct style', () => {
-        cy.get('div[id="compliance-status"]').should('have.class', 'vl-col--12-12--xs');
-        cy.get('div[id="compliance-status"]').should('have.css', 'max-width', '100%');
+        cy.get('div[id="compliance-status"]').should('have.class', 'vl-column-next--m-12');
     });
 });
 
@@ -71,13 +67,5 @@ describe('component compliance-status  - COMPLIANCE_STATUS messages', () => {
     it('should render the NOT_COMPLIANT message when compliance == NOT_COMPLIANT', () => {
         mountDefault({ ...props, compliance: COMPLIANCE_STATUS.NOT_COMPLIANT });
         cy.get('div[id="compliance-status"]').contains('Deze website voldoet niet aan de');
-    });
-});
-
-describe('component compliance-status  - helper function <complianceStatusElements()> ', () => {
-    it('should return an array of WebComponents with a length of 1', () => {
-        const elements = complianceStatusElements();
-        expect(elements).to.be.an('array');
-        expect(elements).to.have.length(1);
     });
 });

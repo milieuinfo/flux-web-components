@@ -12,13 +12,13 @@ type MountDefaultProps = {
 
 const mountDefault = (props: MountDefaultProps) => {
     return cy.mount(html`
-        <div is="vl-body">
+        <body>
             <vl-footer
                 ?data-vl-development=${props.development}
                 data-vl-identifier=${props.identifier}
                 @ready=${(evt: CustomEvent) => props.onReady(evt)}
             ></vl-footer>
-        </div>
+        </body>
     `);
 };
 

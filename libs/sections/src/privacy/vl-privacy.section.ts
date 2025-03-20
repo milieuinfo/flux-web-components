@@ -1,5 +1,9 @@
 import { BaseLitElement, registerWebComponents } from '@domg-wc/common-utilities';
+import { vlContentBlockStyles, vlGridStyles, vlSectionStyles, vlStackedStyles } from '@domg-wc/common-utilities/css';
 import { VlContactCardComponent, VlDocumentComponent, VlInfoblockComponent, VlTypography } from '@domg-wc/components';
+import { VlParagraphComponent } from '@domg-wc/components/next/paragraph';
+import { VlSideNavigationComponent } from '@domg-wc/components/next/side-navigation';
+import { VlTitleComponent } from '@domg-wc/components/next/title';
 import {
     VlColumnElement,
     vlElementsStyle,
@@ -27,9 +31,9 @@ import {
 } from '@domg-wc/elements';
 import { CSSResult, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { header, privacyHeaderElements } from './child/header.section';
-import { privacyContentSection } from './child/content.section';
 import { privacyBottomSection } from './child/bottom.section';
+import { privacyContentSection } from './child/content.section';
+import { header, privacyHeaderElements } from './child/header.section';
 import { privacyVersionSection } from './child/version.section';
 import { privacyDefaults } from './vl-privacy.defaults';
 
@@ -70,14 +74,16 @@ export class VlPrivacy extends BaseLitElement {
             VlDocumentComponent,
             VlInfoblockComponent,
             VlTypography,
-
+            VlTitleComponent,
+            VlSideNavigationComponent,
+            VlParagraphComponent,
             // child components
             ...privacyHeaderElements(),
         ]);
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [vlElementsStyle];
+        return [vlElementsStyle, vlGridStyles, vlContentBlockStyles, vlSectionStyles, vlStackedStyles];
     }
 
     static get properties() {
@@ -99,13 +105,13 @@ export class VlPrivacy extends BaseLitElement {
             <slot name="header"
                 >${header({ disableBackLink: this.disableBackLink, hideBackLink: this.hideBackLink })}
             </slot>
-            <section is="vl-region">
+            <section class="vl-section-next">
                 <slot name="version"> ${privacyVersionSection(this.version, this.date)}</slot>
             </section>
-            <section id="content" is="vl-region">
+            <section id="content" class="vl-section-next">
                 <slot name="content" @slotchange=${this.handleContentSlotChanged}> ${privacyContentSection()}</slot>
             </section>
-            <section is="vl-region" data-vl-overlap>
+            <section class="vl-section-next vl-section-next--overlap">
                 <slot name="bottom"> ${privacyBottomSection()}</slot>
             </section>
         `;
