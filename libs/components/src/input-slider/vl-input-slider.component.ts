@@ -1,4 +1,4 @@
-import { inputFieldStyle } from '@domg/govflanders-style/component';
+import { inputFieldStyles } from '@domg-wc/form/next/input-field/vl-input-field.css';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
@@ -13,7 +13,7 @@ export class VlInputSliderComponent extends BaseLitElement {
     value = 0;
 
     static get styles(): CSSResult[] {
-        return [resetStyle, inputFieldStyle, inputSliderUigStyle];
+        return [resetStyle, inputFieldStyles, inputSliderUigStyle];
     }
 
     static get properties(): PropertyDeclarations {
