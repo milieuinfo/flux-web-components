@@ -1,13 +1,17 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { VlButtonElement, VlIconElement, VlInputFieldElement, VlSelect } from '@domg-wc/elements';
+import { vlIconStyles } from '@domg-wc/common-utilities/css';
+import { buttonStyles } from '@domg-wc/components/next/button/vl-button.css';
+import { VlIconComponent } from '@domg-wc/components/next/icon';
+import { VlButtonElement, VlSelect } from '@domg-wc/elements';
+import { inputFieldStyles, VlInputFieldComponent } from '@domg-wc/form/next/input-field';
 import { resetStyle } from '@domg/govflanders-style/common';
-import { buttonStyle, inputFieldStyle, selectStyle } from '@domg/govflanders-style/component';
+import { selectStyle } from '@domg/govflanders-style/component';
 import searchUigStyle from './vl-search.uig-css';
 
 @webComponent('vl-search')
 export class VlSearchComponent extends BaseElementOfType(HTMLElement) {
     static {
-        registerWebComponents([VlButtonElement, VlIconElement, VlInputFieldElement]);
+        registerWebComponents([VlButtonElement, VlIconComponent, VlInputFieldComponent]);
     }
 
     static get _observedAttributes() {
@@ -22,14 +26,15 @@ export class VlSearchComponent extends BaseElementOfType(HTMLElement) {
         super(`
       <style>
         ${resetStyle}
-        ${buttonStyle}
-        ${inputFieldStyle}
+        ${buttonStyles}
+        ${vlIconStyles}
+        ${inputFieldStyles}
         ${selectStyle}
         ${searchUigStyle}
       </style>
       <div class="vl-search">
         <slot name="input"></slot>
-        <input is="vl-input-field" class="vl-search__input" type="search" id="search-input" value="" title="Zoekterm"/>
+        <input class="vl-search__input vl-input-field" type="search" id="search-input" value="" title="Zoekterm"/>
       </div>
     `);
     }
@@ -152,7 +157,7 @@ export class VlSearchComponent extends BaseElementOfType(HTMLElement) {
     }
 
     __iconTemplate() {
-        return `<span is="vl-icon" data-vl-icon="magnifier" aria-hidden="true"></span>`;
+        return `<span class="vl-icon vl-icon--magnifier" aria-hidden="true"></span>`;
     }
 
     __getLabelTemplate() {
@@ -172,7 +177,7 @@ export class VlSearchComponent extends BaseElementOfType(HTMLElement) {
     __getButtonTemplate() {
         const content = this._isInline ? this.__iconTemplate() : ``;
         return this._template(`
-          <button is="vl-button" id="search-button" class="vl-search__submit" type="submit">
+          <button id="search-button" class="vl-search__submit" type="submit">
             ${content}
             <slot name="submit-label">
               ${this.dataset.vlSubmitLabel || 'Zoeken'}
