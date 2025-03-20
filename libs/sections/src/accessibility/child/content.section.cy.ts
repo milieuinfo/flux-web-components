@@ -50,12 +50,15 @@ describe('component content', () => {
     });
 
     it('should render the side navigation', () => {
-        cy.get('nav[id="side-nav-accessibility"]').should('have.attr', 'aria-label', 'inhoudsopgave');
-        cy.get('nav[is="vl-side-navigation"]').should('exist');
+        cy.get('[id="side-nav-accessibility"]').should('have.attr', 'aria-label', 'inhoudsopgave');
+        cy.get('vl-side-navigation-next').should('exist');
     });
 
     it('should render with some basic styling from DV - h2 should have the correct style', () => {
-        cy.get('h2[is="vl-h2"]').should('have.css', 'font-family', '"Flanders Art Sans", sans-serif');
+        cy.get('vl-title-next[type="h2"}')
+            .shadow()
+            .find('h2')
+            .should('have.css', 'font-family', '"Flanders Art Sans", sans-serif');
     });
 });
 

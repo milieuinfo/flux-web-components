@@ -16,7 +16,7 @@ describe('component side-navigation - default', () => {
     });
 
     it('should mount', () => {
-        cy.get('div[is="vl-column"]').contains('Opstelling van deze toegankelijkheidsverklaring');
+        cy.get('div[class="vl-column-next"]').contains('Opstelling van deze toegankelijkheidsverklaring');
     });
 
     it('should be accessible', () => {
@@ -34,7 +34,7 @@ describe('component side-navigation - COMPLIANCE messages and css', () => {
         });
 
         const listItemWithComplianceStyles = cy
-            .get('div[is="vl-column"]')
+            .get('div[class="vl-column-next"]')
             .find('ul[is="vl-side-navigation-group"] > li[is="vl-side-navigation-item"]')
             .eq(1);
 

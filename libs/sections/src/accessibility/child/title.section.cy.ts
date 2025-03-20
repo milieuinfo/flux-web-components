@@ -17,26 +17,28 @@ describe('component title', () => {
 
     it('should mount', () => {
         cy.get('[data-cy-root]').within(() => {
-            cy.get('section[is="vl-region"]').should('exist');
+            cy.get('section[class="vl-section-next"]').should('exist');
         });
     });
 
     it('should be accessible', () => {
         cy.injectAxe();
 
-        cy.checkA11y('section[is="vl-region"]');
+        cy.checkA11y('section[class="vl-section-next"]');
     });
 
     it('should render with some basic styling from DV - h2 should have the correct style', () => {
-        cy.get('section[is="vl-region"]').should('have.css', 'padding', '20px 0px 30px');
-        cy.get('section[is="vl-region"]').find('div[is="vl-layout"]').should('have.css', 'min-width', '0px');
+        cy.get('section[class="vl-section-next"]').should('have.css', 'padding', '20px 0px 30px');
+        cy.get('section[class="vl-section-next"]')
+            .find('div[class="vl-content-block-next"]')
+            .should('have.css', 'min-width', '0px');
     });
 });
 
 describe('component title - version and date props', () => {
     it('should render the version and date', () => {
         mountDefault({ ...props });
-        cy.get('section[is="vl-region"]').contains(`Versie ${props.version} - ${props.date}`);
+        cy.get('section[class="vl-section-next"]').contains(`Versie ${props.version} - ${props.date}`);
     });
 });
 

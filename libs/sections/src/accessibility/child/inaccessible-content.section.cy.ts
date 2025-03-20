@@ -36,7 +36,9 @@ describe('component  inaccessible-content - default', () => {
 
     it('should render with some basic styling from DV - h2 should have the correct style', () => {
         cy.get('div[id="inaccessible-content"]')
-            .find('h2[is="vl-h2"]')
+            .find('vl-title-next[type="h2"}')
+            .shadow()
+            .find('h2')
             .should('have.css', 'font-size', '26px')
             .should('have.css', 'line-height', '32.24px');
     });

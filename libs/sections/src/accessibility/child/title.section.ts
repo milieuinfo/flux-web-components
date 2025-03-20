@@ -22,18 +22,18 @@ export const titleElements = () => [
     VlTypography,
 ];
 
-export const title = ({ version, date }: TitleProps) => html` <section is="vl-region">
-    <div is="vl-layout">
-        <div is="vl-grid" data-vl-is-stacked>
-            <div is="vl-column" data-vl-size="10">
-                <h1 is="vl-h1" data-vl-no-space-bottom>Toegankelijkheidsverklaring</h1>
+export const title = ({ version, date }: TitleProps) => html` <section class="vl-section-next">
+    <div class="vl-section-next__centered">
+        <div class="vl-grid-next vl-stacked-next-medium">
+            <div class="vl-column-next vl-column-next--10">
+                <vl-title-next type="h1" no-space-bottom>Toegankelijkheidsverklaring</vl-title-next>
             </div>
-            <div is="vl-column" data-vl-size="10">
-                <p is="vl-introduction">
+            <div class="vl-column-next vl-column-next--10">
+                <vl-paragraph-next introduction>
                     <span>Versie ${version} - ${date}</span>
-                </p>
+                </vl-paragraph-next>
             </div>
-            <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
+            <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
                 <vl-typography>
                     <hr />
                 </vl-typography>
