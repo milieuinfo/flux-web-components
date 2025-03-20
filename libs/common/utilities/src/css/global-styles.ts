@@ -1,8 +1,6 @@
 import { vlAccessibilityStyles } from './base/accessibility/vl-accessibility.css';
 import { vlBodyStyles } from './base/body/vl-body.css';
 import { vlFontStyles } from './base/font/vl-font.css';
-import { vlImageStyles } from './base/image/vl-image.css';
-import { vlResetStyles } from './base/reset/vl-reset.css';
 import { vlColorVars } from './base/var/vl-color.css';
 import { vlGeneralVars } from './base/var/vl-general.css';
 import { vlSpacingVars } from './base/var/vl-spacing.css';
@@ -19,7 +17,6 @@ import { vlSpacerStyles } from './layout/spacer/vl-spacer.css';
 import { vlStackedStyles } from './layout/stacked/vl-stacked.css';
 
 export const globalStyles = [
-    // vlResetStyles,
     vlGeneralVars,
     vlColorVars,
     vlSpacingVars,
@@ -28,7 +25,6 @@ export const globalStyles = [
     vlAccessibilityStyles,
     vlFontStyles,
     vlBodyStyles,
-    vlImageStyles,
     vlSectionStyles,
     vlGridStyles,
     vlGroupStyles,
