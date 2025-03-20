@@ -1,0 +1,35 @@
+import {Canvas, Source} from '@storybook/blocks';
+import {Meta} from '@storybook/addon-docs';
+import vlImageCss from '!!raw-loader!../vl-image.css';
+import * as VlImageStories from './vl-image.stories';
+
+<Meta title="Styles-next/Base (intern)/image"/>
+
+# Image - next
+
+<VluxMetaData id="styles-next-base-intern-image" />
+<br/>
+
+
+## Inhoudstafel
+
+- [Doel](#doel)
+- [Implementatie](#implementatie)
+
+
+## Doel
+
+Op het document wordt automatisch de specifieke styling voor de native `<image>` tag voorzien.
+
+Dit zorgt er voor dat `max-with: 100%` wordt ingesteld.
+
+## Voorbeelden
+
+<Canvas of={VlImageStories.ImageDefault}/>
+
+## Implementatie
+
+<details open>
+    <summary>Html / Image Code</summary>
+    <Source code={vlImageCss} language="css" dark={true}/>
+</details>
