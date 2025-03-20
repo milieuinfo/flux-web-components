@@ -10,7 +10,7 @@ export class AppNamedComponent extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
             <div class="wrapper">
-                <h1 is="vl-h1">Consumer App</h1>
+                <vl-title-next type="h1">Consumer App</vl-title-next>
                 <consumer-elements-named></consumer-elements-named>
                 <br><br>
                 <consumer-components-named></consumer-components-named>

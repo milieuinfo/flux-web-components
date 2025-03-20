@@ -72,7 +72,8 @@ Door er via Cypress fijnmazig door te navigeren doe je dit op een minimale manie
 Als je bvb. op een knop in een tabel wil klikken en je vindt de interne structuur van de tabel relevant dan kan
 je er als volgt naar navigeren i.p.v. gewoon te zoeken naar de knop in de tabel.
 ```ts
-cy.get('[is="vl-data-table"]')
+cy.get('vl-data-table-next')
+    .shadow()
     .find('tbody > tr')
     .first()
     .find('td')

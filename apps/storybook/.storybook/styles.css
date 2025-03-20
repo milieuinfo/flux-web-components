@@ -1,13 +1,15 @@
-ol, ul {
-    list-style: initial !important;
-}
+.sb-docs {
+    ol, ul {
+        list-style: initial !important;
+    }
 
-ol {
-    list-style-type: decimal !important;
-}
+    ol {
+        list-style-type: decimal !important;
+    }
 
-strong {
-    font-weight: bold !important;
+    strong {
+        font-weight: bold !important;
+    }
 }
 
 .sb-story, #storybook-root {
