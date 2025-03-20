@@ -12,6 +12,7 @@ const stiAtt = `sticky`,
     stiFixedClass = `js-vl-sticky--fixed`,
     stiPlaceholderClass = `js-vl-sticky--placeholder`,
     regionClass = `vl-region`,
+    sectionClass = `vl-section-next`,
     stiStaticClass = `js-vl-sticky--static`,
     stiViewportTopClass = `js-vl-sticky--viewport-top`,
     stiViewportBottomClass = `js-vl-sticky--viewport-bottom`,
@@ -19,7 +20,8 @@ const stiAtt = `sticky`,
     stiViewportContainerBottom = `js-vl-sticky--container-bottom`,
     stiDressedAttr = `sticky-dressed`,
     stiOffsetAttr = `sticky-offset-top`,
-    layoutClass = `vl-layout`;
+    layoutClass = `vl-layout`,
+    contentBlock = `vl-content-block-next`;
 class Sticky {
     constructor() {
         // Set default values for affixedType and direction
@@ -440,7 +442,7 @@ class Sticky {
 
         this.sidebar = stickyContent.parentNode;
         this.sidebarInner = stickyContent;
-        this.container = this.sidebar.closest(`.${layoutClass}, .${regionClass}`);
+        this.container = this.sidebar.closest(`.${layoutClass}, .${regionClass}, .${sectionClass}, .${contentBlock}`);
 
         this._widthBreakpoint();
         this._calcDimensions();
