@@ -2,11 +2,12 @@ import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@domg-wc/common
 import { ArgTypes } from '@storybook/web-components';
 import { formLabelDefaults } from '../vl-form-label.defaults';
 
-type FormLabelArgs = typeof defaultArgs & typeof formLabelDefaults;
+type FormLabelArgs = typeof defaultArgs & { defaultSlot: string } & typeof formLabelDefaults;
 
 export const formLabelArgs: FormLabelArgs = {
     ...defaultArgs,
     ...formLabelDefaults,
+    defaultSlot: '',
 };
 
 export const formLabelArgTypes: ArgTypes<FormLabelArgs> = {
@@ -45,6 +46,15 @@ export const formLabelArgTypes: ArgTypes<FormLabelArgs> = {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
             defaultValue: { summary: formLabelArgs.light },
+        },
+    },
+    defaultSlot: {
+        name: '[default]',
+        description: 'De content van het label. Overschrijft de waarde van het label attribuut.',
+        table: {
+            type: { summary: TYPES.HTML },
+            category: CATEGORIES.SLOTS,
+            defaultValue: { summary: formLabelArgs.defaultSlot },
         },
     },
 };

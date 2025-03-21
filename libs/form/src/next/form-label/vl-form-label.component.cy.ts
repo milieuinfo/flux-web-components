@@ -31,6 +31,12 @@ describe('component - vl-form-label-next', () => {
         cy.get('vl-form-label-next').shadow().find('label').contains('Naam');
     });
 
+    it('should set default slot', () => {
+        cy.mount(html`<vl-form-label-next label="Naam">Voornaam</vl-form-label-next>`);
+
+        cy.get('vl-form-label-next').contains('Voornaam');
+    });
+
     it('should set block', () => {
         cy.mount(html`<vl-form-label-next block>Naam</vl-form-label-next>`);
 
