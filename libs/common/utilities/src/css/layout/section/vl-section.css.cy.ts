@@ -76,7 +76,7 @@ describe('section styles', () => {
         cy.then(() => GlobalStyles.register());
         cy.mount(html`
             <section class="vl-section-next vl-section-next--overlap cy-section-overlap">
-                <p class="vl-section-next__centered cy-section-centered">vl-section-next__centered</p>
+                <p class="vl-content-block-next cy-section-centered">vl-content-block-next</p>
                 <p>vl-section-next vl-section-next--overlap</p>
             </section>
             <section class="vl-section-next vl-section-next--bordered cy-section-bordered1">
@@ -139,7 +139,7 @@ describe('section styles', () => {
         cy.then(() => GlobalStyles.register());
         cy.mount(html`
             <section class="vl-section-next cy-section">
-                <p class="vl-section-next__centered cy-section-centered">vl-section-next__centered</p>
+                <p class="vl-content-block-next cy-section-centered">vl-content-block-next</p>
                 <p>vl-section-next</p>
             </section>
         `);

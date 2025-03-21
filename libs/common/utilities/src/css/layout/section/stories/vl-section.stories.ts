@@ -47,9 +47,7 @@ SectionDefault.parameters = formattedSourceCode;
 
 export const SectionLightBlue = ({}) => html`
     <style>
-        ${sectionCss}
-
-        .sb-light-blue {
+        ${sectionCss} .sb-light-blue {
             &.vl-section-next {
                 --vl-section--alt-bg: lightblue;
                 --vl-section--border: lightblue;
@@ -74,9 +72,7 @@ SectionLightBlue.parameters = formattedSourceCode;
 
 export const SectionOverlap = ({}) => html`
     <style>
-        ${sectionCss}
-
-        .sb-overlap {
+        ${sectionCss} .sb-overlap {
             &.vl-section-next {
                 --vl-section--alt-bg: lightblue;
                 --vl-section--border: lightblue;
@@ -84,7 +80,7 @@ export const SectionOverlap = ({}) => html`
         }
     </style>
     <section class="sb-overlap vl-section-next vl-section-next--overlap">
-        <p class="vl-section-next__centered">vl-section-next__centered</p>
+        <p class="vl-content-block-next">vl-content-block-next</p>
         <p>vl-section-next vl-section-next--overlap</p>
     </section>
     <section class="sb-overlap vl-section-next vl-section-next--bordered">
@@ -99,26 +95,3 @@ export const SectionOverlap = ({}) => html`
 `;
 SectionOverlap.storyName = 'vl-section - overlap';
 SectionOverlap.parameters = formattedSourceCode;
-
-export const SectionCentered = ({}) => html`
-    <style>
-        ${sectionCss}
-
-        .sb-centered {
-            &.vl-section-next {
-                background-color: lightblue;
-            }
-
-            .vl-section-next__centered {
-                background-color: lightseagreen;
-                height: 100px;
-            }
-        }
-    </style>
-    <section class="sb-centered vl-section-next">
-        <p class="vl-section-next__centered">vl-section-next__centered</p>
-        <p>vl-section-next</p>
-    </section>
-`;
-SectionCentered.storyName = 'vl-section - centered';
-SectionCentered.parameters = formattedSourceCode;
