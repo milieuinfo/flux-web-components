@@ -5,6 +5,7 @@ export { iconFontLocation } from './base/font/vl-font.css';
 export { vlFocusOutlineMixin } from './base/mixin/vl-outlines.css';
 export { vlWaveAnimationMixin } from './base/mixin/vl-animations.css';
 export { vlHeading1, vlHeading2, vlHeading3, vlHeading4, vlHeading5, vlHeading6 } from './base/heading/vl-heading.css';
+export { vlContentBlockStyles } from './layout/content-block/vl-content-block.css';
 export { vlGridStyles } from './layout/grid/vl-grid.css';
 export { vlGroupStyles } from './layout/group/vl-group.css';
 export { vlSectionStyles } from './layout/section/vl-section.css';

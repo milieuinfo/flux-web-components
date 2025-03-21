@@ -85,7 +85,8 @@ export const vlSectionStyles: CSSResult = css`
                 var(--vl-section--overlap-bg) 100%
             );
 
-            .vl-section-next__centered {
+            .vl-section-next__centered,
+            .vl-content-block-next {
                 border: 1px var(--vl-color--border) solid;
                 padding-top: 50px;
                 padding-bottom: 50px;
