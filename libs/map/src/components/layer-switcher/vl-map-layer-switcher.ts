@@ -1,6 +1,7 @@
 import { awaitUntil, BaseLitElement, registerWebComponents } from '@domg-wc/common-utilities';
 import { VlCheckboxComponent } from '@domg-wc/components';
-import { vlElementsStyle, VlFormLabel } from '@domg-wc/elements';
+import { vlElementsStyle } from '@domg-wc/elements';
+import { formLabelStyles } from '@domg-wc/form/next/form-label/vl-form-label.css';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { VlMap } from '../../vl-map';
@@ -19,11 +20,11 @@ export class VlMapLayerSwitcher extends BaseLitElement {
     private layerObserver: MutationObserver | null = null;
 
     static {
-        registerWebComponents([VlFormLabel, VlCheckboxComponent]);
+        registerWebComponents([VlCheckboxComponent]);
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [vlElementsStyle, mapLayerSwitcherUigStyle];
+        return [vlElementsStyle, mapLayerSwitcherUigStyle, formLabelStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -83,7 +84,7 @@ export class VlMapLayerSwitcher extends BaseLitElement {
     protected render(): TemplateResult {
         return html`
             <div>
-                <label is="vl-form-label">${this.componentTitle}</label>
+                <label class="vl-form__label">${this.componentTitle}</label>
                 ${this.vlMapLayers.map(
                     (layer) => html`
                         <vl-checkbox
