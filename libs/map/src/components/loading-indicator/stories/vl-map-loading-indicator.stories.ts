@@ -1,4 +1,6 @@
 import { defaultArgs, defaultArgTypes, story } from '@domg-wc/common-storybook';
+import { registerWebComponents } from '@domg-wc/common-utilities';
+import { VlButtonComponent } from '@domg-wc/components/next/button';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit';
 import { MapEvent } from 'ol';
@@ -6,6 +8,8 @@ import '../../../vl-map';
 import '../../baselayer/vl-map-base-layer-grb-gray/vl-map-base-layer-grb-gray';
 import '../vl-map-loading-indicator';
 import mapLoadingIndicatorDoc from './vl-map-loading-indicator.stories-doc.mdx';
+
+registerWebComponents([VlButtonComponent]);
 
 export default {
     id: 'map-loading-indicator',
@@ -34,24 +38,22 @@ export const MapLoadingIndicatorDefault = story(
     {},
     () => html`
         <div style="margin-bottom:10px">
-            <button
+            <vl-button-next
                 data-cy="short-wait"
-                is="vl-button"
                 @click="${() => {
                     fakeLoadMap(500);
                 }}"
             >
                 Fake kort wachten
-            </button>
-            <button
+            </vl-button-next>
+            <vl-button-next
                 data-cy="long-wait"
-                is="vl-button"
                 @click="${() => {
                     fakeLoadMap(10000);
                 }}"
             >
                 Fake lang wachten
-            </button>
+            </vl-button-next>
         </div>
         <vl-map>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
