@@ -7,9 +7,9 @@ registerWebComponents([VlHeader]);
 describe('component - vl-header', () => {
     beforeEach(() => {
         cy.mount(html`
-            <div is="vl-body">
+            <body>
                 <vl-header data-vl-development data-vl-identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb"></vl-header>
-            </div>
+            </body>
         `);
     });
 
@@ -40,13 +40,13 @@ describe('component - vl-header', () => {
 describe('component - vl-header - skeleton', () => {
     it('should render the skeleton container', () => {
         cy.mount(html`
-            <div is="vl-body">
+            <body>
                 <vl-header
                     data-vl-development
                     data-vl-identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb"
                     data-vl-skeleton
                 ></vl-header>
-            </div>
+            </body>
         `);
 
         cy.get('#header__skeleton').should('have.css', 'height', '43px');
