@@ -1,12 +1,8 @@
-import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { vlElementsStyle, VlIconElement, VlLinkElement } from '@domg-wc/elements';
+import { BaseElementOfType, webComponent } from '@domg-wc/common-utilities';
+import { vlIconStyles, vlLinkIconStyles, vlLinkStyles } from '@domg-wc/common-utilities/css';
 
 @webComponent('vl-map-side-sheet-menu-item')
 export class VlMapSideSheetMenuItem extends BaseElementOfType(HTMLElement) {
-    static {
-        registerWebComponents([VlIconElement, VlLinkElement]);
-    }
-
     static get _observedAttributes() {
         return ['title', 'href'];
     }
@@ -14,7 +10,10 @@ export class VlMapSideSheetMenuItem extends BaseElementOfType(HTMLElement) {
     constructor() {
         super(`
       <style>
-        ${vlElementsStyle}
+        ${vlLinkIconStyles}
+        ${vlIconStyles}
+        ${vlLinkStyles('.vl-link-next')}
+
 
         .vl-map-side-sheet-menu-item {
           background: #e8ebee;
@@ -28,8 +27,8 @@ export class VlMapSideSheetMenuItem extends BaseElementOfType(HTMLElement) {
       </style>
       <div>
         <div class="vl-map-side-sheet-menu-item">
-          <a id="vl-map-side-sheet-menu-item-link" is="vl-link" href="#">
-            <span is="vl-icon" data-vl-icon="arrow-left-fat" data-vl-before></span><span id="title">Terug</span>
+          <a id="vl-map-side-sheet-menu-item-link" class="vl-link-next" href="#">
+            <span class="vl-icon vl-icon--arrow-left-fat vl-link-next__icon vl-link-next__icon--before"></span><span id="title">Terug</span>
           </a>
         </div>
         <slot></slot>
