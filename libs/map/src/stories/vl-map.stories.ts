@@ -3,6 +3,8 @@ import '@domg-wc/components';
 // deze imports van alle elements, components en map werken IN de monorepo
 // -> buiten de monorepo werkt dat niet omdat sideEffects disabled worden voor de root-barrel file in de artifacts
 import '@domg-wc/elements';
+import { registerWebComponents } from '@domg-wc/common-utilities';
+import { VlTitleComponent } from '@domg-wc/components/next/title';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit';
 import '../components/action/draw-action/draw-line-action/vl-map-draw-line-action';
@@ -35,6 +37,8 @@ import {
     handleLayerVisibleChange,
     handleOpacitySliderChange,
 } from './vl-map.stories-util';
+
+registerWebComponents([VlTitleComponent]);
 
 export default {
     id: 'map-map',
@@ -195,14 +199,14 @@ export const MapPlayground = story(
             </vl-map-action-controls>
 
             <vl-map-side-sheet>
-                <h6 is="vl-h6">Layers</h6>
+                <vl-title-next type="h6">Layers</vl-title-next>
 
                 <vl-map-layer-switcher></vl-map-layer-switcher>
                 <vl-input-slider data-vl-value=${100} @vl-change-value=${handleOpacitySliderChange}></vl-input-slider>
 
                 <hr />
 
-                <h6 is="vl-h6">Measure</h6>
+                <vl-title-next type="h6">Measure</vl-title-next>
 
                 <div>
                     <vl-button-next
@@ -224,7 +228,7 @@ export const MapPlayground = story(
                 <hr />
 
                 <div style=${toggleGroupStyling}>
-                    <h6 is="vl-h6">Shapes</h6>
+                    <vl-title-next type="h6">Shapes</vl-title-next>
 
                     <div style="margin-bottom: 2rem;">
                         <vl-button-next
@@ -254,7 +258,7 @@ export const MapPlayground = story(
                             label="Toggle draw point action"
                             class="draw-point-toggle-button"
                             @click=${() => {
-                                getActionElement('draw-point').active =  getToggleButton('draw-point').on;
+                                getActionElement('draw-point').active = getToggleButton('draw-point').on;
                             }}
                         >
                         </vl-button-next>
