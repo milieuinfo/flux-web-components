@@ -95,8 +95,8 @@ describe('vl-privacy component - properties functionality', () => {
         const shouldHaveExpandedToggle = (href: string, expanded: boolean) => {
             cy.get('vl-privacy')
                 .shadow()
-                .find('nav[is="vl-side-navigation"]')
-                .find(`a[is="vl-side-navigation-toggle"][href="${href}"]`)
+                .find('vl-side-navigation-next')
+                .find(`vl-side-navigation-toggle[href="${href}"]`)
                 .should('have.attr', 'aria-expanded', `${expanded}`);
         };
 
@@ -118,9 +118,9 @@ describe('vl-privacy component - slots', () => {
         data-vl-no-border
         data-vl-no-background
     >
-        <a id="back-link" is="vl-link" href="https://overheid.vlaanderen.be" data-vl-link-back>
+        <vl-link-next id="back-link" href="https://overheid.vlaanderen.be">
             Start
-        </a>
+        </vl-link-next>
     </vl-functional-header>`,
         });
 

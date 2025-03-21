@@ -1,19 +1,15 @@
 import { html } from 'lit-html';
 
 export const privacyContentSection = () => html`
-    <div is="vl-layout">
-        <div is="vl-grid" data-vl-is-stacked>
+    <div class="vl-content-block-next">
+        <div class="vl-grid-next vl-stacked-next-medium">
             <div
-                is="vl-column"
-                data-vl-size="8"
-                data-vl-medium-size="8"
-                data-vl-small-size="8"
-                data-vl-extra-small-size="12"
+                class="vl-column-next vl-column-next--8 vl-column-next--m-8 vl-column-next--s-8 vl-column-next--xs-12"
             >
-                <div is="vl-side-navigation-reference" data-vl--scrollspy-content>
-                    <div is="vl-grid" data-vl-is-stacked-large>
-                        <div id="privacy-department" is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                            <h2 is="vl-h2">Het Departement Omgeving en uw privacy</h2>
+                <vl-side-navigation-reference-next>
+                    <div class="vl-grid-next vl-stacked-next-large">
+                        <div id="privacy-department" class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                            <vl-title-next type="h2">Het Departement Omgeving en uw privacy</vl-title-next>
                             <p>
                                 Op 25 mei 2018 werd de Europese ‘Algemene Verordening Gegevensbescherming’ (AVG), ook
                                 gekend onder de Engelse naam ‘General Data Protection Regulation’ (GDPR) van kracht.
@@ -23,15 +19,13 @@ export const privacyContentSection = () => html`
                                 goede huisvader.
                             </p>
                         </div>
-                        <div data-vl-size="12" data-vl-medium-size="12">
-                            <h2 id="privacy-declaration" is="vl-h2">Privacyverklaring</h2>
-                            <div is="vl-grid" data-vl-is-stacked>
-                                <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                                    <h3 id="privacy-declaration-who" is="vl-h3">
-                                        Wie is verantwoordelijk voor de verwerking van mijn persoonsgegevens?
-                                    </h3>
-                                    <div is="vl-grid" data-vl-is-stacked>
-                                        <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
+                        <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                            <vl-title-next type="h2" id="privacy-declaration">Privacyverklaring</vl-title-next>
+                            <div class="vl-grid-next vl-stacked-next-medium">
+                                <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                                    <vl-title-next type="h3" id="privacy-declaration-who">Wie is verantwoordelijk voor de verwerking van mijn persoonsgegevens?</vl-title-next>
+                                    <div class="vl-grid-next vl-stacked-next-medium">
+                                        <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
                                             <vl-typography>
                                                 <p>
                                                     Het Departement Omgeving verwerkt gegevens van haar doelgroepen en
@@ -64,8 +58,8 @@ export const privacyContentSection = () => html`
                                                 </p>
                                             </vl-typography>
                                         </div>
-                                        <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                                            <h4 is="vl-h4">Over het Departement Omgeving</h4>
+                                        <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                                            <vl-title-next type="h4">Over het Departement Omgeving</vl-title-next>
                                             <p>
                                                 Het Departement Omgeving van de Vlaamse overheid is een officieel
                                                 overheidsorgaan dat als doel heeft het beleid en de handhaving van de
@@ -77,10 +71,11 @@ export const privacyContentSection = () => html`
                                                 overheden, inspectiediensten en burgers.
                                             </p>
                                         </div>
-                                        <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
+                                        <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
                                             <vl-contact-card>
                                                 <vl-infoblock slot="info" data-vl-type="contact">
-                                                    <h4 slot="title">Departement Omgeving</h4>
+                                                    <vl-title-next type="h4" slot="title">Departement Omgeving
+                                                        <vl-title-next>
                                                 </vl-infoblock>
                                                 <vl-properties slot="properties">
                                                     <dl is="vl-properties-list">
@@ -91,36 +86,27 @@ export const privacyContentSection = () => html`
                                                         </dd>
                                                         <dt is="vl-property-term">Telefoon</dt>
                                                         <dd is="vl-property-value">
-                                                            <a is="vl-link" href="tel:02 553 80 11"
-                                                                >02 553 80 11<span
-                                                                    is="vl-icon"
-                                                                    data-vl-icon="phone"
-                                                                    data-vl-after
-                                                                ></span
-                                                            ></a>
+                                                            <vl-link-next href="tel:02 553 80 11"
+                                                                          icon-placement="after"
+                                                                          icon="phone"
+                                                            >02 553 80 11
+                                                            </vl-link-next>
                                                         </dd>
                                                         <dt is="vl-property-term">E-mail</dt>
                                                         <dd is="vl-property-value">
-                                                            <a is="vl-link" href="mailto:omgeving@vlaanderen.be"
-                                                                >omgeving@vlaanderen.be<span
-                                                                    is="vl-icon"
-                                                                    data-vl-icon="mail"
-                                                                    data-vl-after
-                                                                ></span
-                                                            ></a>
+                                                            <vl-link-next href="mailto:omgeving@vlaanderen.be"
+                                                                          icon-placement="after"
+                                                                          icon="mail"
+                                                            >omgeving@vlaanderen.be
+                                                            </vl-link-next>
                                                         </dd>
                                                         <dt is="vl-property-term">Website</dt>
                                                         <dd is="vl-property-value">
-                                                            <a
-                                                                is="vl-link"
+                                                            <vl-link-next
                                                                 href="http://www.omgevingvlaanderen.be"
-                                                                target="_blank"
-                                                                >http://www.omgevingvlaanderen.be<span
-                                                                    is="vl-icon"
-                                                                    data-vl-icon="external"
-                                                                    data-vl-after
-                                                                ></span
-                                                            ></a>
+                                                                external
+                                                            >http://www.omgevingvlaanderen.be
+                                                            </vl-link-next>
                                                         </dd>
                                                         <dt is="vl-property-term">KBO-nummer</dt>
                                                         <dd is="vl-property-value">
@@ -132,10 +118,12 @@ export const privacyContentSection = () => html`
                                         </div>
                                     </div>
                                 </div>
-                                <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                                    <h3 id="privacy-declaration-process" is="vl-h3">Verwerking van persoonsgegevens</h3>
-                                    <div is="vl-grid" data-vl-is-stacked>
-                                        <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
+                                <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                                    <vl-title-next type="h3" id="privacy-declaration-process">Verwerking van
+                                        persoonsgegevens
+                                    </vl-title-next>
+                                    <div class="vl-grid-next vl-stacked-next-medium">
+                                        <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
                                             <p>
                                                 Het Departement Omgeving verwerkt persoonsgegevens van u als burger of
                                                 als medewerker van een overheid/bestuur, organisatie of onderneming. De
@@ -150,20 +138,22 @@ export const privacyContentSection = () => html`
                                                 gegevens”.
                                             </p>
                                         </div>
-                                        <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                                            <h4 is="vl-h4">Hoe verzamelen en verwerken we uw persoonsgegevens?</h4>
+                                        <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                                            <vl-title-next type="h4">Hoe verzamelen en verwerken we uw
+                                                persoonsgegevens?
+                                            </vl-title-next>
                                             <vl-typography>
                                                 <p>
                                                     Het Departement Omgeving kan uw persoonsgegevens op verschillende
                                                     manieren verzamelen:
                                                 </p>
-                                                <ul>
-                                                    <li>
+                                                <vl-side-navigation-group-next>
+                                                    <vl-side-navigation-item-next>
                                                         We kunnen gegevens rechtstreeks bij u opvragen in een formulier
                                                         of in documenten die u bij een formulier moet voegen. Die
                                                         documenten zijn opgesomd in de regelgeving.
-                                                    </li>
-                                                    <li>
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>
                                                         Daarnaast vragen we gegevens op bij andere overheidsdiensten die
                                                         er al over beschikken. We leven daarbij altijd de bepalingen na
                                                         over de bescherming van natuurlijke personen bij de verwerking
@@ -172,19 +162,20 @@ export const privacyContentSection = () => html`
                                                         bronnen zoals bv. het Rijksregister heeft het Departement
                                                         Omgeving een aantal machtigingen gekregen om deze
                                                         persoonsgegevens op te vragen en te verwerken.
-                                                    </li>
-                                                </ul>
+                                                    </vl-side-navigation-item-next>
+                                                </vl-side-navigation-group-next>
                                             </vl-typography>
                                         </div>
-                                        <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                                            <h4 is="vl-h4">Waarvoor verwerken we uw persoonsgegevens?</h4>
+                                        <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                                            <vl-title-next type="h4">Waarvoor verwerken we uw persoonsgegevens?
+                                            </vl-title-next>
                                             <vl-typography>
                                                 <p>
                                                     Het Departement Omgeving verwerkt persoonsgegevens voor de volgende
                                                     doeleinden:
                                                 </p>
-                                                <ul>
-                                                    <li>
+                                                <vl-side-navigation-group-next>
+                                                    <vl-side-navigation-item-next>
                                                         Om aan wettelijke verplichtingen en beleidsmatig toegewezen
                                                         taken als overheidsinstelling te voldoen;
                                                         <br /><br />
@@ -197,8 +188,8 @@ export const privacyContentSection = () => html`
                                                         een wettekst, maar is de verwerking van persoonsgegevens een
                                                         noodzaak voor de uitvoering van beleidstaken die aan het
                                                         Departement zijn toegewezen.
-                                                    </li>
-                                                    <li>
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>
                                                         Om te voldoen aan contractuele verplichtingen of administratieve
                                                         handelingen te kunnen verrichten;
                                                         <br /><br />
@@ -210,8 +201,8 @@ export const privacyContentSection = () => html`
                                                         overeenkomsten. (financiële administratie en facturatie,
                                                         personeelsadministratie, rechtenbeheer, beheer
                                                         gebruikersovereenkomst)
-                                                    </li>
-                                                    <li>
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>
                                                         Om u te informeren over nieuwe ontwikkelingen in thema’s
                                                         waarvoor het Departement Omgeving verantwoordelijkheden draagt.
                                                         <br /><br />
@@ -221,12 +212,13 @@ export const privacyContentSection = () => html`
                                                         het hier over directe communicatie gaat, is deze verwerking
                                                         gebaseerd op de toestemming van de betrokkene. U kiest dus zelf
                                                         of u zich in- of uitschrijft voor deze communicatie.
-                                                    </li>
-                                                </ul>
+                                                    </vl-side-navigation-item-next>
+                                                </vl-side-navigation-group-next>
                                             </vl-typography>
                                         </div>
-                                        <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                                            <h4 is="vl-h4">Welke persoonsgegevens worden verwerkt?</h4>
+                                        <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                                            <vl-title-next type="h4">Welke persoonsgegevens worden verwerkt?
+                                            </vl-title-next>
                                             <vl-typography>
                                                 <p>
                                                     In dit kader verwerkt het Departement Omgeving, naargelang de aard
@@ -234,22 +226,38 @@ export const privacyContentSection = () => html`
                                                     overheid/bestuur, organisatie of onderneming en de noodzakelijke
                                                     verwerking van (persoons)gegevens mogelijk de volgende gegevens:
                                                 </p>
-                                                <ul>
-                                                    <li>Aanhef/aanspreking</li>
-                                                    <li>Voornaam</li>
-                                                    <li>Tussenvoegsel</li>
-                                                    <li>Familienaam</li>
-                                                    <li>Rijksregisternummer</li>
-                                                    <li>Geslacht</li>
-                                                    <li>Geboortedatum</li>
-                                                    <li>Leeftijd of geboortejaar</li>
-                                                    <li>Nationaliteit</li>
-                                                    <li>Adres(sen)</li>
-                                                    <li>E-mailadres(sen)</li>
-                                                    <li>Telefoon/gsm/fax</li>
-                                                    <li>Beroepsgegevens, diploma’s, certificeringen</li>
-                                                    <li>Strafrechtelijke en justitiële gegevens</li>
-                                                </ul>
+                                                <vl-side-navigation-group-next>
+                                                    <vl-side-navigation-item-next>Aanhef/aanspreking
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>Voornaam
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>Tussenvoegsel
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>Familienaam
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>Rijksregisternummer
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>Geslacht
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>Geboortedatum
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>Leeftijd of geboortejaar
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>Nationaliteit
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>Adres(sen)
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>E-mailadres(sen)
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>Telefoon/gsm/fax
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>Beroepsgegevens, diploma’s,
+                                                        certificeringen
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>Strafrechtelijke en justitiële
+                                                        gegevens
+                                                    </vl-side-navigation-item-next>
+                                                </vl-side-navigation-group-next>
                                                 <p>
                                                     Tijdens het gebruik van de informatieverwerkende systemen door
                                                     medewerkers of door uzelf (bijvoorbeeld bij ingave in of consultatie
@@ -266,17 +274,27 @@ export const privacyContentSection = () => html`
                                                     verwerkt het Departement Omgeving in dit kader mogelijk de volgende
                                                     gegevens:
                                                 </p>
-                                                <ul>
-                                                    <li>IP-adres</li>
-                                                    <li>gebruikersnaam (login) of identificatienummer</li>
-                                                    <li>eID identificatie- en authenticatiegegevens</li>
-                                                    <li>tijdstip van handelingen in de software</li>
-                                                    <li>registratie van de handelingen in de software (logging).</li>
-                                                </ul>
+                                                <vl-side-navigation-group-next>
+                                                    <vl-side-navigation-item-next>IP-adres
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>gebruikersnaam (login) of
+                                                        identificatienummer
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>eID identificatie- en
+                                                        authenticatiegegevens
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>tijdstip van handelingen in de
+                                                        software
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>registratie van de handelingen in de
+                                                        software (logging).
+                                                    </vl-side-navigation-item-next>
+                                                </vl-side-navigation-group-next>
                                             </vl-typography>
                                         </div>
-                                        <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                                            <h4 is="vl-h4">Hoelang bewaren we uw persoonsgegevens?</h4>
+                                        <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                                            <vl-title-next type="h4">Hoelang bewaren we uw persoonsgegevens?
+                                            </vl-title-next>
                                             <vl-typography>
                                                 <p>
                                                     Het Departement Omgeving verzamelt niet meer gegevens dan
@@ -303,32 +321,34 @@ export const privacyContentSection = () => html`
                                                 </p>
                                             </vl-typography>
                                         </div>
-                                        <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                                            <h4 is="vl-h4">Persoonsgegevens van kinderen</h4>
+                                        <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                                            <vl-title-next type="h4">Persoonsgegevens van kinderen</vl-title-next>
                                             <p>
                                                 In principe gebeurt er geen systematische verwerking van
                                                 persoonsgegevens van kinderen onder de door de AVG en de Belgische
                                                 wetgever bepaalde leeftijdsgrens.
                                             </p>
                                         </div>
-                                        <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                                            <h4 is="vl-h4">Beeldmateriaal</h4>
+                                        <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                                            <vl-title-next type="h4">Beeldmateriaal</vl-title-next>
                                             <p>
                                                 Voor opname en gebruik (publicatie) van beeldmateriaal zoals foto of
                                                 film, wordt gevraagd om toestemming als de geportretteerden duidelijk
                                                 individueel herkenbaar zijn.
                                             </p>
                                         </div>
-                                        <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                                            <h4 is="vl-h4">Mededeling van persoonsgegevens aan derde partijen</h4>
+                                        <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                                            <vl-title-next type="h4">Mededeling van persoonsgegevens aan derde
+                                                partijen
+                                            </vl-title-next>
                                             <vl-typography>
                                                 <p>
                                                     Uw gegevens worden hoofdzakelijk intern verwerkt door onze
                                                     medewerkers. Daarnaast worden uw persoonsgegevens doorgegeven aan
                                                     deze categorieën van ontvangers:
                                                 </p>
-                                                <ul>
-                                                    <li>
+                                                <vl-side-navigation-group-next>
+                                                    <vl-side-navigation-item-next>
                                                         verwerkers: voor bepaalde verwerkingen doet het Departement
                                                         Omgeving een beroep op externe dienstverleners, die (een deel
                                                         van) de gegevensverwerking uitvoeren. Deze verwerkers ontvangen
@@ -337,8 +357,8 @@ export const privacyContentSection = () => html`
                                                         het Departement bepaalt. Zij mogen je persoonsgegevens dus niet
                                                         niet hergebruiken voor hun eigen doeleinden, en moeten ze
                                                         verwijderen of terugzenden bij het einde van hun opdracht.
-                                                    </li>
-                                                    <li>
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>
                                                         sociale media: het Departement Omgeving is aanwezig op sociale
                                                         media. De informatie die via onze pagina's bij sociale media
                                                         gedeeld wordt, is niet exclusief binnen het beheer van het
@@ -346,8 +366,8 @@ export const privacyContentSection = () => html`
                                                         toegang toe, en bepalen zelf hoe ze die informatie gebruiken. We
                                                         raden je aan om dus ook de gebruiksvoorwaarden en het
                                                         privacybeleid van deze sociale media te lezen.
-                                                    </li>
-                                                    <li>
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>
                                                         andere overheden: het Departement Omgeving geeft
                                                         persoonsgegevens door aan andere overheden, wanneer daar een
                                                         rechtmatige basis voor bestaat. Dat kan een wettelijke
@@ -356,8 +376,8 @@ export const privacyContentSection = () => html`
                                                         de oorspronkelijke verzameling. Welke persoonsgegevens precies
                                                         worden doorgegeven, wordt bepaald in een protocol, dat publiek
                                                         beschikbaar is.
-                                                    </li>
-                                                </ul>
+                                                    </vl-side-navigation-item-next>
+                                                </vl-side-navigation-group-next>
                                                 <p>
                                                     Indien er bepaalde persoonsgegevens worden overgemaakt aan of
                                                     bekomen van andere entiteiten, overheden of derde partijen, dan
@@ -368,13 +388,13 @@ export const privacyContentSection = () => html`
                                         </div>
                                     </div>
                                 </div>
-                                <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                                    <h3 id="privacy-declaration-measures" is="vl-h3">
+                                <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                                    <vl-title-next type="h3" id="privacy-declaration-measures">
                                         Maatregelen in het kader van de Algemene verordening Gegevensbescherming
-                                    </h3>
-                                    <div is="vl-grid" data-vl-is-stacked>
-                                        <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                                            <h4 is="vl-h4">Register van gegevensverwerkingen</h4>
+                                    </vl-title-next>
+                                    <div class="vl-grid-next vl-stacked-next-medium">
+                                        <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                                            <vl-title-next type="h4">Register van gegevensverwerkingen</vl-title-next>
                                             <vl-typography>
                                                 <p>
                                                     Er wordt, in overeenstemming met de vereisten van de Algemene
@@ -392,61 +412,65 @@ export const privacyContentSection = () => html`
                                                     <strong>verantwoordelijke</strong> voor de verwerking van gegevens
                                                     bevat het register de volgende informatie:
                                                 </p>
-                                                <ul>
-                                                    <li>
+                                                <vl-side-navigation-group-next>
+                                                    <vl-side-navigation-item-next>
                                                         de naam en contactgegevens van verantwoordelijke (of diens
                                                         vertegenwoordiger, wanneer de verantwoordelijke buiten de
                                                         Europese Unie is gevestigd), en van de functionaris voor
                                                         gegevensbescherming of FG – de Data Protection Officer (DPO).
-                                                    </li>
-                                                    <li>de doeleinden waarvoor gegevens worden verwerkt;</li>
-                                                    <li>
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>de doeleinden waarvoor gegevens worden
+                                                        verwerkt;
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>
                                                         de categorieën gegevens (bijvoorbeeld Rijksregistergegevens,
                                                         contactgegevens, betaalgegevens …);
-                                                    </li>
-                                                    <li>
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>
                                                         de categorieën betrokkenen (bijvoorbeeld: klanten,
                                                         websitebezoekers, werknemers …);
-                                                    </li>
-                                                    <li>
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>
                                                         de categorieën ontvangers (aan wie worden de gegevens
                                                         verstrekt?);
-                                                    </li>
-                                                    <li>
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>
                                                         informatie over eventuele doorgifte van gegevens naar landen
                                                         buiten de Europese Unie;
-                                                    </li>
-                                                    <li>
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>
                                                         de bewaartermijnen en gebeurlijk termijnen voor vernietiging van
                                                         de gegevens;
-                                                    </li>
-                                                    <li>
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>
                                                         de manieren waarop gegevens zijn beveiligd (bijvoorbeeld:
                                                         encryptie, logische toegangscontrole, pseudonimisering,
                                                         anonimisering in geval van bepaalde verdere verwerkingen, …).
-                                                    </li>
-                                                </ul>
+                                                    </vl-side-navigation-item-next>
+                                                </vl-side-navigation-group-next>
                                                 <p>
                                                     Voor die verwerkingen waarvoor het Departement Omgeving optreedt als
                                                     <strong>verwerker</strong> is het register bevat het register per
                                                     verantwoordelijke de volgende informatie:
                                                 </p>
-                                                <ul>
-                                                    <li>
+                                                <vl-side-navigation-group-next>
+                                                    <vl-side-navigation-item-next>
                                                         de naam en contactgegevens van de verwerker en de
                                                         verantwoordelijke (of hun vertegenwoordigers) en (indien
                                                         voorzien) de functionaris voor gegevensbescherming;
-                                                    </li>
-                                                    <li>
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>
                                                         de categorieën verwerkingen (dit komt overeen met de doeleinden
                                                         uit het register van de verantwoordelijke);
-                                                    </li>
-                                                    <li>
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>
                                                         informatie over eventueel doorgifte van gegevens naar landen
                                                         buiten de Europese Unie;
-                                                    </li>
-                                                    <li>de manieren waarop gegevens zijn beveiligd.</li>
-                                                </ul>
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>de manieren waarop gegevens zijn
+                                                        beveiligd.
+                                                    </vl-side-navigation-item-next>
+                                                </vl-side-navigation-group-next>
                                                 <p>
                                                     Het Departement Omgeving spant zich in om de verwerkingsactiviteiten
                                                     van de processen binnen haar afdelingen en diensten in kaart te
@@ -457,14 +481,14 @@ export const privacyContentSection = () => html`
                                             </vl-typography>
                                         </div>
 
-                                        <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                                            <h4 is="vl-h4">
+                                        <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                                            <vl-title-next type="h4">
                                                 Toe te passen principes vereist door de Algemene Verordening
                                                 Gegevensbescherming
-                                            </h4>
+                                            </vl-title-next>
 
-                                            <div is="vl-grid" data-vl-is-stacked>
-                                                <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
+                                            <div class="vl-grid-next vl-stacked-next-medium">
+                                                <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
                                                     <p>
                                                         Het risico voor een privacyschending of het niet kunnen
                                                         garanderen van de rechten van u als betrokkene wordt mee in
@@ -479,7 +503,7 @@ export const privacyContentSection = () => html`
                                                         privacybescherming.
                                                     </p>
                                                 </div>
-                                                <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
+                                                <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
                                                     <vl-typography>
                                                         <p>
                                                             Het Departement Omgeving voorziet in de nodige maatregelen
@@ -516,10 +540,11 @@ export const privacyContentSection = () => html`
                                         </div>
                                     </div>
                                 </div>
-                                <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                                    <h3 id="privacy-declaration-rights" is="vl-h3">Uw rechten als betrokkene</h3>
-                                    <div is="vl-grid" data-vl-is-stacked>
-                                        <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
+                                <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                                    <vl-title-next type="h3" id="privacy-declaration-rights">Uw rechten als betrokkene
+                                    </vl-title-next>
+                                    <div class="vl-grid-next vl-stacked-next-medium">
+                                        <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
                                             <vl-typography>
                                                 <p>
                                                     De Algemene Verordening Gegevensbescherming voorziet in een aantal
@@ -534,44 +559,47 @@ export const privacyContentSection = () => html`
                                                     kunnen worden in “het recht op een correcte, legitieme verwerking
                                                     van uw persoonsgegevens”:
                                                 </p>
-                                                <ul>
-                                                    <li>
+                                                <vl-side-navigation-group-next>
+                                                    <vl-side-navigation-item-next>
                                                         Recht van inzage van de met betrekking tot u verwerkte gegevens
                                                         (AVG art. 15)
-                                                    </li>
-                                                    <li>
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>
                                                         Recht op rectificatie, of recht op correctie van fouten (AVG
                                                         art. 16)
-                                                    </li>
-                                                    <li>
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>
                                                         Recht op gegevenswissing (officieel "recht op vergetelheid" of
                                                         ook genoemd “het recht om vergeten te worden”); dit recht is
                                                         toepasbaar in bepaalde gevallen en met name als wij gegevens van
                                                         u verwerken op basis van een geïnformeerde toestemming waarbij
                                                         wij geen wettelijke of andere wettelijke basis kunnen inroepen
                                                         voor verdere verwerking inbegrepen bewaring ervan (AVG art. 17);
-                                                    </li>
-                                                    <li>Recht op beperking van verwerking (AVG art. 18);</li>
-                                                    <li>
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>Recht op beperking van verwerking (AVG
+                                                        art. 18);
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>
                                                         Notificatie van rechtzetting, van uitwissing of van beperking
                                                         van verwerking (AVG art. 19);
-                                                    </li>
-                                                    <li>
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>
                                                         Recht op overdraagbaarheid van persoonsgegevens (AVG art. 20);
-                                                    </li>
-                                                    <li>
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>
                                                         Recht van bezwaar/verzet tegen verwerking van uw gegevens (AVG
                                                         art. 21);
-                                                    </li>
-                                                    <li>
+                                                    </vl-side-navigation-item-next>
+                                                    <vl-side-navigation-item-next>
                                                         Rechten met betrekking tot individuele besluitvorming, inclusief
                                                         profilering (AVG art. 22).
-                                                    </li>
-                                                </ul>
+                                                    </vl-side-navigation-item-next>
+                                                </vl-side-navigation-group-next>
                                             </vl-typography>
                                         </div>
-                                        <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                                            <h4 is="vl-h4">Recht op inzage, verbetering of verwijdering</h4>
+                                        <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                                            <vl-title-next type="h4">Recht op inzage, verbetering of verwijdering
+                                            </vl-title-next>
                                             <vl-typography>
                                                 <p>
                                                     Voor de verwerkingen van persoonsgegevens waarbij het Departement
@@ -615,10 +643,10 @@ export const privacyContentSection = () => html`
                                         </div>
                                     </div>
                                 </div>
-                                <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                                    <h3 id="privacy-declaration-aplpy" is="vl-h3">
+                                <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                                    <vl-title-next type="h3" id="privacy-declaration-aplpy">
                                         Toepassing van deze Privacyverklaring
-                                    </h3>
+                                    </vl-title-next>
                                     <vl-typography>
                                         <p>
                                             Deze versie van de Privacyverklaring van het Departement Omgeving is van
@@ -629,7 +657,7 @@ export const privacyContentSection = () => html`
                                             gebeurt, zal het Departement Omgeving dit publiek melden en hiervan op
                                             transparante wijze mededeling doen in nieuwsbrieven, op de website
                                             <a href="www.omgevingvlaanderen.be" target="_blank"
-                                                >www.omgevingvlaanderen.be</a
+                                            >www.omgevingvlaanderen.be</a
                                             >
                                             en via andere mediakanalen waarvan het Departement Omgeving gebruik maakt.
                                         </p>
@@ -638,10 +666,10 @@ export const privacyContentSection = () => html`
                                             aan te passen aan nieuwe noden of inzichten. Er zal van wijzigingen aan de
                                             Privacyverklaring transparant melding gemaakt worden op de hoofdwebsite van
                                             het Departement Omgeving (<a
-                                                href="www.omgevingvlaanderen.be"
-                                                target="_blank"
-                                                >www.omgevingvlaanderen.be</a
-                                            >) alsook op de papieren versie die op eenvoudige aanvraag verkrijgbaar is
+                                            href="www.omgevingvlaanderen.be"
+                                            target="_blank"
+                                        >www.omgevingvlaanderen.be</a
+                                        >) alsook op de papieren versie die op eenvoudige aanvraag verkrijgbaar is
                                             bij de Dienst Communicatie van het Departement Omgeving en via de
                                             Functionaris voor gegevensbescherming (Data Protection Officer) van het
                                             Departement Omgeving.
@@ -655,16 +683,17 @@ export const privacyContentSection = () => html`
                                 </div>
                             </div>
                         </div>
-                        <div data-vl-size="12" data-vl-medium-size="12">
-                            <h2 id="privacy-permissions-protocols" is="vl-h2">Machtigingen en protocollen</h2>
-                            <div is="vl-grid" data-vl-is-stacked>
-                                <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
-                                    <h3 id="privacy-permissions-protocols-process" is="vl-h3">
+                        <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                            <vl-title-next type="h2" id="privacy-permissions-protocols">Machtigingen en protocollen
+                            </vl-title-next>
+                            <div class="vl-grid-next vl-stacked-next-medium">
+                                <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                                    <vl-title-next type="h3" id="privacy-permissions-protocols-process">
                                         Machtigingen van de bevoegde autoriteiten en afgesloten protocollen voor het
                                         verwerken van bepaalde gegevens
-                                    </h3>
-                                    <div is="vl-grid" data-vl-is-stacked>
-                                        <div is="vl-column" data-vl-size="12" data-vl-medium-size="12">
+                                    </vl-title-next>
+                                    <div class="vl-grid-next vl-stacked-next-medium">
+                                        <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
                                             <vl-typography>
                                                 <p>
                                                     Het Departement Omgeving of de overheidsinstanties waarvoor zij
@@ -685,7 +714,8 @@ export const privacyContentSection = () => html`
                                                 </p>
                                             </vl-typography>
                                         </div>
-                                        <div is="vl-column" data-vl-size="4" data-vl-medium-size="6">
+                                        <div class="vl-column-next vl-column-next--4 vl-column-next--m-6"
+                                             data-vl-medium-size="6">
                                             <vl-document
                                                 data-vl-href="https://cdn.milieuinfo.be/footer-assets/LATEST/docx/privacybeleid-v0.2.docx"
                                             >
@@ -699,101 +729,97 @@ export const privacyContentSection = () => html`
                             </div>
                         </div>
                     </div>
-                </div>
+                </vl-side-navigation-reference-next>
             </div>
             <div
-                is="vl-column"
-                data-vl-size="4"
-                data-vl-medium-size="4"
-                data-vl-small-size="4"
-                data-vl-extra-small-size="0"
+                class="vl-column-next vl-column-next--4 vl-column-next--m-4 vl-column-next--s-4 vl-column-next--xs-0"
             >
-                <nav is="vl-side-navigation" aria-label="inhoudsopgave">
-                    <h1 is="vl-side-navigation-h1">Op deze pagina</h1>
-                    <div is="vl-side-navigation-content">
-                        <ul is="vl-side-navigation-group">
-                            <li is="vl-side-navigation-item" data-vl-parent>
-                                <a is="vl-side-navigation-toggle" href="#privacy-department">
+                <vl-side-navigation-next id="side-nav-privacy-content" aria-label="inhoudsopgave">
+                    <vl-side-navigation-h1-next>Op deze pagina</vl-side-navigation-h1-next>
+                    <vl-side-navigation-content-next>
+                        <vl-side-navigation-group-next>
+                            <vl-side-navigation-item-next parent>
+                                <vl-side-navigation-toggle-next href="#privacy-department">
                                     Het Departement Omgeving en uw privacy
-                                    <i class="vl-vi vl-vi-arrow-right-fat"></i>
-                                </a>
-                            </li>
-                            <li is="vl-side-navigation-item" data-vl-parent>
-                                <a
-                                    is="vl-side-navigation-toggle"
+                                </vl-side-navigation-toggle-next>
+                            </vl-side-navigation-item-next>
+                            <vl-side-navigation-item-next parent>
+                                <vl-side-navigation-toggle-next
+
                                     href="#privacy-declaration"
-                                    data-vl-child="privacy-declaration"
+                                    child="privacy-declaration"
                                 >
                                     Privacyverklaring
-                                    <i class="vl-vi vl-vi-arrow-right-fat"></i>
-                                </a>
-                                <ul>
-                                    <li is="vl-side-navigation-item">
+                                </vl-side-navigation-toggle-next>
+                                    <ul>
+                                    <vl-side-navigation-item-next>
                                         <div>
-                                            <a href="#privacy-declaration-who" data-vl-parent="privacy-declaration">
+                                            <a href="#privacy-declaration-who"
+                                                                            parent="privacy-declaration">
                                                 Wie is verantwoordelijk voor de verwerking van mijn persoonsgegevens?
                                             </a>
                                         </div>
-                                    </li>
-                                    <li is="vl-side-navigation-item">
+                                    </vl-side-navigation-item-next>
+                                    <vl-side-navigation-item-next>
                                         <div>
-                                            <a href="#privacy-declaration-process" data-vl-parent="privacy-declaration">
+                                            <a href="#privacy-declaration-process"
+                                                                            parent="privacy-declaration">
                                                 Verwerking van persoonsgegevens
                                             </a>
                                         </div>
-                                    </li>
-                                    <li>
+                                    </vl-side-navigation-item-next>
+                                    <vl-side-navigation-item-next>
                                         <div>
                                             <a
                                                 href="#privacy-declaration-measures"
-                                                data-vl-parent="privacy-declaration"
+                                                parent="privacy-declaration"
                                             >
                                                 Maatregelen in het kader van de Algemene verordening Gegevensbescherming
                                             </a>
                                         </div>
-                                    </li>
-                                    <li>
+                                    </vl-side-navigation-item-next>
+                                    <vl-side-navigation-item-next>
                                         <div>
-                                            <a href="#privacy-declaration-rights" data-vl-parent="privacy-declaration">
+                                            <a href="#privacy-declaration-rights"
+                                                                            parent="privacy-declaration">
                                                 Uw rechten als betrokkene
                                             </a>
                                         </div>
-                                    </li>
-                                    <li>
+                                    </vl-side-navigation-item-next>
+                                    <vl-side-navigation-item-next>
                                         <div>
-                                            <a href="#privacy-declaration-aplpy" data-vl-parent="privacy-declaration">
+                                            <a href="#privacy-declaration-aplpy"
+                                                                            parent="privacy-declaration">
                                                 Toepassing van deze Privacyverklaring
                                             </a>
                                         </div>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li is="vl-side-navigation-item" data-vl-parent>
-                                <a
-                                    is="vl-side-navigation-toggle"
-                                    href="#privacy-permissions-protocols"
-                                    data-vl-parent="privacy-permissions-protocols"
-                                >
-                                    Machtigingen en protocollen
-                                    <i class="vl-vi vl-vi-arrow-right-fat"></i>
-                                </a>
-                                <ul>
-                                    <li is="vl-side-navigation-item">
+                                    </vl-side-navigation-item-next>
+                                    </ul>
+                            </vl-side-navigation-item-next>
+                            <vl-side-navigation-item-next parent>
+                                    <vl-side-navigation-toggle-next
+                                        href="#privacy-permissions-protocols"
+                                    >
+                                        Machtigingen en protocollen
+                                    </vl-side-navigation-toggle-next>
+                                    <ul>
+                                    <vl-side-navigation-item-next>
                                         <div>
                                             <a
                                                 href="#privacy-permissions-protocols-process"
-                                                data-vl-parent="privacy-permissions-protocols"
+                                                parent="privacy-permissions-protocols"
                                             >
                                                 Machtigingen van de bevoegde autoriteiten en afgesloten protocollen voor
                                                 het verwerken van bepaalde gegevens
                                             </a>
                                         </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+                                    </vl-side-navigation-item-next>
+                                    </ul>
+                                </vl-side-navigation-group-next>
+                            </vl-side-navigation-item-next>
+                        </vl-side-navigation-group-next>
+                    </vl-side-navigation-content-next>
+                </vl-side-navigation-next>
             </div>
         </div>
     </div>
