@@ -106,6 +106,7 @@ export class VlInputFieldComponent extends FormControl {
         return html`
             <input
                 id=${this.id || nothing}
+                part="input"
                 name=${this.name || nothing}
                 class=${classMap(classes)}
                 type=${this.type}
