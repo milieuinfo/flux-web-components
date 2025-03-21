@@ -1,13 +1,14 @@
 import { webComponent } from '@domg-wc/common-utilities';
 import { SelectRichOption } from '@domg-wc/form/next/select-rich/vl-select-rich.model';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
-import { iconStyle, inputFieldStyle } from '@domg/govflanders-style/component';
+import { iconStyle } from '@domg/govflanders-style/component';
 import { FormValue } from '@open-wc/form-control/src/types';
 import * as choices from 'choices.js';
 import { Item, Options } from 'choices.js';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { FormControl } from '../form-control/form-control';
+import { inputFieldStyles } from '../input-field/vl-input-field.css';
 import multiselectStyle from './styles/vl-multiselect.dv-css';
 import selectRichUigStyle from './styles/vl-select-rich.uig-css';
 import selectStyle from './styles/vl-select.dv-css';
@@ -43,7 +44,7 @@ export class VlSelectRichComponent extends FormControl {
     private initialOptions: SelectRichOption[] = [];
 
     static get styles(): CSSResult[] {
-        return [resetStyle, baseStyle, inputFieldStyle, selectStyle, multiselectStyle, iconStyle, selectRichUigStyle];
+        return [resetStyle, baseStyle, inputFieldStyles, selectStyle, multiselectStyle, iconStyle, selectRichUigStyle];
     }
 
     static get properties(): PropertyDeclarations {
