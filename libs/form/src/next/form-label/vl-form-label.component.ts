@@ -54,7 +54,9 @@ export class VlFormLabelComponent extends BaseLitElement {
             'vl-form__label--light': this.light,
         };
 
-        return html` <label for=${this.for} class=${classMap(classList)} part="label"> ${this.label} </label> `;
+        return html`
+            <label for=${this.for} class=${classMap(classList)} part="label"><slot>${this.label}</slot></label>
+        `;
     }
 
     private getFormControl(): HTMLElement | null {
