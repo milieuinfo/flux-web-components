@@ -257,6 +257,38 @@ meer informatie).
 </table>
 
 
+### Content block
+
+`Content block [next]` is de nieuwe opzet die style-classes voorziet ter vervanging van `Grid Layout [legacy]`.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>[Grid Layout [legacy]](/docs/elements-grid-grid-layout--documentatie)</td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<div is="vl-layout">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Content-block [next]](/docs/styles-next-layout-afnemers-content-block--documentatie)</td>
+        <td>release v1.46.0</td>
+        <td>common-utilities/css</td>
+        <td><code>{`class="vl-content-block-next"`}</code></td>
+        <td>styles</td>
+        <td><code>{`class="vl-content-block"`}</code></td>
+    </tr>
+</table>
+
+
 ### Datepicker
 
 <table  style={{width: 100 + '%'}}>
@@ -538,7 +570,8 @@ gebruiken dit niet meer.
 ### Grid
 
 `Grid [next]` voorziet style-classes voor `Grid [legacy]` en `Grid Column [legacy]`.<br/>
-Zie [Section](#section) voor `Grid Layout [legacy]` en `Grid Region [legacy]`.<br/>
+Zie [Section](#section) voor `Grid Region [legacy]`.<br/>
+Zie [Content block](#content-block) voor `Grid Layout [legacy]`.<br/>
 Zie [Stacked](#stacked) voor de vervanger van de vroegere `stacked` attributen.
 
 <table  style={{width: 100 + '%'}}>
@@ -1145,8 +1178,8 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
 
 ### Section
 
-`Section [next]` is de nieuwe opzet die style-classes voorziet ter vervanging van de componenten
-`Grid Region [legacy]` en `Grid Layout [legacy]`.
+`Section [next]` is de nieuwe opzet die style-classes voorziet ter vervanging van
+`Grid Region [legacy]`.
 
 <table  style={{width: 100 + '%'}}>
     <tr>
@@ -1172,22 +1205,6 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <td><code>{`class="vl-section-next"`}</code></td>
         <td>styles</td>
         <td><code>{`class="vl-section"`}</code></td>
-    </tr>
-    <tr>
-        <td>[Grid Layout [legacy]](/docs/elements-grid-grid-layout--documentatie)</td>
-        <td>deprecated</td>
-        <td>elements</td>
-        <td><code>{`<div is="vl-layout">`}</code></td>
-        <td>-</td>
-        <td>-</td>
-    </tr>
-    <tr>
-        <td>[Section - centered [next]](/docs/styles-next-layout-afnemers-section--documentatie)</td>
-        <td>release v1.40.0</td>
-        <td>common-utilities/css</td>
-        <td><code>{`class="vl-section-next__centered"`}</code></td>
-        <td>styles</td>
-        <td><code>{`class="vl-section__centered"`}</code></td>
     </tr>
 </table>
 

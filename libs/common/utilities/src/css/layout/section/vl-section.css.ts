@@ -85,7 +85,7 @@ export const vlSectionStyles: CSSResult = css`
                 var(--vl-section--overlap-bg) 100%
             );
 
-            .vl-section-next__centered {
+            .vl-content-block-next {
                 border: 1px var(--vl-color--border) solid;
                 padding-top: 50px;
                 padding-bottom: 50px;
@@ -105,27 +105,6 @@ export const vlSectionStyles: CSSResult = css`
         /* een alt-sectie na een overlap sectie heeft geen top-padding */
         &.vl-section-next--overlap + &.vl-section-next--alt {
             padding-top: 0 !important;
-        }
-
-        /* centered content */
-        .vl-section-next__centered {
-            position: relative;
-            margin: 0 auto;
-            min-width: var(--vl-page--max-width);
-            max-width: var(--vl-page--max-width-wide);
-            padding: 0 var(--vl-spacing--medium);
-
-            @media screen and (max-width: ${vlMediaScreenMedium}px) {
-                width: auto;
-                min-width: var(--vl-page--min-width);
-                max-width: var(--vl-page--max-width-wide);
-            }
-
-            @media screen and (max-width: ${vlMediaScreenSmall}px) {
-                width: auto;
-                min-width: 0;
-                padding: 0 var(--vl-spacing--small);
-            }
         }
     }
 `;

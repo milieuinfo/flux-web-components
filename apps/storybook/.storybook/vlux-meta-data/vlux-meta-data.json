@@ -41,6 +41,12 @@
     "styles-next-layout-afnemers": {
         "vStatus": "v2-next-style-layout"
     },
+    "styles-next-layout-afnemers-content-block": {
+        "vStatus": "v2-next-style-layout",
+        "legacyText": "[vl-grid-layout (is=\"vl-layout\")](/docs/elements-grid-grid-layout--documentatie)",
+        "nextText": "vl-content-block-next",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#content-block)"
+    },
     "styles-next-layout-afnemers-grid": {
         "vStatus": "v2-next-style-layout",
         "legacyText": "[vl-grid](/docs/elements-grid-grid--documentatie) (+ [vl-grid-column](/docs/elements-grid-grid-column--documentatie), [vl-form-grid](/docs/elements-form-grid-form-grid--documentatie) en [vl-form-column](/docs/elements-form-grid-form-column--documentatie))",
@@ -252,13 +258,13 @@
     "elements-grid-grid-layout": {
         "vStatus": "v1-replace",
         "legacyText": "vl-grid-layout",
-        "nextText": "[vl-section-next](/docs/styles-next-layout-afnemers-section--documentatie)",
-        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#section)"
+        "nextText": "[vl-content-block-next](/docs/styles-next-layout-afnemers-content-block--documentatie)",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#content-block)"
     },
     "elements-grid-grid-region": {
         "vStatus": "v1-replace",
         "legacyText": "vl-grid-region",
-        "nextText": "[vl-section-next](/docs/styles-next-layout-afnemers-section--documentatie)",
+        "nextText": "[vl-content-block-next](/docs/styles-next-layout-afnemers-content-block--documentatie)",
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#section)"
     },
     "elements-grid-grid": {
