@@ -2,10 +2,9 @@ import { css, CSSResult } from 'lit';
 
 const styles: CSSResult = css`
     :host {
-        --vl-color--error: rgb(210, 55, 60);
-        --vl-success-color: rgb(0, 158, 71);
         position: relative;
     }
+
     button {
         cursor: pointer;
     }
@@ -14,10 +13,10 @@ const styles: CSSResult = css`
         border-right-width: 0;
     }
     .vl-input-addon--success {
-        border-color: var(--vl-success-color);
+        border-color: var(--vl-color--success);
     }
     .vl-input-addon--success .vl-vi {
-        color: var(--vl-success-color) !important;
+        color: var(--vl-color--success) !important;
     }
     .vl-input-addon--error {
         border-color: var(--vl-color--error);
@@ -41,6 +40,17 @@ const styles: CSSResult = css`
 
     .flatpickr-calendar .today {
         border: 1px #bbb solid;
+    }
+
+    .vl-group-next--input-group {
+        input {
+            border-radius: 0.3rem 0px 0px 0.3rem;
+            border-right-width: 0px;
+        }
+
+        button {
+            border-radius: 0px 0.3rem 0.3rem 0px;
+        }
     }
 
     #datepicker-calendar-placeholder {

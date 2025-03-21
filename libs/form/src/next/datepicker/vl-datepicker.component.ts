@@ -1,14 +1,9 @@
 import { isSafari, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { vlGroupStyles } from '@domg-wc/common-utilities/css';
+import { vlInputAddonStyles } from '@domg-wc/components/next/button/vl-input-addon.css';
 import { VlButtonInputAddon, VlIconElement } from '@domg-wc/elements';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
-import {
-    datepickerStyle,
-    iconStyle,
-    inputAddonStyle,
-    inputFieldStyle,
-    inputGroupStyle,
-    tooltipStyle,
-} from '@domg/govflanders-style/component';
+import { datepickerStyle, iconStyle, tooltipStyle } from '@domg/govflanders-style/component';
 import Cleave from 'cleave.js';
 import flatpickr from 'flatpickr';
 import Dutch from 'flatpickr/dist/l10n/nl.js';
@@ -19,6 +14,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
 import { CleaveInstance, MaskOptions } from '../../models/cleave.model';
 import { FormControl } from '../form-control/form-control';
+import { inputFieldStyles } from '../input-field/vl-input-field.css';
 import { createDateMask, createTimeMask } from './masks';
 import { maskValidator } from './validators';
 import { datepickerDefaults } from './vl-datepicker.defaults';
@@ -71,12 +67,12 @@ export class VlDatepickerComponent extends FormControl {
             resetStyle,
             baseStyle,
             iconStyle,
-            inputFieldStyle,
-            inputAddonStyle,
-            inputGroupStyle,
+            inputFieldStyles,
             tooltipStyle,
             datepickerStyle,
             datepickerUigStyle,
+            vlGroupStyles,
+            vlInputAddonStyles,
         ];
     }
 
@@ -245,7 +241,7 @@ export class VlDatepickerComponent extends FormControl {
         };
 
         const buttonClasses = {
-            'vl-input-addon': true,
+            'vl-input-addon-next': true,
             'js-vl-datepicker-toggle': true,
             'vl-input-addon--error': this.error || this.isInvalid,
             'vl-input-addon--success': this.success,
@@ -253,7 +249,7 @@ export class VlDatepickerComponent extends FormControl {
         };
 
         return html`
-            <div class="vl-input-group" id="datepicker-wrapper">
+            <div class="vl-group-next vl-group-next--input-group" id="datepicker-wrapper">
                 ${!(this.flatpickrInstance?.isMobile && !this.disableMobileNativeInput)
                     ? html`
                           <input
