@@ -1,5 +1,5 @@
-import { BaseLitElement, registerWebComponents } from '@domg-wc/common-utilities';
-import { VlIconElement } from '@domg-wc/elements';
+import { BaseLitElement } from '@domg-wc/common-utilities';
+import { vlIconStyles } from '@domg-wc/common-utilities/css';
 import { css, html, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import proj4 from 'proj4';
@@ -12,15 +12,12 @@ export class VlMapCurrentLocation extends BaseLitElement {
     private tooltip: string;
     private _mapElement: any;
 
-    static {
-        registerWebComponents([VlIconElement]);
-    }
-
     static get styles() {
         return [
             css`
                 ${unsafeCSS(styles)}
             `,
+            vlIconStyles,
         ];
     }
 
@@ -66,7 +63,7 @@ export class VlMapCurrentLocation extends BaseLitElement {
     render() {
         return html` <div class="uig-map-current-location">
             <button @click=${() => this._currentLocation()} type="button" title="${this.tooltip}">
-                <span is="vl-icon" data-vl-icon="location-gps"></span>
+                <span class="vl-icon vl-icon--location-gps"></span>
             </button>
         </div>`;
     }
