@@ -71,12 +71,12 @@ export const ProzaMessageEditable = story(prozaMessageArgs, () => {
                 <vl-button-next>
                     <vl-proza-message data-vl-domain="mockdomaineditable" data-vl-code="action"></vl-proza-message>
                 </vl-button-next>
-                <button is="vl-button" data-vl-secondary>
+                <vl-button-next secondary>
                     <vl-proza-message data-vl-domain="mockdomaineditable" data-vl-code="action"></vl-proza-message>
-                </button>
-                <button is="vl-button" data-vl-tertiary>
+                </vl-button-next>
+                <vl-button-next tertiary>
                     <vl-proza-message data-vl-domain="mockdomaineditable" data-vl-code="action"></vl-proza-message>
-                </button>
+                </vl-button-next>
             </div>
             <div class="vl-column-next vl-column-next--12">
                 <vl-title-next type="h6">In een link:</vl-title-next>

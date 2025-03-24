@@ -239,7 +239,7 @@ export class VlProzaMessage extends BaseElementOfType(HTMLElement) {
 
     __editButtonTemplate() {
         const button = this._template(`
-        <vl-button-next id="refresh-button" icon="pencil" label="edit"></vl-button-next>
+        <vl-button-next id="edit-button" icon="pencil" label="edit"></vl-button-next>
     `);
         button.firstElementChild.addEventListener('click', (event: Event) => {
             event.stopPropagation();
