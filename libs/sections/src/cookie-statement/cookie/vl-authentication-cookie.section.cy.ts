@@ -4,7 +4,7 @@ import { VlAuthenticationCookie } from './vl-authentication-cookie.section';
 
 registerWebComponents([VlAuthenticationCookie]);
 
-const mountDefault = () => cy.mount(html` <vl-authentication-cookie> </vl-authentication-cookie> `);
+const mountDefault = () => cy.mount(html` <vl-authentication-cookie></vl-authentication-cookie> `);
 
 describe('vl-authentication-cookie component - default', () => {
     beforeEach(() => {
@@ -31,19 +31,21 @@ describe('vl-authentication-cookie component - props', () => {
     it('should render the correct <title>', () => {
         cy.get('vl-authentication-cookie')
             .shadow()
-            .find('h3')
+            .find('vl-title-next')
             .should('contain.text', 'Departement Omgeving toegangsbeheer cookies');
     });
 
     it('should render the correct <names>', () => {
         const expectedNames = ['KEYCLOAK_SESSION', 'KEYCLOAK_SESSION_LEGACY'];
         expectedNames.forEach((name) => {
-            cy.get('vl-authentication-cookie').shadow().find('dd').contains(name);
+            cy.get('vl-authentication-cookie').shadow().find('vl-properties-next').shadow().find('dd').contains(name);
         });
     });
 
     it('should render the correct <purpose>', () => {
         cy.get('vl-authentication-cookie')
+            .shadow()
+            .find('vl-properties-next')
             .shadow()
             .find('dd')
             .contains(
@@ -52,14 +54,24 @@ describe('vl-authentication-cookie component - props', () => {
     });
 
     it('should render the correct <domain>', () => {
-        cy.get('vl-authentication-cookie').shadow().find('dd').contains(window.location.hostname);
+        cy.get('vl-authentication-cookie')
+            .shadow()
+            .find('vl-properties-next')
+            .shadow()
+            .find('dd')
+            .contains(window.location.hostname);
     });
 
     it('should render the correct <processor>', () => {
-        cy.get('vl-authentication-cookie').shadow().find('dd').contains('Departement Omgeving');
+        cy.get('vl-authentication-cookie')
+            .shadow()
+            .find('vl-properties-next')
+            .shadow()
+            .find('dd')
+            .contains('Departement Omgeving');
     });
 
     it('should render the correct <validity>', () => {
-        cy.get('vl-authentication-cookie').shadow().find('dd').contains('10 uur');
+        cy.get('vl-authentication-cookie').shadow().find('vl-properties-next').shadow().find('dd').contains('10 uur');
     });
 });

@@ -159,7 +159,7 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
     }
 
     get __filterOpenButton(): HTMLElement {
-        return this.shadowRoot.querySelector('#open-filter-button');
+        return this.shadowRoot.querySelector('#open-toggle-filter-button');
     }
 
     get __filterToggleContainer(): HTMLElement {

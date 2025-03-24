@@ -4,7 +4,7 @@ import { VlHeaderCookie } from './vl-header-cookie.section';
 
 registerWebComponents([VlHeaderCookie]);
 
-const mountDefault = () => cy.mount(html` <vl-header-cookie> </vl-header-cookie> `);
+const mountDefault = () => cy.mount(html` <vl-header-cookie></vl-header-cookie> `);
 
 describe('vl-header-cookie component - default', () => {
     beforeEach(() => {
@@ -29,18 +29,21 @@ describe('vl-header-cookie component - props', () => {
     });
 
     it('should render the correct <title>', () => {
-        cy.get('vl-header-cookie').shadow().find('h3').should('contain.text', 'Vlaanderen header cookie');
+        cy.get('vl-header-cookie')
+            .shadow().find('vl-title-next').should('contain.text', 'Vlaanderen header cookie');
     });
 
     it('should render the correct <names>', () => {
         const expectedNames = ['VOGANONUSER'];
         expectedNames.forEach((name) => {
-            cy.get('vl-header-cookie').shadow().find('dd').contains(name);
+            cy.get('vl-header-cookie').shadow().find('vl-properties-next').shadow().find('dd').contains(name);
         });
     });
 
     it('should render the correct <purpose>', () => {
         cy.get('vl-header-cookie')
+            .shadow()
+            .find('vl-properties-next')
             .shadow()
             .find('dd')
             .contains(
@@ -49,15 +52,18 @@ describe('vl-header-cookie component - props', () => {
     });
 
     it('should render the correct <domain>', () => {
-        cy.get('vl-header-cookie').shadow().find('dd').contains('vlaanderen.be');
+        cy.get('vl-header-cookie').shadow().find('vl-properties-next').shadow().find('dd').contains('vlaanderen.be');
     });
 
     it('should render the correct <processor>', () => {
-        cy.get('vl-header-cookie').shadow().find('dd').contains('Vlaamse overheid');
+        cy.get('vl-header-cookie').shadow().find('vl-properties-next').shadow().find('dd').contains('Vlaamse overheid');
     });
 
     it('should render the correct <validity>', () => {
         cy.get('vl-header-cookie')
+            .shadow()
+            .find('vl-properties-next')
+
             .shadow()
             .find('dd')
             .contains('Permanente cookies met een geldigheid van maximaal 24 uur');

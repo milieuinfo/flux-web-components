@@ -29,6 +29,16 @@ export const labelWidthRem = (labelWidth: number): CSSResult => {
         dl .item {
             grid-template-columns: [labels] ${labelWidth}rem [data] auto;
         }
+
+        @media screen and (max-width: ${vlMediaScreenSmall}px) {
+            dl {
+                grid-template-columns: 100%;
+            }
+
+            dl .item {
+                grid-template-columns: 100%;
+            }
+        }
     `;
 };
 
@@ -81,10 +91,6 @@ const styles: CSSResult = css`
     }
 
     @media screen and (max-width: ${vlMediaScreenSmall}px) {
-        .column {
-            ${columnWidth(100)};
-        }
-
         dd {
             ${collapsedDd()}
         }

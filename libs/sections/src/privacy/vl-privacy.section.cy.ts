@@ -22,6 +22,7 @@ const defaultProps = privacyDefaults;
 describe('vl-privacy component', () => {
     beforeEach(() => {
         mountDefault(defaultProps);
+        cy.viewport(960, 1440);
     });
 
     it('should mount', () => {

@@ -1,4 +1,5 @@
 import { VlContactCardComponent, VlInfoblockComponent } from '@domg-wc/components';
+import { VlPropertiesComponent } from '@domg-wc/components/next/properties';
 import {
     VlColumnElement,
     VlGridElement,
@@ -6,10 +7,6 @@ import {
     VlIconElement,
     VlLayoutElement,
     VlLinkElement,
-    VlPropertiesComponent,
-    VlPropertiesListElement,
-    VlPropertyTermElement,
-    VlPropertyValueElement,
     VlRegionElement,
     VlSideNavigationReferenceElement,
 } from '@domg-wc/elements';
@@ -30,9 +27,6 @@ export const contentElements = () => [
     VlContactCardComponent,
     VlInfoblockComponent,
     VlPropertiesComponent,
-    VlPropertiesListElement,
-    VlPropertyTermElement,
-    VlPropertyValueElement,
     VlIconElement,
     VlH2Element,
 ];
@@ -101,34 +95,30 @@ export const content = ({
                                     <vl-infoblock slot="info" data-vl-type="contact">
                                         <h3 slot="title">Departement Omgeving</h3>
                                     </vl-infoblock>
-                                    <vl-properties slot="properties">
-                                        <dl is="vl-properties-list">
-                                            <dt is="vl-property-term">Adres</dt>
-                                            <dd is="vl-property-value">Havenlaan 88<br />1000 Brussel<br />België</dd>
-                                            <dt is="vl-property-term">Telefoon</dt>
-                                            <dd is="vl-property-value">
-                                                <p>
-                                                    <vl-link-next href="tel:02 553 80 11"
-                                                        >02 553 80 11<span
-                                                            is="vl-icon"
-                                                            data-vl-icon="phone"
-                                                            data-vl-after
-                                                        ></span
-                                                    ></vl-link-next>
-                                                </p>
-                                            </dd>
-                                            <dt is="vl-property-term">E-mail</dt>
-                                            <dd is="vl-property-value">
-                                                <vl-link-next href="mailto:omgeving@vlaanderen.be"
-                                                    >omgeving@vlaanderen.be<span
-                                                        is="vl-icon"
-                                                        data-vl-icon="mail"
-                                                        data-vl-after
-                                                    ></span
-                                                ></vl-link-next>
-                                            </dd>
-                                        </dl>
-                                    </vl-properties>
+                                    <vl-properties-next slot="properties">
+                                        <label>Adres</label>
+                                        <data>
+                                            <div>Havenlaan 88</div>
+                                            <div>1000 Brussel</div>
+                                            <div>België</div>
+                                        </data>
+                                        <label>Telefoon</label>
+                                        <data>
+                                            <vl-link-next href="tel:02 553 80 11" icon-placement="after" icon="phone">
+                                                02 553 80 11
+                                            </vl-link-next>
+                                        </data>
+                                        <label>E-mail</label>
+                                        <data>
+                                            <vl-link-next
+                                                href="mailto:omgeving@vlaanderen.be"
+                                                icon-placement="after"
+                                                icon="mail"
+                                            >
+                                                omgeving@vlaanderen.be
+                                            </vl-link-next>
+                                        </data>
+                                    </vl-properties-next>
                                 </vl-contact-card>
                             </div>
                             <div
@@ -146,22 +136,24 @@ export const content = ({
                                     <vl-infoblock slot="info" data-vl-type="contact">
                                         <h3 slot="title">Klachtenbehandelaar</h3>
                                     </vl-infoblock>
-                                    <vl-properties slot="properties">
-                                        <dl is="vl-properties-list">
-                                            <dt is="vl-property-term">Adres</dt>
-                                            <dd is="vl-property-value">Havenlaan 88<br />1000 Brussel<br />België</dd>
-                                            <dt is="vl-property-term">E-mail</dt>
-                                            <dd is="vl-property-value">
-                                                <vl-link-next href="mailto:klachten.omgeving@vlaanderen.be"
-                                                    >klachten.omgeving@vlaanderen.be<span
-                                                        is="vl-icon"
-                                                        data-vl-icon="mail"
-                                                        data-vl-after
-                                                    ></span
-                                                ></vl-link-next>
-                                            </dd>
-                                        </dl>
-                                    </vl-properties>
+                                    <vl-properties-next slot="properties">
+                                        <label>Adres</label>
+                                        <data>
+                                            <div>Havenlaan 88</div>
+                                            <div>1000 Brussel</div>
+                                            <div>België</div>
+                                        </data>
+                                        <label>E-mail</label>
+                                        <data>
+                                            <vl-link-next
+                                                href="mailto:klachten.omgeving@vlaanderen.be"
+                                                icon-placement="after"
+                                                icon="mail"
+                                            >
+                                                klachten.omgeving@vlaanderen.be
+                                            </vl-link-next>
+                                        </data>
+                                    </vl-properties-next>
                                 </vl-contact-card>
                                 <br />
                                 <p>
@@ -174,44 +166,36 @@ export const content = ({
                                     <vl-infoblock slot="info" data-vl-type="contact">
                                         <h3 slot="title">Vlaamse ombudsdienst</h3>
                                     </vl-infoblock>
-                                    <vl-properties slot="properties">
-                                        <dl is="vl-properties-list">
-                                            <dt is="vl-property-term">Adres</dt>
-                                            <dd is="vl-property-value">Leuvenseweg 86<br />1000 Brussel<br />België</dd>
-                                            <dt is="vl-property-term">Telefoon</dt>
-                                            <dd is="vl-property-value">
-                                                <p>
-                                                    <vl-link-next href="tel:08 002 40 50"
-                                                        >08 002 40 50<span
-                                                            is="vl-icon"
-                                                            data-vl-icon="phone"
-                                                            data-vl-after=""
-                                                        ></span
-                                                    ></vl-link-next>
-                                                </p>
-                                            </dd>
-                                            <dt is="vl-property-term">E-mail</dt>
-                                            <dd is="vl-property-value">
-                                                <vl-link-next href="mailto:klachten@vlaamseombudsdienst.be"
-                                                    >klachten@vlaamseombudsdienst.be<span
-                                                        is="vl-icon"
-                                                        data-vl-icon="mail"
-                                                        data-vl-after
-                                                    ></span
-                                                ></vl-link-next>
-                                            </dd>
-                                            <dt is="vl-property-term">Website</dt>
-                                            <dd is="vl-property-value">
-                                                <vl-link-next href="http://www.vlaamseombudsdienst.be" external
-                                                    >http://www.vlaamseombudsdienst.be<span
-                                                        is="vl-icon"
-                                                        data-vl-icon="external"
-                                                        data-vl-after
-                                                    ></span
-                                                ></vl-link-next>
-                                            </dd>
-                                        </dl>
-                                    </vl-properties>
+                                    <vl-properties-next slot="properties">
+                                        <label>Adres</label>
+                                        <data>
+                                            <div>Leuvenseweg 86</div>
+                                            <div>1000 Brussel</div>
+                                            <div>België</div>
+                                        </data>
+                                        <label>Telefoon</label>
+                                        <data>
+                                            <vl-link-next href="tel:08 002 40 50" icon-placement="after" icon="phone">
+                                                08 002 40 50
+                                            </vl-link-next>
+                                        </data>
+                                        <label>E-mail</label>
+                                        <data>
+                                            <vl-link-next
+                                                href="mailto:klachten@vlaamseombudsdienst.be"
+                                                icon-placement="after"
+                                                icon="mail"
+                                            >
+                                                klachten@vlaamseombudsdienst.be
+                                            </vl-link-next>
+                                        </data>
+                                        <label>Website</label>
+                                        <data>
+                                            <vl-link-next href="http://www.vlaamseombudsdienst.be" external>
+                                                http://www.vlaamseombudsdienst.be
+                                            </vl-link-next>
+                                        </data>
+                                    </vl-properties-next>
                                 </vl-contact-card>
                             </div>
                         </div>

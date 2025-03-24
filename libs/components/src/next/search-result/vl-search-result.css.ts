@@ -3,6 +3,7 @@ import { css, CSSResult } from 'lit';
 
 export const vlSearchResultStyles: CSSResult = css`
     :host {
+        display: block;
         margin-bottom: 3.5rem;
 
         > * {
