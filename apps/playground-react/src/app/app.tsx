@@ -30,9 +30,6 @@ export function App() {
                 data-vl-open
                 data-vl-custom-css=".vl-layout {padding:0} .vl-region{padding:0} .vl-region:first-child{padding:0} :host #vl-side-sheet {padding:0} :host {--vl-side-sheet-width: 600px;}"
             >
-                <VlTitle type={'h4'} underline>
-                    Kies uit kantoren
-                </VlTitle>
                 <VlCascader items={nodeData} itemListFn={getItemList} templates={cascaderItemTemplates}></VlCascader>
             </vl-side-sheet>
         </main>
