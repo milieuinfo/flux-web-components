@@ -21,22 +21,28 @@ export const richDataPaginationImplementation = () => {
                 const manager = project.manager;
                 const medewerker = project.medewerkers[0];
                 const html = `
-                    <li is="vl-search-result">
-                      <a href="#">${project.name}</a>
-                      <time>Gestart op ${now}</time>
-                      <dl>
-                        <dt>ID</dt>
-                        <dd>${project.id}</dd>
-                        <dt>Naam manager</dt>
-                        <dd>${manager.lastName}</dd>
-                        <dt>Eerste medewerker</dt>
-                        <dd>${medewerker.lastName}</dd>
-                        <dt>Project o.l.v. <b>manager</b></dt>
-                        <dd>${project.name} o.l.v. <b>${manager.firstName} ${manager.lastName}</b></dd>
-                      </dl>
-                    </li>
+                        <vl-search-result-title-next>
+                            <a href="#">${project.name}</a>
+                        </vl-search-result-title-next>
+                        <vl-search-result-text-next>
+                            <time>Gestart op ${now}</time>
+                        </vl-search-result-text-next>
+                        <vl-search-result-properties-next>
+                            <label>ID</label>
+                            <data>${project.id}</data>
+                            <label>Naam manager</label>
+                            <data>${manager.lastName}</data>
+                            <label>Eerste medewerker</label>
+                            <data>${medewerker.lastName}</data>
+                            <label>
+                                <span>Project o.l.v. <strong>manager</strong></span>
+                            </label>
+                            <data>
+                                <span>${project.name} o.l.v. <strong>${manager.firstName} ${manager.lastName}</strong></span>
+                            </data>
+                        </vl-search-result-properties-next>
                   `;
-                content.insertAdjacentHTML('beforeend', html);
+                content.insertAdjacentHTML('beforeend', `<vl-search-result-next>${html}</vl-search-result-next>`);
             });
         };
 

@@ -23,7 +23,9 @@ export const privacyContentSection = () => html`
                             <vl-title-next type="h2" id="privacy-declaration">Privacyverklaring</vl-title-next>
                             <div class="vl-grid-next vl-stacked-next-medium">
                                 <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
-                                    <vl-title-next type="h3" id="privacy-declaration-who">Wie is verantwoordelijk voor de verwerking van mijn persoonsgegevens?</vl-title-next>
+                                    <vl-title-next type="h3" id="privacy-declaration-who">Wie is verantwoordelijk voor
+                                        de verwerking van mijn persoonsgegevens?
+                                    </vl-title-next>
                                     <div class="vl-grid-next vl-stacked-next-medium">
                                         <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
                                             <vl-typography>
@@ -74,45 +76,46 @@ export const privacyContentSection = () => html`
                                         <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
                                             <vl-contact-card>
                                                 <vl-infoblock slot="info" data-vl-type="contact">
-                                                    <h4 type="h4" slot="title">Departement Omgeving</h4>
+                                                    <vl-title-next type="h4" slot="title">
+                                                        Departement Omgeving
+                                                    </vl-title-next>
                                                 </vl-infoblock>
-                                                <vl-properties slot="properties">
-                                                    <dl is="vl-properties-list">
-                                                        <dt is="vl-property-term">Adres</dt>
-                                                        <dd is="vl-property-value">
-                                                            Herman Teirlinckgebouw<br />Havenlaan 88<br />1000 Brussel,
-                                                            België
-                                                        </dd>
-                                                        <dt is="vl-property-term">Telefoon</dt>
-                                                        <dd is="vl-property-value">
-                                                            <vl-link-next href="tel:02 553 80 11"
-                                                                          icon-placement="after"
-                                                                          icon="phone"
-                                                            >02 553 80 11
-                                                            </vl-link-next>
-                                                        </dd>
-                                                        <dt is="vl-property-term">E-mail</dt>
-                                                        <dd is="vl-property-value">
-                                                            <vl-link-next href="mailto:omgeving@vlaanderen.be"
-                                                                          icon-placement="after"
-                                                                          icon="mail"
-                                                            >omgeving@vlaanderen.be
-                                                            </vl-link-next>
-                                                        </dd>
-                                                        <dt is="vl-property-term">Website</dt>
-                                                        <dd is="vl-property-value">
-                                                            <vl-link-next
-                                                                href="http://www.omgevingvlaanderen.be"
-                                                                external
-                                                            >http://www.omgevingvlaanderen.be
-                                                            </vl-link-next>
-                                                        </dd>
-                                                        <dt is="vl-property-term">KBO-nummer</dt>
-                                                        <dd is="vl-property-value">
-                                                            0316.380.841 (ondernemingsnummer van de Vlaamse Overheid)
-                                                        </dd>
-                                                    </dl>
-                                                </vl-properties>
+                                                <vl-properties-next slot="properties">
+                                                    <label>Adres</label>
+                                                    <data>
+                                                        <div>Herman Teirlinckgebouw</div>
+                                                        <div>Havenlaan 88</div>
+                                                        <div>1000 Brussel, België</div>
+                                                    </data>
+                                                    <label>Telefoon</label>
+                                                    <data>
+                                                        <vl-link-next href="tel:02 553 80 11"
+                                                                      icon-placement="after"
+                                                                      icon="phone">
+                                                            02 553 80 11
+                                                        </vl-link-next>
+                                                    </data>
+                                                    <label>E-mail</label>
+                                                    <data>
+                                                        <vl-link-next href="mailto:omgeving@vlaanderen.be"
+                                                                      icon-placement="after"
+                                                                      icon="mail">
+                                                            omgeving@vlaanderen.be
+                                                        </vl-link-next>
+                                                    </data>
+                                                    <label>Website</label>
+                                                    <data>
+                                                        <vl-link-next
+                                                            href="http://www.omgevingvlaanderen.be"
+                                                            external>
+                                                            http://www.omgevingvlaanderen.be
+                                                        </vl-link-next>
+                                                    </data>
+                                                    <label>KBO-nummer</label>
+                                                    <data>
+                                                        0316.380.841 (ondernemingsnummer van de Vlaamse Overheid)
+                                                    </data>
+                                                </vl-properties-next>
                                             </vl-contact-card>
                                         </div>
                                     </div>
@@ -177,12 +180,12 @@ export const privacyContentSection = () => html`
                                                     <vl-side-navigation-item-next>
                                                         Om aan wettelijke verplichtingen en beleidsmatig toegewezen
                                                         taken als overheidsinstelling te voldoen;
-                                                        <br /><br />
+                                                        <br/><br/>
                                                         In Vlaamse Regelgeving worden aan het Departement Omgeving een
                                                         aantal taken opgelegd waarbij de verwerking van persoonsgegevens
                                                         expliciet verplicht wordt. De verwerking is in dat geval beperkt
                                                         tot wat door die wettelijke verplichting bepaald wordt.
-                                                        <br /><br />
+                                                        <br/><br/>
                                                         Voor andere verwerkingen bestaat geen expliciete verplichting in
                                                         een wettekst, maar is de verwerking van persoonsgegevens een
                                                         noodzaak voor de uitvoering van beleidstaken die aan het
@@ -191,7 +194,7 @@ export const privacyContentSection = () => html`
                                                     <vl-side-navigation-item-next>
                                                         Om te voldoen aan contractuele verplichtingen of administratieve
                                                         handelingen te kunnen verrichten;
-                                                        <br /><br />
+                                                        <br/><br/>
                                                         Bij de uitvoering van haar taken neemt het Departement ook
                                                         contractuele verbintenissen op zich. Sommige van deze
                                                         verbintenissen vereisen de verwerking van persoonsgegevens. Ook
@@ -204,7 +207,7 @@ export const privacyContentSection = () => html`
                                                     <vl-side-navigation-item-next>
                                                         Om u te informeren over nieuwe ontwikkelingen in thema’s
                                                         waarvoor het Departement Omgeving verantwoordelijkheden draagt.
-                                                        <br /><br />
+                                                        <br/><br/>
                                                         Het Departement Omgeving geeft een aantal nieuwsbrieven uit over
                                                         thema's die nauw verbonden zijn met haar taken. Het informeren
                                                         van burgers kadert in de beleidstaken van de overheid. Gezien
@@ -740,6 +743,7 @@ export const privacyContentSection = () => html`
                             <vl-side-navigation-item-next parent>
                                 <vl-side-navigation-toggle-next href="#privacy-department">
                                     Het Departement Omgeving en uw privacy
+                                    <i class="vl-vi vl-vi-arrow-right-fat"></i>
                                 </vl-side-navigation-toggle-next>
                             </vl-side-navigation-item-next>
                             <vl-side-navigation-item-next parent="privacy-declaration">
@@ -748,12 +752,13 @@ export const privacyContentSection = () => html`
                                     child="privacy-declaration"
                                 >
                                     Privacyverklaring
+                                    <i class="vl-vi vl-vi-arrow-right-fat"></i>
                                 </vl-side-navigation-toggle-next>
-                                    <ul>
+                                <ul>
                                     <vl-side-navigation-item-next>
                                         <div>
                                             <a href="#privacy-declaration-who"
-                                                                            parent="privacy-declaration">
+                                               parent="privacy-declaration">
                                                 Wie is verantwoordelijk voor de verwerking van mijn persoonsgegevens?
                                             </a>
                                         </div>
@@ -761,7 +766,7 @@ export const privacyContentSection = () => html`
                                     <vl-side-navigation-item-next>
                                         <div>
                                             <a href="#privacy-declaration-process"
-                                                                            parent="privacy-declaration">
+                                               parent="privacy-declaration">
                                                 Verwerking van persoonsgegevens
                                             </a>
                                         </div>
@@ -779,7 +784,7 @@ export const privacyContentSection = () => html`
                                     <vl-side-navigation-item-next>
                                         <div>
                                             <a href="#privacy-declaration-rights"
-                                                                            parent="privacy-declaration">
+                                               parent="privacy-declaration">
                                                 Uw rechten als betrokkene
                                             </a>
                                         </div>
@@ -787,20 +792,21 @@ export const privacyContentSection = () => html`
                                     <vl-side-navigation-item-next>
                                         <div>
                                             <a href="#privacy-declaration-aplpy"
-                                                                            parent="privacy-declaration">
+                                               parent="privacy-declaration">
                                                 Toepassing van deze Privacyverklaring
                                             </a>
                                         </div>
                                     </vl-side-navigation-item-next>
-                                    </ul>
+                                </ul>
                             </vl-side-navigation-item-next>
                             <vl-side-navigation-item-next parent>
-                                    <vl-side-navigation-toggle-next
-                                        href="#privacy-permissions-protocols"
-                                    >
-                                        Machtigingen en protocollen
-                                    </vl-side-navigation-toggle-next>
-                                    <ul>
+                                <vl-side-navigation-toggle-next
+                                    href="#privacy-permissions-protocols"
+                                >
+                                    Machtigingen en protocollen
+                                    <i class="vl-vi vl-vi-arrow-right-fat"></i>
+                                </vl-side-navigation-toggle-next>
+                                <ul>
                                     <vl-side-navigation-item-next>
                                         <div>
                                             <a
@@ -812,8 +818,7 @@ export const privacyContentSection = () => html`
                                             </a>
                                         </div>
                                     </vl-side-navigation-item-next>
-                                    </ul>
-                                </vl-side-navigation-group-next>
+                                </ul>
                             </vl-side-navigation-item-next>
                         </vl-side-navigation-group-next>
                     </vl-side-navigation-content-next>

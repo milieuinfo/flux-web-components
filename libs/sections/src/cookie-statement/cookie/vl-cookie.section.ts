@@ -1,13 +1,7 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common-utilities';
+import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { VlPropertiesComponent } from '@domg-wc/components/next/properties';
+import { VlTitleComponent } from '@domg-wc/components/next/title';
 import styles from '../vl-cookie-statement.uig-css';
-import { registerWebComponents } from '@domg-wc/common-utilities';
-import {
-    VlPropertiesComponent,
-    VlPropertiesListElement,
-    VlPropertyTermElement,
-    VlPropertyValueElement,
-} from '@domg-wc/elements';
-import { VlTypography } from '@domg-wc/components';
 
 export interface VlCookieProps {
     title?: string;
@@ -17,37 +11,30 @@ export interface VlCookieProps {
     processor?: string;
     validity?: string;
 }
+
 @webComponent('vl-cookie')
 export class VlCookie extends BaseElementOfType(HTMLElement) {
     static {
-        registerWebComponents([
-            // elements
-            VlPropertiesComponent,
-            VlPropertiesListElement,
-            VlPropertyTermElement,
-            VlPropertyValueElement,
-            // components
-            VlTypography,
-        ]);
+        registerWebComponents([VlPropertiesComponent, VlTitleComponent]);
     }
 
     constructor({ title, name, purpose, domain, processor, validity }: VlCookieProps = {}) {
         super(`
-        <style>
-          ${styles}
-        </style>
+            <style>
+              ${styles}
+            </style>
     `);
 
         const nameTemplate = () => {
             const _name = name || this.dataset.vlName;
             if (Array.isArray(_name)) {
                 return `
-            <vl-typography>
-                <ul>
-                    ${_name.map((name) => `<li>${name}</li>`).join('')}
-                </ul>
-            </vl-typography>
-          `;
+                    <vl-typography>
+                        <ul>
+                            ${_name.map((name) => `<li>${name}</li>`).join('')}
+                        </ul>
+                    </vl-typography>
+                `;
             } else {
                 return _name;
             }
@@ -56,24 +43,22 @@ export class VlCookie extends BaseElementOfType(HTMLElement) {
         this._element.insertAdjacentHTML(
             'afterend',
             `
-        <vl-properties>
-            <h3>${title || this.dataset.vlTitle}</h3>
-            <dl is="vl-properties-list">
-                <dt is="vl-property-term">Naam</dt>
-                <dd is="vl-property-value">${nameTemplate()}</dd>
-                <dt is="vl-property-term">Doel</dt>
-                <dd is="vl-property-value">${purpose || this.dataset.vlPurpose}</dd>
-                <dt is="vl-property-term">Type</dt>
-                <dd is="vl-property-value">Cookie</dd>
-                <dt is="vl-property-term">Domein</dt>
-                <dd is="vl-property-value">${domain || this.dataset.vlDomain}</dd>
-                <dt is="vl-property-term">Verwerker</dt>
-                <dd is="vl-property-value">${processor || this.dataset.vlProcessor}</dd>
-                <dt is="vl-property-term">Geldigheid</dt>
-                <dd is="vl-property-value">${validity || this.dataset.vlValidity}</dd>
-            </dl>
-        </vl-properties>
-    `
+                <vl-title-next type="h3">${title || this.dataset.vlTitle}</vl-title-next>
+                <vl-properties-next slot="properties">
+                    <label>Naam</label>
+                    <data>${nameTemplate()}</data>
+                    <label>Doel</label>
+                    <data>${purpose || this.dataset.vlPurpose}</data>
+                    <label>Type</label>
+                    <data>Cookie</data>
+                    <label>Domein</label>
+                    <data>${domain || this.dataset.vlDomain}</data>
+                    <label>Verwerker</label>
+                    <data>${processor || this.dataset.vlProcessor}</data>
+                    <label>Geldigheid</label>
+                    <data>${validity || this.dataset.vlValidity}</data>
+                </vl-properties-next>
+            `
         );
     }
 }

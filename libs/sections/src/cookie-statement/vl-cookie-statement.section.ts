@@ -1,9 +1,9 @@
 import { vlContentBlockStyles, vlGridStyles, vlSectionStyles } from '@domg-wc/common-utilities/css';
 import { VlLinkComponent } from '@domg-wc/components/next/link';
 import { VlParagraphComponent } from '@domg-wc/components/next/paragraph';
+import { VlPropertiesComponent } from '@domg-wc/components/next/properties';
 import { VlSideNavigationComponent } from '@domg-wc/components/next/side-navigation';
 import { VlTitleComponent } from '@domg-wc/components/next/title';
-import { css } from 'lit';
 import { render } from 'lit-html';
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
 import {
@@ -20,10 +20,6 @@ import {
     VlIntroductionElement,
     VlLayoutElement,
     VlLinkElement,
-    VlPropertiesComponent,
-    VlPropertiesListElement,
-    VlPropertyTermElement,
-    VlPropertyValueElement,
     VlRegionElement,
 } from '@domg-wc/elements';
 import { cookieStatementHeaderElements, header } from './child/header.section';
@@ -47,14 +43,11 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
             VlIntroductionElement,
             VlLayoutElement,
             VlLinkElement,
-            VlPropertiesComponent,
-            VlPropertiesListElement,
-            VlPropertyTermElement,
-            VlPropertyValueElement,
             VlRegionElement,
             // components
             VlContactCardComponent,
             VlInfoblockComponent,
+            VlPropertiesComponent,
             VlTypography,
             VlSideNavigationComponent,
             VlTitleComponent,
@@ -199,23 +192,41 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
             <div class="vl-content-block-next">
                 <div class="vl-grid-next vl-stacked-next-medium">
                     <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
-                    <vl-contact-card>
-                        <vl-infoblock slot="info" data-vl-type="contact">
-                            <h3 slot="title">Departement Omgeving</h3>
-                        </vl-infoblock>
-                        <vl-properties slot="properties">
-                            <dl is="vl-properties-list">
-                                <dt is="vl-property-term">Adres</dt>
-                                <dd is="vl-property-value">Herman Teirlinckgebouw<br/>Havenlaan 88<br/>1000 Brussel, België</dd>
-                                <dt is="vl-property-term">Telefoon</dt>
-                                <dd is="vl-property-value"><vl-link-next href="tel:02 553 80 11" icon="phone" icon-placement="after">02 553 80 11</vl-link-next></dd>
-                                <dt is="vl-property-term">E-mail</dt>
-                                <dd is="vl-property-value"><vl-link-next href="mailto:omgeving@vlaanderen.be" icon="mail" icon-placement="after">omgeving@vlaanderen.be</vl-link-next></dd>
-                                <dt is="vl-property-term">Website</dt>
-                                <dd is="vl-property-value"><vl-link-next href="https://omgeving.vlaanderen.be" external>https://omgeving.vlaanderen.be</vl-link-next></dd>
-                            </dl>
-                        </vl-properties>
-                    </vl-contact-card>
+                        <vl-contact-card>
+                            <vl-infoblock slot="info" data-vl-type="contact">
+                                <h3 slot="title">Departement Omgeving</h3>
+                            </vl-infoblock>
+                            <vl-properties-next slot="properties">
+                                <label>Adres</label>
+                                <data>
+                                    <div>Herman Teirlinckgebouw</div>
+                                    <div>Havenlaan 88</div>
+                                    <div>1000 Brussel, België</div>
+                                </data>
+                                <label>Telefoon</label>
+                                <data>
+                                    <vl-link-next href="tel:02 553 80 11"
+                                                  icon-placement="after"
+                                                  icon="phone">
+                                        02 553 80 11
+                                    </vl-link-next>
+                                </data>
+                                <label>E-mail</label>
+                                <data>
+                                    <vl-link-next href="mailto:omgeving@vlaanderen.be"
+                                                  icon-placement="after"
+                                                  icon="mail">
+                                        omgeving@vlaanderen.be
+                                    </vl-link-next>
+                                </data>
+                                <label>Website</label>
+                                <data>
+                                    <vl-link-next href="http://www.omgevingvlaanderen.be" external>
+                                        http://www.omgevingvlaanderen.be
+                                    </vl-link-next>
+                                </data>
+                            </vl-properties-next>
+                        </vl-contact-card>
                     </div>
                 </div>
             </div>

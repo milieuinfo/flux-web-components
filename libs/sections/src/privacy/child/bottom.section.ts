@@ -8,20 +8,22 @@ export const privacyBottomSection = () => html`
                     <vl-infoblock slot="info" data-vl-type="contact">
                         <h2 slot="title">DPO van Departement Omgeving</h2>
                     </vl-infoblock>
-                    <vl-properties slot="properties">
-                        <dl is="vl-properties-list">
-                            <dt is="vl-property-term">Adres</dt>
-                            <dd is="vl-property-value">
-                                Herman Teirlinckgebouw<br />Havenlaan 88<br />1000 Brussel, België
-                            </dd>
-                            <dt is="vl-property-term">E-mail</dt>
-                            <dd is="vl-property-value">
-                                <vl-link-next href="mailto:dpo@omgevingvlaanderen.be" icon-placement="after" icon="mail"
-                                    >dpo@omgevingvlaanderen.be
-                                </vl-link-next>
-                            </dd>
-                        </dl>
-                    </vl-properties>
+                    <vl-properties-next slot="properties">
+                        <label>Adres</label>
+                        <data>
+                            <div>Herman Teirlinckgebouw</div>
+                            <div>Havenlaan 88</div>
+                            <div>1000 Brussel, België</div>
+                        </data>
+                        <label>E-mail</label>
+                        <data>
+                            <vl-link-next href="mailto:dpo@omgevingvlaanderen.be"
+                                          icon-placement="after"
+                                          icon="mail">
+                                dpo@omgevingvlaanderen.be
+                            </vl-link-next>
+                        </data>
+                    </vl-properties-next>
                 </vl-contact-card>
             </div>
         </div>

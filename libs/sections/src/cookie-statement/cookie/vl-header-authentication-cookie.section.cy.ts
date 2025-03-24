@@ -4,7 +4,7 @@ import { VlHeaderAuthenticationCookie } from './vl-header-authentication-cookie.
 
 registerWebComponents([VlHeaderAuthenticationCookie]);
 
-const mountDefault = () => cy.mount(html`<vl-header-authentication-cookie> </vl-header-authentication-cookie> `);
+const mountDefault = () => cy.mount(html` <vl-header-authentication-cookie></vl-header-authentication-cookie> `);
 
 describe('vl-header-authentication-cookie component - default', () => {
     beforeEach(() => {
@@ -31,7 +31,7 @@ describe('vl-authentication-cookie component - props', () => {
     it('should render the correct <title>', () => {
         cy.get('vl-header-authentication-cookie')
             .shadow()
-            .find('h3')
+            .find('vl-title-next')
             .should('contain.text', 'Vlaams toegangsbeheer cookies');
     });
 
@@ -44,12 +44,19 @@ describe('vl-authentication-cookie component - props', () => {
             'tbsession',
         ];
         expectedNames.forEach((name) => {
-            cy.get('vl-header-authentication-cookie').shadow().find('dd').contains(name);
+            cy.get('vl-header-authentication-cookie')
+                .shadow()
+                .find('vl-properties-next')
+                .shadow()
+                .find('dd')
+                .contains(name);
         });
     });
 
     it('should render the correct <purpose>', () => {
         cy.get('vl-header-authentication-cookie')
+            .shadow()
+            .find('vl-properties-next')
             .shadow()
             .find('dd')
             .contains(
@@ -58,14 +65,29 @@ describe('vl-authentication-cookie component - props', () => {
     });
 
     it('should render the correct <domain>', () => {
-        cy.get('vl-header-authentication-cookie').shadow().find('dd').contains('authenticatie.vlaanderen.be');
+        cy.get('vl-header-authentication-cookie')
+            .shadow()
+            .find('vl-properties-next')
+            .shadow()
+            .find('dd')
+            .contains('authenticatie.vlaanderen.be');
     });
 
     it('should render the correct <processor>', () => {
-        cy.get('vl-header-authentication-cookie').shadow().find('dd').contains('Vlaamse overheid');
+        cy.get('vl-header-authentication-cookie')
+            .shadow()
+            .find('vl-properties-next')
+            .shadow()
+            .find('dd')
+            .contains('Vlaamse overheid');
     });
 
     it('should render the correct <validity>', () => {
-        cy.get('vl-header-authentication-cookie').shadow().find('dd').contains('Sessie');
+        cy.get('vl-header-authentication-cookie')
+            .shadow()
+            .find('vl-properties-next')
+            .shadow()
+            .find('dd')
+            .contains('Sessie');
     });
 });
