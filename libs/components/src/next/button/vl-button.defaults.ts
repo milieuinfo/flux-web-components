@@ -13,7 +13,7 @@ export const buttonDefaults = {
     ghost: false as boolean,
     loading: false as boolean,
     icon: '' as string,
-    iconPlacement: '' as ICON_PLACEMENT,
+    iconPlacement: 'before' as ICON_PLACEMENT,
     toggle: false as boolean,
     controlled: false as boolean,
     ctaLink: '' as string,

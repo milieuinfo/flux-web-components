@@ -3,8 +3,8 @@ import { vlIconStyles } from '@domg-wc/common-utilities/css';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { ClassInfo, classMap } from 'lit/directives/class-map.js';
 import { buttonStyles } from './vl-button.css';
-import { linkButtonStyles } from './vl-link-button.css';
 import { buttonDefaults } from './vl-button.defaults';
+import { linkButtonStyles } from './vl-link-button.css';
 
 @webComponent('vl-button-next')
 export class VlButtonComponent extends BaseLitElement {
@@ -162,8 +162,6 @@ export class VlButtonComponent extends BaseLitElement {
         const classes = {
             'vl-icon': true,
             [`vl-icon--${this.icon}`]: true,
-            'vl-icon--right-margin': this.iconPlacement === 'before',
-            'vl-icon--left-margin': this.iconPlacement === 'after',
         };
 
         return this.icon ? html`<span class=${classMap(classes)}></span>` : nothing;

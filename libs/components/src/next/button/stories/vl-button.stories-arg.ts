@@ -144,6 +144,7 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
             type: { summary: getSelectControlOptions(Object.values(ICON_PLACEMENT)) },
             category: CATEGORIES.ATTRIBUTES,
             defaultArgs: { summary: buttonArgs.iconPlacement },
+            defaultValue: { summary: ICON_PLACEMENT.BEFORE },
         },
     },
     toggle: {
