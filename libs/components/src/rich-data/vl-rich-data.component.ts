@@ -328,8 +328,8 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
     };
 
     __observeFilterButtons() {
-        this.__filterToggleButton.addEventListener('click', this._onToggleFilter);
-        this.__filterOpenButton.addEventListener('click', () => {
+        this.__filterToggleButton?.addEventListener('click', this._onToggleFilter);
+        this.__filterOpenButton?.addEventListener('click', () => {
             this.setAttribute('data-vl-filter-closed', '');
             this._element.appendChild(this.__filterSlot);
             this.__hideHiddenInModalElements();
