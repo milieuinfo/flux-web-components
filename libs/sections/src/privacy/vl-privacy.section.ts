@@ -2,6 +2,7 @@ import { BaseLitElement, registerWebComponents } from '@domg-wc/common-utilities
 import { vlContentBlockStyles, vlGridStyles, vlSectionStyles, vlStackedStyles } from '@domg-wc/common-utilities/css';
 import { VlContactCardComponent, VlDocumentComponent, VlInfoblockComponent, VlTypography } from '@domg-wc/components';
 import { VlParagraphComponent } from '@domg-wc/components/next/paragraph';
+import { VlPropertiesComponent } from '@domg-wc/components/next/properties';
 import { VlSideNavigationComponent } from '@domg-wc/components/next/side-navigation';
 import { VlTitleComponent } from '@domg-wc/components/next/title';
 import {
@@ -16,10 +17,6 @@ import {
     VlIntroductionElement,
     VlLayoutElement,
     VlLinkElement,
-    VlPropertiesComponent,
-    VlPropertiesListElement,
-    VlPropertyTermElement,
-    VlPropertyValueElement,
     VlRegionElement,
     VlSideNavigation,
     VlSideNavigationContentElement,
@@ -57,10 +54,6 @@ export class VlPrivacy extends BaseLitElement {
             VlIntroductionElement,
             VlLayoutElement,
             VlLinkElement,
-            VlPropertiesComponent,
-            VlPropertiesListElement,
-            VlPropertyTermElement,
-            VlPropertyValueElement,
             VlRegionElement,
             VlSideNavigation,
             VlSideNavigationContentElement,
@@ -76,6 +69,7 @@ export class VlPrivacy extends BaseLitElement {
             VlTypography,
             VlTitleComponent,
             VlSideNavigationComponent,
+            VlPropertiesComponent,
             VlParagraphComponent,
             // child components
             ...privacyHeaderElements(),

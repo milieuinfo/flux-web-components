@@ -7,9 +7,18 @@ const styles: CSSResult = css`
         line-height: 2em;
     }
 
+    #search-results {
+        margin-bottom: 2.4rem;
+    }
+
+    #content {
+        margin-left: 2rem;
+    }
+
     #sorter {
         text-align: right;
     }
+
     #sorter vl-form-label-next::part(label) {
         margin-right: 10px;
     }

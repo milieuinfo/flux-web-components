@@ -4,7 +4,7 @@ import { VlStickySessionCookie } from './vl-sticky-session-cookie.section';
 
 registerWebComponents([VlStickySessionCookie]);
 
-const mountDefault = () => cy.mount(html`<vl-sticky-session-cookie> </vl-sticky-session-cookie> `);
+const mountDefault = () => cy.mount(html` <vl-sticky-session-cookie></vl-sticky-session-cookie> `);
 
 describe('vl-sticky-session-cookie component - default', () => {
     beforeEach(() => {
@@ -17,7 +17,6 @@ describe('vl-sticky-session-cookie component - default', () => {
 
     it('should be accessible', () => {
         cy.get('vl-sticky-session-cookie');
-
         cy.injectAxe();
         cy.checkA11y('vl-sticky-session-cookie');
     });
@@ -31,7 +30,7 @@ describe('vl-sticky-session-cookie component - props', () => {
     it('should render the correct <title>', () => {
         cy.get('vl-sticky-session-cookie')
             .shadow()
-            .find('h3')
+            .find('vl-title-next')
             .should('contain.text', 'Persistentie sessie cookie voor betere gebruikerservaring');
     });
 
@@ -41,12 +40,14 @@ describe('vl-sticky-session-cookie component - props', () => {
             'BIGipServerPool-sso-pr-* (vb. "BIGipServerPOOL-sso-pr-app=2016879114.37407.0000")',
         ];
         expectedNames.forEach((name) => {
-            cy.get('vl-sticky-session-cookie').shadow().find('dd').contains(name);
+            cy.get('vl-sticky-session-cookie').shadow().find('vl-properties-next').shadow().find('dd').contains(name);
         });
     });
 
     it('should render the correct <purpose>', () => {
         cy.get('vl-sticky-session-cookie')
+            .shadow()
+            .find('vl-properties-next')
             .shadow()
             .find('dd')
             .contains(
@@ -55,14 +56,29 @@ describe('vl-sticky-session-cookie component - props', () => {
     });
 
     it('should render the correct <domain>', () => {
-        cy.get('vl-sticky-session-cookie').shadow().find('dd').contains(window.location.hostname);
+        cy.get('vl-sticky-session-cookie')
+            .shadow()
+            .find('vl-properties-next')
+            .shadow()
+            .find('dd')
+            .contains(window.location.hostname);
     });
 
     it('should render the correct <processor>', () => {
-        cy.get('vl-sticky-session-cookie').shadow().find('dd').contains('Departement Omgeving');
+        cy.get('vl-sticky-session-cookie')
+            .shadow()
+            .find('vl-properties-next')
+            .shadow()
+            .find('dd')
+            .contains('Departement Omgeving');
     });
 
     it('should render the correct <validity>', () => {
-        cy.get('vl-sticky-session-cookie').shadow().find('dd').contains('Beperkt tot de duur van de sessie');
+        cy.get('vl-sticky-session-cookie')
+            .shadow()
+            .find('vl-properties-next')
+            .shadow()
+            .find('dd')
+            .contains('Beperkt tot de duur van de sessie');
     });
 });

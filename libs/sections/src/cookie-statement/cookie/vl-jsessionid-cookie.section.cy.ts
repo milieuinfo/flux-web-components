@@ -4,7 +4,7 @@ import { VlJSessionIdCookie } from './vl-jsessionid-cookie.section';
 
 registerWebComponents([VlJSessionIdCookie]);
 
-const mountDefault = () => cy.mount(html`<vl-jsessionid-cookie> </vl-jsessionid-cookie> `);
+const mountDefault = () => cy.mount(html` <vl-jsessionid-cookie></vl-jsessionid-cookie> `);
 
 describe('vl-jsessionid-cookie component - default', () => {
     beforeEach(() => {
@@ -31,19 +31,21 @@ describe('vl-jsessionid-cookie component - props', () => {
     it('should render the correct <title>', () => {
         cy.get('vl-jsessionid-cookie')
             .shadow()
-            .find('h3')
+            .find('vl-title-next')
             .should('contain.text', 'Sessie cookie voor betere gebruikerservaring');
     });
 
     it('should render the correct <names>', () => {
         const expectedNames = ['JSESSIONID', 'KEYCLOAK_IDENTITY', 'KEYCLOAK_IDENTITY_LEGACY'];
         expectedNames.forEach((name) => {
-            cy.get('vl-jsessionid-cookie').shadow().find('dd').contains(name);
+            cy.get('vl-jsessionid-cookie').shadow().find('vl-properties-next').shadow().find('dd').contains(name);
         });
     });
 
     it('should render the correct <purpose>', () => {
         cy.get('vl-jsessionid-cookie')
+            .shadow()
+            .find('vl-properties-next')
             .shadow()
             .find('dd')
             .contains(
@@ -52,14 +54,29 @@ describe('vl-jsessionid-cookie component - props', () => {
     });
 
     it('should render the correct <domain>', () => {
-        cy.get('vl-jsessionid-cookie').shadow().find('dd').contains(window.location.hostname);
+        cy.get('vl-jsessionid-cookie')
+            .shadow()
+            .find('vl-properties-next')
+            .shadow()
+            .find('dd')
+            .contains(window.location.hostname);
     });
 
     it('should render the correct <processor>', () => {
-        cy.get('vl-jsessionid-cookie').shadow().find('dd').contains('Departement Omgeving');
+        cy.get('vl-jsessionid-cookie')
+            .shadow()
+            .find('vl-properties-next')
+            .shadow()
+            .find('dd')
+            .contains('Departement Omgeving');
     });
 
     it('should render the correct <validity>', () => {
-        cy.get('vl-jsessionid-cookie').shadow().find('dd').contains('Beperkt tot de duur van de sessie');
+        cy.get('vl-jsessionid-cookie')
+            .shadow()
+            .find('vl-properties-next')
+            .shadow()
+            .find('dd')
+            .contains('Beperkt tot de duur van de sessie');
     });
 });

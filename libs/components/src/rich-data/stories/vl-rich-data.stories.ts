@@ -1,11 +1,14 @@
 import { story } from '@domg-wc/common-storybook';
+import { registerWebComponents } from '@domg-wc/common-utilities';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../../rich-data-table/vl-rich-data-field.component';
 import '../vl-rich-data.component';
+import { VlSearchResultComponent } from '../../next/search-result';
+import { VlRichData } from '../vl-rich-data.component';
 import { richDataArgs, richDataArgTypes } from './vl-rich-data.stories-arg';
-import { richDataPaginationImplementation } from './vl-rich-data.stories-util';
 import richDataDoc from './vl-rich-data.stories-doc.mdx';
+import { richDataPaginationImplementation } from './vl-rich-data.stories-util';
 
 export default {
     id: 'components-rich-data',
@@ -20,24 +23,24 @@ export default {
     },
 } as Meta<typeof richDataArgs>;
 
+registerWebComponents([VlRichData, VlSearchResultComponent]);
+
 export const RichDataDefault = ({ filterClosable, filterClosed }: typeof richDataArgs) => {
-    return html` <vl-rich-data ?data-vl-filter-closable=${filterClosable} ?data-vl-filter-closed=${filterClosed}>
-        <span slot="no-content">Geen resultaten gevonden</span>
-        <vl-search-results slot="content"></vl-search-results>
-    </vl-rich-data>`;
+    return html`
+        <vl-rich-data ?data-vl-filter-closable=${filterClosable} ?data-vl-filter-closed=${filterClosed}>
+            <span slot="no-content">Geen resultaten gevonden</span>
+            <vl-search-result-next slot="content"></vl-search-result-next>
+        </vl-rich-data>
+    `;
 };
 RichDataDefault.storyName = 'vl-rich-data - default';
 
 export const RichDataPager = story(richDataArgs, ({ filterClosable, filterClosed }: typeof richDataArgs) => {
     richDataPaginationImplementation();
     return html`
-        <vl-rich-data
-            id="rich-data"
-            ?data-vl-filter-closable=${filterClosable}
-            ?data-vl-filter-closed=${filterClosed}
-        >
+        <vl-rich-data id="rich-data" ?data-vl-filter-closable=${filterClosable} ?data-vl-filter-closed=${filterClosed}>
             <span slot="no-content">Geen resultaten</span>
-            <ul is="vl-search-results" slot="content"></ul>
+            <div slot="content"></div>
             <select is="vl-select" slot="sorter" aria-label="Sorteer">
                 <option value="id">ID</option>
                 <option value="manager.lastName">Naam manager</option>

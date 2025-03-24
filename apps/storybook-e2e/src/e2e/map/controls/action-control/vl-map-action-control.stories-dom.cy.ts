@@ -108,7 +108,7 @@ describe('story vl-map-action-control multiple', () => {
             .find('vl-map-action-control[data-vl-action-id="delete-action"]');
     });
 
-    it.only('should deactivate toggle button when activating another toggle button', () => {
+    it('should deactivate toggle button when activating another toggle button', () => {
         cy.visit(mapActionControlMultipleUrl);
 
         const drawActionId = 'draw-action';
