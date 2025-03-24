@@ -1,6 +1,6 @@
+import { ICON_PLACEMENT, registerWebComponents } from '@domg-wc/common-utilities';
 import { vlGroupStyles } from '@domg-wc/common-utilities/css';
 import { html } from 'lit';
-import { ICON_PLACEMENT, registerWebComponents } from '@domg-wc/common-utilities';
 import { VlButtonComponent } from './vl-button.component';
 
 registerWebComponents([VlButtonComponent]);
@@ -91,73 +91,84 @@ describe('component - vl-button-next', () => {
     it('should not grow when "loading" class is set (large viewport)', () => {
         cy.viewport(1024, 786);
 
-        const defaultButtonHeight = '35px';
-        const largeButtonHeight = '56px';
-
         cy.mount(html` <vl-button-next>Klik op mij</vl-button-next>`);
 
         cy.get('vl-button-next')
             .shadow()
             .find('button')
-            .shouldHaveComputedStyle({ style: 'height', value: defaultButtonHeight });
+            .then(($button) => {
+                const buttonHeight = $button[0].getBoundingClientRect().height;
+
+                cy.get('vl-button-next')
+                    .invoke('attr', 'loading', true)
+                    .shadow()
+                    .find('button')
+                    .shouldHaveComputedStyle({ style: 'height', value: `${buttonHeight}px` });
+            });
+    });
+
+    it('should not grow when "loading" class is set (large viewport, large button)', () => {
+        cy.viewport(1024, 786);
+
+        cy.mount(html` <vl-button-next large>Klik op mij</vl-button-next>`);
 
         cy.get('vl-button-next')
-            .invoke('attr', 'loading', true)
             .shadow()
             .find('button')
-            .shouldHaveComputedStyle({ style: 'height', value: defaultButtonHeight });
+            .then(($button) => {
+                const buttonHeight = $button[0].getBoundingClientRect().height;
 
-        cy.get('vl-button-next')
-            .invoke('attr', 'large', true)
-            .shadow()
-            .find('button')
-            .shouldHaveComputedStyle({ style: 'height', value: largeButtonHeight });
+                cy.get('vl-button-next')
+                    .invoke('attr', 'loading', true)
+                    .shadow()
+                    .find('button')
+                    .shouldHaveComputedStyle({ style: 'height', value: `${buttonHeight}px` });
+            });
     });
 
     it('should not grow when "loading" class is set (small viewport)', () => {
         cy.viewport(600, 400);
 
-        const defaultButtonHeight = '44px';
-        const largeButtonHeight = '56px';
-
         cy.mount(html` <vl-button-next>Klik op mij</vl-button-next>`);
 
         cy.get('vl-button-next')
             .shadow()
             .find('button')
-            .shouldHaveComputedStyle({ style: 'height', value: defaultButtonHeight });
+            .then(($button) => {
+                const buttonHeight = $button[0].getBoundingClientRect().height;
+
+                cy.get('vl-button-next')
+                    .invoke('attr', 'loading', true)
+                    .shadow()
+                    .find('button')
+                    .shouldHaveComputedStyle({ style: 'height', value: `${buttonHeight}px` });
+            });
+    });
+
+    it('should not grow when "loading" class is set (small viewport, large button)', () => {
+        cy.viewport(600, 400);
+
+        cy.mount(html` <vl-button-next large>Klik op mij</vl-button-next>`);
 
         cy.get('vl-button-next')
-            .invoke('attr', 'loading', true)
             .shadow()
             .find('button')
-            .shouldHaveComputedStyle({ style: 'height', value: defaultButtonHeight });
+            .then(($button) => {
+                const buttonHeight = $button[0].getBoundingClientRect().height;
 
-        cy.get('vl-button-next')
-            .invoke('attr', 'large', true)
-            .shadow()
-            .find('button')
-            .shouldHaveComputedStyle({ style: 'height', value: largeButtonHeight });
+                cy.get('vl-button-next')
+                    .invoke('attr', 'loading', true)
+                    .shadow()
+                    .find('button')
+                    .shouldHaveComputedStyle({ style: 'height', value: `${buttonHeight}px` });
+            });
     });
 
     it('should set icon', () => {
         cy.mount(html` <vl-button-next icon="pin">Klik op mij</vl-button-next>`);
 
         cy.get('vl-button-next').should('have.attr', 'icon', 'pin');
-        cy.get('vl-button-next')
-            .shadow()
-            .find('button')
-            .find('span.vl-icon')
-            .should('have.class', 'vl-icon--pin')
-            .should('not.have.class', 'vl-icon--right-margin');
-
-        cy.get('vl-button-next').invoke('attr', 'icon-placement', 'before');
-
-        cy.get('vl-button-next')
-            .shadow()
-            .find('button')
-            .find('span.vl-icon')
-            .should('have.class', 'vl-icon--right-margin');
+        cy.get('vl-button-next').shadow().find('button').find('span.vl-icon').should('have.class', 'vl-icon--pin');
     });
 
     it('should set icon-placement', () => {
@@ -165,12 +176,7 @@ describe('component - vl-button-next', () => {
 
         cy.get('vl-button-next').should('have.attr', 'icon', 'pin');
         cy.get('vl-button-next').should('have.attr', 'icon-placement', ICON_PLACEMENT.AFTER);
-        cy.get('vl-button-next')
-            .shadow()
-            .find('button')
-            .find('span.vl-icon')
-            .should('have.class', 'vl-icon--pin')
-            .should('have.class', 'vl-icon--left-margin');
+        cy.get('vl-button-next').shadow().find('button').find('span.vl-icon').should('have.class', 'vl-icon--pin');
     });
 
     it('should not set extra margin with icon-placement is not set', () => {
@@ -334,44 +340,49 @@ describe('component - vl-button-next - cta-link', () => {
         // In tegenstelling tot de gewone vl-button-next is er hier geen verschil tussen small en large viewports.
         // De computed height van de a-tag houdt geen rekening met de extra margin of padding en is dus in beide
         // viewports hetzelfde.
-        const defaultButtonHeight = '21px';
-        const largeButtonHeight = '22px';
-
         cy.mount(html` <vl-button-next>Klik op mij</vl-button-next>`);
 
         cy.get('vl-button-next')
             .invoke('attr', 'cta-link', 'https://www.vlaanderen.be')
             .shadow()
             .find('a')
-            .shouldHaveComputedStyle({ style: 'height', value: defaultButtonHeight });
+            .then(($a) => {
+                const buttonHeight = $a.height();
+
+                cy.get('vl-button-next')
+                    .invoke('attr', 'loading', true)
+                    .shadow()
+                    .find('a')
+                    .shouldHaveComputedStyle({ style: 'height', value: `${buttonHeight}px` });
+            });
+    });
+
+    it('should not grow when "loading" class is set (large button)', () => {
+        // In tegenstelling tot de gewone vl-button-next is er hier geen verschil tussen small en large viewports.
+        // De computed height van de a-tag houdt geen rekening met de extra margin of padding en is dus in beide
+        // viewports hetzelfde.
+        cy.mount(html` <vl-button-next large>Klik op mij</vl-button-next>`);
 
         cy.get('vl-button-next')
-            .invoke('attr', 'loading', true)
+            .invoke('attr', 'cta-link', 'https://www.vlaanderen.be')
             .shadow()
             .find('a')
-            .shouldHaveComputedStyle({ style: 'height', value: defaultButtonHeight });
+            .then(($a) => {
+                const buttonHeight = $a.height();
 
-        cy.get('vl-button-next')
-            .invoke('attr', 'large', true)
-            .shadow()
-            .find('a')
-            .shouldHaveComputedStyle({ style: 'height', value: largeButtonHeight });
+                cy.get('vl-button-next')
+                    .invoke('attr', 'loading', true)
+                    .shadow()
+                    .find('a')
+                    .shouldHaveComputedStyle({ style: 'height', value: `${buttonHeight}px` });
+            });
     });
 
     it('should set icon', () => {
         cy.mount(html` <vl-button-next icon="pin" cta-link="https://www.vlaanderen.be">Klik op mij</vl-button-next>`);
 
         cy.get('vl-button-next').should('have.attr', 'icon', 'pin');
-        cy.get('vl-button-next')
-            .shadow()
-            .find('a')
-            .find('span.vl-icon')
-            .should('have.class', 'vl-icon--pin')
-            .should('not.have.class', 'vl-icon--right-margin');
-
-        cy.get('vl-button-next').invoke('attr', 'icon-placement', 'before');
-
-        cy.get('vl-button-next').shadow().find('a').find('span.vl-icon').should('have.class', 'vl-icon--right-margin');
+        cy.get('vl-button-next').shadow().find('a').find('span.vl-icon').should('have.class', 'vl-icon--pin');
     });
 
     it('should set icon-placement', () => {
@@ -383,12 +394,7 @@ describe('component - vl-button-next - cta-link', () => {
 
         cy.get('vl-button-next').should('have.attr', 'icon', 'pin');
         cy.get('vl-button-next').should('have.attr', 'icon-placement', ICON_PLACEMENT.AFTER);
-        cy.get('vl-button-next')
-            .shadow()
-            .find('a')
-            .find('span.vl-icon')
-            .should('have.class', 'vl-icon--pin')
-            .should('have.class', 'vl-icon--left-margin');
+        cy.get('vl-button-next').shadow().find('a').find('span.vl-icon').should('have.class', 'vl-icon--pin');
     });
 
     it('should not set extra margin with icon-placement is not set', () => {

@@ -34,6 +34,8 @@ export const buttonStyles: CSSResult = css`
         color: var(--vl-color--white);
         max-width: 100%;
 
+        gap: 0.5em; /* waarde van vl-icon.css.ts */
+
         @media screen and (max-width: ${vlMediaScreenSmall}px) {
             padding: var(--vl-spacing--xsmall);
         }
