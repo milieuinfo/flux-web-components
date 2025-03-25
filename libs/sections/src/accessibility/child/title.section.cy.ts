@@ -1,9 +1,12 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
+import { GlobalStyles } from '@domg-wc/common-utilities/css';
 import { type TitleProps, title, titleElements } from './title.section';
 
 registerWebComponents(titleElements());
 
 const mountDefault = ({ version, date }: TitleProps) => cy.mount(title({ version, date }));
+
+GlobalStyles.register();
 
 const props: TitleProps = {
     version: '1.0',
@@ -17,28 +20,26 @@ describe('component title', () => {
 
     it('should mount', () => {
         cy.get('[data-cy-root]').within(() => {
-            cy.get('section[class="vl-section-next"]').should('exist');
+            cy.get('section.vl-section-next').should('exist');
         });
     });
 
     it('should be accessible', () => {
         cy.injectAxe();
 
-        cy.checkA11y('section[class="vl-section-next"]');
+        cy.checkA11y('section.vl-section-next');
     });
 
     it('should render with some basic styling from DV - h2 should have the correct style', () => {
-        cy.get('section[class="vl-section-next"]').should('have.css', 'padding', '20px 0px 30px');
-        cy.get('section[class="vl-section-next"]')
-            .find('div[class="vl-content-block-next"]')
-            .should('have.css', 'min-width', '0px');
+        cy.get('section.vl-section-next').should('have.css', 'padding', '20px 0px 60px');
+        cy.get('section.vl-section-next').find('div.vl-content-block-next').should('have.css', 'min-width', '0px');
     });
 });
 
 describe('component title - version and date props', () => {
     it('should render the version and date', () => {
         mountDefault({ ...props });
-        cy.get('section[class="vl-section-next"]').contains(`Versie ${props.version} - ${props.date}`);
+        cy.get('section.vl-section-next').contains(`Versie ${props.version} - ${props.date}`);
     });
 });
 
