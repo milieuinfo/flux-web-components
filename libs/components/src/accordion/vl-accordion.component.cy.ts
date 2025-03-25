@@ -1,8 +1,9 @@
+import { VlLinkComponent } from '@domg-wc/components/next/link';
 import { html } from 'lit';
 import { VlAccordionComponent } from './vl-accordion.component';
 import { registerWebComponents } from '@domg-wc/common-utilities';
 
-registerWebComponents([VlAccordionComponent]);
+registerWebComponents([VlAccordionComponent, VlLinkComponent]);
 
 describe('component vl-accordion', () => {
     const content = `Onderwijs helpt jonge mensen en volwassenen om zichzelf te ontwikkelen en hun weg te vinden in onze
@@ -63,8 +64,10 @@ describe('component vl-accordion', () => {
 
         cy.get('vl-accordion')
             .shadow()
-            .find('.vl-accordion > .vl-accordion__button-container > button > i')
-            .should('have.class', 'vl-vi-university');
+            .find('.vl-accordion > .vl-accordion__button-container > button > vl-icon-next')
+            .shadow()
+            .find('span.vl-icon')
+            .should('have.class', 'vl-icon--university');
     });
 
     it('should show the title using the title slot', () => {
@@ -119,7 +122,7 @@ describe('component vl-accordion', () => {
                 shadowRoot?.querySelector('slot[name=menu]') as HTMLSlotElement
             )?.assignedNodes()[0] as HTMLElement;
 
-            cy.wrap(menuElement).find('a > span[class="vl-icon"]').should('exist');
+            cy.wrap(menuElement).find('vl-link-next').shadow().find('span.vl-icon').should('exist');
         });
     });
 });
