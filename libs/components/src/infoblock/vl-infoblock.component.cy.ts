@@ -64,7 +64,9 @@ describe('component vl-infoblock - default', () => {
             .shadow()
             .find('#infoblock_icon')
             .should('have.class', 'vl-infoblock__header__icon')
-            .should('have.attr', 'data-vl-icon', 'calendar');
+            .shadow()
+            .find('span')
+            .should('have.class', 'vl-icon--calendar');
     });
 });
 
