@@ -10,14 +10,13 @@ import {
 } from '@domg-wc/common-utilities/css';
 import { VlIconComponent } from '@domg-wc/components/next/icon';
 import { vlTitleStyles } from '@domg-wc/components/next/title/vl-title.css';
-import { VlLinkElement } from '@domg-wc/elements';
 import { functionalHeaderStyle } from '@domg/govflanders-style/component';
 import { functionalHeaderUigStyle } from './vl-functional-header.uig-css';
 
 @webComponent('vl-functional-header')
 export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) {
     static {
-        registerWebComponents([VlLinkElement, VlIconComponent]);
+        registerWebComponents([VlIconComponent]);
     }
 
     static get _observedAttributes() {
