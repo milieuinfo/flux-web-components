@@ -6,17 +6,17 @@ import {
     vlResetStyles,
     vlStackedStyles,
 } from '@domg-wc/common-utilities/css';
+import { VlLinkComponent } from '@domg-wc/components/next/link';
 import { vlTitleStyles } from '@domg-wc/components/next/title/vl-title.css';
-import { VlColumnElement, VlGridElement, VlH2Element } from '@domg-wc/elements';
-import { VlTypography } from '../typography/vl-typography.component';
-import httpErrorMessageUigStyle from './vl-http-error-message.uig-css';
-import errorCodes from './error-codes';
 import { render } from 'lit';
+import { VlTypography } from '../typography/vl-typography.component';
+import errorCodes from './error-codes';
+import httpErrorMessageUigStyle from './vl-http-error-message.uig-css';
 
 @webComponent('vl-http-error-message')
 export class VlHttpErrorMessage extends BaseElementOfType(HTMLElement) {
     static {
-        registerWebComponents([VlColumnElement, VlGridElement, VlH2Element, VlTypography]);
+        registerWebComponents([VlLinkComponent, VlTypography]);
     }
 
     static get _observedAttributes() {
