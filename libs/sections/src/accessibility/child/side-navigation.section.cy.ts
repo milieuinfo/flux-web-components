@@ -1,8 +1,8 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
 import { COMPLIANCE_STATUS } from '../';
-import { type SideNavigationProps, sideNavigation, sideNavigationElements } from './side-navigation.section';
+import { type SideNavigationProps, sideNavigation, sideNavigationComponents } from './side-navigation.section';
 
-registerWebComponents(sideNavigationElements());
+registerWebComponents(sideNavigationComponents());
 
 const mountDefault = (props: SideNavigationProps) => cy.mount(sideNavigation(props));
 
@@ -16,7 +16,7 @@ describe('component side-navigation - default', () => {
     });
 
     it('should mount', () => {
-        cy.get('div[class="vl-column-next"]').contains('Opstelling van deze toegankelijkheidsverklaring');
+        cy.get('div.vl-column-next').contains('Opstelling van deze toegankelijkheidsverklaring');
     });
 
     it('should be accessible', () => {
@@ -34,18 +34,18 @@ describe('component side-navigation - COMPLIANCE messages and css', () => {
         });
 
         const listItemWithComplianceStyles = cy
-            .get('div[class="vl-column-next"]')
-            .find('ul[is="vl-side-navigation-group"] > li[is="vl-side-navigation-item"]')
+            .get('div.vl-column-next')
+            .find('vl-side-navigation-group-next > vl-side-navigation-item-next')
             .eq(1);
 
         listItemWithComplianceStyles.should('have.css', 'display', 'none');
     });
 });
 
-describe('component side-navigation - helper function <sideNavigationElements()> ', () => {
-    it('should return an array of WebComponents with a length of 7', () => {
-        const elements = sideNavigationElements();
+describe('component side-navigation - helper function <sideNavigationComponents()> ', () => {
+    it('should return an array of WebComponents with a length of 1', () => {
+        const elements = sideNavigationComponents();
         expect(elements).to.be.an('array');
-        expect(elements).to.have.length(7);
+        expect(elements).to.have.length(1);
     });
 });

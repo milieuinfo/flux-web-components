@@ -1,28 +1,10 @@
 import { VlSideNavigationComponent } from '@domg-wc/components/next/side-navigation';
 import { html } from 'lit';
 import type { AccessibilityProperties } from '../vl-accessibility.model';
-import {
-    VlColumnElement,
-    VlSideNavigation,
-    VlSideNavigationContentElement,
-    VlSideNavigationGroupElement,
-    VlSideNavigationH1,
-    VlSideNavigationItemElement,
-    VlSideNavigationToggleElement,
-} from '@domg-wc/elements';
 
 export type SideNavigationProps = Pick<AccessibilityProperties, 'compliance'>;
 
-export const sideNavigationElements = () => [
-    VlColumnElement,
-    VlSideNavigation,
-    VlSideNavigationH1,
-    VlSideNavigationContentElement,
-    VlSideNavigationGroupElement,
-    VlSideNavigationItemElement,
-    VlSideNavigationToggleElement,
-    VlSideNavigationComponent,
-];
+export const sideNavigationComponents = () => [VlSideNavigationComponent];
 
 export const sideNavigation = ({ compliance }: SideNavigationProps) => {
     return html` <div
