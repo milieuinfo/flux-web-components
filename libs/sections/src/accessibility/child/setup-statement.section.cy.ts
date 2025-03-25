@@ -1,8 +1,5 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
 import { EVALUATION_STATUS } from '../';
-import { type SetupStatementProps, setupStatement, setupStatementElements } from './setup-statement.section';
-
-registerWebComponents(setupStatementElements());
+import { type SetupStatementProps, setupStatement } from './setup-statement.section';
 
 const mountDefault = ({ evaluation, date, dateModified }: SetupStatementProps) =>
     cy.mount(setupStatement({ evaluation, date, dateModified }));
@@ -52,13 +49,5 @@ describe('component setup-statement - EVALUATION_STATUS messages', () => {
         cy.get('div[id="setup-accessibility-statement"]').contains(
             `Deze toegankelijkheidsverklaring is opgesteld op ${props.date} en werd voor het laatst herzien op`
         );
-    });
-});
-
-describe('sideNavigation  component - helper function <setupStatementElements()> ', () => {
-    it('should return an array of WebComponents with a length of 2', () => {
-        const elements = setupStatementElements();
-        expect(elements).to.be.an('array');
-        expect(elements).to.have.length(2);
     });
 });
