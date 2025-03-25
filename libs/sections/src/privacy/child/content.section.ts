@@ -744,7 +744,6 @@ export const privacyContentSection = () => html`
                             </vl-side-navigation-item-next>
                             <vl-side-navigation-item-next parent>
                                 <vl-side-navigation-toggle-next
-
                                     href="#privacy-declaration"
                                     child="privacy-declaration"
                                 >
