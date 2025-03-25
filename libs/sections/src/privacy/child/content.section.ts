@@ -74,8 +74,7 @@ export const privacyContentSection = () => html`
                                         <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
                                             <vl-contact-card>
                                                 <vl-infoblock slot="info" data-vl-type="contact">
-                                                    <vl-title-next type="h4" slot="title">Departement Omgeving
-                                                        <vl-title-next>
+                                                    <h4 type="h4" slot="title">Departement Omgeving</h4>
                                                 </vl-infoblock>
                                                 <vl-properties slot="properties">
                                                     <dl is="vl-properties-list">
