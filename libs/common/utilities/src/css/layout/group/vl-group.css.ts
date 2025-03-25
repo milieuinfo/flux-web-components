@@ -33,6 +33,14 @@ export const vlGroupStyles: CSSResult = css`
 
         &.vl-group-next--baseline {
             align-items: baseline;
+
+            vl-link-next::part(link),
+            vl-link-next::part(button) {
+                align-items: baseline;
+            }
+            vl-link-next::part(icon) {
+                align-self: center;
+            }
         }
 
         &.vl-group-next--separator-row {
