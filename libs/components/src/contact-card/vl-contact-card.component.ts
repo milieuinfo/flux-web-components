@@ -1,15 +1,10 @@
-import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { BaseElementOfType, webComponent } from '@domg-wc/common-utilities';
 import { vlGridStyles, vlResetStyles } from '@domg-wc/common-utilities/css';
-import { VlColumnElement, VlGridElement } from '@domg-wc/elements';
 import { contactCardStyle } from '@domg/govflanders-style/component';
 import contactCardUigStyle from './vl-contact-card.uig-css';
 
 @webComponent('vl-contact-card')
 export class VlContactCardComponent extends BaseElementOfType(HTMLElement) {
-    static {
-        registerWebComponents([VlColumnElement, VlGridElement]);
-    }
-
     constructor() {
         super(`
             <style>
