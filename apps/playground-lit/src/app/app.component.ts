@@ -2,6 +2,7 @@ import { registerWebComponents } from '@domg-wc/common-utilities';
 import { vlGroupStyles } from '@domg-wc/common-utilities/css';
 import { VlModalComponent, VlPillComponent, VlSideSheet, VlTabsComponent } from '@domg-wc/components';
 import { VlButtonComponent } from '@domg-wc/components/next/button';
+import { VlLinkComponent } from '@domg-wc/components/next/link';
 import { VlParagraphComponent } from '@domg-wc/components/next/paragraph';
 import { VlTitleComponent } from '@domg-wc/components/next/title';
 import { vlElementsStyle } from '@domg-wc/elements';
@@ -18,15 +19,16 @@ export class AppComponent extends LitElement {
         registerWebComponents([
             VlTabsComponent,
             VlSelectRichComponent,
-            VlSelectComponent,
+            VlTitleComponent,
+            VlLinkComponent,
             VlButtonComponent,
+            VlParagraphComponent,
+            VlSelectComponent,
             VlDatepickerComponent,
             VlModalComponent,
             VlSideSheet,
             VlFormDemoComponent,
             VlPillComponent,
-            VlParagraphComponent,
-            VlTitleComponent,
         ]);
     }
 
@@ -155,6 +157,36 @@ export class AppComponent extends LitElement {
                         <vl-side-sheet id="sidesheet">
                             <vl-form-demo></vl-form-demo>
                         </vl-side-sheet>
+                    </vl-tabs-pane>
+                    <vl-tabs-pane data-vl-id="vl-group-next--baseline" data-vl-title="vl-group-next--baseline">
+                        <div class="vl-stacked-next-small">
+                            <vl-title-next type="h2">vl-group-next--baseline</vl-title-next>
+                            <vl-paragraph-next>Baseline alignering test voor links in vl-group-next.</vl-paragraph-next>
+                            <vl-title-next type="h3">Gerelateerd aan:</vl-title-next>
+                            <vl-pill
+                                data-vl-clickable
+                                @click=${() => window.open('https://www.milieuinfo.be/jira/browse/UIG-3225')}
+                                >UIG-3225</vl-pill
+                            >
+                            <div class="vl-group-next vl-group-next--baseline">
+                                <vl-title-next type="h1">Pagina titel</vl-title-next>
+                                <vl-link-next href="#" icon="pencil" icon-placement="before">Link</vl-link-next>
+                            </div>
+                            <div class="vl-group-next vl-group-next--baseline">
+                                <vl-title-next type="h2">Pagina titel</vl-title-next>
+                                <vl-link-next href="#">Link</vl-link-next>
+                            </div>
+                            <div class="vl-group-next vl-group-next--baseline">
+                                <vl-title-next type="h3">Pagina titel</vl-title-next>
+                                <vl-link-next href="#" external>Link</vl-link-next>
+                            </div>
+                            <div class="vl-group-next vl-group-next--baseline">
+                                <vl-title-next type="h3">Pagina titel</vl-title-next>
+                                <vl-link-next href="#" button-as-link icon="pencil" icon-placement="before"
+                                    >Link as button</vl-link-next
+                                >
+                            </div>
+                        </div>
                     </vl-tabs-pane>
                 </vl-tabs>
             </main>

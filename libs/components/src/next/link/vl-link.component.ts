@@ -47,7 +47,7 @@ export class VlLinkComponent extends BaseLitElement {
         const positionIconBefore = this.iconPlacement !== ICON_PLACEMENT.AFTER;
         return !this.buttonAsLink
             ? html`
-                  <a class=${classMap(classes)} href=${this.href} target=${target}>
+                  <a class=${classMap(classes)} href=${this.href} target=${target} part="link">
                       ${positionIconBefore ? this.renderIcon() : nothing}
                       <slot></slot>
                       ${!positionIconBefore ? this.renderIcon() : nothing}
@@ -55,7 +55,7 @@ export class VlLinkComponent extends BaseLitElement {
                   </a>
               `
             : html`
-                  <button class="vl-button-as-link ${classMap(classes)}">
+                  <button class="vl-button-as-link ${classMap(classes)}" part="button">
                       ${positionIconBefore ? this.renderIcon() : nothing}
                       <slot></slot>
                       ${!positionIconBefore ? this.renderIcon() : nothing}
@@ -72,11 +72,11 @@ export class VlLinkComponent extends BaseLitElement {
             'vl-icon--left-margin': this.iconPlacement === 'after',
         };
 
-        return this.icon ? html`<span class=${classMap(classes)}></span>` : nothing;
+        return this.icon ? html`<span class=${classMap(classes)} part="icon"></span>` : nothing;
     }
 
     private renderExternalIcon(): TemplateResult {
-        return html`<span class="vl-icon vl-icon--external vl-icon--after"></span>`;
+        return html`<span class="vl-icon vl-icon--external vl-icon--after" part="icon"></span>`;
     }
 }
 
