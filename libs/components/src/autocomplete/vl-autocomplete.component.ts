@@ -13,7 +13,6 @@ import autocompleteUigStyle from './vl-autocomplete.uig-css';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export class VlAutocomplete extends BaseLitElement {
-
     static get styles() {
         return [resetStyle, baseStyle, autocompleteStyle, inputFieldStyle, autocompleteUigStyle, vlIconStyles];
     }
