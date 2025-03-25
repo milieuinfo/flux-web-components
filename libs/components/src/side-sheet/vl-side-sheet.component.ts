@@ -1,14 +1,13 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
 import { vlAccessibilityStyles } from '@domg-wc/common-utilities/css';
 import { VlButtonComponent } from '@domg-wc/components/next/button';
-import { VlLayoutElement, VlRegionElement, VlText } from '@domg-wc/elements';
 import swipeDetect from 'swipe-detect/dist/';
 import styles from './vl-side-sheet.uig-css';
 
 @webComponent('vl-side-sheet')
 export class VlSideSheet extends BaseElementOfType(HTMLElement) {
     static {
-        registerWebComponents([VlLayoutElement, VlRegionElement, VlText, VlButtonComponent]);
+        registerWebComponents([VlButtonComponent]);
     }
 
     static get _observedAttributes() {
