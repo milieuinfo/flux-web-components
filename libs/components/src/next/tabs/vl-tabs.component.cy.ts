@@ -221,7 +221,7 @@ describe('component vl-tabs-pane - functionality on larger devices', () => {
         document.querySelector('div')?.setAttribute('style', 'width:768px');
     });
 
-    it.only('should emit events on click tab', () => {
+    it('should emit events on click tab', () => {
         mountDefault({ ...props });
 
         cy.createStubForEvent('vl-tabs-next', 'change');
