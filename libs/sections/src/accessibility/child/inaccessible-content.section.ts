@@ -1,10 +1,11 @@
 import { VlTypography } from '@domg-wc/components';
+import { VlTitleComponent } from '@domg-wc/components/next/title';
 import { html } from 'lit';
 import { AccessibilityProperties } from '../vl-accessibility.model';
 
 export type InaccessibleContentProps = Pick<AccessibilityProperties, 'compliance' | 'evaluation' | 'limitations'>;
 
-export const inaccessibleContentElements = () => [VlTypography];
+export const inaccessibleContentElements = () => [VlTypography, VlTitleComponent];
 
 export const inaccessibleContent = ({ compliance, evaluation, limitations }: InaccessibleContentProps) => {
     const inaccessibleContentTemplate = () => {

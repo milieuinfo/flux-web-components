@@ -36,7 +36,7 @@ describe('component  inaccessible-content - default', () => {
 
     it('should render with some basic styling from DV - h2 should have the correct style', () => {
         cy.get('div[id="inaccessible-content"]')
-            .find('vl-title-next[type="h2"}')
+            .find('vl-title-next[type="h2"]')
             .shadow()
             .find('h2')
             .should('have.css', 'font-size', '26px')
@@ -135,9 +135,9 @@ describe('component  inaccessible-content - LIMITATIONS messages', () => {
 });
 
 describe('inaccessible-content component - helper function <inaccessibleContentElements()> ', () => {
-    it('should return an array of WebComponents with a length of 3', () => {
+    it('should return an array of WebComponents with a length of 2', () => {
         const elements = inaccessibleContentElements();
         expect(elements).to.be.an('array');
-        expect(elements).to.have.length(3);
+        expect(elements).to.have.length(2);
     });
 });
