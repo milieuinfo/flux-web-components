@@ -96,9 +96,9 @@ describe('story vl-steps-next icons', () => {
     it('should contain steps with icons', () => {
         cy.visit(stepsNextIconsUrl);
 
-        cy.get('vl-steps-next').find('vl-step-next').find('span[slot="icon"][data-vl-icon="search"]');
-        cy.get('vl-steps-next').find('vl-step-next').find('span[slot="icon"][data-vl-icon="calendar"]');
-        cy.get('vl-steps-next').find('vl-step-next').find('span[slot="icon"][data-vl-icon="clock"]');
+        cy.get('vl-steps-next').find('vl-step-next').find('vl-icon-next[slot="icon"][icon="search"]');
+        cy.get('vl-steps-next').find('vl-step-next').find('vl-icon-next[slot="icon"][icon="calendar"]');
+        cy.get('vl-steps-next').find('vl-step-next').find('vl-icon-next[slot="icon"][icon="clock"]');
     });
 });
 
