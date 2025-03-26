@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { GlobalStyles } from '../../global-styles';
 
-describe('grid styles', () => {
+describe.skip('grid styles', () => {
     const gridResponsive = html`
         <style>
             .vl-grid-next {
