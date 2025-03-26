@@ -1,13 +1,4 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import {
-    VlColumnElement,
-    VlGridElement,
-    VlH2Element,
-    VlH3Element,
-    VlH5Element,
-    VlLayoutElement,
-    VlRegionElement,
-} from '@domg-wc/elements';
 import { html } from 'lit';
 import { VlSideNavigationContentComponent } from './vl-side-navigation-content.component';
 import { VlSideNavigationGroupComponent } from './vl-side-navigation-group.component';
@@ -18,13 +9,6 @@ import { VlSideNavigationToggleComponent } from './vl-side-navigation-toggle.com
 import { VlSideNavigationComponent } from './vl-side-navigation.component';
 
 registerWebComponents([
-    VlRegionElement,
-    VlLayoutElement,
-    VlGridElement,
-    VlColumnElement,
-    VlH2Element,
-    VlH3Element,
-    VlH5Element,
     VlSideNavigationComponent,
     VlSideNavigationContentComponent,
     VlSideNavigationGroupComponent,

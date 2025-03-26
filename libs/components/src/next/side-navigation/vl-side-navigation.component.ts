@@ -31,7 +31,6 @@ export class VlSideNavigationComponent extends BaseLitElement {
         ];
         // retrieve first surrounding shadow dom & attach vlSideNavigationStyles on it
         const shadowRoot = this.shadowRoot || this.getRootNode();
-        console.log('shadowRoot', shadowRoot);
         if (shadowRoot instanceof ShadowRoot) {
             shadowRoot.adoptedStyleSheets = [
                 ...shadowRoot.adoptedStyleSheets,
