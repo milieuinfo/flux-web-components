@@ -1,11 +1,5 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import {
-    visibilityStyles,
-    vlGridStyles,
-    vlGroupStyles,
-    vlResetStyles,
-    vlStackedStyles,
-} from '@domg-wc/common-utilities/css';
+import { vlGridStyles, vlGroupStyles, vlResetStyles, vlStackedStyles } from '@domg-wc/common-utilities/css';
 import { VlLinkComponent } from '@domg-wc/components/next/link';
 import { vlTitleStyles } from '@domg-wc/components/next/title/vl-title.css';
 import { render } from 'lit';
@@ -26,7 +20,6 @@ export class VlHttpErrorMessage extends BaseElementOfType(HTMLElement) {
     constructor() {
         super(`
           <style>
-            ${visibilityStyles}
             ${vlResetStyles}
             ${vlTitleStyles}
             ${httpErrorMessageUigStyle}
