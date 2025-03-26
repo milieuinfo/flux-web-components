@@ -46,6 +46,31 @@ describe('group styles', () => {
         });
     });
 
+    it('should stretch children when specified', () => {
+        const width = 500;
+        cy.viewport(width, 800);
+        cy.mount(html`
+            <style>
+                body { margin: 0; }
+                ${vlGroupStyles}
+            </style>
+            <div class="vl-group-next vl-group-next--column vl-group-next--stretch-children">
+                <span data-cy="first-level">
+                    <span data-cy="second-level">item-1</span>
+                </span>
+            </div>
+        `);
+        cy.getDataCy('first-level').shouldHaveComputedStyle({
+            style: 'width',
+            value: `${width}px`,
+        });
+        cy.getDataCy('second-level').shouldHaveComputedStyle({
+            style: 'width',
+            value: `${width}px`,
+            not: true,
+        });
+    });
+
     it('should have content with space between when specified', () => {
         cy.mount(html`
             <style>

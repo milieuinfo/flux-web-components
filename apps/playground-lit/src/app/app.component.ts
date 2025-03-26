@@ -1,6 +1,6 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
 import { vlGroupStyles } from '@domg-wc/common-utilities/css';
-import { VlModalComponent, VlPillComponent, VlSideSheet, VlTabsComponent } from '@domg-wc/components';
+import { VlAccordionComponent, VlAnnotation, VlModalComponent, VlPillComponent, VlPopoverComponent, VlSideSheet, VlTabsComponent } from '@domg-wc/components';
 import { VlButtonComponent } from '@domg-wc/components/next/button';
 import { VlLinkComponent } from '@domg-wc/components/next/link';
 import { VlParagraphComponent } from '@domg-wc/components/next/paragraph';
@@ -17,18 +17,21 @@ import { VlFormDemoComponent } from '../../../../libs/integration/src/form/demo/
 export class AppComponent extends LitElement {
     static {
         registerWebComponents([
-            VlTabsComponent,
-            VlSelectRichComponent,
-            VlTitleComponent,
-            VlLinkComponent,
+            VlAccordionComponent,
+            VlAnnotation,
             VlButtonComponent,
-            VlParagraphComponent,
-            VlSelectComponent,
             VlDatepickerComponent,
-            VlModalComponent,
-            VlSideSheet,
             VlFormDemoComponent,
+            VlLinkComponent,
+            VlModalComponent,
+            VlParagraphComponent,
             VlPillComponent,
+            VlPopoverComponent,
+            VlSelectComponent,
+            VlSelectRichComponent,
+            VlSideSheet,
+            VlTabsComponent,
+            VlTitleComponent,
         ]);
     }
 
@@ -157,6 +160,42 @@ export class AppComponent extends LitElement {
                         <vl-side-sheet id="sidesheet">
                             <vl-form-demo></vl-form-demo>
                         </vl-side-sheet>
+                    </vl-tabs-pane>
+                    <vl-tabs-pane data-vl-id="vl-group-next__column">
+                        <span slot="title">vl-group-next__column</span>
+                        <div class="vl-stacked-next-small">
+                            <vl-title-next type="h2">vl-group-next__column</vl-title-next>
+                            <vl-paragraph-next>Width test voor columns in vl-group-next.</vl-paragraph-next>
+                            <vl-title-next type="h3">Gerelateerd aan:</vl-title-next>
+                            <vl-pill
+                                data-vl-clickable
+                                @click=${() => window.open('https://www.milieuinfo.be/jira/browse/UIG-3226')}
+                                >UIG-3226</vl-pill
+                            >
+                            <div
+                                class="vl-group-next vl-group-next--column vl-group-next--separator-column vl-group-next--stretch-children"
+                            >
+                                <vl-accordion>
+                                    <span slot="title">Accordion title</span>
+                                    <span slot="subtitle">subtitle</span>
+                                    <span slot="menu">
+                                        <vl-button-next
+                                            ghost
+                                            id="popover-button"
+                                            icon="nav-show-more-vertical"
+                                        ></vl-button-next>
+                                        <vl-popover for="popover-button" placement="bottom-end" hide-on-click>
+                                            <vl-popover-action-list>
+                                                <vl-popover-action icon="bin" @click="${() => {}}">
+                                                    Verwijderen
+                                                </vl-popover-action>
+                                            </vl-popover-action-list>
+                                        </vl-popover>
+                                    </span>
+                                    <div>content</div>
+                                </vl-accordion>
+                            </div>
+                        </div>
                     </vl-tabs-pane>
                     <vl-tabs-pane data-vl-id="vl-group-next--baseline" data-vl-title="vl-group-next--baseline">
                         <div class="vl-stacked-next-small">

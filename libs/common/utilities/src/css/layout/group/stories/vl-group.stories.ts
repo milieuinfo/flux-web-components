@@ -5,8 +5,8 @@ import { VlIconComponent } from '@domg-wc/components/next/icon';
 import { VlLinkComponent } from '@domg-wc/components/next/link';
 import { html } from 'lit-html';
 import { classMap } from 'lit/directives/class-map.js';
-import vlGroupStoriesDoc from './vl-group.stories-doc.mdx';
 import { vlGroupArgs, vlGroupArgTypes } from './vl-group.stories-arg';
+import vlGroupStoriesDoc from './vl-group.stories-doc.mdx';
 
 export default {
     id: 'styles-next-layout-afnemers-group',
@@ -104,6 +104,7 @@ export const GroupAccordions = ({
     separatorColumn,
     separatorRow,
     spaceBetween,
+    stretchChildren,
 }: typeof vlGroupArgs) => html` <div
     class=${classMap({
         'vl-group-next': group,
@@ -117,22 +118,23 @@ export const GroupAccordions = ({
         'vl-group-next--separator-column': separatorColumn,
         'vl-group-next--separator-row': separatorRow,
         'vl-group-next--space-between': spaceBetween,
+        'vl-group-next--stretch-children': stretchChildren,
     })}
 >
     <vl-accordion data-vl-toggle-text="Accordion 1">
-        <div class="vl-group-next vl-group-next--column">
+        <div class="vl-group-next vl-group-next--column vl-group-next--stretch-children">
             <vl-accordion data-vl-toggle-text="Accordion 1.1"> Inhoud accordion 1.1</vl-accordion>
             <vl-accordion data-vl-toggle-text="Accordion 1.2"> Inhoud accordion 1.2</vl-accordion>
         </div>
     </vl-accordion>
     <vl-accordion data-vl-toggle-text="Accordion 2">
-        <div class="vl-group-next vl-group-next--column">
+        <div class="vl-group-next vl-group-next--column vl-group-next--stretch-children">
             <vl-accordion data-vl-toggle-text="Accordion 2.1"> Inhoud accordion 2.1</vl-accordion>
             <vl-accordion data-vl-toggle-text="Accordion 2.2"> Inhoud accordion 2.2</vl-accordion>
         </div>
     </vl-accordion>
     <vl-accordion data-vl-toggle-text="Accordion 3">
-        <div class="vl-group-next vl-group-next--column">
+        <div class="vl-group-next vl-group-next--column vl-group-next--stretch-children">
             <vl-accordion data-vl-toggle-text="Accordion 3.1"> Inhoud accordion 3.1</vl-accordion>
             <vl-accordion data-vl-toggle-text="Accordion 3.2"> Inhoud accordion 3.2</vl-accordion>
         </div>
@@ -142,6 +144,7 @@ GroupAccordions.storyName = 'vl-group - accordions';
 GroupAccordions.args = {
     column: true,
     separatorColumn: true,
+    stretchChildren: true,
 };
 
 export const GroupIcons = ({

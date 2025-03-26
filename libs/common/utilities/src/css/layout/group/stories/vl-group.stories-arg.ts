@@ -13,6 +13,7 @@ export const vlGroupArgs = {
     separatorColumn: false,
     separatorRow: false,
     spaceBetween: false,
+    stretchChildren: false,
 };
 
 export const vlGroupArgTypes: ArgTypes<typeof vlGroupArgs> = {
@@ -116,5 +117,15 @@ export const vlGroupArgTypes: ArgTypes<typeof vlGroupArgs> = {
         description:
             'Het eerste item staat in het begin, het laatste op het einde,' +
             'de overige items staan verdeelt met gelijke ruimte ertussen.',
+    },
+    stretchChildren: {
+        name: 'vl-group-next--stretch-children',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: 'modifier style',
+            defaultValue: { summary: false },
+        },
+        description:
+            'Laat de kinderen van de groep de volledige breedte van de groep innemen. Enkel te gebruiken in combinatie met vl-group-next--column.',
     },
 };

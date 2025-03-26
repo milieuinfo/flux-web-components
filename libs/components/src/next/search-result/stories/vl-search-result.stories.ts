@@ -41,7 +41,7 @@ export const SearchResultDefault = () => html`
 SearchResultDefault.storyName = 'vl-search-result-next - default';
 
 export const SearchResultGroup = () => html`
-    <div class="vl-group-next vl-group-next--column vl-group-next--no-gap">
+    <div class="vl-group-next vl-group-next--column vl-group-next--stretch-children vl-group-next--no-gap">
         <vl-search-result-next>
             <vl-search-result-title-next>
                 <a href="#">Vlaanderenkiest.be</a>
