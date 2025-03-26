@@ -66,13 +66,12 @@ export class VlLinkComponent extends BaseLitElement {
     }
 
     private renderIcon(): TemplateResult | typeof nothing {
-        const beforeClass = !this.buttonAsLink
-            ? 'vl-icon--right-margin'
-            : 'vl-link-next__icon vl-link-next__icon--before';
-        const afterClass = !this.buttonAsLink ? 'vl-icon--left-margin' : 'vl-link-next__icon vl-link-next__icon--after';
+        const beforeClass = !this.buttonAsLink ? 'vl-icon--right-margin' : 'vl-link-next__icon--before';
+        const afterClass = !this.buttonAsLink ? 'vl-icon--left-margin' : 'vl-link-next__icon--after';
         const classes = {
             'vl-icon': true,
             [`vl-icon--${this.icon}`]: true,
+            'vl-link-next__icon': this.buttonAsLink,
             [beforeClass]: this.iconPlacement === 'before',
             [afterClass]: this.iconPlacement === 'after',
         };
