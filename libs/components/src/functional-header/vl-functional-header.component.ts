@@ -10,6 +10,7 @@ import {
 } from '@domg-wc/common-utilities/css';
 import { VlIconComponent } from '@domg-wc/components/next/icon';
 import { vlTitleStyles } from '@domg-wc/components/next/title/vl-title.css';
+import { vlElementsStyle } from '@domg-wc/elements';
 import { functionalHeaderStyle } from '@domg/govflanders-style/component';
 import { functionalHeaderUigStyle } from './vl-functional-header.uig-css';
 
@@ -99,7 +100,7 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
         if (this.shadowRoot) {
             this.shadowRoot.adoptedStyleSheets = [
                 ...this.shadowRoot.adoptedStyleSheets,
-                vlResetStyles.styleSheet,
+                ...vlElementsStyle.map((style) => style.styleSheet),
                 vlGridStyles.styleSheet,
                 vlSectionStyles.styleSheet,
                 vlContentBlockStyles.styleSheet,
