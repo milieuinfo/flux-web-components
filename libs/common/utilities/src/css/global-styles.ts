@@ -17,7 +17,6 @@ import { vlSectionStyles } from './layout/section/vl-section.css';
 import { vlSeparatorStyles } from './layout/separator/vl-separator.css';
 import { vlSpacerStyles } from './layout/spacer/vl-spacer.css';
 import { vlStackedStyles } from './layout/stacked/vl-stacked.css';
-import { visibilityStyles } from './layout/visibility/visibility.css';
 
 export const globalStyles = [
     vlResetStyles,
@@ -39,7 +38,6 @@ export const globalStyles = [
     vlSpacerStyles,
     vlStackedStyles,
     vlContentBlockStyles,
-    visibilityStyles,
 ];
 
 export class GlobalStyles {
