@@ -55,7 +55,7 @@ describe('component content', () => {
     });
 
     it('should render with some basic styling from DV - h2 should have the correct style', () => {
-        cy.get('vl-title-next[type="h2"}')
+        cy.get('vl-title-next[type="h2"]')
             .shadow()
             .find('h2')
             .should('have.css', 'font-family', '"Flanders Art Sans", sans-serif');
