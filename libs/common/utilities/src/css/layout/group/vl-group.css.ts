@@ -9,8 +9,10 @@ export const vlGroupStyles: CSSResult = css`
 
         &.vl-group-next--column {
             flex-direction: column;
+        }
 
-            * {
+        &.vl-group-next--stretch-children {
+            & > * {
                 width: 100%;
             }
         }
