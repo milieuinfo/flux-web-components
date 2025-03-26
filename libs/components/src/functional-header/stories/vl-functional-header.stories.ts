@@ -6,12 +6,19 @@ import { html } from 'lit-html';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { VlBreadcrumbItemComponent } from '../../breadcrumb/vl-breadcrumb-item.component';
 import { VlBreadcrumbComponent } from '../../breadcrumb/vl-breadcrumb.component';
+import { VlSearchComponent } from '../../search';
 import { VlTabsComponent } from '../../tabs/vl-tabs.component';
 import { VlFunctionalHeaderComponent } from '../vl-functional-header.component';
 import { functionalHeaderArgs, functionalHeaderArgTypes } from './vl-functional-header.stories-arg';
 import functionalHeaderDoc from './vl-functional-header.stories-doc.mdx';
 
-registerWebComponents([VlBreadcrumbComponent, VlBreadcrumbItemComponent, VlFunctionalHeaderComponent, VlTabsComponent]);
+registerWebComponents([
+    VlBreadcrumbComponent,
+    VlBreadcrumbItemComponent,
+    VlFunctionalHeaderComponent,
+    VlTabsComponent,
+    VlSearchComponent,
+]);
 
 export default {
     id: 'components-functional-header',
