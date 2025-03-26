@@ -1,4 +1,6 @@
 :root {
     --vl-grid-row-gap: 1vmax;
     --vl-grid-col-gap: 1vmax;
+    --vl-grid-padding: 1vmax;
+    --vl-column-min-height: 3vmax;
 }

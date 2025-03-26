@@ -17,8 +17,11 @@ export const vlGridStyles = css`
         grid-template-columns: repeat(12, 1fr);
         grid-row-gap: var(--vl-grid-row-gap);
         grid-column-gap: var(--vl-grid-col-gap);
+        padding: var(--vl-grid-padding);
 
         .vl-column-next {
+            min-height: var(--vl-column-min-height);
+
             ${gridLargeStyles()};
             ${columnLargeStyles()};
 
