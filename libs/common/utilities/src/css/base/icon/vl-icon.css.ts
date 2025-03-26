@@ -9,7 +9,7 @@ export const vlIconStyles: CSSResult = css`
     .vl-icon {
         font-family: var(--vl-icon-font);
         font-size: 1em;
-        /* line-height: 1; */ /* onduidelijk waarom line-height: 1 hier stond, is ook niet zo bij DV */
+        line-height: 1;
         display: inline;
         color: inherit;
         vertical-align: middle;
