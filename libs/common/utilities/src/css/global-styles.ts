@@ -19,7 +19,7 @@ import { vlSpacerStyles } from './layout/spacer/vl-spacer.css';
 import { vlStackedStyles } from './layout/stacked/vl-stacked.css';
 
 export const globalStyles = [
-    vlResetStyles,
+    // vlResetStyles,
     vlGeneralVars,
     vlColorVars,
     vlSpacingVars,
