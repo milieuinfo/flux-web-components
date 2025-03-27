@@ -111,6 +111,14 @@ export class VlTextareaComponent extends FormControl {
         this.value = this.initialValue;
     }
 
+    protected onKeydown(event: KeyboardEvent) {
+        if (event.key === 'Enter') {
+            // @ts-expect-error: event.bubbles is readonly
+            event['bubbles'] = false;
+        }
+        super.onKeydown(event);
+    }
+
     private onInput(event: Event & { target: HTMLTextAreaElement }) {
         this.dispatchInput = true;
         this.value = event?.target?.value;
