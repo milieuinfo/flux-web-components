@@ -675,6 +675,39 @@ Zie [Stacked](#stacked) voor de vervanger van de vroegere `stacked` attributen.
 </table>
 
 
+### Http Error Message
+
+Alle specifieke &lt;vl-http-XXX-message&gt; (XXX = 400 tem 415 / 500 tem 506 ) componenten verdwijnen in v2. In v2 gebruik
+je **&lt;vl-http-error-message error-code="XXX"&sol;&gt;**.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>[Http Error Message [legacy]](/docs/components-http-error-message--documentatie)</td>
+        <td>impact</td>
+        <td>components</td>
+        <td><code>{`<vl-http-error-XXX-message>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Http Error Message [nieuwe variant]](/docs/components-http-error-message--documentatie)</td>
+        <td>impact</td>
+        <td>components</td>
+        <td><code>{`<vl-http-error-message data-vl-error-code="XXX">`}</code></td>
+        <td>components</td>
+        <td><code>{`<vl-http-error-message error-code="XXX">`}</code></td>
+    </tr>
+</table>
+
+
 ### Icon
 
 `Icon Wrapper [legacy]` verdwijnt in v2 en wordt vervangen door [Group](#group).
