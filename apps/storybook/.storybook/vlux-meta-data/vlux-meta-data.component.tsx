@@ -26,6 +26,7 @@ const buildType = (vluxMetaDataModel: VluxMetaDataModel): string => {
         case 'v1-remove':
             return 'error';
         case 'v1-todo':
+        case 'v2-impact':
             return 'warning';
         case 'v2-next':
         case 'v2-next-style-base':
@@ -44,6 +45,8 @@ const buildTitle = (vluxMetaDataModel: VluxMetaDataModel): string => {
         case 'v1-remove':
         case 'v1-todo':
             return 'legacy-component';
+        case 'v2-impact':
+            return 'v2 impact';
         case 'v2-next':
             return 'next-component';
         case 'v2-next-style-layout':
@@ -70,6 +73,9 @@ const buildText = (vluxMetaDataModel: VluxMetaDataModel): string => {
         case 'v1-todo':
             return `De **${vluxMetaDataModel.legacyText}** is een legacy-component die vervangen gaat worden door
                     een next-component, zie ${vluxMetaDataModel.planningInfo} voor de release waarin dat gepland is.`;
+        case 'v2-impact':
+            return `${vluxMetaDataModel.legacyText}
+                    Zie ${vluxMetaDataModel.planningInfo} voor bijkomende informatie.`;
         case 'v2-next':
             return `De **${vluxMetaDataModel.nextText}** is een next-component die ${vluxMetaDataModel.legacyText}
                     vervangt, zie ${vluxMetaDataModel.planningInfo} voor bijkomende informatie.`;

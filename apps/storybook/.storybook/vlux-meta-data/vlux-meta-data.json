@@ -273,6 +273,11 @@
         "nextText": "[vl-grid-next](/docs/styles-next-layout-afnemers-grid--documentatie)",
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#grid)"
     },
+    "components-http-error-message": {
+        "vStatus": "v2-impact",
+        "legacyText": "Alle specifieke **<vl-http-XXX-message>** (XXX = 400 tem 415 / 500 tem 506 ) componenten verdwijnen in v2. In v2 gebruik je **<vl-http-error-message error-code=\"XXX\"/>**.",
+        "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#http-error-message)"
+    },
     "form-next-input-field-masked": {
         "vStatus": "v2-next",
         "legacyText": "'pattern' (een utility mixin)",
