@@ -10,9 +10,9 @@ describe('stacked styles', () => {
             }
         </style>
         <div class="vl-grid-next vl-stacked-next-large">
-            <div class="vl-column-next vl-column-next--8 vl-column-next--offset-3"></div>
-            <div class="vl-column-next vl-column-next--8 vl-column-next--offset-3"></div>
-            <div class="vl-column-next vl-column-next--8 vl-column-next--offset-3"></div>
+            <div class="vl-column-next vl-column-next--8 vl-column-next--start-3"></div>
+            <div class="vl-column-next vl-column-next--8 vl-column-next--start-3"></div>
+            <div class="vl-column-next vl-column-next--8 vl-column-next--start-3"></div>
         </div>
     `;
 
@@ -55,9 +55,9 @@ describe('stacked styles', () => {
             }
         </style>
         <div class="vl-grid-next vl-stacked-next-small">
-            <div class="vl-column-next vl-column-next--8 vl-column-next--offset-3"></div>
-            <div class="vl-column-next vl-column-next--8 vl-column-next--offset-3"></div>
-            <div class="vl-column-next vl-column-next--8 vl-column-next--offset-3"></div>
+            <div class="vl-column-next vl-column-next--8 vl-column-next--start-3"></div>
+            <div class="vl-column-next vl-column-next--8 vl-column-next--start-3"></div>
+            <div class="vl-column-next vl-column-next--8 vl-column-next--start-3"></div>
         </div>
     `;
 

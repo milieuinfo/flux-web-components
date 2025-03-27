@@ -1,11 +1,12 @@
-import { Validator } from '@open-wc/form-control';
-import { CSSResult, LitElement, PropertyDeclarations, html, css } from 'lit';
 import { registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { VlInputFieldComponent } from '@domg-wc/form/next/input-field';
-import { VlErrorMessageComponent } from '@domg-wc/form/next/error-message';
-import { VlFormLabelComponent } from '@domg-wc/form/next/form-label';
+import { vlGridStyles } from '@domg-wc/common-utilities/css';
 import { VlButtonComponent } from '@domg-wc/components/next/button';
 import { vlElementsStyle } from '@domg-wc/elements';
+import { VlErrorMessageComponent } from '@domg-wc/form/next/error-message';
+import { VlFormLabelComponent } from '@domg-wc/form/next/form-label';
+import { VlInputFieldComponent } from '@domg-wc/form/next/input-field';
+import { Validator } from '@open-wc/form-control';
+import { CSSResult, LitElement, PropertyDeclarations, css, html } from 'lit';
 
 const fooValidator: Validator = {
     key: 'customError',
@@ -44,6 +45,7 @@ export class VlFormCustomValidationComponent extends LitElement {
     static override get styles(): (CSSResult | CSSResult[])[] {
         return [
             vlElementsStyle,
+            vlGridStyles,
             css`
                 form {
                     margin-top: 1rem;
@@ -68,11 +70,11 @@ export class VlFormCustomValidationComponent extends LitElement {
     override render() {
         return html`
             <form class="vl-form" @submit=${this.onSubmit} @reset=${this.onReset}>
-                <div class="vl-form-grid vl-form-grid--is-stacked">
-                    <div class="vl-col--4-12">
+                <div class="vl-grid-next">
+                    <div class="vl-column-next vl-column-next--4">
                         <vl-form-label-next for="waarde" label="Waarde *" block></vl-form-label-next>
                     </div>
-                    <div class="vl-col--8-12">
+                    <div class="vl-column-next vl-column-next--8">
                         <vl-input-field-with-foo-validator
                             id="waarde"
                             name="waarde"
@@ -90,7 +92,7 @@ export class VlFormCustomValidationComponent extends LitElement {
                             >Gelieve 'foo' als waarde in te vullen.</vl-error-message-next
                         >
                     </div>
-                    <div class="vl-col--6-12 vl-push--4-12">
+                    <div class="vl-column-next vl-column-next--8 vl-column-next--start-5">
                         <div class="form-buttons">
                             <vl-button-next type="submit">Verstuur</vl-button-next>
                             <vl-button-next type="reset" secondary>Reset</vl-button-next>

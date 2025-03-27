@@ -20,10 +20,10 @@ export const StackedLarge = ({}) => html`
         }
     </style>
     <div class="vl-grid-next vl-stacked-next-large">
-        <div class="vl-column-next vl-column-next--8 vl-column-next--offset-3"></div>
-        <div class="vl-column-next vl-column-next--8 vl-column-next--offset-3"></div>
-        <div class="vl-column-next vl-column-next--8 vl-column-next--offset-3"></div>
-        <div class="vl-column-next vl-column-next--8 vl-column-next--offset-3"></div>
+        <div class="vl-column-next vl-column-next--8 vl-column-next--start-3"></div>
+        <div class="vl-column-next vl-column-next--8 vl-column-next--start-3"></div>
+        <div class="vl-column-next vl-column-next--8 vl-column-next--start-3"></div>
+        <div class="vl-column-next vl-column-next--8 vl-column-next--start-3"></div>
     </div>
 `;
 StackedLarge.storyName = 'vl-stacked - large';
@@ -36,10 +36,10 @@ export const StackedMedium = ({}) => html`
         }
     </style>
     <div class="vl-grid-next vl-stacked-next-medium">
-        <div class="vl-column-next vl-column-next--8 vl-column-next--offset-3"></div>
-        <div class="vl-column-next vl-column-next--8 vl-column-next--offset-3"></div>
-        <div class="vl-column-next vl-column-next--8 vl-column-next--offset-3"></div>
-        <div class="vl-column-next vl-column-next--8 vl-column-next--offset-3"></div>
+        <div class="vl-column-next vl-column-next--8 vl-column-next--start-3"></div>
+        <div class="vl-column-next vl-column-next--8 vl-column-next--start-3"></div>
+        <div class="vl-column-next vl-column-next--8 vl-column-next--start-3"></div>
+        <div class="vl-column-next vl-column-next--8 vl-column-next--start-3"></div>
     </div>
 `;
 StackedMedium.storyName = 'vl-stacked - medium';
@@ -52,10 +52,10 @@ export const StackedSmall = ({}) => html`
         }
     </style>
     <div class="vl-grid-next vl-stacked-next-small">
-        <div class="vl-column-next vl-column-next--8 vl-column-next--offset-3"></div>
-        <div class="vl-column-next vl-column-next--8 vl-column-next--offset-3"></div>
-        <div class="vl-column-next vl-column-next--8 vl-column-next--offset-3"></div>
-        <div class="vl-column-next vl-column-next--8 vl-column-next--offset-3"></div>
+        <div class="vl-column-next vl-column-next--8 vl-column-next--start-3"></div>
+        <div class="vl-column-next vl-column-next--8 vl-column-next--start-3"></div>
+        <div class="vl-column-next vl-column-next--8 vl-column-next--start-3"></div>
+        <div class="vl-column-next vl-column-next--8 vl-column-next--start-3"></div>
     </div>
 `;
 StackedSmall.storyName = 'vl-stacked - small';
