@@ -47,9 +47,14 @@ export class VlTableComponent extends LitElement {
     protected firstUpdated(changedProperties: PropertyValues) {
         super.firstUpdated(changedProperties);
 
-        // Deze stylesheet moet toegevoegd worden aan de adoptedStyleSheets van het document
-        // omdat deze styles betrekking hebben op de slotted content en dus niet op de shadow dom
-        document.adoptedStyleSheets = [...document.adoptedStyleSheets, tableStyles.styleSheet as CSSStyleSheet];
+        // Gezien dit component geen shadow dom heeft, moeten de styles van de children toegevoegd worden
+        // aan de adoptedStyleSheets van de omliggende shadow dom, anders zullen de styles niet toegepast worden
+        const shadowRoot = this.shadowRoot || this.getRootNode();
+        if (shadowRoot instanceof ShadowRoot) {
+            shadowRoot.adoptedStyleSheets = [...shadowRoot.adoptedStyleSheets, tableStyles.styleSheet as CSSStyleSheet];
+        } else {
+            document.adoptedStyleSheets = [...document.adoptedStyleSheets, tableStyles.styleSheet as CSSStyleSheet];
+        }
 
         this.caption?.classList.add('vl-table-next__caption');
     }
