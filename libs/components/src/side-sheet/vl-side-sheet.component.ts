@@ -1,5 +1,5 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { vlAccessibilityStyles } from '@domg-wc/common-utilities/css';
+import { vlAccessibilityStyles, vlContentBlockStyles, vlSectionStyles } from '@domg-wc/common-utilities/css';
 import { VlButtonComponent } from '@domg-wc/components/next/button';
 import { VlLayoutElement, VlRegionElement, VlText } from '@domg-wc/elements';
 import swipeDetect from 'swipe-detect/dist/';
@@ -32,7 +32,9 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
         super(`
           <style>
             ${styles}
-            ${vlAccessibilityStyles.toString()}
+            ${vlAccessibilityStyles.cssText}
+            ${vlSectionStyles.cssText}
+            ${vlContentBlockStyles.cssText}
           </style>
           <div>
               <vl-button-next
@@ -46,8 +48,8 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
               </vl-button-next>
               <div id="vl-side-sheet-backdrop"></div>
               <div id="vl-side-sheet">
-                <section is="vl-region">
-                  <div is="vl-layout">
+                <section class="vl-section-next">
+                  <div class="vl-content-block-next">
                     <slot></slot>
                   </div>
                 </section>
@@ -114,7 +116,7 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
     }
 
     get _regionElement() {
-        return this._sheetElement.querySelector('[is="vl-region"]');
+        return this._sheetElement.querySelector('section.vl-section-next');
     }
 
     get _backdropElement() {
