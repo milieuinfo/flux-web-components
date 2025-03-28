@@ -25,11 +25,9 @@ export class VlSideNavigationComponent extends BaseLitElement {
 
     connectedCallback(): void {
         super.connectedCallback();
-        document.adoptedStyleSheets = [
-            ...document.adoptedStyleSheets,
-            vlSideNavigationStyles.styleSheet as CSSStyleSheet,
-        ];
-        // retrieve first surrounding shadow dom & attach vlSideNavigationStyles on it
+
+        // Gezien dit component geen shadow dom heeft, moeten de styles van de children toegevoegd worden
+        // aan de adoptedStyleSheets van de omliggende shadow dom, anders zullen de styles niet toegepast worden
         const shadowRoot = this.shadowRoot || this.getRootNode();
         if (shadowRoot instanceof ShadowRoot) {
             shadowRoot.adoptedStyleSheets = [
@@ -38,6 +36,11 @@ export class VlSideNavigationComponent extends BaseLitElement {
                 vlGridStyles.styleSheet as CSSStyleSheet,
                 vlSectionStyles.styleSheet as CSSStyleSheet,
                 vlContentBlockStyles.styleSheet as CSSStyleSheet,
+            ];
+        } else {
+            document.adoptedStyleSheets = [
+                ...document.adoptedStyleSheets,
+                vlSideNavigationStyles.styleSheet as CSSStyleSheet,
             ];
         }
     }
