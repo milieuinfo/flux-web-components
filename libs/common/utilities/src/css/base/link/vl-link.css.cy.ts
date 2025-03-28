@@ -6,7 +6,7 @@ import { vlLinkStyles } from './vl-link.css';
 
 describe('link styles', () => {
     beforeEach(() => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
             <style>
                 ${vlLinkStyles()}

@@ -1,3 +1,4 @@
+import { CSSResult } from 'lit';
 import { vlAccessibilityStyles } from './base/accessibility/vl-accessibility.css';
 import { vlBodyStyles } from './base/body/vl-body.css';
 import { vlFontStyles } from './base/font/vl-font.css';
@@ -37,16 +38,52 @@ export const globalStyles = [
 ];
 
 export class GlobalStyles {
-    static registered = false;
+    private static instance: GlobalStyles | null = null;
 
-    static register() {
+    private defaultStyles: CSSResult[] = [];
+    private registered = false;
+    private customCss: CSSResult[] = [];
+    private registeredCustomCss = false;
+
+    private constructor() {}
+
+    static getInstance(defaultStyles: CSSResult[] = globalStyles) {
+        if (this.instance) {
+            return this.instance;
+        }
+        this.instance = new GlobalStyles();
+        this.instance.defaultStyles = defaultStyles;
+        return this.instance;
+    }
+
+    public register() {
         if (!this.registered) {
             document.adoptedStyleSheets = [
                 ...document.adoptedStyleSheets,
-                ...(globalStyles.map((style) => style.styleSheet) as CSSStyleSheet[]),
+                ...(this.defaultStyles.map((style) => style.styleSheet) as CSSStyleSheet[]),
             ];
             this.registered = true;
-            console.log('GlobalStyles: global styling toegevoegd aan het document');
+            console.info('GlobalStyles: global styling toegevoegd aan het document');
+            this.registerCustomCSS();
+        }
+    }
+
+    public addCustomCss(customCSS: CSSResult[]) {
+        this.customCss = [...this.customCss, ...customCSS];
+        this.registeredCustomCss = false;
+        this.registerCustomCSS();
+    }
+
+    private registerCustomCSS() {
+        if (!this.registered) return;
+        if (this.customCss.length > 0 && !this.registeredCustomCss) {
+            document.adoptedStyleSheets = [
+                ...document.adoptedStyleSheets,
+                ...(this.customCss.map((style) => style.styleSheet) as CSSStyleSheet[]),
+            ];
+            this.customCss = [];
+            this.registeredCustomCss = true;
+            console.info('GlobalStyles: custom global styling toegevoegd aan het document');
         }
     }
 }

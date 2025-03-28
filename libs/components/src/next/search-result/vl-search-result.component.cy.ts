@@ -9,7 +9,7 @@ describe('component - vl-search-result-next', () => {
 
     beforeEach(() => {
         cy.viewport(960, 1440);
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
             <vl-search-result-next>
                 <vl-search-result-title-next>

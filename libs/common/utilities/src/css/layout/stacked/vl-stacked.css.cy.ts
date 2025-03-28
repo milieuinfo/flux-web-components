@@ -17,7 +17,7 @@ describe('stacked styles', () => {
     `;
 
     it('should have large stacked style', () => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(stackedLarge);
         cy.viewport(1100, 800);
         cy.get('.vl-column-next').eq(0).shouldHaveComputedStyle({
@@ -62,7 +62,7 @@ describe('stacked styles', () => {
     `;
 
     it('should have small stacked style', () => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(stackedSmall);
         cy.get('.vl-column-next').eq(0).shouldHaveComputedStyle({
             style: 'margin',

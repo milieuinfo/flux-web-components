@@ -4,7 +4,7 @@ import { vlPaddingStyles } from './vl-padding.css';
 
 describe('padding styles', () => {
     beforeEach(() => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
             <style>
                 ${vlPaddingStyles} div {

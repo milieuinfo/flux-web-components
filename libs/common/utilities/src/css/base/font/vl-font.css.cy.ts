@@ -3,7 +3,7 @@ import { GlobalStyles } from '../../global-styles';
 
 describe('font styles', () => {
     beforeEach(() => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
             <style>
                 .cy-font {

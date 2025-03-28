@@ -35,4 +35,4 @@ export const parameters = {
 registerWebComponents([VlIconElement, VlAlert]);
 
 // zonder deze register() missen initieel de global-styles, ze verschijnen dan wel maar pas na 30 seconden - onduidelijk waarom
-GlobalStyles.register();
+GlobalStyles.getInstance().register();

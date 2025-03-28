@@ -3,7 +3,7 @@ import { GlobalStyles } from '../../global-styles';
 
 describe('separator styles', () => {
     it('should have default separator style', () => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
             <hr class="vl-separator-next">
         `);
@@ -18,7 +18,7 @@ describe('separator styles', () => {
     });
 
     it('should have separator style with slashes', () => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
             <hr class="vl-separator-slash-next">
         `);
@@ -30,7 +30,7 @@ describe('separator styles', () => {
     });
 
     it('should have separator style with waves', () => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
             <hr class="vl-separator-wave-next">
         `);

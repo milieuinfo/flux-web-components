@@ -4,7 +4,7 @@ import { vlParagraphStyles } from './vl-paragraph.css';
 
 describe('paragraph styles', () => {
     beforeEach(() => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
             <style>
                 ${vlParagraphStyles}

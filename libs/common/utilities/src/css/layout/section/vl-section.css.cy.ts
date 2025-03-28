@@ -3,7 +3,7 @@ import { GlobalStyles } from '../../global-styles';
 
 describe('section styles', () => {
     it('should style the defaults', () => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
             <section class="vl-section-next vl-section-next--alt cy-section-first">
                 <p>vl-section-next vl-section-next--alt</p>
@@ -73,7 +73,7 @@ describe('section styles', () => {
     });
 
     it('should style with overlap', () => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
             <section class="vl-section-next vl-section-next--overlap cy-section-overlap">
                 <p class="vl-content-block-next cy-section-centered">vl-content-block-next</p>
@@ -136,7 +136,7 @@ describe('section styles', () => {
     });
 
     it('should style centered', () => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
             <section class="vl-section-next cy-section">
                 <p class="vl-content-block-next cy-section-centered">vl-content-block-next</p>

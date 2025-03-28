@@ -6,7 +6,7 @@ registerWebComponents(titleElements());
 
 const mountDefault = ({ version, date }: TitleProps) => cy.mount(title({ version, date }));
 
-GlobalStyles.register();
+GlobalStyles.getInstance().register();
 
 const props: TitleProps = {
     version: '1.0',
