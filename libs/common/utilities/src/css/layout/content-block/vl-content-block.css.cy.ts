@@ -4,7 +4,7 @@ import { vlContentBlockStyles } from './vl-content-block.css';
 
 describe('content-block styles', () => {
     beforeEach(() => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
     });
 
     it('should have default styles', () => {

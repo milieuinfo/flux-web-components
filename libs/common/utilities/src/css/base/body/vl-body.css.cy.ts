@@ -3,7 +3,7 @@ import { GlobalStyles } from '../../global-styles';
 
 describe('body styles', () => {
     beforeEach(() => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html` <div class="cy-div">een div</div> `);
     });
 

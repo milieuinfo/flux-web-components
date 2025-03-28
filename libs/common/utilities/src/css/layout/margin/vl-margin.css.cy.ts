@@ -4,7 +4,7 @@ import { vlMarginStyles } from './vl-margin.css';
 
 describe('margin styles', () => {
     beforeEach(() => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
             <style>
                 ${vlMarginStyles} div {

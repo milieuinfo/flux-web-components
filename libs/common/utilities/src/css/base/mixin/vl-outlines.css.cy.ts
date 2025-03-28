@@ -4,7 +4,7 @@ import { vlFocusOutlineMixin } from './vl-outlines.css';
 
 describe('outline styles', () => {
     beforeEach(() => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
             <style>
                 .cy-outline-focus {

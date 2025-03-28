@@ -5,7 +5,7 @@ import { vlIconStyles } from '../icon/vl-icon.css';
 
 describe('outline styles', () => {
     beforeEach(() => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
             <style>
                 ${vlIconStyles}

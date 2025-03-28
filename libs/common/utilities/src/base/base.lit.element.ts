@@ -9,7 +9,7 @@ export class BaseLitElement extends LitElement {
     constructor() {
         super();
 
-        GlobalStyles.register();
+        GlobalStyles.getInstance().register();
     }
 
     static get properties(): PropertyDeclarations {

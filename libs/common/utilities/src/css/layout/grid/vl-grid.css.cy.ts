@@ -62,7 +62,7 @@ describe('grid styles', () => {
     `;
 
     it('should be responsive on a large screen', () => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(gridResponsive);
         const cellWidth = 84.5;
         const borderWidth = 2;
@@ -138,7 +138,7 @@ describe('grid styles', () => {
     });
 
     it('should be responsive on a medium screen', () => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(gridResponsive);
         const cellWidth = 60;
         const borderWidth = 2;
@@ -210,7 +210,7 @@ describe('grid styles', () => {
     });
 
     it('should be responsive on a small screen', () => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(gridResponsive);
         const cellWidth = 50;
         const borderWidth = 2;
@@ -282,7 +282,7 @@ describe('grid styles', () => {
     });
 
     it('should be responsive on an extra-small screen', () => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(gridResponsive);
         const cellWidth = 30;
         const borderWidth = 2;
@@ -400,7 +400,7 @@ describe('grid styles', () => {
     `;
 
     it('should offset on a large screen', () => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(gridOffset);
         cy.viewport(1100, 800);
         for (let x = 0; x < 12; x++) {
@@ -416,7 +416,7 @@ describe('grid styles', () => {
     });
 
     it('should offset on a medium screen', () => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(gridOffset);
         const cellWidth = 84.5;
         const borderWidth = 2;
@@ -506,7 +506,7 @@ describe('grid styles', () => {
     `;
 
     it('should justify and align', () => {
-        cy.then(() => GlobalStyles.register());
+        cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(gridJustifyAndAlign);
         cy.get('.cy-cell-1-1').shouldHaveComputedStyle({
             style: 'justify-self',
