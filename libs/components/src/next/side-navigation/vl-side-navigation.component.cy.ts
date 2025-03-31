@@ -24,7 +24,7 @@ describe('component - vl-side-navigation-next', () => {
 
         cy.mount(html`
             <section class="vl-section-next">
-                <div class="vl-section-next__centered">
+                <div class="vl-content-block-next">
                     <div class="vl-grid-next vl-stacked-next-medium">
                         <div
                             class="vl-column-next vl-column-next--8 vl-column-next--m-8 vl-column-next--s-8 vl-column-next--xs-12"

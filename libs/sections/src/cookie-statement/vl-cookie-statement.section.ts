@@ -92,7 +92,7 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
             'afterend',
             `
         <section class="vl-section-next">
-            <div class="vl-section-next__centered">
+            <div class="vl-content-block-next">
                 <div class="vl-grid-next vl-stacked-next-small vl-content-block-next">
                     <div class="vl-column-next vl-column-next--10">
                         <vl-title-next type="h1" no-space-bottom>Cookieverklaring</vl-title-next>
@@ -113,7 +113,7 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
         </section>
 
         <section class="vl-section-next">
-            <div class="vl-section-next__centered">
+            <div class="vl-content-block-next">
                 <div class="vl-grid-next vl-stacked-next-medium vl-content-block-next">
                     <div class="vl-column-next vl-column-next--8 vl-column-next--m-8 vl-column-next--s-8 vl-column-next--xs-8">
                         <vl-side-navigation-reference-next  data-vl--scrollspy-content>
@@ -196,7 +196,7 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
         </section>
 
         <section class="vl-section-next vl-section-next--overlap">
-            <div class="vl-section-next__centered">
+            <div class="vl-content-block-next">
                 <div class="vl-grid-next vl-stacked-next-medium">
                     <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
                     <vl-contact-card>

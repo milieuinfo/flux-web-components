@@ -4,8 +4,6 @@ const sectionNextLightBlueUrl =
     'http://localhost:8080/iframe.html?id=styles-next-layout-afnemers-section--section-light-blue&viewMode=story';
 const sectionNextOverlapUrl =
     'http://localhost:8080/iframe.html?id=styles-next-layout-afnemers-section--section-overlap&viewMode=story';
-const sectionNextCenteredUrl =
-    'http://localhost:8080/iframe.html?id=styles-next-layout-afnemers-section--section-centered&viewMode=story';
 
 describe('story - section-next - default', () => {
     it('should render', () => {
@@ -43,19 +41,6 @@ describe('story - section-next - overlap', () => {
             .find('p')
             .first()
             .invoke('text')
-            .should('contain', 'vl-section-next__centered');
-    });
-});
-
-describe('story - section-next - centered', () => {
-    it('should render', () => {
-        cy.visit(sectionNextCenteredUrl);
-
-        cy.get('.vl-section-next')
-            .first()
-            .shouldHaveComputedStyle({ style: 'background-color', value: 'rgb(173, 216, 230)' })
-            .find('p')
-            .invoke('text')
-            .should('contain', 'vl-section-next__centered');
+            .should('contain', 'vl-content-block-next');
     });
 });
