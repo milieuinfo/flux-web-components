@@ -17,7 +17,6 @@ export class VlTabSectionComponent extends BaseLitElement {
     }
 
     private processClasses() {
-        this.classList.add('vl-col--1-1');
         this.classList.add('vl-tab__pane');
     }
 
