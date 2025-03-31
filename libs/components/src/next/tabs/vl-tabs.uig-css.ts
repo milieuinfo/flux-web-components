@@ -14,6 +14,11 @@ const styles: CSSResult = css`
         color: var(--vl-theme-fg-color);
     }
 
+    .vl-tab__pane {
+        max-width: 100%;
+        min-width: 100%;
+    }
+
     .vl-tab__pane[role='tabpanel']:focus {
         outline: none;
     }

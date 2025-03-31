@@ -27,12 +27,6 @@ describe('component vl-tab-section', () => {
 });
 
 describe('component vl-tab-section - classes', () => {
-    it('should have class vl-col--1-1', () => {
-        mountDefault();
-
-        cy.get('vl-tab-section-next').should('have.class', 'vl-col--1-1');
-    });
-
     it('should have class vl-tab__pane', () => {
         mountDefault();
 
