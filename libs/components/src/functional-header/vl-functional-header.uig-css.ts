@@ -24,6 +24,10 @@ export const functionalHeaderUigStyle: CSSResult = css`
         max-width: 100%;
     }
 
+    a#title {
+        text-decoration: none;
+    }
+
     .sub-header-hidden slot {
         display: none;
     }
