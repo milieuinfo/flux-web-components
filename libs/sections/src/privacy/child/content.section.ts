@@ -742,7 +742,7 @@ export const privacyContentSection = () => html`
                                     Het Departement Omgeving en uw privacy
                                 </vl-side-navigation-toggle-next>
                             </vl-side-navigation-item-next>
-                            <vl-side-navigation-item-next parent>
+                            <vl-side-navigation-item-next parent="privacy-declaration">
                                 <vl-side-navigation-toggle-next
                                     href="#privacy-declaration"
                                     child="privacy-declaration"

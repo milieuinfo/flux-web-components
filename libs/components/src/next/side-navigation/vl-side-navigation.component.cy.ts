@@ -341,6 +341,23 @@ describe('component - vl-side-navigation-next', () => {
         cy.get('vl-side-navigation-reference-next').should('have.class', 'js-vl-scrollspy__content');
     });
 
+    it('should show child links on scroll', () => {
+        cy.viewport(1920, 1080);
+        const target = '#content-2';
+        const shouldHaveExpandedToggle = (href: string, expanded: boolean) => {
+            const haveOrNotHave = expanded ? 'have' : 'not.have';
+            cy.get('vl-side-navigation-next')
+                .find(`vl-side-navigation-toggle-next[href="${href}"]`)
+                .should(`${haveOrNotHave}.attr`, 'aria-expanded', `${expanded}`);
+        };
+
+        shouldHaveExpandedToggle(target, false);
+
+        cy.get(`${target}`).scrollIntoView();
+
+        shouldHaveExpandedToggle(target, true);
+    });
+
     it('should open mobile menu', () => {
         cy.viewport(320, 480);
 
