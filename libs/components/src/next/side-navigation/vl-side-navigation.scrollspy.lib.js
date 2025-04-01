@@ -23,6 +23,7 @@ const ssClass = `js-vl-scrollspy`,
     ssContentClass = `js-vl-scrollspy__content`,
     ssContentAtt = `scrollspy-content`,
     regionClass = `vl-region`,
+    sectionClass = `vl-section-next`,
     snItemClass = `vl-side-navigation-next__item`,
     globalHvisibleClass = 'js-iwgh3-bc--visible',
     body = document.body,
@@ -273,7 +274,7 @@ class ScrollSpy {
 
     dress(wrapper) {
         let id = vl.util.uniqueId(),
-            correspondingRegion = wrapper.closest(`.${regionClass}`),
+            correspondingRegion = wrapper.closest(`.${regionClass}, .${sectionClass}`),
             scrollSpyContentWrapper = correspondingRegion && correspondingRegion.querySelector(`[${ssContentAtt}]`);
 
         if (!vl.util.exists(scrollSpyContentWrapper)) {
