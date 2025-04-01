@@ -341,8 +341,7 @@ describe('component - vl-side-navigation-next', () => {
         cy.get('vl-side-navigation-reference-next').should('have.class', 'js-vl-scrollspy__content');
     });
 
-    // TODO deze test werkt niet meer
-    it.skip('should open mobile menu', () => {
+    it('should open mobile menu', () => {
         cy.viewport(320, 480);
 
         cy.get('vl-side-navigation-next').should('have.attr', 'sticky-dressed', 'true');
@@ -353,8 +352,7 @@ describe('component - vl-side-navigation-next', () => {
         cy.get('vl-side-navigation-next').should('be.visible');
     });
 
-    // TODO deze test werkt niet meer
-    it.skip('should switch between mobile & desktop', () => {
+    it('should switch between mobile & desktop', () => {
         cy.get('vl-side-navigation-next').find('button.vl-button.js-vl-scrollspy__toggle').should('not.exist');
         cy.get('vl-side-navigation-next').should('be.visible');
 
