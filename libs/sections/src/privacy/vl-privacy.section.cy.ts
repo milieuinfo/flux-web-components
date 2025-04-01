@@ -88,17 +88,17 @@ describe('vl-privacy component - properties functionality', () => {
         cy.get('vl-privacy').shadow().find('vl-functional-header').shadow().find('a#back-link').click();
         cy.get('@vl-click-back').should('have.been.calledOnce');
     });
-
-    // TODO: bekijken waarom aria-expanded niet correct meer op vl-side-navigation-toggle-next word gezet
-    it.skip('should show child links on scroll', () => {
+    it('should show child links on scroll', () => {
+        cy.viewport(1920, 1080);
         mountDefault(defaultProps);
 
         const shouldHaveExpandedToggle = (href: string, expanded: boolean) => {
+            const have = expanded ? 'have' : 'not.have';
             cy.get('vl-privacy')
                 .shadow()
                 .find('vl-side-navigation-next')
                 .find(`vl-side-navigation-toggle-next[href="${href}"]`)
-                .should('have.attr', 'aria-expanded', `${expanded}`);
+                .should(`${have}.attr`, 'aria-expanded', `${expanded}`);
         };
 
         shouldHaveExpandedToggle('#privacy-declaration', false);
