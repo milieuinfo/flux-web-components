@@ -427,8 +427,7 @@ describe('component - vl-datepicker-next', () => {
             .should('contain', 'right');
     });
 
-    // TODO: slaagt ofwel lokaal, ofwel enkel op bamboo, maar niet op beide
-    it.skip('should open the calendar below the input when static is true', () => {
+    it('should open the calendar below the input when static is true', () => {
         cy.mount(
             html`
                 <div style="margin-top: calc(100vh - 50px); margin-left: calc(100vw - 250px)">
@@ -446,20 +445,22 @@ describe('component - vl-datepicker-next', () => {
             .should('not.have.attr', 'style');
     });
 
-    // TODO: slaagt ofwel lokaal, ofwel enkel op bamboo, maar niet op beide
-    it.skip('should pass the position property to Flatpickr', () => {
+    it('should pass the position property to Flatpickr', () => {
+        cy.viewport(1920, 1080);
+
         cy.mount(html`<vl-datepicker-next position="below left"></vl-datepicker-next>`);
-        cy.wait(2000);
+
         cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
         cy.get('vl-datepicker-next')
             .shadow()
             .find('.flatpickr-calendar')
             .shouldHaveComputedStyle({ style: 'top', value: '37px' })
-            .shouldHaveComputedStyle({ style: 'left', value: '96px' });
+            .shouldHaveComputedStyle({ style: 'left', value: '188px' });
     });
 
-    // TODO: slaagt ofwel lokaal, ofwel enkel op bamboo, maar niet op beide
-    it.skip('should position the calendar correctly after adding HTML elements to the DOM', () => {
+    it('should position the calendar correctly after adding HTML elements to the DOM', () => {
+        cy.viewport(1920, 1080);
+
         cy.mount(
             html`<div>
                 <button
@@ -473,14 +474,14 @@ describe('component - vl-datepicker-next', () => {
         cy.get('vl-datepicker-next')
             .shadow()
             .find('#datepicker-calendar-placeholder')
-            .shouldHaveComputedStyle({ style: 'top', value: '-22px' });
+            .shouldHaveComputedStyle({ style: 'top', value: '-27px' });
         cy.get('#add-line').click();
         cy.get('#add-line').click();
         cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
         cy.get('vl-datepicker-next')
             .shadow()
             .find('#datepicker-calendar-placeholder')
-            .shouldHaveComputedStyle({ style: 'top', value: '-43.2656px' });
+            .shouldHaveComputedStyle({ style: 'top', value: '-54px' });
         cy.get('vl-datepicker-next').shadow().find('button#toggle-calendar').click();
         cy.get('#add-line').click();
         cy.get('#add-line').click();
@@ -488,7 +489,7 @@ describe('component - vl-datepicker-next', () => {
         cy.get('vl-datepicker-next')
             .shadow()
             .find('#datepicker-calendar-placeholder')
-            .shouldHaveComputedStyle({ style: 'top', value: '-85.7969px' });
+            .shouldHaveComputedStyle({ style: 'top', value: '-108px' });
     });
 });
 
