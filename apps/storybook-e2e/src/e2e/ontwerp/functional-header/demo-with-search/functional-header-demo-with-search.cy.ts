@@ -1,5 +1,5 @@
 const demoWithSearchUrl =
-    'http://localhost:8080/iframe.html?id=ontwerp-functional-header-voorbeeld-met-search--functional-header-met-search&viewMode=story';
+    'http://localhost:8080/iframe.html?id=ontwerp-functional-header-voorbeeld-met-search--functional-header-with-search&viewMode=story';
 
 describe('story - functional header met search voorbeeld', () => {
     it('should render', () => {
