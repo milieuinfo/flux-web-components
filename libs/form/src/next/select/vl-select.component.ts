@@ -22,7 +22,7 @@ export class VlSelectComponent extends FormControl {
     private notDeletable = selectDefaults.notDeletable;
 
     // State
-    private value = '';
+    public value = '';
 
     // Variables
     private initialOptions = [] as SelectOption[];
