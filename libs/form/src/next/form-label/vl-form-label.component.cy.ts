@@ -1,7 +1,8 @@
-import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlFormLabelComponent } from './vl-form-label.component';
+import { vlGridStyles } from '@domg-wc/common-utilities/css';
+import { html } from 'lit';
 import { VlInputFieldComponent } from '../input-field';
+import { VlFormLabelComponent } from './vl-form-label.component';
 
 registerWebComponents([VlFormLabelComponent, VlInputFieldComponent]);
 
@@ -53,12 +54,15 @@ describe('component - vl-form-label-next', () => {
 describe('component - vl-form-label-next - in form', () => {
     beforeEach(() => {
         cy.mount(html`
+            <style>
+                ${vlGridStyles}
+            </style>
             <form id="form" class="vl-form">
-                <div class="vl-form-grid vl-form-grid--is-stacked">
-                    <div class="vl-col--3-12">
+                <div class="vl-grid-next">
+                    <div class="vl-column-next vl-column-next--3">
                         <vl-form-label-next for="naam" label="Naam" block></vl-form-label-next>
                     </div>
-                    <div class="vl-col--9-12">
+                    <div class="vl-column-next vl-column-next--9">
                         <vl-input-field-next id="naam" name="naam"></vl-input-field-next>
                     </div>
                 </div>

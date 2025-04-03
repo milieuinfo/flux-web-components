@@ -1,12 +1,13 @@
-import { css, CSSResult, html, LitElement } from 'lit';
 import { registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { VlErrorMessageComponent } from '@domg-wc/form/next/error-message';
+import { vlGridStyles } from '@domg-wc/common-utilities/css';
+import { VlButtonComponent } from '@domg-wc/components/next/button';
 import { vlElementsStyle } from '@domg-wc/elements';
+import { VlErrorMessageComponent } from '@domg-wc/form/next/error-message';
+import { VlFormLabelComponent } from '@domg-wc/form/next/form-label';
 import { VlInputFieldComponent } from '@domg-wc/form/next/input-field';
 import { SelectRichOption, VlSelectRichComponent } from '@domg-wc/form/next/select-rich';
 import { parseFormData } from '@domg-wc/form/utils';
-import { VlFormLabelComponent } from '@domg-wc/form/next/form-label';
-import { VlButtonComponent } from '@domg-wc/components/next/button';
+import { css, CSSResult, html, LitElement } from 'lit';
 
 @webComponent('vl-form-data')
 export class VlFormDataComponent extends LitElement {
@@ -40,6 +41,7 @@ export class VlFormDataComponent extends LitElement {
     static override get styles(): (CSSResult | CSSResult[])[] {
         return [
             vlElementsStyle,
+            vlGridStyles,
             css`
                 form {
                     margin-top: 1rem;
@@ -58,17 +60,17 @@ export class VlFormDataComponent extends LitElement {
     override render() {
         return html`
             <form id="form" class="vl-form" @submit=${this.onSubmit} @reset=${this.onReset}>
-                <div class="vl-form-grid vl-form-grid--is-stacked">
-                    <div class="vl-form-col--4-12">
+                <div class="vl-grid-next">
+                    <div class="vl-column-next vl-column-next--4">
                         <vl-form-label-next for="naam" label="Naam *" block></vl-form-label-next>
                     </div>
-                    <div class="vl-form-col--8-12">
+                    <div class="vl-column-next vl-column-next--8">
                         <vl-input-field-next id="naam" name="naam" block></vl-input-field-next>
                     </div>
-                    <div class="vl-form-col--4-12">
+                    <div class="vl-column-next vl-column-next--4">
                         <vl-form-label-next for="hobbies" label="Hobbies *" block></vl-form-label-next>
                     </div>
-                    <div class="vl-form-col--8-12">
+                    <div class="vl-column-next vl-column-next--8">
                         <vl-select-rich-next
                             id="hobbies"
                             name="hobbies"
@@ -84,7 +86,7 @@ export class VlFormDataComponent extends LitElement {
                             >Gelieve een hobby te selecteren.
                         </vl-error-message-next>
                     </div>
-                    <div class="vl-form-col--6-12 vl-push--4-12">
+                    <div class="vl-column-next vl-column-next--8 vl-column-next--start-5">
                         <div class="form-buttons">
                             <vl-button-next type="submit">Verstuur</vl-button-next>
                             <vl-button-next type="reset" secondary>Reset</vl-button-next>
@@ -92,10 +94,10 @@ export class VlFormDataComponent extends LitElement {
                     </div>
                     ${this.parsedFormData
                         ? html`
-                              <div class="vl-form-col--4-12">
+                              <div class="vl-column-next vl-column-next--4">
                                   <label class="vl-form__label">Formulier data</label>
                               </div>
-                              <div class="vl-form-col--8-12">
+                              <div class="vl-column-next vl-column-next--8">
                                   <pre>${JSON.stringify(this.parsedFormData, null, 10)}</pre>
                               </div>
                           `

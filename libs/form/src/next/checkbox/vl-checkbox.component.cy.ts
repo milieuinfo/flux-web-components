@@ -1,5 +1,6 @@
-import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common-utilities';
+import { vlGridStyles } from '@domg-wc/common-utilities/css';
+import { html } from 'lit';
 import { VlCheckboxComponent } from './vl-checkbox.component';
 import { checkboxDefaults } from './vl-checkbox.defaults';
 
@@ -10,6 +11,9 @@ const value = 'Optie 1';
 
 const mountCheckboxInForm = ({ isSwitch, checked, disabled }: CheckboxDefaultTypes = {}) => {
     cy.mount(html`
+        <style>
+            ${vlGridStyles}
+        </style>
         <form
             id="form"
             class="vl-form"
@@ -20,11 +24,11 @@ const mountCheckboxInForm = ({ isSwitch, checked, disabled }: CheckboxDefaultTyp
                 console.log(Object.fromEntries(data));
             }}
         >
-            <div class="vl-form-grid vl-form-grid--is-stacked">
-                <div class="vl-col--3-12">
+            <div class=vl-grid-next">
+                <div class="vl-column-next vl-column-next--3">
                     <label class="vl-form__label vl-form__label--block" for="confirmation">Bevestig *</label>
                 </div>
-                <div class="vl-col--9-12">
+                <div class="vl-column-next vl-column-next--9">
                     <vl-checkbox-next
                         id="confirmation"
                         name="confirmation"
@@ -41,7 +45,7 @@ const mountCheckboxInForm = ({ isSwitch, checked, disabled }: CheckboxDefaultTyp
                         >Gelieve je gegevens te bevestigen.
                     </vl-error-message-next>
                 </div>
-                <div class="vl-col--9-12 vl-push--3-12">
+                <div class="vl-column-next vl-column-next--9 vl-column-next--start-4">
                     <div class="vl-action-group">
                         <button class="vl-button" type="submit">Verstuur</button>
                         <button class="vl-button" type="reset">Reset</button>

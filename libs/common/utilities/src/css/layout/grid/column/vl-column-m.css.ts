@@ -39,40 +39,40 @@ export const columnMediumStyles = (): CSSResult => css`
         grid-column-end: span 12;
     }
 
-    &.vl-column-next--m-offset-1 {
+    &.vl-column-next--m-start-1 {
         grid-column-start: 1;
     }
-    &.vl-column-next--m-offset-2 {
+    &.vl-column-next--m-start-2 {
         grid-column-start: 2;
     }
-    &.vl-column-next--m-offset-3 {
+    &.vl-column-next--m-start-3 {
         grid-column-start: 3;
     }
-    &.vl-column-next--m-offset-4 {
+    &.vl-column-next--m-start-4 {
         grid-column-start: 4;
     }
-    &.vl-column-next--m-offset-5 {
+    &.vl-column-next--m-start-5 {
         grid-column-start: 5;
     }
-    &.vl-column-next--m-offset-6 {
+    &.vl-column-next--m-start-6 {
         grid-column-start: 6;
     }
-    &.vl-column-next--m-offset-7 {
+    &.vl-column-next--m-start-7 {
         grid-column-start: 7;
     }
-    &.vl-column-next--m-offset-8 {
+    &.vl-column-next--m-start-8 {
         grid-column-start: 8;
     }
-    &.vl-column-next--m-offset-9 {
+    &.vl-column-next--m-start-9 {
         grid-column-start: 9;
     }
-    &.vl-column-next--m-offset-10 {
+    &.vl-column-next--m-start-10 {
         grid-column-start: 10;
     }
-    &.vl-column-next--m-offset-11 {
+    &.vl-column-next--m-start-11 {
         grid-column-start: 11;
     }
-    &.vl-column-next--m-offset-12 {
+    &.vl-column-next--m-start-12 {
         grid-column-start: 12;
     }
 

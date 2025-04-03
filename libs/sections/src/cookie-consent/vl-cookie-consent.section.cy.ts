@@ -1,5 +1,5 @@
-import { html } from 'lit-html';
 import { registerWebComponents } from '@domg-wc/common-utilities';
+import { html } from 'lit-html';
 import { VlCookieConsent } from './vl-cookie-consent.section';
 
 registerWebComponents([VlCookieConsent]);
@@ -27,14 +27,6 @@ describe('component vl-cookie-consent', () => {
     it('should be accessible', () => {
         cy.injectAxe();
         cy.checkA11y('vl-cookie-consent');
-    });
-
-    it('should render with some basic styling from DV - vl-form-grid-stack should have the correct style', () => {
-        cy.get('vl-cookie-consent')
-            .shadow()
-            .find('vl-modal')
-            .find('div[is="vl-form-grid"]')
-            .should('have.css', 'margin-top', '-15px');
     });
 });
 

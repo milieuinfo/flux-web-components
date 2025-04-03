@@ -355,7 +355,7 @@ describe('grid styles', () => {
 
     const gridOffset = html`
         <style>
-            .vl-grid-next.vl-grid-offset {
+            .vl-grid-next {
                 --vl-column-min-height: 20px;
                 grid-template-rows: 20px;
 
@@ -365,37 +365,37 @@ describe('grid styles', () => {
                 }
             }
         </style>
-        <div class="vl-grid-next vl-grid-offset">
+        <div class="vl-grid-next">
             <div
-                class="vl-column-next vl-column-next--1 vl-column-next--offset-12 vl-column-next--m-4 vl-column-next--m-offset-9 cy-row-1"
+                class="vl-column-next vl-column-next--1 vl-column-next--start-12 vl-column-next--m-4 vl-column-next--m-start-9 cy-row-1"
             ></div>
             <div
-                class="vl-column-next vl-column-next--2 vl-column-next--offset-11 vl-column-next--m-4 vl-column-next--m-offset-9 cy-row-2"
+                class="vl-column-next vl-column-next--2 vl-column-next--start-11 vl-column-next--m-4 vl-column-next--m-start-9 cy-row-2"
             ></div>
             <div
-                class="vl-column-next vl-column-next--3 vl-column-next--offset-10 vl-column-next--m-4 vl-column-next--m-offset-9 cy-row-3"
+                class="vl-column-next vl-column-next--3 vl-column-next--start-10 vl-column-next--m-4 vl-column-next--m-start-9 cy-row-3"
             ></div>
-            <div class="vl-column-next vl-column-next--4 vl-column-next--offset-9 cy-row-4"></div>
+            <div class="vl-column-next vl-column-next--4 vl-column-next--start-9 cy-row-4"></div>
             <div
-                class="vl-column-next vl-column-next--5 vl-column-next--offset-8 vl-column-next--m-8 vl-column-next--m-offset-5 cy-row-5"
-            ></div>
-            <div
-                class="vl-column-next vl-column-next--6 vl-column-next--offset-7 vl-column-next--m-8 vl-column-next--m-offset-5 cy-row-6"
+                class="vl-column-next vl-column-next--5 vl-column-next--start-8 vl-column-next--m-8 vl-column-next--m-start-5 cy-row-5"
             ></div>
             <div
-                class="vl-column-next vl-column-next--7 vl-column-next--offset-6 vl-column-next--m-8 vl-column-next--m-offset-5 cy-row-7"
-            ></div>
-            <div class="vl-column-next vl-column-next--8 vl-column-next--offset-5 cy-row-8"></div>
-            <div
-                class="vl-column-next vl-column-next--9 vl-column-next--offset-4 vl-column-next--m-offset-1 vl-column-next--m-12 cy-row-9"
+                class="vl-column-next vl-column-next--6 vl-column-next--start-7 vl-column-next--m-8 vl-column-next--m-start-5 cy-row-6"
             ></div>
             <div
-                class="vl-column-next vl-column-next--10 vl-column-next--offset-3 vl-column-next--m-offset-1 vl-column-next--m-12 cy-row-10"
+                class="vl-column-next vl-column-next--7 vl-column-next--start-6 vl-column-next--m-8 vl-column-next--m-start-5 cy-row-7"
+            ></div>
+            <div class="vl-column-next vl-column-next--8 vl-column-next--start-5 cy-row-8"></div>
+            <div
+                class="vl-column-next vl-column-next--9 vl-column-next--start-4 vl-column-next--m-start-1 vl-column-next--m-12 cy-row-9"
             ></div>
             <div
-                class="vl-column-next vl-column-next--11 vl-column-next--offset-2 vl-column-next--m-offset-1 vl-column-next--m-12 cy-row-11"
+                class="vl-column-next vl-column-next--10 vl-column-next--start-3 vl-column-next--m-start-1 vl-column-next--m-12 cy-row-10"
             ></div>
-            <div class="vl-column-next vl-column-next--12 vl-column-next--offset-1 cy-row-12"></div>
+            <div
+                class="vl-column-next vl-column-next--11 vl-column-next--start-2 vl-column-next--m-start-1 vl-column-next--m-12 cy-row-11"
+            ></div>
+            <div class="vl-column-next vl-column-next--12 vl-column-next--start-1 cy-row-12"></div>
         </div>
     `;
 
@@ -418,8 +418,6 @@ describe('grid styles', () => {
     it('should offset on a medium screen', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(gridOffset);
-        const cellWidth = 84.5;
-        const borderWidth = 2;
         cy.viewport(1000, 800);
         for (let x = 0; x < 4; x++) {
             cy.get(`.cy-row-${x + 1}`).shouldHaveComputedStyle({
@@ -467,22 +465,22 @@ describe('grid styles', () => {
         </style>
         <div class="vl-grid-next">
             <div
-                class="vl-column-next vl-column-next--8 vl-column-next--offset-5 vl-column-next--justify-self-start cy-cell-1-1"
+                class="vl-column-next vl-column-next--8 vl-column-next--start-5 vl-column-next--justify-self-start cy-cell-1-1"
             >
                 &nbsp;justify-self-start&nbsp;
             </div>
             <div
-                class="vl-column-next vl-column-next--8 vl-column-next--offset-5 vl-column-next--justify-self-center cy-cell-2-1"
+                class="vl-column-next vl-column-next--8 vl-column-next--start-5 vl-column-next--justify-self-center cy-cell-2-1"
             >
                 &nbsp;justify-self-center&nbsp;
             </div>
             <div
-                class="vl-column-next vl-column-next--8 vl-column-next--offset-5 vl-column-next--justify-self-end cy-cell-3-1"
+                class="vl-column-next vl-column-next--8 vl-column-next--start-5 vl-column-next--justify-self-end cy-cell-3-1"
             >
                 &nbsp;justify-self-end&nbsp;
             </div>
             <div
-                class="vl-column-next vl-column-next--8 vl-column-next--offset-5 vl-column-next--justify-self-stretch cy-cell-4-1"
+                class="vl-column-next vl-column-next--8 vl-column-next--start-5 vl-column-next--justify-self-stretch cy-cell-4-1"
             >
                 &nbsp;justify-self-stretch&nbsp;
             </div>

@@ -39,40 +39,40 @@ export const columnLargeStyles = (): CSSResult => css`
         grid-column-end: span 12;
     }
 
-    &.vl-column-next--offset-1 {
+    &.vl-column-next--start-1 {
         grid-column-start: 1;
     }
-    &.vl-column-next--offset-2 {
+    &.vl-column-next--start-2 {
         grid-column-start: 2;
     }
-    &.vl-column-next--offset-3 {
+    &.vl-column-next--start-3 {
         grid-column-start: 3;
     }
-    &.vl-column-next--offset-4 {
+    &.vl-column-next--start-4 {
         grid-column-start: 4;
     }
-    &.vl-column-next--offset-5 {
+    &.vl-column-next--start-5 {
         grid-column-start: 5;
     }
-    &.vl-column-next--offset-6 {
+    &.vl-column-next--start-6 {
         grid-column-start: 6;
     }
-    &.vl-column-next--offset-7 {
+    &.vl-column-next--start-7 {
         grid-column-start: 7;
     }
-    &.vl-column-next--offset-8 {
+    &.vl-column-next--start-8 {
         grid-column-start: 8;
     }
-    &.vl-column-next--offset-9 {
+    &.vl-column-next--start-9 {
         grid-column-start: 9;
     }
-    &.vl-column-next--offset-10 {
+    &.vl-column-next--start-10 {
         grid-column-start: 10;
     }
-    &.vl-column-next--offset-11 {
+    &.vl-column-next--start-11 {
         grid-column-start: 11;
     }
-    &.vl-column-next--offset-12 {
+    &.vl-column-next--start-12 {
         grid-column-start: 12;
     }
 
