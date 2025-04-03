@@ -100,10 +100,10 @@ gecentreerd zijn op smalle (s) en extra-smalle (xs) schermen.
 Voor het specifiëren van kolommen is er `vl-column-next--1` t.e.m. `vl-column-next--12` met de responsieve varianten
 `vl-column-next--X-N` waarbij X [m, s, xs] kan zijn.<br />
 
-Om de start van een kolom te verschuiven is er `vl-column-next--offset-2` t.e.m. `vl-column-next--offset-12` met de
-responsieve varianten `vl-column-next--X-offset-N` waarbij X [m, s, xs] kan zijn.
+Om de start van een kolom te verschuiven is er `vl-column-next--start-1` t.e.m. `vl-column-next--start-12` met de
+responsieve varianten `vl-column-next--X-start-N` waarbij X [m, s, xs] kan zijn. Een kolom met `vl-column-next--start-2` zal starten in de tweede kolom en N kolommen breed zijn, zoals gedefinieerd met `vl-column-next--N`.
 
-<Canvas of={VlGridStories.GridOffset} />
+<Canvas of={VlGridStories.GridColumnStart} />
 
 ### **vl-column-next - justify-self / align-self**
 
@@ -158,3 +158,14 @@ Ook de responsieve varianten zijn beschikbaar: bvb. `vl-grid-next--X-justify-sel
 <br />
 <img src={cssExtraSmall} alt="css extra small" style={{maxWidth: 600 + 'px'}} />
 
+## Form Grid
+
+Vorige implementaties van het grid zoals `is="vl-form-grid` of `class="vl-form-grid"` zijn deprecated en worden vervangen door `class="vl-grid-next"`:
+
+```
+<form>
+  <div class="vl-grid-next">...</div>
+</form>
+```
+
+<Canvas of={VlGridStories.GridWithForm} />

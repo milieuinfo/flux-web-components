@@ -1,7 +1,7 @@
 const gridNextResponsiveUrl =
     'http://localhost:8080/iframe.html?id=styles-next-layout-afnemers-grid--grid-responsive&viewMode=story';
 const gridNextOffsetUrl =
-    'http://localhost:8080/iframe.html?id=styles-next-layout-afnemers-grid--grid-offset&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-next-layout-afnemers-grid--grid-column-start&viewMode=story';
 const gridNextJustifyAlignUrl =
     'http://localhost:8080/iframe.html?id=styles-next-layout-afnemers-grid--grid-justify-align&viewMode=story';
 

@@ -1,21 +1,22 @@
-import { CSSResult, html, LitElement, PropertyDeclarations, TemplateResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { registerWebComponents } from '@domg-wc/common-utilities';
+import { vlGridStyles } from '@domg-wc/common-utilities/css';
+import { VlButtonComponent } from '@domg-wc/components/next/button';
 import { vlElementsStyle } from '@domg-wc/elements';
-import { VlFormLabelComponent } from '@domg-wc/form/next/form-label';
+import { VlCheckboxComponent } from '@domg-wc/form/next/checkbox';
+import { VlDatepickerComponent } from '@domg-wc/form/next/datepicker';
 import { VlErrorMessageComponent } from '@domg-wc/form/next/error-message';
+import { VlFormLabelComponent } from '@domg-wc/form/next/form-label';
 import { VlInputFieldComponent } from '@domg-wc/form/next/input-field';
 import { VlInputFieldMaskedComponent } from '@domg-wc/form/next/input-field-masked';
-import { VlTextareaComponent } from '@domg-wc/form/next/textarea';
-import { VlSelectRichComponent, SelectRichOption } from '@domg-wc/form/next/select-rich';
-import { VlCheckboxComponent } from '@domg-wc/form/next/checkbox';
 import { VlRadioComponent, VlRadioGroupComponent } from '@domg-wc/form/next/radio-group';
-import { VlDatepickerComponent } from '@domg-wc/form/next/datepicker';
+import { SelectOption, VlSelectComponent } from '@domg-wc/form/next/select';
+import { SelectRichOption, VlSelectRichComponent } from '@domg-wc/form/next/select-rich';
+import { VlTextareaComponent } from '@domg-wc/form/next/textarea';
 import { VlUploadComponent } from '@domg-wc/form/next/upload';
-import { VlSelectComponent, SelectOption } from '@domg-wc/form/next/select';
-import { VlButtonComponent } from '@domg-wc/components/next/button';
-import { registerWebComponents } from '@domg-wc/common-utilities';
-import formStyle from './form.css';
 import { parseFormData } from '@domg-wc/form/utils';
+import { CSSResult, html, LitElement, PropertyDeclarations, TemplateResult } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import formStyle from './form.css';
 
 type SubmittedFormData = {
     voornaam?: string;
@@ -157,7 +158,7 @@ export class FormComponent extends LitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [vlElementsStyle, formStyle];
+        return [vlElementsStyle, formStyle, vlGridStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -250,15 +251,15 @@ export class FormComponent extends LitElement {
                     </vl-button-next>
                 </div>
                 <form id="form" class="vl-form" @submit=${this.onSubmit} @reset=${this.onReset}>
-                    <div class="vl-form-grid vl-form-grid--is-stacked">
-                        <div class="vl-col--2-12">
+                    <div class="vl-grid-next">
+                        <div class="vl-column-next vl-column-next--2">
                             <vl-form-label-next
                                 for="voornaam"
                                 label="Voornaam${this.firstNameRequired ? ' *' : ''}"
                                 block
                             ></vl-form-label-next>
                         </div>
-                        <div class="vl-col--4-12">
+                        <div class="vl-column-next vl-column-next--4">
                             <vl-input-field-next
                                 id="voornaam"
                                 name="voornaam"
@@ -285,7 +286,7 @@ export class FormComponent extends LitElement {
                                 >Gelieve geen nummers of speciale tekens in te vullen.
                             </vl-error-message-next>
                         </div>
-                        <div class="vl-col--6-12">
+                        <div class="vl-column-next vl-column-next--6">
                             <div class="form-buttons">
                                 <vl-button-next
                                     toggle
@@ -316,14 +317,14 @@ export class FormComponent extends LitElement {
                                 </vl-button-next>
                             </div>
                         </div>
-                        <div class="vl-col--2-12">
+                        <div class="vl-column-next vl-column-next--2">
                             <vl-form-label-next
                                 for="achternaam"
                                 label="Achternaam${this.lastNameRequired ? ' *' : ''}"
                                 block
                             ></vl-form-label-next>
                         </div>
-                        <div class="vl-col--4-12">
+                        <div class="vl-column-next vl-column-next--4">
                             <vl-input-field-next
                                 id="achternaam"
                                 name="achternaam"
@@ -350,7 +351,7 @@ export class FormComponent extends LitElement {
                                 >Gelieve geen nummers of speciale tekens in te vullen.
                             </vl-error-message-next>
                         </div>
-                        <div class="vl-col--6-12">
+                        <div class="vl-column-next vl-column-next--6">
                             <div class="form-buttons">
                                 <vl-button-next
                                     toggle
@@ -381,14 +382,14 @@ export class FormComponent extends LitElement {
                                 </vl-button-next>
                             </div>
                         </div>
-                        <div class="vl-col--2-12">
+                        <div class="vl-column-next vl-column-next--2">
                             <vl-form-label-next
                                 for="rrn"
                                 label="Rijksregisternummer${this.rrnRequired ? ' *' : ''}"
                                 block
                             ></vl-form-label-next>
                         </div>
-                        <div class="vl-col--4-12">
+                        <div class="vl-column-next vl-column-next--4">
                             <vl-input-field-masked-next
                                 id="rrn"
                                 name="rrn"
@@ -407,7 +408,7 @@ export class FormComponent extends LitElement {
                                 >Gelieve een geldig rijksregisternummer in te vullen.</vl-error-message-next
                             >
                         </div>
-                        <div class="vl-col--6-12">
+                        <div class="vl-column-next vl-column-next--6">
                             <div class="form-buttons">
                                 <vl-button-next
                                     toggle
@@ -438,14 +439,14 @@ export class FormComponent extends LitElement {
                                 </vl-button-next>
                             </div>
                         </div>
-                        <div class="vl-col--2-12">
+                        <div class="vl-column-next vl-column-next--2">
                             <vl-form-label-next
                                 for="interesses"
                                 label="Interesses${this.interestsRequired ? ' *' : ''}"
                                 block
                             ></vl-form-label-next>
                         </div>
-                        <div class="vl-col--4-12">
+                        <div class="vl-column-next vl-column-next--4">
                             <vl-textarea-next
                                 id="interesses"
                                 name="interesses"
@@ -469,7 +470,7 @@ export class FormComponent extends LitElement {
                                 >Gelieve maximum 100 karakters te gebruiken.
                             </vl-error-message-next>
                         </div>
-                        <div class="vl-col--6-12">
+                        <div class="vl-column-next vl-column-next--6">
                             <div class="form-buttons">
                                 <vl-button-next
                                     toggle
@@ -500,14 +501,14 @@ export class FormComponent extends LitElement {
                                 </vl-button-next>
                             </div>
                         </div>
-                        <div class="vl-col--2-12">
+                        <div class="vl-column-next vl-column-next--2">
                             <vl-form-label-next
                                 for="geboortedatum"
                                 label="Geboortedatum${this.birthdateRequired ? ' *' : ''}"
                                 block
                             ></vl-form-label-next>
                         </div>
-                        <div class="vl-col--4-12">
+                        <div class="vl-column-next vl-column-next--4">
                             <vl-datepicker-next
                                 id="geboortedatum"
                                 name="geboortedatum"
@@ -526,7 +527,7 @@ export class FormComponent extends LitElement {
                                 1.2.1993
                             </vl-error-message-next>
                         </div>
-                        <div class="vl-col--6-12">
+                        <div class="vl-column-next vl-column-next--6">
                             <div class="form-buttons">
                                 <vl-button-next
                                     toggle
@@ -557,14 +558,14 @@ export class FormComponent extends LitElement {
                                 </vl-button-next>
                             </div>
                         </div>
-                        <div class="vl-col--2-12">
+                        <div class="vl-column-next vl-column-next--2">
                             <vl-form-label-next
                                 for="geboorteplaats"
                                 label="Geboorteplaats${this.birthplaceRequired ? ' *' : ''}"
                                 block
                             ></vl-form-label-next>
                         </div>
-                        <div class="vl-col--4-12">
+                        <div class="vl-column-next vl-column-next--4">
                             <vl-select-rich-next
                                 id="geboorteplaats"
                                 name="geboorteplaats"
@@ -583,7 +584,7 @@ export class FormComponent extends LitElement {
                                 >Gelieve een geboorteplaats te selecteren.
                             </vl-error-message-next>
                         </div>
-                        <div class="vl-col--6-12">
+                        <div class="vl-column-next vl-column-next--6">
                             <div class="form-buttons">
                                 <vl-button-next
                                     toggle
@@ -614,14 +615,14 @@ export class FormComponent extends LitElement {
                                 </vl-button-next>
                             </div>
                         </div>
-                        <div class="vl-col--2-12">
+                        <div class="vl-column-next vl-column-next--2">
                             <vl-form-label-next
                                 for="hobby's"
                                 label="Hobby's${this.hobbiesRequired ? ' *' : ''}"
                                 block
                             ></vl-form-label-next>
                         </div>
-                        <div class="vl-col--4-12">
+                        <div class="vl-column-next vl-column-next--4">
                             <vl-select-rich-next
                                 id="hobby's"
                                 name="hobby's"
@@ -639,7 +640,7 @@ export class FormComponent extends LitElement {
                                 >Gelieve een hobby te selecteren.
                             </vl-error-message-next>
                         </div>
-                        <div class="vl-col--6-12">
+                        <div class="vl-column-next vl-column-next--6">
                             <div class="form-buttons">
                                 <vl-button-next
                                     toggle
@@ -670,14 +671,14 @@ export class FormComponent extends LitElement {
                                 </vl-button-next>
                             </div>
                         </div>
-                        <div class="vl-col--2-12">
+                        <div class="vl-column-next vl-column-next--2">
                             <vl-form-label-next
                                 for="leeftijd"
                                 label="Leeftijd${this.ageRequired ? ' *' : ''}"
                                 block
                             ></vl-form-label-next>
                         </div>
-                        <div class="vl-col--4-12">
+                        <div class="vl-column-next vl-column-next--4">
                             <vl-input-field-next
                                 id="leeftijd"
                                 name="leeftijd"
@@ -701,7 +702,7 @@ export class FormComponent extends LitElement {
                                 >De maximum leeftijd is 99 jaar.
                             </vl-error-message-next>
                         </div>
-                        <div class="vl-col--6-12">
+                        <div class="vl-column-next vl-column-next--6">
                             <div class="form-buttons">
                                 <vl-button-next
                                     toggle
@@ -730,14 +731,14 @@ export class FormComponent extends LitElement {
                                 <vl-button-next secondary @vl-click=${() => (this.age = 40)}> Set '40' </vl-button-next>
                             </div>
                         </div>
-                        <div class="vl-col--2-12">
+                        <div class="vl-column-next vl-column-next--2">
                             <vl-form-label-next
                                 for="kinderen"
                                 label="Aantal kinderen${this.kidsRequired ? ' *' : ''}"
                                 block
                             ></vl-form-label-next>
                         </div>
-                        <div class="vl-col--4-12">
+                        <div class="vl-column-next vl-column-next--4">
                             <vl-select-next
                                 id="kinderen"
                                 name="kinderen"
@@ -751,7 +752,7 @@ export class FormComponent extends LitElement {
                                 >Gelieve een aantal kinderen te kiezen.
                             </vl-error-message-next>
                         </div>
-                        <div class="vl-col--6-12">
+                        <div class="vl-column-next vl-column-next--6">
                             <div class="form-buttons">
                                 <vl-button-next
                                     toggle
@@ -784,14 +785,14 @@ export class FormComponent extends LitElement {
                         </div>
                         ${this.showAddressField
                             ? html`
-                                  <div class="vl-col--2-12">
+                                  <div class="vl-column-next vl-column-next--2">
                                       <vl-form-label-next
                                           for="adres"
                                           label="Adres${this.addressFieldRequired ? ' *' : ''}"
                                           block
                                       ></vl-form-label-next>
                                   </div>
-                                  <div class="vl-col--4-12">
+                                  <div class="vl-column-next vl-column-next--4">
                                       <vl-input-field-next
                                           id="adres"
                                           name="adres"
@@ -806,7 +807,7 @@ export class FormComponent extends LitElement {
                                           >Gelieve een adres in te vullen.
                                       </vl-error-message-next>
                                   </div>
-                                  <div class="vl-col--6-12">
+                                  <div class="vl-column-next vl-column-next--6">
                                       <div class="form-buttons">
                                           <vl-button-next
                                               toggle
@@ -845,14 +846,14 @@ export class FormComponent extends LitElement {
                                   </div>
                               `
                             : ''}
-                        <div class="vl-col--2-12">
+                        <div class="vl-column-next vl-column-next--2">
                             <vl-form-label-next
                                 for="contactmethode"
                                 label="Voorkeurscontactmethode${this.preferredContactMethodRequired ? ' *' : ''}"
                                 block
                             ></vl-form-label-next>
                         </div>
-                        <div class="vl-col--4-12">
+                        <div class="vl-column-next vl-column-next--4">
                             <vl-radio-group-next
                                 id="contactmethode"
                                 name="contactmethode"
@@ -870,7 +871,7 @@ export class FormComponent extends LitElement {
                                 Gelieve een contactmethode te selecteren.
                             </vl-error-message-next>
                         </div>
-                        <div class="vl-col--6-12">
+                        <div class="vl-column-next vl-column-next--6">
                             <div class="form-buttons">
                                 <vl-button-next
                                     toggle
@@ -904,14 +905,14 @@ export class FormComponent extends LitElement {
                                 </vl-button-next>
                             </div>
                         </div>
-                        <div class="vl-col--2-12">
+                        <div class="vl-column-next vl-column-next--2">
                             <vl-form-label-next
                                 for="fotos"
                                 label="Pasfoto's${this.photosRequired ? ' *' : ''}"
                                 block
                             ></vl-form-label-next>
                         </div>
-                        <div class="vl-col--4-12">
+                        <div class="vl-column-next vl-column-next--4">
                             <vl-upload-next
                                 id="fotos"
                                 name="fotos"
@@ -929,7 +930,7 @@ export class FormComponent extends LitElement {
                                 Gelieve 1 tot 2 foto's up te loaden.
                             </vl-error-message-next>
                         </div>
-                        <div class="vl-col--6-12">
+                        <div class="vl-column-next vl-column-next--6">
                             <div class="form-buttons">
                                 <vl-button-next
                                     toggle
@@ -973,14 +974,14 @@ export class FormComponent extends LitElement {
                                 </vl-button-next>
                             </div>
                         </div>
-                        <div class="vl-col--2-12">
+                        <div class="vl-column-next vl-column-next--2">
                             <vl-form-label-next
                                 for="waarheidsgetrouw"
                                 label="Waarheidsgetrouw${this.filledInTruthfullyRequired ? ' *' : ''}"
                                 block
                             ></vl-form-label-next>
                         </div>
-                        <div class="vl-col--4-12">
+                        <div class="vl-column-next vl-column-next--4">
                             <vl-checkbox-next
                                 id="waarheidsgetrouw"
                                 name="waarheidsgetrouw"
@@ -1004,7 +1005,7 @@ export class FormComponent extends LitElement {
                                 Gelieve te bevestigen dat bovenstaande gegevens naar waarheid zijn ingevuld.
                             </vl-error-message-next>
                         </div>
-                        <div class="vl-col--6-12">
+                        <div class="vl-column-next vl-column-next--6">
                             <div class="form-buttons">
                                 <vl-button-next
                                     toggle
@@ -1047,7 +1048,7 @@ export class FormComponent extends LitElement {
                                 </vl-button-next>
                             </div>
                         </div>
-                        <div class="vl-col--6-12 vl-push--2-12">
+                        <div class="vl-column-next vl-column-next--10 vl-column-next--start-3">
                             <div class="form-buttons">
                                 <vl-button-next type="submit">Verstuur</vl-button-next>
                                 <vl-button-next type="reset" secondary>Reset</vl-button-next>
