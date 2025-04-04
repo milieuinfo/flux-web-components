@@ -66,10 +66,10 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
     constructor() {
         super(`
             <style>
-                ${styles}
-                ${vlSectionStyles.cssText}
-                ${vlGridStyles.cssText}
-                ${vlContentBlockStyles.cssText}
+                ${styles.join('')}
+                ${vlSectionStyles}
+                ${vlGridStyles}
+                ${vlContentBlockStyles}
             </style>
              <slot name="header"></slot>
             `);

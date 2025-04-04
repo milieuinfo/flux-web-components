@@ -6,7 +6,7 @@ export class VlMapSideSheetMenu extends BaseElementOfType(HTMLElement) {
     constructor() {
         super(`
       <style>
-        ${vlElementsStyle}
+        ${vlElementsStyle.join('')}
         :host {
           margin: -1.5rem;
           display: block;

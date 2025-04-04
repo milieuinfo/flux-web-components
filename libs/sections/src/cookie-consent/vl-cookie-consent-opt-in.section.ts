@@ -16,7 +16,7 @@ export class VlCookieConsentOptIn extends BaseElementOfType(HTMLElement) {
     constructor() {
         super(`
       <style>
-        ${vlElementsStyle}
+        ${vlElementsStyle.join('')}
       </style>
       <div>
           <vl-checkbox></vl-checkbox>

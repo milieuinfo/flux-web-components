@@ -8,7 +8,7 @@ describe('outline styles', () => {
         cy.mount(html`
             <style>
                 .cy-outline-focus {
-                    ${vlFocusOutlineMixin}
+                    ${vlFocusOutlineMixin()}
                 }
             </style>
             <div class="cy-outline-focus">focus-outline</div>

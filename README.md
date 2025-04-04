@@ -23,7 +23,7 @@ onder [uigov-builds](https://milieuinfo.github.io/uigov-builds/release/latest/st
 
 ## Ontwikkel Team
 
-| Kris Speltincx                                                             | Karim Dehbi                                                            |
-|----------------------------------------------------------------------------|------------------------------------------------------------------------|
-| ![Kris Speltincx](https://avatars.githubusercontent.com/u/110020569?s=160) | ![Karim Dehbi](https://avatars.githubusercontent.com/u/15731348?s=160) |
-| [kspeltix](https://github.com/kspeltix)                                    | [Goldflow](https://github.com/Goldflow)                                |
+| Kris Speltincx                                                             | Karim Dehbi                                                            | Koen Buckinx                                                           |
+|----------------------------------------------------------------------------|------------------------------------------------------------------------|------------------------------------------------------------------------|
+| ![Kris Speltincx](https://avatars.githubusercontent.com/u/110020569?s=160) | ![Karim Dehbi](https://avatars.githubusercontent.com/u/15731348?s=160) | ![k-o-e-n](https://avatars.githubusercontent.com/u/197732648?s=160)    |
+| [kspeltix](https://github.com/kspeltix)                                    | [Goldflow](https://github.com/Goldflow)                                | [k-o-e-n](https://github.com/k-o-e-n)                                  |

@@ -16,7 +16,7 @@ export class VlTypography extends BaseElementOfType(HTMLElement) {
             ${baseStyle}
             ${elementStyle}
             ${typographyStyle}
-            ${typographyUigStyle}
+            ${typographyUigStyle.join('')}
             ${titlesStyle}
           </style>
           <div id="content" class="vl-typography"></div>
