@@ -19,7 +19,7 @@ export class VlProzaMessage extends BaseElementOfType(HTMLElement) {
         super();
         this.shadow(`
           <style>
-            ${elementStyles}
+            ${elementStyles.join('')}
           </style>
           <div>
             <vl-typography></vl-typography>

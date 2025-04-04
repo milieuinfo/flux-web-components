@@ -1,14 +1,14 @@
 import { awaitUntil, BaseLitElement, registerWebComponents, type VL, webComponent } from '@domg-wc/common-utilities';
-import '@govflanders/vl-ui-util/dist/js/util.js'; // Moet expliciet geïmporteerd worden om de cy test te laten slagen - het vl object is nodig
-import './vl-tabs.lib.js';
 import { vlElementsStyle } from '@domg-wc/elements';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { linkStyle } from '@domg/govflanders-style/component';
+import '@govflanders/vl-ui-util/dist/js/util.js'; // Moet expliciet geïmporteerd worden om de cy test te laten slagen - het vl object is nodig
 import { html, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
 import { VlTabSectionComponent } from './vl-tab-section.component';
 import { VlTabComponent } from './vl-tab.component';
 import { VlTabsPaneComponent } from './vl-tabs-pane.component';
 import { tabsStyle } from './vl-tabs.css';
+import './vl-tabs.lib.js';
 import tabsUigStyle from './vl-tabs.uig-css';
 
 declare const vl: VL;
@@ -64,7 +64,7 @@ export class VlTabsComponent extends BaseLitElement {
                 ${tabsUigStyle}
                 ${linkStyle}
                 ${baseStyle}
-                ${vlElementsStyle}
+                ${vlElementsStyle.join('')}
             </style>
             <div id="tabs" tabs tabs-responsive-label="Navigatie">
                 <div id="tabs-wrapper" class="vl-tabs__wrapper">

@@ -27,7 +27,7 @@ export class VlHttpErrorMessage extends BaseElementOfType(HTMLElement) {
         super(`
           <style>
             ${vlResetStyles}
-            ${vlTitleStyles}
+            ${vlTitleStyles.join('')}
             ${httpErrorMessageUigStyle}
             ${vlGroupStyles}
             ${vlGridStyles}

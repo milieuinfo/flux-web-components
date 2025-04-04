@@ -26,7 +26,7 @@ export class VlRichDataSorter extends BaseElementOfType(HTMLElement) {
     constructor() {
         super(`
           <style>
-            ${styles}
+            ${styles.join('')}
 
             div {
               display: inline;
