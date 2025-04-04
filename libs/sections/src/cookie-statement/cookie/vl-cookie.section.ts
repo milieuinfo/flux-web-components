@@ -21,7 +21,7 @@ export class VlCookie extends BaseElementOfType(HTMLElement) {
     constructor({ title, name, purpose, domain, processor, validity }: VlCookieProps = {}) {
         super(`
             <style>
-              ${styles}
+              ${styles.join('')}
             </style>
     `);
 

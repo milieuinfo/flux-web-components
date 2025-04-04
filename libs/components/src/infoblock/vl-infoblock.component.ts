@@ -18,7 +18,7 @@ export class VlInfoblockComponent extends BaseHTMLElement {
         super(`
           <style>
             ${resetStyle}
-            ${vlTitleStyles.map((style) => style.cssText).join('')}
+            ${vlTitleStyles.join('')}
             ${infoblockStyle}
           </style>
           <section id="infoblock-element" class="vl-infoblock">

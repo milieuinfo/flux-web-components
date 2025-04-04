@@ -43,7 +43,7 @@ export class VlCookieConsent extends BaseElementOfType(HTMLElement) {
     constructor() {
         super(`
           <style>
-            ${vlElementsStyle}
+            ${vlElementsStyle.join('')}
             ${vlGridStyles}
           </style>
 

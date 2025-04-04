@@ -34,7 +34,7 @@ export class VlRichDataTable extends VlRichData {
         super(
             `
           <style>
-            ${styles}
+            ${styles.join('')}
             ${tableStyles}
           </style>
         <vl-table-next slot="content">

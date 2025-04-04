@@ -25,7 +25,7 @@ export class VlInfoTile extends BaseHTMLElement {
           <style>
             ${resetStyle}
             ${baseStyle}
-            ${vlElementsStyle}
+            ${vlElementsStyle.join('')}
             ${infoTileStyle}
             ${infoTileUigStyle}
             ${linkStyle}
@@ -43,7 +43,7 @@ export class VlInfoTile extends BaseHTMLElement {
                   <p class="vl-info-tile__header__subtitle">
                     <slot name="subtitle"></slot>
                   </p>
-                </div>  
+                </div>
                 <div class="vl-info-tile__menu">
                     <slot name="menu"></slot>
                 </div>

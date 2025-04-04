@@ -47,7 +47,7 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
     constructor(content = '') {
         super(`
           <style>
-            ${styles}
+            ${styles.join('')}
             ${buttonStyles}
             ${vlIconStyles}
             ${vlGridStyles}

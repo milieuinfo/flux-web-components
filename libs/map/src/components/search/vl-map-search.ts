@@ -25,7 +25,7 @@ export class VlMapSearch extends BaseElementOfType(HTMLElement) {
     constructor() {
         super(`
           <style>
-            ${vlElementsStyle}
+            ${vlElementsStyle.join('')}
             :host {
               display: block;
             }
@@ -37,7 +37,7 @@ export class VlMapSearch extends BaseElementOfType(HTMLElement) {
             ::part(vl-select-rich__combobox)::before {
                 display: none;
             }
-                
+
             vl-search {
                 display: block;
                 height: 3.5rem;

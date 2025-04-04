@@ -28,13 +28,14 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
         return ['left', 'right', 'absolute'];
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     constructor(style = '') {
         super(`
           <style>
-            ${styles}
-            ${vlAccessibilityStyles.cssText}
-            ${vlSectionStyles.cssText}
-            ${vlContentBlockStyles.cssText}
+            ${styles.join('')}
+            ${vlAccessibilityStyles}
+            ${vlSectionStyles}
+            ${vlContentBlockStyles}
           </style>
           <div>
               <vl-button-next
