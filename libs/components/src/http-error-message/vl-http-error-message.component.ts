@@ -1,5 +1,11 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { vlGridStyles, vlGroupStyles, vlResetStyles, vlStackedStyles } from '@domg-wc/common-utilities/css';
+import {
+    GlobalStyles,
+    vlGridStyles,
+    vlGroupStyles,
+    vlResetStyles,
+    vlStackedStyles,
+} from '@domg-wc/common-utilities/css';
 import { VlLinkComponent } from '@domg-wc/components/next/link';
 import { vlTitleStyles } from '@domg-wc/components/next/title/vl-title.css';
 import { render } from 'lit';
@@ -27,12 +33,8 @@ export class VlHttpErrorMessage extends BaseElementOfType(HTMLElement) {
             ${vlGridStyles}
             ${vlStackedStyles}
           </style>
-          <div class="vl-grid-next vl-stacked-next-small" data-vl-align-center data-vl-v-center>
-
-            <div class="vl-hidden-next vl-visible-next--s vl-column-next vl-column-next--justify-self-center vl-column-next--12  vl-column-next--m-12  vl-column-next--s-12 vl-column-next--xs-12">
-                                                                          <img id="image-small" alt="fiets met platte band" />
-            </div>
-            <div class="vl-column-next vl-column-next--6  vl-column-next--m-6  vl-column-next--s-8 vl-column-next--xs-12">
+          <div class="vl-error-message-container vl-grid-next vl-stacked-next-small" data-vl-align-center data-vl-v-center>
+            <div class="vl-column-next vl-column-next--justify-self-center vl-column-next--6  vl-column-next--m-6  vl-column-next--s-8 vl-column-next--xs-12">
               <div class="vl-grid-next vl-stacked-next-small">
                 <div class="vl-column-next vl-column-next--12">
                   <h2 id="title"></h2>
@@ -58,13 +60,13 @@ export class VlHttpErrorMessage extends BaseElementOfType(HTMLElement) {
                 <div id="actions" class="vl-column-next vl-column-next--12"><div id="error-actions"><slot name="actions"></slot></div></div>
               </div>
             </div>
-            <div class="vl-column-next vl-column-next--6  vl-column-next--m-6  vl-column-next--s-8 vl-column-next--xs-12 vl-hidden-next--s">
-              <div class="vl-u-display-flex vl-u-flex-align-center vl-u-flex-v-center">
+            <div class="vl-column-next vl-column-next--justify-self-center vl-column-next--6  vl-column-next--m-6  vl-column-next--s-8 vl-column-next--xs-12">
                 <img id="image-normal"/>
-              </div>
             </div>
           </div>
         `);
+
+        GlobalStyles.getInstance().register();
     }
 
     connectedCallback() {
@@ -107,7 +109,6 @@ export class VlHttpErrorMessage extends BaseElementOfType(HTMLElement) {
     }
 
     __setImageAttribute(attribute: string, value: string) {
-        this.__imageForSmallScreensElement.setAttribute(attribute, value);
         this.__imageForNormalScreensElement.setAttribute(attribute, value);
     }
 
@@ -135,10 +136,6 @@ export class VlHttpErrorMessage extends BaseElementOfType(HTMLElement) {
 
     get __actionElement() {
         return this._element.querySelector('#actions > *');
-    }
-
-    get __imageForSmallScreensElement() {
-        return this._element.querySelector('#image-small');
     }
 
     get __imageForNormalScreensElement() {
