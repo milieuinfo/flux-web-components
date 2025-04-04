@@ -502,18 +502,8 @@
                             "default": "12 / number of data items"
                         },
                         {
-                            "name": "data-vl-items-max-size",
-                            "description": "The maximum (denominator) that will be evaluated against on large screens, typically desktop, for each data item.",
-                            "default": "undefined"
-                        },
-                        {
                             "name": "data-vl-items-medium-size",
                             "description": "The number (numerator) of the maximum (denominator) that will be taken for each data item on medium screens, typically tablet.",
-                            "default": "undefined"
-                        },
-                        {
-                            "name": "data-vl-items-medium-max-size",
-                            "description": "The maximum (denominator) that will be evaluated against on medium screens, typically tablet, for each data item.",
                             "default": "undefined"
                         },
                         {
@@ -522,18 +512,8 @@
                             "default": "undefined"
                         },
                         {
-                            "name": "data-vl-items-small-max-size",
-                            "description": "The maximum (denominator) that will be evaluated against on small screens, typically mobile, for each data item.",
-                            "default": "undefined"
-                        },
-                        {
                             "name": "data-vl-items-extra-small-size",
                             "description": "The number (numerator) of the maximum (denominator) that will be taken for each data item on very small screens.",
-                            "default": "undefined"
-                        },
-                        {
-                            "name": "data-vl-items-extra-small-max-size",
-                            "description": "The maximum (denominator) against which to evaluate for very small screens, for each data item.",
                             "default": "undefined"
                         }
                     ]
@@ -1001,7 +981,8 @@
                         },
                         {
                             "name": "icon-placement",
-                            "description": "De positie van het icoon ten opzichte van de tekst.<br>Voegt margin toe tussen het icoon en de tekst."
+                            "description": "De positie van het icoon ten opzichte van de tekst.<br>Voegt margin toe tussen het icoon en de tekst.",
+                            "default": "before"
                         },
                         {
                             "name": "toggle",

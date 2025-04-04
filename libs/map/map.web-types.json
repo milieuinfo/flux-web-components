@@ -1287,7 +1287,7 @@
                 },
                 {
                     "name": "vl-select-location",
-                    "description": "Gebruik de `select-location` component om een zoekbalk af te beelden waarmee er een adres geselecteerd kan worden.<br/>\nDeze component erft over van de [select](/docs/elements-select--select-default) component.",
+                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik de `select-location` component om een zoekbalk af te beelden waarmee er een adres geselecteerd kan worden.<br/>\nDeze component erft over van de [select](/docs/elements-select--select-default) component.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-select-location--documentatie",
                     "attributes": [
                         {
@@ -1337,6 +1337,124 @@
                                 "name": "search",
                                 "description": "Afgevuurd als de gebruiker een karakter ingeeft in de zoekbalk.<br>Het detail object van het event bevat de input van de zoekbalk en het aantal resultaten.",
                                 "type": "{ value: string, resultCount: number }"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-select-location-next",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `vl-select-location-next` component om een zoekbalk af te beelden waarmee er een adres geselecteerd kan worden.\n\nDeze component erft over van de [vl-select-rich](/docs/form-next-select-rich--documentatie) component.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-select-location-next--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "id",
+                            "description": "Het id van het veld.",
+                            "default": ""
+                        },
+                        {
+                            "name": "name",
+                            "description": "De naam van het veld.",
+                            "default": ""
+                        },
+                        {
+                            "name": "label",
+                            "description": "Vult het aria-label attribuut van het veld in.<br/>Kan gebruikt worden als er geen bijhorend label element of vl-form-label component is.",
+                            "default": ""
+                        },
+                        {
+                            "name": "required",
+                            "description": "Duidt aan dat het veld verplicht is.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "disabled",
+                            "description": "Beeldt de component in een disabled state af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "error",
+                            "description": "Beeldt de component in een error state af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "success",
+                            "description": "Beeldt de component in een success state af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "placeholder",
+                            "description": "De placeholder tekst.<br>Dit attribuut is niet reactief.",
+                            "default": ""
+                        },
+                        {
+                            "name": "not-deletable",
+                            "description": "Duidt aan dat de selectie niet-verwijderbaar is.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "position",
+                            "description": "De positie van de dropdown.<br>Dit attribuut is niet reactief.",
+                            "default": "auto"
+                        },
+                        {
+                            "name": "result-limit",
+                            "description": "Het maximum aantal resultaten dat getoond wordt.",
+                            "default": "4"
+                        },
+                        {
+                            "name": "no-results-text",
+                            "description": "De tekst die getoond wordt als er geen resultaten zijn.<br>Dit attribuut is niet reactief.",
+                            "default": "Geen resultaten gevonden"
+                        },
+                        {
+                            "name": "no-choices-text",
+                            "description": "De tekst die getoond wordt als er geen resterende opties zijn.<br>Dit attribuut is niet reactief.",
+                            "default": "Geen resterende opties gevonden"
+                        },
+                        {
+                            "name": "search-placeholder",
+                            "description": "De placeholder tekst van het zoekveld.<br>Dit attribuut is niet reactief.",
+                            "default": "Zoek item"
+                        }
+                    ],
+                    "js": {
+                        "properties": [
+                            {
+                                "name": "options",
+                                "description": "De opties die geselecteerd kunnen worden.<br>Zie de documentatie pagina voor meer info.",
+                                "type": "SelectRichOption",
+                                "default": ""
+                            }
+                        ],
+                        "events": [
+                            {
+                                "name": "vl-reset",
+                                "description": "Event dat afgevuurd wordt wanneer het veld gereset wordt."
+                            },
+                            {
+                                "name": "vl-change",
+                                "description": "Event dat afgevuurd wordt als er een optie selecteerd of verwijderd wordt.<br>Het detail object van het event bevat de waarde van de geselecteerde optie.<br>Bij de multiselect bevat het detail object een array van waarden van de geselecteerde opties.",
+                                "type": "{ value: string | string[] }"
+                            },
+                            {
+                                "name": "vl-input",
+                                "description": "Event dat enkel afgevuurd wordt als de gebruiker een optie selecteert of verwijdert.<br>Het detail object van het event bevat de waarde van de geselecteerde optie.<br>Bij de multiselect bevat het detail object een array van waarden van de geselecteerde opties.",
+                                "type": "{ value: string | string[] }"
+                            },
+                            {
+                                "name": "vl-select-search",
+                                "description": "Event dat afgevuurd wordt als er een waarde ingegeven wordt in het zoekveld.",
+                                "type": "{ value: string }"
+                            },
+                            {
+                                "name": "vl-valid",
+                                "description": "Event dat afgevuurd wordt als de select valid is.<br>Het detail object van het event bevat de waarde van de geselecteerde optie.<br>Bij de multiselect bevat het detail object een array van waarden van de geselecteerde opties.",
+                                "type": "{ value: string | string[] }"
                             }
                         ]
                     }

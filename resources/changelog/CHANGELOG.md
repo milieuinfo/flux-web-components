@@ -1,3 +1,42 @@
+# [1.46.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.45.0...v1.46.0) (2025-04-04)
+
+
+### Bug Fixes
+
+* UIG-3242 - elementen wegwerken uit vl-side-sheet.component.ts ([00e8295](https://github.com/milieuinfo/uigov-web-components/commit/00e82956f13471a064f4d3de3f0103f636dc3f8c))
+* UIG-3244 - vl-side-navigation-next - scroll testen verbeterd ([b8ed780](https://github.com/milieuinfo/uigov-web-components/commit/b8ed78003264fe7e55f0c43ed3643cc01711bfc9))
+* UIG-3245 - vl-side-navigation-next - selector uitgebreid met `vl-section-next` in scrollspy.lib ([c002fc3](https://github.com/milieuinfo/uigov-web-components/commit/c002fc3859f50829805ecfab002e0a5be78c1968))
+* vl-datepicker-next - skippen van onstabiele test ([1cce331](https://github.com/milieuinfo/uigov-web-components/commit/1cce33145f198e23303679aa748fc6dc30cead5c))
+* vl-functional-header - onderlijning van de link in de titel rechtgezet ([63f5e9b](https://github.com/milieuinfo/uigov-web-components/commit/63f5e9b0221d9b53892bdc594e5f3850642778c6))
+* vl-select-next - value public gemaakt, wordt in testen aangesproken en veroorzaakte console fouten ([ba3b4bf](https://github.com/milieuinfo/uigov-web-components/commit/ba3b4bf07c5be484d94baf27b6a0f274a0039496))
+
+
+### Features
+
+* UIG-3104 - vl-functional-header - voorbeelden toegevoegd met vl-button-next en vl-search ([8a38733](https://github.com/milieuinfo/uigov-web-components/commit/8a3873322b01dac5a8a96d95888ce67b6b73d1d5))
+* UIG-3191 - aanpassingen in `common`-artifact ivm wegwerken elementen ([3fafca9](https://github.com/milieuinfo/uigov-web-components/commit/3fafca9f6a868732f8916aca3fbc1930ece588bd))
+* UIG-3191 - elementen weggewerkt in `components`-artifact ([039bce2](https://github.com/milieuinfo/uigov-web-components/commit/039bce28561f56da2e2be587a200a442eff4029b))
+* UIG-3191 - elementen weggewerkt in `form`-artifact ([54c559a](https://github.com/milieuinfo/uigov-web-components/commit/54c559a498fcd546c8f9756bc2990ec64ad14f84))
+* UIG-3191 - elementen weggewerkt in apps-folder ([d77e0f6](https://github.com/milieuinfo/uigov-web-components/commit/d77e0f61ec98971a76fa733f100251e866974763))
+* UIG-3191 - elementen weggewerkt uit `integration` (vl-popover-menu-accordion) ([b22cf11](https://github.com/milieuinfo/uigov-web-components/commit/b22cf110a74604993a113058d3e485a3080582bb))
+* UIG-3191 - elementen wegwerken in `map`-artifact ([71cb72e](https://github.com/milieuinfo/uigov-web-components/commit/71cb72e76a1847de5a1c87371006d55c127258e8))
+* UIG-3191 - elementen wegwerken in `sections`-artifact ([b2063ad](https://github.com/milieuinfo/uigov-web-components/commit/b2063adab92392b8b14a842ee00a19945e628eb9))
+* UIG-3206 - documentatie updates voor bijdragers ([f202f77](https://github.com/milieuinfo/uigov-web-components/commit/f202f7772ce688d1961a940797b7a5a2a82408f6))
+* UIG-3209 - vl-content-block-next - introductie component ([9f5b55d](https://github.com/milieuinfo/uigov-web-components/commit/9f5b55df0d3db71d082c53c1c2d30eba2a62ff53))
+* UIG-3214 - vl-select-next - placeholder blijft behouden na dynamisch toevoegen van opties ([68fdca7](https://github.com/milieuinfo/uigov-web-components/commit/68fdca768bf8604fc3952237d301acf89776e442))
+* UIG-3220 - vl-select-location-next - introductie component ([6f082ae](https://github.com/milieuinfo/uigov-web-components/commit/6f082aedc51439e433445dabe26e7bd6f6159e4c))
+* UIG-3223 - vl-button-next - consistentere witruimte rond icoon ([6d24aef](https://github.com/milieuinfo/uigov-web-components/commit/6d24aef41ca186fc4be1676bc0eb084d26a356b8))
+* UIG-3225 - vl-group-next - bij `vl-group-next--baseline` worden links met icoon nu ook op de baseline uitgelijnd ([fc407ee](https://github.com/milieuinfo/uigov-web-components/commit/fc407eeccec9e7a38aa53117ae583ff3a0c8190e))
+* UIG-3226 - vl-group-next - bij vl-group-next--column verbeteringen ([8ee86b8](https://github.com/milieuinfo/uigov-web-components/commit/8ee86b82879d44b5ab21af21f1a0c9e701fb81ee))
+* UIG-3234 - vl-form-label-next - default slot toegevoegd ([680ba25](https://github.com/milieuinfo/uigov-web-components/commit/680ba254cb62e01a62d94406135da994ce34f172))
+* UIG-3236 - vl-properties-next - is="vl-properties-list" weggewerkt, omgezet naar <vl-properties-next> ([58e244e](https://github.com/milieuinfo/uigov-web-components/commit/58e244e5e3afb9f0fdd6b8859bc9da9986affb15))
+* UIG-3238 - vl-grid-next - vl-grid-next vervangt .vl-from-grid en is="vl-form-grid" ([13bcd0b](https://github.com/milieuinfo/uigov-web-components/commit/13bcd0b9f68d1b6f422167969a1dd2f0070679cd))
+* UIG-3240 - vl-error-message - documentatie dat vl-http-XXX-message geschrapt wordt in v2 ([9f35f90](https://github.com/milieuinfo/uigov-web-components/commit/9f35f9046ac668a8c5546529403fb97911a5f14e))
+* UIG-3243 - vl-table-next, vl-side-navigation-next - styles registratie verbeterd ([ecf6b9a](https://github.com/milieuinfo/uigov-web-components/commit/ecf6b9a83ff03bf5ce97f42da9e780e569c90900))
+* UIG-3247 - GlobalStyles - voorziening om globaal custom-css te zetten ([a86c3a9](https://github.com/milieuinfo/uigov-web-components/commit/a86c3a95263e843af6dc64b5ec9ba1638e3cf5d8))
+* UIG-3249 - vl-reset.css.ts - introductie ([238689c](https://github.com/milieuinfo/uigov-web-components/commit/238689ce6cb724cb3fc06fdb2d764eb694c2224a))
+* UIG-3253 - vl-tab-section-next - grid-dependency weggewerkt ([e11dbbc](https://github.com/milieuinfo/uigov-web-components/commit/e11dbbc054f949e1a752ec47f8738564307aa41c))
+
 # [1.45.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.44.0...v1.45.0) (2025-03-14)
 
 

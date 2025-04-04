@@ -336,6 +336,13 @@
                             "description": "Duidt aan of het label in light mode moet weergegeven worden.",
                             "default": "false"
                         }
+                    ],
+                    "slots": [
+                        {
+                            "name": "[default]",
+                            "description": "De content van het label. Overschrijft de waarde van het label attribuut.",
+                            "default": ""
+                        }
                     ]
                 },
                 {
