@@ -13,8 +13,8 @@ const styles: CSSResult = css`
         --vl-theme-fg-color-70: #707070;
     }
 
-    .vl-vi::before,
-    .vl-vi::after {
+    .vl-icon::before,
+    .vl-icon::after {
         font-family: 'vlaanderen-icon' !important;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
@@ -26,38 +26,38 @@ const styles: CSSResult = css`
         display: inline-block;
         vertical-align: middle;
     }
-    .vl-vi.vl-vi-u-180deg::before {
+    .vl-icon.vl-icon-u-180deg::before {
         display: inline-block;
         transform: rotate(180deg);
         vertical-align: middle;
     }
 
-    .vl-vi-u-xs::before {
+    .vl-icon-u-xs::before {
         font-size: 0.8rem;
     }
 
-    .vl-vi-u-s::before {
+    .vl-icon-u-s::before {
         font-size: 1.3rem;
     }
 
-    .vl-vi-u-m::before {
+    .vl-icon-u-m::before {
         font-size: 1.7rem;
     }
 
-    .vl-vi-u-l::before {
+    .vl-icon-u-l::before {
         font-size: 2rem;
     }
 
-    .vl-vi-u-xl::before {
+    .vl-icon-u-xl::before {
         font-size: 2.2rem;
     }
 
-    .vl-vi-u-90deg::before {
+    .vl-icon-u-90deg::before {
         display: inline-block;
         transform: rotate(90deg);
     }
 
-    .vl-vi-u-180deg::before {
+    .vl-icon-u-180deg::before {
         display: inline-block;
         transform: rotate(180deg);
     }
@@ -88,8 +88,8 @@ const styles: CSSResult = css`
         color: #fff;
         font-size: 0 !important;
     }
-    .vl-search--inline .vl-search__submit .vl-vi,
-    .vl-search--inline .vl-search__label .vl-vi {
+    .vl-search--inline .vl-search__submit .vl-icon,
+    .vl-search--inline .vl-search__label .vl-icon {
         font-size: 1.7rem;
         position: absolute;
         left: 50%;
@@ -108,9 +108,9 @@ const styles: CSSResult = css`
     }
     .vl-search--inline .vl-search__submit:focus,
     .vl-search--inline .vl-search__submit:focus + .vl-search__submit,
-    .vl-search--inline .vl-search__input::part(input):focus,
+    .vl-search--inline .vl-search__input:focus,
     .vl-search--inline slot[name='input']:focus,
-    .vl-search--inline .vl-search__input::part(input):focus + .vl-search__submit,
+    .vl-search--inline .vl-search__input:focus + .vl-search__submit,
     .vl-search--inline slot[name='input']:focus + .vl-search__submit {
         z-index: 1;
         opacity: 1;
@@ -119,18 +119,18 @@ const styles: CSSResult = css`
     .vl-search--inline .vl-search__submit:focus {
         transition: none;
     }
-    .vl-search--inline .vl-search__input::part(input),
+    .vl-search--inline .vl-search__input,
     .vl-search--inline slot[name='input'] {
         display: block;
         width: 100%;
         text-align: left;
     }
-    .vl-search--inline .vl-search__input::part(input):focus,
+    .vl-search--inline .vl-search__input:focus,
     .vl-search--inline slot[name='input']:focus {
         width: calc(100% - 4.7rem);
         padding-right: 0;
     }
-    .vl-search--inline .vl-search__input::part(input):valid + .vl-search__submit,
+    .vl-search--inline .vl-search__input:valid + .vl-search__submit,
     .vl-search--inline slot[name='input']:valid + .vl-search__submit {
         transition: none;
         z-index: 1;
@@ -176,20 +176,20 @@ const styles: CSSResult = css`
             font-size: 1.6rem;
         }
     }
-    .vl-search--block .vl-search__input::part(input),
+    .vl-search--block .vl-search__input,
     .vl-search--block slot[name='input'] {
         flex: 6;
         margin: 0 2rem;
     }
     @media screen and (max-width: 1023px) {
-        .vl-search--block .vl-search__input::part(input),
+        .vl-search--block .vl-search__input,
         .vl-search--block slot[name='input'] {
             margin: 0 1rem;
             flex: 4;
         }
     }
     @media screen and (max-width: 767px) {
-        .vl-search--block .vl-search__input::part(input),
+        .vl-search--block .vl-search__input,
         .vl-search--block slot[name='input'] {
             margin: 0;
             display: block;
