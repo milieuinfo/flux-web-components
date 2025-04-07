@@ -22,12 +22,8 @@ const collapsedDd = (): CSSResult => {
 
 export const labelWidthRem = (labelWidth: number): CSSResult => {
     return css`
-        dl {
-            grid-template-columns: [labels] ${labelWidth}rem [data] auto;
-        }
-
         dl .item {
-            grid-template-columns: [labels] ${labelWidth}rem [data] auto;
+            grid-template-columns: [labels] ${labelWidth}% [data] auto;
         }
 
         @media screen and (max-width: ${vlMediaScreenSmall}px) {
@@ -59,6 +55,7 @@ const styles: CSSResult = css`
 
     dl {
         display: grid;
+        word-break: break-word;
     }
 
     dl:has(.item) {

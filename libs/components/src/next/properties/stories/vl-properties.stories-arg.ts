@@ -13,7 +13,7 @@ export const propertiesArgTypes: ArgTypes<PropertiesArgs> = {
     ...defaultArgTypes(true),
     labelWidth: {
         name: 'label-width',
-        description: "De breedte van de labels, in REM. Heeft geen impact als de properties 'collapsed' worden.",
+        description: "De breedte van de labels, in %. Heeft geen impact als de properties 'collapsed' worden.",
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
