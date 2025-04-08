@@ -74,7 +74,7 @@ const styles: CSSResult = css`
         overflow: auto;
         box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
     }
-    :host #vl-side-sheet [is='vl-layout'] {
+    :host #vl-side-sheet .vl-content-block-next {
         min-width: auto;
     }
     :host #vl-side-sheet-backdrop {
