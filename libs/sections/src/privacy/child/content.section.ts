@@ -3,9 +3,7 @@ import { html } from 'lit-html';
 export const privacyContentSection = () => html`
     <div class="vl-content-block-next">
         <div class="vl-grid-next vl-stacked-next-medium">
-            <div
-                class="vl-column-next vl-column-next--8 vl-column-next--m-8 vl-column-next--s-8 vl-column-next--xs-12"
-            >
+            <div class="vl-column-next vl-column-next--8 vl-column-next--m-8 vl-column-next--s-8 vl-column-next--xs-12">
                 <vl-side-navigation-reference-next>
                     <div class="vl-grid-next vl-stacked-next-large">
                         <div id="privacy-department" class="vl-column-next vl-column-next--12 vl-column-next--m-12">
@@ -23,8 +21,8 @@ export const privacyContentSection = () => html`
                             <vl-title-next type="h2" id="privacy-declaration">Privacyverklaring</vl-title-next>
                             <div class="vl-grid-next vl-stacked-next-medium">
                                 <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
-                                    <vl-title-next type="h3" id="privacy-declaration-who">Wie is verantwoordelijk voor
-                                        de verwerking van mijn persoonsgegevens?
+                                    <vl-title-next type="h3" id="privacy-declaration-who"
+                                        >Wie is verantwoordelijk voor de verwerking van mijn persoonsgegevens?
                                     </vl-title-next>
                                     <div class="vl-grid-next vl-stacked-next-medium">
                                         <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
@@ -89,25 +87,27 @@ export const privacyContentSection = () => html`
                                                     </data>
                                                     <label>Telefoon</label>
                                                     <data>
-                                                        <vl-link-next href="tel:02 553 80 11"
-                                                                      icon-placement="after"
-                                                                      icon="phone">
+                                                        <vl-link-next
+                                                            href="tel:02 553 80 11"
+                                                            icon-placement="after"
+                                                            icon="phone"
+                                                        >
                                                             02 553 80 11
                                                         </vl-link-next>
                                                     </data>
                                                     <label>E-mail</label>
                                                     <data>
-                                                        <vl-link-next href="mailto:omgeving@vlaanderen.be"
-                                                                      icon-placement="after"
-                                                                      icon="mail">
+                                                        <vl-link-next
+                                                            href="mailto:omgeving@vlaanderen.be"
+                                                            icon-placement="after"
+                                                            icon="mail"
+                                                        >
                                                             omgeving@vlaanderen.be
                                                         </vl-link-next>
                                                     </data>
                                                     <label>Website</label>
                                                     <data>
-                                                        <vl-link-next
-                                                            href="http://www.omgevingvlaanderen.be"
-                                                            external>
+                                                        <vl-link-next href="http://www.omgevingvlaanderen.be" external>
                                                             http://www.omgevingvlaanderen.be
                                                         </vl-link-next>
                                                     </data>
@@ -121,8 +121,8 @@ export const privacyContentSection = () => html`
                                     </div>
                                 </div>
                                 <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
-                                    <vl-title-next type="h3" id="privacy-declaration-process">Verwerking van
-                                        persoonsgegevens
+                                    <vl-title-next type="h3" id="privacy-declaration-process"
+                                        >Verwerking van persoonsgegevens
                                     </vl-title-next>
                                     <div class="vl-grid-next vl-stacked-next-medium">
                                         <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
@@ -141,8 +141,8 @@ export const privacyContentSection = () => html`
                                             </p>
                                         </div>
                                         <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
-                                            <vl-title-next type="h4">Hoe verzamelen en verwerken we uw
-                                                persoonsgegevens?
+                                            <vl-title-next type="h4"
+                                                >Hoe verzamelen en verwerken we uw persoonsgegevens?
                                             </vl-title-next>
                                             <vl-typography>
                                                 <p>
@@ -169,7 +169,8 @@ export const privacyContentSection = () => html`
                                             </vl-typography>
                                         </div>
                                         <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
-                                            <vl-title-next type="h4">Waarvoor verwerken we uw persoonsgegevens?
+                                            <vl-title-next type="h4"
+                                                >Waarvoor verwerken we uw persoonsgegevens?
                                             </vl-title-next>
                                             <vl-typography>
                                                 <p>
@@ -180,12 +181,12 @@ export const privacyContentSection = () => html`
                                                     <vl-side-navigation-item-next>
                                                         Om aan wettelijke verplichtingen en beleidsmatig toegewezen
                                                         taken als overheidsinstelling te voldoen;
-                                                        <br/><br/>
+                                                        <br /><br />
                                                         In Vlaamse Regelgeving worden aan het Departement Omgeving een
                                                         aantal taken opgelegd waarbij de verwerking van persoonsgegevens
                                                         expliciet verplicht wordt. De verwerking is in dat geval beperkt
                                                         tot wat door die wettelijke verplichting bepaald wordt.
-                                                        <br/><br/>
+                                                        <br /><br />
                                                         Voor andere verwerkingen bestaat geen expliciete verplichting in
                                                         een wettekst, maar is de verwerking van persoonsgegevens een
                                                         noodzaak voor de uitvoering van beleidstaken die aan het
@@ -194,7 +195,7 @@ export const privacyContentSection = () => html`
                                                     <vl-side-navigation-item-next>
                                                         Om te voldoen aan contractuele verplichtingen of administratieve
                                                         handelingen te kunnen verrichten;
-                                                        <br/><br/>
+                                                        <br /><br />
                                                         Bij de uitvoering van haar taken neemt het Departement ook
                                                         contractuele verbintenissen op zich. Sommige van deze
                                                         verbintenissen vereisen de verwerking van persoonsgegevens. Ook
@@ -207,7 +208,7 @@ export const privacyContentSection = () => html`
                                                     <vl-side-navigation-item-next>
                                                         Om u te informeren over nieuwe ontwikkelingen in thema’s
                                                         waarvoor het Departement Omgeving verantwoordelijkheden draagt.
-                                                        <br/><br/>
+                                                        <br /><br />
                                                         Het Departement Omgeving geeft een aantal nieuwsbrieven uit over
                                                         thema's die nauw verbonden zijn met haar taken. Het informeren
                                                         van burgers kadert in de beleidstaken van de overheid. Gezien
@@ -219,7 +220,8 @@ export const privacyContentSection = () => html`
                                             </vl-typography>
                                         </div>
                                         <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
-                                            <vl-title-next type="h4">Welke persoonsgegevens worden verwerkt?
+                                            <vl-title-next type="h4"
+                                                >Welke persoonsgegevens worden verwerkt?
                                             </vl-title-next>
                                             <vl-typography>
                                                 <p>
@@ -229,35 +231,47 @@ export const privacyContentSection = () => html`
                                                     verwerking van (persoons)gegevens mogelijk de volgende gegevens:
                                                 </p>
                                                 <vl-side-navigation-group-next>
-                                                    <vl-side-navigation-item-next>Aanhef/aanspreking
+                                                    <vl-side-navigation-item-next
+                                                        >Aanhef/aanspreking
                                                     </vl-side-navigation-item-next>
-                                                    <vl-side-navigation-item-next>Voornaam
+                                                    <vl-side-navigation-item-next
+                                                        >Voornaam
                                                     </vl-side-navigation-item-next>
-                                                    <vl-side-navigation-item-next>Tussenvoegsel
+                                                    <vl-side-navigation-item-next
+                                                        >Tussenvoegsel
                                                     </vl-side-navigation-item-next>
-                                                    <vl-side-navigation-item-next>Familienaam
+                                                    <vl-side-navigation-item-next
+                                                        >Familienaam
                                                     </vl-side-navigation-item-next>
-                                                    <vl-side-navigation-item-next>Rijksregisternummer
+                                                    <vl-side-navigation-item-next
+                                                        >Rijksregisternummer
                                                     </vl-side-navigation-item-next>
-                                                    <vl-side-navigation-item-next>Geslacht
+                                                    <vl-side-navigation-item-next
+                                                        >Geslacht
                                                     </vl-side-navigation-item-next>
-                                                    <vl-side-navigation-item-next>Geboortedatum
+                                                    <vl-side-navigation-item-next
+                                                        >Geboortedatum
                                                     </vl-side-navigation-item-next>
-                                                    <vl-side-navigation-item-next>Leeftijd of geboortejaar
+                                                    <vl-side-navigation-item-next
+                                                        >Leeftijd of geboortejaar
                                                     </vl-side-navigation-item-next>
-                                                    <vl-side-navigation-item-next>Nationaliteit
+                                                    <vl-side-navigation-item-next
+                                                        >Nationaliteit
                                                     </vl-side-navigation-item-next>
-                                                    <vl-side-navigation-item-next>Adres(sen)
+                                                    <vl-side-navigation-item-next
+                                                        >Adres(sen)
                                                     </vl-side-navigation-item-next>
-                                                    <vl-side-navigation-item-next>E-mailadres(sen)
+                                                    <vl-side-navigation-item-next
+                                                        >E-mailadres(sen)
                                                     </vl-side-navigation-item-next>
-                                                    <vl-side-navigation-item-next>Telefoon/gsm/fax
+                                                    <vl-side-navigation-item-next
+                                                        >Telefoon/gsm/fax
                                                     </vl-side-navigation-item-next>
-                                                    <vl-side-navigation-item-next>Beroepsgegevens, diploma’s,
-                                                        certificeringen
+                                                    <vl-side-navigation-item-next
+                                                        >Beroepsgegevens, diploma’s, certificeringen
                                                     </vl-side-navigation-item-next>
-                                                    <vl-side-navigation-item-next>Strafrechtelijke en justitiële
-                                                        gegevens
+                                                    <vl-side-navigation-item-next
+                                                        >Strafrechtelijke en justitiële gegevens
                                                     </vl-side-navigation-item-next>
                                                 </vl-side-navigation-group-next>
                                                 <p>
@@ -277,25 +291,27 @@ export const privacyContentSection = () => html`
                                                     gegevens:
                                                 </p>
                                                 <vl-side-navigation-group-next>
-                                                    <vl-side-navigation-item-next>IP-adres
+                                                    <vl-side-navigation-item-next
+                                                        >IP-adres
                                                     </vl-side-navigation-item-next>
-                                                    <vl-side-navigation-item-next>gebruikersnaam (login) of
-                                                        identificatienummer
+                                                    <vl-side-navigation-item-next
+                                                        >gebruikersnaam (login) of identificatienummer
                                                     </vl-side-navigation-item-next>
-                                                    <vl-side-navigation-item-next>eID identificatie- en
-                                                        authenticatiegegevens
+                                                    <vl-side-navigation-item-next
+                                                        >eID identificatie- en authenticatiegegevens
                                                     </vl-side-navigation-item-next>
-                                                    <vl-side-navigation-item-next>tijdstip van handelingen in de
-                                                        software
+                                                    <vl-side-navigation-item-next
+                                                        >tijdstip van handelingen in de software
                                                     </vl-side-navigation-item-next>
-                                                    <vl-side-navigation-item-next>registratie van de handelingen in de
-                                                        software (logging).
+                                                    <vl-side-navigation-item-next
+                                                        >registratie van de handelingen in de software (logging).
                                                     </vl-side-navigation-item-next>
                                                 </vl-side-navigation-group-next>
                                             </vl-typography>
                                         </div>
                                         <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
-                                            <vl-title-next type="h4">Hoelang bewaren we uw persoonsgegevens?
+                                            <vl-title-next type="h4"
+                                                >Hoelang bewaren we uw persoonsgegevens?
                                             </vl-title-next>
                                             <vl-typography>
                                                 <p>
@@ -340,8 +356,8 @@ export const privacyContentSection = () => html`
                                             </p>
                                         </div>
                                         <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
-                                            <vl-title-next type="h4">Mededeling van persoonsgegevens aan derde
-                                                partijen
+                                            <vl-title-next type="h4"
+                                                >Mededeling van persoonsgegevens aan derde partijen
                                             </vl-title-next>
                                             <vl-typography>
                                                 <p>
@@ -421,8 +437,8 @@ export const privacyContentSection = () => html`
                                                         Europese Unie is gevestigd), en van de functionaris voor
                                                         gegevensbescherming of FG – de Data Protection Officer (DPO).
                                                     </vl-side-navigation-item-next>
-                                                    <vl-side-navigation-item-next>de doeleinden waarvoor gegevens worden
-                                                        verwerkt;
+                                                    <vl-side-navigation-item-next
+                                                        >de doeleinden waarvoor gegevens worden verwerkt;
                                                     </vl-side-navigation-item-next>
                                                     <vl-side-navigation-item-next>
                                                         de categorieën gegevens (bijvoorbeeld Rijksregistergegevens,
@@ -469,8 +485,8 @@ export const privacyContentSection = () => html`
                                                         informatie over eventueel doorgifte van gegevens naar landen
                                                         buiten de Europese Unie;
                                                     </vl-side-navigation-item-next>
-                                                    <vl-side-navigation-item-next>de manieren waarop gegevens zijn
-                                                        beveiligd.
+                                                    <vl-side-navigation-item-next
+                                                        >de manieren waarop gegevens zijn beveiligd.
                                                     </vl-side-navigation-item-next>
                                                 </vl-side-navigation-group-next>
                                                 <p>
@@ -543,7 +559,8 @@ export const privacyContentSection = () => html`
                                     </div>
                                 </div>
                                 <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
-                                    <vl-title-next type="h3" id="privacy-declaration-rights">Uw rechten als betrokkene
+                                    <vl-title-next type="h3" id="privacy-declaration-rights"
+                                        >Uw rechten als betrokkene
                                     </vl-title-next>
                                     <div class="vl-grid-next vl-stacked-next-medium">
                                         <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
@@ -578,8 +595,8 @@ export const privacyContentSection = () => html`
                                                         wij geen wettelijke of andere wettelijke basis kunnen inroepen
                                                         voor verdere verwerking inbegrepen bewaring ervan (AVG art. 17);
                                                     </vl-side-navigation-item-next>
-                                                    <vl-side-navigation-item-next>Recht op beperking van verwerking (AVG
-                                                        art. 18);
+                                                    <vl-side-navigation-item-next
+                                                        >Recht op beperking van verwerking (AVG art. 18);
                                                     </vl-side-navigation-item-next>
                                                     <vl-side-navigation-item-next>
                                                         Notificatie van rechtzetting, van uitwissing of van beperking
@@ -600,7 +617,8 @@ export const privacyContentSection = () => html`
                                             </vl-typography>
                                         </div>
                                         <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
-                                            <vl-title-next type="h4">Recht op inzage, verbetering of verwijdering
+                                            <vl-title-next type="h4"
+                                                >Recht op inzage, verbetering of verwijdering
                                             </vl-title-next>
                                             <vl-typography>
                                                 <p>
@@ -659,7 +677,7 @@ export const privacyContentSection = () => html`
                                             gebeurt, zal het Departement Omgeving dit publiek melden en hiervan op
                                             transparante wijze mededeling doen in nieuwsbrieven, op de website
                                             <a href="www.omgevingvlaanderen.be" target="_blank"
-                                            >www.omgevingvlaanderen.be</a
+                                                >www.omgevingvlaanderen.be</a
                                             >
                                             en via andere mediakanalen waarvan het Departement Omgeving gebruik maakt.
                                         </p>
@@ -668,10 +686,10 @@ export const privacyContentSection = () => html`
                                             aan te passen aan nieuwe noden of inzichten. Er zal van wijzigingen aan de
                                             Privacyverklaring transparant melding gemaakt worden op de hoofdwebsite van
                                             het Departement Omgeving (<a
-                                            href="www.omgevingvlaanderen.be"
-                                            target="_blank"
-                                        >www.omgevingvlaanderen.be</a
-                                        >) alsook op de papieren versie die op eenvoudige aanvraag verkrijgbaar is
+                                                href="www.omgevingvlaanderen.be"
+                                                target="_blank"
+                                                >www.omgevingvlaanderen.be</a
+                                            >) alsook op de papieren versie die op eenvoudige aanvraag verkrijgbaar is
                                             bij de Dienst Communicatie van het Departement Omgeving en via de
                                             Functionaris voor gegevensbescherming (Data Protection Officer) van het
                                             Departement Omgeving.
@@ -686,7 +704,8 @@ export const privacyContentSection = () => html`
                             </div>
                         </div>
                         <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
-                            <vl-title-next type="h2" id="privacy-permissions-protocols">Machtigingen en protocollen
+                            <vl-title-next type="h2" id="privacy-permissions-protocols"
+                                >Machtigingen en protocollen
                             </vl-title-next>
                             <div class="vl-grid-next vl-stacked-next-medium">
                                 <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
@@ -716,8 +735,10 @@ export const privacyContentSection = () => html`
                                                 </p>
                                             </vl-typography>
                                         </div>
-                                        <div class="vl-column-next vl-column-next--4 vl-column-next--m-6"
-                                             data-vl-medium-size="6">
+                                        <div
+                                            class="vl-column-next vl-column-next--4 vl-column-next--m-6"
+                                            data-vl-medium-size="6"
+                                        >
                                             <vl-document
                                                 data-vl-href="https://cdn.milieuinfo.be/footer-assets/LATEST/docx/privacybeleid-v0.2.docx"
                                             >
@@ -733,9 +754,7 @@ export const privacyContentSection = () => html`
                     </div>
                 </vl-side-navigation-reference-next>
             </div>
-            <div
-                class="vl-column-next vl-column-next--4 vl-column-next--m-4 vl-column-next--s-4 vl-column-next--xs-0"
-            >
+            <div class="vl-column-next vl-column-next--4 vl-column-next--m-4 vl-column-next--s-4 vl-column-next--xs-0">
                 <vl-side-navigation-next id="side-nav-privacy-content" aria-label="inhoudsopgave">
                     <vl-side-navigation-h1-next>Op deze pagina</vl-side-navigation-h1-next>
                     <vl-side-navigation-content-next>
@@ -743,56 +762,44 @@ export const privacyContentSection = () => html`
                             <vl-side-navigation-item-next parent>
                                 <vl-side-navigation-toggle-next href="#privacy-department">
                                     Het Departement Omgeving en uw privacy
-                                    <i class="vl-vi vl-vi-arrow-right-fat"></i>
                                 </vl-side-navigation-toggle-next>
                             </vl-side-navigation-item-next>
                             <vl-side-navigation-item-next parent="privacy-declaration">
-                                <vl-side-navigation-toggle-next
-                                    href="#privacy-declaration"
-                                    child="privacy-declaration"
-                                >
+                                <vl-side-navigation-toggle-next href="#privacy-declaration" child="privacy-declaration">
                                     Privacyverklaring
-                                    <i class="vl-vi vl-vi-arrow-right-fat"></i>
                                 </vl-side-navigation-toggle-next>
                                 <ul>
                                     <vl-side-navigation-item-next>
                                         <div>
-                                            <a href="#privacy-declaration-who"
-                                               parent="privacy-declaration">
+                                            <a href="#privacy-declaration-who" parent="privacy-declaration">
                                                 Wie is verantwoordelijk voor de verwerking van mijn persoonsgegevens?
                                             </a>
                                         </div>
                                     </vl-side-navigation-item-next>
                                     <vl-side-navigation-item-next>
                                         <div>
-                                            <a href="#privacy-declaration-process"
-                                               parent="privacy-declaration">
+                                            <a href="#privacy-declaration-process" parent="privacy-declaration">
                                                 Verwerking van persoonsgegevens
                                             </a>
                                         </div>
                                     </vl-side-navigation-item-next>
                                     <vl-side-navigation-item-next>
                                         <div>
-                                            <a
-                                                href="#privacy-declaration-measures"
-                                                parent="privacy-declaration"
-                                            >
+                                            <a href="#privacy-declaration-measures" parent="privacy-declaration">
                                                 Maatregelen in het kader van de Algemene verordening Gegevensbescherming
                                             </a>
                                         </div>
                                     </vl-side-navigation-item-next>
                                     <vl-side-navigation-item-next>
                                         <div>
-                                            <a href="#privacy-declaration-rights"
-                                               parent="privacy-declaration">
+                                            <a href="#privacy-declaration-rights" parent="privacy-declaration">
                                                 Uw rechten als betrokkene
                                             </a>
                                         </div>
                                     </vl-side-navigation-item-next>
                                     <vl-side-navigation-item-next>
                                         <div>
-                                            <a href="#privacy-declaration-aplpy"
-                                               parent="privacy-declaration">
+                                            <a href="#privacy-declaration-aplpy" parent="privacy-declaration">
                                                 Toepassing van deze Privacyverklaring
                                             </a>
                                         </div>
@@ -800,11 +807,8 @@ export const privacyContentSection = () => html`
                                 </ul>
                             </vl-side-navigation-item-next>
                             <vl-side-navigation-item-next parent>
-                                <vl-side-navigation-toggle-next
-                                    href="#privacy-permissions-protocols"
-                                >
+                                <vl-side-navigation-toggle-next href="#privacy-permissions-protocols">
                                     Machtigingen en protocollen
-                                    <i class="vl-vi vl-vi-arrow-right-fat"></i>
                                 </vl-side-navigation-toggle-next>
                                 <ul>
                                     <vl-side-navigation-item-next>
