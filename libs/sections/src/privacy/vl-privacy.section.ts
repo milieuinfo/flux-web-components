@@ -5,27 +5,7 @@ import { VlParagraphComponent } from '@domg-wc/components/next/paragraph';
 import { VlPropertiesComponent } from '@domg-wc/components/next/properties';
 import { VlSideNavigationComponent } from '@domg-wc/components/next/side-navigation';
 import { VlTitleComponent } from '@domg-wc/components/next/title';
-import {
-    VlColumnElement,
-    vlElementsStyle,
-    VlGridElement,
-    VlH1Element,
-    VlH2Element,
-    VlH3Element,
-    VlH4Element,
-    VlIconElement,
-    VlIntroductionElement,
-    VlLayoutElement,
-    VlLinkElement,
-    VlRegionElement,
-    VlSideNavigation,
-    VlSideNavigationContentElement,
-    VlSideNavigationGroupElement,
-    VlSideNavigationH1,
-    VlSideNavigationItemElement,
-    VlSideNavigationReferenceElement,
-    VlSideNavigationToggleElement,
-} from '@domg-wc/elements';
+import { vlElementsStyle } from '@domg-wc/elements';
 import { CSSResult, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { privacyBottomSection } from './child/bottom.section';
@@ -43,25 +23,6 @@ export class VlPrivacy extends BaseLitElement {
 
     static {
         registerWebComponents([
-            // elements
-            VlColumnElement,
-            VlGridElement,
-            VlH1Element,
-            VlH2Element,
-            VlH3Element,
-            VlH4Element,
-            VlIconElement,
-            VlIntroductionElement,
-            VlLayoutElement,
-            VlLinkElement,
-            VlRegionElement,
-            VlSideNavigation,
-            VlSideNavigationContentElement,
-            VlSideNavigationGroupElement,
-            VlSideNavigationH1,
-            VlSideNavigationItemElement,
-            VlSideNavigationReferenceElement,
-            VlSideNavigationToggleElement,
             // components
             VlContactCardComponent,
             VlDocumentComponent,

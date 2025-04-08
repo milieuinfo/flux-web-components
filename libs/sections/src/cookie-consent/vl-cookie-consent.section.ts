@@ -2,7 +2,7 @@ import { BaseElementOfType, registerWebComponents, webComponentConditional } fro
 import { vlGridStyles } from '@domg-wc/common-utilities/css';
 import { VlModalComponent } from '@domg-wc/components';
 import { VlButtonComponent } from '@domg-wc/components/next/button';
-import { vlElementsStyle, VlFormColumn, VlFormGridElement } from '@domg-wc/elements';
+import { vlElementsStyle } from '@domg-wc/elements';
 import { analytics } from './util/analytics.util';
 import './vl-cookie-consent-opt-in.section';
 
@@ -11,7 +11,7 @@ export class VlCookieConsent extends BaseElementOfType(HTMLElement) {
     private initialized = false;
 
     static {
-        registerWebComponents([VlButtonComponent, VlFormColumn, VlFormGridElement, VlModalComponent]);
+        registerWebComponents([VlButtonComponent, VlModalComponent]);
     }
 
     static get _observedAttributes() {

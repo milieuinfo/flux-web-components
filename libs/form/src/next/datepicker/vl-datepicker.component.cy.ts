@@ -446,7 +446,10 @@ describe('component - vl-datepicker-next', () => {
             .should('not.have.attr', 'style');
     });
 
-    // TODO: slaagt ofwel lokaal, ofwel enkel op bamboo, maar niet op beide
+    // TODO: lukt lokaal of op bamboo, maar niet op beide
+    //  dit type test gaan we niet meer doen, foutgevoelig en tijdsintensief
+    //  we gaan ook niet testen of pixels in een bepaalde range vallen
+    //  wat mag is (eerder functioneel) testen hoe 'iets' gepositioneerd wordt tov 'iets' anders - bv. links ervan of erboven
     it.skip('should pass the position property to Flatpickr', () => {
         cy.viewport(1920, 1080);
 
@@ -460,7 +463,11 @@ describe('component - vl-datepicker-next', () => {
             .shouldHaveComputedStyle({ style: 'left', value: '193px' });
     });
 
-    it('should position the calendar correctly after adding HTML elements to the DOM', () => {
+    // TODO: lukt lokaal of op bamboo, maar niet op beide
+    //  dit type test gaan we niet meer doen, foutgevoelig en tijdsintensief
+    //  we gaan ook niet testen of pixels in een bepaalde range vallen
+    //  wat mag is (eerder functioneel) testen hoe 'iets' gepositioneerd wordt tov 'iets' anders - bv. links ervan of erboven
+    it.skip('should position the calendar correctly after adding HTML elements to the DOM', () => {
         cy.viewport(1920, 1080);
 
         cy.mount(

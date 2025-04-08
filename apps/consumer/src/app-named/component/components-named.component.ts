@@ -1,9 +1,9 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlH2Element } from '@domg-wc/elements';
 import { VlStepsComponent } from '@domg-wc/components/next/steps';
+import { VlTitleComponent } from '@domg-wc/components/next/title';
 import { stepsNextHtml } from '../../html/components.html.js';
 
-registerWebComponents([VlH2Element, VlStepsComponent]);
+registerWebComponents([VlTitleComponent, VlStepsComponent]);
 
 export class ComponentsNamedComponent extends HTMLElement {
     connectedCallback() {

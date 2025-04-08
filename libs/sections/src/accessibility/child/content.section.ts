@@ -1,15 +1,5 @@
 import { VlContactCardComponent, VlInfoblockComponent } from '@domg-wc/components';
 import { VlPropertiesComponent } from '@domg-wc/components/next/properties';
-import {
-    VlColumnElement,
-    VlGridElement,
-    VlH2Element,
-    VlIconElement,
-    VlLayoutElement,
-    VlLinkElement,
-    VlRegionElement,
-    VlSideNavigationReferenceElement,
-} from '@domg-wc/elements';
 import { html } from 'lit';
 import { AccessibilityProperties } from '../vl-accessibility.model';
 import { complianceStatus } from './compliance-status.section';
@@ -17,19 +7,7 @@ import { inaccessibleContent } from './inaccessible-content.section';
 import { setupStatement } from './setup-statement.section';
 import { sideNavigation } from './side-navigation.section';
 
-export const contentElements = () => [
-    VlRegionElement,
-    VlLayoutElement,
-    VlGridElement,
-    VlSideNavigationReferenceElement,
-    VlColumnElement,
-    VlLinkElement,
-    VlContactCardComponent,
-    VlInfoblockComponent,
-    VlPropertiesComponent,
-    VlIconElement,
-    VlH2Element,
-];
+export const contentElements = () => [VlContactCardComponent, VlInfoblockComponent, VlPropertiesComponent];
 
 export const content = ({
     application,

@@ -1,8 +1,9 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlActionGroup, VlButtonElement, VlH2Element } from '@domg-wc/elements';
+import { VlButtonComponent } from '@domg-wc/components/next/button';
+import { VlTitleComponent } from '@domg-wc/components/next/title';
 import { buttonsInActionGroupHtml } from '../../html/elements.html.js';
 
-registerWebComponents([VlH2Element, VlActionGroup, VlButtonElement]);
+registerWebComponents([VlTitleComponent, VlButtonComponent]);
 
 export class ElementsNamedComponent extends HTMLElement {
     connectedCallback() {

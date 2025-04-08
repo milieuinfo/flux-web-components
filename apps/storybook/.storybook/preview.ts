@@ -1,13 +1,13 @@
 import { filterOutClasses, filterOutDataCy, formatHTML } from '@domg-wc/common-storybook';
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlAlert } from '@domg-wc/components';
 import { GlobalStyles } from '@domg-wc/common-utilities/css';
-import { VlIconElement } from '@domg-wc/elements';
+import { VlAlert } from '@domg-wc/components';
+import { VlIconComponent } from '@domg-wc/components/next/icon';
 import './styles.css';
 import 'reflect-metadata';
 import { VluxAlert } from './vlux-alert/vlux-alert.component';
-import { VluxMetaData } from './vlux-meta-data/vlux-meta-data.component';
 import VluxDocument from './vlux-document/vlux-document.template.mdx';
+import { VluxMetaData } from './vlux-meta-data/vlux-meta-data.component';
 
 export const parameters = {
     actions: { argTypesRegex: '^on[A-Z].*' },
@@ -32,7 +32,7 @@ export const parameters = {
 
 // zonder deze import missen initieel de iconen, ze verschijnen dan wel maar pas na 30 seconden - onduidelijk waarom
 // een gevolg is ook dat de vlElementsStyle's op de document.adoptedStyleSheets gezet worden
-registerWebComponents([VlIconElement, VlAlert]);
+registerWebComponents([VlIconComponent, VlAlert]);
 
 // zonder deze register() missen initieel de global-styles, ze verschijnen dan wel maar pas na 30 seconden - onduidelijk waarom
 GlobalStyles.getInstance().register();

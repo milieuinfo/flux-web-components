@@ -1,26 +1,10 @@
+import { VlTypography } from '@domg-wc/components';
 import { html } from 'lit';
 import type { AccessibilityProperties } from '../vl-accessibility.model';
-import {
-    VlColumnElement,
-    VlGridElement,
-    VlH1Element,
-    VlIntroductionElement,
-    VlLayoutElement,
-    VlRegionElement,
-} from '@domg-wc/elements';
-import { VlTypography } from '@domg-wc/components';
 
 export type TitleProps = Pick<AccessibilityProperties, 'version' | 'date'>;
 
-export const titleElements = () => [
-    VlRegionElement,
-    VlLayoutElement,
-    VlGridElement,
-    VlColumnElement,
-    VlH1Element,
-    VlIntroductionElement,
-    VlTypography,
-];
+export const titleElements = () => [VlTypography];
 
 export const title = ({ version, date }: TitleProps) => html`
     <section class="vl-section-next">

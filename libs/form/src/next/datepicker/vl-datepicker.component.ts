@@ -1,7 +1,6 @@
-import { isSafari, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { isSafari, webComponent } from '@domg-wc/common-utilities';
 import { vlGroupStyles } from '@domg-wc/common-utilities/css';
 import { vlInputAddonStyles } from '@domg-wc/components/next/button/vl-input-addon.css';
-import { VlButtonInputAddon, VlIconElement } from '@domg-wc/elements';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { datepickerStyle, iconStyle, tooltipStyle } from '@domg/govflanders-style/component';
 import Cleave from 'cleave.js';
@@ -55,10 +54,6 @@ export class VlDatepickerComponent extends FormControl {
     private cleaveInstance: CleaveInstance | null = null;
     private inputValue: string | undefined = ''; // Houdt de waarde van het getoonde inputveld bij
     private dispatchInput = false;
-
-    static {
-        registerWebComponents([VlButtonInputAddon, VlIconElement]);
-    }
 
     static formControlValidators = [...FormControl.formControlValidators, maskValidator];
 
