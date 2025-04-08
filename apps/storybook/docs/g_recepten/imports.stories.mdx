@@ -12,7 +12,7 @@ De meest gangbare om de @domg-wc web-componenten te gebruiken zijn:
 ### Import met side-effects
 
 ```
-import '@domg-wc/elements/button';
+import '@domg-wc/components/next/button';
 ```
 
 Voor elke component is er op component niveau een barrel file voorzien (index.js). Indien er meerdere (sub-)componenten
@@ -24,9 +24,9 @@ de code (ze wordt niet verwijderd omdat ze als dode code gezien wordt).
 
 ```
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlButtonElement, VlLinkButtonElement } from '@domg-wc/elements/button';
+import { VlButtonComponent } from '@domg-wc/components/next/button';
 
-registerWebComponents([VlButtonElement, VlLinkButtonElement]);
+registerWebComponents([VlButtonComponent]);
 ```
 
 Bij een named import moet je ook 'iets' doen met de referentie, anders zal zowel de IDE als de bundler dit als 'dode'

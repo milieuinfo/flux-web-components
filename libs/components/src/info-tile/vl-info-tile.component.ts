@@ -2,8 +2,8 @@ import { BaseHTMLElement, registerWebComponents, VL, webComponent } from '@domg-
 import { vlElementsStyle } from '@domg-wc/elements';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { accordionStyle, iconStyle, infoTileStyle, linkStyle, toggleStyle } from '@domg/govflanders-style/component';
-import '@govflanders/vl-ui-accordion/dist/js/accordion.js';
 import '@govflanders/vl-ui-util/dist/js/util.js';
+import '@govflanders/vl-ui-accordion/dist/js/accordion.js';
 import 'reflect-metadata';
 import { VlAccordionComponent } from '../accordion/vl-accordion.component';
 import infoTileUigStyle from './vl-info-tile.uig-css';
@@ -43,7 +43,7 @@ export class VlInfoTile extends BaseHTMLElement {
                   <p class="vl-info-tile__header__subtitle">
                     <slot name="subtitle"></slot>
                   </p>
-                </div>  
+                </div>
                 <div class="vl-info-tile__menu">
                     <slot name="menu"></slot>
                 </div>

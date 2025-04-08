@@ -1,6 +1,5 @@
 import '@domg-wc/components/next/title';
 import './component/components-side-effect.component';
-import './component/elements-side-effect.component';
 import './component/map-side-effect.component';
 
 export class AppSideEffectComponent extends HTMLElement {

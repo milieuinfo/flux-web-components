@@ -1,5 +1,6 @@
 import { BaseElementOfType, MARGINS, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
 import {
+    GlobalStyles,
     vlContentBlockStyles,
     vlGridStyles,
     vlIconStyles,
@@ -13,6 +14,8 @@ import { vlTitleStyles } from '@domg-wc/components/next/title/vl-title.css';
 import { vlElementsStyle } from '@domg-wc/elements';
 import { functionalHeaderStyle } from '@domg/govflanders-style/component';
 import { functionalHeaderUigStyle } from './vl-functional-header.uig-css';
+
+GlobalStyles.getInstance().register();
 
 @webComponent('vl-functional-header')
 export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) {
@@ -216,6 +219,7 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
     }
 
     _hideSubHeaderChangedCallback(oldValue: string, newValue: string) {
+        console.log('_hideSubHeaderChangedCallback', newValue);
         if (newValue != undefined) {
             this._subHeaderElement?.classList.add('sub-header-hidden');
         } else {

@@ -1,5 +1,4 @@
 import './component/components-named.component';
-import './component/elements-named.component';
 import './component/map-named.component';
 import { registerWebComponents } from '@domg-wc/common-utilities';
 import { VlTitleComponent } from '@domg-wc/components/next/title';

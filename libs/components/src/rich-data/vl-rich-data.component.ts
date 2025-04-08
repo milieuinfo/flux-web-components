@@ -1,13 +1,6 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
 import { vlGridStyles, vlIconStyles } from '@domg-wc/common-utilities/css';
 import { buttonStyles } from '@domg-wc/components/next/button/vl-button.css';
-import {
-    VlButtonElement,
-    VlColumnElement,
-    VlGridElement,
-    VlIconElement,
-    VlSearchFilterElement,
-} from '@domg-wc/elements';
 import { VlFormLabelComponent } from '@domg-wc/form/next/form-label';
 import { VlSearchFilterComponent } from '../next/search-filter';
 import { Pagination, VlPagerComponent } from '../pager/vl-pager.component';
@@ -24,14 +17,7 @@ export type RichData = { data: unknown[] } & RichDataMeta;
 @webComponent('vl-rich-data')
 export class VlRichData extends BaseElementOfType(HTMLElement) {
     static {
-        registerWebComponents([
-            VlButtonElement,
-            VlColumnElement,
-            VlFormLabelComponent,
-            VlGridElement,
-            VlIconElement,
-            VlPagerComponent,
-        ]);
+        registerWebComponents([VlFormLabelComponent, VlPagerComponent]);
     }
 
     static get _observedAttributes(): string[] {
@@ -142,7 +128,7 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
         return this.shadowRoot.querySelector('#content');
     }
 
-    get __searchFilter(): (VlSearchFilterElement & HTMLElement) | VlSearchFilterComponent & HTMLElement {
+    get __searchFilter(): VlSearchFilterComponent & HTMLElement {
         return this.querySelector('[slot="filter"]');
     }
 
