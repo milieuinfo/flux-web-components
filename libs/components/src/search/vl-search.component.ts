@@ -2,7 +2,6 @@ import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc
 import { vlIconStyles } from '@domg-wc/common-utilities/css';
 import { buttonStyles } from '@domg-wc/components/next/button/vl-button.css';
 import { VlIconComponent } from '@domg-wc/components/next/icon';
-import { VlSelect } from '@domg-wc/elements';
 import { inputFieldStyles, VlInputFieldComponent } from '@domg-wc/form/next/input-field';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { selectStyle } from '@domg/govflanders-style/component';
@@ -191,23 +190,6 @@ export class VlSearchComponent extends BaseElementOfType(HTMLElement) {
         if (!slot) {
             this.__inputSlotElement.remove();
         } else {
-            customElements.whenDefined('vl-select').then(async () => {
-                if (slot instanceof VlSelect) {
-                    this.setAttribute('data-vl-has-input-slot', '');
-                    await slot.ready();
-                    this.__observeInputSlot((mutations: any) => {
-                        const isOpen = (mutation: any) => mutation.target.classList.contains('is-open');
-                        const isFocused = (mutation: any) => mutation.target.classList.contains('is-focused');
-                        if (mutations.find((mutation: any) => isOpen(mutation) || isFocused(mutation))) {
-                            this.__inputSlotElement.classList.add('is-open');
-                        } else {
-                            this.__inputSlotElement.classList.remove('is-open');
-                        }
-                    });
-                    this.append(slot._wrapperElement);
-                }
-            });
-
             customElements.whenDefined('vl-select-location-next').then(async () => {
                 if (slot.nodeName.toLowerCase() === 'vl-select-location-next') {
                     this.setAttribute('data-vl-has-input-slot', '');

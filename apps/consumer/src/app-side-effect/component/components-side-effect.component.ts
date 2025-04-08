@@ -1,4 +1,4 @@
-import '@domg-wc/elements/title/vl-h2.element';
+import '@domg-wc/components/next/title';
 import '@domg-wc/components/next/steps';
 import { stepsNextHtml } from '../../html/components.html.js';
 

@@ -4,12 +4,6 @@ import {
     componentWTNameCount,
     componentWTWithoutWC,
 } from './compare-wc-wt-components';
-import {
-    elementWCNameCount,
-    elementWCWithoutWT,
-    elementWTNameCount,
-    elementWTWithoutWC,
-} from './compare-wc-wt-elements';
 import { formWCNameCount, formWCWithoutWT, formWTNameCount, formWTWithoutWC } from './compare-wc-wt-form';
 import { mapWCNameCount, mapWCWithoutWT, mapWTNameCount, mapWTWithoutWC } from './compare-wc-wt-map';
 import {
@@ -23,12 +17,6 @@ describe('valideer de volledigheid van de gegenereerde web-types', () => {
     // beforeAll(() => {
     //     jest.spyOn(console, 'log').mockImplementation(() => {});
     // });
-    it('elements - valideer de volledigheid van de web-types', () => {
-        expect(elementWCNameCount).toEqual(66);
-        expect(elementWTNameCount).toEqual(66);
-        expect(elementWCWithoutWT).toStrictEqual([]);
-        expect(elementWTWithoutWC).toStrictEqual([]);
-    });
     it('components - valideer de volledigheid van de web-types', () => {
         expect(componentWCNameCount).toEqual(74);
         expect(componentWTNameCount).toEqual(78);

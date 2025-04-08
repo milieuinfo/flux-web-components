@@ -14,7 +14,6 @@ In plaats van er verder tijd in te steken: de oorzaak is de Nx verwevenheid, die
 de web-types!
 
     tsx ./tools/web-types-generator/tests/compare-wc-wt-components.ts
-    tsx ./tools/web-types-generator/tests/compare-wc-wt-elements.ts
     tsx ./tools/web-types-generator/tests/compare-wc-wt-form.ts
     tsx ./tools/web-types-generator/tests/compare-wc-wt-map.ts
     tsx ./tools/web-types-generator/tests/compare-wc-wt-sections.ts
