@@ -1,6 +1,6 @@
 // deze imports van alle elements werkt IN de monorepo
-import { story } from '@domg-wc/common-storybook'; // -> buiten de monorepo werkt dat niet omdat sideEffects disabled worden voor de root-barrel file in de artifacts
-import '@domg-wc/elements';
+import { story } from '@domg-wc/common-storybook';
+// -> buiten de monorepo werkt dat niet omdat sideEffects disabled worden voor de root-barrel file in de artifacts
 import { registerWebComponents } from '@domg-wc/common-utilities';
 
 import { Meta } from '@storybook/web-components';

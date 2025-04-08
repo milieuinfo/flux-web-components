@@ -1,5 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlSearchResult, VlSearchResults } from '@domg-wc/elements';
+import { VlSearchResult, VlSearchResults } from '../next/search-result';
 import { VlFormLabelComponent } from '@domg-wc/form/next/form-label';
 import { VlInputFieldComponent } from '@domg-wc/form/next/input-field';
 import { VlSelectComponent } from '@domg-wc/form/next/select';
@@ -35,7 +35,7 @@ describe('component - vl-rich-data', () => {
                             <footer>
                                 <vl-button-next type="submit" custom-css="button {flex:1}">Zoeken</vl-button-next>
                                 <vl-button-next type="reset" custom-css="button {flex:1}" secondary>Zoekopdracht
-                                    verwijderen</vl-button-next-->
+                                    verwijderen</vl-button-next>
                             </footer>
                     </form>
                 </vl-search-filter-next>
@@ -103,11 +103,11 @@ describe('component - vl-rich-data with vl-search-filter-next', () => {
                     </form>
                 </vl-search-filter-next>
                 <vl-pager slot="pager" total-items="25" items-per-page="5" current-page="1"></vl-pager>
-                <vl-search-results slot="content">
-                    <vl-search-result>
+                <div slot="content">
+                    <vl-search-result-next>
                         <div>Resultaat 1</div>
-                    </vl-search-result>
-                </vl-search-results>
+                    </vl-search-result-next>
+                </div>
                 <span slot="no-content">Geen resultaten gevonden</span>
             </vl-rich-data>
         `);
