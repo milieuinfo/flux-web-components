@@ -12,16 +12,6 @@ import {
     VlInfoblockComponent,
     VlTypography,
 } from '@domg-wc/components';
-import {
-    VlColumnElement,
-    VlGridElement,
-    VlH1Element,
-    VlH2Element,
-    VlIntroductionElement,
-    VlLayoutElement,
-    VlLinkElement,
-    VlRegionElement,
-} from '@domg-wc/elements';
 import { cookieStatementHeaderElements, header } from './child/header.section';
 import './cookie/vl-authentication-cookie.section';
 import './cookie/vl-cookie.section';
@@ -35,15 +25,6 @@ import styles from './vl-cookie-statement.uig-css';
 export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
     static {
         registerWebComponents([
-            // elements
-            VlColumnElement,
-            VlGridElement,
-            VlH1Element,
-            VlH2Element,
-            VlIntroductionElement,
-            VlLayoutElement,
-            VlLinkElement,
-            VlRegionElement,
             // components
             VlContactCardComponent,
             VlInfoblockComponent,
