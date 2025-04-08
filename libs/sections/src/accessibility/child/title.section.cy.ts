@@ -44,9 +44,9 @@ describe('component title - version and date props', () => {
 });
 
 describe('component title - helper function <titleElements()> ', () => {
-    it('should return an array of WebComponents with a length of 7', () => {
+    it('should return an array of WebComponents with a length of 1', () => {
         const elements = titleElements();
         expect(elements).to.be.an('array');
-        expect(elements).to.have.length(7);
+        expect(elements).to.have.length(1);
     });
 });

@@ -2,7 +2,7 @@ import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc
 import { vlIconStyles } from '@domg-wc/common-utilities/css';
 import { buttonStyles } from '@domg-wc/components/next/button/vl-button.css';
 import { VlIconComponent } from '@domg-wc/components/next/icon';
-import { VlButtonElement, VlSelect } from '@domg-wc/elements';
+import { VlSelect } from '@domg-wc/elements';
 import { inputFieldStyles, VlInputFieldComponent } from '@domg-wc/form/next/input-field';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { selectStyle } from '@domg/govflanders-style/component';
@@ -11,7 +11,7 @@ import searchUigStyle from './vl-search.uig-css';
 @webComponent('vl-search')
 export class VlSearchComponent extends BaseElementOfType(HTMLElement) {
     static {
-        registerWebComponents([VlButtonElement, VlIconComponent, VlInputFieldComponent]);
+        registerWebComponents([VlIconComponent, VlInputFieldComponent]);
     }
 
     static get _observedAttributes() {

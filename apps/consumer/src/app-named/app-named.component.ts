@@ -2,9 +2,9 @@ import './component/components-named.component';
 import './component/elements-named.component';
 import './component/map-named.component';
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlH1Element } from '@domg-wc/elements';
+import { VlTitleComponent } from '@domg-wc/components/next/title';
 
-registerWebComponents([VlH1Element]);
+registerWebComponents([VlTitleComponent]);
 
 export class AppNamedComponent extends HTMLElement {
     connectedCallback() {

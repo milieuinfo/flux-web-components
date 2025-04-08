@@ -1,13 +1,12 @@
 import { story } from '@domg-wc/common-storybook';
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlBodyElement } from '@domg-wc/elements';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { VlFooter } from '../vl-footer.section';
 import { footerArgs, footerArgTypes } from './vl-footer.stories-arg';
 import footerDoc from './vl-footer.stories-doc.mdx';
 
-registerWebComponents([VlBodyElement, VlFooter]);
+registerWebComponents([VlFooter]);
 
 export default {
     id: 'sections-footer',
