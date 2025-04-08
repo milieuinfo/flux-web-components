@@ -2,7 +2,6 @@ import { story } from '@domg-wc/common-storybook';
 import '@domg-wc/components';
 // deze imports van alle elements, components en map werken IN de monorepo
 // -> buiten de monorepo werkt dat niet omdat sideEffects disabled worden voor de root-barrel file in de artifacts
-import '@domg-wc/elements';
 import { registerWebComponents } from '@domg-wc/common-utilities';
 import { VlTitleComponent } from '@domg-wc/components/next/title';
 import { Meta } from '@storybook/web-components';

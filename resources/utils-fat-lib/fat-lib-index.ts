@@ -1,4 +1,3 @@
-import '@domg-wc/elements';
 import '@domg-wc/components';
 import '@domg-wc/components/next/cascader';
 import '@domg-wc/components/next/steps';
