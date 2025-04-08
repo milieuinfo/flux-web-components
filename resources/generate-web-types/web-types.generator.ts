@@ -13,7 +13,6 @@ import {
     WTElementSlot,
 } from './web-types.model';
 import { buildWTConfigComponents } from './wt-config-build/components.wt-config';
-import { buildWTConfigElements } from './wt-config-build/elements.wt-config';
 import { buildWTConfigForm } from './wt-config-build/form.wt-config';
 import { buildWTConfigMap } from './wt-config-build/map.wt-config';
 import { buildWTConfigSections } from './wt-config-build/sections.wt-config';
@@ -202,7 +201,6 @@ const generateWebTypesFile = (artifact: string, wtComponentList: WTConfigArray, 
 };
 
 generateWebTypesFile('components', buildWTConfigComponents, '../../libs/components');
-generateWebTypesFile('elements', buildWTConfigElements, '../../libs/elements');
 generateWebTypesFile('form', buildWTConfigForm, '../../libs/form');
 generateWebTypesFile('map', buildWTConfigMap, '../../libs/map');
 generateWebTypesFile('sections', buildWTConfigSections, '../../libs/sections');

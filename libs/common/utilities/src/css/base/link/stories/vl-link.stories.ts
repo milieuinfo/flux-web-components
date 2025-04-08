@@ -17,8 +17,8 @@ export default {
 
 export const LinkDefault = ({}) => html`
     <style>
+        ${vlLinkStyles()};
         .sb-link {
-            ${vlLinkStyles()};
             ${vlIconStyles};
             margin-bottom: 1rem;
         }

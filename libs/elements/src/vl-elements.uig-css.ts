@@ -97,29 +97,7 @@ const componentStyles: CSSResult[] = [
     tooltipStyle,
 ];
 
-// @uig element styles
-import { default as actionGroupUigStyle } from './action-group/vl-action-group.uig-css';
-import { default as bodyUigStyle } from './body/vl-body.uig-css';
-import { default as buttonUigStyle } from './button/vl-button.uig-css';
-import { default as dataTableUigStyle } from './data-table/vl-data-table.uig-css';
-import { default as iconUigStyle } from './icon/vl-icon.uig-css';
-// import { default as linkUigStyle } from './link/vl-link.uig-css';
-import { default as multiselectUigStyle } from './multiselect/vl-multiselect.uig-css';
-import { default as selectUigStyle } from './select/vl-select.uig-css';
-import { default as sideNavigationUigStyle } from './side-navigation/vl-side-navigation.uig-css';
-
-const elementUigStyles: CSSResult[] = [
-    actionGroupUigStyle,
-    bodyUigStyle,
-    buttonUigStyle,
-    dataTableUigStyle,
-    iconUigStyle,
-    multiselectUigStyle,
-    selectUigStyle,
-    sideNavigationUigStyle,
-];
-
-export const allElementStyles = [...commonStyles, ...componentStyles, ...elementUigStyles] as CSSResult[];
+export const allElementStyles = [...commonStyles, ...componentStyles] as CSSResult[];
 
 export default allElementStyles;
 
