@@ -1,10 +1,8 @@
-import { css, CSSResult, unsafeCSS } from 'lit';
+import { css, CSSResult } from 'lit';
 import { vlFocusOutlineMixin } from '../../base/mixin/vl-outlines.css';
 import { vlIconMapping } from './vl-icon-mapping.css';
 
-export const vlIconStyles: CSSResult = css`
-    ${unsafeCSS(vlIconMapping)}
-
+export const iconStyle = css`
     /* Icon styles - gebaseerd op DV _icon.scss */
     .vl-icon {
         font-family: var(--vl-icon-font);
@@ -61,4 +59,9 @@ export const vlIconStyles: CSSResult = css`
             }
         }
     }
+`;
+
+export const vlIconStyles: CSSResult = css`
+    ${vlIconMapping}
+    ${iconStyle}
 `;

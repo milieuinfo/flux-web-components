@@ -22,19 +22,14 @@ export class VlSideNavigationToggleComponent extends BaseLitElement {
         return this;
     }
 
-    updated() {
-        // TODO in vl-side-navigation(oude v1), komt het arrow icon binnen de a-tag
-        // TODO hier komt dit erbuiten, dit heeft gevolgen naar de styling toe
+    firstUpdated() {
         const childNodes = this.childNodes;
         const aNode = document.createElement('a');
-        // aNode.classList.add('vl-side-navigation-next__toggle');
         aNode.setAttribute('href', this.href);
-        // aNode.setAttribute('child', this.child);
-        aNode.append(...childNodes);
-        this.appendChild(aNode);
         const iconNode = document.createElement('i');
-        iconNode.setAttribute('class', 'vl-vi vl-vi-arrow-right-fat');
-        this.appendChild(iconNode);
+        iconNode.setAttribute('class', 'vl-icon vl-icon--arrow-right-fat');
+        aNode.append(...childNodes, iconNode);
+        this.appendChild(aNode);
     }
 }
 
