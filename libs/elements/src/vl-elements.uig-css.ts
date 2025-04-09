@@ -15,6 +15,22 @@ import {
     typographyStyle as commonTypographyStyle,
     visibilityStyle,
 } from '@domg/govflanders-style/common';
+// @govflanders component styles
+import {
+    buttonStyle,
+    doormatStyle,
+    iconStyle,
+    infotextStyle,
+    inputAddonStyle,
+    inputFieldStyle,
+    introductionStyle,
+    linkListStyle,
+    linkStyle,
+    pillInputStyle,
+    pillStyle,
+    popoverStyle,
+    typographyStyle as componentTypographyStyle,
+} from '@domg/govflanders-style/component';
 
 const commonStyles: CSSResult[] = [
     resetStyle,
@@ -29,72 +45,20 @@ const commonStyles: CSSResult[] = [
     backgroundStyle,
 ];
 
-// @govflanders component styles
-import {
-    actionGroupStyle,
-    buttonStyle,
-    dataTableStyle,
-    doormatStyle,
-    formMessageStyle,
-    formStructureStyle,
-    iconStyle,
-    infotextStyle,
-    imageStyle,
-    inputAddonStyle,
-    inputFieldStyle,
-    inputGroupStyle,
-    introductionStyle,
-    linkStyle,
-    linkListStyle,
-    pillStyle,
-    pillInputStyle,
-    selectStyle,
-    multiselectStyle,
-    popoverStyle,
-    propertiesStyle,
-    searchFilterStyle,
-    searchResultsStyle,
-    sideNavigationStyle,
-    textareaStyle,
-    toasterStyle,
-    titlesStyle,
-    typographyStyle as componentTypographyStyle,
-    videoPlayerStyle,
-    tooltipStyle,
-} from '@domg/govflanders-style/component';
-
 const componentStyles: CSSResult[] = [
-    actionGroupStyle,
-    buttonStyle,
-    dataTableStyle,
+    buttonStyle, // accordion
     doormatStyle,
-    formMessageStyle,
-    formStructureStyle,
     iconStyle,
     infotextStyle,
-    imageStyle,
     inputAddonStyle,
-    inputFieldStyle,
-    inputGroupStyle,
-    introductionStyle,
+    inputFieldStyle, // autocomplete
+    introductionStyle, // unknown
     linkStyle,
     linkListStyle,
     pillStyle,
     pillInputStyle,
-    selectStyle,
-    multiselectStyle,
-    popoverStyle,
-    propertiesStyle,
-    searchFilterStyle,
-    searchResultsStyle,
-    sideNavigationStyle,
-    textareaStyle,
-    toasterStyle,
-    titlesStyle,
-    componentTypographyStyle,
-    videoPlayerStyle,
-    // tooltip styling needs to be known outside the shadow root of tooltip itself
-    tooltipStyle,
+    popoverStyle, // popover
+    componentTypographyStyle, // typography
 ];
 
 export const allElementStyles = [...commonStyles, ...componentStyles] as CSSResult[];
