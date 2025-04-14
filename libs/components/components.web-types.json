@@ -1456,8 +1456,8 @@
                         },
                         {
                             "name": "label-width",
-                            "description": "De breedte van de labels, in REM. Heeft geen impact als de properties 'collapsed' worden.",
-                            "default": "17"
+                            "description": "De breedte van de labels, in %. Heeft geen impact als de properties 'collapsed' worden.",
+                            "default": "25"
                         }
                     ],
                     "js": {

@@ -1,3 +1,14 @@
+## [1.46.1](https://github.com/milieuinfo/uigov-web-components/compare/v1.46.0...v1.46.1) (2025-04-14)
+
+
+### Bug Fixes
+
+* UIG-3256 - vl-properties-next - styling verbeteringen ([836d410](https://github.com/milieuinfo/uigov-web-components/commit/836d4101a68c54660b94ec84928514e7ec3e2a01))
+* UIG-3261 - vl-http-error-message - afbeelding layout verbeterd ([d960392](https://github.com/milieuinfo/uigov-web-components/commit/d9603921a187e31b88af366f36502dd99c1df85e))
+* UIG-3262 - vl-search - icon & input css selectors bijgewerkt ([abde5ff](https://github.com/milieuinfo/uigov-web-components/commit/abde5ffc35b1f0d8d52ca7ba28886d99bb4e4618))
+* UIG-3263 - vl-side-sheet - vl-content-block min-width rechtgezet ([1e277ef](https://github.com/milieuinfo/uigov-web-components/commit/1e277ef1e0fda8420ad414040cded79bf704b446))
+* UIG-3266 - vl-alert - close-icon zichtbaar gemaakt ([e9f7e32](https://github.com/milieuinfo/uigov-web-components/commit/e9f7e327a7c473cd3c02d43b3936aefa27951abd))
+
 # [1.46.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.45.0...v1.46.0) (2025-04-04)
 
 
