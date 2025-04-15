@@ -4,8 +4,8 @@ import { html } from 'lit-html';
 import vlMarginStoriesDoc from './vl-margin.stories-doc.mdx';
 
 export default {
-    id: 'styles-next-layout-afnemers-margin',
-    title: 'Styles-next/Layout (afnemers)/margin',
+    id: 'styles-layout-afnemers-margin',
+    title: 'Styles/Layout (afnemers)/margin',
     tags: ['autodocs'],
     parameters: {
         docs: {
@@ -49,7 +49,7 @@ export const MarginSmall = ({}) => html`
         ${marginCss}
     </style>
     <div class="sb-container">
-        <div class="sb-content vl-margin-next--small">vl-margin-next--small</div>
+        <div class="sb-content vl-margin--small">vl-margin--small</div>
     </div>
 `;
 MarginSmall.storyName = 'vl-margin - small';
@@ -60,7 +60,7 @@ export const MarginMedium = ({}) => html`
         ${marginCss}
     </style>
     <div class="sb-container">
-        <div class="sb-content vl-margin-next--medium">vl-margin-next--medium</div>
+        <div class="sb-content vl-margin--medium">vl-margin--medium</div>
     </div>
 `;
 MarginMedium.storyName = 'vl-margin - medium';
@@ -71,7 +71,7 @@ export const MarginNo = ({}) => html`
         ${marginCss}
     </style>
     <div class="sb-container">
-        <div class="sb-content vl-margin-next--no">vl-margin-next--no</div>
+        <div class="sb-content vl-margin--no">vl-margin--no</div>
     </div>
 `;
 MarginNo.storyName = 'vl-margin - no';
@@ -82,7 +82,7 @@ export const MarginNoBottom = ({}) => html`
         ${marginCss}
     </style>
     <div class="sb-container">
-        <div class="sb-content vl-margin-next--no-bottom">vl-margin-next--no-bottom</div>
+        <div class="sb-content vl-margin--no-bottom">vl-margin--no-bottom</div>
     </div>
 `;
 MarginNoBottom.storyName = 'vl-margin - no bottom';
@@ -93,7 +93,7 @@ export const MarginNoTop = ({}) => html`
         ${marginCss}
     </style>
     <div class="sb-container">
-        <div class="sb-content vl-margin-next--no-top">vl-margin-next--no-top</div>
+        <div class="sb-content vl-margin--no-top">vl-margin--no-top</div>
     </div>
 `;
 MarginNoTop.storyName = 'vl-margin - no top';

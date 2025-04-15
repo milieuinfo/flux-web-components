@@ -3,7 +3,7 @@ import '@domg-wc/components';
 // deze imports van alle elements, components en map werken IN de monorepo
 // -> buiten de monorepo werkt dat niet omdat sideEffects disabled worden voor de root-barrel file in de artifacts
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlTitleComponent } from '@domg-wc/components/next/title';
+import { VlTitleComponent } from '@domg-wc/components';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit';
 import '../components/action/draw-action/draw-line-action/vl-map-draw-line-action';
@@ -198,39 +198,39 @@ export const MapPlayground = story(
             </vl-map-action-controls>
 
             <vl-map-side-sheet>
-                <vl-title-next type="h6">Layers</vl-title-next>
+                <vl-title type="h6">Layers</vl-title>
 
                 <vl-map-layer-switcher></vl-map-layer-switcher>
                 <vl-input-slider data-vl-value=${100} @vl-change-value=${handleOpacitySliderChange}></vl-input-slider>
 
                 <hr />
 
-                <vl-title-next type="h6">Measure</vl-title-next>
+                <vl-title type="h6">Measure</vl-title>
 
                 <div>
-                    <vl-button-next
+                    <vl-button
                         @click=${() => {
                             getActionElement('measure').active = true;
                         }}
                     >
                         Start
-                    </vl-button-next>
-                    <vl-button-next
+                    </vl-button>
+                    <vl-button
                         @click=${() => {
                             getActionElement('measure').active = false;
                         }}
                     >
                         Stop
-                    </vl-button-next>
+                    </vl-button>
                 </div>
 
                 <hr />
 
                 <div style=${toggleGroupStyling}>
-                    <vl-title-next type="h6">Shapes</vl-title-next>
+                    <vl-title type="h6">Shapes</vl-title>
 
                     <div style="margin-bottom: 2rem;">
-                        <vl-button-next
+                        <vl-button
                             toggle
                             class="modify-toggle-button"
                             @click=${() => {
@@ -238,8 +238,8 @@ export const MapPlayground = story(
                             }}
                         >
                             Modify
-                        </vl-button-next>
-                        <vl-button-next
+                        </vl-button>
+                        <vl-button
                             toggle
                             class="delete-toggle-button"
                             @click=${() => {
@@ -247,11 +247,11 @@ export const MapPlayground = story(
                             }}
                         >
                             Delete
-                        </vl-button-next>
+                        </vl-button>
                     </div>
 
                     <div style=${toggleItemStyling}>
-                        <vl-button-next
+                        <vl-button
                             toggle
                             icon="pencil"
                             label="Toggle draw point action"
@@ -260,12 +260,12 @@ export const MapPlayground = story(
                                 getActionElement('draw-point').active = getToggleButton('draw-point').on;
                             }}
                         >
-                        </vl-button-next>
+                        </vl-button>
                         <p>Draw point</p>
                     </div>
 
                     <div style=${toggleItemStyling}>
-                        <vl-button-next
+                        <vl-button
                             toggle
                             icon="pencil"
                             label="Toggle draw line action"
@@ -274,12 +274,12 @@ export const MapPlayground = story(
                                 getActionElement('draw-line').active = getToggleButton('draw-line').on;
                             }}
                         >
-                        </vl-button-next>
+                        </vl-button>
                         <p>Draw line</p>
                     </div>
 
                     <div style=${toggleItemStyling}>
-                        <vl-button-next
+                        <vl-button
                             toggle
                             icon="pencil"
                             label="Toggle draw polygon action"
@@ -288,7 +288,7 @@ export const MapPlayground = story(
                                 getActionElement('draw-polygon').active = getToggleButton('draw-polygon').on;
                             }}
                         >
-                        </vl-button-next>
+                        </vl-button>
                         <p>Draw Polygon</p>
                     </div>
                 </div>

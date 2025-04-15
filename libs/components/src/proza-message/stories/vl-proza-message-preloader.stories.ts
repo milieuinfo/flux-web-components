@@ -31,24 +31,24 @@ export const ProzaMessagePreloaderDefault = story(prozaMessagePreloaderArgs, () 
     return html`
         <div>
             <vl-proza-message-preloader data-vl-domain="mockdomain"></vl-proza-message-preloader>
-            <div class="vl-grid-next vl-stacked-next-small">
-                <div class="vl-column-next vl-column-next--12">
-                    <vl-title-next type="h6">Als een inline element:</vl-title-next>
+            <div class="vl-grid vl-stacked-small">
+                <div class="vl-column vl-column--12">
+                    <vl-title type="h6">Als een inline element:</vl-title>
                     <vl-proza-message data-vl-domain="mockdomain" data-vl-code="inline"></vl-proza-message>
                 </div>
-                <div class="vl-column-next vl-column-next--12">
-                    <vl-title-next type="h6">Als een block element:</vl-title-next>
+                <div class="vl-column vl-column--12">
+                    <vl-title type="h6">Als een block element:</vl-title>
                     <vl-proza-message data-vl-domain="mockdomain" data-vl-code="block"></vl-proza-message>
                 </div>
-                <div class="vl-column-next vl-column-next--12">
-                    <vl-title-next type="h6">In een knop:</vl-title-next>
-                    <vl-button-next>
+                <div class="vl-column vl-column--12">
+                    <vl-title type="h6">In een knop:</vl-title>
+                    <vl-button>
                         <vl-proza-message data-vl-domain="mockdomain" data-vl-code="action"></vl-proza-message>
-                    </vl-button-next>
+                    </vl-button>
                 </div>
-                <div class="vl-column-next vl-column-next--12">
-                    <vl-title-next type="h6">In een link:</vl-title-next>
-                    <vl-link-next href="#" external>
+                <div class="vl-column vl-column--12">
+                    <vl-title type="h6">In een link:</vl-title>
+                    <vl-link href="#" external>
                         <vl-proza-message data-vl-domain="mockdomain" data-vl-code="action"></vl-proza-message>
                     </a>
                 </div>

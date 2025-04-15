@@ -4,31 +4,29 @@ import { extractComponentWTNames } from './extract-wt-names';
 const componentWCNames = extractComponentWCNames();
 const componentWTNames = extractComponentWTNames();
 const componentWCIgnore = [
-    'vl-side-navigation-title-next', // base class
+    'vl-side-navigation-title', // base class
 ];
 const componentWCMismatch = [
-    'vl-cascader-next', // in next folder - verwacht een -next suffix, maar deze component heeft die niet
-    'vl-cascader-item-next', // in next folder - verwacht een -next suffix, maar deze component heeft die niet
-    'vl-all-icons-next', // is een demo component, niet bedoeld om af te nemen
+    'vl-cascader', // in next folder - verwacht een  suffix, maar deze component heeft die niet
+    'vl-cascader-item', // in next folder - verwacht een  suffix, maar deze component heeft die niet
+    'vl-all-icons', // is een demo component, niet bedoeld om af te nemen
 ];
 const componentWTMismatch = [
-    'vl-cascader', // in next folder - verwacht een -next suffix, maar die is er niet voor deze component
-    'vl-cascader-item', // in next folder - verwacht een -next suffix, maar die is er niet voor deze component
-    'vl-side-navigation-h1-next', // in vl-side-navigation-title.component.ts
-    'vl-side-navigation-h2-next', // in vl-side-navigation-title.component.ts
-    'vl-side-navigation-h3-next', // in vl-side-navigation-title.component.ts
-    'vl-side-navigation-h4-next', // in vl-side-navigation-title.component.ts
-    'vl-side-navigation-h5-next', // in vl-side-navigation-title.component.ts
-    'vl-side-navigation-h6-next', // in vl-side-navigation-title.component.ts
+    'vl-cascader', // in next folder - verwacht een  suffix, maar die is er niet voor deze component
+    'vl-cascader-item', // in next folder - verwacht een  suffix, maar die is er niet voor deze component
+    'vl-side-navigation-h1', // in vl-side-navigation-title.component.ts
+    'vl-side-navigation-h2', // in vl-side-navigation-title.component.ts
+    'vl-side-navigation-h3', // in vl-side-navigation-title.component.ts
+    'vl-side-navigation-h4', // in vl-side-navigation-title.component.ts
+    'vl-side-navigation-h5', // in vl-side-navigation-title.component.ts
+    'vl-side-navigation-h6', // in vl-side-navigation-title.component.ts
 ];
 
 export const componentWCNameCount = componentWCNames.length;
 export const componentWTNameCount = componentWTNames.length;
 export const componentWCWithoutWT = componentWCNames.filter(
     (name) =>
-        !componentWCIgnore.includes(name) &&
-        !componentWCMismatch.includes(name) &&
-        !componentWTNames.includes(name)
+        !componentWCIgnore.includes(name) && !componentWCMismatch.includes(name) && !componentWTNames.includes(name)
 );
 export const componentWTWithoutWC = componentWTNames.filter(
     (name) => !componentWTMismatch.includes(name) && !componentWCNames.includes(name)

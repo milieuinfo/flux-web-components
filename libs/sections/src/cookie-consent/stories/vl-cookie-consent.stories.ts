@@ -35,12 +35,9 @@ export const CookieConsentDefault = story(
                     data-vl-link=${link}
                     @vl-close=${onClose}
                 ></vl-cookie-consent>
-                <vl-button-next
-                    id="button-open-cookie-consent"
-                    onClick="document.querySelector('#cookie-consent').open();"
-                >
+                <vl-button id="button-open-cookie-consent" onClick="document.querySelector('#cookie-consent').open();">
                     Open cookie-consent
-                </vl-button-next>
+                </vl-button>
             </div>
         `
 );

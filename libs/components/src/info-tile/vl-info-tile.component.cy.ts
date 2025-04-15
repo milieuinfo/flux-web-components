@@ -1,7 +1,7 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
 import { html } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { VlButtonComponent } from '../next/button';
+import { VlButtonComponent } from '../button';
 import { VlPopoverComponent } from '../popover';
 import { VlInfoTile } from './index';
 import { INFO_TILE_SIZE } from './vl-info-tile.model';
@@ -42,7 +42,7 @@ const titleSlot = `<span slot="title">Broos Deprez</span>`;
 const subtitleSlot = `<span slot="subtitle">Uw zoon (19.05.2005)</span>`;
 const contentSlot = `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`;
 const menuSlot = `<span slot="menu">
-    <vl-button-next ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button-next>
+    <vl-button ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button>
     <vl-popover for="btn-acties" placement="bottom-end">
         <vl-popover-action-list>
             <vl-popover-action icon="search">Zoeken</vl-popover-action>

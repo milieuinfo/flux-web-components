@@ -9,7 +9,7 @@ import {
     locationAntwerpen1,
     selectLocationSuggestion,
     suggestionsAntwerpen,
-} from '../next/select-location/vl-select-location.cy';
+} from '../select-location/vl-select-location.cy';
 import { VlMapSearch } from './vl-map-search';
 
 registerWebComponents([VlMap, VlMapBaseLayerGRB, VlMapSearch]);
@@ -33,14 +33,14 @@ const standaloneVlMapSearchFixture = html`
 const getSearchComponent = () => cy.get('vl-map-search').shadow().find('vl-search');
 
 const getSelectLocationComponent = () =>
-    cy.get('vl-map').shadow().find('vl-map-search').shadow().find('vl-search').find('vl-select-location-next');
+    cy.get('vl-map').shadow().find('vl-map-search').shadow().find('vl-search').find('vl-select-location');
 
 describe('vl-map-search', () => {
     it('bevat een search element met correct geconfigureerd select element als input slot', () => {
         cy.mount(mapSearchFixture);
         getSearchComponent().should('exist').should('have.attr', 'data-vl-inline');
-        getSearchComponent().find('vl-select-location-next').should('exist');
-        getSearchComponent().find('vl-select-location-next').shadow().find('select').should('exist');
+        getSearchComponent().find('vl-select-location').should('exist');
+        getSearchComponent().find('vl-select-location').shadow().find('select').should('exist');
     });
 
     it('indien vl-map-search element binnen een vl-map element zit, zal dit element toegevoegd worden aan de shadow dom', () => {

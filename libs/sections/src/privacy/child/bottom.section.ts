@@ -1,14 +1,14 @@
 import { html } from 'lit-html';
 
 export const privacyBottomSection = () => html`
-    <div class="vl-content-block-next">
-        <div class="vl-grid-next vl-stacked-next-medium">
-            <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+    <div class="vl-content-block">
+        <div class="vl-grid vl-stacked-medium">
+            <div class="vl-column vl-column--12 vl-column--m-12">
                 <vl-contact-card id="contact-card">
                     <vl-infoblock slot="info" data-vl-type="contact">
                         <h2 slot="title">DPO van Departement Omgeving</h2>
                     </vl-infoblock>
-                    <vl-properties-next slot="properties">
+                    <vl-properties slot="properties">
                         <label>Adres</label>
                         <data>
                             <div>Herman Teirlinckgebouw</div>
@@ -17,13 +17,11 @@ export const privacyBottomSection = () => html`
                         </data>
                         <label>E-mail</label>
                         <data>
-                            <vl-link-next href="mailto:dpo@omgevingvlaanderen.be"
-                                          icon-placement="after"
-                                          icon="mail">
+                            <vl-link href="mailto:dpo@omgevingvlaanderen.be" icon-placement="after" icon="mail">
                                 dpo@omgevingvlaanderen.be
-                            </vl-link-next>
+                            </vl-link>
                         </data>
-                    </vl-properties-next>
+                    </vl-properties>
                 </vl-contact-card>
             </div>
         </div>

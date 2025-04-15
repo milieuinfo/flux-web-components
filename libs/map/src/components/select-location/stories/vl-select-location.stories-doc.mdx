@@ -1,0 +1,30 @@
+import { ArgTypes, Canvas, Source } from '@storybook/addon-docs';
+import * as VlSelectLocationStories from './vl-select-location.stories';
+
+# Select Location
+
+<VluxMetaData id="map-select-location" />
+
+Gebruik de `vl-select-location` component om een zoekbalk af te beelden waarmee er een adres geselecteerd kan worden.
+
+Deze component erft over van de [vl-select-rich](/docs/form-select-rich--documentatie) component.
+
+
+## Voorbeeld
+
+```js
+import { VlSelectLocationComponent } from '@domg-wc/map';
+```
+
+```html
+<vl-select-location></vl-select-location>
+```
+
+<Canvas of={VlSelectLocationStories.SelectLocationDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlSelectLocationStories.SelectLocationDefault} />
+
+

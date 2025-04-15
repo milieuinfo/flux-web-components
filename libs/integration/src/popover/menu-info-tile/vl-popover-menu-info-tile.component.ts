@@ -1,6 +1,5 @@
 import { registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { VlInfoTile, VlPopoverComponent } from '@domg-wc/components';
-import { VlButtonComponent } from '@domg-wc/components/next/button';
+import { VlButtonComponent, VlInfoTile, VlPopoverComponent } from '@domg-wc/components';
 import { vlElementsStyle } from '@domg-wc/elements';
 import { css, CSSResult, html, LitElement } from 'lit';
 
@@ -21,7 +20,7 @@ export class VlPopoverMenuInfoTileComponent extends LitElement {
                 <span slot="subtitle">Uw zoon (19.05.2005)</span>
                 <div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>
                 <span slot="menu">
-                    <vl-button-next ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button-next>
+                    <vl-button ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button>
                     <vl-popover for="btn-acties" placement="bottom-end">
                         <vl-popover-action-list>
                             <vl-popover-action icon="search">Zoeken</vl-popover-action>

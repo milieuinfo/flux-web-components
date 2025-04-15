@@ -82,7 +82,7 @@ class RegisterStyles {
 
 export const elementStyles =
     () =>
-    // eslint-disable-next-line @typescript-eslint/ban-types
+    // eslint-disable-line @typescript-eslint/ban-types
     (constructor: Function) => {
         RegisterStyles.registerElementsStyles();
     };

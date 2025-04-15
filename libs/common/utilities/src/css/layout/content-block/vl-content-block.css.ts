@@ -2,7 +2,7 @@ import { css } from 'lit';
 import { vlMediaScreenMedium, vlMediaScreenSmall } from '../../base/var/vl-media-screen.css';
 
 export const vlContentBlockStyles = css`
-    .vl-content-block-next {
+    .vl-content-block {
         position: relative;
         margin: 0 auto;
         min-width: var(--vl-page--max-width);

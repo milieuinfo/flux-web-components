@@ -12,7 +12,7 @@ export class VlMapSideSheetMenuItem extends BaseElementOfType(HTMLElement) {
       <style>
         ${vlLinkIconStyles}
         ${vlIconStyles}
-        ${vlLinkStyles('.vl-link-next')}
+        ${vlLinkStyles('.vl-link')}
 
 
         .vl-map-side-sheet-menu-item {
@@ -27,8 +27,8 @@ export class VlMapSideSheetMenuItem extends BaseElementOfType(HTMLElement) {
       </style>
       <div>
         <div class="vl-map-side-sheet-menu-item">
-          <a id="vl-map-side-sheet-menu-item-link" class="vl-link-next" href="#">
-            <span class="vl-icon vl-icon--arrow-left-fat vl-link-next__icon vl-link-next__icon--before"></span><span id="title">Terug</span>
+          <a id="vl-map-side-sheet-menu-item-link" class="vl-link" href="#">
+            <span class="vl-icon vl-icon--arrow-left-fat vl-link__icon vl-link__icon--before"></span><span id="title">Terug</span>
           </a>
         </div>
         <slot></slot>

@@ -1,0 +1,46 @@
+import { ArgTypes, Canvas, Source } from '@storybook/blocks';
+import * as VlTitleStories from './vl-title.stories';
+
+# Title
+
+<VluxMetaData id="components-title" />
+
+Gebruik de `title` component om een title af te beelden.<br/>
+
+Deze component is de nieuwe versie van het [vl-title](/docs/elements-title-h1--documentatie) element, we raden aan om op termijn deze versie te gebruiken.
+
+
+## Voorbeeld
+
+```js
+import { VlTitleComponent } from '@domg-wc/components';
+```
+
+```html
+<vl-title></vl-title>
+```
+
+<Canvas of={VlTitleStories.TitleDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlTitleStories.TitleDefault} />
+
+
+## Toegankelijkheid
+
+### Richtlijnen:
+
+Gebruik opeenvolgende rangorde om de titel te bepalen en sla geen rangorde over.
+
+**WEL** bv. `h1` voor de hoofdtitel, `h2` voor de subtitel, `h3` voor de subsubtitel
+
+**NIET** bv. `h2` voor de hoofdtitel, `h4` voor de subtitel.
+
+
+## Referenties
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Title](https://overheid.vlaanderen.be/webuniversum/v3/documentation/atoms/vl-ui-titles)

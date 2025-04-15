@@ -15,7 +15,7 @@ describe('story vl-contact-card', () => {
         cy.visit(`${contactCardUrl}`);
 
         cy.get('vl-contact-card')
-            .find(`vl-properties-next`)
+            .find(`vl-properties`)
             .shadow()
             .children()
             .eq(0)
@@ -30,7 +30,7 @@ describe('story vl-contact-card', () => {
             .contains('Routeplanner');
 
         cy.get('vl-contact-card')
-            .find(`vl-properties-next`)
+            .find(`vl-properties`)
             .shadow()
             .children()
             .eq(0)
@@ -40,7 +40,7 @@ describe('story vl-contact-card', () => {
             .parent();
 
         cy.get('vl-contact-card')
-            .find(`vl-properties-next`)
+            .find(`vl-properties`)
             .shadow()
             .children()
             .eq(0)
@@ -49,7 +49,7 @@ describe('story vl-contact-card', () => {
             .contains('onderwijs.vlaanderen@vlaanderen.be');
 
         cy.get('vl-contact-card')
-            .find(`vl-properties-next`)
+            .find(`vl-properties`)
             .shadow()
             .children()
             .eq(0)

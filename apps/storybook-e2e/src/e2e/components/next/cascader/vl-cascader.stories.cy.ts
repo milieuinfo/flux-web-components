@@ -1,13 +1,13 @@
 const cascaderDefault =
-    'http://localhost:8080/iframe.html?id=components-next-cascader-cascader--cascader-default&viewMode=story';
+    'http://localhost:8080/iframe.html?id=components-cascader-cascader--cascader-default&viewMode=story';
 const cascaderDynamicTemplating =
-    'http://localhost:8080/iframe.html?id=components-next-cascader-cascader--cascader-dynamic-templating&viewMode=story';
+    'http://localhost:8080/iframe.html?id=components-cascader-cascader--cascader-dynamic-templating&viewMode=story';
 const cascaderPropertyBinding =
-    'http://localhost:8080/iframe.html?id=components-next-cascader-cascader--cascader-property-binding&viewMode=story';
+    'http://localhost:8080/iframe.html?id=components-cascader-cascader--cascader-property-binding&viewMode=story';
 const cascaderSideSheetUrl =
-    'http://localhost:8080/iframe.html?id=components-next-cascader-cascader--cascader-side-sheet&viewMode=story';
+    'http://localhost:8080/iframe.html?id=components-cascader-cascader--cascader-side-sheet&viewMode=story';
 const cascaderItemSlotsDefault =
-    'http://localhost:8080/iframe.html?id=components-next-cascader-cascader-item--cascader-item-slots&viewMode=story';
+    'http://localhost:8080/iframe.html?id=components-cascader-cascader-item--cascader-item-slots&viewMode=story';
 
 describe('story vl-cascader default', () => {
     it('should display story', () => {

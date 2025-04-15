@@ -94,7 +94,7 @@ InfoTileMenuSlot.args = {
     subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
     contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
     menuSlot: `<span slot="menu">
-        <vl-button-next ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button-next>
+        <vl-button ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button>
         <vl-popover for="btn-acties" placement="bottom-end">
             <vl-popover-action-list>
                 <vl-popover-action icon="search">Zoeken</vl-popover-action>

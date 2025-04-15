@@ -1,12 +1,15 @@
 import { registerWebComponents, webComponent } from '@domg-wc/common-utilities';
 import { vlGridStyles } from '@domg-wc/common-utilities/css';
-import { VlButtonComponent } from '@domg-wc/components/next/button';
+import { VlButtonComponent } from '@domg-wc/components';
 import { vlElementsStyle } from '@domg-wc/elements';
-import { VlErrorMessageComponent } from '@domg-wc/form/next/error-message';
-import { VlFormLabelComponent } from '@domg-wc/form/next/form-label';
-import { VlInputFieldComponent } from '@domg-wc/form/next/input-field';
-import { SelectRichOption, VlSelectRichComponent } from '@domg-wc/form/next/select-rich';
-import { parseFormData } from '@domg-wc/form/utils';
+import {
+    parseFormData,
+    SelectRichOption,
+    VlErrorMessageComponent,
+    VlFormLabelComponent,
+    VlInputFieldComponent,
+    VlSelectRichComponent,
+} from '@domg-wc/form';
 import { css, CSSResult, html, LitElement } from 'lit';
 
 @webComponent('vl-form-data')
@@ -49,7 +52,7 @@ export class VlFormDataComponent extends LitElement {
                 }
 
                 .form-buttons {
-                    vl-button-next:not(:last-child) {
+                    vl-button:not(:last-child) {
                         margin-right: 1.4rem;
                     }
                 }
@@ -60,18 +63,18 @@ export class VlFormDataComponent extends LitElement {
     override render() {
         return html`
             <form id="form" class="vl-form" @submit=${this.onSubmit} @reset=${this.onReset}>
-                <div class="vl-grid-next">
-                    <div class="vl-column-next vl-column-next--4">
-                        <vl-form-label-next for="naam" label="Naam *" block></vl-form-label-next>
+                <div class="vl-grid">
+                    <div class="vl-column vl-column--4">
+                        <vl-form-label for="naam" label="Naam *" block></vl-form-label>
                     </div>
-                    <div class="vl-column-next vl-column-next--8">
-                        <vl-input-field-next id="naam" name="naam" block></vl-input-field-next>
+                    <div class="vl-column vl-column--8">
+                        <vl-input-field id="naam" name="naam" block></vl-input-field>
                     </div>
-                    <div class="vl-column-next vl-column-next--4">
-                        <vl-form-label-next for="hobbies" label="Hobbies *" block></vl-form-label-next>
+                    <div class="vl-column vl-column--4">
+                        <vl-form-label for="hobbies" label="Hobbies *" block></vl-form-label>
                     </div>
-                    <div class="vl-column-next vl-column-next--8">
-                        <vl-select-rich-next
+                    <div class="vl-column vl-column--8">
+                        <vl-select-rich
                             id="hobbies"
                             name="hobbies"
                             multiple
@@ -81,23 +84,23 @@ export class VlFormDataComponent extends LitElement {
                             no-results-text="Geen hobbies gevonden"
                             no-choices-text="Geen resterende hobbies gevonden"
                         >
-                        </vl-select-rich-next>
-                        <vl-error-message-next for="hobbies" state="valueMissing"
+                        </vl-select-rich>
+                        <vl-error-message for="hobbies" state="valueMissing"
                             >Gelieve een hobby te selecteren.
-                        </vl-error-message-next>
+                        </vl-error-message>
                     </div>
-                    <div class="vl-column-next vl-column-next--8 vl-column-next--start-5">
+                    <div class="vl-column vl-column--8 vl-column--start-5">
                         <div class="form-buttons">
-                            <vl-button-next type="submit">Verstuur</vl-button-next>
-                            <vl-button-next type="reset" secondary>Reset</vl-button-next>
+                            <vl-button type="submit">Verstuur</vl-button>
+                            <vl-button type="reset" secondary>Reset</vl-button>
                         </div>
                     </div>
                     ${this.parsedFormData
                         ? html`
-                              <div class="vl-column-next vl-column-next--4">
+                              <div class="vl-column vl-column--4">
                                   <label class="vl-form__label">Formulier data</label>
                               </div>
-                              <div class="vl-column-next vl-column-next--8">
+                              <div class="vl-column vl-column--8">
                                   <pre>${JSON.stringify(this.parsedFormData, null, 10)}</pre>
                               </div>
                           `

@@ -1,5 +1,4 @@
-import { VlContactCardComponent, VlInfoblockComponent } from '@domg-wc/components';
-import { VlPropertiesComponent } from '@domg-wc/components/next/properties';
+import { VlContactCardComponent, VlInfoblockComponent, VlPropertiesComponent } from '@domg-wc/components';
 import { html } from 'lit';
 import { AccessibilityProperties } from '../vl-accessibility.model';
 import { complianceStatus } from './compliance-status.section';
@@ -18,18 +17,16 @@ export const content = ({
     limitations,
 }: AccessibilityProperties) => {
     return html` <section id="content" is="vl-region">
-        <div class="vl-content-block-next">
-            <div class="vl-grid-next vl-stacked-next-medium vl-content-block-next">
-                <div
-                    class="vl-column-next vl-column-next--8 vl-column-next--m-8 vl-column-next--s-8 vl-column-next--xs-12"
-                >
-                    <vl-side-navigation-reference-next data-vl--scrollspy-content>
-                        <div class="vl-grid-next vl-stacked-next-large">
-                            <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+        <div class="vl-content-block">
+            <div class="vl-grid vl-stacked-medium vl-content-block">
+                <div class="vl-column vl-column--8 vl-column--m-8 vl-column--s-8 vl-column--xs-12">
+                    <vl-side-navigation-reference data-vl--scrollspy-content>
+                        <div class="vl-grid vl-stacked-large">
+                            <div class="vl-column vl-column--12 vl-column--m-12">
                                 <p>
                                     De Vlaamse overheid streeft ernaar haar websites en mobiele applicaties toegankelijk
                                     te maken, overeenkomstig het
-                                    <vl-link-next
+                                    <vl-link
                                         href="http://www.ejustice.just.fgov.be/cgi_loi/loi_a1.pl?language=nl&cn=2018120705&table_name=wet&caller=list&fromtab=wet#LNK0011"
                                         external
                                         data-vl-inline
@@ -39,9 +36,9 @@ export const content = ({
                                             data-vl-after
                                             data-vl-light
                                         ></span
-                                    ></vl-link-next>
+                                    ></vl-link>
                                     waarmee de
-                                    <vl-link-next
+                                    <vl-link
                                         href="https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=uriserv:OJ.L_.2016.327.01.0001.01.NLD&toc=OJ:L:2016:327:TOC"
                                         external
                                         data-vl-inline
@@ -51,7 +48,7 @@ export const content = ({
                                             data-vl-after
                                             data-vl-light
                                         ></span
-                                    ></vl-link-next>
+                                    ></vl-link>
                                     is omgezet.
                                 </p>
                                 <br />
@@ -60,8 +57,8 @@ export const content = ({
                             ${complianceStatus({ compliance, evaluation })}
                             ${inaccessibleContent({ compliance, evaluation, limitations })}
                             ${setupStatement({ evaluation, date, dateModified })}
-                            <div id="feedback-contact" class="vl-column-next vl-column-next--12 vl-column-next--m-12">
-                                <vl-title-next type="h2">Feedback en contactgegevens</vl-title-next>
+                            <div id="feedback-contact" class="vl-column vl-column--12 vl-column--m-12">
+                                <vl-title type="h2">Feedback en contactgegevens</vl-title>
                                 <p>
                                     Ondervindt u problemen en wenst u hulp bij het vinden van informatie of het
                                     uitvoeren van een actie? Hebt u een vraag of opmerking over de toegankelijkheid van
@@ -73,7 +70,7 @@ export const content = ({
                                     <vl-infoblock slot="info" data-vl-type="contact">
                                         <h3 slot="title">Departement Omgeving</h3>
                                     </vl-infoblock>
-                                    <vl-properties-next slot="properties">
+                                    <vl-properties slot="properties">
                                         <label>Adres</label>
                                         <data>
                                             <div>Havenlaan 88</div>
@@ -82,28 +79,25 @@ export const content = ({
                                         </data>
                                         <label>Telefoon</label>
                                         <data>
-                                            <vl-link-next href="tel:02 553 80 11" icon-placement="after" icon="phone">
+                                            <vl-link href="tel:02 553 80 11" icon-placement="after" icon="phone">
                                                 02 553 80 11
-                                            </vl-link-next>
+                                            </vl-link>
                                         </data>
                                         <label>E-mail</label>
                                         <data>
-                                            <vl-link-next
+                                            <vl-link
                                                 href="mailto:omgeving@vlaanderen.be"
                                                 icon-placement="after"
                                                 icon="mail"
                                             >
                                                 omgeving@vlaanderen.be
-                                            </vl-link-next>
+                                            </vl-link>
                                         </data>
-                                    </vl-properties-next>
+                                    </vl-properties>
                                 </vl-contact-card>
                             </div>
-                            <div
-                                id="enforcement-procedure"
-                                class="vl-column-next vl-column-next--12 vl-column-next--m-12"
-                            >
-                                <vl-title-next type="h2">Handhavingsprocedure</vl-title-next>
+                            <div id="enforcement-procedure" class="vl-column vl-column--12 vl-column--m-12">
+                                <vl-title type="h2">Handhavingsprocedure</vl-title>
                                 <p>
                                     Heeft u contact opgenomen via omgeving@vlaanderen.be maar bent u niet tevreden met
                                     het antwoord? Stuur dan uw klacht naar de klachtenbehandelaar van Departement
@@ -114,7 +108,7 @@ export const content = ({
                                     <vl-infoblock slot="info" data-vl-type="contact">
                                         <h3 slot="title">Klachtenbehandelaar</h3>
                                     </vl-infoblock>
-                                    <vl-properties-next slot="properties">
+                                    <vl-properties slot="properties">
                                         <label>Adres</label>
                                         <data>
                                             <div>Havenlaan 88</div>
@@ -123,15 +117,15 @@ export const content = ({
                                         </data>
                                         <label>E-mail</label>
                                         <data>
-                                            <vl-link-next
+                                            <vl-link
                                                 href="mailto:klachten.omgeving@vlaanderen.be"
                                                 icon-placement="after"
                                                 icon="mail"
                                             >
                                                 klachten.omgeving@vlaanderen.be
-                                            </vl-link-next>
+                                            </vl-link>
                                         </data>
-                                    </vl-properties-next>
+                                    </vl-properties>
                                 </vl-contact-card>
                                 <br />
                                 <p>
@@ -144,7 +138,7 @@ export const content = ({
                                     <vl-infoblock slot="info" data-vl-type="contact">
                                         <h3 slot="title">Vlaamse ombudsdienst</h3>
                                     </vl-infoblock>
-                                    <vl-properties-next slot="properties">
+                                    <vl-properties slot="properties">
                                         <label>Adres</label>
                                         <data>
                                             <div>Leuvenseweg 86</div>
@@ -153,31 +147,31 @@ export const content = ({
                                         </data>
                                         <label>Telefoon</label>
                                         <data>
-                                            <vl-link-next href="tel:08 002 40 50" icon-placement="after" icon="phone">
+                                            <vl-link href="tel:08 002 40 50" icon-placement="after" icon="phone">
                                                 08 002 40 50
-                                            </vl-link-next>
+                                            </vl-link>
                                         </data>
                                         <label>E-mail</label>
                                         <data>
-                                            <vl-link-next
+                                            <vl-link
                                                 href="mailto:klachten@vlaamseombudsdienst.be"
                                                 icon-placement="after"
                                                 icon="mail"
                                             >
                                                 klachten@vlaamseombudsdienst.be
-                                            </vl-link-next>
+                                            </vl-link>
                                         </data>
                                         <label>Website</label>
                                         <data>
-                                            <vl-link-next href="http://www.vlaamseombudsdienst.be" external>
+                                            <vl-link href="http://www.vlaamseombudsdienst.be" external>
                                                 http://www.vlaamseombudsdienst.be
-                                            </vl-link-next>
+                                            </vl-link>
                                         </data>
-                                    </vl-properties-next>
+                                    </vl-properties>
                                 </vl-contact-card>
                             </div>
                         </div>
-                    </vl-side-navigation-reference-next>
+                    </vl-side-navigation-reference>
                 </div>
                 ${sideNavigation({ compliance })}
             </div>

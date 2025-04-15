@@ -1,5 +1,5 @@
 import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { VlButtonComponent } from '@domg-wc/components/next/button';
+import { VlButtonComponent } from '@domg-wc/components';
 import { unByKey } from 'ol/Observable';
 import { CONTROL_TYPE, IDENTIFIER } from '../../../vl-map.model';
 import { VlMapControl } from '../vl-map-control.mixin';
@@ -14,7 +14,7 @@ export class VlMapMeasureControl extends VlMapControl(BaseLitElement) {
 
     constructor() {
         super();
-        this.controlElement = document.createElement('vl-button-next');
+        this.controlElement = document.createElement('vl-button');
         this.controlElement.setAttribute('tertiary', '');
         this.controlElement.setAttribute('toggle', ''); // maak er een toggle knop van
         this.controlElement.innerText = 'Meten';

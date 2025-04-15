@@ -3,8 +3,8 @@ import { vlIconStyles } from '../vl-icon.css';
 import vlIconStoriesDoc from './vl-icon.stories-doc.mdx';
 
 export default {
-    id: 'styles-next-base-intern-icon',
-    title: 'Styles-next/Base (intern)/icon',
+    id: 'styles-base-intern-icon',
+    title: 'Styles/Base (intern)/icon',
     tags: ['autodocs'],
     parameters: {
         docs: {

@@ -2,20 +2,18 @@ import { registerWebComponents } from '@domg-wc/common-utilities';
 import { vlGroupStyles } from '@domg-wc/common-utilities/css';
 import {
     VlAccordionComponent,
+    VlButtonComponent,
+    VlLinkComponent,
     VlModalComponent,
+    VlParagraphComponent,
     VlPillComponent,
     VlPopoverComponent,
     VlSideSheet,
+    VlTabsComponent,
+    VlTitleComponent,
 } from '@domg-wc/components';
-import { VlButtonComponent } from '@domg-wc/components/next/button';
-import { VlLinkComponent } from '@domg-wc/components/next/link';
-import { VlParagraphComponent } from '@domg-wc/components/next/paragraph';
-import { VlTabsComponent } from '@domg-wc/components/next/tabs';
-import { VlTitleComponent } from '@domg-wc/components/next/title';
 import { vlElementsStyle } from '@domg-wc/elements';
-import { VlDatepickerComponent } from '@domg-wc/form/next/datepicker';
-import { VlSelectComponent } from '@domg-wc/form/next/select';
-import { SelectRichOption, VlSelectRichComponent } from '@domg-wc/form/next/select-rich';
+import { SelectRichOption, VlDatepickerComponent, VlSelectComponent, VlSelectRichComponent } from '@domg-wc/form';
 import { vlStackedStyles } from 'libs/common/utilities/src/css/layout/stacked/vl-stacked.css';
 import { CSSResult, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
@@ -84,9 +82,9 @@ export class AppComponent extends LitElement {
     render() {
         return html`
             <main>
-                <vl-tabs-next active-tab="vl-select-rich-next" disable-links="">
-                    <vl-tabs-pane-next id="vl-select-rich-next" title="vl-select-rich-next">
-                        <vl-select-rich-next
+                <vl-tabs active-tab="vl-select-rich" disable-links="">
+                    <vl-tabs-pane id="vl-select-rich" title="vl-select-rich">
+                        <vl-select-rich
                             style="width: 300px; display: block"
                             id="geboorteplaats"
                             name="geboorteplaats"
@@ -94,15 +92,15 @@ export class AppComponent extends LitElement {
                             .options=${this.geboorteplaatsen}
                             search=""
                         >
-                        </vl-select-rich-next>
-                    </vl-tabs-pane-next>
-                    <vl-tabs-pane-next id="vl-select-next" title="vl-select-next">
-                        <div class="vl-stacked-next-small">
-                            <vl-title-next type="h2">Select</vl-title-next>
-                            <vl-paragraph-next
+                        </vl-select-rich>
+                    </vl-tabs-pane>
+                    <vl-tabs-pane id="vl-select" title="vl-select">
+                        <div class="vl-stacked-small">
+                            <vl-title type="h2">Select</vl-title>
+                            <vl-paragraph
                                 >Test om te zien hoe de select placeholder zich gedraagt bij dynamische selects.
-                            </vl-paragraph-next>
-                            <vl-title-next type="h3">Gerelateerd aan:</vl-title-next>
+                            </vl-paragraph>
+                            <vl-title type="h3">Gerelateerd aan:</vl-title>
                             <vl-pill
                                 data-vl-clickable
                                 @click=${() => window.open('https://www.milieuinfo.be/jira/browse/UIG-3214')}
@@ -113,64 +111,60 @@ export class AppComponent extends LitElement {
                                 @click=${() => window.open('https://www.milieuinfo.be/jira/browse/UIG-3203')}
                                 >UIG-3202
                             </vl-pill>
-                            <div class="vl-group-next">
-                                <vl-button-next @click=${() => this.addPlaceholder()}>Add placeholder</vl-button-next>
-                                <vl-button-next @click=${() => this.addOptions()}>Add options</vl-button-next>
-                                <vl-button-next @click=${this.applyError}>Apply error</vl-button-next>
-                                <vl-button-next @click=${this.addSelect}>Add select</vl-button-next>
+                            <div class="vl-group">
+                                <vl-button @click=${() => this.addPlaceholder()}>Add placeholder</vl-button>
+                                <vl-button @click=${() => this.addOptions()}>Add options</vl-button>
+                                <vl-button @click=${this.applyError}>Apply error</vl-button>
+                                <vl-button @click=${this.addSelect}>Add select</vl-button>
                             </div>
                             <div>
-                                <vl-select-next id="select"></vl-select-next>
+                                <vl-select id="select"></vl-select>
                             </div>
                         </div>
-                    </vl-tabs-pane-next>
-                    <vl-tabs-pane-next id="vl-datepicker-next" title="vl-datepicker-next">
-                        <div class="vl-stacked-next-small">
-                            <vl-title-next type="h2">Datepicker</vl-title-next>
-                            <vl-paragraph-next>
+                    </vl-tabs-pane>
+                    <vl-tabs-pane id="vl-datepicker" title="vl-datepicker">
+                        <div class="vl-stacked-small">
+                            <vl-title type="h2">Datepicker</vl-title>
+                            <vl-paragraph>
                                 Hier renderen we een aantal datepicker scenario's om te kijken hoe de datepicker zich
                                 gedraagt.
-                            </vl-paragraph-next>
-                            <vl-datepicker-next></vl-datepicker-next>
-                            <div class="vl-group-next">
-                                <vl-button-next data-vl-modal-open="modal-with-datepicker"
+                            </vl-paragraph>
+                            <vl-datepicker></vl-datepicker>
+                            <div class="vl-group">
+                                <vl-button data-vl-modal-open="modal-with-datepicker"
                                     >Open modal with datepicker
-                                </vl-button-next>
-                                <vl-button-next @click=${this.openSidesheet}>Open sidesheet</vl-button-next>
+                                </vl-button>
+                                <vl-button @click=${this.openSidesheet}>Open sidesheet</vl-button>
                             </div>
                         </div>
                         <vl-modal id="modal-with-datepicker" data-vl-title="Modal" data-vl-closable>
                             <span slot="content">
-                                <vl-datepicker-next block position="below right"></vl-datepicker-next>
+                                <vl-datepicker block position="below right"></vl-datepicker>
                             </span>
                         </vl-modal>
                         <vl-side-sheet id="sidesheet">
                             <vl-form-demo></vl-form-demo>
                         </vl-side-sheet>
-                    </vl-tabs-pane-next>
-                    <vl-tabs-pane-next id="vl-group-next__column">
-                        <span slot="title">vl-group-next__column</span>
-                        <div class="vl-stacked-next-small">
-                            <vl-title-next type="h2">vl-group-next__column</vl-title-next>
-                            <vl-paragraph-next>Width test voor columns in vl-group-next.</vl-paragraph-next>
-                            <vl-title-next type="h3">Gerelateerd aan:</vl-title-next>
+                    </vl-tabs-pane>
+                    <vl-tabs-pane id="vl-group__column">
+                        <span slot="title">vl-group__column</span>
+                        <div class="vl-stacked-small">
+                            <vl-title type="h2">vl-group__column</vl-title>
+                            <vl-paragraph>Width test voor columns in vl-group.</vl-paragraph>
+                            <vl-title type="h3">Gerelateerd aan:</vl-title>
                             <vl-pill
                                 data-vl-clickable
                                 @click=${() => window.open('https://www.milieuinfo.be/jira/browse/UIG-3226')}
                                 >UIG-3226
                             </vl-pill>
                             <div
-                                class="vl-group-next vl-group-next--column vl-group-next--separator-column vl-group-next--stretch-children"
+                                class="vl-group vl-group--column vl-group--separator-column vl-group--stretch-children"
                             >
                                 <vl-accordion>
                                     <span slot="title">Accordion title</span>
                                     <span slot="subtitle">subtitle</span>
                                     <span slot="menu">
-                                        <vl-button-next
-                                            ghost
-                                            id="popover-button"
-                                            icon="nav-show-more-vertical"
-                                        ></vl-button-next>
+                                        <vl-button ghost id="popover-button" icon="nav-show-more-vertical"></vl-button>
                                         <vl-popover for="popover-button" placement="bottom-end" hide-on-click>
                                             <vl-popover-action-list>
                                                 <vl-popover-action icon="bin" @click="${() => {}}">
@@ -183,38 +177,38 @@ export class AppComponent extends LitElement {
                                 </vl-accordion>
                             </div>
                         </div>
-                    </vl-tabs-pane-next>
-                    <vl-tabs-pane-next id="vl-group-next--baseline" title="vl-group-next--baseline">
-                        <div class="vl-stacked-next-small">
-                            <vl-title-next type="h2">vl-group-next--baseline</vl-title-next>
-                            <vl-paragraph-next>Baseline alignering test voor links in vl-group-next.</vl-paragraph-next>
-                            <vl-title-next type="h3">Gerelateerd aan:</vl-title-next>
+                    </vl-tabs-pane>
+                    <vl-tabs-pane id="vl-group--baseline" title="vl-group--baseline">
+                        <div class="vl-stacked-small">
+                            <vl-title type="h2">vl-group--baseline</vl-title>
+                            <vl-paragraph>Baseline alignering test voor links in vl-group.</vl-paragraph>
+                            <vl-title type="h3">Gerelateerd aan:</vl-title>
                             <vl-pill
                                 data-vl-clickable
                                 @click=${() => window.open('https://www.milieuinfo.be/jira/browse/UIG-3225')}
                                 >UIG-3225
                             </vl-pill>
-                            <div class="vl-group-next vl-group-next--baseline">
-                                <vl-title-next type="h1">Pagina titel</vl-title-next>
-                                <vl-link-next href="#" icon="pencil" icon-placement="before">Link</vl-link-next>
+                            <div class="vl-group vl-group--baseline">
+                                <vl-title type="h1">Pagina titel</vl-title>
+                                <vl-link href="#" icon="pencil" icon-placement="before">Link</vl-link>
                             </div>
-                            <div class="vl-group-next vl-group-next--baseline">
-                                <vl-title-next type="h2">Pagina titel</vl-title-next>
-                                <vl-link-next href="#">Link</vl-link-next>
+                            <div class="vl-group vl-group--baseline">
+                                <vl-title type="h2">Pagina titel</vl-title>
+                                <vl-link href="#">Link</vl-link>
                             </div>
-                            <div class="vl-group-next vl-group-next--baseline">
-                                <vl-title-next type="h3">Pagina titel</vl-title-next>
-                                <vl-link-next href="#" external>Link</vl-link-next>
+                            <div class="vl-group vl-group--baseline">
+                                <vl-title type="h3">Pagina titel</vl-title>
+                                <vl-link href="#" external>Link</vl-link>
                             </div>
-                            <div class="vl-group-next vl-group-next--baseline">
-                                <vl-title-next type="h3">Pagina titel</vl-title-next>
-                                <vl-link-next href="#" button-as-link icon="pencil" icon-placement="before"
+                            <div class="vl-group vl-group--baseline">
+                                <vl-title type="h3">Pagina titel</vl-title>
+                                <vl-link href="#" button-as-link icon="pencil" icon-placement="before"
                                     >Link as button
-                                </vl-link-next>
+                                </vl-link>
                             </div>
                         </div>
-                    </vl-tabs-pane-next>
-                </vl-tabs-next>
+                    </vl-tabs-pane>
+                </vl-tabs>
             </main>
         `;
     }
@@ -238,7 +232,7 @@ export class AppComponent extends LitElement {
 
     private addSelect = () => {
         if (this.selectElement) {
-            const newSelect = document.createElement('vl-select-next');
+            const newSelect = document.createElement('vl-select');
             this.addPlaceholder(newSelect);
             this.addOptions(newSelect);
             this.selectElement.insertAdjacentElement('afterend', newSelect);

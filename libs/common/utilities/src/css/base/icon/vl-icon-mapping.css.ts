@@ -1187,7 +1187,7 @@ export const vlIconMapping: CSSResult = css`
         content: '\\F228';
     }
 
-    .vl-icon--next::before {
+    .vl-icon-::before {
         content: '\\F229';
     }
 

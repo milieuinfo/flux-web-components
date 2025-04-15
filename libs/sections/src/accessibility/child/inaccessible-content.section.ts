@@ -1,5 +1,4 @@
-import { VlTypography } from '@domg-wc/components';
-import { VlTitleComponent } from '@domg-wc/components/next/title';
+import { VlTitleComponent, VlTypography } from '@domg-wc/components';
 import { html } from 'lit';
 import { AccessibilityProperties } from '../vl-accessibility.model';
 
@@ -44,9 +43,9 @@ export const inaccessibleContent = ({ compliance, evaluation, limitations }: Ina
     return html` <div
         style=${compliance === 'FULLY_COMPLIANT' && 'display: none'}
         id="inaccessible-content"
-        class="vl-column-next vl-column-next--12 vl-column-next--m-12"
+        class="vl-column vl-column--12 vl-column--m-12"
     >
-        <vl-title-next type="h2">Niet-toegankelijke inhoud</vl-title-next>
+        <vl-title type="h2">Niet-toegankelijke inhoud</vl-title>
         ${inaccessibleContentTemplate()}
     </div>`;
 };

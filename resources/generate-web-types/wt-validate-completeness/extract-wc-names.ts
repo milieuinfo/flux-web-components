@@ -36,9 +36,7 @@ const extractFileWCNames = (
     if (validFileSuffix(file, ignoreSuffixes) && validFileName(file, matchPatterns)) {
         matchSuffixes.forEach((matchSuffix) => {
             if (file.endsWith(matchSuffix)) {
-                let wcName = file.substring(0, file.length - matchSuffix.length);
-                // web-components die zich in een 'next' folder bevinden worden geregistreerd met een '-next' suffix
-                wcName = filePath.includes('next') ? wcName + '-next' : wcName;
+                const wcName = file.substring(0, file.length - matchSuffix.length);
                 wcNames = [...wcNames, wcName];
             }
         });

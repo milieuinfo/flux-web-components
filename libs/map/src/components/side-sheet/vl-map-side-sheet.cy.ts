@@ -25,7 +25,7 @@ describe('vl-map-side-sheet', () => {
 
         cy.get('vl-map-side-sheet')
             .shadow()
-            .find('vl-button-next')
+            .find('vl-button')
             .shadow()
             .find('button span')
             .should('have.class', 'vl-icon')
@@ -37,9 +37,9 @@ describe('vl-map-side-sheet', () => {
 
         cy.get('vl-map-side-sheet').shouldHaveComputedStyle({ style: 'left', value: '0px' });
         shouldHaveIcon('nav-right');
-        cy.get('vl-map-side-sheet').shadow().find('vl-button-next').shadow().find('button').click({ force: true });
+        cy.get('vl-map-side-sheet').shadow().find('vl-button').shadow().find('button').click({ force: true });
         shouldHaveIcon('nav-left');
-        cy.get('vl-map-side-sheet').shadow().find('vl-button-next').shadow().find('button').click({ force: true });
+        cy.get('vl-map-side-sheet').shadow().find('vl-button').shadow().find('button').click({ force: true });
         shouldHaveIcon('nav-right');
     });
 
@@ -48,7 +48,7 @@ describe('vl-map-side-sheet', () => {
 
         cy.get('vl-map-side-sheet')
             .shadow()
-            .find('vl-button-next')
+            .find('vl-button')
             .shadow()
             .find('button span')
             .should('have.class', 'vl-icon')
@@ -60,7 +60,7 @@ describe('vl-map-side-sheet', () => {
 
         cy.get('vl-map-side-sheet')
             .shadow()
-            .find('vl-button-next')
+            .find('vl-button')
             .shadow()
             .find('button span')
             .should('have.class', 'vl-icon')
@@ -71,7 +71,7 @@ describe('vl-map-side-sheet', () => {
 const shouldHaveIcon = (iconName: string) => {
     cy.get('vl-map-side-sheet')
         .shadow()
-        .find('vl-button-next')
+        .find('vl-button')
         .shadow()
         .find('button')
         .find('span')
