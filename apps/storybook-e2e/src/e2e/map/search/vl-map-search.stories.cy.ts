@@ -9,7 +9,7 @@ describe('story vl-map-search default', () => {
             .find('vl-map-search')
             .shadow()
             .find('vl-search')
-            .find('vl-select-location-next')
+            .find('vl-select-location')
             .parent()
             .parent()
             .click();
@@ -19,7 +19,7 @@ describe('story vl-map-search default', () => {
             .find('vl-map-search')
             .shadow()
             .find('vl-search')
-            .find('vl-select-location-next')
+            .find('vl-select-location')
             .parent()
             .parent()
             .should('not.have.class', 'is-flipped');
@@ -29,7 +29,7 @@ describe('story vl-map-search default', () => {
             .find('vl-map-search')
             .shadow()
             .find('vl-search')
-            .find('vl-select-location-next')
+            .find('vl-select-location')
             .should('have.attr', 'position', 'bottom');
     });
 });

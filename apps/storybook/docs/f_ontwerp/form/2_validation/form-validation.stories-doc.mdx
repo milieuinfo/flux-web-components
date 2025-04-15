@@ -15,7 +15,7 @@ Daarnaast voorzien we ook de [`parseFormData()` helper functie](/docs/ontwerp-fo
 Een essentieel onderdeel van de validatie is de [ValidityState interface](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState), onderdeel van de native Validation API.
 Dit object geeft de huidige validatiestatus van een form control weer en kan worden gebruikt om een gedetailleerde foutmelding te verkrijgen.
 
-Die foutmeldingen worden getoond door de [`vl-error-message-next` component](/docs/form-next-error-message--documentatie) die de `ValidityState` van de form control controleert.
+Die foutmeldingen worden getoond door de [`vl-error-message` component](/docs/form-error-message--documentatie) die de `ValidityState` van de form control controleert.
 
 ## Attributen van ValidityState
 
@@ -35,10 +35,10 @@ Hieronder een overzicht van de gebruikte attributen van [ValidityState](https://
 Om de validatiestatus van een form control te controleren, moet je:
 - een `id` attribuut toevoegen aan de form control
 - een constraint attribuut toevoegen aan de form control. Dit attribuut moet overeenkomen met de naam van de eigenschap van de `ValidityState` die je wil controleren, bv. `required`-attribuut voor `valueMissing` of `pattern`-attribuut voor `patternMismatch`.
-- een `for` attribuut toevoegen aan de `vl-error-message-next` component. Dit attribuut moet overeenkomen met de `id` van de form control.
-- het attribuut `state` instellen op de `vl-error-message-next` component. Dit attribuut moet overeenkomen met de naam van de eigenschap van de `ValidityState` die je wil controleren.
+- een `for` attribuut toevoegen aan de `vl-error-message` component. Dit attribuut moet overeenkomen met de `id` van de form control.
+- het attribuut `state` instellen op de `vl-error-message` component. Dit attribuut moet overeenkomen met de naam van de eigenschap van de `ValidityState` die je wil controleren.
 
-Vervolgens zal de `vl-error-message-next` component de foutmelding tonen die is ingesteld voor de `ValidityState` van de form control wanneer gevalideerd wordt.
+Vervolgens zal de `vl-error-message` component de foutmelding tonen die is ingesteld voor de `ValidityState` van de form control wanneer gevalideerd wordt.
 Standaard gebeurt dit wanneer de form gesubmit wordt door bv.:
 - op de submit knop te klikken
 - de enter toets in te drukken terwijl een form control focus heeft
@@ -50,7 +50,7 @@ Je kan ook de [`checkValidity` methode](https://developer.mozilla.org/en-US/docs
 ### Ontbrekende waarde
 
 Op het moment dat een veld verplicht is en geen waarde heeft, zal de `valueMissing` eigenschap van de `ValidityState` van de form control `true` zijn.
-Een veld met een ontbrekende waarde zal een foutmelding tonen die is ingesteld met de `vl-error-message-next` component waarvan de `for` eigenschap overeenkomt met de `id` van de form control.
+Een veld met een ontbrekende waarde zal een foutmelding tonen die is ingesteld met de `vl-error-message` component waarvan de `for` eigenschap overeenkomt met de `id` van de form control.
 De form control moet ook het `required` attribuut hebben.
 
 In onderstaande voorbeeld: druk op `enter` zonder iets in te vullen om de foutmelding te zien.
@@ -74,13 +74,13 @@ Na validatie, vermeld altijd duidelijk waarom een veld niet geldig is en geef de
 
 ## Lijst componenten met onze ValidityState implementatie
 
-- [vl-input-field-next](/docs/form-next-input-field--documentatie)
-- [vl-input-field-masked-next](/docs/form-next-input-field-masked--documentatie)
-- [vl-textarea-next](/docs/form-next-textarea--documentatie)
-- [vl-textarea-rich-next](/docs/form-next-textarea-rich--documentatie)
-- [vl-datepicker-next](/docs/form-next-datepicker--documentatie)
-- [vl-select-rich-next](/docs/form-next-select-rich--documentatie)
-- [vl-select-next](/docs/form-next-select--documentatie)
-- [vl-radio-group-next](/docs/form-next-radio-group--documentatie)
-- [vl-upload-next](/docs/form-next-upload--documentatie)
-- [vl-checkbox-next](/docs/form-next-checkbox--documentatie)
+- [vl-input-field](/docs/form-input-field--documentatie)
+- [vl-input-field-masked](/docs/form-input-field-masked--documentatie)
+- [vl-textarea](/docs/form-textarea--documentatie)
+- [vl-textarea-rich](/docs/form-textarea-rich--documentatie)
+- [vl-datepicker](/docs/form-datepicker--documentatie)
+- [vl-select-rich](/docs/form-select-rich--documentatie)
+- [vl-select](/docs/form-select--documentatie)
+- [vl-radio-group](/docs/form-radio-group--documentatie)
+- [vl-upload](/docs/form-upload--documentatie)
+- [vl-checkbox](/docs/form-checkbox--documentatie)

@@ -1,6 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlAccordionComponent, VlCascaderComponent, VlInfoTile } from '@domg-wc/components';
-import { VlTitleComponent } from '@domg-wc/components/next/title';
+import { VlAccordionComponent, VlCascaderComponent, VlInfoTile, VlTitleComponent } from '@domg-wc/components';
 import { createComponent } from '@lit/react';
 import React, { DOMAttributes } from 'react';
 import './app.module.css';
@@ -22,7 +21,7 @@ export class VlTitleExtended extends VlTitleComponent {
 }
 
 export const VlTitle = createComponent({
-    tagName: 'vl-title-next',
+    tagName: 'vl-title',
     elementClass: VlTitleExtended,
     react: React,
 });
@@ -55,14 +54,14 @@ declare module 'react' {
 }
 
 declare global {
-    // eslint-disable-next-line @typescript-eslint/no-namespace
+    // eslint-disable-line @typescript-eslint/no-namespace
     namespace JSX {
         interface IntrinsicElements {
             'vl-popover': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             'vl-popover-action-list': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             'vl-popover-action': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             'vl-cascader': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            'vl-title-next': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            'vl-title': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             'vl-side-sheet': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
         }
     }

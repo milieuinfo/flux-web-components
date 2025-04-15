@@ -5,7 +5,7 @@ import { vlMediaScreenMedium, vlMediaScreenSmall, vlPageMaxWidthWide } from '../
 export const vlSectionStyles: CSSResult = css`
     ${unsafeCSS(vlSectionRawCss)}
 
-    .vl-section-next {
+    .vl-section {
         margin: 0 auto;
         padding: var(--vl-spacing--medium) 0 var(--vl-spacing--large);
 
@@ -19,17 +19,17 @@ export const vlSectionStyles: CSSResult = css`
         }
 
         /* opeenvolgende sectie's die geen alt-secties zijn krijgen geen top-padding */
-        &:not(.vl-section-next--alt) + .vl-section-next:not(.vl-section-next--alt) {
+        &:not(.vl-section--alt) + .vl-section:not(.vl-section--alt) {
             padding-top: 0;
         }
 
         /* alt-sectie met een achtergrond kleur */
-        &.vl-section-next--alt {
+        &.vl-section--alt {
             background-color: var(--vl-section--alt-bg);
         }
 
         /* smalle witruimte boven en onder */
-        &.vl-section-next--small {
+        &.vl-section--small {
             padding: var(--vl-spacing--small) 0;
 
             @media screen and (max-width: ${vlMediaScreenSmall}px) {
@@ -38,7 +38,7 @@ export const vlSectionStyles: CSSResult = css`
         }
 
         /* medium witruimte boven en onder */
-        &.vl-section-next--medium {
+        &.vl-section--medium {
             padding: var(--vl-spacing--medium) 0;
 
             @media screen and (max-width: ${vlMediaScreenSmall}px) {
@@ -51,11 +51,11 @@ export const vlSectionStyles: CSSResult = css`
              -> de eerste sectie heeft bovenaan geen lijn
              -> de laatste sectie heeft onderdaan geen lijn
         */
-        &.vl-section-next--bordered + &.vl-section-next--bordered {
+        &.vl-section--bordered + &.vl-section--bordered {
             border-top: 1px solid var(--vl-section--border);
 
             /* opeenvolgende 'alt' sectie's krijgen een witte scheidingslijn */
-            &.vl-section-next--alt {
+            &.vl-section--alt {
                 border-top-color: var(--vl-color--white);
             }
         }
@@ -64,8 +64,8 @@ export const vlSectionStyles: CSSResult = css`
             een gewone sectie gevolgd door een alt-sectie of een alt-sectie gevolgd door een gewone sectie
              -> krijgt grote top-padding
         */
-        &:not(.vl-section-next--alt) + &.vl-section-next--alt,
-        &.vl-section-next--alt + &:not(&.vl-section-next--alt) {
+        &:not(.vl-section--alt) + &.vl-section--alt,
+        &.vl-section--alt + &:not(&.vl-section--alt) {
             padding-top: var(--vl-spacing--large);
 
             @media screen and (max-width: ${vlMediaScreenSmall}px) {
@@ -77,7 +77,7 @@ export const vlSectionStyles: CSSResult = css`
             een sectie met daarin een kader (vl-layout), de sectie heeft bovenaan
             een witte / transparante kleur en eronder een lichtgrijze kleur
         */
-        &.vl-section-next--overlap {
+        &.vl-section--overlap {
             background: linear-gradient(
                 to bottom,
                 var(--vl-section--overlap-black-transparent) calc(50% - 30px),
@@ -85,7 +85,7 @@ export const vlSectionStyles: CSSResult = css`
                 var(--vl-section--overlap-bg) 100%
             );
 
-            .vl-content-block-next {
+            .vl-content-block {
                 border: 1px var(--vl-color--border) solid;
                 padding-top: 50px;
                 padding-bottom: 50px;
@@ -103,7 +103,7 @@ export const vlSectionStyles: CSSResult = css`
         }
 
         /* een alt-sectie na een overlap sectie heeft geen top-padding */
-        &.vl-section-next--overlap + &.vl-section-next--alt {
+        &.vl-section--overlap + &.vl-section--alt {
             padding-top: 0 !important;
         }
     }

@@ -27,26 +27,26 @@ export const ProzaMessageDefault = story(prozaMessageArgs, () => {
     delete VlProzaMessage.__cache;
 
     return html`
-        <div class="vl-grid-next vl-stacked-next-small">
-            <div class="vl-column-next vl-column-next--12">
-                <vl-title-next type="h6">Als een inline element:</vl-title-next>
+        <div class="vl-grid vl-stacked-small">
+            <div class="vl-column vl-column--12">
+                <vl-title type="h6">Als een inline element:</vl-title>
                 <vl-proza-message data-vl-domain="mockdomain" data-vl-code="inline"></vl-proza-message>
             </div>
-            <div class="vl-column-next vl-column-next--12">
-                <vl-title-next type="h6">Als een block element:</vl-title-next>
+            <div class="vl-column vl-column--12">
+                <vl-title type="h6">Als een block element:</vl-title>
                 <vl-proza-message data-vl-domain="mockdomain" data-vl-code="block"></vl-proza-message>
             </div>
-            <div class="vl-column-next vl-column-next--12">
-                <vl-title-next type="h6">In een knop:</vl-title-next>
-                <vl-button-next>
+            <div class="vl-column vl-column--12">
+                <vl-title type="h6">In een knop:</vl-title>
+                <vl-button>
                     <vl-proza-message data-vl-domain="mockdomain" data-vl-code="action"></vl-proza-message>
-                </vl-button-next>
+                </vl-button>
             </div>
-            <div class="vl-column-next vl-column-next--12">
-                <vl-title-next type="h6">In een link:</vl-title-next>
-                <vl-link-next href="#" external>
+            <div class="vl-column vl-column--12">
+                <vl-title type="h6">In een link:</vl-title>
+                <vl-link href="#" external>
                     <vl-proza-message data-vl-domain="mockdomain" data-vl-code="action"></vl-proza-message>
-                </vl-link-next>
+                </vl-link>
             </div>
         </div>
     `;
@@ -57,30 +57,30 @@ export const ProzaMessageEditable = story(prozaMessageArgs, () => {
     delete VlProzaMessage.__cache;
 
     return html`
-        <div class="vl-grid-next vl-stacked-next-small">
-            <div class="vl-column-next vl-column-next--12">
-                <vl-title-next type="h6">Als een inline element:</vl-title-next>
+        <div class="vl-grid vl-stacked-small">
+            <div class="vl-column vl-column--12">
+                <vl-title type="h6">Als een inline element:</vl-title>
                 <vl-proza-message data-vl-domain="mockdomaineditable" data-vl-code="inline"></vl-proza-message>
             </div>
-            <div class="vl-column-next vl-column-next--12">
-                <vl-title-next type="h6">Als een block element:</vl-title-next>
+            <div class="vl-column vl-column--12">
+                <vl-title type="h6">Als een block element:</vl-title>
                 <vl-proza-message data-vl-domain="mockdomaineditable" data-vl-code="block"></vl-proza-message>
             </div>
-            <div class="vl-column-next vl-column-next--12">
-                <vl-title-next type="h6">In een knop:</vl-title-next>
-                <vl-button-next>
+            <div class="vl-column vl-column--12">
+                <vl-title type="h6">In een knop:</vl-title>
+                <vl-button>
                     <vl-proza-message data-vl-domain="mockdomaineditable" data-vl-code="action"></vl-proza-message>
-                </vl-button-next>
-                <vl-button-next secondary>
+                </vl-button>
+                <vl-button secondary>
                     <vl-proza-message data-vl-domain="mockdomaineditable" data-vl-code="action"></vl-proza-message>
-                </vl-button-next>
-                <vl-button-next tertiary>
+                </vl-button>
+                <vl-button tertiary>
                     <vl-proza-message data-vl-domain="mockdomaineditable" data-vl-code="action"></vl-proza-message>
-                </vl-button-next>
+                </vl-button>
             </div>
-            <div class="vl-column-next vl-column-next--12">
-                <vl-title-next type="h6">In een link:</vl-title-next>
-                <vl-link-next href="#" external>
+            <div class="vl-column vl-column--12">
+                <vl-title type="h6">In een link:</vl-title>
+                <vl-link href="#" external>
                     <vl-proza-message data-vl-domain="mockdomaineditable" data-vl-code="action"></vl-proza-message>
                 </a>
             </div>

@@ -14,11 +14,11 @@ export class VlContactCardComponent extends BaseElementOfType(HTMLElement) {
                 ${vlGridStyles}
             </style>
             <div class="vl-contact-data">
-                <div class="vl-grid-next">
-                    <div class="vl-column-next vl-column-next--4 vl-column-next--m-12">
+                <div class="vl-grid">
+                    <div class="vl-column vl-column--4 vl-column--m-12">
                         <slot name="info"></slot>
                     </div>
-                    <div class="vl-column-next vl-column-next--8 vl-column-next--m-12">
+                    <div class="vl-column vl-column--8 vl-column--m-12">
                         <slot name="properties"></slot>
                     </div>
                 </div>

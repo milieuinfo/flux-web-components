@@ -4,7 +4,7 @@ import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../../rich-data-table/vl-rich-data-field.component';
 import '../vl-rich-data.component';
-import { VlSearchResultComponent } from '../../next/search-result';
+import { VlSearchResultComponent } from '../../search-result';
 import { VlRichData } from '../vl-rich-data.component';
 import { richDataArgs, richDataArgTypes } from './vl-rich-data.stories-arg';
 import richDataDoc from './vl-rich-data.stories-doc.mdx';
@@ -29,7 +29,7 @@ export const RichDataDefault = ({ filterClosable, filterClosed }: typeof richDat
     return html`
         <vl-rich-data ?data-vl-filter-closable=${filterClosable} ?data-vl-filter-closed=${filterClosed}>
             <span slot="no-content">Geen resultaten gevonden</span>
-            <vl-search-result-next slot="content"></vl-search-result-next>
+            <vl-search-result slot="content"></vl-search-result>
         </vl-rich-data>
     `;
 };

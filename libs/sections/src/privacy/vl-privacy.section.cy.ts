@@ -39,7 +39,7 @@ describe('vl-privacy component', () => {
     it('should have privacy header', () => {
         cy.get('vl-privacy');
 
-        cy.get('vl-privacy').shadow().find('vl-title-next[type="h1"]').contains('Privacy');
+        cy.get('vl-privacy').shadow().find('vl-title[type="h1"]').contains('Privacy');
     });
 });
 
@@ -97,14 +97,14 @@ describe('vl-privacy component - properties functionality', () => {
             const have = expanded ? 'have' : 'not.have';
             cy.get('vl-privacy')
                 .shadow()
-                .find('vl-side-navigation-next')
-                .find(`vl-side-navigation-toggle-next[href="${href}"]`)
+                .find('vl-side-navigation')
+                .find(`vl-side-navigation-toggle[href="${href}"]`)
                 .should(`${have}.attr`, 'aria-expanded', `${expanded}`);
         };
 
         shouldHaveExpandedToggle('#privacy-declaration', false);
 
-        cy.get('vl-privacy').shadow().find('vl-title-next#privacy-declaration').scrollIntoView();
+        cy.get('vl-privacy').shadow().find('vl-title#privacy-declaration').scrollIntoView();
 
         shouldHaveExpandedToggle('#privacy-declaration', true);
     });
@@ -120,9 +120,9 @@ describe('vl-privacy component - slots', () => {
         data-vl-no-border
         data-vl-no-background
     >
-        <vl-link-next id="back-link" href="https://overheid.vlaanderen.be">
+        <vl-link id="back-link" href="https://overheid.vlaanderen.be">
             Start
-        </vl-link-next>
+        </vl-link>
     </vl-functional-header>`,
         });
 

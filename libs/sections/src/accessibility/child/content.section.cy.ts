@@ -51,11 +51,11 @@ describe('component content', () => {
 
     it('should render the side navigation', () => {
         cy.get('[id="side-nav-accessibility"]').should('have.attr', 'aria-label', 'inhoudsopgave');
-        cy.get('vl-side-navigation-next').should('exist');
+        cy.get('vl-side-navigation').should('exist');
     });
 
     it('should render with some basic styling from DV - h2 should have the correct style', () => {
-        cy.get('vl-title-next[type="h2"]')
+        cy.get('vl-title[type="h2"]')
             .shadow()
             .find('h2')
             .should('have.css', 'font-family', '"Flanders Art Sans", sans-serif');

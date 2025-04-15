@@ -30,25 +30,25 @@ const styles: CSSResult = css`
         align-items: end;
     }
 
-    vl-button-next::part(button) {
+    vl-button::part(button) {
         cursor: pointer !important;
         height: 1.5em !important;
         width: 1.5em !important;
         background-color: #e8ebee !important;
         border: 0;
     }
-    vl-button-next::part(button):hover {
+    vl-button::part(button):hover {
         background-color: #cbd2da !important;
     }
 
-    vl-button-next::part(icon) {
+    vl-button::part(icon) {
         color: #000;
     }
-    vl-button-next::part(icon):hover {
+    vl-button::part(icon):hover {
         mix-blend-mode: hard-light;
     }
 
-    vl-icon-next::part(icon) {
+    vl-icon::part(icon) {
         font: icon !important;
         vertical-align: middle !important;
     }

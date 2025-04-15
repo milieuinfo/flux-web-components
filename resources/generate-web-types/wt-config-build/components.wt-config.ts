@@ -1,53 +1,53 @@
-import { buttonArgTypes } from '@domg-wc/components/next/button/stories/vl-button.stories-arg';
-import { cascaderItemArgTypes } from '@domg-wc/components/next/cascader/stories/vl-cascader-item.stories-arg';
-import { cascaderArgTypes } from '@domg-wc/components/next/cascader/stories/vl-cascader.stories-arg';
-import { doormatArgTypes } from '@domg-wc/components/next/doormat/stories/vl-doormat.stories-arg';
-import { iconArgTypes } from '@domg-wc/components/next/icon/stories/vl-icon.stories-arg';
-import { infotextArgTypes } from '@domg-wc/components/next/infotext/stories/vl-infotext.stories-arg';
-import { linkArgTypes } from '@domg-wc/components/next/link/stories/vl-link.stories-arg';
-import { paragraphArgTypes } from '@domg-wc/components/next/paragraph/stories/vl-paragraph.stories-arg';
-import { propertiesArgTypes } from '@domg-wc/components/next/properties/stories/vl-properties.stories-arg';
-import { searchFilterArgTypes } from '@domg-wc/components/next/search-filter/stories/vl-search-filter.stories-arg';
-import { searchResultArgTypes } from '@domg-wc/components/next/search-result/stories/vl-search-result.stories-arg';
-import { stepArgTypes } from '@domg-wc/components/next/steps/stories/vl-step.stories-arg';
-import { stepsArgTypes } from '@domg-wc/components/next/steps/stories/vl-steps.stories-arg';
-import { tableArgTypes } from '@domg-wc/components/next/table/stories/vl-table.stories-arg';
-import { tabsPaneNextArgTypes } from '@domg-wc/components/next/tabs/stories/vl-tabs-pane.stories-arg';
-import { tabsNextArgTypes } from '@domg-wc/components/next/tabs/stories/vl-tabs.stories-arg';
-import { textArgTypes } from '@domg-wc/components/next/text/stories/vl-text.stories-arg';
-import { titleArgTypes } from '@domg-wc/components/next/title/stories/vl-title.stories-arg';
-import { toasterArgTypes } from '@domg-wc/components/next/toaster/stories/vl-toaster.stories-arg';
-import { videoPlayerArgTypes } from '@domg-wc/components/next/video-player/stories/vl-video-player.stories-arg';
 import { accordionArgTypes } from '../../../libs/components/src/accordion/stories/vl-accordion.stories-arg';
 import { alertArgTypes } from '../../../libs/components/src/alert/stories/vl-alert.stories-arg';
 import { autocompleteArgTypes } from '../../../libs/components/src/autocomplete/stories/vl-autocomplete.stories-arg';
 import { breadcrumbItemArgTypes } from '../../../libs/components/src/breadcrumb/stories/vl-breadcrumb-item.stories-arg';
+import { buttonArgTypes } from '../../../libs/components/src/button/stories/vl-button.stories-arg';
+import { cascaderItemArgTypes } from '../../../libs/components/src/cascader/stories/vl-cascader-item.stories-arg';
+import { cascaderArgTypes } from '../../../libs/components/src/cascader/stories/vl-cascader.stories-arg';
 import { contentHeaderArgTypes } from '../../../libs/components/src/content-header/stories/vl-content-header.stories-arg';
 import { descriptionDataItemArgTypes } from '../../../libs/components/src/description-data/stories/vl-description-data-item.stories-arg';
 import { descriptionDataArgTypes } from '../../../libs/components/src/description-data/stories/vl-description-data.stories-arg';
 import { documentArgTypes } from '../../../libs/components/src/document/stories/vl-document.stories-arg';
+import { doormatArgTypes } from '../../../libs/components/src/doormat/stories/vl-doormat.stories-arg';
 import { functionalHeaderArgTypes } from '../../../libs/components/src/functional-header/stories/vl-functional-header.stories-arg';
 import { httpErrorMessageArgTypes } from '../../../libs/components/src/http-error-message/stories/vl-http-error-message.stories-arg';
+import { iconArgTypes } from '../../../libs/components/src/icon/stories/vl-icon.stories-arg';
 import { infoTileArgTypes } from '../../../libs/components/src/info-tile/stories/vl-info-tile.stories-arg';
 import { infoblockArgTypes } from '../../../libs/components/src/infoblock/stories/vl-infoblock.stories-arg';
+import { infotextArgTypes } from '../../../libs/components/src/infotext/stories/vl-infotext.stories-arg';
 import { inputSliderArgTypes } from '../../../libs/components/src/input-slider/stories/vl-input-slider.stories-arg';
+import { linkArgTypes } from '../../../libs/components/src/link/stories/vl-link.stories-arg';
 import { loaderArgTypes } from '../../../libs/components/src/loader/stories/vl-loader.stories-arg';
 import { modalArgTypes } from '../../../libs/components/src/modal/stories/vl-modal.stories-arg';
 import { pagerArgTypes } from '../../../libs/components/src/pager/stories/vl-pager.stories-arg';
+import { paragraphArgTypes } from '../../../libs/components/src/paragraph/stories/vl-paragraph.stories-arg';
 import { buttonPillArgTypes } from '../../../libs/components/src/pill/stories/vl-button-pill.stories-arg';
 import { pillArgTypes } from '../../../libs/components/src/pill/stories/vl-pill.stories-arg';
 import { popoverArgTypes } from '../../../libs/components/src/popover/stories/vl-popover.stories-arg';
 import { progressBarArgTypes } from '../../../libs/components/src/progress-bar/stories/vl-progress-bar.stories-arg';
+import { propertiesArgTypes } from '../../../libs/components/src/properties/stories/vl-properties.stories-arg';
 import { prozaMessagePreloaderArgTypes } from '../../../libs/components/src/proza-message/stories/vl-proza-message-preloader.stories-arg';
 import { prozaMessageArgTypes } from '../../../libs/components/src/proza-message/stories/vl-proza-message.stories-arg';
 import { richDataTableArgTypes } from '../../../libs/components/src/rich-data-table/stories/vl-rich-data-table.stories-arg';
 import { richDataArgTypes } from '../../../libs/components/src/rich-data/stories/vl-rich-data.stories-arg';
+import { searchFilterArgTypes } from '../../../libs/components/src/search-filter/stories/vl-search-filter.stories-arg';
+import { searchResultArgTypes } from '../../../libs/components/src/search-result/stories/vl-search-result.stories-arg';
 import { shareButtonArgTypes } from '../../../libs/components/src/share-buttons/stories/vl-share-button.stories-arg';
 import { shareButtonsArgTypes } from '../../../libs/components/src/share-buttons/stories/vl-share-buttons.stories-arg';
 import { sideSheetArgTypes } from '../../../libs/components/src/side-sheet/stories/vl-side-sheet.stories-arg';
 import { spotlightArgTypes } from '../../../libs/components/src/spotlight/stories/vl-spotlight.stories-arg';
+import { stepArgTypes } from '../../../libs/components/src/steps/stories/vl-step.stories-arg';
+import { stepsArgTypes } from '../../../libs/components/src/steps/stories/vl-steps.stories-arg';
+import { tableArgTypes } from '../../../libs/components/src/table/stories/vl-table.stories-arg';
+import { tabsPaneArgTypes } from '../../../libs/components/src/tabs/stories/vl-tabs-pane.stories-arg';
+import { tabsArgTypes } from '../../../libs/components/src/tabs/stories/vl-tabs.stories-arg';
 import { templateArgTypes } from '../../../libs/components/src/template/stories/vl-template.stories-arg';
+import { textArgTypes } from '../../../libs/components/src/text/stories/vl-text.stories-arg';
+import { titleArgTypes } from '../../../libs/components/src/title/stories/vl-title.stories-arg';
+import { toasterArgTypes } from '../../../libs/components/src/toaster/stories/vl-toaster.stories-arg';
 import { typographyArgTypes } from '../../../libs/components/src/typography/stories/vl-typography.stories-arg';
+import { videoPlayerArgTypes } from '../../../libs/components/src/video-player/stories/vl-video-player.stories-arg';
 import { wizardPaneArgTypes } from '../../../libs/components/src/wizard/stories/vl-wizard-pane.stories-arg';
 import { wizardArgTypes } from '../../../libs/components/src/wizard/stories/vl-wizard.stories-arg';
 import { WTConfigArray } from '../web-types.model';
@@ -133,121 +133,116 @@ export const buildWTConfigComponents: WTConfigArray = [
     buildWTConfig('vl-loader', loaderArgTypes, null, '/docs/components-loader--documentatie'),
     buildWTConfig('vl-modal', modalArgTypes, null, '/docs/components-modal--documentatie'),
     buildWTConfig(
-        'vl-button-next',
+        'vl-button',
         buttonArgTypes,
-        '../../libs/components/src/next/button/stories/vl-button.stories-doc.mdx',
-        '/docs/components-next-button--documentatie'
+        '../../libs/components/src/button/stories/vl-button.stories-doc.mdx',
+        '/docs/components-button--documentatie'
     ),
     buildWTConfig(
         'vl-cascader',
         cascaderArgTypes,
-        '../../libs/components/src/next/cascader/stories/vl-cascader.stories-doc.mdx',
-        '/docs/components-next-cascader-cascader--documentatie'
+        '../../libs/components/src/cascader/stories/vl-cascader.stories-doc.mdx',
+        '/docs/components-cascader-cascader--documentatie'
     ),
     buildWTConfig(
         'vl-cascader-item',
         cascaderItemArgTypes,
         null,
-        '/docs/components-next-cascader-cascader-item--documentatie'
+        '/docs/components-cascader-cascader-item--documentatie'
     ),
     buildWTConfig(
-        'vl-table-next',
+        'vl-table',
         tableArgTypes,
-        '../../libs/components/src/next/table/stories/vl-table.stories-doc.mdx',
-        '/docs/components-next-table--documentatie'
+        '../../libs/components/src/table/stories/vl-table.stories-doc.mdx',
+        '/docs/components-table--documentatie'
     ),
     buildWTConfig(
-        'vl-doormat-next',
+        'vl-doormat',
         doormatArgTypes,
-        '../../libs/components/src/next/doormat/stories/vl-doormat.stories-doc.mdx',
-        '/docs/components-next-doormat--documentatie'
+        '../../libs/components/src/doormat/stories/vl-doormat.stories-doc.mdx',
+        '/docs/components-doormat--documentatie'
     ),
     buildWTConfig(
-        'vl-icon-next',
+        'vl-icon',
         iconArgTypes,
-        '../../libs/components/src/next/icon/stories/vl-icon.stories-doc.mdx',
-        '/docs/components-next-icon--documentatie'
+        '../../libs/components/src/icon/stories/vl-icon.stories-doc.mdx',
+        '/docs/components-icon--documentatie'
     ),
     buildWTConfig(
-        'vl-infotext-next',
+        'vl-infotext',
         infotextArgTypes,
-        '../../libs/components/src/next/infotext/stories/vl-infotext.stories-doc.mdx',
-        '/docs/components-next-infotext--documentatie'
+        '../../libs/components/src/infotext/stories/vl-infotext.stories-doc.mdx',
+        '/docs/components-infotext--documentatie'
     ),
     buildWTConfig(
-        'vl-link-next',
+        'vl-link',
         linkArgTypes,
-        '../../libs/components/src/next/link/stories/vl-link.stories-doc.mdx',
-        '/docs/components-next-link--documentatie'
+        '../../libs/components/src/link/stories/vl-link.stories-doc.mdx',
+        '/docs/components-link--documentatie'
     ),
     buildWTConfig(
-        'vl-paragraph-next',
+        'vl-paragraph',
         paragraphArgTypes,
-        '../../libs/components/src/next/paragraph/stories/vl-paragraph.stories-doc.mdx',
-        '/docs/components-next-paragraph--documentatie'
+        '../../libs/components/src/paragraph/stories/vl-paragraph.stories-doc.mdx',
+        '/docs/components-paragraph--documentatie'
     ),
     buildWTConfig(
-        'vl-properties-next',
+        'vl-properties',
         propertiesArgTypes,
-        '../../libs/components/src/next/properties/stories/vl-properties.stories-doc.mdx',
-        '/docs/components-next-properties--documentatie'
+        '../../libs/components/src/properties/stories/vl-properties.stories-doc.mdx',
+        '/docs/components-properties--documentatie'
     ),
     buildWTConfig(
-        'vl-search-result-next',
+        'vl-search-result',
         searchResultArgTypes,
-        '../../libs/components/src/next/search-result/stories/vl-search-result.stories-doc.mdx',
-        '/docs/components-next-search-result--documentatie'
+        '../../libs/components/src/search-result/stories/vl-search-result.stories-doc.mdx',
+        '/docs/components-search-result--documentatie'
     ),
-    buildWTConfig('vl-search-result-title-next', null, null, '/docs/components-next-search-result--documentatie'),
-    buildWTConfig('vl-search-result-text-next', null, null, '/docs/components-next-search-result--documentatie'),
-    buildWTConfig('vl-search-result-properties-next', null, null, '/docs/components-next-search-result--documentatie'),
+    buildWTConfig('vl-search-result-title', null, null, '/docs/components-search-result--documentatie'),
+    buildWTConfig('vl-search-result-text', null, null, '/docs/components-search-result--documentatie'),
+    buildWTConfig('vl-search-result-properties', null, null, '/docs/components-search-result--documentatie'),
     buildWTConfig(
-        'vl-side-navigation-next',
+        'vl-side-navigation',
         null,
-        '../../libs/components/src/next/side-navigation/stories/vl-side-navigation.stories-doc.mdx',
-        '/docs/components-next-side-navigation--documentatie'
+        '../../libs/components/src/side-navigation/stories/vl-side-navigation.stories-doc.mdx',
+        '/docs/components-side-navigation--documentatie'
     ),
-    buildWTConfig('vl-side-navigation-content-next', null, null, '/docs/components-next-side-navigation--documentatie'),
-    buildWTConfig('vl-side-navigation-group-next', null, null, '/docs/components-next-side-navigation--documentatie'),
-    buildWTConfig('vl-side-navigation-item-next', null, null, '/docs/components-next-side-navigation--documentatie'),
+    buildWTConfig('vl-side-navigation-content', null, null, '/docs/components-side-navigation--documentatie'),
+    buildWTConfig('vl-side-navigation-group', null, null, '/docs/components-side-navigation--documentatie'),
+    buildWTConfig('vl-side-navigation-item', null, null, '/docs/components-side-navigation--documentatie'),
+    buildWTConfig('vl-side-navigation-reference', null, null, '/docs/components-side-navigation--documentatie'),
+    buildWTConfig('vl-side-navigation-h1', null, null, '/docs/components-side-navigation--documentatie'),
+    buildWTConfig('vl-side-navigation-h2', null, null, '/docs/components-side-navigation--documentatie'),
+    buildWTConfig('vl-side-navigation-h3', null, null, '/docs/components-side-navigation--documentatie'),
+    buildWTConfig('vl-side-navigation-h4', null, null, '/docs/components-side-navigation--documentatie'),
+    buildWTConfig('vl-side-navigation-h5', null, null, '/docs/components-side-navigation--documentatie'),
+    buildWTConfig('vl-side-navigation-h6', null, null, '/docs/components-side-navigation--documentatie'),
+    buildWTConfig('vl-side-navigation-toggle', null, null, '/docs/components-side-navigation--documentatie'),
     buildWTConfig(
-        'vl-side-navigation-reference-next',
-        null,
-        null,
-        '/docs/components-next-side-navigation--documentatie'
-    ),
-    buildWTConfig('vl-side-navigation-h1-next', null, null, '/docs/components-next-side-navigation--documentatie'),
-    buildWTConfig('vl-side-navigation-h2-next', null, null, '/docs/components-next-side-navigation--documentatie'),
-    buildWTConfig('vl-side-navigation-h3-next', null, null, '/docs/components-next-side-navigation--documentatie'),
-    buildWTConfig('vl-side-navigation-h4-next', null, null, '/docs/components-next-side-navigation--documentatie'),
-    buildWTConfig('vl-side-navigation-h5-next', null, null, '/docs/components-next-side-navigation--documentatie'),
-    buildWTConfig('vl-side-navigation-h6-next', null, null, '/docs/components-next-side-navigation--documentatie'),
-    buildWTConfig('vl-side-navigation-toggle-next', null, null, '/docs/components-next-side-navigation--documentatie'),
-    buildWTConfig(
-        'vl-search-filter-next',
+        'vl-search-filter',
         searchFilterArgTypes,
-        '../../libs/components/src/next/search-filter/stories/vl-search-filter.stories-doc.mdx',
-        '/docs/components-next-search-filter--documentatie'
+        '../../libs/components/src/search-filter/stories/vl-search-filter.stories-doc.mdx',
+        '/docs/components-search-filter--documentatie'
     ),
     buildWTConfig(
-        'vl-steps-next',
+        'vl-steps',
         stepsArgTypes,
-        '../../libs/components/src/next/steps/stories/vl-steps.stories-doc.mdx',
-        '/docs/components-next-steps-steps--documentatie'
+        '../../libs/components/src/steps/stories/vl-steps.stories-doc.mdx',
+        '/docs/components-steps-steps--documentatie'
     ),
-    buildWTConfig('vl-step-next', stepArgTypes, null, '/docs/components-next-steps-step--documentatie'),
-    buildWTConfig('vl-duration-step-next', null, null, '/docs/components-next-steps-steps--documentatie'),
+    buildWTConfig('vl-step', stepArgTypes, null, '/docs/components-steps-step--documentatie'),
+    buildWTConfig('vl-duration-step', null, null, '/docs/components-steps-steps--documentatie'),
     buildWTConfig(
-        'vl-text-next',
+        'vl-text',
         textArgTypes,
-        '../../libs/components/src/next/text/stories/vl-text.stories-doc.mdx',
-        '/docs/components-next-text-text--documentatie'
+        '../../libs/components/src/text/stories/vl-text.stories-doc.mdx',
+        '/docs/components-text-text--documentatie'
     ),
     buildWTConfig(
-        'vl-title-next',
+        'vl-title',
         titleArgTypes,
-        '../../libs/components/src/next/title/stories/vl-title.stories-doc.mdx',
-        '/docs/components-next-title--documentatie'
+        '../../libs/components/src/title/stories/vl-title.stories-doc.mdx',
+        '/docs/components-title--documentatie'
     ),
     buildWTConfig('vl-pager', pagerArgTypes, null, '/docs/components-pager--documentatie'),
     buildWTConfig('vl-pill', pillArgTypes, null, '/docs/components-pill-pill--documentatie'),
@@ -303,27 +298,27 @@ export const buildWTConfigComponents: WTConfigArray = [
     ),
     buildWTConfig('vl-spotlight', spotlightArgTypes, null, '/docs/components-spotlight--documentatie'),
     buildWTConfig(
-        'vl-tabs-next',
-        tabsNextArgTypes,
-        '../../libs/components/src/next/tabs/stories/vl-tabs.stories-doc.mdx',
-        '/docs/components-next-tabs--documentatie'
+        'vl-tabs',
+        tabsArgTypes,
+        '../../libs/components/src/tabs/stories/vl-tabs.stories-doc.mdx',
+        '/docs/components-tabs--documentatie'
     ),
-    buildWTConfig('vl-tabs-pane-next', tabsPaneNextArgTypes, null, '/docs/components-next-tabs--documentatie'),
-    buildWTConfig('vl-tab-next', null, null, '/docs/components-next-tabs--documentatie'),
-    buildWTConfig('vl-tab-section-next', null, null, '/docs/components-next-tabs--documentatie'),
+    buildWTConfig('vl-tabs-pane', tabsPaneArgTypes, null, '/docs/components-tabs--documentatie'),
+    buildWTConfig('vl-tab', null, null, '/docs/components-tabs--documentatie'),
+    buildWTConfig('vl-tab-section', null, null, '/docs/components-tabs--documentatie'),
     buildWTConfig('vl-template', templateArgTypes, null, '/docs/components-template--documentatie'),
     buildWTConfig(
-        'vl-toaster-next',
+        'vl-toaster',
         toasterArgTypes,
-        '../../libs/components/src/next/toaster/stories/vl-toaster.stories-doc.mdx',
-        '/docs/components-next-toaster--documentatie'
+        '../../libs/components/src/toaster/stories/vl-toaster.stories-doc.mdx',
+        '/docs/components-toaster--documentatie'
     ),
     buildWTConfig('vl-typography', typographyArgTypes, null, '/docs/components-typography--documentatie'),
     buildWTConfig(
-        'vl-video-player-next',
+        'vl-video-player',
         videoPlayerArgTypes,
-        '../../libs/components/src/next/video-player/stories/vl-video-player.stories-doc.mdx',
-        '/docs/components-next-video-player--documentatie'
+        '../../libs/components/src/video-player/stories/vl-video-player.stories-doc.mdx',
+        '/docs/components-video-player--documentatie'
     ),
     buildWTConfig(
         'vl-wizard',

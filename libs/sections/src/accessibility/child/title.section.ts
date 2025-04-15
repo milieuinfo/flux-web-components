@@ -7,18 +7,18 @@ export type TitleProps = Pick<AccessibilityProperties, 'version' | 'date'>;
 export const titleElements = () => [VlTypography];
 
 export const title = ({ version, date }: TitleProps) => html`
-    <section class="vl-section-next">
-        <div class="vl-content-block-next">
-            <div class="vl-grid-next vl-stacked-next-medium">
-                <div class="vl-column-next vl-column-next--10">
-                    <vl-title-next type="h1" no-space-bottom>Toegankelijkheidsverklaring</vl-title-next>
+    <section class="vl-section">
+        <div class="vl-content-block">
+            <div class="vl-grid vl-stacked-medium">
+                <div class="vl-column vl-column--10">
+                    <vl-title type="h1" no-space-bottom>Toegankelijkheidsverklaring</vl-title>
                 </div>
-                <div class="vl-column-next vl-column-next--10">
-                    <vl-paragraph-next introduction>
+                <div class="vl-column vl-column--10">
+                    <vl-paragraph introduction>
                         <span>Versie ${version} - ${date}</span>
-                    </vl-paragraph-next>
+                    </vl-paragraph>
                 </div>
-                <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                <div class="vl-column vl-column--12 vl-column--m-12">
                     <vl-typography>
                         <hr />
                     </vl-typography>

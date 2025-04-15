@@ -3,11 +3,11 @@ import {Meta} from '@storybook/addon-docs';
 import marginEnPadding from './margin-en-padding.png';
 import * as VlMarginStories from './vl-margin.stories';
 
-<Meta title="Styles-next/Layout (afnemers)/margin"/>
+<Meta title="Styles/Layout (afnemers)/margin"/>
 
-# Margin - next
+# Margin
 
-<VluxMetaData id="styles-next-layout-afnemers-margin" />
+<VluxMetaData id="styles-layout-afnemers-margin" />
 <br/>
 
 
@@ -35,40 +35,40 @@ hieronder besproken (voorziene) style-classes. Echter, zoals steeds: het is niet
 In onderstaande voorbeelden wordt bij het 'default voorbeeld' de margin expliciet op 15px gezet, de overige voorbeelden
 tonen de impact op het 'default voorbeeld'.
 
-### vl-margin-next - default
+### vl-margin - default
 
 De default marge wordt beïnvloed door de container, typisch wat er voor die resolutie bepaald is door
-[vl-section-next](/docs/styles-next-layout-afnemers-section--documentatie).
+[vl-section](/docs/styles-layout-afnemers-section--documentatie).
 
 <Canvas of={VlMarginStories.MarginDefault} />
 
-### vl-margin-next--small
+### vl-margin--small
 
 De margin onderaan en bovenaan wordt op de variabele `--vl-spacing--small` (1.5rem) gezet, links en rechts is er geen
 margin (0), voor kleine schermen (&lt;767px) wordt de `--vl-spacing--normal` (2rem) gebruikt (boven- en onderaan).
 
 <Canvas of={VlMarginStories.MarginSmall} />
 
-### vl-margin-next--medium
+### vl-margin--medium
 
 De margin onderaan en bovenaan wordt op de variabele `--vl-spacing--medium` (3rem) gezet, links en rechts is er geen
 margin (0), voor kleine schermen (&lt;767px) wordt de `--vl-spacing--normal` (2rem) gebruikt (boven- en onderaan).
 
 <Canvas of={VlMarginStories.MarginMedium} />
 
-### vl-margin-next--no
+### vl-margin--no
 
 Nergens margin: alle margin rondom staat op 0.
 
 <Canvas of={VlMarginStories.MarginNo} />
 
-### vl-margin-next--no-bottom
+### vl-margin--no-bottom
 
 Onderaan geen margin: deze wordt op 0 gezet.
 
 <Canvas of={VlMarginStories.MarginNoBottom} />
 
-### vl-margin-next--no-top
+### vl-margin--no-top
 
 Bovenaan geen margin: deze wordt op 0 gezet.
 

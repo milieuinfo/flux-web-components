@@ -2,7 +2,7 @@ import { css, CSSResult } from 'lit';
 import { vlMediaScreenSmall } from '../../base/var/vl-media-screen.css';
 
 export const vlMarginStyles: CSSResult = css`
-    .vl-margin-next--small {
+    .vl-margin--small {
         margin: var(--vl-spacing--small) 0;
 
         @media screen and (max-width: ${vlMediaScreenSmall}px) {
@@ -10,7 +10,7 @@ export const vlMarginStyles: CSSResult = css`
         }
     }
 
-    .vl-margin-next--medium {
+    .vl-margin--medium {
         margin: var(--vl-spacing--medium) 0;
 
         @media screen and (max-width: ${vlMediaScreenSmall}px) {
@@ -18,15 +18,15 @@ export const vlMarginStyles: CSSResult = css`
         }
     }
 
-    .vl-margin-next--no {
+    .vl-margin--no {
         margin: 0;
     }
 
-    .vl-margin-next--no-bottom {
+    .vl-margin--no-bottom {
         margin-bottom: 0;
     }
 
-    .vl-margin-next--no-top {
+    .vl-margin--no-top {
         margin-top: 0;
     }
 `;

@@ -2,50 +2,50 @@ import { css, CSSResult } from 'lit';
 import { vlMediaScreenExtraSmall, vlMediaScreenMedium, vlMediaScreenSmall } from '../../base/var/vl-media-screen.css';
 
 export const vlGroupStyles: CSSResult = css`
-    .vl-group-next {
+    .vl-group {
         display: flex;
         align-items: center;
         gap: 1.4rem;
 
-        &.vl-group-next--column {
+        &.vl-group--column {
             flex-direction: column;
         }
 
-        &.vl-group-next--stretch-children {
+        &.vl-group--stretch-children {
             & > * {
                 width: 100%;
             }
         }
 
-        &.vl-group-next--no-gap {
+        &.vl-group--no-gap {
             gap: 0;
         }
 
-        &.vl-group-next--space-between {
+        &.vl-group--space-between {
             justify-content: space-between;
         }
 
-        &.vl-group-next--justify-center {
+        &.vl-group--justify-center {
             justify-content: center;
         }
 
-        &.vl-group-next--justify-end {
+        &.vl-group--justify-end {
             justify-content: flex-end;
         }
 
-        &.vl-group-next--baseline {
+        &.vl-group--baseline {
             align-items: baseline;
 
-            vl-link-next::part(link),
-            vl-link-next::part(button) {
+            vl-link::part(link),
+            vl-link::part(button) {
                 align-items: baseline;
             }
-            vl-link-next::part(icon) {
+            vl-link::part(icon) {
                 align-self: center;
             }
         }
 
-        &.vl-group-next--separator-row {
+        &.vl-group--separator-row {
             > * + * {
                 &::before {
                     content: '';
@@ -57,7 +57,7 @@ export const vlGroupStyles: CSSResult = css`
             }
         }
 
-        &.vl-group-next--separator-column {
+        &.vl-group--separator-column {
             > * {
                 padding-top: 1.5rem;
                 border-top: 1px solid #cbd2da;
@@ -69,7 +69,7 @@ export const vlGroupStyles: CSSResult = css`
             }
         }
 
-        &.vl-group-next--input-group {
+        &.vl-group--input-group {
             gap: 0;
 
             :first-child:focus {
@@ -78,28 +78,28 @@ export const vlGroupStyles: CSSResult = css`
         }
 
         @media screen and (min-width: ${vlMediaScreenMedium}px) {
-            &.vl-group-next--collapse-l {
+            &.vl-group--collapse-l {
                 flex-direction: column;
                 align-items: flex-start;
             }
         }
 
         @media screen and (max-width: ${vlMediaScreenMedium}px) {
-            &.vl-group-next--collapse-m {
+            &.vl-group--collapse-m {
                 flex-direction: column;
                 align-items: flex-start;
             }
         }
 
         @media screen and (max-width: ${vlMediaScreenSmall}px) {
-            &.vl-group-next--collapse-s {
+            &.vl-group--collapse-s {
                 flex-direction: column;
                 align-items: flex-start;
             }
         }
 
         @media screen and (max-width: ${vlMediaScreenExtraSmall}px) {
-            &.vl-group-next--collapse-xs {
+            &.vl-group--collapse-xs {
                 flex-direction: column;
                 align-items: flex-start;
             }

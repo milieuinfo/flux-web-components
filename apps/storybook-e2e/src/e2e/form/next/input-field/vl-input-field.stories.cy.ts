@@ -1,20 +1,20 @@
 const inputFieldNextDefaultUrl =
-    'http://localhost:8080/iframe.html?id=form-next-input-field--input-field-default&viewMode=story';
+    'http://localhost:8080/iframe.html?id=form-input-field--input-field-default&viewMode=story';
 const inputFieldNextNumberUrl =
-    'http://localhost:8080/iframe.html?id=form-next-input-field--input-field-number&viewMode=story';
+    'http://localhost:8080/iframe.html?id=form-input-field--input-field-number&viewMode=story';
 
-describe('story - vl-input-field-next - default', () => {
+describe('story - vl-input-field - default', () => {
     it('should render', () => {
         cy.visit(inputFieldNextDefaultUrl);
 
-        cy.get('vl-input-field-next').shadow().find('input');
+        cy.get('vl-input-field').shadow().find('input');
     });
 });
 
-describe('story - vl-input-field-next - number', () => {
+describe('story - vl-input-field - number', () => {
     it('should render', () => {
         cy.visit(inputFieldNextNumberUrl);
 
-        cy.get('vl-input-field-next').shadow().find('input');
+        cy.get('vl-input-field').shadow().find('input');
     });
 });

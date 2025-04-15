@@ -2,7 +2,7 @@ import { filterOutClasses, filterOutDataCy, formatHTML } from '@domg-wc/common-s
 import { registerWebComponents } from '@domg-wc/common-utilities';
 import { GlobalStyles } from '@domg-wc/common-utilities/css';
 import { VlAlert } from '@domg-wc/components';
-import { VlIconComponent } from '@domg-wc/components/next/icon';
+import { VlIconComponent } from '@domg-wc/components';
 import './styles.css';
 import 'reflect-metadata';
 import { VluxAlert } from './vlux-alert/vlux-alert.component';

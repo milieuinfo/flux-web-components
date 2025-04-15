@@ -1,8 +1,12 @@
 import { story } from '@domg-wc/common-storybook';
 import { registerWebComponents } from '@domg-wc/common-utilities';
 import { vlGroupStyles } from '@domg-wc/common-utilities/css';
-import { VlBreadcrumbComponent, VlBreadcrumbItemComponent, VlFunctionalHeaderComponent } from '@domg-wc/components';
-import { VlButtonComponent } from '@domg-wc/components/next/button';
+import {
+    VlBreadcrumbComponent,
+    VlBreadcrumbItemComponent,
+    VlButtonComponent,
+    VlFunctionalHeaderComponent,
+} from '@domg-wc/components';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';

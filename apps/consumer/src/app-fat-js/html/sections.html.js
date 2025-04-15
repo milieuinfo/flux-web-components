@@ -6,9 +6,9 @@ export const accessibilityHtml = (importType, packageName) => `
             overflow: scroll;
         }
     </style>
-s    <vl-title-next type="h2">Accessibility - ${importType} - ${packageName}</vl-title-next>
+s    <vl-title type="h2">Accessibility - ${importType} - ${packageName}</vl-title>
     <div class="container accessibility-wrapper">
-        <vl-title-next type="h3" has-border>Accessibility</vl-title-next>
+        <vl-title type="h3" has-border>Accessibility</vl-title>
         <vl-accessibility></vl-accessibility>
     </div>
 `;

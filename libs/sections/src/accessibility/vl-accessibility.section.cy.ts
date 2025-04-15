@@ -1,5 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlLinkComponent } from '@domg-wc/components/next/link';
+import { VlLinkComponent } from '@domg-wc/components';
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import type { AccessibilityProperties } from './vl-accessibility.model';
@@ -155,9 +155,9 @@ describe('component vl-accessibility - header slot', () => {
         data-vl-no-border
         data-vl-no-background
     >
-        <vl-link-next id="back-link" href="https://overheid.vlaanderen.be">
+        <vl-link id="back-link" href="https://overheid.vlaanderen.be">
             Start
-        </vl-link-next>
+        </vl-link>
     </vl-functional-header>`,
         });
 

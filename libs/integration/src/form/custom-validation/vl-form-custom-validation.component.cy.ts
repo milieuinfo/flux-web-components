@@ -1,4 +1,4 @@
-// import { parseFormData } from '@domg-wc/form/utils';
+// import { parseFormData } from '@domg-wc/form';
 import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common-utilities';
 import { VlFormCustomValidationComponent } from './vl-form-custom-validation.component';
@@ -17,13 +17,13 @@ describe('integration - form custom validation', () => {
 
         cy.get('vl-form-custom-validation')
             .shadow()
-            .find('vl-button-next[type="submit"]')
+            .find('vl-button[type="submit"]')
             .shadow()
             .find('button')
-            .click('bottomLeft'); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button-next tag.
+            .click('bottomLeft'); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
         cy.get('vl-form-custom-validation')
             .shadow()
-            .find('vl-error-message-next[state="valueMissing"]')
+            .find('vl-error-message[state="valueMissing"]')
             .should('have.attr', 'show', '');
         cy.get('vl-form-custom-validation')
             .shadow()
@@ -33,13 +33,13 @@ describe('integration - form custom validation', () => {
             .type('test');
         cy.get('vl-form-custom-validation')
             .shadow()
-            .find('vl-button-next[type="submit"]')
+            .find('vl-button[type="submit"]')
             .shadow()
             .find('button')
-            .click('bottomLeft'); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button-next tag.
+            .click('bottomLeft'); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
         cy.get('vl-form-custom-validation')
             .shadow()
-            .find('vl-error-message-next[state="customError"]')
+            .find('vl-error-message[state="customError"]')
             .should('have.attr', 'show', '');
         cy.get('vl-form-custom-validation')
             .shadow()
@@ -50,13 +50,13 @@ describe('integration - form custom validation', () => {
             .type('foo');
         cy.get('vl-form-custom-validation')
             .shadow()
-            .find('vl-button-next[type="submit"]')
+            .find('vl-button[type="submit"]')
             .shadow()
             .find('button')
-            .click('bottomLeft'); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button-next tag.
+            .click('bottomLeft'); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
         cy.get('vl-form-custom-validation')
             .shadow()
-            .find('vl-error-message-next[state="customError"]')
+            .find('vl-error-message[state="customError"]')
             .should('not.have.attr', 'show', '');
         cy.get('vl-form-custom-validation')
             .shadow()

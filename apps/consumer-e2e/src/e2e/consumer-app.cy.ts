@@ -46,8 +46,8 @@ describe('consumer application', () => {
         apps.forEach((value) => {
             cy.visit(value.url);
             cy.get('#consumer-components')
-                .find('vl-steps-next')
-                .find('vl-step-next')
+                .find('vl-steps')
+                .find('vl-step')
                 .first()
                 .shadow()
                 .find('.vl-step__wrapper')

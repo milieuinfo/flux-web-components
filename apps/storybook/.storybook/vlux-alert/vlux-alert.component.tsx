@@ -27,7 +27,7 @@ export const VluxAlert = ({
 };
 
 declare global {
-    // eslint-disable-next-line @typescript-eslint/no-namespace
+    // eslint-disable-line @typescript-eslint/no-namespace
     namespace JSX {
         interface IntrinsicElements {
             'vl-alert': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;

@@ -1,4 +1,4 @@
-import { VlTitleComponent } from '@domg-wc/components/next/title';
+import { VlTitleComponent } from '@domg-wc/components';
 import { html } from 'lit-html';
 import { registerWebComponents } from '@domg-wc/common-utilities';
 import { VlInfoblockComponent } from './index';
@@ -24,7 +24,7 @@ export const mountWithSlotElements = ({
 }) =>
     cy.mount(html`
         <vl-infoblock data-vl-type=${type}>
-            <vl-title-next type="h2" slot="title">${title}</vl-title-next>
+            <vl-title type="h2" slot="title">${title}</vl-title>
             ${content}
         </vl-infoblock>
     `);

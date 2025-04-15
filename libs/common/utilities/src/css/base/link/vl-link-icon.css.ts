@@ -1,7 +1,7 @@
 import { css } from 'lit';
 
 export const vlLinkIconStyles = css`
-    .vl-link-next__icon {
+    .vl-link__icon {
         position: relative;
         display: inline-block;
         vertical-align: middle;
@@ -15,10 +15,10 @@ export const vlLinkIconStyles = css`
         &::after {
             display: inline-block;
         }
-        &.vl-link-next__icon--before {
+        &.vl-link__icon--before {
             padding-right: 0.4rem;
         }
-        &.vl-link-next__icon--after {
+        &.vl-link__icon--after {
             padding-left: 0.4rem;
         }
     }

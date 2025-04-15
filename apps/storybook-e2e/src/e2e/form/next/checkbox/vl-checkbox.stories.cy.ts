@@ -1,40 +1,37 @@
-const checkboxNextDefaultUrl =
-    'http://localhost:8080/iframe.html?id=form-next-checkbox--checkbox-default&viewMode=story&args=';
-const checkboxNextSwitchUrl =
-    'http://localhost:8080/iframe.html?id=form-next-checkbox--checkbox-switch&viewMode=story&args=';
-const checkboxNextValueUrl =
-    'http://localhost:8080/iframe.html?id=form-next-checkbox--checkbox-value&viewMode=story&args=';
-const checkboxNextReadonlyUrl =
-    'http://localhost:8080/iframe.html?id=form-next-checkbox--checkbox-readonly&viewMode=story&args=';
+const checkboxDefaultUrl = 'http://localhost:8080/iframe.html?id=form-checkbox--checkbox-default&viewMode=story&args=';
+const checkboxSwitchUrl = 'http://localhost:8080/iframe.html?id=form-checkbox--checkbox-switch&viewMode=story&args=';
+const checkboxValueUrl = 'http://localhost:8080/iframe.html?id=form-checkbox--checkbox-value&viewMode=story&args=';
+const checkboxReadonlyUrl =
+    'http://localhost:8080/iframe.html?id=form-checkbox--checkbox-readonly&viewMode=story&args=';
 
-describe('story - vl-checkbox-next - default', () => {
+describe('story - vl-checkbox - default', () => {
     it('should render', () => {
-        cy.visit(checkboxNextDefaultUrl);
+        cy.visit(checkboxDefaultUrl);
 
-        cy.get('vl-checkbox-next').shadow();
+        cy.get('vl-checkbox').shadow();
     });
 });
 
-describe('story - vl-checkbox-next - switch', () => {
+describe('story - vl-checkbox - switch', () => {
     it('should render', () => {
-        cy.visit(checkboxNextSwitchUrl);
+        cy.visit(checkboxSwitchUrl);
 
-        cy.get('vl-checkbox-next').shadow();
+        cy.get('vl-checkbox').shadow();
     });
 });
 
-describe('story - vl-checkbox-next - value', () => {
+describe('story - vl-checkbox - value', () => {
     it('should render', () => {
-        cy.visit(checkboxNextValueUrl);
+        cy.visit(checkboxValueUrl);
 
-        cy.get('vl-checkbox-next').shadow();
+        cy.get('vl-checkbox').shadow();
     });
 });
 
-describe('story - vl-checkbox-next - readonly', () => {
+describe('story - vl-checkbox - readonly', () => {
     it('should render', () => {
-        cy.visit(checkboxNextReadonlyUrl);
+        cy.visit(checkboxReadonlyUrl);
 
-        cy.get('vl-checkbox-next').shadow();
+        cy.get('vl-checkbox').shadow();
     });
 });

@@ -31,7 +31,7 @@ describe('vl-authentication-cookie component - props', () => {
     it('should render the correct <title>', () => {
         cy.get('vl-header-authentication-cookie')
             .shadow()
-            .find('vl-title-next')
+            .find('vl-title')
             .should('contain.text', 'Vlaams toegangsbeheer cookies');
     });
 
@@ -44,19 +44,14 @@ describe('vl-authentication-cookie component - props', () => {
             'tbsession',
         ];
         expectedNames.forEach((name) => {
-            cy.get('vl-header-authentication-cookie')
-                .shadow()
-                .find('vl-properties-next')
-                .shadow()
-                .find('dd')
-                .contains(name);
+            cy.get('vl-header-authentication-cookie').shadow().find('vl-properties').shadow().find('dd').contains(name);
         });
     });
 
     it('should render the correct <purpose>', () => {
         cy.get('vl-header-authentication-cookie')
             .shadow()
-            .find('vl-properties-next')
+            .find('vl-properties')
             .shadow()
             .find('dd')
             .contains(
@@ -67,7 +62,7 @@ describe('vl-authentication-cookie component - props', () => {
     it('should render the correct <domain>', () => {
         cy.get('vl-header-authentication-cookie')
             .shadow()
-            .find('vl-properties-next')
+            .find('vl-properties')
             .shadow()
             .find('dd')
             .contains('authenticatie.vlaanderen.be');
@@ -76,18 +71,13 @@ describe('vl-authentication-cookie component - props', () => {
     it('should render the correct <processor>', () => {
         cy.get('vl-header-authentication-cookie')
             .shadow()
-            .find('vl-properties-next')
+            .find('vl-properties')
             .shadow()
             .find('dd')
             .contains('Vlaamse overheid');
     });
 
     it('should render the correct <validity>', () => {
-        cy.get('vl-header-authentication-cookie')
-            .shadow()
-            .find('vl-properties-next')
-            .shadow()
-            .find('dd')
-            .contains('Sessie');
+        cy.get('vl-header-authentication-cookie').shadow().find('vl-properties').shadow().find('dd').contains('Sessie');
     });
 });
