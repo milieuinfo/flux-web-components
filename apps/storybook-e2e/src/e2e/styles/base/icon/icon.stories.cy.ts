@@ -1,9 +1,8 @@
 import { hexToString } from '@domg-wc/common-utilities';
 
-const iconNextDefaultUrl =
-    'http://localhost:8080/iframe.html?id=styles-next-base-intern-icon--icon-default&viewMode=story';
+const iconNextDefaultUrl = 'http://localhost:8080/iframe.html?id=styles-base-intern-icon--icon-default&viewMode=story';
 
-describe('story - icon-next - default', () => {
+describe('story - icon - default', () => {
     it('should render', () => {
         cy.visit(iconNextDefaultUrl);
 

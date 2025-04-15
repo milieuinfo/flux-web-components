@@ -1,18 +1,18 @@
 const groupNextButtonsUrl =
-    'http://localhost:8080/iframe.html?id=styles-next-layout-afnemers-group--group-buttons&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-group--group-buttons&viewMode=story';
 const groupNextLinksUrl =
-    'http://localhost:8080/iframe.html?id=styles-next-layout-afnemers-group--group-links&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-group--group-links&viewMode=story';
 const groupNextAccordionsUrl =
-    'http://localhost:8080/iframe.html?id=styles-next-layout-afnemers-group--group-accordions&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-group--group-accordions&viewMode=story';
 const groupNextIconsUrl =
-    'http://localhost:8080/iframe.html?id=styles-next-layout-afnemers-group--group-icons&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-group--group-icons&viewMode=story';
 
-describe('story - group-next - buttons', () => {
+describe('story - group - buttons', () => {
     it('should render', () => {
         cy.visit(groupNextButtonsUrl);
 
-        cy.get('.vl-group-next')
-            .find('vl-button-next')
+        cy.get('.vl-group')
+            .find('vl-button')
             .first()
             .shouldHaveComputedStyle({ style: 'color', value: 'rgb(51, 51, 50)' })
             .invoke('text')
@@ -20,12 +20,12 @@ describe('story - group-next - buttons', () => {
     });
 });
 
-describe('story - group-next - links', () => {
+describe('story - group - links', () => {
     it('should render', () => {
         cy.visit(groupNextLinksUrl);
 
-        cy.get('.vl-group-next')
-            .find('vl-link-next')
+        cy.get('.vl-group')
+            .find('vl-link')
             .first()
             .shouldHaveComputedStyle({ style: 'color', value: 'rgb(51, 51, 50)' })
             .shadow()
@@ -34,18 +34,18 @@ describe('story - group-next - links', () => {
     });
 });
 
-describe('story - group-next - accordions', () => {
+describe('story - group - accordions', () => {
     it('should render', () => {
         cy.visit(groupNextAccordionsUrl);
 
-        cy.get('.vl-group-next').find('vl-accordion').first().shadow().find('div.vl-accordion').should('exist');
+        cy.get('.vl-group').find('vl-accordion').first().shadow().find('div.vl-accordion').should('exist');
     });
 });
 
-describe('story - group-next - icons', () => {
+describe('story - group - icons', () => {
     it('should render', () => {
         cy.visit(groupNextIconsUrl);
 
-        cy.get('.vl-group-next').find('vl-icon-next').first().shadow().find('span.vl-icon--bell').should('exist');
+        cy.get('.vl-group').find('vl-icon').first().shadow().find('span.vl-icon--bell').should('exist');
     });
 });

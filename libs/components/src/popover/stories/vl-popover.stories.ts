@@ -9,7 +9,7 @@ import { VlPopoverComponent } from '../vl-popover.component';
 import { popoverActionArgs, popoverActionArgTypes } from './vl-popover-action.stories-arg';
 import { popoverArgTypes, popoverDefaultArgs } from './vl-popover.stories-arg';
 import popoverDoc from './vl-popover.stories-doc.mdx';
-import { VlButtonComponent } from '@domg-wc/components/next/button';
+import { VlButtonComponent } from '@domg-wc/components';
 
 registerWebComponents([VlPopoverComponent, VlPopoverActionComponent, VlPopoverActionListComponent, VlButtonComponent]);
 
@@ -41,7 +41,7 @@ export const PopoverDefault = story(
             actionElement.setAttribute('selected', '');
         };
         return html`
-            <vl-button-next ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button-next>
+            <vl-button ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button>
             <vl-popover
                 for="btn-acties"
                 open="${open}"
@@ -141,7 +141,7 @@ export const PopoverActionsDivider = story(popoverActionArgs, ({ selected }) => 
             <vl-popover-action selected=${selected} icon="search">Zoeken</vl-popover-action>
             <vl-popover-action icon="bell">Rapportenoverzicht</vl-popover-action>
             <vl-popover-action icon="pin">Vind locatie</vl-popover-action>
-            <hr class="vl-separator-next" />
+            <hr class="vl-separator" />
             <vl-popover-action icon="save">Bewaren</vl-popover-action>
             <vl-popover-action icon="trash">Verwijderen</vl-popover-action>
         </vl-popover-action-list>

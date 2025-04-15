@@ -1,6 +1,6 @@
 export const mapWithGrayBaselayerHtml = (importType, packageName) => `
     <div id="consumer-map">
-        <vl-title-next type="h2">Map With Gray Baselayer - ${importType} - ${packageName}</vl-title-next>
+        <vl-title type="h2">Map With Gray Baselayer - ${importType} - ${packageName}</vl-title>
         <vl-map>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
         </vl-map>

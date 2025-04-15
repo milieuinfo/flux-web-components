@@ -5,8 +5,8 @@ import { vlFocusOutlineMixin } from '../vl-outlines.css';
 import vlMixinStoriesDoc from './vl-mixin.stories-doc.mdx';
 
 export default {
-    id: 'styles-next-base-intern-mixin',
-    title: 'Styles-next/Base (intern)/mixin',
+    id: 'styles-base-intern-mixin',
+    title: 'Styles/Base (intern)/mixin',
     tags: ['autodocs'],
     parameters: {
         docs: {

@@ -1,5 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlTitleComponent } from '@domg-wc/components/next/title';
+import { VlTitleComponent } from '@domg-wc/components';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { VlContentHeaderComponent } from '../../content-header/vl-content-header.component';
@@ -38,10 +38,10 @@ const mainHtml = html`
         <a slot="context-link" href="https://webcomponenten.omgeving.vlaanderen.be/storybook/">uig-webcomponents</a>
         <a slot="title-link" href="https://webcomponenten.omgeving.vlaanderen.be/storybook/">${version}</a>
     </vl-content-header>
-    <section data-cy="template-content" class="vl-grid-next">
-        <div class="vl-content-block-next">
-            <div id="grid" class="vl-grid-next vl-stacked-next-medium" slot="main">
-                <vl-title-next type="h1" class="vl-column-next vl-column-next--12">vl-template</vl-title-next>
+    <section data-cy="template-content" class="vl-grid">
+        <div class="vl-content-block">
+            <div id="grid" class="vl-grid vl-stacked-medium" slot="main">
+                <vl-title type="h1" class="vl-column vl-column--12">vl-template</vl-title>
             </div>
         </div>
     </section>

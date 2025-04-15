@@ -7,7 +7,7 @@ import {Meta} from '@storybook/blocks';
 ## Inhoudstafel
 
 - [Waarom v2](#waarom-v2)
-- [Waarom Next Componenten](#waarom-next-componenten)
+- [Waarom Next Componenten](#waarom-componenten)
 - [Next Conventies](#next-conventies)
 - [v2 vs. v3](#v2-vs-v3)
 - [v2 Release](#v2-release)
@@ -96,7 +96,7 @@ werken. Op die manier werken leek ons niet realistisch:
 
 Vandaar hebben we er dus voor gekozen om 'next'-componenten te introduceren. We laten de huidige versie van een
 component bestaan en verder evolueren. Een nieuwe versie implementeren we in de huidige codebase en geven we
-een nieuwe tag door deze te suffixen met '-next'.
+een nieuwe tag door deze te suffixen met ''.
 
 **opmerking 1:** We hebben bekeken of we dezelfde tag zouden kunnen gebruiken voor de oude en de nieuwe component,
 dan zou het afhangen van de import welke component je gebruikt.
@@ -156,7 +156,7 @@ zoals ze geschreven zijn, hun API wijzigt niet.
 Bij de v2 release doen we het volgende:
 
 - als er een oude en een nieuwe variant is van dezelfde component wordt de oude geschrapt en bij de nieuwe wordt
-  de `-next` suffix verwijderd - de nieuwe vervangt dus de oude; hierdoor is de component niet backwards
+  de `` suffix verwijderd - de nieuwe vervangt dus de oude; hierdoor is de component niet backwards
   compatibel
 - bij de componenten die behouden blijven schrappen we de `data-` prefix, zodat er in v2 nergens nog attributen zijn
   die die conventie volgen

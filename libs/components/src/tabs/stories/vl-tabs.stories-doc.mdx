@@ -1,0 +1,61 @@
+import { ArgTypes, Canvas, Source } from '@storybook/blocks';
+import * as VlTabsStories from './vl-tabs.stories';
+import tabsStoryUtils from './vl-tabs.stories-util?raw';
+
+# Tabs
+
+<VluxMetaData id="components-tabs-tabs" />
+
+Gebruik de `tabs` component om gerelateerde informatie op te splitsen in kleinere stukken content.
+Op mobiel wordt de tab navigatie omgevormd tot een uitklapbaar menu.
+
+<VluxAlert type="info">
+{`
+    De v2 versie van deze component gebruik je via de custom-tag, de interne implementatie is voor de rest
+    gelijk gebleven aan de v1 versie. In de toekomst zal deze component grondig herwerkt worden.
+`}
+</VluxAlert>
+
+## Voorbeeld
+
+```js
+import { VlTabsComponent } from '@domg-wc/components';
+```
+
+```html
+<vl-tabs></vl-tabs>
+```
+
+<Canvas of={VlTabsStories.TabsDefault} />
+
+## Configuratie
+
+<ArgTypes of={VlTabsStories.TabsDefault} />
+
+
+## Varianten
+
+### Dynamisch
+
+Zie de code onder de story voor het volledige voorbeeld.
+
+<Canvas of={VlTabsStories.TabsDynamic} />
+
+<details>
+    <summary>TypeScript code</summary>
+    <Source code={tabsStoryUtils} language="ts" dark={true} />
+</details>
+
+## Referenties
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Tabs](https://overheid.vlaanderen.be/webuniversum/v3/documentation/components/vl-ui-tabs)
+
+### Legacy Documentatie
+
+[Legacy Storybook - Tabs](https://webcomponenten.omgeving.vlaanderen.be/storybook/?path=/docs/legacy-vl-tabs--uig-2115)
+
+[Legacy Documentatie - Tabs](https://webcomponenten.omgeving.vlaanderen.be/doc/VlTabs.html)
+
+[Legacy Demo - Tabs](https://webcomponenten.omgeving.vlaanderen.be/demo/vl-tabs.html)

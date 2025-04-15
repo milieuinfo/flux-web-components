@@ -1,7 +1,7 @@
 const headingNextDefaultUrl =
-    'http://localhost:8080/iframe.html?id=styles-next-base-intern-heading--heading-default&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-base-intern-heading--heading-default&viewMode=story';
 
-describe('story - heading-next - default', () => {
+describe('story - heading - default', () => {
     it('should render', () => {
         cy.visit(headingNextDefaultUrl);
 

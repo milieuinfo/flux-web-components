@@ -1,6 +1,6 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
 import { html, nothing } from 'lit';
-import { VlButtonComponent } from '../next/button';
+import { VlButtonComponent } from '../button';
 import { VlPopoverActionListComponent, VlPopoverComponent } from './index';
 import { VlPopoverActionComponent } from './vl-popover-action.component';
 
@@ -24,7 +24,7 @@ const mountDefault = ({
     distance?: number;
 }) => {
     return cy.mount(html`
-        <vl-button-next ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button-next>
+        <vl-button ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button>
         <vl-popover
             for="btn-acties"
             open=${open || nothing}

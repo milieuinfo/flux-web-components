@@ -1,13 +1,14 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
 import { html, TemplateResult } from 'lit';
-import { VlButtonComponent } from '../next/button';
+import { VlButtonComponent } from '../button';
+import { VlIconComponent } from '../icon';
 import { VlModalComponent } from './vl-modal.component';
 
-registerWebComponents([VlModalComponent, VlButtonComponent]);
+registerWebComponents([VlModalComponent, VlButtonComponent, VlIconComponent]);
 
-const renderOpenButton = () => html` <vl-button-next data-vl-modal-open="modal-vt" data-cy="button-modal-toggle">
+const renderOpenButton = () => html`<vl-button data-vl-modal-open="modal-vt" data-cy="button-modal-toggle">
     Open
-</vl-button-next>`;
+</vl-button>`;
 
 const renderModal = ({
     title = 'Modal',
@@ -18,7 +19,7 @@ const renderModal = ({
     allowOverflow = false,
     content = html`<p>Modal content</p>
         <p>Lorem ipsum dolor sit amet.</p>`,
-    button = html` <vl-button-next>button</vl-button-next>`,
+    button = html`<vl-button>button</vl-button>`,
 }: {
     title?: string;
     open?: boolean;
@@ -28,7 +29,7 @@ const renderModal = ({
     allowOverflow?: boolean;
     content?: TemplateResult;
     button?: TemplateResult;
-}) => html` <vl-modal
+}) => html`<vl-modal
     id="modal-vt"
     data-vl-title=${title}
     ?data-vl-open=${open}
@@ -42,10 +43,10 @@ const renderModal = ({
     <span slot="button">${button}</span>
 </vl-modal>`;
 
-const otherActionButton = html` <vl-link-next button-as-link class="custom-action-button">
-    <vl-icon-next right-margin="" data-vl-modal-close=""></vl-icon-next>
+const otherActionButton = html` <vl-link button-as-link class="custom-action-button">
+    <vl-icon right-margin="" data-vl-modal-close=""></vl-icon>
     Andere actie
-</vl-link-next>`;
+</vl-link>`;
 
 const openModal = () => {
     cy.getDataCy('button-modal-toggle').click();
@@ -68,7 +69,7 @@ const closeWithCloseButton = () => {
 };
 
 const clickActionButton = () => {
-    cy.getDataCy('modal').find('vl-button-next').click();
+    cy.getDataCy('modal').find('vl-button').click();
 };
 
 const clickCustomActionButton = () => {
@@ -80,7 +81,7 @@ const closeByPressingEscape = () => {
     // Cypress verwacht echter dat `.type()` uitgevoerd wordt op een "typeable" element.
     // `{ force: true }` is nodig om in de shadow dom te kunnen typen.
     // (https://github.com/cypress-io/cypress/issues/7741)
-    cy.getDataCy('modal').shadow().find('vl-link-next').shadow().find('button').first().type('{esc}', { force: true });
+    cy.getDataCy('modal').shadow().find('vl-link').shadow().find('button').first().type('{esc}', { force: true });
 };
 
 describe('component - vl-modal', () => {

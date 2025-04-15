@@ -4,8 +4,8 @@ import { html } from 'lit-html';
 import vlSectionStoriesDoc from './vl-section.stories-doc.mdx';
 
 export default {
-    id: 'styles-next-layout-afnemers-section',
-    title: 'Styles-next/Layout (afnemers)/section',
+    id: 'styles-layout-afnemers-section',
+    title: 'Styles/Layout (afnemers)/section',
     tags: ['autodocs'],
     parameters: {
         docs: {
@@ -15,7 +15,7 @@ export default {
 };
 
 const sectionCss = css`
-    .vl-section-next {
+    .vl-section {
         p {
             display: flex;
             justify-content: center;
@@ -29,17 +29,17 @@ export const SectionDefault = ({}) => html`
     <style>
         ${sectionCss}
     </style>
-    <section class="vl-section-next vl-section-next--alt">
-        <p>vl-section-next vl-section-next--alt</p>
+    <section class="vl-section vl-section--alt">
+        <p>vl-section vl-section--alt</p>
     </section>
-    <section class="vl-section-next vl-section-next--bordered">
-        <p>vl-section-next vl-section-next--bordered</p>
+    <section class="vl-section vl-section--bordered">
+        <p>vl-section vl-section--bordered</p>
     </section>
-    <section class="vl-section-next vl-section-next--bordered vl-section-next--small">
-        <p>vl-section-next vl-section-next--bordered vl-section-next--small</p>
+    <section class="vl-section vl-section--bordered vl-section--small">
+        <p>vl-section vl-section--bordered vl-section--small</p>
     </section>
-    <section class="vl-section-next vl-section-next--bordered">
-        <p>vl-section-next vl-section-next--bordered</p>
+    <section class="vl-section vl-section--bordered">
+        <p>vl-section vl-section--bordered</p>
     </section>
 `;
 SectionDefault.storyName = 'vl-section - default';
@@ -48,23 +48,23 @@ SectionDefault.parameters = formattedSourceCode;
 export const SectionLightBlue = ({}) => html`
     <style>
         ${sectionCss} .sb-light-blue {
-            &.vl-section-next {
+            &.vl-section {
                 --vl-section--alt-bg: lightblue;
                 --vl-section--border: lightblue;
             }
         }
     </style>
-    <section class="sb-light-blue vl-section-next vl-section-next--alt">
-        <p>vl-section-next vl-section-next--alt</p>
+    <section class="sb-light-blue vl-section vl-section--alt">
+        <p>vl-section vl-section--alt</p>
     </section>
-    <section class="sb-light-blue vl-section-next vl-section-next--bordered">
-        <p>vl-section-next vl-section-next--bordered</p>
+    <section class="sb-light-blue vl-section vl-section--bordered">
+        <p>vl-section vl-section--bordered</p>
     </section>
-    <section class="sb-light-blue vl-section-next vl-section-next--bordered vl-section-next--small">
-        <p>vl-section-next vl-section-next--bordered vl-section-next--small</p>
+    <section class="sb-light-blue vl-section vl-section--bordered vl-section--small">
+        <p>vl-section vl-section--bordered vl-section--small</p>
     </section>
-    <section class="sb-light-blue vl-section-next vl-section-next--bordered">
-        <p>vl-section-next vl-section-next--bordered</p>
+    <section class="sb-light-blue vl-section vl-section--bordered">
+        <p>vl-section vl-section--bordered</p>
     </section>
 `;
 SectionLightBlue.storyName = 'vl-section - light blue';
@@ -73,24 +73,24 @@ SectionLightBlue.parameters = formattedSourceCode;
 export const SectionOverlap = ({}) => html`
     <style>
         ${sectionCss} .sb-overlap {
-            &.vl-section-next {
+            &.vl-section {
                 --vl-section--alt-bg: lightblue;
                 --vl-section--border: lightblue;
             }
         }
     </style>
-    <section class="sb-overlap vl-section-next vl-section-next--overlap">
-        <p class="vl-content-block-next">vl-content-block-next</p>
-        <p>vl-section-next vl-section-next--overlap</p>
+    <section class="sb-overlap vl-section vl-section--overlap">
+        <p class="vl-content-block">vl-content-block</p>
+        <p>vl-section vl-section--overlap</p>
     </section>
-    <section class="sb-overlap vl-section-next vl-section-next--bordered">
-        <p>vl-section-next vl-section-next--bordered</p>
+    <section class="sb-overlap vl-section vl-section--bordered">
+        <p>vl-section vl-section--bordered</p>
     </section>
-    <section class="sb-overlap vl-section-next vl-section-next--bordered">
-        <p>vl-section-next vl-section-next--bordered</p>
+    <section class="sb-overlap vl-section vl-section--bordered">
+        <p>vl-section vl-section--bordered</p>
     </section>
-    <section class="sb-overlap vl-section-next vl-section-next--bordered">
-        <p>vl-section-next vl-section-next--bordered</p>
+    <section class="sb-overlap vl-section vl-section--bordered">
+        <p>vl-section vl-section--bordered</p>
     </section>
 `;
 SectionOverlap.storyName = 'vl-section - overlap';

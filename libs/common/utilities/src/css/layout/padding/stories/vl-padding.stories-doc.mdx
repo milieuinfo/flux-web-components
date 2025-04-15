@@ -3,11 +3,11 @@ import {Meta} from '@storybook/addon-docs';
 import marginEnPadding from './margin-en-padding.png';
 import * as VlPaddingStories from './vl-padding.stories';
 
-<Meta title="Styles-next/Layout (afnemers)/padding"/>
+<Meta title="Styles/Layout (afnemers)/padding"/>
 
-# Padding - next
+# Padding
 
-<VluxMetaData id="styles-next-layout-afnemers-padding" />
+<VluxMetaData id="styles-layout-afnemers-padding" />
 <br/>
 
 
@@ -35,40 +35,40 @@ hieronder besproken (voorziene) style-classes. Echter, zoals steeds: het is niet
 In onderstaande voorbeelden wordt bij het 'default voorbeeld' de margin expliciet op 15px gezet, de overige voorbeelden
 tonen de impact op het 'default voorbeeld'.
 
-### vl-padding-next - default
+### vl-padding - default
 
 De default padding wordt beïnvloed door de container, typisch wat er voor die resolutie bepaald is door
-[vl-section-next](/docs/styles-next-layout-afnemers-section--documentatie).
+[vl-section](/docs/styles-layout-afnemers-section--documentatie).
 
 <Canvas of={VlPaddingStories.PaddingDefault} />
 
-### vl-padding-next--small
+### vl-padding--small
 
 De padding onderaan en bovenaan wordt op de variabele `--vl-spacing--small` (1.5rem) gezet, links en rechts is er geen
 padding (0), voor kleine schermen (&lt;767px) wordt de `--vl-spacing--normal` (2rem) gebruikt (boven- en onderaan).
 
 <Canvas of={VlPaddingStories.PaddingSmall} />
 
-### vl-padding-next--medium
+### vl-padding--medium
 
 De padding onderaan en bovenaan wordt op de variabele `--vl-spacing--medium` (3rem) gezet, links en rechts is er geen
 padding (0), voor kleine schermen (&lt;767px) wordt de `--vl-spacing--normal` (2rem) gebruikt (boven- en onderaan).
 
 <Canvas of={VlPaddingStories.PaddingMedium} />
 
-### vl-padding-next--no
+### vl-padding--no
 
 Nergens padding: alle padding rondom staat op 0.
 
 <Canvas of={VlPaddingStories.PaddingNo} />
 
-### vl-padding-next--no-bottom
+### vl-padding--no-bottom
 
 Onderaan geen padding: deze wordt op 0 gezet.
 
 <Canvas of={VlPaddingStories.PaddingNoBottom} />
 
-### vl-padding-next--no-top
+### vl-padding--no-top
 
 Bovenaan geen padding: deze wordt op 0 gezet.
 

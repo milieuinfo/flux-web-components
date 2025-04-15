@@ -1,8 +1,8 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
 import { vlIconStyles } from '@domg-wc/common-utilities/css';
-import { buttonStyles } from '@domg-wc/components/next/button/vl-button.css';
-import { VlIconComponent } from '@domg-wc/components/next/icon';
-import { inputFieldStyles, VlInputFieldComponent } from '@domg-wc/form/next/input-field';
+import { buttonStyles } from '../button/vl-button.css';
+import { VlIconComponent } from '../icon';
+import { inputFieldStyles, VlInputFieldComponent } from '@domg-wc/form';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { selectStyle } from '@domg/govflanders-style/component';
 import searchUigStyle from './vl-search.uig-css';
@@ -123,7 +123,7 @@ export class VlSearchComponent extends BaseElementOfType(HTMLElement) {
         if (this.__labelElement) {
             this.__labelElement.addEventListener('click', () => {
                 const slottedInput = this.querySelector(`:scope > [slot=input]`);
-                if (slottedInput.nodeName.toLowerCase() === 'vl-select-location-next') {
+                if (slottedInput.nodeName.toLowerCase() === 'vl-select-location') {
                     slottedInput.shadowRoot.querySelector('select').click();
                 } else {
                     slottedInput?.querySelector('input')?.click();
@@ -190,8 +190,8 @@ export class VlSearchComponent extends BaseElementOfType(HTMLElement) {
         if (!slot) {
             this.__inputSlotElement.remove();
         } else {
-            customElements.whenDefined('vl-select-location-next').then(async () => {
-                if (slot.nodeName.toLowerCase() === 'vl-select-location-next') {
+            customElements.whenDefined('vl-select-location').then(async () => {
+                if (slot.nodeName.toLowerCase() === 'vl-select-location') {
                     this.setAttribute('data-vl-has-input-slot', '');
                     slot.addEventListener('focusin', () => {
                         this.__inputSlotElement.classList.add('is-open');

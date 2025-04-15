@@ -6,7 +6,7 @@ import { httpErrorMessageArgs, httpErrorMessageArgTypes } from './vl-http-error-
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import httpErrorMessageDoc from './vl-http-error-message.stories-doc.mdx';
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlButtonComponent } from '@domg-wc/components/next/button';
+import { VlButtonComponent } from '@domg-wc/components';
 
 registerWebComponents([VlButtonComponent]);
 

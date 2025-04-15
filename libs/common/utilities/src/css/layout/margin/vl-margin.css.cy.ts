@@ -11,11 +11,11 @@ describe('margin styles', () => {
                     margin: 10px;
                 }
             </style>
-            <div class="vl-margin-next--small cy-margin-small">margin - small</div>
-            <div class="vl-margin-next--medium cy-margin-medium">margin - medium</div>
-            <div class="vl-margin-next--no cy-margin-no">margin - no</div>
-            <div class="vl-margin-next--no-bottom cy-margin-no-bottom">margin - no bottom</div>
-            <div class="vl-margin-next--no-top cy-margin-no-top">margin - no top</div>
+            <div class="vl-margin--small cy-margin-small">margin - small</div>
+            <div class="vl-margin--medium cy-margin-medium">margin - medium</div>
+            <div class="vl-margin--no cy-margin-no">margin - no</div>
+            <div class="vl-margin--no-bottom cy-margin-no-bottom">margin - no bottom</div>
+            <div class="vl-margin--no-top cy-margin-no-top">margin - no top</div>
         `);
     });
 

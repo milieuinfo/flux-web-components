@@ -153,7 +153,7 @@ export class VlMapBaseLayer extends BaseElementOfType(HTMLElement) {
     }
 
     _createVectorSource() {
-        // eslint-disable-next-line @typescript-eslint/no-this-alias
+        // eslint-disable-line @typescript-eslint/no-this-alias
         const self = this;
         return new VectorSource({
             format: new OlGeoJSON({

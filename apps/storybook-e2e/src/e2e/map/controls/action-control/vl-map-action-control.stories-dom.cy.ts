@@ -28,7 +28,7 @@ describe('story vl-map-action-control default', () => {
         cy.get('vl-map')
             .find('vl-map-action-controls')
             .find('vl-map-action-control')
-            .find('vl-button-next')
+            .find('vl-button')
             .invoke('text')
             .should('contain', 'Teken');
     });
@@ -41,7 +41,7 @@ describe('story vl-map-action-control default', () => {
             .find('vl-map-action-control')
             .should('have.attr', 'data-vl-action-id', 'draw-polygon-action')
             .should('have.attr', 'data-vl-label', 'Tekenen')
-            .find('vl-button-next')
+            .find('vl-button')
             .invoke('text')
             .should('contain', 'Tekenen');
     });
@@ -70,7 +70,7 @@ describe('story vl-map-action-control icon', () => {
         cy.get('vl-map')
             .find('vl-map-action-controls')
             .find('vl-map-action-control')
-            .find('vl-button-next')
+            .find('vl-button')
             .shadow()
             .find('span.vl-icon.vl-icon--pencil');
     });
@@ -83,7 +83,7 @@ describe('story vl-map-action-control icon', () => {
             .find('vl-map-action-control')
             .should('have.attr', 'data-vl-action-id', 'draw-polygon-action')
             .should('have.attr', 'data-vl-icon', 'ruler')
-            .find('vl-button-next')
+            .find('vl-button')
             .shadow()
             .find('span.vl-icon.vl-icon--ruler');
     });
@@ -118,7 +118,7 @@ describe('story vl-map-action-control multiple', () => {
             return cy
                 .get('vl-map')
                 .find(`vl-map-action-control[data-vl-action-id="${actionId}"]`)
-                .find('vl-button-next')
+                .find('vl-button')
                 .shadow()
                 .find('button');
         };

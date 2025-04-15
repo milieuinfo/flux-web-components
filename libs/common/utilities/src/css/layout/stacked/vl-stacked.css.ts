@@ -3,13 +3,13 @@ import { vlMediaScreenMedium } from '../../base/var/vl-media-screen.css';
 
 // TODO margin-top, kan dat niet gwn row-gap zijn?
 export const vlStackedStyles: CSSResult = css`
-    .vl-stacked-next-medium {
+    .vl-stacked-medium {
         > *:not(:first-child) {
             margin-top: var(--vl-spacing--medium);
         }
     }
 
-    .vl-stacked-next-large {
+    .vl-stacked-large {
         > *:not(:first-child) {
             margin-top: var(--vl-spacing--large);
 
@@ -19,7 +19,7 @@ export const vlStackedStyles: CSSResult = css`
         }
     }
 
-    .vl-stacked-next-small {
+    .vl-stacked-small {
         > *:not(:first-child) {
             margin-top: var(--vl-spacing--small);
     }

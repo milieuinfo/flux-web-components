@@ -7,7 +7,7 @@ import { ALERT_ICON, ALERT_TYPE } from '../vl-alert.model';
 import { alertArgs, alertArgTypes } from './vl-alert.stories-arg';
 import alertDoc from './vl-alert.stories-doc.mdx';
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlButtonComponent } from '@domg-wc/components/next/button';
+import { VlButtonComponent } from '@domg-wc/components';
 
 registerWebComponents([VlButtonComponent]);
 

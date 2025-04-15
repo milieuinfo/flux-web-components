@@ -4,8 +4,8 @@ import { html } from 'lit-html';
 import vlPaddingStoriesDoc from './vl-padding.stories-doc.mdx';
 
 export default {
-    id: 'styles-next-layout-afnemers-padding',
-    title: 'Styles-next/Layout (afnemers)/padding',
+    id: 'styles-layout-afnemers-padding',
+    title: 'Styles/Layout (afnemers)/padding',
     tags: ['autodocs'],
     parameters: {
         docs: {
@@ -50,8 +50,8 @@ export const PaddingSmall = ({}) => html`
     <style>
         ${paddingCss}
     </style>
-    <div class="sb-container vl-padding-next--small">
-        <div class="sb-content">vl-padding-next--small</div>
+    <div class="sb-container vl-padding--small">
+        <div class="sb-content">vl-padding--small</div>
     </div>
 `;
 PaddingSmall.storyName = 'vl-padding - small';
@@ -61,8 +61,8 @@ export const PaddingMedium = ({}) => html`
     <style>
         ${paddingCss}
     </style>
-    <div class="sb-container vl-padding-next--medium">
-        <div class="sb-content">vl-padding-next--medium</div>
+    <div class="sb-container vl-padding--medium">
+        <div class="sb-content">vl-padding--medium</div>
     </div>
 `;
 PaddingMedium.storyName = 'vl-padding - medium';
@@ -72,8 +72,8 @@ export const PaddingNo = ({}) => html`
     <style>
         ${paddingCss}
     </style>
-    <div class="sb-container vl-padding-next--no">
-        <div class="sb-content">vl-padding-next--no</div>
+    <div class="sb-container vl-padding--no">
+        <div class="sb-content">vl-padding--no</div>
     </div>
 `;
 PaddingNo.storyName = 'vl-padding - no';
@@ -83,8 +83,8 @@ export const PaddingNoBottom = ({}) => html`
     <style>
         ${paddingCss}
     </style>
-    <div class="sb-container vl-padding-next--no-bottom">
-        <div class="sb-content">vl-padding-next--no-bottom</div>
+    <div class="sb-container vl-padding--no-bottom">
+        <div class="sb-content">vl-padding--no-bottom</div>
     </div>
 `;
 PaddingNoBottom.storyName = 'vl-padding - no bottom';
@@ -94,8 +94,8 @@ export const PaddingNoTop = ({}) => html`
     <style>
         ${paddingCss}
     </style>
-    <div class="sb-container vl-padding-next--no-top">
-        <div class="sb-content">vl-padding-next--no-top</div>
+    <div class="sb-container vl-padding--no-top">
+        <div class="sb-content">vl-padding--no-top</div>
     </div>
 `;
 PaddingNoTop.storyName = 'vl-padding - no top';

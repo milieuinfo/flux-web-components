@@ -4,8 +4,8 @@ import { vlParagraphStyles } from '../vl-paragraph.css';
 import vlParagraphStoriesDoc from './vl-paragraph.stories-doc.mdx';
 
 export default {
-    id: 'styles-next-base-intern-paragraph',
-    title: 'Styles-next/Base (intern)/paragraph',
+    id: 'styles-base-intern-paragraph',
+    title: 'Styles/Base (intern)/paragraph',
     tags: ['autodocs'],
     parameters: {
         docs: {

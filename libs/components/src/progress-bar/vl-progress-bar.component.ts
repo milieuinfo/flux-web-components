@@ -2,13 +2,26 @@ import { BaseLitElement, registerWebComponents } from '@domg-wc/common-utilities
 import { accessibilityStyle, resetStyle } from '@domg/govflanders-style/common';
 import { progressBarStyle } from '@domg/govflanders-style/component';
 import '@govflanders/vl-ui-util/dist/js/util.js';
-import ProgressBar from '@govflanders/vl-ui-progress-bar/src/js/progress-bar.js';
 import { type PropertyDeclarations, html, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import 'reflect-metadata';
-import { VlPopoverComponent } from '../popover/vl-popover.component';
+import { VlPopoverComponent } from '../popover';
 import progressBarUigStyle from './vl-progress-bar.uig-css';
+
+class ProgressBar {
+    updateStep(shadowRoot: ShadowRoot | null, activeStep: number, focusOnChange: boolean) {
+        if (shadowRoot) {
+            const steps = shadowRoot.querySelectorAll<HTMLDivElement>('.vl-progress-bar__step');
+            steps.forEach((step, index) => {
+                step.classList.toggle('vl-progress-bar__step--active', index + 1 === activeStep);
+                if (focusOnChange && index + 1 === activeStep) {
+                    step.focus();
+                }
+            });
+        }
+    }
+}
 
 @customElement('vl-progress-bar')
 export class VlProgressBarComponent extends BaseLitElement {

@@ -1,0 +1,62 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs';
+import * as VlErrorMessageStories from './vl-error-message.stories';
+
+# Error Message
+
+<VluxMetaData id="form-error-message" />
+
+Gebruik de `error-message` component om een error af te beelden voor een input veld.<br/>
+Zie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.
+
+
+## Voorbeeld
+
+```js
+import { VlErrorMessageComponent } from '@domg-wc/form';
+```
+
+```html
+<vl-error-message></vl-error-message>
+```
+
+<Canvas of={VlErrorMessageStories.ErrorMessageDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlErrorMessageStories.ErrorMessageDefault} />
+
+
+## Gebruik
+
+### Volgorde
+
+We raden aan 1 error message per validatie te tonen. Als er meerdere validaties zijn, toon de belangrijkste eerst.
+De volgorde waarin de error messages getoond worden volgt dezelfde volgorde van `vl-error-message` componenten in
+de DOM. Een voorbeeld hiervan kan je vinden in onze [form demo](/docs/ontwerp-form-demo--documentatie).
+
+### Success
+
+Als je expliciet wil aantonen dat de form-control correct is ingevuld, kan je het `success` attribuut gebruiken op de
+ gerelateerde form-control.
+
+
+## Validatie
+> Meer info over validatie binnen onze form componenten vind je hier: [Form - Validatie](/docs/ontwerp-form-validation--documentatie)
+
+De `vl-error-message` componenten worden getoond afhankelijk van de validatie status van onze form controls. De
+validatie status wordt bepaald door de `validity` property die afhangt van gebruikersinteractie.
+
+## validationMessage
+
+Het `validation-message` attribuut komt overeen met de `validationMessage` property van de `ValidityState` interface.
+Dit attribuut wordt automatisch ingevuld door de form control op basis van de validatie status.
+
+Als er geen boodschap in het default slot wordt ingesteld, wordt de `validation-message` als inhoud van de
+`vl-error-message` weergegeven.
+
+## Referenties
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Form Message](https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-form-message)

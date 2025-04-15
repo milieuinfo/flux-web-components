@@ -45,7 +45,7 @@
 
 ### Bug Fixes
 
-* UIG-3256 - vl-properties-next - styling verbeteringen ([836d410](https://github.com/milieuinfo/uigov-web-components/commit/836d4101a68c54660b94ec84928514e7ec3e2a01))
+* UIG-3256 - vl-properties - styling verbeteringen ([836d410](https://github.com/milieuinfo/uigov-web-components/commit/836d4101a68c54660b94ec84928514e7ec3e2a01))
 * UIG-3261 - vl-http-error-message - afbeelding layout verbeterd ([d960392](https://github.com/milieuinfo/uigov-web-components/commit/d9603921a187e31b88af366f36502dd99c1df85e))
 * UIG-3262 - vl-search - icon & input css selectors bijgewerkt ([abde5ff](https://github.com/milieuinfo/uigov-web-components/commit/abde5ffc35b1f0d8d52ca7ba28886d99bb4e4618))
 * UIG-3263 - vl-side-sheet - vl-content-block min-width rechtgezet ([1e277ef](https://github.com/milieuinfo/uigov-web-components/commit/1e277ef1e0fda8420ad414040cded79bf704b446))
@@ -57,16 +57,16 @@
 ### Bug Fixes
 
 * UIG-3242 - elementen wegwerken uit vl-side-sheet.component.ts ([00e8295](https://github.com/milieuinfo/uigov-web-components/commit/00e82956f13471a064f4d3de3f0103f636dc3f8c))
-* UIG-3244 - vl-side-navigation-next - scroll testen verbeterd ([b8ed780](https://github.com/milieuinfo/uigov-web-components/commit/b8ed78003264fe7e55f0c43ed3643cc01711bfc9))
-* UIG-3245 - vl-side-navigation-next - selector uitgebreid met `vl-section-next` in scrollspy.lib ([c002fc3](https://github.com/milieuinfo/uigov-web-components/commit/c002fc3859f50829805ecfab002e0a5be78c1968))
-* vl-datepicker-next - skippen van onstabiele test ([1cce331](https://github.com/milieuinfo/uigov-web-components/commit/1cce33145f198e23303679aa748fc6dc30cead5c))
+* UIG-3244 - vl-side-navigation - scroll testen verbeterd ([b8ed780](https://github.com/milieuinfo/uigov-web-components/commit/b8ed78003264fe7e55f0c43ed3643cc01711bfc9))
+* UIG-3245 - vl-side-navigation - selector uitgebreid met `vl-section` in scrollspy.lib ([c002fc3](https://github.com/milieuinfo/uigov-web-components/commit/c002fc3859f50829805ecfab002e0a5be78c1968))
+* vl-datepicker - skippen van onstabiele test ([1cce331](https://github.com/milieuinfo/uigov-web-components/commit/1cce33145f198e23303679aa748fc6dc30cead5c))
 * vl-functional-header - onderlijning van de link in de titel rechtgezet ([63f5e9b](https://github.com/milieuinfo/uigov-web-components/commit/63f5e9b0221d9b53892bdc594e5f3850642778c6))
-* vl-select-next - value public gemaakt, wordt in testen aangesproken en veroorzaakte console fouten ([ba3b4bf](https://github.com/milieuinfo/uigov-web-components/commit/ba3b4bf07c5be484d94baf27b6a0f274a0039496))
+* vl-select - value public gemaakt, wordt in testen aangesproken en veroorzaakte console fouten ([ba3b4bf](https://github.com/milieuinfo/uigov-web-components/commit/ba3b4bf07c5be484d94baf27b6a0f274a0039496))
 
 
 ### Features
 
-* UIG-3104 - vl-functional-header - voorbeelden toegevoegd met vl-button-next en vl-search ([8a38733](https://github.com/milieuinfo/uigov-web-components/commit/8a3873322b01dac5a8a96d95888ce67b6b73d1d5))
+* UIG-3104 - vl-functional-header - voorbeelden toegevoegd met vl-button en vl-search ([8a38733](https://github.com/milieuinfo/uigov-web-components/commit/8a3873322b01dac5a8a96d95888ce67b6b73d1d5))
 * UIG-3191 - aanpassingen in `common`-artifact ivm wegwerken elementen ([3fafca9](https://github.com/milieuinfo/uigov-web-components/commit/3fafca9f6a868732f8916aca3fbc1930ece588bd))
 * UIG-3191 - elementen weggewerkt in `components`-artifact ([039bce2](https://github.com/milieuinfo/uigov-web-components/commit/039bce28561f56da2e2be587a200a442eff4029b))
 * UIG-3191 - elementen weggewerkt in `form`-artifact ([54c559a](https://github.com/milieuinfo/uigov-web-components/commit/54c559a498fcd546c8f9756bc2990ec64ad14f84))
@@ -75,52 +75,52 @@
 * UIG-3191 - elementen wegwerken in `map`-artifact ([71cb72e](https://github.com/milieuinfo/uigov-web-components/commit/71cb72e76a1847de5a1c87371006d55c127258e8))
 * UIG-3191 - elementen wegwerken in `sections`-artifact ([b2063ad](https://github.com/milieuinfo/uigov-web-components/commit/b2063adab92392b8b14a842ee00a19945e628eb9))
 * UIG-3206 - documentatie updates voor bijdragers ([f202f77](https://github.com/milieuinfo/uigov-web-components/commit/f202f7772ce688d1961a940797b7a5a2a82408f6))
-* UIG-3209 - vl-content-block-next - introductie component ([9f5b55d](https://github.com/milieuinfo/uigov-web-components/commit/9f5b55df0d3db71d082c53c1c2d30eba2a62ff53))
-* UIG-3214 - vl-select-next - placeholder blijft behouden na dynamisch toevoegen van opties ([68fdca7](https://github.com/milieuinfo/uigov-web-components/commit/68fdca768bf8604fc3952237d301acf89776e442))
-* UIG-3220 - vl-select-location-next - introductie component ([6f082ae](https://github.com/milieuinfo/uigov-web-components/commit/6f082aedc51439e433445dabe26e7bd6f6159e4c))
-* UIG-3223 - vl-button-next - consistentere witruimte rond icoon ([6d24aef](https://github.com/milieuinfo/uigov-web-components/commit/6d24aef41ca186fc4be1676bc0eb084d26a356b8))
-* UIG-3225 - vl-group-next - bij `vl-group-next--baseline` worden links met icoon nu ook op de baseline uitgelijnd ([fc407ee](https://github.com/milieuinfo/uigov-web-components/commit/fc407eeccec9e7a38aa53117ae583ff3a0c8190e))
-* UIG-3226 - vl-group-next - bij vl-group-next--column verbeteringen ([8ee86b8](https://github.com/milieuinfo/uigov-web-components/commit/8ee86b82879d44b5ab21af21f1a0c9e701fb81ee))
-* UIG-3234 - vl-form-label-next - default slot toegevoegd ([680ba25](https://github.com/milieuinfo/uigov-web-components/commit/680ba254cb62e01a62d94406135da994ce34f172))
-* UIG-3236 - vl-properties-next - is="vl-properties-list" weggewerkt, omgezet naar <vl-properties-next> ([58e244e](https://github.com/milieuinfo/uigov-web-components/commit/58e244e5e3afb9f0fdd6b8859bc9da9986affb15))
-* UIG-3238 - vl-grid-next - vl-grid-next vervangt .vl-from-grid en is="vl-form-grid" ([13bcd0b](https://github.com/milieuinfo/uigov-web-components/commit/13bcd0b9f68d1b6f422167969a1dd2f0070679cd))
+* UIG-3209 - vl-content-block - introductie component ([9f5b55d](https://github.com/milieuinfo/uigov-web-components/commit/9f5b55df0d3db71d082c53c1c2d30eba2a62ff53))
+* UIG-3214 - vl-select - placeholder blijft behouden na dynamisch toevoegen van opties ([68fdca7](https://github.com/milieuinfo/uigov-web-components/commit/68fdca768bf8604fc3952237d301acf89776e442))
+* UIG-3220 - vl-select-location - introductie component ([6f082ae](https://github.com/milieuinfo/uigov-web-components/commit/6f082aedc51439e433445dabe26e7bd6f6159e4c))
+* UIG-3223 - vl-button - consistentere witruimte rond icoon ([6d24aef](https://github.com/milieuinfo/uigov-web-components/commit/6d24aef41ca186fc4be1676bc0eb084d26a356b8))
+* UIG-3225 - vl-group - bij `vl-group--baseline` worden links met icoon nu ook op de baseline uitgelijnd ([fc407ee](https://github.com/milieuinfo/uigov-web-components/commit/fc407eeccec9e7a38aa53117ae583ff3a0c8190e))
+* UIG-3226 - vl-group - bij vl-group--column verbeteringen ([8ee86b8](https://github.com/milieuinfo/uigov-web-components/commit/8ee86b82879d44b5ab21af21f1a0c9e701fb81ee))
+* UIG-3234 - vl-form-label - default slot toegevoegd ([680ba25](https://github.com/milieuinfo/uigov-web-components/commit/680ba254cb62e01a62d94406135da994ce34f172))
+* UIG-3236 - vl-properties - is="vl-properties-list" weggewerkt, omgezet naar <vl-properties> ([58e244e](https://github.com/milieuinfo/uigov-web-components/commit/58e244e5e3afb9f0fdd6b8859bc9da9986affb15))
+* UIG-3238 - vl-grid - vl-grid vervangt .vl-from-grid en is="vl-form-grid" ([13bcd0b](https://github.com/milieuinfo/uigov-web-components/commit/13bcd0b9f68d1b6f422167969a1dd2f0070679cd))
 * UIG-3240 - vl-error-message - documentatie dat vl-http-XXX-message geschrapt wordt in v2 ([9f35f90](https://github.com/milieuinfo/uigov-web-components/commit/9f35f9046ac668a8c5546529403fb97911a5f14e))
-* UIG-3243 - vl-table-next, vl-side-navigation-next - styles registratie verbeterd ([ecf6b9a](https://github.com/milieuinfo/uigov-web-components/commit/ecf6b9a83ff03bf5ce97f42da9e780e569c90900))
+* UIG-3243 - vl-table, vl-side-navigation - styles registratie verbeterd ([ecf6b9a](https://github.com/milieuinfo/uigov-web-components/commit/ecf6b9a83ff03bf5ce97f42da9e780e569c90900))
 * UIG-3247 - GlobalStyles - voorziening om globaal custom-css te zetten ([a86c3a9](https://github.com/milieuinfo/uigov-web-components/commit/a86c3a95263e843af6dc64b5ec9ba1638e3cf5d8))
 * UIG-3249 - vl-reset.css.ts - introductie ([238689c](https://github.com/milieuinfo/uigov-web-components/commit/238689ce6cb724cb3fc06fdb2d764eb694c2224a))
-* UIG-3253 - vl-tab-section-next - grid-dependency weggewerkt ([e11dbbc](https://github.com/milieuinfo/uigov-web-components/commit/e11dbbc054f949e1a752ec47f8738564307aa41c))
+* UIG-3253 - vl-tab-section - grid-dependency weggewerkt ([e11dbbc](https://github.com/milieuinfo/uigov-web-components/commit/e11dbbc054f949e1a752ec47f8738564307aa41c))
 
 # [1.45.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.44.0...v1.45.0) (2025-03-14)
 
 
 ### Bug Fixes
 
-* UIG-2929 - vl-search-filter-next - footer styling rechtgezet ([ed99ee7](https://github.com/milieuinfo/uigov-web-components/commit/ed99ee7de5c22c12b19a3372dd0069dc12f6fe54))
+* UIG-2929 - vl-search-filter - footer styling rechtgezet ([ed99ee7](https://github.com/milieuinfo/uigov-web-components/commit/ed99ee7de5c22c12b19a3372dd0069dc12f6fe54))
 * UIG-3218 - Storybook - 'Show Code' was gebroken door onnodige package upgrades ([746b5ac](https://github.com/milieuinfo/uigov-web-components/commit/746b5ac0e36b5884e94612ee6c77c454e306f5cc))
-* UIG-3222 - vl-error-message-next - pre-line wordt nu enkel met attribuut gestuurd ([00c2847](https://github.com/milieuinfo/uigov-web-components/commit/00c2847d30a3493550ca893d6b5c2e5a965eeee2))
+* UIG-3222 - vl-error-message - pre-line wordt nu enkel met attribuut gestuurd ([00c2847](https://github.com/milieuinfo/uigov-web-components/commit/00c2847d30a3493550ca893d6b5c2e5a965eeee2))
 
 
 ### Features
 
-* UIG-2868 - form-next - form-validation documentatie bijgewerkt ([3521905](https://github.com/milieuinfo/uigov-web-components/commit/352190567eb1778345b8c9a13f3aa647d5da144c))
+* UIG-2868 - form - form-validation documentatie bijgewerkt ([3521905](https://github.com/milieuinfo/uigov-web-components/commit/352190567eb1778345b8c9a13f3aa647d5da144c))
 * UIG-2868 - vl-form-demo - WCAG verbeteringen doorgevoerd ([b256c95](https://github.com/milieuinfo/uigov-web-components/commit/b256c953528a06f42422aa9a546482fa2dbd9fb7))
-* UIG-3074 - vl-checkbox-next - WCAG verbeteringen doorgevoerd ([4cbeb4c](https://github.com/milieuinfo/uigov-web-components/commit/4cbeb4c33a9d786c2ba0dbd5cb87fb8a32c55107))
+* UIG-3074 - vl-checkbox - WCAG verbeteringen doorgevoerd ([4cbeb4c](https://github.com/milieuinfo/uigov-web-components/commit/4cbeb4c33a9d786c2ba0dbd5cb87fb8a32c55107))
 * UIG-3075 - vl-form-control - aria-description van de form-control wordt nu aangepast op basis van de foutboodschap ([d0757d6](https://github.com/milieuinfo/uigov-web-components/commit/d0757d6487a5059481421123becee170da20393d))
-* UIG-3077, UIG-3076 - vl-input-field-next, vl-input-field-masked-next - WCAG verbeteringen doorgevoerd ([2591f81](https://github.com/milieuinfo/uigov-web-components/commit/2591f811676d19fcffe9a82bcd4d3408a4d0123b))
-* UIG-3078 - vl-radio-group-next - WCAG verbeteringen doorgevoerd ([83fdfe3](https://github.com/milieuinfo/uigov-web-components/commit/83fdfe3d86db2d3b6efad79b03d1cfb8092f0056))
-* UIG-3080 - vl-select-next, vl-select-rich-next - WCAG verbeteringen doorgevoerd ([7b0b779](https://github.com/milieuinfo/uigov-web-components/commit/7b0b779b3b9ef62e6880fbe7d3e6feec66cb4650))
-* UIG-3081 - vl-textarea-next - WCAG verbeteringen doorgevoerd ([c22d331](https://github.com/milieuinfo/uigov-web-components/commit/c22d3311c0166f86eb347b65030a4d68bc7acf2f))
-* UIG-3082 - vl-upload-next - WCAG verbeteringen doorgevoerd ([0db92bb](https://github.com/milieuinfo/uigov-web-components/commit/0db92bb8637d3ae84eccb9a5257cf5e59aadf873))
-* UIG-3084 - vl-datepicker-next - WCAG verbeteringen doorgevoerd ([f2a6926](https://github.com/milieuinfo/uigov-web-components/commit/f2a692684089a7da67bde7db941a76cfd9189240))
-* UIG-3097 - vl-textarea-rich-next - WCAG verbeteringen doorgevoerd ([9fac920](https://github.com/milieuinfo/uigov-web-components/commit/9fac920c8dc1acab62ef79a453759a1d4fb9840a))
+* UIG-3077, UIG-3076 - vl-input-field, vl-input-field-masked - WCAG verbeteringen doorgevoerd ([2591f81](https://github.com/milieuinfo/uigov-web-components/commit/2591f811676d19fcffe9a82bcd4d3408a4d0123b))
+* UIG-3078 - vl-radio-group - WCAG verbeteringen doorgevoerd ([83fdfe3](https://github.com/milieuinfo/uigov-web-components/commit/83fdfe3d86db2d3b6efad79b03d1cfb8092f0056))
+* UIG-3080 - vl-select, vl-select-rich - WCAG verbeteringen doorgevoerd ([7b0b779](https://github.com/milieuinfo/uigov-web-components/commit/7b0b779b3b9ef62e6880fbe7d3e6feec66cb4650))
+* UIG-3081 - vl-textarea - WCAG verbeteringen doorgevoerd ([c22d331](https://github.com/milieuinfo/uigov-web-components/commit/c22d3311c0166f86eb347b65030a4d68bc7acf2f))
+* UIG-3082 - vl-upload - WCAG verbeteringen doorgevoerd ([0db92bb](https://github.com/milieuinfo/uigov-web-components/commit/0db92bb8637d3ae84eccb9a5257cf5e59aadf873))
+* UIG-3084 - vl-datepicker - WCAG verbeteringen doorgevoerd ([f2a6926](https://github.com/milieuinfo/uigov-web-components/commit/f2a692684089a7da67bde7db941a76cfd9189240))
+* UIG-3097 - vl-textarea-rich - WCAG verbeteringen doorgevoerd ([9fac920](https://github.com/milieuinfo/uigov-web-components/commit/9fac920c8dc1acab62ef79a453759a1d4fb9840a))
 * UIG-3141 - vl-map - het selectiekader is terug zichtbaar bij de delete action ([6aa526d](https://github.com/milieuinfo/uigov-web-components/commit/6aa526d3879d3aa6bed7607b797f30127d4b91a7))
 * UIG-3150 - vl-info-tile - extra slot toegevoegd voor menu ([a823d08](https://github.com/milieuinfo/uigov-web-components/commit/a823d0896a4735743e409206d32de0f0e200ea48))
-* UIG-3151 - vl-select-next - ellipsis toegevoegd bij lange opties ([12a9ce8](https://github.com/milieuinfo/uigov-web-components/commit/12a9ce827b29d70b123ffd67b1b3b1b996cd986c))
-* UIG-3164 - vl-upload-next - upload progress event & callback voorzien ([3c6f13b](https://github.com/milieuinfo/uigov-web-components/commit/3c6f13b931f86e36f7d4d566ec1fb4d525174548))
+* UIG-3151 - vl-select - ellipsis toegevoegd bij lange opties ([12a9ce8](https://github.com/milieuinfo/uigov-web-components/commit/12a9ce827b29d70b123ffd67b1b3b1b996cd986c))
+* UIG-3164 - vl-upload - upload progress event & callback voorzien ([3c6f13b](https://github.com/milieuinfo/uigov-web-components/commit/3c6f13b931f86e36f7d4d566ec1fb4d525174548))
 * UIG-3184 - vl-datepicker - automatische positionering hersteld en extra attributen "position" en "static" ([f4b6c03](https://github.com/milieuinfo/uigov-web-components/commit/f4b6c03433edff4b7aa7b5adeaaeb9c4eea2003f))
 * UIG-3208 - vl-search-filter - Escape functionaliteit verplaatst naar vl-rich-data ([f3c2914](https://github.com/milieuinfo/uigov-web-components/commit/f3c29147f9faa72189fdb34ac771a55307b63ca9))
-* UIG-3211 - vl-tab-next - introductie naïeve next component (wegwerken elementen) ([14b3573](https://github.com/milieuinfo/uigov-web-components/commit/14b35737336faf8a7fb2b93b000f45f30a5ff7ff))
-* UIG-3212 - vl-button-next - ghost variant aangemaakt ([dc05789](https://github.com/milieuinfo/uigov-web-components/commit/dc057899feb80d03f9dcdc7ad3d11da504a7945d))
+* UIG-3211 - vl-tab - introductie naïeve next component (wegwerken elementen) ([14b3573](https://github.com/milieuinfo/uigov-web-components/commit/14b35737336faf8a7fb2b93b000f45f30a5ff7ff))
+* UIG-3212 - vl-button - ghost variant aangemaakt ([dc05789](https://github.com/milieuinfo/uigov-web-components/commit/dc057899feb80d03f9dcdc7ad3d11da504a7945d))
 * UIG-3219 - vl-pill - is="vl-button-pill" is nu <vl-pill clickable> ([73348d8](https://github.com/milieuinfo/uigov-web-components/commit/73348d8e0d845f23f2c09ce3ac1b2c410e286695))
 
 # [1.44.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.43.1...v1.44.0) (2025-02-19)
@@ -133,20 +133,20 @@
 
 ### Features
 
-* UIG-3142 - vl-select-richt-next - pijltjestoetsen veroorzaakten een tab-wissel bij integratie in de vl-tabs ([43787e6](https://github.com/milieuinfo/uigov-web-components/commit/43787e65a0160490e7b353c88ddd04a4babe8007))
+* UIG-3142 - vl-select-richt - pijltjestoetsen veroorzaakten een tab-wissel bij integratie in de vl-tabs ([43787e6](https://github.com/milieuinfo/uigov-web-components/commit/43787e65a0160490e7b353c88ddd04a4babe8007))
 * UIG-3144 - vl-map - map disposen in disconnectedCallback ([85bbd07](https://github.com/milieuinfo/uigov-web-components/commit/85bbd077353c4f0c993d2db11590d85e3c434981))
-* UIG-3147 - vl-group-next - `.vl-group-next--baseline` uitlijning toegevoegd ([43fe6c1](https://github.com/milieuinfo/uigov-web-components/commit/43fe6c116bc8053afc1f00aec662bb686c8d89d3))
+* UIG-3147 - vl-group - `.vl-group--baseline` uitlijning toegevoegd ([43fe6c1](https://github.com/milieuinfo/uigov-web-components/commit/43fe6c116bc8053afc1f00aec662bb686c8d89d3))
 * UIG-3148 - vl-popover - styling volgens DV, ondersteuning voor action-list dividers ([c2f3d6c](https://github.com/milieuinfo/uigov-web-components/commit/c2f3d6c433778c946bab287f4a05683bc9e004f6))
 * UIG-3156 - vl-modal - sluiten adhv 'Escape' key verbeterd ([d9d5790](https://github.com/milieuinfo/uigov-web-components/commit/d9d5790f9780d131f05fe16906fcca0c65ba8da3))
-* UIG-3168 - vl-button-next - loading state hoogte verbeterd ([323b2a3](https://github.com/milieuinfo/uigov-web-components/commit/323b2a32acfe8af11ab1df68153ac504df18b66b))
+* UIG-3168 - vl-button - loading state hoogte verbeterd ([323b2a3](https://github.com/milieuinfo/uigov-web-components/commit/323b2a32acfe8af11ab1df68153ac504df18b66b))
 * UIG-3178 - vl-toaster - gebruikt nu z-index waarde uit DV ([aa11513](https://github.com/milieuinfo/uigov-web-components/commit/aa11513097c14fb307af300236ae6758fb3a43d4))
-* UIG-3179 - vl-modal - vl-action-group vervangen door vl-group-next ([84ac67b](https://github.com/milieuinfo/uigov-web-components/commit/84ac67b46cba82f123dabd71b35a858b17863955))
+* UIG-3179 - vl-modal - vl-action-group vervangen door vl-group ([84ac67b](https://github.com/milieuinfo/uigov-web-components/commit/84ac67b46cba82f123dabd71b35a858b17863955))
 * UIG-3190 - vl-tabs - vl-click event bij tab klik ([aeafe92](https://github.com/milieuinfo/uigov-web-components/commit/aeafe92be32388ec9b0515a51bdb6194f10f0894))
-* UIG-3192 - vl-button-next - gebruik van vl-toggle-button vervangen door vl-button-next ([99657f6](https://github.com/milieuinfo/uigov-web-components/commit/99657f6172da09201e4395dcce2f9a9dbc105363))
+* UIG-3192 - vl-button - gebruik van vl-toggle-button vervangen door vl-button ([99657f6](https://github.com/milieuinfo/uigov-web-components/commit/99657f6172da09201e4395dcce2f9a9dbc105363))
 * UIG-3196 - vl-accessibility - vl-visually-hidden css introductie ([6708990](https://github.com/milieuinfo/uigov-web-components/commit/670899000ba68d5447d6fafeebf5ad73f452f98f))
 * UIG-3198 - vl-color-raw - consistente kleur variabelen ([2d31d67](https://github.com/milieuinfo/uigov-web-components/commit/2d31d67acb88c4a0efa98c3ec05f39664e936c77))
-* UIG-3199 - vl-button-next, vl-link-next - icon-placement verbeteringen doorgevoerd ([df607b6](https://github.com/milieuinfo/uigov-web-components/commit/df607b6d38d318e97b7d46fd0347794ccbc873d4))
-* UIG-3201 - vl-error-message-next - mogelijkheid meerdere lijnen toegevoegd ([ece7bc1](https://github.com/milieuinfo/uigov-web-components/commit/ece7bc1072691ea8678880b74b314e0404dfdd94))
+* UIG-3199 - vl-button, vl-link - icon-placement verbeteringen doorgevoerd ([df607b6](https://github.com/milieuinfo/uigov-web-components/commit/df607b6d38d318e97b7d46fd0347794ccbc873d4))
+* UIG-3201 - vl-error-message - mogelijkheid meerdere lijnen toegevoegd ([ece7bc1](https://github.com/milieuinfo/uigov-web-components/commit/ece7bc1072691ea8678880b74b314e0404dfdd94))
 * UIG-3204 - qlik componenten volledig verwijderd ([2329ff6](https://github.com/milieuinfo/uigov-web-components/commit/2329ff63b3bb5e9a9eb5844cb917392d49720245))
 
 ## [1.43.1](https://github.com/milieuinfo/uigov-web-components/compare/v1.43.0...v1.43.1) (2025-01-27)
@@ -154,7 +154,7 @@
 
 ### Bug Fixes
 
-* UIG-3195 - vl-upload-next - vl-initialised event timing verbeterd ([b174420](https://github.com/milieuinfo/uigov-web-components/commit/b174420a53aedfd50a7a1e11fa643c9e6999c114))
+* UIG-3195 - vl-upload - vl-initialised event timing verbeterd ([b174420](https://github.com/milieuinfo/uigov-web-components/commit/b174420a53aedfd50a7a1e11fa643c9e6999c114))
 * UIG-3197 - vl-rich-data - body scroll probleem opgelost in context van search-filter ([344449c](https://github.com/milieuinfo/uigov-web-components/commit/344449cb9164f150f2b19d17562e28d54f95628b))
 
 # [1.43.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.42.0...v1.43.0) (2025-01-24)
@@ -163,30 +163,30 @@
 ### Bug Fixes
 
 * er faalde een Jest test door raw-loader ([c8d5023](https://github.com/milieuinfo/uigov-web-components/commit/c8d50230f441c340628fcf5417bdf290cd8c860b))
-* UIG-3120 - vl-select-next - placeholder werking verbeterd ([48c75fb](https://github.com/milieuinfo/uigov-web-components/commit/48c75fbf9de2f016747c6ea2e6f8f6d2fbd4afd5))
-* UIG-3183 - vl-upload-next - name attribuut stelt nu ook paramName in ([606b425](https://github.com/milieuinfo/uigov-web-components/commit/606b425183ee095a0450a2d39ee488e946418b34))
+* UIG-3120 - vl-select - placeholder werking verbeterd ([48c75fb](https://github.com/milieuinfo/uigov-web-components/commit/48c75fbf9de2f016747c6ea2e6f8f6d2fbd4afd5))
+* UIG-3183 - vl-upload - name attribuut stelt nu ook paramName in ([606b425](https://github.com/milieuinfo/uigov-web-components/commit/606b425183ee095a0450a2d39ee488e946418b34))
 * vl-map-search - test faalde door bounding box wijziging van Antwerpen (gemeente fusie) ([574ac20](https://github.com/milieuinfo/uigov-web-components/commit/574ac202d3852342ffbd5fc96dd7fa56efcc721d))
 
 
 ### Features
 
-* UIG-2910 - vl-table-next - introductie component ([318c6b9](https://github.com/milieuinfo/uigov-web-components/commit/318c6b9cd760c10b046f4bf3c3307b7703ab2a0c))
-* UIG-2929 - vl-search-filter-next - introductie component ([fc9e541](https://github.com/milieuinfo/uigov-web-components/commit/fc9e5416d99045c7d607afe1da2dd6986150536e))
-* UIG-2930 - search-result-next - introductie component ([35ceae6](https://github.com/milieuinfo/uigov-web-components/commit/35ceae6ca4b1e2a4eea362c724d3e596faca57ec))
-* UIG-2932 - vl-side-navigation-next - introductie component ([42551d7](https://github.com/milieuinfo/uigov-web-components/commit/42551d764ad746af033262e3ee98fd47f11c6aba))
-* UIG-3071 - vl-toaster-next - introductie component ([8ffc145](https://github.com/milieuinfo/uigov-web-components/commit/8ffc1451392ae7af4f3e1363ca621ecefb59f8a7))
-* UIG-3123 - vl-title-next, vl-form-label-next - styling stuurbaar gemaakt ([abeaf1c](https://github.com/milieuinfo/uigov-web-components/commit/abeaf1c3c2d0bfb7cfffb8c9f61a928af83f3af3))
-* UIG-3139 - annotation - uitbreidingen aan vl-text-next ([b21e829](https://github.com/milieuinfo/uigov-web-components/commit/b21e8295c1e229b4db4f0e3601da326ba652b5be))
+* UIG-2910 - vl-table - introductie component ([318c6b9](https://github.com/milieuinfo/uigov-web-components/commit/318c6b9cd760c10b046f4bf3c3307b7703ab2a0c))
+* UIG-2929 - vl-search-filter - introductie component ([fc9e541](https://github.com/milieuinfo/uigov-web-components/commit/fc9e5416d99045c7d607afe1da2dd6986150536e))
+* UIG-2930 - search-result - introductie component ([35ceae6](https://github.com/milieuinfo/uigov-web-components/commit/35ceae6ca4b1e2a4eea362c724d3e596faca57ec))
+* UIG-2932 - vl-side-navigation - introductie component ([42551d7](https://github.com/milieuinfo/uigov-web-components/commit/42551d764ad746af033262e3ee98fd47f11c6aba))
+* UIG-3071 - vl-toaster - introductie component ([8ffc145](https://github.com/milieuinfo/uigov-web-components/commit/8ffc1451392ae7af4f3e1363ca621ecefb59f8a7))
+* UIG-3123 - vl-title, vl-form-label - styling stuurbaar gemaakt ([abeaf1c](https://github.com/milieuinfo/uigov-web-components/commit/abeaf1c3c2d0bfb7cfffb8c9f61a928af83f3af3))
+* UIG-3139 - annotation - uitbreidingen aan vl-text ([b21e829](https://github.com/milieuinfo/uigov-web-components/commit/b21e8295c1e229b4db4f0e3601da326ba652b5be))
 * UIG-3154 - vl-rich-data - storybook verbeterd ([a6efd3f](https://github.com/milieuinfo/uigov-web-components/commit/a6efd3f7309a38305d36f77a354446757e1398ae))
-* UIG-3163 - layout uitbreiding met vl-separator-next, vl-spacer-next en vl-stacked-next ([3748713](https://github.com/milieuinfo/uigov-web-components/commit/3748713e8dfedafb43cdb2a475b6fb292a239c47))
+* UIG-3163 - layout uitbreiding met vl-separator, vl-spacer en vl-stacked ([3748713](https://github.com/milieuinfo/uigov-web-components/commit/3748713e8dfedafb43cdb2a475b6fb292a239c47))
 * UIG-3172 - input-group / input-field - met block attribuut de volledige breedte innemen ([0b39ac2](https://github.com/milieuinfo/uigov-web-components/commit/0b39ac27f4d8828fa320ad146769a748f41e8660))
 * UIG-3175 - global-styles - registratie van global styles verbeterd ([2cb14eb](https://github.com/milieuinfo/uigov-web-components/commit/2cb14eb8dec1a31df97ff4a066bf5941921d627a))
 * UIG-3180 - privacy / accessibility / cookie-statement uitbreiden met hide-back-link ([55c06a4](https://github.com/milieuinfo/uigov-web-components/commit/55c06a4b4f70305dd0e8bbadf512ff8f2b97abb4))
-* UIG-3181 - vl-upload-next - dropzone event handling uitgebreid ([9b1c924](https://github.com/milieuinfo/uigov-web-components/commit/9b1c9248c1e389b76d699234837d6d92f07c2ab2))
+* UIG-3181 - vl-upload - dropzone event handling uitgebreid ([9b1c924](https://github.com/milieuinfo/uigov-web-components/commit/9b1c9248c1e389b76d699234837d6d92f07c2ab2))
 * UIG-3182 - form-control - resetFormControl methode verder toegelicht ([1bf3bde](https://github.com/milieuinfo/uigov-web-components/commit/1bf3bde48579222639ceb1fccb2764b60b1ce325))
-* UIG-3188 - vl-error-message-next - validator message wordt nu fallback foutboodschap ([516a4fa](https://github.com/milieuinfo/uigov-web-components/commit/516a4fa54e6b2e66c3f0a44ebdb3e1f9f2493db5))
-* UIG-3189 - vl-upload-next - parallel-uploads attribuut toegevoegd ([fd74f4b](https://github.com/milieuinfo/uigov-web-components/commit/fd74f4b55983c1b8d71c1e9b1473547bcec8a176))
-* UIG-3192 - vl-toggle-button - wordt vervangen door vl-button-next ([644d537](https://github.com/milieuinfo/uigov-web-components/commit/644d53730884794c2c2b5287cefbb5376f99255e))
+* UIG-3188 - vl-error-message - validator message wordt nu fallback foutboodschap ([516a4fa](https://github.com/milieuinfo/uigov-web-components/commit/516a4fa54e6b2e66c3f0a44ebdb3e1f9f2493db5))
+* UIG-3189 - vl-upload - parallel-uploads attribuut toegevoegd ([fd74f4b](https://github.com/milieuinfo/uigov-web-components/commit/fd74f4b55983c1b8d71c1e9b1473547bcec8a176))
+* UIG-3192 - vl-toggle-button - wordt vervangen door vl-button ([644d537](https://github.com/milieuinfo/uigov-web-components/commit/644d53730884794c2c2b5287cefbb5376f99255e))
 
 # [1.42.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.41.0...v1.42.0) (2024-12-19)
 
@@ -194,19 +194,19 @@
 ### Bug Fixes
 
 * Storybook logo Vlaamse Overheid ([0528481](https://github.com/milieuinfo/uigov-web-components/commit/052848192ff267e6133bc814567f93cd22537f1e))
-* UIG-3128 - vl-checkbox-next - switch variant verbeterd ([5c0d497](https://github.com/milieuinfo/uigov-web-components/commit/5c0d49719545ac87229ba8c9d18b978766853503))
-* UIG-3169 - vl-icon-next - icon font aangepast ([3ab46d2](https://github.com/milieuinfo/uigov-web-components/commit/3ab46d2474cacca3a1f310b02ae1e108e3a15a90))
-* UIG-3170 - vl-button-next - native click event wordt ontsloten ([28e0d39](https://github.com/milieuinfo/uigov-web-components/commit/28e0d39d4dd38dd11de3b994f5dc411a4200cfa4))
-* UIG-3171 - vl-icon-next - icon margins verbeterd ([f1ddbdd](https://github.com/milieuinfo/uigov-web-components/commit/f1ddbdd608635fe3fff60c4ae0aecbf1a439e012))
+* UIG-3128 - vl-checkbox - switch variant verbeterd ([5c0d497](https://github.com/milieuinfo/uigov-web-components/commit/5c0d49719545ac87229ba8c9d18b978766853503))
+* UIG-3169 - vl-icon - icon font aangepast ([3ab46d2](https://github.com/milieuinfo/uigov-web-components/commit/3ab46d2474cacca3a1f310b02ae1e108e3a15a90))
+* UIG-3170 - vl-button - native click event wordt ontsloten ([28e0d39](https://github.com/milieuinfo/uigov-web-components/commit/28e0d39d4dd38dd11de3b994f5dc411a4200cfa4))
+* UIG-3171 - vl-icon - icon margins verbeterd ([f1ddbdd](https://github.com/milieuinfo/uigov-web-components/commit/f1ddbdd608635fe3fff60c4ae0aecbf1a439e012))
 
 
 ### Features
 
-* UIG-2922 - input-group-next ([fadd357](https://github.com/milieuinfo/uigov-web-components/commit/fadd35721e36dd9f026e19d62d4af8e4f4082730))
-* UIG-2923 - vl-paragraph-next ([ff8d0a6](https://github.com/milieuinfo/uigov-web-components/commit/ff8d0a609facdb88858cb22b4a2f4979fcb25bc1))
-* UIG-2933 - vl-text-next - introductie component ([ca83351](https://github.com/milieuinfo/uigov-web-components/commit/ca8335117cad7b4acc99e154a1eea02db10e916d))
+* UIG-2922 - input-group ([fadd357](https://github.com/milieuinfo/uigov-web-components/commit/fadd35721e36dd9f026e19d62d4af8e4f4082730))
+* UIG-2923 - vl-paragraph ([ff8d0a6](https://github.com/milieuinfo/uigov-web-components/commit/ff8d0a609facdb88858cb22b4a2f4979fcb25bc1))
+* UIG-2933 - vl-text - introductie component ([ca83351](https://github.com/milieuinfo/uigov-web-components/commit/ca8335117cad7b4acc99e154a1eea02db10e916d))
 * UIG-3122 - het font 'Flanders Art Serif' wordt nergens gebruikt ([6bf3873](https://github.com/milieuinfo/uigov-web-components/commit/6bf387301ab6aed73ed76588babea510ac4fbdae))
-* UIG-3138 - vl-link-next - optie toegevoegd die een button als link stileert ([112980e](https://github.com/milieuinfo/uigov-web-components/commit/112980e396f44030cf8ee613d8845bbea449b2b8))
+* UIG-3138 - vl-link - optie toegevoegd die een button als link stileert ([112980e](https://github.com/milieuinfo/uigov-web-components/commit/112980e396f44030cf8ee613d8845bbea449b2b8))
 * UIG-3161 - webpack upgrade en component-test fix ([1058181](https://github.com/milieuinfo/uigov-web-components/commit/1058181ce2cedc82c758f6985c06b5ed3a37b0f2))
 
 # [1.41.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.40.0...v1.41.0) (2024-12-06)
@@ -222,10 +222,10 @@
 
 ### Bug Fixes
 
-* UIG-3129 - vl-link-next - onnodige witruimte verwijderd wanneer er geen icon is ingesteld ([ca006a0](https://github.com/milieuinfo/uigov-web-components/commit/ca006a00057d62bd5a6efd334af468e71137cf84))
+* UIG-3129 - vl-link - onnodige witruimte verwijderd wanneer er geen icon is ingesteld ([ca006a0](https://github.com/milieuinfo/uigov-web-components/commit/ca006a00057d62bd5a6efd334af468e71137cf84))
 * UIG-3137 - vl-upload - upload timeout uitgeschakeld ([375bd0e](https://github.com/milieuinfo/uigov-web-components/commit/375bd0e7dd93fceb3939e76f9dc33ca045ccf194))
-* UIG-3155 - vl-button-next - tertiary styling on hover ([1144378](https://github.com/milieuinfo/uigov-web-components/commit/1144378147709b583cd47a4063b0ff5e1e013954))
-* UIG-3162 - vl-datepicker-next - datum selectie in testen verbeterd ([324113c](https://github.com/milieuinfo/uigov-web-components/commit/324113c2bcb329af3b697333f9b9a72674913a25))
+* UIG-3155 - vl-button - tertiary styling on hover ([1144378](https://github.com/milieuinfo/uigov-web-components/commit/1144378147709b583cd47a4063b0ff5e1e013954))
+* UIG-3162 - vl-datepicker - datum selectie in testen verbeterd ([324113c](https://github.com/milieuinfo/uigov-web-components/commit/324113c2bcb329af3b697333f9b9a72674913a25))
 
 
 ### Features
@@ -235,7 +235,7 @@
 * UIG-2918 - vl-image wordt geschrapt in v2 ([a4285b4](https://github.com/milieuinfo/uigov-web-components/commit/a4285b458a51ec4dd41a8f0371029692704b4236))
 * UIG-3022 - planning update ([67a6a12](https://github.com/milieuinfo/uigov-web-components/commit/67a6a12f3e09c8c434f3b6dad96ab95abab36c1f))
 * UIG-3136 - storybook - documentatie verbeterd ([a92dc62](https://github.com/milieuinfo/uigov-web-components/commit/a92dc6294d17f3e4e4fbb07b4af11a6b5e57d187))
-* UIG-3143 - vl-upload-next - default voor url toegevoegd ([3c78413](https://github.com/milieuinfo/uigov-web-components/commit/3c78413a4d53799899f919f712013672bc443174))
+* UIG-3143 - vl-upload - default voor url toegevoegd ([3c78413](https://github.com/milieuinfo/uigov-web-components/commit/3c78413a4d53799899f919f712013672bc443174))
 * UIG-3145 - technische (console) fouten opgelost bij het uitvoeren van component testen ([eadcc35](https://github.com/milieuinfo/uigov-web-components/commit/eadcc3545033ba3ccfe00d4db1c5e20b586bb7a6))
 * UIG-3146 - component en Storybook testen voor de styles ([3362485](https://github.com/milieuinfo/uigov-web-components/commit/33624859d04c1207de908aeeba9205d318e58192))
 * UIG-3159 - vl-toaster - storybook verbeterd ([14bc8ce](https://github.com/milieuinfo/uigov-web-components/commit/14bc8cec97c3b39650ee8474489c3791daf0e0db))
@@ -257,7 +257,7 @@
 * UIG-2062 - vl-privacy-section - privacy verklaring slots toegevoegd ([aed1439](https://github.com/milieuinfo/uigov-web-components/commit/aed1439f0986922caf70007b853d4d8061389490))
 * UIG-3103 - storybook - documentatie verbetering voor next-componenten ([fe4df0f](https://github.com/milieuinfo/uigov-web-components/commit/fe4df0febbf94c5e12595c44c82d998b998d9853))
 * UIG-3113 - web-types build verbeteringen ([1c57e49](https://github.com/milieuinfo/uigov-web-components/commit/1c57e4945af57182f5ce93aa4d2b465682336995))
-* UIG-3116 - vl-button-next - cta-link attribuut toegevoegd ([d59207f](https://github.com/milieuinfo/uigov-web-components/commit/d59207f1d26aeea5822723b94d979804bd23cb37))
+* UIG-3116 - vl-button - cta-link attribuut toegevoegd ([d59207f](https://github.com/milieuinfo/uigov-web-components/commit/d59207f1d26aeea5822723b94d979804bd23cb37))
 * UIG-3126 - vl-typography - gekende beperking gedocumenteerd in verband met event handling ([3784efa](https://github.com/milieuinfo/uigov-web-components/commit/3784efaf6fe0e15709db67686a7b5b1e22b0afe6))
 
 ## [1.38.1](https://github.com/milieuinfo/uigov-web-components/compare/v1.38.0...v1.38.1) (2024-10-08)
@@ -265,17 +265,17 @@
 
 ### Bug Fixes
 
-* UIG-3090 - tinymce-next alias dependency gecorrigeerd ([44ae67f](https://github.com/milieuinfo/uigov-web-components/commit/44ae67f8605eeae3135f6011ba6e825027c56622))
+* UIG-3090 - tinymce alias dependency gecorrigeerd ([44ae67f](https://github.com/milieuinfo/uigov-web-components/commit/44ae67f8605eeae3135f6011ba6e825027c56622))
 
 # [1.38.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.37.2...v1.38.0) (2024-10-07)
 
 
 ### Features
 
-* UIG-2935 - vl-video-player-next - introductie component ([317a66c](https://github.com/milieuinfo/uigov-web-components/commit/317a66c46d2ec6ad6a20194ed2f469baf7fa3deb))
+* UIG-2935 - vl-video-player - introductie component ([317a66c](https://github.com/milieuinfo/uigov-web-components/commit/317a66c46d2ec6ad6a20194ed2f469baf7fa3deb))
 * UIG-3022 - documentatie aanvulling mbt next, v1 en v2 ([a8922f7](https://github.com/milieuinfo/uigov-web-components/commit/a8922f7b4b20ff076ea62f4ab55dcbd2e8200f9d))
 * UIG-3103 - planning toegevoegd aan de documentatie ([c902ffb](https://github.com/milieuinfo/uigov-web-components/commit/c902ffbfbcfc6f423e511a5c975c1e71b899d4b5))
-* UIG-3106 - form-next componenten - backwards incompatibele event wijziging: vl-checked, vl-input en vl-select vervangen door vl-change + vl-input ([e35b841](https://github.com/milieuinfo/uigov-web-components/commit/e35b8417bc4e4fa11fdef8e2c52657796d90f0d8))
+* UIG-3106 - form componenten - backwards incompatibele event wijziging: vl-checked, vl-input en vl-select vervangen door vl-change + vl-input ([e35b841](https://github.com/milieuinfo/uigov-web-components/commit/e35b8417bc4e4fa11fdef8e2c52657796d90f0d8))
 * UIG-3108 - IDE issues ([b59ccb4](https://github.com/milieuinfo/uigov-web-components/commit/b59ccb4d1b8ad86716036c0b6fc7a2af7beeee8d))
 
 ## [1.37.2](https://github.com/milieuinfo/uigov-web-components/compare/v1.37.1...v1.37.2) (2024-09-13)
@@ -338,10 +338,10 @@
 
 ### Bug Fixes
 
-* UIG-3021 - vl-textarea-rich-next - tinymce editor afbraak verbeterd ([e6cc0a9](https://github.com/milieuinfo/uigov-web-components/commit/e6cc0a920edfdc2ce028bfec46cbcd355aa6d62b))
+* UIG-3021 - vl-textarea-rich - tinymce editor afbraak verbeterd ([e6cc0a9](https://github.com/milieuinfo/uigov-web-components/commit/e6cc0a920edfdc2ce028bfec46cbcd355aa6d62b))
 * UIG-3023 - vl-spotlight - link styling toegevoegd ([8d96152](https://github.com/milieuinfo/uigov-web-components/commit/8d96152c9a0664461bd9ffe4ed40881125ac817d))
 * UIG-3024 - vl-side-sheet - werking open-attribuut gestroomlijnd ([3fc0dd9](https://github.com/milieuinfo/uigov-web-components/commit/3fc0dd9db5466650370a106be9beaf7f4f476cd0))
-* UIG-3041 - vl-datepicker-next - lege value wordt nu correct ingesteld ([51931e7](https://github.com/milieuinfo/uigov-web-components/commit/51931e764095998a44c639d8c29858520afe18ad))
+* UIG-3041 - vl-datepicker - lege value wordt nu correct ingesteld ([51931e7](https://github.com/milieuinfo/uigov-web-components/commit/51931e764095998a44c639d8c29858520afe18ad))
 
 
 ### Features
@@ -354,7 +354,7 @@
 ### Bug Fixes
 
 * UIG-2807 - vl-functional-header - tabs styling ([5ed0042](https://github.com/milieuinfo/uigov-web-components/commit/5ed004252f70de8572f2bf4a87041d875060c234))
-* UIG-3004 - vl-textarea-rich-next link popup in vl-side-sheet ([d84a3b3](https://github.com/milieuinfo/uigov-web-components/commit/d84a3b3628ef7c46fc6e77db38c6debb748cb13b))
+* UIG-3004 - vl-textarea-rich link popup in vl-side-sheet ([d84a3b3](https://github.com/milieuinfo/uigov-web-components/commit/d84a3b3628ef7c46fc6e77db38c6debb748cb13b))
 * UIG-3008 - storybook - list style verwijderd in canvas tab ([623b17d](https://github.com/milieuinfo/uigov-web-components/commit/623b17dcd4e81f9935b828b92e32eb2c80d7cded))
 
 
@@ -375,7 +375,7 @@
 
 * UIG-3000 - vl-map-legend - version attribute toegevoegd (voor opvragen van de legende) ([85e0ebc](https://github.com/milieuinfo/uigov-web-components/commit/85e0ebc12a504d9000a99a510a8ec554254d56d4))
 * UIG-3008 - storybook list style ([ad2e222](https://github.com/milieuinfo/uigov-web-components/commit/ad2e222af8ccc8bdff5ea49fecc5c723ed00c006))
-* UIG-3009 - vl-textarea-rich-next - null checks toegevoegd ([618b774](https://github.com/milieuinfo/uigov-web-components/commit/618b774a3711f97f19e02eb50a4021e909448a38))
+* UIG-3009 - vl-textarea-rich - null checks toegevoegd ([618b774](https://github.com/milieuinfo/uigov-web-components/commit/618b774a3711f97f19e02eb50a4021e909448a38))
 * UIG-3011 - Jest testen onder libs/common/utilities en libs/components lopen nu correct ([a7f82bb](https://github.com/milieuinfo/uigov-web-components/commit/a7f82bb3c918213de66cc7c27ad7deca48498a40))
 * UIG-3014 - vl-modal - allow-overflow attribute werking rechtgezet ([85ef27e](https://github.com/milieuinfo/uigov-web-components/commit/85ef27e2c9f2350b8e9e167086f0d68a3bf1a1db))
 
@@ -384,10 +384,10 @@
 
 * UIG-2749 - vl-header - logout request ([13254d8](https://github.com/milieuinfo/uigov-web-components/commit/13254d88492d2ea7878dac0b97c8595916c81bf1))
 * UIG-2815 - vl-cascader - event uitsturing toegevoegd bij het klikken van breadcrumb ([205f7ca](https://github.com/milieuinfo/uigov-web-components/commit/205f7ca4bb06a95d5ff625b41b3e58e89677de86))
-* UIG-2909 - vl-button-next - introductie component ([700618e](https://github.com/milieuinfo/uigov-web-components/commit/700618e33a0677feaa553cd921009e9ab9a19eef))
-* UIG-2919 - vl-infotext-next - introductie component ([88e286c](https://github.com/milieuinfo/uigov-web-components/commit/88e286cd7e1dd61393d4a22eb6458a8db3b89d67))
-* UIG-2928 - vl-properties-next - introductie component ([66171f5](https://github.com/milieuinfo/uigov-web-components/commit/66171f51a0c41d8a27ec47545d24dd0dfdc27b10))
-* UIG-2934 - vl-title-next - introductie component ([37522a3](https://github.com/milieuinfo/uigov-web-components/commit/37522a3f15ef94f86cd254950407decec2e5d5b9))
+* UIG-2909 - vl-button - introductie component ([700618e](https://github.com/milieuinfo/uigov-web-components/commit/700618e33a0677feaa553cd921009e9ab9a19eef))
+* UIG-2919 - vl-infotext - introductie component ([88e286c](https://github.com/milieuinfo/uigov-web-components/commit/88e286cd7e1dd61393d4a22eb6458a8db3b89d67))
+* UIG-2928 - vl-properties - introductie component ([66171f5](https://github.com/milieuinfo/uigov-web-components/commit/66171f51a0c41d8a27ec47545d24dd0dfdc27b10))
+* UIG-2934 - vl-title - introductie component ([37522a3](https://github.com/milieuinfo/uigov-web-components/commit/37522a3f15ef94f86cd254950407decec2e5d5b9))
 * UIG-3013 - starter-app documentatie ([7bbcf99](https://github.com/milieuinfo/uigov-web-components/commit/7bbcf996daaf143bc5421e131b6ea9469a8544e4))
 
 # [1.32.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.31.0...v1.32.0) (2024-05-13)
@@ -402,23 +402,23 @@
 ### Features
 
 * UIG-2797 - vl-modal - uitlijning van de knoppen verbeterd ([f9daff0](https://github.com/milieuinfo/uigov-web-components/commit/f9daff06e6998a86586360108287186b3ed9cdbc))
-* UIG-2924 - vl-link-next - introductie component ([0c01edc](https://github.com/milieuinfo/uigov-web-components/commit/0c01edcb4a22d6642813b6940a0f7f7a54f35c81))
-* UIG-2993 - vl-select-next - not-deletable attribuut, deletable is de default ([26a7ef7](https://github.com/milieuinfo/uigov-web-components/commit/26a7ef707c28a645b099a62bc914cec312484314))
+* UIG-2924 - vl-link - introductie component ([0c01edc](https://github.com/milieuinfo/uigov-web-components/commit/0c01edcb4a22d6642813b6940a0f7f7a54f35c81))
+* UIG-2993 - vl-select - not-deletable attribuut, deletable is de default ([26a7ef7](https://github.com/milieuinfo/uigov-web-components/commit/26a7ef707c28a645b099a62bc914cec312484314))
 * UIG-2999 - vl-popover - waarschuwing aangepast wanneer referentie-element niet wordt gevonden ([3b196f1](https://github.com/milieuinfo/uigov-web-components/commit/3b196f1d843711f4449ed025b160a915474b9797))
-* UIG-3003 - vl-select-rich-next - result-limit attribuut reactief gemaakt ([d0181c5](https://github.com/milieuinfo/uigov-web-components/commit/d0181c5fcea58d8257fadef80ba1843b611ca6eb))
+* UIG-3003 - vl-select-rich - result-limit attribuut reactief gemaakt ([d0181c5](https://github.com/milieuinfo/uigov-web-components/commit/d0181c5fcea58d8257fadef80ba1843b611ca6eb))
 
 # [1.31.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.30.0...v1.31.0) (2024-04-24)
 
 
 ### Bug Fixes
 
-* UIG-2987 - vl-upload-next - Dropzone import verbeterd ([fbc689b](https://github.com/milieuinfo/uigov-web-components/commit/fbc689b982e24382366e959f5ee215855542f046))
+* UIG-2987 - vl-upload - Dropzone import verbeterd ([fbc689b](https://github.com/milieuinfo/uigov-web-components/commit/fbc689b982e24382366e959f5ee215855542f046))
 * UIG-3001 - Storybook - bold font en lijsten in mdx files ([e53a3e4](https://github.com/milieuinfo/uigov-web-components/commit/e53a3e4111191243f794cedd5d505e65389653da))
 
 
 ### Features
 
-* UIG-2846 - vl-datepicker-next - standaard waarde veranderd naar ISO-8601 formaat ([43f0306](https://github.com/milieuinfo/uigov-web-components/commit/43f0306d94fb081cfa5c39843db5142b170f4306))
+* UIG-2846 - vl-datepicker - standaard waarde veranderd naar ISO-8601 formaat ([43f0306](https://github.com/milieuinfo/uigov-web-components/commit/43f0306d94fb081cfa5c39843db5142b170f4306))
 * UIG-2957 - storybook aanpassingen conform recente beslissingen ([c83bb06](https://github.com/milieuinfo/uigov-web-components/commit/c83bb0626a18530af830e509a34a64ec39c3f2cf))
 * UIG-3002 - vl-text - kleur attributen toegevoegd ([08bb90c](https://github.com/milieuinfo/uigov-web-components/commit/08bb90c3eb8432da5765a1266c42ef7ada7e5bea))
 
@@ -436,7 +436,7 @@
 ### Features
 
 * UIG-2845 - select - extra uitleg voor options property ([92b7213](https://github.com/milieuinfo/uigov-web-components/commit/92b721364f0c5380e2d49cc0e58d716f948ca7de))
-* UIG-2899 - vl-datepicker-next - mask validatie toegevoegd ([d9012c5](https://github.com/milieuinfo/uigov-web-components/commit/d9012c585003e50d9c9f135dc026243802e73a96))
+* UIG-2899 - vl-datepicker - mask validatie toegevoegd ([d9012c5](https://github.com/milieuinfo/uigov-web-components/commit/d9012c585003e50d9c9f135dc026243802e73a96))
 * UIG-2974 - native vl-select - introductie component ([1851c16](https://github.com/milieuinfo/uigov-web-components/commit/1851c1678e06f5a689e365cd6e363b0296660490))
 
 ## [1.29.1](https://github.com/milieuinfo/uigov-web-components/compare/v1.29.0...v1.29.1) (2024-03-29)
@@ -478,13 +478,13 @@
 
 * storybook - documentatie structuur aangepast ([99841b0](https://github.com/milieuinfo/uigov-web-components/commit/99841b06cc9aca762ae9a68f3b17afd163e7b4d7))
 * UIG-2428 - vl-autocomplete - witruimte voor clear button verbeterd ([849022a](https://github.com/milieuinfo/uigov-web-components/commit/849022a777904f3a11a53013c2363b0ec1968faf))
-* UIG-2758 - vl-textarea-rich-next - introductie component ([3fa3dc7](https://github.com/milieuinfo/uigov-web-components/commit/3fa3dc78e318323e60fc4cd0b60895a9a2dd5ae0))
+* UIG-2758 - vl-textarea-rich - introductie component ([3fa3dc7](https://github.com/milieuinfo/uigov-web-components/commit/3fa3dc78e318323e60fc4cd0b60895a9a2dd5ae0))
 * UIG-2824 - raw-loader ([b902cf4](https://github.com/milieuinfo/uigov-web-components/commit/b902cf4588b5b63d4d7af28e3f7a593bfa29de9e))
-* UIG-2836 - vl-form-label-next - introductie component ([7c7c8e2](https://github.com/milieuinfo/uigov-web-components/commit/7c7c8e255da153eb88695bcb2e7d67607340bfee))
-* UIG-2840 - vl-select-next - multiple form values ondersteuning toegevoegd ([e22a295](https://github.com/milieuinfo/uigov-web-components/commit/e22a295adfe52919d6b1a4f54ee3dac49b1c01b2))
+* UIG-2836 - vl-form-label - introductie component ([7c7c8e2](https://github.com/milieuinfo/uigov-web-components/commit/7c7c8e255da153eb88695bcb2e7d67607340bfee))
+* UIG-2840 - vl-select - multiple form values ondersteuning toegevoegd ([e22a295](https://github.com/milieuinfo/uigov-web-components/commit/e22a295adfe52919d6b1a4f54ee3dac49b1c01b2))
 * UIG-2870 - vl-header - applicatieve links ([faa5f00](https://github.com/milieuinfo/uigov-web-components/commit/faa5f00cb13c14c51144cb36dc4e9eb25e4e554d))
 * UIG-2894 - 'type: module' behouden in de package.json van de npm packages ([9115b31](https://github.com/milieuinfo/uigov-web-components/commit/9115b3189efe27e1af20e2ee7fbe385135b39722))
-* UIG-2901 - vl-select-next - submit form niet op enter ([6c65576](https://github.com/milieuinfo/uigov-web-components/commit/6c65576d22035edf87eaa746900cd689050b89c8))
+* UIG-2901 - vl-select - submit form niet op enter ([6c65576](https://github.com/milieuinfo/uigov-web-components/commit/6c65576d22035edf87eaa746900cd689050b89c8))
 * UIG-2902 - integration-lib en integrator-app ([bb5673f](https://github.com/milieuinfo/uigov-web-components/commit/bb5673f7cafc7a1a8126e9b6704f60dec466175a))
 
 # [1.27.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.26.0...v1.27.0) (2024-02-23)
@@ -520,8 +520,8 @@
 ### Features
 
 * exporteer VlMapDrawActionStyle uit map/index.ts ([4d12688](https://github.com/milieuinfo/uigov-web-components/commit/4d12688f97b0c31e105e86db0fcaf7de3bfd99c4))
-* UIG-2710 - vl-upload-next - introductie component ([70ac442](https://github.com/milieuinfo/uigov-web-components/commit/70ac442773887bf529833c0274a7ae45ee758e4b))
-* UIG-2808 - vl-select-next - verbeteringen ([15ea070](https://github.com/milieuinfo/uigov-web-components/commit/15ea070ea8811fbee799374aa7139c1ad865617d))
+* UIG-2710 - vl-upload - introductie component ([70ac442](https://github.com/milieuinfo/uigov-web-components/commit/70ac442773887bf529833c0274a7ae45ee758e4b))
+* UIG-2808 - vl-select - verbeteringen ([15ea070](https://github.com/milieuinfo/uigov-web-components/commit/15ea070ea8811fbee799374aa7139c1ad865617d))
 * UIG-2810 - form - algemene verbeteringen ([cbd210d](https://github.com/milieuinfo/uigov-web-components/commit/cbd210de61656bab94f714653054d2fd5f20d8ce))
 * UIG-2827 - vl-document - target attribuut toegevoegd ([072c404](https://github.com/milieuinfo/uigov-web-components/commit/072c404713fdb7fafba197a02c8357e9f7d5d485))
 * UIG-2832 - build verbeteringen ([1e51576](https://github.com/milieuinfo/uigov-web-components/commit/1e515761e99d8ec876f06474bbd354bbd48c387e))
@@ -533,7 +533,7 @@
 
 * UIG-2216 - vl-tabs-pane - native id en title attribute getters behouden ([7be163a](https://github.com/milieuinfo/uigov-web-components/commit/7be163a708aed270007b1c28db436ebbae9c41c1))
 * UIG-2788 - vl-select - dropdown z-index fix ([ab44e58](https://github.com/milieuinfo/uigov-web-components/commit/ab44e58e78f0efb9f99d2474100e0051fc9beb74))
-* UIG-2812 - vl-select-next - foutieve iconen ([9e89922](https://github.com/milieuinfo/uigov-web-components/commit/9e89922de5cefe9563b730661692e7437632f607))
+* UIG-2812 - vl-select - foutieve iconen ([9e89922](https://github.com/milieuinfo/uigov-web-components/commit/9e89922de5cefe9563b730661692e7437632f607))
 * UIG-2816 - vermijden dat registerWebComponents door rollup ge-treeshaked wordt ([952edf0](https://github.com/milieuinfo/uigov-web-components/commit/952edf00b8f6c8c6c800506c58a4ca4162a8c24e))
 
 
@@ -541,12 +541,12 @@
 
 * UIG-2218 - vl-tabs - tabListStyle attribuut toegevoegd ([695e31a](https://github.com/milieuinfo/uigov-web-components/commit/695e31a96fc1cab36cc9aea95c67090a0c905e31))
 * UIG-2432 - vl-map-draw-action-style - zet de style van vl-map-draw-action ([0e91492](https://github.com/milieuinfo/uigov-web-components/commit/0e91492d46815c0639c32b3b6ec05b33f2854e83))
-* UIG-2706 - vl-input-field-next - introductie component ([669b659](https://github.com/milieuinfo/uigov-web-components/commit/669b659f0cc0bdc33ab263f219c9aacd766cf3cc))
-* UIG-2707 - vl-select-next - introductie component ([a32cd9b](https://github.com/milieuinfo/uigov-web-components/commit/a32cd9b3767004620e0755f605666966fd0f0b34))
-* UIG-2708 - vl-textarea-next - introductie component ([2c7eafb](https://github.com/milieuinfo/uigov-web-components/commit/2c7eafba49aa8047e59518a33a89cf9b4c11d954))
-* UIG-2709 - vl-datepicker-next - introductie component ([7e78e7f](https://github.com/milieuinfo/uigov-web-components/commit/7e78e7f9de85a6eec59462f952201230d0d53c57))
-* UIG-2711 - vl-radio-next, vl-radio-group-next - introductie componenten ([d3c82a5](https://github.com/milieuinfo/uigov-web-components/commit/d3c82a54e12a3c1528d30cd81877d428efb35c57))
-* UIG-2713 - vl-checkbox-next - introductie component ([881cf1c](https://github.com/milieuinfo/uigov-web-components/commit/881cf1c5b12d49e67c99e679255cb3a1fe0dc936))
+* UIG-2706 - vl-input-field - introductie component ([669b659](https://github.com/milieuinfo/uigov-web-components/commit/669b659f0cc0bdc33ab263f219c9aacd766cf3cc))
+* UIG-2707 - vl-select - introductie component ([a32cd9b](https://github.com/milieuinfo/uigov-web-components/commit/a32cd9b3767004620e0755f605666966fd0f0b34))
+* UIG-2708 - vl-textarea - introductie component ([2c7eafb](https://github.com/milieuinfo/uigov-web-components/commit/2c7eafba49aa8047e59518a33a89cf9b4c11d954))
+* UIG-2709 - vl-datepicker - introductie component ([7e78e7f](https://github.com/milieuinfo/uigov-web-components/commit/7e78e7f9de85a6eec59462f952201230d0d53c57))
+* UIG-2711 - vl-radio, vl-radio-group - introductie componenten ([d3c82a5](https://github.com/milieuinfo/uigov-web-components/commit/d3c82a54e12a3c1528d30cd81877d428efb35c57))
+* UIG-2713 - vl-checkbox - introductie component ([881cf1c](https://github.com/milieuinfo/uigov-web-components/commit/881cf1c5b12d49e67c99e679255cb3a1fe0dc936))
 * UIG-2734 - FormControl base class ([9cd3672](https://github.com/milieuinfo/uigov-web-components/commit/9cd3672990e66c4a9ec2e26479434facf90c95e4))
 * UIG-2735 - vl-tabs - navigatie met pijltjestoetsen opgelost ([823196d](https://github.com/milieuinfo/uigov-web-components/commit/823196d2bbb72bf5d8f6846e468280e70e370f22))
 * UIG-2739 - sections testen gemigreerd ([0a3dfa3](https://github.com/milieuinfo/uigov-web-components/commit/0a3dfa3865967fb41baa97a06abcb65a61a665d3))
@@ -556,7 +556,7 @@
 * UIG-2775 - vl-cascader-item - annotation attribuut toegevoegd ([2b48c34](https://github.com/milieuinfo/uigov-web-components/commit/2b48c3496c4923010d53fe8ed3a691271377bc68))
 * UIG-2776 - vl-cascader - header toegevoegd ([3f5b3ff](https://github.com/milieuinfo/uigov-web-components/commit/3f5b3ff9b56b27858ccd5257e4c1e7c7c56fad30))
 * UIG-2779 - Custom validators ([3033aa9](https://github.com/milieuinfo/uigov-web-components/commit/3033aa9cb59eaad9b845c354dce8d9eb9d21db88))
-* UIG-2781 - vl-input-field-masked-next - introductie component ([52d2f47](https://github.com/milieuinfo/uigov-web-components/commit/52d2f4723c2e4c8feca4410fa469c1c382346b8b))
+* UIG-2781 - vl-input-field-masked - introductie component ([52d2f47](https://github.com/milieuinfo/uigov-web-components/commit/52d2f4723c2e4c8feca4410fa469c1c382346b8b))
 * UIG-2790 - vl-progress-bar - vl-popover vervangt de deprecated vl-tooltip ([b0c8530](https://github.com/milieuinfo/uigov-web-components/commit/b0c85306df8e7d883611877b9d8b761054da23c2))
 * UIG-2796 - vl-wizard - hideLabels attribuut toegevoegd ([8fe6934](https://github.com/milieuinfo/uigov-web-components/commit/8fe6934ecb645dbc78ab377dd131cdf53571acf6))
 * UIG-2801 - form module voor de nieuwe formulier componenten ([9e6adec](https://github.com/milieuinfo/uigov-web-components/commit/9e6adec98bd88d0bd114b31b65ea2f89d9f044c1))
@@ -716,7 +716,7 @@
 
 * UIG-2549 - vl-map - OpenLayers bijgewerkt tot v6.15.1 ([0a48632](https://github.com/milieuinfo/uigov-web-components/commit/0a48632ceb81bb649ae4bc69ffe21f0d1ad8d5e0))
 * UIG-2553 - vl-map-circle-style - cluster-multiplier toegevoegd zodat verhouding tegenover single feature kan bepaald worden ([f1c220c](https://github.com/milieuinfo/uigov-web-components/commit/f1c220c3708fe846aa390db28334db4a7113d622))
-* UIG-2590 - vl-steps-next - introductie component ([2231b72](https://github.com/milieuinfo/uigov-web-components/commit/2231b72b40d0249bd352fce250988dffac0cce15))
+* UIG-2590 - vl-steps - introductie component ([2231b72](https://github.com/milieuinfo/uigov-web-components/commit/2231b72b40d0249bd352fce250988dffac0cce15))
 * UIG-2601 - vl-cookie-consent - close event ([4295437](https://github.com/milieuinfo/uigov-web-components/commit/4295437181fea4b525b8d9c7c60a60911e655bf8))
 * UIG-2603 - vl-column - push attributen per size ([b6d8c57](https://github.com/milieuinfo/uigov-web-components/commit/b6d8c57de176abc2c72b7c067b157d54eba0f6ec))
 * UIG-2614 - beta artifacts naar snapshot-npm publiceren ([c5c11d1](https://github.com/milieuinfo/uigov-web-components/commit/c5c11d1362db2459e94b371ee2a3a335da4713b2))

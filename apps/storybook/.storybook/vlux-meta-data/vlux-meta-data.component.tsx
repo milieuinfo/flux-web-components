@@ -28,10 +28,10 @@ const buildType = (vluxMetaDataModel: VluxMetaDataModel): string => {
         case 'v1-todo':
         case 'v2-impact':
             return 'warning';
-        case 'v2-next':
-        case 'v2-next-style-base':
-        case 'v2-next-style-layout':
-        case 'v2-next-style-new':
+        case 'v2':
+        case 'v2-style-base':
+        case 'v2-style-layout':
+        case 'v2-style-new':
             return 'success';
         default:
             return 'info';
@@ -47,12 +47,12 @@ const buildTitle = (vluxMetaDataModel: VluxMetaDataModel): string => {
             return 'legacy-component';
         case 'v2-impact':
             return 'v2 impact';
-        case 'v2-next':
+        case 'v2':
             return 'next-component';
-        case 'v2-next-style-layout':
-        case 'v2-next-style-new':
+        case 'v2-style-layout':
+        case 'v2-style-new':
             return 'next-style-layout';
-        case 'v2-next-style-base':
+        case 'v2-style-base':
             return 'next-style-base';
         default:
             return '';
@@ -76,17 +76,17 @@ const buildText = (vluxMetaDataModel: VluxMetaDataModel): string => {
         case 'v2-impact':
             return `${vluxMetaDataModel.legacyText}
                     Zie ${vluxMetaDataModel.planningInfo} voor bijkomende informatie.`;
-        case 'v2-next':
+        case 'v2':
             return `De **${vluxMetaDataModel.nextText}** is een next-component die ${vluxMetaDataModel.legacyText}
                     vervangt, zie ${vluxMetaDataModel.planningInfo} voor bijkomende informatie.`;
-        case 'v2-next-style-base':
+        case 'v2-style-base':
             return `De **${vluxMetaDataModel.nextText}** is een intern onderdeel van de next-style opzet; deze
                     documentatie is bedoeld voor bijdragers / beheerders!<br/>
                     Enkel wat onder 'Layout (afnemers)' staat is bedoeld voor afnemers.`;
-        case 'v2-next-style-layout':
+        case 'v2-style-layout':
             return `De **${vluxMetaDataModel.nextText}** is een next-style die ${vluxMetaDataModel.legacyText}
                     vervangt, zie ${vluxMetaDataModel.planningInfo} voor bijkomende informatie.`;
-        case 'v2-next-style-new':
+        case 'v2-style-new':
             return `De **${vluxMetaDataModel.nextText}** is een nieuwe next-style, zie ${vluxMetaDataModel.planningInfo}
                     voor bijkomende informatie.`;
         default:
@@ -95,7 +95,7 @@ const buildText = (vluxMetaDataModel: VluxMetaDataModel): string => {
 };
 
 declare global {
-    // eslint-disable-next-line @typescript-eslint/no-namespace
+    // eslint-disable-line @typescript-eslint/no-namespace
     namespace JSX {
         interface IntrinsicElements {
             'vl-alert': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
