@@ -12,13 +12,13 @@ import { gridExtraSmallStyles } from './grid/vl-grid-xs.css';
 
 export const vlGridStyles = css`
     ${unsafeCSS(gridRawCss)}
-    .vl-grid-next {
+    .vl-grid {
         display: grid;
         grid-template-columns: repeat(12, 1fr);
         grid-row-gap: var(--vl-grid-row-gap);
         grid-column-gap: var(--vl-grid-col-gap);
 
-        .vl-column-next {
+        .vl-column {
             ${gridLargeStyles()};
             ${columnLargeStyles()};
 

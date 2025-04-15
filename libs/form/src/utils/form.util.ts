@@ -1,4 +1,4 @@
-import { FormControl } from '../next/form-control';
+import { FormControl } from '../form-control';
 
 /**
  * Haalt de form data op van een form element en zet deze om naar een object.
@@ -14,9 +14,9 @@ import { FormControl } from '../next/form-control';
 export const parseFormData = <T = { [key: string]: FormDataEntryValue[] | File | string }>(
     formElement: HTMLFormElement,
     multiFormControlNames?: string[]
-): T | unknown => {
+): T | unknown | undefined => {
     if (!formElement) {
-        return;
+        return undefined;
     }
     const data = new FormData(formElement);
     const isValidFormInterface = (element: Element) =>

@@ -6,7 +6,7 @@
         "registry": "https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/"
     },
     "dependencies": {
-        "tinymce-next": "npm:tinymce@6.8.3"
+        "tinymce": "npm:tinymce@6.8.3"
     },
     "web-types": "./form.web-types.json"
 }

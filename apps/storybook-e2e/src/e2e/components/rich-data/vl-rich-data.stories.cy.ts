@@ -4,7 +4,7 @@ describe('story - vl-rich-data', () => {
     it('should render', () => {
         cy.visit(`${richDataUrl}`);
 
-        cy.get('vl-rich-data').shadow().find('div.vl-grid-next');
+        cy.get('vl-rich-data').shadow().find('div.vl-grid');
         cy.get('vl-pager').shadow().find('li[id=bounds]');
     });
 });

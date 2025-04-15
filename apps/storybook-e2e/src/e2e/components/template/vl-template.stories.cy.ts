@@ -6,7 +6,7 @@ describe('story vl-template', () => {
         cy.get('vl-template')
             .shadow()
             .getDataCy('template-content')
-            .find('vl-title-next[type="h1"]')
+            .find('vl-title[type="h1"]')
             .contains('vl-template');
     });
 });

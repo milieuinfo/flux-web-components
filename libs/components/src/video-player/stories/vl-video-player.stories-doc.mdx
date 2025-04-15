@@ -1,0 +1,33 @@
+import { ArgTypes, Canvas } from '@storybook/blocks';
+import * as VlVideoPlayerStories from './vl-video-player.stories';
+
+# VideoPlayer
+
+<VluxMetaData id="components-video-player" />
+
+Gebruik de `video-player` component om een video-player af te beelden.<br/>
+
+Deze component is de nieuwe versie van het [vl-video-player](/docs/elements-video-player--documentatie) element, we raden aan om op termijn deze versie te gebruiken.
+
+
+## Voorbeeld
+
+```js
+import { VlVideoPlayerComponent } from '@domg-wc/components';
+```
+
+```html
+<vl-video-player></vl-video-player>
+```
+
+<Canvas of={VlVideoPlayerStories.VideoPlayerDefault} />
+
+## Configuratie
+
+<ArgTypes of={VlVideoPlayerStories.VideoPlayerDefault} />
+
+## Referenties
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - VideoPlayer](https://overheid.vlaanderen.be/webuniversum/v3/documentation/atoms/vl-ui-video-players)

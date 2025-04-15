@@ -14,12 +14,12 @@ describe('content-block styles', () => {
             <style>
                 ${vlContentBlockStyles}
             </style>
-            <div class="vl-content-block-next cy-content-block-default">
+            <div class="vl-content-block cy-content-block-default">
                 <span>item-1</span>
                 <span>item-2</span>
             </div>
         `);
-        cy.get('.cy-content-block-default').should('have.class', 'vl-content-block-next');
+        cy.get('.cy-content-block-default').should('have.class', 'vl-content-block');
         cy.get('.cy-content-block-default').shouldHaveComputedStyle({ style: 'position', value: 'relative' });
         cy.get('.cy-content-block-default').shouldHaveComputedStyle({
             style: 'min-width',
@@ -42,7 +42,7 @@ describe('content-block styles', () => {
             <style>
                 ${vlContentBlockStyles}
             </style>
-            <div class="vl-content-block-next cy-content-block-medium">
+            <div class="vl-content-block cy-content-block-medium">
                 <span>item-1</span>
                 <span>item-2</span>
             </div>
@@ -62,7 +62,7 @@ describe('content-block styles', () => {
             <style>
                 ${vlContentBlockStyles}
             </style>
-            <div class="vl-content-block-next cy-content-block-small">
+            <div class="vl-content-block cy-content-block-small">
                 <span>item-1</span>
                 <span>item-2</span>
             </div>

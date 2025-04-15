@@ -1,20 +1,24 @@
 import { registerWebComponents, webComponent } from '@domg-wc/common-utilities';
 import { vlGridStyles } from '@domg-wc/common-utilities/css';
-import { VlButtonComponent } from '@domg-wc/components/next/button';
-import { VlTextComponent } from '@domg-wc/components/next/text';
+import { VlButtonComponent, VlTextComponent } from '@domg-wc/components';
 import { vlElementsStyle } from '@domg-wc/elements';
-import { VlCheckboxComponent } from '@domg-wc/form/next/checkbox';
-import { VlDatepickerComponent } from '@domg-wc/form/next/datepicker';
-import { VlErrorMessageComponent } from '@domg-wc/form/next/error-message';
-import { VlFormLabelComponent } from '@domg-wc/form/next/form-label';
-import { VlInputFieldComponent } from '@domg-wc/form/next/input-field';
-import { VlInputFieldMaskedComponent } from '@domg-wc/form/next/input-field-masked';
-import { VlRadioComponent, VlRadioGroupComponent } from '@domg-wc/form/next/radio-group';
-import { SelectOption, VlSelectComponent } from '@domg-wc/form/next/select';
-import { SelectRichOption, VlSelectRichComponent } from '@domg-wc/form/next/select-rich';
-import { VlTextareaComponent } from '@domg-wc/form/next/textarea';
-import { VlUploadComponent } from '@domg-wc/form/next/upload';
-import { parseFormData } from '@domg-wc/form/utils';
+import {
+    parseFormData,
+    SelectOption,
+    SelectRichOption,
+    VlCheckboxComponent,
+    VlDatepickerComponent,
+    VlErrorMessageComponent,
+    VlFormLabelComponent,
+    VlInputFieldComponent,
+    VlInputFieldMaskedComponent,
+    VlRadioComponent,
+    VlRadioGroupComponent,
+    VlSelectComponent,
+    VlSelectRichComponent,
+    VlTextareaComponent,
+    VlUploadComponent,
+} from '@domg-wc/form';
 import { css, CSSResult, html, LitElement } from 'lit';
 
 @webComponent('vl-form-demo')
@@ -86,7 +90,7 @@ export class VlFormDemoComponent extends LitElement {
                 }
 
                 .form-buttons {
-                    vl-button-next:not(:last-child) {
+                    vl-button:not(:last-child) {
                         margin-right: 1.4rem;
                     }
                 }
@@ -97,13 +101,13 @@ export class VlFormDemoComponent extends LitElement {
     override render() {
         return html`
             <form id="form" class="vl-form" @submit=${this.onSubmit}>
-                <div class="vl-grid-next">
-                    <div class="vl-column-next vl-column-next--4 vl-column-next--s-12">
-                        <vl-form-label-next for="naam" label="Naam *"></vl-form-label-next>
-                        <vl-text-next annotation small>(enkel achternaam)</vl-text-next>
+                <div class="vl-grid">
+                    <div class="vl-column vl-column--4 vl-column--s-12">
+                        <vl-form-label for="naam" label="Naam *"></vl-form-label>
+                        <vl-text annotation small>(enkel achternaam)</vl-text>
                     </div>
-                    <div class="vl-column-next vl-column-next--8 vl-column-next--s-12">
-                        <vl-input-field-next
+                    <div class="vl-column vl-column--8 vl-column--s-12">
+                        <vl-input-field
                             id="naam"
                             name="naam"
                             autocomplete="given-name"
@@ -113,44 +117,44 @@ export class VlFormDemoComponent extends LitElement {
                             min-length=${2}
                             max-length=${20}
                             placeholder="bv. Jo"
-                        ></vl-input-field-next>
-                        <vl-error-message-next for="naam" state="valueMissing"
+                        ></vl-input-field>
+                        <vl-error-message for="naam" state="valueMissing"
                             >Gelieve een naam in te vullen.
-                        </vl-error-message-next>
-                        <vl-error-message-next for="naam" state="tooShort"
+                        </vl-error-message>
+                        <vl-error-message for="naam" state="tooShort"
                             >Gelieve minimum 2 karakters te gebruiken.
-                        </vl-error-message-next>
-                        <vl-error-message-next for="naam" state="tooLong"
+                        </vl-error-message>
+                        <vl-error-message for="naam" state="tooLong"
                             >Gelieve maximum 20 karakters te gebruiken.
-                        </vl-error-message-next>
-                        <vl-error-message-next for="naam" state="patternMismatch"
+                        </vl-error-message>
+                        <vl-error-message for="naam" state="patternMismatch"
                             >Gelieve geen nummers of speciale tekens in te vullen.
-                        </vl-error-message-next>
+                        </vl-error-message>
                     </div>
-                    <div class="vl-column-next vl-column-next--4 vl-column-next--s-12">
-                        <vl-form-label-next for="rrn" label="Rijksregisternummer *" block></vl-form-label-next>
+                    <div class="vl-column vl-column--4 vl-column--s-12">
+                        <vl-form-label for="rrn" label="Rijksregisternummer *" block></vl-form-label>
                     </div>
-                    <div class="vl-column-next vl-column-next--8 vl-column-next--s-12">
-                        <vl-input-field-masked-next
+                    <div class="vl-column vl-column--8 vl-column--s-12">
+                        <vl-input-field-masked
                             id="rrn"
                             name="rrn"
                             block
                             required
                             mask="rrn"
                             placeholder="bv. 86-12-31-123-45"
-                        ></vl-input-field-masked-next>
-                        <vl-error-message-next for="rrn" state="valueMissing"
-                            >Gelieve een rijksregisternummer in te vullen.</vl-error-message-next
+                        ></vl-input-field-masked>
+                        <vl-error-message for="rrn" state="valueMissing"
+                            >Gelieve een rijksregisternummer in te vullen.</vl-error-message
                         >
-                        <vl-error-message-next for="rrn" state="patternMismatch"
-                            >Gelieve een geldig rijksregisternummer in te vullen.</vl-error-message-next
+                        <vl-error-message for="rrn" state="patternMismatch"
+                            >Gelieve een geldig rijksregisternummer in te vullen.</vl-error-message
                         >
                     </div>
-                    <div class="vl-column-next vl-column-next--4 vl-column-next--s-12">
-                        <vl-form-label-next for="geboortedatum" label="Geboortedatum *" block></vl-form-label-next>
+                    <div class="vl-column vl-column--4 vl-column--s-12">
+                        <vl-form-label for="geboortedatum" label="Geboortedatum *" block></vl-form-label>
                     </div>
-                    <div class="vl-column-next vl-column-next--8 vl-column-next--s-12">
-                        <vl-datepicker-next
+                    <div class="vl-column vl-column--8 vl-column--s-12">
+                        <vl-datepicker
                             id="geboortedatum"
                             name="geboortedatum"
                             autocomplete="bday"
@@ -158,19 +162,19 @@ export class VlFormDemoComponent extends LitElement {
                             block
                             required
                         >
-                        </vl-datepicker-next>
-                        <vl-error-message-next for="geboortedatum" state="valueMissing">
+                        </vl-datepicker>
+                        <vl-error-message for="geboortedatum" state="valueMissing">
                             Gelieve een geboortedatum in te vullen.
-                        </vl-error-message-next>
-                        <vl-error-message-next for="geboortedatum" state="patternMismatch">
+                        </vl-error-message>
+                        <vl-error-message for="geboortedatum" state="patternMismatch">
                             Gelieve het volgende datum formaat te gebruiken: "dd.mm.YYYY", bv. 01.12.1976 of 1.2.1993
-                        </vl-error-message-next>
+                        </vl-error-message>
                     </div>
-                    <div class="vl-column-next vl-column-next--4 vl-column-next--s-12">
-                        <vl-form-label-next for="geboorteplaats" label="Geboorteplaats *" block></vl-form-label-next>
+                    <div class="vl-column vl-column--4 vl-column--s-12">
+                        <vl-form-label for="geboorteplaats" label="Geboorteplaats *" block></vl-form-label>
                     </div>
-                    <div class="vl-column-next vl-column-next--8 vl-column-next--s-12">
-                        <vl-select-rich-next
+                    <div class="vl-column vl-column--8 vl-column--s-12">
+                        <vl-select-rich
                             id="geboorteplaats"
                             name="geboorteplaats"
                             required
@@ -181,16 +185,16 @@ export class VlFormDemoComponent extends LitElement {
                             no-results-text="Geen geboorteplaatsen gevonden"
                             search-placeholder="Zoek geboorteplaats"
                         >
-                        </vl-select-rich-next>
-                        <vl-error-message-next for="geboorteplaats" state="valueMissing"
+                        </vl-select-rich>
+                        <vl-error-message for="geboorteplaats" state="valueMissing"
                             >Gelieve een geboorteplaats te selecteren.
-                        </vl-error-message-next>
+                        </vl-error-message>
                     </div>
-                    <div class="vl-column-next vl-column-next--4 vl-column-next--s-12">
-                        <vl-form-label-next for="hobbies" label="Hobbies *" block></vl-form-label-next>
+                    <div class="vl-column vl-column--4 vl-column--s-12">
+                        <vl-form-label for="hobbies" label="Hobbies *" block></vl-form-label>
                     </div>
-                    <div class="vl-column-next vl-column-next--8 vl-column-next--s-12">
-                        <vl-select-rich-next
+                    <div class="vl-column vl-column--8 vl-column--s-12">
+                        <vl-select-rich
                             id="hobbies"
                             name="hobbies"
                             required
@@ -200,32 +204,32 @@ export class VlFormDemoComponent extends LitElement {
                             no-results-text="Geen hobbies gevonden"
                             no-choices-text="Geen resterende hobbies gevonden"
                         >
-                        </vl-select-rich-next>
-                        <vl-error-message-next for="hobbies" state="valueMissing"
+                        </vl-select-rich>
+                        <vl-error-message for="hobbies" state="valueMissing"
                             >Gelieve een hobby te selecteren.
-                        </vl-error-message-next>
+                        </vl-error-message>
                     </div>
-                    <div class="vl-column-next vl-column-next--4 vl-column-next--s-12">
-                        <vl-form-label-next for="kinderen" label="Aantal kinderen *" block></vl-form-label-next>
+                    <div class="vl-column vl-column--4 vl-column--s-12">
+                        <vl-form-label for="kinderen" label="Aantal kinderen *" block></vl-form-label>
                     </div>
-                    <div class="vl-column-next vl-column-next--8 vl-column-next--s-12">
-                        <vl-select-next
+                    <div class="vl-column vl-column--8 vl-column--s-12">
+                        <vl-select
                             id="kinderen"
                             name="kinderen"
                             block
                             placeholder="bv. 1"
                             required
                             .options=${this.kinderenOpties}
-                        ></vl-select-next>
-                        <vl-error-message-next for="kinderen" state="valueMissing"
+                        ></vl-select>
+                        <vl-error-message for="kinderen" state="valueMissing"
                             >Gelieve een aantal kinderen te kiezen.
-                        </vl-error-message-next>
+                        </vl-error-message>
                     </div>
-                    <div class="vl-column-next vl-column-next--4 vl-column-next--s-12">
-                        <vl-form-label-next for="interesses" label="Interesses *" block></vl-form-label-next>
+                    <div class="vl-column vl-column--4 vl-column--s-12">
+                        <vl-form-label for="interesses" label="Interesses *" block></vl-form-label>
                     </div>
-                    <div class="vl-column-next vl-column-next--8 vl-column-next--s-12">
-                        <vl-textarea-next
+                    <div class="vl-column vl-column--8 vl-column--s-12">
+                        <vl-textarea
                             id="interesses"
                             name="interesses"
                             block
@@ -234,22 +238,22 @@ export class VlFormDemoComponent extends LitElement {
                             max-length=${100}
                             rows=${10}
                             placeholder="bv. Ik ben geïnteresseerd in..."
-                        ></vl-textarea-next>
-                        <vl-error-message-next for="interesses" state="valueMissing"
+                        ></vl-textarea>
+                        <vl-error-message for="interesses" state="valueMissing"
                             >Gelieve je interesses in te vullen.
-                        </vl-error-message-next>
-                        <vl-error-message-next for="interesses" state="tooShort"
+                        </vl-error-message>
+                        <vl-error-message for="interesses" state="tooShort"
                             >Gelieve minimum 5 karakters te gebruiken.
-                        </vl-error-message-next>
-                        <vl-error-message-next for="interesses" state="tooLong"
+                        </vl-error-message>
+                        <vl-error-message for="interesses" state="tooLong"
                             >Gelieve maximum 100 karakters te gebruiken.
-                        </vl-error-message-next>
+                        </vl-error-message>
                     </div>
-                    <div class="vl-column-next vl-column-next--4 vl-column-next--s-12">
-                        <vl-form-label-next for="leeftijd" label="Leeftijd *" block></vl-form-label-next>
+                    <div class="vl-column vl-column--4 vl-column--s-12">
+                        <vl-form-label for="leeftijd" label="Leeftijd *" block></vl-form-label>
                     </div>
-                    <div class="vl-column-next vl-column-next--8 vl-column-next--s-12">
-                        <vl-input-field-next
+                    <div class="vl-column vl-column--8 vl-column--s-12">
+                        <vl-input-field
                             id="leeftijd"
                             name="leeftijd"
                             type="number"
@@ -258,66 +262,60 @@ export class VlFormDemoComponent extends LitElement {
                             placeholder="bv. 35"
                             min=${0}
                             max=${99}
-                        ></vl-input-field-next>
-                        <vl-error-message-next for="leeftijd" state="valueMissing"
+                        ></vl-input-field>
+                        <vl-error-message for="leeftijd" state="valueMissing"
                             >Gelieve een leeftijd in te vullen.
-                        </vl-error-message-next>
-                        <vl-error-message-next for="leeftijd" state="rangeUnderflow"
+                        </vl-error-message>
+                        <vl-error-message for="leeftijd" state="rangeUnderflow"
                             >De minimum leeftijd is 0 jaar.
-                        </vl-error-message-next>
-                        <vl-error-message-next for="leeftijd" state="rangeOverflow"
+                        </vl-error-message>
+                        <vl-error-message for="leeftijd" state="rangeOverflow"
                             >De maximum leeftijd is 99 jaar.
-                        </vl-error-message-next>
+                        </vl-error-message>
                     </div>
-                    <div class="vl-column-next vl-column-next--4 vl-column-next--s-12">
-                        <vl-form-label-next for="contactmethode" label="Contactmethode *" block></vl-form-label-next>
+                    <div class="vl-column vl-column--4 vl-column--s-12">
+                        <vl-form-label for="contactmethode" label="Contactmethode *" block></vl-form-label>
                     </div>
-                    <div class="vl-column-next vl-column-next--8 vl-column-next--s-12">
-                        <vl-radio-group-next id="contactmethode" name="contactmethode" required>
-                            <vl-radio-next value="e-mail">e-mail</vl-radio-next>
-                            <vl-radio-next value="telefoon">telefoon</vl-radio-next>
-                            <vl-radio-next value="post">post</vl-radio-next>
-                        </vl-radio-group-next>
-                        <vl-error-message-next for="contactmethode" state="valueMissing">
+                    <div class="vl-column vl-column--8 vl-column--s-12">
+                        <vl-radio-group id="contactmethode" name="contactmethode" required>
+                            <vl-radio value="e-mail">e-mail</vl-radio>
+                            <vl-radio value="telefoon">telefoon</vl-radio>
+                            <vl-radio value="post">post</vl-radio>
+                        </vl-radio-group>
+                        <vl-error-message for="contactmethode" state="valueMissing">
                             Gelieve een contactmethode te selecteren.
-                        </vl-error-message-next>
+                        </vl-error-message>
                     </div>
-                    <div class="vl-column-next vl-column-next--4 vl-column-next--s-12">
-                        <vl-form-label-next for="foto" label="Pasfoto *" block></vl-form-label-next>
+                    <div class="vl-column vl-column--4 vl-column--s-12">
+                        <vl-form-label for="foto" label="Pasfoto *" block></vl-form-label>
                     </div>
-                    <div class="vl-column-next vl-column-next--8 vl-column-next--s-12">
-                        <vl-upload-next
+                    <div class="vl-column vl-column--8 vl-column--s-12">
+                        <vl-upload
                             id="foto"
                             name="foto"
                             accepted-files="image/*"
                             required
                             url="http://httpbin.org/post"
-                        ></vl-upload-next>
-                        <vl-error-message-next for="foto" state="valueMissing">
+                        ></vl-upload>
+                        <vl-error-message for="foto" state="valueMissing">
                             Gelieve een foto te selecteren.
-                        </vl-error-message-next>
+                        </vl-error-message>
                     </div>
-                    <div class="vl-column-next vl-column-next--4 vl-column-next--s-12">
-                        <vl-form-label-next
-                            for="waarheidsgetrouw"
-                            label="Waarheidsgetrouw *"
-                            block
-                        ></vl-form-label-next>
+                    <div class="vl-column vl-column--4 vl-column--s-12">
+                        <vl-form-label for="waarheidsgetrouw" label="Waarheidsgetrouw *" block></vl-form-label>
                     </div>
-                    <div class="vl-column-next vl-column-next--8 vl-column-next--s-12">
-                        <vl-checkbox-next id="waarheidsgetrouw" name="waarheidsgetrouw" block required>
+                    <div class="vl-column vl-column--8 vl-column--s-12">
+                        <vl-checkbox id="waarheidsgetrouw" name="waarheidsgetrouw" block required>
                             Naar waarheid ingevuld
-                        </vl-checkbox-next>
-                        <vl-error-message-next for="waarheidsgetrouw" state="valueMissing">
+                        </vl-checkbox>
+                        <vl-error-message for="waarheidsgetrouw" state="valueMissing">
                             Gelieve te bevestigen dat bovenstaande gegevens naar waarheid zijn ingevuld.
-                        </vl-error-message-next>
+                        </vl-error-message>
                     </div>
-                    <div
-                        class="vl-column-next vl-column-next--8 vl-column-next--s-12 vl-column-next--start-5 vl-column-next--s-start-1"
-                    >
+                    <div class="vl-column vl-column--8 vl-column--s-12 vl-column--start-5 vl-column--s-start-1">
                         <div class="form-buttons">
-                            <vl-button-next type="submit">Verstuur</vl-button-next>
-                            <vl-button-next type="reset" secondary>Reset</vl-button-next>
+                            <vl-button type="submit">Verstuur</vl-button>
+                            <vl-button type="reset" secondary>Reset</vl-button>
                         </div>
                     </div>
                 </div>

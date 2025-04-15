@@ -1,19 +1,19 @@
 import { html } from 'lit-html';
 
 export const privacyVersionSection = (version: string, date: string) => html`
-    <div class="vl-content-block-next">
-        <div class="vl-grid-next">
-            <div class="vl-column-next vl-column-next--10">
-                <vl-title-next type="h1" no-space-bottom>Privacy</vl-title-next>
+    <div class="vl-content-block">
+        <div class="vl-grid">
+            <div class="vl-column vl-column--10">
+                <vl-title type="h1" no-space-bottom>Privacy</vl-title>
             </div>
-            <div class="vl-column-next vl-column-next--10">
-                <vl-paragraph-next introduction>
+            <div class="vl-column vl-column--10">
+                <vl-paragraph introduction>
                     <span>Versie</span>
                     <span id="introduction-version">${version}</span> -
                     <span id="introduction-date">${date}</span>
-                </vl-paragraph-next>
+                </vl-paragraph>
             </div>
-            <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+            <div class="vl-column vl-column--12 vl-column--m-12">
                 <vl-typography>
                     <hr />
                 </vl-typography>

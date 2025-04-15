@@ -44,7 +44,7 @@
     },
     "private": true,
     "peerDependencies": {
-        "tinymce": "5.10.6"
+        "tinymce": "6.8.3"
     },
     "devDependencies": {
         "@cypress/mount-utils": "4.1.1",
@@ -65,6 +65,8 @@
         "@swc/cli": "0.4.0",
         "@swc/core": "1.7.11",
         "@swc/jest": "0.2.36",
+        "@types/cleave.js": "1.4.12",
+        "@types/dropzone": "5.7.9",
         "@types/fs-extra": "11.0.4",
         "@types/jest": "29.5.12",
         "@types/node": "20.11.26",
@@ -148,8 +150,7 @@
         "reflect-metadata": "0.2.1",
         "regenerator-runtime": "0.14.1",
         "swipe-detect": "1.0.1",
-        "tinymce": "5.10.6",
-        "tinymce-next": "npm:tinymce@6.8.3",
+        "tinymce": "6.8.3",
         "vidstack": "1.12.9",
         "z-schema": "6.0.2"
     },

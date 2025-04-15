@@ -1,9 +1,9 @@
-import { inputFieldStyles } from '@domg-wc/form/next/input-field/vl-input-field.css';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import 'reflect-metadata';
 import inputSliderUigStyle from './vl-input-slider.uig-css';
+import { inputFieldStyles } from '@domg-wc/form';
 import { BaseLitElement } from '@domg-wc/common-utilities';
 
 @customElement('vl-input-slider')

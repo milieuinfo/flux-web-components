@@ -1,4 +1,4 @@
-import { VlSideNavigationComponent } from '@domg-wc/components/next/side-navigation';
+import { VlSideNavigationComponent } from '@domg-wc/components';
 import { html } from 'lit';
 import type { AccessibilityProperties } from '../vl-accessibility.model';
 
@@ -8,48 +8,48 @@ export const sideNavigationComponents = () => [VlSideNavigationComponent];
 
 export const sideNavigation = ({ compliance }: SideNavigationProps) => {
     return html` <div
-        class="vl-column-next vl-column-next--4 vl-column-next--m-4 vl-column-next--s-4 vl-column-next--xs-0"
+        class="vl-column vl-column--4 vl-column--m-4 vl-column--s-4 vl-column--xs-0"
     >
-        <vl-side-navigation-next  id="side-nav-accessibility" aria-label="inhoudsopgave">
-            <vl-side-navigation-h1-next >Op deze pagina</vl-side-navigation-h1-next>
-            <vl-side-navigation-content-next >
-                <vl-side-navigation-group-next >
-                    <vl-side-navigation-item-next  parent>
-                        <vl-side-navigation-toggle-next  href="#compliance-status">
+        <vl-side-navigation  id="side-nav-accessibility" aria-label="inhoudsopgave">
+            <vl-side-navigation-h1 >Op deze pagina</vl-side-navigation-h1>
+            <vl-side-navigation-content >
+                <vl-side-navigation-group >
+                    <vl-side-navigation-item  parent>
+                        <vl-side-navigation-toggle  href="#compliance-status">
                             Nalevingsstatus
                             <i class="vl-vi vl-vi-arrow-right-fat"></i>
-                        </vl-side-navigation-toggle-next>
-                    </vl-side-navigation-item-next>
-                    <vl-side-navigation-item-next
+                        </vl-side-navigation-toggle>
+                    </vl-side-navigation-item>
+                    <vl-side-navigation-item
                         style=${compliance === 'FULLY_COMPLIANT' && 'display: none'}
 
                         parent
                     >
-                        <vl-side-navigation-toggle-next  href="#inaccessible-content">
+                        <vl-side-navigation-toggle  href="#inaccessible-content">
                             Niet-toegankelijke inhoud
                             <i class="vl-vi vl-vi-arrow-right-fat"></i>
-                        </vl-side-navigation-toggle-next>
-                    </vl-side-navigation-item-next>
-                    <vl-side-navigation-item-next  parent>
-                        <vl-side-navigation-toggle-next  href="#setup-accessibility-statement">
+                        </vl-side-navigation-toggle>
+                    </vl-side-navigation-item>
+                    <vl-side-navigation-item  parent>
+                        <vl-side-navigation-toggle  href="#setup-accessibility-statement">
                             Opstelling van deze toegankelijkheidsverklaring
                             <i class="vl-vi vl-vi-arrow-right-fat"></i>
-                        </vl-side-navigation-toggle-next>
-                    </vl-side-navigation-item-next>
-                    <vl-side-navigation-item-next  parent>
-                        <vl-side-navigation-toggle-next  href="#feedback-contact">
+                        </vl-side-navigation-toggle>
+                    </vl-side-navigation-item>
+                    <vl-side-navigation-item  parent>
+                        <vl-side-navigation-toggle  href="#feedback-contact">
                             Feedback en contactgegevens
                             <i class="vl-vi vl-vi-arrow-right-fat"></i>
-                        </vl-side-navigation-toggle-next>
-                    </vl-side-navigation-item-next>
-                    <vl-side-navigation-item-next  parent>
-                        <vl-side-navigation-toggle-next  href="#enforcement-procedure">
+                        </vl-side-navigation-toggle>
+                    </vl-side-navigation-item>
+                    <vl-side-navigation-item  parent>
+                        <vl-side-navigation-toggle  href="#enforcement-procedure">
                             Handhavingsprocedure
                             <i class="vl-vi vl-vi-arrow-right-fat"></i>
-                        </vl-side-navigation-toggle-next>
-                    </vl-side-navigation-item-next>
-                </vl-side-navigation-group-next>
+                        </vl-side-navigation-toggle>
+                    </vl-side-navigation-item>
+                </vl-side-navigation-group>
             </div>
-        </vl-side-navigation-next>
+        </vl-side-navigation>
     </div>`;
 };

@@ -1,5 +1,5 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { VlButtonComponent } from '@domg-wc/components/next/button';
+import { VlButtonComponent } from '@domg-wc/components';
 import { VlTypography } from '../typography/vl-typography.component';
 import { VlProzaMessagePreloader } from './vl-proza-message-preloader.component';
 import elementStyles from './vl-proza-message.uig-css';
@@ -239,7 +239,7 @@ export class VlProzaMessage extends BaseElementOfType(HTMLElement) {
 
     __editButtonTemplate() {
         const button = this._template(`
-        <vl-button-next id="edit-button" icon="pencil" label="edit"></vl-button-next>
+        <vl-button id="edit-button" icon="pencil" label="edit"></vl-button>
     `);
         button.firstElementChild.addEventListener('click', (event: Event) => {
             event.stopPropagation();
@@ -251,7 +251,7 @@ export class VlProzaMessage extends BaseElementOfType(HTMLElement) {
 
     __refreshButtonTemplate() {
         const button = this._template(`
-        <vl-button-next id="refresh-button" icon="text-redo" label="refresh"></vl-button-next>
+        <vl-button id="refresh-button" icon="text-redo" label="refresh"></vl-button>
     `);
         button.firstElementChild.addEventListener('click', (event: Event) => {
             event.stopPropagation();

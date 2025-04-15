@@ -2,8 +2,8 @@ import { html } from 'lit-html';
 import vlFontStoriesDoc from './vl-font.stories-doc.mdx';
 
 export default {
-    id: 'styles-next-base-intern-font',
-    title: 'Styles-next/Base (intern)/font',
+    id: 'styles-base-intern-font',
+    title: 'Styles/Base (intern)/font',
     tags: ['autodocs'],
     parameters: {
         docs: {

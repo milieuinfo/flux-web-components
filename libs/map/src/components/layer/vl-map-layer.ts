@@ -96,7 +96,7 @@ export abstract class VlMapLayer extends BaseElementOfType(HTMLElement) {
      *
      * @param {Boolean} value
      */
-    // eslint-disable-next-line @typescript-eslint/adjacent-overload-signatures
+    // eslint-disable-line @typescript-eslint/adjacent-overload-signatures
     set visible(value) {
         this._layer?.setVisible(value);
         this.rerender();

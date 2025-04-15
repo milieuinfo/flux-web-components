@@ -9,8 +9,8 @@ import {
     vlResetStyles,
     vlSectionStyles,
 } from '@domg-wc/common-utilities/css';
-import { VlIconComponent } from '@domg-wc/components/next/icon';
-import { vlTitleStyles } from '@domg-wc/components/next/title/vl-title.css';
+import { VlIconComponent } from '../icon';
+import { vlTitleStyles } from '../title/vl-title.css';
 import { vlElementsStyle } from '@domg-wc/elements';
 import { functionalHeaderStyle } from '@domg/govflanders-style/component';
 import { functionalHeaderUigStyle } from './vl-functional-header.uig-css';
@@ -48,7 +48,7 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
     constructor() {
         super(`
           <header class="vl-functional-header">
-            <div class="vl-content-block-next">
+            <div class="vl-content-block">
               <div class="vl-functional-header__row uig-functional-header__row">
                 <div class="uig-functional-header__content">
                     <div class="vl-functional-header__content">
@@ -56,7 +56,7 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
                     </div>
                     <div class="vl-functional-header__content">
                         <h1 class="vl-functional-header__title no-space-bottom">
-                            <a id="title" class="vl-link-next neutral" tabindex="0">
+                            <a id="title" class="vl-link neutral" tabindex="0">
                                 <slot name="title"></slot>
                             </a>
                         </h1>
@@ -74,8 +74,8 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
                   <ul class="vl-functional-header__sub-row vl-functional-header__sub-actions">
                       <li id="back-link-container" class="vl-functional-header__sub__action">
                           <slot name="back-link">
-                              <a id="back-link" class="vl-link-next" tabindex="0" href="${document.referrer}">
-                                  <span class="vl-icon vl-icon--arrow-left-fat vl-link-next__icon vl-link-next__icon--before"></span><slot id="back-link-text" name="back"><span>Terug</span></slot>
+                              <a id="back-link" class="vl-link" tabindex="0" href="${document.referrer}">
+                                  <span class="vl-icon vl-icon--arrow-left-fat vl-link__icon vl-link__icon--before"></span><slot id="back-link-text" name="back"><span>Terug</span></slot>
                               </a>
                           </slot>
                       </li>
@@ -110,7 +110,7 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
                 ...vlTitleStyles.map((style) => style.styleSheet),
                 functionalHeaderStyle.styleSheet,
                 functionalHeaderUigStyle.styleSheet,
-                vlLinkStyles('.vl-link-next').styleSheet,
+                vlLinkStyles('.vl-link').styleSheet,
                 vlLinkIconStyles.styleSheet,
                 vlIconStyles.styleSheet,
             ];

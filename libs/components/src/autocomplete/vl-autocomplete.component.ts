@@ -10,7 +10,7 @@ import { CAPTION_FORMAT } from './vl-autocomplete.model';
 import autocompleteUigStyle from './vl-autocomplete.uig-css';
 
 @customElement('vl-autocomplete')
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// eslint-disable-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export class VlAutocomplete extends BaseLitElement {
     static get styles() {
@@ -315,7 +315,7 @@ export class VlAutocomplete extends BaseLitElement {
         this._highlightedEl = null;
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // eslint-disable-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     set matches(items: any) {
         this.suggest(items);

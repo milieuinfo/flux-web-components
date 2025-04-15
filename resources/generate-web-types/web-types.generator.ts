@@ -35,7 +35,7 @@ const buildPrefix = (vluxMetaDataModel: VluxMetaDataModel): string => {
             return '<span style="color: rgb(240,0,0)">[legacy-component]</span><br/>';
         case 'v1-todo':
             return '<span style="color: rgb(200,140,0)">[legacy-component]</span><br/>';
-        case 'v2-next':
+        case 'v2':
             return '<span style="color: rgb(25,140,25)">[next-component]</span><br/>';
         default:
             return '';

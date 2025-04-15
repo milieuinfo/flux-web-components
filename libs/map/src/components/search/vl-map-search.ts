@@ -1,9 +1,9 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
 import { VlSearchComponent } from '@domg-wc/components';
 import { vlElementsStyle } from '@domg-wc/elements';
-import { SelectRichPosition } from '@domg-wc/form/next/select-rich';
+import { SelectRichPosition } from '@domg-wc/form';
 import OlOverlay from 'ol/Overlay';
-import { VlSelectLocationComponent } from '../next/select-location/vl-select-location';
+import { VlSelectLocationComponent } from '../select-location/vl-select-location';
 
 @webComponent('vl-map-search')
 export class VlMapSearch extends BaseElementOfType(HTMLElement) {
@@ -45,7 +45,7 @@ export class VlMapSearch extends BaseElementOfType(HTMLElement) {
             }
           </style>
           <vl-search id="search" data-vl-inline>
-            <vl-select-location-next slot="input" not-deletable position=${SelectRichPosition.BOTTOM}></vl-select-location-next>
+            <vl-select-location slot="input" not-deletable position=${SelectRichPosition.BOTTOM}></vl-select-location>
           </vl-search>
         `);
         this.configure();
@@ -57,7 +57,7 @@ export class VlMapSearch extends BaseElementOfType(HTMLElement) {
     }
 
     get _selectElement() {
-        return this._shadow.querySelector('vl-select-location-next') as VlSelectLocationComponent;
+        return this._shadow.querySelector('vl-select-location') as VlSelectLocationComponent;
     }
 
     bindMap(map) {

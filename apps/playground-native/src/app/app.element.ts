@@ -18,7 +18,7 @@ export class AppElement extends HTMLElement {
                             data-vl-left data-vl-custom-css=""
                             data-vl-open data-vl-custom-css=".vl-layout {padding:0} .vl-region{padding:0} .vl-region:first-child{padding:0} :host #vl-side-sheet {padding:0} :host {--vl-side-sheet-width: 600px;}"
                             >
-                                <vl-title-next type="h4" underline>Kies uit kantoren</vl-title-next>
+                                <vl-title type="h4" underline>Kies uit kantoren</vl-title>
                                 <vl-cascader id="cascader" ></vl-cascader>
                             </vl-side-sheet>
                         </main>

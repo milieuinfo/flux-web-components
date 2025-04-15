@@ -8,9 +8,9 @@
         "html": {
             "elements": [
                 {
-                    "name": "vl-checkbox-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `checkbox-next` component om de gebruiker de mogelijkheid te geven om 1 of meerdere dingen te selecteren in een lijst.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-checkbox--documentatie",
+                    "name": "vl-checkbox",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `checkbox` component om de gebruiker de mogelijkheid te geven om 1 of meerdere dingen te selecteren in een lijst.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-checkbox--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -105,9 +105,9 @@
                     }
                 },
                 {
-                    "name": "vl-datepicker-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `datepicker-next` component om de gebruiker op een gebruiksvriendelijke manier een datum of tijd te laten selecteren.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-datepicker--documentatie",
+                    "name": "vl-datepicker",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `datepicker` component om de gebruiker op een gebruiksvriendelijke manier een datum of tijd te laten selecteren.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-datepicker--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -268,9 +268,9 @@
                     }
                 },
                 {
-                    "name": "vl-error-message-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `error-message-next` component om een error af te beelden voor een input veld.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-error-message--documentatie",
+                    "name": "vl-error-message",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `error-message` component om een error af te beelden voor een input veld.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-error-message--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -307,9 +307,9 @@
                     ]
                 },
                 {
-                    "name": "vl-form-label-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `form-label-next` component om een form label af te beelden.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-form-label--documentatie",
+                    "name": "vl-form-label",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `form-label` component om een form label af te beelden.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-form-label--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -346,9 +346,9 @@
                     ]
                 },
                 {
-                    "name": "vl-input-field-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `input-field-next` component om een input veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-input-field--documentatie",
+                    "name": "vl-input-field",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `input-field` component om een input veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-input-field--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -494,9 +494,9 @@
                     }
                 },
                 {
-                    "name": "vl-input-field-masked-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `input-field-masked-next` component om een input veld met een mask toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-input-field-masked--documentatie",
+                    "name": "vl-input-field-masked",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `input-field-masked` component om een input veld met een mask toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-input-field-masked--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -662,8 +662,8 @@
                     }
                 },
                 {
-                    "name": "vl-radio-next",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-radio-group--documentatie",
+                    "name": "vl-radio",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-radio-group--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -749,9 +749,9 @@
                     }
                 },
                 {
-                    "name": "vl-radio-group-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `radio-group-next` component om de gebruiker de mogelijkheid te geven om 1 keuze te selecteren in een lijst.<br/>\nWanneer mogelijk, selecteer geen `radio` van vooraf zodat de gebruiker een bewuste keuze kan maken.<br/>\nDe `radio-next` component is een onderdeel van de `radio-group-next` component.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-radio-group--documentatie",
+                    "name": "vl-radio-group",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `radio-group` component om de gebruiker de mogelijkheid te geven om 1 keuze te selecteren in een lijst.<br/>\nWanneer mogelijk, selecteer geen `radio` van vooraf zodat de gebruiker een bewuste keuze kan maken.<br/>\nDe `radio` component is een onderdeel van de `radio-group` component.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-radio-group--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -829,9 +829,9 @@
                     }
                 },
                 {
-                    "name": "vl-select-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `select-next` component om een select veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-select--documentatie",
+                    "name": "vl-select",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `select` component om een select veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-select--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -927,9 +927,9 @@
                     }
                 },
                 {
-                    "name": "vl-select-rich-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `select-rich-next` component om een uitgebreid select of multiselect veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-select-rich--documentatie",
+                    "name": "vl-select-rich",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `select-rich` component om een uitgebreid select of multiselect veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-select-rich--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1055,9 +1055,9 @@
                     }
                 },
                 {
-                    "name": "vl-textarea-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `textarea-next` component om een textarea veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.\n\nDeze component bevat geen rich-text modus: gebruik daarvoor\n[vl-textarea-rich-next](/docs/form-next--text-area-rich--documentatie).",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-textarea--documentatie",
+                    "name": "vl-textarea",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `textarea` component om een textarea veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.\n\nDeze component bevat geen rich-text modus: gebruik daarvoor\n[vl-textarea-rich](/docs/form--text-area-rich--documentatie).",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-textarea--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1170,9 +1170,9 @@
                     }
                 },
                 {
-                    "name": "vl-textarea-rich-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `textarea-rich-next` component om een rich textarea veld toe te voegen aan een pagina.<br/>",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-textarea-rich--documentatie",
+                    "name": "vl-textarea-rich",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `textarea-rich` component om een rich textarea veld toe te voegen aan een pagina.<br/>",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-textarea-rich--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1308,9 +1308,9 @@
                     }
                 },
                 {
-                    "name": "vl-upload-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `upload-next` component om één of meerdere bestanden te selecteren of te slepen naar het upload-veld.\n\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-next-upload--documentatie",
+                    "name": "vl-upload",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `upload` component om één of meerdere bestanden te selecteren of te slepen naar het upload-veld.\n\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/form-upload--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",

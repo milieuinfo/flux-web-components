@@ -1,6 +1,5 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { VlPropertiesComponent } from '@domg-wc/components/next/properties';
-import { VlTitleComponent } from '@domg-wc/components/next/title';
+import { VlPropertiesComponent, VlTitleComponent } from '@domg-wc/components';
 import styles from '../vl-cookie-statement.uig-css';
 
 export interface VlCookieProps {
@@ -43,8 +42,8 @@ export class VlCookie extends BaseElementOfType(HTMLElement) {
         this._element.insertAdjacentHTML(
             'afterend',
             `
-                <vl-title-next type="h3">${title || this.dataset.vlTitle}</vl-title-next>
-                <vl-properties-next slot="properties">
+                <vl-title type="h3">${title || this.dataset.vlTitle}</vl-title>
+                <vl-properties slot="properties">
                     <label>Naam</label>
                     <data>${nameTemplate()}</data>
                     <label>Doel</label>
@@ -57,7 +56,7 @@ export class VlCookie extends BaseElementOfType(HTMLElement) {
                     <data>${processor || this.dataset.vlProcessor}</data>
                     <label>Geldigheid</label>
                     <data>${validity || this.dataset.vlValidity}</data>
-                </vl-properties-next>
+                </vl-properties>
             `
         );
     }

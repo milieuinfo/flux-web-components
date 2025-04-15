@@ -1,0 +1,77 @@
+import { ArgTypes, Canvas, Source } from '@storybook/blocks';
+import * as VlStepsStories from './vl-steps.stories';
+import * as VlStepStories from './vl-step.stories';
+
+# Steps
+
+<VluxMetaData id="components-steps-steps" />
+
+Gebruik de `steps` component om een verticale lijst van stappen af te beelden om de gebruiker door een procedure te begeleiden.<br/>
+
+Deze component is de nieuwe versie van de [vl-steps](/docs/components-steps--documentatie) component, we raden aan deze versie te gebruiken.
+
+
+## Voorbeeld
+
+```js
+import { VlStepsComponent } from '@domg-wc/components';
+```
+
+```html
+<vl-steps></vl-steps>
+```
+
+<Canvas of={VlStepsStories.StepsDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlStepsStories.StepsDefault} />
+
+
+## Varianten
+
+### Iconen
+
+<Canvas of={VlStepsStories.StepsIcons} />
+
+### Toestanden
+
+Voeg altijd een tekst toe als een stap disabled is zodat de disabled toestand niet enkel met de grijze kleur
+overgebracht wordt, bv. "geannuleerd".
+
+Zie de 'states' story onder [vl-step](/docs/components-steps-step--documentatie) voor een voorbeeld.
+
+
+### Accordions
+
+Zie de 'toggleable' story onder [vl-step](/docs/components-steps-step--documentatie) voor een voorbeeld.
+
+### Lijn
+
+<Canvas of={VlStepsStories.StepsLine} />
+
+### Tijdlijn
+
+<Canvas of={VlStepsStories.StepsTimeline} />
+
+### Simpele tijdlijn
+
+Gebruik het `icon slot` of `sub-icon slot` niet in combinatie met de simpele tijdlijn.
+
+<Canvas of={VlStepsStories.StepsSimpleTimeline} />
+
+
+## Referenties
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Steps](https://overheid.vlaanderen.be/webuniversum/v3/documentation/components/vl-ui-steps)
+
+### Legacy Documentatie
+
+[Legacy Storybook - Steps](https://webcomponenten.omgeving.vlaanderen.be/storybook/?path=/docs/legacy-vl-steps--default)
+
+[Legacy Documentatie - Steps](https://webcomponenten.omgeving.vlaanderen.be/doc/VlSteps.html)
+
+[Legacy Demo - Steps](https://webcomponenten.omgeving.vlaanderen.be/demo/vl-steps.html)

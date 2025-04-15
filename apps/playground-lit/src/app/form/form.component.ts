@@ -1,19 +1,24 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
 import { vlGridStyles } from '@domg-wc/common-utilities/css';
-import { VlButtonComponent } from '@domg-wc/components/next/button';
+import { VlButtonComponent } from '@domg-wc/components';
 import { vlElementsStyle } from '@domg-wc/elements';
-import { VlCheckboxComponent } from '@domg-wc/form/next/checkbox';
-import { VlDatepickerComponent } from '@domg-wc/form/next/datepicker';
-import { VlErrorMessageComponent } from '@domg-wc/form/next/error-message';
-import { VlFormLabelComponent } from '@domg-wc/form/next/form-label';
-import { VlInputFieldComponent } from '@domg-wc/form/next/input-field';
-import { VlInputFieldMaskedComponent } from '@domg-wc/form/next/input-field-masked';
-import { VlRadioComponent, VlRadioGroupComponent } from '@domg-wc/form/next/radio-group';
-import { SelectOption, VlSelectComponent } from '@domg-wc/form/next/select';
-import { SelectRichOption, VlSelectRichComponent } from '@domg-wc/form/next/select-rich';
-import { VlTextareaComponent } from '@domg-wc/form/next/textarea';
-import { VlUploadComponent } from '@domg-wc/form/next/upload';
-import { parseFormData } from '@domg-wc/form/utils';
+import {
+    parseFormData,
+    SelectOption,
+    SelectRichOption,
+    VlCheckboxComponent,
+    VlDatepickerComponent,
+    VlErrorMessageComponent,
+    VlFormLabelComponent,
+    VlInputFieldComponent,
+    VlInputFieldMaskedComponent,
+    VlRadioComponent,
+    VlRadioGroupComponent,
+    VlSelectComponent,
+    VlSelectRichComponent,
+    VlTextareaComponent,
+    VlUploadComponent,
+} from '@domg-wc/form';
 import { CSSResult, html, LitElement, PropertyDeclarations, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import formStyle from './form.css';
@@ -226,7 +231,7 @@ export class FormComponent extends LitElement {
         return html`
             <div class="container">
                 <div class="form-buttons form-buttons-top">
-                    <vl-button-next
+                    <vl-button
                         toggle
                         controlled
                         ?on=${this.showAddressField}
@@ -240,27 +245,27 @@ export class FormComponent extends LitElement {
                         }}
                     >
                         Address field
-                    </vl-button-next>
-                    <vl-button-next
+                    </vl-button>
+                    <vl-button
                         toggle
                         controlled
                         ?on=${this.resetEverything}
                         @vl-click=${() => (this.resetEverything = !this.resetEverything)}
                     >
                         Reset everything
-                    </vl-button-next>
+                    </vl-button>
                 </div>
                 <form id="form" class="vl-form" @submit=${this.onSubmit} @reset=${this.onReset}>
-                    <div class="vl-grid-next">
-                        <div class="vl-column-next vl-column-next--2">
-                            <vl-form-label-next
+                    <div class="vl-grid">
+                        <div class="vl-column vl-column--2">
+                            <vl-form-label
                                 for="voornaam"
                                 label="Voornaam${this.firstNameRequired ? ' *' : ''}"
                                 block
-                            ></vl-form-label-next>
+                            ></vl-form-label>
                         </div>
-                        <div class="vl-column-next vl-column-next--4">
-                            <vl-input-field-next
+                        <div class="vl-column vl-column--4">
+                            <vl-input-field
                                 id="voornaam"
                                 name="voornaam"
                                 block
@@ -272,60 +277,60 @@ export class FormComponent extends LitElement {
                                 min-length=${2}
                                 max-length=${20}
                                 @vl-input=${(e: CustomEvent) => (this.firstName = e.detail.value)}
-                            ></vl-input-field-next>
-                            <vl-error-message-next for="voornaam" state="valueMissing"
+                            ></vl-input-field>
+                            <vl-error-message for="voornaam" state="valueMissing"
                                 >Gelieve een voornaam in te vullen.
-                            </vl-error-message-next>
-                            <vl-error-message-next for="voornaam" state="tooShort"
+                            </vl-error-message>
+                            <vl-error-message for="voornaam" state="tooShort"
                                 >Gelieve minimum 2 karakters te gebruiken.
-                            </vl-error-message-next>
-                            <vl-error-message-next for="voornaam" state="tooLong"
+                            </vl-error-message>
+                            <vl-error-message for="voornaam" state="tooLong"
                                 >Gelieve maximum 20 karakters te gebruiken.
-                            </vl-error-message-next>
-                            <vl-error-message-next for="voornaam" state="patternMismatch"
+                            </vl-error-message>
+                            <vl-error-message for="voornaam" state="patternMismatch"
                                 >Gelieve geen nummers of speciale tekens in te vullen.
-                            </vl-error-message-next>
+                            </vl-error-message>
                         </div>
-                        <div class="vl-column-next vl-column-next--6">
+                        <div class="vl-column vl-column--6">
                             <div class="form-buttons">
-                                <vl-button-next
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.firstNameRequired}
                                     @vl-click=${() => (this.firstNameRequired = !this.firstNameRequired)}
                                 >
                                     Required
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.firstNameDisabled}
                                     @vl-click=${() => (this.firstNameDisabled = !this.firstNameDisabled)}
                                 >
                                     Disabled
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.firstNameReadonly}
                                     @vl-click=${() => (this.firstNameReadonly = !this.firstNameReadonly)}
                                 >
                                     Readonly
-                                </vl-button-next>
-                                <vl-button-next secondary @vl-click=${() => (this.firstName = 'Karim')}>
+                                </vl-button>
+                                <vl-button secondary @vl-click=${() => (this.firstName = 'Karim')}>
                                     Set 'Karim'
-                                </vl-button-next>
+                                </vl-button>
                             </div>
                         </div>
-                        <div class="vl-column-next vl-column-next--2">
-                            <vl-form-label-next
+                        <div class="vl-column vl-column--2">
+                            <vl-form-label
                                 for="achternaam"
                                 label="Achternaam${this.lastNameRequired ? ' *' : ''}"
                                 block
-                            ></vl-form-label-next>
+                            ></vl-form-label>
                         </div>
-                        <div class="vl-column-next vl-column-next--4">
-                            <vl-input-field-next
+                        <div class="vl-column vl-column--4">
+                            <vl-input-field
                                 id="achternaam"
                                 name="achternaam"
                                 block
@@ -337,60 +342,60 @@ export class FormComponent extends LitElement {
                                 value=${this.lastName}
                                 pattern="^[a-zA-Z]*$"
                                 @vl-input=${(e: CustomEvent) => (this.lastName = e.detail.value)}
-                            ></vl-input-field-next>
-                            <vl-error-message-next for="achternaam" state="valueMissing"
+                            ></vl-input-field>
+                            <vl-error-message for="achternaam" state="valueMissing"
                                 >Gelieve een achternaam in te vullen.
-                            </vl-error-message-next>
-                            <vl-error-message-next for="achternaam" state="tooShort"
+                            </vl-error-message>
+                            <vl-error-message for="achternaam" state="tooShort"
                                 >Gelieve minimum 2 karakters te gebruiken.
-                            </vl-error-message-next>
-                            <vl-error-message-next for="achternaam" state="tooLong"
+                            </vl-error-message>
+                            <vl-error-message for="achternaam" state="tooLong"
                                 >Gelieve maximum 20 karakters te gebruiken.
-                            </vl-error-message-next>
-                            <vl-error-message-next for="achternaam" state="patternMismatch"
+                            </vl-error-message>
+                            <vl-error-message for="achternaam" state="patternMismatch"
                                 >Gelieve geen nummers of speciale tekens in te vullen.
-                            </vl-error-message-next>
+                            </vl-error-message>
                         </div>
-                        <div class="vl-column-next vl-column-next--6">
+                        <div class="vl-column vl-column--6">
                             <div class="form-buttons">
-                                <vl-button-next
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.lastNameRequired}
                                     @vl-click=${() => (this.lastNameRequired = !this.lastNameRequired)}
                                 >
                                     Required
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.lastNameDisabled}
                                     @vl-click=${() => (this.lastNameDisabled = !this.lastNameDisabled)}
                                 >
                                     Disabled
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.lastNameReadonly}
                                     @vl-click=${() => (this.lastNameReadonly = !this.lastNameReadonly)}
                                 >
                                     Readonly
-                                </vl-button-next>
-                                <vl-button-next secondary @vl-click=${() => (this.lastName = 'Spaas')}>
+                                </vl-button>
+                                <vl-button secondary @vl-click=${() => (this.lastName = 'Spaas')}>
                                     Set 'Spaas'
-                                </vl-button-next>
+                                </vl-button>
                             </div>
                         </div>
-                        <div class="vl-column-next vl-column-next--2">
-                            <vl-form-label-next
+                        <div class="vl-column vl-column--2">
+                            <vl-form-label
                                 for="rrn"
                                 label="Rijksregisternummer${this.rrnRequired ? ' *' : ''}"
                                 block
-                            ></vl-form-label-next>
+                            ></vl-form-label>
                         </div>
-                        <div class="vl-column-next vl-column-next--4">
-                            <vl-input-field-masked-next
+                        <div class="vl-column vl-column--4">
+                            <vl-input-field-masked
                                 id="rrn"
                                 name="rrn"
                                 block
@@ -400,54 +405,54 @@ export class FormComponent extends LitElement {
                                 value=${this.rrn}
                                 mask="rrn"
                                 @vl-input=${(e: CustomEvent) => (this.rrn = e.detail.value)}
-                            ></vl-input-field-masked-next>
-                            <vl-error-message-next for="rrn" state="valueMissing"
-                                >Gelieve een rijksregisternummer in te vullen.</vl-error-message-next
+                            ></vl-input-field-masked>
+                            <vl-error-message for="rrn" state="valueMissing"
+                                >Gelieve een rijksregisternummer in te vullen.</vl-error-message
                             >
-                            <vl-error-message-next for="rrn" state="patternMismatch"
-                                >Gelieve een geldig rijksregisternummer in te vullen.</vl-error-message-next
+                            <vl-error-message for="rrn" state="patternMismatch"
+                                >Gelieve een geldig rijksregisternummer in te vullen.</vl-error-message
                             >
                         </div>
-                        <div class="vl-column-next vl-column-next--6">
+                        <div class="vl-column vl-column--6">
                             <div class="form-buttons">
-                                <vl-button-next
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.rrnRequired}
                                     @vl-click=${() => (this.rrnRequired = !this.rrnRequired)}
                                 >
                                     Required
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.rrnDisabled}
                                     @vl-click=${() => (this.rrnDisabled = !this.rrnDisabled)}
                                 >
                                     Disabled
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.rrnReadonly}
                                     @vl-click=${() => (this.rrnReadonly = !this.rrnReadonly)}
                                 >
                                     Readonly
-                                </vl-button-next>
-                                <vl-button-next secondary @vl-click=${() => (this.rrn = '85.01.05-123.45')}>
+                                </vl-button>
+                                <vl-button secondary @vl-click=${() => (this.rrn = '85.01.05-123.45')}>
                                     Set '85.01.05-123.45'
-                                </vl-button-next>
+                                </vl-button>
                             </div>
                         </div>
-                        <div class="vl-column-next vl-column-next--2">
-                            <vl-form-label-next
+                        <div class="vl-column vl-column--2">
+                            <vl-form-label
                                 for="interesses"
                                 label="Interesses${this.interestsRequired ? ' *' : ''}"
                                 block
-                            ></vl-form-label-next>
+                            ></vl-form-label>
                         </div>
-                        <div class="vl-column-next vl-column-next--4">
-                            <vl-textarea-next
+                        <div class="vl-column vl-column--4">
+                            <vl-textarea
                                 id="interesses"
                                 name="interesses"
                                 block
@@ -459,57 +464,57 @@ export class FormComponent extends LitElement {
                                 rows=${10}
                                 value=${this.interests}
                                 @vl-input=${(e: CustomEvent) => (this.interests = e.detail.value)}
-                            ></vl-textarea-next>
-                            <vl-error-message-next for="interesses" state="valueMissing"
+                            ></vl-textarea>
+                            <vl-error-message for="interesses" state="valueMissing"
                                 >Gelieve je interesses in te vullen.
-                            </vl-error-message-next>
-                            <vl-error-message-next for="interesses" state="tooShort"
+                            </vl-error-message>
+                            <vl-error-message for="interesses" state="tooShort"
                                 >Gelieve minimum 5 karakters te gebruiken.
-                            </vl-error-message-next>
-                            <vl-error-message-next for="interesses" state="tooLong"
+                            </vl-error-message>
+                            <vl-error-message for="interesses" state="tooLong"
                                 >Gelieve maximum 100 karakters te gebruiken.
-                            </vl-error-message-next>
+                            </vl-error-message>
                         </div>
-                        <div class="vl-column-next vl-column-next--6">
+                        <div class="vl-column vl-column--6">
                             <div class="form-buttons">
-                                <vl-button-next
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.interestsRequired}
                                     @vl-click=${() => (this.interestsRequired = !this.interestsRequired)}
                                 >
                                     Required
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.interestsDisabled}
                                     @vl-click=${() => (this.interestsDisabled = !this.interestsDisabled)}
                                 >
                                     Disabled
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.interestsReadonly}
                                     @vl-click=${() => (this.interestsReadonly = !this.interestsReadonly)}
                                 >
                                     Readonly
-                                </vl-button-next>
-                                <vl-button-next secondary @vl-click=${() => (this.interests = 'Coding, spreadsheets')}>
+                                </vl-button>
+                                <vl-button secondary @vl-click=${() => (this.interests = 'Coding, spreadsheets')}>
                                     Set 'Coding, spreadsheets'
-                                </vl-button-next>
+                                </vl-button>
                             </div>
                         </div>
-                        <div class="vl-column-next vl-column-next--2">
-                            <vl-form-label-next
+                        <div class="vl-column vl-column--2">
+                            <vl-form-label
                                 for="geboortedatum"
                                 label="Geboortedatum${this.birthdateRequired ? ' *' : ''}"
                                 block
-                            ></vl-form-label-next>
+                            ></vl-form-label>
                         </div>
-                        <div class="vl-column-next vl-column-next--4">
-                            <vl-datepicker-next
+                        <div class="vl-column vl-column--4">
+                            <vl-datepicker
                                 id="geboortedatum"
                                 name="geboortedatum"
                                 block
@@ -518,55 +523,55 @@ export class FormComponent extends LitElement {
                                 ?disabled=${this.birthdateDisabled}
                                 @vl-input=${(e: CustomEvent) => (this.birthdate = e.detail.value)}
                             >
-                            </vl-datepicker-next>
-                            <vl-error-message-next for="geboortedatum" state="valueMissing">
+                            </vl-datepicker>
+                            <vl-error-message for="geboortedatum" state="valueMissing">
                                 Gelieve een geboortedatum in te vullen.
-                            </vl-error-message-next>
-                            <vl-error-message-next for="geboortedatum" state="patternMismatch">
+                            </vl-error-message>
+                            <vl-error-message for="geboortedatum" state="patternMismatch">
                                 Gelieve het volgende datum formaat te gebruiken: "dd.mm.YYYY", bv. 01.12.1976 of
                                 1.2.1993
-                            </vl-error-message-next>
+                            </vl-error-message>
                         </div>
-                        <div class="vl-column-next vl-column-next--6">
+                        <div class="vl-column vl-column--6">
                             <div class="form-buttons">
-                                <vl-button-next
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.birthdateRequired}
                                     @vl-click=${() => (this.birthdateRequired = !this.birthdateRequired)}
                                 >
                                     Required
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.birthdateDisabled}
                                     @vl-click=${() => (this.birthdateDisabled = !this.birthdateDisabled)}
                                 >
                                     Disabled
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.birthdateReadonly}
                                     @vl-click=${() => (this.birthdateReadonly = !this.birthdateReadonly)}
                                 >
                                     Readonly
-                                </vl-button-next>
-                                <vl-button-next secondary @vl-click=${() => (this.birthdate = '1976-12-31')}>
+                                </vl-button>
+                                <vl-button secondary @vl-click=${() => (this.birthdate = '1976-12-31')}>
                                     Select '31.12.1976'
-                                </vl-button-next>
+                                </vl-button>
                             </div>
                         </div>
-                        <div class="vl-column-next vl-column-next--2">
-                            <vl-form-label-next
+                        <div class="vl-column vl-column--2">
+                            <vl-form-label
                                 for="geboorteplaats"
                                 label="Geboorteplaats${this.birthplaceRequired ? ' *' : ''}"
                                 block
-                            ></vl-form-label-next>
+                            ></vl-form-label>
                         </div>
-                        <div class="vl-column-next vl-column-next--4">
-                            <vl-select-rich-next
+                        <div class="vl-column vl-column--4">
+                            <vl-select-rich
                                 id="geboorteplaats"
                                 name="geboorteplaats"
                                 ?required=${this.birthplaceRequired}
@@ -579,51 +584,49 @@ export class FormComponent extends LitElement {
                                 no-results-text="Geen geboorteplaatsen gevonden"
                                 search-placeholder="Zoek geboorteplaats"
                             >
-                            </vl-select-rich-next>
-                            <vl-error-message-next for="geboorteplaats" state="valueMissing"
+                            </vl-select-rich>
+                            <vl-error-message for="geboorteplaats" state="valueMissing"
                                 >Gelieve een geboorteplaats te selecteren.
-                            </vl-error-message-next>
+                            </vl-error-message>
                         </div>
-                        <div class="vl-column-next vl-column-next--6">
+                        <div class="vl-column vl-column--6">
                             <div class="form-buttons">
-                                <vl-button-next
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.birthplaceRequired}
                                     @vl-click=${() => (this.birthplaceRequired = !this.birthplaceRequired)}
                                 >
                                     Required
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.birthplaceDisabled}
                                     @vl-click=${() => (this.birthplaceDisabled = !this.birthplaceDisabled)}
                                 >
                                     Disabled
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.birthplaceReadonly}
                                     @vl-click=${this.toggleBirthplaceReadonly}
                                 >
                                     Readonly
-                                </vl-button-next>
-                                <vl-button-next secondary @vl-click=${this.selectBirthplace}>
-                                    Select 'Turnhout'
-                                </vl-button-next>
+                                </vl-button>
+                                <vl-button secondary @vl-click=${this.selectBirthplace}> Select 'Turnhout' </vl-button>
                             </div>
                         </div>
-                        <div class="vl-column-next vl-column-next--2">
-                            <vl-form-label-next
+                        <div class="vl-column vl-column--2">
+                            <vl-form-label
                                 for="hobby's"
                                 label="Hobby's${this.hobbiesRequired ? ' *' : ''}"
                                 block
-                            ></vl-form-label-next>
+                            ></vl-form-label>
                         </div>
-                        <div class="vl-column-next vl-column-next--4">
-                            <vl-select-rich-next
+                        <div class="vl-column vl-column--4">
+                            <vl-select-rich
                                 id="hobby's"
                                 name="hobby's"
                                 ?required=${this.hobbiesRequired}
@@ -635,51 +638,49 @@ export class FormComponent extends LitElement {
                                 no-results-text="Geen hobbies gevonden"
                                 no-choices-text="Geen resterende hobbies gevonden"
                             >
-                            </vl-select-rich-next>
-                            <vl-error-message-next for="hobby's" state="valueMissing"
+                            </vl-select-rich>
+                            <vl-error-message for="hobby's" state="valueMissing"
                                 >Gelieve een hobby te selecteren.
-                            </vl-error-message-next>
+                            </vl-error-message>
                         </div>
-                        <div class="vl-column-next vl-column-next--6">
+                        <div class="vl-column vl-column--6">
                             <div class="form-buttons">
-                                <vl-button-next
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.hobbiesRequired}
                                     @vl-click=${() => (this.hobbiesRequired = !this.hobbiesRequired)}
                                 >
                                     Required
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.hobbiesDisabled}
                                     @vl-click=${() => (this.hobbiesDisabled = !this.hobbiesDisabled)}
                                 >
                                     Disabled
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.hobbiesReadonly}
                                     @vl-click=${this.toggleHobbiesReadonly}
                                 >
                                     Readonly
-                                </vl-button-next>
-                                <vl-button-next secondary @vl-click=${this.selectHobby}>
-                                    Select 'Boardgames'
-                                </vl-button-next>
+                                </vl-button>
+                                <vl-button secondary @vl-click=${this.selectHobby}> Select 'Boardgames' </vl-button>
                             </div>
                         </div>
-                        <div class="vl-column-next vl-column-next--2">
-                            <vl-form-label-next
+                        <div class="vl-column vl-column--2">
+                            <vl-form-label
                                 for="leeftijd"
                                 label="Leeftijd${this.ageRequired ? ' *' : ''}"
                                 block
-                            ></vl-form-label-next>
+                            ></vl-form-label>
                         </div>
-                        <div class="vl-column-next vl-column-next--4">
-                            <vl-input-field-next
+                        <div class="vl-column vl-column--4">
+                            <vl-input-field
                                 id="leeftijd"
                                 name="leeftijd"
                                 type="number"
@@ -691,55 +692,55 @@ export class FormComponent extends LitElement {
                                 max=${99}
                                 value=${this.age}
                                 @vl-input=${(e: CustomEvent) => (this.age = e.detail.value)}
-                            ></vl-input-field-next>
-                            <vl-error-message-next for="leeftijd" state="valueMissing"
+                            ></vl-input-field>
+                            <vl-error-message for="leeftijd" state="valueMissing"
                                 >Gelieve een leeftijd in te vullen.
-                            </vl-error-message-next>
-                            <vl-error-message-next for="leeftijd" state="rangeUnderflow"
+                            </vl-error-message>
+                            <vl-error-message for="leeftijd" state="rangeUnderflow"
                                 >De minimum leeftijd is 0 jaar.
-                            </vl-error-message-next>
-                            <vl-error-message-next for="leeftijd" state="rangeOverflow"
+                            </vl-error-message>
+                            <vl-error-message for="leeftijd" state="rangeOverflow"
                                 >De maximum leeftijd is 99 jaar.
-                            </vl-error-message-next>
+                            </vl-error-message>
                         </div>
-                        <div class="vl-column-next vl-column-next--6">
+                        <div class="vl-column vl-column--6">
                             <div class="form-buttons">
-                                <vl-button-next
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.ageRequired}
                                     @vl-click=${() => (this.ageRequired = !this.ageRequired)}
                                 >
                                     Required
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.ageDisabled}
                                     @vl-click=${() => (this.ageDisabled = !this.ageDisabled)}
                                 >
                                     Disabled
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.ageReadonly}
                                     @vl-click=${() => (this.ageReadonly = !this.ageReadonly)}
                                 >
                                     Readonly
-                                </vl-button-next>
-                                <vl-button-next secondary @vl-click=${() => (this.age = 40)}> Set '40' </vl-button-next>
+                                </vl-button>
+                                <vl-button secondary @vl-click=${() => (this.age = 40)}> Set '40' </vl-button>
                             </div>
                         </div>
-                        <div class="vl-column-next vl-column-next--2">
-                            <vl-form-label-next
+                        <div class="vl-column vl-column--2">
+                            <vl-form-label
                                 for="kinderen"
                                 label="Aantal kinderen${this.kidsRequired ? ' *' : ''}"
                                 block
-                            ></vl-form-label-next>
+                            ></vl-form-label>
                         </div>
-                        <div class="vl-column-next vl-column-next--4">
-                            <vl-select-next
+                        <div class="vl-column vl-column--4">
+                            <vl-select
                                 id="kinderen"
                                 name="kinderen"
                                 block
@@ -747,53 +748,51 @@ export class FormComponent extends LitElement {
                                 ?required=${this.kidsRequired}
                                 ?disabled=${this.kidsDisabled}
                                 .options=${this.kidsOptions}
-                            ></vl-select-next>
-                            <vl-error-message-next for="kinderen" state="valueMissing"
+                            ></vl-select>
+                            <vl-error-message for="kinderen" state="valueMissing"
                                 >Gelieve een aantal kinderen te kiezen.
-                            </vl-error-message-next>
+                            </vl-error-message>
                         </div>
-                        <div class="vl-column-next vl-column-next--6">
+                        <div class="vl-column vl-column--6">
                             <div class="form-buttons">
-                                <vl-button-next
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.kidsRequired}
                                     @vl-click=${() => (this.kidsRequired = !this.kidsRequired)}
                                 >
                                     Required
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.kidsDisabled}
                                     @vl-click=${() => (this.kidsDisabled = !this.kidsDisabled)}
                                 >
                                     Disabled
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.kidsReadonly}
                                     @vl-click=${this.toggleKidsReadonly}
                                 >
                                     Readonly
-                                </vl-button-next>
-                                <vl-button-next secondary @vl-click=${this.selectKidsOption}>
-                                    Select '0'
-                                </vl-button-next>
+                                </vl-button>
+                                <vl-button secondary @vl-click=${this.selectKidsOption}> Select '0' </vl-button>
                             </div>
                         </div>
                         ${this.showAddressField
                             ? html`
-                                  <div class="vl-column-next vl-column-next--2">
-                                      <vl-form-label-next
+                                  <div class="vl-column vl-column--2">
+                                      <vl-form-label
                                           for="adres"
                                           label="Adres${this.addressFieldRequired ? ' *' : ''}"
                                           block
-                                      ></vl-form-label-next>
+                                      ></vl-form-label>
                                   </div>
-                                  <div class="vl-column-next vl-column-next--4">
-                                      <vl-input-field-next
+                                  <div class="vl-column vl-column--4">
+                                      <vl-input-field
                                           id="adres"
                                           name="adres"
                                           block
@@ -802,14 +801,14 @@ export class FormComponent extends LitElement {
                                           ?readonly=${this.addressFieldReadonly}
                                           value=${this.address}
                                           @vl-input=${(e: CustomEvent) => (this.address = e.detail.value)}
-                                      ></vl-input-field-next>
-                                      <vl-error-message-next for="adres" state="valueMissing"
+                                      ></vl-input-field>
+                                      <vl-error-message for="adres" state="valueMissing"
                                           >Gelieve een adres in te vullen.
-                                      </vl-error-message-next>
+                                      </vl-error-message>
                                   </div>
-                                  <div class="vl-column-next vl-column-next--6">
+                                  <div class="vl-column vl-column--6">
                                       <div class="form-buttons">
-                                          <vl-button-next
+                                          <vl-button
                                               toggle
                                               controlled
                                               ?on=${this.addressFieldRequired}
@@ -817,8 +816,8 @@ export class FormComponent extends LitElement {
                                                   (this.addressFieldRequired = !this.addressFieldRequired)}
                                           >
                                               Required
-                                          </vl-button-next>
-                                          <vl-button-next
+                                          </vl-button>
+                                          <vl-button
                                               toggle
                                               controlled
                                               ?on=${this.addressFieldDisabled}
@@ -826,8 +825,8 @@ export class FormComponent extends LitElement {
                                                   (this.addressFieldDisabled = !this.addressFieldDisabled)}
                                           >
                                               Disabled
-                                          </vl-button-next>
-                                          <vl-button-next
+                                          </vl-button>
+                                          <vl-button
                                               toggle
                                               controlled
                                               ?on=${this.addressFieldReadonly}
@@ -835,26 +834,26 @@ export class FormComponent extends LitElement {
                                                   (this.addressFieldReadonly = !this.addressFieldReadonly)}
                                           >
                                               Readonly
-                                          </vl-button-next>
-                                          <vl-button-next
+                                          </vl-button>
+                                          <vl-button
                                               secondary
                                               @vl-click=${() => (this.address = 'Koning Albert II-laan 20')}
                                           >
                                               Set 'Koning Albert II-laan 20'
-                                          </vl-button-next>
+                                          </vl-button>
                                       </div>
                                   </div>
                               `
                             : ''}
-                        <div class="vl-column-next vl-column-next--2">
-                            <vl-form-label-next
+                        <div class="vl-column vl-column--2">
+                            <vl-form-label
                                 for="contactmethode"
                                 label="Voorkeurscontactmethode${this.preferredContactMethodRequired ? ' *' : ''}"
                                 block
-                            ></vl-form-label-next>
+                            ></vl-form-label>
                         </div>
-                        <div class="vl-column-next vl-column-next--4">
-                            <vl-radio-group-next
+                        <div class="vl-column vl-column--4">
+                            <vl-radio-group
                                 id="contactmethode"
                                 name="contactmethode"
                                 ?required=${this.preferredContactMethodRequired}
@@ -863,17 +862,17 @@ export class FormComponent extends LitElement {
                                 value=${this.preferredContactMethod}
                                 @vl-input=${(e: CustomEvent) => (this.preferredContactMethod = e.detail.value)}
                             >
-                                <vl-radio-next value="e-mail">e-mail</vl-radio-next>
-                                <vl-radio-next value="telefoon">telefoon</vl-radio-next>
-                                <vl-radio-next value="post">post</vl-radio-next>
-                            </vl-radio-group-next>
-                            <vl-error-message-next for="contactmethode" state="valueMissing">
+                                <vl-radio value="e-mail">e-mail</vl-radio>
+                                <vl-radio value="telefoon">telefoon</vl-radio>
+                                <vl-radio value="post">post</vl-radio>
+                            </vl-radio-group>
+                            <vl-error-message for="contactmethode" state="valueMissing">
                                 Gelieve een contactmethode te selecteren.
-                            </vl-error-message-next>
+                            </vl-error-message>
                         </div>
-                        <div class="vl-column-next vl-column-next--6">
+                        <div class="vl-column vl-column--6">
                             <div class="form-buttons">
-                                <vl-button-next
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.preferredContactMethodRequired}
@@ -881,8 +880,8 @@ export class FormComponent extends LitElement {
                                         (this.preferredContactMethodRequired = !this.preferredContactMethodRequired)}
                                 >
                                     Required
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.preferredContactMethodDisabled}
@@ -890,8 +889,8 @@ export class FormComponent extends LitElement {
                                         (this.preferredContactMethodDisabled = !this.preferredContactMethodDisabled)}
                                 >
                                     Disabled
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.preferredContactMethodReadonly}
@@ -899,21 +898,21 @@ export class FormComponent extends LitElement {
                                         (this.preferredContactMethodReadonly = !this.preferredContactMethodReadonly)}
                                 >
                                     Readonly
-                                </vl-button-next>
-                                <vl-button-next secondary @vl-click=${() => (this.preferredContactMethod = 'post')}>
+                                </vl-button>
+                                <vl-button secondary @vl-click=${() => (this.preferredContactMethod = 'post')}>
                                     Set 'post'
-                                </vl-button-next>
+                                </vl-button>
                             </div>
                         </div>
-                        <div class="vl-column-next vl-column-next--2">
-                            <vl-form-label-next
+                        <div class="vl-column vl-column--2">
+                            <vl-form-label
                                 for="fotos"
                                 label="Pasfoto's${this.photosRequired ? ' *' : ''}"
                                 block
-                            ></vl-form-label-next>
+                            ></vl-form-label>
                         </div>
-                        <div class="vl-column-next vl-column-next--4">
-                            <vl-upload-next
+                        <div class="vl-column vl-column--4">
+                            <vl-upload
                                 id="fotos"
                                 name="fotos"
                                 max-files="2"
@@ -925,41 +924,41 @@ export class FormComponent extends LitElement {
                                 @vl-input=${(e: CustomEvent) => {
                                     this.photos = e.detail.value;
                                 }}
-                            ></vl-upload-next>
-                            <vl-error-message-next for="fotos" state="valueMissing">
+                            ></vl-upload>
+                            <vl-error-message for="fotos" state="valueMissing">
                                 Gelieve 1 tot 2 foto's up te loaden.
-                            </vl-error-message-next>
+                            </vl-error-message>
                         </div>
-                        <div class="vl-column-next vl-column-next--6">
+                        <div class="vl-column vl-column--6">
                             <div class="form-buttons">
-                                <vl-button-next
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.photosRequired}
                                     @vl-click=${() => (this.photosRequired = !this.photosRequired)}
                                 >
                                     Required
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.photosDisabled}
                                     @vl-click=${() => (this.photosDisabled = !this.photosDisabled)}
                                 >
                                     Disabled
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.photosReadonly}
                                     @vl-click=${() => (this.photosReadonly = !this.photosReadonly)}
                                 >
                                     Readonly
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     secondary
                                     @vl-click=${() => {
-                                        const vlUpload = this.shadowRoot?.querySelector('vl-upload-next');
+                                        const vlUpload = this.shadowRoot?.querySelector('vl-upload');
                                         if (vlUpload) {
                                             const pasfoto = new File([''], 'pasfoto.jpg', { type: 'image/jpg' });
                                             Object.defineProperty(pasfoto, 'size', {
@@ -971,18 +970,18 @@ export class FormComponent extends LitElement {
                                     }}
                                 >
                                     Set 'pasfoto.jpg'
-                                </vl-button-next>
+                                </vl-button>
                             </div>
                         </div>
-                        <div class="vl-column-next vl-column-next--2">
-                            <vl-form-label-next
+                        <div class="vl-column vl-column--2">
+                            <vl-form-label
                                 for="waarheidsgetrouw"
                                 label="Waarheidsgetrouw${this.filledInTruthfullyRequired ? ' *' : ''}"
                                 block
-                            ></vl-form-label-next>
+                            ></vl-form-label>
                         </div>
-                        <div class="vl-column-next vl-column-next--4">
-                            <vl-checkbox-next
+                        <div class="vl-column vl-column--4">
+                            <vl-checkbox
                                 id="waarheidsgetrouw"
                                 name="waarheidsgetrouw"
                                 block
@@ -993,7 +992,7 @@ export class FormComponent extends LitElement {
                                 @vl-input=${(e: CustomEvent) => (this.filledInTruthfully = e.detail.checked)}
                             >
                                 Naar waarheid ingevuld
-                            </vl-checkbox-next>
+                            </vl-checkbox>
                             ${this.filledInTruthfullyReadonly
                                 ? html`<input
                                       type="hidden"
@@ -1001,13 +1000,13 @@ export class FormComponent extends LitElement {
                                       value=${this.filledInTruthfully ? this.filledInTruthfullyValue || 'on' : ''}
                                   />`
                                 : ''}
-                            <vl-error-message-next for="waarheidsgetrouw" state="valueMissing">
+                            <vl-error-message for="waarheidsgetrouw" state="valueMissing">
                                 Gelieve te bevestigen dat bovenstaande gegevens naar waarheid zijn ingevuld.
-                            </vl-error-message-next>
+                            </vl-error-message>
                         </div>
-                        <div class="vl-column-next vl-column-next--6">
+                        <div class="vl-column vl-column--6">
                             <div class="form-buttons">
-                                <vl-button-next
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.filledInTruthfullyRequired}
@@ -1015,8 +1014,8 @@ export class FormComponent extends LitElement {
                                         (this.filledInTruthfullyRequired = !this.filledInTruthfullyRequired)}
                                 >
                                     Required
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.filledInTruthfullyDisabled}
@@ -1024,8 +1023,8 @@ export class FormComponent extends LitElement {
                                         (this.filledInTruthfullyDisabled = !this.filledInTruthfullyDisabled)}
                                 >
                                     Disabled
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     toggle
                                     controlled
                                     ?on=${this.filledInTruthfullyReadonly}
@@ -1033,25 +1032,25 @@ export class FormComponent extends LitElement {
                                         (this.filledInTruthfullyReadonly = !this.filledInTruthfullyReadonly)}
                                 >
                                     Readonly
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     secondary
                                     @vl-click=${() => (this.filledInTruthfullyValue = 'Een waarheid als een koe')}
                                 >
                                     Set 'Een waarheid als een koe'
-                                </vl-button-next>
-                                <vl-button-next
+                                </vl-button>
+                                <vl-button
                                     secondary
                                     @vl-click=${() => (this.filledInTruthfully = !this.filledInTruthfully)}
                                 >
                                     Toggle checked
-                                </vl-button-next>
+                                </vl-button>
                             </div>
                         </div>
-                        <div class="vl-column-next vl-column-next--10 vl-column-next--start-3">
+                        <div class="vl-column vl-column--10 vl-column--start-3">
                             <div class="form-buttons">
-                                <vl-button-next type="submit">Verstuur</vl-button-next>
-                                <vl-button-next type="reset" secondary>Reset</vl-button-next>
+                                <vl-button type="submit">Verstuur</vl-button>
+                                <vl-button type="reset" secondary>Reset</vl-button>
                             </div>
                         </div>
                     </div>
