@@ -1,5 +1,5 @@
-import '@domg-wc/components/next/title';
-import '@domg-wc/components/next/steps';
+import '@domg-wc/components/title';
+import '@domg-wc/components/steps';
 import { stepsNextHtml } from '../../html/components.html.js';
 
 export class ComponentsSideEffectComponent extends HTMLElement {

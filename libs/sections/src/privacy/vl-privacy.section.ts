@@ -1,10 +1,15 @@
 import { BaseLitElement, registerWebComponents } from '@domg-wc/common-utilities';
 import { vlContentBlockStyles, vlGridStyles, vlSectionStyles, vlStackedStyles } from '@domg-wc/common-utilities/css';
-import { VlContactCardComponent, VlDocumentComponent, VlInfoblockComponent, VlTypography } from '@domg-wc/components';
-import { VlParagraphComponent } from '@domg-wc/components/next/paragraph';
-import { VlPropertiesComponent } from '@domg-wc/components/next/properties';
-import { VlSideNavigationComponent } from '@domg-wc/components/next/side-navigation';
-import { VlTitleComponent } from '@domg-wc/components/next/title';
+import {
+    VlContactCardComponent,
+    VlDocumentComponent,
+    VlInfoblockComponent,
+    VlParagraphComponent,
+    VlPropertiesComponent,
+    VlSideNavigationComponent,
+    VlTitleComponent,
+    VlTypography,
+} from '@domg-wc/components';
 import { vlElementsStyle } from '@domg-wc/elements';
 import { CSSResult, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
@@ -60,13 +65,13 @@ export class VlPrivacy extends BaseLitElement {
             <slot name="header"
                 >${header({ disableBackLink: this.disableBackLink, hideBackLink: this.hideBackLink })}
             </slot>
-            <section class="vl-section-next">
+            <section class="vl-section">
                 <slot name="version"> ${privacyVersionSection(this.version, this.date)}</slot>
             </section>
-            <section id="content" class="vl-section-next">
+            <section id="content" class="vl-section">
                 <slot name="content" @slotchange=${this.handleContentSlotChanged}> ${privacyContentSection()}</slot>
             </section>
-            <section class="vl-section-next vl-section-next--overlap">
+            <section class="vl-section vl-section--overlap">
                 <slot name="bottom"> ${privacyBottomSection()}</slot>
             </section>
         `;

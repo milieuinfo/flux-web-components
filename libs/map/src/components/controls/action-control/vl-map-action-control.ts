@@ -1,5 +1,5 @@
 import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { VlButtonComponent } from '@domg-wc/components/next/button';
+import { VlButtonComponent } from '@domg-wc/components';
 import { PropertyDeclarations } from 'lit';
 import { VlMapAction } from '../../action/vl-map-action';
 import { VlMapControl } from '../vl-map-control.mixin';
@@ -39,7 +39,9 @@ export class VlMapActionControl extends VlMapControl(BaseLitElement) {
     }
 
     connectedCallback(): void {
-        this.controlElement = document.createElement('vl-button-next');
+        this.controlElement = document.createElement('vl-button');
+        this.controlElement.on = false;
+        this.controlElement.setAttribute('tertiary', '');
         this.controlElement.setAttribute('toggle', ''); // maak er een toggle knop van
         this.controlElement.addEventListener('click', () => this.handleClickToggle());
 

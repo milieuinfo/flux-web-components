@@ -1,0 +1,72 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs';
+import * as VlLinkStories from './vl-link.stories';
+
+# Link
+
+<VluxMetaData id="components-link" />
+
+Gebruik de `link` component om een link af te beelden op een pagina.<br/>
+
+
+## Voorbeeld
+
+```js
+import { VlLinkComponent } from '@domg-wc/components';
+```
+
+```html
+<vl-link></vl-link>
+```
+
+<Canvas of={VlLinkStories.LinkDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlLinkStories.LinkDefault} />
+
+
+## Varianten
+
+### Bold
+
+<Canvas of={VlLinkStories.LinkBold} />
+
+### Small
+
+<Canvas of={VlLinkStories.LinkSmall} />
+
+### Large
+
+<Canvas of={VlLinkStories.LinkLarge} />
+
+### Error
+
+<Canvas of={VlLinkStories.LinkError} />
+
+### External
+
+<Canvas of={VlLinkStories.LinkExternal} />
+
+### Icon
+
+<Canvas of={VlLinkStories.LinkIcon} />
+
+### Button als link
+
+Soms wil je een button stylen als een link. Een specifieke use-case is bvb. om van `Annuleren` een link te maken
+zodat die visueel minder prominent is dan de knop `Opslaan`.
+
+Als richtlijn geldt:
+- gebruik een `<button>`-element wanneer het een actie is die op dezelfde pagina blijft
+  bvb. het sluiten van een modal, het gaan naar een volgende stap, het openklappen van een accordion, enzovoort.
+- gebruik een `<a>`-element om te navigeren naar een andere pagina.
+
+<Canvas of={VlLinkStories.ButtonStyledAsLink} />
+
+
+## Referenties
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Link](https://overheid.vlaanderen.be/webuniversum/v3/documentation/atoms/vl-ui-link)

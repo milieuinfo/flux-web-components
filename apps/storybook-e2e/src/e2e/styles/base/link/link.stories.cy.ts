@@ -1,7 +1,7 @@
 const linkNextDefaultStylesUrl =
-    'http://localhost:8080/iframe.html?id=styles-next-base-intern-link--link-default&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-base-intern-link--link-default&viewMode=story';
 
-describe('story - link-next - default', () => {
+describe('story - link - default', () => {
     it('should render', () => {
         cy.visit(linkNextDefaultStylesUrl);
 

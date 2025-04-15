@@ -1,7 +1,6 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlButtonComponent } from '@domg-wc/components/next/button';
-import { VlLinkComponent } from '@domg-wc/components/next/link';
-import { VlDatepickerComponent } from '@domg-wc/form/next/datepicker';
+import { VlButtonComponent, VlLinkComponent } from '@domg-wc/components';
+import { VlDatepickerComponent } from '@domg-wc/form';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../vl-modal.component';
@@ -26,9 +25,9 @@ export const modalDefault = ({
     allowOverflow,
 }: typeof modalArgs) => html`
     <div>
-        <vl-button-next id="button-open-modal-vt" data-vl-modal-open="modal-vt" data-cy="button-modal-toggle">
+        <vl-button id="button-open-modal-vt" data-vl-modal-open="modal-vt" data-cy="button-modal-toggle">
             Open
-        </vl-button-next>
+        </vl-button>
         <vl-modal
             id="modal-vt"
             data-vl-title=${title}
@@ -40,10 +39,10 @@ export const modalDefault = ({
             data-cy="modal"
         >
             <span slot="content">
-                <vl-datepicker-next block></vl-datepicker-next>
+                <vl-datepicker block></vl-datepicker>
                 Lorem ipsum dolor sit amet.
             </span>
-            <vl-button-next slot="button">Start aanvraag</vl-button-next>
+            <vl-button slot="button">Start aanvraag</vl-button>
         </vl-modal>
     </div>
 `;
@@ -51,14 +50,14 @@ modalDefault.storyName = 'vl-modal - default';
 
 export const modalWithOtherAction = () => html`
     <div>
-        <vl-button-next id="button-open-modal-vt" data-vl-modal-open="modal-cl-nc-li" data-cy="button-modal-toggle">
+        <vl-button id="button-open-modal-vt" data-vl-modal-open="modal-cl-nc-li" data-cy="button-modal-toggle">
             Open
-        </vl-button-next>
+        </vl-button>
         <vl-modal id="modal-cl-nc-li" data-vl-title="Modal" data-vl-closable data-vl-not-cancellable data-cy="modal">
             <span slot="content">Lorem ipsum dolor sit amet.</span>
-            <vl-link-next slot="button" button-as-link icon="cross" icon-placement="before" data-vl-modal-close>
+            <vl-link slot="button" button-as-link icon="cross" icon-placement="before" data-vl-modal-close>
                 Andere actie
-            </vl-link-next>
+            </vl-link>
         </vl-modal>
     </div>
 `;

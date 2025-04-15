@@ -1,6 +1,6 @@
-import { VlButtonComponent } from '@domg-wc/components/next/button';
-import { VlFormLabelComponent } from '@domg-wc/form/next/form-label';
-import { VlInputFieldComponent } from '@domg-wc/form/next/input-field';
+import { VlButtonComponent } from '@domg-wc/components';
+import { VlFormLabelComponent } from '@domg-wc/form';
+import { VlInputFieldComponent } from '@domg-wc/form';
 import { registerWebComponents } from 'libs/common/utilities/src/util/utils';
 import { html } from 'lit-html';
 import {
@@ -13,8 +13,8 @@ import vlGridStoriesDoc from './vl-grid.stories-doc.mdx';
 registerWebComponents([VlFormLabelComponent, VlInputFieldComponent, VlButtonComponent]);
 
 export default {
-    id: 'styles-next-layout-afnemers-grid',
-    title: 'Styles-next/Layout (afnemers)/grid',
+    id: 'styles-layout-afnemers-grid',
+    title: 'Styles/Layout (afnemers)/grid',
     tags: ['autodocs'],
     parameters: {
         docs: {
@@ -25,7 +25,7 @@ export default {
 
 export const GridResponsive = () => html`
     <style>
-        .vl-grid-next {
+        .vl-grid {
             --vl-column-min-height: 8vmax;
             padding: 1vmax;
 
@@ -41,7 +41,7 @@ export const GridResponsive = () => html`
                 --vl-column-min-height: 3vmax;
             }
 
-            .vl-column-next {
+            .vl-column {
                 min-height: var(--vl-column-min-height);
                 background-color: mediumspringgreen;
                 border: lightseagreen 2px solid;
@@ -58,74 +58,62 @@ export const GridResponsive = () => html`
             .sb-main {
                 grid-row: span 3;
 
-                .vl-column-next {
+                .vl-column {
                     background-color: lightseagreen;
                 }
             }
 
             .sb-main__sub {
-                .vl-column-next {
+                .vl-column {
                     background-color: mediumspringgreen;
                 }
             }
         }
     </style>
-    <div class="vl-grid-next">
-        <div
-            class="vl-column-next sb-header vl-column-next--1 vl-column-next--m-3 vl-column-next--s-6 vl-column-next--xs-9"
-        ></div>
-        <div
-            class="vl-column-next sb-header vl-column-next--11 vl-column-next--m-9 vl-column-next--s-6 vl-column-next--xs-3"
-        ></div>
-        <div class="sb-main vl-column-next vl-column-next--8 vl-grid-next vl-column-next--m-12">
-            <div class="vl-column-next vl-column-next--5"></div>
-            <div class="vl-column-next vl-column-next--7"></div>
-            <div class="vl-column-next vl-column-next--5"></div>
-            <div class="vl-column-next vl-column-next--7"></div>
-            <div class="sb-main__sub vl-column-next vl-column-next--9 vl-grid-next">
-                <div class="vl-column-next vl-column-next--4"></div>
-                <div class="vl-column-next vl-column-next--4"></div>
-                <div class="vl-column-next vl-column-next--4"></div>
-                <div class="vl-column-next vl-column-next--8"></div>
-                <div class="vl-column-next vl-column-next--4"></div>
+    <div class="vl-grid">
+        <div class="vl-column sb-header vl-column--1 vl-column--m-3 vl-column--s-6 vl-column--xs-9"></div>
+        <div class="vl-column sb-header vl-column--11 vl-column--m-9 vl-column--s-6 vl-column--xs-3"></div>
+        <div class="sb-main vl-column vl-column--8 vl-grid vl-column--m-12">
+            <div class="vl-column vl-column--5"></div>
+            <div class="vl-column vl-column--7"></div>
+            <div class="vl-column vl-column--5"></div>
+            <div class="vl-column vl-column--7"></div>
+            <div class="sb-main__sub vl-column vl-column--9 vl-grid">
+                <div class="vl-column vl-column--4"></div>
+                <div class="vl-column vl-column--4"></div>
+                <div class="vl-column vl-column--4"></div>
+                <div class="vl-column vl-column--8"></div>
+                <div class="vl-column vl-column--4"></div>
             </div>
-            <div class="vl-column-next vl-column-next--3"></div>
+            <div class="vl-column vl-column--3"></div>
         </div>
-        <div class="vl-column-next vl-column-next--4 vl-column-next--m-12"></div>
-        <div class="vl-column-next vl-column-next--2 vl-column-next--m-6 vl-column-next--xs-12"></div>
-        <div class="vl-column-next vl-column-next--2 vl-column-next--m-6 vl-column-next--xs-12"></div>
-        <div
-            class="vl-column-next vl-column-next--1 vl-column-next--m-3 vl-column-next--s-6 vl-column-next--xs-12"
-        ></div>
-        <div
-            class="vl-column-next vl-column-next--1 vl-column-next--m-3 vl-column-next--s-6 vl-column-next--xs-12"
-        ></div>
-        <div
-            class="vl-column-next vl-column-next--1 vl-column-next--m-3 vl-column-next--s-6 vl-column-next--xs-12"
-        ></div>
-        <div
-            class="vl-column-next vl-column-next--1 vl-column-next--m-3 vl-column-next--s-6 vl-column-next--xs-12"
-        ></div>
-        <div class="vl-column-next sb-footer vl-column-next--4"></div>
-        <div class="vl-column-next sb-footer vl-column-next--2"></div>
-        <div class="vl-column-next sb-footer vl-column-next--1"></div>
-        <div class="vl-column-next sb-footer vl-column-next--2"></div>
-        <div class="vl-column-next sb-footer vl-column-next--1"></div>
-        <div class="vl-column-next sb-footer vl-column-next--2"></div>
+        <div class="vl-column vl-column--4 vl-column--m-12"></div>
+        <div class="vl-column vl-column--2 vl-column--m-6 vl-column--xs-12"></div>
+        <div class="vl-column vl-column--2 vl-column--m-6 vl-column--xs-12"></div>
+        <div class="vl-column vl-column--1 vl-column--m-3 vl-column--s-6 vl-column--xs-12"></div>
+        <div class="vl-column vl-column--1 vl-column--m-3 vl-column--s-6 vl-column--xs-12"></div>
+        <div class="vl-column vl-column--1 vl-column--m-3 vl-column--s-6 vl-column--xs-12"></div>
+        <div class="vl-column vl-column--1 vl-column--m-3 vl-column--s-6 vl-column--xs-12"></div>
+        <div class="vl-column sb-footer vl-column--4"></div>
+        <div class="vl-column sb-footer vl-column--2"></div>
+        <div class="vl-column sb-footer vl-column--1"></div>
+        <div class="vl-column sb-footer vl-column--2"></div>
+        <div class="vl-column sb-footer vl-column--1"></div>
+        <div class="vl-column sb-footer vl-column--2"></div>
     </div>
 `;
 GridResponsive.storyName = 'vl-grid - responsive';
 
 export const GridColumnStart = () => html`
     <style>
-        #story--styles-next-layout-afnemers-grid--grid-column-start-inner {
-            .vl-grid-next {
+        #story--styles-layout-afnemers-grid--grid-column-start-inner {
+            .vl-grid {
                 --vl-column-min-height: 20px;
                 grid-template-rows: 20px;
                 padding: 1vmax;
             }
         }
-        .vl-grid-next {
+        .vl-grid {
             --vl-column-min-height: 20px;
             grid-template-rows: 20px;
             padding: 1vmax;
@@ -142,125 +130,96 @@ export const GridColumnStart = () => html`
                 --vl-column-min-height: 3vmax;
             }
 
-            .vl-column-next {
+            .vl-column {
                 min-height: var(--vl-column-min-height);
                 background-color: mediumspringgreen;
                 border: lightseagreen 2px solid;
             }
         }
     </style>
-    <div class="vl-grid-next">
-        <div
-            class="vl-column-next vl-column-next--1 vl-column-next--start-12 vl-column-next--m-4 vl-column-next--m-start-9"
-        ></div>
-        <div
-            class="vl-column-next vl-column-next--2 vl-column-next--start-11 vl-column-next--m-4 vl-column-next--m-start-9"
-        ></div>
-        <div
-            class="vl-column-next vl-column-next--3 vl-column-next--start-10 vl-column-next--m-4 vl-column-next--m-start-9"
-        ></div>
-        <div class="vl-column-next vl-column-next--4 vl-column-next--start-9"></div>
-        <div
-            class="vl-column-next vl-column-next--5 vl-column-next--start-8 vl-column-next--m-8 vl-column-next--m-start-5"
-        ></div>
-        <div
-            class="vl-column-next vl-column-next--6 vl-column-next--start-7 vl-column-next--m-8 vl-column-next--m-start-5"
-        ></div>
-        <div
-            class="vl-column-next vl-column-next--7 vl-column-next--start-6 vl-column-next--m-8 vl-column-next--m-start-5"
-        ></div>
-        <div class="vl-column-next vl-column-next--8 vl-column-next--start-5"></div>
-        <div
-            class="vl-column-next vl-column-next--9 vl-column-next--start-4 vl-column-next--m-start-1 vl-column-next--m-12"
-        ></div>
-        <div
-            class="vl-column-next vl-column-next--10 vl-column-next--start-3 vl-column-next--m-start-1 vl-column-next--m-12"
-        ></div>
-        <div
-            class="vl-column-next vl-column-next--11 vl-column-next--start-2 vl-column-next--m-start-1 vl-column-next--m-12"
-        ></div>
-        <div class="vl-column-next vl-column-next--12 vl-column-next--start-1"></div>
+    <div class="vl-grid">
+        <div class="vl-column vl-column--1 vl-column--start-12 vl-column--m-4 vl-column--m-start-9"></div>
+        <div class="vl-column vl-column--2 vl-column--start-11 vl-column--m-4 vl-column--m-start-9"></div>
+        <div class="vl-column vl-column--3 vl-column--start-10 vl-column--m-4 vl-column--m-start-9"></div>
+        <div class="vl-column vl-column--4 vl-column--start-9"></div>
+        <div class="vl-column vl-column--5 vl-column--start-8 vl-column--m-8 vl-column--m-start-5"></div>
+        <div class="vl-column vl-column--6 vl-column--start-7 vl-column--m-8 vl-column--m-start-5"></div>
+        <div class="vl-column vl-column--7 vl-column--start-6 vl-column--m-8 vl-column--m-start-5"></div>
+        <div class="vl-column vl-column--8 vl-column--start-5"></div>
+        <div class="vl-column vl-column--9 vl-column--start-4 vl-column--m-start-1 vl-column--m-12"></div>
+        <div class="vl-column vl-column--10 vl-column--start-3 vl-column--m-start-1 vl-column--m-12"></div>
+        <div class="vl-column vl-column--11 vl-column--start-2 vl-column--m-start-1 vl-column--m-12"></div>
+        <div class="vl-column vl-column--12 vl-column--start-1"></div>
     </div>
 `;
 GridColumnStart.storyName = 'vl-grid - column start';
 
 export const GridJustifyAlign = () => html`
     <style>
-        .vl-grid-next {
+        .vl-grid {
             --vl-column-min-height: 1vmax;
             grid-template-rows: 30px 30px 30px 30px 60px 60px 60px 30px;
 
-            .vl-column-next {
+            .vl-column {
                 background-color: mediumspringgreen;
                 border: lightseagreen 2px solid;
             }
         }
     </style>
-    <div class="vl-grid-next">
-        <div class="vl-column-next vl-column-next--8 vl-column-next--start-5 vl-column-next--justify-self-start">
+    <div class="vl-grid">
+        <div class="vl-column vl-column--8 vl-column--start-5 vl-column--justify-self-start">
             &nbsp;justify-self-start&nbsp;
         </div>
-        <div class="vl-column-next vl-column-next--8 vl-column-next--start-5 vl-column-next--justify-self-center">
+        <div class="vl-column vl-column--8 vl-column--start-5 vl-column--justify-self-center">
             &nbsp;justify-self-center&nbsp;
         </div>
-        <div class="vl-column-next vl-column-next--8 vl-column-next--start-5 vl-column-next--justify-self-end">
+        <div class="vl-column vl-column--8 vl-column--start-5 vl-column--justify-self-end">
             &nbsp;justify-self-end&nbsp;
         </div>
-        <div class="vl-column-next vl-column-next--8 vl-column-next--start-5 vl-column-next--justify-self-stretch">
+        <div class="vl-column vl-column--8 vl-column--start-5 vl-column--justify-self-stretch">
             &nbsp;justify-self-stretch&nbsp;
         </div>
-        <div class="vl-column-next vl-column-next--6 vl-column-next--align-self-start">
-            &nbsp;align-items-start&nbsp;
-        </div>
-        <div class="vl-column-next vl-column-next--6"></div>
-        <div class="vl-column-next vl-column-next--6 vl-column-next--align-self-center">
-            &nbsp;align-items-center&nbsp;
-        </div>
-        <div class="vl-column-next vl-column-next--6"></div>
-        <div class="vl-column-next vl-column-next--6 vl-column-next--align-self-end">&nbsp;align-items-end&nbsp;</div>
-        <div class="vl-column-next vl-column-next--6"></div>
-        <div class="vl-column-next vl-column-next--6 vl-column-next--align-self-stretch">
-            &nbsp;align-items-stretch&nbsp;
-        </div>
-        <div class="vl-column-next vl-column-next--6"></div>
+        <div class="vl-column vl-column--6 vl-column--align-self-start">&nbsp;align-items-start&nbsp;</div>
+        <div class="vl-column vl-column--6"></div>
+        <div class="vl-column vl-column--6 vl-column--align-self-center">&nbsp;align-items-center&nbsp;</div>
+        <div class="vl-column vl-column--6"></div>
+        <div class="vl-column vl-column--6 vl-column--align-self-end">&nbsp;align-items-end&nbsp;</div>
+        <div class="vl-column vl-column--6"></div>
+        <div class="vl-column vl-column--6 vl-column--align-self-stretch">&nbsp;align-items-stretch&nbsp;</div>
+        <div class="vl-column vl-column--6"></div>
     </div>
 `;
 GridJustifyAlign.storyName = 'vl-grid - justify / align';
 
 export const GridWithForm = () => html`
     <style>
-        form .vl-grid-next .vl-column-next {
+        form .vl-grid .vl-column {
             background-color: initial;
             border: initial;
         }
     </style>
     <form>
-        <div class="vl-grid-next">
-            <div class="vl-column-next vl-column-next--2">
-                <vl-form-label-next for="email" label="Email"></vl-form-label-next>
+        <div class="vl-grid">
+            <div class="vl-column vl-column--2">
+                <vl-form-label for="email" label="Email"></vl-form-label>
             </div>
-            <div class="vl-column-next vl-column-next--10">
-                <vl-input-field-next
-                    id="email"
-                    name="email"
-                    block
-                    placeholder="Bijv. naam@voorbeeld.be"
-                ></vl-input-field-next>
+            <div class="vl-column vl-column--10">
+                <vl-input-field id="email" name="email" block placeholder="Bijv. naam@voorbeeld.be"></vl-input-field>
             </div>
-            <div class="vl-column-next vl-column-next--2">
-                <vl-form-label-next for="name" label="Voornaam"></vl-form-label-next>
+            <div class="vl-column vl-column--2">
+                <vl-form-label for="name" label="Voornaam"></vl-form-label>
             </div>
-            <div class="vl-column-next vl-column-next--10">
-                <vl-input-field-next id="name" name="name" block placeholder="John"></vl-input-field-next>
+            <div class="vl-column vl-column--10">
+                <vl-input-field id="name" name="name" block placeholder="John"></vl-input-field>
             </div>
-            <div class="vl-column-next vl-column-next--2">
-                <vl-form-label-next for="surname" label="Naam"></vl-form-label-next>
+            <div class="vl-column vl-column--2">
+                <vl-form-label for="surname" label="Naam"></vl-form-label>
             </div>
-            <div class="vl-column-next vl-column-next--10">
-                <vl-input-field-next id="surname" name="surname" block placeholder="Doe"></vl-input-field-next>
+            <div class="vl-column vl-column--10">
+                <vl-input-field id="surname" name="surname" block placeholder="Doe"></vl-input-field>
             </div>
-            <div class="vl-column-next vl-column-next--10 vl-column-next--start-3">
-                <vl-button-next type="submit">Inschrijven</vl-button-next>
+            <div class="vl-column vl-column--10 vl-column--start-3">
+                <vl-button type="submit">Inschrijven</vl-button>
             </div>
         </div>
     </form>

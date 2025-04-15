@@ -1,6 +1,6 @@
 import { awaitUntil, BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
 import { vlGridStyles, vlGroupStyles, vlIconStyles, vlStackedStyles } from '@domg-wc/common-utilities/css';
-import { VlLinkComponent } from '@domg-wc/components/next/link';
+import { VlLinkComponent } from '../link';
 import { accessibilityStyle, resetStyle } from '@domg/govflanders-style/common';
 import { modalStyle } from '@domg/govflanders-style/component';
 import '@govflanders/vl-ui-core/dist/js/core.js';
@@ -43,16 +43,16 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
             <div class="vl-modal">
                 <dialog class="vl-modal-dialog" data-vl-modal tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-toggle-title" aria-describedby="modal-toggle-description">
                     <div class="vl-modal-dialog__wrapper" id="modal-dialog-wrapper">
-                        <div class="vl-grid-next vl-stacked-next-small">
-                            <div id="modal-toggle-description" class="vl-column-next vl-column-next--12 vl-column-next--m-12 vl-modal-dialog__content">
+                        <div class="vl-grid vl-stacked-small">
+                            <div id="modal-toggle-description" class="vl-column vl-column--12 vl-column--m-12 vl-modal-dialog__content">
                                 <slot name="content">Modal content</slot>
                             </div>
-                            <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
-                                <div id="modal-action-group" class="vl-group-next">
+                            <div class="vl-column vl-column--12 vl-column--m-12">
+                                <div id="modal-action-group" class="vl-group">
                                     <slot name="button" data-vl-modal-close></slot>
-                                    <vl-link-next id="modal-toggle-cancellable"
+                                    <vl-link id="modal-toggle-cancellable"
                                      button-as-link icon="cross" icon-placement="before"
-                                     data-vl-modal-close>Annuleer</vl-link-next>
+                                     data-vl-modal-close>Annuleer</vl-link>
                                 </div>
                             </div>
                         </div>
@@ -179,9 +179,9 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
 
     _getCancelTemplate() {
         return this._template(`
-      <vl-link-next id="modal-toggle-cancellable" button-as-link icon="cross" icon-placement="before"
+      <vl-link id="modal-toggle-cancellable" button-as-link icon="cross" icon-placement="before"
       data-vl-modal-close
-      >Annuleer</vl-link-next>
+      >Annuleer</vl-link>
 `);
     }
 

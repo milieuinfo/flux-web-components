@@ -1,7 +1,6 @@
-const bodyNextDefaultUrl =
-    'http://localhost:8080/iframe.html?id=styles-next-base-intern-body--body-default&viewMode=story';
+const bodyNextDefaultUrl = 'http://localhost:8080/iframe.html?id=styles-base-intern-body--body-default&viewMode=story';
 
-describe('story - body-next - default', () => {
+describe('story - body - default', () => {
     it('should render', () => {
         cy.visit(bodyNextDefaultUrl);
 

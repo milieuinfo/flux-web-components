@@ -1,8 +1,6 @@
 import { BaseLitElement, registerWebComponents } from '@domg-wc/common-utilities';
 import { vlGroupStyles } from '@domg-wc/common-utilities/css';
-import { VlFunctionalHeaderComponent } from '@domg-wc/components';
-import { VlLinkComponent } from '@domg-wc/components/next/link';
-import { VlTitleComponent } from '@domg-wc/components/next/title';
+import { VlFunctionalHeaderComponent, VlLinkComponent, VlTitleComponent } from '@domg-wc/components';
 import { vlElementsStyle } from '@domg-wc/elements';
 import { CSSResult, html, type PropertyDeclarations } from 'lit';
 import { customElement } from 'lit/decorators.js';

@@ -1,13 +1,13 @@
 export const buttonsInActionGroupHtml = (importType, packageName) => `
     <div id="consumer-elements">
-        <vl-title-next type="h2">Buttons In Action Group - ${importType} - ${packageName}</vl-title-next>
-        <div class="vl-group-next">
-            <vl-button-next>
+        <vl-title type="h2">Buttons In Action Group - ${importType} - ${packageName}</vl-title>
+        <div class="vl-group">
+            <vl-button>
                 Aanvraag starten
-            </vl-button-next>
-            <vl-button-next secondary>
+            </vl-button>
+            <vl-button secondary>
                 Annuleren
-            </vl-button-next>
+            </vl-button>
         </div>
     </div>
 `;

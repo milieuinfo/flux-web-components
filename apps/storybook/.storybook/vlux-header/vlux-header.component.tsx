@@ -14,7 +14,7 @@ export const VluxHeader = ({ of }) => {
 
 const formatTitle = (title: string): string => {
     let endPart = title.split('/').pop() ?? '';
-    const isNext = title.includes('-next');
+    const isNext = title.includes('');
     endPart = endPart
         .split('-')
         .map((text) => text.charAt(0).toUpperCase() + text.slice(1))

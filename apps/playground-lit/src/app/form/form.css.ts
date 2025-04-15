@@ -6,7 +6,7 @@ const styles: CSSResult = css`
     }
 
     .form-buttons {
-        vl-button-next:not(:last-child) {
+        vl-button:not(:last-child) {
             margin-right: 1.4rem;
         }
     }

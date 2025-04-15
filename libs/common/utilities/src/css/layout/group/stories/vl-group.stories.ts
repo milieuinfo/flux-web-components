@@ -1,16 +1,13 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlAccordionComponent } from '@domg-wc/components';
-import { VlButtonComponent } from '@domg-wc/components/next/button';
-import { VlIconComponent } from '@domg-wc/components/next/icon';
-import { VlLinkComponent } from '@domg-wc/components/next/link';
+import { VlAccordionComponent, VlButtonComponent, VlIconComponent, VlLinkComponent } from '@domg-wc/components';
 import { html } from 'lit-html';
 import { classMap } from 'lit/directives/class-map.js';
 import { vlGroupArgs, vlGroupArgTypes } from './vl-group.stories-arg';
 import vlGroupStoriesDoc from './vl-group.stories-doc.mdx';
 
 export default {
-    id: 'styles-next-layout-afnemers-group',
-    title: 'Styles-next/Layout (afnemers)/group',
+    id: 'styles-layout-afnemers-group',
+    title: 'Styles/Layout (afnemers)/group',
     tags: ['autodocs'],
     args: vlGroupArgs,
     argTypes: vlGroupArgTypes,
@@ -37,21 +34,21 @@ export const GroupButtons = ({
     spaceBetween,
 }: typeof vlGroupArgs) => html` <div
     class=${classMap({
-        'vl-group-next': group,
-        'vl-group-next--collapse-l': collapseL,
-        'vl-group-next--collapse-m': collapseM,
-        'vl-group-next--collapse-s': collapseS,
-        'vl-group-next--collapse-xs': collapseXS,
-        'vl-group-next--column': column,
-        'vl-group-next--justify-center': justifyCenter,
-        'vl-group-next--justify-end': justifyEnd,
-        'vl-group-next--separator-column': separatorColumn,
-        'vl-group-next--separator-row': separatorRow,
-        'vl-group-next--space-between': spaceBetween,
+        'vl-group': group,
+        'vl-group--collapse-l': collapseL,
+        'vl-group--collapse-m': collapseM,
+        'vl-group--collapse-s': collapseS,
+        'vl-group--collapse-xs': collapseXS,
+        'vl-group--column': column,
+        'vl-group--justify-center': justifyCenter,
+        'vl-group--justify-end': justifyEnd,
+        'vl-group--separator-column': separatorColumn,
+        'vl-group--separator-row': separatorRow,
+        'vl-group--space-between': spaceBetween,
     })}
 >
-    <vl-button-next>Aanvraag starten</vl-button-next>
-    <vl-button-next secondary>Annuleren</vl-button-next>
+    <vl-button>Aanvraag starten</vl-button>
+    <vl-button secondary>Annuleren</vl-button>
 </div>`;
 GroupButtons.storyName = 'vl-group - buttons';
 
@@ -69,23 +66,23 @@ export const GroupLinks = ({
     spaceBetween,
 }: typeof vlGroupArgs) => html` <div
     class=${classMap({
-        'vl-group-next': group,
-        'vl-group-next--collapse-l': collapseL,
-        'vl-group-next--collapse-m': collapseM,
-        'vl-group-next--collapse-s': collapseS,
-        'vl-group-next--collapse-xs': collapseXS,
-        'vl-group-next--column': column,
-        'vl-group-next--justify-center': justifyCenter,
-        'vl-group-next--justify-end': justifyEnd,
-        'vl-group-next--separator-column': separatorColumn,
-        'vl-group-next--separator-row': separatorRow,
-        'vl-group-next--space-between': spaceBetween,
+        'vl-group': group,
+        'vl-group--collapse-l': collapseL,
+        'vl-group--collapse-m': collapseM,
+        'vl-group--collapse-s': collapseS,
+        'vl-group--collapse-xs': collapseXS,
+        'vl-group--column': column,
+        'vl-group--justify-center': justifyCenter,
+        'vl-group--justify-end': justifyEnd,
+        'vl-group--separator-column': separatorColumn,
+        'vl-group--separator-row': separatorRow,
+        'vl-group--space-between': spaceBetween,
     })}
     style="height: 140px"
 >
-    <vl-link-next href="#" icon="bell"> Notificaties</vl-link-next>
-    <vl-link-next href="#" icon="graduate"> Opleidingen</vl-link-next>
-    <vl-link-next href="#" icon="pin"> Locaties</vl-link-next>
+    <vl-link href="#" icon="bell"> Notificaties</vl-link>
+    <vl-link href="#" icon="graduate"> Opleidingen</vl-link>
+    <vl-link href="#" icon="pin"> Locaties</vl-link>
 </div>`;
 GroupLinks.storyName = 'vl-group - links';
 GroupLinks.args = {
@@ -107,34 +104,34 @@ export const GroupAccordions = ({
     stretchChildren,
 }: typeof vlGroupArgs) => html` <div
     class=${classMap({
-        'vl-group-next': group,
-        'vl-group-next--collapse-l': collapseL,
-        'vl-group-next--collapse-m': collapseM,
-        'vl-group-next--collapse-s': collapseS,
-        'vl-group-next--collapse-xs': collapseXS,
-        'vl-group-next--column': column,
-        'vl-group-next--justify-center': justifyCenter,
-        'vl-group-next--justify-end': justifyEnd,
-        'vl-group-next--separator-column': separatorColumn,
-        'vl-group-next--separator-row': separatorRow,
-        'vl-group-next--space-between': spaceBetween,
-        'vl-group-next--stretch-children': stretchChildren,
+        'vl-group': group,
+        'vl-group--collapse-l': collapseL,
+        'vl-group--collapse-m': collapseM,
+        'vl-group--collapse-s': collapseS,
+        'vl-group--collapse-xs': collapseXS,
+        'vl-group--column': column,
+        'vl-group--justify-center': justifyCenter,
+        'vl-group--justify-end': justifyEnd,
+        'vl-group--separator-column': separatorColumn,
+        'vl-group--separator-row': separatorRow,
+        'vl-group--space-between': spaceBetween,
+        'vl-group--stretch-children': stretchChildren,
     })}
 >
     <vl-accordion data-vl-toggle-text="Accordion 1">
-        <div class="vl-group-next vl-group-next--column vl-group-next--stretch-children">
+        <div class="vl-group vl-group--column vl-group--stretch-children">
             <vl-accordion data-vl-toggle-text="Accordion 1.1"> Inhoud accordion 1.1</vl-accordion>
             <vl-accordion data-vl-toggle-text="Accordion 1.2"> Inhoud accordion 1.2</vl-accordion>
         </div>
     </vl-accordion>
     <vl-accordion data-vl-toggle-text="Accordion 2">
-        <div class="vl-group-next vl-group-next--column vl-group-next--stretch-children">
+        <div class="vl-group vl-group--column vl-group--stretch-children">
             <vl-accordion data-vl-toggle-text="Accordion 2.1"> Inhoud accordion 2.1</vl-accordion>
             <vl-accordion data-vl-toggle-text="Accordion 2.2"> Inhoud accordion 2.2</vl-accordion>
         </div>
     </vl-accordion>
     <vl-accordion data-vl-toggle-text="Accordion 3">
-        <div class="vl-group-next vl-group-next--column vl-group-next--stretch-children">
+        <div class="vl-group vl-group--column vl-group--stretch-children">
             <vl-accordion data-vl-toggle-text="Accordion 3.1"> Inhoud accordion 3.1</vl-accordion>
             <vl-accordion data-vl-toggle-text="Accordion 3.2"> Inhoud accordion 3.2</vl-accordion>
         </div>
@@ -161,23 +158,23 @@ export const GroupIcons = ({
     spaceBetween,
 }: typeof vlGroupArgs) => html` <div
     class=${classMap({
-        'vl-group-next': group,
-        'vl-group-next--collapse-l': collapseL,
-        'vl-group-next--collapse-m': collapseM,
-        'vl-group-next--collapse-s': collapseS,
-        'vl-group-next--collapse-xs': collapseXS,
-        'vl-group-next--column': column,
-        'vl-group-next--justify-center': justifyCenter,
-        'vl-group-next--justify-end': justifyEnd,
-        'vl-group-next--separator-column': separatorColumn,
-        'vl-group-next--separator-row': separatorRow,
-        'vl-group-next--space-between': spaceBetween,
+        'vl-group': group,
+        'vl-group--collapse-l': collapseL,
+        'vl-group--collapse-m': collapseM,
+        'vl-group--collapse-s': collapseS,
+        'vl-group--collapse-xs': collapseXS,
+        'vl-group--column': column,
+        'vl-group--justify-center': justifyCenter,
+        'vl-group--justify-end': justifyEnd,
+        'vl-group--separator-column': separatorColumn,
+        'vl-group--separator-row': separatorRow,
+        'vl-group--space-between': spaceBetween,
     })}
     style="height: 140px"
 >
-    <vl-icon-next href="#" icon="bell"></vl-icon-next>
-    <vl-icon-next href="#" icon="graduate"></vl-icon-next>
-    <vl-icon-next href="#" icon="pin"></vl-icon-next>
+    <vl-icon href="#" icon="bell"></vl-icon>
+    <vl-icon href="#" icon="graduate"></vl-icon>
+    <vl-icon href="#" icon="pin"></vl-icon>
 </div>`;
 GroupIcons.storyName = 'vl-group - icons';
 GroupIcons.args = {

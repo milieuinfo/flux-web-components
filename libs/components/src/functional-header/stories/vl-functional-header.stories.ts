@@ -1,6 +1,6 @@
 import { story } from '@domg-wc/common-storybook';
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlTabsComponent } from '@domg-wc/components/next/tabs';
+import { VlTabsComponent } from '@domg-wc/components';
 import { action } from '@storybook/addon-actions';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
@@ -114,17 +114,17 @@ export const FunctionalHeaderTabs = story(
             data-vl-margin-bottom=${marginBottom}
             data-vl-title=${title}
         >
-            <vl-tabs-next
+            <vl-tabs
                 slot="sub-header"
                 disable-links
                 within-functional-header
                 active-tab="trein"
                 @change=${(event: CustomEvent) => action('change')(event.detail)}
             >
-                <vl-tabs-pane-next id="trein" title="Trein"></vl-tabs-pane-next>
-                <vl-tabs-pane-next id="metro" title="Metro, tram en bus"></vl-tabs-pane-next>
-                <vl-tabs-pane-next id="fiets" title="Fiets"></vl-tabs-pane-next>
-            </vl-tabs-next>
+                <vl-tabs-pane id="trein" title="Trein"></vl-tabs-pane>
+                <vl-tabs-pane id="metro" title="Metro, tram en bus"></vl-tabs-pane>
+                <vl-tabs-pane id="fiets" title="Fiets"></vl-tabs-pane>
+            </vl-tabs>
         </vl-functional-header>
     `
 );

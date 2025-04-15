@@ -7,12 +7,12 @@ import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../vl-rich-data-table.component';
 import { VlRichDataTable } from '../vl-rich-data-table.component';
-import { VlSearchFilterComponent } from '../../next/search-filter';
-import { VlButtonComponent } from '../../next/button';
-import { VlTitleComponent } from '../../next/title';
-import { VlFormLabelComponent } from '@domg-wc/form/next/form-label';
-import { VlInputFieldComponent } from '@domg-wc/form/next/input-field';
-import { VlSelectComponent } from '@domg-wc/form/next/select';
+import { VlSearchFilterComponent } from '../../search-filter';
+import { VlButtonComponent } from '../../button';
+import { VlTitleComponent } from '../../title';
+import { VlFormLabelComponent } from '@domg-wc/form';
+import { VlInputFieldComponent } from '@domg-wc/form';
+import { VlSelectComponent } from '@domg-wc/form';
 import { filterRichTableImplementation } from './vl-rich-data-table-filter.stories-util';
 import richDataFilterPagerData from './vl-rich-data-table-pagination.stories-mock';
 import { paginationRichTableImplementation } from './vl-rich-data-table-pagination.stories-util';
@@ -138,48 +138,48 @@ const TemplateFilter = story(
                     data-vl-label="Eerste medewerker"
                     data-vl-selector="medewerkers.0.lastName"
                 ></vl-rich-data-field>
-                <vl-search-filter-next slot="filter" alt>
+                <vl-search-filter slot="filter" alt>
                     <form>
                             <section>
-                                <vl-title-next type="h2" alt no-space-bottom="">Doorzoek projecten</vl-title-next>
+                                <vl-title type="h2" alt no-space-bottom="">Doorzoek projecten</vl-title>
                                 <div>
-                                    <vl-form-label-next
+                                    <vl-form-label
                                         for="filterOpId"
                                         label="Project id"
                                         light
-                                    ></vl-form-label-next>
-                                    <vl-input-field-next
+                                    ></vl-form-label>
+                                    <vl-input-field
                                         id="filterOpId"
                                         type="text"
                                         name="id"
                                         block
-                                    ></vl-input-field-next>
+                                    ></vl-input-field>
                                 </div>
                                 <div>
-                                    <vl-form-label-next for="filterOpNaamProject" label="Project naam" light></vl-form-label-next>
-                                    <vl-input-field-next
+                                    <vl-form-label for="filterOpNaamProject" label="Project naam" light></vl-form-label>
+                                    <vl-input-field
                                         type="text"
                                         id="filterOpNaamProject"
                                         name="name"
                                         block
-                                    ></vl-input-field-next>
+                                    ></vl-input-field>
                                 </div><div>
-                                <vl-form-label-next for="filterOpNaamManager" label="Manager familienaam" light></vl-form-label-next>
-                                <vl-input-field-next
+                                <vl-form-label for="filterOpNaamManager" label="Manager familienaam" light></vl-form-label>
+                                <vl-input-field
                                     type="text"
                                     id="filterOpNaamManager"
                                     name="manager.lastName"
                                     block
                                     autocomplete="family-name"
-                                ></vl-input-field-next>
+                                ></vl-input-field>
                             </div>
                             </section>
                         <footer>
-                            <vl-button-next type="submit" custom-css="button {flex:1}">Zoeken</vl-button-next>
-                            <vl-button-next type="reset" custom-css="button {flex:1}" secondary>Reset</vl-button-next-->
+                            <vl-button type="submit" custom-css="button {flex:1}">Zoeken</vl-button>
+                            <vl-button type="reset" custom-css="button {flex:1}" secondary>Reset</vl-button-->
                         </footer>
                     </form>
-                </vl-search-filter-next>
+                </vl-search-filter>
                 <vl-pager
                     id="rich-data-table-filter"
                     slot="pager"

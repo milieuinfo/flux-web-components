@@ -1,5 +1,5 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { VlIconComponent } from '@domg-wc/components/next/icon';
+import { VlIconComponent } from '../icon';
 import styles from './vl-rich-data-table.uig-css';
 
 @webComponent('vl-rich-data-sorter')
@@ -42,7 +42,7 @@ export class VlRichDataSorter extends BaseElementOfType(HTMLElement) {
             }
           </style>
           <div id="container" class="vl-u-visually-hidden">
-            <vl-icon-next id="direction"></vl-icon-next>
+            <vl-icon id="direction"></vl-icon>
             <label id="priority"></label>
           </div>
         `);

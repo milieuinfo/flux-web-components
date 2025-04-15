@@ -1,7 +1,7 @@
 import './component/components-named.component';
 import './component/map-named.component';
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlTitleComponent } from '@domg-wc/components/next/title';
+import { VlTitleComponent } from '@domg-wc/components';
 
 registerWebComponents([VlTitleComponent]);
 
@@ -9,7 +9,7 @@ export class AppNamedComponent extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
             <div class="wrapper">
-                <vl-title-next type="h1">Consumer App</vl-title-next>
+                <vl-title type="h1">Consumer App</vl-title>
                 <consumer-elements-named></consumer-elements-named>
                 <br><br>
                 <consumer-components-named></consumer-components-named>

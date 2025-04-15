@@ -58,7 +58,7 @@ const generateAllIconsComponent = (glyphs) => {
         import { CSSResult, LitElement, css, html } from 'lit';
         import { registerWebComponents, webComponent } from '@domg-wc/common-utilities';
         import { vlIconStyles } from '@domg-wc/common-utilities/css';
-        import { VlIconComponent } from '@domg-wc/components/next/icon';
+        import { VlIconComponent } from '@domg-wc/components';
 
         @webComponent('vl-all-icons')
         export class VlAllIconsComponent extends LitElement {
@@ -104,7 +104,7 @@ const generateAllIconsComponent = (glyphs) => {
                             `$` +
                             `{allIcons.map((icon) => html${'`'}
                                 <div class="icon" @click=${'$'}{() => this.handleClickIcon(icon)}>
-                                    <vl-icon-next icon=${'$'}{icon}></vl-icon-next>
+                                    <vl-icon icon=${'$'}{icon}></vl-icon>
                                     <span class="name">${'$'}{icon}</span>
                                 </div>
                         ${'`'})}`

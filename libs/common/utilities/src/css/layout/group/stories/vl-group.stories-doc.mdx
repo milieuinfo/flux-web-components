@@ -2,11 +2,11 @@ import {Canvas} from '@storybook/blocks';
 import {Meta} from '@storybook/addon-docs';
 import * as VlGroupStories from './vl-group.stories';
 
-<Meta title="Styles-next/Layout (afnemers)/group"/>
+<Meta title="Styles/Layout (afnemers)/group"/>
 
-# Group - next
+# Group
 
-<VluxMetaData id="styles-next-layout-afnemers-group" />
+<VluxMetaData id="styles-layout-afnemers-group" />
 <br/>
 
 
@@ -18,7 +18,7 @@ import * as VlGroupStories from './vl-group.stories';
 
 ## Doel
 
-`vl-group-next` voorziet style-classes om horizontaal en verticaal (identieke) componenten te groeperen. De CSS
+`vl-group` voorziet style-classes om horizontaal en verticaal (identieke) componenten te groeperen. De CSS
 is een specifieke implementatie gebruik makend van de [CSS Flexbox Layout](https://css-tricks.com/snippets/css/a-guide-to-flexbox/),
 die standaard door [browsers](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout) voorzien wordt.
 
@@ -27,45 +27,45 @@ die standaard door [browsers](https://developer.mozilla.org/en-US/docs/Web/CSS/C
 
 ### Default
 
-Default worden items in een `vl-group-next` naast elkaar (horizontaal) gegroepeerd.
+Default worden items in een `vl-group` naast elkaar (horizontaal) gegroepeerd.
 
 <Canvas of={VlGroupStories.GroupButtons} />
 
 ### Verticaal Groeperen
 
-Met `vl-group-next--column` worden items onder elkaar gegroepeerd. In onderstaand voorbeeld wordt ook
-`vl-group-next--separator-column` toegevoegd en `vl-group-next--stretch-children` om de volledige breedte in te nemen.
+Met `vl-group--column` worden items onder elkaar gegroepeerd. In onderstaand voorbeeld wordt ook
+`vl-group--separator-column` toegevoegd en `vl-group--stretch-children` om de volledige breedte in te nemen.
 
 <Canvas of={VlGroupStories.GroupAccordions} />
 
 ### Uitlijning
 
-Default worden items links uitgelijnd. Centreren kan met `vl-group-next--justify-center`, rechts uitlijnen
-met `vl-group-next--justify-end`. In combinatie met de kolom layout (`vl-group-next--column`), wijzigt de richting.
+Default worden items links uitgelijnd. Centreren kan met `vl-group--justify-center`, rechts uitlijnen
+met `vl-group--justify-end`. In combinatie met de kolom layout (`vl-group--column`), wijzigt de richting.
 Er wordt dan respectievelijk boven, midden of onderaan uitgelijnd.
 
-Met `vl-group-next--space-between` wordt het eerste item uiterst links gezet, het laaste uiterst rechts en de
+Met `vl-group--space-between` wordt het eerste item uiterst links gezet, het laaste uiterst rechts en de
 overige ertussen, gelijkmatig verdeeld.
 
-Met `vl-group-next--baseline` worden de items uitgelijnd volgens de tekst basis van hun eerste element.
+Met `vl-group--baseline` worden de items uitgelijnd volgens de tekst basis van hun eerste element.
 Dit is vooral handig voor items met een verschillende `font-size`, zoals een heading met daarnaast een tekstuele link.
 
 De container waarin uitgelijnd wordt dient ruimte te hebben om uit te lijnen!
 
 ### Scheidingslijnen
 
-Tussen items kan een grijze lijn getoond worden. In row layout (default) gebruik je `vl-group-next--separator-row`,
-in kolom layout `vl-group-next--separator-column`.
+Tussen items kan een grijze lijn getoond worden. In row layout (default) gebruik je `vl-group--separator-row`,
+in kolom layout `vl-group--separator-column`.
 
 ### Responsief
 
-Er bestaan 4 responsieve style-classes `vl-group-next--collapse-l` / `vl-group-next--collapse-m` /
-`vl-group-next--collapse-s` / `vl-group-next--collapse-cs` voor de verschillende scherm groottes: **large** (&gt;1023px),
+Er bestaan 4 responsieve style-classes `vl-group--collapse-l` / `vl-group--collapse-m` /
+`vl-group--collapse-s` / `vl-group--collapse-cs` voor de verschillende scherm groottes: **large** (&gt;1023px),
 **medium** (&lt;1023px), **small** (&lt;767px) en **extra-small** (&lt;500px). Door de desbetreffende class toe te
 voegen wordt er bij / vanaf die desbetreffende scherm grootte links uitgelijnd in kolom layout.
 
 ### Input Group
 
-De style-class `vl-group-next--input-group` is er om de groep een specifieke stijl te geven bij een combinatie van een knop
-en een input veld. De class heeft enkel effect bij die combinatie. Zie [Input Group [next]](/docs/form-next-input-group--documentatie)
+De style-class `vl-group--input-group` is er om de groep een specifieke stijl te geven bij een combinatie van een knop
+en een input veld. De class heeft enkel effect bij die combinatie. Zie [Input Group [next]](/docs/form-input-group--documentatie)
 voor meer informatie en voorbeelden.

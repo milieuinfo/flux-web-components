@@ -1,4 +1,4 @@
-import '@domg-wc/components/next/title';
+import '@domg-wc/components/title';
 import './component/components-side-effect.component';
 import './component/map-side-effect.component';
 
@@ -6,7 +6,7 @@ export class AppSideEffectComponent extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
             <div class="wrapper">
-                <vl-title-next type="h1">Consumer App</vl-title-next>
+                <vl-title type="h1">Consumer App</vl-title>
                 <consumer-elements-side-effect></consumer-elements-side-effect>
                 <br><br>
                 <consumer-components-side-effect></consumer-components-side-effect>

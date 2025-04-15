@@ -1,5 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlTabsComponent } from '@domg-wc/components/next/tabs';
+import { VlTabsComponent } from '@domg-wc/components';
 import { html } from 'lit';
 import { VlBreadcrumbComponent } from './../breadcrumb';
 import { VlFunctionalHeaderComponent } from './vl-functional-header.component';
@@ -232,16 +232,11 @@ describe('story - vl-functional-header - tabs', () => {
     it('should be accessible', () => {
         cy.mount(html`
             <vl-functional-header title="test">
-                <vl-tabs-next
-                    slot="sub-header"
-                    disable-links
-                    within-functional-header
-                    active-tab="trein"
-                >
-                    <vl-tabs-pane-next id="trein" title="Trein"></vl-tabs-pane-next>
-                    <vl-tabs-pane-next id="metro" title="Metro, tram en bus"></vl-tabs-pane-next>
-                    <vl-tabs-pane-next id="fiets" title="Fiets"></vl-tabs-pane-next>
-                </vl-tabs-next>
+                <vl-tabs slot="sub-header" disable-links within-functional-header active-tab="trein">
+                    <vl-tabs-pane id="trein" title="Trein"></vl-tabs-pane>
+                    <vl-tabs-pane id="metro" title="Metro, tram en bus"></vl-tabs-pane>
+                    <vl-tabs-pane id="fiets" title="Fiets"></vl-tabs-pane>
+                </vl-tabs>
             </vl-functional-header>
         `);
 
@@ -252,16 +247,11 @@ describe('story - vl-functional-header - tabs', () => {
     it('should set title link', () => {
         cy.mount(html`
             <vl-functional-header data-vl-link="test">
-                <vl-tabs-next
-                    slot="sub-header"
-                    disable-links
-                    within-functional-header
-                    active-tab="trein"
-                >
-                    <vl-tabs-pane-next id="trein" title="Trein"></vl-tabs-pane-next>
-                    <vl-tabs-pane-next id="metro" title="Metro, tram en bus"></vl-tabs-pane-next>
-                    <vl-tabs-pane-next id="fiets" title="Fiets"></vl-tabs-pane-next>
-                </vl-tabs-next>
+                <vl-tabs slot="sub-header" disable-links within-functional-header active-tab="trein">
+                    <vl-tabs-pane id="trein" title="Trein"></vl-tabs-pane>
+                    <vl-tabs-pane id="metro" title="Metro, tram en bus"></vl-tabs-pane>
+                    <vl-tabs-pane id="fiets" title="Fiets"></vl-tabs-pane>
+                </vl-tabs>
             </vl-functional-header>
         `);
 
@@ -271,16 +261,11 @@ describe('story - vl-functional-header - tabs', () => {
     it('should set title text', () => {
         cy.mount(html`
             <vl-functional-header data-vl-title="School en studietoelagen">
-                <vl-tabs-next
-                    slot="sub-header"
-                    disable-links
-                    within-functional-header
-                    active-tab="trein"
-                >
-                    <vl-tabs-pane-next data-vl-id="trein" data-vl-title="Trein"></vl-tabs-pane-next>
-                    <vl-tabs-pane-next data-vl-id="metro" data-vl-title="Metro, tram en bus"></vl-tabs-pane-next>
-                    <vl-tabs-pane-next data-vl-id="fiets" data-vl-title="Fiets"></vl-tabs-pane-next>
-                </vl-tabs-next>
+                <vl-tabs slot="sub-header" disable-links within-functional-header active-tab="trein">
+                    <vl-tabs-pane data-vl-id="trein" data-vl-title="Trein"></vl-tabs-pane>
+                    <vl-tabs-pane data-vl-id="metro" data-vl-title="Metro, tram en bus"></vl-tabs-pane>
+                    <vl-tabs-pane data-vl-id="fiets" data-vl-title="Fiets"></vl-tabs-pane>
+                </vl-tabs>
             </vl-functional-header>
         `);
 
@@ -290,39 +275,34 @@ describe('story - vl-functional-header - tabs', () => {
     it('should have three tabs with titles', () => {
         cy.mount(html`
             <vl-functional-header>
-                <vl-tabs-next
-                    slot="sub-header"
-                    disable-links
-                    within-functional-header
-                    active-tab="trein"
-                >
-                    <vl-tabs-pane-next id="trein" title="Trein"></vl-tabs-pane-next>
-                    <vl-tabs-pane-next id="metro" title="Metro, tram en bus"></vl-tabs-pane-next>
-                    <vl-tabs-pane-next id="fiets" title="Fiets"></vl-tabs-pane-next>
-                </vl-tabs-next>
+                <vl-tabs slot="sub-header" disable-links within-functional-header active-tab="trein">
+                    <vl-tabs-pane id="trein" title="Trein"></vl-tabs-pane>
+                    <vl-tabs-pane id="metro" title="Metro, tram en bus"></vl-tabs-pane>
+                    <vl-tabs-pane id="fiets" title="Fiets"></vl-tabs-pane>
+                </vl-tabs>
             </vl-functional-header>
         `);
 
-        cy.get('vl-tabs-next')
+        cy.get('vl-tabs')
             .shadow()
             .find('ul.vl-tabs')
-            .find('vl-tab-next[id="trein"]')
+            .find('vl-tab[id="trein"]')
             .find('a')
             .find('slot')
             .contains('Trein');
 
-        cy.get('vl-tabs-next')
+        cy.get('vl-tabs')
             .shadow()
             .find('ul.vl-tabs')
-            .find('vl-tab-next[id="metro"]')
+            .find('vl-tab[id="metro"]')
             .find('a')
             .find('slot')
             .contains('Metro, tram en bus');
 
-        cy.get('vl-tabs-next')
+        cy.get('vl-tabs')
             .shadow()
             .find('ul.vl-tabs')
-            .find('vl-tab-next[id="fiets"]')
+            .find('vl-tab[id="fiets"]')
             .find('a')
             .find('slot')
             .contains('Fiets');
@@ -331,22 +311,17 @@ describe('story - vl-functional-header - tabs', () => {
     it('should emit event on click tab', () => {
         cy.mount(html`
             <vl-functional-header>
-                <vl-tabs-next
-                    slot="sub-header"
-                    disable-links
-                    within-functional-header
-                    active-tab="trein"
-                >
-                    <vl-tabs-pane-next id="trein" title="Trein"></vl-tabs-pane-next>
-                    <vl-tabs-pane-next id="metro" title="Metro, tram en bus"></vl-tabs-pane-next>
-                    <vl-tabs-pane-next id="fiets" title="Fiets"></vl-tabs-pane-next>
-                </vl-tabs-next>
+                <vl-tabs slot="sub-header" disable-links within-functional-header active-tab="trein">
+                    <vl-tabs-pane id="trein" title="Trein"></vl-tabs-pane>
+                    <vl-tabs-pane id="metro" title="Metro, tram en bus"></vl-tabs-pane>
+                    <vl-tabs-pane id="fiets" title="Fiets"></vl-tabs-pane>
+                </vl-tabs>
             </vl-functional-header>
         `);
 
-        cy.createStubForEvent('vl-tabs-next', 'change');
-        cy.get('vl-tabs-next').shadow().find('button[tabs-toggle]').click({ force: true });
-        cy.get('vl-tabs-next').shadow().find('vl-tab-next[id="trein"]').click({ force: true });
+        cy.createStubForEvent('vl-tabs', 'change');
+        cy.get('vl-tabs').shadow().find('button[tabs-toggle]').click({ force: true });
+        cy.get('vl-tabs').shadow().find('vl-tab[id="trein"]').click({ force: true });
         cy.get('@change').should('have.been.calledOnce');
     });
 
@@ -355,28 +330,23 @@ describe('story - vl-functional-header - tabs', () => {
         cy.viewport(550, 750);
         cy.mount(html`
             <vl-functional-header>
-                <vl-tabs-next
-                    slot="sub-header"
-                    disable-links
-                    within-functional-header
-                    active-tab="trein"
-                >
-                    <vl-tabs-pane-next id="trein" title="Trein"></vl-tabs-pane-next>
-                    <vl-tabs-pane-next id="metro" title="Metro, tram en bus"></vl-tabs-pane-next>
-                    <vl-tabs-pane-next id="fiets" title="Fiets"></vl-tabs-pane-next>
-                </vl-tabs-next>
+                <vl-tabs slot="sub-header" disable-links within-functional-header active-tab="trein">
+                    <vl-tabs-pane id="trein" title="Trein"></vl-tabs-pane>
+                    <vl-tabs-pane id="metro" title="Metro, tram en bus"></vl-tabs-pane>
+                    <vl-tabs-pane id="fiets" title="Fiets"></vl-tabs-pane>
+                </vl-tabs>
             </vl-functional-header>
         `);
 
-        cy.get('vl-tabs-next').shadow().find('ul#tab-list').should('have.attr', 'show', 'false');
-        cy.get('vl-tabs-next').shadow().find('button.vl-tabs__toggle').click();
-        cy.get('vl-tabs-next').shadow().find('ul#tab-list').should('have.attr', 'show', 'true');
-        cy.get('vl-tabs-next').shadow().find('button.vl-tabs__toggle').click();
-        cy.get('vl-tabs-next').shadow().find('ul#tab-list').should('have.attr', 'show', 'false');
-        cy.get('vl-tabs-next').shadow().find('button.vl-tabs__toggle').click();
-        cy.get('vl-tabs-next').shadow().find('ul#tab-list').should('have.attr', 'show', 'true');
-        cy.get('vl-tabs-next').shadow().find('vl-tab-next[id="trein"]').find('a').click();
-        cy.get('vl-tabs-next').shadow().find('ul#tab-list').should('have.attr', 'show', 'false');
+        cy.get('vl-tabs').shadow().find('ul#tab-list').should('have.attr', 'show', 'false');
+        cy.get('vl-tabs').shadow().find('button.vl-tabs__toggle').click();
+        cy.get('vl-tabs').shadow().find('ul#tab-list').should('have.attr', 'show', 'true');
+        cy.get('vl-tabs').shadow().find('button.vl-tabs__toggle').click();
+        cy.get('vl-tabs').shadow().find('ul#tab-list').should('have.attr', 'show', 'false');
+        cy.get('vl-tabs').shadow().find('button.vl-tabs__toggle').click();
+        cy.get('vl-tabs').shadow().find('ul#tab-list').should('have.attr', 'show', 'true');
+        cy.get('vl-tabs').shadow().find('vl-tab[id="trein"]').find('a').click();
+        cy.get('vl-tabs').shadow().find('ul#tab-list').should('have.attr', 'show', 'false');
     });
 });
 
