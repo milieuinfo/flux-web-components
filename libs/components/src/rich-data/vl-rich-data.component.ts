@@ -1,9 +1,9 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
 import { vlGridStyles, vlIconStyles } from '@domg-wc/common-utilities/css';
-import { buttonStyles } from '@domg-wc/components/next/button/vl-button.css';
-import { VlFormLabelComponent } from '@domg-wc/form/next/form-label';
-import { VlSearchFilterComponent } from '../next/search-filter';
-import { Pagination, VlPagerComponent } from '../pager/vl-pager.component';
+import { buttonStyles } from '../button/vl-button.css';
+import { VlFormLabelComponent } from '@domg-wc/form';
+import { VlSearchFilterComponent } from '../search-filter';
+import { Pagination, VlPagerComponent } from '../pager';
 import styles from './vl-rich-data.uig-css';
 
 export interface RichDataMeta {
@@ -39,43 +39,43 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
             ${vlGridStyles}
           </style>
           <div>
-            <div class="vl-grid-next vl-stacked-next-small">
-              <div id="toggle-filter" class="vl-column-next vl-column-next--12 vl-column-next--m-12 vl-u-align-right vl-u-hidden--s" hidden>
+            <div class="vl-grid vl-stacked-small">
+              <div id="toggle-filter" class="vl-column vl-column--12 vl-column--m-12 vl-u-align-right vl-u-hidden--s" hidden>
                 <button id="toggle-filter-button" class="secondary narrow" type="button" aria-label="Filter verbergen">
                   <span class="vl-icon vl-icon--content-filter vl-icon--right-margin"></span>
                   <slot name="toggle-filter-button-text" hidden>Filter tonen</slot>
                   <slot name="close-filter-button-text">Filter verbergen</slot>
                 </button>
               </div>
-              <div id="open-filter" class="vl-column-next vl-column-next--12 vl-column-next--m-12 vl-u-align-right vl-u-hidden" hidden>
+              <div id="open-filter" class="vl-column vl-column--12 vl-column--m-12 vl-u-align-right vl-u-hidden" hidden>
                 <button id="open-toggle-filter-button" class="secondary narrow" type="button" aria-label="Filter tonen">
                   <span class="vl-icon vl-icon--content-filter vl-icon--right-margin"></span>
                   <slot name="toggle-filter-button-text">Filter</slot>
                 </button>
               </div>
-              <div id="search" class="vl-column-next vl-column-next--4 vl-column-next--m-4 vl-column-next--s-0 vl-column-next--xs-0">
+              <div id="search" class="vl-column vl-column--4 vl-column--m-4 vl-column--s-0 vl-column--xs-0">
                 <div id="filter-slot-container">
                   <slot id="filter-slot" name="filter"></slot>
                 </div>
               </div>
-              <div id="content" class="vl-column-next vl-column-next--8 vl-column-next--m-8 vl-column-next--s-12 vl-column-next--xs-12">
-                <div class="vl-grid-next vl-stacked-next-small">
-                  <div id="search-results" class="vl-column-next vl-column-next--6 vl-column-next--m-6 vl-column-next--s-6 vl-column-next--xs-6" aria-live="polite">
+              <div id="content" class="vl-column vl-column--8 vl-column--m-8 vl-column--s-12 vl-column--xs-12">
+                <div class="vl-grid vl-stacked-small">
+                  <div id="search-results" class="vl-column vl-column--6 vl-column--m-6 vl-column--s-6 vl-column--xs-6" aria-live="polite">
                     <span>We vonden</span> <strong><span id="search-results-number">0</span> resultaten</strong>
                   </div>
-                  <div id="sorter" class="vl-column-next vl-column-next--6 vl-column-next--m-6 vl-column-next--s-6 vl-column-next--xs-6">
-                    <vl-form-label-next>
+                  <div id="sorter" class="vl-column vl-column--6 vl-column--m-6 vl-column--s-6 vl-column--xs-6">
+                    <vl-form-label>
                       Sorteer
-                    </vl-form-label-next>
+                    </vl-form-label>
                     <slot name="sorter"></slot>
                   </div>
-                  <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+                  <div class="vl-column vl-column--12 vl-column--m-12">
                     <slot name="content">${content}</slot>
                     <slot name="no-content" hidden>Er werden geen resultaten gevonden</slot>
                   </div>
                 </div>
               </div>
-              <div id="pager" class="vl-column-next vl-column-next--12 vl-column-next--m-12">
+              <div id="pager" class="vl-column vl-column--12 vl-column--m-12">
                 <slot name="pager"></slot>
               </div>
             </div>
@@ -448,15 +448,15 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
     __setGridColumnWidth(width: number) {
         this.__searchColumn.removeAttribute('class');
         this.__contentColumn.removeAttribute('class');
-        this.__searchColumn.classList.add(`vl-column-next`);
-        this.__contentColumn.classList.add(`vl-column-next`);
+        this.__searchColumn.classList.add(`vl-column`);
+        this.__contentColumn.classList.add(`vl-column`);
         ['', 'm-'].forEach((size) => {
-            this.__searchColumn.classList.add(`vl-column-next--${size}${width}`);
-            this.__contentColumn.classList.add(`vl-column-next--${size}${12 - width}`);
+            this.__searchColumn.classList.add(`vl-column--${size}${width}`);
+            this.__contentColumn.classList.add(`vl-column--${size}${12 - width}`);
         });
         ['s-', 'xs-'].forEach((size) => {
-            this.__searchColumn.classList.add(`vl-column-next--${size}0`);
-            this.__contentColumn.classList.add(`vl-column-next--${size}12`);
+            this.__searchColumn.classList.add(`vl-column--${size}0`);
+            this.__contentColumn.classList.add(`vl-column--${size}12`);
         });
     }
 

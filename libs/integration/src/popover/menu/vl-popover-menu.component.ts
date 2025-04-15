@@ -1,7 +1,6 @@
-import { LitElement, html } from 'lit';
 import { registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { VlPopoverComponent } from '@domg-wc/components';
-import { VlButtonComponent } from '@domg-wc/components/next/button';
+import { VlButtonComponent, VlPopoverComponent } from '@domg-wc/components';
+import { html, LitElement } from 'lit';
 
 @webComponent('vl-popover-menu')
 export class VlPopoverMenuComponent extends LitElement {
@@ -12,7 +11,7 @@ export class VlPopoverMenuComponent extends LitElement {
     override render() {
         return html`
             <div>
-                <vl-button-next ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button-next>
+                <vl-button ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button>
                 <vl-popover for="btn-acties" placement="bottom-end">
                     <vl-popover-action-list>
                         <vl-popover-action icon="search">Zoeken</vl-popover-action>

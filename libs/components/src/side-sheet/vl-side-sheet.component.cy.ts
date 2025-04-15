@@ -48,20 +48,14 @@ describe('vl-side-sheet', () => {
     it('should not contain toggle text by default', () => {
         mountDefault({});
 
-        cy.get('vl-side-sheet')
-            .shadow()
-            .find('vl-button-next')
-            .should('not.contain.text');
+        cy.get('vl-side-sheet').shadow().find('vl-button').should('not.contain.text');
     });
 
     it('should contain toggle text if set', () => {
         const toggleText = 'text on toggle button';
         mountDefault({ toggleText });
 
-        cy.get('vl-side-sheet')
-            .shadow()
-            .find('vl-button-next')
-            .contains(toggleText);
+        cy.get('vl-side-sheet').shadow().find('vl-button').contains(toggleText);
     });
 
     it('should not be absolutely positioned by default', () => {
@@ -83,14 +77,14 @@ describe('vl-side-sheet', () => {
     it('should not contain a tooltip by default', () => {
         mountDefault({});
 
-        cy.get('vl-side-sheet').shadow().find('vl-button-next').should('not.have.attr', 'title');
+        cy.get('vl-side-sheet').shadow().find('vl-button').should('not.have.attr', 'title');
     });
 
     it('should contain a custom tooltip', () => {
         const tooltipText = 'text on native tooltip';
         mountDefault({ tooltipText: tooltipText });
 
-        cy.get('vl-side-sheet').shadow().find('vl-button-next').should('have.attr', 'title', tooltipText);
+        cy.get('vl-side-sheet').shadow().find('vl-button').should('have.attr', 'title', tooltipText);
     });
 
     it('should be right by default & change default icon direction when opening or closing', () => {
@@ -100,7 +94,7 @@ describe('vl-side-sheet', () => {
         shouldHaveIcon('nav-left');
         shouldClickToggleButton();
         shouldHaveIcon('nav-right');
-        shouldClickToggleButton()
+        shouldClickToggleButton();
         shouldHaveIcon('nav-left');
     });
 
@@ -129,7 +123,7 @@ describe('vl-side-sheet', () => {
     it('should hide toggle button', () => {
         mountDefault({ hideToggleButton: true });
 
-        cy.get('vl-side-sheet').shadow().find('vl-button-next').should('have.class', 'vl-visually-hidden');
+        cy.get('vl-side-sheet').shadow().find('vl-button').should('have.class', 'vl-visually-hidden');
     });
 
     it('should open and close the side-sheet when toggle button is hidden', () => {
@@ -147,7 +141,7 @@ describe('vl-side-sheet', () => {
 
         cy.get('vl-side-sheet')
             .shadow()
-            .find('vl-button-next')
+            .find('vl-button')
             .shadow()
             .find('button')
             .children()
@@ -160,7 +154,7 @@ describe('vl-side-sheet', () => {
 
         cy.get('vl-side-sheet')
             .shadow()
-            .find('vl-button-next')
+            .find('vl-button')
             .shadow()
             .find('button')
             .children()
@@ -173,7 +167,7 @@ describe('vl-side-sheet', () => {
 
         cy.get('vl-side-sheet')
             .shadow()
-            .find('vl-button-next')
+            .find('vl-button')
             .shadow()
             .find('button span')
             .should('have.class', 'vl-icon')
@@ -185,7 +179,7 @@ describe('vl-side-sheet', () => {
 
         cy.get('vl-side-sheet')
             .shadow()
-            .find('vl-button-next')
+            .find('vl-button')
             .shadow()
             .find('button span')
             .should('have.class', 'vl-icon')
@@ -194,7 +188,7 @@ describe('vl-side-sheet', () => {
 });
 
 const shouldClickToggleButton = () => {
-    cy.get('vl-side-sheet').shadow().find('vl-button-next').shadow().find('button').click({ force: true });
+    cy.get('vl-side-sheet').shadow().find('vl-button').shadow().find('button').click({ force: true });
 };
 
 const shouldBeOpen = () => {
@@ -216,7 +210,7 @@ const shouldBeClosed = () => {
 const shouldHaveIcon = (iconName: string) => {
     cy.get('vl-side-sheet')
         .shadow()
-        .find('vl-button-next')
+        .find('vl-button')
         .shadow()
         .find('button span')
         .should('have.class', `vl-icon--${iconName}`);

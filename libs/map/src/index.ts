@@ -60,7 +60,7 @@ export { VlMapXYZWmsLayer } from './components/layer/wms-layer/vl-map-xyz-wms-la
 export { VlMapWmtsLayer } from './components/layer/wmts-layer/vl-map-wmts-layer';
 export { VlMapLegend } from './components/legend/vl-map-legend';
 export { VlMapLoadingIndicator } from './components/loading-indicator/vl-map-loading-indicator';
-export { VlSelectLocationComponent } from './components/next/select-location/vl-select-location';
+export { VlSelectLocationComponent } from './components/select-location/vl-select-location';
 export { VlMapOverviewMap } from './components/overview-map/vl-map-overview-map';
 export { VlMapSearch } from './components/search/vl-map-search';
 export { VlMapSideSheet } from './components/side-sheet/vl-map-side-sheet';

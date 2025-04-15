@@ -30,7 +30,7 @@ describe('vl-sticky-session-cookie component - props', () => {
     it('should render the correct <title>', () => {
         cy.get('vl-sticky-session-cookie')
             .shadow()
-            .find('vl-title-next')
+            .find('vl-title')
             .should('contain.text', 'Persistentie sessie cookie voor betere gebruikerservaring');
     });
 
@@ -40,14 +40,14 @@ describe('vl-sticky-session-cookie component - props', () => {
             'BIGipServerPool-sso-pr-* (vb. "BIGipServerPOOL-sso-pr-app=2016879114.37407.0000")',
         ];
         expectedNames.forEach((name) => {
-            cy.get('vl-sticky-session-cookie').shadow().find('vl-properties-next').shadow().find('dd').contains(name);
+            cy.get('vl-sticky-session-cookie').shadow().find('vl-properties').shadow().find('dd').contains(name);
         });
     });
 
     it('should render the correct <purpose>', () => {
         cy.get('vl-sticky-session-cookie')
             .shadow()
-            .find('vl-properties-next')
+            .find('vl-properties')
             .shadow()
             .find('dd')
             .contains(
@@ -58,7 +58,7 @@ describe('vl-sticky-session-cookie component - props', () => {
     it('should render the correct <domain>', () => {
         cy.get('vl-sticky-session-cookie')
             .shadow()
-            .find('vl-properties-next')
+            .find('vl-properties')
             .shadow()
             .find('dd')
             .contains(window.location.hostname);
@@ -67,7 +67,7 @@ describe('vl-sticky-session-cookie component - props', () => {
     it('should render the correct <processor>', () => {
         cy.get('vl-sticky-session-cookie')
             .shadow()
-            .find('vl-properties-next')
+            .find('vl-properties')
             .shadow()
             .find('dd')
             .contains('Departement Omgeving');
@@ -76,7 +76,7 @@ describe('vl-sticky-session-cookie component - props', () => {
     it('should render the correct <validity>', () => {
         cy.get('vl-sticky-session-cookie')
             .shadow()
-            .find('vl-properties-next')
+            .find('vl-properties')
             .shadow()
             .find('dd')
             .contains('Beperkt tot de duur van de sessie');

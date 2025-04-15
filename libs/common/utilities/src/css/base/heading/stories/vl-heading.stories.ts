@@ -4,8 +4,8 @@ import { vlHeading1, vlHeading2, vlHeading3, vlHeading4, vlHeading5, vlHeading6 
 import vlHeadingStoriesDoc from './vl-heading.stories-doc.mdx';
 
 export default {
-    id: 'styles-next-base-intern-heading',
-    title: 'Styles-next/Base (intern)/heading',
+    id: 'styles-base-intern-heading',
+    title: 'Styles/Base (intern)/heading',
     tags: ['autodocs'],
     parameters: {
         docs: {

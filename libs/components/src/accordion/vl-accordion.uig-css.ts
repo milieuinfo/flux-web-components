@@ -36,11 +36,11 @@ const styles: CSSResult = css`
         display: flex;
     }
 
-    .js-vl-accordion--open vl-icon-next#toggle-icon::part(icon)::before {
+    .js-vl-accordion--open vl-icon#toggle-icon::part(icon)::before {
         transform: rotate(-180deg);
     }
 
-    .vl-accordion-next__icon {
+    .vl-accordion__icon {
         flex: 0 0 22px;
         flex-shrink: 0;
         /* top: 5px; */

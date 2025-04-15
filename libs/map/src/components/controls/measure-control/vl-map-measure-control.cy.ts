@@ -33,7 +33,7 @@ describe('vl-map-measure-control', () => {
         cy.mount(measureControlFixture);
         cy.runTestFor<VlMapMeasureControl>('vl-map-measure-control', (vlMapMeasureControl) => {
             expect(vlMapMeasureControl).to.not.be.null;
-            expect(vlMapMeasureControl.controlElement.tagName.toLowerCase()).to.be.equal('vl-button-next');
+            expect(vlMapMeasureControl.controlElement.tagName.toLowerCase()).to.be.equal('vl-button');
             expect(vlMapMeasureControl.identifier).to.be.equal('measure');
             expect(vlMapMeasureControl.type).to.be.equal('action');
         });

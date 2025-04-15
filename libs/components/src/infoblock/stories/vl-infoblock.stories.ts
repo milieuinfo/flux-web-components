@@ -1,6 +1,6 @@
 import { story } from '@domg-wc/common-storybook';
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlTitleComponent } from '@domg-wc/components/next/title';
+import { VlTitleComponent } from '@domg-wc/components';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../vl-infoblock.component';
@@ -93,7 +93,7 @@ export const infoblockWithSlotElements = story(
     infoblockArgs,
     ({ title, content, type }) => html`
         <vl-infoblock data-vl-type=${type}>
-            <vl-title-next type="h2" slot="title">${title}</vl-title-next>
+            <vl-title type="h2" slot="title">${title}</vl-title>
             ${content}
         </vl-infoblock>
     `

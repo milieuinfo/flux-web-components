@@ -31,21 +31,21 @@ describe('vl-authentication-cookie component - props', () => {
     it('should render the correct <title>', () => {
         cy.get('vl-authentication-cookie')
             .shadow()
-            .find('vl-title-next')
+            .find('vl-title')
             .should('contain.text', 'Departement Omgeving toegangsbeheer cookies');
     });
 
     it('should render the correct <names>', () => {
         const expectedNames = ['KEYCLOAK_SESSION', 'KEYCLOAK_SESSION_LEGACY'];
         expectedNames.forEach((name) => {
-            cy.get('vl-authentication-cookie').shadow().find('vl-properties-next').shadow().find('dd').contains(name);
+            cy.get('vl-authentication-cookie').shadow().find('vl-properties').shadow().find('dd').contains(name);
         });
     });
 
     it('should render the correct <purpose>', () => {
         cy.get('vl-authentication-cookie')
             .shadow()
-            .find('vl-properties-next')
+            .find('vl-properties')
             .shadow()
             .find('dd')
             .contains(
@@ -56,7 +56,7 @@ describe('vl-authentication-cookie component - props', () => {
     it('should render the correct <domain>', () => {
         cy.get('vl-authentication-cookie')
             .shadow()
-            .find('vl-properties-next')
+            .find('vl-properties')
             .shadow()
             .find('dd')
             .contains(window.location.hostname);
@@ -65,13 +65,13 @@ describe('vl-authentication-cookie component - props', () => {
     it('should render the correct <processor>', () => {
         cy.get('vl-authentication-cookie')
             .shadow()
-            .find('vl-properties-next')
+            .find('vl-properties')
             .shadow()
             .find('dd')
             .contains('Departement Omgeving');
     });
 
     it('should render the correct <validity>', () => {
-        cy.get('vl-authentication-cookie').shadow().find('vl-properties-next').shadow().find('dd').contains('10 uur');
+        cy.get('vl-authentication-cookie').shadow().find('vl-properties').shadow().find('dd').contains('10 uur');
     });
 });

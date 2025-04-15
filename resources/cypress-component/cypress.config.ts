@@ -34,7 +34,7 @@ export default defineConfig({
                         '@domg-wc/common-utilities': path.resolve('../../libs/common/utilities/src/'),
                         '@domg-wc/components': path.resolve('../../libs/components/src/'),
                         '@domg-wc/elements': path.resolve('../../libs/elements/src/'),
-                        '@domg-wc/form': path.resolve('../../libs/form/src/'),
+                        '@domg-wc/form': path.resolve('../../libs/form/src'),
                         '@domg-wc/map': path.resolve('../../libs/map/src/'),
                         '@domg-wc/sections': path.resolve('../../libs/sections/src/'),
                     },

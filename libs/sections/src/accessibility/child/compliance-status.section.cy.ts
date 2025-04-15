@@ -27,7 +27,7 @@ describe('component compliance-status ', () => {
     });
 
     it('should render with some basic styling from DV - h2 should have the correct style', () => {
-        cy.get('div[id="compliance-status"]').should('have.class', 'vl-column-next--m-12');
+        cy.get('div[id="compliance-status"]').should('have.class', 'vl-column--m-12');
     });
 });
 

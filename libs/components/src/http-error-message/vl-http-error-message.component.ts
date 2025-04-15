@@ -6,8 +6,8 @@ import {
     vlResetStyles,
     vlStackedStyles,
 } from '@domg-wc/common-utilities/css';
-import { VlLinkComponent } from '@domg-wc/components/next/link';
-import { vlTitleStyles } from '@domg-wc/components/next/title/vl-title.css';
+import { VlLinkComponent } from '../link';
+import { vlTitleStyles } from '../title/vl-title.css';
 import { render } from 'lit';
 import { VlTypography } from '../typography/vl-typography.component';
 import errorCodes from './error-codes';
@@ -33,15 +33,15 @@ export class VlHttpErrorMessage extends BaseElementOfType(HTMLElement) {
             ${vlGridStyles}
             ${vlStackedStyles}
           </style>
-          <div class="vl-error-message-container vl-grid-next vl-stacked-next-small" data-vl-align-center data-vl-v-center>
-            <div class="vl-column-next vl-column-next--justify-self-center vl-column-next--6  vl-column-next--m-6  vl-column-next--s-8 vl-column-next--xs-12">
-              <div class="vl-grid-next vl-stacked-next-small">
-                <div class="vl-column-next vl-column-next--12">
+          <div class="vl-error-message-container vl-grid vl-stacked-small" data-vl-align-center data-vl-v-center>
+            <div class="vl-column vl-column--justify-self-center vl-column--6  vl-column--m-6  vl-column--s-8 vl-column--xs-12">
+              <div class="vl-grid vl-stacked-small">
+                <div class="vl-column vl-column--12">
                   <h2 id="title"></h2>
                   <vl-typography id="text"><slot slot="text" name="text"></slot></vl-typography>
                   <vl-typography id="error-text"></vl-typography>
                 </div>
-                <div id="info" class="vl-column-next vl-column-next--12">
+                <div id="info" class="vl-column vl-column--12">
                   <table>
                     <tr>
                       <td>URL:</td>
@@ -57,10 +57,10 @@ export class VlHttpErrorMessage extends BaseElementOfType(HTMLElement) {
                     </tr>
                   </table>
                 </div>
-                <div id="actions" class="vl-column-next vl-column-next--12"><div id="error-actions"><slot name="actions"></slot></div></div>
+                <div id="actions" class="vl-column vl-column--12"><div id="error-actions"><slot name="actions"></slot></div></div>
               </div>
             </div>
-            <div class="vl-column-next vl-column-next--justify-self-center vl-column-next--6  vl-column-next--m-6  vl-column-next--s-8 vl-column-next--xs-12">
+            <div class="vl-column vl-column--justify-self-center vl-column--6  vl-column--m-6  vl-column--s-8 vl-column--xs-12">
                 <img id="image-normal"/>
             </div>
           </div>

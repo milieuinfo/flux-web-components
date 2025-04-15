@@ -1,10 +1,10 @@
 import { story } from '@domg-wc/common-storybook';
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlLinkComponent } from '@domg-wc/components/next/link';
+import { VlLinkComponent } from '../../link';
+import { VlPopoverComponent } from '../../popover';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { VlPopoverComponent } from '../../popover';
 import '../vl-accordion.component';
 import { accordionArgs, accordionArgTypes } from './vl-accordion.stories-arg';
 import accordionDoc from './vl-accordion.stories-doc.mdx';
@@ -117,7 +117,7 @@ AccordionMenuSlot.args = {
     titleSlot: '<span slot="title">Lees meer over de onderwijsdoelstelling</span>',
     subtitleSlot: '<vl-annotation slot="subtitle">Lorem ipsum</vl-annotation>',
     menuSlot: `<span slot="menu">
-                 <vl-link-next button-as-link icon="menu" id="btn-acties"></vl-link-next>
+                 <vl-link button-as-link icon="menu" id="btn-acties"></vl-link>
                  <vl-popover for="btn-acties" placement="bottom-end">
                    <vl-popover-action-list>
                      <vl-popover-action icon="search">Zoeken</vl-popover-action>

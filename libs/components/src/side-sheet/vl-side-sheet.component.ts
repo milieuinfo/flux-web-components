@@ -1,7 +1,6 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
 import { vlAccessibilityStyles, vlContentBlockStyles, vlSectionStyles } from '@domg-wc/common-utilities/css';
-import { VlButtonComponent } from '@domg-wc/components/next/button';
-import swipeDetect from 'swipe-detect/dist/';
+import { VlButtonComponent } from '@domg-wc/components';
 import styles from './vl-side-sheet.uig-css';
 
 @webComponent('vl-side-sheet')
@@ -37,7 +36,7 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
             ${vlContentBlockStyles}
           </style>
           <div>
-              <vl-button-next
+              <vl-button
                   aria-expanded="false"
                   icon="nav-left"
                   tertiary
@@ -45,11 +44,11 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
                   class="vl-side-sheet__toggle"
                   label="toggle side-sheet"
               >
-              </vl-button-next>
+              </vl-button>
               <div id="vl-side-sheet-backdrop"></div>
               <div id="vl-side-sheet">
-                <section class="vl-section-next">
-                  <div class="vl-content-block-next">
+                <section class="vl-section">
+                  <div class="vl-content-block">
                     <slot></slot>
                   </div>
                 </section>
@@ -116,7 +115,7 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
     }
 
     get _regionElement() {
-        return this._sheetElement.querySelector('section.vl-section-next');
+        return this._sheetElement.querySelector('section.vl-section');
     }
 
     get _backdropElement() {
@@ -191,6 +190,12 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
     }
 
     _enableSwipeChangedCallback(oldValue: any, newValue: any) {
+        function swipeDetect(
+            _sheetElement: HTMLDivElement,
+            param2: (direction: 'left' | 'right') => void,
+            number: number
+        ) {}
+
         if (newValue !== null) {
             swipeDetect(
                 this._sheetElement,
@@ -203,7 +208,7 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
             );
         } else {
             //TODO: disable does not work, needs to be refactored: https://github.com/mhfen/swipe-detect/issues/11
-            swipeDetect.disable();
+            this.swipeDetect.disable();
         }
     }
 

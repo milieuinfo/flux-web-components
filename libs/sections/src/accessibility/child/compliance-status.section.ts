@@ -19,8 +19,8 @@ export const complianceStatus = ({ compliance, evaluation }: ComplianceStatusPro
         }
     };
     return html`
-        <div id="compliance-status" class="vl-column-next vl-column-next--12 vl-column-next--m-12">
-            <vl-title-next type="h2">Nalevingsstatus</vl-title-next>
+        <div id="compliance-status" class="vl-column vl-column--12 vl-column--m-12">
+            <vl-title type="h2">Nalevingsstatus</vl-title>
             ${evaluation === 'NOT_EVALUATED'
                 ? html`Deze website voldoet niet aan de ${wcagLink()}.`
                 : complianceTemplate()}

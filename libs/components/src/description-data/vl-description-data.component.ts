@@ -41,19 +41,19 @@ export class VlDescriptionData extends BaseLitElement {
             'vl-description-data--bordered': this.bordered,
         };
         const columnClasses = {
-            [`vl-column-next--${this.size}`]: this.size,
-            [`vl-column-next--m-${this.mediumSize}`]: this.mediumSize,
-            [`vl-column-next--s-${this.smallSize}`]: this.smallSize,
-            [`vl-column-next--xs-${this.extraSmallSize}`]: this.extraSmallSize,
+            [`vl-column--${this.size}`]: this.size,
+            [`vl-column--m-${this.mediumSize}`]: this.mediumSize,
+            [`vl-column--s-${this.smallSize}`]: this.smallSize,
+            [`vl-column--xs-${this.extraSmallSize}`]: this.extraSmallSize,
         };
         return html`
             <div class="vl-description-data ${classMap(classes)}">
-                <div class="vl-grid-next">
+                <div class="vl-grid">
                     ${[...Array.from(this.children)].map((child, index) => {
                         const name = `item-${index}`;
                         child.setAttribute('slot', name);
                         return html`
-                            <div class="vl-column-next ${classMap(columnClasses)}">
+                            <div class="vl-column ${classMap(columnClasses)}">
                                 <slot name=${name}></slot>
                             </div>
                         `;

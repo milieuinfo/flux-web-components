@@ -5,8 +5,8 @@ import { vlLinkStyles } from '../vl-link.css';
 import vlLinkStoriesDoc from './vl-link.stories-doc.mdx';
 
 export default {
-    id: 'styles-next-base-intern-link',
-    title: 'Styles-next/Base (intern)/link',
+    id: 'styles-base-intern-link',
+    title: 'Styles/Base (intern)/link',
     tags: ['autodocs'],
     parameters: {
         docs: {

@@ -21,13 +21,13 @@ export const richDataPaginationImplementation = () => {
                 const manager = project.manager;
                 const medewerker = project.medewerkers[0];
                 const html = `
-                        <vl-search-result-title-next>
+                        <vl-search-result-title>
                             <a href="#">${project.name}</a>
-                        </vl-search-result-title-next>
-                        <vl-search-result-text-next>
+                        </vl-search-result-title>
+                        <vl-search-result-text>
                             <time>Gestart op ${now}</time>
-                        </vl-search-result-text-next>
-                        <vl-search-result-properties-next>
+                        </vl-search-result-text>
+                        <vl-search-result-properties>
                             <label>ID</label>
                             <data>${project.id}</data>
                             <label>Naam manager</label>
@@ -40,9 +40,9 @@ export const richDataPaginationImplementation = () => {
                             <data>
                                 <span>${project.name} o.l.v. <strong>${manager.firstName} ${manager.lastName}</strong></span>
                             </data>
-                        </vl-search-result-properties-next>
+                        </vl-search-result-properties>
                   `;
-                content.insertAdjacentHTML('beforeend', `<vl-search-result-next>${html}</vl-search-result-next>`);
+                content.insertAdjacentHTML('beforeend', `<vl-search-result>${html}</vl-search-result>`);
             });
         };
 

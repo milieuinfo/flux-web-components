@@ -7,7 +7,7 @@ export const vlContentBlockArgs = {
 
 export const vlContentBlockArgTypes: ArgTypes<typeof vlContentBlockArgs> = {
     contentBlock: {
-        name: 'vl-content-block-next',
+        name: 'vl-content-block',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: 'block style',

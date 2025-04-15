@@ -193,7 +193,7 @@ describe('component vl-http-error-message - error-code', () => {
     it('should contain an action button', () => {
         cy.get('vl-http-error-message')
             .shadow()
-            .find('div#error-actions > div > vl-link-next')
+            .find('div#error-actions > div > vl-link')
             .contains('Terug naar de startpagina');
     });
 

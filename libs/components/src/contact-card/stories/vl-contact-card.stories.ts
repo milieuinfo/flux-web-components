@@ -1,6 +1,6 @@
 import { defaultArgs, defaultArgTypes, story } from '@domg-wc/common-storybook';
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlPropertiesComponent } from '@domg-wc/components/next/properties';
+import { VlPropertiesComponent } from '@domg-wc/components';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../../infoblock/vl-infoblock.component';
@@ -24,46 +24,38 @@ export const contactCardDefault = story(
     () => html`
         <vl-contact-card>
             <vl-infoblock
-                    slot="info"
-                    data-vl-title="Departement Onderwijs en Vorming"
-                    data-vl-type="contact"
+                slot="info"
+                data-vl-title="Departement Onderwijs en Vorming"
+                data-vl-type="contact"
             ></vl-infoblock>
-            <vl-properties-next slot="properties">
+            <vl-properties slot="properties">
                 <label>Adres</label>
                 <data>
                     <div>Hendrik Consciencegebouw</div>
                     <div>Koning Albert II-laan 15</div>
                     <div>1210 Brussel</div>
-                    <vl-link-next href="#">Routeplanner</vl-link-next>
+                    <vl-link href="#">Routeplanner</vl-link>
                 </data>
                 <label>Telefoon</label>
                 <data>
                     <p>
-                        <vl-link-next href="#" icon-placement="after" icon="phone">
-                            02 553 72 02
-                        </vl-link-next>
+                        <vl-link href="#" icon-placement="after" icon="phone"> 02 553 72 02 </vl-link>
                         (Onthaal Consciencegebouw)
                     </p>
                     <p>
-                        <vl-link-next href="#" icon-placement="after" icon="phone">
-                            1700
-                        </vl-link-next>
+                        <vl-link href="#" icon-placement="after" icon="phone"> 1700 </vl-link>
                         (Infolijn Onderwijs)
                     </p>
                 </data>
                 <label>E-mail</label>
                 <data>
-                    <vl-link-next href="#" icon-placement="after" icon="mail">
-                        onderwijs.vlaanderen@vlaanderen.be
-                    </vl-link-next>
+                    <vl-link href="#" icon-placement="after" icon="mail"> onderwijs.vlaanderen@vlaanderen.be </vl-link>
                 </data>
                 <label>Website</label>
                 <data>
-                    <vl-link-next href="#" external>
-                        http://onderwijs.vlaanderen.be
-                    </vl-link-next>
+                    <vl-link href="#" external> http://onderwijs.vlaanderen.be </vl-link>
                 </data>
-            </vl-properties-next>
+            </vl-properties>
         </vl-contact-card>
     `
 );

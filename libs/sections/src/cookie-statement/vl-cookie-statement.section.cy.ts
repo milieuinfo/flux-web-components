@@ -73,22 +73,22 @@ describe('vl-cookie-statement component - default content', () => {
     });
 
     it('should have an h1 with "Cookieverklaring"', () => {
-        cy.get('vl-cookie-statement').shadow().find('vl-title-next[type="h1"').contains('Cookieverklaring');
+        cy.get('vl-cookie-statement').shadow().find('vl-title[type="h1"').contains('Cookieverklaring');
     });
 
     it('should have an h2 with "Cookiebeleid"', () => {
-        cy.get('vl-cookie-statement').shadow().find('vl-title-next[type="h2"').contains('Cookiebeleid');
+        cy.get('vl-cookie-statement').shadow().find('vl-title[type="h2"').contains('Cookiebeleid');
     });
 
     it('should have an h2 describing how to customize cookies', () => {
         cy.get('vl-cookie-statement')
             .shadow()
-            .find('vl-title-next[type="h2"')
+            .find('vl-title[type="h2"')
             .contains('Hoe kan ik het gebruik van cookies op deze onlinediensten weigeren of beheren?');
     });
 
-    it('should have a vl-side-navigation-next', () => {
-        cy.get('vl-cookie-statement').shadow().find('vl-side-navigation-next');
+    it('should have a vl-side-navigation', () => {
+        cy.get('vl-cookie-statement').shadow().find('vl-side-navigation');
     });
 
     it('should have default version', () => {

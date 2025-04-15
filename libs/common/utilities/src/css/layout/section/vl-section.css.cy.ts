@@ -5,17 +5,17 @@ describe('section styles', () => {
     it('should style the defaults', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
-            <section class="vl-section-next vl-section-next--alt cy-section-first">
-                <p>vl-section-next vl-section-next--alt</p>
+            <section class="vl-section vl-section--alt cy-section-first">
+                <p>vl-section vl-section--alt</p>
             </section>
-            <section class="vl-section-next vl-section-next--bordered cy-section-bordered1">
-                <p>vl-section-next vl-section-next--bordered</p>
+            <section class="vl-section vl-section--bordered cy-section-bordered1">
+                <p>vl-section vl-section--bordered</p>
             </section>
-            <section class="vl-section-next vl-section-next--bordered vl-section-next--small cy-section-bordered-small">
-                <p>vl-section-next vl-section-next--bordered vl-section-next--small</p>
+            <section class="vl-section vl-section--bordered vl-section--small cy-section-bordered-small">
+                <p>vl-section vl-section--bordered vl-section--small</p>
             </section>
-            <section class="vl-section-next vl-section-next--bordered cy-section-bordered2">
-                <p>vl-section-next vl-section-next--bordered</p>
+            <section class="vl-section vl-section--bordered cy-section-bordered2">
+                <p>vl-section vl-section--bordered</p>
             </section>
         `);
         // large screen
@@ -75,18 +75,18 @@ describe('section styles', () => {
     it('should style with overlap', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
-            <section class="vl-section-next vl-section-next--overlap cy-section-overlap">
-                <p class="vl-content-block-next cy-section-centered">vl-content-block-next</p>
-                <p>vl-section-next vl-section-next--overlap</p>
+            <section class="vl-section vl-section--overlap cy-section-overlap">
+                <p class="vl-content-block cy-section-centered">vl-content-block</p>
+                <p>vl-section vl-section--overlap</p>
             </section>
-            <section class="vl-section-next vl-section-next--bordered cy-section-bordered1">
-                <p>vl-section-next vl-section-next--bordered</p>
+            <section class="vl-section vl-section--bordered cy-section-bordered1">
+                <p>vl-section vl-section--bordered</p>
             </section>
-            <section class="vl-section-next vl-section-next--bordered cy-section-bordered2">
-                <p>vl-section-next vl-section-next--bordered</p>
+            <section class="vl-section vl-section--bordered cy-section-bordered2">
+                <p>vl-section vl-section--bordered</p>
             </section>
-            <section class="vl-section-next vl-section-next--bordered cy-section-bordered3">
-                <p>vl-section-next vl-section-next--bordered</p>
+            <section class="vl-section vl-section--bordered cy-section-bordered3">
+                <p>vl-section vl-section--bordered</p>
             </section>
         `);
         // large screen
@@ -138,9 +138,9 @@ describe('section styles', () => {
     it('should style centered', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
-            <section class="vl-section-next cy-section">
-                <p class="vl-content-block-next cy-section-centered">vl-content-block-next</p>
-                <p>vl-section-next</p>
+            <section class="vl-section cy-section">
+                <p class="vl-content-block cy-section-centered">vl-content-block</p>
+                <p>vl-section</p>
             </section>
         `);
         // large screen

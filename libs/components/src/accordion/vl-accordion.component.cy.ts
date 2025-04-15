@@ -1,4 +1,4 @@
-import { VlLinkComponent } from '@domg-wc/components/next/link';
+import { VlLinkComponent } from '../link';
 import { html } from 'lit';
 import { VlAccordionComponent } from './vl-accordion.component';
 import { registerWebComponents } from '@domg-wc/common-utilities';
@@ -64,7 +64,7 @@ describe('component vl-accordion', () => {
 
         cy.get('vl-accordion')
             .shadow()
-            .find('.vl-accordion > .vl-accordion__button-container > button > vl-icon-next')
+            .find('.vl-accordion > .vl-accordion__button-container > button > vl-icon')
             .shadow()
             .find('span.vl-icon')
             .should('have.class', 'vl-icon--university');
@@ -109,8 +109,8 @@ describe('component vl-accordion', () => {
     it('should show the menu item using the menu slot', () => {
         const spanElement = `
             <span slot="menu">
-                <vl-link-next id="btn-acties" icon="menu" button-as-link>
-                </vl-link-next>
+                <vl-link id="btn-acties" icon="menu" button-as-link>
+                </vl-link>
             </span>`;
 
         cy.get('vl-accordion').then(($accordion) => {
@@ -122,7 +122,7 @@ describe('component vl-accordion', () => {
                 shadowRoot?.querySelector('slot[name=menu]') as HTMLSlotElement
             )?.assignedNodes()[0] as HTMLElement;
 
-            cy.wrap(menuElement).find('vl-link-next').shadow().find('span.vl-icon').should('exist');
+            cy.wrap(menuElement).find('vl-link').shadow().find('span.vl-icon').should('exist');
         });
     });
 });

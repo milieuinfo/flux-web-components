@@ -1,8 +1,7 @@
-import { VlButtonComponent } from '@domg-wc/components/next/button';
-import { CSSResult, LitElement, css, html } from 'lit';
 import { registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { VlAccordionComponent, VlButtonComponent, VlPopoverComponent } from '@domg-wc/components';
 import { vlElementsStyle } from '@domg-wc/elements';
-import { VlAccordionComponent, VlPopoverComponent } from '@domg-wc/components';
+import { css, CSSResult, html, LitElement } from 'lit';
 
 const topLevelAccordionCss = `
     .vl-accordion {background-color: white border-radius: 4px;}
@@ -91,9 +90,9 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
                             </div>
                         </div>
                     </span>
-                    <vl-text-next slot="subtitle" annotation>Lorem ipsum</vl-text-next>
+                    <vl-text slot="subtitle" annotation>Lorem ipsum</vl-text>
                     <span slot="menu">
-                        <vl-button-next id="btn-acties1" icon="nav-show-more-vertical" ghost></vl-button-next>
+                        <vl-button id="btn-acties1" icon="nav-show-more-vertical" ghost></vl-button>
                         <vl-popover for="btn-acties1" placement="bottom-end" distance="5">
                             <vl-popover-action-list>
                                 <vl-popover-action icon="search">Zoeken</vl-popover-action>
@@ -106,11 +105,7 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
                         <div>
                             <vl-accordion data-vl-toggle-text="$1.1" data-vl-custom-css=${subAccordionCss}>
                                 <span slot="menu">
-                                    <vl-button-next
-                                        id="btn-acties2"
-                                        icon="nav-show-more-vertical"
-                                        ghost
-                                    ></vl-button-next>
+                                    <vl-button id="btn-acties2" icon="nav-show-more-vertical" ghost></vl-button>
                                     <vl-popover for="btn-acties2" placement="bottom-end" distance="5">
                                         <vl-popover-action-list>
                                             <vl-popover-action icon="search">Zoeken</vl-popover-action>
@@ -126,11 +121,11 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
                                             data-vl-custom-css=${subAccordionCss}
                                         >
                                             <span slot="menu">
-                                                <vl-button-next
+                                                <vl-button
                                                     id="btn-acties3"
                                                     icon="nav-show-more-vertical"
                                                     ghost
-                                                ></vl-button-next>
+                                                ></vl-button>
                                                 <vl-popover for="btn-acties3" placement="bottom-end" distance="5">
                                                     <vl-popover-action-list>
                                                         <vl-popover-action icon="search">Zoeken</vl-popover-action>
@@ -156,11 +151,11 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
                                             data-vl-custom-css=${subAccordionCss}
                                         >
                                             <span slot="menu">
-                                                <vl-button-next
+                                                <vl-button
                                                     id="btn-acties4"
                                                     icon="nav-show-more-vertical"
                                                     ghost
-                                                ></vl-button-next>
+                                                ></vl-button>
                                                 <vl-popover for="btn-acties4" placement="bottom-end" distance="5">
                                                     <vl-popover-action-list>
                                                         <vl-popover-action icon="search">Zoeken</vl-popover-action>
@@ -186,11 +181,7 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
                         <div>
                             <vl-accordion data-vl-toggle-text="$1.2" data-vl-custom-css=${subAccordionCss}>
                                 <span slot="menu">
-                                    <vl-button-next
-                                        id="btn-acties5"
-                                        icon="nav-show-more-vertical"
-                                        ghost
-                                    ></vl-button-next>
+                                    <vl-button id="btn-acties5" icon="nav-show-more-vertical" ghost></vl-button>
                                     <vl-popover for="btn-acties5" placement="bottom-end" distance="5">
                                         <vl-popover-action-list>
                                             <vl-popover-action icon="search">Zoeken</vl-popover-action>
@@ -206,11 +197,11 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
                                             data-vl-custom-css=${subAccordionCss}
                                         >
                                             <span slot="menu">
-                                                <vl-button-next
+                                                <vl-button
                                                     id="btn-acties6"
                                                     icon="nav-show-more-vertical"
                                                     ghost
-                                                ></vl-button-next>
+                                                ></vl-button>
                                                 <vl-popover for="btn-acties6" placement="bottom-end" distance="5">
                                                     <vl-popover-action-list>
                                                         <vl-popover-action icon="search">Zoeken</vl-popover-action>
@@ -236,11 +227,11 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
                                             data-vl-custom-css=${subAccordionCss}
                                         >
                                             <span slot="menu">
-                                                <vl-button-next
+                                                <vl-button
                                                     id="btn-acties7"
                                                     icon="nav-show-more-vertical"
                                                     ghost
-                                                ></vl-button-next>
+                                                ></vl-button>
                                                 <vl-popover for="btn-acties7" placement="bottom-end" distance="5">
                                                     <vl-popover-action-list>
                                                         <vl-popover-action icon="search">Zoeken</vl-popover-action>
@@ -266,11 +257,7 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
                         <div>
                             <vl-accordion data-vl-toggle-text="$1.3" data-vl-custom-css=${subAccordionCss}>
                                 <span slot="menu">
-                                    <vl-button-next
-                                        id="btn-acties8"
-                                        icon="nav-show-more-vertical"
-                                        ghost
-                                    ></vl-button-next>
+                                    <vl-button id="btn-acties8" icon="nav-show-more-vertical" ghost></vl-button>
                                     <vl-popover for="btn-acties8" placement="bottom-end" distance="5">
                                         <vl-popover-action-list>
                                             <vl-popover-action icon="search">Zoeken</vl-popover-action>
@@ -286,11 +273,11 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
                                             data-vl-custom-css=${subAccordionCss}
                                         >
                                             <span slot="menu">
-                                                <vl-button-next
+                                                <vl-button
                                                     id="btn-acties9"
                                                     icon="nav-show-more-vertical"
                                                     ghost
-                                                ></vl-button-next>
+                                                ></vl-button>
                                                 <vl-popover for="btn-acties9" placement="bottom-end" distance="5">
                                                     <vl-popover-action-list>
                                                         <vl-popover-action icon="search">Zoeken</vl-popover-action>
@@ -316,11 +303,11 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
                                             data-vl-custom-css=${subAccordionCss}
                                         >
                                             <span slot="menu">
-                                                <vl-button-next
+                                                <vl-button
                                                     id="btn-acties10"
                                                     icon="nav-show-more-vertical"
                                                     ghost
-                                                ></vl-button-next>
+                                                ></vl-button>
                                                 <vl-popover for="btn-acties10" placement="bottom-end" distance="5">
                                                     <vl-popover-action-list>
                                                         <vl-popover-action icon="search">Zoeken</vl-popover-action>

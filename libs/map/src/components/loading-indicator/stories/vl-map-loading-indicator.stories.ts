@@ -1,6 +1,6 @@
 import { defaultArgs, defaultArgTypes, story } from '@domg-wc/common-storybook';
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlButtonComponent } from '@domg-wc/components/next/button';
+import { VlButtonComponent } from '@domg-wc/components';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit';
 import { MapEvent } from 'ol';
@@ -38,22 +38,22 @@ export const MapLoadingIndicatorDefault = story(
     {},
     () => html`
         <div style="margin-bottom:10px">
-            <vl-button-next
+            <vl-button
                 data-cy="short-wait"
                 @click="${() => {
                     fakeLoadMap(500);
                 }}"
             >
                 Fake kort wachten
-            </vl-button-next>
-            <vl-button-next
+            </vl-button>
+            <vl-button
                 data-cy="long-wait"
                 @click="${() => {
                     fakeLoadMap(10000);
                 }}"
             >
                 Fake lang wachten
-            </vl-button-next>
+            </vl-button>
         </div>
         <vl-map>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>

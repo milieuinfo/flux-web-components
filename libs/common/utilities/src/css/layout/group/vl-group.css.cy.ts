@@ -7,7 +7,7 @@ describe('group styles', () => {
             <style>
                 ${vlGroupStyles}
             </style>
-            <div class="vl-group-next cy-group-default">
+            <div class="vl-group cy-group-default">
                 <span>item-1</span>
                 <span>item-2</span>
             </div>
@@ -35,7 +35,7 @@ describe('group styles', () => {
             <style>
                 ${vlGroupStyles}
             </style>
-            <div class="vl-group-next vl-group-next--column cy-group-column ">
+            <div class="vl-group vl-group--column cy-group-column ">
                 <span>item-1</span>
                 <span>item-2</span>
             </div>
@@ -54,7 +54,7 @@ describe('group styles', () => {
                 body { margin: 0; }
                 ${vlGroupStyles}
             </style>
-            <div class="vl-group-next vl-group-next--column vl-group-next--stretch-children">
+            <div class="vl-group vl-group--column vl-group--stretch-children">
                 <span data-cy="first-level">
                     <span data-cy="second-level">item-1</span>
                 </span>
@@ -76,7 +76,7 @@ describe('group styles', () => {
             <style>
                 ${vlGroupStyles}
             </style>
-            <div class="vl-group-next vl-group-next--space-between cy-group-justify-content">
+            <div class="vl-group vl-group--space-between cy-group-justify-content">
                 <span>item-1</span>
                 <span>item-2</span>
             </div>
@@ -92,7 +92,7 @@ describe('group styles', () => {
             <style>
                 ${vlGroupStyles}
             </style>
-            <div class="vl-group-next vl-group-next--justify-center cy-group-justify-content">
+            <div class="vl-group vl-group--justify-center cy-group-justify-content">
                 <span>item-1</span>
                 <span>item-2</span>
             </div>
@@ -108,7 +108,7 @@ describe('group styles', () => {
             <style>
                 ${vlGroupStyles}
             </style>
-            <div class="vl-group-next vl-group-next--justify-end cy-group-justify-content">
+            <div class="vl-group vl-group--justify-end cy-group-justify-content">
                 <span>item-1</span>
                 <span>item-2</span>
             </div>
@@ -124,7 +124,7 @@ describe('group styles', () => {
             <style>
                 ${vlGroupStyles}
             </style>
-            <div class="vl-group-next vl-group-next--baseline cy-group-baseline">
+            <div class="vl-group vl-group--baseline cy-group-baseline">
                 <span>item-1</span>
                 <span>item-2</span>
             </div>
@@ -140,7 +140,7 @@ describe('group styles', () => {
             <style>
                 ${vlGroupStyles}
             </style>
-            <div class="vl-group-next vl-group-next--separator-row">
+            <div class="vl-group vl-group--separator-row">
                 <span class="item-1">item-1</span>
                 <span class="item-2">item-2</span>
             </div>
@@ -162,7 +162,7 @@ describe('group styles', () => {
             <style>
                 ${vlGroupStyles}
             </style>
-            <div class="vl-group-next vl-group-next--column vl-group-next--separator-column">
+            <div class="vl-group vl-group--column vl-group--separator-column">
                 <span class="item-1">item-1</span>
                 <span class="item-2">item-2</span>
             </div>
@@ -185,23 +185,23 @@ describe('group styles', () => {
         <style>
             ${vlGroupStyles}
         </style>
-        <div class="vl-group-next cy-group-no-collapse">
+        <div class="vl-group cy-group-no-collapse">
             <span class="item-1">item-1</span>
             <span class="item-2">item-2</span>
         </div>
-        <div class="vl-group-next vl-group-next--collapse-l cy-group-collapse-l">
+        <div class="vl-group vl-group--collapse-l cy-group-collapse-l">
             <span class="item-1">item-1</span>
             <span class="item-2">item-2</span>
         </div>
-        <div class="vl-group-next vl-group-next--collapse-m cy-group-collapse-m">
+        <div class="vl-group vl-group--collapse-m cy-group-collapse-m">
             <span class="item-1">item-1</span>
             <span class="item-2">item-2</span>
         </div>
-        <div class="vl-group-next vl-group-next--collapse-s cy-group-collapse-s">
+        <div class="vl-group vl-group--collapse-s cy-group-collapse-s">
             <span class="item-1">item-1</span>
             <span class="item-2">item-2</span>
         </div>
-        <div class="vl-group-next vl-group-next--collapse-xs cy-group-collapse-xs">
+        <div class="vl-group vl-group--collapse-xs cy-group-collapse-xs">
             <span class="item-1">item-1</span>
             <span class="item-2">item-2</span>
         </div>
@@ -311,7 +311,7 @@ describe('group styles', () => {
         <style>
             ${vlGroupStyles}
         </style>
-        <div class="vl-group-next vl-group-next--input-group">
+        <div class="vl-group vl-group--input-group">
             <span class="item-1">item-1</span>
             <span class="item-2">item-2</span>
         </div>
@@ -320,7 +320,7 @@ describe('group styles', () => {
     it('should have no gap when its an input-group', () => {
         cy.mount(inputGroupHtml);
         cy.viewport(400, 800);
-        cy.get('.vl-group-next').shouldHaveComputedStyle({
+        cy.get('.vl-group').shouldHaveComputedStyle({
             style: 'gap',
             value: '0px',
         });

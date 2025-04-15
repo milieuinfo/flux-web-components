@@ -18,7 +18,7 @@ export const vlGroupArgs = {
 
 export const vlGroupArgTypes: ArgTypes<typeof vlGroupArgs> = {
     group: {
-        name: 'vl-group-next',
+        name: 'vl-group',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: 'block style',
@@ -27,7 +27,7 @@ export const vlGroupArgTypes: ArgTypes<typeof vlGroupArgs> = {
         description: 'Verplichte root style.',
     },
     collapseL: {
-        name: 'vl-group-next--collapse-l',
+        name: 'vl-group--collapse-l',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: 'modifier style',
@@ -36,7 +36,7 @@ export const vlGroupArgTypes: ArgTypes<typeof vlGroupArgs> = {
         description: 'Lijnt de items verticaal uit op een groot scherm (>1023px).',
     },
     collapseM: {
-        name: 'vl-group-next--collapse-m',
+        name: 'vl-group--collapse-m',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: 'modifier style',
@@ -45,7 +45,7 @@ export const vlGroupArgTypes: ArgTypes<typeof vlGroupArgs> = {
         description: 'Lijnt de items verticaal uit op een gemiddeld scherm (<1023px).',
     },
     collapseS: {
-        name: 'vl-group-next--collapse-s',
+        name: 'vl-group--collapse-s',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: 'modifier style',
@@ -54,7 +54,7 @@ export const vlGroupArgTypes: ArgTypes<typeof vlGroupArgs> = {
         description: 'Lijnt de items verticaal uit op een klein scherm (<767px).',
     },
     collapseXS: {
-        name: 'vl-group-next--collapse-xs',
+        name: 'vl-group--collapse-xs',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: 'modifier style',
@@ -63,7 +63,7 @@ export const vlGroupArgTypes: ArgTypes<typeof vlGroupArgs> = {
         description: 'Lijnt de items verticaal uit op een extra klein scherm (<500px).',
     },
     column: {
-        name: 'vl-group-next--column',
+        name: 'vl-group--column',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: 'modifier style',
@@ -72,7 +72,7 @@ export const vlGroupArgTypes: ArgTypes<typeof vlGroupArgs> = {
         description: 'Lijnt de items uit in een kolom.',
     },
     justifyCenter: {
-        name: 'vl-group-next--justify-center',
+        name: 'vl-group--justify-center',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: 'modifier style',
@@ -81,7 +81,7 @@ export const vlGroupArgTypes: ArgTypes<typeof vlGroupArgs> = {
         description: 'Lijnt de items centraal uit.',
     },
     justifyEnd: {
-        name: 'vl-group-next--justify-end',
+        name: 'vl-group--justify-end',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: 'modifier style',
@@ -90,7 +90,7 @@ export const vlGroupArgTypes: ArgTypes<typeof vlGroupArgs> = {
         description: 'Lijnt de items uit naar het einde.',
     },
     separatorColumn: {
-        name: 'vl-group-next--separator-column',
+        name: 'vl-group--separator-column',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: 'modifier style',
@@ -99,7 +99,7 @@ export const vlGroupArgTypes: ArgTypes<typeof vlGroupArgs> = {
         description: 'Voegt horizontale scheidingslijnen toe boven en onder items.',
     },
     separatorRow: {
-        name: 'vl-group-next--separator-row',
+        name: 'vl-group--separator-row',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: 'modifier style',
@@ -108,7 +108,7 @@ export const vlGroupArgTypes: ArgTypes<typeof vlGroupArgs> = {
         description: 'Voegt verticale scheidingslijnen toe links en rechts tussen items.',
     },
     spaceBetween: {
-        name: 'vl-group-next--space-between',
+        name: 'vl-group--space-between',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: 'modifier style',
@@ -119,13 +119,13 @@ export const vlGroupArgTypes: ArgTypes<typeof vlGroupArgs> = {
             'de overige items staan verdeelt met gelijke ruimte ertussen.',
     },
     stretchChildren: {
-        name: 'vl-group-next--stretch-children',
+        name: 'vl-group--stretch-children',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: 'modifier style',
             defaultValue: { summary: false },
         },
         description:
-            'Laat de kinderen van de groep de volledige breedte van de groep innemen. Enkel te gebruiken in combinatie met vl-group-next--column.',
+            'Laat de kinderen van de groep de volledige breedte van de groep innemen. Enkel te gebruiken in combinatie met vl-group--column.',
     },
 };

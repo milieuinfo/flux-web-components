@@ -11,11 +11,11 @@ describe('padding styles', () => {
                     padding: 10px;
                 }
             </style>
-            <div class="vl-padding-next--small cy-padding-small">padding - small</div>
-            <div class="vl-padding-next--medium cy-padding-medium">padding - medium</div>
-            <div class="vl-padding-next--no cy-padding-no">padding - no</div>
-            <div class="vl-padding-next--no-bottom cy-padding-no-bottom">padding - no bottom</div>
-            <div class="vl-padding-next--no-top cy-padding-no-top">padding - no top</div>
+            <div class="vl-padding--small cy-padding-small">padding - small</div>
+            <div class="vl-padding--medium cy-padding-medium">padding - medium</div>
+            <div class="vl-padding--no cy-padding-no">padding - no</div>
+            <div class="vl-padding--no-bottom cy-padding-no-bottom">padding - no bottom</div>
+            <div class="vl-padding--no-top cy-padding-no-top">padding - no top</div>
         `);
     });
 

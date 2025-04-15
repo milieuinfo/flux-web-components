@@ -1,6 +1,6 @@
 import { BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { VlIconComponent } from '@domg-wc/components/next/icon';
-import { vlTitleStyles } from '@domg-wc/components/next/title/vl-title.css';
+import { VlIconComponent } from '../icon';
+import { vlTitleStyles } from '../title/vl-title.css';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { infoblockStyle } from '@domg/govflanders-style/component';
 
@@ -23,7 +23,7 @@ export class VlInfoblockComponent extends BaseHTMLElement {
           </style>
           <section id="infoblock-element" class="vl-infoblock">
             <header class="vl-infoblock__header" role="presentation">
-              <vl-icon-next id="infoblock_icon" class="vl-infoblock__header__icon"></vl-icon-next>
+              <vl-icon id="infoblock_icon" class="vl-infoblock__header__icon"></vl-icon>
               <slot name="title">
                   <h2 id="title_content" class="vl-infoblock__title">tester</h2>
               </slot>

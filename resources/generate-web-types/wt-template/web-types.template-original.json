@@ -8,9 +8,9 @@
         "html": {
             "elements": [
                 {
-                    "name": "vl-properties-next",
-                    "description": "Gebruik de `properties-next` component om properties te tonen op een pagina. Je kan de properties specifiëren als\ninner-html of als json-structuur meegeven aan het `props` attribuut.\n\nDeze component is de nieuwste variant die de (nog als element geschreven)\n[vl-properties](/docs/elements-properties--documentatie) vervangt.\n",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/1.34.0/storybook/?path=/docs/components-next-properties--documentatie",
+                    "name": "vl-properties",
+                    "description": "Gebruik de `properties` component om properties te tonen op een pagina. Je kan de properties specifiëren als\ninner-html of als json-structuur meegeven aan het `props` attribuut.\n\nDeze component is de nieuwste variant die de (nog als element geschreven)\n[vl-properties](/docs/elements-properties--documentatie) vervangt.\n",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/1.34.0/storybook/?path=/docs/components-properties--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",

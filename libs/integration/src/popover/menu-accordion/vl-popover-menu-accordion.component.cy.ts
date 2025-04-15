@@ -1,4 +1,4 @@
-// import { parseFormData } from '@domg-wc/form/utils';
+// import { parseFormData } from '@domg-wc/form';
 import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common-utilities';
 import { VlPopoverMenuAccordionComponent } from './vl-popover-menu-accordion.component';
@@ -15,20 +15,20 @@ describe('integration - popover menu accordion', () => {
     it('should open and close menus', () => {
         cy.mount(html`<vl-popover-menu-accordion></vl-popover-menu-accordion>`);
 
-        cy.get('vl-popover-menu-accordion').find('vl-button-next#btn-acties1[ghost]').click();
+        cy.get('vl-popover-menu-accordion').find('vl-button#btn-acties1[ghost]').click();
         cy.get('vl-popover-menu-accordion').find('vl-popover[for="btn-acties1"]').should('be.visible');
-        cy.get('vl-popover-menu-accordion').find('vl-button-next#btn-acties1[ghost]').click();
+        cy.get('vl-popover-menu-accordion').find('vl-button#btn-acties1[ghost]').click();
         cy.get('vl-popover-menu-accordion').find('vl-popover[for="btn-acties1"]').should('not.be.visible');
-        cy.get('vl-popover-menu-accordion').find('vl-button-next#btn-acties1[ghost]').click();
+        cy.get('vl-popover-menu-accordion').find('vl-button#btn-acties1[ghost]').click();
         cy.get('vl-popover-menu-accordion').find('vl-popover[for="btn-acties1"]').should('be.visible');
         cy.get('body').click();
         cy.get('vl-popover-menu-accordion').find('vl-popover[for="btn-acties1"]').should('not.be.visible');
 
-        cy.get('vl-popover-menu-accordion').find('vl-button-next#btn-acties2').click();
+        cy.get('vl-popover-menu-accordion').find('vl-button#btn-acties2').click();
         cy.get('vl-popover-menu-accordion').find('vl-popover[for="btn-acties2"]').should('be.visible');
-        cy.get('vl-popover-menu-accordion').find('vl-button-next#btn-acties2').click();
+        cy.get('vl-popover-menu-accordion').find('vl-button#btn-acties2').click();
         cy.get('vl-popover-menu-accordion').find('vl-popover[for="btn-acties2"]').should('not.be.visible');
-        cy.get('vl-popover-menu-accordion').find('vl-button-next#btn-acties2').click();
+        cy.get('vl-popover-menu-accordion').find('vl-button#btn-acties2').click();
         cy.get('vl-popover-menu-accordion').find('vl-popover[for="btn-acties2"]').should('be.visible');
         cy.get('body').click();
         cy.get('vl-popover-menu-accordion').find('vl-popover[for="btn-acties2"]').should('not.be.visible');

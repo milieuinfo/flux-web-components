@@ -1,7 +1,7 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
 import { vlElementsStyle } from '@domg-wc/elements';
-import { VlCheckboxComponent } from '@domg-wc/form/next/checkbox';
-import { VlTextComponent } from '@domg-wc/components/next/text';
+import { VlCheckboxComponent } from '@domg-wc/form';
+import { VlTextComponent } from '@domg-wc/components';
 
 @webComponent('vl-cookie-consent-opt-in')
 export class VlCookieConsentOptIn extends BaseElementOfType(HTMLElement) {
@@ -19,7 +19,7 @@ export class VlCookieConsentOptIn extends BaseElementOfType(HTMLElement) {
         ${vlElementsStyle.join('')}
       </style>
       <div>
-          <vl-checkbox-next></vl-checkbox-next>
+          <vl-checkbox></vl-checkbox>
       </div>
     `);
     }
@@ -29,7 +29,7 @@ export class VlCookieConsentOptIn extends BaseElementOfType(HTMLElement) {
     }
 
     get _checkboxElement() {
-        return this._element.querySelector('vl-checkbox-next');
+        return this._element.querySelector('vl-checkbox');
     }
 
     get _descriptionElement() {

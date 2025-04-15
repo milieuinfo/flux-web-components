@@ -11,7 +11,7 @@ describe('integrator - form demo', () => {
         cy.intercept('/csp-report', cy.spy().as('cspReport'));
         cy.visit(formDemoUrl);
 
-        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        // eslint-disable-line cypress/no-unnecessary-waiting
         cy.wait(500);
         cy.get('@cspReport').should('not.have.been.called');
     });
@@ -30,7 +30,7 @@ describe('integrator - form demo', () => {
                 head[0].append(script);
             });
 
-        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        // eslint-disable-line cypress/no-unnecessary-waiting
         cy.wait(500);
         cy.get('@cspReport').should('have.been.called');
     });

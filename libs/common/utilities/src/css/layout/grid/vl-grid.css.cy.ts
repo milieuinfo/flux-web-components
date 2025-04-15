@@ -4,13 +4,13 @@ import { GlobalStyles } from '../../global-styles';
 describe('grid styles', () => {
     const gridResponsive = html`
         <style>
-            .vl-grid-next {
+            .vl-grid {
                 --vl-column-min-height: 8vmax;
                 --vl-grid-row-gap: 0px;
                 --vl-grid-col-gap: 0px;
                 padding: 1vmax;
 
-                .vl-column-next {
+                .vl-column {
                     min-height: 8vmax;
                     background-color: mediumspringgreen;
                     border: lightseagreen 2px solid;
@@ -29,35 +29,27 @@ describe('grid styles', () => {
                 }
             }
         </style>
-        <div class="vl-grid-next">
+        <div class="vl-grid">
             <div
-                class="vl-column-next sb-header vl-column-next--1 vl-column-next--m-3 vl-column-next--s-6 vl-column-next--xs-9 cy-cell-1-1"
+                class="vl-column sb-header vl-column--1 vl-column--m-3 vl-column--s-6 vl-column--xs-9 cy-cell-1-1"
             ></div>
             <div
-                class="vl-column-next sb-header vl-column-next--11 vl-column-next--m-9 vl-column-next--s-6 vl-column-next--xs-3 cy-cell-1-2"
+                class="vl-column sb-header vl-column--11 vl-column--m-9 vl-column--s-6 vl-column--xs-3 cy-cell-1-2"
             ></div>
-            <div class="sb-main vl-column-next vl-column-next--8 vl-grid-next vl-column-next--m-12 cy-cell-2-1"></div>
-            <div class="vl-column-next vl-column-next--4 vl-column-next--m-12 cy-cell-2-2"></div>
-            <div class="vl-column-next vl-column-next--2 vl-column-next--m-6 vl-column-next--xs-12 cy-cell-3-1"></div>
-            <div class="vl-column-next vl-column-next--2 vl-column-next--m-6 vl-column-next--xs-12 cy-cell-3-2"></div>
-            <div
-                class="vl-column-next vl-column-next--1 vl-column-next--m-3 vl-column-next--s-6 vl-column-next--xs-12 cy-cell-4-1"
-            ></div>
-            <div
-                class="vl-column-next vl-column-next--1 vl-column-next--m-3 vl-column-next--s-6 vl-column-next--xs-12 cy-cell-4-2"
-            ></div>
-            <div
-                class="vl-column-next vl-column-next--1 vl-column-next--m-3 vl-column-next--s-6 vl-column-next--xs-12 cy-cell-4-3"
-            ></div>
-            <div
-                class="vl-column-next vl-column-next--1 vl-column-next--m-3 vl-column-next--s-6 vl-column-next--xs-12 cy-cell-4-4"
-            ></div>
-            <div class="vl-column-next sb-footer vl-column-next--4 cy-cell-5-1"></div>
-            <div class="vl-column-next sb-footer vl-column-next--2 cy-cell-5-2"></div>
-            <div class="vl-column-next sb-footer vl-column-next--1 cy-cell-5-3"></div>
-            <div class="vl-column-next sb-footer vl-column-next--2 cy-cell-5-4"></div>
-            <div class="vl-column-next sb-footer vl-column-next--1 cy-cell-5-5"></div>
-            <div class="vl-column-next sb-footer vl-column-next--2 cy-cell-5-6"></div>
+            <div class="sb-main vl-column vl-column--8 vl-grid vl-column--m-12 cy-cell-2-1"></div>
+            <div class="vl-column vl-column--4 vl-column--m-12 cy-cell-2-2"></div>
+            <div class="vl-column vl-column--2 vl-column--m-6 vl-column--xs-12 cy-cell-3-1"></div>
+            <div class="vl-column vl-column--2 vl-column--m-6 vl-column--xs-12 cy-cell-3-2"></div>
+            <div class="vl-column vl-column--1 vl-column--m-3 vl-column--s-6 vl-column--xs-12 cy-cell-4-1"></div>
+            <div class="vl-column vl-column--1 vl-column--m-3 vl-column--s-6 vl-column--xs-12 cy-cell-4-2"></div>
+            <div class="vl-column vl-column--1 vl-column--m-3 vl-column--s-6 vl-column--xs-12 cy-cell-4-3"></div>
+            <div class="vl-column vl-column--1 vl-column--m-3 vl-column--s-6 vl-column--xs-12 cy-cell-4-4"></div>
+            <div class="vl-column sb-footer vl-column--4 cy-cell-5-1"></div>
+            <div class="vl-column sb-footer vl-column--2 cy-cell-5-2"></div>
+            <div class="vl-column sb-footer vl-column--1 cy-cell-5-3"></div>
+            <div class="vl-column sb-footer vl-column--2 cy-cell-5-4"></div>
+            <div class="vl-column sb-footer vl-column--1 cy-cell-5-5"></div>
+            <div class="vl-column sb-footer vl-column--2 cy-cell-5-6"></div>
         </div>
     `;
 
@@ -355,47 +347,33 @@ describe('grid styles', () => {
 
     const gridOffset = html`
         <style>
-            .vl-grid-next {
+            .vl-grid {
                 --vl-column-min-height: 20px;
                 grid-template-rows: 20px;
 
-                .vl-column-next {
+                .vl-column {
                     background-color: mediumspringgreen;
                     border: lightseagreen 2px solid;
                 }
             }
         </style>
-        <div class="vl-grid-next">
+        <div class="vl-grid">
+            <div class="vl-column vl-column--1 vl-column--start-12 vl-column--m-4 vl-column--m-start-9 cy-row-1"></div>
+            <div class="vl-column vl-column--2 vl-column--start-11 vl-column--m-4 vl-column--m-start-9 cy-row-2"></div>
+            <div class="vl-column vl-column--3 vl-column--start-10 vl-column--m-4 vl-column--m-start-9 cy-row-3"></div>
+            <div class="vl-column vl-column--4 vl-column--start-9 cy-row-4"></div>
+            <div class="vl-column vl-column--5 vl-column--start-8 vl-column--m-8 vl-column--m-start-5 cy-row-5"></div>
+            <div class="vl-column vl-column--6 vl-column--start-7 vl-column--m-8 vl-column--m-start-5 cy-row-6"></div>
+            <div class="vl-column vl-column--7 vl-column--start-6 vl-column--m-8 vl-column--m-start-5 cy-row-7"></div>
+            <div class="vl-column vl-column--8 vl-column--start-5 cy-row-8"></div>
+            <div class="vl-column vl-column--9 vl-column--start-4 vl-column--m-start-1 vl-column--m-12 cy-row-9"></div>
             <div
-                class="vl-column-next vl-column-next--1 vl-column-next--start-12 vl-column-next--m-4 vl-column-next--m-start-9 cy-row-1"
+                class="vl-column vl-column--10 vl-column--start-3 vl-column--m-start-1 vl-column--m-12 cy-row-10"
             ></div>
             <div
-                class="vl-column-next vl-column-next--2 vl-column-next--start-11 vl-column-next--m-4 vl-column-next--m-start-9 cy-row-2"
+                class="vl-column vl-column--11 vl-column--start-2 vl-column--m-start-1 vl-column--m-12 cy-row-11"
             ></div>
-            <div
-                class="vl-column-next vl-column-next--3 vl-column-next--start-10 vl-column-next--m-4 vl-column-next--m-start-9 cy-row-3"
-            ></div>
-            <div class="vl-column-next vl-column-next--4 vl-column-next--start-9 cy-row-4"></div>
-            <div
-                class="vl-column-next vl-column-next--5 vl-column-next--start-8 vl-column-next--m-8 vl-column-next--m-start-5 cy-row-5"
-            ></div>
-            <div
-                class="vl-column-next vl-column-next--6 vl-column-next--start-7 vl-column-next--m-8 vl-column-next--m-start-5 cy-row-6"
-            ></div>
-            <div
-                class="vl-column-next vl-column-next--7 vl-column-next--start-6 vl-column-next--m-8 vl-column-next--m-start-5 cy-row-7"
-            ></div>
-            <div class="vl-column-next vl-column-next--8 vl-column-next--start-5 cy-row-8"></div>
-            <div
-                class="vl-column-next vl-column-next--9 vl-column-next--start-4 vl-column-next--m-start-1 vl-column-next--m-12 cy-row-9"
-            ></div>
-            <div
-                class="vl-column-next vl-column-next--10 vl-column-next--start-3 vl-column-next--m-start-1 vl-column-next--m-12 cy-row-10"
-            ></div>
-            <div
-                class="vl-column-next vl-column-next--11 vl-column-next--start-2 vl-column-next--m-start-1 vl-column-next--m-12 cy-row-11"
-            ></div>
-            <div class="vl-column-next vl-column-next--12 vl-column-next--start-1 cy-row-12"></div>
+            <div class="vl-column vl-column--12 vl-column--start-1 cy-row-12"></div>
         </div>
     `;
 
@@ -453,53 +431,43 @@ describe('grid styles', () => {
 
     const gridJustifyAndAlign = html`
         <style>
-            .vl-grid-next {
+            .vl-grid {
                 --vl-column-min-height: 1vmax;
                 grid-template-rows: 30px 30px 30px 30px 60px 60px 60px 30px;
 
-                .vl-column-next {
+                .vl-column {
                     background-color: mediumspringgreen;
                     border: lightseagreen 2px solid;
                 }
             }
         </style>
-        <div class="vl-grid-next">
-            <div
-                class="vl-column-next vl-column-next--8 vl-column-next--start-5 vl-column-next--justify-self-start cy-cell-1-1"
-            >
+        <div class="vl-grid">
+            <div class="vl-column vl-column--8 vl-column--start-5 vl-column--justify-self-start cy-cell-1-1">
                 &nbsp;justify-self-start&nbsp;
             </div>
-            <div
-                class="vl-column-next vl-column-next--8 vl-column-next--start-5 vl-column-next--justify-self-center cy-cell-2-1"
-            >
+            <div class="vl-column vl-column--8 vl-column--start-5 vl-column--justify-self-center cy-cell-2-1">
                 &nbsp;justify-self-center&nbsp;
             </div>
-            <div
-                class="vl-column-next vl-column-next--8 vl-column-next--start-5 vl-column-next--justify-self-end cy-cell-3-1"
-            >
+            <div class="vl-column vl-column--8 vl-column--start-5 vl-column--justify-self-end cy-cell-3-1">
                 &nbsp;justify-self-end&nbsp;
             </div>
-            <div
-                class="vl-column-next vl-column-next--8 vl-column-next--start-5 vl-column-next--justify-self-stretch cy-cell-4-1"
-            >
+            <div class="vl-column vl-column--8 vl-column--start-5 vl-column--justify-self-stretch cy-cell-4-1">
                 &nbsp;justify-self-stretch&nbsp;
             </div>
-            <div class="vl-column-next vl-column-next--6 vl-column-next--align-self-start cy-cell-5-1">
+            <div class="vl-column vl-column--6 vl-column--align-self-start cy-cell-5-1">
                 &nbsp;align-items-start&nbsp;
             </div>
-            <div class="vl-column-next vl-column-next--6 cy-cell-5-2"></div>
-            <div class="vl-column-next vl-column-next--6 vl-column-next--align-self-center cy-cell-6-1">
+            <div class="vl-column vl-column--6 cy-cell-5-2"></div>
+            <div class="vl-column vl-column--6 vl-column--align-self-center cy-cell-6-1">
                 &nbsp;align-items-center&nbsp;
             </div>
-            <div class="vl-column-next vl-column-next--6 cy-cell-6-2"></div>
-            <div class="vl-column-next vl-column-next--6 vl-column-next--align-self-end cy-cell-7-1">
-                &nbsp;align-items-end&nbsp;
-            </div>
-            <div class="vl-column-next vl-column-next--6 cy-cell-7-2"></div>
-            <div class="vl-column-next vl-column-next--6 vl-column-next--align-self-stretch cy-cell-8-1">
+            <div class="vl-column vl-column--6 cy-cell-6-2"></div>
+            <div class="vl-column vl-column--6 vl-column--align-self-end cy-cell-7-1">&nbsp;align-items-end&nbsp;</div>
+            <div class="vl-column vl-column--6 cy-cell-7-2"></div>
+            <div class="vl-column vl-column--6 vl-column--align-self-stretch cy-cell-8-1">
                 &nbsp;align-items-stretch&nbsp;
             </div>
-            <div class="vl-column-next vl-column-next--6 cy-cell-8-2"></div>
+            <div class="vl-column vl-column--6 cy-cell-8-2"></div>
         </div>
     `;
 

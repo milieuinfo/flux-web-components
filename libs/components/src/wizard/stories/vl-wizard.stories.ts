@@ -1,9 +1,7 @@
 import { story } from '@domg-wc/common-storybook';
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlLinkComponent } from '@domg-wc/components/next/link';
-import { VlTitleComponent } from '@domg-wc/components/next/title';
-import { VlFormLabelComponent } from '@domg-wc/form/next/form-label';
-import { VlInputFieldComponent } from '@domg-wc/form/next/input-field';
+import { VlLinkComponent, VlTitleComponent } from '@domg-wc/components';
+import { VlFormLabelComponent, VlInputFieldComponent } from '@domg-wc/form';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../vl-wizard-pane.component';
@@ -49,39 +47,37 @@ export const WizardDefault = story(
                 getWizard().activeStep = event.detail.number;
             }}
         >
-            <vl-title-next slot="title" type="h2">${title}</vl-title-next>
+            <vl-title slot="title" type="h2">${title}</vl-title>
             <p slot="header">${header}</p>
             <vl-wizard-pane data-vl-name="Stap 1">
-                <vl-title-next type="h3">Stap 1</vl-title-next>
-                <div class="vl-grid-next vl-stacked-next-small">
-                    <div class="vl-column-next vl-column-next--12">
-                        <div class="vl-grid-next vl-stacked-next-small">
-                            <div class="vl-column-next vl-column-next--12">
-                                <vl-form-label-next for="naam" block> Naam </vl-form-label-next>
-                                <vl-input-field-next id="naam" block></vl-input-field-next>
+                <vl-title type="h3">Stap 1</vl-title>
+                <div class="vl-grid vl-stacked-small">
+                    <div class="vl-column vl-column--12">
+                        <div class="vl-grid vl-stacked-small">
+                            <div class="vl-column vl-column--12">
+                                <vl-form-label for="naam" block> Naam </vl-form-label>
+                                <vl-input-field id="naam" block></vl-input-field>
                             </div>
                         </div>
                     </div>
-                    <div class="vl-column-next">
-                        <vl-button-next @click=${() => (getWizard().activeStep += 1)} type="button">
-                            Volgende
-                        </vl-button-next>
+                    <div class="vl-column">
+                        <vl-button @click=${() => (getWizard().activeStep += 1)} type="button"> Volgende </vl-button>
                     </div>
                 </div>
             </vl-wizard-pane>
             <vl-wizard-pane data-vl-name="Stap 2">
-                <vl-title-next type="h3">Stap 2</vl-title-next>
-                <div class="vl-grid-next vl-stacked-next-small">
-                    <div class="vl-column-next vl-column-next--12">
-                        <div class="vl-grid-next vl-stacked-next-small">
-                            <div class="vl-column-next vl-column-next--12">
-                                <vl-form-label-next for="years" block> Aantal jaren dienst </vl-form-label-next>
-                                <vl-input-field-next id="years" block></vl-input-field-next>
+                <vl-title type="h3">Stap 2</vl-title>
+                <div class="vl-grid vl-stacked-small">
+                    <div class="vl-column vl-column--12">
+                        <div class="vl-grid vl-stacked-small">
+                            <div class="vl-column vl-column--12">
+                                <vl-form-label for="years" block> Aantal jaren dienst </vl-form-label>
+                                <vl-input-field id="years" block></vl-input-field>
                             </div>
                         </div>
                     </div>
-                    <div class="vl-column-next vl-column-next--12">
-                        <vl-link-next
+                    <div class="vl-column vl-column--12">
+                        <vl-link
                             @click=${() => (getWizard().activeStep -= 1)}
                             button-as-link
                             label="vorige"
@@ -90,7 +86,7 @@ export const WizardDefault = story(
                             icon-placement="before"
                         >
                             Vorige
-                        </vl-link-next>
+                        </vl-link>
                     </div>
                 </div>
             </vl-wizard-pane>

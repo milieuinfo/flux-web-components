@@ -103,7 +103,7 @@ export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve
  */
 export const awaitUntil = (condition: any): Promise<void> =>
     // TODO kspeltin: raar die async in een promise
-    // eslint-disable-next-line no-async-promise-executor
+    // eslint-disable-line no-async-promise-executor
     new Promise(async (resolve, reject) => {
         while (!condition()) {
             await sleep(50);

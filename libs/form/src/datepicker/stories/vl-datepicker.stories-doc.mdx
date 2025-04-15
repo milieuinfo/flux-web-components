@@ -1,0 +1,106 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs';
+import * as VlDatepickerStories from './vl-datepicker.stories';
+import FormControlPublicMethods from '../../form-control/stories/form-control.public-methods-doc.mdx'
+
+# Datepicker
+
+<VluxMetaData id="form-datepicker" />
+
+Gebruik de `datepicker` component om de gebruiker op een gebruiksvriendelijke manier een datum of tijd te laten selecteren.<br/>
+Zie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.
+
+
+## Voorbeeld
+
+```js
+import { VlDatepickerComponent } from '@domg-wc/form';
+```
+
+```html
+<vl-datepicker></vl-datepicker>
+```
+
+<Canvas of={VlDatepickerStories.DatepickerDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlDatepickerStories.DatepickerDefault} />
+
+
+## Publieke methodes
+
+<FormControlPublicMethods />
+
+## Positionering
+
+De datepicker kalender positioneert zichzelf automatisch. Indien de automatische positionering niet het gewenste
+resultaat oplevert, kan dit op twee manieren aangepast worden:
+
+-   Het `position` attribuut: mogelijke waarden zijn: "auto" (default), "above", "below", "auto left", "auto center",
+    "auto right", "above left", "above center", "above right", "below left", "below center", "below right".
+-   Het `static` attribuut: indien aanwezig wordt andere positionering genegeerd en wordt de kalender
+    op een vaste plaats onder het datum invulveld getoond.
+
+## Formaat
+
+Je kan het `format` attribuut gebruiken om de datumnotatie te wijzigen. Het default formaat is `d.m.Y`.<br/>
+
+In het onderstaande voorbeeld wordt de datumnotatie expliciet ingesteld op `d/m/Y`.
+
+> `format="d/m/Y"` zal de gekozen datum weergeven als `31/12/2023`
+```html
+<vl-datepicker format="d/m/Y"></vl-datepicker>
+```
+
+
+## Waarde
+
+Je kan de datum instellen met het `value` attribuut. De waarde moet conform het [ISO-formaat](https://en.wikipedia.org/wiki/ISO_8601) zijn.
+
+De uitgelezen waarde volgt eveneens het [ISO-formaat](https://en.wikipedia.org/wiki/ISO_8601). Per type datepicker wordt de waarde standaard als volgt weergegeven:
+- `date`: `2023-12-31`
+- `time`: `23:59`
+- `date-time`: `2023-12-31T23:59`
+- `range`: `2023-12-31/2023-12-31`
+
+> `value="2023-12-31"` zal de ingestelde datum weergeven als `31.12.2023`
+```html
+<vl-datepicker value="2023-12-31"></vl-datepicker>
+```
+
+
+## Validatie
+> Meer info over validatie binnen onze form componenten vind je hier: [Form - Validatie](/docs/ontwerp-form-validation--documentatie)
+
+### Mask Validatie
+
+- Er wordt standaard mask validatie toegevoegd aan de datepicker met type `date` (standaard) of type `time`.
+- De mask wordt opgebouwd op basis van het `format` attribuut.
+- Je kan standaard mask validatie uitschakelen met het `disable-mask-validation` attribuut.
+- De `patternMismatch` ValidityState key wordt gebruikt voor de mask validatie error.
+
+### Pattern Validatie
+
+- Als de mask validatie is uitgeschakeld, kan je met het `pattern` attribuut een regex patroon instellen. Je kan ook de `regex` property gebruiken voor complexere validatie.
+- De `patternMismatch` ValidityState key wordt gebruikt voor de pattern validatie error.
+
+## Mobile ondersteuning
+
+Standaard wordt de datepicker weergegeven als een kalender. Voor mobiele toestellen is het mogelijk de datepicker weer te geven als een input veld met een datepicker door het `enable-mobile-native-input` attribuut toe te voegen.
+
+## Gekende Beperkingen
+
+- De datepicker is gedeeltelijk toegankelijk voor gebruikers die enkel met het toetsenbord navigeren. Ze kunnen wel manueel een datum invullen.
+- Voor datepicker met type `date-time` & `range` is er geen standaard mask validatie voorzien gezien `cleave.js` hiervoor geen ondersteuning biedt.
+
+
+## Referenties
+
+### Flatpickr
+
+[Documentatie Flatpickr](https://flatpickr.js.org/)
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Datepicker](https://overheid.vlaanderen.be/webuniversum/v3/documentation/components/vl-ui-datepicker/)
