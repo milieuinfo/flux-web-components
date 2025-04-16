@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { type HeaderProps, header, headerElements } from './header.section';
 
 registerWebComponents(headerElements());

@@ -1,5 +1,5 @@
-import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import { VlCheckboxComponent } from '@domg-wc/form';
 import { VlTextComponent } from '@domg-wc/components';
 
@@ -16,7 +16,7 @@ export class VlCookieConsentOptIn extends BaseElementOfType(HTMLElement) {
     constructor() {
         super(`
       <style>
-        ${vlElementsStyle.join('')}
+        ${vlLegacyStyles.join('')}
       </style>
       <div>
           <vl-checkbox></vl-checkbox>

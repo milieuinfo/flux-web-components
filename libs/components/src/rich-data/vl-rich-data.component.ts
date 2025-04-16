@@ -1,5 +1,5 @@
-import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { vlGridStyles, vlIconStyles } from '@domg-wc/common-utilities/css';
+import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
+import { vlGridStyles, vlIconStyles } from '@domg-wc/styles';
 import { buttonStyles } from '../button/vl-button.css';
 import { VlFormLabelComponent } from '@domg-wc/form';
 import { VlSearchFilterComponent } from '../search-filter';

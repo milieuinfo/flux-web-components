@@ -1,4 +1,4 @@
-import { webComponent } from '@domg-wc/common-utilities';
+import { webComponent } from '@domg-wc/common';
 import * as OlExtent from 'ol/extent';
 import OlTileLayer from 'ol/layer/Tile';
 import OlWMTSSource from 'ol/source/WMTS';

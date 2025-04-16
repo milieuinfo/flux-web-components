@@ -1,5 +1,5 @@
-import { BaseLitElement, ICON_PLACEMENT, webComponent } from '@domg-wc/common-utilities';
-import { vlIconStyles, vlLinkIconStyles, vlLinkStyles } from '@domg-wc/common-utilities/css';
+import { BaseLitElement, ICON_PLACEMENT, webComponent } from '@domg-wc/common';
+import { vlIconStyles, vlLinkIconStyles, vlLinkStyles } from '@domg-wc/styles';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { buttonAsLinkStyles } from './vl-button-as-link.css';

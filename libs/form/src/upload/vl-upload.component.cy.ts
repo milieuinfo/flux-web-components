@@ -1,5 +1,5 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
 import { html } from 'lit';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlUploadComponent } from './vl-upload.component';
 
 registerWebComponents([VlUploadComponent]);

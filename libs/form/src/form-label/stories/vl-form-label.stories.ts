@@ -1,9 +1,9 @@
-import { story } from '@domg-wc/common-storybook';
+import { story } from '@resources/utils-storybook';
 import { formLabelArgs, formLabelArgTypes } from './vl-form-label.stories-arg';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit';
 import formLabelDocs from './vl-form-label.stories-doc.mdx';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlFormLabelComponent } from '../vl-form-label.component';
 
 registerWebComponents([VlFormLabelComponent]);

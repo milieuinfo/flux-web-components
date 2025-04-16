@@ -9,7 +9,7 @@ cd ../generate-icons
 # generate the icons
 tsx generate-icon-files.ts
 # format the generated files
-prettier ../../libs/common/utilities/src/css/base/icon/vl-icon-mapping.css.ts --write
+prettier ../../libs/styles/src/base/icon/vl-icon-mapping.css.ts --write
 prettier ../../libs/components/src/next/icon/vl-all-icons.component.ts --write
 
 # back to the initial folder

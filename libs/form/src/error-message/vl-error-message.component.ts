@@ -1,4 +1,4 @@
-import { BaseLitElement, webComponent } from '@domg-wc/common-utilities';
+import { BaseLitElement, webComponent } from '@domg-wc/common';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { formMessageStyle } from '@domg/govflanders-style/component';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';

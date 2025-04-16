@@ -1,4 +1,4 @@
-import { defaultArgs, defaultArgTypes } from '@domg-wc/common-storybook';
+import { defaultArgs, defaultArgTypes } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components';
 
 export const typographyArgs = {

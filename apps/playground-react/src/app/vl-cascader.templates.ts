@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlIconComponent } from '@domg-wc/components';
 import { html } from 'lit-html';
 import { nothing } from 'lit';

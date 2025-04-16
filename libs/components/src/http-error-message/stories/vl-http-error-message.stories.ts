@@ -1,11 +1,11 @@
-import { story } from '@domg-wc/common-storybook';
+import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../vl-http-error-message.component';
 import { httpErrorMessageArgs, httpErrorMessageArgTypes } from './vl-http-error-message.stories-arg';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import httpErrorMessageDoc from './vl-http-error-message.stories-doc.mdx';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlButtonComponent } from '@domg-wc/components';
 
 registerWebComponents([VlButtonComponent]);

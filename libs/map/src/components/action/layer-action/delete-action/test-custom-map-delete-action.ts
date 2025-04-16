@@ -1,4 +1,4 @@
-import { webComponent } from '@domg-wc/common-utilities';
+import { webComponent } from '@domg-wc/common';
 import { VlMapDeleteAction } from './vl-map-delete-action';
 
 @webComponent('vl-custom-map-delete-action')

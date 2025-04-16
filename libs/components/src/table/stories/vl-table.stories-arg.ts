@@ -1,4 +1,4 @@
-import { CATEGORIES, TYPES } from '@domg-wc/common-storybook';
+import { CATEGORIES, TYPES } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components';
 import { tableDefaults } from '../vl-table.defaults';
 

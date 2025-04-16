@@ -1,4 +1,4 @@
-import { debounce, webComponent } from '@domg-wc/common-utilities';
+import { debounce, webComponent } from '@domg-wc/common';
 import { VlSelectRichComponent } from '@domg-wc/form';
 import { Choice } from 'choices.js';
 import LambertCoordinaat from '../../utils/lambert-coordinaat';

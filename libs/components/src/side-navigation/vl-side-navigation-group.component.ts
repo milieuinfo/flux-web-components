@@ -1,4 +1,4 @@
-import { BaseLitElement, webComponent } from '@domg-wc/common-utilities';
+import { BaseLitElement, webComponent } from '@domg-wc/common';
 
 @webComponent('vl-side-navigation-group')
 export class VlSideNavigationGroupComponent extends BaseLitElement {

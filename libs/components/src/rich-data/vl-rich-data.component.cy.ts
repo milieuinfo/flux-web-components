@@ -1,6 +1,5 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlFormLabelComponent, VlInputFieldComponent } from '@domg-wc/form';
-import { VlSelectComponent } from '@domg-wc/form';
+import { registerWebComponents } from '@domg-wc/common';
+import { VlFormLabelComponent, VlInputFieldComponent, VlSelectComponent } from '@domg-wc/form';
 import { html } from 'lit';
 import { VlButtonComponent } from '../button';
 import { VlSearchFilterComponent } from '../search-filter';

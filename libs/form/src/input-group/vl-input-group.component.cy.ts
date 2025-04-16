@@ -1,5 +1,5 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
-import { vlGroupStyles } from '@domg-wc/common-utilities/css';
+import { registerWebComponents } from '@domg-wc/common';
+import { vlGroupStyles } from '@domg-wc/styles';
 import { VlButtonComponent } from '@domg-wc/components';
 import { html } from 'lit';
 import { VlInputFieldComponent } from '../input-field';

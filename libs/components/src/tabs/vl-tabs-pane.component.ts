@@ -1,4 +1,4 @@
-import { BaseLitElement, webComponent } from '@domg-wc/common-utilities';
+import { BaseLitElement, webComponent } from '@domg-wc/common';
 import { html, PropertyDeclarations, TemplateResult } from 'lit';
 
 @webComponent('vl-tabs-pane')

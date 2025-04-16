@@ -5,7 +5,7 @@ import {
     defaultArgTypes,
     getSelectControlOptions,
     TYPES,
-} from '@domg-wc/common-storybook';
+} from '@resources/utils-storybook';
 import { action } from '@storybook/addon-actions';
 import { ArgTypes } from '@storybook/web-components';
 import { DISPLAY_STYLE } from '../vl-tabs.model';

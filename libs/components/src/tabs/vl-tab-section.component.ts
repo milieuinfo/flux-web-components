@@ -1,4 +1,4 @@
-import { BaseLitElement, webComponent } from '@domg-wc/common-utilities';
+import { BaseLitElement, webComponent } from '@domg-wc/common';
 
 @webComponent('vl-tab-section')
 export class VlTabSectionComponent extends BaseLitElement {

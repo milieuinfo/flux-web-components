@@ -1,4 +1,4 @@
-import { defaultArgs, defaultArgTypes, story } from '@domg-wc/common-storybook';
+import { defaultArgs, defaultArgTypes, story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../vl-search.component';

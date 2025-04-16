@@ -3,7 +3,7 @@ import { FormControlMixin, programmaticValidator, requiredValidator } from '@ope
 import { LitElement, PropertyDeclarations } from 'lit';
 import { submit } from '@open-wc/form-helpers';
 import { ERROR_MESSAGE_CUSTOM_TAG } from '../error-message/vl-error-message.component';
-import { BaseLitElement } from '@domg-wc/common-utilities';
+import { BaseLitElement } from '@domg-wc/common';
 import 'reflect-metadata';
 
 export abstract class FormControl extends FormControlMixin(BaseLitElement) {

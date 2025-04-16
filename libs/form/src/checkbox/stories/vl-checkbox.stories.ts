@@ -2,9 +2,9 @@ import { html } from 'lit-html';
 import { checkboxArgs, checkboxArgTypes } from './vl-checkbox.stories-arg';
 import { Meta } from '@storybook/web-components';
 import checkboxDoc from './vl-checkbox.stories-doc.mdx';
-import { story } from '@domg-wc/common-storybook';
+import { story } from '@resources/utils-storybook';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlCheckboxComponent } from '../vl-checkbox.component';
 import { nothing } from 'lit';
 

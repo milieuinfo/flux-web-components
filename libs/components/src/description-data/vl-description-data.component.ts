@@ -1,5 +1,5 @@
-import { BaseLitElement } from '@domg-wc/common-utilities';
-import { vlGridStyles, vlResetStyles } from '@domg-wc/common-utilities/css';
+import { BaseLitElement } from '@domg-wc/common';
+import { vlGridStyles, vlResetStyles } from '@domg-wc/styles';
 import { descriptionDataStyle } from '@domg/govflanders-style/component';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';

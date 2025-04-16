@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { COMPLIANCE_STATUS, EVALUATION_STATUS, type AccessibilityProperties } from '../vl-accessibility.model';
 import { content, contentElements } from './content.section';
 

@@ -1,5 +1,5 @@
-import { BaseLitElement, registerWebComponents, VL } from '@domg-wc/common-utilities';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { BaseLitElement, registerWebComponents, VL } from '@domg-wc/common';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { stepsStyle } from '@domg/govflanders-style/component';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
@@ -25,7 +25,7 @@ export class VlStepComponent extends BaseLitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, vlElementsStyle, stepsStyle, stepUigStyle];
+        return [resetStyle, vlLegacyStyles, stepsStyle, stepUigStyle];
     }
 
     static get properties(): PropertyDeclarations {

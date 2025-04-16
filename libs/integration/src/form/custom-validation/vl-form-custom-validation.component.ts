@@ -1,7 +1,6 @@
-import { registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { vlGridStyles } from '@domg-wc/common-utilities/css';
+import { registerWebComponents, webComponent } from '@domg-wc/common';
+import { vlGridStyles, vlLegacyStyles } from '@domg-wc/styles';
 import { VlButtonComponent } from '@domg-wc/components';
-import { vlElementsStyle } from '@domg-wc/elements';
 import { VlErrorMessageComponent, VlFormLabelComponent, VlInputFieldComponent } from '@domg-wc/form';
 import { Validator } from '@open-wc/form-control';
 import { css, CSSResult, html, LitElement, PropertyDeclarations } from 'lit';
@@ -42,7 +41,7 @@ export class VlFormCustomValidationComponent extends LitElement {
 
     static override get styles(): (CSSResult | CSSResult[])[] {
         return [
-            vlElementsStyle,
+            vlLegacyStyles,
             vlGridStyles,
             css`
                 form {

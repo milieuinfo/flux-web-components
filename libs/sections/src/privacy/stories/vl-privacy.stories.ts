@@ -4,7 +4,7 @@ import '../vl-privacy.section';
 import { Meta } from '@storybook/web-components';
 import privacyDoc from './vl-privacy.stories-doc.mdx';
 import { privacyArgs, privacyArgTypes } from './vl-privacy.stories-arg';
-import { story } from '@domg-wc/common-storybook';
+import { story } from '@resources/utils-storybook';
 
 export default {
     id: 'sections-privacy',

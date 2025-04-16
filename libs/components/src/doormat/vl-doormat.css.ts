@@ -1,5 +1,5 @@
 import { css, CSSResult, unsafeCSS } from 'lit';
-import { vlHeading5 } from '@domg-wc/common-utilities/css';
+import { vlHeading5 } from '@domg-wc/styles';
 
 const borderWidth = '1px';
 const borderLeftWidth = '0.5rem';

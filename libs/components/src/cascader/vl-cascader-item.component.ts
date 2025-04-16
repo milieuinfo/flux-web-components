@@ -1,9 +1,8 @@
-import { vlGroupStyles } from '@domg-wc/common-utilities/css';
+import { vlGroupStyles } from '@domg-wc/styles';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
-import { BaseLitElement, findNodesForSlot } from '@domg-wc/common-utilities';
+import { BaseLitElement, findNodesForSlot } from '@domg-wc/common';
 import { customElement } from 'lit/decorators.js';
 import { resetStyle } from '@domg/govflanders-style/common';
-import { vlElementsStyle } from '@domg-wc/elements';
 import cascaderItemUigStyle from './vl-cascader-item.uig-css';
 import { CASCADER_MESSAGES, CASCADER_SLOTS, CascaderItem } from './vl-cascader.model';
 import { defaultItemActionTemplate, getDefaultItemTemplate, getTemplateFunctionForType } from './vl-cascader.utils';

@@ -1,4 +1,4 @@
-import { BaseLitElement, findNodesForSlot, registerWebComponents } from '@domg-wc/common-utilities';
+import { BaseLitElement, findNodesForSlot, registerWebComponents } from '@domg-wc/common';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { breadcrumbStyle } from '@domg/govflanders-style/component';
 import { CSSResult, html, nothing, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';

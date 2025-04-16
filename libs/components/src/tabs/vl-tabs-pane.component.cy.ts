@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { VlTabsPaneComponent } from './vl-tabs-pane.component';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 
 registerWebComponents([VlTabsPaneComponent]);
 

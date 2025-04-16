@@ -2,7 +2,7 @@ import { descriptionDataStyle } from '@domg/govflanders-style/component';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { BaseLitElement } from '@domg-wc/common-utilities';
+import { BaseLitElement } from '@domg-wc/common';
 
 @customElement('vl-description-data-item')
 export class VlDescriptionDataItem extends BaseLitElement {

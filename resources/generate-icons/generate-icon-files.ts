@@ -2,7 +2,7 @@
 // ! Voer dit bestand uit met volgend commando: tsx generate-icon-files.ts
 
 import * as fs from 'fs-extra';
-import { iconFontLocation } from '../../libs/common/utilities/src/css/base/font/vl-font.css';
+import { iconFontLocation } from '../../libs/styles/src/base/font/vl-font.css';
 
 const getSvgIconString = async () => {
     const response = await fetch(`${iconFontLocation}.svg`);
@@ -56,8 +56,8 @@ const generateAllIconsComponent = (glyphs) => {
         // ! dit bestand werd gegenereerd door het script: generate-icon-files.ts
 
         import { CSSResult, LitElement, css, html } from 'lit';
-        import { registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-        import { vlIconStyles } from '@domg-wc/common-utilities/css';
+        import { registerWebComponents, webComponent } from '@domg-wc/common';
+        import { vlIconStyles } from '@domg-wc/styles';
         import { VlIconComponent } from '@domg-wc/components';
 
         @webComponent('vl-all-icons')
@@ -144,7 +144,7 @@ const processIcons = async () => {
     const iconMapping = generateIconMapping(glyphs);
     const allIconsComponent = generateAllIconsComponent(glyphs);
 
-    writeFile('../../libs/common/utilities/src/css/base/icon/vl-icon-mapping.css.ts', iconMapping);
+    writeFile('../../libs/styles/src/base/icon/vl-icon-mapping.css.ts', iconMapping);
     writeFile('../../libs/components/src/next/icon/vl-all-icons.component.ts', allIconsComponent);
 };
 

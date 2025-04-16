@@ -1,4 +1,4 @@
-import { vlElementsStyle } from '@domg-wc/elements';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
 
 export const richDataSortingStyle: CSSResult = css`
@@ -6,4 +6,4 @@ export const richDataSortingStyle: CSSResult = css`
         cursor: pointer;
     }
 `;
-export default [...vlElementsStyle, richDataSortingStyle] as CSSResult[];
+export default [...vlLegacyStyles, richDataSortingStyle] as CSSResult[];

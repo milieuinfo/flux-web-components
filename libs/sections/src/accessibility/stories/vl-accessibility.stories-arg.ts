@@ -1,5 +1,5 @@
 import { COMPLIANCE_STATUS, EVALUATION_STATUS } from '../vl-accessibility.model';
-import { CATEGORIES, CONTROLS, getSelectControlOptions, TYPES } from '@domg-wc/common-storybook';
+import { CATEGORIES, CONTROLS, getSelectControlOptions, TYPES } from '@resources/utils-storybook';
 import { action } from '@storybook/addon-actions';
 import { ArgTypes } from '@storybook/web-components';
 

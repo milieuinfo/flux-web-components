@@ -4,7 +4,7 @@ import { customElement } from 'lit/decorators.js';
 import 'reflect-metadata';
 import inputSliderUigStyle from './vl-input-slider.uig-css';
 import { inputFieldStyles } from '@domg-wc/form';
-import { BaseLitElement } from '@domg-wc/common-utilities';
+import { BaseLitElement } from '@domg-wc/common';
 
 @customElement('vl-input-slider')
 export class VlInputSliderComponent extends BaseLitElement {

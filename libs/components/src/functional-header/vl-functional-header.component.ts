@@ -1,4 +1,4 @@
-import { BaseElementOfType, MARGINS, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { BaseElementOfType, MARGINS, registerWebComponents, webComponent } from '@domg-wc/common';
 import {
     GlobalStyles,
     vlContentBlockStyles,
@@ -8,10 +8,10 @@ import {
     vlLinkStyles,
     vlResetStyles,
     vlSectionStyles,
-} from '@domg-wc/common-utilities/css';
+} from '@domg-wc/styles';
 import { VlIconComponent } from '../icon';
 import { vlTitleStyles } from '../title/vl-title.css';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import { functionalHeaderStyle } from '@domg/govflanders-style/component';
 import { functionalHeaderUigStyle } from './vl-functional-header.uig-css';
 
@@ -103,7 +103,7 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
         if (this.shadowRoot) {
             this.shadowRoot.adoptedStyleSheets = [
                 ...this.shadowRoot.adoptedStyleSheets,
-                ...vlElementsStyle.map((style) => style.styleSheet),
+                ...vlLegacyStyles.map((style) => style.styleSheet),
                 vlGridStyles.styleSheet,
                 vlSectionStyles.styleSheet,
                 vlContentBlockStyles.styleSheet,

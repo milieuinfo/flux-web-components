@@ -1,7 +1,6 @@
-import { registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { vlGridStyles } from '@domg-wc/common-utilities/css';
+import { registerWebComponents, webComponent } from '@domg-wc/common';
+import { vlGridStyles, vlLegacyStyles } from '@domg-wc/styles';
 import { VlButtonComponent } from '@domg-wc/components';
-import { vlElementsStyle } from '@domg-wc/elements';
 import {
     parseFormData,
     SelectRichOption,
@@ -43,7 +42,7 @@ export class VlFormDataComponent extends LitElement {
 
     static override get styles(): (CSSResult | CSSResult[])[] {
         return [
-            vlElementsStyle,
+            vlLegacyStyles,
             vlGridStyles,
             css`
                 form {
