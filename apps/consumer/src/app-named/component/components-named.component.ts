@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlStepsComponent, VlTitleComponent } from '@domg-wc/components';
 import { stepsNextHtml } from '../../html/components.html.js';
 

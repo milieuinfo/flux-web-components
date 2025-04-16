@@ -1,5 +1,5 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
-import { vlGridStyles } from '@domg-wc/common-utilities/css';
+import { registerWebComponents } from '@domg-wc/common';
+import { vlGridStyles } from '@domg-wc/styles';
 import { html } from 'lit';
 import { VlCheckboxComponent } from './vl-checkbox.component';
 import { checkboxDefaults } from './vl-checkbox.defaults';

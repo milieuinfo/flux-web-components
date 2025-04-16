@@ -1,6 +1,6 @@
-import { registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { registerWebComponents, webComponent } from '@domg-wc/common';
 import { VlAccordionComponent, VlButtonComponent, VlPopoverComponent } from '@domg-wc/components';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import { css, CSSResult, html, LitElement } from 'lit';
 
 const topLevelAccordionCss = `
@@ -25,7 +25,7 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
     }
 
     static override get styles(): (CSSResult | CSSResult[])[] {
-        return [vlElementsStyle, css``];
+        return [vlLegacyStyles, css``];
     }
 
     override render() {

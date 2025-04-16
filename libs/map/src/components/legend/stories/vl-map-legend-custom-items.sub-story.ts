@@ -1,4 +1,4 @@
-import { story } from '@domg-wc/common-storybook';
+import { story } from '@resources/utils-storybook';
 import { html } from 'lit-html';
 import '../../../vl-map';
 import '../../action/draw-action/measure-action/vl-map-measure-action';

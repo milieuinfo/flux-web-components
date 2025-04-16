@@ -2,7 +2,7 @@ import { breadcrumbStyle } from '@domg/govflanders-style/component';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { BaseLitElement } from '@domg-wc/common-utilities';
+import { BaseLitElement } from '@domg-wc/common';
 import breadcrumbUigStyle from './vl-breadcrumb.uig-css';
 
 @customElement('vl-breadcrumb')

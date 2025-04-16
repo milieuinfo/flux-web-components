@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import { MapEvent } from 'ol';
 import { VlMap } from '../../vl-map';

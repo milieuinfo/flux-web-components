@@ -3,7 +3,7 @@ import { resetStyle } from '@domg/govflanders-style/common';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import breadcrumbUigStyle from './vl-breadcrumb.uig-css';
-import { BaseLitElement } from '@domg-wc/common-utilities';
+import { BaseLitElement } from '@domg-wc/common';
 
 @customElement('vl-breadcrumb-item')
 export class VlBreadcrumbItemComponent extends BaseLitElement {

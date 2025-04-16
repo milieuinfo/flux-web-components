@@ -6,7 +6,7 @@ import {
     getSelectControlOptions,
     logStorybookEvent,
     TYPES,
-} from '@domg-wc/common-storybook';
+} from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components';
 import { ALERT_ICON, ALERT_SIZE, ALERT_TYPE, VlAlertClosedEvent } from '../vl-alert.model';
 

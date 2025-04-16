@@ -1,4 +1,4 @@
-import { webComponent } from '@domg-wc/common-utilities';
+import { webComponent } from '@domg-wc/common';
 import { VlMapModifyAction } from './vl-map-modify-action';
 
 @webComponent('vl-custom-map-modify-action')

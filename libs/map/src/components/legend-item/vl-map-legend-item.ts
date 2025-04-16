@@ -1,6 +1,6 @@
 import { html, PropertyDeclarations, TemplateResult, CSSResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { BaseLitElement } from '@domg-wc/common-utilities';
+import { BaseLitElement } from '@domg-wc/common';
 import legendStyles from '../legend/vl-map-legend.uig-css';
 import legendItemStyles from './vl-map-legend-item.uig-css';
 

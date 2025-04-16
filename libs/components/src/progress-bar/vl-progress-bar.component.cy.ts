@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlPopoverComponent } from '../popover/vl-popover.component';
 import { VlProgressBarComponent } from './vl-progress-bar.component';
 import { html } from 'lit';

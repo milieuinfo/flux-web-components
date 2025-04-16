@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import OlWMTSSource from 'ol/source/WMTS';
 import OlWMTSTileGrid from 'ol/tilegrid/WMTS';

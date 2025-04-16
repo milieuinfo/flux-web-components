@@ -1,4 +1,4 @@
-import { BaseElementOfType } from '@domg-wc/common-utilities';
+import { BaseElementOfType } from '@domg-wc/common';
 import { VlMap } from '../../vl-map';
 import { VlMapLayerStyle } from '../layer-style/vl-map-layer-style';
 

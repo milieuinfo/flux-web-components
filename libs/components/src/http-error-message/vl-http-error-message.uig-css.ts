@@ -1,4 +1,4 @@
-import { vlMediaScreenExtraSmall, vlMediaScreenSmall } from '@domg-wc/common-utilities/css';
+import { vlMediaScreenExtraSmall, vlMediaScreenSmall } from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
 
 const styles: CSSResult = css`

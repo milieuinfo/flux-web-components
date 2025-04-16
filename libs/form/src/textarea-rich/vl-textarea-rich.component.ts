@@ -1,4 +1,4 @@
-import { webComponent } from '@domg-wc/common-utilities';
+import { webComponent } from '@domg-wc/common';
 import { CSSResult, PropertyDeclarations } from 'lit';
 import tinymce, { Editor } from 'tinymce';
 import { VlTextareaComponent } from '../textarea/vl-textarea.component';

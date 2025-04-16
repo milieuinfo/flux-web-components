@@ -1,4 +1,4 @@
-import { findNodesForSlot, webComponent } from '@domg-wc/common-utilities';
+import { findNodesForSlot, webComponent } from '@domg-wc/common';
 import { Dropzone as DropzoneInstance, DropzoneFile } from '../dropzone-types';
 import { accessibilityStyle, baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { iconStyle, linkStyle, uploadStyle } from '@domg/govflanders-style/component';

@@ -1,4 +1,4 @@
-import { ICON_PLACEMENT } from '@domg-wc/common-utilities';
+import { ICON_PLACEMENT } from '@domg-wc/common';
 
 export const buttonDefaults = {
     type: 'button' as 'button' | 'submit' | 'reset',

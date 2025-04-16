@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { html, TemplateResult } from 'lit';
 import { VlButtonComponent } from '../button';
 import { VlModalComponent } from './vl-modal.component';

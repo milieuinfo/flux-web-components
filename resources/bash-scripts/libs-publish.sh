@@ -14,17 +14,13 @@ else
     exit 1;
 fi
 
-cd ./common-utilities
-npm publish domg-wc-common-utilities-${RELEASE_VERSION}.tgz
-echo "[done] - publish - @domg-wc/common-utilities-${RELEASE_VERSION}"
+cd ./common
+npm publish domg-wc-common-${RELEASE_VERSION}.tgz
+echo "[done] - publish - @domg-wc/common-${RELEASE_VERSION}"
 
-cd ../common-storybook
-npm publish domg-wc-common-storybook-${RELEASE_VERSION}.tgz
-echo "[done] - publish - @domg-wc/common-storybook"
-
-cd ../elements
-npm publish domg-wc-elements-${RELEASE_VERSION}.tgz
-echo "[done] - publish - @domg-wc/elements-${RELEASE_VERSION}"
+cd ../styles
+npm publish domg-wc-styles-${RELEASE_VERSION}.tgz
+echo "[done] - publish - @domg-wc/styles-${RELEASE_VERSION}"
 
 cd ../components
 npm publish domg-wc-components-${RELEASE_VERSION}.tgz

@@ -1,4 +1,4 @@
-import { BaseLitElement } from '@domg-wc/common-utilities';
+import { BaseLitElement } from '@domg-wc/common';
 import { html, LitElement, nothing, PropertyDeclarations } from 'lit';
 import { customElement } from 'lit/decorators.js';
 

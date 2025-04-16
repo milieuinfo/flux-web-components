@@ -1,4 +1,4 @@
-import { registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { registerWebComponents, webComponent } from '@domg-wc/common';
 import { LitElement, PropertyDeclarations, PropertyValues } from 'lit';
 import { VlButtonComponent } from '../button';
 import { tableStyles } from './vl-table.css';

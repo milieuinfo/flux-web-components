@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlMapLegend } from '../legend/vl-map-legend';
 import { VlMap } from '../../vl-map';
 import { VlMapWfsLayer } from '../layer/vector-layer/vl-map-wfs-layer/vl-map-wfs-layer';

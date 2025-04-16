@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import OlVectorSource from 'ol/source/Vector';
 import OlWMTSSource from 'ol/source/WMTS';

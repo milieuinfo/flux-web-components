@@ -1,4 +1,4 @@
-import { story } from '@domg-wc/common-storybook';
+import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components';
 import '../../../../../../vl-map';
 import '../../../../../baselayer/vl-map-base-layer-grb-gray/vl-map-base-layer-grb-gray';

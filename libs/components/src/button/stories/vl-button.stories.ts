@@ -1,9 +1,9 @@
-import { story } from '@domg-wc/common-storybook';
+import { story } from '@resources/utils-storybook';
 import { buttonArgs, buttonArgTypes } from './vl-button.stories-arg';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit';
 import { VlButtonComponent } from '../vl-button.component';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import buttonDoc from './vl-button.stories-doc.mdx';
 

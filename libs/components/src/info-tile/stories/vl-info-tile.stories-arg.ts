@@ -5,7 +5,7 @@ import {
     defaultArgTypes,
     TYPES,
     getSelectControlOptions,
-} from '@domg-wc/common-storybook';
+} from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components';
 import { INFO_TILE_SIZE } from '../vl-info-tile.model';
 

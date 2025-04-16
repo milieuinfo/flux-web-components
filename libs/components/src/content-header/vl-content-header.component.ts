@@ -1,4 +1,4 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common-utilities';
+import { BaseElementOfType, webComponent } from '@domg-wc/common';
 import { contentHeaderStyle } from '@domg/govflanders-style/component';
 import { baseStyle, layoutStyle, resetStyle } from '@domg/govflanders-style/common';
 

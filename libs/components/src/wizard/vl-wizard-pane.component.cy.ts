@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { html, nothing } from 'lit';
 import { VlWizardPane } from './vl-wizard-pane.component';
 import { VlWizard } from './vl-wizard.component';

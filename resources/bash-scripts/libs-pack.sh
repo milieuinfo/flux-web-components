@@ -30,35 +30,25 @@ echo "RELEASE_VERSION gezet in de package.json en *.web-types.json bestanden"
 # om tree-shaking correct te laten werken moeten sideEffects in de root-barrel-file uitgeschakeld worden
 #  -> het lijkt niet mogelijk om dit via een exclude te doen - dit werkt niet: ["!(./index.js)"]
 #  -> dus expliciet specifieren van alle files in minimum 1 subfolder + eventueel de 'andere' root-files
-cd ./common-utilities
+cd ./common
 npm pkg set sideEffects='["./*/**"]' --json >/dev/null
-echo '[done] - set sideEffects - common-utilities'
+echo '[done] - set sideEffects - common'
 if [[ $1 == "develop" ]]; then
     npm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'
-    echo '[done] - set publishConfig to snapshot-npm - common-utilities'
+    echo '[done] - set publishConfig to snapshot-npm - common'
 fi
 npm pack &> /dev/null
-echo '[done] - pack - common-utilities'
+echo '[done] - pack - common'
 
-cd ../common-storybook
-npm pkg set sideEffects='["./*/**", "./stories.helper.*"]' --json >/dev/null
-echo '[done] - set sideEffects - common-storybook'
-if [[ $1 == "develop" ]]; then
-    npm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'
-    echo '[done] - set publishConfig to snapshot-npm - common-storybook'
-fi
-npm pack &> /dev/null
-echo '[done] - pack - common-storybook'
-
-cd ../elements
+cd ../styles
 npm pkg set sideEffects='["./*/**"]' --json >/dev/null
-echo '[done] - set sideEffects - elements'
+echo '[done] - set sideEffects - styles'
 if [[ $1 == "develop" ]]; then
     npm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'
-    echo '[done] - set publishConfig to snapshot-npm - elements'
+    echo '[done] - set publishConfig to snapshot-npm - styles'
 fi
 npm pack &> /dev/null
-echo '[done] - pack - elements'
+echo '[done] - pack - styles'
 
 cd ../components
 npm pkg set sideEffects='["./*/**"]' --json >/dev/null

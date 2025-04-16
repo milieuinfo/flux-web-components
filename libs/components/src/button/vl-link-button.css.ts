@@ -1,4 +1,4 @@
-import { vlFocusOutlineMixin, vlMediaScreenSmall, vlWaveAnimationMixin } from '@domg-wc/common-utilities/css';
+import { vlFocusOutlineMixin, vlMediaScreenSmall, vlWaveAnimationMixin } from '@domg-wc/styles';
 import { CSSResult, css, unsafeCSS } from 'lit';
 
 const borderWidth = '0.2rem';

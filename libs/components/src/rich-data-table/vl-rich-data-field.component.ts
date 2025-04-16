@@ -1,4 +1,4 @@
-import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
 import { VlRichDataSorter } from './vl-rich-data-sorter.component';
 
 @webComponent('vl-rich-data-field')

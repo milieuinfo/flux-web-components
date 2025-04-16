@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlFormDemoComponent } from './vl-form-demo.component';
 import { parseFormData } from '@domg-wc/form';
 

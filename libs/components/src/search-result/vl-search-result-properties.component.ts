@@ -1,4 +1,4 @@
-import { webComponent } from '@domg-wc/common-utilities';
+import { webComponent } from '@domg-wc/common';
 import { CSSResult } from 'lit';
 import { VlPropertiesComponent } from '../properties';
 import { vlSearchResultPropertiesStyles } from './vl-search-result-properties.css';
