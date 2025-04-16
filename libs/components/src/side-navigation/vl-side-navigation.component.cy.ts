@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import { VlSideNavigationContentComponent } from './vl-side-navigation-content.component';
 import { VlSideNavigationGroupComponent } from './vl-side-navigation-group.component';

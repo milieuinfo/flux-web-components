@@ -1,7 +1,7 @@
-import { awaitUntil, BaseLitElement, registerWebComponents, type VL, webComponent } from '@domg-wc/common-utilities';
+import { awaitUntil, BaseLitElement, registerWebComponents, type VL, webComponent } from '@domg-wc/common';
 import '@govflanders/vl-ui-util/dist/js/util.js'; // Moet expliciet geïmporteerd worden om de cy test te laten slagen - het vl object is nodig
 import './vl-tabs.lib.js';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { linkStyle } from '@domg/govflanders-style/component';
 import { html, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
@@ -64,7 +64,7 @@ export class VlTabsComponent extends BaseLitElement {
                 ${tabsUigStyle}
                 ${linkStyle}
                 ${baseStyle}
-                ${vlElementsStyle}
+                ${vlLegacyStyles}
             </style>
             <div id="tabs" tabs tabs-responsive-label="Navigatie">
                 <div id="tabs-wrapper" class="vl-tabs__wrapper">

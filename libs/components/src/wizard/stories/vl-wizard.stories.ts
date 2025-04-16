@@ -1,5 +1,5 @@
-import { story } from '@domg-wc/common-storybook';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { story } from '@resources/utils-storybook';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlLinkComponent, VlTitleComponent } from '@domg-wc/components';
 import { VlFormLabelComponent, VlInputFieldComponent } from '@domg-wc/form';
 import { Meta } from '@storybook/web-components';

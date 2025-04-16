@@ -5,18 +5,15 @@
         "rootDirs": ["./libs", "./apps", "./resources"],
         "types": ["cypress", "cypress-axe"],
         "paths": {
-            "@domg-wc/common-storybook": ["libs/common/storybook/src/index.ts"],
-            "@domg-wc/common-utilities": ["libs/common/utilities/src/index.ts"],
-            "@domg-wc/common-utilities/constants": ["libs/common/utilities/src/constants/index.ts"],
-            "@domg-wc/common-utilities/css": ["libs/common/utilities/src/css/index.ts"],
+            "@resources/utils-storybook": ["resources/utils-storybook/stories.helper.ts"],
+            "@domg-wc/common": ["libs/common/src/index.ts"],
+            "@domg-wc/common/constants": ["libs/common/src/constants/index.ts"],
             "@domg-wc/components": ["libs/components/src/index.ts"],
-            "@domg-wc/elements": ["libs/elements/src/index.ts"],
-            "@domg-wc/fat-lib": ["libs/support/fat-lib/src/index.ts"],
             "@domg-wc/form": ["libs/form/src/index.ts"],
             "@domg-wc/integration/*": ["libs/integration/src/*"],
             "@domg-wc/map": ["libs/map/src/index.ts"],
             "@domg-wc/sections": ["libs/sections/src/index.ts"],
-            "@domg-wc/test-support": ["libs/support/test-support/src/index.ts"]
+            "@domg-wc/styles": ["libs/styles/src/index.ts"]
         },
         "target": "es2021",
         "moduleResolution": "node",

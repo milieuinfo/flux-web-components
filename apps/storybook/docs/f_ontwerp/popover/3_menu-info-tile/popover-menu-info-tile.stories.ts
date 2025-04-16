@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlPopoverMenuInfoTileComponent } from '@domg-wc/integration/popover/menu-info-tile';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';

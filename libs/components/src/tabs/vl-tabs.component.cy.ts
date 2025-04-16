@@ -1,10 +1,13 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
+import { legacyGlobalStyles } from '@domg-wc/styles';
 import { html } from 'lit';
 import { VlTabSectionComponent } from './vl-tab-section.component';
 import { VlTabComponent } from './vl-tab.component';
 import { VlTabsPaneComponent } from './vl-tabs-pane.component';
 import { VlTabsComponent } from './vl-tabs.component';
 import { DisplayStyle } from './vl-tabs.model';
+
+legacyGlobalStyles()(() => null);
 
 registerWebComponents([VlTabsComponent, VlTabComponent, VlTabsPaneComponent, VlTabSectionComponent]);
 
@@ -299,8 +302,7 @@ describe('component vl-tabs-pane - functionality on smaller devices', () => {
         VlTabsComponentTestUtils.shouldBeHidden('vl-tab-section#fiets-pane');
     });
 
-    // TODO onduidelijk waarom deze test faalt - te fixen
-    it.skip('should open/close tablist on mobile', () => {
+    it('should open/close tablist on mobile', () => {
         mountDefault({ ...props, disableLinks: true, activeTab: 'trein' });
 
         VlTabsComponentTestUtils.shouldBeVisible('vl-tab-section#trein-pane');

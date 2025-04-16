@@ -1,5 +1,5 @@
 import { VlAccordionComponent, VlCascaderComponent, VlInfoTile } from '@domg-wc/components';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import './app.element.scss';
 import { getItemList } from './vl-cascader.utils';
 import { cascaderItemTemplates } from './vl-cascader.templates';

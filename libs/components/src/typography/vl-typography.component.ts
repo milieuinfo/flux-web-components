@@ -1,4 +1,4 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common-utilities';
+import { BaseElementOfType, webComponent } from '@domg-wc/common';
 import { baseStyle, elementStyle, resetStyle } from '@domg/govflanders-style/common';
 import { titlesStyle, typographyStyle } from '@domg/govflanders-style/component';
 import typographyUigStyle from './vl-typography.uig-css';

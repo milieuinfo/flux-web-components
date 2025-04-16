@@ -1,5 +1,5 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
-import { vlGroupStyles } from '@domg-wc/common-utilities/css';
+import { registerWebComponents } from '@domg-wc/common';
+import { vlGroupStyles, vlLegacyStyles, vlStackedStyles } from '@domg-wc/styles';
 import {
     VlAccordionComponent,
     VlButtonComponent,
@@ -12,12 +12,10 @@ import {
     VlTabsComponent,
     VlTitleComponent,
 } from '@domg-wc/components';
-import { vlElementsStyle } from '@domg-wc/elements';
 import { SelectRichOption, VlDatepickerComponent, VlSelectComponent, VlSelectRichComponent } from '@domg-wc/form';
-import { vlStackedStyles } from 'libs/common/utilities/src/css/layout/stacked/vl-stacked.css';
 import { CSSResult, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { VlFormDemoComponent } from '../../../../libs/integration/src/form/demo/vl-form-demo.component';
+import { VlFormDemoComponent } from '@domg-wc/integration/form/demo';
 
 @customElement('app-component')
 export class AppComponent extends LitElement {
@@ -69,7 +67,7 @@ export class AppComponent extends LitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [vlElementsStyle, vlGroupStyles, vlStackedStyles];
+        return [vlLegacyStyles, vlGroupStyles, vlStackedStyles];
     }
 
     private _selectElement: VlSelectComponent;

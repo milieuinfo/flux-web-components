@@ -1,4 +1,4 @@
-import { hexToString } from '@domg-wc/common-utilities';
+import { hexToString } from '@domg-wc/common';
 
 const iconNextDefaultUrl = 'http://localhost:8080/iframe.html?id=styles-base-intern-icon--icon-default&viewMode=story';
 

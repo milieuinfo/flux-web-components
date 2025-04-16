@@ -1,4 +1,4 @@
-import { vlMediaScreenSmall } from '@domg-wc/common-utilities/css';
+import { vlMediaScreenSmall } from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
 
 export const searchFilterGlobalStyles: CSSResult = css`

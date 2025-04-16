@@ -1,7 +1,7 @@
-import { vlIconStyles } from '@domg-wc/common-utilities/css';
+import { vlIconStyles } from '@domg-wc/styles';
 import { html, PropertyDeclarations, TemplateResult, CSSResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { BaseLitElement, findNodesForSlot } from '@domg-wc/common-utilities';
+import { BaseLitElement, findNodesForSlot } from '@domg-wc/common';
 import { alertStyle } from '@domg/govflanders-style/component';
 import { accessibilityStyle, resetStyle, markStyle } from '@domg/govflanders-style/common';
 import { VlAlertClosedEvent, VlAlertModel } from './vl-alert.model';

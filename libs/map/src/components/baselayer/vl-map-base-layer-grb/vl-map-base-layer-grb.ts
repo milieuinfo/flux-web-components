@@ -1,4 +1,4 @@
-import { webComponent } from '@domg-wc/common-utilities';
+import { webComponent } from '@domg-wc/common';
 import { VlMapBaseLayer } from '../vl-map-base-layer';
 
 @webComponent('vl-map-baselayer-grb')

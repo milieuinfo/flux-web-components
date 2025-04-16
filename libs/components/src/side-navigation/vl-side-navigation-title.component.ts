@@ -1,4 +1,4 @@
-import { BaseLitElement, webComponent } from '@domg-wc/common-utilities';
+import { BaseLitElement, webComponent } from '@domg-wc/common';
 
 class VlSideNavigationTitleComponent extends BaseLitElement {
     connectedCallback() {

@@ -1,6 +1,6 @@
 import { VlAlertClosedEvent } from './vl-alert.model';
 import { html } from 'lit';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlAlert } from './vl-alert.component';
 
 registerWebComponents([VlAlert]);

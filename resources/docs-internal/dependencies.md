@@ -26,7 +26,7 @@ https://dev.to/this-is-learning/manage-nx-library-dependencies-with-the-nxdepend
 https://www.npmjs.com/package/depcheck
 node -p "require('jsts/package.json').version"
 
-npm list @nx/eslint-plugin @types/cypress @types/cypress-axe @types/jest @types/node lit @domg-wc/elements @open-wc/testing sinon proj4 @domg-wc/common-storybook @storybook/addon-actions @storybook/web-components @domg-wc/components @domg-wc/common-utilities lit-html resize-observer-polyfill jsts --json --depth 1
+npm list @nx/eslint-plugin @types/cypress @types/cypress-axe @types/jest @types/node lit @open-wc/testing sinon proj4 @storybook/addon-actions @storybook/web-components @domg-wc/components @domg-wc/common lit-html resize-observer-polyfill jsts --json --depth 1
 
 npm pkg set dependencies.ol="8.0"
 
@@ -41,7 +41,7 @@ npm list ${DEPENDENCIES} --json --depth 1
 mkdir ./build/dep-to-add
 npm list $(npx depcheck ./build/dist/libs/map --oneline | tail -n +2) --json --depth 1 > ./build/dep-to-add/map-dta.json
 
-npm list @domg-wc/common-utilities proj4 lit @domg-wc/elements @domg-wc/components jsts --json --depth 1
+npm list @domg-wc/common proj4 lit @domg-wc/components jsts --json --depth 1
 
 ------------------------------
 

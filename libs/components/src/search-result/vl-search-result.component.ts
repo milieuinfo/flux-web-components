@@ -1,12 +1,12 @@
-import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { elementStyles, vlElementsStyle } from '@domg-wc/elements';
+import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common';
+import { legacyGlobalStyles, vlLegacyStyles } from '@domg-wc/styles';
 import { CSSResult } from 'lit';
 import { VlSearchResultPropertiesComponent } from './vl-search-result-properties.component';
 import { VlSearchResultTextComponent } from './vl-search-result-text.component';
 import { VlSearchResultTitleComponent } from './vl-search-result-title.component';
 import { vlSearchResultStyles } from './vl-search-result.css';
 
-@elementStyles()
+@legacyGlobalStyles()
 @webComponent('vl-search-result')
 export class VlSearchResultComponent extends BaseLitElement {
     static {
@@ -18,7 +18,7 @@ export class VlSearchResultComponent extends BaseLitElement {
     }
 
     static get styles(): CSSResult[] {
-        return [...vlElementsStyle, vlSearchResultStyles];
+        return [...vlLegacyStyles, vlSearchResultStyles];
     }
 
     connectedCallback() {

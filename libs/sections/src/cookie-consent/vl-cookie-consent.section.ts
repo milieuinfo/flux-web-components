@@ -1,7 +1,6 @@
-import { BaseElementOfType, registerWebComponents, webComponentConditional } from '@domg-wc/common-utilities';
-import { vlGridStyles } from '@domg-wc/common-utilities/css';
+import { BaseElementOfType, registerWebComponents, webComponentConditional } from '@domg-wc/common';
+import { vlGridStyles, vlLegacyStyles } from '@domg-wc/styles';
 import { VlButtonComponent, VlModalComponent } from '@domg-wc/components';
-import { vlElementsStyle } from '@domg-wc/elements';
 import { analytics } from './util/analytics.util';
 import './vl-cookie-consent-opt-in.section';
 
@@ -42,7 +41,7 @@ export class VlCookieConsent extends BaseElementOfType(HTMLElement) {
     constructor() {
         super(`
           <style>
-            ${vlElementsStyle}
+            ${vlLegacyStyles}
             ${vlGridStyles}
           </style>
 

@@ -1,6 +1,6 @@
-import { filterOutClasses, filterOutDataCy, formatHTML } from '@domg-wc/common-storybook';
-import { registerWebComponents } from '@domg-wc/common-utilities';
-import { GlobalStyles } from '@domg-wc/common-utilities/css';
+import { filterOutClasses, filterOutDataCy, formatHTML } from '@resources/utils-storybook';
+import { registerWebComponents } from '@domg-wc/common';
+import { GlobalStyles } from '@domg-wc/styles';
 import { VlAlert } from '@domg-wc/components';
 import { VlIconComponent } from '@domg-wc/components';
 import './styles.css';

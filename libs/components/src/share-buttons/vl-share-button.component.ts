@@ -4,7 +4,7 @@ import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { MEDIA_NAMES } from './vl-share-button.model';
 import shareButtonStyle from './vl-share-button.uig-css';
-import { BaseLitElement } from '@domg-wc/common-utilities';
+import { BaseLitElement } from '@domg-wc/common';
 
 @customElement('vl-share-button')
 export class VlShareButton extends BaseLitElement {

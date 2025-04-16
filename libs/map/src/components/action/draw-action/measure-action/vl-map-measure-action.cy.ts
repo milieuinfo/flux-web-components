@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import { VlCompositeVectorLayer } from '../../../..//actions/layer/composite-vector-layer';
 import { VlCompositeVectorSource } from '../../../../actions/source/composite-vector-source';

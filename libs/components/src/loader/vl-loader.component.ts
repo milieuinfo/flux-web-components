@@ -1,4 +1,4 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common-utilities';
+import { BaseElementOfType, webComponent } from '@domg-wc/common';
 import { loaderStyle } from '@domg/govflanders-style/component';
 import { accessibilityStyle, alignStyle, resetStyle } from '@domg/govflanders-style/common';
 

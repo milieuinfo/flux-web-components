@@ -1,5 +1,5 @@
-import { isSafari, webComponent } from '@domg-wc/common-utilities';
-import { vlGroupStyles } from '@domg-wc/common-utilities/css';
+import { isSafari, webComponent } from '@domg-wc/common';
+import { vlGroupStyles } from '@domg-wc/styles';
 import { vlInputAddonStyles } from '@domg-wc/components';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { datepickerStyle, iconStyle, tooltipStyle } from '@domg/govflanders-style/component';

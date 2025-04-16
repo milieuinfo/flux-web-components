@@ -1,4 +1,4 @@
-import { registerWebComponents } from "@domg-wc/common-utilities";
+import { registerWebComponents } from "@domg-wc/common";
 import { html, nothing } from "lit";
 import { VlPillComponent } from "./vl-pill.component";
 
@@ -43,7 +43,7 @@ const mount = ({
     `);
 
 describe('component vl-pill', () => {
-    
+
     it('should contain a text', () => {
         const mockContent = 'Optie 1'
         mount({ content: mockContent})

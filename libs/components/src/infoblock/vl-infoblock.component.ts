@@ -1,4 +1,4 @@
-import { BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { VlIconComponent } from '../icon';
 import { vlTitleStyles } from '../title/vl-title.css';
 import { resetStyle } from '@domg/govflanders-style/common';

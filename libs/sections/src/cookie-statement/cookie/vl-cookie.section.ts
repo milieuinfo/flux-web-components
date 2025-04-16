@@ -1,4 +1,4 @@
-import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
 import { VlPropertiesComponent, VlTitleComponent } from '@domg-wc/components';
 import styles from '../vl-cookie-statement.uig-css';
 

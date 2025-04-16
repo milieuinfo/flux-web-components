@@ -1,4 +1,4 @@
-import { registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { registerWebComponents, webComponent } from '@domg-wc/common';
 import { VlButtonComponent, VlPopoverComponent } from '@domg-wc/components';
 import { html, LitElement } from 'lit';
 

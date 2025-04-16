@@ -1,4 +1,4 @@
-import { webComponent } from '@domg-wc/common-utilities';
+import { webComponent } from '@domg-wc/common';
 import { VlCompositeVectorLayer } from '../../../../actions/layer/composite-vector-layer';
 import { VlModifyAction } from '../../../../actions/modify/modify-action';
 import { VlMapVectorLayer } from '../../../layer/vector-layer/vl-map-vector-layer';

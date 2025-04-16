@@ -8,19 +8,15 @@ cd ../..
 
 # run this script with: bash ./jest-run.sh
 
-cd ./libs/common/storybook
-jest
-cd ../../..
-
-cd ./libs/common/utilities
-jest
-cd ../../..
-
-cd ./libs/components
+cd ./libs/common
 jest
 cd ../..
 
-cd ./libs/elements
+cd ./libs/styles
+jest
+cd ../..
+
+cd ./libs/components
 jest
 cd ../..
 

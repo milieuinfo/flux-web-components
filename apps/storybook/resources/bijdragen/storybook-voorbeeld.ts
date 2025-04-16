@@ -4,7 +4,7 @@ import { prozaMessageMockDomainData, prozaMessageMockDomainEditableData } from '
 import { prozaMessageArgTypes, prozaMessageArgs } from './vl-proza-message.stories-arg';
 import { Meta } from '@storybook/web-components';
 import prozaMessageDoc from './vl-proza-message.stories-doc.mdx';
-import { story, storyArgTypes, storyArgs } from '@domg-wc/common-storybook';
+import { story, storyArgTypes, storyArgs } from '@resources/utils-storybook';
 
 export default {
     title: 'components/proza-message',

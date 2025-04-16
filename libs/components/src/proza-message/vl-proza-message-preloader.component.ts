@@ -1,4 +1,4 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common-utilities';
+import { BaseElementOfType, webComponent } from '@domg-wc/common';
 import { ProzaRestClient } from './vl-proza-rest-client.util';
 
 @webComponent('vl-proza-message-preloader')

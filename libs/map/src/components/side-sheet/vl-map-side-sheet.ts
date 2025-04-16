@@ -1,4 +1,4 @@
-import { webComponent } from '@domg-wc/common-utilities';
+import { webComponent } from '@domg-wc/common';
 import { VlSideSheet } from '@domg-wc/components';
 
 @webComponent('vl-map-side-sheet')

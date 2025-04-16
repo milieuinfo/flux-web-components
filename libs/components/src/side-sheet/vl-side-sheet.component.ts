@@ -1,5 +1,5 @@
-import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { vlAccessibilityStyles, vlContentBlockStyles, vlSectionStyles } from '@domg-wc/common-utilities/css';
+import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
+import { vlAccessibilityStyles, vlContentBlockStyles, vlSectionStyles } from '@domg-wc/styles';
 import { VlButtonComponent } from '@domg-wc/components';
 import styles from './vl-side-sheet.uig-css';
 

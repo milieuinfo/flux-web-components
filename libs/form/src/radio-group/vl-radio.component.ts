@@ -1,5 +1,5 @@
-import { BaseLitElement, webComponent } from '@domg-wc/common-utilities';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { BaseLitElement, webComponent } from '@domg-wc/common';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { radioStyle } from '@domg/govflanders-style/component';
 import { CSSResult, html, LitElement, nothing, PropertyDeclarations, TemplateResult } from 'lit';
@@ -28,7 +28,7 @@ export class VlRadioComponent extends BaseLitElement {
     static shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, baseStyle, vlElementsStyle, radioStyle, radioUigStyle];
+        return [resetStyle, baseStyle, vlLegacyStyles, radioStyle, radioUigStyle];
     }
 
     static get properties(): PropertyDeclarations {

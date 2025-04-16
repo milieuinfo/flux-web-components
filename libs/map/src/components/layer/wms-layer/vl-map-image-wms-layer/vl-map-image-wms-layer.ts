@@ -1,4 +1,4 @@
-import { webComponent } from '@domg-wc/common-utilities';
+import { webComponent } from '@domg-wc/common';
 import OlImageLayer from 'ol/layer/Image';
 import OlImageWMSSource from 'ol/source/ImageWMS';
 import { VlMapWmsLayer } from '../vl-map-wms-layer';

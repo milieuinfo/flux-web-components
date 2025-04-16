@@ -1,5 +1,5 @@
 import { css, CSSResult } from 'lit';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { vlLegacyStyles } from '@domg-wc/styles';
 
 const styles: CSSResult = css`
     #search-results,
@@ -27,4 +27,4 @@ const styles: CSSResult = css`
         margin-top: 8px;
     }
 `;
-export default [...vlElementsStyle, styles] as CSSResult[];
+export default [...vlLegacyStyles, styles] as CSSResult[];

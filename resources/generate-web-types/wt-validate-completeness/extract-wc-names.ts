@@ -67,9 +67,6 @@ const extractWCNames = (
 export const extractComponentWCNames = () =>
     extractWCNames(path.resolve('../../../libs/components/src'), ['.component.ts', '.element.ts'], null, null);
 
-export const extractElementWCNames = () =>
-    extractWCNames(path.resolve('../../../libs/elements/src'), ['.element.ts'], null, null);
-
 export const extractFormWCNames = () => {
     return extractWCNames(path.resolve('../../../libs/form/src'), ['.component.ts'], null, null);
 };

@@ -1,5 +1,5 @@
 // import { parseFormData } from '@domg-wc/form';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import { VlPopoverMenuInfoTileComponent } from './vl-popover-menu-info-tile.component';
 
