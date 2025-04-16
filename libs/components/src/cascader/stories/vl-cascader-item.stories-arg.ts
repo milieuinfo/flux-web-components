@@ -1,4 +1,4 @@
-import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@domg-wc/common-storybook';
+import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components';
 import { cascaderItemDefaults } from '../vl-cascader-item.defaults';
 import { CASCADER_SLOTS } from '../vl-cascader.model';

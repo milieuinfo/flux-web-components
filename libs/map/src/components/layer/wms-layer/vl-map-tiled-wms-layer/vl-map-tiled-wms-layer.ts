@@ -1,4 +1,4 @@
-import { webComponent } from '@domg-wc/common-utilities';
+import { webComponent } from '@domg-wc/common';
 import OlTileLayer from 'ol/layer/Tile';
 import { Projection } from 'ol/proj';
 import { Options as OlImageWMSSourceOptions } from 'ol/source/ImageWMS';

@@ -1,5 +1,5 @@
-import { BaseLitElement, onChildListChange, webComponent } from '@domg-wc/common-utilities';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { BaseLitElement, onChildListChange, webComponent } from '@domg-wc/common';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import { CSSResult, html, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
 import { buildProperties } from './vl-properties.builder';
 import propertiesStyles, { labelWidthPercentage } from './vl-properties.css';
@@ -15,7 +15,7 @@ export class VlPropertiesComponent extends BaseLitElement {
     private labelWidthSheet: CSSStyleSheet = new CSSStyleSheet();
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [vlElementsStyle, propertiesStyles];
+        return [vlLegacyStyles, propertiesStyles];
     }
 
     static get properties(): PropertyDeclarations {

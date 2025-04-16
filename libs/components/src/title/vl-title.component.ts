@@ -1,4 +1,4 @@
-import { BaseLitElement, webComponent } from '@domg-wc/common-utilities';
+import { BaseLitElement, webComponent } from '@domg-wc/common';
 import { CSSResult, PropertyDeclarations } from 'lit';
 import { html } from 'lit-element';
 import { choose } from 'lit/directives/choose.js';

@@ -4,7 +4,7 @@ import Overlay from 'ol/Overlay';
 import { customElement } from 'lit/decorators.js';
 import { VlMapClickActionPindrop } from './vl-map-click-action-pindrop';
 import { VlMapClickedEvent } from './VlMapClickedEvent';
-import { BaseLitElement } from '@domg-wc/common-utilities';
+import { BaseLitElement } from '@domg-wc/common';
 
 @customElement('vl-map-click-action')
 export class VlMapClickAction extends BaseLitElement {

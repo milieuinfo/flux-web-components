@@ -1,5 +1,5 @@
-import { BaseLitElement, webComponent } from '@domg-wc/common-utilities';
-import { vlParagraphStyles } from '@domg-wc/common-utilities/css';
+import { BaseLitElement, webComponent } from '@domg-wc/common';
+import { vlParagraphStyles } from '@domg-wc/styles';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { paragraphDefaults } from './vl-paragraph.defaults';

@@ -1,4 +1,4 @@
-import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@domg-wc/common-storybook';
+import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
 
 export const wizardPaneArgs = {
     ...defaultArgs,

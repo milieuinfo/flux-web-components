@@ -1,4 +1,4 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common-utilities';
+import { BaseElementOfType, webComponent } from '@domg-wc/common';
 import * as OlExtent from 'ol/extent';
 import OlGeoJSON from 'ol/format/GeoJSON';
 import * as OlLoadingstrategy from 'ol/loadingstrategy';

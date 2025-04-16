@@ -1,9 +1,9 @@
 import { html, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { SIZE } from './vl-spotlight.model';
-import { BaseLitElement } from '@domg-wc/common-utilities';
+import { BaseLitElement } from '@domg-wc/common';
 import { classMap } from 'lit/directives/class-map.js';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import { documentStyle, iconListStyle, spotlightStyle } from '@domg/govflanders-style/component';
 import spotlightUigStyle from './vl-spotlight.uig-css';
 
@@ -19,7 +19,7 @@ export class VlSpotlight extends BaseLitElement {
     private imgAlt = '';
 
     static get styles() {
-        return [...vlElementsStyle, spotlightStyle, documentStyle, iconListStyle, spotlightUigStyle];
+        return [...vlLegacyStyles, spotlightStyle, documentStyle, iconListStyle, spotlightUigStyle];
     }
 
     static get properties() {

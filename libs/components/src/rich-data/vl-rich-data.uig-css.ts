@@ -1,6 +1,6 @@
 import { css, CSSResult } from 'lit';
-import { vlElementsStyle } from '@domg-wc/elements';
-import { vlMediaScreenSmall } from '@domg-wc/common-utilities/css';
+import { vlLegacyStyles } from '@domg-wc/styles';
+import { vlMediaScreenSmall } from '@domg-wc/styles';
 
 const styles: CSSResult = css`
     #search-results,
@@ -31,4 +31,4 @@ const styles: CSSResult = css`
         margin-top: 8px;
     }
 `;
-export default [...vlElementsStyle, styles] as CSSResult[];
+export default [...vlLegacyStyles, styles] as CSSResult[];

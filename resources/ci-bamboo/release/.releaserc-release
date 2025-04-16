@@ -32,7 +32,6 @@
                     "package.json",
                     "package-lock.json",
                     "libs/components/components.web-types.json",
-                    "libs/elements/elements.web-types.json",
                     "libs/form/form.web-types.json",
                     "libs/map/map.web-types.json",
                     "libs/sections/sections.web-types.json"

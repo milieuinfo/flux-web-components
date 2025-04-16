@@ -1,5 +1,5 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
-import { GlobalStyles } from '@domg-wc/common-utilities/css';
+import { registerWebComponents } from '@domg-wc/common';
+import { GlobalStyles } from '@domg-wc/styles';
 import { html } from 'lit';
 import { VlSearchResultComponent } from './vl-search-result.component';
 

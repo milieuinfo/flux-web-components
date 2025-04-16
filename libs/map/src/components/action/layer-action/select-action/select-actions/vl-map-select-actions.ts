@@ -1,4 +1,4 @@
-import { webComponent } from '@domg-wc/common-utilities';
+import { webComponent } from '@domg-wc/common';
 import { StyleLike as OlStyleLike } from 'ol/style/Style';
 import { VlSelectActions } from '../../../../../actions/select/select-actions';
 import { ActionOptions, OlVectorLayerType } from '../../../../../vl-map.model';

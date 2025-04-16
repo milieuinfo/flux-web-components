@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import { VlProzaMessagePreloader } from './vl-proza-message-preloader.component';
 import { ProzaRestClient } from './vl-proza-rest-client.util';
@@ -7,7 +7,7 @@ registerWebComponents([VlProzaMessagePreloader]);
 
 describe('vl-proza-message-preloader', () => {
     const mockDomain = 'mock-domain';
-    
+
     beforeEach(() => {
         VlProzaMessagePreloader.__cache = {};
 
@@ -37,7 +37,7 @@ describe('vl-proza-message-preloader', () => {
     it('should have a static public preload method', () => {
         expect(VlProzaMessagePreloader.preload).to.be.a('function');
         VlProzaMessagePreloader.preload(mockDomain);
-        
+
         cy.get('@getMessagesSpy').should('have.been.calledOnce');
         cy.get('@getMessagesSpy').should('have.been.calledWith', mockDomain, undefined);
     })
@@ -47,7 +47,7 @@ describe('vl-proza-message-preloader', () => {
             html`<div>
                 <vl-proza-message-preloader
                     data-vl-domain="${mockDomain}"
-                    
+
                 ></vl-proza-message-preloader>
             </div>`
         );

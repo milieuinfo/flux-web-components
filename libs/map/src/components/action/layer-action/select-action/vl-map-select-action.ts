@@ -1,4 +1,4 @@
-import { webComponent } from '@domg-wc/common-utilities';
+import { webComponent } from '@domg-wc/common';
 import { VlSelectAction } from '../../../../actions/select/select-action';
 import { VlMapLayerStyle } from '../../../layer-style/vl-map-layer-style';
 import { VlMapLayerAction } from '../vl-map-layer-action';

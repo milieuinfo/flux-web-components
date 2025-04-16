@@ -1,4 +1,4 @@
-import { webComponent } from '@domg-wc/common-utilities';
+import { webComponent } from '@domg-wc/common';
 import { VlMapSelectActions } from '../select-actions/vl-map-select-actions';
 import { ActionOptions, OlVectorLayerType } from '../../../../../vl-map.model';
 import { VlMultiselectActions } from '../../../../../actions/select/multiselect-actions';

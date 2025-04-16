@@ -7,7 +7,7 @@ import { VlMapWfsLayer } from '../layer/vector-layer/vl-map-wfs-layer/vl-map-wfs
 import { VlMapLayerCircleStyle } from '../layer-style/vl-map-layer-circle-style/vl-map-layer-circle-style';
 import { LEGEND_PLACEMENT } from './vl-map-legend.defaults';
 import styles from './vl-map-legend.uig-css';
-import { BaseLitElement } from '@domg-wc/common-utilities';
+import { BaseLitElement } from '@domg-wc/common';
 import { VlMapLayer } from '../layer/vl-map-layer';
 import { VlMapLayerStyle } from '../layer-style/vl-map-layer-style';
 import { VlMapFeaturesLayer } from '../layer/vector-layer/vl-map-features-layer/vl-map-features-layer';

@@ -1,4 +1,4 @@
-import { BaseLitElement, registerWebComponents } from '@domg-wc/common-utilities';
+import { BaseLitElement, registerWebComponents } from '@domg-wc/common';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { wizardStyle } from '@domg/govflanders-style/component';
 import '@govflanders/vl-ui-util/dist/js/util.js';

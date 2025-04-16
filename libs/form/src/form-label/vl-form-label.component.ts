@@ -1,4 +1,4 @@
-import { BaseLitElement, webComponent } from '@domg-wc/common-utilities';
+import { BaseLitElement, webComponent } from '@domg-wc/common';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { CSSResult, PropertyDeclarations, TemplateResult, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';

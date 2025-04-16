@@ -1,8 +1,6 @@
-import { story } from '@domg-wc/common-storybook';
-import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlFormLabelComponent } from '@domg-wc/form';
-import { VlInputFieldComponent } from '@domg-wc/form';
-import { VlSelectComponent } from '@domg-wc/form';
+import { story } from '@resources/utils-storybook';
+import { registerWebComponents } from '@domg-wc/common';
+import { VlFormLabelComponent, VlInputFieldComponent, VlSelectComponent } from '@domg-wc/form';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { VlButtonComponent } from '../../button';

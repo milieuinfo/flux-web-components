@@ -1,11 +1,11 @@
-import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
 import {
     GlobalStyles,
     vlGridStyles,
     vlGroupStyles,
     vlResetStyles,
     vlStackedStyles,
-} from '@domg-wc/common-utilities/css';
+} from '@domg-wc/styles';
 import { VlLinkComponent } from '../link';
 import { vlTitleStyles } from '../title/vl-title.css';
 import { render } from 'lit';

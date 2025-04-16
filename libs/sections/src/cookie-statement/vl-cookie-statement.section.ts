@@ -1,5 +1,5 @@
-import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { vlContentBlockStyles, vlGridStyles, vlSectionStyles } from '@domg-wc/common-utilities/css';
+import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
+import { vlContentBlockStyles, vlGridStyles, vlSectionStyles } from '@domg-wc/styles';
 import {
     VlContactCardComponent,
     VlFunctionalHeaderComponent,

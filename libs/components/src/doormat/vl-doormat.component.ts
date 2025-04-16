@@ -1,5 +1,5 @@
-import { BaseLitElement, webComponent } from '@domg-wc/common-utilities';
-import { vlLinkStyles } from '@domg-wc/common-utilities/css';
+import { BaseLitElement, webComponent } from '@domg-wc/common';
+import { vlLinkStyles } from '@domg-wc/styles';
 import { doormatDefaults } from './vl-doormat.defaults';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';

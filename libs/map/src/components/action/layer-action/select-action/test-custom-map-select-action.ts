@@ -1,4 +1,4 @@
-import { webComponent } from '@domg-wc/common-utilities';
+import { webComponent } from '@domg-wc/common';
 import { VlMapSelectAction } from './vl-map-select-action';
 
 @webComponent('vl-custom-map-select-action')

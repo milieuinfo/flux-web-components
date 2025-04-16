@@ -1,4 +1,4 @@
-import { CATEGORIES, CONTROLS, defaultArgs, defaultArgTypes, getSelectControlOptions } from '@domg-wc/common-storybook';
+import { CATEGORIES, CONTROLS, defaultArgs, defaultArgTypes, getSelectControlOptions } from '@resources/utils-storybook';
 
 export const buttonPillArgs = {
     ...defaultArgs,

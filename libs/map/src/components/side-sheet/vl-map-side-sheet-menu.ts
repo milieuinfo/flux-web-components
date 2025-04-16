@@ -1,12 +1,12 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common-utilities';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { BaseElementOfType, webComponent } from '@domg-wc/common';
+import { vlLegacyStyles } from '@domg-wc/styles';
 
 @webComponent('vl-map-side-sheet-menu')
 export class VlMapSideSheetMenu extends BaseElementOfType(HTMLElement) {
     constructor() {
         super(`
       <style>
-        ${vlElementsStyle.join('')}
+        ${vlLegacyStyles.join('')}
         :host {
           margin: -1.5rem;
           display: block;

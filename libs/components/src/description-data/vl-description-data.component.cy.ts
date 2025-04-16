@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import { VlDescriptionData } from './vl-description-data.component';
 import { VlDescriptionDataItem } from './vl-description-data-item.component';

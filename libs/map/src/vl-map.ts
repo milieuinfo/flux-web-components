@@ -1,4 +1,4 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common-utilities';
+import { BaseElementOfType, webComponent } from '@domg-wc/common';
 import { Zoom } from 'ol/control.js';
 import OlFullScreenControl from 'ol/control/FullScreen';
 import OlLayerGroup from 'ol/layer/Group';

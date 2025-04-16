@@ -1,8 +1,11 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlTabsComponent } from '@domg-wc/components';
+import { legacyGlobalStyles } from '@domg-wc/styles';
 import { html } from 'lit';
 import { VlBreadcrumbComponent } from './../breadcrumb';
 import { VlFunctionalHeaderComponent } from './vl-functional-header.component';
+
+legacyGlobalStyles()(() => null);
 
 registerWebComponents([VlFunctionalHeaderComponent, VlTabsComponent, VlBreadcrumbComponent]);
 
@@ -325,8 +328,7 @@ describe('story - vl-functional-header - tabs', () => {
         cy.get('@change').should('have.been.calledOnce');
     });
 
-    // TODO onduidelijk waarom deze test faalt - te fixen, regressie in vl-tabs
-    it.skip('should open/close tablist on mobile', () => {
+    it('should open/close tablist on mobile', () => {
         cy.viewport(550, 750);
         cy.mount(html`
             <vl-functional-header>

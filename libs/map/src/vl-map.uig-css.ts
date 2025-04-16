@@ -1,6 +1,6 @@
 import { css, CSSResult } from 'lit';
 import { default as actionsStyle } from './actions/map-actions.uig-css';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { vlLegacyStyles } from '@domg-wc/styles';
 
 // styles from @import 'ol/ol';
 const olOlStyles: CSSResult = css`
@@ -360,4 +360,4 @@ const mapStyles: CSSResult = css`
         margin-left: 50px;
     }
 `;
-export default [mapStyles, ...vlElementsStyle, olOlStyles, actionsStyle] as CSSResult[];
+export default [mapStyles, ...vlLegacyStyles, olOlStyles, actionsStyle] as CSSResult[];

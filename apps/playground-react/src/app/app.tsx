@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlAccordionComponent, VlCascaderComponent, VlInfoTile, VlTitleComponent } from '@domg-wc/components';
 import { createComponent } from '@lit/react';
 import React, { DOMAttributes } from 'react';

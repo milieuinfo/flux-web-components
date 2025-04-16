@@ -1,7 +1,7 @@
 import { mapDrawActionStyleArgs, mapDrawActionStyleArgTypes } from './vl-map-draw-action-style.stories-arg';
 import mapDrawActionStyleDoc from './vl-map-draw-action-style.stories-doc.mdx';
 import { Meta } from '@storybook/web-components';
-import { story } from '@domg-wc/common-storybook';
+import { story } from '@resources/utils-storybook';
 import { html } from 'lit';
 import '../../../../../vl-map';
 import '../../../../baselayer/vl-map-base-layer-grb-gray/vl-map-base-layer-grb-gray';

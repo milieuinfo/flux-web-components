@@ -1,7 +1,7 @@
 import { ArgTypes } from '@storybook/web-components';
 import { action } from '@storybook/addon-actions';
 // de import is bewust op deze manier om voor de web-types.generator 'binnen' de monorepo geen side-effect te geven
-import { PADDINGS } from '@domg-wc/common-utilities/constants';
+import { PADDINGS } from '@domg-wc/common/constants';
 import {
     CATEGORIES,
     CONTROLS,
@@ -9,7 +9,7 @@ import {
     defaultArgTypes,
     getSelectControlOptions,
     TYPES,
-} from '@domg-wc/common-storybook';
+} from '@resources/utils-storybook';
 
 export const accordionArgs = {
     ...defaultArgs,

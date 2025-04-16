@@ -1,4 +1,4 @@
-import { webComponent } from '@domg-wc/common-utilities';
+import { webComponent } from '@domg-wc/common';
 import Cleave from 'cleave.js';
 import { PropertyDeclarations } from 'lit';
 import { CleaveInstance, MaskOptions } from '../models/cleave.model';

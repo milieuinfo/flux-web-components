@@ -1,5 +1,5 @@
-import { BaseLitElement, webComponent } from '@domg-wc/common-utilities';
-import { vlIconStyles } from '@domg-wc/common-utilities/css';
+import { BaseLitElement, webComponent } from '@domg-wc/common';
+import { vlIconStyles } from '@domg-wc/styles';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { vlIconWebComponentStyles } from './vl-icon.css';

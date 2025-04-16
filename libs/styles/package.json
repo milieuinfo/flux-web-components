@@ -1,0 +1,8 @@
+{
+    "name": "@domg-wc/styles",
+    "version": "DOMG-WC-VERSION",
+    "author": "UIG <uig@vlaanderen.be>",
+    "publishConfig": {
+        "registry": "https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/"
+    }
+}

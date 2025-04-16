@@ -1,4 +1,4 @@
-import { webComponent } from '@domg-wc/common-utilities';
+import { webComponent } from '@domg-wc/common';
 import { VlCookie } from './vl-cookie.section';
 
 @webComponent('vl-header-authentication-cookie')

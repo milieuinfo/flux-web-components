@@ -1,5 +1,5 @@
 import { ArgTypes } from '@storybook/web-components';
-import { CATEGORIES, TYPES } from '@domg-wc/common-storybook';
+import { CATEGORIES, TYPES } from '@resources/utils-storybook';
 import { action } from '@storybook/addon-actions';
 
 export const cookieConsentArgs = {

@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import OlFeature from 'ol/Feature';
 import OlGeoJSON from 'ol/format/GeoJSON';

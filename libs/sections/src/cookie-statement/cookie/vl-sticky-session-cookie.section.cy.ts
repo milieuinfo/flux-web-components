@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlStickySessionCookie } from './vl-sticky-session-cookie.section';
 
 registerWebComponents([VlStickySessionCookie]);

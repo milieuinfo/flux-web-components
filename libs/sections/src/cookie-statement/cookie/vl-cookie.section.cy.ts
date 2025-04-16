@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 
 import { type VlCookieProps, VlCookie } from './vl-cookie.section';
 

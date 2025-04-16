@@ -1,8 +1,8 @@
-import { story } from '@domg-wc/common-storybook';
+import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { VlInfotextComponent } from '../vl-infotext.component';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { InfotextArgs, infotextArgTypes, infotextArgs } from './vl-infotext.stories-arg';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import infotextDoc from './vl-infotext.stories-doc.mdx';

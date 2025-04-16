@@ -1,4 +1,4 @@
-import { awaitScript, BaseLitElement, webComponentCustom } from '@domg-wc/common-utilities';
+import { awaitScript, BaseLitElement, webComponentCustom } from '@domg-wc/common';
 import { CSSResult, PropertyDeclarations } from 'lit';
 import { headerDefaults } from './vl-header.defaults';
 import { headerContainerStyles, headerSkeletonStyles } from './vl-header.section.uig-css';

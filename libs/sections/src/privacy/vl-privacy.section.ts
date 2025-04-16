@@ -1,5 +1,5 @@
-import { BaseLitElement, registerWebComponents } from '@domg-wc/common-utilities';
-import { vlContentBlockStyles, vlGridStyles, vlSectionStyles, vlStackedStyles } from '@domg-wc/common-utilities/css';
+import { BaseLitElement, registerWebComponents } from '@domg-wc/common';
+import { vlContentBlockStyles, vlGridStyles, vlLegacyStyles, vlSectionStyles, vlStackedStyles } from '@domg-wc/styles';
 import {
     VlContactCardComponent,
     VlDocumentComponent,
@@ -10,7 +10,6 @@ import {
     VlTitleComponent,
     VlTypography,
 } from '@domg-wc/components';
-import { vlElementsStyle } from '@domg-wc/elements';
 import { CSSResult, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { privacyBottomSection } from './child/bottom.section';
@@ -43,7 +42,7 @@ export class VlPrivacy extends BaseLitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [vlElementsStyle, vlGridStyles, vlContentBlockStyles, vlSectionStyles, vlStackedStyles];
+        return [vlLegacyStyles, vlGridStyles, vlContentBlockStyles, vlSectionStyles, vlStackedStyles];
     }
 
     static get properties() {

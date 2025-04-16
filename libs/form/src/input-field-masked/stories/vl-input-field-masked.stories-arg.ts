@@ -1,4 +1,4 @@
-import { CATEGORIES, CONTROLS, TYPES, getSelectControlOptions } from '@domg-wc/common-storybook';
+import { CATEGORIES, CONTROLS, TYPES, getSelectControlOptions } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components';
 import { inputFieldMaskedDefaults } from '../vl-input-field-masked.defaults';
 import { inputFieldArgTypes, inputFieldArgs } from '../../input-field/stories/vl-input-field.stories-arg';
