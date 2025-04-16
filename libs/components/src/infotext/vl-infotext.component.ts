@@ -1,4 +1,4 @@
-import { BaseLitElement, throttle, webComponent } from '@domg-wc/common-utilities';
+import { BaseLitElement, throttle, webComponent } from '@domg-wc/common';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import infotextStyle from './vl-infotext.css';

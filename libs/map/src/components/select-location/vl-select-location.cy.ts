@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import LambertCoordinaat from '../../utils/lambert-coordinaat';
 import { VlSelectLocationComponent } from './vl-select-location';

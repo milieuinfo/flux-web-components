@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { VlMap } from '../../../../vl-map';
 import { VlMapTiledWmsLayer } from './vl-map-tiled-wms-layer';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 
 registerWebComponents([VlMap, VlMapTiledWmsLayer]);
 

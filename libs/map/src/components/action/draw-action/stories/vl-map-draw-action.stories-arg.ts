@@ -1,4 +1,4 @@
-import { CATEGORIES, TYPES } from '@domg-wc/common-storybook';
+import { CATEGORIES, TYPES } from '@resources/utils-storybook';
 import { mapActionArgs, mapActionArgTypes } from '../../stories/vl-map-action.stories-arg';
 import { ArgTypes } from '@storybook/web-components';
 

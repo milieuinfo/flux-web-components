@@ -1,5 +1,5 @@
-import { BaseHTMLElement, registerWebComponents, VL, webComponent, isSlotEmpty } from '@domg-wc/common-utilities';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { BaseHTMLElement, registerWebComponents, VL, webComponent, isSlotEmpty } from '@domg-wc/common';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { accordionStyle, iconStyle, infoTileStyle, linkStyle, toggleStyle } from '@domg/govflanders-style/component';
 import '@govflanders/vl-ui-util/dist/js/util.js';
@@ -26,7 +26,7 @@ export class VlInfoTile extends BaseHTMLElement {
           <style>
             ${resetStyle}
             ${baseStyle}
-            ${vlElementsStyle.join('')}
+            ${vlLegacyStyles.join('')}
             ${infoTileStyle}
             ${infoTileUigStyle}
             ${linkStyle}

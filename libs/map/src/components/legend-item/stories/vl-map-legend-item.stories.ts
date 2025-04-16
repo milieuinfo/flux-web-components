@@ -4,7 +4,7 @@ import '../../layer-style/vl-map-layer-circle-style/vl-map-layer-circle-style';
 import '../../layer/vector-layer/vl-map-features-layer/vl-map-features-layer';
 import '../../legend/vl-map-legend';
 import '../vl-map-legend-item';
-import { story } from '@domg-wc/common-storybook';
+import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';

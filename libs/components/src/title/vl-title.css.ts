@@ -6,7 +6,7 @@ import {
     vlHeading5,
     vlHeading6,
     vlMediaScreenSmall,
-} from '@domg-wc/common-utilities/css';
+} from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
 
 const headingList = [1, 2, 3, 4, 5, 6];

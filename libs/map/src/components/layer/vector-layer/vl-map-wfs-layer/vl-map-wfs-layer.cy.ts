@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import OlProjection from 'ol/proj/Projection';
 import { VlMap } from '../../../../vl-map';

@@ -4,7 +4,7 @@ import '../vl-accessibility.section';
 import { Meta } from '@storybook/web-components';
 import accessibilityDoc from './vl-accessibility.stories-doc.mdx';
 import { accessibilityArgs, accessibilityArgTypes } from './vl-accessibility.stories-arg';
-import { story } from '@domg-wc/common-storybook';
+import { story } from '@resources/utils-storybook';
 
 // TODO kspeltin: deze commentaar was dode code, moet die ergens opgenomen worden ?
 // const limitationsDescription = `<p>Attribuut om limitaties mee te geven aan de verklaring. De string die verwacht wordt is de <code>id</code> van een script dat aanwezig is op de pagina waarin een object zit.</p>

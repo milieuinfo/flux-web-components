@@ -1,5 +1,5 @@
 import { css, CSSResult } from 'lit';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { vlLegacyStyles } from '@domg-wc/styles';
 
 const mapCurrentLocationStyles: CSSResult = css`
     div.uig-map-current-location {
@@ -38,4 +38,4 @@ const mapCurrentLocationStyles: CSSResult = css`
         line-height: 3.5rem;
     }
 `;
-export default [mapCurrentLocationStyles, ...vlElementsStyle] as CSSResult[];
+export default [mapCurrentLocationStyles, ...vlLegacyStyles] as CSSResult[];

@@ -1,5 +1,5 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common-utilities';
-import { vlGridStyles, vlResetStyles } from '@domg-wc/common-utilities/css';
+import { BaseElementOfType, webComponent } from '@domg-wc/common';
+import { vlGridStyles, vlResetStyles } from '@domg-wc/styles';
 import { contactCardStyle } from '@domg/govflanders-style/component';
 import contactCardUigStyle from './vl-contact-card.uig-css';
 

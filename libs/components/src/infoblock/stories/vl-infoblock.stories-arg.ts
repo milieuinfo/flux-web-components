@@ -1,4 +1,4 @@
-import { CONTROLS, defaultArgs, defaultArgTypes, getSelectControlOptions, TYPES } from '@domg-wc/common-storybook';
+import { CONTROLS, defaultArgs, defaultArgTypes, getSelectControlOptions, TYPES } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components';
 
 export const infoblockArgs = {

@@ -1,4 +1,4 @@
-import { story } from '@domg-wc/common-storybook';
+import { story } from '@resources/utils-storybook';
 import type { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../vl-wizard-pane.component';

@@ -10,20 +10,15 @@ cd ../..
 rm -rf ./build/tsc
 rm -rf ./build/dist
 
-# common-utilities
-tsc -p ./libs/common/utilities/tsconfig.lib.json
-node ./resources/utils-build/copy-common-utilities-js.mjs
-echo '[done] - build-libs - common-utilities'
+# common
+tsc -p ./libs/common/tsconfig.lib.json
+node ./resources/utils-build/copy-common-js.mjs
+echo '[done] - build-libs - common'
 
-# common-storybook
-tsc -p ./libs/common/storybook/tsconfig.lib.json >/dev/null
-node ./resources/utils-build/copy-common-storybook-js.mjs
-echo '[done] - build-libs - common-storybook'
-
-# elements
-tsc -p ./libs/elements/tsconfig.lib.json
-node ./resources/utils-build/copy-elements-js.mjs
-echo '[done] - build-libs - elements'
+# styles
+tsc -p ./libs/styles/tsconfig.lib.json
+node ./resources/utils-build/copy-styles-js.mjs
+echo '[done] - build-libs - styles'
 
 # components
 tsc -p ./libs/components/tsconfig.lib.json

@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlButtonComponent, VlLinkComponent } from '@domg-wc/components';
 import { VlDatepickerComponent } from '@domg-wc/form';
 import { Meta } from '@storybook/web-components';

@@ -1,4 +1,4 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common-utilities';
+import { BaseElementOfType, webComponent } from '@domg-wc/common';
 import { iconStyle, linkStyle, pagerStyle } from '@domg/govflanders-style/component';
 import { accessibilityStyle, resetStyle } from '@domg/govflanders-style/common';
 import pagerUigStyle from './vl-pager.uig-css';

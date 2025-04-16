@@ -23,7 +23,7 @@ Onze code is opgesplitst in verschillende modules, elke module wordt als aparte 
         - als het expliciet .js bestanden zijn (default bij ons zijn het .ts bestanden), bvb. voor oude 'lib.js' bestanden     
         - voor imports uit 'lit/decorators.js'; vermoedelijk omdat dat zo in de desbetreffende package.json gespecifiëerd wordt
 - over modules heen importeren we via de barrel files
-    * bvb. import { webComponent } from '@domg-wc/common-utilities';
+    * bvb. import { webComponent } from '@domg-wc/common';
     * in de 'tsconfig.base.json' worden deze 'paths' gespecifieerd
     * hierdoor kunnen deze paden behouden blijven 'in' de artifacts, want dan verwijzen die imports naar de desbetreffende artifact
 

@@ -1,6 +1,6 @@
-import { story } from '@domg-wc/common-storybook';
-import { registerWebComponents } from '@domg-wc/common-utilities';
-import { vlGroupStyles } from '@domg-wc/common-utilities/css';
+import { story } from '@resources/utils-storybook';
+import { registerWebComponents } from '@domg-wc/common';
+import { vlGroupStyles } from '@domg-wc/styles';
 import {
     VlBreadcrumbComponent,
     VlBreadcrumbItemComponent,

@@ -1,5 +1,5 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common-utilities';
-import { vlIconStyles, vlLinkIconStyles, vlLinkStyles } from '@domg-wc/common-utilities/css';
+import { BaseElementOfType, webComponent } from '@domg-wc/common';
+import { vlIconStyles, vlLinkIconStyles, vlLinkStyles } from '@domg-wc/styles';
 
 @webComponent('vl-map-side-sheet-menu-item')
 export class VlMapSideSheetMenuItem extends BaseElementOfType(HTMLElement) {

@@ -45,14 +45,11 @@ tot de artifactory van Departement Omgeving! Om node versie problemen te vermijd
         "typescript": "5.4.2"
     },
     "dependencies": {
-        "@domg-wc/common-storybook": "1.29.1",
-        "@domg-wc/common-utilities": "1.29.1",
-        "@domg-wc/elements": "1.29.1",
-        "@domg-wc/components": "1.29.1",
-        "@domg-wc/form": "1.29.1",
-        "@domg-wc/sections": "1.29.1",
-        "@domg-wc/map": "1.29.1",
-        "@domg-wc/test-support": "1.29.1"
+        "@domg-wc/common": "2.0.0",
+        "@domg-wc/components": "2.0.0",
+        "@domg-wc/form": "2.0.0",
+        "@domg-wc/sections": "2.0.0",
+        "@domg-wc/map": "2.0.0",
     },
     "volta": {
         "node": "20.11.0"
@@ -60,7 +57,7 @@ tot de artifactory van Departement Omgeving! Om node versie problemen te vermijd
 }
 ```
 
-> De minimaal op te nemen packages om componenten af te nemen zijn: __'@domg-wc/common-utilities'__
+> De minimaal op te nemen packages om componenten af te nemen zijn: __'@domg-wc/common'__
  en __'@domg-wc/components'__. De __'@domg-wc/sections'__ zal typisch ook opgenomen worden
 omdat de header en footer component verplicht zijn in een Departement Omgeving toepassing. De __'@domg-wc/map'__
 bevat de kaart functionaliteit en zal dus niet in alle gevallen nodig zijn.
@@ -78,7 +75,7 @@ import '@domg-wc/components/accordion';
 of
 
 ```
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlAccordionComponent } from '@domg-wc/components';
 
 registerWebComponents([VlAccordionComponent]);

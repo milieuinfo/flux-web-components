@@ -1,7 +1,6 @@
-import { BaseLitElement, registerWebComponents } from '@domg-wc/common-utilities';
-import { vlGroupStyles } from '@domg-wc/common-utilities/css';
+import { BaseLitElement, registerWebComponents } from '@domg-wc/common';
 import { VlFunctionalHeaderComponent, VlLinkComponent, VlTitleComponent } from '@domg-wc/components';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { vlGroupStyles, vlLegacyStyles } from '@domg-wc/styles';
 import { CSSResult, html, type PropertyDeclarations } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { content, contentElements } from './child/content.section';
@@ -19,8 +18,32 @@ export class VlAccessibility extends BaseLitElement {
         ]);
     }
 
+    private application: string;
+    private compliance: COMPLIANCE_STATUS;
+    private date: string;
+    private dateModified: string;
+    private disableBackLink: boolean;
+    private hideBackLink: boolean;
+    private evaluation: EVALUATION_STATUS;
+    private version: string;
+    private limitations?: Limitations;
+
+    constructor() {
+        super();
+
+        this.allowCustomCSS = false;
+        this.application = 'deze applicatie';
+        this.compliance = 'PARTIALLY_COMPLIANT';
+        this.date = '20 juli 2021';
+        this.dateModified = '20 juli 2021';
+        this.disableBackLink = false;
+        this.hideBackLink = false;
+        this.evaluation = 'NOT_EVALUATED';
+        this.version = '1.0.0';
+    }
+
     static get styles(): CSSResult[] {
-        return [...vlElementsStyle, vlGroupStyles];
+        return [...vlLegacyStyles, vlGroupStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -69,30 +92,6 @@ export class VlAccessibility extends BaseLitElement {
                 type: Object,
             },
         };
-    }
-
-    private application: string;
-    private compliance: COMPLIANCE_STATUS;
-    private date: string;
-    private dateModified: string;
-    private disableBackLink: boolean;
-    private hideBackLink: boolean;
-    private evaluation: EVALUATION_STATUS;
-    private version: string;
-    private limitations?: Limitations;
-
-    constructor() {
-        super();
-
-        this.allowCustomCSS = false;
-        this.application = 'deze applicatie';
-        this.compliance = 'PARTIALLY_COMPLIANT';
-        this.date = '20 juli 2021';
-        this.dateModified = '20 juli 2021';
-        this.disableBackLink = false;
-        this.hideBackLink = false;
-        this.evaluation = 'NOT_EVALUATED';
-        this.version = '1.0.0';
     }
 
     render() {

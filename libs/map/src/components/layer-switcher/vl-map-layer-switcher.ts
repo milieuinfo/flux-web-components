@@ -1,5 +1,5 @@
-import { awaitUntil, BaseLitElement, registerWebComponents } from '@domg-wc/common-utilities';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { awaitUntil, BaseLitElement, registerWebComponents } from '@domg-wc/common';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import { formLabelStyles, VlCheckboxComponent } from '@domg-wc/form';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
@@ -23,7 +23,7 @@ export class VlMapLayerSwitcher extends BaseLitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [vlElementsStyle, mapLayerSwitcherUigStyle, formLabelStyles];
+        return [vlLegacyStyles, mapLayerSwitcherUigStyle, formLabelStyles];
     }
 
     static get properties(): PropertyDeclarations {

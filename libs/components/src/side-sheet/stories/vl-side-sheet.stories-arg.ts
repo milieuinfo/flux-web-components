@@ -1,5 +1,5 @@
 import { ArgTypes } from '@storybook/web-components';
-import { CONTROLS, defaultArgs, defaultArgTypes, getSelectControlOptions, TYPES } from '@domg-wc/common-storybook';
+import { CONTROLS, defaultArgs, defaultArgTypes, getSelectControlOptions, TYPES } from '@resources/utils-storybook';
 
 export const sideSheetArgs = {
     ...defaultArgs,

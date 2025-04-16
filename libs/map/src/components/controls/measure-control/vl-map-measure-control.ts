@@ -1,4 +1,4 @@
-import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { VlButtonComponent } from '@domg-wc/components';
 import { unByKey } from 'ol/Observable';
 import { CONTROL_TYPE, IDENTIFIER } from '../../../vl-map.model';

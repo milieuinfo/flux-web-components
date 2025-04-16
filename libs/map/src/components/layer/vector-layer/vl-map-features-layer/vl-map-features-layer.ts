@@ -1,4 +1,4 @@
-import { webComponent } from '@domg-wc/common-utilities';
+import { webComponent } from '@domg-wc/common';
 import OlGeoJSON from 'ol/format/GeoJSON';
 import OlPoint from 'ol/geom/Point';
 import OlClusterSource from 'ol/source/Cluster';

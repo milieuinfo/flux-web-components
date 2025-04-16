@@ -13,7 +13,7 @@ const jestConfig: JestConfigWithTsJest = {
     transformIgnorePatterns: [],
     testEnvironment: 'jsdom',
     moduleNameMapper: {
-        '@domg-wc/common-utilities': '<rootDir>/../../libs/common/utilities/src/index.ts',
+        '@domg-wc/common': '<rootDir>/../../libs/common/src/index.ts',
         "^!!raw-loader!.*": "raw-loader",
     },
 };

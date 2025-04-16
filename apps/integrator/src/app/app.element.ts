@@ -1,13 +1,13 @@
 import { CSSResult, LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlFormDemoComponent } from '@domg-wc/integration/form/demo/vl-form-demo.component';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { vlLegacyStyles } from '@domg-wc/styles';
 
 @customElement('app-element')
 export class AppElement extends LitElement {
     static override get styles(): (CSSResult | CSSResult[])[] {
-        return [vlElementsStyle];
+        return [vlLegacyStyles];
     }
 
     static {

@@ -1,13 +1,12 @@
-import { BaseLitElement, unwrap, VL, webComponent } from '@domg-wc/common-utilities';
+import { BaseLitElement, unwrap, VL, webComponent } from '@domg-wc/common';
 import '@govflanders/vl-ui-util/dist/js/util.js';
 import './vl-side-navigation.lib.js';
-import { vlContentBlockStyles, vlGridStyles, vlIconStyles, vlSectionStyles } from '@domg-wc/common-utilities/css';
-import { elementStyles } from '@domg-wc/elements';
+import { legacyGlobalStyles, vlContentBlockStyles, vlGridStyles, vlIconStyles, vlSectionStyles } from '@domg-wc/styles';
 import { vlSideNavigationStyles } from './vl-side-navigation.css';
 
 declare const vl: VL;
 
-@elementStyles()
+@legacyGlobalStyles()
 @webComponent('vl-side-navigation')
 export class VlSideNavigationComponent extends BaseLitElement {
     static initializedSideNavigationId = '';

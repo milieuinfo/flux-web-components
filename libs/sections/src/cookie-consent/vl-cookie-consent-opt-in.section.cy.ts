@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlCookieConsentOptIn } from './vl-cookie-consent-opt-in.section';
 
 registerWebComponents([VlCookieConsentOptIn]);

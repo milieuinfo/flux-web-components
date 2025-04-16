@@ -1,4 +1,4 @@
-import { CONTROLS, defaultArgs, defaultArgTypes, getSelectControlOptions } from '@domg-wc/common-storybook';
+import { CONTROLS, defaultArgs, defaultArgTypes, getSelectControlOptions } from '@resources/utils-storybook';
 import { action } from '@storybook/addon-actions';
 
 export const pillArgs = {

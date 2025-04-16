@@ -1,4 +1,4 @@
-import { webComponent } from '@domg-wc/common-utilities';
+import { webComponent } from '@domg-wc/common';
 import { VlMapAction } from '../vl-map-action';
 import { VlMapVectorLayer } from '../../layer/vector-layer/vl-map-vector-layer';
 import { OlVectorLayerType } from '../../../vl-map.model';

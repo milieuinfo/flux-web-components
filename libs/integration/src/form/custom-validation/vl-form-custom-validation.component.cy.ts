@@ -1,6 +1,6 @@
 // import { parseFormData } from '@domg-wc/form';
 import { html } from 'lit';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlFormCustomValidationComponent } from './vl-form-custom-validation.component';
 
 registerWebComponents([VlFormCustomValidationComponent]);

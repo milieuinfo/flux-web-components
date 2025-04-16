@@ -1,4 +1,4 @@
-import { webComponent } from '@domg-wc/common-utilities';
+import { webComponent } from '@domg-wc/common';
 import OlGML2 from 'ol/format/GML2';
 import * as OlLoadingstrategy from 'ol/loadingstrategy';
 import OlVectorSource from 'ol/source/Vector';

@@ -1,4 +1,4 @@
-import { vlLinkStyles } from '@domg-wc/common-utilities/css';
+import { vlLinkStyles } from '@domg-wc/styles';
 import { css } from 'lit';
 
 export const buttonAsLinkStyles = css`

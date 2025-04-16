@@ -1,5 +1,5 @@
 import { css, CSSResult } from 'lit';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { vlLegacyStyles } from '@domg-wc/styles';
 
 const styles: CSSResult = css`
     :host {
@@ -53,4 +53,4 @@ const styles: CSSResult = css`
         vertical-align: middle !important;
     }
 `;
-export default [...vlElementsStyle, styles] as CSSResult[];
+export default [...vlLegacyStyles, styles] as CSSResult[];

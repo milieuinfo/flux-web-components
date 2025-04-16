@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { header, privacyHeaderElements } from './header.section';
 
 registerWebComponents(privacyHeaderElements());

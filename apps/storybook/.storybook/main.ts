@@ -11,9 +11,8 @@ const config: StorybookConfig = {
     stories: [
         '../docs/**/*.stories.mdx',
         '../docs/**/*.stories.@(js|jsx|ts|tsx)',
-        '../../../libs/common/utilities/**/*.stories.@(js|jsx|ts|tsx)',
+        '../../../libs/styles/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/components/src/**/*.stories.@(js|jsx|ts|tsx)',
-        '../../../libs/elements/src/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/form/src/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/map/src/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/sections/src/**/*.stories.@(js|jsx|ts|tsx)',

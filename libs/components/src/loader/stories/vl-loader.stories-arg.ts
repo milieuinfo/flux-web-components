@@ -1,4 +1,4 @@
-import { defaultArgs, defaultArgTypes } from '@domg-wc/common-storybook';
+import { defaultArgs, defaultArgTypes } from '@resources/utils-storybook';
 
 export const loaderArgs = {
     ...defaultArgs,

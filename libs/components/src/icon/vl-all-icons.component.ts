@@ -1,8 +1,8 @@
 // ! dit bestand werd gegenereerd door het script: generate-icon-files.ts
 
 import { CSSResult, LitElement, css, html } from 'lit';
-import { registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { vlIconStyles } from '@domg-wc/common-utilities/css';
+import { registerWebComponents, webComponent } from '@domg-wc/common';
+import { vlIconStyles } from '@domg-wc/styles';
 import { VlIconComponent } from './index';
 
 @webComponent('vl-all-icons')

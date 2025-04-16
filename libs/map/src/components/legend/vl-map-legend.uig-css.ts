@@ -1,6 +1,6 @@
 import { css, CSSResult } from 'lit';
 import mapActionsStyle from '../../actions/map-actions.uig-css';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { vlLegacyStyles } from '@domg-wc/styles';
 
 // styles from @import 'ol/ol';
 const olOlStyles: CSSResult = css`
@@ -360,4 +360,4 @@ const mapLegendStyles: CSSResult = css`
         font-weight: bolder;
     }
 `;
-export default [mapLegendStyles, ...vlElementsStyle, olOlStyles, mapActionsStyle] as CSSResult[];
+export default [mapLegendStyles, ...vlLegacyStyles, olOlStyles, mapActionsStyle] as CSSResult[];

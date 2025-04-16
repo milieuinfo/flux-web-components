@@ -1,9 +1,9 @@
-import { story } from '@domg-wc/common-storybook';
+import { story } from '@resources/utils-storybook';
 import { inputFieldArgTypes, inputFieldArgs } from './vl-input-field.stories-arg';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit';
 import inputFieldDocs from './vl-input-field.stories-doc.mdx';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlInputFieldComponent } from '../vl-input-field.component';
 
 registerWebComponents([VlInputFieldComponent]);

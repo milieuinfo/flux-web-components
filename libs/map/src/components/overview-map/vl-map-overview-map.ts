@@ -1,4 +1,4 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common-utilities';
+import { BaseElementOfType, webComponent } from '@domg-wc/common';
 
 @webComponent('vl-map-overview-map')
 export class VlMapOverviewMap extends BaseElementOfType(HTMLElement) {
