@@ -1,5 +1,5 @@
 import { css, CSSResult } from 'lit';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { vlLegacyStyles } from '@domg-wc/styles';
 
 const styles: CSSResult = css`
     :host {
@@ -15,4 +15,4 @@ const styles: CSSResult = css`
         margin-bottom: 1.8rem;
     }
 `;
-export default [...vlElementsStyle, styles] as CSSResult[];
+export default [...vlLegacyStyles, styles] as CSSResult[];

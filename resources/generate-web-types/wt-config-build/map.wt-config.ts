@@ -1,4 +1,4 @@
-import { defaultArgTypes } from '@domg-wc/common-storybook';
+import { defaultArgTypes } from '@resources/utils-storybook';
 import { mapClickActionArgTypes } from '../../../libs/map/src/components/action/click-action/stories/vl-map-click-action.stories-arg';
 import { mapDrawActionStyleArgTypes } from '../../../libs/map/src/components/action/draw-action/draw-action-style/stories/vl-map-draw-action-style.stories-arg';
 import { mapDrawActionArgTypes } from '../../../libs/map/src/components/action/draw-action/stories/vl-map-draw-action.stories-arg';

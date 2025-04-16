@@ -1,9 +1,9 @@
-import { story } from '@domg-wc/common-storybook';
+import { story } from '@resources/utils-storybook';
 import { uploadArgTypes, uploadArgs } from './vl-upload.stories-arg';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit';
 import uploadDocs from './vl-upload.stories-doc.mdx';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlUploadComponent } from '../vl-upload.component';
 import { uploadDefaults } from '../vl-upload.defaults';
 

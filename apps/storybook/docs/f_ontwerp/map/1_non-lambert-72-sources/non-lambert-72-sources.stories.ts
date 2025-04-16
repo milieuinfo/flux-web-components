@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlMapNonLambert72Sources } from '@domg-wc/integration/map/non-lambert-72-source';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';

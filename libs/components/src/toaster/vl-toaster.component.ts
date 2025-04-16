@@ -1,4 +1,4 @@
-import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { CSSResult, html, HTMLTemplateResult, PropertyDeclarations } from 'lit';
 import { VlAlert } from '../alert';
 import { VlAlertModel } from '../alert/vl-alert.model';

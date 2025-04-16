@@ -1,5 +1,5 @@
-import { BaseLitElement, registerWebComponents } from '@domg-wc/common-utilities';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { BaseLitElement, registerWebComponents } from '@domg-wc/common';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import { resetStyle } from '@domg/govflanders-style/common';
 import type { Placement } from '@floating-ui/dom';
 import { CSSResult, html, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
@@ -28,7 +28,7 @@ export class VlPopoverComponent extends BaseLitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, vlElementsStyle, popoverUigStyle];
+        return [resetStyle, vlLegacyStyles, popoverUigStyle];
     }
 
     static get properties(): PropertyDeclarations {

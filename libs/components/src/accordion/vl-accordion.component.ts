@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
-import { BaseElementOfType, PADDINGS, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { vlLinkIconStyles } from '@domg-wc/common-utilities/css';
+import { BaseElementOfType, PADDINGS, registerWebComponents, webComponent } from '@domg-wc/common';
+import { vlLinkIconStyles } from '@domg-wc/styles';
 import { accordionStyle, buttonStyle, iconStyle, linkStyle, toggleStyle } from '@domg/govflanders-style/component';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { VlIconComponent } from '../icon';

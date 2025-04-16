@@ -1,6 +1,6 @@
 import './component/components-named.component';
 import './component/map-named.component';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlTitleComponent } from '@domg-wc/components';
 
 registerWebComponents([VlTitleComponent]);

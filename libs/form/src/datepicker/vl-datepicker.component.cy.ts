@@ -1,5 +1,5 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
-import { vlGridStyles } from '@domg-wc/common-utilities/css';
+import { registerWebComponents } from '@domg-wc/common';
+import { vlGridStyles } from '@domg-wc/styles';
 import { html, nothing } from 'lit';
 import { VlErrorMessageComponent } from '../error-message';
 import { VlDatepickerComponent } from './vl-datepicker.component';

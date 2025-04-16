@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import { VlMap } from '../../vl-map';
 import { VlMapFeaturesLayer } from './vector-layer/vl-map-features-layer/vl-map-features-layer';

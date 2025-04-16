@@ -1,4 +1,4 @@
-import { CATEGORIES } from '@domg-wc/common-storybook';
+import { CATEGORIES } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components';
 import * as fs from 'fs-extra';
 import { VluxMetaDataModel } from '../../apps/storybook/.storybook/vlux-meta-data/vlux-meta-data.model';

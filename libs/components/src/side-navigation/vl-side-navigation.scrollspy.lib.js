@@ -6,7 +6,7 @@
  * We assume that in a sticky element items with an anchor link should have a scrollspy functionality
  */
 
-import { findDeepestElementThroughShadowRoot } from '@domg-wc/common-utilities';
+import { findDeepestElementThroughShadowRoot } from '@domg-wc/common';
 
 // UIG-2278: vl lijkt niet in alle gevallen defined te zijn, terwijl deze lib daar precies wel op steunt
 window.vl = window.vl || {};

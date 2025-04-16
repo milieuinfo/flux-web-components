@@ -1,4 +1,4 @@
-import { BaseLitElement, webComponent } from '@domg-wc/common-utilities';
+import { BaseLitElement, webComponent } from '@domg-wc/common';
 import { CSSResult, html, PropertyDeclarations, PropertyValues } from 'lit';
 import { TextTrackInit } from 'vidstack';
 import { MediaPlayerElement } from 'vidstack/elements';

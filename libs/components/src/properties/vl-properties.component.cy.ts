@@ -1,4 +1,4 @@
-import { buildData, buildLabel, registerWebComponents } from '@domg-wc/common-utilities';
+import { buildData, buildLabel, registerWebComponents } from '@domg-wc/common';
 import { VlPropertiesComponent } from './index';
 import { dummy2Props, dummyProps } from './stories/vl-properties.stories-util';
 import { propertiesDefaults } from './vl-properties.defaults';

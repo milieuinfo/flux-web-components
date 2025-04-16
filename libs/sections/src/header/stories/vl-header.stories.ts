@@ -3,7 +3,7 @@ import '../vl-header.section';
 import { headerArgs, headerArgTypes } from './vl-header.stories-arg';
 import { Meta } from '@storybook/web-components';
 import headerDoc from './vl-header.stories-doc.mdx';
-import { story } from '@domg-wc/common-storybook';
+import { story } from '@resources/utils-storybook';
 
 export default {
     id: 'sections-header',

@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlRadioComponent } from './vl-radio.component';
 import { VlRadioGroupComponent } from './vl-radio-group.component';
 

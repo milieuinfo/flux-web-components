@@ -1,5 +1,5 @@
 import { css, CSSResult } from 'lit';
-import { vlFocusOutlineMixin } from '@domg-wc/common-utilities/css';
+import { vlFocusOutlineMixin } from '@domg-wc/styles';
 
 const styles: CSSResult = css`
     .js-vl-select .vl-select__inner {

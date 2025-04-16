@@ -1,5 +1,5 @@
-import { BaseLitElement } from '@domg-wc/common-utilities';
-import { vlIconStyles } from '@domg-wc/common-utilities/css';
+import { BaseLitElement } from '@domg-wc/common';
+import { vlIconStyles } from '@domg-wc/styles';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { autocompleteStyle, inputFieldStyle } from '@domg/govflanders-style/component';
 import { html, PropertyValues } from 'lit';

@@ -7,9 +7,7 @@ import {Meta} from '@storybook/blocks';
 ## Inhoudstafel
 
 - [Overzicht](#overzicht)
-- [@domg-wc/common-storybook](#domg-wccommon-storybook)
-- [@domg-wc/common-utilities](#domg-wccommon-utilities)
-- [@domg-wc/elements](#domg-wcelements)
+- [@domg-wc/common](#domg-wccommon)
 - [@domg-wc/components](#domg-wccomponents)
 - [@domg-wc/form](#domg-wcform)
 - [@domg-wc/sections](#domg-wcsections)
@@ -20,7 +18,7 @@ import {Meta} from '@storybook/blocks';
 ## Overzicht
 
 Alle web-componenten van Departement Omgeving zijn beschikbaar via npm artifacts onder de npm scope `@domg-wc`;
-__common-utilities__ bevat technische code, de overige artifacts: __elements__, __components__, __map__, __form__,
+__common__ bevat technische code, de overige artifacts: __elements__, __components__, __map__, __form__,
 en __sections__ bevatten de web-componenten. De web-componenten zijn ook beschikbaar via de CDN, zie
 ['fat-js: domg-wc'](#fat-js-domg-wc).
 
@@ -28,31 +26,15 @@ en __sections__ bevatten de web-componenten. De web-componenten zijn ook beschik
 volgt dit concept in grote lijnen maar niet volledig. Afwijkingen komen voor!
 
 
-## @domg-wc/common-storybook
+## @domg-wc/common
 
-__common-storybook__ is een technische bibliotheek voor intern UIG gebruik
-
-
-## @domg-wc/common-utilities
-
-__common-utilities__ is een technische bibliotheek met basis code en utilities
-
-
-## @domg-wc/elements
-
-Een __element__ is geïmplementeerd als een native html-element en heeft technisch volgende eigenschappen:
-
-- extends steeds van een sub-klasse van HTMLElement (bvb. HTMLButtonElement)
-- dus steeds te gebruiken met 'is='; bvb. `<button is="vl-button"></button>`
-- heeft __geen__ shadow DOM
-- styling wordt globaal gedefinieerd, dit gebeurt eenmalig en automatisch
-- de bulk van de styling komt van DV (Digitaal Vlaanderen)
+__common__ is een technische bibliotheek met basis code en utilities
 
 
 ## @domg-wc/components
 
 Historisch werd een __component__ geïmplementeerd als een `BaseElement`: een eigen basis klasse beschikbaar in
-@domg-wc/common-utilities via de methode `BaseElementOfType`. Nieuwere componenten worden geïmplementeerd m.b.v.
+@domg-wc/common via de methode `BaseElementOfType`. Nieuwere componenten worden geïmplementeerd m.b.v.
 [LitElement](https://lit.dev/docs/api/LitElement/); het doel op (lange) termijn is van alles (ook van de elementen,
 sections en map) LitElementen te maken.
 

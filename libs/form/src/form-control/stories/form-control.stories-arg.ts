@@ -1,4 +1,4 @@
-import { CATEGORIES, TYPES, defaultArgs, defaultArgTypes } from '@domg-wc/common-storybook';
+import { CATEGORIES, TYPES, defaultArgs, defaultArgTypes } from '@resources/utils-storybook';
 import { formControlDefaults } from '../form-control.defaults';
 import { ArgTypes } from '@storybook/web-components';
 import { action } from '@storybook/addon-actions';

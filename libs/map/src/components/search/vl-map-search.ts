@@ -1,6 +1,6 @@
-import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
 import { VlSearchComponent } from '@domg-wc/components';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import { SelectRichPosition } from '@domg-wc/form';
 import OlOverlay from 'ol/Overlay';
 import { VlSelectLocationComponent } from '../select-location/vl-select-location';
@@ -26,7 +26,7 @@ export class VlMapSearch extends BaseElementOfType(HTMLElement) {
     constructor() {
         super(`
           <style>
-            ${vlElementsStyle.join('')}
+            ${vlLegacyStyles.join('')}
             :host {
               display: block;
             }

@@ -1,4 +1,4 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common-utilities';
+import { BaseElementOfType, webComponent } from '@domg-wc/common';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { codePreviewStyle } from '@domg/govflanders-style/component';
 import '@govflanders/vl-ui-core/dist/js/core.js';

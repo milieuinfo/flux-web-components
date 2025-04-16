@@ -1,6 +1,6 @@
-import { BaseLitElement, registerWebComponents } from '@domg-wc/common-utilities';
+import { BaseLitElement, registerWebComponents } from '@domg-wc/common';
 import { resetStyle } from '@domg/govflanders-style/common';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import { CSSResult, PropertyDeclarations, TemplateResult, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -24,7 +24,7 @@ export class VlStepsComponent extends BaseLitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, vlElementsStyle, stepsStyle];
+        return [resetStyle, vlLegacyStyles, stepsStyle];
     }
 
     static get properties(): PropertyDeclarations {

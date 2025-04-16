@@ -1,4 +1,4 @@
-import { webComponent } from '@domg-wc/common-utilities';
+import { webComponent } from '@domg-wc/common';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { textareaStyle } from '@domg/govflanders-style/component';
 import { maxLengthValidator, minLengthValidator } from '@open-wc/form-control';

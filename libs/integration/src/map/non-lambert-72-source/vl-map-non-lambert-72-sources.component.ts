@@ -1,4 +1,4 @@
-import { registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { registerWebComponents, webComponent } from '@domg-wc/common';
 import { VlMap, VlMapBaseLayerGRBGray, VlMapTiledWmsLayer } from '@domg-wc/map';
 import { CSSResult, LitElement, html } from 'lit';
 
@@ -28,10 +28,10 @@ export class VlMapNonLambert72Sources extends LitElement {
                     })}"
                 ></vl-map-baselayer-grb-gray>
 
-                <!-- 
+                <!--
                     Test andere niet-lambert 72 laag
                     Catalogus: https://www.vlaanderen.be/datavindplaats/catalogus/overstromingsgevoelige-gebieden-vanuit-de-zee
-                    Referentiesysteem: WGS 84 / Pseudo-Mercator (EPSG:3857) 
+                    Referentiesysteem: WGS 84 / Pseudo-Mercator (EPSG:3857)
                 -->
                 <vl-map-tiled-wms-layer
                     data-vl-url="https://inspirepub.waterinfo.be/arcgis/services/informatieplicht/overstromingsgevoelige_gebieden_vanuit_de_zee/MapServer/WMSServer?"
@@ -39,7 +39,7 @@ export class VlMapNonLambert72Sources extends LitElement {
                     name="Overstromingsgevoelige gebieden vanuit de zee"
                 ></vl-map-tiled-wms-layer>
 
-                <!-- 
+                <!--
                     Test andere niet-lambert 72 laag
                     Lambert 2008 test data uit: https://www.vlaanderen.be/datavindplaats/catalogus/testdata-transformatie-lambert-72-naar-lambert-2008-coordinaten
                 -->

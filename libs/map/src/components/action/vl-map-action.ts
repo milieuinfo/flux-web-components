@@ -1,5 +1,5 @@
-import { webComponent } from '@domg-wc/common-utilities';
-import { BaseHTMLElement } from '@domg-wc/common-utilities';
+import { webComponent } from '@domg-wc/common';
+import { BaseHTMLElement } from '@domg-wc/common';
 import { VlMap } from '../../vl-map';
 import { VlMapLayer } from '../layer/vl-map-layer';
 import { OlVectorLayerType } from '../../vl-map.model';

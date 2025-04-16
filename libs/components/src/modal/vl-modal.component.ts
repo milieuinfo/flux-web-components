@@ -1,5 +1,5 @@
-import { awaitUntil, BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { vlGridStyles, vlGroupStyles, vlIconStyles, vlStackedStyles } from '@domg-wc/common-utilities/css';
+import { awaitUntil, BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
+import { vlGridStyles, vlGroupStyles, vlIconStyles, vlStackedStyles } from '@domg-wc/styles';
 import { VlLinkComponent } from '../link';
 import { accessibilityStyle, resetStyle } from '@domg/govflanders-style/common';
 import { modalStyle } from '@domg/govflanders-style/component';

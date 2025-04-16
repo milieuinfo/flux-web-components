@@ -1,8 +1,8 @@
-import { story } from '@domg-wc/common-storybook';
+import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { VlLinkComponent } from '../vl-link.component';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { registerWebComponents } from '@domg-wc/common';
 import { linkArgTypes, linkArgs } from './vl-link.stories-arg';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import linkDoc from './vl-link.stories-doc.mdx';

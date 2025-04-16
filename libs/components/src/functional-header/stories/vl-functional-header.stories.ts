@@ -1,5 +1,5 @@
-import { story } from '@domg-wc/common-storybook';
-import { registerWebComponents } from '@domg-wc/common-utilities';
+import { story } from '@resources/utils-storybook';
+import { registerWebComponents } from '@domg-wc/common';
 import { VlTabsComponent } from '@domg-wc/components';
 import { action } from '@storybook/addon-actions';
 import { Meta } from '@storybook/web-components';

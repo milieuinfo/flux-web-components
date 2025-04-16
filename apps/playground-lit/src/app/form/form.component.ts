@@ -1,7 +1,6 @@
-import { registerWebComponents } from '@domg-wc/common-utilities';
-import { vlGridStyles } from '@domg-wc/common-utilities/css';
+import { registerWebComponents } from '@domg-wc/common';
+import { vlGridStyles, vlLegacyStyles } from '@domg-wc/styles';
 import { VlButtonComponent } from '@domg-wc/components';
-import { vlElementsStyle } from '@domg-wc/elements';
 import {
     parseFormData,
     SelectOption,
@@ -163,7 +162,7 @@ export class FormComponent extends LitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [vlElementsStyle, formStyle, vlGridStyles];
+        return [vlLegacyStyles, formStyle, vlGridStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -236,13 +235,13 @@ export class FormComponent extends LitElement {
                         controlled
                         ?on=${this.showAddressField}
                         @vl-click=${() => {
-                            this.showAddressField = !this.showAddressField;
+            this.showAddressField = !this.showAddressField;
 
-                            if (!this.showAddressField) {
-                                this.address = '';
-                                this.submittedFormData.adres = '';
-                            }
-                        }}
+            if (!this.showAddressField) {
+                this.address = '';
+                this.submittedFormData.adres = '';
+            }
+        }}
                     >
                         Address field
                     </vl-button>
@@ -783,7 +782,7 @@ export class FormComponent extends LitElement {
                             </div>
                         </div>
                         ${this.showAddressField
-                            ? html`
+            ? html`
                                   <div class="vl-column vl-column--2">
                                       <vl-form-label
                                           for="adres"
@@ -813,7 +812,7 @@ export class FormComponent extends LitElement {
                                               controlled
                                               ?on=${this.addressFieldRequired}
                                               @vl-click=${() =>
-                                                  (this.addressFieldRequired = !this.addressFieldRequired)}
+                (this.addressFieldRequired = !this.addressFieldRequired)}
                                           >
                                               Required
                                           </vl-button>
@@ -822,7 +821,7 @@ export class FormComponent extends LitElement {
                                               controlled
                                               ?on=${this.addressFieldDisabled}
                                               @vl-click=${() =>
-                                                  (this.addressFieldDisabled = !this.addressFieldDisabled)}
+                (this.addressFieldDisabled = !this.addressFieldDisabled)}
                                           >
                                               Disabled
                                           </vl-button>
@@ -831,7 +830,7 @@ export class FormComponent extends LitElement {
                                               controlled
                                               ?on=${this.addressFieldReadonly}
                                               @vl-click=${() =>
-                                                  (this.addressFieldReadonly = !this.addressFieldReadonly)}
+                (this.addressFieldReadonly = !this.addressFieldReadonly)}
                                           >
                                               Readonly
                                           </vl-button>
@@ -844,7 +843,7 @@ export class FormComponent extends LitElement {
                                       </div>
                                   </div>
                               `
-                            : ''}
+            : ''}
                         <div class="vl-column vl-column--2">
                             <vl-form-label
                                 for="contactmethode"
@@ -877,7 +876,7 @@ export class FormComponent extends LitElement {
                                     controlled
                                     ?on=${this.preferredContactMethodRequired}
                                     @vl-click=${() =>
-                                        (this.preferredContactMethodRequired = !this.preferredContactMethodRequired)}
+            (this.preferredContactMethodRequired = !this.preferredContactMethodRequired)}
                                 >
                                     Required
                                 </vl-button>
@@ -886,7 +885,7 @@ export class FormComponent extends LitElement {
                                     controlled
                                     ?on=${this.preferredContactMethodDisabled}
                                     @vl-click=${() =>
-                                        (this.preferredContactMethodDisabled = !this.preferredContactMethodDisabled)}
+            (this.preferredContactMethodDisabled = !this.preferredContactMethodDisabled)}
                                 >
                                     Disabled
                                 </vl-button>
@@ -895,7 +894,7 @@ export class FormComponent extends LitElement {
                                     controlled
                                     ?on=${this.preferredContactMethodReadonly}
                                     @vl-click=${() =>
-                                        (this.preferredContactMethodReadonly = !this.preferredContactMethodReadonly)}
+            (this.preferredContactMethodReadonly = !this.preferredContactMethodReadonly)}
                                 >
                                     Readonly
                                 </vl-button>
@@ -922,8 +921,8 @@ export class FormComponent extends LitElement {
                                 ?disabled=${this.photosDisabled}
                                 ?readonly=${this.photosReadonly}
                                 @vl-input=${(e: CustomEvent) => {
-                                    this.photos = e.detail.value;
-                                }}
+            this.photos = e.detail.value;
+        }}
                             ></vl-upload>
                             <vl-error-message for="fotos" state="valueMissing">
                                 Gelieve 1 tot 2 foto's up te loaden.
@@ -958,16 +957,16 @@ export class FormComponent extends LitElement {
                                 <vl-button
                                     secondary
                                     @vl-click=${() => {
-                                        const vlUpload = this.shadowRoot?.querySelector('vl-upload');
-                                        if (vlUpload) {
-                                            const pasfoto = new File([''], 'pasfoto.jpg', { type: 'image/jpg' });
-                                            Object.defineProperty(pasfoto, 'size', {
-                                                value: (1024 * 1024 + 1) / 2,
-                                                configurable: true,
-                                            });
-                                            vlUpload.addFile(pasfoto);
-                                        }
-                                    }}
+            const vlUpload = this.shadowRoot?.querySelector('vl-upload');
+            if (vlUpload) {
+                const pasfoto = new File([''], 'pasfoto.jpg', { type: 'image/jpg' });
+                Object.defineProperty(pasfoto, 'size', {
+                    value: (1024 * 1024 + 1) / 2,
+                    configurable: true,
+                });
+                vlUpload.addFile(pasfoto);
+            }
+        }}
                                 >
                                     Set 'pasfoto.jpg'
                                 </vl-button>
@@ -994,12 +993,12 @@ export class FormComponent extends LitElement {
                                 Naar waarheid ingevuld
                             </vl-checkbox>
                             ${this.filledInTruthfullyReadonly
-                                ? html`<input
+            ? html`<input
                                       type="hidden"
                                       name="waarheidsgetrouw"
                                       value=${this.filledInTruthfully ? this.filledInTruthfullyValue || 'on' : ''}
                                   />`
-                                : ''}
+            : ''}
                             <vl-error-message for="waarheidsgetrouw" state="valueMissing">
                                 Gelieve te bevestigen dat bovenstaande gegevens naar waarheid zijn ingevuld.
                             </vl-error-message>
@@ -1011,7 +1010,7 @@ export class FormComponent extends LitElement {
                                     controlled
                                     ?on=${this.filledInTruthfullyRequired}
                                     @vl-click=${() =>
-                                        (this.filledInTruthfullyRequired = !this.filledInTruthfullyRequired)}
+            (this.filledInTruthfullyRequired = !this.filledInTruthfullyRequired)}
                                 >
                                     Required
                                 </vl-button>
@@ -1020,7 +1019,7 @@ export class FormComponent extends LitElement {
                                     controlled
                                     ?on=${this.filledInTruthfullyDisabled}
                                     @vl-click=${() =>
-                                        (this.filledInTruthfullyDisabled = !this.filledInTruthfullyDisabled)}
+            (this.filledInTruthfullyDisabled = !this.filledInTruthfullyDisabled)}
                                 >
                                     Disabled
                                 </vl-button>
@@ -1029,7 +1028,7 @@ export class FormComponent extends LitElement {
                                     controlled
                                     ?on=${this.filledInTruthfullyReadonly}
                                     @vl-click=${() =>
-                                        (this.filledInTruthfullyReadonly = !this.filledInTruthfullyReadonly)}
+            (this.filledInTruthfullyReadonly = !this.filledInTruthfullyReadonly)}
                                 >
                                     Readonly
                                 </vl-button>
@@ -1079,17 +1078,17 @@ export class FormComponent extends LitElement {
                                 <dt class="vl-properties__label">Hobby's</dt>
                                 <dd class="vl-properties__data">
                                     ${this.submittedFormData[`hobby's`] instanceof Array
-                                        ? this.submittedFormData[`hobby's`].map((hobby) => hobby).join(', ')
-                                        : this.submittedFormData[`hobby's`]}
+            ? this.submittedFormData[`hobby's`].map((hobby) => hobby).join(', ')
+            : this.submittedFormData[`hobby's`]}
                                 </dd>
                                 <dt class="vl-properties__label">Leeftijd</dt>
                                 <dd class="vl-properties__data">${this.submittedFormData.leeftijd}</dd>
                                 <dt class="vl-properties__label">Aantal kinderen</dt>
                                 <dd class="vl-properties__data">${this.submittedFormData.kinderen}</dd>
                                 ${this.showAddressField
-                                    ? html` <dt class="vl-properties__label">Adres</dt>
+            ? html` <dt class="vl-properties__label">Adres</dt>
                                           <dd class="vl-properties__data">${this.submittedFormData.adres}</dd>`
-                                    : ''}
+            : ''}
                             </dl>
                         </div>
                         <div class="vl-properties__column">
@@ -1099,8 +1098,8 @@ export class FormComponent extends LitElement {
                                 <dt class="vl-properties__label">Pasfoto's</dt>
                                 <dd class="vl-properties__data">
                                     ${this.submittedFormData.fotos instanceof Array
-                                        ? this.submittedFormData.fotos.map((foto) => foto.name).join(', ')
-                                        : this.submittedFormData.fotos?.name}
+            ? this.submittedFormData.fotos.map((foto) => foto.name).join(', ')
+            : this.submittedFormData.fotos?.name}
                                 </dd>
                                 <dt class="vl-properties__label">Waarheidsgetrouw</dt>
                                 <dd class="vl-properties__data">${this.submittedFormData.waarheidsgetrouw}</dd>

@@ -1,5 +1,5 @@
-import { webComponent } from '@domg-wc/common-utilities';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { webComponent } from '@domg-wc/common';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { radioStyle } from '@domg/govflanders-style/component';
 import { CSSResult, html, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
@@ -18,7 +18,7 @@ export class VlRadioGroupComponent extends FormControl {
     private initialValue: string | null = null;
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, baseStyle, vlElementsStyle, radioStyle, radioUigStyle];
+        return [resetStyle, baseStyle, vlLegacyStyles, radioStyle, radioUigStyle];
     }
 
     static get properties(): PropertyDeclarations {

@@ -1,4 +1,4 @@
-import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
 import { VlButtonComponent } from '@domg-wc/components';
 import { VlTypography } from '../typography/vl-typography.component';
 import { VlProzaMessagePreloader } from './vl-proza-message-preloader.component';
