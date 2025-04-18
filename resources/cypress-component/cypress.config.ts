@@ -12,7 +12,7 @@ export default defineConfig({
         supportFile: './support/component.ts',
         indexHtmlFile: './support/component-index.html',
         specPattern: '../../libs/**/*.cy.{js,jsx,ts,tsx}',
-        // @ts-ignore: Ignoring missing property 'framework'
+        // @ts-expect-error: negeer ontbrekende property 'framework'
         devServer: {
             bundler: 'webpack',
             webpackConfig: {
@@ -33,7 +33,7 @@ export default defineConfig({
                         '@domg-wc/form': path.resolve('../../libs/form/src/'),
                         '@domg-wc/map': path.resolve('../../libs/map/src/'),
                         '@domg-wc/sections': path.resolve('../../libs/sections/src/'),
-                        '@domg-wc/styles': path.resolve('../../libs/styles/src/')
+                        '@domg-wc/styles': path.resolve('../../libs/styles/src/'),
                     },
                 },
             },
