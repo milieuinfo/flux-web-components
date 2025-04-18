@@ -273,10 +273,6 @@
                     ]
                 },
                 {
-                    "name": "vl-code-preview",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-code-preview--documentatie"
-                },
-                {
                     "name": "vl-contact-card",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-contact-card--documentatie"
                 },

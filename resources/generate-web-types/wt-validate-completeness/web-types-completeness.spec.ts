@@ -18,8 +18,8 @@ describe('valideer de volledigheid van de gegenereerde web-types', () => {
     //     jest.spyOn(console, 'log').mockImplementation(() => {});
     // });
     it('components - valideer de volledigheid van de web-types', () => {
-        expect(componentWCNameCount).toEqual(74);
-        expect(componentWTNameCount).toEqual(78);
+        expect(componentWCNameCount).toEqual(73);
+        expect(componentWTNameCount).toEqual(77);
         expect(componentWCWithoutWT).toStrictEqual([]);
         expect(componentWTWithoutWC).toStrictEqual([]);
     });

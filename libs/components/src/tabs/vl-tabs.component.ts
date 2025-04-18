@@ -1,5 +1,4 @@
 import { awaitUntil, BaseLitElement, registerWebComponents, type VL, webComponent } from '@domg-wc/common';
-import '@govflanders/vl-ui-util/dist/js/util.js'; // Moet expliciet geïmporteerd worden om de cy test te laten slagen - het vl object is nodig
 import './vl-tabs.lib.js';
 import { vlLegacyStyles } from '@domg-wc/styles';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';

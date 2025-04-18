@@ -1,6 +1,5 @@
 import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
-import '@govflanders/vl-ui-util/dist/js/util.js';
 import { TemplateFn, CascaderItem, VlCascaderComponent, VlCascaderItemComponent } from './index';
 import { cascaderItemTemplates } from './stories/vl-cascader.stories-util.templates';
 import { VlInfoTile } from '../info-tile';
