@@ -1,4 +1,3 @@
-import '@govflanders/vl-ui-util/src/js/breakpoint';
 import ScrollSpy from './vl-side-navigation.scrollspy.lib';
 
 // UIG-2278: vl lijkt niet in alle gevallen defined te zijn, terwijl deze lib daar precies wel op steunt
