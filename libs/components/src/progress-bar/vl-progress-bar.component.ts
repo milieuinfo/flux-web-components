@@ -1,7 +1,6 @@
 import { BaseLitElement, registerWebComponents } from '@domg-wc/common';
 import { accessibilityStyle, resetStyle } from '@domg/govflanders-style/common';
 import { progressBarStyle } from '@domg/govflanders-style/component';
-import '@govflanders/vl-ui-util/dist/js/util.js';
 import { type PropertyDeclarations, html, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';

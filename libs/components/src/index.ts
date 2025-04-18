@@ -11,7 +11,6 @@ export {
     type NarrowDownFn,
     type CascaderItem,
 } from './cascader';
-export { VlCodePreviewComponent } from './code-preview';
 export { VlContactCardComponent } from './contact-card';
 export { VlContentHeaderComponent } from './content-header';
 export { VlDescriptionData, VlDescriptionDataItem } from './description-data';
