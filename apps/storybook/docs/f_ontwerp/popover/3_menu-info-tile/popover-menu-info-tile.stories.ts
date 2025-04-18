@@ -1,5 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { VlPopoverMenuInfoTileComponent } from '@domg-wc/integration/popover/menu-info-tile';
+import { VlPopoverMenuInfoTileComponent } from '@domg-wc/integration/popover';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import PopoverMenuInfoTileDoc from './popover-menu-info-tile.stories-doc.mdx';
