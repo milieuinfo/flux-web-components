@@ -123,12 +123,6 @@
     "dependencies": {
         "@domg/govflanders-style": "21.3.0",
         "@floating-ui/dom": "1.6.3",
-        "@govflanders/vl-ui-accordion": "21.0.2",
-        "@govflanders/vl-ui-code-preview": "21.0.2",
-        "@govflanders/vl-ui-core": "22.0.2",
-        "@govflanders/vl-ui-infotext": "21.0.2",
-        "@govflanders/vl-ui-progress-bar": "21.0.2",
-        "@govflanders/vl-ui-util": "21.0.2",
         "@lit/react": "1.0.3",
         "@open-wc/form-control": "1.0.0",
         "@open-wc/form-helpers": "1.0.0",

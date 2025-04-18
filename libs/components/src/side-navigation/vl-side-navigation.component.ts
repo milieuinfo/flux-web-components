@@ -1,5 +1,4 @@
 import { BaseLitElement, unwrap, VL, webComponent } from '@domg-wc/common';
-import '@govflanders/vl-ui-util/dist/js/util.js';
 import './vl-side-navigation.lib.js';
 import { legacyGlobalStyles, vlContentBlockStyles, vlGridStyles, vlIconStyles, vlSectionStyles } from '@domg-wc/styles';
 import { vlSideNavigationStyles } from './vl-side-navigation.css';

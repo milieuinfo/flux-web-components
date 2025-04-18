@@ -3,8 +3,6 @@ import { vlGridStyles, vlGroupStyles, vlIconStyles, vlStackedStyles } from '@dom
 import { VlLinkComponent } from '../link';
 import { accessibilityStyle, resetStyle } from '@domg/govflanders-style/common';
 import { modalStyle } from '@domg/govflanders-style/component';
-import '@govflanders/vl-ui-core/dist/js/core.js';
-import '@govflanders/vl-ui-util/dist/js/util.js';
 import './vl-modal.lib.js';
 import modalUigStyle from './vl-modal.uig-css';
 

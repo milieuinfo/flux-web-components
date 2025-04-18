@@ -1,12 +1,11 @@
 /* eslint-disable no-undef */
 import { BaseElementOfType, PADDINGS, registerWebComponents, webComponent } from '@domg-wc/common';
 import { vlLinkIconStyles } from '@domg-wc/styles';
-import { accordionStyle, buttonStyle, iconStyle, linkStyle, toggleStyle } from '@domg/govflanders-style/component';
 import { resetStyle } from '@domg/govflanders-style/common';
+import { accordionStyle, buttonStyle, iconStyle, linkStyle, toggleStyle } from '@domg/govflanders-style/component';
 import { VlIconComponent } from '../icon';
 import accordionUigStyle from './vl-accordion.uig-css';
-import '@govflanders/vl-ui-util/dist/js/util.js';
-import '@govflanders/vl-ui-accordion/dist/js/accordion.js';
+import './vl-accordion.lib.js';
 import 'reflect-metadata';
 
 registerWebComponents([VlIconComponent]);

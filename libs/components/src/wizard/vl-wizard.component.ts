@@ -1,10 +1,9 @@
 import { BaseLitElement, registerWebComponents } from '@domg-wc/common';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { wizardStyle } from '@domg/govflanders-style/component';
-import '@govflanders/vl-ui-util/dist/js/util.js';
 import { html, PropertyDeclarations } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { VlProgressBarComponent } from '../progress-bar/vl-progress-bar.component';
+import { VlProgressBarComponent } from '../progress-bar';
 import { VlWizardPane } from './vl-wizard-pane.component'; // onduidelijk waarom de vl declaratie en de util.js import nodig zijn, maar zonder falen de component.cy testen
 
 @customElement('vl-wizard')

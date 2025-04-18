@@ -1,8 +1,6 @@
-import { VlFormLabelComponent } from '@domg-wc/form';
-import { VlInputFieldComponent } from '@domg-wc/form';
-import { VlSelectComponent } from '@domg-wc/form';
-import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
+import { VlFormLabelComponent, VlInputFieldComponent, VlSelectComponent } from '@domg-wc/form';
+import { html } from 'lit';
 import { VlButtonComponent } from '../button';
 import { VlTitleComponent } from '../title';
 import { VlSearchFilterComponent } from './vl-search-filter.component';
