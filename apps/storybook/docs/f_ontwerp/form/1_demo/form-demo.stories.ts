@@ -1,7 +1,7 @@
 import { html } from 'lit-html';
 import { Meta } from '@storybook/web-components';
 import { registerWebComponents } from '@domg-wc/common';
-import { VlFormDemoComponent } from '@domg-wc/integration/form/demo';
+import { VlFormDemoComponent } from '@domg-wc/integration/form';
 import formDemoDoc from './form-demo.stories-doc.mdx';
 
 registerWebComponents([VlFormDemoComponent]);
