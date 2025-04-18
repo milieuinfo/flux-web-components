@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import { Meta } from '@storybook/web-components';
 import PopoverMenuAccordionDoc from './popover-menu-accordion.stories-doc.mdx';
 import { registerWebComponents } from '@domg-wc/common';
-import { VlPopoverMenuAccordionComponent } from '@domg-wc/integration/popover/menu-accordion';
+import { VlPopoverMenuAccordionComponent } from '@domg-wc/integration/popover';
 
 registerWebComponents([VlPopoverMenuAccordionComponent]);
 
