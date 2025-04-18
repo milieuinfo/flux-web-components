@@ -5,12 +5,12 @@
         "rootDirs": ["./libs", "./apps", "./resources"],
         "types": ["cypress", "cypress-axe"],
         "paths": {
-            "@resources/utils-storybook": ["resources/utils-storybook/stories.helper.ts"],
+            "@resources/utils-storybook": ["resources/utils-storybook/index.ts"],
             "@domg-wc/common": ["libs/common/src/index.ts"],
-            "@domg-wc/common/constants": ["libs/common/src/constants/index.ts"],
             "@domg-wc/components": ["libs/components/src/index.ts"],
             "@domg-wc/form": ["libs/form/src/index.ts"],
-            "@domg-wc/integration/*": ["libs/integration/src/*"],
+            "@domg-wc/integration/form": ["libs/integration/src/form/index.ts"],
+            "@domg-wc/integration/popover": ["libs/integration/src/popover/index.ts"],
             "@domg-wc/map": ["libs/map/src/index.ts"],
             "@domg-wc/sections": ["libs/sections/src/index.ts"],
             "@domg-wc/styles": ["libs/styles/src/index.ts"]

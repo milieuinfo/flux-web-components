@@ -15,7 +15,7 @@ import {
 import { SelectRichOption, VlDatepickerComponent, VlSelectComponent, VlSelectRichComponent } from '@domg-wc/form';
 import { CSSResult, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { VlFormDemoComponent } from '@domg-wc/integration/form/demo';
+import { VlFormDemoComponent } from '@domg-wc/integration/form';
 
 @customElement('app-component')
 export class AppComponent extends LitElement {
@@ -96,18 +96,18 @@ export class AppComponent extends LitElement {
                         <div class="vl-stacked-small">
                             <vl-title type="h2">Select</vl-title>
                             <vl-paragraph
-                                >Test om te zien hoe de select placeholder zich gedraagt bij dynamische selects.
+                            >Test om te zien hoe de select placeholder zich gedraagt bij dynamische selects.
                             </vl-paragraph>
                             <vl-title type="h3">Gerelateerd aan:</vl-title>
                             <vl-pill
                                 data-vl-clickable
                                 @click=${() => window.open('https://www.milieuinfo.be/jira/browse/UIG-3214')}
-                                >UIG-3214
+                            >UIG-3214
                             </vl-pill>
                             <vl-pill
                                 data-vl-clickable
                                 @click=${() => window.open('https://www.milieuinfo.be/jira/browse/UIG-3203')}
-                                >UIG-3202
+                            >UIG-3202
                             </vl-pill>
                             <div class="vl-group">
                                 <vl-button @click=${() => this.addPlaceholder()}>Add placeholder</vl-button>
@@ -130,7 +130,7 @@ export class AppComponent extends LitElement {
                             <vl-datepicker></vl-datepicker>
                             <div class="vl-group">
                                 <vl-button data-vl-modal-open="modal-with-datepicker"
-                                    >Open modal with datepicker
+                                >Open modal with datepicker
                                 </vl-button>
                                 <vl-button @click=${this.openSidesheet}>Open sidesheet</vl-button>
                             </div>
@@ -153,7 +153,7 @@ export class AppComponent extends LitElement {
                             <vl-pill
                                 data-vl-clickable
                                 @click=${() => window.open('https://www.milieuinfo.be/jira/browse/UIG-3226')}
-                                >UIG-3226
+                            >UIG-3226
                             </vl-pill>
                             <div
                                 class="vl-group vl-group--column vl-group--separator-column vl-group--stretch-children"
@@ -184,7 +184,7 @@ export class AppComponent extends LitElement {
                             <vl-pill
                                 data-vl-clickable
                                 @click=${() => window.open('https://www.milieuinfo.be/jira/browse/UIG-3225')}
-                                >UIG-3225
+                            >UIG-3225
                             </vl-pill>
                             <div class="vl-group vl-group--baseline">
                                 <vl-title type="h1">Pagina titel</vl-title>
@@ -201,7 +201,7 @@ export class AppComponent extends LitElement {
                             <div class="vl-group vl-group--baseline">
                                 <vl-title type="h3">Pagina titel</vl-title>
                                 <vl-link href="#" button-as-link icon="pencil" icon-placement="before"
-                                    >Link as button
+                                >Link as button
                                 </vl-link>
                             </div>
                         </div>
