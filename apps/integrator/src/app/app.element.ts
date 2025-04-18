@@ -1,7 +1,7 @@
 import { CSSResult, LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { registerWebComponents } from '@domg-wc/common';
-import { VlFormDemoComponent } from '@domg-wc/integration/form/demo/vl-form-demo.component';
+import { VlFormDemoComponent } from '@domg-wc/integration/form';
 import { vlLegacyStyles } from '@domg-wc/styles';
 
 @customElement('app-element')
