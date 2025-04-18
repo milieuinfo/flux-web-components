@@ -1,7 +1,6 @@
 // Er zijn wijzigingen in deze file toegepast tov de originele file van Digitaal Vlaanderen v14.0.2.
 // Er staat een comment bij alle wijzigingen beginnend met het ticket nummer waar de wijziging voor doorgevoerd is (UIG-...).
 // Verder is de dressAll() methode en alle calls hiernaar verwijderd aangezien deze methode niet nodig is.
-import Breakpoint from '@govflanders/vl-ui-util/src/js/breakpoint';
 
 // Private Variables
 const tabActiveClass = `vl-tab--active`,
@@ -14,7 +13,8 @@ const tabActiveClass = `vl-tab--active`,
     tabCloseAtt = `close`,
     tabsAtt = `tabs`;
 
-const breakpoint = new Breakpoint();
+// eslint-disable-next-line no-undef
+const breakpoint = vl.breakpoint;
 
 breakpoint.dress();
 

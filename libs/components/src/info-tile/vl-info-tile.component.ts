@@ -2,10 +2,9 @@ import { BaseHTMLElement, registerWebComponents, VL, webComponent, isSlotEmpty }
 import { vlLegacyStyles } from '@domg-wc/styles';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { accordionStyle, iconStyle, infoTileStyle, linkStyle, toggleStyle } from '@domg/govflanders-style/component';
-import '@govflanders/vl-ui-util/dist/js/util.js';
-import '@govflanders/vl-ui-accordion/dist/js/accordion.js';
+import '../accordion/vl-accordion.lib.js';
+import { VlAccordionComponent } from '../accordion';
 import 'reflect-metadata';
-import { VlAccordionComponent } from '../accordion/vl-accordion.component';
 import infoTileUigStyle from './vl-info-tile.uig-css';
 import { INFO_TILE_SIZE } from './vl-info-tile.model';
 
