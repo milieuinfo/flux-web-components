@@ -79,7 +79,6 @@ export const buildWTConfigComponents: WTConfigArray = [
         '/docs/components-breadcrumb--documentatie'
     ),
     buildWTConfig('vl-breadcrumb-item', breadcrumbItemArgTypes, null, '/docs/components-breadcrumb--documentatie'),
-    buildWTConfig('vl-code-preview', null, null, '/docs/components-code-preview--documentatie'),
     buildWTConfig('vl-contact-card', null, null, '/docs/components-contact-card--documentatie'),
     buildWTConfig(
         'vl-content-header',
