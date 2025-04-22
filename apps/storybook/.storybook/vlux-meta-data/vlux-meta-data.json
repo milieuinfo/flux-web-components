@@ -158,6 +158,11 @@
         "nextText": "vl-checkbox-next",
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#checkbox)"
     },
+    "components-code-preview": {
+        "vStatus": "v1-remove",
+        "legacyText": "vl-code-preview",
+        "planningInfo": "[v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#code-preview)"
+    },
     "elements-data-table": {
         "vStatus": "v1-replace",
         "legacyText": "vl-data-table",
