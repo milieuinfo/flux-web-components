@@ -729,13 +729,11 @@ export const privacyContentSection = () => html`
                             <vl-side-navigation-item parent>
                                 <vl-side-navigation-toggle href="#privacy-department">
                                     Het Departement Omgeving en uw privacy
-                                    <i class="vl-vi vl-vi-arrow-right-fat"></i>
                                 </vl-side-navigation-toggle>
                             </vl-side-navigation-item>
                             <vl-side-navigation-item parent="privacy-declaration">
                                 <vl-side-navigation-toggle href="#privacy-declaration" child="privacy-declaration">
                                     Privacyverklaring
-                                    <i class="vl-vi vl-vi-arrow-right-fat"></i>
                                 </vl-side-navigation-toggle>
                                 <ul>
                                     <vl-side-navigation-item>
@@ -778,7 +776,6 @@ export const privacyContentSection = () => html`
                             <vl-side-navigation-item parent>
                                 <vl-side-navigation-toggle href="#privacy-permissions-protocols">
                                     Machtigingen en protocollen
-                                    <i class="vl-vi vl-vi-arrow-right-fat"></i>
                                 </vl-side-navigation-toggle>
                                 <ul>
                                     <vl-side-navigation-item>

@@ -1,7 +1,7 @@
 import { BaseLitElement, unwrap, VL, webComponent } from '@domg-wc/common';
 import '@govflanders/vl-ui-util/dist/js/util.js';
 import './vl-side-navigation.lib.js';
-import { legacyGlobalStyles, vlContentBlockStyles, vlGridStyles, vlSectionStyles } from '@domg-wc/styles';
+import { legacyGlobalStyles, vlContentBlockStyles, vlGridStyles, vlIconStyles, vlSectionStyles } from '@domg-wc/styles';
 import { vlSideNavigationStyles } from './vl-side-navigation.css';
 
 declare const vl: VL;
@@ -35,11 +35,13 @@ export class VlSideNavigationComponent extends BaseLitElement {
                 vlGridStyles.styleSheet as CSSStyleSheet,
                 vlSectionStyles.styleSheet as CSSStyleSheet,
                 vlContentBlockStyles.styleSheet as CSSStyleSheet,
+                vlIconStyles.styleSheet as CSSStyleSheet,
             ];
         } else {
             document.adoptedStyleSheets = [
                 ...document.adoptedStyleSheets,
                 vlSideNavigationStyles.styleSheet as CSSStyleSheet,
+                vlIconStyles.styleSheet as CSSStyleSheet,
             ];
         }
     }
