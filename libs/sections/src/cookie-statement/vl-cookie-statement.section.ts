@@ -90,7 +90,7 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
             <div class="vl-content-block">
                 <div class="vl-grid vl-stacked-medium vl-content-block">
                     <div class="vl-column vl-column--8 vl-column--m-8 vl-column--s-8 vl-column--xs-8">
-                        <vl-side-navigation-reference  data-vl--scrollspy-content>
+                        <vl-side-navigation-reference  -scrollspy-content>
                             <div class="vl-grid vl-stacked-large">
                                 <div id="cookie-policy" class="vl-column vl-column--12 vl-column--m-12">
                                     <vl-title type="h2">Cookiebeleid</vl-title>
@@ -174,7 +174,7 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
                 <div class="vl-grid vl-stacked-medium">
                     <div class="vl-column vl-column--12 vl-column--m-12">
                         <vl-contact-card>
-                            <vl-infoblock slot="info" data-vl-type="contact">
+                            <vl-infoblock slot="info" type="contact">
                                 <h3 slot="title">Departement Omgeving</h3>
                             </vl-infoblock>
                             <vl-properties slot="properties">
@@ -232,9 +232,9 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
         const functionalHeader = this._shadow.querySelector('vl-functional-header');
 
         if (this.hasAttribute('disable-back-link')) {
-            functionalHeader.setAttribute('data-vl-disable-back-link', '');
+            functionalHeader.setAttribute('disable-back-link', '');
         } else {
-            functionalHeader.removeAttribute('data-vl-disable-back-link');
+            functionalHeader.removeAttribute('disable-back-link');
         }
     }
 
@@ -242,9 +242,9 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
         const functionalHeader = this._shadow.querySelector('vl-functional-header');
 
         if (this.hasAttribute('hide-back-link')) {
-            functionalHeader.setAttribute('data-vl-hide-back-link', '');
+            functionalHeader.setAttribute('hide-back-link', '');
         } else {
-            functionalHeader.removeAttribute('data-vl-hide-back-link');
+            functionalHeader.removeAttribute('hide-back-link');
         }
     }
 }

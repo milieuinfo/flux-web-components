@@ -13,31 +13,31 @@ export class VlMapDrawActionStyle extends BaseElementOfType(HTMLElement) {
     }
 
     get fillColor() {
-        return this.getAttribute('data-vl-color') || 'rgba(2, 85, 204, 0.8)';
+        return this.getAttribute('color') || 'rgba(2, 85, 204, 0.8)';
     }
 
     get strokeColor() {
-        return this.getAttribute('data-vl-border-color') || 'rgba(2, 85, 204, 1)';
+        return this.getAttribute('border-color') || 'rgba(2, 85, 204, 1)';
     }
 
     get strokeSize() {
-        return this.getAttribute('data-vl-border-size') || 1;
+        return this.getAttribute('border-size') || 1;
     }
 
     get circleRadius() {
-        return this.getAttribute('data-vl-circle-size') || 4;
+        return this.getAttribute('circle-size') || 4;
     }
 
     get circleColor() {
-        return this.getAttribute('data-vl-circle-color') || 'rgba(2, 85, 204, 0.8)';
+        return this.getAttribute('circle-color') || 'rgba(2, 85, 204, 0.8)';
     }
 
     get circleStrokeColor() {
-        return this.getAttribute('data-vl-circle-border-color') || 'rgba(2, 85, 204, 1)';
+        return this.getAttribute('circle-border-color') || 'rgba(2, 85, 204, 1)';
     }
 
     get circleStrokeSize() {
-        return this.getAttribute('data-vl-circle-border-size') || 1;
+        return this.getAttribute('circle-border-size') || 1;
     }
 
     get style() {

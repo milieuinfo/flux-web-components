@@ -12,7 +12,7 @@ export const formControlArgs: FormControlArgs = {
 };
 
 export const formControlArgTypes: ArgTypes<FormControlArgs> = {
-    ...defaultArgTypes(true),
+    ...defaultArgTypes,
     id: {
         name: 'id',
         description: 'Het id van het veld.',

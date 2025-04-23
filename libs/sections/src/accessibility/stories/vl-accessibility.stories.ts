@@ -48,14 +48,14 @@ const Template = story(
         headerSlot,
     }) => html`
         <vl-accessibility
-            data-vl-application=${application}
-            data-vl-compliance=${compliance}
-            data-vl-date=${date}
-            data-vl-date-modified=${dateModified}
-            ?data-vl-disable-back-link=${disableBackLink}
-            ?data-vl-hide-back-link=${hideBackLink}
-            data-vl-evaluation=${evaluation}
-            data-vl-version=${version}
+            application=${application}
+            compliance=${compliance}
+            date=${date}
+            date-modified=${dateModified}
+            ?disable-back-link=${disableBackLink}
+            ?hide-back-link=${hideBackLink}
+            evaluation=${evaluation}
+            version=${version}
             .limitations=${limitations}
             @vl-click-back=${onClickBack}
         >
@@ -92,9 +92,9 @@ AccessibilityHeaderSlot.args = {
     headerSlot: `
     <vl-functional-header
         slot="header"
-        data-vl-title="Departement Omgeving & Andere"
-        data-vl-sub-title="Toegankelijkheid en gebruiksvoorwaarden "
-        data-vl-link="https://omgeving.vlaanderen.be"
-        data-vl-back="Start"
+        title="Departement Omgeving & Andere"
+        sub-title="Toegankelijkheid en gebruiksvoorwaarden "
+        link="https://omgeving.vlaanderen.be"
+        back="Start"
     ></vl-functional-header>`,
 };

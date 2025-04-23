@@ -17,7 +17,7 @@ export class VlShareButton extends BaseLitElement {
 
     static get properties() {
         return {
-            medium: { type: String, attribute: 'data-vl-medium', reflect: true },
+            medium: { type: String, attribute: 'medium', reflect: true },
             href: { type: String, attribute: 'href', reflect: true },
         };
     }

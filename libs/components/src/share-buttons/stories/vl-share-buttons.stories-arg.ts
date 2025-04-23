@@ -6,9 +6,9 @@ export const shareButtonsArgs = {
 };
 
 export const shareButtonsArgTypes = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     alt: {
-        name: 'data-vl-alt',
+        name: 'alt',
         description: 'Removes the gray border top.',
         table: {
             category: 'Attributes',

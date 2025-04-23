@@ -205,36 +205,36 @@ const styles: CSSResult = css`
         display: block;
     }
 
-    :host([data-vl-inline][data-vl-has-input-slot]) .vl-search__label {
+    :host([inline][has-input-slot]) .vl-search__label {
         z-index: var(--vl-z-layer--search);
     }
 
-    :host([data-vl-inline]) .vl-search {
+    :host([inline]) .vl-search {
         width: var(--vl-search-width, 25rem);
     }
-    :host([data-vl-inline]) slot[name='input'] {
+    :host([inline]) slot[name='input'] {
         box-sizing: content-box;
     }
-    :host([data-vl-inline]) slot[name='input'] + .vl-search__submit {
+    :host([inline]) slot[name='input'] + .vl-search__submit {
         display: none;
     }
-    :host([data-vl-inline]) slot[name='input'].is-open + .vl-search__submit {
+    :host([inline]) slot[name='input'].is-open + .vl-search__submit {
         transition: opacity 0.2s, transform 0.2s;
         z-index: var(--vl-z-layer--search);
         opacity: 1;
         transform: translateX(0%);
         display: block;
     }
-    :host([data-vl-inline]) ::slotted(.js-vl-select) {
+    :host([inline]) ::slotted(.js-vl-select) {
         background: white !important;
         box-shadow: 0px 0px 0px 1px inset #687483;
         margin-right: 0rem !important;
     }
-    :host([data-vl-inline]) ::slotted(.js-vl-select:hover) {
+    :host([inline]) ::slotted(.js-vl-select:hover) {
         box-shadow: 0px 0px 0px 2px inset rgba(0, 85, 204, 0.65);
     }
-    :host([data-vl-inline]) ::slotted(.is-open),
-    :host([data-vl-inline]) ::slotted(.is-focused) {
+    :host([inline]) ::slotted(.is-open),
+    :host([inline]) ::slotted(.is-focused) {
         margin-right: 4.7rem !important;
         border: 0.1rem solid #687483 !important;
     }

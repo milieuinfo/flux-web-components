@@ -27,7 +27,7 @@ registerWebComponents([VlRichData, VlSearchResultComponent]);
 
 export const RichDataDefault = ({ filterClosable, filterClosed }: typeof richDataArgs) => {
     return html`
-        <vl-rich-data ?data-vl-filter-closable=${filterClosable} ?data-vl-filter-closed=${filterClosed}>
+        <vl-rich-data ?filter-closable=${filterClosable} ?filter-closed=${filterClosed}>
             <span slot="no-content">Geen resultaten gevonden</span>
             <vl-search-result slot="content"></vl-search-result>
         </vl-rich-data>
@@ -38,20 +38,20 @@ RichDataDefault.storyName = 'vl-rich-data - default';
 export const RichDataPager = story(richDataArgs, ({ filterClosable, filterClosed }: typeof richDataArgs) => {
     richDataPaginationImplementation();
     return html`
-        <vl-rich-data id="rich-data" ?data-vl-filter-closable=${filterClosable} ?data-vl-filter-closed=${filterClosed}>
+        <vl-rich-data id="rich-data" ?filter-closable=${filterClosable} ?filter-closed=${filterClosed}>
             <span slot="no-content">Geen resultaten</span>
             <div slot="content"></div>
             <select is="vl-select" slot="sorter" aria-label="Sorteer">
                 <option value="id">ID</option>
                 <option value="manager.lastName">Naam manager</option>
             </select>
-            <div is="vl-search-filter" data-vl-alt slot="filter">
+            <div is="vl-search-filter" alt slot="filter">
                 <form is="vl-form" id="rich-data-table-filter-form">
                     <section>
                         <h2>Doorzoek projecten</h2>
                         <div>
                             <label is="vl-form-label" for="filterOpId">Project id</label>
-                            <input is="vl-input-field" id="filterOpId" type="text" name="id" value="" data-vl-block />
+                            <input is="vl-input-field" id="filterOpId" type="text" name="id" value="" block />
                         </div>
                     </section>
                     <section>
@@ -64,7 +64,7 @@ export const RichDataPager = story(richDataArgs, ({ filterClosable, filterClosed
                                 type="text"
                                 name="name"
                                 value=""
-                                data-vl-block
+                                block
                             />
                         </div>
                         <div>
@@ -75,7 +75,7 @@ export const RichDataPager = story(richDataArgs, ({ filterClosable, filterClosed
                                 type="text"
                                 name="manager.lastName"
                                 value=""
-                                data-vl-block
+                                block
                             />
                         </div>
                     </section>
@@ -92,10 +92,10 @@ export const RichDataPager = story(richDataArgs, ({ filterClosable, filterClosed
             <vl-pager
                 id="rich-data-table-filter-sorting-paging-pager"
                 slot="pager"
-                data-vl-total-items="25"
-                data-vl-items-per-page="10"
-                data-vl-current-page="1"
-                data-vl-align-center
+                total-items="25"
+                items-per-page="10"
+                current-page="1"
+                align-center
             ></vl-pager>
         </vl-rich-data>
     `;

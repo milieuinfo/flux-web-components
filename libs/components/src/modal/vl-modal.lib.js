@@ -941,7 +941,7 @@
         })();
     });
 
-    const mAttr = 'data-'.concat(vl.ns, 'modal');
+    const mAttr = 'modal';
     const mDressedAtt = ''.concat(mAttr, '-dressed');
     const mClosable = ''.concat(mAttr, '-closable');
     const mOpen = ''.concat(mAttr, '-open');
@@ -1054,10 +1054,7 @@
                         const _this = this;
 
                         const elements = document.querySelectorAll(
-                            '['
-                                .concat(mAttr, ']:not([')
-                                .concat(mDressedAtt, ']):not([data-')
-                                .concat(vl.ns, 'js-dress="false"])')
+                            '['.concat(mAttr, ']:not([').concat(mDressedAtt, ']):not([js-dress="false"])')
                         );
                         vl.util.each(elements, (element) => {
                             _this.dress(element);

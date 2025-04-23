@@ -20,17 +20,17 @@ export class VlInputSliderComponent extends BaseLitElement {
         return {
             maxValue: {
                 type: Number,
-                attribute: 'data-vl-max-value',
+                attribute: 'max-value',
                 reflect: true,
             },
             minValue: {
                 type: Number,
-                attribute: 'data-vl-min-value',
+                attribute: 'min-value',
                 reflect: true,
             },
             value: {
                 type: Number,
-                attribute: 'data-vl-value',
+                attribute: 'value',
                 reflect: true,
             },
         };

@@ -22,9 +22,9 @@ export const mapSideSheetArgs = {
 };
 
 export const mapSideSheetArgTypes: ArgTypes<typeof mapSideSheetArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     customIcon: {
-        name: 'data-vl-custom-icon',
+        name: 'custom-icon',
         description: 'Het icoon van de toggle button.',
         table: {
             type: { summary: TYPES.STRING },
@@ -33,7 +33,7 @@ export const mapSideSheetArgTypes: ArgTypes<typeof mapSideSheetArgs> = {
         },
     },
     enableSwipe: {
-        name: 'data-vl-enable-swipe',
+        name: 'enable-swipe',
         description: 'Het zijpaneel kan gesloten worden door te swipen.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -42,7 +42,7 @@ export const mapSideSheetArgTypes: ArgTypes<typeof mapSideSheetArgs> = {
         },
     },
     hideToggleButton: {
-        name: 'data-vl-hide-toggle-button',
+        name: 'hide-toggle-button',
         description: 'Verbergt de toggle button.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -51,7 +51,7 @@ export const mapSideSheetArgTypes: ArgTypes<typeof mapSideSheetArgs> = {
         },
     },
     iconPlacement: {
-        name: 'data-vl-icon-placement',
+        name: 'icon-placement',
         description: 'De positie van het icoon van de toggle button.<br>Dit attribuut is niet reactief.',
         control: { type: CONTROLS.SELECT },
         options: ['before', 'after'],
@@ -62,7 +62,7 @@ export const mapSideSheetArgTypes: ArgTypes<typeof mapSideSheetArgs> = {
         },
     },
     open: {
-        name: 'data-vl-open',
+        name: 'open',
         description: 'Duidt aan dat het zijpaneel open is.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -71,7 +71,7 @@ export const mapSideSheetArgTypes: ArgTypes<typeof mapSideSheetArgs> = {
         },
     },
     right: {
-        name: 'data-vl-right',
+        name: 'right',
         description: 'Positioneert het zijpaneel aan de rechterrand.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -80,7 +80,7 @@ export const mapSideSheetArgTypes: ArgTypes<typeof mapSideSheetArgs> = {
         },
     },
     toggleText: {
-        name: 'data-vl-toggle-text',
+        name: 'toggle-text',
         description: 'De tekst van de toggle button.',
         table: {
             type: { summary: TYPES.STRING },
@@ -89,7 +89,7 @@ export const mapSideSheetArgTypes: ArgTypes<typeof mapSideSheetArgs> = {
         },
     },
     tooltipText: {
-        name: 'data-vl-tooltip-text',
+        name: 'tooltip-text',
         description: 'De tooltip van de toggle button.',
         table: {
             type: { summary: TYPES.STRING },

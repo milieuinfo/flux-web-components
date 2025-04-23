@@ -7,13 +7,13 @@ export const mapWmtsLayerArgs = {
     layer: '',
     url: '',
     matrixSet: 'BPL72VL',
-    matrixPrefix: false
+    matrixPrefix: false,
 };
 
 export const mapWmtsLayerArgTypes: ArgTypes<typeof mapWmtsLayerArgs> = {
     ...mapLayerArgTypes,
     layer: {
-        name: 'data-vl-layer',
+        name: 'layer',
         description: 'De layer van de WMTS.<br>Dit attribuut is niet reactief.',
         type: { name: TYPES.STRING, required: true },
         table: {
@@ -23,7 +23,7 @@ export const mapWmtsLayerArgTypes: ArgTypes<typeof mapWmtsLayerArgs> = {
         },
     },
     url: {
-        name: 'data-vl-url',
+        name: 'url',
         description: 'De WMTS url.<br>Dit attribuut is niet reactief.',
         type: { name: TYPES.STRING, required: true },
         table: {
@@ -33,22 +33,23 @@ export const mapWmtsLayerArgTypes: ArgTypes<typeof mapWmtsLayerArgs> = {
         },
     },
     matrixSet: {
-        name: 'data-vl-matrix-set',
+        name: 'matrix-set',
         description: 'De matrix set van de WMTS.<br>Dit attribuut is niet reactief.',
         type: { name: TYPES.STRING, required: false },
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapWmtsLayerArgs.matrixSet }
-        }
+            defaultValue: { summary: mapWmtsLayerArgs.matrixSet },
+        },
     },
     matrixPrefix: {
-        name: 'data-vl-matrix-prefix',
-        description: 'Definieert of de matrix moet geprefixt worden met de matrix set.<br/>Dit attribuut is niet reactief.',
+        name: 'matrix-prefix',
+        description:
+            'Definieert of de matrix moet geprefixt worden met de matrix set.<br/>Dit attribuut is niet reactief.',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: mapWmtsLayerArgs.matrixPrefix },
         },
-    }
+    },
 };

@@ -25,15 +25,15 @@ const mapLayerCircleStylePropertiesFixture = html`
     <vl-map>
         <vl-map-features-layer>
             <vl-map-layer-circle-style
-                data-vl-color="#fff"
-                data-vl-text-color="#000"
-                data-vl-size="1"
-                data-vl-text-offset-x="2"
-                data-vl-text-offset-y="3"
-                data-vl-border-color="#123"
-                data-vl-border-size="4"
-                data-vl-cluster-text-color="#456"
-                data-vl-cluster-color="#789"
+                color="#fff"
+                text-color="#000"
+                size="1"
+                text-offset-x="2"
+                text-offset-y="3"
+                border-color="#123"
+                border-size="4"
+                cluster-text-color="#456"
+                cluster-color="#789"
             ></vl-map-layer-circle-style>
         </vl-map-features-layer>
     </vl-map>
@@ -42,7 +42,7 @@ const mapLayerCircleStylePropertiesFixture = html`
 const mapLayerCircleStyleMetTextFeatureAttributeNameFixture = html`
     <vl-map>
         <vl-map-features-layer>
-            <vl-map-layer-circle-style data-vl-text-feature-attribute-name="label"></vl-map-layer-circle-style>
+            <vl-map-layer-circle-style text-feature-attribute-name="label"></vl-map-layer-circle-style>
         </vl-map-features-layer>
     </vl-map>
 `;
@@ -166,7 +166,7 @@ describe('vl-map-layer-circle-style', () => {
             feature1.setStyle(featureStyle);
             feature2.setStyle(featureStyle);
             const features = [feature1, feature2];
-            layerElement.setAttribute('data-vl-cluster', '');
+            layerElement.setAttribute('cluster', '');
             const style = styleElement.style(OpenLayersUtil.createClusterFeaturesObject(features));
             const clusterMultiplier = Math.max(1.5, features.length.toString().length);
             const styleImage = style.getImage();
@@ -227,7 +227,7 @@ describe('vl-map-layer-circle-style', () => {
                 })
             );
             const features = [feature1, feature2];
-            layerElement.setAttribute('data-vl-cluster', '');
+            layerElement.setAttribute('cluster', '');
             const style = styleElement.style(OpenLayersUtil.createClusterFeaturesObject(features));
             const clusterMultiplier = Math.max(1.5, features.length.toString().length);
             const styleImage = style.getImage();

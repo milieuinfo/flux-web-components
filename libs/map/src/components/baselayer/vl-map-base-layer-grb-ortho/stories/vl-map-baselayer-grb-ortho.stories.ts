@@ -36,7 +36,7 @@ export const MapBaselayerGrbOrthoBackgroundLayer = story(
     {},
     () => html`
         <vl-map>
-            <vl-map-baselayer-grb-ortho data-vl-background-layer></vl-map-baselayer-grb-ortho>
+            <vl-map-baselayer-grb-ortho background-layer></vl-map-baselayer-grb-ortho>
         </vl-map>
     `
 );

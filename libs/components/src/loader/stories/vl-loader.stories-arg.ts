@@ -8,9 +8,9 @@ export const loaderArgs = {
 };
 
 export const loaderArgTypes = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     light: {
-        name: 'data-vl-light',
+        name: 'light',
         description: 'Attribute is used to obtain an alternative rendering in combination with a dark background. ',
         table: {
             type: { summary: 'boolean' },
@@ -19,7 +19,7 @@ export const loaderArgTypes = {
         },
     },
     text: {
-        name: 'data-vl-text',
+        name: 'text',
         description: 'Attribute is used to display an informative text during loading. ',
         table: {
             type: { summary: 'string' },
@@ -28,7 +28,7 @@ export const loaderArgTypes = {
         },
     },
     single: {
-        name: 'data-vl-single',
+        name: 'single',
         description: 'Attribute is used to indicate that no text should be displayed. ',
         table: {
             type: { summary: 'boolean' },

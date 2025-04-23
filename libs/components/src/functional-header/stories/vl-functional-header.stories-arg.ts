@@ -35,9 +35,9 @@ export const functionalHeaderArgs = {
 };
 
 export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     back: {
-        name: 'data-vl-back',
+        name: 'back',
         description: 'Tekst van de terug-link.',
         table: {
             type: { summary: TYPES.STRING },
@@ -46,7 +46,7 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
         },
     },
     backLink: {
-        name: 'data-vl-back-link',
+        name: 'back-link',
         description: 'URL van de terug-link.',
         table: {
             type: { summary: TYPES.URL },
@@ -55,7 +55,7 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
         },
     },
     disableBackLink: {
-        name: 'data-vl-disable-back-link',
+        name: 'disable-back-link',
         description: 'Zet de terug-link uit.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -64,7 +64,7 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
         },
     },
     fullWidth: {
-        name: 'data-vl-full-width',
+        name: 'full-width',
         description: 'Gebruik de volledige breedte van het scherm.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -73,7 +73,7 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
         },
     },
     hideBackLink: {
-        name: 'data-vl-hide-back-link',
+        name: 'hide-back-link',
         description: 'Verbergt de terug link.<br>Dit attribuut is niet reactief.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -82,7 +82,7 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
         },
     },
     hideSubHeader: {
-        name: 'data-vl-hide-sub-header',
+        name: 'hide-sub-header',
         description: 'Verbergt de sub header.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -91,7 +91,7 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
         },
     },
     link: {
-        name: 'data-vl-link',
+        name: 'link',
         description: 'URL van de titel-link.',
         table: {
             type: { summary: TYPES.URL },
@@ -100,7 +100,7 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
         },
     },
     marginBottom: {
-        name: 'data-vl-margin-bottom',
+        name: 'margin-bottom',
         description: 'De grootte van de margin onder de functional header.',
         control: { type: CONTROLS.SELECT },
         options: [...Object.keys(MARGINS)],
@@ -111,7 +111,7 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
         },
     },
     subTitle: {
-        name: 'data-vl-sub-title',
+        name: 'sub-title',
         description: 'Tekst van de subtitel.',
         table: {
             type: { summary: TYPES.STRING },
@@ -120,7 +120,7 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
         },
     },
     title: {
-        name: 'data-vl-title',
+        name: 'title',
         description: 'Tekst van de titel.',
         table: {
             type: { summary: TYPES.STRING },
@@ -139,7 +139,7 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
     backSlot: {
         name: 'back',
         description:
-            'Wordt afgebeeld ipv de tekst van de terug-link.<br>Kan niet in combinatie gebruikt worden met:<br>• data-vl-back attribuut<br>• back-link slot<br>• sub-header slot',
+            'Wordt afgebeeld ipv de tekst van de terug-link.<br>Kan niet in combinatie gebruikt worden met:<br>• back attribuut<br>• back-link slot<br>• sub-header slot',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
@@ -148,7 +148,7 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
     backLinkSlot: {
         name: 'back-link',
         description:
-            'Wordt afgebeeld ipv de terug-link.<br>Kan niet in combinatie gebruikt worden met:<br>• data-vl-back attribuut<br>• data-vl-back-link attribuut<br>• data-vl-disable-back-link attribuutt<br>• back slot<br>• sub-header slot',
+            'Wordt afgebeeld ipv de terug-link.<br>Kan niet in combinatie gebruikt worden met:<br>• back attribuut<br>• back-link attribuut<br>• disable-back-link attribuutt<br>• back slot<br>• sub-header slot',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
@@ -157,7 +157,7 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
     subHeaderSlot: {
         name: 'sub-header',
         description:
-            'Wordt afgebeeld onder de horizontale lijn.<br>Kan niet in combinatie gebruikt worden met:<br>• data-vl-back attribuut<br>• data-vl-back-link attribuut<br>• data-vl-disable-back-link attribuut<br>• data-vl-sub-title attribuut<br>• back slot<br>• back-link slot<br>• sub-title slot',
+            'Wordt afgebeeld onder de horizontale lijn.<br>Kan niet in combinatie gebruikt worden met:<br>• back attribuut<br>• back-link attribuut<br>• disable-back-link attribuut<br>• sub-title attribuut<br>• back slot<br>• back-link slot<br>• sub-title slot',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
@@ -166,7 +166,7 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
     subTitleSlot: {
         name: 'sub-title',
         description:
-            'Wordt afgebeeld ipv de tekst van de subtitel.<br>Kan niet in combinatie gebruikt worden met:<br>• data-vl-sub-title<br>• sub-header slot',
+            'Wordt afgebeeld ipv de tekst van de subtitel.<br>Kan niet in combinatie gebruikt worden met:<br>• sub-title<br>• sub-header slot',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
@@ -175,7 +175,7 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
     titleSlot: {
         name: 'title',
         description:
-            'Wordt afgebeeld ipv de tekst van de titel.<br>Kan niet in combinatie gebruikt worden met:<br>• data-vl-title',
+            'Wordt afgebeeld ipv de tekst van de titel.<br>Kan niet in combinatie gebruikt worden met:<br>• title',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,

@@ -11,7 +11,7 @@ export const titleArgs: TitleArgs = {
 };
 
 export const titleArgTypes: ArgTypes<TitleArgs> = {
-    ...defaultArgTypes(true),
+    ...defaultArgTypes,
     type: {
         name: 'type',
         description: 'Het type van de titel.',

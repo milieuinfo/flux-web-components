@@ -90,9 +90,9 @@ export const defaultArgs = {
     customCSS: null,
 } as const;
 
-export const defaultArgTypes = (next = false) => ({
+export const defaultArgTypes = {
     customCSS: {
-        name: !next ? 'data-vl-custom-css' : 'custom-css',
+        name: 'custom-css',
         description:
             'Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.',
         control: { type: null },
@@ -102,7 +102,7 @@ export const defaultArgTypes = (next = false) => ({
             defaultValue: { summary: null },
         },
     },
-});
+};
 
 // Gebruik deze functie om de args van een story die overeen komen met de default args van een component
 // om te zetten naar 'nothing' zodat deze args niet getoond worden in de source code op de docs pagina van de story.

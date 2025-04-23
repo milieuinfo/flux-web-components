@@ -30,13 +30,13 @@ export class VlMapDrawAction extends VlMapLayerAction {
     } {
         const options = { style: this.style, snapping: undefined };
 
-        if (this.dataset.vlSnapping !== undefined) {
+        if (this.getAttribute('snapping') !== null) {
             options.snapping =
                 this.__snappingLayers.length === 0
                     ? true
                     : {
                           layer: this.__createSnappingLayer(),
-                          pixelTolerance: this.dataset.vlSnappingPixelTolerance || 10,
+                          pixelTolerance: this.getAttribute('snapping-pixel-tolerance') || 10,
                           node: false,
                           vertex: false,
                       };

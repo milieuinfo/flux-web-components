@@ -9,9 +9,9 @@ export const descriptionDataItemArgs = {
 };
 
 export const descriptionDataItemArgTypes = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     label: {
-        name: 'data-vl-label',
+        name: 'label',
         description: 'Changes the label of the data item.',
         table: {
             type: { summary: TYPES.STRING },
@@ -20,7 +20,7 @@ export const descriptionDataItemArgTypes = {
         },
     },
     value: {
-        name: 'data-vl-value',
+        name: 'value',
         description: 'Changes the value of the data item.',
         table: {
             type: { summary: TYPES.STRING },

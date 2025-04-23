@@ -8,25 +8,25 @@ registerWebComponents([VlDescriptionData, VlDescriptionDataItem]);
 const mountDefault = ({ bordered = false }: { bordered?: boolean }) => {
     cy.mount(
         html`
-            <vl-description-data ?data-vl-bordered=${bordered}>
+            <vl-description-data ?bordered=${bordered}>
                 <vl-description-data-item
-                    data-vl-label="Uitgever"
-                    data-vl-value="Kind en Gezin"
+                    label="Uitgever"
+                    value="Kind en Gezin"
                     data-cy="description-data-item-1"
                 ></vl-description-data-item>
                 <vl-description-data-item
-                    data-vl-label="Publicatiedatum"
-                    data-vl-value="Augustus 2018"
+                    label="Publicatiedatum"
+                    value="Augustus 2018"
                     data-cy="description-data-item-2"
                 ></vl-description-data-item>
                 <vl-description-data-item
-                    data-vl-label="Publicatietype"
-                    data-vl-value="Brochure"
+                    label="Publicatietype"
+                    value="Brochure"
                     data-cy="description-data-item-3"
                 ></vl-description-data-item>
                 <vl-description-data-item
-                    data-vl-label="Categorie"
-                    data-vl-value="Kinderen en jongeren"
+                    label="Categorie"
+                    value="Kinderen en jongeren"
                     data-cy="description-data-item-4"
                 ></vl-description-data-item>
             </vl-description-data>

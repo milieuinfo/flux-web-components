@@ -11,14 +11,14 @@ type MountDefaultProps = AccessibilityProperties & { onClickBack?: () => void; h
 
 const mountDefault = ({ ...props }: MountDefaultProps) =>
     cy.mount(html` <vl-accessibility
-        data-vl-application=${props.application}
-        data-vl-compliance=${props.compliance}
-        data-vl-date=${props.date}
-        data-vl-date-modified=${props.dateModified}
-        ?data-vl-disable-back-link=${props.disableBackLink}
-        ?data-vl-hide-back-link=${props.hideBackLink}
-        data-vl-evaluation=${props.evaluation}
-        data-vl-version=${props.version}
+        application=${props.application}
+        compliance=${props.compliance}
+        date=${props.date}
+        date-modified=${props.dateModified}
+        ?disable-back-link=${props.disableBackLink}
+        ?hide-back-link=${props.hideBackLink}
+        evaluation=${props.evaluation}
+        version=${props.version}
         .limitations=${props.limitations}
     >
         ${unsafeHTML(props.headerSlot)}
@@ -57,15 +57,15 @@ describe('component vl-accessibility - properties default ', () => {
     it('should have default values properties', () => {
         mountDefault(defaultProps);
 
-        cy.get('vl-accessibility').should('have.attr', 'data-vl-application', defaultProps.application);
-        cy.get('vl-accessibility').should('have.attr', 'data-vl-compliance', defaultProps.compliance);
-        cy.get('vl-accessibility').should('have.attr', 'data-vl-date', defaultProps.date);
-        cy.get('vl-accessibility').should('have.attr', 'data-vl-date-modified', defaultProps.dateModified);
-        cy.get('vl-accessibility').should('not.have.attr', 'data-vl-disable-back-link', defaultProps.disableBackLink);
-        cy.get('vl-accessibility').should('not.have.attr', 'data-vl-hide-back-link', defaultProps.hideBackLink);
-        cy.get('vl-accessibility').should('have.attr', 'data-vl-evaluation', defaultProps.evaluation);
-        cy.get('vl-accessibility').should('have.attr', 'data-vl-version', defaultProps.version);
-        cy.get('vl-accessibility').should('not.have.attr', 'data-vl-limitations', defaultProps.limitations);
+        cy.get('vl-accessibility').should('have.attr', 'application', defaultProps.application);
+        cy.get('vl-accessibility').should('have.attr', 'compliance', defaultProps.compliance);
+        cy.get('vl-accessibility').should('have.attr', 'date', defaultProps.date);
+        cy.get('vl-accessibility').should('have.attr', 'date-modified', defaultProps.dateModified);
+        cy.get('vl-accessibility').should('not.have.attr', 'disable-back-link', defaultProps.disableBackLink);
+        cy.get('vl-accessibility').should('not.have.attr', 'hide-back-link', defaultProps.hideBackLink);
+        cy.get('vl-accessibility').should('have.attr', 'evaluation', defaultProps.evaluation);
+        cy.get('vl-accessibility').should('have.attr', 'version', defaultProps.version);
+        cy.get('vl-accessibility').should('not.have.attr', 'limitations', defaultProps.limitations);
     });
 });
 
@@ -73,49 +73,49 @@ describe('component vl-accessibility - properties reflect ', () => {
     it('should reflect the <application> attribute', () => {
         mountDefault({ ...defaultProps, application: 'Omgeving' });
 
-        cy.get('vl-accessibility').should('have.attr', 'data-vl-application', 'Omgeving');
+        cy.get('vl-accessibility').should('have.attr', 'application', 'Omgeving');
     });
 
     it('should reflect the <compliance> attribute', () => {
         mountDefault({ ...defaultProps, compliance: 'NOT_COMPLIANT' });
 
-        cy.get('vl-accessibility').should('have.attr', 'data-vl-compliance', 'NOT_COMPLIANT');
+        cy.get('vl-accessibility').should('have.attr', 'compliance', 'NOT_COMPLIANT');
     });
 
     it('should reflect the <date> attribute', () => {
         mountDefault({ ...defaultProps, date: '27 januari 2024' });
 
-        cy.get('vl-accessibility').should('have.attr', 'data-vl-date', '27 januari 2024');
+        cy.get('vl-accessibility').should('have.attr', 'date', '27 januari 2024');
     });
 
     it('should reflect the <dateModified> attribute', () => {
         mountDefault({ ...defaultProps, dateModified: '27 januari 2024' });
 
-        cy.get('vl-accessibility').should('have.attr', 'data-vl-date-modified', '27 januari 2024');
+        cy.get('vl-accessibility').should('have.attr', 'date-modified', '27 januari 2024');
     });
 
     it('should reflect the <disableBackLink> attribute', () => {
         mountDefault({ ...defaultProps, disableBackLink: true });
 
-        cy.get('vl-accessibility').should('have.attr', 'data-vl-disable-back-link');
+        cy.get('vl-accessibility').should('have.attr', 'disable-back-link');
     });
 
     it('should reflect the <hideBackLink> attribute', () => {
         mountDefault({ ...defaultProps, hideBackLink: true });
 
-        cy.get('vl-accessibility').should('have.attr', 'data-vl-hide-back-link');
+        cy.get('vl-accessibility').should('have.attr', 'hide-back-link');
     });
 
     it('should reflect the <evaluation> attribute', () => {
         mountDefault({ ...defaultProps, evaluation: 'EXPERT_EVALUATED' });
 
-        cy.get('vl-accessibility').should('have.attr', 'data-vl-evaluation', 'EXPERT_EVALUATED');
+        cy.get('vl-accessibility').should('have.attr', 'evaluation', 'EXPERT_EVALUATED');
     });
 
     it('should reflect the <version> attribute', () => {
         mountDefault({ ...defaultProps, version: 'v24' });
 
-        cy.get('vl-accessibility').should('have.attr', 'data-vl-version', 'v24');
+        cy.get('vl-accessibility').should('have.attr', 'version', 'v24');
     });
 });
 
@@ -123,19 +123,16 @@ describe('component vl-accessibility - hide-back-link', () => {
     it('back-link should be visible', () => {
         mountDefault({ ...defaultProps, hideBackLink: false });
 
-        cy.get('vl-accessibility').should('not.have.attr', 'data-vl-hide-back-link');
-        cy.get('vl-accessibility')
-            .shadow()
-            .find('vl-functional-header')
-            .should('not.have.attr', 'data-vl-hide-back-link');
+        cy.get('vl-accessibility').should('not.have.attr', 'hide-back-link');
+        cy.get('vl-accessibility').shadow().find('vl-functional-header').should('not.have.attr', 'hide-back-link');
         cy.get('vl-accessibility').shadow().find('vl-functional-header').shadow().find('a#back-link').should('exist');
     });
 
     it('back-link should be hidden', () => {
         mountDefault({ ...defaultProps, hideBackLink: true });
 
-        cy.get('vl-accessibility').should('have.attr', 'data-vl-hide-back-link');
-        cy.get('vl-accessibility').shadow().find('vl-functional-header').should('have.attr', 'data-vl-hide-back-link');
+        cy.get('vl-accessibility').should('have.attr', 'hide-back-link');
+        cy.get('vl-accessibility').shadow().find('vl-functional-header').should('have.attr', 'hide-back-link');
         cy.get('vl-accessibility')
             .shadow()
             .find('vl-functional-header')
@@ -150,10 +147,10 @@ describe('component vl-accessibility - header slot', () => {
         mountDefault({
             ...defaultProps,
             headerSlot: `<vl-functional-header
-        data-vl-title="Toegankelijkheidsverklaring"
-        data-vl-title-level="1"
-        data-vl-no-border
-        data-vl-no-background
+        title="Toegankelijkheidsverklaring"
+        title-level="1"
+        no-border
+        no-background
     >
         <vl-link id="back-link" href="https://overheid.vlaanderen.be">
             Start

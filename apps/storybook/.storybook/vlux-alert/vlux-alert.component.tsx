@@ -11,14 +11,7 @@ export const VluxAlert = ({
     message = '',
 }) => {
     return (
-        <vl-alert
-            data-vl-icon={icon}
-            data-vl-title={title}
-            data-vl-type={type}
-            data-vl-size={size}
-            data-vl-naked={naked ? '' : undefined}
-            data-vl-message={message}
-        >
+        <vl-alert icon={icon} title={title} type={type} size={size} naked={naked ? '' : undefined} message={message}>
             <Markdown options={{ forceInline: true }} style={{ fontSize: '14px' }}>
                 {children}
             </Markdown>

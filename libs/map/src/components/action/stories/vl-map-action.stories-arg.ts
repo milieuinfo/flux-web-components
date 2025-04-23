@@ -9,7 +9,7 @@ export const mapActionArgs = {
 };
 
 export const mapActionArgTypes: ArgTypes<typeof mapActionArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     active: {
         name: 'active',
         description: 'Controleert de actieve status van de actie.',
@@ -20,7 +20,7 @@ export const mapActionArgTypes: ArgTypes<typeof mapActionArgs> = {
         },
     },
     defaultActive: {
-        name: 'data-vl-default-active',
+        name: 'default-active',
         description: 'Zet de actie default op actief.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -29,9 +29,9 @@ export const mapActionArgTypes: ArgTypes<typeof mapActionArgs> = {
         },
     },
     layer: {
-        name: 'data-vl-layer',
+        name: 'layer',
         description:
-            'Linkt de actie aan een kaartlaag.<br>Geef hier het data-vl-name attribuut van de kaartlaag mee.<br>Wordt gebruikt als de actie niet binnen een kaartlaag element staat.',
+            'Linkt de actie aan een kaartlaag.<br>Geef hier het name attribuut van de kaartlaag mee.<br>Wordt gebruikt als de actie niet binnen een kaartlaag element staat.',
         control: { disable: true },
         table: {
             type: { summary: TYPES.STRING },

@@ -10,7 +10,7 @@ export const videoPlayerArgs: VideoPlayerArgs = {
 };
 
 export const videoPlayerArgTypes: ArgTypes<VideoPlayerArgs> = {
-    ...defaultArgTypes(true),
+    ...defaultArgTypes,
     title: {
         name: 'title',
         description: 'Stelt de titel van de video in.',

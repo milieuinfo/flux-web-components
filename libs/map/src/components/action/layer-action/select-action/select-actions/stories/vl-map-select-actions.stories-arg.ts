@@ -12,7 +12,7 @@ export const mapSelectActionsArgTypes: ArgTypes<typeof mapSelectActionsArgs> = {
     layers: {
         name: 'layers',
         description:
-            'Linkt de actie aan meerdere kaartlagen.<br>Geef hier de data-vl-name attributen van de kaartlagen mee.<br>Kan niet in combinatie gebruikt worden met:<br>• data-vl-layer attribuut',
+            'Linkt de actie aan meerdere kaartlagen.<br>Geef hier de name attributen van de kaartlagen mee.<br>Kan niet in combinatie gebruikt worden met:<br>• layer attribuut',
         control: false,
         type: { name: null, required: true },
         table: {

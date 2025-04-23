@@ -12,7 +12,7 @@ export const richDataTableArgs = {
 export const richDataTableArgTypes: ArgTypes<typeof richDataTableArgs> = {
     ...richDataArgTypes,
     collapsedM: {
-        name: 'data-vl-collapsed-m',
+        name: 'collapsed-m',
         description: 'Vanaf medium schermgrootte, cellen per rij onder elkaar ipv naast elkaar',
         table: {
             category: CATEGORIES.ATTRIBUTES,
@@ -21,7 +21,7 @@ export const richDataTableArgTypes: ArgTypes<typeof richDataTableArgs> = {
         },
     },
     collapsedS: {
-        name: 'data-vl-collapsed-s',
+        name: 'collapsed-s',
         description: 'Vanaf een small schermgrootte, cellen per rij onder elkaar ipv naast elkaar',
         table: {
             category: CATEGORIES.ATTRIBUTES,
@@ -30,7 +30,7 @@ export const richDataTableArgTypes: ArgTypes<typeof richDataTableArgs> = {
         },
     },
     collapsedXS: {
-        name: 'data-vl-collapsed-xs',
+        name: 'collapsed-xs',
         description: 'Vanaf een extra small schermgrootte, cellen per rij onder elkaar ipv naast elkaar',
         table: {
             category: CATEGORIES.ATTRIBUTES,

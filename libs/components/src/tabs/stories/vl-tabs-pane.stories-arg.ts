@@ -9,7 +9,7 @@ export const tabsPaneArgs = {
 };
 
 export const tabsPaneArgTypes: ArgTypes<typeof tabsPaneArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     id: {
         name: 'id',
         description: 'De id van de tabs-pane.',

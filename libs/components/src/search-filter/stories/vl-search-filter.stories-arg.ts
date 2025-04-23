@@ -8,7 +8,7 @@ export const searchFilterArgs = {
 };
 
 export const searchFilterArgTypes: ArgTypes<typeof searchFilterArgs> = {
-    ...defaultArgTypes(true),
+    ...defaultArgTypes,
     filterTitle: {
         name: 'filter-title',
         description: 'De titel van deze zoekfilter.',

@@ -15,8 +15,8 @@ export class VlDescriptionDataItem extends BaseLitElement {
 
     static get properties() {
         return {
-            label: { type: String, attribute: 'data-vl-label', reflect: true },
-            value: { type: String, attribute: 'data-vl-value', reflect: true },
+            label: { type: String, attribute: 'label', reflect: true },
+            value: { type: String, attribute: 'value', reflect: true },
         };
     }
 

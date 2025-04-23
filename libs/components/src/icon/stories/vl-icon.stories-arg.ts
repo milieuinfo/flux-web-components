@@ -10,7 +10,7 @@ export const iconArgs: IconArgs = {
 };
 
 export const iconArgTypes: ArgTypes<IconArgs> = {
-    ...defaultArgTypes(true),
+    ...defaultArgTypes,
     icon: {
         name: 'icon',
         description: 'Het icoon dat moet afgebeeld worden.',

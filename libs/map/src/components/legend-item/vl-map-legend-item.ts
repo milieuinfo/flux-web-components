@@ -18,9 +18,9 @@ export class VlMapLegendItem extends BaseLitElement {
 
     static get properties(): PropertyDeclarations {
         return {
-            layer: { type: String, attribute: 'data-vl-layer' },
-            iconText: { type: String, attribute: 'data-vl-icon-text' },
-            iconTextColor: { type: String, attribute: 'data-vl-icon-text-color', reflect: true },
+            layer: { type: String, attribute: 'layer' },
+            iconText: { type: String, attribute: 'icon-text' },
+            iconTextColor: { type: String, attribute: 'icon-text-color', reflect: true },
         };
     }
 

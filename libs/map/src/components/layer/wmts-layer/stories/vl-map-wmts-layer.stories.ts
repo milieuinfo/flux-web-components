@@ -27,13 +27,13 @@ export const MapWmtsLayerDefault = story(
             <vl-map>
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
                 <vl-map-wmts-layer
-                    ?data-vl-hidden=${hidden}
-                    data-vl-layer=${layer}
-                    data-vl-max-resolution=${maxResolution}
-                    data-vl-min-resolution=${minResolution}
-                    data-vl-name=${name}
-                    data-vl-opacity=${opacity}
-                    data-vl-url=${url}
+                    ?hidden=${hidden}
+                    layer=${layer}
+                    max-resolution=${maxResolution}
+                    min-resolution=${minResolution}
+                    name=${name}
+                    opacity=${opacity}
+                    url=${url}
                 >
                 </vl-map-wmts-layer>
             </vl-map>

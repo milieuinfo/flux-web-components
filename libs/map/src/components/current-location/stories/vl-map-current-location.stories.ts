@@ -25,7 +25,7 @@ export const MapCurrentLocationDefault = story(
     ({ tooltip, zoom }) => html`
         <vl-map>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
-            <vl-map-current-location data-vl-tooltip=${tooltip} data-vl-zoom=${zoom}></vl-map-current-location>
+            <vl-map-current-location tooltip=${tooltip} zoom=${zoom}></vl-map-current-location>
         </vl-map>
     `
 );

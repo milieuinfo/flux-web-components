@@ -8,14 +8,7 @@ registerWebComponents([VlAlert]);
 describe('component vl-alert', () => {
     beforeEach(() => {
         cy.mount(html`
-            <vl-alert
-                data-cy="alert"
-                data-vl-icon="warning"
-                data-vl-title="Lorem ipsum"
-                data-vl-size=""
-                data-vl-type="error"
-                data-vl-closable=""
-            >
+            <vl-alert data-cy="alert" icon="warning" title="Lorem ipsum" size="" type="error" closable="">
                 <p>
                     Phasellus congue ipsum ut felis auctor, eget maximus justo dapibus. Nam sit amet pulvinar odio.
                     Maecenas rhoncus quam eget neque porttitor, et faucibus nisl elementum.
@@ -55,7 +48,7 @@ describe('component vl-alert', () => {
     });
 
     it('should change icon', () => {
-        cy.get('vl-alert').invoke('attr', 'data-vl-icon', 'check');
+        cy.get('vl-alert').invoke('attr', 'icon', 'check');
         cy.get('vl-alert').shadow().find('.vl-alert__icon > span.vl-icon--check');
     });
 
@@ -108,13 +101,13 @@ describe('component vl-alert naked', () => {
         cy.mount(html`
             <vl-alert
                 data-cy="alert"
-                data-vl-icon="warning"
-                data-vl-title="Lorem ipsum"
-                data-vl-size=""
-                data-vl-type="error"
-                data-vl-closable=""
-                data-vl-naked="true"
-                data-vl-message="Phasellus congue ipsum ut felis auctor, eget maximus justo dapibus. Nam sit amet pulvinar odio. Maecenas rhoncus quam eget neque porttitor, et faucibus nisl elementum."
+                icon="warning"
+                title="Lorem ipsum"
+                size=""
+                type="error"
+                closable=""
+                naked="true"
+                message="Phasellus congue ipsum ut felis auctor, eget maximus justo dapibus. Nam sit amet pulvinar odio. Maecenas rhoncus quam eget neque porttitor, et faucibus nisl elementum."
             >
             </vl-alert>
         `);
@@ -150,7 +143,7 @@ describe('component vl-alert naked', () => {
     });
 
     it('should change the title marking', () => {
-        cy.get('vl-alert').invoke('attr', 'data-vl-type', 'success');
+        cy.get('vl-alert').invoke('attr', 'type', 'success');
         cy.get('vl-alert')
             .shadow()
             .find('#alert slot')
@@ -159,7 +152,7 @@ describe('component vl-alert naked', () => {
     });
 
     it('should change the text marking', () => {
-        cy.get('vl-alert').invoke('attr', 'data-vl-type', 'success');
+        cy.get('vl-alert').invoke('attr', 'type', 'success');
         cy.get('vl-alert')
             .shadow()
             .find('#alert #message > p')

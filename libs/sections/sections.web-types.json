@@ -13,42 +13,42 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/sections-accessibility--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-application",
+                            "name": "application",
                             "description": "De applicatie waar de verklaring over gaat.",
                             "default": "deze applicatie"
                         },
                         {
-                            "name": "data-vl-compliance",
+                            "name": "compliance",
                             "description": "De nalevingsstatus van de verklaring.",
                             "default": "PARTIALLY_COMPLIANT"
                         },
                         {
-                            "name": "data-vl-date",
+                            "name": "date",
                             "description": "De aanmaakdatum van de verklaring.",
                             "default": "20 juli 2021"
                         },
                         {
-                            "name": "data-vl-date-modified",
+                            "name": "date-modified",
                             "description": "De datum van de laatste wijziging van de verklaring.",
                             "default": "20 juli 2021"
                         },
                         {
-                            "name": "data-vl-disable-back-link",
+                            "name": "disable-back-link",
                             "description": "Zet de terug-link uit.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-hide-back-link",
+                            "name": "hide-back-link",
                             "description": "Verwijdert de terug-link.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-evaluation",
+                            "name": "evaluation",
                             "description": "De evaluatiestatus van de verklaring.",
                             "default": "NOT_EVALUATED"
                         },
                         {
-                            "name": "data-vl-version",
+                            "name": "version",
                             "description": "De huidige versie van de verklaring.",
                             "default": "1.0.0"
                         }
@@ -82,37 +82,37 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/sections-cookie-consent--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-analytics",
+                            "name": "analytics",
                             "description": "Attribuut wordt gebruikt om het verwerken van gebruikersstatistieken te activeren.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-auto-open-disabled",
+                            "name": "auto-open-disabled",
                             "description": "Attribuut wordt gebruikt om te voorkomen dat de cookie consent modal onmiddellijk geautomatiseerd geopend wordt.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-auto-opt-in-functional-disabled",
+                            "name": "auto-opt-in-functional-disabled",
                             "description": "Attribuut wordt gebruikt om de niet wijzigbare functionele opt-in optie te deactiveren.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-owner",
+                            "name": "owner",
                             "description": "['Departement Omgeving'] - Attribuut wordt gebruikt om in de content tekst de eigenaar te specifiëren.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-link",
+                            "name": "link",
                             "description": "['https://www.omgevingvlaanderen.be/privacy'] - Attribuut wordt gebruikt om in de content tekst de privacy link te specifiëren.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-matomo-id",
+                            "name": "matomo-id",
                             "description": "Bepaald matomo id. Dit moet in combinatie met `matomo-url` gebruikt worden. Wanneer deze 2 properties ingesteld zijn, wordt niet meer `window.location.host` gekeken om de matomo id & url te bepalen.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-matomo-url",
+                            "name": "matomo-url",
                             "description": "Bepaald matomo url. Dit moet in combinatie met `matomo-id` gebruikt worden. Wanneer deze 2 properties ingesteld zijn, wordt niet meer `window.location.host` gekeken om de matomo id & url te bepalen.",
                             "default": ""
                         }
@@ -136,22 +136,22 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/sections-cookie-statement--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-date",
+                            "name": "date",
                             "description": "De datum waarop de pagina werd uitgegeven.",
                             "default": "3 maart 2021"
                         },
                         {
-                            "name": "data-vl-disable-back-link",
+                            "name": "disable-back-link",
                             "description": "Zet de terug-link uit.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-hide-back-link",
+                            "name": "hide-back-link",
                             "description": "Verwijdert de terug-link.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-version",
+                            "name": "version",
                             "description": "De pagina versie.",
                             "default": "1.0.0"
                         }
@@ -202,12 +202,12 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/sections-footer--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-development",
+                            "name": "development",
                             "description": "Geeft aan dat de ontwikkel servers van Digitaal Vlaanderen gebruikt moeten worden.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-identifier",
+                            "name": "identifier",
                             "description": "De identifier die gebruikt wordt om bij Digitaal Vlaanderen de footer op te halen.",
                             "default": ""
                         }
@@ -228,52 +228,52 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/sections-header--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-authenticated-user-url",
+                            "name": "authenticated-user-url",
                             "description": "De url die wordt opgeroepen om te zien of een gebruiker is ingelogd.",
                             "default": "/sso/ingelogde_gebruiker"
                         },
                         {
-                            "name": "data-vl-development",
+                            "name": "development",
                             "description": "Geeft aan dat de AIV ontwikkel servers gebruikt moeten worden.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-identifier",
+                            "name": "identifier",
                             "description": "De identifier die gebruikt wordt om bij AIV de footer op te halen.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-login-redirect-url",
+                            "name": "login-redirect-url",
                             "description": "De redirect url die gebruikt wordt bij het aanmelden.<br>Bij het aanpassen van dit attribuut wordt achterliggend de session.configure() methode van DV opnieuw aangeroepen.",
                             "default": "/"
                         },
                         {
-                            "name": "data-vl-login-url",
+                            "name": "login-url",
                             "description": "De url die gebruikt wordt bij het aanmelden.<br>Bij het aanpassen van dit attribuut wordt achterliggend de session.configure() methode van DV opnieuw aangeroepen.",
                             "default": "/sso/aanmelden"
                         },
                         {
-                            "name": "data-vl-logout-url",
+                            "name": "logout-url",
                             "description": "De url die wordt opgeroepen wanneer men zich wil afmelden.<br>Bij het aanpassen van dit attribuut wordt achterliggend de session.configure() methode van DV opnieuw aangeroepen.",
                             "default": "/sso/afgemeld"
                         },
                         {
-                            "name": "data-vl-simple",
+                            "name": "simple",
                             "description": "Indien true wordt het configureren van de sessie overgeslagen.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-skeleton",
+                            "name": "skeleton",
                             "description": "Geeft aan of de header een skeleton moet tonen voordat het rendert.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-switch-capacity-url",
+                            "name": "switch-capacity-url",
                             "description": "De url die wordt opgeroepen wanneer men van organisatie wil wisselen.<br>Bij het aanpassen van dit attribuut wordt achterliggend de session.configure() methode van DV opnieuw aangeroepen.",
                             "default": "/sso/wissel_organisatie"
                         },
                         {
-                            "name": "data-vl-reject-logout",
+                            "name": "reject-logout",
                             "description": "Geeft aan of het logout request moet worden afgewezen.<br/>Een logout request door de gebruiker wordt nooit afgewezen.",
                             "default": "false"
                         }
@@ -308,22 +308,22 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/sections-privacy--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-date",
+                            "name": "date",
                             "description": "De datum waarop de pagina werd uitgegeven.",
                             "default": "3 maart 2021"
                         },
                         {
-                            "name": "data-vl-disable-back-link",
+                            "name": "disable-back-link",
                             "description": "Zet de terug-link uit.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-hide-back-link",
+                            "name": "hide-back-link",
                             "description": "Verwijdert de terug-link.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-version",
+                            "name": "version",
                             "description": "De pagina versie.",
                             "default": "1.0.0"
                         }

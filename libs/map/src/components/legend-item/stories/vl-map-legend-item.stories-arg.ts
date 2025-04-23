@@ -10,9 +10,9 @@ export const mapLegendItemArgs = {
 };
 
 export const mapLegendItemArgTypes: ArgTypes<typeof mapLegendItemArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     layer: {
-        name: 'data-vl-layer',
+        name: 'layer',
         description:
             'Laagnaam van de laag waarvoor het custom lengende item van toepassing is.<br>Indien geen icon en label slot toegevoegd is zal het default icon en label van deze laag gebruikt worden.',
         table: {
@@ -22,7 +22,7 @@ export const mapLegendItemArgTypes: ArgTypes<typeof mapLegendItemArgs> = {
         },
     },
     iconText: {
-        name: 'data-vl-icon-text',
+        name: 'icon-text',
         description:
             'Text die in het icon wordt toegevoegd. Niet van toepassing bij het custom toevoegen van icon en label via de slots.',
         table: {

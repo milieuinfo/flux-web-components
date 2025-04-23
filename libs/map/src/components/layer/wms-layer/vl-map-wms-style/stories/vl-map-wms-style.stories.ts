@@ -26,12 +26,12 @@ export const MapWmsStyleDefault = story(mapWmsStyleArgs, ({ sld }) => {
         <vl-map>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-tiled-wms-layer
-                data-vl-name="Overstromingsgevaarkaarten"
-                data-vl-version="1.1.0"
-                data-vl-url="https://geoservice.waterinfo.be/wms"
-                data-vl-layers="Overstromingsgevaarkaarten-PLUVIAAL:overstroombaar_gebied_PLU_noCC,Overstromingsgevaarkaarten-FLUVIAAL:overstroombaar_gebied_FLU_noCC"
+                name="Overstromingsgevaarkaarten"
+                version="1.1.0"
+                url="https://geoservice.waterinfo.be/wms"
+                layers="Overstromingsgevaarkaarten-PLUVIAAL:overstroombaar_gebied_PLU_noCC,Overstromingsgevaarkaarten-FLUVIAAL:overstroombaar_gebied_FLU_noCC"
             >
-                <vl-map-wms-style data-vl-sld=${sld}></vl-map-wms-style>
+                <vl-map-wms-style sld=${sld}></vl-map-wms-style>
             </vl-map-tiled-wms-layer>
         </vl-map>
     `;

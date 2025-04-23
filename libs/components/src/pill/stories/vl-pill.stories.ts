@@ -23,11 +23,11 @@ export const PillDefault = ({
     check,
 }: typeof pillArgs) => html`
     <vl-pill
-        ?data-vl-closable=${closable}
-        ?data-vl-checkable=${checkable}
-        ?data-vl-clickable=${clickable}
-        data-vl-type=${type}
-        ?data-vl-disabled=${disabled}
+        ?closable=${closable}
+        ?checkable=${checkable}
+        ?clickable=${clickable}
+        type=${type}
+        ?disabled=${disabled}
         .checked=${checked}
         @close=${(event: any) => close(event)}
         @check=${(event: any) => check(event.detail)}

@@ -11,9 +11,9 @@ export const mapLayerArgs = {
 };
 
 export const mapLayerArgTypes: ArgTypes<typeof mapLayerArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     hidden: {
-        name: 'data-vl-hidden',
+        name: 'hidden',
         description: 'Bepaalt of de kaartlaag zichtbaar is.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -22,7 +22,7 @@ export const mapLayerArgTypes: ArgTypes<typeof mapLayerArgs> = {
         },
     },
     opacity: {
-        name: 'data-vl-opacity',
+        name: 'opacity',
         description: 'De opacity van de kaartlaag. Getal tussen 0 en 1.',
         control: { type: CONTROLS.RANGE, min: 0, max: 1, step: 0.01 },
         table: {
@@ -32,7 +32,7 @@ export const mapLayerArgTypes: ArgTypes<typeof mapLayerArgs> = {
         },
     },
     maxResolution: {
-        name: 'data-vl-max-resolution',
+        name: 'max-resolution',
         description:
             'De maximum resolutie (exclusief) waaronder de kaartlaag zichtbaar is.<br>Dit attribuut is niet reactief.',
         type: { name: TYPES.NUMBER },
@@ -43,7 +43,7 @@ export const mapLayerArgTypes: ArgTypes<typeof mapLayerArgs> = {
         },
     },
     minResolution: {
-        name: 'data-vl-min-resolution',
+        name: 'min-resolution',
         description:
             'De minimum resolutie (inclusief) waarboven de kaartlaag zichtbaar is.<br>Dit attribuut is niet reactief.',
         type: { name: TYPES.NUMBER },
@@ -54,7 +54,7 @@ export const mapLayerArgTypes: ArgTypes<typeof mapLayerArgs> = {
         },
     },
     name: {
-        name: 'data-vl-name',
+        name: 'name',
         description: 'De naam van de kaartlaag.<br>Dit attribuut is niet reactief.',
         table: {
             type: { summary: TYPES.STRING },
