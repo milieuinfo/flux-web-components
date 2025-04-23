@@ -16,7 +16,7 @@ describe('paragraph styles', () => {
     });
 
     it('should render a default paragraph', () => {
-        cy.get('.cy-p-default').shouldHaveComputedStyle({ style: 'margin', value: '16px 0px' });
+        cy.get('.cy-p-default').shouldHaveComputedStyle({ style: 'margin', value: '0px' });
     });
 
     it('should render a bold paragraph', () => {
