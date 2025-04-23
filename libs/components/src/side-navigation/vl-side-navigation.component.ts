@@ -1,11 +1,10 @@
 import { BaseLitElement, unwrap, VL, webComponent } from '@domg-wc/common';
 import './vl-side-navigation.lib.js';
-import { legacyGlobalStyles, vlContentBlockStyles, vlGridStyles, vlIconStyles, vlSectionStyles } from '@domg-wc/styles';
+import { vlContentBlockStyles, vlGridStyles, vlIconStyles, vlSectionStyles } from '@domg-wc/styles';
 import { vlSideNavigationStyles } from './vl-side-navigation.css';
 
 declare const vl: VL;
 
-@legacyGlobalStyles()
 @webComponent('vl-side-navigation')
 export class VlSideNavigationComponent extends BaseLitElement {
     static initializedSideNavigationId = '';

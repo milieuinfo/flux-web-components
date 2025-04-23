@@ -8,7 +8,11 @@ describe('grid styles', () => {
                 --vl-column-min-height: 8vmax;
                 --vl-grid-row-gap: 0px;
                 --vl-grid-col-gap: 0px;
-                padding: 1vmax;
+                padding: 19px;
+
+                .vl-grid {
+                    padding: 11px;
+                }
 
                 .vl-column {
                     min-height: 8vmax;
@@ -56,8 +60,7 @@ describe('grid styles', () => {
     it('should be responsive on a large screen', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(gridResponsive);
-        const cellWidth = 84.5;
-        const borderWidth = 2;
+        const cellWidth = 88.5;
         cy.viewport(1100, 800);
         cy.get('.cy-cell-5-3').shouldHaveComputedStyle({
             style: 'width',
@@ -69,23 +72,23 @@ describe('grid styles', () => {
         });
         cy.get('.cy-cell-1-2').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 11 + borderWidth * 2 * 10}px`,
+            value: `${cellWidth * 11}px`,
         });
         cy.get('.cy-cell-2-1').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 8 + borderWidth * 3}px`,
+            value: `${cellWidth * 8}px`,
         });
         cy.get('.cy-cell-2-2').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 4 + borderWidth * 2 * 3}px`,
+            value: `${cellWidth * 4}px`,
         });
         cy.get('.cy-cell-3-1').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 2 + borderWidth * 2}px`,
+            value: `${cellWidth * 2}px`,
         });
         cy.get('.cy-cell-3-2').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 2 + borderWidth * 2}px`,
+            value: `${cellWidth * 2}px`,
         });
         cy.get('.cy-cell-4-1').shouldHaveComputedStyle({
             style: 'width',
@@ -105,11 +108,11 @@ describe('grid styles', () => {
         });
         cy.get('.cy-cell-5-1').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 4 + borderWidth * 2 * 3}px`,
+            value: `${cellWidth * 4}px`,
         });
         cy.get('.cy-cell-5-2').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 2 + borderWidth * 2}px`,
+            value: `${cellWidth * 2}px`,
         });
         cy.get('.cy-cell-5-3').shouldHaveComputedStyle({
             style: 'width',
@@ -117,7 +120,7 @@ describe('grid styles', () => {
         });
         cy.get('.cy-cell-5-4').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 2 + borderWidth * 2}px`,
+            value: `${cellWidth * 2}px`,
         });
         cy.get('.cy-cell-5-5').shouldHaveComputedStyle({
             style: 'width',
@@ -125,63 +128,62 @@ describe('grid styles', () => {
         });
         cy.get('.cy-cell-5-6').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 2 + borderWidth * 2}px`,
+            value: `${cellWidth * 2}px`,
         });
     });
 
     it('should be responsive on a medium screen', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(gridResponsive);
-        const cellWidth = 60;
-        const borderWidth = 2;
+        const cellWidth = 63.5;
         cy.viewport(800, 800);
         cy.get('.cy-cell-1-1').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 3 + borderWidth * 2 * 2}px`,
+            value: `${cellWidth * 3}px`,
         });
         cy.get('.cy-cell-1-2').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 9 + borderWidth * 2 * 8}px`,
+            value: `${cellWidth * 9}px`,
         });
         cy.get('.cy-cell-2-1').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 12 + borderWidth * 2 * 7}px`,
+            value: `${cellWidth * 12}px`,
         });
         cy.get('.cy-cell-2-2').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 12 + borderWidth * 2 * 11}px`,
+            value: `${cellWidth * 12}px`,
         });
         cy.get('.cy-cell-3-1').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 6 + borderWidth * 2 * 5}px`,
+            value: `${cellWidth * 6}px`,
         });
         cy.get('.cy-cell-3-2').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 6 + borderWidth * 2 * 5}px`,
+            value: `${cellWidth * 6}px`,
         });
         cy.get('.cy-cell-4-1').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 3 + borderWidth * 2 * 2}px`,
+            value: `${cellWidth * 3}px`,
         });
         cy.get('.cy-cell-4-2').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 3 + borderWidth * 2 * 2}px`,
+            value: `${cellWidth * 3}px`,
         });
         cy.get('.cy-cell-4-3').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 3 + borderWidth * 2 * 2}px`,
+            value: `${cellWidth * 3}px`,
         });
         cy.get('.cy-cell-4-4').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 3 + borderWidth * 2 * 2}px`,
+            value: `${cellWidth * 3}px`,
         });
         cy.get('.cy-cell-5-1').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 4 + borderWidth * 2 * 3}px`,
+            value: `${cellWidth * 4}px`,
         });
         cy.get('.cy-cell-5-2').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 2 + borderWidth * 2}px`,
+            value: `${cellWidth * 2}px`,
         });
         cy.get('.cy-cell-5-3').shouldHaveComputedStyle({
             style: 'width',
@@ -189,7 +191,7 @@ describe('grid styles', () => {
         });
         cy.get('.cy-cell-5-4').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 2 + borderWidth * 2}px`,
+            value: `${cellWidth * 2}px`,
         });
         cy.get('.cy-cell-5-5').shouldHaveComputedStyle({
             style: 'width',
@@ -197,63 +199,62 @@ describe('grid styles', () => {
         });
         cy.get('.cy-cell-5-6').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 2 + borderWidth * 2}px`,
+            value: `${cellWidth * 2}px`,
         });
     });
 
     it('should be responsive on a small screen', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(gridResponsive);
-        const cellWidth = 50;
-        const borderWidth = 2;
+        const cellWidth = 53.5;
         cy.viewport(680, 800);
         cy.get('.cy-cell-1-1').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 6 + borderWidth * 2 * 5}px`,
+            value: `${cellWidth * 6}px`,
         });
         cy.get('.cy-cell-1-2').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 6 + borderWidth * 2 * 5}px`,
+            value: `${cellWidth * 6}px`,
         });
         cy.get('.cy-cell-2-1').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 12 + borderWidth * 2 * 7}px`,
+            value: `${cellWidth * 12}px`,
         });
         cy.get('.cy-cell-2-2').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 12 + borderWidth * 2 * 11}px`,
+            value: `${cellWidth * 12}px`,
         });
         cy.get('.cy-cell-3-1').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 6 + borderWidth * 2 * 5}px`,
+            value: `${cellWidth * 6}px`,
         });
         cy.get('.cy-cell-3-2').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 6 + borderWidth * 2 * 5}px`,
+            value: `${cellWidth * 6}px`,
         });
         cy.get('.cy-cell-4-1').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 6 + borderWidth * 2 * 5}px`,
+            value: `${cellWidth * 6}px`,
         });
         cy.get('.cy-cell-4-2').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 6 + borderWidth * 2 * 5}px`,
+            value: `${cellWidth * 6}px`,
         });
         cy.get('.cy-cell-4-3').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 6 + borderWidth * 2 * 5}px`,
+            value: `${cellWidth * 6}px`,
         });
         cy.get('.cy-cell-4-4').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 6 + borderWidth * 2 * 5}px`,
+            value: `${cellWidth * 6}px`,
         });
         cy.get('.cy-cell-5-1').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 4 + borderWidth * 2 * 3}px`,
+            value: `${cellWidth * 4}px`,
         });
         cy.get('.cy-cell-5-2').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 2 + borderWidth * 2}px`,
+            value: `${cellWidth * 2}px`,
         });
         cy.get('.cy-cell-5-3').shouldHaveComputedStyle({
             style: 'width',
@@ -261,7 +262,7 @@ describe('grid styles', () => {
         });
         cy.get('.cy-cell-5-4').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 2 + borderWidth * 2}px`,
+            value: `${cellWidth * 2}px`,
         });
         cy.get('.cy-cell-5-5').shouldHaveComputedStyle({
             style: 'width',
@@ -269,63 +270,62 @@ describe('grid styles', () => {
         });
         cy.get('.cy-cell-5-6').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 2 + borderWidth * 2}px`,
+            value: `${cellWidth * 2}px`,
         });
     });
 
     it('should be responsive on an extra-small screen', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(gridResponsive);
-        const cellWidth = 30;
-        const borderWidth = 2;
+        const cellWidth = 33.5;
         cy.viewport(440, 800);
         cy.get('.cy-cell-1-1').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 9 + borderWidth * 2 * 8}px`,
+            value: `${cellWidth * 9}px`,
         });
         cy.get('.cy-cell-1-2').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 3 + borderWidth * 2 * 2}px`,
+            value: `${cellWidth * 3}px`,
         });
         cy.get('.cy-cell-2-1').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 12 + borderWidth * 2 * 7}px`,
+            value: `${cellWidth * 12}px`,
         });
         cy.get('.cy-cell-2-2').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 12 + borderWidth * 2 * 11}px`,
+            value: `${cellWidth * 12}px`,
         });
         cy.get('.cy-cell-3-1').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 12 + borderWidth * 2 * 11}px`,
+            value: `${cellWidth * 12}px`,
         });
         cy.get('.cy-cell-3-2').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 12 + borderWidth * 2 * 11}px`,
+            value: `${cellWidth * 12}px`,
         });
         cy.get('.cy-cell-4-1').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 12 + borderWidth * 2 * 11}px`,
+            value: `${cellWidth * 12}px`,
         });
         cy.get('.cy-cell-4-2').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 12 + borderWidth * 2 * 11}px`,
+            value: `${cellWidth * 12}px`,
         });
         cy.get('.cy-cell-4-3').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 12 + borderWidth * 2 * 11}px`,
+            value: `${cellWidth * 12}px`,
         });
         cy.get('.cy-cell-4-4').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 12 + borderWidth * 2 * 11}px`,
+            value: `${cellWidth * 12}px`,
         });
         cy.get('.cy-cell-5-1').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 4 + borderWidth * 2 * 3}px`,
+            value: `${cellWidth * 4}px`,
         });
         cy.get('.cy-cell-5-2').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 2 + borderWidth * 2}px`,
+            value: `${cellWidth * 2}px`,
         });
         cy.get('.cy-cell-5-3').shouldHaveComputedStyle({
             style: 'width',
@@ -333,7 +333,7 @@ describe('grid styles', () => {
         });
         cy.get('.cy-cell-5-4').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 2 + borderWidth * 2}px`,
+            value: `${cellWidth * 2}px`,
         });
         cy.get('.cy-cell-5-5').shouldHaveComputedStyle({
             style: 'width',
@@ -341,7 +341,7 @@ describe('grid styles', () => {
         });
         cy.get('.cy-cell-5-6').shouldHaveComputedStyle({
             style: 'width',
-            value: `${cellWidth * 2 + borderWidth * 2}px`,
+            value: `${cellWidth * 2}px`,
         });
     });
 
