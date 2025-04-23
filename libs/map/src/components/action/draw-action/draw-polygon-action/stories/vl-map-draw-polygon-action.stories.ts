@@ -31,9 +31,9 @@ export const MapDrawPolygonActionDefault = story(
             <vl-map-features-layer>
                 <vl-map-draw-polygon-action
                     .active=${active}
-                    data-vl-default-active=${defaultActive}
+                    default-active=${defaultActive}
                 ></vl-map-draw-polygon-action>
-                <vl-map-layer-style data-vl-border-size="2"></vl-map-layer-style>
+                <vl-map-layer-style border-size="2"></vl-map-layer-style>
             </vl-map-features-layer>
         </vl-map>
     `
@@ -51,19 +51,19 @@ export const MapDrawPolygonActionSnapping = story(
             <vl-map-features-layer>
                 <vl-map-draw-polygon-action
                     .active=${active}
-                    ?data-vl-default-active=${defaultActive}
-                    ?data-vl-snapping=${snapping}
-                    data-vl-snapping-pixel-tolerance=${snappingPixelTolerance}
+                    ?default-active=${defaultActive}
+                    ?snapping=${snapping}
+                    snapping-pixel-tolerance=${snappingPixelTolerance}
                 >
                     <vl-map-wfs-layer
-                        data-vl-name="Stromend waterlichamen"
-                        data-vl-url="https://geoserver.vmm.be/geoserver/vmm/wfs"
-                        data-vl-layers="owl_l"
-                        data-vl-max-resolution="4"
+                        name="Stromend waterlichamen"
+                        url="https://geoserver.vmm.be/geoserver/vmm/wfs"
+                        layers="owl_l"
+                        max-resolution="4"
                     >
                     </vl-map-wfs-layer>
                 </vl-map-draw-polygon-action>
-                <vl-map-layer-style data-vl-border-size="2"></vl-map-layer-style>
+                <vl-map-layer-style border-size="2"></vl-map-layer-style>
             </vl-map-features-layer>
         </vl-map>
     `

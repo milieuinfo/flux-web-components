@@ -8,9 +8,9 @@ export const prozaMessagePreloaderArgs = {
 };
 
 export const prozaMessagePreloaderArgTypes: ArgTypes<typeof prozaMessagePreloaderArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     baseUrl: {
-        name: 'data-vl-base-url',
+        name: 'base-url',
         description: `Optionele baseUrl waarvan de Proza berichten opgehaald worden.<br>Indien deze baseUrl niet meegegeven wordt, worden de Proza berichten opgehaald relatief tov de huidige url op het pad 'proza/domein/{domain}'.<br>Dit attribuut is niet reactief.`,
         control: false,
         table: {
@@ -20,7 +20,7 @@ export const prozaMessagePreloaderArgTypes: ArgTypes<typeof prozaMessagePreloade
         },
     },
     domain: {
-        name: 'data-vl-domain',
+        name: 'domain',
         description: 'Het Proza domein waarin de Proza berichten zit.',
         type: { name: TYPES.STRING, required: true },
         control: false,

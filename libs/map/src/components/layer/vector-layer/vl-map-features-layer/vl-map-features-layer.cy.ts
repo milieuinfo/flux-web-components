@@ -18,10 +18,10 @@ const featuresLayerFixture = html`
 const mapFixture = html`
     <vl-map>
         <vl-map-features-layer
-            data-vl-name="testlaag"
-            data-vl-min-resolution="2"
-            data-vl-max-resolution="4"
-            data-vl-features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":null,"id":1}]}'
+            name="testlaag"
+            min-resolution="2"
+            max-resolution="4"
+            features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":null,"id":1}]}'
         >
         </vl-map-features-layer>
     </vl-map>
@@ -30,10 +30,10 @@ const mapFixture = html`
 const mapClusterFixture = html`
     <vl-map>
         <vl-map-features-layer
-            data-vl-name="testlaag"
-            data-vl-cluster="true"
-            data-vl-cluster-distance="20"
-            data-vl-features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":null,"id":1}]}'
+            name="testlaag"
+            cluster="true"
+            cluster-distance="20"
+            features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":null,"id":1}]}'
         >
         </vl-map-features-layer>
     </vl-map>
@@ -42,9 +42,9 @@ const mapClusterFixture = html`
 const mapAutoExtentFixture = html`
     <vl-map>
         <vl-map-features-layer
-            data-vl-name="testlaag"
-            data-vl-features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":null,"id":1}, {"type":"Feature","geometry":{"type":"Point","coordinates":[148055,197908]},"properties":null,"id":2}]}'
-            data-vl-auto-extent
+            name="testlaag"
+            features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":null,"id":1}, {"type":"Feature","geometry":{"type":"Point","coordinates":[148055,197908]},"properties":null,"id":2}]}'
+            auto-extent
         >
         </vl-map-features-layer>
     </vl-map>
@@ -53,10 +53,10 @@ const mapAutoExtentFixture = html`
 const mapAutoExtentMaxZoomFixture = html`
     <vl-map>
         <vl-map-features-layer
-            data-vl-name="testlaag"
-            data-vl-features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":null,"id":1}]}'
-            data-vl-auto-extent
-            data-vl-auto-extent-max-zoom="3"
+            name="testlaag"
+            features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":null,"id":1}]}'
+            auto-extent
+            auto-extent-max-zoom="3"
         >
         </vl-map-features-layer>
     </vl-map>
@@ -131,18 +131,18 @@ describe('vl-map-features-layer', () => {
                 let layer = vlMap.map.getOverlayLayers()[0];
                 expect(layer.getSource().getFeatures()).to.be.lengthOf(1);
                 expect(geoJSON.writeFeatures(layer.getSource().getFeatures())).to.equal(
-                    vlMapFeaturesLayer.getAttribute('data-vl-features')
+                    vlMapFeaturesLayer.getAttribute('features')
                 );
                 expect(vlMap.map.getView().getCenter()).to.deep.equal([140860.69299028325, 190532.7165957574]);
                 vlMapFeaturesLayer.setAttribute(
-                    'data-vl-features',
+                    'features',
                     '{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":null},{"type":"Feature","geometry":{"type":"Point","coordinates":[157055,207908]},"properties":null}]}'
                 );
-                vlMapFeaturesLayer.setAttribute('data-vl-auto-extent', '');
+                vlMapFeaturesLayer.setAttribute('auto-extent', '');
                 layer = vlMap.map.getOverlayLayers()[0];
                 const feature = geoJSON.writeFeatures(layer.getSource().getFeatures());
                 expect(layer.getSource().getFeatures().length).to.be.equal(2);
-                expect(feature).to.be.equal(vlMapFeaturesLayer.getAttribute('data-vl-features'));
+                expect(feature).to.be.equal(vlMapFeaturesLayer.getAttribute('features'));
                 expect(vlMap.map.getView().getCenter()[0]).to.be.equal(152055);
                 expect(vlMap.map.getView().getCenter()[1]).to.be.equal(202908);
             });
@@ -193,7 +193,7 @@ describe('vl-map-features-layer', () => {
                 const cluster2 = new OlFeature({});
                 cluster1.set('features', [feature1, feature2]);
                 cluster2.set('features', [feature3]);
-                vlMapFeaturesLayer.setAttribute('data-vl-cluster', '');
+                vlMapFeaturesLayer.setAttribute('cluster', '');
                 vlMapFeaturesLayer.layer.getSource().addFeatures([cluster1, cluster2]);
                 expect(vlMapFeaturesLayer.getCluster(1)).to.deep.equal(cluster1);
                 expect(vlMapFeaturesLayer.getCluster(2)).to.deep.equal(cluster1);

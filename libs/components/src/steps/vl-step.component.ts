@@ -30,8 +30,8 @@ export class VlStepComponent extends BaseLitElement {
 
     static get properties(): PropertyDeclarations {
         return {
-            type: { type: String, attribute: 'data-vl-type', reflect: true },
-            toggleable: { type: Boolean, attribute: 'data-vl-toggleable', reflect: true },
+            type: { type: String, attribute: 'type', reflect: true },
+            toggleable: { type: Boolean, attribute: 'toggleable', reflect: true },
             isTitleAnnotationSlotAssigned: { attribute: false },
         };
     }
@@ -49,7 +49,7 @@ export class VlStepComponent extends BaseLitElement {
 
         if (this.toggleable) {
             const accordion = this.shadowRoot?.querySelector('.js-vl-accordion__toggle');
-            const isAccordionDressed = accordion?.hasAttribute('data-vl-accordion-dressed');
+            const isAccordionDressed = accordion?.hasAttribute('accordion-dressed');
 
             if (!isAccordionDressed) {
                 vl.accordion.dress(accordion);

@@ -11,8 +11,8 @@ const mountDefault = (props: MountDefaultProps) => {
         html`
             <vl-cookie-statement version=${props.version}
                                  date=${props.date}
-                                 ?data-vl-disable-back-link=${props.disableBackLink}
-                                 ?data-vl-hide-back-link=${props.hideBackLink}
+                                 ?disable-back-link=${props.disableBackLink}
+                                 ?hide-back-link=${props.hideBackLink}
             </vl-cookie-statement>`
     );
 };
@@ -118,19 +118,13 @@ describe('vl-cookie-statement component - properties reflect', () => {
     it('should have hide back link attribute', () => {
         mountDefault({ ...props, hideBackLink: true });
 
-        cy.get('vl-cookie-statement')
-            .shadow()
-            .find('vl-functional-header')
-            .should('have.attr', 'data-vl-hide-back-link');
+        cy.get('vl-cookie-statement').shadow().find('vl-functional-header').should('have.attr', 'hide-back-link');
     });
 
     it('should NOT have hide back link attribute', () => {
         mountDefault({ ...props, hideBackLink: false });
 
-        cy.get('vl-cookie-statement')
-            .shadow()
-            .find('vl-functional-header')
-            .should('have.not.attr', 'data-vl-hide-back-link');
+        cy.get('vl-cookie-statement').shadow().find('vl-functional-header').should('have.not.attr', 'hide-back-link');
     });
 
     it('should set version', () => {
@@ -143,11 +137,8 @@ describe('vl-cookie-statement component - hide-back-link', () => {
     it('back-link should be visible', () => {
         mountDefault({ ...props, hideBackLink: false });
 
-        cy.get('vl-cookie-statement').should('not.have.attr', 'data-vl-hide-back-link');
-        cy.get('vl-cookie-statement')
-            .shadow()
-            .find('vl-functional-header')
-            .should('not.have.attr', 'data-vl-hide-back-link');
+        cy.get('vl-cookie-statement').should('not.have.attr', 'hide-back-link');
+        cy.get('vl-cookie-statement').shadow().find('vl-functional-header').should('not.have.attr', 'hide-back-link');
         cy.get('vl-cookie-statement')
             .shadow()
             .find('vl-functional-header')
@@ -159,11 +150,8 @@ describe('vl-cookie-statement component - hide-back-link', () => {
     it('back-link should be hidden', () => {
         mountDefault({ ...props, hideBackLink: true });
 
-        cy.get('vl-cookie-statement').should('have.attr', 'data-vl-hide-back-link');
-        cy.get('vl-cookie-statement')
-            .shadow()
-            .find('vl-functional-header')
-            .should('have.attr', 'data-vl-hide-back-link');
+        cy.get('vl-cookie-statement').should('have.attr', 'hide-back-link');
+        cy.get('vl-cookie-statement').shadow().find('vl-functional-header').should('have.attr', 'hide-back-link');
         cy.get('vl-cookie-statement')
             .shadow()
             .find('vl-functional-header')

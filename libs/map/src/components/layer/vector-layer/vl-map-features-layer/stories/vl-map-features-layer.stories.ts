@@ -38,19 +38,19 @@ export const MapFeaturesLayerDefault = story(
         <vl-map>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-features-layer
-                ?data-vl-auto-extent=${autoExtent}
-                data-vl-auto-extent-max-zoom=${autoExtentMaxZoom}
-                ?data-vl-cluster=${cluster}
-                data-vl-cluster-distance=${clusterDistance}
-                data-vl-features=${features}
+                ?auto-extent=${autoExtent}
+                auto-extent-max-zoom=${autoExtentMaxZoom}
+                ?cluster=${cluster}
+                cluster-distance=${clusterDistance}
+                features=${features}
                 .features=${featuresProp}
-                ?data-vl-hidden=${hidden}
-                data-vl-max-resolution=${maxResolution}
-                data-vl-min-resolution=${minResolution}
-                data-vl-name=${name}
-                data-vl-opacity=${opacity}
+                ?hidden=${hidden}
+                max-resolution=${maxResolution}
+                min-resolution=${minResolution}
+                name=${name}
+                opacity=${opacity}
             >
-                <vl-map-layer-style data-vl-border-size="2"></vl-map-layer-style>
+                <vl-map-layer-style border-size="2"></vl-map-layer-style>
                 <vl-map-layer-circle-style></vl-map-layer-circle-style>
             </vl-map-features-layer>
         </vl-map>

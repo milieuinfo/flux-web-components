@@ -320,7 +320,6 @@ export const TableExpandableCustomToggleDetailsColumn = story(
                                 <button
                                     is="vl-button"
                                     @click=${() => {
-                                        console.log('clicked table', table);
                                         table?.toggleDetails('details-row1');
                                     }}
                                 >

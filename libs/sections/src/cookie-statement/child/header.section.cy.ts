@@ -29,22 +29,18 @@ describe('component header', () => {
     });
 
     it('should render the correct title', () => {
-        cy.get('vl-functional-header').should('have.attr', 'data-vl-title', 'Departement Omgeving');
-        cy.get('vl-functional-header').should('not.have.attr', 'data-vl-title', 'Test');
+        cy.get('vl-functional-header').should('have.attr', 'title', 'Departement Omgeving');
+        cy.get('vl-functional-header').should('not.have.attr', 'title', 'Test');
     });
 
     it('should render the correct sub-title', () => {
-        cy.get('vl-functional-header').should('have.attr', 'data-vl-sub-title', 'Cookieverklaring');
+        cy.get('vl-functional-header').should('have.attr', 'sub-title', 'Cookieverklaring');
 
-        cy.get('vl-functional-header').should(
-            'not.have.attr',
-            'data-vl-sub-title',
-            'ToegankelijkheidEngebruiksvoorwaarden'
-        );
+        cy.get('vl-functional-header').should('not.have.attr', 'sub-title', 'ToegankelijkheidEngebruiksvoorwaarden');
     });
 
     it('should render the correct link', () => {
-        cy.get('vl-functional-header').should('have.attr', 'data-vl-link', 'https://omgeving.vlaanderen.be');
+        cy.get('vl-functional-header').should('have.attr', 'link', 'https://omgeving.vlaanderen.be');
     });
 });
 

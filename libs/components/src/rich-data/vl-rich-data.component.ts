@@ -229,13 +229,13 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
     set _paging(paging: Pagination | void) {
         if (paging) {
             if (paging.currentPage != null) {
-                this.__pager.setAttribute('data-vl-current-page', paging.currentPage);
+                this.__pager.setAttribute('current-page', paging.currentPage);
             }
             if (paging.itemsPerPage != null) {
-                this.__pager.setAttribute('data-vl-items-per-page', paging.itemsPerPage);
+                this.__pager.setAttribute('items-per-page', paging.itemsPerPage);
             }
             if (paging.totalItems != null) {
-                this.__pager.setAttribute('data-vl-total-items', paging.totalItems);
+                this.__pager.setAttribute('total-items', paging.totalItems);
                 this.__updateNumberOfSearchResults(paging.totalItems);
             }
         }
@@ -310,13 +310,13 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
         this.__filterSlotContainer.appendChild(this.__filterSlot);
         this.__searchFilter.hidden = false;
         this.__showHiddenInModalElements();
-        this.toggleAttribute('data-vl-filter-closed');
+        this.toggleAttribute('filter-closed');
     };
 
     __observeFilterButtons() {
         this.__filterToggleButton?.addEventListener('click', this._onToggleFilter);
         this.__filterOpenButton?.addEventListener('click', () => {
-            this.setAttribute('data-vl-filter-closed', '');
+            this.setAttribute('filter-closed', '');
             this._element.appendChild(this.__filterSlot);
             this.__hideHiddenInModalElements();
             if (this.__searchFilter instanceof VlSearchFilterComponent) {
@@ -334,14 +334,12 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
     }
 
     __setHiddenInModalElements(hidden: any) {
-        this.__searchFilter
-            .querySelectorAll('[data-vl-hidden-in-modal]')
-            .forEach((element: any) => (element.hidden = hidden));
+        this.__searchFilter.querySelectorAll('[hidden-in-modal]').forEach((element: any) => (element.hidden = hidden));
     }
 
     __observePager(): void {
         if (this.__pager) {
-            this.__pager.setAttribute('data-vl-align-right', String(true));
+            this.__pager.setAttribute('align-right', String(true));
             this.__pager.addEventListener('change', (e: any) => {
                 this.__onStateChange(e, { paging: true });
                 if (this.__contentSlot.assignedNodes()[0]) {
@@ -369,7 +367,7 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
         if (this.__searchFilter) {
             this.__searchFilter.setAttribute('alt', '');
 
-            if (!this.hasAttribute('data-vl-filter-closed')) {
+            if (!this.hasAttribute('filter-closed')) {
                 this.__showSearchColumn();
             }
             this.__showSearchResults();
@@ -387,7 +385,7 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
 
     __handleSearchFilterClosing(): void {
         if (this.__searchFilter instanceof VlSearchFilterComponent) {
-            if (this.hasAttribute('data-vl-filter-closed')) {
+            if (this.hasAttribute('filter-closed')) {
                 this.__searchFilter.setAttribute('hidden', 'true');
             } else {
                 this.__searchFilter.removeAttribute('hidden');
@@ -448,15 +446,15 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
     __setGridColumnWidth(width: number) {
         this.__searchColumn.removeAttribute('class');
         this.__contentColumn.removeAttribute('class');
-        this.__searchColumn.classList.add(`vl-column-next`);
-        this.__contentColumn.classList.add(`vl-column-next`);
+        this.__searchColumn.classList.add(`vl-column`);
+        this.__contentColumn.classList.add(`vl-column`);
         ['', 'm-'].forEach((size) => {
-            this.__searchColumn.classList.add(`vl-column-next--${size}${width}`);
-            this.__contentColumn.classList.add(`vl-column-next--${size}${12 - width}`);
+            this.__searchColumn.classList.add(`vl-column--${size}${width}`);
+            this.__contentColumn.classList.add(`vl-column--${size}${12 - width}`);
         });
         ['s-', 'xs-'].forEach((size) => {
-            this.__searchColumn.classList.add(`vl-column-next--${size}0`);
-            this.__contentColumn.classList.add(`vl-column-next--${size}12`);
+            this.__searchColumn.classList.add(`vl-column--${size}0`);
+            this.__contentColumn.classList.add(`vl-column--${size}12`);
         });
     }
 
@@ -489,7 +487,7 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
                 });
             });
             this.__searchFilterForm.addEventListener('keyup', ({ code }: KeyboardEvent) => {
-                if (code.toLowerCase() === 'escape' && !this.hasAttribute('data-vl-filter-closed')) {
+                if (code.toLowerCase() === 'escape' && !this.hasAttribute('filter-closed')) {
                     this._onToggleFilter();
                 }
             });
@@ -505,18 +503,13 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
     __observeMobileModal(callback: any) {
         const observer = new MutationObserver(callback);
         if (!(this.__searchFilter instanceof VlSearchFilterComponent)) {
-            observer.observe(this.__searchFilter, { attributeFilter: ['data-vl-mobile-modal'] });
-        } else {
             observer.observe(this.__searchFilter, { attributeFilter: ['mobile-modal'] });
         }
         return observer;
     }
 
     __processScrollableBody() {
-        if (
-            this.__searchFilter.hasAttribute('data-vl-mobile-modal') ||
-            this.__searchFilter.hasAttribute('mobile-modal')
-        ) {
+        if (this.__searchFilter.hasAttribute('mobile-modal')) {
             this.__disableBodyScroll();
         } else {
             this.__enableBodyScroll();

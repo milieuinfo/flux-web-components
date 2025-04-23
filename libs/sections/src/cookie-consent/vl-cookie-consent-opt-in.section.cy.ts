@@ -20,8 +20,8 @@ const mountDefault = (props: MountDefaultProps) => {
             description=${props.description}
             checked=${props.checked}
             mandatory=${props.mandatory}
-            data-vl-disabled=${props.disabled}
-            data-vl-checked=${props.error}
+            disabled=${props.disabled}
+            checked=${props.error}
         ></vl-cookie-consent-opt-in>`
     );
 };

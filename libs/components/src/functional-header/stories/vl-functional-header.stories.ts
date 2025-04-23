@@ -57,16 +57,16 @@ const Template = story(
         onClickBack,
     }) => html`
         <vl-functional-header
-            data-vl-back=${back}
-            data-vl-back-link=${backLink}
-            ?data-vl-disable-back-link=${disableBackLink}
-            ?data-vl-full-width=${fullWidth}
-            ?data-vl-hide-back-link=${hideBackLink}
-            ?data-vl-hide-sub-header=${hideSubHeader}
-            data-vl-link=${link}
-            data-vl-margin-bottom=${marginBottom}
-            data-vl-sub-title=${subTitle}
-            data-vl-title=${title}
+            back=${back}
+            back-link=${backLink}
+            ?disable-back-link=${disableBackLink}
+            ?full-width=${fullWidth}
+            ?hide-back-link=${hideBackLink}
+            ?hide-sub-header=${hideSubHeader}
+            link=${link}
+            margin-bottom=${marginBottom}
+            sub-title=${subTitle}
+            title=${title}
             @vl-click-back=${onClickBack}
         >
             ${unsafeHTML(actionsSlot)}${unsafeHTML(backSlot)}${unsafeHTML(backLinkSlot)}${unsafeHTML(subHeaderSlot)}
@@ -108,12 +108,7 @@ FunctionalHeaderSlots.args = {
 export const FunctionalHeaderTabs = story(
     functionalHeaderArgs,
     ({ fullWidth, marginBottom, title, link }) => html`
-        <vl-functional-header
-            ?data-vl-full-width=${fullWidth}
-            data-vl-link=${link}
-            data-vl-margin-bottom=${marginBottom}
-            data-vl-title=${title}
-        >
+        <vl-functional-header ?full-width=${fullWidth} link=${link} margin-bottom=${marginBottom} title=${title}>
             <vl-tabs
                 slot="sub-header"
                 disable-links
@@ -137,16 +132,16 @@ export const FunctionalHeaderBreadcrumb = story(
     functionalHeaderArgs,
     ({ fullWidth, marginBottom, title, link }) => html`
         <vl-functional-header
-            ?data-vl-full-width=${fullWidth}
-            data-vl-link=${link}
-            data-vl-margin-bottom=${marginBottom}
-            data-vl-title=${title}
-            data-vl-hide-back-link
+            ?full-width=${fullWidth}
+            link=${link}
+            margin-bottom=${marginBottom}
+            title=${title}
+            hide-back-link
         >
             <vl-breadcrumb slot="sub-title">
-                <vl-breadcrumb-item data-vl-href=${'1'}>Vlaanderen Intern</vl-breadcrumb-item>
-                <vl-breadcrumb-item data-vl-href=${'2'}>Regelgeving</vl-breadcrumb-item>
-                <vl-breadcrumb-item data-vl-href=${'3'}>Webuniversum</vl-breadcrumb-item>
+                <vl-breadcrumb-item href=${'1'}>Vlaanderen Intern</vl-breadcrumb-item>
+                <vl-breadcrumb-item href=${'2'}>Regelgeving</vl-breadcrumb-item>
+                <vl-breadcrumb-item href=${'3'}>Webuniversum</vl-breadcrumb-item>
                 <vl-breadcrumb-item>Componenten</vl-breadcrumb-item>
             </vl-breadcrumb>
         </vl-functional-header>

@@ -20,7 +20,7 @@ registerWebComponents([
 describe('component - vl-rich-data', () => {
     beforeEach(() => {
         cy.mount(html`
-            <vl-rich-data data-vl-filter-title="title">
+            <vl-rich-data filter-title="title">
                 <vl-search-filter slot="filter">
                     <form id="form">
                         <label for="filter-input">Hier kunnen filtervelden komen</label>
@@ -56,7 +56,7 @@ describe('component - vl-rich-data', () => {
             .then((child) => {
                 expect(child[0]).to.contain('1-5');
             });
-        cy.get('vl-pager').shadow().find('li[data-vl-pager-page=2]').click({ force: true });
+        cy.get('vl-pager').shadow().find('li[pager-page=2]').click({ force: true });
         cy.get('vl-pager')
             .shadow()
             .find('li[id=bounds]')
@@ -70,7 +70,7 @@ describe('component - vl-rich-data', () => {
 describe('component - vl-rich-data with vl-search-filter', () => {
     beforeEach(() => {
         cy.mount(html`
-            <vl-rich-data data-vl-filter-title="title" data-vl-filter-closable>
+            <vl-rich-data filter-title="title" filter-closable>
                 <vl-search-filter filter-title="Filteren" mobile-modal-title="Filteren" slot="filter">
                     <form>
                         <div>
@@ -134,7 +134,7 @@ describe('component - vl-rich-data with vl-select', () => {
     it('should cut off long text with an ellipsis', () => {
         cy.viewport(1024, 768);
         cy.mount(html`
-            <vl-rich-data data-vl-filter-title="title">
+            <vl-rich-data filter-title="title">
                 <vl-search-filter slot="filter">
                     <form is="vl-form" id="form">
                         <label for="filter-input">Hier kunnen filtervelden komen</label>

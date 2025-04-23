@@ -31,7 +31,7 @@ export class VlMapLayerSwitcher extends BaseLitElement {
             // Gebruik 'componentTitle' omdat 'title' een native property is van HtmlElement.
             componentTitle: {
                 type: String,
-                attribute: 'data-vl-title',
+                attribute: 'title',
                 reflect: true,
             },
             layers: {
@@ -84,7 +84,7 @@ export class VlMapLayerSwitcher extends BaseLitElement {
                     (layer) => html`
                         <vl-checkbox
                             label=${layer.title}
-                            data-vl-layer=${layer.title}
+                            layer=${layer.title}
                             checked=${layer.visible}
                             @vl-input=${() => (layer.visible = !layer.visible)}
                             >${layer.title}</vl-checkbox
@@ -129,13 +129,13 @@ export class VlMapLayerSwitcher extends BaseLitElement {
         this.layerObserver = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
                 mutation.addedNodes.forEach((node) => {
-                    if (node instanceof HTMLElement && node.hasAttribute('data-vl-is-layer')) {
+                    if (node instanceof HTMLElement && node.hasAttribute('is-layer')) {
                         this.vlMapLayers = [...this.vlMapLayers, node as unknown as VlMapLayer];
                     }
                 });
 
                 mutation.removedNodes.forEach((node) => {
-                    if (node instanceof HTMLElement && node.hasAttribute('data-vl-is-layer')) {
+                    if (node instanceof HTMLElement && node.hasAttribute('is-layer')) {
                         this.vlMapLayers = this.vlMapLayers.filter(
                             (layer) => (node as unknown as VlMapLayer) !== layer
                         );

@@ -10,9 +10,9 @@ export const stepsArgs = {
 };
 
 export const stepsArgTypes: ArgTypes = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     line: {
-        name: 'data-vl-line',
+        name: 'line',
         description: 'Beeldt een verticale lijn af tussen de stappen.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -21,7 +21,7 @@ export const stepsArgTypes: ArgTypes = {
         },
     },
     timeline: {
-        name: 'data-vl-timeline',
+        name: 'timeline',
         description: 'Beeldt een verticale tijdlijn af tussen de stappen.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -30,7 +30,7 @@ export const stepsArgTypes: ArgTypes = {
         },
     },
     simpleTimeline: {
-        name: 'data-vl-simple-timeline',
+        name: 'simple-timeline',
         description: 'Beeldt een simpele verticale tijdlijn af tussen de stappen.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -39,7 +39,7 @@ export const stepsArgTypes: ArgTypes = {
         },
     },
     lastStepNoLine: {
-        name: 'data-vl-last-step-no-line',
+        name: 'last-step-no-line',
         description:
             'Laat de verticale lijn na de laatste stap weg bij gebruik van de line, timeline of simple-timeline attributen.',
         table: {

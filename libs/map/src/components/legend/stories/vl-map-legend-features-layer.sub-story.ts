@@ -30,19 +30,19 @@ export default story(mapLegendArgs, ({ bottom, left, placement, right, top, layo
 
     return html` <vl-map id="map">
         <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
-        <vl-map-features-layer .features=${features} data-vl-name="Laag 1">
+        <vl-map-features-layer .features=${features} name="Laag 1">
             <vl-map-layer-circle-style
-                data-vl-name="Openbaar onderzoek"
-                data-vl-color="#ffe615"
-                data-vl-size="5"
-                data-vl-border-color="#000"
-                data-vl-border-size="1"
+                name="Openbaar onderzoek"
+                color="#ffe615"
+                size="5"
+                border-color="#000"
+                border-size="1"
             ></vl-map-layer-circle-style>
         </vl-map-features-layer>
         <vl-map-legend
-            data-vl-placement=${placement}
-            data-vl-layout-vertical=${layoutVertical}
-            data-vl-hide-title=${hideTitle}
+            placement=${placement}
+            layout-vertical=${layoutVertical}
+            hide-title=${hideTitle}
             bottom=${bottom}
             top=${top}
             right=${right}

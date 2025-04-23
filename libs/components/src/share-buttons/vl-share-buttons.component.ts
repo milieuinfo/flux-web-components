@@ -13,7 +13,7 @@ export class VlShareButtonsComponent extends BaseLitElement {
     }
 
     static get properties() {
-        return { alt: { type: Boolean, attribute: 'data-vl-alt', reflect: true } };
+        return { alt: { type: Boolean, attribute: 'alt', reflect: true } };
     }
 
     render() {

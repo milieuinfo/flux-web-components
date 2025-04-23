@@ -27,12 +27,12 @@ export class VlFooter extends BaseLitElement {
         return {
             development: {
                 type: Boolean,
-                attribute: 'data-vl-development',
+                attribute: 'development',
                 reflect: true,
             },
             identifier: {
                 type: String,
-                attribute: 'data-vl-identifier',
+                attribute: 'identifier',
                 reflect: true,
             },
         };

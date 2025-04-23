@@ -12,38 +12,37 @@ registerWebComponents([VlMap, VlMapFeaturesLayer, VlMapLayerStyle, VlMapWfsLayer
 const featuresLayerFixture = html`
     <vl-map>
         <vl-map-features-layer
-            data-vl-name="testlaag"
-            data-vl-min-resolution="2"
-            data-vl-max-resolution="4"
-            data-vl-features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":null,"id":1}]}'
+            name="testlaag"
+            min-resolution="2"
+            max-resolution="4"
+            features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":null,"id":1}]}'
         >
         </vl-map-features-layer>
-        <vl-map-layer-style data-vl-color="rgba(255,0,0,1)"></vl-map-layer-style>
+        <vl-map-layer-style color="rgba(255,0,0,1)"></vl-map-layer-style>
     </vl-map>
 `;
 
 const featuresLayerHiddenFixture = html`
     <vl-map>
-        <vl-map-features-layer data-vl-hidden></vl-map-features-layer>
+        <vl-map-features-layer hidden></vl-map-features-layer>
     </vl-map>
 `;
 
 const wfsLayerFixture = html`
     <vl-map>
-        <vl-map-wfs-layer data-vl-name="foobar" data-vl-url="http://dummy/wfs" data-vl-layers="layer1,layer2">
-        </vl-map-wfs-layer>
-        <vl-map-layer-style data-vl-color="rgba(255,0,0,1)"></vl-map-layer-style>
+        <vl-map-wfs-layer name="foobar" url="http://dummy/wfs" layers="layer1,layer2"> </vl-map-wfs-layer>
+        <vl-map-layer-style color="rgba(255,0,0,1)"></vl-map-layer-style>
     </vl-map>
 `;
 
 const wfsLayerHiddenFixture = html`
     <vl-map>
-        <vl-map-wfs-layer data-vl-hidden></vl-map-wfs-layer>
+        <vl-map-wfs-layer hidden></vl-map-wfs-layer>
     </vl-map>
 `;
 
 const getLayer = (map) => {
-    return map.querySelector('[data-vl-is-layer]');
+    return map.querySelector('[is-layer]');
 };
 
 // eens herbekijken, zijn allemaal rare testen
@@ -79,7 +78,7 @@ describe('vl-map-vector-layer', () => {
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             cy.wrap(vlMap.ready).then(() => {
                 const layer = getLayer(vlMap);
-                const color = vlMap.querySelector('vl-map-layer-style').getAttribute('data-vl-color');
+                const color = vlMap.querySelector('vl-map-layer-style').getAttribute('color');
                 layer.style = new OlStyle({ fill: new OlStyleFill({ color: color }) });
                 expect(layer.style.getFill().getColor()).to.be.equal(color);
             });
@@ -91,7 +90,7 @@ describe('vl-map-vector-layer', () => {
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             cy.wrap(vlMap.ready).then(() => {
                 const layer = getLayer(vlMap);
-                const color = vlMap.querySelector('vl-map-layer-style').getAttribute('data-vl-color');
+                const color = vlMap.querySelector('vl-map-layer-style').getAttribute('color');
                 layer.style = new OlStyle({ fill: new OlStyleFill({ color: color }) });
                 expect(layer.style.getFill().getColor()).to.be.equal(color);
             });
@@ -104,7 +103,7 @@ describe('vl-map-vector-layer', () => {
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             cy.wrap(vlMap.ready).then(() => {
                 const layer = getLayer(vlMap);
-                const color = vlMap.querySelector('vl-map-layer-style').getAttribute('data-vl-color');
+                const color = vlMap.querySelector('vl-map-layer-style').getAttribute('color');
                 layer.style = new OlStyle({ fill: new OlStyleFill({ color: color }) });
                 expect(getLayer(vlMap).style).is.not.null;
                 layer.style = null;
@@ -119,7 +118,7 @@ describe('vl-map-vector-layer', () => {
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             cy.wrap(vlMap.ready).then(() => {
                 const layer = getLayer(vlMap);
-                const color = vlMap.querySelector('vl-map-layer-style').getAttribute('data-vl-color');
+                const color = vlMap.querySelector('vl-map-layer-style').getAttribute('color');
                 layer.style = new OlStyle({ fill: new OlStyleFill({ color: color }) });
                 expect(getLayer(vlMap).style).is.not.null;
                 layer.style = null;
@@ -137,7 +136,7 @@ describe('vl-map-vector-layer', () => {
         });
     });
 
-    it('met data-vl-hidden is de features-layer bij creatie verborgen', () => {
+    it('met hidden is de features-layer bij creatie verborgen', () => {
         cy.mount(featuresLayerHiddenFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             cy.wrap(vlMap.ready).then(() => {
@@ -155,7 +154,7 @@ describe('vl-map-vector-layer', () => {
         });
     });
 
-    it('met data-vl-hidden is de wfs-layer bij creatie verborgen', () => {
+    it('met hidden is de wfs-layer bij creatie verborgen', () => {
         cy.mount(wfsLayerHiddenFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             cy.wrap(vlMap.ready).then(() => {

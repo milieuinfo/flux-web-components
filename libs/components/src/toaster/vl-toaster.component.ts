@@ -58,7 +58,7 @@ export class VlToasterComponent extends BaseLitElement {
         const vlAlert = document.createElement('vl-alert');
         Object.entries(alert).forEach(([key, value]) => {
             if (value) {
-                vlAlert.setAttribute(`data-vl-${key}`, value);
+                vlAlert.setAttribute(`${key}`, value);
             }
         });
         this.appendChild(vlAlert);

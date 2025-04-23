@@ -1,4 +1,5 @@
 import { BaseElementOfType, webComponent } from '@domg-wc/common';
+
 import { Zoom } from 'ol/control.js';
 import OlFullScreenControl from 'ol/control/FullScreen';
 import OlLayerGroup from 'ol/layer/Group';
@@ -76,7 +77,7 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
      * @return {Object[]}
      */
     get nonBaseLayers(): VlMapLayer[] {
-        return [...this.querySelectorAll(':scope > [data-vl-is-layer]')];
+        return [...this.querySelectorAll(':scope > [is-layer]')];
     }
 
     get disableEscapeKey() {
@@ -116,7 +117,7 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
     }
 
     get _controls() {
-        if (this.dataset.vlAllowFullscreen != undefined) {
+        if (this.getAttribute('allow-fullscreen') !== null) {
             return [new OlFullScreenControl()];
         }
         return [];
@@ -197,11 +198,11 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
     }
 
     get zoomInTipLabel() {
-        return this.getAttribute('data-vl-zoomInTooltip');
+        return this.getAttribute('zoomInTooltip');
     }
 
     get zoomOutTipLabel() {
-        return this.getAttribute('data-vl-zoomOutTooltip');
+        return this.getAttribute('zoomOutTooltip');
     }
 
     addLayer(layer) {

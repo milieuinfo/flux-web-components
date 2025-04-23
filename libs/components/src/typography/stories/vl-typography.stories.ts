@@ -174,7 +174,7 @@ export const TypographyTable = () => html` <vl-typography data-cy="typography">
 TypographyTable.storyName = 'vl-typography - table';
 
 export const TypographyParameters = ({ parameters, key1, key2 }: any) => {
-    return html` <vl-typography data-vl-parameters=${parameters} data-cy="typography">
+    return html` <vl-typography parameters=${parameters} data-cy="typography">
         <p>
             Lorem <b>${key1}</b> dolor sit amet, consectetur adipiscing elit. Duis iaculis molestie feugiat. Lorem
             <b>${key2}</b> eros, consequat et venenatis ac, scelerisque feugiat nunc. Nam molestie tincidunt lectus, nec

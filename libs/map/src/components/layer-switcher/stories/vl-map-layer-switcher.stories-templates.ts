@@ -29,14 +29,14 @@ export const mapLayersToAddOrRemove = () => {
         ],
     };
     return html`
-        <vl-map-features-layer data-vl-name="Kaartlaag zwart" .features=${features1} id="zwart">
-            <vl-map-layer-circle-style data-vl-color="black"></vl-map-layer-circle-style>
+        <vl-map-features-layer name="Kaartlaag zwart" .features=${features1} id="zwart">
+            <vl-map-layer-circle-style color="black"></vl-map-layer-circle-style>
         </vl-map-features-layer>
-        <vl-map-features-layer data-vl-name="Kaartlaag geel" .features=${features2} id="geel">
-            <vl-map-layer-circle-style data-vl-color="yellow"></vl-map-layer-circle-style>
+        <vl-map-features-layer name="Kaartlaag geel" .features=${features2} id="geel">
+            <vl-map-layer-circle-style color="yellow"></vl-map-layer-circle-style>
         </vl-map-features-layer>
-        <vl-map-features-layer data-vl-name="Kaartlaag rood" .features=${features3} id="rood">
-            <vl-map-layer-circle-style data-vl-color="red"></vl-map-layer-circle-style>
+        <vl-map-features-layer name="Kaartlaag rood" .features=${features3} id="rood">
+            <vl-map-layer-circle-style color="red"></vl-map-layer-circle-style>
         </vl-map-features-layer>
     `;
 };

@@ -39,9 +39,9 @@ export class VlAccordionComponent extends BaseElementOfType(HTMLElement) {
            ${vlLinkIconStyles}
           </style>
           <div class="js">
-            <div class="vl-accordion" data-vl-accordion>
+            <div class="vl-accordion" accordion>
             <div class="vl-accordion__button-container">
-              <button class="vl-toggle vl-link vl-link--bold" data-vl-accordion-toggle>
+              <button class="vl-toggle vl-link vl-link--bold" accordion-toggle>
                 <vl-icon id="toggle-icon" icon="arrow-down-fat" class="vl-accordion__icon vl-link__icon vl-link__icon--before"></vl-icon>
                 <slot name="title" class="vl-accordion__title"></slot>
               </button>
@@ -117,7 +117,7 @@ export class VlAccordionComponent extends BaseElementOfType(HTMLElement) {
     }
 
     get _accordionElement() {
-        return this._element.querySelector('[data-vl-accordion]');
+        return this._element.querySelector('[accordion]');
     }
 
     get _buttonElement() {
@@ -175,12 +175,12 @@ export class VlAccordionComponent extends BaseElementOfType(HTMLElement) {
 
     _openToggleTextChangedCallback(oldValue: string, newValue: string) {
         this._titleElement.classList.add('js-vl-accordion__toggle__text');
-        this._titleElement.setAttribute('data-vl-accordion-open-text', newValue);
+        this._titleElement.setAttribute('accordion-open-text', newValue);
     }
 
     _closeToggleTextChangedCallback(oldValue: string, newValue: string) {
         this._titleElement.classList.add('js-vl-accordion__toggle__text');
-        this._titleElement.setAttribute('data-vl-accordion-close-text', newValue);
+        this._titleElement.setAttribute('accordion-close-text', newValue);
     }
 
     _contentPaddingChangedCallback(oldValue: string, newValue: string) {

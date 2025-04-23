@@ -26,15 +26,15 @@ export const MapTiledWmsLayerDefault = story(
         html`
             <vl-map>
                 <vl-map-tiled-wms-layer
-                    ?data-vl-hidden=${hidden}
-                    data-vl-layers=${layers}
-                    data-vl-max-resolution=${maxResolution}
-                    data-vl-min-resolution=${minResolution}
-                    data-vl-name=${name}
-                    data-vl-opacity=${opacity}
-                    data-vl-styles=${styles}
-                    data-vl-url=${url}
-                    data-vl-version=${version}
+                    ?hidden=${hidden}
+                    layers=${layers}
+                    max-resolution=${maxResolution}
+                    min-resolution=${minResolution}
+                    name=${name}
+                    opacity=${opacity}
+                    styles=${styles}
+                    url=${url}
+                    version=${version}
                 >
                 </vl-map-tiled-wms-layer>
             </vl-map>

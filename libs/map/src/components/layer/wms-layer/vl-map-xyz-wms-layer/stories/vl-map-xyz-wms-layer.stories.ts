@@ -26,14 +26,14 @@ export const MapXYZWmsLayerDefault = story(
         html`
             <vl-map>
                 <vl-map-xyz-wms-layer
-                    ?data-vl-hidden=${hidden}
-                    data-vl-max-resolution=${maxResolution}
-                    data-vl-min-resolution=${minResolution}
-                    data-vl-name=${name}
-                    data-vl-opacity=${opacity}
-                    data-vl-styles=${styles}
-                    data-vl-url=${url}
-                    data-vl-version=${version}
+                    ?hidden=${hidden}
+                    max-resolution=${maxResolution}
+                    min-resolution=${minResolution}
+                    name=${name}
+                    opacity=${opacity}
+                    styles=${styles}
+                    url=${url}
+                    version=${version}
                 >
                 </vl-map-xyz-wms-layer>
             </vl-map>

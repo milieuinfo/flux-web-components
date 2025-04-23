@@ -40,7 +40,7 @@ export class VlTypography extends BaseElementOfType(HTMLElement) {
 
     __processSlotElements() {
         this.__clearChildren();
-        const parameters = this.dataset.vlParameters ? JSON.parse(this.dataset.vlParameters) : {};
+        const parameters = this.getAttribute('parameters') ? JSON.parse(this.getAttribute('parameters')) : {};
         const template = VlTypography.replaceTemplateParameters(this.innerHTML, parameters);
         this._element.insertAdjacentHTML('afterbegin', template);
     }

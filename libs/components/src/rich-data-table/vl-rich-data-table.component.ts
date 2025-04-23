@@ -23,7 +23,7 @@ export class VlRichDataTable extends VlRichData {
     }
 
     static get _tableAttributes(): string[] {
-        return ['data-vl-collapsed-m', 'data-vl-collapsed-s', 'data-vl-collapsed-xs'];
+        return ['collapsed-m', 'collapsed-s', 'collapsed-xs'];
     }
 
     static get is(): string {
@@ -59,7 +59,7 @@ export class VlRichDataTable extends VlRichData {
     attributeChangedCallback(attr: string, oldValue: any, newValue: any) {
         super.attributeChangedCallback(attr, oldValue, newValue);
         if (VlRichDataTable._tableAttributes.includes(attr)) {
-            const withoutDataVlPrefix = attr.substring('data-vl-'.length);
+            const withoutDataVlPrefix = attr.substring(''.length);
             this.__table.toggleAttribute(withoutDataVlPrefix);
         }
     }
@@ -160,7 +160,7 @@ export class VlRichDataTable extends VlRichData {
     }
 
     get _isMultisortingEnabled(): boolean {
-        return this.dataset.vlMultisort !== undefined;
+        return this.getAttribute('multi-sort') !== null;
     }
 
     _validate(data: unknown[]): void {
@@ -218,7 +218,7 @@ export class VlRichDataTable extends VlRichData {
     }
 
     __initializeSortingOnHeaderColumn(header: any) {
-        const sorterButton = header.querySelector('th[data-vl-sortable] > a');
+        const sorterButton = header.querySelector('th[sortable] > a');
         if (sorterButton) {
             sorterButton.addEventListener('click', (e: any) => {
                 sorterButton.querySelector('vl-rich-data-sorter').nextDirection();

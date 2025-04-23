@@ -308,7 +308,7 @@ export class VlCascaderComponent extends BaseLitElement {
                     <section class=${classMap(navSectionClasses)} @animationend=${this.handleAnimationEnd}>
                         ${!this.loading
                             ? this.nodeData?.map(this.renderItem)
-                            : html` <vl-loader data-vl-text=${this.loadingMessage}></vl-loader> `}
+                            : html` <vl-loader text=${this.loadingMessage}></vl-loader> `}
                     </section>
                 </div>
             </div>

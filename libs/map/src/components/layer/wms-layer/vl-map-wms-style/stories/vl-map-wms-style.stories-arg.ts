@@ -7,9 +7,9 @@ export const mapWmsStyleArgs = {
 };
 
 export const mapWmsStyleArgTypes: ArgTypes<typeof mapWmsStyleArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     sld: {
-        name: 'data-vl-sld',
+        name: 'sld',
         description:
             'Bepaalt de Styled Layer Descriptor body van een WMS kaartlaag.<br>Deze XML kan gebruikt worden om de WMS kaartlaag server side te stijlen.<br>Zie http://schemas.opengis.net/sld/1.1.0/StyledLayerDescriptor.xsd<br>Dit attribuut is niet reactief.',
         table: {

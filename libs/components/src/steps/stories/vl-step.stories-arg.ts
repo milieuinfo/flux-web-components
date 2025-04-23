@@ -8,9 +8,9 @@ export const stepArgs = {
 };
 
 export const stepArgTypes: ArgTypes = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     toggleable: {
-        name: 'data-vl-toggleable',
+        name: 'toggleable',
         description: 'Beeldt een stap af als een accordion.',
         control: false,
         table: {
@@ -20,7 +20,7 @@ export const stepArgTypes: ArgTypes = {
         },
     },
     type: {
-        name: 'data-vl-type',
+        name: 'type',
         description: 'Beeldt een stap af in een bepaalde staat.',
         control: false,
         table: {

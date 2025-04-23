@@ -148,7 +148,7 @@ export abstract class VlMapLayer extends BaseElementOfType(HTMLElement) {
     }
 
     get _opacity() {
-        return Number(this.getAttribute('data-vl-opacity') || 1);
+        return Number(this.getAttribute('opacity') || 1);
     }
 
     get _visible() {
@@ -204,7 +204,7 @@ export abstract class VlMapLayer extends BaseElementOfType(HTMLElement) {
     }
 
     __setIsLayerMarkerAttribute() {
-        this.dataset.vlIsLayer = true;
+        this.setAttribute('is-layer', 'true');
     }
 
     __markAsReady() {

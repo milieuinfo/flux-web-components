@@ -118,22 +118,22 @@ export const GroupAccordions = ({
         'vl-group--stretch-children': stretchChildren,
     })}
 >
-    <vl-accordion data-vl-toggle-text="Accordion 1">
+    <vl-accordion toggle-text="Accordion 1">
         <div class="vl-group vl-group--column vl-group--stretch-children">
-            <vl-accordion data-vl-toggle-text="Accordion 1.1"> Inhoud accordion 1.1</vl-accordion>
-            <vl-accordion data-vl-toggle-text="Accordion 1.2"> Inhoud accordion 1.2</vl-accordion>
+            <vl-accordion toggle-text="Accordion 1.1"> Inhoud accordion 1.1</vl-accordion>
+            <vl-accordion toggle-text="Accordion 1.2"> Inhoud accordion 1.2</vl-accordion>
         </div>
     </vl-accordion>
-    <vl-accordion data-vl-toggle-text="Accordion 2">
+    <vl-accordion toggle-text="Accordion 2">
         <div class="vl-group vl-group--column vl-group--stretch-children">
-            <vl-accordion data-vl-toggle-text="Accordion 2.1"> Inhoud accordion 2.1</vl-accordion>
-            <vl-accordion data-vl-toggle-text="Accordion 2.2"> Inhoud accordion 2.2</vl-accordion>
+            <vl-accordion toggle-text="Accordion 2.1"> Inhoud accordion 2.1</vl-accordion>
+            <vl-accordion toggle-text="Accordion 2.2"> Inhoud accordion 2.2</vl-accordion>
         </div>
     </vl-accordion>
-    <vl-accordion data-vl-toggle-text="Accordion 3">
+    <vl-accordion toggle-text="Accordion 3">
         <div class="vl-group vl-group--column vl-group--stretch-children">
-            <vl-accordion data-vl-toggle-text="Accordion 3.1"> Inhoud accordion 3.1</vl-accordion>
-            <vl-accordion data-vl-toggle-text="Accordion 3.2"> Inhoud accordion 3.2</vl-accordion>
+            <vl-accordion toggle-text="Accordion 3.1"> Inhoud accordion 3.1</vl-accordion>
+            <vl-accordion toggle-text="Accordion 3.2"> Inhoud accordion 3.2</vl-accordion>
         </div>
     </vl-accordion>
 </div>`;

@@ -40,7 +40,7 @@ export class VlMapAction extends BaseHTMLElement {
     }
 
     get _defaultActive(): boolean {
-        return this.hasAttribute('data-vl-default-active');
+        return this.hasAttribute('default-active');
     }
 
     get _callback(): (...args: any[]) => void {

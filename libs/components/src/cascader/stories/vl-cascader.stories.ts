@@ -76,9 +76,9 @@ export const CascaderSideSheet = story(
     ({ breadcrumbPlaceholder, level, loadingMessage, loading, hideBreadcrumb, homeSlot, onVlClickBreadcrumb }) => {
         return html`
             <vl-side-sheet
-                data-vl-left
-                data-vl-custom-css=".vl-layout {padding:0} .vl-region{padding:0} .vl-region:first-child{padding:0} :host #vl-side-sheet {padding:0} :host {--vl-side-sheet-width: 600px;}"
-                data-vl-open
+                left
+                custom-css=".vl-layout {padding:0} .vl-region{padding:0} .vl-region:first-child{padding:0} :host #vl-side-sheet {padding:0} :host {--vl-side-sheet-width: 600px;}"
+                open
             >
                 <vl-cascader
                     level="${level}"
@@ -130,7 +130,7 @@ export const CascaderDynamicTemplating = story(
                 @vl-click-breadcrumb="${onVlClickBreadcrumb}"
             >
                 <vl-cascader-item label="Provincie: West-Vlaanderen" template-type="provincie">
-                    <vl-info-tile data-vl-toggleable="" slot="content">
+                    <vl-info-tile toggleable="" slot="content">
                         <span slot="title">Meer Info</span>
                         <span slot="subtitle">Provincie Beschrijving</span>
                         <div slot="content">
@@ -154,7 +154,7 @@ export const CascaderDynamicTemplating = story(
                 </vl-cascader-item>
                 <vl-cascader-item label="Provincie: Oost-Vlaanderen" template-type="provincie">
                     <vl-title type="vl-h3" slot="label">Provincie: Oost-Vlaanderen</vl-title>
-                    <vl-info-tile data-vl-toggleable="" slot="content">
+                    <vl-info-tile toggleable="" slot="content">
                         <span slot="title">Meer Info</span>
                         <span slot="subtitle">Provincie Beschrijving</span>
                         <div slot="content">

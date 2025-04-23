@@ -11,9 +11,9 @@ export const inputSliderArgs = {
 };
 
 export const inputSliderArgTypes: ArgTypes<typeof inputSliderArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     maxValue: {
-        name: 'data-vl-max-value',
+        name: 'max-value',
         description: 'De maximumwaarde die geselecteerd kan worden.',
         table: {
             type: { summary: TYPES.NUMBER },
@@ -22,7 +22,7 @@ export const inputSliderArgTypes: ArgTypes<typeof inputSliderArgs> = {
         },
     },
     minValue: {
-        name: 'data-vl-min-value',
+        name: 'min-value',
         description: 'De minimumwaarde die geselecteerd kan worden.',
         table: {
             type: { summary: TYPES.NUMBER },
@@ -31,7 +31,7 @@ export const inputSliderArgTypes: ArgTypes<typeof inputSliderArgs> = {
         },
     },
     value: {
-        name: 'data-vl-value',
+        name: 'value',
         description:
             'De waarde van de input. Wordt gecorrigeerd indien deze zich onder de minValue of boven de maxValue begeeft.',
         table: {

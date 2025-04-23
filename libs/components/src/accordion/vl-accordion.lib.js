@@ -45,8 +45,7 @@ const vl = window.vl || { ns: 'vl' };
         acIconPlus = ''.concat(vl.ns, 'vi-plus'),
         acIconMin = ''.concat(vl.ns, 'vi-minus'),
         acContentClassName = ''.concat(vl.ns, 'accordion__content'),
-        dataPrefix = 'data-'.concat(vl.ns),
-        acAtt = ''.concat(dataPrefix, 'accordion'),
+        acAtt = 'accordion',
         acDressedAtt = ''.concat(acAtt, '-dressed'),
         acToggleAtt = ''.concat(acAtt, '-toggle');
 
@@ -129,8 +128,8 @@ const vl = window.vl || { ns: 'vl' };
                     }
 
                     if (toggle) {
-                        closedText = toggle.dataset.vlAccordionCloseText;
-                        openText = toggle.dataset.vlAccordionOpenText;
+                        closedText = toggle.getAttribute('accordion-close-text');
+                        openText = toggle.getAttribute('accordion-open-text');
 
                         if (vl.util.hasClass(element, acOpenClassName)) {
                             toggle.innerHTML = closedText;
@@ -178,9 +177,9 @@ const vl = window.vl || { ns: 'vl' };
 
                                 if (toggle) {
                                     if (vl.util.hasClass(accordion, acOpenClassName)) {
-                                        toggle.innerHTML = toggle.dataset.vlAccordionCloseText;
+                                        toggle.innerHTML = toggle.getAttribute('accordion-close-text');
                                     } else {
-                                        toggle.innerHTML = toggle.dataset.vlAccordionOpenText;
+                                        toggle.innerHTML = toggle.getAttribute('accordion-open-text');
                                     }
                                 }
                             }
@@ -207,11 +206,10 @@ const vl = window.vl || { ns: 'vl' };
                     // get all accordion toggle elements
                     var elements = document.querySelectorAll(
                         '\n      .'
-                            .concat(className, ':not([data-vl-js-dress="false"]) .')
+                            .concat(className, ':not([js-dress="false"]) .')
                             .concat(acToggleClassName, ':not([')
                             .concat(acDressedAtt, ']),\n      [')
-                            .concat(acAtt, ']:not([data-')
-                            .concat(vl.ns, 'js-dress="false"]) [')
+                            .concat(acAtt, ']:not([js-dress="false"]) [')
                             .concat(acToggleAtt, ']:not([')
                             .concat(acDressedAtt, '])\n    ')
                     ); // add functionality to the accordions

@@ -27,13 +27,13 @@ export const MapWfsLayerDefault = story(
             <vl-map>
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
                 <vl-map-wfs-layer
-                    ?data-vl-hidden=${hidden}
-                    data-vl-layers=${layers}
-                    data-vl-max-resolution=${maxResolution}
-                    data-vl-min-resolution=${minResolution}
-                    data-vl-name=${name}
-                    data-vl-opacity=${opacity}
-                    data-vl-url=${url}
+                    ?hidden=${hidden}
+                    layers=${layers}
+                    max-resolution=${maxResolution}
+                    min-resolution=${minResolution}
+                    name=${name}
+                    opacity=${opacity}
+                    url=${url}
                 >
                 </vl-map-wfs-layer>
             </vl-map>

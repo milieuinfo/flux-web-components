@@ -9,7 +9,7 @@ export const searchResultArgs: SearchResultArgs = {
 };
 
 export const searchResultArgTypes: ArgTypes<SearchResultArgs> = {
-    ...defaultArgTypes(true),
+    ...defaultArgTypes,
     defaultSlot: {
         name: '[default]',
         description: 'De inhoud van het zoekresultaat',

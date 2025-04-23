@@ -15,9 +15,9 @@ export const pillArgs = {
 };
 
 export const pillArgTypes = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     closable: {
-        name: 'data-vl-closable',
+        name: 'closable',
         description:
             'The attribute that determines whether the pill can be removed or not (cannot be used in combination with checkable or clickable).',
         table: {
@@ -27,7 +27,7 @@ export const pillArgTypes = {
         },
     },
     checkable: {
-        name: 'data-vl-checkable',
+        name: 'checkable',
         description:
             'The attribute that determines whether the pill can be checked or not (cannot be used in combination with closable or clickable).',
         table: {
@@ -46,7 +46,7 @@ export const pillArgTypes = {
         },
     },
     type: {
-        name: 'data-vl-type',
+        name: 'type',
         description: 'The attribute that determines the type. ',
         control: { type: CONTROLS.SELECT },
         options: ['success', 'warning', 'error'],
@@ -57,7 +57,7 @@ export const pillArgTypes = {
         },
     },
     disabled: {
-        name: 'data-vl-disabled',
+        name: 'disabled',
         description: 'The attribute that determines whether the pill is disabled or not.',
         table: {
             type: { summary: 'boolean' },
@@ -77,7 +77,7 @@ export const pillArgTypes = {
         table: { category: 'Events' },
     },
     clickable: {
-        name: 'data-vl-clickable',
+        name: 'clickable',
         description:
             'The attribute that determines whether the pill can be clicked or not (cannot be used in combination with closable or checkable).',
         table: {
