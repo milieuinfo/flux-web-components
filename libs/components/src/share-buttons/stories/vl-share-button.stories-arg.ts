@@ -9,9 +9,9 @@ export const shareButtonArgs = {
 };
 
 export const shareButtonArgTypes: ArgTypes = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     medium: {
-        name: 'data-vl-medium',
+        name: 'medium',
         control: { type: CONTROLS.SELECT },
         options: Object.values(MEDIA),
         description: 'This attribute is used to pass the medium.',

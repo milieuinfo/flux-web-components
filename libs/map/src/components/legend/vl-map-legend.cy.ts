@@ -23,39 +23,39 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
             <vl-map>
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
                 <vl-map-features-layer
-                    data-vl-name="Shapes"
+                    name="Shapes"
                     features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[153055,203908]},"properties":{"styleId":"style-1"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[141000,200908]},"properties":{"styleId":"style-2"}},{"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[147055,197908],[157055,197908],[157055,187908],[147055,187908],[147055,197908]]]},"properties":{"styleId":"style-3"}}]}'
                 >
                     <vl-map-layer-circle-style
                         id="style-1"
-                        data-vl-name="Openbaar onderzoek"
-                        data-vl-color="#ffe615"
-                        data-vl-size="5"
-                        data-vl-border-color="#000"
-                        data-vl-border-size="1"
+                        name="Openbaar onderzoek"
+                        color="#ffe615"
+                        size="5"
+                        border-color="#000"
+                        border-size="1"
                     ></vl-map-layer-circle-style>
                     <vl-map-layer-circle-style
                         id="style-2"
-                        data-vl-name="Beslissing"
-                        data-vl-color="red"
-                        data-vl-size="5"
-                        data-vl-border-color="#000"
-                        data-vl-border-size="1"
+                        name="Beslissing"
+                        color="red"
+                        size="5"
+                        border-color="#000"
+                        border-size="1"
                     ></vl-map-layer-circle-style>
                     <vl-map-layer-style
                         id="style-3"
-                        data-vl-name="Wateroppervlaktes"
-                        data-vl-color="rgba(255,0,0,0.5)"
-                        data-vl-border-color="rgba(255,255,100,1)"
-                        data-vl-border-size="2"
-                        data-vl-text-feature-attribute-name="label"
-                        data-vl-text-background-color="rgba(0,0,255,0.2)"
-                        data-vl-text-border-color="rgba(0,255,0,1)"
-                        data-vl-text-border-size="3"
-                        data-vl-text-color="rgba(255,0,0,1)"
-                        data-vl-text-offset-x="10"
-                        data-vl-text-offset-y="-10"
-                        data-vl-text-size="13px"
+                        name="Wateroppervlaktes"
+                        color="rgba(255,0,0,0.5)"
+                        border-color="rgba(255,255,100,1)"
+                        border-size="2"
+                        text-feature-attribute-name="label"
+                        text-background-color="rgba(0,0,255,0.2)"
+                        text-border-color="rgba(0,255,0,1)"
+                        text-border-size="3"
+                        text-color="rgba(255,0,0,1)"
+                        text-offset-x="10"
+                        text-offset-y="-10"
+                        text-size="13px"
                     ></vl-map-layer-style>
                 </vl-map-features-layer>
                 <vl-map-legend bottom="10px" right=${'12px'}></vl-map-legend>
@@ -136,7 +136,7 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
         cy.get('vl-map-legend').invoke('removeAttr', 'right');
         cy.get('vl-map-legend').invoke('removeAttr', 'bottom');
 
-        cy.get('vl-map-legend').invoke('attr', 'data-vl-placement', LEGEND_PLACEMENT.BOTTOM_LEFT);
+        cy.get('vl-map-legend').invoke('attr', 'placement', LEGEND_PLACEMENT.BOTTOM_LEFT);
 
         cy.get('vl-map-legend')
             .shadow()
@@ -144,7 +144,7 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
             .should('have.css', 'left', '8px')
             .should('have.css', 'bottom', '40px');
 
-        cy.get('vl-map-legend').invoke('attr', 'data-vl-placement', LEGEND_PLACEMENT.BOTTOM_RIGHT);
+        cy.get('vl-map-legend').invoke('attr', 'placement', LEGEND_PLACEMENT.BOTTOM_RIGHT);
 
         cy.get('vl-map-legend')
             .shadow()
@@ -152,7 +152,7 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
             .should('have.css', 'right', '58px')
             .should('have.css', 'bottom', '10px');
 
-        cy.get('vl-map-legend').invoke('attr', 'data-vl-placement', LEGEND_PLACEMENT.TOP_LEFT);
+        cy.get('vl-map-legend').invoke('attr', 'placement', LEGEND_PLACEMENT.TOP_LEFT);
 
         cy.get('vl-map-legend')
             .shadow()
@@ -160,7 +160,7 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
             .should('have.css', 'left', '10px')
             .should('have.css', 'top', '10px');
 
-        cy.get('vl-map-legend').invoke('attr', 'data-vl-placement', LEGEND_PLACEMENT.TOP_RIGHT);
+        cy.get('vl-map-legend').invoke('attr', 'placement', LEGEND_PLACEMENT.TOP_RIGHT);
 
         cy.get('vl-map-legend')
             .shadow()
@@ -172,15 +172,15 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
     it('should display the legend items vertically when the layout-vertical attribute is set', () => {
         cy.get('vl-map-legend').shadow().find('div.uig-map-legend').should('have.css', 'flex-direction', 'row');
 
-        cy.get('vl-map-legend').invoke('attr', 'data-vl-layout-vertical', 'true');
+        cy.get('vl-map-legend').invoke('attr', 'layout-vertical', 'true');
 
         cy.get('vl-map-legend').shadow().find('div.uig-map-legend').should('have.css', 'flex-direction', 'column');
     });
 
     it('should be able to hide the title', () => {
-        cy.get('vl-map-legend').invoke('attr', 'data-vl-hide-title', 'true');
+        cy.get('vl-map-legend').invoke('attr', 'hide-title', 'true');
         cy.get('vl-map-legend').should(($el) => {
-            expect($el.attr('data-vl-hide-title')).to.equal('true');
+            expect($el.attr('hide-title')).to.equal('true');
         });
 
         cy.get('vl-map-legend')
@@ -196,42 +196,42 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
             <vl-map>
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
                 <vl-map-features-layer
-                    data-vl-name="Openbare onderzoeken"
+                    name="Openbare onderzoeken"
                     features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":{"featureCharacter":"O","zIndex":"1"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[147075,197908]},"properties":{"featureCharacter":"O","zIndex":"2"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[147095,197908]},"properties":{"featureCharacter":"O","zIndex":"3"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[147105,197908]},"properties":{"featureCharacter":"O","zIndex":"4"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[147106,197908]},"properties":{"featureCharacter":"O","zIndex":"5"}}]}'
                 >
                     <vl-map-layer-circle-style
-                        data-vl-color="#ffe615"
-                        data-vl-size="10"
-                        data-vl-border-color="#000"
-                        data-vl-border-size="1"
-                        data-vl-text-feature-attribute-name="featureCharacter"
-                        data-vl-text-size="bold 14px"
+                        color="#ffe615"
+                        size="10"
+                        border-color="#000"
+                        border-size="1"
+                        text-feature-attribute-name="featureCharacter"
+                        text-size="bold 14px"
                     ></vl-map-layer-circle-style>
                 </vl-map-features-layer>
                 <vl-map-features-layer
-                    data-vl-name="Beslissingen"
+                    name="Beslissingen"
                     features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[141000,200908]},"properties":{"featureCharacter":"B","zIndex":"5"}}]}'
                 >
                     <vl-map-layer-circle-style
-                        data-vl-color="red"
-                        data-vl-size="10"
-                        data-vl-border-color="#000"
-                        data-vl-text-feature-attribute-name="featureCharacter"
-                        data-vl-border-size="1"
-                        data-vl-text-size="bold 14px"
+                        color="red"
+                        size="10"
+                        border-color="#000"
+                        text-feature-attribute-name="featureCharacter"
+                        border-size="1"
+                        text-size="bold 14px"
                     ></vl-map-layer-circle-style>
                 </vl-map-features-layer>
                 <vl-map-features-layer
-                    data-vl-name="Wateroppervlaktes"
+                    name="Wateroppervlaktes"
                     features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[153055,203908]},"properties":{"featureCharacter":"W","zIndex":"5"}}]}'
                 >
                     <vl-map-layer-circle-style
-                        data-vl-color="green"
-                        data-vl-size="10"
-                        data-vl-border-color="#000"
-                        data-vl-text-feature-attribute-name="featureCharacter"
-                        data-vl-border-size="1"
-                        data-vl-text-size="bold 14px"
+                        color="green"
+                        size="10"
+                        border-color="#000"
+                        text-feature-attribute-name="featureCharacter"
+                        border-size="1"
+                        text-size="bold 14px"
                     ></vl-map-layer-circle-style>
                 </vl-map-features-layer>
                 <vl-map-legend bottom="10px" right=${'12px'}></vl-map-legend>
@@ -282,16 +282,16 @@ describe('component vl-map-legend - wfs layer', () => {
             <vl-map>
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
                 <vl-map-wfs-layer
-                    data-vl-name="Oppervlaktewaterlichamen"
-                    data-vl-url="https://geoserver.vmm.be/geoserver/vmm/wfs"
-                    data-vl-layers="owl_l"
-                    data-vl-max-resolution="8"
+                    name="Oppervlaktewaterlichamen"
+                    url="https://geoserver.vmm.be/geoserver/vmm/wfs"
+                    layers="owl_l"
+                    max-resolution="8"
                 >
                     <vl-map-layer-circle-style
-                        data-vl-color="#ffe615"
-                        data-vl-size="5"
-                        data-vl-border-color="#000"
-                        data-vl-border-size="1"
+                        color="#ffe615"
+                        size="5"
+                        border-color="#000"
+                        border-size="1"
                     ></vl-map-layer-circle-style>
                 </vl-map-wfs-layer>
                 <vl-map-legend bottom="10px" right=${'12px'}></vl-map-legend>
@@ -343,21 +343,21 @@ describe('component vl-map-legend - wfs and wms layers', () => {
             <vl-map>
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
                 <vl-map-tiled-wms-layer
-                    data-vl-layers="grondwater:beschermingszones_2014"
-                    data-vl-name="Beschermingszones"
-                    data-vl-url="https://www.dov.vlaanderen.be/geoserver/wms"
+                    layers="grondwater:beschermingszones_2014"
+                    name="Beschermingszones"
+                    url="https://www.dov.vlaanderen.be/geoserver/wms"
                 ></vl-map-tiled-wms-layer>
                 <vl-map-wfs-layer
-                    data-vl-name="Oppervlaktewaterlichamen"
-                    data-vl-url="https://geoserver.vmm.be/geoserver/vmm/wfs"
-                    data-vl-layers="owl_l"
-                    data-vl-max-resolution="8"
+                    name="Oppervlaktewaterlichamen"
+                    url="https://geoserver.vmm.be/geoserver/vmm/wfs"
+                    layers="owl_l"
+                    max-resolution="8"
                 >
                     <vl-map-layer-circle-style
-                        data-vl-color="#ffe615"
-                        data-vl-size="5"
-                        data-vl-border-color="#000"
-                        data-vl-border-size="1"
+                        color="#ffe615"
+                        size="5"
+                        border-color="#000"
+                        border-size="1"
                     ></vl-map-layer-circle-style>
                 </vl-map-wfs-layer>
                 <vl-map-legend bottom="10px" right=${'12px'}></vl-map-legend>
@@ -418,12 +418,12 @@ describe('component vl-map-legend - wms layer that requires a version', () => {
         <vl-map>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-tiled-wms-layer
-                data-vl-name="overstromingsgevoelige_gebieden_vanuit_de_zee"
-                data-vl-layers="0"
-                data-vl-url="https://inspirepub.waterinfo.be/arcgis/services/informatieplicht/overstromingsgevoelige_gebieden_vanuit_de_zee/MapServer/WMSServer"
-                data-vl-is-layer="true"
+                name="overstromingsgevoelige_gebieden_vanuit_de_zee"
+                layers="0"
+                url="https://inspirepub.waterinfo.be/arcgis/services/informatieplicht/overstromingsgevoelige_gebieden_vanuit_de_zee/MapServer/WMSServer"
+                is-layer="true"
             ></vl-map-tiled-wms-layer>
-            <vl-map-legend data-vl-version=${version}></vl-map-legend>
+            <vl-map-legend version=${version}></vl-map-legend>
         </vl-map>
     `;
 

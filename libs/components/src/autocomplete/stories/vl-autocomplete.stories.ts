@@ -47,17 +47,17 @@ export const AutocompleteDefault = story(
             <div class="container">
                 <vl-autocomplete
                     placeholder=${placeholder}
-                    data-vl-initial-value=${initialValue}
-                    data-vl-label=${label}
-                    ?data-vl-label-small=${labelSmall}
-                    data-vl-min-chars=${minChars}
-                    data-vl-max-suggestions=${maxSuggestions}
-                    data-vl-caption-format=${captionFormat}
-                    data-vl-group-by=${groupBy}
-                    ?data-vl-show-clear=${showClear}
-                    data-vl-clear-tooltip=${clearTooltip}
-                    data-vl-no-matches-text=${noMatchesText}
-                    ?data-vl-disable-loading=${disableLoading}
+                    initial-value=${initialValue}
+                    label=${label}
+                    ?label-small=${labelSmall}
+                    min-chars=${minChars}
+                    max-suggestions=${maxSuggestions}
+                    caption-format=${captionFormat}
+                    group-by=${groupBy}
+                    ?show-clear=${showClear}
+                    clear-tooltip=${clearTooltip}
+                    no-matches-text=${noMatchesText}
+                    ?disable-loading=${disableLoading}
                     .items=${complexItems}
                 ></vl-autocomplete>
             </div>
@@ -77,10 +77,10 @@ export const AutocompleteGroupBySubtitle = story(
     () =>
         html`
             <vl-autocomplete
-                data-vl-min-chars="1"
-                data-vl-group-by="${GROUP_BY.SUBTITLE}"
+                min-chars="1"
+                group-by="${GROUP_BY.SUBTITLE}"
                 .items=${complexItems}
-                data-vl-caption-format="${CAPTION_FORMAT.TITLE}"
+                caption-format="${CAPTION_FORMAT.TITLE}"
                 placeholder="Hint: typ Gent"
             ></vl-autocomplete>
         `
@@ -92,9 +92,9 @@ export const AutocompleteCustomCaptionFormatter = story(
     () =>
         html`
             <vl-autocomplete
-                data-vl-min-chars="1"
+                min-chars="1"
                 .items=${complexItems}
-                data-vl-caption-format="${CAPTION_FORMAT.SUBTITLE_TITLE_HORIZONTAL}"
+                caption-format="${CAPTION_FORMAT.SUBTITLE_TITLE_HORIZONTAL}"
                 placeholder="Hint: typ Gent"
             ></vl-autocomplete>
         `
@@ -108,9 +108,9 @@ export const AutocompleteInputAndApiCall = story(
             <vl-autocomplete
                 @search=${(e: CustomEvent) => fetchDataFromApiCall(e.target, e.detail.searchTerm)}
                 placeholder="Gemeente, Straat of Project"
-                data-vl-min-chars="2"
-                data-vl-max-suggestions="10"
-                ?data-vl-disable-loading=${disableLoading}
+                min-chars="2"
+                max-suggestions="10"
+                ?disable-loading=${disableLoading}
             ></vl-autocomplete>
         `
 );
@@ -123,8 +123,8 @@ export const AutocompleteInputAndMockedApiCall = story(
             <vl-autocomplete
                 @search=${(e: CustomEvent) => fetchDataFromMockedApiCall(e.target, e.detail.searchTerm)}
                 placeholder="Gemeente, Straat of Project"
-                data-vl-min-chars="2"
-                data-vl-max-suggestions="5"
+                min-chars="2"
+                max-suggestions="5"
             ></vl-autocomplete>
         `
 );
@@ -135,9 +135,9 @@ export const AutocompleteWithoutSuggestions = story(
     ({ disableLoading }) =>
         html`
             <vl-autocomplete
-                data-vl-min-chars="1"
+                min-chars="1"
                 placeholder="Hint: typ Gent"
-                ?data-vl-disable-loading=${disableLoading}
+                ?disable-loading=${disableLoading}
             ></vl-autocomplete>
         `
 );
@@ -148,9 +148,9 @@ export const AutocompleteInSideSheet = story(
     () => html`
         <vl-side-sheet>
             <vl-autocomplete
-                data-vl-min-chars="1"
+                min-chars="1"
                 .items=${complexItems}
-                data-vl-caption-format="${CAPTION_FORMAT.SUBTITLE_TITLE_HORIZONTAL}"
+                caption-format="${CAPTION_FORMAT.SUBTITLE_TITLE_HORIZONTAL}"
                 placeholder="Hint: typ Gent"
             ></vl-autocomplete>
         </vl-side-sheet>

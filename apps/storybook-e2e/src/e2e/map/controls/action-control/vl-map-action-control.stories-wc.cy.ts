@@ -11,7 +11,7 @@ const deleteActionId = 'delete-action';
 const getButtonForAction = (actionId: string) => {
     return cy
         .get('vl-map')
-        .find(`vl-map-action-control[data-vl-action-id="${actionId}"]`)
+        .find(`vl-map-action-control[action-id="${actionId}"]`)
         .find('vl-button')
         .shadow()
         .find('button');
@@ -25,59 +25,41 @@ describe('story vl-map-action-control multiple', () => {
         cy.runTestFor<VlMapAction>(`#${drawActionId}`, (action) => {
             expect(action.active).to.be.true;
         });
-        cy.runTestFor<VlButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${drawActionId}"] > vl-button`,
-            (button) => {
-                expect(button.on).to.be.true;
-            }
-        );
+        cy.runTestFor<VlButtonComponent>(`vl-map-action-control[action-id="${drawActionId}"] > vl-button`, (button) => {
+            expect(button.on).to.be.true;
+        });
 
         getButtonForAction(drawActionId).click({ force: true });
         cy.runTestFor<VlMapAction>(`#${drawActionId}`, (action) => {
             expect(action.active).to.be.false;
         });
-        cy.runTestFor<VlButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${drawActionId}"] > vl-button`,
-            (button) => {
-                expect(button.on).to.be.false;
-            }
-        );
+        cy.runTestFor<VlButtonComponent>(`vl-map-action-control[action-id="${drawActionId}"] > vl-button`, (button) => {
+            expect(button.on).to.be.false;
+        });
     });
 
     it('should activate/deactivate action and toggle button when calling activate()/deactivate()', () => {
         cy.visit(mapActionControlMultipleUrl);
 
-        cy.runTestFor<VlMapActionControl>(
-            `vl-map-action-control[data-vl-action-id="${drawActionId}"]`,
-            (actionControl) => {
-                actionControl.activate();
-            }
-        );
+        cy.runTestFor<VlMapActionControl>(`vl-map-action-control[action-id="${drawActionId}"]`, (actionControl) => {
+            actionControl.activate();
+        });
         cy.runTestFor<VlMapAction>(`#${drawActionId}`, (action) => {
             expect(action.active).to.be.true;
         });
-        cy.runTestFor<VlButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${drawActionId}"] > vl-button`,
-            (button) => {
-                expect(button.on).to.be.true;
-            }
-        );
+        cy.runTestFor<VlButtonComponent>(`vl-map-action-control[action-id="${drawActionId}"] > vl-button`, (button) => {
+            expect(button.on).to.be.true;
+        });
 
-        cy.runTestFor<VlMapActionControl>(
-            `vl-map-action-control[data-vl-action-id="${drawActionId}"]`,
-            (actionControl) => {
-                actionControl.deactivate();
-            }
-        );
+        cy.runTestFor<VlMapActionControl>(`vl-map-action-control[action-id="${drawActionId}"]`, (actionControl) => {
+            actionControl.deactivate();
+        });
         cy.runTestFor<VlMapAction>(`#${drawActionId}`, (action) => {
             expect(action.active).to.be.false;
         });
-        cy.runTestFor<VlButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${drawActionId}"] > vl-button`,
-            (button) => {
-                expect(button.on).to.be.false;
-            }
-        );
+        cy.runTestFor<VlButtonComponent>(`vl-map-action-control[action-id="${drawActionId}"] > vl-button`, (button) => {
+            expect(button.on).to.be.false;
+        });
     });
 
     it('should deactivate action and toggle button when activating another action', () => {
@@ -87,18 +69,15 @@ describe('story vl-map-action-control multiple', () => {
         cy.runTestFor<VlMapAction>(`#${drawActionId}`, (action) => {
             expect(action.active).to.be.true;
         });
-        cy.runTestFor<VlButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${drawActionId}"] > vl-button`,
-            (button) => {
-                expect(button.on).to.be.true;
-            }
-        );
+        cy.runTestFor<VlButtonComponent>(`vl-map-action-control[action-id="${drawActionId}"] > vl-button`, (button) => {
+            expect(button.on).to.be.true;
+        });
 
         cy.runTestFor<VlMapAction>(`#${modifyActionId}`, (action) => {
             expect(action.active).to.be.false;
         });
         cy.runTestFor<VlButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${modifyActionId}"] > vl-button`,
+            `vl-map-action-control[action-id="${modifyActionId}"] > vl-button`,
             (button) => {
                 expect(button.on).to.be.false;
             }
@@ -108,7 +87,7 @@ describe('story vl-map-action-control multiple', () => {
             expect(action.active).to.be.false;
         });
         cy.runTestFor<VlButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${deleteActionId}"] > vl-button`,
+            `vl-map-action-control[action-id="${deleteActionId}"] > vl-button`,
             (button) => {
                 expect(button.on).to.be.false;
             }
@@ -118,17 +97,14 @@ describe('story vl-map-action-control multiple', () => {
         cy.runTestFor<VlMapAction>(`#${drawActionId}`, (action) => {
             expect(action.active).to.be.false;
         });
-        cy.runTestFor<VlButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${drawActionId}"] > vl-button`,
-            (button) => {
-                expect(button.on).to.be.false;
-            }
-        );
+        cy.runTestFor<VlButtonComponent>(`vl-map-action-control[action-id="${drawActionId}"] > vl-button`, (button) => {
+            expect(button.on).to.be.false;
+        });
         cy.runTestFor<VlMapAction>(`#${modifyActionId}`, (action) => {
             expect(action.active).to.be.true;
         });
         cy.runTestFor<VlButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${modifyActionId}"] > vl-button`,
+            `vl-map-action-control[action-id="${modifyActionId}"] > vl-button`,
             (button) => {
                 expect(button.on).to.be.true;
             }
@@ -137,7 +113,7 @@ describe('story vl-map-action-control multiple', () => {
             expect(action.active).to.be.false;
         });
         cy.runTestFor<VlButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${deleteActionId}"] > vl-button`,
+            `vl-map-action-control[action-id="${deleteActionId}"] > vl-button`,
             (button) => {
                 expect(button.on).to.be.false;
             }
@@ -147,17 +123,14 @@ describe('story vl-map-action-control multiple', () => {
         cy.runTestFor<VlMapAction>(`#${drawActionId}`, (action) => {
             expect(action.active).to.be.false;
         });
-        cy.runTestFor<VlButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${drawActionId}"] > vl-button`,
-            (button) => {
-                expect(button.on).to.be.false;
-            }
-        );
+        cy.runTestFor<VlButtonComponent>(`vl-map-action-control[action-id="${drawActionId}"] > vl-button`, (button) => {
+            expect(button.on).to.be.false;
+        });
         cy.runTestFor<VlMapAction>(`#${modifyActionId}`, (action) => {
             expect(action.active).to.be.false;
         });
         cy.runTestFor<VlButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${modifyActionId}"] > vl-button`,
+            `vl-map-action-control[action-id="${modifyActionId}"] > vl-button`,
             (button) => {
                 expect(button.on).to.be.false;
             }
@@ -166,7 +139,7 @@ describe('story vl-map-action-control multiple', () => {
             expect(action.active).to.be.true;
         });
         cy.runTestFor<VlButtonComponent>(
-            `vl-map-action-control[data-vl-action-id="${deleteActionId}"] > vl-button`,
+            `vl-map-action-control[action-id="${deleteActionId}"] > vl-button`,
             (button) => {
                 expect(button.on).to.be.true;
             }

@@ -23,10 +23,10 @@ export const BreadcrumbDefault = story(
     breadcrumbItemArgs,
     ({ href }) => html`
         <vl-breadcrumb>
-            <vl-breadcrumb-item data-vl-href=${href}>Vlaanderen Intern</vl-breadcrumb-item>
-            <vl-breadcrumb-item data-vl-href=${href}>Regelgeving</vl-breadcrumb-item>
-            <vl-breadcrumb-item data-vl-href=${href}>Webuniversum</vl-breadcrumb-item>
-            <vl-breadcrumb-item data-vl-href=${href}>Componenten</vl-breadcrumb-item>
+            <vl-breadcrumb-item href=${href}>Vlaanderen Intern</vl-breadcrumb-item>
+            <vl-breadcrumb-item href=${href}>Regelgeving</vl-breadcrumb-item>
+            <vl-breadcrumb-item href=${href}>Webuniversum</vl-breadcrumb-item>
+            <vl-breadcrumb-item href=${href}>Componenten</vl-breadcrumb-item>
         </vl-breadcrumb>
     `
 );

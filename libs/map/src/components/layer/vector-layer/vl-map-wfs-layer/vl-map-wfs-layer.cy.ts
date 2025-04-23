@@ -8,19 +8,13 @@ registerWebComponents([VlMap, VlMapWfsLayer]);
 
 const wfsLayerFixture = html`
     <vl-map>
-        <vl-map-wfs-layer data-vl-name="foobar" data-vl-url="http://localhost/wfs" data-vl-layers="layer1,layer2">
-        </vl-map-wfs-layer>
+        <vl-map-wfs-layer name="foobar" url="http://localhost/wfs" layers="layer1,layer2"> </vl-map-wfs-layer>
     </vl-map>
 `;
 
 const wfsLayerWithQueryParamsInUrlFixture = html`
     <vl-map>
-        <vl-map-wfs-layer
-            data-vl-name="foobar"
-            data-vl-url="http://localhost/wfs?foo=bar"
-            data-vl-layers="layer1,layer2"
-        >
-        </vl-map-wfs-layer>
+        <vl-map-wfs-layer name="foobar" url="http://localhost/wfs?foo=bar" layers="layer1,layer2"> </vl-map-wfs-layer>
     </vl-map>
 `;
 
@@ -62,9 +56,9 @@ describe('vl-map-wfs-layer', () => {
         cy.mount(wfsLayerWithQueryParamsInUrlFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             const vlMapWfsLayer: any = document.createElement('vl-map-wfs-layer');
-            vlMapWfsLayer.setAttribute('data-vl-name', 'foobar');
-            vlMapWfsLayer.setAttribute('data-vl-url', 'http://localhost/wfs');
-            vlMapWfsLayer.setAttribute('data-vl-layers', 'layer1,layer2');
+            vlMapWfsLayer.setAttribute('name', 'foobar');
+            vlMapWfsLayer.setAttribute('url', 'http://localhost/wfs');
+            vlMapWfsLayer.setAttribute('layers', 'layer1,layer2');
             expect(vlMapWfsLayer.source).to.be.undefined;
             expect(vlMapWfsLayer.layer).to.be.undefined;
             vlMap.appendChild(vlMapWfsLayer);

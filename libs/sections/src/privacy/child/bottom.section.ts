@@ -5,7 +5,7 @@ export const privacyBottomSection = () => html`
         <div class="vl-grid vl-stacked-medium">
             <div class="vl-column vl-column--12 vl-column--m-12">
                 <vl-contact-card id="contact-card">
-                    <vl-infoblock slot="info" data-vl-type="contact">
+                    <vl-infoblock slot="info" type="contact">
                         <h2 slot="title">DPO van Departement Omgeving</h2>
                     </vl-infoblock>
                     <vl-properties slot="properties">

@@ -13,7 +13,7 @@ export const mapDrawActionStyleArgs = {
 };
 
 export const mapDrawActionStyleArgTypes: ArgTypes<typeof mapDrawActionStyleArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     color: {
         name: 'color',
         description: 'Bepaalt de fill kleur bij het tekenen van een polygoon.',

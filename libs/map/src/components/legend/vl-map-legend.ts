@@ -77,7 +77,7 @@ export class VlMapLegend extends BaseLitElement {
     }
 
     static get properties() {
-        // TODO: Aligneer deze attributen (missen data-vl- prefix)
+        // TODO: Aligneer deze attributen (missen  prefix)
         return {
             left: { type: String, reflect: true },
             top: { type: String, reflect: true },
@@ -85,20 +85,20 @@ export class VlMapLegend extends BaseLitElement {
             bottom: { type: String, reflect: true },
             layoutVertical: {
                 type: Boolean,
-                attribute: 'data-vl-layout-vertical',
+                attribute: 'layout-vertical',
                 reflect: true,
             },
             placement: {
                 type: String,
-                attribute: 'data-vl-placement',
+                attribute: 'placement',
             },
             hideTitle: {
                 type: Boolean,
-                attribute: 'data-vl-hide-title',
+                attribute: 'hide-title',
             },
             version: {
                 type: String,
-                attribute: 'data-vl-version',
+                attribute: 'version',
             },
         };
     }
@@ -155,7 +155,7 @@ export class VlMapLegend extends BaseLitElement {
                 this.urlItems.push({
                     type: 'url',
                     url: this.legendUrl(wmsLayer),
-                    name: wmsLayer.dataset.vlName,
+                    name: wmsLayer.getAttribute('name'),
                 });
         });
 
@@ -192,13 +192,13 @@ export class VlMapLegend extends BaseLitElement {
     }
 
     private legendUrl(wmsLayer: VlMapWmsLayer) {
-        const layerUrl = new URL(wmsLayer.dataset.vlUrl);
+        const layerUrl = new URL(wmsLayer.getAttribute('url'));
         const layout = this.layoutVertical ? 'layout:vertical' : 'layout:horizontal';
         const legendSearchParams = new URLSearchParams({
             service: 'WMS',
             request: 'GetLegendGraphic',
             format: 'image/png',
-            layer: wmsLayer.dataset.vlLayers,
+            layer: wmsLayer.getAttribute('layers'),
             legend_options: layout,
         });
         if (this.version) legendSearchParams.set('version', this.version);

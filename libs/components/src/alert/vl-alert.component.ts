@@ -24,13 +24,13 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
 
     static get properties(): PropertyDeclarations {
         return {
-            icon: { type: String, attribute: 'data-vl-icon' },
-            title: { type: String, attribute: 'data-vl-title' },
-            closable: { type: Boolean, attribute: 'data-vl-closable' },
-            type: { type: String, attribute: 'data-vl-type' },
-            size: { type: String, attribute: 'data-vl-size' },
-            naked: { type: Boolean, attribute: 'data-vl-naked' },
-            message: { type: String, attribute: 'data-vl-message' },
+            icon: { type: String, attribute: 'icon' },
+            title: { type: String, attribute: 'title' },
+            closable: { type: Boolean, attribute: 'closable' },
+            type: { type: String, attribute: 'type' },
+            size: { type: String, attribute: 'size' },
+            naked: { type: Boolean, attribute: 'naked' },
+            message: { type: String, attribute: 'message' },
         };
     }
 
@@ -91,7 +91,7 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
             ?.assignedNodes()
             .filter((element) => element instanceof HTMLButtonElement);
 
-        buttonNodes.forEach((node) => (node as HTMLButtonElement).setAttribute('data-vl-narrow', ''));
+        buttonNodes.forEach((node) => (node as HTMLButtonElement).setAttribute('narrow', ''));
     }
 }
 

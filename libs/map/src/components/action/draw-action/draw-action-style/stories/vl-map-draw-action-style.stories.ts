@@ -28,21 +28,21 @@ export const MapDrawActionStyleDefault = story(
         <vl-map>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-features-layer>
-                <vl-map-draw-polygon-action .active=${true} data-vl-default-active=${true}>
+                <vl-map-draw-polygon-action .active=${true} default-active=${true}>
                     <vl-map-draw-action-style
-                        data-vl-color=${color}
-                        data-vl-border-color=${borderColor}
-                        data-vl-border-size=${borderSize}
-                        data-vl-circle-color=${circleColor}
-                        data-vl-circle-border-color=${circleBorderColor}
-                        data-vl-circle-border-size=${circleBorderSize}
-                        data-vl-circle-size=${circleSize}
+                        color=${color}
+                        border-color=${borderColor}
+                        border-size=${borderSize}
+                        circle-color=${circleColor}
+                        circle-border-color=${circleBorderColor}
+                        circle-border-size=${circleBorderSize}
+                        circle-size=${circleSize}
                     ></vl-map-draw-action-style>
                 </vl-map-draw-polygon-action>
                 <vl-map-layer-style
-                    data-vl-border-size="2"
-                    data-vl-color="rgba(255, 127, 80, 0.8)"
-                    data-vl-border-color="rgba(64, 224, 208, 0.8)"
+                    border-size="2"
+                    color="rgba(255, 127, 80, 0.8)"
+                    border-color="rgba(64, 224, 208, 0.8)"
                 ></vl-map-layer-style>
             </vl-map-features-layer>
         </vl-map>

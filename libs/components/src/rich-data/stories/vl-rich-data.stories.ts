@@ -28,7 +28,7 @@ registerWebComponents([VlRichData, VlSearchResultComponent, VlSelectComponent]);
 
 export const RichDataDefault = ({ filterClosable, filterClosed }: typeof richDataArgs) => {
     return html`
-        <vl-rich-data ?data-vl-filter-closable=${filterClosable} ?data-vl-filter-closed=${filterClosed}>
+        <vl-rich-data ?filter-closable=${filterClosable} ?filter-closed=${filterClosed}>
             <span slot="no-content">Geen resultaten gevonden</span>
             <vl-search-result slot="content"></vl-search-result>
         </vl-rich-data>
@@ -39,7 +39,7 @@ RichDataDefault.storyName = 'vl-rich-data - default';
 export const RichDataPager = story(richDataArgs, ({ filterClosable, filterClosed }: typeof richDataArgs) => {
     richDataPaginationImplementation();
     return html`
-        <vl-rich-data id="rich-data" ?data-vl-filter-closable=${filterClosable} ?data-vl-filter-closed=${filterClosed}>
+        <vl-rich-data id="rich-data" ?filter-closable=${filterClosable} ?filter-closed=${filterClosed}>
             <span slot="no-content">Geen resultaten</span>
             <div slot="content"></div>
             <vl-select-next slot="sorter" aria-label="Sorteer" .options=${[
@@ -96,10 +96,10 @@ export const RichDataPager = story(richDataArgs, ({ filterClosable, filterClosed
             <vl-pager
                 id="rich-data-table-filter-sorting-paging-pager"
                 slot="pager"
-                data-vl-total-items="25"
-                data-vl-items-per-page="10"
-                data-vl-current-page="1"
-                data-vl-align-center
+                total-items="25"
+                items-per-page="10"
+                current-page="1"
+                align-center
             ></vl-pager>
         </vl-rich-data>
     `;

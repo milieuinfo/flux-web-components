@@ -67,9 +67,9 @@ export const MapDeleteActionDefault = story(
         <vl-map>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-features-layer .features=${features}>
-                <vl-map-delete-action .active=${active} ?data-vl-default-active=${defaultActive}></vl-map-delete-action>
-                <vl-map-layer-style data-vl-border-size="2"></vl-map-layer-style>
-                <vl-map-layer-circle-style data-vl-border-size="2"></vl-map-layer-circle-style>
+                <vl-map-delete-action .active=${active} ?default-active=${defaultActive}></vl-map-delete-action>
+                <vl-map-layer-style border-size="2"></vl-map-layer-style>
+                <vl-map-layer-circle-style border-size="2"></vl-map-layer-circle-style>
             </vl-map-features-layer>
         </vl-map>
     `
@@ -85,16 +85,16 @@ export const MapDeleteActionCustomStyle = story(
         <vl-map>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-features-layer .features=${features}>
-                <vl-map-delete-action .active=${active} ?data-vl-default-active=${defaultActive}>
+                <vl-map-delete-action .active=${active} ?default-active=${defaultActive}>
                     <vl-map-layer-style
-                        data-vl-text-color="#000"
-                        data-vl-color="rgba(255, 230, 21, 0.2)"
-                        data-vl-border-color="rgba(255, 230, 21, 1)"
-                        data-vl-border-size="2"
+                        text-color="#000"
+                        color="rgba(255, 230, 21, 0.2)"
+                        border-color="rgba(255, 230, 21, 1)"
+                        border-size="2"
                     ></vl-map-layer-style>
                 </vl-map-delete-action>
-                <vl-map-layer-style data-vl-border-size="2"></vl-map-layer-style>
-                <vl-map-layer-circle-style data-vl-border-size="2"></vl-map-layer-circle-style>
+                <vl-map-layer-style border-size="2"></vl-map-layer-style>
+                <vl-map-layer-circle-style border-size="2"></vl-map-layer-circle-style>
             </vl-map-features-layer>
         </vl-map>
     `

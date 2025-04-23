@@ -50,14 +50,14 @@ const TemplateBase = story(richDataTableArgs, ({ collapsedM, collapsedS, collaps
 
     return html`
         <vl-rich-data-table
-            data-vl-data="${data}"
-            ?data-vl-collapsed-m=${collapsedM}
-            ?data-vl-collapsed-s=${collapsedS}
-            ?data-vl-collapsed-xs=${collapsedXS}
+            data="${data}"
+            ?collapsed-m=${collapsedM}
+            ?collapsed-s=${collapsedS}
+            ?collapsed-xs=${collapsedXS}
         >
-            <vl-rich-data-field data-vl-name="id" data-vl-label="ID" data-vl-selector="id"></vl-rich-data-field>
-            <vl-rich-data-field data-vl-name="name" data-vl-label="Naam" data-vl-selector="name"></vl-rich-data-field>
-            <vl-rich-data-field data-vl-name="owner" data-vl-selector="owner">
+            <vl-rich-data-field name="id" label="ID" selector="id"></vl-rich-data-field>
+            <vl-rich-data-field name="name" label="Naam" selector="name"></vl-rich-data-field>
+            <vl-rich-data-field name="owner" selector="owner">
                 <template slot="label">
                     <span>Eigenaar</span>
                 </template>
@@ -81,25 +81,25 @@ const TemplateSorting = story(richDataTableArgs, ({ collapsedM, collapsedS, coll
     return html`
         <vl-rich-data-table
             id="rich-data-table-sorting"
-            data-vl-data="${data}"
-            ?data-vl-collapsed-m=${collapsedM}
-            ?data-vl-collapsed-s=${collapsedS}
-            ?data-vl-collapsed-xs=${collapsedXS}
+            data="${data}"
+            ?collapsed-m=${collapsedM}
+            ?collapsed-s=${collapsedS}
+            ?collapsed-xs=${collapsedXS}
         >
             <vl-rich-data-field
-                data-vl-name="id"
-                data-vl-label="ID"
-                data-vl-selector="id"
-                data-vl-sortable=""
-                data-vl-sorting-direction="asc"
+                name="id"
+                label="ID"
+                selector="id"
+                sortable=""
+                sorting-direction="asc"
             ></vl-rich-data-field>
             <vl-rich-data-field
-                data-vl-name="name"
-                data-vl-label="Naam"
-                data-vl-selector="name"
-                data-vl-sortable=""
+                name="name"
+                label="Naam"
+                selector="name"
+                sortable=""
             ></vl-rich-data-field>
-            <vl-rich-data-field data-vl-name="owner" data-vl-selector="owner" data-vl-sortable="">
+            <vl-rich-data-field name="owner" selector="owner" sortable="">
                 <template slot="label">
                     <span>Eigenaar</span>
                 </template>
@@ -122,21 +122,21 @@ const TemplateFilter = story(
         return html`
             <vl-rich-data-table
                 id="rich-data-table-filter"
-                ?data-vl-collapsed-m=${collapsedM}
-                ?data-vl-collapsed-s=${collapsedS}
-                ?data-vl-collapsed-xs=${collapsedXS}
-                ?data-vl-filter-closable=${filterClosable}
-                ?data-vl-filter-closed=${filterClosed}
+                ?collapsed-m=${collapsedM}
+                ?collapsed-s=${collapsedS}
+                ?collapsed-xs=${collapsedXS}
+                ?filter-closable=${filterClosable}
+                ?filter-closed=${filterClosed}
             >
-                <vl-rich-data-field data-vl-label="ID" data-vl-selector="id"></vl-rich-data-field>
-                <vl-rich-data-field data-vl-label="Naam Project" data-vl-selector="name"></vl-rich-data-field>
+                <vl-rich-data-field label="ID" selector="id"></vl-rich-data-field>
+                <vl-rich-data-field label="Naam Project" selector="name"></vl-rich-data-field>
                 <vl-rich-data-field
-                    data-vl-label="Naam Manager"
-                    data-vl-selector="manager.lastName"
+                    label="Naam Manager"
+                    selector="manager.lastName"
                 ></vl-rich-data-field>
                 <vl-rich-data-field
-                    data-vl-label="Eerste medewerker"
-                    data-vl-selector="medewerkers.0.lastName"
+                    label="Eerste medewerker"
+                    selector="medewerkers.0.lastName"
                 ></vl-rich-data-field>
                 <vl-search-filter slot="filter" alt>
                     <form>
@@ -184,10 +184,10 @@ const TemplateFilter = story(
                 <vl-pager
                     id="rich-data-table-filter"
                     slot="pager"
-                    data-vl-total-items="6"
-                    data-vl-items-per-page="10"
-                    data-vl-current-page="1"
-                    data-vl-align-center=""
+                    total-items="6"
+                    items-per-page="10"
+                    current-page="1"
+                    align-center=""
                 ></vl-pager>
             </vl-rich-data-table>
         `;
@@ -206,21 +206,21 @@ const TemplateFilterPaging = story(
         return html`
             <vl-rich-data-table
                 id="rich-data-table-pagination"
-                ?data-vl-collapsed-m=${collapsedM}
-                ?data-vl-collapsed-s=${collapsedS}
-                ?data-vl-collapsed-xs=${collapsedXS}
-                ?data-vl-filter-closable=${filterClosable}
-                ?data-vl-filter-closed=${filterClosed}
+                ?collapsed-m=${collapsedM}
+                ?collapsed-s=${collapsedS}
+                ?collapsed-xs=${collapsedXS}
+                ?filter-closable=${filterClosable}
+                ?filter-closed=${filterClosed}
             >
-                <vl-rich-data-field data-vl-label="ID" data-vl-selector="id"></vl-rich-data-field>
-                <vl-rich-data-field data-vl-label="Naam Project" data-vl-selector="name"></vl-rich-data-field>
+                <vl-rich-data-field label="ID" selector="id"></vl-rich-data-field>
+                <vl-rich-data-field label="Naam Project" selector="name"></vl-rich-data-field>
                 <vl-rich-data-field
-                    data-vl-label="Naam Manager"
-                    data-vl-selector="manager.lastName"
+                    label="Naam Manager"
+                    selector="manager.lastName"
                 ></vl-rich-data-field>
                 <vl-rich-data-field
-                    data-vl-label="Eerste medewerker"
-                    data-vl-selector="medewerkers.0.lastName"
+                    label="Eerste medewerker"
+                    selector="medewerkers.0.lastName"
                 ></vl-rich-data-field>
                 <vl-search-filter slot="filter" alt>
                     <form>
@@ -244,7 +244,7 @@ const TemplateFilterPaging = story(
                             <vl-title type="h2" alt no-space-bottom="">Project details</vl-title>
                             <div>
                                 <vl-form-label for="filterOpNaamProject" label="Project naam"
-                                                    light></vl-form-label>
+                                               light></vl-form-label>
                                 <vl-input-field
                                     type="text"
                                     id="filterOpNaamProject"
@@ -254,7 +254,7 @@ const TemplateFilterPaging = story(
                             </div>
                             <div>
                                 <vl-form-label for="filterOpNaamManager" label="Manager familienaam"
-                                                    light></vl-form-label>
+                                               light></vl-form-label>
                                 <vl-input-field
                                     type="text"
                                     id="filterOpNaamManager"
@@ -272,9 +272,9 @@ const TemplateFilterPaging = story(
                 <vl-pager
                     id="pager-for-rich-data-table"
                     slot="pager"
-                    data-vl-total-items=${richDataFilterPagerData.data.length}
-                    data-vl-items-per-page="10"
-                    data-vl-current-page="1"
+                    total-items=${richDataFilterPagerData.data.length}
+                    items-per-page="10"
+                    current-page="1"
                 ></vl-pager>
             </vl-rich-data-table>
         `;

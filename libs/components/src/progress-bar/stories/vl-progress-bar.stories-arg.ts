@@ -13,9 +13,9 @@ export const progressBarArgs = {
 };
 
 export const progressBarArgTypes: ArgTypes<typeof progressBarArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     activeStep: {
-        name: 'data-vl-active-step',
+        name: 'active-step',
         description: 'Markeert een stap als de actieve.',
         control: { type: CONTROLS.RANGE, min: 1, max: 3, step: 1 },
         table: {
@@ -25,7 +25,7 @@ export const progressBarArgTypes: ArgTypes<typeof progressBarArgs> = {
         },
     },
     showLabels: {
-        name: 'data-vl-show-labels',
+        name: 'show-labels',
         description: 'Bepaalt of de labels van de stappen altijd zichtbaar zijn.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -34,7 +34,7 @@ export const progressBarArgTypes: ArgTypes<typeof progressBarArgs> = {
         },
     },
     focusOnChange: {
-        name: 'data-vl-focus-on-change',
+        name: 'focus-on-change',
         description: 'Bepaalt of een stap de focus krijgt na een wijziging.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -43,7 +43,7 @@ export const progressBarArgTypes: ArgTypes<typeof progressBarArgs> = {
         },
     },
     numeric: {
-        name: 'data-vl-numeric',
+        name: 'numeric',
         description: 'Voorziet numerieke indicatoren bij de stappen.',
         table: {
             type: { summary: TYPES.BOOLEAN },

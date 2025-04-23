@@ -113,11 +113,11 @@ export class VlPagerComponent extends BaseElementOfType(HTMLElement) implements 
     }
 
     get _pageElements() {
-        return [...this._pagesListElement.querySelectorAll('[data-vl-pager-page]')];
+        return [...this._pagesListElement.querySelectorAll('[pager-page]')];
     }
 
     get _pageSkippedElements() {
-        return [...this._pagesListElement.querySelectorAll('[data-vl-pager-page-skipped]')];
+        return [...this._pagesListElement.querySelectorAll('[pager-page-skipped]')];
     }
 
     get _pageBackLink() {
@@ -169,7 +169,7 @@ export class VlPagerComponent extends BaseElementOfType(HTMLElement) implements 
 
     __getActivePageTemplate(number: string) {
         return this._template(`
-      <li data-vl-pager-page=${number} class="vl-pager__element">
+      <li pager-page=${number} class="vl-pager__element">
         <label>${number}</label>
       </li>
     `);
@@ -177,7 +177,7 @@ export class VlPagerComponent extends BaseElementOfType(HTMLElement) implements 
 
     __getSkippedPageTemplate() {
         return this._template(`
-      <li data-vl-pager-page-skipped class="vl-pager__element">
+      <li pager-page-skipped class="vl-pager__element">
         <div class="vl-pager__element__cta">...</div>
       </li>
     `);
@@ -185,13 +185,13 @@ export class VlPagerComponent extends BaseElementOfType(HTMLElement) implements 
 
     __getPageTemplate(number: string) {
         const template = this._template(`
-      <li data-vl-pager-page=${number} class="vl-pager__element">
+      <li pager-page=${number} class="vl-pager__element">
         <a href="#" class="vl-pager__element__cta vl-link vl-link--bold">${number}</a>
       </li>
     `);
         template.firstElementChild.addEventListener('click', (e: Event) => {
             e.preventDefault();
-            this.setAttribute('data-vl-current-page', number);
+            this.setAttribute('current-page', number);
         });
         return template;
     }
@@ -299,7 +299,7 @@ export class VlPagerComponent extends BaseElementOfType(HTMLElement) implements 
         this._pageBackLink.addEventListener('click', (e: Event) => {
             e.preventDefault();
             if (!(this.currentPage - 1 <= 0)) {
-                this.setAttribute('data-vl-current-page', this.currentPage - 1);
+                this.setAttribute('current-page', this.currentPage - 1);
             }
         });
     }
@@ -308,7 +308,7 @@ export class VlPagerComponent extends BaseElementOfType(HTMLElement) implements 
         this._pageForwardLink.addEventListener('click', (e: Event) => {
             e.preventDefault();
             if (!(this.currentPage + 1 > this.totalPages)) {
-                this.setAttribute('data-vl-current-page', this.currentPage + 1);
+                this.setAttribute('current-page', this.currentPage + 1);
             }
         });
     }

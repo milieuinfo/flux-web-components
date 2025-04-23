@@ -10,7 +10,7 @@ export const mapSelectActionArgs = {
 export const mapSelectActionArgTypes: ArgTypes<typeof mapSelectActionArgs> = {
     ...mapActionArgTypes,
     cluster: {
-        name: 'data-vl-cluster',
+        name: 'cluster',
         description: 'Geeft aan de de features geclustered worden.',
         control: false,
         table: {

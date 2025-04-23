@@ -12,9 +12,9 @@ export const modalArgs = {
 };
 
 export const modalArgTypes: ArgTypes = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     title: {
-        name: 'data-vl-title',
+        name: 'title',
         description:
             'Attribuut gebruikt om een `<h2>` titel toe te voegen. Indien leeg, wordt er geen titel element aangemaakt.',
         table: {
@@ -24,7 +24,7 @@ export const modalArgTypes: ArgTypes = {
         },
     },
     open: {
-        name: 'data-vl-open',
+        name: 'open',
         description: 'Attribuut om de modal onmiddellijk te openen na de rendering.',
         table: {
             type: { summary: 'Boolean' },
@@ -33,7 +33,7 @@ export const modalArgTypes: ArgTypes = {
         },
     },
     closable: {
-        name: 'data-vl-closable',
+        name: 'closable',
         description:
             'Attribuut om de modal sluitbaar te maken via het "Sluit"-icoon in de rechterbovenhoek of door de "Escape"-toets te gebruiken.',
         table: {
@@ -43,7 +43,7 @@ export const modalArgTypes: ArgTypes = {
         },
     },
     notCancellable: {
-        name: 'data-vl-not-cancellable',
+        name: 'not-cancellable',
         description: 'Attribuut gebruikt om de modal niet annuleerbaar te maken.',
         table: {
             type: { summary: 'Boolean' },
@@ -52,7 +52,7 @@ export const modalArgTypes: ArgTypes = {
         },
     },
     notAutoClosable: {
-        name: 'data-vl-not-auto-closable',
+        name: 'not-auto-closable',
         description:
             'Attribuut om het afsluiten van de modal uit te schakelen bij het klikken op de actie in het button-slot.',
         table: {
@@ -62,7 +62,7 @@ export const modalArgTypes: ArgTypes = {
         },
     },
     allowOverflow: {
-        name: 'data-vl-allow-overflow',
+        name: 'allow-overflow',
         description: 'Attribuut om de afgesneden inhoud van de modal zichtbaar te maken.',
         table: {
             type: { summary: 'Boolean' },

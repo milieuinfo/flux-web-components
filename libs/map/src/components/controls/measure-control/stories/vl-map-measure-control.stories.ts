@@ -15,7 +15,7 @@ export default {
     title: 'map/controls/measure-control',
     tags: ['autodocs'],
     args: defaultArgs,
-    argTypes: defaultArgTypes(),
+    argTypes: defaultArgTypes,
     parameters: {
         docs: {
             page: measureControlDoc,

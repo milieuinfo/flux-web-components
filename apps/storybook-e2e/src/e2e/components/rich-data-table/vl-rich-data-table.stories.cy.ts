@@ -82,7 +82,7 @@ const shouldSortFieldsAsExpected = (
 const shouldHaveActiveSorterAndMatchExpectedDirection = (sortField: string, direction: string) => {
     cy.get('vl-rich-data-table')
         .shadow()
-        .find(`[data-vl-for="${sortField}"]`)
+        .find(`[for="${sortField}"]`)
         .shadow()
         .find('#direction')
         .should('have.attr', 'icon', direction === 'asc' ? 'arrow-down' : 'arrow-up');
@@ -91,14 +91,14 @@ const shouldHaveActiveSorterAndMatchExpectedDirection = (sortField: string, dire
 const shouldHaveSorterAndDirectionShouldBeHidden = (sortField: string) => {
     cy.get('vl-rich-data-table')
         .shadow()
-        .find(`[data-vl-for="${sortField}"]`)
+        .find(`[for="${sortField}"]`)
         .shadow()
         .find('div')
         .should('have.class', 'vl-u-visually-hidden');
 };
 
 const clickSorterForField = (sortField: string) => {
-    cy.get('vl-rich-data-table').shadow().find(`[data-vl-for="${sortField}"]`).click({ force: true });
+    cy.get('vl-rich-data-table').shadow().find(`[for="${sortField}"]`).click({ force: true });
 };
 
 const page = (page: number, itemsPerPage: number, data: any[]) => {
@@ -133,7 +133,7 @@ const shouldPaginateCorrectly = (selector: string, dataRows: unknown[], paginati
 };
 
 const selectPage = (pageNumber: number) => {
-    cy.get('vl-rich-data-table').find('vl-pager').shadow().find(`[data-vl-pager-page=${pageNumber}]`).click();
+    cy.get('vl-rich-data-table').find('vl-pager').shadow().find(`[pager-page=${pageNumber}]`).click();
 };
 
 describe('story vl-rich-table default', () => {

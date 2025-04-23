@@ -3,7 +3,7 @@ import { header, privacyHeaderElements } from './header.section';
 
 registerWebComponents(privacyHeaderElements());
 
-const mountDefault = (props: { disableBackLink: boolean, hideBackLink: boolean }) => cy.mount(header(props));
+const mountDefault = (props: { disableBackLink: boolean; hideBackLink: boolean }) => cy.mount(header(props));
 
 describe('header component', () => {
     beforeEach(() => {
@@ -29,50 +29,46 @@ describe('header component', () => {
     });
 
     it('should render the correct title', () => {
-        cy.get('vl-functional-header').should('have.attr', 'data-vl-title', 'Departement Omgeving');
-        cy.get('vl-functional-header').should('not.have.attr', 'data-vl-title', 'Test');
+        cy.get('vl-functional-header').should('have.attr', 'title', 'Departement Omgeving');
+        cy.get('vl-functional-header').should('not.have.attr', 'title', 'Test');
     });
 
     it('should render the correct sub-title', () => {
-        cy.get('vl-functional-header').should('have.attr', 'data-vl-sub-title', 'Privacy');
+        cy.get('vl-functional-header').should('have.attr', 'sub-title', 'Privacy');
 
-        cy.get('vl-functional-header').should(
-            'not.have.attr',
-            'data-vl-sub-title',
-            'ToegankelijkheidEngebruiksvoorwaarden'
-        );
+        cy.get('vl-functional-header').should('not.have.attr', 'sub-title', 'ToegankelijkheidEngebruiksvoorwaarden');
     });
 
     it('should render the correct link', () => {
-        cy.get('vl-functional-header').should('have.attr', 'data-vl-link', 'https://omgeving.vlaanderen.be');
+        cy.get('vl-functional-header').should('have.attr', 'link', 'https://omgeving.vlaanderen.be');
     });
 
     it('should not disable the back link when disableBackLink is false', () => {
-        cy.get('vl-functional-header').should('not.have.attr', 'data-vl-disable-back-link');
+        cy.get('vl-functional-header').should('not.have.attr', 'disable-back-link');
     });
 });
 
 describe('header component - with disableBackLink set to true', () => {
     it('should disable the back link when disableBackLink is true', () => {
         mountDefault({ disableBackLink: true, hideBackLink: false });
-        cy.get('vl-functional-header').should('have.attr', 'data-vl-disable-back-link');
+        cy.get('vl-functional-header').should('have.attr', 'disable-back-link');
     });
 
     it('should NOT disable the back link when disableBackLink is false', () => {
         mountDefault({ disableBackLink: false, hideBackLink: false });
-        cy.get('vl-functional-header').should('not.have.attr', 'data-vl-disable-back-link');
+        cy.get('vl-functional-header').should('not.have.attr', 'disable-back-link');
     });
 });
 
 describe('header component - with hideBackLink set to true', () => {
     it('should hide the back link when hideBackLink is true', () => {
         mountDefault({ disableBackLink: false, hideBackLink: true });
-        cy.get('vl-functional-header').should('have.attr', 'data-vl-hide-back-link');
+        cy.get('vl-functional-header').should('have.attr', 'hide-back-link');
     });
 
     it('should NOT hide the back link when hideBackLink is false', () => {
         mountDefault({ disableBackLink: false, hideBackLink: false });
-        cy.get('vl-functional-header').should('not.have.attr', 'data-vl-hide-back-link');
+        cy.get('vl-functional-header').should('not.have.attr', 'hide-back-link');
     });
 });
 

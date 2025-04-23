@@ -76,7 +76,7 @@ const styles: CSSResult = css`
         line-height: unset;
     }
 
-    :host([display-style='tabs']) [data-vl-tabs] .vl-tabs:not(.vl-tabs--overflow) .vl-tab {
+    :host([display-style='tabs']) [tabs] .vl-tabs:not(.vl-tabs--overflow) .vl-tab {
         display: inline-block;
         position: relative;
         margin: 0 1.3rem;
@@ -87,15 +87,15 @@ const styles: CSSResult = css`
         display: none;
     }
 
-    :host([display-style='tabs']) [data-vl-tabs] .vl-tabs:not(.vl-tabs--overflow) .vl-tab:first-of-type {
+    :host([display-style='tabs']) [tabs] .vl-tabs:not(.vl-tabs--overflow) .vl-tab:first-of-type {
         width: unset;
     }
 
-    :host([display-style='tabs']) [data-vl-tabs] .vl-tabs:not(.vl-tabs--overflow) .vl-tab--active {
+    :host([display-style='tabs']) [tabs] .vl-tabs:not(.vl-tabs--overflow) .vl-tab--active {
         border-bottom: 3px solid;
     }
 
-    :host([display-style='tabs']) [data-vl-tabs] .vl-tabs:not(.vl-tabs--overflow) .vl-tab:hover,
+    :host([display-style='tabs']) [tabs] .vl-tabs:not(.vl-tabs--overflow) .vl-tab:hover,
     .vl-tab:focus {
         border-bottom-color: var(--vl-theme-fg-color);
     }
@@ -112,7 +112,7 @@ const styles: CSSResult = css`
         line-height: 1.33;
     }
 
-    :host([display-style='collapsed']) .vl-tabs:not(.vl-tabs--overflow)[data-vl-show='true'] {
+    :host([display-style='collapsed']) .vl-tabs:not(.vl-tabs--overflow)[show='true'] {
         display: block;
     }
 
@@ -120,11 +120,11 @@ const styles: CSSResult = css`
         display: block;
     }
 
-    :host([display-style='collapsed']) [data-vl-tabs] .vl-tabs:not(.vl-tabs--overflow) .vl-tab:first-of-type {
+    :host([display-style='collapsed']) [tabs] .vl-tabs:not(.vl-tabs--overflow) .vl-tab:first-of-type {
         width: calc(100% - 4.2rem);
     }
 
-    :host([display-style='collapsed']) [data-vl-tabs] .vl-tabs:not(.vl-tabs--overflow) .vl-tab {
+    :host([display-style='collapsed']) [tabs] .vl-tabs:not(.vl-tabs--overflow) .vl-tab {
         display: block;
         top: 0;
         padding: 0.7rem 1.5rem;

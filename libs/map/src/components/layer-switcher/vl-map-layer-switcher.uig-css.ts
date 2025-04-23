@@ -9,7 +9,7 @@ const styles: CSSResult = css`
         display: block;
     }
 
-    :host [data-vl-layer] {
+    :host [layer] {
         display: block;
     }
 `;

@@ -2,7 +2,7 @@ import { vlLegacyStyles } from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
 
 export const richDataSortingStyle: CSSResult = css`
-    th[data-vl-sortable] a {
+    th[sortable] a {
         cursor: pointer;
     }
 `;

@@ -13,9 +13,9 @@ export const mapBaselayerArgs = {
 };
 
 export const mapBaselayerArgTypes: ArgTypes<typeof mapBaselayerArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     backgroundLayer: {
-        name: 'data-vl-background-layer',
+        name: 'background-layer',
         description:
             'Geeft de gekozen base-layer een achtergrond-laag.<br>Dit zal kaartlagen tonen van het Nationaal Geografisch Instituut.<br>Voor meer info [zie hier](https://www.ngi.be/website/aanbod/digitale-geodata/cartoweb-be/).<br>Dit attribuut is niet reactief.',
         table: {
@@ -46,7 +46,7 @@ export const mapBaselayerArgTypes: ArgTypes<typeof mapBaselayerArgs> = {
         },
     },
     layer: {
-        name: 'data-vl-layer',
+        name: 'layer',
         description: 'De identifier van de kaartlaag.<br>Dit attribuut is niet reactief.',
         table: {
             type: { summary: TYPES.STRING },
@@ -54,7 +54,7 @@ export const mapBaselayerArgTypes: ArgTypes<typeof mapBaselayerArgs> = {
         },
     },
     title: {
-        name: 'data-vl-title',
+        name: 'title',
         description: 'De titel van de kaartlaag.<br>Dit attribuut is niet reactief.',
         table: {
             type: { summary: TYPES.STRING },
@@ -62,7 +62,7 @@ export const mapBaselayerArgTypes: ArgTypes<typeof mapBaselayerArgs> = {
         },
     },
     type: {
-        name: 'data-vl-type',
+        name: 'type',
         description: 'Het type van de kaartlaag.<br>Dit attribuut is niet reactief.',
         control: { type: CONTROLS.SELECT },
         options: ['wmts', 'wfs'],
@@ -72,7 +72,7 @@ export const mapBaselayerArgTypes: ArgTypes<typeof mapBaselayerArgs> = {
         },
     },
     url: {
-        name: 'data-vl-url',
+        name: 'url',
         description: 'De URL die gebruikt wordt om de kaartlaag op te halen.<br>Dit attribuut is niet reactief.',
         table: {
             type: { summary: TYPES.STRING },

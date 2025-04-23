@@ -91,11 +91,11 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
     }
 
     get customIcon() {
-        return this.getAttribute('data-vl-custom-icon');
+        return this.getAttribute('custom-icon');
     }
 
     get iconPlacement() {
-        return this.getAttribute('data-vl-icon-placement');
+        return this.getAttribute('icon-placement');
     }
 
     get _classPrefix() {
@@ -141,7 +141,7 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
      * @Return {void}
      */
     open() {
-        this.setAttribute('data-vl-open', '');
+        this.setAttribute('open', '');
     }
 
     _handleOnOpen() {
@@ -161,7 +161,7 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
      * @Return {void}
      */
     close() {
-        this.removeAttribute('data-vl-open');
+        this.removeAttribute('open');
         this._handleOnClose();
     }
 

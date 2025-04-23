@@ -6,21 +6,21 @@ import { VlModalComponent } from './vl-modal.component';
 
 registerWebComponents([VlModalComponent, VlButtonComponent, VlIconComponent]);
 
-const renderOpenButton = () => html`<vl-button data-vl-modal-open="modal-vt" data-cy="button-modal-toggle">
+const renderOpenButton = () => html`<vl-button modal-open="modal-vt" data-cy="button-modal-toggle">
     Open
 </vl-button>`;
 
 const renderModal = ({
-    title = 'Modal',
-    open = false,
-    closable = false,
-    notAutoClosable = false,
-    notCancellable = false,
-    allowOverflow = false,
-    content = html`<p>Modal content</p>
-        <p>Lorem ipsum dolor sit amet.</p>`,
-    button = html`<vl-button>button</vl-button>`,
-}: {
+                         title = 'Modal',
+                         open = false,
+                         closable = false,
+                         notAutoClosable = false,
+                         notCancellable = false,
+                         allowOverflow = false,
+                         content = html`<p>Modal content</p>
+                         <p>Lorem ipsum dolor sit amet.</p>`,
+                         button = html`<vl-button>button</vl-button>`,
+                     }: {
     title?: string;
     open?: boolean;
     closable?: boolean;
@@ -31,12 +31,12 @@ const renderModal = ({
     button?: TemplateResult;
 }) => html`<vl-modal
     id="modal-vt"
-    data-vl-title=${title}
-    ?data-vl-open=${open}
-    ?data-vl-closable=${closable}
-    ?data-vl-not-cancellable=${notCancellable}
-    ?data-vl-not-auto-closable=${notAutoClosable}
-    ?data-vl-allow-overflow=${allowOverflow}
+    title=${title}
+    ?open=${open}
+    ?closable=${closable}
+    ?not-cancellable=${notCancellable}
+    ?not-auto-closable=${notAutoClosable}
+    ?allow-overflow=${allowOverflow}
     data-cy="modal"
 >
     <span slot="content"> ${content} </span>
@@ -44,7 +44,7 @@ const renderModal = ({
 </vl-modal>`;
 
 const otherActionButton = html` <vl-link button-as-link class="custom-action-button">
-    <vl-icon right-margin="" data-vl-modal-close=""></vl-icon>
+    <vl-icon right-margin="" modal-close=""></vl-icon>
     Andere actie
 </vl-link>`;
 

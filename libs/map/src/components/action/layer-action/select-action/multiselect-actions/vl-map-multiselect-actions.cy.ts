@@ -53,13 +53,13 @@ describe('component vl-map-multiselect-actions', () => {
         cy.mount(html`
             <vl-map>
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
-                <vl-map-features-layer data-vl-name="layer-1" .features=${featuresLayer1}>
-                    <vl-map-layer-style data-vl-border-size="2"></vl-map-layer-style>
+                <vl-map-features-layer name="layer-1" .features=${featuresLayer1}>
+                    <vl-map-layer-style border-size="2"></vl-map-layer-style>
                 </vl-map-features-layer>
-                <vl-map-features-layer .features=${featuresLayer2} data-vl-name="layer-2">
-                    <vl-map-layer-style data-vl-border-size="2"></vl-map-layer-style
+                <vl-map-features-layer .features=${featuresLayer2} name="layer-2">
+                    <vl-map-layer-style border-size="2"></vl-map-layer-style
                 ></vl-map-features-layer>
-                <vl-map-multiselect-actions .active=${true} .layers=${layers} ?data-vl-default-active=${true}>
+                <vl-map-multiselect-actions .active=${true} .layers=${layers} ?default-active=${true}>
                 </vl-map-multiselect-actions>
             </vl-map>
         `);

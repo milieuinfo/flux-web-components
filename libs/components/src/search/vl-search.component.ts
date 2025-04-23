@@ -42,7 +42,7 @@ export class VlSearchComponent extends BaseElementOfType(HTMLElement) {
         super.connectedCallback();
 
         if (!this._isInline && !this._isBlock) {
-            this.setAttribute('data-vl-block', ''); // default to block if none set
+            this.setAttribute('block', ''); // default to block if none set
         }
         this.__processInputSlot();
         this.__setupChangeEventTriggers();
@@ -64,11 +64,11 @@ export class VlSearchComponent extends BaseElementOfType(HTMLElement) {
     }
 
     get _isInline() {
-        return this.hasAttribute('data-vl-inline');
+        return this.hasAttribute('inline');
     }
 
     get _isBlock() {
-        return this.hasAttribute('data-vl-block');
+        return this.hasAttribute('block');
     }
 
     get _classPrefix() {
@@ -96,12 +96,12 @@ export class VlSearchComponent extends BaseElementOfType(HTMLElement) {
     }
 
     _inlineChangedCallback(oldValue: string, newValue: string) {
-        this.toggleAttribute('data-vl-block', newValue == undefined);
+        this.toggleAttribute('block', newValue == undefined);
         this.__render();
     }
 
     _blockChangedCallback(oldValue: string, newValue: string) {
-        this.toggleAttribute('data-vl-inline', newValue == undefined);
+        this.toggleAttribute('inline', newValue == undefined);
         this.__render();
     }
 
@@ -160,7 +160,7 @@ export class VlSearchComponent extends BaseElementOfType(HTMLElement) {
     }
 
     __getLabelTemplate() {
-        const text = this.dataset.vlLabel || 'Zoekterm';
+        const text = this.getAttribute('label') || 'Zoekterm';
         const content = this._isInline
             ? `<span class="vl-u-visually-hidden">${text}</span> ${this.__iconTemplate()}`
             : text;
@@ -179,7 +179,7 @@ export class VlSearchComponent extends BaseElementOfType(HTMLElement) {
           <button id="search-button" class="vl-search__submit" type="submit">
             ${content}
             <slot name="submit-label">
-              ${this.dataset.vlSubmitLabel || 'Zoeken'}
+              ${this.getAttribute('submit-label') || 'Zoeken'}
             </slot>
           </button>
         `);
@@ -192,7 +192,7 @@ export class VlSearchComponent extends BaseElementOfType(HTMLElement) {
         } else {
             customElements.whenDefined('vl-select-location').then(async () => {
                 if (slot.nodeName.toLowerCase() === 'vl-select-location') {
-                    this.setAttribute('data-vl-has-input-slot', '');
+                    this.setAttribute('has-input-slot', '');
                     slot.addEventListener('focusin', () => {
                         this.__inputSlotElement.classList.add('is-open');
                     });

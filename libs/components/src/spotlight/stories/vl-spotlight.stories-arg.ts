@@ -25,9 +25,9 @@ export const spotlightArgs = {
 };
 
 export const spotlightArgTypes: ArgTypes = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     link: {
-        name: 'data-vl-link',
+        name: 'link',
         description:
             'De component wordt een link. Door te klikken op de component wordt de gebruiker doorgestuurd naar de link die gezet is in dit attribuut.',
         table: {
@@ -37,9 +37,9 @@ export const spotlightArgTypes: ArgTypes = {
         },
     },
     external: {
-        name: 'data-vl-external',
+        name: 'external',
         description:
-            'Opent de link in een nieuw tabblad. Dit attribuut wordt enkel gebruikt als het attribuut `data-vl-link` gezet is.',
+            'Opent de link in een nieuw tabblad. Dit attribuut wordt enkel gebruikt als het attribuut `link` gezet is.',
         table: {
             type: { summary: TYPES.STRING },
             defaultValue: spotlightArgs.external,
@@ -47,7 +47,7 @@ export const spotlightArgTypes: ArgTypes = {
         },
     },
     alt: {
-        name: 'data-vl-alt',
+        name: 'alt',
         description: 'Geeft de component een alternatieve stijl. De achtergrond wordt grijs.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -56,7 +56,7 @@ export const spotlightArgTypes: ArgTypes = {
         },
     },
     noBorder: {
-        name: 'data-vl-no-border',
+        name: 'no-border',
         description: 'Geeft de component weer zonder border.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -65,7 +65,7 @@ export const spotlightArgTypes: ArgTypes = {
         },
     },
     size: {
-        name: 'data-vl-size',
+        name: 'size',
         description: 'Dit attribuut bepaalt de grootte van de component.',
         table: {
             type: {
@@ -79,7 +79,7 @@ export const spotlightArgTypes: ArgTypes = {
         options: Object.values(SIZE),
     },
     imgSrc: {
-        name: 'data-vl-img-src',
+        name: 'img-src',
         description: 'Het path van de image dat getoond moet worden in de spotlight.',
         table: {
             type: { summary: TYPES.STRING },
@@ -88,7 +88,7 @@ export const spotlightArgTypes: ArgTypes = {
         },
     },
     imgAlt: {
-        name: 'data-vl-img-alt',
+        name: 'img-alt',
         description: 'De alternatieve tekst van de image dat getoond moet worden in de spotlight.',
         table: {
             type: { summary: TYPES.STRING },

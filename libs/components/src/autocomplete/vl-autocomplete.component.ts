@@ -21,7 +21,7 @@ export class VlAutocomplete extends BaseLitElement {
         return {
             minChars: {
                 type: Number,
-                attribute: 'data-vl-min-chars',
+                attribute: 'min-chars',
                 reflect: true,
             },
             items: Array,
@@ -30,27 +30,27 @@ export class VlAutocomplete extends BaseLitElement {
             firstValidItemIndex: { type: Number, reflect: true },
             maxSuggestions: {
                 type: Number,
-                attribute: 'data-vl-max-suggestions',
+                attribute: 'max-suggestions',
             },
             groupBy: {
                 type: String,
-                attribute: 'data-vl-group-by',
+                attribute: 'group-by',
             },
             captionFormat: {
                 type: String,
-                attribute: 'data-vl-caption-format',
+                attribute: 'caption-format',
             },
             placeholder: {
                 type: String,
                 attribute: 'placeholder',
             },
-            initialValue: { type: String, attribute: 'data-vl-initial-value', reflect: true },
-            showClear: { type: Boolean, attribute: 'data-vl-show-clear', reflect: true },
-            label: { type: String, attribute: 'data-vl-label', reflect: true },
-            noMatchesText: { type: String, attribute: 'data-vl-no-matches-text', reflect: true },
-            labelSmall: { type: Boolean, attribute: 'data-vl-label-small', reflect: true },
-            clearTooltip: { type: String, attribute: 'data-vl-clear-tooltip', reflect: true },
-            disableLoading: { type: Boolean, attribute: 'data-vl-disable-loading', reflect: true },
+            initialValue: { type: String, attribute: 'initial-value', reflect: true },
+            showClear: { type: Boolean, attribute: 'show-clear', reflect: true },
+            label: { type: String, attribute: 'label', reflect: true },
+            noMatchesText: { type: String, attribute: 'no-matches-text', reflect: true },
+            labelSmall: { type: Boolean, attribute: 'label-small', reflect: true },
+            clearTooltip: { type: String, attribute: 'clear-tooltip', reflect: true },
+            disableLoading: { type: Boolean, attribute: 'disable-loading', reflect: true },
         };
     }
 

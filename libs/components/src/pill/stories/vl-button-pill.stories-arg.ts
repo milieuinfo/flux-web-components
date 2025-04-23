@@ -1,4 +1,10 @@
-import { CATEGORIES, CONTROLS, defaultArgs, defaultArgTypes, getSelectControlOptions } from '@resources/utils-storybook';
+import {
+    CATEGORIES,
+    CONTROLS,
+    defaultArgs,
+    defaultArgTypes,
+    getSelectControlOptions,
+} from '@resources/utils-storybook';
 
 export const buttonPillArgs = {
     ...defaultArgs,
@@ -6,9 +12,9 @@ export const buttonPillArgs = {
 };
 
 export const buttonPillArgTypes = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     type: {
-        name: 'data-vl-type',
+        name: 'type',
         description: 'The attribute that determines the type. ',
         control: { type: CONTROLS.SELECT },
         options: ['success', 'warning', 'error'],

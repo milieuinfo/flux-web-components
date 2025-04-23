@@ -13,7 +13,7 @@ export class VlBreadcrumbItemComponent extends BaseLitElement {
         return {
             href: {
                 type: String,
-                attribute: 'data-vl-href',
+                attribute: 'href',
                 reflect: true,
             },
         };

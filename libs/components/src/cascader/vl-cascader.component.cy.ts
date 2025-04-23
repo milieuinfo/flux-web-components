@@ -24,7 +24,7 @@ const mountWithSlots = (
             <p slot="header">${headerSlotText}</p>
             <p slot="breadcrumb-placeholder">
                 <label>${placeholderText}</label>
-                <vl-autocomplete data-vl-placeholder=${placeholderText}></vl-autocomplete>
+                <vl-autocomplete placeholder=${placeholderText}></vl-autocomplete>
             </p>
             <vl-cascader-item label=${label}>
                 <vl-title type="h5" underline alt no-space-bottom slot="label"> ${labelSlotText} </vl-title>
@@ -377,7 +377,7 @@ const mountDefault = () => {
 };
 
 const mountSideSheet = () => {
-    cy.mount(html` <vl-side-sheet data-vl-open=""> ${defaultCascaderTemplate} </vl-side-sheet> `);
+    cy.mount(html` <vl-side-sheet open=""> ${defaultCascaderTemplate} </vl-side-sheet> `);
 };
 
 const tekstWestVlaanderen =
@@ -387,7 +387,7 @@ const mountWithTemplates = (templates: Map<string, TemplateFn>) => {
     cy.mount(html`
         <vl-cascader .templates=${templates}>
             <vl-cascader-item label="Provincie: West-Vlaanderen" template-type="provincie">
-                <vl-info-tile data-vl-toggleable="" slot="content">
+                <vl-info-tile toggleable="" slot="content">
                     <span slot="title">Meer Info</span>
                     <span slot="subtitle">Provincie Beschrijving</span>
                     <div slot="content">${tekstWestVlaanderen}</div>
@@ -407,7 +407,7 @@ const mountWithTemplates = (templates: Map<string, TemplateFn>) => {
             </vl-cascader-item>
             <vl-cascader-item label="Provincie: Oost-Vlaanderen" template-type="provincie">
                 <vl-title type="h3" slot="label">Provincie: Oost-Vlaanderen</vl-title>
-                <vl-info-tile data-vl-toggleable="" slot="content">
+                <vl-info-tile toggleable="" slot="content">
                     <span slot="title">Meer Info</span>
                     <span slot="subtitle">Provincie Beschrijving</span>
                     <div slot="content">

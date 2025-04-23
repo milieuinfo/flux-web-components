@@ -11,7 +11,7 @@ export const mapWfsLayerArgs = {
 export const mapWfsLayerArgTypes: ArgTypes<typeof mapWfsLayerArgs> = {
     ...mapLayerArgTypes,
     layers: {
-        name: 'data-vl-layers',
+        name: 'layers',
         description: 'De layers van de WFS.<br>Dit attribuut is niet reactief.',
         type: { name: TYPES.STRING, required: true },
         table: {
@@ -21,7 +21,7 @@ export const mapWfsLayerArgTypes: ArgTypes<typeof mapWfsLayerArgs> = {
         },
     },
     url: {
-        name: 'data-vl-url',
+        name: 'url',
         description: 'De WFS url.<br>Dit attribuut is niet reactief.',
         type: { name: TYPES.STRING, required: true },
         table: {

@@ -11,7 +11,7 @@ describe('component vl-accordion', () => {
     belang van wetenschappelijk onderzoek.`;
     beforeEach(() => {
         cy.mount(html`
-            <vl-accordion data-vl-icon="university" data-vl-toggle-text="Lees meer over de onderwijsdoelstelling">
+            <vl-accordion icon="university" toggle-text="Lees meer over de onderwijsdoelstelling">
                 <span> ${content} </span>
             </vl-accordion>
         `);
@@ -60,7 +60,7 @@ describe('component vl-accordion', () => {
     });
 
     it('should show an icon', () => {
-        cy.get('vl-accordion').invoke('attr', 'data-vl-icon', 'university');
+        cy.get('vl-accordion').invoke('attr', 'icon', 'university');
 
         cy.get('vl-accordion')
             .shadow()
