@@ -13,13 +13,19 @@ describe('uig-config preferences', () => {
         const uigPreferences = UigConfig.getPreferences();
         expect(uigPreferences.autoRegisterStyles).toEqual(true);
         expect(uigPreferences.logWebComponentRegistration).toEqual(false);
+        expect(uigPreferences.logTreeshakeRegistration).toEqual(false);
     });
 
     it('should use the custom specified preferences', () => {
-        UigConfig.setPreferences({ autoRegisterStyles: false, logWebComponentRegistration: true });
+        UigConfig.setPreferences({
+            autoRegisterStyles: false,
+            logWebComponentRegistration: true,
+            logTreeshakeRegistration: true,
+        });
         const uigPreferences = UigConfig.getPreferences();
         expect(uigPreferences.autoRegisterStyles).toEqual(false);
         expect(uigPreferences.logWebComponentRegistration).toEqual(true);
+        expect(uigPreferences.logTreeshakeRegistration).toEqual(true);
     });
 
     it('should use the custom specified preference, otherwise the default', () => {
@@ -27,12 +33,18 @@ describe('uig-config preferences', () => {
         const uigPreferences = UigConfig.getPreferences();
         expect(uigPreferences.autoRegisterStyles).toEqual(true);
         expect(uigPreferences.logWebComponentRegistration).toEqual(true);
+        expect(uigPreferences.logTreeshakeRegistration).toEqual(false);
     });
 
     it('should use the default preferences when the custom ones are set too late', () => {
         const uigPreferences = UigConfig.getPreferences();
-        UigConfig.setPreferences({ autoRegisterStyles: false, logWebComponentRegistration: true });
+        UigConfig.setPreferences({
+            autoRegisterStyles: false,
+            logWebComponentRegistration: true,
+            logTreeshakeRegistration: true,
+        });
         expect(uigPreferences.autoRegisterStyles).toEqual(true);
         expect(uigPreferences.logWebComponentRegistration).toEqual(false);
+        expect(uigPreferences.logTreeshakeRegistration).toEqual(false);
     });
 });

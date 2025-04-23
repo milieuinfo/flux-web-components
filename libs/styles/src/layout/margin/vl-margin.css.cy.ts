@@ -7,8 +7,12 @@ describe('margin styles', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
             <style>
-                ${vlMarginStyles} div {
-                    margin: 10px;
+                ${vlMarginStyles}
+                div.cy-margin-no-bottom {
+                    margin-top: 10px;
+                }
+                div.cy-margin-no-top {
+                    margin-bottom: 10px;
                 }
             </style>
             <div class="vl-margin--small cy-margin-small">margin - small</div>
