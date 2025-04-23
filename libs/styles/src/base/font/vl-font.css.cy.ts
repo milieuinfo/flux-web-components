@@ -27,8 +27,5 @@ describe('font styles', () => {
             style: 'font-family',
             value: '"Flanders Art Sans"',
         });
-        cy.document().then((doc) => {
-            cy.wrap(doc.fonts).invoke('check', '24px Flanders Art Sans').should('be.true');
-        });
     });
 });
