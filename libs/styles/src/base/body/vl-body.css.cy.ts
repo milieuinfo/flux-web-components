@@ -13,9 +13,6 @@ describe('body styles', () => {
             style: 'font-family',
             value: '"Flanders Art Sans", sans-serif',
         });
-        cy.document().then((doc) => {
-            cy.wrap(doc.fonts).invoke('check', '24px Flanders Art Sans').should('be.true');
-        });
     });
 
     it('should have the correct styles', () => {

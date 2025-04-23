@@ -1,5 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { legacyGlobalStyles } from '@domg-wc/styles';
+import { GlobalStyles } from '@domg-wc/styles';
 import { html } from 'lit';
 import { VlTabSectionComponent } from './vl-tab-section.component';
 import { VlTabComponent } from './vl-tab.component';
@@ -7,7 +7,7 @@ import { VlTabsPaneComponent } from './vl-tabs-pane.component';
 import { VlTabsComponent } from './vl-tabs.component';
 import { DisplayStyle } from './vl-tabs.model';
 
-legacyGlobalStyles()(() => null);
+GlobalStyles.getInstance().register();
 
 registerWebComponents([VlTabsComponent, VlTabComponent, VlTabsPaneComponent, VlTabSectionComponent]);
 
