@@ -17,7 +17,7 @@ export default {
 } as Meta<typeof descriptionDataItemArgs>;
 
 export const descriptionDataItemDefault = ({ label, value }: typeof descriptionDataItemArgs) =>
-    html` <vl-description-data-item data-vl-label=${label} data-vl-value=${value}></vl-description-data-item>`;
+    html` <vl-description-data-item label=${label} value=${value}></vl-description-data-item>`;
 descriptionDataItemDefault.storyName = 'vl-description-data-item - default';
 
 export const descriptionDataItemWithSlotElements = ({ labelSlotText, valueSlotText }: typeof descriptionDataItemArgs) =>

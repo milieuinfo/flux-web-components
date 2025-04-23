@@ -24,13 +24,13 @@ const AlertTemplate = story(
     alertArgs,
     ({ closable, icon, title, size, type, naked, message, defaultSlot, actionsSlot, titleSlot, alertClosed }) => html`
         <vl-alert
-            ?data-vl-closable=${closable}
-            ?data-vl-naked=${naked}
-            data-vl-icon=${icon}
-            data-vl-title=${title}
-            data-vl-size=${size}
-            data-vl-type=${type}
-            data-vl-message=${message}
+            ?closable=${closable}
+            ?naked=${naked}
+            icon=${icon}
+            title=${title}
+            size=${size}
+            type=${type}
+            message=${message}
             @vl-alert-closed="${alertClosed}"
             data-cy="alert"
         >

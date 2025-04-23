@@ -26,11 +26,11 @@ export const MapSearchDefault = story(
         html`
             <vl-map>
                 <vl-map-search
-                    data-vl-placeholder=${placeholder}
-                    data-vl-search-empty-text=${searchEmptyText}
-                    data-vl-search-no-results-text=${searchNoResultsText}
-                    data-vl-search-placeholder=${searchPlaceholder}
-                    ?data-vl-with-offset=${withOffset}
+                    placeholder=${placeholder}
+                    search-empty-text=${searchEmptyText}
+                    search-no-results-text=${searchNoResultsText}
+                    search-placeholder=${searchPlaceholder}
+                    ?with-offset=${withOffset}
                 ></vl-map-search>
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             </vl-map>
@@ -42,10 +42,10 @@ export const MapSearchOutsideMap = story(
     mapSearchArgs,
     ({ placeholder, searchEmptyText, searchNoResultsText, searchPlaceholder }) => html`
         <vl-map-search
-            data-vl-placeholder=${placeholder}
-            data-vl-search-empty-text=${searchEmptyText}
-            data-vl-search-no-results-text=${searchNoResultsText}
-            data-vl-search-placeholder=${searchPlaceholder}
+            placeholder=${placeholder}
+            search-empty-text=${searchEmptyText}
+            search-no-results-text=${searchNoResultsText}
+            search-placeholder=${searchPlaceholder}
         ></vl-map-search>
         <vl-map>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>

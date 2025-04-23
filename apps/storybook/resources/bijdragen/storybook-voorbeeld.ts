@@ -28,22 +28,22 @@ export const ProzaMessageDefault = story(prozaMessageArgs, () => {
         <div class="vl-grid vl-stacked-small">
             <div class="vl-column vl-column--12">
                 <vl-title type="h6">Als een inline element:</vl-title>
-                <vl-proza-message data-vl-domain="mockdomain" data-vl-code="inline"></vl-proza-message>
+                <vl-proza-message domain="mockdomain" code="inline"></vl-proza-message>
             </div>
             <div class="vl-column vl-column--12">
                 <vl-title type="h6">Als een block element:</vl-title>
-                <vl-proza-message data-vl-domain="mockdomain" data-vl-code="block"></vl-proza-message>
+                <vl-proza-message domain="mockdomain" code="block"></vl-proza-message>
             </div>
             <div class="vl-column vl-column--12">
                 <vl-title type="h6">In een knop:</vl-title>
                 <vl-button>
-                    <vl-proza-message data-vl-domain="mockdomain" data-vl-code="action"></vl-proza-message>
+                    <vl-proza-message domain="mockdomain" code="action"></vl-proza-message>
                 </vl-button>
             </div>
             <div class="vl-column vl-column--12">
                 <vl-title type="h6">In een link:</vl-title>
                 <vl-link href="#" external>
-                    <vl-proza-message data-vl-domain="mockdomain" data-vl-code="action"></vl-proza-message>
+                    <vl-proza-message domain="mockdomain" code="action"></vl-proza-message>
                 </vl-link>
             </div>
         </div>
@@ -58,28 +58,28 @@ export const ProzaMessageEditable = story(prozaMessageArgs, () => {
         <div class="vl-grid vl-stacked-small">
             <div class="vl-column vl-column--12">
                 <vl-title type="h6">Als een inline element:</vl-title>
-                <vl-proza-message data-vl-domain="mockdomaineditable" data-vl-code="inline"></vl-proza-message>
+                <vl-proza-message domain="mockdomaineditable" code="inline"></vl-proza-message>
             </div>
             <div class="vl-column vl-column--12">
                 <vl-title type="h6">Als een block element:</vl-title>
-                <vl-proza-message data-vl-domain="mockdomaineditable" data-vl-code="block"></vl-proza-message>
+                <vl-proza-message domain="mockdomaineditable" code="block"></vl-proza-message>
             </div>
             <div class="vl-column vl-column--12">
                 <vl-title type="h6">In een knop:</vl-title>
                 <vl-button>
-                    <vl-proza-message data-vl-domain="mockdomaineditable" data-vl-code="action"></vl-proza-message>
+                    <vl-proza-message domain="mockdomaineditable" code="action"></vl-proza-message>
                 </vl-button>
                 <vl-button secondary>
-                    <vl-proza-message data-vl-domain="mockdomaineditable" data-vl-code="action"></vl-proza-message>
+                    <vl-proza-message domain="mockdomaineditable" code="action"></vl-proza-message>
                 </vl-button>
                 <vl-button tertiary>
-                    <vl-proza-message data-vl-domain="mockdomaineditable" data-vl-code="action"></vl-proza-message>
+                    <vl-proza-message domain="mockdomaineditable" code="action"></vl-proza-message>
                 </vl-button>
             </div>
             <div class="vl-column vl-column--12">
                 <vl-title type="h6">In een link:</vl-title>
                 <vl-link href="#" external>
-                    <vl-proza-message data-vl-domain="mockdomaineditable" data-vl-code="action"></vl-proza-message>
+                    <vl-proza-message domain="mockdomaineditable" code="action"></vl-proza-message>
                 <vl-link>
             </div>
         </div>

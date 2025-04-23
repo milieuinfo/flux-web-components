@@ -1,15 +1,9 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
-import {
-    GlobalStyles,
-    vlGridStyles,
-    vlGroupStyles,
-    vlResetStyles,
-    vlStackedStyles,
-} from '@domg-wc/styles';
+import { GlobalStyles, vlGridStyles, vlGroupStyles, vlResetStyles, vlStackedStyles } from '@domg-wc/styles';
+import { render } from 'lit';
 import { VlLinkComponent } from '../link';
 import { vlTitleStyles } from '../title/vl-title.css';
-import { render } from 'lit';
-import { VlTypography } from '../typography/vl-typography.component';
+import { VlTypography } from '../typography';
 import errorCodes from './error-codes';
 import httpErrorMessageUigStyle from './vl-http-error-message.uig-css';
 
@@ -33,7 +27,7 @@ export class VlHttpErrorMessage extends BaseElementOfType(HTMLElement) {
             ${vlGridStyles}
             ${vlStackedStyles}
           </style>
-          <div class="vl-error-message-container vl-grid vl-stacked-small" data-vl-align-center data-vl-v-center>
+          <div class="vl-error-message-container vl-grid vl-stacked-small">
             <div class="vl-column vl-column--justify-self-center vl-column--6  vl-column--m-6  vl-column--s-8 vl-column--xs-12">
               <div class="vl-grid vl-stacked-small">
                 <div class="vl-column vl-column--12">
@@ -77,19 +71,19 @@ export class VlHttpErrorMessage extends BaseElementOfType(HTMLElement) {
     }
 
     get _title() {
-        return this.dataset.vlTitle || this._defaults?.title;
+        return this.getAttribute('title') || this._defaults?.title;
     }
 
     get _image() {
-        return this.dataset.vlImage || this._defaults?.image;
+        return this.getAttribute('image') || this._defaults?.image;
     }
 
     get _imageAlt() {
-        return this.dataset.vlImageAlt || this._defaults?.imageAlt;
+        return this.getAttribute('image-alt') || this._defaults?.imageAlt;
     }
 
     get _errorCode() {
-        return this.dataset.vlErrorCode || this._defaults?.errorCode;
+        return this.getAttribute('error-code') || this._defaults?.errorCode;
     }
 
     _titleChangedCallback() {
@@ -163,8 +157,7 @@ export class VlHttpErrorMessage extends BaseElementOfType(HTMLElement) {
     }
 
     __processTitle() {
-        const title = this._title || errorCodes[this._errorCode]?.title;
-        this.__titleElement.textContent = title;
+        this.__titleElement.textContent = this._title || errorCodes[this._errorCode]?.title;
     }
 
     __processImage() {

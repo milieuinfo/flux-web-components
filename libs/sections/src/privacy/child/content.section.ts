@@ -73,7 +73,7 @@ export const privacyContentSection = () => html`
                                         </div>
                                         <div class="vl-column vl-column--12 vl-column--m-12">
                                             <vl-contact-card>
-                                                <vl-infoblock slot="info" data-vl-type="contact">
+                                                <vl-infoblock slot="info" type="contact">
                                                     <vl-title type="h4" slot="title"> Departement Omgeving </vl-title>
                                                 </vl-infoblock>
                                                 <vl-properties slot="properties">
@@ -705,9 +705,9 @@ export const privacyContentSection = () => html`
                                                 </p>
                                             </vl-typography>
                                         </div>
-                                        <div class="vl-column vl-column--4 vl-column--m-6" data-vl-medium-size="6">
+                                        <div class="vl-column vl-column--4 vl-column--m-6" medium-size="6">
                                             <vl-document
-                                                data-vl-href="https://cdn.milieuinfo.be/footer-assets/LATEST/docx/privacybeleid-v0.2.docx"
+                                                href="https://cdn.milieuinfo.be/footer-assets/LATEST/docx/privacybeleid-v0.2.docx"
                                             >
                                                 <span slot="type">DOCX</span>
                                                 <span slot="title">Lijst van aangiften en machtigingen</span>

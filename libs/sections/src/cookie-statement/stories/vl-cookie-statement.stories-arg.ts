@@ -13,7 +13,7 @@ export const cookieStatementArgs = {
 
 export const cookieStatementArgTypes: ArgTypes<typeof cookieStatementArgs> = {
     date: {
-        name: 'data-vl-date',
+        name: 'date',
         description: 'De datum waarop de pagina werd uitgegeven.',
         table: {
             type: { summary: TYPES.STRING },
@@ -22,7 +22,7 @@ export const cookieStatementArgTypes: ArgTypes<typeof cookieStatementArgs> = {
         },
     },
     disableBackLink: {
-        name: 'data-vl-disable-back-link',
+        name: 'disable-back-link',
         description: 'Zet de terug-link uit.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -31,7 +31,7 @@ export const cookieStatementArgTypes: ArgTypes<typeof cookieStatementArgs> = {
         },
     },
     hideBackLink: {
-        name: 'data-vl-hide-back-link',
+        name: 'hide-back-link',
         description: 'Verwijdert de terug-link.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -40,7 +40,7 @@ export const cookieStatementArgTypes: ArgTypes<typeof cookieStatementArgs> = {
         },
     },
     version: {
-        name: 'data-vl-version',
+        name: 'version',
         description: 'De pagina versie.',
         table: {
             type: { summary: TYPES.STRING },

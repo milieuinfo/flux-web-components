@@ -13,7 +13,7 @@ export default {
     title: 'map/overview-map',
     tags: ['autodocs'],
     args: defaultArgs,
-    argTypes: defaultArgTypes(),
+    argTypes: defaultArgTypes,
     parameters: {
         docs: {
             page: mapOverviewMapDoc,

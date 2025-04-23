@@ -11,7 +11,7 @@ export const mapDrawActionArgs = {
 export const mapDrawActionArgTypes: ArgTypes<typeof mapDrawActionArgs> = {
     ...mapActionArgTypes,
     snapping: {
-        name: 'data-vl-snapping',
+        name: 'snapping',
         description:
             'Geeft aan dat er bij het tekenen snapping mag gebeuren, hetzij op de laag waarop getekend wordt (indien geen vl-map-wfs-layer(s) als child elementen), hetzij op de meegegeven vl-map-wfs-layers.<br>Dit attribuut is niet reactief.',
         control: false,
@@ -22,7 +22,7 @@ export const mapDrawActionArgTypes: ArgTypes<typeof mapDrawActionArgs> = {
         },
     },
     snappingPixelTolerance: {
-        name: 'data-vl-snapping-pixel-tolerance',
+        name: 'snapping-pixel-tolerance',
         description:
             'Binnen de hoeveel pixel van een feature er gesnapt mag worden.<br>Dit attribuut is niet reactief.',
         table: {

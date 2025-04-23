@@ -15,8 +15,8 @@ describe('vl-map-side-sheet', () => {
     it('de side sheet zal absoluut en links gepositioneerd worden', () => {
         cy.mount(mapSideSheetFixture);
         cy.runTestFor<VlMapSideSheet>('vl-map-side-sheet', (vlMapSideSheet) => {
-            expect(vlMapSideSheet.hasAttribute('data-vl-left')).to.be.true;
-            expect(vlMapSideSheet.hasAttribute('data-vl-absolute')).to.be.true;
+            expect(vlMapSideSheet.hasAttribute('left')).to.be.true;
+            expect(vlMapSideSheet.hasAttribute('absolute')).to.be.true;
         });
     });
 
@@ -44,7 +44,7 @@ describe('vl-map-side-sheet', () => {
     });
 
     it('should have arrow in correct position when starting in open position', () => {
-        cy.mount(html` <vl-map-side-sheet data-vl-open=""></vl-map-side-sheet> `);
+        cy.mount(html` <vl-map-side-sheet open=""></vl-map-side-sheet> `);
 
         cy.get('vl-map-side-sheet')
             .shadow()
@@ -56,7 +56,7 @@ describe('vl-map-side-sheet', () => {
     });
 
     it('should have arrow in correct position when starting in open position from the right', () => {
-        cy.mount(html` <vl-map-side-sheet data-vl-open="" data-vl-right=""></vl-map-side-sheet> `);
+        cy.mount(html` <vl-map-side-sheet open="" right=""></vl-map-side-sheet> `);
 
         cy.get('vl-map-side-sheet')
             .shadow()

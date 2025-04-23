@@ -35,16 +35,16 @@ export const SideSheetDefault = story(
         open,
     }) => html`
         <vl-side-sheet
-            ?data-vl-enable-swipe=${enableSwipe}
-            ?data-vl-absolute=${absolute}
-            ?data-vl-left=${left}
-            ?data-vl-right=${right}
-            data-vl-toggle-text=${toggleText}
-            data-vl-tooltip-text=${tooltipText}
-            data-vl-custom-icon=${customIcon}
-            data-vl-icon-placement=${iconPlacement}
-            ?data-vl-hide-toggle-button=${hideToggleButton}
-            ?data-vl-open=${open}
+            ?enable-swipe=${enableSwipe}
+            ?absolute=${absolute}
+            ?left=${left}
+            ?right=${right}
+            toggle-text=${toggleText}
+            tooltip-text=${tooltipText}
+            custom-icon=${customIcon}
+            icon-placement=${iconPlacement}
+            ?hide-toggle-button=${hideToggleButton}
+            ?open=${open}
         >
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla interdum urna ante. Integer eu sem
@@ -152,29 +152,29 @@ export const SideSheetToggle = story(
             </button>
             <vl-side-sheet
                 id="side-sheet-toggle"
-                ?data-vl-enable-swipe=${enableSwipe}
-                ?data-vl-absolute=${absolute}
-                ?data-vl-left=${left}
-                ?data-vl-right=${right}
-                data-vl-toggle-text=${toggleText}
-                data-vl-tooltip-text=${tooltipText}
-                data-vl-custom-icon=${customIcon}
-                data-vl-icon-placement=${iconPlacement}
-                ?data-vl-hide-toggle-button=${hideToggleButton}
-                ?data-vl-open=${open}
+                ?enable-swipe=${enableSwipe}
+                ?absolute=${absolute}
+                ?left=${left}
+                ?right=${right}
+                toggle-text=${toggleText}
+                tooltip-text=${tooltipText}
+                custom-icon=${customIcon}
+                icon-placement=${iconPlacement}
+                ?hide-toggle-button=${hideToggleButton}
+                ?open=${open}
             >
                 <button
                     is="vl-button"
                     id="vl-side-sheet-close-button"
                     type="button"
-                    data-vl-tertiary
+                    tertiary
                     @click=${() => {
                         closeSideSheet();
                     }}
                 >
                     <span
                         is="vl-icon"
-                        data-vl-icon="cross"
+                        icon="cross"
                         class="vl-vi-cross vl-icon vl-vi vl-button__icon"
                         aria-hidden="true"
                     ></span>

@@ -21,12 +21,12 @@ const pagerTemplate = ({
     change,
 }: typeof pagerArgs) => html`
     <vl-pager
-        data-vl-total-items=${totalItems}
-        data-vl-items-per-page=${itemsPerPage}
-        data-vl-current-page=${currentPage}
-        ?data-vl-pagination-disabled=${paginationDisabled}
-        ?data-vl-align-center=${alignCenter}
-        ?data-vl-align-right=${alignRight}
+        total-items=${totalItems}
+        items-per-page=${itemsPerPage}
+        current-page=${currentPage}
+        ?pagination-disabled=${paginationDisabled}
+        ?align-center=${alignCenter}
+        ?align-right=${alignRight}
         @change=${(event: any) => change(event.detail)}
         data-cy="pager"
     ></vl-pager>

@@ -30,7 +30,7 @@ export class VlRichDataField extends BaseElementOfType(HTMLElement) {
             th.appendChild(headerContent);
         }
         if (this.sortable) {
-            th.setAttribute('data-vl-sortable', '');
+            th.setAttribute('sortable', '');
         }
         return th;
     }
@@ -54,7 +54,7 @@ export class VlRichDataField extends BaseElementOfType(HTMLElement) {
      * @return {string}
      */
     get name(): string {
-        return this.dataset.vlName;
+        return this.getAttribute('name');
     }
 
     /**
@@ -62,7 +62,7 @@ export class VlRichDataField extends BaseElementOfType(HTMLElement) {
      * @return {string}
      */
     get selector(): string {
-        return this.dataset.vlSelector;
+        return this.getAttribute('selector');
     }
 
     /**
@@ -70,7 +70,7 @@ export class VlRichDataField extends BaseElementOfType(HTMLElement) {
      * @return {string}
      */
     get label(): string {
-        return this.dataset.vlLabel;
+        return this.getAttribute('label');
     }
 
     /**
@@ -78,7 +78,7 @@ export class VlRichDataField extends BaseElementOfType(HTMLElement) {
      * @return {boolean}
      */
     get sortable(): boolean {
-        return this.dataset.vlSortable !== undefined;
+        return this.getAttribute('sortable') !== null;
     }
 
     /**
@@ -86,7 +86,7 @@ export class VlRichDataField extends BaseElementOfType(HTMLElement) {
      * @return {asc | desc}
      */
     get sortingDirection(): number {
-        return this.dataset.vlSortingDirection;
+        return this.getAttribute('sorting-direction');
     }
 
     /**
@@ -94,7 +94,7 @@ export class VlRichDataField extends BaseElementOfType(HTMLElement) {
      * @return {number}
      */
     get sortingPriority(): number {
-        return this.dataset.vlSortingPriority;
+        return this.getAttribute('sorting-priority');
     }
 
     get _labelSlotElement(): HTMLSlotElement {
@@ -164,9 +164,9 @@ export class VlRichDataField extends BaseElementOfType(HTMLElement) {
         const content = this.__headerContent;
         if (content) {
             if (this.sortable) {
-                const direction = this.sortingDirection ? `data-vl-direction="${this.sortingDirection}"` : '';
-                const priority = this.sortingPriority ? `data-vl-priority="${this.sortingPriority}"` : '';
-                const sorter = `<vl-rich-data-sorter data-vl-for="${this.name}" ${direction} ${priority}></vl-rich-data-sorter>`;
+                const direction = this.sortingDirection ? `direction="${this.sortingDirection}"` : '';
+                const priority = this.sortingPriority ? `priority="${this.sortingPriority}"` : '';
+                const sorter = `<vl-rich-data-sorter for="${this.name}" ${direction} ${priority}></vl-rich-data-sorter>`;
                 return this._template(`<a>${content}${sorter}</a>`);
             } else {
                 return this._template(`${content}`);

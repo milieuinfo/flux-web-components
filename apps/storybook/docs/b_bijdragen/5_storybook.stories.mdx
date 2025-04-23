@@ -95,9 +95,9 @@ const Template = story(
     progressBarArgs,
     ({ activeStep, focusOnChange, numeric, steps, onClickStep }) => html`
         <vl-progress-bar
-            data-vl-active-step=${activeStep}
-            ?data-vl-focus-on-change=${focusOnChange}
-            ?data-vl-numeric=${numeric}
+            active-step=${activeStep}
+            ?focus-on-change=${focusOnChange}
+            ?numeric=${numeric}
             .steps=${steps}
             @vl-click-step=${(event: CustomEvent) => onClickStep(event.detail)}
         >
@@ -191,7 +191,7 @@ Het ArgType volgt een vaste structuur:
 
 ```ts
 activeStep: {
-    name: 'data-vl-active-step',
+    name: 'active-step',
     description: 'Markeert een stap als de actieve.',
     control: { type: 'range', min: 1, max: 3, step: 1 },
     table: {
@@ -209,7 +209,7 @@ activeStep: {
             `
             export const progressBarArgTypes: ArgTypes<typeof progressBarArgs> = {
                 activeStep: {
-                    name: 'data-vl-active-step',
+                    name: 'active-step',
                     description: 'Markeert een stap als de actieve.',
                     control: { type: 'range', min: 1, max: 3, step: 1 },
                     table: {
@@ -219,7 +219,7 @@ activeStep: {
                     },
                 },
                 focusOnChange: {
-                    name: 'data-vl-focus-on-change',
+                    name: 'focus-on-change',
                     description: 'Bepaalt of een stap de focus krijgt na een wijziging.',
                     table: {
                         type: { summary: TYPES.BOOLEAN },
@@ -228,7 +228,7 @@ activeStep: {
                     },
                 },
                 numeric: {
-                    name: 'data-vl-numeric',
+                    name: 'numeric',
                     description: 'Voorziet numerieke indicatoren bij de stappen.',
                     table: {
                         type: { summary: TYPES.BOOLEAN },

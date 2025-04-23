@@ -20,7 +20,7 @@ export const content = ({
         <div class="vl-content-block">
             <div class="vl-grid vl-stacked-medium vl-content-block">
                 <div class="vl-column vl-column--8 vl-column--m-8 vl-column--s-8 vl-column--xs-12">
-                    <vl-side-navigation-reference data-vl--scrollspy-content>
+                    <vl-side-navigation-reference -scrollspy-content>
                         <div class="vl-grid vl-stacked-large">
                             <div class="vl-column vl-column--12 vl-column--m-12">
                                 <p>
@@ -29,24 +29,24 @@ export const content = ({
                                     <vl-link
                                         href="http://www.ejustice.just.fgov.be/cgi_loi/loi_a1.pl?language=nl&cn=2018120705&table_name=wet&caller=list&fromtab=wet#LNK0011"
                                         external
-                                        data-vl-inline
+                                        inline
                                         >bestuursdecreet van 7 december 2018<span
                                             is="vl-icon"
-                                            data-vl-icon="external"
-                                            data-vl-after
-                                            data-vl-light
+                                            icon="external"
+                                            after
+                                            light
                                         ></span
                                     ></vl-link>
                                     waarmee de
                                     <vl-link
                                         href="https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=uriserv:OJ.L_.2016.327.01.0001.01.NLD&toc=OJ:L:2016:327:TOC"
                                         external
-                                        data-vl-inline
+                                        inline
                                         >Europese Richtlijn 2016/2102<span
                                             is="vl-icon"
-                                            data-vl-icon="external"
-                                            data-vl-after
-                                            data-vl-light
+                                            icon="external"
+                                            after
+                                            light
                                         ></span
                                     ></vl-link>
                                     is omgezet.
@@ -67,7 +67,7 @@ export const content = ({
                                 </p>
                                 <br />
                                 <vl-contact-card id="contact-card-1">
-                                    <vl-infoblock slot="info" data-vl-type="contact">
+                                    <vl-infoblock slot="info" type="contact">
                                         <h3 slot="title">Departement Omgeving</h3>
                                     </vl-infoblock>
                                     <vl-properties slot="properties">
@@ -105,7 +105,7 @@ export const content = ({
                                 </p>
                                 <br />
                                 <vl-contact-card id="contact-card-2">
-                                    <vl-infoblock slot="info" data-vl-type="contact">
+                                    <vl-infoblock slot="info" type="contact">
                                         <h3 slot="title">Klachtenbehandelaar</h3>
                                     </vl-infoblock>
                                     <vl-properties slot="properties">
@@ -135,7 +135,7 @@ export const content = ({
                                 </p>
                                 <br />
                                 <vl-contact-card id="contact-card-3">
-                                    <vl-infoblock slot="info" data-vl-type="contact">
+                                    <vl-infoblock slot="info" type="contact">
                                         <h3 slot="title">Vlaamse ombudsdienst</h3>
                                     </vl-infoblock>
                                     <vl-properties slot="properties">

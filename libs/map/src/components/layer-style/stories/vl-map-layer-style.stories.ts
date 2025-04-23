@@ -63,18 +63,18 @@ const Template = story(
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-features-layer .features=${features}>
                 <vl-map-layer-style
-                    data-vl-border-color=${borderColor}
-                    data-vl-border-size=${borderSize}
-                    data-vl-color=${color}
-                    data-vl-name=${name}
-                    data-vl-text-background-color=${textBackgroundColor}
-                    data-vl-text-border-color=${textBorderColor}
-                    data-vl-text-border-size=${textBorderSize}
-                    data-vl-text-color=${textColor}
-                    data-vl-text-feature-attribute-name=${textFeatureAttributeName}
-                    data-vl-text-offset-x=${textOffsetX}
-                    data-vl-text-offset-y=${textOffsetY}
-                    data-vl-text-size=${textSize}
+                    border-color=${borderColor}
+                    border-size=${borderSize}
+                    color=${color}
+                    name=${name}
+                    text-background-color=${textBackgroundColor}
+                    text-border-color=${textBorderColor}
+                    text-border-size=${textBorderSize}
+                    text-color=${textColor}
+                    text-feature-attribute-name=${textFeatureAttributeName}
+                    text-offset-x=${textOffsetX}
+                    text-offset-y=${textOffsetY}
+                    text-size=${textSize}
                 >
                 </vl-map-layer-style>
             </vl-map-features-layer>
@@ -134,18 +134,18 @@ export const MapLayerStyleLegend = story(
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-features-layer .features=${features}>
                 <vl-map-layer-style
-                    data-vl-border-color=${borderColor}
-                    data-vl-border-size=${borderSize}
-                    data-vl-color=${color}
-                    data-vl-name=${name}
-                    data-vl-text-background-color=${textBackgroundColor}
-                    data-vl-text-border-color=${textBorderColor}
-                    data-vl-text-border-size=${textBorderSize}
-                    data-vl-text-color=${textColor}
-                    data-vl-text-feature-attribute-name=${textFeatureAttributeName}
-                    data-vl-text-offset-x=${textOffsetX}
-                    data-vl-text-offset-y=${textOffsetY}
-                    data-vl-text-size=${textSize}
+                    border-color=${borderColor}
+                    border-size=${borderSize}
+                    color=${color}
+                    name=${name}
+                    text-background-color=${textBackgroundColor}
+                    text-border-color=${textBorderColor}
+                    text-border-size=${textBorderSize}
+                    text-color=${textColor}
+                    text-feature-attribute-name=${textFeatureAttributeName}
+                    text-offset-x=${textOffsetX}
+                    text-offset-y=${textOffsetY}
+                    text-size=${textSize}
                 >
                 </vl-map-layer-style>
             </vl-map-features-layer>

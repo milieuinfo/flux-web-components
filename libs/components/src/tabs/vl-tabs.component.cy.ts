@@ -164,7 +164,7 @@ describe('component vl-tabs - attributes', () => {
             .shadow()
             .find('div#tabs > div#tabs-wrapper > ul#tab-list > vl-tab')
             .each(($el) => {
-                expect($el.css('display')).to.eq('inline-block');
+                expect($el.css('display')).to.eq('block');
             });
     });
 
@@ -176,7 +176,7 @@ describe('component vl-tabs - attributes', () => {
             .shadow()
             .find('div#tabs > div#tabs-wrapper > ul#tab-list > vl-tab')
             .each(($el) => {
-                expect($el.css('display')).to.eq('block');
+                expect($el.css('display')).to.eq('inline-block');
             });
     });
 
@@ -268,7 +268,7 @@ describe('component vl-tabs-pane - functionality on larger devices', () => {
             .shadow()
             .find('div#tabs > div#tabs-wrapper > ul#tab-list > vl-tab')
             .each(($el) => {
-                expect($el.css('display')).to.eq('inline-block');
+                expect($el.css('display')).to.eq('block');
             });
     });
 });
@@ -321,7 +321,7 @@ describe('component vl-tabs-pane - functionality on smaller devices', () => {
             .shadow()
             .find('div#tabs > div#tabs-wrapper > ul#tab-list > vl-tab')
             .each(($el) => {
-                expect($el.css('display')).to.eq('block');
+                expect($el.css('display')).to.eq('inline-block');
             });
     });
 });

@@ -49,7 +49,7 @@ export class VlRichDataSorter extends BaseElementOfType(HTMLElement) {
     }
 
     get for(): string {
-        return this.dataset.vlFor;
+        return this.getAttribute('for');
     }
 
     get direction(): string | undefined {

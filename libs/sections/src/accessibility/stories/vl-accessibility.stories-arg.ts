@@ -19,7 +19,7 @@ export const accessibilityArgs = {
 
 export const accessibilityArgTypes: ArgTypes<typeof accessibilityArgs> = {
     application: {
-        name: 'data-vl-application',
+        name: 'application',
         description: 'De applicatie waar de verklaring over gaat.',
         table: {
             type: { summary: TYPES.STRING },
@@ -28,7 +28,7 @@ export const accessibilityArgTypes: ArgTypes<typeof accessibilityArgs> = {
         },
     },
     compliance: {
-        name: 'data-vl-compliance',
+        name: 'compliance',
         description: 'De nalevingsstatus van de verklaring.',
         control: { type: CONTROLS.SELECT },
         options: Object.values(COMPLIANCE_STATUS),
@@ -39,7 +39,7 @@ export const accessibilityArgTypes: ArgTypes<typeof accessibilityArgs> = {
         },
     },
     date: {
-        name: 'data-vl-date',
+        name: 'date',
         description: 'De aanmaakdatum van de verklaring.',
         table: {
             type: { summary: TYPES.STRING },
@@ -48,7 +48,7 @@ export const accessibilityArgTypes: ArgTypes<typeof accessibilityArgs> = {
         },
     },
     dateModified: {
-        name: 'data-vl-date-modified',
+        name: 'date-modified',
         description: 'De datum van de laatste wijziging van de verklaring.',
         table: {
             type: { summary: TYPES.STRING },
@@ -57,7 +57,7 @@ export const accessibilityArgTypes: ArgTypes<typeof accessibilityArgs> = {
         },
     },
     disableBackLink: {
-        name: 'data-vl-disable-back-link',
+        name: 'disable-back-link',
         description: 'Zet de terug-link uit.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -66,7 +66,7 @@ export const accessibilityArgTypes: ArgTypes<typeof accessibilityArgs> = {
         },
     },
     hideBackLink: {
-        name: 'data-vl-hide-back-link',
+        name: 'hide-back-link',
         description: 'Verwijdert de terug-link.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -75,7 +75,7 @@ export const accessibilityArgTypes: ArgTypes<typeof accessibilityArgs> = {
         },
     },
     evaluation: {
-        name: 'data-vl-evaluation',
+        name: 'evaluation',
         description: 'De evaluatiestatus van de verklaring.',
         control: { type: CONTROLS.SELECT },
         options: Object.values(EVALUATION_STATUS),
@@ -88,7 +88,7 @@ export const accessibilityArgTypes: ArgTypes<typeof accessibilityArgs> = {
         },
     },
     version: {
-        name: 'data-vl-version',
+        name: 'version',
         description: 'De huidige versie van de verklaring.',
         table: {
             type: { summary: TYPES.STRING },

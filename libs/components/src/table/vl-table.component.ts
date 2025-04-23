@@ -207,7 +207,6 @@ export class VlTableComponent extends LitElement {
     }
 
     toggleDetails(id: string) {
-        console.log('toggleDetails id', id);
         const details = this.detailsTableRowElements(id);
         const detailsVisible = details ? details[0].style.display !== 'none' : false;
         details?.forEach((detail) => (detail.style.display = detailsVisible ? 'none' : 'table-row'));

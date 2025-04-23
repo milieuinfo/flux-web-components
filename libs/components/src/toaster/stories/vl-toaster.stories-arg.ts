@@ -12,7 +12,7 @@ export const toasterArgs = {
 };
 
 export const toasterArgTypes: ArgTypes = {
-    ...defaultArgTypes(true),
+    ...defaultArgTypes,
     fadeOut: {
         name: 'fade-out',
         description: 'Elke alert verdwijnt automatisch 5 seconden na openen. \n Dit attribuut is niet reactief.',

@@ -12,18 +12,13 @@ export default {
 } as Meta<typeof loaderArgs>;
 
 export const loaderDefault = ({ light, text, single }: typeof loaderArgs) => html`
-    <vl-loader ?data-vl-light=${light} data-vl-text=${text} ?data-vl-single=${single} data-cy="loader"></vl-loader>
+    <vl-loader ?light=${light} text=${text} ?single=${single} data-cy="loader"></vl-loader>
 `;
 loaderDefault.storyName = 'vl-loader - default';
 
 export const loaderLightWithoutText = ({ light, text, single }: typeof loaderArgs) => html`
     <div class="vl-region" style="background: #b7b7b7">
-        <vl-loader
-            ?data-vl-light=${light}
-            data-vl-text=${text}
-            ?data-vl-single=${single}
-            data-cy="loader-light-without-text"
-        ></vl-loader>
+        <vl-loader ?light=${light} text=${text} ?single=${single} data-cy="loader-light-without-text"></vl-loader>
     </div>
 `;
 loaderLightWithoutText.storyName = 'vl-loader - light without text';
@@ -33,7 +28,7 @@ loaderLightWithoutText.args = {
 };
 
 export const loaderWithCustomContent = ({ light, single }: typeof loaderArgs) => html`
-    <vl-loader ?data-vl-light=${light} ?data-vl-single=${single} data-cy="loader-with-custom-content">
+    <vl-loader ?light=${light} ?single=${single} data-cy="loader-with-custom-content">
         <span><strong>Informatie</strong> is aan het laden</span>
     </vl-loader>
 `;

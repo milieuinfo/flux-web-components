@@ -21,12 +21,7 @@ const mountDefault = ({
     actionsSlot?: string;
 }) =>
     cy.mount(html`
-        <vl-http-error-message
-            data-vl-title=${title}
-            data-vl-image=${image}
-            data-vl-image-alt=${imageAlt}
-            data-vl-error-code=${errorCode}
-        >
+        <vl-http-error-message title=${title} image=${image} image-alt=${imageAlt} error-code=${errorCode}>
             ${unsafeHTML(textSlot)}${unsafeHTML(actionsSlot)}
         </vl-http-error-message>
     `);

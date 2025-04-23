@@ -8,9 +8,9 @@ export const mapLayerSwitcherArgs = {
 };
 
 export const mapLayerSwitcherArgTypes: ArgTypes<typeof mapLayerSwitcherArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     title: {
-        name: 'data-vl-title',
+        name: 'title',
         description: 'De titel bovenaan de layer-switcher.',
         table: {
             type: { summary: TYPES.STRING },
@@ -21,7 +21,7 @@ export const mapLayerSwitcherArgTypes: ArgTypes<typeof mapLayerSwitcherArgs> = {
     layers: {
         name: 'layers',
         description:
-            'Kan gebruikt worden om een subselectie van kaartlagen te tonen.<br>Geef hier de data-vl-name attributen van de kaartlagen mee.<br>Kaartlagen worden niet langer automatisch toegevoegd of verwijderd in de layer-switcher.',
+            'Kan gebruikt worden om een subselectie van kaartlagen te tonen.<br>Geef hier de name attributen van de kaartlagen mee.<br>Kaartlagen worden niet langer automatisch toegevoegd of verwijderd in de layer-switcher.',
         table: {
             type: { summary: `${TYPES.STRING}[]` },
             category: CATEGORIES.PROPERTIES,

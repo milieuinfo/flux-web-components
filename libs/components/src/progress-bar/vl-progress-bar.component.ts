@@ -43,17 +43,17 @@ export class VlProgressBarComponent extends BaseLitElement {
         return {
             activeStep: {
                 type: Number,
-                attribute: 'data-vl-active-step',
+                attribute: 'active-step',
                 reflect: true,
             },
             focusOnChange: {
                 type: Boolean,
-                attribute: 'data-vl-focus-on-change',
+                attribute: 'focus-on-change',
                 reflect: true,
             },
-            numeric: { type: Boolean, attribute: 'data-vl-numeric', reflect: true },
+            numeric: { type: Boolean, attribute: 'numeric', reflect: true },
             steps: { type: Array },
-            showLabels: { type: Boolean, attribute: 'data-vl-show-labels', reflect: true },
+            showLabels: { type: Boolean, attribute: 'show-labels', reflect: true },
         };
     }
 
@@ -75,7 +75,6 @@ export class VlProgressBarComponent extends BaseLitElement {
         const progressBarClasses = {
             'vl-progress-bar': true,
             'vl-progress-bar--numeric': this.numeric,
-            'vl-progress-bar--data-vl-numeric': this.numeric,
         };
 
         return html` <div class=${classMap(progressBarClasses)}>

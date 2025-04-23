@@ -29,9 +29,9 @@ export const accordionArgs = {
 };
 
 export const accordionArgTypes: ArgTypes<typeof accordionArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     bold: {
-        name: 'data-vl-bold',
+        name: 'bold',
         description: 'Beeldt de toggle-text van de accordion af in bold.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -40,9 +40,9 @@ export const accordionArgTypes: ArgTypes<typeof accordionArgs> = {
         },
     },
     closeToggleText: {
-        name: 'data-vl-close-toggle-text',
+        name: 'close-toggle-text',
         description:
-            'Tekst waarop de gebruiker kan klikken om de accordion te sluiten.<br>Kan niet in combinatie gebruikt worden met:<br>• data-vl-toggle-text attribuut<br>• title slot',
+            'Tekst waarop de gebruiker kan klikken om de accordion te sluiten.<br>Kan niet in combinatie gebruikt worden met:<br>• toggle-text attribuut<br>• title slot',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
@@ -50,7 +50,7 @@ export const accordionArgTypes: ArgTypes<typeof accordionArgs> = {
         },
     },
     contentPadding: {
-        name: 'data-vl-content-padding',
+        name: 'content-padding',
         description:
             'De grootte van de padding van de content.<br>Deze padding wordt toegepast op zowel desktop als mobile.',
         control: { type: CONTROLS.SELECT },
@@ -62,7 +62,7 @@ export const accordionArgTypes: ArgTypes<typeof accordionArgs> = {
         },
     },
     disabled: {
-        name: 'data-vl-disabled',
+        name: 'disabled',
         description: 'Schakelt het openen en het sluiten van de accordion uit.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -71,7 +71,7 @@ export const accordionArgTypes: ArgTypes<typeof accordionArgs> = {
         },
     },
     defaultOpen: {
-        name: 'data-vl-default-open',
+        name: 'default-open',
         description: 'Indien gezet zal de accordion standaard geopend zijn.<br>Dit attribuut is niet reactief.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -80,7 +80,7 @@ export const accordionArgTypes: ArgTypes<typeof accordionArgs> = {
         },
     },
     icon: {
-        name: 'data-vl-icon',
+        name: 'icon',
         description: 'Icoon dat getoond wordt voor de tekst van de toggle.<br>Dit attribuut is niet reactief.',
         table: {
             type: { summary: TYPES.STRING },
@@ -89,9 +89,9 @@ export const accordionArgTypes: ArgTypes<typeof accordionArgs> = {
         },
     },
     openToggleText: {
-        name: 'data-vl-open-toggle-text',
+        name: 'open-toggle-text',
         description:
-            'Tekst waarop de gebruiker kan klikken om de accordion te openen.<br>Kan niet in combinatie gebruikt worden met:<br>• data-vl-toggle-text attribuut<br>• title slot',
+            'Tekst waarop de gebruiker kan klikken om de accordion te openen.<br>Kan niet in combinatie gebruikt worden met:<br>• toggle-text attribuut<br>• title slot',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
@@ -99,9 +99,9 @@ export const accordionArgTypes: ArgTypes<typeof accordionArgs> = {
         },
     },
     toggleText: {
-        name: 'data-vl-toggle-text',
+        name: 'toggle-text',
         description:
-            'Tekst waarop de gebruiker kan klikken om de accordion te openen of te sluiten.<br>Kan niet in combinatie gebruikt worden met:<br>• data-vl-close-toggle-text attribuut<br>• data-vl-open-toggle-text attribuut<br>• title slot',
+            'Tekst waarop de gebruiker kan klikken om de accordion te openen of te sluiten.<br>Kan niet in combinatie gebruikt worden met:<br>• close-toggle-text attribuut<br>• open-toggle-text attribuut<br>• title slot',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
@@ -120,7 +120,7 @@ export const accordionArgTypes: ArgTypes<typeof accordionArgs> = {
     titleSlot: {
         name: 'title',
         description:
-            'Element waarop de gebruiker kan klikken om de accordion te openen of te sluiten.<br>Kan niet in combinatie gebruikt worden met:<br>Kan niet in combinatie gebruikt worden met:<br>• data-vl-close-toggle-text attribuut<br>• data-vl-open-toggle-text attribuut<br>• data-vl-toggle-text attribuut',
+            'Element waarop de gebruiker kan klikken om de accordion te openen of te sluiten.<br>Kan niet in combinatie gebruikt worden met:<br>Kan niet in combinatie gebruikt worden met:<br>• close-toggle-text attribuut<br>• open-toggle-text attribuut<br>• toggle-text attribuut',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,

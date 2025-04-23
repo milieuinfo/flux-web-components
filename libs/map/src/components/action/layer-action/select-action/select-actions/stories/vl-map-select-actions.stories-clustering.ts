@@ -41,31 +41,21 @@ const layers = ['layer-1', 'layer-2'];
 export const component = (active: boolean, defaultActive: boolean) => html`
     <vl-map>
         <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
-        <vl-map-features-layer .features=${featuresLayer1} data-vl-name="layer-1">
-            <vl-map-layer-circle-style data-vl-border-color="#000000"></vl-map-layer-circle-style>
+        <vl-map-features-layer .features=${featuresLayer1} name="layer-1">
+            <vl-map-layer-circle-style border-color="#000000"></vl-map-layer-circle-style>
         </vl-map-features-layer>
-        <vl-map-features-layer
-            .features=${featuresLayer2}
-            data-vl-name="layer-2"
-            data-vl-cluster
-            data-vl-cluster-distance="100"
-        >
+        <vl-map-features-layer .features=${featuresLayer2} name="layer-2" cluster cluster-distance="100">
             <vl-map-layer-circle-style
-                data-vl-color="rgba(255, 230, 21, 1)"
-                data-vl-border-color="#000000"
-                data-vl-text-color="#000000"
+                color="rgba(255, 230, 21, 1)"
+                border-color="#000000"
+                text-color="#000000"
             ></vl-map-layer-circle-style>
         </vl-map-features-layer>
-        <vl-map-select-actions
-            .active=${active}
-            .layers=${layers}
-            ?data-vl-default-active=${defaultActive}
-            data-vl-cluster
-        >
+        <vl-map-select-actions .active=${active} .layers=${layers} ?default-active=${defaultActive} cluster>
             <vl-map-layer-circle-style
-                data-vl-color="#0099ff"
-                data-vl-text-color="#ffffff"
-                data-vl-border-color="#ffffff"
+                color="#0099ff"
+                text-color="#ffffff"
+                border-color="#ffffff"
             ></vl-map-layer-circle-style>
         </vl-map-select-actions>
     </vl-map>

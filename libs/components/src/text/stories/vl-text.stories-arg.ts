@@ -11,7 +11,7 @@ export const textArgs: TextArgs = {
 };
 
 export const textArgTypes: ArgTypes<TextArgs> = {
-    ...defaultArgTypes(true),
+    ...defaultArgTypes,
     bold: {
         name: 'bold',
         description: 'Toont de tekst in het vet.',

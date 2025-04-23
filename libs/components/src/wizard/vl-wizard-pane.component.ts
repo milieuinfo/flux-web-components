@@ -10,7 +10,7 @@ export class VlWizardPane extends BaseLitElement {
     static get properties(): PropertyDeclarations {
         return {
             isActive: { type: Boolean },
-            name: { type: String, attribute: 'data-vl-name', reflect: true },
+            name: { type: String, attribute: 'name', reflect: true },
         };
     }
 

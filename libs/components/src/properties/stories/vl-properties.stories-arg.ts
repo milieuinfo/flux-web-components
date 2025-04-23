@@ -10,7 +10,7 @@ export const propertiesArgs: PropertiesArgs = {
 };
 
 export const propertiesArgTypes: ArgTypes<PropertiesArgs> = {
-    ...defaultArgTypes(true),
+    ...defaultArgTypes,
     labelWidth: {
         name: 'label-width',
         description: "De breedte van de labels, in %. Heeft geen impact als de properties 'collapsed' worden.",

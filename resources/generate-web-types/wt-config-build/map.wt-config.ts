@@ -123,7 +123,7 @@ export const buildWTConfigMap: WTConfigArray = [
     ),
     buildWTConfig(
         'vl-map-action-controls',
-        defaultArgTypes(),
+        defaultArgTypes,
         '../../libs/map/src/components/controls/stories/vl-map-action-controls.stories-doc.mdx',
         '/docs/map-controls-action-controls--documentatie'
     ),
@@ -135,7 +135,7 @@ export const buildWTConfigMap: WTConfigArray = [
     ),
     buildWTConfig(
         'vl-map-measure-control',
-        defaultArgTypes(),
+        defaultArgTypes,
         '../../libs/map/src/components/controls/measure-control/stories/vl-map-measure-control.stories-doc.mdx',
         '/docs/map-controls-measure-control--documentatie'
     ),
@@ -213,13 +213,13 @@ export const buildWTConfigMap: WTConfigArray = [
     ),
     buildWTConfig(
         'vl-map-loading-indicator',
-        defaultArgTypes(),
+        defaultArgTypes,
         '../../libs/map/src/components/loading-indicator/stories/vl-map-loading-indicator.stories-doc.mdx',
         '/docs/map-loading-indicator--documentatie'
     ),
     buildWTConfig(
         'vl-map-overview-map',
-        defaultArgTypes(),
+        defaultArgTypes,
         '../../libs/map/src/components/overview-map/stories/vl-map-overview-map.stories-doc.mdx',
         '/docs/map-overview-map--documentatie'
     ),

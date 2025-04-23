@@ -10,11 +10,11 @@ registerWebComponents([VlMap, VlMapWmtsLayer]);
 const wmtsLayerFixture = html`
     <vl-map>
         <vl-map-wmts-layer
-            data-vl-url="https://geo.api.vlaanderen.be/GRB/wmts"
-            data-vl-layer="grb_sel"
-            data-vl-name="GRB Wegenkaart"
-            data-vl-min-resolution="2"
-            data-vl-max-resolution="4"
+            url="https://geo.api.vlaanderen.be/GRB/wmts"
+            layer="grb_sel"
+            name="GRB Wegenkaart"
+            min-resolution="2"
+            max-resolution="4"
         >
         </vl-map-wmts-layer>
     </vl-map>
@@ -23,13 +23,13 @@ const wmtsLayerFixture = html`
 const wmtsLayerWithDifferentMatrixSetFixture = html`
     <vl-map>
         <vl-map-wmts-layer
-            data-vl-url="https://geo.api.vlaanderen.be/GRB/wmts"
-            data-vl-layer="grb_sel"
-            data-vl-name="GRB Wegenkaart"
-            data-vl-min-resolution="2"
-            data-vl-max-resolution="4"
-            data-vl-matrix-set="MOCKMATRIX"
-            data-vl-matrix-prefix
+            url="https://geo.api.vlaanderen.be/GRB/wmts"
+            layer="grb_sel"
+            name="GRB Wegenkaart"
+            min-resolution="2"
+            max-resolution="4"
+            matrix-set="MOCKMATRIX"
+            matrix-prefix
         >
         </vl-map-wmts-layer>
     </vl-map>
@@ -38,12 +38,12 @@ const wmtsLayerWithDifferentMatrixSetFixture = html`
 const wmtsLayerHiddenFixture = html`
     <vl-map>
         <vl-map-wmts-layer
-            data-vl-url="https://geo.api.vlaanderen.be/GRB/wmts"
-            data-vl-layer="grb_sel"
-            data-vl-name="GRB Wegenkaart"
-            data-vl-min-resolution="2"
-            data-vl-max-resolution="4"
-            data-vl-hidden
+            url="https://geo.api.vlaanderen.be/GRB/wmts"
+            layer="grb_sel"
+            name="GRB Wegenkaart"
+            min-resolution="2"
+            max-resolution="4"
+            hidden
         >
         </vl-map-wmts-layer>
     </vl-map>
@@ -51,7 +51,7 @@ const wmtsLayerHiddenFixture = html`
 
 const mapFixture = html` <vl-map></vl-map> `;
 
-const getLayer = (map) => map.querySelector('[data-vl-is-layer]');
+const getLayer = (map) => map.querySelector('[is-layer]');
 
 describe('vl-map-wmts-layer', () => {
     it('de wmts source wordt correct geconfigureerd', () => {
@@ -130,11 +130,11 @@ describe('vl-map-wmts-layer', () => {
         cy.mount(mapFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             const layer = document.createElement('vl-map-wmts-layer');
-            layer.setAttribute('data-vl-url', 'https://geo.api.vlaanderen.be/GRB/wmts');
-            layer.setAttribute('data-vl-layer', 'grb_sel');
-            layer.setAttribute('data-vl-name', 'GRB Wegenkaart');
-            layer.setAttribute('data-vl-min-resolution', '2');
-            layer.setAttribute('data-vl-max-resolution', '4');
+            layer.setAttribute('url', 'https://geo.api.vlaanderen.be/GRB/wmts');
+            layer.setAttribute('layer', 'grb_sel');
+            layer.setAttribute('name', 'GRB Wegenkaart');
+            layer.setAttribute('min-resolution', '2');
+            layer.setAttribute('max-resolution', '4');
             expect(layer['source']).is.undefined;
             expect(layer['layer']).is.undefined;
             vlMap.appendChild(layer);
@@ -150,7 +150,7 @@ describe('vl-map-wmts-layer', () => {
         });
     });
 
-    it('met data-vl-hidden is de kaartlaag bij creatie verborgen', () => {
+    it('met hidden is de kaartlaag bij creatie verborgen', () => {
         cy.mount(wmtsLayerHiddenFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             expect(getLayer(vlMap).layer.getVisible()).to.be.false;

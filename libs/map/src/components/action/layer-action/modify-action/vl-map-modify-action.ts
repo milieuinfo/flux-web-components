@@ -57,10 +57,10 @@ export class VlMapModifyAction extends VlMapLayerAction {
     }
 
     get __snappingOptions() {
-        if (this.dataset.vlSnapping !== undefined && this.__snappingLayers.length > 0) {
+        if (this.getAttribute('snapping') !== undefined && this.__snappingLayers.length > 0) {
             return {
                 layer: this.__createSnappingLayer(),
-                pixelTolerance: this.dataset.vlSnappingPixelTolerance || 10,
+                pixelTolerance: this.getAttribute('snapping-pixel-tolerance') || 10,
                 node: false,
                 vertex: false,
             };

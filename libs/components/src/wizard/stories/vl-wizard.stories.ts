@@ -39,9 +39,9 @@ export const WizardDefault = story(
         style="max-width: 780px;"
     >
         <vl-wizard
-            data-vl-active-step=${activeStep}
-            ?data-vl-hide-labels=${hideLabels}
-            ?data-vl-numeric=${numeric}
+            active-step=${activeStep}
+            ?hide-labels=${hideLabels}
+            ?numeric=${numeric}
             @vl-click-step=${(event: VlClickStepEvent) => {
                 onClickStep(event.detail);
                 getWizard().activeStep = event.detail.number;
@@ -49,7 +49,7 @@ export const WizardDefault = story(
         >
             <vl-title slot="title" type="h2">${title}</vl-title>
             <p slot="header">${header}</p>
-            <vl-wizard-pane data-vl-name="Stap 1">
+            <vl-wizard-pane name="Stap 1">
                 <vl-title type="h3">Stap 1</vl-title>
                 <div class="vl-grid vl-stacked-small">
                     <div class="vl-column vl-column--12">
@@ -65,7 +65,7 @@ export const WizardDefault = story(
                     </div>
                 </div>
             </vl-wizard-pane>
-            <vl-wizard-pane data-vl-name="Stap 2">
+            <vl-wizard-pane name="Stap 2">
                 <vl-title type="h3">Stap 2</vl-title>
                 <div class="vl-grid vl-stacked-small">
                     <div class="vl-column vl-column--12">

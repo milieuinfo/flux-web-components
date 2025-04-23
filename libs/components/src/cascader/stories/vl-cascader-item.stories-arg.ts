@@ -19,7 +19,7 @@ export const cascaderItemArgs: CascaderItemArgs = {
 };
 
 export const cascaderItemArgTypes: ArgTypes<CascaderItemArgs> = {
-    ...defaultArgTypes(true),
+    ...defaultArgTypes,
     annotation: {
         name: 'annotation',
         description: 'Dit bepaalt de ondertitel in de breadcrumb navigatie.',

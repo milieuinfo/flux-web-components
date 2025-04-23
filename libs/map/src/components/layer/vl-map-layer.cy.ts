@@ -19,10 +19,10 @@ registerWebComponents([
 const featuresLayerFixture = html`
     <vl-map>
         <vl-map-features-layer
-            data-vl-name="testlaag"
-            data-vl-min-resolution="2"
-            data-vl-max-resolution="4"
-            data-vl-features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":null,"id":1}]}'
+            name="testlaag"
+            min-resolution="2"
+            max-resolution="4"
+            features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":null,"id":1}]}'
         >
         </vl-map-features-layer>
     </vl-map>
@@ -31,14 +31,14 @@ const featuresLayerFixture = html`
 const imageWmsLayerFixture = html`
     <vl-map>
         <vl-map-image-wms-layer
-            data-vl-url="http://dummy/wms-adjusted"
-            data-vl-layers="layer1"
-            data-vl-styles="style1,style2"
-            data-vl-version="1.1.1"
-            data-vl-opacity="0.75"
-            data-vl-min-resolution="10"
-            data-vl-max-resolution="1000"
-            data-vl-name="adjusted"
+            url="http://dummy/wms-adjusted"
+            layers="layer1"
+            styles="style1,style2"
+            version="1.1.1"
+            opacity="0.75"
+            min-resolution="10"
+            max-resolution="1000"
+            name="adjusted"
         >
         </vl-map-image-wms-layer>
     </vl-map>
@@ -47,14 +47,14 @@ const imageWmsLayerFixture = html`
 const tiledWmsLayerFixture = html`
     <vl-map>
         <vl-map-tiled-wms-layer
-            data-vl-url="http://dummy/wms-adjusted"
-            data-vl-layers="layer1"
-            data-vl-styles="style1,style2"
-            data-vl-version="1.1.1"
-            data-vl-opacity="0.75"
-            data-vl-min-resolution="10"
-            data-vl-max-resolution="1000"
-            data-vl-name="adjusted"
+            url="http://dummy/wms-adjusted"
+            layers="layer1"
+            styles="style1,style2"
+            version="1.1.1"
+            opacity="0.75"
+            min-resolution="10"
+            max-resolution="1000"
+            name="adjusted"
         >
         </vl-map-tiled-wms-layer>
     </vl-map>
@@ -63,11 +63,11 @@ const tiledWmsLayerFixture = html`
 const wfsLayerFixture = html`
     <vl-map>
         <vl-map-wfs-layer
-            data-vl-name="foobar"
-            data-vl-url="http://dummy/wfs"
-            data-vl-layers="layer1,layer2"
-            data-vl-min-resolution="10"
-            data-vl-max-resolution="1000"
+            name="foobar"
+            url="http://dummy/wfs"
+            layers="layer1,layer2"
+            min-resolution="10"
+            max-resolution="1000"
         >
         </vl-map-wfs-layer>
     </vl-map>
@@ -76,11 +76,11 @@ const wfsLayerFixture = html`
 const wmtsLayerFixture = html`
     <vl-map>
         <vl-map-wmts-layer
-            data-vl-url="http://dummy/wmts"
-            data-vl-layer="grb_sel"
-            data-vl-name="GRB Wegenkaart"
-            data-vl-min-resolution="2"
-            data-vl-max-resolution="4"
+            url="http://dummy/wmts"
+            layer="grb_sel"
+            name="GRB Wegenkaart"
+            min-resolution="2"
+            max-resolution="4"
         >
         </vl-map-wmts-layer>
     </vl-map>
@@ -95,41 +95,29 @@ const featuresLayersFixture = html`
 
 const imageWmsLayersFixture = html`
     <vl-map>
-        <vl-map-image-wms-layer
-            data-vl-url="http://dummy/wms-adjusted"
-            data-vl-layers="layer1"
-        ></vl-map-image-wms-layer>
-        <vl-map-image-wms-layer
-            data-vl-url="http://dummy/wms-adjusted"
-            data-vl-layers="layer1"
-        ></vl-map-image-wms-layer>
+        <vl-map-image-wms-layer url="http://dummy/wms-adjusted" layers="layer1"></vl-map-image-wms-layer>
+        <vl-map-image-wms-layer url="http://dummy/wms-adjusted" layers="layer1"></vl-map-image-wms-layer>
     </vl-map>
 `;
 
 const tiledWmsLayersFixture = html`
     <vl-map>
-        <vl-map-tiled-wms-layer
-            data-vl-url="http://dummy/wms-adjusted"
-            data-vl-layers="layer1"
-        ></vl-map-tiled-wms-layer>
-        <vl-map-tiled-wms-layer
-            data-vl-url="http://dummy/wms-adjusted"
-            data-vl-layers="layer1"
-        ></vl-map-tiled-wms-layer>
+        <vl-map-tiled-wms-layer url="http://dummy/wms-adjusted" layers="layer1"></vl-map-tiled-wms-layer>
+        <vl-map-tiled-wms-layer url="http://dummy/wms-adjusted" layers="layer1"></vl-map-tiled-wms-layer>
     </vl-map>
 `;
 
 const wfsLayersFixture = html`
     <vl-map>
-        <vl-map-wfs-layer data-vl-url="http://dummy/wms-adjusted" data-vl-layers="layer1"></vl-map-wfs-layer>
-        <vl-map-wfs-layer data-vl-url="http://dummy/wms-adjusted" data-vl-layers="layer1"></vl-map-wfs-layer>
+        <vl-map-wfs-layer url="http://dummy/wms-adjusted" layers="layer1"></vl-map-wfs-layer>
+        <vl-map-wfs-layer url="http://dummy/wms-adjusted" layers="layer1"></vl-map-wfs-layer>
     </vl-map>
 `;
 
 const wmtsLayersFixture = html`
     <vl-map>
-        <vl-map-wmts-layer data-vl-url="http://dummy/wmts" data-vl-layer="grb_sel"></vl-map-wmts-layer>
-        <vl-map-wmts-layer data-vl-url="http://dummy/wmts" data-vl-layer="grb_sel"></vl-map-wmts-layer>
+        <vl-map-wmts-layer url="http://dummy/wmts" layer="grb_sel"></vl-map-wmts-layer>
+        <vl-map-wmts-layer url="http://dummy/wmts" layer="grb_sel"></vl-map-wmts-layer>
     </vl-map>
 `;
 
@@ -140,7 +128,7 @@ const tags = [
     'vl-map-wfs-layer',
     'vl-map-wmts-layer',
 ];
-const LAYER_SELECTOR = `[data-vl-is-layer], ${tags.join(', ')}`;
+const LAYER_SELECTOR = `[is-layer], ${tags.join(', ')}`;
 
 const getLayer = (map) => map.querySelector(LAYER_SELECTOR);
 
@@ -189,7 +177,7 @@ describe('vl-map-layer', () => {
             cy.runTestFor<VlMap>('vl-map', (vlMap) => {
                 cy.wrap(vlMap.ready).then(() => {
                     const layer = getLayer(vlMap);
-                    expect(layer.get('title')).to.be.equal(layer.getAttribute('data-vl-name'));
+                    expect(layer.get('title')).to.be.equal(layer.getAttribute('name'));
                     expect(layer.get('title')).to.be.equal(layer._layer.get('title'));
                 });
             });
@@ -218,8 +206,8 @@ describe('vl-map-layer', () => {
             cy.runTestFor<VlMap>('vl-map', (vlMap) => {
                 cy.wrap(vlMap.ready).then(() => {
                     const layer = getLayer(vlMap);
-                    const minVisibility = Number(layer.getAttribute('data-vl-min-resolution'));
-                    const maxVisibility = Number(layer.getAttribute('data-vl-max-resolution'));
+                    const minVisibility = Number(layer.getAttribute('min-resolution'));
+                    const maxVisibility = Number(layer.getAttribute('max-resolution'));
                     const visibleResolutions = range(minVisibility, maxVisibility);
                     const invisibleResolutions = range(0, minVisibility).concat(
                         range(maxVisibility, maxVisibility + 5)
@@ -273,9 +261,9 @@ describe('vl-map-layer', () => {
                     const rerenderSpy = cy.spy(vlMap, 'rerender');
                     const layerElement = getLayer(vlMap);
                     expect(layerElement.layer.getVisible()).to.be.true;
-                    layerElement.setAttribute('data-vl-hidden', '');
+                    layerElement.setAttribute('hidden', '');
                     expect(layerElement.layer.getVisible()).to.be.false;
-                    layerElement.removeAttribute('data-vl-hidden');
+                    layerElement.removeAttribute('hidden');
                     expect(layerElement.layer.getVisible()).to.be.true;
                     expect(rerenderSpy).to.be.called;
                 });

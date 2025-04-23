@@ -18,8 +18,8 @@ describe('story vl-map-action-control default', () => {
         cy.get('vl-map')
             .find('vl-map-action-controls')
             .find('vl-map-action-control')
-            .should('have.attr', 'data-vl-action-id', 'draw-polygon-action')
-            .should('have.attr', 'data-vl-label', 'Teken');
+            .should('have.attr', 'action-id', 'draw-polygon-action')
+            .should('have.attr', 'label', 'Teken');
     });
 
     it('should render a toggle button with label', () => {
@@ -39,8 +39,8 @@ describe('story vl-map-action-control default', () => {
         cy.get('vl-map')
             .find('vl-map-action-controls')
             .find('vl-map-action-control')
-            .should('have.attr', 'data-vl-action-id', 'draw-polygon-action')
-            .should('have.attr', 'data-vl-label', 'Tekenen')
+            .should('have.attr', 'action-id', 'draw-polygon-action')
+            .should('have.attr', 'label', 'Tekenen')
             .find('vl-button')
             .invoke('text')
             .should('contain', 'Tekenen');
@@ -60,8 +60,8 @@ describe('story vl-map-action-control icon', () => {
         cy.get('vl-map')
             .find('vl-map-action-controls')
             .find('vl-map-action-control')
-            .should('have.attr', 'data-vl-action-id', 'draw-polygon-action')
-            .should('have.attr', 'data-vl-icon', 'pencil');
+            .should('have.attr', 'action-id', 'draw-polygon-action')
+            .should('have.attr', 'icon', 'pencil');
     });
 
     it('should render a toggle button with icon', () => {
@@ -81,8 +81,8 @@ describe('story vl-map-action-control icon', () => {
         cy.get('vl-map')
             .find('vl-map-action-controls')
             .find('vl-map-action-control')
-            .should('have.attr', 'data-vl-action-id', 'draw-polygon-action')
-            .should('have.attr', 'data-vl-icon', 'ruler')
+            .should('have.attr', 'action-id', 'draw-polygon-action')
+            .should('have.attr', 'icon', 'ruler')
             .find('vl-button')
             .shadow()
             .find('span.vl-icon.vl-icon--ruler');
@@ -99,13 +99,9 @@ describe('story vl-map-action-control multiple', () => {
     it('should render 3 action controls', () => {
         cy.visit(mapActionControlMultipleUrl);
 
-        cy.get('vl-map').find('vl-map-action-controls').find('vl-map-action-control[data-vl-action-id="draw-action"]');
-        cy.get('vl-map')
-            .find('vl-map-action-controls')
-            .find('vl-map-action-control[data-vl-action-id="modify-action"]');
-        cy.get('vl-map')
-            .find('vl-map-action-controls')
-            .find('vl-map-action-control[data-vl-action-id="delete-action"]');
+        cy.get('vl-map').find('vl-map-action-controls').find('vl-map-action-control[action-id="draw-action"]');
+        cy.get('vl-map').find('vl-map-action-controls').find('vl-map-action-control[action-id="modify-action"]');
+        cy.get('vl-map').find('vl-map-action-controls').find('vl-map-action-control[action-id="delete-action"]');
     });
 
     it('should deactivate toggle button when activating another toggle button', () => {
@@ -117,7 +113,7 @@ describe('story vl-map-action-control multiple', () => {
         const getToggleButtonForAction = (actionId: string) => {
             return cy
                 .get('vl-map')
-                .find(`vl-map-action-control[data-vl-action-id="${actionId}"]`)
+                .find(`vl-map-action-control[action-id="${actionId}"]`)
                 .find('vl-button')
                 .shadow()
                 .find('button');

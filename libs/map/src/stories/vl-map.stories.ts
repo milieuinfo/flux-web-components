@@ -64,15 +64,15 @@ export const MapDefault = story(
         fullHeight,
     }) => html`
         <vl-map
-            ?data-vl-allow-fullscreen=${allowFullscreen}
-            ?data-vl-disable-escape-key=${disableEscape}
-            ?data-vl-disable-rotation=${disableRotation}
-            ?data-vl-disable-mouse-wheel-zoom=${disableMousewheelZoom}
-            ?data-vl-disable-keyboard=${disableKeyboard}
-            ?data-vl-no-border=${noBorder}
-            ?data-vl-full-height=${fullHeight}
-            data-vl-zoomInTooltip="Zoom in"
-            data-vl-zoomOutTooltip="Zoom uit"
+            ?allow-fullscreen=${allowFullscreen}
+            ?disable-escape-key=${disableEscape}
+            ?disable-rotation=${disableRotation}
+            ?disable-mouse-wheel-zoom=${disableMousewheelZoom}
+            ?disable-keyboard=${disableKeyboard}
+            ?no-border=${noBorder}
+            ?full-height=${fullHeight}
+            zoomInTooltip="Zoom in"
+            zoomOutTooltip="Zoom uit"
         >
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
         </vl-map>
@@ -93,21 +93,21 @@ export const MapFullHeight = story(
     }) => html`
         <div style="height: 800px; display: flex; flex-direction: column; border: 1px solid black">
             <vl-functional-header
-                data-vl-sub-title=${'Voor lager, middelbaar en hoger onderwijs'}
-                data-vl-title=${'School- en studietoelagen'}
-                data-vl-margin-bottom=${'none'}
-                ?data-vl-disable-back-link=${true}
+                sub-title=${'Voor lager, middelbaar en hoger onderwijs'}
+                title=${'School- en studietoelagen'}
+                margin-bottom=${'none'}
+                ?disable-back-link=${true}
             ></vl-functional-header>
             <vl-map
-                ?data-vl-allow-fullscreen=${allowFullscreen}
-                ?data-vl-disable-escape-key=${disableEscape}
-                ?data-vl-disable-rotation=${disableRotation}
-                ?data-vl-disable-mouse-wheel-zoom=${disableMousewheelZoom}
-                ?data-vl-disable-keyboard=${disableKeyboard}
-                ?data-vl-no-border=${noBorder}
-                ?data-vl-full-height=${fullHeight}
-                data-vl-zoomInTooltip="Zoom in"
-                data-vl-zoomOutTooltip="Zoom uit"
+                ?allow-fullscreen=${allowFullscreen}
+                ?disable-escape-key=${disableEscape}
+                ?disable-rotation=${disableRotation}
+                ?disable-mouse-wheel-zoom=${disableMousewheelZoom}
+                ?disable-keyboard=${disableKeyboard}
+                ?no-border=${noBorder}
+                ?full-height=${fullHeight}
+                zoomInTooltip="Zoom in"
+                zoomOutTooltip="Zoom uit"
             >
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             </vl-map>
@@ -176,13 +176,13 @@ export const MapPlayground = story(
         layerVisibleChange,
     }) => html`
         <vl-map
-            ?data-vl-allow-fullscreen=${allowFullscreen}
-            ?data-vl-disable-escape-key=${disableEscape}
-            ?data-vl-disable-rotation=${disableRotation}
-            ?data-vl-disable-mouse-wheel-zoom=${disableMousewheelZoom}
-            ?data-vl-disable-keyboard=${disableKeyboard}
-            ?data-vl-no-border=${noBorder}
-            ?data-vl-full-height=${fullHeight}
+            ?allow-fullscreen=${allowFullscreen}
+            ?disable-escape-key=${disableEscape}
+            ?disable-rotation=${disableRotation}
+            ?disable-mouse-wheel-zoom=${disableMousewheelZoom}
+            ?disable-keyboard=${disableKeyboard}
+            ?no-border=${noBorder}
+            ?full-height=${fullHeight}
             @vl-active-action-changed=${(event) => {
                 activeActionChange({ previous: event.detail.previous });
                 activeActionChange({ current: event.detail.current });
@@ -201,7 +201,7 @@ export const MapPlayground = story(
                 <vl-title type="h6">Layers</vl-title>
 
                 <vl-map-layer-switcher></vl-map-layer-switcher>
-                <vl-input-slider data-vl-value=${100} @vl-change-value=${handleOpacitySliderChange}></vl-input-slider>
+                <vl-input-slider value=${100} @vl-change-value=${handleOpacitySliderChange}></vl-input-slider>
 
                 <hr />
 
@@ -300,16 +300,9 @@ export const MapPlayground = story(
             <vl-map-baselayer-grb></vl-map-baselayer-grb>
             <vl-map-baselayer-grb-ortho></vl-map-baselayer-grb-ortho>
 
-            <vl-map-features-layer data-vl-name="Shapes" .features=${features}>
-                <vl-map-layer-style
-                    data-vl-name="Shapes"
-                    data-vl-border-color=${purple}
-                    data-vl-color=${purple}
-                ></vl-map-layer-style>
-                <vl-map-layer-circle-style
-                    data-vl-border-color=${purple}
-                    data-vl-color=${purple}
-                ></vl-map-layer-circle-style>
+            <vl-map-features-layer name="Shapes" .features=${features}>
+                <vl-map-layer-style name="Shapes" border-color=${purple} color=${purple}></vl-map-layer-style>
+                <vl-map-layer-circle-style border-color=${purple} color=${purple}></vl-map-layer-circle-style>
 
                 <vl-map-draw-point-action class="draw-point-action action"></vl-map-draw-point-action>
                 <vl-map-draw-line-action class="draw-line-action action"></vl-map-draw-line-action>
@@ -317,18 +310,18 @@ export const MapPlayground = story(
 
                 <vl-map-modify-action class="modify-action action"></vl-map-modify-action>
                 <vl-map-delete-action class="delete-action action"></vl-map-delete-action>
-                <vl-map-select-action class="select-action action" data-vl-default-active></vl-map-select-action>
+                <vl-map-select-action class="select-action action" default-active></vl-map-select-action>
             </vl-map-features-layer>
 
-            <vl-map-features-layer data-vl-name="Measurements">
+            <vl-map-features-layer name="Measurements">
                 <vl-map-layer-style
-                    data-vl-color="rgba(6, 163, 247, 1)"
-                    data-vl-border-size="2"
-                    data-vl-border-color="rgba(6, 163, 247, 1)"
+                    color="rgba(6, 163, 247, 1)"
+                    border-size="2"
+                    border-color="rgba(6, 163, 247, 1)"
                 ></vl-map-layer-style>
                 <vl-map-measure-action class="measure-action action"></vl-map-measure-action>
             </vl-map-features-layer>
-            <vl-map-legend data-vl-placement=${LEGEND_PLACEMENT.BOTTOM_RIGHT} right="140px"></vl-map-legend>
+            <vl-map-legend placement=${LEGEND_PLACEMENT.BOTTOM_RIGHT} right="140px"></vl-map-legend>
         </vl-map>
     `
 );

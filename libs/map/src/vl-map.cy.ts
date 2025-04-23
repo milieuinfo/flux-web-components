@@ -23,12 +23,12 @@ registerWebComponents([
 
 const mapFixture = html` <vl-map></vl-map>`;
 
-const mapFullscreenFixture = html` <vl-map data-vl-allow-fullscreen></vl-map>`;
+const mapFullscreenFixture = html` <vl-map allow-fullscreen></vl-map>`;
 
 const mapWithActionsFixture = html`
     <vl-map>
         <vl-map-features-layer>
-            <vl-map-select-action data-vl-default-active></vl-map-select-action>
+            <vl-map-select-action default-active></vl-map-select-action>
             <vl-map-measure-action></vl-map-measure-action>
         </vl-map-features-layer>
     </vl-map>
@@ -37,7 +37,7 @@ const mapWithActionsFixture = html`
 const mapWithActionsAndMultipleLayersFixture = html`
     <vl-map>
         <vl-map-features-layer>
-            <vl-map-select-action data-vl-default-active></vl-map-select-action>
+            <vl-map-select-action default-active></vl-map-select-action>
         </vl-map-features-layer>
         <vl-map-features-layer>
             <vl-map-measure-action></vl-map-measure-action>

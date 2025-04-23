@@ -7,9 +7,9 @@ export const breadcrumbItemArgs = {
 };
 
 export const breadcrumbItemArgTypes: ArgTypes<typeof breadcrumbItemArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     href: {
-        name: 'data-vl-href',
+        name: 'href',
         description: 'Url voor breadcrumb-item.',
         table: {
             type: { summary: TYPES.URL },

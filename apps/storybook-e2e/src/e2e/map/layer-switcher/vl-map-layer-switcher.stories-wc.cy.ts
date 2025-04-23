@@ -6,13 +6,13 @@ const mapLayerSwitcherDynamic =
     'http://localhost:8080/iframe.html?id=map-layer-switcher--map-layer-switcher-dynamic&viewMode=story';
 
 const shouldHaveVisibleLayerFor = (layerName: string): void => {
-    cy.runTestFor<VlMapFeaturesLayer>(`vl-map-features-layer[data-vl-name="${layerName}"]`, (component) => {
+    cy.runTestFor<VlMapFeaturesLayer>(`vl-map-features-layer[name="${layerName}"]`, (component) => {
         expect(component.visible).to.be.true;
     });
 };
 
 const shouldHaveInvisibleLayerFor = (layerName: string): void => {
-    cy.runTestFor<VlMapFeaturesLayer>(`vl-map-features-layer[data-vl-name="${layerName}"]`, (component) => {
+    cy.runTestFor<VlMapFeaturesLayer>(`vl-map-features-layer[name="${layerName}"]`, (component) => {
         expect(component.visible).to.be.false;
     });
 };
@@ -21,7 +21,7 @@ const clickLayerSwitcherCheckboxOf = (layerName: string): void => {
     cy.get('vl-map')
         .find('vl-map-layer-switcher')
         .shadow()
-        .find(`vl-checkbox[data-vl-layer="${layerName}"]`)
+        .find(`vl-checkbox[layer="${layerName}"]`)
         .shadow()
         .find('input')
         .click({ force: true });

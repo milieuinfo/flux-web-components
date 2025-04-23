@@ -39,7 +39,7 @@ export const autocompleteArgs = {
 };
 
 export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     placeholder: {
         name: 'placeholder',
         description: 'Attribuut wordt gebruikt om de placeholder te bepalen.',
@@ -50,7 +50,7 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
         },
     },
     initialValue: {
-        name: 'data-vl-initial-value',
+        name: 'initial-value',
         description: 'Attribuut wordt gebruikt om de initiële waarde te bepalen.',
         table: {
             type: { summary: TYPES.STRING, required: false },
@@ -59,7 +59,7 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
         },
     },
     label: {
-        name: 'data-vl-label',
+        name: 'label',
         description: 'Attribuut wordt gebruikt om de label te bepalen.',
         table: {
             type: { summary: TYPES.STRING, required: false },
@@ -68,7 +68,7 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
         },
     },
     labelSmall: {
-        name: 'data-vl-label-small',
+        name: 'label-small',
         description: 'Attribuut wordt gebruikt om de label kleiner te maken.',
         table: {
             type: { summary: TYPES.BOOLEAN, required: false },
@@ -77,7 +77,7 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
         },
     },
     minChars: {
-        name: 'data-vl-min-chars',
+        name: 'min-chars',
         description:
             'Attribuut wordt gebruikt om te bepalen hoeveel karakters de gebruiker moet ingeven alvorens de suggesties getoond worden.',
         control: { type: CONTROLS.RANGE, min: 1, max: 10, step: 1 },
@@ -88,7 +88,7 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
         },
     },
     maxSuggestions: {
-        name: 'data-vl-max-suggestions',
+        name: 'max-suggestions',
         description: 'Attribuut wordt gebruikt om het maximum aantal suggesties dat moet getoond worden te bepalen.',
         control: { type: CONTROLS.RANGE, min: 1, max: 20, step: 1 },
         table: {
@@ -98,7 +98,7 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
         },
     },
     captionFormat: {
-        name: 'data-vl-caption-format',
+        name: 'caption-format',
         description: 'Attribuut bepaalt wat er hoe moet getoond worden voor ieder item in de suggestielijst.',
         control: { type: CONTROLS.SELECT },
         options: Object.values(CAPTION_FORMAT),
@@ -112,7 +112,7 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
         },
     },
     groupBy: {
-        name: 'data-vl-group-by',
+        name: 'group-by',
         description: 'Attribuut bepaalt hoe de items in de lijst gegroepeerd moeten worden.',
         control: { type: CONTROLS.SELECT },
         options: [GROUP_BY.TITLE, GROUP_BY.SUBTITLE],
@@ -126,7 +126,7 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
         },
     },
     showClear: {
-        name: 'data-vl-show-clear',
+        name: 'show-clear',
         description: 'Attribuut wordt gebruikt te bepalen of het clear icoon moet tevoorschijn komen.',
         table: {
             type: { summary: TYPES.BOOLEAN, required: false },
@@ -135,7 +135,7 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
         },
     },
     disableLoading: {
-        name: 'data-vl-disable-loading',
+        name: 'disable-loading',
         description: 'Bepaalt of loading animatie getoond wordt.',
         table: {
             type: { summary: TYPES.BOOLEAN, required: false },
@@ -144,7 +144,7 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
         },
     },
     clearTooltip: {
-        name: 'data-vl-clear-tooltip',
+        name: 'clear-tooltip',
         description: 'Attribuut wordt gebruikt de tekst te bepalen die getoond moet worden bij hover van clear icon.',
         table: {
             type: { summary: TYPES.STRING, required: false },
@@ -153,7 +153,7 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
         },
     },
     noMatchesText: {
-        name: 'data-vl-no-matches-text',
+        name: 'no-matches-text',
         description:
             'Attribuut wordt gebruikt de tekst te bepalen die getoond moet worden als er geen suggesties zijn.',
         table: {

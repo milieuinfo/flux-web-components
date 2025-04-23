@@ -37,7 +37,7 @@ export class VlCookieConsentOptIn extends BaseElementOfType(HTMLElement) {
 
     _getDescriptionTemplate(description: string) {
         return this._template(`
-      <p id="description" is="vl-form-annotation" data-vl-block>${description}</p>
+      <p id="description" is="vl-form-annotation" block>${description}</p>
     `);
     }
 

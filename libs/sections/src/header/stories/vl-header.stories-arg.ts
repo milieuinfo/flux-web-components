@@ -12,7 +12,7 @@ export const headerArgs: HeaderArgs = {
 
 export const headerArgTypes: ArgTypes<HeaderArgs> = {
     authenticatedUserUrl: {
-        name: 'data-vl-authenticated-user-url',
+        name: 'authenticated-user-url',
         description: 'De url die wordt opgeroepen om te zien of een gebruiker is ingelogd.',
         table: {
             type: { summary: TYPES.URL },
@@ -21,7 +21,7 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
         },
     },
     development: {
-        name: 'data-vl-development',
+        name: 'development',
         description: 'Geeft aan dat de AIV ontwikkel servers gebruikt moeten worden.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -30,7 +30,7 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
         },
     },
     identifier: {
-        name: 'data-vl-identifier',
+        name: 'identifier',
         description: 'De identifier die gebruikt wordt om bij AIV de footer op te halen.',
         table: {
             type: { summary: TYPES.STRING },
@@ -39,7 +39,7 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
         },
     },
     loginRedirectUrl: {
-        name: 'data-vl-login-redirect-url',
+        name: 'login-redirect-url',
         description:
             'De redirect url die gebruikt wordt bij het aanmelden.<br>Bij het aanpassen van dit attribuut wordt achterliggend de session.configure() methode van DV opnieuw aangeroepen.',
         table: {
@@ -49,7 +49,7 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
         },
     },
     loginUrl: {
-        name: 'data-vl-login-url',
+        name: 'login-url',
         description:
             'De url die gebruikt wordt bij het aanmelden.<br>Bij het aanpassen van dit attribuut wordt achterliggend de session.configure() methode van DV opnieuw aangeroepen.',
         table: {
@@ -59,7 +59,7 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
         },
     },
     logoutUrl: {
-        name: 'data-vl-logout-url',
+        name: 'logout-url',
         description:
             'De url die wordt opgeroepen wanneer men zich wil afmelden.<br>Bij het aanpassen van dit attribuut wordt achterliggend de session.configure() methode van DV opnieuw aangeroepen.',
         table: {
@@ -69,7 +69,7 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
         },
     },
     simple: {
-        name: 'data-vl-simple',
+        name: 'simple',
         description: 'Indien true wordt het configureren van de sessie overgeslagen.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -78,7 +78,7 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
         },
     },
     skeleton: {
-        name: 'data-vl-skeleton',
+        name: 'skeleton',
         description: 'Geeft aan of de header een skeleton moet tonen voordat het rendert.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -87,7 +87,7 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
         },
     },
     switchCapacityUrl: {
-        name: 'data-vl-switch-capacity-url',
+        name: 'switch-capacity-url',
         description:
             'De url die wordt opgeroepen wanneer men van organisatie wil wisselen.<br>Bij het aanpassen van dit attribuut wordt achterliggend de session.configure() methode van DV opnieuw aangeroepen.',
         table: {
@@ -97,7 +97,7 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
         },
     },
     rejectLogout: {
-        name: 'data-vl-reject-logout',
+        name: 'reject-logout',
         description:
             'Geeft aan of het logout request moet worden afgewezen.<br/>Een logout request door de gebruiker wordt nooit afgewezen.',
         table: {

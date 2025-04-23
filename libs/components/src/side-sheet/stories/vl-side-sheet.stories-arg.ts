@@ -16,9 +16,9 @@ export const sideSheetArgs = {
 };
 
 export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     enableSwipe: {
-        name: 'data-vl-enable-swipe',
+        name: 'enable-swipe',
         description: 'Attribute wordt gebruikt om aan te duiden dat swipe functie toegelaten is.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -26,7 +26,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         },
     },
     left: {
-        name: 'data-vl-left',
+        name: 'left',
         description: 'Attribute om de side-sheet aan de linkerrand te positioneren.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -34,7 +34,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         },
     },
     right: {
-        name: 'data-vl-right',
+        name: 'right',
         description: 'Attribute om de side-sheet aan de rechterrand te positioneren. Dit is de standaard instelling.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -42,7 +42,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         },
     },
     absolute: {
-        name: 'data-vl-absolute',
+        name: 'absolute',
         description: 'Attribute wordt gebruikt om aan te duiden dat de side-sheet absoluut gepositioneerd wordt.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -50,7 +50,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         },
     },
     open: {
-        name: 'data-vl-open',
+        name: 'open',
         description: 'Duidt aan dat de side-sheet open is.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -58,7 +58,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         },
     },
     toggleText: {
-        name: 'data-vl-toggle-text',
+        name: 'toggle-text',
         description: 'Attribute wordt gebruikt om de toggle knop tekst te wijzigen.',
         table: {
             type: { summary: TYPES.STRING },
@@ -66,7 +66,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         },
     },
     tooltipText: {
-        name: 'data-vl-tooltip-text',
+        name: 'tooltip-text',
         description: 'Attribute wordt gebruikt om de native tooltip te bepalen.',
         table: {
             type: { summary: TYPES.STRING },
@@ -74,7 +74,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         },
     },
     customIcon: {
-        name: 'data-vl-custom-icon',
+        name: 'custom-icon',
         description:
             'Dit vervangt zowel open & close icon door 1 custom icon. \n Standaard wordt afhankelijk van de positie van de side-sheet een pijltje getoond dat aanduidt of de side-sheet open of dicht is.',
         table: {
@@ -83,7 +83,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         },
     },
     iconPlacement: {
-        name: 'data-vl-icon-placement',
+        name: 'icon-placement',
         description: 'Positie van icon bepalen. Standaard bevindt die zich voor de tekst.',
         control: { type: CONTROLS.SELECT },
         options: ['before', 'after'],
@@ -93,7 +93,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         },
     },
     hideToggleButton: {
-        name: 'data-vl-hide-toggle-button',
+        name: 'hide-toggle-button',
         description: 'Toggle knop verbergen.',
         table: {
             type: { summary: TYPES.BOOLEAN },
