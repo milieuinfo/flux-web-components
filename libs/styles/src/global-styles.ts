@@ -1,12 +1,15 @@
+import { UigConfig } from '@domg-wc/common';
 import { CSSResult } from 'lit';
 import { vlAccessibilityStyles } from './base/accessibility/vl-accessibility.css';
 import { vlBodyStyles } from './base/body/vl-body.css';
 import { vlFontStyles } from './base/font/vl-font.css';
+import { vlResetStyles } from './base/reset/vl-reset.css';
 import { vlColorVars } from './base/var/vl-color.css';
 import { vlGeneralVars } from './base/var/vl-general.css';
 import { vlSpacingVars } from './base/var/vl-spacing.css';
 import { vlTypographyVars } from './base/var/vl-typography.css';
 import { vlZLayerVars } from './base/var/vl-z-layer.css';
+import { vlLegacyStyles } from './global-styles-legacy';
 import { vlContentBlockStyles } from './layout/content-block/vl-content-block.css';
 import { vlGridStyles } from './layout/grid/vl-grid.css';
 import { vlGroupStyles } from './layout/group/vl-group.css';
@@ -17,7 +20,7 @@ import { vlSeparatorStyles } from './layout/separator/vl-separator.css';
 import { vlSpacerStyles } from './layout/spacer/vl-spacer.css';
 import { vlStackedStyles } from './layout/stacked/vl-stacked.css';
 
-const globalStyles = [
+export const vlGlobalStyles = [
     vlGeneralVars,
     vlColorVars,
     vlSpacingVars,
@@ -47,7 +50,7 @@ export class GlobalStyles {
 
     private constructor() {}
 
-    static getInstance(defaultStyles: CSSResult[] = globalStyles) {
+    static getInstance(defaultStyles: CSSResult[] = [vlResetStyles, ...vlLegacyStyles, ...vlGlobalStyles]) {
         if (this.instance) {
             return this.instance;
         }
@@ -58,12 +61,18 @@ export class GlobalStyles {
 
     public register() {
         if (!this.registered) {
-            document.adoptedStyleSheets = [
-                ...document.adoptedStyleSheets,
-                ...(this.defaultStyles.map((style) => style.styleSheet) as CSSStyleSheet[]),
-            ];
+            if (UigConfig.getPreferences().autoRegisterStyles) {
+                document.adoptedStyleSheets = [
+                    ...document.adoptedStyleSheets,
+                    ...(this.defaultStyles.map((style) => style.styleSheet) as CSSStyleSheet[]),
+                ];
+                console.info('GlobalStyles: global styling toegevoegd aan het document');
+            } else {
+                console.info(
+                    'GlobalStyles: geen global styling toegevoegd aan het document - autoRegisterStyles is uitgeschakeld'
+                );
+            }
             this.registered = true;
-            console.info('GlobalStyles: global styling toegevoegd aan het document');
             this.registerCustomCSS();
         }
     }

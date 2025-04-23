@@ -41,6 +41,9 @@ export class UigConfig {
                     if (script.getAttribute('log-web-component-registration') === 'true') {
                         this.preferences.logWebComponentRegistration = true;
                     }
+                    if (script.getAttribute('log-treeshake-registration') === 'true') {
+                        this.preferences.logTreeshakeRegistration = true;
+                    }
                 }
             }
         }

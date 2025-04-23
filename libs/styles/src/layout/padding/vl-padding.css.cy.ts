@@ -7,8 +7,12 @@ describe('padding styles', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
             <style>
-                ${vlPaddingStyles} div {
-                    padding: 10px;
+                ${vlPaddingStyles}
+                div.cy-padding-no-bottom {
+                    padding-top: 10px;
+                }
+                div.cy-padding-no-top {
+                    padding-bottom: 10px;
                 }
             </style>
             <div class="vl-padding--small cy-padding-small">padding - small</div>

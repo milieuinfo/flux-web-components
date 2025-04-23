@@ -25,4 +25,5 @@ export {
     vlMediaScreenLarge,
 } from './base/var/vl-media-screen.css';
 export { vlResetStyles } from './base/reset/vl-reset.css';
-export { default as vlLegacyStyles, legacyGlobalStyles } from './global-styles-legacy';
+export { vlLegacyStyles } from './global-styles-legacy';
+export { vlGlobalStyles } from './global-styles';

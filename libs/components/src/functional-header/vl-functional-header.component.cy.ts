@@ -1,11 +1,11 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { VlTabsComponent } from '@domg-wc/components';
-import { legacyGlobalStyles } from '@domg-wc/styles';
+import { GlobalStyles } from '@domg-wc/styles';
 import { html } from 'lit';
 import { VlBreadcrumbComponent } from './../breadcrumb';
 import { VlFunctionalHeaderComponent } from './vl-functional-header.component';
 
-legacyGlobalStyles()(() => null);
+GlobalStyles.getInstance().register();
 
 registerWebComponents([VlFunctionalHeaderComponent, VlTabsComponent, VlBreadcrumbComponent]);
 
