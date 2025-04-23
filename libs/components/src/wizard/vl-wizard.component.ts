@@ -26,11 +26,11 @@ export class VlWizard extends BaseLitElement {
             panes: { type: Array },
             activeStep: {
                 type: Number,
-                attribute: 'data-vl-active-step',
+                attribute: 'active-step',
                 reflect: true,
             },
-            hideLabels: { type: Boolean, attribute: 'data-vl-hide-labels' },
-            numeric: { type: Boolean, attribute: 'data-vl-numeric' },
+            hideLabels: { type: Boolean, attribute: 'hide-labels' },
+            numeric: { type: Boolean, attribute: 'numeric' },
         };
     }
 
@@ -53,15 +53,15 @@ export class VlWizard extends BaseLitElement {
 
     render() {
         return html`
-            <section class="vl-wizard" data-vl-wizard>
+            <section class="vl-wizard" wizard>
                 <header class="vl-wizard__heading" role="none">
                     <slot name="title"></slot>
                     <slot name="header"></slot>
                 </header>
                 <vl-progress-bar
-                    data-vl-active-step=${this.activeStep}
-                    ?data-vl-show-labels=${!this.hideLabels}
-                    ?data-vl-numeric=${this.numeric}
+                    active-step=${this.activeStep}
+                    ?show-labels=${!this.hideLabels}
+                    ?numeric=${this.numeric}
                     .steps=${this.panes.map((pane) => pane.name)}
                 ></vl-progress-bar>
                 <div class="vl-wizard__panes">

@@ -16,7 +16,7 @@ describe('story vl-map-image-wms-layer default', () => {
             const newWmsUrl = 'https://www.dov.vlaanderen.be/geoserver/wms2';
 
             cy.intercept('GET', `${newWmsUrl}*`).as('getWithNewUrl');
-            component.setAttribute('data-vl-url', newWmsUrl);
+            component.setAttribute('url', newWmsUrl);
             cy.wait('@getWithNewUrl');
         });
     });
@@ -31,7 +31,7 @@ describe('story vl-map-image-wms-layer default', () => {
             const newLayers = 'test-layers';
 
             cy.intercept('GET', `${wmsUrl}*${newLayers}*`).as('getWithNewLayers');
-            component.setAttribute('data-vl-layers', newLayers);
+            component.setAttribute('layers', newLayers);
             cy.wait('@getWithNewLayers');
         });
     });
@@ -46,7 +46,7 @@ describe('story vl-map-image-wms-layer default', () => {
             const newVersion = 'test-version';
 
             cy.intercept('GET', `${wmsUrl}*${newVersion}*`).as('getWithNewVersion');
-            component.setAttribute('data-vl-version', newVersion);
+            component.setAttribute('version', newVersion);
             cy.wait('@getWithNewVersion');
         });
     });
@@ -61,7 +61,7 @@ describe('story vl-map-image-wms-layer default', () => {
             const newStyles = 'test-styles';
 
             cy.intercept('GET', `${wmsUrl}*${newStyles}*`).as('getWithNewStyles');
-            component.setAttribute('data-vl-styles', newStyles);
+            component.setAttribute('styles', newStyles);
             cy.wait('@getWithNewStyles');
         });
     });

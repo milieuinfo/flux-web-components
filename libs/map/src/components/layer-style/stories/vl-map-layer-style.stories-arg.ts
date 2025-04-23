@@ -18,9 +18,9 @@ export const mapLayerStyleArg = {
 };
 
 export const mapLayerStyleArgTypes: ArgTypes<typeof mapLayerStyleArg> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     borderColor: {
-        name: 'data-vl-border-color',
+        name: 'border-color',
         description: 'De kleur van de rand van de kaartlaagstijl.',
         table: {
             type: { summary: TYPES.STRING },
@@ -29,7 +29,7 @@ export const mapLayerStyleArgTypes: ArgTypes<typeof mapLayerStyleArg> = {
         },
     },
     borderSize: {
-        name: 'data-vl-border-size',
+        name: 'border-size',
         description: 'De grootte van de rand van de kaartlaagstijl.',
         table: {
             type: { summary: TYPES.NUMBER },
@@ -38,7 +38,7 @@ export const mapLayerStyleArgTypes: ArgTypes<typeof mapLayerStyleArg> = {
         },
     },
     color: {
-        name: 'data-vl-color',
+        name: 'color',
         description: 'De kleur van de kaartlaagstijl.',
         table: {
             type: { summary: TYPES.STRING },
@@ -47,16 +47,16 @@ export const mapLayerStyleArgTypes: ArgTypes<typeof mapLayerStyleArg> = {
         },
     },
     name: {
-        name: 'data-vl-name',
+        name: 'name',
         description:
-            'De naam van de stijl, deze naam wordt getoond als tekst in de legende als de map-legend op de kaart is toegevoegd. Een stijl zonder data-vl-name attribuut zal nooit in de legende getoond worden. Tenzij het om een enkele stijl in een features-layer of wfs-layer gaat, in dat geval wordt de data-vl-name van de layer in de legende getoond.',
+            'De naam van de stijl, deze naam wordt getoond als tekst in de legende als de map-legend op de kaart is toegevoegd. Een stijl zonder name attribuut zal nooit in de legende getoond worden. Tenzij het om een enkele stijl in een features-layer of wfs-layer gaat, in dat geval wordt de name van de layer in de legende getoond.',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
         },
     },
     textBackgroundColor: {
-        name: 'data-vl-text-background-color',
+        name: 'text-background-color',
         description: 'De kleur van de achtergrond van de tekst.',
         table: {
             type: { summary: TYPES.STRING },
@@ -65,7 +65,7 @@ export const mapLayerStyleArgTypes: ArgTypes<typeof mapLayerStyleArg> = {
         },
     },
     textBorderColor: {
-        name: 'data-vl-text-border-color',
+        name: 'text-border-color',
         description: 'De kleur van de rand van de tekst.',
         table: {
             type: { summary: TYPES.STRING },
@@ -74,7 +74,7 @@ export const mapLayerStyleArgTypes: ArgTypes<typeof mapLayerStyleArg> = {
         },
     },
     textBorderSize: {
-        name: 'data-vl-text-border-size',
+        name: 'text-border-size',
         description: 'De grootte van de rand van de tekst.',
         table: {
             type: { summary: TYPES.NUMBER },
@@ -83,7 +83,7 @@ export const mapLayerStyleArgTypes: ArgTypes<typeof mapLayerStyleArg> = {
         },
     },
     textColor: {
-        name: 'data-vl-text-color',
+        name: 'text-color',
         description: 'De kleur van de tekst.',
         table: {
             type: { summary: TYPES.STRING },
@@ -92,7 +92,7 @@ export const mapLayerStyleArgTypes: ArgTypes<typeof mapLayerStyleArg> = {
         },
     },
     textFeatureAttributeName: {
-        name: 'data-vl-text-feature-attribute-name',
+        name: 'text-feature-attribute-name',
         description: 'De key van de property van de feature die de tekst bepaalt.',
         table: {
             type: { summary: TYPES.STRING },
@@ -100,7 +100,7 @@ export const mapLayerStyleArgTypes: ArgTypes<typeof mapLayerStyleArg> = {
         },
     },
     textOffsetX: {
-        name: 'data-vl-text-offset-x',
+        name: 'text-offset-x',
         description: 'De offset op de x-as van de tekst.',
         table: {
             type: { summary: TYPES.NUMBER },
@@ -109,7 +109,7 @@ export const mapLayerStyleArgTypes: ArgTypes<typeof mapLayerStyleArg> = {
         },
     },
     textOffsetY: {
-        name: 'data-vl-text-offset-y',
+        name: 'text-offset-y',
         description: 'De offset op de y-as van de tekst.',
         table: {
             type: { summary: TYPES.NUMBER },
@@ -118,7 +118,7 @@ export const mapLayerStyleArgTypes: ArgTypes<typeof mapLayerStyleArg> = {
         },
     },
     textSize: {
-        name: 'data-vl-text-size',
+        name: 'text-size',
         description:
             'De grootte van de tekst in CSS font-size eenheden (medium|xx-small|x-small|small|large|x-large|xx-large|smaller|larger|length|initial|inherit).',
         table: {

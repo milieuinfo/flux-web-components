@@ -62,7 +62,7 @@ const style = css`
             background-image: none;
         }
     }
-    .no-js [data-vl-select]:focus::-ms-value {
+    .no-js [select]:focus::-ms-value {
         background: inherit;
         color: inherit;
     }

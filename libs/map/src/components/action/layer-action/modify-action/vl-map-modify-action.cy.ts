@@ -29,31 +29,31 @@ const mapModifyActionFixture = html`
 const mapModifyActionSnappingWfsLayersFixture = html`
     <vl-map>
         <vl-map-features-layer>
-            <vl-map-modify-action data-vl-snapping data-vl-snapping-pixel-tolerance="1000">
+            <vl-map-modify-action snapping snapping-pixel-tolerance="1000">
                 <vl-map-wfs-layer
                     id="stromendwater"
-                    data-vl-name="Stromend waterlichamen"
-                    data-vl-url="https://geoserver.vmm.be/geoserver/vmm/wfs"
-                    data-vl-layers="owl_l"
-                    data-vl-max-resolution="4"
+                    name="Stromend waterlichamen"
+                    url="https://geoserver.vmm.be/geoserver/vmm/wfs"
+                    layers="owl_l"
+                    max-resolution="4"
                 >
                     <vl-map-layer-style
-                        data-vl-color="rgba(6, 163, 247, 0.4)"
-                        data-vl-border-size="4"
-                        data-vl-border-color="rgba(6, 163, 247, 1)"
+                        color="rgba(6, 163, 247, 0.4)"
+                        border-size="4"
+                        border-color="rgba(6, 163, 247, 1)"
                     ></vl-map-layer-style>
                 </vl-map-wfs-layer>
                 <vl-map-wfs-layer
                     id="stilstaandwater"
-                    data-vl-name="Stilstaand waterlichamen"
-                    data-vl-url="https://gisservices.inbo.be/arcgis/services/Watervlakken/MapServer/WFSServer?service=wfs"
-                    data-vl-layers="Watervlakken"
-                    data-vl-max-resolution="4"
+                    name="Stilstaand waterlichamen"
+                    url="https://gisservices.inbo.be/arcgis/services/Watervlakken/MapServer/WFSServer?service=wfs"
+                    layers="Watervlakken"
+                    max-resolution="4"
                 >
                     <vl-map-layer-style
-                        data-vl-color="rgba(6, 163, 247, 0.4)"
-                        data-vl-border-size="4"
-                        data-vl-border-color="rgba(6, 163, 247, 1)"
+                        color="rgba(6, 163, 247, 0.4)"
+                        border-size="4"
+                        border-color="rgba(6, 163, 247, 1)"
                     ></vl-map-layer-style>
                 </vl-map-wfs-layer>
             </vl-map-modify-action>
@@ -142,7 +142,7 @@ describe('vl-map-modify-action', () => {
         cy.runTestFor2<VlMap, VlMapModifyAction>('vl-map', 'vl-map-modify-action', (vlMap, vlMapModifyAction) => {
             cy.wrap(vlMap.ready).then(() => {
                 const processSpy = cy.stub(vlMapModifyAction, '_processAction');
-                vlMapModifyAction.setAttribute('data-vl-snapping', '');
+                vlMapModifyAction.setAttribute('snapping', '');
                 expect(processSpy).to.be.calledOnce;
             });
         });
@@ -153,7 +153,7 @@ describe('vl-map-modify-action', () => {
         cy.runTestFor2<VlMap, VlMapModifyAction>('vl-map', 'vl-map-modify-action', (vlMap, vlMapModifyAction) => {
             cy.wrap(vlMap.ready).then(() => {
                 const processSpy = cy.stub(vlMapModifyAction, '_processAction');
-                vlMapModifyAction.setAttribute('data-vl-snapping-pixel-tolerance', '100');
+                vlMapModifyAction.setAttribute('snapping-pixel-tolerance', '100');
                 expect(processSpy).to.be.calledOnce;
             });
         });

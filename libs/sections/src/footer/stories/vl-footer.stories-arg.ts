@@ -10,7 +10,7 @@ export const footerArgs = {
 
 export const footerArgTypes: ArgTypes<typeof footerArgs> = {
     development: {
-        name: 'data-vl-development',
+        name: 'development',
         description: 'Geeft aan dat de ontwikkel servers van Digitaal Vlaanderen gebruikt moeten worden.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -19,7 +19,7 @@ export const footerArgTypes: ArgTypes<typeof footerArgs> = {
         },
     },
     identifier: {
-        name: 'data-vl-identifier',
+        name: 'identifier',
         description: 'De identifier die gebruikt wordt om bij Digitaal Vlaanderen de footer op te halen.',
         table: {
             type: { summary: TYPES.STRING },

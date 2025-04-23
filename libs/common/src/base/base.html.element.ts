@@ -23,7 +23,7 @@ export class BaseHTMLElement extends HTMLElement {
      * @return {String} attribuut prefix
      */
     static get attributePrefix(): string {
-        return 'data-vl-';
+        return '';
     }
 
     static get observedAttributes(): string[][] {

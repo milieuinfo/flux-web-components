@@ -12,9 +12,9 @@ export const wizardArgs = {
 };
 
 export const wizardArgTypes = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     activeStep: {
-        name: 'data-vl-active-step',
+        name: 'active-step',
         description: 'Zet de actieve stap.',
         control: { type: CONTROLS.RANGE, min: 1, max: 2, step: 1 },
         table: {
@@ -24,7 +24,7 @@ export const wizardArgTypes = {
         },
     },
     hideLabels: {
-        name: 'data-vl-hide-labels',
+        name: 'hide-labels',
         description: 'Bepaalt of de labels van de stappen verborgen moeten worden.',
         control: { type: CONTROLS.BOOLEAN },
         table: {
@@ -34,7 +34,7 @@ export const wizardArgTypes = {
         },
     },
     numeric: {
-        name: 'data-vl-numeric',
+        name: 'numeric',
         description: 'Voorziet numerieke indicatoren bij de stappen.',
         table: {
             type: { summary: TYPES.BOOLEAN },

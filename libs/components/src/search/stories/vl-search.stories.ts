@@ -8,12 +8,12 @@ export default {
     title: 'Components/search',
     tags: ['autodocs'],
     args: defaultArgs,
-    argTypes: defaultArgTypes(),
+    argTypes: defaultArgTypes,
 } as Meta<typeof defaultArgs>;
 
 // TODO Add options to the story.
 export const searchDefault = story(
     {},
-    () => html` <vl-search id="search-inline" data-vl-inline="" data-cy="search"></vl-search> `
+    () => html` <vl-search id="search-inline" inline="" data-cy="search"></vl-search> `
 );
 searchDefault.storyName = 'vl-search - default';

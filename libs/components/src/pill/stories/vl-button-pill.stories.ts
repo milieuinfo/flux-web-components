@@ -18,5 +18,5 @@ export default {
 } as Meta<typeof buttonPillArgs>;
 
 export const ButtonPillDefault = ({ type }: typeof buttonPillArgs) =>
-    html` <button is="vl-button-pill" type="button" data-vl-type=${type}>Optie 1</button> `;
+    html` <button is="vl-button-pill" type="button" type=${type}>Optie 1</button> `;
 ButtonPillDefault.storyName = 'vl-button-pill - default';

@@ -11,9 +11,9 @@ export const prozaMessageArgs = {
 };
 
 export const prozaMessageArgTypes: ArgTypes<typeof prozaMessageArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     baseUrl: {
-        name: 'data-vl-base-url',
+        name: 'base-url',
         description: `Optionele baseUrl waarvan het Proza bericht opgehaald wordt.<br>Indien deze baseUrl niet meegegeven wordt, wordt het Proza bericht opgehaald relatief tov de huidige url op het pad 'proza/domein/{domain}/{code}'.<br>Dit attribuut is niet reactief.`,
         control: false,
         table: {
@@ -23,7 +23,7 @@ export const prozaMessageArgTypes: ArgTypes<typeof prozaMessageArgs> = {
         },
     },
     block: {
-        name: 'data-vl-block',
+        name: 'block',
         description: 'Duidt aan dat de inhoud van het Proza bericht een block element is.',
         control: false,
         table: {
@@ -33,7 +33,7 @@ export const prozaMessageArgTypes: ArgTypes<typeof prozaMessageArgs> = {
         },
     },
     code: {
-        name: 'data-vl-code',
+        name: 'code',
         description: 'De code die het Proza bericht identificeert.',
         type: { name: TYPES.STRING, required: true },
         control: false,
@@ -44,7 +44,7 @@ export const prozaMessageArgTypes: ArgTypes<typeof prozaMessageArgs> = {
         },
     },
     domain: {
-        name: 'data-vl-domain',
+        name: 'domain',
         description: 'Het Proza domein waarin het Proza bericht zit.',
         type: { name: TYPES.STRING, required: true },
         control: false,
@@ -55,7 +55,7 @@ export const prozaMessageArgTypes: ArgTypes<typeof prozaMessageArgs> = {
         },
     },
     parameters: {
-        name: 'data-vl-parameters',
+        name: 'parameters',
         description: 'De key/value parameters die verwerkt en getoond zullen worden in het content element.',
         control: false,
         table: {

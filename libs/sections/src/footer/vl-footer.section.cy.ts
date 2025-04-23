@@ -14,8 +14,8 @@ const mountDefault = (props: MountDefaultProps) => {
     return cy.mount(html`
         <body>
             <vl-footer
-                ?data-vl-development=${props.development}
-                data-vl-identifier=${props.identifier}
+                ?development=${props.development}
+                identifier=${props.identifier}
                 @ready=${(evt: CustomEvent) => props.onReady(evt)}
             ></vl-footer>
         </body>
@@ -49,8 +49,8 @@ describe('vl-footer component - properties default ', () => {
     it('should have default values properties', () => {
         mountDefault(props);
 
-        cy.get('vl-footer').should('not.have.attr', 'data-vl-development', props.development);
-        cy.get('vl-footer').should('have.attr', 'data-vl-identifier', props.identifier);
+        cy.get('vl-footer').should('not.have.attr', 'development', props.development);
+        cy.get('vl-footer').should('have.attr', 'identifier', props.identifier);
     });
 });
 
@@ -58,13 +58,13 @@ describe('vl-footer component - properties reflect ', () => {
     it('should reflect the <development> attribute', () => {
         mountDefault({ ...props, development: true });
 
-        cy.get('vl-footer').should('have.attr', 'data-vl-development', '');
+        cy.get('vl-footer').should('have.attr', 'development', '');
     });
 
     it('should reflect the <identifier> attribute', () => {
         mountDefault({ ...props, identifier: 'TEST_IDENTIFIER' });
 
-        cy.get('vl-footer').should('have.attr', 'data-vl-identifier', 'TEST_IDENTIFIER');
+        cy.get('vl-footer').should('have.attr', 'identifier', 'TEST_IDENTIFIER');
     });
 });
 

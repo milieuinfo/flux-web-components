@@ -25,7 +25,7 @@ export class VlCookie extends BaseElementOfType(HTMLElement) {
     `);
 
         const nameTemplate = () => {
-            const _name = name || this.dataset.vlName;
+            const _name = name || this.getAttribute('name');
             if (Array.isArray(_name)) {
                 return `
                     <vl-typography>
@@ -42,20 +42,20 @@ export class VlCookie extends BaseElementOfType(HTMLElement) {
         this._element.insertAdjacentHTML(
             'afterend',
             `
-                <vl-title type="h3">${title || this.dataset.vlTitle}</vl-title>
+                <vl-title type="h3">${title || this.getAttribute('title')}</vl-title>
                 <vl-properties slot="properties">
                     <label>Naam</label>
                     <data>${nameTemplate()}</data>
                     <label>Doel</label>
-                    <data>${purpose || this.dataset.vlPurpose}</data>
+                    <data>${purpose || this.getAttribute('purpose')}</data>
                     <label>Type</label>
                     <data>Cookie</data>
                     <label>Domein</label>
-                    <data>${domain || this.dataset.vlDomain}</data>
+                    <data>${domain || this.getAttribute('domain')}</data>
                     <label>Verwerker</label>
-                    <data>${processor || this.dataset.vlProcessor}</data>
+                    <data>${processor || this.getAttribute('processor')}</data>
                     <label>Geldigheid</label>
-                    <data>${validity || this.dataset.vlValidity}</data>
+                    <data>${validity || this.getAttribute('validity')}</data>
                 </vl-properties>
             `
         );

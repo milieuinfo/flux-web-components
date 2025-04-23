@@ -21,31 +21,31 @@ export const descriptionDataDefault = ({
 }: typeof descriptionDataArgs) =>
     html`
         <vl-description-data
-            ?data-vl-bordered=${bordered}
-            data-vl-items-size=${size}
-            data-vl-items-medium-size=${mediumSize}
-            data-vl-items-small-size=${smallSize}
-            data-vl-items-extra-small-size=${extraSmallSize}
+            ?bordered=${bordered}
+            items-size=${size}
+            items-medium-size=${mediumSize}
+            items-small-size=${smallSize}
+            items-extra-small-size=${extraSmallSize}
             data-cy="description-data"
         >
             <vl-description-data-item
-                data-vl-label="Uitgever"
-                data-vl-value="Kind en Gezin"
+                label="Uitgever"
+                value="Kind en Gezin"
                 data-cy="description-data-item-1"
             ></vl-description-data-item>
             <vl-description-data-item
-                data-vl-label="Publicatiedatum"
-                data-vl-value="Augustus 2018"
+                label="Publicatiedatum"
+                value="Augustus 2018"
                 data-cy="description-data-item-2"
             ></vl-description-data-item>
             <vl-description-data-item
-                data-vl-label="Publicatietype"
-                data-vl-value="Brochure"
+                label="Publicatietype"
+                value="Brochure"
                 data-cy="description-data-item-3"
             ></vl-description-data-item>
             <vl-description-data-item
-                data-vl-label="Categorie"
-                data-vl-value="Kinderen en jongeren"
+                label="Categorie"
+                value="Kinderen en jongeren"
                 data-cy="description-data-item-4"
             ></vl-description-data-item
         ></vl-description-data>

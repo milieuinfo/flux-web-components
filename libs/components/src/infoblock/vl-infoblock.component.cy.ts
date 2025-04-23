@@ -6,11 +6,7 @@ import { VlInfoblockComponent } from './index';
 registerWebComponents([VlInfoblockComponent, VlTitleComponent]);
 
 const mountDefault = ({ title, content, type, icon }: { title: string; content: string; type: string; icon: string }) =>
-    cy.mount(html`
-        <vl-infoblock slot="info" data-vl-title=${title} data-vl-type=${type} data-vl-icon=${icon}
-            >${content}
-        </vl-infoblock>
-    `);
+    cy.mount(html` <vl-infoblock slot="info" title=${title} type=${type} icon=${icon}>${content} </vl-infoblock> `);
 
 export const mountWithSlotElements = ({
     title,
@@ -23,7 +19,7 @@ export const mountWithSlotElements = ({
     icon: string;
 }) =>
     cy.mount(html`
-        <vl-infoblock data-vl-type=${type}>
+        <vl-infoblock type=${type}>
             <vl-title type="h2" slot="title">${title}</vl-title>
             ${content}
         </vl-infoblock>

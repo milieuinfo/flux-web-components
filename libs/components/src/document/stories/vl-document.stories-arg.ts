@@ -18,9 +18,9 @@ export const documentArgs = {
 };
 
 export const documentArgTypes: ArgTypes<typeof documentArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     href: {
-        name: 'data-vl-href',
+        name: 'href',
         description: 'Bepaalt de download link.',
         table: {
             type: { summary: TYPES.STRING },
@@ -29,7 +29,7 @@ export const documentArgTypes: ArgTypes<typeof documentArgs> = {
         },
     },
     target: {
-        name: 'data-vl-target',
+        name: 'target',
         control: { type: CONTROLS.SELECT },
         options: ['_blank', '_self', '_parent', '_top', 'timeline', 'question'],
         description:

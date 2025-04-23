@@ -11,9 +11,9 @@ export const mapSearchArgs = {
 };
 
 export const mapSearchArgTypes: ArgTypes<typeof mapSearchArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     placeholder: {
-        name: 'data-vl-placeholder',
+        name: 'placeholder',
         description: 'De placeholder van het select element.<br>Dit attribuut is niet reactief.',
         table: {
             type: { summary: TYPES.STRING },
@@ -22,7 +22,7 @@ export const mapSearchArgTypes: ArgTypes<typeof mapSearchArgs> = {
         },
     },
     searchEmptyText: {
-        name: 'data-vl-search-empty-text',
+        name: 'search-empty-text',
         description: 'De tekst wanneer er geen zoekresultaten zijn.<br>Dit attribuut is niet reactief.',
         table: {
             type: { summary: TYPES.STRING },
@@ -31,7 +31,7 @@ export const mapSearchArgTypes: ArgTypes<typeof mapSearchArgs> = {
         },
     },
     searchNoResultsText: {
-        name: 'data-vl-search-no-results-text',
+        name: 'search-no-results-text',
         description: 'De tekst wanneer er geen zoekresultaten zijn.<br>Dit attribuut is niet reactief.',
         table: {
             type: { summary: TYPES.STRING },
@@ -40,7 +40,7 @@ export const mapSearchArgTypes: ArgTypes<typeof mapSearchArgs> = {
         },
     },
     searchPlaceholder: {
-        name: 'data-vl-search-placeholder',
+        name: 'search-placeholder',
         description: 'De placeholder van het input element.<br>Dit attribuut is niet reactief.',
         table: {
             type: { summary: TYPES.STRING },
@@ -49,7 +49,7 @@ export const mapSearchArgTypes: ArgTypes<typeof mapSearchArgs> = {
         },
     },
     withOffset: {
-        name: 'data-vl-with-offset',
+        name: 'with-offset',
         description:
             'Beeldt de search-bar af met een linkse offset.<br>Wordt gebruikt als er een map-side-sheet is aan de linkerkant zodat de toggle van de map-side-sheet niet afgebeeld wordt over de search-bar.',
         table: {

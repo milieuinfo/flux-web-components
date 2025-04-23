@@ -15,7 +15,7 @@ export const cookieConsentArgs = {
 
 export const cookieConsentArgTypes: ArgTypes<typeof cookieConsentArgs> = {
     analytics: {
-        name: 'data-vl-analytics',
+        name: 'analytics',
         description: 'Attribuut wordt gebruikt om het verwerken van gebruikersstatistieken te activeren.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -24,7 +24,7 @@ export const cookieConsentArgTypes: ArgTypes<typeof cookieConsentArgs> = {
         },
     },
     autoOpenDisabled: {
-        name: 'data-vl-auto-open-disabled',
+        name: 'auto-open-disabled',
         description:
             'Attribuut wordt gebruikt om te voorkomen dat de cookie consent modal onmiddellijk geautomatiseerd geopend wordt.',
         table: {
@@ -34,7 +34,7 @@ export const cookieConsentArgTypes: ArgTypes<typeof cookieConsentArgs> = {
         },
     },
     autoOptInFunctionalDisabled: {
-        name: 'data-vl-auto-opt-in-functional-disabled',
+        name: 'auto-opt-in-functional-disabled',
         description: 'Attribuut wordt gebruikt om de niet wijzigbare functionele opt-in optie te deactiveren.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -43,7 +43,7 @@ export const cookieConsentArgTypes: ArgTypes<typeof cookieConsentArgs> = {
         },
     },
     owner: {
-        name: 'data-vl-owner',
+        name: 'owner',
         description:
             "['Departement Omgeving'] - Attribuut wordt gebruikt om in de content tekst de eigenaar te specifiëren.",
         table: {
@@ -53,7 +53,7 @@ export const cookieConsentArgTypes: ArgTypes<typeof cookieConsentArgs> = {
         },
     },
     link: {
-        name: 'data-vl-link',
+        name: 'link',
         description:
             "['https://www.omgevingvlaanderen.be/privacy'] - Attribuut wordt gebruikt om in de content tekst de privacy link te specifiëren.",
         table: {
@@ -63,7 +63,7 @@ export const cookieConsentArgTypes: ArgTypes<typeof cookieConsentArgs> = {
         },
     },
     matomoId: {
-        name: 'data-vl-matomo-id',
+        name: 'matomo-id',
         description:
             'Bepaald matomo id. Dit moet in combinatie met `matomo-url` gebruikt worden. Wanneer deze 2 properties ingesteld zijn, wordt niet meer `window.location.host` gekeken om de matomo id & url te bepalen.',
         table: {
@@ -73,7 +73,7 @@ export const cookieConsentArgTypes: ArgTypes<typeof cookieConsentArgs> = {
         },
     },
     matomoUrl: {
-        name: 'data-vl-matomo-url',
+        name: 'matomo-url',
         description:
             'Bepaald matomo url. Dit moet in combinatie met `matomo-id` gebruikt worden. Wanneer deze 2 properties ingesteld zijn, wordt niet meer `window.location.host` gekeken om de matomo id & url te bepalen.',
         table: {

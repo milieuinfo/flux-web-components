@@ -1,5 +1,11 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { VlAccordionComponent, VlCascaderComponent, VlInfoTile, VlTitleComponent } from '@domg-wc/components';
+import {
+    VlAccordionComponent,
+    VlCascaderComponent,
+    VlInfoTile,
+    VlSideSheet,
+    VlTitleComponent,
+} from '@domg-wc/components';
 import { createComponent } from '@lit/react';
 import React, { DOMAttributes } from 'react';
 import './app.module.css';
@@ -30,9 +36,9 @@ export function App() {
     return (
         <main>
             <vl-side-sheet
-                data-vl-left
-                data-vl-open
-                data-vl-custom-css=".vl-layout {padding:0} .vl-region{padding:0} .vl-region:first-child{padding:0} :host #vl-side-sheet {padding:0} :host {--vl-side-sheet-width: 600px;}"
+                left
+                open
+                custom-css=".vl-layout {padding:0} .vl-region{padding:0} .vl-region:first-child{padding:0} :host #vl-side-sheet {padding:0} :host {--vl-side-sheet-width: 600px;}"
             >
                 <VlTitle type={'h2'}></VlTitle>
                 <VlCascader items={nodeData} itemListFn={getItemList} templates={cascaderItemTemplates}></VlCascader>
@@ -62,7 +68,11 @@ declare global {
             'vl-popover-action': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             'vl-cascader': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             'vl-title': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
-            'vl-side-sheet': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            'vl-side-sheet': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+                left: boolean;
+                open: boolean;
+                'custom-css': string;
+            };
         }
     }
 }

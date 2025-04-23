@@ -24,7 +24,7 @@ export const MapSideSheetMenuItemDefault = story(
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-side-sheet>
                 <vl-map-side-sheet-menu>
-                    <vl-map-side-sheet-menu-item data-vl-title=${title} data-vl-href=${href}>
+                    <vl-map-side-sheet-menu-item title=${title} href=${href}>
                         ${unsafeHTML(defaultSlot)}
                     </vl-map-side-sheet-menu-item>
                 </vl-map-side-sheet-menu>

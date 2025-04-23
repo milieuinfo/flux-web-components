@@ -24,7 +24,7 @@ export const buttonArgs: ButtonArgs = {
 };
 
 export const buttonArgTypes: ArgTypes<ButtonArgs> = {
-    ...defaultArgTypes(true),
+    ...defaultArgTypes,
     type: {
         name: 'type',
         description: 'Het type van de button.',

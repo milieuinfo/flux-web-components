@@ -42,14 +42,14 @@ const Template = story(
         onToggle,
     }) => html`
         <vl-accordion
-            ?data-vl-bold=${bold}
-            data-vl-content-padding=${contentPadding}
-            data-vl-close-toggle-text=${closeToggleText}
-            data-vl-icon=${icon}
-            ?data-vl-disabled=${disabled}
-            ?data-vl-default-open=${defaultOpen}
-            data-vl-open-toggle-text=${openToggleText}
-            data-vl-toggle-text=${toggleText}
+            ?bold=${bold}
+            content-padding=${contentPadding}
+            close-toggle-text=${closeToggleText}
+            icon=${icon}
+            ?disabled=${disabled}
+            ?default-open=${defaultOpen}
+            open-toggle-text=${openToggleText}
+            toggle-text=${toggleText}
             @vl-on-toggle=${(event: CustomEvent) => onToggle(event.detail)}
         >
             ${unsafeHTML(defaultSlot)}${unsafeHTML(titleSlot)}${unsafeHTML(subtitleSlot)}${unsafeHTML(menuSlot)}

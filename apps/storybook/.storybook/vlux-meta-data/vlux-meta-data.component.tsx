@@ -6,12 +6,7 @@ import vluxMetaData from './vlux-meta-data.json';
 export const VluxMetaData = ({ id }) => {
     const vluxMetaDataModel = vluxMetaData[id] as VluxMetaDataModel;
     return vluxMetaDataModel ? (
-        <vl-alert
-            data-vl-icon="warning"
-            data-vl-title={buildTitle(vluxMetaDataModel)}
-            data-vl-type={buildType(vluxMetaDataModel)}
-            data-vl-size="small"
-        >
+        <vl-alert icon="warning" title={buildTitle(vluxMetaDataModel)} type={buildType(vluxMetaDataModel)} size="small">
             <Markdown options={{ forceInline: true }} style={{ fontSize: '14px' }}>
                 {buildText(vluxMetaDataModel)}
             </Markdown>

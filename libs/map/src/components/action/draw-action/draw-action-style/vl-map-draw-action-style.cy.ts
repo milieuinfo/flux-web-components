@@ -22,15 +22,15 @@ describe('component vl-map-draw-action-style', () => {
             <vl-map>
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
                 <vl-map-features-layer>
-                    <vl-map-draw-polygon-action .active=${true} data-vl-default-active=${true}>
+                    <vl-map-draw-polygon-action .active=${true} default-active=${true}>
                         <vl-map-draw-action-style
-                            data-vl-color="rgb(255, 105, 180)"
-                            data-vl-border-color="rgb(0, 191, 255)"
-                            data-vl-border-size="3"
-                            data-vl-circle-color="rgb(230, 230, 250)"
-                            data-vl-circle-border-color="rgb(255, 255, 0)"
-                            data-vl-circle-border-size="2"
-                            data-vl-circle-size="5"
+                            color="rgb(255, 105, 180)"
+                            border-color="rgb(0, 191, 255)"
+                            border-size="3"
+                            circle-color="rgb(230, 230, 250)"
+                            circle-border-color="rgb(255, 255, 0)"
+                            circle-border-size="2"
+                            circle-size="5"
                         ></vl-map-draw-action-style>
                     </vl-map-draw-polygon-action>
                 </vl-map-features-layer>

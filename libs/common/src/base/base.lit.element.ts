@@ -15,7 +15,6 @@ export class BaseLitElement extends LitElement {
     static get properties(): PropertyDeclarations {
         return {
             customCSS: { type: String, attribute: 'custom-css', reflect: true },
-            customCSSPrefix: { type: String, attribute: 'data-vl-custom-css', reflect: true },
         };
     }
 

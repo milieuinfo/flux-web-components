@@ -13,7 +13,7 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-action-click-action--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         }
@@ -38,7 +38,7 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-action-draw-action-draw-action-style--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
@@ -85,26 +85,26 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-action-draw-action-draw-action-style--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-default-active",
+                            "name": "default-active",
                             "description": "Zet de actie default op actief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-layer",
-                            "description": "Linkt de actie aan een kaartlaag.<br>Geef hier het data-vl-name attribuut van de kaartlaag mee.<br>Wordt gebruikt als de actie niet binnen een kaartlaag element staat."
+                            "name": "layer",
+                            "description": "Linkt de actie aan een kaartlaag.<br>Geef hier het name attribuut van de kaartlaag mee.<br>Wordt gebruikt als de actie niet binnen een kaartlaag element staat."
                         },
                         {
-                            "name": "data-vl-snapping",
+                            "name": "snapping",
                             "description": "Geeft aan dat er bij het tekenen snapping mag gebeuren, hetzij op de laag waarop getekend wordt (indien geen vl-map-wfs-layer(s) als child elementen), hetzij op de meegegeven vl-map-wfs-layers.<br>Dit attribuut is niet reactief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-snapping-pixel-tolerance",
+                            "name": "snapping-pixel-tolerance",
                             "description": "Binnen de hoeveel pixel van een feature er gesnapt mag worden.<br>Dit attribuut is niet reactief.",
                             "default": "10"
                         }
@@ -126,26 +126,26 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-action-draw-action-draw-point-action--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-default-active",
+                            "name": "default-active",
                             "description": "Zet de actie default op actief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-layer",
-                            "description": "Linkt de actie aan een kaartlaag.<br>Geef hier het data-vl-name attribuut van de kaartlaag mee.<br>Wordt gebruikt als de actie niet binnen een kaartlaag element staat."
+                            "name": "layer",
+                            "description": "Linkt de actie aan een kaartlaag.<br>Geef hier het name attribuut van de kaartlaag mee.<br>Wordt gebruikt als de actie niet binnen een kaartlaag element staat."
                         },
                         {
-                            "name": "data-vl-snapping",
+                            "name": "snapping",
                             "description": "Geeft aan dat er bij het tekenen snapping mag gebeuren, hetzij op de laag waarop getekend wordt (indien geen vl-map-wfs-layer(s) als child elementen), hetzij op de meegegeven vl-map-wfs-layers.<br>Dit attribuut is niet reactief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-snapping-pixel-tolerance",
+                            "name": "snapping-pixel-tolerance",
                             "description": "Binnen de hoeveel pixel van een feature er gesnapt mag worden.<br>Dit attribuut is niet reactief.",
                             "default": "10"
                         }
@@ -167,26 +167,26 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-action-draw-action-draw-polygon-action--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-default-active",
+                            "name": "default-active",
                             "description": "Zet de actie default op actief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-layer",
-                            "description": "Linkt de actie aan een kaartlaag.<br>Geef hier het data-vl-name attribuut van de kaartlaag mee.<br>Wordt gebruikt als de actie niet binnen een kaartlaag element staat."
+                            "name": "layer",
+                            "description": "Linkt de actie aan een kaartlaag.<br>Geef hier het name attribuut van de kaartlaag mee.<br>Wordt gebruikt als de actie niet binnen een kaartlaag element staat."
                         },
                         {
-                            "name": "data-vl-snapping",
+                            "name": "snapping",
                             "description": "Geeft aan dat er bij het tekenen snapping mag gebeuren, hetzij op de laag waarop getekend wordt (indien geen vl-map-wfs-layer(s) als child elementen), hetzij op de meegegeven vl-map-wfs-layers.<br>Dit attribuut is niet reactief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-snapping-pixel-tolerance",
+                            "name": "snapping-pixel-tolerance",
                             "description": "Binnen de hoeveel pixel van een feature er gesnapt mag worden.<br>Dit attribuut is niet reactief.",
                             "default": "10"
                         }
@@ -208,26 +208,26 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-action-draw-action-measure-action--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-default-active",
+                            "name": "default-active",
                             "description": "Zet de actie default op actief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-layer",
-                            "description": "Linkt de actie aan een kaartlaag.<br>Geef hier het data-vl-name attribuut van de kaartlaag mee.<br>Wordt gebruikt als de actie niet binnen een kaartlaag element staat."
+                            "name": "layer",
+                            "description": "Linkt de actie aan een kaartlaag.<br>Geef hier het name attribuut van de kaartlaag mee.<br>Wordt gebruikt als de actie niet binnen een kaartlaag element staat."
                         },
                         {
-                            "name": "data-vl-snapping",
+                            "name": "snapping",
                             "description": "Geeft aan dat er bij het tekenen snapping mag gebeuren, hetzij op de laag waarop getekend wordt (indien geen vl-map-wfs-layer(s) als child elementen), hetzij op de meegegeven vl-map-wfs-layers.<br>Dit attribuut is niet reactief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-snapping-pixel-tolerance",
+                            "name": "snapping-pixel-tolerance",
                             "description": "Binnen de hoeveel pixel van een feature er gesnapt mag worden.<br>Dit attribuut is niet reactief.",
                             "default": "10"
                         }
@@ -253,18 +253,18 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-action-layer-action-delete-action--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-default-active",
+                            "name": "default-active",
                             "description": "Zet de actie default op actief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-layer",
-                            "description": "Linkt de actie aan een kaartlaag.<br>Geef hier het data-vl-name attribuut van de kaartlaag mee.<br>Wordt gebruikt als de actie niet binnen een kaartlaag element staat."
+                            "name": "layer",
+                            "description": "Linkt de actie aan een kaartlaag.<br>Geef hier het name attribuut van de kaartlaag mee.<br>Wordt gebruikt als de actie niet binnen een kaartlaag element staat."
                         }
                     ],
                     "js": {
@@ -284,26 +284,26 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-action-layer-action-modify-action--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-default-active",
+                            "name": "default-active",
                             "description": "Zet de actie default op actief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-layer",
-                            "description": "Linkt de actie aan een kaartlaag.<br>Geef hier het data-vl-name attribuut van de kaartlaag mee.<br>Wordt gebruikt als de actie niet binnen een kaartlaag element staat."
+                            "name": "layer",
+                            "description": "Linkt de actie aan een kaartlaag.<br>Geef hier het name attribuut van de kaartlaag mee.<br>Wordt gebruikt als de actie niet binnen een kaartlaag element staat."
                         },
                         {
-                            "name": "data-vl-snapping",
+                            "name": "snapping",
                             "description": "Geeft aan dat er bij het tekenen snapping mag gebeuren, hetzij op de laag waarop getekend wordt (indien geen vl-map-wfs-layer(s) als child elementen), hetzij op de meegegeven vl-map-wfs-layers.<br>Dit attribuut is niet reactief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-snapping-pixel-tolerance",
+                            "name": "snapping-pixel-tolerance",
                             "description": "Binnen de hoeveel pixel van een feature er gesnapt mag worden.<br>Dit attribuut is niet reactief.",
                             "default": "10"
                         }
@@ -325,21 +325,21 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-action-layer-action-select-action--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-default-active",
+                            "name": "default-active",
                             "description": "Zet de actie default op actief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-layer",
-                            "description": "Linkt de actie aan een kaartlaag.<br>Geef hier het data-vl-name attribuut van de kaartlaag mee.<br>Wordt gebruikt als de actie niet binnen een kaartlaag element staat."
+                            "name": "layer",
+                            "description": "Linkt de actie aan een kaartlaag.<br>Geef hier het name attribuut van de kaartlaag mee.<br>Wordt gebruikt als de actie niet binnen een kaartlaag element staat."
                         },
                         {
-                            "name": "data-vl-cluster",
+                            "name": "cluster",
                             "description": "Geeft aan de de features geclustered worden.",
                             "default": "false"
                         }
@@ -361,21 +361,21 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-action-layer-action-select-action-multiselect-actions--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-default-active",
+                            "name": "default-active",
                             "description": "Zet de actie default op actief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-layer",
-                            "description": "Linkt de actie aan een kaartlaag.<br>Geef hier het data-vl-name attribuut van de kaartlaag mee.<br>Wordt gebruikt als de actie niet binnen een kaartlaag element staat."
+                            "name": "layer",
+                            "description": "Linkt de actie aan een kaartlaag.<br>Geef hier het name attribuut van de kaartlaag mee.<br>Wordt gebruikt als de actie niet binnen een kaartlaag element staat."
                         },
                         {
-                            "name": "data-vl-cluster",
+                            "name": "cluster",
                             "description": "Geeft aan de de features geclustered worden.",
                             "default": "false"
                         }
@@ -390,7 +390,7 @@
                             },
                             {
                                 "name": "layers",
-                                "description": "Linkt de actie aan meerdere kaartlagen.<br>Geef hier de data-vl-name attributen van de kaartlagen mee.<br>Kan niet in combinatie gebruikt worden met:<br>• data-vl-layer attribuut",
+                                "description": "Linkt de actie aan meerdere kaartlagen.<br>Geef hier de name attributen van de kaartlagen mee.<br>Kan niet in combinatie gebruikt worden met:<br>• layer attribuut",
                                 "type": "string[]",
                                 "default": "null"
                             }
@@ -403,21 +403,21 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-action-layer-action-select-action-select-actions--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-default-active",
+                            "name": "default-active",
                             "description": "Zet de actie default op actief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-layer",
-                            "description": "Linkt de actie aan een kaartlaag.<br>Geef hier het data-vl-name attribuut van de kaartlaag mee.<br>Wordt gebruikt als de actie niet binnen een kaartlaag element staat."
+                            "name": "layer",
+                            "description": "Linkt de actie aan een kaartlaag.<br>Geef hier het name attribuut van de kaartlaag mee.<br>Wordt gebruikt als de actie niet binnen een kaartlaag element staat."
                         },
                         {
-                            "name": "data-vl-cluster",
+                            "name": "cluster",
                             "description": "Geeft aan de de features geclustered worden.",
                             "default": "false"
                         }
@@ -432,7 +432,7 @@
                             },
                             {
                                 "name": "layers",
-                                "description": "Linkt de actie aan meerdere kaartlagen.<br>Geef hier de data-vl-name attributen van de kaartlagen mee.<br>Kan niet in combinatie gebruikt worden met:<br>• data-vl-layer attribuut",
+                                "description": "Linkt de actie aan meerdere kaartlagen.<br>Geef hier de name attributen van de kaartlagen mee.<br>Kan niet in combinatie gebruikt worden met:<br>• layer attribuut",
                                 "type": "string[]",
                                 "default": "null"
                             }
@@ -445,29 +445,29 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-baselayer--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-background-layer",
+                            "name": "background-layer",
                             "description": "Geeft de gekozen base-layer een achtergrond-laag.<br>Dit zal kaartlagen tonen van het Nationaal Geografisch Instituut.<br>Voor meer info [zie hier](https://www.ngi.be/website/aanbod/digitale-geodata/cartoweb-be/).<br>Dit attribuut is niet reactief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-layer",
+                            "name": "layer",
                             "description": "De identifier van de kaartlaag.<br>Dit attribuut is niet reactief."
                         },
                         {
-                            "name": "data-vl-title",
+                            "name": "title",
                             "description": "De titel van de kaartlaag.<br>Dit attribuut is niet reactief."
                         },
                         {
-                            "name": "data-vl-type",
+                            "name": "type",
                             "description": "Het type van de kaartlaag.<br>Dit attribuut is niet reactief."
                         },
                         {
-                            "name": "data-vl-url",
+                            "name": "url",
                             "description": "De URL die gebruikt wordt om de kaartlaag op te halen.<br>Dit attribuut is niet reactief."
                         }
                     ]
@@ -478,29 +478,29 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-baselayer-baselayer-grb--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-background-layer",
+                            "name": "background-layer",
                             "description": "Geeft de gekozen base-layer een achtergrond-laag.<br>Dit zal kaartlagen tonen van het Nationaal Geografisch Instituut.<br>Voor meer info [zie hier](https://www.ngi.be/website/aanbod/digitale-geodata/cartoweb-be/).<br>Dit attribuut is niet reactief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-layer",
+                            "name": "layer",
                             "description": "De identifier van de kaartlaag.<br>Dit attribuut is niet reactief."
                         },
                         {
-                            "name": "data-vl-title",
+                            "name": "title",
                             "description": "De titel van de kaartlaag.<br>Dit attribuut is niet reactief."
                         },
                         {
-                            "name": "data-vl-type",
+                            "name": "type",
                             "description": "Het type van de kaartlaag.<br>Dit attribuut is niet reactief."
                         },
                         {
-                            "name": "data-vl-url",
+                            "name": "url",
                             "description": "De URL die gebruikt wordt om de kaartlaag op te halen.<br>Dit attribuut is niet reactief."
                         }
                     ]
@@ -511,29 +511,29 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-baselayer-baselayer-grb-gray--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-background-layer",
+                            "name": "background-layer",
                             "description": "Geeft de gekozen base-layer een achtergrond-laag.<br>Dit zal kaartlagen tonen van het Nationaal Geografisch Instituut.<br>Voor meer info [zie hier](https://www.ngi.be/website/aanbod/digitale-geodata/cartoweb-be/).<br>Dit attribuut is niet reactief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-layer",
+                            "name": "layer",
                             "description": "De identifier van de kaartlaag.<br>Dit attribuut is niet reactief."
                         },
                         {
-                            "name": "data-vl-title",
+                            "name": "title",
                             "description": "De titel van de kaartlaag.<br>Dit attribuut is niet reactief."
                         },
                         {
-                            "name": "data-vl-type",
+                            "name": "type",
                             "description": "Het type van de kaartlaag.<br>Dit attribuut is niet reactief."
                         },
                         {
-                            "name": "data-vl-url",
+                            "name": "url",
                             "description": "De URL die gebruikt wordt om de kaartlaag op te halen.<br>Dit attribuut is niet reactief."
                         }
                     ]
@@ -544,29 +544,29 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-baselayer-baselayer-grb-ortho--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-background-layer",
+                            "name": "background-layer",
                             "description": "Geeft de gekozen base-layer een achtergrond-laag.<br>Dit zal kaartlagen tonen van het Nationaal Geografisch Instituut.<br>Voor meer info [zie hier](https://www.ngi.be/website/aanbod/digitale-geodata/cartoweb-be/).<br>Dit attribuut is niet reactief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-layer",
+                            "name": "layer",
                             "description": "De identifier van de kaartlaag.<br>Dit attribuut is niet reactief."
                         },
                         {
-                            "name": "data-vl-title",
+                            "name": "title",
                             "description": "De titel van de kaartlaag.<br>Dit attribuut is niet reactief."
                         },
                         {
-                            "name": "data-vl-type",
+                            "name": "type",
                             "description": "Het type van de kaartlaag.<br>Dit attribuut is niet reactief."
                         },
                         {
-                            "name": "data-vl-url",
+                            "name": "url",
                             "description": "De URL die gebruikt wordt om de kaartlaag op te halen.<br>Dit attribuut is niet reactief."
                         }
                     ]
@@ -577,7 +577,7 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-controls-action-controls--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         }
@@ -585,26 +585,26 @@
                 },
                 {
                     "name": "vl-map-action-control",
-                    "description": "Gebruik de `map-action-control` component om een map-actie aan of uit te zetten met behulp van een\n[toggle-button](/docs/components-toggle-button--toggle-button-default).<br/>\nEen `map-action-control` linken aan een map-actie gebeurt op de volgende manier:\n    - plaats op de `map-action-control` het attribuut `data-vl-action-id` met als waarde bv. 'draw-polygon-action'\n    - plaats op de map-actie het attribuut `id` en geef hier dezelfde waarde mee als in de vorige stap",
+                    "description": "Gebruik de `map-action-control` component om een map-actie aan of uit te zetten met behulp van een\n[toggle-button](/docs/components-toggle-button--toggle-button-default).<br/>\nEen `map-action-control` linken aan een map-actie gebeurt op de volgende manier:\n    - plaats op de `map-action-control` het attribuut `action-id` met als waarde bv. 'draw-polygon-action'\n    - plaats op de map-actie het attribuut `id` en geef hier dezelfde waarde mee als in de vorige stap",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-controls-action-control--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-action-id",
+                            "name": "action-id",
                             "description": "Het id van de actie die gelinkt is aan deze map-action-control.<br>Houd dit in sync met het id attribuut dat je op de actie plaatst.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-icon",
+                            "name": "icon",
                             "description": "Het icoon van de toggle-button.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-label",
+                            "name": "label",
                             "description": "Het label van de toggle-button.",
                             "default": ""
                         }
@@ -616,7 +616,7 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-controls-measure-control--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         }
@@ -628,17 +628,17 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-current-location--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-tooltip",
+                            "name": "tooltip",
                             "description": "Bepaalt de tekst van de tooltip van de huidige locatie knop.",
                             "default": "Huidige locatie"
                         },
                         {
-                            "name": "data-vl-zoom",
+                            "name": "zoom",
                             "description": "Bepaalt hoever er ingezoomd wordt bij het klikken op de huidige locatie knop.",
                             "default": "10"
                         }
@@ -650,57 +650,57 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-layer-vector-layer-features-layer--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-hidden",
+                            "name": "hidden",
                             "description": "Bepaalt of de kaartlaag zichtbaar is.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-opacity",
+                            "name": "opacity",
                             "description": "De opacity van de kaartlaag. Getal tussen 0 en 1.",
                             "default": "1"
                         },
                         {
-                            "name": "data-vl-max-resolution",
+                            "name": "max-resolution",
                             "description": "De maximum resolutie (exclusief) waaronder de kaartlaag zichtbaar is.<br>Dit attribuut is niet reactief.",
                             "default": "Infinity"
                         },
                         {
-                            "name": "data-vl-min-resolution",
+                            "name": "min-resolution",
                             "description": "De minimum resolutie (inclusief) waarboven de kaartlaag zichtbaar is.<br>Dit attribuut is niet reactief.",
                             "default": "0"
                         },
                         {
-                            "name": "data-vl-name",
+                            "name": "name",
                             "description": "De naam van de kaartlaag.<br>Dit attribuut is niet reactief.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-auto-extent",
+                            "name": "auto-extent",
                             "description": "Automatisch zoomen op de kaartlaag zodat al de features zichtbaar zijn.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-auto-extent-max-zoom",
+                            "name": "auto-extent-max-zoom",
                             "description": "Het maximum niveau tot waar er automatisch gezoomd wordt bij een extent.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-cluster",
+                            "name": "cluster",
                             "description": "Geeft aan of de features geclusterd moeten worden of niet.<br>Dit attribuut is niet reactief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-cluster-distance",
+                            "name": "cluster-distance",
                             "description": "De afstand vanaf er tussen features geclusterd mag worden.<br>Dit attribuut is niet reactief.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-features",
+                            "name": "features",
                             "description": "Attribuut dat de kaartlaag bevat.",
                             "default": ""
                         }
@@ -722,42 +722,42 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-layer-vector-layer-wfs-layer--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-hidden",
+                            "name": "hidden",
                             "description": "Bepaalt of de kaartlaag zichtbaar is.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-opacity",
+                            "name": "opacity",
                             "description": "De opacity van de kaartlaag. Getal tussen 0 en 1.",
                             "default": "1"
                         },
                         {
-                            "name": "data-vl-max-resolution",
+                            "name": "max-resolution",
                             "description": "De maximum resolutie (exclusief) waaronder de kaartlaag zichtbaar is.<br>Dit attribuut is niet reactief.",
                             "default": "Infinity"
                         },
                         {
-                            "name": "data-vl-min-resolution",
+                            "name": "min-resolution",
                             "description": "De minimum resolutie (inclusief) waarboven de kaartlaag zichtbaar is.<br>Dit attribuut is niet reactief.",
                             "default": "0"
                         },
                         {
-                            "name": "data-vl-name",
+                            "name": "name",
                             "description": "De naam van de kaartlaag.<br>Dit attribuut is niet reactief.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-layers",
+                            "name": "layers",
                             "description": "De layers van de WFS.<br>Dit attribuut is niet reactief.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-url",
+                            "name": "url",
                             "description": "De WFS url.<br>Dit attribuut is niet reactief.",
                             "default": ""
                         }
@@ -769,52 +769,52 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-layer-wms-layer-image-wms-layer--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-hidden",
+                            "name": "hidden",
                             "description": "Bepaalt of de kaartlaag zichtbaar is.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-opacity",
+                            "name": "opacity",
                             "description": "De opacity van de kaartlaag. Getal tussen 0 en 1.",
                             "default": "1"
                         },
                         {
-                            "name": "data-vl-max-resolution",
+                            "name": "max-resolution",
                             "description": "De maximum resolutie (exclusief) waaronder de kaartlaag zichtbaar is.<br>Dit attribuut is niet reactief.",
                             "default": "Infinity"
                         },
                         {
-                            "name": "data-vl-min-resolution",
+                            "name": "min-resolution",
                             "description": "De minimum resolutie (inclusief) waarboven de kaartlaag zichtbaar is.<br>Dit attribuut is niet reactief.",
                             "default": "0"
                         },
                         {
-                            "name": "data-vl-name",
+                            "name": "name",
                             "description": "De naam van de kaartlaag.<br>Dit attribuut is niet reactief.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-layers",
+                            "name": "layers",
                             "description": "De WMS layers.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-styles",
+                            "name": "styles",
                             "description": "De WMS stijlen.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-url",
+                            "name": "url",
                             "description": "De WMS url.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-version",
+                            "name": "version",
                             "description": "De WMS versie.",
                             "default": "1.3.0"
                         }
@@ -826,52 +826,52 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-layer-wms-layer-tiled-wms-layer--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-hidden",
+                            "name": "hidden",
                             "description": "Bepaalt of de kaartlaag zichtbaar is.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-opacity",
+                            "name": "opacity",
                             "description": "De opacity van de kaartlaag. Getal tussen 0 en 1.",
                             "default": "1"
                         },
                         {
-                            "name": "data-vl-max-resolution",
+                            "name": "max-resolution",
                             "description": "De maximum resolutie (exclusief) waaronder de kaartlaag zichtbaar is.<br>Dit attribuut is niet reactief.",
                             "default": "Infinity"
                         },
                         {
-                            "name": "data-vl-min-resolution",
+                            "name": "min-resolution",
                             "description": "De minimum resolutie (inclusief) waarboven de kaartlaag zichtbaar is.<br>Dit attribuut is niet reactief.",
                             "default": "0"
                         },
                         {
-                            "name": "data-vl-name",
+                            "name": "name",
                             "description": "De naam van de kaartlaag.<br>Dit attribuut is niet reactief.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-layers",
+                            "name": "layers",
                             "description": "De WMS layers.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-styles",
+                            "name": "styles",
                             "description": "De WMS stijlen.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-url",
+                            "name": "url",
                             "description": "De WMS url.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-version",
+                            "name": "version",
                             "description": "De WMS versie.",
                             "default": "1.3.0"
                         }
@@ -883,12 +883,12 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-layer-wms-layer-wms-style--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-sld",
+                            "name": "sld",
                             "description": "Bepaalt de Styled Layer Descriptor body van een WMS kaartlaag.<br>Deze XML kan gebruikt worden om de WMS kaartlaag server side te stijlen.<br>Zie http://schemas.opengis.net/sld/1.1.0/StyledLayerDescriptor.xsd<br>Dit attribuut is niet reactief.",
                             "default": ""
                         }
@@ -900,52 +900,52 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-layer-wmts-layer--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-hidden",
+                            "name": "hidden",
                             "description": "Bepaalt of de kaartlaag zichtbaar is.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-opacity",
+                            "name": "opacity",
                             "description": "De opacity van de kaartlaag. Getal tussen 0 en 1.",
                             "default": "1"
                         },
                         {
-                            "name": "data-vl-max-resolution",
+                            "name": "max-resolution",
                             "description": "De maximum resolutie (exclusief) waaronder de kaartlaag zichtbaar is.<br>Dit attribuut is niet reactief.",
                             "default": "Infinity"
                         },
                         {
-                            "name": "data-vl-min-resolution",
+                            "name": "min-resolution",
                             "description": "De minimum resolutie (inclusief) waarboven de kaartlaag zichtbaar is.<br>Dit attribuut is niet reactief.",
                             "default": "0"
                         },
                         {
-                            "name": "data-vl-name",
+                            "name": "name",
                             "description": "De naam van de kaartlaag.<br>Dit attribuut is niet reactief.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-layer",
+                            "name": "layer",
                             "description": "De layer van de WMTS.<br>Dit attribuut is niet reactief.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-url",
+                            "name": "url",
                             "description": "De WMTS url.<br>Dit attribuut is niet reactief.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-matrix-set",
+                            "name": "matrix-set",
                             "description": "De matrix set van de WMTS.<br>Dit attribuut is niet reactief.",
                             "default": "BPL72VL"
                         },
                         {
-                            "name": "data-vl-matrix-prefix",
+                            "name": "matrix-prefix",
                             "description": "Definieert of de matrix moet geprefixt worden met de matrix set.<br/>Dit attribuut is niet reactief.",
                             "default": "false"
                         }
@@ -957,65 +957,65 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-layer-style--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-border-color",
+                            "name": "border-color",
                             "description": "De kleur van de rand van de kaartlaagstijl.",
                             "default": "rgba(2, 85, 204, 1)"
                         },
                         {
-                            "name": "data-vl-border-size",
+                            "name": "border-size",
                             "description": "De grootte van de rand van de kaartlaagstijl.",
                             "default": "1"
                         },
                         {
-                            "name": "data-vl-color",
+                            "name": "color",
                             "description": "De kleur van de kaartlaagstijl.",
                             "default": "rgba(2, 85, 204, 0.8)"
                         },
                         {
-                            "name": "data-vl-name",
-                            "description": "De naam van de stijl, deze naam wordt getoond als tekst in de legende als de map-legend op de kaart is toegevoegd. Een stijl zonder data-vl-name attribuut zal nooit in de legende getoond worden. Tenzij het om een enkele stijl in een features-layer of wfs-layer gaat, in dat geval wordt de data-vl-name van de layer in de legende getoond."
+                            "name": "name",
+                            "description": "De naam van de stijl, deze naam wordt getoond als tekst in de legende als de map-legend op de kaart is toegevoegd. Een stijl zonder name attribuut zal nooit in de legende getoond worden. Tenzij het om een enkele stijl in een features-layer of wfs-layer gaat, in dat geval wordt de name van de layer in de legende getoond."
                         },
                         {
-                            "name": "data-vl-text-background-color",
+                            "name": "text-background-color",
                             "description": "De kleur van de achtergrond van de tekst.",
                             "default": "rgba(0, 0, 0, 0)"
                         },
                         {
-                            "name": "data-vl-text-border-color",
+                            "name": "text-border-color",
                             "description": "De kleur van de rand van de tekst.",
                             "default": "rgba(255, 255, 255, 0)"
                         },
                         {
-                            "name": "data-vl-text-border-size",
+                            "name": "text-border-size",
                             "description": "De grootte van de rand van de tekst.",
                             "default": "1"
                         },
                         {
-                            "name": "data-vl-text-color",
+                            "name": "text-color",
                             "description": "De kleur van de tekst.",
                             "default": "#FFF"
                         },
                         {
-                            "name": "data-vl-text-feature-attribute-name",
+                            "name": "text-feature-attribute-name",
                             "description": "De key van de property van de feature die de tekst bepaalt."
                         },
                         {
-                            "name": "data-vl-text-offset-x",
+                            "name": "text-offset-x",
                             "description": "De offset op de x-as van de tekst.",
                             "default": "0"
                         },
                         {
-                            "name": "data-vl-text-offset-y",
+                            "name": "text-offset-y",
                             "description": "De offset op de y-as van de tekst.",
                             "default": "0"
                         },
                         {
-                            "name": "data-vl-text-size",
+                            "name": "text-size",
                             "description": "De grootte van de tekst in CSS font-size eenheden (medium|xx-small|x-small|small|large|x-large|xx-large|smaller|larger|length|initial|inherit).",
                             "default": "10px"
                         }
@@ -1027,85 +1027,85 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-layer-style-layer-circle-style--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-border-color",
+                            "name": "border-color",
                             "description": "De kleur van de rand van de kaartlaagstijl.",
                             "default": "rgba(0, 0, 0, 0)"
                         },
                         {
-                            "name": "data-vl-border-size",
+                            "name": "border-size",
                             "description": "De grootte van de rand van de kaartlaagstijl.",
                             "default": "1"
                         },
                         {
-                            "name": "data-vl-color",
+                            "name": "color",
                             "description": "De kleur van de kaartlaagstijl.",
                             "default": "rgba(2, 85, 204, 0.8)"
                         },
                         {
-                            "name": "data-vl-name",
-                            "description": "De naam van de stijl, deze naam wordt getoond als tekst in de legende als de map-legend op de kaart is toegevoegd. Een stijl zonder data-vl-name attribuut zal nooit in de legende getoond worden. Tenzij het om een enkele stijl in een features-layer of wfs-layer gaat, in dat geval wordt de data-vl-name van de layer in de legende getoond."
+                            "name": "name",
+                            "description": "De naam van de stijl, deze naam wordt getoond als tekst in de legende als de map-legend op de kaart is toegevoegd. Een stijl zonder name attribuut zal nooit in de legende getoond worden. Tenzij het om een enkele stijl in een features-layer of wfs-layer gaat, in dat geval wordt de name van de layer in de legende getoond."
                         },
                         {
-                            "name": "data-vl-text-background-color",
+                            "name": "text-background-color",
                             "description": "De kleur van de achtergrond van de tekst.",
                             "default": "rgba(0, 0, 0, 0)"
                         },
                         {
-                            "name": "data-vl-text-border-color",
+                            "name": "text-border-color",
                             "description": "De kleur van de rand van de tekst.",
                             "default": "rgba(255, 255, 255, 0)"
                         },
                         {
-                            "name": "data-vl-text-border-size",
+                            "name": "text-border-size",
                             "description": "De grootte van de rand van de tekst.",
                             "default": "1"
                         },
                         {
-                            "name": "data-vl-text-color",
+                            "name": "text-color",
                             "description": "De kleur van de tekst.",
                             "default": "#FFF"
                         },
                         {
-                            "name": "data-vl-text-feature-attribute-name",
+                            "name": "text-feature-attribute-name",
                             "description": "De key van de property van de feature die de tekst bepaalt."
                         },
                         {
-                            "name": "data-vl-text-offset-x",
+                            "name": "text-offset-x",
                             "description": "De offset op de x-as van de tekst.",
                             "default": "0"
                         },
                         {
-                            "name": "data-vl-text-offset-y",
+                            "name": "text-offset-y",
                             "description": "De offset op de y-as van de tekst.",
                             "default": "0"
                         },
                         {
-                            "name": "data-vl-text-size",
+                            "name": "text-size",
                             "description": "De grootte van de tekst in CSS font-size eenheden (medium|xx-small|x-small|small|large|x-large|xx-large|smaller|larger|length|initial|inherit).",
                             "default": "10px"
                         },
                         {
-                            "name": "data-vl-cluster-color",
+                            "name": "cluster-color",
                             "description": "De kleur bij het clusteren van features.",
                             "default": "rgba(2, 85, 204, 1)"
                         },
                         {
-                            "name": "data-vl-cluster-multiplier",
-                            "description": "Bepaalt de verhouding van de vergroting voor clusters tegenover ingestelde `data-vl-size`.",
+                            "name": "cluster-multiplier",
+                            "description": "Bepaalt de verhouding van de vergroting voor clusters tegenover ingestelde `size`.",
                             "default": "1"
                         },
                         {
-                            "name": "data-vl-cluster-text-color",
+                            "name": "cluster-text-color",
                             "description": "De kleur van de tekst bij het clusteren van features.",
                             "default": "#FFF"
                         },
                         {
-                            "name": "data-vl-size",
+                            "name": "size",
                             "description": "De grootte van de cirkels.",
                             "default": "5"
                         }
@@ -1117,12 +1117,12 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-layer-switcher--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-title",
+                            "name": "title",
                             "description": "De titel bovenaan de layer-switcher.",
                             "default": "Kaartlagen"
                         }
@@ -1131,7 +1131,7 @@
                         "properties": [
                             {
                                 "name": "layers",
-                                "description": "Kan gebruikt worden om een subselectie van kaartlagen te tonen.<br>Geef hier de data-vl-name attributen van de kaartlagen mee.<br>Kaartlagen worden niet langer automatisch toegevoegd of verwijderd in de layer-switcher.",
+                                "description": "Kan gebruikt worden om een subselectie van kaartlagen te tonen.<br>Geef hier de name attributen van de kaartlagen mee.<br>Kaartlagen worden niet langer automatisch toegevoegd of verwijderd in de layer-switcher.",
                                 "type": "string[]",
                                 "default": "null"
                             }
@@ -1144,47 +1144,47 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-legend--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
                             "name": "bottom",
-                            "description": "Bepaalt de \"bottom\" positie van de legende op de kaart.<br>Kan gebruikt worden in combinatie met data-vl-placement.",
+                            "description": "Bepaalt de \"bottom\" positie van de legende op de kaart.<br>Kan gebruikt worden in combinatie met placement.",
                             "default": ""
                         },
                         {
                             "name": "left",
-                            "description": "Bepaalt de \"left\" positie van de legende op de kaart.<br>Kan gebruikt worden in combinatie met data-vl-placement.",
+                            "description": "Bepaalt de \"left\" positie van de legende op de kaart.<br>Kan gebruikt worden in combinatie met placement.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-placement",
+                            "name": "placement",
                             "description": "Bepaalt de plaats van de legende op de kaart.",
                             "default": "bottom_right"
                         },
                         {
                             "name": "right",
-                            "description": "Bepaalt de \"right\" positie van de legende op de kaart.<br>Kan gebruikt worden in combinatie met data-vl-placement.",
+                            "description": "Bepaalt de \"right\" positie van de legende op de kaart.<br>Kan gebruikt worden in combinatie met placement.",
                             "default": ""
                         },
                         {
                             "name": "top",
-                            "description": "Bepaalt de \"top\" positie van de legende op de kaart.<br>Kan gebruikt worden in combinatie met data-vl-placement.",
+                            "description": "Bepaalt de \"top\" positie van de legende op de kaart.<br>Kan gebruikt worden in combinatie met placement.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-layout-vertical",
+                            "name": "layout-vertical",
                             "description": "Zet de layout van de legende in verticale positie.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-hide-title",
+                            "name": "hide-title",
                             "description": "Laat de \"Legende\" titel weg.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-version",
+                            "name": "version",
                             "description": "Voeg een \"version\" parameter toe aan de legende url.",
                             "default": "null"
                         }
@@ -1196,17 +1196,17 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-legend-item--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-layer",
+                            "name": "layer",
                             "description": "Laagnaam van de laag waarvoor het custom lengende item van toepassing is.<br>Indien geen icon en label slot toegevoegd is zal het default icon en label van deze laag gebruikt worden.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-icon-text",
+                            "name": "icon-text",
                             "description": "Text die in het icon wordt toegevoegd. Niet van toepassing bij het custom toevoegen van icon en label via de slots.",
                             "default": ""
                         }
@@ -1230,7 +1230,7 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-loading-indicator--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         }
@@ -1242,7 +1242,7 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-overview-map--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         }
@@ -1254,32 +1254,32 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-search--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-placeholder",
+                            "name": "placeholder",
                             "description": "De placeholder van het select element.<br>Dit attribuut is niet reactief.",
                             "default": "Zoeken op kaart"
                         },
                         {
-                            "name": "data-vl-search-empty-text",
+                            "name": "search-empty-text",
                             "description": "De tekst wanneer er geen zoekresultaten zijn.<br>Dit attribuut is niet reactief.",
                             "default": "Geen adres gevonden"
                         },
                         {
-                            "name": "data-vl-search-no-results-text",
+                            "name": "search-no-results-text",
                             "description": "De tekst wanneer er geen zoekresultaten zijn.<br>Dit attribuut is niet reactief.",
                             "default": "Geen adres gevonden"
                         },
                         {
-                            "name": "data-vl-search-placeholder",
+                            "name": "search-placeholder",
                             "description": "De placeholder van het input element.<br>Dit attribuut is niet reactief.",
                             "default": "Zoeken op adres of coördinaat"
                         },
                         {
-                            "name": "data-vl-with-offset",
+                            "name": "with-offset",
                             "description": "Beeldt de search-bar af met een linkse offset.<br>Wordt gebruikt als er een map-side-sheet is aan de linkerkant zodat de toggle van de map-side-sheet niet afgebeeld wordt over de search-bar.",
                             "default": "false"
                         }
@@ -1409,47 +1409,47 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-side-sheet-side-sheet--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-custom-icon",
+                            "name": "custom-icon",
                             "description": "Het icoon van de toggle button.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-enable-swipe",
+                            "name": "enable-swipe",
                             "description": "Het zijpaneel kan gesloten worden door te swipen.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-hide-toggle-button",
+                            "name": "hide-toggle-button",
                             "description": "Verbergt de toggle button.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-icon-placement",
+                            "name": "icon-placement",
                             "description": "De positie van het icoon van de toggle button.<br>Dit attribuut is niet reactief.",
                             "default": "before"
                         },
                         {
-                            "name": "data-vl-open",
+                            "name": "open",
                             "description": "Duidt aan dat het zijpaneel open is.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-right",
+                            "name": "right",
                             "description": "Positioneert het zijpaneel aan de rechterrand.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-toggle-text",
+                            "name": "toggle-text",
                             "description": "De tekst van de toggle button.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-tooltip-text",
+                            "name": "tooltip-text",
                             "description": "De tooltip van de toggle button.",
                             "default": ""
                         }
@@ -1470,17 +1470,17 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-side-sheet-side-sheet-menu-item--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-href",
+                            "name": "href",
                             "description": "De link van het menu item.",
                             "default": "#"
                         },
                         {
-                            "name": "data-vl-title",
+                            "name": "title",
                             "description": "De titel van het menu item.",
                             "default": "Terug"
                         }
@@ -1498,42 +1498,42 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-map--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-allow-fullscreen",
+                            "name": "allow-fullscreen",
                             "description": "Laat de map toe afgebeeld te worden in fullscreen.<br>Dit kan niet gebruikt worden op mobile.<br>Dit attribuut is niet reactief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-disable-escape-key",
+                            "name": "disable-escape-key",
                             "description": "Schakelt de escape-key uit.<br>Dit attribuut is niet reactief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-disable-rotation",
+                            "name": "disable-rotation",
                             "description": "Schakelt het roteren van de map uit.<br>Dit attribuut is niet reactief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-disable-mouse-wheel-zoom",
+                            "name": "disable-mouse-wheel-zoom",
                             "description": "Schakelt het zoomen van de map via het muiswiel uit.<br>Dit attribuut is niet reactief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-disable-keyboard",
+                            "name": "disable-keyboard",
                             "description": "Schakelt de keyboard input uit voor de map.<br>Dit attribuut is niet reactief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-full-height",
+                            "name": "full-height",
                             "description": "De map neemt de volledige beschikbare hoogte in van zijn parent.<br>Zie de docs pagina voor meer informatie over het gebruik van dit attribuut.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-no-border",
+                            "name": "no-border",
                             "description": "De border rond de map wordt niet afgebeeld.",
                             "default": "false"
                         }

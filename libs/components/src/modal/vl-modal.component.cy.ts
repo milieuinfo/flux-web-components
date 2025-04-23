@@ -5,9 +5,7 @@ import { VlModalComponent } from './vl-modal.component';
 
 registerWebComponents([VlModalComponent, VlButtonComponent]);
 
-const renderOpenButton = () => html`<vl-button data-vl-modal-open="modal-vt" data-cy="button-modal-toggle">
-    Open
-</vl-button>`;
+const renderOpenButton = () => html`<vl-button modal-open="modal-vt" data-cy="button-modal-toggle"> Open </vl-button>`;
 
 const renderModal = ({
     title = 'Modal',
@@ -30,12 +28,12 @@ const renderModal = ({
     button?: TemplateResult;
 }) => html`<vl-modal
     id="modal-vt"
-    data-vl-title=${title}
-    ?data-vl-open=${open}
-    ?data-vl-closable=${closable}
-    ?data-vl-not-cancellable=${notCancellable}
-    ?data-vl-not-auto-closable=${notAutoClosable}
-    ?data-vl-allow-overflow=${allowOverflow}
+    title=${title}
+    ?open=${open}
+    ?closable=${closable}
+    ?not-cancellable=${notCancellable}
+    ?not-auto-closable=${notAutoClosable}
+    ?allow-overflow=${allowOverflow}
     data-cy="modal"
 >
     <span slot="content"> ${content} </span>
@@ -43,7 +41,7 @@ const renderModal = ({
 </vl-modal>`;
 
 const otherActionButton = html`<button is="vl-button-link" class="custom-action-button">
-    <span is="vl-icon" data-vl-icon="cross" before="" data-vl-modal-close=""></span>
+    <span is="vl-icon" icon="cross" before="" modal-close=""></span>
     Andere actie
 </button>`;
 

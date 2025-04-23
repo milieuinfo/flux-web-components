@@ -13,7 +13,7 @@ export class VlMapLayerStyle extends BaseElementOfType(HTMLElement) {
     }
 
     get name() {
-        return this.getAttribute('data-vl-name');
+        return this.getAttribute('name');
     }
 
     get color() {

@@ -25,7 +25,7 @@ const mountDefault = ({
     menuSlot?: string;
 }) =>
     cy.mount(html`
-        <vl-info-tile ?data-vl-toggleable=${toggleable} ?data-vl-auto-open=${autoOpen} ?data-vl-center=${center}>
+        <vl-info-tile ?toggleable=${toggleable} ?auto-open=${autoOpen} ?center=${center}>
             ${unsafeHTML(titleSlot)}${unsafeHTML(menuSlot)}${unsafeHTML(subtitleSlot)}${unsafeHTML(contentSlot)}
         </vl-info-tile>
     `);

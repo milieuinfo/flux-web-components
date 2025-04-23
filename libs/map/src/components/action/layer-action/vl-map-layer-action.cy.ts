@@ -40,8 +40,8 @@ describe('vl-map-layer-action', () => {
         const createActionStub = cy.stub(VlMapLayerAction.prototype, '_createAction').returns(<any>action);
         cy.mount(html`
             <vl-map>
-                <vl-map-features-layer data-vl-name="layer"></vl-map-features-layer>
-                <vl-map-layer-action data-vl-layer="layer"></vl-map-layer-action>
+                <vl-map-features-layer name="layer"></vl-map-features-layer>
+                <vl-map-layer-action layer="layer"></vl-map-layer-action>
             </vl-map>
         `);
         cy.runTestFor2<VlMap, VlMapFeaturesLayer>('vl-map', 'vl-map-features-layer', (vlMap, vlMapFeaturesLayer) => {

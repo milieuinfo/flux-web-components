@@ -12,9 +12,9 @@ export const httpErrorMessageArgs = {
 };
 
 export const httpErrorMessageArgTypes: ArgTypes<typeof httpErrorMessageArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     title: {
-        name: 'data-vl-title',
+        name: 'title',
         type: { name: TYPES.STRING, required: false },
         description: 'Past de title van de error message aan.',
         table: {
@@ -24,7 +24,7 @@ export const httpErrorMessageArgTypes: ArgTypes<typeof httpErrorMessageArgs> = {
         },
     },
     image: {
-        name: 'data-vl-image',
+        name: 'image',
         type: { name: TYPES.STRING, required: false },
         description: 'De URL voor de afbeelding die weergegeven moet worden.',
         table: {
@@ -34,7 +34,7 @@ export const httpErrorMessageArgTypes: ArgTypes<typeof httpErrorMessageArgs> = {
         },
     },
     alt: {
-        name: 'data-vl-image-alt',
+        name: 'image-alt',
         type: { name: TYPES.STRING, required: false },
         description: 'Past de alternatieve tekst van de afbeelding aan.',
         table: {
@@ -44,7 +44,7 @@ export const httpErrorMessageArgTypes: ArgTypes<typeof httpErrorMessageArgs> = {
         },
     },
     errorCode: {
-        name: 'data-vl-error-code',
+        name: 'error-code',
         type: { name: TYPES.STRING, required: false },
         description: 'Geeft de default titel, afbeelding, tekst en actie voor een specifieke error code weer.',
         table: {

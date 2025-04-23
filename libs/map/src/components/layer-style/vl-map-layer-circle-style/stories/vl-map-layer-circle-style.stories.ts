@@ -81,22 +81,22 @@ const Template = story(
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-features-layer .features=${features}>
                 <vl-map-layer-circle-style
-                    data-vl-border-color=${borderColor}
-                    data-vl-border-size=${borderSize}
-                    data-vl-cluster-color=${clusterColor}
-                    data-vl-cluster-multiplier=${clusterMultiplier}
-                    data-vl-cluster-text-color=${clusterTextColor}
-                    data-vl-color=${color}
-                    data-vl-name=${name}
-                    data-vl-size=${size}
-                    data-vl-text-background-color=${textBackgroundColor}
-                    data-vl-text-border-color=${textBorderColor}
-                    data-vl-text-border-size=${textBorderSize}
-                    data-vl-text-color=${textColor}
-                    data-vl-text-feature-attribute-name=${textFeatureAttributeName}
-                    data-vl-text-offset-x=${textOffsetX}
-                    data-vl-text-offset-y=${textOffsetY}
-                    data-vl-text-size=${textSize}
+                    border-color=${borderColor}
+                    border-size=${borderSize}
+                    cluster-color=${clusterColor}
+                    cluster-multiplier=${clusterMultiplier}
+                    cluster-text-color=${clusterTextColor}
+                    color=${color}
+                    name=${name}
+                    size=${size}
+                    text-background-color=${textBackgroundColor}
+                    text-border-color=${textBorderColor}
+                    text-border-size=${textBorderSize}
+                    text-color=${textColor}
+                    text-feature-attribute-name=${textFeatureAttributeName}
+                    text-offset-x=${textOffsetX}
+                    text-offset-y=${textOffsetY}
+                    text-size=${textSize}
                 ></vl-map-layer-circle-style>
             </vl-map-features-layer>
         </vl-map>`;
@@ -289,24 +289,24 @@ export const MapLayerCircleStyleClustered = story(
 
         return html` <vl-map>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
-            <vl-map-features-layer .features=${features} data-vl-cluster data-vl-cluster-distance="100">
+            <vl-map-features-layer .features=${features} cluster cluster-distance="100">
                 <vl-map-layer-circle-style
-                    data-vl-border-color=${borderColor}
-                    data-vl-border-size=${borderSize}
-                    data-vl-cluster-color=${clusterColor}
-                    data-vl-cluster-text-color=${clusterTextColor}
-                    data-vl-cluster-multiplier=${clusterMultiplier}
-                    data-vl-color=${color}
-                    data-vl-name=${name}
-                    data-vl-size=${size}
-                    data-vl-text-background-color=${textBackgroundColor}
-                    data-vl-text-border-color=${textBorderColor}
-                    data-vl-text-border-size=${textBorderSize}
-                    data-vl-text-color=${textColor}
-                    data-vl-text-feature-attribute-name=${textFeatureAttributeName}
-                    data-vl-text-offset-x=${textOffsetX}
-                    data-vl-text-offset-y=${textOffsetY}
-                    data-vl-text-size=${textSize}
+                    border-color=${borderColor}
+                    border-size=${borderSize}
+                    cluster-color=${clusterColor}
+                    cluster-text-color=${clusterTextColor}
+                    cluster-multiplier=${clusterMultiplier}
+                    color=${color}
+                    name=${name}
+                    size=${size}
+                    text-background-color=${textBackgroundColor}
+                    text-border-color=${textBorderColor}
+                    text-border-size=${textBorderSize}
+                    text-color=${textColor}
+                    text-feature-attribute-name=${textFeatureAttributeName}
+                    text-offset-x=${textOffsetX}
+                    text-offset-y=${textOffsetY}
+                    text-size=${textSize}
                 ></vl-map-layer-circle-style>
             </vl-map-features-layer>
         </vl-map>`;

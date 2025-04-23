@@ -16,7 +16,7 @@ export class VlMapActionControls extends BaseLitElement {
 
         this.actionControls.forEach((control) => {
             control.addEventListener('change-control', (event: CustomEvent) => {
-                const actionId = control.getAttribute('data-vl-action-id');
+                const actionId = control.getAttribute('action-id');
                 this.handleActionControlChange(actionId, event);
             });
         });
@@ -37,7 +37,7 @@ export class VlMapActionControls extends BaseLitElement {
     private handleActionControlChange(actionId: string, event: CustomEvent): void {
         if (event.detail?.isActive) {
             [...this.actionControls]
-                .filter((control) => control.getAttribute('data-vl-action-id') !== actionId)
+                .filter((control) => control.getAttribute('action-id') !== actionId)
                 .filter((control) => control.active)
                 .forEach((control) => control.deactivate());
         }

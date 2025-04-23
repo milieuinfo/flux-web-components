@@ -17,11 +17,11 @@ export class VlProzaMessagePreloader extends BaseElementOfType(HTMLElement) {
     }
 
     get _domain() {
-        return this.dataset.vlDomain;
+        return this.getAttribute('domain');
     }
 
     get _baseUrl() {
-        return this.dataset.vlBaseUrl;
+        return this.getAttribute('base-url');
     }
 
     _preload() {

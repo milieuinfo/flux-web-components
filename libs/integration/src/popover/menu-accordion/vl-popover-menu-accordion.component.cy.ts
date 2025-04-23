@@ -38,44 +38,44 @@ describe('integration - popover menu accordion', () => {
         cy.mount(html`<vl-popover-menu-accordion></vl-popover-menu-accordion>`);
 
         cy.get('vl-popover-menu-accordion')
-            .find('vl-accordion[data-vl-toggle-text="Stedelijk woongebied"]')
+            .find('vl-accordion[toggle-text="Stedelijk woongebied"]')
             .shadow()
             .find('button.vl-toggle')
             .click();
         cy.get('vl-popover-menu-accordion')
-            .find('vl-accordion[data-vl-toggle-text="Stedelijk woongebied"]')
+            .find('vl-accordion[toggle-text="Stedelijk woongebied"]')
             .shadow()
             .find('div.vl-accordion')
             .should('have.class', 'js-vl-accordion--open');
 
         cy.get('vl-popover-menu-accordion')
-            .find('vl-accordion[data-vl-toggle-text="$1.1"]')
+            .find('vl-accordion[toggle-text="$1.1"]')
             .shadow()
             .find('button.vl-toggle')
             .click();
         cy.get('vl-popover-menu-accordion')
-            .find('vl-accordion[data-vl-toggle-text="$1.1"]')
+            .find('vl-accordion[toggle-text="$1.1"]')
             .shadow()
             .find('div.vl-accordion')
             .should('have.class', 'js-vl-accordion--open');
         cy.get('vl-popover-menu-accordion')
-            .find('vl-accordion[data-vl-toggle-text="$1.1"]')
+            .find('vl-accordion[toggle-text="$1.1"]')
             .shadow()
             .find('button.vl-toggle')
             .click();
         cy.get('vl-popover-menu-accordion')
-            .find('vl-accordion[data-vl-toggle-text="$1.1"]')
+            .find('vl-accordion[toggle-text="$1.1"]')
             .shadow()
             .find('div.vl-accordion')
             .should('not.have.class', 'js-vl-accordion--open');
 
         cy.get('vl-popover-menu-accordion')
-            .find('vl-accordion[data-vl-toggle-text="Stedelijk woongebied"]')
+            .find('vl-accordion[toggle-text="Stedelijk woongebied"]')
             .shadow()
             .find('button.vl-toggle')
             .click();
         cy.get('vl-popover-menu-accordion')
-            .find('vl-accordion[data-vl-toggle-text="Stedelijk woongebied"]')
+            .find('vl-accordion[toggle-text="Stedelijk woongebied"]')
             .shadow()
             .find('div.vl-accordion')
             .should('not.have.class', 'js-vl-accordion--open');

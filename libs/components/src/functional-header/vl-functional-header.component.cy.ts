@@ -24,7 +24,7 @@ describe('story - vl-functional-header', () => {
     });
 
     it('should set back text', () => {
-        cy.mount(html` <vl-functional-header data-vl-back="Keer terug"></vl-functional-header>`);
+        cy.mount(html` <vl-functional-header back="Keer terug"></vl-functional-header>`);
 
         shouldSetBackText();
     });
@@ -36,19 +36,19 @@ describe('story - vl-functional-header', () => {
     });
 
     it('should set back link', () => {
-        cy.mount(html` <vl-functional-header data-vl-back-link="test"></vl-functional-header>`);
+        cy.mount(html` <vl-functional-header back-link="test"></vl-functional-header>`);
 
         shouldSetBackLink();
     });
 
     it('should hide back link', () => {
-        cy.mount(html` <vl-functional-header data-vl-hide-back-link=""></vl-functional-header>`);
+        cy.mount(html` <vl-functional-header hide-back-link=""></vl-functional-header>`);
 
         cy.get('vl-functional-header').shadow().find('a#back-link').should('not.exist');
     });
 
     it('should hide sub-header', () => {
-        cy.mount(html` <vl-functional-header data-vl-hide-sub-header=""></vl-functional-header>`);
+        cy.mount(html` <vl-functional-header hide-sub-header=""></vl-functional-header>`);
 
         cy.get('vl-functional-header')
             .shadow()
@@ -60,25 +60,25 @@ describe('story - vl-functional-header', () => {
     });
 
     it('should disable back link and emit event', () => {
-        cy.mount(html` <vl-functional-header data-vl-disable-back-link=""></vl-functional-header>`);
+        cy.mount(html` <vl-functional-header disable-back-link=""></vl-functional-header>`);
 
         shouldDisableBackLinkAndEmitEvent();
     });
 
     it('should set title link', () => {
-        cy.mount(html` <vl-functional-header data-vl-link="test"></vl-functional-header>`);
+        cy.mount(html` <vl-functional-header link="test"></vl-functional-header>`);
 
         shouldSetTitleLink();
     });
 
     it('should set sub title text', () => {
-        cy.mount(html` <vl-functional-header data-vl-sub-title="Voor lager onderwijs"></vl-functional-header>`);
+        cy.mount(html` <vl-functional-header sub-title="Voor lager onderwijs"></vl-functional-header>`);
 
         shouldSetSubTitleText();
     });
 
     it('should set title text', () => {
-        cy.mount(html` <vl-functional-header data-vl-title="School en studietoelagen"></vl-functional-header>`);
+        cy.mount(html` <vl-functional-header title="School en studietoelagen"></vl-functional-header>`);
 
         shouldSetTitleText();
     });
@@ -114,7 +114,7 @@ describe('story - vl-functional-header - actions', () => {
 
     it('should set back text', () => {
         cy.mount(html`
-            <vl-functional-header data-vl-back="Keer terug">
+            <vl-functional-header back="Keer terug">
                 <div slot="actions">
                     <a href="#">Actie 1</a>
                     <a href="#">Actie 2</a>
@@ -140,7 +140,7 @@ describe('story - vl-functional-header - actions', () => {
 
     it('should set back link', () => {
         cy.mount(html`
-            <vl-functional-header data-vl-back-link="test">
+            <vl-functional-header back-link="test">
                 <div slot="actions">
                     <a href="#">Actie 1</a>
                     <a href="#">Actie 2</a>
@@ -153,7 +153,7 @@ describe('story - vl-functional-header - actions', () => {
 
     it('should disable back link and emit event', () => {
         cy.mount(html`
-            <vl-functional-header data-vl-disable-back-link="">
+            <vl-functional-header disable-back-link="">
                 <div slot="actions">
                     <a href="#">Actie 1</a>
                     <a href="#">Actie 2</a>
@@ -166,7 +166,7 @@ describe('story - vl-functional-header - actions', () => {
 
     it('should set title link', () => {
         cy.mount(html`
-            <vl-functional-header data-vl-link="test">
+            <vl-functional-header link="test">
                 <div slot="actions">
                     <a href="#">Actie 1</a>
                     <a href="#">Actie 2</a>
@@ -179,7 +179,7 @@ describe('story - vl-functional-header - actions', () => {
 
     it('should set sub title text', () => {
         cy.mount(html`
-            <vl-functional-header data-vl-sub-title="Voor lager onderwijs">
+            <vl-functional-header sub-title="Voor lager onderwijs">
                 <div slot="actions">
                     <a href="#">Actie 1</a>
                     <a href="#">Actie 2</a>
@@ -192,7 +192,7 @@ describe('story - vl-functional-header - actions', () => {
 
     it('should set title text', () => {
         cy.mount(html`
-            <vl-functional-header data-vl-title="School en studietoelagen">
+            <vl-functional-header title="School en studietoelagen">
                 <div slot="actions">
                     <a href="#">Actie 1</a>
                     <a href="#">Actie 2</a>
@@ -205,7 +205,7 @@ describe('story - vl-functional-header - actions', () => {
 
     it('should set actions slot', () => {
         cy.mount(html`
-            <vl-functional-header data-vl-title="School en studietoelagen">
+            <vl-functional-header title="School en studietoelagen">
                 <div slot="actions">
                     <a href="#">Actie 1</a>
                     <a href="#">Actie 2</a>
@@ -249,7 +249,7 @@ describe('story - vl-functional-header - tabs', () => {
 
     it('should set title link', () => {
         cy.mount(html`
-            <vl-functional-header data-vl-link="test">
+            <vl-functional-header link="test">
                 <vl-tabs slot="sub-header" disable-links within-functional-header active-tab="trein">
                     <vl-tabs-pane id="trein" title="Trein"></vl-tabs-pane>
                     <vl-tabs-pane id="metro" title="Metro, tram en bus"></vl-tabs-pane>
@@ -263,11 +263,11 @@ describe('story - vl-functional-header - tabs', () => {
 
     it('should set title text', () => {
         cy.mount(html`
-            <vl-functional-header data-vl-title="School en studietoelagen">
+            <vl-functional-header title="School en studietoelagen">
                 <vl-tabs slot="sub-header" disable-links within-functional-header active-tab="trein">
-                    <vl-tabs-pane data-vl-id="trein" data-vl-title="Trein"></vl-tabs-pane>
-                    <vl-tabs-pane data-vl-id="metro" data-vl-title="Metro, tram en bus"></vl-tabs-pane>
-                    <vl-tabs-pane data-vl-id="fiets" data-vl-title="Fiets"></vl-tabs-pane>
+                    <vl-tabs-pane id="trein" title="Trein"></vl-tabs-pane>
+                    <vl-tabs-pane id="metro" title="Metro, tram en bus"></vl-tabs-pane>
+                    <vl-tabs-pane id="fiets" title="Fiets"></vl-tabs-pane>
                 </vl-tabs>
             </vl-functional-header>
         `);
@@ -357,9 +357,9 @@ describe('story - vl-functional-header - breadcrumb', () => {
         cy.mount(html`
             <vl-functional-header title="test">
                 <vl-breadcrumb slot="sub-title">
-                    <vl-breadcrumb-item data-vl-href="1">Vlaanderen Intern</vl-breadcrumb-item>
-                    <vl-breadcrumb-item data-vl-href="2">Regelgeving</vl-breadcrumb-item>
-                    <vl-breadcrumb-item data-vl-href="3">Webuniversum</vl-breadcrumb-item>
+                    <vl-breadcrumb-item href="1">Vlaanderen Intern</vl-breadcrumb-item>
+                    <vl-breadcrumb-item href="2">Regelgeving</vl-breadcrumb-item>
+                    <vl-breadcrumb-item href="3">Webuniversum</vl-breadcrumb-item>
                     <vl-breadcrumb-item>Componenten</vl-breadcrumb-item>
                 </vl-breadcrumb>
             </vl-functional-header>
@@ -371,11 +371,11 @@ describe('story - vl-functional-header - breadcrumb', () => {
 
     it('should set title link', () => {
         cy.mount(html`
-            <vl-functional-header data-vl-link="test">
+            <vl-functional-header link="test">
                 <vl-breadcrumb slot="sub-title">
-                    <vl-breadcrumb-item data-vl-href="1">Vlaanderen Intern</vl-breadcrumb-item>
-                    <vl-breadcrumb-item data-vl-href="2">Regelgeving</vl-breadcrumb-item>
-                    <vl-breadcrumb-item data-vl-href="3">Webuniversum</vl-breadcrumb-item>
+                    <vl-breadcrumb-item href="1">Vlaanderen Intern</vl-breadcrumb-item>
+                    <vl-breadcrumb-item href="2">Regelgeving</vl-breadcrumb-item>
+                    <vl-breadcrumb-item href="3">Webuniversum</vl-breadcrumb-item>
                     <vl-breadcrumb-item>Componenten</vl-breadcrumb-item>
                 </vl-breadcrumb>
             </vl-functional-header>
@@ -386,11 +386,11 @@ describe('story - vl-functional-header - breadcrumb', () => {
 
     it('should set title text', () => {
         cy.mount(html`
-            <vl-functional-header data-vl-title="School en studietoelagen">
+            <vl-functional-header title="School en studietoelagen">
                 <vl-breadcrumb slot="sub-title">
-                    <vl-breadcrumb-item data-vl-href="1">Vlaanderen Intern</vl-breadcrumb-item>
-                    <vl-breadcrumb-item data-vl-href="2">Regelgeving</vl-breadcrumb-item>
-                    <vl-breadcrumb-item data-vl-href="3">Webuniversum</vl-breadcrumb-item>
+                    <vl-breadcrumb-item href="1">Vlaanderen Intern</vl-breadcrumb-item>
+                    <vl-breadcrumb-item href="2">Regelgeving</vl-breadcrumb-item>
+                    <vl-breadcrumb-item href="3">Webuniversum</vl-breadcrumb-item>
                     <vl-breadcrumb-item>Componenten</vl-breadcrumb-item>
                 </vl-breadcrumb>
             </vl-functional-header>
@@ -401,11 +401,11 @@ describe('story - vl-functional-header - breadcrumb', () => {
 
     it('should contain 4 breadcrumb items', () => {
         cy.mount(html`
-            <vl-functional-header data-vl-title="School en studietoelagen">
+            <vl-functional-header title="School en studietoelagen">
                 <vl-breadcrumb slot="sub-title">
-                    <vl-breadcrumb-item data-vl-href="1">Vlaanderen Intern</vl-breadcrumb-item>
-                    <vl-breadcrumb-item data-vl-href="2">Regelgeving</vl-breadcrumb-item>
-                    <vl-breadcrumb-item data-vl-href="3">Webuniversum</vl-breadcrumb-item>
+                    <vl-breadcrumb-item href="1">Vlaanderen Intern</vl-breadcrumb-item>
+                    <vl-breadcrumb-item href="2">Regelgeving</vl-breadcrumb-item>
+                    <vl-breadcrumb-item href="3">Webuniversum</vl-breadcrumb-item>
                     <vl-breadcrumb-item>Componenten</vl-breadcrumb-item>
                 </vl-breadcrumb>
             </vl-functional-header>
@@ -420,11 +420,11 @@ describe('story - vl-functional-header - breadcrumb', () => {
 
     it('should contain correct breadcrumb items', () => {
         cy.mount(html`
-            <vl-functional-header data-vl-title="School en studietoelagen">
+            <vl-functional-header title="School en studietoelagen">
                 <vl-breadcrumb slot="sub-title">
-                    <vl-breadcrumb-item data-vl-href="1">Vlaanderen Intern</vl-breadcrumb-item>
-                    <vl-breadcrumb-item data-vl-href="2">Regelgeving</vl-breadcrumb-item>
-                    <vl-breadcrumb-item data-vl-href="3">Webuniversum</vl-breadcrumb-item>
+                    <vl-breadcrumb-item href="1">Vlaanderen Intern</vl-breadcrumb-item>
+                    <vl-breadcrumb-item href="2">Regelgeving</vl-breadcrumb-item>
+                    <vl-breadcrumb-item href="3">Webuniversum</vl-breadcrumb-item>
                     <vl-breadcrumb-item>Componenten</vl-breadcrumb-item>
                 </vl-breadcrumb>
             </vl-functional-header>
@@ -444,11 +444,11 @@ describe('story - vl-functional-header - breadcrumb', () => {
 
     it('should set correct links for breadcrumb items', () => {
         cy.mount(html`
-            <vl-functional-header data-vl-title="School en studietoelagen">
+            <vl-functional-header title="School en studietoelagen">
                 <vl-breadcrumb slot="sub-title">
-                    <vl-breadcrumb-item data-vl-href="1">Vlaanderen Intern</vl-breadcrumb-item>
-                    <vl-breadcrumb-item data-vl-href="2">Regelgeving</vl-breadcrumb-item>
-                    <vl-breadcrumb-item data-vl-href="3">Webuniversum</vl-breadcrumb-item>
+                    <vl-breadcrumb-item href="1">Vlaanderen Intern</vl-breadcrumb-item>
+                    <vl-breadcrumb-item href="2">Regelgeving</vl-breadcrumb-item>
+                    <vl-breadcrumb-item href="3">Webuniversum</vl-breadcrumb-item>
                     <vl-breadcrumb-item>Componenten</vl-breadcrumb-item>
                 </vl-breadcrumb>
             </vl-functional-header>
