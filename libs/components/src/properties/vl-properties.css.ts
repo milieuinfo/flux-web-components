@@ -17,6 +17,7 @@ const collapsedDd = (): CSSResult => {
     return css`
         grid-column: 1;
         font-size: 1.6rem;
+        margin-inline-start: initial;
     `;
 };
 
@@ -86,6 +87,7 @@ export const propertiesStyles: CSSResult = css`
     dd {
         font-size: 1.8rem;
         grid-column: 2;
+        margin-inline-start: initial;
     }
 
     .collapsed dd {
