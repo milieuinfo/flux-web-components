@@ -26,7 +26,7 @@ export default {
 export const StepsDefault = story(
     stepsArgs,
     ({ line, timeline, lastStepNoLine }) => html`
-        <vl-steps ?data-vl-line=${line} ?data-vl-timeline=${timeline} ?data-vl-last-step-no-line=${lastStepNoLine}>
+        <vl-steps ?line=${line} ?timeline=${timeline} ?last-step-no-line=${lastStepNoLine}>
             <vl-step>
                 <span slot="icon">1</span>
                 <span slot="title">Stap 1: eerste actie</span>
@@ -53,7 +53,7 @@ StepsDefault.storyName = 'vl-steps - default';
 export const StepsIcons = story(
     stepsArgs,
     ({ line, timeline, lastStepNoLine }) => html`
-        <vl-steps ?data-vl-line=${line} ?data-vl-timeline=${timeline} ?data-vl-last-step-no-line=${lastStepNoLine}>
+        <vl-steps ?line=${line} ?timeline=${timeline} ?last-step-no-line=${lastStepNoLine}>
             <vl-step>
                 <vl-icon slot="icon" icon="search"></vl-icon>
                 <span slot="title">Stap 1: eerste actie</span>
@@ -80,7 +80,7 @@ StepsIcons.storyName = 'vl-steps - icons';
 export const StepsLine = story(
     stepsArgs,
     ({ line, lastStepNoLine }) => html`
-        <vl-steps ?data-vl-line=${line} ?data-vl-last-step-no-line=${lastStepNoLine}>
+        <vl-steps ?line=${line} ?last-step-no-line=${lastStepNoLine}>
             <vl-step>
                 <span slot="icon">1</span>
                 <span slot="title">Stap 1: eerste actie</span>
@@ -110,7 +110,7 @@ StepsLine.args = {
 export const StepsTimeline = story(
     stepsArgs,
     ({ timeline, lastStepNoLine }) => html`
-        <vl-steps ?data-vl-timeline=${timeline} ?data-vl-last-step-no-line=${lastStepNoLine}>
+        <vl-steps ?timeline=${timeline} ?last-step-no-line=${lastStepNoLine}>
             <vl-step>
                 <span slot="icon">1</span>
                 <span slot="sub-icon">maa</span>
@@ -148,7 +148,7 @@ StepsTimeline.args = {
 export const StepsSimpleTimeline = story(
     stepsArgs,
     ({ simpleTimeline, lastStepNoLine }) => html`
-        <vl-steps ?data-vl-simple-timeline=${simpleTimeline} ?data-vl-last-step-no-line=${lastStepNoLine}>
+        <vl-steps ?simple-timeline=${simpleTimeline} ?last-step-no-line=${lastStepNoLine}>
             <vl-step>
                 <span slot="title">Stap 1: eerste actie</span>
                 <span slot="subtitle">Dit is de eerste subtitel.</span>

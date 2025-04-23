@@ -20,7 +20,7 @@ export const linkArgs: LinkArgs = {
 };
 
 export const linkArgTypes: ArgTypes<LinkArgs> = {
-    ...defaultArgTypes(true),
+    ...defaultArgTypes,
     href: {
         name: 'href',
         description: 'De url waar de link naar verwijst.<br/>Werkt niet in combinatie met `button-as-link`-attribuut.',

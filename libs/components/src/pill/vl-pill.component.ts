@@ -26,32 +26,32 @@ export class VlPillComponent extends BaseLitElement {
         return {
             disabled: {
                 type: Boolean,
-                attribute: 'data-vl-disabled',
+                attribute: 'disabled',
                 reflect: true,
             },
             type: {
                 type: String,
-                attribute: 'data-vl-type',
+                attribute: 'type',
                 reflect: true,
             },
             closable: {
                 type: Boolean,
-                attribute: 'data-vl-closable',
+                attribute: 'closable',
                 reflect: true,
             },
             checkable: {
                 type: Boolean,
-                attribute: 'data-vl-checkable',
+                attribute: 'checkable',
                 reflect: true,
             },
             checked: {
                 type: Boolean || undefined,
-                attribute: 'data-vl-checked',
+                attribute: 'checked',
                 reflect: true,
             },
             clickable: {
                 type: Boolean,
-                attribute: 'data-vl-clickable',
+                attribute: 'clickable',
                 reflect: true,
             },
         };
@@ -85,7 +85,6 @@ export class VlPillComponent extends BaseLitElement {
         return {
             'vl-pill': true,
             'vl-pill--disabled': this.disabled,
-            'vl-pill--data-vl-disabled': this.disabled,
             'vl-pill--success': this.type === TYPE.SUCCESS,
             'vl-pill--warning': this.type === TYPE.WARNING,
             'vl-pill--error': this.type === TYPE.ERROR,

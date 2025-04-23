@@ -26,7 +26,7 @@ const mapLayerCircleStyleFixture = html`
 const mapLayerStyleMetTextFeatureAttributeNameFixture = html`
     <vl-map>
         <vl-map-features-layer>
-            <vl-map-layer-style data-vl-text-feature-attribute-name="label"></vl-map-layer-style>
+            <vl-map-layer-style text-feature-attribute-name="label"></vl-map-layer-style>
         </vl-map-features-layer>
     </vl-map>
 `;
@@ -35,17 +35,17 @@ const mapLayerStyleMetPropertiesFixture = html`
     <vl-map>
         <vl-map-features-layer>
             <vl-map-layer-style
-                data-vl-color="rgba(255,0,0,0.5)"
-                data-vl-border-color="rgba(255,255,100,1)"
-                data-vl-border-size="2"
-                data-vl-text-feature-attribute-name="label"
-                data-vl-text-background-color="rgba(0,0,255,0.2)"
-                data-vl-text-border-color="rgba(0,255,0,1)"
-                data-vl-text-border-size="3"
-                data-vl-text-color="rgba(255,0,0,1)"
-                data-vl-text-offset-x="10"
-                data-vl-text-offset-y="-10"
-                data-vl-text-size="13px"
+                color="rgba(255,0,0,0.5)"
+                border-color="rgba(255,255,100,1)"
+                border-size="2"
+                text-feature-attribute-name="label"
+                text-background-color="rgba(0,0,255,0.2)"
+                text-border-color="rgba(0,255,0,1)"
+                text-border-size="3"
+                text-color="rgba(255,0,0,1)"
+                text-offset-x="10"
+                text-offset-y="-10"
+                text-size="13px"
             ></vl-map-layer-style>
         </vl-map-features-layer>
     </vl-map>
@@ -54,8 +54,8 @@ const mapLayerStyleMetPropertiesFixture = html`
 const mapLayerStyleMetMeerdereStijlenFixture = html`
     <vl-map>
         <vl-map-features-layer>
-            <vl-map-layer-style id="map-layer-style-red" data-vl-color="rgba(255,0,0,0.8)"></vl-map-layer-style>
-            <vl-map-layer-style id="map-layer-style-green" data-vl-color="rgba(0,255,0,0.8)"></vl-map-layer-style>
+            <vl-map-layer-style id="map-layer-style-red" color="rgba(255,0,0,0.8)"></vl-map-layer-style>
+            <vl-map-layer-style id="map-layer-style-green" color="rgba(0,255,0,0.8)"></vl-map-layer-style>
         </vl-map-features-layer>
     </vl-map>
 `;

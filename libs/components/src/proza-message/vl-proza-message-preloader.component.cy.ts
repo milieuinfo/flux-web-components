@@ -32,24 +32,21 @@ describe('vl-proza-message-preloader', () => {
         });
     });
 
-
-
     it('should have a static public preload method', () => {
         expect(VlProzaMessagePreloader.preload).to.be.a('function');
         VlProzaMessagePreloader.preload(mockDomain);
 
         cy.get('@getMessagesSpy').should('have.been.calledOnce');
         cy.get('@getMessagesSpy').should('have.been.calledWith', mockDomain, undefined);
-    })
+    });
 
     it('should have a public preload method', () => {
         cy.mount(
-            html`<div>
-                <vl-proza-message-preloader
-                    data-vl-domain="${mockDomain}"
-
-                ></vl-proza-message-preloader>
-            </div>`
+            html`
+                <div>
+                    <vl-proza-message-preloader domain="${mockDomain}"></vl-proza-message-preloader>
+                </div>
+            `
         );
 
         cy.get('vl-proza-message-preloader').then((el) => {
@@ -58,7 +55,7 @@ describe('vl-proza-message-preloader', () => {
 
             preloader.preload();
             cy.get('@getMessagesSpy').should('have.been.calledOnce');
-            cy.get('@getMessagesSpy').should('have.been.calledWith', mockDomain, undefined);
+            cy.get('@getMessagesSpy').should('have.been.calledWith', mockDomain, null);
         });
     });
 });

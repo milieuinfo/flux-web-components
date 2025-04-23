@@ -10,9 +10,9 @@ export const descriptionDataArgs = {
 };
 
 export const descriptionDataArgTypes = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     bordered: {
-        name: 'data-vl-bordered',
+        name: 'bordered',
         description: 'Adds a border.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -21,7 +21,7 @@ export const descriptionDataArgTypes = {
         },
     },
     size: {
-        name: 'data-vl-items-size',
+        name: 'items-size',
         type: { name: TYPES.NUMBER },
         description:
             'The number (numerator) of the maximum (denominator) that will be taken for each data item on large screens, typically desktop.',
@@ -32,7 +32,7 @@ export const descriptionDataArgTypes = {
         },
     },
     mediumSize: {
-        name: 'data-vl-items-medium-size',
+        name: 'items-medium-size',
         type: { name: TYPES.NUMBER },
         description:
             'The number (numerator) of the maximum (denominator) that will be taken for each data item on medium screens, typically tablet.',
@@ -43,7 +43,7 @@ export const descriptionDataArgTypes = {
         },
     },
     smallSize: {
-        name: 'data-vl-items-small-size',
+        name: 'items-small-size',
         type: { name: TYPES.NUMBER },
         description:
             'The number (numerator) of the maximum (denominator) that will be taken for each data item on small screens, typically mobile.',
@@ -54,7 +54,7 @@ export const descriptionDataArgTypes = {
         },
     },
     extraSmallSize: {
-        name: 'data-vl-items-extra-small-size',
+        name: 'items-extra-small-size',
         type: { name: TYPES.NUMBER },
         description:
             'The number (numerator) of the maximum (denominator) that will be taken for each data item on very small screens.',

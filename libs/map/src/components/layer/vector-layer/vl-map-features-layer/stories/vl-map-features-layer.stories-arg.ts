@@ -15,7 +15,7 @@ export const mapFeaturesLayerArgs = {
 export const mapFeaturesLayerArgTypes: ArgTypes<typeof mapFeaturesLayerArgs> = {
     ...mapLayerArgTypes,
     autoExtent: {
-        name: 'data-vl-auto-extent',
+        name: 'auto-extent',
         description: 'Automatisch zoomen op de kaartlaag zodat al de features zichtbaar zijn.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -24,7 +24,7 @@ export const mapFeaturesLayerArgTypes: ArgTypes<typeof mapFeaturesLayerArgs> = {
         },
     },
     autoExtentMaxZoom: {
-        name: 'data-vl-auto-extent-max-zoom',
+        name: 'auto-extent-max-zoom',
         description: 'Het maximum niveau tot waar er automatisch gezoomd wordt bij een extent.',
         table: {
             type: { summary: TYPES.STRING },
@@ -33,7 +33,7 @@ export const mapFeaturesLayerArgTypes: ArgTypes<typeof mapFeaturesLayerArgs> = {
         },
     },
     cluster: {
-        name: 'data-vl-cluster',
+        name: 'cluster',
         description: 'Geeft aan of de features geclusterd moeten worden of niet.<br>Dit attribuut is niet reactief.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -42,7 +42,7 @@ export const mapFeaturesLayerArgTypes: ArgTypes<typeof mapFeaturesLayerArgs> = {
         },
     },
     clusterDistance: {
-        name: 'data-vl-cluster-distance',
+        name: 'cluster-distance',
         description: 'De afstand vanaf er tussen features geclusterd mag worden.<br>Dit attribuut is niet reactief.',
         table: {
             type: { summary: TYPES.STRING },
@@ -51,7 +51,7 @@ export const mapFeaturesLayerArgTypes: ArgTypes<typeof mapFeaturesLayerArgs> = {
         },
     },
     features: {
-        name: 'data-vl-features',
+        name: 'features',
         description: 'Attribuut dat de kaartlaag bevat.',
         table: {
             type: { summary: TYPES.STRING },

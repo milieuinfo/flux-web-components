@@ -7,7 +7,7 @@ export const wizardPaneArgs = {
 };
 
 export const wizardPaneArgTypes = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     isActive: {
         name: 'isActive',
         description: 'Bepaalt of de pane actief is.',
@@ -20,7 +20,7 @@ export const wizardPaneArgTypes = {
         },
     },
     name: {
-        name: 'data-vl-name',
+        name: 'name',
         description: 'Stelt de naam van de pane in. De naam is zichtbaar in de tooltip van de stap.',
         table: {
             type: {

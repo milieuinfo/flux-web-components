@@ -219,7 +219,6 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
     }
 
     _hideSubHeaderChangedCallback(oldValue: string, newValue: string) {
-        console.log('_hideSubHeaderChangedCallback', newValue);
         if (newValue != undefined) {
             this._subHeaderElement?.classList.add('sub-header-hidden');
         } else {

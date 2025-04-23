@@ -22,11 +22,11 @@ export const infoTileArgs = {
 };
 
 export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     autoOpen: {
-        name: 'data-vl-auto-open',
+        name: 'auto-open',
         description:
-            'Opent de info-tile automatisch bij de eerste render.<br>Alleen bruikbaar indien data-vl-toggleable aanstaat.',
+            'Opent de info-tile automatisch bij de eerste render.<br>Alleen bruikbaar indien toggleable aanstaat.',
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
@@ -34,7 +34,7 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
         },
     },
     center: {
-        name: 'data-vl-center',
+        name: 'center',
         description: 'Centreert de tekst van de info-tile.',
         table: {
             category: CATEGORIES.ATTRIBUTES,
@@ -43,7 +43,7 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
         },
     },
     toggleable: {
-        name: 'data-vl-toggleable',
+        name: 'toggleable',
         description: 'Maakt de info-tile openklapbaar.',
         table: {
             category: CATEGORIES.ATTRIBUTES,

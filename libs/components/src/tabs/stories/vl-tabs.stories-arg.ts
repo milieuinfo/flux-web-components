@@ -22,7 +22,7 @@ export const tabsArgs = {
 };
 
 export const tabsArgTypes: ArgTypes<typeof tabsArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     activeTab: {
         name: 'active-tab',
         description: 'Het id van de actieve tab. De tab in kwestie wordt geselecteerd bij het aanpassen van dit id.',

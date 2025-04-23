@@ -25,12 +25,12 @@ export class VlMapCurrentLocation extends BaseLitElement {
         return {
             zoom: {
                 type: Number,
-                attribute: 'data-vl-zoom',
+                attribute: 'zoom',
                 reflect: true,
             },
             tooltip: {
                 type: String,
-                attribute: 'data-vl-tooltip',
+                attribute: 'tooltip',
                 reflect: true,
             },
         };

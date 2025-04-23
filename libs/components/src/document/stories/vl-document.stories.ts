@@ -21,7 +21,7 @@ export default {
 export const DocumentDefault = story(
     documentArgs,
     ({ href, target, type, title, metadata }) => html`
-        <vl-document data-vl-href=${href} data-vl-target=${target}>
+        <vl-document href=${href} target=${target}>
             <span slot="type">${type}</span>
             <span slot="title">${title}</span>
             <span slot="metadata">${metadata}</span>

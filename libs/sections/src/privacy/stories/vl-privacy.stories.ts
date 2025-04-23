@@ -23,10 +23,10 @@ const Template = story(
     ({ date, disableBackLink, hideBackLink, version, onClickBack, headerSlot, versionSlot, contentSlot, bottomSlot }) =>
         html`
             <vl-privacy
-                data-vl-date=${date}
-                ?data-vl-disable-back-link=${disableBackLink}
-                ?data-vl-hide-back-link=${hideBackLink}
-                data-vl-version=${version}
+                date=${date}
+                ?disable-back-link=${disableBackLink}
+                ?hide-back-link=${hideBackLink}
+                version=${version}
                 @vl-click-back=${onClickBack}
             >
                 ${unsafeHTML(headerSlot)} ${unsafeHTML(versionSlot)} ${unsafeHTML(contentSlot)}
@@ -43,10 +43,10 @@ PrivacyHeaderSlot.args = {
     headerSlot: `
     <vl-functional-header
         slot="header"
-        data-vl-title="Departement Omgeving"
-        data-vl-sub-title="Privacy"
-        data-vl-link="https://omgeving.vlaanderen.be"
-        data-vl-back="Start"
+        title="Departement Omgeving"
+        sub-title="Privacy"
+        link="https://omgeving.vlaanderen.be"
+        back="Start"
     ></vl-functional-header>
 `,
 };

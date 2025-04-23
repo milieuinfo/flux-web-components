@@ -8,7 +8,7 @@ registerWebComponents([VlMap, VlMapSideSheet, VlMapSideSheetMenuItem]);
 
 const mapSideSheetMenuItemFixture = html`
     <vl-map>
-        <vl-map-side-sheet data-vl-open>
+        <vl-map-side-sheet open>
             <vl-map-side-sheet-menu-item></vl-map-side-sheet-menu-item>
         </vl-map-side-sheet>
     </vl-map>
@@ -33,7 +33,7 @@ describe('vl-map-side-sheet-menu-item', () => {
         cy.mount(mapSideSheetMenuItemFixture);
         cy.runTestFor<VlMapSideSheetMenuItem>('vl-map-side-sheet-menu-item', (vlMapSideSheetMenuItem) => {
             const text = 'Dit is een titel';
-            vlMapSideSheetMenuItem.setAttribute('data-vl-title', text);
+            vlMapSideSheetMenuItem.setAttribute('title', text);
             expect(vlMapSideSheetMenuItem._titleElement.innerText).to.be.equal(text);
         });
     });
@@ -42,7 +42,7 @@ describe('vl-map-side-sheet-menu-item', () => {
         cy.mount(mapSideSheetMenuItemFixture);
         cy.runTestFor<VlMapSideSheetMenuItem>('vl-map-side-sheet-menu-item', (vlMapSideSheetMenuItem) => {
             const hrefPath = '/test-path';
-            vlMapSideSheetMenuItem.setAttribute('data-vl-href', hrefPath);
+            vlMapSideSheetMenuItem.setAttribute('href', hrefPath);
             expect(vlMapSideSheetMenuItem._hrefElement.getAttribute('href')).to.be.equal(hrefPath);
         });
     });

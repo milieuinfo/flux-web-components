@@ -25,7 +25,7 @@ export class VlMapWmsLayer extends VlMapLayer {
     }
 
     get _url() {
-        const url = this.getAttribute('data-vl-url');
+        const url = this.getAttribute('url');
         if (!url) {
             throw new Error('URL not defined');
         }
@@ -33,7 +33,7 @@ export class VlMapWmsLayer extends VlMapLayer {
     }
 
     get _layers() {
-        const layers = this.getAttribute('data-vl-layers');
+        const layers = this.getAttribute('layers');
         if (!layers) {
             throw new Error('Layers not defined');
         }
@@ -41,7 +41,7 @@ export class VlMapWmsLayer extends VlMapLayer {
     }
 
     get _styles() {
-        return this.getAttribute('data-vl-styles') || '';
+        return this.getAttribute('styles') || '';
     }
 
     get _sldBody() {
@@ -52,7 +52,7 @@ export class VlMapWmsLayer extends VlMapLayer {
     }
 
     get _version() {
-        return this.getAttribute('data-vl-version') || '1.3.0';
+        return this.getAttribute('version') || '1.3.0';
     }
 
     _createLayerConfig(source) {

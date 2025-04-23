@@ -26,8 +26,8 @@ import { RichDataTableComponent } from '@domg-wc/components';
 
 ```html
 <vl-rich-data-table>
-    <vl-rich-data-field data-vl-name="id" data-vl-label="ID" data-vl-selector="id"></vl-rich-data-field>
-    <vl-rich-data-field data-vl-name="name" data-vl-label="Naam" data-vl-selector="name"></vl-rich-data-field>
+    <vl-rich-data-field name="id" label="ID" selector="id"></vl-rich-data-field>
+    <vl-rich-data-field name="name" label="Naam" selector="name"></vl-rich-data-field>
 </vl-rich-data-table>
 ```
 
@@ -75,7 +75,7 @@ Om sorting te laten werken moet je zelf een sorting algoritme implementeren:
 Een template voorbeeld vind je hieronder. Klik `Show code` de html te zien.
 
 Belangrijk:
-- `data-vl-sortable` toevoegen op de `vl-rich-data-field`-velden waarop gesorteerd moet worden
+- `sortable` toevoegen op de `vl-rich-data-field`-velden waarop gesorteerd moet worden
 - om de data te sorteren kan je gebruik maken van `rich-data-sorter`
 
 <Canvas of={VlRichDataTableStories.RichDataTableSorting} layout="padded" />

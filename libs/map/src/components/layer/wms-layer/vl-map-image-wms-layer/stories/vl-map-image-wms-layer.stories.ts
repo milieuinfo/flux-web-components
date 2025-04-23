@@ -27,15 +27,15 @@ export const MapImageWmsLayerDefault = story(
             <vl-map>
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
                 <vl-map-image-wms-layer
-                    ?data-vl-hidden=${hidden}
-                    data-vl-layers=${layers}
-                    data-vl-max-resolution=${maxResolution}
-                    data-vl-min-resolution=${minResolution}
-                    data-vl-name=${name}
-                    data-vl-opacity=${opacity}
-                    data-vl-styles=${styles}
-                    data-vl-url=${url}
-                    data-vl-version=${version}
+                    ?hidden=${hidden}
+                    layers=${layers}
+                    max-resolution=${maxResolution}
+                    min-resolution=${minResolution}
+                    name=${name}
+                    opacity=${opacity}
+                    styles=${styles}
+                    url=${url}
+                    version=${version}
                 >
                 </vl-map-image-wms-layer>
             </vl-map>

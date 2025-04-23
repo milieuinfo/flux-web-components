@@ -36,7 +36,7 @@ export const MapBaselayerGrbBackgroundLayer = story(
     {},
     () => html`
         <vl-map>
-            <vl-map-baselayer-grb data-vl-background-layer></vl-map-baselayer-grb>
+            <vl-map-baselayer-grb background-layer></vl-map-baselayer-grb>
         </vl-map>
     `
 );

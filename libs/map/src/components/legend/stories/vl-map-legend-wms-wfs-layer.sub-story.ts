@@ -13,26 +13,26 @@ export default story(
         <vl-map>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-tiled-wms-layer
-                data-vl-layers="grondwater:beschermingszones_2014"
-                data-vl-name="Beschermingszones"
-                data-vl-url="https://www.dov.vlaanderen.be/geoserver/wms"
+                layers="grondwater:beschermingszones_2014"
+                name="Beschermingszones"
+                url="https://www.dov.vlaanderen.be/geoserver/wms"
             ></vl-map-tiled-wms-layer>
             <vl-map-wfs-layer
-                data-vl-name="Oppervlaktewaterlichamen"
-                data-vl-url="https://geoserver.vmm.be/geoserver/vmm/wfs"
-                data-vl-layers="owl_l"
-                data-vl-max-resolution="8"
+                name="Oppervlaktewaterlichamen"
+                url="https://geoserver.vmm.be/geoserver/vmm/wfs"
+                layers="owl_l"
+                max-resolution="8"
             >
                 <vl-map-layer-circle-style
-                    data-vl-color="#ffe615"
-                    data-vl-size="5"
-                    data-vl-border-color="#000"
-                    data-vl-border-size="1"
+                    color="#ffe615"
+                    size="5"
+                    border-color="#000"
+                    border-size="1"
                 ></vl-map-layer-circle-style>
             </vl-map-wfs-layer>
             <vl-map-legend
-                data-vl-placement=${placement}
-                data-vl-layout-vertical=${layoutVertical}
+                placement=${placement}
+                layout-vertical=${layoutVertical}
                 bottom=${bottom}
                 top=${top}
                 right=${right}

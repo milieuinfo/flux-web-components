@@ -9,9 +9,9 @@ export const mapCurrentLocationArgs = {
 };
 
 export const mapCurrentLocationArgTypes: ArgTypes<typeof mapCurrentLocationArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     tooltip: {
-        name: 'data-vl-tooltip',
+        name: 'tooltip',
         description: 'Bepaalt de tekst van de tooltip van de huidige locatie knop.',
         table: {
             type: { summary: TYPES.STRING },
@@ -20,7 +20,7 @@ export const mapCurrentLocationArgTypes: ArgTypes<typeof mapCurrentLocationArgs>
         },
     },
     zoom: {
-        name: 'data-vl-zoom',
+        name: 'zoom',
         description: 'Bepaalt hoever er ingezoomd wordt bij het klikken op de huidige locatie knop.',
         control: { type: CONTROLS.RANGE, min: 1, max: 13, step: 1 },
         table: {

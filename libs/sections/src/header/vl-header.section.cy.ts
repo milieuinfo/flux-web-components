@@ -8,7 +8,7 @@ describe('component - vl-header', () => {
     beforeEach(() => {
         cy.mount(html`
             <body>
-                <vl-header data-vl-development data-vl-identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb"></vl-header>
+                <vl-header development identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb"></vl-header>
             </body>
         `);
     });
@@ -41,11 +41,7 @@ describe('component - vl-header - skeleton', () => {
     it('should render the skeleton container', () => {
         cy.mount(html`
             <body>
-                <vl-header
-                    data-vl-development
-                    data-vl-identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb"
-                    data-vl-skeleton
-                ></vl-header>
+                <vl-header development identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb" skeleton></vl-header>
             </body>
         `);
 

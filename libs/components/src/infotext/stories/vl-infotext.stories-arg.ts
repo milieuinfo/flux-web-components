@@ -12,7 +12,7 @@ export const infotextArgs: InfotextArgs = {
 };
 
 export const infotextArgTypes: ArgTypes<InfotextArgs> = {
-    ...defaultArgTypes(true),
+    ...defaultArgTypes,
     badge: {
         name: 'badge',
         description: 'Beeldt de infotext af in een badge.',

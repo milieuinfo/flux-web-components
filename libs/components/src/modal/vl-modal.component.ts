@@ -19,11 +19,11 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
     }
 
     static get _closableAttribute() {
-        return 'data-vl-modal-closable';
+        return 'modal-closable';
     }
 
     static get _closeAttribute() {
-        return 'data-vl-modal-close';
+        return 'modal-close';
     }
 
     constructor() {
@@ -39,7 +39,7 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
                 ${vlIconStyles}
             </style>
             <div class="vl-modal">
-                <dialog class="vl-modal-dialog" data-vl-modal tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-toggle-title" aria-describedby="modal-toggle-description">
+                <dialog class="vl-modal-dialog" modal tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-toggle-title" aria-describedby="modal-toggle-description">
                     <div class="vl-modal-dialog__wrapper" id="modal-dialog-wrapper">
                         <div class="vl-grid vl-stacked-small">
                             <div id="modal-toggle-description" class="vl-column vl-column--12 vl-column--m-12 vl-modal-dialog__content">
@@ -47,10 +47,10 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
                             </div>
                             <div class="vl-column vl-column--12 vl-column--m-12">
                                 <div id="modal-action-group" class="vl-group">
-                                    <slot name="button" data-vl-modal-close></slot>
+                                    <slot name="button" modal-close></slot>
                                     <vl-link id="modal-toggle-cancellable"
                                      button-as-link icon="cross" icon-placement="before"
-                                     data-vl-modal-close>Annuleer</vl-link>
+                                     modal-close>Annuleer</vl-link>
                                 </div>
                             </div>
                         </div>
@@ -101,7 +101,7 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
     }
 
     get _dressed() {
-        return !!this.getAttribute('data-vl-modal-dressed');
+        return !!this.getAttribute('modal-dressed');
     }
 
     /**
@@ -163,7 +163,7 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
 
     _getCloseButtonTemplate() {
         return this._template(`
-      <button id="close" type="button" class="vl-modal-dialog__close" data-vl-modal-close>
+      <button id="close" type="button" class="vl-modal-dialog__close" modal-close>
         <span class="vl-modal-dialog__close__icon vl-icon vl-icon--cross" aria-hidden="true"></span>
         <span class="vl-u-visually-hidden">Venster sluiten</span>
       </button>
@@ -178,7 +178,7 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
     _getCancelTemplate() {
         return this._template(`
       <vl-link id="modal-toggle-cancellable" button-as-link icon="cross" icon-placement="before"
-      data-vl-modal-close
+      modal-close
       >Annuleer</vl-link>
 `);
     }

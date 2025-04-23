@@ -39,16 +39,16 @@ export const HeaderDefault = story(
     }) => html`
         <body>
             <vl-header
-                data-vl-authenticated-user-url=${authenticatedUserUrl}
-                ?data-vl-development=${development}
-                data-vl-identifier=${identifier}
-                data-vl-login-redirect-url=${loginRedirectUrl}
-                data-vl-login-url=${loginUrl}
-                data-vl-logout-url=${logoutUrl}
-                ?data-vl-simple=${simple}
-                ?data-vl-skeleton=${skeleton}
-                data-vl-switch-capacity-url=${switchCapacityUrl}
-                ?data-vl-reject-logout=${rejectLogout}
+                authenticated-user-url=${authenticatedUserUrl}
+                ?development=${development}
+                identifier=${identifier}
+                login-redirect-url=${loginRedirectUrl}
+                login-url=${loginUrl}
+                logout-url=${logoutUrl}
+                ?simple=${simple}
+                ?skeleton=${skeleton}
+                switch-capacity-url=${switchCapacityUrl}
+                ?reject-logout=${rejectLogout}
                 .logoutCallback=${logoutCallback}
                 .applicationLinks=${applicationLinks}
                 @ready=${onReady}

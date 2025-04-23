@@ -20,7 +20,7 @@ export class VlMapWmtsLayer extends VlMapLayer {
     }
 
     get url() {
-        const url = this.getAttribute('data-vl-url');
+        const url = this.getAttribute('url');
         if (!url) {
             throw new Error('URL not defined');
         }
@@ -28,7 +28,7 @@ export class VlMapWmtsLayer extends VlMapLayer {
     }
 
     get _wmtsLayer() {
-        const layer = this.getAttribute('data-vl-layer');
+        const layer = this.getAttribute('layer');
         if (!layer) {
             throw new Error('Layer not defined');
         }

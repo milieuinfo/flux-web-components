@@ -9,11 +9,7 @@ registerWebComponents([VlMap, VlMapBaseLayer, VlMapOverviewMap]);
 const mapOverviewMapFixture = html`
     <vl-map>
         <vl-map-overview-map></vl-map-overview-map>
-        <vl-map-baselayer
-            data-vl-url="https://localhost"
-            data-vl-layer="layername_1"
-            data-vl-title="layer title 1"
-        ></vl-map-baselayer>
+        <vl-map-baselayer url="https://localhost" layer="layername_1" title="layer title 1"></vl-map-baselayer>
     </vl-map>
 `;
 

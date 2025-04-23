@@ -23,9 +23,9 @@ export const InputSliderDefault = story(
     ({ maxValue, minValue, value, onChangeValue }) =>
         html`
             <vl-input-slider
-                data-vl-max-value=${maxValue}
-                data-vl-min-value=${minValue}
-                data-vl-value=${value}
+                max-value=${maxValue}
+                min-value=${minValue}
+                value=${value}
                 @vl-change-value=${(event: CustomEvent) => onChangeValue(event.detail)}
             ></vl-input-slider>
         `

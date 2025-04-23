@@ -21,7 +21,7 @@ export const radioArgs: RadioArgs = {
 };
 
 export const radioArgTypes: ArgTypes<RadioArgs> = {
-    ...defaultArgTypes(true),
+    ...defaultArgTypes,
     id: {
         name: 'id',
         description: 'Het id van het veld.',

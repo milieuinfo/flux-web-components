@@ -26,13 +26,13 @@ export const CookieConsentDefault = story(
             <div>
                 <vl-cookie-consent
                     id="cookie-consent"
-                    data-vl-analytics=${analytics}
-                    data-vl-matomo-id=${matomoId}
-                    data-vl-matomo-url=${matomoUrl}
-                    data-vl-auto-open-disabled=""
-                    ?data-vl-auto-opt-in-functional-disabled=${autoOptInFunctionalDisabled}
-                    data-vl-owner=${owner}
-                    data-vl-link=${link}
+                    analytics=${analytics}
+                    matomo-id=${matomoId}
+                    matomo-url=${matomoUrl}
+                    auto-open-disabled=""
+                    ?auto-opt-in-functional-disabled=${autoOptInFunctionalDisabled}
+                    owner=${owner}
+                    link=${link}
                     @vl-close=${onClose}
                 ></vl-cookie-consent>
                 <vl-button id="button-open-cookie-consent" onClick="document.querySelector('#cookie-consent').open();">

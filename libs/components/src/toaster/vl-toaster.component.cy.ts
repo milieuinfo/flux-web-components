@@ -67,7 +67,7 @@ describe('component - vl-toaster', () => {
     it('should show a toast', () => {
         cy.mount(html`
             <vl-toaster>
-                <vl-alert data-vl-title="toast"></vl-alert>
+                <vl-alert title="toast"></vl-alert>
             </vl-toaster>
         `);
         cy.get('vl-toaster').then((toaster) => {
@@ -80,7 +80,7 @@ describe('component - vl-toaster', () => {
     it('should set fade out', () => {
         cy.mount(html`
             <vl-toaster fade-out>
-                <vl-alert data-vl-title="toast"></vl-alert>
+                <vl-alert title="toast"></vl-alert>
             </vl-toaster>
         `);
         cy.get('vl-toaster').should('have.attr', 'fade-out');

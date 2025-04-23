@@ -22,11 +22,11 @@ export const mapLegendArgs = {
 };
 
 export const mapLegendArgTypes: ArgTypes<typeof mapLegendArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     bottom: {
         name: 'bottom',
         description:
-            'Bepaalt de "bottom" positie van de legende op de kaart.<br>Kan gebruikt worden in combinatie met data-vl-placement.',
+            'Bepaalt de "bottom" positie van de legende op de kaart.<br>Kan gebruikt worden in combinatie met placement.',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
@@ -36,7 +36,7 @@ export const mapLegendArgTypes: ArgTypes<typeof mapLegendArgs> = {
     left: {
         name: 'left',
         description:
-            'Bepaalt de "left" positie van de legende op de kaart.<br>Kan gebruikt worden in combinatie met data-vl-placement.',
+            'Bepaalt de "left" positie van de legende op de kaart.<br>Kan gebruikt worden in combinatie met placement.',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
@@ -44,7 +44,7 @@ export const mapLegendArgTypes: ArgTypes<typeof mapLegendArgs> = {
         },
     },
     placement: {
-        name: 'data-vl-placement',
+        name: 'placement',
         description: 'Bepaalt de plaats van de legende op de kaart.',
         control: { type: CONTROLS.SELECT },
         options: Object.values(LEGEND_PLACEMENT),
@@ -59,7 +59,7 @@ export const mapLegendArgTypes: ArgTypes<typeof mapLegendArgs> = {
     right: {
         name: 'right',
         description:
-            'Bepaalt de "right" positie van de legende op de kaart.<br>Kan gebruikt worden in combinatie met data-vl-placement.',
+            'Bepaalt de "right" positie van de legende op de kaart.<br>Kan gebruikt worden in combinatie met placement.',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
@@ -69,7 +69,7 @@ export const mapLegendArgTypes: ArgTypes<typeof mapLegendArgs> = {
     top: {
         name: 'top',
         description:
-            'Bepaalt de "top" positie van de legende op de kaart.<br>Kan gebruikt worden in combinatie met data-vl-placement.',
+            'Bepaalt de "top" positie van de legende op de kaart.<br>Kan gebruikt worden in combinatie met placement.',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
@@ -77,7 +77,7 @@ export const mapLegendArgTypes: ArgTypes<typeof mapLegendArgs> = {
         },
     },
     layoutVertical: {
-        name: 'data-vl-layout-vertical',
+        name: 'layout-vertical',
         description: 'Zet de layout van de legende in verticale positie.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -86,7 +86,7 @@ export const mapLegendArgTypes: ArgTypes<typeof mapLegendArgs> = {
         },
     },
     hideTitle: {
-        name: 'data-vl-hide-title',
+        name: 'hide-title',
         description: 'Laat de "Legende" titel weg.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -95,7 +95,7 @@ export const mapLegendArgTypes: ArgTypes<typeof mapLegendArgs> = {
         },
     },
     version: {
-        name: 'data-vl-version',
+        name: 'version',
         description: 'Voeg een "version" parameter toe aan de legende url.',
         table: {
             type: { summary: TYPES.STRING },

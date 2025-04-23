@@ -50,42 +50,42 @@ export class VlAccessibility extends BaseLitElement {
         return {
             application: {
                 type: String,
-                attribute: 'data-vl-application',
+                attribute: 'application',
                 reflect: true,
             },
             compliance: {
                 type: String,
-                attribute: 'data-vl-compliance',
+                attribute: 'compliance',
                 reflect: true,
             },
             date: {
                 type: String,
-                attribute: 'data-vl-date',
+                attribute: 'date',
                 reflect: true,
             },
             dateModified: {
                 type: String,
-                attribute: 'data-vl-date-modified',
+                attribute: 'date-modified',
                 reflect: true,
             },
             disableBackLink: {
                 type: Boolean,
-                attribute: 'data-vl-disable-back-link',
+                attribute: 'disable-back-link',
                 reflect: true,
             },
             hideBackLink: {
                 type: Boolean,
-                attribute: 'data-vl-hide-back-link',
+                attribute: 'hide-back-link',
                 reflect: true,
             },
             evaluation: {
                 type: String,
-                attribute: 'data-vl-evaluation',
+                attribute: 'evaluation',
                 reflect: true,
             },
             version: {
                 type: String,
-                attribute: 'data-vl-version',
+                attribute: 'version',
                 reflect: true,
             },
             limitations: {

@@ -47,10 +47,10 @@ export class VlPrivacy extends BaseLitElement {
 
     static get properties() {
         return {
-            date: { type: String, attribute: 'data-vl-date' },
-            disableBackLink: { type: Boolean, attribute: 'data-vl-disable-back-link' },
-            hideBackLink: { type: Boolean, attribute: 'data-vl-hide-back-link' },
-            version: { type: String, attribute: 'data-vl-version' },
+            date: { type: String, attribute: 'date' },
+            disableBackLink: { type: Boolean, attribute: 'disable-back-link' },
+            hideBackLink: { type: Boolean, attribute: 'hide-back-link' },
+            version: { type: String, attribute: 'version' },
         };
     }
 

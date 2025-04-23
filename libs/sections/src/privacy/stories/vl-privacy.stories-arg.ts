@@ -10,7 +10,7 @@ export const privacyArgs = {
 
 export const privacyArgTypes: ArgTypes<typeof privacyArgs> = {
     date: {
-        name: 'data-vl-date',
+        name: 'date',
         description: 'De datum waarop de pagina werd uitgegeven.',
         table: {
             type: { summary: TYPES.STRING },
@@ -19,7 +19,7 @@ export const privacyArgTypes: ArgTypes<typeof privacyArgs> = {
         },
     },
     disableBackLink: {
-        name: 'data-vl-disable-back-link',
+        name: 'disable-back-link',
         description: 'Zet de terug-link uit.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -28,7 +28,7 @@ export const privacyArgTypes: ArgTypes<typeof privacyArgs> = {
         },
     },
     hideBackLink: {
-        name: 'data-vl-hide-back-link',
+        name: 'hide-back-link',
         description: 'Verwijdert de terug-link.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -37,7 +37,7 @@ export const privacyArgTypes: ArgTypes<typeof privacyArgs> = {
         },
     },
     version: {
-        name: 'data-vl-version',
+        name: 'version',
         description: 'De pagina versie.',
         table: {
             type: { summary: TYPES.STRING },

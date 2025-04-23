@@ -7,7 +7,7 @@ export const popoverActionArgs = {
 };
 
 export const popoverActionArgTypes: ArgTypes = {
-    ...defaultArgTypes(true),
+    ...defaultArgTypes,
     selected: {
         name: 'selected',
         description: 'Duidt aan dat de actie geselecteerd is.',

@@ -24,13 +24,13 @@ const Template = story(
     ({ backgroundLayer, backgroundType, backgroundOptions, layer, title, type, url }) => html`
         <vl-map>
             <vl-map-baselayer
-                ?data-vl-background-layer=${backgroundLayer}
+                ?background-layer=${backgroundLayer}
                 background-type=${backgroundType}
                 background-options=${backgroundOptions}
-                data-vl-layer=${layer}
-                data-vl-title=${title}
-                data-vl-type=${type}
-                data-vl-url=${url}
+                layer=${layer}
+                title=${title}
+                type=${type}
+                url=${url}
             ></vl-map-baselayer>
         </vl-map>
     `

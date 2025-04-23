@@ -19,11 +19,11 @@ export class VlDescriptionData extends BaseLitElement {
 
     static get properties() {
         return {
-            size: { type: Number, attribute: 'data-vl-items-size' },
-            mediumSize: { type: Number, attribute: 'data-vl-items-medium-size' },
-            smallSize: { type: Number, attribute: 'data-vl-items-small-size' },
-            extraSmallSize: { type: Number, attribute: 'data-vl-items-extra-small-size' },
-            bordered: { type: Boolean, attribute: 'data-vl-bordered' },
+            size: { type: Number, attribute: 'items-size' },
+            mediumSize: { type: Number, attribute: 'items-medium-size' },
+            smallSize: { type: Number, attribute: 'items-small-size' },
+            extraSmallSize: { type: Number, attribute: 'items-extra-small-size' },
+            bordered: { type: Boolean, attribute: 'bordered' },
         };
     }
 

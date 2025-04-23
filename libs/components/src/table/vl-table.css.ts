@@ -45,7 +45,7 @@ export const tableStyles = css`
         tbody tr {
             border-bottom: 0.1rem #cbd2da solid;
 
-            &[data-vl-table-selectable] {
+            &[table-selectable] {
                 cursor: pointer;
                 transition: background 0.2s ease-in-out;
 
@@ -223,7 +223,7 @@ export const tableStyles = css`
         }
     }
 
-    .no-js [data-vl-table-check-all] + span {
+    .no-js [table-check-all] + span {
         display: none !important;
     }
 
@@ -304,7 +304,7 @@ export const tableStyles = css`
         }
     }
 
-    [data-vl-disable='true'] .vl-table__action__toggle {
+    [disable='true'] .vl-table__action__toggle {
         color: #687483;
         cursor: default;
     }

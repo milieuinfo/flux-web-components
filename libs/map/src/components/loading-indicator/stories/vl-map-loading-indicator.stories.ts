@@ -16,7 +16,7 @@ export default {
     title: 'map/loading-indicator',
     tags: ['autodocs'],
     args: defaultArgs,
-    argTypes: defaultArgTypes(),
+    argTypes: defaultArgTypes,
     parameters: {
         docs: {
             page: mapLoadingIndicatorDoc,

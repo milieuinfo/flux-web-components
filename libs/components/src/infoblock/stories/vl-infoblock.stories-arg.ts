@@ -10,9 +10,9 @@ export const infoblockArgs = {
 };
 
 export const infoblockArgTypes: ArgTypes<typeof infoblockArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     type: {
-        name: 'data-vl-type',
+        name: 'type',
         control: { type: CONTROLS.SELECT },
         options: ['contact', 'publications', 'faq', 'news', 'timeline', 'question'],
         description: 'Er kan een vast icoon gekozen worden (contact, publications, faq, news, timeline, question).',
@@ -24,7 +24,7 @@ export const infoblockArgTypes: ArgTypes<typeof infoblockArgs> = {
         },
     },
     title: {
-        name: 'data-vl-title',
+        name: 'title',
         description: 'Attribuut dat wordt gebruikt om de titel van de infoblock te zetten.',
         table: {
             type: { summary: TYPES.STRING },
@@ -32,7 +32,7 @@ export const infoblockArgTypes: ArgTypes<typeof infoblockArgs> = {
         },
     },
     icon: {
-        name: 'data-vl-icon',
+        name: 'icon',
         control: {
             type: CONTROLS.SELECT,
             disable: true,

@@ -20,15 +20,15 @@ export class VlMapActionControl extends VlMapControl(BaseLitElement) {
         return {
             actionId: {
                 type: String,
-                attribute: 'data-vl-action-id',
+                attribute: 'action-id',
             },
             icon: {
                 type: String,
-                attribute: 'data-vl-icon',
+                attribute: 'icon',
             },
             label: {
                 type: String,
-                attribute: 'data-vl-label',
+                attribute: 'label',
             },
             defaultActive: {
                 type: Boolean,

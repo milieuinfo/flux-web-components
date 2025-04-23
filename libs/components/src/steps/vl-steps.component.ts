@@ -29,10 +29,10 @@ export class VlStepsComponent extends BaseLitElement {
 
     static get properties(): PropertyDeclarations {
         return {
-            line: { type: Boolean, attribute: 'data-vl-line', reflect: true },
-            timeline: { type: Boolean, attribute: 'data-vl-timeline', reflect: true },
-            simpleTimeline: { type: Boolean, attribute: 'data-vl-simple-timeline', reflect: true },
-            lastStepNoLine: { type: Boolean, attribute: 'data-vl-last-step-no-line', reflect: true },
+            line: { type: Boolean, attribute: 'line', reflect: true },
+            timeline: { type: Boolean, attribute: 'timeline', reflect: true },
+            simpleTimeline: { type: Boolean, attribute: 'simple-timeline', reflect: true },
+            lastStepNoLine: { type: Boolean, attribute: 'last-step-no-line', reflect: true },
         };
     }
 

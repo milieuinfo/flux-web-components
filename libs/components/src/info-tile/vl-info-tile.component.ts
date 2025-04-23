@@ -71,7 +71,7 @@ export class VlInfoTile extends BaseHTMLElement {
     }
 
     get isToggleable() {
-        return this.getAttribute('toggleable') !== null;
+        return !(this.getAttribute('toggleable') ?? false);
     }
 
     get isOpen() {
@@ -223,7 +223,7 @@ export class VlInfoTile extends BaseHTMLElement {
 
     __processAutoOpen() {
         if (this.isToggleable) {
-            if (this.dataset.vlAutoOpen === undefined) {
+            if (this.getAttribute('auto-open') === null) {
                 this.close();
             } else {
                 this.open();
