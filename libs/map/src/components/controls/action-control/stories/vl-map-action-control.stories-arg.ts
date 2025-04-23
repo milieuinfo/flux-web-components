@@ -10,9 +10,9 @@ export const mapActionControlArgs = {
 };
 
 export const mapActionControlArgTypes: ArgTypes<typeof mapActionControlArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     actionId: {
-        name: 'data-vl-action-id',
+        name: 'action-id',
         description:
             'Het id van de actie die gelinkt is aan deze map-action-control.<br>Houd dit in sync met het id attribuut dat je op de actie plaatst.',
         table: {
@@ -22,7 +22,7 @@ export const mapActionControlArgTypes: ArgTypes<typeof mapActionControlArgs> = {
         },
     },
     icon: {
-        name: 'data-vl-icon',
+        name: 'icon',
         description: 'Het icoon van de toggle-button.',
         table: {
             type: { summary: TYPES.STRING },
@@ -31,7 +31,7 @@ export const mapActionControlArgTypes: ArgTypes<typeof mapActionControlArgs> = {
         },
     },
     label: {
-        name: 'data-vl-label',
+        name: 'label',
         description: 'Het label van de toggle-button.',
         table: {
             type: { summary: TYPES.STRING },
@@ -40,7 +40,7 @@ export const mapActionControlArgTypes: ArgTypes<typeof mapActionControlArgs> = {
         },
     },
     defaultActive: {
-        name: 'data-vl-default-active',
+        name: 'default-active',
         description: 'Voeg `default-active` toe om de control default te activeren bij het renderen.',
         table: {
             type: { summary: TYPES.BOOLEAN },

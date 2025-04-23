@@ -9,9 +9,9 @@ export const mapSideSheetMenuItemArgs = {
 };
 
 export const mapSideSheetMenuItemArgTypes: ArgTypes<typeof mapSideSheetMenuItemArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     href: {
-        name: 'data-vl-href',
+        name: 'href',
         description: 'De link van het menu item.',
         table: {
             type: { summary: TYPES.URL },
@@ -20,7 +20,7 @@ export const mapSideSheetMenuItemArgTypes: ArgTypes<typeof mapSideSheetMenuItemA
         },
     },
     title: {
-        name: 'data-vl-title',
+        name: 'title',
         description: 'De titel van het menu item.',
         table: {
             type: { summary: TYPES.STRING },

@@ -15,7 +15,7 @@ export class VlPopoverMenuInfoTileComponent extends LitElement {
 
     override render() {
         return html`
-            <vl-info-tile data-vl-toggleable>
+            <vl-info-tile toggleable>
                 <span slot="title">Broos Deprez</span>
                 <span slot="subtitle">Uw zoon (19.05.2005)</span>
                 <div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>

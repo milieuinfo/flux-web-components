@@ -34,8 +34,8 @@ export class VlMapNonLambert72Sources extends LitElement {
                     Referentiesysteem: WGS 84 / Pseudo-Mercator (EPSG:3857)
                 -->
                 <vl-map-tiled-wms-layer
-                    data-vl-url="https://inspirepub.waterinfo.be/arcgis/services/informatieplicht/overstromingsgevoelige_gebieden_vanuit_de_zee/MapServer/WMSServer?"
-                    data-vl-layers="0"
+                    url="https://inspirepub.waterinfo.be/arcgis/services/informatieplicht/overstromingsgevoelige_gebieden_vanuit_de_zee/MapServer/WMSServer?"
+                    layers="0"
                     name="Overstromingsgevoelige gebieden vanuit de zee"
                 ></vl-map-tiled-wms-layer>
 
@@ -44,9 +44,9 @@ export class VlMapNonLambert72Sources extends LitElement {
                     Lambert 2008 test data uit: https://www.vlaanderen.be/datavindplaats/catalogus/testdata-transformatie-lambert-72-naar-lambert-2008-coordinaten
                 -->
                 <vl-map-tiled-wms-layer
-                    data-vl-url="https://www.mercator.vlaanderen.be/raadpleegdienstenmercatorpubliek/ows?"
-                    data-vl-layers="rs:rs_testdata_lamb08"
-                    data-vl-opacity="0.3"
+                    url="https://www.mercator.vlaanderen.be/raadpleegdienstenmercatorpubliek/ows?"
+                    layers="rs:rs_testdata_lamb08"
+                    opacity="0.3"
                     name="Test Data Lambert 2008"
                 ></vl-map-tiled-wms-layer>
             </vl-map>

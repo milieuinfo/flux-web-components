@@ -38,7 +38,7 @@ const getSelectLocationComponent = () =>
 describe('vl-map-search', () => {
     it('bevat een search element met correct geconfigureerd select element als input slot', () => {
         cy.mount(mapSearchFixture);
-        getSearchComponent().should('exist').should('have.attr', 'data-vl-inline');
+        getSearchComponent().should('exist').should('have.attr', 'inline');
         getSearchComponent().find('vl-select-location').should('exist');
         getSearchComponent().find('vl-select-location').shadow().find('select').should('exist');
     });
@@ -100,7 +100,7 @@ describe('vl-map-search', () => {
             const select = vlMapSearch._selectElement;
             ['placeholder', 'search-placeholder', 'search-empty-text', 'search-no-results-text'].forEach(
                 (item, index) => {
-                    const attribute = `data-vl-${item}`;
+                    const attribute = `${item}`;
                     expect(select.hasAttribute(attribute)).to.be.equal(false);
                     const value = `text-${index}`;
                     vlMapSearch.setAttribute(attribute, value);

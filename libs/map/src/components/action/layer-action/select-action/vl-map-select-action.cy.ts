@@ -14,11 +14,7 @@ const mapSelectActionFixture = html`
     <vl-map>
         <vl-map-features-layer>
             <vl-map-select-action>
-                <vl-map-layer-style
-                    data-vl-text-color="#000"
-                    data-vl-color="#FFE615"
-                    data-vl-border-color="#FFE615"
-                ></vl-map-layer-style>
+                <vl-map-layer-style text-color="#000" color="#FFE615" border-color="#FFE615"></vl-map-layer-style>
             </vl-map-select-action>
         </vl-map-features-layer>
     </vl-map>
@@ -28,11 +24,7 @@ const customMapSelectActionFixture = html`
     <vl-map>
         <vl-map-features-layer>
             <vl-custom-map-select-action>
-                <vl-map-layer-style
-                    data-vl-text-color="#000"
-                    data-vl-color="#FFE615"
-                    data-vl-border-color="#FFE615"
-                ></vl-map-layer-style>
+                <vl-map-layer-style text-color="#000" color="#FFE615" border-color="#FFE615"></vl-map-layer-style>
             </vl-custom-map-select-action>
         </vl-map-features-layer>
     </vl-map>

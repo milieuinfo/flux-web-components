@@ -20,7 +20,7 @@ export const cascaderArgs: CascaderArgs = {
 };
 
 export const cascaderArgTypes: ArgTypes<CascaderArgs> = {
-    ...defaultArgTypes(true),
+    ...defaultArgTypes,
     headerText: {
         name: 'header-text',
         description: 'Hiermee kan je de tekst instellen voor de header.',

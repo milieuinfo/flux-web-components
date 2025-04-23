@@ -11,7 +11,7 @@ export const formLabelArgs: FormLabelArgs = {
 };
 
 export const formLabelArgTypes: ArgTypes<FormLabelArgs> = {
-    ...defaultArgTypes(true),
+    ...defaultArgTypes,
     for: {
         name: 'for',
         description: 'Het id van de form control waarvoor het label bedoeld is.',

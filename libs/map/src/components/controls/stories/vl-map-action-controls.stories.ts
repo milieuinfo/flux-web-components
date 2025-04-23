@@ -15,7 +15,7 @@ export default {
     title: 'map/controls/action-controls',
     tags: ['autodocs'],
     args: defaultArgs,
-    argTypes: defaultArgTypes(),
+    argTypes: defaultArgTypes,
     parameters: {
         docs: {
             page: mapActionControls,
@@ -37,15 +37,9 @@ export const MapActionControlsDefault = story(
                 <vl-map-delete-action id="delete-action"></vl-map-delete-action>
             </vl-map-features-layer>
             <vl-map-action-controls>
-                <vl-map-action-control data-vl-action-id="draw-action" data-vl-label="Teken"></vl-map-action-control>
-                <vl-map-action-control
-                    data-vl-action-id="modify-action"
-                    data-vl-label="Editeer"
-                ></vl-map-action-control>
-                <vl-map-action-control
-                    data-vl-action-id="delete-action"
-                    data-vl-label="Verwijder"
-                ></vl-map-action-control>
+                <vl-map-action-control action-id="draw-action" label="Teken"></vl-map-action-control>
+                <vl-map-action-control action-id="modify-action" label="Editeer"></vl-map-action-control>
+                <vl-map-action-control action-id="delete-action" label="Verwijder"></vl-map-action-control>
             </vl-map-action-controls>
         </vl-map>
     `

@@ -13,7 +13,7 @@ export const mapWmsLayerArgs = {
 export const mapWmsLayerArgTypes: ArgTypes<typeof mapWmsLayerArgs> = {
     ...mapLayerArgTypes,
     layers: {
-        name: 'data-vl-layers',
+        name: 'layers',
         description: 'De WMS layers.',
         type: { name: TYPES.STRING, required: true },
         table: {
@@ -23,7 +23,7 @@ export const mapWmsLayerArgTypes: ArgTypes<typeof mapWmsLayerArgs> = {
         },
     },
     styles: {
-        name: 'data-vl-styles',
+        name: 'styles',
         description: 'De WMS stijlen.',
         type: { name: TYPES.STRING },
         table: {
@@ -33,7 +33,7 @@ export const mapWmsLayerArgTypes: ArgTypes<typeof mapWmsLayerArgs> = {
         },
     },
     url: {
-        name: 'data-vl-url',
+        name: 'url',
         description: 'De WMS url.',
         type: { name: TYPES.STRING, required: true },
         table: {
@@ -43,7 +43,7 @@ export const mapWmsLayerArgTypes: ArgTypes<typeof mapWmsLayerArgs> = {
         },
     },
     version: {
-        name: 'data-vl-version',
+        name: 'version',
         description: 'De WMS versie.',
         type: { name: TYPES.STRING },
         table: {

@@ -19,11 +19,7 @@ export default {
 const infoblockTemplate = story(
     infoblockArgs,
     ({ title, content, type, icon }) =>
-        html`
-            <vl-infoblock slot="info" data-vl-title=${title} data-vl-type=${type} data-vl-icon=${icon}
-                >${content}
-            </vl-infoblock>
-        `
+        html` <vl-infoblock slot="info" title=${title} type=${type} icon=${icon}>${content} </vl-infoblock> `
 );
 
 export const infoblockContact = infoblockTemplate.bind({});
@@ -92,7 +88,7 @@ infoblockCustomIcon.argTypes = {
 export const infoblockWithSlotElements = story(
     infoblockArgs,
     ({ title, content, type }) => html`
-        <vl-infoblock data-vl-type=${type}>
+        <vl-infoblock type=${type}>
             <vl-title type="h2" slot="title">${title}</vl-title>
             ${content}
         </vl-infoblock>

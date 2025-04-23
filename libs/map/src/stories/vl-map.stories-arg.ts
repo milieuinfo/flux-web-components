@@ -17,9 +17,9 @@ export const mapArgs = {
 };
 
 export const mapArgTypes: ArgTypes<typeof mapArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     allowFullscreen: {
-        name: 'data-vl-allow-fullscreen',
+        name: 'allow-fullscreen',
         description:
             'Laat de map toe afgebeeld te worden in fullscreen.<br>Dit kan niet gebruikt worden op mobile.<br>Dit attribuut is niet reactief.',
         table: {
@@ -29,7 +29,7 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
         },
     },
     disableEscape: {
-        name: 'data-vl-disable-escape-key',
+        name: 'disable-escape-key',
         description: 'Schakelt de escape-key uit.<br>Dit attribuut is niet reactief.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -38,7 +38,7 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
         },
     },
     disableRotation: {
-        name: 'data-vl-disable-rotation',
+        name: 'disable-rotation',
         description: 'Schakelt het roteren van de map uit.<br>Dit attribuut is niet reactief.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -47,7 +47,7 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
         },
     },
     disableMousewheelZoom: {
-        name: 'data-vl-disable-mouse-wheel-zoom',
+        name: 'disable-mouse-wheel-zoom',
         description: 'Schakelt het zoomen van de map via het muiswiel uit.<br>Dit attribuut is niet reactief.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -56,7 +56,7 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
         },
     },
     disableKeyboard: {
-        name: 'data-vl-disable-keyboard',
+        name: 'disable-keyboard',
         description: 'Schakelt de keyboard input uit voor de map.<br>Dit attribuut is niet reactief.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -65,7 +65,7 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
         },
     },
     fullHeight: {
-        name: 'data-vl-full-height',
+        name: 'full-height',
         description:
             'De map neemt de volledige beschikbare hoogte in van zijn parent.<br>Zie de docs pagina voor meer informatie over het gebruik van dit attribuut.',
         table: {
@@ -75,7 +75,7 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
         },
     },
     noBorder: {
-        name: 'data-vl-no-border',
+        name: 'no-border',
         description: 'De border rond de map wordt niet afgebeeld.',
         table: {
             type: { summary: TYPES.BOOLEAN },

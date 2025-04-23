@@ -24,7 +24,7 @@ export const WizardPaneDefault = story(
     ({ name }) => html`
         <div style="max-width: 780px">
             <vl-wizard>
-                <vl-wizard-pane data-vl-name=${name}><p>Pane content</p></vl-wizard-pane>
+                <vl-wizard-pane name=${name}><p>Pane content</p></vl-wizard-pane>
             </vl-wizard>
         </div>
     `

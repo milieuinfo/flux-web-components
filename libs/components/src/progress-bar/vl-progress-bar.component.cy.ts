@@ -27,10 +27,10 @@ const props: MountDefaultProps = {
 
 const mountDefault = (props: MountDefaultProps) =>
     cy.mount(html` <vl-progress-bar
-        data-vl-active-step=${props.activeStep}
-        ?data-vl-show-labels=${props.showLabels}
-        ?data-vl-focus-on-change=${props.focusOnChange}
-        ?data-vl-numeric=${props.numeric}
+        active-step=${props.activeStep}
+        ?show-labels=${props.showLabels}
+        ?focus-on-change=${props.focusOnChange}
+        ?numeric=${props.numeric}
         .steps=${props.steps}
         @vl-click-step=${(event: CustomEvent) => props.onClickStep(event.detail)}
     >
@@ -38,7 +38,7 @@ const mountDefault = (props: MountDefaultProps) =>
 
 const VlProgressBarTestUtils = {
     changeActiveStep: function changeActiveStep(stepNumber: number) {
-        cy.get('vl-progress-bar').invoke('attr', 'data-vl-active-step', stepNumber);
+        cy.get('vl-progress-bar').invoke('attr', 'active-step', stepNumber);
     },
 
     verifyActiveStepChange: function verifyActiveStepChange(stepNumber: number) {
@@ -95,10 +95,10 @@ describe('component vl-progress-bar - properties default ', () => {
     it('should have default values for properties', () => {
         mountDefault(props);
 
-        cy.get('vl-progress-bar').should('have.attr', 'data-vl-active-step', props.activeStep);
-        cy.get('vl-progress-bar').should('not.have.attr', 'data-vl-focus-on-change', props.focusOnChange);
-        cy.get('vl-progress-bar').should('not.have.attr', 'data-vl-numeric');
-        cy.get('vl-progress-bar').should('not.have.attr', 'data-vl-show-labels');
+        cy.get('vl-progress-bar').should('have.attr', 'active-step', props.activeStep);
+        cy.get('vl-progress-bar').should('not.have.attr', 'focus-on-change', props.focusOnChange);
+        cy.get('vl-progress-bar').should('not.have.attr', 'numeric');
+        cy.get('vl-progress-bar').should('not.have.attr', 'show-labels');
     });
 });
 

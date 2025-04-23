@@ -10,21 +10,17 @@ registerWebComponents([VlMap, VlMapBaseLayer]);
 
 const baselayerFixture = html`
     <vl-map>
-        <vl-map-baselayer
-            data-vl-url="https://localhost"
-            data-vl-layer="layername_1"
-            data-vl-title="layer title 1"
-        ></vl-map-baselayer>
+        <vl-map-baselayer url="https://localhost" layer="layername_1" title="layer title 1"></vl-map-baselayer>
     </vl-map>
 `;
 
 const baselayerWmtsFixture = html`
     <vl-map>
         <vl-map-baselayer
-            data-vl-url="https://localhost/wmts"
-            data-vl-layer="layername_2"
-            data-vl-type="wmts"
-            data-vl-title="layer title 2"
+            url="https://localhost/wmts"
+            layer="layername_2"
+            type="wmts"
+            title="layer title 2"
         ></vl-map-baselayer>
     </vl-map>
 `;
@@ -32,10 +28,10 @@ const baselayerWmtsFixture = html`
 const baselayerWfsFixture = html`
     <vl-map>
         <vl-map-baselayer
-            data-vl-url="https://localhost/wfs"
-            data-vl-layer="layername_3"
-            data-vl-type="wfs"
-            data-vl-title="layer title 3"
+            url="https://localhost/wfs"
+            layer="layername_3"
+            type="wfs"
+            title="layer title 3"
         ></vl-map-baselayer>
     </vl-map>
 `;

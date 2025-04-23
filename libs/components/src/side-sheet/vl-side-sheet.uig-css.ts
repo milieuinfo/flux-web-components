@@ -107,7 +107,7 @@ const styles: CSSResult = css`
         padding: 0;
     }
 
-    :host([data-vl-toggle-text]) .vl-side-sheet__toggle::part(button) {
+    :host([toggle-text]) .vl-side-sheet__toggle::part(button) {
         padding: 0 1rem;
     }
 
@@ -127,22 +127,22 @@ const styles: CSSResult = css`
         border-radius: 0px 0.3rem 0.3rem 0px;
     }
 
-    :host([data-vl-open]) {
+    :host([open]) {
         height: 100%;
         z-index: var(--vl-z-layer--side-sheet-open);
     }
 
     @media screen and (max-width: 767px) {
-        :host([data-vl-open]) {
+        :host([open]) {
             width: var(--vl-side-sheet-width-mobile, calc(100vw - 56px));
         }
     }
 
-    :host([data-vl-open]) #vl-side-sheet {
+    :host([open]) #vl-side-sheet {
         display: block;
     }
 
-    :host([data-vl-open]) #vl-side-sheet-backdrop {
+    :host([open]) #vl-side-sheet-backdrop {
         position: fixed;
         left: 0;
         right: 0;
@@ -153,16 +153,16 @@ const styles: CSSResult = css`
     }
 
     @media screen and (max-width: 767px) {
-        :host([data-vl-open]) #vl-side-sheet-backdrop {
+        :host([open]) #vl-side-sheet-backdrop {
             display: block;
         }
     }
 
-    :host([data-vl-open]) .vl-side-sheet__toggle {
+    :host([open]) .vl-side-sheet__toggle {
         right: 100%;
     }
 
-    :host(.vl-side-sheet--left[data-vl-open]) .vl-side-sheet__toggle {
+    :host(.vl-side-sheet--left[open]) .vl-side-sheet__toggle {
         right: initial;
         left: 100%;
     }
@@ -190,13 +190,13 @@ const styles: CSSResult = css`
         left: 0px;
     }
 
-    :host(.vl-side-sheet--absolute[data-vl-open]) .vl-side-sheet__toggle::part(button) {
+    :host(.vl-side-sheet--absolute[open]) .vl-side-sheet__toggle::part(button) {
         border-right-width: 0px !important;
         border-top-right-radius: 0px;
         border-bottom-right-radius: 0px;
     }
 
-    :host(.vl-side-sheet--absolute.vl-side-sheet--left[data-vl-open]) .vl-side-sheet__toggle::part(button) {
+    :host(.vl-side-sheet--absolute.vl-side-sheet--left[open]) .vl-side-sheet__toggle::part(button) {
         border-right-width: 1px !important;
         border-left-width: 0px !important;
         border-radius: 0px 0.3rem 0.3rem 0px;

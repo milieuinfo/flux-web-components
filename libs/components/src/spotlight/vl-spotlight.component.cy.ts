@@ -67,7 +67,7 @@ describe('vl-spotlight', () => {
 
     it('should have no border', () => {
         cy.mount(html`
-            <vl-spotlight data-vl-no-border>
+            <vl-spotlight no-border>
                 <span slot="title">Premies voor renovatie</span>
             </vl-spotlight>
         `);
@@ -77,7 +77,7 @@ describe('vl-spotlight', () => {
 
     it('should have an external link', () => {
         cy.mount(html`
-            <vl-spotlight data-vl-link="http://www.google.com" data-vl-external>
+            <vl-spotlight link="http://www.google.com" external>
                 <span slot="title">Premies voor renovatie</span>
             </vl-spotlight>
         `);

@@ -13,9 +13,9 @@ export const pagerArgs = {
 };
 
 export const pagerArgTypes = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     totalItems: {
-        name: 'data-vl-total-items',
+        name: 'total-items',
         description: 'This attribute determines the total number of elements.',
         table: {
             type: { summary: 'number' },
@@ -24,7 +24,7 @@ export const pagerArgTypes = {
         },
     },
     currentPage: {
-        name: 'data-vl-current-page',
+        name: 'current-page',
         description: 'This attribute determines the current page.',
         table: {
             type: { summary: 'number' },
@@ -33,7 +33,7 @@ export const pagerArgTypes = {
         },
     },
     itemsPerPage: {
-        name: 'data-vl-items-per-page',
+        name: 'items-per-page',
         description: 'This attribute determines the number of rows to show per page.',
         table: {
             type: { summary: 'number' },
@@ -42,7 +42,7 @@ export const pagerArgTypes = {
         },
     },
     paginationDisabled: {
-        name: 'data-vl-pagination-disabled',
+        name: 'pagination-disabled',
         description: 'This attribute determines if the page links should be disabled.',
         table: {
             type: { summary: 'boolean' },
@@ -51,7 +51,7 @@ export const pagerArgTypes = {
         },
     },
     alignCenter: {
-        name: 'data-vl-align-center',
+        name: 'align-center',
         description: 'This attribute is used to center the pagination.',
         table: {
             type: { summary: 'boolean' },
@@ -60,7 +60,7 @@ export const pagerArgTypes = {
         },
     },
     alignRight: {
-        name: 'data-vl-align-right',
+        name: 'align-right',
         description: 'This attribute is used to align the pagination to the right.',
         table: {
             type: { summary: 'boolean' },

@@ -11,25 +11,23 @@ const mapFixture = html` <vl-map></vl-map> `;
 
 const wmsLayersFixture = html`
     <vl-map>
-        <vl-map-image-wms-layer data-vl-url="http://dummy/wms" data-vl-layers="layer1,layer2"></vl-map-image-wms-layer>
-        <vl-map-tiled-wms-layer data-vl-url="http://dummy/wms" data-vl-layers="layer1,layer2"></vl-map-tiled-wms-layer>
+        <vl-map-image-wms-layer url="http://dummy/wms" layers="layer1,layer2"></vl-map-image-wms-layer>
+        <vl-map-tiled-wms-layer url="http://dummy/wms" layers="layer1,layer2"></vl-map-tiled-wms-layer>
     </vl-map>
 `;
 
 const wmsLayersHiddenFixture = html`
     <vl-map>
-        <vl-map-image-wms-layer data-vl-url="http://dummy/wms" data-vl-layers="layer1,layer2" data-vl-hidden>
-        </vl-map-image-wms-layer>
-        <vl-map-tiled-wms-layer data-vl-url="http://dummy/wms" data-vl-layers="layer1,layer2" data-vl-hidden>
-        </vl-map-tiled-wms-layer>
+        <vl-map-image-wms-layer url="http://dummy/wms" layers="layer1,layer2" hidden> </vl-map-image-wms-layer>
+        <vl-map-tiled-wms-layer url="http://dummy/wms" layers="layer1,layer2" hidden> </vl-map-tiled-wms-layer>
     </vl-map>
 `;
 
 const wmsLayersSldFixture = html`
     <vl-map>
-        <vl-map-image-wms-layer data-vl-url="http://dummy/wms" data-vl-layers="layer1,layer2">
+        <vl-map-image-wms-layer url="http://dummy/wms" layers="layer1,layer2">
             <vl-map-wms-style
-                data-vl-sld='
+                sld='
             <StyledLayerDescriptor>
               <NamedLayer>
                 <Name>ns:laagnaam</Name>
@@ -51,9 +49,9 @@ const wmsLayersSldFixture = html`
             >
             </vl-map-wms-style>
         </vl-map-image-wms-layer>
-        <vl-map-tiled-wms-layer data-vl-url="http://dummy/wms" data-vl-layers="layer1,layer2">
+        <vl-map-tiled-wms-layer url="http://dummy/wms" layers="layer1,layer2">
             <vl-map-wms-style
-                data-vl-sld='
+                sld='
             <StyledLayerDescriptor>
               <NamedLayer>
                 <Name>ns:laagnaam</Name>
@@ -78,7 +76,7 @@ const wmsLayersSldFixture = html`
     </vl-map>
 `;
 
-const getLayers = (map) => Array.from(map.querySelectorAll('[data-vl-is-layer]'));
+const getLayers = (map) => Array.from(map.querySelectorAll('[is-layer]'));
 
 describe('vl-map-wms-layer', () => {
     it('de kaartlaag zal pas aangemaakt worden na constructie zodat op moment van constructie nog niet al de attributen gekend moeten zijn', () => {
@@ -88,14 +86,14 @@ describe('vl-map-wms-layer', () => {
             cy.wrap(vlMap.ready).then(() => {
                 types.map((type) => {
                     const layer: any = document.createElement(`vl-map-${type}-wms-layer`);
-                    layer.setAttribute('data-vl-url', 'http://dummy/wms-adjusted');
-                    layer.setAttribute('data-vl-layers', 'layer1');
-                    layer.setAttribute('data-vl-styles', 'style1,style2');
-                    layer.setAttribute('data-vl-version', '1.1.1');
-                    layer.setAttribute('data-vl-opacity', '0.75');
-                    layer.setAttribute('data-vl-min-resolution', '10');
-                    layer.setAttribute('data-vl-max-resolution', '1000');
-                    layer.setAttribute('data-vl-name', 'adjusted');
+                    layer.setAttribute('url', 'http://dummy/wms-adjusted');
+                    layer.setAttribute('layers', 'layer1');
+                    layer.setAttribute('styles', 'style1,style2');
+                    layer.setAttribute('version', '1.1.1');
+                    layer.setAttribute('opacity', '0.75');
+                    layer.setAttribute('min-resolution', '10');
+                    layer.setAttribute('max-resolution', '1000');
+                    layer.setAttribute('name', 'adjusted');
                     expect(layer.source).to.be.undefined;
                     expect(layer.layer).to.be.undefined;
                     vlMap.appendChild(layer);
@@ -132,7 +130,7 @@ describe('vl-map-wms-layer', () => {
         });
     });
 
-    it('de kaartlaag kan een sld body bevatten die overeenkomt met het data-vl-sld attribuut van de onderliggende vl-map-wms-style', () => {
+    it('de kaartlaag kan een sld body bevatten die overeenkomt met het sld attribuut van de onderliggende vl-map-wms-style', () => {
         cy.mount(wmsLayersSldFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             cy.wrap(vlMap.ready).then(() => {
@@ -141,7 +139,7 @@ describe('vl-map-wms-layer', () => {
                 layers.forEach((element: any) => {
                     expect(element.source.getParams().SLD_BODY).to.include('StyledLayerDescriptor');
                     expect(element.source.getParams().SLD_BODY).to.equal(
-                        element.querySelector(':scope > vl-map-wms-style').getAttribute('data-vl-sld')
+                        element.querySelector(':scope > vl-map-wms-style').getAttribute('sld')
                     );
                 });
             });

@@ -40,20 +40,20 @@ import { VlMapLayerCircleStyle } from '@domg-wc/map';
 
 ### Cluster coëfficiënt
 
-Standaard zal een cluster de grootte overnemen van de ingestelde `data-vl-size` * 1.5.
+Standaard zal een cluster de grootte overnemen van de ingestelde `size` * 1.5.
 
 Als de cluster 10 of meer features bevat, zal de grootte verhoogd worden met een coëfficiënt van 2.
 Per verhoogde machtsverheffing wordt dat coëfficiënt verhoogd met 1.
-    - meer dan 10 features: `data-vl-size` x 2
-    - meer dan 100 features: `data-vl-size` x 3
-    - meer dan 1000 features: `data-vl-size` x 4
+    - meer dan 10 features: `size` x 2
+    - meer dan 100 features: `size` x 3
+    - meer dan 1000 features: `size` x 4
     - enzovoort..
 
-Het is ook mogelijk te kiezen de verhouding van het coëfficiënt aan te passen door de `data-vl-cluster-multiplier` in
+Het is ook mogelijk te kiezen de verhouding van het coëfficiënt aan te passen door de `cluster-multiplier` in
 te stellen.
 
 Dan zal de uiteindelijke grootte van een cluster op volgende manier bepaald worden:
-    - `data-vl-size` x `coëfficiënt` x `data-vl-cluster-multiplier`
+    - `size` x `coëfficiënt` x `cluster-multiplier`
 
 
 ## Referenties

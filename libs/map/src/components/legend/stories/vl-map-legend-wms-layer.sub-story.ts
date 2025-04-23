@@ -13,13 +13,13 @@ export default story(
         <vl-map>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-tiled-wms-layer
-                data-vl-layers="grondwater:beschermingszones_2014"
-                data-vl-name="Beschermingszones"
-                data-vl-url="https://www.dov.vlaanderen.be/geoserver/wms"
+                layers="grondwater:beschermingszones_2014"
+                name="Beschermingszones"
+                url="https://www.dov.vlaanderen.be/geoserver/wms"
             ></vl-map-tiled-wms-layer>
             <vl-map-legend
-                data-vl-placement=${placement}
-                data-vl-layout-vertical=${layoutVertical}
+                placement=${placement}
+                layout-vertical=${layoutVertical}
                 bottom=${bottom}
                 top=${top}
                 right=${right}

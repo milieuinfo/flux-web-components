@@ -26,12 +26,7 @@ export default {
 const httpErrorMessageTemplate = story(
     httpErrorMessageArgs,
     ({ title, image, alt, errorCode, textSlot, actionsSlot }: typeof httpErrorMessageArgs) => html`
-        <vl-http-error-message
-            data-vl-title=${title}
-            data-vl-image=${image}
-            data-vl-image-alt=${alt}
-            data-vl-error-code=${errorCode}
-        >
+        <vl-http-error-message title=${title} image=${image} image-alt=${alt} error-code=${errorCode}>
             ${unsafeHTML(textSlot)} ${unsafeHTML(actionsSlot)}
         </vl-http-error-message>
     `

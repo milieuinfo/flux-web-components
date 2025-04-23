@@ -23,10 +23,10 @@ const Template = story(
     infoTileArgs,
     ({ autoOpen, toggleable, center, contentSlot, subtitleSlot, titleSlot, menuSlot, size }) => html`
         <vl-info-tile
-            ?data-vl-toggleable=${toggleable}
-            ?data-vl-auto-open=${autoOpen}
-            ?data-vl-center=${center}
-            data-vl-size=${size}
+            ?toggleable=${toggleable}
+            ?auto-open=${autoOpen}
+            ?center=${center}
+            size=${size}
         >
             ${unsafeHTML(titleSlot)}${unsafeHTML(menuSlot)}${unsafeHTML(subtitleSlot)}${unsafeHTML(contentSlot)}
         </vl-info-tile>

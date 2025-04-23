@@ -14,7 +14,7 @@ export const mapLayerCircleStyleArg = {
 export const mapLayerCircleStyleArgTypes: ArgTypes<typeof mapLayerCircleStyleArg> = {
     ...mapLayerStyleArgTypes,
     borderColor: {
-        name: 'data-vl-border-color',
+        name: 'border-color',
         description: 'De kleur van de rand van de kaartlaagstijl.',
         table: {
             type: { summary: TYPES.STRING },
@@ -23,7 +23,7 @@ export const mapLayerCircleStyleArgTypes: ArgTypes<typeof mapLayerCircleStyleArg
         },
     },
     clusterColor: {
-        name: 'data-vl-cluster-color',
+        name: 'cluster-color',
         description: 'De kleur bij het clusteren van features.',
         table: {
             type: { summary: TYPES.STRING },
@@ -32,8 +32,8 @@ export const mapLayerCircleStyleArgTypes: ArgTypes<typeof mapLayerCircleStyleArg
         },
     },
     clusterMultiplier: {
-        name: 'data-vl-cluster-multiplier',
-        description: 'Bepaalt de verhouding van de vergroting voor clusters tegenover ingestelde `data-vl-size`.',
+        name: 'cluster-multiplier',
+        description: 'Bepaalt de verhouding van de vergroting voor clusters tegenover ingestelde `size`.',
         control: { type: CONTROLS.NUMBER, step: 0.1 },
         table: {
             type: { summary: TYPES.NUMBER },
@@ -42,7 +42,7 @@ export const mapLayerCircleStyleArgTypes: ArgTypes<typeof mapLayerCircleStyleArg
         },
     },
     clusterTextColor: {
-        name: 'data-vl-cluster-text-color',
+        name: 'cluster-text-color',
         description: 'De kleur van de tekst bij het clusteren van features.',
         table: {
             type: { summary: TYPES.STRING },
@@ -51,7 +51,7 @@ export const mapLayerCircleStyleArgTypes: ArgTypes<typeof mapLayerCircleStyleArg
         },
     },
     size: {
-        name: 'data-vl-size',
+        name: 'size',
         description: 'De grootte van de cirkels.',
         table: {
             type: { summary: TYPES.NUMBER },

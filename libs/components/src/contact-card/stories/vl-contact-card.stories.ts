@@ -11,7 +11,7 @@ export default {
     title: 'Components/contact-card',
     tags: ['autodocs'],
     args: defaultArgs,
-    argTypes: defaultArgTypes(),
+    argTypes: defaultArgTypes,
     parameters: {
         controls: { hideNoControlsWarning: true },
     },
@@ -23,11 +23,7 @@ export const contactCardDefault = story(
     {},
     () => html`
         <vl-contact-card>
-            <vl-infoblock
-                slot="info"
-                data-vl-title="Departement Onderwijs en Vorming"
-                data-vl-type="contact"
-            ></vl-infoblock>
+            <vl-infoblock slot="info" title="Departement Onderwijs en Vorming" type="contact"></vl-infoblock>
             <vl-properties slot="properties">
                 <label>Adres</label>
                 <data>

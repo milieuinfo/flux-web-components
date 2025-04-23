@@ -26,7 +26,7 @@ export const BaseElementOfType = (SuperClass: typeof HTMLElement): any => {
          * @return {String} attribuut prefix
          */
         static get attributePrefix(): string {
-            return 'data-vl-';
+            return '';
         }
 
         static get observedAttributes(): string[][] {

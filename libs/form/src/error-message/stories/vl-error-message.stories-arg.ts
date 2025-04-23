@@ -11,7 +11,7 @@ export const errorMessageArgs: ErrorMessageArgs = {
 };
 
 export const errorMessageArgTypes: ArgTypes<ErrorMessageArgs> = {
-    ...defaultArgTypes(true),
+    ...defaultArgTypes,
     for: {
         name: 'for',
         description: 'Het id van het input element waarvoor de error message getoond moet worden.',

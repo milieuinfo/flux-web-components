@@ -26,9 +26,9 @@ export const alertArgs = {
 };
 
 export const alertArgTypes: ArgTypes<typeof alertArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     closable: {
-        name: 'data-vl-closable',
+        name: 'closable',
         description: 'Sluitknop voor de waarschuwing',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -37,7 +37,7 @@ export const alertArgTypes: ArgTypes<typeof alertArgs> = {
         },
     },
     naked: {
-        name: 'data-vl-naked',
+        name: 'naked',
         description: 'Naked variant van de waarschuwing.',
         table: {
             type: { summary: TYPES.BOOLEAN },
@@ -46,7 +46,7 @@ export const alertArgTypes: ArgTypes<typeof alertArgs> = {
         },
     },
     title: {
-        name: 'data-vl-title',
+        name: 'title',
         description:
             'Titel van de waarschuwing.<br>Bij de naked variant mag de titel alleen met dit attribuut meegegeven worden.',
         table: {
@@ -56,7 +56,7 @@ export const alertArgTypes: ArgTypes<typeof alertArgs> = {
         },
     },
     icon: {
-        name: 'data-vl-icon',
+        name: 'icon',
         description:
             'Icon van de waarschuwing.<br>Het icoon kan gekozen worden uit de lijst op https://overheid.vlaanderen.be/webuniversum/v3/documentation/atoms/vl-ui-icon.',
         control: { type: CONTROLS.SELECT },
@@ -68,7 +68,7 @@ export const alertArgTypes: ArgTypes<typeof alertArgs> = {
         },
     },
     message: {
-        name: 'data-vl-message',
+        name: 'message',
         description:
             'De message van de waarschuwing.<br>Bij de naked variant mag de message alleen met dit attribuut meegegeven worden.',
         table: {
@@ -78,7 +78,7 @@ export const alertArgTypes: ArgTypes<typeof alertArgs> = {
         },
     },
     size: {
-        name: 'data-vl-size',
+        name: 'size',
         description: 'Kleine variant van de waarschuwing.',
         control: { type: CONTROLS.SELECT },
         options: [ALERT_SIZE.SMALL],
@@ -89,7 +89,7 @@ export const alertArgTypes: ArgTypes<typeof alertArgs> = {
         },
     },
     type: {
-        name: 'data-vl-type',
+        name: 'type',
         description: 'Soort van de waarschuwing, foutmelding, probleemmelding of succesmelding.',
         control: { type: CONTROLS.SELECT },
         options: Object.values(ALERT_TYPE),

@@ -7,7 +7,7 @@ export const contentHeaderArgs = {
 };
 
 export const contentHeaderArgTypes = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     image: {
         name: 'image (slot)',
         description: '',

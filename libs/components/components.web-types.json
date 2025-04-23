@@ -13,48 +13,48 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-accordion--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-bold",
+                            "name": "bold",
                             "description": "Beeldt de toggle-text van de accordion af in bold.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-close-toggle-text",
-                            "description": "Tekst waarop de gebruiker kan klikken om de accordion te sluiten.<br>Kan niet in combinatie gebruikt worden met:<br>• data-vl-toggle-text attribuut<br>• title slot",
+                            "name": "close-toggle-text",
+                            "description": "Tekst waarop de gebruiker kan klikken om de accordion te sluiten.<br>Kan niet in combinatie gebruikt worden met:<br>• toggle-text attribuut<br>• title slot",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-content-padding",
+                            "name": "content-padding",
                             "description": "De grootte van de padding van de content.<br>Deze padding wordt toegepast op zowel desktop als mobile.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-disabled",
+                            "name": "disabled",
                             "description": "Schakelt het openen en het sluiten van de accordion uit.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-default-open",
+                            "name": "default-open",
                             "description": "Indien gezet zal de accordion standaard geopend zijn.<br>Dit attribuut is niet reactief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-icon",
+                            "name": "icon",
                             "description": "Icoon dat getoond wordt voor de tekst van de toggle.<br>Dit attribuut is niet reactief.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-open-toggle-text",
-                            "description": "Tekst waarop de gebruiker kan klikken om de accordion te openen.<br>Kan niet in combinatie gebruikt worden met:<br>• data-vl-toggle-text attribuut<br>• title slot",
+                            "name": "open-toggle-text",
+                            "description": "Tekst waarop de gebruiker kan klikken om de accordion te openen.<br>Kan niet in combinatie gebruikt worden met:<br>• toggle-text attribuut<br>• title slot",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-toggle-text",
-                            "description": "Tekst waarop de gebruiker kan klikken om de accordion te openen of te sluiten.<br>Kan niet in combinatie gebruikt worden met:<br>• data-vl-close-toggle-text attribuut<br>• data-vl-open-toggle-text attribuut<br>• title slot",
+                            "name": "toggle-text",
+                            "description": "Tekst waarop de gebruiker kan klikken om de accordion te openen of te sluiten.<br>Kan niet in combinatie gebruikt worden met:<br>• close-toggle-text attribuut<br>• open-toggle-text attribuut<br>• title slot",
                             "default": ""
                         }
                     ],
@@ -66,7 +66,7 @@
                         },
                         {
                             "name": "title",
-                            "description": "Element waarop de gebruiker kan klikken om de accordion te openen of te sluiten.<br>Kan niet in combinatie gebruikt worden met:<br>Kan niet in combinatie gebruikt worden met:<br>• data-vl-close-toggle-text attribuut<br>• data-vl-open-toggle-text attribuut<br>• data-vl-toggle-text attribuut",
+                            "description": "Element waarop de gebruiker kan klikken om de accordion te openen of te sluiten.<br>Kan niet in combinatie gebruikt worden met:<br>Kan niet in combinatie gebruikt worden met:<br>• close-toggle-text attribuut<br>• open-toggle-text attribuut<br>• toggle-text attribuut",
                             "default": ""
                         },
                         {
@@ -96,42 +96,42 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-alert--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-closable",
+                            "name": "closable",
                             "description": "Sluitknop voor de waarschuwing",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-naked",
+                            "name": "naked",
                             "description": "Naked variant van de waarschuwing.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-title",
+                            "name": "title",
                             "description": "Titel van de waarschuwing.<br>Bij de naked variant mag de titel alleen met dit attribuut meegegeven worden.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-icon",
+                            "name": "icon",
                             "description": "Icon van de waarschuwing.<br>Het icoon kan gekozen worden uit de lijst op https://overheid.vlaanderen.be/webuniversum/v3/documentation/atoms/vl-ui-icon.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-message",
+                            "name": "message",
                             "description": "De message van de waarschuwing.<br>Bij de naked variant mag de message alleen met dit attribuut meegegeven worden.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-size",
+                            "name": "size",
                             "description": "Kleine variant van de waarschuwing.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-type",
+                            "name": "type",
                             "description": "Soort van de waarschuwing, foutmelding, probleemmelding of succesmelding.",
                             "default": ""
                         }
@@ -165,11 +165,11 @@
                 },
                 {
                     "name": "vl-autocomplete",
-                    "description": "Gebruik de `autocomplete` component om een lijst met suggesties weer te geven, gefilterd op de ingevoerde tekst. De\nlijst kan een statische lijst zijn (`data-vl-static-list`) of kan worden opgehaald uit een api (dataFetcher).",
+                    "description": "Gebruik de `autocomplete` component om een lijst met suggesties weer te geven, gefilterd op de ingevoerde tekst. De\nlijst kan een statische lijst zijn (`static-list`) of kan worden opgehaald uit een api (dataFetcher).",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-autocomplete--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
@@ -179,56 +179,56 @@
                             "default": ""
                         },
                         {
-                            "name": "data-vl-initial-value",
+                            "name": "initial-value",
                             "description": "Attribuut wordt gebruikt om de initiële waarde te bepalen.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-label",
+                            "name": "label",
                             "description": "Attribuut wordt gebruikt om de label te bepalen.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-label-small",
+                            "name": "label-small",
                             "description": "Attribuut wordt gebruikt om de label kleiner te maken.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-min-chars",
+                            "name": "min-chars",
                             "description": "Attribuut wordt gebruikt om te bepalen hoeveel karakters de gebruiker moet ingeven alvorens de suggesties getoond worden.",
                             "default": "3"
                         },
                         {
-                            "name": "data-vl-max-suggestions",
+                            "name": "max-suggestions",
                             "description": "Attribuut wordt gebruikt om het maximum aantal suggesties dat moet getoond worden te bepalen.",
                             "default": "15"
                         },
                         {
-                            "name": "data-vl-caption-format",
+                            "name": "caption-format",
                             "description": "Attribuut bepaalt wat er hoe moet getoond worden voor ieder item in de suggestielijst."
                         },
                         {
-                            "name": "data-vl-group-by",
+                            "name": "group-by",
                             "description": "Attribuut bepaalt hoe de items in de lijst gegroepeerd moeten worden.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-show-clear",
+                            "name": "show-clear",
                             "description": "Attribuut wordt gebruikt te bepalen of het clear icoon moet tevoorschijn komen.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-disable-loading",
+                            "name": "disable-loading",
                             "description": "Bepaalt of loading animatie getoond wordt.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-clear-tooltip",
+                            "name": "clear-tooltip",
                             "description": "Attribuut wordt gebruikt de tekst te bepalen die getoond moet worden bij hover van clear icon.",
                             "default": "Wissen"
                         },
                         {
-                            "name": "data-vl-no-matches-text",
+                            "name": "no-matches-text",
                             "description": "Attribuut wordt gebruikt de tekst te bepalen die getoond moet worden als er geen suggesties zijn.",
                             "default": "Geen resultaat"
                         }
@@ -261,12 +261,12 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-breadcrumb--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-href",
+                            "name": "href",
                             "description": "Url voor breadcrumb-item.",
                             "default": ""
                         }
@@ -282,7 +282,7 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-content-header--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
@@ -309,32 +309,32 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-description-data-description-data--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-bordered",
+                            "name": "bordered",
                             "description": "Adds a border.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-items-size",
+                            "name": "items-size",
                             "description": "The number (numerator) of the maximum (denominator) that will be taken for each data item on large screens, typically desktop.",
                             "default": "12 / number of data items"
                         },
                         {
-                            "name": "data-vl-items-medium-size",
+                            "name": "items-medium-size",
                             "description": "The number (numerator) of the maximum (denominator) that will be taken for each data item on medium screens, typically tablet.",
                             "default": "undefined"
                         },
                         {
-                            "name": "data-vl-items-small-size",
+                            "name": "items-small-size",
                             "description": "The number (numerator) of the maximum (denominator) that will be taken for each data item on small screens, typically mobile.",
                             "default": "undefined"
                         },
                         {
-                            "name": "data-vl-items-extra-small-size",
+                            "name": "items-extra-small-size",
                             "description": "The number (numerator) of the maximum (denominator) that will be taken for each data item on very small screens.",
                             "default": "undefined"
                         }
@@ -345,17 +345,17 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-description-data-description-data-item--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-label",
+                            "name": "label",
                             "description": "Changes the label of the data item.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-value",
+                            "name": "value",
                             "description": "Changes the value of the data item.",
                             "default": ""
                         }
@@ -379,17 +379,17 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-document--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-href",
+                            "name": "href",
                             "description": "Bepaalt de download link.",
                             "default": "#"
                         },
                         {
-                            "name": "data-vl-target",
+                            "name": "target",
                             "description": "Bepaalt waar de link geopend wordt. Mogelijke waarden zijn `_blank`, `_self`, `_parent` en `_top`.",
                             "default": "_self"
                         }
@@ -415,57 +415,57 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-functional-header--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-back",
+                            "name": "back",
                             "description": "Tekst van de terug-link.",
                             "default": "Terug"
                         },
                         {
-                            "name": "data-vl-back-link",
+                            "name": "back-link",
                             "description": "URL van de terug-link.",
                             "default": "document.referrer"
                         },
                         {
-                            "name": "data-vl-disable-back-link",
+                            "name": "disable-back-link",
                             "description": "Zet de terug-link uit.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-full-width",
+                            "name": "full-width",
                             "description": "Gebruik de volledige breedte van het scherm.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-hide-back-link",
+                            "name": "hide-back-link",
                             "description": "Verbergt de terug link.<br>Dit attribuut is niet reactief.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-hide-sub-header",
+                            "name": "hide-sub-header",
                             "description": "Verbergt de sub header.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-link",
+                            "name": "link",
                             "description": "URL van de titel-link.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-margin-bottom",
+                            "name": "margin-bottom",
                             "description": "De grootte van de margin onder de functional header.",
                             "default": "large"
                         },
                         {
-                            "name": "data-vl-sub-title",
+                            "name": "sub-title",
                             "description": "Tekst van de subtitel.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-title",
+                            "name": "title",
                             "description": "Tekst van de titel.",
                             "default": ""
                         }
@@ -477,23 +477,23 @@
                         },
                         {
                             "name": "back",
-                            "description": "Wordt afgebeeld ipv de tekst van de terug-link.<br>Kan niet in combinatie gebruikt worden met:<br>• data-vl-back attribuut<br>• back-link slot<br>• sub-header slot"
+                            "description": "Wordt afgebeeld ipv de tekst van de terug-link.<br>Kan niet in combinatie gebruikt worden met:<br>• back attribuut<br>• back-link slot<br>• sub-header slot"
                         },
                         {
                             "name": "back-link",
-                            "description": "Wordt afgebeeld ipv de terug-link.<br>Kan niet in combinatie gebruikt worden met:<br>• data-vl-back attribuut<br>• data-vl-back-link attribuut<br>• data-vl-disable-back-link attribuutt<br>• back slot<br>• sub-header slot"
+                            "description": "Wordt afgebeeld ipv de terug-link.<br>Kan niet in combinatie gebruikt worden met:<br>• back attribuut<br>• back-link attribuut<br>• disable-back-link attribuutt<br>• back slot<br>• sub-header slot"
                         },
                         {
                             "name": "sub-header",
-                            "description": "Wordt afgebeeld onder de horizontale lijn.<br>Kan niet in combinatie gebruikt worden met:<br>• data-vl-back attribuut<br>• data-vl-back-link attribuut<br>• data-vl-disable-back-link attribuut<br>• data-vl-sub-title attribuut<br>• back slot<br>• back-link slot<br>• sub-title slot"
+                            "description": "Wordt afgebeeld onder de horizontale lijn.<br>Kan niet in combinatie gebruikt worden met:<br>• back attribuut<br>• back-link attribuut<br>• disable-back-link attribuut<br>• sub-title attribuut<br>• back slot<br>• back-link slot<br>• sub-title slot"
                         },
                         {
                             "name": "sub-title",
-                            "description": "Wordt afgebeeld ipv de tekst van de subtitel.<br>Kan niet in combinatie gebruikt worden met:<br>• data-vl-sub-title<br>• sub-header slot"
+                            "description": "Wordt afgebeeld ipv de tekst van de subtitel.<br>Kan niet in combinatie gebruikt worden met:<br>• sub-title<br>• sub-header slot"
                         },
                         {
                             "name": "title",
-                            "description": "Wordt afgebeeld ipv de tekst van de titel.<br>Kan niet in combinatie gebruikt worden met:<br>• data-vl-title"
+                            "description": "Wordt afgebeeld ipv de tekst van de titel.<br>Kan niet in combinatie gebruikt worden met:<br>• title"
                         },
                         {
                             "name": "top-left",
@@ -520,27 +520,27 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-http-error-message--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-title",
+                            "name": "title",
                             "description": "Past de title van de error message aan.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-image",
+                            "name": "image",
                             "description": "De URL voor de afbeelding die weergegeven moet worden.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-image-alt",
+                            "name": "image-alt",
                             "description": "Past de alternatieve tekst van de afbeelding aan.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-error-code",
+                            "name": "error-code",
                             "description": "Geeft de default titel, afbeelding, tekst en actie voor een specifieke error code weer.",
                             "default": ""
                         }
@@ -564,22 +564,22 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-info-tile--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-auto-open",
-                            "description": "Opent de info-tile automatisch bij de eerste render.<br>Alleen bruikbaar indien data-vl-toggleable aanstaat.",
+                            "name": "auto-open",
+                            "description": "Opent de info-tile automatisch bij de eerste render.<br>Alleen bruikbaar indien toggleable aanstaat.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-center",
+                            "name": "center",
                             "description": "Centreert de tekst van de info-tile.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-toggleable",
+                            "name": "toggleable",
                             "description": "Maakt de info-tile openklapbaar.",
                             "default": "false"
                         },
@@ -617,7 +617,7 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-infoblock--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         }
@@ -629,22 +629,22 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-input-slider--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-max-value",
+                            "name": "max-value",
                             "description": "De maximumwaarde die geselecteerd kan worden.",
                             "default": "100"
                         },
                         {
-                            "name": "data-vl-min-value",
+                            "name": "min-value",
                             "description": "De minimumwaarde die geselecteerd kan worden.",
                             "default": "0"
                         },
                         {
-                            "name": "data-vl-value",
+                            "name": "value",
                             "description": "De waarde van de input. Wordt gecorrigeerd indien deze zich onder de minValue of boven de maxValue begeeft.",
                             "default": "0"
                         }
@@ -664,22 +664,22 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-loader--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-light",
+                            "name": "light",
                             "description": "Attribute is used to obtain an alternative rendering in combination with a dark background. ",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-text",
+                            "name": "text",
                             "description": "Attribute is used to display an informative text during loading. ",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-single",
+                            "name": "single",
                             "description": "Attribute is used to indicate that no text should be displayed. ",
                             "default": "false"
                         }
@@ -690,37 +690,37 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-modal--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-title",
+                            "name": "title",
                             "description": "Attribuut gebruikt om een `<h2>` titel toe te voegen. Indien leeg, wordt er geen titel element aangemaakt.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-open",
+                            "name": "open",
                             "description": "Attribuut om de modal onmiddellijk te openen na de rendering.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-closable",
+                            "name": "closable",
                             "description": "Attribuut om de modal sluitbaar te maken via het \"Sluit\"-icoon in de rechterbovenhoek of door de \"Escape\"-toets te gebruiken.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-not-cancellable",
+                            "name": "not-cancellable",
                             "description": "Attribuut gebruikt om de modal niet annuleerbaar te maken.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-not-auto-closable",
+                            "name": "not-auto-closable",
                             "description": "Attribuut om het afsluiten van de modal uit te schakelen bij het klikken op de actie in het button-slot.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-allow-overflow",
+                            "name": "allow-overflow",
                             "description": "Attribuut om de afgesneden inhoud van de modal zichtbaar te maken.",
                             "default": "false"
                         }
@@ -1416,27 +1416,27 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-steps-steps--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-line",
+                            "name": "line",
                             "description": "Beeldt een verticale lijn af tussen de stappen.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-timeline",
+                            "name": "timeline",
                             "description": "Beeldt een verticale tijdlijn af tussen de stappen.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-simple-timeline",
+                            "name": "simple-timeline",
                             "description": "Beeldt een simpele verticale tijdlijn af tussen de stappen.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-last-step-no-line",
+                            "name": "last-step-no-line",
                             "description": "Laat de verticale lijn na de laatste stap weg bij gebruik van de line, timeline of simple-timeline attributen.",
                             "default": "false"
                         }
@@ -1447,17 +1447,17 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-steps-step--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-toggleable",
+                            "name": "toggleable",
                             "description": "Beeldt een stap af als een accordion.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-type",
+                            "name": "type",
                             "description": "Beeldt een stap af in een bepaalde staat.",
                             "default": "null"
                         }
@@ -1568,37 +1568,37 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-pager--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-total-items",
+                            "name": "total-items",
                             "description": "This attribute determines the total number of elements.",
                             "default": "100"
                         },
                         {
-                            "name": "data-vl-current-page",
+                            "name": "current-page",
                             "description": "This attribute determines the current page.",
                             "default": "1"
                         },
                         {
-                            "name": "data-vl-items-per-page",
+                            "name": "items-per-page",
                             "description": "This attribute determines the number of rows to show per page.",
                             "default": "10"
                         },
                         {
-                            "name": "data-vl-pagination-disabled",
+                            "name": "pagination-disabled",
                             "description": "This attribute determines if the page links should be disabled.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-align-center",
+                            "name": "align-center",
                             "description": "This attribute is used to center the pagination.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-align-right",
+                            "name": "align-right",
                             "description": "This attribute is used to align the pagination to the right.",
                             "default": "false"
                         }
@@ -1617,32 +1617,32 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-pill-pill--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-closable",
+                            "name": "closable",
                             "description": "The attribute that determines whether the pill can be removed or not (cannot be used in combination with checkable or clickable).",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-checkable",
+                            "name": "checkable",
                             "description": "The attribute that determines whether the pill can be checked or not (cannot be used in combination with closable or clickable).",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-type",
+                            "name": "type",
                             "description": "The attribute that determines the type. ",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-disabled",
+                            "name": "disabled",
                             "description": "The attribute that determines whether the pill is disabled or not.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-clickable",
+                            "name": "clickable",
                             "description": "The attribute that determines whether the pill can be clicked or not (cannot be used in combination with closable or checkable).",
                             "default": "false"
                         }
@@ -1677,12 +1677,12 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-pill-button-pill--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-type",
+                            "name": "type",
                             "description": "The attribute that determines the type. ",
                             "default": ""
                         }
@@ -1760,27 +1760,27 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-progress-bar--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-active-step",
+                            "name": "active-step",
                             "description": "Markeert een stap als de actieve.",
                             "default": "0"
                         },
                         {
-                            "name": "data-vl-show-labels",
+                            "name": "show-labels",
                             "description": "Bepaalt of de labels van de stappen altijd zichtbaar zijn.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-focus-on-change",
+                            "name": "focus-on-change",
                             "description": "Bepaalt of een stap de focus krijgt na een wijziging.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-numeric",
+                            "name": "numeric",
                             "description": "Voorziet numerieke indicatoren bij de stappen.",
                             "default": "false"
                         }
@@ -1808,32 +1808,32 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-proza-message--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-base-url",
+                            "name": "base-url",
                             "description": "Optionele baseUrl waarvan het Proza bericht opgehaald wordt.<br>Indien deze baseUrl niet meegegeven wordt, wordt het Proza bericht opgehaald relatief tov de huidige url op het pad 'proza/domein/{domain}/{code}'.<br>Dit attribuut is niet reactief.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-block",
+                            "name": "block",
                             "description": "Duidt aan dat de inhoud van het Proza bericht een block element is.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-code",
+                            "name": "code",
                             "description": "De code die het Proza bericht identificeert.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-domain",
+                            "name": "domain",
                             "description": "Het Proza domein waarin het Proza bericht zit.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-parameters",
+                            "name": "parameters",
                             "description": "De key/value parameters die verwerkt en getoond zullen worden in het content element.",
                             "default": ""
                         }
@@ -1845,17 +1845,17 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-proza-message-preloader--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-base-url",
+                            "name": "base-url",
                             "description": "Optionele baseUrl waarvan de Proza berichten opgehaald worden.<br>Indien deze baseUrl niet meegegeven wordt, worden de Proza berichten opgehaald relatief tov de huidige url op het pad 'proza/domein/{domain}'.<br>Dit attribuut is niet reactief.",
                             "default": ""
                         },
                         {
-                            "name": "data-vl-domain",
+                            "name": "domain",
                             "description": "Het Proza domein waarin de Proza berichten zit.",
                             "default": ""
                         }
@@ -1866,17 +1866,17 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-rich-data--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-filter-closable",
-                            "description": "Filter sluitbaar maken en knop tonen om de filter te tonen en terug te verbergen.\n * Op een klein scherm wordt een modal geopend bij het klikken op de filter knop ipv een de filter naast de tabel te tonen.\n\n * Om elementen van de filter te verbergen enkel in de modal, kan het attribuut `data-vl-hidden-in-modal` gezet worden.",
+                            "name": "filter-closable",
+                            "description": "Filter sluitbaar maken en knop tonen om de filter te tonen en terug te verbergen.\n * Op een klein scherm wordt een modal geopend bij het klikken op de filter knop ipv een de filter naast de tabel te tonen.\n\n * Om elementen van de filter te verbergen enkel in de modal, kan het attribuut `hidden-in-modal` gezet worden.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-filter-closed",
+                            "name": "filter-closed",
                             "description": "Verbergt de filter",
                             "default": "false"
                         }
@@ -1888,32 +1888,32 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-rich-data-table--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-filter-closable",
-                            "description": "Filter sluitbaar maken en knop tonen om de filter te tonen en terug te verbergen.\n * Op een klein scherm wordt een modal geopend bij het klikken op de filter knop ipv een de filter naast de tabel te tonen.\n\n * Om elementen van de filter te verbergen enkel in de modal, kan het attribuut `data-vl-hidden-in-modal` gezet worden.",
+                            "name": "filter-closable",
+                            "description": "Filter sluitbaar maken en knop tonen om de filter te tonen en terug te verbergen.\n * Op een klein scherm wordt een modal geopend bij het klikken op de filter knop ipv een de filter naast de tabel te tonen.\n\n * Om elementen van de filter te verbergen enkel in de modal, kan het attribuut `hidden-in-modal` gezet worden.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-filter-closed",
+                            "name": "filter-closed",
                             "description": "Verbergt de filter",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-collapsed-m",
+                            "name": "collapsed-m",
                             "description": "Vanaf medium schermgrootte, cellen per rij onder elkaar ipv naast elkaar",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-collapsed-s",
+                            "name": "collapsed-s",
                             "description": "Vanaf een small schermgrootte, cellen per rij onder elkaar ipv naast elkaar",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-collapsed-xs",
+                            "name": "collapsed-xs",
                             "description": "Vanaf een extra small schermgrootte, cellen per rij onder elkaar ipv naast elkaar",
                             "default": "false"
                         }
@@ -1936,7 +1936,7 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-share-buttons-button--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         }
@@ -1947,12 +1947,12 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-share-buttons-buttons--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-alt",
+                            "name": "alt",
                             "description": "Removes the gray border top.",
                             "default": "false"
                         }
@@ -1964,7 +1964,7 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-side-sheet--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         }
@@ -1975,37 +1975,37 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-spotlight--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-link",
+                            "name": "link",
                             "description": "De component wordt een link. Door te klikken op de component wordt de gebruiker doorgestuurd naar de link die gezet is in dit attribuut."
                         },
                         {
-                            "name": "data-vl-external",
-                            "description": "Opent de link in een nieuw tabblad. Dit attribuut wordt enkel gebruikt als het attribuut `data-vl-link` gezet is."
+                            "name": "external",
+                            "description": "Opent de link in een nieuw tabblad. Dit attribuut wordt enkel gebruikt als het attribuut `link` gezet is."
                         },
                         {
-                            "name": "data-vl-alt",
+                            "name": "alt",
                             "description": "Geeft de component een alternatieve stijl. De achtergrond wordt grijs."
                         },
                         {
-                            "name": "data-vl-no-border",
+                            "name": "no-border",
                             "description": "Geeft de component weer zonder border."
                         },
                         {
-                            "name": "data-vl-size",
+                            "name": "size",
                             "description": "Dit attribuut bepaalt de grootte van de component.",
                             "default": "undefined"
                         },
                         {
-                            "name": "data-vl-img-src",
+                            "name": "img-src",
                             "description": "Het path van de image dat getoond moet worden in de spotlight."
                         },
                         {
-                            "name": "data-vl-img-alt",
+                            "name": "img-alt",
                             "description": "De alternatieve tekst van de image dat getoond moet worden in de spotlight."
                         }
                     ],
@@ -2034,7 +2034,7 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-tabs--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
@@ -2084,7 +2084,7 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-tabs--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
@@ -2116,7 +2116,7 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-template--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         }
@@ -2154,7 +2154,7 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-typography--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         }
@@ -2198,22 +2198,22 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-wizard-wizard--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
                         {
-                            "name": "data-vl-active-step",
+                            "name": "active-step",
                             "description": "Zet de actieve stap.",
                             "default": "0"
                         },
                         {
-                            "name": "data-vl-hide-labels",
+                            "name": "hide-labels",
                             "description": "Bepaalt of de labels van de stappen verborgen moeten worden.",
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-numeric",
+                            "name": "numeric",
                             "description": "Voorziet numerieke indicatoren bij de stappen.",
                             "default": "false"
                         }
@@ -2243,7 +2243,7 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-wizard-wizard-pane--documentatie",
                     "attributes": [
                         {
-                            "name": "data-vl-custom-css",
+                            "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": "null"
                         },
@@ -2253,7 +2253,7 @@
                             "default": "false"
                         },
                         {
-                            "name": "data-vl-name",
+                            "name": "name",
                             "description": "Stelt de naam van de pane in. De naam is zichtbaar in de tooltip van de stap.",
                             "default": ""
                         }

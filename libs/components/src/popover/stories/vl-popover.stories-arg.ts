@@ -23,7 +23,7 @@ export const popoverDefaultArgs = {
 };
 
 export const popoverArgTypes: ArgTypes = {
-    ...defaultArgTypes(true),
+    ...defaultArgTypes,
     for: {
         name: 'for',
         description:

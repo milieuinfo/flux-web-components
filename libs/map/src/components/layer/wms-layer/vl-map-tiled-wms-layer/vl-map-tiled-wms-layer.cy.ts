@@ -7,25 +7,21 @@ registerWebComponents([VlMap, VlMapTiledWmsLayer]);
 
 const tiledWmsLayerFixture = html`
     <vl-map>
-        <vl-map-tiled-wms-layer
-            data-vl-url="http://dummy/wms"
-            data-vl-name="dummy"
-            data-vl-layers="layer1,layer2"
-        ></vl-map-tiled-wms-layer>
+        <vl-map-tiled-wms-layer url="http://dummy/wms" name="dummy" layers="layer1,layer2"></vl-map-tiled-wms-layer>
     </vl-map>
 `;
 
 const tiledWmsLayerAdjustedConfigFixture = html`
     <vl-map>
         <vl-map-tiled-wms-layer
-            data-vl-url="http://dummy/wms-adjusted"
-            data-vl-layers="layer1"
-            data-vl-styles="style1,style2"
-            data-vl-version="1.1.1"
-            data-vl-opacity="0.75"
-            data-vl-min-resolution="10"
-            data-vl-max-resolution="1000"
-            data-vl-name="adjusted"
+            url="http://dummy/wms-adjusted"
+            layers="layer1"
+            styles="style1,style2"
+            version="1.1.1"
+            opacity="0.75"
+            min-resolution="10"
+            max-resolution="1000"
+            name="adjusted"
         >
         </vl-map-tiled-wms-layer>
     </vl-map>

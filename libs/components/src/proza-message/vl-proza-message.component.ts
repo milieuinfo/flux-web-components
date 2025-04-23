@@ -61,7 +61,7 @@ export class VlProzaMessage extends BaseElementOfType(HTMLElement) {
 
     _blockChangedCallback() {
         const blockClass = 'vl-proza-message__block';
-        if (this.hasAttribute('data-vl-block')) {
+        if (this.hasAttribute('block')) {
             this.classList.add(blockClass);
         } else {
             this.classList.remove(blockClass);
@@ -70,24 +70,24 @@ export class VlProzaMessage extends BaseElementOfType(HTMLElement) {
 
     _parametersChangedCallback() {
         if (this._typographyElement && this._parameters) {
-            this._typographyElement.dataset.vlParameters = this._parameters;
+            this._typographyElement.setAttribute('parameters', this._parameters);
         }
     }
 
     get _domain() {
-        return this.dataset.vlDomain;
+        return this.getAttribute('domain');
     }
 
     get _code() {
-        return this.dataset.vlCode;
+        return this.getAttribute('code');
     }
 
     get _parameters() {
-        return this.dataset.vlParameters;
+        return this.getAttribute('parameters');
     }
 
     get _baseUrl() {
-        return this.dataset.vlBaseUrl;
+        return this.getAttribute('base-url');
     }
 
     _loadMessage() {
@@ -95,9 +95,9 @@ export class VlProzaMessage extends BaseElementOfType(HTMLElement) {
             VlProzaMessage.getMessage(this._domain, this._code, null, this._baseUrl).then((message: string) => {
                 this._typographyElement.innerHTML = message;
                 if (this.__containsBlockElement()) {
-                    this.toggleAttribute('data-vl-block', true);
+                    this.toggleAttribute('block', true);
                 } else {
-                    this.toggleAttribute('data-vl-block', false);
+                    this.toggleAttribute('block', false);
                 }
             });
         } else {

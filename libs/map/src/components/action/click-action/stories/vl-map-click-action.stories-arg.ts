@@ -7,7 +7,7 @@ export const mapClickActionArg = {
 };
 
 export const mapClickActionArgTypes: ArgTypes<typeof mapClickActionArg> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     onMapClicked: {
         name: 'vl-map-clicked',
         description:

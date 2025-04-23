@@ -12,7 +12,7 @@ export const doormatArgs: DoormatArgs = {
 };
 
 export const doormatArgTypes: ArgTypes<DoormatArgs> = {
-    ...defaultArgTypes(true),
+    ...defaultArgTypes,
     href: {
         name: 'href',
         description: 'De url waar de link naar verwijst.',

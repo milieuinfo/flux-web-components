@@ -11,7 +11,7 @@ export const paragraphArgs: ParagraphArgs = {
 };
 
 export const paragraphArgTypes: ArgTypes<ParagraphArgs> = {
-    ...defaultArgTypes(true),
+    ...defaultArgTypes,
     bold: {
         name: 'bold',
         description: 'Toont de paragraaf in het vet.',

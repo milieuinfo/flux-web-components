@@ -52,16 +52,16 @@ export class VlHeader extends BaseLitElement {
 
     static get properties(): PropertyDeclarations {
         return {
-            authenticatedUserUrl: { type: String, attribute: 'data-vl-authenticated-user-url' },
-            development: { type: Boolean, attribute: 'data-vl-development' },
-            identifier: { type: String, attribute: 'data-vl-identifier' },
-            loginRedirectUrl: { type: String, attribute: 'data-vl-login-redirect-url' },
-            loginUrl: { type: String, attribute: 'data-vl-login-url' },
-            logoutUrl: { type: String, attribute: 'data-vl-logout-url' },
-            simple: { type: Boolean, attribute: 'data-vl-simple' },
-            skeleton: { type: Boolean, attribute: 'data-vl-skeleton' },
-            switchCapacityUrl: { type: String, attribute: 'data-vl-switch-capacity-url' },
-            rejectLogout: { type: Boolean, attribute: 'data-vl-reject-logout' },
+            authenticatedUserUrl: { type: String, attribute: 'authenticated-user-url' },
+            development: { type: Boolean, attribute: 'development' },
+            identifier: { type: String, attribute: 'identifier' },
+            loginRedirectUrl: { type: String, attribute: 'login-redirect-url' },
+            loginUrl: { type: String, attribute: 'login-url' },
+            logoutUrl: { type: String, attribute: 'logout-url' },
+            simple: { type: Boolean, attribute: 'simple' },
+            skeleton: { type: Boolean, attribute: 'skeleton' },
+            switchCapacityUrl: { type: String, attribute: 'switch-capacity-url' },
+            rejectLogout: { type: Boolean, attribute: 'reject-logout' },
             logoutCallback: { type: Function },
             applicationLinks: { type: Array },
         };

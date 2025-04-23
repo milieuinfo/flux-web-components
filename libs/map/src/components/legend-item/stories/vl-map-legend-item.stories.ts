@@ -33,43 +33,43 @@ const MapLegendItemTemplate = story(
                 <vl-map-measure-control></vl-map-measure-control>
             </vl-map-action-controls>
             <vl-map-features-layer
-                data-vl-name="Shapes"
+                name="Shapes"
                 features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[153055,203908]},"properties":{"styleId":"style-1"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[141000,200908]},"properties":{"styleId":"style-2"}},{"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[147055,197908],[157055,197908],[157055,187908],[147055,187908],[147055,197908]]]},"properties":{"styleId":"style-3"}}]}'
             >
                 <vl-map-layer-circle-style
                     id="style-1"
-                    data-vl-name="Openbaar onderzoek"
-                    data-vl-color="#ffe615"
-                    data-vl-size="5"
-                    data-vl-border-color="#000"
-                    data-vl-border-size="1"
+                    name="Openbaar onderzoek"
+                    color="#ffe615"
+                    size="5"
+                    border-color="#000"
+                    border-size="1"
                 ></vl-map-layer-circle-style>
                 <vl-map-layer-circle-style
                     id="style-2"
-                    data-vl-name="Beslissing"
-                    data-vl-color="red"
-                    data-vl-size="5"
-                    data-vl-border-color="#000"
-                    data-vl-border-size="1"
+                    name="Beslissing"
+                    color="red"
+                    size="5"
+                    border-color="#000"
+                    border-size="1"
                 ></vl-map-layer-circle-style>
                 <vl-map-layer-style
                     id="style-3"
-                    data-vl-name="Wateroppervlaktes"
-                    data-vl-color="rgba(255,0,0,0.5)"
-                    data-vl-border-color="rgba(255,255,100,1)"
-                    data-vl-border-size="2"
-                    data-vl-text-feature-attribute-name="label"
-                    data-vl-text-background-color="rgba(0,0,255,0.2)"
-                    data-vl-text-border-color="rgba(0,255,0,1)"
-                    data-vl-text-border-size="3"
-                    data-vl-text-color="rgba(20,50,100,1)"
-                    data-vl-text-offset-x="10"
-                    data-vl-text-offset-y="-10"
-                    data-vl-text-size="13px"
+                    name="Wateroppervlaktes"
+                    color="rgba(255,0,0,0.5)"
+                    border-color="rgba(255,255,100,1)"
+                    border-size="2"
+                    text-feature-attribute-name="label"
+                    text-background-color="rgba(0,0,255,0.2)"
+                    text-border-color="rgba(0,255,0,1)"
+                    text-border-size="3"
+                    text-color="rgba(20,50,100,1)"
+                    text-offset-x="10"
+                    text-offset-y="-10"
+                    text-size="13px"
                 ></vl-map-layer-style>
             </vl-map-features-layer>
             <vl-map-legend>
-                <vl-map-legend-item data-vl-layer=${layer} data-vl-icon-text=${iconText}>
+                <vl-map-legend-item layer=${layer} icon-text=${iconText}>
                     ${unsafeHTML(labelSlot)} ${unsafeHTML(iconSlot)}
                 </vl-map-legend-item>
             </vl-map-legend>
@@ -93,7 +93,7 @@ MapLegendItemIconLabel.args = {
 };
 MapLegendItemIconLabel.parameters = {
     controls: {
-        exclude: ['data-vl-icon-text'],
+        exclude: ['icon-text'],
     },
 };
 
@@ -113,7 +113,7 @@ MapLegendItemIcon.args = {
 };
 MapLegendItemIcon.parameters = {
     controls: {
-        exclude: ['data-vl-icon-text'],
+        exclude: ['icon-text'],
     },
 };
 
@@ -125,7 +125,7 @@ MapLegendItemLabel.args = {
 };
 MapLegendItemLabel.parameters = {
     controls: {
-        exclude: ['data-vl-icon-text'],
+        exclude: ['icon-text'],
     },
 };
 
@@ -143,6 +143,6 @@ MapLegendItemDefault.args = {
 };
 MapLegendItemDefault.parameters = {
     controls: {
-        exclude: ['data-vl-icon-text'],
+        exclude: ['icon-text'],
     },
 };

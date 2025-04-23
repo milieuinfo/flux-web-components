@@ -14,6 +14,6 @@ export default {
 
 export const shareButtonDefault = ({ href, medium }: typeof shareButtonArgs) =>
     html` <vl-share-buttons>
-        <vl-share-button href=${href} data-vl-medium=${medium}></vl-share-button>
+        <vl-share-button href=${href} medium=${medium}></vl-share-button>
     </vl-share-buttons>`;
 shareButtonDefault.storyName = 'vl-share-button - default';

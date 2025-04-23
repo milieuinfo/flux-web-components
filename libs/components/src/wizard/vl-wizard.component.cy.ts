@@ -16,7 +16,7 @@ const mountDefault = ({ activeStep, panes, hideLabels = false, numeric = false }
     const paneElements = panes
         ? panes.map((paneName) => {
               return html`
-                  <vl-wizard-pane data-vl-name=${paneName}>
+                  <vl-wizard-pane name=${paneName}>
                       <p>Wizard Pane Content (${paneName})</p>
                   </vl-wizard-pane>
               `;
@@ -25,11 +25,7 @@ const mountDefault = ({ activeStep, panes, hideLabels = false, numeric = false }
 
     cy.mount(
         html`
-            <vl-wizard
-                data-vl-active-step=${activeStep || nothing}
-                ?data-vl-hide-labels=${hideLabels}
-                ?data-vl-numeric=${numeric}
-            >
+            <vl-wizard active-step=${activeStep || nothing} ?hide-labels=${hideLabels} ?numeric=${numeric}>
                 ${paneElements}
             </vl-wizard>
         `
@@ -56,7 +52,7 @@ describe('component vl-wizard-pane - properties', () => {
     it('should reflect <activeStep> attribute', () => {
         mountDefault({ activeStep: 2 });
 
-        cy.get('vl-wizard').should('have.attr', 'data-vl-active-step', '2');
+        cy.get('vl-wizard').should('have.attr', 'active-step', '2');
     });
 
     it('should render the correct number of panes', () => {
@@ -72,8 +68,8 @@ describe('component vl-wizard-pane - properties', () => {
             activeStep: 1,
         });
 
-        cy.get('vl-wizard').find('vl-wizard-pane[data-vl-name="Step 1"]').trigger('mouseover');
-        cy.get('vl-wizard').find('vl-wizard-pane[data-vl-name="Step 1"]').contains('Wizard Pane Content (Step 1)');
+        cy.get('vl-wizard').find('vl-wizard-pane[name="Step 1"]').trigger('mouseover');
+        cy.get('vl-wizard').find('vl-wizard-pane[name="Step 1"]').contains('Wizard Pane Content (Step 1)');
     });
 
     it('should set the correct pane as active', () => {
@@ -81,7 +77,7 @@ describe('component vl-wizard-pane - properties', () => {
             panes: ['Step 1', 'Step 2', 'Step 3'],
             activeStep: 2,
         });
-        cy.get('vl-wizard').find('vl-wizard-pane[data-vl-name="Step 2"]').contains('Wizard Pane Content (Step 2)');
+        cy.get('vl-wizard').find('vl-wizard-pane[name="Step 2"]').contains('Wizard Pane Content (Step 2)');
     });
 
     it('should add numeric steps', () => {
@@ -96,7 +92,7 @@ describe('component vl-wizard-pane - properties', () => {
     it('should display the step labels by default', () => {
         mountDefault({ panes: ['Step 1', 'Step 2', 'Step 3'] });
 
-        cy.get('vl-wizard').should('not.have.attr', 'data-vl-hide-labels');
+        cy.get('vl-wizard').should('not.have.attr', 'hide-labels');
 
         cy.get('vl-wizard')
             .shadow()
@@ -116,10 +112,10 @@ describe('component vl-wizard-pane - properties', () => {
             .should('contain.text', 'Step 2');
     });
 
-    it('should hide the step labels when <data-vl-hide-labels> is true', () => {
+    it('should hide the step labels when <hide-labels> is true', () => {
         mountDefault({ panes: ['Step 1', 'Step 2', 'Step 3'], hideLabels: true });
 
-        cy.get('vl-wizard').should('have.attr', 'data-vl-hide-labels');
+        cy.get('vl-wizard').should('have.attr', 'hide-labels');
 
         cy.get('vl-wizard')
             .shadow()

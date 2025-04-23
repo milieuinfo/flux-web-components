@@ -58,8 +58,8 @@ export const MapSelectActionDefault = story(
         <vl-map>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-features-layer .features=${features}>
-                <vl-map-select-action .active=${active} data-vl-default-active=${defaultActive}></vl-map-select-action>
-                <vl-map-layer-circle-style data-vl-border-color="#000000"></vl-map-layer-circle-style>
+                <vl-map-select-action .active=${active} default-active=${defaultActive}></vl-map-select-action>
+                <vl-map-layer-circle-style border-color="#000000"></vl-map-layer-circle-style>
             </vl-map-features-layer>
         </vl-map>
     `
@@ -75,13 +75,10 @@ export const MapSelectActionCustomStyle = story(
         <vl-map>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-features-layer .features=${features}>
-                <vl-map-select-action .active=${active} data-vl-default-active=${defaultActive}>
-                    <vl-map-layer-circle-style
-                        data-vl-color="#ff0000"
-                        data-vl-border-color="#000000"
-                    ></vl-map-layer-circle-style>
+                <vl-map-select-action .active=${active} default-active=${defaultActive}>
+                    <vl-map-layer-circle-style color="#ff0000" border-color="#000000"></vl-map-layer-circle-style>
                 </vl-map-select-action>
-                <vl-map-layer-circle-style data-vl-border-color="#000000"></vl-map-layer-circle-style>
+                <vl-map-layer-circle-style border-color="#000000"></vl-map-layer-circle-style>
             </vl-map-features-layer>
         </vl-map>
     `
@@ -96,19 +93,15 @@ export const MapSelectActionClustering = story(
     ({ active, defaultActive, cluster }) => html`
         <vl-map>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
-            <vl-map-features-layer .features=${features} data-vl-cluster data-vl-cluster-distance="100">
-                <vl-map-select-action
-                    .active=${active}
-                    data-vl-default-active=${defaultActive}
-                    ?data-vl-cluster=${cluster}
-                >
+            <vl-map-features-layer .features=${features} cluster cluster-distance="100">
+                <vl-map-select-action .active=${active} default-active=${defaultActive} ?cluster=${cluster}>
                     <vl-map-layer-circle-style
-                        data-vl-color="#0099ff"
-                        data-vl-text-color="#ffffff"
-                        data-vl-border-color="#ffffff"
+                        color="#0099ff"
+                        text-color="#ffffff"
+                        border-color="#ffffff"
                     ></vl-map-layer-circle-style>
                 </vl-map-select-action>
-                <vl-map-layer-circle-style data-vl-border-color="#000000"></vl-map-layer-circle-style>
+                <vl-map-layer-circle-style border-color="#000000"></vl-map-layer-circle-style>
             </vl-map-features-layer>
         </vl-map>
     `

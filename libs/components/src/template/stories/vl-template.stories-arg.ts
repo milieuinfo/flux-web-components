@@ -8,9 +8,9 @@ export const templateArgs = {
 };
 
 export const templateArgTypes: ArgTypes<typeof templateArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     center: {
-        name: 'data-vl-v-center',
+        name: 'v-center',
         description: 'Attribuut wordt gebruikt om ervoor te zorgen dat de content verticaal gecentreerd wordt.',
         table: {
             type: { summary: 'boolean' },
@@ -18,7 +18,7 @@ export const templateArgTypes: ArgTypes<typeof templateArgs> = {
         },
     },
     stretch: {
-        name: 'data-vl-v-stretch',
+        name: 'v-stretch',
         description: 'Attribuut wordt gebruikt om ervoor te zorgen dat de content 100% zal innemen.',
         table: {
             type: { summary: 'boolean' },

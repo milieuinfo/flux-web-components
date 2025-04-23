@@ -26,34 +26,34 @@ export class VlSpotlight extends BaseLitElement {
         return {
             link: {
                 type: String,
-                attribute: 'data-vl-link',
+                attribute: 'link',
             },
             external: {
                 type: Boolean,
-                attribute: 'data-vl-external',
+                attribute: 'external',
             },
             alt: {
                 type: Boolean,
-                attribute: 'data-vl-alt',
+                attribute: 'alt',
                 reflect: true,
             },
             noBorder: {
                 type: Boolean,
-                attribute: 'data-vl-no-border',
+                attribute: 'no-border',
                 reflect: true,
             },
             size: {
                 type: String,
-                attribute: 'data-vl-size',
+                attribute: 'size',
                 reflect: true,
             },
             imgSrc: {
                 type: String,
-                attribute: 'data-vl-img-src',
+                attribute: 'img-src',
             },
             imgAlt: {
                 type: String,
-                attribute: 'data-vl-img-alt',
+                attribute: 'img-alt',
             },
         };
     }

@@ -25,8 +25,8 @@ export const FooterDefault = story(
     ({ identifier, development, onReady }) => html`
         <body>
             <vl-footer
-                ?data-vl-development=${development}
-                data-vl-identifier=${identifier}
+                ?development=${development}
+                identifier=${identifier}
                 @ready=${(event: CustomEvent) => onReady(event)}
             ></vl-footer>
         </body>

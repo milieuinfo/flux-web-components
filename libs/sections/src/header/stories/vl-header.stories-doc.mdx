@@ -34,10 +34,10 @@ import { VlHeader } from '@domg-wc/sections';
 
 Bij het aanpassen van volgende attributen wordt achterliggend de `session.configure()` methode van DV opnieuw aangeroepen:
 
--   `data-vl-login-url`
--   `data-vl-login-redirect-url`
--   `data-vl-logout-url`
--   `data-vl-switch-capacity-url`
+-   `login-url`
+-   `login-redirect-url`
+-   `logout-url`
+-   `switch-capacity-url`
 
 Zie [Digitaal Vlaanderen - De endpoints overschrijven](https://vlaamseoverheid.atlassian.net/wiki/spaces/IKPubliek/pages/6336119448/Aanmelden+met+eenvoudig+of+gekoppeld+toegangsbeheer#De-endpoints-overschrijven) voor meer informatie.
 
@@ -63,7 +63,7 @@ Zie [Digitaal Vlaanderen - Header applicatieve links](https://vlaamseoverheid.at
 Bij het gebruik maken van sessies kan het logout request afgehandeld worden.<br/>
 Dit kan handig zijn als je wilt dat de gebruiker niet automatisch wordt uitgelogd bv. bij inactiviteit of als de sessie verlopen is.
 
-Door gebruik te maken van het `data-vl-reject-logout` attribuut worden alle logout requests afgewezen, behalve een logout request door de gebruiker.
+Door gebruik te maken van het `reject-logout` attribuut worden alle logout requests afgewezen, behalve een logout request door de gebruiker.
 
 Met de `logoutCallback` property kan je een callback functie meegeven die wordt aangeroepen bij een logout request.<br/>
 De logout reason wordt meegegeven aan de callback, door een boolean promise terug te geven kan je de logout accepteren of afwijzen.<br/>

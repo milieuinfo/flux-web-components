@@ -11,7 +11,7 @@ export class VlMapSideSheet extends VlSideSheet {
         transition: width 0.1s;
       }
 
-      :host([data-vl-open]) {
+      :host([open]) {
         width: var(--vl-side-sheet-width,calc(100%/3));
       }
 
@@ -19,7 +19,7 @@ export class VlMapSideSheet extends VlSideSheet {
         margin: 10px;
       }
 
-      :host([data-vl-open]) .vl-side-sheet__toggle {
+      :host([open]) .vl-side-sheet__toggle {
         margin-left: 0px;
       }
 
@@ -31,19 +31,19 @@ export class VlMapSideSheet extends VlSideSheet {
 
     connectedCallback() {
         super.connectedCallback();
-        this.setAttribute('data-vl-absolute', '');
+        this.setAttribute('absolute', '');
 
-        if (!this.hasAttribute('data-vl-right')) {
-            this.setAttribute('data-vl-left', '');
+        if (!this.hasAttribute('right')) {
+            this.setAttribute('left', '');
         }
         this._openChangedCallback();
     }
 
     _rightChangedCallback(_oldValue: string, newValue: string) {
         if (newValue != undefined) {
-            this.removeAttribute('data-vl-left');
+            this.removeAttribute('left');
         } else {
-            this.setAttribute('data-vl-left', '');
+            this.setAttribute('left', '');
         }
     }
 }

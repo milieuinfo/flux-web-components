@@ -7,9 +7,9 @@ export const typographyArgs = {
 };
 
 export const typographyArgTypes: ArgTypes<typeof typographyArgs> = {
-    ...defaultArgTypes(),
+    ...defaultArgTypes,
     parameters: {
-        name: 'data-vl-parameters',
+        name: 'parameters',
         description: 'De key/value parameters die verwerkt en getoond zullen worden in het content element.',
         control: {
             disable: true,

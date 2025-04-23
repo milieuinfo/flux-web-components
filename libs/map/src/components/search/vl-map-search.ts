@@ -44,7 +44,7 @@ export class VlMapSearch extends BaseElementOfType(HTMLElement) {
                 height: 3.5rem;
             }
           </style>
-          <vl-search id="search" data-vl-inline>
+          <vl-search id="search" inline>
             <vl-select-location slot="input" not-deletable position=${SelectRichPosition.BOTTOM}></vl-select-location>
           </vl-search>
         `);
