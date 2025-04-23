@@ -9,11 +9,11 @@ export class VlProzaMessagePreloader extends BaseElementOfType(HTMLElement) {
 
     constructor() {
         super();
-        this._preload();
+        this.preload();
     }
 
     _domainChangedCallback() {
-        this._preload();
+        this.preload();
     }
 
     get _domain() {
@@ -24,19 +24,33 @@ export class VlProzaMessagePreloader extends BaseElementOfType(HTMLElement) {
         return this.dataset.vlBaseUrl;
     }
 
-    _preload() {
+    preload() {
         if (this._domain) {
-            VlProzaMessagePreloader._preload(this._domain, this._baseUrl);
+            VlProzaMessagePreloader.preload(this._domain, this._baseUrl);
         }
     }
 
-    static _preload(domain: string, baseUrl?: string) {
+    /**
+     * @deprecated Gebruik het publieke `preload()`.
+     */
+    _preload() {
+        return this.preload();
+    }
+
+    static preload(domain: string, baseUrl?: string) {
         if (!VlProzaMessagePreloader.isPreloaded(domain)) {
             VlProzaMessagePreloader.__setPreloadedMessagesCacheForDomain(
                 domain,
                 ProzaRestClient.getMessages(domain, baseUrl)
             );
         }
+    }
+
+    /**
+     * @deprecated Gebruik het publieke `static preload()`.
+     */
+    static _preload(domain: string, baseUrl?: string) {
+        return VlProzaMessagePreloader.preload(domain, baseUrl);
     }
 
     /**
@@ -68,7 +82,7 @@ export class VlProzaMessagePreloader extends BaseElementOfType(HTMLElement) {
      * opgegeven prefix
      */
     static async getProzaCodes(domain: string, prefix: string, baseUrl?: string) {
-        VlProzaMessagePreloader._preload(domain, baseUrl);
+        VlProzaMessagePreloader.preload(domain, baseUrl);
         const messages = await VlProzaMessagePreloader._getMessages(domain);
         return Object.keys(messages).filter((code) => code.startsWith(prefix));
     }
