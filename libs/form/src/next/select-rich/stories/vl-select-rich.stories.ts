@@ -17,11 +17,9 @@ export default {
     parameters: {
         docs: {
             page: selectRichDocs,
-            story: {
-                height: '400px',
-            },
         },
     },
+    decorators: [(story: () => unknown) => html` <div style="height: 400px;">${story()}</div>`],
 } as Meta<typeof selectRichArgs>;
 
 const SelectRichTemplate = story(

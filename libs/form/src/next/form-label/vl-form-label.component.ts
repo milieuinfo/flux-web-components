@@ -1,6 +1,6 @@
 import { BaseLitElement, webComponent } from '@domg-wc/common-utilities';
 import { resetStyle } from '@domg/govflanders-style/common';
-import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
+import { CSSResult, PropertyDeclarations, TemplateResult, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { formLabelStyles } from './vl-form-label.css';
 import { formLabelDefaults } from './vl-form-label.defaults';
@@ -62,7 +62,7 @@ export class VlFormLabelComponent extends BaseLitElement {
     }
 
     private getFormControl(): HTMLElement | null {
-        const form = this.closest('form');
+        const form = this.closest('form') || this.parentElement;
         return form?.querySelector(`[id="${this.for}"]`) as HTMLElement | null;
     }
 

@@ -1,6 +1,14 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { vlGroupStyles } from '@domg-wc/common-utilities/css';
-import { VlAccordionComponent, VlAnnotation, VlModalComponent, VlPillComponent, VlPopoverComponent, VlSideSheet, VlTabsComponent } from '@domg-wc/components';
+import { vlGridStyles, vlGroupStyles } from '@domg-wc/common-utilities/css';
+import {
+    VlAccordionComponent,
+    VlAnnotation,
+    VlModalComponent,
+    VlPillComponent,
+    VlPopoverComponent,
+    VlSideSheet,
+    VlTabsComponent,
+} from '@domg-wc/components';
 import { VlButtonComponent } from '@domg-wc/components/next/button';
 import { VlLinkComponent } from '@domg-wc/components/next/link';
 import { VlParagraphComponent } from '@domg-wc/components/next/paragraph';
@@ -10,7 +18,7 @@ import { VlDatepickerComponent } from '@domg-wc/form/next/datepicker';
 import { VlSelectComponent } from '@domg-wc/form/next/select';
 import { SelectRichOption, VlSelectRichComponent } from '@domg-wc/form/next/select-rich';
 import { vlStackedStyles } from 'libs/common/utilities/src/css/layout/stacked/vl-stacked.css';
-import { CSSResult, html, LitElement } from 'lit';
+import { CSSResult, LitElement, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { VlFormDemoComponent } from '../../../../libs/integration/src/form/demo/vl-form-demo.component';
 @customElement('app-component')
@@ -36,7 +44,7 @@ export class AppComponent extends LitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [vlElementsStyle, vlGroupStyles, vlStackedStyles];
+        return [vlElementsStyle, vlGroupStyles, vlStackedStyles, vlGridStyles];
     }
 
     constructor() {
@@ -52,7 +60,7 @@ export class AppComponent extends LitElement {
     private _selectElement: VlSelectComponent;
 
     private get selectElement() {
-        this._selectElement = this._selectElement ?? (this.shadowRoot?.querySelector('#select') as VlSelectComponent);
+        this._selectElement = this._selectElement ?? (this.querySelector('#select') as VlSelectComponent);
         return this._selectElement;
     }
 
@@ -65,6 +73,7 @@ export class AppComponent extends LitElement {
 
     private addPlaceholder = (selectElement?: VlSelectComponent) => {
         const select = selectElement || this.selectElement;
+        console.log({ select });
         select.setAttribute('placeholder', 'My placeholder');
     };
 
@@ -134,6 +143,85 @@ export class AppComponent extends LitElement {
                             </div>
                             <div>
                                 <vl-select-next id="select"></vl-select-next>
+                            </div>
+                            <vl-paragraph-next>
+                                Overzicht van de verschillende selects en hun layout (hoogte, hover).
+                            </vl-paragraph-next>
+                            <div class="vl-grid-next vl-grid-next--is-stacked">
+                                <div
+                                    style="display: flex;flex-direction: column;align-items: flex-start;margin-top: 1em;"
+                                >
+                                    <vl-form-label-next label="Input:" for="form1-input"></vl-form-label-next>
+                                    <vl-input-field-next type="text" id="form1-input" name="form1-input" value="">
+                                    </vl-input-field-next>
+                                </div>
+                                <div
+                                    style="display: flex;flex-direction: column;align-items: flex-start;margin-top: 1em;"
+                                >
+                                    <vl-form-label-next label="Select:" for="form1-select"></vl-form-label-next>
+                                    <vl-select-next
+                                        id="form1-select"
+                                        .options=${this.selectOptions}
+                                        placeholder="Select"
+                                    ></vl-select-next>
+                                </div>
+                                <div
+                                    style="display: flex;flex-direction: column;align-items: flex-start;margin-top: 1em;"
+                                >
+                                    <vl-form-label-next
+                                        label="Select Rich:"
+                                        for="form1-select-rich"
+                                    ></vl-form-label-next>
+                                    <vl-select-rich-next
+                                        id="form1-select-rich"
+                                        .options=${this.geboorteplaatsen}
+                                        placeholder="Select Rich"
+                                    ></vl-select-rich-next>
+                                </div>
+                                <div
+                                    style="display: flex;flex-direction: column;align-items: flex-start;margin-top: 1em;"
+                                >
+                                    <vl-form-label-next
+                                        label="Select Rich Multiple:"
+                                        for="form1-select-rich-multiple"
+                                    ></vl-form-label-next>
+                                    <vl-select-rich-next
+                                        id="form1-select-rich-multiple"
+                                        .options=${this.geboorteplaatsen}
+                                        placeholder="Select Rich"
+                                        multiple
+                                    ></vl-select-rich-next>
+                                </div>
+                                <div
+                                    style="display: flex;flex-direction: column;align-items: flex-start;margin-top: 1em;"
+                                >
+                                    <vl-form-label-next label="Datepicker:" for="form1-datepicker"></vl-form-label-next>
+                                    <vl-datepicker-next id="form1-datepicker"></vl-datepicker-next>
+                                </div>
+                                <div
+                                    style="display: flex;flex-direction: column;align-items: flex-start;margin-top: 1em;"
+                                >
+                                    <vl-form-label-next
+                                        label="Group left button:"
+                                        for="group-left"
+                                    ></vl-form-label-next>
+                                    <div class="vl-group-next vl-group-next--input-group">
+                                        <vl-button-next input-group="">Locatie kiezen</vl-button-next>
+                                        <vl-input-field-next input-group="" id="group-left"></vl-input-field-next>
+                                    </div>
+                                </div>
+                                <div
+                                    style="display: flex;flex-direction: column;align-items: flex-start;margin-top: 1em;"
+                                >
+                                    <vl-form-label-next
+                                        label="Group right button:"
+                                        for="group-right"
+                                    ></vl-form-label-next>
+                                    <div class="vl-group-next vl-group-next--input-group">
+                                        <vl-input-field-next input-group="" id="group-right"></vl-input-field-next>
+                                        <vl-button-next input-group="">Locatie kiezen</vl-button-next>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </vl-tabs-pane>
