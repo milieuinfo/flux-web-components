@@ -1,6 +1,12 @@
+import { vlFocusOutlineMixin } from '@domg-wc/common-utilities/css';
 import { css, CSSResult } from 'lit';
 
 const styles: CSSResult = css`
+    .js-vl-select .vl-select__inner {
+        font-size: var(--vl-font-size--small);
+        border-color: var(--vl-color--border-alt);
+    }
+
     .js-vl-select .vl-select__inner .vl-select,
     .js-vl-select .vl-select__inner .vl-multiselect {
         display: none;
@@ -29,8 +35,13 @@ const styles: CSSResult = css`
         margin: 0.1rem 0 0 auto;
         border-radius: 0.3rem;
 
-        &:hover {
+        &:hover,
+        &:focus {
             box-shadow: none;
+            border: #05c 0.1rem solid;
+            background-color: #e6eefa;
+            color: #003bb0;
+            outline: none;
         }
     }
 
@@ -73,6 +84,19 @@ const styles: CSSResult = css`
 
         .vl-pill__close {
             display: none;
+        }
+    }
+
+    .js-vl-select:not(.is-disabled) {
+        &:focus,
+        &.is-focused,
+        &.is-open {
+            ${vlFocusOutlineMixin()}
+
+            &:hover .vl-select__inner {
+                box-shadow: none;
+                border-color: var(--vl-color--border-alt);
+            }
         }
     }
 `;

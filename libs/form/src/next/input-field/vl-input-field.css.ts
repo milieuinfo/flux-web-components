@@ -33,7 +33,19 @@ export const inputFieldStyles = css`
         &.vl-input-field--input-group-right:hover {
             border: 0.2rem solid var(--vl-color--focus);
             padding: 0 0.9rem;
-            border-right-width: 1px;
+        }
+
+        &.vl-input-field--input-group-left:hover {
+            border-right-width: 0.1rem;
+            &:focus {
+                border-right-width: 0;
+            }
+        }
+        &.vl-input-field--input-group-right:hover {
+            border-left-width: 0.1rem;
+            &:focus {
+                border-left-width: 0;
+            }
         }
 
         &:hover.vl-input-field--error {
@@ -50,6 +62,14 @@ export const inputFieldStyles = css`
             outline-offset: 2px;
             border: 0.1rem solid var(--vl-color--text-light);
             padding: 0 1rem;
+        }
+
+        &:first-child:focus {
+            z-index: 1;
+        }
+
+        &:hover:focus {
+            border-width: 0.1rem;
         }
 
         &:focus.vl-input-field--error {

@@ -45,11 +45,26 @@ const styles: CSSResult = css`
             border: #05c 0.1rem solid;
             background-color: #e6eefa;
             color: #003bb0;
+            outline: none;
         }
     }
 
-    .vl-select:not(.vl-select--disabled):has(~ .vl-select__button) {
-        padding-right: 6rem;
+    .vl-select:not(.vl-select--disabled) {
+        &:has(~ .vl-select__button) {
+            padding-right: 6rem;
+            &:hover {
+                padding-right: 5.9rem;
+                &:focus {
+                    padding-right: 6rem;
+                }
+            }
+        }
+
+        &:focus:hover {
+            border-width: 0.1rem;
+            padding-right: 4rem;
+            padding-left: 1.5rem;
+        }
     }
 
     .vl-vi.vl-vi-nav-down:before {

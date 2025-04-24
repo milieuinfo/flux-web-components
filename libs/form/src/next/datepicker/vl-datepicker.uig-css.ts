@@ -10,7 +10,6 @@ const styles: CSSResult = css`
     }
     .vl-input-field:not(input[type='date']) {
         border-radius: 0.3rem 0 0 0.3rem;
-        border-right-width: 0;
     }
     .vl-input-addon--success {
         border-color: var(--vl-color--success);

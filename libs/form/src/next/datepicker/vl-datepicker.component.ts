@@ -8,7 +8,7 @@ import flatpickr from 'flatpickr';
 import Dutch from 'flatpickr/dist/l10n/nl.js';
 import { Instance } from 'flatpickr/dist/types/instance';
 import { Options } from 'flatpickr/dist/types/options';
-import { CSSResult, html, nothing, TemplateResult } from 'lit';
+import { CSSResult, TemplateResult, html, nothing } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
 import { CleaveInstance, MaskOptions } from '../../models/cleave.model';
@@ -228,6 +228,7 @@ export class VlDatepickerComponent extends FormControl {
     render(): TemplateResult {
         const inputClasses = {
             'vl-input-field': true,
+            'vl-input-field--input-group-left': true,
             'js-vl-datepicker-toggle': true,
             'vl-input-field--error': this.error || this.isInvalid,
             'vl-input-field--success': this.success,
