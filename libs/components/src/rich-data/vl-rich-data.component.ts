@@ -465,9 +465,17 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
     }
 
     __setGridColumnWidth(width: number) {
-        ['size', 'medium-size'].forEach((size) => {
-            this.__searchColumn.setAttribute(`data-vl-${size}`, String(width));
-            this.__contentColumn.setAttribute(`data-vl-${size}`, String(12 - width));
+        this.__searchColumn.removeAttribute('class');
+        this.__contentColumn.removeAttribute('class');
+        this.__searchColumn.classList.add(`vl-column-next`);
+        this.__contentColumn.classList.add(`vl-column-next`);
+        ['', 'm-'].forEach((size) => {
+            this.__searchColumn.classList.add(`vl-column-next--${size}${width}`);
+            this.__contentColumn.classList.add(`vl-column-next--${size}${12 - width}`);
+        });
+        ['s-', 'xs-'].forEach((size) => {
+            this.__searchColumn.classList.add(`vl-column-next--${size}0`);
+            this.__contentColumn.classList.add(`vl-column-next--${size}12`);
         });
     }
 

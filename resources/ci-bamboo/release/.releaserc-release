@@ -1,7 +1,7 @@
 {
     "branches": [
         "release",
-        "release-1.44"
+        "release-1.46"
     ],
     "plugins": [
         [
