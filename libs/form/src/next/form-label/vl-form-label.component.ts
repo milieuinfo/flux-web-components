@@ -56,7 +56,7 @@ export class VlFormLabelComponent extends BaseLitElement {
 
         return html`
             <label for=${this.for} class=${classMap(classList)} part="label">
-                <slot>${this.label}</slot>
+                ${this.label ? this.label : html` <slot></slot>`}
             </label>
         `;
     }

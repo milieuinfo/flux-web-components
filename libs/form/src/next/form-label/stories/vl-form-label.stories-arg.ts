@@ -23,7 +23,7 @@ export const formLabelArgTypes: ArgTypes<FormLabelArgs> = {
     },
     label: {
         name: 'label',
-        description: 'De tekst van het label.',
+        description: 'De tekst van het label. Overschrijft de waarde van het default slot.',
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.STRING },
@@ -50,7 +50,7 @@ export const formLabelArgTypes: ArgTypes<FormLabelArgs> = {
     },
     defaultSlot: {
         name: '[default]',
-        description: 'De content van het label. Overschrijft de waarde van het label attribuut.',
+        description: 'De content van het label. Wordt overschreven door de waarde van het label attribuut.',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,

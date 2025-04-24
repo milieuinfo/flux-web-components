@@ -8,44 +8,58 @@ registerWebComponents([VlFormLabelComponent, VlInputFieldComponent]);
 
 describe('component - vl-form-label-next', () => {
     it('should mount', () => {
-        cy.mount(html`<vl-form-label-next>Naam</vl-form-label-next>`);
+        cy.mount(html` <vl-form-label-next>Naam</vl-form-label-next>`);
 
         cy.get('vl-form-label-next');
     });
 
     it('should be accessible', () => {
-        cy.mount(html`<vl-form-label-next>Naam</vl-form-label-next>`);
+        cy.mount(html` <vl-form-label-next>Naam</vl-form-label-next>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-form-label-next');
     });
 
     it('should set for', () => {
-        cy.mount(html`<vl-form-label-next for="test-input">Naam</vl-form-label-next>`);
+        cy.mount(html` <vl-form-label-next for="test-input">Naam</vl-form-label-next>`);
 
         cy.get('vl-form-label-next').shadow().find('label').should('have.attr', 'for', 'test-input');
     });
 
     it('should set label', () => {
-        cy.mount(html`<vl-form-label-next label="Naam"></vl-form-label-next>`);
+        cy.mount(html` <vl-form-label-next label="Naam"></vl-form-label-next>`);
 
         cy.get('vl-form-label-next').shadow().find('label').contains('Naam');
     });
 
+    it('should set label with default slot', () => {
+        cy.mount(html` <vl-form-label-next>Adres</vl-form-label-next>`);
+
+        cy.get('vl-form-label-next').contains('Adres');
+        cy.get('vl-form-label-next').shadow().find('label').should('contain.html', 'slot');
+    });
+
+    it('should prioritise label-attribute when slotted content', () => {
+        cy.mount(html` <vl-form-label-next label="Naam">Adres</vl-form-label-next>`);
+
+        cy.get('vl-form-label-next').shadow().find('label').contains('Naam');
+        cy.get('vl-form-label-next').shadow().find('label').should('not.contain.html', 'slot');
+    });
+
     it('should set default slot', () => {
-        cy.mount(html`<vl-form-label-next label="Naam">Voornaam</vl-form-label-next>`);
+        cy.mount(html` <vl-form-label-next label="Naam">Voornaam</vl-form-label-next>`);
 
         cy.get('vl-form-label-next').contains('Voornaam');
     });
 
     it('should set block', () => {
-        cy.mount(html`<vl-form-label-next block>Naam</vl-form-label-next>`);
+        cy.mount(html` <vl-form-label-next block>Naam</vl-form-label-next>`);
 
         cy.get('vl-form-label-next').shadow().find('label').should('have.class', 'vl-form__label--block');
     });
 
     it('should set light', () => {
-        cy.mount(html`<vl-form-label-next light>Naam</vl-form-label-next>`);
+        cy.mount(html` <vl-form-label-next light>Naam</vl-form-label-next>`);
 
         cy.get('vl-form-label-next').shadow().find('label').should('have.class', 'vl-form__label--light');
     });
