@@ -1,5 +1,6 @@
 import { css, CSSResult } from 'lit';
 import { vlElementsStyle } from '@domg-wc/elements';
+import { vlMediaScreenSmall } from '@domg-wc/common-utilities/css';
 
 const styles: CSSResult = css`
     #search-results,
@@ -13,6 +14,9 @@ const styles: CSSResult = css`
 
     #content {
         margin-left: 2rem;
+        @media screen and (max-width: ${vlMediaScreenSmall}px) {
+            margin-left: 0;
+        }
     }
 
     #sorter {

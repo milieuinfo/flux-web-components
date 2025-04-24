@@ -112,10 +112,24 @@ describe('component - vl-rich-data with vl-search-filter-next', () => {
     it('should be able to toggle the search filter using the toggle button', () => {
         cy.viewport(1024, 768);
         cy.get('vl-search-filter-next').should('not.have.attr', 'hidden');
+        cy.get('vl-rich-data').shadow().find('#search').should('have.class', 'vl-column-next');
+        cy.get('vl-rich-data').shadow().find('#search').should('have.class', 'vl-column-next--4');
+        cy.get('vl-rich-data').shadow().find('#content').should('have.class', 'vl-column-next');
+        cy.get('vl-rich-data').shadow().find('#content').should('have.class', 'vl-column-next--8');
+
         cy.get('vl-rich-data').shadow().find('#toggle-filter-button').click();
         cy.get('vl-search-filter-next').should('have.attr', 'hidden');
+        cy.get('vl-rich-data').shadow().find('#search').should('have.class', 'vl-column-next');
+        cy.get('vl-rich-data').shadow().find('#search').should('have.class', 'vl-column-next--0');
+        cy.get('vl-rich-data').shadow().find('#content').should('have.class', 'vl-column-next');
+        cy.get('vl-rich-data').shadow().find('#content').should('have.class', 'vl-column-next--12');
+
         cy.get('vl-rich-data').shadow().find('#toggle-filter-button').click();
         cy.get('vl-search-filter-next').should('not.have.attr', 'hidden');
+        cy.get('vl-rich-data').shadow().find('#search').should('have.class', 'vl-column-next');
+        cy.get('vl-rich-data').shadow().find('#search').should('have.class', 'vl-column-next--4');
+        cy.get('vl-rich-data').shadow().find('#content').should('have.class', 'vl-column-next');
+        cy.get('vl-rich-data').shadow().find('#content').should('have.class', 'vl-column-next--8');
     });
 
     it('should be able to close the search filter using the escape key', () => {
