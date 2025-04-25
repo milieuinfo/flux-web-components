@@ -1,8 +1,10 @@
-import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
+import { html } from 'lit';
 import { VlErrorMessageComponent } from './vl-error-message.component';
 
 registerWebComponents([VlErrorMessageComponent]);
+
+export const getErrorMessageTextPart = (el: Cypress.Chainable<JQuery<HTMLElement>>) => el.shadow().find('[part=text]');
 
 describe('component - vl-error-message', () => {
     it('should mount', () => {
@@ -21,15 +23,13 @@ describe('component - vl-error-message', () => {
     it('should be hidden', () => {
         cy.mount(html`<vl-error-message>Test error message</vl-error-message>`);
 
-        cy.get('vl-error-message').should('be.hidden');
-        cy.get('vl-error-message').shadow().find('.vl-form__error').should('be.hidden');
+        getErrorMessageTextPart(cy.get('vl-error-message')).should('be.hidden');
     });
 
     it('should be visible', () => {
         cy.mount(html`<vl-error-message show>Test error message</vl-error-message>`);
 
-        cy.get('vl-error-message').should('be.visible');
-        cy.get('vl-error-message').shadow().find('.vl-form__error').should('be.visible');
+        getErrorMessageTextPart(cy.get('vl-error-message')).should('be.visible');
     });
 
     it('should set pre-line attribute', () => {
