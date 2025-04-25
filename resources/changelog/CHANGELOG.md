@@ -1,3 +1,13 @@
+## [1.46.2](https://github.com/milieuinfo/uigov-web-components/compare/v1.46.1...v1.46.2) (2025-04-25)
+
+
+### Bug Fixes
+
+* UIG-3248 - vl-textarea-next - enter triggert geen submit meer ([7e9e25c](https://github.com/milieuinfo/uigov-web-components/commit/7e9e25ca77ca6da88c9bda714ee3289d21761cd0))
+* UIG-3272 - vl-table-next - barrel file toegevoegd ([9d389cc](https://github.com/milieuinfo/uigov-web-components/commit/9d389ccb39e1f334e73e9318ff7c264c702bf0e4))
+* UIG-3277 - vl-form-label-next - label overschrijft default slot content ([bf9ddac](https://github.com/milieuinfo/uigov-web-components/commit/bf9ddac30cdb976775e94a897e9227169685a296))
+* UIG-3278 - vl-rich-data - column verhouding van filter en content rechtgezet ([b80a2cc](https://github.com/milieuinfo/uigov-web-components/commit/b80a2ccdf46f14c1c61918dfa69052a7238b0472))
+
 ## [1.46.1](https://github.com/milieuinfo/uigov-web-components/compare/v1.46.0...v1.46.1) (2025-04-14)
 
 

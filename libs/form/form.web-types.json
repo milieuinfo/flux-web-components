@@ -323,7 +323,7 @@
                         },
                         {
                             "name": "label",
-                            "description": "De tekst van het label.",
+                            "description": "De tekst van het label. Overschrijft de waarde van het default slot.",
                             "default": ""
                         },
                         {
@@ -340,7 +340,7 @@
                     "slots": [
                         {
                             "name": "[default]",
-                            "description": "De content van het label. Overschrijft de waarde van het label attribuut.",
+                            "description": "De content van het label. Wordt overschreven door de waarde van het label attribuut.",
                             "default": ""
                         }
                     ]
