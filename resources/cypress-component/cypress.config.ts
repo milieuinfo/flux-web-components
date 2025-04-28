@@ -31,6 +31,7 @@ export default defineConfig({
                 resolve: {
                     extensions: ['.js', '.jsx', '.ts', '.tsx'],
                     alias: {
+                        "@resources/utils-test": path.resolve('../../resources/utils-test/'),
                         '@domg-wc/common': path.resolve('../../libs/common/src/'),
                         '@domg-wc/components': path.resolve('../../libs/components/src/'),
                         '@domg-wc/form': path.resolve('../../libs/form/src/'),

@@ -6,6 +6,7 @@
         "types": ["cypress", "cypress-axe"],
         "paths": {
             "@resources/utils-storybook": ["resources/utils-storybook/index.ts"],
+            "@resources/utils-test": ["resources/utils-test/index.ts"],
             "@domg-wc/common": ["libs/common/src/index.ts"],
             "@domg-wc/components": ["libs/components/src/index.ts"],
             "@domg-wc/form": ["libs/form/src/index.ts"],

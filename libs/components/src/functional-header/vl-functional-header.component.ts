@@ -1,12 +1,10 @@
-import { BaseElementOfType, MARGINS, registerWebComponents, webComponent } from '@domg-wc/common';
+import { BaseElementOfType, GlobalStyles, MARGINS, registerWebComponents, webComponent } from '@domg-wc/common';
 import {
-    GlobalStyles,
     vlContentBlockStyles,
     vlGridStyles,
     vlIconStyles,
     vlLinkIconStyles,
     vlLinkStyles,
-    vlResetStyles,
     vlSectionStyles,
 } from '@domg-wc/styles';
 import { VlIconComponent } from '../icon';

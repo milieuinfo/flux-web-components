@@ -32,11 +32,7 @@ export {
     isSlotEmpty,
 } from './util/utils';
 export { onChildListChange } from './util/mutation-utils';
-export { buildSpan, buildDiv, buildLabel, buildData } from './util/html-element.builder';
+export { GlobalStyles } from './styles/global-styles';
 
 // Legacy module exports
 export { legacyUtils, legacyCore, legacyBreakpoint } from './util/legacy-initialisation';
-
-import './util/legacy-utils.js';
-import './util/legacy-core.js';
-import './util/legacy-breakpoint.js';

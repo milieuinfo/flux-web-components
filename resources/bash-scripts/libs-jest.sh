@@ -8,11 +8,11 @@ cd ../..
 
 # run this script with: bash ./jest-run.sh
 
-cd ./libs/common
+cd ./libs/styles
 jest
 cd ../..
 
-cd ./libs/styles
+cd ./libs/common
 jest
 cd ../..
 

@@ -1,6 +1,5 @@
-import { hexToString } from '@domg-wc/common';
+import { GlobalStyles, hexToString } from '@domg-wc/common';
 import { html } from 'lit';
-import { GlobalStyles } from '../../global-styles';
 import { vlIconStyles } from '../icon/vl-icon.css';
 
 describe('outline styles', () => {
