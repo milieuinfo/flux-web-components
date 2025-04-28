@@ -1,6 +1,6 @@
-import { VlTitleComponent } from '@domg-wc/components';
-import { html } from 'lit-html';
 import { registerWebComponents } from '@domg-wc/common';
+import { html } from 'lit-html';
+import { VlTitleComponent } from '../title';
 import { VlInfoblockComponent } from './index';
 
 registerWebComponents([VlInfoblockComponent, VlTitleComponent]);

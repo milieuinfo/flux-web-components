@@ -1,5 +1,4 @@
 export { vlColorVars } from './base/var/vl-color.css';
-export { GlobalStyles } from './global-styles';
 export { vlAccessibilityStyles } from './base/accessibility/vl-accessibility.css';
 export { iconFontLocation } from './base/font/vl-font.css';
 export { vlFocusOutlineMixin } from './base/mixin/vl-outlines.css';
@@ -25,5 +24,5 @@ export {
     vlMediaScreenLarge,
 } from './base/var/vl-media-screen.css';
 export { vlResetStyles } from './base/reset/vl-reset.css';
-export { vlLegacyStyles } from './global-styles-legacy';
-export { vlGlobalStyles } from './global-styles';
+export { vlLegacyStyles } from './vl-global-styles-legacy';
+export { vlGlobalStyles } from './vl-global-styles';

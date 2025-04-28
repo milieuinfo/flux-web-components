@@ -1,6 +1,5 @@
 import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
-import { VlTabsComponent } from '@domg-wc/components';
 import { action } from '@storybook/addon-actions';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
@@ -11,6 +10,7 @@ import { VlSearchComponent } from '../../search';
 import { VlFunctionalHeaderComponent } from '../vl-functional-header.component';
 import { functionalHeaderArgs, functionalHeaderArgTypes } from './vl-functional-header.stories-arg';
 import functionalHeaderDoc from './vl-functional-header.stories-doc.mdx';
+import { VlTabsComponent } from '../../tabs';
 
 registerWebComponents([
     VlBreadcrumbComponent,

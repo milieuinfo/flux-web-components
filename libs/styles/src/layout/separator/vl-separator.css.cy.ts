@@ -1,5 +1,5 @@
+import { GlobalStyles } from '@domg-wc/common';
 import { html } from 'lit';
-import { GlobalStyles } from '../../global-styles';
 
 describe('separator styles', () => {
     it('should have default separator style', () => {
