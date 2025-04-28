@@ -1,6 +1,5 @@
-import { registerWebComponents } from '@domg-wc/common';
-import { GlobalStyles } from '@domg-wc/styles';
-import { type TitleProps, title, titleElements } from './title.section';
+import { GlobalStyles, registerWebComponents } from '@domg-wc/common';
+import { title, titleElements, type TitleProps } from './title.section';
 
 registerWebComponents(titleElements());
 

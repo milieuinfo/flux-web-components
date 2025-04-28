@@ -1,4 +1,4 @@
-import { VlSideSheet } from '@domg-wc/components';
+import { VlSideSheet } from '../vl-side-sheet.component';
 
 export const sideSheetToggleImplementation = () => {
     let sideSheet: VlSideSheet;

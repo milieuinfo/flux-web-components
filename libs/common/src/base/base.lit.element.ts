@@ -1,5 +1,5 @@
-import { GlobalStyles } from '@domg-wc/styles';
 import { LitElement, PropertyDeclarations } from 'lit';
+import { GlobalStyles } from '../styles/global-styles';
 
 export class BaseLitElement extends LitElement {
     protected allowCustomCSS = true;

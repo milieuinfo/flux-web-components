@@ -1,5 +1,5 @@
+import { GlobalStyles } from "@domg-wc/common";
 import { html } from 'lit';
-import { GlobalStyles } from '../../global-styles';
 import { vlMarginStyles } from './vl-margin.css';
 
 describe('margin styles', () => {
@@ -11,6 +11,7 @@ describe('margin styles', () => {
                 div.cy-margin-no-bottom {
                     margin-top: 10px;
                 }
+
                 div.cy-margin-no-top {
                     margin-bottom: 10px;
                 }
