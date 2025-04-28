@@ -8,6 +8,7 @@ import {
     vlMediaScreenSmall,
 } from '../../../base/var/vl-media-screen.css';
 import vlGridStoriesDoc from './vl-grid.stories-doc.mdx';
+import { gridStoriesResponsiveCss } from './vl-grid.stories.css';
 
 registerWebComponents([VlFormLabelComponent, VlInputFieldComponent, VlButtonComponent]);
 
@@ -24,7 +25,7 @@ export default {
 
 export const GridResponsive = () => html`
     <style>
-        .vl-grid {
+        .vl-grid.grid-responsive-story {
             --vl-column-min-height: 8vmax;
             padding: 1vmax;
 
@@ -67,9 +68,11 @@ export const GridResponsive = () => html`
                     background-color: mediumspringgreen;
                 }
             }
+
+            ${gridStoriesResponsiveCss}
         }
     </style>
-    <div class="vl-grid">
+    <div class="vl-grid grid-responsive-story">
         <div class="vl-column sb-header vl-column--1 vl-column--m-3 vl-column--s-6 vl-column--xs-9"></div>
         <div class="vl-column sb-header vl-column--11 vl-column--m-9 vl-column--s-6 vl-column--xs-3"></div>
         <div class="sb-main vl-column vl-column--8 vl-grid vl-column--m-12">
