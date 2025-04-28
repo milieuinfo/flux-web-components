@@ -1,11 +1,12 @@
-import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
-import { VlLinkComponent, VlTitleComponent } from '@domg-wc/components';
 import { VlFormLabelComponent, VlInputFieldComponent } from '@domg-wc/form';
+import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../vl-wizard-pane.component';
 import '../vl-wizard.component';
+import { VlLinkComponent } from '../../link';
+import { VlTitleComponent } from '../../title';
 import { wizardArgs, wizardArgTypes } from './vl-wizard.stories-arg';
 import wizardDoc from './vl-wizard.stories-doc.mdx';
 import { getWizard } from './vl-wizard.stories-util';
@@ -16,6 +17,7 @@ interface VlClickStepDetail {
     number: number;
     step: string;
 }
+
 interface VlClickStepEvent extends CustomEvent {
     detail: VlClickStepDetail;
 }
@@ -55,13 +57,13 @@ export const WizardDefault = story(
                     <div class="vl-column vl-column--12">
                         <div class="vl-grid vl-stacked-small">
                             <div class="vl-column vl-column--12">
-                                <vl-form-label for="naam" block> Naam </vl-form-label>
+                                <vl-form-label for="naam" block> Naam</vl-form-label>
                                 <vl-input-field id="naam" block></vl-input-field>
                             </div>
                         </div>
                     </div>
                     <div class="vl-column">
-                        <vl-button @click=${() => (getWizard().activeStep += 1)} type="button"> Volgende </vl-button>
+                        <vl-button @click=${() => (getWizard().activeStep += 1)} type="button"> Volgende</vl-button>
                     </div>
                 </div>
             </vl-wizard-pane>
@@ -71,7 +73,7 @@ export const WizardDefault = story(
                     <div class="vl-column vl-column--12">
                         <div class="vl-grid vl-stacked-small">
                             <div class="vl-column vl-column--12">
-                                <vl-form-label for="years" block> Aantal jaren dienst </vl-form-label>
+                                <vl-form-label for="years" block> Aantal jaren dienst</vl-form-label>
                                 <vl-input-field id="years" block></vl-input-field>
                             </div>
                         </div>
