@@ -1,9 +1,10 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { VlButtonComponent, VlLinkComponent } from '@domg-wc/components';
 import { VlDatepickerComponent } from '@domg-wc/form';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../vl-modal.component';
+import { VlButtonComponent } from '../../button';
+import { VlLinkComponent } from '../../link';
 import { modalArgs, modalArgTypes } from './vl-modal.stories-arg';
 
 registerWebComponents([VlDatepickerComponent, VlButtonComponent, VlLinkComponent]);

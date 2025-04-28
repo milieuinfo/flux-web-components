@@ -1,10 +1,8 @@
-import { filterOutClasses, filterOutDataCy, formatHTML } from '@resources/utils-storybook';
-import { registerWebComponents } from '@domg-wc/common';
-import { GlobalStyles } from '@domg-wc/styles';
-import { VlAlert } from '@domg-wc/components';
-import { VlIconComponent } from '@domg-wc/components';
+import { GlobalStyles, registerWebComponents } from '@domg-wc/common';
+import { VlAlert, VlIconComponent } from '@domg-wc/components';
 import './styles.css';
 import 'reflect-metadata';
+import { filterOutClasses, filterOutDataCy, formatHTML } from '@resources/utils-storybook';
 import { VluxAlert } from './vlux-alert/vlux-alert.component';
 import VluxDocument from './vlux-document/vlux-document.template.mdx';
 import { VluxMetaData } from './vlux-meta-data/vlux-meta-data.component';

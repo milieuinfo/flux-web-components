@@ -1,7 +1,6 @@
-import { registerWebComponents } from '@domg-wc/common';
-import { VlTabsComponent } from '@domg-wc/components';
-import { GlobalStyles } from '@domg-wc/styles';
+import { GlobalStyles, registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
+import { VlTabsComponent } from '../tabs';
 import { VlBreadcrumbComponent } from './../breadcrumb';
 import { VlFunctionalHeaderComponent } from './vl-functional-header.component';
 

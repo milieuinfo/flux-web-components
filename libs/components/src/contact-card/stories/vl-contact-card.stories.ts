@@ -1,10 +1,10 @@
-import { defaultArgs, defaultArgTypes, story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
-import { VlPropertiesComponent } from '@domg-wc/components';
+import { defaultArgs, defaultArgTypes, story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../../infoblock/vl-infoblock.component';
 import '../vl-contact-card.component';
+import { VlPropertiesComponent } from '../../properties';
 
 export default {
     id: 'components-contact-card',
@@ -35,21 +35,21 @@ export const contactCardDefault = story(
                 <label>Telefoon</label>
                 <data>
                     <p>
-                        <vl-link href="#" icon-placement="after" icon="phone"> 02 553 72 02 </vl-link>
+                        <vl-link href="#" icon-placement="after" icon="phone"> 02 553 72 02</vl-link>
                         (Onthaal Consciencegebouw)
                     </p>
                     <p>
-                        <vl-link href="#" icon-placement="after" icon="phone"> 1700 </vl-link>
+                        <vl-link href="#" icon-placement="after" icon="phone"> 1700</vl-link>
                         (Infolijn Onderwijs)
                     </p>
                 </data>
                 <label>E-mail</label>
                 <data>
-                    <vl-link href="#" icon-placement="after" icon="mail"> onderwijs.vlaanderen@vlaanderen.be </vl-link>
+                    <vl-link href="#" icon-placement="after" icon="mail"> onderwijs.vlaanderen@vlaanderen.be</vl-link>
                 </data>
                 <label>Website</label>
                 <data>
-                    <vl-link href="#" external> http://onderwijs.vlaanderen.be </vl-link>
+                    <vl-link href="#" external> http://onderwijs.vlaanderen.be</vl-link>
                 </data>
             </vl-properties>
         </vl-contact-card>

@@ -1,5 +1,5 @@
+import { GlobalStyles } from '@domg-wc/common';
 import { html } from 'lit';
-import { GlobalStyles } from '../../global-styles';
 import { vlPaddingStyles } from './vl-padding.css';
 
 describe('padding styles', () => {
@@ -8,9 +8,11 @@ describe('padding styles', () => {
         cy.mount(html`
             <style>
                 ${vlPaddingStyles}
+
                 div.cy-padding-no-bottom {
                     padding-top: 10px;
                 }
+
                 div.cy-padding-no-top {
                     padding-bottom: 10px;
                 }

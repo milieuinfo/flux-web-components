@@ -1,4 +1,4 @@
-import { buildSpan, buildData, buildDiv, buildLabel } from '@domg-wc/common';
+import { buildSpan, buildData, buildDiv, buildLabel } from '@resources/utils-test';
 import { buildProperties } from './vl-properties.builder';
 
 describe('buildProperties tests', () => {
