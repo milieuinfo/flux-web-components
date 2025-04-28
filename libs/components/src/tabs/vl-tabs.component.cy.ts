@@ -1,5 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common';
-import { GlobalStyles } from '@domg-wc/styles';
+import { GlobalStyles, registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import { VlTabSectionComponent } from './vl-tab-section.component';
 import { VlTabComponent } from './vl-tab.component';

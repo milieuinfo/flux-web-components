@@ -1,9 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/triple-slash-reference
-/// <reference path="./swipe-detect.d.ts" />
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
-import { VlButtonComponent } from '@domg-wc/components';
 import { vlAccessibilityStyles, vlContentBlockStyles, vlSectionStyles } from '@domg-wc/styles';
-import swipeDetect from 'swipe-detect/dist';
+import { VlButtonComponent } from '../button';
+import swipeDetect from 'swipe-detect/dist/';
 import styles from './vl-side-sheet.uig-css';
 
 @webComponent('vl-side-sheet')

@@ -14,7 +14,7 @@ const jestConfig: JestConfigWithTsJest = {
     testEnvironment: 'jsdom',
     moduleNameMapper: {
         '@domg-wc/common': '<rootDir>/../../libs/common/src/index.ts',
-        "^!!raw-loader!.*": "raw-loader",
+        "@resources/utils-test": '<rootDir>/../../resources/utils-test/index.ts',
     },
 };
 

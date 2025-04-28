@@ -1,9 +1,9 @@
-import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
-import { VlSideSheet } from '@domg-wc/components';
+import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../vl-autocomplete.component';
+import { VlSideSheet } from '../../side-sheet';
 import { CAPTION_FORMAT, GROUP_BY } from '../vl-autocomplete.model';
 import { fetchDataFromApiCall } from './vl-autocomplete-api.stories-util';
 import { fetchDataFromMockedApiCall } from './vl-autocomplete-mocked-api.stories-util';

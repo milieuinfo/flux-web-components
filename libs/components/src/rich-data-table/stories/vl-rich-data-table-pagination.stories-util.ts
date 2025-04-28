@@ -1,4 +1,4 @@
-import { VlPagerComponent } from '@domg-wc/components';
+import { VlPagerComponent } from '../../pager';
 import richDataFilterPagerData from './vl-rich-data-table-pagination.stories-mock';
 
 export const paginationRichTableImplementation = () => {

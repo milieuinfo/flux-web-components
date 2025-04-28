@@ -1,9 +1,9 @@
-import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
-import { VlTitleComponent } from '@domg-wc/components';
+import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../vl-infoblock.component';
+import { VlTitleComponent } from '../../title';
 import { infoblockArgs, infoblockArgTypes } from './vl-infoblock.stories-arg';
 
 registerWebComponents([VlTitleComponent]);

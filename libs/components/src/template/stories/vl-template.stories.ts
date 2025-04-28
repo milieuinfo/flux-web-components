@@ -1,9 +1,9 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { VlTitleComponent } from '@domg-wc/components';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { VlContentHeaderComponent } from '../../content-header/vl-content-header.component';
 import '../vl-template.component';
+import { VlTitleComponent } from '../../title';
 import { templateArgs, templateArgTypes } from './vl-template.stories-arg';
 
 registerWebComponents([VlContentHeaderComponent, VlTitleComponent]);
