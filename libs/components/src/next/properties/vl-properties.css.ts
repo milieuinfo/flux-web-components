@@ -20,10 +20,16 @@ const collapsedDd = (): CSSResult => {
     `;
 };
 
-export const labelWidthRem = (labelWidth: number): CSSResult => {
+export const labelWidthPercentage = (labelWidth: number): CSSResult => {
     return css`
+        dl,
         dl .item {
             grid-template-columns: [labels] ${labelWidth}% [data] auto;
+        }
+
+        dl .column--full-width,
+        dl .column--full-width .item {
+            grid-template-columns: [labels] ${labelWidth / 2}% [data] auto;
         }
 
         @media screen and (max-width: ${vlMediaScreenSmall}px) {
@@ -88,6 +94,10 @@ const styles: CSSResult = css`
     }
 
     @media screen and (max-width: ${vlMediaScreenSmall}px) {
+        .column {
+            ${columnWidth(100)};
+        }
+
         dd {
             ${collapsedDd()}
         }
