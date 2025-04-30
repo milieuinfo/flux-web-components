@@ -2,7 +2,7 @@ import { BaseLitElement, onChildListChange, webComponent } from '@domg-wc/common
 import { vlElementsStyle } from '@domg-wc/elements';
 import { CSSResult, html, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
 import { buildProperties } from './vl-properties.builder';
-import propertiesStyles, { labelWidthRem } from './vl-properties.css';
+import propertiesStyles, { labelWidthPercentage } from './vl-properties.css';
 import { propertiesDefaults } from './vl-properties.defaults';
 import { Column, Item, Props } from './vl-properties.model';
 
@@ -54,7 +54,7 @@ export class VlPropertiesComponent extends BaseLitElement {
         super.updated(changedProperties);
 
         if (changedProperties.has('labelWidth') && this.labelWidth) {
-            this.labelWidthSheet.replace(labelWidthRem(this.labelWidth).toString());
+            this.labelWidthSheet.replace(labelWidthPercentage(this.labelWidth).toString());
         }
     }
 
