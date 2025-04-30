@@ -1,3 +1,24 @@
+# [1.47.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.46.1...v1.47.0) (2025-04-30)
+
+
+### Bug Fixes
+
+* UIG-3248 - vl-textarea-next - enter triggert geen submit meer ([95bd219](https://github.com/milieuinfo/uigov-web-components/commit/95bd219adcafb0dca1e6ec5f1b773076c7b22de6))
+* UIG-3272 - vl-table-next - barrel file toegevoegd ([d090c57](https://github.com/milieuinfo/uigov-web-components/commit/d090c57187e3e673030ca0e95fbf7f493d560731))
+* UIG-3277 - vl-form-label-next - label overschrijft default slot content ([c99bc13](https://github.com/milieuinfo/uigov-web-components/commit/c99bc133ba2bd52997db92c09ccc39a3e0ca126c))
+* UIG-3278 - vl-rich-data - column verhouding van filter en content rechtgezet ([674a89a](https://github.com/milieuinfo/uigov-web-components/commit/674a89a4ad37b34b22beeb2b80fd2c5dd738f09a))
+* UIG-3284 - vl-properties-next - column--full-width werking verbeterd ([86295b9](https://github.com/milieuinfo/uigov-web-components/commit/86295b9ff734cfa122cdd896183097dae4662753))
+
+
+### Features
+
+* UIG-3217 - Foute CSS rendering opgelost voor styles in array ([42bc81f](https://github.com/milieuinfo/uigov-web-components/commit/42bc81fdb5ea8ffcc1a067d139aad00ee754717d))
+* UIG-3239 - form layout inconsistenties weggewerkt ([9712def](https://github.com/milieuinfo/uigov-web-components/commit/9712defdb5f1e3e239ffeb127c2e1d5b46499634))
+* UIG-3241 - vl-proza-message-preloader - preload() functie publiek gemaakt ([977c9d1](https://github.com/milieuinfo/uigov-web-components/commit/977c9d181f0e1e4dbcc85418c863664f9e36f898))
+* UIG-3254 - vl-side-navigation - toggle sub component verbeterd ([218eff7](https://github.com/milieuinfo/uigov-web-components/commit/218eff7cb48ef018adcde5d937936ee4cbfc5224))
+* UIG-3265 - overblijvende elementen weggewerkt ([b0eb6ab](https://github.com/milieuinfo/uigov-web-components/commit/b0eb6abb43c97417b2f50da5adf91650e92d93d2))
+* UIG-3268 - vl-code-preview - verwijdering gedocumenteerd ([52d8abd](https://github.com/milieuinfo/uigov-web-components/commit/52d8abd4998e8003ead49cd85c159e815beed71a))
+
 ## [1.46.1](https://github.com/milieuinfo/uigov-web-components/compare/v1.46.0...v1.46.1) (2025-04-14)
 
 
