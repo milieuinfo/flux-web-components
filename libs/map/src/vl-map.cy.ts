@@ -63,6 +63,15 @@ const sleep = (ms) => {
 
 describe('vl-map', () => {
     it('the Lambert 31370 projection is correctly defined', () => {
+        // TODO: Remove this when the bug in proj4 is fixed
+        cy.on('uncaught:exception', (err) => {
+            if (err.message.includes(`Cannot read properties of undefined`)) {
+                // return false to prevent the error from
+                // failing this test
+                return false;
+            }
+        });
+
         cy.spy(proj4, 'defs');
         cy.mount(mapFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
@@ -229,11 +238,11 @@ describe('vl-map', () => {
                 vlMap.activateAction(vlMap.actions[1]);
                 expect(vlMap.actions[1].element._active).to.be.true;
                 expect(vlMap.actions[0].element._active).to.be.false;
-                expect(controlAction2ToggleButton.active).to.be.true;
+                expect(controlAction2ToggleButton.on).to.be.true;
                 vlMap.activateAction(vlMap.actions[0]);
                 expect(vlMap.actions[1].element._active).to.be.false;
                 expect(vlMap.actions[0].element._active).to.be.true;
-                expect(controlAction2ToggleButton.active).to.be.false;
+                expect(controlAction2ToggleButton.on).to.be.false;
             });
         });
     });

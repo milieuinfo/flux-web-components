@@ -4,6 +4,8 @@ import { ArgTypes } from '@storybook/web-components';
 export const mapBaselayerArgs = {
     ...defaultArgs,
     backgroundLayer: false,
+    backgroundOptions: '',
+    backgroundType: '',
     layer: '',
     title: '',
     type: '',
@@ -20,6 +22,27 @@ export const mapBaselayerArgTypes: ArgTypes<typeof mapBaselayerArgs> = {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: mapBaselayerArgs.backgroundLayer },
+        },
+    },
+    backgroundType: {
+        name: 'background-type',
+        description:
+            'Met background-type en background-options kan je zelf een achtergrond-laag instellen.<br>Dit attribuut is niet reactief.',
+        control: { type: CONTROLS.SELECT },
+        options: ['xyz', 'wms', 'wmts', 'vector'],
+        table: {
+            type: { summary: 'xyz | wms | wmts | vector' },
+            category: CATEGORIES.ATTRIBUTES,
+        },
+    },
+    backgroundOptions: {
+        name: 'background-options',
+        description:
+            'Met background-type en background-options kan je zelf een achtergrond-laag instellen. Geef de background-options mee als JSON string.<br>Dit attribuut is niet reactief.',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: mapBaselayerArgs.backgroundOptions },
         },
     },
     layer: {
