@@ -1,11 +1,12 @@
 import { registerWebComponents } from '@domg-wc/common';
 import {
+    VlTitleComponent,
+} from '@domg-wc/components/atom';
+import {
     VlAccordionComponent,
     VlCascaderComponent,
     VlInfoTile,
-    VlSideSheet,
-    VlTitleComponent,
-} from '@domg-wc/components';
+} from '@domg-wc/components/block';
 import { createComponent } from '@lit/react';
 import React, { DOMAttributes } from 'react';
 import './app.module.css';

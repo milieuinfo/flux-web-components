@@ -1,5 +1,4 @@
 import { css, CSSResult } from 'lit';
-import { vlMediaScreenSmall } from '../var/vl-media-screen.css';
 
 export const vlAccessibilityStyles: CSSResult = css`
     .vl-visually-hidden {

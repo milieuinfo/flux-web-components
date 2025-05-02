@@ -1,0 +1,49 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs';
+import * as VlDoormatStories from './vl-doormat.stories';
+
+# Doormat
+
+<VluxMetaData id="components-block-doormat" />
+
+Gebruik de `doormat` component om een snel en duidelijk overzicht weer te geven van de informatie op je website.<br/>
+Elke doormat krijgt zijn eigen titel, tekst, optionele afbeelding en linkt naar een pagina binnen je website.
+
+
+## Voorbeeld
+
+```js
+import { VlDoormatComponent } from '@domg-wc/components/block';
+```
+
+```html
+<vl-doormat></vl-doormat>
+```
+
+<Canvas of={VlDoormatStories.DoormatDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlDoormatStories.DoormatDefault} />
+
+
+## Varianten
+
+### Alternatieve stijl
+
+<Canvas of={VlDoormatStories.DoormatAlt} />
+
+### Met afbeelding
+
+<Canvas of={VlDoormatStories.DoormatImage} />
+
+### Met grafisch element
+
+<Canvas of={VlDoormatStories.DoormatGraphic} />
+
+
+## Referenties
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Doormat](https://overheid.vlaanderen.be/webuniversum/v3/documentation/components/vl-ui-doormat)

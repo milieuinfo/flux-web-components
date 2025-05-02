@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import vlFontStoriesDoc from './vl-font.stories-doc.mdx';
 
 export default {
-    id: 'styles-base-intern-font',
+    id: 'styles-base-font',
     title: 'Styles/Base (intern)/font',
     tags: ['autodocs'],
     parameters: {

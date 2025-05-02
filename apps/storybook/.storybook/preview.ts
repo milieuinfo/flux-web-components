@@ -1,5 +1,6 @@
 import { GlobalStyles, registerWebComponents } from '@domg-wc/common';
-import { VlAlert, VlIconComponent } from '@domg-wc/components';
+import { VlAlert } from '@domg-wc/components/block';
+import { VlIconComponent } from '@domg-wc/components/atom';
 import './styles.css';
 import 'reflect-metadata';
 import { filterOutClasses, filterOutDataCy, formatHTML } from '@resources/utils-storybook';

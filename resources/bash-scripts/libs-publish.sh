@@ -26,14 +26,6 @@ cd ../components
 npm publish domg-wc-components-${RELEASE_VERSION}.tgz
 echo "[done] - publish - @domg-wc/components-${RELEASE_VERSION}"
 
-cd ../form
-npm publish domg-wc-form-${RELEASE_VERSION}.tgz
-echo "[done] - publish - @domg-wc/form-${RELEASE_VERSION}"
-
-cd ../sections
-npm publish domg-wc-sections-${RELEASE_VERSION}.tgz
-echo "[done] - publish - @domg-wc/sections-${RELEASE_VERSION}"
-
 cd ../map
 npm publish domg-wc-map-${RELEASE_VERSION}.tgz
 echo "[done] - publish - @domg-wc/map-${RELEASE_VERSION}"

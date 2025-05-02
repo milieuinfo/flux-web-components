@@ -1,0 +1,110 @@
+import { ArgTypes, Canvas } from '@storybook/blocks';
+import * as VlTextAreaRichStories from './vl-textarea-rich.stories';
+import FormControlPublicMethods from '../../form-control/stories/form-control.public-methods-doc.mdx'
+
+# Textarea Rich
+
+<VluxMetaData id="components-form-textarea-rich" />
+
+Gebruik de `textarea-rich` component om een rich textarea veld toe te voegen aan een pagina.<br/>
+
+
+## Voorbeeld
+
+```js
+import { VlTextareaRichComponent } from '@domg-wc/components/form';
+```
+
+```html
+<vl-textarea-rich></vl-textarea-rich>
+```
+
+<Canvas of={VlTextAreaRichStories.TextareaRichDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlTextAreaRichStories.TextareaRichDefault} />
+
+
+## Publieke methodes
+
+<FormControlPublicMethods />
+
+
+## Content Security Policy (CSP)
+
+TinyMCE maakt bij bepaalde tools en plugins gebruik van inline styles.<br/>
+Hierdoor is het niet mogelijk om deze functionaliteit te gebruiken in een toepassing met een strikte Content Security Policy die `unsafe-inline` blokkeert.<br/>
+We raden af om `unsafe-inline` toe te laten in de Content Security Policy aangezien dit kan leiden tot security leaks.
+
+[TinyMCE - CSP](https://www.tiny.cloud/docs/tinymce/6/tinymce-and-csp/)
+
+
+## Varianten
+
+### Toolbar
+
+De TinyMCE toolbar kan geconfigureerd worden door het `toolbar` attribuut te gebruiken.
+
+Bepaalde tools maken gebruik van inline styles, hierdoor werken deze niet in een toepassing met een strikte Content Security Policy (zie sectie [Content Security Policy](#content-security-policy-csp) op deze pagina).
+
+<VluxAlert type="warning">
+{`
+    Sommige tools kan je enkel gebruiken als je de bijhorende plugin hebt geactiveerd.
+`}
+</VluxAlert>
+
+[TinyMCE - Toolbar buttons](https://www.tiny.cloud/docs/tinymce/6/available-toolbar-buttons/): een overzicht van de tools en de eventueel bijhorende plugins <br/>
+[TinyMCE - Toolbar configuration](https://www.tiny.cloud/docs/tinymce/6/basic-setup/#toolbar-configuration): meer informatie over toolbar configuratie
+
+Hier vind je specifieke voorbeelden om de tools en bijhorende plugins activeren in onze component voor [links](#link-plugin) en [lists](#lists-plugin).
+
+<Canvas of={VlTextAreaRichStories.TextareaRichToolbar} />
+
+### Plugins
+
+TinyMCE open source plugins kunnen geconfigureerd worden door het `plugins` attribuut en de `customConfig` property te gebruiken.<br/>
+Aan het `plugins` attribuut kan je een lijst van plugins meegeven die je wil gebruiken. Je moet deze instellen om bepaalde tools te kunnen gebruiken (voorbeelden vind je hier: [link](#link-plugin) en [lists](#lists-plugin)).<br/>
+Aan de `customConfig` property kan je een object meegeven met de configuratie van de plugins.<br/>
+Aangezien we de open source versie van TinyMCE gebruiken, kan je geen gebruik maken van de premium plugins.
+
+Bepaalde plugins maken gebruik van inline styles, hierdoor werken deze niet in een toepassing met een strikte Content Security Policy (zie sectie Content Security Policy op deze pagina).<br/>
+
+[TinyMCE - Plugin configuration](https://www.tiny.cloud/docs/tinymce/6/basic-setup/#plugin-configuration)<br/>
+[TinyMCE - Open source plugins](https://www.tiny.cloud/docs/tinymce/6/plugins/#open-source-plugins)
+
+<Canvas of={VlTextAreaRichStories.TextareaRichPlugins} />
+
+#### lists plugin
+
+Om de `numlist` en `bullist` tools te gebruiken in de toolbar, moet je de `lists` plugin instellen (referentie: [TinyMCE - Lists toolbar buttons](https://www.tiny.cloud/docs/tinymce/6/available-toolbar-buttons/#lists-plugin)).
+
+```html
+<vl-textarea-rich
+  toolbar="numlist bullist"
+  plugins="lists"
+></vl-textarea-rich>
+```
+
+#### link plugin
+Om de `link` tool in de toolbar te gebruiken, moet je de `link` plugin instellen (referentie: [TinyMCE - Link toolbar buttons](https://www.tiny.cloud/docs/tinymce/6/available-toolbar-buttons/#link-plugin)).
+
+```html
+<vl-textarea-rich
+  toolbar="link"
+  plugins="link"
+></vl-textarea-rich>
+```
+
+
+## Validatie
+
+Meer info over validatie binnen onze form componenten vind je hier: [Form - Validatie](/docs/ontwerp-form-validation--documentatie)
+
+
+## Referenties
+
+### TinyMCE
+
+[Documentatie TinyMCE - 6](https://www.tiny.cloud/docs/tinymce/6/)

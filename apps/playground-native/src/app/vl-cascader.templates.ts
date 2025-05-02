@@ -1,5 +1,6 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { TemplateFn, VlIconComponent } from '@domg-wc/components';
+import { VlIconComponent } from '@domg-wc/components/atom';
+import { TemplateFn } from '@domg-wc/components/block';
 import { nothing } from 'lit';
 import { html } from 'lit-html';
 

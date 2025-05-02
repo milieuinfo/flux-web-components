@@ -1,21 +1,23 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { vlGroupStyles, vlLegacyStyles, vlStackedStyles } from '@domg-wc/styles';
 import {
-    VlAccordionComponent,
     VlButtonComponent,
     VlLinkComponent,
-    VlModalComponent,
     VlParagraphComponent,
+    VlTitleComponent,
+} from '@domg-wc/components/atom';
+import {
+    VlAccordionComponent,
+    VlModalComponent,
     VlPillComponent,
     VlPopoverComponent,
     VlSideSheet,
     VlTabsComponent,
-    VlTitleComponent,
-} from '@domg-wc/components';
-import { SelectRichOption, VlDatepickerComponent, VlSelectComponent, VlSelectRichComponent } from '@domg-wc/form';
+} from '@domg-wc/components/block';
+import { SelectRichOption, VlDatepickerComponent, VlSelectComponent, VlSelectRichComponent } from '@domg-wc/components/form';
 import { CSSResult, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { VlFormDemoComponent } from '@domg-wc/integration/form';
+import { VlFormDemoComponent } from '@domg-wc/integrations/form';
 
 @customElement('app-component')
 export class AppComponent extends LitElement {
