@@ -455,6 +455,15 @@
                             "default": "false"
                         },
                         {
+                            "name": "background-type",
+                            "description": "Met background-type en background-options kan je zelf een achtergrond-laag instellen.<br>Dit attribuut is niet reactief."
+                        },
+                        {
+                            "name": "background-options",
+                            "description": "Met background-type en background-options kan je zelf een achtergrond-laag instellen. Geef de background-options mee als JSON string.<br>Dit attribuut is niet reactief.",
+                            "default": ""
+                        },
+                        {
                             "name": "layer",
                             "description": "De identifier van de kaartlaag.<br>Dit attribuut is niet reactief."
                         },
@@ -486,6 +495,15 @@
                             "name": "background-layer",
                             "description": "Geeft de gekozen base-layer een achtergrond-laag.<br>Dit zal kaartlagen tonen van het Nationaal Geografisch Instituut.<br>Voor meer info [zie hier](https://www.ngi.be/website/aanbod/digitale-geodata/cartoweb-be/).<br>Dit attribuut is niet reactief.",
                             "default": "false"
+                        },
+                        {
+                            "name": "background-type",
+                            "description": "Met background-type en background-options kan je zelf een achtergrond-laag instellen.<br>Dit attribuut is niet reactief."
+                        },
+                        {
+                            "name": "background-options",
+                            "description": "Met background-type en background-options kan je zelf een achtergrond-laag instellen. Geef de background-options mee als JSON string.<br>Dit attribuut is niet reactief.",
+                            "default": ""
                         },
                         {
                             "name": "layer",
@@ -521,6 +539,15 @@
                             "default": "false"
                         },
                         {
+                            "name": "background-type",
+                            "description": "Met background-type en background-options kan je zelf een achtergrond-laag instellen.<br>Dit attribuut is niet reactief."
+                        },
+                        {
+                            "name": "background-options",
+                            "description": "Met background-type en background-options kan je zelf een achtergrond-laag instellen. Geef de background-options mee als JSON string.<br>Dit attribuut is niet reactief.",
+                            "default": ""
+                        },
+                        {
                             "name": "layer",
                             "description": "De identifier van de kaartlaag.<br>Dit attribuut is niet reactief."
                         },
@@ -552,6 +579,15 @@
                             "name": "background-layer",
                             "description": "Geeft de gekozen base-layer een achtergrond-laag.<br>Dit zal kaartlagen tonen van het Nationaal Geografisch Instituut.<br>Voor meer info [zie hier](https://www.ngi.be/website/aanbod/digitale-geodata/cartoweb-be/).<br>Dit attribuut is niet reactief.",
                             "default": "false"
+                        },
+                        {
+                            "name": "background-type",
+                            "description": "Met background-type en background-options kan je zelf een achtergrond-laag instellen.<br>Dit attribuut is niet reactief."
+                        },
+                        {
+                            "name": "background-options",
+                            "description": "Met background-type en background-options kan je zelf een achtergrond-laag instellen. Geef de background-options mee als JSON string.<br>Dit attribuut is niet reactief.",
+                            "default": ""
                         },
                         {
                             "name": "layer",
@@ -607,6 +643,11 @@
                             "name": "label",
                             "description": "Het label van de toggle-button.",
                             "default": ""
+                        },
+                        {
+                            "name": "default-active",
+                            "description": "Voeg `default-active` toe om de control default te activeren bij het renderen.",
+                            "default": "false"
                         }
                     ]
                 },
@@ -824,6 +865,62 @@
                     "name": "vl-map-tiled-wms-layer",
                     "description": "Gebruik de `map-tiled-wms-layer` component om een WMS kaartlaag af te beelden.<br/>\nDeze component erft over van de `VlMapWmsLayer` klasse, die op zijn beurt overerft van de `VlMapLayer` klasse.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-layer-wms-layer-tiled-wms-layer--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "hidden",
+                            "description": "Bepaalt of de kaartlaag zichtbaar is.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "opacity",
+                            "description": "De opacity van de kaartlaag. Getal tussen 0 en 1.",
+                            "default": "1"
+                        },
+                        {
+                            "name": "max-resolution",
+                            "description": "De maximum resolutie (exclusief) waaronder de kaartlaag zichtbaar is.<br>Dit attribuut is niet reactief.",
+                            "default": "Infinity"
+                        },
+                        {
+                            "name": "min-resolution",
+                            "description": "De minimum resolutie (inclusief) waarboven de kaartlaag zichtbaar is.<br>Dit attribuut is niet reactief.",
+                            "default": "0"
+                        },
+                        {
+                            "name": "name",
+                            "description": "De naam van de kaartlaag.<br>Dit attribuut is niet reactief.",
+                            "default": ""
+                        },
+                        {
+                            "name": "layers",
+                            "description": "De WMS layers.",
+                            "default": ""
+                        },
+                        {
+                            "name": "styles",
+                            "description": "De WMS stijlen.",
+                            "default": ""
+                        },
+                        {
+                            "name": "url",
+                            "description": "De WMS url.",
+                            "default": ""
+                        },
+                        {
+                            "name": "version",
+                            "description": "De WMS versie.",
+                            "default": "1.3.0"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-map-xyz-wms-layer",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-layer-wms-layer-xyz-wms-layer--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1287,7 +1384,7 @@
                 },
                 {
                     "name": "vl-select-location",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `vl-select-location` component om een zoekbalk af te beelden waarmee er een adres geselecteerd kan worden.\n\nDeze component erft over van de [vl-select-rich](/docs/form-select-rich--documentatie) component.",
+                    "description": "Gebruik de `vl-select-location` component om een zoekbalk af te beelden waarmee er een adres geselecteerd kan worden.\n\nDeze component erft over van de [vl-select-rich](/docs/form-select-rich--documentatie) component.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-select-location--documentatie",
                     "attributes": [
                         {

@@ -1,7 +1,7 @@
 const mixinNextWaveAnimationUrl =
-    'http://localhost:8080/iframe.html?id=styles-base-intern-mixin--wave-animation-mixin-default&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-base-mixin--wave-animation-mixin-default&viewMode=story';
 const mixinNextFocusOutlineUrl =
-    'http://localhost:8080/iframe.html?id=styles-base-intern-mixin--focus-outline-mixin-default&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-base-mixin--focus-outline-mixin-default&viewMode=story';
 
 describe('story - mixin - wave animation', () => {
     it('should render', () => {

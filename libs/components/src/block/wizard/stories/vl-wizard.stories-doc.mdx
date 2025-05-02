@@ -1,0 +1,46 @@
+import { ArgTypes, Canvas } from '@storybook/blocks';
+import * as VlWizardStories from './vl-wizard.stories';
+
+# Wizard
+
+<VluxMetaData id="components-block-wizard-wizard" />
+
+Gebruik een `wizard` om een gebruiker door een meerstapsproces te begeleiden. Een wizard maakt het mogelijk om een
+ingewikkeld proces op te delen in overzichtelijke, kleine stappen. Een wizard biedt ook de mogelijkheid opties in een
+bepaalde stap aan te passen op basis van keuzes die de gebruiker in een voorgaande stap heeft gemaakt.
+
+
+## Voorbeeld
+
+```js
+import { VlWizard } from '@domg-wc/components/block';
+```
+
+```html
+<vl-wizard>
+    <vl-wizard-pane name="Step 1"><p>Pane content 1</p></vl-wizard-pane>
+    <vl-wizard-pane name="Step 2"><p>Pane content 2</p></vl-wizard-pane>
+</vl-wizard>
+```
+
+<Canvas of={VlWizardStories.WizardDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlWizardStories.WizardDefault} />
+
+
+## Referenties
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Wizard](https://overheid.vlaanderen.be/webuniversum/v3/documentation/js-components/vl-ui-wizard)
+
+### Legacy Documentatie
+
+[Legacy Storybook - Wizard](https://webcomponenten.omgeving.vlaanderen.be/storybook/?path=/docs/custom-elements-vl-wizard--default)
+
+[Legacy Documentatie - Wizard Pane](https://webcomponenten.omgeving.vlaanderen.be/doc/VlWizard.html)
+
+[Legacy Demo - Wizard](https://webcomponenten.omgeving.vlaanderen.be/demo/vl-wizard.html)

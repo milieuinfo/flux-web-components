@@ -1,4 +1,4 @@
-import { CascaderItem, ItemListFn } from '@domg-wc/components';
+import { CascaderItem, ItemListFn } from '@domg-wc/components/block';
 
 export const getItemList: ItemListFn = async (item: CascaderItem): Promise<CascaderItem[]> => {
     const { data } = item;

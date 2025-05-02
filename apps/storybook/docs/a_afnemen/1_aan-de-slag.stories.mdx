@@ -46,9 +46,9 @@ tot de artifactory van Departement Omgeving! Om node versie problemen te vermijd
     },
     "dependencies": {
         "@domg-wc/common": "2.0.0",
-        "@domg-wc/components": "2.0.0",
-        "@domg-wc/form": "2.0.0",
-        "@domg-wc/sections": "2.0.0",
+        "@domg-wc/components/block": "2.0.0",
+        "@domg-wc/components/form": "2.0.0",
+        "@domg-wc/components/compliance": "2.0.0",
         "@domg-wc/map": "2.0.0",
     },
     "volta": {
@@ -58,7 +58,7 @@ tot de artifactory van Departement Omgeving! Om node versie problemen te vermijd
 ```
 
 > De minimaal op te nemen packages om componenten af te nemen zijn: __'@domg-wc/common'__
- en __'@domg-wc/components'__. De __'@domg-wc/sections'__ zal typisch ook opgenomen worden
+ en __'@domg-wc/components/block'__. De __'@domg-wc/components/compliance'__ zal typisch ook opgenomen worden
 omdat de header en footer component verplicht zijn in een Departement Omgeving toepassing. De __'@domg-wc/map'__
 bevat de kaart functionaliteit en zal dus niet in alle gevallen nodig zijn.
 
@@ -69,20 +69,20 @@ Alvorens je een web-component kan gebruiken in je html dient hij geregistreerd t
 manieren om dat te doen:
 
 ```
-import '@domg-wc/components/accordion';
+import '@domg-wc/components/block/accordion';
 ```
 
 of
 
 ```
 import { registerWebComponents } from '@domg-wc/common';
-import { VlAccordionComponent } from '@domg-wc/components';
+import { VlAccordionComponent } from '@domg-wc/components/block';
 
 registerWebComponents([VlAccordionComponent]);
 ```
 
 Nadien kent je browser de tag `<vl-accordion></vl-accordion>`, de details van een component (attributen, events, ...)
-kan je terugvinden onder de desbetreffende docs pagina, [vl-accordion - documentatie](/docs/components-accordion--documentatie)
+kan je terugvinden onder de desbetreffende docs pagina, [vl-accordion - documentatie](/docs/components-block-accordion--documentatie)
 in dit geval.
 
 

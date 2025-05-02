@@ -58,7 +58,7 @@ const generateAllIconsComponent = (glyphs) => {
         import { CSSResult, LitElement, css, html } from 'lit';
         import { registerWebComponents, webComponent } from '@domg-wc/common';
         import { vlIconStyles } from '@domg-wc/styles';
-        import { VlIconComponent } from '@domg-wc/components';
+        import { VlIconComponent } from '@domg-wc/components/atom';
 
         @webComponent('vl-all-icons')
         export class VlAllIconsComponent extends LitElement {
@@ -145,7 +145,7 @@ const processIcons = async () => {
     const allIconsComponent = generateAllIconsComponent(glyphs);
 
     writeFile('../../libs/styles/src/base/icon/vl-icon-mapping.css.ts', iconMapping);
-    writeFile('../../libs/components/src/next/icon/vl-all-icons.component.ts', allIconsComponent);
+    writeFile('../../libs/components/src/block/icon/vl-all-icons.component.ts', allIconsComponent);
 };
 
 processIcons();

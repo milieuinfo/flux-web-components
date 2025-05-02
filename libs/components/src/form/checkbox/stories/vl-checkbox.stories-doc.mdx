@@ -1,0 +1,71 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs';
+import * as VlCheckboxStories from './vl-checkbox.stories';
+import FormControlPublicMethods from '../../form-control/stories/form-control.public-methods-doc.mdx'
+
+# Checkbox
+
+<VluxMetaData id="components-form-checkbox" />
+
+Gebruik de `checkbox` component om de gebruiker de mogelijkheid te geven om 1 of meerdere dingen te selecteren in een lijst.<br/>
+Zie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.
+
+
+## Voorbeeld
+
+```js
+import { VlCheckboxComponent } from '@domg-wc/components/form';
+```
+
+```html
+<vl-checkbox></vl-checkbox>
+```
+
+<Canvas of={VlCheckboxStories.CheckboxDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlCheckboxStories.CheckboxDefault} />
+
+
+## Publieke methodes
+
+<FormControlPublicMethods />
+
+
+## Varianten
+
+### Met value
+
+Indien er geen value meegegeven wordt aan de checkbox, wordt er tijdens het submitten van een form de value `on` teruggegeven.<br/>
+Dit is zoals de HTML5 standaard het voorschrijft. Indien er wel een value meegegeven wordt, zal deze value teruggegeven worden.
+
+<Canvas of={VlCheckboxStories.CheckboxValue} />
+
+### Switch
+
+#### Gebruik
+
+Semantisch gezien moet een switch gebruikt worden om onmiddellijk een actie te ondernemen, zoals het aan- en uitzetten van een instelling.<br/>
+*NIET*: een switch gebruiken om een selectie te valideren, bv. "gelezen & goedgekeurd"
+*WEL*: dark mode aan- en uitzetten, adresgegevens tonen of verbergen
+
+<Canvas of={VlCheckboxStories.CheckboxSwitch} />
+
+## Validatie
+> Meer info over validatie binnen onze form componenten vind je hier: [Form - Validatie](/docs/ontwerp-form-validation--documentatie)
+
+### Read only
+
+Readonly zorgt ervoor dat de value van een input niet aangepast kan worden, hierdoor heeft readonly plaatsen op een checkbox geen effect aangezien het aan- en uitvinken de checked state aanpast en niet de value.<br/>
+Als je een checkbox als readonly wilt gebruiken, moet je het `disabled` attribuut meegeven en gebruik maken van een hidden input zodat de value toch mee met het form gesubmit wordt.<br/>
+Zie dat de value van de hidden input overeenkomt met de checked state en de value van de disabled checkbox.
+
+<Canvas of={VlCheckboxStories.CheckboxReadonly} />
+
+
+## Referenties
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Checkbox](https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-checkbox/)
