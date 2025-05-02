@@ -1,5 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { VlTitleComponent } from '@domg-wc/components';
+import { VlTitleComponent } from '@domg-wc/components/atom';
 import { VlMap, VlMapBaseLayerGRBGray } from '@domg-wc/map';
 import { mapWithGrayBaselayerHtml } from '../../html/map.html.js';
 

@@ -1,0 +1,49 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs';
+import * as VlSearchResultStories from './vl-search-result.stories';
+
+# Search Result
+
+<VluxMetaData id="components-block-search-result" />
+
+Gebruik de `search-result` component om een zoekresultaat weer te geven.<br/>
+
+Volgende sub-componenten zijn beschikbaar om het zoekresultaat op te bouwen:
+
+- VlSearchResultProperties `[vl-search-result-properties]`
+- VlSearchResultText `[vl-search-result-text]`
+- VlSearchResultTitle `[vl-search-result-title]`
+
+
+## Voorbeeld
+
+```js
+import { VlSearchResultComponent } from '@domg-wc/components/block';
+```
+
+```html
+<vl-search-result></vl-search-result>
+```
+
+<Canvas of={VlSearchResultStories.SearchResultDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlSearchResultStories.SearchResultDefault} />
+
+
+## Varianten
+
+### Lijst
+
+Om een lijst van zoekresultaten te tonen kan je ze groeperen met de
+[Group](/docs/styles-layout-afnemers-group--documentatie) layout.
+
+<Canvas of={VlSearchResultStories.SearchResultGroup} />
+
+
+## Referenties
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Search Results](https://overheid.vlaanderen.be/webuniversum/v3/documentation/components/vl-ui-search-results)

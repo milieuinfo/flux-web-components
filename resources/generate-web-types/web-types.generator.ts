@@ -12,10 +12,11 @@ import {
     WTElementProperty,
     WTElementSlot,
 } from './web-types.model';
-import { buildWTConfigComponents } from './wt-config-build/components.wt-config';
-import { buildWTConfigForm } from './wt-config-build/form.wt-config';
+import { buildWTConfigComponentsAtom } from './wt-config-build/components-atom.wt-config';
+import { buildWTConfigComponentsBlock } from './wt-config-build/components-block.wt-config';
+import { buildWTConfigComponentsCompliance } from './wt-config-build/components-compliance.wt-config';
+import { buildWTConfigComponentsForm } from './wt-config-build/components-form.wt-config';
 import { buildWTConfigMap } from './wt-config-build/map.wt-config';
-import { buildWTConfigSections } from './wt-config-build/sections.wt-config';
 import vluxMetaData from '../../apps/storybook/.storybook/vlux-meta-data/vlux-meta-data.json';
 
 const templateFileLocation: string = './wt-template/web-types.template';
@@ -200,7 +201,8 @@ const generateWebTypesFile = (artifact: string, wtComponentList: WTConfigArray, 
     console.log('--------------------------------------------------\n');
 };
 
-generateWebTypesFile('components', buildWTConfigComponents, '../../libs/components');
-generateWebTypesFile('form', buildWTConfigForm, '../../libs/form');
+generateWebTypesFile('atom', buildWTConfigComponentsAtom, '../../libs/components/src/atom');
+generateWebTypesFile('block', buildWTConfigComponentsBlock, '../../libs/components/src/block');
+generateWebTypesFile('compliance', buildWTConfigComponentsCompliance, '../../libs/components/src/compliance');
+generateWebTypesFile('form', buildWTConfigComponentsForm, '../../libs/components/src/form');
 generateWebTypesFile('map', buildWTConfigMap, '../../libs/map');
-generateWebTypesFile('sections', buildWTConfigSections, '../../libs/sections');

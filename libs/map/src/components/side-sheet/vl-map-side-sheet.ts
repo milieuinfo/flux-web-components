@@ -1,5 +1,5 @@
 import { webComponent } from '@domg-wc/common';
-import { VlSideSheet } from '@domg-wc/components';
+import { VlSideSheet } from '@domg-wc/components/block';
 
 @webComponent('vl-map-side-sheet')
 export class VlMapSideSheet extends VlSideSheet {

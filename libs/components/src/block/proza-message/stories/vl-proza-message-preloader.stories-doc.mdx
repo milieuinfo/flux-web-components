@@ -1,0 +1,50 @@
+import { ArgTypes, Canvas } from '@storybook/blocks';
+import * as VlProzaMessagePreloaderStories from './vl-proza-message-preloader.stories';
+
+# Proza Message Preloader
+
+<VluxMetaData id="components-block-proza-message-preloader" />
+
+Gebruik de `proza-message-preloader` component om alle Proza berichten van een domein in 1 keer op te halen en in
+cache te stoppen.<br/>
+De [proza-message](/docs/components-proza-message--proza-message-default) component gaat eerst kijken of het bericht in
+de cache zit vooraleer een request naar buiten te sturen.<br/>
+Deze component voeg je 1 keer toe in je applicatie per domein, bij voorkeur op het hoogste niveau.
+
+```js
+import { VlProzaMessagePreloader } from '@domg-wc/components/block';
+```
+
+```html
+<vl-proza-message-preloader></vl-proza-message-preloader>
+```
+
+<Canvas of={VlProzaMessagePreloaderStories.ProzaMessagePreloaderDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlProzaMessagePreloaderStories.ProzaMessagePreloaderDefault} />
+
+
+## Base Url
+
+Je kan optioneel een `baseUrl` meegeven aan de `proza-message` component waarvan de Proza berichten opgehaald
+worden.<br/>
+De Proza berichten zullen opgehaald worden vanaf `{baseUrl}proza/domein/{domain}/{code}`.<br/>
+Indien er geen `baseUrl` meegegeven wordt, worden de Proza berichten opgehaald relatief tov de huidige url op het pad
+`proza/domein/{domain}/{code}`.<br/>
+Dit attribuut is niet reactief, zorg ervoor dat als je dit attribuut gebruikt het meteen correct ingevuld staat.
+
+
+## Manuele preloads
+
+Je kan `VlProzaMessagePreloader.preload('domein')` gebruiken om manueel domeinen te preloaden indien je controle wilt
+over de volgorde van de domeinen of het moment waarop de preload gebeurd.
+
+
+## Referenties
+
+### Legacy Documentatie
+
+[Legacy Documentatie - Proza Message Preloader](https://webcomponenten.omgeving.vlaanderen.be/doc/VlProzaMessagePreloader.html)

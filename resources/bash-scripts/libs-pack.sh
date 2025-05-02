@@ -60,26 +60,6 @@ fi
 npm pack &> /dev/null
 echo '[done] - pack - components'
 
-cd ../form
-npm pkg set sideEffects='["./*/**"]' --json >/dev/null
-echo '[done] - set sideEffects - form'
-if [[ $1 == "develop" ]]; then
-    npm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'
-    echo '[done] - set publishConfig to snapshot-npm - form'
-fi
-npm pack &> /dev/null
-echo '[done] - pack - form'
-
-cd ../sections
-npm pkg set sideEffects='["./*/**"]' --json >/dev/null
-echo '[done] - set sideEffects - sections'
-if [[ $1 == "develop" ]]; then
-    npm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'
-    echo '[done] - set publishConfig to snapshot-npm - sections'
-fi
-npm pack &> /dev/null
-echo '[done] - pack - sections'
-
 cd ../map
 npm pkg set sideEffects='["./*/**", "./vl-map.*"]' --json >/dev/null
 echo '[done] - set sideEffects - map'

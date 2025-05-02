@@ -4,9 +4,11 @@ import { vlGroupStyles } from '@domg-wc/styles';
 import {
     VlBreadcrumbComponent,
     VlBreadcrumbItemComponent,
-    VlButtonComponent,
     VlFunctionalHeaderComponent,
-} from '@domg-wc/components';
+} from '@domg-wc/components/block';
+import {
+    VlButtonComponent,
+} from '@domg-wc/components/atom';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';

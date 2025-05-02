@@ -1,0 +1,58 @@
+import { ArgTypes, Canvas, Source } from '@storybook/blocks';
+import * as VlAccessibilityStories from './vl-accessibility.stories';
+import header from '../child/header.component?raw';
+
+# Accessibility
+
+<VluxMetaData id="components-compliance-accessibility" />
+
+Toegankelijkheidsverklaring pagina.
+
+
+## Voorbeeld
+
+```js
+import { VlAccessibility } from '@domg-wc/components/compliance';
+```
+
+```html
+<vl-accessibility></vl-accessibility>
+```
+
+<Canvas of={VlAccessibilityStories.AccessibilityDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlAccessibilityStories.AccessibilityDefault} />
+
+
+## Header Slot
+
+Standaard wordt deze template gebruikt om de `functional-header` te bepalen in deze component.
+
+<Source code={header} language="ts" dark={true} />
+
+Als je wijzigingen wil aanbrengen in de functional header, kan je de standaard `vl-functional-header` vervangen door een
+ander, eventueel aangepaste header element.
+
+Je kan dit bijvoorbeeld vervangen door:
+- een [vl-content-header](/docs/components-content-header--content-header-default)
+- of een [vl-functional-header](/docs/components-functional-header--functional-header-default) met andere opties dan de
+  standaard `functional-header` van dit component.
+
+In het voorbeeld hieronder kan je zien hoe je voor de `vl-functional-header` bij de teruglink (`back`) "Start"
+als label kan geven in plaats van "Terug".
+
+<Canvas of={VlAccessibilityStories.AccessibilityHeaderSlot} />
+
+
+## Referenties
+
+### Legacy Documentatie
+
+[Legacy Storybook - Accessibility](https://webcomponenten.omgeving.vlaanderen.be/storybook/?path=/docs/custom-elements-vl-accessibility--default)
+
+[Legacy Documentatie - Accessibility](https://webcomponenten.omgeving.vlaanderen.be/doc/VlAccessibility.html)
+
+[Legacy Demo - Accessibility](https://webcomponenten.omgeving.vlaanderen.be/demo/vl-accessibility.html)

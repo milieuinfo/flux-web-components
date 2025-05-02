@@ -1,4 +1,4 @@
-import { VlButtonComponent } from '@domg-wc/components';
+import { VlButtonComponent } from '@domg-wc/components/atom';
 import { VlMapAction, VlMapActionControl } from '@domg-wc/map';
 
 const mapActionControlMultipleUrl =

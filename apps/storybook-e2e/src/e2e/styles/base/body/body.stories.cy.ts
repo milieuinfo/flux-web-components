@@ -1,4 +1,4 @@
-const bodyNextDefaultUrl = 'http://localhost:8080/iframe.html?id=styles-base-intern-body--body-default&viewMode=story';
+const bodyNextDefaultUrl = 'http://localhost:8080/iframe.html?id=styles-base-body--body-default&viewMode=story';
 
 describe('story - body - default', () => {
     it('should render', () => {

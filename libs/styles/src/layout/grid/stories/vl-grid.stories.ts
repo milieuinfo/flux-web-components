@@ -1,5 +1,5 @@
-import { VlButtonComponent } from '@domg-wc/components';
-import { VlFormLabelComponent, VlInputFieldComponent } from '@domg-wc/form';
+import { VlButtonComponent } from '@domg-wc/components/atom';
+import { VlFormLabelComponent, VlInputFieldComponent } from '@domg-wc/components/form';
 import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit-html';
 import {

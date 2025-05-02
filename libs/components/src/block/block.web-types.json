@@ -1,0 +1,1898 @@
+{
+    "$schema": "https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json",
+    "name": "uigov-web-components",
+    "version": "DOMG-WC-VERSION",
+    "js-types-syntax": "typescript",
+    "description-markup": "markdown",
+    "contributions": {
+        "html": {
+            "elements": [
+                {
+                    "name": "vl-accordion",
+                    "description": "Gebruik de `accordion` component om informatie te tonen of te verbergen aan de hand van een toggle.\nVoor meer informatie over het afbeelden van meerdere accordions zie de\n[accordion-list](/docs/components-accordion-list--documentatie) component.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-accordion--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "bold",
+                            "description": "Beeldt de toggle-text van de accordion af in bold.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "close-toggle-text",
+                            "description": "Tekst waarop de gebruiker kan klikken om de accordion te sluiten.<br>Kan niet in combinatie gebruikt worden met:<br>• toggle-text attribuut<br>• title slot",
+                            "default": ""
+                        },
+                        {
+                            "name": "content-padding",
+                            "description": "De grootte van de padding van de content.<br>Deze padding wordt toegepast op zowel desktop als mobile.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "disabled",
+                            "description": "Schakelt het openen en het sluiten van de accordion uit.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "default-open",
+                            "description": "Indien gezet zal de accordion standaard geopend zijn.<br>Dit attribuut is niet reactief.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "icon",
+                            "description": "Icoon dat getoond wordt voor de tekst van de toggle.<br>Dit attribuut is niet reactief.",
+                            "default": ""
+                        },
+                        {
+                            "name": "open-toggle-text",
+                            "description": "Tekst waarop de gebruiker kan klikken om de accordion te openen.<br>Kan niet in combinatie gebruikt worden met:<br>• toggle-text attribuut<br>• title slot",
+                            "default": ""
+                        },
+                        {
+                            "name": "toggle-text",
+                            "description": "Tekst waarop de gebruiker kan klikken om de accordion te openen of te sluiten.<br>Kan niet in combinatie gebruikt worden met:<br>• close-toggle-text attribuut<br>• open-toggle-text attribuut<br>• title slot",
+                            "default": ""
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "[default]",
+                            "description": "Element dat getoond en verborgen wordt wanneer de gebruiker de accordion opent of sluit.",
+                            "default": ""
+                        },
+                        {
+                            "name": "title",
+                            "description": "Element waarop de gebruiker kan klikken om de accordion te openen of te sluiten.<br>Kan niet in combinatie gebruikt worden met:<br>Kan niet in combinatie gebruikt worden met:<br>• close-toggle-text attribuut<br>• open-toggle-text attribuut<br>• toggle-text attribuut",
+                            "default": ""
+                        },
+                        {
+                            "name": "subtitle",
+                            "description": "Subtitel slotelement. Wordt getoond in open en gesloten toestand.",
+                            "default": ""
+                        },
+                        {
+                            "name": "menu",
+                            "description": "Slotelement om menu item toe te voegen in rechterbovenhoek.",
+                            "default": ""
+                        }
+                    ],
+                    "js": {
+                        "events": [
+                            {
+                                "name": "vl-on-toggle",
+                                "description": "Afgevuurd bij het openen of sluiten van de accordion.<br>Het event bevat of de accordion geopend of gesloten is.",
+                                "type": "{ open: boolean }"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-alert",
+                    "description": "Gebruik de `alert` component om de gebruiker op de hoogte te houden van belangrijke informatie.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-alert--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "closable",
+                            "description": "Sluitknop voor de waarschuwing",
+                            "default": "false"
+                        },
+                        {
+                            "name": "naked",
+                            "description": "Naked variant van de waarschuwing.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "title",
+                            "description": "Titel van de waarschuwing.<br>Bij de naked variant mag de titel alleen met dit attribuut meegegeven worden.",
+                            "default": ""
+                        },
+                        {
+                            "name": "icon",
+                            "description": "Icon van de waarschuwing.<br>Het icoon kan gekozen worden uit de lijst op https://overheid.vlaanderen.be/webuniversum/v3/documentation/atoms/vl-ui-icon.",
+                            "default": ""
+                        },
+                        {
+                            "name": "message",
+                            "description": "De message van de waarschuwing.<br>Bij de naked variant mag de message alleen met dit attribuut meegegeven worden.",
+                            "default": ""
+                        },
+                        {
+                            "name": "size",
+                            "description": "Kleine variant van de waarschuwing.",
+                            "default": ""
+                        },
+                        {
+                            "name": "type",
+                            "description": "Soort van de waarschuwing, foutmelding, probleemmelding of succesmelding.",
+                            "default": ""
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "title",
+                            "description": "Element dat als titel van het alert getoond wordt.",
+                            "default": ""
+                        },
+                        {
+                            "name": "actions",
+                            "description": "Slot voor actieknoppen",
+                            "default": ""
+                        },
+                        {
+                            "name": "[default]",
+                            "description": "Element dat als message van het alert getoond wordt.",
+                            "default": ""
+                        }
+                    ],
+                    "js": {
+                        "events": [
+                            {
+                                "name": "vl-alert-closed",
+                                "description": "Afgevuurd wanneer de alert wordt gesloten.",
+                                "type": "-"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-autocomplete",
+                    "description": "Gebruik de `autocomplete` component om een lijst met suggesties weer te geven, gefilterd op de ingevoerde tekst. De\nlijst kan een statische lijst zijn (`static-list`) of kan worden opgehaald uit een api (dataFetcher).",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-autocomplete--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "placeholder",
+                            "description": "Attribuut wordt gebruikt om de placeholder te bepalen.",
+                            "default": ""
+                        },
+                        {
+                            "name": "initial-value",
+                            "description": "Attribuut wordt gebruikt om de initiële waarde te bepalen.",
+                            "default": ""
+                        },
+                        {
+                            "name": "label",
+                            "description": "Attribuut wordt gebruikt om de label te bepalen.",
+                            "default": ""
+                        },
+                        {
+                            "name": "label-small",
+                            "description": "Attribuut wordt gebruikt om de label kleiner te maken.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "min-chars",
+                            "description": "Attribuut wordt gebruikt om te bepalen hoeveel karakters de gebruiker moet ingeven alvorens de suggesties getoond worden.",
+                            "default": "3"
+                        },
+                        {
+                            "name": "max-suggestions",
+                            "description": "Attribuut wordt gebruikt om het maximum aantal suggesties dat moet getoond worden te bepalen.",
+                            "default": "15"
+                        },
+                        {
+                            "name": "caption-format",
+                            "description": "Attribuut bepaalt wat er hoe moet getoond worden voor ieder item in de suggestielijst."
+                        },
+                        {
+                            "name": "group-by",
+                            "description": "Attribuut bepaalt hoe de items in de lijst gegroepeerd moeten worden.",
+                            "default": ""
+                        },
+                        {
+                            "name": "show-clear",
+                            "description": "Attribuut wordt gebruikt te bepalen of het clear icoon moet tevoorschijn komen.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "disable-loading",
+                            "description": "Bepaalt of loading animatie getoond wordt.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "clear-tooltip",
+                            "description": "Attribuut wordt gebruikt de tekst te bepalen die getoond moet worden bij hover van clear icon.",
+                            "default": "Wissen"
+                        },
+                        {
+                            "name": "no-matches-text",
+                            "description": "Attribuut wordt gebruikt de tekst te bepalen die getoond moet worden als er geen suggesties zijn.",
+                            "default": "Geen resultaat"
+                        }
+                    ],
+                    "js": {
+                        "properties": [
+                            {
+                                "name": "items",
+                                "description": "Use this property when you want to use a static list of items.",
+                                "type": "array",
+                                "default": ""
+                            }
+                        ],
+                        "events": [
+                            {
+                                "name": "search",
+                                "description": "This custom event is triggered when the user enters characters in de textbox while the component has no items specified. Use this event when you want to fill the suggestion list with items from an api call. Check out the WithInputAndApiCall story for more details.",
+                                "type": "-"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-breadcrumb",
+                    "description": "Gebruik de `breadcrumb` component om de locatie van de huidige pagina af te beelden binnen een navigeerbare hiërarchie.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-breadcrumb--documentatie"
+                },
+                {
+                    "name": "vl-breadcrumb-item",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-breadcrumb--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "href",
+                            "description": "Url voor breadcrumb-item.",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-contact-card",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-contact-card--documentatie"
+                },
+                {
+                    "name": "vl-content-header",
+                    "description": "Gebruik de `content-header` component bovenaan informerende pagina's. Hij biedt gebruikers alle informatie over de\nwebsite die ze bezoeken.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-content-header--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "context-link (slot)",
+                            "description": "Link voor de context.",
+                            "default": ""
+                        },
+                        {
+                            "name": "title-link (slot)",
+                            "description": "Link voor de titel",
+                            "default": ""
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "image (slot)",
+                            "description": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-description-data",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-description-data-description-data--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "bordered",
+                            "description": "Adds a border.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "items-size",
+                            "description": "The number (numerator) of the maximum (denominator) that will be taken for each data item on large screens, typically desktop.",
+                            "default": "12 / number of data items"
+                        },
+                        {
+                            "name": "items-medium-size",
+                            "description": "The number (numerator) of the maximum (denominator) that will be taken for each data item on medium screens, typically tablet.",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "items-small-size",
+                            "description": "The number (numerator) of the maximum (denominator) that will be taken for each data item on small screens, typically mobile.",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "items-extra-small-size",
+                            "description": "The number (numerator) of the maximum (denominator) that will be taken for each data item on very small screens.",
+                            "default": "undefined"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-description-data-item",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-description-data-description-data-item--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "label",
+                            "description": "Changes the label of the data item.",
+                            "default": ""
+                        },
+                        {
+                            "name": "value",
+                            "description": "Changes the value of the data item.",
+                            "default": ""
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "label",
+                            "description": "Changes the label of the data item.",
+                            "default": ""
+                        },
+                        {
+                            "name": "value",
+                            "description": "Changes the value of the data item.",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-document",
+                    "description": "Gebruik de `document` component om een link naar een bestand toe te voegen dat de gebruiker in de browser kan bekijken\nof downloaden.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-document--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "href",
+                            "description": "Bepaalt de download link.",
+                            "default": "#"
+                        },
+                        {
+                            "name": "target",
+                            "description": "Bepaalt waar de link geopend wordt. Mogelijke waarden zijn `_blank`, `_self`, `_parent` en `_top`.",
+                            "default": "_self"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "type",
+                            "default": ""
+                        },
+                        {
+                            "name": "title",
+                            "default": ""
+                        },
+                        {
+                            "name": "metadata",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-functional-header",
+                    "description": "Gebruik de `functional-header` component om bovenaan de pagina generieke informatie te tonen zoals bijvoorbeeld\neen titel en acties.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-functional-header--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "back",
+                            "description": "Tekst van de terug-link.",
+                            "default": "Terug"
+                        },
+                        {
+                            "name": "back-link",
+                            "description": "URL van de terug-link.",
+                            "default": "document.referrer"
+                        },
+                        {
+                            "name": "disable-back-link",
+                            "description": "Zet de terug-link uit.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "full-width",
+                            "description": "Gebruik de volledige breedte van het scherm.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "hide-back-link",
+                            "description": "Verbergt de terug link.<br>Dit attribuut is niet reactief.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "hide-sub-header",
+                            "description": "Verbergt de sub header.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "link",
+                            "description": "URL van de titel-link.",
+                            "default": ""
+                        },
+                        {
+                            "name": "margin-bottom",
+                            "description": "De grootte van de margin onder de functional header.",
+                            "default": "large"
+                        },
+                        {
+                            "name": "sub-title",
+                            "description": "Tekst van de subtitel.",
+                            "default": ""
+                        },
+                        {
+                            "name": "title",
+                            "description": "Tekst van de titel.",
+                            "default": ""
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "actions",
+                            "description": "Acties die worden afgebeeld in de rechterbovenhoek."
+                        },
+                        {
+                            "name": "back",
+                            "description": "Wordt afgebeeld ipv de tekst van de terug-link.<br>Kan niet in combinatie gebruikt worden met:<br>• back attribuut<br>• back-link slot<br>• sub-header slot"
+                        },
+                        {
+                            "name": "back-link",
+                            "description": "Wordt afgebeeld ipv de terug-link.<br>Kan niet in combinatie gebruikt worden met:<br>• back attribuut<br>• back-link attribuut<br>• disable-back-link attribuutt<br>• back slot<br>• sub-header slot"
+                        },
+                        {
+                            "name": "sub-header",
+                            "description": "Wordt afgebeeld onder de horizontale lijn.<br>Kan niet in combinatie gebruikt worden met:<br>• back attribuut<br>• back-link attribuut<br>• disable-back-link attribuut<br>• sub-title attribuut<br>• back slot<br>• back-link slot<br>• sub-title slot"
+                        },
+                        {
+                            "name": "sub-title",
+                            "description": "Wordt afgebeeld ipv de tekst van de subtitel.<br>Kan niet in combinatie gebruikt worden met:<br>• sub-title<br>• sub-header slot"
+                        },
+                        {
+                            "name": "title",
+                            "description": "Wordt afgebeeld ipv de tekst van de titel.<br>Kan niet in combinatie gebruikt worden met:<br>• title"
+                        },
+                        {
+                            "name": "top-left",
+                            "description": "Wordt afgebeeld in de linkerbovenhoek.<br>Kan niet in combinatie gebruikt worden met:<br>• actions slot"
+                        },
+                        {
+                            "name": "top-right",
+                            "description": "Wordt afgebeeld in de rechterbovenhoek.<br>Kan niet in combinatie gebruikt worden met:<br>• actions slot"
+                        }
+                    ],
+                    "js": {
+                        "events": [
+                            {
+                                "name": "vl-click-back",
+                                "description": "Afgevuurd na het klikken op de terug-link.",
+                                "type": "-"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-http-error-message",
+                    "description": "Gebruik de `http-error-message` component om een error boodschap aan de gebruiker te tonen.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-http-error-message--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "title",
+                            "description": "Past de title van de error message aan.",
+                            "default": ""
+                        },
+                        {
+                            "name": "image",
+                            "description": "De URL voor de afbeelding die weergegeven moet worden.",
+                            "default": ""
+                        },
+                        {
+                            "name": "image-alt",
+                            "description": "Past de alternatieve tekst van de afbeelding aan.",
+                            "default": ""
+                        },
+                        {
+                            "name": "error-code",
+                            "description": "Geeft de default titel, afbeelding, tekst en actie voor een specifieke error code weer.",
+                            "default": ""
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "text",
+                            "description": "Past de omschrijvende tekst onder de titel aan. Dit slot is niet reactief",
+                            "default": ""
+                        },
+                        {
+                            "name": "actions",
+                            "description": "Past de acties aan. Dit slot is niet reactief",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-info-tile",
+                    "description": "Gebruik de `info-tile` component in informatieve en interactieve dashboards.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-info-tile--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "auto-open",
+                            "description": "Opent de info-tile automatisch bij de eerste render.<br>Alleen bruikbaar indien toggleable aanstaat.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "center",
+                            "description": "Centreert de tekst van de info-tile.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "toggleable",
+                            "description": "Maakt de info-tile openklapbaar.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-size",
+                            "description": "Grootte van de info tile. Dit attribuut past de padding van het component aan. Standaard is dit \"small\". De andere opties zijn \"medium\" en \"large\".",
+                            "default": ""
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "content",
+                            "description": "De content van de info-tile.",
+                            "default": ""
+                        },
+                        {
+                            "name": "subtitle",
+                            "description": "De subtitel van de info-tile.",
+                            "default": ""
+                        },
+                        {
+                            "name": "title",
+                            "description": "De titel van de info-tile.",
+                            "default": ""
+                        },
+                        {
+                            "name": "menu",
+                            "description": "Slotelement om menu item toe te voegen in rechterbovenhoek.",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-infoblock",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-infoblock--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-input-slider",
+                    "description": "Gebruik de `input-slider` om een waarde te selecteren tussen een minimum en maximum waarde.\n**Let op**: deze component is niet dezelfde als de `vl-ui-range` component van Digitaal Vlaanderen.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-input-slider--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "max-value",
+                            "description": "De maximumwaarde die geselecteerd kan worden.",
+                            "default": "100"
+                        },
+                        {
+                            "name": "min-value",
+                            "description": "De minimumwaarde die geselecteerd kan worden.",
+                            "default": "0"
+                        },
+                        {
+                            "name": "value",
+                            "description": "De waarde van de input. Wordt gecorrigeerd indien deze zich onder de minValue of boven de maxValue begeeft.",
+                            "default": "0"
+                        }
+                    ],
+                    "js": {
+                        "events": [
+                            {
+                                "name": "vl-change-value",
+                                "description": "Afgevuurd na het aanpasssen van de waarde.<br>Het event bevat de huidige waarde.",
+                                "type": "{ value: number }"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-loader",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-loader--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "light",
+                            "description": "Attribute is used to obtain an alternative rendering in combination with a dark background. ",
+                            "default": "false"
+                        },
+                        {
+                            "name": "text",
+                            "description": "Attribute is used to display an informative text during loading. ",
+                            "default": ""
+                        },
+                        {
+                            "name": "single",
+                            "description": "Attribute is used to indicate that no text should be displayed. ",
+                            "default": "false"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-modal",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-modal--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "title",
+                            "description": "Attribuut gebruikt om een `<h2>` titel toe te voegen. Indien leeg, wordt er geen titel element aangemaakt.",
+                            "default": ""
+                        },
+                        {
+                            "name": "open",
+                            "description": "Attribuut om de modal onmiddellijk te openen na de rendering.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "closable",
+                            "description": "Attribuut om de modal sluitbaar te maken via het \"Sluit\"-icoon in de rechterbovenhoek of door de \"Escape\"-toets te gebruiken.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "not-cancellable",
+                            "description": "Attribuut gebruikt om de modal niet annuleerbaar te maken.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "not-auto-closable",
+                            "description": "Attribuut om het afsluiten van de modal uit te schakelen bij het klikken op de actie in het button-slot.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "allow-overflow",
+                            "description": "Attribuut om de afgesneden inhoud van de modal zichtbaar te maken.",
+                            "default": "false"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "content",
+                            "description": "Dit slot bevat de HTML inhoud van de modal."
+                        },
+                        {
+                            "name": "button",
+                            "description": "Gebruik dit slot om de primaire actie mee te geven."
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-cascader",
+                    "description": "Gebruik de `cascader` component om hiërarchische data weer te geven als een drilldown van lijsten.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-cascader-cascader--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "header-text",
+                            "description": "Hiermee kan je de tekst instellen voor de header."
+                        },
+                        {
+                            "name": "level",
+                            "description": "Huidige niveau in de hiërarchie.\n\nDit attribuut kan je aanpassen om terug te gaan naar een lager niveau.",
+                            "default": "0"
+                        },
+                        {
+                            "name": "hide-breadcrumb",
+                            "description": "Verbergt breadcrumb navigatie.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "loading",
+                            "description": "Geeft weer dat data wordt geladen. Is reactief.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "loading-message",
+                            "description": "De boodschap die getoond wordt wanneer items aan het laden zijn.",
+                            "default": "Aan het laden"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "header",
+                            "description": "Hiermee kan je de standaard header vervangen door een header naar keuze."
+                        },
+                        {
+                            "name": "breadcrumb-placeholder",
+                            "description": "Hiermee kan je een breadcrumb placeholder instellen. Zichtbaar wanneer breadcrumb niet zichtbaar is.",
+                            "default": ""
+                        },
+                        {
+                            "name": "home",
+                            "description": "Hiermee kan je het `home`-slot instellen.",
+                            "default": ""
+                        }
+                    ],
+                    "js": {
+                        "properties": [
+                            {
+                                "name": "itemListFn",
+                                "description": "Laat toe om een promise mee te geven wanneer dynamisch data moet opgehaald. Dit werkt enkel in combinatie met de `nodes`-property waarbij `requestParams` ingesteld staan.\n\nKan niet aangepast worden in Storybook. \n\n Raadpleeg de [documentatie](?path=/docs/components-cascader--cascader-default#cascader-met-dynamisch-ophalen-van-kind-elementen) voor meer info.",
+                                "type": "function",
+                                "default": "null"
+                            },
+                            {
+                                "name": "nodes",
+                                "description": "Om de data-structuur van de cascader programmatorisch in te stellen.\n\n Raadpleeg [documentatie](?path=/docs/components-cascader--cascader-property-binding#cascader-met-property-binding) voor meer info.",
+                                "type": "array",
+                                "default": ""
+                            },
+                            {
+                                "name": "templates",
+                                "description": "Laat toe om alternatieve templates voor de cascader-items in te stellen.\n\nKan niet aangepast worden in Storybook.\n\n Raadpleeg de documentatie voor meer informatie.",
+                                "type": "map",
+                                "default": "null"
+                            }
+                        ],
+                        "events": [
+                            {
+                                "name": "vl-click-breadcrumb",
+                                "description": "Event dat afgevuurd wordt als op een breadcrumb item wordt geklikt.<br>Het detail object van het event bevat het gekozen niveau en het label van de breadcrumb.",
+                                "type": "{ index: number, label?: string }"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-cascader-item",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-cascader-cascader-item--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "annotation",
+                            "description": "Dit bepaalt de ondertitel in de breadcrumb navigatie.",
+                            "default": ""
+                        },
+                        {
+                            "name": "label",
+                            "description": "Dit bepaalt het label in de breadcrumb navigatie.",
+                            "default": "geen label"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "content",
+                            "description": "Komt onder het label.",
+                            "default": ""
+                        },
+                        {
+                            "name": "label",
+                            "description": "Een klik op deze inhoud zal de kind elementen weergeven.",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-table",
+                    "description": "Gebruik de `table` component om op een gestructureerde manier (grote hoeveelheden) relationele data te tonen.\n\n<VluxAlert type=\"info\">\n{`\n    In de v2 versie van deze component gebruik je hem via de custom-tag, de interne implementatie is voor de rest\n    gelijk gebleven aan deze van de v1 versie. In de toekomst zal deze component grondig herwerkt worden; in de\n    context van een herwerking van de vl-table.\n`}\n</VluxAlert>",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-table--documentatie",
+                    "attributes": [
+                        {
+                            "name": "hover",
+                            "description": "Attribuut wordt gebruikt om een rij te highlighten wanneer de gebruiker erover hovert met muiscursor.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "matrix",
+                            "description": "Attribuut wordt gebruikt om data in 2 dimensies te tonen. Zowel de rijen als de kolommen krijgen een titel. Deze titels worden gescheiden door een dikke lijn.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "grid",
+                            "description": "Variant met een lijn tussen elke rij en kolom.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "zebra",
+                            "description": "Variant waarin de rijen afwisselend een andere achtergrondkleur krijgen. Dit maakt de tabel makkelijker leesbaar. Deze zebra werkt niet voor tabellen met detail rijen, gebruik hiervoor uig-zebra.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "uig-zebra",
+                            "description": "Variant waarin de rijen afwisselend een andere achtergrondkleur krijgen. Dit maakt de tabel makkelijker leesbaar. Deze zebra werkt voor tabellen met en zonder detail rijen.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "collapsed-m",
+                            "description": "Vanaf een medium schermgrootte zullen de cellen van elke rij onder elkaar ipv naast elkaar getoond worden.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "collapsed-s",
+                            "description": "Vanaf een small schermgrootte zullen de cellen van elke rij onder elkaar ipv naast elkaar getoond worden.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "collapsed-xs",
+                            "description": "Vanaf een extra small schermgrootte zullen de cellen van elke rij onder elkaar ipv naast elkaar getoond worden.",
+                            "default": "false"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-doormat",
+                    "description": "Gebruik de `doormat` component om een snel en duidelijk overzicht weer te geven van de informatie op je website.<br/>\nElke doormat krijgt zijn eigen titel, tekst, optionele afbeelding en linkt naar een pagina binnen je website.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-doormat--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "href",
+                            "description": "De url waar de link naar verwijst.",
+                            "default": ""
+                        },
+                        {
+                            "name": "external",
+                            "description": "Opent de link in een nieuw tabblad.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "alt",
+                            "description": "Beeldt de doormat af in een alternatieve stijl.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "image-src",
+                            "description": "De url van de afbeelding.",
+                            "default": ""
+                        },
+                        {
+                            "name": "image-alt",
+                            "description": "De alt tekst van de afbeelding.",
+                            "default": ""
+                        },
+                        {
+                            "name": "image-width",
+                            "description": "Past de breedte van de afbeelding aan.<br/>De maximum toegelaten breedte is 150px.<br/>Niet van toepassing als `graphic` op `true` staat.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "image-height",
+                            "description": "Past de hoogte van de afbeelding aan.<br/>Niet van toepassing als `graphic` op `true` staat.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "graphic",
+                            "description": "Beeldt de afbeelding af als een graphic.<br/>Zorg ervoor dat de afbeelding die je meegeeft de correcte afmetingen heeft.",
+                            "default": "false"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "title",
+                            "description": "De titel van de doormat.",
+                            "default": ""
+                        },
+                        {
+                            "name": "text",
+                            "description": "De tekst van de doormat.",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-infotext",
+                    "description": "Gebruik de `infotext` component om belangrijke nummers duidelijk weer te gevem.<br/>",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-infotext--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "badge",
+                            "description": "Beeldt de infotext af in een badge.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "href",
+                            "description": "De url waar de infotext naar verwijst.",
+                            "default": ""
+                        },
+                        {
+                            "name": "external",
+                            "description": "Opent de link in een nieuw tabblad.<br/>Te gebruiken in combinatie met het href attribuut.",
+                            "default": "false"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "value",
+                            "description": "De waarde van de infotext.<br/>De font-size wordt automatisch aangepast naargelang de lengte van de value.<br/>Indien er een nummer meegegeven wordt zal de value automatisch geformatteerd worden.",
+                            "default": ""
+                        },
+                        {
+                            "name": "text",
+                            "description": "De tekst van de infotext.",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-properties",
+                    "description": "Gebruik de `properties` component om properties te tonen op een pagina. Je kan de properties specifiëren als\ninner-html of als json-structuur meegeven aan het `props` attribuut.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-properties--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "label-width",
+                            "description": "De breedte van de labels, in %. Heeft geen impact als de properties 'collapsed' worden.",
+                            "default": "25"
+                        }
+                    ],
+                    "js": {
+                        "properties": [
+                            {
+                                "name": "props",
+                                "description": "De props in JSON formaat.",
+                                "type": "array",
+                                "default": ""
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-search-result",
+                    "description": "Gebruik de `search-result` component om een zoekresultaat weer te geven.<br/>\n\nVolgende sub-componenten zijn beschikbaar om het zoekresultaat op te bouwen:\n\n- VlSearchResultProperties `[vl-search-result-properties]`\n- VlSearchResultText `[vl-search-result-text]`\n- VlSearchResultTitle `[vl-search-result-title]`",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search-result--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "[default]",
+                            "description": "De inhoud van het zoekresultaat",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-search-result-title",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search-result--documentatie"
+                },
+                {
+                    "name": "vl-search-result-text",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search-result--documentatie"
+                },
+                {
+                    "name": "vl-search-result-properties",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search-result--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation",
+                    "description": "<br/>\n\n<VluxAlert type=\"info\">\n{`\n    De v2 versie van deze component gebruik je via custom-tags, de interne implementatie is gelijk gebleven aan\n    de v1 versie. In v3 zal deze component grondig herwerkt worden.\n`}\n</VluxAlert>\n\n<br/>\n\nGebruik de `side-navigation` component om een compact navigatie-element aan een pagina toe te voegen. Het vat de\ninhoud van lange pagina's samen, leidt de gebruiker door de pagina inhoud en kan ook naar externe pagina's verwijzen.\n\nDe `vl-side-navigation` wordt opgebouwd uit volgende sub-componenten:\n\n- VlSideNavigation `[vl-side-navigation]`\n- VlSideNavigationTitle<br/>\n    `[vl-side-navigation-h1 / vl-side-navigation-h2 / vl-side-navigation-h3 /`\n    `vl-side-navigation-h4 / vl-side-navigation-h5 / vl-side-navigation-h6]`\n- VlSideNavigationContent `[vl-side-navigation-content]`\n- VlSideNavigationGroup `[vl-side-navigation-group]`\n- VlSideNavigationItem `[vl-side-navigation-item]`\n- VlSideNavigationToggle `[vl-side-navigation-toggle]`\n- VlSideNavigationReference `[vl-side-navigation-reference]`\n\n```js\nimport { VlSideNavigation } from '@domg-wc/components/block';\n```\n\n```html\n<vl-side-navigation></vl-side-navigation>\n```\n\n<Canvas of={VlSideNavigationStories.SideNavigationDefault}/>",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-content",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-group",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-item",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-reference",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-h1",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-h2",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-h3",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-h4",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-h5",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-h6",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-toggle",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                },
+                {
+                    "name": "vl-search-filter",
+                    "description": "<br/>\n\n<VluxAlert type=\"info\">\n{`\n    In de v2 versie van deze component gebruik je hem via de custom-tag, de interne implementatie is voor de rest\n    gelijk gebleven aan deze van de v1 versie. In de toekomst zal deze component grondig herwerkt worden; in de context\n    van een herwerking van de vl-table.\n`}\n</VluxAlert>\n\nGebruik de `search-filter` component om een zoek filter te tonen op een pagina.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search-filter--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "filter-title",
+                            "description": "De titel van deze zoekfilter.",
+                            "default": ""
+                        },
+                        {
+                            "name": "alt",
+                            "description": "Alternatieve (transparante) achtergrond.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "mobile-modal",
+                            "description": "Activeert geoptimaliseerde weergave voor mobiele apparaten.<br>Dit wordt ook geactiveerd als de viewport kleiner is dan 768px.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "mobile-modal-title",
+                            "description": "Stelt de titel in van deze zoekfilter op mobiele apparaten.<br> Als die niet gedeclareerd is, wordt de waarde van filter-title gebruikt.",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-steps",
+                    "description": "Gebruik de `steps` component om een verticale lijst van stappen af te beelden om de gebruiker door een procedure te begeleiden.<br/>\n\nDeze component is de nieuwe versie van de [vl-steps](/docs/components-steps--documentatie) component, we raden aan deze versie te gebruiken.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-steps-steps--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "line",
+                            "description": "Beeldt een verticale lijn af tussen de stappen.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "timeline",
+                            "description": "Beeldt een verticale tijdlijn af tussen de stappen.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "simple-timeline",
+                            "description": "Beeldt een simpele verticale tijdlijn af tussen de stappen.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "last-step-no-line",
+                            "description": "Laat de verticale lijn na de laatste stap weg bij gebruik van de line, timeline of simple-timeline attributen.",
+                            "default": "false"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-step",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-steps-step--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "toggleable",
+                            "description": "Beeldt een stap af als een accordion.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "type",
+                            "description": "Beeldt een stap af in een bepaalde staat.",
+                            "default": "null"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-duration-step",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-steps-steps--documentatie"
+                },
+                {
+                    "name": "vl-pager",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-pager--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "total-items",
+                            "description": "This attribute determines the total number of elements.",
+                            "default": "100"
+                        },
+                        {
+                            "name": "current-page",
+                            "description": "This attribute determines the current page.",
+                            "default": "1"
+                        },
+                        {
+                            "name": "items-per-page",
+                            "description": "This attribute determines the number of rows to show per page.",
+                            "default": "10"
+                        },
+                        {
+                            "name": "pagination-disabled",
+                            "description": "This attribute determines if the page links should be disabled.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "align-center",
+                            "description": "This attribute is used to center the pagination.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "align-right",
+                            "description": "This attribute is used to align the pagination to the right.",
+                            "default": "false"
+                        }
+                    ],
+                    "js": {
+                        "events": [
+                            {
+                                "name": "change",
+                                "description": "This event is triggered when a click on a pager item happens. In the detail of the event you can find the current page, total page number, items per page number and the total amount of items of the pagination."
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-pill",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-pill-pill--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "closable",
+                            "description": "The attribute that determines whether the pill can be removed or not (cannot be used in combination with checkable or clickable).",
+                            "default": "false"
+                        },
+                        {
+                            "name": "checkable",
+                            "description": "The attribute that determines whether the pill can be checked or not (cannot be used in combination with closable or clickable).",
+                            "default": "false"
+                        },
+                        {
+                            "name": "type",
+                            "description": "The attribute that determines the type. ",
+                            "default": ""
+                        },
+                        {
+                            "name": "disabled",
+                            "description": "The attribute that determines whether the pill is disabled or not.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "clickable",
+                            "description": "The attribute that determines whether the pill can be clicked or not (cannot be used in combination with closable or checkable).",
+                            "default": "false"
+                        }
+                    ],
+                    "js": {
+                        "properties": [
+                            {
+                                "name": "checked",
+                                "description": "The property that determines whether the pill is checked or not.",
+                                "type": "boolean",
+                                "default": "false"
+                            }
+                        ],
+                        "events": [
+                            {
+                                "name": "close",
+                                "description": "The custom event that is triggered on click of the pill's close button."
+                            },
+                            {
+                                "name": "check",
+                                "description": "The custom event that is triggered on input of the pill's checkbox. In the detail of the event you can find whether the pill is getting checked or unchecked."
+                            },
+                            {
+                                "name": "click",
+                                "description": "The custom event that is triggered on click of a pill button. Requires the clickable attribute to be set."
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-button-pill",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-pill-button-pill--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "type",
+                            "description": "The attribute that determines the type. ",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-popover",
+                    "description": "Een `popover` is een nieuw, meestal kleiner venster / popup dat boven de andere inhoud op het scherm verschijnt.\nGebruik een popover om aanvullende informatie aan de gebruiker te geven of om gebruikersinteractie te vragen.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-popover--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "hide-arrow",
+                            "description": "Verbergt de pijl die wijst naar het element die de popover triggert.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "hide-on-click",
+                            "description": "Verbergt popover wanneer op de content wordt geklikt. Niet reactief.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "distance",
+                            "description": "Afstand van popover tegenover trigger element.",
+                            "default": "10"
+                        },
+                        {
+                            "name": "content-padding",
+                            "description": "De grootte van de padding van de content.<br>Deze padding wordt toegepast op zowel desktop als mobile.",
+                            "default": "small"
+                        },
+                        {
+                            "name": "placement",
+                            "description": "Voorkeursoriëntatie van de popover als de ruimte het toelaat. Je kan ook `-start` of `-end` suffix toevoegen zodat oriëntatie start of eindigt aan respectievelijk begin of einde van het trigger element.",
+                            "default": "bottom"
+                        },
+                        {
+                            "name": "trigger",
+                            "description": "Gebruiker interacties die popover zal triggeren. Je kan verschillende combineren door ze met een spatie naast mekaar te zetten. Bv. met `focus hover` zal de popover zowel verschijnen bij focus als bij hover.",
+                            "default": "click"
+                        }
+                    ],
+                    "js": {
+                        "properties": [
+                            {
+                                "name": "for",
+                                "description": "HTML id van het element die de popover zal triggeren en waar tegenover de popover zich zal oriënteren.",
+                                "type": "string",
+                                "default": ""
+                            },
+                            {
+                                "name": "open",
+                                "description": "Bepaalt of de popover open is.",
+                                "type": "boolean",
+                                "default": "false"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-popover-action",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-popover--documentatie"
+                },
+                {
+                    "name": "vl-popover-action-list",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-popover--documentatie"
+                },
+                {
+                    "name": "vl-progress-bar",
+                    "description": "Gebruik een `progress-bar` om de vooruitgang te tonen van een proces dat uit verschillende stappen bestaat.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-progress-bar--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "active-step",
+                            "description": "Markeert een stap als de actieve.",
+                            "default": "0"
+                        },
+                        {
+                            "name": "show-labels",
+                            "description": "Bepaalt of de labels van de stappen altijd zichtbaar zijn.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "focus-on-change",
+                            "description": "Bepaalt of een stap de focus krijgt na een wijziging.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "numeric",
+                            "description": "Voorziet numerieke indicatoren bij de stappen.",
+                            "default": "false"
+                        }
+                    ],
+                    "js": {
+                        "properties": [
+                            {
+                                "description": "Lijst met omschrijvingen per stap.",
+                                "type": "array",
+                                "default": ""
+                            }
+                        ],
+                        "events": [
+                            {
+                                "name": "vl-click-step",
+                                "description": "Afgevuurd na het klikken op een stap.<br>Het event bevat de omschrijving en het nummer van de stap.",
+                                "type": "{ step: string, number: number }"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-proza-message",
+                    "description": "Gebruik de `proza-message` component om een Proza bericht af te beelden dat achterliggend beheerd kan worden door de\nbusiness.<br/>\nVoor het ophalen van alle Proza berichten voor een domein zie de\n[proza-message-preloader](/docs/components-proza-message-preloader--proza-message-preloader-default) component.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-proza-message--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "base-url",
+                            "description": "Optionele baseUrl waarvan het Proza bericht opgehaald wordt.<br>Indien deze baseUrl niet meegegeven wordt, wordt het Proza bericht opgehaald relatief tov de huidige url op het pad 'proza/domein/{domain}/{code}'.<br>Dit attribuut is niet reactief.",
+                            "default": ""
+                        },
+                        {
+                            "name": "block",
+                            "description": "Duidt aan dat de inhoud van het Proza bericht een block element is.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "code",
+                            "description": "De code die het Proza bericht identificeert.",
+                            "default": ""
+                        },
+                        {
+                            "name": "domain",
+                            "description": "Het Proza domein waarin het Proza bericht zit.",
+                            "default": ""
+                        },
+                        {
+                            "name": "parameters",
+                            "description": "De key/value parameters die verwerkt en getoond zullen worden in het content element.",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-proza-message-preloader",
+                    "description": "Gebruik de `proza-message-preloader` component om alle Proza berichten van een domein in 1 keer op te halen en in\ncache te stoppen.<br/>\nDe [proza-message](/docs/components-proza-message--proza-message-default) component gaat eerst kijken of het bericht in\nde cache zit vooraleer een request naar buiten te sturen.<br/>\nDeze component voeg je 1 keer toe in je applicatie per domein, bij voorkeur op het hoogste niveau.\n\n```js\nimport { VlProzaMessagePreloader } from '@domg-wc/components/block';\n```\n\n```html\n<vl-proza-message-preloader></vl-proza-message-preloader>\n```\n\n<Canvas of={VlProzaMessagePreloaderStories.ProzaMessagePreloaderDefault} />",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-proza-message-preloader--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "base-url",
+                            "description": "Optionele baseUrl waarvan de Proza berichten opgehaald worden.<br>Indien deze baseUrl niet meegegeven wordt, worden de Proza berichten opgehaald relatief tov de huidige url op het pad 'proza/domein/{domain}'.<br>Dit attribuut is niet reactief.",
+                            "default": ""
+                        },
+                        {
+                            "name": "domain",
+                            "description": "Het Proza domein waarin de Proza berichten zit.",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-rich-data",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-rich-data--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "filter-closable",
+                            "description": "Filter sluitbaar maken en knop tonen om de filter te tonen en terug te verbergen.\n * Op een klein scherm wordt een modal geopend bij het klikken op de filter knop ipv een de filter naast de tabel te tonen.\n\n * Om elementen van de filter te verbergen enkel in de modal, kan het attribuut `hidden-in-modal` gezet worden.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "filter-closed",
+                            "description": "Verbergt de filter",
+                            "default": "false"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-rich-data-table",
+                    "description": "Een tabel op basis van een dynamische lijst van data die uitgebreid kan worden met functionaliteiten om het consumeren\nvan data door de gebruiker te verbeteren.\n\nDe code voorbeelden bij elke story is dezelfde code die gebruikt wordt om de stories te laten werken.\n- combineert de functionaliteiten van het [rich-data](?path=/docs/components-rich-data--rich-data-default)-component en [data-table](?path=/docs/elements-data-table--data-table-default)-component.\n- om de velden te configureren kan je gebruik maken van `rich-data-field`",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-rich-data-table--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "filter-closable",
+                            "description": "Filter sluitbaar maken en knop tonen om de filter te tonen en terug te verbergen.\n * Op een klein scherm wordt een modal geopend bij het klikken op de filter knop ipv een de filter naast de tabel te tonen.\n\n * Om elementen van de filter te verbergen enkel in de modal, kan het attribuut `hidden-in-modal` gezet worden.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "filter-closed",
+                            "description": "Verbergt de filter",
+                            "default": "false"
+                        },
+                        {
+                            "name": "collapsed-m",
+                            "description": "Vanaf medium schermgrootte, cellen per rij onder elkaar ipv naast elkaar",
+                            "default": "false"
+                        },
+                        {
+                            "name": "collapsed-s",
+                            "description": "Vanaf een small schermgrootte, cellen per rij onder elkaar ipv naast elkaar",
+                            "default": "false"
+                        },
+                        {
+                            "name": "collapsed-xs",
+                            "description": "Vanaf een extra small schermgrootte, cellen per rij onder elkaar ipv naast elkaar",
+                            "default": "false"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-rich-data-field",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-rich-data-table--documentatie"
+                },
+                {
+                    "name": "vl-rich-data-sorter",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-rich-data-table--documentatie"
+                },
+                {
+                    "name": "vl-search",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search--documentatie"
+                },
+                {
+                    "name": "vl-share-button",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-share-buttons-button--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-share-buttons",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-share-buttons-buttons--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "alt",
+                            "description": "Removes the gray border top.",
+                            "default": "false"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-side-sheet",
+                    "description": "De `side-sheet`-component heeft containers die aan de linker- of rechterrand van het scherm zijn verankerd. Deze kunnen\ngeopend of gesloten worden aan de hand van een knop.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-sheet--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-spotlight",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-spotlight--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "link",
+                            "description": "De component wordt een link. Door te klikken op de component wordt de gebruiker doorgestuurd naar de link die gezet is in dit attribuut."
+                        },
+                        {
+                            "name": "external",
+                            "description": "Opent de link in een nieuw tabblad. Dit attribuut wordt enkel gebruikt als het attribuut `link` gezet is."
+                        },
+                        {
+                            "name": "alt",
+                            "description": "Geeft de component een alternatieve stijl. De achtergrond wordt grijs."
+                        },
+                        {
+                            "name": "no-border",
+                            "description": "Geeft de component weer zonder border."
+                        },
+                        {
+                            "name": "size",
+                            "description": "Dit attribuut bepaalt de grootte van de component.",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "img-src",
+                            "description": "Het path van de image dat getoond moet worden in de spotlight."
+                        },
+                        {
+                            "name": "img-alt",
+                            "description": "De alternatieve tekst van de image dat getoond moet worden in de spotlight."
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "title",
+                            "description": "Titel van de spotlight."
+                        },
+                        {
+                            "name": "subtitle",
+                            "description": "Subtitle van de spotlight."
+                        },
+                        {
+                            "name": "text",
+                            "description": "Text van de spotlight."
+                        },
+                        {
+                            "name": "content",
+                            "description": "Content van de spotlight."
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-tabs",
+                    "description": "Gebruik de `tabs` component om gerelateerde informatie op te splitsen in kleinere stukken content.\nOp mobiel wordt de tab navigatie omgevormd tot een uitklapbaar menu.\n\n<VluxAlert type=\"info\">\n{`\n    De v2 versie van deze component gebruik je via de custom-tag, de interne implementatie is voor de rest\n    gelijk gebleven aan de v1 versie. In de toekomst zal deze component grondig herwerkt worden.\n`}\n</VluxAlert>",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "active-tab",
+                            "description": "Het id van de actieve tab. De tab in kwestie wordt geselecteerd bij het aanpassen van dit id.",
+                            "default": ""
+                        },
+                        {
+                            "name": "alt",
+                            "description": "Toont de alt variant van de tabs. Deze variant dient gebruikt te worden als subnavigatie onder de functional header.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "disable-links",
+                            "description": "Zet de automatische url manipulaties uit.<br>Dit attribuut wordt enkel bij de initiële render van een tab gebruikt en werkt niet dynamisch.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "responsive-label",
+                            "description": "Wordt afgebeeld op mobile wanneer de tabs samengevoegd worden tot een uitklapbaar menu. Wordt enkel afgebeeld wanneer er geen tab geselecteerd is.",
+                            "default": ""
+                        },
+                        {
+                            "name": "display-style",
+                            "description": "Geeft aan op welke manier de tabs getoond worden.<br>Standaard gedrag (`default`) is responsief; bij een breedte groter dan 768px is stijl de `tabs` stijl, anders is het de `collapsed` stijl.<br>Je kan ook expliciet de `tabs` of `collapsed` stijl kiezen die respectievelijk altijd de tabs of altijd de collapsed stijl toont.",
+                            "default": "default"
+                        }
+                    ],
+                    "js": {
+                        "events": [
+                            {
+                                "name": "change",
+                                "description": "Afgevuurd na het klikken op een niet actieve tab. Het event bevat het id van de tab.",
+                                "type": "{ activeTab: string }"
+                            },
+                            {
+                                "name": "vl-click",
+                                "description": "Afgevuurd na het klikken op een tab. Het event bevat het id van de tab.",
+                                "type": "{ activeTab: string }"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-tabs-pane",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "id",
+                            "description": "De id van de tabs-pane."
+                        },
+                        {
+                            "name": "title",
+                            "description": "De titel van de tabs-pane."
+                        },
+                        {
+                            "name": "observe-title",
+                            "description": "Duidt aan of de titel van de tabs-pane geobserveerd wordt.",
+                            "default": "false"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-tab",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs--documentatie"
+                },
+                {
+                    "name": "vl-tab-section",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs--documentatie"
+                },
+                {
+                    "name": "vl-template",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-template--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-toaster",
+                    "description": "Gebruik de `toaster` component om een toaster af te beelden.<br/>\n\nDeze component is de nieuwe versie van het [vl-toaster](/docs/elements-toaster-h1--documentatie) element.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-toaster--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "fade-out",
+                            "description": "Elke alert verdwijnt automatisch 5 seconden na openen. \n Dit attribuut is niet reactief.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "placement",
+                            "description": "Positioneert de toaster. \nStandaard worden die geplaatst in de rechterbovenhoek.",
+                            "default": "false"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "[default]"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-typography",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-typography--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-video-player",
+                    "description": "Gebruik de `video-player` component om een video-player af te beelden.<br/>\n\nDeze component is de nieuwe versie van het [vl-video-player](/docs/elements-video-player--documentatie) element, we raden aan om op termijn deze versie te gebruiken.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-video-player--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "title",
+                            "description": "Stelt de titel van de video in.",
+                            "default": ""
+                        },
+                        {
+                            "name": "source",
+                            "description": "Stelt de bron van de video in.",
+                            "default": ""
+                        },
+                        {
+                            "name": "subtitles",
+                            "description": "Stelt de bron van de ondertitels in.",
+                            "default": ""
+                        },
+                        {
+                            "name": "poster",
+                            "description": "Stelt een afbeelding in die wordt weergegeven totdat de video wordt afgespeeld.",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-wizard",
+                    "description": "Gebruik een `wizard` om een gebruiker door een meerstapsproces te begeleiden. Een wizard maakt het mogelijk om een\ningewikkeld proces op te delen in overzichtelijke, kleine stappen. Een wizard biedt ook de mogelijkheid opties in een\nbepaalde stap aan te passen op basis van keuzes die de gebruiker in een voorgaande stap heeft gemaakt.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-wizard-wizard--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "active-step",
+                            "description": "Zet de actieve stap.",
+                            "default": "0"
+                        },
+                        {
+                            "name": "hide-labels",
+                            "description": "Bepaalt of de labels van de stappen verborgen moeten worden.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "numeric",
+                            "description": "Voorziet numerieke indicatoren bij de stappen.",
+                            "default": "false"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "description": "Slot voor de titel.",
+                            "default": ""
+                        },
+                        {
+                            "description": "Slot voor de header.",
+                            "default": ""
+                        }
+                    ],
+                    "js": {
+                        "events": [
+                            {
+                                "name": "vl-click-step",
+                                "description": "Afgevuurd wanneer er op een stap geklikt wordt. In het event wordt het nummer en de naam vermeld."
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-wizard-pane",
+                    "description": "Gebruik de `wizard-pane` component om een stap in de wizard af te beelden.\nTe gebruiken in combinatie met de [wizard](/docs/components-wizard-wizard--documentatie) component",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-wizard-wizard-pane--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "isActive",
+                            "description": "Bepaalt of de pane actief is.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "name",
+                            "description": "Stelt de naam van de pane in. De naam is zichtbaar in de tooltip van de stap.",
+                            "default": ""
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

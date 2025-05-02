@@ -1,0 +1,37 @@
+import {Meta} from '@storybook/addon-docs';
+import {Canvas} from '@storybook/blocks';
+import * as vlIconStories from './vl-icon.stories'
+
+<Meta title="Components - Atom/icon-style"/>
+
+# Icon Style
+
+<VluxMetaData id="components-atom-icon-style" />
+<br/>
+
+
+## Inhoudstafel
+
+- [Doel](#doel)
+- [Voorbeelden](#voorbeelden)
+
+
+## Doel
+
+Er wordt specifieke `icon` styling voorzien. Het doel is deze implementatie te embedden in de css van concrete
+componenten. Het is een bouwblok, niet bedoeld voor rechtstreeks gebruik! In een eindtoepassing een icoon toevoegen
+gebeurt m.b.v. de [vl-icon](/docs/components-icon--documentatie) component.
+
+Componenten zoals de [vl-button](/docs/components-button--documentatie) en
+[vl-link](/docs/components-link--documentatie) kunnen ook een icoon bevatten, deze gebruiken
+daarvoor deze basis css. Hierdoor worden componenten-in-componenten of shadow-dom's in shadow-dom's vermeden.
+
+Daarnaast, zie [Beheren/Icon Font](/docs/beheren-icon-font--documentatie), wordt er een css-mapping voor de iconen
+uit het [icon-font](/docs/styles-base-intern-font--documentatie) naar een logische naam voorzien. De feitelijke mapping
+wordt gegenereerd op basis van de `svg` variant van het font.
+
+
+## Voorbeelden
+
+<Canvas of={vlIconStories.IconStyleDefault} />
+

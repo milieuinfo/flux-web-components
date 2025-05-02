@@ -1,0 +1,20 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "include": [
+        "./src/**/*.ts",
+        "../../resources/cypress-commands/*.d.ts",
+        "../../resources/cypress-component/support/*.d.ts"
+    ],
+    "references": [
+        {
+            "path": "./tsconfig.lib.json"
+        },
+        {
+            "path": "./tsconfig.spec.json"
+        }
+    ],
+    "compilerOptions": {
+        "outDir": "../../build/tsc/lib-integrations",
+        "strict": false
+    }
+}

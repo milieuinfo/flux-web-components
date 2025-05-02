@@ -1,5 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { VlMapNonLambert72Sources } from '@domg-wc/integration/map';
+import { VlMapNonLambert72Sources } from '@domg-wc/integrations/map';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import mapNonLambert72doc from './non-lambert-72-sources.stories-doc.mdx';
