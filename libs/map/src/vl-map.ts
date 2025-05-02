@@ -3,12 +3,13 @@ import { Zoom } from 'ol/control.js';
 import OlFullScreenControl from 'ol/control/FullScreen';
 import OlLayerGroup from 'ol/layer/Group';
 import OlProjection from 'ol/proj/Projection';
+import { register } from 'ol/proj/proj4';
 import proj4 from 'proj4';
 import { VlCustomMap } from './actions/map/custom-map';
+import { VlMapFeaturesLayer } from './components/layer/vector-layer/vl-map-features-layer/vl-map-features-layer';
+import { VlMapWfsLayer } from './components/layer/vector-layer/vl-map-wfs-layer/vl-map-wfs-layer';
 import { VlMapLayer } from './components/layer/vl-map-layer';
 import { VlMapWmsLayer } from './components/layer/wms-layer/vl-map-wms-layer';
-import { VlMapWfsLayer } from './components/layer/vector-layer/vl-map-wfs-layer/vl-map-wfs-layer';
-import { VlMapFeaturesLayer } from './components/layer/vector-layer/vl-map-features-layer/vl-map-features-layer';
 import { EVENT } from './vl-map.model';
 import vlMapStyles from './vl-map.uig-css';
 
@@ -386,6 +387,7 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
             'EPSG:31370',
             '+proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.869,52.2978,-103.724,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs'
         );
+        register(proj4);
     }
 
     static __callOnceOnLoad(callback) {

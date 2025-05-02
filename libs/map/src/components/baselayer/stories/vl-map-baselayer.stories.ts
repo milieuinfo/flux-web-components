@@ -21,10 +21,12 @@ export default {
 
 const Template = story(
     mapBaselayerArgs,
-    ({ backgroundLayer, layer, title, type, url }) => html`
+    ({ backgroundLayer, backgroundType, backgroundOptions, layer, title, type, url }) => html`
         <vl-map>
             <vl-map-baselayer
                 ?data-vl-background-layer=${backgroundLayer}
+                background-type=${backgroundType}
+                background-options=${backgroundOptions}
                 data-vl-layer=${layer}
                 data-vl-title=${title}
                 data-vl-type=${type}
@@ -47,6 +49,21 @@ export const MapBaselayerBackgroundLayer = Template.bind({});
 MapBaselayerBackgroundLayer.storyName = 'vl-map-baselayer - background layer';
 MapBaselayerBackgroundLayer.args = {
     backgroundLayer: true,
+    layer: 'grb_bsk',
+    title: 'GRB basis laag',
+    type: 'wmts',
+    url: 'https://geo.api.vlaanderen.be/GRB/wmts',
+};
+
+export const MapBaselayerCustomBackgroundLayer = Template.bind({});
+MapBaselayerCustomBackgroundLayer.storyName = 'vl-map-baselayer - custom background layer';
+MapBaselayerCustomBackgroundLayer.args = {
+    backgroundLayer: true,
+    backgroundType: 'xyz',
+    backgroundOptions: JSON.stringify({
+        url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        attributions: 'Tiles © OpenStreetMap contributors',
+    }),
     layer: 'grb_bsk',
     title: 'GRB basis laag',
     type: 'wmts',

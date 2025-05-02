@@ -171,6 +171,12 @@ export const buildWTConfigMap: WTConfigArray = [
         '/docs/map-layer-wms-layer-tiled-wms-layer--documentatie'
     ),
     buildWTConfig(
+        'vl-map-xyz-wms-layer',
+        mapWmsLayerArgTypes,
+        '../../libs/map/src/components/layer/wms-layer/vl-map-xyz-wms-layer/stories/vl-map-xyz-wms-layer.stories-doc.mdx',
+        '/docs/map-layer-wms-layer-xyz-wms-layer--documentatie'
+    ),
+    buildWTConfig(
         'vl-map-wms-style',
         mapWmsStyleArgTypes,
         '../../libs/map/src/components/layer/wms-layer/vl-map-wms-style/stories/vl-map-wms-style.stories-doc.mdx',

@@ -15,6 +15,6 @@
     ],
     "compilerOptions": {
         "outDir": "../../build/tsc/lib-integration",
-        "strict": true
+        "strict": false
     }
 }

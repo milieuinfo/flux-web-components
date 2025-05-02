@@ -49,10 +49,10 @@ export class VlMapCurrentLocation extends BaseLitElement {
 
     _currentLocation() {
         navigator.geolocation.getCurrentPosition((position) => {
-            const source = new proj4.Proj('EPSG:4326');
-            const dest = new proj4.Proj(this._mapElement.map.projection.getCode());
+            const source = proj4.Proj('EPSG:4326');
+            const dest = proj4.Proj(this._mapElement.map.projection.getCode());
 
-            const point = new proj4.Point(position.coords.longitude, position.coords.latitude);
+            const point = proj4.Point(position.coords.longitude, position.coords.latitude);
             const transformedPoint = proj4.transform(source, dest, point);
 
             this._mapElement.map.getView().setCenter([transformedPoint.x, transformedPoint.y]);

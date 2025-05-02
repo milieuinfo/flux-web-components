@@ -2,16 +2,20 @@ import { BaseElementOfType, webComponent } from '@domg-wc/common-utilities';
 import * as OlExtent from 'ol/extent';
 import OlGeoJSON from 'ol/format/GeoJSON';
 import * as OlLoadingstrategy from 'ol/loadingstrategy';
-import OlVectorSource from 'ol/source/Vector';
-import OlWMTSSource from 'ol/source/WMTS';
-import TileWMS from 'ol/source/TileWMS';
+import { XYZ, TileWMS, WMTS, Vector as VectorSource } from 'ol/source';
 import OlStyleFill from 'ol/style/Fill';
 import OlStyleStroke from 'ol/style/Stroke';
 import OlStyle from 'ol/style/Style';
 import OlWMTSTileGrid from 'ol/tilegrid/WMTS';
 import Group from 'ol/layer/Group';
-import TileLayer from 'ol/layer/Tile';
-import VectorLayer from 'ol/layer/Vector';
+import { Layer, Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
+import type { Options as XYZOptions } from 'ol/source/XYZ';
+import type { Options as WMSOptions } from 'ol/source/TileWMS';
+import type { Options as WMTSOptions } from 'ol/source/WMTS';
+import type { Options as VectorOptions } from 'ol/source/Vector';
+
+type BackgroundLayerType = 'xyz' | 'wms' | 'wmts' | 'vector';
+type BackgroundLayerOptions = XYZOptions | WMSOptions | WMTSOptions | VectorOptions;
 
 @webComponent('vl-map-baselayer')
 export class VlMapBaseLayer extends BaseElementOfType(HTMLElement) {
@@ -91,6 +95,32 @@ export class VlMapBaseLayer extends BaseElementOfType(HTMLElement) {
         return this._createdVectorSource;
     }
 
+    get _hasBackgroundLayer() {
+        return this.hasAttribute('background-layer');
+    }
+
+    get _backgroundType(): BackgroundLayerType | undefined {
+        return this.getAttribute('background-type') || undefined;
+    }
+
+    get _backgroundOptions(): BackgroundLayerOptions | undefined {
+        if (!this._hasBackgroundLayer) return undefined;
+        if (this._hasBackgroundLayer && !this._backgroundType && !this.hasAttribute('background-options'))
+            return {
+                url: 'https://cartoweb.wms.ngi.be/service',
+                params: { FORMAT: 'image/png', LAYERS: 'crossborder,topo' },
+            };
+
+        const options = this.getAttribute('background-options');
+
+        try {
+            return JSON.parse(options);
+        } catch (err) {
+            console.warn('Invalid background-options JSON:', err);
+            return undefined;
+        }
+    }
+
     _configureMap() {
         if (this._map) {
             this._map.addBaseLayerAndOverlayMapLayer(this._createBaseLayer(), this._createBaseLayer());
@@ -106,7 +136,7 @@ export class VlMapBaseLayer extends BaseElementOfType(HTMLElement) {
             matrixIds[z] = z;
         }
 
-        return new OlWMTSSource({
+        return new WMTS({
             url: this.url,
             layer: this.layer,
             matrixSet: 'BPL72VL',
@@ -125,7 +155,7 @@ export class VlMapBaseLayer extends BaseElementOfType(HTMLElement) {
     _createVectorSource() {
         // eslint-disable-next-line @typescript-eslint/no-this-alias
         const self = this;
-        return new OlVectorSource({
+        return new VectorSource({
             format: new OlGeoJSON({
                 dataProjection: self._projection,
             }),
@@ -136,19 +166,40 @@ export class VlMapBaseLayer extends BaseElementOfType(HTMLElement) {
         });
     }
 
+    _createBackgroundLayer(): Layer | null {
+        const options = this._backgroundOptions;
+        const opacity = 0.3;
+
+        switch (this._backgroundType) {
+            case 'xyz':
+                return new TileLayer({
+                    source: new XYZ(options as XYZOptions),
+                    opacity,
+                });
+            case 'wmts':
+                return new TileLayer({
+                    source: new WMTS(options as WMTSOptions),
+                    opacity,
+                });
+            case 'vector':
+                return new VectorLayer({
+                    source: new VectorSource(options as VectorOptions),
+                    opacity,
+                });
+            case 'wms':
+            default:
+                return new TileLayer({
+                    source: new TileWMS(options as WMSOptions),
+                    opacity,
+                });
+        }
+    }
+
     _createBaseLayer() {
         const hasBackgroundLayer = this.hasAttribute('background-layer');
         const layers = [];
         if (hasBackgroundLayer) {
-            layers.push(
-                new TileLayer({
-                    source: new TileWMS({
-                        params: { FORMAT: 'image/png', LAYERS: 'crossborder,topo' },
-                        url: 'https://cartoweb.wms.ngi.be/service',
-                    }),
-                    opacity: 0.3,
-                })
-            );
+            layers.push(this._createBackgroundLayer());
         }
         switch (this.type) {
             case 'wmts':
