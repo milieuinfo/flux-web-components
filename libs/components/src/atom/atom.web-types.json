@@ -1,0 +1,380 @@
+{
+    "$schema": "https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json",
+    "name": "uigov-web-components",
+    "version": "DOMG-WC-VERSION",
+    "js-types-syntax": "typescript",
+    "description-markup": "markdown",
+    "contributions": {
+        "html": {
+            "elements": [
+                {
+                    "name": "vl-button",
+                    "description": "Gebruik de `button` component om een button af te beelden op een pagina.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-atom-button--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "type",
+                            "description": "Het type van de button.",
+                            "default": "button"
+                        },
+                        {
+                            "name": "disabled",
+                            "description": "Duidt aan dat de button uitgeschakeld is.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "error",
+                            "description": "Beeldt de button af als een error button.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "block",
+                            "description": "Duidt aan dat de button de volledige breedte van zijn parent mag innemen.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "large",
+                            "description": "Beeldt de button groot af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "wide",
+                            "description": "Beeldt de button breed af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "narrow",
+                            "description": "Beeldt de button smal af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "secondary",
+                            "description": "Beeldt de button af als een secondary button.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "tertiary",
+                            "description": "Beeldt de button af als een tertiary button.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "ghost",
+                            "description": "Beeldt de button af als een ghost button.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "loading",
+                            "description": "Beeldt de button af als een loading button.<br/>We raden aan dit enkel te gebruiken voor primary buttons.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "icon",
+                            "description": "Beeldt een icoon af in de button.<br/>Standaard wordt dit icoon voor de tekst afgebeeld.",
+                            "default": ""
+                        },
+                        {
+                            "name": "icon-placement",
+                            "description": "De positie van het icoon ten opzichte van de tekst.<br>Voegt margin toe tussen het icoon en de tekst.",
+                            "default": "before"
+                        },
+                        {
+                            "name": "toggle",
+                            "description": "Beeldt de button af als een toggle button.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "on",
+                            "description": "Duidt aan dat de toggle button aan staat.<br>Te gebruiken in combinatie met het `toggle` attribuut.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "controlled",
+                            "description": "Duidt aan dat de state van de toggle button gecontroleerd wordt door een parent component.<br>De button zal zijn eigen `on` attribuut niet veranderen.<br>Te gebruiken in combinatie met het `toggle` attribuut.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "cta-link",
+                            "description": "Specifieert de cta-link (call to action link), zorgt ervoor dat de component een link (`<a>`) wordt met button-styling.",
+                            "default": ""
+                        },
+                        {
+                            "name": "external",
+                            "description": "Opent de link in een nieuw tabblad. Dit attribuut wordt enkel gebruikt als de `cta-link` is ingesteld.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "input-group",
+                            "description": "Duidt aan dat de component deel is van een input-group.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "label",
+                            "description": "Stelt het aria-label attribuut van de button in.",
+                            "default": ""
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "[default]",
+                            "description": "De content van de button.",
+                            "default": ""
+                        }
+                    ],
+                    "js": {
+                        "events": [
+                            {
+                                "name": "vl-click",
+                                "description": "Event dat afgevuurd wordt bij het klikken op de button."
+                            },
+                            {
+                                "name": "vl-toggle",
+                                "description": "Event dat afgevuurd wordt als het `on` attribuut van de button verandert.",
+                                "type": "{ on: boolean }"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-icon",
+                    "description": "Gebruik de `icon` component om een icoon af te beelden op een pagina.<br/>\nZie het [overzicht](#overzicht) hieronder voor alle beschikbare iconen.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-atom-icon--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "icon",
+                            "description": "Het icoon dat moet afgebeeld worden.",
+                            "default": ""
+                        },
+                        {
+                            "name": "small",
+                            "description": "Beeldt het icoon klein af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "large",
+                            "description": "Beeldt het icoon groot af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "light",
+                            "description": "Beeldt het icoon licht af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "right-margin",
+                            "description": "Voegt een right-margin toe aan het icoon.<br/>Te gebruiken als het icoon voor een tekst staat.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "left-margin",
+                            "description": "Voegt een left-margin toe aan het icoon.<br/>Te gebruiken als het icoon na een tekst staat.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "clickable",
+                            "description": "Beeldt het icoon klikbaar af.",
+                            "default": "false"
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-link",
+                    "description": "Gebruik de `link` component om een link af te beelden op een pagina.<br/>",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-atom-link--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "href",
+                            "description": "De url waar de link naar verwijst.<br/>Werkt niet in combinatie met `button-as-link`-attribuut.",
+                            "default": ""
+                        },
+                        {
+                            "name": "bold",
+                            "description": "Beeldt de tekst van de link vet af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "small",
+                            "description": "Beeldt de tekst van de link klein af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "large",
+                            "description": "Beeldt de tekst van de link groot af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "error",
+                            "description": "Beeldt de link af in een error state.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "external",
+                            "description": "Opent de link in een nieuw tabblad.<br/>Werkt niet in combinatie met `button-as-link`-attribuut.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "icon",
+                            "description": "Beeldt een icoon af in de link.<br/>Standaard wordt dit icoon voor de tekst afgebeeld.",
+                            "default": ""
+                        },
+                        {
+                            "name": "icon-placement",
+                            "description": "De positie van het icoon ten opzichte van de tekst.<br>Voegt margin toe tussen het icoon en de tekst."
+                        },
+                        {
+                            "name": "button-as-link",
+                            "description": "Maakt van de link een button maar behoudt de link-stijl.",
+                            "default": "false"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "[default]",
+                            "description": "De content van de link.",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-paragraph",
+                    "description": "Gebruik de `paragraph` component om een paragraaf af te beelden op een pagina.<br/>",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-atom-paragraph--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "bold",
+                            "description": "Toont de paragraaf in het vet.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "introduction",
+                            "description": "Toont de paragraaf in de introductie stijl.",
+                            "default": "false"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "[default]",
+                            "description": "De inhoud van de paragraaf.",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-text",
+                    "description": "Gebruik de `text` component om een tekst af te beelden op andere wijze.<br/>",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-atom-text-text--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "bold",
+                            "description": "Toont de tekst in het vet.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "success",
+                            "description": "Toont de tekst in de success-kleur.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "warning",
+                            "description": "Toont de tekst in de warning-kleur.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "error",
+                            "description": "Toont de tekst in de error-kleur.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "italic",
+                            "description": "Toont de tekst cursief.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "underline",
+                            "description": "Toont de tekst onderstreept.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "annotation",
+                            "description": "Toont de tekst minder opvallend - hij krijgt een grijze kleur.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "small",
+                            "description": "Toont de tekst kleiner.",
+                            "default": "false"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "[default]",
+                            "description": "De inhoud van de tekst.",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "vl-title",
+                    "description": "Gebruik de `title` component om een title af te beelden.<br/>\n\nDeze component is de nieuwe versie van het [vl-title](/docs/elements-title-h1--documentatie) element, we raden aan om op termijn deze versie te gebruiken.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-atom-title--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "type",
+                            "description": "Het type van de titel.",
+                            "default": "h1"
+                        },
+                        {
+                            "name": "underline",
+                            "description": "Voegt een subtiele lijn toe onder de titel.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "alt",
+                            "description": "Zet alle letters om in uppercase en zal altijd een lijn toevoegen onder de titel.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "no-space-bottom",
+                            "description": "Vermindert ruimte onder de titel.",
+                            "default": "false"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "[default]"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

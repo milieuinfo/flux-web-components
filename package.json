@@ -134,11 +134,11 @@
         "z-schema": "6.0.2"
     },
     "web-types": [
-        "./libs/elements/elements.web-types.json",
-        "./libs/components/components.web-types.json",
-        "./libs/form/form.web-types.json",
-        "./libs/map/map.web-types.json",
-        "./libs/sections/sections.web-types.json"
+        "./libs/components/src/atom/atom.web-types.json",
+        "./libs/components/src/block/basic.web-types.json",
+        "./libs/components/src/compliance/compliance.web-types.json",
+        "./libs/components/src/form/form.web-types.json",
+        "./libs/map/map.web-types.json"
     ],
     "overrides": {
         "color-parse": {

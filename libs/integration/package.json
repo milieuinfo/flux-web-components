@@ -1,6 +1,0 @@
-{
-    "name": "@domg-wc/integration",
-    "type": "module",
-    "main": "./src/index.js",
-    "typings": "./src/index.d.ts"
-}

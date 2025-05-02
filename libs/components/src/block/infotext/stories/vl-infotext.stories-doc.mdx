@@ -1,0 +1,41 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs';
+import * as VlInfotextStories from './vl-infotext.stories';
+
+# Infotext
+
+<VluxMetaData id="components-block-infotext" />
+
+Gebruik de `infotext` component om belangrijke nummers duidelijk weer te gevem.<br/>
+
+
+## Voorbeeld
+
+```js
+import { VlInfotextComponent } from '@domg-wc/components/block';
+```
+
+```html
+<vl-infotext></vl-infotext>
+```
+
+<Canvas of={VlInfotextStories.InfotextDefault} />
+
+## Configuratie
+
+<ArgTypes of={VlInfotextStories.InfotextDefault} />
+
+## Varianten
+
+### Badge
+
+<Canvas of={VlInfotextStories.InfotextBadge} />
+
+### Link
+
+<Canvas of={VlInfotextStories.InfotextLink} />
+
+## Referenties
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Infotext](https://overheid.vlaanderen.be/webuniversum/v3/documentation/components/vl-ui-infotext)

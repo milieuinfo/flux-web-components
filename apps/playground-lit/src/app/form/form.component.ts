@@ -1,6 +1,6 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { vlGridStyles, vlLegacyStyles } from '@domg-wc/styles';
-import { VlButtonComponent } from '@domg-wc/components';
+import { VlButtonComponent } from '@domg-wc/components/atom';
 import {
     parseFormData,
     SelectOption,
@@ -17,7 +17,7 @@ import {
     VlSelectRichComponent,
     VlTextareaComponent,
     VlUploadComponent,
-} from '@domg-wc/form';
+} from '@domg-wc/components/form';
 import { CSSResult, html, LitElement, PropertyDeclarations, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import formStyle from './form.css';

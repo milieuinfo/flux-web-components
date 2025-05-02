@@ -1,6 +1,6 @@
 import { awaitUntil, BaseLitElement, registerWebComponents } from '@domg-wc/common';
 import { vlLegacyStyles } from '@domg-wc/styles';
-import { formLabelStyles, VlCheckboxComponent } from '@domg-wc/form';
+import { formLabelStyles, VlCheckboxComponent } from '@domg-wc/components/form';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { VlMap } from '../../vl-map';

@@ -1,11 +1,11 @@
-import '@domg-wc/components/title';
-import '@domg-wc/components/steps';
+import '@domg-wc/components/block/title';
+import '@domg-wc/components/block/steps';
 import { stepsNextHtml } from '../../html/components.html.js';
 
 export class ComponentsSideEffectComponent extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
-            ${stepsNextHtml('side effect imports', '@domg-wc/components')}
+            ${stepsNextHtml('side effect imports', '@domg-wc/components/block')}
         `;
     }
 }

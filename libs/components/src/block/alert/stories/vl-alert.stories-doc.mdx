@@ -1,0 +1,84 @@
+import { ArgTypes, Canvas } from '@storybook/blocks';
+import * as VlAlertStories from './vl-alert.stories';
+
+# Alert
+
+<VluxMetaData id="components-block-alert" />
+
+Gebruik de `alert` component om de gebruiker op de hoogte te houden van belangrijke informatie.
+
+
+## Voorbeeld
+
+```js
+import { VlAlert } from '@domg-wc/components/block';
+```
+
+```html
+<vl-alert></vl-alert>
+```
+
+<Canvas of={VlAlertStories.AlertDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlAlertStories.AlertDefault} />
+
+
+## Varianten
+
+### Error
+
+<Canvas of={VlAlertStories.AlertError} />
+
+### Info
+
+<Canvas of={VlAlertStories.AlertInfo} />
+
+### Success
+
+<Canvas of={VlAlertStories.AlertSuccess} />
+
+### Warning
+
+<Canvas of={VlAlertStories.AlertWarning} />
+
+### With with button
+
+<Canvas of={VlAlertStories.AlertWithButton} />
+
+### With title slot
+
+<Canvas of={VlAlertStories.AlertWithTitleSlot} />
+
+### With close button
+
+<Canvas of={VlAlertStories.AlertCloseable} />
+
+### Naked error
+
+<Canvas of={VlAlertStories.AlertNakedError} />
+
+### Naked warning
+
+<Canvas of={VlAlertStories.AlertNakedWarning} />
+
+### Naked success
+
+<Canvas of={VlAlertStories.AlertNakedSuccess} />
+
+
+## Referenties
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Alert](https://overheid.vlaanderen.be/webuniversum/v3/documentation/components/vl-ui-alert)
+
+### Legacy Documentatie
+
+[Legacy Storybook - Alert](https://webcomponenten.omgeving.vlaanderen.be/storybook/?path=/docs/custom-elements-vl-alert--default)
+
+[Legacy Documentatie - Alert](https://webcomponenten.omgeving.vlaanderen.be/doc/VlAlert.html)
+
+[Legacy Demo - Alert](https://webcomponenten.omgeving.vlaanderen.be/demo/vl-alert.html)

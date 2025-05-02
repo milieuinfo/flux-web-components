@@ -1,4 +1,4 @@
-import { CascaderItem } from '@domg-wc/components';
+import { CascaderItem } from '@domg-wc/components/block';
 
 export const nodeData: CascaderItem[] = [
     {

@@ -7,7 +7,7 @@ import prozaMessageDoc from './vl-proza-message.stories-doc.mdx';
 import { story, storyArgTypes, storyArgs } from '@resources/utils-storybook';
 
 export default {
-    title: 'components/proza-message',
+    title: 'Components - Block/proza-message',
     args: storyArgs(prozaMessageArgs),
     argTypes: storyArgTypes(prozaMessageArgTypes),
     parameters: {

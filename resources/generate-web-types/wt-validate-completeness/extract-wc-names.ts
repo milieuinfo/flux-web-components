@@ -64,11 +64,17 @@ const extractWCNames = (
     return wcNames;
 };
 
-export const extractComponentWCNames = () =>
-    extractWCNames(path.resolve('../../../libs/components/src'), ['.component.ts', '.element.ts'], null, null);
+export const extractComponentsAtomWCNames = () =>
+    extractWCNames(path.resolve('../../../libs/components/src/atom'), ['.component.ts'], null, null);
 
-export const extractFormWCNames = () => {
-    return extractWCNames(path.resolve('../../../libs/form/src'), ['.component.ts'], null, null);
+export const extractComponentsBlockWCNames = () =>
+    extractWCNames(path.resolve('../../../libs/components/src/block'), ['.component.ts'], null, null);
+
+export const extractComponentsComplianceWCNames = () =>
+    extractWCNames(path.resolve('../../../libs/components/src/compliance'), ['.component.ts'], ['vl-'], null);
+
+export const extractComponentsFormWCNames = () => {
+    return extractWCNames(path.resolve('../../../libs/components/src/form'), ['.component.ts'], null, null);
 };
 
 export const extractMapWCNames = () =>
@@ -94,8 +100,5 @@ export const extractMapWCNames = () =>
             '.css.ts',
         ]
     );
-
-export const extractSectionWCNames = () =>
-    extractWCNames(path.resolve('../../../libs/sections/src'), ['.section.ts'], ['vl-'], null);
 
 // console.log('ComponentWCNames', extractComponentWCNames());

@@ -20,19 +20,11 @@ cd ./libs/components
 jest
 cd ../..
 
-cd ./libs/form
-jest
-cd ../..
-
-cd ./libs/integration
+cd ./libs/integrations
 jest
 cd ../..
 
 cd ./libs/map
-jest
-cd ../..
-
-cd ./libs/sections
 jest
 cd ../..
 

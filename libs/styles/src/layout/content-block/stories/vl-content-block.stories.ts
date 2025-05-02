@@ -1,5 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { VlTitleComponent } from '@domg-wc/components';
+import { VlTitleComponent } from '@domg-wc/components/atom';
 import { html } from 'lit-html';
 import { classMap } from 'lit/directives/class-map.js';
 import { vlContentBlockArgs, vlContentBlockArgTypes } from './vl-content-block.stories-arg';
