@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import { Meta, StoryFn } from '@storybook/web-components';
 import formValidatorsDoc from './form-validation.stories-doc.mdx';
 import { registerWebComponents } from '@domg-wc/common';
-import { VlErrorMessageComponent, VlFormLabelComponent, VlInputFieldComponent } from '@domg-wc/form';
+import { VlErrorMessageComponent, VlFormLabelComponent, VlInputFieldComponent } from '@domg-wc/components/form';
 
 registerWebComponents([VlInputFieldComponent, VlFormLabelComponent, VlErrorMessageComponent]);
 

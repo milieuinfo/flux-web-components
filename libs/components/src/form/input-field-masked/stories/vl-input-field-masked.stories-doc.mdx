@@ -1,0 +1,139 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs';
+import * as VlInputFieldMaskedStories from './vl-input-field-masked.stories';
+import FormControlPublicMethods from '../../form-control/stories/form-control.public-methods-doc.mdx'
+
+# Input Field Masked
+
+<VluxMetaData id="components-form-input-field-masked" />
+
+Gebruik de `input-field-masked` component om een input veld met een mask toe te voegen aan een pagina.<br/>
+Zie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.
+
+
+## Voorbeeld
+
+```js
+import { VlInputFieldMaskedComponent } from '@domg-wc/components/form';
+```
+
+```html
+<vl-input-field-masked></vl-input-field-masked>
+```
+
+<Canvas of={VlInputFieldMaskedStories.InputFieldMaskedIban} />
+
+
+## Configuratie
+
+<ArgTypes of={VlInputFieldMaskedStories.InputFieldMaskedIban} />
+
+
+## Publieke methodes
+
+<FormControlPublicMethods />
+
+### getRawValue(): string
+
+Geeft de raw value van de input terug (zonder mask).<br/>
+Bij het `price` mask wordt de prefix weggelaten.
+
+
+## Validatie
+> Meer info over validatie binnen onze form componenten vind je hier: [Form - Validatie](/docs/ontwerp-form-validation--documentatie)
+
+- Er wordt automatisch mask validatie toegevoegd aan het input veld, je kan dit uitschakelen met het `disable-mask-validation` attribuut.
+- Bij de mask validatie wordt er gebruik gemaakt van een regex, deze kan je overschrijven met de `regex` property.
+- Bij het testen van de regex wordt altijd de raw value van het input veld gebruikt.
+- De `patternMismatch` ValidityState key wordt gebruikt voor de mask validatie error.
+- Het is mogelijk om de mask validatie te combineren met andere validaties, bv. `required`, `min`, `max`.
+- We voorzien momenteel enkel validatie voor de `text` input type.
+
+
+## Masks
+
+### Iban
+
+- Enkel nummers
+- Prefix: `BE`
+- Formaat: `BE00 0000 0000 0000`
+- Regex: `/^[A-Z]{2}[0-9]{14}$/`
+
+<Canvas of={VlInputFieldMaskedStories.InputFieldMaskedIban} />
+
+### Rijksregisternummer
+
+- Enkel nummers
+- Formaat: `00.00.00-000.00`
+- Regex: `/^[0-9]{11}$/`
+
+<Canvas of={VlInputFieldMaskedStories.InputFieldMaskedRrn} />
+
+### UUID
+
+- Enkel hexadecimale karakters
+- Formaat: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`
+- Regex: `/^[0-9a-fA-F]{32}$/`
+
+<Canvas of={VlInputFieldMaskedStories.InputFieldMaskedUuid} />
+
+### Date
+
+- Enkel nummers
+- Formaat: `dd.mm.yyyy`
+- Regex: `/^[0-9]{8}$/`
+
+<Canvas of={VlInputFieldMaskedStories.InputFieldMaskedDate} />
+
+### Numerical
+
+- Enkel nummers
+- 2 decimalen
+- Decimaal karakter: `,`
+- Duizendtal karakter: `.`
+- Regex: `/^[0-9]+(.[0-9]+)?$/`
+
+<Canvas of={VlInputFieldMaskedStories.InputFieldMaskedNumerical} />
+
+### Price
+
+- Enkel nummers
+- 2 decimalen
+- Prefix: `€`
+- Decimaal karakter: `,`
+- Duizendtal karakter: `.`
+- Regex: `/^[0-9]+(.[0-9]+)?$/`
+- De prefix wordt weggelaten bij de raw value.
+
+<Canvas of={VlInputFieldMaskedStories.InputFieldMaskedPrice} />
+
+### Phone
+
+- Enkel nummers
+- Prefix: `+32`
+- Formaat: `+32 00 00 00 00`
+- Regex: `/^\+[0-9]{10}$/`
+
+<Canvas of={VlInputFieldMaskedStories.InputFieldMaskedPhone} />
+
+### Phone international
+
+- Enkel nummers
+- Regex: `/^[0-9]*$/`
+
+<Canvas of={VlInputFieldMaskedStories.InputFieldMaskedPhoneInternational} />
+
+### Mobile
+
+- Enkel nummers
+- Prefix: `+32`
+- Formaat: `+32 000 00 00 00`
+- Regex: `/^\+[0-9]{11}$/`
+
+<Canvas of={VlInputFieldMaskedStories.InputFieldMaskedMobile} />
+
+
+## Referenties
+
+### Cleave.js
+
+[Documentatie Cleave.js](https://nosir.github.io/cleave.js/)

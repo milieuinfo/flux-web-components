@@ -1,5 +1,5 @@
 import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common';
-import { VlButtonComponent } from '@domg-wc/components';
+import { VlButtonComponent } from '@domg-wc/components/atom';
 import { PropertyDeclarations } from 'lit';
 import { VlMapAction } from '../../action/vl-map-action';
 import { VlMapControl } from '../vl-map-control.mixin';

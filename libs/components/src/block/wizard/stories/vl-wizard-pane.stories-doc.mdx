@@ -1,0 +1,44 @@
+import { ArgTypes, Canvas } from '@storybook/blocks';
+import * as VlWizardPaneStories from './vl-wizard-pane.stories';
+
+# Wizard Pane
+
+<VluxMetaData id="components-block-wizard-wizard-pane" />
+
+Gebruik de `wizard-pane` component om een stap in de wizard af te beelden.
+Te gebruiken in combinatie met de [wizard](/docs/components-wizard-wizard--documentatie) component
+
+
+## Voorbeeld
+
+```js
+import { VlWizardPane } from '@domg-wc/components/block';
+```
+
+```html
+<vl-wizard>
+    <vl-wizard-pane name="Step 1"><p>Pane content</p></vl-wizard-pane>
+</vl-wizard>
+```
+
+<Canvas of={VlWizardPaneStories.WizardPaneDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlWizardPaneStories.WizardPaneDefault} />
+
+
+## Referenties
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Wizard](https://overheid.vlaanderen.be/webuniversum/v3/documentation/js-components/vl-ui-wizard)
+
+### Legacy Documentatie
+
+[Legacy Storybook - Wizard Pane](https://webcomponenten.omgeving.vlaanderen.be/storybook/?path=/docs/custom-elements-vl-wizard-vl-wizard-pane--default)
+
+[Legacy Documentatie - Wizard Pane](https://webcomponenten.omgeving.vlaanderen.be/doc/VlWizardPane.html)
+
+[Legacy Demo - Wizard](https://webcomponenten.omgeving.vlaanderen.be/demo/vl-wizard.html)

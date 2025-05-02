@@ -1,4 +1,4 @@
-const varNextColorUrl = 'http://localhost:8080/iframe.html?id=styles-base-intern-var--var-color&viewMode=story';
+const varNextColorUrl = 'http://localhost:8080/iframe.html?id=styles-base-var--var-color&viewMode=story';
 
 describe('story - var - color', () => {
     it('should render', () => {

@@ -1,0 +1,51 @@
+import { ArgTypes, Canvas } from '@storybook/blocks';
+import * as VlInfoTileStories from './vl-info-tile.stories';
+
+# Info Tile
+
+<VluxMetaData id="components-block-info-tile" />
+
+Gebruik de `info-tile` component in informatieve en interactieve dashboards.
+
+
+## Voorbeeld
+
+```js
+import { VlInfoTile } from '@domg-wc/components/block';
+```
+
+```html
+<vl-info-tile></vl-info-tile>
+```
+
+<Canvas of={VlInfoTileStories.InfoTileDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlInfoTileStories.InfoTileDefault} />
+
+
+## Varianten
+
+### Met toggle
+
+<Canvas of={VlInfoTileStories.InfoTileToggleable} />
+
+### Met menu
+
+<Canvas of={VlInfoTileStories.InfoTileMenuSlot} />
+
+## Referenties
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Info Tile](https://overheid.vlaanderen.be/webuniversum/v3/documentation/components/vl-ui-info-tile)
+
+### Legacy Documentatie
+
+[Legacy Storybook - Info Tile](https://webcomponenten.omgeving.vlaanderen.be/storybook/?path=/docs/custom-elements-vl-info-tile--default)
+
+[Legacy Documentatie - Info Tile](https://webcomponenten.omgeving.vlaanderen.be/doc/VlInfoTile.html)
+
+[Legacy Demo - Info Tile](https://webcomponenten.omgeving.vlaanderen.be/demo/vl-info-tile.html)

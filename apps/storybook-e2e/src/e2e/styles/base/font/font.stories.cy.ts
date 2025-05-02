@@ -1,9 +1,9 @@
 const fontNextNormalUrl =
-    'http://localhost:8080/iframe.html?id=styles-base-intern-font--font-flanders-art-sans-normal&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-base-font--font-flanders-art-sans-normal&viewMode=story';
 const fontNextItalicUrl =
-    'http://localhost:8080/iframe.html?id=styles-base-intern-font--font-flanders-art-sans-italic&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-base-font--font-flanders-art-sans-italic&viewMode=story';
 const fontNextSerifUrl =
-    'http://localhost:8080/iframe.html?id=styles-base-intern-font--font-flanders-art-serif&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-base-font--font-flanders-art-serif&viewMode=story';
 
 describe('story - font - normal', () => {
     it('should render', () => {

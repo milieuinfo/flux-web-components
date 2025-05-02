@@ -1,9 +1,9 @@
 import { story } from '@resources/utils-storybook';
-import '@domg-wc/components';
+import '@domg-wc/components/block';
 // deze imports van alle elements, components en map werken IN de monorepo
 // -> buiten de monorepo werkt dat niet omdat sideEffects disabled worden voor de root-barrel file in de artifacts
 import { registerWebComponents } from '@domg-wc/common';
-import { VlTitleComponent } from '@domg-wc/components';
+import { VlTitleComponent } from '@domg-wc/components/atom';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit';
 import '../components/action/draw-action/draw-line-action/vl-map-draw-line-action';

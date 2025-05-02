@@ -13,10 +13,11 @@ Rechter klikken in de IDE en op `web-types.spec.ts` en laten lopen lukt, alleen 
 In plaats van er verder tijd in te steken: de oorzaak is de Nx verwevenheid, die wordt weggewerkt, in die aanpak ook Jest testen toevoegen voor
 de web-types!
 
-    tsx ./tools/web-types-generator/tests/compare-wc-wt-components.ts
-    tsx ./tools/web-types-generator/tests/compare-wc-wt-form.ts
+    tsx ./tools/web-types-generator/tests/compare-wc-wt-components-atom.ts
+    tsx ./tools/web-types-generator/tests/compare-wc-wt-components-basic.ts
+    tsx ./tools/web-types-generator/tests/compare-wc-wt-components-compliance.ts
+    tsx ./tools/web-types-generator/tests/compare-wc-wt-components-form.ts
     tsx ./tools/web-types-generator/tests/compare-wc-wt-map.ts
-    tsx ./tools/web-types-generator/tests/compare-wc-wt-sections.ts
 
 
 ## schema validatie
