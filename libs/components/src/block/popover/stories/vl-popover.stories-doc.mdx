@@ -1,0 +1,121 @@
+import { ArgTypes, Canvas, Source } from '@storybook/blocks';
+import * as VlPopoverStories from './vl-popover.stories';
+import { Meta } from '@storybook/addon-docs';
+
+# Popover
+
+<VluxMetaData id="components-block-popover" />
+
+Een `popover` is een nieuw, meestal kleiner venster / popup dat boven de andere inhoud op het scherm verschijnt.
+Gebruik een popover om aanvullende informatie aan de gebruiker te geven of om gebruikersinteractie te vragen.
+
+
+## Voorbeeld
+
+```js
+import { VlPopoverComponent } from '@domg-wc/components/block';
+```
+
+```html
+<vl-popover></vl-popover>
+```
+
+<Canvas of={VlPopoverStories.PopoverDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlPopoverStories.PopoverDefault} />
+
+
+## Extra informatie
+
+### Oriëntatie
+
+Je kan de oriëntatie bepalen van de popover als daarvoor plaats is met `placement`. Anders zal `floating-ui`
+achterliggend zoeken naar de volgende geschikt oriëntatie; standaard zal dit dan de tegenovergestelde oriëntatie
+zijn van de initieel ingestelde.
+Meer info kan je [hier](https://floating-ui.com/docs/tutorial#placements) vinden.
+
+Je kan een `-start` of `-end` suffix toevoegen zodat de oriëntatie start of eindigt aan respectievelijk het begin of
+einde van het referentie-element.
+
+### Standaard pijl & afstand
+
+Standaard wordt:
+- de pijl getoond
+- wordt de `distance` ingesteld op `10px`
+
+Dit is er zodat de stijl van DV gevolgd wordt.
+
+Je kan de pijl verbergen door `hide-arrow` in te stellen.
+De afstand tot het referentie-element kan je volledig zelf bepalen.
+
+
+## Varianten
+
+### Hover
+
+Je kan de standaard `click` waarde voor `trigger` ook instellen op bv. de combinatie van `hover` & `focus` interacties.
+
+<Canvas of={VlPopoverStories.PopoverHover} />
+
+### Popover Actions
+
+Je kan een lijst van acties toevoegen aan de popover en die acties markeren als `active`.
+
+<Canvas of={VlPopoverStories.PopoverActions} />
+
+Hieronder vind je een voorbeeld implementatie met LitElement:
+
+<details>
+    <summary>Toon HTML template voorbeeld</summary>
+    <Source code={`
+    <vl-popover-action-list @click=\${actionListClickHandler}>
+        <vl-popover-action selected=\${selected} icon="search">Zoeken</vl-popover-action>
+        <vl-popover-action icon="bell">Rapportenoverzicht</vl-popover-action>
+        <vl-popover-action icon="pin">Vind locatie</vl-popover-action>
+    </vl-popover-action-list>
+    `} language="html" dark={true} />
+</details>
+<details>
+    <summary>Toon TypeScript code voorbeeld</summary>
+    <Source code={`
+    const actionListClickHandler = (event: CustomEvent) => {
+            const actionElement = event.target as VlPopoverActionComponent;
+            const allActions = Array.from(actionElement.parentElement?.querySelectorAll('vl-popover-action') || []);
+            allActions.forEach((action) => {
+                if (action !== actionElement) {
+                    action.removeAttribute('selected');
+                }
+            });
+            actionElement.setAttribute('selected', '');
+        };
+    `} language="ts" dark={true} />
+</details>
+
+### Popover Actions Divider
+
+Een lijst van acties kan visueel opgesplitst worden adhv de horizontale regel: `<hr class="vl-separator" />`.
+
+<Source
+    code={`<vl-popover-action-list>
+    <vl-popover-action icon="search">Zoeken</vl-popover-action>
+    <vl-popover-action icon="bell">Rapportenoverzicht</vl-popover-action>
+    <vl-popover-action icon="pin">Vind locatie</vl-popover-action>
+    <hr class="vl-separator" />
+    <vl-popover-action icon="save">Bewaren</vl-popover-action>
+    <vl-popover-action icon="trash">Verwijderen</vl-popover-action>
+</vl-popover-action-list>`}
+/>
+<Canvas of={VlPopoverStories.PopoverActionsDivider} />
+
+## Referenties
+
+### floating-ui
+
+De popover-component gebruikt achterliggend [floating-ui](https://floating-ui.com/), de opvolger van Popper
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Popover](https://overheid.vlaanderen.be/webuniversum/v3/documentation/js-components/vl-ui-popover)

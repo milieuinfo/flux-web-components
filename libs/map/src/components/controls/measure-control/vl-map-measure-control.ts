@@ -1,5 +1,5 @@
 import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common';
-import { VlButtonComponent } from '@domg-wc/components';
+import { VlButtonComponent } from '@domg-wc/components/atom';
 import { unByKey } from 'ol/Observable';
 import { CONTROL_TYPE, IDENTIFIER } from '../../../vl-map.model';
 import { VlMapControl } from '../vl-map-control.mixin';

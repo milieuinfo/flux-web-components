@@ -1,5 +1,6 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { VlAccordionComponent, VlButtonComponent, VlIconComponent, VlLinkComponent } from '@domg-wc/components';
+import { VlButtonComponent, VlIconComponent, VlLinkComponent } from '@domg-wc/components/atom';
+import { VlAccordionComponent } from '@domg-wc/components/block';
 import { html } from 'lit-html';
 import { classMap } from 'lit/directives/class-map.js';
 import { vlGroupArgs, vlGroupArgTypes } from './vl-group.stories-arg';

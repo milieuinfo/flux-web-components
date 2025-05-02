@@ -1,0 +1,69 @@
+import {ArgTypes, Canvas, Stories} from '@storybook/blocks';
+import * as VlTypographyStories from './vl-typography.stories';
+
+# Typography
+
+<VluxMetaData id="components-block-typography" />
+
+Gebruik de `typography` component om de standaard elementen binnen een container visueel te stylen. De typography
+component wordt voornamelijk gebruikt om de inhoud van een wysiwyg-editor te stylen zonder extra klassen toe te
+voegen voor elk element.
+
+## Voorbeeld
+
+```js
+import { VlTypographyComponent } from '@domg-wc/components/block';
+```
+
+```html
+<vl-typography></vl-typography>
+```
+
+
+## Default
+
+<Canvas of={VlTypographyStories.TypographyDefault}/>
+
+
+## Configuratie
+
+<ArgTypes of={VlTypographyStories.TypographyDefault}/>
+
+## Gekende beperkingen
+
+<VluxAlert type="warning">
+{`
+  De vl-typography component kan niet goed om met interactieve elementen zoals knoppen of formulieren. Het is
+  aangeraden om dit component enkel te gebruiken voor statische content.
+`}
+</VluxAlert>
+
+We raden dus aan om interactieve componenten buiten `vl-typography`-tags te definiëren en de `vl-typography` enkel
+te gebruiken om statische native html te stylen.
+
+Als je dan toch een interactief element in een `vl-typography`-tag wil gebruiken en de events van dat element wil
+afhandelen, kan je dit doen door een event listener toe te voegen aan de `vl-typography`-tag.
+
+In Lit kan dit bijvoorbeeld als volgt:
+
+```html
+<vl-typography @vl-click=${this.handleButtonClick}>
+   <vl-button>Indienen</vl-button>
+</vl-typography>
+```
+
+<Stories title={'Varianten'} includePrimary={false} />
+
+## Referenties
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Typography](https://overheid.vlaanderen.be/webuniversum/v3/documentation/js-components/vl-ui-typography)
+
+### Legacy Documentatie
+
+[Legacy Storybook - Typography](https://webcomponenten.omgeving.vlaanderen.be/storybook/?path=/docs/custom-elements-vl-typography--default)
+
+[Legacy Documentatie - Typography](https://webcomponenten.omgeving.vlaanderen.be/doc/VlTypography.html)
+
+[Legacy Demo - Typography](https://webcomponenten.omgeving.vlaanderen.be/demo/vl-typography.html)

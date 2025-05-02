@@ -6,5 +6,13 @@
     "publishConfig": {
         "registry": "https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/"
     },
-    "web-types": "./components.web-types.json"
+    "dependencies": {
+        "tinymce": "npm:tinymce@6.8.3"
+    },
+    "web-types": [
+        "./atom/atom.web-types.json",
+        "./basic/basic.web-types.json",
+        "./compliance/compliance.web-types.json",
+        "./form/form.web-types.json"
+    ]
 }

@@ -1,7 +1,7 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
-import { VlSearchComponent } from '@domg-wc/components';
+import { VlSearchComponent } from '@domg-wc/components/block';
 import { vlLegacyStyles } from '@domg-wc/styles';
-import { SelectRichPosition } from '@domg-wc/form';
+import { SelectRichPosition } from '@domg-wc/components/form';
 import OlOverlay from 'ol/Overlay';
 import { VlSelectLocationComponent } from '../select-location/vl-select-location';
 

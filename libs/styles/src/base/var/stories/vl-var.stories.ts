@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import vlVarStoriesDoc from './vl-var.stories-doc.mdx';
 
 export default {
-    id: 'styles-base-intern-var',
+    id: 'styles-base-var',
     title: 'Styles/Base (intern)/var',
     tags: ['autodocs'],
     parameters: {

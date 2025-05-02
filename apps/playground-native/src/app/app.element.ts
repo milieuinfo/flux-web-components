@@ -1,4 +1,4 @@
-import { VlAccordionComponent, VlCascaderComponent, VlInfoTile } from '@domg-wc/components';
+import { VlAccordionComponent, VlCascaderComponent, VlInfoTile } from '@domg-wc/components/block';
 import { registerWebComponents } from '@domg-wc/common';
 import './app.element.scss';
 import { getItemList } from './vl-cascader.utils';

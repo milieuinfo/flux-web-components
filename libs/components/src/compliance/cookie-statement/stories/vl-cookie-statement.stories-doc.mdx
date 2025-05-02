@@ -1,0 +1,57 @@
+import { ArgTypes, Canvas, Source } from '@storybook/blocks';
+import * as VlCookieSatementStories from './vl-cookie-statement.stories';
+import header from '../child/header.component?raw';
+
+# Cookie Statement
+
+<VluxMetaData id="components-compliance-cookie-statement" />
+
+Cookieverklaring pagina.
+
+
+## Voorbeeld
+
+```js
+import { VlCookieStatement } from '@domg-wc/components/compliance';
+```
+
+```html
+<vl-cookie-statement></vl-cookie-statement>
+```
+
+<Canvas of={VlCookieSatementStories.CookieStatementDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlCookieSatementStories.CookieStatementDefault} />
+
+
+## Header Slot
+
+Standaard wordt deze template gebruikt om de `functional-header` te bepalen in dit component.
+
+<Source code={header} language="ts" dark={true} />
+
+Als je wijzigingen wil aanbrengen in de functional header, kan je de standaard `vl-functional-header` vervangen door een
+ander, eventueel aangepaste header element.
+
+Je kan dit bijvoorbeeld vervangen door:
+- een [vl-content-header](/docs/components-content-header--content-header-default)
+- of een [vl-functional-header](/docs/components-functional-header--functional-header-default) met andere opties dan de standaard `functional-header` van dit component.
+
+In het voorbeeld hieronder kan je zien hoe je voor de `vl-functional-header` bij de teruglink (`back`) "Start"
+als label kan geven in plaats van "Terug".
+
+<Canvas of={VlCookieSatementStories.CookieStatementHeaderSlot} />
+
+
+## Referenties
+
+### Legacy Documentatie
+
+[Legacy Storybook - Cookie Statement](https://webcomponenten.omgeving.vlaanderen.be/storybook/?path=/docs/legacy-vl-cookie-statement--default)
+
+[Legacy Documentatie - Cookie Statement](https://webcomponenten.omgeving.vlaanderen.be/doc/VlCookieStatement.html)
+
+[Legacy Demo - Cookie Statement](https://webcomponenten.omgeving.vlaanderen.be/demo/vl-cookie-statement.html)
