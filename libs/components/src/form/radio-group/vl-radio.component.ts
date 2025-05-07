@@ -5,7 +5,7 @@ import { radioStyle } from '@domg/govflanders-style/component';
 import { CSSResult, html, LitElement, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
-import radioUigStyle from './vl-radio.component.uig-css';
+import { vlRadioComponentFluxStyles } from './vl-radio.component.flux-css';
 import { radioDefaults } from './vl-radio.defaults';
 
 @webComponent('vl-radio')
@@ -28,7 +28,7 @@ export class VlRadioComponent extends BaseLitElement {
     static shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, baseStyle, vlLegacyStyles, radioStyle, radioUigStyle];
+        return [resetStyle, baseStyle, vlLegacyStyles, radioStyle, vlRadioComponentFluxStyles];
     }
 
     static get properties(): PropertyDeclarations {

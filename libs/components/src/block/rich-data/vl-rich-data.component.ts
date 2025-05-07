@@ -1,11 +1,11 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
-import { vlGridStyles } from '@domg-wc/styles';
-import { vlIconStyles } from '../../atom/icon-style/vl-icon.css';
-import { VlFormLabelComponent } from '../../form/form-label';
+import { vlGridStyles, vlLegacyStyles } from '@domg-wc/styles';
 import { buttonStyles } from '../../atom/button/vl-button.css';
+import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
+import { VlFormLabelComponent } from '../../form/form-label';
 import { Pagination, VlPagerComponent } from '../pager';
 import { VlSearchFilterComponent } from '../search-filter';
-import styles from './vl-rich-data.uig-css';
+import { vlRichDataFluxStyles } from './vl-rich-data.flux-css';
 
 export interface RichDataMeta {
     sorting?: any;
@@ -24,7 +24,8 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
     constructor(content = '') {
         super(`
           <style>
-            ${styles.join('')}
+            ${vlLegacyStyles.join('')}
+            ${vlRichDataFluxStyles}
             ${buttonStyles}
             ${vlIconStyles}
             ${vlGridStyles}

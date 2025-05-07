@@ -3,8 +3,8 @@ import { BaseElementOfType, PADDINGS, registerWebComponents, webComponent } from
 import { resetStyle } from '@domg/govflanders-style/common';
 import { accordionStyle, buttonStyle, iconStyle, linkStyle, toggleStyle } from '@domg/govflanders-style/component';
 import { VlIconComponent } from '../../atom/icon';
-import { vlLinkIconStyles } from '../../atom/link-style/vl-link-icon.css';
-import accordionUigStyle from './vl-accordion.uig-css';
+import { vlLinkIconStyles } from '../../atom/link-style/vl-link-icon-style.css';
+import { vlAccordionFluxStyles } from './vl-accordion.flux-css';
 import './vl-accordion.lib.js';
 import 'reflect-metadata';
 
@@ -23,7 +23,7 @@ export class VlAccordionComponent extends BaseElementOfType(HTMLElement) {
            ${linkStyle}
            ${toggleStyle}
            ${accordionStyle}
-           ${accordionUigStyle}
+           ${vlAccordionFluxStyles}
            ${vlLinkIconStyles}
           </style>
           <div class="js">

@@ -6,7 +6,7 @@ import { CSSResult, html, PropertyDeclarations, PropertyValues, TemplateResult }
 import { FormControl } from '../form-control/form-control';
 import { radioGroupDefaults } from './vl-radio-group.defaults';
 import { VlRadioComponent } from './vl-radio.component';
-import radioUigStyle from './vl-radio.component.uig-css';
+import { vlRadioComponentFluxStyles } from './vl-radio.component.flux-css';
 
 @webComponent('vl-radio-group')
 export class VlRadioGroupComponent extends FormControl {
@@ -18,7 +18,7 @@ export class VlRadioGroupComponent extends FormControl {
     private initialValue: string | null = null;
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, baseStyle, vlLegacyStyles, radioStyle, radioUigStyle];
+        return [resetStyle, baseStyle, vlLegacyStyles, radioStyle, vlRadioComponentFluxStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -29,19 +29,16 @@ export class VlRadioGroupComponent extends FormControl {
         };
     }
 
+    get validationTarget(): HTMLInputElement | undefined | null {
+        const firstRadio = this.getRadios()[0];
+        return firstRadio ? firstRadio.validationTarget : null;
+    }
+
     connectedCallback() {
         super.connectedCallback();
 
         this.addEventListener('vl-change', this.updateGroupAfterCheck);
         this.addEventListener('keydown', this.handleKeyDown);
-    }
-
-    protected firstUpdated(_changedProperties: PropertyValues) {
-        super.firstUpdated(_changedProperties);
-
-        if (!this.initialValue) {
-            this.initialValue = this.value;
-        }
     }
 
     updated(changedProperties: Map<string, unknown>) {
@@ -112,9 +109,12 @@ export class VlRadioGroupComponent extends FormControl {
         this.resetToInitialValue();
     }
 
-    get validationTarget(): HTMLInputElement | undefined | null {
-        const firstRadio = this.getRadios()[0];
-        return firstRadio ? firstRadio.validationTarget : null;
+    protected firstUpdated(_changedProperties: PropertyValues) {
+        super.firstUpdated(_changedProperties);
+
+        if (!this.initialValue) {
+            this.initialValue = this.value;
+        }
     }
 
     private resetToInitialValue() {

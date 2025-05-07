@@ -5,7 +5,7 @@ import { checkboxStyle } from '@domg/govflanders-style/component';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { FormControl } from '../form-control';
-import checkboxUigStyle from './vl-checkbox.component.uig-css';
+import { vlCheckboxComponentFluxStyles } from './vl-checkbox.component.flux-css';
 import { checkboxDefaults } from './vl-checkbox.defaults';
 
 @webComponent('vl-checkbox')
@@ -22,7 +22,7 @@ export class VlCheckboxComponent extends FormControl {
     private dispatchInput = false;
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, baseStyle, vlLegacyStyles, checkboxStyle, checkboxUigStyle];
+        return [resetStyle, baseStyle, vlLegacyStyles, checkboxStyle, vlCheckboxComponentFluxStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -32,6 +32,10 @@ export class VlCheckboxComponent extends FormControl {
             checked: { type: Boolean, reflect: true },
             isSwitch: { type: Boolean, attribute: 'switch' },
         };
+    }
+
+    get validationTarget(): HTMLInputElement | undefined | null {
+        return this.shadowRoot?.querySelector('input');
     }
 
     connectedCallback() {
@@ -66,6 +70,13 @@ export class VlCheckboxComponent extends FormControl {
 
     render(): TemplateResult {
         return html` ${!this.isSwitch ? this.renderCheckboxDefault() : this.renderCheckboxSwitch()} `;
+    }
+
+    resetFormControl() {
+        super.resetFormControl();
+
+        this.checked = this.initialCheckedValue;
+        this.value = this.initialValue;
     }
 
     private renderCheckboxDefault(): TemplateResult {
@@ -136,17 +147,6 @@ export class VlCheckboxComponent extends FormControl {
                 </label>
             </div>
         `;
-    }
-
-    get validationTarget(): HTMLInputElement | undefined | null {
-        return this.shadowRoot?.querySelector('input');
-    }
-
-    resetFormControl() {
-        super.resetFormControl();
-
-        this.checked = this.initialCheckedValue;
-        this.value = this.initialValue;
     }
 
     private toggle() {

@@ -603,7 +603,7 @@ describe('story - vl-functional-header - slots', () => {
 
         cy.get('vl-functional-header')
             .shadow()
-            .find('div.uig-functional-header__top-right')
+            .find('div.flux-functional-header__top-right')
             .find('slot[name="top-right"]');
 
         cy.get('vl-functional-header').find('span[slot="top-right"]').contains('Rechterbovenhoek content');
