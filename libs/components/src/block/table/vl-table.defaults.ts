@@ -3,7 +3,7 @@ export const tableDefaults = {
     matrix: false as boolean,
     grid: false as boolean,
     zebra: false as boolean,
-    uigZebra: false as boolean,
+    fluxZebra: false as boolean,
     collapsedM: false as boolean,
     collapsedS: false as boolean,
     collapsedXS: false as boolean,

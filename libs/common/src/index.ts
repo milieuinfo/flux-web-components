@@ -1,7 +1,7 @@
 export { BaseElementOfType } from './base/base.element';
 export { BaseHTMLElement } from './base/base.html.element';
 export { BaseLitElement } from './base/base.lit.element';
-export { UigConfig, type Preferences } from './config/uig-config';
+export { FluxConfig, type Preferences } from './config/flux-config';
 export { MARGINS, PADDINGS, ICON_PLACEMENT } from './constants/constants';
 export {
     webComponent,

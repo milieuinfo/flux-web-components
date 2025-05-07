@@ -1,10 +1,15 @@
 import { findNodesForSlot, webComponent } from '@domg-wc/common';
-import { Dropzone as DropzoneInstance, DropzoneFile } from '../dropzone-types';
 import { accessibilityStyle, baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { iconStyle, linkStyle, uploadStyle } from '@domg/govflanders-style/component';
 import { Validator } from '@open-wc/form-control';
 import { FormValue } from '@open-wc/form-control/src/types';
 import DropzoneImport from 'dropzone';
+import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
+import { classMap } from 'lit/directives/class-map.js';
+import { Dropzone as DropzoneInstance, DropzoneFile } from '../dropzone-types';
+import { FormControl } from '../form-control/form-control';
+import { uploadDefaults } from './vl-upload.defaults';
+import { vlUploadFluxStyles } from './vl-upload.flux-css';
 
 // Definieer een union type dat rekening houdt met beide manieren waarop Dropzone kan worden geëxporteerd
 type DropzoneType =
@@ -13,11 +18,6 @@ type DropzoneType =
 
 // Converteer de geïmporteerde module naar onze union type
 const Dropzone = DropzoneImport as DropzoneType;
-import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
-import { classMap } from 'lit/directives/class-map.js';
-import { FormControl } from '../form-control/form-control';
-import { uploadDefaults } from './vl-upload.defaults';
-import uploadUigStyle from './vl-upload.uig-css';
 
 /**
  * valideert of dropzone bij 1 van de bestanden een error heeft
@@ -38,6 +38,9 @@ const dropzoneValidator: Validator = {
 
 @webComponent('vl-upload')
 export class VlUploadComponent extends FormControl {
+    static formControlValidators = [...FormControl.formControlValidators, dropzoneValidator];
+    // Properties
+    uploadProgressFn: ((file: DropzoneFile, progress: number, bytesSent: number) => void) | undefined;
     // Attributes
     private readonly = uploadDefaults.readonly;
     private acceptedFiles = uploadDefaults.acceptedFiles;
@@ -52,23 +55,16 @@ export class VlUploadComponent extends FormControl {
     private mainTitle = uploadDefaults.mainTitle;
     private url = uploadDefaults.url;
     private parallelUploads = uploadDefaults.parallelUploads;
-
     // State
     private value: FormValue = null;
     private multiple = false; // Wordt gebruikt in form.util om aan te duiden dat dit een multiple form control is.
-
     // Variables
     private dropzoneInstance: DropzoneInstance | undefined | null;
     private isDropzoneInitialised = false;
     private dispatchInput = false;
 
-    // Properties
-    uploadProgressFn: ((file: DropzoneFile, progress: number, bytesSent: number) => void) | undefined;
-
-    static formControlValidators = [...FormControl.formControlValidators, dropzoneValidator];
-
     static get styles(): CSSResult[] {
-        return [resetStyle, baseStyle, linkStyle, uploadStyle, uploadUigStyle, iconStyle, accessibilityStyle];
+        return [resetStyle, baseStyle, linkStyle, uploadStyle, vlUploadFluxStyles, iconStyle, accessibilityStyle];
     }
 
     static get properties(): PropertyDeclarations {
@@ -92,6 +88,10 @@ export class VlUploadComponent extends FormControl {
             dropzoneInstance: { type: Object, state: true },
             uploadProgressFn: { type: Function },
         };
+    }
+
+    get validationTarget(): HTMLInputElement | undefined | null {
+        return this.shadowRoot?.querySelector('input');
     }
 
     firstUpdated(changedProperties: Map<string, unknown>) {
@@ -260,8 +260,8 @@ export class VlUploadComponent extends FormControl {
             </div>
             <div class="vl-upload__files">
                 ${shouldShowPreviewList
-                    ? html`<div class="vl-upload__files__container"></div>`
-                    : html`<ul class="vl-upload__files__container"></ul>`}
+                    ? html` <div class="vl-upload__files__container"></div>`
+                    : html` <ul class="vl-upload__files__container"></ul>`}
                 <div class="vl-upload__files__input__container"></div>
                 <button class="vl-upload__files__close vl-link vl-link--icon" type="button">
                     <span class="vl-link__icon vl-vi vl-vi-trash" aria-hidden="true"></span>
@@ -269,10 +269,6 @@ export class VlUploadComponent extends FormControl {
                 </button>
             </div>
         `;
-    }
-
-    get validationTarget(): HTMLInputElement | undefined | null {
-        return this.shadowRoot?.querySelector('input');
     }
 
     resetFormControl() {
@@ -340,6 +336,16 @@ export class VlUploadComponent extends FormControl {
             this.dropzoneInstance.processQueue();
         }
     }
+
+    handleUploadProgress = (file: DropzoneFile) => {
+        this.dispatchEvent(
+            new CustomEvent('vl-upload-progress', {
+                composed: true,
+                bubbles: true,
+                detail: { file, bytesSent: file.upload?.bytesSent, progress: file.upload?.progress },
+            })
+        );
+    };
 
     private getUploadElement(): HTMLDivElement | undefined | null {
         return this.shadowRoot?.querySelector<HTMLDivElement>('.vl-upload');
@@ -545,16 +551,6 @@ export class VlUploadComponent extends FormControl {
             this.dispatchInput = true;
         });
     }
-
-    handleUploadProgress = (file: DropzoneFile) => {
-        this.dispatchEvent(
-            new CustomEvent('vl-upload-progress', {
-                composed: true,
-                bubbles: true,
-                detail: { file, bytesSent: file.upload?.bytesSent, progress: file.upload?.progress },
-            })
-        );
-    };
 
     private removeDropzoneEvents() {
         this.getFilesCloseButton()?.removeEventListener('click', this.handleFilesCloseButtonClick);

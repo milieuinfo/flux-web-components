@@ -4,9 +4,9 @@ import { VlIconComponent } from '@domg-wc/components/atom';
 import './styles.css';
 import 'reflect-metadata';
 import { filterOutClasses, filterOutDataCy, formatHTML } from '@resources/utils-storybook';
-import { VluxAlert } from './vlux-alert/vlux-alert.component';
-import VluxDocument from './vlux-document/vlux-document.template.mdx';
-import { VluxMetaData } from './vlux-meta-data/vlux-meta-data.component';
+import { FluxAlert } from './flux-alert/flux-alert.component';
+import FluxDocument from './flux-document/flux-document.template.mdx';
+import { FluxMetaData } from './flux-meta-data/flux-meta-data.component';
 
 export const parameters = {
     actions: { argTypesRegex: '^on[A-Z].*' },
@@ -19,13 +19,13 @@ export const parameters = {
         sort: 'alpha',
     },
     docs: {
-        components: { VluxAlert, VluxMetaData },
+        components: { FluxAlert: FluxAlert, FluxMetaData: FluxMetaData },
         transformSource: (input: string, { id }: { id: string }) => {
             if (id.startsWith('elements-')) {
                 return formatHTML(filterOutDataCy(filterOutClasses(input)));
             }
         },
-        page: VluxDocument,
+        page: FluxDocument,
     },
 };
 

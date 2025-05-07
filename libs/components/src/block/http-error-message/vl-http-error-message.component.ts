@@ -5,7 +5,7 @@ import { VlLinkComponent } from '../../atom/link';
 import { vlTitleStyles } from '../../atom/title/vl-title.css';
 import { VlTypography } from '../typography';
 import errorCodes from './error-codes';
-import httpErrorMessageUigStyle from './vl-http-error-message.uig-css';
+import { vlHttpErrorMessageFluxStyles } from './vl-http-error-message.flux-css';
 
 @webComponent('vl-http-error-message')
 export class VlHttpErrorMessage extends BaseElementOfType(HTMLElement) {
@@ -18,7 +18,7 @@ export class VlHttpErrorMessage extends BaseElementOfType(HTMLElement) {
           <style>
             ${vlResetStyles}
             ${vlTitleStyles.join('')}
-            ${httpErrorMessageUigStyle}
+            ${vlHttpErrorMessageFluxStyles}
             ${vlGroupStyles}
             ${vlGridStyles}
             ${vlStackedStyles}

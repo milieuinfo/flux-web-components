@@ -1,8 +1,8 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
-import { vlAccessibilityStyles, vlContentBlockStyles, vlSectionStyles } from '@domg-wc/styles';
+import { vlAccessibilityStyles, vlContentBlockStyles, vlLegacyStyles, vlSectionStyles } from '@domg-wc/styles';
 import swipeDetect from 'swipe-detect/dist/';
 import { VlButtonComponent } from '../../atom/button';
-import styles from './vl-side-sheet.uig-css';
+import { vlSideSheetFluxStyles } from './vl-side-sheet.flux-css';
 
 @webComponent('vl-side-sheet')
 export class VlSideSheet extends BaseElementOfType(HTMLElement) {
@@ -14,7 +14,8 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
     constructor(style = '') {
         super(`
           <style>
-            ${styles.join('')}
+            ${vlLegacyStyles.join('')}
+            ${vlSideSheetFluxStyles}
             ${vlAccessibilityStyles}
             ${vlSectionStyles}
             ${vlContentBlockStyles}

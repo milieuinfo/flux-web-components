@@ -1,7 +1,7 @@
 import { awaitScript, BaseLitElement, webComponentCustom } from '@domg-wc/common';
 import { CSSResult, PropertyDeclarations } from 'lit';
+import { headerContainerStyles, headerSkeletonStyles } from './vl-header.component.flux-css';
 import { headerDefaults } from './vl-header.defaults';
-import { headerContainerStyles, headerSkeletonStyles } from './vl-header.component.uig-css';
 
 const customRegistration = () =>
     awaitScript(
@@ -29,6 +29,9 @@ export type ApplicationLink = {
 
 @webComponentCustom(customRegistration)
 export class VlHeader extends BaseLitElement {
+    // Properties
+    logoutCallback = headerDefaults.logoutCallback;
+    applicationLinks = headerDefaults.applicationLinks;
     // Attributes
     private authenticatedUserUrl = headerDefaults.authenticatedUserUrl;
     private development = headerDefaults.development;
@@ -40,15 +43,16 @@ export class VlHeader extends BaseLitElement {
     private simple = headerDefaults.simple;
     private skeleton = headerDefaults.skeleton;
     private rejectLogout = headerDefaults.rejectLogout;
-
-    // Properties
-    logoutCallback = headerDefaults.logoutCallback;
-    applicationLinks = headerDefaults.applicationLinks;
-
     // Variables
     private observer: MutationObserver | null = null;
     private session: any = null;
     private authenticated = false;
+
+    constructor() {
+        super();
+
+        this.allowCustomCSS = false;
+    }
 
     static get properties(): PropertyDeclarations {
         return {
@@ -67,10 +71,12 @@ export class VlHeader extends BaseLitElement {
         };
     }
 
-    constructor() {
-        super();
+    private get headerContainer(): Element | null {
+        return document.querySelector('#header__container');
+    }
 
-        this.allowCustomCSS = false;
+    private get headerContainerSkeleton(): Element | null {
+        return document.querySelector('#header__container__skeleton');
     }
 
     connectedCallback() {
@@ -98,6 +104,30 @@ export class VlHeader extends BaseLitElement {
         this.observer?.disconnect();
     }
 
+    /**
+     * @deprecated Deze methode mag niet gebruikt worden.
+     */
+    injectHeader() {
+        console.warn('VlHeader - injectHeader() - deze methode is deprecated en mag niet gebruikt worden.');
+        this.injectHeaderContainer();
+    }
+
+    /**
+     * @deprecated Deze methode mag niet gebruikt worden.
+     */
+    vlwHeader() {
+        console.warn('VlHeader - vlwHeader() - deze methode is deprecated en mag niet gebruikt worden.');
+        return document.querySelector('div[class=vlw__header]');
+    }
+
+    /**
+     * @deprecated Deze methode nag niet gebruikt worden.
+     */
+    header() {
+        console.warn('VlHeader - header() - deze methode is deprecated en mag niet gebruikt worden.');
+        return this.headerContainer;
+    }
+
     protected willUpdate(changedProperties: Map<string, unknown>) {
         const sessionProperties = ['loginUrl', 'loginRedirectUrl', 'logoutUrl', 'switchCapacityUrl'];
 
@@ -108,14 +138,6 @@ export class VlHeader extends BaseLitElement {
 
     protected createRenderRoot(): HTMLElement | DocumentFragment {
         return this;
-    }
-
-    private get headerContainer(): Element | null {
-        return document.querySelector('#header__container');
-    }
-
-    private get headerContainerSkeleton(): Element | null {
-        return document.querySelector('#header__container__skeleton');
     }
 
     private injectHeaderContainer() {
@@ -254,30 +276,6 @@ export class VlHeader extends BaseLitElement {
         };
 
         this.session?.configure(config);
-    }
-
-    /**
-     * @deprecated Deze methode mag niet gebruikt worden.
-     */
-    injectHeader() {
-        console.warn('VlHeader - injectHeader() - deze methode is deprecated en mag niet gebruikt worden.');
-        this.injectHeaderContainer();
-    }
-
-    /**
-     * @deprecated Deze methode mag niet gebruikt worden.
-     */
-    vlwHeader() {
-        console.warn('VlHeader - vlwHeader() - deze methode is deprecated en mag niet gebruikt worden.');
-        return document.querySelector('div[class=vlw__header]');
-    }
-
-    /**
-     * @deprecated Deze methode nag niet gebruikt worden.
-     */
-    header() {
-        console.warn('VlHeader - header() - deze methode is deprecated en mag niet gebruikt worden.');
-        return this.headerContainer;
     }
 }
 

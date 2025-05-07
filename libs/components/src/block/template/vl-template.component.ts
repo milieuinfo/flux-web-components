@@ -1,6 +1,6 @@
 import { BaseElementOfType, webComponent } from '@domg-wc/common';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
-import templateUigStyle from './vl-template.uig-css';
+import { vlTemplateFluxStyles } from './vl-template.flux-css';
 
 @webComponent('vl-template')
 export class VlTemplate extends BaseElementOfType(HTMLElement) {
@@ -8,7 +8,7 @@ export class VlTemplate extends BaseElementOfType(HTMLElement) {
         super(`
       <style>
         ${resetStyle}
-        ${templateUigStyle}
+        ${vlTemplateFluxStyles}
         ${baseStyle}
       </style>
       <div>

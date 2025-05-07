@@ -1,7 +1,7 @@
 import { BaseElementOfType, webComponent } from '@domg-wc/common';
-import { iconStyle, linkStyle, pagerStyle } from '@domg/govflanders-style/component';
 import { accessibilityStyle, resetStyle } from '@domg/govflanders-style/common';
-import pagerUigStyle from './vl-pager.uig-css';
+import { iconStyle, linkStyle, pagerStyle } from '@domg/govflanders-style/component';
+import { vlPagerFluxStyles } from './vl-pager.flux-css';
 
 /**
  * Pager changed event
@@ -20,21 +20,13 @@ export interface Pagination {
 
 @webComponent('vl-pager')
 export class VlPagerComponent extends BaseElementOfType(HTMLElement) implements Pagination {
-    static get _observedAttributes() {
-        return ['total-items', 'items-per-page', 'current-page', 'pagination-disabled'];
-    }
-
-    static get _observedChildClassAttributes() {
-        return ['align-center', 'align-right'];
-    }
-
     constructor() {
         super();
         this.shadow(`
           <style>
             ${resetStyle}
             ${pagerStyle}
-            ${pagerUigStyle}
+            ${vlPagerFluxStyles}
             ${iconStyle}
             ${linkStyle}
             ${accessibilityStyle}
@@ -60,6 +52,14 @@ export class VlPagerComponent extends BaseElementOfType(HTMLElement) implements 
 
         this.__addPageBackLinkListener();
         this.__addPageForwardLinkListener();
+    }
+
+    static get _observedAttributes() {
+        return ['total-items', 'items-per-page', 'current-page', 'pagination-disabled'];
+    }
+
+    static get _observedChildClassAttributes() {
+        return ['align-center', 'align-right'];
     }
 
     get _classPrefix() {

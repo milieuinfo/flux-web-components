@@ -32,12 +32,12 @@ class RegisterStyles {
 Zoals hierboven vermeld injecteren de `@domg-wc elementen` hun eigen styling op root niveau.
 Dit is voldoende in een applicatie waar de elementen niet gebruikt worden binnen andere shadow DOM's.
 
-<VluxAlert type="warning">
+<FluxAlert type="warning">
 {`
     Als je zelf componenten ontwikkelt met een shadow DOM, dan moet je onze styling opnieuw injecteren in je component.<br>
     De shadow DOM zal de styling niet doorlaten die globaal op het document niveau geregistreerd is.
 `}
-</VluxAlert>
+</FluxAlert>
 
 In `Lit` kan je dit bvb. zo doen:
 
@@ -55,11 +55,11 @@ export class ComponentMetShadowDom extends LitElement {
 
 ## Custom CSS
 
-<VluxAlert type="warning">
+<FluxAlert type="warning">
 {`
     Je kan de styling van DV breken bij het gebruik hiervan!
 `}
-</VluxAlert>
+</FluxAlert>
 
 Voor de componenten onder `map`, `form` en `components` is het mogelijk om een custom CSS-string mee te geven aan het
 attribuut `custom-css`. Deze CSS wordt dan toegevoegd aan de adoptedStyleSheets van de shadow DOM van

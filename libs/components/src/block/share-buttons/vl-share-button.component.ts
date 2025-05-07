@@ -1,10 +1,10 @@
-import { iconStyle } from '@domg/govflanders-style/component';
+import { BaseLitElement } from '@domg-wc/common';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
+import { iconStyle } from '@domg/govflanders-style/component';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
+import { vlShareButtonFluxStyles } from './vl-share-button.flux-css';
 import { MEDIA_NAMES } from './vl-share-button.model';
-import shareButtonStyle from './vl-share-button.uig-css';
-import { BaseLitElement } from '@domg-wc/common';
 
 @customElement('vl-share-button')
 export class VlShareButton extends BaseLitElement {
@@ -12,7 +12,7 @@ export class VlShareButton extends BaseLitElement {
     private href = '';
 
     static get styles() {
-        return [resetStyle, baseStyle, shareButtonStyle, iconStyle];
+        return [resetStyle, baseStyle, vlShareButtonFluxStyles, iconStyle];
     }
 
     static get properties() {
