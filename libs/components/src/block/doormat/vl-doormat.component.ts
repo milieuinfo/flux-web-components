@@ -3,7 +3,7 @@ import { doormatDefaults } from './vl-doormat.defaults';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import doormatStyle from './vl-doormat.css';
-import { vlLinkStyles } from '../../atom/link-style/vl-link.css';
+import { vlLinkStyles } from '../../atom/link-style/vl-link-style.css';
 
 @webComponent('vl-doormat')
 export class VlDoormatComponent extends BaseLitElement {

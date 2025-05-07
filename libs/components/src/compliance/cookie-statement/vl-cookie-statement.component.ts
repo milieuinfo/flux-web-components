@@ -1,6 +1,7 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
-import { vlContentBlockStyles, vlGridStyles, vlSectionStyles } from '@domg-wc/styles';
+import { vlContentBlockStyles, vlGridStyles, vlLegacyStyles, vlSectionStyles } from '@domg-wc/styles';
 import { render } from 'lit-html';
+import { VlTitleComponent } from '../../atom';
 import { VlLinkComponent } from '../../atom/link';
 import { VlParagraphComponent } from '../../atom/paragraph';
 import {
@@ -11,7 +12,6 @@ import {
     VlSideNavigationComponent,
     VlTypography,
 } from '../../block';
-import { VlTitleComponent } from '../../atom';
 import { cookieStatementHeaderElements, header } from './child/header.component';
 import './cookie/vl-authentication-cookie.component';
 import './cookie/vl-cookie.component';
@@ -19,7 +19,7 @@ import './cookie/vl-header-authentication-cookie.component';
 import './cookie/vl-header-cookie.component';
 import './cookie/vl-jsessionid-cookie.component';
 import './cookie/vl-sticky-session-cookie.component';
-import styles from './vl-cookie-statement.uig-css';
+import { vlCookieStatementFluxStyles } from './vl-cookie-statement.flux-css';
 
 @webComponent('vl-cookie-statement')
 export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
@@ -43,7 +43,8 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
     constructor() {
         super(`
             <style>
-                ${styles.join('')}
+                ${vlLegacyStyles.join('')}
+                ${vlCookieStatementFluxStyles}
                 ${vlSectionStyles}
                 ${vlGridStyles}
                 ${vlContentBlockStyles}

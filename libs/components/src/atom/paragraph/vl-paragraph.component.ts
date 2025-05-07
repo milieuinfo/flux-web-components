@@ -1,7 +1,7 @@
 import { BaseLitElement, webComponent } from '@domg-wc/common';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
-import { vlParagraphStyles } from '../paragraph-style/vl-paragraph.css';
+import { vlParagraphStyles } from '../paragraph-style/vl-paragraph-style.css';
 import { paragraphDefaults } from './vl-paragraph.defaults';
 
 @webComponent('vl-paragraph')

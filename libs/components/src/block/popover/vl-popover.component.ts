@@ -8,7 +8,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import FloatingController from './vl-floating-ui.controller';
 import { VlPopoverActionListComponent } from './vl-popover-action-list.component';
 import { VlPopoverActionComponent } from './vl-popover-action.component';
-import popoverUigStyle from './vl-popover.uig-css';
+import { vlPopoverFluxStyles } from './vl-popover.flux-css';
 
 @customElement('vl-popover')
 export class VlPopoverComponent extends BaseLitElement {
@@ -28,7 +28,7 @@ export class VlPopoverComponent extends BaseLitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, vlLegacyStyles, popoverUigStyle];
+        return [resetStyle, vlLegacyStyles, vlPopoverFluxStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -42,6 +42,22 @@ export class VlPopoverComponent extends BaseLitElement {
             hideArrow: { type: Boolean, attribute: 'hide-arrow' },
             hideOnClick: { type: Boolean, attribute: 'hide-on-click' },
         };
+    }
+
+    show = () => {
+        this.open = true;
+    };
+
+    hide = () => {
+        this.open = false;
+    };
+
+    toggle() {
+        if (this.open) {
+            this.hide();
+        } else {
+            this.show();
+        }
     }
 
     protected firstUpdated() {
@@ -80,22 +96,6 @@ export class VlPopoverComponent extends BaseLitElement {
             this.hidden = true;
         }
         this.popup.getReferenceElement()?.setAttribute('aria-expanded', this.open ? 'true' : 'false');
-    }
-
-    show = () => {
-        this.open = true;
-    };
-
-    hide = () => {
-        this.open = false;
-    };
-
-    toggle() {
-        if (this.open) {
-            this.hide();
-        } else {
-            this.show();
-        }
     }
 
     private popupOptions() {

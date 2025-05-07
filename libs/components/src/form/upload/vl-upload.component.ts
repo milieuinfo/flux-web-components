@@ -9,7 +9,7 @@ import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { FormControl } from '../form-control/form-control';
 import { uploadDefaults } from './vl-upload.defaults';
-import uploadUigStyle from './vl-upload.uig-css';
+import { vlUploadFluxStyles } from './vl-upload.flux-css';
 
 // Definieer een union type dat rekening houdt met beide manieren waarop Dropzone kan worden geëxporteerd
 type DropzoneType =
@@ -69,7 +69,7 @@ export class VlUploadComponent extends FormControl {
     static formControlValidators = [...FormControl.formControlValidators, dropzoneValidator];
 
     static get styles(): CSSResult[] {
-        return [resetStyle, baseStyle, linkStyle, uploadStyle, uploadUigStyle, iconStyle, accessibilityStyle];
+        return [resetStyle, baseStyle, linkStyle, uploadStyle, vlUploadFluxStyles, iconStyle, accessibilityStyle];
     }
 
     static get properties(): PropertyDeclarations {

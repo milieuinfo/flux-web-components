@@ -1,7 +1,7 @@
 import { BaseElementOfType, webComponent } from '@domg-wc/common';
 import { vlGridStyles, vlResetStyles } from '@domg-wc/styles';
 import { contactCardStyle } from '@domg/govflanders-style/component';
-import contactCardUigStyle from './vl-contact-card.uig-css';
+import { vlContactCardFluxStyles } from './vl-contact-card.flux-css';
 
 @webComponent('vl-contact-card')
 export class VlContactCardComponent extends BaseElementOfType(HTMLElement) {
@@ -10,7 +10,7 @@ export class VlContactCardComponent extends BaseElementOfType(HTMLElement) {
             <style>
                 ${vlResetStyles}
                 ${contactCardStyle}
-                ${contactCardUigStyle}
+                ${vlContactCardFluxStyles}
                 ${vlGridStyles}
             </style>
             <div class="vl-contact-data">

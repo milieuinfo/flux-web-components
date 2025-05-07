@@ -1,8 +1,8 @@
-import { html, PropertyDeclarations, TemplateResult, CSSResult } from 'lit';
-import { customElement } from 'lit/decorators.js';
 import { BaseLitElement } from '@domg-wc/common';
-import legendStyles from '../legend/vl-map-legend.uig-css';
-import legendItemStyles from './vl-map-legend-item.uig-css';
+import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import { vlMapLegendFluxStyles } from '../legend/vl-map-legend.flux-css';
+import { vlMapLegendItemFluxStyles } from './vl-map-legend-item.flux-css';
 
 @customElement('vl-map-legend-item')
 export class VlMapLegendItem extends BaseLitElement {
@@ -13,7 +13,7 @@ export class VlMapLegendItem extends BaseLitElement {
     iconTextColor = '';
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [legendStyles, legendItemStyles];
+        return [vlMapLegendFluxStyles, vlMapLegendItemFluxStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -26,12 +26,12 @@ export class VlMapLegendItem extends BaseLitElement {
 
     protected render(): TemplateResult {
         return html`
-            <div id="legend-item" class="uig-map-legend-item">
-                <div class="uig-map-legend-icon-container">
+            <div id="legend-item" class="flux-map-legend-item">
+                <div class="flux-map-legend-icon-container">
                     ${this.icon}
                     <slot name="icon"></slot>
                 </div>
-                <span id="label" class="uig-map-legend-text">
+                <span id="label" class="flux-map-legend-text">
                     ${this.label}
                     <slot name="label"></slot>
                 </span>

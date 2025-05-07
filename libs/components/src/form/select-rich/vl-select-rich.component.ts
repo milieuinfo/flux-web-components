@@ -1,5 +1,4 @@
 import { webComponent } from '@domg-wc/common';
-import { SelectRichOption } from './vl-select-rich.model';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { iconStyle } from '@domg/govflanders-style/component';
 import { FormValue } from '@open-wc/form-control/src/types';
@@ -10,9 +9,10 @@ import { classMap } from 'lit/directives/class-map.js';
 import { FormControl } from '../form-control';
 import { inputFieldStyles } from '../input-field';
 import multiselectStyle from './styles/vl-multiselect.dv-css';
-import selectRichUigStyle from './styles/vl-select-rich.uig-css';
+import { vlSelectRichFluxStyles } from './styles/vl-select-rich.flux-css';
 import selectStyle from './styles/vl-select.dv-css';
 import { selectRichDefaults } from './vl-select-rich.defaults';
+import { SelectRichOption } from './vl-select-rich.model';
 
 // web-dev-server (rollup) fix: ambiguous indirect export
 export const DEFAULT_CLASSNAMES = choices.DEFAULT_CLASSNAMES;
@@ -23,7 +23,11 @@ export type Choices = choices.default;
 export class VlSelectRichComponent extends FormControl {
     // Properties
     options = selectRichDefaults.options;
-
+    protected placeholder = selectRichDefaults.placeholder;
+    protected search = selectRichDefaults.search;
+    protected searchPlaceholder = selectRichDefaults.searchPlaceholder;
+    // Variables
+    protected choices: Choices | null = null;
     // Attributes
     private notDeletable = selectRichDefaults.notDeletable;
     private multiple = selectRichDefaults.multiple;
@@ -31,20 +35,27 @@ export class VlSelectRichComponent extends FormControl {
     private resultLimit = selectRichDefaults.resultLimit;
     private noResultsText = selectRichDefaults.noResultsText;
     private noChoicesText = selectRichDefaults.noChoicesText;
-    protected placeholder = selectRichDefaults.placeholder;
-    protected search = selectRichDefaults.search;
-    protected searchPlaceholder = selectRichDefaults.searchPlaceholder;
-
     // State
     private value: FormValue = null;
     private dispatchInput = false;
-
-    // Variables
-    protected choices: Choices | null = null;
     private initialOptions: SelectRichOption[] = [];
 
+    constructor() {
+        super();
+
+        this.submitFormOnEnter = false;
+    }
+
     static get styles(): CSSResult[] {
-        return [resetStyle, baseStyle, inputFieldStyles, selectStyle, multiselectStyle, iconStyle, selectRichUigStyle];
+        return [
+            resetStyle,
+            baseStyle,
+            inputFieldStyles,
+            selectStyle,
+            multiselectStyle,
+            iconStyle,
+            vlSelectRichFluxStyles,
+        ];
     }
 
     static get properties(): PropertyDeclarations {
@@ -74,10 +85,8 @@ export class VlSelectRichComponent extends FormControl {
         };
     }
 
-    constructor() {
-        super();
-
-        this.submitFormOnEnter = false;
+    get validationTarget(): HTMLSelectElement | null | undefined {
+        return this.shadowRoot?.querySelector('select');
     }
 
     firstUpdated(changedProperties: Map<string, unknown>) {
@@ -180,10 +189,6 @@ export class VlSelectRichComponent extends FormControl {
         `;
     }
 
-    get validationTarget(): HTMLSelectElement | null | undefined {
-        return this.shadowRoot?.querySelector('select');
-    }
-
     resetFormControl() {
         super.resetFormControl();
 
@@ -192,6 +197,13 @@ export class VlSelectRichComponent extends FormControl {
 
     getSelected(): string | string[] | null {
         return this.multiple ? this.getSelectedValues() : this.getSelectedValues()[0] || null;
+    }
+
+    protected onKeydown(event: KeyboardEvent) {
+        // de keyboard-events mogen niet buiten deze component bubbelen
+        // om te vermijden dat - bij integratie in bvb. de tabs - navigeren met de pijltjes een tab wissel veroorzaakt
+        event.stopPropagation();
+        super.onKeydown(event);
     }
 
     private getSelectedValues(): string[] {
@@ -348,13 +360,6 @@ export class VlSelectRichComponent extends FormControl {
                 };
             },
         };
-    }
-
-    protected onKeydown(event: KeyboardEvent) {
-        // de keyboard-events mogen niet buiten deze component bubbelen
-        // om te vermijden dat - bij integratie in bvb. de tabs - navigeren met de pijltjes een tab wissel veroorzaakt
-        event.stopPropagation();
-        super.onKeydown(event);
     }
 
     private getOptions(): SelectRichOption[] {

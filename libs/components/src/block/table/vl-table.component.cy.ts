@@ -10,7 +10,7 @@ const mountDefault = ({
     matrix,
     grid,
     zebra,
-    uigZebra,
+    fluxZebra,
     collapsedM,
     collapsedS,
     collapsedXS,
@@ -21,7 +21,7 @@ const mountDefault = ({
             ?matrix=${matrix}
             ?grid=${grid}
             ?zebra=${zebra}
-            ?uig-zebra=${uigZebra}
+            ?flux-zebra=${fluxZebra}
             ?collapsed-m=${collapsedM}
             ?collapsed-s=${collapsedS}
             ?collapsed-xs=${collapsedXS}
@@ -160,7 +160,7 @@ const mountExpandable = ({
     matrix,
     grid,
     zebra,
-    uigZebra,
+    fluxZebra,
     collapsedM,
     collapsedS,
     collapsedXS,
@@ -172,7 +172,7 @@ const mountExpandable = ({
             ?matrix=${matrix}
             ?grid=${grid}
             ?zebra=${zebra}
-            ?uig-zebra=${uigZebra}
+            ?flux-zebra=${fluxZebra}
             ?collapsed-m=${collapsedM}
             ?collapsed-s=${collapsedS}
             ?collapsed-xs=${collapsedXS}
@@ -440,7 +440,7 @@ const mountExpandableCustom = ({
     matrix,
     grid,
     zebra,
-    uigZebra,
+    fluxZebra,
     collapsedM,
     collapsedS,
     collapsedXS,
@@ -452,7 +452,7 @@ const mountExpandableCustom = ({
             ?matrix=${matrix}
             ?grid=${grid}
             ?zebra=${zebra}
-            ?uig-zebra=${uigZebra}
+            ?flux-zebra=${fluxZebra}
             ?collapsed-m=${collapsedM}
             ?collapsed-s=${collapsedS}
             ?collapsed-xs=${collapsedXS}

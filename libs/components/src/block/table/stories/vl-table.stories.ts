@@ -24,13 +24,13 @@ export default {
 
 export const TableDefault = story(
     tableArgs,
-    ({ hover, matrix, grid, zebra, uigZebra, collapsedM, collapsedS, collapsedXS }) => html`
+    ({ hover, matrix, grid, zebra, fluxZebra, collapsedM, collapsedS, collapsedXS }) => html`
         <vl-table
             ?hover=${hover}
             ?matrix=${matrix}
             ?grid=${grid}
             ?zebra=${zebra}
-            ?uig-zebra=${uigZebra}
+            ?flux-zebra=${fluxZebra}
             ?collapsed-m=${collapsedM}
             ?collapsed-s=${collapsedS}
             ?collapsed-xs=${collapsedXS}
@@ -128,13 +128,13 @@ TableDefault.storyName = 'vl-table - default';
 
 export const TableJoinedRowTitles = story(
     tableArgs,
-    ({ hover, matrix, grid, zebra, uigZebra, collapsedM, collapsedS, collapsedXS }) => html`
+    ({ hover, matrix, grid, zebra, fluxZebra, collapsedM, collapsedS, collapsedXS }) => html`
         <vl-table
             ?hover=${hover}
             ?matrix=${matrix}
             ?grid=${grid}
             ?zebra=${zebra}
-            ?uig-zebra=${uigZebra}
+            ?flux-zebra=${fluxZebra}
             ?collapsed-m=${collapsedM}
             ?collapsed-s=${collapsedS}
             ?collapsed-xs=${collapsedXS}
@@ -193,14 +193,14 @@ TableJoinedRowTitles.storyName = 'vl-table - joined row titles';
 
 export const TableExpandable = story(
     tableArgs,
-    ({ hover, matrix, grid, zebra, uigZebra, collapsedM, collapsedS, collapsedXS }: typeof tableArgs) => {
+    ({ hover, matrix, grid, zebra, fluxZebra, collapsedM, collapsedS, collapsedXS }: typeof tableArgs) => {
         return html`
             <vl-table
                 ?hover=${hover}
                 ?matrix=${matrix}
                 ?grid=${grid}
                 ?zebra=${zebra}
-                ?uig-zebra=${uigZebra}
+                ?flux-zebra=${fluxZebra}
                 ?collapsed-m=${collapsedM}
                 ?collapsed-s=${collapsedS}
                 ?collapsed-xs=${collapsedXS}
@@ -281,7 +281,7 @@ TableExpandable.storyName = 'vl-table - expandable';
 
 export const TableExpandableCustomToggleDetailsColumn = story(
     tableArgs,
-    ({ hover, matrix, grid, zebra, uigZebra, collapsedM, collapsedS, collapsedXS }) => {
+    ({ hover, matrix, grid, zebra, fluxZebra, collapsedM, collapsedS, collapsedXS }) => {
         let table: (VlTableComponent & Element) | null;
         customElements.whenDefined('vl-data-table').then(() => {
             table = document.querySelector<VlTableComponent & Element>('#vl-table-with-custom-expandable-details');
@@ -293,7 +293,7 @@ export const TableExpandableCustomToggleDetailsColumn = story(
                 ?matrix=${matrix}
                 ?grid=${grid}
                 ?zebra=${zebra}
-                ?uig-zebra=${uigZebra}
+                ?flux-zebra=${fluxZebra}
                 ?collapsed-m=${collapsedM}
                 ?collapsed-s=${collapsedS}
                 ?collapsed-xs=${collapsedXS}

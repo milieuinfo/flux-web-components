@@ -1,10 +1,11 @@
 import { registerWebComponents, webComponentPromised } from '@domg-wc/common';
+import { vlLegacyStyles } from '@domg-wc/styles';
+import { RichData, VlRichData } from '../rich-data/vl-rich-data.component';
 import { VlTableComponent } from '../table/vl-table.component';
 import { tableStyles } from '../table/vl-table.css';
-import { RichData, VlRichData } from '../rich-data/vl-rich-data.component';
 import { VlRichDataField } from './vl-rich-data-field.component';
 import { VlRichDataSorter } from './vl-rich-data-sorter.component';
-import styles from './vl-rich-data-table.uig-css';
+import { vlRichDataTableFluxStyles } from './vl-rich-data-table.flux-css';
 
 type ForEachNodeFn = (value: Node, key: number, parent: NodeList) => void;
 type Sorter = Pick<VlRichDataSorter, 'name' | 'direction' | 'priority'>;
@@ -18,23 +19,12 @@ export class VlRichDataTable extends VlRichData {
         registerWebComponents([VlTableComponent]);
     }
 
-    static get _observedAttributes() {
-        return super._observedAttributes.concat(['data', 'collapsed-m', 'collapsed-s', 'collapsed-xs']);
-    }
-
-    static get _tableAttributes(): string[] {
-        return ['collapsed-m', 'collapsed-s', 'collapsed-xs'];
-    }
-
-    static get is(): string {
-        return 'vl-rich-data-table';
-    }
-
     constructor() {
         super(
             `
           <style>
-            ${styles.join('')}
+            ${vlLegacyStyles.join('')}
+            ${vlRichDataTableFluxStyles}
             ${tableStyles}
           </style>
         <vl-table slot="content">
@@ -50,18 +40,24 @@ export class VlRichDataTable extends VlRichData {
         this.__observeSorters();
     }
 
-    connectedCallback() {
-        super.connectedCallback();
-        this._render();
-        this.__observeFields();
+    static get _observedAttributes() {
+        return super._observedAttributes.concat(['data', 'collapsed-m', 'collapsed-s', 'collapsed-xs']);
     }
 
-    attributeChangedCallback(attr: string, oldValue: any, newValue: any) {
-        super.attributeChangedCallback(attr, oldValue, newValue);
-        if (VlRichDataTable._tableAttributes.includes(attr)) {
-            const withoutDataVlPrefix = attr.substring(''.length);
-            this.__table.toggleAttribute(withoutDataVlPrefix);
-        }
+    static get _tableAttributes(): string[] {
+        return ['collapsed-m', 'collapsed-s', 'collapsed-xs'];
+    }
+
+    static get is(): string {
+        return 'vl-rich-data-table';
+    }
+
+    /**
+     * Geeft de data terug die in de tabel wordt getoond.
+     * @return {Object[]}
+     */
+    get data(): RichData {
+        return super.data;
     }
 
     /**
@@ -81,14 +77,6 @@ export class VlRichDataTable extends VlRichData {
                 throw error;
             }
         }
-    }
-
-    /**
-     * Geeft de data terug die in de tabel wordt getoond.
-     * @return {Object[]}
-     */
-    get data(): RichData {
-        return super.data;
     }
 
     get __activeSorters(): VlRichDataSorter[] | undefined {
@@ -153,22 +141,8 @@ export class VlRichDataTable extends VlRichData {
         return this.__table.querySelector('tbody');
     }
 
-    __getState({ paging }: any) {
-        const state: any = super.__getState({ paging });
-        state.sorting = this.__sortingState;
-        return state;
-    }
-
     get _isMultisortingEnabled(): boolean {
         return this.getAttribute('multi-sort') !== null;
-    }
-
-    _validate(data: unknown[]): void {
-        if (data) {
-            if (!Array.isArray(data)) {
-                throw new Error('vl-rich-data-table verwacht een Array als data');
-            }
-        }
     }
 
     set _sorting(sorting: (unknown & { name: string; for: string; direction: string; priority: string })[]) {
@@ -184,6 +158,34 @@ export class VlRichDataTable extends VlRichData {
 
     get _hasResults(): boolean {
         return Boolean(this._data);
+    }
+
+    connectedCallback() {
+        super.connectedCallback();
+        this._render();
+        this.__observeFields();
+    }
+
+    attributeChangedCallback(attr: string, oldValue: any, newValue: any) {
+        super.attributeChangedCallback(attr, oldValue, newValue);
+        if (VlRichDataTable._tableAttributes.includes(attr)) {
+            const withoutDataVlPrefix = attr.substring(''.length);
+            this.__table.toggleAttribute(withoutDataVlPrefix);
+        }
+    }
+
+    __getState({ paging }: any) {
+        const state: any = super.__getState({ paging });
+        state.sorting = this.__sortingState;
+        return state;
+    }
+
+    _validate(data: unknown[]): void {
+        if (data) {
+            if (!Array.isArray(data)) {
+                throw new Error('vl-rich-data-table verwacht een Array als data');
+            }
+        }
     }
 
     _render(): void {

@@ -3,7 +3,7 @@ import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { BaseLitElement, findNodesForSlot } from '@domg-wc/common';
 import { customElement } from 'lit/decorators.js';
 import { resetStyle } from '@domg/govflanders-style/common';
-import cascaderItemUigStyle from './vl-cascader-item.uig-css';
+import { vlCascaderItemFluxStyles } from './vl-cascader-item.flux-css';
 import { CASCADER_MESSAGES, CASCADER_SLOTS, CascaderItem } from './vl-cascader.model';
 import { defaultItemActionTemplate, getDefaultItemTemplate, getTemplateFunctionForType } from './vl-cascader.utils';
 import { VlCascaderComponent } from './vl-cascader.component';
@@ -26,7 +26,7 @@ export class VlCascaderItemComponent extends BaseLitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, vlGroupStyles, cascaderItemUigStyle];
+        return [resetStyle, vlGroupStyles, vlCascaderItemFluxStyles];
     }
 
     connectedCallback() {
