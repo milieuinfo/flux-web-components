@@ -35,7 +35,7 @@ const mainHtml = html`
                 https://images.unsplash.com/photo-1561070791-2526d30994b5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80 2000w
             "
         />
-        <a slot="context-link" href="https://webcomponenten.omgeving.vlaanderen.be/storybook/">uig-webcomponents</a>
+        <a slot="context-link" href="https://webcomponenten.omgeving.vlaanderen.be/storybook/">flux-webcomponents</a>
         <a slot="title-link" href="https://webcomponenten.omgeving.vlaanderen.be/storybook/">${version}</a>
     </vl-content-header>
     <section data-cy="template-content" class="vl-grid">

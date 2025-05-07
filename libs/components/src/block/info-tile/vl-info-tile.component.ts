@@ -5,7 +5,7 @@ import { accordionStyle, iconStyle, infoTileStyle, linkStyle, toggleStyle } from
 import '../accordion/vl-accordion.lib.js';
 import { VlAccordionComponent } from '../accordion';
 import 'reflect-metadata';
-import infoTileUigStyle from './vl-info-tile.uig-css';
+import { vlInfoTyleFluxStyles } from './vl-info-tile.flux-css';
 import { INFO_TILE_SIZE } from './vl-info-tile.model';
 
 declare const vl: VL;
@@ -27,7 +27,7 @@ export class VlInfoTile extends BaseHTMLElement {
             ${baseStyle}
             ${vlLegacyStyles.join('')}
             ${infoTileStyle}
-            ${infoTileUigStyle}
+            ${vlInfoTyleFluxStyles}
             ${linkStyle}
             ${toggleStyle}
             ${accordionStyle}
@@ -109,6 +109,18 @@ export class VlInfoTile extends BaseHTMLElement {
         return this._element?.querySelector('button');
     }
 
+    get _toggleElement() {
+        return this._shadow?.querySelector<HTMLElement>('.js-vl-accordion__toggle');
+    }
+
+    get _subtitleElement() {
+        return this._shadow?.querySelector('slot[name="subtitle"]');
+    }
+
+    get _contentElement() {
+        return this._shadow?.querySelector('slot[name="content"]');
+    }
+
     get _footerElement(): HTMLElement | null {
         return this._element ? (this._element.querySelector('footer') as HTMLElement) : null;
     }
@@ -131,18 +143,6 @@ export class VlInfoTile extends BaseHTMLElement {
         if (this.isOpen) {
             this.toggle();
         }
-    }
-
-    get _toggleElement() {
-        return this._shadow?.querySelector<HTMLElement>('.js-vl-accordion__toggle');
-    }
-
-    get _subtitleElement() {
-        return this._shadow?.querySelector('slot[name="subtitle"]');
-    }
-
-    get _contentElement() {
-        return this._shadow?.querySelector('slot[name="content"]');
     }
 
     _centerChangedCallback(oldValue: string, newValue: string) {

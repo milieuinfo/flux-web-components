@@ -1,12 +1,12 @@
 import { BaseLitElement, registerWebComponents } from '@domg-wc/common';
 import { accessibilityStyle, resetStyle } from '@domg/govflanders-style/common';
 import { progressBarStyle } from '@domg/govflanders-style/component';
-import { type PropertyDeclarations, html, nothing } from 'lit';
+import { html, nothing, type PropertyDeclarations } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import 'reflect-metadata';
 import { VlPopoverComponent } from '../popover';
-import progressBarUigStyle from './vl-progress-bar.uig-css';
+import { vlProgressBarFluxStyles } from './vl-progress-bar.flux-css';
 
 class ProgressBar {
     updateStep(shadowRoot: ShadowRoot | null, activeStep: number, focusOnChange: boolean) {
@@ -35,8 +35,18 @@ export class VlProgressBarComponent extends BaseLitElement {
         registerWebComponents([VlPopoverComponent]);
     }
 
+    constructor() {
+        super();
+        this.numeric = false;
+        this.focusOnChange = false;
+        this.activeStep = 1;
+        this.progressBar = new ProgressBar();
+        this.steps = [];
+        this.showLabels = false;
+    }
+
     static get styles() {
-        return [resetStyle, progressBarStyle, progressBarUigStyle, accessibilityStyle];
+        return [resetStyle, progressBarStyle, vlProgressBarFluxStyles, accessibilityStyle];
     }
 
     static get properties(): PropertyDeclarations {
@@ -55,16 +65,6 @@ export class VlProgressBarComponent extends BaseLitElement {
             steps: { type: Array },
             showLabels: { type: Boolean, attribute: 'show-labels', reflect: true },
         };
-    }
-
-    constructor() {
-        super();
-        this.numeric = false;
-        this.focusOnChange = false;
-        this.activeStep = 1;
-        this.progressBar = new ProgressBar();
-        this.steps = [];
-        this.showLabels = false;
     }
 
     updated() {

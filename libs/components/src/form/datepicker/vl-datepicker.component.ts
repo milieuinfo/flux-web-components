@@ -17,7 +17,7 @@ import { CleaveInstance, MaskOptions } from '../models/cleave.model';
 import { createDateMask, createTimeMask } from './masks';
 import { maskValidator } from './validators';
 import { datepickerDefaults } from './vl-datepicker.defaults';
-import datepickerUigStyle from './vl-datepicker.uig-css';
+import { vlDatepickerFluxStyles } from './vl-datepicker.flux-css';
 
 const dateRangeSeparator = ' tot en met ';
 
@@ -62,7 +62,7 @@ export class VlDatepickerComponent extends FormControl {
             inputFieldStyles,
             tooltipStyle,
             datepickerStyle,
-            datepickerUigStyle,
+            vlDatepickerFluxStyles,
             vlGroupStyles,
             vlInputAddonStyles,
         ];

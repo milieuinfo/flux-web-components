@@ -1,12 +1,12 @@
 import { BaseLitElement, ICON_PLACEMENT, webComponent } from '@domg-wc/common';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
-import { vlIconStyles } from '../icon-style/vl-icon.css';
-import { vlLinkIconStyles } from '../link-style/vl-link-icon.css';
-import { vlLinkStyles } from '../link-style/vl-link.css';
+import { vlIconStyles } from '../icon-style/vl-icon-style.css';
+import { vlLinkIconStyles } from '../link-style/vl-link-icon-style.css';
+import { vlLinkStyles } from '../link-style/vl-link-style.css';
 import { buttonAsLinkStyles } from './vl-button-as-link.css';
 import { linkDefaults } from './vl-link.defaults';
-import { vlLinkUigStyle } from './vl-link.uig-css';
+import { vlLinkFluxStyles } from './vl-link.flux-css';
 
 @webComponent('vl-link')
 export class VlLinkComponent extends BaseLitElement {
@@ -21,7 +21,7 @@ export class VlLinkComponent extends BaseLitElement {
     private buttonAsLink = linkDefaults.buttonAsLink;
 
     static get styles(): CSSResult[] {
-        return [vlLinkUigStyle, vlLinkStyles(), vlLinkIconStyles, buttonAsLinkStyles, vlIconStyles];
+        return [vlLinkFluxStyles, vlLinkStyles(), vlLinkIconStyles, buttonAsLinkStyles, vlIconStyles];
     }
 
     static get properties(): PropertyDeclarations {

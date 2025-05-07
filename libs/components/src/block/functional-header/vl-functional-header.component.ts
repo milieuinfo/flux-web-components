@@ -2,11 +2,11 @@ import { BaseElementOfType, GlobalStyles, MARGINS, registerWebComponents, webCom
 import { vlContentBlockStyles, vlGridStyles, vlLegacyStyles, vlSectionStyles } from '@domg-wc/styles';
 import { functionalHeaderStyle } from '@domg/govflanders-style/component';
 import { VlIconComponent } from '../../atom/icon';
-import { vlIconStyles } from '../../atom/icon-style/vl-icon.css';
-import { vlLinkIconStyles } from '../../atom/link-style/vl-link-icon.css';
-import { vlLinkStyles } from '../../atom/link-style/vl-link.css';
+import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
+import { vlLinkIconStyles } from '../../atom/link-style/vl-link-icon-style.css';
+import { vlLinkStyles } from '../../atom/link-style/vl-link-style.css';
 import { vlTitleStyles } from '../../atom/title/vl-title.css';
-import { functionalHeaderUigStyle } from './vl-functional-header.uig-css';
+import { vlFunctionalHeaderFluxStyles } from './vl-functional-header.flux-css';
 
 GlobalStyles.getInstance().register();
 
@@ -20,8 +20,8 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
         super(`
           <header class="vl-functional-header">
             <div class="vl-content-block">
-              <div class="vl-functional-header__row uig-functional-header__row">
-                <div class="uig-functional-header__content">
+              <div class="vl-functional-header__row flux-functional-header__row">
+                <div class="flux-functional-header__content">
                     <div class="vl-functional-header__content">
                         <slot name="top-left"></slot>
                     </div>
@@ -33,7 +33,7 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
                         </h1>
                     </div>
                 </div>
-                <div class="uig-functional-header__top-right">
+                <div class="flux-functional-header__top-right">
                     <slot name="top-right"></slot>
                 </div>
                 <div id="actions" class="vl-functional-header__actions">
@@ -159,7 +159,7 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
                 vlContentBlockStyles.styleSheet,
                 ...vlTitleStyles.map((style) => style.styleSheet),
                 functionalHeaderStyle.styleSheet,
-                functionalHeaderUigStyle.styleSheet,
+                vlFunctionalHeaderFluxStyles.styleSheet,
                 vlLinkStyles('.vl-link').styleSheet,
                 vlLinkIconStyles.styleSheet,
                 vlIconStyles.styleSheet,

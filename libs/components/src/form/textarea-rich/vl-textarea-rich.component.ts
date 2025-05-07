@@ -2,7 +2,7 @@ import { webComponent } from '@domg-wc/common';
 import { CSSResult, PropertyDeclarations } from 'lit';
 import tinymce, { Editor } from 'tinymce';
 import { VlTextareaComponent } from '../textarea/vl-textarea.component';
-import textareaRichUigStyle from './vl-textarea-rich.component.uig-css';
+import { vlTextareaRichComponentFluxStyles } from './vl-textarea-rich.component.flux-css';
 import { textareaRichDefaults } from './vl-textarea-rich.defaults';
 
 @webComponent('vl-textarea-rich')
@@ -18,8 +18,17 @@ export class VlTextareaRichComponent extends VlTextareaComponent {
     // Variables
     private editor: Editor | null = null;
 
+    constructor() {
+        super();
+
+        if (!this.id) {
+            // Zet id als deze nog niet bestaat zodat TinyMCE een uniek id heeft
+            this.id = tinymce.DOM.uniqueId();
+        }
+    }
+
     static get styles(): CSSResult[] {
-        return [...VlTextareaComponent.styles, textareaRichUigStyle];
+        return [...VlTextareaComponent.styles, vlTextareaRichComponentFluxStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -29,15 +38,6 @@ export class VlTextareaRichComponent extends VlTextareaComponent {
             preview: { type: Boolean },
             customConfig: { type: Object },
         };
-    }
-
-    constructor() {
-        super();
-
-        if (!this.id) {
-            // Zet id als deze nog niet bestaat zodat TinyMCE een uniek id heeft
-            this.id = tinymce.DOM.uniqueId();
-        }
     }
 
     firstUpdated(changedProperties: Map<string, unknown>) {

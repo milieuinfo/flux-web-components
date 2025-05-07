@@ -3,9 +3,9 @@ import { vlGridStyles, vlGroupStyles, vlStackedStyles } from '@domg-wc/styles';
 import { accessibilityStyle, resetStyle } from '@domg/govflanders-style/common';
 import { modalStyle } from '@domg/govflanders-style/component';
 import './vl-modal.lib.js';
-import modalUigStyle from './vl-modal.uig-css';
+import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { VlLinkComponent } from '../../atom/link';
-import { vlIconStyles } from '../../atom/icon-style/vl-icon.css';
+import { vlModalFluxStyles } from './vl-modal.flux-css';
 
 declare const vl: any;
 
@@ -15,24 +15,12 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
         registerWebComponents([VlLinkComponent]);
     }
 
-    static get _observedAttributes() {
-        return ['id', 'title', 'closable', 'not-cancellable', 'open', 'not-auto-closable', 'allow-overflow'];
-    }
-
-    static get _closableAttribute() {
-        return 'modal-closable';
-    }
-
-    static get _closeAttribute() {
-        return 'modal-close';
-    }
-
     constructor() {
         super(`
             <style>
                 ${resetStyle}
                 ${modalStyle}
-                ${modalUigStyle}
+                ${vlModalFluxStyles}
                 ${accessibilityStyle}
                 ${vlGroupStyles}
                 ${vlGridStyles}
@@ -61,16 +49,16 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
         `);
     }
 
-    connectedCallback() {
-        super.connectedCallback();
-
-        this.dress();
-
-        this._shadow.host.addEventListener('keyup', this._onEscape);
+    static get _observedAttributes() {
+        return ['id', 'title', 'closable', 'not-cancellable', 'open', 'not-auto-closable', 'allow-overflow'];
     }
 
-    disconnectedCallback() {
-        this._shadow.host.removeEventListener('keyup', this._onEscape);
+    static get _closableAttribute() {
+        return 'modal-closable';
+    }
+
+    static get _closeAttribute() {
+        return 'modal-close';
     }
 
     get _dialogElement(): HTMLDialogElement {
@@ -103,6 +91,18 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
 
     get _dressed() {
         return !!this.getAttribute('modal-dressed');
+    }
+
+    connectedCallback() {
+        super.connectedCallback();
+
+        this.dress();
+
+        this._shadow.host.addEventListener('keyup', this._onEscape);
+    }
+
+    disconnectedCallback() {
+        this._shadow.host.removeEventListener('keyup', this._onEscape);
     }
 
     /**
