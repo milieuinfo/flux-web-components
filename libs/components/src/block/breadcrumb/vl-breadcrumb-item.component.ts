@@ -2,7 +2,7 @@ import { breadcrumbStyle } from '@domg/govflanders-style/component';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import breadcrumbUigStyle from './vl-breadcrumb.uig-css';
+import { vlBreadcrumbFluxStyles } from './vl-breadcrumb.flux-css';
 import { BaseLitElement } from '@domg-wc/common';
 
 @customElement('vl-breadcrumb-item')
@@ -20,7 +20,7 @@ export class VlBreadcrumbItemComponent extends BaseLitElement {
     }
 
     static get styles() {
-        return [resetStyle, breadcrumbStyle, breadcrumbUigStyle];
+        return [resetStyle, breadcrumbStyle, vlBreadcrumbFluxStyles];
     }
 
     render() {

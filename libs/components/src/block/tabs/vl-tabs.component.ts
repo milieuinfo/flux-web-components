@@ -8,7 +8,7 @@ import { VlTabSectionComponent } from './vl-tab-section.component';
 import { VlTabComponent } from './vl-tab.component';
 import { VlTabsPaneComponent } from './vl-tabs-pane.component';
 import { tabsStyle } from './vl-tabs.css';
-import tabsUigStyle from './vl-tabs.uig-css';
+import { vlTabsFluxStyles } from './vl-tabs.flux-css';
 
 declare const vl: VL;
 declare const window: Window;
@@ -46,6 +46,38 @@ export class VlTabsComponent extends BaseLitElement {
         };
     }
 
+    private static get dressedAttributeName(): string {
+        return 'tabs-dressed';
+    }
+
+    private get dressed(): boolean {
+        return this.hasAttribute(VlTabsComponent.dressedAttributeName);
+    }
+
+    private get tabsElement(): HTMLDivElement {
+        return this.shadowRoot?.getElementById('tabs') as HTMLDivElement;
+    }
+
+    private get tabListElement(): HTMLUListElement {
+        return this.shadowRoot?.getElementById('tab-list') as HTMLUListElement;
+    }
+
+    private get tabsToggleElement(): HTMLButtonElement {
+        return this.shadowRoot?.querySelector('.vl-tabs__toggle') as HTMLButtonElement;
+    }
+
+    private get responsiveLabelElement(): HTMLSpanElement {
+        return this.shadowRoot?.getElementById('tabs-responsive-label') as HTMLSpanElement;
+    }
+
+    private get tabPanes(): VlTabsPaneComponent[] {
+        return [...this.querySelectorAll<VlTabsPaneComponent & Element>(VlTabsPaneComponent.is)];
+    }
+
+    private get hrefWithFallback(): string {
+        return this.getAttribute('href') || window.location.pathname + window.location.search;
+    }
+
     connectedCallback() {
         super.connectedCallback();
     }
@@ -60,7 +92,7 @@ export class VlTabsComponent extends BaseLitElement {
             <style>
                 ${resetStyle}
                 ${tabsStyle}
-                ${tabsUigStyle}
+                ${vlTabsFluxStyles}
                 ${linkStyle}
                 ${baseStyle}
                 ${vlLegacyStyles.join('')}
@@ -87,12 +119,45 @@ export class VlTabsComponent extends BaseLitElement {
         this.observer = this.observeTabPanes((mutations: MutationRecord[]) => this.processTabPane(mutations));
     }
 
-    private get dressed(): boolean {
-        return this.hasAttribute(VlTabsComponent.dressedAttributeName);
-    }
+    protected updated(changedProperties: Map<string, unknown>): void {
+        super.updated(changedProperties);
 
-    private static get dressedAttributeName(): string {
-        return 'tabs-dressed';
+        if (changedProperties.has('alt')) {
+            if (this.alt) {
+                this.tabListElement.classList.add('vl-tabs--alt');
+            } else {
+                this.tabListElement.classList.remove('vl-tabs--alt');
+            }
+        }
+        if (changedProperties.has('responsiveLabel')) {
+            const value = this.responsiveLabel || 'Navigatie';
+            this.tabsElement.setAttribute('tabs-responsive-label', value);
+            this.responsiveLabelElement.innerHTML = value;
+        }
+        if (changedProperties.has('activeTab')) {
+            this.ready().then(() => {
+                const tab = [...this.tabListElement.children].find(
+                    (tab) => tab.id == this.activeTab
+                ) as VlTabComponent & Element;
+                if (tab && !tab.isActive) {
+                    tab.activate();
+                    if (this.tabsToggleElement && this.tabListElement.getAttribute('show') === 'true') {
+                        // Als de tabsToggle aanwezig is en de tabList open is, klik op de tabsToggle om de tabList te sluiten.
+                        this.tabsToggleElement.click();
+                    }
+                }
+            });
+        }
+        if (changedProperties.has('withinFunctionalHeader')) {
+            if (this.withinFunctionalHeader) {
+                this.classList.add('vl-tabs--within-functional-header');
+            } else {
+                this.classList.remove('vl-tabs--within-functional-header');
+            }
+        }
+        if (changedProperties.has('href')) {
+            [...this.tabListElement.children].forEach((tab) => tab.setAttribute('href', `${this.href}#${tab.id}`));
+        }
     }
 
     private async dress(forced?: boolean): Promise<void> {
@@ -106,26 +171,6 @@ export class VlTabsComponent extends BaseLitElement {
 
     private async ready(): Promise<void> {
         return awaitUntil(() => this.dressed);
-    }
-
-    private get tabsElement(): HTMLDivElement {
-        return this.shadowRoot?.getElementById('tabs') as HTMLDivElement;
-    }
-
-    private get tabListElement(): HTMLUListElement {
-        return this.shadowRoot?.getElementById('tab-list') as HTMLUListElement;
-    }
-
-    private get tabsToggleElement(): HTMLButtonElement {
-        return this.shadowRoot?.querySelector('.vl-tabs__toggle') as HTMLButtonElement;
-    }
-
-    private get responsiveLabelElement(): HTMLSpanElement {
-        return this.shadowRoot?.getElementById('tabs-responsive-label') as HTMLSpanElement;
-    }
-
-    private get tabPanes(): VlTabsPaneComponent[] {
-        return [...this.querySelectorAll<VlTabsPaneComponent & Element>(VlTabsPaneComponent.is)];
     }
 
     private addTab({ tabPane, index }: { tabPane: VlTabsPaneComponent; index?: number }) {
@@ -200,51 +245,6 @@ export class VlTabsComponent extends BaseLitElement {
 
     private renderSections() {
         this.tabPanes.forEach((tabPane, index) => this.addTabSection({ id: tabPane.paneId, index }));
-    }
-
-    protected updated(changedProperties: Map<string, unknown>): void {
-        super.updated(changedProperties);
-
-        if (changedProperties.has('alt')) {
-            if (this.alt) {
-                this.tabListElement.classList.add('vl-tabs--alt');
-            } else {
-                this.tabListElement.classList.remove('vl-tabs--alt');
-            }
-        }
-        if (changedProperties.has('responsiveLabel')) {
-            const value = this.responsiveLabel || 'Navigatie';
-            this.tabsElement.setAttribute('tabs-responsive-label', value);
-            this.responsiveLabelElement.innerHTML = value;
-        }
-        if (changedProperties.has('activeTab')) {
-            this.ready().then(() => {
-                const tab = [...this.tabListElement.children].find(
-                    (tab) => tab.id == this.activeTab
-                ) as VlTabComponent & Element;
-                if (tab && !tab.isActive) {
-                    tab.activate();
-                    if (this.tabsToggleElement && this.tabListElement.getAttribute('show') === 'true') {
-                        // Als de tabsToggle aanwezig is en de tabList open is, klik op de tabsToggle om de tabList te sluiten.
-                        this.tabsToggleElement.click();
-                    }
-                }
-            });
-        }
-        if (changedProperties.has('withinFunctionalHeader')) {
-            if (this.withinFunctionalHeader) {
-                this.classList.add('vl-tabs--within-functional-header');
-            } else {
-                this.classList.remove('vl-tabs--within-functional-header');
-            }
-        }
-        if (changedProperties.has('href')) {
-            [...this.tabListElement.children].forEach((tab) => tab.setAttribute('href', `${this.href}#${tab.id}`));
-        }
-    }
-
-    private get hrefWithFallback(): string {
-        return this.getAttribute('href') || window.location.pathname + window.location.search;
     }
 
     private observeTabPanes(callback: MutationCallback): MutationObserver {

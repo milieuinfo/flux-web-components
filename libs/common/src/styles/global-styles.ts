@@ -1,6 +1,6 @@
 import { vlGlobalStyles, vlLegacyStyles, vlResetStyles } from '@domg-wc/styles';
 import { CSSResult } from 'lit';
-import { UigConfig } from '../config/uig-config';
+import { FluxConfig } from '../config/flux-config';
 
 export class GlobalStyles {
     private static instance: GlobalStyles | null = null;
@@ -23,7 +23,7 @@ export class GlobalStyles {
 
     public register() {
         if (!this.registered) {
-            if (UigConfig.getPreferences().autoRegisterStyles) {
+            if (FluxConfig.getPreferences().autoRegisterStyles) {
                 document.adoptedStyleSheets = [
                     ...document.adoptedStyleSheets,
                     ...(this.defaultStyles.map((style) => style.styleSheet) as CSSStyleSheet[]),

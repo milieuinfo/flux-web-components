@@ -2,7 +2,7 @@
 // DV maakt gebruik van een 'data:' attribuut om een nav-down svg op te halen van w3.org.
 // Hierdoor breekt CSP tenzij we alle 'data:' attributen gaan whitelisten, wat niet de bedoeling is.
 // Deze 'data:' attributen zijn verwijderd zodat we toch CSP compliant kunnen zijn.
-// In de vl-select-rich.uig-css.ts staan de vervangende styles voor de nav-down svg.
+// In de vl-select-rich.flux-css.ts staan de vervangende styles voor de nav-down svg.
 // Er stonden ook een aantal dubbele styles in deze file, deze zijn ook verwijderd.
 
 import { css } from 'lit';

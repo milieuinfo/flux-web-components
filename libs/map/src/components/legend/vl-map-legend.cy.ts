@@ -76,7 +76,7 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
     it('should contain a title', () => {
         cy.get('vl-map-legend')
             .shadow()
-            .find('div.uig-map-legend > div > span.uig-map-legend-text.uig-map-legend-title')
+            .find('div.flux-map-legend > div > span.flux-map-legend-text.flux-map-legend-title')
             .contains('Legende');
     });
 
@@ -86,14 +86,14 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
         cy.get('vl-map-legend')
             .shadow()
             .find(
-                'div.uig-map-legend > div.uig-map-legend-item > div.uig-map-legend-icon-container > div.uig-map-legend-icon'
+                'div.flux-map-legend > div.flux-map-legend-item > div.flux-map-legend-icon-container > div.flux-map-legend-icon'
             )
             .its('length')
             .should('eq', 3);
 
         cy.get('vl-map-legend')
             .shadow()
-            .find('div.uig-map-legend > div.uig-map-legend-item > span.uig-map-legend-text')
+            .find('div.flux-map-legend > div.flux-map-legend-item > span.flux-map-legend-text')
             .each((divElement, index) => {
                 cy.wrap(divElement).should('have.text', expectedTexts[index]);
             });
@@ -102,13 +102,13 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
     it('should set the correct position with top, bottom, left, right attributes', () => {
         cy.get('vl-map-legend')
             .shadow()
-            .find('div.uig-map-legend')
+            .find('div.flux-map-legend')
             .should('have.css', 'right', '12px')
             .should('have.css', 'bottom', '10px');
 
         cy.get('vl-map-legend')
             .shadow()
-            .find('div.uig-map-legend')
+            .find('div.flux-map-legend')
             .should('have.css', 'bottom', '10px')
             .should('have.css', 'right', '12px');
 
@@ -119,7 +119,7 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
 
         cy.get('vl-map-legend')
             .shadow()
-            .find('div.uig-map-legend')
+            .find('div.flux-map-legend')
             .should('have.css', 'right', '10px')
             .should('have.css', 'top', '20px')
             .should('have.css', 'left', '30px')
@@ -129,7 +129,7 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
     it('should set the correct position with the placement attribute', () => {
         cy.get('vl-map-legend')
             .shadow()
-            .find('div.uig-map-legend')
+            .find('div.flux-map-legend')
             .should('have.css', 'right', '12px')
             .should('have.css', 'bottom', '10px');
 
@@ -140,7 +140,7 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
 
         cy.get('vl-map-legend')
             .shadow()
-            .find('div.uig-map-legend')
+            .find('div.flux-map-legend')
             .should('have.css', 'left', '8px')
             .should('have.css', 'bottom', '40px');
 
@@ -148,7 +148,7 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
 
         cy.get('vl-map-legend')
             .shadow()
-            .find('div.uig-map-legend')
+            .find('div.flux-map-legend')
             .should('have.css', 'right', '58px')
             .should('have.css', 'bottom', '10px');
 
@@ -156,7 +156,7 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
 
         cy.get('vl-map-legend')
             .shadow()
-            .find('div.uig-map-legend')
+            .find('div.flux-map-legend')
             .should('have.css', 'left', '10px')
             .should('have.css', 'top', '10px');
 
@@ -164,17 +164,17 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
 
         cy.get('vl-map-legend')
             .shadow()
-            .find('div.uig-map-legend')
+            .find('div.flux-map-legend')
             .should('have.css', 'top', '10px')
             .should('have.css', 'right', '10px');
     });
 
     it('should display the legend items vertically when the layout-vertical attribute is set', () => {
-        cy.get('vl-map-legend').shadow().find('div.uig-map-legend').should('have.css', 'flex-direction', 'row');
+        cy.get('vl-map-legend').shadow().find('div.flux-map-legend').should('have.css', 'flex-direction', 'row');
 
         cy.get('vl-map-legend').invoke('attr', 'layout-vertical', 'true');
 
-        cy.get('vl-map-legend').shadow().find('div.uig-map-legend').should('have.css', 'flex-direction', 'column');
+        cy.get('vl-map-legend').shadow().find('div.flux-map-legend').should('have.css', 'flex-direction', 'column');
     });
 
     it('should be able to hide the title', () => {
@@ -185,7 +185,7 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
 
         cy.get('vl-map-legend')
             .shadow()
-            .find('div.uig-map-legend > div > span.uig-map-legend-text.uig-map-legend-title')
+            .find('div.flux-map-legend > div > span.flux-map-legend-text.flux-map-legend-title')
             .should('not.exist');
     });
 });
@@ -252,7 +252,7 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
     it('should contain a title', () => {
         cy.get('vl-map-legend')
             .shadow()
-            .find('div.uig-map-legend > div > span.uig-map-legend-text.uig-map-legend-title')
+            .find('div.flux-map-legend > div > span.flux-map-legend-text.flux-map-legend-title')
             .contains('Legende');
     });
 
@@ -262,14 +262,14 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
         cy.get('vl-map-legend')
             .shadow()
             .find(
-                'div.uig-map-legend > div.uig-map-legend-item > div.uig-map-legend-icon-container > div.uig-map-legend-icon'
+                'div.flux-map-legend > div.flux-map-legend-item > div.flux-map-legend-icon-container > div.flux-map-legend-icon'
             )
             .its('length')
             .should('eq', 3);
 
         cy.get('vl-map-legend')
             .shadow()
-            .find('div.uig-map-legend > div.uig-map-legend-item > span.uig-map-legend-text')
+            .find('div.flux-map-legend > div.flux-map-legend-item > span.flux-map-legend-text')
             .each((divElement, index) => {
                 cy.wrap(divElement).should('have.text', expectedTexts[index]);
             });
@@ -312,7 +312,7 @@ describe('component vl-map-legend - wfs layer', () => {
     it('should contain a title', () => {
         cy.get('vl-map-legend')
             .shadow()
-            .find('div.uig-map-legend > div > span.uig-map-legend-text.uig-map-legend-title')
+            .find('div.flux-map-legend > div > span.flux-map-legend-text.flux-map-legend-title')
             .contains('Legende');
     });
 
@@ -320,7 +320,7 @@ describe('component vl-map-legend - wfs layer', () => {
         cy.get('vl-map-legend')
             .shadow()
             .find(
-                'div.uig-map-legend > div.uig-map-legend-item > div.uig-map-legend-icon-container > div.uig-map-legend-icon'
+                'div.flux-map-legend > div.flux-map-legend-item > div.flux-map-legend-icon-container > div.flux-map-legend-icon'
             )
             .should(
                 'have.attr',
@@ -332,7 +332,7 @@ describe('component vl-map-legend - wfs layer', () => {
 
         cy.get('vl-map-legend')
             .shadow()
-            .find('div.uig-map-legend > div.uig-map-legend-item > span.uig-map-legend-text')
+            .find('div.flux-map-legend > div.flux-map-legend-item > span.flux-map-legend-text')
             .contains('Oppervlaktewaterlichamen');
     });
 });
@@ -378,14 +378,14 @@ describe('component vl-map-legend - wfs and wms layers', () => {
     it('should contain a title', () => {
         cy.get('vl-map-legend')
             .shadow()
-            .find('div.uig-map-legend > div > span.uig-map-legend-text.uig-map-legend-title')
+            .find('div.flux-map-legend > div > span.flux-map-legend-text.flux-map-legend-title')
             .contains('Legende');
     });
 
     it('should contain the correct number of style items', () => {
         cy.get('vl-map-legend')
             .shadow()
-            .find('div.uig-map-legend > div.uig-map-legend-item')
+            .find('div.flux-map-legend > div.flux-map-legend-item')
             .its('length')
             .should('eq', 2);
     });
@@ -394,22 +394,22 @@ describe('component vl-map-legend - wfs and wms layers', () => {
         cy.get('vl-map-legend')
             .shadow()
             .find(
-                'div.uig-map-legend > div.uig-map-legend-item > div.uig-map-legend-icon-container > div.uig-map-legend-icon'
+                'div.flux-map-legend > div.flux-map-legend-item > div.flux-map-legend-icon-container > div.flux-map-legend-icon'
             )
             .its('length')
             .should('eq', 1);
 
         cy.get('vl-map-legend')
             .shadow()
-            .find('div.uig-map-legend > div.uig-map-legend-item > span.uig-map-legend-text')
+            .find('div.flux-map-legend > div.flux-map-legend-item > span.flux-map-legend-text')
             .contains('Oppervlaktewaterlichamen');
     });
 
     it('should contain the style image for the wms layer', () => {
         cy.get('vl-map-legend')
             .shadow()
-            .find('div.uig-map-legend > div.uig-map-legend-item.uig-map-legend-image > img')
-            .should('have.attr', 'class', 'uig-map-legend-icon');
+            .find('div.flux-map-legend > div.flux-map-legend-item.flux-map-legend-image > img')
+            .should('have.attr', 'class', 'flux-map-legend-icon');
     });
 });
 
@@ -431,7 +431,7 @@ describe('component vl-map-legend - wms layer that requires a version', () => {
         cy.mount(mapLegendWithVersion('1.3.0'));
         cy.get('vl-map-legend')
             .shadow()
-            .find('div .uig-map-legend-image img')
+            .find('div .flux-map-legend-image img')
             .invoke('width')
             .should('be.greaterThan', 300);
     });
@@ -440,7 +440,7 @@ describe('component vl-map-legend - wms layer that requires a version', () => {
         cy.mount(mapLegendWithVersion(null));
         cy.get('vl-map-legend')
             .shadow()
-            .find('div .uig-map-legend-image img')
+            .find('div .flux-map-legend-image img')
             .invoke('width')
             .should('be.lessThan', 300);
     });

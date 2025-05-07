@@ -4,7 +4,7 @@ import { css, html, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import proj4 from 'proj4';
 import { DEFAULT_TOOLTIP, DEFAULT_ZOOM } from './vl-map-current-location.defaults';
-import styles from './vl-map-current-location.uig-css';
+import { vlMapCurrentLocationStyles } from './vl-map-current-location.flux-css';
 
 @customElement('vl-map-current-location')
 export class VlMapCurrentLocation extends BaseLitElement {
@@ -12,10 +12,16 @@ export class VlMapCurrentLocation extends BaseLitElement {
     private tooltip: string;
     private _mapElement: any;
 
+    constructor() {
+        super();
+        this.zoom = DEFAULT_ZOOM;
+        this.tooltip = DEFAULT_TOOLTIP;
+    }
+
     static get styles() {
         return [
             css`
-                ${unsafeCSS(styles)}
+                ${unsafeCSS(vlMapCurrentLocationStyles)}
             `,
             vlIconStyles,
         ];
@@ -34,12 +40,6 @@ export class VlMapCurrentLocation extends BaseLitElement {
                 reflect: true,
             },
         };
-    }
-
-    constructor() {
-        super();
-        this.zoom = DEFAULT_ZOOM;
-        this.tooltip = DEFAULT_TOOLTIP;
     }
 
     connectedCallback() {
@@ -61,7 +61,7 @@ export class VlMapCurrentLocation extends BaseLitElement {
     }
 
     render() {
-        return html` <div class="uig-map-current-location">
+        return html` <div class="flux-map-current-location">
             <button @click=${() => this._currentLocation()} type="button" title="${this.tooltip}">
                 <span class="vl-icon vl-icon--location-gps"></span>
             </button>

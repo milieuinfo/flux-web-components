@@ -41,22 +41,22 @@ export const tableArgTypes: ArgTypes<typeof tableArgs> = {
         name: 'zebra',
         description:
             'Variant waarin de rijen afwisselend een andere achtergrondkleur krijgen. Dit maakt de tabel makkelijker ' +
-            'leesbaar. Deze zebra werkt niet voor tabellen met detail rijen, gebruik hiervoor uig-zebra.',
+            'leesbaar. Deze zebra werkt niet voor tabellen met detail rijen, gebruik hiervoor flux-zebra.',
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
             defaultValue: { summary: tableArgs.zebra },
         },
     },
-    uigZebra: {
-        name: 'uig-zebra',
+    fluxZebra: {
+        name: 'flux-zebra',
         description:
             'Variant waarin de rijen afwisselend een andere achtergrondkleur krijgen. Dit maakt de tabel makkelijker' +
             ' leesbaar. Deze zebra werkt voor tabellen met en zonder detail rijen.',
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: tableArgs.uigZebra },
+            defaultValue: { summary: tableArgs.fluxZebra },
         },
     },
     collapsedM: {

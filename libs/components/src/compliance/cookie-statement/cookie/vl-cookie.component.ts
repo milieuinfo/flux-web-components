@@ -1,7 +1,8 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
-import { VlPropertiesComponent } from '../../../block';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import { VlTitleComponent } from '../../../atom';
-import styles from '../vl-cookie-statement.uig-css';
+import { VlPropertiesComponent } from '../../../block';
+import { vlCookieStatementFluxStyles } from '../vl-cookie-statement.flux-css';
 
 export interface VlCookieProps {
     title?: string;
@@ -21,7 +22,8 @@ export class VlCookie extends BaseElementOfType(HTMLElement) {
     constructor({ title, name, purpose, domain, processor, validity }: VlCookieProps = {}) {
         super(`
             <style>
-              ${styles.join('')}
+                ${vlLegacyStyles.join('')}
+                ${vlCookieStatementFluxStyles}
             </style>
     `);
 
