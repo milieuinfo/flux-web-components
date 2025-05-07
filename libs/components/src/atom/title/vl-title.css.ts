@@ -7,7 +7,7 @@ import {
     vlHeading4,
     vlHeading5,
     vlHeading6,
-} from '../../atom/heading-style/vl-heading.css';
+} from '../heading-style/vl-heading-style.css';
 
 const headingList = [1, 2, 3, 4, 5, 6];
 

@@ -6,7 +6,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
 import { FormControl } from '../form-control';
 import selectStyle from './styles/vl-select.dv-css';
-import selectUigStyle from './styles/vl-select.uig-css';
+import { vlSelectFluxStyles } from './styles/vl-select.flux-css';
 import { selectDefaults } from './vl-select.defaults';
 import { SelectOption } from './vl-select.model';
 
@@ -14,23 +14,20 @@ import { SelectOption } from './vl-select.model';
 export class VlSelectComponent extends FormControl {
     // Properties
     options = selectDefaults.options;
-
+    // State
+    public value = '';
     // Attributes
     private block = selectDefaults.block;
     private placeholder = selectDefaults.placeholder;
     private autocomplete = selectDefaults.autocomplete;
     private notDeletable = selectDefaults.notDeletable;
-
-    // State
-    public value = '';
-
     // Variables
     private initialOptions = [] as SelectOption[];
     private DEFAULT_GROUP_LABEL = 'Overig';
     private dispatchInput = false;
 
     static get styles(): CSSResult[] {
-        return [resetStyle, baseStyle, selectStyle, iconStyle, selectUigStyle];
+        return [resetStyle, baseStyle, selectStyle, iconStyle, vlSelectFluxStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -43,6 +40,10 @@ export class VlSelectComponent extends FormControl {
             notDeletable: { type: Boolean, attribute: 'not-deletable' },
             value: { type: String, state: true },
         };
+    }
+
+    get validationTarget(): HTMLSelectElement | undefined | null {
+        return this.shadowRoot?.querySelector('select');
     }
 
     connectedCallback() {
@@ -152,10 +153,6 @@ export class VlSelectComponent extends FormControl {
                 ${option.label || option.value}
             </option>`;
         });
-    }
-
-    get validationTarget(): HTMLSelectElement | undefined | null {
-        return this.shadowRoot?.querySelector('select');
     }
 
     resetFormControl() {

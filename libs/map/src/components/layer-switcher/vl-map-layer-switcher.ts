@@ -1,11 +1,11 @@
 import { awaitUntil, BaseLitElement, registerWebComponents } from '@domg-wc/common';
-import { vlLegacyStyles } from '@domg-wc/styles';
 import { formLabelStyles, VlCheckboxComponent } from '@domg-wc/components/form';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { VlMap } from '../../vl-map';
 import { VlMapLayer } from '../layer/vl-map-layer';
-import mapLayerSwitcherUigStyle from './vl-map-layer-switcher.uig-css';
+import { vlMapLayerSwitcherFluxStyles } from './vl-map-layer-switcher.flux-css';
 
 @customElement('vl-map-layer-switcher')
 export class VlMapLayerSwitcher extends BaseLitElement {
@@ -23,7 +23,7 @@ export class VlMapLayerSwitcher extends BaseLitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [vlLegacyStyles, mapLayerSwitcherUigStyle, formLabelStyles];
+        return [vlLegacyStyles, vlMapLayerSwitcherFluxStyles, formLabelStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -87,8 +87,8 @@ export class VlMapLayerSwitcher extends BaseLitElement {
                             layer=${layer.title}
                             checked=${layer.visible}
                             @vl-input=${() => (layer.visible = !layer.visible)}
-                            >${layer.title}</vl-checkbox
-                        >
+                            >${layer.title}
+                        </vl-checkbox>
                     `
                 )}
             </div>

@@ -1,5 +1,5 @@
 import { css, CSSResult, unsafeCSS } from 'lit';
-import { vlHeading5 } from '../../atom/heading-style/vl-heading.css';
+import { vlHeading5 } from '../../atom/heading-style/vl-heading-style.css';
 
 const borderWidth = '1px';
 const borderLeftWidth = '0.5rem';

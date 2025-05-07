@@ -1,11 +1,11 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { selectStyle } from '@domg/govflanders-style/component';
-import { VlIconComponent } from '../../atom/icon';
-import { vlIconStyles } from '../../atom/icon-style/vl-icon.css';
-import { inputFieldStyles, VlInputFieldComponent } from '../../form/input-field';
 import { buttonStyles } from '../../atom/button/vl-button.css';
-import searchUigStyle from './vl-search.uig-css';
+import { VlIconComponent } from '../../atom/icon';
+import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
+import { inputFieldStyles, VlInputFieldComponent } from '../../form/input-field';
+import { vlSearchFluxStyles } from './vl-search.flux-css';
 
 @webComponent('vl-search')
 export class VlSearchComponent extends BaseElementOfType(HTMLElement) {
@@ -21,7 +21,7 @@ export class VlSearchComponent extends BaseElementOfType(HTMLElement) {
         ${vlIconStyles}
         ${inputFieldStyles}
         ${selectStyle}
-        ${searchUigStyle}
+        ${vlSearchFluxStyles}
       </style>
       <div class="vl-search">
         <slot name="input"></slot>

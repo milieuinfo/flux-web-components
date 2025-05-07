@@ -11,24 +11,17 @@ import { VlMapFeaturesLayer } from './components/layer/vector-layer/vl-map-featu
 import { VlMapWfsLayer } from './components/layer/vector-layer/vl-map-wfs-layer/vl-map-wfs-layer';
 import { VlMapLayer } from './components/layer/vl-map-layer';
 import { VlMapWmsLayer } from './components/layer/wms-layer/vl-map-wms-layer';
+import { vlMapFluxStyles } from './vl-map.flux-css';
 import { EVENT } from './vl-map.model';
-import vlMapStyles from './vl-map.uig-css';
 
 @webComponent('vl-map')
 export class VlMap extends BaseElementOfType(HTMLElement) {
     private observer: MutationObserver;
-    static get _observedClassAttributes() {
-        return ['no-border', 'full-height'];
-    }
-
-    get _classPrefix() {
-        return 'vl-map--';
-    }
 
     constructor() {
         super(`
           <style>
-            ${vlMapStyles.join('')}
+            ${vlMapFluxStyles.join('')}
           </style>
           <div id='map'>
             <slot></slot>
@@ -38,6 +31,14 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
         this.__prepareReadyPromises();
     }
 
+    static get _observedClassAttributes() {
+        return ['no-border', 'full-height'];
+    }
+
+    get _classPrefix() {
+        return 'vl-map--';
+    }
+
     /**
      * Returns a Promise that resolves when the map is ready for further use.
      *
@@ -45,12 +46,6 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
      */
     get ready() {
         return this.__ready;
-    }
-
-    __prepareReadyPromises() {
-        this.__mapReady = new Promise((resolve) => (this.__mapReadyResolver = resolve));
-        this.__overviewMapReady = new Promise((resolve) => (this.__overviewMapReadyResolver = resolve));
-        this.__ready = Promise.all([this.__mapReady, this.__overviewMapReady]);
     }
 
     /**
@@ -135,6 +130,40 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
         return [9928, 66928, 272072, 329072];
     }
 
+    get zoomInTipLabel() {
+        return this.getAttribute('zoomInTooltip');
+    }
+
+    get zoomOutTipLabel() {
+        return this.getAttribute('zoomOutTooltip');
+    }
+
+    get featuresLayers(): VlMapFeaturesLayer[] {
+        return Array.from(this.querySelectorAll('vl-map-features-layer'));
+    }
+
+    get wfsLayers(): VlMapWfsLayer[] {
+        return Array.from(this.querySelectorAll('vl-map-wfs-layer'));
+    }
+
+    get wmsLayers(): VlMapWmsLayer[] {
+        return Array.from(this.querySelectorAll('vl-map-tiled-wms-layer, vl-map-image-wms-layer'));
+    }
+
+    static __callOnceOnLoad(callback) {
+        if (document.readyState === 'complete') {
+            callback();
+        } else {
+            window.addEventListener('load', callback, { once: true });
+        }
+    }
+
+    __prepareReadyPromises() {
+        this.__mapReady = new Promise((resolve) => (this.__mapReadyResolver = resolve));
+        this.__overviewMapReady = new Promise((resolve) => (this.__overviewMapReadyResolver = resolve));
+        this.__ready = Promise.all([this.__mapReady, this.__overviewMapReady]);
+    }
+
     connectedCallback() {
         super.connectedCallback();
 
@@ -171,21 +200,6 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
         this.map.setTarget(null);
     }
 
-    private observeRemovedMapLayers(): void {
-        const mapElement = this as unknown as HTMLElement;
-        this.observer = new MutationObserver((mutations: MutationRecord[]) => {
-            // opbouwen lijst van alle VlMapLayer-nodes die verwijderd werden uit deze instantie van het VlMap component
-            mutations
-                .filter(({ target }) => target === mapElement)
-                .flatMap(({ removedNodes }) => Array.from(removedNodes).filter((node) => node instanceof VlMapLayer))
-                .forEach((removedMapLayer: VlMapLayer & Node) => {
-                    // verwijder elke MapLayer uit OL OverlayLayerCollection, die uit DOM werd verwijderd
-                    this.map.removeOverlayLayer((<VlMapLayer>removedMapLayer)._layer);
-                });
-        });
-        this.observer.observe(mapElement, { subtree: true, childList: true });
-    }
-
     __createZoomControl() {
         const zoomOptions: { zoomInTipLabel?; zoomOutTipLabel? } = {};
         if (this.zoomInTipLabel) {
@@ -195,14 +209,6 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
             zoomOptions.zoomOutTipLabel = this.zoomOutTipLabel;
         }
         return new Zoom(zoomOptions);
-    }
-
-    get zoomInTipLabel() {
-        return this.getAttribute('zoomInTooltip');
-    }
-
-    get zoomOutTipLabel() {
-        return this.getAttribute('zoomOutTooltip');
     }
 
     addLayer(layer) {
@@ -391,24 +397,19 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
         register(proj4);
     }
 
-    static __callOnceOnLoad(callback) {
-        if (document.readyState === 'complete') {
-            callback();
-        } else {
-            window.addEventListener('load', callback, { once: true });
-        }
-    }
-
-    get featuresLayers(): VlMapFeaturesLayer[] {
-        return Array.from(this.querySelectorAll('vl-map-features-layer'));
-    }
-
-    get wfsLayers(): VlMapWfsLayer[] {
-        return Array.from(this.querySelectorAll('vl-map-wfs-layer'));
-    }
-
-    get wmsLayers(): VlMapWmsLayer[] {
-        return Array.from(this.querySelectorAll('vl-map-tiled-wms-layer, vl-map-image-wms-layer'));
+    private observeRemovedMapLayers(): void {
+        const mapElement = this as unknown as HTMLElement;
+        this.observer = new MutationObserver((mutations: MutationRecord[]) => {
+            // opbouwen lijst van alle VlMapLayer-nodes die verwijderd werden uit deze instantie van het VlMap component
+            mutations
+                .filter(({ target }) => target === mapElement)
+                .flatMap(({ removedNodes }) => Array.from(removedNodes).filter((node) => node instanceof VlMapLayer))
+                .forEach((removedMapLayer: VlMapLayer & Node) => {
+                    // verwijder elke MapLayer uit OL OverlayLayerCollection, die uit DOM werd verwijderd
+                    this.map.removeOverlayLayer((<VlMapLayer>removedMapLayer)._layer);
+                });
+        });
+        this.observer.observe(mapElement, { subtree: true, childList: true });
     }
 }
 

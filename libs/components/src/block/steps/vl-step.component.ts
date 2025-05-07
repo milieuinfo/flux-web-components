@@ -6,7 +6,7 @@ import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { VlAccordionComponent } from '../accordion/vl-accordion.component';
-import stepUigStyle from './vl-step.uig-css';
+import { vlStepFluxStyles } from './vl-step.flux-css';
 
 declare const vl: VL;
 
@@ -25,7 +25,7 @@ export class VlStepComponent extends BaseLitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, vlLegacyStyles, stepsStyle, stepUigStyle];
+        return [resetStyle, vlLegacyStyles, stepsStyle, vlStepFluxStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -42,29 +42,6 @@ export class VlStepComponent extends BaseLitElement {
         if (this.shadowRoot) {
             this.shadowRoot.adoptedStyleSheets = [...this.shadowRoot.adoptedStyleSheets, this.customCSSStyleSheet];
         }
-    }
-
-    protected firstUpdated(changedProperties: Map<PropertyKey, unknown>): void {
-        super.firstUpdated(changedProperties);
-
-        if (this.toggleable) {
-            const accordion = this.shadowRoot?.querySelector('.js-vl-accordion__toggle');
-            const isAccordionDressed = accordion?.hasAttribute('accordion-dressed');
-
-            if (!isAccordionDressed) {
-                vl.accordion.dress(accordion);
-                this.shadowRoot?.querySelector('slot[name="title"]')?.addEventListener('click', (event: Event) => {
-                    event.stopPropagation();
-                    (this.shadowRoot?.querySelector('button.js-vl-accordion__toggle') as HTMLButtonElement)?.click();
-                });
-            }
-        }
-
-        const titleAnnotationSlot = this.shadowRoot?.querySelector(
-            'slot[name="title-annotation"]'
-        ) as HTMLSlotElement | null;
-        this.isTitleAnnotationSlotAssigned =
-            (titleAnnotationSlot && titleAnnotationSlot.assignedNodes().length > 0) || false;
     }
 
     render(): TemplateResult {
@@ -98,6 +75,33 @@ export class VlStepComponent extends BaseLitElement {
                 </div>
             </li>
         `;
+    }
+
+    setCustomStyles(customCSS: string) {
+        this.customCSSStyleSheet.replaceSync(customCSS);
+    }
+
+    protected firstUpdated(changedProperties: Map<PropertyKey, unknown>): void {
+        super.firstUpdated(changedProperties);
+
+        if (this.toggleable) {
+            const accordion = this.shadowRoot?.querySelector('.js-vl-accordion__toggle');
+            const isAccordionDressed = accordion?.hasAttribute('accordion-dressed');
+
+            if (!isAccordionDressed) {
+                vl.accordion.dress(accordion);
+                this.shadowRoot?.querySelector('slot[name="title"]')?.addEventListener('click', (event: Event) => {
+                    event.stopPropagation();
+                    (this.shadowRoot?.querySelector('button.js-vl-accordion__toggle') as HTMLButtonElement)?.click();
+                });
+            }
+        }
+
+        const titleAnnotationSlot = this.shadowRoot?.querySelector(
+            'slot[name="title-annotation"]'
+        ) as HTMLSlotElement | null;
+        this.isTitleAnnotationSlotAssigned =
+            (titleAnnotationSlot && titleAnnotationSlot.assignedNodes().length > 0) || false;
     }
 
     private getStepHeaderTemplate(): TemplateResult {
@@ -137,10 +141,6 @@ export class VlStepComponent extends BaseLitElement {
                 </p>
             </div>
         `;
-    }
-
-    setCustomStyles(customCSS: string) {
-        this.customCSSStyleSheet.replaceSync(customCSS);
     }
 }
 

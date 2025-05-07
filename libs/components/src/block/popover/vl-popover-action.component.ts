@@ -2,8 +2,8 @@ import { BaseLitElement } from '@domg-wc/common';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { vlIconStyles } from '../../atom/icon-style/vl-icon.css';
-import popoverActionUigStyle from './vl-popover-action.uig-css';
+import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
+import { vlPopoverActionFluxStyles } from './vl-popover-action.flux-css';
 
 @customElement('vl-popover-action')
 export class VlPopoverActionComponent extends BaseLitElement {
@@ -13,7 +13,7 @@ export class VlPopoverActionComponent extends BaseLitElement {
     private icon = '';
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, vlIconStyles, popoverActionUigStyle];
+        return [resetStyle, vlIconStyles, vlPopoverActionFluxStyles];
     }
 
     static get properties(): PropertyDeclarations {

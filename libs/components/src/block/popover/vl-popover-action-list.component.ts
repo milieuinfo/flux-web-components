@@ -1,14 +1,14 @@
-import { CSSResult, TemplateResult, html } from 'lit';
 import { BaseLitElement } from '@domg-wc/common';
-import { resetStyle } from '@domg/govflanders-style/common';
 import { vlLegacyStyles } from '@domg-wc/styles';
+import { resetStyle } from '@domg/govflanders-style/common';
+import { CSSResult, html, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import popoverActionListUigStyle from './vl-popover-action-list.uig-css';
+import { vlPopoverActionListFluxStyles } from './vl-popover-action-list.flux-css';
 
 @customElement('vl-popover-action-list')
 export class VlPopoverActionListComponent extends BaseLitElement {
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, vlLegacyStyles, popoverActionListUigStyle];
+        return [resetStyle, vlLegacyStyles, vlPopoverActionListFluxStyles];
     }
 
     protected render(): TemplateResult {

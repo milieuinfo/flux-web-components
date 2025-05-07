@@ -4,7 +4,7 @@ import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import 'reflect-metadata';
 import { inputFieldStyles } from '../../form/input-field';
-import inputSliderUigStyle from './vl-input-slider.uig-css';
+import { vlInputSliderFluxStyles } from './vl-input-slider.flux-css';
 
 @customElement('vl-input-slider')
 export class VlInputSliderComponent extends BaseLitElement {
@@ -13,7 +13,7 @@ export class VlInputSliderComponent extends BaseLitElement {
     value = 0;
 
     static get styles(): CSSResult[] {
-        return [resetStyle, inputFieldStyles, inputSliderUigStyle];
+        return [resetStyle, inputFieldStyles, vlInputSliderFluxStyles];
     }
 
     static get properties(): PropertyDeclarations {

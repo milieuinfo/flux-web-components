@@ -4,7 +4,7 @@ import { formMessageStyle } from '@domg/govflanders-style/component';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { errorMessageDefaults } from './vl-error-message.defaults';
-import errorMessageUigStyle from './vl-error-message.uig-css';
+import { vlErrorMessageFluxStyles } from './vl-error-message.flux-css';
 
 export const ERROR_MESSAGE_CUSTOM_TAG = 'vl-error-message';
 
@@ -18,7 +18,7 @@ export class VlErrorMessageComponent extends BaseLitElement {
     private validationMessage = '';
 
     static get styles(): CSSResult[] {
-        return [resetStyle, formMessageStyle, errorMessageUigStyle];
+        return [resetStyle, formMessageStyle, vlErrorMessageFluxStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -37,7 +37,9 @@ export class VlErrorMessageComponent extends BaseLitElement {
             'vl-pre-line': this.preLine,
         };
         return html`
-            <p class=${classMap(classes)} part="text" ?hidden=${!this.show}><slot>${this.validationMessage}</slot></p>
+            <p class=${classMap(classes)} part="text" ?hidden=${!this.show}>
+                <slot>${this.validationMessage}</slot>
+            </p>
         `;
     }
 }

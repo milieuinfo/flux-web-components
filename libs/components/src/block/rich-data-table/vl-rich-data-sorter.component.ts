@@ -1,6 +1,7 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import { VlIconComponent } from '../../atom/icon';
-import styles from './vl-rich-data-table.uig-css';
+import { vlRichDataTableFluxStyles } from './vl-rich-data-table.flux-css';
 
 @webComponent('vl-rich-data-sorter')
 export class VlRichDataSorter extends BaseElementOfType(HTMLElement) {
@@ -11,7 +12,8 @@ export class VlRichDataSorter extends BaseElementOfType(HTMLElement) {
     constructor() {
         super(`
           <style>
-            ${styles.join('')}
+            ${vlLegacyStyles.join('')}
+            ${vlRichDataTableFluxStyles}
 
             div {
               display: inline;

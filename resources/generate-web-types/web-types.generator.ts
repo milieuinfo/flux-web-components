@@ -1,7 +1,7 @@
 import { CATEGORIES } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components';
 import * as fs from 'fs-extra';
-import { VluxMetaDataModel } from '../../apps/storybook/.storybook/vlux-meta-data/vlux-meta-data.model';
+import { FluxMetaDataModel } from '../../apps/storybook/.storybook/flux-meta-data/flux-meta-data.model';
 import {
     WTConfig,
     WTConfigArray,
@@ -17,7 +17,7 @@ import { buildWTConfigComponentsBlock } from './wt-config-build/components-block
 import { buildWTConfigComponentsCompliance } from './wt-config-build/components-compliance.wt-config';
 import { buildWTConfigComponentsForm } from './wt-config-build/components-form.wt-config';
 import { buildWTConfigMap } from './wt-config-build/map.wt-config';
-import vluxMetaData from '../../apps/storybook/.storybook/vlux-meta-data/vlux-meta-data.json';
+import fluxMetaData from '../../apps/storybook/.storybook/flux-meta-data/flux-meta-data.json';
 
 const templateFileLocation: string = './wt-template/web-types.template';
 
@@ -28,8 +28,8 @@ const readTemplateFile = () => fs.readFileSync(templateFileLocation).toString();
 const buildDocUrl = (version: string, storyBookPath: string) =>
     docUrl.replace('$VERSION', version).replace('$STORYBOOK-PATH', storyBookPath);
 
-const buildPrefix = (vluxMetaDataModel: VluxMetaDataModel): string => {
-    switch (vluxMetaDataModel?.vStatus) {
+const buildPrefix = (fluxMetaDataModel: FluxMetaDataModel): string => {
+    switch (fluxMetaDataModel?.vStatus) {
         case 'replaced':
         case 'v1-replace':
         case 'v1-remove':
@@ -47,7 +47,7 @@ const extractDocFileDescription = (component: string, docFile: string): string =
     console.log(component + ' - process docFile');
     const lines: string[] = docFile.split(/\n/);
     let firstHashLinePassed = false;
-    let vluxMetaDataPassed = false;
+    let fluxMetaDataPassed = false;
     let description = '';
     let prefix = '';
     for (let i = 0; i < lines.length; i++) {
@@ -57,15 +57,15 @@ const extractDocFileDescription = (component: string, docFile: string): string =
             firstHashLinePassed = true;
             continue;
         }
-        if (!vluxMetaDataPassed && line.includes('VluxMetaData')) {
-            // de <VluxMetaData /> maakt geen deel uit van de omschrijving
-            vluxMetaDataPassed = true;
+        if (!fluxMetaDataPassed && line.includes('FluxMetaData')) {
+            // de <FluxMetaData /> maakt geen deel uit van de omschrijving
+            fluxMetaDataPassed = true;
             // de id bepalen
             const componentId = line.split('"')[1];
-            prefix = buildPrefix(vluxMetaData[componentId]);
+            prefix = buildPrefix(fluxMetaData[componentId]);
             continue;
         }
-        if (firstHashLinePassed && vluxMetaDataPassed) {
+        if (firstHashLinePassed && fluxMetaDataPassed) {
             // bij de tweede lijn met een # stopt de omschrijving
             if (line.startsWith('#')) {
                 // de witruimte voor- en achteraan verwijderen

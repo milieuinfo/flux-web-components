@@ -4,9 +4,9 @@ import { alertStyle } from '@domg/govflanders-style/component';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { vlIconStyles } from '../../atom/icon-style/vl-icon.css';
+import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { VlAlertClosedEvent, VlAlertModel } from './vl-alert.model';
-import vlAlertUigCss from './vl-alert.uig-css';
+import { vlAlertFluxStyles } from './vl-alert.flux-css';
 
 @customElement('vl-alert')
 export class VlAlert extends BaseLitElement implements VlAlertModel {
@@ -19,7 +19,7 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
     closable = false;
 
     static get styles(): CSSResult[] {
-        return [resetStyle, alertStyle, accessibilityStyle, markStyle, vlAlertUigCss, vlIconStyles];
+        return [resetStyle, alertStyle, accessibilityStyle, markStyle, vlAlertFluxStyles, vlIconStyles];
     }
 
     static get properties(): PropertyDeclarations {
