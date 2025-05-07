@@ -6,15 +6,15 @@ import { customElement } from 'lit/decorators.js';
 import 'reflect-metadata';
 import { DEFAULT_CAPTION_FORMAT, DEFAULT_MAX_MATCHES, DEFAULT_MIN_CHARS } from './vl-autocomplete.defaults';
 import { CAPTION_FORMAT } from './vl-autocomplete.model';
-import autocompleteUigStyle from './vl-autocomplete.uig-css';
-import { vlIconStyles } from '../../atom/icon-style/vl-icon.css';
+import { vlAutocompleteFluxStyles } from './vl-autocomplete.flux-css';
+import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 
 @customElement('vl-autocomplete')
 // eslint-disable-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export class VlAutocomplete extends BaseLitElement {
     static get styles() {
-        return [resetStyle, baseStyle, autocompleteStyle, inputFieldStyle, autocompleteUigStyle, vlIconStyles];
+        return [resetStyle, baseStyle, autocompleteStyle, inputFieldStyle, vlAutocompleteFluxStyles, vlIconStyles];
     }
 
     static get properties() {
@@ -217,29 +217,29 @@ export class VlAutocomplete extends BaseLitElement {
     formatCaption(item: any) {
         switch (this.captionFormat) {
             case CAPTION_FORMAT.TITLE:
-                return html`<span class="uig-autocomplete_title">${item.title}</span>`;
+                return html`<span class="flux-autocomplete_title">${item.title}</span>`;
             case CAPTION_FORMAT.SUBTITLE:
-                return html`<span class="uig-autocomplete_subtitle">${item.subtitle}</span>`;
+                return html`<span class="flux-autocomplete_subtitle">${item.subtitle}</span>`;
             case CAPTION_FORMAT.VALUE:
-                return html`<span class="uig-autocomplete_value">${item.value}</span>`;
+                return html`<span class="flux-autocomplete_value">${item.value}</span>`;
             default:
         }
 
         if (item.subtitle != null) {
             if (this.captionFormat === CAPTION_FORMAT.TITLE_SUBTITLE_VERTICAL || this.captionFormat == null) {
-                return html`<span class="uig-autocomplete_title uig-autocomplete_title">${item.title}</span
-                    ><span class="uig-autocomplete_subtitle vl-autocomplete__cta__sub">${item.subtitle}</span>`;
+                return html`<span class="flux-autocomplete_title flux-autocomplete_title">${item.title}</span
+                    ><span class="flux-autocomplete_subtitle vl-autocomplete__cta__sub">${item.subtitle}</span>`;
             }
             if (this.captionFormat === CAPTION_FORMAT.TITLE_SUBTITLE_HORIZONTAL) {
-                return html`<span class="uig-autocomplete_title">${item.title}</span>:
-                    <span class="uig-autocomplete_subtitle">${item.subtitle}</span>`;
+                return html`<span class="flux-autocomplete_title">${item.title}</span>:
+                    <span class="flux-autocomplete_subtitle">${item.subtitle}</span>`;
             }
             if (this.captionFormat === CAPTION_FORMAT.SUBTITLE_TITLE_HORIZONTAL) {
-                return html`<span class="uig-autocomplete_subtitle">${item.subtitle}</span>:
-                    <span class="uig-autocomplete_title">${item.title}</span>`;
+                return html`<span class="flux-autocomplete_subtitle">${item.subtitle}</span>:
+                    <span class="flux-autocomplete_title">${item.title}</span>`;
             }
         }
-        return html`<span class="uig-autocomplete_title vl-autocomplete__cta__title">${item.title}</span>`;
+        return html`<span class="flux-autocomplete_title vl-autocomplete__cta__title">${item.title}</span>`;
     }
 
     filterAndSuggest(searchTerm: any, items: any) {
@@ -370,7 +370,7 @@ export class VlAutocomplete extends BaseLitElement {
 
             this._groupedMatches.forEach((items: any, groupName: string) => {
                 liElements.push(html` <li
-                    class="vl-autocomplete__cta uig-autocomplete-group"
+                    class="vl-autocomplete__cta flux-autocomplete-group"
                     groupindex="${groupIndex}"
                 >
                     ${groupName}
@@ -388,7 +388,7 @@ export class VlAutocomplete extends BaseLitElement {
     generateItem(item: any, groupIndex: number) {
         return html` <li
             @click=${() => this.autocomplete(item.title, item.value ? item.value : null)}
-            class="vl-autocomplete__cta uig-autocomplete-item"
+            class="vl-autocomplete__cta flux-autocomplete-item"
             groupindex="${groupIndex}"
             role="option"
             tabindex="-1"
@@ -454,9 +454,9 @@ export class VlAutocomplete extends BaseLitElement {
 
     _generateClear() {
         if (this.showClear && (this._hasSearchTerm() || (!this.initialised && this.initialValue))) {
-            return html` <div class="uig-autocomplete__clear" aria-hidden="true">
+            return html` <div class="flux-autocomplete__clear" aria-hidden="true">
                 <span
-                    class="uig-autocomplete__clear-icon vl-icon vl-icon--close"
+                    class="flux-autocomplete__clear-icon vl-icon vl-icon--close"
                     @click="${this._clear}"
                     title="${this.clearTooltip}"
                 ></span>
@@ -511,7 +511,7 @@ export class VlAutocomplete extends BaseLitElement {
                         aria-hidden="false"
                         aria-labelledby="vl-autocomplete-1-input"
                     >
-                        <div class="vl-autocomplete__list-wrapper uig-autocomplete__list-wrapper">
+                        <div class="vl-autocomplete__list-wrapper flux-autocomplete__list-wrapper">
                             <ul id="suggestions" class="vl-autocomplete__list" role="listbox">
                                 ${this.generateItems()}
                             </ul>

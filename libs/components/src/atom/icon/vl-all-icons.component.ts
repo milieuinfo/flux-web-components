@@ -2,7 +2,7 @@
 
 import { registerWebComponents, webComponent } from '@domg-wc/common';
 import { css, CSSResult, html, LitElement } from 'lit';
-import { vlIconStyles } from '../icon-style/vl-icon.css';
+import { vlIconStyles } from '../icon-style/vl-icon-style.css';
 import { VlIconComponent } from './index';
 
 @webComponent('vl-all-icons')

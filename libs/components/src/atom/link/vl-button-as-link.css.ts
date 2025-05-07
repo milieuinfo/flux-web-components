@@ -1,5 +1,5 @@
 import { css } from 'lit';
-import { vlLinkStyles } from '../link-style/vl-link.css';
+import { vlLinkStyles } from '../link-style/vl-link-style.css';
 
 export const buttonAsLinkStyles = css`
     ${vlLinkStyles('button')}

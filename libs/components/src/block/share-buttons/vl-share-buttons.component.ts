@@ -2,14 +2,14 @@ import { BaseLitElement } from '@domg-wc/common';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import shareButtonsStyle from './vl-share-buttons.uig-css';
+import { vlShareButtonsFluxStyles } from './vl-share-buttons.flux-css';
 
 @customElement('vl-share-buttons')
 export class VlShareButtonsComponent extends BaseLitElement {
     private alt = '';
 
     static get styles() {
-        return [shareButtonsStyle];
+        return [vlShareButtonsFluxStyles];
     }
 
     static get properties() {

@@ -1,0 +1,51 @@
+import { Canvas } from '@storybook/blocks';
+import { Meta } from '@storybook/addon-docs';
+import * as VlHeadingStyleStories from './vl-heading-style.stories';
+
+<Meta title="Components - Atom/heading-style"/>
+
+# Heading Style
+
+<FluxMetaData id="components-atom-heading-style"/>
+<br/>
+
+
+## Inhoudstafel
+
+- [Doel](#doel)
+- [Implementatie](#implementatie)
+- [Voorbeelden](#voorbeelden)
+
+
+## Doel
+
+`Heading` voorziet styling voor de 6 h-waardes. Deze wordt o.a. gebruikt in `<vl-doormat>` en `<vl-title>`.
+
+
+## Implementatie
+
+Per h-waarde is er een constante voorzien met de desbetreffende styling. Het doel is deze implementatie te embedden
+in de css van concrete componenten. Het is een bouwblok, niet bedoeld voor rechtstreeks gebruik!
+
+Hieronder zie je (zonder details) hoe `vlHeading2` geïmplementeerd is.
+
+```ts
+export const vlHeading2 = css`
+    ${headingBase};
+
+    font-size: 3.2rem;
+    margin-bottom: 2rem;
+    line-height: 1.24;
+
+    @media screen and (max-width: ${vlMediaScreenSmall}px) {
+        font-size: 2.6rem;
+        margin-bottom: 1.5rem;
+    }
+`;
+```
+
+## Voorbeelden
+
+In dit voorbeeld zie je de verschillende headings, ze worden hier specifiek ge-wrapped in een custom style-class.
+
+<Canvas of={VlHeadingStyleStories.HeadingStyleDefault}/>

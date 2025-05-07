@@ -1,7 +1,7 @@
 import { BaseLitElement, ICON_PLACEMENT, isSlotEmpty, webComponent } from '@domg-wc/common';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { ClassInfo, classMap } from 'lit/directives/class-map.js';
-import { vlIconStyles } from '../icon-style/vl-icon.css';
+import { vlIconStyles } from '../icon-style/vl-icon-style.css';
 import { buttonStyles } from './vl-button.css';
 import { buttonDefaults } from './vl-button.defaults';
 import { linkButtonStyles } from './vl-link-button.css';

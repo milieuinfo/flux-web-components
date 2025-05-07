@@ -1,8 +1,9 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import { VlButtonComponent } from '../../atom/button';
 import { VlTypography } from '../typography/vl-typography.component';
 import { VlProzaMessagePreloader } from './vl-proza-message-preloader.component';
-import elementStyles from './vl-proza-message.uig-css';
+import { vlProzaMessageFluxStyles } from './vl-proza-message.flux-css';
 import { ProzaRestClient } from './vl-proza-rest-client.util';
 
 @webComponent('vl-proza-message')
@@ -15,7 +16,8 @@ export class VlProzaMessage extends BaseElementOfType(HTMLElement) {
         super();
         this.shadow(`
           <style>
-            ${elementStyles.join('')}
+            ${vlLegacyStyles.join('')}
+            ${vlProzaMessageFluxStyles}
           </style>
           <div>
             <vl-typography></vl-typography>

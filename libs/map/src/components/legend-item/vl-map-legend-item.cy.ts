@@ -110,7 +110,7 @@ describe('component vl-map-legend-item', () => {
             .shadow()
             .find('vl-map-legend-item')
             .shadow()
-            .find('div#legend-item > div.uig-map-legend-icon-container > slot[name="icon"]')
+            .find('div#legend-item > div.flux-map-legend-icon-container > slot[name="icon"]')
             .then(($slot) => {
                 const slotContent = ($slot[0] as HTMLSlotElement).assignedNodes()[0];
 
@@ -140,13 +140,13 @@ describe('component vl-map-legend-item', () => {
         cy.get('vl-map-legend').then(($legend) => {
             $legend.append(legendItem);
 
-            cy.get('vl-map-legend').shadow().find('div.uig-map-legend > vl-map-legend-item').should('have.length', 2);
+            cy.get('vl-map-legend').shadow().find('div.flux-map-legend > vl-map-legend-item').should('have.length', 2);
 
             cy.get('vl-map-legend')
                 .shadow()
                 .find('vl-map-legend-item')
                 .shadow()
-                .find('div#legend-item > div.uig-map-legend-icon-container > slot[name="icon"]')
+                .find('div#legend-item > div.flux-map-legend-icon-container > slot[name="icon"]')
                 .then(($slot) => {
                     const slotContent = ($slot[1] as HTMLSlotElement).assignedNodes()[0];
 
@@ -166,14 +166,14 @@ describe('component vl-map-legend-item', () => {
 
             cy.get('vl-map-legend')
                 .shadow()
-                .find('div.uig-map-legend > vl-map-legend-item')
+                .find('div.flux-map-legend > vl-map-legend-item')
                 .should('have.length', 2)
                 .then(() => {
                     $legend.children()[1].remove();
 
                     cy.get('vl-map-legend')
                         .shadow()
-                        .find('div.uig-map-legend > vl-map-legend-item')
+                        .find('div.flux-map-legend > vl-map-legend-item')
                         .should('have.length', 1);
                 });
         });
@@ -185,11 +185,11 @@ describe('component vl-map-legend-item', () => {
         cy.get('vl-map-legend').then(($legend) => {
             $legend.append(defaultLegendItem);
 
-            cy.get('vl-map-legend').shadow().find('div.uig-map-legend > vl-map-legend-item').should('have.length', 1);
+            cy.get('vl-map-legend').shadow().find('div.flux-map-legend > vl-map-legend-item').should('have.length', 1);
 
             cy.get('vl-map-legend')
                 .shadow()
-                .find('div.uig-map-legend-item > div.uig-map-legend-icon-container > div.uig-map-legend-icon')
+                .find('div.flux-map-legend-item > div.flux-map-legend-icon-container > div.flux-map-legend-icon')
                 .should('have.css', 'border', '1px solid rgb(0, 0, 0)')
                 .should('have.css', 'background-color', 'rgb(255, 0, 0)');
         });
@@ -201,11 +201,11 @@ describe('component vl-map-legend-item', () => {
         cy.get('vl-map-legend').then(($legend) => {
             $legend.append(defaultLegendItem);
 
-            cy.get('vl-map-legend').shadow().find('div.uig-map-legend > vl-map-legend-item').should('have.length', 1);
+            cy.get('vl-map-legend').shadow().find('div.flux-map-legend > vl-map-legend-item').should('have.length', 1);
 
             cy.get('vl-map-legend')
                 .shadow()
-                .find('div.uig-map-legend-item > div.uig-map-legend-icon-container > div.uig-map-legend-icon')
+                .find('div.flux-map-legend-item > div.flux-map-legend-icon-container > div.flux-map-legend-icon')
                 .should('have.css', 'border', '1px solid rgb(0, 0, 0)')
                 .should('have.css', 'background-color', 'rgb(255, 0, 0)')
                 .should('have.contain', 'B');

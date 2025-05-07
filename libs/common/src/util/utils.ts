@@ -1,5 +1,5 @@
 import { ifDefined } from 'lit-html/directives/if-defined.js';
-import { UigConfig } from '../config/uig-config';
+import { FluxConfig } from '../config/flux-config';
 import { VL } from '../models';
 import { Class } from '../type/types';
 
@@ -14,7 +14,7 @@ declare const vl: VL;
  * @param webComponents
  */
 export const registerWebComponents = (webComponents: any[]) => {
-    if (UigConfig.getPreferences().logTreeshakeRegistration) {
+    if (FluxConfig.getPreferences().logTreeshakeRegistration) {
         console.debug(`treeshake registratie van`, webComponents.map((wc: any) => wc?.name).toString());
     }
 };
@@ -31,11 +31,11 @@ export const registerWebComponents = (webComponents: any[]) => {
  */
 export const defineWebComponent = (constructor: Function, tagName: string, options?: ElementDefinitionOptions) => {
     if (customElements.get(tagName)) {
-        if (UigConfig.getPreferences().logWebComponentRegistration) {
+        if (FluxConfig.getPreferences().logWebComponentRegistration) {
             console.debug(`${tagName} werd reeds geregistreerd`);
         }
     } else {
-        if (UigConfig.getPreferences().logWebComponentRegistration) {
+        if (FluxConfig.getPreferences().logWebComponentRegistration) {
             console.debug('registratie', tagName);
         }
         window.customElements.define(tagName, constructor as CustomElementConstructor, options);

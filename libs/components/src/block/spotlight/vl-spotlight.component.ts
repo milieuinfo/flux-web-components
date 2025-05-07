@@ -1,11 +1,11 @@
-import { html, nothing } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import { SIZE } from './vl-spotlight.model';
 import { BaseLitElement } from '@domg-wc/common';
-import { classMap } from 'lit/directives/class-map.js';
 import { vlLegacyStyles } from '@domg-wc/styles';
 import { documentStyle, iconListStyle, spotlightStyle } from '@domg/govflanders-style/component';
-import spotlightUigStyle from './vl-spotlight.uig-css';
+import { html, nothing } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
+import { vlSpotlightFluxStyles } from './vl-spotlight.flux-css';
+import { SIZE } from './vl-spotlight.model';
 
 @customElement('vl-spotlight')
 export class VlSpotlight extends BaseLitElement {
@@ -19,7 +19,7 @@ export class VlSpotlight extends BaseLitElement {
     private imgAlt = '';
 
     static get styles() {
-        return [...vlLegacyStyles, spotlightStyle, documentStyle, iconListStyle, spotlightUigStyle];
+        return [...vlLegacyStyles, spotlightStyle, documentStyle, iconListStyle, vlSpotlightFluxStyles];
     }
 
     static get properties() {
@@ -133,6 +133,7 @@ export class VlSpotlight extends BaseLitElement {
             </article>
         `;
     }
+
     __processHeader() {
         if (!this.imgSrc) return html``;
         return html` <header role="none" class="vl-spotlight__header">

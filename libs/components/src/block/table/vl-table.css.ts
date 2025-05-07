@@ -150,7 +150,7 @@ export const tableStyles = css`
         }
     }
 
-    .vl-table--uig-zebra {
+    .vl-table--flux-zebra {
         tbody tr:not(.vl-table__element--warning):not(.vl-table__element--error):not(.vl-table__element--success).odd {
             background-color: #f3f5f6;
             &:hover {

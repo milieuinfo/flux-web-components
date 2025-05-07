@@ -1,17 +1,17 @@
+import { BaseLitElement } from '@domg-wc/common';
 import { css, html, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { VlMap } from '../../vl-map';
-import { VlMapWmsLayer } from '../layer/wms-layer/vl-map-wms-layer';
-import { VlMapVectorLayer } from '../layer/vector-layer/vl-map-vector-layer';
-import { VlMapWfsLayer } from '../layer/vector-layer/vl-map-wfs-layer/vl-map-wfs-layer';
 import { VlMapLayerCircleStyle } from '../layer-style/vl-map-layer-circle-style/vl-map-layer-circle-style';
-import { LEGEND_PLACEMENT } from './vl-map-legend.defaults';
-import styles from './vl-map-legend.uig-css';
-import { BaseLitElement } from '@domg-wc/common';
-import { VlMapLayer } from '../layer/vl-map-layer';
 import { VlMapLayerStyle } from '../layer-style/vl-map-layer-style';
 import { VlMapFeaturesLayer } from '../layer/vector-layer/vl-map-features-layer/vl-map-features-layer';
+import { VlMapVectorLayer } from '../layer/vector-layer/vl-map-vector-layer';
+import { VlMapWfsLayer } from '../layer/vector-layer/vl-map-wfs-layer/vl-map-wfs-layer';
+import { VlMapLayer } from '../layer/vl-map-layer';
+import { VlMapWmsLayer } from '../layer/wms-layer/vl-map-wms-layer';
 import { VlMapLegendItem } from '../legend-item/vl-map-legend-item';
+import { LEGEND_PLACEMENT } from './vl-map-legend.defaults';
+import { vlMapLegendFluxStyles } from './vl-map-legend.flux-css';
 
 export interface Position {
     top: string;
@@ -63,17 +63,17 @@ export class VlMapLegend extends BaseLitElement {
     private customItems: CustomItem[] = [];
     private observer: MutationObserver;
 
-    static get styles() {
-        return [
-            css`
-                ${unsafeCSS(styles)}
-            `,
-        ];
-    }
-
     constructor() {
         super();
         this.placement = LEGEND_PLACEMENT.BOTTOM_RIGHT;
+    }
+
+    static get styles() {
+        return [
+            css`
+                ${unsafeCSS(vlMapLegendFluxStyles)}
+            `,
+        ];
     }
 
     static get properties() {
@@ -101,6 +101,84 @@ export class VlMapLegend extends BaseLitElement {
                 attribute: 'version',
             },
         };
+    }
+
+    connectedCallback() {
+        super.connectedCallback();
+        this.mapElement = this.closest('vl-map') as VlMap;
+
+        const imageLayers: VlMapWmsLayer[] = [].concat(this.mapElement.wmsLayers);
+        const geometryLayers: GeometryLayer[] = [].concat(this.mapElement.featuresLayers, this.mapElement.wfsLayers);
+
+        imageLayers.forEach((wmsLayer) => {
+            wmsLayer &&
+                this.urlItems.push({
+                    type: 'url',
+                    url: this.legendUrl(wmsLayer),
+                    name: wmsLayer.getAttribute('name'),
+                });
+        });
+
+        this.customItems = this.customLegendItems();
+        this.updateItems();
+
+        geometryLayers.forEach((layer) => {
+            layer.addEventListener(VlMapVectorLayer.EVENTS.styleChanged, () => {
+                this.updateLegendGeometryItems(geometryLayers);
+            });
+        });
+
+        this.initializeCustomLegendObserver();
+    }
+
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.observer.disconnect();
+    }
+
+    render() {
+        const hasIconText = !!this.customItems?.find((item) => item.iconText);
+
+        if (!this.items) {
+            return null;
+        }
+
+        return html` <div
+            class=${`flux-map-legend ${this.layoutVertical ? 'flux-map-legend--vertical' : ''}`}
+            style="${this.generateItemStyle()}"
+        >
+            ${this.hideTitle
+                ? ''
+                : html` <div>
+                      <span class="flux-map-legend-text flux-map-legend-title">Legende: </span>
+                  </div>`}
+            ${this.items.map((item) => {
+                if (!item) return '';
+
+                switch (item.type) {
+                    case 'custom':
+                        return html` ${item.styleElement} `;
+                    case 'styled':
+                        return html` <div class="flux-map-legend-item">
+                            <div class="flux-map-legend-icon-container">
+                                <div
+                                    class="flux-map-legend-icon ${hasIconText ? 'flux-map-legend-icon-large' : ''}"
+                                    style="${this.generateIconStyle(item.style)}"
+                                >
+                                    <div class="flux-map-legend-icon-text">${item.iconText}</div>
+                                </div>
+                            </div>
+                            <span class="flux-map-legend-text">${item.name}</span>
+                        </div>`;
+                    case 'url':
+                        return html` <div class="flux-map-legend-item flux-map-legend-image">
+                            <img alt="map legend image" class="flux-map-legend-icon" src="${item.url}" />
+                        </div>`;
+                    default:
+                        return '';
+                }
+            })}
+        </div>`;
     }
 
     private getPosition(): Position {
@@ -141,39 +219,6 @@ export class VlMapLegend extends BaseLitElement {
             right: this.right ?? position.right,
             bottom: this.bottom ?? position.bottom,
         };
-    }
-
-    connectedCallback() {
-        super.connectedCallback();
-        this.mapElement = this.closest('vl-map') as VlMap;
-
-        const imageLayers: VlMapWmsLayer[] = [].concat(this.mapElement.wmsLayers);
-        const geometryLayers: GeometryLayer[] = [].concat(this.mapElement.featuresLayers, this.mapElement.wfsLayers);
-
-        imageLayers.forEach((wmsLayer) => {
-            wmsLayer &&
-                this.urlItems.push({
-                    type: 'url',
-                    url: this.legendUrl(wmsLayer),
-                    name: wmsLayer.getAttribute('name'),
-                });
-        });
-
-        this.customItems = this.customLegendItems();
-        this.updateItems();
-
-        geometryLayers.forEach((layer) => {
-            layer.addEventListener(VlMapVectorLayer.EVENTS.styleChanged, () => {
-                this.updateLegendGeometryItems(geometryLayers);
-            });
-        });
-
-        this.initializeCustomLegendObserver();
-    }
-
-    disconnectedCallback() {
-        super.disconnectedCallback();
-        this.observer.disconnect();
     }
 
     private initializeCustomLegendObserver() {
@@ -268,51 +313,6 @@ export class VlMapLegend extends BaseLitElement {
             this.items = defaultItems;
         }
         this.requestUpdate();
-    }
-
-    render() {
-        const hasIconText = !!this.customItems?.find((item) => item.iconText);
-
-        if (!this.items) {
-            return null;
-        }
-
-        return html` <div
-            class=${`uig-map-legend ${this.layoutVertical ? 'uig-map-legend--vertical' : ''}`}
-            style="${this.generateItemStyle()}"
-        >
-            ${this.hideTitle
-                ? ''
-                : html` <div>
-                      <span class="uig-map-legend-text uig-map-legend-title">Legende: </span>
-                  </div>`}
-            ${this.items.map((item) => {
-                if (!item) return '';
-
-                switch (item.type) {
-                    case 'custom':
-                        return html` ${item.styleElement} `;
-                    case 'styled':
-                        return html` <div class="uig-map-legend-item">
-                            <div class="uig-map-legend-icon-container">
-                                <div
-                                    class="uig-map-legend-icon ${hasIconText ? 'uig-map-legend-icon-large' : ''}"
-                                    style="${this.generateIconStyle(item.style)}"
-                                >
-                                    <div class="uig-map-legend-icon-text">${item.iconText}</div>
-                                </div>
-                            </div>
-                            <span class="uig-map-legend-text">${item.name}</span>
-                        </div>`;
-                    case 'url':
-                        return html` <div class="uig-map-legend-item uig-map-legend-image">
-                            <img alt="map legend image" class="uig-map-legend-icon" src="${item.url}" />
-                        </div>`;
-                    default:
-                        return '';
-                }
-            })}
-        </div>`;
     }
 
     private generateItemStyle() {
