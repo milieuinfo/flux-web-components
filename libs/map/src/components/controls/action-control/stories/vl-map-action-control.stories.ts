@@ -30,7 +30,7 @@ export default {
 
 const Template = story(
     mapActionControlArgs,
-    ({ actionId, icon, label }) => html`
+    ({ actionId, icon, label, defaultActive }) => html`
         <vl-map>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-features-layer>
@@ -41,6 +41,7 @@ const Template = story(
                     data-vl-action-id=${actionId}
                     data-vl-icon=${icon}
                     data-vl-label=${label}
+                    ?data-vl-default-active=${defaultActive}
                 ></vl-map-action-control>
             </vl-map-action-controls>
         </vl-map>
@@ -54,12 +55,21 @@ MapActionControlDefault.args = {
     label: 'Teken',
 };
 
+export const MapActionControlDefaultActive = Template.bind({});
+MapActionControlDefaultActive.storyName = 'vl-map-action-control - default active';
+MapActionControlDefaultActive.args = {
+    actionId: 'draw-polygon-action',
+    label: 'Teken',
+    defaultActive: true,
+};
+
 export const MapActionControlIcon = Template.bind({});
 MapActionControlIcon.storyName = 'vl-map-action-control - icon';
 MapActionControlIcon.args = {
     actionId: 'draw-polygon-action',
     icon: 'pencil',
 };
+
 
 export const MapActionControlMultiple = story(
     {},
@@ -74,12 +84,12 @@ export const MapActionControlMultiple = story(
             <vl-map-action-controls>
                 <vl-map-action-control data-vl-action-id="draw-action" data-vl-label="Teken"></vl-map-action-control>
                 <vl-map-action-control
-                        data-vl-action-id="modify-action"
-                        data-vl-label="Editeer"
+                    data-vl-action-id="modify-action"
+                    data-vl-label="Editeer"
                 ></vl-map-action-control>
                 <vl-map-action-control
-                        data-vl-action-id="delete-action"
-                        data-vl-label="Verwijder"
+                    data-vl-action-id="delete-action"
+                    data-vl-label="Verwijder"
                 ></vl-map-action-control>
             </vl-map-action-controls>
         </vl-map>

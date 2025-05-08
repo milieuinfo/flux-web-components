@@ -6,6 +6,7 @@ export const mapActionControlArgs = {
     actionId: '',
     icon: '',
     label: '',
+    defaultActive: false,
 };
 
 export const mapActionControlArgTypes: ArgTypes<typeof mapActionControlArgs> = {
@@ -36,6 +37,15 @@ export const mapActionControlArgTypes: ArgTypes<typeof mapActionControlArgs> = {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: mapActionControlArgs.label },
+        },
+    },
+    defaultActive: {
+        name: 'data-vl-default-active',
+        description: 'Voeg `default-active` toe om de control default te activeren bij het renderen.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: mapActionControlArgs.defaultActive },
         },
     },
 };
