@@ -13,7 +13,7 @@ export const vlHttpErrorMessageFluxStyles: CSSResult = css`
     }
 
     @media screen and (max-width: ${vlMediaScreenSmall}px) {
-        .vl-error-message-container.vl-grid {
+        .vl-form-message-container.vl-grid {
             > div:nth-child(1) {
                 order: 2;
             }
@@ -30,7 +30,7 @@ export const vlHttpErrorMessageFluxStyles: CSSResult = css`
     }
 
     @media (min-width: ${vlMediaScreenExtraSmall}px) and (max-width: ${vlMediaScreenSmall}px) {
-        .vl-error-message-container.vl-grid {
+        .vl-form-message-container.vl-grid {
             > div:nth-child(1) {
                 grid-column: 3 / 11;
             }
