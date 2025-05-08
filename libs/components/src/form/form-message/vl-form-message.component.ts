@@ -3,22 +3,22 @@ import { resetStyle } from '@domg/govflanders-style/common';
 import { formMessageStyle } from '@domg/govflanders-style/component';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
-import { errorMessageDefaults } from './vl-error-message.defaults';
-import { vlErrorMessageFluxStyles } from './vl-error-message.flux-css';
+import { formMessageDefaults } from './vl-form-message.defaults';
+import { vFormMessageFluxStyles } from './vl-form-message.flux-css';
 
-export const ERROR_MESSAGE_CUSTOM_TAG = 'vl-error-message';
+export const FORM_MESSAGE_CUSTOM_TAG = 'vl-form-message';
 
-@webComponent(ERROR_MESSAGE_CUSTOM_TAG)
-export class VlErrorMessageComponent extends BaseLitElement {
+@webComponent(FORM_MESSAGE_CUSTOM_TAG)
+export class VlFormMessageComponent extends BaseLitElement {
     // Attributes
-    private show = errorMessageDefaults.show;
-    private preLine = errorMessageDefaults.preLine;
-    private for = errorMessageDefaults.for; // Wordt enkel gebruikt in de form-control basis klasse
-    private state = errorMessageDefaults.state; // Wordt enkel gebruikt in de form-control basis klasse
+    private show = formMessageDefaults.show;
+    private preLine = formMessageDefaults.preLine;
+    private for = formMessageDefaults.for; // Wordt enkel gebruikt in de form-control basis klasse
+    private state = formMessageDefaults.state; // Wordt enkel gebruikt in de form-control basis klasse
     private validationMessage = '';
 
     static get styles(): CSSResult[] {
-        return [resetStyle, formMessageStyle, vlErrorMessageFluxStyles];
+        return [resetStyle, formMessageStyle, vFormMessageFluxStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -33,7 +33,7 @@ export class VlErrorMessageComponent extends BaseLitElement {
 
     render(): TemplateResult {
         const classes = {
-            'vl-form__error': true,
+            'vl-form__message': true,
             'vl-pre-line': this.preLine,
         };
         return html`
@@ -46,6 +46,6 @@ export class VlErrorMessageComponent extends BaseLitElement {
 
 declare global {
     interface HTMLElementTagNameMap {
-        ERROR_MESSAGE_CUSTOM_TAG: VlErrorMessageComponent;
+        FORM_MESSAGE_CUSTOM_TAG: VlFormMessageComponent;
     }
 }
