@@ -46,7 +46,7 @@ describe('component vl-wizard-pane - default', () => {
         cy.get('vl-wizard').find('vl-wizard-pane').should('have.attr', 'name', 'TEST-NAME');
         cy.get('vl-wizard')
             .shadow()
-            .find('vl-progress-bar')
+            .find('vl-progress-indicator')
             .shadow()
             .find('.vl-progress-bar__bullet__text')
             .should('have.text', 'TEST-NAME');
@@ -54,7 +54,7 @@ describe('component vl-wizard-pane - default', () => {
         cy.get('vl-wizard').find('vl-wizard-pane').invoke('attr', 'name', 'NEW-NAME');
         cy.get('vl-wizard')
             .shadow()
-            .find('vl-progress-bar')
+            .find('vl-progress-indicator')
             .shadow()
             .find('.vl-progress-bar__bullet__text')
             .should('have.text', 'NEW-NAME');
@@ -104,7 +104,7 @@ describe('component vl-wizard-pane - isActive state', () => {
         cy.get('vl-wizard').find('vl-wizard-pane').should('have.attr', 'name', 'first-pane');
         cy.get('vl-wizard')
             .shadow()
-            .find('vl-progress-bar')
+            .find('vl-progress-indicator')
             .shadow()
             .find('.vl-progress-bar__bullet__text')
             .first()
@@ -113,7 +113,7 @@ describe('component vl-wizard-pane - isActive state', () => {
         cy.get('vl-wizard').find('vl-wizard-pane').invoke('attr', 'name', 'NEW-NAME');
         cy.get('vl-wizard')
             .shadow()
-            .find('vl-progress-bar')
+            .find('vl-progress-indicator')
             .shadow()
             .find('.vl-progress-bar__bullet__text')
             .first()

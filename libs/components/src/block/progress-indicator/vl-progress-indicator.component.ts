@@ -6,9 +6,9 @@ import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import 'reflect-metadata';
 import { VlPopoverComponent } from '../popover';
-import { vlProgressBarFluxStyles } from './vl-progress-bar.flux-css';
+import { vlProgressIndicatorFluxStyles } from './vl-progress-indicator.flux-css';
 
-class ProgressBar {
+class ProgressIndicator {
     updateStep(shadowRoot: ShadowRoot | null, activeStep: number, focusOnChange: boolean) {
         if (shadowRoot) {
             const steps = shadowRoot.querySelectorAll<HTMLDivElement>('.vl-progress-bar__step');
@@ -22,12 +22,12 @@ class ProgressBar {
     }
 }
 
-@customElement('vl-progress-bar')
-export class VlProgressBarComponent extends BaseLitElement {
+@customElement('vl-progress-indicator')
+export class VlProgressIndicatorComponent extends BaseLitElement {
     private activeStep = 1;
     private focusOnChange = false;
     private numeric = false;
-    private progressBar = new ProgressBar();
+    private progressIndicator = new ProgressIndicator();
     private steps = [];
     private showLabels = false;
 
@@ -40,13 +40,13 @@ export class VlProgressBarComponent extends BaseLitElement {
         this.numeric = false;
         this.focusOnChange = false;
         this.activeStep = 1;
-        this.progressBar = new ProgressBar();
+        this.progressIndicator = new ProgressIndicator();
         this.steps = [];
         this.showLabels = false;
     }
 
     static get styles() {
-        return [resetStyle, progressBarStyle, vlProgressBarFluxStyles, accessibilityStyle];
+        return [resetStyle, progressBarStyle, vlProgressIndicatorFluxStyles, accessibilityStyle];
     }
 
     static get properties(): PropertyDeclarations {
@@ -68,16 +68,16 @@ export class VlProgressBarComponent extends BaseLitElement {
     }
 
     updated() {
-        this.progressBar.updateStep(this.shadowRoot, this.activeStep, this.focusOnChange);
+        this.progressIndicator.updateStep(this.shadowRoot, this.activeStep, this.focusOnChange);
     }
 
     render() {
-        const progressBarClasses = {
+        const progressIndicatorClasses = {
             'vl-progress-bar': true,
             'vl-progress-bar--numeric': this.numeric,
         };
 
-        return html` <div class=${classMap(progressBarClasses)}>
+        return html` <div class=${classMap(progressIndicatorClasses)}>
             ${this.steps.map((step, index) => this.renderStep(step, index))}
         </div>`;
     }
@@ -120,6 +120,6 @@ export class VlProgressBarComponent extends BaseLitElement {
 
 declare global {
     interface HTMLElementTagNameMap {
-        'vl-progress-bar': VlProgressBarComponent;
+        'vl-progress-indicator': VlProgressIndicatorComponent;
     }
 }

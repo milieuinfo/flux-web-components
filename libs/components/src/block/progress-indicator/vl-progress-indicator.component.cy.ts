@@ -1,9 +1,9 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { VlPopoverComponent } from '../popover/vl-popover.component';
-import { VlProgressBarComponent } from './vl-progress-bar.component';
+import { VlProgressIndicatorComponent } from './vl-progress-indicator.component';
 import { html } from 'lit';
 
-registerWebComponents([VlProgressBarComponent, VlPopoverComponent]);
+registerWebComponents([VlProgressIndicatorComponent, VlPopoverComponent]);
 
 type MountDefaultProps = {
     activeStep: number;
@@ -26,7 +26,7 @@ const props: MountDefaultProps = {
 };
 
 const mountDefault = (props: MountDefaultProps) =>
-    cy.mount(html` <vl-progress-bar
+    cy.mount(html` <vl-progress-indicator
         active-step=${props.activeStep}
         ?show-labels=${props.showLabels}
         ?focus-on-change=${props.focusOnChange}
@@ -34,24 +34,24 @@ const mountDefault = (props: MountDefaultProps) =>
         .steps=${props.steps}
         @vl-click-step=${(event: CustomEvent) => props.onClickStep(event.detail)}
     >
-    </vl-progress-bar>`);
+    </vl-progress-indicator>`);
 
-const VlProgressBarTestUtils = {
+const VlProgressIndicatorTestUtils = {
     changeActiveStep: function changeActiveStep(stepNumber: number) {
-        cy.get('vl-progress-bar').invoke('attr', 'active-step', stepNumber);
+        cy.get('vl-progress-indicator').invoke('attr', 'active-step', stepNumber);
     },
 
     verifyActiveStepChange: function verifyActiveStepChange(stepNumber: number) {
         this.changeActiveStep(stepNumber);
 
-        cy.get('vl-progress-bar')
+        cy.get('vl-progress-indicator')
             .shadow()
             .find('.vl-progress-bar__step')
             .eq(stepNumber - 1)
             .should('have.class', 'vl-progress-bar__step--active');
     },
     shouldHaveVisiblePopoverForStep: function shouldHaveVisiblePopoverForStep(stepNumber: number) {
-        cy.get('vl-progress-bar')
+        cy.get('vl-progress-indicator')
             .shadow()
             .find('.vl-progress-bar__step')
             .eq(stepNumber - 1)
@@ -62,7 +62,7 @@ const VlProgressBarTestUtils = {
     },
 };
 
-describe('component vl-progress-bar - default', () => {
+describe('component vl-progress-indicator - default', () => {
     const steps = ['Step 1', 'Step 2', 'Step 3'];
 
     beforeEach(() => {
@@ -70,19 +70,19 @@ describe('component vl-progress-bar - default', () => {
     });
 
     it('should mount', () => {
-        cy.get('vl-progress-bar').shadow();
+        cy.get('vl-progress-indicator').shadow();
     });
 
     it('should be accessible', () => {
         cy.injectAxe();
-        cy.checkA11y('vl-progress-bar');
+        cy.checkA11y('vl-progress-indicator');
     });
 
     it('should render steps correctly', () => {
-        cy.get('vl-progress-bar').shadow().find('.vl-progress-bar__step').should('have.length', steps.length);
+        cy.get('vl-progress-indicator').shadow().find('.vl-progress-bar__step').should('have.length', steps.length);
 
         steps.forEach((step, index) => {
-            cy.get('vl-progress-bar')
+            cy.get('vl-progress-indicator')
                 .shadow()
                 .find(`.vl-progress-bar__step:nth-child(${index + 1}) `)
                 .find('vl-popover')
@@ -91,18 +91,18 @@ describe('component vl-progress-bar - default', () => {
     });
 });
 
-describe('component vl-progress-bar - properties default ', () => {
+describe('component vl-progress-indicator - properties default ', () => {
     it('should have default values for properties', () => {
         mountDefault(props);
 
-        cy.get('vl-progress-bar').should('have.attr', 'active-step', props.activeStep);
-        cy.get('vl-progress-bar').should('not.have.attr', 'focus-on-change', props.focusOnChange);
-        cy.get('vl-progress-bar').should('not.have.attr', 'numeric');
-        cy.get('vl-progress-bar').should('not.have.attr', 'show-labels');
+        cy.get('vl-progress-indicator').should('have.attr', 'active-step', props.activeStep);
+        cy.get('vl-progress-indicator').should('not.have.attr', 'focus-on-change', props.focusOnChange);
+        cy.get('vl-progress-indicator').should('not.have.attr', 'numeric');
+        cy.get('vl-progress-indicator').should('not.have.attr', 'show-labels');
     });
 });
 
-describe('component vl-progress-bar - properties reflect', () => {
+describe('component vl-progress-indicator - properties reflect', () => {
     const steps = ['Step 1', 'Step 2', 'Step 3'];
 
     it('should have active step class on the correct step when <activeStep> property is set', () => {
@@ -110,7 +110,7 @@ describe('component vl-progress-bar - properties reflect', () => {
 
         mountDefault({ ...props, steps, activeStep });
 
-        cy.get('vl-progress-bar')
+        cy.get('vl-progress-indicator')
             .shadow()
             .find(`.vl-progress-bar__step:nth-child(${activeStep})`)
             .should('have.class', 'vl-progress-bar__step--active');
@@ -118,19 +118,19 @@ describe('component vl-progress-bar - properties reflect', () => {
 
     it('should add the <.vl-progress-bar--numeric> class when <numeric> property is true', () => {
         mountDefault({ ...props, steps, numeric: true });
-        cy.get('vl-progress-bar').shadow().find('.vl-progress-bar--numeric').should('exist');
+        cy.get('vl-progress-indicator').shadow().find('.vl-progress-bar--numeric').should('exist');
     });
 
     it('should set the steps when the <steps> property is passed', () => {
         mountDefault({ ...props, steps });
-        cy.get('vl-progress-bar').shadow().find('.vl-progress-bar__step').should('have.length', steps.length);
+        cy.get('vl-progress-indicator').shadow().find('.vl-progress-bar__step').should('have.length', steps.length);
     });
 
     it('should always show the labels when <showLabels> property is true', () => {
         mountDefault({ ...props, steps, showLabels: true });
 
         steps.forEach((__, index) => {
-            cy.get('vl-progress-bar')
+            cy.get('vl-progress-indicator')
                 .shadow()
                 .find(`.vl-progress-bar__step:nth-child(${index + 1}) .vl-progress-bar__bullet__text`)
                 .should('exist');
@@ -140,29 +140,29 @@ describe('component vl-progress-bar - properties reflect', () => {
     it('should dynamically update the active step', () => {
         mountDefault({ ...props, steps });
 
-        VlProgressBarTestUtils.verifyActiveStepChange(1);
-        VlProgressBarTestUtils.verifyActiveStepChange(2);
-        VlProgressBarTestUtils.verifyActiveStepChange(3);
+        VlProgressIndicatorTestUtils.verifyActiveStepChange(1);
+        VlProgressIndicatorTestUtils.verifyActiveStepChange(2);
+        VlProgressIndicatorTestUtils.verifyActiveStepChange(3);
     });
 
     it('should have visible popover for active step', () => {
         mountDefault({ ...props, steps, focusOnChange: true });
 
-        VlProgressBarTestUtils.shouldHaveVisiblePopoverForStep(1);
+        VlProgressIndicatorTestUtils.shouldHaveVisiblePopoverForStep(1);
 
-        VlProgressBarTestUtils.changeActiveStep(2);
-        VlProgressBarTestUtils.shouldHaveVisiblePopoverForStep(2);
+        VlProgressIndicatorTestUtils.changeActiveStep(2);
+        VlProgressIndicatorTestUtils.shouldHaveVisiblePopoverForStep(2);
 
-        VlProgressBarTestUtils.changeActiveStep(3);
-        VlProgressBarTestUtils.shouldHaveVisiblePopoverForStep(3);
+        VlProgressIndicatorTestUtils.changeActiveStep(3);
+        VlProgressIndicatorTestUtils.shouldHaveVisiblePopoverForStep(3);
     });
 
     it('should emit vl-click-step event when a step is clicked', () => {
         mountDefault({ ...props, steps });
 
-        cy.createStubForEvent('vl-progress-bar', 'vl-click-step');
+        cy.createStubForEvent('vl-progress-indicator', 'vl-click-step');
 
-        cy.get('vl-progress-bar').shadow().find('.vl-progress-bar__step:nth-child(2) button').click();
+        cy.get('vl-progress-indicator').shadow().find('.vl-progress-bar__step:nth-child(2) button').click();
 
         cy.get('@vl-click-step').should('have.been.calledWithMatch', { detail: { step: steps[1], number: 2 } });
         cy.get('@vl-click-step').should('not.have.been.calledWithMatch', { detail: { step: steps[1], number: 1 } });
