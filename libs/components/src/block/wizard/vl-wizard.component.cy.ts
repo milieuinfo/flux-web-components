@@ -84,7 +84,7 @@ describe('component vl-wizard-pane - properties', () => {
         mountDefault({ numeric: true, panes: ['Step 1', 'Step 2', 'Step 3'] });
         cy.get('vl-wizard')
             .shadow()
-            .find('vl-progress-bar')
+            .find('vl-progress-indicator')
             .shadow()
             .find('div.vl-progress-bar.vl-progress-bar--numeric');
     });
@@ -96,7 +96,7 @@ describe('component vl-wizard-pane - properties', () => {
 
         cy.get('vl-wizard')
             .shadow()
-            .find('vl-progress-bar')
+            .find('vl-progress-indicator')
             .shadow()
             .find('.vl-progress-bar__step')
             .eq(0)
@@ -104,7 +104,7 @@ describe('component vl-wizard-pane - properties', () => {
             .should('contain.text', 'Step 1');
         cy.get('vl-wizard')
             .shadow()
-            .find('vl-progress-bar')
+            .find('vl-progress-indicator')
             .shadow()
             .find('.vl-progress-bar__step')
             .eq(1)
@@ -119,7 +119,7 @@ describe('component vl-wizard-pane - properties', () => {
 
         cy.get('vl-wizard')
             .shadow()
-            .find('vl-progress-bar')
+            .find('vl-progress-indicator')
             .shadow()
             .find('.vl-progress-bar__step')
             .eq(0)
@@ -127,7 +127,7 @@ describe('component vl-wizard-pane - properties', () => {
             .should('not.exist');
         cy.get('vl-wizard')
             .shadow()
-            .find('vl-progress-bar')
+            .find('vl-progress-indicator')
             .shadow()
             .find('.vl-progress-bar__step')
             .eq(1)
