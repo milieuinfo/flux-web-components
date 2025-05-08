@@ -21,7 +21,7 @@ import { pagerArgTypes } from '../../../libs/components/src/block/pager/stories/
 import { buttonPillArgTypes } from '../../../libs/components/src/block/pill/stories/vl-button-pill.stories-arg';
 import { pillArgTypes } from '../../../libs/components/src/block/pill/stories/vl-pill.stories-arg';
 import { popoverArgTypes } from '../../../libs/components/src/block/popover/stories/vl-popover.stories-arg';
-import { progressBarArgTypes } from '../../../libs/components/src/block/progress-bar/stories/vl-progress-bar.stories-arg';
+import { progressIndicatorArgTypes } from '../../../libs/components/src/block/progress-indicator/stories/vl-progress-indicator.stories-arg';
 import { propertiesArgTypes } from '../../../libs/components/src/block/properties/stories/vl-properties.stories-arg';
 import { prozaMessagePreloaderArgTypes } from '../../../libs/components/src/block/proza-message/stories/vl-proza-message-preloader.stories-arg';
 import { prozaMessageArgTypes } from '../../../libs/components/src/block/proza-message/stories/vl-proza-message.stories-arg';
@@ -213,10 +213,10 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
     buildWTConfig('vl-popover-action', null, null, '/docs/components-block-popover--documentatie'),
     buildWTConfig('vl-popover-action-list', null, null, '/docs/components-block-popover--documentatie'),
     buildWTConfig(
-        'vl-progress-bar',
-        progressBarArgTypes,
-        '../../libs/components/src/block/progress-bar/stories/vl-progress-bar.stories-doc.mdx',
-        '/docs/components-block-progress-bar--documentatie'
+        'vl-progress-indicator',
+        progressIndicatorArgTypes,
+        '../../libs/components/src/block/progress-indicator/stories/vl-progress-indicator.stories-doc.mdx',
+        '/docs/components-block-progress-indicator--documentatie'
     ),
     buildWTConfig(
         'vl-proza-message',

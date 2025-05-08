@@ -19,7 +19,7 @@ import storybookVoorbeeld from '!!raw-loader!../../resources/bijdragen/storybook
 
 Deze pagina bevat de conventies die gehanteerd worden bij het schrijven van Storybook documentatie.<br/>
 Je kan bijv. kijken naar de volgende componenten die de conventies al correct volgen: **VlAccordion**,
-**VlProgressBar**, **VlFunctionalHeader**, **VlAccessibility** of **VlHeader**.
+**VlProgressIndicator**, **VlFunctionalHeader**, **VlAccessibility** of **VlHeader**.
 
 
 ## Bestanden
@@ -92,16 +92,16 @@ Hiervoor hanteren we volgende richtlijnen:
 
 ```ts
 const Template = story(
-    progressBarArgs,
+    progressIndicatorArgs,
     ({ activeStep, focusOnChange, numeric, steps, onClickStep }) => html`
-        <vl-progress-bar
+        <vl-progress-indicator
             active-step=${activeStep}
             ?focus-on-change=${focusOnChange}
             ?numeric=${numeric}
             .steps=${steps}
             @vl-click-step=${(event: CustomEvent) => onClickStep(event.detail)}
         >
-        </vl-progress-bar>
+        </vl-progress-indicator>
     `
 );
 ```
@@ -113,7 +113,7 @@ Voor het schrijven van de Stories zelf hanteren we volgende richtlijnen:
 
 - elk component heeft **minstens 1 story**
 - een template meerdere malen **hergebruiken doe je m.b.v. `Template.bind({})`**, zie het voorbeeld hieronder
-- de naamgeving volgt de conventie: **`[Component]+[Variant]`**, bv. `ProgressBarDefault`
+- de naamgeving volgt de conventie: **`[Component]+[Variant]`**, bv. `ProgressIndicatorDefault`
 - indien de component meerdere 'logische varianten' heeft schrijven we een **aparte story per variant**; in dit geval
   geven of overschrijven we de args op story niveau
 
@@ -121,9 +121,9 @@ Voor het schrijven van de Stories zelf hanteren we volgende richtlijnen:
              hetzelfde voor alle stories
 
 ```ts
-export const ProgressBarDefault = Template.bind({}); // template om te gebruiken voor deze story
-ProgressBarDefault.storyName = 'vl-progress-bar - default';
-ProgressBarDefault.args = {
+export const ProgressIndicatorDefault = Template.bind({}); // template om te gebruiken voor deze story
+ProgressIndicatorDefault.storyName = 'vl-progress-indicator - default';
+ProgressIndicatorDefault.args = {
     steps: ['Stap 1/3: Aanvraag', 'Stap 2/3: Gegevens', 'Stap 3/3: Bevestigen'],
 };
 ```
@@ -207,7 +207,7 @@ activeStep: {
     <Source language="ts" dark={true} format={true}
             code={
             `
-            export const progressBarArgTypes: ArgTypes<typeof progressBarArgs> = {
+            export const progressBarArgTypes: ArgTypes<typeof progressIndicatorArgs> = {
                 activeStep: {
                     name: 'active-step',
                     description: 'Markeert een stap als de actieve.',
@@ -215,7 +215,7 @@ activeStep: {
                     table: {
                         type: { summary: TYPES.NUMBER },
                         category: CATEGORIES.ATTRIBUTES,
-                        defaultValue: { summary: progressBarArgs.activeStep },
+                        defaultValue: { summary: progressIndicatorArgs.activeStep },
                     },
                 },
                 focusOnChange: {
@@ -224,7 +224,7 @@ activeStep: {
                     table: {
                         type: { summary: TYPES.BOOLEAN },
                         category: CATEGORIES.ATTRIBUTES,
-                        defaultValue: { summary: progressBarArgs.focusOnChange },
+                        defaultValue: { summary: progressIndicatorArgs.focusOnChange },
                     },
                 },
                 numeric: {
@@ -233,7 +233,7 @@ activeStep: {
                     table: {
                         type: { summary: TYPES.BOOLEAN },
                         category: CATEGORIES.ATTRIBUTES,
-                        defaultValue: { summary: progressBarArgs.numeric },
+                        defaultValue: { summary: progressIndicatorArgs.numeric },
                     },
                 },
                 steps: {
@@ -242,7 +242,7 @@ activeStep: {
                     table: {
                         type: { summary: TYPES.ARRAY },
                         category: CATEGORIES.PROPERTIES,
-                        defaultValue: { summary: progressBarArgs.steps },
+                        defaultValue: { summary: progressIndicatorArgs.steps },
                     },
                 },
                 onClickStep: {
@@ -252,7 +252,7 @@ activeStep: {
                     table: {
                         type: { summary: '{ step: string, number: number }' },
                         category: CATEGORIES.EVENTS,
-                        defaultValue: { summary: progressBarArgs.onClickStep },
+                        defaultValue: { summary: progressIndicatorArgs.onClickStep },
                     },
                 },
             };

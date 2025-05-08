@@ -7,7 +7,10 @@ export default defineConfig({
     modifyObstructiveCode: false,
     screenshotsFolder: '../../build/cypress/components/screenshots',
     chromeWebSecurity: false,
-    retries: 5,
+    retries: {
+        runMode: 5,
+        openMode: 0,
+    },
     component: {
         supportFile: './support/component.ts',
         indexHtmlFile: './support/component-index.html',
