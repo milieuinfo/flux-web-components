@@ -2,7 +2,7 @@ export { VlFormLabelComponent, formLabelStyles } from './form-label'; // TODO: v
 export { VlInputFieldComponent, inputFieldStyles } from './input-field'; // TODO: volgorde imports is hier belangrijk, invloed op registratie
 export { VlCheckboxComponent } from './checkbox';
 export { VlDatepickerComponent } from './datepicker';
-export { VlErrorMessageComponent } from './error-message';
+export { VlFormMessageComponent } from './form-message';
 export { VlInputFieldMaskedComponent } from './input-field-masked';
 export { VlRadioComponent, VlRadioGroupComponent } from './radio-group';
 export { VlSelectComponent, type SelectOption } from './select';

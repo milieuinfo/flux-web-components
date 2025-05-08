@@ -1,11 +1,11 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { vlGridStyles } from '@domg-wc/styles';
 import { html, nothing } from 'lit';
-import { VlErrorMessageComponent } from '../error-message';
+import { VlFormMessageComponent } from '../form-message';
 import { VlDatepickerComponent } from './vl-datepicker.component';
 import { datepickerDefaults } from './vl-datepicker.defaults';
 
-registerWebComponents([VlDatepickerComponent, VlErrorMessageComponent]);
+registerWebComponents([VlDatepickerComponent, VlFormMessageComponent]);
 
 describe('component - vl-datepicker', () => {
     it('should mount', () => {
@@ -1026,8 +1026,8 @@ describe('component - vl-datepicker - in form', () => {
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('151220');
         cy.get('button[type="submit"]').click({ force: true });
 
-        cy.get('vl-error-message[state="valueMissing"]').should('not.be.visible');
-        cy.get('vl-error-message[state="patternMismatch"]')
+        cy.get('vl-form-message[state="valueMissing"]').should('not.be.visible');
+        cy.get('vl-form-message[state="patternMismatch"]')
             .should('be.visible')
             .and('have.text', 'Gelieve het juiste formaat te gebruiken.');
         cy.checkA11y('vl-datepicker');
@@ -1036,7 +1036,7 @@ describe('component - vl-datepicker - in form', () => {
 
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('15122023');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-error-message[state="patternMismatch"]').should('not.be.visible');
+        cy.get('vl-form-message[state="patternMismatch"]').should('not.be.visible');
         cy.checkA11y('vl-datepicker');
     });
 
@@ -1053,8 +1053,8 @@ describe('component - vl-datepicker - in form', () => {
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('1512202');
         cy.get('button[type="submit"]').click({ force: true });
 
-        cy.get('vl-error-message[state="valueMissing"]').should('not.be.visible');
-        cy.get('vl-error-message[state="patternMismatch"]')
+        cy.get('vl-form-message[state="valueMissing"]').should('not.be.visible');
+        cy.get('vl-form-message[state="patternMismatch"]')
             .should('be.visible')
             .and('have.text', 'Gelieve het juiste formaat te gebruiken.');
         cy.checkA11y('vl-datepicker');
@@ -1063,7 +1063,7 @@ describe('component - vl-datepicker - in form', () => {
 
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('15122023');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-error-message[state="patternMismatch"]').should('not.be.visible');
+        cy.get('vl-form-message[state="patternMismatch"]').should('not.be.visible');
         cy.checkA11y('vl-datepicker');
     });
 
@@ -1081,8 +1081,8 @@ describe('component - vl-datepicker - in form', () => {
         cy.get('vl-datepicker').should('have.value', 'hello');
         cy.get('button[type="submit"]').click({ force: true });
 
-        cy.get('vl-error-message[state="valueMissing"]').should('not.be.visible');
-        cy.get('vl-error-message[state="patternMismatch"]').should('not.be.visible');
+        cy.get('vl-form-message[state="valueMissing"]').should('not.be.visible');
+        cy.get('vl-form-message[state="patternMismatch"]').should('not.be.visible');
         cy.checkA11y('vl-datepicker');
     });
 
@@ -1099,8 +1099,8 @@ describe('component - vl-datepicker - in form', () => {
         cy.get('vl-datepicker').should('have.value', 'hello');
         cy.get('button[type="submit"]').click({ force: true });
 
-        cy.get('vl-error-message[state="valueMissing"]').should('not.be.visible');
-        cy.get('vl-error-message[state="patternMismatch"]').should('not.be.visible');
+        cy.get('vl-form-message[state="valueMissing"]').should('not.be.visible');
+        cy.get('vl-form-message[state="patternMismatch"]').should('not.be.visible');
         cy.checkA11y('vl-datepicker');
     });
 
@@ -1122,8 +1122,8 @@ describe('component - vl-datepicker - in form', () => {
         // cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('1');
         cy.get('button[type="submit"]').click({ force: true });
 
-        cy.get('vl-error-message[state="valueMissing"]').should('not.be.visible');
-        cy.get('vl-error-message[state="patternMismatch"]')
+        cy.get('vl-form-message[state="valueMissing"]').should('not.be.visible');
+        cy.get('vl-form-message[state="patternMismatch"]')
             .should('be.visible')
             .and('have.text', 'Gelieve het juiste formaat te gebruiken.');
         cy.checkA11y('vl-datepicker');
@@ -1132,7 +1132,7 @@ describe('component - vl-datepicker - in form', () => {
 
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('15.12.2023');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-error-message[state="patternMismatch"]').should('not.be.visible');
+        cy.get('vl-form-message[state="patternMismatch"]').should('not.be.visible');
         cy.checkA11y('vl-datepicker');
     });
 
@@ -1152,8 +1152,8 @@ describe('component - vl-datepicker - in form', () => {
 
         cy.get('button[type="submit"]').click({ force: true });
 
-        cy.get('vl-error-message[state="valueMissing"]').should('not.be.visible');
-        cy.get('vl-error-message[state="patternMismatch"]')
+        cy.get('vl-form-message[state="valueMissing"]').should('not.be.visible');
+        cy.get('vl-form-message[state="patternMismatch"]')
             .should('be.visible')
             .and('have.text', 'Gelieve het juiste formaat te gebruiken.');
         cy.checkA11y('vl-datepicker');
@@ -1163,7 +1163,7 @@ describe('component - vl-datepicker - in form', () => {
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('99');
         cy.get('vl-datepicker').should('have.value', '09:09');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-error-message[state="patternMismatch"]').should('not.be.visible');
+        cy.get('vl-form-message[state="patternMismatch"]').should('not.be.visible');
         cy.checkA11y('vl-datepicker');
     });
 
@@ -1183,8 +1183,8 @@ describe('component - vl-datepicker - in form', () => {
 
         cy.get('button[type="submit"]').click({ force: true });
 
-        cy.get('vl-error-message[state="valueMissing"]').should('not.be.visible');
-        cy.get('vl-error-message[state="patternMismatch"]')
+        cy.get('vl-form-message[state="valueMissing"]').should('not.be.visible');
+        cy.get('vl-form-message[state="patternMismatch"]')
             .should('be.visible')
             .and('have.text', 'Gelieve het juiste formaat te gebruiken.');
         cy.checkA11y('vl-datepicker');
@@ -1195,7 +1195,7 @@ describe('component - vl-datepicker - in form', () => {
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').should('have.value', '09:09:09');
         cy.get('vl-datepicker').should('have.value', '09:09:09');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-error-message[state="patternMismatch"]').should('not.be.visible');
+        cy.get('vl-form-message[state="patternMismatch"]').should('not.be.visible');
         cy.checkA11y('vl-datepicker');
     });
 
@@ -1336,11 +1336,11 @@ const mountDatepickerInForm = ({
                             value=${value || nothing}
                         >
                         </vl-datepicker>
-                        <vl-error-message for="geboortedatum" state="valueMissing">
+                        <vl-form-message for="geboortedatum" state="valueMissing">
                             Gelieve een geboortedatum in te vullen.
-                        </vl-error-message>
-                        <vl-error-message for="geboortedatum" state="patternMismatch"
-                            >Gelieve het juiste formaat te gebruiken.</vl-error-message
+                        </vl-form-message>
+                        <vl-form-message for="geboortedatum" state="patternMismatch"
+                            >Gelieve het juiste formaat te gebruiken.</vl-form-message
                         >
                     </div>
                     <div class="vl-column vl-column--9 vl-column--start-4">

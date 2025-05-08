@@ -7,7 +7,7 @@ import {
     SelectRichOption,
     VlCheckboxComponent,
     VlDatepickerComponent,
-    VlErrorMessageComponent,
+    VlFormMessageComponent,
     VlFormLabelComponent,
     VlInputFieldComponent,
     VlInputFieldMaskedComponent,
@@ -145,7 +145,7 @@ export class FormComponent extends LitElement {
 
     static {
         registerWebComponents([
-            VlErrorMessageComponent,
+            VlFormMessageComponent,
             VlFormLabelComponent,
             VlInputFieldComponent,
             VlInputFieldMaskedComponent,
@@ -277,18 +277,18 @@ export class FormComponent extends LitElement {
                                 max-length=${20}
                                 @vl-input=${(e: CustomEvent) => (this.firstName = e.detail.value)}
                             ></vl-input-field>
-                            <vl-error-message for="voornaam" state="valueMissing"
+                            <vl-form-message for="voornaam" state="valueMissing"
                                 >Gelieve een voornaam in te vullen.
-                            </vl-error-message>
-                            <vl-error-message for="voornaam" state="tooShort"
+                            </vl-form-message>
+                            <vl-form-message for="voornaam" state="tooShort"
                                 >Gelieve minimum 2 karakters te gebruiken.
-                            </vl-error-message>
-                            <vl-error-message for="voornaam" state="tooLong"
+                            </vl-form-message>
+                            <vl-form-message for="voornaam" state="tooLong"
                                 >Gelieve maximum 20 karakters te gebruiken.
-                            </vl-error-message>
-                            <vl-error-message for="voornaam" state="patternMismatch"
+                            </vl-form-message>
+                            <vl-form-message for="voornaam" state="patternMismatch"
                                 >Gelieve geen nummers of speciale tekens in te vullen.
-                            </vl-error-message>
+                            </vl-form-message>
                         </div>
                         <div class="vl-column vl-column--6">
                             <div class="form-buttons">
@@ -342,18 +342,18 @@ export class FormComponent extends LitElement {
                                 pattern="^[a-zA-Z]*$"
                                 @vl-input=${(e: CustomEvent) => (this.lastName = e.detail.value)}
                             ></vl-input-field>
-                            <vl-error-message for="achternaam" state="valueMissing"
+                            <vl-form-message for="achternaam" state="valueMissing"
                                 >Gelieve een achternaam in te vullen.
-                            </vl-error-message>
-                            <vl-error-message for="achternaam" state="tooShort"
+                            </vl-form-message>
+                            <vl-form-message for="achternaam" state="tooShort"
                                 >Gelieve minimum 2 karakters te gebruiken.
-                            </vl-error-message>
-                            <vl-error-message for="achternaam" state="tooLong"
+                            </vl-form-message>
+                            <vl-form-message for="achternaam" state="tooLong"
                                 >Gelieve maximum 20 karakters te gebruiken.
-                            </vl-error-message>
-                            <vl-error-message for="achternaam" state="patternMismatch"
+                            </vl-form-message>
+                            <vl-form-message for="achternaam" state="patternMismatch"
                                 >Gelieve geen nummers of speciale tekens in te vullen.
-                            </vl-error-message>
+                            </vl-form-message>
                         </div>
                         <div class="vl-column vl-column--6">
                             <div class="form-buttons">
@@ -405,11 +405,11 @@ export class FormComponent extends LitElement {
                                 mask="rrn"
                                 @vl-input=${(e: CustomEvent) => (this.rrn = e.detail.value)}
                             ></vl-input-field-masked>
-                            <vl-error-message for="rrn" state="valueMissing"
-                                >Gelieve een rijksregisternummer in te vullen.</vl-error-message
+                            <vl-form-message for="rrn" state="valueMissing"
+                                >Gelieve een rijksregisternummer in te vullen.</vl-form-message
                             >
-                            <vl-error-message for="rrn" state="patternMismatch"
-                                >Gelieve een geldig rijksregisternummer in te vullen.</vl-error-message
+                            <vl-form-message for="rrn" state="patternMismatch"
+                                >Gelieve een geldig rijksregisternummer in te vullen.</vl-form-message
                             >
                         </div>
                         <div class="vl-column vl-column--6">
@@ -464,15 +464,15 @@ export class FormComponent extends LitElement {
                                 value=${this.interests}
                                 @vl-input=${(e: CustomEvent) => (this.interests = e.detail.value)}
                             ></vl-textarea>
-                            <vl-error-message for="interesses" state="valueMissing"
+                            <vl-form-message for="interesses" state="valueMissing"
                                 >Gelieve je interesses in te vullen.
-                            </vl-error-message>
-                            <vl-error-message for="interesses" state="tooShort"
+                            </vl-form-message>
+                            <vl-form-message for="interesses" state="tooShort"
                                 >Gelieve minimum 5 karakters te gebruiken.
-                            </vl-error-message>
-                            <vl-error-message for="interesses" state="tooLong"
+                            </vl-form-message>
+                            <vl-form-message for="interesses" state="tooLong"
                                 >Gelieve maximum 100 karakters te gebruiken.
-                            </vl-error-message>
+                            </vl-form-message>
                         </div>
                         <div class="vl-column vl-column--6">
                             <div class="form-buttons">
@@ -523,13 +523,13 @@ export class FormComponent extends LitElement {
                                 @vl-input=${(e: CustomEvent) => (this.birthdate = e.detail.value)}
                             >
                             </vl-datepicker>
-                            <vl-error-message for="geboortedatum" state="valueMissing">
+                            <vl-form-message for="geboortedatum" state="valueMissing">
                                 Gelieve een geboortedatum in te vullen.
-                            </vl-error-message>
-                            <vl-error-message for="geboortedatum" state="patternMismatch">
+                            </vl-form-message>
+                            <vl-form-message for="geboortedatum" state="patternMismatch">
                                 Gelieve het volgende datum formaat te gebruiken: "dd.mm.YYYY", bv. 01.12.1976 of
                                 1.2.1993
-                            </vl-error-message>
+                            </vl-form-message>
                         </div>
                         <div class="vl-column vl-column--6">
                             <div class="form-buttons">
@@ -584,9 +584,9 @@ export class FormComponent extends LitElement {
                                 search-placeholder="Zoek geboorteplaats"
                             >
                             </vl-select-rich>
-                            <vl-error-message for="geboorteplaats" state="valueMissing"
+                            <vl-form-message for="geboorteplaats" state="valueMissing"
                                 >Gelieve een geboorteplaats te selecteren.
-                            </vl-error-message>
+                            </vl-form-message>
                         </div>
                         <div class="vl-column vl-column--6">
                             <div class="form-buttons">
@@ -638,9 +638,9 @@ export class FormComponent extends LitElement {
                                 no-choices-text="Geen resterende hobbies gevonden"
                             >
                             </vl-select-rich>
-                            <vl-error-message for="hobby's" state="valueMissing"
+                            <vl-form-message for="hobby's" state="valueMissing"
                                 >Gelieve een hobby te selecteren.
-                            </vl-error-message>
+                            </vl-form-message>
                         </div>
                         <div class="vl-column vl-column--6">
                             <div class="form-buttons">
@@ -692,15 +692,15 @@ export class FormComponent extends LitElement {
                                 value=${this.age}
                                 @vl-input=${(e: CustomEvent) => (this.age = e.detail.value)}
                             ></vl-input-field>
-                            <vl-error-message for="leeftijd" state="valueMissing"
+                            <vl-form-message for="leeftijd" state="valueMissing"
                                 >Gelieve een leeftijd in te vullen.
-                            </vl-error-message>
-                            <vl-error-message for="leeftijd" state="rangeUnderflow"
+                            </vl-form-message>
+                            <vl-form-message for="leeftijd" state="rangeUnderflow"
                                 >De minimum leeftijd is 0 jaar.
-                            </vl-error-message>
-                            <vl-error-message for="leeftijd" state="rangeOverflow"
+                            </vl-form-message>
+                            <vl-form-message for="leeftijd" state="rangeOverflow"
                                 >De maximum leeftijd is 99 jaar.
-                            </vl-error-message>
+                            </vl-form-message>
                         </div>
                         <div class="vl-column vl-column--6">
                             <div class="form-buttons">
@@ -748,9 +748,9 @@ export class FormComponent extends LitElement {
                                 ?disabled=${this.kidsDisabled}
                                 .options=${this.kidsOptions}
                             ></vl-select>
-                            <vl-error-message for="kinderen" state="valueMissing"
+                            <vl-form-message for="kinderen" state="valueMissing"
                                 >Gelieve een aantal kinderen te kiezen.
-                            </vl-error-message>
+                            </vl-form-message>
                         </div>
                         <div class="vl-column vl-column--6">
                             <div class="form-buttons">
@@ -801,9 +801,9 @@ export class FormComponent extends LitElement {
                                           value=${this.address}
                                           @vl-input=${(e: CustomEvent) => (this.address = e.detail.value)}
                                       ></vl-input-field>
-                                      <vl-error-message for="adres" state="valueMissing"
+                                      <vl-form-message for="adres" state="valueMissing"
                                           >Gelieve een adres in te vullen.
-                                      </vl-error-message>
+                                      </vl-form-message>
                                   </div>
                                   <div class="vl-column vl-column--6">
                                       <div class="form-buttons">
@@ -865,9 +865,9 @@ export class FormComponent extends LitElement {
                                 <vl-radio value="telefoon">telefoon</vl-radio>
                                 <vl-radio value="post">post</vl-radio>
                             </vl-radio-group>
-                            <vl-error-message for="contactmethode" state="valueMissing">
+                            <vl-form-message for="contactmethode" state="valueMissing">
                                 Gelieve een contactmethode te selecteren.
-                            </vl-error-message>
+                            </vl-form-message>
                         </div>
                         <div class="vl-column vl-column--6">
                             <div class="form-buttons">
@@ -924,9 +924,9 @@ export class FormComponent extends LitElement {
             this.photos = e.detail.value;
         }}
                             ></vl-upload>
-                            <vl-error-message for="fotos" state="valueMissing">
+                            <vl-form-message for="fotos" state="valueMissing">
                                 Gelieve 1 tot 2 foto's up te loaden.
-                            </vl-error-message>
+                            </vl-form-message>
                         </div>
                         <div class="vl-column vl-column--6">
                             <div class="form-buttons">
@@ -999,9 +999,9 @@ export class FormComponent extends LitElement {
                                       value=${this.filledInTruthfully ? this.filledInTruthfullyValue || 'on' : ''}
                                   />`
             : ''}
-                            <vl-error-message for="waarheidsgetrouw" state="valueMissing">
+                            <vl-form-message for="waarheidsgetrouw" state="valueMissing">
                                 Gelieve te bevestigen dat bovenstaande gegevens naar waarheid zijn ingevuld.
-                            </vl-error-message>
+                            </vl-form-message>
                         </div>
                         <div class="vl-column vl-column--6">
                             <div class="form-buttons">

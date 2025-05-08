@@ -78,7 +78,6 @@
                 },
                 {
                     "name": "vl-cookie-consent",
-                    "description": "De cookie consent kan gebruikt worden om de gebruiker te informeren over al de cookies die gebruikt worden.\nDaarnaast kunnen er mits toestemming van de gebruiker analytics worden toegepast.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-cookie-consent--documentatie",
                     "attributes": [
                         {
@@ -198,7 +197,6 @@
                 },
                 {
                     "name": "vl-footer",
-                    "description": "Injecteert de footer widget van Digitaal Vlaanderen.\nDefault wordt de footer geïnjecteerd in de body, bij het gebruik van het `vl-body`-element wordt de footer geïnjecteerd\nin de `vl-body`.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-footer--documentatie",
                     "attributes": [
                         {
@@ -304,7 +302,6 @@
                 },
                 {
                     "name": "vl-privacy",
-                    "description": "Privacy pagina.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-privacy--documentatie",
                     "attributes": [
                         {

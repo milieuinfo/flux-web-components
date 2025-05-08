@@ -32,14 +32,14 @@ describe('integrations - form demo', () => {
         cy.mount(html`<vl-form-demo></vl-form-demo>`);
         createStubForSubmitEvent();
 
-        getErrorMessages().should('have.length', 0);
+        getFormMessages().should('have.length', 0);
         getSubmitButton().click({ force: true }); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
 
         // Naam input error messages
-        getErrorMessages({ forAttr: 'naam', state: 'valueMissing' });
+        getFormMessages({ forAttr: 'naam', state: 'valueMissing' });
         getNaamInput().find('input').type('a');
         getSubmitButton().click('bottomLeft'); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
-        getErrorMessages({ forAttr: 'naam', state: 'tooShort' });
+        getFormMessages({ forAttr: 'naam', state: 'tooShort' });
         getNaamInput().find('input').clear();
 
         const longNameText = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
@@ -53,38 +53,38 @@ describe('integrations - form demo', () => {
 
         getSubmitButton().click('bottomLeft'); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
 
-        getErrorMessages({ forAttr: 'naam', state: 'tooLong' });
+        getFormMessages({ forAttr: 'naam', state: 'tooLong' });
         getNaamInput().find('input').clear();
         getNaamInput().find('input').type('!');
         getSubmitButton().click({ force: true }); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
-        getErrorMessages({ forAttr: 'naam', state: 'patternMismatch' });
+        getFormMessages({ forAttr: 'naam', state: 'patternMismatch' });
 
         // Rrn input error messages
-        getErrorMessages({ forAttr: 'rrn', state: 'valueMissing' });
+        getFormMessages({ forAttr: 'rrn', state: 'valueMissing' });
         getRrnInput().find('input').click().type('1');
         getSubmitButton().click({ force: true }); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
-        getErrorMessages({ forAttr: 'rrn', state: 'patternMismatch' });
+        getFormMessages({ forAttr: 'rrn', state: 'patternMismatch' });
 
         // Geboortedatum datepicker error messages
-        getErrorMessages({ forAttr: 'geboortedatum', state: 'valueMissing' });
+        getFormMessages({ forAttr: 'geboortedatum', state: 'valueMissing' });
         getGeboortedatumDatepicker().find('input#geboortedatum').click().type('1');
         getSubmitButton().click({ force: true }); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
-        getErrorMessages({ forAttr: 'geboortedatum', state: 'patternMismatch' });
+        getFormMessages({ forAttr: 'geboortedatum', state: 'patternMismatch' });
 
         // Geboorteplaats select rich error messages
-        getErrorMessages({ forAttr: 'geboorteplaats', state: 'valueMissing' });
+        getFormMessages({ forAttr: 'geboorteplaats', state: 'valueMissing' });
 
         // Hobbies select rich error messages
-        getErrorMessages({ forAttr: 'hobbies', state: 'valueMissing' });
+        getFormMessages({ forAttr: 'hobbies', state: 'valueMissing' });
 
         // Kinderen select error messages
-        getErrorMessages({ forAttr: 'kinderen', state: 'valueMissing' });
+        getFormMessages({ forAttr: 'kinderen', state: 'valueMissing' });
 
         // Interesses textarea error messages
-        getErrorMessages({ forAttr: 'interesses', state: 'valueMissing' });
+        getFormMessages({ forAttr: 'interesses', state: 'valueMissing' });
         getInteressesTextarea().find('textarea').click().type('a');
         getSubmitButton().click({ force: true }); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
-        getErrorMessages({ forAttr: 'interesses', state: 'tooShort' });
+        getFormMessages({ forAttr: 'interesses', state: 'tooShort' });
         const interessesText =
             'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
         getInteressesTextarea({ shadow: false }).invoke('attr', 'value', interessesText);
@@ -96,28 +96,28 @@ describe('integrations - form demo', () => {
             .should('contain.value', interessesText);
         getSubmitButton().click({ force: true }); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
 
-        getErrorMessages({ forAttr: 'interesses', state: 'tooLong' });
+        getFormMessages({ forAttr: 'interesses', state: 'tooLong' });
 
         // Leeftijd input error messages
-        getErrorMessages({ forAttr: 'leeftijd', state: 'valueMissing' });
+        getFormMessages({ forAttr: 'leeftijd', state: 'valueMissing' });
         getLeeftijdInput().find('input').click().type('-1');
         getSubmitButton().click({ force: true }); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
-        getErrorMessages({ forAttr: 'leeftijd', state: 'rangeUnderflow' });
+        getFormMessages({ forAttr: 'leeftijd', state: 'rangeUnderflow' });
         getLeeftijdInput().find('input').click().clear().type('100');
         getSubmitButton().click({ force: true }); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
-        getErrorMessages({ forAttr: 'leeftijd', state: 'rangeOverflow' });
+        getFormMessages({ forAttr: 'leeftijd', state: 'rangeOverflow' });
 
         // Contact methode error messages
-        getErrorMessages({ forAttr: 'contactmethode', state: 'valueMissing' });
+        getFormMessages({ forAttr: 'contactmethode', state: 'valueMissing' });
 
         // Fotos upload error messages
-        getErrorMessages({ forAttr: 'foto', state: 'valueMissing' });
+        getFormMessages({ forAttr: 'foto', state: 'valueMissing' });
 
         // Waarheidsgetrouw error messages
-        getErrorMessages({ forAttr: 'waarheidsgetrouw', state: 'valueMissing' });
+        getFormMessages({ forAttr: 'waarheidsgetrouw', state: 'valueMissing' });
 
         getResetButton().click('bottomLeft'); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
-        getErrorMessages().should('have.length', 0);
+        getFormMessages().should('have.length', 0);
         cy.get('@submit').should('not.have.been.called');
 
         // */
@@ -332,8 +332,8 @@ const getResetButton = () => {
     return cy.get('vl-form-demo').shadow().find('vl-button[type="reset"]').shadow().find('button');
 };
 
-const getErrorMessages = ({ forAttr, state }: { forAttr?: string; state?: string } = {}) => {
-    const selector = `vl-error-message[show]${forAttr ? `[for="${forAttr}"]` : ''}${state ? `[state="${state}"]` : ''}`;
+const getFormMessages = ({ forAttr, state }: { forAttr?: string; state?: string } = {}) => {
+    const selector = `vl-form-message[show]${forAttr ? `[for="${forAttr}"]` : ''}${state ? `[state="${state}"]` : ''}`;
     return cy.get('vl-form-demo').shadow().find(selector);
 };
 

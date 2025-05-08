@@ -268,9 +268,9 @@
                     }
                 },
                 {
-                    "name": "vl-error-message",
-                    "description": "Gebruik de `error-message` component om een error af te beelden voor een input veld.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-form-error-message--documentatie",
+                    "name": "vl-form-message",
+                    "description": "Gebruik de `form-message` component om een boodschap af te beelden voor een input veld.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-form-form-message--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -279,36 +279,35 @@
                         },
                         {
                             "name": "for",
-                            "description": "Het id van het input element waarvoor de error message getoond moet worden.",
+                            "description": "De id van het input element waarvoor de message getoond moet worden.",
                             "default": "null"
                         },
                         {
                             "name": "state",
-                            "description": "De state van het input element waarvoor de error message getoond moet worden.",
+                            "description": "De state van het input element waarvoor de message getoond moet worden.",
                             "default": "null"
                         },
                         {
                             "name": "show",
-                            "description": "Duidt aan of de error message getoond moet worden.<br>Dit kan gebruikt worden om de error message manueel te tonen of te verbergen.",
+                            "description": "Duidt aan of de message getoond moet worden.<br>Dit kan gebruikt worden om de message manueel te tonen of te verbergen.",
                             "default": "false"
                         },
                         {
                             "name": "preLine",
-                            "description": "Duidt aan of de nieuwe lijnen (`\n`) in de  error message behouden worden.",
+                            "description": "Duidt aan of de nieuwe lijnen (`\n`) in de message behouden worden.",
                             "default": "false"
                         }
                     ],
                     "slots": [
                         {
                             "name": "[default]",
-                            "description": "De inhoud van de error message.",
+                            "description": "De inhoud van de message.",
                             "default": ""
                         }
                     ]
                 },
                 {
                     "name": "vl-form-label",
-                    "description": "Gebruik de `form-label` component om een form label af te beelden.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-form-form-label--documentatie",
                     "attributes": [
                         {
@@ -347,7 +346,6 @@
                 },
                 {
                     "name": "vl-input-field",
-                    "description": "Gebruik de `input-field` component om een input veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-form-input-field--documentatie",
                     "attributes": [
                         {
@@ -495,7 +493,6 @@
                 },
                 {
                     "name": "vl-input-field-masked",
-                    "description": "Gebruik de `input-field-masked` component om een input veld met een mask toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-form-input-field-masked--documentatie",
                     "attributes": [
                         {
@@ -830,7 +827,6 @@
                 },
                 {
                     "name": "vl-select",
-                    "description": "Gebruik de `select` component om een select veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-form-select--documentatie",
                     "attributes": [
                         {
@@ -928,7 +924,6 @@
                 },
                 {
                     "name": "vl-select-rich",
-                    "description": "Gebruik de `select-rich` component om een uitgebreid select of multiselect veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-form-select-rich--documentatie",
                     "attributes": [
                         {
@@ -1056,7 +1051,6 @@
                 },
                 {
                     "name": "vl-textarea",
-                    "description": "Gebruik de `textarea` component om een textarea veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.\n\nDeze component bevat geen rich-text modus: gebruik daarvoor\n[vl-textarea-rich](/docs/form--text-area-rich--documentatie).",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-form-textarea--documentatie",
                     "attributes": [
                         {

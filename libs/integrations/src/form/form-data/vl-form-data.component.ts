@@ -4,7 +4,7 @@ import { VlButtonComponent } from '@domg-wc/components/atom';
 import {
     parseFormData,
     SelectRichOption,
-    VlErrorMessageComponent,
+    VlFormMessageComponent,
     VlFormLabelComponent,
     VlInputFieldComponent,
     VlSelectRichComponent,
@@ -29,7 +29,7 @@ export class VlFormDataComponent extends LitElement {
             VlFormLabelComponent,
             VlInputFieldComponent,
             VlSelectRichComponent,
-            VlErrorMessageComponent,
+            VlFormMessageComponent,
             VlButtonComponent,
         ]);
     }
@@ -84,9 +84,9 @@ export class VlFormDataComponent extends LitElement {
                             no-choices-text="Geen resterende hobbies gevonden"
                         >
                         </vl-select-rich>
-                        <vl-error-message for="hobbies" state="valueMissing"
+                        <vl-form-message for="hobbies" state="valueMissing"
                             >Gelieve een hobby te selecteren.
-                        </vl-error-message>
+                        </vl-form-message>
                     </div>
                     <div class="vl-column vl-column--8 vl-column--start-5">
                         <div class="form-buttons">
