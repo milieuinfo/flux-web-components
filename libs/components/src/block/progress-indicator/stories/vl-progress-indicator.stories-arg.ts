@@ -2,7 +2,7 @@ import { CATEGORIES, CONTROLS, defaultArgs, defaultArgTypes, TYPES } from '@reso
 import { action } from '@storybook/addon-actions';
 import { ArgTypes } from '@storybook/web-components';
 
-export const progressBarArgs = {
+export const progressIndicatorArgs = {
     ...defaultArgs,
     activeStep: 0,
     showLabels: false,
@@ -12,7 +12,7 @@ export const progressBarArgs = {
     onClickStep: action('vl-click-step'),
 };
 
-export const progressBarArgTypes: ArgTypes<typeof progressBarArgs> = {
+export const progressIndicatorArgTypes: ArgTypes<typeof progressIndicatorArgs> = {
     ...defaultArgTypes,
     activeStep: {
         name: 'active-step',
@@ -21,7 +21,7 @@ export const progressBarArgTypes: ArgTypes<typeof progressBarArgs> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: progressBarArgs.activeStep },
+            defaultValue: { summary: progressIndicatorArgs.activeStep },
         },
     },
     showLabels: {
@@ -30,7 +30,7 @@ export const progressBarArgTypes: ArgTypes<typeof progressBarArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: progressBarArgs.showLabels },
+            defaultValue: { summary: progressIndicatorArgs.showLabels },
         },
     },
     focusOnChange: {
@@ -39,7 +39,7 @@ export const progressBarArgTypes: ArgTypes<typeof progressBarArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: progressBarArgs.focusOnChange },
+            defaultValue: { summary: progressIndicatorArgs.focusOnChange },
         },
     },
     numeric: {
@@ -48,7 +48,7 @@ export const progressBarArgTypes: ArgTypes<typeof progressBarArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: progressBarArgs.numeric },
+            defaultValue: { summary: progressIndicatorArgs.numeric },
         },
     },
     steps: {
@@ -57,7 +57,7 @@ export const progressBarArgTypes: ArgTypes<typeof progressBarArgs> = {
         table: {
             type: { summary: TYPES.ARRAY },
             category: CATEGORIES.PROPERTIES,
-            defaultValue: { summary: progressBarArgs.steps },
+            defaultValue: { summary: progressIndicatorArgs.steps },
         },
     },
     onClickStep: {

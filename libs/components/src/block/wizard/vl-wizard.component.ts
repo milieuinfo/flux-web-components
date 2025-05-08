@@ -3,7 +3,7 @@ import { resetStyle } from '@domg/govflanders-style/common';
 import { wizardStyle } from '@domg/govflanders-style/component';
 import { html, PropertyDeclarations } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { VlProgressBarComponent } from '../progress-bar';
+import { VlProgressIndicatorComponent } from '../progress-indicator';
 import { VlWizardPane } from './vl-wizard-pane.component'; // onduidelijk waarom de vl declaratie en de util.js import nodig zijn, maar zonder falen de component.cy testen
 
 @customElement('vl-wizard')
@@ -14,7 +14,7 @@ export class VlWizard extends BaseLitElement {
     private numeric = false;
 
     static {
-        registerWebComponents([VlProgressBarComponent, VlWizardPane]);
+        registerWebComponents([VlProgressIndicatorComponent, VlWizardPane]);
     }
 
     static get styles() {
@@ -58,12 +58,12 @@ export class VlWizard extends BaseLitElement {
                     <slot name="title"></slot>
                     <slot name="header"></slot>
                 </header>
-                <vl-progress-bar
+                <vl-progress-indicator
                     active-step=${this.activeStep}
                     ?show-labels=${!this.hideLabels}
                     ?numeric=${this.numeric}
                     .steps=${this.panes.map((pane) => pane.name)}
-                ></vl-progress-bar>
+                ></vl-progress-indicator>
                 <div class="vl-wizard__panes">
                     <section class="vl-wizard__pane">
                         <slot @slotchange=${this.onSlotChange}></slot>
