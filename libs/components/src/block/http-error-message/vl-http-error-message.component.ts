@@ -23,7 +23,7 @@ export class VlHttpErrorMessage extends BaseElementOfType(HTMLElement) {
             ${vlGridStyles}
             ${vlStackedStyles}
           </style>
-          <div class="vl-error-message-container vl-grid vl-stacked-small">
+          <div class="vl-form-message-container vl-grid vl-stacked-small">
             <div class="vl-column vl-column--justify-self-center vl-column--6  vl-column--m-6  vl-column--s-8 vl-column--xs-12">
               <div class="vl-grid vl-stacked-small">
                 <div class="vl-column vl-column--12">

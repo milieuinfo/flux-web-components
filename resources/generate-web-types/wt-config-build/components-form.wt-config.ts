@@ -1,6 +1,6 @@
 import { checkboxArgTypes } from '../../../libs/components/src/form/checkbox/stories/vl-checkbox.stories-arg';
 import { datepickerArgTypes } from '../../../libs/components/src/form/datepicker/stories/vl-datepicker.stories-arg';
-import { errorMessageArgTypes } from '../../../libs/components/src/form/error-message/stories/vl-error-message.stories-arg';
+import { formMessageArgTypes } from '../../../libs/components/src/form/form-message/stories/vl-form-message.stories-arg';
 import { formLabelArgTypes } from '../../../libs/components/src/form/form-label/stories/vl-form-label.stories-arg';
 import { inputFieldMaskedArgTypes } from '../../../libs/components/src/form/input-field-masked/stories/vl-input-field-masked.stories-arg';
 import { inputFieldArgTypes } from '../../../libs/components/src/form/input-field/stories/vl-input-field.stories-arg';
@@ -28,10 +28,10 @@ export const buildWTConfigComponentsForm: WTConfigArray = [
         '/docs/components-form-datepicker--documentatie'
     ),
     buildWTConfig(
-        'vl-error-message',
-        errorMessageArgTypes,
-        '../../libs/components/src/form/error-message/stories/vl-error-message.stories-doc.mdx',
-        '/docs/components-form-error-message--documentatie'
+        'vl-form-message',
+        formMessageArgTypes,
+        '../../libs/components/src/form/form-message/stories/vl-form-message.stories-doc.mdx',
+        '/docs/components-form-form-message--documentatie'
     ),
     buildWTConfig(
         'vl-form-label',
