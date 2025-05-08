@@ -9,6 +9,7 @@ export class VlMapActionControl extends VlMapControl(BaseLitElement) {
     private actionId = '';
     private icon = '';
     private label = '';
+    private defaultActive = false;
     private controlElement: VlButtonComponent = null;
 
     static {
@@ -29,15 +30,24 @@ export class VlMapActionControl extends VlMapControl(BaseLitElement) {
                 type: String,
                 attribute: 'data-vl-label',
             },
+            defaultActive: {
+                type: Boolean,
+                attribute: 'data-vl-default-active',
+                state: false,
+            },
         };
     }
 
     connectedCallback(): void {
         this.controlElement = document.createElement('vl-button-next');
-        this.controlElement.on = false;
-        this.controlElement.setAttribute('tertiary', '');
         this.controlElement.setAttribute('toggle', ''); // maak er een toggle knop van
         this.controlElement.addEventListener('click', () => this.handleClickToggle());
+
+        if (this.defaultActive) {
+            this.activate();
+        } else {
+            this.deactivate();
+        }
 
         if (this.icon) {
             this.controlElement.setAttribute('icon', this.icon);
