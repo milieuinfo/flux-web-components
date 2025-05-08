@@ -202,7 +202,7 @@
     "form-error-message": {
         "vStatus": "v2",
         "legacyText": "[vl-form-validation-message](/docs/elements-form-message-form-validation-message--documentatie)",
-        "nextText": "vl-error-message",
+        "nextText": "vl-form-message",
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#form-validation-message--error-message)"
     },
     "elements-form-grid": {
@@ -242,7 +242,7 @@
     "elements-form-message-form-validation-message": {
         "vStatus": "v1-replace",
         "legacyText": "vl-form-validation-message",
-        "nextText": "[vl-error-message](/docs/form-error-message--documentatie)",
+        "nextText": "[vl-form-message](/docs/form-error-message--documentatie)",
         "planningInfo": "[v1 naar v2 - beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie#form-validation-message--error-message)"
     },
     "form-form-label": {

@@ -847,7 +847,7 @@
                 },
                 {
                     "name": "vl-table",
-                    "description": "Gebruik de `table` component om op een gestructureerde manier (grote hoeveelheden) relationele data te tonen.\n\n<VluxAlert type=\"info\">\n{`\n    In de v2 versie van deze component gebruik je hem via de custom-tag, de interne implementatie is voor de rest\n    gelijk gebleven aan deze van de v1 versie. In de toekomst zal deze component grondig herwerkt worden; in de\n    context van een herwerking van de vl-table.\n`}\n</VluxAlert>",
+                    "description": "Gebruik de `table` component om op een gestructureerde manier (grote hoeveelheden) relationele data te tonen.\n\n<FluxAlert type=\"info\">\n{`\n    In de v2 versie van deze component gebruik je hem via de custom-tag, de interne implementatie is voor de rest\n    gelijk gebleven aan deze van de v1 versie. In de toekomst zal deze component grondig herwerkt worden; in de\n    context van een herwerking van de vl-table.\n`}\n</FluxAlert>",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-table--documentatie",
                     "attributes": [
                         {
@@ -867,11 +867,11 @@
                         },
                         {
                             "name": "zebra",
-                            "description": "Variant waarin de rijen afwisselend een andere achtergrondkleur krijgen. Dit maakt de tabel makkelijker leesbaar. Deze zebra werkt niet voor tabellen met detail rijen, gebruik hiervoor uig-zebra.",
+                            "description": "Variant waarin de rijen afwisselend een andere achtergrondkleur krijgen. Dit maakt de tabel makkelijker leesbaar. Deze zebra werkt niet voor tabellen met detail rijen, gebruik hiervoor flux-zebra.",
                             "default": "false"
                         },
                         {
-                            "name": "uig-zebra",
+                            "name": "flux-zebra",
                             "description": "Variant waarin de rijen afwisselend een andere achtergrondkleur krijgen. Dit maakt de tabel makkelijker leesbaar. Deze zebra werkt voor tabellen met en zonder detail rijen.",
                             "default": "false"
                         },
@@ -1055,7 +1055,7 @@
                 },
                 {
                     "name": "vl-side-navigation",
-                    "description": "<br/>\n\n<VluxAlert type=\"info\">\n{`\n    De v2 versie van deze component gebruik je via custom-tags, de interne implementatie is gelijk gebleven aan\n    de v1 versie. In v3 zal deze component grondig herwerkt worden.\n`}\n</VluxAlert>\n\n<br/>\n\nGebruik de `side-navigation` component om een compact navigatie-element aan een pagina toe te voegen. Het vat de\ninhoud van lange pagina's samen, leidt de gebruiker door de pagina inhoud en kan ook naar externe pagina's verwijzen.\n\nDe `vl-side-navigation` wordt opgebouwd uit volgende sub-componenten:\n\n- VlSideNavigation `[vl-side-navigation]`\n- VlSideNavigationTitle<br/>\n    `[vl-side-navigation-h1 / vl-side-navigation-h2 / vl-side-navigation-h3 /`\n    `vl-side-navigation-h4 / vl-side-navigation-h5 / vl-side-navigation-h6]`\n- VlSideNavigationContent `[vl-side-navigation-content]`\n- VlSideNavigationGroup `[vl-side-navigation-group]`\n- VlSideNavigationItem `[vl-side-navigation-item]`\n- VlSideNavigationToggle `[vl-side-navigation-toggle]`\n- VlSideNavigationReference `[vl-side-navigation-reference]`\n\n```js\nimport { VlSideNavigation } from '@domg-wc/components/block';\n```\n\n```html\n<vl-side-navigation></vl-side-navigation>\n```\n\n<Canvas of={VlSideNavigationStories.SideNavigationDefault}/>",
+                    "description": "<br/>\n\n<FluxAlert type=\"info\">\n{`\n    De v2 versie van deze component gebruik je via custom-tags, de interne implementatie is gelijk gebleven aan\n    de v1 versie. In v3 zal deze component grondig herwerkt worden.\n`}\n</FluxAlert>\n\n<br/>\n\nGebruik de `side-navigation` component om een compact navigatie-element aan een pagina toe te voegen. Het vat de\ninhoud van lange pagina's samen, leidt de gebruiker door de pagina inhoud en kan ook naar externe pagina's verwijzen.\n\nDe `vl-side-navigation` wordt opgebouwd uit volgende sub-componenten:\n\n- VlSideNavigation `[vl-side-navigation]`\n- VlSideNavigationTitle<br/>\n    `[vl-side-navigation-h1 / vl-side-navigation-h2 / vl-side-navigation-h3 /`\n    `vl-side-navigation-h4 / vl-side-navigation-h5 / vl-side-navigation-h6]`\n- VlSideNavigationContent `[vl-side-navigation-content]`\n- VlSideNavigationGroup `[vl-side-navigation-group]`\n- VlSideNavigationItem `[vl-side-navigation-item]`\n- VlSideNavigationToggle `[vl-side-navigation-toggle]`\n- VlSideNavigationReference `[vl-side-navigation-reference]`\n\n```js\nimport { VlSideNavigation } from '@domg-wc/components/block';\n```\n\n```html\n<vl-side-navigation></vl-side-navigation>\n```\n\n<Canvas of={VlSideNavigationStories.SideNavigationDefault}/>",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
                 },
                 {
@@ -1104,7 +1104,7 @@
                 },
                 {
                     "name": "vl-search-filter",
-                    "description": "<br/>\n\n<VluxAlert type=\"info\">\n{`\n    In de v2 versie van deze component gebruik je hem via de custom-tag, de interne implementatie is voor de rest\n    gelijk gebleven aan deze van de v1 versie. In de toekomst zal deze component grondig herwerkt worden; in de context\n    van een herwerking van de vl-table.\n`}\n</VluxAlert>\n\nGebruik de `search-filter` component om een zoek filter te tonen op een pagina.",
+                    "description": "<br/>\n\n<FluxAlert type=\"info\">\n{`\n    In de v2 versie van deze component gebruik je hem via de custom-tag, de interne implementatie is voor de rest\n    gelijk gebleven aan deze van de v1 versie. In de toekomst zal deze component grondig herwerkt worden; in de context\n    van een herwerking van de vl-table.\n`}\n</FluxAlert>\n\nGebruik de `search-filter` component om een zoek filter te tonen op een pagina.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search-filter--documentatie",
                     "attributes": [
                         {
@@ -1658,7 +1658,7 @@
                 },
                 {
                     "name": "vl-tabs",
-                    "description": "Gebruik de `tabs` component om gerelateerde informatie op te splitsen in kleinere stukken content.\nOp mobiel wordt de tab navigatie omgevormd tot een uitklapbaar menu.\n\n<VluxAlert type=\"info\">\n{`\n    De v2 versie van deze component gebruik je via de custom-tag, de interne implementatie is voor de rest\n    gelijk gebleven aan de v1 versie. In de toekomst zal deze component grondig herwerkt worden.\n`}\n</VluxAlert>",
+                    "description": "Gebruik de `tabs` component om gerelateerde informatie op te splitsen in kleinere stukken content.\nOp mobiel wordt de tab navigatie omgevormd tot een uitklapbaar menu.\n\n<FluxAlert type=\"info\">\n{`\n    De v2 versie van deze component gebruik je via de custom-tag, de interne implementatie is voor de rest\n    gelijk gebleven aan de v1 versie. In de toekomst zal deze component grondig herwerkt worden.\n`}\n</FluxAlert>",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs--documentatie",
                     "attributes": [
                         {

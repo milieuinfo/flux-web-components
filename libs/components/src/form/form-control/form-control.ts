@@ -2,7 +2,7 @@ import { formControlDefaults } from './form-control.defaults';
 import { FormControlMixin, programmaticValidator, requiredValidator } from '@open-wc/form-control';
 import { LitElement, PropertyDeclarations } from 'lit';
 import { submit } from '@open-wc/form-helpers';
-import { ERROR_MESSAGE_CUSTOM_TAG } from '../error-message/vl-error-message.component';
+import { FORM_MESSAGE_CUSTOM_TAG } from '../form-message/vl-form-message.component';
 import { BaseLitElement } from '@domg-wc/common';
 import 'reflect-metadata';
 
@@ -21,7 +21,7 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
 
     // Variables
     protected submitFormOnEnter = true;
-    protected errorMessageText: string | undefined | null;
+    protected formMessageText: string | undefined | null;
 
     static formControlValidators = [requiredValidator, programmaticValidator];
 
@@ -59,7 +59,7 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
 
         if (!changedProperties.has('isInvalid')) {
             this.isInvalid = false;
-            this.hideErrorMessages();
+            this.hideFormMessages();
         }
     }
 
@@ -67,7 +67,7 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
 
     resetFormControl() {
         this.isInvalid = false;
-        this.hideErrorMessages();
+        this.hideFormMessages();
         this.dispatchEvent(new Event('vl-reset', { bubbles: true, composed: true }));
     }
 
@@ -90,7 +90,7 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
 
         this.isInvalid = true;
         this.focusFirstInvalidInput();
-        this.showErrorMessage();
+        this.showFormMessage();
     }
 
     private focusFirstInvalidInput() {
@@ -102,7 +102,7 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
         }
     }
 
-    private showErrorMessage() {
+    private showFormMessage() {
         let errorState = '';
 
         for (const key in this.validity) {
@@ -114,18 +114,18 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
 
         // Zoek de error message die bij de huidige error state hoort
         let errorMessage = this.form?.querySelector(
-            `${ERROR_MESSAGE_CUSTOM_TAG}[for="${this.id}"][state="${errorState}"]`
+            `${FORM_MESSAGE_CUSTOM_TAG}[for="${this.id}"][state="${errorState}"]`
         );
 
         // Als er geen error message is voor de huidige error state, zoek dan de algemene error message zonder state attribuut
         if (!errorMessage) {
-            errorMessage = this.form?.querySelector(`${ERROR_MESSAGE_CUSTOM_TAG}[for="${this.id}"]:not([state])`);
+            errorMessage = this.form?.querySelector(`${FORM_MESSAGE_CUSTOM_TAG}[for="${this.id}"]:not([state])`);
         }
 
-        this.errorMessageText = errorMessage?.textContent;
+        this.formMessageText = errorMessage?.textContent;
 
-        if (this.errorMessageText) {
-            this.validationTarget?.setAttribute('aria-description', this.errorMessageText);
+        if (this.formMessageText) {
+            this.validationTarget?.setAttribute('aria-description', this.formMessageText);
         } else {
             this.validationTarget?.removeAttribute('aria-description');
         }
@@ -134,13 +134,13 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
         errorMessage?.setAttribute('show', '');
     }
 
-    private hideErrorMessages() {
-        const errorMessages = this.form?.querySelectorAll(`${ERROR_MESSAGE_CUSTOM_TAG}[for="${this.id}"]`);
+    private hideFormMessages() {
+        const formMessages = this.form?.querySelectorAll(`${FORM_MESSAGE_CUSTOM_TAG}[for="${this.id}"]`);
 
-        this.errorMessageText = null;
+        this.formMessageText = null;
 
-        errorMessages?.forEach((errorMessage) => {
-            errorMessage.removeAttribute('show');
+        formMessages?.forEach((formMessage) => {
+            formMessage.removeAttribute('show');
         });
     }
 }
