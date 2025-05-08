@@ -41,9 +41,9 @@ const mountCheckboxInForm = ({ isSwitch, checked, disabled }: CheckboxDefaultTyp
                     >
                         Bevestig.
                     </vl-checkbox>
-                    <vl-error-message for="confirmation" state="valueMissing"
+                    <vl-form-message for="confirmation" state="valueMissing"
                         >Gelieve je gegevens te bevestigen.
-                    </vl-error-message>
+                    </vl-form-message>
                 </div>
                 <div class="vl-column vl-column--9 vl-column--start-4">
                     <div class="vl-action-group">
@@ -219,42 +219,42 @@ describe('component - vl-checkbox - in form', () => {
     it('should validate', () => {
         mountCheckboxInForm();
 
-        cy.get('vl-error-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-error-message[for="confirmation"]').should('be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('be.visible');
         cy.get('vl-checkbox').click();
-        cy.get('vl-error-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
     });
 
     it('should validate with initial value', () => {
         mountCheckboxInForm({ checked: true });
 
-        cy.get('vl-error-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
         cy.get('vl-checkbox').click();
         cy.get('button[type="submit"]').click();
-        cy.get('vl-error-message[for="confirmation"]').should('be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('be.visible');
         cy.get('vl-checkbox').click();
         cy.get('button[type="submit"]').click();
-        cy.get('vl-error-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
     });
 
     it('should be disabled', () => {
         mountCheckboxInForm({ disabled: true });
 
         shouldBeDisabled();
-        cy.get('vl-error-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-error-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
     });
 
     it('should reset', () => {
         mountCheckboxInForm({});
 
-        cy.get('vl-error-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-error-message[for="confirmation"]').should('be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('be.visible');
         cy.get('button[type="reset"]').click();
-        cy.get('vl-error-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
     });
 });
 
@@ -379,41 +379,41 @@ describe('component - vl-checkbox - switch in form', () => {
     it('should validate', () => {
         mountCheckboxInForm({ isSwitch: true });
 
-        cy.get('vl-error-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-error-message[for="confirmation"]').should('be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('be.visible');
         cy.get('vl-checkbox').click();
         cy.get('button[type="submit"]').click();
-        cy.get('vl-error-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
     });
 
     it('should validate with initial value', () => {
         mountCheckboxInForm({ checked: true, isSwitch: true });
 
         cy.get('button[type="submit"]').click();
-        cy.get('vl-error-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
         cy.get('vl-checkbox').click();
         cy.get('button[type="submit"]').click();
-        cy.get('vl-error-message[for="confirmation"]').should('be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('be.visible');
     });
 
     it('should be disabled', () => {
         mountCheckboxInForm({ isSwitch: true, disabled: true });
 
         shouldBeDisabledSwitch();
-        cy.get('vl-error-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-error-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
     });
 
     it('should reset', () => {
         mountCheckboxInForm({ isSwitch: true });
 
-        cy.get('vl-error-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-error-message[for="confirmation"]').should('be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('be.visible');
         shouldHaveErrorStyleSwitch();
         cy.get('button[type="reset"]').click();
-        cy.get('vl-error-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
     });
 });

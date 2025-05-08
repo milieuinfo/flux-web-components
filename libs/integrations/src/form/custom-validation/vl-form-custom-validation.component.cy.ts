@@ -23,7 +23,7 @@ describe('integrations - form custom validation', () => {
             .click('bottomLeft'); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
         cy.get('vl-form-custom-validation')
             .shadow()
-            .find('vl-error-message[state="valueMissing"]')
+            .find('vl-form-message[state="valueMissing"]')
             .should('have.attr', 'show', '');
         cy.get('vl-form-custom-validation')
             .shadow()
@@ -39,7 +39,7 @@ describe('integrations - form custom validation', () => {
             .click('bottomLeft'); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
         cy.get('vl-form-custom-validation')
             .shadow()
-            .find('vl-error-message[state="customError"]')
+            .find('vl-form-message[state="customError"]')
             .should('have.attr', 'show', '');
         cy.get('vl-form-custom-validation')
             .shadow()
@@ -56,7 +56,7 @@ describe('integrations - form custom validation', () => {
             .click('bottomLeft'); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
         cy.get('vl-form-custom-validation')
             .shadow()
-            .find('vl-error-message[state="customError"]')
+            .find('vl-form-message[state="customError"]')
             .should('not.have.attr', 'show', '');
         cy.get('vl-form-custom-validation')
             .shadow()

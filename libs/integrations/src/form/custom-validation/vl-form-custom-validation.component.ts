@@ -1,7 +1,7 @@
 import { registerWebComponents, webComponent } from '@domg-wc/common';
 import { vlGridStyles, vlLegacyStyles } from '@domg-wc/styles';
 import { VlButtonComponent } from '@domg-wc/components/atom';
-import { VlErrorMessageComponent, VlFormLabelComponent, VlInputFieldComponent } from '@domg-wc/components/form';
+import { VlFormMessageComponent, VlFormLabelComponent, VlInputFieldComponent } from '@domg-wc/components/form';
 import { Validator } from '@open-wc/form-control';
 import { css, CSSResult, html, LitElement, PropertyDeclarations } from 'lit';
 
@@ -34,7 +34,7 @@ export class VlFormCustomValidationComponent extends LitElement {
         registerWebComponents([
             VlInputFieldWithFooValidatorComponent,
             VlFormLabelComponent,
-            VlErrorMessageComponent,
+            VlFormMessageComponent,
             VlButtonComponent,
         ]);
     }
@@ -82,11 +82,11 @@ export class VlFormCustomValidationComponent extends LitElement {
                                 this.success = false;
                             }}
                         ></vl-input-field-with-foo-validator>
-                        <vl-error-message for="waarde" state="valueMissing"
-                            >Gelieve een waarde in te vullen.</vl-error-message
+                        <vl-form-message for="waarde" state="valueMissing"
+                            >Gelieve een waarde in te vullen.</vl-form-message
                         >
-                        <vl-error-message for="waarde" state="customError"
-                            >Gelieve 'foo' als waarde in te vullen.</vl-error-message
+                        <vl-form-message for="waarde" state="customError"
+                            >Gelieve 'foo' als waarde in te vullen.</vl-form-message
                         >
                     </div>
                     <div class="vl-column vl-column--8 vl-column--start-5">
