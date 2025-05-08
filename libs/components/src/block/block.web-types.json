@@ -1383,9 +1383,9 @@
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-popover--documentatie"
                 },
                 {
-                    "name": "vl-progress-bar",
-                    "description": "Gebruik een `progress-bar` om de vooruitgang te tonen van een proces dat uit verschillende stappen bestaat.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-progress-bar--documentatie",
+                    "name": "vl-progress-indicator",
+                    "description": "Gebruik een `progress-indicator` om de vooruitgang te tonen van een proces dat uit verschillende stappen bestaat.",
+                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-progress-indicator--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",

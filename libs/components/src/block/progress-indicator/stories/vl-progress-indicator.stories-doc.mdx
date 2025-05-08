@@ -1,0 +1,52 @@
+import { ArgTypes, Canvas } from '@storybook/blocks';
+import * as VlProgressIndicatorStories from './vl-progress-indicator.stories';
+
+# Progress Indicator
+
+<FluxMetaData id="components-block-progress-indicator" />
+
+Gebruik een `progress-indicator` om de vooruitgang te tonen van een proces dat uit verschillende stappen bestaat.
+
+
+## Voorbeeld
+
+```js
+import { VlProgressIndicatorComponent } from '@domg-wc/components/block';
+```
+
+```html
+<vl-progress-indicator></vl-progress-indicator>
+```
+
+<Canvas of={VlProgressIndicatorStories.ProgressIndicatorDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlProgressIndicatorStories.ProgressIndicatorDefault} />
+
+
+## Varianten
+
+### Numerieke indicators
+
+<Canvas of={VlProgressIndicatorStories.ProgressIndicatorNumeric} />
+
+### Focus op de actieve stap
+
+<Canvas of={VlProgressIndicatorStories.ProgressIndicatorFocused} />
+
+
+## Referenties
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Progress Bar](https://overheid.vlaanderen.be/webuniversum/v3/documentation/components/vl-ui-progress-bar)
+
+### Legacy Documentatie
+
+[Legacy Storybook - Progress Bar](https://webcomponenten.omgeving.vlaanderen.be/storybook/?path=/docs/custom-elements-vl-progress-indicator--default)
+
+[Legacy Documentatie - Progress Bar](https://webcomponenten.omgeving.vlaanderen.be/doc/VlProgressBar.html)
+
+[Legacy Demo - Progress Bar](https://webcomponenten.omgeving.vlaanderen.be/demo/vl-progress-indicator.html)
