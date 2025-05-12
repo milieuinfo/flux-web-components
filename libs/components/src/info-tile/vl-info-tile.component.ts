@@ -1,4 +1,4 @@
-import { BaseHTMLElement, registerWebComponents, VL, webComponent } from '@domg-wc/common-utilities';
+import { BaseHTMLElement, registerWebComponents, VL, webComponent, isSlotEmpty } from '@domg-wc/common-utilities';
 import { vlElementsStyle } from '@domg-wc/elements';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { accordionStyle, iconStyle, infoTileStyle, linkStyle, toggleStyle } from '@domg/govflanders-style/component';
@@ -7,6 +7,7 @@ import '@govflanders/vl-ui-util/dist/js/util.js';
 import 'reflect-metadata';
 import { VlAccordionComponent } from '../accordion/vl-accordion.component';
 import infoTileUigStyle from './vl-info-tile.uig-css';
+import { INFO_TILE_SIZE } from './vl-info-tile.model';
 
 declare const vl: VL;
 
@@ -17,7 +18,7 @@ export class VlInfoTile extends BaseHTMLElement {
     }
 
     static get _observedAttributes() {
-        return ['auto-open', 'toggleable', 'center'];
+        return ['auto-open', 'toggleable', 'center', 'size'];
     }
 
     constructor() {
@@ -64,6 +65,7 @@ export class VlInfoTile extends BaseHTMLElement {
     connectedCallback() {
         super.connectedCallback();
 
+        this.__setSizeClass();
         this.__processAutoOpen();
         this.__processSlots();
         this.__processAutoOpen();
@@ -108,6 +110,14 @@ export class VlInfoTile extends BaseHTMLElement {
         return this._element?.querySelector('button');
     }
 
+    get _footerElement(): HTMLElement | null {
+        return this._element ? (this._element.querySelector('footer') as HTMLElement) : null;
+    }
+
+    get _footerSlotElement(): HTMLSlotElement | null {
+        return this._element ? (this._element.querySelector('slot[name="footer"]') as HTMLSlotElement) : null;
+    }
+
     toggle() {
         this._toggleElement?.click();
     }
@@ -141,6 +151,27 @@ export class VlInfoTile extends BaseHTMLElement {
             this._element?.classList.remove('vl-info-tile--center');
         } else {
             this._element?.classList.add('vl-info-tile--center');
+        }
+    }
+
+    _sizeChangedCallback() {
+        this.__setSizeClass();
+    }
+
+    __setSizeClass() {
+        this._element?.classList.remove('vl-info-tile--s');
+        this._element?.classList.remove('vl-info-tile--m');
+        this._element?.classList.remove('vl-info-tile--l');
+        switch (this.getAttribute('data-vl-size')) {
+            case INFO_TILE_SIZE.SMALL:
+                this._element?.classList.add('vl-info-tile--s');
+                break;
+            case INFO_TILE_SIZE.MEDIUM:
+                this._element?.classList.add('vl-info-tile--m');
+                break;
+            case INFO_TILE_SIZE.LARGE:
+                this._element?.classList.add('vl-info-tile--l');
+                break;
         }
     }
 
@@ -184,7 +215,11 @@ export class VlInfoTile extends BaseHTMLElement {
     }
 
     _hasTitleSlot() {
-        return this._titleSlot && this._titleSlot.assignedElements()?.length > 0;
+        return this._titleSlot && !isSlotEmpty(this._titleSlot);
+    }
+
+    _hasFooterSlot() {
+        return this._footerSlotElement && !isSlotEmpty(this._footerSlotElement);
     }
 
     __processAutoOpen() {
@@ -205,6 +240,9 @@ export class VlInfoTile extends BaseHTMLElement {
             event.stopPropagation();
             this._buttonElement?.click();
         });
+        if (!this._hasFooterSlot()) {
+            this._footerElement?.remove();
+        }
     }
 }
 

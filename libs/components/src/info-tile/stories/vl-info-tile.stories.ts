@@ -21,8 +21,13 @@ export default {
 
 const Template = story(
     infoTileArgs,
-    ({ autoOpen, toggleable, center, contentSlot, subtitleSlot, titleSlot, menuSlot }) => html`
-        <vl-info-tile ?data-vl-toggleable=${toggleable} ?data-vl-auto-open=${autoOpen} ?data-vl-center=${center}>
+    ({ autoOpen, toggleable, center, contentSlot, subtitleSlot, titleSlot, menuSlot, size }) => html`
+        <vl-info-tile
+            ?data-vl-toggleable=${toggleable}
+            ?data-vl-auto-open=${autoOpen}
+            ?data-vl-center=${center}
+            data-vl-size=${size}
+        >
             ${unsafeHTML(titleSlot)}${unsafeHTML(menuSlot)}${unsafeHTML(subtitleSlot)}${unsafeHTML(contentSlot)}
         </vl-info-tile>
     `
@@ -34,6 +39,43 @@ InfoTileDefault.args = {
     titleSlot: `<span slot="title">Broos Deprez</span>`,
     subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
     contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+};
+
+export const InfoTileSmall = Template.bind({});
+InfoTileSmall.storyName = 'vl-info-tile - small';
+InfoTileSmall.args = {
+    titleSlot: `<span slot="title">Broos Deprez</span>`,
+    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    size: 'small',
+};
+
+export const InfoTileMedium = Template.bind({});
+InfoTileMedium.storyName = 'vl-info-tile - medium';
+InfoTileMedium.args = {
+    titleSlot: `<span slot="title">Broos Deprez</span>`,
+    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    size: 'medium',
+};
+
+export const InfoTileLarge = Template.bind({});
+InfoTileLarge.storyName = 'vl-info-tile - large';
+InfoTileLarge.args = {
+    titleSlot: `<span slot="title">Broos Deprez</span>`,
+    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    size: 'large',
+};
+
+export const InfoTileCentered = Template.bind({});
+InfoTileCentered.storyName = 'vl-info-tile - centered';
+InfoTileCentered.args = {
+    toggleable: false,
+    titleSlot: `<span slot="title">Broos Deprez</span>`,
+    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    center: true,
 };
 
 export const InfoTileToggleable = Template.bind({});
