@@ -1,4 +1,4 @@
-.sb-docs {
+.sb-docs, #storybook-docs {
     ol, ul {
         list-style: initial !important;
     }

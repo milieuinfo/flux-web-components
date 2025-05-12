@@ -1,8 +1,12 @@
 import {Meta} from '@storybook/blocks';
 
-<Meta title="Planning/[2024] van v1 naar v2 - beschikbaar" />
+export const laatsteV1Release = "1.47.0";
+export const v1StorybookLink = `https://milieuinfo.github.io/uigov-builds/release/${laatsteV1Release}/storybook/?path=`;
+export const laatsteV1ReleaseVersie = `v${laatsteV1Release}`;
 
-# [2024] van v1 naar v2 - beschikbaar
+<Meta title="Afnemen/Migratiegids" />
+
+# Migratie gids v1 naar v2
 
 ## Inhoudstafel
 
@@ -10,27 +14,54 @@ import {Meta} from '@storybook/blocks';
 - [Geïmpacteerde Web Componenten](#geïmpacteerde-web-componenten)
 
 
-## Aanpak
+## Migratie aanpak
 
-Op deze pagina vind je een overzicht van de web componenten die geïmpacteerd zijn door de migratie van v1 naar v2
-en die reeds beschikbaar zijn. Voor de resterende componenten (de geïmpacterede die we nog gaan implementeren) is er
-de pagina [[2024] van v1 naar v2 - planning](/docs/planning-2024-van-v1-naar-v2-planning--documentatie).
+We raden je aan om op deze manier te werk te gaan:
 
-Hieronder vind je alfabetisch, per component, een tabel met daarin een overzicht van wat er in v1 en v2
-beschikbaar is (zal zijn), je kan doorklikken op de naam om naar de documentatie van die component te gaan.
+1. migreren naar de laatste v1 release ({laatsteV1Release})
+2. alle legacy componenten vervangen door hun next equivalent
+3. dan pas te migreren naar de v2 release (v2.0.0)
 
-- elke component is ontdubbeld, de legacy variant staat in een donkere rij, de next variant in de erop volgende
-  witte rij
-- voor de next variant staat gespecifieerd sinds welke release hij beschikbaar is
-- typisch hebben de legacy en de next variant dezelfde naam, maar niet altijd
-- momenteel zijn er enkel v1 releases, wat is er zal gebeuren in v2 is informatief; er is nog geen v2 beschikbaar
+Dit zorgt ervoor dat je tijdens je migratie de legacy componenten kan blijven gebruiken en geleidelijk vervangen door
+ hun `next`-varianten. Eenmaal je alle legacy componenten vervangen hebt door hun `next`-variant kan je
+ de migratie naar v2 uitvoeren. Die stap zou dan grotendeels moeten bestaan uit het verwijderen van `-next`-suffix en
+ het aanpassen van de imports.
 
+### 1. Migratie naar laatste v1 release
+
+De laatste v1 release is {laatsteV1Release}, deze bevat de laatste bugfixes en verbeteringen van de legacy componenten.
+
+We raden je aan om deze release te gebruiken als basis voor de migratie naar v2 omdat deze release dezelfde
+functionaliteit bevat als de eerste v2 release. Zo zullen de volgende stappen van de migratie eenvoudiger zijn.
+
+### 2. Legacy componenten vervangen door next componenten
+
+De legacy componenten zijn componenten die geschrapt worden en moeten vervangen worden door
+de equivalente `-next`-componenten of `-next`-CSS [layout klasses](/docs/styles-concept--documentatie#layout-afnemers).
+
+### 3. Migratie naar v2 release
+
+Functioneel loopt v2.0.0 gelijk met de laatste v1 release ({laatsteV1Release}).
+
+In de eerste v2 release (v2.0.0) zijn alle legacy componenten van {laatsteV1Release} verwijderd. Daarnaast zijn alle
+`next` componenten gepromoveerd (deze hebben geen `-next` suffix meer) en werd overal ook `data-vl-`-prefix
+verwijderd bij alle attributen. De package structuur is ook gewijzigd dus de imports moeten ook aangepast worden.
+
+- pas de imports aan
+- verwijder de `-next` suffix van de componenten
+- verwijder de `data-vl-` prefix van de attributen
 
 ## Geïmpacteerde Web Componenten
 
+Op deze pagina vind je een overzicht van de web componenten die geïmpacteerd zijn door de migratie van v1 naar v2
+en die reeds beschikbaar zijn.
+
+Hieronder vind je alfabetisch, per component, een tabel met daarin een overzicht van wat er van versie
+{laatsteV1Release} tegenover v2.0.0 veranderd is.
+
 ### Accordion List
 
-`Accordion List [legacy]` wordt in [next] vervangen door [Group](#group).
+`Accordion List [legacy]` wordt vervangen door [Group](#group).
 
 <table  style={{width: 100 + '%'}}>
     <tr>
@@ -42,7 +73,11 @@ beschikbaar is (zal zijn), je kan doorklikken op de naam om naar de documentatie
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Accordion List [legacy]](/docs/components-accordion-list--documentatie)</td>
+        <td><a href={`${v1StorybookLink}/docs/components-accordion-list--documentatie`}>Accordion List [legacy]</a></td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-accordion-list--documentatie`}
+            >Accordion List [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>components</td>
         <td><code>{`<vl-accordion-list>`}</code></td>
@@ -54,7 +89,7 @@ beschikbaar is (zal zijn), je kan doorklikken op de naam om naar de documentatie
 
 ### Action Group
 
-`Action Group [legacy]` wordt in [next] vervangen door [Group](#group).
+`Action Group [legacy]` wordt vervangen door [Group](#group).
 
 <table  style={{width: 100 + '%'}}>
     <tr>
@@ -66,7 +101,10 @@ beschikbaar is (zal zijn), je kan doorklikken op de naam om naar de documentatie
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Action Group [legacy]](/docs/elements-action-group--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-action-group--documentatie`}
+            >Action Group [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<div is="vl-action-group">`}</code></td>
@@ -78,7 +116,7 @@ beschikbaar is (zal zijn), je kan doorklikken op de naam om naar de documentatie
 
 ### Annotation
 
-`Annotation [legacy]` wordt in [next] aangeboden via [Text](#text), met de attributen `annotation` en `small`.
+`Annotation [legacy]`  aangeboden via [Text](#text), met de attributen `annotation` en `small`.
 
 <table  style={{width: 100 + '%'}}>
     <tr>
@@ -90,7 +128,10 @@ beschikbaar is (zal zijn), je kan doorklikken op de naam om naar de documentatie
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Annotation [legacy]](/docs/components-annotation--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-annotation--documentatie`}
+            >Annotation [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>components</td>
         <td><code>{`<vl-annotation>`}</code></td>
@@ -102,7 +143,7 @@ beschikbaar is (zal zijn), je kan doorklikken op de naam om naar de documentatie
 
 ### Body
 
-De `Body [legacy]` wordt geschrapt, `[next]` styled automatisch de native body.
+De `Body [legacy]` wordt geschrapt, nu wordt automatisch de native body gestyled.
 
 <table  style={{width: 100 + '%'}}>
     <tr>
@@ -114,7 +155,10 @@ De `Body [legacy]` wordt geschrapt, `[next]` styled automatisch de native body.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Body [legacy]](/docs/elements-body--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-body--documentatie`}
+            >Body [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<body is="vl-body">`}</code></td>
@@ -122,7 +166,7 @@ De `Body [legacy]` wordt geschrapt, `[next]` styled automatisch de native body.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Body [next]](/docs/styles-base-intern-body--documentatie)</td>
+        <td>[Body](/docs/styles-base-intern-body--documentatie)</td>
         <td>native</td>
         <td>-</td>
         <td><code>{`<body>`}</code></td>
@@ -134,7 +178,7 @@ De `Body [legacy]` wordt geschrapt, `[next]` styled automatisch de native body.
 
 ### Button
 
-De `Button [next]` vervangt de `Button [legacy]`, de `Icon Button [legacy]`, de `Toggle Button [legacy]` en de
+De `Button` vervangt de `Button [legacy]`, de `Icon Button [legacy]`, de `Toggle Button [legacy]` en de
 `Link Button [legacy]` (zie de [cta-link documentatie](/docs/components-button--documentatie#cta-link) voor
 meer informatie).
 
@@ -148,7 +192,10 @@ meer informatie).
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Button [legacy]](/docs/elements-button-button--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-button-button--documentatie`}
+            >Button [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<button is="vl-button">`}</code></td>
@@ -157,7 +204,10 @@ meer informatie).
     </tr>
     <tr></tr>
     <tr>
-        <td>[Icon Button [legacy]](/docs/elements-button-icon-button--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-button-icon-button--documentatie`}
+            >Icon Button [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<button is="vl-icon-button">`}</code></td>
@@ -166,7 +216,10 @@ meer informatie).
     </tr>
     <tr></tr>
     <tr>
-        <td>[Link Button [legacy]](/docs/elements-button-link-button--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-button-link-button--documentatie`}
+            >Link Button [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<button is="vl-link-button">`}</code></td>
@@ -175,7 +228,10 @@ meer informatie).
     </tr>
     <tr></tr>
     <tr>
-        <td>[Toggle Button [legacy]](/docs/components-toggle-button--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-toggle-button--documentatie`}
+            >Toggle Button [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>components</td>
         <td><code>{`<vl-toggle-button>`}</code></td>
@@ -183,14 +239,19 @@ meer informatie).
         <td>-</td>
     </tr>
     <tr>
-        <td>[Button [next]](/docs/components-button--documentatie)</td>
+        <td>[Button](/docs/components-button--documentatie)</td>
         <td>release v1.33.0</td>
-        <td>components/next</td>
-        <td><code>{`<vl-button>`}</code></td>
+        <td>components</td>
+        <td><code>{`<vl-button-next>`}</code></td>
         <td>components</td>
         <td><code>{`<vl-button>`}</code></td>
     </tr>
 </table>
+
+Nieuw in v2:
+- Ghost variant: `<vl-button type="ghost">`
+- CTA link: `<vl-button cta-link>`
+- Verbeterde loading state
 
 
 ### Button Pill
@@ -208,7 +269,10 @@ meer informatie).
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Button Pill [legacy]](/docs/components-pill-button-pill--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-pill-button-pill--documentatie`}
+            >Button Pill [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<button is="vl-button-pill">`}</code></td>
@@ -239,7 +303,10 @@ meer informatie).
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Checkbox [legacy]](/docs/components-checkbox--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-checkbox--documentatie`}
+            >Checkbox [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>components</td>
         <td><code>{`<vl-checkbox>`}</code></td>
@@ -247,10 +314,10 @@ meer informatie).
         <td>-</td>
     </tr>
     <tr>
-        <td>[Checkbox [next]](/docs/form-checkbox--documentatie)</td>
+        <td>[Checkbox](/docs/form-checkbox--documentatie)</td>
         <td>release v1.25.0</td>
-        <td>form/next</td>
-        <td><code>{`<vl-checkbox>`}</code></td>
+        <td>form</td>
+        <td><code>{`<vl-checkbox-next>`}</code></td>
         <td>form</td>
         <td><code>{`<vl-checkbox>`}</code></td>
     </tr>
@@ -271,7 +338,10 @@ De Code Preview component verdwijnt omdat die enkel in de legacy (voor 2021) doc
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Code Preview [legacy]](/docs/components-code-preview--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-code-preview--documentatie`}
+            >Code Preview [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>components</td>
         <td><code>{`<vl-code-preview>`}</code></td>
@@ -291,7 +361,7 @@ De Code Preview component verdwijnt omdat die enkel in de legacy (voor 2021) doc
 
 ### Content block
 
-`Content block [next]` is de nieuwe opzet die style-classes voorziet ter vervanging van `Grid Layout [legacy]`.
+`Content block` is de nieuwe opzet die style-classes voorziet ter vervanging van `Grid Layout [legacy]`.
 
 <table  style={{width: 100 + '%'}}>
     <tr>
@@ -303,7 +373,10 @@ De Code Preview component verdwijnt omdat die enkel in de legacy (voor 2021) doc
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Grid Layout [legacy]](/docs/elements-grid-grid-layout--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-grid-grid-layout--documentatie`}
+            >Grid Layout [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<div is="vl-layout">`}</code></td>
@@ -311,10 +384,10 @@ De Code Preview component verdwijnt omdat die enkel in de legacy (voor 2021) doc
         <td>-</td>
     </tr>
     <tr>
-        <td>[Content-block [next]](/docs/styles-layout-afnemers-content-block--documentatie)</td>
+        <td>[Content-block](/docs/styles-layout-afnemers-content-block--documentatie)</td>
         <td>release v1.46.0</td>
         <td>common-utilities/css</td>
-        <td><code>{`class="vl-content-block"`}</code></td>
+        <td><code>{`class="vl-content-block-next"`}</code></td>
         <td>styles</td>
         <td><code>{`class="vl-content-block"`}</code></td>
     </tr>
@@ -333,7 +406,10 @@ De Code Preview component verdwijnt omdat die enkel in de legacy (voor 2021) doc
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Datepicker [legacy]](/docs/components-datepicker--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-datepicker--documentatie`}
+            >Datepicker [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>components</td>
         <td><code>{`<vl-datepicker>`}</code></td>
@@ -341,15 +417,19 @@ De Code Preview component verdwijnt omdat die enkel in de legacy (voor 2021) doc
         <td>-</td>
     </tr>
     <tr>
-        <td>[Datepicker [next]](/docs/form-datepicker--documentatie)</td>
+        <td>[Datepicker](/docs/form-datepicker--documentatie)</td>
         <td>release v1.25.0</td>
-        <td>form/next</td>
-        <td><code>{`<vl-datepicker>`}</code></td>
+        <td>form</td>
+        <td><code>{`<vl-datepicker-next>`}</code></td>
         <td>form</td>
         <td><code>{`<vl-datepicker>`}</code></td>
     </tr>
 </table>
 
+Nieuw in v2:
+- Standaard waarde veranderd naar ISO-8601 formaat
+- Mask validatie toegevoegd
+- Positionering verbeterd met extra attributen `position` en `static`
 
 ### Data Table
 
@@ -363,7 +443,10 @@ De Code Preview component verdwijnt omdat die enkel in de legacy (voor 2021) doc
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Data Table [legacy]](/docs/elements-data-table--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-data-table--documentatie`}
+            >Data Table [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<table is="vl-data-table">`}</code></td>
@@ -371,10 +454,10 @@ De Code Preview component verdwijnt omdat die enkel in de legacy (voor 2021) doc
         <td>-</td>
     </tr>
     <tr>
-        <td>[Table [next]](/docs/components-table--documentatie)</td>
+        <td>[Table](/docs/components-table--documentatie)</td>
         <td>release v1.42.0</td>
-        <td>components/next</td>
-        <td><code>{`<vl-table>`}</code></td>
+        <td>components</td>
+        <td><code>{`<vl-table-next>`}</code></td>
         <td>components</td>
         <td><code>{`<vl-table>`}</code></td>
     </tr>
@@ -393,7 +476,10 @@ De Code Preview component verdwijnt omdat die enkel in de legacy (voor 2021) doc
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Doormat [legacy]](/docs/elements-doormat--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-doormat--documentatie`}
+            >Doormat [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<a is="vl-doormat">`}</code></td>
@@ -401,10 +487,10 @@ De Code Preview component verdwijnt omdat die enkel in de legacy (voor 2021) doc
         <td>-</td>
     </tr>
     <tr>
-        <td>[Doormat [next]](/docs/components-doormat--documentatie)</td>
+        <td>[Doormat](/docs/components-doormat--documentatie)</td>
         <td>release v1.34.0</td>
-        <td>components/next</td>
-        <td><code>{`<vl-doormat>`}</code></td>
+        <td>components</td>
+        <td><code>{`<vl-doormat-next>`}</code></td>
         <td>components</td>
         <td><code>{`<vl-doormat>`}</code></td>
     </tr>
@@ -423,7 +509,10 @@ De Code Preview component verdwijnt omdat die enkel in de legacy (voor 2021) doc
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Form [legacy]](/docs/elements-form--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-form--documentatie`}
+            >Form [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<label is="vl-form">`}</code></td>
@@ -431,7 +520,7 @@ De Code Preview component verdwijnt omdat die enkel in de legacy (voor 2021) doc
         <td>-</td>
     </tr>
     <tr>
-        <td>[Form [next]](/docs/ontwerp-form-demo--documentatie)</td>
+        <td>[Form](/docs/ontwerp-form-demo--documentatie)</td>
         <td>native</td>
         <td>-</td>
         <td><code>{`<form>`}</code></td>
@@ -443,7 +532,7 @@ De Code Preview component verdwijnt omdat die enkel in de legacy (voor 2021) doc
 
 ### Form Annotation
 
-Wordt niet meer voorzien in v2, indien het om een foutboodschap gaat dient `<vl-form-message>` gebruikt te worden.
+Wordt niet meer voorzien in v2, indien het om een foutboodschap gaat dient `<vl-error-message>` gebruikt te worden.
 
 <table  style={{width: 100 + '%'}}>
     <tr>
@@ -455,7 +544,10 @@ Wordt niet meer voorzien in v2, indien het om een foutboodschap gaat dient `<vl-
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Form Annotation [legacy]](/docs/elements-form-message-form-annotation--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-form-message-form-annotation--documentatie`}
+            >Form Annotation [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<label is="vl-form-annotation">`}</code></td>
@@ -467,7 +559,7 @@ Wordt niet meer voorzien in v2, indien het om een foutboodschap gaat dient `<vl-
 
 ### Form Grid
 
-`Grid [next]` voorziet style-classes voor `Form Grid [legacy]` en `Form Grid Column [legacy]`.<br/>
+`Grid` voorziet style-classes voor `Form Grid [legacy]` en `Form Grid Column [legacy]`.<br/>
 Zie [Stacked](#stacked) voor de vervanger van de vroegere `stacked` attributen.
 
 <table  style={{width: 100 + '%'}}>
@@ -480,7 +572,10 @@ Zie [Stacked](#stacked) voor de vervanger van de vroegere `stacked` attributen.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Form Grid [legacy]](/docs/elements-form-grid-form-grid--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-form-grid-form-grid--documentatie`}
+            >Form Grid [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<div is="vl-form-grid">`}</code></td>
@@ -488,15 +583,18 @@ Zie [Stacked](#stacked) voor de vervanger van de vroegere `stacked` attributen.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Grid [next]](/docs/styles-layout-afnemers-grid--documentatie)</td>
+        <td>[Grid](/docs/styles-layout-afnemers-grid--documentatie)</td>
         <td>release v1.40.0</td>
         <td>common-utilities/css</td>
-        <td><code>{`class="vl-grid"`}</code></td>
+        <td><code>{`class="vl-grid-next"`}</code></td>
         <td>styles</td>
         <td><code>{`class="vl-grid"`}</code></td>
     </tr>
     <tr>
-        <td>[Form Grid Column [legacy]](/docs/elements-form-grid-form-column--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-form-grid-form-column--documentatie`}
+            >Form Grid Column [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<div is="vl-form-column">`}</code></td>
@@ -504,10 +602,10 @@ Zie [Stacked](#stacked) voor de vervanger van de vroegere `stacked` attributen.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Grid Column [next]](/docs/styles-layout-afnemers-grid--documentatie)</td>
+        <td>[Grid Column](/docs/styles-layout-afnemers-grid--documentatie)</td>
         <td>release v1.40.0</td>
         <td>common-utilities/css</td>
-        <td><code>{`class="vl-column"`}</code></td>
+        <td><code>{`class="vl-column-next"`}</code></td>
         <td>styles</td>
         <td><code>{`class="vl-column"`}</code></td>
     </tr>
@@ -526,7 +624,10 @@ Zie [Stacked](#stacked) voor de vervanger van de vroegere `stacked` attributen.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Form Label [legacy]](/docs/elements-form-message-form-label--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-form-message-form-label--documentatie`}
+            >Form Label [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<label is="vl-form-label">`}</code></td>
@@ -534,10 +635,10 @@ Zie [Stacked](#stacked) voor de vervanger van de vroegere `stacked` attributen.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Form Label [next]](/docs/form-form-label--documentatie)</td>
+        <td>[Form Label](/docs/form-form-label--documentatie)</td>
         <td>release v1.28.0</td>
-        <td>form/next</td>
-        <td><code>{`<vl-form-label>`}</code></td>
+        <td>form</td>
+        <td><code>{`<vl-form-label-next>`}</code></td>
         <td>form</td>
         <td><code>{`<vl-form-label>`}</code></td>
     </tr>
@@ -569,7 +670,7 @@ gebruiken dit niet meer.
 </table>
 
 
-### Form Validation Message / Error Message / Form Message
+### Form Validation Message / Form Message
 
 <table  style={{width: 100 + '%'}}>
     <tr>
@@ -581,7 +682,10 @@ gebruiken dit niet meer.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Form Validation Message [legacy]](https://milieuinfo.github.io/uigov-builds/release/1.47.0/storybook/?path=/docs/elements-form-message-form-validation-message--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-form-message-form-validation-message--documentatie`}
+            >Form Validation Message [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<p is="vl-form-validation-message">`}</code></td>
@@ -589,19 +693,11 @@ gebruiken dit niet meer.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Error Message [next]](https://milieuinfo.github.io/uigov-builds/release/1.47.0/storybook/?path=/docs/form-next-error-message--documentatie)</td>
+        <td>[Error Message](/docs/form-error-message--documentatie)</td>
         <td>release v1.25.0</td>
-        <td>form/next</td>
-        <td><code>{`<vl-error-message>`}</code></td>
-        <td>-</td>
-        <td><code></code></td>
-    </tr>
-    <tr>
-        <td>[Form Message [v2]](/docs/components-form-form-message--documentatie)</td>
-        <td>release v2.0.0</td>
-        <td>-</td>
-        <td>-</td>
-        <td>components/form</td>
+        <td>form</td>
+        <td><code>{`<vl-error-message-next>`}</code></td>
+        <td>form</td>
         <td><code>{`<vl-form-message>`}</code></td>
     </tr>
 </table>
@@ -609,7 +705,7 @@ gebruiken dit niet meer.
 
 ### Grid
 
-`Grid [next]` style-classes vervangen `Grid [legacy]` en `Grid Column [legacy]`.<br/>
+`Grid` style-classes vervangen `Grid [legacy]` en `Grid Column [legacy]`.<br/>
 Zie [Section](#section) voor `Grid Region [legacy]`.<br/>
 Zie [Content block](#content-block) voor `Grid Layout [legacy]`.<br/>
 Zie [Stacked](#stacked) voor de vervanger van de vroegere `stacked` attributen.
@@ -624,7 +720,7 @@ Zie [Stacked](#stacked) voor de vervanger van de vroegere `stacked` attributen.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Grid [legacy]](/docs/elements-grid-grid--documentatie)</td>
+        <td><a href={`${v1StorybookLink}/docs/elements-grid-grid--documentatie`}>Grid [legacy]</a></td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<div is="vl-grid">`}</code></td>
@@ -632,15 +728,15 @@ Zie [Stacked](#stacked) voor de vervanger van de vroegere `stacked` attributen.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Grid [next]](/docs/styles-layout-afnemers-grid--documentatie)</td>
+        <td>[Grid](/docs/styles-layout-afnemers-grid--documentatie)</td>
         <td>release v1.40.0</td>
         <td>common-utilities/css</td>
-        <td><code>{`class="vl-grid"`}</code></td>
+        <td><code>{`class="vl-grid-next"`}</code></td>
         <td>styles</td>
         <td><code>{`class="vl-grid"`}</code></td>
     </tr>
     <tr>
-        <td>[Grid Column [legacy]](/docs/elements-grid-grid-column--documentatie)</td>
+        <td><a href={`${v1StorybookLink}/docs/elements-grid-grid-column--documentatie`}>Grid Column [legacy]</a></td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<div is="vl-column">`}</code></td>
@@ -648,10 +744,10 @@ Zie [Stacked](#stacked) voor de vervanger van de vroegere `stacked` attributen.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Grid Column [next]](/docs/styles-layout-afnemers-grid--documentatie)</td>
+        <td>[Grid Column](/docs/styles-layout-afnemers-grid--documentatie)</td>
         <td>release v1.40.0</td>
         <td>common-utilities/css</td>
-        <td><code>{`class="vl-column"`}</code></td>
+        <td><code>{`class="vl-column-next"`}</code></td>
         <td>styles</td>
         <td><code>{`class="vl-column"`}</code></td>
     </tr>
@@ -660,7 +756,7 @@ Zie [Stacked](#stacked) voor de vervanger van de vroegere `stacked` attributen.
 
 ### Group
 
-`Group [next]` voorziet style-classes om componenten te groeperen; het is een vervanging voor onder andere:
+`Group` voorziet style-classes om componenten te groeperen; het is een vervanging voor onder andere:
     `Action Group [legacy]`, `Accordion List [legacy]`, `Link List [legacy]` en `Icon Wrapper [legacy]`.
 
 <table  style={{width: 100 + '%'}}>
@@ -673,7 +769,7 @@ Zie [Stacked](#stacked) voor de vervanger van de vroegere `stacked` attributen.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Action Group [legacy]](/docs/elements-action-group--documentatie)</td>
+        <td><a href={`${v1StorybookLink}/docs/elements-action-group--documentatie`}>Action Group [legacy]</a></td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<div is="vl-action-group">`}</code></td>
@@ -681,7 +777,7 @@ Zie [Stacked](#stacked) voor de vervanger van de vroegere `stacked` attributen.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Accordion List [legacy]](/docs/components-accordion-list--documentatie)</td>
+        <td><a href={`${v1StorybookLink}/docs/components-accordion-list--documentatie`}>Accordion List [legacy]</a></td>
         <td>deprecated</td>
         <td>components</td>
         <td><code>{`<vl-accordion-list>`}</code></td>
@@ -689,7 +785,7 @@ Zie [Stacked](#stacked) voor de vervanger van de vroegere `stacked` attributen.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Link List [legacy]](/docs/elements-link-list--documentatie)</td>
+        <td><a href={`${v1StorybookLink}/docs/elements-link-list--documentatie`}>Link List [legacy]</a></td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<div is="vl-link-list">`}</code></td>
@@ -697,7 +793,10 @@ Zie [Stacked](#stacked) voor de vervanger van de vroegere `stacked` attributen.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Icon Wrapper [legacy]](/docs/elements-icon-icon-wrapper--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-icon-icon-wrapper--documentatie`}
+            >Icon Wrapper [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<div is="vl-icon-wrapper">`}</code></td>
@@ -705,10 +804,10 @@ Zie [Stacked](#stacked) voor de vervanger van de vroegere `stacked` attributen.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Group [next]](/docs/styles-layout-afnemers-group--documentatie)</td>
+        <td>[Group](/docs/styles-layout-afnemers-group--documentatie)</td>
         <td>release v1.40.0</td>
         <td>common-utilities/css</td>
-        <td><code>{`class="vl-group"`}</code></td>
+        <td><code>{`class="vl-group-next"`}</code></td>
         <td>styles</td>
         <td><code>{`class="vl-group"`}</code></td>
     </tr>
@@ -730,7 +829,10 @@ je **&lt;vl-http-error-message error-code="XXX"&sol;&gt;**.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Http Error Message [legacy]](/docs/components-http-error-message--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-http-error-message--documentatie`}
+            >Http Error Message [legacy]</a>
+        </td>
         <td>impact</td>
         <td>components</td>
         <td><code>{`<vl-http-error-XXX-message>`}</code></td>
@@ -762,7 +864,10 @@ je **&lt;vl-http-error-message error-code="XXX"&sol;&gt;**.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Icon [legacy]](/docs/elements-icon-icon--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-icon-icon--documentatie`}
+            >Icon [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<span is="vl-icon">`}</code></td>
@@ -771,7 +876,10 @@ je **&lt;vl-http-error-message error-code="XXX"&sol;&gt;**.
     </tr>
     <tr></tr>
     <tr>
-        <td>[Icon Wrapper [legacy]](/docs/elements-icon-icon-wrapper--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-icon-icon-wrapper--documentatie`}
+            >Icon Wrapper [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<p is="vl-icon-wrapper">`}</code></td>
@@ -779,10 +887,10 @@ je **&lt;vl-http-error-message error-code="XXX"&sol;&gt;**.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Icon [next]](/docs/components-icon--documentatie)</td>
+        <td>[Icon](/docs/components-icon--documentatie)</td>
         <td>release v1.34.0</td>
-        <td>components/next</td>
-        <td><code>{`<vl-icon>`}</code></td>
+        <td>components</td>
+        <td><code>{`<vl-icon-next>`}</code></td>
         <td>components</td>
         <td><code>{`<vl-icon>`}</code></td>
     </tr>
@@ -802,7 +910,10 @@ Wordt niet meer voorzien in v2, de native `<img>` krijgt de voorkeur.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Image [legacy]](/docs/elements-image--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-image--documentatie`}
+            >Image [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<img is="vl-image">`}</code></td>
@@ -810,7 +921,7 @@ Wordt niet meer voorzien in v2, de native `<img>` krijgt de voorkeur.
         <td>-</td>
     </tr>
     <tr>
-        <td>Image [next]</td>
+        <td>Image</td>
         <td>native</td>
         <td>-</td>
         <td><code>{`<img>`}</code></td>
@@ -832,7 +943,10 @@ Wordt niet meer voorzien in v2, de native `<img>` krijgt de voorkeur.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Infotext [legacy]](/docs/elements-infotext--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-infotext--documentatie`}
+            >Infotext [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<div is="vl-infotext">`}</code></td>
@@ -840,10 +954,10 @@ Wordt niet meer voorzien in v2, de native `<img>` krijgt de voorkeur.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Infotext [next]](/docs/components-infotext--documentatie)</td>
+        <td>[Infotext](/docs/components-infotext--documentatie)</td>
         <td>release v1.33.0</td>
-        <td>components/next</td>
-        <td><code>{`<vl-infotext>`}</code></td>
+        <td>components</td>
+        <td><code>{`<vl-infotext-next>`}</code></td>
         <td>components</td>
         <td><code>{`<vl-infotext>`}</code></td>
     </tr>
@@ -862,7 +976,10 @@ Wordt niet meer voorzien in v2, de native `<img>` krijgt de voorkeur.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Input Field [legacy]](/docs/elements-input-field--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-input-field--documentatie`}
+            >Input Field [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<input is="vl-input-field">`}</code></td>
@@ -870,10 +987,10 @@ Wordt niet meer voorzien in v2, de native `<img>` krijgt de voorkeur.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Input Field [next]](/docs/form-input-field--documentatie)</td>
+        <td>[Input Field](/docs/form-input-field--documentatie)</td>
         <td>release v1.25.0</td>
-        <td>form/next</td>
-        <td><code>{`<vl-input-field>`}</code></td>
+        <td>form</td>
+        <td><code>{`<vl-input-field-next>`}</code></td>
         <td>form</td>
         <td><code>{`<vl-input-field>`}</code></td>
     </tr>
@@ -882,7 +999,7 @@ Wordt niet meer voorzien in v2, de native `<img>` krijgt de voorkeur.
 
 ### Input Group
 
-`Input Group [next]` is geen aparte component, `Group [next]`, `Button [next]` en `Input Field [next]` zijn
+`Input Group` is geen aparte component, `Group`, `Button` en `Input Field` zijn
 uitgebreid om deze groepering functionaliteit te ondersteunen.
 
 <table style={{width: 100 + '%'}}>
@@ -895,7 +1012,10 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Input Group [legacy]](/docs/elements-input-group--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-input-group--documentatie`}
+            >Input Group [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<div is="vl-input-group">`}</code></td>
@@ -904,7 +1024,10 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
     </tr>
     <tr></tr>
     <tr>
-        <td>[Button Input Addon [legacy]](/docs/elements-input-addon-button-input-addon--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-input-addon-button-input-addon--documentatie`}
+            >Button Input Addon [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<button is="vl-button-input-addon">`}</code></td>
@@ -913,7 +1036,10 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
     </tr>
     <tr></tr>
     <tr>
-        <td>[Input Addon [legacy]](/docs/elements-input-addon-input-addon--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-input-addon-input-addon--documentatie`}
+            >Input Addon [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<p is="vl-input-addon">`}</code></td>
@@ -921,10 +1047,10 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Input Group [next]](/docs/form-input-group--documentatie)</td>
+        <td>[Input Group](/docs/form-input-group--documentatie)</td>
         <td>release v1.43.0</td>
-        <td>form/next</td>
-        <td><code>{`<div class="vl-group--input-group">`}</code></td>
+        <td>form</td>
+        <td><code>{`<div class="vl-group-next--input-group">`}</code></td>
         <td>form</td>
         <td><code>{`<div class="vl-group--input-group">`}</code></td>
     </tr>
@@ -946,7 +1072,10 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Link [legacy]](/docs/elements-link-link--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-link-link--documentatie`}
+            >Link [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<a is="vl-link">`}</code></td>
@@ -955,7 +1084,10 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
     </tr>
     <tr></tr>
     <tr>
-        <td>[Button Link [legacy]](/docs/elements-link-button-link--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-link-button-link--documentatie`}
+            >Button Link [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<a is="vl-button-link">`}</code></td>
@@ -963,10 +1095,10 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Link [next]](/docs/components-link--documentatie)</td>
+        <td>[Link](/docs/components-link--documentatie)</td>
         <td>release v1.32.0</td>
-        <td>components/next</td>
-        <td><code>{`<vl-link>`}</code></td>
+        <td>components</td>
+        <td><code>{`<vl-link-next>`}</code></td>
         <td>components</td>
         <td><code>{`<vl-link>`}</code></td>
     </tr>
@@ -985,7 +1117,10 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Introduction [legacy]](/docs/elements-introduction--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-introduction--documentatie`}
+            >Introduction [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<p is="vl-introduction">`}</code></td>
@@ -993,10 +1128,10 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Paragraph [next]](/docs/components-paragraph--documentatie)</td>
+        <td>[Paragraph](/docs/components-paragraph--documentatie)</td>
         <td>release v1.42.0</td>
-        <td>components/next</td>
-        <td><code>{`<vl-paragraph>`}</code></td>
+        <td>components</td>
+        <td><code>{`<vl-paragraph-next>`}</code></td>
         <td>components</td>
         <td><code>{`<vl-paragraph>`}</code></td>
     </tr>
@@ -1005,7 +1140,7 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
 
 ### Link List
 
-`Link List [legacy]` wordt in [next] vervangen door [Group](#group).
+`Link List [legacy]` wordt vervangen door [Group](#group).
 
 <table  style={{width: 100 + '%'}}>
     <tr>
@@ -1017,7 +1152,10 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Link List [legacy]](/docs/elements-link-list--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-link-list--documentatie`}
+            >Link List [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<div is="vl-link-list">`}</code></td>
@@ -1039,10 +1177,10 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Margin [next]](/docs/styles-layout-afnemers-margin--documentatie)</td>
+        <td>[Margin](/docs/styles-layout-afnemers-margin--documentatie)</td>
         <td>release v1.40.0</td>
         <td>common-utilities/css</td>
-        <td><code>{`class="vl-margin"`}</code></td>
+        <td><code>{`class="vl-margin-next"`}</code></td>
         <td>styles</td>
         <td><code>{`class="vl-margin"`}</code></td>
     </tr>
@@ -1061,10 +1199,10 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Padding [next]](/docs/styles-layout-afnemers-padding--documentatie)</td>
+        <td>[Padding](/docs/styles-layout-afnemers-padding--documentatie)</td>
         <td>release v1.40.0</td>
         <td>common-utilities/css</td>
-        <td><code>{`class="vl-padding"`}</code></td>
+        <td><code>{`class="vl-padding-next"`}</code></td>
         <td>styles</td>
         <td><code>{`class="vl-padding"`}</code></td>
     </tr>
@@ -1072,6 +1210,9 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
 
 
 ### Pattern
+
+`Pattern [legacy]` is een utility mixin die gebruikt werd in de oude formulier componenten.
+De nieuwe formulier componenten gebruiken dit niet meer maar er wordt wel een mask voorzien voor de input velden.
 
 <table  style={{width: 100 + '%'}}>
     <tr>
@@ -1091,15 +1232,14 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Input Field Masked [next]](/docs/form-input-field-masked--documentatie)</td>
+        <td>[Input Field Masked](/docs/form-input-field-masked--documentatie)</td>
         <td>release v1.25.0</td>
-        <td>form/next</td>
-        <td><code>{`<vl-input-field-masked>`}</code></td>
+        <td>form</td>
+        <td><code>{`<vl-input-field-masked-next>`}</code></td>
         <td>form</td>
         <td><code>{`vl-input-field-masked>`}</code></td>
     </tr>
 </table>
-
 
 ### Progress Bar / Progress Indicator
 
@@ -1113,7 +1253,10 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Progress Bar [v1]](https://milieuinfo.github.io/uigov-builds/release/1.47.0/storybook/?path=/docs/components-progress-bar--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-progress-bar--documentatie`}
+            >Progress Bar [v1]</a>
+        </td>
         <td>release v1.0.0</td>
         <td>components</td>
         <td><code>{`<vl-progress-bar>`}</code></td>
@@ -1130,7 +1273,6 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
     </tr>
 </table>
 
-
 ### Properties
 
 <table  style={{width: 100 + '%'}}>
@@ -1143,7 +1285,10 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Properties [legacy]](/docs/elements-properties--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-properties--documentatie`}
+            >Properties [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<vl-properties>`}</code></td>
@@ -1151,10 +1296,10 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Properties [next]](/docs/components-properties--documentatie)</td>
+        <td>[Properties](/docs/components-properties--documentatie)</td>
         <td>release v1.33.0</td>
-        <td>components/next</td>
-        <td><code>{`<vl-properties>`}</code></td>
+        <td>components</td>
+        <td><code>{`<vl-properties-next>`}</code></td>
         <td>components</td>
         <td><code>{`<vl-properties>`}</code></td>
     </tr>
@@ -1173,7 +1318,10 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Radio Group [legacy]](/docs/components-radio--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-radio--documentatie`}
+            >Radio Group [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>components</td>
         <td><code>{`<vl-radio-group>`}</code></td>
@@ -1181,15 +1329,18 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Radio Group [next]](/docs/form-radio-group--documentatie)</td>
+        <td>[Radio Group](/docs/form-radio-group--documentatie)</td>
         <td>release v1.25.0</td>
-        <td>form/next</td>
-        <td><code>{`<vl-radio-group>`}</code></td>
+        <td>form</td>
+        <td><code>{`<vl-radio-group-next>`}</code></td>
         <td>form</td>
         <td><code>{`<vl-radio-group>`}</code></td>
     </tr>
     <tr>
-        <td>[Radio [legacy]](/docs/components-radio--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-radio--documentatie`}
+            >Radio [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>components</td>
         <td><code>{`<vl-radio>`}</code></td>
@@ -1197,10 +1348,10 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Radio [next]](/docs/form-radio-group--documentatie)</td>
+        <td>[Radio](/docs/form-radio-group--documentatie)</td>
         <td>release v1.25.0</td>
-        <td>form/next</td>
-        <td><code>{`<vl-radio>`}</code></td>
+        <td>form</td>
+        <td><code>{`<vl-radio-next>`}</code></td>
         <td>form</td>
         <td><code>{`<vl-radio>`}</code></td>
     </tr>
@@ -1219,7 +1370,10 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Search Filter [legacy]](/docs/elements-search-filter--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-search-filter--documentatie`}
+            >Search Filter [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<vl-search-filter>`}</code></td>
@@ -1227,10 +1381,10 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Search Filter [next]](/docs/components-search-filter--documentatie)</td>
+        <td>[Search Filter](/docs/components-search-filter--documentatie)</td>
         <td>release v1.42.0</td>
-        <td>components/next</td>
-        <td><code>{`<vl-search-filter>`}</code></td>
+        <td>components</td>
+        <td><code>{`<vl-search-filter-next>`}</code></td>
         <td>components</td>
         <td><code>{`<vl-search-filter>`}</code></td>
     </tr>
@@ -1239,7 +1393,7 @@ uitgebreid om deze groepering functionaliteit te ondersteunen.
 
 ### Search Result
 
-De `Search Result` bestaat uit verschillende sub-componenten, deze hebben allemaal een next-variant! Ze staan
+De `Search Result` bestaat uit verschillende sub-componenten. Ze staan
 hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie pagina van de component.
 
 <table  style={{width: 100 + '%'}}>
@@ -1252,7 +1406,10 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Search Result [legacy]](/docs/elements-search-results-search-result--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-search-results-search-result--documentatie`}
+            >Search Result [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<li is="vl-search-result">`}</code></td>
@@ -1261,7 +1418,10 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
     </tr>
     <tr></tr>
     <tr>
-        <td>[Search Results [legacy]](/docs/elements-search-results-search-results--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-search-results-search-results--documentatie`}
+            >Search Results [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<ul is="vl-search-results">`}</code></td>
@@ -1269,10 +1429,10 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <td>-</td>
     </tr>
     <tr>
-        <td>[Search Result [next]](/docs/components-search-result--documentatie)</td>
+        <td>[Search Result](/docs/components-search-result--documentatie)</td>
         <td>release v1.43.0</td>
-        <td>components/next</td>
-        <td><code>{`<vl-search-result>`}</code></td>
+        <td>components</td>
+        <td><code>{`<vl-search-result-next>`}</code></td>
         <td>components</td>
         <td><code>{`<vl-search-result>`}</code></td>
     </tr>
@@ -1281,7 +1441,7 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
 
 ### Section
 
-`Section [next]` is de nieuwe opzet die style-classes voorziet ter vervanging van
+`Section` is de nieuwe opzet die style-classes voorziet ter vervanging van
 `Grid Region [legacy]`.
 
 <table  style={{width: 100 + '%'}}>
@@ -1294,7 +1454,10 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Grid Region [legacy]](/docs/elements-grid-grid-region--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-grid-grid-region--documentatie`}
+            >Grid Region [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<section is="vl-region">`}</code></td>
@@ -1302,10 +1465,10 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <td>-</td>
     </tr>
     <tr>
-        <td>[Section [next]](/docs/styles-layout-afnemers-section--documentatie)</td>
+        <td>[Section](/docs/styles-layout-afnemers-section--documentatie)</td>
         <td>release v1.40.0</td>
         <td>common-utilities/css</td>
-        <td><code>{`class="vl-section"`}</code></td>
+        <td><code>{`class="vl-section-next"`}</code></td>
         <td>styles</td>
         <td><code>{`class="vl-section"`}</code></td>
     </tr>
@@ -1324,7 +1487,10 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Select [legacy]](/docs/elements-select--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-select--documentatie`}
+            >Select [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<select is="vl-select">`}</code></td>
@@ -1332,15 +1498,18 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <td>-</td>
     </tr>
     <tr>
-        <td>[Select [next]](/docs/form-select--documentatie)</td>
+        <td>[Select](/docs/form-select--documentatie)</td>
         <td>release v1.25.0</td>
-        <td>form/next</td>
-        <td><code>{`<vl-select>`}</code></td>
+        <td>form</td>
+        <td><code>{`<vl-select-next>`}</code></td>
         <td>form</td>
         <td><code>{`<vl-select>`}</code></td>
     </tr>
     <tr>
-        <td>[MultiSelect [legacy]](/docs/elements-multiselect--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-multiselect--documentatie`}
+            >MultiSelect [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<select is="vl-multiselect">`}</code></td>
@@ -1348,10 +1517,10 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <td>-</td>
     </tr>
     <tr>
-        <td>[Select Rich [next]](/docs/form-select-rich--documentatie)</td>
+        <td>[Select Rich](/docs/form-select-rich--documentatie)</td>
         <td>release v1.32.0</td>
-        <td>form/next</td>
-        <td><code>{`<vl-select-rich>`}</code></td>
+        <td>form</td>
+        <td><code>{`<vl-select-rich-next>`}</code></td>
         <td>form</td>
         <td><code>{`<vl-select-rich>`}</code></td>
     </tr>
@@ -1370,7 +1539,10 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Select Location [legacy]](/docs/map-select-location--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/map-select-location--documentatie`}
+            >Select Location [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>map/components</td>
         <td><code>{`<vl-select-location>`}</code></td>
@@ -1378,10 +1550,10 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <td>-</td>
     </tr>
     <tr>
-        <td>[Select Location [next]](/docs/map-select-location--documentatie)</td>
+        <td>[Select Location](/docs/map-select-location--documentatie)</td>
         <td>release v1.46.0</td>
         <td>map/components</td>
-        <td><code>{`<vl-select-location>`}</code></td>
+        <td><code>{`<vl-select-location-next>`}</code></td>
         <td>map/components</td>
         <td><code>{`<vl-select-location>`}</code></td>
     </tr>
@@ -1400,10 +1572,10 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Separator [next]](/docs/styles-layout-afnemers-separator--documentatie)</td>
+        <td>[Separator](/docs/styles-layout-afnemers-separator--documentatie)</td>
         <td>release v1.43.0</td>
         <td>common-utilities/css</td>
-        <td><code>{`class="vl-separator"`}</code></td>
+        <td><code>{`class="vl-separator-next"`}</code></td>
         <td>styles</td>
         <td><code>{`class="vl-separator"`}</code></td>
     </tr>
@@ -1422,10 +1594,10 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Spacer [next]](/docs/styles-layout-afnemers-spacer--documentatie)</td>
+        <td>[Spacer](/docs/styles-layout-afnemers-spacer--documentatie)</td>
         <td>release v1.43.0</td>
         <td>common-utilities/css</td>
-        <td><code>{`class="vl-spacer"`}</code></td>
+        <td><code>{`class="vl-spacer-next"`}</code></td>
         <td>styles</td>
         <td><code>{`class="vl-spacer"`}</code></td>
     </tr>
@@ -1445,10 +1617,10 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
     </tr>
     <tr></tr>
     <tr>
-        <td>[Stacked [next]](/docs/styles-layout-afnemers-stacked--documentatie)</td>
+        <td>[Stacked](/docs/styles-layout-afnemers-stacked--documentatie)</td>
         <td>release v1.43.0</td>
         <td>common-utilities/css</td>
-        <td><code>{`class="vl-stacked"`}</code></td>
+        <td><code>{`class="vl-stacked-next"`}</code></td>
         <td>styles</td>
         <td><code>{`class="vl-stacked"`}</code></td>
     </tr>
@@ -1457,7 +1629,7 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
 
 ### Side Navigation
 
-De `Side Navigation` bestaat uit verschillende sub-componenten, deze hebben allemaal een next-variant! Ze staan
+De `Side Navigation` bestaat uit verschillende sub-componenten. Ze staan
 hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie pagina van de component.
 
 <table  style={{width: 100 + '%'}}>
@@ -1470,7 +1642,10 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Side Navigation [legacy]](/docs/elements-side-navigation--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-side-navigation--documentatie`}
+            >Side Navigation [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<nav is="vl-side-navigation">`}</code></td>
@@ -1478,10 +1653,10 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <td>-</td>
     </tr>
     <tr>
-        <td>[Side Navigation [next]](/docs/components-side-navigation--documentatie)</td>
+        <td>[Side Navigation](/docs/components-side-navigation--documentatie)</td>
         <td>release v1.43.0</td>
-        <td>components/next</td>
-        <td><code>{`<vl-side-navigation>`}</code></td>
+        <td>components</td>
+        <td><code>{`<vl-side-navigation-next>`}</code></td>
         <td>components</td>
         <td><code>{`<vl-side-navigation>`}</code></td>
     </tr>
@@ -1500,7 +1675,10 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Steps [legacy]](/docs/components-steps--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-steps--documentatie`}
+            >Steps [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>components</td>
         <td><code>{`<vl-steps>`}</code></td>
@@ -1508,15 +1686,18 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <td>-</td>
     </tr>
     <tr>
-        <td>[Steps [next]](/docs/components-steps-steps--documentatie)</td>
+        <td>[Steps](/docs/components-steps-steps--documentatie)</td>
         <td>release v1.16.0</td>
-        <td>components/next</td>
-        <td><code>{`<vl-steps>`}</code></td>
+        <td>components</td>
+        <td><code>{`<vl-steps-next>`}</code></td>
         <td>components</td>
         <td><code>{`<vl-steps>`}</code></td>
     </tr>
     <tr>
-        <td>[Step [legacy]](/docs/components-steps--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-steps--documentatie`}
+            >Step [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>components</td>
         <td><code>{`<vl-step>`}</code></td>
@@ -1524,10 +1705,10 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <td>-</td>
     </tr>
     <tr>
-        <td>[Step [next]](/docs/components-steps-step--documentatie)</td>
+        <td>[Step](/docs/components-steps-step--documentatie)</td>
         <td>release v1.16.0</td>
-        <td>components/next</td>
-        <td><code>{`<vl-step>`}</code></td>
+        <td>components</td>
+        <td><code>{`<vl-step-next>`}</code></td>
         <td>components</td>
         <td><code>{`<vl-step>`}</code></td>
     </tr>
@@ -1546,7 +1727,10 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Tabs [legacy]](/docs/components-tabs-tabs--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-tabs-tabs--documentatie`}
+            >Tabs [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>components</td>
         <td><code>{`<vl-tabs>`}</code></td>
@@ -1554,15 +1738,18 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <td>-</td>
     </tr>
     <tr>
-        <td>[Tabs [next]](/docs/components-tabs-tabs--documentatie)</td>
+        <td>[Tabs](/docs/components-tabs-tabs--documentatie)</td>
         <td>release v1.45.0</td>
-        <td>components/next</td>
-        <td><code>{`<vl-tabs>`}</code></td>
+        <td>components</td>
+        <td><code>{`<vl-tabs-next>`}</code></td>
         <td>components</td>
         <td><code>{`<vl-tabs>`}</code></td>
     </tr>
     <tr>
-        <td>[Tabs Pane [legacy]](/docs/components-tabs-tabs-pane--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-tabs-tabs-pane--documentatie`}
+            >Tabs Pane [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>components</td>
         <td><code>{`<vl-tabs-pane>`}</code></td>
@@ -1570,10 +1757,10 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <td>-</td>
     </tr>
     <tr>
-        <td>[Tabs Pane [next]](/docs/components-tabs-tabs-pane--documentatie)</td>
+        <td>[Tabs Pane](/docs/components-tabs-tabs-pane--documentatie)</td>
         <td>release v1.45.0</td>
-        <td>components/next</td>
-        <td><code>{`<vl-tabs-pane>`}</code></td>
+        <td>components</td>
+        <td><code>{`<vl-tabs-pane-next>`}</code></td>
         <td>components</td>
         <td><code>{`<vl-tabs-pane>`}</code></td>
     </tr>
@@ -1592,7 +1779,10 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Text [legacy]](/docs/elements-text--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-text--documentatie`}
+            >Text [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<span is="vl-text">`}</code></td>
@@ -1600,10 +1790,10 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <td>-</td>
     </tr>
     <tr>
-        <td>[Text [next]](/docs/components-text--documentatie)</td>
+        <td>[Text](/docs/components-text--documentatie)</td>
         <td>release v1.42.0</td>
-        <td>components/next</td>
-        <td><code>{`<vl-text>`}</code></td>
+        <td>components</td>
+        <td><code>{`<vl-text-next>`}</code></td>
         <td>components</td>
         <td><code>{`<vl-text>`}</code></td>
     </tr>
@@ -1612,8 +1802,8 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
 
 ### Textarea / Textarea Rich
 
-`Textarea [legacy]` had een attribuut om hem in 'rich'-mode te zetten, de `[next]` component is ontdubbeld in
-`Textarea [next]` en `Textarea Rich [next]`.
+`Textarea [legacy]` had een attribuut om hem in 'rich'-mode te zetten, in v2.0.0 is die ontdubbeld in
+`Textarea` en `Textarea Rich`.
 
 <table style={{width: 100 + '%'}}>
     <tr>
@@ -1625,7 +1815,10 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Textarea [legacy]](/docs/components-textarea--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-textarea--documentatie`}
+            >Textarea [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>components</td>
         <td><code>{`<textarea is="vl-textarea">`}</code></td>
@@ -1633,19 +1826,19 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <td>-</td>
     </tr>
     <tr>
-        <td>[Textarea [next]](/docs/form-textarea--documentatie)</td>
+        <td>[Textarea](/docs/form-textarea--documentatie)</td>
         <td>release v1.25.0</td>
-        <td>form/next</td>
-        <td><code>{`<vl-textarea>`}</code></td>
+        <td>form</td>
+        <td><code>{`<vl-textarea-next>`}</code></td>
         <td>form</td>
         <td><code>{`<vl-textarea>`}</code></td>
     </tr>
     <tr></tr>
     <tr>
-        <td>[Textarea Rich [next]](/docs/form-textarea-rich--documentatie)</td>
+        <td>[Textarea Rich](/docs/form-textarea-rich--documentatie)</td>
         <td>release v1.28.0</td>
-        <td>form/next</td>
-        <td><code>{`<vl-textarea-rich>`}</code></td>
+        <td>form</td>
+        <td><code>{`<vl-textarea-rich-next>`}</code></td>
         <td>form</td>
         <td><code>{`<vl-textarea-rich>`}</code></td>
     </tr>
@@ -1654,7 +1847,7 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
 
 ### Title
 
-`Title [legacy]` had een variant per grootte, bij de `[next]` component zijn deze samengevoegd en is er het 'type'
+`Title [legacy]` had een variant per grootte, nu zijn deze samengevoegd en is er het 'type'
 attribuut.
 
 <table  style={{width: 100 + '%'}}>
@@ -1667,7 +1860,10 @@ attribuut.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Title - h1 [legacy]](/docs/elements-title-h1--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-title-h1--documentatie`}
+            >Title - h1 [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<h1 is="vl-h1">`}</code></td>
@@ -1676,7 +1872,10 @@ attribuut.
     </tr>
     <tr></tr>
     <tr>
-        <td>[Title - h2 [legacy]](/docs/elements-title-h2--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-title-h2--documentatie`}
+            >Title - h2 [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<h2 is="vl-h2">`}</code></td>
@@ -1685,7 +1884,10 @@ attribuut.
     </tr>
     <tr></tr>
     <tr>
-        <td>[Title - h3 [legacy]](/docs/elements-title-h3--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-title-h3--documentatie`}
+            >Title - h3 [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<h3 is="vl-h3">`}</code></td>
@@ -1694,7 +1896,10 @@ attribuut.
     </tr>
     <tr></tr>
     <tr>
-        <td>[Title - h4 [legacy]](/docs/elements-title-h4--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-title-h4--documentatie`}
+            >Title - h4 [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<h4 is="vl-h4">`}</code></td>
@@ -1703,7 +1908,10 @@ attribuut.
     </tr>
     <tr></tr>
     <tr>
-        <td>[Title - h5 [legacy]](/docs/elements-title-h5--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-title-h5--documentatie`}
+            >Title - h5 [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<h5 is="vl-h5">`}</code></td>
@@ -1712,7 +1920,10 @@ attribuut.
     </tr>
     <tr></tr>
     <tr>
-        <td>[Title - h6 [legacy]](/docs/elements-title-h6--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-title-h6--documentatie`}
+            >Title - h6 [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<h6 is="vl-h6">`}</code></td>
@@ -1720,10 +1931,10 @@ attribuut.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Title [next]](/docs/components-title--documentatie)</td>
+        <td>[Title](/docs/components-title--documentatie)</td>
         <td>release v1.33.0</td>
-        <td>components/next</td>
-        <td><code>{`<vl-title type="hx">`}</code></td>
+        <td>components</td>
+        <td><code>{`<vl-title-next type="hx">`}</code></td>
         <td>components</td>
         <td><code>{`<vl-title type="hx">`}</code></td>
     </tr>
@@ -1743,7 +1954,10 @@ attribuut.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Toaster [legacy]](/docs/components-toaster--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-toaster--documentatie`}
+            >Toaster [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>components</td>
         <td><code>{`<div is="vl-toaster">`}</code></td>
@@ -1751,10 +1965,10 @@ attribuut.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Toaster [next]](/docs/components-toaster--documentatie)</td>
+        <td>[Toaster](/docs/components-toaster--documentatie)</td>
         <td>release v1.43.0</td>
-        <td>components/next</td>
-        <td><code>{`<vl-toaster>`}</code></td>
+        <td>components</td>
+        <td><code>{`<vl-toaster-next>`}</code></td>
         <td>components</td>
         <td><code>{`<vl-toaster>`}</code></td>
     </tr>
@@ -1772,7 +1986,10 @@ attribuut.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Upload [legacy]](/docs/components-upload--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-upload--documentatie`}
+            >Upload [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>components</td>
         <td><code>{`<vl-upload>`}</code></td>
@@ -1780,15 +1997,21 @@ attribuut.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Upload [next]](/docs/form-upload--documentatie)</td>
+        <td>[Upload](/docs/form-upload--documentatie)</td>
         <td>release v1.26.0</td>
-        <td>form/next</td>
-        <td><code>{`<vl-upload>`}</code></td>
+        <td>form</td>
+        <td><code>{`<vl-upload-next>`}</code></td>
         <td>form</td>
         <td><code>{`<vl-upload>`}</code></td>
     </tr>
 </table>
 
+Nieuw in v2:
+- Auto-default voor URL toegevoegd
+- Timeout uitgeschakeld (stond voorheen op 30s)
+- Toegevoegd: `parallel-uploads` attribuut
+- Dropzone event handling uitgebreid
+- In de context van WCAG verbeteringen komen de foutboodschappen nu onder de upload in plaats van erboven
 
 ### Video Player
 
@@ -1802,7 +2025,10 @@ attribuut.
         <th>v2 - Gebruik</th>
     </tr>
     <tr>
-        <td>[Video Player [legacy]](/docs/elements-video-player--documentatie)</td>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-video-player--documentatie`}
+            >Video Player [legacy]</a>
+        </td>
         <td>deprecated</td>
         <td>elements</td>
         <td><code>{`<vl-video-player>`}</code></td>
@@ -1810,10 +2036,10 @@ attribuut.
         <td>-</td>
     </tr>
     <tr>
-        <td>[Video Player [next]](/docs/components-video-player--documentatie)</td>
+        <td>[Video Player](/docs/components-video-player--documentatie)</td>
         <td>release v1.38.0</td>
-        <td>components/next</td>
-        <td><code>{`<vl-video-player>`}</code></td>
+        <td>components</td>
+        <td><code>{`<vl-video-player-next>`}</code></td>
         <td>components</td>
         <td><code>{`<vl-video-player>`}</code></td>
     </tr>

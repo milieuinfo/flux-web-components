@@ -1,0 +1,70 @@
+import {Meta} from '@storybook/blocks';
+
+<Meta title="Afnemen/Migratie FAQ"/>
+
+# Migratie Troubleshooting
+
+## Mogelijkse problemen
+
+### Kan ik direct importeren of moet ik de registerWebComponents functie gebruiken?
+
+**Antwoord:** Beide methoden worden ondersteund:
+
+- Directe import (auto-registratie):
+    ```js
+    import '@domg-wc/components/button';
+    ```
+- Expliciete registratie:
+  ```js
+  import { VlButtonComponent } from '@domg-wc/components';
+  import { registerWebComponents } from '@domg-wc/common';
+  registerWebComponents([VlButtonComponent]);
+  ```
+
+De expliciete registratie wordt aangeraden om tree-shaking te optimaliseren en alleen de benodigde componenten te laden.
+
+### blijft de fat-js bundel beschikbaar?
+
+**Antwoord:** De fat-js bundel blijft beschikbaar voor legacy toepassingen. In v2 is deze aangepast om de nieuwe componentimplementaties te gebruiken, maar de API blijft grotendeels hetzelfde. Je kunt deze gebruiken via de CDN:
+
+```html
+<script src="https://cdn.omgeving.vlaanderen.be/domg/domg-wc/2.0.0/domg-wc-2.0.0.min.js"></script>
+```
+
+Echter, voor nieuwe projecten wordt het aangeraden om de npm-packages te gebruiken in plaats van de fat-js bundel.
+
+### Event listeners werken niet meer
+
+**Probleem:** Event listeners die luisteren naar v1 events zoals `vl-checked`, `vl-input` of `vl-select` werken niet meer.
+
+**Oplossing:** Update de event namen naar de nieuwe v2 namen (zie desbetreffende documentatie).
+Met name voor de form-gerelateerde componenten zijn de meeste events nu gestandaardiseerd naar `vl-change` en `vl-input`
+
+Vroeger was er geen mogelijkheid om op basis van events te weten, of de gebruiker de value veranderde,
+of als het programmatorisch gebeurde, in beide gevallen werd hetzelfde event gedispatcht.
+
+Nu voorzien we aparte `vl-input` en `vl-change` events. Gelijkaardig aan de HTML-standaard,
+representeert `vl-input` event gebruikersinteractie terwijl `vl-change` event voor eender welke wijziging wordt
+voorzien (zowel gebruikersinteractie als programmatorische wijziging).
+
+```javascript
+// V1
+radio.addEventListener('vl-checked', (event) => { ... });
+
+// V2
+radio.addEventListener('vl-change', (event) => { console.log('bij elke wijziging') });
+radio.addEventListener('vl-input', (event) => { console.log('enkel bij gebruikersinteractie') });
+```
+
+### Attributen-wijzigingen
+
+**Probleem:** Sommige attributen zijn gewijzigd van naam of format.
+
+**Oplossing:** Raadpleeg de component-specifieke documentatie voor een gedetailleerd overzicht van wijzigingen per
+component.
+
+Algemene wijzigingen:
+
+- `data-vl-*`-attributen verliezen de `data-vl-`-prefix; bv. `data-vl-size="4"` → `size="4"`
+- alle componenten met `is=""` attributen zijn geschrapt; bv. `is="vl-button-pill"` → `<vl-pill clickable>`
+
