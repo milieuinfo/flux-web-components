@@ -1,5 +1,13 @@
-import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@domg-wc/common-storybook';
+import {
+    CATEGORIES,
+    CONTROLS,
+    defaultArgs,
+    defaultArgTypes,
+    TYPES,
+    getSelectControlOptions,
+} from '@domg-wc/common-storybook';
 import { ArgTypes } from '@storybook/web-components';
+import { INFO_TILE_SIZE } from '../vl-info-tile.model';
 
 export const infoTileArgs = {
     ...defaultArgs,
@@ -10,6 +18,7 @@ export const infoTileArgs = {
     subtitleSlot: '',
     titleSlot: '',
     menuSlot: '',
+    size: '',
 };
 
 export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
@@ -76,6 +85,18 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
             category: CATEGORIES.SLOTS,
             type: { summary: TYPES.HTML },
             defaultValue: { summary: infoTileArgs.menuSlot },
+        },
+    },
+    size: {
+        name: 'data-vl-size',
+        description:
+            'Grootte van de info tile. Dit attribuut past de padding van het component aan. Standaard is dit "small". De andere opties zijn "medium" en "large".',
+        control: { type: CONTROLS.SELECT },
+        options: Object.values(INFO_TILE_SIZE),
+        table: {
+            category: CATEGORIES.ATTRIBUTES,
+            type: { summary: getSelectControlOptions(Object.values(INFO_TILE_SIZE)) },
+            defaultValue: { summary: infoTileArgs.size },
         },
     },
 };

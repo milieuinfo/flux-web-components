@@ -45,6 +45,22 @@ const styles: CSSResult = css`
         transform: rotate(-90deg);
     }
 
+    :host .vl-info-tile--center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+
+        .vl-info-tile__header {
+            justify-self: center;
+        }
+
+        & > * {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    }
+
     slot[name='title-label'] {
         display: inline-block;
         margin-left: 3rem;

@@ -4,6 +4,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { VlButtonComponent } from '../next/button';
 import { VlPopoverComponent } from '../popover';
 import { VlInfoTile } from './index';
+import { INFO_TILE_SIZE } from './vl-info-tile.model';
 
 registerWebComponents([VlInfoTile, VlPopoverComponent, VlButtonComponent]);
 
@@ -15,6 +16,7 @@ const mountDefault = ({
     subtitleSlot,
     titleSlot,
     menuSlot,
+    size,
 }: {
     autoOpen?: boolean;
     toggleable?: boolean;
@@ -23,9 +25,15 @@ const mountDefault = ({
     subtitleSlot?: string;
     titleSlot?: string;
     menuSlot?: string;
+    size?: INFO_TILE_SIZE;
 }) =>
     cy.mount(html`
-        <vl-info-tile ?data-vl-toggleable=${toggleable} ?data-vl-auto-open=${autoOpen} ?data-vl-center=${center}>
+        <vl-info-tile
+            ?data-vl-toggleable=${toggleable}
+            ?data-vl-auto-open=${autoOpen}
+            ?data-vl-center=${center}
+            data-vl-size="${size}"
+        >
             ${unsafeHTML(titleSlot)}${unsafeHTML(menuSlot)}${unsafeHTML(subtitleSlot)}${unsafeHTML(contentSlot)}
         </vl-info-tile>
     `);
@@ -78,6 +86,81 @@ describe('component vl-info-tile - default', () => {
         cy.get('vl-info-tile')
             .find('div[slot="content"]')
             .contains('De studietoelage voor Broos Deprez werd toegekend.');
+    });
+});
+
+describe('story vl-info-tile - small', () => {
+    beforeEach(() => {
+        mountDefault({
+            size: 'small',
+            titleSlot,
+            subtitleSlot,
+            contentSlot,
+        });
+    });
+
+    it('should mount', () => {
+        cy.get('vl-info-tile');
+    });
+
+    it('should be accessible', () => {
+        cy.injectAxe();
+
+        cy.checkA11y('vl-info-tile');
+    });
+
+    it('should have class vl-info-tile--s', () => {
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'vl-info-tile--s');
+    });
+});
+
+describe('story vl-info-tile - medium', () => {
+    beforeEach(() => {
+        mountDefault({
+            size: 'medium',
+            titleSlot,
+            subtitleSlot,
+            contentSlot,
+        });
+    });
+
+    it('should mount', () => {
+        cy.get('vl-info-tile');
+    });
+
+    it('should be accessible', () => {
+        cy.injectAxe();
+
+        cy.checkA11y('vl-info-tile');
+    });
+
+    it('should have class vl-info-tile--m', () => {
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'vl-info-tile--m');
+    });
+});
+
+describe('story vl-info-tile - large', () => {
+    beforeEach(() => {
+        mountDefault({
+            size: 'large',
+            titleSlot,
+            subtitleSlot,
+            contentSlot,
+        });
+    });
+
+    it('should mount', () => {
+        cy.get('vl-info-tile');
+    });
+
+    it('should be accessible', () => {
+        cy.injectAxe();
+
+        cy.checkA11y('vl-info-tile');
+    });
+
+    it('should have class vl-info-tile--l', () => {
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'vl-info-tile--l');
     });
 });
 
