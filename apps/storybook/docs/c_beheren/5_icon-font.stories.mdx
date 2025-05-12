@@ -8,7 +8,7 @@ import {Meta} from '@storybook/addon-docs';
 
 - [Beschrijving](#beschrijving)
 - [Legacy opzet](#oude-opzet)
-- [Next opzet](#nieuwe-opzet)
+- [V2 opzet](#v2-opzet)
 - [Het font updaten](#het-font-updaten)
 
 
@@ -24,7 +24,7 @@ en de unicode waarde van het icoon in het font.
 In de oude opzet bevatten alle componenten die een icoon nodig hebben de icon-mapping CSS-classes. Dit zorgt voor
 veel duplicatie van CSS code.
 
-## Next opzet
+## v2 opzet
 
 Er is een centrale plaats in de uigov-web-components repository waar de icon-mapping CSS-classes gedefinieerd worden
 als CSS-in-JS. Elk component dat een icoon nodig heeft importeert dit icon-mapping bestand. Er is geen duplicatie
