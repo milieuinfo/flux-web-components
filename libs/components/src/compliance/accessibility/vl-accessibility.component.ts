@@ -3,7 +3,7 @@ import { vlGroupStyles, vlLegacyStyles } from '@domg-wc/styles';
 import { CSSResult, html, type PropertyDeclarations } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { VlLinkComponent } from '../../atom/link';
-import { VlFunctionalHeaderComponent } from '../../block';
+import { VlFunctionalHeaderComponent } from '../../block/functional-header';
 import { VlTitleComponent } from '../../atom';
 import { content, contentElements } from './child/content.component';
 import { header, headerElements } from './child/header.component';

@@ -170,13 +170,13 @@ fi
 set -e
 
 echo "update domg-wc met versie nummer en maak er een tgz van"
-# het versie nummer toevoegen aan de 'fat-js'
+# het versie nummer toevoegen aan de 'fat-lib'
 cd ./build/dist/fat-lib
-mv domg-wc.js domg-wc-${NEXT_RELEASE_VERSION}.js
-mv domg-wc.js.map domg-wc-${NEXT_RELEASE_VERSION}.js.map
-mv domg-wc.min.js domg-wc-${NEXT_RELEASE_VERSION}.min.js
+mv domg-wc-compliance.js domg-wc-compliance-${NEXT_RELEASE_VERSION}.js
+mv domg-wc-compliance.js.map domg-wc-compliance-${NEXT_RELEASE_VERSION}.js.map
+mv domg-wc-compliance.min.js domg-wc-compliance-${NEXT_RELEASE_VERSION}.min.js
 # een tar maken
-tar cfz ../domg-wc-${NEXT_RELEASE_VERSION}.tgz .
+tar cfz ../domg-wc-compliance-${NEXT_RELEASE_VERSION}.tgz .
 cd ..
 
 if [[ ${RELEASE_BRANCH} == true ]];
@@ -184,10 +184,10 @@ if [[ ${RELEASE_BRANCH} == true ]];
     # curl is niet meer geïnstalleerd in de cypress docker-image
     apt-get -y update; apt-get -y install curl
     # de tar uploaden naar artifactory (om het op de cdn te krijgen) - via curl omdat er geen package.json is
-    echo "upload-file 'domg-wc-${NEXT_RELEASE_VERSION}.tgz' naar artifactory"
+    echo "upload-file 'domg-wc-compliance-${NEXT_RELEASE_VERSION}.tgz' naar artifactory"
     curl --user "${ACD_REPOSITORY_DEBIAN_LOGIN}:${ACD_REPOSITORY_BAMBOO_PASSWORD}" \
-     --upload-file domg-wc-${NEXT_RELEASE_VERSION}.tgz \
-     -v -X PUT "${ACD_REPOSITORY_URL}/local-generic/domg/domg-wc-${NEXT_RELEASE_VERSION}.tgz"
+     --upload-file domg-wc-compliance-${NEXT_RELEASE_VERSION}.tgz \
+     -v -X PUT "${ACD_REPOSITORY_URL}/local-generic/domg/domg-wc-compliance-${NEXT_RELEASE_VERSION}.tgz"
 fi
 
 cd ..
