@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { AccessibilityProperties } from '../vl-accessibility.model';
 import { VlTitleComponent } from '../../../atom';
-import { VlTypography } from '../../../block';
+import { VlTypography } from '../../../block/typography';
 
 export type InaccessibleContentProps = Pick<AccessibilityProperties, 'compliance' | 'evaluation' | 'limitations'>;
 

@@ -31,7 +31,7 @@ export class FluxConfig {
         if (this.preferences) return;
         // de preferences werden niet expliciet gezet dus de defaults nemen
         this.preferences = defaultPreferences();
-        // indien de fat-js variant gebruikt wordt kunnen de defaults nog gewijzigd worden op de script-tag
+        // indien de fat-lib variant gebruikt wordt kunnen de defaults nog gewijzigd worden op de script-tag
         if (typeof document !== 'undefined') {
             for (const script of document?.scripts) {
                 if (script.src.indexOf('domg-wc') >= 0) {
