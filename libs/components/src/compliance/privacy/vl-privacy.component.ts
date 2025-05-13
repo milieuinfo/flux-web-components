@@ -4,14 +4,12 @@ import { CSSResult, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { VlTitleComponent } from '../../atom';
 import { VlParagraphComponent } from '../../atom/paragraph';
-import {
-    VlContactCardComponent,
-    VlDocumentComponent,
-    VlInfoblockComponent,
-    VlPropertiesComponent,
-    VlSideNavigationComponent,
-    VlTypography,
-} from '../../block';
+import { VlContactCardComponent } from '../../block/contact-card';
+import { VlDocumentComponent } from '../../block/document';
+import { VlInfoblockComponent } from '../../block/infoblock';
+import { VlPropertiesComponent } from '../../block/properties';
+import { VlSideNavigationComponent } from '../../block/side-navigation';
+import { VlTypography } from '../../block/typography';
 import { privacyBottomSection } from './child/bottom.component';
 import { privacyContentSection } from './child/content.component';
 import { header, privacyHeaderElements } from './child/header.component';

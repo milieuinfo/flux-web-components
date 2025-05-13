@@ -1,4 +1,4 @@
-import { VlTypography } from '../../../block';
+import { VlTypography } from '../../../block/typography';
 import { html } from 'lit';
 import type { AccessibilityProperties } from '../vl-accessibility.model';
 

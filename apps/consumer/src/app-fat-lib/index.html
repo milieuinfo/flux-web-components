@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Consumer | fat-lib</title>
+        <script type="module" src="lib/domg-wc-compliance.min.js"></script>
+    </head>
+    <body style="padding: 50px;">
+        <vl-title type="h1">Consumer App - fat-lib</vl-title>
+        <div id="domg-wc-compliance"></div>
+        <script type="module">
+            import { complianceHtml } from './html/compliance.html.js';
+            document.getElementById('domg-wc-compliance').innerHTML = complianceHtml('fat-lib', '@domg-wc-compliance.js');
+        </script>
+    </body>
+</html>
+

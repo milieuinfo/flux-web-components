@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "consumer:fat-js:dev": "http-server ./src/app-fat-js/ -p 4211 --cors",
+        "consumer:fat-lib:dev": "http-server src/app-fat-lib/ -p 8080 --cors",
         "consumer:named:dev": "webpack serve --config webpack-named.config.cjs --progress --profile --mode development",
         "consumer:side-effect:dev": "webpack serve --config webpack-side-effect.config.cjs --progress --profile --mode development"
     },
@@ -8,12 +8,9 @@
         "http-server": "14.1.1"
     },
     "dependencies": {
-        "@domg-wc/common-utilities": "1.36.1",
-        "@domg-wc/common-storybook": "1.36.1",
-        "@domg-wc/components": "1.36.1",
-        "@domg-wc/elements": "1.36.1",
-        "@domg-wc/form": "1.36.1",
-        "@domg-wc/map": "1.36.1",
-        "@domg-wc/sections": "1.36.1"
+        "@domg-wc/styles": "file:../../build/dist/libs/styles/domg-wc-styles-beta-2.0.0.tgz",
+        "@domg-wc/common": "file:../../build/dist/libs/common/domg-wc-common-beta-2.0.0.tgz",
+        "@domg-wc/components": "file:../../build/dist/libs/components/domg-wc-components-beta-2.0.0.tgz",
+        "@domg-wc/map": "file:../../build/dist/libs/map/domg-wc-map-beta-2.0.0.tgz"
     }
 }

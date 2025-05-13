@@ -5,5 +5,10 @@
     "publishConfig": {
         "registry": "https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/"
     },
+    "dependencies": {
+        "@domg-wc/styles": "DOMG-WC-VERSION",
+        "@domg-wc/common": "DOMG-WC-VERSION",
+        "@domg-wc/components": "DOMG-WC-VERSION"
+    },
     "web-types": "./map.web-types.json"
 }

@@ -4,14 +4,12 @@ import { render } from 'lit-html';
 import { VlTitleComponent } from '../../atom';
 import { VlLinkComponent } from '../../atom/link';
 import { VlParagraphComponent } from '../../atom/paragraph';
-import {
-    VlContactCardComponent,
-    VlFunctionalHeaderComponent,
-    VlInfoblockComponent,
-    VlPropertiesComponent,
-    VlSideNavigationComponent,
-    VlTypography,
-} from '../../block';
+import { VlContactCardComponent } from '../../block/contact-card';
+import { VlFunctionalHeaderComponent } from '../../block/functional-header';
+import { VlInfoblockComponent } from '../../block/infoblock';
+import { VlPropertiesComponent } from '../../block/properties';
+import { VlSideNavigationComponent } from '../../block/side-navigation';
+import { VlTypography } from '../../block/typography';
 import { cookieStatementHeaderElements, header } from './child/header.component';
 import './cookie/vl-authentication-cookie.component';
 import './cookie/vl-cookie.component';

@@ -10,10 +10,7 @@
     },
     "include": [
         "**/*.ts",
-        "../../components/src/atom/declare-module.d.ts",
-        "../../components/src/block/declare-module.d.ts",
         "../../components/src/compliance/declare-module.d.ts",
-        "../../components/src/form/declare-module.d.ts"
     ],
     "exclude": [
         "jest.config.ts",

@@ -4,11 +4,9 @@
     "author": "UIG <uig@vlaanderen.be>",
     "license": "MIT",
     "scripts": {
-        "apps:consumer:build": "",
-        "apps:consumer:dev": "",
         "apps:consumer-e2e:run": "cd ./apps/consumer-e2e && npx cypress run --e2e",
         "apps:consumer-e2e:watch": "cd ./apps/consumer-e2e && npx cypress open --e2e",
-        "apps:consumer:fat-js:dev": "cd apps/consumer && npm run consumer:fat-js:dev",
+        "apps:consumer:fat-lib:dev": "cd apps/consumer && npm run consumer:fat-lib:dev",
         "apps:consumer:named:dev": "cd ./apps/consumer && npm run consumer:named:dev",
         "apps:consumer:side-effect:dev": "cd ./apps/consumer && npm run consumer:side-effect:dev",
         "apps:integrator:build": "cd ./apps/integrator && webpack --mode production",
