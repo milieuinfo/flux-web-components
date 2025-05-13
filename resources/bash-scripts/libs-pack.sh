@@ -51,7 +51,7 @@ npm pack &> /dev/null
 echo '[done] - pack - styles'
 
 cd ../components
-npm pkg set sideEffects='["./*/**"]' --json >/dev/null
+npm pkg set sideEffects='["./*/*/**"]' --json >/dev/null
 echo '[done] - set sideEffects - components'
 if [[ $1 == "develop" ]]; then
     npm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'

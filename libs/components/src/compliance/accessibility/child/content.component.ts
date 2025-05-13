@@ -1,4 +1,6 @@
-import { VlContactCardComponent, VlInfoblockComponent, VlPropertiesComponent } from '../../../block';
+import { VlContactCardComponent } from '../../../block/contact-card';
+import { VlInfoblockComponent } from '../../../block/infoblock';
+import { VlPropertiesComponent } from '../../../block/properties';
 import { html } from 'lit';
 import { AccessibilityProperties } from '../vl-accessibility.model';
 import { complianceStatus } from './compliance-status.component';

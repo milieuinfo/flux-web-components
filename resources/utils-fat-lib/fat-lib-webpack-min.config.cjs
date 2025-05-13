@@ -37,7 +37,7 @@ const config = {
     },
     output: {
         path: path.resolve(__dirname, '../../build/dist/fat-lib'),
-        filename: 'domg-wc.min.js',
+        filename: 'domg-wc-compliance.min.js',
         hashFunction: 'sha256',
         publicPath: '/',
     },

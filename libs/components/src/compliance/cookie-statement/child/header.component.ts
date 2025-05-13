@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { VlFunctionalHeaderComponent } from '../../../block';
+import { VlFunctionalHeaderComponent } from '../../../block/functional-header';
 
 export const cookieStatementHeaderElements = () => [VlFunctionalHeaderComponent];
 

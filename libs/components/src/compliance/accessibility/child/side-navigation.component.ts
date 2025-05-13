@@ -1,4 +1,4 @@
-import { VlSideNavigationComponent } from '../../../block';
+import { VlSideNavigationComponent } from '../../../block/side-navigation';
 import { html } from 'lit';
 import type { AccessibilityProperties } from '../vl-accessibility.model';
 

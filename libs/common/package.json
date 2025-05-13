@@ -4,5 +4,8 @@
     "author": "UIG <uig@vlaanderen.be>",
     "publishConfig": {
         "registry": "https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/"
+    },
+    "dependencies": {
+        "@domg-wc/styles": "DOMG-WC-VERSION"
     }
 }

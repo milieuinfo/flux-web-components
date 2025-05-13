@@ -1,4 +1,3 @@
-import './legacy-utils.js';
 import './legacy-core.js';
 import './legacy-breakpoint.js';
 
@@ -10,6 +9,5 @@ declare global {
     }
 }
 
-export const legacyUtils = window.util;
 export const legacyCore = window.vl;
 export const legacyBreakpoint = window.breakpoint;

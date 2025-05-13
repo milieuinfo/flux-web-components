@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import type { AccessibilityProperties } from '../vl-accessibility.model';
-import { VlFunctionalHeaderComponent } from '../../../block';
+import { VlFunctionalHeaderComponent } from '../../../block/functional-header';
 
 export type HeaderProps = Pick<AccessibilityProperties, 'disableBackLink' | 'hideBackLink'>;
 
