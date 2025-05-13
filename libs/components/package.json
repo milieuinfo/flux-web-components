@@ -7,11 +7,13 @@
         "registry": "https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/"
     },
     "dependencies": {
+        "@domg-wc/styles": "DOMG-WC-VERSION",
+        "@domg-wc/common": "DOMG-WC-VERSION",
         "tinymce": "npm:tinymce@6.8.3"
     },
     "web-types": [
         "./atom/atom.web-types.json",
-        "./basic/basic.web-types.json",
+        "./block/block.web-types.json",
         "./compliance/compliance.web-types.json",
         "./form/form.web-types.json"
     ]

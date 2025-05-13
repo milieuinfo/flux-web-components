@@ -35,4 +35,4 @@ export { onChildListChange } from './util/mutation-utils';
 export { GlobalStyles } from './styles/global-styles';
 
 // Legacy module exports
-export { legacyUtils, legacyCore, legacyBreakpoint } from './util/legacy-initialisation';
+export { legacyCore, legacyBreakpoint } from './util/legacy-initialisation';

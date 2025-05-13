@@ -12,7 +12,7 @@ import {Meta} from '@storybook/blocks';
 - [@domg-wc/components/form](#domg-wccomponentsform)
 - [@domg-wc/components/compliance](#domg-wccomponentscompliance)
 - [@domg-wc/map](#domg-wcmap)
-- [fat-js: domg-wc](#fat-js-domg-wc)
+- [fat-lib: domg-wc-compliance](#fat-lib-domg-wc-compliance)
 
 
 ## Overzicht
@@ -20,7 +20,7 @@ import {Meta} from '@storybook/blocks';
 Alle web-componenten van Departement Omgeving zijn beschikbaar via npm artifacts onder de npm scope `@domg-wc`;
 __common__ bevat technische code, __styles__ alle styling en layouts die op het document gezet worden,
 __components__ en __map__ bevatten de web-componenten. De web-componenten zijn ook beschikbaar via de CDN, zie
-['fat-js: domg-wc'](#fat-js-domg-wc).
+['fat-lib: domg-wc-compliance'](#fat-lib-domg-wc-compliance).
 
 > **⚠ Waarschuwing**: er is een elements / components concept gedefinieerd, dit is een streefdoel, de huidige code
 volgt dit concept in grote lijnen maar niet volledig. Afwijkingen komen voor!
@@ -65,9 +65,10 @@ De __map__ is de grootste en uitgebreidste component. Het is een kaart component
 die een plugin opzet volgen.
 
 
-## fat-js: domg-wc
+## fat-lib: domg-wc-compliance
 
-Voor legacy toepassingen is er een 'fat-js' variant van de web-componenten beschikbaar. Via de CDN van Departement
-Omgeving kan je daar geversioneerd naar refereren conform: `https://cdn.omgeving.vlaanderen.be/domg/domg-wc/1.27.0/domg-wc-1.27.0.min.js`.
-Bij de import worden alle web-componenten (components en map) geregistreerd. Zie
-[CDN Bundel - fat-js](/docs/recepten-cdn-bundel-fat-js--documentatie) onder `Cookbook` voor meer informatie.
+Voor legacy toepassingen is er een 'fat-lib' variant van de web-componenten beschikbaar, hierin zijn enkel de
+'compliance' componenten beschikbaar (vl-header / vl-footer / vl-accessibility / ...). Via de CDN van Departement
+Omgeving kan je daar ge-versioneerd naar refereren conform: `https://cdn.omgeving.vlaanderen.be/domg/domg-wc/2.0.0/domg-wc-compliance-2.0.0.min.js`.
+Bij de import worden de beschikbare web-componenten geregistreerd. Zie
+[CDN Bundel - fat-lib](/docs/recepten-cdn-bundel-fat-lib--documentatie) onder `Cookbook` voor meer informatie.

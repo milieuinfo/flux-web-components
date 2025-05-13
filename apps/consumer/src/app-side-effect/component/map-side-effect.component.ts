@@ -1,4 +1,4 @@
-import '@domg-wc/components/block/title';
+import '@domg-wc/components/atom/title';
 import '@domg-wc/map/vl-map.js';
 import '@domg-wc/map/components/baselayer/vl-map-base-layer-grb-gray/vl-map-base-layer-grb-gray.js';
 import { mapWithGrayBaselayerHtml } from '../../html/map.html.js';

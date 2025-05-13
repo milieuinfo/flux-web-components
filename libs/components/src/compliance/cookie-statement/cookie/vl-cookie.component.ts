@@ -1,7 +1,7 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
 import { vlLegacyStyles } from '@domg-wc/styles';
 import { VlTitleComponent } from '../../../atom';
-import { VlPropertiesComponent } from '../../../block';
+import { VlPropertiesComponent } from '../../../block/properties';
 import { vlCookieStatementFluxStyles } from '../vl-cookie-statement.flux-css';
 
 export interface VlCookieProps {
