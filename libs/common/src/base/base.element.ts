@@ -1,3 +1,4 @@
+import '../util/legacy-initialisation';
 import '@ungap/custom-elements';
 
 declare const vl: any;

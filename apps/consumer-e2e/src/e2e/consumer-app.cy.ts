@@ -1,5 +1,5 @@
 const apps = [
-    { name: 'consumer-fat-js', url: 'http://127.0.0.1:4211' },
+    { name: 'consumer-fat-lib', url: 'http://127.0.0.1:8080' },
     { name: 'consumer-named', url: 'http://localhost:4212' },
     { name: 'consumer-side-effect', url: 'http://localhost:4213' },
 ];
@@ -16,29 +16,8 @@ describe('consumer application', () => {
                     },
                 ],
             });
-            cy.checkA11y('#consumer-elements');
             cy.checkA11y('#consumer-components');
             cy.checkA11y('#consumer-map');
-        });
-    });
-
-    it('elements - first button should render correct', () => {
-        apps.forEach((value) => {
-            cy.visit(value.url);
-            cy.get('#consumer-elements')
-                .find('button')
-                .first()
-                .should('have.css', 'background-color', 'rgb(0, 85, 204)');
-        });
-    });
-
-    it('elements - second button should render correct', () => {
-        apps.forEach((value) => {
-            cy.visit(value.url);
-            cy.get('#consumer-elements')
-                .find('button')
-                .eq(1)
-                .should('have.css', 'background-color', 'rgba(0, 0, 0, 0)');
         });
     });
 

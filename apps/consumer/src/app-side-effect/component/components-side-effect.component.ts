@@ -1,4 +1,4 @@
-import '@domg-wc/components/block/title';
+import '@domg-wc/components/atom/title';
 import '@domg-wc/components/block/steps';
 import { stepsNextHtml } from '../../html/components.html.js';
 

@@ -1,7 +1,7 @@
 import { BaseElementOfType, registerWebComponents, webComponentConditional } from '@domg-wc/common';
 import { vlGridStyles, vlLegacyStyles } from '@domg-wc/styles';
 import { VlButtonComponent } from '../../atom/button';
-import { VlModalComponent } from '../../block';
+import { VlModalComponent } from '../../block/modal';
 import { analytics } from './util/analytics.util';
 import './vl-cookie-consent-opt-in.component';
 

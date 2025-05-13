@@ -1,4 +1,4 @@
-import '@domg-wc/components/block/title';
+import '@domg-wc/components/atom/title';
 import './component/components-side-effect.component';
 import './component/map-side-effect.component';
 

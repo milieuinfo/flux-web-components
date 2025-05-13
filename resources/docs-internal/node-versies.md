@@ -5,7 +5,7 @@
 We gebruiken Nrwl Nx als monorepo opzet. Praktisch gebruiken we (al dan niet via een nx-plugin) waar het kan (en een bundler nodig is) webpack.
 
 - builden van artifacts met tsc (hier wordt geen bundler gebruikt)
-- builden van fat-js met webpack
+- builden van fat-lib met webpack
 - serven van Storybook mbv webpack en devserver (*); specifieke 'Storybook' setup
 - builden van playground-lit, playground-native en playground-react (hier zit webpack achter); we doen hier niets mee tijdens de build maar deze worden actief gebruikt tijdens onze ontwikkeling  
 - runnen van unit testen met Jest
@@ -44,7 +44,7 @@ Wij gebruiken node via volta, de historiek van de versies die wij gebruiken is a
 Als UIG team hebben wij geen productie toepassing. Wij hebben wel de 'ConsumerApp' die we gebruiken om manueel te testen, hiervoor
 zijn er nog geen automatische testen in de build.
 De 'ConsumerApp' is een native toepassing die gebundeld en geserved wordt m.b.v. webpack en devserver. We testen zowel de gewone
-artifacts als de fat-js na upgrades of gemelde problemen.
+artifacts als de fat-lib na upgrades of gemelde problemen.
 
 M.b.t. het gemelde 'import' probleem van Decibel
 

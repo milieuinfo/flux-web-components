@@ -1,0 +1,32 @@
+import {Meta} from '@storybook/addon-docs';
+
+<Meta title="Recepten/CDN Bundel - fat-lib"/>
+
+# CDN Bundel - fat-lib
+
+Voor gewone websites of legacy toepassingen (die geen bundler gebruiken) worden de 'compliance' web-componenten
+ook beschikbaar gesteld via een statische bundel op de CDN. Doordat er dan geen bundler gebruikt wordt kan er geen
+tree-shaking plaatsvinden, om die rede bieden we het script enkel geversioneerd aan en niet onder een 'latest' variant.
+Op die manier moet je expliciet een versie specifiëren (om bewust te upgraden) en mag het bestand ge-cached worden - bij
+een nieuwe versie wijzigt de naam.
+
+De `fat-lib` bestanden zijn beschikbaar onder `https://cdn.omgeving.vlaanderen.be/domg/domg-wc/x.y.z/`, daar staan per versie 3
+bestanden:
+
+- **domg-wc-compliance-2.0.0.js** - de leesbare variant [4,1 MB]
+- **domg-wc-compliance-2.0.0.js.map** - de map file om de leesbare variant te debuggen [5,1 MB]
+- **domg-wc-compliance-2.0.0.min.js** - de productie versie [2,4 MB]
+
+```
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <title>UIG Demo</title>
+  <script type="module"
+          src="https://cdn.omgeving.vlaanderen.be/domg/domg-wc/2.0.0/domg-wc-compliance-2.0.0.min.js"></script>
+</head>
+<body>
+  <div class="vl-content-block">...</div>
+</body>
+</html>
+```
