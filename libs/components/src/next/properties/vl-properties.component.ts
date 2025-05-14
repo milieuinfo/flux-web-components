@@ -2,7 +2,7 @@ import { BaseLitElement, onChildListChange, webComponent } from '@domg-wc/common
 import { vlElementsStyle } from '@domg-wc/elements';
 import { CSSResult, html, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
 import { buildProperties } from './vl-properties.builder';
-import propertiesStyles, { labelWidthPercentage } from './vl-properties.css';
+import { labelWidthPercentage, propertiesStyles, sizeQueryStyles } from './vl-properties.css';
 import { propertiesDefaults } from './vl-properties.defaults';
 import { Column, Item, Props } from './vl-properties.model';
 
@@ -46,7 +46,13 @@ export class VlPropertiesComponent extends BaseLitElement {
         super.firstUpdated(_changedProperties);
 
         if (this.shadowRoot) {
-            this.shadowRoot.adoptedStyleSheets = [...this.shadowRoot.adoptedStyleSheets, this.labelWidthSheet];
+            // sizeQueryStyles (CSS voor media & container queries) moeten verwerkt worden na de CSS van
+            // labelWidthSheet changes - anders wordt die CSS overschreven
+            this.shadowRoot.adoptedStyleSheets = [
+                ...this.shadowRoot.adoptedStyleSheets,
+                this.labelWidthSheet,
+                sizeQueryStyles.styleSheet!,
+            ];
         }
     }
 

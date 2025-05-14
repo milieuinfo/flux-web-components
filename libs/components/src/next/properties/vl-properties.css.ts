@@ -31,22 +31,41 @@ export const labelWidthPercentage = (labelWidth: number): CSSResult => {
         dl .column--full-width .item {
             grid-template-columns: [labels] ${labelWidth / 2}% [data] auto;
         }
-
-        @media screen and (max-width: ${vlMediaScreenSmall}px) {
-            dl {
-                grid-template-columns: 100%;
-            }
-
-            dl .item {
-                grid-template-columns: 100%;
-            }
-        }
     `;
 };
 
-const styles: CSSResult = css`
+export const sizeQueryStyles = css`
+    @media screen and (max-width: ${vlMediaScreenSmall}px) {
+        dl,
+        dl .item {
+            grid-template-columns: 100%;
+        }
+    }
+
+    @container (max-width: ${vlMediaScreenSmall}px) {
+        .column {
+            ${columnWidth(100)};
+        }
+
+        dd {
+            ${collapsedDd()}
+        }
+
+        dt {
+            ${collapsedDt()}
+        }
+
+        dl,
+        dl .item {
+            grid-template-columns: 100%;
+        }
+    }
+`;
+
+export const propertiesStyles: CSSResult = css`
     :host {
         display: block;
+        container-type: size;
     }
 
     .column {
@@ -93,18 +112,8 @@ const styles: CSSResult = css`
         ${collapsedDd()}
     }
 
-    @media screen and (max-width: ${vlMediaScreenSmall}px) {
-        .column {
-            ${columnWidth(100)};
-        }
-
-        dd {
-            ${collapsedDd()}
-        }
-
-        dt {
-            ${collapsedDt()}
-        }
+    .collapsed .item,
+    dl:has(.collapsed) {
+        grid-template-columns: 100%;
     }
 `;
-export default styles;
