@@ -1,3 +1,13 @@
+# [1.48.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.47.0...v1.48.0) (2025-05-15)
+
+
+### Features
+
+* UIG-3125 - vl-info-tile - fix voor centreren en toevoeging van size ([98980a1](https://github.com/milieuinfo/uigov-web-components/commit/98980a1cdac75360ceb4335563bd1223e2212b50))
+* UIG-3210 - vl-map - fix coordinaten definitie registratie en laag volgorde ([3c1fb1b](https://github.com/milieuinfo/uigov-web-components/commit/3c1fb1b2242aa3a0af09bd66aa27418d21613245))
+* UIG-3246 - vl-map-action-control - optie toegevoegd om te activeren bij eerste render ([5a5aeb5](https://github.com/milieuinfo/uigov-web-components/commit/5a5aeb5867d635dc8dada813f2550fb980612d4f))
+* UIG-3287 - vl-properties-next - collapsed werking verbeterd ([1f95be4](https://github.com/milieuinfo/uigov-web-components/commit/1f95be4f7e002c27049a98c86436392b4f810839))
+
 # [1.47.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.46.1...v1.47.0) (2025-04-30)
 
 

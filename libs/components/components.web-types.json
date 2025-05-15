@@ -760,6 +760,11 @@
                             "name": "data-vl-toggleable",
                             "description": "Maakt de info-tile openklapbaar.",
                             "default": "false"
+                        },
+                        {
+                            "name": "data-vl-size",
+                            "description": "Grootte van de info tile. Dit attribuut past de padding van het component aan. Standaard is dit \"small\". De andere opties zijn \"medium\" en \"large\".",
+                            "default": ""
                         }
                     ],
                     "slots": [
