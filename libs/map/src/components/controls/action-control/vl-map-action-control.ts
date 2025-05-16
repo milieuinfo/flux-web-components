@@ -32,7 +32,7 @@ export class VlMapActionControl extends VlMapControl(BaseLitElement) {
             },
             defaultActive: {
                 type: Boolean,
-                attribute: 'data-vl-default-active',
+                attribute: 'default-active',
                 state: false,
             },
         };

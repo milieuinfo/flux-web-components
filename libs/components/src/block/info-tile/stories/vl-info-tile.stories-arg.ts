@@ -88,7 +88,7 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
         },
     },
     size: {
-        name: 'data-vl-size',
+        name: 'size',
         description:
             'Grootte van de info tile. Dit attribuut past de padding van het component aan. Standaard is dit "small". De andere opties zijn "medium" en "large".',
         control: { type: CONTROLS.SELECT },

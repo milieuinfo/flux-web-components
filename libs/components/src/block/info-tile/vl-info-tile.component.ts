@@ -161,7 +161,7 @@ export class VlInfoTile extends BaseHTMLElement {
         this._element?.classList.remove('vl-info-tile--s');
         this._element?.classList.remove('vl-info-tile--m');
         this._element?.classList.remove('vl-info-tile--l');
-        switch (this.getAttribute('data-vl-size')) {
+        switch (this.getAttribute('size')) {
             case INFO_TILE_SIZE.SMALL:
                 this._element?.classList.add('vl-info-tile--s');
                 break;

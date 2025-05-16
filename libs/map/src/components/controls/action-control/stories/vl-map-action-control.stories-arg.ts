@@ -40,7 +40,7 @@ export const mapActionControlArgTypes: ArgTypes<typeof mapActionControlArgs> = {
         },
     },
     defaultActive: {
-        name: 'data-vl-default-active',
+        name: 'default-active',
         description: 'Voeg `default-active` toe om de control default te activeren bij het renderen.',
         table: {
             type: { summary: TYPES.BOOLEAN },
