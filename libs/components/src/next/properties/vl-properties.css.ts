@@ -41,31 +41,11 @@ export const sizeQueryStyles = css`
             grid-template-columns: 100%;
         }
     }
-
-    @container (max-width: ${vlMediaScreenSmall}px) {
-        .column {
-            ${columnWidth(100)};
-        }
-
-        dd {
-            ${collapsedDd()}
-        }
-
-        dt {
-            ${collapsedDt()}
-        }
-
-        dl,
-        dl .item {
-            grid-template-columns: 100%;
-        }
-    }
 `;
 
 export const propertiesStyles: CSSResult = css`
     :host {
         display: block;
-        container-type: size;
     }
 
     .column {
