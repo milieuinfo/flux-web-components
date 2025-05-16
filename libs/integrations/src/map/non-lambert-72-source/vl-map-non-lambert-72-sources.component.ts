@@ -1,4 +1,4 @@
-import { registerWebComponents, webComponent } from '@domg-wc/common-utilities';
+import { registerWebComponents, webComponent } from '@domg-wc/common';
 import { VlMap, VlMapBaseLayerGRBGray, VlMapTiledWmsLayer } from '@domg-wc/map';
 import { CSSResult, LitElement, html } from 'lit';
 

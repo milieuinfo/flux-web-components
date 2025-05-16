@@ -13,6 +13,7 @@
             "@domg-wc/components/compliance": ["libs/components/src/compliance/index.ts"],
             "@domg-wc/components/form": ["libs/components/src/form/index.ts"],
             "@domg-wc/integrations/form": ["libs/integrations/src/form/index.ts"],
+            "@domg-wc/integrations/map": ["libs/integrations/src/map/index.ts"],
             "@domg-wc/integrations/popover": ["libs/integrations/src/popover/index.ts"],
             "@domg-wc/map": ["libs/map/src/index.ts"],
             "@domg-wc/styles": ["libs/styles/src/index.ts"]
