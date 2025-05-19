@@ -17,7 +17,7 @@ export const content = ({
     evaluation,
     limitations,
 }: AccessibilityProperties) => {
-    return html` <section id="content" is="vl-region">
+    return html` <section id="content" class="vl-section-next">
         <div class="vl-content-block-next">
             <div class="vl-grid-next vl-stacked-next-medium vl-content-block-next">
                 <div
@@ -33,25 +33,15 @@ export const content = ({
                                         href="http://www.ejustice.just.fgov.be/cgi_loi/loi_a1.pl?language=nl&cn=2018120705&table_name=wet&caller=list&fromtab=wet#LNK0011"
                                         external
                                         data-vl-inline
-                                        >bestuursdecreet van 7 december 2018<span
-                                            is="vl-icon"
-                                            data-vl-icon="external"
-                                            data-vl-after
-                                            data-vl-light
-                                        ></span
-                                    ></vl-link-next>
+                                        >bestuursdecreet van 7 december 2018
+                                    </vl-link-next>
                                     waarmee de
                                     <vl-link-next
                                         href="https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=uriserv:OJ.L_.2016.327.01.0001.01.NLD&toc=OJ:L:2016:327:TOC"
                                         external
                                         data-vl-inline
-                                        >Europese Richtlijn 2016/2102<span
-                                            is="vl-icon"
-                                            data-vl-icon="external"
-                                            data-vl-after
-                                            data-vl-light
-                                        ></span
-                                    ></vl-link-next>
+                                        >Europese Richtlijn 2016/2102
+                                    </vl-link-next>
                                     is omgezet.
                                 </p>
                                 <br />

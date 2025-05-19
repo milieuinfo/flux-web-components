@@ -102,7 +102,7 @@ export const richDataPaginationImplementation = () => {
             }
         });
 
-        sorter?.addEventListener('change', (event: CustomEvent) => {
+        sorter?.addEventListener('vl-change', (event: CustomEvent) => {
             const data = newData;
             event.stopPropagation();
             if (!data) return;

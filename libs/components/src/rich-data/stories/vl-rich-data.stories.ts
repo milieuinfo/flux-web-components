@@ -9,6 +9,7 @@ import { VlRichData } from '../vl-rich-data.component';
 import { richDataArgs, richDataArgTypes } from './vl-rich-data.stories-arg';
 import richDataDoc from './vl-rich-data.stories-doc.mdx';
 import { richDataPaginationImplementation } from './vl-rich-data.stories-util';
+import { VlSelectComponent } from '@domg-wc/form/next/select';
 
 export default {
     id: 'components-rich-data',
@@ -23,7 +24,7 @@ export default {
     },
 } as Meta<typeof richDataArgs>;
 
-registerWebComponents([VlRichData, VlSearchResultComponent]);
+registerWebComponents([VlRichData, VlSearchResultComponent, VlSelectComponent]);
 
 export const RichDataDefault = ({ filterClosable, filterClosed }: typeof richDataArgs) => {
     return html`
@@ -41,54 +42,57 @@ export const RichDataPager = story(richDataArgs, ({ filterClosable, filterClosed
         <vl-rich-data id="rich-data" ?data-vl-filter-closable=${filterClosable} ?data-vl-filter-closed=${filterClosed}>
             <span slot="no-content">Geen resultaten</span>
             <div slot="content"></div>
-            <select is="vl-select" slot="sorter" aria-label="Sorteer">
-                <option value="id">ID</option>
-                <option value="manager.lastName">Naam manager</option>
-            </select>
-            <div is="vl-search-filter" data-vl-alt slot="filter">
-                <form is="vl-form" id="rich-data-table-filter-form">
+            <vl-select-next slot="sorter" aria-label="Sorteer" .options=${[
+                { label: 'ID', value: 'id' },
+                { label: 'Naam manager', value: 'manager.lastName' },
+            ]}></vl-select-next>
+            <vl-search-filter-next slot="filter" alt>
+                <form>
                     <section>
-                        <h2>Doorzoek projecten</h2>
+                        <vl-title-next type="h2" alt no-space-bottom="">Doorzoek projecten</vl-title-next>
                         <div>
-                            <label is="vl-form-label" for="filterOpId">Project id</label>
-                            <input is="vl-input-field" id="filterOpId" type="text" name="id" value="" data-vl-block />
+                            <vl-form-label-next
+                                for="filterOpId"
+                                label="Project id"
+                                light
+                            ></vl-form-label-next>
+                            <vl-input-field-next
+                                id="filterOpId"
+                                type="text"
+                                name="id"
+                                block
+                            ></vl-input-field-next>
                         </div>
                     </section>
                     <section>
-                        <h2>Project details</h2>
+                        <vl-title-next type="h2" alt no-space-bottom="">Project details</vl-title-next>
                         <div>
-                            <label is="vl-form-label" for="filterOpNaamProject">Project naam</label>
-                            <input
-                                is="vl-input-field"
+                            <vl-form-label-next for="filterOpNaamProject" label="Project naam"
+                                                light></vl-form-label-next>
+                            <vl-input-field-next
+                                type="text"
                                 id="filterOpNaamProject"
-                                type="text"
                                 name="name"
-                                value=""
-                                data-vl-block
-                            />
+                                block
+                            ></vl-input-field-next>
                         </div>
                         <div>
-                            <label is="vl-form-label" for="filterOpNaamManager">Manager familienaam</label>
-                            <input
-                                is="vl-input-field"
-                                id="filterOpNaamManager"
+                            <vl-form-label-next for="filterOpNaamManager" label="Manager familienaam"
+                                                light></vl-form-label-next>
+                            <vl-input-field-next
                                 type="text"
+                                id="filterOpNaamManager"
                                 name="manager.lastName"
-                                value=""
-                                data-vl-block
-                            />
+                                block
+                            ></vl-input-field-next>
                         </div>
                     </section>
-                    <div>
-                        <button is="vl-button" type="submit">Zoeken</button>
-                    </div>
+                    <footer>
+                        <vl-button-next type="submit" custom-css="button {flex:1}">Zoeken</vl-button-next>
+                        <vl-button-next type="reset" custom-css="button {flex:1}" secondary>Reset</vl-button-next-->
+                    </footer>
                 </form>
-                <div>
-                    <button is="vl-button-link" type="reset" form="rich-data-table-filter-form">
-                        Zoekopdracht verwijderen
-                    </button>
-                </div>
-            </div>
+            </vl-search-filter-next>
             <vl-pager
                 id="rich-data-table-filter-sorting-paging-pager"
                 slot="pager"

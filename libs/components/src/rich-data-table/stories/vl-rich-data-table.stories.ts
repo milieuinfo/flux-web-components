@@ -1,6 +1,5 @@
 // deze imports van alle elements werkt IN de monorepo
-import { story } from '@domg-wc/common-storybook';
-// -> buiten de monorepo werkt dat niet omdat sideEffects disabled worden voor de root-barrel file in de artifacts
+import { story } from '@domg-wc/common-storybook'; // -> buiten de monorepo werkt dat niet omdat sideEffects disabled worden voor de root-barrel file in de artifacts
 import '@domg-wc/elements';
 import { registerWebComponents } from '@domg-wc/common-utilities';
 
@@ -141,31 +140,34 @@ const TemplateFilter = story(
                 ></vl-rich-data-field>
                 <vl-search-filter-next slot="filter" alt>
                     <form>
-                            <section>
-                                <vl-title-next type="h2" alt no-space-bottom="">Doorzoek projecten</vl-title-next>
-                                <div>
-                                    <vl-form-label-next
-                                        for="filterOpId"
-                                        label="Project id"
-                                        light
-                                    ></vl-form-label-next>
-                                    <vl-input-field-next
-                                        id="filterOpId"
-                                        type="text"
-                                        name="id"
-                                        block
-                                    ></vl-input-field-next>
-                                </div>
-                                <div>
-                                    <vl-form-label-next for="filterOpNaamProject" label="Project naam" light></vl-form-label-next>
-                                    <vl-input-field-next
-                                        type="text"
-                                        id="filterOpNaamProject"
-                                        name="name"
-                                        block
-                                    ></vl-input-field-next>
-                                </div><div>
-                                <vl-form-label-next for="filterOpNaamManager" label="Manager familienaam" light></vl-form-label-next>
+                        <section>
+                            <vl-title-next type="h2" alt no-space-bottom="">Doorzoek projecten</vl-title-next>
+                            <div>
+                                <vl-form-label-next
+                                    for="filterOpId"
+                                    label="Project id"
+                                    light
+                                ></vl-form-label-next>
+                                <vl-input-field-next
+                                    id="filterOpId"
+                                    type="text"
+                                    name="id"
+                                    block
+                                ></vl-input-field-next>
+                            </div>
+                            <div>
+                                <vl-form-label-next for="filterOpNaamProject" label="Project naam"
+                                                    light></vl-form-label-next>
+                                <vl-input-field-next
+                                    type="text"
+                                    id="filterOpNaamProject"
+                                    name="name"
+                                    block
+                                ></vl-input-field-next>
+                            </div>
+                            <div>
+                                <vl-form-label-next for="filterOpNaamManager" label="Manager familienaam"
+                                                    light></vl-form-label-next>
                                 <vl-input-field-next
                                     type="text"
                                     id="filterOpNaamManager"
@@ -174,7 +176,7 @@ const TemplateFilter = story(
                                     autocomplete="family-name"
                                 ></vl-input-field-next>
                             </div>
-                            </section>
+                        </section>
                         <footer>
                             <vl-button-next type="submit" custom-css="button {flex:1}">Zoeken</vl-button-next>
                             <vl-button-next type="reset" custom-css="button {flex:1}" secondary>Reset</vl-button-next-->
@@ -222,57 +224,53 @@ const TemplateFilterPaging = story(
                     data-vl-label="Eerste medewerker"
                     data-vl-selector="medewerkers.0.lastName"
                 ></vl-rich-data-field>
-                <div is="vl-search-filter" slot="filter" data-vl-alt="">
-                    <form is="vl-form" id="rich-data-table-filter-form">
+                <vl-search-filter-next slot="filter" alt>
+                    <form>
                         <section>
-                            <h2>Doorzoek projecten</h2>
+                            <vl-title-next type="h2" alt no-space-bottom="">Doorzoek projecten</vl-title-next>
                             <div>
-                                <label is="vl-form-label" for="filterOpId">Project id</label>
-                                <input
-                                    is="vl-input-field"
+                                <vl-form-label-next
+                                    for="filterOpId"
+                                    label="Project id"
+                                    light
+                                ></vl-form-label-next>
+                                <vl-input-field-next
                                     id="filterOpId"
                                     type="text"
                                     name="id"
-                                    value=""
-                                    data-vl-block=""
-                                />
+                                    block
+                                ></vl-input-field-next>
                             </div>
                         </section>
                         <section>
-                            <h2>Project details</h2>
+                            <vl-title-next type="h2" alt no-space-bottom="">Project details</vl-title-next>
                             <div>
-                                <label is="vl-form-label" for="filterOpNaamProject">Project naam</label>
-                                <input
-                                    is="vl-input-field"
-                                    id="filterOpNaamProject"
+                                <vl-form-label-next for="filterOpNaamProject" label="Project naam"
+                                                    light></vl-form-label-next>
+                                <vl-input-field-next
                                     type="text"
+                                    id="filterOpNaamProject"
                                     name="name"
-                                    value=""
-                                    data-vl-block=""
-                                />
+                                    block
+                                ></vl-input-field-next>
                             </div>
                             <div>
-                                <label is="vl-form-label" for="filterOpNaamManager">Manager familienaam</label>
-                                <input
-                                    is="vl-input-field"
-                                    id="filterOpNaamManager"
+                                <vl-form-label-next for="filterOpNaamManager" label="Manager familienaam"
+                                                    light></vl-form-label-next>
+                                <vl-input-field-next
                                     type="text"
+                                    id="filterOpNaamManager"
                                     name="manager.lastName"
-                                    value=""
-                                    data-vl-block=""
-                                />
+                                    block
+                                ></vl-input-field-next>
                             </div>
                         </section>
-                        <div>
-                            <button is="vl-button" type="submit">Zoeken</button>
-                        </div>
+                        <footer>
+                            <vl-button-next type="submit" custom-css="button {flex:1}">Zoeken</vl-button-next>
+                            <vl-button-next type="reset" custom-css="button {flex:1}" secondary>Reset</vl-button-next-->
+                        </footer>
                     </form>
-                    <div>
-                        <button is="vl-button-link" type="reset" form="rich-data-table-filter-form">
-                            Zoekopdracht verwijderen
-                        </button>
-                    </div>
-                </div>
+                </vl-search-filter-next>
                 <vl-pager
                     id="pager-for-rich-data-table"
                     slot="pager"

@@ -6,6 +6,10 @@ import '../vl-alert.component';
 import { ALERT_ICON, ALERT_TYPE } from '../vl-alert.model';
 import { alertArgs, alertArgTypes } from './vl-alert.stories-arg';
 import alertDoc from './vl-alert.stories-doc.mdx';
+import { registerWebComponents } from '@domg-wc/common-utilities';
+import { VlButtonComponent } from '@domg-wc/components/next/button';
+
+registerWebComponents([VlButtonComponent]);
 
 export default {
     id: 'components-alert',
@@ -86,7 +90,7 @@ AlertWarning.args = {
 export const AlertWithButton = AlertTemplate.bind({});
 AlertWithButton.storyName = 'vl-alert - with button';
 AlertWithButton.args = {
-    actionsSlot: '<button slot="actions" is="vl-button">button text</button>',
+    actionsSlot: '<vl-button-next slot="actions">button text</vl-button-next>',
     defaultSlot:
         '<span>Phasellus congue ipsum ut felis auctor, eget maximus justo dapibus. Nam sit amet pulvinar odio. Maecenas rhoncus quam eget neque porttitor, et faucibus nisl elementum.</span>',
 };
