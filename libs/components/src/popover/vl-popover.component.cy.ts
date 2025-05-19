@@ -62,7 +62,7 @@ const mountHover = ({
     distance?: number;
 }) => {
     cy.mount(html`
-        <button id="btn-close" aria-describedby="tooltip" is="vl-button">Hover over me</button>
+        <vl-button-next id="btn-close" aria-describedby="tooltip">Hover over me</vl-button-next>
         <vl-popover
             for="btn-close"
             open=${open || nothing}
@@ -136,17 +136,17 @@ describe('story vl-popover hover', () => {
 
     it('should be accessible', () => {
         cy.injectAxe();
-        cy.get('button#btn-close').trigger('mouseover');
+        cy.get('#btn-close').trigger('mouseover');
         cy.checkA11y('vl-popover');
     });
 
     it('should open', () => {
-        cy.get('button#btn-close').trigger('mouseover');
+        cy.get('#btn-close').trigger('mouseover');
         cy.get('vl-popover').should('have.attr', 'open');
     });
 
     it('should have default bottom placement', () => {
-        cy.get('button#btn-close').trigger('mouseover');
+        cy.get('#btn-close').trigger('mouseover');
         cy.get('vl-popover').should('have.attr', 'placement', 'bottom');
     });
 });

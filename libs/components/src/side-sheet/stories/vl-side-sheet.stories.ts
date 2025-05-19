@@ -123,33 +123,30 @@ export const SideSheetToggle = story(
                     right: 3rem;
                 }
             </style>
-            <button
-                is="vl-button"
+            <vl-button-next
                 type="button"
                 @click=${() => {
                     toggleSideSheet();
                 }}
             >
                 toggle()
-            </button>
-            <button
-                is="vl-button"
+            </vl-button-next>
+            <vl-button-next
                 type="button"
                 @click=${() => {
                     openSideSheet();
                 }}
             >
                 open()
-            </button>
-            <button
-                is="vl-button"
+            </vl-button-next>
+            <vl-button-next
                 type="button"
                 @click=${() => {
                     closeSideSheet();
                 }}
             >
                 close()
-            </button>
+            </vl-button-next>
             <vl-side-sheet
                 id="side-sheet-toggle"
                 ?data-vl-enable-swipe=${enableSwipe}
@@ -163,23 +160,16 @@ export const SideSheetToggle = story(
                 ?data-vl-hide-toggle-button=${hideToggleButton}
                 ?data-vl-open=${open}
             >
-                <button
-                    is="vl-button"
+                <vl-button-next
                     id="vl-side-sheet-close-button"
                     type="button"
-                    data-vl-tertiary
+                    tertiary
                     @click=${() => {
                         closeSideSheet();
                     }}
+                    icon="cross"
                 >
-                    <span
-                        is="vl-icon"
-                        data-vl-icon="cross"
-                        class="vl-vi-cross vl-icon vl-vi vl-button__icon"
-                        aria-hidden="true"
-                    ></span>
-                </button>
-
+                </vl-button-next>
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla interdum urna ante. Integer eu sem
                     mollis, ornare libero nec, pulvinar augue. Nunc ac rhoncus ipsum. Mauris vitae elementum erat. Donec

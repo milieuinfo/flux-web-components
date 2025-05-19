@@ -26,15 +26,19 @@ describe('component - vl-rich-data', () => {
     beforeEach(() => {
         cy.mount(html`
             <vl-rich-data data-vl-filter-title="title">
-                <div is="vl-search-filter" slot="filter">
-                    <form is="vl-form" id="form">
-                        <label for="filter-input">Hier kunnen filtervelden komen</label>
-                        <input is="vl-input-field" id="filter-input" type="text" name="filter1" />
+                <vl-search-filter-next slot="filter" alt>
+                    <form>
+                        <section>
+                            <label for="filter-input">Hier kunnen filtervelden komen</label>
+                            <vl-input-field-next id="filter-input" type="text" label="filtervelden"
+                                                 name="filter1"></vl-input-field-next>
+                            <footer>
+                                <vl-button-next type="submit" custom-css="button {flex:1}">Zoeken</vl-button-next>
+                                <vl-button-next type="reset" custom-css="button {flex:1}" secondary>Zoekopdracht
+                                    verwijderen</vl-button-next-->
+                            </footer>
                     </form>
-                    <div>
-                        <button is="vl-button-link" type="reset" form="form">Zoekopdracht verwijderen</button>
-                    </div>
-                </div>
+                </vl-search-filter-next>
                 <vl-pager slot="pager" total-items="25" items-per-page="5" current-page="1"></vl-pager>
                 <vl-search-results slot="content">
                     <vl-search-result>
@@ -145,31 +149,35 @@ describe('component - vl-rich-data with vl-select-next', () => {
         cy.viewport(1024, 768);
         cy.mount(html`
             <vl-rich-data data-vl-filter-title="title">
-                <div is="vl-search-filter" slot="filter">
-                    <form is="vl-form" id="form">
-                        <label for="filter-input">Hier kunnen filtervelden komen</label>
-                        <input is="vl-input-field" id="filter-input" type="text" name="filter1" />
-                        <vl-select-next
-                            id="select-lange-tekst"
-                            name="Select met lange tekst"
-                            block
-                            placeholder="Selecteer iets met lange tekst"
-                            .options=${[
-                                {
-                                    label: 'Optie 1',
-                                    value: 'option1',
-                                },
-                                {
-                                    label: 'Optie 2 met langere tekst lorem ipsum dolor sit amet',
-                                    value: 'option2',
-                                },
-                            ]}
-                        ></vl-select-next>
+                <vl-search-filter-next slot="filter">
+                    <form>
+                        <section>
+                            <label for="filter-input">Hier kunnen filtervelden komen</label>
+                            <vl-input-field-next id="filter-input" type="text" label="filtervelden"
+                                                 name="filter1"></vl-input-field-next>
+                            <vl-select-next
+                                id="select-lange-tekst"
+                                name="Select met lange tekst"
+                                block
+                                placeholder="Selecteer iets met lange tekst"
+                                .options=${[
+                                    {
+                                        label: 'Optie 1',
+                                        value: 'option1',
+                                    },
+                                    {
+                                        label: 'Optie 2 met langere tekst lorem ipsum dolor sit amet',
+                                        value: 'option2',
+                                    },
+                                ]}
+                            ></vl-select-next>
+                            <footer>
+                                <vl-button-next type="submit" custom-css="button {flex:1}">Zoeken</vl-button-next>
+                                <vl-button-next type="reset" custom-css="button {flex:1}" secondary>Zoekopdracht
+                                    verwijderen</vl-button-next-->
+                            </footer>
                     </form>
-                    <div>
-                        <button is="vl-button-link" type="reset" form="form">Zoekopdracht verwijderen</button>
-                    </div>
-                </div>
+                </vl-search-filter-next>
                 <vl-pager slot="pager" total-items="25" items-per-page="5" current-page="1"></vl-pager>
                 <vl-search-results slot="content">
                     <vl-search-result>

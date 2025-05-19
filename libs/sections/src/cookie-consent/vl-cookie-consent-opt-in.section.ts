@@ -1,12 +1,13 @@
 import { VlCheckboxComponent } from '@domg-wc/components';
 
-import { BaseElementOfType, webComponent, registerWebComponents } from '@domg-wc/common-utilities';
+import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common-utilities';
 import { vlElementsStyle } from '@domg-wc/elements';
+import { VlTextComponent } from '@domg-wc/components/next/text';
 
 @webComponent('vl-cookie-consent-opt-in')
 export class VlCookieConsentOptIn extends BaseElementOfType(HTMLElement) {
     static {
-        registerWebComponents([VlCheckboxComponent]);
+        registerWebComponents([VlCheckboxComponent, VlTextComponent]);
     }
 
     static get _observedAttributes() {
@@ -37,9 +38,7 @@ export class VlCookieConsentOptIn extends BaseElementOfType(HTMLElement) {
     }
 
     _getDescriptionTemplate(description: string) {
-        return this._template(`
-      <p id="description" is="vl-form-annotation" data-vl-block>${description}</p>
-    `);
+        return this._template(`<p><vl-text-next id="description" small>${description}</vl-text-next></p>`);
     }
 
     _labelChangedCallback(oldValue: string, newValue: string) {

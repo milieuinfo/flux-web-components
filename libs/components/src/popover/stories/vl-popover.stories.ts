@@ -9,8 +9,9 @@ import { VlPopoverComponent } from '../vl-popover.component';
 import { popoverActionArgs, popoverActionArgTypes } from './vl-popover-action.stories-arg';
 import { popoverArgTypes, popoverDefaultArgs } from './vl-popover.stories-arg';
 import popoverDoc from './vl-popover.stories-doc.mdx';
+import { VlButtonComponent } from '@domg-wc/components/next/button';
 
-registerWebComponents([VlPopoverComponent, VlPopoverActionComponent, VlPopoverActionListComponent]);
+registerWebComponents([VlPopoverComponent, VlPopoverActionComponent, VlPopoverActionListComponent, VlButtonComponent]);
 
 export default {
     id: 'components-popover',
@@ -69,7 +70,7 @@ export const PopoverHover = story(
     popoverDefaultArgs,
     ({ trigger, open, contentPadding, placement, hideArrow, hideOnClick, distance }) => {
         return html`
-            <button id="btn-close" aria-describedby="tooltip" is="vl-button">Hover over me</button>
+            <vl-button-next id="btn-close" aria-describedby="tooltip">Hover over me</vl-button-next>
             <vl-popover
                 for="btn-close"
                 open=${open}
