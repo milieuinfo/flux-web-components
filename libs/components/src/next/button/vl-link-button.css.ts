@@ -38,6 +38,8 @@ export const linkButtonStyles: CSSResult = css`
         /* link-button styles */
         text-decoration: none;
 
+        gap: 0.5em; /* waarde van vl-icon.css.ts */
+
         @media screen and (max-width: ${vlMediaScreenSmall}px) {
             padding: var(--vl-spacing--xsmall);
         }
