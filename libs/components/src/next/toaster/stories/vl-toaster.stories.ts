@@ -35,8 +35,7 @@ export default {
 export const ToasterDefault = story<ToasterArgs>(toasterArgs, ({ placement, fadeOut, defaultSlot }) => {
     return html`
         <script>
-            const button = document.querySelector('vl-button-next');
-            button.addEventListener('vl-click', () => {
+            document.querySelector('vl-button-next')?.addEventListener('vl-click', () => {
                 const toaster = document.querySelector('vl-toaster-next');
                 toaster.show();
             });
@@ -44,7 +43,7 @@ export const ToasterDefault = story<ToasterArgs>(toasterArgs, ({ placement, fade
         <vl-toaster-next id="default-toaster" placement=${placement} ?fade-out=${fadeOut}>
             ${unsafeHTML(defaultSlot)}
         </vl-toaster-next>
-        <vl-button-next> Toon succesmelding </vl-button-next>
+        <vl-button-next> Toon succesmelding</vl-button-next>
     `;
 });
 ToasterDefault.storyName = 'vl-toaster - default';
@@ -58,8 +57,7 @@ ToasterDefault.args = {
 export const ToasterShowAlert = story<ToasterArgs>(toasterArgs, ({ placement, fadeOut }) => {
     return html`
         <script>
-            const buttonTechnicalError = document.querySelector('#button-technical-error');
-            buttonTechnicalError.addEventListener('vl-click', () => {
+            document.querySelector('#button-technical-error')?.addEventListener('vl-click', () => {
                 const toaster = document.querySelector('#toaster-show-alert');
                 toaster.showAlert({
                     title: 'Technische storing',
@@ -70,8 +68,8 @@ export const ToasterShowAlert = story<ToasterArgs>(toasterArgs, ({ placement, fa
                 });
             });
         </script>
-        <vl-toaster-next id="toaster-show-alert" ?fade-out=${fadeOut} placement=${placement}> </vl-toaster-next>
-        <vl-button-next id="button-technical-error"> Toon waarschuwing </vl-button-next>
+        <vl-toaster-next id="toaster-show-alert" ?fade-out=${fadeOut} placement=${placement}></vl-toaster-next>
+        <vl-button-next id="button-technical-error"> Toon waarschuwing</vl-button-next>
     `;
 });
 ToasterShowAlert.storyName = 'vl-toaster - show alert';
@@ -84,14 +82,11 @@ ToasterShowAlert.parameters = {
 export const ToasterFadeOut = story<ToasterArgs>(toasterArgs, ({ placement, fadeOut, defaultSlot }) => {
     return html`
         <script>
-            const buttonError = document.querySelector('#button-error');
-            console.log('buttonError', buttonError);
-            buttonError.addEventListener('vl-click', () => {
+            document.querySelector('#button-error')?.addEventListener('vl-click', () => {
                 const toaster = document.querySelector('#toaster-fade-out');
                 toaster.show('#alert-error');
             });
-            const buttonLoader = document.querySelector('#button-loader');
-            buttonLoader.addEventListener('vl-click', () => {
+            document.querySelector('#button-loader')?.addEventListener('vl-click', () => {
                 const toaster = document.querySelector('#toaster-fade-out');
                 toaster.show('#alert-loader');
             });
@@ -99,8 +94,8 @@ export const ToasterFadeOut = story<ToasterArgs>(toasterArgs, ({ placement, fade
         <vl-toaster-next id="toaster-fade-out" placement=${placement} ?fade-out=${fadeOut}>
             ${unsafeHTML(defaultSlot)}
         </vl-toaster-next>
-        <vl-button-next id="button-error"> Toon foutmelding </vl-button-next>
-        <vl-button-next id="button-loader"> Toon melding met lader </vl-button-next>
+        <vl-button-next id="button-error"> Toon foutmelding</vl-button-next>
+        <vl-button-next id="button-loader"> Toon melding met lader</vl-button-next>
     `;
 });
 ToasterFadeOut.storyName = 'vl-toaster - fade out';
