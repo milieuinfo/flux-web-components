@@ -43,7 +43,7 @@ export const vlAccordionFluxStyles: CSSResult = css`
     .vl-accordion__icon {
         flex: 0 0 22px;
         flex-shrink: 0;
-        /* top: 5px; */
-        /* align-self: flex-start; */
+        top: 0;
+        align-self: center;
     }
 `;
