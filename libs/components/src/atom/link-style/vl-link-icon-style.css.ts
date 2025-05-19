@@ -10,6 +10,7 @@ export const vlLinkIconStyles = css`
         color: inherit;
         line-height: 1;
         flex-shrink: 0;
+        margin-top: 0;
 
         &::before,
         &::after {
