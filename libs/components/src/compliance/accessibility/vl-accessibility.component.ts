@@ -1,5 +1,5 @@
 import { BaseLitElement, registerWebComponents } from '@domg-wc/common';
-import { vlGroupStyles, vlLegacyStyles } from '@domg-wc/styles';
+import { vlGroupStyles, vlLegacyStyles, vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, type PropertyDeclarations } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { VlLinkComponent } from '../../atom/link';
@@ -45,7 +45,7 @@ export class VlAccessibility extends BaseLitElement {
     }
 
     static get styles(): CSSResult[] {
-        return [...vlLegacyStyles, vlGroupStyles];
+        return [vlResetStyles, ...vlLegacyStyles, vlGroupStyles];
     }
 
     static get properties(): PropertyDeclarations {

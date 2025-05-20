@@ -1,5 +1,5 @@
 import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
-import { vlContentBlockStyles, vlGridStyles, vlLegacyStyles, vlSectionStyles } from '@domg-wc/styles';
+import { vlContentBlockStyles, vlGridStyles, vlLegacyStyles, vlResetStyles, vlSectionStyles } from '@domg-wc/styles';
 import { render } from 'lit-html';
 import { VlTitleComponent } from '../../atom';
 import { VlLinkComponent } from '../../atom/link';
@@ -41,6 +41,7 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
     constructor() {
         super(`
             <style>
+                ${vlResetStyles}
                 ${vlLegacyStyles.join('')}
                 ${vlCookieStatementFluxStyles}
                 ${vlSectionStyles}
