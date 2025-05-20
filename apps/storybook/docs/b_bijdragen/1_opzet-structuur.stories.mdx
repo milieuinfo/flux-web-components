@@ -11,10 +11,9 @@ import { Meta } from '@storybook/addon-docs';
 
 ## Opzet
 
-De **code van de** web-componenten bibliotheek zit in GitHub onder de
+De code van de web-componenten bibliotheek zit in GitHub onder de
 [uigov-web-components](https://github.com/milieuinfo/uigov-web-components) repository. Het is een monorepo, opgezet met
-[Nx](https://nx.dev/). Nx (wat staat voor Nrwl Extensions) is een 'Smart, Fast and Extensible Build System' dat
-open-source ontwikkeld wordt door [Nrwl](https://github.com/nrwl), een start-up die groeide uit Google.
+custom scripts, wel wordt de [Nx](https://nx.dev/) structuur gevolgd (vroeger was het Nx).
 
 Ontwikkeling gebeurt [branch-based](/docs/bijdragen-git-branching-strategie--documentatie) waarbij het
 [release proces](/docs/beheren-ci-cd--documentatie) volledig geautomatiseerd is.
@@ -29,11 +28,9 @@ correct geconfigureerd worden, met een persoonlijke authToken, in het root `~/.n
 
 ### Node versie en Volta
 
-We gebruiken Node en npm om dependencies te beheren en scripts uit te voeren.
-
-De Node versie is vastgelegd in package.json.
-
-We gebruiken [Volta](https://get.volta.sh) om deze Node versie te installeren:
+We gebruiken Node en npm om dependencies te beheren en scripts uit te voeren. De Node versie is vastgelegd in de
+ package.json.<br/>
+We gebruiken [Volta](https://get.volta.sh) om de juiste Node versie te installeren:
 
 ```
 volta install node@20.11.0
@@ -41,8 +38,8 @@ node -v
 v20.11.0
 ```
 
-Indien de versie niet klopt, moet je de `PATH` variabele aanpassen en de Volta bin vooraan zetten.
-In `~/.zprofile` kan je daarvoor deze lijn toevoegen:
+Indien de versie niet klopt moet je de `PATH` variabele aanpassen en de Volta bin vooraan zetten. In `~/.zprofile` kan
+ je daarvoor deze lijn toevoegen:
 
 ```
 export PATH="/Users/(your user)/.volta/bin:$PATH"
@@ -60,7 +57,6 @@ repo beschreven, achter de pijltjes staan de artifacts gespecifieerd die uit de 
   │  ├─ consumer-e2e/
   │  ├─ integrator/
   │  ├─ integrator-e2e/ (Cypress CSP testen)
-  │  ├─ playground-legacy/
   │  ├─ playground-lit/
   │  ├─ playground-native/
   │  ├─ playground-react/
@@ -90,12 +86,11 @@ Storybook (deze documentatie) streeft naar het aanbieden van zo correct mogelijk
 ### Playground's
 
 De verschillende Playground applicaties zijn bedoeld om integraties en combinaties van componenten in verschillende
-frameworks te testen. De playground-legacy applicatie is de vorige versie van de playground applicaties en is nog
-behouden om historische redenen.
+frameworks te testen.
 
 ### Consumer
 
-Consumer is de toepassing om te verifiëren dat de gereleasde artifacts afneembaar zijn. Er zitten afnames in
+Consumer is de toepassing om te verifiëren dat de gereleasete artifacts afneembaar zijn. Er zitten afnames in
 met named-imports, side-effect-imports en imports van de fat-lib.
 
 ### Integrator
