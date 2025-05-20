@@ -44,6 +44,7 @@ export class VlUploadComponent extends FormControl {
     private mainTitle = uploadDefaults.mainTitle;
     private url = uploadDefaults.url;
     private parallelUploads = uploadDefaults.parallelUploads;
+    private chunking = uploadDefaults.chunking;
 
     // State
     private value: FormValue = null;
@@ -83,6 +84,7 @@ export class VlUploadComponent extends FormControl {
             multiple: { type: Boolean, reflect: true },
             dropzoneInstance: { type: Object, state: true },
             uploadProgressFn: { type: Function },
+            chunking: { type: Boolean },
         };
     }
 
@@ -204,6 +206,10 @@ export class VlUploadComponent extends FormControl {
         if (changedProperties.has('maxFiles')) {
             if (this.dropzoneInstance) this.dropzoneInstance.options.maxFiles = this.maxFiles;
             this.multiple = this.maxFiles > 1;
+        }
+
+        if (changedProperties.has('chunking')) {
+            if (this.dropzoneInstance) this.dropzoneInstance.options.chunking = this.chunking;
         }
     }
 
@@ -475,7 +481,7 @@ export class VlUploadComponent extends FormControl {
             dictRemoveFile: 'Verwijder bestand',
             dictCancelUpload: 'Annuleer upload',
             dictCancelUploadConfirmation: 'Ben je zeker dat je de upload wil annuleren?',
-            chunking: true,
+            chunking: this.chunking,
             ...(this.uploadProgressFn && { uploadprogress: this.uploadProgressFn }),
         };
 
