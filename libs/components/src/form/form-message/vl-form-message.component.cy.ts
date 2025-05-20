@@ -22,14 +22,18 @@ describe('component - vl-form-message', () => {
         cy.mount(html`<vl-form-message>Test form message</vl-form-message>`);
 
         cy.get('vl-form-message').should('be.hidden');
-        cy.get('vl-form-message').shadow().find('.vl-form__message').should('be.hidden');
+        cy.get('vl-form-message').shadow().find('.vl-form__error').should('be.hidden');
     });
 
     it('should be visible', () => {
         cy.mount(html`<vl-form-message show>Test form message</vl-form-message>`);
 
         cy.get('vl-form-message').should('be.visible');
-        cy.get('vl-form-message').shadow().find('.vl-form__message').should('be.visible');
+        cy.get('vl-form-message').shadow().find('.vl-form__error').should('be.visible');
+        cy.get('vl-form-message')
+            .shadow()
+            .find('.vl-form__error')
+            .shouldHaveComputedStyle({ pseudo: 'after', style: 'color', value: 'rgb(210, 55, 60)' });
     });
 
     it('should set pre-line attribute', () => {

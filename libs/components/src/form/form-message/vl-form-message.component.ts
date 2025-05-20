@@ -33,7 +33,7 @@ export class VlFormMessageComponent extends BaseLitElement {
 
     render(): TemplateResult {
         const classes = {
-            'vl-form__message': true,
+            'vl-form__error': true,
             'vl-pre-line': this.preLine,
         };
         return html`

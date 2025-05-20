@@ -1,7 +1,7 @@
 import { css, CSSResult } from 'lit';
 
 export const vFormMessageFluxStyles: CSSResult = css`
-    .vl-form__message {
+    .vl-form__error {
         margin-top: 0.2rem;
     }
 
