@@ -1,5 +1,5 @@
 import { BaseLitElement } from '@domg-wc/common';
-import { vlLegacyStyles } from '@domg-wc/styles';
+import { vlLegacyStyles, vlResetStyles } from '@domg-wc/styles';
 import { documentStyle, iconListStyle, spotlightStyle } from '@domg/govflanders-style/component';
 import { html, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
@@ -19,7 +19,7 @@ export class VlSpotlight extends BaseLitElement {
     private imgAlt = '';
 
     static get styles() {
-        return [...vlLegacyStyles, spotlightStyle, documentStyle, iconListStyle, vlSpotlightFluxStyles];
+        return [vlResetStyles, ...vlLegacyStyles, spotlightStyle, documentStyle, iconListStyle, vlSpotlightFluxStyles];
     }
 
     static get properties() {

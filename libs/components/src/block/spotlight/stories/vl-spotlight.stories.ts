@@ -76,7 +76,6 @@ export const spotlightNoLink = () => html`
     </vl-spotlight>
 `;
 spotlightNoLink.storyName = 'vl-spotlight - no link';
-spotlightNoLink.parameters = { controls: { disable: true } };
 
 export const SpotlightWithContent = () => html`
     <vl-spotlight link="https://google.be" alt size="${SIZE.S}">
@@ -89,7 +88,6 @@ export const SpotlightWithContent = () => html`
     </vl-spotlight>
 `;
 SpotlightWithContent.storyName = 'vl-spotlight - with content';
-SpotlightWithContent.parameters = { controls: { disable: true } };
 
 export const SpotlightWithText = () => html`
     <vl-spotlight link="https://google.be">
@@ -105,13 +103,9 @@ export const SpotlightWithText = () => html`
     </vl-spotlight>
 `;
 SpotlightWithText.storyName = 'vl-spotlight - with text';
-SpotlightWithText.parameters = { controls: { disable: true } };
 
 export const SpotlightWithImage = () => html`
-    <vl-spotlight
-        img-src="//d201gzvprbtpxy.cloudfront.net/sites/default/files/styles/medium/public/images/vla_themateaser_350_dakisolatie.jpg?itok=cKDE21Pe"
-        img-alt="spotlight image"
-    >
+    <vl-spotlight img-src="dak.jpg" img-alt="spotlight image">
         <span slot="title"> Premies voor renovatie </span>
         <span slot="subtitle">Er zijn er verschillende...</span>
         <span slot="text"
@@ -121,7 +115,6 @@ export const SpotlightWithImage = () => html`
     </vl-spotlight>
 `;
 SpotlightWithImage.storyName = 'vl-spotlight - with image';
-SpotlightWithImage.parameters = { controls: { disable: true } };
 SpotlightWithImage.decorators = [(story: () => unknown) => html` <div style="width: 600px;">${story()}</div>`];
 
 export const SpotlightWithSubtitle = () => html`
@@ -138,4 +131,3 @@ export const SpotlightWithSubtitle = () => html`
     </vl-spotlight>
 `;
 SpotlightWithSubtitle.storyName = 'vl-spotlight - with subtitle';
-SpotlightWithSubtitle.parameters = { controls: { disable: true } };

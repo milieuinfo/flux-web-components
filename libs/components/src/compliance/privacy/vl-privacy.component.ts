@@ -1,5 +1,12 @@
 import { BaseLitElement, registerWebComponents } from '@domg-wc/common';
-import { vlContentBlockStyles, vlGridStyles, vlLegacyStyles, vlSectionStyles, vlStackedStyles } from '@domg-wc/styles';
+import {
+    vlContentBlockStyles,
+    vlGridStyles,
+    vlLegacyStyles,
+    vlResetStyles,
+    vlSectionStyles,
+    vlStackedStyles,
+} from '@domg-wc/styles';
 import { CSSResult, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { VlTitleComponent } from '../../atom';
@@ -45,7 +52,7 @@ export class VlPrivacy extends BaseLitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [vlLegacyStyles, vlGridStyles, vlContentBlockStyles, vlSectionStyles, vlStackedStyles];
+        return [vlResetStyles, vlLegacyStyles, vlGridStyles, vlContentBlockStyles, vlSectionStyles, vlStackedStyles];
     }
 
     static get properties() {
