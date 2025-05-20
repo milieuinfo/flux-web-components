@@ -1,12 +1,11 @@
 import {Meta} from '@storybook/blocks';
 
-<Meta title="Afnemen/Migratie FAQ"/>
+<Meta title="Afnemen/Migratie v2 - FAQ"/>
 
-# Migratie Troubleshooting
+# Migratie v2 - FAQ
 
-## Mogelijkse problemen
-
-### Kan ik direct importeren of moet ik de registerWebComponents functie gebruiken?
+<br/>
+## Kan ik direct importeren of moet ik de registerWebComponents functie gebruiken?
 
 **Antwoord:** Beide methoden worden ondersteund:
 
@@ -23,7 +22,9 @@ import {Meta} from '@storybook/blocks';
 
 De expliciete registratie wordt aangeraden om tree-shaking te optimaliseren en alleen de benodigde componenten te laden.
 
-### blijft de fat-js bundel beschikbaar?
+
+<br/>
+## Blijft de fat-js bundel beschikbaar?
 
 **Antwoord:** De fat-js bundel blijft beschikbaar voor legacy toepassingen. In v2 is deze aangepast om de nieuwe componentimplementaties te gebruiken, maar de API blijft grotendeels hetzelfde. Je kunt deze gebruiken via de CDN:
 
@@ -33,7 +34,9 @@ De expliciete registratie wordt aangeraden om tree-shaking te optimaliseren en a
 
 Echter, voor nieuwe projecten wordt het aangeraden om de npm-packages te gebruiken in plaats van de fat-js bundel.
 
-### Event listeners werken niet meer
+
+<br/>
+## De event listeners werken niet meer.
 
 **Probleem:** Event listeners die luisteren naar v1 events zoals `vl-checked`, `vl-input` of `vl-select` werken niet meer.
 
@@ -56,7 +59,9 @@ radio.addEventListener('vl-change', (event) => { console.log('bij elke wijziging
 radio.addEventListener('vl-input', (event) => { console.log('enkel bij gebruikersinteractie') });
 ```
 
-### Attributen-wijzigingen
+
+<br/>
+## Attributen-wijzigingen
 
 **Probleem:** Sommige attributen zijn gewijzigd van naam of format.
 

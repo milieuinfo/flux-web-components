@@ -14,7 +14,7 @@ import {Meta} from '@storybook/addon-docs';
 
 Code formattering gebeurt m.b.v. Prettier, de configuratie bevindt zich op root niveau in het `.prettierrc` bestand.
 
-In <ins>IntelliJ</ins> kan je Prettier configureren door te gaan naar `Preferences > Languages & Frameworks > Prettier` <br/>
+In <ins>IntelliJ</ins> kan je Prettier configureren onder `Preferences > Languages & Frameworks > Prettier` <br/>
 &nbsp;&nbsp;-> zorg dat `Prettier package` verwijst naar de juiste `node_modules/prettier` folder <br/>
 &nbsp;&nbsp;-> vink beide vinkjes aan zodat Prettier wordt toegepast zowel bij expliciet formatteren als bij bewaren <br/>
 &nbsp;&nbsp;-> 'Run for files' kan je configureren als `{**/*,*}.{js,mjs,ts,jsx,tsx}`
@@ -37,32 +37,28 @@ zoals een toepassing waar een nieuwe release de vorige versie volledig vervangt!
        zijn)
 - op termijn zullen er backwards incompatibele wijzigingen gebeuren, dat zal via major releases gebeuren die duidelijk
   gecommuniceerd en gedocumenteerd worden
-- major releases worden gestuurd door ontwikkeling van het UIG-team, andere teams die bijdragen moeten steeds backwards
+- major releases worden gestuurd door ontwikkeling van het Flux-team, andere teams die bijdragen moeten steeds backwards
   compatibele code schrijven - refactorings in bestaande code zijn niet toegestaan voor hen
 - toevoegingen zijn minder strikt, maar behoud de geest van de bestaande code (typisch het bestand in kwestie)
 - een hoofddoel is consistentie te verkrijgen, een nieuwe aanpak introduceren kan enkel na overleg
 
 ### Web-Componenten
 
-Voor de feitelijke code van de web-componenten zijn er nog geen eenduidige richtlijnen of conventies. Momenteel zijn er
-2 basis klasses: BaseElement of LitElement. Op termijn willen we van alles LitElementen maken, wat als gevolg zal
-hebben dat alles via een custom-tag gebruikt moet worden - dit introduceert echter incompatibiliteit, wat momenteel
-vermeden moet worden!
+Voor de feitelijke code van de web-componenten zijn richtlijnen en conventies, deze zijn echter niet in steen
+gebeiteld! Momenteel zijn er 2 basis klasses: BaseElement en BaseLitElement. Op termijn zal alles extenden van
+BaseLitElement, BaseElement wordt weggewerkt.
 
-De best practices zien er momenteel daarom als volgt uit:
-1. kijk onder [Afnemen / Artifacts](/docs/afnemen-artifacts--documentatie) naar de verschillen tussen elementen en
-   componenten en schrijf je web-component conform
-2. voor nieuwe componenten is het doel ze ineens als LitElement te implementeren
-3. nieuwe elementen (best te vermijden, een component heeft de voorkeur) kunnen technisch enkel als een BaseElement
+De best practices zijn gedocumenteerd onder [Afnemen / Artifacts](/docs/afnemen-artifacts--documentatie), nieuwe
+componenten moeten ineens als BaseLitElement geïmplementeerd worden.
 
 ### Typescript
 
-We streven ernaar de componenten bibliotheek zo goed als mogelijk te typeren om bugs te vermijden en met meer vertrouwen
+De componenten bibliotheek wordt zo goed als mogelijk getypeerd om bugs te vermijden en met meer vertrouwen
 refactorings te kunnen doorvoeren. De huidige typering is beperkt, het is vaak JavaScript met minimale typing
-toevoegingen. We streven ernaar dit stelselmatig te verbeteren - extra typing toevoegen mag dus!
+toevoegingen. Dit wordt stelselmatig verbeterd - extra typing toevoegen mag dus!
 
 > Opgelet 1: typing toevoeging is letterlijk de JavaScript code laten zoals ze is en enkel typing toevoegen, dus
-geen code wijzigingen doorvoeren om te kunnen typen
+geen code wijzigingen doorvoeren om te kunnen typen!
 
 > Opgelet 2: aanpassingen of verbeteringen dienen steeds te gebeuren met backwards-compatibiliteit in het achterhoofd
 bvb. iets dat niet geïnitialiseerd was nu ineens initialiseren is een risico (falsy-rules in combinatie met

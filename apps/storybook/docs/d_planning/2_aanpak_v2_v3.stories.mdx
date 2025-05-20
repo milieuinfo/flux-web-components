@@ -1,8 +1,8 @@
 import {Meta} from '@storybook/blocks';
 
-<Meta title="Planning/Aanpak v2 [2024] & v3 [2025]"/>
+<Meta title="Planning/Aanpak v2, v3, ..."/>
 
-# Aanpak v2 & v3
+# Aanpak v2, v3, ...
 
 ## Inhoudstafel
 
@@ -11,6 +11,7 @@ import {Meta} from '@storybook/blocks';
 - [Next Conventies](#next-conventies)
 - [v2 vs. v3](#v2-vs-v3)
 - [v2 Release](#v2-release)
+- [v3 Release](#v3-release)
 
 
 ## Waarom v2
@@ -22,7 +23,7 @@ Dit had een aantal gevolgen:
 ### Element complicatie
 
 Componenten zoals de DV [vl-ui-button](https://overheid.vlaanderen.be/webuniversum/v3/documentation/atoms/vl-ui-button)
-moeten als een uitbreiding op een native button geïmplementeerd worden. De UIG web component moet dus extenden van
+moeten als een uitbreiding op een native button geïmplementeerd worden. De Flux web-component moet dus extenden van
 HTMLButtonElement. De rede is dat de scss van DV enkel werkt op een `button` tag, een custom component maken met als
 tag `vl-button` werkt niet (de css die DV voorziet is daarvoor niet correct). Er was wel de mogelijkheid geweest om de
 component te schrijven als wrapper: een `vl-button` die dan daarin een `button` rendert, maar die keuze is toen niet
@@ -34,7 +35,7 @@ Die keuze, om dus de vl-button als een uitbreiding op een button te implementere
   [https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is)
 - Safari gaat dit nooit ondersteunen, we moeten de polyfill `@ungap/custom-elements` voorzien om dat in Safari te
   ondersteunen
-- bestaande web component frameworks: bvb. [Lit](https://lit.dev/) en [Stencil](https://stenciljs.com/docs/introduction)
+- bestaande web-component frameworks: bvb. [Lit](https://lit.dev/) en [Stencil](https://stenciljs.com/docs/introduction)
   ondersteunen het niet; overal LitElement (om consistent te zijn) als basis klasse gebruiken kan dus niet
 - omdat op die manier - aan native elementen - extra attributen toegevoegd worden door de implementatie, en om
   tegelijkertijd aan de HTML5 standaard te voldoen, is er gekozen de nieuwe attributen te prefixen met 'data-'; dit is
@@ -59,7 +60,7 @@ volgende gevolgen:
 - er zijn rechten issues: omdat die JavaScript code een mix is van DV- en externe code weten we de bron en
   de versie niet, we kunnen dus niet controleren of de licentie van die code wel toestaat dat we ze overnemen
 - de eigen DV-lifecycle is niet eenduidig en dus moeilijk correct te laten samen werken met de
-  [web components lifecycle](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements#custom_element_lifecycle_callbacks)
+  [web-components lifecycle](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements#custom_element_lifecycle_callbacks)
   of de [Lit lifecycle](https://lit.dev/docs/components/lifecycle/)
 
 
@@ -74,7 +75,7 @@ nesting, ... . Dit heeft wel gevolgen bij ons:
 - Lit - wat we als uniforme basis nemen - ondersteunt geen scss
 - de fragmentatie door DV van de scss is niet goed om web componenten te schrijven: bij normaal gebruik wordt alle scss
   nodig voor een website op 1 plaats geïmporteerd, op die manier krijg je minimale duplicatie.
-  Web componenten zijn echter self contained, elke component bevat alles wat hij nodig heeft, het gevolg is dat we
+  Web-componenten zijn echter self contained, elke component bevat alles wat hij nodig heeft, het gevolg is dat we
   in elke component alle 'gedeelde' css krijgen, daarin zit vaak overbodige css (voor die component)
   en over componenten heen is er nodeloze duplicatie.
 
@@ -82,7 +83,7 @@ nesting, ... . Dit heeft wel gevolgen bij ons:
 ## Waarom 'Next' Componenten
 
 Om de componenten af te nemen, maar ook om ze te implementeren, is eenduidigheid belangrijk. We proberen de
-UIG-componenten zo backwards compatibel als mogelijk te laten evolueren. Echter, om alles eenduidig te maken,
+Flux-componenten zo backwards compatibel als mogelijk te laten evolueren. Echter, om alles eenduidig te maken,
 zullen we backwards incompatibele wijzigingen moeten doorvoeren.
 
 Op zich zouden we dat kunnen doen door een fork te maken van de huidige code en in die fork aan een v2 release te
@@ -96,7 +97,7 @@ werken. Op die manier werken leek ons niet realistisch:
 
 Vandaar hebben we er dus voor gekozen om 'next'-componenten te introduceren. We laten de huidige versie van een
 component bestaan en verder evolueren. Een nieuwe versie implementeren we in de huidige codebase en geven we
-een nieuwe tag door deze te suffixen met ''.
+een nieuwe tag door deze te suffixen met '-next'.
 
 **opmerking 1:** We hebben bekeken of we dezelfde tag zouden kunnen gebruiken voor de oude en de nieuwe component,
 dan zou het afhangen van de import welke component je gebruikt.
@@ -119,12 +120,12 @@ Volgende keuzes zijn gemaakt om door te voeren in de 'next'-componenten. Hierdoo
 componenten. Bij de feitelijke v2 release zullen we de andere componenten in lijn brengen (ook bij deze de next
 conventies doorvoeren).
 
-- een component heeft een custom tag die begint met 'vl-' (*)
+- een component heeft een custom tag die begint met 'vl-'
 - een component extend altijd van LitElement (en heeft daardoor de Lit-lifecycle)
 - css wordt geschreven als css-in-ts en aangeboden als css-in-js; we voorzien mixins als JavaScript methodes en
   gebruiken standaard css variabelen
 - styling wordt aangeboden als css, pure styling wordt niet meer als element of component aangeboden maar gewoon als
-  css die je via het `class=` attribuut moet gebruiken (**)
+  css die je via het `class=` attribuut moet gebruiken
 - het 'element' concept verdwijnt, componenten die een native element extenden (dus met het `is=` attribuut gebruikt
   moeten worden) worden stelselmatig weggewerkt:
     * het element wordt in de next-variant een component
@@ -139,32 +140,37 @@ conventies doorvoeren).
 In v2 zullen er nog:
 
 - componenten zijn die extenden van BaseElementOfType
-- is de map nog niet volledig conform de nieuwe conventies
-- is er nog legacy code (in de common-legacy package)
+- is de map nog niet conform de nieuwe conventies
+- is er nog legacy code
 
-In versie 3 zal de volledige codebase consistent zijn en wordt alle legacy code geschrapt (common-legacy wordt
-verwijderd).
+In versie 3 (hopelijk) zal de volledige codebase consistent zijn en wordt alle legacy code geschrapt .
 
 
 ## v2 Release
 
-Zolang we in v1 zitten komen er nieuwe 'next' componenten bij (zie
-[[2024] van v1 naar v2 -beschikbaar](/docs/planning-2024-van-v1-naar-v2-beschikbaar--documentatie)), reeds
-geïmplementeerde 'next' componenten kunnen nog wijzigen daar ze niet finaal zijn. De bestaande componenten blijven
-zoals ze geschreven zijn, hun API wijzigt niet.
+Zolang we in v1 zaten kwamen er nieuwe 'next' componenten bij (zie
+[Migratie v2 - Impact](http://localhost:8080/?path=/docs/afnemen-migratie-v2-impact--documentatie)). De bestaande
+componenten bleven zoals ze geschreven waren, hun API wijzigde niet.
 
-Bij de v2 release doen we het volgende:
+Bij de v2 release deden we het volgende:
 
-- als er een oude en een nieuwe variant is van dezelfde component wordt de oude geschrapt en bij de nieuwe wordt
-  de `` suffix verwijderd - de nieuwe vervangt dus de oude; hierdoor is de component niet backwards
+- als er een oude en een nieuwe variant was van dezelfde component werd de oude geschrapt en bij de nieuwe werd
+  de `-next` suffix verwijderd - de nieuwe vervangt dus de oude; hierdoor is de component niet backwards
   compatibel
-- bij de componenten die behouden blijven schrappen we de `data-` prefix, zodat er in v2 nergens nog attributen zijn
+- bij de componenten die behouden bleven schrappen we de `data-` prefix, zodat er in v2 nergens nog attributen zijn
   die die conventie volgen
 
-**opmerking 1**: alle componenten die in release v2 zitten zullen ook in de laatste v1 release zitten, er zullen
+**opmerking 1**: alle componenten die in release v2 zitten zitten ook in de laatste v1 release, er zullen
 er echter minder in v2 zitten (de oude worden geschrapt) en ze zullen anders gebruikt moeten worden - de `button`
 bvb. moet je niet meer gebruiken m.b.v. `is="vl-button"` maar met de `vl-button` tag
 
 **opmerking 2**: in v2.0.0 zitten geen next-componenten meer, maar vanaf v2.1.0 kunnen er nieuwe next-componenten
 komen, deze volgen dan dezelfde conventie: in v3 zullen deze de oude v2 versie vervangen - het doel is wel om dit te
 beperken tot de 'map' componenten
+
+
+## v3 Release
+
+Net zoals we via minor en patch releases v1 hebben uitgebreid en laten evolueren zullen we dat met v2 doen. Op een
+bepaald moment zullen we terug een opkuis actie willen doen die dan zal resulteren in een v3 release. Een concrete
+datum of feature-set voor v3 is er nog niet.

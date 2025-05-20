@@ -25,9 +25,10 @@ Ontwikkelteams (ApoCow, Decibel, Phoenix, ...) kunnen bijdrages leveren m.b.v. d
 ### Feature Branches
 
 Jira tickets worden opgenomen en uitgevoerd in een aparte feature-branch. De conventie voor de branch naam is
-__feature/JIRA-123-sleutel-woorden__. Als het UIG team bvb. ticket UIG-2322 opneemt met als titel
-'uigov-cdn-assets voorzien met tinyMCE theming en publiceren op artifactory' dan gebeurt dat in een branch met bvb. de
-naam __feature/UIG-2322-tinymce-cdn__. De feature branch is tijdelijk en bij voorkeur / meestal enkel voor eigen
+__feature/JIRA-123-sleutel-woorden__. Als het Flux team bvb. ticket FLUX-2322 opneemt met als titel
+'cdn-assets voorzien met tinyMCE theming en publiceren op artifactory' dan gebeurt dat in een branch met bvb. de
+naam __feature/FLUX-2322-tinymce-cdn__. De feature branch is tijdelijk en bij voorkeur / meestal enkel voor eigen
+gebruik. Het ticket nummer moet in de naam staan, de sleutelwoorden geven een indicatie van wat het inhoud. Vermijdt
 gebruik. Het ticket nummer moet in de naam staan, de sleutelwoorden geven een indicatie van wat het inhoud. Vermijdt
 er een ge-hyphende zin van te maken!
 
@@ -37,7 +38,7 @@ Voor [releases](/docs/beheren-ci-cd--documentatie) wordt
 [semantic-release](https://github.com/semantic-release/semantic-release) gebruikt, dat steunt op commit
 boodschappen die de [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) specificatie volgen.
 
-De commits dienen bij ons volgende structuur te hebben, waarbij __type__ typisch 'fix' of 'feat' is.
+Commits dienen volgende structuur te hebben, waarbij __type__ typisch 'fix' of 'feat' is.
 
 ```
 <type>: <ticket-nummer> - <component> - <korte beschrijving>
@@ -48,7 +49,7 @@ De commits dienen bij ons volgende structuur te hebben, waarbij __type__ typisch
 In het voorbeeld van hierboven zet je dus als commit boodschap:
 
 ```
-feat: UIG-2322 - op de CDN de TinyMCE theming publiceren
+feat: FLUX-2322 - op de CDN de TinyMCE theming publiceren
 
 de theming van TinyMCE wordt gepubliceerd in een artefact @domg-cdn/tinymce-theming
 het infra-team breidt hun scripts uit zodat de code uit de artefact op de CDN gezet wordt
@@ -103,25 +104,25 @@ feature branch geslaagd te zijn! Indien dit in orde is kan je de PR lanceren t.o
 hij de branch kan inmergen via een fast-forward, indien dit niet kan dien je eerst te rebasen tov develop en te
 force-pushen.
 
-Nadat de PR is ingediend wordt de code ge-reviewed door iemand van het UIG-team, na integratie wordt de feature-branch
+Nadat de PR is ingediend wordt de code ge-reviewed door iemand van het Flux-team, na integratie wordt de feature-branch
 verwijderd!
 
 
 ### PR Code Reviews
 
 Reviews mogen (op uitnodiging) ook door team-genoten gebeuren, om de code echter in develop te krijgen dienen er 2
-approvals te zijn van het UIG-team. Wij (Kris Speltincx, Kristof Spaas en Karim Dehbi) zijn in de verschillende repo's
+approvals te zijn van het Flux-team. Wij (Kris Speltincx, Koen Buckinx en Karim Dehbi) zijn in de verschillende repo's
 gespecifieerd als code-owners.
 
-In GitHub staat de vlag ook op dat approvals vervallen bij een nieuwe commit. Je dient dus ge-squashed te hebben en
+In GitHub staat de vlag op dat approvals vervallen bij een nieuwe commit. Je dient dus ge-squashed te hebben en
 een correcte commit boodschap te voorzien alvorens we approven, ook de build op Bamboo moet gelukt zijn. Omdat
 integratie tussen Bamboo en GitHub op dit vlak niet mogelijk is vragen we dat de indiener in de PR de Bamboo-build-link
-van de branch vermeld, approvers kunnen dan snel verifieren dat de build in orde is.
+van de branch vermeld, approvers kunnen dan snel verifiëren dat de build in orde is.
 
 
 ## Team Branching Strategie
 
-Artefacts worden enkel gebouwd voor de develop en release branches.
+Artifacts worden enkel gebouwd voor develop en release branches.
 
 Teams die ontwikkeling doen aan de component bibliotheek doen dat meestal in de context van aanpassingen voor een
 concrete eindtoepassing. Vaak is dat werk experimenteler van aard, je kan daarvoor ook snapshot-artifacts genereren zodat

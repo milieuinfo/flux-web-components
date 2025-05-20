@@ -1,1 +1,158 @@
-{}
+{
+    "components-atom-button": {
+        "vStatus": "v2"
+    },
+    "components-atom-heading-style": {
+        "vStatus": "v2-style-atom"
+    },
+    "components-atom-icon": {
+        "vStatus": "v2"
+    },
+    "components-atom-icon-style": {
+        "vStatus": "v2-style-atom"
+    },
+    "components-atom-link": {
+        "vStatus": "v2"
+    },
+    "components-atom-link-style": {
+        "vStatus": "v2-style-atom"
+    },
+    "components-atom-paragraph": {
+        "vStatus": "v2"
+    },
+    "components-atom-paragraph-style": {
+        "vStatus": "v2-style-atom"
+    },
+    "components-atom-text": {
+        "vStatus": "v2"
+    },
+    "components-atom-title": {
+        "vStatus": "v2"
+    },
+    "components-block-doormat": {
+        "vStatus": "v2"
+    },
+    "components-block-http-error-message": {
+        "vStatus": "v2"
+    },
+    "components-block-infotext": {
+        "vStatus": "v2"
+    },
+    "components-block-properties": {
+        "vStatus": "v2"
+    },
+    "components-block-search-filter": {
+        "vStatus": "v2"
+    },
+    "components-block-search-result": {
+        "vStatus": "v2"
+    },
+    "components-block-side-navigation": {
+        "vStatus": "v2"
+    },
+    "components-block-steps-step": {
+        "vStatus": "v2"
+    },
+    "components-block-steps-steps": {
+        "vStatus": "v2"
+    },
+    "components-block-table": {
+        "vStatus": "v2"
+    },
+    "components-block-tabs-tabs": {
+        "vStatus": "v2"
+    },
+    "components-block-tabs-tabs-pane": {
+        "vStatus": "v2"
+    },
+    "components-block-title": {
+        "vStatus": "v2"
+    },
+    "components-block-toaster": {
+        "vStatus": "v2"
+    },
+    "components-block-player": {
+        "vStatus": "v2"
+    },
+    "components-form-checkbox": {
+        "vStatus": "v2"
+    },
+    "components-form-datepicker": {
+        "vStatus": "v2"
+    },
+    "components-form-input-field": {
+        "vStatus": "v2"
+    },
+    "components-form-input-field-masked": {
+        "vStatus": "v2"
+    },
+    "components-form-input-group": {
+        "vStatus": "v2"
+    },
+    "components-form-form-label": {
+        "vStatus": "v2"
+    },
+    "components-form-form-message": {
+        "vStatus": "v2"
+    },
+    "components-form-radio-group": {
+        "vStatus": "v2"
+    },
+    "components-form-select": {
+        "vStatus": "v2"
+    },
+    "components-form-select-rich": {
+        "vStatus": "v2"
+    },
+    "components-form-textarea": {
+        "vStatus": "v2"
+    },
+    "components-form-textarea-rich": {
+        "vStatus": "v2"
+    },
+    "components-form-upload": {
+        "vStatus": "v2"
+    },
+    "map-select-location": {
+        "vStatus": "v2"
+    },
+    "styles-base-body": {
+        "vStatus": "v2-style-base"
+    },
+    "styles-base-font": {
+        "vStatus": "v2-style-base"
+    },
+    "styles-base-mixin": {
+        "vStatus": "v2-style-base"
+    },
+    "styles-base-var": {
+        "vStatus": "v2-style-base"
+    },
+    "styles-layout-afnemers-content-block": {
+        "vStatus": "v2-style-layout"
+    },
+    "styles-layout-afnemers-grid": {
+        "vStatus": "v2-style-layout"
+    },
+    "styles-layout-afnemers-group": {
+        "vStatus": "v2-style-layout"
+    },
+    "styles-layout-afnemers-margin": {
+        "vStatus": "v2-style-layout"
+    },
+    "styles-layout-afnemers-padding": {
+        "vStatus": "v2-style-layout"
+    },
+    "styles-layout-afnemers-section": {
+        "vStatus": "v2-style-layout"
+    },
+    "styles-layout-afnemers-separator": {
+        "vStatus": "v2-style-layout"
+    },
+    "styles-layout-afnemers-spacer": {
+        "vStatus": "v2-style-layout"
+    },
+    "styles-layout-afnemers-stacked": {
+        "vStatus": "v2-style-layout"
+    }
+}

@@ -14,7 +14,7 @@ export const FluxHeader = ({ of }) => {
 
 const formatTitle = (title: string): string => {
     let endPart = title.split('/').pop() ?? '';
-    const isNext = title.includes('');
+    const isNext = title.includes('-next');
     endPart = endPart
         .split('-')
         .map((text) => text.charAt(0).toUpperCase() + text.slice(1))
