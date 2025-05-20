@@ -283,4 +283,98 @@ export const vlSideNavigationStyles: CSSResult = css`
             display: none !important;
         }
     }
+
+    @keyframes side-navigation-transition {
+        0% {
+            display: none;
+            transform: translateX(-10px);
+        }
+        1% {
+            display: block;
+            transform: translateX(-10px);
+        }
+        100% {
+            display: block;
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    .js-vl-scrollspy-placeholder {
+        display: none;
+        position: fixed;
+        top: auto;
+        bottom: 1.5rem;
+        left: 1.5rem;
+        width: calc(100% - 3rem);
+        outline: none;
+        z-index: 4;
+    }
+    @media screen and (max-width: ${vlMediaScreenSmall}px) {
+        .js-vl-scrollspy-placeholder {
+            height: auto;
+        }
+    }
+    .js-vl-scrollspy-placeholder.js-vl-scrollspy-mobile--active {
+        display: block;
+    }
+
+    .js-vl-scrollspy__close {
+        position: absolute;
+        top: -1.8rem;
+        right: 0;
+        left: 0;
+        width: 3rem;
+        height: 3rem;
+        margin: auto;
+        border: 0;
+        border-radius: 3rem;
+        background-color: #05c;
+        color: #fff;
+        font-size: 0;
+        cursor: pointer;
+        z-index: 5;
+    }
+    .js-vl-scrollspy__close::before,
+    .js-vl-scrollspy__close::after {
+        font-family: 'vlaanderen-icon' !important;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-style: normal;
+        font-variant: normal;
+        font-weight: normal;
+        text-decoration: none;
+        text-transform: none;
+    }
+    .js-vl-scrollspy__close::before {
+        content: '\\f181';
+    }
+    .js-vl-scrollspy__close::before {
+        font-size: 1.2rem;
+        line-height: 2.6rem;
+    }
+    .js-vl-scrollspy__close:focus {
+        outline: thin dotted;
+    }
+
+    .js-vl-sticky {
+        position: relative;
+        transform: translate3d(0, 0, 0);
+        will-change: position, transform;
+        z-index: 2;
+    }
+    .js-vl-sticky--viewport-top,
+    .js-vl-sticky--viewport-bottom {
+        position: fixed;
+    }
+    .js-vl-sticky--container-bottom,
+    .js-vl-sticky--viewport-unbottom {
+        position: relative;
+    }
+
+    .js-vl-sticky--placeholder {
+        position: relative;
+        width: 100%;
+        will-change: min-height;
+    }
 `;
