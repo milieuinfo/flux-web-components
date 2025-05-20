@@ -20,5 +20,15 @@ export const vlContentBlockStyles = css`
             min-width: 0;
             padding: 0 var(--vl-spacing--small);
         }
+
+        &.vl-content-block--full-width {
+            --vl-page--max-width-wide: 100%;
+        }
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
     }
 `;

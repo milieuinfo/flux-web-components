@@ -15,6 +15,7 @@
             "@domg-wc/integrations/form": ["libs/integrations/src/form/index.ts"],
             "@domg-wc/integrations/map": ["libs/integrations/src/map/index.ts"],
             "@domg-wc/integrations/popover": ["libs/integrations/src/popover/index.ts"],
+            "@domg-wc/integrations/page-layout": ["libs/integrations/src/page-layout/index.ts"],
             "@domg-wc/map": ["libs/map/src/index.ts"],
             "@domg-wc/styles": ["libs/styles/src/index.ts"]
         },
