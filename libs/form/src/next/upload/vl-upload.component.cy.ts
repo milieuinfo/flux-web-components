@@ -1,5 +1,5 @@
-import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common-utilities';
+import { html } from 'lit';
 import { VlUploadComponent } from './vl-upload.component';
 
 registerWebComponents([VlUploadComponent]);
@@ -98,6 +98,18 @@ describe('component - vl-upload-next', () => {
         cy.get('vl-upload-next').then((vlUploadQuery) => {
             // @ts-expect-error private access toelaten
             expect(vlUploadQuery[0].dropzoneInstance.options.parallelUploads).to.equal(3);
+        });
+    });
+
+    it('should set chunking', () => {
+        cy.mount(html` <vl-upload-next chunking></vl-upload-next>`);
+
+        cy.createStubForEvent('vl-upload-next', 'vl-initialised');
+        cy.get('@vl-initialised').its('callCount').should('eq', 1);
+        cy.get('vl-upload-next').should('have.attr', 'chunking');
+        cy.get('vl-upload-next').then((vlUploadQuery) => {
+            // @ts-expect-error private access toelaten
+            expect(vlUploadQuery[0].dropzoneInstance.options.chunking).to.equal(true);
         });
     });
 
@@ -270,12 +282,7 @@ describe('component - vl-upload-next', () => {
     it('should generate error when adding a file with the wrong extension', () => {
         const errorMessage = 'Dit bestandstype is niet toegestaan';
         cy.mount(
-            html`
-                <vl-upload-next
-                    accepted-files="txt"
-                    error-message-accepted-files=${errorMessage}
-                ></vl-upload-next>
-            `
+            html` <vl-upload-next accepted-files="txt" error-message-accepted-files=${errorMessage}></vl-upload-next> `
         );
 
         cy.get('vl-upload-next').shadow().find('input[type=file]').selectFile(pdfFileFixturePath, { force: true });
@@ -526,4 +533,3 @@ const shouldRemoveAllFilesProgrammatically = (): void => {
         uploadComponent.removeAllFiles();
     });
 };
-

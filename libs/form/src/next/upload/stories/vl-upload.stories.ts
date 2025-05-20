@@ -37,6 +37,7 @@ export const UploadDefault = story(
         disallowDuplicates,
         maxSize,
         maxFiles,
+        chunking,
         parallelUploads,
         autoProcess,
         acceptedFiles,
@@ -82,6 +83,7 @@ export const UploadDefault = story(
                 accepted-files=${acceptedFiles}
                 max-size=${maxSize}
                 max-files=${maxFiles}
+                chunking=${chunking}
                 parallel-uploads=${parallelUploads}
                 url=${url}
                 sub-title=${subtitleComposed}
