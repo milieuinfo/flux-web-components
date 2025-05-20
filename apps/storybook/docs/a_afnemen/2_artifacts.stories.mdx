@@ -19,11 +19,13 @@ import {Meta} from '@storybook/blocks';
 
 Alle web-componenten van Departement Omgeving zijn beschikbaar via npm artifacts onder de npm scope `@domg-wc`;
 __common__ bevat technische code, __styles__ alle styling en layouts die op het document gezet worden,
-__components__ en __map__ bevatten de web-componenten. De web-componenten zijn ook beschikbaar via de CDN, zie
-['fat-lib: domg-wc-compliance'](#fat-lib-domg-wc-compliance).
+__components__ en __map__ bevatten de web-componenten. De web-componenten nodig voor legacy toepassingen zijn ook
+beschikbaar via de CDN, zie ['fat-lib: domg-wc-compliance'](#fat-lib-domg-wc-compliance).
 
-> **⚠ Waarschuwing**: er is een elements / components concept gedefinieerd, dit is een streefdoel, de huidige code
-volgt dit concept in grote lijnen maar niet volledig. Afwijkingen komen voor!
+
+## @domg-wc/styles
+
+__styles__ bevat basis css: zowel de css die globaal op het document gezet wordt als de layout specifiek css
 
 
 ## @domg-wc/common
@@ -31,31 +33,26 @@ volgt dit concept in grote lijnen maar niet volledig. Afwijkingen komen voor!
 __common__ is een technische bibliotheek met basis code en utilities
 
 
-## @domg-wc/components/block
+## @domg-wc/components
 
 Historisch werd een __component__ geïmplementeerd als een `BaseElement`: een eigen basis klasse beschikbaar in
 @domg-wc/common via de methode `BaseElementOfType`. Nieuwere componenten worden geïmplementeerd m.b.v.
-[LitElement](https://lit.dev/docs/api/LitElement/); het doel op (lange) termijn is van alles (ook van de compliance en map) LitElementen te maken.
+[LitElement](https://lit.dev/docs/api/LitElement/); het doel op (lange) termijn is van alles (ook van de compliance
+ en map) LitElementen te maken.
 
 Een __component__ heeft technisch volgende eigenschappen:
 
 - extends van BaseElement of van LitElement
-- dus steeds te gebruiken als custom tag; bvb. `<vl-breadcrumb></vl-breadcrumb>`
+- steeds te gebruiken als custom tag; bvb. `<vl-breadcrumb></vl-breadcrumb>`
 - heeft __steeds__ een shadow DOM
 - de styling komt mee met de component (wordt geïnjecteerd in de shadow DOM)
-- element styling wordt waar nodig voorzien in de shadow DOM
 
+De componenten zijn onderverdeeld in 4 soorten:
 
-## @domg-wc/components/form
-
-Bevat form-gerelateerde web-componenten.
-
-
-## @domg-wc/components/compliance
-
-Onder __components/compliance__ zitten web-componenten specifiek voor Departement Omgeving. Het zijn geen bouwstenen
-zoals de andere __componenten__. Volgende componenten zitten hieronder: __vl-header__, __vl-footer__,
-__vl-accessibility__, __vl-cookie-consent__, __vl-cookie-consent-opt-in__, __vl-cookie-statement__ en __vl-privacy__.
+- __atom__ : kleine, native componenten, o.a. button, icon, link, ...
+- __block__ : de typische bouwstenen met middelmatige complexiteit,  o.a. accordion, alert, ...
+- __compliance__ : bevat de Departement Omgeving specifieke componenten; o.a. header, footer, privacy, ...
+- __form__ : de input componenten; typisch in een formulier te gebruiken
 
 
 ## @domg-wc/map

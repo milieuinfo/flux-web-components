@@ -45,11 +45,8 @@ tot de artifactory van Departement Omgeving! Om node versie problemen te vermijd
         "typescript": "5.4.2"
     },
     "dependencies": {
-        "@domg-wc/common": "2.0.0",
-        "@domg-wc/components/block": "2.0.0",
-        "@domg-wc/components/form": "2.0.0",
-        "@domg-wc/components/compliance": "2.0.0",
-        "@domg-wc/map": "2.0.0",
+        "@domg-wc/components": "2.0.0",
+        "@domg-wc/map": "2.0.0"
     },
     "volta": {
         "node": "20.11.0"
@@ -57,15 +54,13 @@ tot de artifactory van Departement Omgeving! Om node versie problemen te vermijd
 }
 ```
 
-> De minimaal op te nemen packages om componenten af te nemen zijn: __'@domg-wc/common'__
- en __'@domg-wc/components/block'__. De __'@domg-wc/components/compliance'__ zal typisch ook opgenomen worden
-omdat de header en footer component verplicht zijn in een Departement Omgeving toepassing. De __'@domg-wc/map'__
-bevat de kaart functionaliteit en zal dus niet in alle gevallen nodig zijn.
+> De minimaal op te nemen package is: __'@domg-wc/components'__, de package __'@domg-wc/map'__ bevat de kaart
+  functionaliteit en is optioneel.
 
 
 ## Registratie van een web-component
 
-Alvorens je een web-component kan gebruiken in je html dient hij geregistreerd te worden in de browser. Er zijn 2
+Om een web-component te gebruiken in je html dient hij geregistreerd te worden in de browser. Er zijn 2
 manieren om dat te doen:
 
 ```
@@ -89,8 +84,8 @@ in dit geval.
 ## Styling
 
 Als afnemer dien je niets te doen m.b.t. styling. Componenten met een shadow DOM injecteren hun eigen styling in de
-shadow DOM. Elementen zonder shadow DOM vereisen dat hun css geïnjecteerd wordt in het document, sinds v1.17.0
-zorgen de elementen daar zelf voor.
+shadow DOM. Daarnaast wordt er globale styling geïnjecteerd: algemene (font, body, ...) en layout (grid, group, ...)
+styling.
 
 Bij eigen ontwikkelde componenten (met een shadow DOM) is er in de shadow DOM geen specifieke flux-css (de globale css
 voor componenten zonder shadow DOM), je dient die dan zelf (indien nodig voor kind componenten) te injecteren.
@@ -100,7 +95,7 @@ Meer info hierover vind je onder [eigen componenten met shadow DOM](/docs/recept
 ## Documentatie
 
 Technische documentatie is te vinden in deze Storybook waarvan de nieuwste versie terug te vinden is onder
-[uigov-builds](https://milieuinfo.github.io/uigov-builds/release/latest/storybook)
+[uigov-builds](https://milieuinfo.github.io/uigov-builds/release-v2/latest/storybook)
 
 De Storybook documentatie wordt bij elke release verbeterd en aangevuld. Per component vind je onder de
 'documentatie'-node detail informatie, daaronder wordt typisch het volgende vermeld:

@@ -1,6 +1,6 @@
 export interface FluxMetaDataModel {
     vStatus: string;
     legacyText: string;
-    nextText: string;
+    v2Text: string;
     planningInfo: string;
 }
