@@ -17,15 +17,8 @@ import { vlSeparatorStyles } from './layout/separator/vl-separator.css';
 import { vlSpacerStyles } from './layout/spacer/vl-spacer.css';
 import { vlStackedStyles } from './layout/stacked/vl-stacked.css';
 
-export const globalStyles = [
-    vlGeneralVars,
-    vlColorVars,
-    vlSpacingVars,
-    vlTypographyVars,
-    vlZLayerVars,
+export const layoutStyles = [
     vlAccessibilityStyles,
-    vlFontStyles,
-    vlBodyStyles,
     vlSectionStyles,
     vlGridStyles,
     vlGroupStyles,
@@ -35,6 +28,17 @@ export const globalStyles = [
     vlSpacerStyles,
     vlStackedStyles,
     vlContentBlockStyles,
+];
+
+export const globalStyles = [
+    vlGeneralVars,
+    vlColorVars,
+    vlSpacingVars,
+    vlTypographyVars,
+    vlZLayerVars,
+    vlFontStyles,
+    vlBodyStyles,
+    ...layoutStyles,
 ];
 
 export class GlobalStyles {

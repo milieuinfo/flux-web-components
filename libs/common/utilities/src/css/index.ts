@@ -1,5 +1,5 @@
 export { vlColorVars } from './base/var/vl-color.css';
-export { GlobalStyles } from './global-styles';
+export { GlobalStyles } from './styles';
 export { vlAccessibilityStyles } from './base/accessibility/vl-accessibility.css';
 export { iconFontLocation } from './base/font/vl-font.css';
 export { vlFocusOutlineMixin } from './base/mixin/vl-outlines.css';

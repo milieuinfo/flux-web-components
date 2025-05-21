@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { GlobalStyles } from '../../global-styles';
+import { GlobalStyles } from '../../styles';
 import { vlContentBlockStyles } from './vl-content-block.css';
 
 describe('content-block styles', () => {
