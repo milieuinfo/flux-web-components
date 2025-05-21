@@ -1,7 +1,7 @@
-import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlFormDemoComponent } from './vl-form-demo.component';
 import { parseFormData } from '@domg-wc/form/utils';
+import { html } from 'lit';
+import { VlFormDemoComponent } from './vl-form-demo.component';
 
 registerWebComponents([VlFormDemoComponent]);
 
@@ -253,6 +253,23 @@ describe('integration - form demo', () => {
                 expect(formData).to.deep.equal(submittedFormData);
             });
     });
+
+    it('should add async options and reset to fetched options', () => {
+        cy.mount(html`<vl-form-demo></vl-form-demo>`);
+
+        getAsyncOptionsSelect().find('option').should('have.length', 1);
+
+        cy.wait(500).then(() => {
+            getAsyncOptionsSelect().find('option').should('have.length', 4);
+        });
+
+        getAsyncOptionsSelect().find('select').select('2');
+        getAsyncOptionsSelect().find('select').find('option[value="2"]').should('have.attr', 'selected');
+
+        getResetButton().click({ force: true });
+        getAsyncOptionsSelect().find('option').should('have.length', 4);
+        getAsyncOptionsSelect().find('select').find('option[value="2"]').should('not.have.attr', 'selected');
+    });
 });
 
 const getFormControl = ({ selector = '', shadow = true } = {}) => {
@@ -285,6 +302,10 @@ const getHobbiesSelectRich = ({ shadow = true } = {}) => {
 
 const getKinderenSelect = ({ shadow = true } = {}) => {
     return getFormControl({ selector: 'vl-select-next#kinderen', shadow });
+};
+
+const getAsyncOptionsSelect = ({ shadow = true } = {}) => {
+    return getFormControl({ selector: 'vl-select-next#async-options', shadow });
 };
 
 const getInteressesTextarea = ({ shadow = true } = {}) => {

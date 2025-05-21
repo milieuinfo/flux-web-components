@@ -50,13 +50,16 @@ export class VlSelectComponent extends FormControl {
 
         const selectedOption = this.getSelectedOption();
         this.value = selectedOption?.value || '';
-        this.initialOptions = JSON.parse(JSON.stringify(this.options));
+        this.initialOptions = [...this.options];
     }
 
     updated(changedProperties: Map<string, unknown>) {
         super.updated(changedProperties);
 
         if (changedProperties.has('options')) {
+            // Wanneer de options veranderen (bv na een fetch), moeten de initialOptions ook aangepast worden,
+            // zodat de resetFormControl() functie de juiste referentie heeft.
+            this.initialOptions = [...this.options];
             const selectedOption = this.getSelectedOption();
             this.value = selectedOption?.value || '';
         }
@@ -163,10 +166,8 @@ export class VlSelectComponent extends FormControl {
 
         // We maken de options array leeg en vullen deze op met de initialOptions zodat de referentie van de array hetzelfde blijft.
         // Anders zou bij een volgende render de opties array opgevat worden als veranderd.
-        while (this.options.length) {
-            this.options.pop();
-        }
-        this.initialOptions.forEach((option) => this.options.push({ ...option }));
+        this.options.splice(0, this.options.length, ...this.initialOptions);
+
         // We renderen enkel de options opnieuw als de value niet leeg is.
         if (this.value) {
             // Aangezien we de referentie van de array niet veranderen, moeten we expliciet een update aanvragen voor de options array.

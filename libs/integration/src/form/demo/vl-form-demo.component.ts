@@ -15,7 +15,7 @@ import { SelectRichOption, VlSelectRichComponent } from '@domg-wc/form/next/sele
 import { VlTextareaComponent } from '@domg-wc/form/next/textarea';
 import { VlUploadComponent } from '@domg-wc/form/next/upload';
 import { parseFormData } from '@domg-wc/form/utils';
-import { css, CSSResult, html, LitElement } from 'lit';
+import { CSSResult, LitElement, css, html } from 'lit';
 
 @webComponent('vl-form-demo')
 export class VlFormDemoComponent extends LitElement {
@@ -56,6 +56,19 @@ export class VlFormDemoComponent extends LitElement {
         { label: '5 of meer', value: '5 of meer' },
     ];
 
+    // Async fetch voorbeeld
+    private fetchAsyncOptions = new Promise<SelectOption[]>((resolve) => {
+        setTimeout(() => {
+            resolve([
+                { label: 'Option 1', value: '1' },
+                { label: 'Option 2', value: '2' },
+                { label: 'Option 3', value: '3' },
+            ] as SelectOption[]);
+        }, 500);
+    });
+
+    private asyncOptions: SelectOption[] = [];
+
     static {
         registerWebComponents([
             VlFormLabelComponent,
@@ -92,6 +105,14 @@ export class VlFormDemoComponent extends LitElement {
                 }
             `,
         ];
+    }
+
+    override connectedCallback(): void {
+        super.connectedCallback();
+        this.fetchAsyncOptions.then((options) => {
+            this.asyncOptions.splice(0, this.asyncOptions.length, ...options);
+            this.requestUpdate();
+        });
     }
 
     override render() {
@@ -220,6 +241,18 @@ export class VlFormDemoComponent extends LitElement {
                         <vl-error-message-next for="kinderen" state="valueMissing"
                             >Gelieve een aantal kinderen te kiezen.
                         </vl-error-message-next>
+                    </div>
+                    <div class="vl-column-next vl-column-next--4 vl-column-next--s-12">
+                        <vl-form-label-next for="async-options" label="Async opties" block></vl-form-label-next>
+                    </div>
+                    <div class="vl-column-next vl-column-next--8 vl-column-next--s-12">
+                        <vl-select-next
+                            id="async-options"
+                            name="async-options"
+                            block
+                            placeholder="async opties"
+                            .options=${[...this.asyncOptions]}
+                        ></vl-select-next>
                     </div>
                     <div class="vl-column-next vl-column-next--4 vl-column-next--s-12">
                         <vl-form-label-next for="interesses" label="Interesses *" block></vl-form-label-next>
