@@ -1,5 +1,5 @@
 import { css, unsafeCSS } from 'lit';
-import { GlobalStyles } from './global-styles';
+import { GlobalStyles } from './styles';
 
 const defaultColor = 'rgba(0, 0, 0, 0)';
 const initialColor = 'rgb(0, 255, 0)';

@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { hexToString } from '../../../util/utils';
-import { GlobalStyles } from '../../global-styles';
+import { GlobalStyles } from '../../styles';
 import { vlIconStyles } from '../icon/vl-icon.css';
 
 describe('outline styles', () => {

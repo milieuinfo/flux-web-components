@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { GlobalStyles } from '../../global-styles';
+import { GlobalStyles } from '../../styles';
 
 describe('stacked styles', () => {
     const stackedLarge = html`

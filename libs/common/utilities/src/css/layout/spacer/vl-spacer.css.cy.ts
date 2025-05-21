@@ -1,12 +1,12 @@
 import { html } from 'lit';
-import { GlobalStyles } from '../../global-styles';
+import { GlobalStyles } from '../../styles';
 
 describe('spacer styles', () => {
     it('should have default spacer style', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
-            <hr class="vl-separator-next vl-spacer-next">
-            <hr class="vl-separator-next">
+            <hr class="vl-separator-next vl-spacer-next" />
+            <hr class="vl-separator-next" />
         `);
         cy.get('.vl-separator-next').eq(0).shouldHaveComputedStyle({
             style: 'margin',
@@ -21,8 +21,8 @@ describe('spacer styles', () => {
     it('should have xxsmall spacer style', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
-            <hr class="vl-separator-next vl-spacer-next-xxsmall">
-            <hr class="vl-separator-next">
+            <hr class="vl-separator-next vl-spacer-next-xxsmall" />
+            <hr class="vl-separator-next" />
         `);
         cy.get('.vl-separator-next').eq(0).shouldHaveComputedStyle({
             style: 'margin',
@@ -37,8 +37,8 @@ describe('spacer styles', () => {
     it('should have xsmall spacer style', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
-            <hr class="vl-separator-next vl-spacer-next-xsmall">
-            <hr class="vl-separator-next">
+            <hr class="vl-separator-next vl-spacer-next-xsmall" />
+            <hr class="vl-separator-next" />
         `);
         cy.get('.vl-separator-next').eq(0).shouldHaveComputedStyle({
             style: 'margin',
@@ -53,8 +53,8 @@ describe('spacer styles', () => {
     it('should have small spacer style', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
-            <hr class="vl-separator-next vl-spacer-next-small">
-            <hr class="vl-separator-next">
+            <hr class="vl-separator-next vl-spacer-next-small" />
+            <hr class="vl-separator-next" />
         `);
         cy.get('.vl-separator-next').eq(0).shouldHaveComputedStyle({
             style: 'margin',
@@ -69,8 +69,8 @@ describe('spacer styles', () => {
     it('should have medium spacer style', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
-            <hr class="vl-separator-next vl-spacer-next-medium">
-            <hr class="vl-separator-next">
+            <hr class="vl-separator-next vl-spacer-next-medium" />
+            <hr class="vl-separator-next" />
         `);
         cy.get('.vl-separator-next').eq(0).shouldHaveComputedStyle({
             style: 'margin',
@@ -85,8 +85,8 @@ describe('spacer styles', () => {
     it('should have large spacer style', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
-            <hr class="vl-separator-next vl-spacer-next-large">
-            <hr class="vl-separator-next">
+            <hr class="vl-separator-next vl-spacer-next-large" />
+            <hr class="vl-separator-next" />
         `);
         cy.viewport(1100, 800);
         cy.get('.vl-separator-next').eq(0).shouldHaveComputedStyle({
@@ -111,8 +111,8 @@ describe('spacer styles', () => {
     it('should have no spacer style', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
-            <hr class="vl-separator-next vl-spacer-next-none">
-            <hr class="vl-separator-next">
+            <hr class="vl-separator-next vl-spacer-next-none" />
+            <hr class="vl-separator-next" />
         `);
         cy.get('.vl-separator-next').eq(0).shouldHaveComputedStyle({
             style: 'margin',
