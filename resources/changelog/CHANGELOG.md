@@ -1,3 +1,14 @@
+## [1.48.1](https://github.com/milieuinfo/uigov-web-components/compare/v1.48.0...v1.48.1) (2025-05-22)
+
+
+### Bug Fixes
+
+* UIG-3288 - vl-upload-next - chunking parameter werd genegeerd ([71fd583](https://github.com/milieuinfo/uigov-web-components/commit/71fd58337767b1665483aa7bb3b236c819fd13ce))
+* UIG-3290 - vl-properties-next - container query verwijderd ([f0e9da5](https://github.com/milieuinfo/uigov-web-components/commit/f0e9da53fc6abb50755ce9828815b096719e365a))
+* UIG-3291 - vl-button-next - "gap" waarde werd niet toegepast op cta-link ([3cc25ab](https://github.com/milieuinfo/uigov-web-components/commit/3cc25abc4b9dcd527e5304c1bfcb925762283d2e))
+* UIG-3292 - is="vl-elements" weggewerkt ([594dfca](https://github.com/milieuinfo/uigov-web-components/commit/594dfca1a27b750333df7d087da4bf4a1522fd65))
+* UIG-3295 - vl-toaster-next - toaster stories verbeterd ([dcecf50](https://github.com/milieuinfo/uigov-web-components/commit/dcecf5096a932ce2719f0bab2e77b5d9b7f9ec5e))
+
 # [1.48.0](https://github.com/milieuinfo/uigov-web-components/compare/v1.47.0...v1.48.0) (2025-05-15)
 
 
