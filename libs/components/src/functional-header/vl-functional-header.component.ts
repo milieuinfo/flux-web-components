@@ -5,7 +5,6 @@ import {
     vlIconStyles,
     vlLinkIconStyles,
     vlLinkStyles,
-    vlResetStyles,
     vlSectionStyles,
 } from '@domg-wc/common-utilities/css';
 import { VlIconComponent } from '@domg-wc/components/next/icon';
@@ -111,6 +110,10 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
                 vlLinkIconStyles.styleSheet,
                 vlIconStyles.styleSheet,
             ];
+        }
+
+        if (this.hasAttribute('data-vl-full-width')) {
+            this.shadowRoot.querySelector('.vl-content-block-next')?.classList.add('vl-content-block-next--full-width');
         }
     }
 

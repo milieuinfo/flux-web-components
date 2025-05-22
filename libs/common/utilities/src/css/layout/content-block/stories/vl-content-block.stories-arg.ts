@@ -2,7 +2,8 @@ import { TYPES } from '@domg-wc/common-storybook';
 import { ArgTypes } from '@storybook/web-components';
 
 export const vlContentBlockArgs = {
-    contentBlock: true,
+    contentBlock: false,
+    contentBlockFullWidth: false,
 };
 
 export const vlContentBlockArgTypes: ArgTypes<typeof vlContentBlockArgs> = {
@@ -14,5 +15,14 @@ export const vlContentBlockArgTypes: ArgTypes<typeof vlContentBlockArgs> = {
             defaultValue: { summary: false },
         },
         description: 'Verplichte root style.',
+    },
+    contentBlockFullWidth: {
+        name: 'vl-content-block-next--full-width',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: 'block style',
+            defaultValue: { summary: false },
+        },
+        description: 'Optionele style voor full width layout.',
     },
 };

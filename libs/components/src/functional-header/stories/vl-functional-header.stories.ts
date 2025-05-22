@@ -156,3 +156,22 @@ FunctionalHeaderBreadcrumb.storyName = 'vl-functional-header - breadcrumb';
 FunctionalHeaderBreadcrumb.args = {
     title: 'School- en studietoelagen',
 };
+
+export const FunctionalHeaderFullWidth = story(
+    functionalHeaderArgs,
+    ({ fullWidth, marginBottom, title, link }) => html`
+        <vl-functional-header
+            ?data-vl-full-width=${fullWidth}
+            data-vl-link=${link}
+            data-vl-margin-bottom=${marginBottom}
+            data-vl-title=${title}
+        >
+            <span slot="sub-title">Full width</span>
+        </vl-functional-header>
+    `,
+);
+FunctionalHeaderFullWidth.storyName = 'vl-functional-header - full width';
+FunctionalHeaderFullWidth.args = {
+    title: 'School- en studietoelagen',
+    fullWidth: true,
+};

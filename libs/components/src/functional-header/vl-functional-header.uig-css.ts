@@ -39,4 +39,8 @@ export const functionalHeaderUigStyle: CSSResult = css`
     .vl-functional-header h1 {
         font-size: 2rem;
     }
+
+    .vl-functional-header__sub-row {
+        padding-left: 0;
+    }
 `;
