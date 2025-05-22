@@ -1,4 +1,4 @@
-import { vlGlobalStyles, vlLegacyStyles, vlResetStyles } from '@domg-wc/styles';
+import { vlLegacyStyles, vlResetStyles, vlGlobalStyles } from '@domg-wc/styles';
 import { CSSResult } from 'lit';
 import { FluxConfig } from '../config/flux-config';
 
