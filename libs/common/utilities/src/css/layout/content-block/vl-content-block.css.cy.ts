@@ -76,4 +76,23 @@ describe('content-block styles', () => {
             value: '0px',
         });
     });
+
+    it('should have full width', () => {
+        const pageWidth = 1600;
+        const bodyMargin = 8;
+        cy.viewport(1600, 1000);
+        cy.mount(html`
+            <style>
+                ${vlContentBlockStyles}
+            </style>
+            <div class="vl-content-block-next vl-content-block-next--full-width">
+                <span>item-1</span>
+                <span>item-2</span>
+            </div>
+        `);
+        cy.get('.vl-content-block-next--full-width').shouldHaveComputedStyle({
+            style: 'width',
+            value: `${pageWidth - 2 * bodyMargin}px`,
+        });
+    });
 });

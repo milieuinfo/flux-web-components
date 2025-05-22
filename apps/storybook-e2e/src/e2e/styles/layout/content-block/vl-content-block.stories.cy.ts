@@ -1,8 +1,10 @@
 const contentBlockNextDefaultUrl =
     'http://localhost:8080/iframe.html?args=&id=styles-next-layout-afnemers-content-block--content-block-default&viewMode=story';
+const contentBlockNextFullWidthUrl =
+    'http://localhost:8080/iframe.html?args=&id=styles-next-layout-afnemers-content-block--content-block-full-width&viewMode=story';
 
-describe('story - content-block-next - default', () => {
-    it('should render', () => {
+describe('story - content-block-next', () => {
+    it('should render - default', () => {
         cy.visit(contentBlockNextDefaultUrl);
 
         cy.get('.vl-content-block-next').should('contain', 'Sub title');
@@ -11,5 +13,11 @@ describe('story - content-block-next - default', () => {
             style: 'padding',
             value: '0px 30px',
         });
+    });
+
+    it('should render - full width', () => {
+        cy.visit(contentBlockNextFullWidthUrl);
+
+        cy.get('.vl-content-block-next').should('have.class', 'vl-content-block-next--full-width');
     });
 });
