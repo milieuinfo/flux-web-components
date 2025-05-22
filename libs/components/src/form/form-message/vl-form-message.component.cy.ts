@@ -4,6 +4,8 @@ import { VlFormMessageComponent } from './vl-form-message.component';
 
 registerWebComponents([VlFormMessageComponent]);
 
+export const getFormMessageTextPart = (el: Cypress.Chainable<JQuery<HTMLElement>>) => el.shadow().find('[part=text]');
+
 describe('component - vl-form-message', () => {
     it('should mount', () => {
         cy.mount(html`<vl-form-message>Test form message</vl-form-message>`);
@@ -21,15 +23,15 @@ describe('component - vl-form-message', () => {
     it('should be hidden', () => {
         cy.mount(html`<vl-form-message>Test form message</vl-form-message>`);
 
-        cy.get('vl-form-message').should('be.hidden');
         cy.get('vl-form-message').shadow().find('.vl-form__message').should('be.hidden');
+        getFormMessageTextPart(cy.get('vl-form-message')).should('be.hidden');
     });
 
     it('should be visible', () => {
         cy.mount(html`<vl-form-message show>Test form message</vl-form-message>`);
 
-        cy.get('vl-form-message').should('be.visible');
         cy.get('vl-form-message').shadow().find('.vl-form__message').should('be.visible');
+        getFormMessageTextPart(cy.get('vl-form-message')).should('be.visible');
     });
 
     it('should set pre-line attribute', () => {
