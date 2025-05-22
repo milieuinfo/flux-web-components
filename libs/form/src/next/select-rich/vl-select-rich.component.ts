@@ -12,7 +12,7 @@ import { inputFieldStyles } from '../input-field/vl-input-field.css';
 import multiselectStyle from './styles/vl-multiselect.dv-css';
 import selectRichUigStyle from './styles/vl-select-rich.uig-css';
 import selectStyle from './styles/vl-select.dv-css';
-import { selectRichDefaults } from './vl-select-rich.defaults';
+import { selectRichDefaults } from './vl-select-rich.defaults'; // web-dev-server (rollup) fix: ambiguous indirect export
 
 // web-dev-server (rollup) fix: ambiguous indirect export
 export const DEFAULT_CLASSNAMES = choices.DEFAULT_CLASSNAMES;
@@ -34,9 +34,10 @@ export class VlSelectRichComponent extends FormControl {
     protected placeholder = selectRichDefaults.placeholder;
     protected search = selectRichDefaults.search;
     protected searchPlaceholder = selectRichDefaults.searchPlaceholder;
+    private value: FormValue = null;
 
     // State
-    private value: FormValue = null;
+    private initialValue: FormValue = null;
     private dispatchInput = false;
 
     // Variables
@@ -61,13 +62,12 @@ export class VlSelectRichComponent extends FormControl {
             searchPlaceholder: { type: String, attribute: 'search-placeholder' },
             value: {
                 type: FormData,
-                // state: true,
                 hasChanged: (value: FormValue, oldValue: FormValue) => {
                     if (value instanceof FormData && oldValue instanceof FormData) {
                         // We vergelijken de letterlijke inhoud van de entries van dit FormData object, omdat default FormData vergelijking niet voldoet
                         return JSON.stringify([...value.entries()]) !== JSON.stringify([...oldValue.entries()]);
                     } else {
-                        return value !== oldValue;
+                        return (value ?? '') !== (oldValue ?? '');
                     }
                 },
             },
@@ -85,7 +85,6 @@ export class VlSelectRichComponent extends FormControl {
 
         this.choices = new Choices(this.validationTarget!, this.getChoicesConfig());
         this.initialOptions = [...JSON.parse(JSON.stringify(this.options))];
-
         setTimeout(() => {
             // Fix voor Choices.js dropdown te openen in een Shadow DOM
             this.getChoicesElement()?.addEventListener('click', this.onClickChoices);
@@ -96,6 +95,12 @@ export class VlSelectRichComponent extends FormControl {
             // Fix voor required validator
             if (!this.value) {
                 this.setValue(null);
+            } else {
+                this.initialValue = this.collectFormData();
+            }
+
+            if (this.options.find((option) => option.selected)) {
+                this.initialValue = this.collectFormData();
             }
 
             // Fix voor Choices.js search event dat niet afgevuurd wordt als de search value verwijderd wordt.
@@ -113,7 +118,11 @@ export class VlSelectRichComponent extends FormControl {
         if (changedProperties.has('options')) {
             this.choices.clearStore();
             this.choices.setChoices(this.getOptions(), 'value', 'label', true);
-            this.onChange();
+
+            // only call onChange if an option was selected
+            if (this.options.find((option) => option.selected)) {
+                this.onChange();
+            }
         }
 
         if (changedProperties.has('value')) {
@@ -187,7 +196,21 @@ export class VlSelectRichComponent extends FormControl {
     resetFormControl() {
         super.resetFormControl();
 
-        this.options = [...this.initialOptions];
+        let newOptions = [...this.initialOptions];
+        if (this.initialValue) {
+            if (this.initialValue instanceof FormData) {
+                // Als de initialValue een FormData is, dan moeten we de geselecteerde opties updaten
+                this.updateChoicesForValue(this.initialValue);
+            } else {
+                newOptions = this.initialOptions.map((option) => ({
+                    ...option,
+                    selected: option.value === this.initialValue,
+                }));
+            }
+            this.value = this.initialValue;
+        }
+
+        this.options = [...newOptions];
     }
 
     getSelected(): string | string[] | null {
