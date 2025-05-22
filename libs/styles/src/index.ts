@@ -20,4 +20,4 @@ export {
 } from './base/var/vl-media-screen.css';
 export { vlResetStyles } from './base/reset/vl-reset.css';
 export { vlLegacyStyles } from './vl-global-styles-legacy';
-export { vlGlobalStyles } from './vl-global-styles';
+export { vlLayoutStyles, vlStyles } from './vl-styles';

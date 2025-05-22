@@ -1,4 +1,4 @@
-import { vlGlobalStyles, vlLegacyStyles, vlResetStyles } from '@domg-wc/styles';
+import { vlLegacyStyles, vlResetStyles, vlStyles } from '@domg-wc/styles';
 import { CSSResult } from 'lit';
 import { FluxConfig } from '../config/flux-config';
 
@@ -12,7 +12,7 @@ export class GlobalStyles {
 
     private constructor() {}
 
-    static getInstance(defaultStyles: CSSResult[] = [vlResetStyles, ...vlLegacyStyles, ...vlGlobalStyles]) {
+    static getInstance(defaultStyles: CSSResult[] = [vlResetStyles, ...vlLegacyStyles, ...vlStyles]) {
         if (this.instance) {
             return this.instance;
         }
