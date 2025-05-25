@@ -1,3 +1,39 @@
+# [2.0.0-rc.1](https://github.com/milieuinfo/uigov-web-components/compare/v1.48.1...v2.0.0-rc.1) (2025-05-25)
+
+
+### Bug Fixes
+
+* UIG-3296 - ontbrekende reset styles toegevoegd ([76dd68c](https://github.com/milieuinfo/uigov-web-components/commit/76dd68cde14df2d8e8702d353ad7148e4cdb7e9c))
+
+
+### Features
+
+* UIG-3056 - aanpassingen aan de module structuur ([5dab2c6](https://github.com/milieuinfo/uigov-web-components/commit/5dab2c619b7834e4efffb917dbbde988ba428fa4))
+* UIG-3185 - componenten geschrapt ([d067fb4](https://github.com/milieuinfo/uigov-web-components/commit/d067fb4405e97ea54dcd62dc401dd9baa000b547))
+* UIG-3230 - data-vl-prefix geschrapt ([d6bf17f](https://github.com/milieuinfo/uigov-web-components/commit/d6bf17f57c559a6a3ab700c61615827a1eb78320))
+* UIG-3231 - vl-grid, vl-section - documentatie verbeterd ([92ffae3](https://github.com/milieuinfo/uigov-web-components/commit/92ffae30dbe2f749df7c115ddec3b57c50ecf589))
+* UIG-3232 - elementen geschrapt ([fd2152f](https://github.com/milieuinfo/uigov-web-components/commit/fd2152f268d053a0497e3a0a439cadff96842f4e))
+* UIG-3233 - -next suffix verwijderd ([17697e2](https://github.com/milieuinfo/uigov-web-components/commit/17697e20ec87b9051deb5959421f5521d6d710dc))
+* UIG-3257 - v2 storybook documentatie aangepast ([1711030](https://github.com/milieuinfo/uigov-web-components/commit/1711030898b0c762610a3e0630ae7dfcb55c37f1))
+* UIG-3260 - styles verwijderd uit vl-elements.uig-css.ts ([836c4a1](https://github.com/milieuinfo/uigov-web-components/commit/836c4a1e31b88a36fa6a3622ca5a88e977d2f0a5))
+* UIG-3269 - module verbeteringen ([14e0313](https://github.com/milieuinfo/uigov-web-components/commit/14e03135d46969244d26ffe9d3bc8ec0c9161472))
+* UIG-3270 - circulaire dependencies verbeterd ([78d86fa](https://github.com/milieuinfo/uigov-web-components/commit/78d86fabee28043e247b76198e8d8508c1f304f0))
+* UIG-3271 - DV libraries weggewerkt ([86685b5](https://github.com/milieuinfo/uigov-web-components/commit/86685b57bddda64fe87c1938d0048b26bde05f31))
+* UIG-3274 - ongebruikte npm dependencies verwijderd ([896caaf](https://github.com/milieuinfo/uigov-web-components/commit/896caaf573ef5110e3ff73bec69e7664c03697d3))
+* UIG-3275 - legacy en next global-styles samengevoegd ([6628a9f](https://github.com/milieuinfo/uigov-web-components/commit/6628a9ff73d6349217237a9a017518b37fe4b8ba))
+* UIG-3280 - flux ipv uig of vlux ([3a4f66e](https://github.com/milieuinfo/uigov-web-components/commit/3a4f66e773d787d3d82f28c41965e1ed8eefdc91))
+* UIG-3281 - nieuwe module en package structuur ([8a2223b](https://github.com/milieuinfo/uigov-web-components/commit/8a2223bf403c2cd673fda0501d692d4669df9739))
+* UIG-3283 - vl-form-message ipv vl-error-message ([b9f279f](https://github.com/milieuinfo/uigov-web-components/commit/b9f279fc82e6bdbc53b4b14e48a64def537217df))
+* UIG-3285 - correcties om de npm packages en fat-lib af te nemen ([422a10f](https://github.com/milieuinfo/uigov-web-components/commit/422a10f3efc5549d2e55c8d03cecaee01bedcf1b))
+* UIG-3286 - vl-progress-indicator ipv vl-progress-bar ([346c836](https://github.com/milieuinfo/uigov-web-components/commit/346c836b755cbd76ab37fee44d9963f883c2b058))
+* UIG-3297 - correctie Storybook documentatie ([206cc71](https://github.com/milieuinfo/uigov-web-components/commit/206cc711d2e7f70c066d283e55eca5681593260f))
+* UIG-3299 - layoutStyles ontsloten ([e21d69f](https://github.com/milieuinfo/uigov-web-components/commit/e21d69f617d8dc4f27182c99caedf3208441807a))
+
+
+### BREAKING CHANGES
+
+* start van v2
+
 ## [1.48.1](https://github.com/milieuinfo/uigov-web-components/compare/v1.48.0...v1.48.1) (2025-05-22)
 
 
