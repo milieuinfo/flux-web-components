@@ -1,6 +1,6 @@
 {
     "name": "uigov-web-components",
-    "version": "2.0.0-rc.1",
+    "version": "2.0.0-rc.2",
     "author": "UIG <uig@vlaanderen.be>",
     "license": "MIT",
     "scripts": {

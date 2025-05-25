@@ -1,3 +1,16 @@
+# [2.0.0-rc.2](https://github.com/milieuinfo/uigov-web-components/compare/v2.0.0-rc.1...v2.0.0-rc.2) (2025-05-25)
+
+
+### Bug Fixes
+
+* UIG-3296 - ontbrekende reset styles toegevoegd ([76dd68c](https://github.com/milieuinfo/uigov-web-components/commit/76dd68cde14df2d8e8702d353ad7148e4cdb7e9c))
+
+
+### Features
+
+* UIG-3297 - correctie Storybook documentatie ([206cc71](https://github.com/milieuinfo/uigov-web-components/commit/206cc711d2e7f70c066d283e55eca5681593260f))
+* UIG-3299 - layoutStyles ontsloten ([e21d69f](https://github.com/milieuinfo/uigov-web-components/commit/e21d69f617d8dc4f27182c99caedf3208441807a))
+
 # [2.0.0-rc.1](https://github.com/milieuinfo/uigov-web-components/compare/v1.48.1...v2.0.0-rc.1) (2025-05-25)
 
 
