@@ -40,6 +40,18 @@ export const sizeQueryStyles = css`
         dl .item {
             grid-template-columns: 100%;
         }
+
+        .column {
+            ${columnWidth(100)};
+        }
+
+        dd {
+            ${collapsedDd()}
+        }
+
+        dt {
+            ${collapsedDt()}
+        }
     }
 `;
 
