@@ -40,7 +40,7 @@ httpErrorMessageDefault.args = {
     alt: 'Niets gevonden',
     textSlot: `<p slot="text">Sorry, er liep iets onverwachts mis.</p>`,
     actionsSlot: `<div slot="actions">
-                    <vl-button-next cta-link="#">Opnieuw opstarten</vl-button-next>
+                    <vl-button cta-link="#">Opnieuw opstarten</vl-button>
                   </div>`,
 };
 

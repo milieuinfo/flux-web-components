@@ -70,7 +70,7 @@ export const PopoverHover = story(
     popoverDefaultArgs,
     ({ trigger, open, contentPadding, placement, hideArrow, hideOnClick, distance }) => {
         return html`
-            <vl-button-next id="btn-close" aria-describedby="tooltip">Hover over me</vl-button-next>
+            <vl-button id="btn-close" aria-describedby="tooltip">Hover over me</vl-button>
             <vl-popover
                 for="btn-close"
                 open=${open}

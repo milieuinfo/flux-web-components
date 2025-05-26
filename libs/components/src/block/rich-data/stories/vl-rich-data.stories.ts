@@ -42,57 +42,45 @@ export const RichDataPager = story(richDataArgs, ({ filterClosable, filterClosed
         <vl-rich-data id="rich-data" ?filter-closable=${filterClosable} ?filter-closed=${filterClosed}>
             <span slot="no-content">Geen resultaten</span>
             <div slot="content"></div>
-            <vl-select-next slot="sorter" aria-label="Sorteer" .options=${[
-                { label: 'ID', value: 'id' },
-                { label: 'Naam manager', value: 'manager.lastName' },
-            ]}></vl-select-next>
-            <vl-search-filter-next slot="filter" alt>
+            <vl-select
+                slot="sorter"
+                aria-label="Sorteer"
+                .options=${[
+                    { label: 'ID', value: 'id' },
+                    { label: 'Naam manager', value: 'manager.lastName' },
+                ]}
+            ></vl-select>
+            <vl-search-filter slot="filter" alt>
                 <form>
                     <section>
-                        <vl-title-next type="h2" alt no-space-bottom="">Doorzoek projecten</vl-title-next>
+                        <vl-title type="h2" alt no-space-bottom="">Doorzoek projecten</vl-title>
                         <div>
-                            <vl-form-label-next
-                                for="filterOpId"
-                                label="Project id"
-                                light
-                            ></vl-form-label-next>
-                            <vl-input-field-next
-                                id="filterOpId"
-                                type="text"
-                                name="id"
-                                block
-                            ></vl-input-field-next>
+                            <vl-form-label for="filterOpId" label="Project id" light></vl-form-label>
+                            <vl-input-field id="filterOpId" type="text" name="id" block></vl-input-field>
                         </div>
                     </section>
                     <section>
-                        <vl-title-next type="h2" alt no-space-bottom="">Project details</vl-title-next>
+                        <vl-title type="h2" alt no-space-bottom="">Project details</vl-title>
                         <div>
-                            <vl-form-label-next for="filterOpNaamProject" label="Project naam"
-                                                light></vl-form-label-next>
-                            <vl-input-field-next
-                                type="text"
-                                id="filterOpNaamProject"
-                                name="name"
-                                block
-                            ></vl-input-field-next>
+                            <vl-form-label for="filterOpNaamProject" label="Project naam" light></vl-form-label>
+                            <vl-input-field type="text" id="filterOpNaamProject" name="name" block></vl-input-field>
                         </div>
                         <div>
-                            <vl-form-label-next for="filterOpNaamManager" label="Manager familienaam"
-                                                light></vl-form-label-next>
-                            <vl-input-field-next
+                            <vl-form-label for="filterOpNaamManager" label="Manager familienaam" light></vl-form-label>
+                            <vl-input-field
                                 type="text"
                                 id="filterOpNaamManager"
                                 name="manager.lastName"
                                 block
-                            ></vl-input-field-next>
+                            ></vl-input-field>
                         </div>
                     </section>
                     <footer>
-                        <vl-button-next type="submit" custom-css="button {flex:1}">Zoeken</vl-button-next>
-                        <vl-button-next type="reset" custom-css="button {flex:1}" secondary>Reset</vl-button-next-->
+                        <vl-button type="submit" custom-css="button {flex:1}">Zoeken</vl-button>
+                        <vl-button type="reset" custom-css="button {flex:1}" secondary>Reset</vl-button>
                     </footer>
                 </form>
-            </vl-search-filter-next>
+            </vl-search-filter>
             <vl-pager
                 id="rich-data-table-filter-sorting-paging-pager"
                 slot="pager"
