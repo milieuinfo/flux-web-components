@@ -12,10 +12,10 @@ De `debounce` methode beperkt het aantal keren dat een functie aangeroepen wordt
 import { debounce } from '@domg-wc/common';
 
 document.addEventListener('DOMContentLoaded', () => {
-    const inputField = document.getElementById('input-field'); // <input id="input-field" is="vl-input-field" />
+    const inputField = document.getElementById('input-field'); // <vl-input-field id="input-field"></vl-input-field>
     if (inputField) {
         inputField.addEventListener(
-            'input',
+            'vl-input',
             debounce((event) => {
                 // doe iets
             }, 200)

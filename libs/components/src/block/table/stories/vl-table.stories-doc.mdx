@@ -23,7 +23,7 @@ import { VlTableComponent } from '@domg-wc/components/block';
 
 ```html
 <vl-table>
-    <table is="vl-table">
+    <table>
         <caption>
              Table
         </caption>
@@ -147,7 +147,7 @@ Om dit te doen, doe het volgende:<br/>
     format={true}
     code={`
        <td data-with-expand-details>
-           <button is="vl-button" onclick="table.toggleDetails('details-row-1')">click to toggle details</button>
+           <vl-button onclick="table.toggleDetails('details-row-1')">click to toggle details</vl-button>
        </td>
           `}
 ></Source>

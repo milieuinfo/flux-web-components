@@ -23,17 +23,17 @@ export default {
 export const SideSheetDefault = story(
     sideSheetArgs,
     ({
-         enableSwipe,
-         absolute,
-         left,
-         toggleText,
-         tooltipText,
-         right,
-         customIcon,
-         hideToggleButton,
-         iconPlacement,
-         open,
-     }) => html`
+        enableSwipe,
+        absolute,
+        left,
+        toggleText,
+        tooltipText,
+        right,
+        customIcon,
+        hideToggleButton,
+        iconPlacement,
+        open,
+    }) => html`
         <vl-side-sheet
             ?enable-swipe=${enableSwipe}
             ?absolute=${absolute}
@@ -98,17 +98,17 @@ SideSheetDefault.storyName = 'vl-side-sheet - default';
 export const SideSheetToggle = story(
     sideSheetArgs,
     ({
-         enableSwipe,
-         absolute,
-         left,
-         toggleText,
-         tooltipText,
-         right,
-         customIcon,
-         hideToggleButton,
-         iconPlacement,
-         open,
-     }) => {
+        enableSwipe,
+        absolute,
+        left,
+        toggleText,
+        tooltipText,
+        right,
+        customIcon,
+        hideToggleButton,
+        iconPlacement,
+        open,
+    }) => {
         const { toggleSideSheet, openSideSheet, closeSideSheet } = sideSheetToggleImplementation();
         return html`
             <style>
@@ -123,30 +123,30 @@ export const SideSheetToggle = story(
                     right: 3rem;
                 }
             </style>
-            <vl-button-next
+            <vl-button
                 type="button"
                 @click=${() => {
                     toggleSideSheet();
                 }}
             >
                 toggle()
-            </vl-button-next>
-            <vl-button-next
+            </vl-button>
+            <vl-button
                 type="button"
                 @click=${() => {
                     openSideSheet();
                 }}
             >
                 open()
-            </vl-button-next>
-            <vl-button-next
+            </vl-button>
+            <vl-button
                 type="button"
                 @click=${() => {
                     closeSideSheet();
                 }}
             >
                 close()
-            </vl-button-next>
+            </vl-button>
             <vl-side-sheet
                 id="side-sheet-toggle"
                 ?enable-swipe=${enableSwipe}
@@ -160,7 +160,7 @@ export const SideSheetToggle = story(
                 ?hide-toggle-button=${hideToggleButton}
                 ?open=${open}
             >
-                <vl-button-next
+                <vl-button
                     id="vl-side-sheet-close-button"
                     type="button"
                     tertiary
@@ -169,7 +169,7 @@ export const SideSheetToggle = story(
                     }}
                     icon="cross"
                 >
-                </vl-button-next>
+                </vl-button>
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla interdum urna ante. Integer eu sem
                     mollis, ornare libero nec, pulvinar augue. Nunc ac rhoncus ipsum. Mauris vitae elementum erat. Donec

@@ -282,10 +282,6 @@ TableExpandable.storyName = 'vl-table - expandable';
 export const TableExpandableCustomToggleDetailsColumn = story(
     tableArgs,
     ({ hover, matrix, grid, zebra, fluxZebra, collapsedM, collapsedS, collapsedXS }) => {
-        let table: (VlTableComponent & Element) | null;
-        customElements.whenDefined('vl-data-table').then(() => {
-            table = document.querySelector<VlTableComponent & Element>('#vl-table-with-custom-expandable-details');
-        });
         return html`
             <vl-table
                 id="vl-table-with-custom-expandable-details"
@@ -317,14 +313,15 @@ export const TableExpandableCustomToggleDetailsColumn = story(
                             <td data-title="Entry Header 3">Entry line 3</td>
                             <td data-title="Entry Header 4">Entry line 4</td>
                             <td data-with-expand-details>
-                                <button
-                                    is="vl-button"
+                                <vl-button
                                     @click=${() => {
-                                        table?.toggleDetails('details-row1');
+                                        document
+                                            .querySelector<VlTableComponent & Element>('vl-table')
+                                            ?.toggleDetails('details-row1');
                                     }}
                                 >
                                     click to toggle details
-                                </button>
+                                </vl-button>
                             </td>
                         </tr>
                         <tr data-details-id="details-row1">

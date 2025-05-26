@@ -90,7 +90,7 @@ AlertWarning.args = {
 export const AlertWithButton = AlertTemplate.bind({});
 AlertWithButton.storyName = 'vl-alert - with button';
 AlertWithButton.args = {
-    actionsSlot: '<vl-button-next slot="actions">button text</vl-button-next>',
+    actionsSlot: '<vl-button slot="actions">button text</vl-button>',
     defaultSlot:
         '<span>Phasellus congue ipsum ut felis auctor, eget maximus justo dapibus. Nam sit amet pulvinar odio. Maecenas rhoncus quam eget neque porttitor, et faucibus nisl elementum.</span>',
 };
