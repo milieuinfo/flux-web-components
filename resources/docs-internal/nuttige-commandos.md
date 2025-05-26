@@ -69,17 +69,17 @@ git fetch origin refs/notes/semantic-release:refs/notes/semantic-release
 ```
 notes tonen
 ```
-git notes --ref semantic-release show 2231b72
+git notes --ref semantic-release show f823c9a8
 ```
 
-na een historiek herschrijving een tag opnieuw leggen + de notes toevoegen 
+na een historiek herschrijving een tag opnieuw leggen + de notes toevoegen
 ```
-git push --delete origin v1.37.0-develop.1
-git tag -d v1.37.0-develop.1
-git tag v1.37.0-develop.1 ce31ccb2
-git push origin v1.37.0-develop.1
+git push --delete origin v2.0.0-rc.1
+git tag -d v2.0.0-rc.1
+git tag v2.0.0-rc.1 422a10f3
+git push origin v2.0.0-rc.1
 
-git notes --ref semantic-release add -f -m '{"channels":["develop"]}' v1.37.0-develop.1
+git notes --ref semantic-release add -f -m '{"channels":["release-v2-rc"]}' v2.0.0-rc.1
 git push --force origin refs/notes/semantic-release
 ```
 
