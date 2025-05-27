@@ -24,7 +24,7 @@ export { VlInputSliderComponent } from './input-slider';
 export { VlLoaderComponent } from './loader';
 export { VlModalComponent } from './modal';
 export { VlPagerComponent, type Pagination } from './pager';
-export { VlButtonPillComponent, VlPillComponent, TYPE } from './pill';
+export { VlPillComponent, TYPE } from './pill';
 export { VlPopoverComponent, VlPopoverActionComponent, VlPopoverActionListComponent } from './popover';
 export { VlProgressIndicatorComponent } from './progress-indicator';
 export { VlPropertiesComponent } from './properties';

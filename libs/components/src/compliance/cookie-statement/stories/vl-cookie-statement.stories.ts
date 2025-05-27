@@ -57,7 +57,7 @@ export const CookieStatementDefault = Template.bind({});
 CookieStatementDefault.storyName = 'vl-cookie-statement - default';
 
 export const CookieStatementHeaderSlot = Template.bind({});
-CookieStatementHeaderSlot.storyName = 'vl-cookieStatement - header slot';
+CookieStatementHeaderSlot.storyName = 'vl-cookie-statement - header slot';
 CookieStatementHeaderSlot.args = {
     headerSlot: `
     <vl-functional-header

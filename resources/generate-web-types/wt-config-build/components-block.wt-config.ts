@@ -18,7 +18,6 @@ import { inputSliderArgTypes } from '../../../libs/components/src/block/input-sl
 import { loaderArgTypes } from '../../../libs/components/src/block/loader/stories/vl-loader.stories-arg';
 import { modalArgTypes } from '../../../libs/components/src/block/modal/stories/vl-modal.stories-arg';
 import { pagerArgTypes } from '../../../libs/components/src/block/pager/stories/vl-pager.stories-arg';
-import { buttonPillArgTypes } from '../../../libs/components/src/block/pill/stories/vl-button-pill.stories-arg';
 import { pillArgTypes } from '../../../libs/components/src/block/pill/stories/vl-pill.stories-arg';
 import { popoverArgTypes } from '../../../libs/components/src/block/popover/stories/vl-popover.stories-arg';
 import { progressIndicatorArgTypes } from '../../../libs/components/src/block/progress-indicator/stories/vl-progress-indicator.stories-arg';
@@ -72,7 +71,12 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
         '../../libs/components/src/block/breadcrumb/stories/vl-breadcrumb.stories-doc.mdx',
         '/docs/components-block-breadcrumb--documentatie'
     ),
-    buildWTConfig('vl-breadcrumb-item', breadcrumbItemArgTypes, null, '/docs/components-block-breadcrumb--documentatie'),
+    buildWTConfig(
+        'vl-breadcrumb-item',
+        breadcrumbItemArgTypes,
+        null,
+        '/docs/components-block-breadcrumb--documentatie'
+    ),
     buildWTConfig('vl-contact-card', null, null, '/docs/components-block-contact-card--documentatie'),
     buildWTConfig(
         'vl-content-header',
@@ -203,7 +207,6 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
     buildWTConfig('vl-duration-step', null, null, '/docs/components-block-steps-steps--documentatie'),
     buildWTConfig('vl-pager', pagerArgTypes, null, '/docs/components-block-pager--documentatie'),
     buildWTConfig('vl-pill', pillArgTypes, null, '/docs/components-block-pill-pill--documentatie'),
-    buildWTConfig('vl-button-pill', buttonPillArgTypes, null, '/docs/components-block-pill-button-pill--documentatie'),
     buildWTConfig(
         'vl-popover',
         popoverArgTypes,
@@ -240,7 +243,12 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
     buildWTConfig('vl-rich-data-field', null, null, '/docs/components-block-rich-data-table--documentatie'),
     buildWTConfig('vl-rich-data-sorter', null, null, '/docs/components-block-rich-data-table--documentatie'),
     buildWTConfig('vl-search', null, null, '/docs/components-block-search--documentatie'),
-    buildWTConfig('vl-share-button', shareButtonArgTypes, null, '/docs/components-block-share-buttons-button--documentatie'),
+    buildWTConfig(
+        'vl-share-button',
+        shareButtonArgTypes,
+        null,
+        '/docs/components-block-share-buttons-button--documentatie'
+    ),
     buildWTConfig(
         'vl-share-buttons',
         shareButtonsArgTypes,
