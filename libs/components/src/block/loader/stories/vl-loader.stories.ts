@@ -17,7 +17,7 @@ export const loaderDefault = ({ light, text, single }: typeof loaderArgs) => htm
 loaderDefault.storyName = 'vl-loader - default';
 
 export const loaderLightWithoutText = ({ light, text, single }: typeof loaderArgs) => html`
-    <div class="vl-region" style="background: #b7b7b7">
+    <div class="vl-section" style="background: #b7b7b7">
         <vl-loader ?light=${light} text=${text} ?single=${single} data-cy="loader-light-without-text"></vl-loader>
     </div>
 `;

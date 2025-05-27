@@ -98,7 +98,7 @@ PopoverHover.parameters = {
 export const PopoverActions = story(popoverActionArgs, ({ selected }) => {
     const actionListClickHandler = (event: CustomEvent) => {
         const actionElement = event.target as VlPopoverActionComponent;
-        action('click')('vl-popover-action clicked > ' + actionElement.action);
+        action('click')('vl-popover-action clicked > ' + actionElement.action, actionElement);
         const allActions = Array.from(actionElement.parentElement?.querySelectorAll('vl-popover-action') || []);
         allActions.forEach((action) => {
             if (action !== actionElement) {
@@ -109,9 +109,9 @@ export const PopoverActions = story(popoverActionArgs, ({ selected }) => {
     };
     return html`
         <vl-popover-action-list @click=${actionListClickHandler}>
-            <vl-popover-action selected=${selected} icon="search">Zoeken</vl-popover-action>
-            <vl-popover-action icon="bell">Rapportenoverzicht</vl-popover-action>
-            <vl-popover-action icon="pin">Vind locatie</vl-popover-action>
+            <vl-popover-action selected=${selected} icon="search" action="zoeken">Zoeken</vl-popover-action>
+            <vl-popover-action icon="bell" action="rapporten-tonen">Rapportenoverzicht</vl-popover-action>
+            <vl-popover-action icon="pin" action="locatie-vinden">Vind locatie</vl-popover-action>
         </vl-popover-action-list>
     `;
 });
@@ -138,12 +138,12 @@ export const PopoverActionsDivider = story(popoverActionArgs, ({ selected }) => 
     };
     return html`
         <vl-popover-action-list @click=${actionListClickHandler}>
-            <vl-popover-action selected=${selected} icon="search">Zoeken</vl-popover-action>
-            <vl-popover-action icon="bell">Rapportenoverzicht</vl-popover-action>
-            <vl-popover-action icon="pin">Vind locatie</vl-popover-action>
+            <vl-popover-action selected=${selected} icon="search" action="zoeken">Zoeken</vl-popover-action>
+            <vl-popover-action icon="bell" action="rapporten-tonen">Rapportenoverzicht</vl-popover-action>
+            <vl-popover-action icon="pin" action="locatie-vinden">Vind locatie</vl-popover-action>
             <hr class="vl-separator" />
-            <vl-popover-action icon="save">Bewaren</vl-popover-action>
-            <vl-popover-action icon="trash">Verwijderen</vl-popover-action>
+            <vl-popover-action icon="save" action="bewaren">Bewaren</vl-popover-action>
+            <vl-popover-action icon="trash" action="verwijderen">Verwijderen</vl-popover-action>
         </vl-popover-action-list>
     `;
 });
