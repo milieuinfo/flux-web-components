@@ -1,5 +1,5 @@
 import { BaseElementOfType, GlobalStyles, MARGINS, registerWebComponents, webComponent } from '@domg-wc/common';
-import { vlContentBlockStyles, vlGridStyles, vlLegacyStyles, vlSectionStyles } from '@domg-wc/styles';
+import { vlContentBlockStyles, vlGridStyles, vlLegacyStyles, vlResetStyles, vlSectionStyles } from '@domg-wc/styles';
 import { functionalHeaderStyle } from '@domg/govflanders-style/component';
 import { VlIconComponent } from '../../atom/icon';
 import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
@@ -152,6 +152,7 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
 
         if (this.shadowRoot) {
             this.shadowRoot.adoptedStyleSheets = [
+                vlResetStyles.styleSheet,
                 ...this.shadowRoot.adoptedStyleSheets,
                 ...vlLegacyStyles.map((style) => style.styleSheet),
                 vlGridStyles.styleSheet,
