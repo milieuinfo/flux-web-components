@@ -621,7 +621,7 @@
                 },
                 {
                     "name": "vl-map-action-control",
-                    "description": "Gebruik de `map-action-control` component om een map-actie aan of uit te zetten met behulp van een\n[toggle-button](/docs/components-toggle-button--toggle-button-default).<br/>\nEen `map-action-control` linken aan een map-actie gebeurt op de volgende manier:\n    - plaats op de `map-action-control` het attribuut `action-id` met als waarde bv. 'draw-polygon-action'\n    - plaats op de map-actie het attribuut `id` en geef hier dezelfde waarde mee als in de vorige stap",
+                    "description": "Gebruik de `map-action-control` component om een map-actie aan of uit te zetten met behulp van een\n[button met toggle](/docs/components-atom-button--documentatie#toggle).<br/>\nEen `map-action-control` linken aan een map-actie gebeurt op de volgende manier:\n    - plaats op de `map-action-control` het attribuut `action-id` met als waarde bv. 'draw-polygon-action'\n    - plaats op de map-actie het attribuut `id` en geef hier dezelfde waarde mee als in de vorige stap",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-controls-action-control--documentatie",
                     "attributes": [
                         {
@@ -653,7 +653,7 @@
                 },
                 {
                     "name": "vl-map-measure-control",
-                    "description": "Gebruik de `map-measure-control` component om de meet-actie aan of uit te zetten door behulp van een\n[toggle-button](/docs/components-toggle-button--toggle-button-default).",
+                    "description": "Gebruik de `map-measure-control` component om de meet-actie aan of uit te zetten door behulp van een\n[button met toggle](/docs/components-atom-button--documentatie#toggle).",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-controls-measure-control--documentatie",
                     "attributes": [
                         {
@@ -1347,7 +1347,7 @@
                 },
                 {
                     "name": "vl-map-search",
-                    "description": "Gebruik de `map-search` component om een zoekbalk toe te voegen aan de map waarmee gebruikers kunnen zoeken op adres.<br/>\nDeze component maakt gebruik van de [select-location](/docs/map-select-location--select-location-default) component en\nvan de [search](/docs/components-search--search-default) component.",
+                    "description": "Gebruik de `map-search` component om een zoekbalk toe te voegen aan de map waarmee gebruikers kunnen zoeken op adres.<br/>\nDeze component maakt gebruik van de [select-location](/docs/map-select-location--select-location-default) component en\nvan de [search](/docs/components-block-search--search-default) component.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-search--documentatie",
                     "attributes": [
                         {
@@ -1384,7 +1384,7 @@
                 },
                 {
                     "name": "vl-select-location",
-                    "description": "Gebruik de `vl-select-location` component om een zoekbalk af te beelden waarmee er een adres geselecteerd kan worden.\n\nDeze component erft over van de [vl-select-rich](/docs/form-select-rich--documentatie) component.",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `vl-select-location` component om een zoekbalk af te beelden waarmee er een adres geselecteerd kan worden.\n\nDeze component erft over van de [vl-select-rich](/docs/components-form-select-rich--documentatie) component.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-select-location--documentatie",
                     "attributes": [
                         {
@@ -1502,7 +1502,7 @@
                 },
                 {
                     "name": "vl-map-side-sheet",
-                    "description": "Gebruik de `map-side-sheet` component om een uitklapbaar zijpaneel af te beelden over de map.<br/>\nDeze component erft over van de [side-sheet](/docs/components-side-sheet--side-sheet-default) component en heeft ook al diens functionaliteit.<br/>\n**Let op**: de default positie van de `map-side-sheet` is links, terwijl de default positie van de\n[side-sheet](/docs/components-side-sheet--side-sheet-default) rechts is.",
+                    "description": "Gebruik de `map-side-sheet` component om een uitklapbaar zijpaneel af te beelden over de map.<br/>\nDeze component erft over van de [side-sheet](/docs/components-block-side-sheet--side-sheet-default) component en heeft ook al diens functionaliteit.<br/>\n**Let op**: de default positie van de `map-side-sheet` is links, terwijl de default positie van de\n[side-sheet](/docs/components-block-side-sheet--side-sheet-default) rechts is.",
                     "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/map-side-sheet-side-sheet--documentatie",
                     "attributes": [
                         {

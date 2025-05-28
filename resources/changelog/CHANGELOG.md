@@ -1,3 +1,17 @@
+# [2.0.0-rc.3](https://github.com/milieuinfo/uigov-web-components/compare/v2.0.0-rc.2...v2.0.0-rc.3) (2025-05-28)
+
+
+### Bug Fixes
+
+* UIG-3296 - vl-functional-header - reset styles toegevoegd ([17f09bf](https://github.com/milieuinfo/uigov-web-components/commit/17f09bfc2894d0b10bcd43552097bb58b5ca6bb8))
+* UIG-3302 - resterende -next componenten & is-elementen weggewerkt in storybook ([4b162d0](https://github.com/milieuinfo/uigov-web-components/commit/4b162d0ab5e35c5f02528ea6f8bd0aac378bab6d))
+
+
+### Features
+
+* UIG-3285 - package afname via de consumer-app ([c5ebad8](https://github.com/milieuinfo/uigov-web-components/commit/c5ebad8199fd8b72facf9591442e9aa5d768e5dc))
+* UIG-3304 - storybook verbeteringen, button-pill verwijderd ([2ddf057](https://github.com/milieuinfo/uigov-web-components/commit/2ddf057a466bf98dd534ae511bf5ff70756eecf8))
+
 ## [1.48.2](https://github.com/milieuinfo/uigov-web-components/compare/v1.48.1...v1.48.2) (2025-05-28)
 
 
