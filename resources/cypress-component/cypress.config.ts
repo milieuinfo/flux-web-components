@@ -15,6 +15,9 @@ export default defineConfig({
         // @ts-ignore: Ignoring missing property 'framework'
         devServer: {
             bundler: 'webpack',
+            headers: {
+                'Cache-Control': 'no-store',
+            },
             webpackConfig: {
                 module: {
                     rules: [
