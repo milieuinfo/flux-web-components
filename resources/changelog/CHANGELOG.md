@@ -1,3 +1,11 @@
+## [1.48.2](https://github.com/milieuinfo/uigov-web-components/compare/v1.48.1...v1.48.2) (2025-05-28)
+
+
+### Bug Fixes
+
+* chunk load error in de Cypress component testen ([bf80bb1](https://github.com/milieuinfo/uigov-web-components/commit/bf80bb1898b8604534cca45f63975c51aabf3501))
+* UIG-3301 - vl-properties-next - collapsed-styling in mobile view verbeterd ([5d2026c](https://github.com/milieuinfo/uigov-web-components/commit/5d2026c4507621dbb415f2af04606c92e8f36e0b))
+
 ## [1.48.1](https://github.com/milieuinfo/uigov-web-components/compare/v1.48.0...v1.48.1) (2025-05-22)
 
 
