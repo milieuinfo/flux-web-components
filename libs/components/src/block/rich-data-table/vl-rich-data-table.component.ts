@@ -91,14 +91,14 @@ export class VlRichDataTable extends VlRichData {
     }
 
     get __contentColumn() {
-        return this.shadowRoot.querySelector('#content');
+        return this.shadowRoot?.querySelector<HTMLElement>('#content');
     }
 
     get __fields() {
-        return this.querySelectorAll(VlRichDataField.is);
+        return this.querySelectorAll<VlRichDataField>(VlRichDataField.is);
     }
 
-    get __richDataFields() {
+    get __richDataFields(): VlRichDataField[] {
         return [...this.__fields].filter((field) => field.constructor === VlRichDataField);
     }
 
@@ -120,12 +120,12 @@ export class VlRichDataTable extends VlRichData {
         }
     }
 
-    get __table(): HTMLTableElement {
-        return this.shadowRoot.querySelector('table');
+    get __table() {
+        return this.shadowRoot?.querySelector<HTMLTableElement>('table');
     }
 
-    get __tableHeader(): HTMLElementTagNameMap['thead'] | null {
-        return this.__table.querySelector('thead');
+    get __tableHeader() {
+        return this.__table?.querySelector<HTMLElementTagNameMap['thead']>('thead');
     }
 
     get __tableHeaderRow(): HTMLTableRowElement | null | undefined {
@@ -137,14 +137,16 @@ export class VlRichDataTable extends VlRichData {
         }
     }
 
-    get __tableBody(): HTMLElementTagNameMap['tbody'] | null {
-        return this.__table.querySelector('tbody');
+    get __tableBody() {
+        return this.__table?.querySelector<HTMLElementTagNameMap['tbody']>('tbody');
     }
 
     get _isMultisortingEnabled(): boolean {
         return this.getAttribute('multi-sort') !== null;
     }
 
+    // @ts-expect-error: TS2611: _sorting is defined as a property in class VlRichData,
+    // but is overridden here in VlRichDataTable as an accessor.
     set _sorting(sorting: (unknown & { name: string; for: string; direction: string; priority: string })[]) {
         if (sorting) {
             if (this.__sorters)
@@ -170,7 +172,7 @@ export class VlRichDataTable extends VlRichData {
         super.attributeChangedCallback(attr, oldValue, newValue);
         if (VlRichDataTable._tableAttributes.includes(attr)) {
             const withoutDataVlPrefix = attr.substring(''.length);
-            this.__table.toggleAttribute(withoutDataVlPrefix);
+            this.__table?.toggleAttribute(withoutDataVlPrefix);
         }
     }
 
@@ -222,7 +224,7 @@ export class VlRichDataTable extends VlRichData {
     __initializeSortingOnHeaderColumn(header: any) {
         const sorterButton = header.querySelector('th[sortable] > a');
         if (sorterButton) {
-            sorterButton.addEventListener('click', (e: any) => {
+            sorterButton.addEventListener('click', () => {
                 sorterButton.querySelector('vl-rich-data-sorter').nextDirection();
             });
         }
@@ -235,9 +237,9 @@ export class VlRichDataTable extends VlRichData {
             this.data.data.forEach((rowData) => {
                 const rowTemplate = this._template(`<tr></tr>`).firstElementChild;
                 this.__richDataFields.map((field) => {
-                    rowTemplate.appendChild(field.valueTemplate(rowData));
+                    rowTemplate?.appendChild(field.valueTemplate(rowData));
                 });
-                __tableBody.appendChild(rowTemplate);
+                __tableBody.appendChild(rowTemplate!);
             });
         }
     }
@@ -277,9 +279,11 @@ export class VlRichDataTable extends VlRichData {
 
     __sortingChanged(event: any): void {
         if (this._isMultisortingEnabled) {
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             this.__activeSorters &&
                 this.__activeSorters.forEach((sorter: any, index: number) => (sorter.priority = index + 1));
         } else {
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             this.__activeSorters &&
                 this.__activeSorters
                     .filter((sorter) => sorter !== event.target)

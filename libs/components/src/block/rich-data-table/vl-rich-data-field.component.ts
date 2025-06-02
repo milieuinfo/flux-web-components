@@ -1,8 +1,10 @@
-import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { VlRichDataSorter } from './vl-rich-data-sorter.component';
 
 @webComponent('vl-rich-data-field')
-export class VlRichDataField extends BaseElementOfType(HTMLElement) {
+export class VlRichDataField extends BaseHTMLElement {
+    protected _renderer: ((td: HTMLTableCellElement, rowData: unknown) => void | undefined) | undefined;
+
     static {
         registerWebComponents([VlRichDataSorter]);
     }
@@ -53,7 +55,7 @@ export class VlRichDataField extends BaseElementOfType(HTMLElement) {
      * Geeft de naam terug die gebruikt wordt om het veld te identificeren.
      * @return {string}
      */
-    get name(): string {
+    get name() {
         return this.getAttribute('name');
     }
 
@@ -61,7 +63,7 @@ export class VlRichDataField extends BaseElementOfType(HTMLElement) {
      * Geeft de selector terug die gebruikt wordt om de juiste waarde uit de data te halen.
      * @return {string}
      */
-    get selector(): string {
+    get selector() {
         return this.getAttribute('selector');
     }
 
@@ -69,7 +71,7 @@ export class VlRichDataField extends BaseElementOfType(HTMLElement) {
      * Geeft de naam terug die getoond kan worden aan de gebruiker.
      * @return {string}
      */
-    get label(): string {
+    get label() {
         return this.getAttribute('label');
     }
 
@@ -77,7 +79,7 @@ export class VlRichDataField extends BaseElementOfType(HTMLElement) {
      * Geeft terug of er op het veld gesorteerd kan worden.
      * @return {boolean}
      */
-    get sortable(): boolean {
+    get sortable() {
         return this.getAttribute('sortable') !== null;
     }
 
@@ -85,7 +87,7 @@ export class VlRichDataField extends BaseElementOfType(HTMLElement) {
      * Geeft de sorteerrichting terug.
      * @return {asc | desc}
      */
-    get sortingDirection(): number {
+    get sortingDirection() {
         return this.getAttribute('sorting-direction');
     }
 
@@ -93,16 +95,16 @@ export class VlRichDataField extends BaseElementOfType(HTMLElement) {
      * Geeft de prioriteit van het sorteren terug.
      * @return {number}
      */
-    get sortingPriority(): number {
+    get sortingPriority() {
         return this.getAttribute('sorting-priority');
     }
 
-    get _labelSlotElement(): HTMLSlotElement {
-        return this.querySelector('template[slot="label"]');
+    get _labelSlotElement() {
+        return this.querySelector<HTMLSlotElement>('template[slot="label"]');
     }
 
-    get _contentSlotElement(): HTMLSlotElement {
-        return this.querySelector('template[slot="content"]');
+    get _contentSlotElement() {
+        return this.querySelector<HTMLSlotElement>('template[slot="content"]');
     }
 
     set renderer(renderer: any) {
@@ -160,7 +162,7 @@ export class VlRichDataField extends BaseElementOfType(HTMLElement) {
         return this.label || (this._labelSlotElement ? this._labelSlotElement.innerHTML : undefined);
     }
 
-    __getHeaderContentElement(): HTMLElement | undefined {
+    __getHeaderContentElement(): DocumentFragment | undefined {
         const content = this.__headerContent;
         if (content) {
             if (this.sortable) {
@@ -176,13 +178,13 @@ export class VlRichDataField extends BaseElementOfType(HTMLElement) {
         }
     }
 
-    __getValueContentElement(data: unknown): HTMLElement | null {
+    __getValueContentElement(data: unknown): DocumentFragment | null {
         if (this.selector) {
             return this._template(
                 `${this.selector.split('.').reduce((prev: any, curr: any) => (prev ? prev[curr] : null), data)}`
             );
         } else if (this._contentSlotElement) {
-            const literal = `${this.querySelector('template[slot="content"]').innerHTML}`;
+            const literal = `${this.querySelector('template[slot="content"]')?.innerHTML}`;
             const template = ((literal: any, item: any) => new Function('item', 'return `' + literal + '`')(item)).call(
                 this,
                 literal,

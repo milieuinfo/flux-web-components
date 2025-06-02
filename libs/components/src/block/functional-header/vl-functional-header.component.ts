@@ -1,4 +1,4 @@
-import { BaseElementOfType, GlobalStyles, MARGINS, registerWebComponents, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, GlobalStyles, MARGINS, registerWebComponents, webComponent } from '@domg-wc/common';
 import { vlContentBlockStyles, vlGridStyles, vlLegacyStyles, vlResetStyles, vlSectionStyles } from '@domg-wc/styles';
 import { functionalHeaderStyle } from '@domg/govflanders-style/component';
 import { VlIconComponent } from '../../atom/icon';
@@ -11,7 +11,10 @@ import { vlFunctionalHeaderFluxStyles } from './vl-functional-header.flux-css';
 GlobalStyles.getInstance().register();
 
 @webComponent('vl-functional-header')
-export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) {
+export class VlFunctionalHeaderComponent extends BaseHTMLElement {
+    private _backLinkEventListener: EventListener | null = null;
+    private _subTitleListElement: HTMLLIElement | null = null;
+
     static {
         registerWebComponents([VlIconComponent]);
     }
@@ -84,47 +87,47 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
     }
 
     get _titleElement() {
-        return this._shadow.querySelector('#title');
+        return this._shadow?.querySelector<HTMLAnchorElement>('#title');
     }
 
     get _subTitleElement() {
-        return this._shadow.querySelector('#sub-title');
+        return this._shadow?.querySelector<HTMLElement>('#sub-title');
     }
 
     get _backLinkContainer() {
-        return this._shadow.querySelector('#back-link-container');
+        return this._shadow?.querySelector<HTMLElement>('#back-link-container');
     }
 
     get _backLinkElement() {
-        return this._shadow.querySelector('#back-link');
+        return this._shadow?.querySelector<HTMLAnchorElement>('#back-link');
     }
 
     get _backLinkTextElement() {
-        return this._backLinkElement.querySelector('#back-link-text');
+        return this._backLinkElement?.querySelector<HTMLElement>('#back-link-text');
     }
 
     get _actionsElement() {
-        return this._shadow.querySelector('#actions');
+        return this._shadow?.querySelector<HTMLElement>('#actions');
     }
 
     get _subHeaderElement() {
-        return this._shadow.querySelector('#sub-header');
+        return this._shadow?.querySelector<HTMLElement>('#sub-header');
     }
 
     get _defaultSubHeaderElement() {
-        return this._shadow.querySelector('#default-sub-header');
+        return this._shadow?.querySelector<HTMLElement>('#default-sub-header');
     }
 
     get _actionsListElement() {
-        return this._actionsElement.querySelector('ul');
+        return this._actionsElement?.querySelector<HTMLUListElement>('ul');
     }
 
     get _subHeaderListElement() {
-        return this._subHeaderElement.querySelector('ul');
+        return this._subHeaderElement?.querySelector<HTMLUListElement>('ul');
     }
 
     get _subTitleListElements() {
-        return this._subTitleListElement.querySelectorAll('li');
+        return this._subTitleListElement?.querySelectorAll<HTMLLIElement>('li');
     }
 
     /**
@@ -134,10 +137,10 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
      */
     set backLinkEventListener(eventListener: EventListener) {
         if (this._backLinkEventListener) {
-            this._backLinkElement.removeEventListener('click', this._backLinkEventListener);
+            this._backLinkElement?.removeEventListener('click', this._backLinkEventListener);
         }
         this._backLinkEventListener = eventListener;
-        this._backLinkElement.addEventListener('click', this._backLinkEventListener);
+        this._backLinkElement?.addEventListener('click', this._backLinkEventListener);
     }
 
     connectedCallback() {
@@ -152,24 +155,24 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
 
         if (this.shadowRoot) {
             this.shadowRoot.adoptedStyleSheets = [
-                vlResetStyles.styleSheet,
-                ...this.shadowRoot.adoptedStyleSheets,
-                ...vlLegacyStyles.map((style) => style.styleSheet),
-                vlGridStyles.styleSheet,
-                vlSectionStyles.styleSheet,
-                vlContentBlockStyles.styleSheet,
-                ...vlTitleStyles.map((style) => style.styleSheet),
-                functionalHeaderStyle.styleSheet,
-                vlFunctionalHeaderFluxStyles.styleSheet,
-                vlLinkStyles('.vl-link').styleSheet,
-                vlLinkIconStyles.styleSheet,
-                vlIconStyles.styleSheet,
+                vlResetStyles.styleSheet!,
+                ...this.shadowRoot.adoptedStyleSheets!,
+                ...vlLegacyStyles.map((style) => style.styleSheet!),
+                vlGridStyles.styleSheet!,
+                vlSectionStyles.styleSheet!,
+                vlContentBlockStyles.styleSheet!,
+                ...vlTitleStyles.map((style) => style.styleSheet!),
+                functionalHeaderStyle.styleSheet!,
+                vlFunctionalHeaderFluxStyles.styleSheet!,
+                vlLinkStyles('.vl-link').styleSheet!,
+                vlLinkIconStyles.styleSheet!,
+                vlIconStyles.styleSheet!,
             ];
         }
     }
 
     disconnectedCallback() {
-        this._observer.disconnect();
+        this._observer?.disconnect();
     }
 
     _getActionTemplate(element: Element) {
@@ -189,29 +192,31 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
     }
 
     _titleChangedCallback(oldValue: string, newValue: string) {
-        this._titleElement.innerText = newValue;
+        this._titleElement!.innerText = newValue;
     }
 
     _subTitleChangedCallback(oldValue: string, newValue: string) {
-        this._subTitleElement.innerText = newValue;
+        this._subTitleElement!.innerText = newValue;
     }
 
     _linkChangedCallback(oldValue: string, newValue: string) {
-        this._titleElement.href = newValue;
+        this._titleElement!.href = newValue;
     }
 
     _backChangedCallback(oldValue: string, newValue: string) {
-        this._backLinkTextElement.innerText = newValue;
+        this._backLinkTextElement!.innerText = newValue;
     }
 
     _backLinkChangedCallback(oldValue: string, newValue: string) {
-        this._backLinkElement.href = newValue || document.referrer;
+        this._backLinkElement!.href = newValue || document.referrer;
     }
 
     _marginBottomChangedCallback(oldValue: string, newValue: string) {
         const margin = MARGINS[newValue];
-        const header = this._shadow.querySelector('.vl-functional-header');
-
+        const header = this._shadow?.querySelector<HTMLElement>('.vl-functional-header');
+        if (!header) {
+            return;
+        }
         if (margin) {
             header.style.marginBottom = margin;
         } else {
@@ -251,27 +256,27 @@ export class VlFunctionalHeaderComponent extends BaseElementOfType(HTMLElement) 
     }
 
     __processSlotSubHeader() {
-        this._subHeaderListElement.innerHTML = '';
+        this._subHeaderListElement!.innerHTML = '';
         const subHeader = this.querySelector('[slot="sub-header"]');
         if (subHeader) {
             [...subHeader.children]
                 .map((action) => this._getSubHeaderTemplate(action))
-                .forEach((action) => this._subHeaderListElement.append(action));
-            this._defaultSubHeaderElement.hidden = true;
+                .forEach((action) => this._subHeaderListElement?.append(action));
+            this._defaultSubHeaderElement!.hidden = true;
         } else {
-            this._subHeaderElement.hidden = true;
+            this._subHeaderElement!.hidden = true;
         }
     }
 
     __processSlotActions() {
-        this._actionsListElement.innerHTML = '';
+        this._actionsListElement!.innerHTML = '';
         const actions = this.querySelector('[slot="actions"]');
         if (actions) {
             [...actions.children]
                 .map((action) => this._getActionTemplate(action))
-                .forEach((action) => this._actionsListElement.append(action));
+                .forEach((action) => this._actionsListElement?.append(action));
         } else {
-            this._actionsElement.hidden = true;
+            this._actionsElement!.hidden = true;
         }
     }
 

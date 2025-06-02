@@ -1,4 +1,4 @@
-import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { selectStyle } from '@domg/govflanders-style/component';
 import { buttonStyles } from '../../atom/button/vl-button.css';
@@ -8,7 +8,7 @@ import { inputFieldStyles, VlInputFieldComponent } from '../../form/input-field'
 import { vlSearchFluxStyles } from './vl-search.flux-css';
 
 @webComponent('vl-search')
-export class VlSearchComponent extends BaseElementOfType(HTMLElement) {
+export class VlSearchComponent extends BaseHTMLElement {
     static {
         registerWebComponents([VlIconComponent, VlInputFieldComponent]);
     }
@@ -91,7 +91,7 @@ export class VlSearchComponent extends BaseElementOfType(HTMLElement) {
 
     disconnectedCallback() {
         if (this._observer) {
-            this._observer.disconnect();
+            this._observer?.disconnect();
         }
     }
 
@@ -123,8 +123,8 @@ export class VlSearchComponent extends BaseElementOfType(HTMLElement) {
         if (this.__labelElement) {
             this.__labelElement.addEventListener('click', () => {
                 const slottedInput = this.querySelector(`:scope > [slot=input]`);
-                if (slottedInput.nodeName.toLowerCase() === 'vl-select-location') {
-                    slottedInput.shadowRoot.querySelector('select').click();
+                if (slottedInput?.nodeName.toLowerCase() === 'vl-select-location') {
+                    slottedInput?.shadowRoot?.querySelector('select')?.click();
                 } else {
                     slottedInput?.querySelector('input')?.click();
                 }
@@ -210,7 +210,7 @@ export class VlSearchComponent extends BaseElementOfType(HTMLElement) {
 
     __observeInputSlot(callback: any) {
         this._observer = new MutationObserver(callback);
-        this._observer.observe(this.__inputSlot, {
+        this._observer?.observe(this.__inputSlot!, {
             attributes: true,
             attributeFilter: ['class'],
         });

@@ -1,12 +1,16 @@
-import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { VlSearchComponent } from '@domg-wc/components/block';
 import { vlLegacyStyles } from '@domg-wc/styles';
 import { SelectRichPosition } from '@domg-wc/components/form';
 import OlOverlay from 'ol/Overlay';
+import { VlMap } from '../../vl-map';
 import { VlSelectLocationComponent } from '../select-location/vl-select-location';
 
 @webComponent('vl-map-search')
-export class VlMapSearch extends BaseElementOfType(HTMLElement) {
+export class VlMapSearch extends BaseHTMLElement {
+    protected _map: VlMap;
+    protected _onSelect: (location: number[]) => void | undefined;
+
     static {
         registerWebComponents([VlSelectLocationComponent, VlSearchComponent]);
     }
@@ -57,7 +61,7 @@ export class VlMapSearch extends BaseElementOfType(HTMLElement) {
     }
 
     get _selectElement() {
-        return this._shadow.querySelector('vl-select-location') as VlSelectLocationComponent;
+        return this._shadow?.querySelector('vl-select-location') as VlSelectLocationComponent;
     }
 
     bindMap(map) {
@@ -79,8 +83,10 @@ export class VlMapSearch extends BaseElementOfType(HTMLElement) {
 
     private configure() {
         customElements.whenDefined('vl-map').then(() => {
+            // @ts-expect-error: The parentNode is expected to have a map property
             if (this.parentNode && this.parentNode.map) {
-                this._map = this.parentNode._shadow.host;
+                // @ts-expect-error: The parentNode is expected to have a shadow property
+                this._map = this.parentNode?._shadow?.host;
                 this._map.map.addOverlay(
                     new OlOverlay(<any>{
                         className: 'vl-map-search__overlaycontainer',

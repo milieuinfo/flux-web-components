@@ -1,11 +1,11 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, webComponent } from '@domg-wc/common';
 import OlStyleFill from 'ol/style/Fill';
 import OlStyleStroke from 'ol/style/Stroke';
 import OlStyle from 'ol/style/Style';
 import OlStyleText from 'ol/style/Text';
 
 @webComponent('vl-map-layer-style')
-export class VlMapLayerStyle extends BaseElementOfType(HTMLElement) {
+export class VlMapLayerStyle extends BaseHTMLElement {
     connectedCallback() {
         super.connectedCallback();
 
@@ -60,6 +60,7 @@ export class VlMapLayerStyle extends BaseElementOfType(HTMLElement) {
         return this.getAttribute('text-offset-y') || 0;
     }
 
+    // @ts-expect-error: style exists in HTMLElement
     get style() {
         return (feature, resolution) => {
             if (!this.appliesTo(feature)) {
@@ -70,6 +71,7 @@ export class VlMapLayerStyle extends BaseElementOfType(HTMLElement) {
     }
 
     get _styleFunction() {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         return (feature, resolution) => {
             const styleConfig = {
                 fill: new OlStyleFill({
@@ -77,7 +79,7 @@ export class VlMapLayerStyle extends BaseElementOfType(HTMLElement) {
                 }),
                 stroke: new OlStyleStroke({
                     color: this.borderColor,
-                    width: this.borderSize,
+                    width: this.borderSize as number,
                 }),
                 text: undefined,
             };
@@ -100,8 +102,8 @@ export class VlMapLayerStyle extends BaseElementOfType(HTMLElement) {
             backgroundFill: new OlStyleFill({
                 color: this.textBackgroundColor,
             }),
-            offsetX: this.textOffsetX,
-            offsetY: this.textOffsetY,
+            offsetX: this.textOffsetX as number,
+            offsetY: this.textOffsetY as number,
         });
     }
 
@@ -112,7 +114,8 @@ export class VlMapLayerStyle extends BaseElementOfType(HTMLElement) {
      *
      * @Return {boolean} true als de stijl geldig is op basis van een feature, indien false, zal de stijl niet gemaakt worden
      */
-    appliesTo(feature) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    appliesTo(feature: any) {
         return true;
     }
 
@@ -153,7 +156,8 @@ export class VlMapLayerStyle extends BaseElementOfType(HTMLElement) {
     _setStyleOnParent() {
         if (this.parentElement) {
             customElements.whenDefined(this.parentElement.tagName.toLowerCase()).then(() => {
-                this.parentElement.style = this;
+                // @ts-expect-error: style property is readonly
+                this.parentElement.style! = this;
             });
         }
     }

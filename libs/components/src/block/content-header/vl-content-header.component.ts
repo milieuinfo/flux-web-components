@@ -1,9 +1,9 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, webComponent } from '@domg-wc/common';
 import { contentHeaderStyle } from '@domg/govflanders-style/component';
 import { baseStyle, layoutStyle, resetStyle } from '@domg/govflanders-style/common';
 
 @webComponent('vl-content-header')
-export class VlContentHeaderComponent extends BaseElementOfType(HTMLElement) {
+export class VlContentHeaderComponent extends BaseHTMLElement {
     constructor() {
         super(`
           <style>
@@ -34,11 +34,11 @@ export class VlContentHeaderComponent extends BaseElementOfType(HTMLElement) {
     }
 
     disconnectedCallback() {
-        this._observer.disconnect();
+        this._observer?.disconnect();
     }
 
     get pictureElement() {
-        return this._shadow.querySelector('#picture');
+        return this._shadow?.querySelector('#picture');
     }
 
     get pictureSlotElement() {
@@ -46,7 +46,7 @@ export class VlContentHeaderComponent extends BaseElementOfType(HTMLElement) {
     }
 
     get contextElement() {
-        return this._shadow.querySelector('#context');
+        return this._shadow?.querySelector('#context');
     }
 
     get contextSlotElement() {
@@ -54,7 +54,7 @@ export class VlContentHeaderComponent extends BaseElementOfType(HTMLElement) {
     }
 
     get titleElement() {
-        return this._shadow.querySelector('#title');
+        return this._shadow?.querySelector('#title');
     }
 
     get titleSlotElement() {

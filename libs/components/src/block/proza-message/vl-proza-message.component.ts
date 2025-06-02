@@ -1,4 +1,4 @@
-import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { vlLegacyStyles } from '@domg-wc/styles';
 import { VlButtonComponent } from '../../atom/button';
 import { VlTypography } from '../typography/vl-typography.component';
@@ -7,7 +7,14 @@ import { vlProzaMessageFluxStyles } from './vl-proza-message.flux-css';
 import { ProzaRestClient } from './vl-proza-rest-client.util';
 
 @webComponent('vl-proza-message')
-export class VlProzaMessage extends BaseElementOfType(HTMLElement) {
+export class VlProzaMessage extends BaseHTMLElement {
+    protected static __cache: {
+        [domain: string]: {
+            messages?: Record<string, Promise<string> | undefined>;
+            toegelatenOperaties?: any;
+        };
+    } = {};
+
     static {
         registerWebComponents([VlButtonComponent, VlTypography]);
     }
@@ -37,19 +44,19 @@ export class VlProzaMessage extends BaseElementOfType(HTMLElement) {
     }
 
     get _typographyElement() {
-        return this.shadowRoot.querySelector('vl-typography');
+        return this.shadowRoot?.querySelector('vl-typography');
     }
 
     get _actionsElement() {
-        return this.shadowRoot.querySelector('#actions');
+        return this.shadowRoot?.querySelector('#actions');
     }
 
     get _editButton() {
-        return this.shadowRoot.querySelector('#edit-button');
+        return this.shadowRoot?.querySelector('#edit-button');
     }
 
     get _refreshButton() {
-        return this.shadowRoot.querySelector('#refresh-button');
+        return this.shadowRoot?.querySelector('#refresh-button');
     }
 
     get _domain() {
@@ -195,8 +202,8 @@ export class VlProzaMessage extends BaseElementOfType(HTMLElement) {
 
     _loadMessage() {
         if (!!this._domain && !!this._code) {
-            VlProzaMessage.getMessage(this._domain, this._code, null, this._baseUrl).then((message: string) => {
-                this._typographyElement.innerHTML = message;
+            VlProzaMessage.getMessage(this._domain, this._code, null, this._baseUrl!).then((message: string) => {
+                this._typographyElement!.innerHTML = message;
                 if (this.__containsBlockElement()) {
                     this.toggleAttribute('block', true);
                 } else {
@@ -204,23 +211,28 @@ export class VlProzaMessage extends BaseElementOfType(HTMLElement) {
                 }
             });
         } else {
-            this._typographyElement.innerHTML = null;
+            this._typographyElement!.innerHTML = '';
         }
     }
 
     _reloadMessage() {
-        VlProzaMessage.__getSingleMessage(this._domain, this._code, { forceUpdate: true }, this._baseUrl);
+        VlProzaMessage.__getSingleMessage(
+            <string>this._domain,
+            <string>this._code,
+            { forceUpdate: true },
+            this._baseUrl!
+        );
         this._loadMessage();
     }
 
     __containsBlockElement() {
-        return [...this._typographyElement.children].some((element) =>
+        return [...this._typographyElement!.children].some((element) =>
             ['block', 'inline-block', 'flex', 'grid', 'table'].includes(window.getComputedStyle(element).display)
         );
     }
 
     async __updatenIsToegelaten() {
-        return (await VlProzaMessage._getToegelatenOperaties(this._domain, this._baseUrl)).update;
+        return (await VlProzaMessage._getToegelatenOperaties(<string>this._domain, <string>this._baseUrl)).update;
     }
 
     __setupUpdatableMessage() {
@@ -234,8 +246,8 @@ export class VlProzaMessage extends BaseElementOfType(HTMLElement) {
         const template = this._template(`
         <div id="actions"></div>
     `);
-        template.firstElementChild.appendChild(this.__editButtonTemplate());
-        template.firstElementChild.appendChild(this.__refreshButtonTemplate());
+        template?.firstElementChild?.appendChild(this.__editButtonTemplate());
+        template?.firstElementChild?.appendChild(this.__refreshButtonTemplate());
         return template;
     }
 
@@ -243,7 +255,7 @@ export class VlProzaMessage extends BaseElementOfType(HTMLElement) {
         const button = this._template(`
         <vl-button id="edit-button" icon="pencil" label="edit"></vl-button>
     `);
-        button.firstElementChild.addEventListener('click', (event: Event) => {
+        button?.firstElementChild?.addEventListener('click', (event: Event) => {
             event.stopPropagation();
             event.preventDefault();
             window.open(`/proza/domeinen/${this._domain}/codes/${this._code}`, '_blank');
@@ -255,7 +267,7 @@ export class VlProzaMessage extends BaseElementOfType(HTMLElement) {
         const button = this._template(`
         <vl-button id="refresh-button" icon="text-redo" label="refresh"></vl-button>
     `);
-        button.firstElementChild.addEventListener('click', (event: Event) => {
+        button?.firstElementChild?.addEventListener('click', (event: Event) => {
             event.stopPropagation();
             event.preventDefault();
             this._reloadMessage();

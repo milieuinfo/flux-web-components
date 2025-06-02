@@ -1,4 +1,4 @@
-import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { vlContentBlockStyles, vlGridStyles, vlLegacyStyles, vlResetStyles, vlSectionStyles } from '@domg-wc/styles';
 import { render } from 'lit-html';
 import { VlTitleComponent } from '../../atom';
@@ -20,7 +20,7 @@ import './cookie/vl-sticky-session-cookie.component';
 import { vlCookieStatementFluxStyles } from './vl-cookie-statement.flux-css';
 
 @webComponent('vl-cookie-statement')
-export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
+export class VlCookieStatement extends BaseHTMLElement {
     static {
         registerWebComponents([
             // components
@@ -51,7 +51,7 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
              <slot name="header"></slot>
             `);
 
-        const headerSlot = this.shadowRoot.querySelector('slot[name="header"]');
+        const headerSlot = this.shadowRoot?.querySelector<HTMLElement>('slot[name="header"]');
 
         if (headerSlot) {
             render(header(), headerSlot);
@@ -217,34 +217,34 @@ export class VlCookieStatement extends BaseElementOfType(HTMLElement) {
     }
 
     _versionChangedCallback(oldValue: string, newValue: string) {
-        const versionElement = this._shadow.getElementById('introduction-version');
+        const versionElement = this._shadow?.getElementById('introduction-version') as HTMLElement;
 
         versionElement.innerText = newValue;
     }
 
     _dateChangedCallback(oldValue: string, newValue: string) {
-        const dateElement = this._shadow.getElementById('introduction-date');
+        const dateElement = this._shadow?.getElementById('introduction-date') as HTMLElement;
 
         dateElement.innerText = newValue;
     }
 
     _disableBackLinkChangedCallback() {
-        const functionalHeader = this._shadow.querySelector('vl-functional-header');
+        const functionalHeader = this._shadow?.querySelector<VlFunctionalHeaderComponent>('vl-functional-header');
 
         if (this.hasAttribute('disable-back-link')) {
-            functionalHeader.setAttribute('disable-back-link', '');
+            functionalHeader?.setAttribute('disable-back-link', '');
         } else {
-            functionalHeader.removeAttribute('disable-back-link');
+            functionalHeader?.removeAttribute('disable-back-link');
         }
     }
 
     _hideBackLinkChangedCallback() {
-        const functionalHeader = this._shadow.querySelector('vl-functional-header');
+        const functionalHeader = this._shadow?.querySelector<VlFunctionalHeaderComponent>('vl-functional-header');
 
         if (this.hasAttribute('hide-back-link')) {
-            functionalHeader.setAttribute('hide-back-link', '');
+            functionalHeader?.setAttribute('hide-back-link', '');
         } else {
-            functionalHeader.removeAttribute('hide-back-link');
+            functionalHeader?.removeAttribute('hide-back-link');
         }
     }
 }

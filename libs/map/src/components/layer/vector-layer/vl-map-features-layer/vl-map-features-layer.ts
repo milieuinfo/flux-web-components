@@ -195,7 +195,7 @@ export class VlMapFeaturesLayer extends VlMapVectorLayer {
 
     __createClusterSource(source) {
         return new OlClusterSource({
-            distance: this._clusterDistance,
+            distance: this._clusterDistance as unknown as number,
             source,
             geometryFunction: (feature) => {
                 const geometry = feature.getGeometry();

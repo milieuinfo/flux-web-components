@@ -1,4 +1,4 @@
-import { BaseElementOfType, registerWebComponents, webComponentConditional } from '@domg-wc/common';
+import { BaseHTMLElement, registerWebComponents, webComponentConditional } from '@domg-wc/common';
 import { vlGridStyles, vlLegacyStyles } from '@domg-wc/styles';
 import { VlButtonComponent } from '../../atom/button';
 import { VlModalComponent } from '../../block/modal';
@@ -6,8 +6,25 @@ import { analytics } from './util/analytics.util';
 import './vl-cookie-consent-opt-in.component';
 
 @webComponentConditional('vl-modal', 'vl-cookie-consent')
-export class VlCookieConsent extends BaseElementOfType(HTMLElement) {
+export class VlCookieConsent extends BaseHTMLElement {
     private initialized = false;
+    private _cookieConsentCookieName: string;
+    private _optIns: Record<
+        string,
+        {
+            name: string;
+            label: string;
+            description: string;
+            value: boolean;
+            mandatory?: boolean;
+            callback?: {
+                activated?: () => void;
+                deactivated?: () => void;
+            };
+        }
+    >;
+    private _cookieConsentDateCookieName: string;
+    private _cookieConsentResetDate: Date;
 
     static {
         registerWebComponents([VlButtonComponent, VlModalComponent]);
@@ -87,11 +104,11 @@ export class VlCookieConsent extends BaseElementOfType(HTMLElement) {
     }
 
     get _ownerElements() {
-        return this._shadow.querySelectorAll('[owner]');
+        return this._shadow?.querySelectorAll<HTMLElement>('[owner]');
     }
 
     get _linkElement() {
-        return this._shadow.querySelector('#link');
+        return this._shadow?.querySelector<HTMLAnchorElement>('#link');
     }
 
     connectedCallback() {
@@ -104,7 +121,7 @@ export class VlCookieConsent extends BaseElementOfType(HTMLElement) {
             const matomoId = this.getAttribute('matomo-id');
             const matomoUrl = this.getAttribute('matomo-url');
             if (matomoId && matomoUrl) {
-                analytics.setMatomoConfig(matomoId, matomoUrl);
+                analytics.setMatomoConfig(parseInt(matomoId), matomoUrl);
             }
             this.__addAnalyticsIfOptedIn();
         }
@@ -175,7 +192,7 @@ export class VlCookieConsent extends BaseElementOfType(HTMLElement) {
      */
     addOptInActivatedCallback(name: string, callback: any) {
         if (this._optIns[name]) {
-            this._optIns[name].callback.activated = callback;
+            this._optIns[name].callback!.activated = callback;
         }
     }
 
@@ -186,7 +203,7 @@ export class VlCookieConsent extends BaseElementOfType(HTMLElement) {
      */
     addOptInDeactivatedCallback(name: string, callback: any) {
         if (this._optIns[name]) {
-            this._optIns[name].callback.deactivated = callback;
+            this._optIns[name].callback!.deactivated = callback;
         }
     }
 
@@ -213,27 +230,28 @@ export class VlCookieConsent extends BaseElementOfType(HTMLElement) {
         const template = this._template(`
       <vl-button slot="button">${text}</vl-button>
     `);
-        template.querySelector('vl-button').addEventListener('click', () => {
+        template.querySelector<VlButtonComponent>('vl-button')?.addEventListener('click', () => {
             this.close();
         });
         return template;
     }
 
     _getOptInTemplate(optIn: any) {
+        let template;
         if (optIn) {
             const checked = optIn.value || optIn.mandatory ? `${VlCookieConsent.attributePrefix}checked` : '';
             const mandatory = optIn.mandatory ? `${VlCookieConsent.attributePrefix}mandatory` : '';
-            const template = this._template(`
+            template = this._template(`
         <div class="vl-column vl-column--12">
           <vl-cookie-consent-opt-in ${VlCookieConsent.attributePrefix}label="${optIn.label}" ${VlCookieConsent.attributePrefix}description="${optIn.description}" ${checked} ${mandatory}></vl-cookie-consent-opt-in>
         </div>
       `);
-            template.querySelector('vl-cookie-consent-opt-in').addEventListener('input', (event: any) => {
+            template.querySelector('vl-cookie-consent-opt-in')?.addEventListener('input', (event: any) => {
                 const checked = event && event.currentTarget ? event.currentTarget.checked : false;
                 optIn.value = checked;
             });
-            return template;
         }
+        return template;
     }
 
     _open(forced: boolean) {
@@ -249,7 +267,8 @@ export class VlCookieConsent extends BaseElementOfType(HTMLElement) {
 
     _resetOptInValue(optIn: any) {
         const match = [...this._optInElementen].find((optIn) => {
-            return (optIn.id = optIn.name);
+            // TODO onderstaande code moet bekeken worden
+            return (optIn.id = optIn.name!);
         });
         if (match) {
             optIn.value = optIn.getAttribute(VlCookieConsent.attributePrefix + 'checked') != undefined;
@@ -345,7 +364,7 @@ export class VlCookieConsent extends BaseElementOfType(HTMLElement) {
             if (cookie.indexOf(name) == 0) {
                 try {
                     return JSON.parse(cookie.substring(name.length, cookie.length));
-                    // eslint-disable-line @typescript-eslint/no-unused-vars
+                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 } catch (error) {
                     return cookie.substring(name.length, cookie.length);
                 }
@@ -397,12 +416,12 @@ export class VlCookieConsent extends BaseElementOfType(HTMLElement) {
     }
 
     _ownerChangedCallback(oldValue: any, newValue: any) {
-        this._ownerElements.forEach((element: any) => (element.innerText = newValue));
+        this._ownerElements?.forEach((element: any) => (element.innerText = newValue));
     }
 
     _linkChangedCallback(oldValue: string, newValue: string) {
-        this._linkElement.innerText = newValue;
-        this._linkElement.href = newValue;
+        this._linkElement!.innerText = newValue;
+        this._linkElement!.href = newValue;
     }
 
     // Deze methode bewust apart gedefiniëerd als een arrow-functie

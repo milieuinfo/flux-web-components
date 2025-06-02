@@ -1,8 +1,8 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, webComponent } from '@domg-wc/common';
 import { vlIconStyles, vlLinkIconStyles, vlLinkStyles } from '@domg-wc/components/atom';
 
 @webComponent('vl-map-side-sheet-menu-item')
-export class VlMapSideSheetMenuItem extends BaseElementOfType(HTMLElement) {
+export class VlMapSideSheetMenuItem extends BaseHTMLElement {
     static get _observedAttributes() {
         return ['title', 'href'];
     }
@@ -37,11 +37,11 @@ export class VlMapSideSheetMenuItem extends BaseElementOfType(HTMLElement) {
     }
 
     get _titleElement() {
-        return this._shadow.querySelector('#title');
+        return this._shadow?.querySelector<HTMLElement>('#title');
     }
 
     get _hrefElement() {
-        return this._shadow.querySelector('#vl-map-side-sheet-menu-item-link');
+        return this._shadow?.querySelector('#vl-map-side-sheet-menu-item-link');
     }
 
     _titleChangedCallback(oldValue, newValue) {

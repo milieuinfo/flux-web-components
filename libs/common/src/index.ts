@@ -1,4 +1,3 @@
-export { BaseElementOfType } from './base/base.element';
 export { BaseHTMLElement } from './base/base.html.element';
 export { BaseLitElement } from './base/base.lit.element';
 export { FluxConfig, type Preferences } from './config/flux-config';

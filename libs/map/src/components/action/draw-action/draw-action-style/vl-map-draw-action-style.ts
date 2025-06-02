@@ -1,11 +1,11 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, webComponent } from '@domg-wc/common';
 import OlStyleFill from 'ol/style/Fill';
 import OlStyleStroke from 'ol/style/Stroke';
 import OlStyleCircle from 'ol/style/Circle';
 import OlStyle from 'ol/style/Style';
 
 @webComponent('vl-map-draw-action-style')
-export class VlMapDrawActionStyle extends BaseElementOfType(HTMLElement) {
+export class VlMapDrawActionStyle extends BaseHTMLElement {
     connectedCallback() {
         super.connectedCallback();
 
@@ -40,6 +40,7 @@ export class VlMapDrawActionStyle extends BaseElementOfType(HTMLElement) {
         return this.getAttribute('circle-border-size') || 1;
     }
 
+    // @ts-expect-error: style exists in HTMLElement
     get style() {
         return this._styleFunction();
     }
@@ -52,16 +53,16 @@ export class VlMapDrawActionStyle extends BaseElementOfType(HTMLElement) {
                 }),
                 stroke: new OlStyleStroke({
                     color: this.strokeColor,
-                    width: this.strokeSize,
+                    width: this.strokeSize as number,
                 }),
                 image: new OlStyleCircle({
-                    radius: this.circleRadius,
+                    radius: this.circleRadius as number,
                     fill: new OlStyleFill({
                         color: this.circleColor,
                     }),
                     stroke: new OlStyleStroke({
                         color: this.circleStrokeColor,
-                        width: this.circleStrokeSize,
+                        width: this.circleStrokeSize as number,
                     }),
                 }),
                 text: undefined,
@@ -73,7 +74,8 @@ export class VlMapDrawActionStyle extends BaseElementOfType(HTMLElement) {
     _setStyleOnParent() {
         if (this.parentElement) {
             customElements.whenDefined(this.parentElement.tagName.toLowerCase()).then(() => {
-                this.parentElement.style = this;
+                // @ts-expect-error: style property is readonly
+                this.parentElement.style! = this;
             });
         }
     }

@@ -1,10 +1,9 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common';
-
+import { BaseHTMLElement, webComponent } from '@domg-wc/common';
 import { Zoom } from 'ol/control.js';
 import OlFullScreenControl from 'ol/control/FullScreen';
 import OlLayerGroup from 'ol/layer/Group';
-import OlProjection from 'ol/proj/Projection';
 import { register } from 'ol/proj/proj4';
+import OlProjection from 'ol/proj/Projection';
 import proj4 from 'proj4';
 import { VlCustomMap } from './actions/map/custom-map';
 import { VlMapFeaturesLayer } from './components/layer/vector-layer/vl-map-features-layer/vl-map-features-layer';
@@ -15,8 +14,14 @@ import { vlMapFluxStyles } from './vl-map.flux-css';
 import { EVENT } from './vl-map.model';
 
 @webComponent('vl-map')
-export class VlMap extends BaseElementOfType(HTMLElement) {
-    private observer: MutationObserver;
+export class VlMap extends BaseHTMLElement {
+    protected __mapReady: Promise<unknown>;
+    protected __overviewMapReady: Promise<unknown>;
+    protected _map: VlCustomMap;
+    protected __mapReadyResolver: (value: PromiseLike<unknown> | unknown) => void;
+    protected __overviewMapReadyResolver: (value: PromiseLike<unknown> | unknown) => void;
+    protected observer: MutationObserver;
+    protected __ready: any;
 
     constructor() {
         super(`
@@ -71,8 +76,8 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
      *
      * @return {Object[]}
      */
-    get nonBaseLayers(): VlMapLayer[] {
-        return [...this.querySelectorAll(':scope > [is-layer]')];
+    get nonBaseLayers() {
+        return [...this.querySelectorAll<VlMapLayer>(':scope > [is-layer]')];
     }
 
     get disableEscapeKey() {
@@ -108,7 +113,7 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
     }
 
     get _mapElement() {
-        return this._shadow.querySelector('#map');
+        return this._shadow?.querySelector('#map');
     }
 
     get _controls() {
@@ -197,7 +202,7 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
         if (this.observer) {
             this.observer.disconnect();
         }
-        this.map.setTarget(null);
+        this.map?.setTarget(null);
     }
 
     __createZoomControl() {
@@ -362,6 +367,7 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
         if (this.map) {
             this.map.updateSize();
         }
+        // @ts-expect-error: expects one argument
         this.__mapReadyResolver();
     }
 
@@ -369,6 +375,7 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
         if (this.map.overviewMapControl) {
             this.map.overviewMapControl.getOverviewMap().updateSize();
         }
+        // @ts-expect-error: expects one argument
         this.__overviewMapReadyResolver();
     }
 

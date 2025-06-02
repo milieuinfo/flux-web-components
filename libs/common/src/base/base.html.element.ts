@@ -3,6 +3,7 @@ declare const vl: any;
 export class BaseHTMLElement extends HTMLElement {
     protected allowCustomCSS = true;
     protected _shadow: ShadowRoot | undefined;
+    protected _observer: MutationObserver | undefined;
 
     /**
      * VlElement constructor die een shadow DOM voorziet op basis van de HTML {Literal} parameter.
@@ -183,7 +184,7 @@ export class BaseHTMLElement extends HTMLElement {
      * @return {Element}
      */
     get _element(): any {
-        return this._shadow ? this._shadow.lastElementChild : this;
+        return this._shadow?.lastElementChild || this;
     }
 
     /**

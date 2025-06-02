@@ -46,7 +46,9 @@ describe('vl-map-layer-action', () => {
         `);
         cy.runTestFor2<VlMap, VlMapFeaturesLayer>('vl-map', 'vl-map-features-layer', (vlMap, vlMapFeaturesLayer) => {
             cy.wrap(vlMap.ready).then(() => {
+                // @ts-expect-error: actions is protected, maar we willen dit hier testen
                 expect(vlMap._map.actions).to.have.lengthOf(1);
+                // @ts-expect-error: actions is protected, maar we willen dit hier testen
                 expect(vlMap._map.actions[0]).to.deep.equal(action);
                 expect(createActionStub).to.have.been.calledWith(vlMapFeaturesLayer.layer);
             });

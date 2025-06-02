@@ -1,8 +1,9 @@
-import { BaseElementOfType } from '@domg-wc/common';
+import { BaseHTMLElement } from '@domg-wc/common';
 import { VlMap } from '../../vl-map';
 import { VlMapLayerStyle } from '../layer-style/vl-map-layer-style';
 
-export abstract class VlMapLayer extends BaseElementOfType(HTMLElement) {
+export abstract class VlMapLayer extends BaseHTMLElement {
+    static __counter: any;
     static get _observedAttributes() {
         return ['hidden', 'opacity'];
     }
@@ -125,8 +126,9 @@ export abstract class VlMapLayer extends BaseElementOfType(HTMLElement) {
     }
 
     get mapElement(): VlMap {
+        // @ts-expect-error: The parentNode is expected to have a map property
         if (this.parentNode && this.parentNode.map) {
-            return this.parentNode;
+            return <VlMap>this.parentNode;
         }
         return null;
     }

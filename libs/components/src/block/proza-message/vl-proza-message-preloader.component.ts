@@ -1,8 +1,10 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, webComponent } from '@domg-wc/common';
 import { ProzaRestClient } from './vl-proza-rest-client.util';
 
 @webComponent('vl-proza-message-preloader')
-export class VlProzaMessagePreloader extends BaseElementOfType(HTMLElement) {
+export class VlProzaMessagePreloader extends BaseHTMLElement {
+    static __cache: Record<string, string | unknown>;
+
     static get _observedAttributes() {
         return ['domain'];
     }
@@ -26,7 +28,7 @@ export class VlProzaMessagePreloader extends BaseElementOfType(HTMLElement) {
 
     preload() {
         if (this._domain) {
-            VlProzaMessagePreloader.preload(this._domain, this._baseUrl);
+            VlProzaMessagePreloader.preload(this._domain, <string>this._baseUrl);
         }
     }
 
@@ -105,7 +107,7 @@ export class VlProzaMessagePreloader extends BaseElementOfType(HTMLElement) {
         }
     }
 
-    static get __domainCache() {
+    static get __domainCache(): Record<string, unknown> {
         if (!VlProzaMessagePreloader.__cache) {
             VlProzaMessagePreloader.__cache = {};
         }
@@ -121,10 +123,12 @@ export class VlProzaMessagePreloader extends BaseElementOfType(HTMLElement) {
     }
 
     static __getPreloadedMessagesCacheForDomain(domain: string) {
+        // @ts-expect-error: messages is of type unknown
         return VlProzaMessagePreloader.__getCacheForDomain(domain).messages;
     }
 
     static __setPreloadedMessagesCacheForDomain(domain: string, messages: any) {
+        // @ts-expect-error: messages is of type unknown
         VlProzaMessagePreloader.__getCacheForDomain(domain).messages = messages;
     }
 }
