@@ -18,8 +18,8 @@ export interface VlMapActionOptions {
  * Deze kaart regelt dat er maar één actie actief kan staan. Bij het activeren van een andere actie wordt namelijk de huidige actie gedeactiveerd.
  */
 export class VlMapWithActions extends Map {
-    private actions: any[];
-    private timeout: any;
+    actions: any[];
+    protected timeout: any;
     static get CLICK_COUNT_TIMEOUT() {
         return 300;
     }
@@ -70,7 +70,7 @@ export class VlMapWithActions extends Map {
     }
 
     getDefaultActiveAction() {
-        return this.actions && this.actions.find((action) => action.element._defaultActive);
+        return this.actions && this.actions.find((action) => action.element?._defaultActive);
     }
 
     getCurrentActiveAction() {
@@ -107,7 +107,7 @@ export class VlMapWithActions extends Map {
         // delay the activation of the action with 300ms because ol has a timeout of 251ms to detect a double click event
         // when we don't use a delay some click and select events of the previous action will be triggered on the new action
         this.timeout = setTimeout(() => {
-            action.activate();
+            action?.activate();
         }, VlMapWithActions.CLICK_COUNT_TIMEOUT);
     }
 

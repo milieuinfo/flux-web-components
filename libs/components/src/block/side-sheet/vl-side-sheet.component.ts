@@ -1,11 +1,15 @@
-import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { vlAccessibilityStyles, vlContentBlockStyles, vlLegacyStyles, vlSectionStyles } from '@domg-wc/styles';
 import swipeDetect from 'swipe-detect/dist/';
 import { VlButtonComponent } from '../../atom/button';
 import { vlSideSheetFluxStyles } from './vl-side-sheet.flux-css';
 
 @webComponent('vl-side-sheet')
-export class VlSideSheet extends BaseElementOfType(HTMLElement) {
+export class VlSideSheet extends BaseHTMLElement {
+    protected _toggle: (() => void) | undefined;
+    protected _onClose: (() => void) | undefined;
+    private swipeDetect: typeof swipeDetect;
+
     static {
         registerWebComponents([VlButtonComponent]);
     }
@@ -88,44 +92,44 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
     }
 
     get _toggleButton() {
-        return this._shadow.querySelector('.vl-side-sheet__toggle');
+        return this._shadow?.querySelector<VlButtonComponent>('.vl-side-sheet__toggle');
     }
 
     get _toggleButtonTextElement() {
-        return this._shadow.querySelector('#vl-side-sheet-toggle-text');
+        return this._shadow?.querySelector<HTMLElement>('#vl-side-sheet-toggle-text');
     }
 
     get _sheetElement() {
-        return this._shadow.querySelector('#vl-side-sheet');
+        return this._shadow?.querySelector<HTMLElement>('#vl-side-sheet');
     }
 
     get _regionElement() {
-        return this._sheetElement.querySelector('section.vl-section');
+        return this._sheetElement?.querySelector<HTMLElement>('section.vl-section');
     }
 
     get _backdropElement() {
-        return this._shadow.querySelector('#vl-side-sheet-backdrop');
+        return this._shadow?.querySelector<HTMLElement>('#vl-side-sheet-backdrop');
     }
 
     get _slotElement() {
-        return this._shadow.querySelector('slot');
+        return this._shadow?.querySelector<HTMLElement>('slot');
     }
 
     connectedCallback() {
         super.connectedCallback();
 
         this._toggle = () => this.toggle();
-        this._toggleButton.addEventListener('click', this._toggle);
-        this._toggleButton.on = false;
+        this._toggleButton?.addEventListener('click', this._toggle);
+        this._toggleButton!.on = false;
         if (this.iconPlacement !== 'after') {
-            this._toggleButton.setAttribute('icon-placement', 'before');
+            this._toggleButton?.setAttribute('icon-placement', 'before');
         } else {
-            this._toggleButton.setAttribute('icon-placement', 'after');
+            this._toggleButton?.setAttribute('icon-placement', 'after');
         }
     }
 
     disconnectedCallback() {
-        this._toggleButton.removeEventListener('click', this._toggle);
+        this._toggleButton?.removeEventListener('click', this._toggle!);
     }
 
     /**
@@ -134,7 +138,11 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
      * @Return {void}
      */
     toggle() {
-        this.isOpen ? this.close() : this.open();
+        if (this.isOpen) {
+            this.close();
+        } else {
+            this.open();
+        }
     }
 
     /**
@@ -147,14 +155,14 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
     }
 
     _handleOnOpen() {
-        this._toggleButton.setAttribute('aria-expanded', 'true');
+        this._toggleButton?.setAttribute('aria-expanded', 'true');
         let openIcon: string;
         if (!this.customIcon) {
             openIcon = this.isLeft ? 'nav-left' : 'nav-right';
         } else {
             openIcon = this.customIcon;
         }
-        this._toggleButton.setAttribute('icon', openIcon);
+        this._toggleButton?.setAttribute('icon', openIcon);
     }
 
     /**
@@ -168,14 +176,14 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
     }
 
     _handleOnClose() {
-        this._toggleButton.setAttribute('aria-expanded', 'false');
+        this._toggleButton?.setAttribute('aria-expanded', 'false');
         let closeIcon: string;
         if (!this.customIcon) {
             closeIcon = this.isLeft ? 'nav-right' : 'nav-left';
         } else {
             closeIcon = this.customIcon;
         }
-        this._toggleButton.setAttribute('icon', closeIcon);
+        this._toggleButton?.setAttribute('icon', closeIcon);
         if (this._onClose) {
             this._onClose();
         }
@@ -210,12 +218,12 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
 
     _absoluteChangedCallback(oldValue: any, newValue: any) {
         if (newValue != undefined && this._regionElement) {
-            this._sheetElement.append(this._slotElement);
+            this._sheetElement?.append(this._slotElement!);
             this._regionElement.remove();
         }
     }
 
-    _leftChangedCallback(oldValue: any, newValue: any) {
+    _leftChangedCallback() {
         if (!this.customIcon) {
             this._openChangedCallback();
         }
@@ -230,7 +238,7 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
     }
 
     _toggleTextChangedCallback(oldValue: any, newValue: any) {
-        this._toggleButton.innerHTML = newValue;
+        this._toggleButton!.innerHTML = newValue;
     }
 
     _tooltipTextChangedCallback(oldValue: any, newValue: any) {
@@ -245,15 +253,15 @@ export class VlSideSheet extends BaseElementOfType(HTMLElement) {
     _hideToggleButtonChangedCallback(oldValue: any, newValue: any) {
         const hideToggleButton = Boolean(newValue === null);
         if (!hideToggleButton) {
-            this._toggleButton.classList.add('vl-visually-hidden');
+            this._toggleButton?.classList.add('vl-visually-hidden');
         } else {
-            this._toggleButton.classList.remove('vl-visually-hidden');
+            this._toggleButton?.classList.remove('vl-visually-hidden');
         }
     }
 
     _customIconChangedCallback(oldValue: string, newValue: string) {
         if (newValue) {
-            this._toggleButton.setAttribute('icon', newValue);
+            this._toggleButton?.setAttribute('icon', newValue);
         }
     }
 }

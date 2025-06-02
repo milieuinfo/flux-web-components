@@ -1,4 +1,4 @@
-import { awaitUntil, BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
+import { awaitUntil, BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { vlGridStyles, vlGroupStyles, vlStackedStyles } from '@domg-wc/styles';
 import { accessibilityStyle, resetStyle } from '@domg/govflanders-style/common';
 import { modalStyle } from '@domg/govflanders-style/component';
@@ -10,7 +10,7 @@ import { vlModalFluxStyles } from './vl-modal.flux-css';
 declare const vl: any;
 
 @webComponent('vl-modal')
-export class VlModalComponent extends BaseElementOfType(HTMLElement) {
+export class VlModalComponent extends BaseHTMLElement {
     static {
         registerWebComponents([VlLinkComponent]);
     }
@@ -97,12 +97,11 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
         super.connectedCallback();
 
         this.dress();
-
-        this._shadow.host.addEventListener('keyup', this._onEscape);
+        this._shadow?.host.addEventListener('keyup', this._onEscape);
     }
 
     disconnectedCallback() {
-        this._shadow.host.removeEventListener('keyup', this._onEscape);
+        this._shadow?.host?.removeEventListener('keyup', this._onEscape);
     }
 
     /**
@@ -232,8 +231,8 @@ export class VlModalComponent extends BaseElementOfType(HTMLElement) {
         }
     }
 
-    private _onEscape = (e: KeyboardEvent) => {
-        if (e.code.toLowerCase() === 'escape') {
+    private _onEscape = (e: KeyboardEvent | Event) => {
+        if ((e as KeyboardEvent).code.toLowerCase() === 'escape') {
             e.preventDefault();
             e.stopPropagation();
             const canEscape =

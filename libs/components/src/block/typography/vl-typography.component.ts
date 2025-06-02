@@ -1,4 +1,4 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, webComponent } from '@domg-wc/common';
 import {
     baseStyle,
     elementStyle,
@@ -9,7 +9,7 @@ import { titlesStyle, typographyStyle } from '@domg/govflanders-style/component'
 import { vlTypographyFluxStyles } from './vl-typography.flux-css';
 
 @webComponent('vl-typography')
-export class VlTypography extends BaseElementOfType(HTMLElement) {
+export class VlTypography extends BaseHTMLElement {
     constructor() {
         super(`
           <style>
@@ -51,16 +51,16 @@ export class VlTypography extends BaseElementOfType(HTMLElement) {
     }
 
     disconnectedCallback() {
-        this._observer.disconnect();
+        this._observer?.disconnect();
     }
 
-    _parametersChangedCallback(oldValue: any, newValue: any) {
+    _parametersChangedCallback() {
         this.__processSlotElements();
     }
 
     __processSlotElements() {
         this.__clearChildren();
-        const parameters = this.getAttribute('parameters') ? JSON.parse(this.getAttribute('parameters')) : {};
+        const parameters = this.getAttribute('parameters') ? JSON.parse(this.getAttribute('parameters')!) : {};
         const template = VlTypography.replaceTemplateParameters(this.innerHTML, parameters);
         this._element.insertAdjacentHTML('afterbegin', template);
     }

@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { BaseElementOfType, PADDINGS, registerWebComponents, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, PADDINGS, registerWebComponents, webComponent } from '@domg-wc/common';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { accordionStyle, buttonStyle, iconStyle, linkStyle, toggleStyle } from '@domg/govflanders-style/component';
 import { VlIconComponent } from '../../atom/icon';
@@ -13,7 +13,7 @@ registerWebComponents([VlIconComponent]);
 declare const vl: any;
 
 @webComponent('vl-accordion')
-export class VlAccordionComponent extends BaseElementOfType(HTMLElement) {
+export class VlAccordionComponent extends BaseHTMLElement {
     constructor() {
         super(`
           <style>
@@ -140,7 +140,7 @@ export class VlAccordionComponent extends BaseElementOfType(HTMLElement) {
         const icon = this.getAttribute('icon');
         const iconEl = document.createElement('vl-icon');
         iconEl.classList.add('vl-accordion__icon', 'vl-link__icon', 'vl-link__icon--before', 'vl-toggle__icon');
-        iconEl.setAttribute('icon', icon);
+        iconEl.setAttribute('icon', icon!);
         iconEl.setAttribute('aria-hidden', 'true');
         this._buttonElement?.prepend(iconEl);
     }

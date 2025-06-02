@@ -1,7 +1,7 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, webComponent } from '@domg-wc/common';
 
 @webComponent('vl-map-overview-map')
-export class VlMapOverviewMap extends BaseElementOfType(HTMLElement) {
+export class VlMapOverviewMap extends BaseHTMLElement {
     connectedCallback() {
         super.connectedCallback();
 
@@ -10,6 +10,7 @@ export class VlMapOverviewMap extends BaseElementOfType(HTMLElement) {
 
     get _map() {
         if (this.parentNode) {
+            // @ts-expect-error: The parentNode is expected to have a map property
             return this.parentNode.map;
         }
     }

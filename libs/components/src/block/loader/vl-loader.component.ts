@@ -1,9 +1,9 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, webComponent } from '@domg-wc/common';
 import { loaderStyle } from '@domg/govflanders-style/component';
 import { accessibilityStyle, alignStyle, resetStyle } from '@domg/govflanders-style/common';
 
 @webComponent('vl-loader')
-export class VlLoaderComponent extends BaseElementOfType(HTMLElement) {
+export class VlLoaderComponent extends BaseHTMLElement {
     static get _observedAttributes() {
         return ['light', 'text', 'single'];
     }
@@ -28,15 +28,15 @@ export class VlLoaderComponent extends BaseElementOfType(HTMLElement) {
     }
 
     get _loader() {
-        return this._shadow.querySelector('.vl-loader');
+        return this._shadow?.querySelector('.vl-loader');
     }
 
     get _text() {
-        return this._shadow.querySelector('#text');
+        return this._shadow?.querySelector('#text');
     }
 
     get _slot() {
-        return this._shadow.querySelector('slot');
+        return this._shadow?.querySelector('slot');
     }
 
     _lightChangedCallback(oldValue: string, newValue: string) {
@@ -44,7 +44,7 @@ export class VlLoaderComponent extends BaseElementOfType(HTMLElement) {
     }
 
     _textChangedCallback(oldValue: string, newValue: string) {
-        this._slot.innerText = newValue;
+        this._slot!.innerText = newValue;
     }
 
     _singleChangedCallback(oldValue: string, newValue: string) {

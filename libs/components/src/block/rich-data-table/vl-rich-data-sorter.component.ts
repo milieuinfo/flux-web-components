@@ -1,10 +1,13 @@
-import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { vlLegacyStyles } from '@domg-wc/styles';
 import { VlIconComponent } from '../../atom/icon';
 import { vlRichDataTableFluxStyles } from './vl-rich-data-table.flux-css';
 
 @webComponent('vl-rich-data-sorter')
-export class VlRichDataSorter extends BaseElementOfType(HTMLElement) {
+export class VlRichDataSorter extends BaseHTMLElement {
+    private __direction: string | undefined;
+    private __priority: number | undefined;
+
     static {
         registerWebComponents([VlIconComponent]);
     }
@@ -62,7 +65,7 @@ export class VlRichDataSorter extends BaseElementOfType(HTMLElement) {
         };
     }
 
-    get for(): string {
+    get for() {
         return this.getAttribute('for');
     }
 
@@ -76,10 +79,10 @@ export class VlRichDataSorter extends BaseElementOfType(HTMLElement) {
 
             const directionIcon = this._directionIcon;
             if (directionIcon) {
-                this.__directionElement.setAttribute('icon', directionIcon);
-                this.__containerElement.classList.remove('vl-u-visually-hidden');
+                this.__directionElement?.setAttribute('icon', directionIcon);
+                this.__containerElement?.classList.remove('vl-u-visually-hidden');
             } else {
-                this.__containerElement.classList.add('vl-u-visually-hidden');
+                this.__containerElement?.classList.add('vl-u-visually-hidden');
             }
 
             if (direction === undefined) {
@@ -106,20 +109,20 @@ export class VlRichDataSorter extends BaseElementOfType(HTMLElement) {
     set priority(priority) {
         if (this.__priority !== priority) {
             this.__priority = Number(priority) || undefined;
-            this.__priorityElement.textContent = String(this.priority);
+            this.__priorityElement!.textContent = String(this.priority);
         }
     }
 
-    get __directionElement(): HTMLElement {
-        return this.shadowRoot.querySelector('#direction');
+    get __directionElement() {
+        return this.shadowRoot?.querySelector<HTMLElement>('#direction');
     }
 
-    get __containerElement(): HTMLElement {
-        return this.shadowRoot.querySelector('#container');
+    get __containerElement() {
+        return this.shadowRoot?.querySelector<HTMLElement>('#container');
     }
 
-    get __priorityElement(): HTMLElement {
-        return this.shadowRoot.querySelector('#priority');
+    get __priorityElement() {
+        return this.shadowRoot?.querySelector<HTMLElement>('#priority');
     }
 
     _setDirectionAndPublishEvent(direction: string | undefined): void {

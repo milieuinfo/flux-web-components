@@ -32,7 +32,7 @@ export class VlMeasureAction extends VlDrawAction {
             this._setMeasurementTooltipsClosable(true);
         });
 
-        this.removeFeatureHandler = this.layer.getSource().on('removefeature', (event) => {
+        this.removeFeatureHandler = this.layer?.getSource()?.on('removefeature', (event) => {
             this._handleRemoveFeature(event);
         });
 

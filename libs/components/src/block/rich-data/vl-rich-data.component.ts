@@ -1,4 +1,4 @@
-import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { vlGridStyles, vlLegacyStyles } from '@domg-wc/styles';
 import { buttonStyles } from '../../atom/button/vl-button.css';
 import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
@@ -16,7 +16,9 @@ export interface RichDataMeta {
 export type RichData = { data: unknown[] } & RichDataMeta;
 
 @webComponent('vl-rich-data')
-export class VlRichData extends BaseElementOfType(HTMLElement) {
+export class VlRichData extends BaseHTMLElement {
+    protected _sorting: any;
+
     static {
         registerWebComponents([VlFormLabelComponent, VlPagerComponent]);
     }
@@ -108,82 +110,80 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
         }
     }
 
-    get __contentColumn(): HTMLElement {
-        return this.shadowRoot.querySelector('#content');
+    get __contentColumn() {
+        return this.shadowRoot?.querySelector<HTMLElement>('#content');
     }
 
-    get __searchFilter(): VlSearchFilterComponent & HTMLElement {
-        return this.querySelector('[slot="filter"]');
+    get __searchFilter(): (VlSearchFilterComponent & HTMLElement) | undefined | null {
+        return this.querySelector<VlSearchFilterComponent & HTMLElement>('[slot="filter"]');
     }
 
-    get __filterSlotContainer(): HTMLElement {
-        return this.shadowRoot.querySelector('#filter-slot-container');
+    get __filterSlotContainer() {
+        return this.shadowRoot?.querySelector<HTMLElement>('#filter-slot-container');
     }
 
-    get __filterSlot(): HTMLElement {
-        return this.shadowRoot.querySelector('#filter-slot');
+    get __filterSlot() {
+        return this.shadowRoot?.querySelector<HTMLElement>('#filter-slot');
     }
 
-    get __filterOpenContainer(): HTMLElement {
-        return this.shadowRoot.querySelector('#open-filter');
+    get __filterOpenContainer() {
+        return this.shadowRoot?.querySelector<HTMLElement>('#open-filter');
     }
 
-    get __filterOpenButton(): HTMLElement {
-        return this.shadowRoot.querySelector('#open-toggle-filter-button');
+    get __filterOpenButton() {
+        return this.shadowRoot?.querySelector<HTMLElement>('#open-toggle-filter-button');
     }
 
-    get __filterToggleContainer(): HTMLElement {
-        return this.shadowRoot.querySelector('#toggle-filter');
+    get __filterToggleContainer() {
+        return this.shadowRoot?.querySelector<HTMLElement>('#toggle-filter');
     }
 
-    get __filterToggleButton(): HTMLElement {
-        return this.shadowRoot.querySelector('#toggle-filter-button');
+    get __filterToggleButton() {
+        return this.shadowRoot?.querySelector<HTMLElement>('#toggle-filter-button');
     }
 
-    get __filterToggleButtonTextSlot(): HTMLElement {
-        return this.shadowRoot.querySelector('slot[name="toggle-filter-button-text"]');
+    get __filterToggleButtonTextSlot() {
+        return this.shadowRoot?.querySelector<HTMLElement>('slot[name="toggle-filter-button-text"]');
     }
 
-    get __filterCloseButtonTextSlot(): HTMLElement {
-        return this.shadowRoot.querySelector('slot[name="close-filter-button-text"]');
+    get __filterCloseButtonTextSlot() {
+        return this.shadowRoot?.querySelector<HTMLElement>('slot[name="close-filter-button-text"]');
     }
 
-    get __searchResults(): HTMLElement {
-        return this.shadowRoot.querySelector('#search-results');
+    get __searchResults() {
+        return this.shadowRoot?.querySelector<HTMLElement>('#search-results');
     }
 
     get __numberOfSearchResults(): HTMLElement | null {
         return this.__searchResults ? this.__searchResults.querySelector('#search-results-number') : null;
     }
 
-    get __sorterContainer(): HTMLElement {
-        return this.shadowRoot.querySelector('#sorter');
+    get __sorterContainer() {
+        return this.shadowRoot?.querySelector<HTMLElement>('#sorter');
     }
 
-    get __sorter(): HTMLSlotElement {
-        return this.querySelector('[slot="sorter"]');
+    get __sorter() {
+        return this.querySelector<HTMLElement>('[slot="sorter"]');
     }
 
-    get __pager(): VlPagerComponent {
-        return this.querySelector('[slot="pager"]');
+    get __pager() {
+        return this.querySelector<VlPagerComponent>('[slot="pager"]');
     }
 
-    get __searchColumn(): HTMLElement {
-        return this.shadowRoot.querySelector('#search');
+    get __searchColumn() {
+        return this.shadowRoot?.querySelector<HTMLElement>('#search');
     }
 
     get __searchFilterForm(): HTMLFormElement | null {
-        return this.__searchFilter
-            ? this.__searchFilter.querySelector('form')
-            : (<VlSearchFilterComponent>this.__searchFilter).form;
+        return this.__searchFilter ? this.__searchFilter.querySelector('form') : this.__searchFilter!.form;
     }
 
-    get __contentSlot(): HTMLSlotElement {
-        return this.shadowRoot.querySelector('slot[name="content"]');
+    get __contentSlot() {
+        return this.shadowRoot?.querySelector<HTMLSlotElement>('slot[name="content"]');
     }
 
-    get __noContentSlot(): HTMLSlotElement {
-        return this.shadowRoot.querySelector('slot[name="no-content"]');
+    get __noContentSlot() {
+        return this.shadowRoot?.querySelector<HTMLSlotElement>('slot[name="no-content"]');
     }
 
     get __formDataState(): FormData | undefined {
@@ -213,13 +213,13 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
     set _paging(paging: Pagination | void) {
         if (paging) {
             if (paging.currentPage != null) {
-                this.__pager.setAttribute('current-page', paging.currentPage);
+                this.__pager?.setAttribute('current-page', String(paging.currentPage));
             }
             if (paging.itemsPerPage != null) {
-                this.__pager.setAttribute('items-per-page', paging.itemsPerPage);
+                this.__pager?.setAttribute('items-per-page', String(paging.itemsPerPage));
             }
             if (paging.totalItems != null) {
-                this.__pager.setAttribute('total-items', paging.totalItems);
+                this.__pager?.setAttribute('total-items', String(paging.totalItems));
                 this.__updateNumberOfSearchResults(paging.totalItems);
             }
         }
@@ -256,7 +256,7 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
     }
 
     disconnectedCallback(): void {
-        this._observer.disconnect();
+        this._observer?.disconnect();
     }
 
     __onStateChange(event: Event, { paging = false } = {}) {
@@ -288,14 +288,14 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
     }
 
     _filterClosableChangedCallback(oldValue: any, newValue: any) {
-        this.__filterToggleContainer.hidden = newValue == null;
-        this.__filterOpenContainer.hidden = newValue == null;
+        this.__filterToggleContainer!.hidden = newValue == null;
+        this.__filterOpenContainer!.hidden = newValue == null;
         if (newValue == null) {
-            this.__filterOpenContainer.classList.remove('vl-u-visible--s');
-            this.__searchColumn.classList.remove('vl-u-hidden--s');
+            this.__filterOpenContainer!.classList.remove('vl-u-visible--s');
+            this.__searchColumn?.classList.remove('vl-u-hidden--s');
         } else {
-            this.__filterOpenContainer.classList.add('vl-u-visible--s');
-            this.__searchColumn.classList.add('vl-u-hidden--s');
+            this.__filterOpenContainer!.classList.add('vl-u-visible--s');
+            this.__searchColumn?.classList.add('vl-u-hidden--s');
         }
     }
 
@@ -309,8 +309,8 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
     }
 
     _onToggleFilter = () => {
-        this.__filterSlotContainer.appendChild(this.__filterSlot);
-        this.__searchFilter.hidden = false;
+        this.__filterSlotContainer!.appendChild(this.__filterSlot!);
+        this.__searchFilter!.hidden = false;
         this.__showHiddenInModalElements();
         this.toggleAttribute('filter-closed');
     };
@@ -336,7 +336,7 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
     }
 
     __setHiddenInModalElements(hidden: any) {
-        this.__searchFilter.querySelectorAll('[hidden-in-modal]').forEach((element: any) => (element.hidden = hidden));
+        this.__searchFilter?.querySelectorAll('[hidden-in-modal]').forEach((element: any) => (element.hidden = hidden));
     }
 
     __observePager(): void {
@@ -344,7 +344,7 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
             this.__pager.setAttribute('align-right', String(true));
             this.__pager.addEventListener('change', (e: any) => {
                 this.__onStateChange(e, { paging: true });
-                if (this.__contentSlot.assignedNodes()[0]) {
+                if (this.__contentSlot?.assignedNodes()[0]) {
                     const firstAssignedNode: any = this.__contentSlot.assignedNodes()[0];
                     // const firstAssignedNode = this.__contentSlot.assignedNodes()[0];
                     // should be childNodes (on Node) but children here? TODO debug
@@ -405,58 +405,58 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
 
     __processContent(): void {
         if (this._hasResults) {
-            this.__contentSlot.hidden = false;
-            this.__noContentSlot.hidden = true;
+            this.__contentSlot!.hidden = false;
+            this.__noContentSlot!.hidden = true;
         } else {
-            this.__contentSlot.hidden = true;
-            this.__noContentSlot.hidden = false;
+            this.__contentSlot!.hidden = true;
+            this.__noContentSlot!.hidden = false;
         }
     }
 
     __hideSearchColumn(): void {
-        this.__searchColumn.hidden = true;
+        this.__searchColumn!.hidden = true;
         this.__setGridColumnWidth(0);
-        this.__filterToggleButton.setAttribute('aria-label', 'Filter tonen');
-        this.__filterToggleButtonTextSlot.hidden = false;
-        this.__filterCloseButtonTextSlot.hidden = true;
+        this.__filterToggleButton?.setAttribute('aria-label', 'Filter tonen');
+        this.__filterToggleButtonTextSlot!.hidden = false;
+        this.__filterCloseButtonTextSlot!.hidden = true;
     }
 
     __hideSearchResults(): void {
-        this.__searchResults.hidden = true;
+        this.__searchResults!.hidden = true;
     }
 
     __hideSorter(): void {
-        this.__sorterContainer.hidden = true;
+        this.__sorterContainer!.hidden = true;
     }
 
     __showSearchColumn(): void {
-        this.__searchColumn.hidden = false;
+        this.__searchColumn!.hidden = false;
         this.__setGridColumnWidth(VlRichData._defaultSearchColumnSize);
-        this.__filterToggleButton.setAttribute('aria-label', 'Filter verbergen');
-        this.__filterToggleButtonTextSlot.hidden = true;
-        this.__filterCloseButtonTextSlot.hidden = false;
+        this.__filterToggleButton?.setAttribute('aria-label', 'Filter verbergen');
+        this.__filterToggleButtonTextSlot!.hidden = true;
+        this.__filterCloseButtonTextSlot!.hidden = false;
     }
 
     __showSearchResults() {
-        this.__searchResults.hidden = false;
+        this.__searchResults!.hidden = false;
     }
 
     __showSorter() {
-        this.__sorterContainer.hidden = false;
+        this.__sorterContainer!.hidden = false;
     }
 
     __setGridColumnWidth(width: number) {
-        this.__searchColumn.removeAttribute('class');
-        this.__contentColumn.removeAttribute('class');
-        this.__searchColumn.classList.add(`vl-column`);
-        this.__contentColumn.classList.add(`vl-column`);
+        this.__searchColumn?.removeAttribute('class');
+        this.__contentColumn?.removeAttribute('class');
+        this.__searchColumn?.classList.add(`vl-column`);
+        this.__contentColumn?.classList.add(`vl-column`);
         ['', 'm-'].forEach((size) => {
-            this.__searchColumn.classList.add(`vl-column--${size}${width}`);
-            this.__contentColumn.classList.add(`vl-column--${size}${12 - width}`);
+            this.__searchColumn?.classList.add(`vl-column--${size}${width}`);
+            this.__contentColumn?.classList.add(`vl-column--${size}${12 - width}`);
         });
         ['s-', 'xs-'].forEach((size) => {
-            this.__searchColumn.classList.add(`vl-column--${size}0`);
-            this.__contentColumn.classList.add(`vl-column--${size}12`);
+            this.__searchColumn?.classList.add(`vl-column--${size}0`);
+            this.__contentColumn?.classList.add(`vl-column--${size}12`);
         });
     }
 
@@ -467,7 +467,7 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
             if (this.__pager) {
                 customElements.whenDefined('vl-pager').then(() => {
                     if (this.__numberOfSearchResults)
-                        this.__numberOfSearchResults.textContent = String(this.__pager.totalItems || 0);
+                        this.__numberOfSearchResults.textContent = String(this.__pager?.totalItems || 0);
                 });
             }
         }
@@ -499,14 +499,14 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
 
     __observeMobileModal(callback: any) {
         const observer = new MutationObserver(callback);
-        if (!(this.__searchFilter instanceof VlSearchFilterComponent)) {
+        if (!(this.__searchFilter instanceof VlSearchFilterComponent) && this.__searchFilter) {
             observer.observe(this.__searchFilter, { attributeFilter: ['mobile-modal'] });
         }
         return observer;
     }
 
     __processScrollableBody() {
-        if (this.__searchFilter.hasAttribute('mobile-modal')) {
+        if (this.__searchFilter?.hasAttribute('mobile-modal')) {
             this.__disableBodyScroll();
         } else {
             this.__enableBodyScroll();

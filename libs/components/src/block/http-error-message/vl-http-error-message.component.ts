@@ -1,4 +1,4 @@
-import { BaseElementOfType, GlobalStyles, registerWebComponents, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, GlobalStyles, registerWebComponents, webComponent } from '@domg-wc/common';
 import { vlGridStyles, vlGroupStyles, vlResetStyles, vlStackedStyles } from '@domg-wc/styles';
 import { render } from 'lit';
 import { VlLinkComponent } from '../../atom/link';
@@ -8,7 +8,7 @@ import errorCodes from './error-codes';
 import { vlHttpErrorMessageFluxStyles } from './vl-http-error-message.flux-css';
 
 @webComponent('vl-http-error-message')
-export class VlHttpErrorMessage extends BaseElementOfType(HTMLElement) {
+export class VlHttpErrorMessage extends BaseHTMLElement {
     static {
         registerWebComponents([VlLinkComponent, VlTypography]);
     }
@@ -64,19 +64,19 @@ export class VlHttpErrorMessage extends BaseElementOfType(HTMLElement) {
     }
 
     get _title() {
-        return this.getAttribute('title') || this._defaults?.title;
+        return this.getAttribute('title') || errorCodes[this._errorCode]?.title;
     }
 
     get _image() {
-        return this.getAttribute('image') || this._defaults?.image;
+        return this.getAttribute('image') || errorCodes[this._errorCode]?.image;
     }
 
     get _imageAlt() {
-        return this.getAttribute('image-alt') || this._defaults?.imageAlt;
+        return this.getAttribute('image-alt') || errorCodes[this._errorCode]?.imageAlt;
     }
 
     get _errorCode() {
-        return this.getAttribute('error-code') || this._defaults?.errorCode;
+        return this.getAttribute('error-code') || '400';
     }
 
     get __titleElement() {

@@ -1,9 +1,9 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, webComponent } from '@domg-wc/common';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { vlTemplateFluxStyles } from './vl-template.flux-css';
 
 @webComponent('vl-template')
-export class VlTemplate extends BaseElementOfType(HTMLElement) {
+export class VlTemplate extends BaseHTMLElement {
     constructor() {
         super(`
       <style>

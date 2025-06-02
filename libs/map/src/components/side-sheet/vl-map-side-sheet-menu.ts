@@ -1,8 +1,8 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, webComponent } from '@domg-wc/common';
 import { vlLegacyStyles } from '@domg-wc/styles';
 
 @webComponent('vl-map-side-sheet-menu')
-export class VlMapSideSheetMenu extends BaseElementOfType(HTMLElement) {
+export class VlMapSideSheetMenu extends BaseHTMLElement {
     constructor() {
         super(`
       <style>

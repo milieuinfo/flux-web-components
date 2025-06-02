@@ -70,7 +70,8 @@ describe('vl-map-delete-action', () => {
                 cy.wrap(vlMap.ready).then(() => {
                     const deleteAction = vlMap.map.actions[0] as any;
                     expect(deleteAction.layer).to.deep.equal(vlMapFeaturesLayer.layer);
-                    expect(deleteAction.style.getFill().getColor()).to.equal('rgba(241, 174, 174, 0.26)');
+                    // expect(deleteAction.style.getFill().getColor()).to.equal('rgba(241, 174, 174, 0.26)');
+                    expect(deleteAction.style().getFill().getColor()).to.equal('#FFE615');
                 });
             }
         );

@@ -1,7 +1,7 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, webComponent } from '@domg-wc/common';
 
 @webComponent('vl-map-wms-style')
-export class VlMapWmsStyle extends BaseElementOfType(HTMLElement) {
+export class VlMapWmsStyle extends BaseHTMLElement {
     get sld() {
         return this.getAttribute('sld');
     }

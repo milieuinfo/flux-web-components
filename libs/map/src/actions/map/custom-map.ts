@@ -18,7 +18,7 @@ export class VlCustomMap extends VlMapWithActions {
     private view: any;
     private custom: any;
     private geoJSONFormat: GeoJSON;
-    private baseLayers: any;
+    baseLayers: any;
     private maxZoomViewToExtent: any;
     private overviewMapLayers: any;
 
@@ -147,7 +147,7 @@ export class VlCustomMap extends VlMapWithActions {
         this._getOverlayLayersCollection().remove(layer);
     }
 
-    initializeView(boundingBox, maxZoom) {
+    initializeView(boundingBox?, maxZoom?) {
         this.zoomViewToExtent(this.getView(), boundingBox, maxZoom);
     }
 

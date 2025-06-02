@@ -111,6 +111,7 @@ export class VlMapLegend extends BaseLitElement {
         const geometryLayers: GeometryLayer[] = [].concat(this.mapElement.featuresLayers, this.mapElement.wfsLayers);
 
         imageLayers.forEach((wmsLayer) => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             wmsLayer &&
                 this.urlItems.push({
                     type: 'url',
@@ -265,7 +266,7 @@ export class VlMapLegend extends BaseLitElement {
         return legendItems;
     }
 
-    private updateLegendGeometryItems(layers: VlMapLayer[]) {
+    private updateLegendGeometryItems(layers: (VlMapLayer | GeometryLayer)[]) {
         let items: StyledItem[] = [];
         layers.forEach((layer) => {
             if (layer._styles.length === 1) {

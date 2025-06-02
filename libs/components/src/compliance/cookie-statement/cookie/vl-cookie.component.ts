@@ -1,4 +1,4 @@
-import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { vlLegacyStyles } from '@domg-wc/styles';
 import { VlTitleComponent } from '../../../atom';
 import { VlPropertiesComponent } from '../../../block/properties';
@@ -14,7 +14,7 @@ export interface VlCookieProps {
 }
 
 @webComponent('vl-cookie')
-export class VlCookie extends BaseElementOfType(HTMLElement) {
+export class VlCookie extends BaseHTMLElement {
     static {
         registerWebComponents([VlPropertiesComponent, VlTitleComponent]);
     }

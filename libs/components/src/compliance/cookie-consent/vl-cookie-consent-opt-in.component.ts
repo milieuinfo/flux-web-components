@@ -1,10 +1,10 @@
-import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { vlLegacyStyles } from '@domg-wc/styles';
 import { VlCheckboxComponent } from '../../form';
 import { VlTextComponent } from '../../atom';
 
 @webComponent('vl-cookie-consent-opt-in')
-export class VlCookieConsentOptIn extends BaseElementOfType(HTMLElement) {
+export class VlCookieConsentOptIn extends BaseHTMLElement {
     static {
         registerWebComponents([VlCheckboxComponent, VlTextComponent]);
     }

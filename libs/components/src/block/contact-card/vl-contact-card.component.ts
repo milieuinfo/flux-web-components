@@ -1,10 +1,10 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, webComponent } from '@domg-wc/common';
 import { vlGridStyles, vlResetStyles } from '@domg-wc/styles';
 import { contactCardStyle } from '@domg/govflanders-style/component';
 import { vlContactCardFluxStyles } from './vl-contact-card.flux-css';
 
 @webComponent('vl-contact-card')
-export class VlContactCardComponent extends BaseElementOfType(HTMLElement) {
+export class VlContactCardComponent extends BaseHTMLElement {
     constructor() {
         super(`
             <style>

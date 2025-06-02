@@ -3,6 +3,7 @@ import { StyleLike as OlStyleLike } from 'ol/style/Style';
 import { VlSelectActions } from '../../../../../actions/select/select-actions';
 import { ActionOptions, OlVectorLayerType } from '../../../../../vl-map.model';
 import { VlMapLayerStyle } from '../../../../layer-style/vl-map-layer-style';
+import { VlMapLayer } from '../../../../layer/vl-map-layer';
 import { VlMapSelectAction } from '../vl-map-select-action';
 
 @webComponent('vl-map-select-actions')
@@ -14,12 +15,10 @@ export class VlMapSelectActions extends VlMapSelectAction {
         this.layerNames = layers;
     }
 
-    // @ts-ignore: Negeer override van de property "style" van de native Element klasse die van een ander type is.
     get style(): OlStyleLike {
         return this._style;
     }
 
-    // @ts-ignore: Negeer override van de property "style" van de native Element klasse die van een ander type is.
     set style(style: VlMapLayerStyle | OlStyleLike) {
         if (style instanceof VlMapLayerStyle) {
             this._style = style.style;
@@ -34,7 +33,7 @@ export class VlMapSelectActions extends VlMapSelectAction {
         super.connectedCallback();
 
         const olLayers: OlVectorLayerType[] = this.layerNames?.map((name) => {
-            return this._mapElement.querySelector(`[is-layer][name="${name}"]`)?._layer;
+            return this._mapElement.querySelector<VlMapLayer>(`[is-layer][name="${name}"]`)?._layer;
         });
 
         this.olLayers = olLayers;

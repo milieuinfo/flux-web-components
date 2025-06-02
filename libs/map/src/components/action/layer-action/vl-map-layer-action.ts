@@ -23,6 +23,7 @@ export class VlMapLayerAction extends VlMapAction {
         this._processAction();
     }
 
+    // @ts-expect-error: layer is defined in the parent class
     get _layerElement(): VlMapVectorLayer {
         return (
             this._mapElement.querySelector(`[is-layer][name="${this.getAttribute('layer')}"]`) ||

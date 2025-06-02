@@ -1,4 +1,4 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, webComponent } from '@domg-wc/common';
 import { accessibilityStyle, resetStyle } from '@domg/govflanders-style/common';
 import { iconStyle, linkStyle, pagerStyle } from '@domg/govflanders-style/component';
 import { vlPagerFluxStyles } from './vl-pager.flux-css';
@@ -19,7 +19,7 @@ export interface Pagination {
 }
 
 @webComponent('vl-pager')
-export class VlPagerComponent extends BaseElementOfType(HTMLElement) implements Pagination {
+export class VlPagerComponent extends BaseHTMLElement implements Pagination {
     constructor() {
         super();
         this.shadow(`
@@ -71,11 +71,11 @@ export class VlPagerComponent extends BaseElementOfType(HTMLElement) implements 
     }
 
     get totalItems() {
-        return parseInt(this.getAttribute('total-items'));
+        return parseInt(this.getAttribute('total-items') || '0');
     }
 
     get currentPage() {
-        const currentPage = parseInt(this.getAttribute('current-page'));
+        const currentPage = parseInt(this.getAttribute('current-page') ?? '0');
         if (currentPage < 1) {
             return 1;
         } else {
@@ -84,7 +84,7 @@ export class VlPagerComponent extends BaseElementOfType(HTMLElement) implements 
     }
 
     get itemsPerPage() {
-        return parseInt(this.getAttribute('items-per-page'));
+        return parseInt(this.getAttribute('items-per-page') ?? '0');
     }
 
     get _firstItemNumberOfPage() {
@@ -105,44 +105,44 @@ export class VlPagerComponent extends BaseElementOfType(HTMLElement) implements 
     }
 
     get _boundsElement() {
-        return this._shadow.querySelector('#bounds');
+        return this._shadow?.querySelector('#bounds');
     }
 
     get _pagesListElement() {
-        return this._shadow.querySelector('.vl-pager__list');
+        return this._shadow?.querySelector('.vl-pager__list');
     }
 
     get _pageElements() {
-        return [...this._pagesListElement.querySelectorAll('[pager-page]')];
+        return [...this._pagesListElement!.querySelectorAll('[pager-page]')];
     }
 
     get _pageSkippedElements() {
-        return [...this._pagesListElement.querySelectorAll('[pager-page-skipped]')];
+        return [...this._pagesListElement!.querySelectorAll('[pager-page-skipped]')];
     }
 
     get _pageBackLink() {
-        return this._shadow.querySelector('#page-back-link');
+        return this._shadow?.querySelector('#page-back-link');
     }
 
     get _pageForwardLink() {
-        return this._shadow.querySelector('#page-forward-link');
+        return this._shadow?.querySelector('#page-forward-link');
     }
 
     get _pageBackListItem() {
-        return this._shadow.querySelector('#page-back-list-item');
+        return this._shadow?.querySelector('#page-back-list-item');
     }
 
     get _pageForwardListItem() {
-        return this._shadow.querySelector('#page-forward-list-item');
+        return this._shadow?.querySelector('#page-forward-list-item');
     }
 
     get _totalItemsElement() {
-        return this._shadow.querySelector('#totalItems');
+        return this._shadow?.querySelector('#totalItems');
     }
 
     get _itemsPerPageElementen() {
-        const previous = this._shadow.querySelector('#previous-items-per-page');
-        const next = this._shadow.querySelector('#next-items-per-page');
+        const previous = this._shadow?.querySelector('#previous-items-per-page');
+        const next = this._shadow?.querySelector('#next-items-per-page');
         return [previous, next];
     }
 
@@ -189,7 +189,7 @@ export class VlPagerComponent extends BaseElementOfType(HTMLElement) implements 
         <a href="#" class="vl-pager__element__cta vl-link vl-link--bold">${number}</a>
       </li>
     `);
-        template.firstElementChild.addEventListener('click', (e: Event) => {
+        template?.firstElementChild?.addEventListener('click', (e: Event) => {
             e.preventDefault();
             this.setAttribute('current-page', number);
         });
@@ -200,11 +200,11 @@ export class VlPagerComponent extends BaseElementOfType(HTMLElement) implements 
         return `${this.itemsPerPage} rijen`;
     }
 
-    _itemsPerPageChangedCallback(oldValue: string, newValue: string) {
+    _itemsPerPageChangedCallback() {
         this._update();
     }
 
-    _totalItemsChangedCallback(oldValue: string, newValue: string) {
+    _totalItemsChangedCallback() {
         if (this.totalItems === 0) {
             this._hide(this._element);
         } else {
@@ -252,9 +252,9 @@ export class VlPagerComponent extends BaseElementOfType(HTMLElement) implements 
     }
 
     _updateInfoElement() {
-        this._boundsElement.innerHTML = this._getBoundsTemplate();
+        this._boundsElement!.innerHTML = this._getBoundsTemplate();
         this._itemsPerPageElementen.forEach((span) => {
-            span.innerHTML = this._getItemsPerPageContentTemplate();
+            span!.innerHTML = this._getItemsPerPageContentTemplate();
         });
     }
 
@@ -265,7 +265,7 @@ export class VlPagerComponent extends BaseElementOfType(HTMLElement) implements 
                 const pages = this.__generatePagination(this.currentPage, this.totalPages);
                 const templates = pages.map((number) => this._getPageTemplate(number));
                 templates.forEach((template) =>
-                    this._pagesListElement.insertBefore(template, this._pageForwardListItem)
+                    this._pagesListElement?.insertBefore(<Node>template, this._pageForwardListItem!)
                 );
             }
         }
@@ -296,19 +296,19 @@ export class VlPagerComponent extends BaseElementOfType(HTMLElement) implements 
     }
 
     __addPageBackLinkListener() {
-        this._pageBackLink.addEventListener('click', (e: Event) => {
+        this._pageBackLink?.addEventListener('click', (e: Event) => {
             e.preventDefault();
             if (!(this.currentPage - 1 <= 0)) {
-                this.setAttribute('current-page', this.currentPage - 1);
+                this.setAttribute('current-page', String(this.currentPage - 1));
             }
         });
     }
 
     __addPageForwardLinkListener() {
-        this._pageForwardLink.addEventListener('click', (e: Event) => {
+        this._pageForwardLink?.addEventListener('click', (e: Event) => {
             e.preventDefault();
             if (!(this.currentPage + 1 > this.totalPages)) {
-                this.setAttribute('current-page', this.currentPage + 1);
+                this.setAttribute('current-page', String(this.currentPage + 1));
             }
         });
     }

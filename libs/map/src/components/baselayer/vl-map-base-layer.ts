@@ -1,4 +1,4 @@
-import { BaseElementOfType, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, webComponent } from '@domg-wc/common';
 import * as OlExtent from 'ol/extent';
 import OlGeoJSON from 'ol/format/GeoJSON';
 import * as OlLoadingstrategy from 'ol/loadingstrategy';
@@ -18,7 +18,13 @@ type BackgroundLayerType = 'xyz' | 'wms' | 'wmts' | 'vector';
 type BackgroundLayerOptions = XYZOptions | WMSOptions | WMTSOptions | VectorOptions;
 
 @webComponent('vl-map-baselayer')
-export class VlMapBaseLayer extends BaseElementOfType(HTMLElement) {
+export class VlMapBaseLayer extends BaseHTMLElement {
+    protected _url: string;
+    protected _layer: string;
+    protected _title: string;
+    protected _wmtsSource: WMTS;
+    protected _createdVectorSource: VectorSource;
+
     connectedCallback() {
         super.connectedCallback();
 
@@ -75,12 +81,14 @@ export class VlMapBaseLayer extends BaseElementOfType(HTMLElement) {
 
     get _map() {
         if (this.parentNode) {
+            // @ts-expect-error: The parentNode is expected to have a map property
             return this.parentNode.map;
         }
     }
 
     get _projection() {
         if (this.parentNode) {
+            // @ts-expect-error: The parentNode is expected to have a _projection property
             return this.parentNode._projection;
         }
     }
@@ -99,7 +107,7 @@ export class VlMapBaseLayer extends BaseElementOfType(HTMLElement) {
         return this.hasAttribute('background-layer');
     }
 
-    get _backgroundType(): BackgroundLayerType | undefined {
+    get _backgroundType(): BackgroundLayerType | string | undefined {
         return this.getAttribute('background-type') || undefined;
     }
 
@@ -153,7 +161,7 @@ export class VlMapBaseLayer extends BaseElementOfType(HTMLElement) {
     }
 
     _createVectorSource() {
-        // eslint-disable-line @typescript-eslint/no-this-alias
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
         const self = this;
         return new VectorSource({
             format: new OlGeoJSON({

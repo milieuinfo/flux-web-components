@@ -27,6 +27,7 @@ export class VlMapVectorLayer extends VlMapLayer {
      *
      * @return {ol.style}
      */
+    // @ts-expect-error: overwriting HTMLElement's style CSSStyleDeclaration property
     get style() {
         return this.layer?.getStyle() || null;
     }
@@ -42,6 +43,7 @@ export class VlMapVectorLayer extends VlMapLayer {
      *
      * @see {@link https://openlayers.org/en/latest/apidoc/module-ol_style_Style.html#~StyleLike|OpenLayers StyleLike}
      */
+    // @ts-expect-error: overwriting HTMLElement's style CSSStyleDeclaration property
     set style(style: OlStyle | VlMapLayerStyle) {
         if (this._layer) {
             this.applyStyle(style);
