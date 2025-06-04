@@ -5,7 +5,7 @@ import { linkArgTypes } from '../../../libs/components/src/atom/link/stories/vl-
 import { paragraphArgTypes } from '../../../libs/components/src/atom/paragraph/stories/vl-paragraph.stories-arg';
 import { textArgTypes } from '../../../libs/components/src/atom/text/stories/vl-text.stories-arg';
 import { titleArgTypes } from '../../../libs/components/src/atom/title/stories/vl-title.stories-arg';
-import {buildWTConfig} from "./utils.wt-config";
+import { buildWTConfig } from './utils.wt-config';
 
 export const buildWTConfigComponentsAtom: WTConfigArray = [
     buildWTConfig(

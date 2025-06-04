@@ -7,13 +7,13 @@ registerWebComponents([VlPopoverMenuComponent]);
 
 describe('integrations - popover menu', () => {
     it('should render', () => {
-        cy.mount(html`<vl-popover-menu></vl-popover-menu>`);
+        cy.mount(html` <vl-popover-menu></vl-popover-menu>`);
 
         cy.get('vl-popover-menu').find('vl-popover').shadow();
     });
 
     it('should open and close menu', () => {
-        cy.mount(html`<vl-popover-menu></vl-popover-menu>`);
+        cy.mount(html` <vl-popover-menu></vl-popover-menu>`);
 
         cy.get('vl-popover-menu').find('#btn-acties').click();
         cy.get('vl-popover-menu').find('vl-popover').should('be.visible');

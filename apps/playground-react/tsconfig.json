@@ -1,7 +1,16 @@
 {
     "extends": "../../tsconfig.base.json",
-    "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"],
-    "exclude": ["./src/**/*.spec.ts", "./src/**/*.cy.ts", "./src/**/stories"],
+    "include": [
+        "src/**/*.js",
+        "src/**/*.jsx",
+        "src/**/*.ts",
+        "src/**/*.tsx"
+    ],
+    "exclude": [
+        "./src/**/*.spec.ts",
+        "./src/**/*.cy.ts",
+        "./src/**/stories"
+    ],
     "compilerOptions": {
         "outDir": "../../build/tsc/app-playground-react",
         "strict": false,

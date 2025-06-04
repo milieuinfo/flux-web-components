@@ -1,5 +1,6 @@
 const stepsNextUrl = 'http://localhost:8080/iframe.html?id=components-block-steps-steps--steps-default&viewMode=story';
-const stepsNextIconsUrl = 'http://localhost:8080/iframe.html?id=components-block-steps-steps--steps-icons&viewMode=story';
+const stepsNextIconsUrl =
+    'http://localhost:8080/iframe.html?id=components-block-steps-steps--steps-icons&viewMode=story';
 const stepsNextLineUrl = 'http://localhost:8080/iframe.html?id=components-block-steps-steps--steps-line&viewMode=story';
 const stepsNextTimelineUrl =
     'http://localhost:8080/iframe.html?id=components-block-steps-steps--steps-timeline&viewMode=story';
@@ -7,7 +8,8 @@ const stepsNextSimpleTimelineUrl =
     'http://localhost:8080/iframe.html?id=components-block-steps-steps--steps-simple-timeline&viewMode=story';
 const stepsSideNavigationUrl =
     'http://localhost:8080/iframe.html?id=components-block-steps-steps--steps-side-navigation&viewMode=story';
-const stepsNextStatesUrl = 'http://localhost:8080/iframe.html?id=components-block-steps-step--steps-states&viewMode=story';
+const stepsNextStatesUrl =
+    'http://localhost:8080/iframe.html?id=components-block-steps-step--steps-states&viewMode=story';
 const stepsNextToggleableUrl =
     'http://localhost:8080/iframe.html?id=components-block-steps-step--steps-toggleable&viewMode=story';
 

@@ -3,8 +3,10 @@ const iconNextSmallUrl = 'http://localhost:8080/iframe.html?id=components-atom-i
 const iconNextLargeUrl = 'http://localhost:8080/iframe.html?id=components-atom-icon--icon-large&viewMode=story';
 const iconNextLightUrl = 'http://localhost:8080/iframe.html?id=components-atom-icon--icon-light&viewMode=story';
 const iconNextClickableUrl = 'http://localhost:8080/iframe.html?id=components-atom-icon--icon-clickable&viewMode=story';
-const iconNextBeforeTextUrl = 'http://localhost:8080/iframe.html?id=components-atom-icon--icon-before-text&viewMode=story';
-const iconNextAfterTextUrl = 'http://localhost:8080/iframe.html?id=components-atom-icon--icon-after-text&viewMode=story';
+const iconNextBeforeTextUrl =
+    'http://localhost:8080/iframe.html?id=components-atom-icon--icon-before-text&viewMode=story';
+const iconNextAfterTextUrl =
+    'http://localhost:8080/iframe.html?id=components-atom-icon--icon-after-text&viewMode=story';
 
 describe('story - vl-icon - default', () => {
     it('should render', () => {

@@ -14,7 +14,10 @@ console.log('components-atom - schema errors', schemaValidator.getLastErrors());
 console.log('components-basic - schema valid:', schemaValidator.validate(componentsBasicWebTypes, webTypesSchema));
 console.log('components-basic - schema errors', schemaValidator.getLastErrors());
 
-console.log('components-compliance - schema valid:', schemaValidator.validate(componentsComplianceWebTypes, webTypesSchema));
+console.log(
+    'components-compliance - schema valid:',
+    schemaValidator.validate(componentsComplianceWebTypes, webTypesSchema)
+);
 console.log('components-compliance - schema errors', schemaValidator.getLastErrors());
 
 console.log('components-form - schema valid:', schemaValidator.validate(componentsFormWebTypes, webTypesSchema));

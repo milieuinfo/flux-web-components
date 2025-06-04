@@ -405,4 +405,9 @@ const mapLegendStyles: CSSResult = css`
         font-weight: bolder;
     }
 `;
-export const vlMapLegendFluxStyles = [mapLegendStyles, ...vlLegacyStyles, olOlStyles, vlMapActionsFluxStyles] as CSSResult[];
+export const vlMapLegendFluxStyles = [
+    mapLegendStyles,
+    ...vlLegacyStyles,
+    olOlStyles,
+    vlMapActionsFluxStyles,
+] as CSSResult[];

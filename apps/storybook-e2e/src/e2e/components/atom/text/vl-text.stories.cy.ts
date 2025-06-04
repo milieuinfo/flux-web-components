@@ -5,7 +5,8 @@ const textNextWarningUrl = 'http://localhost:8080/iframe.html?id=components-atom
 const textNextErrorUrl = 'http://localhost:8080/iframe.html?id=components-atom-text--text-error&viewMode=story';
 const textNextItalicUrl = 'http://localhost:8080/iframe.html?id=components-atom-text--text-italic&viewMode=story';
 const textNextUnderlineUrl = 'http://localhost:8080/iframe.html?id=components-atom-text--text-underline&viewMode=story';
-const textNextAnnotationUrl = 'http://localhost:8080/iframe.html?id=components-atom-text--text-annotation&viewMode=story';
+const textNextAnnotationUrl =
+    'http://localhost:8080/iframe.html?id=components-atom-text--text-annotation&viewMode=story';
 const textNextSmallUrl = 'http://localhost:8080/iframe.html?id=components-atom-text--text-small&viewMode=story';
 
 describe('story - vl-text - default', () => {

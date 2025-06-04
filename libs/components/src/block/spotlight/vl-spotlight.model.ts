@@ -4,4 +4,4 @@ export const SIZE = {
     L: 'l',
 } as const;
 
-export type SIZE = typeof SIZE[keyof typeof SIZE];
+export type SIZE = (typeof SIZE)[keyof typeof SIZE];

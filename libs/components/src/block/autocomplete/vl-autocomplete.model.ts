@@ -7,11 +7,11 @@ export const CAPTION_FORMAT = {
     SUBTITLE_TITLE_HORIZONTAL: 'subtitle-title-horizontal',
 } as const;
 
-export type CAPTION_FORMAT = typeof CAPTION_FORMAT[keyof typeof CAPTION_FORMAT];
+export type CAPTION_FORMAT = (typeof CAPTION_FORMAT)[keyof typeof CAPTION_FORMAT];
 
 export const GROUP_BY = {
     TITLE: 'title',
     SUBTITLE: 'subtitle',
 } as const;
 
-export type GROUP_BY = typeof GROUP_BY[keyof typeof GROUP_BY];
+export type GROUP_BY = (typeof GROUP_BY)[keyof typeof GROUP_BY];

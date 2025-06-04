@@ -12,7 +12,7 @@ export const vlSearchResultPropertiesStyles: CSSResult = css`
 
         &::after {
             display: block;
-            content: ":";
+            content: ':';
             float: right;
             margin-right: 0.5rem;
         }

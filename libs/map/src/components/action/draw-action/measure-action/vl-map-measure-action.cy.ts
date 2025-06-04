@@ -48,7 +48,7 @@ const mapMeasureActionASnappingWfsLayersFixture = html`
 const mapMeasureActionSnappingFixture = html`
     <vl-map id="map-with-measure-snap-action">
         <vl-map-features-layer id="point-layer">
-            <vl-map-measure-action id="measure-snap-action" default-active snapping> </vl-map-measure-action>
+            <vl-map-measure-action id="measure-snap-action" default-active snapping></vl-map-measure-action>
         </vl-map-features-layer>
     </vl-map>
 `;

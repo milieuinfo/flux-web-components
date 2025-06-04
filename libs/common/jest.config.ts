@@ -13,8 +13,8 @@ const jestConfig: JestConfigWithTsJest = {
     transformIgnorePatterns: [],
     testEnvironment: 'jsdom',
     moduleNameMapper: {
-        "@resources/utils-test": '<rootDir>/../../resources/utils-test/index.ts',
-    }
+        '@resources/utils-test': '<rootDir>/../../resources/utils-test/index.ts',
+    },
 };
 
 export default jestConfig;

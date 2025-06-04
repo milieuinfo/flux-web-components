@@ -4,4 +4,4 @@ export const TYPE = {
     ERROR: 'error',
 } as const;
 
-export type TYPE = typeof TYPE[keyof typeof TYPE];
+export type TYPE = (typeof TYPE)[keyof typeof TYPE];

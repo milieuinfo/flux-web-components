@@ -45,7 +45,7 @@ describe('show info action', () => {
                 getSource: () => source,
             },
             infoPromise,
-            'loading message',
+            'loading message'
         );
         showInfoAction.map = map;
     });
@@ -58,7 +58,7 @@ describe('show info action', () => {
         const contentShown = () =>
             map.overlays.length === 1 &&
             map.overlays[0].getElement().innerHTML ===
-            '<span class="content">content of info object</span><div class="arrow"></div>';
+                '<span class="content">content of info object</span><div class="arrow"></div>';
         waitFor(contentShown, () => {
             expect(map.overlays[0].getPosition()).toEqual([0, 0]);
             done();
@@ -74,7 +74,7 @@ describe('show info action', () => {
                 getSource: () => new VectorSource({}),
             },
             infoPromise,
-            'loading message',
+            'loading message'
         );
         showInfoAction.map = map;
         showInfoAction.drawInteraction.dispatchEvent({
@@ -84,11 +84,11 @@ describe('show info action', () => {
         const loadingShown = () =>
             map.overlays.length === 1 &&
             map.overlays[0].getElement().innerHTML ===
-            '<span class="content"><span class="icon"></span> loading message</span><div class="arrow"></div>';
+                '<span class="content"><span class="icon"></span> loading message</span><div class="arrow"></div>';
         const contentShown = () =>
             map.overlays.length === 1 &&
             map.overlays[0].getElement().innerHTML ===
-            '<span class="content">content of info object</span><div class="arrow"></div>';
+                '<span class="content">content of info object</span><div class="arrow"></div>';
         waitFor(loadingShown, () => {
             waitFor(contentShown, () => {
                 expect(mapWasRerendered).toBe(true);
@@ -129,7 +129,7 @@ describe('show info action', () => {
                 getSource: () => new VectorSource({}),
             },
             infoPromise,
-            'loading message',
+            'loading message'
         );
         showInfoAction.map = map;
         showInfoAction.drawInteraction.dispatchEvent({
@@ -139,7 +139,7 @@ describe('show info action', () => {
         const contentShown = () =>
             map.overlays.length === 1 &&
             map.overlays[0].getElement().innerHTML ===
-            '<span class="content">content of info object</span><div class="arrow"></div>' &&
+                '<span class="content">content of info object</span><div class="arrow"></div>' &&
             map.overlays[0].getOffset().length === 2 &&
             map.overlays[0].getOffset()[0] === 0 &&
             map.overlays[0].getOffset()[1] === -10;
@@ -156,7 +156,7 @@ describe('show info action', () => {
             },
             infoPromise,
             'loading message',
-            { offset: [0, 0] },
+            { offset: [0, 0] }
         );
         showInfoAction.map = map;
         showInfoAction.drawInteraction.dispatchEvent({
@@ -166,7 +166,7 @@ describe('show info action', () => {
         const contentShown = () =>
             map.overlays.length === 1 &&
             map.overlays[0].getElement().innerHTML ===
-            '<span class="content">content of info object</span><div class="arrow"></div>' &&
+                '<span class="content">content of info object</span><div class="arrow"></div>' &&
             map.overlays[0].getOffset().length === 2 &&
             map.overlays[0].getOffset()[0] === 0 &&
             map.overlays[0].getOffset()[1] === 0;

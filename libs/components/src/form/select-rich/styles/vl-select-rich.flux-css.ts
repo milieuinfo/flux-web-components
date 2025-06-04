@@ -54,19 +54,19 @@ export const vlSelectRichFluxStyles: CSSResult = css`
     }
 
     .js-vl-select
-    .vl-select__list--dropdown
-    .vl-select__list
-    :not(.vl-select__group)
-    .vl-select__item:not(.vl-select__placeholder) {
+        .vl-select__list--dropdown
+        .vl-select__list
+        :not(.vl-select__group)
+        .vl-select__item:not(.vl-select__placeholder) {
         border-top: none;
     }
 
     .js-vl-select
-    .vl-select__list--dropdown
-    .vl-select__list
-    :not(.vl-select__group)
-    .vl-select__item:not(.vl-select__placeholder)
-    ~ .vl-select__item {
+        .vl-select__list--dropdown
+        .vl-select__list
+        :not(.vl-select__group)
+        .vl-select__item:not(.vl-select__placeholder)
+        ~ .vl-select__item {
         border-top: 0.1rem solid rgb(104, 116, 131);
     }
 

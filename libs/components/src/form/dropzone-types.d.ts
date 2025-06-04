@@ -31,6 +31,7 @@ export interface DropzoneFile extends File {
 export interface DropzoneMockFile {
     name: string;
     size: number;
+
     [index: string]: any;
 }
 
@@ -74,7 +75,9 @@ export interface DropzoneOptions {
     clickable?: boolean | string | HTMLElement | Array<string | HTMLElement> | undefined;
     ignoreHiddenFiles?: boolean | undefined;
     acceptedFiles?: string | undefined;
+
     renameFilename?(name: string): string;
+
     autoProcessQueue?: boolean | undefined;
     autoQueue?: boolean | undefined;
     addRemoveLinks?: boolean | undefined;
@@ -97,50 +100,73 @@ export interface DropzoneOptions {
     dictUploadCanceled?: string | undefined;
 
     accept?(file: DropzoneFile, done: (error?: string | Error) => void): void;
+
     chunksUploaded?(file: DropzoneFile, done: (error?: string | Error) => void): void;
+
     init?(this: Dropzone): void;
+
     forceFallback?: boolean | undefined;
+
     fallback?(): void;
+
     resize?(file: DropzoneFile, width?: number, height?: number, resizeMethod?: string): DropzoneResizeInfo;
 
     drop?(e: DragEvent): void;
+
     dragstart?(e: DragEvent): void;
+
     dragend?(e: DragEvent): void;
+
     dragenter?(e: DragEvent): void;
+
     dragover?(e: DragEvent): void;
+
     dragleave?(e: DragEvent): void;
+
     paste?(e: DragEvent): void;
 
     reset?(): void;
 
     addedfile?(file: DropzoneFile): void;
+
     addedfiles?(files: DropzoneFile[]): void;
+
     removedfile?(file: DropzoneFile): void;
+
     thumbnail?(file: DropzoneFile, dataUrl: string): void;
 
     error?(file: DropzoneFile, message: string | Error, xhr: XMLHttpRequest): void;
+
     errormultiple?(files: DropzoneFile[], message: string | Error, xhr: XMLHttpRequest): void;
 
     processing?(file: DropzoneFile): void;
+
     processingmultiple?(files: DropzoneFile[]): void;
 
     uploadprogress?(file: DropzoneFile, progress: number, bytesSent: number): void;
+
     totaluploadprogress?(totalProgress: number, totalBytes: number, totalBytesSent: number): void;
 
     sending?(file: DropzoneFile, xhr: XMLHttpRequest, formData: FormData): void;
+
     sendingmultiple?(files: DropzoneFile[], xhr: XMLHttpRequest, formData: FormData): void;
 
     success?(file: DropzoneFile): void;
+
     successmultiple?(files: DropzoneFile[], responseText: string): void;
 
     canceled?(file: DropzoneFile): void;
+
     canceledmultiple?(file: DropzoneFile[]): void;
 
     complete?(file: DropzoneFile): void;
+
     completemultiple?(file: DropzoneFile[]): void;
 
     maxfilesexceeded?(file: DropzoneFile): void;
+
     maxfilesreached?(files: DropzoneFile[]): void;
+
     queuecomplete?(): void;
 
     transformFile?(file: DropzoneFile, done: (file: string | Blob) => void): void;
@@ -161,18 +187,31 @@ export class Dropzone {
     static autoDiscover: boolean;
     static blacklistedBrowsers: RegExp[];
     static confirm: (question: string, accepted: () => void, rejected?: () => void) => void;
+
     static createElement(string: string): HTMLElement;
+
     static dataURItoBlob(dataURI: string): Blob;
+
     static discover(): Dropzone[];
+
     static elementInside(element: HTMLElement, container: HTMLElement): boolean;
+
     static forElement(element: string | HTMLElement): Dropzone;
+
     static getElement(element: string | HTMLElement, name?: string): HTMLElement;
+
     static getElements(elements: string | HTMLElement | Array<string | HTMLElement>): HTMLElement[];
+
     static instances: Dropzone[];
+
     static isBrowserSupported(): boolean;
+
     static isValidFile(file: File, acceptedFiles: string): boolean;
+
     static options: { [key: string]: DropzoneOptions | false };
+
     static optionsForElement(element: HTMLElement): DropzoneOptions | undefined;
+
     static version: string;
 
     static ADDED: string;

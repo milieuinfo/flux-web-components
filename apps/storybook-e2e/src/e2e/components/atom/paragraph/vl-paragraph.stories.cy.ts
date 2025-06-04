@@ -1,6 +1,7 @@
 const paragraphNextDefaultUrl =
     'http://localhost:8080/iframe.html?id=components-atom-paragraph--paragraph-default&viewMode=story';
-const paragraphNextBoldUrl = 'http://localhost:8080/iframe.html?id=components-atom-paragraph--paragraph-bold&viewMode=story';
+const paragraphNextBoldUrl =
+    'http://localhost:8080/iframe.html?id=components-atom-paragraph--paragraph-bold&viewMode=story';
 const paragraphNextIntroductionUrl =
     'http://localhost:8080/iframe.html?id=components-atom-paragraph--paragraph-introduction&viewMode=story';
 

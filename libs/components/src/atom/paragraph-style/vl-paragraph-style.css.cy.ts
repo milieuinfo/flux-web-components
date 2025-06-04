@@ -1,4 +1,4 @@
-import { GlobalStyles } from "@domg-wc/common";
+import { GlobalStyles } from '@domg-wc/common';
 import { html } from 'lit';
 import { vlParagraphStyles } from './vl-paragraph-style.css';
 

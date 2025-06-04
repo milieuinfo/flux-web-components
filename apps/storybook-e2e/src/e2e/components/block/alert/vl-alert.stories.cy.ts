@@ -3,11 +3,13 @@ const alertErrorUrl = 'http://localhost:8080/iframe.html?id=components-block-ale
 const alertInfoUrl = 'http://localhost:8080/iframe.html?id=components-block-alert--alert-info&viewMode=story';
 const alertSuccessUrl = 'http://localhost:8080/iframe.html?id=components-block-alert--alert-success&viewMode=story';
 const alertWarningUrl = 'http://localhost:8080/iframe.html?id=components-block-alert--alert-warning&viewMode=story';
-const alertWithButtonUrl = 'http://localhost:8080/iframe.html?id=components-block-alert--alert-with-button&viewMode=story';
+const alertWithButtonUrl =
+    'http://localhost:8080/iframe.html?id=components-block-alert--alert-with-button&viewMode=story';
 const alertWithTitleSlotUrl =
     'http://localhost:8080/iframe.html?id=components-block-alert--alert-with-title-slot&viewMode=story';
 const alertCloseableUrl = 'http://localhost:8080/iframe.html?id=components-block-alert--alert-closeable&viewMode=story';
-const alertNakedErrorUrl = 'http://localhost:8080/iframe.html?id=components-block-alert--alert-naked-error&viewMode=story';
+const alertNakedErrorUrl =
+    'http://localhost:8080/iframe.html?id=components-block-alert--alert-naked-error&viewMode=story';
 const alertNakedWarningUrl =
     'http://localhost:8080/iframe.html?id=components-block-alert--alert-naked-warning&viewMode=story';
 const alertNakedSuccessUrl =

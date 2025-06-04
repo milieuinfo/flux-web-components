@@ -143,29 +143,34 @@ describe('component - vl-rich-data with vl-select', () => {
                     <form>
                         <section>
                             <label for="filter-input">Hier kunnen filtervelden komen</label>
-                            <vl-input-field id="filter-input" type="text" label="filtervelden"
-                                            name="filter1"></vl-input-field>
+                            <vl-input-field
+                                id="filter-input"
+                                type="text"
+                                label="filtervelden"
+                                name="filter1"
+                            ></vl-input-field>
                             <vl-select
-                                    id="select-lange-tekst"
-                                    name="Select met lange tekst"
-                                    block
-                                    placeholder="Selecteer iets met lange tekst"
-                                    .options=${[
-            {
-                label: 'Optie 1',
-                value: 'option1',
-            },
-            {
-                label: 'Optie 2 met langere tekst lorem ipsum dolor sit amet',
-                value: 'option2',
-            },
-        ]}
+                                id="select-lange-tekst"
+                                name="Select met lange tekst"
+                                block
+                                placeholder="Selecteer iets met lange tekst"
+                                .options=${[
+                                    {
+                                        label: 'Optie 1',
+                                        value: 'option1',
+                                    },
+                                    {
+                                        label: 'Optie 2 met langere tekst lorem ipsum dolor sit amet',
+                                        value: 'option2',
+                                    },
+                                ]}
                             ></vl-select>
                         </section>
                         <footer>
                             <vl-button type="submit" custom-css="button {flex:1}">Zoeken</vl-button>
-                            <vl-button type="reset" custom-css="button {flex:1}" secondary>Zoekopdracht
-                                verwijderen</vl-button>
+                            <vl-button type="reset" custom-css="button {flex:1}" secondary
+                                >Zoekopdracht verwijderen</vl-button
+                            >
                         </footer>
                     </form>
                 </vl-search-filter>

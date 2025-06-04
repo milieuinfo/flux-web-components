@@ -31,6 +31,6 @@ export const sortingRichTableImplementation = () => {
         const table = document.querySelector('#rich-data-table-sorting');
         if (table) table.addEventListener('change', tableSorter(table));
     });
-}
+};
 
 export default sortingRichTableImplementation;

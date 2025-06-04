@@ -6,8 +6,12 @@ const componentsComplianceWTNames = extractComponentsComplianceWTNames();
 
 export const componentsComplianceWCNameCount = componentsComplianceWCNames.length;
 export const componentsComplianceWTNameCount = componentsComplianceWTNames.length;
-export const componentsComplianceWCWithoutWT = componentsComplianceWCNames.filter((name) => !componentsComplianceWTNames.includes(name));
-export const componentsComplianceWTWithoutWC = componentsComplianceWTNames.filter((name) => !componentsComplianceWCNames.includes(name));
+export const componentsComplianceWCWithoutWT = componentsComplianceWCNames.filter(
+    (name) => !componentsComplianceWTNames.includes(name)
+);
+export const componentsComplianceWTWithoutWC = componentsComplianceWTNames.filter(
+    (name) => !componentsComplianceWCNames.includes(name)
+);
 
 // console.log('componentsCompliance - aantal web-components:', componentsComplianceWCNameCount);
 // console.log('componentsCompliance - aantal web-types:', componentsComplianceWTNameCount);

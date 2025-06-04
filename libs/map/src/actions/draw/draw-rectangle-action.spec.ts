@@ -28,7 +28,7 @@ describe('draw rectangle action', () => {
                 [0, 0],
                 [1, 2],
             ],
-            null,
+            null
         );
         expect(geometry.getCoordinates()[0][0]).toEqual([0, 0]);
         expect(geometry.getCoordinates()[0][1]).toEqual([0, 2]);

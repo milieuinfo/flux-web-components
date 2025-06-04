@@ -1,16 +1,21 @@
-const buttonNextPrimaryUrl = 'http://localhost:8080/iframe.html?id=components-atom-button--button-primary&viewMode=story';
+const buttonNextPrimaryUrl =
+    'http://localhost:8080/iframe.html?id=components-atom-button--button-primary&viewMode=story';
 const buttonNextSecondaryUrl =
     'http://localhost:8080/iframe.html?id=components-atom-button--button-secondary&viewMode=story';
-const buttonNextTertiaryUrl = 'http://localhost:8080/iframe.html?id=components-atom-button--button-tertiary&viewMode=story';
-const buttonNextDisabledUrl = 'http://localhost:8080/iframe.html?id=components-atom-button--button-disabled&viewMode=story';
+const buttonNextTertiaryUrl =
+    'http://localhost:8080/iframe.html?id=components-atom-button--button-tertiary&viewMode=story';
+const buttonNextDisabledUrl =
+    'http://localhost:8080/iframe.html?id=components-atom-button--button-disabled&viewMode=story';
 const buttonNextErrorUrl = 'http://localhost:8080/iframe.html?id=components-atom-button--button-error&viewMode=story';
 const buttonNextBlockUrl = 'http://localhost:8080/iframe.html?id=components-atom-button--button-block&viewMode=story';
 const buttonNextLargeUrl = 'http://localhost:8080/iframe.html?id=components-atom-button--button-large&viewMode=story';
 const buttonNextWideUrl = 'http://localhost:8080/iframe.html?id=components-atom-button--button-wide&viewMode=story';
 const buttonNextNarrowUrl = 'http://localhost:8080/iframe.html?id=components-atom-button--button-narrow&viewMode=story';
-const buttonNextLoadingUrl = 'http://localhost:8080/iframe.html?id=components-atom-button--button-loading&viewMode=story';
+const buttonNextLoadingUrl =
+    'http://localhost:8080/iframe.html?id=components-atom-button--button-loading&viewMode=story';
 const buttonNextIconUrl = 'http://localhost:8080/iframe.html?id=components-atom-button--button-icon&viewMode=story';
-const buttonNextIconOnlyUrl = 'http://localhost:8080/iframe.html?id=components-atom-button--button-icon-only&viewMode=story';
+const buttonNextIconOnlyUrl =
+    'http://localhost:8080/iframe.html?id=components-atom-button--button-icon-only&viewMode=story';
 const buttonNextToggleUrl = 'http://localhost:8080/iframe.html?id=components-atom-button--button-toggle&viewMode=story';
 
 describe('story - vl-button - default', () => {

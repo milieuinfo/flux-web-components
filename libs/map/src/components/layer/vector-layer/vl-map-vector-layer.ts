@@ -5,6 +5,7 @@ import OlStyle from 'ol/style/Style';
 
 export class VlMapVectorLayer extends VlMapLayer {
     private pendingLayerStyles: (VlMapLayerStyle | OlStyle)[] = [];
+
     static get EVENTS() {
         return {
             styleChanged: 'style-changed',

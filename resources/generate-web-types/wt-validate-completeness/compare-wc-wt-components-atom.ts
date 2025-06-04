@@ -11,8 +11,7 @@ const componentsAtomWCMismatch = [
 export const componentsAtomWCNameCount = componentsAtomWCNames.length;
 export const componentsAtomWTNameCount = componentsAtomWTNames.length;
 export const componentsAtomWCWithoutWT = componentsAtomWCNames.filter(
-    (name) =>
-        !componentsAtomWTNames.includes(name) && !componentsAtomWCMismatch.includes(name)
+    (name) => !componentsAtomWTNames.includes(name) && !componentsAtomWCMismatch.includes(name)
 );
 export const componentsAtomWTWithoutWC = componentsAtomWTNames.filter((name) => !componentsAtomWCNames.includes(name));
 

@@ -30,7 +30,7 @@ const featuresLayerHiddenFixture = html`
 
 const wfsLayerFixture = html`
     <vl-map>
-        <vl-map-wfs-layer name="foobar" url="http://dummy/wfs" layers="layer1,layer2"> </vl-map-wfs-layer>
+        <vl-map-wfs-layer name="foobar" url="http://dummy/wfs" layers="layer1,layer2"></vl-map-wfs-layer>
         <vl-map-layer-style color="rgba(255,0,0,1)"></vl-map-layer-style>
     </vl-map>
 `;

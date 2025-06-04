@@ -1,7 +1,12 @@
 import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
 import { vlGroupStyles } from '@domg-wc/styles';
-import { VlBreadcrumbComponent, VlBreadcrumbItemComponent, VlFunctionalHeaderComponent, VlSearchComponent } from '@domg-wc/components/block';
+import {
+    VlBreadcrumbComponent,
+    VlBreadcrumbItemComponent,
+    VlFunctionalHeaderComponent,
+    VlSearchComponent,
+} from '@domg-wc/components/block';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';

@@ -57,8 +57,8 @@ describe('component vl-map-multiselect-actions', () => {
                     <vl-map-layer-style border-size="2"></vl-map-layer-style>
                 </vl-map-features-layer>
                 <vl-map-features-layer .features=${featuresLayer2} name="layer-2">
-                    <vl-map-layer-style border-size="2"></vl-map-layer-style
-                ></vl-map-features-layer>
+                    <vl-map-layer-style border-size="2"></vl-map-layer-style>
+                </vl-map-features-layer>
                 <vl-map-multiselect-actions .active=${true} .layers=${layers} ?default-active=${true}>
                 </vl-map-multiselect-actions>
             </vl-map>

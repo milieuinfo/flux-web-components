@@ -1,4 +1,5 @@
-const selectNextDefaultUrl = 'http://localhost:8080/iframe.html?id=components-form-select--select-default&viewMode=story';
+const selectNextDefaultUrl =
+    'http://localhost:8080/iframe.html?id=components-form-select--select-default&viewMode=story';
 
 const selectNextNotDeletableUrl =
     'http://localhost:8080/iframe.html?id=components-form-select--select-not-deletable&viewMode=story';
@@ -11,7 +12,8 @@ const selectNextSelectedOptionUrl =
 const selectNextDisabledOptionUrl =
     'http://localhost:8080/iframe.html?id=components-form-select--select-disabled-option&viewMode=story';
 
-const selectNextReadOnlyUrl = 'http://localhost:8080/iframe.html?id=components-form-select--select-read-only&viewMode=story';
+const selectNextReadOnlyUrl =
+    'http://localhost:8080/iframe.html?id=components-form-select--select-read-only&viewMode=story';
 
 describe('story - vl-select - default', () => {
     it('should render', () => {

@@ -53,7 +53,7 @@ describe('show info select action', () => {
             },
             infoPromise,
             'loading message',
-            () => (doneFunctionCalled = true),
+            () => (doneFunctionCalled = true)
         );
         showInfoSelectAction.map = map;
     });
@@ -83,7 +83,7 @@ describe('show info select action', () => {
         const contentShown = () =>
             map.overlays.length === 1 &&
             map.overlays[0].getElement().innerHTML ===
-            '<span class="content">content of info object</span><div class="arrow"></div>';
+                '<span class="content">content of info object</span><div class="arrow"></div>';
         waitFor(contentShown, () => {
             expect(map.overlays[0].getPosition()).toEqual([0, 0]);
             expect(doneFunctionCalled).toBe(true);
@@ -103,7 +103,7 @@ describe('show info select action', () => {
             },
             infoPromise,
             'loading message',
-            () => {},
+            () => {}
         );
         showInfoSelectAction.map = map;
         showInfoSelectAction.selectInteraction.getFeatures().push(feature);
@@ -112,11 +112,11 @@ describe('show info select action', () => {
         const loadingShown = () =>
             map.overlays.length === 1 &&
             map.overlays[0].getElement().innerHTML ===
-            '<span class="content"><span class="icon"></span> loading message</span><div class="arrow"></div>';
+                '<span class="content"><span class="icon"></span> loading message</span><div class="arrow"></div>';
         const contentShown = () =>
             map.overlays.length === 1 &&
             map.overlays[0].getElement().innerHTML ===
-            '<span class="content">content of info object</span><div class="arrow"></div>';
+                '<span class="content">content of info object</span><div class="arrow"></div>';
         waitFor(loadingShown, () => {
             waitFor(contentShown, () => {
                 expect(mapWasRerendered).toBe(true);
@@ -150,7 +150,7 @@ describe('show info select action', () => {
             },
             infoPromise,
             'loading message',
-            () => {},
+            () => {}
         );
         showInfoSelectAction.map = map;
         showInfoSelectAction.selectInteraction.getFeatures().push(feature);
@@ -159,7 +159,7 @@ describe('show info select action', () => {
         const contentShown = () =>
             map.overlays.length === 1 &&
             map.overlays[0].getElement().innerHTML ===
-            '<span class="content">content of info object</span><div class="arrow"></div>' &&
+                '<span class="content">content of info object</span><div class="arrow"></div>' &&
             map.overlays[0].getOffset().length === 2 &&
             map.overlays[0].getOffset()[0] === 0 &&
             map.overlays[0].getOffset()[1] === -10;
@@ -179,7 +179,7 @@ describe('show info select action', () => {
             infoPromise,
             'loading message',
             () => {},
-            { offset: [0, 0] },
+            { offset: [0, 0] }
         );
         showInfoSelectAction.map = map;
         showInfoSelectAction.selectInteraction.getFeatures().push(feature);
@@ -188,7 +188,7 @@ describe('show info select action', () => {
         const contentShown = () =>
             map.overlays.length === 1 &&
             map.overlays[0].getElement().innerHTML ===
-            '<span class="content">content of info object</span><div class="arrow"></div>' &&
+                '<span class="content">content of info object</span><div class="arrow"></div>' &&
             map.overlays[0].getOffset().length === 2 &&
             map.overlays[0].getOffset()[0] === 0 &&
             map.overlays[0].getOffset()[1] === 0;

@@ -7,7 +7,10 @@
     ],
     "compilerOptions": {
         "module": "commonjs",
-        "types": ["cypress", "node"],
+        "types": [
+            "cypress",
+            "node"
+        ],
         "outDir": "../../build/app/consumer-e2e",
         "strict": false,
         "allowJs": true,

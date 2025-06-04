@@ -130,7 +130,9 @@ describe('delete action', () => {
             .spyOn(deleteAction.dragBoxInteraction, 'getGeometry')
             .mockClear()
             // @ts-ignore
-            .mockReturnValue({ getExtent: () => {} });
+            .mockReturnValue({
+                getExtent: () => {},
+            });
         deleteAction.dragBoxInteraction.dispatchEvent('boxdrag');
         deleteAction.dragBoxInteraction.dispatchEvent('boxend');
         expect(deleteAction.map.render).toHaveBeenCalled();

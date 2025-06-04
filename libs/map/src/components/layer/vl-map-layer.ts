@@ -4,6 +4,7 @@ import { VlMapLayerStyle } from '../layer-style/vl-map-layer-style';
 
 export abstract class VlMapLayer extends BaseHTMLElement {
     static __counter: any;
+
     static get _observedAttributes() {
         return ['hidden', 'opacity'];
     }
@@ -16,6 +17,7 @@ export abstract class VlMapLayer extends BaseHTMLElement {
     __styles: any;
     __layerClass: any;
     __sourceClass: any;
+
     constructor() {
         super();
         VlMapLayer._counter = 0;

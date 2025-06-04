@@ -59,19 +59,28 @@
             "additionalProperties": false
         }
     },
-    "required": ["name", "version"],
+    "required": [
+        "name",
+        "version"
+    ],
     "additionalProperties": false,
     "definitions": {
         "js-types-syntax": {
             "description": "Language in which JavaScript objects types are specified.",
             "type": "string",
-            "enum": ["typescript"]
+            "enum": [
+                "typescript"
+            ]
         },
         "description-markup": {
             "description": "Markup language in which descriptions are formatted.",
             "type": "string",
             "default": "none",
-            "enum": ["html", "markdown", "none"]
+            "enum": [
+                "html",
+                "markdown",
+                "none"
+            ]
         },
         "required-context": {
             "oneOf": [
@@ -85,7 +94,10 @@
                             "type": "string"
                         }
                     },
-                    "required": ["kind", "name"],
+                    "required": [
+                        "kind",
+                        "name"
+                    ],
                     "additionalProperties": false
                 },
                 {
@@ -98,7 +110,9 @@
                             }
                         }
                     },
-                    "required": ["anyOf"],
+                    "required": [
+                        "anyOf"
+                    ],
                     "additionalProperties": false
                 },
                 {
@@ -111,7 +125,9 @@
                             }
                         }
                     },
-                    "required": ["allOf"],
+                    "required": [
+                        "allOf"
+                    ],
                     "additionalProperties": false
                 },
                 {
@@ -121,7 +137,9 @@
                             "$ref": "#/definitions/required-context"
                         }
                     },
-                    "required": ["not"],
+                    "required": [
+                        "not"
+                    ],
                     "additionalProperties": false
                 }
             ]
@@ -297,7 +315,15 @@
         },
         "name-converter": {
             "type": "string",
-            "enum": ["as-is", "PascalCase", "camelCase", "lowercase", "UPPERCASE", "kebab-case", "snake_case"]
+            "enum": [
+                "as-is",
+                "PascalCase",
+                "camelCase",
+                "lowercase",
+                "UPPERCASE",
+                "kebab-case",
+                "snake_case"
+            ]
         },
         "icon": {
             "description": "Relative path to the icon representing the symbol or actual SVG of the icon.",
@@ -307,7 +333,9 @@
             "type": "object",
             "description": "The base for any contributions.",
             "javaAbstract": true,
-            "javaInterfaces": ["GenericContributionsHost"],
+            "javaInterfaces": [
+                "GenericContributionsHost"
+            ],
             "properties": {
                 "name": {
                     "$ref": "#/definitions/name"
@@ -456,7 +484,9 @@
                     "type": "string"
                 }
             },
-            "required": ["name"],
+            "required": [
+                "name"
+            ],
             "additionalProperties": false
         },
         "html-value-type": {
@@ -492,7 +522,10 @@
                             "type": "integer"
                         }
                     },
-                    "required": ["file", "offset"],
+                    "required": [
+                        "file",
+                        "offset"
+                    ],
                     "additionalProperties": false
                 },
                 {
@@ -507,7 +540,9 @@
                             "type": "string"
                         }
                     },
-                    "required": ["symbol"],
+                    "required": [
+                        "symbol"
+                    ],
                     "additionalProperties": false
                 }
             ]
@@ -544,7 +579,13 @@
         },
         "priority": {
             "type": "string",
-            "enum": ["lowest", "low", "normal", "high", "highest"]
+            "enum": [
+                "lowest",
+                "low",
+                "normal",
+                "high",
+                "highest"
+            ]
         },
         "proximity": {
             "type": "integer"
@@ -617,7 +658,9 @@
                             "default": true
                         }
                     },
-                    "required": ["regex"],
+                    "required": [
+                        "regex"
+                    ],
                     "additionalProperties": false
                 }
             ]
@@ -685,7 +728,9 @@
                     "$ref": "#/definitions/reference-name-conversion"
                 }
             },
-            "required": ["path"]
+            "required": [
+                "path"
+            ]
         },
         "reference-name-conversion": {
             "description": "Override global name conversion rules for matching symbols under the path.",
@@ -741,7 +786,10 @@
         },
         "deprecated": {
             "description": "Specifies whether the symbol is deprecated. Deprecated symbol usage is discouraged, but still supported. Value can be a boolean or a string message with explanation and migration information.",
-            "type": ["boolean", "string"],
+            "type": [
+                "boolean",
+                "string"
+            ],
             "default": false
         },
         "deprecated-since": {
@@ -750,7 +798,10 @@
         },
         "obsolete": {
             "description": "Specifies whether the symbol is obsolete. Obsolete symbols are no longer supported. Value can be a boolean or a string message with explanation and migration information.",
-            "type": ["boolean", "string"],
+            "type": [
+                "boolean",
+                "string"
+            ],
             "default": false
         },
         "obsolete-since": {
@@ -759,7 +810,10 @@
         },
         "experimental": {
             "description": "Specifies whether the symbol is experimental. Value can be a boolean or a string message with explanation. Experimental symbols should be used with caution as the API might change.",
-            "type": ["boolean", "string"],
+            "type": [
+                "boolean",
+                "string"
+            ],
             "default": false
         },
         "pattern": {
@@ -784,7 +838,9 @@
         },
         "html-contributions-host": {
             "type": "object",
-            "javaInterfaces": ["GenericContributionsHost"],
+            "javaInterfaces": [
+                "GenericContributionsHost"
+            ],
             "javaInterface": true,
             "properties": {
                 "elements": {
@@ -831,7 +887,9 @@
             ]
         },
         "generic-html-contribution-or-property": {
-            "javaInterfaces": ["GenericContributionOrProperty"],
+            "javaInterfaces": [
+                "GenericContributionOrProperty"
+            ],
             "oneOf": [
                 {
                     "$ref": "#/definitions/generic-html-contribution"
@@ -932,7 +990,11 @@
             "properties": {
                 "kind": {
                     "type": "string",
-                    "enum": ["no-value", "plain", "expression"]
+                    "enum": [
+                        "no-value",
+                        "plain",
+                        "expression"
+                    ]
                 },
                 "type": {
                     "$ref": "#/definitions/html-value-type"
@@ -948,7 +1010,9 @@
         },
         "css-contributions-host": {
             "type": "object",
-            "javaInterfaces": ["GenericContributionsHost"],
+            "javaInterfaces": [
+                "GenericContributionsHost"
+            ],
             "javaInterface": true,
             "properties": {
                 "properties": {
@@ -1015,7 +1079,9 @@
             ]
         },
         "generic-css-contribution-or-property": {
-            "javaInterfaces": ["GenericContributionOrProperty"],
+            "javaInterfaces": [
+                "GenericContributionOrProperty"
+            ],
             "oneOf": [
                 {
                     "type": "string"
@@ -1117,7 +1183,9 @@
         },
         "js-contributions-host": {
             "type": "object",
-            "javaInterfaces": ["GenericContributionsHost"],
+            "javaInterfaces": [
+                "GenericContributionsHost"
+            ],
             "javaInterface": true,
             "properties": {
                 "events": {
@@ -1163,7 +1231,9 @@
             ]
         },
         "generic-js-contribution-or-property": {
-            "javaInterfaces": ["GenericContributionOrProperty"],
+            "javaInterfaces": [
+                "GenericContributionOrProperty"
+            ],
             "oneOf": [
                 {
                     "type": "string"
@@ -1255,7 +1325,16 @@
                 "kind": {
                     "description": "Kind of the symbol. Default is variable.",
                     "type": "string",
-                    "enum": ["Variable", "Function", "Namespace", "Class", "Interface", "Enum", "Alias", "Module"]
+                    "enum": [
+                        "Variable",
+                        "Function",
+                        "Namespace",
+                        "Class",
+                        "Interface",
+                        "Enum",
+                        "Alias",
+                        "Module"
+                    ]
                 }
             }
         },
@@ -1315,7 +1394,9 @@
                     "$ref": "#/definitions/doc-url"
                 }
             },
-            "required": ["name"],
+            "required": [
+                "name"
+            ],
             "additionalProperties": false
         }
     }

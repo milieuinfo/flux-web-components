@@ -1,4 +1,5 @@
-const tabsNextUrl = 'http://localhost:8080/iframe.html?args=&id=components-block-tabs-tabs--tabs-default&viewMode=story';
+const tabsNextUrl =
+    'http://localhost:8080/iframe.html?args=&id=components-block-tabs-tabs--tabs-default&viewMode=story';
 const tabsNextWithoutActiveUrl =
     'http://localhost:8080/iframe.html?args=&id=components-block-tabs-tabs--tabs-without-active-tab&viewMode=story';
 const tabsNextDynamicUrl =

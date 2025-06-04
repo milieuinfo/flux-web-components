@@ -1,11 +1,6 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { vlGroupStyles, vlLegacyStyles, vlStackedStyles } from '@domg-wc/styles';
-import {
-    VlButtonComponent,
-    VlLinkComponent,
-    VlParagraphComponent,
-    VlTitleComponent,
-} from '@domg-wc/components/atom';
+import { VlButtonComponent, VlLinkComponent, VlParagraphComponent, VlTitleComponent } from '@domg-wc/components/atom';
 import {
     VlAccordionComponent,
     VlModalComponent,
@@ -14,7 +9,12 @@ import {
     VlSideSheet,
     VlTabsComponent,
 } from '@domg-wc/components/block';
-import { SelectRichOption, VlDatepickerComponent, VlSelectComponent, VlSelectRichComponent } from '@domg-wc/components/form';
+import {
+    SelectRichOption,
+    VlDatepickerComponent,
+    VlSelectComponent,
+    VlSelectRichComponent,
+} from '@domg-wc/components/form';
 import { CSSResult, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { VlFormDemoComponent } from '@domg-wc/integrations/form';
@@ -131,7 +131,7 @@ export class AppComponent extends LitElement {
                             </vl-paragraph>
                             <vl-datepicker></vl-datepicker>
                             <div class="vl-group">
-                                <vl-button modal-open="modal-with-datepicker">Open modal with datepicker </vl-button>
+                                <vl-button modal-open="modal-with-datepicker">Open modal with datepicker</vl-button>
                                 <vl-button @click=${this.openSidesheet}>Open sidesheet</vl-button>
                             </div>
                         </div>

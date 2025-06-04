@@ -115,6 +115,7 @@ export const GridColumnStart = () => html`
                 padding: 1vmax;
             }
         }
+
         .vl-grid {
             --vl-column-min-height: 20px;
             grid-template-rows: 20px;

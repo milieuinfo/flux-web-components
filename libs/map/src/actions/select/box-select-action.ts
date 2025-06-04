@@ -12,7 +12,7 @@ export class VlBoxSelectAction extends VlSelectAction {
                     onSelect([feature]);
                 }
             },
-            options,
+            options
         );
 
         this.dragBoxInteraction = new DragBox();

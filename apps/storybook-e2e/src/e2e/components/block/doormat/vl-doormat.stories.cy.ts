@@ -1,7 +1,10 @@
-const doormatNextDefaultUrl = 'http://localhost:8080/iframe.html?id=components-block-doormat--doormat-default&viewMode=story';
+const doormatNextDefaultUrl =
+    'http://localhost:8080/iframe.html?id=components-block-doormat--doormat-default&viewMode=story';
 const doormatNextAltUrl = 'http://localhost:8080/iframe.html?id=components-block-doormat--doormat-alt&viewMode=story';
-const doormatNextImageUrl = 'http://localhost:8080/iframe.html?id=components-block-doormat--doormat-image&viewMode=story';
-const doormatNextGraphicUrl = 'http://localhost:8080/iframe.html?id=components-block-doormat--doormat-graphic&viewMode=story';
+const doormatNextImageUrl =
+    'http://localhost:8080/iframe.html?id=components-block-doormat--doormat-image&viewMode=story';
+const doormatNextGraphicUrl =
+    'http://localhost:8080/iframe.html?id=components-block-doormat--doormat-graphic&viewMode=story';
 
 describe('story - vl-doormat - default', () => {
     it('should render', () => {

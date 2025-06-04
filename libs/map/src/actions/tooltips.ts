@@ -7,10 +7,12 @@ export class VlTooltips {
     showTooltip: (map: Map, feature: Feature, coordinates: Coordinate, options: any) => void;
     clear: (map: Map) => void;
 
-    constructor(layer: any,
-                infoPromise: (feature: Feature, coordinate: Coordinate) => Promise<any>,
-                loadingMessage?: string,
-                doneLoading?: (feature: Feature, coordinates: Coordinate) => void) {
+    constructor(
+        layer: any,
+        infoPromise: (feature: Feature, coordinate: Coordinate) => Promise<any>,
+        loadingMessage?: string,
+        doneLoading?: (feature: Feature, coordinates: Coordinate) => void
+    ) {
         this.layer = layer;
         layer.tooltips = [];
 
@@ -18,7 +20,7 @@ export class VlTooltips {
             options = options || {};
 
             const element = document.createElement('div');
-            element.innerHTML = '<span class=\'content\'></span><div class=\'arrow\'></div>';
+            element.innerHTML = "<span class='content'></span><div class='arrow'></div>";
             element.setAttribute('class', 'info-tooltip');
 
             const tooltip = new Overlay({

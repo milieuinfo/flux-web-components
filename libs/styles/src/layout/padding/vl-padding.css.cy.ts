@@ -7,9 +7,7 @@ describe('padding styles', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
             <style>
-                ${vlPaddingStyles}
-
-                div.cy-padding-no-bottom {
+                ${vlPaddingStyles} div.cy-padding-no-bottom {
                     padding-top: 10px;
                 }
 

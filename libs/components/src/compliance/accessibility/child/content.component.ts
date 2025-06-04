@@ -11,13 +11,13 @@ import { sideNavigation } from './side-navigation.component';
 export const contentElements = () => [VlContactCardComponent, VlInfoblockComponent, VlPropertiesComponent];
 
 export const content = ({
-                            application,
-                            compliance,
-                            date,
-                            dateModified,
-                            evaluation,
-                            limitations,
-                        }: AccessibilityProperties) => {
+    application,
+    compliance,
+    date,
+    dateModified,
+    evaluation,
+    limitations,
+}: AccessibilityProperties) => {
     return html` <section id="content" class="vl-section">
         <div class="vl-content-block">
             <div class="vl-grid vl-stacked-medium vl-content-block">
@@ -32,14 +32,14 @@ export const content = ({
                                         href="http://www.ejustice.just.fgov.be/cgi_loi/loi_a1.pl?language=nl&cn=2018120705&table_name=wet&caller=list&fromtab=wet#LNK0011"
                                         external
                                         inline
-                                    >bestuursdecreet van 7 december 2018
+                                        >bestuursdecreet van 7 december 2018
                                     </vl-link>
                                     waarmee de
                                     <vl-link
                                         href="https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=uriserv:OJ.L_.2016.327.01.0001.01.NLD&toc=OJ:L:2016:327:TOC"
                                         external
                                         inline
-                                    >Europese Richtlijn 2016/2102
+                                        >Europese Richtlijn 2016/2102
                                     </vl-link>
                                     is omgezet.
                                 </p>

@@ -1,12 +1,13 @@
-import { TextEncoder, TextDecoder } from 'util'
-global.TextEncoder = TextEncoder
-global.TextDecoder = TextDecoder
+import { TextEncoder, TextDecoder } from 'util';
+
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
 
 import VectorSource from 'ol/source/Vector';
 import OlGML2 from 'ol/format/GML2';
 import fetchMock from 'fetch-mock';
 import MultiPolygon from 'ol/geom/MultiPolygon';
-import MultiLineString from 'ol/geom/MultiLineString'
+import MultiLineString from 'ol/geom/MultiLineString';
 import { JSDOM } from 'jsdom';
 import { VlCompositeVectorSource } from './composite-vector-source';
 import 'node-fetch';
@@ -88,7 +89,9 @@ describe('composite wfs source', () => {
         setTimeout(() => {
             expect(compositeVectorSource.getFeatures().length).toBe(2);
             expect(compositeVectorSource.getFeatures()[0].getGeometry() instanceof MultiPolygon).toBe(true);
-            expect((<any>(compositeVectorSource.getFeatures()[0].getGeometry())).getPolygons()[0].getCoordinates()).toEqual([
+            expect(
+                (<any>compositeVectorSource.getFeatures()[0].getGeometry()).getPolygons()[0].getCoordinates()
+            ).toEqual([
                 [
                     [0, 0, 0],
                     [0, 10, 0],
@@ -98,7 +101,9 @@ describe('composite wfs source', () => {
                 ],
             ]);
             expect(compositeVectorSource.getFeatures()[1].getGeometry() instanceof MultiLineString).toBe(true);
-            expect((<any>(compositeVectorSource.getFeatures()[1].getGeometry())).getLineStrings()[0].getCoordinates()).toEqual([
+            expect(
+                (<any>compositeVectorSource.getFeatures()[1].getGeometry()).getLineStrings()[0].getCoordinates()
+            ).toEqual([
                 [0, 0, 0],
                 [20, 20, 0],
             ]);
