@@ -72,6 +72,7 @@ describe('vl-map-features-layer', () => {
                 expect(vlMapFeaturesLayer.layer).to.exist;
                 const layers = vlMap.map.getOverlayLayers();
                 expect(vlMap.map.getOverlayLayers()).to.be.lengthOf(1);
+                // @ts-ignore
                 expect(geoJSON.writeFeatures(layers[0].getSource().getFeatures())).to.be.equal(
                     vlMapFeaturesLayer.getAttribute('features')
                 );
@@ -129,7 +130,9 @@ describe('vl-map-features-layer', () => {
         cy.runTestFor2<VlMap, VlMapFeaturesLayer>('vl-map', 'vl-map-features-layer', (vlMap, vlMapFeaturesLayer) => {
             cy.wrap(vlMap.ready).then(() => {
                 let layer = vlMap.map.getOverlayLayers()[0];
+                // @ts-ignore
                 expect(layer.getSource().getFeatures()).to.be.lengthOf(1);
+                // @ts-ignore
                 expect(geoJSON.writeFeatures(layer.getSource().getFeatures())).to.equal(
                     vlMapFeaturesLayer.getAttribute('features')
                 );
@@ -140,7 +143,9 @@ describe('vl-map-features-layer', () => {
                 );
                 vlMapFeaturesLayer.setAttribute('auto-extent', '');
                 layer = vlMap.map.getOverlayLayers()[0];
+                // @ts-ignore
                 const feature = geoJSON.writeFeatures(layer.getSource().getFeatures());
+                // @ts-ignore
                 expect(layer.getSource().getFeatures().length).to.be.equal(2);
                 expect(feature).to.be.equal(vlMapFeaturesLayer.getAttribute('features'));
                 expect(vlMap.map.getView().getCenter()[0]).to.be.equal(152055);

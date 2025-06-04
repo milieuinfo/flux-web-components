@@ -74,11 +74,14 @@ describe('vl-map-layer-style', () => {
                 expect(vlMapLayerStyleElement.textBorderSize).to.be.equal(1);
                 expect(vlMapLayerStyleElement.textColor).to.be.equal('#FFF');
                 expect(vlMapLayerStyleElement.textFeatureAttributeName).to.be.null;
+                // @ts-ignore
                 expect(vlMapLayerStyleElement.featureAttributeName).to.be.undefined;
+                // @ts-ignore
                 expect(vlMapLayerStyleElement.featureAttributeValue).to.be.undefined;
                 expect(vlMapLayerStyleElement.textOffsetX).to.be.equal(0);
                 expect(vlMapLayerStyleElement.textOffsetY).to.be.equal(0);
                 expect(vlMapLayerStyleElement.textSize).to.be.equal('10px');
+                // @ts-ignore
                 const style = vlMapLayerStyleElement.style();
                 expect(style.getFill().getColor()).to.be.equal('rgba(2, 85, 204, 0.8)');
                 expect(style.getStroke().getColor()).to.be.equal('rgba(2, 85, 204, 1)');
@@ -101,6 +104,7 @@ describe('vl-map-layer-style', () => {
             cy.wrap(vlMap.ready).then(() => {
                 const styleElement = vlMap.querySelector('vl-map-layer-style');
                 styleElement.appliesTo = () => false;
+                // @ts-ignore
                 expect(styleElement.style()).to.be.null;
             });
         });
@@ -112,6 +116,7 @@ describe('vl-map-layer-style', () => {
             cy.wrap(vlMap.ready).then(() => {
                 const styleElement = vlMap.querySelector('vl-map-layer-circle-style');
                 styleElement.appliesTo = () => false;
+                // @ts-ignore
                 expect(styleElement.style()).to.be.null;
             });
         });
@@ -123,6 +128,7 @@ describe('vl-map-layer-style', () => {
             cy.wrap(vlMap.ready).then(() => {
                 const styleElement = vlMap.querySelector('vl-map-layer-style');
                 styleElement.appliesTo = () => true;
+                // @ts-ignore
                 expect(styleElement.style()).to.be.not.null;
             });
         });
@@ -134,6 +140,7 @@ describe('vl-map-layer-style', () => {
             cy.wrap(vlMap.ready).then(() => {
                 const styleElement = vlMap.querySelector('vl-map-layer-circle-style');
                 styleElement.appliesTo = () => true;
+                // @ts-ignore
                 expect(styleElement.style()).to.be.not.null;
             });
         });
@@ -145,6 +152,7 @@ describe('vl-map-layer-style', () => {
             cy.wrap(vlMap.ready).then(() => {
                 const layerStyleElement = vlMap.querySelector('vl-map-layer-style');
                 expect(layerStyleElement.textFeatureAttributeName).to.be.equal('label');
+                // @ts-ignore
                 const style = layerStyleElement.style({
                     get: (property) => property + 1,
                 });
@@ -176,6 +184,7 @@ describe('vl-map-layer-style', () => {
                 expect(vlLayerStyleElement.textOffsetX).to.be.equal('10');
                 expect(vlLayerStyleElement.textOffsetY).to.be.equal('-10');
                 expect(vlLayerStyleElement.textSize).to.be.equal('13px');
+                // @ts-ignore
                 const style = vlLayerStyleElement.style({
                     get: (property) => property + 2,
                 });
@@ -198,12 +207,17 @@ describe('vl-map-layer-style', () => {
         cy.mount(mapLayerStyleMetMeerdereStijlenFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             cy.wrap(vlMap.ready).then(() => {
+                // @ts-ignore
                 vlMap.querySelector('#map-layer-style-red').appliesTo = (feature) => feature.get('status') === 'red';
+                // @ts-ignore
                 vlMap.querySelector('#map-layer-style-green').appliesTo = (feature) =>
                     feature.get('status') === 'green';
                 const vlFeatureLayerElement = vlMap.querySelector('vl-map-features-layer');
+                // @ts-ignore
                 const styleRed = vlFeatureLayerElement.style({ get: () => 'red' });
+                // @ts-ignore
                 const styleGreen = vlFeatureLayerElement.style({ get: () => 'green' });
+                // @ts-ignore
                 const styleOnbestaand = vlFeatureLayerElement.style({
                     get: () => 'orange',
                 });

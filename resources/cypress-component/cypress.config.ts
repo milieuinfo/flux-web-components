@@ -15,9 +15,9 @@ export default defineConfig({
         supportFile: './support/component.ts',
         indexHtmlFile: './support/component-index.html',
         specPattern: '../../libs/**/*.cy.{js,jsx,ts,tsx}',
-        // @ts-expect-error: negeer ontbrekende property 'framework'
         devServer: {
             bundler: 'webpack',
+            // @ts-ignore
             headers: {
                 'Cache-Control': 'no-store',
             },

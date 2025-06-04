@@ -68,14 +68,18 @@ describe('vl-map-layer-circle-style', () => {
         cy.mount(mapLayerCircleStylePropertiesFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             const styleElement = vlMap.querySelector('vl-map-layer-circle-style');
+            // @ts-ignore
             const style = styleElement.style();
             const imageStyle = style.getImage();
+            // @ts-ignore
             const stroke = imageStyle.getStroke();
             const text = style.getText();
+            // @ts-ignore
             expect(imageStyle.getFill().getColor()).to.be.equal('#fff');
             expect(text.getFill().getColor()).to.be.equal('#000');
             expect(text.getOffsetX()).to.be.equal('2');
             expect(text.getOffsetY()).to.be.equal('3');
+            // @ts-ignore
             expect(imageStyle.getRadius()).to.be.equal(1);
             expect(stroke.getColor()).to.be.equal('#123');
             expect(stroke.getWidth()).to.be.equal(4);
@@ -88,6 +92,7 @@ describe('vl-map-layer-circle-style', () => {
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             const layerElement = vlMap.querySelector('vl-map-features-layer');
             const styleElement = vlMap.querySelector('vl-map-layer-circle-style');
+            // @ts-ignore
             expect(layerElement.style('feature')[0]).to.deep.equal(styleElement.style('feature'));
         });
     });
@@ -103,6 +108,7 @@ describe('vl-map-layer-circle-style', () => {
                 geometry: new OlPoint([109101, 204176]),
             });
             const features = OpenLayersUtil.createClusterFeaturesObject([feature1, feature2]);
+            // @ts-ignore
             const style = styleElement.style(features);
             const textStyle = style.getText();
             expect(textStyle.getText()).to.be.equal(features.get('features').length.toString());
@@ -123,11 +129,17 @@ describe('vl-map-layer-circle-style', () => {
                 }
                 return features;
             };
+            // @ts-ignore
             let style = styleElement.style(OpenLayersUtil.createClusterFeaturesObject([feature]));
+            // @ts-ignore
             expect(style.getImage().getRadius()).to.be.equal(1);
+            // @ts-ignore
             style = styleElement.style(OpenLayersUtil.createClusterFeaturesObject(generateFeaturesArray(feature, 10)));
+            // @ts-ignore
             expect(style.getImage().getRadius()).to.be.equal(2);
+            // @ts-ignore
             style = styleElement.style(OpenLayersUtil.createClusterFeaturesObject(generateFeaturesArray(feature, 100)));
+            // @ts-ignore
             expect(style.getImage().getRadius()).to.be.equal(3);
         });
     });
@@ -167,13 +179,17 @@ describe('vl-map-layer-circle-style', () => {
             feature2.setStyle(featureStyle);
             const features = [feature1, feature2];
             layerElement.setAttribute('cluster', '');
+            // @ts-ignore
             const style = styleElement.style(OpenLayersUtil.createClusterFeaturesObject(features));
             const clusterMultiplier = Math.max(1.5, features.length.toString().length);
             const styleImage = style.getImage();
+            // @ts-ignore
             const styleImageFill = styleImage.getFill();
+            // @ts-ignore
             const styleImageStroke = styleImage.getStroke();
             expect(styleImageFill.getColor()).to.be.equal(featureFillColor);
             expect(styleImageStroke.getColor()).to.be.equal(featureStrokeColor);
+            // @ts-ignore
             expect(styleImage.getRadius()).to.be.equal(featureRadius * clusterMultiplier);
             expect(styleImage).to.be.instanceof(OlStyleCircle);
         });
@@ -186,7 +202,9 @@ describe('vl-map-layer-circle-style', () => {
             const styleElement = vlMap.querySelector('vl-map-layer-circle-style');
             const clusterKleur = '#789';
             const clusterTekstKleur = '#456';
+            // @ts-ignore
             styleElement.clusterKleur = clusterKleur;
+            // @ts-ignore
             styleElement.clusterTekstKleur = clusterTekstKleur;
             const feature1 = new OlFeature({
                 geometry: new OlPoint([109100, 204175]),
@@ -228,15 +246,19 @@ describe('vl-map-layer-circle-style', () => {
             );
             const features = [feature1, feature2];
             layerElement.setAttribute('cluster', '');
+            // @ts-ignore
             const style = styleElement.style(OpenLayersUtil.createClusterFeaturesObject(features));
             const clusterMultiplier = Math.max(1.5, features.length.toString().length);
             const styleImage = style.getImage();
+            // @ts-ignore
             const styleImageFill = styleImage.getFill();
+            // @ts-ignore
             const styleImageStroke = styleImage.getStroke();
             const styleText = style.getText();
             const styleTextFill = styleText.getFill();
             expect(styleImageFill.getColor()).to.be.equal(clusterKleur);
             expect(styleImageStroke.getColor()).to.be.equal(styleElement.borderColor);
+            // @ts-ignore
             expect(styleImage.getRadius()).to.be.equal(styleElement.size * clusterMultiplier);
             expect(styleTextFill.getColor()).to.be.equal(clusterTekstKleur);
             expect(styleImage).to.be.instanceof(OlStyleCircle);
@@ -254,15 +276,19 @@ describe('vl-map-layer-circle-style', () => {
                 geometry: new OlPoint([109101, 204176]),
             });
             const features = [feature1, feature2];
+            // @ts-ignore
             const style = styleElement.style(OpenLayersUtil.createClusterFeaturesObject(features));
             const clusterMultiplier = Math.max(1.5, features.length.toString().length);
             const styleImage = style.getImage();
+            // @ts-ignore
             const styleImageFill = styleImage.getFill();
+            // @ts-ignore
             const styleImageStroke = styleImage.getStroke();
             const styleText = style.getText();
             const styleTextFill = styleText.getFill();
             expect(styleImageFill.getColor()).to.be.equal(styleElement.color);
             expect(styleImageStroke.getColor()).to.be.equal(styleElement.borderColor);
+            // @ts-ignore
             expect(styleImage.getRadius()).to.be.equal(styleElement.size * clusterMultiplier);
             expect(styleTextFill.getColor()).to.be.equal(styleElement.clusterTextColor);
             expect(styleImage).to.be.instanceof(OlStyleCircle);
@@ -273,14 +299,18 @@ describe('vl-map-layer-circle-style', () => {
         cy.mount(mapLayerCircleStyleFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             const styleElement = vlMap.querySelector('vl-map-layer-circle-style');
+            // @ts-ignore
             const style = styleElement.style(1);
             const styleImage = style.getImage();
+            // @ts-ignore
             const styleImageFill = styleImage.getFill();
+            // @ts-ignore
             const styleImageStroke = styleImage.getStroke();
             const styleText = style.getText();
             const styleTextFill = styleText.getFill();
             expect(styleImageFill.getColor()).to.be.equal(styleElement.color);
             expect(styleImageStroke.getColor()).to.be.equal(styleElement.borderColor);
+            // @ts-ignore
             expect(styleImage.getRadius()).to.be.equal(styleElement.size);
             expect(styleTextFill.getColor()).to.be.equal(styleElement.clusterTextColor);
             expect(styleImage).to.be.instanceof(OlStyleCircle);
@@ -292,6 +322,7 @@ describe('vl-map-layer-circle-style', () => {
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             const vlMapLayerStyleElement = vlMap.querySelector('vl-map-layer-circle-style');
             expect(vlMapLayerStyleElement.textFeatureAttributeName).to.be.equal('label');
+            // @ts-ignore
             const style = vlMapLayerStyleElement.style({
                 get: (property) => property + 1,
             });
@@ -316,6 +347,7 @@ describe('vl-map-layer-circle-style', () => {
             });
             feature.set('label', 'feature1');
             const features = OpenLayersUtil.createClusterFeaturesObject([feature]);
+            // @ts-ignore
             const style = styleElement.style(features);
             const textStyle = style.getText();
             expect(textStyle.getText()).to.be.empty;
@@ -336,10 +368,12 @@ describe('vl-map-layer-circle-style', () => {
             });
             feature2.set('label', 'feature2');
             const features1 = OpenLayersUtil.createClusterFeaturesObject([feature1]);
+            // @ts-ignore
             const style1 = styleElement.style(features1);
             const textStyle1 = style1.getText();
             expect(textStyle1.getText()).to.be.equal('feature1');
             const features2 = OpenLayersUtil.createClusterFeaturesObject([feature2]);
+            // @ts-ignore
             const style2 = styleElement.style(features2);
             const textStyle2 = style2.getText();
             expect(textStyle2.getText()).to.be.equal('feature2');
@@ -360,6 +394,7 @@ describe('vl-map-layer-circle-style', () => {
             });
             feature2.set('label', 'feature2');
             const features = OpenLayersUtil.createClusterFeaturesObject([feature1, feature2]);
+            // @ts-ignore
             const style = styleElement.style(features);
             const textStyle = style.getText();
             expect(textStyle.getText()).to.be.equal('2');
@@ -380,6 +415,7 @@ describe('vl-map-layer-circle-style', () => {
             });
             feature2.set('label', 'feature2');
             const features = OpenLayersUtil.createClusterFeaturesObject([feature1, feature2]);
+            // @ts-ignore
             const style = styleElement.style(features);
             const textStyle = style.getText();
             expect(textStyle.getText()).to.be.equal('2');
@@ -395,6 +431,7 @@ describe('vl-map-layer-circle-style', () => {
                 geometry: new OlPoint([109100, 204175]),
             });
             feature.set('label', 'feature');
+            // @ts-ignore
             const style = styleElement.style(feature);
             const textStyle = style.getText();
             expect(textStyle.getText()).to.be.empty;
@@ -410,6 +447,7 @@ describe('vl-map-layer-circle-style', () => {
                 geometry: new OlPoint([109100, 204175]),
             });
             feature.set('label', 'feature');
+            // @ts-ignore
             const style = styleElement.style(feature);
             const textStyle = style.getText();
             expect(textStyle.getText()).to.be.equal('feature');

@@ -61,6 +61,8 @@ describe('vl-map-wmts-layer', () => {
                 const layers = vlMap.map.getOverlayLayers();
                 expect(layers).to.be.lengthOf(1);
                 const layer = layers[0];
+                // @ts-ignore
+                // @ts-ignore
                 const source = layer.getSource();
                 expect(source).to.be.instanceof(OlWMTSSource);
                 expect(source.urls).to.be.lengthOf(1);
@@ -88,6 +90,7 @@ describe('vl-map-wmts-layer', () => {
                 const layers = vlMap.map.getOverlayLayers();
                 expect(layers).to.be.lengthOf(1);
                 const layer = layers[0];
+                // @ts-ignore
                 const source = layer.getSource();
                 expect(source).to.be.instanceof(OlWMTSSource);
                 expect(source.getMatrixSet()).to.be.equal('MOCKMATRIX');
@@ -102,6 +105,7 @@ describe('vl-map-wmts-layer', () => {
                 const layers = vlMap.map.getOverlayLayers();
                 expect(layers).to.be.lengthOf(1);
                 const layer = layers[0];
+                // @ts-ignore
                 const source = layer.getSource();
                 const tileGrid = source.getTileGrid();
                 expect(tileGrid.getMatrixIds()).to.deep.equal([

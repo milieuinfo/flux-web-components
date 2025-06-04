@@ -119,6 +119,7 @@ describe('vl-map-modify-action', () => {
                     vlMap.querySelector('#stilstaandwater')['_layer'].getSource()
                 );
                 expect(modifyActionOptions.snapping.layer.getStyle()).to.equal(
+                    // @ts-ignore
                     vlMap.querySelector('#stromendwater').style
                 );
             });

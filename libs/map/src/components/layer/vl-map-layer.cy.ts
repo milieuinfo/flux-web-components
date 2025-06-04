@@ -241,6 +241,7 @@ describe('vl-map-layer', () => {
                     cy.waitUntil(() => layers?.length === 1).then(() => {
                         expect(layers).to.be.lengthOf(1);
                         const layer = layers[0];
+                        // @ts-ignore
                         cy.wrap(layer.ready).then(() => {
                             expect(layer).to.be.equal(layerElement.layer);
                             expect(layer.get('title')).to.be.equal(layerElement.getAttribute('name'));
