@@ -19,6 +19,7 @@ export interface Limitations {
     withoutTiming?: string[];
     outsideApplicableLaw?: string[];
 }
+
 export interface AccessibilityProperties {
     application: string;
     compliance: COMPLIANCE_STATUS;

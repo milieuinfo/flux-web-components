@@ -10,7 +10,8 @@ export const inputFieldStyles = css`
         box-sizing: border-box;
     }
 
-    *::before, *::after {
+    *::before,
+    *::after {
         box-sizing: inherit;
     }
 

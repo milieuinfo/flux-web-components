@@ -9,6 +9,7 @@ export class VlMeasureAction extends VlDrawAction {
     private drawStartHandler: EventsKey;
     private drawEndHandler: EventsKey;
     private removeFeatureHandler: any;
+
     constructor(layer, options?) {
         super(
             layer,

@@ -92,12 +92,7 @@ const TemplateSorting = story(richDataTableArgs, ({ collapsedM, collapsedS, coll
                 sortable=""
                 sorting-direction="asc"
             ></vl-rich-data-field>
-            <vl-rich-data-field
-                name="name"
-                label="Naam"
-                selector="name"
-                sortable=""
-            ></vl-rich-data-field>
+            <vl-rich-data-field name="name" label="Naam" selector="name" sortable=""></vl-rich-data-field>
             <vl-rich-data-field name="owner" selector="owner" sortable="">
                 <template slot="label">
                     <span>Eigenaar</span>
@@ -164,7 +159,8 @@ const TemplateFilter = story(
                                 ></vl-input-field>
                             </div>
                             <div>
-                                <vl-form-label for="filterOpNaamManager" label="Manager familienaam" light></vl-form-label>
+                                <vl-form-label for="filterOpNaamManager" label="Manager familienaam"
+                                               light></vl-form-label>
                                 <vl-input-field
                                     type="text"
                                     id="filterOpNaamManager"

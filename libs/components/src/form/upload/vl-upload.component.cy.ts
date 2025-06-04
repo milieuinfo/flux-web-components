@@ -281,9 +281,7 @@ describe('component - vl-upload', () => {
 
     it('should generate error when adding a file with the wrong extension', () => {
         const errorMessage = 'Dit bestandstype is niet toegestaan';
-        cy.mount(
-            html` <vl-upload accepted-files="txt" error-message-accepted-files=${errorMessage}></vl-upload> `
-        );
+        cy.mount(html` <vl-upload accepted-files="txt" error-message-accepted-files=${errorMessage}></vl-upload> `);
 
         cy.get('vl-upload').shadow().find('input[type=file]').selectFile(pdfFileFixturePath, { force: true });
         cy.get('vl-upload').shadow().find('.dz-error-message').should('contain', errorMessage, '');
@@ -292,11 +290,7 @@ describe('component - vl-upload', () => {
     it('should handle upload events when error occurs', () => {
         const errorMessage = 'Dit bestandstype is niet toegestaan';
         cy.mount(
-            html` <vl-upload
-                chunking
-                accepted-files="txt"
-                error-message-accepted-files=${errorMessage}
-            ></vl-upload>`
+            html` <vl-upload chunking accepted-files="txt" error-message-accepted-files=${errorMessage}></vl-upload>`
         );
 
         cy.createStubForEvent('vl-upload', 'vl-error');

@@ -20,6 +20,7 @@ export interface VlMapActionOptions {
 export class VlMapWithActions extends Map {
     actions: any[];
     protected timeout: any;
+
     static get CLICK_COUNT_TIMEOUT() {
         return 300;
     }

@@ -21,6 +21,7 @@ const stiAtt = `sticky`,
     stiOffsetAttr = `sticky-offset-top`,
     layoutClass = `vl-layout`,
     contentBlock = `vl-content-block`;
+
 class Sticky {
     constructor() {
         // Set default values for affixedType and direction

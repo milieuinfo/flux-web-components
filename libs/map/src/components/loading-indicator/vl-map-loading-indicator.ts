@@ -57,6 +57,7 @@ export class VlMapLoadingIndicator extends BaseLitElement {
             this.classList.remove('loading');
         }
     }
+
     get map(): VlMap {
         return this.closest('vl-map');
     }

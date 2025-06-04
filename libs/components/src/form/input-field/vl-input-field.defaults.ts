@@ -16,5 +16,5 @@ export const inputFieldDefaults = {
     maxExclusive: false as boolean,
     pattern: '' as string,
     inputGroup: false as boolean,
-    regex: null as RegExp | null
+    regex: null as RegExp | null,
 } as const;

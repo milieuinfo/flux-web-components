@@ -1,6 +1,7 @@
 import { VlAccordionComponent } from '@domg-wc/components/block';
 
-const accordionUrl = 'http://localhost:8080/iframe.html?id=components-block-accordion--accordion-default&viewMode=story';
+const accordionUrl =
+    'http://localhost:8080/iframe.html?id=components-block-accordion--accordion-default&viewMode=story';
 const accordionTitleSlotUrl =
     'http://localhost:8080/iframe.html?id=components-block-accordion--accordion-title-slot&viewMode=story';
 const accordionDynamicToggleUrl =

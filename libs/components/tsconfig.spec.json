@@ -1,8 +1,12 @@
 {
     "extends": "./tsconfig.json",
-    "include": ["**/*.spec.ts"],
+    "include": [
+        "**/*.spec.ts"
+    ],
     "compilerOptions": {
-        "types": ["jest"],
+        "types": [
+            "jest"
+        ],
         "esModuleInterop": true,
         "allowJs": true
     }

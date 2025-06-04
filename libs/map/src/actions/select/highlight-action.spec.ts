@@ -11,7 +11,7 @@ describe('highlight action', () => {
             {},
             {
                 style,
-            },
+            }
         );
         expect(highlightAction.highlightInteraction.getStyle()).toBe(style);
     });

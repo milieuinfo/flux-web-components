@@ -1,4 +1,5 @@
-const infoblockUrl = 'http://localhost:8080/iframe.html?id=components-block-infoblock--infoblock-contact&viewMode=story';
+const infoblockUrl =
+    'http://localhost:8080/iframe.html?id=components-block-infoblock--infoblock-contact&viewMode=story';
 
 describe('story vl-infoblock', () => {
     it('should display default story', () => {
@@ -14,7 +15,9 @@ describe('story vl-infoblock', () => {
     });
 
     it('should display story for custom icon', () => {
-        cy.visit('http://localhost:8080/iframe.html?id=components-block-infoblock--infoblock-custom-icon&viewMode=story');
+        cy.visit(
+            'http://localhost:8080/iframe.html?id=components-block-infoblock--infoblock-custom-icon&viewMode=story'
+        );
     });
 
     it('should display story for slot elements', () => {

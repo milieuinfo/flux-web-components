@@ -1,4 +1,5 @@
-const breadcrumbUrl = 'http://localhost:8080/iframe.html?id=components-block-breadcrumb--breadcrumb-default&viewMode=story';
+const breadcrumbUrl =
+    'http://localhost:8080/iframe.html?id=components-block-breadcrumb--breadcrumb-default&viewMode=story';
 
 describe('story vl-breadcrumb', () => {
     it('should contain a nav section', () => {

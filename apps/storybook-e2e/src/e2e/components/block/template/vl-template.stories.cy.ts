@@ -1,4 +1,5 @@
-const templateUrl = 'http://localhost:8080/iframe.html?args=&id=components-block-template--template-default&viewMode=story';
+const templateUrl =
+    'http://localhost:8080/iframe.html?args=&id=components-block-template--template-default&viewMode=story';
 
 describe('story vl-template', () => {
     it('should render', () => {

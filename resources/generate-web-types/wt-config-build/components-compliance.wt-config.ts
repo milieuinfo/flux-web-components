@@ -29,7 +29,12 @@ export const buildWTConfigComponentsCompliance: WTConfigArray = [
     ),
     buildWTConfig('vl-authentication-cookie', null, null, '/docs/components-compliance-cookie-statement--documentatie'),
     buildWTConfig('vl-cookie', null, null, '/docs/components-compliance-cookie-statement--documentatie'),
-    buildWTConfig('vl-header-authentication-cookie', null, null, '/docs/components-compliance-cookie-statement--documentatie'),
+    buildWTConfig(
+        'vl-header-authentication-cookie',
+        null,
+        null,
+        '/docs/components-compliance-cookie-statement--documentatie'
+    ),
     buildWTConfig('vl-header-cookie', null, null, '/docs/components-compliance-cookie-statement--documentatie'),
     buildWTConfig('vl-jsessionid-cookie', null, null, '/docs/components-compliance-cookie-statement--documentatie'),
     buildWTConfig('vl-sticky-session-cookie', null, null, '/docs/components-compliance-cookie-statement--documentatie'),

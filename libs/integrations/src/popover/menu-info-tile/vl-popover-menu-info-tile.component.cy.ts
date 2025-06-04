@@ -7,13 +7,13 @@ registerWebComponents([VlPopoverMenuInfoTileComponent]);
 
 describe('integrations - popover menu info tile', () => {
     it('should render', () => {
-        cy.mount(html`<vl-popover-menu-info-tile></vl-popover-menu-info-tile>`);
+        cy.mount(html` <vl-popover-menu-info-tile></vl-popover-menu-info-tile>`);
 
         cy.get('vl-popover-menu-info-tile').find('vl-info-tile').shadow();
     });
 
     it('should open and close the menu', () => {
-        cy.mount(html`<vl-popover-menu-info-tile></vl-popover-menu-info-tile>`);
+        cy.mount(html` <vl-popover-menu-info-tile></vl-popover-menu-info-tile>`);
 
         cy.get('vl-popover-menu-info-tile').find('#btn-acties').click();
         cy.get('vl-popover-menu-info-tile').find('vl-popover[for="btn-acties"]').should('be.visible');
@@ -26,7 +26,7 @@ describe('integrations - popover menu info tile', () => {
     });
 
     it('should open and close the tile', () => {
-        cy.mount(html`<vl-popover-menu-info-tile></vl-popover-menu-info-tile>`);
+        cy.mount(html` <vl-popover-menu-info-tile></vl-popover-menu-info-tile>`);
 
         cy.get('vl-popover-menu-info-tile')
             .find('vl-info-tile')

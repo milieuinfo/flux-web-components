@@ -70,7 +70,6 @@ MapActionControlIcon.args = {
     icon: 'pencil',
 };
 
-
 export const MapActionControlMultiple = story(
     {},
     () => html`

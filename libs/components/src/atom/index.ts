@@ -1,5 +1,12 @@
 export { VlButtonComponent, vlInputAddonStyles } from './button';
-export { vlHeading1, vlHeading2, vlHeading3, vlHeading4, vlHeading5, vlHeading6 } from './heading-style/vl-heading-style.css';
+export {
+    vlHeading1,
+    vlHeading2,
+    vlHeading3,
+    vlHeading4,
+    vlHeading5,
+    vlHeading6,
+} from './heading-style/vl-heading-style.css';
 export { VlIconComponent } from './icon';
 export { vlIconStyles } from './icon-style/vl-icon-style.css';
 export { VlLinkComponent } from './link';

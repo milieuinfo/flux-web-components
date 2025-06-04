@@ -7,13 +7,13 @@ registerWebComponents([VlPopoverMenuAccordionComponent]);
 
 describe('integrations - popover menu accordion', () => {
     it('should render', () => {
-        cy.mount(html`<vl-popover-menu-accordion></vl-popover-menu-accordion>`);
+        cy.mount(html` <vl-popover-menu-accordion></vl-popover-menu-accordion>`);
 
         cy.get('vl-popover-menu-accordion').find('vl-accordion').shadow();
     });
 
     it('should open and close menus', () => {
-        cy.mount(html`<vl-popover-menu-accordion></vl-popover-menu-accordion>`);
+        cy.mount(html` <vl-popover-menu-accordion></vl-popover-menu-accordion>`);
 
         cy.get('vl-popover-menu-accordion').find('vl-button#btn-acties1[ghost]').click();
         cy.get('vl-popover-menu-accordion').find('vl-popover[for="btn-acties1"]').should('be.visible');
@@ -35,7 +35,7 @@ describe('integrations - popover menu accordion', () => {
     });
 
     it('should open and close accordions', () => {
-        cy.mount(html`<vl-popover-menu-accordion></vl-popover-menu-accordion>`);
+        cy.mount(html` <vl-popover-menu-accordion></vl-popover-menu-accordion>`);
 
         cy.get('vl-popover-menu-accordion')
             .find('vl-accordion[toggle-text="Stedelijk woongebied"]')

@@ -187,5 +187,5 @@ export const inputFieldArgTypes: ArgTypes<InputFieldArgs> = {
             type: { summary: '{ value: string }' },
             category: CATEGORIES.EVENTS,
         },
-    }
+    },
 };

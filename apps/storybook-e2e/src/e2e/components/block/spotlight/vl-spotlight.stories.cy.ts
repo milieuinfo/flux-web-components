@@ -1,4 +1,5 @@
-const spotlightUrl = 'http://localhost:8080/iframe.html?id=components-block-spotlight--spot-light-default&viewMode=story';
+const spotlightUrl =
+    'http://localhost:8080/iframe.html?id=components-block-spotlight--spot-light-default&viewMode=story';
 
 const spotlightWithLinkUrl =
     'http://localhost:8080/iframe.html?id=components-block-spotlight--spotlight-with-link&viewMode=story';

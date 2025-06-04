@@ -7,13 +7,13 @@ registerWebComponents([VlFormCustomValidationComponent]);
 
 describe('integrations - form custom validation', () => {
     it('should render', () => {
-        cy.mount(html`<vl-form-custom-validation></vl-form-custom-validation>`);
+        cy.mount(html` <vl-form-custom-validation></vl-form-custom-validation>`);
 
         cy.get('vl-form-custom-validation').shadow();
     });
 
     it('should validate', () => {
-        cy.mount(html`<vl-form-custom-validation></vl-form-custom-validation>`);
+        cy.mount(html` <vl-form-custom-validation></vl-form-custom-validation>`);
 
         cy.get('vl-form-custom-validation')
             .shadow()

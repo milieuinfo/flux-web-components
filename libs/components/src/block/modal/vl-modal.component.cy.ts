@@ -6,21 +6,19 @@ import { VlModalComponent } from './vl-modal.component';
 
 registerWebComponents([VlModalComponent, VlButtonComponent, VlIconComponent]);
 
-const renderOpenButton = () => html`<vl-button modal-open="modal-vt" data-cy="button-modal-toggle">
-    Open
-</vl-button>`;
+const renderOpenButton = () => html`<vl-button modal-open="modal-vt" data-cy="button-modal-toggle"> Open </vl-button>`;
 
 const renderModal = ({
-                         title = 'Modal',
-                         open = false,
-                         closable = false,
-                         notAutoClosable = false,
-                         notCancellable = false,
-                         allowOverflow = false,
-                         content = html`<p>Modal content</p>
-                         <p>Lorem ipsum dolor sit amet.</p>`,
-                         button = html`<vl-button>button</vl-button>`,
-                     }: {
+    title = 'Modal',
+    open = false,
+    closable = false,
+    notAutoClosable = false,
+    notCancellable = false,
+    allowOverflow = false,
+    content = html`<p>Modal content</p>
+        <p>Lorem ipsum dolor sit amet.</p>`,
+    button = html`<vl-button>button</vl-button>`,
+}: {
     title?: string;
     open?: boolean;
     closable?: boolean;

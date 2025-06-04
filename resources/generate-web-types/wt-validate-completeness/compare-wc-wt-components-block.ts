@@ -25,7 +25,9 @@ export const componentsBlockWCNameCount = componentsBlockWCNames.length;
 export const componentsBlockWTNameCount = componentsBlockWTNames.length;
 export const componentsBlockWCWithoutWT = componentsBlockWCNames.filter(
     (name) =>
-        !componentsBlockWCIgnore.includes(name) && !componentsBlockWCMismatch.includes(name) && !componentsBlockWTNames.includes(name)
+        !componentsBlockWCIgnore.includes(name) &&
+        !componentsBlockWCMismatch.includes(name) &&
+        !componentsBlockWTNames.includes(name)
 );
 export const componentsBlockWTWithoutWC = componentsBlockWTNames.filter(
     (name) => !componentsBlockWTMismatch.includes(name) && !componentsBlockWCNames.includes(name)

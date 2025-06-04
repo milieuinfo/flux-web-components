@@ -1,4 +1,4 @@
-import { buildData, buildDiv, buildLabel } from "@resources/utils-test";
+import { buildData, buildDiv, buildLabel } from '@resources/utils-test';
 import { onChildListChange } from './mutation-utils';
 
 describe('onChildListChange tests', () => {

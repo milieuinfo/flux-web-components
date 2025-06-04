@@ -7,10 +7,7 @@ registerWebComponents([VlMap, VlMapXYZWmsLayer]);
 
 const xyzWmsLayerFixture = html`
     <vl-map>
-        <vl-map-xyz-wms-layer
-            url="http://dummy/{z}/{x}/{y}"
-            name="dummy"
-        ></vl-map-xyz-wms-layer>
+        <vl-map-xyz-wms-layer url="http://dummy/{z}/{x}/{y}" name="dummy"></vl-map-xyz-wms-layer>
     </vl-map>
 `;
 

@@ -12,6 +12,7 @@ export class VlDrawAction extends VlBaseMapAction {
     tooltip: Overlay;
     protected measurePointermoveHandler: EventsKey;
     drawInteraction: Draw;
+
     constructor(layer: any, type: Type, onDraw, _options: { style?: any; maxPoints?: number } = {}) {
         const interactions = [];
 

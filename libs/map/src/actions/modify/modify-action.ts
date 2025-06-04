@@ -5,6 +5,7 @@ import { VlSelectAction } from '../select/select-action';
 export class VlModifyAction extends VlSelectAction {
     modifyInteraction: Modify;
     private currentGeometryBeingModified: any;
+
     constructor(layer, onModify?, options: any = {}) {
         super(layer, null, {
             filter: options.filter,

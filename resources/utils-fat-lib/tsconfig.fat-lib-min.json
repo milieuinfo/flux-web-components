@@ -10,7 +10,7 @@
     },
     "include": [
         "**/*.ts",
-        "../../components/src/compliance/declare-module.d.ts",
+        "../../components/src/compliance/declare-module.d.ts"
     ],
     "exclude": [
         "jest.config.ts",

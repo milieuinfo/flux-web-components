@@ -641,6 +641,7 @@
         this.onRejected = typeof onRejected === 'function' ? onRejected : null;
         this.promise = promise;
     }
+
     /**
      * Take a potentially misbehaving resolver function and make sure
      * onFulfilled and onRejected are only called once.
@@ -800,6 +801,7 @@
 
             return;
         }
+
         /**
          * Creates the global IntersectionObserverEntry constructor.
          * https://w3c.github.io/IntersectionObserver/#intersection-observer-entry
@@ -829,6 +831,7 @@
                 this.intersectionRatio = this.isIntersecting ? 1 : 0;
             }
         }
+
         /**
          * Creates the global IntersectionObserver constructor.
          * https://w3c.github.io/IntersectionObserver/#intersection-observer-interface
@@ -865,6 +868,7 @@
                 })
                 .join(' ');
         }
+
         /**
          * The minimum interval within which the document will be checked for
          * intersection changes.
@@ -1274,6 +1278,7 @@
          */
 
         IntersectionObserver.prototype._unregisterInstance = function () {};
+
         /**
          * Returns the result of the performance.now() method or null in browsers
          * that don't support the API.
@@ -1283,6 +1288,7 @@
         function now() {
             return window.performance && performance.now && performance.now();
         }
+
         /**
          * Throttles a function and delays its execution, so it's only called at most
          * once within a given time period.
@@ -1303,6 +1309,7 @@
                 }
             };
         }
+
         /**
          * Adds an event handler to a DOM node ensuring cross-browser compatibility.
          * @param {Node} node The DOM node to add the event handler to.
@@ -1319,6 +1326,7 @@
                 node.attachEvent('on' + event, fn);
             }
         }
+
         /**
          * Removes a previously added event handler from a DOM node.
          * @param {Node} node The DOM node to remove the event handler from.
@@ -1335,6 +1343,7 @@
                 node.detatchEvent('on' + event, fn);
             }
         }
+
         /**
          * Returns the intersection between two rect objects.
          * @param {Object} rect1 The first rect.
@@ -1362,6 +1371,7 @@
                 }
             );
         }
+
         /**
          * Shims the native getBoundingClientRect for compatibility with older IE.
          * @param {Element} el The element whose bounding rect to get.
@@ -1393,6 +1403,7 @@
 
             return rect;
         }
+
         /**
          * Returns an empty rect object. An empty rect is returned when an element
          * is not in the DOM.
@@ -1409,6 +1420,7 @@
                 height: 0,
             };
         }
+
         /**
          * Checks to see if a parent element contains a child element (including inside
          * shadow DOM).
@@ -1427,6 +1439,7 @@
 
             return false;
         }
+
         /**
          * Gets the parent node of an element or its host element if the parent node
          * is a shadow root.

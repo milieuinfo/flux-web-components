@@ -1,6 +1,8 @@
-const popoverDefaultUrl = 'http://localhost:8080/iframe.html?id=components-block-popover--popover-default&viewMode=story';
+const popoverDefaultUrl =
+    'http://localhost:8080/iframe.html?id=components-block-popover--popover-default&viewMode=story';
 const popoverHoverUrl = 'http://localhost:8080/iframe.html?id=components-block-popover--popover-hover&viewMode=story';
-const popoverActionsUrl = 'http://localhost:8080/iframe.html?id=components-block-popover--popover-actions&viewMode=story';
+const popoverActionsUrl =
+    'http://localhost:8080/iframe.html?id=components-block-popover--popover-actions&viewMode=story';
 
 describe('story vl-popover default', () => {
     it('should render', () => {

@@ -8,11 +8,11 @@ namespace Cypress {
         visitWithA11y(url: string): void;
 
         shouldHaveComputedStyle({
-            style,
-            value,
-            not,
-            pseudo,
-        }: {
+                                    style,
+                                    value,
+                                    not,
+                                    pseudo
+                                }: {
             style: string;
             value: string;
             pseudo?: string;

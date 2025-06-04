@@ -53,7 +53,7 @@ const mapDrawPointActionSnappingWfsLayersFixture = html`
 const mapDrawPointActionSnapping = html`
     <vl-map id="map-with-draw-point-snap-action">
         <vl-map-features-layer id="point-layer">
-            <vl-map-draw-point-action id="draw-point-snap-action" default-active snapping> </vl-map-draw-point-action>
+            <vl-map-draw-point-action id="draw-point-snap-action" default-active snapping></vl-map-draw-point-action>
         </vl-map-features-layer>
     </vl-map>
 `;

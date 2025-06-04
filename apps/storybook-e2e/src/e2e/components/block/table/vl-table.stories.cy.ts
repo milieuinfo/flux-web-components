@@ -1,7 +1,8 @@
 const tableNextDefaultUrl = 'http://localhost:8080/iframe.html?id=components-block-table--table-default&viewMode=story';
 const tableNextJoinedRowTitlesUrl =
     'http://localhost:8080/iframe.html?id=components-block-table--table-joined-row-titles&viewMode=story';
-const tableNextExpandableUrl = 'http://localhost:8080/iframe.html?id=components-block-table--table-expandable&viewMode=story';
+const tableNextExpandableUrl =
+    'http://localhost:8080/iframe.html?id=components-block-table--table-expandable&viewMode=story';
 const tableNextExpandableCustomToggleDetailsColumnUrl =
     'http://localhost:8080/iframe.html?id=components-block-table--table-expandable-custom-toggle-details-column&viewMode=story';
 

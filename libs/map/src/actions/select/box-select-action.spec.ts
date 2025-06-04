@@ -30,7 +30,9 @@ describe('box select action', () => {
             .spyOn(action.dragBoxInteraction, 'getGeometry')
             .mockClear()
             // @ts-ignore
-            .mockReturnValue({ getExtent: () => {} });
+            .mockReturnValue({
+                getExtent: () => {},
+            });
         action.map = new Map({});
         return action;
     };

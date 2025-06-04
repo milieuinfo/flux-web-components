@@ -61,7 +61,9 @@ describe('draw action', () => {
             pixelTolerance: 1000,
         };
         drawAction = new VlDrawAction(layer, 'LineString', callback, options);
-        const snapInteraction: any = drawAction.interactions.find((interaction) => interaction instanceof VlSnapInteraction);
+        const snapInteraction: any = drawAction.interactions.find(
+            (interaction) => interaction instanceof VlSnapInteraction
+        );
         expect(snapInteraction.source_).toBe(snappingSource);
         expect(snapInteraction.pixelTolerance_).toBe(1000);
     });
@@ -96,7 +98,7 @@ describe('draw action', () => {
             feature: sketchFeature,
         });
 
-        expect(callback).toHaveBeenCalledWith(sketchFeature, expect.anything())
+        expect(callback).toHaveBeenCalledWith(sketchFeature, expect.anything());
     });
 
     it('kan na het tekenen de feature terug verwijderen via de cancel draw functie', () => {
@@ -190,7 +192,7 @@ describe('draw action', () => {
             },
         };
         let drawAction = createDrawActionWithMap('Polygon', options);
-        let sketchFeature:Feature<Polygon> = new Feature({
+        let sketchFeature: Feature<Polygon> = new Feature({
             geometry: new Polygon([
                 [
                     [0, 0],

@@ -1,7 +1,13 @@
 {
     "extends": "../../tsconfig.base.json",
-    "include": ["./src/**/*.ts"],
-    "exclude": ["./src/**/*.spec.ts", "./src/**/*.cy.ts", "./src/**/stories"],
+    "include": [
+        "./src/**/*.ts"
+    ],
+    "exclude": [
+        "./src/**/*.spec.ts",
+        "./src/**/*.cy.ts",
+        "./src/**/stories"
+    ],
     "compilerOptions": {
         "outDir": "../../build/tsc/app-integrator",
         "strict": true,

@@ -10,6 +10,7 @@ export class VlSplitAction extends VlBaseMapAction {
     private selectAction: any;
     private drawAction: any;
     override map: any;
+
     constructor(layer, onSplit, options) {
         const reader = new jsts.io.OL3Parser();
         reader.inject(Point, LineString, LinearRing, Polygon, MultiPoint, MultiLineString, MultiPolygon);
