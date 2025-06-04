@@ -91,6 +91,7 @@ describe('vl-map', () => {
             expect(extent[1]).to.be.equal(66928);
             expect(extent[2]).to.be.equal(272072);
             expect(extent[3]).to.be.equal(329072);
+            // @ts-ignore
             expect(vlMap._map.getView().getCenter()).to.be.deep.equal([140860.69299028325, 190532.7165957574]);
         });
     });
@@ -369,9 +370,11 @@ describe('vl-map', () => {
         cy.mount(mapFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             cy.wrap(vlMap.ready).then(() => {
+                // @ts-ignore
                 cy.spy(vlMap._map, 'zoomToExtent');
                 const boundingbox = [0, 1, 2, 3];
                 vlMap.zoomTo(boundingbox, null);
+                // @ts-ignore
                 expect(vlMap._map.zoomToExtent).to.be.calledWith(boundingbox);
             });
         });
@@ -381,12 +384,14 @@ describe('vl-map', () => {
         cy.mount(mapFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             cy.wrap(vlMap.ready).then(() => {
+                // @ts-ignore
                 cy.spy(vlMap._map, 'zoomToGeometry');
                 const geometry = {
                     type: 'Point',
                     coordinates: [104719.27, 192387.25],
                 };
                 vlMap.zoomTo(geometry, null);
+                // @ts-ignore
                 expect(vlMap._map.zoomToGeometry).to.be.calledWith(geometry);
             });
         });
@@ -396,6 +401,7 @@ describe('vl-map', () => {
         cy.mount(mapFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             cy.wrap(vlMap.ready).then(() => {
+                // @ts-ignore
                 expect(vlMap._map.controls.getArray().find((control) => control instanceof OlFullScreenControl)).to.be
                     .undefined;
             });
@@ -406,6 +412,7 @@ describe('vl-map', () => {
         cy.mount(mapFullscreenFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             cy.wrap(vlMap.ready).then(() => {
+                // @ts-ignore
                 expect(vlMap._map.controls.getArray().find((control) => control instanceof OlFullScreenControl)).to
                     .exist;
             });

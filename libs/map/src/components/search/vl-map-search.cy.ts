@@ -66,6 +66,7 @@ describe('vl-map-search', () => {
         interceptLocation([locationAntwerpen1]);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             const searchElement = vlMap.shadowRoot.querySelector('vl-map-search') as VlMapSearch;
+            // @ts-ignore
             const onZoomSpy = cy.spy(searchElement, 'zoomTo');
             enterSelectLocationValue(suggestionsAntwerpen[0], getSelectLocationComponent);
             selectLocationSuggestion(0, getSelectLocationComponent).should(() => expect(onZoomSpy).to.be.called);
@@ -78,8 +79,10 @@ describe('vl-map-search', () => {
         interceptLocation([locationAntwerpen1]);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             const searchElement = vlMap.shadowRoot.querySelector('vl-map-search') as VlMapSearch;
+            // @ts-ignore
             const onZoomSpy = cy.spy(searchElement, 'zoomTo');
             searchElement.onSelect(() => {});
+            // @ts-ignore
             const onSelectSpy = cy.spy(searchElement, '_onSelect');
             enterSelectLocationValue(suggestionsAntwerpen[0], getSelectLocationComponent);
             selectLocationSuggestion(0, getSelectLocationComponent).should(

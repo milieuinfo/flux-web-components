@@ -28,7 +28,9 @@ describe('vl-map-layer-action', () => {
         `);
         cy.runTestFor2<VlMap, VlMapFeaturesLayer>('vl-map', 'vl-map-features-layer', (vlMap, vlMapFeaturesLayer) => {
             cy.wrap(vlMap.ready).then(() => {
+                // @ts-ignore
                 expect(vlMap._map.actions).to.have.lengthOf(1);
+                // @ts-ignore
                 expect(vlMap._map.actions[0]).to.deep.equal(action);
                 expect(createActionStub).to.have.been.calledWith(vlMapFeaturesLayer.layer);
                 expect(action.activate).to.not.have.been.called;
@@ -69,11 +71,14 @@ describe('vl-map-layer-action', () => {
             'vl-map-layer-action',
             (vlMap, vlMapFeaturesLayer, vlMapLayerAction) => {
                 cy.wrap(vlMap.ready).then(() => {
+                    // @ts-ignore
                     expect(vlMap._map.actions).to.be.empty;
                     vlMapLayerAction.layer = vlMapFeaturesLayer.layer;
                     // wachten tot er een event loop cyclus gepasseerd is, de layer is dan aanwezig
                     cy.wait(0).then(() => {
+                        // @ts-ignore
                         expect(vlMap._map.actions).to.have.lengthOf(1);
+                        // @ts-ignore
                         expect(vlMap._map.actions[0]).to.deep.equal(action);
                     });
                 });

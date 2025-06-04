@@ -40,6 +40,7 @@ describe('component vl-map-draw-action-style', () => {
 
     it('should set the fill color of the parent draw-action', () => {
         cy.get('vl-map-draw-action-style').then(($styleElement) => {
+            // @ts-ignore
             const drawActionElementStyle = $styleElement[0].parentNode.style;
 
             expect(drawActionElementStyle.getFill().getColor()).to.eq('rgb(255, 105, 180)');
@@ -48,6 +49,7 @@ describe('component vl-map-draw-action-style', () => {
 
     it('should set the stroke color of the parent draw-action', () => {
         cy.get('vl-map-draw-action-style').then(($styleElement) => {
+            // @ts-ignore
             const drawActionElementStyle = $styleElement[0].parentNode.style;
 
             expect(drawActionElementStyle.getStroke().getColor()).to.eq('rgb(0, 191, 255)');
@@ -56,6 +58,7 @@ describe('component vl-map-draw-action-style', () => {
 
     it('should set the stroke width of the parent draw-action', () => {
         cy.get('vl-map-draw-action-style').then(($styleElement) => {
+            // @ts-ignore
             const drawActionElementStyle = $styleElement[0].parentNode.style;
 
             expect(drawActionElementStyle.getStroke().getWidth()).to.eq('3');
@@ -64,6 +67,7 @@ describe('component vl-map-draw-action-style', () => {
 
     it('should set the circle fill color of the parent draw-action', () => {
         cy.get('vl-map-draw-action-style').then(($styleElement) => {
+            // @ts-ignore
             const drawActionElementStyle = $styleElement[0].parentNode.style;
 
             expect(drawActionElementStyle.getImage().getFill().getColor()).to.eq('rgb(230, 230, 250)');
@@ -72,6 +76,7 @@ describe('component vl-map-draw-action-style', () => {
 
     it('should set the circle stroke color of the parent draw-action', () => {
         cy.get('vl-map-draw-action-style').then(($styleElement) => {
+            // @ts-ignore
             const drawActionElementStyle = $styleElement[0].parentNode.style;
 
             expect(drawActionElementStyle.getImage().getStroke().getColor()).to.eq('rgb(255, 255, 0)');
@@ -80,6 +85,7 @@ describe('component vl-map-draw-action-style', () => {
 
     it('should set the circle stroke width of the parent draw-action', () => {
         cy.get('vl-map-draw-action-style').then(($styleElement) => {
+            // @ts-ignore
             const drawActionElementStyle = $styleElement[0].parentNode.style;
 
             expect(drawActionElementStyle.getImage().getStroke().getWidth()).to.eq('2');
@@ -88,6 +94,7 @@ describe('component vl-map-draw-action-style', () => {
 
     it('should set the circle radius of the parent draw-action', () => {
         cy.get('vl-map-draw-action-style').then(($styleElement) => {
+            // @ts-ignore
             const drawActionElementStyle = $styleElement[0].parentNode.style;
 
             expect(drawActionElementStyle.getImage().getRadius()).to.eq('5');
