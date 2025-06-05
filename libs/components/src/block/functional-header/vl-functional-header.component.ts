@@ -169,6 +169,10 @@ export class VlFunctionalHeaderComponent extends BaseHTMLElement {
                 vlIconStyles.styleSheet!,
             ];
         }
+
+        if (this.hasAttribute('full-width')) {
+            this.shadowRoot?.querySelector('.vl-content-block')?.classList.add('vl-content-block--full-width');
+        }
     }
 
     disconnectedCallback() {
