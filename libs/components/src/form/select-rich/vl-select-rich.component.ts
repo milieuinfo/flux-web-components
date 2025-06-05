@@ -336,7 +336,6 @@ export class VlSelectRichComponent extends FormControl {
                     input: () => {
                         return template(
                             `<input
-                                    @keydown=${this.onKeydown}
                                     type="text"
                                     class="vl-input-field vl-input-field-cloned"
                                     autocomplete="off"
