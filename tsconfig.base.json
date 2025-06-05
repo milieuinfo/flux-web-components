@@ -42,6 +42,9 @@
             "@domg-wc/integrations/popover": [
                 "libs/integrations/src/popover/index.ts"
             ],
+			"@domg-wc/integrations/page-layout": [
+				"libs/integrations/src/page-layout/index.ts"
+			],
             "@domg-wc/map": [
                 "libs/map/src/index.ts"
             ],
