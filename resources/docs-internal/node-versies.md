@@ -32,6 +32,7 @@ Onze code is opgesplitst in verschillende modules, elke module wordt als aparte 
 
 Wij gebruiken node via volta, de historiek van de versies die wij gebruiken is als volgt:
 
+- 22.15.0 / sinds 23/05/2025
 - 20.11.0 / sinds 29/01/2024
 - 20.10.0 / sinds 08/01/2024
 - 20.9.0 / sinds 25/10/2023
