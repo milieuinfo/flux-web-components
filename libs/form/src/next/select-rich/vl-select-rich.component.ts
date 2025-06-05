@@ -119,8 +119,18 @@ export class VlSelectRichComponent extends FormControl {
             this.choices.clearStore();
             this.choices.setChoices(this.getOptions(), 'value', 'label', true);
 
-            // only call onChange if an option was selected
-            if (this.options.find((option) => option.selected)) {
+            // only call onChange if an option was changed by comparing old & current value
+            const optionsWereChanged = this.options.some((option, index) => {
+                const oldOption = this.initialOptions[index];
+                return (
+                    option.value !== oldOption.value ||
+                    option.label !== oldOption.label ||
+                    option.selected !== oldOption.selected ||
+                    option.disabled !== oldOption.disabled
+                );
+            });
+
+            if (optionsWereChanged) {
                 this.onChange();
             }
         }
