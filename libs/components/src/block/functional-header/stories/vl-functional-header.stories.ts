@@ -1,5 +1,5 @@
-import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
+import { story } from '@resources/utils-storybook';
 import { action } from '@storybook/addon-actions';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
@@ -7,10 +7,10 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { VlBreadcrumbItemComponent } from '../../breadcrumb/vl-breadcrumb-item.component';
 import { VlBreadcrumbComponent } from '../../breadcrumb/vl-breadcrumb.component';
 import { VlSearchComponent } from '../../search';
+import { VlTabsComponent } from '../../tabs';
 import { VlFunctionalHeaderComponent } from '../vl-functional-header.component';
 import { functionalHeaderArgs, functionalHeaderArgTypes } from './vl-functional-header.stories-arg';
 import functionalHeaderDoc from './vl-functional-header.stories-doc.mdx';
-import { VlTabsComponent } from '../../tabs';
 
 registerWebComponents([
     VlBreadcrumbComponent,
@@ -150,4 +150,23 @@ export const FunctionalHeaderBreadcrumb = story(
 FunctionalHeaderBreadcrumb.storyName = 'vl-functional-header - breadcrumb';
 FunctionalHeaderBreadcrumb.args = {
     title: 'School- en studietoelagen',
+};
+
+export const FunctionalHeaderFullWidth = story(
+    functionalHeaderArgs,
+    ({ fullWidth, marginBottom, title, link }) => html`
+        <vl-functional-header 
+            ?full-width=${fullWidth} 
+            link=${link} 
+            margin-bottom=${marginBottom} 
+            title=${title}
+        >
+            <span slot="sub-title">Full width</span>
+        </vl-functional-header>
+    `
+);
+FunctionalHeaderFullWidth.storyName = 'vl-functional-header - full width';
+FunctionalHeaderFullWidth.args = {
+    title: 'School- en studietoelagen',
+    fullWidth: true,
 };
