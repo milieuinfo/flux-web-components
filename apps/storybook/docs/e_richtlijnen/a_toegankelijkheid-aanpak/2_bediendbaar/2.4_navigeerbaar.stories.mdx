@@ -1,0 +1,239 @@
+import {Meta} from '@storybook/addon-docs';
+import {
+    FluxWcagBronsBase,
+    FluxWcagSilverBase,
+    FluxWcagSilverPlus
+} from "../../../../.storybook/flux-wcag/flux-wcag-categorie";
+import {
+    FluxWcagExample,
+    FluxWcagExamplesTitle,
+    FluxWcagSuccesscriterium
+} from "../../../../.storybook/flux-wcag/flux-wcag-succescriterium";
+import {FluxWcagRichtlijn} from "../../../../.storybook/flux-wcag/flux-wcag-richtlijn";
+
+<Meta title="Richtlijnen/Toegankelijkheid - Aanpak/2. Bedienbaar/2.4 Navigeerbaar"/>
+
+<FluxWcagRichtlijn
+    level="2.4"
+    title="Navigeerbaar"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#navigable"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#navigable"
+    text={
+        <>
+            Help gebruikers de weg naar je inhoud te vinden door een goede, duidelijke opbouw.
+        </>
+    }
+>
+</FluxWcagRichtlijn>
+
+<FluxWcagBronsBase></FluxWcagBronsBase>
+
+<FluxWcagSuccesscriterium
+    title="Blokken omzeilen"
+    level="2.4.1"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#bypass-blocks"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#bypass-blocks"
+    text={
+        <>
+            Zorg ervoor dat gebruikers <strong>onmiddellijk naar het begin van de hoofdinhoud</strong> kunnen gaan en
+            onderdelen die herhaald worden, overslaan.
+            <div style={{marginTop: '6px'}}/>
+            Bijvoorbeeld een hoofding of een menu met links. Zo kunnen gebruikers zonder muis ook snel en gemakkelijk de
+            hoofdinhoud van de pagina bereiken, in plaats van eerst alle links van het menu daarboven te moeten
+            doorlopen.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagSuccesscriterium
+    title="Paginatitel"
+    level="2.4.2"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#page-titled"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#page-titled"
+    text={
+        <>
+            Geef je webpagina’s een <strong>unieke titel</strong> die de inhoud of het doel van de pagina beschrijft.
+            Ook zonder de inhoud te kennen, moeten gebruikers meteen begrijpen waar de pagina over gaat.
+            <div style={{marginTop: '6px'}}/>
+            Zo vinden gebruikers snel hun weg en weten ze waarvoor een pagina dient zonder alles te moeten lezen.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagExamplesTitle></FluxWcagExamplesTitle>
+
+<FluxWcagExample
+    exampleNumber="1"
+    title="Voorzie altijd een titel."
+    link="https://www.w3.org/WAI/WCAG22/Techniques/html/H25"
+>
+    ```html
+    <!doctype html>
+    <html lang="en">
+        <head>
+            <title>The World Wide Web Consortium</title>
+        </head>
+        <body>
+        ...
+        </body>
+    </html>
+    ```
+</FluxWcagExample>
+
+<div style={{marginTop: '4em'}} />
+
+<FluxWcagSuccesscriterium
+    title="Focus volgorde"
+    level="2.4.3"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#focus-order"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#focus-order"
+    text={
+        <>
+            Zorg dat mensen via een <strong>logische volgorde door de inhoud</strong> kunnen gaan. De volgorde die je
+            met je ogen ziet, moet ook in de broncode gevolgd worden.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagSuccesscriterium
+    title="Linkdoel (in context)"
+    level="2.4.4"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#link-purpose-in-context"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#link-purpose-in-context"
+    text={
+        <>
+            Gebruikers moeten links makkelijk begrijpen. De tekst van de link moet de <strong>bestemming of het doel
+            ervan duidelijk maken</strong>.
+            <div style={{marginTop: '6px'}}/>
+            Zo weten gebruikers van een schermlezer waar een link naartoe leidt zonder dat ze alle omliggende inhoud
+            moeten lezen. En gebruikers die werken met spraakherkenning kunnen zo links kiezen via spraakopdrachten.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagExamplesTitle></FluxWcagExamplesTitle>
+
+<FluxWcagExample
+    exampleNumber="1"
+    title="Gebruik de inhoud van een link om het doel duidelijk te formuleren."
+    link="https://www.w3.org/WAI/WCAG22/Techniques/general/G91"
+>
+    ```html
+    <a href="routes.html">Current routes at Boulders Climbing Gym</a>
+    ```
+</FluxWcagExample>
+
+<FluxWcagExample
+    exampleNumber="2"
+    title="Gebruik het 'alt' attribuut van een image in een link om het doel duidelijk te formuleren."
+    link="https://www.w3.org/WAI/WCAG22/Techniques/html/H30"
+>
+    ```html
+    <a href="routes.html">
+        <img src="topo.gif" alt="Current routes at Boulders Climbing Gym">
+    </a>
+    ```
+</FluxWcagExample>
+
+<FluxWcagExample
+    exampleNumber="3"
+    title="Gebruik het 'alt' attribuut van een area element om het deel duidelijk te beschrijven."
+    link="https://www.w3.org/WAI/WCAG22/Techniques/html/H24"
+>
+    ```html
+    <img src="welcome.gif" usemap="#map1"
+        alt="Areas in the library. Select an area for more information on that area.">
+        <map id="map1" name="map1">
+            <area shape="rect" coords="0,0,30,30" href="reference.html" alt="Reference">
+            <area shape="rect" coords="34,34,100,100" href="media.html" alt="Audio visual lab">
+        </map>
+    ```
+</FluxWcagExample>
+
+<div style={{marginTop: '4em'}} />
+
+<FluxWcagSilverBase></FluxWcagSilverBase>
+
+<FluxWcagSuccesscriterium
+    title="Meerdere manieren"
+    level="2.4.5"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#multiple-ways"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#multiple-ways"
+    text={
+        <>
+            Zorg dat er meerdere manieren zijn om <strong>inhoud weer te geven en de weg te vinden</strong>.
+            <div style={{marginTop: '6px'}}/>
+            Verschillende mensen hebben verschillende voorkeuren. Iemand met minder concentratie of tijd bladert
+            misschien door een overzicht van alle links. Terwijl iemand die vergroting gebruikt misschien liever een
+            zoekopdracht doet in plaats van door een lang overzicht te scrollen.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagSuccesscriterium
+    title="Koppen en labels"
+    level="2.4.6"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#headings-and-labels"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#headings-and-labels"
+    text={
+        <>
+            Gebruik duidelijke, beschrijvende koppen en tussenkoppen in je teksten. Zo geef je de inhoud
+            een <strong>overzichtelijke opbouw</strong>. Geef onderdelen zoals een formulier, zoekbalk of tabel een
+            label.
+            <div style={{marginTop: '6px'}}/>
+            Zo begrijpen gebruikers waarvoor ze dienen en vinden gebruikers van schermlezers gemakkelijk de weg.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagExamplesTitle></FluxWcagExamplesTitle>
+
+<FluxWcagExample
+    exampleNumber="1"
+    title="Sla geen headings over en gebruik het onderscheidend woord als eerste."
+    link="https://www.w3.org/WAI/WCAG22/Techniques/general/G130"
+>
+    ```html
+    <h1>Disaster preparation</h1>
+    <h2>Flood preparation</h2>
+    <h2>Fire preparation</h2>
+    ```
+</FluxWcagExample>
+
+<div style={{marginTop: '4em'}} />
+
+<FluxWcagSuccesscriterium
+    title="Focus zichtbaar"
+    level="2.4.7"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#focus-visible"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#focus-visible"
+    text={
+        <>
+            Maak zichtbaar welk onderdeel van een pagina de <strong>toetsenbordfocus</strong> heeft. Gebruikers van een
+            toetsenbord moeten zien waar ze zich bevinden op de pagina.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagSilverPlus></FluxWcagSilverPlus>
+
+<FluxWcagSuccesscriterium
+    title="Focus niet bedekt (minimum)"
+    level="2.4.11"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#focus-not-obscured-minimum"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#focus-not-obscured-minimum"
+    text={
+        <>
+            Als je met het toetsenbord naar een element navigeert, <strong>moet</strong> het element op dat
+            moment <strong>zichtbaar worden</strong> en mag het niet verstopt blijven achter andere inhoud.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>

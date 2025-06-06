@@ -1,0 +1,112 @@
+import {Meta, Unstyled} from '@storybook/addon-docs';
+import wcagAanpak from '../../../resources/toegankelijkheid/wcag-aanpak.png';
+
+<Meta title="Richtlijnen/Toegankelijkheid - Aanpak/Toegankelijkheid en WCAG"/>
+
+# Toegankelijkheid en WCAG
+
+<vl-alert data-cy="alert" icon="info-circle" title="Digitale Toegankelijkheid bij de Vlaamse Overheid" type="info">
+Digitale toegankelijkheid is een belangrijk aspect van de digitale dienstverlening van de Vlaamse overheid. Het is
+belangrijk dat iedereen, ongeacht zijn of haar beperking, de digitale diensten van de overheid kan gebruiken. Dit
+betekent dat de websites en applicaties van de Vlaamse overheid toegankelijk moeten zijn voor iedereen, inclusief
+mensen met een beperking.
+</vl-alert>
+
+<br/>
+
+## Inleiding
+
+Het doel is zo toegankelijk mogelijke webtoepassingen te bouwen. De focus ligt op gebruiksvriendelijke toepassingen
+die logisch werken. Publiek beschikbare toepassingen moeten toegankelijk zijn voor een zo divers mogelijk publiek,
+ook interne toepassingen moeten aan kwaliteitsvereisten voldoen.
+
+Om toegankelijkheid structureel te specifiëren gebruiken we de [WCAG](https://www.w3.org/Translations/WCAG22-nl/)
+richtlijnen. De focus ligt op het toegankelijk maken, WCAG gebruiken we als aanpak en als verificatie. Wettelijk
+moeten overheidstoepassingen voldoen aan WCAG 2.1 AA, maar WCAG is geen doel op zich, toegankelijkheid is het doel!
+
+Door de WCAG-richtlijnen te volgen, maak je je webinhoud en apps toegankelijk. WCAG heeft [4 principes](#4-principes)
+waaronder per principe richtlijnen vallen die elk onderverdeeld zijn in succescriteria. Elk succescriteria
+behoort tot 1 van de [3 niveaus](#3-niveaus).
+
+
+## 4 Principes
+
+De richtlijnen vertrekken vanuit de 4 principes van webtoegankelijkheid: waarneembaar, bedienbaar, begrijpelijk en
+robuust.
+
+- **Waarneembaar**: informatie en componenten van de gebruikersinterface moeten toonbaar zijn aan gebruikers op voor
+                    hen waarneembare wijze
+- **Bedienbaar**: componenten van de gebruikersinterface en navigatie moeten bedienbaar zijn
+- **Begrijpelijk**: informatie en de bediening van de gebruikersinterface moeten begrijpelijk zijn
+- **Robuust**: content moet voldoende robuust zijn om betrouwbaar geïnterpreteerd te kunnen worden door een breed
+               scala van user agents, met inbegrip van hulptechnologieën
+
+
+## 3 Niveaus
+
+WCAG heeft succescriteria die verdeeld zijn over 3 niveaus (A, AA en AAA) die een toenemende inspanning vragen bij
+implementatie.
+
+- **A**: basisbruikbaarheid voor een grote groep van gebruikers
+- **AA**: meer dan basisbruikbaarheid, met goede bruikbaarheid voor meer bijzondere groepen gebruikers - dit is de
+wereldwijde standaard
+- **AAA**: uitstekende bruikbaarheid, ook voor een doelpubliek met heel bijzondere noden
+
+
+### Documentatie
+
+De 4 principes, met hun richtlijnen, A en AA succescriteria zijn hier - in Storybook - gedocumenteerd. De opzet is
+telkens dezelfde:
+ - de beschrijving is overgenomen van
+[Inter](https://www.vlaanderen.be/inter/toolbox-toegankelijke-steden-en-gemeenten/algemeen-bestuur-dienstverlening-en-communicatie/digitale-toegankelijkheid/de-richtlijnen-voor-toegankelijkheid-van-webcontent-wcag-in-begrijpelijke-taal),
+ - er is een referentie naar de officiële [Nederlandstalige WCAG documentatie](https://www.w3.org/Translations/WCAG22-nl/)
+ - er is een referentie naar de officiële [Engelstalige WCAG Quick Reference](https://www.w3.org/WAI/WCAG22/quickref/)
+ - voorbeelden worden overgenomen uit de Quick Reference met een link ernaar; indien een beperkt html voorbeeld niet
+   relevant of beschikbaar is bekijk je best gewoon de Quick Reference
+
+
+## Evolutionaire Verbetering
+
+### Aanpak
+
+In onze aanpak voorzien we 2 hoofdcategorieën: **brons** en **zilver**; onderverdeeld in 2 sub-categorieën: **[basis]**
+en **[+]**. De [basis] omvat alle zaken die logisch aanvoelen en vaak gewoon een gevolg zijn van goede UX. Onder [+] vallen zaken
+die vaak niet relevant zijn (bvb. video) en die als ze dat wel zijn een inspanning vergen.
+
+ - **Brons** - [basis] en [+] - omvat alles van niveau A in WCAG 2.2
+ - **Zilver** - [basis] en [+] - omvat alles van niveau AA in WCAG 2.2
+
+
+### Doel
+
+Het doel is dat **elke toepassing** onafhankelijk van het bereik of doelgroep **voldoet aan basis brons**.<br/>
+**Publieke toepassingen** moeten een traject voorzien om te **evolueren naar zilver+**.
+
+
+### Voorbeeld
+
+Bv. In het 'bedienbaar' principe is er WCAG richtlijn 2.5: 'input modaliteiten'. Deze richtlijn heeft 4 succescriteria
+van niveau A en 2 succescriteria van niveau AA (er zijn ook nog 2 AAA criteria maar die laten we buiten beschouwing).
+
+Bij ontwikkeling streef je er voor deze richtlijn steeds naar de 3 brons[basis] criteria te ondersteunen:
+'aanwijzergebaren', 'aanwijzerannulering' en 'label in naam'. Bij een publieke toepassing breidt je de toegankelijkheid
+eerst uit met 'bewegingsactivering' en 'grootte van het aanwijsgebied (minimum)'. De volgorde, eerst brons[+] of eerst
+zilver[basis], kies je zelf. Pas nadat brons[+] en zilver[basis] in orde zijn evolueer je naar zilver[+] en pak je
+'sleepbewegingen' aan.
+
+<img src={wcagAanpak} alt="wcag-aanpak"/>
+
+
+### Opmerkingen
+
+ - Conceptueel is er de niet gespecifieerde categorie 'goud', die zou dan samenvallen met niveau AAA. Om te
+   focussen, en daar AAA niet wettelijk verplicht is, wordt goud niet voorzien.
+ - Wettelijk moet er niet voldoen worden aan WCAG 2.2, we maken echter geen onderscheid tussen de minor versies,
+   we focussen op de niveaus A en AA in de meest recente versie.
+
+
+## Referenties
+
+De meest recente officiële [WCAG 2.2 Nederlandstalige Specificatie](https://www.w3.org/Translations/WCAG22-nl/).
+
+De documentatie van [Inter - het Vlaams Expertisecentrum Toegankelijkheid](https://www.vlaanderen.be/inter/toolbox-toegankelijke-steden-en-gemeenten/algemeen-bestuur-dienstverlening-en-communicatie/digitale-toegankelijkheid/richtlijnen-voor-toegankelijkheid-van-webcontent-wcag).

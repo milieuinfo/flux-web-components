@@ -1,0 +1,186 @@
+import { Meta } from '@storybook/addon-docs';
+import {
+    FluxWcagBronsBase,
+    FluxWcagBronsPlus,
+    FluxWcagSilverBase, FluxWcagSilverPlus
+} from "../../../../.storybook/flux-wcag/flux-wcag-categorie";
+import {FluxWcagRichtlijn} from "../../../../.storybook/flux-wcag/flux-wcag-richtlijn";
+import {
+    FluxWcagExample,
+    FluxWcagExamplesTitle,
+    FluxWcagSuccesscriterium
+} from "../../../../.storybook/flux-wcag/flux-wcag-succescriterium";
+
+<Meta title="Richtlijnen/Toegankelijkheid - Aanpak/3. Begrijpelijk/3.3 Assistentie bij invoer"/>
+
+<FluxWcagRichtlijn
+    level="3.3"
+    title="Assistentie bij invoer"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#input-assistance"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#input-assistance"
+    text={
+        <>
+            Geef gebruikers genoeg informatie zodat ze geen fouten maken, of begrijpen wat er misgaat en dat kunnen
+            rechtzetten.
+        </>
+    }
+>
+</FluxWcagRichtlijn>
+
+<FluxWcagBronsBase></FluxWcagBronsBase>
+
+<FluxWcagSuccesscriterium
+    title="Foutidentificatie"
+    level="3.3.1"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#error-identification"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#error-identification"
+    text={
+        <>
+            Wanneer er een fout optreedt, <strong>toon</strong> dan duidelijk waar de fout zit.
+            En <strong>beschrijf</strong> goed wat er fout is.
+            <div style={{marginTop: '6px'}}/>
+            Zo begrijpen ook mensen die bepaalde kleuren niet goed kunnen zien of die pictogrammen of andere symbolen
+            niet goed begrijpen dat er iets fout is gegaan.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagSuccesscriterium
+    title="Labels of instructies"
+    level="3.3.2"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#labels-or-instructions"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#labels-or-instructions"
+    text={
+        <>
+            Bijvoorbeeld een contactformulier of de aanmelding voor een nieuwsbrief.
+            <div style={{marginTop: '6px'}}/>
+            Zorg ervoor dat gebruikers <strong>begrijpen wat ze moeten invullen</strong> in een veld van een formulier.
+            Moeten ze gegevens in een bepaald formaat ingeven, bijvoorbeeld een datum? Leg dan uit hoe dat moet.
+            <div style={{marginTop: '6px'}}/>
+            Zo begrijpen alle gebruikers meteen welke gegevens ze moeten invullen.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagBronsPlus></FluxWcagBronsPlus>
+
+<FluxWcagSuccesscriterium
+    title="Overbodige invoer"
+    level="3.3.7"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#redundant-entry"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#redundant-entry"
+    text={
+        <>
+            Informatie die je al <strong>eerder invulde</strong>, moet tijdens hetzelfde proces <strong>automatisch
+            ingevuld</strong> worden of gemakkelijk terug te kiezen zijn.<br/>
+            <div style={{marginTop: '6px'}}/>
+            Dat mag alleen anders als:
+            <ul style={{marginTop: '4px'}}>
+                <li style={{ fontSize: '16px' }}>
+                    het echt nodig is om alles opnieuw in te vullen,
+                </li>
+                <li style={{ fontSize: '16px' }}>
+                    het belangrijk is voor de veiligheid, of
+                </li>
+                <li style={{ fontSize: '16px' }}>
+                    de oude informatie niet meer klopt.
+                </li>
+            </ul>
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagSilverBase></FluxWcagSilverBase>
+
+<FluxWcagSuccesscriterium
+    title="Foutsuggestie"
+    level="3.3.3"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#error-suggestion"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#error-suggestion"
+    text={
+        <>
+            Wanneer gebruikers niet de juiste gegevens invoeren, kan je voorstellen laten zien van hoe ze die
+            kunnen <strong>verbeteren</strong>. Tenzij dat niet veilig of nuttig zou zijn.
+            <div style={{marginTop: '6px'}}/>
+            Zo lossen gebruikers problemen gemakkelijker op.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagExamplesTitle></FluxWcagExamplesTitle>
+
+<FluxWcagExample
+    exampleNumber="1"
+    title="Toon een melding met role='alertdialog' bij ongeldige invoer."
+    link="https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA18"
+>
+    ```html
+    <div role="alertdialog" aria-labelledby="alertHeading">
+        <h1 id="alertHeading">Error</h1>
+        <p>Employee's Birth Date is after their hire date.
+            Please verify the birth date and hire date.</p>
+        <button>Save and Continue</button>
+        <button>Return to page and correct error</button>
+    </div>
+    ```
+</FluxWcagExample>
+
+<div style={{marginTop: '4em'}} />
+
+<FluxWcagSilverPlus></FluxWcagSilverPlus>
+
+<FluxWcagSuccesscriterium
+    title="Foutpreventie (wettelijk, financieel, gegevens)"
+    level="3.3.4"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#error-prevention-legal-financial-data"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#error-prevention-legal-financial-data"
+    text={
+        <>
+            Moeten gebruikers vertrouwelijke gegevens invoeren, zoals wettelijke, financiële of persoonlijke gegevens?
+            Zorg ervoor dat ze hun ingevoerde informatie kunnen <strong>nakijken, verbeteren en bevestigen</strong>.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagSuccesscriterium
+    title="Toegankelijke authenticatie (minimum)"
+    level="3.3.8"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#accessible-authentication-minimum"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#accessible-authentication-minimum"
+    text={
+        <>
+            Een <strong>cognitieve test</strong> (zoals een wachtwoord onthouden of een puzzel oplossen)
+            mag <strong>geen verplichte stap</strong> zijn <strong>tijdens het inloggen</strong>, tenzij minstens één
+            van de volgende wordt aangeboden:
+            <ul style={{marginTop: '4px'}}>
+                <li style={{ fontSize: '16px' }}>
+                    een andere manier van inloggen zonder cognitieve test
+                </li>
+                <li style={{ fontSize: '16px' }}>
+                    hulp om de test op te lossen
+                </li>
+                <li style={{ fontSize: '16px' }}>
+                    een test gebaseerd op het herkennen van objecten
+                </li>
+                <li style={{ fontSize: '16px' }}>
+                    een test gebaseerd op persoonlijke inhoud die je zelf eerder aan de website gaf
+                </li>
+            </ul>
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagExamplesTitle></FluxWcagExamplesTitle>
+
+<FluxWcagExample
+    exampleNumber="1"
+    title="Voorzie een email om in te loggen via een link."
+    link="https://www.w3.org/WAI/WCAG22/Techniques/general/G218"
+>
+</FluxWcagExample>

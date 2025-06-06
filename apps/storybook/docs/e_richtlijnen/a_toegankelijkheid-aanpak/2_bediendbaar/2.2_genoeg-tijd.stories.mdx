@@ -1,0 +1,55 @@
+import {Meta} from '@storybook/addon-docs';
+import {FluxWcagBronsPlus} from "../../../../.storybook/flux-wcag/flux-wcag-categorie";
+import {FluxWcagRichtlijn} from "../../../../.storybook/flux-wcag/flux-wcag-richtlijn";
+import {FluxWcagSuccesscriterium} from "../../../../.storybook/flux-wcag/flux-wcag-succescriterium";
+
+<Meta title="Richtlijnen/Toegankelijkheid - Aanpak/2. Bedienbaar/2.2 Genoeg tijd"/>
+
+<FluxWcagRichtlijn
+    level="2.2"
+    title="Genoeg tijd"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#enough-time"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#enough-time"
+    text={
+        <>
+            Geef gebruikers genoeg tijd om je inhoud te lezen, begrijpen en gebruiken.
+        </>
+    }
+>
+</FluxWcagRichtlijn>
+
+<FluxWcagBronsPlus></FluxWcagBronsPlus>
+
+<FluxWcagSuccesscriterium
+    title="Timing aanpasbaar"
+    level="2.2.1"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#timing-adjustable"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#timing-adjustable"
+    text={
+        <>
+            Heb je inhoud die alleen tijdelijk beschikbaar is? Bijvoorbeeld inhoud die verloopt of niet meer te
+            gebruiken is na een bepaalde tijd, zoals een formulier dat je binnen een bepaalde tijd moet invullen?
+            <div style={{marginTop: '6px'}}/>
+            Zorg er dan voor dat gebruikers kunnen <strong>aanpassen hoe lang de inhoud beschikbaar is</strong>. Zo
+            krijgt iedereen genoeg tijd om informatie te lezen en te begrijpen.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagSuccesscriterium
+    title="Pauzeren, stoppen, verbergen"
+    level="2.2.2"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#pause-stop-hide"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#pause-stop-hide"
+    text={
+        <>
+            Bijvoorbeeld animaties, video’s, knipperende tekst, fotocarrousel.
+            <div style={{marginTop: '6px'}}/>
+            Geef gebruikers de mogelijkheid om <strong>inhoud die langer dan vijf seconden automatisch
+            beweegt</strong> op pauze te zetten, te stoppen of te verbergen. Zo leid je mensen die zich moeilijker
+            kunnen focussen en concentreren niet af.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>

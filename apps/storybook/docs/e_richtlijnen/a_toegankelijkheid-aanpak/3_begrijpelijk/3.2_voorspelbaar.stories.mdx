@@ -1,0 +1,118 @@
+import { Meta } from '@storybook/addon-docs';
+import {FluxWcagRichtlijn} from "../../../../.storybook/flux-wcag/flux-wcag-richtlijn";
+import {
+    FluxWcagBronsBase,
+    FluxWcagBronsPlus,
+    FluxWcagSilverBase
+} from "../../../../.storybook/flux-wcag/flux-wcag-categorie";
+import {
+    FluxWcagExample,
+    FluxWcagExamplesTitle,
+    FluxWcagSuccesscriterium
+} from "../../../../.storybook/flux-wcag/flux-wcag-succescriterium";
+
+<Meta title="Richtlijnen/Toegankelijkheid - Aanpak/3. Begrijpelijk/3.2 Voorspelbaar"/>
+
+<FluxWcagRichtlijn
+    level="3.2"
+    title="Voorspelbaar"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#predictable"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#predictable"
+    text={
+        <>
+            Geef inhoud in een voorspelbare volgorde weer. Gebruik voor dezelfde onderdelen dezelfde vormgeving.
+        </>
+    }
+>
+</FluxWcagRichtlijn>
+
+<FluxWcagBronsBase></FluxWcagBronsBase>
+
+<FluxWcagSuccesscriterium
+    title="Bij focus"
+    level="3.2.1"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#on-focus"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#on-focus"
+    text={
+        <>
+            Zorg ervoor dat <strong>geen enkel onderdeel verandert</strong> op het moment dat het de focus krijgt, zoals
+            een nieuwe pagina laden. Laat gebruikers zelf beslissen of ze iets willen doen.
+            <div style={{marginTop: '6px'}}/>
+            Anders gebeuren er onverwachte dingen zonder dat gebruikers van schermlezers en schermvergroters dat
+            beseffen.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagExamplesTitle></FluxWcagExamplesTitle>
+
+<FluxWcagExample
+    exampleNumber="1"
+    title="Gebruik 'activate' in plaats van 'focus'."
+    link="https://www.w3.org/WAI/WCAG22/Techniques/general/G107"
+>
+</FluxWcagExample>
+
+<div style={{marginTop: '4em'}} />
+
+<FluxWcagSuccesscriterium
+    title="Bij input"
+    level="3.2.2"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#on-input"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#on-input"
+    text={
+        <>
+            Als een onderdeel de focus heeft, mag de <strong>focus niet vanzelf veranderen</strong>. De focus mag
+            bijvoorbeeld niet vanzelf naar het volgende veld in een formulier springen zodra een gebruiker het
+            voorgaande veld heeft ingevuld. Dat mag alleen als je de gebruiker op voorhand laat weten dat dat gebeurt.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagBronsPlus></FluxWcagBronsPlus>
+
+<FluxWcagSuccesscriterium
+    title="Consistente hulp"
+    level="3.2.6"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#consistent-help"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#consistent-help"
+    text={
+        <>
+            Wanneer contactmogelijkheden (zoals contactgegevens, een chatfunctie of zelfhulpoptie) op meerdere pagina's
+            terugkomen, moeten ze <strong>telkens in dezelfde volgorde</strong> en op een vergelijkbare plaats staan.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagSilverBase></FluxWcagSilverBase>
+
+<FluxWcagSuccesscriterium
+    title="Consistente navigatie"
+    level="3.2.3"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#consistent-navigation"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#consistent-navigation"
+    text={
+        <>
+            Wanneer inhoud, zoals een menu op meerdere pagina’s wordt herhaald, moet je die <strong>altijd in dezelfde
+            volgorde</strong> weergeven. Zo vinden gebruikers gemakkelijker hun weg.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagSuccesscriterium
+    title="Consistente identificatie"
+    level="3.2.4"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#consistent-identification"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#consistent-identification"
+    text={
+        <>
+            Wanneer onderdelen met dezelfde functie op meerdere plaatsen voorkomen, moeten ze altijd <strong>dezelfde
+            vormgeving</strong> hebben en <strong>herkenbaar beschreven</strong> zijn. Zo vinden gebruikers gemakkelijker hun weg.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
