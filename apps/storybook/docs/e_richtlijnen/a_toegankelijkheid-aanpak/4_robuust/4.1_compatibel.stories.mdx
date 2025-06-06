@@ -1,0 +1,133 @@
+import { Meta } from '@storybook/addon-docs';
+import {FluxWcagRichtlijn} from "../../../../.storybook/flux-wcag/flux-wcag-richtlijn";
+import {FluxWcagBronsBase, FluxWcagSilverPlus} from "../../../../.storybook/flux-wcag/flux-wcag-categorie";
+import {
+    FluxWcagExample,
+    FluxWcagExamplesTitle,
+    FluxWcagSuccesscriterium
+} from "../../../../.storybook/flux-wcag/flux-wcag-succescriterium";
+
+<Meta title="Richtlijnen/Toegankelijkheid - Aanpak/4. Robuust/4.1 Compatibel"/>
+
+<FluxWcagRichtlijn
+    level="4.1"
+    title="Compatibel"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#compatible"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#compatible"
+    text={
+        <>
+            Compatibel betekent dat een website werkt met alle webbrowsers en ondersteunende technologieën. Ook een app
+            moet je met alle ondersteunende technologieën kunnen gebruiken.
+        </>
+    }
+>
+</FluxWcagRichtlijn>
+
+<FluxWcagBronsBase></FluxWcagBronsBase>
+
+<FluxWcagSuccesscriterium
+    title="Naam, rol, waarde"
+    level="4.1.2"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#name-role-value"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#name-role-value"
+    text={
+        <>
+            Zijn er onderdelen van de gebruikersomgeving waarmee gebruikers iets moeten <strong>kunnen doen</strong>?
+            Dan moeten ze die <strong>ook met ondersteunende technologieën</strong> kunnen gebruiken.
+            <div style={{marginTop: '6px'}}/>
+            Zo kunnen ook gebruikers van schermlezers met deze onderdelen werken.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+
+<FluxWcagExamplesTitle></FluxWcagExamplesTitle>
+
+<FluxWcagExample
+    exampleNumber="1"
+    title="Voorzie een sluit knop met aria-label in een pop-up."
+    link="https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA14"
+>
+    ```html
+    <div id="box">
+        This is a pop-up box.
+        <button aria-label="Close">X</button>
+    </div>
+    ```
+</FluxWcagExample>
+
+<FluxWcagExample
+    exampleNumber="2"
+    title="Splits een telefoonnummer op in meerdere velden met een aria-label."
+    link="https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA14"
+>
+    ```html
+    <div role="group" aria-labelledby="groupLabel">
+        <span id="groupLabel">Work Phone</span>
+        +<input autocomplete="tel-country-code" type="number" aria-label="country code">
+        <input autocomplete="tel-area-code" type="number" aria-label="area code">
+        <input autocomplete="tel-local" type="number" aria-label="subscriber number">
+    </div>
+    ```
+</FluxWcagExample>
+
+<FluxWcagExample
+    exampleNumber="3"
+    title="Gebruik het attribuut 'aria-labelledby'."
+    link="https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA16"
+>
+    ```html
+    <p>Please select the <span id="mysldr-lbl">number of days for your trip</span></p>
+    <div id="mysldr" role="slider" aria-labelledby="mysldr-lbl"></div>
+    ```
+</FluxWcagExample>
+
+<div style={{marginTop: '4em'}} />
+
+<FluxWcagSilverPlus></FluxWcagSilverPlus>
+
+<FluxWcagSuccesscriterium
+    title="Statusberichten"
+    level="4.1.3"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#status-messages"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#status-messages"
+    text={
+        <>
+            Bijvoorbeeld de voortgang van een proces, een foutmelding, een bevestiging.
+            <div style={{marginTop: '6px'}}/>
+            <strong>Verandert er iets</strong> aan de inhoud van de pagina, bijvoorbeeld een bevestiging nadat iemand
+            een formulier verzendt, of een lijst met zoekresultaten nadat iemand op ‘zoeken’ drukt? Laat dat dan weten
+            aan je gebruikers met een statusbericht, ook aan mensen die ondersteunende technologieën gebruiken.
+            <div style={{marginTop: '6px'}}/>
+            Gebruikers van een schermlezer kunnen de wijzigingen niet zien en moeten een melding krijgen met info over
+            wat er veranderd is.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagExamplesTitle></FluxWcagExamplesTitle>
+
+<FluxWcagExample
+    exampleNumber="1"
+    title="Voorzie een boodschap na zoeken."
+    link="https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA22"
+>
+    ```html
+    <div role="status" aria-atomic="true">5 results returned.</div>
+    ```
+</FluxWcagExample>
+
+<FluxWcagExample
+    exampleNumber="2"
+    title="Pas de status van de winkelwagen aan."
+    link="https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA22"
+>
+    ```html
+    <p role="status" aria-atomic="true">
+        <img src="shopping-cart.png" alt="Shopping Cart">
+        <span id="cart">0</span> items
+    </p>
+    ```
+</FluxWcagExample>

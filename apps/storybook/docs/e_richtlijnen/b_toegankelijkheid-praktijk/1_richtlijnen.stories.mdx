@@ -1,0 +1,19 @@
+import {Meta} from '@storybook/addon-docs';
+
+<Meta title="Richtlijnen/Toegankelijkheid - Praktijk/Richtlijnen [WIP]"/>
+
+# Richtlijnen [WIP]
+
+## Form
+
+- Geef elke form control een label met:
+    - een [`<vl-form-label>` component](/docs/components-form-form-label--documentatie) gelinkt aan de form control
+      met `for` attribuut
+    - of met het `label` attribuut van de form control.
+- Geef duidelijke, specifieke instructies hoe een validatie fout kan opgelost worden in de foutboodschap.
+    - **NIET**: "E-mail adres is niet juist."
+    - **WEL**: "Vul een geldig e-mailadres in. Bijvoorbeeld: omgeving@vlaanderen.be"
+- Stel het `placeholder` attribuut correct in. Gebruik het `placeholder` attribuut enkel als het een voorbeeldwaarde
+  is. Gebruik het niet als label.
+- Stel het `autocomplete` attribuut correct in. Gebruik waarde `off` als er geen relevante autocomplete suggesties
+  zijn. Meer info op [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete).

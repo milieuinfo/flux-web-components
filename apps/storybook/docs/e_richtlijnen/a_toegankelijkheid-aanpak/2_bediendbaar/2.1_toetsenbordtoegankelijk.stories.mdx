@@ -1,0 +1,76 @@
+import {Meta} from '@storybook/addon-docs';
+import {FluxWcagBronsBase, FluxWcagBronsPlus} from "../../../../.storybook/flux-wcag/flux-wcag-categorie";
+import {FluxWcagRichtlijn} from "../../../../.storybook/flux-wcag/flux-wcag-richtlijn";
+import {FluxWcagSuccesscriterium} from "../../../../.storybook/flux-wcag/flux-wcag-succescriterium";
+
+<Meta title="Richtlijnen/Toegankelijkheid - Aanpak/2. Bedienbaar/2.1 Toetsenbordtoegankelijk"/>
+
+<FluxWcagRichtlijn
+    level="2.1"
+    title="Toetsenbordtoegankelijk"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#keyboard-accessible"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#keyboard-accessible"
+    text={
+        <>
+            Alles wat gebruikers op de website kunnen doen, moet ze ook kunnen als ze alleen een toetsenbord gebruiken.
+        </>
+    }
+>
+</FluxWcagRichtlijn>
+
+<FluxWcagBronsBase></FluxWcagBronsBase>
+
+<FluxWcagSuccesscriterium
+    title="Toetsenbord"
+    level="2.1.1"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#keyboard"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#keyboard"
+    text={
+        <>
+            Zorg dat alles wat gebruikers kunnen zien en gebruiken <strong>ook te bereiken en te bedienen met alleen een
+            toetsenbord</strong> is, bijvoorbeeld formulieren, menu’s of een winkelwagentje.
+            <div style={{marginTop: '6px'}}/>
+            Zo kunnen ook mensen zonder muis doen wat de bedoeling is. Sommige mensen hebben niet genoeg controle of
+            kracht in hun hand om een muis te gebruiken.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagSuccesscriterium
+    title="Geen toetsenbordval"
+    level="2.1.2"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#no-keyboard-trap"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#no-keyboard-trap"
+    text={
+        <>
+            Zorg er voor dat iedereen ook met een toetsenbord de logische opbouw van je website kan gebruiken.
+            <div style={{marginTop: '6px'}}/>
+            Is er een onderdeel waar gebruikers naartoe moeten kunnen? Dan moeten ze daar met het <strong>toetsenbord
+            kunnen geraken en ook weer weg kunnen</strong>.
+            <div style={{marginTop: '6px'}}/>
+            Voorkom dus dat mensen die alleen een toetsenbord gebruiken niet verder kunnen en vast komen te zitten. In
+            andere woorden: een valkuil door het toetsenbord.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagBronsPlus></FluxWcagBronsPlus>
+
+<FluxWcagSuccesscriterium
+    title="Enkel teken sneltoetsen"
+    level="2.1.4"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#character-key-shortcuts"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#character-key-shortcuts"
+    text={
+        <>
+            Zorg dat gebruikers sneltoetsen zelf kunnen instellen als je website sneltoetsen heeft. Sommige sneltoetsen
+            zijn niet voor iedereen handig of makkelijk.
+            <div style={{marginTop: '6px'}}/>
+            Daarom moeten gebruikers ze kunnen <strong>uitzetten en opnieuw toewijzen</strong>. Verder mag een sneltoets
+            voor een onderdeel alleen actief zijn wanneer dat onderdeel de focus heeft.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>

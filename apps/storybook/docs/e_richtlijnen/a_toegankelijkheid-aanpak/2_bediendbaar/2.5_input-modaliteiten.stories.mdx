@@ -1,0 +1,166 @@
+import {Meta} from '@storybook/addon-docs';
+import {FluxWcagRichtlijn} from "../../../../.storybook/flux-wcag/flux-wcag-richtlijn";
+import {
+    FluxWcagBronsBase,
+    FluxWcagBronsPlus,
+    FluxWcagSilverBase, FluxWcagSilverPlus
+} from "../../../../.storybook/flux-wcag/flux-wcag-categorie";
+import {
+    FluxWcagExample,
+    FluxWcagExamplesTitle,
+    FluxWcagSuccesscriterium
+} from "../../../../.storybook/flux-wcag/flux-wcag-succescriterium";
+
+<Meta title="Richtlijnen/Toegankelijkheid - Aanpak/2. Bedienbaar/2.5 Input modaliteiten"/>
+
+<FluxWcagRichtlijn
+    level="2.5"
+    title="Input modaliteiten"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#input-modalities"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#input-modalities"
+    text={
+        <>
+            Gebruikers moeten websites en apps kunnen gebruiken met verschillende apparaten waarmee je dingen kan
+            aanwijzen en gegevens kan invoeren. Dus niet alleen met een toetsenbord.
+            <div style={{marginTop: '6px'}}/>
+            Twee voorbeelden van een apparaat waarmee gebruikers een computer, tablet of smartphone gebruiken en
+            gegevens invoeren: een touchscreen of aanraakscherm en een aanwijzer met een laser die je met je hoofd
+            bedient.
+        </>
+    }
+>
+</FluxWcagRichtlijn>
+
+<FluxWcagBronsBase></FluxWcagBronsBase>
+
+<FluxWcagSuccesscriterium
+    title="Aanwijzergebaren"
+    level="2.5.1"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#pointer-gestures"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#pointer-gestures"
+    text={
+        <>
+            Bijvoorbeeld inhoud vergroten of verkleinen door met een knijpbeweging met je vingers, van links naar rechts
+            met je vinger te vegen.
+            <div style={{marginTop: '6px'}}/>
+            Op een <strong>aanraakscherm</strong> zijn er soms vingerbewegingen nodig om de onderdelen te kunnen
+            gebruiken. Zorg dat gebruikers op <strong>meer dan één manier de inhoud</strong> kunnen bedienen.
+            <div style={{marginTop: '6px'}}/>
+            Sommige gebruikers met een handicap moeten taken kunnen uitvoeren en selecties maken met eenvoudige invoer of
+            eenvoudige bewegingen. Ingewikkelde of nauwkeurige bewegingen kunnen moeilijk zijn voor hen.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagSuccesscriterium
+    title="Aanwijzerannulering"
+    level="2.5.2"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#pointer-cancellation"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#pointer-cancellation"
+    text={
+        <>
+            Als gebruikers iets doen wat niet de bedoeling is op een <strong>aanraakscherm</strong>, dan moeten ze
+            dat <strong>kunnen stoppen of annuleren</strong>.
+            <div style={{marginTop: '6px'}}/>
+            Zo voorkom je dat gebruikers per ongeluk dingen in gang zetten op een pagina.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagExamplesTitle></FluxWcagExamplesTitle>
+
+<FluxWcagExample
+    exampleNumber="1"
+    title="Drag-en-drop acties moeten annuleerbaar zijn."
+    link="https://www.w3.org/WAI/WCAG22/Techniques/general/G210"
+>
+</FluxWcagExample>
+
+<div style={{marginTop: '4em'}} />
+
+<FluxWcagSuccesscriterium
+    title="Label in naam"
+    level="2.5.3"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#label-in-name"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#label-in-name"
+    text={
+        <>
+            Geef onderdelen een label met een duidelijke naam die beschrijft wat de <strong>bedoeling</strong> ervan is.
+            Gebruikers van spraakinvoer, kunnen zo onderdelen activeren.
+            <div style={{marginTop: '6px'}}/>
+            Gebruikers van voorleessoftware weten dan welke actie er aan een onderdeel verbonden is.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagExamplesTitle></FluxWcagExamplesTitle>
+
+<FluxWcagExample
+    exampleNumber="1"
+    title="Gebruik verborgen tekst om zaken te verduidelijken."
+    link="https://www.w3.org/WAI/WCAG22/Techniques/general/G208"
+>
+    ```html
+    <p>Go to
+        <a href="code-of-conduct.html">Code of conduct <span class="hidden_accessibly"> of ACME Corporation</span></a>
+    <p>
+    ```
+</FluxWcagExample>
+
+<div style={{marginTop: '4em'}} />
+
+<FluxWcagBronsPlus></FluxWcagBronsPlus>
+
+<FluxWcagSuccesscriterium
+    title="Bewegingsactivering"
+    level="2.5.4"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#motion-actuation"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#motion-actuation"
+    text={
+        <>
+            Kunnen gebruikers dingen doen op je website of in je app met <strong>gebaren</strong> of door hun apparaat
+            te <strong>bewegen</strong>? Zorg dan ook voor een andere manier om dezelfde dingen te doen.
+            <div style={{marginTop: '6px'}}/>
+            Sommige mensen hebben namelijk moeilijkheden om hun toestel te kantelen, schudden of gebaren te maken. Hun
+            toestel kan ook ergens op vastgezet zijn, zodat ze het kunnen gebruiken zonder het vast te houden.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagSilverBase></FluxWcagSilverBase>
+
+<FluxWcagSuccesscriterium
+    title="Grootte van het aanwijsgebied (minimum)"
+    level="2.5.8"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#target-size-minimum"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#target-size-minimum"
+    text={
+        <>
+            Interactieve elementen moeten <strong>minimaal 24 × 24 CSS-pixels</strong> groot zijn voor bediening
+            met een aanwijzer, tenzij dit door context, ontwerpkeuzes of technische beperkingen niet mogelijk of niet
+            nodig is - bijvoorbeeld wanneer de functie ook op een andere manier beschikbaar is, elementen voldoende
+            afstand houden zonder overlap, of wanneer de grootte bepaald wordt door de browser of inline tekst.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagSilverPlus></FluxWcagSilverPlus>
+
+<FluxWcagSuccesscriterium
+    title="Sleepbewegingen"
+    level="2.5.7"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#dragging-movements"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#dragging-movements"
+    text={
+        <>
+            Functionaliteit die normaal via slepen wordt bediend, moet <strong>ook</strong> toegankelijk zijn <strong>
+            via één enkele handeling</strong> (zoals klikken of tikken), tenzij slepen essentieel is of de werking buiten de controle van de auteur valt.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
