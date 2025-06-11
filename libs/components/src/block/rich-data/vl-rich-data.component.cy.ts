@@ -1,4 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common';
+import { filter } from 'cypress/types/minimatch';
 import { html } from 'lit';
 import { VlButtonComponent } from '../../atom/button';
 import { VlTitleComponent } from '../../atom/title';
@@ -105,6 +106,7 @@ describe('component - vl-rich-data with vl-search-filter', () => {
 
     it('should be able to toggle the search filter using the toggle button', () => {
         cy.viewport(1024, 768);
+
         cy.get('vl-search-filter').should('not.have.attr', 'hidden');
         cy.get('vl-rich-data').shadow().find('#search').should('have.class', 'vl-column');
         cy.get('vl-rich-data').shadow().find('#search').should('have.class', 'vl-column--4');
@@ -126,9 +128,25 @@ describe('component - vl-rich-data with vl-search-filter', () => {
         cy.get('vl-rich-data').shadow().find('#content').should('have.class', 'vl-column--8');
     });
 
-    it('should be able to close the search filter using the escape key', () => {
+    it('should be able to close the search filter using the escape key when closable', () => {
         cy.viewport(1024, 768);
         cy.get('vl-search-filter').should('not.have.attr', 'hidden');
+        cy.get('#filterOpId').shadow().find('input').type('{esc}', { force: true });
+        cy.get('vl-search-filter').should('have.attr', 'hidden');
+    });
+
+    it('should not close the search filter using the escape key when not closable', () => {
+        cy.viewport(1024, 768);
+        cy.get('vl-search-filter').should('not.have.attr', 'hidden');
+        cy.get('vl-rich-data').invoke('removeAttr', 'filter-closable');
+        cy.get('#filterOpId').shadow().find('input').type('{esc}', { force: true });
+        cy.get('vl-search-filter').should('not.have.attr', 'hidden');
+    });
+
+    it('should close the search filter using the escape key without closable attribute in mobile', () => {
+        cy.viewport(375, 667);
+        cy.get('vl-search-filter').should('not.have.attr', 'hidden');
+        cy.get('vl-rich-data').invoke('removeAttr', 'filter-closable');
         cy.get('#filterOpId').shadow().find('input').type('{esc}', { force: true });
         cy.get('vl-search-filter').should('have.attr', 'hidden');
     });
