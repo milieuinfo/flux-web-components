@@ -484,7 +484,13 @@ export class VlRichData extends BaseHTMLElement {
                 });
             });
             this.__searchFilterForm.addEventListener('keyup', ({ code }: KeyboardEvent) => {
-                if (code.toLowerCase() === 'escape' && !this.hasAttribute('filter-closed')) {
+                const isClosable = this.hasAttribute('filter-closable');
+                const isMobile = this.hasAttribute('mobile-modal') || this.__searchFilter?.hasAttribute('mobile-modal');
+                if (
+                    code.toLowerCase() === 'escape' &&
+                    !this.hasAttribute('filter-closed') &&
+                    (isClosable || isMobile)
+                ) {
                     this._onToggleFilter();
                 }
             });
