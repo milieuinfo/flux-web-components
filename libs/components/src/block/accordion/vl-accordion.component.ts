@@ -1,5 +1,11 @@
-/* eslint-disable no-undef */
-import { BaseHTMLElement, PADDINGS, registerWebComponents, webComponent } from '@domg-wc/common';
+import {
+    BaseHTMLElement,
+    legacyBreakpoint,
+    legacyCore,
+    PADDINGS,
+    registerWebComponents,
+    webComponent
+} from '@domg-wc/common';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { accordionStyle, buttonStyle, iconStyle, linkStyle, toggleStyle } from '@domg/govflanders-style/component';
 import { VlIconComponent } from '../../atom/icon';
@@ -8,9 +14,9 @@ import { vlAccordionFluxStyles } from './vl-accordion.flux-css';
 import './vl-accordion.lib.js';
 import 'reflect-metadata';
 
-registerWebComponents([VlIconComponent]);
-
 declare const vl: any;
+
+registerWebComponents([legacyCore, legacyBreakpoint, VlIconComponent]);
 
 @webComponent('vl-accordion')
 export class VlAccordionComponent extends BaseHTMLElement {

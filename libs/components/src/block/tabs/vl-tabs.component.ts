@@ -1,4 +1,12 @@
-import { awaitUntil, BaseLitElement, registerWebComponents, type VL, webComponent } from '@domg-wc/common';
+import {
+    awaitUntil,
+    BaseLitElement,
+    legacyBreakpoint,
+    legacyCore,
+    registerWebComponents,
+    type VL,
+    webComponent
+} from '@domg-wc/common';
 import './vl-tabs.lib.js';
 import { vlLegacyStyles } from '@domg-wc/styles';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
@@ -12,6 +20,8 @@ import { vlTabsFluxStyles } from './vl-tabs.flux-css';
 
 declare const vl: VL;
 declare const window: Window;
+
+registerWebComponents([legacyCore, legacyBreakpoint]);
 
 @webComponent('vl-tabs')
 export class VlTabsComponent extends BaseLitElement {

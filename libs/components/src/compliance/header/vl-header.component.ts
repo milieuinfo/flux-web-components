@@ -1,7 +1,16 @@
-import { awaitScript, BaseLitElement, webComponentCustom } from '@domg-wc/common';
+import {
+    awaitScript,
+    BaseLitElement,
+    legacyBreakpoint,
+    legacyCore,
+    registerWebComponents,
+    webComponentCustom
+} from '@domg-wc/common';
 import { CSSResult, PropertyDeclarations } from 'lit';
 import { headerContainerStyles, headerSkeletonStyles } from './vl-header.component.flux-css';
 import { headerDefaults } from './vl-header.defaults';
+
+registerWebComponents([legacyCore, legacyBreakpoint]);
 
 const customRegistration = () =>
     awaitScript(

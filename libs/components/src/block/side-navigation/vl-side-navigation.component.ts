@@ -1,10 +1,20 @@
-import { BaseLitElement, unwrap, VL, webComponent } from '@domg-wc/common';
+import {
+    BaseLitElement,
+    legacyBreakpoint,
+    legacyCore,
+    registerWebComponents,
+    unwrap,
+    VL,
+    webComponent,
+} from '@domg-wc/common';
 import './vl-side-navigation.lib.js';
 import { vlContentBlockStyles, vlGridStyles, vlSectionStyles } from '@domg-wc/styles';
 import { vlSideNavigationStyles } from './vl-side-navigation.css';
 import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 
 declare const vl: VL;
+
+registerWebComponents([legacyCore, legacyBreakpoint]);
 
 @webComponent('vl-side-navigation')
 export class VlSideNavigationComponent extends BaseLitElement {

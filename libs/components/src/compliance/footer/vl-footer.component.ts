@@ -1,4 +1,13 @@
-import { awaitScript, BaseLitElement, webComponentCustom } from '@domg-wc/common'; // import '@govflanders/vl-ui-util/dist/js/util.js';
+import {
+    awaitScript,
+    BaseLitElement,
+    legacyBreakpoint,
+    legacyCore,
+    registerWebComponents,
+    webComponentCustom,
+} from '@domg-wc/common';
+
+registerWebComponents([legacyCore, legacyBreakpoint]);
 
 const customRegistration = () =>
     awaitScript(

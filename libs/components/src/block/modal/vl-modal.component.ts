@@ -1,4 +1,11 @@
-import { awaitUntil, BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common';
+import {
+    awaitUntil,
+    BaseHTMLElement,
+    legacyBreakpoint,
+    legacyCore,
+    registerWebComponents,
+    webComponent
+} from '@domg-wc/common';
 import { vlGridStyles, vlGroupStyles, vlStackedStyles } from '@domg-wc/styles';
 import { accessibilityStyle, resetStyle } from '@domg/govflanders-style/common';
 import { modalStyle } from '@domg/govflanders-style/component';
@@ -8,6 +15,8 @@ import { VlLinkComponent } from '../../atom/link';
 import { vlModalFluxStyles } from './vl-modal.flux-css';
 
 declare const vl: any;
+
+registerWebComponents([legacyCore, legacyBreakpoint]);
 
 @webComponent('vl-modal')
 export class VlModalComponent extends BaseHTMLElement {

@@ -1,4 +1,3 @@
-import '../util/legacy-initialisation';
 declare const vl: any;
 
 export class BaseHTMLElement extends HTMLElement {
