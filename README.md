@@ -1,6 +1,6 @@
-![omgeving](resources/miscellaneous/omgeving.png)
+<img src="resources/miscellaneous/flux.png" width="830" height="330"/>
 
-# UIG
+# FLUX
 
 ## Inhoudstafel
 
@@ -10,14 +10,15 @@
 
 ## Project
 
-Deze __monorepo__ bevat de ontwikkeling die gebeurd door het __UIG-team__ (User Interface Governance Team)
+Deze __monorepo__ bevat de ontwikkeling die gebeurd door het __flux-team__ (Frontend Library / User eXperience)
 van [Departement Omgeving](https://omgeving.vlaanderen.be/), onderdeel van
 de [Vlaamse Overheid](https://www.vlaanderen.be/).
 
 ## Documentatie
 
-Het project wordt gedocumenteerd m.b.v. Storybook, de nieuwste versie vind je terug
-onder [uigov-builds](https://milieuinfo.github.io/uigov-builds/release/latest/storybook).
+Het project wordt gedocumenteerd m.b.v. Storybook, er zijn 2 major versies beschikbaar:
+ - de meest recente v2 documentatie vind je via [Storybook v2](https://milieuinfo.github.io/uigov-builds/release-v2/latest/storybook)
+ - de meest recente v1 documentatie vind je via [Storybook v1](https://milieuinfo.github.io/uigov-builds/release/latest/storybook)
 
 <hr></hr>
 
