@@ -6,6 +6,7 @@ export const searchFilterStyles: CSSResult = css`
             display: flex;
             flex-direction: column;
             position: fixed;
+            z-index: var(--vl-z-layer--search);
             padding: 0;
             top: 0;
             right: 0;

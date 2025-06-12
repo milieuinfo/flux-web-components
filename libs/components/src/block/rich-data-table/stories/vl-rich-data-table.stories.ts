@@ -111,7 +111,7 @@ RichDataTableSorting.args = {
 
 const TemplateFilter = story(
     richDataTableArgs,
-    ({ collapsedM, collapsedS, collapsedXS, filterClosable, filterClosed }) => {
+    ({ collapsedM, collapsedS, collapsedXS, filterClosable, filterClosed, filterMaxWidth }) => {
         filterRichTableImplementation();
         return html`
             <vl-rich-data-table
@@ -121,6 +121,7 @@ const TemplateFilter = story(
                 ?collapsed-xs=${collapsedXS}
                 ?filter-closable=${filterClosable}
                 ?filter-closed=${filterClosed}
+                filter-max-width=${filterMaxWidth}
             >
                 <vl-rich-data-field label="ID" selector="id"></vl-rich-data-field>
                 <vl-rich-data-field label="Naam Project" selector="name"></vl-rich-data-field>
@@ -196,7 +197,7 @@ RichDataTableFilter.args = {
 
 const TemplateFilterPaging = story(
     richDataTableArgs,
-    ({ collapsedM, collapsedS, collapsedXS, filterClosable, filterClosed }) => {
+    ({ collapsedM, collapsedS, collapsedXS, filterClosable, filterClosed, filterMaxWidth }) => {
         paginationRichTableImplementation();
         return html`
             <vl-rich-data-table
@@ -206,6 +207,7 @@ const TemplateFilterPaging = story(
                 ?collapsed-xs=${collapsedXS}
                 ?filter-closable=${filterClosable}
                 ?filter-closed=${filterClosed}
+                filter-max-width=${filterMaxWidth}
             >
                 <vl-rich-data-field label="ID" selector="id"></vl-rich-data-field>
                 <vl-rich-data-field label="Naam Project" selector="name"></vl-rich-data-field>

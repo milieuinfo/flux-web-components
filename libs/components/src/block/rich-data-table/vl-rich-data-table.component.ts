@@ -121,7 +121,7 @@ export class VlRichDataTable extends VlRichData {
     }
 
     get __table() {
-        return this.shadowRoot?.querySelector<HTMLTableElement>('table');
+        return this.shadowRoot?.querySelector<VlTableComponent>('vl-table');
     }
 
     get __tableHeader() {
@@ -171,8 +171,7 @@ export class VlRichDataTable extends VlRichData {
     attributeChangedCallback(attr: string, oldValue: any, newValue: any) {
         super.attributeChangedCallback(attr, oldValue, newValue);
         if (VlRichDataTable._tableAttributes.includes(attr)) {
-            const withoutDataVlPrefix = attr.substring(''.length);
-            this.__table?.toggleAttribute(withoutDataVlPrefix);
+            this.__table?.toggleAttribute(attr);
         }
     }
 

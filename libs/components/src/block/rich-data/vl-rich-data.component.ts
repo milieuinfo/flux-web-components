@@ -1,6 +1,6 @@
 import { BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { vlGridStyles, vlLegacyStyles } from '@domg-wc/styles';
-import { buttonStyles } from '../../atom/button/vl-button.css';
+import { VlButtonComponent } from '../../atom/button';
 import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { VlFormLabelComponent } from '../../form/form-label';
 import { Pagination, VlPagerComponent } from '../pager';
@@ -20,69 +20,71 @@ export class VlRichData extends BaseHTMLElement {
     protected _sorting: any;
 
     static {
-        registerWebComponents([VlFormLabelComponent, VlPagerComponent]);
+        registerWebComponents([VlFormLabelComponent, VlPagerComponent, VlButtonComponent]);
     }
 
     constructor(content = '') {
         super(`
-          <style>
-            ${vlLegacyStyles.join('')}
-            ${vlRichDataFluxStyles}
-            ${buttonStyles}
-            ${vlIconStyles}
-            ${vlGridStyles}
-          </style>
-          <div>
-            <div class="vl-grid vl-stacked-small">
-              <div id="toggle-filter" class="vl-column vl-column--12 vl-column--m-12 vl-u-align-right vl-u-hidden--s" hidden>
-                <button id="toggle-filter-button" class="secondary narrow" type="button" aria-label="Filter verbergen">
-                  <span class="vl-icon vl-icon--content-filter vl-icon--right-margin"></span>
-                  <slot name="toggle-filter-button-text" hidden>Filter tonen</slot>
-                  <slot name="close-filter-button-text">Filter verbergen</slot>
-                </button>
-              </div>
-              <div id="open-filter" class="vl-column vl-column--12 vl-column--m-12 vl-u-align-right vl-u-hidden" hidden>
-                <button id="open-toggle-filter-button" class="secondary narrow" type="button" aria-label="Filter tonen">
-                  <span class="vl-icon vl-icon--content-filter vl-icon--right-margin"></span>
-                  <slot name="toggle-filter-button-text">Filter</slot>
-                </button>
-              </div>
-              <div id="search" class="vl-column vl-column--4 vl-column--m-4 vl-column--s-0 vl-column--xs-0">
-                <div id="filter-slot-container">
-                  <slot id="filter-slot" name="filter"></slot>
+            <style>
+                ${vlLegacyStyles.join('')}
+                ${vlRichDataFluxStyles}
+                ${vlIconStyles}
+                ${vlGridStyles}
+            </style>
+            <div class="vl-rich-data">
+                <div id="toggle-filter" class="vl-u-align-right vl-u-hidden--s" hidden>
+                    <vl-button id="toggle-filter-button" icon="content-filter" secondary narrow aria-label="Filter verbergen">
+                        <slot name="toggle-filter-button-text" hidden>Filter tonen</slot>
+                        <slot name="close-filter-button-text">Filter verbergen</slot>
+                    </vl-button>
                 </div>
-              </div>
-              <div id="content" class="vl-column vl-column--8 vl-column--m-8 vl-column--s-12 vl-column--xs-12">
-                <div class="vl-grid vl-stacked-small">
-                  <div id="search-results" class="vl-column vl-column--6 vl-column--m-6 vl-column--s-6 vl-column--xs-6" aria-live="polite">
-                    <span>We vonden</span> <strong><span id="search-results-number">0</span> resultaten</strong>
-                  </div>
-                  <div id="sorter" class="vl-column vl-column--6 vl-column--m-6 vl-column--s-6 vl-column--xs-6">
-                    <vl-form-label>
-                      Sorteer
-                    </vl-form-label>
-                    <slot name="sorter"></slot>
-                  </div>
-                  <div class="vl-column vl-column--12 vl-column--m-12">
-                    <slot name="content">${content}</slot>
-                    <slot name="no-content" hidden>Er werden geen resultaten gevonden</slot>
-                  </div>
+                <div id="open-filter" class="vl-u-align-right vl-u-hidden" hidden>
+                    <vl-button id="open-toggle-filter-button" icon="content-filter" secondary narrow aria-label="Filter tonen">
+                        <slot name="toggle-filter-button-text">Filter</slot>
+                    </vl-button>
                 </div>
-              </div>
-              <div id="pager" class="vl-column vl-column--12 vl-column--m-12">
-                <slot name="pager"></slot>
-              </div>
+                <div id="search">
+                    <div id="filter-slot-container">
+                        <slot id="filter-slot" name="filter"></slot>
+                    </div>
+                </div>
+                <div id="content">
+                    <div class="vl-grid vl-stacked-small">
+                        <div id="search-results" class="vl-column vl-column--6 vl-column--m-6 vl-column--s-6 vl-column--xs-6" aria-live="polite">
+                            <span>We vonden</span> <strong><span id="search-results-number">0</span> resultaten</strong>
+                        </div>
+                        <div id="sorter" class="vl-column vl-column--6 vl-column--m-6 vl-column--s-6 vl-column--xs-6">
+                            <vl-form-label>
+                                Sorteer
+                            </vl-form-label>
+                            <slot name="sorter"></slot>
+                        </div>
+                        <div class="vl-column vl-column--12 vl-column--m-12">
+                            <slot name="content">${content}</slot>
+                            <slot name="no-content" hidden>Er werden geen resultaten gevonden</slot>
+                        </div>
+                    </div>
+                </div>
+                <div id="pager">
+                    <slot name="pager"></slot>
+                </div>
             </div>
-          </div>
         `);
+
+        this.setFilterMaxWidthCssProperty();
     }
 
     static get _observedAttributes(): string[] {
-        return ['data', 'collapsed-m', 'collapsed-s', 'collapsed-xs', 'filter-closable', 'filter-closed'];
+        return ['data', 'collapsed-m', 'collapsed-s', 'collapsed-xs', 'filter-closable', 'filter-closed', 'filter-max-width'];
     }
 
-    static get _defaultSearchColumnSize(): number {
-        return 4;
+    protected setFilterMaxWidthCssProperty() {
+        /* Standaard waarde voor linker kolom max-width: 4/12 van pagina max-width */
+        this.style.setProperty('--vl-rich-data-filter-max-width', this.getAttribute("filter-max-width") || 'calc(var(--vl-page--max-width-wide) / 3)');
+    }
+
+    _filterMaxWidthChangedCallback() {
+        this.setFilterMaxWidthCssProperty();
     }
 
     protected _data: RichData | undefined;
@@ -415,7 +417,6 @@ export class VlRichData extends BaseHTMLElement {
 
     __hideSearchColumn(): void {
         this.__searchColumn!.hidden = true;
-        this.__setGridColumnWidth(0);
         this.__filterToggleButton?.setAttribute('aria-label', 'Filter tonen');
         this.__filterToggleButtonTextSlot!.hidden = false;
         this.__filterCloseButtonTextSlot!.hidden = true;
@@ -431,7 +432,6 @@ export class VlRichData extends BaseHTMLElement {
 
     __showSearchColumn(): void {
         this.__searchColumn!.hidden = false;
-        this.__setGridColumnWidth(VlRichData._defaultSearchColumnSize);
         this.__filterToggleButton?.setAttribute('aria-label', 'Filter verbergen');
         this.__filterToggleButtonTextSlot!.hidden = true;
         this.__filterCloseButtonTextSlot!.hidden = false;
@@ -443,21 +443,6 @@ export class VlRichData extends BaseHTMLElement {
 
     __showSorter() {
         this.__sorterContainer!.hidden = false;
-    }
-
-    __setGridColumnWidth(width: number) {
-        this.__searchColumn?.removeAttribute('class');
-        this.__contentColumn?.removeAttribute('class');
-        this.__searchColumn?.classList.add(`vl-column`);
-        this.__contentColumn?.classList.add(`vl-column`);
-        ['', 'm-'].forEach((size) => {
-            this.__searchColumn?.classList.add(`vl-column--${size}${width}`);
-            this.__contentColumn?.classList.add(`vl-column--${size}${12 - width}`);
-        });
-        ['s-', 'xs-'].forEach((size) => {
-            this.__searchColumn?.classList.add(`vl-column--${size}0`);
-            this.__contentColumn?.classList.add(`vl-column--${size}12`);
-        });
     }
 
     __updateNumberOfSearchResults(number: number | null) {
