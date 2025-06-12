@@ -73,6 +73,9 @@ describe('component - vl-rich-data', () => {
 });
 
 describe('component - vl-rich-data with vl-search-filter', () => {
+    const mockDefaultFilterMaxWidth = Math.floor(1280 / 3);
+    const mockFilterMaxWidth = '500px';
+
     beforeEach(() => {
         cy.mount(html`
             <vl-rich-data filter-title="title" filter-closable>
@@ -105,27 +108,21 @@ describe('component - vl-rich-data with vl-search-filter', () => {
     });
 
     it('should be able to toggle the search filter using the toggle button', () => {
-        cy.viewport(1024, 768);
-
+        cy.viewport(1600, 1200);
         cy.get('vl-search-filter').should('not.have.attr', 'hidden');
-        cy.get('vl-rich-data').shadow().find('#search').should('have.class', 'vl-column');
-        cy.get('vl-rich-data').shadow().find('#search').should('have.class', 'vl-column--4');
-        cy.get('vl-rich-data').shadow().find('#content').should('have.class', 'vl-column');
-        cy.get('vl-rich-data').shadow().find('#content').should('have.class', 'vl-column--8');
+        cy.get('vl-rich-data').shadow().find('#search').then((search) => {
+            expect(Math.floor(search.width() || 0)).to.equal(mockDefaultFilterMaxWidth);
+        })
 
         cy.get('vl-rich-data').shadow().find('#toggle-filter-button').click();
         cy.get('vl-search-filter').should('have.attr', 'hidden');
-        cy.get('vl-rich-data').shadow().find('#search').should('have.class', 'vl-column');
-        cy.get('vl-rich-data').shadow().find('#search').should('have.class', 'vl-column--0');
-        cy.get('vl-rich-data').shadow().find('#content').should('have.class', 'vl-column');
-        cy.get('vl-rich-data').shadow().find('#content').should('have.class', 'vl-column--12');
+        cy.get('vl-rich-data').shadow().find('#search').shouldHaveComputedStyle({ style: 'width', value: 'auto'})
 
         cy.get('vl-rich-data').shadow().find('#toggle-filter-button').click();
         cy.get('vl-search-filter').should('not.have.attr', 'hidden');
-        cy.get('vl-rich-data').shadow().find('#search').should('have.class', 'vl-column');
-        cy.get('vl-rich-data').shadow().find('#search').should('have.class', 'vl-column--4');
-        cy.get('vl-rich-data').shadow().find('#content').should('have.class', 'vl-column');
-        cy.get('vl-rich-data').shadow().find('#content').should('have.class', 'vl-column--8');
+        cy.get('vl-rich-data').shadow().find('#search').then((search) => {
+            expect(Math.floor(search.width() || 0)).to.equal(mockDefaultFilterMaxWidth);
+        })
     });
 
     it('should be able to close the search filter using the escape key when closable', () => {
@@ -150,6 +147,15 @@ describe('component - vl-rich-data with vl-search-filter', () => {
         cy.get('#filterOpId').shadow().find('input').type('{esc}', { force: true });
         cy.get('vl-search-filter').should('have.attr', 'hidden');
     });
+
+    it('should be able to set a filter-max-width value', () => {
+        cy.viewport(1600, 1200);
+        cy.get('vl-rich-data').shadow().find('#search').then((search) => {
+            expect(Math.floor(search.width() || 0)).to.equal(mockDefaultFilterMaxWidth);
+        })
+        cy.get('vl-rich-data').invoke('attr', 'filter-max-width', mockFilterMaxWidth);
+        cy.get('vl-rich-data').shadow().find('#search').shouldHaveComputedStyle({ style: 'width', value: mockFilterMaxWidth})
+    })
 });
 
 describe('component - vl-rich-data with vl-select', () => {

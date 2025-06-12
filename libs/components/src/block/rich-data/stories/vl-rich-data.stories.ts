@@ -1,15 +1,15 @@
-import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
+import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
+import { VlSelectComponent } from '../../../form/select';
 import '../../rich-data-table/vl-rich-data-field.component';
-import '../vl-rich-data.component';
 import { VlSearchResultComponent } from '../../search-result';
+import '../vl-rich-data.component';
 import { VlRichData } from '../vl-rich-data.component';
 import { richDataArgs, richDataArgTypes } from './vl-rich-data.stories-arg';
 import richDataDoc from './vl-rich-data.stories-doc.mdx';
 import { richDataPaginationImplementation } from './vl-rich-data.stories-util';
-import { VlSelectComponent } from '../../../form/select';
 
 export default {
     id: 'components-block-rich-data',
@@ -36,10 +36,8 @@ export const RichDataDefault = ({ filterClosable, filterClosed }: typeof richDat
 };
 RichDataDefault.storyName = 'vl-rich-data - default';
 
-export const RichDataPager = story(richDataArgs, ({ filterClosable, filterClosed }: typeof richDataArgs) => {
-    richDataPaginationImplementation();
-    return html`
-        <vl-rich-data id="rich-data" ?filter-closable=${filterClosable} ?filter-closed=${filterClosed}>
+const pagerTemplate = ({filterClosable, filterClosed, filterMaxWidth}: typeof richDataArgs) => html`
+        <vl-rich-data id="rich-data" ?filter-closable=${filterClosable} ?filter-closed=${filterClosed} filter-max-width=${filterMaxWidth}>
             <span slot="no-content">Geen resultaten</span>
             <div slot="content"></div>
             <vl-select
@@ -90,6 +88,19 @@ export const RichDataPager = story(richDataArgs, ({ filterClosable, filterClosed
                 align-center
             ></vl-pager>
         </vl-rich-data>
-    `;
+    `
+
+export const RichDataPager = story(richDataArgs, (pagerArgs: typeof richDataArgs) => {
+    richDataPaginationImplementation();
+    return pagerTemplate(pagerArgs);
 });
 RichDataPager.storyName = 'vl-rich-data - pager';
+
+export const RichDataFilterMaxWidth = story(richDataArgs, (pagerArgs: typeof richDataArgs) => {
+    richDataPaginationImplementation();
+    return pagerTemplate(pagerArgs);
+});
+RichDataFilterMaxWidth.storyName = 'vl-rich-data - filter-max-width';
+RichDataFilterMaxWidth.args = {
+    filterMaxWidth: '1000px',
+};

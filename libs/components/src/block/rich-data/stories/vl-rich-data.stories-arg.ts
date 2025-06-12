@@ -5,6 +5,7 @@ export const richDataArgs = {
     ...defaultArgs,
     filterClosable: false,
     filterClosed: false,
+    filterMaxWidth: '',
 };
 
 export const richDataArgTypes: ArgTypes<typeof richDataArgs> = {
@@ -12,7 +13,7 @@ export const richDataArgTypes: ArgTypes<typeof richDataArgs> = {
     filterClosable: {
         name: 'filter-closable',
         description:
-            'Filter sluitbaar maken en knop tonen om de filter te tonen en terug te verbergen.\n * Op een klein scherm wordt een modal geopend bij het klikken op de filter knop ipv een de filter naast de tabel te tonen.\n\n * Om elementen van de filter te verbergen enkel in de modal, kan het attribuut `hidden-in-modal` gezet worden.',
+            'Maakt de filter sluitbaar en toont een knop om de zichtbaarheid van de filter te togglen.\n * Op een klein scherm verschijnt de filter als modal ipv naast de inhoud.\n\n * Om in de "modal"-variant elementen van de filter te verbergen, kan het attribuut `hidden-in-modal` toegevoegd worden.',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
@@ -21,11 +22,20 @@ export const richDataArgTypes: ArgTypes<typeof richDataArgs> = {
     },
     filterClosed: {
         name: 'filter-closed',
-        description: 'Verbergt de filter',
+        description: 'Verbergt de filter.',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: richDataArgs.filterClosed },
         },
     },
+    filterMaxWidth: {
+        name: 'filter-max-width',
+        description: 'Maximum breedte (CSS value) die de filter kan innemen in een full-width layout, op grote resolutie.',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: richDataArgs.filterMaxWidth },
+        }
+    }
 };
