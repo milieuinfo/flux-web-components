@@ -586,6 +586,6 @@ export class SideNavigation {
     }
 }
 
-if (!('sideNavigationNext' in vl)) {
-    vl.sideNavigationNext = new SideNavigation();
+if (!('sideNavigation' in vl)) {
+    vl.sideNavigation = new SideNavigation();
 }

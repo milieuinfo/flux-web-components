@@ -1,8 +1,8 @@
-const varNextColorUrl = 'http://localhost:8080/iframe.html?id=styles-base-var--var-color&viewMode=story';
+const varColorUrl = 'http://localhost:8080/iframe.html?id=styles-base-var--var-color&viewMode=story';
 
 describe('story - var - color', () => {
     it('should render', () => {
-        cy.visit(varNextColorUrl);
+        cy.visit(varColorUrl);
 
         cy.get('.sb-var')
             .shouldHaveComputedStyle({ style: 'background-color', value: 'rgb(247, 249, 252)' })

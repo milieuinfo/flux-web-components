@@ -1,13 +1,13 @@
-const gridNextResponsiveUrl =
+const gridResponsiveUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-grid--grid-responsive&viewMode=story';
-const gridNextOffsetUrl =
+const gridOffsetUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-grid--grid-column-start&viewMode=story';
-const gridNextJustifyAlignUrl =
+const gridJustifyAlignUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-grid--grid-justify-align&viewMode=story';
 
 describe('story - grid - responsive', () => {
     it('should render', () => {
-        cy.visit(gridNextResponsiveUrl);
+        cy.visit(gridResponsiveUrl);
 
         cy.get('.vl-grid')
             .find('.vl-column')
@@ -18,7 +18,7 @@ describe('story - grid - responsive', () => {
 
 describe('story - grid - offset', () => {
     it('should render', () => {
-        cy.visit(gridNextOffsetUrl);
+        cy.visit(gridOffsetUrl);
 
         cy.get('.vl-grid')
             .find('.vl-column')
@@ -29,7 +29,7 @@ describe('story - grid - offset', () => {
 
 describe('story - grid - justify/align', () => {
     it('should render', () => {
-        cy.visit(gridNextJustifyAlignUrl);
+        cy.visit(gridJustifyAlignUrl);
 
         cy.get('.vl-grid')
             .find('.vl-column')

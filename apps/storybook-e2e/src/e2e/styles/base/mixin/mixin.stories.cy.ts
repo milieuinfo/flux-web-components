@@ -1,11 +1,11 @@
-const mixinNextWaveAnimationUrl =
+const mixinWaveAnimationUrl =
     'http://localhost:8080/iframe.html?id=styles-base-mixin--wave-animation-mixin-default&viewMode=story';
-const mixinNextFocusOutlineUrl =
+const mixinFocusOutlineUrl =
     'http://localhost:8080/iframe.html?id=styles-base-mixin--focus-outline-mixin-default&viewMode=story';
 
 describe('story - mixin - wave animation', () => {
     it('should render', () => {
-        cy.visit(mixinNextWaveAnimationUrl);
+        cy.visit(mixinWaveAnimationUrl);
 
         cy.get('.sb-wave-animation-blue').shouldHaveComputedStyle({ style: 'width', value: '10px' });
     });
@@ -13,7 +13,7 @@ describe('story - mixin - wave animation', () => {
 
 describe('story - mixin - focus outline', () => {
     it('should render', () => {
-        cy.visit(mixinNextFocusOutlineUrl);
+        cy.visit(mixinFocusOutlineUrl);
 
         cy.get('.sb-focus-outline').shouldHaveComputedStyle({
             style: 'outline',

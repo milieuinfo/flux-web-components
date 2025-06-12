@@ -174,7 +174,7 @@ export class VlTabsComponent extends BaseLitElement {
         if (!this.dressed || forced) {
             await customElements.whenDefined('vl-tab');
             await customElements.whenDefined('vl-tab-section');
-            vl.tabsNext.dress(this);
+            vl.tabs.dress(this);
             this.setAttribute(VlTabsComponent.dressedAttributeName, '');
         }
     }

@@ -1,23 +1,23 @@
-const selectNextDefaultUrl =
+const selectDefaultUrl =
     'http://localhost:8080/iframe.html?id=components-form-select--select-default&viewMode=story';
 
-const selectNextNotDeletableUrl =
+const selectNotDeletableUrl =
     'http://localhost:8080/iframe.html?id=components-form-select--select-not-deletable&viewMode=story';
 
-const selectNextGroupsUrl = 'http://localhost:8080/iframe.html?id=components-form-select--select-groups&viewMode=story';
+const selectGroupsUrl = 'http://localhost:8080/iframe.html?id=components-form-select--select-groups&viewMode=story';
 
-const selectNextSelectedOptionUrl =
+const selectSelectedOptionUrl =
     'http://localhost:8080/iframe.html?id=components-form-select--select-selected-option&viewMode=story';
 
-const selectNextDisabledOptionUrl =
+const selectDisabledOptionUrl =
     'http://localhost:8080/iframe.html?id=components-form-select--select-disabled-option&viewMode=story';
 
-const selectNextReadOnlyUrl =
+const selectReadOnlyUrl =
     'http://localhost:8080/iframe.html?id=components-form-select--select-read-only&viewMode=story';
 
 describe('story - vl-select - default', () => {
     it('should render', () => {
-        cy.visit(selectNextDefaultUrl);
+        cy.visit(selectDefaultUrl);
 
         cy.get('vl-select').shadow().find('select');
     });
@@ -25,7 +25,7 @@ describe('story - vl-select - default', () => {
 
 describe('story - vl-select - not-deletable', () => {
     it('should render', () => {
-        cy.visit(selectNextNotDeletableUrl);
+        cy.visit(selectNotDeletableUrl);
 
         cy.get('vl-select').shadow().find('select');
     });
@@ -33,7 +33,7 @@ describe('story - vl-select - not-deletable', () => {
 
 describe('story - vl-select - groups', () => {
     it('should render', () => {
-        cy.visit(selectNextGroupsUrl);
+        cy.visit(selectGroupsUrl);
 
         cy.get('vl-select').shadow().find('select');
     });
@@ -41,7 +41,7 @@ describe('story - vl-select - groups', () => {
 
 describe('story - vl-select - selected option', () => {
     it('should render', () => {
-        cy.visit(selectNextSelectedOptionUrl);
+        cy.visit(selectSelectedOptionUrl);
 
         cy.get('vl-select').shadow().find('select');
     });
@@ -49,7 +49,7 @@ describe('story - vl-select - selected option', () => {
 
 describe('story - vl-select - disabled option', () => {
     it('should render', () => {
-        cy.visit(selectNextDisabledOptionUrl);
+        cy.visit(selectDisabledOptionUrl);
 
         cy.get('vl-select').shadow().find('select');
     });
@@ -57,7 +57,7 @@ describe('story - vl-select - disabled option', () => {
 
 describe('story - vl-select - read only', () => {
     it('should render', () => {
-        cy.visit(selectNextReadOnlyUrl);
+        cy.visit(selectReadOnlyUrl);
 
         cy.get('vl-select').shadow().find('select');
     });

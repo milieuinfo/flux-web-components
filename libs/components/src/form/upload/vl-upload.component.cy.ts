@@ -504,9 +504,9 @@ const shouldAddJpgFilesProgrammatically = (number = 1): File[] => {
                 type: 'image/jpeg',
                 lastModified,
             });
-            cy.get('vl-upload').then((uploadNext) => {
+            cy.get('vl-upload').then((upload) => {
                 // gebruiken hier addFile omdat we File object niet kunnen toevoegen met cy.selectFile() (enkel referenties)
-                (<HTMLElement & { addFile(file: File): void }>uploadNext[0]).addFile(fileToAdd);
+                (<HTMLElement & { addFile(file: File): void }>upload[0]).addFile(fileToAdd);
                 // we maken de file hier opnieuw aan omdat de file gemuteerd wordt door de upload component
                 // meer specifiek worden er Dropzone specifieke properties toegevoegd aan de file, die dan niet gaan matchen met de file die we in de formData terechtkomt
                 filesAdded.push(

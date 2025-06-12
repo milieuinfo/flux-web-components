@@ -1,15 +1,15 @@
-const groupNextButtonsUrl =
+const groupButtonsUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-group--group-buttons&viewMode=story';
-const groupNextLinksUrl =
+const groupLinksUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-group--group-links&viewMode=story';
-const groupNextAccordionsUrl =
+const groupAccordionsUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-group--group-accordions&viewMode=story';
-const groupNextIconsUrl =
+const groupIconsUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-group--group-icons&viewMode=story';
 
 describe('story - group - buttons', () => {
     it('should render', () => {
-        cy.visit(groupNextButtonsUrl);
+        cy.visit(groupButtonsUrl);
 
         cy.get('.vl-group')
             .find('vl-button')
@@ -22,7 +22,7 @@ describe('story - group - buttons', () => {
 
 describe('story - group - links', () => {
     it('should render', () => {
-        cy.visit(groupNextLinksUrl);
+        cy.visit(groupLinksUrl);
 
         cy.get('.vl-group')
             .find('vl-link')
@@ -36,7 +36,7 @@ describe('story - group - links', () => {
 
 describe('story - group - accordions', () => {
     it('should render', () => {
-        cy.visit(groupNextAccordionsUrl);
+        cy.visit(groupAccordionsUrl);
 
         cy.get('.vl-group').find('vl-accordion').first().shadow().find('div.vl-accordion').should('exist');
     });
@@ -44,7 +44,7 @@ describe('story - group - accordions', () => {
 
 describe('story - group - icons', () => {
     it('should render', () => {
-        cy.visit(groupNextIconsUrl);
+        cy.visit(groupIconsUrl);
 
         cy.get('.vl-group').find('vl-icon').first().shadow().find('span.vl-icon--bell').should('exist');
     });

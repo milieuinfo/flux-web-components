@@ -1,27 +1,27 @@
-const stepsNextUrl = 'http://localhost:8080/iframe.html?id=components-block-steps-steps--steps-default&viewMode=story';
-const stepsNextIconsUrl =
+const stepsUrl = 'http://localhost:8080/iframe.html?id=components-block-steps-steps--steps-default&viewMode=story';
+const stepsIconsUrl =
     'http://localhost:8080/iframe.html?id=components-block-steps-steps--steps-icons&viewMode=story';
-const stepsNextLineUrl = 'http://localhost:8080/iframe.html?id=components-block-steps-steps--steps-line&viewMode=story';
-const stepsNextTimelineUrl =
+const stepsLineUrl = 'http://localhost:8080/iframe.html?id=components-block-steps-steps--steps-line&viewMode=story';
+const stepsTimelineUrl =
     'http://localhost:8080/iframe.html?id=components-block-steps-steps--steps-timeline&viewMode=story';
-const stepsNextSimpleTimelineUrl =
+const stepsSimpleTimelineUrl =
     'http://localhost:8080/iframe.html?id=components-block-steps-steps--steps-simple-timeline&viewMode=story';
 const stepsSideNavigationUrl =
     'http://localhost:8080/iframe.html?id=components-block-steps-steps--steps-side-navigation&viewMode=story';
-const stepsNextStatesUrl =
+const stepsStatesUrl =
     'http://localhost:8080/iframe.html?id=components-block-steps-step--steps-states&viewMode=story';
-const stepsNextToggleableUrl =
+const stepsToggleableUrl =
     'http://localhost:8080/iframe.html?id=components-block-steps-step--steps-toggleable&viewMode=story';
 
 describe('story vl-steps default', () => {
     it('should be accessible', () => {
-        cy.visitWithA11y(stepsNextUrl);
+        cy.visitWithA11y(stepsUrl);
         cy.get('vl-steps');
         cy.checkA11y('vl-steps');
     });
 
     it('should contain steps', () => {
-        cy.visit(stepsNextUrl);
+        cy.visit(stepsUrl);
 
         cy.get('vl-steps').find('vl-step').find('span[slot="icon"]').contains('1');
         cy.get('vl-steps').find('vl-step').find('span[slot="title"]').contains('Stap 1: eerste actie');
@@ -42,13 +42,13 @@ describe('story vl-steps default', () => {
 
 describe('story vl-steps icons', () => {
     it('should be accessible', () => {
-        cy.visitWithA11y(stepsNextIconsUrl);
+        cy.visitWithA11y(stepsIconsUrl);
         cy.get('vl-steps');
         cy.checkA11y('vl-steps');
     });
 
     it('should contain steps', () => {
-        cy.visit(stepsNextIconsUrl);
+        cy.visit(stepsIconsUrl);
 
         cy.get('vl-steps').find('vl-step').find('span[slot="title"]').contains('Stap 1: eerste actie');
         cy.get('vl-steps').find('vl-step').find('span[slot="subtitle"]').contains('Dit is de eerste subtitel');
@@ -64,7 +64,7 @@ describe('story vl-steps icons', () => {
     });
 
     it('should contain steps with icons', () => {
-        cy.visit(stepsNextIconsUrl);
+        cy.visit(stepsIconsUrl);
 
         cy.get('vl-steps').find('vl-step').find('vl-icon[slot="icon"][icon="search"]');
         cy.get('vl-steps').find('vl-step').find('vl-icon[slot="icon"][icon="calendar"]');
@@ -74,7 +74,7 @@ describe('story vl-steps icons', () => {
 
 describe('story vl-steps states', () => {
     it('should be accessible', () => {
-        cy.visitWithA11y(stepsNextStatesUrl);
+        cy.visitWithA11y(stepsStatesUrl);
         cy.get('vl-steps');
         cy.checkA11y('vl-steps', {
             // color-contrast rule bewust uitgezet: foutief kleurenpalet van DV.
@@ -85,7 +85,7 @@ describe('story vl-steps states', () => {
     });
 
     it('should contain steps', () => {
-        cy.visit(stepsNextStatesUrl);
+        cy.visit(stepsStatesUrl);
 
         cy.get('vl-steps').find('vl-step').find('span[slot="icon"]').contains('1');
         cy.get('vl-steps').find('vl-step').find('span[slot="title"]').contains('Stap 1: eerste actie');
@@ -119,7 +119,7 @@ describe('story vl-steps states', () => {
     });
 
     it('should contain steps with states', () => {
-        cy.visit(stepsNextStatesUrl);
+        cy.visit(stepsStatesUrl);
 
         cy.get('vl-steps').find('vl-step').shadow().find('li').should('have.class', 'vl-step--highlighted');
         cy.get('vl-steps').find('vl-step').shadow().find('li').should('have.class', 'vl-step--disabled');
@@ -131,13 +131,13 @@ describe('story vl-steps states', () => {
 
 describe('story vl-steps toggleable', () => {
     it('should be accessible', () => {
-        cy.visitWithA11y(stepsNextToggleableUrl);
+        cy.visitWithA11y(stepsToggleableUrl);
         cy.get('vl-steps');
         cy.checkA11y('vl-steps');
     });
 
     it('should contain steps', () => {
-        cy.visit(stepsNextToggleableUrl);
+        cy.visit(stepsToggleableUrl);
 
         cy.get('vl-steps').find('vl-step').find('span[slot="icon"]').contains('1');
         cy.get('vl-steps').find('vl-step').find('span[slot="title"]').contains('Stap 1: eerste actie');
@@ -156,7 +156,7 @@ describe('story vl-steps toggleable', () => {
     });
 
     it('should contain steps with accordions', () => {
-        cy.visit(stepsNextToggleableUrl);
+        cy.visit(stepsToggleableUrl);
 
         cy.get('vl-steps')
             .find('vl-step')
@@ -173,13 +173,13 @@ describe('story vl-steps toggleable', () => {
 
 describe('story vl-steps line', () => {
     it('should be accessible', () => {
-        cy.visitWithA11y(stepsNextLineUrl);
+        cy.visitWithA11y(stepsLineUrl);
         cy.get('vl-steps');
         cy.checkA11y('vl-steps');
     });
 
     it('should contain steps', () => {
-        cy.visit(stepsNextLineUrl);
+        cy.visit(stepsLineUrl);
 
         cy.get('vl-steps').find('vl-step').find('span[slot="icon"]').contains('1');
         cy.get('vl-steps').find('vl-step').find('span[slot="title"]').contains('Stap 1: eerste actie');
@@ -198,7 +198,7 @@ describe('story vl-steps line', () => {
     });
 
     it('should contain steps with lines', () => {
-        cy.visit(stepsNextLineUrl);
+        cy.visit(stepsLineUrl);
 
         cy.get('vl-steps').shadow().find('.vl-steps.vl-steps--has-line');
     });
@@ -206,13 +206,13 @@ describe('story vl-steps line', () => {
 
 describe('story vl-steps timeline', () => {
     it('should be accessible', () => {
-        cy.visitWithA11y(stepsNextTimelineUrl);
+        cy.visitWithA11y(stepsTimelineUrl);
         cy.get('vl-steps');
         cy.checkA11y('vl-steps');
     });
 
     it('should contain steps', () => {
-        cy.visit(stepsNextTimelineUrl);
+        cy.visit(stepsTimelineUrl);
 
         cy.get('vl-steps').find('vl-step').find('span[slot="icon"]').contains('1');
         cy.get('vl-steps').find('vl-step').find('span[slot="sub-icon"]').contains('maa');
@@ -241,7 +241,7 @@ describe('story vl-steps timeline', () => {
     });
 
     it('should contain steps with a timeline', () => {
-        cy.visit(stepsNextTimelineUrl);
+        cy.visit(stepsTimelineUrl);
 
         cy.get('vl-steps').shadow().find('.vl-steps.vl-steps--timeline');
     });
@@ -249,13 +249,13 @@ describe('story vl-steps timeline', () => {
 
 describe('story vl-steps simple-timeline', () => {
     it('should be accessible', () => {
-        cy.visitWithA11y(stepsNextSimpleTimelineUrl);
+        cy.visitWithA11y(stepsSimpleTimelineUrl);
         cy.get('vl-steps');
         cy.checkA11y('vl-steps');
     });
 
     it('should contain steps', () => {
-        cy.visit(stepsNextSimpleTimelineUrl);
+        cy.visit(stepsSimpleTimelineUrl);
 
         cy.get('vl-steps').find('vl-step').find('span[slot="title"]').contains('Stap 1: eerste actie');
         cy.get('vl-steps').find('vl-step').find('span[slot="subtitle"]').contains('Dit is de eerste subtitel');
@@ -271,7 +271,7 @@ describe('story vl-steps simple-timeline', () => {
     });
 
     it('should contain steps with a simple timeline', () => {
-        cy.visit(stepsNextSimpleTimelineUrl);
+        cy.visit(stepsSimpleTimelineUrl);
 
         cy.get('vl-steps').shadow().find('.vl-steps.vl-steps--timeline-simple');
     });

@@ -1,11 +1,11 @@
 import { hexToString } from '@domg-wc/common';
 
-const iconNextDefaultUrl =
+const iconDefaultUrl =
     'http://localhost:8080/iframe.html?id=components-atom-icon-style--icon-style-default&viewMode=story';
 
 describe('story - icon - default', () => {
     it('should render', () => {
-        cy.visit(iconNextDefaultUrl);
+        cy.visit(iconDefaultUrl);
 
         cy.get('.sb-icon')
             .first()

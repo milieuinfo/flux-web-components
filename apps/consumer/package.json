@@ -8,7 +8,7 @@
         "http-server": "14.1.1"
     },
     "dependencies": {
-        "@domg-wc/components": "2.0.0-rc.2",
-        "@domg-wc/map": "2.0.0-rc.2"
+        "@domg-wc/components": "2.0.1",
+        "@domg-wc/map": "2.0.1"
     }
 }

@@ -1,13 +1,13 @@
-const separatorNextDefaultUrl =
+const separatorDefaultUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-separator--separator-default&viewMode=story';
-const separatorNextSlashUrl =
+const separatorSlashUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-separator--separator-slash&viewMode=story';
-const separatorNextWaveUrl =
+const separatorWaveUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-separator--separator-wave&viewMode=story';
 
 describe('story - separator - default', () => {
     it('should render', () => {
-        cy.visit(separatorNextDefaultUrl);
+        cy.visit(separatorDefaultUrl);
 
         cy.get('hr.vl-separator').shouldHaveComputedStyle({
             style: 'border-bottom',
@@ -18,7 +18,7 @@ describe('story - separator - default', () => {
 
 describe('story - separator - slash', () => {
     it('should render', () => {
-        cy.visit(separatorNextSlashUrl);
+        cy.visit(separatorSlashUrl);
 
         cy.get('hr.vl-separator-slash').shouldHaveComputedStyle({ style: 'min-height', value: '6px' });
     });
@@ -26,7 +26,7 @@ describe('story - separator - slash', () => {
 
 describe('story - separator - wave', () => {
     it('should render', () => {
-        cy.visit(separatorNextWaveUrl);
+        cy.visit(separatorWaveUrl);
 
         cy.get('hr.vl-separator-wave').shouldHaveComputedStyle({ style: 'height', value: '4px' });
     });

@@ -1,25 +1,25 @@
-const inputFieldMaskedNextIbanUrl =
+const inputFieldMaskedIbanUrl =
     'http://localhost:8080/iframe.html?id=components-form-input-field-masked--input-field-masked-iban&viewMode=story';
-const inputFieldMaskedNextRrnUrl =
+const inputFieldMaskedRrnUrl =
     'http://localhost:8080/iframe.html?id=components-form-input-field-masked--input-field-masked-rrn&viewMode=story';
-const inputFieldMaskedNextUuidUrl =
+const inputFieldMaskedUuidUrl =
     'http://localhost:8080/iframe.html?id=components-form-input-field-masked--input-field-masked-uuid&viewMode=story';
-const inputFieldMaskedNextDateUrl =
+const inputFieldMaskedDateUrl =
     'http://localhost:8080/iframe.html?id=components-form-input-field-masked--input-field-masked-date&viewMode=story';
-const inputFieldMaskedNextNumericalUrl =
+const inputFieldMaskedNumericalUrl =
     'http://localhost:8080/iframe.html?id=components-form-input-field-masked--input-field-masked-numerical&viewMode=story';
-const inputFieldMaskedNextPriceUrl =
+const inputFieldMaskedPriceUrl =
     'http://localhost:8080/iframe.html?id=components-form-input-field-masked--input-field-masked-price&viewMode=story';
-const inputFieldMaskedNextPhoneUrl =
+const inputFieldMaskedPhoneUrl =
     'http://localhost:8080/iframe.html?id=components-form-input-field-masked--input-field-masked-phone&viewMode=story';
-const inputFieldMaskedNextPhoneInternationalUrl =
+const inputFieldMaskedPhoneInternationalUrl =
     'http://localhost:8080/iframe.html?id=components-form-input-field-masked--input-field-masked-phone-international&viewMode=story';
-const inputFieldMaskedNextMobileUrl =
+const inputFieldMaskedMobileUrl =
     'http://localhost:8080/iframe.html?id=components-form-input-field-masked--input-field-masked-mobile&viewMode=story';
 
 describe('story - vl-input-field-masked - iban', () => {
     it('should render', () => {
-        cy.visit(inputFieldMaskedNextIbanUrl);
+        cy.visit(inputFieldMaskedIbanUrl);
 
         cy.get('vl-input-field-masked').shadow().find('input');
     });
@@ -27,7 +27,7 @@ describe('story - vl-input-field-masked - iban', () => {
 
 describe('story - vl-input-field-masked - rrn', () => {
     it('should render', () => {
-        cy.visit(inputFieldMaskedNextRrnUrl);
+        cy.visit(inputFieldMaskedRrnUrl);
 
         cy.get('vl-input-field-masked').shadow().find('input');
     });
@@ -35,7 +35,7 @@ describe('story - vl-input-field-masked - rrn', () => {
 
 describe('story - vl-input-field-masked - uuid', () => {
     it('should render', () => {
-        cy.visit(inputFieldMaskedNextUuidUrl);
+        cy.visit(inputFieldMaskedUuidUrl);
 
         cy.get('vl-input-field-masked').shadow().find('input');
     });
@@ -43,7 +43,7 @@ describe('story - vl-input-field-masked - uuid', () => {
 
 describe('story - vl-input-field-masked - date', () => {
     it('should render', () => {
-        cy.visit(inputFieldMaskedNextDateUrl);
+        cy.visit(inputFieldMaskedDateUrl);
 
         cy.get('vl-input-field-masked').shadow().find('input');
     });
@@ -51,7 +51,7 @@ describe('story - vl-input-field-masked - date', () => {
 
 describe('story - vl-input-field-masked - numerical', () => {
     it('should render', () => {
-        cy.visit(inputFieldMaskedNextNumericalUrl);
+        cy.visit(inputFieldMaskedNumericalUrl);
 
         cy.get('vl-input-field-masked').shadow().find('input');
     });
@@ -59,7 +59,7 @@ describe('story - vl-input-field-masked - numerical', () => {
 
 describe('story - vl-input-field-masked - price', () => {
     it('should render', () => {
-        cy.visit(inputFieldMaskedNextPriceUrl);
+        cy.visit(inputFieldMaskedPriceUrl);
 
         cy.get('vl-input-field-masked').shadow().find('input');
     });
@@ -67,7 +67,7 @@ describe('story - vl-input-field-masked - price', () => {
 
 describe('story - vl-input-field-masked - phone', () => {
     it('should render', () => {
-        cy.visit(inputFieldMaskedNextPhoneUrl);
+        cy.visit(inputFieldMaskedPhoneUrl);
 
         cy.get('vl-input-field-masked').shadow().find('input');
     });
@@ -75,7 +75,7 @@ describe('story - vl-input-field-masked - phone', () => {
 
 describe('story - vl-input-field-masked - phoneinternational', () => {
     it('should render', () => {
-        cy.visit(inputFieldMaskedNextPhoneInternationalUrl);
+        cy.visit(inputFieldMaskedPhoneInternationalUrl);
 
         cy.get('vl-input-field-masked').shadow().find('input');
     });
@@ -83,7 +83,7 @@ describe('story - vl-input-field-masked - phoneinternational', () => {
 
 describe('story - vl-input-field-masked - mobile', () => {
     it('should render', () => {
-        cy.visit(inputFieldMaskedNextMobileUrl);
+        cy.visit(inputFieldMaskedMobileUrl);
 
         cy.get('vl-input-field-masked').shadow().find('input');
     });

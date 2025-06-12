@@ -385,9 +385,9 @@ const setupMockedUploadFormData = (submittedFormData: unknown & { foto: File[] |
             .get('vl-form-demo')
             .shadow()
             .find('vl-upload#foto')
-            .then((uploadNext) => {
+            .then((upload) => {
                 // gebruiken hier addFile omdat we File object niet kunnen toevoegen met cy.selectFile() (enkel referenties)
-                (<HTMLElement & { addFile(file: File): void }>uploadNext[0]).addFile(fileToAdd);
+                (<HTMLElement & { addFile(file: File): void }>upload[0]).addFile(fileToAdd);
                 // we maken de file hier opnieuw aan omdat de file gemuteerd wordt door de upload component
                 // meer specifiek worden er Dropzone specifieke properties toegevoegd aan de file, die dan niet gaan matchen met de file die we in de formData terechtkomt
                 const fileToTest = new File([blob], 'cat.jpeg', {

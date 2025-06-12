@@ -1,9 +1,9 @@
-const linkNextDefaultStylesUrl =
+const linkDefaultStylesUrl =
     'http://localhost:8080/iframe.html?id=components-atom-link-style--link-style-default&viewMode=story';
 
 describe('story - link - default', () => {
     it('should render', () => {
-        cy.visit(linkNextDefaultStylesUrl);
+        cy.visit(linkDefaultStylesUrl);
 
         cy.get('.sb-link')
             .first()

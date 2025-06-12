@@ -1,19 +1,19 @@
-const paddingNextDefaultUrl =
+const paddingDefaultUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-padding--padding-default&viewMode=story';
-const paddingNextSmallUrl =
+const paddingSmallUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-padding--padding-small&viewMode=story';
-const paddingNextMediumUrl =
+const paddingMediumUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-padding--padding-medium&viewMode=story';
-const paddingNextNoUrl =
+const paddingNoUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-padding--padding-no&viewMode=story';
-const paddingNextNoBottomUrl =
+const paddingNoBottomUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-padding--padding-no-bottom&viewMode=story';
-const paddingNextNoTopUrl =
+const paddingNoTopUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-padding--padding-no-top&viewMode=story';
 
 describe('story - padding - default', () => {
     it('should render', () => {
-        cy.visit(paddingNextDefaultUrl);
+        cy.visit(paddingDefaultUrl);
 
         cy.get('.sb-container').shouldHaveComputedStyle({ style: 'padding', value: '15px' });
     });
@@ -21,7 +21,7 @@ describe('story - padding - default', () => {
 
 describe('story - padding - small', () => {
     it('should render', () => {
-        cy.visit(paddingNextSmallUrl);
+        cy.visit(paddingSmallUrl);
 
         cy.get('.sb-container').shouldHaveComputedStyle({ style: 'padding', value: '15px 0px' });
     });
@@ -29,7 +29,7 @@ describe('story - padding - small', () => {
 
 describe('story - padding - medium', () => {
     it('should render', () => {
-        cy.visit(paddingNextMediumUrl);
+        cy.visit(paddingMediumUrl);
 
         cy.get('.sb-container').shouldHaveComputedStyle({ style: 'padding', value: '30px 0px' });
     });
@@ -37,7 +37,7 @@ describe('story - padding - medium', () => {
 
 describe('story - padding - no', () => {
     it('should render', () => {
-        cy.visit(paddingNextNoUrl);
+        cy.visit(paddingNoUrl);
 
         cy.get('.sb-container').find('.sb-content').shouldHaveComputedStyle({ style: 'padding', value: '0px' });
     });
@@ -45,7 +45,7 @@ describe('story - padding - no', () => {
 
 describe('story - padding - no bottom', () => {
     it('should render', () => {
-        cy.visit(paddingNextNoBottomUrl);
+        cy.visit(paddingNoBottomUrl);
 
         cy.get('.sb-container').shouldHaveComputedStyle({ style: 'padding', value: '15px 15px 0px' });
     });
@@ -53,7 +53,7 @@ describe('story - padding - no bottom', () => {
 
 describe('story - padding - no top', () => {
     it('should render', () => {
-        cy.visit(paddingNextNoTopUrl);
+        cy.visit(paddingNoTopUrl);
 
         cy.get('.sb-container').shouldHaveComputedStyle({ style: 'padding', value: '0px 15px 15px' });
     });

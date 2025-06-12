@@ -1,14 +1,14 @@
-const doormatNextDefaultUrl =
+const doormatDefaultUrl =
     'http://localhost:8080/iframe.html?id=components-block-doormat--doormat-default&viewMode=story';
-const doormatNextAltUrl = 'http://localhost:8080/iframe.html?id=components-block-doormat--doormat-alt&viewMode=story';
-const doormatNextImageUrl =
+const doormatAltUrl = 'http://localhost:8080/iframe.html?id=components-block-doormat--doormat-alt&viewMode=story';
+const doormatImageUrl =
     'http://localhost:8080/iframe.html?id=components-block-doormat--doormat-image&viewMode=story';
-const doormatNextGraphicUrl =
+const doormatGraphicUrl =
     'http://localhost:8080/iframe.html?id=components-block-doormat--doormat-graphic&viewMode=story';
 
 describe('story - vl-doormat - default', () => {
     it('should render', () => {
-        cy.visit(doormatNextDefaultUrl);
+        cy.visit(doormatDefaultUrl);
 
         cy.get('vl-doormat').shadow().find('a');
     });
@@ -16,7 +16,7 @@ describe('story - vl-doormat - default', () => {
 
 describe('story - vl-doormat - alt', () => {
     it('should render', () => {
-        cy.visit(doormatNextAltUrl);
+        cy.visit(doormatAltUrl);
 
         cy.get('vl-doormat').shadow().find('a');
     });
@@ -24,7 +24,7 @@ describe('story - vl-doormat - alt', () => {
 
 describe('story - vl-doormat - image', () => {
     it('should render', () => {
-        cy.visit(doormatNextImageUrl);
+        cy.visit(doormatImageUrl);
 
         cy.get('vl-doormat').shadow().find('a');
     });
@@ -32,7 +32,7 @@ describe('story - vl-doormat - image', () => {
 
 describe('story - vl-doormat - graphic', () => {
     it('should render', () => {
-        cy.visit(doormatNextGraphicUrl);
+        cy.visit(doormatGraphicUrl);
 
         cy.get('vl-doormat').shadow().find('a');
     });

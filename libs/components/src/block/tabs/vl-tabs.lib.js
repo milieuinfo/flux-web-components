@@ -187,8 +187,8 @@ class TabsNext {
     }
 }
 
-if (!('tabsNext' in vl)) {
-    vl.tabsNext = new TabsNext();
+if (!('tabs' in vl)) {
+    vl.tabs = new TabsNext();
 }
 
 export default TabsNext;

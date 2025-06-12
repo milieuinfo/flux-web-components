@@ -1,6 +1,6 @@
-export const stepsNextHtml = (importType, packageName) => `
+export const stepsHtml = (importType, packageName) => `
     <div id="consumer-components">
-        <vl-title type="h2">Steps Next - ${importType} - ${packageName}</vl-title>
+        <vl-title type="h2">Steps - ${importType} - ${packageName}</vl-title>
         <vl-steps>
             <vl-step type="success">
                 <span slot="icon">1</span>

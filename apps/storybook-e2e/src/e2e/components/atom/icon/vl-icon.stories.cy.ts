@@ -1,16 +1,16 @@
-const iconNextDefaultUrl = 'http://localhost:8080/iframe.html?id=components-atom-icon--icon-default&viewMode=story';
-const iconNextSmallUrl = 'http://localhost:8080/iframe.html?id=components-atom-icon--icon-small&viewMode=story';
-const iconNextLargeUrl = 'http://localhost:8080/iframe.html?id=components-atom-icon--icon-large&viewMode=story';
-const iconNextLightUrl = 'http://localhost:8080/iframe.html?id=components-atom-icon--icon-light&viewMode=story';
-const iconNextClickableUrl = 'http://localhost:8080/iframe.html?id=components-atom-icon--icon-clickable&viewMode=story';
-const iconNextBeforeTextUrl =
+const iconDefaultUrl = 'http://localhost:8080/iframe.html?id=components-atom-icon--icon-default&viewMode=story';
+const iconSmallUrl = 'http://localhost:8080/iframe.html?id=components-atom-icon--icon-small&viewMode=story';
+const iconLargeUrl = 'http://localhost:8080/iframe.html?id=components-atom-icon--icon-large&viewMode=story';
+const iconLightUrl = 'http://localhost:8080/iframe.html?id=components-atom-icon--icon-light&viewMode=story';
+const iconClickableUrl = 'http://localhost:8080/iframe.html?id=components-atom-icon--icon-clickable&viewMode=story';
+const iconBeforeTextUrl =
     'http://localhost:8080/iframe.html?id=components-atom-icon--icon-before-text&viewMode=story';
-const iconNextAfterTextUrl =
+const iconAfterTextUrl =
     'http://localhost:8080/iframe.html?id=components-atom-icon--icon-after-text&viewMode=story';
 
 describe('story - vl-icon - default', () => {
     it('should render', () => {
-        cy.visit(iconNextDefaultUrl);
+        cy.visit(iconDefaultUrl);
 
         cy.get('vl-icon').shadow().find('span.vl-icon');
     });
@@ -18,7 +18,7 @@ describe('story - vl-icon - default', () => {
 
 describe('story - vl-icon - small', () => {
     it('should render', () => {
-        cy.visit(iconNextSmallUrl);
+        cy.visit(iconSmallUrl);
 
         cy.get('vl-icon').shadow().find('span.vl-icon');
     });
@@ -26,7 +26,7 @@ describe('story - vl-icon - small', () => {
 
 describe('story - vl-icon - large', () => {
     it('should render', () => {
-        cy.visit(iconNextLargeUrl);
+        cy.visit(iconLargeUrl);
 
         cy.get('vl-icon').shadow().find('span.vl-icon');
     });
@@ -34,7 +34,7 @@ describe('story - vl-icon - large', () => {
 
 describe('story - vl-icon - light', () => {
     it('should render', () => {
-        cy.visit(iconNextLightUrl);
+        cy.visit(iconLightUrl);
 
         cy.get('vl-icon').shadow().find('span.vl-icon');
     });
@@ -42,7 +42,7 @@ describe('story - vl-icon - light', () => {
 
 describe('story - vl-icon - clickable', () => {
     it('should render', () => {
-        cy.visit(iconNextClickableUrl);
+        cy.visit(iconClickableUrl);
 
         cy.get('vl-icon').shadow().find('span.vl-icon');
     });
@@ -50,7 +50,7 @@ describe('story - vl-icon - clickable', () => {
 
 describe('story - vl-icon - before text', () => {
     it('should render', () => {
-        cy.visit(iconNextBeforeTextUrl);
+        cy.visit(iconBeforeTextUrl);
 
         cy.get('vl-icon').shadow().find('span.vl-icon');
     });
@@ -58,7 +58,7 @@ describe('story - vl-icon - before text', () => {
 
 describe('story - vl-icon - after text', () => {
     it('should render', () => {
-        cy.visit(iconNextAfterTextUrl);
+        cy.visit(iconAfterTextUrl);
 
         cy.get('vl-icon').shadow().find('span.vl-icon');
     });

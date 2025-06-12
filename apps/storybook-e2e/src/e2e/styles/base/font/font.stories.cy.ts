@@ -1,13 +1,11 @@
-const fontNextNormalUrl =
+const fontNormalUrl =
     'http://localhost:8080/iframe.html?id=styles-base-font--font-flanders-art-sans-normal&viewMode=story';
-const fontNextItalicUrl =
+const fontItalicUrl =
     'http://localhost:8080/iframe.html?id=styles-base-font--font-flanders-art-sans-italic&viewMode=story';
-const fontNextSerifUrl =
-    'http://localhost:8080/iframe.html?id=styles-base-font--font-flanders-art-serif&viewMode=story';
 
 describe('story - font - normal', () => {
     it('should render', () => {
-        cy.visit(fontNextNormalUrl);
+        cy.visit(fontNormalUrl);
 
         cy.get('.sb-font-normal.vl-font--weight-300')
             .find('.sb-font-title')
@@ -19,7 +17,7 @@ describe('story - font - normal', () => {
 
 describe('story - font - italic', () => {
     it('should render', () => {
-        cy.visit(fontNextItalicUrl);
+        cy.visit(fontItalicUrl);
 
         cy.get('.sb-font-italic.vl-font--weight-300')
             .find('.sb-font-title')

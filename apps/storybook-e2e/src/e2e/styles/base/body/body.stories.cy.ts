@@ -1,8 +1,8 @@
-const bodyNextDefaultUrl = 'http://localhost:8080/iframe.html?id=styles-base-body--body-default&viewMode=story';
+const bodyDefaultUrl = 'http://localhost:8080/iframe.html?id=styles-base-body--body-default&viewMode=story';
 
 describe('story - body - default', () => {
     it('should render', () => {
-        cy.visit(bodyNextDefaultUrl);
+        cy.visit(bodyDefaultUrl);
 
         cy.get('body')
             .find('#root-inner')

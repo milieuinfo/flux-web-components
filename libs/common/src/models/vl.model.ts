@@ -94,12 +94,6 @@ interface Tabs {
     dress(element: HTMLElement | null): void;
 }
 
-interface TabsNext {
-    currentTabIndexForCurrentTabsContainer: number;
-
-    dress(element: HTMLElement | null): void;
-}
-
 interface Toaster {
     dress(toaster: any): void;
 
@@ -220,9 +214,7 @@ export interface VL {
     scrollspy: any;
     sticky: any;
     sideNavigation: SideNavigation;
-    sideNavigationNext: SideNavigation;
     tabs: Tabs;
-    tabsNext: TabsNext;
     toaster: Toaster;
     tooltip: Tooltip$$1;
     upload: Upload;

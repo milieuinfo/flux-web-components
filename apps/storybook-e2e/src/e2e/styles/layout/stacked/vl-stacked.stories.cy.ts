@@ -1,13 +1,13 @@
-const stackedNextLargeUrl =
+const stackedLargeUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-stacked--stacked-large&viewMode=story';
-const stackedNextMediumUrl =
+const stackedMediumUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-stacked--stacked-medium&viewMode=story';
-const stackedNextSmallUrl =
+const stackedSmallUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-stacked--stacked-small&viewMode=story';
 
 describe('story - stacked - large', () => {
     it('should render', () => {
-        cy.visit(stackedNextLargeUrl);
+        cy.visit(stackedLargeUrl);
 
         cy.viewport(1920, 1080);
         cy.get('.vl-column').eq(1).shouldHaveComputedStyle({ style: 'margin-top', value: '60px' });
@@ -19,7 +19,7 @@ describe('story - stacked - large', () => {
 
 describe('story - stacked - medium', () => {
     it('should render', () => {
-        cy.visit(stackedNextMediumUrl);
+        cy.visit(stackedMediumUrl);
 
         cy.get('.vl-column').eq(1).shouldHaveComputedStyle({ style: 'margin-top', value: '30px' });
     });
@@ -27,7 +27,7 @@ describe('story - stacked - medium', () => {
 
 describe('story - stacked - small', () => {
     it('should render', () => {
-        cy.visit(stackedNextSmallUrl);
+        cy.visit(stackedSmallUrl);
 
         cy.get('.vl-column').eq(1).shouldHaveComputedStyle({ style: 'margin-top', value: '15px' });
     });

@@ -1,14 +1,14 @@
-const tableNextDefaultUrl = 'http://localhost:8080/iframe.html?id=components-block-table--table-default&viewMode=story';
-const tableNextJoinedRowTitlesUrl =
+const tableDefaultUrl = 'http://localhost:8080/iframe.html?id=components-block-table--table-default&viewMode=story';
+const tableJoinedRowTitlesUrl =
     'http://localhost:8080/iframe.html?id=components-block-table--table-joined-row-titles&viewMode=story';
-const tableNextExpandableUrl =
+const tableExpandableUrl =
     'http://localhost:8080/iframe.html?id=components-block-table--table-expandable&viewMode=story';
-const tableNextExpandableCustomToggleDetailsColumnUrl =
+const tableExpandableCustomToggleDetailsColumnUrl =
     'http://localhost:8080/iframe.html?id=components-block-table--table-expandable-custom-toggle-details-column&viewMode=story';
 
 describe('story - vl-table - default', () => {
     it('should render', () => {
-        cy.visit(tableNextDefaultUrl);
+        cy.visit(tableDefaultUrl);
 
         cy.get('vl-table').find('table.vl-table');
     });
@@ -16,7 +16,7 @@ describe('story - vl-table - default', () => {
 
 describe('story - vl-table - joined row titles', () => {
     it('should render', () => {
-        cy.visit(tableNextJoinedRowTitlesUrl);
+        cy.visit(tableJoinedRowTitlesUrl);
 
         cy.get('vl-table').find('table.vl-table');
     });
@@ -24,7 +24,7 @@ describe('story - vl-table - joined row titles', () => {
 
 describe('story - vl-table - expandable', () => {
     it('should render', () => {
-        cy.visit(tableNextExpandableUrl);
+        cy.visit(tableExpandableUrl);
 
         cy.get('vl-table').find('table.vl-table');
     });
@@ -32,7 +32,7 @@ describe('story - vl-table - expandable', () => {
 
 describe('story - vl-table - expandable custom toggle details column', () => {
     it('should render', () => {
-        cy.visit(tableNextExpandableCustomToggleDetailsColumnUrl);
+        cy.visit(tableExpandableCustomToggleDetailsColumnUrl);
 
         cy.get('vl-table').find('table.vl-table');
     });

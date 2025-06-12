@@ -81,7 +81,7 @@ export class VlSideNavigationComponent extends BaseLitElement {
     }
 
     private dress(): void {
-        vl.sideNavigationNext.dress(this);
+        vl.sideNavigation.dress(this);
         this.style.position = '';
     }
 
