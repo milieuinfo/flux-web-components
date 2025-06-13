@@ -1,5 +1,5 @@
-import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
+import { html } from 'lit';
 import { VlTableComponent } from './vl-table.component';
 import { tableDefaults } from './vl-table.defaults';
 
@@ -344,6 +344,12 @@ describe('component - vl-table - expandable', () => {
         mountExpandable({ zebra: true });
 
         cy.get('vl-table').find('table').should('have.class', 'vl-table').should('have.class', 'vl-table--zebra');
+    });
+
+    it('should contain a table with a flux-zebra grid', () => {
+        mountExpandable({ fluxZebra: true });
+
+        cy.get('vl-table').find('table').should('have.class', 'vl-table').should('have.class', 'vl-table--flux-zebra');
     });
 
     it('should set colspan for expandable row with one cell', () => {

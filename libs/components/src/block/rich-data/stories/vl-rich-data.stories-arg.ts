@@ -31,7 +31,7 @@ export const richDataArgTypes: ArgTypes<typeof richDataArgs> = {
     },
     filterMaxWidth: {
         name: 'filter-max-width',
-        description: 'Maximum breedte (CSS value) die de filter kan innemen in een full-width layout, op grote resolutie.',
+        description: 'Maximum breedte (CSS value, bv. "300px") die de filter kan innemen in een full-width layout, op grote resolutie.',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,

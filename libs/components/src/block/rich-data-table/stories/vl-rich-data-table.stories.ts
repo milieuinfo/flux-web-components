@@ -4,20 +4,20 @@ import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
-import '../vl-rich-data-table.component';
-import { VlRichDataTable } from '../vl-rich-data-table.component';
-import { VlSearchFilterComponent } from '../../search-filter';
 import { VlButtonComponent } from '../../../atom/button';
 import { VlTitleComponent } from '../../../atom/title';
+import { VlFormLabelComponent } from '../../../form/form-label';
+import { VlInputFieldComponent } from '../../../form/input-field';
+import { VlSelectComponent } from '../../../form/select';
+import { VlSearchFilterComponent } from '../../search-filter';
+import '../vl-rich-data-table.component';
+import { VlRichDataTable } from '../vl-rich-data-table.component';
 import { filterRichTableImplementation } from './vl-rich-data-table-filter.stories-util';
 import richDataFilterPagerData from './vl-rich-data-table-pagination.stories-mock';
 import { paginationRichTableImplementation } from './vl-rich-data-table-pagination.stories-util';
 import { sortingRichTableImplementation } from './vl-rich-data-table-sorting.stories-util';
 import { richDataTableArgs, richDataTableArgTypes } from './vl-rich-data-table.stories-arg';
 import richDataTableDoc from './vl-rich-data-table.stories-doc.mdx';
-import { VlFormLabelComponent } from '../../../form/form-label';
-import { VlInputFieldComponent } from '../../../form/input-field';
-import { VlSelectComponent } from '../../../form/select';
 
 registerWebComponents([
     VlRichDataTable,
@@ -43,7 +43,7 @@ export default {
     },
 } as Meta<typeof richDataTableArgs>;
 
-const TemplateBase = story(richDataTableArgs, ({ collapsedM, collapsedS, collapsedXS }) => {
+const TemplateBase = story(richDataTableArgs, ({ collapsedM, collapsedS, collapsedXS, zebra, fluxZebra }) => {
     const data =
         '{"data": [{ "id" : 0, "name" : "Project #1" , "owner" : "Jan Jansens" }, { "id" : 1, "name" : "Project #2" , "owner" : "Marie Vermeersch" }]}';
 
@@ -53,6 +53,8 @@ const TemplateBase = story(richDataTableArgs, ({ collapsedM, collapsedS, collaps
             ?collapsed-m=${collapsedM}
             ?collapsed-s=${collapsedS}
             ?collapsed-xs=${collapsedXS}
+            ?zebra=${zebra}
+            ?flux-zebra=${fluxZebra}
         >
             <vl-rich-data-field name="id" label="ID" selector="id"></vl-rich-data-field>
             <vl-rich-data-field name="name" label="Naam" selector="name"></vl-rich-data-field>
@@ -73,7 +75,7 @@ RichDataTableDefault.args = {
     collapsedXS: false,
 };
 
-const TemplateSorting = story(richDataTableArgs, ({ collapsedM, collapsedS, collapsedXS }) => {
+const TemplateSorting = story(richDataTableArgs, ({ collapsedM, collapsedS, collapsedXS, zebra, fluxZebra }) => {
     const data =
         '{"data": [{ "id" : 0, "name" : "Water" , "owner" : "Kevin Jansens" }, { "id" : 1, "name" : "Vuur" , "owner" : "Anton Vanherrewege" }, { "id" : 2, "name" : "Aarde" , "owner" : "Hedwig Jansens" }]}';
     sortingRichTableImplementation();
@@ -84,6 +86,8 @@ const TemplateSorting = story(richDataTableArgs, ({ collapsedM, collapsedS, coll
             ?collapsed-m=${collapsedM}
             ?collapsed-s=${collapsedS}
             ?collapsed-xs=${collapsedXS}
+            ?zebra=${zebra}
+            ?flux-zebra=${fluxZebra}
         >
             <vl-rich-data-field
                 name="id"
@@ -111,7 +115,7 @@ RichDataTableSorting.args = {
 
 const TemplateFilter = story(
     richDataTableArgs,
-    ({ collapsedM, collapsedS, collapsedXS, filterClosable, filterClosed, filterMaxWidth }) => {
+    ({ collapsedM, collapsedS, collapsedXS, filterClosable, filterClosed, filterMaxWidth, zebra, fluxZebra }) => {
         filterRichTableImplementation();
         return html`
             <vl-rich-data-table
@@ -122,6 +126,8 @@ const TemplateFilter = story(
                 ?filter-closable=${filterClosable}
                 ?filter-closed=${filterClosed}
                 filter-max-width=${filterMaxWidth}
+                ?zebra=${zebra}
+                ?flux-zebra=${fluxZebra}
             >
                 <vl-rich-data-field label="ID" selector="id"></vl-rich-data-field>
                 <vl-rich-data-field label="Naam Project" selector="name"></vl-rich-data-field>
@@ -173,7 +179,7 @@ const TemplateFilter = story(
                         </section>
                         <footer>
                             <vl-button type="submit" custom-css="button {flex:1}">Zoeken</vl-button>
-                            <vl-button type="reset" custom-css="button {flex:1}" secondary>Reset</vl-button-->
+                            <vl-button type="reset" custom-css="button {flex:1}" secondary>Reset</vl-button>
                         </footer>
                     </form>
                 </vl-search-filter>
@@ -197,7 +203,7 @@ RichDataTableFilter.args = {
 
 const TemplateFilterPaging = story(
     richDataTableArgs,
-    ({ collapsedM, collapsedS, collapsedXS, filterClosable, filterClosed, filterMaxWidth }) => {
+    ({ collapsedM, collapsedS, collapsedXS, filterClosable, filterClosed, filterMaxWidth, zebra, fluxZebra }) => {
         paginationRichTableImplementation();
         return html`
             <vl-rich-data-table
@@ -208,6 +214,8 @@ const TemplateFilterPaging = story(
                 ?filter-closable=${filterClosable}
                 ?filter-closed=${filterClosed}
                 filter-max-width=${filterMaxWidth}
+                ?zebra=${zebra}
+                ?flux-zebra=${fluxZebra}
             >
                 <vl-rich-data-field label="ID" selector="id"></vl-rich-data-field>
                 <vl-rich-data-field label="Naam Project" selector="name"></vl-rich-data-field>
@@ -262,7 +270,7 @@ const TemplateFilterPaging = story(
                         </section>
                         <footer>
                             <vl-button type="submit" custom-css="button {flex:1}">Zoeken</vl-button>
-                            <vl-button type="reset" custom-css="button {flex:1}" secondary>Reset</vl-button-->
+                            <vl-button type="reset" custom-css="button {flex:1}" secondary>Reset</vl-button>
                         </footer>
                     </form>
                 </vl-search-filter>

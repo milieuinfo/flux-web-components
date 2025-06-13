@@ -102,5 +102,5 @@ export const RichDataFilterMaxWidth = story(richDataArgs, (pagerArgs: typeof ric
 });
 RichDataFilterMaxWidth.storyName = 'vl-rich-data - filter-max-width';
 RichDataFilterMaxWidth.args = {
-    filterMaxWidth: '1000px',
+    filterMaxWidth: 'calc(1280px / 3)',
 };

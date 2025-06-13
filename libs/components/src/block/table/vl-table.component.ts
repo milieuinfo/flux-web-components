@@ -85,6 +85,8 @@ export class VlTableComponent extends LitElement {
                 this.table!.classList.remove(className);
             }
         });
+
+        this.processEvenOdd();
     }
 
     collapseDetails(id: string) {
@@ -170,18 +172,14 @@ export class VlTableComponent extends LitElement {
 
     private processRowElements(): void {
         const rows = this.bodyRowElements;
-        let dataRowIndex = 0;
 
         rows.forEach((row, i) => {
-            const isDataRow = (rowValue: HTMLTableRowElement) => !rowValue.hasAttribute('data-details-id');
-            if (isDataRow(row)) {
-                dataRowIndex++;
-            } else {
+            if (!this.isDataRow(row)) {
                 const id = row.getAttribute('data-details-id');
                 row.style.display = 'none';
 
                 const dataRow = rows[i - 1];
-                if (dataRow.querySelectorAll('td[data-with-expand-details]').length === 0 && id && isDataRow(dataRow)) {
+                if (dataRow.querySelectorAll('td[data-with-expand-details]').length === 0 && id && this.isDataRow(dataRow)) {
                     const cell = document.createElement('td');
                     const vlButton = this.expandCollapseTemplate(id);
                     cell.appendChild(vlButton);
@@ -202,14 +200,29 @@ export class VlTableComponent extends LitElement {
                     if (detailsCell) detailsCell.colSpan = dataCellCount;
                 }
             }
+        });
+    }
+
+    private processEvenOdd(): void {
+        const rows = this.bodyRowElements;
+        let dataRowIndex = 0;
+
+        rows.forEach((row) => {
+            if (this.isDataRow(row)) {
+                dataRowIndex++;
+            }
 
             row.classList.add(dataRowIndex % 2 === 0 ? 'even' : 'odd');
         });
-    }
+    }    
 
     private observeHeaderElements(callback: MutationCallback): MutationObserver {
         const observer = new MutationObserver(callback);
         observer.observe(this, { childList: true });
         return observer;
+    }
+
+    private isDataRow(rowValue: HTMLTableRowElement) { 
+        return !rowValue.hasAttribute('data-details-id'); 
     }
 }
