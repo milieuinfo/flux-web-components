@@ -7,6 +7,8 @@ export const richDataTableArgs = {
     collapsedM: false,
     collapsedS: false,
     collapsedXS: false,
+    zebra: false,
+    fluxZebra: false,
 };
 
 export const richDataTableArgTypes: ArgTypes<typeof richDataTableArgs> = {
@@ -36,6 +38,28 @@ export const richDataTableArgTypes: ArgTypes<typeof richDataTableArgs> = {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
             defaultValue: { summary: richDataTableArgs.collapsedXS },
+        },
+    },
+    zebra: {
+        name: 'zebra',
+        description:
+            'Variant waarin de rijen afwisselend een andere achtergrondkleur krijgen. Dit maakt de tabel makkelijker ' +
+            'leesbaar. Deze zebra werkt niet voor tabellen met detail rijen, gebruik hiervoor flux-zebra.',
+        table: {
+            category: CATEGORIES.ATTRIBUTES,
+            type: { summary: TYPES.BOOLEAN },
+            defaultValue: { summary: richDataTableArgs.zebra },
+        },
+    },
+    fluxZebra: {
+        name: 'flux-zebra',
+        description:
+            'Variant waarin de rijen afwisselend een andere achtergrondkleur krijgen. Dit maakt de tabel makkelijker' +
+            ' leesbaar. Deze zebra werkt voor tabellen met en zonder detail rijen.',
+        table: {
+            category: CATEGORIES.ATTRIBUTES,
+            type: { summary: TYPES.BOOLEAN },
+            defaultValue: { summary: richDataTableArgs.fluxZebra },
         },
     },
 };

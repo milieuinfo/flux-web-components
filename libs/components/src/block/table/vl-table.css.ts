@@ -1,10 +1,11 @@
-import { vlMediaScreenExtraSmall, vlMediaScreenSmall, vlMediaScreenMedium } from '@domg-wc/styles';
+import { vlMediaScreenExtraSmall, vlMediaScreenMedium, vlMediaScreenSmall } from '@domg-wc/styles';
 import { css } from 'lit';
 
 export const tableStyles = css`
     .vl-table {
         width: 100%;
         max-width: 100%;
+        border-collapse: collapse;
 
         caption {
             color: #687483;

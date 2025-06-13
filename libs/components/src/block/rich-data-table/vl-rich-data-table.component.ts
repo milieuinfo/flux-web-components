@@ -41,11 +41,11 @@ export class VlRichDataTable extends VlRichData {
     }
 
     static get _observedAttributes() {
-        return super._observedAttributes.concat(['data', 'collapsed-m', 'collapsed-s', 'collapsed-xs']);
+        return super._observedAttributes.concat(['data', 'collapsed-m', 'collapsed-s', 'collapsed-xs', 'zebra', 'flux-zebra']);
     }
 
     static get _tableAttributes(): string[] {
-        return ['collapsed-m', 'collapsed-s', 'collapsed-xs'];
+        return ['collapsed-m', 'collapsed-s', 'collapsed-xs', 'zebra', 'flux-zebra'];
     }
 
     static get is(): string {
