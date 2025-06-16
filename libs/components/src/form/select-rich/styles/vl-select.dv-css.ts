@@ -367,6 +367,8 @@ const style = css`
         cursor: default;
         display: flex;
         align-items: center;
+        min-height: calc(3.5rem - 1.2rem);
+        height: calc(3.5rem - 1.2rem);
     }
 
     .js-vl-select .vl-select__item--disabled {
