@@ -1,9 +1,8 @@
 {
     "branches": [
-        "release",
-        { name: "bugfix", prerelease: "fix" },
-        { name: "develop", prerelease: true },
-        { name: "develop-*", prerelease: true }
+        "release-v2",
+        { name: "develop-v2", prerelease: true },
+        { name: "develop-v2-*", prerelease: true }
     ],
     "plugins": [
         [

@@ -10,7 +10,7 @@ echo ' ------------------------------ '
 echo
 
 echo 'RUNNING SCRIPT: unit-component-integrator-tests-docker.sh'
-export BUILD_SCRIPT=uigov-web-components/resources/ci-bamboo/bash/unit-component-integrator-tests.sh
+export BUILD_SCRIPT=flux-web-components/resources/ci-bamboo/bash/unit-component-integrator-tests.sh
 cd resources/ci-bamboo
 docker compose run --quiet-pull build
 

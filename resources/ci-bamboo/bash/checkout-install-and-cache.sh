@@ -4,7 +4,7 @@
 set -e
 
 echo 'RUNNING SCRIPT: checkout-install-and-cache.sh'
-cd uigov-web-components
+cd flux-web-components
 
 echo "npm ci"
 set +e

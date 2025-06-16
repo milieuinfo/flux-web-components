@@ -17,8 +17,8 @@ de [Vlaamse Overheid](https://www.vlaanderen.be/).
 ## Documentatie
 
 Het project wordt gedocumenteerd m.b.v. Storybook, er zijn 2 major versies beschikbaar:
- - de meest recente v2 documentatie vind je via [Storybook v2](https://milieuinfo.github.io/uigov-builds/release-v2/latest/storybook)
- - de meest recente v1 documentatie vind je via [Storybook v1](https://milieuinfo.github.io/uigov-builds/release/latest/storybook)
+ - de meest recente v2 documentatie vind je via [Storybook v2](https://milieuinfo.github.io/flux-builds/release-v2/latest/storybook)
+ - de meest recente v1 documentatie vind je via [Storybook v1](https://milieuinfo.github.io/flux-builds/release-v1/latest/storybook)
 
 <hr></hr>
 

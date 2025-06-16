@@ -1,6 +1,6 @@
 {
     "$schema": "https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json",
-    "name": "uigov-web-components",
+    "name": "flux-web-components",
     "version": "DOMG-WC-VERSION",
     "js-types-syntax": "typescript",
     "description-markup": "markdown",
@@ -10,7 +10,7 @@
                 {
                     "name": "vl-accordion",
                     "description": "Gebruik de `accordion` component om informatie te tonen of te verbergen aan de hand van een toggle.\nVoor meer informatie over het afbeelden van meerdere accordions zie de\n[accordion-list](/docs/components-accordion-list--documentatie) component.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-accordion--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-accordion--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -93,7 +93,7 @@
                 {
                     "name": "vl-alert",
                     "description": "Gebruik de `alert` component om de gebruiker op de hoogte te houden van belangrijke informatie.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-alert--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-alert--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -166,7 +166,7 @@
                 {
                     "name": "vl-autocomplete",
                     "description": "Gebruik de `autocomplete` component om een lijst met suggesties weer te geven, gefilterd op de ingevoerde tekst. De\nlijst kan een statische lijst zijn (`static-list`) of kan worden opgehaald uit een api (dataFetcher).",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-autocomplete--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-autocomplete--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -254,11 +254,11 @@
                 {
                     "name": "vl-breadcrumb",
                     "description": "Gebruik de `breadcrumb` component om de locatie van de huidige pagina af te beelden binnen een navigeerbare hiërarchie.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-breadcrumb--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-breadcrumb--documentatie"
                 },
                 {
                     "name": "vl-breadcrumb-item",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-breadcrumb--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-breadcrumb--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -274,12 +274,12 @@
                 },
                 {
                     "name": "vl-contact-card",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-contact-card--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-contact-card--documentatie"
                 },
                 {
                     "name": "vl-content-header",
                     "description": "Gebruik de `content-header` component bovenaan informerende pagina's. Hij biedt gebruikers alle informatie over de\nwebsite die ze bezoeken.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-content-header--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-content-header--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -306,7 +306,7 @@
                 },
                 {
                     "name": "vl-description-data",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-description-data-description-data--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-description-data-description-data--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -342,7 +342,7 @@
                 },
                 {
                     "name": "vl-description-data-item",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-description-data-description-data-item--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-description-data-description-data-item--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -376,7 +376,7 @@
                 {
                     "name": "vl-document",
                     "description": "Gebruik de `document` component om een link naar een bestand toe te voegen dat de gebruiker in de browser kan bekijken\nof downloaden.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-document--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-document--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -412,7 +412,7 @@
                 {
                     "name": "vl-functional-header",
                     "description": "Gebruik de `functional-header` component om bovenaan de pagina generieke informatie te tonen zoals bijvoorbeeld\neen titel en acties.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-functional-header--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-functional-header--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -517,7 +517,7 @@
                 {
                     "name": "vl-http-error-message",
                     "description": "Gebruik de `http-error-message` component om een error boodschap aan de gebruiker te tonen.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-http-error-message--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-http-error-message--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -561,7 +561,7 @@
                 {
                     "name": "vl-info-tile",
                     "description": "Gebruik de `info-tile` component in informatieve en interactieve dashboards.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-info-tile--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-info-tile--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -614,7 +614,7 @@
                 },
                 {
                     "name": "vl-infoblock",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-infoblock--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-infoblock--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -626,7 +626,7 @@
                 {
                     "name": "vl-input-slider",
                     "description": "Gebruik de `input-slider` om een waarde te selecteren tussen een minimum en maximum waarde.\n**Let op**: deze component is niet dezelfde als de `vl-ui-range` component van Digitaal Vlaanderen.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-input-slider--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-input-slider--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -661,7 +661,7 @@
                 },
                 {
                     "name": "vl-loader",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-loader--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-loader--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -687,7 +687,7 @@
                 },
                 {
                     "name": "vl-modal",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-modal--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-modal--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -739,7 +739,7 @@
                 {
                     "name": "vl-cascader",
                     "description": "Gebruik de `cascader` component om hiërarchische data weer te geven als een drilldown van lijsten.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-cascader-cascader--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-cascader-cascader--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -819,7 +819,7 @@
                 },
                 {
                     "name": "vl-cascader-item",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-cascader-cascader-item--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-cascader-cascader-item--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -853,7 +853,7 @@
                 {
                     "name": "vl-table",
                     "description": "Gebruik de `table` component om op een gestructureerde manier (grote hoeveelheden) relationele data te tonen.\n\n<FluxAlert type=\"info\">\n{`\n    In de v2 versie van deze component gebruik je hem via de custom-tag, de interne implementatie is voor de rest\n    gelijk gebleven aan deze van de v1 versie. In de toekomst zal deze component grondig herwerkt worden; in de\n    context van een herwerking van de vl-table.\n`}\n</FluxAlert>",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-table--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-table--documentatie",
                     "attributes": [
                         {
                             "name": "hover",
@@ -900,7 +900,7 @@
                 {
                     "name": "vl-doormat",
                     "description": "Gebruik de `doormat` component om een snel en duidelijk overzicht weer te geven van de informatie op je website.<br/>\nElke doormat krijgt zijn eigen titel, tekst, optionele afbeelding en linkt naar een pagina binnen je website.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-doormat--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-doormat--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -964,7 +964,7 @@
                 {
                     "name": "vl-infotext",
                     "description": "Gebruik de `infotext` component om belangrijke nummers duidelijk weer te gevem.<br/>",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-infotext--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-infotext--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1003,7 +1003,7 @@
                 {
                     "name": "vl-properties",
                     "description": "Gebruik de `properties` component om properties te tonen op een pagina. Je kan de properties specifiëren als\ninner-html of als json-structuur meegeven aan het `props` attribuut.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-properties--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-properties--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1030,7 +1030,7 @@
                 {
                     "name": "vl-search-result",
                     "description": "Gebruik de `search-result` component om een zoekresultaat weer te geven.<br/>\n\nVolgende sub-componenten zijn beschikbaar om het zoekresultaat op te bouwen:\n\n- VlSearchResultProperties `[vl-search-result-properties]`\n- VlSearchResultText `[vl-search-result-text]`\n- VlSearchResultTitle `[vl-search-result-title]`",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search-result--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search-result--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1048,69 +1048,69 @@
                 },
                 {
                     "name": "vl-search-result-title",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search-result--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search-result--documentatie"
                 },
                 {
                     "name": "vl-search-result-text",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search-result--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search-result--documentatie"
                 },
                 {
                     "name": "vl-search-result-properties",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search-result--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search-result--documentatie"
                 },
                 {
                     "name": "vl-side-navigation",
                     "description": "<br/>\n\n<FluxAlert type=\"info\">\n{`\n    De v2 versie van deze component gebruik je via custom-tags, de interne implementatie is gelijk gebleven aan\n    de v1 versie. In v3 zal deze component grondig herwerkt worden.\n`}\n</FluxAlert>\n\n<br/>\n\nGebruik de `side-navigation` component om een compact navigatie-element aan een pagina toe te voegen. Het vat de\ninhoud van lange pagina's samen, leidt de gebruiker door de pagina inhoud en kan ook naar externe pagina's verwijzen.\n\nDe `vl-side-navigation` wordt opgebouwd uit volgende sub-componenten:\n\n- VlSideNavigation `[vl-side-navigation]`\n- VlSideNavigationTitle<br/>\n    `[vl-side-navigation-h1 / vl-side-navigation-h2 / vl-side-navigation-h3 /`\n    `vl-side-navigation-h4 / vl-side-navigation-h5 / vl-side-navigation-h6]`\n- VlSideNavigationContent `[vl-side-navigation-content]`\n- VlSideNavigationGroup `[vl-side-navigation-group]`\n- VlSideNavigationItem `[vl-side-navigation-item]`\n- VlSideNavigationToggle `[vl-side-navigation-toggle]`\n- VlSideNavigationReference `[vl-side-navigation-reference]`\n\n```js\nimport { VlSideNavigation } from '@domg-wc/components/block';\n```\n\n```html\n<vl-side-navigation></vl-side-navigation>\n```\n\n<Canvas of={VlSideNavigationStories.SideNavigationDefault}/>",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-content",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-group",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-item",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-reference",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-h1",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-h2",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-h3",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-h4",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-h5",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-h6",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-toggle",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-search-filter",
                     "description": "<br/>\n\n<FluxAlert type=\"info\">\n{`\n    In de v2 versie van deze component gebruik je hem via de custom-tag, de interne implementatie is voor de rest\n    gelijk gebleven aan deze van de v1 versie. In de toekomst zal deze component grondig herwerkt worden; in de context\n    van een herwerking van de vl-table.\n`}\n</FluxAlert>\n\nGebruik de `search-filter` component om een zoek filter te tonen op een pagina.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search-filter--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search-filter--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1142,7 +1142,7 @@
                 {
                     "name": "vl-steps",
                     "description": "Gebruik de `steps` component om een verticale lijst van stappen af te beelden om de gebruiker door een procedure te begeleiden.<br/>\n\nDeze component is de nieuwe versie van de [vl-steps](/docs/components-steps--documentatie) component, we raden aan deze versie te gebruiken.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-steps-steps--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-steps-steps--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1173,7 +1173,7 @@
                 },
                 {
                     "name": "vl-step",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-steps-step--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-steps-step--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1194,11 +1194,11 @@
                 },
                 {
                     "name": "vl-duration-step",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-steps-steps--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-steps-steps--documentatie"
                 },
                 {
                     "name": "vl-pager",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-pager--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-pager--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1247,7 +1247,7 @@
                 },
                 {
                     "name": "vl-pill",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-pill-pill--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-pill-pill--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1307,7 +1307,7 @@
                 },
                 {
                     "name": "vl-button-pill",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-pill-button-pill--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-pill-button-pill--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1324,7 +1324,7 @@
                 {
                     "name": "vl-popover",
                     "description": "Een `popover` is een nieuw, meestal kleiner venster / popup dat boven de andere inhoud op het scherm verschijnt.\nGebruik een popover om aanvullende informatie aan de gebruiker te geven of om gebruikersinteractie te vragen.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-popover--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-popover--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1381,16 +1381,16 @@
                 },
                 {
                     "name": "vl-popover-action",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-popover--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-popover--documentatie"
                 },
                 {
                     "name": "vl-popover-action-list",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-popover--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-popover--documentatie"
                 },
                 {
                     "name": "vl-progress-indicator",
                     "description": "Gebruik een `progress-indicator` om de vooruitgang te tonen van een proces dat uit verschillende stappen bestaat.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-progress-indicator--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-progress-indicator--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1438,7 +1438,7 @@
                 {
                     "name": "vl-proza-message",
                     "description": "Gebruik de `proza-message` component om een Proza bericht af te beelden dat achterliggend beheerd kan worden door de\nbusiness.<br/>\nVoor het ophalen van alle Proza berichten voor een domein zie de\n[proza-message-preloader](/docs/components-proza-message-preloader--proza-message-preloader-default) component.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-proza-message--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-proza-message--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1475,7 +1475,7 @@
                 {
                     "name": "vl-proza-message-preloader",
                     "description": "Gebruik de `proza-message-preloader` component om alle Proza berichten van een domein in 1 keer op te halen en in\ncache te stoppen.<br/>\nDe [proza-message](/docs/components-proza-message--proza-message-default) component gaat eerst kijken of het bericht in\nde cache zit vooraleer een request naar buiten te sturen.<br/>\nDeze component voeg je 1 keer toe in je applicatie per domein, bij voorkeur op het hoogste niveau.\n\n```js\nimport { VlProzaMessagePreloader } from '@domg-wc/components/block';\n```\n\n```html\n<vl-proza-message-preloader></vl-proza-message-preloader>\n```\n\n<Canvas of={VlProzaMessagePreloaderStories.ProzaMessagePreloaderDefault} />",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-proza-message-preloader--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-proza-message-preloader--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1496,7 +1496,7 @@
                 },
                 {
                     "name": "vl-rich-data",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-rich-data--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-rich-data--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1518,7 +1518,7 @@
                 {
                     "name": "vl-rich-data-table",
                     "description": "Een tabel op basis van een dynamische lijst van data die uitgebreid kan worden met functionaliteiten om het consumeren\nvan data door de gebruiker te verbeteren.\n\nDe code voorbeelden bij elke story is dezelfde code die gebruikt wordt om de stories te laten werken.\n- combineert de functionaliteiten van het [rich-data](?path=/docs/components-rich-data--rich-data-default)-component en [data-table](?path=/docs/elements-data-table--data-table-default)-component.\n- om de velden te configureren kan je gebruik maken van `rich-data-field`",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-rich-data-table--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-rich-data-table--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1554,19 +1554,19 @@
                 },
                 {
                     "name": "vl-rich-data-field",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-rich-data-table--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-rich-data-table--documentatie"
                 },
                 {
                     "name": "vl-rich-data-sorter",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-rich-data-table--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-rich-data-table--documentatie"
                 },
                 {
                     "name": "vl-search",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search--documentatie"
                 },
                 {
                     "name": "vl-share-button",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-share-buttons-button--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-share-buttons-button--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1577,7 +1577,7 @@
                 },
                 {
                     "name": "vl-share-buttons",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-share-buttons-buttons--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-share-buttons-buttons--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1594,7 +1594,7 @@
                 {
                     "name": "vl-side-sheet",
                     "description": "De `side-sheet`-component heeft containers die aan de linker- of rechterrand van het scherm zijn verankerd. Deze kunnen\ngeopend of gesloten worden aan de hand van een knop.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-sheet--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-sheet--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1605,7 +1605,7 @@
                 },
                 {
                     "name": "vl-spotlight",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-spotlight--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-spotlight--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1664,7 +1664,7 @@
                 {
                     "name": "vl-tabs",
                     "description": "Gebruik de `tabs` component om gerelateerde informatie op te splitsen in kleinere stukken content.\nOp mobiel wordt de tab navigatie omgevormd tot een uitklapbaar menu.\n\n<FluxAlert type=\"info\">\n{`\n    De v2 versie van deze component gebruik je via de custom-tag, de interne implementatie is voor de rest\n    gelijk gebleven aan de v1 versie. In de toekomst zal deze component grondig herwerkt worden.\n`}\n</FluxAlert>",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1714,7 +1714,7 @@
                 },
                 {
                     "name": "vl-tabs-pane",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1738,15 +1738,15 @@
                 },
                 {
                     "name": "vl-tab",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs--documentatie"
                 },
                 {
                     "name": "vl-tab-section",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs--documentatie"
                 },
                 {
                     "name": "vl-template",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-template--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-template--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1758,7 +1758,7 @@
                 {
                     "name": "vl-toaster",
                     "description": "Gebruik de `toaster` component om een toaster af te beelden.<br/>\n\nDeze component is de nieuwe versie van het [vl-toaster](/docs/elements-toaster-h1--documentatie) element.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-toaster--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-toaster--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1784,7 +1784,7 @@
                 },
                 {
                     "name": "vl-typography",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-typography--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-typography--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1796,7 +1796,7 @@
                 {
                     "name": "vl-video-player",
                     "description": "Gebruik de `video-player` component om een video-player af te beelden.<br/>\n\nDeze component is de nieuwe versie van het [vl-video-player](/docs/elements-video-player--documentatie) element, we raden aan om op termijn deze versie te gebruiken.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-video-player--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-video-player--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1828,7 +1828,7 @@
                 {
                     "name": "vl-wizard",
                     "description": "Gebruik een `wizard` om een gebruiker door een meerstapsproces te begeleiden. Een wizard maakt het mogelijk om een\ningewikkeld proces op te delen in overzichtelijke, kleine stappen. Een wizard biedt ook de mogelijkheid opties in een\nbepaalde stap aan te passen op basis van keuzes die de gebruiker in een voorgaande stap heeft gemaakt.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-wizard-wizard--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-wizard-wizard--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1873,7 +1873,7 @@
                 {
                     "name": "vl-wizard-pane",
                     "description": "Gebruik de `wizard-pane` component om een stap in de wizard af te beelden.\nTe gebruiken in combinatie met de [wizard](/docs/components-wizard-wizard--documentatie) component",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-block-wizard-wizard-pane--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-wizard-wizard-pane--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
