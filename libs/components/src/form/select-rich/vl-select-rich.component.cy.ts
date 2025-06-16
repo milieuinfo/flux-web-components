@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
+import { parseFormData } from '../utils';
 import { VlSelectRichComponent } from './vl-select-rich.component';
 import { SelectRichOption } from './index';
 
@@ -141,7 +142,13 @@ describe('component - vl-select-rich - single', () => {
 
     it('should set result limit', () => {
         cy.mount(
-            html`<vl-select-rich label="geboorteplaats" result-limit="1" search .options=${options}></vl-select-rich>`
+            html`<vl-select-rich
+                label="geboorteplaats"
+                placeholder="kies geboorteplaats"
+                result-limit="1"
+                search
+                .options=${options}
+            ></vl-select-rich>`
         );
         cy.injectAxe();
 
@@ -172,7 +179,7 @@ describe('component - vl-select-rich - single', () => {
             .find('.vl-select__item.has-no-results')
             .contains('Geen geboorteplaatsen gevonden');
 
-        // het is niet accessible als de dropdown open is
+        // TODO: het is niet accessible als de dropdown open is
         // cy.checkA11y('vl-select-rich');
     });
 
@@ -194,7 +201,7 @@ describe('component - vl-select-rich - single', () => {
             .find('.vl-select__item.has-no-choices')
             .contains('Geen resterende geboorteplaatsen gevonden');
 
-        // het is niet accessible als de dropdown open is
+        // TODO: het is niet accessible als de dropdown open is
         // cy.checkA11y('vl-select-rich');
     });
 
@@ -216,7 +223,14 @@ describe('component - vl-select-rich - single', () => {
     });
 
     it('should search', () => {
-        cy.mount(html`<vl-select-rich label="geboorteplaats" search .options=${options}></vl-select-rich>`);
+        cy.mount(
+            html`<vl-select-rich
+                label="geboorteplaats"
+                placeholder="kies je geboorteplaats"
+                search
+                .options=${options}
+            ></vl-select-rich>`
+        );
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
@@ -260,8 +274,8 @@ describe('component - vl-select-rich - single', () => {
             .find('.vl-select__item')
             .contains('Turnhout')
             .click();
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Hasselt').should('not.exist');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Turnhout');
+        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Hasselt').should('be.disabled');
+        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Turnhout').should('not.be.disabled');
         cy.checkA11y('vl-select-rich');
     });
 
@@ -299,21 +313,21 @@ describe('component - vl-select-rich - single', () => {
         cy.get('vl-select-rich').shadow().find('.vl-select__list').find('.vl-select__item').contains('Lier');
         cy.get('vl-select-rich').shadow().find('.vl-select__list').find('.vl-select__item').contains('Rio Piedras');
 
-        // het is niet accessible als de dropdown open is
+        // TODO: het is niet accessible als de dropdown open is
         // cy.checkA11y('vl-select-rich');
     });
 
     it('should dispatch vl-change event on select and delete option', () => {
         cy.mount(html`<vl-select-rich label="geboorteplaats" .options=${options}></vl-select-rich>`);
-        cy.injectAxe();
 
         cy.createStubForEvent('vl-select-rich', 'vl-change');
+        cy.injectAxe();
         cy.checkA11y('vl-select-rich');
         cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
         cy.get('vl-select-rich').shadow().find('.vl-select__list').find('.vl-select__item').contains('Hasselt').click();
         cy.get('@vl-change')
-            .should('have.been.calledOnce')
-            .its('firstCall.args.0.detail')
+            .should('have.been.calledTwice')
+            .its('secondCall.args.0.detail')
             .should('deep.equal', { value: 'hasselt' });
         cy.get('vl-select-rich')
             .shadow()
@@ -322,19 +336,18 @@ describe('component - vl-select-rich - single', () => {
             .find('.vl-pill__close')
             .click();
         cy.get('@vl-change')
-            .should('have.been.calledTwice')
-            .its('secondCall.args.0.detail')
+            .should('have.been.calledThrice')
+            .its('thirdCall.args.0.detail')
             .should('deep.equal', { value: null });
         cy.checkA11y('vl-select-rich');
     });
 
-    it('should dispatch vl-select on select and delete option', () => {
+    it('should dispatch vl-input on select and delete option', () => {
         cy.mount(html`<vl-select-rich label="geboorteplaats" .options=${options}></vl-select-rich>`);
         cy.injectAxe();
-        cy.createStubForEvent('vl-select-rich', 'vl-input');
-
         cy.checkA11y('vl-select-rich');
-        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.createStubForEvent('vl-select-rich', 'vl-input');
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click({ force: true });
         cy.get('vl-select-rich').shadow().find('.vl-select__list').find('.vl-select__item').contains('Hasselt').click();
         cy.get('@vl-input')
             .should('have.been.calledOnce')
@@ -353,35 +366,32 @@ describe('component - vl-select-rich - single', () => {
         cy.checkA11y('vl-select-rich');
     });
 
-    it('should dispatch vl-change, but not vl-select when programmatically selecting and deleting option', () => {
+    it('should dispatch vl-change, but not vl-input when programmatically selecting and deleting option', () => {
         cy.mount(html`<vl-select-rich label="geboorteplaats" .options=${options}></vl-select-rich>`);
-        cy.injectAxe();
         cy.createStubForEvent('vl-select-rich', 'vl-change');
         cy.createStubForEvent('vl-select-rich', 'vl-input');
-
+        cy.injectAxe();
         cy.checkA11y('vl-select-rich');
         cy.get('vl-select-rich').then((el) => {
             const select = el[0] as VlSelectRichComponent;
-            const filteredOptions = select.options.filter((option) => option.value !== 'hasselt');
-            select.options = [...filteredOptions, { label: 'Hasselt', value: 'hasselt', selected: true }];
+            select.selectByValue('hasselt');
         });
 
         cy.get('@vl-change')
-            .should('have.been.calledOnce')
-            .its('firstCall.args.0.detail')
+            .should('have.been.calledTwice')
+            .its('secondCall.args.0.detail')
             .should('deep.equal', { value: 'hasselt' });
 
         cy.get('@vl-input').should('to.not.have.been.called.at.all');
 
         cy.get('vl-select-rich').then((el) => {
             const select = el[0] as VlSelectRichComponent;
-            const filteredOptions = select.options.filter((option) => option.value !== 'hasselt');
-            select.options = [...filteredOptions, { label: 'Hasselt', value: 'hasselt' }];
+            select.removeSelectionByValue('hasselt');
         });
 
         cy.get('@vl-change')
-            .should('have.been.calledTwice')
-            .its('secondCall.args.0.detail')
+            .should('have.been.calledThrice')
+            .its('thirdCall.args.0.detail')
             .should('deep.equal', { value: null });
         cy.checkA11y('vl-select-rich');
 
@@ -389,7 +399,14 @@ describe('component - vl-select-rich - single', () => {
     });
 
     it('should dispatch vl-select-search event on input search value', () => {
-        cy.mount(html`<vl-select-rich label="geboorteplaats" search .options=${options}></vl-select-rich>`);
+        cy.mount(
+            html`<vl-select-rich
+                label="geboorteplaats"
+                placeholder="zoek geboorteplaats"
+                search
+                .options=${options}
+            ></vl-select-rich>`
+        );
         cy.injectAxe();
         cy.createStubForEvent('vl-select-rich', 'vl-select-search');
 
@@ -410,9 +427,10 @@ describe('component - vl-select-rich - single', () => {
 
     it('should dispatch vl-valid event on valid selection', () => {
         cy.mount(html`<vl-select-rich label="geboorteplaats" .options=${options} required></vl-select-rich>`);
-        cy.injectAxe();
-
         cy.createStubForEvent('vl-select-rich', 'vl-valid');
+        cy.createStubForEvent('vl-select-rich', 'vl-change');
+        cy.createStubForEvent('vl-select-rich', 'vl-input');
+        cy.injectAxe();
         cy.checkA11y('vl-select-rich');
         cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
         cy.get('vl-select-rich').shadow().find('.vl-select__list').find('.vl-select__item').contains('Hasselt').click();
@@ -427,6 +445,8 @@ describe('component - vl-select-rich - single', () => {
             .find('.vl-pill__close')
             .click();
         cy.get('@vl-valid').should('have.been.calledOnce');
+        cy.get('@vl-input').should('have.been.calledTwice');
+        cy.get('@vl-change').should('have.been.calledThrice');
         cy.checkA11y('vl-select-rich');
     });
 
@@ -437,12 +457,42 @@ describe('component - vl-select-rich - single', () => {
         cy.checkA11y('vl-select-rich');
         cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
         cy.get('vl-select-rich').shadow().find('.vl-select__list').find('.vl-select__item').contains('Hasselt').click();
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Hasselt');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Turnhout').should('not.exist');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Knokke-Heist').should('not.exist');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Waregem').should('not.exist');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Lier').should('not.exist');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Rio Piedras').should('not.exist');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Hasselt')
+            .should('have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Turnhout')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Knokke-Heist')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Waregem')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Lier')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Rio Piedras')
+            .should('not.have.attr', 'selected');
         cy.checkA11y('vl-select-rich');
     });
 
@@ -460,11 +510,11 @@ describe('component - vl-select-rich - single', () => {
             .find('.vl-select__item')
             .find('.vl-pill__close')
             .click();
-        cy.get('vl-select-rich').shadow().find('select').find('option').should('not.exist');
+        cy.get('vl-select-rich').shadow().find('select').find('option').should('not.have.attr', 'selected');
         cy.checkA11y('vl-select-rich');
     });
 
-    it('should select option programmatically', () => {
+    it('should select initial option programmatically', () => {
         const options: SelectRichOption[] = [
             { label: 'Hasselt', value: 'hasselt', selected: true },
             { label: 'Turnhout', value: 'turnhout' },
@@ -478,12 +528,380 @@ describe('component - vl-select-rich - single', () => {
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Hasselt');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Turnhout').should('not.exist');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Knokke-Heist').should('not.exist');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Waregem').should('not.exist');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Lier').should('not.exist');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Rio Piedras').should('not.exist');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Hasselt')
+            .should('have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Turnhout')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Knokke-Heist')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Waregem')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Lier')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Rio Piedras')
+            .should('not.have.attr', 'selected');
+
+        cy.get('vl-select-rich').then((el) => {
+            const select = el[0] as VlSelectRichComponent;
+            select.options = [
+                { label: 'Hasselt', value: 'hasselt' },
+                { label: 'Turnhout', value: 'turnhout', selected: true },
+                { label: 'Knokke-Heist', value: 'knokke-heist' },
+                { label: 'Waregem', value: 'waregem' },
+                { label: 'Lier', value: 'lier' },
+                { label: 'Rio Piedras', value: 'rio piedras' },
+            ];
+        });
+
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Turnhout')
+            .should('have.attr', 'selected');
+
+        cy.get('vl-select-rich').then((el) => {
+            const select = el[0] as VlSelectRichComponent;
+            select.removeSelectionByValue('hasselt');
+        });
+
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Hasselt')
+            .should('not.have.attr', 'selected');
+
+        cy.get('vl-select-rich').then((el) => {
+            const select = el[0] as VlSelectRichComponent;
+            select.selectByValue('hasselt');
+        });
+
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Hasselt')
+            .should('have.attr', 'selected');
+
+        cy.checkA11y('vl-select-rich');
+    });
+
+    it('should set new options programmatically using methods', () => {
+        const options: SelectRichOption[] = [
+            { label: 'Hasselt', value: 'hasselt' },
+            { label: 'Turnhout', value: 'turnhout' },
+            { label: 'Knokke-Heist', value: 'knokke-heist', selected: true },
+        ];
+
+        const newOptions: SelectRichOption[] = [
+            { label: 'Waregem', value: 'waregem' },
+            { label: 'Lier', value: 'lier' },
+            { label: 'Rio Piedras', value: 'rio piedras' },
+        ];
+
+        cy.mount(html`<vl-select-rich label="geboorteplaats" .options=${options}></vl-select-rich>`);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select-rich');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Hasselt')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Turnhout')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Knokke-Heist')
+            .should('have.attr', 'selected');
+
+        cy.get('vl-select-rich').then((el) => {
+            const select = el[0] as VlSelectRichComponent;
+            select.setOptions(newOptions);
+        });
+
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Waregem')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Lier')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Rio Piedras')
+            .should('not.have.attr', 'selected');
+
+        cy.checkA11y('vl-select-rich');
+    });
+
+    it('should select & unselect option programmatically using methods', () => {
+        const options: SelectRichOption[] = [
+            { label: 'Hasselt', value: 'hasselt' },
+            { label: 'Turnhout', value: 'turnhout' },
+            { label: 'Knokke-Heist', value: 'knokke-heist', selected: true },
+            { label: 'Waregem', value: 'waregem' },
+            { label: 'Lier', value: 'lier' },
+            { label: 'Rio Piedras', value: 'rio piedras' },
+        ];
+
+        cy.mount(html`<vl-select-rich label="geboorteplaats" .options=${options}></vl-select-rich>`);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select-rich');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Hasselt')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Turnhout')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Knokke-Heist')
+            .should('have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Waregem')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Lier')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Rio Piedras')
+            .should('not.have.attr', 'selected');
+
+        cy.get('vl-select-rich').then((el) => {
+            const select = el[0] as VlSelectRichComponent;
+            select.removeSelectionByValue('knokke-heist');
+        });
+
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Knokke-Heist')
+            .should('not.have.attr', 'selected');
+
+        cy.get('vl-select-rich').then((el) => {
+            const select = el[0] as VlSelectRichComponent;
+            select.selectByValue('rio piedras');
+        });
+
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Rio Piedras')
+            .should('have.attr', 'selected');
+
+        cy.checkA11y('vl-select-rich');
+    });
+
+    it('should select & unselect option programmatically, setting options property', () => {
+        const options: SelectRichOption[] = [
+            { label: 'Hasselt', value: 'hasselt' },
+            { label: 'Turnhout', value: 'turnhout' },
+            { label: 'Knokke-Heist', value: 'knokke-heist', selected: true },
+            { label: 'Waregem', value: 'waregem' },
+            { label: 'Lier', value: 'lier' },
+            { label: 'Rio Piedras', value: 'rio piedras' },
+        ];
+
+        cy.mount(html`<vl-select-rich label="geboorteplaats" .options=${options}></vl-select-rich>`);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select-rich');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Hasselt')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Turnhout')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Knokke-Heist')
+            .should('have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Waregem')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Lier')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Rio Piedras')
+            .should('not.have.attr', 'selected');
+
+        cy.get('vl-select-rich').then((el) => {
+            const select = el[0] as VlSelectRichComponent;
+            select.options = [
+                { label: 'Hasselt', value: 'hasselt' },
+                { label: 'Turnhout', value: 'turnhout' },
+                { label: 'Knokke-Heist', value: 'knokke-heist' },
+                { label: 'Waregem', value: 'waregem' },
+                { label: 'Lier', value: 'lier' },
+                { label: 'Rio Piedras', value: 'rio piedras' },
+            ];
+        });
+
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Knokke-Heist')
+            .should('not.have.attr', 'selected');
+
+        cy.get('vl-select-rich').then((el) => {
+            const select = el[0] as VlSelectRichComponent;
+            select.options = [
+                { label: 'Hasselt', value: 'hasselt' },
+                { label: 'Turnhout', value: 'turnhout' },
+                { label: 'Knokke-Heist', value: 'knokke-heist' },
+                { label: 'Waregem', value: 'waregem' },
+                { label: 'Lier', value: 'lier' },
+                { label: 'Rio Piedras', value: 'rio piedras', selected: true },
+            ];
+        });
+
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Rio Piedras')
+            .should('have.attr', 'selected');
+
+        cy.checkA11y('vl-select-rich');
+    });
+
+    it('should remove selected option programmatically', () => {
+        const options: SelectRichOption[] = [
+            { label: 'Padel', value: 'padel', selected: true },
+            { label: 'Dans', value: 'dans' },
+            { label: 'Drummen', value: 'drummen' },
+            { label: 'Zwemmen', value: 'zwemmen' },
+            { label: 'Boardgames', value: 'boardgames' },
+            { label: 'Fietsen', value: 'fietsen' },
+        ];
+
+        cy.mount(html`<vl-select-rich label="hobby's" .options=${options}></vl-select-rich>`);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select-rich');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Padel')
+            .should('have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Dans')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Drummen')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Zwemmen')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Boardgames')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Fietsen')
+            .should('not.have.attr', 'selected');
+
+        cy.get('vl-select-rich').then((el) => {
+            const select = el[0] as VlSelectRichComponent;
+            select.removeAllSelections();
+        });
+
+        cy.get('vl-select-rich').shadow().find('select').find('option').should('not.have.attr', 'selected');
+
         cy.checkA11y('vl-select-rich');
     });
 
@@ -492,9 +910,12 @@ describe('component - vl-select-rich - single', () => {
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
+
         cy.runTestFor<VlSelectRichComponent>('vl-select-rich', (component) => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             expect(component.getSelected()).to.be.null;
         });
+
         cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
         cy.get('vl-select-rich').shadow().find('.vl-select__list').find('.vl-select__item').contains('Hasselt').click();
         cy.runTestFor<VlSelectRichComponent>('vl-select-rich', (component) => {
@@ -515,10 +936,13 @@ describe('component - vl-select-rich - single', () => {
             .find('.vl-input-field')
             .find('.vl-select__item')
             .find('.vl-pill__close')
-            .click();
+            .click({ force: true });
+
         cy.runTestFor<VlSelectRichComponent>('vl-select-rich', (component) => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             expect(component.getSelected()).to.be.null;
         });
+
         cy.checkA11y('vl-select-rich');
     });
 });
@@ -534,7 +958,16 @@ describe('component - vl-select-rich - multiple', () => {
     ];
 
     it('should mount', () => {
-        cy.mount(html`<vl-select-rich label="hobby's" multiple .options=${options}></vl-select-rich>`);
+        cy.mount(
+            html`
+                <vl-select-rich
+                    label="hobby's"
+                    placeholder="Vul hobby's in"
+                    multiple
+                    .options=${options}
+                ></vl-select-rich>
+            `
+        );
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
@@ -542,7 +975,12 @@ describe('component - vl-select-rich - multiple', () => {
     });
 
     it('should search', () => {
-        cy.mount(html`<vl-select-rich label="hobby's" multiple .options=${options}></vl-select-rich>`);
+        cy.mount(html`<vl-select-rich
+            label="hobby's"
+            placeholder="Vul hobby's in"
+            multiple
+            .options=${options}
+        ></vl-select-rich>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
@@ -559,7 +997,12 @@ describe('component - vl-select-rich - multiple', () => {
     });
 
     it('should dispatch vl-change event on select and delete option', () => {
-        cy.mount(html`<vl-select-rich label="hobby's" multiple .options=${options}></vl-select-rich>`);
+        cy.mount(html`<vl-select-rich
+            label="hobby's"
+            placeholder="Vul hobby's in"
+            multiple
+            .options=${options}
+        ></vl-select-rich>`);
         cy.injectAxe();
 
         cy.createStubForEvent('vl-select-rich', 'vl-change');
@@ -588,8 +1031,13 @@ describe('component - vl-select-rich - multiple', () => {
         cy.checkA11y('vl-select-rich');
     });
 
-    it('should dispatch vl-select event on select and delete option', () => {
-        cy.mount(html`<vl-select-rich label="hobby's" multiple .options=${options}></vl-select-rich>`);
+    it('should dispatch vl-input event on select and delete option', () => {
+        cy.mount(html`<vl-select-rich
+            label="hobby's"
+            placeholder="Vul hobby's in"
+            multiple
+            .options=${options}
+        ></vl-select-rich>`);
         cy.injectAxe();
 
         cy.createStubForEvent('vl-select-rich', 'vl-input');
@@ -618,35 +1066,38 @@ describe('component - vl-select-rich - multiple', () => {
         cy.checkA11y('vl-select-rich');
     });
 
-    it('should dispatch vl-change, but not vl-select when programmatically selecting and deleting option', () => {
-        cy.mount(html`<vl-select-rich label="hobby's" multiple .options=${options}></vl-select-rich>`);
-        cy.injectAxe();
+    it('should dispatch vl-change, but not vl-input when programmatically selecting and deleting option', () => {
+        cy.mount(html`<vl-select-rich
+            label="hobby's"
+            placeholder="Vul hobby's in"
+            multiple
+            .options=${options}
+        ></vl-select-rich>`);
         cy.createStubForEvent('vl-select-rich', 'vl-change');
         cy.createStubForEvent('vl-select-rich', 'vl-input');
-
+        cy.injectAxe();
         cy.checkA11y('vl-select-rich');
+
         cy.get('vl-select-rich').then((el) => {
             const select = el[0] as VlSelectRichComponent;
-            const filteredOptions = select.options.filter((option) => option.value !== 'padel');
-            select.options = [...filteredOptions, { label: 'Padel', value: 'padel', selected: true }];
+            select.selectByValue('padel');
         });
 
         cy.get('@vl-change')
-            .should('have.been.calledOnce')
-            .its('firstCall.args.0.detail')
+            .should('have.been.calledTwice')
+            .its('secondCall.args.0.detail')
             .should('deep.equal', { value: ['padel'] });
 
         cy.get('@vl-input').should('to.not.have.been.called.at.all');
 
         cy.get('vl-select-rich').then((el) => {
             const select = el[0] as VlSelectRichComponent;
-            const filteredOptions = select.options.filter((option) => option.value !== 'dans');
-            select.options = [...filteredOptions, { label: 'Dans', value: 'dans', selected: true }];
+            select.selectByValue('dans');
         });
 
         cy.get('@vl-change')
-            .should('have.been.calledTwice')
-            .its('secondCall.args.0.detail')
+            .should('have.been.calledThrice')
+            .its('thirdCall.args.0.detail')
             .should('deep.equal', { value: ['padel', 'dans'] });
 
         cy.get('@vl-input').should('to.not.have.been.called.at.all');
@@ -655,8 +1106,7 @@ describe('component - vl-select-rich - multiple', () => {
 
         cy.get('vl-select-rich').then((el) => {
             const select = el[0] as VlSelectRichComponent;
-            const filteredOptions = select.options.filter((option) => option.value !== 'padel');
-            select.options = [...filteredOptions, { label: 'Padel', value: 'padel' }];
+            select.removeSelectionByValue('padel');
         });
 
         cy.get('@vl-change')
@@ -667,7 +1117,12 @@ describe('component - vl-select-rich - multiple', () => {
     });
 
     it('should select multiple options', () => {
-        cy.mount(html`<vl-select-rich label="hobby's" multiple .options=${options}></vl-select-rich>`);
+        cy.mount(html`<vl-select-rich
+            label="hobby's"
+            placeholder="Vul hobby's in"
+            multiple
+            .options=${options}
+        ></vl-select-rich>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
@@ -675,17 +1130,52 @@ describe('component - vl-select-rich - multiple', () => {
         cy.get('vl-select-rich').shadow().find('.vl-select__list').find('.vl-select__item').contains('Padel').click();
         cy.get('vl-select-rich').shadow().find('.vl-select__list').find('.vl-select__item').contains('Dans').click();
         cy.get('vl-select-rich').shadow().find('.vl-select__list').find('.vl-select__item').contains('Drummen').click();
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Padel');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Dans');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Drummen');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Zwemmen').should('not.exist');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Boardgames').should('not.exist');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Fietsen').should('not.exist');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Padel')
+            .should('have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Dans')
+            .should('have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Drummen')
+            .should('have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Zwemmen')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Boardgames')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Fietsen')
+            .should('not.have.attr', 'selected');
         cy.checkA11y('vl-select-rich');
     });
 
     it('should delete multiple options', () => {
-        cy.mount(html`<vl-select-rich label="hobby's" multiple .options=${options}></vl-select-rich>`);
+        cy.mount(html`<vl-select-rich
+            label="hobby's"
+            placeholder="Vul hobby's in"
+            multiple
+            .options=${options}
+        ></vl-select-rich>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
@@ -693,16 +1183,36 @@ describe('component - vl-select-rich - multiple', () => {
         cy.get('vl-select-rich').shadow().find('.vl-select__list').find('.vl-select__item').contains('Padel').click();
         cy.get('vl-select-rich').shadow().find('.vl-select__list').find('.vl-select__item').contains('Dans').click();
         cy.get('vl-select-rich').shadow().find('.vl-select__list').find('.vl-select__item').contains('Drummen').click();
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Padel');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Dans');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Drummen');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Padel')
+            .should('have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Dans')
+            .should('have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Drummen')
+            .should('have.attr', 'selected');
         cy.get('vl-select-rich')
             .shadow()
             .find('.vl-input-field')
             .find('.vl-select__item[data-value="padel"]')
             .find('.vl-pill__close')
             .click();
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Padel').should('not.exist');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Padel')
+            .should('not.have.attr', 'selected');
         cy.get('vl-select-rich').shadow().find('select').find('option').contains('Dans');
         cy.get('vl-select-rich').shadow().find('select').find('option').contains('Drummen');
         cy.get('vl-select-rich')
@@ -711,8 +1221,18 @@ describe('component - vl-select-rich - multiple', () => {
             .find('.vl-select__item[data-value="dans"]')
             .find('.vl-pill__close')
             .click();
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Padel').should('not.exist');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Dans').should('not.exist');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Padel')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Dans')
+            .should('not.have.attr', 'selected');
         cy.get('vl-select-rich').shadow().find('select').find('option').contains('Drummen');
         cy.get('vl-select-rich')
             .shadow()
@@ -720,11 +1240,11 @@ describe('component - vl-select-rich - multiple', () => {
             .find('.vl-select__item[data-value="drummen"]')
             .find('.vl-pill__close')
             .click();
-        cy.get('vl-select-rich').shadow().find('select').find('option').should('not.exist');
+        cy.get('vl-select-rich').shadow().find('select').find('option').should('not.have.attr', 'selected');
         cy.checkA11y('vl-select-rich');
     });
 
-    it('should select multiple options programmatically', () => {
+    it('should select multiple options with options property', () => {
         const options: SelectRichOption[] = [
             { label: 'Padel', value: 'padel', selected: true },
             { label: 'Dans', value: 'dans', selected: true },
@@ -734,25 +1254,146 @@ describe('component - vl-select-rich - multiple', () => {
             { label: 'Fietsen', value: 'fietsen' },
         ];
 
-        cy.mount(html`<vl-select-rich label="hobby's" multiple .options=${options}></vl-select-rich>`);
+        cy.mount(html`<vl-select-rich
+            label="hobby's"
+            placeholder="Vul hobby's in"
+            multiple
+            .options=${options}
+        ></vl-select-rich>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Padel');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Dans');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Drummen');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Zwemmen').should('not.exist');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Boardgames').should('not.exist');
-        cy.get('vl-select-rich').shadow().find('select').find('option').contains('Fietsen').should('not.exist');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Padel')
+            .should('have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Dans')
+            .should('have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Drummen')
+            .should('have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Zwemmen')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Boardgames')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Fietsen')
+            .should('not.have.attr', 'selected');
+        cy.checkA11y('vl-select-rich');
+
+        cy.get('vl-select-rich').then((el) => {
+            const select = el[0] as VlSelectRichComponent;
+            select.options = [
+                { label: 'Hasselt', value: 'hasselt', selected: true },
+                { label: 'Turnhout', value: 'turnhout', selected: true },
+                { label: 'Knokke-Heist', value: 'knokke-heist', selected: true },
+                { label: 'Waregem', value: 'waregem', selected: true },
+                { label: 'Lier', value: 'lier', selected: true },
+                { label: 'Rio Piedras', value: 'rio piedras', selected: true },
+            ];
+        });
+
+        cy.get('vl-select-rich').shadow().find('select').find('option').should('have.attr', 'selected');
+    });
+
+    it('should remove all options programmatically', () => {
+        const options: SelectRichOption[] = [
+            { label: 'Padel', value: 'padel', selected: true },
+            { label: 'Dans', value: 'dans', selected: true },
+            { label: 'Drummen', value: 'drummen', selected: true },
+            { label: 'Zwemmen', value: 'zwemmen' },
+            { label: 'Boardgames', value: 'boardgames' },
+            { label: 'Fietsen', value: 'fietsen' },
+        ];
+
+        cy.mount(html`<vl-select-rich
+            label="hobby's"
+            placeholder="Vul hobby's in"
+            multiple
+            .options=${options}
+        ></vl-select-rich>`);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select-rich');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Padel')
+            .should('have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Dans')
+            .should('have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Drummen')
+            .should('have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Zwemmen')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Boardgames')
+            .should('not.have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Fietsen')
+            .should('not.have.attr', 'selected');
+
+        cy.get('vl-select-rich').then((el) => {
+            const select = el[0] as VlSelectRichComponent;
+            select.removeAllSelections();
+        });
+
+        cy.get('vl-select-rich').shadow().find('select').find('option').should('not.have.attr', 'selected');
+
         cy.checkA11y('vl-select-rich');
     });
 
     it('should return selected values when calling getSelected()', () => {
-        cy.mount(html`<vl-select-rich label="hobby's" multiple .options=${options}></vl-select-rich>`);
+        cy.mount(html`<vl-select-rich
+            label="hobby's"
+            placeholder="Vul hobby's in"
+            multiple
+            .options=${options}
+        ></vl-select-rich>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
         cy.runTestFor<VlSelectRichComponent>('vl-select-rich', (component) => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             expect(component.getSelected()).to.be.empty;
         });
         cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
@@ -797,6 +1438,7 @@ describe('component - vl-select-rich - single - in form', () => {
                     e.preventDefault();
                 }}
             >
+                <vl-form-label for="geboorteplaats">plaats</vl-form-label>
                 <vl-select-rich
                     id="geboorteplaats"
                     name="geboorteplaats"
@@ -857,5 +1499,135 @@ describe('component - vl-select-rich - single - in form', () => {
         cy.get('vl-select-rich').shadow().find('input.vl-input-field').type('Ha');
         cy.get('@mouseover').should('have.been.called');
         cy.get('@keydown').should('not.have.been.called');
+    });
+});
+
+describe('component - vl-select-rich - multiple - in form', () => {
+    const options: SelectRichOption[] = [
+        { label: 'Hasselt', value: 'hasselt', selected: true },
+        { label: 'Turnhout', value: 'turnhout' },
+        { label: 'Knokke-Heist', value: 'knokke-heist', selected: true },
+        { label: 'Waregem', value: 'waregem' },
+        { label: 'Lier', value: 'lier', selected: true },
+        { label: 'Rio Piedras', value: 'rio piedras' },
+    ];
+
+    beforeEach(() => {
+        cy.mount(html`
+            <form
+                id="form"
+                class="vl-form"
+                @submit=${(e: Event) => {
+                    e.preventDefault();
+                }}
+            >
+                <vl-form-label for="plaats">plaats</vl-form-label>
+                <vl-select-rich multiple id="plaats" name="plaats" .options=${options} search required></vl-select-rich>
+                <button class="vl-button" type="submit">Verstuur</button>
+                <button class="vl-button" type="reset">Reset</button>
+            </form>
+        `);
+    });
+
+    it('should submit value', () => {
+        const submittedFormData = {
+            plaats: ['hasselt', 'turnhout', 'knokke-heist', 'lier'],
+        };
+
+        cy.createStubForEvent('form', 'submit');
+
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .contains('Turnhout')
+            .click({ force: true });
+
+        cy.get('form').find('button[type="submit"]').click({ force: true });
+        cy.get('@submit').should('have.been.calledOnce');
+
+        cy.get('form').then(($el) => {
+            const formData = parseFormData($el.get(0) as HTMLFormElement);
+            expect(formData).to.deep.equal(submittedFormData);
+        });
+    });
+
+    it('should reset to initially checked options after selecting new option', () => {
+        const submittedFormData = {
+            plaats: ['hasselt', 'turnhout', 'knokke-heist', 'lier'],
+        };
+        const submittedAfterResetFormData = {
+            plaats: ['hasselt', 'knokke-heist', 'lier'],
+        };
+
+        cy.createStubForEvent('form', 'submit');
+
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .contains('Turnhout')
+            .click({ force: true });
+
+        cy.get('form').then(($el) => {
+            const formData = parseFormData($el.get(0) as HTMLFormElement);
+            expect(formData).to.deep.equal(submittedFormData);
+            cy.log(submittedFormData['plaats'].join(' '));
+        });
+
+        cy.get('form').find('button[type="reset"]').click({ force: true });
+
+        cy.get('form').then(($el) => {
+            const formData = parseFormData($el.get(0) as HTMLFormElement);
+            expect(formData).to.deep.equal(submittedAfterResetFormData);
+            cy.log(submittedAfterResetFormData['plaats'].join(' '));
+        });
+    });
+
+    it('should reset to initial options that are set after initial rendering', () => {
+        const submittedFormData = {
+            plaats: ['hasselt', 'turnhout', 'knokke-heist', 'lier'],
+        };
+        const submittedAfterResetFormData = {
+            plaats: ['waregem', 'rio piedras'],
+        };
+
+        cy.createStubForEvent('form', 'submit');
+
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .contains('Turnhout')
+            .click({ force: true });
+
+        cy.get('form').then(($el) => {
+            const formData = parseFormData($el.get(0) as HTMLFormElement);
+            cy.log(submittedFormData['plaats'].join(' '));
+            expect(formData).to.deep.equal(submittedFormData);
+        });
+
+        cy.get('vl-select-rich').then((el) => {
+            const select = el[0] as VlSelectRichComponent;
+            select.initialOptions = [
+                { label: 'Hasselt', value: 'hasselt' },
+                { label: 'Turnhout', value: 'turnhout' },
+                { label: 'Knokke-Heist', value: 'knokke-heist' },
+                { label: 'Waregem', value: 'waregem', selected: true },
+                { label: 'Lier', value: 'lier' },
+                { label: 'Rio Piedras', value: 'rio piedras', selected: true },
+            ];
+        });
+
+        cy.get('form').find('button[type="reset"]').click({ force: true });
+
+        cy.get('form').then(($el) => {
+            const formData = parseFormData($el.get(0) as HTMLFormElement);
+            cy.log(submittedAfterResetFormData['plaats'].join(' '));
+            expect(formData).to.deep.equal(submittedAfterResetFormData);
+        });
     });
 });

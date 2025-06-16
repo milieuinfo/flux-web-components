@@ -50,6 +50,17 @@ import { VlSelectRichComponent } from '@domg-wc/components/form';
 Geeft de geselecteerde values terug.<br/>
 Bij de single select geeft deze methode een string terug, bij de multi select een array van strings.
 
+### selectByValue(value: string | string[]): void
+
+Vinkt 1 of meerdere opties aan op basis van de value.
+
+### removeSelectionByValue(value: string | string[]): void
+
+Vinkt 1 of meerdere opties uit op basis van de value.
+
+### removeAllSelections(): void
+
+Vinkt alle opties uit.
 
 ## Styles
 
@@ -57,29 +68,64 @@ De styles van DV zijn lokaal gezet en aangepast omdat deze niet CSP compliant wa
 Er werd gebruik gemaakt van een `data:` attribuut om een SVG op te halen van w3.org.
 Hierdoor breekt de CSP compliance tenzij je alle `data:` attributen whitelist, wat niet de bedoeling is.
 
+## Events
 
-## Change event
+### Change event
 
-Bij het selecteren of verwijderen van een optie (zowel programmatorisch als door de gebruiker) wordt het `vl-change` event afgevuurd, het detail object van dit event bevat de value van de geselecteerde opties.<br/>
-Gelijkaardig aan de `getSelected()` methode, bevat de value bij de single select 1 string en bij de multi select een array van strings.
+Bij het selecteren of verwijderen van een optie (zowel programmatorisch als door de gebruiker) wordt het `vl-change`
+event afgevuurd, het detail object van dit event bevat de value van de geselecteerde opties.<br/>
+Gelijkaardig aan de `getSelected()` methode, bevat de value bij de single select 1 string en bij de
+multi select een array van strings.
 
-## Input event
+### Input event
 
-Wanneer de gebruiker een optie verwijdert of selecteert, wordt het `vl-input` event afgevuurd, het detail object van dit event bevat de value van de geselecteerde opties.<br/>
-Gelijkaardig aan de `getSelected()` methode, bevat de value bij de single select 1 string en bij de multi select een array van strings.
+Wanneer de gebruiker een optie verwijdert of selecteert, wordt het `vl-input` event afgevuurd, het detail object van
+dit event bevat de value van de geselecteerde opties.<br/>
+Gelijkaardig aan de `getSelected()` methode, bevat de value bij de single select 1 string en bij de multi select
+een array van strings.
 
+### Search Event
+
+Wanneer de gebruiker een zoekopdracht uitvoert, wordt het `vl-search` event afgevuurd,
+het detail object van dit event bevat de zoekterm die de gebruiker heeft ingegeven.<br/>
 
 ## Select opties
 
+De `select-rich` component kan 1 of meerdere waardes bevatten. Die waardes worden weergegeven als opties in de select
+component.<br/> Om die opties te beheren, zijn er verschillende mogelijkheden:
+
+### met methods
+
+De `select-rich` component heeft een aantal methodes die je kan gebruiken om de opties te beheren:
+
+- `selectByValue(value: string | string[])`: vinkt 1 of meerdere optie(s) aan
+- `removeSelectionByValue(value: string | string[])`: vinkt 1 of meerdere optie(s) uit
+- `removeAllSelections()`: vinkt alle opties uit
+
+### `options` property
+
 De `options` property bevat een array van objecten die de opties van de select component bevatten.
 
-Als de referentie van deze array verandert, wordt de Lit lifecycle getriggerd en wordt de select opnieuw opgebouwd op basis van de nieuwe opties.<br/>
-Hierdoor is het noodzakelijk om de opties door te geven aan de select component met behulp van een variabele, en de opties niet direct in de template te zetten.<br/>
-Indien je de opties direct in de template zet, zal bij elke render de select opnieuw opgebouwd worden en de gekozen opties verwijderd worden.
+Als de referentie van deze array verandert, wordt de Lit lifecycle getriggerd en wordt de select opnieuw
+opgebouwd op basis van de nieuwe opties.<br/>
+Hierdoor is het noodzakelijk om de opties door te geven aan de select component met behulp van een variabele,
+en de opties niet direct in de template te zetten.<br/>
+Indien je de opties direct in de template zet, zal bij elke render de select opnieuw opgebouwd worden en de
+gekozen opties verwijderd worden.
 
-Dit betekent ook dat als je programmatorisch een optie wil veranderen, toevoegen of verwijderen, je de referentie van de array moet aanpassen.<br/>
+Dit betekent ook dat als je programmatorisch een optie wil veranderen, toevoegen of verwijderen,
+je de referentie van de array moet aanpassen.<br/>
 Dit kan je doen door de opties de spreaden in een nieuwe array (`[...options]`).
 
+### `initial-options` property
+
+De `initial-options` property is een array van objecten die de opties van de select component bevatten.<br/>
+Deze zijn de standaard opties die worden getoond bij het laden van de pagina.<br/>
+
+Als de form reset, worden deze opties getoond in de select component.<br/>
+
+Indien je de `opties` direct in de template zet bij het laden van de `vl-select-rich`, worden deze intern ingesteld als
+de `initial-options` property.<br/>
 
 ## Accessibility
 
@@ -232,7 +278,8 @@ Indien de 'required' boolean op true staat, moet je een value programmatorisch s
 
 ## Validatie
 
-Meer info over validatie binnen onze form componenten vind je hier: [Form - Validatie](/docs/ontwerp-form-validation--documentatie)
+Meer info over validatie binnen onze form componenten vind je hier:
+[Form - Validatie](/docs/ontwerp-form-validation--documentatie)
 
 
 ## Referenties
@@ -243,6 +290,8 @@ Meer info over validatie binnen onze form componenten vind je hier: [Form - Vali
 
 ### Digitaal Vlaanderen
 
-[Documentatie Digitaal Vlaanderen - Select](https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-select)
+[Documentatie Digitaal Vlaanderen -
+    Select](https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-select)
 
-[Documentatie Digitaal Vlaanderen - Multiselect](https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-multiselect)
+[Documentatie Digitaal Vlaanderen -
+    Multiselect](https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-multiselect)
