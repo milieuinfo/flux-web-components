@@ -4,7 +4,7 @@
 set -e
 
 echo 'RUNNING SCRIPT: release-and-publish.sh'
-cd uigov-web-components
+cd flux-web-components
 
 # get branch name
 GIT_REF_NAME=$(git rev-parse --abbrev-ref HEAD)
@@ -57,8 +57,8 @@ fi
 # the remote set by Bamboo is not authenticated, so remove the remote and add one with authentication
 echo 'git remote rm origin'
 git remote rm origin &> /dev/null
-echo 'git remote add origin https://${SECRET_GITHUB_TOKEN}@github.com/milieuinfo/uigov-web-components.git'
-git remote add origin https://${SECRET_GITHUB_TOKEN}@github.com/milieuinfo/uigov-web-components.git &> /dev/null
+echo 'git remote add origin https://${SECRET_GITHUB_TOKEN}@github.com/milieuinfo/flux-web-components.git'
+git remote add origin https://${SECRET_GITHUB_TOKEN}@github.com/milieuinfo/flux-web-components.git &> /dev/null
 echo 'git fetch --prune origin'
 git fetch --prune origin &> /dev/null
 echo 'git pull origin ${GIT_REF_NAME}'

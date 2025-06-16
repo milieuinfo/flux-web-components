@@ -7,29 +7,29 @@ import {Meta} from '@storybook/addon-docs';
 ## Inhoudstafel
 
 - [Overzicht](#overzicht)
-- [uigov-web-components](#uigov-web-components)
-- [uigov-assets](#uigov-assets)
-- [uigov-builds](#uigov-builds)
+- [flux-web-components](#flux-web-components)
+- [flux-assets](#flux-assets)
+- [flux-builds](#flux-builds)
 
 
 ## Overzicht
 
 Er zijn 3 repositories van UIG:
-- uigov-web-components - [https://github.com/milieuinfo/uigov-web-components](https://github.com/milieuinfo/uigov-web-components)
-- uigov-assets - [https://github.com/milieuinfo/uigov-assets](https://github.com/milieuinfo/uigov-assets)
-- uigov-builds - [https://github.com/milieuinfo/uigov-builds](https://github.com/milieuinfo/uigov-builds)
+- flux-web-components - [https://github.com/milieuinfo/flux-web-components](https://github.com/milieuinfo/flux-web-components)
+- flux-assets - [https://github.com/milieuinfo/flux-assets](https://github.com/milieuinfo/flux-assets)
+- flux-builds - [https://github.com/milieuinfo/flux-builds](https://github.com/milieuinfo/flux-builds)
 
 
-## uigov-web-components
+## flux-web-components
 
-De belangrijkste repo die de broncode van de uigov-web-components bevat, de Storybook documentatie en de Playground
+De belangrijkste repo die de broncode van de flux-web-components bevat, de Storybook documentatie en de Playground
 toepassingen.<br/>
 Deze repo gebruikt de nrwl/nx opzet.
 
 
-## uigov-assets
+## flux-assets
 
-De uigov-web-components hebben externe afhankelijkheden.  Die externe assets worden onder dit project opgenomen en
+De flux-web-components hebben externe afhankelijkheden.  Die externe assets worden onder dit project opgenomen en
 gepubliceerd op de CDN van dOMG. Code zal dus gebruik maken van versies gepubliceerd op de CDN.
 
 Volgende assets zitten in deze repo: __govflanders-font__, __govflanders-style__, __tinymce__ en __tinymce-next__
@@ -41,7 +41,7 @@ Digitaal Vlaanderen voorziet eigen fonts, er zijn er 2
    en thin
 -  vlaanderen-icon (en icon-classic)
 
-De uigov-web-components refereren intern (geversioneerd) naar deze fonts. Voornamelijk voor het icon-font is de
+De flux-web-components refereren intern (geversioneerd) naar deze fonts. Voornamelijk voor het icon-font is de
 versionering belangrijk daar de icoon referenties gelijk moeten lopen met het font voor de desbetreffende versie.
 Voor meer informatie over het beheren van het icon-font zie de [Icon Font](/docs/beheren-icon-font--documentatie) documentatie.
 
@@ -52,7 +52,7 @@ verschillende packages die .scss bestanden bevatten. De UIG web-componenten hebb
 technische gevolgen die tot css duplicatie leiden, deze asset vermindert deze duplicatie.
 
 Technisch worden in deze asset de DV packages gerefereert, de sccs verwerkt en gewrapped in .js bestanden. Het
-resultaat wordt als geversioneerd artifact aangeboden waarop de uigov-web-components dan dependen.
+resultaat wordt als geversioneerd artifact aangeboden waarop de flux-web-components dan dependen.
 
 ### tinymce
 
@@ -65,7 +65,7 @@ aangeboden op de CDN. Bevat de theming voor v5.10.6
 Gelijkaardig aan tinymce, deze bevat de theming voor v6.8.3
 
 
-## uigov-builds
+## flux-builds
 
 De repo die de geversioneerde documentatie bevat,
 zie [Beheren/Documentatie Publicatie](/docs/beheren-documentatie-publicatie--documentatie) voor meer informatie.

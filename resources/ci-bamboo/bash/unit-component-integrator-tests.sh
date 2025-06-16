@@ -4,7 +4,7 @@
 set -e
 
 echo 'RUNNING SCRIPT: unit-component-integrator-tests.sh'
-cd uigov-web-components
+cd flux-web-components
 
 echo "npm install - no 'ci' to avoid the clean"
 set +e

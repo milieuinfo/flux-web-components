@@ -10,7 +10,7 @@ echo ' ------------------------------ '
 echo
 
 #echo 'RUNNING SCRIPT: verify-release-docker.sh'
-#export BUILD_SCRIPT=uigov-web-components/resources/ci-bamboo/bash/verify-release-docker.sh
+#export BUILD_SCRIPT=flux-web-components/resources/ci-bamboo/bash/verify-release-docker.sh
 #cd resources/ci-bamboo
 #docker compose run --quiet-pull build
 

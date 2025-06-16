@@ -10,7 +10,7 @@ echo ' ------------------------------ '
 echo
 
 echo 'RUNNING SCRIPT: build-apps-and-libs-docker.sh'
-export BUILD_SCRIPT=uigov-web-components/resources/ci-bamboo/bash/build-apps-and-libs.sh
+export BUILD_SCRIPT=flux-web-components/resources/ci-bamboo/bash/build-apps-and-libs.sh
 cd resources/ci-bamboo
 docker compose run --quiet-pull build
 

@@ -1,9 +1,9 @@
 ---
 version: 2
 plan:
-  project-key: UIGOV
-  key: CUWC
-  name: ci-uigov-web-components
+  project-key: FLUX
+  key: CFWC
+  name: ci-flux-web-components
 
 stages:
   - Checkout, Install and Cache Stage:
@@ -32,7 +32,7 @@ checkout-install-and-cache:
         #!/bin/bash
         # bamboo.yml timestamp - 2024/02/05 11:40 - for verification purposes
         # avoid git warning
-        git config --global init.defaultBranch develop
+        git config --global init.defaultBranch develop-v2
     - checkout
     - script: |
         # export variables
@@ -57,7 +57,7 @@ build-apps-and-libs:
     - script: |
         #!/bin/bash
         # avoid git warning
-        git config --global init.defaultBranch develop
+        git config --global init.defaultBranch develop-v2
     - checkout
     - script: bash ./resources/ci-bamboo/bash/build-apps-and-libs-docker.sh
     - script: &build-artifact |
@@ -78,7 +78,7 @@ unit-component-integrator-tests:
     - script: |
         #!/bin/bash
         # avoid git warning
-        git config --global init.defaultBranch develop
+        git config --global init.defaultBranch develop-v2
     - checkout
     - script: bash ./resources/ci-bamboo/bash/unit-component-integrator-tests-docker.sh
   artifacts:
@@ -93,7 +93,7 @@ e2e-tests-storybook:
     - script: |
         #!/bin/bash
         # avoid git warning
-        git config --global init.defaultBranch develop
+        git config --global init.defaultBranch develop-v2
     - checkout
     - script: bash ./resources/ci-bamboo/bash/e2e-tests-storybook-docker.sh
   artifacts:
@@ -108,7 +108,7 @@ release-and-publish:
     - script: |
         #!/bin/bash
         # avoid git warning
-        git config --global init.defaultBranch develop
+        git config --global init.defaultBranch develop-v2
     - checkout
     - script: |
         # export variables
@@ -130,7 +130,7 @@ verify-release:
     - script: |
         #!/bin/bash
         # avoid git warning
-        git config --global init.defaultBranch develop
+        git config --global init.defaultBranch develop-v2
     - checkout
     - script: |
         # export variables
@@ -147,7 +147,7 @@ verify-release:
 ---
 version: 2
 plan:
-  key: UIGOV-CUWC
+  key: FLUX-CFWC
 
 plan-permissions:
   - groups: developer-admin

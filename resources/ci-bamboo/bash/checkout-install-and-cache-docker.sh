@@ -10,7 +10,7 @@ echo ' ------------------------------ '
 echo
 
 echo 'RUNNING SCRIPT: checkout-install-and-cache-docker.sh'
-export BUILD_SCRIPT=uigov-web-components/resources/ci-bamboo/bash/checkout-install-and-cache.sh
+export BUILD_SCRIPT=flux-web-components/resources/ci-bamboo/bash/checkout-install-and-cache.sh
 cd resources/ci-bamboo
 docker compose run --quiet-pull build
 

@@ -1,7 +1,7 @@
 {
-    "name": "uigov-web-components",
+    "name": "flux-web-components",
     "version": "1.48.2",
-    "author": "UIG <uig@vlaanderen.be>",
+    "author": "UIG <flux@vlaanderen.be>",
     "license": "MIT",
     "scripts": {
         "apps:consumer:build": "",
