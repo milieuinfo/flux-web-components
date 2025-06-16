@@ -1,6 +1,6 @@
 {
     "$schema": "https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json",
-    "name": "uigov-web-components",
+    "name": "flux-web-components",
     "version": "DOMG-WC-VERSION",
     "js-types-syntax": "typescript",
     "description-markup": "markdown",
@@ -10,7 +10,7 @@
                 {
                     "name": "vl-accessibility",
                     "description": "Toegankelijkheidsverklaring pagina.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-accessibility--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-accessibility--documentatie",
                     "attributes": [
                         {
                             "name": "application",
@@ -78,7 +78,7 @@
                 },
                 {
                     "name": "vl-cookie-consent",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-cookie-consent--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-cookie-consent--documentatie",
                     "attributes": [
                         {
                             "name": "analytics",
@@ -127,12 +127,12 @@
                 },
                 {
                     "name": "vl-cookie-consent-opt-in",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-cookie-consent--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-cookie-consent--documentatie"
                 },
                 {
                     "name": "vl-cookie-statement",
                     "description": "Cookieverklaring pagina.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-cookie-statement--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-cookie-statement--documentatie",
                     "attributes": [
                         {
                             "name": "date",
@@ -173,31 +173,31 @@
                 },
                 {
                     "name": "vl-authentication-cookie",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-cookie-statement--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-cookie-statement--documentatie"
                 },
                 {
                     "name": "vl-cookie",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-cookie-statement--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-cookie-statement--documentatie"
                 },
                 {
                     "name": "vl-header-authentication-cookie",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-cookie-statement--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-cookie-statement--documentatie"
                 },
                 {
                     "name": "vl-header-cookie",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-cookie-statement--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-cookie-statement--documentatie"
                 },
                 {
                     "name": "vl-jsessionid-cookie",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-cookie-statement--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-cookie-statement--documentatie"
                 },
                 {
                     "name": "vl-sticky-session-cookie",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-cookie-statement--documentatie"
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-cookie-statement--documentatie"
                 },
                 {
                     "name": "vl-footer",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-footer--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-footer--documentatie",
                     "attributes": [
                         {
                             "name": "development",
@@ -223,7 +223,7 @@
                 {
                     "name": "vl-header",
                     "description": "Injecteert de global header widget van Digitaal Vlaanderen.\nDefault wordt de header geïnjecteerd in de body, bij het gebruik van het vl-body element wordt de header geïnjecteerd in\nde vl-body.",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-header--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-header--documentatie",
                     "attributes": [
                         {
                             "name": "authenticated-user-url",
@@ -302,7 +302,7 @@
                 },
                 {
                     "name": "vl-privacy",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-privacy--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-privacy--documentatie",
                     "attributes": [
                         {
                             "name": "date",

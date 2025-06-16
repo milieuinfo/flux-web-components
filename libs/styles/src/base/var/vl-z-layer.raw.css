@@ -1,5 +1,5 @@
 :root {
-    /* 
+    /*
     Waardes overgenomen uit @domg/govflanders-style
     */
     --vl-z-layer--toaster: 10012;
@@ -7,7 +7,7 @@
     --vl-z-layer--select-dropdown: 999;
     --vl-z-layer--select-dropdown-open: 1000;
     /*
-    Waardes gedefinieerd in uigov-web-components
+    Waardes gedefinieerd in flux-web-components
     */
     --vl-z-layer--select-list-dropdown: 100;
     --vl-z-layer--select-list-dropdown-open: 101;

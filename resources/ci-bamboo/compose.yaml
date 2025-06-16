@@ -1,11 +1,11 @@
 services:
   build:
     image: cypress/browsers:node-20.18.0-chrome-130.0.6723.69-1-ff-131.0.3-edge-130.0.2849.52-1
-    container_name: uigov-web-components-build
+    container_name: flux-web-components-build
     command: bash $BUILD_SCRIPT
     volumes:
       - ${HOME:-.}/.npmrc:/root/.npmrc:ro
-      - ./../..:/uigov-web-components
+      - ./../..:/flux-web-components
     environment:
       - SECRET_GITHUB_TOKEN=${SECRET_GITHUB_TOKEN:-not-specified}
       - ACD_REPOSITORY_DEBIAN_LOGIN=${ACD_REPOSITORY_DEBIAN_LOGIN:-not-specified}

@@ -1,6 +1,6 @@
 {
     "$schema": "https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json",
-    "name": "uigov-web-components",
+    "name": "flux-web-components",
     "version": "1.34.0",
     "js-types-syntax": "typescript",
     "description-markup": "markdown",
@@ -10,7 +10,7 @@
                 {
                     "name": "vl-properties",
                     "description": "Gebruik de `properties` component om properties te tonen op een pagina. Je kan de properties specifiëren als\ninner-html of als json-structuur meegeven aan het `props` attribuut.\n\nDeze component is de nieuwste variant die de (nog als element geschreven)\n[vl-properties](/docs/elements-properties--documentatie) vervangt.\n",
-                    "doc-url": "https://milieuinfo.github.io/uigov-builds/release/1.34.0/storybook/?path=/docs/components-properties--documentatie",
+                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/1.34.0/storybook/?path=/docs/components-properties--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",

@@ -4,7 +4,7 @@
 set -e
 
 echo 'RUNNING SCRIPT: build-apps-and-libs.sh'
-cd uigov-web-components
+cd flux-web-components
 
 # jq moet beschikbaar zijn om libs-add-dependencies.sh correct uit te kunnen voeren
 apt-get -y update; apt-get -y install jq
