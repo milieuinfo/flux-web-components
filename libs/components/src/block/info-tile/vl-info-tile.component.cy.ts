@@ -15,8 +15,13 @@ const mountDefault = ({
     contentSlot,
     subtitleSlot,
     titleSlot,
+    footerSlot,
     menuSlot,
+    badgeSlot,
     size,
+    icon,
+    iconAsBadge,
+
 }: {
     autoOpen?: boolean;
     toggleable?: boolean;
@@ -24,12 +29,21 @@ const mountDefault = ({
     contentSlot?: string;
     subtitleSlot?: string;
     titleSlot?: string;
+    footerSlot?: string;
     menuSlot?: string;
+    badgeSlot?: string;
     size?: INFO_TILE_SIZE;
+    icon?: string;
+    iconAsBadge?: boolean;
 }) =>
     cy.mount(html`
-        <vl-info-tile ?toggleable=${toggleable} ?auto-open=${autoOpen} ?center=${center} size="${size}">
-            ${unsafeHTML(titleSlot)}${unsafeHTML(menuSlot)}${unsafeHTML(subtitleSlot)}${unsafeHTML(contentSlot)}
+        <vl-info-tile ?toggleable=${toggleable} ?auto-open=${autoOpen} ?center=${center} size="${size || 'medium'}" icon="${icon || ''}" ?icon-as-badge=${iconAsBadge}>
+            ${unsafeHTML(badgeSlot)}
+            ${unsafeHTML(titleSlot)}
+            ${unsafeHTML(menuSlot)}
+            ${unsafeHTML(subtitleSlot)}
+            ${unsafeHTML(contentSlot)}
+            ${unsafeHTML(footerSlot)}
         </vl-info-tile>
     `);
 
@@ -46,6 +60,21 @@ const menuSlot = `<span slot="menu">
         </vl-popover-action-list>
     </vl-popover>
 </span>`;
+const icon = 'file-tasks-check';
+const footerSlot = `<div slot="footer">
+        <vl-button icon="file-download">Download</vl-button>
+    </div>`
+const badgeSlot = `<div slot="badge" style="
+            width: 45px; 
+            height: 45px; 
+            background: var(--vl-color--background-alt); 
+            border: 1px solid var(--vl-color--mischka-grey); 
+            border-radius: 50%; 
+            display: flex; 
+            flex-wrap: wrap; 
+            place-content: center center;
+            font-weight: 500;
+        ">BD</div>`
 
 describe('component vl-info-tile - default', () => {
     beforeEach(() => {
@@ -331,5 +360,68 @@ describe('story vl-info-tile - menu and toggleable', () => {
         cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('not.have.class', 'js-vl-accordion--open');
         // popover sluit vanzelf bij een externe klik
         cy.get('vl-popover').should('not.have.attr', 'open');
+    });
+});
+
+describe('story vl-info-tile - icon', () => {
+    beforeEach(() => {
+        mountDefault({
+            titleSlot,
+            subtitleSlot,
+            contentSlot,
+            icon,
+        });
+    });
+
+    it('should have an icon', () => {
+        cy.get('vl-info-tile').shadow().find(`#icon .vl-vi-${icon}`).should('exist');
+    });
+});
+
+describe('story vl-info-tile - icon as badge', () => {
+    beforeEach(() => {
+        mountDefault({
+            titleSlot,
+            subtitleSlot,
+            contentSlot,
+            icon,
+            iconAsBadge: true,
+        });
+    });
+
+    it('should have an icon', () => {
+        cy.get('vl-info-tile').shadow().find(`#icon`).should('have.class', 'vl-info-tile__icon--badge');
+    });
+});
+
+describe('story vl-info-tile - badge', () => {
+    beforeEach(() => {
+        mountDefault({
+            titleSlot,
+            subtitleSlot,
+            contentSlot,
+            badgeSlot,
+        });
+    });
+
+    it('should have a badge', () => {
+        cy.get('vl-info-tile').shadow().find('slot[name="badge"]').should('exist');
+        cy.get('vl-info-tile').find('div[slot="badge"]').contains('BD');
+    });
+});
+
+describe('story vl-info-tile - footer', () => {
+    beforeEach(() => {
+        mountDefault({
+            titleSlot,
+            subtitleSlot,
+            contentSlot,
+            footerSlot,
+        });
+    });
+
+    it('should have a footer', () => {
+        cy.get('vl-info-tile').shadow().find('slot[name="footer"]').should('exist');
+        cy.get('vl-info-tile').find('div[slot="footer"]').contains('Download');
     });
 });

@@ -21,9 +21,30 @@ export default {
 
 const Template = story(
     infoTileArgs,
-    ({ autoOpen, toggleable, center, contentSlot, subtitleSlot, titleSlot, menuSlot, size }) => html`
-        <vl-info-tile ?toggleable=${toggleable} ?auto-open=${autoOpen} ?center=${center} size=${size}>
-            ${unsafeHTML(titleSlot)}${unsafeHTML(menuSlot)}${unsafeHTML(subtitleSlot)}${unsafeHTML(contentSlot)}
+    ({
+        autoOpen,
+        toggleable,
+        center,
+        contentSlot,
+        subtitleSlot,
+        titleSlot,
+        footerSlot,
+        menuSlot,
+        badgeSlot,
+        size,
+        icon,
+        iconAsBadge,
+    }) => html`
+        <vl-info-tile
+            ?toggleable=${toggleable}
+            ?auto-open=${autoOpen}
+            ?center=${center}
+            size="${size}"
+            icon="${icon}"
+            ?icon-as-badge=${iconAsBadge}
+        >
+            ${unsafeHTML(badgeSlot)} ${unsafeHTML(titleSlot)} ${unsafeHTML(menuSlot)} ${unsafeHTML(subtitleSlot)}
+            ${unsafeHTML(contentSlot)} ${unsafeHTML(footerSlot)}
         </vl-info-tile>
     `
 );
@@ -98,4 +119,45 @@ InfoTileMenuSlot.args = {
             </vl-popover-action-list>
         </vl-popover>
     </span>`,
+};
+
+export const InfoTileIcon = Template.bind({});
+InfoTileIcon.storyName = 'vl-info-tile - icon';
+InfoTileIcon.args = {
+    titleSlot: `<span slot="title">Broos Deprez</span>`,
+    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    icon: 'file-tasks-check',
+    iconAsBadge: true,
+};
+
+export const InfoTileBadgeSlot = Template.bind({});
+InfoTileBadgeSlot.storyName = 'vl-info-tile - badge slot';
+InfoTileBadgeSlot.args = {
+    titleSlot: `<span slot="title">Broos Deprez</span>`,
+    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    badgeSlot:
+        `<div slot="badge" style="
+            width: 45px; 
+            height: 45px; 
+            background: var(--vl-color--background-alt); 
+            border: 1px solid var(--vl-color--mischka-grey); 
+            border-radius: 50%; 
+            display: flex; 
+            flex-wrap: wrap; 
+            place-content: center center;
+            font-weight: 500;
+        ">BD</div>`,
+};
+
+export const InfoTileFooterSlot = Template.bind({});
+InfoTileFooterSlot.storyName = 'vl-info-tile - footer slot';
+InfoTileFooterSlot.args = {
+    titleSlot: `<span slot="title">Broos Deprez</span>`,
+    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    footerSlot: `<div slot="footer">
+        <vl-button icon="file-download">Download</vl-button>
+    </div>`,
 };

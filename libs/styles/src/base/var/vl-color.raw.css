@@ -3,6 +3,7 @@
 :root {
     --vl-color--white: #ffffff;
     --vl-color--white-lilac: #f7f9fc;
+    --vl-color--mischka-grey: #CFD5DD;
 
     --vl-color--accent: #ffe615;
     --vl-color--background: var(--vl-color--white);
