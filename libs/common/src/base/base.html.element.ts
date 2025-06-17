@@ -1,6 +1,6 @@
 declare const vl: any;
 
-export class BaseHTMLElement extends HTMLElement {
+export class BaseHTMLElement<T = any> extends HTMLElement {
     protected allowCustomCSS = true;
     protected _shadow: ShadowRoot | undefined;
     protected _observer: MutationObserver | undefined;
@@ -183,8 +183,8 @@ export class BaseHTMLElement extends HTMLElement {
      * @protected
      * @return {Element}
      */
-    get _element(): any {
-        return this._shadow?.lastElementChild || this;
+    get _element(): T {
+        return (this._shadow?.lastElementChild || this) as T;
     }
 
     /**
