@@ -3,8 +3,8 @@ import {
     CONTROLS,
     defaultArgs,
     defaultArgTypes,
-    TYPES,
     getSelectControlOptions,
+    TYPES,
 } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components';
 import { INFO_TILE_SIZE } from '../vl-info-tile.model';
@@ -17,8 +17,12 @@ export const infoTileArgs = {
     contentSlot: '',
     subtitleSlot: '',
     titleSlot: '',
+    footerSlot: '',
     menuSlot: '',
+    badgeSlot: '',
     size: '',
+    icon: '',
+    iconAsBadge: false,
 };
 
 export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
@@ -78,13 +82,31 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
             defaultValue: { summary: infoTileArgs.titleSlot },
         },
     },
+    footerSlot: {
+        name: 'footer',
+        description: 'De footer van de info-tile. Dit is de plaats waar actieknoppen toegevoegd kunnen worden.',
+        table: {
+            category: CATEGORIES.SLOTS,
+            type: { summary: TYPES.HTML },
+            defaultValue: { summary: infoTileArgs.footerSlot },
+        },
+    },
     menuSlot: {
         name: 'menu',
-        description: 'Slotelement om menu item toe te voegen in rechterbovenhoek.',
+        description: 'Slot-element om een popover menu toe te voegen in de rechterbovenhoek.',
         table: {
             category: CATEGORIES.SLOTS,
             type: { summary: TYPES.HTML },
             defaultValue: { summary: infoTileArgs.menuSlot },
+        },
+    },
+    badgeSlot: {
+        name: 'badge',
+        description: 'Slot-element om een badge toe te voegen. Dit werkt niet in combinatie met het "icon" attribuut.',
+        table: {
+            category: CATEGORIES.SLOTS,
+            type: { summary: TYPES.HTML },
+            defaultValue: { summary: infoTileArgs.badgeSlot },
         },
     },
     size: {
@@ -99,4 +121,23 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
             defaultValue: { summary: infoTileArgs.size },
         },
     },
+    icon: {
+        name: 'icon',
+        description: 'Beeldt een icoon af in de info tile. Dit werkt niet in combinatie met het "badge" slot.',
+        table: {
+            category: CATEGORIES.ATTRIBUTES,
+            type: { summary: TYPES.STRING },
+            defaultValue: { summary: infoTileArgs.icon },
+        },
+    },
+    iconAsBadge: {
+        name: 'icon-as-badge',
+        description:
+            'Geeft aan het icoon de "badge" stijl. Het "icon" attribuut is in dit geval vereist. Dit werkt niet in combinatie met het "badge" slot.',
+        table: {
+            category: CATEGORIES.ATTRIBUTES,
+            type: { summary: TYPES.BOOLEAN },
+            defaultValue: { summary: infoTileArgs.iconAsBadge },
+        },
+    }
 };
