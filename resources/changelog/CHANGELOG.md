@@ -1,3 +1,13 @@
+# [1.49.0](https://github.com/milieuinfo/flux-web-components/compare/v1.48.2...v1.49.0) (2025-06-18)
+
+
+### Features
+
+* FLUX-70 - flux ipv uigov ([b5370e6](https://github.com/milieuinfo/flux-web-components/commit/b5370e62b56a1a5f02879b3e7699737e8b3c7a66))
+* FLUX-74 - vl-content-block / vl-functional-header - voorbeelden van een volledige breedte layout toegevoegd ([3bd3850](https://github.com/milieuinfo/flux-web-components/commit/3bd38507990c5744a5cc4a56490e5443b9339d37))
+* FLUX-78 - layoutStyles ontsloten ([c2efa53](https://github.com/milieuinfo/flux-web-components/commit/c2efa53d9ad8d17b73bc22ec74c280924f772494))
+* readme uitgebreid met Storybook v2 ([7ca0e52](https://github.com/milieuinfo/flux-web-components/commit/7ca0e52af9928406bacf0b84737ec98c3e47b7e0))
+
 ## [1.48.2](https://github.com/milieuinfo/uigov-web-components/compare/v1.48.1...v1.48.2) (2025-05-28)
 
 
