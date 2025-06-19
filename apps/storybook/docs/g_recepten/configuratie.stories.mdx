@@ -4,7 +4,7 @@ import { Meta } from '@storybook/addon-docs';
 
 # Configuratie
 
-M.b.v. de statische klasse `UigConfig` kunnen voorkeuren gewijzigd worden.
+M.b.v. de statische klasse `FluxConfig` kunnen voorkeuren gewijzigd worden.
 
 De defaults zijn:
 - autoRegisterStyles: true
@@ -17,9 +17,9 @@ De defaults zijn:
 Wijzig de defaults als volgt; voordat het eerste element geïmporteerd wordt.
 
 ```
-import { UigConfig } from '@domg-wc/common';
+import { FluxConfig } from '@domg-wc/common';
 
-UigConfig.setPreferences({ logWebComponentRegistration: true });
+FluxConfig.setPreferences({ logWebComponentRegistration: true });
 ```
 
 **Opmerking**: ervoor zorgen dat deze code als eerste uitgevoerd wordt (alvorens de eerste component geregistreerd

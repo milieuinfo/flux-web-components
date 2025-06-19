@@ -4,25 +4,28 @@ import { Meta } from '@storybook/addon-docs';
 
 # Styling
 
-## Elementen & CSS
+## Globale CSS
 
-Alle `@domg-wc elementen`, zijnde de web-componenten die zich in de package `@domg-wc/elements` bevinden, zorgen
-ervoor dat eenmalig alle css op document niveau geregistreerd wordt. Technisch gebeurt dat door de decorator
-`@elementStyles` die de onderstaande `RegisterStyles.registerElementsStyles()` methode uitvoert:
+Alle Flux web-componenten, zijnde de web-componenten die zich in de package `@domg-wc/components` bevinden, zorgen
+ervoor dat eenmalig alle css op document niveau geregistreerd wordt. Technisch gebeurt dat door de basis klasse
+`BaseLitElement` die de onderstaande `GlobalStyles.getInstance().register()` methode uitvoert:
 
 ```
-class RegisterStyles {
-    static elementStylesRegistered = false;
-
-    static registerElementsStyles() {
-        if (UigConfig.getPreferences().autoRegisterStyles && !this.elementStylesRegistered) {
+public register() {
+    if (!this.registered) {
+        if (FluxConfig.getPreferences().autoRegisterStyles) {
             document.adoptedStyleSheets = [
                 ...document.adoptedStyleSheets,
-                ...(allElementStyles.map((style) => style.styleSheet) as CSSStyleSheet[]),
+                ...(this.defaultStyles.map((style) => style.styleSheet) as CSSStyleSheet[]),
             ];
-            this.elementStylesRegistered = true;
-            console.log('RegisterStyles: element-styling toegevoegd aan het document');
+            console.info('GlobalStyles: global styling toegevoegd aan het document');
+        } else {
+            console.info(
+                'GlobalStyles: geen global styling toegevoegd aan het document - autoRegisterStyles is uitgeschakeld'
+            );
         }
+        this.registered = true;
+        this.registerCustomCSS();
     }
 }
 ```
