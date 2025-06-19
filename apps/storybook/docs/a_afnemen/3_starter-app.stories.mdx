@@ -16,29 +16,32 @@ import {Meta} from '@storybook/blocks';
 
 ## Doel
 
-Onder [https://git.omgeving.vlaanderen.be/git/uig/flux-starter-app](https://git.omgeving.vlaanderen.be/git/uig/flux-starter-app)
+Onder [https://git.omgeving.vlaanderen.be/git/flux/flux-starter-app](https://git.omgeving.vlaanderen.be/git/flux/flux-starter-app)
 vind je een voorbeeld 'starter' project met een basis setup. Het is een WIP, gelieve via MR's wijzigingen of
 uitbreidingen aan te vragen.
 
 
 ## Bibliotheken
 
-- [Node](https://nodejs.org/en) - LTS versie - v20.13.1
+Hieronder is een overzicht van welke bibliotheken gebruikt worden in de flux-starter-app, de concrete versies
+vind je terug in de package.json.
+
+- [Node](https://nodejs.org/en) - een recentelijke LTS versie
 - [Volta](https://volta.sh/) - installeer de laatste versie
-- [Webpack](https://webpack.js.org/) - v5.91.0
-- [TypeScript](https://www.typescriptlang.org/) - v5.4.5
-- [Lit](https://lit.dev/) - v3.1.3
-- [Prettier](https://prettier.io/) - v3.2.5
-- [ESLint](https://eslint.org/) - v8.57.0
-- [Jest](https://jestjs.io/) - v29.7.0
-- [Cypress](https://www.cypress.io/) - v13.10.0
+- [Webpack](https://webpack.js.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Lit](https://lit.dev/)
+- [Prettier](https://prettier.io/)
+- [ESLint](https://eslint.org/)
+- [Jest](https://jestjs.io/)
+- [Cypress](https://www.cypress.io/)
 
 
 ## Concept
 
 > Binnen Departement Omgeving streven we naar een Framework agnostische aanpak. Er wordt bewust niet ingezet op een
 concreet framework, dus geen React, Angular, Vue, ... . Het doel is toepassingen te bouwen op een native manier:
-met Html, Javascript en Css - gebruik makend van web-standaarden - waarbij het bouwen van
+met Html, Javascript en Css - gebruikmakend van web-standaarden - waarbij het bouwen van
 [Web Components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) de basis vormt.
 
 
@@ -46,8 +49,8 @@ met Html, Javascript en Css - gebruik makend van web-standaarden - waarbij het b
 
 Niettegenstaande de framework-agnostische aanpak willen we wel op een moderne manier aan frontend ontwikkeling doen -
 en vermijden het warm water uit te vinden. Een toepassing wordt gebouwd op het Node-platform en gebundeld met
-Webpack. Het is aanbevolen een linter te gebruiken en optioneel kan code in TypeScript geschreven worden.
-Om kwalitatieve code te behouden is het de bedoeling 3 types van testen te schrijven: unit testen (met Jest) en
+Webpack. Het is aanbevolen een linter te gebruiken en optioneel (maar aanbevolen) kan code in TypeScript geschreven
+worden. Om kwalitatieve code te behouden is het de bedoeling 3 types van testen te schrijven: unit testen (met Jest) en
 component- en e2e-testen (met Cypress).
 
 In het verleden werden web-componenten van 'scratch' geschreven, hierdoor ontstond een basis-klasse die resulteerde
@@ -58,8 +61,8 @@ met Web Components als basis.
 ## Opzet
 
 Om te starten met een nieuwe toepassing vertrek je van een fork van de starter-app. Deze maakt gebruik van Volta,
-dat is een tool die er voor zorgt dat er een expliciete Node versie gespecifiëerd is. Als je ontwikkeling doet voor
-meerdere toepassingen zal je daardoor telkens met de juiste Node versie werken.
+die tool zorgt ervoor dat er een expliciete Node versie gespecifieerd, geïnstalleerd en gebruikt wordt. Bij
+ontwikkeling voor meerdere toepassingen zal je daardoor telkens met de juiste Node versie werken.
 
 Je kan de nieuwste versie van Volta eenmalig als volgt installeren:
 ```
@@ -102,8 +105,8 @@ Alhoewel er alternatieven zijn is er - via de TAW - een consensus om
 [Webpack](https://webpack.js.org/guides/getting-started/) als bundler te gebruiken.
 
 Javascript hoeft niet ge-compiled te worden, TypeScript echter wel. Hiervoor is in de Webpack configuratie - i.p.v.
-Babel en tsc - [SWC](https://swc.rs/) geconfigureerd. Babel is complex (er zijn verschillende plugins nodig), om de verschillende
-tools correct te configureren. SWC heeft 1 eenduidig configuratie bestand. Voornamelijk om van Lit
+Babel en tsc - [SWC](https://swc.rs/) geconfigureerd. Babel is complex (er zijn verschillende plugins nodig), om de
+verschillende tools correct te configureren. SWC heeft 1 eenduidig configuratie bestand. Voornamelijk om van Lit
 [decorators](https://lit.dev/docs/components/decorators/) gebruik te kunnen maken werkt SWC out-of-the-box, terwijl
 Babel configuratie problemen geeft.
 
@@ -141,5 +144,5 @@ Er is geen gebrek aan test tools in de JavaScript wereld. Voor het testen van pu
 
 [Cypress](https://www.cypress.io/) maakt het schrijven van frontend testen makkelijk. Het voorziet een manier
 om e2e testen te schrijven, requests uit te mocken, a.d.h.v. fixtures componenten in isolatie te testen, ... .
-Het kan makkelijk om met de shadow-dom, je kan eigen commando's voorzien en gaat transparant om met reactieve
+Het kan makkelijk om met de shadow-dom, je kan eigen commando's voorzien en Cypress gaat transparant om met reactieve
 html.

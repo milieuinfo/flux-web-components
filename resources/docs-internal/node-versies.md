@@ -41,7 +41,7 @@ Wij gebruiken node via volta, de historiek van de versies die wij gebruiken is a
 
 ## Afname artifact's
 
-Als UIG team hebben wij geen productie toepassing. Wij hebben wel de 'ConsumerApp' die we gebruiken om manueel te testen, hiervoor
+Als Flux team hebben wij geen productie toepassing. Wij hebben wel de 'ConsumerApp' die we gebruiken om manueel te testen, hiervoor
 zijn er nog geen automatische testen in de build.
 De 'ConsumerApp' is een native toepassing die gebundeld en geserved wordt m.b.v. webpack en devserver. We testen zowel de gewone
 artifacts als de fat-lib na upgrades of gemelde problemen.

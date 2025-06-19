@@ -1,7 +1,7 @@
 {
     "name": "flux-web-components",
     "version": "2.1.0",
-    "author": "UIG <uig@vlaanderen.be>",
+    "author": "Flux <flux@omgeving.vlaanderen.be>",
     "license": "MIT",
     "scripts": {
         "apps:consumer-e2e:run": "cd ./apps/consumer-e2e && npx cypress run --e2e",

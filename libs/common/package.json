@@ -1,7 +1,7 @@
 {
     "name": "@domg-wc/common",
     "version": "DOMG-WC-VERSION",
-    "author": "UIG <uig@vlaanderen.be>",
+    "author": "Flux <flux@omgeving.vlaanderen.be>",
     "publishConfig": {
         "registry": "https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/"
     },
