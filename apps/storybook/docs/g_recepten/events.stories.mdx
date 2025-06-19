@@ -6,8 +6,8 @@ import {Meta} from '@storybook/addon-docs';
 
 ## Native- vs Custom-events
 
-De UIG-componenten bieden eigen - custom -
-events aan, deze hebben de prefix `vl-`. De prefix maakt duidelijk dat het UIG-events zijn en vermijden conflicten
+De Flux-componenten bieden eigen - custom -
+events aan, deze hebben de prefix `vl-`. De prefix maakt duidelijk dat het Flux-events zijn en vermijden conflicten
 met standaard events of events van andere bibliotheken. Op de documentatie pagina van een component vind je onder
 `Configuratie` een overzicht van de custom-events, de native events worden niet vermeld!
 
@@ -19,11 +19,11 @@ Luister bvb. naar `vl-change` of `vl-input` (i.p.v. `click`) bij het aanvinken v
 
 ## Events in Lit
 
-Lit, waar de nieuwere UIG-componenten gebruik van maken, heeft zelf een documentatie pagina over
+Lit, waar de nieuwere Flux-componenten gebruik van maken, heeft zelf een documentatie pagina over
 [events](https://lit.dev/docs/components/events/).
 
 ## Retargeting
 
-De UIG-componenten ontsluiten typisch native componenten die op hun beurt native events hebben. Web-componenten
+De Flux-componenten ontsluiten typisch native componenten die op hun beurt native events hebben. Web-componenten
 [re-targetten](https://web.dev/articles/shadowdom-v1#the_shadow_dom_event_model) zelf bepaalde events, hierdoor lijken
 die native events voor afnemers van de web-component zelf te komen of worden bepaalde event meerdere keren binnen.
