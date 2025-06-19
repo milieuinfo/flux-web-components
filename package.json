@@ -1,7 +1,7 @@
 {
     "name": "flux-web-components",
     "version": "1.49.0",
-    "author": "UIG <flux@vlaanderen.be>",
+    "author": "Flux <flux@vlaanderen.be>",
     "license": "MIT",
     "scripts": {
         "apps:consumer:build": "",

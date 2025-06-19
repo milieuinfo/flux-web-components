@@ -10,17 +10,16 @@ import planning2025 from '../../resources/planning/planning-2025.png';
 ## Inhoudstafel
 
 - [Aanpak](#aanpak)
-- [Nu: Planning 2024](#nu-planning-2024)
-- [Toekomst: Planning 2025](#toekomst-planning-2025)
-- [Verleden: Q4 2023 / Q1 2024](#verleden-q4-2023--q1-2024)
-- [Historiek](#historiek)
+- [Planning 2025](#planning-2024)
+- [Verleden](#verleden)
+- [Historisch](#historisch)
 
 
 ## Aanpak
 
-Het UIG-team heeft altijd als doel gehad de drempel tot frontend ontwikkeling te verlagen. Enerzijds gebeurt
-softwareontwikkeling bij Departement Omgeving typisch door fullstack-ontwikkelaars die praktisch meer affiniteit hebben
-met backend- dan met frontend-ontwikkeling. Anderzijds is het de bedoeling dat designs de
+Het Flux-team (vroegere UIG-team) heeft altijd als doel gehad de drempel tot frontend ontwikkeling te verlagen.
+Enerzijds gebeurt softwareontwikkeling bij Departement Omgeving typisch door fullstack-ontwikkelaars die praktisch meer
+affiniteit hebben met backend- dan met frontend-ontwikkeling. Anderzijds is het de bedoeling dat designs de
 [huisstijl](https://www.vlaanderen.be/vlaanderen-intern-communicatie/huisstijl-en-merkbeleid) - voorzien door [Digitaal
 Vlaanderen](https://www.vlaanderen.be/digitaal-vlaanderen) - gebruiken. Deze huisstijl-voor-websites wordt praktisch
 gecapteerd door het [Webuniversum](https://overheid.vlaanderen.be/webuniversum/v3/documentation/) in de vorm van
@@ -28,49 +27,52 @@ componenten. Dit zijn echter geen [web-componenten](https://developer.mozilla.or
 die in de browser geregistreerd kunnen worden. DV noemt het wel 'webcomponents', maar het is hoofdzakelijk css styling
 (technisch scss), met beperkt Javascript die gedocumenteerd worden a.d.h.v. voorbeelden.
 
-Van in het begin (2020) was het doel - en de aanpak - van UIG om de componenten van het Webuniversum aan te bieden als
+Van in het begin (2020) was het doel - en de aanpak - van Flux om de componenten van het Webuniversum aan te bieden als
 volwaardige web-componenten. Eens er een ruime set van web-componenten beschikbaar was verschoof de bulk van het werk
 naar onderhoud: bugs kwamen boven en uitbreidingen werden gevraagd.
 
 Sinds 2023 wordt er geregeld een planning opgesteld. Hierin zit een 'ongoing' deel, wat het weerkerend werk omvat en
-een 'focus' deel waarin we thematisch te werk willen gaan. Beknopt wordt er ook aangehaald wat er in de toekomst op de
+een 'focus' deel waarin we thematisch te werk gaan. Beknopt wordt er ook aangehaald wat er in de toekomst op de
 planning komt.
 
-Een samenvatting in pdf formaat van de meest recente planning 2024/2025 vind je
-<a href="UIG-Planning-2024-2025.pdf" target="_blank">hier</a>.
 
-## Nu: Planning 2024
+## Planning 2025
 
-De focus ligt op:
+Met vertraging is begin juni 2025 v2 gereleased, dit geeft een opkuis van 3 jaar evolutie. Nog niet alles is
+consistent maar het is een grote stap in de juiste richting.
 
-- het volledig wegwerken van de 'elementen', wat in een v2 release zal resulteren
-- de introductie van [web-types](https://github.com/JetBrains/web-types) zodat afnemers code completion en documentatie
-  in hun IDE hebben
-- de monorepo versimpelen - Nx gaf flexibiliteit, maar is nu eerder een nadeel nu de monorepo stabiel is
-- de OpenWC testen van de map vervangen door Cypress component-testen, ter voorbereiding van de grondige map
-  herwerking in 2025
-
-<br/><img src={planning2024} alt="planning-2024"/>
-
-
-## Toekomst: Planning 2025
-
-Het doel is in 2025 de UIG web componenten te finaliseren met een v3 release. Om dit te bereiken moeten we:
-
-- de map grondig herwerken, deze is historisch gegroeid en wordt veel gebruikt maar is ondertussen niet meer
-  consistent met de rest van de codebase
-- de legacy 'BaseElementOfType' basis klasse verwijderen, hiervoor zijn er nog componenten om te zetten naar Lit
+Op de planning van 2025 staat voor de rest verdere evolutie en verbeteringen waaronder:
+- een CSP POC die de praktische CSP knelpunten aanpakt: de vl-header, tinyMCE, de map, ...
+- de map verbeteren om Lambert-2008 te ondersteunen en een aanzet geven tot een grondige herwerking, de map is
+historisch gegroeid en wordt veel gebruikt maar is niet meer consistent met de rest van de codebase
+- de legacy 'BaseElementOfType' basis klasse wegwerken, hiervoor zijn er nog componenten om te zetten naar Lit
 - de code kwaliteit nog verhogen door de volledige monorepo in 'strict' mode te zetten en door linting regels te
-  voorzien die we in de build verifiëren
+voorzien die we in de build verifiëren
 - de afgesplitste DV styling (in @domg/govflanders-style) wegwerken, we willen enkel css-in-js overhouden die
-  bij in de monorepo zit
-- in de mate van het mogelijke alle componenten zo CSP compliant als mogelijk maken
+bij in de monorepo zit
 - de WCAG compliancy, daar waar het kan, verbeteren
+- een aantal componenten herschrijven: waaronder vl-table, vl-side-navigation en vl-tabs
 
 <br/><img src={planning2025} alt="planning-2025"/>
 
 
-## Verleden: Q4 2023 / Q1 2024
+## Verleden
+
+### Q2 2024 tem Q1 2025
+
+De focus lag op:
+
+- het volledig wegwerken van de 'elementen', wat in een v2 release resulteerde
+- de introductie van [web-types](https://github.com/JetBrains/web-types) zodat afnemers code completion en documentatie
+in hun IDE hebben
+- de monorepo versimpelen - Nx gaf flexibiliteit, maar is nu eerder een nadeel nu de monorepo stabiel is
+- de OpenWC testen van de map vervangen door Cypress component-testen, ter voorbereiding van de grondige map
+herwerking in 2025
+
+<br/><img src={planning2024} alt="planning-2024"/>
+
+
+### Q4 2023 en Q1 2024
 
 De backlog was opgekuist en werd stelselmatig weggewerkt. De focus lag hier op:
 
@@ -85,7 +87,7 @@ In het kader van het 'ongoing' werk werden er onder andere (voor het eerst) Cypr
 <br/><img src={planning2023} alt="planning-2023"/>
 
 
-## Historiek
+## Historisch
 
 ### 01/2023 - 09/2023
 
