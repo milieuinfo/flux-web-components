@@ -73,3 +73,73 @@ Algemene wijzigingen:
 - `data-vl-*`-attributen verliezen de `data-vl-`-prefix; bv. `data-vl-size="4"` → `size="4"`
 - alle componenten met `is=""` attributen zijn geschrapt; bv. `is="vl-button-pill"` → `<vl-pill clickable>`
 
+
+<br/>
+## Wat is de impact op vl-grid?
+
+**Antwoord:** De grid is grondig gewijzigd en heeft een aantal specifieke aanpassingen nodig.
+
+- `vl-column` heeft een default waarde nodig zoals `vl-column--12` (bij `is="vl-grid"` was dat niet het geval).
+- Kolommen worden op een nieuwe manier aangeboden:
+
+<table style={{width: 100 + '%'}}>
+  <tr>
+    <th>Oude attribuut</th>
+    <th>Nieuwe aanpak / vervanging</th>
+  </tr>
+  <tr>
+    <td>data-vl-size="n"</td>
+    <td>class="vl-column--n"</td>
+  </tr>
+  <tr>
+    <td>data-vl-extra-small-size="n"</td>
+    <td>class="vl-column--xs-n"</td>
+  </tr>
+  <tr>
+    <td>data-vl-small-size="n"</td>
+    <td>class="vl-column--s-n"</td>
+  </tr>
+  <tr>
+    <td>data-vl-medium-size="n"</td>
+    <td>class="vl-column--m-n"</td>
+  </tr>
+  <tr>
+    <td>data-vl-medium-max-size="12"</td>
+    <td>mag weg (bij andere waarden dan "12" moeten de kolombreedtes herberekend worden naar een 12 kolommen grid)</td>
+  </tr>
+</table>
+
+Verifieer na de wijzigingen de grid layout zeker ook op verschillende resoluties.
+
+De `data-vl-is-stacked...` attributen op `vl-grid` kunnen vervangen worden door de stacked classes: `vl-stacked-...`. Zie [Stacked](/docs/styles-layout-afnemers-stacked--documentatie).
+
+Check voor meer informatie de [vl-grid documentatie](/docs/styles-layout-afnemers-grid--documentatie).
+
+
+<br/>
+## data-vl-no-space-top op een section werkt niet meer
+
+**Antwoord:** Klopt, in het geval van `<section is="vl-region">` zouden we aanraden dit te vervangen door `<section class="vl-section">`, waar we echter geen alternatief aanbieden voor `data-vl-no-space-top`. 
+Een mogelijke oplossing is om hier de class `vl-section` te laten vallen en puur het semantische `<section>` element over te houden.
+
+
+<br/>
+## De form validation error message verschijnt niet. Wat kan de oorzaak zijn?
+
+**Antwoord**: Dit zijn de stappen om `is="vl-form-validation-message data-vl-error"` te migreren:
+- Eerst migreren naar de v1 "next"-variant: `<vl-error-message-next>`
+- Vervolgens migreren naar de v2 variant: `<vl-form-message>`
+- Indien de message niet verschijnt kan dit komen omdat het component niet gekoppeld is aan een form element met het `for`-attribuut.
+- Indien de message niet kan gekoppeld worden aan een form element, moet het attribuut `show` toegevoegd worden.
+
+
+<br/>
+## Na het verwijderen van de `data-vl-` prefix zijn er zaken gebroken. Hoe kan dit?
+
+**Antwoord**: Dit kan komen door het gebruik van `data-vl-` in selectors of via het dataset object.
+
+- Selectors als `component-naam[data-vl-...]`, `[data-vl-...]` zullen breken. Hier moet ook de `data-vl-` prefix gewist worden.
+- Referenties via het dataset object zullen ook breken. Gebruik hiervoor `getAttribute` in de plaats.  
+  bv: `data-vl-max-resolution` → `element.dataset.vlMaxResolution` wordt:   
+  `max-resolution` → `element.getAttribute('max-resolution')`
+
