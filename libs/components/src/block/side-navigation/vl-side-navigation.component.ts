@@ -1,5 +1,6 @@
 import {
     BaseLitElement,
+    findDeepestElementThroughShadowRoot,
     legacyBreakpoint,
     legacyCore,
     registerWebComponents,
@@ -7,10 +8,10 @@ import {
     VL,
     webComponent,
 } from '@domg-wc/common';
-import './vl-side-navigation.lib.js';
 import { vlContentBlockStyles, vlGridStyles, vlSectionStyles } from '@domg-wc/styles';
-import { vlSideNavigationStyles } from './vl-side-navigation.css';
 import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
+import { vlSideNavigationStyles } from './vl-side-navigation.css';
+import './vl-side-navigation.lib.js';
 
 declare const vl: VL;
 
@@ -29,6 +30,14 @@ export class VlSideNavigationComponent extends BaseLitElement {
 
     protected createRenderRoot(): HTMLElement | DocumentFragment {
         return this;
+    }
+
+    protected hasStickyHeader(): boolean {
+        return !!this.getRootNode().querySelector('vl-header')
+    }
+
+    protected get scrollOffset(): number {
+        return this.hasStickyHeader() ? 43 : 0;
     }
 
     connectedCallback(): void {
@@ -52,6 +61,20 @@ export class VlSideNavigationComponent extends BaseLitElement {
                 vlSideNavigationStyles.styleSheet as CSSStyleSheet,
                 vlIconStyles.styleSheet as CSSStyleSheet,
             ];
+        }
+
+        this.initialScroll();
+    }
+
+    private initialScroll() {
+        const id = location.hash.slice(1);
+        if (id) {
+            const element = findDeepestElementThroughShadowRoot(this.getRootNode(), `#${id}`);
+            if (element) {
+                const rect = element.getBoundingClientRect();
+                const scrollTop = window.scrollY + rect.top - this.scrollOffset;
+                window.scrollTo({ top: scrollTop, behavior: 'smooth' });
+            }
         }
     }
 

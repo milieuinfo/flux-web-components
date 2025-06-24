@@ -1,10 +1,9 @@
-import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
+import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components';
-import { css } from 'lit';
 import { html } from 'lit-html';
-import '../vl-steps.component';
 import { VlSideNavigationComponent } from '../../side-navigation';
+import '../vl-steps.component';
 import { stepsArgs, stepsArgTypes } from './vl-steps.stories-arg';
 import stepsDoc from './vl-steps.stories-doc.mdx';
 
@@ -178,7 +177,7 @@ export const StepsSideNavigation = story(
         <section class="vl-section" id="steps-side-navigation-example">
             <div class="vl-content-block">
                 <div class="vl-grid vl-stacked-small">
-                    <div class="vl-column vl-column--8 vl-column--m-8 vl-column--s-8 vl-column--xs-12">
+                    <div class="vl-column vl-column--8 vl-column--m-8 vl-column--s-12 vl-column--xs-12">
                         <vl-side-navigation-reference>
                             <vl-steps>
                                 <vl-step>
@@ -473,7 +472,7 @@ export const StepsSideNavigation = story(
                             </vl-steps>
                         </vl-side-navigation-reference>
                     </div>
-                    <div class="vl-column vl-column--3 vl-column--m-3 vl-column--s-3 vl-column--xs-0">
+                    <div class="vl-column vl-column--4 vl-column--m-4 vl-column--s-12 vl-column--xs-12">
                         <vl-side-navigation aria-label="inhoudsopgave">
                             <vl-side-navigation-h5>Op deze pagina</vl-side-navigation-h5>
                             <vl-side-navigation-content>

@@ -63,9 +63,9 @@ describe('component content', () => {
 });
 
 describe('component content - helper function <contentChildElements()> ', () => {
-    it('should return an array of WebComponents with a length of 3', () => {
+    it('should return an array of WebComponents with a length of 5', () => {
         const elements = contentElements();
         expect(elements).to.be.an('array');
-        expect(elements).to.have.length(3);
+        expect(elements).to.have.length(5);
     });
 });

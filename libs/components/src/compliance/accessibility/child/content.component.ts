@@ -1,14 +1,16 @@
+import { VlTitleComponent } from '@domg-wc/components/atom';
+import { html } from 'lit';
 import { VlContactCardComponent } from '../../../block/contact-card';
 import { VlInfoblockComponent } from '../../../block/infoblock';
 import { VlPropertiesComponent } from '../../../block/properties';
-import { html } from 'lit';
+import { VlSideNavigationReferenceComponent } from '../../../block/side-navigation';
 import { AccessibilityProperties } from '../vl-accessibility.model';
 import { complianceStatus } from './compliance-status.component';
 import { inaccessibleContent } from './inaccessible-content.component';
 import { setupStatement } from './setup-statement.component';
 import { sideNavigation } from './side-navigation.component';
 
-export const contentElements = () => [VlContactCardComponent, VlInfoblockComponent, VlPropertiesComponent];
+export const contentElements = () => [VlContactCardComponent, VlInfoblockComponent, VlPropertiesComponent, VlTitleComponent, VlSideNavigationReferenceComponent];
 
 export const content = ({
     application,
@@ -21,8 +23,8 @@ export const content = ({
     return html` <section id="content" class="vl-section">
         <div class="vl-content-block">
             <div class="vl-grid vl-stacked-medium vl-content-block">
-                <div class="vl-column vl-column--8 vl-column--m-8 vl-column--s-8 vl-column--xs-12">
-                    <vl-side-navigation-reference scrollspy-content>
+                <div class="vl-column vl-column--8 vl-column--m-8 vl-column--s-12 vl-column--xs-12">
+                    <vl-side-navigation-reference>
                         <div class="vl-grid vl-stacked-large">
                             <div class="vl-column vl-column--12 vl-column--m-12">
                                 <p>

@@ -8,7 +8,7 @@ export const sideNavigationHTML = `
     <div class="vl-content-block">
         <div class="vl-grid vl-stacked-medium">
             <div
-                class="vl-column vl-column--8 vl-column--m-8 vl-column--s-8 vl-column--xs-12"
+                class="vl-column vl-column--8 vl-column--m-8 vl-column--s-12 vl-column--xs-12"
             >
                 <vl-side-navigation-reference>
                     <section id="content-1" class="vl-section">
@@ -163,7 +163,7 @@ export const sideNavigationHTML = `
                     </section>
                 </vl-side-navigation-reference>
             </div>
-            <div class="vl-column vl-column--3 vl-column--m-3 vl-column--s-3 vl-column--xs-0">
+            <div class="vl-column vl-column--4 vl-column--m-4 vl-column--s-12 vl-column--xs-12">
                 <vl-side-navigation aria-label="inhoudsopgave">
                     <vl-side-navigation-h5>Op deze pagina</vl-side-navigation-h5>
                     <vl-side-navigation-content>
