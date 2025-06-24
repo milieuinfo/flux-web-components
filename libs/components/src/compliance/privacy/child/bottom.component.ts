@@ -6,9 +6,9 @@ export const privacyBottomSection = () => html`
             <div class="vl-column vl-column--12 vl-column--m-12">
                 <vl-contact-card id="contact-card">
                     <vl-infoblock slot="info" type="contact">
-                        <h2 slot="title">DPO van Departement Omgeving</h2>
+                        <vl-title type="h2" slot="title" custom-css="h2 {font-size: var(--vl-font-size); margin-top: 1rem; }">DPO van Departement Omgeving</vl-title>
                     </vl-infoblock>
-                    <vl-properties slot="properties">
+                    <vl-properties slot="properties" custom-css="dl:has(.item) { margin-top: 0.8rem; display: block; }">
                         <label>Adres</label>
                         <data>
                             <div>Herman Teirlinckgebouw</div>
