@@ -1,5 +1,6 @@
 import {
     BaseLitElement,
+    findDeepestElementThroughShadowRoot,
     legacyBreakpoint,
     legacyCore,
     registerWebComponents,
@@ -8,12 +9,11 @@ import {
     webComponent,
 } from '@domg-wc/common';
 import { vlContentBlockStyles, vlGridStyles, vlLegacyStyles, vlSectionStyles } from '@domg-wc/styles';
+import { PropertyDeclarations } from 'lit';
 import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { vlSideNavigationStyles } from './vl-side-navigation.css';
+import { sideNavigationDefaults } from './vl-side-navigation.defaults';
 import './vl-side-navigation.lib.js';
-import { vlContentBlockStyles, vlGridStyles, vlSectionStyles } from '@domg-wc/styles';
-import { vlSideNavigationStyles } from './vl-side-navigation.css';
-import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 
 declare const vl: VL;
 
@@ -23,6 +23,12 @@ registerWebComponents([legacyCore, legacyBreakpoint]);
 export class VlSideNavigationComponent extends BaseLitElement {
     static initializedSideNavigationId = '';
 
+    /**
+     * Indien de applicatie gebruik maakt van hash routing, kan je hiermee aangeven dat de side navigation
+     * geen browser history entry moet aanmaken bij het navigeren naar een item.
+     */
+    private hasHashRouting = sideNavigationDefaults.hasHashRouting;
+
     constructor() {
         super();
         this.processAttributes();
@@ -30,8 +36,22 @@ export class VlSideNavigationComponent extends BaseLitElement {
         this.rerender();
     }
 
+    static get properties(): PropertyDeclarations {
+        return {
+            hasHashRouting: { type: Boolean, attribute: 'has-hash-routing' },
+        }
+    }
+
     protected createRenderRoot(): HTMLElement | DocumentFragment {
         return this;
+    }
+
+    protected hasStickyHeader(): boolean {
+        return !!this.getRootNode().querySelector('vl-header')
+    }
+
+    protected get scrollOffset(): number {
+        return this.hasStickyHeader() ? 43 : 0;
     }
 
     connectedCallback(): void {
@@ -57,6 +77,23 @@ export class VlSideNavigationComponent extends BaseLitElement {
                 vlIconStyles.styleSheet as CSSStyleSheet,
                 ...vlLegacyStyles.map((style) => style.styleSheet) as CSSStyleSheet[],
             ];
+        }
+
+        this.initialScroll();
+    }
+
+    private initialScroll() {
+        if (this.hasHashRouting) {
+            return;
+        }
+        const id = location.hash.slice(1);
+        if (id) {
+            const element = findDeepestElementThroughShadowRoot(this.getRootNode(), `#${id}`);
+            if (element) {
+                const rect = element.getBoundingClientRect();
+                const scrollTop = window.scrollY + rect.top - this.scrollOffset;
+                window.scrollTo({ top: scrollTop, behavior: 'smooth' });
+            }
         }
     }
 

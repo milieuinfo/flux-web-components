@@ -18,6 +18,12 @@ export class BaseLitElement extends LitElement {
         };
     }
 
+    // We fixen hier de `getRootNode()` return type, omdat `getRootNode()` standaard `Node` retourneert 
+    // en om te vermijden dat we overal het type moeten casten naar `Element` of `ShadowRoot`.
+    getRootNode(options?: GetRootNodeOptions): Element | ShadowRoot {
+        return super.getRootNode(options) as Element | ShadowRoot;
+    }
+
     connectedCallback(): void {
         super.connectedCallback();
 
