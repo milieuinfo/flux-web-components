@@ -74,9 +74,9 @@ export const privacyContentSection = () => html`
                                         <div class="vl-column vl-column--12 vl-column--m-12">
                                             <vl-contact-card>
                                                 <vl-infoblock slot="info" type="contact">
-                                                    <vl-title type="h4" slot="title"> Departement Omgeving </vl-title>
+                                                    <vl-title type="h4" slot="title" custom-css="h4 {font-size: var(--vl-font-size); margin-top: 1rem; }"> Departement Omgeving </vl-title>
                                                 </vl-infoblock>
-                                                <vl-properties slot="properties">
+                                                <vl-properties slot="properties" custom-css="dl:has(.item) { margin-top: 0.8rem; display: block; }">
                                                     <label>Adres</label>
                                                     <data>
                                                         <div>Herman Teirlinckgebouw</div>

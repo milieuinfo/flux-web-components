@@ -22,7 +22,7 @@ export const content = ({
 }: AccessibilityProperties) => {
     return html` <section id="content" class="vl-section">
         <div class="vl-content-block">
-            <div class="vl-grid vl-stacked-medium vl-content-block">
+            <div class="vl-grid vl-stacked-medium">
                 <div class="vl-column vl-column--8 vl-column--m-8 vl-column--s-12 vl-column--xs-12">
                     <vl-side-navigation-reference>
                         <div class="vl-grid vl-stacked-large">
@@ -62,9 +62,9 @@ export const content = ({
                                 <br />
                                 <vl-contact-card id="contact-card-1">
                                     <vl-infoblock slot="info" type="contact">
-                                        <h3 slot="title">Departement Omgeving</h3>
+                                        <vl-title type="h3" slot="title" custom-css="h3 {font-size: var(--vl-font-size); margin-top: 1rem; }">Departement Omgeving</vl-title>
                                     </vl-infoblock>
-                                    <vl-properties slot="properties">
+                                    <vl-properties slot="properties" custom-css="dl:has(.item) { margin-top: 0.8rem; display: block; }">
                                         <label>Adres</label>
                                         <data>
                                             <div>Havenlaan 88</div>
@@ -100,9 +100,9 @@ export const content = ({
                                 <br />
                                 <vl-contact-card id="contact-card-2">
                                     <vl-infoblock slot="info" type="contact">
-                                        <h3 slot="title">Klachtenbehandelaar</h3>
+                                        <vl-title type="h3" slot="title" custom-css="h3 {font-size: var(--vl-font-size); margin-top: 1rem; }">Klachten&shy;behandelaar</vl-title>
                                     </vl-infoblock>
-                                    <vl-properties slot="properties">
+                                    <vl-properties slot="properties" custom-css="dl:has(.item) { margin-top: 0.8rem; display: block; }">
                                         <label>Adres</label>
                                         <data>
                                             <div>Havenlaan 88</div>
@@ -130,9 +130,9 @@ export const content = ({
                                 <br />
                                 <vl-contact-card id="contact-card-3">
                                     <vl-infoblock slot="info" type="contact">
-                                        <h3 slot="title">Vlaamse ombudsdienst</h3>
+                                        <vl-title type="h3" slot="title" custom-css="h3 {font-size: var(--vl-font-size); margin-top: 1rem; }">Vlaamse ombudsdienst</vl-title>
                                     </vl-infoblock>
-                                    <vl-properties slot="properties">
+                                    <vl-properties slot="properties" custom-css="dl:has(.item) { margin-top: 0.8rem; display: block; }">
                                         <label>Adres</label>
                                         <data>
                                             <div>Leuvenseweg 86</div>

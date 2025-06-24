@@ -33,6 +33,7 @@ export class VlCookieStatement extends BaseHTMLElement {
             VlLinkComponent,
             VlParagraphComponent,
             VlFunctionalHeaderComponent,
+            VlTitleComponent,
             // child components
             ...cookieStatementHeaderElements(),
         ]);
@@ -63,7 +64,7 @@ export class VlCookieStatement extends BaseHTMLElement {
             `
                 <section class="vl-section">
                     <div class="vl-content-block">
-                        <div class="vl-grid vl-stacked-small vl-content-block">
+                        <div class="vl-grid vl-stacked-small">
                             <div class="vl-column vl-column--10">
                                 <vl-title type="h1" no-space-bottom>Cookieverklaring</vl-title>
                             </div>
@@ -85,7 +86,7 @@ export class VlCookieStatement extends BaseHTMLElement {
 
                 <section class="vl-section">
                     <div class="vl-content-block">
-                        <div class="vl-grid vl-stacked-medium vl-content-block">
+                        <div class="vl-grid vl-stacked-medium">
                             <div class="vl-column vl-column--8 vl-column--m-8 vl-column--s-12 vl-column--xs-12">
                                 <vl-side-navigation-reference>
                                     <div class="vl-grid vl-stacked-large">
