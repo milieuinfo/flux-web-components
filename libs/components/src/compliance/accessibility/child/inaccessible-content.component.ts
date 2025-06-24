@@ -1,7 +1,7 @@
 import { html } from 'lit';
-import { AccessibilityProperties } from '../vl-accessibility.model';
 import { VlTitleComponent } from '../../../atom';
 import { VlTypography } from '../../../block/typography';
+import { AccessibilityProperties } from '../vl-accessibility.model';
 
 export type InaccessibleContentProps = Pick<AccessibilityProperties, 'compliance' | 'evaluation' | 'limitations'>;
 
@@ -42,9 +42,9 @@ export const inaccessibleContent = ({ compliance, evaluation, limitations }: Ina
         `;
     };
     return html` <div
-        style=${compliance === 'FULLY_COMPLIANT' && 'display: none'}
+        style=${compliance === 'FULLY_COMPLIANT' ? 'display: none' : ''}
         id="inaccessible-content"
-        class="vl-column vl-column--12 vl-column--m-12"
+        class="vl-column vl-column--12 vl-column--m-12" 
     >
         <vl-title type="h2">Niet-toegankelijke inhoud</vl-title>
         ${inaccessibleContentTemplate()}

@@ -26,7 +26,7 @@ describe('component - vl-side-navigation', () => {
             <section class="vl-section">
                 <div class="vl-content-block">
                     <div class="vl-grid vl-stacked-medium">
-                        <div class="vl-column vl-column--8 vl-column--m-8 vl-column--s-8 vl-column--xs-12">
+                        <div class="vl-column vl-column--8 vl-column--m-8 vl-column--s-12 vl-column--xs-12">
                             <vl-side-navigation-reference>
                                 <section id="content-1" class="vl-section">
                                     <vl-title type="h2">Content 1</vl-title>
@@ -189,7 +189,7 @@ describe('component - vl-side-navigation', () => {
                                 </section>
                             </vl-side-navigation-reference>
                         </div>
-                        <div class="vl-column vl-column--3 vl-column--m-3 vl-column--s-3 vl-column--xs-0">
+                        <div class="vl-column vl-column--4 vl-column--m-4 vl-column--s-12 vl-column--xs-12">
                             <vl-side-navigation aria-label="inhoudsopgave">
                                 <vl-side-navigation-h5>Op deze pagina</vl-side-navigation-h5>
                                 <vl-side-navigation-content>
@@ -232,10 +232,10 @@ describe('component - vl-side-navigation', () => {
                                                 </vl-side-navigation-item>
                                             </ul>
                                         </vl-side-navigation-item>
-                                        <vl-side-navigation-item parent="content-3">
-                                            <vl-side-navigation-toggle href="#content-3" child="content-3">
+                                        <vl-side-navigation-item>
+                                            <a href="#content-3">
                                                 content 3
-                                            </vl-side-navigation-toggle>
+                                            </a>
                                         </vl-side-navigation-item>
                                     </vl-side-navigation-group>
                                 </vl-side-navigation-content>
@@ -341,9 +341,35 @@ describe('component - vl-side-navigation', () => {
 
         shouldHaveExpandedToggle(target, false);
 
-        cy.get(`${target}`).scrollIntoView();
+        cy.get(`${target}-1`).scrollIntoView();
 
         shouldHaveExpandedToggle(target, true);
+    });
+
+    it('should scroll to content on click', () => {
+        const viewportHeight = 500;
+        cy.viewport(1920, viewportHeight);
+
+        cy.get('#content-3').then(($el) => {
+            const rect = $el[0].getBoundingClientRect();
+            expect(rect.top < viewportHeight).equal(false);
+        });
+
+        cy.get('vl-side-navigation').find("a[href='#content-3']").click();
+
+        cy.wait(500); // about halfway the duration of the scroll animation
+
+        cy.get('#content-3').then(($el) => {
+            const rect = $el[0].getBoundingClientRect();
+            expect(rect.top < viewportHeight).equal(false); // should still be animating
+        });
+
+        cy.wait(500); // wait for scroll animation to finish
+
+        cy.get('#content-3').then(($el) => {
+            const rect = $el[0].getBoundingClientRect();
+            expect(rect.top < viewportHeight).equal(true);
+        });
     });
 
     it('should open mobile menu', () => {
@@ -370,5 +396,33 @@ describe('component - vl-side-navigation', () => {
 
         cy.get('button.vl-button.js-vl-scrollspy__toggle').should('not.be.visible');
         cy.get('vl-side-navigation').should('be.visible');
+    });
+
+    it('should update the browser history on click', () => {
+        cy.get('vl-side-navigation').find("vl-side-navigation-toggle[href='#content-1']").click();
+        cy.location('hash').should('eq', '#content-1');
+
+        cy.get('vl-side-navigation').find("vl-side-navigation-toggle[href='#content-2']").click();
+        cy.location('hash').should('eq', '#content-2');
+
+        cy.get('vl-side-navigation').find("a[href='#content-3']").click();
+        cy.location('hash').should('eq', '#content-3');
+    });
+
+    it('should not update the browser history on click in case has-hash-routing is set', () => {
+        window.location.hash = ''; // Reset hash before test
+        cy.location('hash').should('eq', '#');
+
+        cy.get('vl-side-navigation').then(([sideNavigation]) => {
+            sideNavigation.setAttribute('has-hash-routing', '');
+        })
+        cy.get('vl-side-navigation').find("vl-side-navigation-toggle[href='#content-1']").click();
+        cy.location('hash').should('eq', '#');
+
+        cy.get('vl-side-navigation').find("vl-side-navigation-toggle[href='#content-2']").click();
+        cy.location('hash').should('eq', '#');
+
+        cy.get('vl-side-navigation').find("a[href='#content-3']").click();
+        cy.location('hash').should('eq', '#');
     });
 });

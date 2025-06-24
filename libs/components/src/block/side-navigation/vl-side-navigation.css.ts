@@ -168,8 +168,15 @@ export const vlSideNavigationStyles: CSSResult = css`
         box-shadow: none;
         margin: 13px 0;
     }
+    .vl-side-navigation__toggle + ul .vl-side-navigation__item a {
+        margin: 0;
+    }
 
-    .vl-side-navigation__toggle[aria-expanded='true'] .vl-icon::before {
+    .vl-side-navigation__toggle:has(vl-icon) > a {
+        padding-right: 2rem;
+    }
+
+    .vl-side-navigation__toggle[aria-expanded='true'] vl-icon::part(icon)::before {
         transform: rotate(90deg);
     }
 
@@ -182,7 +189,7 @@ export const vlSideNavigationStyles: CSSResult = css`
         margin-top: 0;
     }
 
-    .vl-side-navigation__toggle .vl-icon {
+    .vl-side-navigation__toggle vl-icon {
         font-size: 1.6rem;
         position: absolute;
         top: 50%;
@@ -190,7 +197,7 @@ export const vlSideNavigationStyles: CSSResult = css`
         transform: translateY(-50%);
     }
 
-    .vl-side-navigation__toggle .vl-icon::before {
+    .vl-side-navigation__toggle vl-icon::part(icon)::before {
         transition: transform 0.1s ease-in-out;
     }
 
@@ -232,6 +239,8 @@ export const vlSideNavigationStyles: CSSResult = css`
 
     .vl-side-navigation__item a {
         font-weight: 500;
+        display: block;
+        margin: 13px 0;
     }
 
     .vl-side-navigation__item > ul {
