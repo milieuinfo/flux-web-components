@@ -8,6 +8,7 @@ export const vlContentBlockStyles = css`
         min-width: var(--vl-page--max-width);
         max-width: var(--vl-page--max-width-wide);
         padding: 0 var(--vl-spacing--medium);
+        box-sizing: border-box;
 
         @media screen and (max-width: ${vlMediaScreenMedium}px) {
             width: auto;
