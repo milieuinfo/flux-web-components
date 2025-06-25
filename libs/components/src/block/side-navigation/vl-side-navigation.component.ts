@@ -7,6 +7,9 @@ import {
     VL,
     webComponent,
 } from '@domg-wc/common';
+import { vlContentBlockStyles, vlGridStyles, vlLegacyStyles, vlSectionStyles } from '@domg-wc/styles';
+import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
+import { vlSideNavigationStyles } from './vl-side-navigation.css';
 import './vl-side-navigation.lib.js';
 import { vlContentBlockStyles, vlGridStyles, vlSectionStyles } from '@domg-wc/styles';
 import { vlSideNavigationStyles } from './vl-side-navigation.css';
@@ -45,12 +48,14 @@ export class VlSideNavigationComponent extends BaseLitElement {
                 vlSectionStyles.styleSheet as CSSStyleSheet,
                 vlContentBlockStyles.styleSheet as CSSStyleSheet,
                 vlIconStyles.styleSheet as CSSStyleSheet,
+                ...vlLegacyStyles.map((style) => style.styleSheet) as CSSStyleSheet[],
             ];
         } else {
             document.adoptedStyleSheets = [
                 ...document.adoptedStyleSheets,
                 vlSideNavigationStyles.styleSheet as CSSStyleSheet,
                 vlIconStyles.styleSheet as CSSStyleSheet,
+                ...vlLegacyStyles.map((style) => style.styleSheet) as CSSStyleSheet[],
             ];
         }
     }

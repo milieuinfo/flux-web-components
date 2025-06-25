@@ -2,7 +2,16 @@ import { GlobalStyles, registerWebComponents, webComponent } from '@domg-wc/comm
 import { VlParagraphComponent, VlTitleComponent } from '@domg-wc/components/atom';
 import { VlAlert, VlFunctionalHeaderComponent, VlTemplate } from '@domg-wc/components/block';
 import { VlFooter, VlHeader } from '@domg-wc/components/compliance';
-import { vlContentBlockStyles, vlSectionStyles } from '@domg-wc/styles';
+import { vlLayoutStyles } from '@domg-wc/styles';
+import {
+    VlSideNavigationComponent,
+    VlSideNavigationContentComponent,
+    VlSideNavigationGroupComponent,
+    VlSideNavigationH5,
+    VlSideNavigationItemComponent,
+    VlSideNavigationReferenceComponent,
+    VlSideNavigationToggleComponent,
+} from 'libs/components/src/block/side-navigation';
 import { CSSResult, LitElement, html } from 'lit';
 
 registerWebComponents([
@@ -24,7 +33,7 @@ export class VlPageLayoutExample extends LitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [vlSectionStyles, vlContentBlockStyles];
+        return [vlLayoutStyles];
     }
 
     get isFullWidth() {
