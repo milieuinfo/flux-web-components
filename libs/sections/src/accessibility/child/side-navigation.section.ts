@@ -8,48 +8,42 @@ export const sideNavigationComponents = () => [VlSideNavigationComponent];
 
 export const sideNavigation = ({ compliance }: SideNavigationProps) => {
     return html` <div
-        class="vl-column-next vl-column-next--4 vl-column-next--m-4 vl-column-next--s-4 vl-column-next--xs-0"
+        class="vl-column-next vl-column-next--4 vl-column-next--m-4 vl-column-next--s-12 vl-column-next--xs-12"
     >
-        <vl-side-navigation-next  id="side-nav-accessibility" aria-label="inhoudsopgave">
-            <vl-side-navigation-h1-next >Op deze pagina</vl-side-navigation-h1-next>
-            <vl-side-navigation-content-next >
-                <vl-side-navigation-group-next >
-                    <vl-side-navigation-item-next  parent>
-                        <vl-side-navigation-toggle-next  href="#compliance-status">
+        <vl-side-navigation-next id="side-nav-accessibility" aria-label="inhoudsopgave">
+            <vl-side-navigation-h1-next>Op deze pagina</vl-side-navigation-h1-next>
+            <vl-side-navigation-content-next>
+                <vl-side-navigation-group-next>
+                    <vl-side-navigation-item-next>
+                        <a href="#compliance-status">
                             Nalevingsstatus
-                            <i class="vl-vi vl-vi-arrow-right-fat"></i>
-                        </vl-side-navigation-toggle-next>
+                        </a>
                     </vl-side-navigation-item-next>
                     <vl-side-navigation-item-next
                         style=${compliance === 'FULLY_COMPLIANT' && 'display: none'}
-
                         parent
                     >
-                        <vl-side-navigation-toggle-next  href="#inaccessible-content">
+                        <a href="#inaccessible-content">
                             Niet-toegankelijke inhoud
-                            <i class="vl-vi vl-vi-arrow-right-fat"></i>
-                        </vl-side-navigation-toggle-next>
+                        </a>
                     </vl-side-navigation-item-next>
-                    <vl-side-navigation-item-next  parent>
-                        <vl-side-navigation-toggle-next  href="#setup-accessibility-statement">
+                    <vl-side-navigation-item-next>
+                        <a href="#setup-accessibility-statement">
                             Opstelling van deze toegankelijkheidsverklaring
-                            <i class="vl-vi vl-vi-arrow-right-fat"></i>
-                        </vl-side-navigation-toggle-next>
+                        </a>
                     </vl-side-navigation-item-next>
-                    <vl-side-navigation-item-next  parent>
-                        <vl-side-navigation-toggle-next  href="#feedback-contact">
+                    <vl-side-navigation-item-next>
+                        <a href="#feedback-contact">
                             Feedback en contactgegevens
-                            <i class="vl-vi vl-vi-arrow-right-fat"></i>
-                        </vl-side-navigation-toggle-next>
+                        </a>
                     </vl-side-navigation-item-next>
-                    <vl-side-navigation-item-next  parent>
-                        <vl-side-navigation-toggle-next  href="#enforcement-procedure">
+                    <vl-side-navigation-item-next>
+                        <a href="#enforcement-procedure">
                             Handhavingsprocedure
-                            <i class="vl-vi vl-vi-arrow-right-fat"></i>
-                        </vl-side-navigation-toggle-next>
+                        </a>
                     </vl-side-navigation-item-next>
                 </vl-side-navigation-group-next>
-            </div>
+            </vl-side-navigation-content-next>
         </vl-side-navigation-next>
     </div>`;
 };

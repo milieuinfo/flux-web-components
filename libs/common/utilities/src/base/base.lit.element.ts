@@ -1,5 +1,5 @@
-import { GlobalStyles } from '../css';
 import { LitElement, PropertyDeclarations } from 'lit';
+import { GlobalStyles } from '../css';
 
 export class BaseLitElement extends LitElement {
     protected allowCustomCSS = true;
@@ -17,6 +17,12 @@ export class BaseLitElement extends LitElement {
             customCSS: { type: String, attribute: 'custom-css', reflect: true },
             customCSSPrefix: { type: String, attribute: 'data-vl-custom-css', reflect: true },
         };
+    }
+
+    // We fixen hier de `getRootNode()` return type, omdat `getRootNode()` standaard `Node` retourneert 
+    // en om te vermijden dat we overal het type moeten casten naar `Element` of `ShadowRoot`.
+    getRootNode(options?: GetRootNodeOptions): Element | ShadowRoot {
+        return super.getRootNode(options) as Element | ShadowRoot;
     }
 
     connectedCallback(): void {

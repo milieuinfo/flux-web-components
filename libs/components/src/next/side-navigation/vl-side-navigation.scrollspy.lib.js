@@ -182,7 +182,9 @@ class ScrollSpy {
     _update() {
         this.ticking = false;
 
-        vl.util.each(this.elements, (element) => {
+        // FLUX-89: reverse() toegevoegd, van onder naar boven checken geeft een beter resultaat
+        // wanneer er verschillende targets in beeld zijn.
+        vl.util.each([...this.elements].reverse(), (element) => {
             this._checkScrollSpy(element);
         });
     }
@@ -193,8 +195,6 @@ class ScrollSpy {
         let hasBreadcrumb = element.getRootNode().querySelector(`.${globalHvisibleClass}`),
             initialOffset = this.scrollSpyWrapper.getAttribute(stickyOffsetTopAtt) || 75,
             target,
-            currentScrollPosition,
-            bounds,
             dataParent,
             parent;
 
@@ -216,14 +216,24 @@ class ScrollSpy {
         // UIG-2490 - omdat we geen toegang kunnen krijgen tot het element wanneer de schaduwdom er omheen is gewikkeld, moeten we het op deze manier ophalen
         // target = document.querySelector(href);
         target = findDeepestElementThroughShadowRoot(element.getRootNode(), href);
-        currentScrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
+        // FLUX-89: stop hier indien target niet gevonden werd
+        if (!target) {
+            return;
+        }
 
-        bounds = {
-            min: this._getOffsetTop(target),
-            max: _getHeight(target) + this._getOffsetTop(target),
-        };
-
-        if (currentScrollPosition > bounds.min && currentScrollPosition < bounds.max) {
+        // FLUX-89: nieuwe isInViewport check
+        // - we checken of de bovenkant bovenaan in beeld is (>= -1: om rekening te houden met waardes als -0.2px)
+        // - we checken of de onderkant onderaan in beeld is
+        // - indien target groter is dan de viewport (indien men de ID bv op een div ipv een titel geplaatst heeft)
+        //   returnen we ook true als de bovenkant al uit beeld is en de onderkant nog niet in beeld
+        const targetTop = target.getBoundingClientRect().top;
+        const targetHeight = target.offsetHeight;
+        const viewport = window.innerHeight;
+        const targetBottom = targetTop + targetHeight;
+        const isInsideViewport = targetTop >= -1 && targetBottom < viewport; 
+        const isCoveringViewport = targetHeight >= viewport && targetTop < 0 && targetBottom > viewport;
+        const isInViewport = isInsideViewport || isCoveringViewport; 
+        if (isInViewport) {
             let otherItems = this.scrollSpyWrapper.querySelectorAll(`.${snItemClass} a`);
             vl.util.each(otherItems, (el) => {
                 if (element !== el) {
@@ -233,7 +243,10 @@ class ScrollSpy {
 
             let ariaExpandedItems = this.scrollSpyWrapper.querySelectorAll('[aria-expanded=true]');
             vl.util.each(ariaExpandedItems, (el) => {
-                el.setAttribute('aria-expanded', false);
+                // FLUX-89: enkel dichtklappen wanneer het element geen deel uitmaakt van de opengeklapte lijst
+                if (!el.contains(element)) {
+                    el.setAttribute('aria-expanded', false);
+                }
             });
 
             vl.util.addClass(element, ssActiveClass);
@@ -246,6 +259,12 @@ class ScrollSpy {
                 parent.setAttribute('aria-expanded', true);
             }
         }
+
+        // FLUX-89: als het element zelf een toggle is en in beeld is mag deze opengeklapt worden
+        const isToggleElement = element.parentElement?.classList.contains('vl-side-navigation-next__toggle');
+        if (isInViewport && isToggleElement) {
+            element.parentElement.setAttribute('aria-expanded', 'true');
+        }
     }
 
     /**
@@ -253,24 +272,24 @@ class ScrollSpy {
      * @param  {Node} elem The element
      * @return {Number}    Distance from the top in pixels
      */
+    // FLUX-89: wordt niet meer gebruikt
+    // _getOffsetTop(element) {
+    //     let location = 0;
 
-    _getOffsetTop(element) {
-        let location = 0;
+    //     // UIG-2490 - null checks toegevoegd op element (element > element?)
+    //     if (element?.offsetParent) {
+    //         do {
+    //             location += element?.offsetTop;
+    //             element = element?.offsetParent;
+    //         } while (element);
+    //     } else {
+    //         location = element?.offsetTop;
+    //     }
 
-        // UIG-2490 - null checks toegevoegd op element (element > element?)
-        if (element?.offsetParent) {
-            do {
-                location += element?.offsetTop;
-                element = element?.offsetParent;
-            } while (element);
-        } else {
-            location = element?.offsetTop;
-        }
+    //     location = location - this.parameters.offset;
 
-        location = location - this.parameters.offset;
-
-        return location >= 0 ? location : 0;
-    }
+    //     return location >= 0 ? location : 0;
+    // }
 
     dress(wrapper) {
         let id = vl.util.uniqueId(),

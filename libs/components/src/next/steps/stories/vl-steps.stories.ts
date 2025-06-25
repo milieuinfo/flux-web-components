@@ -1,10 +1,9 @@
 import { story } from '@domg-wc/common-storybook';
 import { registerWebComponents } from '@domg-wc/common-utilities';
 import { Meta } from '@storybook/web-components';
-import { css } from 'lit';
 import { html } from 'lit-html';
-import '../vl-steps.component';
 import { VlSideNavigationComponent } from '../../side-navigation';
+import '../vl-steps.component';
 import { stepsArgs, stepsArgTypes } from './vl-steps.stories-arg';
 import stepsDoc from './vl-steps.stories-doc.mdx';
 
@@ -179,14 +178,14 @@ export const StepsSideNavigation = story(
             <div class="vl-content-block-next">
                 <div class="vl-grid-next vl-stacked-next-small">
                     <div
-                        class="vl-column-next vl-column-next--8 vl-column-next--m-8 vl-column-next--s-8 vl-column-next--xs-12"
+                        class="vl-column-next vl-column-next--8 vl-column-next--m-8 vl-column-next--s-12 vl-column-next--xs-12"
                     >
                         <vl-side-navigation-reference-next>
                             <vl-steps-next>
-                                <vl-step-next>
+                                <vl-step-next id="vl-steps-vl-step-1">
                                     <span slot="icon">1</span>
                                     <span slot="title">
-                                        <div id="vl-steps-vl-step-1">Stap 1: eerste actie</div>
+                                        <div>Stap 1: eerste actie</div>
                                     </span>
                                     <span slot="content">
                                         <div>
@@ -268,10 +267,11 @@ export const StepsSideNavigation = story(
                                         </div>
                                     </span>
                                 </vl-step-next>
+                                <span id="vl-steps-vl-step-2"></span>
                                 <vl-step-next>
                                     <span slot="icon">2</span>
                                     <span slot="title">
-                                        <div id="vl-steps-vl-step-2">Stap 2: tweede actie</div>
+                                        <div>Stap 2: tweede actie</div>
                                     </span>
                                     <span slot="content">
                                         <div>
@@ -404,10 +404,10 @@ export const StepsSideNavigation = story(
                                         </div>
                                     </span>
                                 </vl-step-next>
-                                <vl-step-next>
+                                <vl-step-next id="vl-steps-vl-step-3">
                                     <span slot="icon">3</span>
                                     <span slot="title">
-                                        <div id="vl-steps-vl-step-3">Stap 3: derde actie</div>
+                                        <div>Stap 3: derde actie</div>
                                     </span>
                                     <span slot="content">
                                         <div>
@@ -478,16 +478,14 @@ export const StepsSideNavigation = story(
                         </vl-side-navigation-reference-next>
                     </div>
                     <div
-                        class="vl-column-next vl-column-next--3 vl-column-next--m-3 vl-column-next--s-3 vl-column-next--xs-0"
+                        class="vl-column-next vl-column-next--4 vl-column-next--m-4 vl-column-next--s-12 vl-column-next--xs-12"
                     >
                         <vl-side-navigation-next aria-label="inhoudsopgave">
                             <vl-side-navigation-h5-next>Op deze pagina</vl-side-navigation-h5-next>
                             <vl-side-navigation-content-next>
                                 <vl-side-navigation-group-next>
                                     <vl-side-navigation-item-next>
-                                        <vl-side-navigation-toggle-next href="#vl-steps-vl-step-1">
-                                            step 1
-                                        </vl-side-navigation-toggle-next>
+                                        <a href="#vl-steps-vl-step-1"> step 1 </a>
                                     </vl-side-navigation-item-next>
                                     <vl-side-navigation-item-next parent="step-2">
                                         <vl-side-navigation-toggle-next href="#vl-steps-vl-step-2" child="step-2">
@@ -495,21 +493,15 @@ export const StepsSideNavigation = story(
                                         </vl-side-navigation-toggle-next>
                                         <ul>
                                             <vl-side-navigation-item-next>
-                                                <div>
-                                                    <a href="#vl-steps-vl-step-2-abstract" parent="step-2">Abstract</a>
-                                                </div>
+                                                <a href="#vl-steps-vl-step-2-abstract" parent="step-2">Abstract</a>
                                             </vl-side-navigation-item-next>
                                             <vl-side-navigation-item-next>
-                                                <div>
-                                                    <a href="#vl-steps-vl-step-2-volledig" parent="step-2">Volledig</a>
-                                                </div>
+                                                <a href="#vl-steps-vl-step-2-volledig" parent="step-2">Volledig</a>
                                             </vl-side-navigation-item-next>
                                         </ul>
                                     </vl-side-navigation-item-next>
                                     <vl-side-navigation-item-next>
-                                        <vl-side-navigation-toggle-next href="#vl-steps-vl-step-3">
-                                            step 3
-                                        </vl-side-navigation-toggle-next>
+                                        <a href="#vl-steps-vl-step-3"> step 3 </a>
                                     </vl-side-navigation-item-next>
                                 </vl-side-navigation-group-next>
                             </vl-side-navigation-content-next>

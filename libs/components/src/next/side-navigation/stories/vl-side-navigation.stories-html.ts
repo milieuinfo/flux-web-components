@@ -8,7 +8,7 @@ export const sideNavigationHTML = `
     <div class="vl-content-block-next">
         <div class="vl-grid-next vl-stacked-next-medium">
             <div
-                class="vl-column-next vl-column-next--8 vl-column-next--m-8 vl-column-next--s-8 vl-column-next--xs-12"
+                class="vl-column-next vl-column-next--8 vl-column-next--m-8 vl-column-next--s-12 vl-column-next--xs-12"
             >
                 <vl-side-navigation-reference-next>
                     <section id="content-1" class="vl-section-next">
@@ -163,7 +163,7 @@ export const sideNavigationHTML = `
                     </section>
                 </vl-side-navigation-reference-next>
             </div>
-            <div class="vl-column-next vl-column-next--3 vl-column-next--m-3 vl-column-next--s-3 vl-column-next--xs-0">
+            <div class="vl-column-next vl-column-next--4 vl-column-next--m-4 vl-column-next--s-12 vl-column-next--xs-12">
                 <vl-side-navigation-next aria-label="inhoudsopgave">
                     <vl-side-navigation-h5-next>Op deze pagina</vl-side-navigation-h5-next>
                     <vl-side-navigation-content-next>
@@ -206,10 +206,10 @@ export const sideNavigationHTML = `
                                     </vl-side-navigation-item-next>
                                 </ul>
                             </vl-side-navigation-item-next>
-                            <vl-side-navigation-item-next parent="content-3">
-                                <vl-side-navigation-toggle-next href="#content-3" child="content-3">
+                            <vl-side-navigation-item-next>
+                                <a href="#content-3">
                                     content 3
-                                </vl-side-navigation-toggle-next>
+                                </a>
                             </vl-side-navigation-item-next>
                         </vl-side-navigation-group-next>
                     </vl-side-navigation-content-next>

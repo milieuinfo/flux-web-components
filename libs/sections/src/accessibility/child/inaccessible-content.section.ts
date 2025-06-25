@@ -42,7 +42,7 @@ export const inaccessibleContent = ({ compliance, evaluation, limitations }: Ina
         `;
     };
     return html` <div
-        style=${compliance === 'FULLY_COMPLIANT' && 'display: none'}
+        style=${compliance === 'FULLY_COMPLIANT' ? 'display: none' : ''}
         id="inaccessible-content"
         class="vl-column-next vl-column-next--12 vl-column-next--m-12"
     >

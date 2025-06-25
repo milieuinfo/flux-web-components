@@ -5,6 +5,7 @@ export class VlSideNavigationGroupComponent extends BaseLitElement {
     constructor() {
         super();
         this.classList.add('vl-side-navigation-next__group');
+        this.setAttribute('role', 'list');
     }
 
     protected createRenderRoot(): HTMLElement | DocumentFragment {

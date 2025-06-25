@@ -64,10 +64,13 @@ gebied gerelateerd tot de `vl-side-navigation-reference-next`.
 Het is mogelijk om parent en child links te gebruiken (zie content 1 en content 2). Dit gebeurt op de volgende
 manier (we gebruiken content 1 als voorbeeld):
 
-1. Plaats op het parent VlSideNavigationItem element het attribuut `parent="content-1"`
-2. Plaats op het VlSideNavigationToggle element het attribuut `child="content-1"`
+1. Plaats op het parent `VlSideNavigationItem` component het attribuut `parent="content-1"`
+2. Plaats op het `VlSideNavigationToggle` component het attribuut `child="content-1"`
 3. Plaats op de child links het attribuut `parent="content-1"`
 
+Plaats naast het `VlSideNavigationToggle` component een lijst element (`<ul>`) met daaronder `VlSideNavigationItem` componenten als items.
+
+Gebruik geen `VlSideNavigationToggle` component indien er geen subnavigatie is. Een gewone link (`<a href="#">`) onder het `VlSideNavigationItem` component volstaat dan.
 
 ## Gekende beperkingen
 
