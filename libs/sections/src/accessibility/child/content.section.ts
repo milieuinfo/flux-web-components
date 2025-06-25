@@ -1,5 +1,7 @@
 import { VlContactCardComponent, VlInfoblockComponent } from '@domg-wc/components';
 import { VlPropertiesComponent } from '@domg-wc/components/next/properties';
+import { VlSideNavigationReferenceComponent } from '@domg-wc/components/next/side-navigation';
+import { VlTitleComponent } from '@domg-wc/components/next/title';
 import { html } from 'lit';
 import { AccessibilityProperties } from '../vl-accessibility.model';
 import { complianceStatus } from './compliance-status.section';
@@ -7,7 +9,7 @@ import { inaccessibleContent } from './inaccessible-content.section';
 import { setupStatement } from './setup-statement.section';
 import { sideNavigation } from './side-navigation.section';
 
-export const contentElements = () => [VlContactCardComponent, VlInfoblockComponent, VlPropertiesComponent];
+export const contentElements = () => [VlContactCardComponent, VlInfoblockComponent, VlPropertiesComponent, VlTitleComponent, VlSideNavigationReferenceComponent];
 
 export const content = ({
     application,
@@ -19,11 +21,11 @@ export const content = ({
 }: AccessibilityProperties) => {
     return html` <section id="content" class="vl-section-next">
         <div class="vl-content-block-next">
-            <div class="vl-grid-next vl-stacked-next-medium vl-content-block-next">
+            <div class="vl-grid-next vl-stacked-next-medium">
                 <div
-                    class="vl-column-next vl-column-next--8 vl-column-next--m-8 vl-column-next--s-8 vl-column-next--xs-12"
+                    class="vl-column-next vl-column-next--8 vl-column-next--m-8 vl-column-next--s-12 vl-column-next--xs-12"
                 >
-                    <vl-side-navigation-reference-next data-vl--scrollspy-content>
+                    <vl-side-navigation-reference-next>
                         <div class="vl-grid-next vl-stacked-next-large">
                             <div class="vl-column-next vl-column-next--12 vl-column-next--m-12">
                                 <p>
