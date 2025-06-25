@@ -2,7 +2,7 @@ import { GlobalStyles, registerWebComponents, webComponent } from '@domg-wc/comm
 import { VlParagraphComponent, VlTitleComponent } from '@domg-wc/components/atom';
 import { VlAlert, VlFunctionalHeaderComponent, VlTemplate } from '@domg-wc/components/block';
 import { VlFooter, VlHeader } from '@domg-wc/components/compliance';
-import { vlLayoutStyles, vlLegacyStyles } from '@domg-wc/styles';
+import { vlLayoutStyles } from '@domg-wc/styles';
 import {
     VlSideNavigationComponent,
     VlSideNavigationContentComponent,
@@ -40,7 +40,7 @@ export class VlPageLayoutExample extends LitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [vlLayoutStyles, vlLegacyStyles];
+        return [vlLayoutStyles];
     }
 
     get isFullWidth() {
