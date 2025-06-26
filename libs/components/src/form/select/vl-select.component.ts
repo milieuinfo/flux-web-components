@@ -14,6 +14,7 @@ import { SelectOption } from './vl-select.model';
 export class VlSelectComponent extends FormControl {
     // Properties
     options = selectDefaults.options;
+    initialOptions = selectDefaults.initialOptions;
     // State
     public value = '';
     // Attributes
@@ -22,7 +23,6 @@ export class VlSelectComponent extends FormControl {
     private autocomplete = selectDefaults.autocomplete;
     private notDeletable = selectDefaults.notDeletable;
     // Variables
-    private initialOptions = [] as SelectOption[];
     private DEFAULT_GROUP_LABEL = 'Overig';
     private dispatchInput = false;
 
@@ -32,7 +32,10 @@ export class VlSelectComponent extends FormControl {
 
     static get properties(): PropertyDeclarations {
         return {
-            options: { type: Array },
+            options: {
+                type: Array,
+            },
+            initialOptions: { type: Array, attribute: 'initial-options' },
             block: { type: Boolean },
             readonly: { type: Boolean },
             placeholder: { type: String },
@@ -158,17 +161,9 @@ export class VlSelectComponent extends FormControl {
     resetFormControl() {
         super.resetFormControl();
 
-        // We maken de options array leeg en vullen deze op met de initialOptions zodat de referentie van de array hetzelfde blijft.
-        // Anders zou bij een volgende render de opties array opgevat worden als veranderd.
-        while (this.options.length) {
-            this.options.pop();
-        }
-        this.initialOptions.forEach((option) => this.options.push({ ...option }));
-        // We renderen enkel de options opnieuw als de value niet leeg is.
-        if (this.value) {
-            // Aangezien we de referentie van de array niet veranderen, moeten we expliciet een update aanvragen voor de options array.
-            this.requestUpdate('options');
-        }
+        this.options = JSON.parse(JSON.stringify(this.initialOptions));
+        const selectedOption = this.getSelectedOption();
+        this.value = selectedOption?.value || '';
     }
 
     private onChange(event: Event & { target: HTMLSelectElement }) {

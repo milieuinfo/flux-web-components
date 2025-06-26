@@ -430,6 +430,44 @@ describe('component - vl-select - in form', () => {
             .should('contain', 'Selecteer je geboorteplaats');
     });
 
+    it('should reset value with dynamically changed preselected options', () => {
+        cy.createStubForEvent('form', 'reset');
+
+        cy.get('vl-select').shadow().find('select').select(options[0].value).trigger('change');
+        cy.get('form').then(($el) => {
+            const formData = Object.fromEntries(new FormData($el.get(0) as HTMLFormElement));
+            expect(formData).to.deep.equal({ geboorteplaats: options[0].value });
+        });
+        cy.get('form').find('button[type="reset"]').click();
+        cy.get('@reset').should('have.been.calledOnce');
+        cy.get('form').then(($el) => {
+            const formData = Object.fromEntries(new FormData($el.get(0) as HTMLFormElement));
+            expect(formData).to.deep.equal({ geboorteplaats: '' });
+        });
+        cy.get('vl-select')
+            .shadow()
+            .find('select')
+            .find('option:selected')
+            .should('contain', 'Selecteer je geboorteplaats');
+
+        cy.get('vl-select').then((el) => {
+            const select = el[0] as VlSelectComponent;
+            select.initialOptions = [
+                { label: 'Hasselt', value: 'hasselt' },
+                { label: 'Turnhout', value: 'turnhout' },
+                { label: 'Knokke-Heist', value: 'knokke-heist' },
+                { label: 'Waregem', value: 'waregem' },
+                { label: 'Lier', value: 'lier' },
+                { label: 'Rio Piedras', value: 'rio piedras', selected: true },
+            ];
+        });
+
+        // we resetten een lege select; in dat geval moet de placeholder hetzelfde blijven
+        cy.get('form').find('button[type="reset"]').click();
+
+        cy.get('vl-select').shadow().find('select').find('option:selected').should('contain', 'Rio Piedras');
+    });
+
     it('should prevent form submission on validation error', () => {
         const submittedFormData = {
             geboorteplaats: options[0].value,
