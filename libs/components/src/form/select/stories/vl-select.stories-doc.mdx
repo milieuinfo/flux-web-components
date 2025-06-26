@@ -52,18 +52,19 @@ De styles van DV zijn lokaal gezet en aangepast omdat deze niet CSP compliant wa
 Er werd gebruik gemaakt van een `data:` attribuut om een SVG op te halen van w3.org.
 Hierdoor breekt de CSP compliance tenzij je alle `data:` attributen whitelist, wat niet de bedoeling is.
 
+## Events
 
-## Change event
+### Change event
 
 Bij het selecteren of verwijderen van een optie (zowel programmatorisch als door een gebruiker), wordt het `vl-change` event afgevuurd. Het detail object van dit event bevat de value van de geselecteerde opties.<br/>
 
-## Input event
+### Input event
 
 Als de gebruiker een optie selecteert of verwijdert, wordt het `vl-input` event afgevuurd. Het detail object van dit event bevat de value van de geselecteerde opties.<br/>
 
-
-
 ## Select opties
+
+### `options` property
 
 De `options` property bevat een array van objecten die de opties van de select component bevatten.
 
@@ -73,6 +74,16 @@ Indien je de opties direct in de template zet, zal bij elke render de select opn
 
 Dit betekent ook dat als je programmatorisch een optie wil veranderen, toevoegen of verwijderen, je de referentie van de array moet aanpassen.<br/>
 Dit kan je doen door de opties de spreaden in een nieuwe array (`[...options]`).
+
+### `initial-options` property
+
+De `initial-options` property is een array van objecten die de opties van de select component bevatten.<br/>
+Deze zijn de standaard opties die worden getoond bij het laden van de pagina.<br/>
+
+Als de form reset, worden deze opties getoond in de select component.<br/>
+
+Indien je de `opties` direct in de template zet bij het laden van de `vl-select`, worden deze intern ingesteld als
+de `initial-options` property.<br/>
 
 
 ## Accessibility
