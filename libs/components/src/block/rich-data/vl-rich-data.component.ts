@@ -33,13 +33,15 @@ export class VlRichData extends BaseHTMLElement {
             </style>
             <div class="vl-rich-data">
                 <div id="toggle-filter" class="vl-u-align-right vl-u-hidden--s" hidden>
-                    <vl-button id="toggle-filter-button" icon="content-filter" secondary narrow aria-label="Filter verbergen">
+                    <vl-button id="toggle-filter-button" icon="content-filter" secondary
+                     narrow aria-label="Filter verbergen" aria-controls="filter-slot-container" aria-expanded="true">
                         <slot name="toggle-filter-button-text" hidden>Filter tonen</slot>
                         <slot name="close-filter-button-text">Filter verbergen</slot>
                     </vl-button>
                 </div>
                 <div id="open-filter" class="vl-u-align-right vl-u-hidden" hidden>
-                    <vl-button id="open-toggle-filter-button" icon="content-filter" secondary narrow aria-label="Filter tonen">
+                    <vl-button id="open-toggle-filter-button" icon="content-filter"
+                     secondary narrow aria-label="Filter tonen" aria-controls="filter-slot-container" aria-expanded="false">
                         <slot name="toggle-filter-button-text">Filter</slot>
                     </vl-button>
                 </div>
@@ -75,12 +77,23 @@ export class VlRichData extends BaseHTMLElement {
     }
 
     static get _observedAttributes(): string[] {
-        return ['data', 'collapsed-m', 'collapsed-s', 'collapsed-xs', 'filter-closable', 'filter-closed', 'filter-max-width'];
+        return [
+            'data',
+            'collapsed-m',
+            'collapsed-s',
+            'collapsed-xs',
+            'filter-closable',
+            'filter-closed',
+            'filter-max-width',
+        ];
     }
 
     protected setFilterMaxWidthCssProperty() {
         /* Standaard waarde voor linker kolom max-width: 4/12 van pagina max-width */
-        this.style.setProperty('--vl-rich-data-filter-max-width', this.getAttribute("filter-max-width") || 'calc(var(--vl-page--max-width-wide) / 3)');
+        this.style.setProperty(
+            '--vl-rich-data-filter-max-width',
+            this.getAttribute('filter-max-width') || 'calc(var(--vl-page--max-width-wide) / 3)'
+        );
     }
 
     _filterMaxWidthChangedCallback() {

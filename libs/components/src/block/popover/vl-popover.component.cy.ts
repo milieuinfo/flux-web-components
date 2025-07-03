@@ -94,38 +94,51 @@ describe('component vl-popover - default', () => {
     });
 
     it('should open', () => {
+        cy.injectAxe();
         mountDefault({});
 
         cy.get('#btn-acties').click();
+        cy.checkA11y('vl-popover');
 
         cy.get('vl-popover').should('have.attr', 'open');
         cy.get('#btn-acties').click();
         cy.get('vl-popover').should('not.have.attr', 'open');
+        cy.checkA11y('vl-popover');
     });
 
     it('should close when clicking an action', () => {
         mountDefault({ hideOnClick: true });
+        cy.injectAxe();
 
         cy.get('#btn-acties').click();
         cy.get('vl-popover').should('have.attr', 'open');
+        cy.checkA11y('vl-popover');
+
         cy.get('vl-popover').find('vl-popover-action').first().click();
         cy.get('vl-popover').should('not.have.attr', 'open');
+        cy.checkA11y('vl-popover');
     });
 
     it('should not close when clicking an action', () => {
         mountDefault({});
+        cy.injectAxe();
 
         cy.get('#btn-acties').click();
         cy.get('vl-popover').should('have.attr', 'open');
+        cy.checkA11y('vl-popover');
+
         cy.get('vl-popover').find('vl-popover-action').first().click();
         cy.get('vl-popover').should('have.attr', 'open');
+        cy.checkA11y('vl-popover');
     });
 
     it('should have default bottom placement', () => {
         mountDefault({});
+        cy.injectAxe();
 
         cy.get('#btn-acties').click();
         cy.get('vl-popover').should('have.attr', 'placement', 'bottom');
+        cy.checkA11y('vl-popover');
     });
 });
 
@@ -141,12 +154,18 @@ describe('story vl-popover hover', () => {
     });
 
     it('should open', () => {
+        cy.injectAxe();
+
         cy.get('#btn-close').trigger('mouseover');
         cy.get('vl-popover').should('have.attr', 'open');
+        cy.checkA11y('vl-popover');
     });
 
     it('should have default bottom placement', () => {
+        cy.injectAxe();
+
         cy.get('#btn-close').trigger('mouseover');
         cy.get('vl-popover').should('have.attr', 'placement', 'bottom');
+        cy.checkA11y('vl-popover');
     });
 });

@@ -70,7 +70,14 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
                 </div>
                 ${this.closable
                     ? html`
-                          <button id="close" class="vl-alert__close" type="button" @click=${this.removeAlert}>
+                          <button
+                              id="close"
+                              class="vl-alert__close"
+                              type="button"
+                              aria-controls="alert"
+                              aria-expanded="true"
+                              @click=${this.removeAlert}
+                          >
                               <span class="vl-icon vl-icon--cross" aria-hidden="true"></span>
                               <span class="vl-u-visually-hidden">Melding sluiten</span>
                           </button>

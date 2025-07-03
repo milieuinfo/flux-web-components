@@ -32,11 +32,13 @@ describe('component - vl-search-filter', () => {
 
     it('should render the title on mobile', () => {
         cy.viewport('iphone-6');
+        cy.injectAxe();
         cy.mount(html` <vl-search-filter filter-title="Filter title"></vl-search-filter>`);
 
         cy.get('vl-search-filter').shadow().find('.vl-search-filter--header-modal').contains('Filter title');
         cy.get('vl-search-filter').invoke('attr', 'mobile-modal-title', 'Mobile title');
         cy.get('vl-search-filter').shadow().find('.vl-search-filter--header-modal').contains('Mobile title');
+        cy.checkA11y('vl-search-filter');
     });
 
     it('should render the filter title on desktop', () => {

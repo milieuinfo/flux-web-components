@@ -109,53 +109,78 @@ describe('component - vl-rich-data with vl-search-filter', () => {
 
     it('should be able to toggle the search filter using the toggle button', () => {
         cy.viewport(1600, 1200);
+        cy.injectAxe();
+
         cy.get('vl-search-filter').should('not.have.attr', 'hidden');
-        cy.get('vl-rich-data').shadow().find('#search').then((search) => {
-            expect(Math.floor(search.width() || 0)).to.equal(mockDefaultFilterMaxWidth);
-        })
+        cy.get('vl-rich-data')
+            .shadow()
+            .find('#search')
+            .then((search) => {
+                expect(Math.floor(search.width() || 0)).to.equal(mockDefaultFilterMaxWidth);
+            });
 
         cy.get('vl-rich-data').shadow().find('#toggle-filter-button').click();
         cy.get('vl-search-filter').should('have.attr', 'hidden');
-        cy.get('vl-rich-data').shadow().find('#search').shouldHaveComputedStyle({ style: 'width', value: 'auto'})
+        cy.get('vl-rich-data').shadow().find('#search').shouldHaveComputedStyle({ style: 'width', value: 'auto' });
+        cy.checkA11y('vl-search-filter');
 
         cy.get('vl-rich-data').shadow().find('#toggle-filter-button').click();
         cy.get('vl-search-filter').should('not.have.attr', 'hidden');
-        cy.get('vl-rich-data').shadow().find('#search').then((search) => {
-            expect(Math.floor(search.width() || 0)).to.equal(mockDefaultFilterMaxWidth);
-        })
+        cy.checkA11y('vl-search-filter');
+        cy.get('vl-rich-data')
+            .shadow()
+            .find('#search')
+            .then((search) => {
+                expect(Math.floor(search.width() || 0)).to.equal(mockDefaultFilterMaxWidth);
+            });
     });
 
     it('should be able to close the search filter using the escape key when closable', () => {
         cy.viewport(1024, 768);
+        cy.injectAxe();
+
         cy.get('vl-search-filter').should('not.have.attr', 'hidden');
         cy.get('#filterOpId').shadow().find('input').type('{esc}', { force: true });
         cy.get('vl-search-filter').should('have.attr', 'hidden');
+        cy.checkA11y('vl-search-filter');
     });
 
     it('should not close the search filter using the escape key when not closable', () => {
         cy.viewport(1024, 768);
+        cy.injectAxe();
+
         cy.get('vl-search-filter').should('not.have.attr', 'hidden');
         cy.get('vl-rich-data').invoke('removeAttr', 'filter-closable');
         cy.get('#filterOpId').shadow().find('input').type('{esc}', { force: true });
         cy.get('vl-search-filter').should('not.have.attr', 'hidden');
+        cy.checkA11y('vl-search-filter');
     });
 
     it('should close the search filter using the escape key without closable attribute in mobile', () => {
         cy.viewport(375, 667);
+        cy.injectAxe();
+
         cy.get('vl-search-filter').should('not.have.attr', 'hidden');
         cy.get('vl-rich-data').invoke('removeAttr', 'filter-closable');
         cy.get('#filterOpId').shadow().find('input').type('{esc}', { force: true });
         cy.get('vl-search-filter').should('have.attr', 'hidden');
+        cy.checkA11y('vl-search-filter');
     });
 
     it('should be able to set a filter-max-width value', () => {
         cy.viewport(1600, 1200);
-        cy.get('vl-rich-data').shadow().find('#search').then((search) => {
-            expect(Math.floor(search.width() || 0)).to.equal(mockDefaultFilterMaxWidth);
-        })
+        cy.get('vl-rich-data')
+            .shadow()
+            .find('#search')
+            .then((search) => {
+                expect(Math.floor(search.width() || 0)).to.equal(mockDefaultFilterMaxWidth);
+            });
         cy.get('vl-rich-data').invoke('attr', 'filter-max-width', mockFilterMaxWidth);
-        cy.get('vl-rich-data').shadow().find('#search').shouldHaveComputedStyle({ style: 'width', value: mockFilterMaxWidth})
-    })
+        cy.get('vl-rich-data')
+            .shadow()
+            .find('#search')
+            .shouldHaveComputedStyle({ style: 'width', value: mockFilterMaxWidth });
+    });
 });
 
 describe('component - vl-rich-data with vl-select', () => {
