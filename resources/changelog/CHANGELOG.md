@@ -1,3 +1,11 @@
+## [1.49.1](https://github.com/milieuinfo/flux-web-components/compare/v1.49.0...v1.49.1) (2025-07-03)
+
+
+### Bug Fixes
+
+* FLUX-70 - flux ipv uig ([5364e43](https://github.com/milieuinfo/flux-web-components/commit/5364e433ef979249a2a0f8ed8f33b8357792be79))
+* FLUX-89 - vl-side-navigation - link tussen content en links hersteld ([5d33604](https://github.com/milieuinfo/flux-web-components/commit/5d336048563f36f003d0f0b7588d9cd9559752cc))
+
 # [1.49.0](https://github.com/milieuinfo/flux-web-components/compare/v1.48.2...v1.49.0) (2025-06-18)
 
 
