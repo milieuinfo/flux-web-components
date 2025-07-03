@@ -32,6 +32,7 @@ export default class FloatingController implements ReactiveController {
 
     hostConnected(): void {
         this.addEventListeners();
+        this.getReferenceElement()?.setAttribute('aria-controls', this.options.reference);
     }
 
     hostDisconnected(): void {

@@ -85,93 +85,123 @@ const closeByPressingEscape = () => {
 describe('component - vl-modal', () => {
     it('should mount', () => {
         cy.mount(renderModal({ open: true }));
+        cy.injectAxe();
 
         cy.get('vl-modal').shadow().find('dialog.vl-modal-dialog');
     });
 
     it('should be able to open by default', () => {
         cy.mount(renderModal({ open: true }));
+        cy.injectAxe();
 
         isDialogVisible();
     });
 
     it('should be able to close the modal by using the cancel button', () => {
         cy.mount(html`${renderOpenButton()} ${renderModal({})}`);
+        cy.injectAxe();
 
         isDialogHidden();
         openModal();
+        cy.checkA11y('vl-modal');
+
         isDialogVisible();
         closeWithCancelButton();
         isDialogHidden();
+        cy.checkA11y('vl-modal');
     });
 
     it('should be able to close the modal by using the close button', () => {
         // Test met desktop viewport omdat de close button verborgen wordt op mobiel
         cy.viewport(1024, 768);
         cy.mount(html`${renderOpenButton()} ${renderModal({ closable: true })}`);
+        cy.injectAxe();
 
         isDialogHidden();
         openModal();
+        cy.checkA11y('vl-modal');
+
         isDialogVisible();
         closeWithCloseButton();
         isDialogHidden();
+        cy.checkA11y('vl-modal');
     });
 
     it('should close the modal by pressing escape', () => {
         cy.mount(html`${renderOpenButton()} ${renderModal({ button: otherActionButton })}`);
+        cy.injectAxe();
 
         isDialogHidden();
         openModal();
+        cy.checkA11y('vl-modal');
+
         isDialogVisible();
         closeByPressingEscape();
         isDialogHidden();
+        cy.checkA11y('vl-modal');
     });
 });
 
 describe('component - vl-modal - notAutoClosable (true)', () => {
     it('should NOT automatically close the modal when using the action button', () => {
         cy.mount(html`${renderOpenButton()} ${renderModal({ notAutoClosable: true })}`);
+        cy.injectAxe();
 
         isDialogHidden();
         openModal();
+        cy.checkA11y('vl-modal');
+
         isDialogVisible();
         clickActionButton();
         isDialogVisible();
         closeWithCancelButton();
         isDialogHidden();
+        cy.checkA11y('vl-modal');
     });
 
     it('should NOT automatically close the modal when using a custom action', () => {
         cy.mount(html`${renderOpenButton()} ${renderModal({ notAutoClosable: true, button: otherActionButton })}`);
+        cy.injectAxe();
 
         isDialogHidden();
         openModal();
+        cy.checkA11y('vl-modal');
+
         isDialogVisible();
         clickCustomActionButton();
         isDialogVisible();
         closeWithCancelButton();
         isDialogHidden();
+        cy.checkA11y('vl-modal');
     });
 });
 
 describe('component - vl-modal - notAutoClosable (false)', () => {
     it('should automatically close the modal when using the action button', () => {
         cy.mount(html`${renderOpenButton()} ${renderModal({ notAutoClosable: false })}`);
+        cy.injectAxe();
 
         isDialogHidden();
         openModal();
+        cy.checkA11y('vl-modal');
+
         isDialogVisible();
         clickActionButton();
         isDialogHidden();
+        cy.checkA11y('vl-modal');
     });
 
     it('should automatically close the modal when using a custom action', () => {
         cy.mount(html`${renderOpenButton()} ${renderModal({ notAutoClosable: false, button: otherActionButton })}`);
+        cy.injectAxe();
 
         isDialogHidden();
         openModal();
+        cy.checkA11y('vl-modal');
+
         isDialogVisible();
         clickCustomActionButton();
         isDialogHidden();
+        cy.checkA11y('vl-modal');
     });
 });

@@ -4,7 +4,7 @@ import {
     legacyBreakpoint,
     legacyCore,
     registerWebComponents,
-    webComponent
+    webComponent,
 } from '@domg-wc/common';
 import { vlGridStyles, vlGroupStyles, vlStackedStyles } from '@domg-wc/styles';
 import { accessibilityStyle, resetStyle } from '@domg/govflanders-style/common';
@@ -37,7 +37,9 @@ export class VlModalComponent extends BaseHTMLElement {
                 ${vlIconStyles}
             </style>
             <div class="vl-modal">
-                <dialog class="vl-modal-dialog" modal tabindex="-1" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-toggle-title" aria-describedby="modal-toggle-description">
+                <dialog class="vl-modal-dialog" id="modal-dialog" modal tabindex="-1"
+                aria-modal="true" aria-hidden="true" aria-labelledby="modal-toggle-title"
+                 aria-describedby="modal-toggle-description">
                     <div class="vl-modal-dialog__wrapper" id="modal-dialog-wrapper">
                         <div class="vl-grid vl-stacked-small">
                             <div id="modal-toggle-description" class="vl-column vl-column--12 vl-column--m-12 vl-modal-dialog__content">
@@ -172,7 +174,7 @@ export class VlModalComponent extends BaseHTMLElement {
 
     _getCloseButtonTemplate() {
         return this._template(`
-      <button id="close" type="button" class="vl-modal-dialog__close" modal-close>
+      <button id="close" type="button" class="vl-modal-dialog__close" aria-expanded="true" modal-close>
         <span class="vl-modal-dialog__close__icon vl-icon vl-icon--cross" aria-hidden="true"></span>
         <span class="vl-u-visually-hidden">Venster sluiten</span>
       </button>
@@ -186,7 +188,7 @@ export class VlModalComponent extends BaseHTMLElement {
 
     _getCancelTemplate() {
         return this._template(`
-      <vl-link id="modal-toggle-cancellable" button-as-link icon="cross" icon-placement="before"
+      <vl-link id="modal-toggle-cancellable" aria-expanded="true" button-as-link icon="cross" icon-placement="before"
       modal-close
       >Annuleer</vl-link>
 `);
@@ -235,8 +237,10 @@ export class VlModalComponent extends BaseHTMLElement {
     _notAutoClosableChangedCallback(oldValue: string, newValue: string) {
         if (newValue == undefined && !this._slotButtonElement.hasAttribute(VlModalComponent._closeAttribute)) {
             this._slotButtonElement.setAttribute(VlModalComponent._closeAttribute, '');
+            this._slotButtonElement.setAttribute('aria-expanded', 'true');
         } else if (newValue != undefined && this._slotButtonElement.hasAttribute(VlModalComponent._closeAttribute)) {
             this._slotButtonElement.removeAttribute(VlModalComponent._closeAttribute);
+            this._slotButtonElement.removeAttribute('aria-expanded');
         }
     }
 

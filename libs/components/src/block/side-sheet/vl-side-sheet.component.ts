@@ -27,6 +27,7 @@ export class VlSideSheet extends BaseHTMLElement {
           <div>
               <vl-button
                   aria-expanded="false"
+                  aria-controls="vl-side-sheet"
                   icon="nav-left"
                   tertiary
                   part="toggle-button"

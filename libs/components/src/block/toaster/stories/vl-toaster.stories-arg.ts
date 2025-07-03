@@ -15,7 +15,10 @@ export const toasterArgTypes: ArgTypes = {
     ...defaultArgTypes,
     fadeOut: {
         name: 'fade-out',
-        description: 'Elke alert verdwijnt automatisch 5 seconden na openen.<br>Dit attribuut is niet reactief.',
+        description:
+            'Elke alert verdwijnt automatisch 5 seconden na openen. \n\n Dit kan toegankelijkheidsproblemen' +
+            ' veroorzaken. Meer info ' +
+            '[hier](?path=/docs/components-block-toaster--documentatie#fade-out).',
         table: {
             type: {
                 summary: TYPES.BOOLEAN,
