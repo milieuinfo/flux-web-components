@@ -91,10 +91,6 @@ export const vlSideNavigationStyles: CSSResult = css`
 
     /* scrollspy__content - reference */
 
-    .js-vl-scrollspy__content {
-        border-radius: 5rem;
-    }
-
     .js-vl-scrollspy__content .js-vl-scrollspy__toggle {
         display: none;
         cursor: pointer;
@@ -288,7 +284,7 @@ export const vlSideNavigationStyles: CSSResult = css`
 
     // fix voor UIG-2288: er worden in Chrome veel extra blanco pagina's toegevoegd tijdens het printen
     @media print {
-        [is='vl-side-navigation-reference'] .resize-sensor {
+        vl-side-navigation-reference .resize-sensor {
             display: none !important;
         }
     }
