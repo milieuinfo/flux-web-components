@@ -51,6 +51,7 @@ const _getHeight = (element) => {
     return Math.max(element?.scrollHeight, element?.offsetHeight, element?.clientHeight);
 };
 
+
 const _scrollSpyMobile = (elements, wrapper, contentWrapper) => {
     let placeholder = document.createElement('div'),
         closeButton = document.createElement('button'),
@@ -103,31 +104,35 @@ const _scrollSpyMobile = (elements, wrapper, contentWrapper) => {
                 closeButton.focus();
             });
 
+            // FLUX-92: vervang "Shady way" hieronder met `getBoundingClientRect().top`
+            const openButtonTop = openButton.getBoundingClientRect().top;
+            
             // Shady way to get offset
-            bt = openButton;
+            // bt = openButton;
 
-            while (bt) {
-                openButtonOffsetHeight = 0;
-                bt = bt.offsetParent;
-            }
+            // while (bt) {
+            //     openButtonOffsetHeight = 0;
+            //     bt = bt.offsetParent;
+            // }
 
             // Add height to offset
-            openButtonOffsetHeight = openButtonOffsetHeight + 30;
+            // openButtonOffsetHeight = openButtonOffsetHeight + 30;
 
             // Toggle fixed class to toggle
             window.addEventListener(
                 'scroll',
-                vl.util.debounce(() => {
+                // FLUX-92: throttle ipv debounce om tijdens het scrollen al te kunnen switchen van classes
+                vl.util.throttle(() => {
                     if (
-                        window.pageYOffset > openButtonOffsetHeight &&
+                        window.pageYOffset > openButtonTop &&
                         window.pageYOffset <
-                            openButtonOffsetHeight + wrapperHeight - document.documentElement.clientHeight
+                            openButtonTop + wrapperHeight - document.documentElement.clientHeight
                     ) {
                         vl.util.addClass(openButton, ssToggleFixedClass);
                     } else {
                         vl.util.removeClass(openButton, ssToggleFixedClass);
                     }
-                }, 50),
+                }, 200),
                 false
             );
 
@@ -160,6 +165,11 @@ class ScrollSpy {
         this.parameters = {
             offset: 100,
         };
+
+        // FLUX-92: vang aanpassingen aan vl.breakpoint op
+        window.addEventListener('vl-breakpoint-changed', (e) => {
+            this.dressAll()
+        })
     }
 
     _requestTick() {

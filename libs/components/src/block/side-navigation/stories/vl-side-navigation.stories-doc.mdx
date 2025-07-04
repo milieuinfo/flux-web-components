@@ -82,6 +82,34 @@ Proza messages renderen regelmatig niet tot er een resize van de window optreedt
 maken van het `side-navigation-id` attribuut, aan dit attribuut geef je een unieke string mee. Deze manier van
 werken is een tijdelijke quick-fix, in de nieuwe versie van de side-navigation gaat dit probleem niet voorkomen.
 
+### Initialisatie in een hidden parent
+
+Als de side-navigation gerenderd wordt in een parent component die `hidden` is, bijvoorbeeld bij verschillende stappen in een flow, dan gaat de initialisatie
+fout en zal de side-navigation niet sticky worden bij het scrollen. Dit komt omdat de side-navigation bij het initialiseren een aantal dimensies capteerd en, 
+in het geval dat er een parent `hidden` is, één van de waardes op 0 komt te staan. Dit kan vermeden worden door het gebruik van `hidden` te vervangen door de 
+`when()` directive van Lit.
+
+
+#### ❌ Voorbeeld met "hidden"
+
+<Source code={`
+<flow-met-stappen>
+    <stap-met-side-navigation ?hidden="\${this.__stap !== 'stap-1'}"></stap-met-side-navigation>
+</flow-met-stappen>
+`} language="ts" dark={true} format={true} />
+
+#### ✅ Voorbeeld met "when()"
+
+<Source code={`
+<flow-met-stappen>
+    \${
+        when(this.__stap === 'stap-1', () => 
+            html\`<stap-met-side-navigation></stap-met-side-navigation>\`
+        )
+    }
+</flow-met-stappen>
+`} language="ts" dark={true} format={true} />
+
 
 ## Referenties
 

@@ -26,7 +26,19 @@ class Breakpoint {
     }
 
     refreshValue() {
-        this.value = this._getBreakpoint();
+        const breakpoint = this._getBreakpoint();
+        const shouldDispatch = this.value !== breakpoint;
+        this.value = breakpoint;
+
+        // FLUX-92: dispatch event wanneer het breakpoint verandert
+        // Dit werkt gedetailleerder dan te luisteren naar resize events
+        if (shouldDispatch) {
+            window.dispatchEvent(new CustomEvent('vl-breakpoint-changed', {
+                detail: {
+                    breakpoint
+                }
+            }))
+        }
     }
 }
 
