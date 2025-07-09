@@ -1,15 +1,17 @@
-import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
-import { VlLinkComponent } from '../../../atom/link';
-import { VlPopoverComponent } from '../../popover';
+import { VlTitleComponent } from '@domg-wc/components/atom';
+import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import '../vl-accordion.component';
+import { VlLinkComponent } from '../../../atom/link';
+import { VlPopoverComponent } from '../../popover';
+import { VlAccordionComponentNew } from '../vl-accordion-new.component';
 import { accordionArgs, accordionArgTypes } from './vl-accordion.stories-arg';
 import accordionDoc from './vl-accordion.stories-doc.mdx';
 
-registerWebComponents([VlPopoverComponent, VlLinkComponent]);
+registerWebComponents([VlPopoverComponent, VlLinkComponent, VlAccordionComponentNew, VlTitleComponent]);
 
 export default {
     id: 'components-block-accordion',
@@ -41,6 +43,8 @@ const Template = story(
         menuSlot,
         onToggle,
     }) => html`
+        <vl-title type="h3" underline>old accordion</vl-title>
+
         <vl-accordion
             ?bold=${bold}
             content-padding=${contentPadding}
@@ -54,6 +58,17 @@ const Template = story(
         >
             ${unsafeHTML(defaultSlot)}${unsafeHTML(titleSlot)}${unsafeHTML(subtitleSlot)}${unsafeHTML(menuSlot)}
         </vl-accordion>
+
+        <vl-title type="h3" underline>new accordion</vl-title>
+
+        <vl-accordion-next icon=${icon} content-padding=${contentPadding}>
+            <span slot="title"> Lees meer over de onderwijsdoelstelling </span>
+            <p slot="content">
+                Onderwijs helpt jonge mensen en volwassenen om zichzelf te ontwikkelen en hun weg te vinden in onze
+                samenleving. Het hoger onderwijs speelt daarnaast een belangrijke rol in innovatie dankzij het belang
+                van wetenschappelijk onderzoek.
+            </p>
+        </vl-accordion-next>
     `
 );
 
