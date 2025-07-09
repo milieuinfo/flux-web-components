@@ -3,7 +3,7 @@ import { html } from 'lit-html';
 export const privacyContentSection = () => html`
     <div class="vl-content-block">
         <div class="vl-grid vl-stacked-medium">
-            <div class="vl-column vl-column--8 vl-column--m-8 vl-column--s-12 vl-column--xs-12">
+            <div class="vl-column vl-column--8 vl-column--m-9 vl-column--s-12 vl-column--xs-12">
                 <vl-side-navigation-reference>
                     <div class="vl-grid vl-stacked-large">
                         <div id="privacy-department" class="vl-column vl-column--12 vl-column--m-12">
@@ -721,7 +721,7 @@ export const privacyContentSection = () => html`
                     </div>
                 </vl-side-navigation-reference>
             </div>
-            <div class="vl-column vl-column--4 vl-column--m-4 vl-column--s-12 vl-column--xs-12">
+            <div class="vl-column vl-column--3 vl-column--m-3 vl-column--s-12 vl-column--xs-12 vl-column--start-10 vl-column--s-start-1">
                 <vl-side-navigation id="side-nav-privacy-content" aria-label="inhoudsopgave">
                     <vl-side-navigation-h1>Op deze pagina</vl-side-navigation-h1>
                     <vl-side-navigation-content>

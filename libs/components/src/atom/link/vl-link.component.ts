@@ -47,10 +47,11 @@ export class VlLinkComponent extends BaseLitElement {
             large: this.large,
         };
         const target = this.external ? '_blank' : nothing;
+        const rel = this.external ? 'noopener noreferrer nofollow' : nothing;
         const positionIconBefore = this.iconPlacement !== ICON_PLACEMENT.AFTER;
         return !this.buttonAsLink
             ? html`
-                  <a class=${classMap(classes)} href=${this.href} target=${target} part="link">
+                  <a class=${classMap(classes)} href=${this.href} target=${target} rel=${rel} part="link">
                       ${positionIconBefore ? this.renderIcon() : nothing}
                       <slot></slot>
                       ${!positionIconBefore ? this.renderIcon() : nothing}

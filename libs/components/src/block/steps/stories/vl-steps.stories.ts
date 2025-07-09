@@ -177,7 +177,7 @@ export const StepsSideNavigation = story(
         <section class="vl-section" id="steps-side-navigation-example">
             <div class="vl-content-block">
                 <div class="vl-grid vl-stacked-small">
-                    <div class="vl-column vl-column--8 vl-column--m-8 vl-column--s-12 vl-column--xs-12">
+                    <div class="vl-column vl-column--8 vl-column--m-9 vl-column--s-12 vl-column--xs-12">
                         <vl-side-navigation-reference>
                             <vl-steps>
                                 <vl-step id="vl-steps-vl-step-1">
@@ -473,7 +473,7 @@ export const StepsSideNavigation = story(
                             </vl-steps>
                         </vl-side-navigation-reference>
                     </div>
-                    <div class="vl-column vl-column--4 vl-column--m-4 vl-column--s-12 vl-column--xs-12">
+                    <div class="vl-column vl-column--3 vl-column--m-3 vl-column--s-12 vl-column--xs-12 vl-column--start-10 vl-column--s-start-1">
                         <vl-side-navigation aria-label="inhoudsopgave">
                             <vl-side-navigation-h5>Op deze pagina</vl-side-navigation-h5>
                             <vl-side-navigation-content>

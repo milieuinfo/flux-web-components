@@ -1,5 +1,5 @@
-import { html } from 'lit';
 import { ICON_PLACEMENT, registerWebComponents } from '@domg-wc/common';
+import { html } from 'lit';
 import { VlLinkComponent } from './vl-link.component';
 
 registerWebComponents([VlLinkComponent]);
@@ -58,6 +58,7 @@ describe('component - vl-link - default', () => {
 
         cy.get('vl-link').should('have.attr', 'external');
         cy.get('vl-link').shadow().find('a').should('have.attr', 'target', '_blank');
+        cy.get('vl-link').shadow().find('a').should('have.attr', 'rel', 'noopener noreferrer nofollow');
     });
 
     it('should set icon', () => {
