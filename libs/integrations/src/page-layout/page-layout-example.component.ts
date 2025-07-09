@@ -61,7 +61,7 @@ export class VlPageLayoutExample extends LitElement {
                         <section class="vl-section">
                             <div class="vl-content-block ${this.isFullWidth ? 'vl-content-block--full-width' : ''}">
                                 <div class="vl-grid vl-stacked-medium">
-                                    <div class="vl-column vl-column--8 vl-column--m-8 vl-column--s-8 vl-column--xs-12">
+                                    <div class="vl-column vl-column--8 vl-column--m-9 vl-column--s-12 vl-column--xs-12">
                                         <vl-side-navigation-reference>
                                             <vl-title type="h1"
                                                 >${this.isFullWidth ? 'Volledige breedte' : 'Standaard layout'}
@@ -164,7 +164,7 @@ export class VlPageLayoutExample extends LitElement {
                                             </vl-paragraph>
                                         </vl-side-navigation-reference>
                                     </div>
-                                    <div class="vl-column vl-column--4 vl-column--m-4 vl-column--s-12 vl-column--xs-12">
+                                    <div class="vl-column vl-column--3 vl-column--m-3 vl-column--s-12 vl-column--xs-12 vl-column--start-10 vl-column--s-start-1">
                                         <vl-side-navigation aria-label="inhoudsopgave">
                                             <vl-side-navigation-h5>Op deze pagina</vl-side-navigation-h5>
                                             <vl-side-navigation-content>

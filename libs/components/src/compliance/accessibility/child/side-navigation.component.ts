@@ -8,7 +8,7 @@ export const sideNavigationComponents = () => [VlSideNavigationComponent];
 
 export const sideNavigation = ({ compliance }: SideNavigationProps) => {
     return html` <div
-        class="vl-column vl-column--4 vl-column--m-4 vl-column--s-12 vl-column--xs-12"
+        class="vl-column vl-column--3 vl-column--m-3 vl-column--s-12 vl-column--xs-12 vl-column--start-10 vl-column--s-start-1"
     >
         <vl-side-navigation id="side-nav-accessibility" aria-label="inhoudsopgave">
             <vl-side-navigation-h1 >Op deze pagina</vl-side-navigation-h1>
