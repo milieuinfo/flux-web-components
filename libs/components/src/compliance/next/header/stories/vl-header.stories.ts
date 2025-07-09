@@ -6,8 +6,8 @@ import { headerArgs, headerArgTypes } from './vl-header.stories-arg';
 import headerDoc from './vl-header.stories-doc.mdx';
 
 export default {
-    id: 'components-compliance-header',
-    title: 'Components - Compliance/header',
+    id: 'components-compliance-header-next',
+    title: 'Components - Compliance/Next/header',
     tags: ['autodocs'],
     args: headerArgs,
     argTypes: headerArgTypes,
@@ -38,7 +38,7 @@ export const HeaderDefault = story(
         onReady,
     }) => html`
         <body>
-            <vl-header
+            <vl-header-next
                 authenticated-user-url=${authenticatedUserUrl}
                 ?development=${development}
                 identifier=${identifier}
@@ -52,12 +52,12 @@ export const HeaderDefault = story(
                 .logoutCallback=${logoutCallback}
                 .applicationLinks=${applicationLinks}
                 @ready=${onReady}
-            ></vl-header>
+            ></vl-header-next>
         </body>
     `
 );
 
-HeaderDefault.storyName = 'vl-header - default';
+HeaderDefault.storyName = 'vl-header-next - default';
 HeaderDefault.args = {
     development: true,
     identifier: '59188ff6-662b-45b9-b23a-964ad48c2bfb',
@@ -65,7 +65,7 @@ HeaderDefault.args = {
 };
 
 export const HeaderWithApplicationLinks = HeaderDefault.bind({});
-HeaderWithApplicationLinks.storyName = 'vl-header - application links';
+HeaderWithApplicationLinks.storyName = 'vl-header-next - application links';
 HeaderWithApplicationLinks.args = {
     development: true,
     identifier: '59188ff6-662b-45b9-b23a-964ad48c2bfb',

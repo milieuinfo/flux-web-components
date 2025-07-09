@@ -1,0 +1,36 @@
+import { ArgTypes, Canvas } from '@storybook/blocks';
+import * as VlFooterStories from './vl-footer.stories';
+
+# Digitaal Vlaanderen Footer
+
+<FluxMetaData id="components-compliance-footer-next" />
+
+Injecteert de footer widget (v5) van Digitaal Vlaanderen.
+Default wordt de footer geïnjecteerd in het native `<body>` element.
+
+## Voorbeeld
+
+```js
+import { VlFooterNext } from '@domg-wc/components/compliance';
+```
+
+```html
+<vl-footer-next></vl-footer-next>
+```
+
+<Canvas of={VlFooterStories.FooterDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlFooterStories.FooterDefault} />
+
+
+## Referenties
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Footer](https://www.vlaanderen.be/digitaal-vlaanderen/onze-oplossingen/mijn-burgerprofiel/koppelen-met-mijn-burgerprofiel-als-dienstenleverancier/technische-toolkit-voor-aansluitingen-door-dienstenleveranciers)
+
+[Global Footer - interfaces](https://test.widgets.burgerprofiel.dev-vlaanderen.be/docs/global-footer/modules.html)
+

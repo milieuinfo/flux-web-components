@@ -38,7 +38,9 @@
         "libs:pack:release": "cd ./resources/bash-scripts && bash ./libs-pack.sh release",
         "libs:publish": "cd ./resources/bash-scripts && bash ./libs-publish.sh",
         "libs:web-types:generate": "cd ./resources/bash-scripts && bash ./libs-web-types-generate.sh",
-        "libs:web-types:validate": "cd ./resources/bash-scripts && bash ./libs-web-types-validate.sh"
+        "libs:web-types:validate": "cd ./resources/bash-scripts && bash ./libs-web-types-validate.sh",
+        "start": "npm run apps:storybook:dev",
+        "test": "npm run libs:component-tests:watch"
     },
     "private": true,
     "peerDependencies": {
@@ -110,6 +112,8 @@
     "dependencies": {
         "@domg/govflanders-style": "21.3.0",
         "@floating-ui/dom": "1.6.3",
+        "@govflanders/vl-widget-global-footer-types": "1.0.28",
+        "@govflanders/vl-widget-global-header-types": "2.0.20",
         "@lit/react": "1.0.3",
         "@open-wc/form-control": "1.0.0",
         "@open-wc/form-helpers": "1.0.0",
