@@ -113,6 +113,30 @@
     "components-form-upload": {
         "vStatus": "v2"
     },
+    "components-compliance-footer": {
+        "vStatus": "v2-replace",
+        "legacyText": "vl-footer",
+        "nextText": "[vl-footer-next](/docs/components-compliance-footer-next--documentatie)",
+        "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#footer)"
+    },
+    "components-compliance-footer-next": {
+        "vStatus": "v3-next",
+        "legacyText": "[vl-footer](/docs/components-compliance-footer--documentatie)",
+        "nextText": "vl-footer-next",
+        "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#footer)"
+    },
+    "components-compliance-header": {
+        "vStatus": "v2-replace",
+        "legacyText": "vl-header",
+        "nextText": "[vl-header-next](/docs/components-compliance-header-next--documentatie)",
+        "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#header)"
+    },
+    "components-compliance-header-next": {
+        "vStatus": "v3-next",
+        "legacyText": "[vl-header](/docs/components-compliance-header--documentatie)",
+        "nextText": "vl-header-next",
+        "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#header)"
+    },
     "map-select-location": {
         "vStatus": "v2"
     },

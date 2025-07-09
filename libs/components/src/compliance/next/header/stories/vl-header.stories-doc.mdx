@@ -1,0 +1,87 @@
+import { ArgTypes, Canvas } from '@storybook/blocks';
+import * as VlHeaderStories from './vl-header.stories';
+
+# Digitaal Vlaanderen Header
+
+<FluxMetaData id="components-compliance-header-next" />
+
+Injecteert de global header widget (v5) van Digitaal Vlaanderen.
+Default wordt de header geïnjecteerd in het native `<body>` element.
+
+## Voorbeeld
+
+```js
+import { VlHeaderNext } from '@domg-wc/components/compliance';
+```
+
+```html
+<vl-header-next></vl-header-next>
+```
+
+<Canvas of={VlHeaderStories.HeaderDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlHeaderStories.HeaderDefault} />
+
+
+## Sessies
+
+### Configuratie
+
+Bij het aanpassen van volgende attributen wordt achterliggend de `window.globalHeaderClient.accessMenu.setProfile()` methode van DV opnieuw aangeroepen:
+
+-   `login-url`
+-   `logout-url`
+-   `switch-capacity-url`
+
+Zie [global header interfaces | setProfile](https://test.widgets.burgerprofiel.dev-vlaanderen.be/docs/global-header/interfaces/AccessMenuMethods.html#setprofile) voor de technische informatie.
+
+Zie [Digitaal Vlaanderen - De endpoints overschrijven](https://vlaamseoverheid.atlassian.net/wiki/spaces/IKPubliek/pages/6336119448/Aanmelden+met+eenvoudig+of+gekoppeld+toegangsbeheer#De-endpoints-overschrijven) voor meer informatie (v4 documentatie).
+
+## Applicatieve Links
+
+Je kan applicatieve links toevoegen aan de header door gebruik te maken van de `applicationLinks` property.<br/>
+Deze property verwacht een array met objecten van het volgende type:
+
+```js
+type ApplicationMenuLink = {
+    label: string;
+    href: string;
+    icon?: string;
+    target?: string;
+};
+```
+
+De `ApplicationMenuLink` TypeScript Type kan je zo importeren: `import { ApplicationMenuLink } from '@govflanders/vl-widget-global-header-types';`
+
+Zie [global header interfaces | ApplicationMenuLink](https://test.widgets.burgerprofiel.dev-vlaanderen.be/docs/global-header/interfaces/ApplicationMenuLink.html) voor de technische informatie.
+
+Zie [Digitaal Vlaanderen - Header applicatieve links](https://vlaamseoverheid.atlassian.net/wiki/spaces/IKPubliek/pages/6508874105/Aanmeldmenu#Applicatieve-links) voor meer informatie (v4 documentatie).
+
+### Logout request
+
+Sinds global header v5 is het niet meer nodig om automatische logout requests te rejecten. Onderstaande informatie gaat over de v4 implementatie (voorlopig behouden in de documentatie als referentie).
+
+> Bij het gebruik maken van sessies kan het logout request afgehandeld worden.<br/>
+> Dit kan handig zijn als je wilt dat de gebruiker niet automatisch wordt uitgelogd bv. bij inactiviteit of als de sessie verlopen is.
+> 
+> Door gebruik te maken van het `reject-logout` attribuut worden alle logout requests afgewezen, behalve een logout request door de gebruiker.
+> 
+> Met de `logoutCallback` property kan je een callback functie meegeven die wordt aangeroepen bij een logout request.<br/>
+> De logout reason wordt meegegeven aan de callback, door een boolean promise terug te geven kan je de logout accepteren of afwijzen.<br/>
+> De mogelijke reasons zijn: `inactivity` en `expired`.<br/>
+> Een logout request door de gebruiker wordt nooit afgewezen.
+> 
+> 
+> Zie [De aanvragen voor applicatie logout afhandelen via JavaScript](https://vlaamseoverheid.atlassian.net/wiki/spaces/IKPubliek/pages/6336119448/Aanmelden+met+eenvoudig+of+gekoppeld+toegangsbeheer#De-aanvragen-voor-applicatie-logout-afhandelen-via-JavaScript) voor meer informatie (v4 documentatie).
+
+
+## Referenties
+
+### Digitaal Vlaanderen
+
+[Documentatie Digitaal Vlaanderen - Header](https://www.vlaanderen.be/digitaal-vlaanderen/onze-oplossingen/mijn-burgerprofiel/koppelen-met-mijn-burgerprofiel-als-dienstenleverancier/technische-toolkit-voor-aansluitingen-door-dienstenleveranciers)
+
+[Global Header - interfaces](https://test.widgets.burgerprofiel.dev-vlaanderen.be/docs/global-header/modules.html)

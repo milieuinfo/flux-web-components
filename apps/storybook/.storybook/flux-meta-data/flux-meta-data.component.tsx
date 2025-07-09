@@ -1,7 +1,7 @@
 import { Markdown } from '@storybook/blocks';
 import React from 'react';
-import { FluxMetaDataModel } from './flux-meta-data.model';
 import fluxMetaData from './flux-meta-data.json';
+import { FluxMetaDataModel } from './flux-meta-data.model';
 
 export const FluxMetaData = ({ id }) => {
     const fluxMetaDataModel = fluxMetaData[id] as FluxMetaDataModel;
@@ -21,6 +21,10 @@ const buildType = (fluxMetaDataModel: FluxMetaDataModel): string => {
         case 'v2-style-base':
         case 'v2-style-layout':
             return 'info';
+        case 'v2-replace':
+            return 'error';
+        case 'v3-next':
+            return 'success';
         default:
             return 'info';
     }
@@ -36,6 +40,10 @@ const buildTitle = (fluxMetaDataModel: FluxMetaDataModel): string => {
             return 'v2 base style';
         case 'v2-style-layout':
             return 'v2 layout style';
+        case 'v2-replace':
+            return 'Legacy component';
+        case 'v3-next':
+            return '"Next"-component';
         default:
             return '';
     }
@@ -49,6 +57,12 @@ const buildText = (fluxMetaDataModel: FluxMetaDataModel): string => {
         case 'v2-style-atom':
         case 'v2-style-base':
             return 'Dit is interne styling van de v2 opzet; deze documentatie is bedoeld voor bijdragers / beheerders!';
+        case 'v2-replace':
+            return `De **${fluxMetaDataModel.legacyText}** is een legacy-component die vervangen wordt door
+                    ${fluxMetaDataModel.nextText}, zie ${fluxMetaDataModel.planningInfo} voor bijkomende informatie.`;
+        case 'v3-next':
+            return `De **${fluxMetaDataModel.nextText}** is een next-component die ${fluxMetaDataModel.legacyText}
+                    vervangt, zie ${fluxMetaDataModel.planningInfo} voor bijkomende informatie.`;
         default:
             return '';
     }

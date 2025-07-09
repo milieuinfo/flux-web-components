@@ -3,4 +3,5 @@ export interface FluxMetaDataModel {
     legacyText: string;
     v2Text: string;
     planningInfo: string;
+    nextText?: string;
 }

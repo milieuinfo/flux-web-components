@@ -1,6 +1,6 @@
-import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
-import { VlHeader } from './index';
+import { html } from 'lit';
+import { ApplicationLink, VlHeader } from './index';
 
 registerWebComponents([VlHeader]);
 
@@ -46,5 +46,38 @@ describe('component - vl-header - skeleton', () => {
         `);
 
         cy.get('#header__skeleton').should('have.css', 'height', '43px');
+    });
+});
+
+describe('component - vl-header - applicationLinks', () => {
+    const mockApplicationLinks: ApplicationLink[] = [
+        {
+            label: 'Link 1',
+            href: '#link1',
+        },
+        {
+            label: 'Link 2',
+            href: '#link2',
+        },
+    ];
+
+    it('should render the application links', () => {
+        cy.viewport(1280, 800);
+        cy.mount(html`
+            <body>
+                <vl-header
+                    development
+                    identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb"
+                    .applicationLinks=${mockApplicationLinks}
+                ></vl-header>
+            </body>
+        `);
+
+        cy.get('#header__container')
+            .find(`a[href="${mockApplicationLinks[0].href}"]`)
+            .contains(mockApplicationLinks[0].label);
+        cy.get('#header__container')
+            .find(`a[href="${mockApplicationLinks[1].href}"]`)
+            .contains(mockApplicationLinks[1].label);
     });
 });
