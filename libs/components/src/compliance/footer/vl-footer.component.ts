@@ -4,33 +4,22 @@ import {
     legacyBreakpoint,
     legacyCore,
     registerWebComponents,
-    webComponentCustom,
+    webComponent,
 } from '@domg-wc/common';
+import { GlobalFooterClient } from '@govflanders/vl-widget-global-footer-types';
+
+declare global {
+    interface Window {
+        globalFooterClient: GlobalFooterClient;
+    }
+}
 
 registerWebComponents([legacyCore, legacyBreakpoint]);
 
-const customRegistration = () =>
-    awaitScript(
-        'vl-footer-polyfill',
-        'https://prod.widgets.burgerprofiel.vlaanderen.be/api/v1/node_modules/@govflanders/vl-widget-polyfill/dist/index.js'
-    )
-        .then(() => {
-            awaitScript(
-                'vl-footer-client',
-                'https://prod.widgets.burgerprofiel.vlaanderen.be/api/v1/node_modules/@govflanders/vl-widget-client/dist/index.js'
-            ).finally(() => {
-                customElements.define('vl-footer', VlFooter);
-            });
-        })
-        .catch(() => {
-            customElements.define('vl-footer', VlFooter);
-        });
-
-@webComponentCustom(customRegistration)
+@webComponent('vl-footer')
 export class VlFooter extends BaseLitElement {
     private development = false;
     private identifier = '';
-    private observer: MutationObserver | null = null;
 
     static get properties() {
         return {
@@ -64,59 +53,36 @@ export class VlFooter extends BaseLitElement {
         );
     }
 
-    private observeWidgetIsAdded() {
-        const isFooter = (node: Node) => {
-            return (
-                (node as HTMLElement).tagName === 'FOOTER' || (node.childNodes && [...node.childNodes].some(isFooter))
+    private async loadWidget() {
+        try {
+            await awaitScript(
+                'vl-footer-widget',
+                `https://widgets.${this.development ? 'tni-' : ''}vlaanderen.be/api/v2/widget/${this.identifier}/entry`
             );
-        };
 
-        this.observer = new MutationObserver((mutations, observer) => {
-            const nodes = mutations.flatMap((mutation) => [...mutation.addedNodes]);
+            if (!window.globalFooterClient) {
+                console.error('Global footer client failed to load');
+                return;
+            }
 
-            if (nodes.some(isFooter)) {
-                observer.disconnect();
+            const footerElement = this.footerContainer?.querySelector<HTMLDivElement>('#footer') || undefined;
+
+            const successFullyMounted = await window.globalFooterClient.mount(footerElement);
+
+            if (successFullyMounted) {
                 this.dispatchEvent(new CustomEvent('ready'));
             }
-        });
-
-        this.footerContainer && this.observer.observe(this.footerContainer, { childList: true });
-    }
-
-    private loadWidget() {
-        const widgetUrl = this.development
-            ? `https://tni.widgets.burgerprofiel.dev-vlaanderen.be/api/v1/widget/${this.identifier}`
-            : `https://prod.widgets.burgerprofiel.vlaanderen.be/api/v1/widget/${this.identifier}`;
-
-        const client = (window as any).vl.widget.client as any;
-        const bootstrapResponse = client.bootstrap(widgetUrl);
-        bootstrapResponse
-            .then((widget: any) => {
-                widget.setMountElement(document.getElementById('footer'));
-                widget.mount().catch((e: any) => console.error(e));
-            })
-            .catch((e: any) => {
-                console.error(e);
-            });
+        } catch (error) {}
     }
 
     render() {
         this.footerContainer?.remove();
         this.injectFooterContainer();
-        this.observer?.disconnect();
-        this.observeWidgetIsAdded();
         this.loadWidget();
-        // setTimeout(() => {
-        //     this.loadWidget();
-        // }, 2000);
     }
 
     createRenderRoot() {
         return this;
-    }
-
-    disconnectedCallback() {
-        this.observer?.disconnect();
     }
 
     /**

@@ -1,4 +1,4 @@
-import { ApplicationLink } from './vl-header.component';
+import { ApplicationMenuLink } from '@govflanders/vl-widget-global-header-types';
 
 export const headerDefaults = {
     authenticatedUserUrl: '/sso/ingelogde_gebruiker' as string,
@@ -12,5 +12,5 @@ export const headerDefaults = {
     skeleton: false as boolean,
     rejectLogout: false as boolean,
     logoutCallback: null as ((reason: string) => Promise<boolean>) | null,
-    applicationLinks: [] as ApplicationLink[],
+    applicationLinks: [] as ApplicationMenuLink[],
 } as const;

@@ -1,14 +1,16 @@
-import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
+import { html } from 'lit';
 import { VlHeader } from './index';
 
 registerWebComponents([VlHeader]);
+
+const identifier = '59188ff6-662b-45b9-b23a-964ad48c2bfb';
 
 describe('component - vl-header', () => {
     beforeEach(() => {
         cy.mount(html`
             <body>
-                <vl-header development identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb"></vl-header>
+                <vl-header development identifier="${identifier}"></vl-header>
             </body>
         `);
     });
@@ -31,7 +33,6 @@ describe('component - vl-header', () => {
     });
 
     it('should dispatch ready event when ready', () => {
-        // Mogelijke flaky test aangezien het event afgevuurd kan worden vooraleer de eventListener is toegevoegd.
         cy.createStubForEvent('vl-header', 'ready');
         cy.get('@ready').should('have.been.calledOnce');
     });
@@ -41,7 +42,7 @@ describe('component - vl-header - skeleton', () => {
     it('should render the skeleton container', () => {
         cy.mount(html`
             <body>
-                <vl-header development identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb" skeleton></vl-header>
+                <vl-header development identifier="${identifier}" skeleton></vl-header>
             </body>
         `);
 
