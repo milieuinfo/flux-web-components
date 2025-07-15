@@ -5,7 +5,7 @@ import * as VlToasterStories from './vl-toaster.stories';
 
 <VluxMetaData id="components-next-toaster" />
 
-Gebruik de `toaster-next` component om een toaster af te beelden.<br/>
+Gebruik de `toaster-next` component om meldingen af te beelden.<br/>
 
 Deze component is de nieuwe versie van het [vl-toaster](/docs/elements-toaster-h1--documentatie) element.
 
@@ -20,45 +20,65 @@ import { VlToasterComponent } from '@domg-wc/components/next/toaster';
 <vl-toaster-next></vl-toaster-next>
 ```
 
-<Canvas of={VlToasterStories.ToasterDefault} inline />
+<Canvas of={VlToasterStories.ToasterDefault} />
 
 ## Configuratie
 
 <ArgTypes of={VlToasterStories.ToasterDefault} />
 
-## Meldingen tonen
+## Gebruik
+
+### Declaratief
+
+Je kan de meldingen declaratief toevoegen in het default slot van de `vl-toaster`, typisch gebruiken we
+ hiervoor de [vl-alert](/docs/components-alert--documentatie) component.
+ Het element verschijnt dan automatisch op de gekozen positie.
+
+<Canvas of={VlToasterStories.ToasterDefaultSlot} />
 
 ### Dynamisch
 
-Om een melding te tonen, gebruik je de `showAlert()` methode.
+De `showAlert()`-methode, is de eenvoudigste manier om een melding te tonen.
+Achterliggend maken we een [vl-alert](/docs/components-block-alert--documentatie) component aan met de
+ opgegeven parameters.
 
-Deze methode roep je op de volgende manier op:
-
-```ts
+```js
 const toaster = document.querySelector('vl-toaster-next');
 toaster.showAlert({
   type: 'error',
   title: 'Fout',
   message: 'Dit is een foutmelding'
+  fadeOut: true // optioneel, standaard is false
 });
 ```
 
-Je kan het meegegeven object uitbreiden met de properties van de [vl-alert](/docs/components-alert--documentatie) component.
+Je kan het meegegeven object uitbreiden met de properties van de [vl-alert](/docs/components-alert--documentatie)
+component.
 
 <Canvas of={VlToasterStories.ToasterShowAlert} />
 
-### Declaratief
+Als je meer controle wilt over de melding, kan je ook de `show()` methode gebruiken om een zelf samengesteld
+ HTML-element te tonen als melding.
 
-Daarnaast kan je de meldingen ook declaratief toevoegen in het default slot van de `vl-toaster`, typisch gebruiken we
- hiervoor de [vl-alert](/docs/components-alert--documentatie) component.
-
-Om een melding te tonen, gebruik je de `show()` methode:
-
-```ts
+```js
 const toaster = document.querySelector('vl-toaster-next');
 // toont de melding gedeclareerd in het default slot van de toaster
-toaster.show();
+toaster.show(document.querySelector('#warning-123')); // deze methode toont het meegegeven HTML element als toast
 ```
+
+### Fade out
+
+We bieden de mogelijkheid aan om meldingen automatisch te laten verdwijnen na een bepaalde tijd met
+ de `fade-out` property.
+
+<VluxAlert type="warning">
+{`
+   Echter raden we aan om dit te vermijden waar mogelijk gezien dit de toegankelijkheid van de
+   toaster negatief kan beïnvloeden. Gebruikers kunnen de melding mogelijk niet op tijd lezen of begrijpen,
+   vooral als ze gebruik maken van schermlezers of andere hulpmiddelen.
+`}
+</VluxAlert>
+
 
 <Canvas of={VlToasterStories.ToasterFadeOut} />
 

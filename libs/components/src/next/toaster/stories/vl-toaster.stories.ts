@@ -35,23 +35,55 @@ export default {
 export const ToasterDefault = story<ToasterArgs>(toasterArgs, ({ placement, fadeOut, defaultSlot }) => {
     return html`
         <script>
-            document.querySelector('vl-button-next')?.addEventListener('vl-click', () => {
+            document.querySelector('#default-toaster-button')?.addEventListener('click', () => {
                 const toaster = document.querySelector('vl-toaster-next');
-                toaster.show();
+                const template = document.querySelector('template');
+
+                if (template && toaster) {
+                    const clone = template.content.cloneNode(true);
+                    const alert = clone.querySelector('#alert-success');
+                    toaster.appendChild(alert);
+                }
             });
         </script>
+        <template>
+            <vl-alert
+                id="alert-success"
+                data-vl-type="success"
+                data-vl-icon="check"
+                data-vl-title="Gelukt"
+                data-vl-closable
+            >
+                <p>Wij hebben uw melding goed ontvangen en nemen deze spoedig in behandeling.</p>
+            </vl-alert>
+        </template>
         <vl-toaster-next id="default-toaster" placement=${placement} ?fade-out=${fadeOut}>
             ${unsafeHTML(defaultSlot)}
         </vl-toaster-next>
-        <vl-button-next> Toon succesmelding</vl-button-next>
+        <vl-button-next id="default-toaster-button"> Toon succesmelding</vl-button-next>
     `;
 });
 ToasterDefault.storyName = 'vl-toaster - default';
-ToasterDefault.args = {
-    defaultSlot:
-        '<vl-alert data-vl-type="success" data-vl-icon="check" data-vl-title="Gelukt" data-vl-closable>\n ' +
-        '<p>Wij hebben uw melding goed ontvangen en nemen deze spoedig in behandeling.</p>\n' +
-        '</vl-alert>',
+
+export const ToasterDefaultSlot = story<ToasterArgs>(toasterArgs, ({ placement, fadeOut, defaultSlot }) => {
+    return html`
+        <vl-toaster-next id="default-toaster" placement=${placement} ?fade-out=${fadeOut}>
+            ${unsafeHTML(defaultSlot)}
+        </vl-toaster-next>
+    `;
+});
+ToasterDefaultSlot.storyName = 'vl-toaster - default slot';
+ToasterDefaultSlot.args = {
+    placement: 'bottom-right',
+    defaultSlot: `<vl-alert
+                    id="alert-default"
+                    data-vl-type="error"
+                    data-vl-icon="warning"
+                    data-vl-title="Foutmelding"
+                    data-vl-small
+                >
+                    <p>Voorwaarden niet voldaan.</p>
+                </vl-alert>`,
 };
 
 export const ToasterShowAlert = story<ToasterArgs>(toasterArgs, ({ placement, fadeOut }) => {
@@ -91,6 +123,14 @@ export const ToasterFadeOut = story<ToasterArgs>(toasterArgs, ({ placement, fade
                 toaster.show('#alert-loader');
             });
         </script>
+        <template>
+            <vl-alert id="alert-error" data-vl-type="error" data-vl-icon="warning" data-vl-title="Error">
+                <p>Er is een fout opgetreden.</p>
+            </vl-alert>
+            <vl-alert id="alert-loader" data-vl-title="Melding">
+                <vl-loader></vl-loader>
+            </vl-alert>
+        </template>
         <vl-toaster-next id="toaster-fade-out" placement=${placement} ?fade-out=${fadeOut}>
             ${unsafeHTML(defaultSlot)}
         </vl-toaster-next>
@@ -101,9 +141,4 @@ export const ToasterFadeOut = story<ToasterArgs>(toasterArgs, ({ placement, fade
 ToasterFadeOut.storyName = 'vl-toaster - fade out';
 ToasterFadeOut.args = {
     fadeOut: true,
-    defaultSlot:
-        '<vl-alert id="alert-error" data-vl-type="error" data-vl-icon="warning" data-vl-title="Error">\n' +
-        '<p>Er is een fout opgetreden.</p>\n </vl-alert>\n' +
-        '<vl-alert id="alert-loader" data-vl-title="Melding">\n' +
-        '<vl-loader></vl-loader>\n </vl-alert>',
 };
