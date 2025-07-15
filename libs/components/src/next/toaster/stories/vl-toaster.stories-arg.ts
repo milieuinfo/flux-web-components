@@ -3,7 +3,10 @@ import { ArgTypes } from '@storybook/web-components';
 import { toasterDefaults } from '../vl-toaster.defaults';
 import { TOASTER_PLACEMENT } from '../vl-toaster.model';
 
-export type ToasterArgs = typeof defaultArgs & typeof toasterDefaults & { defaultSlot: string };
+export type ToasterArgs = typeof defaultArgs &
+    typeof toasterDefaults & {
+        defaultSlot: string;
+    };
 
 export const toasterArgs = {
     ...defaultArgs,
@@ -15,7 +18,7 @@ export const toasterArgTypes: ArgTypes = {
     ...defaultArgTypes(true),
     fadeOut: {
         name: 'fade-out',
-        description: 'Elke alert verdwijnt automatisch 5 seconden na openen. \n Dit attribuut is niet reactief.',
+        description: 'Elke alert verdwijnt automatisch 5 seconden na openen.<br>Dit attribuut is niet reactief.',
         table: {
             type: {
                 summary: TYPES.BOOLEAN,
@@ -26,18 +29,19 @@ export const toasterArgTypes: ArgTypes = {
     },
     placement: {
         name: 'placement',
-        description: 'Positioneert de toaster. \nStandaard worden die geplaatst in de rechterbovenhoek.',
+        description: 'Positioneert de toaster.<br>Standaard worden die geplaatst in de rechterbovenhoek.',
         options: Object.values(TOASTER_PLACEMENT),
         table: {
             type: {
-                summary: TYPES.STRING,
+                summary: Object.values(TOASTER_PLACEMENT),
             },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: false },
+            defaultValue: { summary: 'top-right' },
         },
     },
     defaultSlot: {
         name: '[default]',
+        description: 'De inhoud van de toaster. Dit is meestal een alert.',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
