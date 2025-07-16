@@ -1,5 +1,5 @@
 import { registerWebComponents, webComponent } from '@domg-wc/common';
-import { vlGridStyles, vlLegacyStyles } from '@domg-wc/styles';
+import { vlGridStyles, vlLegacyStyles, vlStackedStyles } from '@domg-wc/styles';
 import { VlButtonComponent, VlTextComponent } from '@domg-wc/components/atom';
 import {
     parseFormData,
@@ -82,6 +82,7 @@ export class VlFormDemoComponent extends LitElement {
         return [
             vlLegacyStyles,
             vlGridStyles,
+            vlStackedStyles,
             css`
                 form {
                     margin-top: 1rem;
@@ -100,7 +101,7 @@ export class VlFormDemoComponent extends LitElement {
     override render() {
         return html`
             <form id="form" class="vl-form" @submit=${this.onSubmit}>
-                <div class="vl-grid">
+                <div class="vl-grid vl-stacked-small">
                     <div class="vl-column vl-column--4 vl-column--s-12">
                         <vl-form-label for="naam" label="Naam *"></vl-form-label>
                         <vl-text annotation small>(enkel achternaam)</vl-text>
