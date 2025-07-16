@@ -1,3 +1,3 @@
 import { FluxConfig } from '@domg-wc/common';
 
-FluxConfig.setPreferences({ autoRegisterStyles: false });
+FluxConfig.setPreferences({ autoRegisterStyles: true });

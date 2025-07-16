@@ -1,8 +1,17 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { vlGroupStyles, vlLegacyStyles, vlStackedStyles } from '@domg-wc/styles';
-import { VlButtonComponent, VlLinkComponent, VlParagraphComponent, VlTitleComponent } from '@domg-wc/components/atom';
+import {
+    VlButtonComponent,
+    vlHeading1,
+    VlIconComponent,
+    VlLinkComponent,
+    VlParagraphComponent,
+    VlTextComponent,
+    VlTitleComponent,
+} from '@domg-wc/components/atom';
 import {
     VlAccordionComponent,
+    VlAlert,
+    VlInfoTile,
     VlModalComponent,
     VlPillComponent,
     VlPopoverComponent,
@@ -15,15 +24,23 @@ import {
     VlSelectComponent,
     VlSelectRichComponent,
 } from '@domg-wc/components/form';
+import { VlFormDemoComponent } from '@domg-wc/integrations/form';
+import { vlLayoutStyles } from '@domg-wc/styles';
 import { CSSResult, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { VlFormDemoComponent } from '@domg-wc/integrations/form';
+
+declare global {
+    interface Window {
+        Chart: any;
+    }
+}
 
 @customElement('app-component')
 export class AppComponent extends LitElement {
     static {
         registerWebComponents([
             VlAccordionComponent,
+            VlAlert,
             VlButtonComponent,
             VlDatepickerComponent,
             VlFormDemoComponent,
@@ -37,6 +54,10 @@ export class AppComponent extends LitElement {
             VlSideSheet,
             VlTabsComponent,
             VlTitleComponent,
+            VlInfoTile,
+            VlTextComponent,
+            VlInfoTile,
+            VlIconComponent,
         ]);
     }
 
@@ -69,7 +90,7 @@ export class AppComponent extends LitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [vlLegacyStyles, vlGroupStyles, vlStackedStyles];
+        return [vlLayoutStyles];
     }
 
     private _selectElement: VlSelectComponent;
@@ -77,6 +98,160 @@ export class AppComponent extends LitElement {
     private get selectElement() {
         this._selectElement = this._selectElement ?? (this.shadowRoot?.querySelector('#select') as VlSelectComponent);
         return this._selectElement;
+    }
+
+    firstUpdated(): void {
+        // NOTE: dit is POC code en kan beter gestructureerd worden
+        const fontDefaults = {
+            family: 'Flanders Art Sans',
+            size: 8,
+        };
+
+        // line chart demo
+        const dataGraph1 = {
+            labels: ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli'],
+            datasets: [
+                {
+                    label: 'Demo Dataset',
+                    data: [20, 30, 80, 20, 40, 10, 60],
+                    borderColor: '#0055cc',
+                    backgroundColor: 'rgba(0,0,0,0)',
+                    pointBackgroundColor: '#0055cc',
+                    pointRadius: 5,
+                    tension: 0, // disables bezier curve
+                },
+            ],
+        };
+        const configGraph1 = {
+            type: 'line',
+            data: dataGraph1,
+            options: {
+                responsive: true,
+                animation: {
+                    duration: 1000,
+                    easing: 'easeOutBounce',
+                },
+                legend: {
+                    labels: {
+                        font: fontDefaults,
+                    },
+                },
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false,
+                            color: 'black',
+                        },
+                        ticks: {
+                            font: fontDefaults,
+                        },
+                    },
+                    y: {
+                        grid: {
+                            color: 'black',
+                        },
+                        ticks: {
+                            font: fontDefaults,
+                        },
+                    },
+                },
+                tooltip: {
+                    titleFont: fontDefaults,
+                    bodyFont: fontDefaults,
+                },
+            },
+        };
+
+        // bar chart demo
+        const dataGraph2 = {
+            labels: ['LZS1', 'LZS2', 'LZS3', 'LZS4', 'LZS5', 'LZS6', 'LZS7'],
+            datasets: [
+                {
+                    label: 'Demo Dataset',
+                    data: [20, 30, 80, 20, 40, 10, 60],
+                    borderColor: '#D2373C',
+                    backgroundColor: 'rgba(210, 55, 60, 0.5)',
+                    borderWidth: 1,
+                },
+            ],
+        };
+        const configGraph2 = {
+            type: 'bar',
+            data: dataGraph2,
+            options: {
+                responsive: true,
+                animation: {
+                    duration: 1000,
+                    easing: 'easeOutBounce',
+                },
+                plugins: {
+                    legend: {
+                        display: false,
+                        labels: {
+                            font: fontDefaults,
+                        },
+                    },
+                    tooltip: {
+                        titleFont: fontDefaults,
+                        bodyFont: fontDefaults,
+                    },
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false,
+                            color: 'black',
+                        },
+                        ticks: {
+                            font: fontDefaults,
+                        },
+                    },
+                    y: {
+                        grid: {
+                            color: 'black',
+                        },
+                        ticks: {
+                            font: fontDefaults,
+                        },
+                    },
+                },
+            },
+        };
+
+        const graph1 = document.querySelector<HTMLCanvasElement>('canvas#graph1');
+        const graph2 = document.querySelector<HTMLCanvasElement>('canvas#graph2');
+        if (graph1 && graph2) {
+            const script = document.createElement('script');
+            let chart1: typeof window.Chart;
+            let chart2: typeof window.Chart;
+            script.onload = () => {
+                chart1 = new window.Chart(graph1.getContext('2d'), configGraph1);
+                chart2 = new window.Chart(graph2.getContext('2d'), configGraph2);
+            };
+            // NOTE: dit is POC code. Chart.js moet via npm geimporteerd worden
+            script.setAttribute('src', 'https://cdn.jsdelivr.net/npm/chart.js');
+            document.documentElement.appendChild(script);
+            window.addEventListener('resize', () => {
+                // NOTE: dit is een Chart.js bug, charts verkleinen nooit bij het resizen
+                // dit zou gethrottled moeten worden in productie code
+                graph1.removeAttribute('width');
+                graph1.removeAttribute('height');
+                graph1.style.width = 'unset';
+                graph1.style.height = 'unset';
+                chart1.resize();
+
+                graph2.removeAttribute('width');
+                graph2.removeAttribute('height');
+                graph2.style.width = 'unset';
+                graph2.style.height = 'unset';
+                chart2.resize();
+            });
+        }
     }
 
     render() {
@@ -207,6 +382,185 @@ export class AppComponent extends LitElement {
                         </div>
                     </vl-tabs-pane>
                 </vl-tabs>
+
+                <!-- NOTE: de toevoegingen aan vl-info-block met custom-css zouden opgenomen kunnen worden in het component zelf -->
+                <div class="vl-section">
+                    <div class="vl-content-block">
+                        <div class="vl-grid">
+                            <vl-info-tile
+                                center
+                                class="vl-column vl-column--6"
+                                custom-css=":host { display: inline-grid; }"
+                            >
+                                <span slot="title">Registratie dataleveranciers</span>
+                                <span slot="subtitle">Publieke toegang</span>
+                                <div slot="content">
+                                    Registreer als dataleverancier om luchtzuiveringssystemen te registreren.
+                                </div>
+                                <div slot="footer"><vl-button>Registeer als dataleverancier</vl-button></div>
+                            </vl-info-tile>
+
+                            <vl-info-tile
+                                center
+                                class="vl-column vl-column--6"
+                                custom-css=":host { display: inline-grid; }"
+                            >
+                                <span slot="title">Registratie luchtzuiveringssysteem</span>
+                                <span slot="subtitle">Login vereist - voorbehouden voor dataleveranciers</span>
+                                <div slot="content">
+                                    Het registreren van een luchtzuiveringssysteem laat ons toe de data te analyseren en
+                                    eventuele storingen op te volgen.
+                                </div>
+                                <div slot="footer">
+                                    <vl-button disabled>Registreer een luchtzuiveringssysteem</vl-button>
+                                </div>
+                            </vl-info-tile>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                    .armos-metric {
+                        flex: 1;
+                        display: inline-grid;
+                        align-self: stretch;
+                    }
+                        .armos-metric__content {
+                            display: flex;
+                            flex: 1;
+                            flex-direction: column;
+                        }
+                        .armos-metric__number {
+                            ${vlHeading1}
+                            flex: 1;
+                            text-align: center;
+                            margin: 2rem 0;
+                            align-content: center;
+                        }
+                </style>
+
+                <div class="vl-section">
+                    <div class="vl-content-block vl-content-block--full-width">
+                        <div class="vl-group">
+                            <vl-info-tile
+                                size="small"
+                                class="armos-metric"
+                                custom-css="${`
+                                    :host { color: var(--vl-color--error); }
+                                    .vl-info-tile { 
+                                        border-color: #edafb1; 
+                                        background-color: var(--vl-color--error-background); 
+                                        color: var(--vl-color--error);
+                                        display: flex;
+                                        flex-direction: column;
+                                    }
+                                    .vl-info-tile__header {
+                                        flex: 0;
+                                    }
+                                    .vl-info-tile__content {
+                                        flex: 1; 
+                                        display: flex;
+                                    }`}"
+                            >
+                                <h2 slot="title">
+                                    <vl-icon icon="alert-circle" right-margin></vl-icon
+                                    ><vl-text small bold>Systemen in alarm</vl-text>
+                                </h2>
+                                <div slot="content" class="armos-metric__content">
+                                    <div class="armos-metric__number">
+                                        <vl-text error>2</vl-text>
+                                    </div>
+                                </div>
+                            </vl-info-tile>
+
+                            <vl-info-tile
+                                size="small"
+                                class="armos-metric"
+                                custom-css="${`
+                                    :host { color: var(--vl-color--success-text); }
+                                    .vl-info-tile { 
+                                        border-color: #99d8b5; 
+                                        background-color: var(--vl-color--success-bg); 
+                                        color: var(--vl-color--success);
+                                        display: flex;
+                                        flex-direction: column;
+                                    }
+                                    .vl-info-tile__header {
+                                        flex: 0;
+                                    }
+                                    .vl-info-tile__content {
+                                        flex: 1; 
+                                        display: flex;
+                                    }`}"
+                            >
+                                <h2 slot="title">
+                                    <vl-icon icon="check-circle" right-margin></vl-icon
+                                    ><vl-text small bold>Actieve systemen</vl-text>
+                                </h2>
+
+                                <div slot="content" class="armos-metric__content">
+                                    <div class="armos-metric__number">
+                                        <vl-text success>6542</vl-text>
+                                    </div>
+                                </div>
+                            </vl-info-tile>
+
+                            <vl-info-tile
+                                size="small"
+                                class="armos-metric"
+                                custom-css="${`
+                                    :host { color: var(--vl-color--warning-text); }
+                                    .vl-info-tile { 
+                                        border-color: #ffd99d; 
+                                        background-color: var(--vl-color--warning-bg); 
+                                        color: var(--vl-color--warning-text);
+                                        display: flex;
+                                        flex-direction: column;
+                                    }
+                                    .vl-info-tile__header {
+                                        flex: 0;
+                                    }
+                                    .vl-info-tile__content {
+                                        flex: 1; 
+                                        display: flex;
+                                    }`}"
+                            >
+                                <h2 slot="title">
+                                    <vl-icon icon="minus-circle" right-margin></vl-icon
+                                    ><vl-text small bold>Inactieve systemen</vl-text>
+                                </h2>
+
+                                <div slot="content" class="armos-metric__content">
+                                    <div class="armos-metric__number">
+                                        <vl-text warning>1000</vl-text>
+                                    </div>
+                                </div>
+                            </vl-info-tile>
+
+                            <vl-info-tile size="small" class="armos-metric">
+                                <h2 slot="title"><vl-text small bold>Gemiddelde emissies over tijd</vl-text></h2>
+                                <div slot="content">
+                                    <div class="armos-metric__content">
+                                        <div>
+                                            <canvas id="graph1"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </vl-info-tile>
+
+                            <vl-info-tile size="small" class="armos-metric">
+                                <h2 slot="title"><vl-text small bold>Aantal storingen per type LZS</vl-text></h2>
+                                <div slot="content">
+                                    <div class="armos-metric__content">
+                                        <div>
+                                            <canvas id="graph2"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </vl-info-tile>
+                        </div>
+                    </div>
+                </div>
             </main>
         `;
     }
