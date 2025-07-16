@@ -20,30 +20,37 @@ describe('stacked styles', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(stackedLarge);
         cy.viewport(1100, 800);
-        cy.get('.vl-column-next').eq(0).shouldHaveComputedStyle({
-            style: 'margin',
-            value: '0px',
-        });
-        cy.get('.vl-column-next').eq(1).shouldHaveComputedStyle({
-            style: 'margin',
-            value: '60px 0px 0px',
-        });
-        cy.get('.vl-column-next').eq(2).shouldHaveComputedStyle({
-            style: 'margin',
-            value: '60px 0px 0px',
+        cy.get('.vl-grid-next').eq(0).shouldHaveComputedStyle({
+            style: 'row-gap',
+            value: '60px',
         });
         cy.viewport(700, 800);
-        cy.get('.vl-column-next').eq(0).shouldHaveComputedStyle({
-            style: 'margin',
-            value: '0px',
+        cy.get('.vl-grid-next').eq(0).shouldHaveComputedStyle({
+            style: 'row-gap',
+            value: '30px',
         });
-        cy.get('.vl-column-next').eq(1).shouldHaveComputedStyle({
-            style: 'margin',
-            value: '30px 0px 0px',
-        });
-        cy.get('.vl-column-next').eq(2).shouldHaveComputedStyle({
-            style: 'margin',
-            value: '30px 0px 0px',
+    });
+
+    const stackedMedium = html`
+        <style>
+            .vl-grid-next .vl-column-next {
+                background-color: mediumspringgreen;
+                border: lightseagreen 2px solid;
+            }
+        </style>
+        <div class="vl-grid-next vl-stacked-next-medium">
+            <div class="vl-column-next vl-column-next--8 vl-column-next--start-3"></div>
+            <div class="vl-column-next vl-column-next--8 vl-column-next--start-3"></div>
+            <div class="vl-column-next vl-column-next--8 vl-column-next--start-3"></div>
+        </div>
+    `;
+
+    it('should have medium stacked style', () => {
+        cy.then(() => GlobalStyles.getInstance().register());
+        cy.mount(stackedMedium);
+        cy.get('.vl-grid-next').eq(0).shouldHaveComputedStyle({
+            style: 'row-gap',
+            value: '30px',
         });
     });
 
@@ -64,17 +71,9 @@ describe('stacked styles', () => {
     it('should have small stacked style', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(stackedSmall);
-        cy.get('.vl-column-next').eq(0).shouldHaveComputedStyle({
-            style: 'margin',
-            value: '0px',
-        });
-        cy.get('.vl-column-next').eq(1).shouldHaveComputedStyle({
-            style: 'margin',
-            value: '15px 0px 0px',
-        });
-        cy.get('.vl-column-next').eq(2).shouldHaveComputedStyle({
-            style: 'margin',
-            value: '15px 0px 0px',
+        cy.get('.vl-grid-next').eq(0).shouldHaveComputedStyle({
+            style: 'row-gap',
+            value: '15px',
         });
     });
 });

@@ -10,10 +10,10 @@ describe('story - stacked-next - large', () => {
         cy.visit(stackedNextLargeUrl);
 
         cy.viewport(1920, 1080);
-        cy.get('.vl-column-next').eq(1).shouldHaveComputedStyle({ style: 'margin-top', value: '60px' });
+        cy.get('.vl-grid-next').shouldHaveComputedStyle({ style: 'row-gap', value: '60px' });
 
         cy.viewport(375, 667);
-        cy.get('.vl-column-next').eq(1).shouldHaveComputedStyle({ style: 'margin-top', value: '30px' });
+        cy.get('.vl-grid-next').shouldHaveComputedStyle({ style: 'row-gap', value: '30px' });
     });
 });
 
@@ -21,7 +21,7 @@ describe('story - stacked-next - medium', () => {
     it('should render', () => {
         cy.visit(stackedNextMediumUrl);
 
-        cy.get('.vl-column-next').eq(1).shouldHaveComputedStyle({ style: 'margin-top', value: '30px' });
+        cy.get('.vl-grid-next').shouldHaveComputedStyle({ style: 'row-gap', value: '30px' });
     });
 });
 
@@ -29,6 +29,6 @@ describe('story - stacked-next - small', () => {
     it('should render', () => {
         cy.visit(stackedNextSmallUrl);
 
-        cy.get('.vl-column-next').eq(1).shouldHaveComputedStyle({ style: 'margin-top', value: '15px' });
+        cy.get('.vl-grid-next').shouldHaveComputedStyle({ style: 'row-gap', value: '15px' });
     });
 });
