@@ -97,7 +97,7 @@ export class VlFormDemoComponent extends LitElement {
     override render() {
         return html`
             <form id="form" class="vl-form" @submit=${this.onSubmit}>
-                <div class="vl-grid-next">
+                <div class="vl-grid-next vl-stacked-next-small">
                     <div class="vl-column-next vl-column-next--4 vl-column-next--s-12">
                         <vl-form-label-next for="naam" label="Naam *"></vl-form-label-next>
                         <vl-text-next annotation small>(enkel achternaam)</vl-text-next>
@@ -140,11 +140,11 @@ export class VlFormDemoComponent extends LitElement {
                             placeholder="bv. 86-12-31-123-45"
                         ></vl-input-field-masked-next>
                         <vl-error-message-next for="rrn" state="valueMissing"
-                            >Gelieve een rijksregisternummer in te vullen.</vl-error-message-next
-                        >
+                            >Gelieve een rijksregisternummer in te vullen.
+                        </vl-error-message-next>
                         <vl-error-message-next for="rrn" state="patternMismatch"
-                            >Gelieve een geldig rijksregisternummer in te vullen.</vl-error-message-next
-                        >
+                            >Gelieve een geldig rijksregisternummer in te vullen.
+                        </vl-error-message-next>
                     </div>
                     <div class="vl-column-next vl-column-next--4 vl-column-next--s-12">
                         <vl-form-label-next for="geboortedatum" label="Geboortedatum *" block></vl-form-label-next>
