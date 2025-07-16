@@ -10,10 +10,10 @@ describe('story - stacked - large', () => {
         cy.visit(stackedLargeUrl);
 
         cy.viewport(1920, 1080);
-        cy.get('.vl-column').eq(1).shouldHaveComputedStyle({ style: 'margin-top', value: '60px' });
+        cy.get('.vl-grid').shouldHaveComputedStyle({ style: 'row-gap', value: '60px' });
 
         cy.viewport(375, 667);
-        cy.get('.vl-column').eq(1).shouldHaveComputedStyle({ style: 'margin-top', value: '30px' });
+        cy.get('.vl-grid').shouldHaveComputedStyle({ style: 'row-gap', value: '30px' });
     });
 });
 
@@ -21,7 +21,7 @@ describe('story - stacked - medium', () => {
     it('should render', () => {
         cy.visit(stackedMediumUrl);
 
-        cy.get('.vl-column').eq(1).shouldHaveComputedStyle({ style: 'margin-top', value: '30px' });
+        cy.get('.vl-grid').shouldHaveComputedStyle({ style: 'row-gap', value: '30px' });
     });
 });
 
@@ -29,6 +29,6 @@ describe('story - stacked - small', () => {
     it('should render', () => {
         cy.visit(stackedSmallUrl);
 
-        cy.get('.vl-column').eq(1).shouldHaveComputedStyle({ style: 'margin-top', value: '15px' });
+        cy.get('.vl-grid').shouldHaveComputedStyle({ style: 'row-gap', value: '15px' });
     });
 });
