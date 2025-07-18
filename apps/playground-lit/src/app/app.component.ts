@@ -4,28 +4,16 @@ import {
     vlHeading1,
     VlIconComponent,
     VlLinkComponent,
-    VlParagraphComponent,
     VlTextComponent,
     VlTitleComponent,
 } from '@domg-wc/components/atom';
 import {
-    VlAccordionComponent,
-    VlAlert,
     VlInfoTile,
-    VlModalComponent,
     VlPillComponent,
-    VlPopoverComponent,
-    VlSideSheet,
-    VlTabsComponent,
+    VlPropertiesComponent,
+    VlSideNavigationComponent,
 } from '@domg-wc/components/block';
-import {
-    SelectRichOption,
-    VlDatepickerComponent,
-    VlSelectComponent,
-    VlSelectRichComponent,
-} from '@domg-wc/components/form';
-import { VlFormDemoComponent } from '@domg-wc/integrations/form';
-import { vlLayoutStyles } from '@domg-wc/styles';
+import { vlLayoutStyles, vlMediaScreenSmall } from '@domg-wc/styles';
 import { CSSResult, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
@@ -39,65 +27,20 @@ declare global {
 export class AppComponent extends LitElement {
     static {
         registerWebComponents([
-            VlAccordionComponent,
-            VlAlert,
             VlButtonComponent,
-            VlDatepickerComponent,
-            VlFormDemoComponent,
             VlLinkComponent,
-            VlModalComponent,
-            VlParagraphComponent,
             VlPillComponent,
-            VlPopoverComponent,
-            VlSelectComponent,
-            VlSelectRichComponent,
-            VlSideSheet,
-            VlTabsComponent,
             VlTitleComponent,
             VlInfoTile,
             VlTextComponent,
-            VlInfoTile,
             VlIconComponent,
+            VlPropertiesComponent,
+            VlSideNavigationComponent,
         ]);
-    }
-
-    private selectOptions = [
-        { value: 'value1', label: 'option 1' },
-        { value: 'value2', label: 'option 2' },
-        { value: 'value3', label: 'option 3' },
-    ];
-    private geboorteplaatsen: SelectRichOption[] = [
-        {
-            label: 'België',
-            value: '',
-            choices: [
-                { label: 'Hasselt', value: 'hasselt' },
-                { label: 'Turnhout', value: 'turnhout' },
-                { label: 'Knokke-Heist', value: 'knokke-heist' },
-                { label: 'Waregem', value: 'waregem' },
-                { label: 'Lier', value: 'lier' },
-            ],
-        },
-        {
-            label: 'Puerto Rico',
-            value: '',
-            choices: [{ label: 'Rio Piedras', value: 'rio piedras' }],
-        },
-    ];
-
-    constructor() {
-        super();
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
         return [vlLayoutStyles];
-    }
-
-    private _selectElement: VlSelectComponent;
-
-    private get selectElement() {
-        this._selectElement = this._selectElement ?? (this.shadowRoot?.querySelector('#select') as VlSelectComponent);
-        return this._selectElement;
     }
 
     firstUpdated(): void {
@@ -254,138 +197,45 @@ export class AppComponent extends LitElement {
         }
     }
 
+    protected createRenderRoot(): HTMLElement | DocumentFragment {
+        // gaat shadow dom uitzetten
+        return this;
+    }
+
     render() {
         return html`
             <main>
-                <vl-tabs active-tab="vl-select-rich" disable-links="">
-                    <vl-tabs-pane id="vl-select-rich" title="vl-select-rich">
-                        <vl-select-rich
-                            style="width: 300px; display: block"
-                            id="geboorteplaats"
-                            name="geboorteplaats"
-                            placeholder="Kies je geboorteplaats"
-                            .options=${this.geboorteplaatsen}
-                            search=""
-                        >
-                        </vl-select-rich>
-                    </vl-tabs-pane>
-                    <vl-tabs-pane id="vl-select" title="vl-select">
-                        <div class="vl-stacked-small">
-                            <vl-title type="h2">Select</vl-title>
-                            <vl-paragraph
-                                >Test om te zien hoe de select placeholder zich gedraagt bij dynamische selects.
-                            </vl-paragraph>
-                            <vl-title type="h3">Gerelateerd aan:</vl-title>
-                            <vl-pill
-                                clickable
-                                @click=${() => window.open('https://www.milieuinfo.be/jira/browse/UIG-3214')}
-                                >UIG-3214
-                            </vl-pill>
-                            <vl-pill
-                                clickable
-                                @click=${() => window.open('https://www.milieuinfo.be/jira/browse/UIG-3203')}
-                                >UIG-3202
-                            </vl-pill>
-                            <div class="vl-group">
-                                <vl-button @click=${() => this.addPlaceholder()}>Add placeholder</vl-button>
-                                <vl-button @click=${() => this.addOptions()}>Add options</vl-button>
-                                <vl-button @click=${this.applyError}>Apply error</vl-button>
-                                <vl-button @click=${this.addSelect}>Add select</vl-button>
-                            </div>
-                            <div>
-                                <vl-select id="select"></vl-select>
-                            </div>
-                        </div>
-                    </vl-tabs-pane>
-                    <vl-tabs-pane id="vl-datepicker" title="vl-datepicker">
-                        <div class="vl-stacked-small">
-                            <vl-title type="h2">Datepicker</vl-title>
-                            <vl-paragraph>
-                                Hier renderen we een aantal datepicker scenario's om te kijken hoe de datepicker zich
-                                gedraagt.
-                            </vl-paragraph>
-                            <vl-datepicker></vl-datepicker>
-                            <div class="vl-group">
-                                <vl-button modal-open="modal-with-datepicker">Open modal with datepicker</vl-button>
-                                <vl-button @click=${this.openSidesheet}>Open sidesheet</vl-button>
-                            </div>
-                        </div>
-                        <vl-modal id="modal-with-datepicker" title="Modal" closable>
-                            <span slot="content">
-                                <vl-datepicker block position="below right"></vl-datepicker>
-                            </span>
-                        </vl-modal>
-                        <vl-side-sheet id="sidesheet">
-                            <vl-form-demo></vl-form-demo>
-                        </vl-side-sheet>
-                    </vl-tabs-pane>
-                    <vl-tabs-pane id="vl-group__column">
-                        <span slot="title">vl-group__column</span>
-                        <div class="vl-stacked-small">
-                            <vl-title type="h2">vl-group__column</vl-title>
-                            <vl-paragraph>Width test voor columns in vl-group.</vl-paragraph>
-                            <vl-title type="h3">Gerelateerd aan:</vl-title>
-                            <vl-pill
-                                clickable
-                                @click=${() => window.open('https://www.milieuinfo.be/jira/browse/UIG-3226')}
-                                >UIG-3226
-                            </vl-pill>
-                            <div
-                                class="vl-group vl-group--column vl-group--separator-column vl-group--stretch-children"
-                            >
-                                <vl-accordion>
-                                    <span slot="title">Accordion title</span>
-                                    <span slot="subtitle">subtitle</span>
-                                    <span slot="menu">
-                                        <vl-button ghost id="popover-button" icon="nav-show-more-vertical"></vl-button>
-                                        <vl-popover for="popover-button" placement="bottom-end" hide-on-click>
-                                            <vl-popover-action-list>
-                                                <vl-popover-action icon="bin" @click="${() => {}}">
-                                                    Verwijderen
-                                                </vl-popover-action>
-                                            </vl-popover-action-list>
-                                        </vl-popover>
-                                    </span>
-                                    <div>content</div>
-                                </vl-accordion>
-                            </div>
-                        </div>
-                    </vl-tabs-pane>
-                    <vl-tabs-pane id="vl-group--baseline" title="vl-group--baseline">
-                        <div class="vl-stacked-small">
-                            <vl-title type="h2">vl-group--baseline</vl-title>
-                            <vl-paragraph>Baseline alignering test voor links in vl-group.</vl-paragraph>
-                            <vl-title type="h3">Gerelateerd aan:</vl-title>
-                            <vl-pill
-                                clickable
-                                @click=${() => window.open('https://www.milieuinfo.be/jira/browse/UIG-3225')}
-                                >UIG-3225
-                            </vl-pill>
-                            <div class="vl-group vl-group--baseline">
-                                <vl-title type="h1">Pagina titel</vl-title>
-                                <vl-link href="#" icon="pencil" icon-placement="before">Link</vl-link>
-                            </div>
-                            <div class="vl-group vl-group--baseline">
-                                <vl-title type="h2">Pagina titel</vl-title>
-                                <vl-link href="#">Link</vl-link>
-                            </div>
-                            <div class="vl-group vl-group--baseline">
-                                <vl-title type="h3">Pagina titel</vl-title>
-                                <vl-link href="#" external>Link</vl-link>
-                            </div>
-                            <div class="vl-group vl-group--baseline">
-                                <vl-title type="h3">Pagina titel</vl-title>
-                                <vl-link href="#" button-as-link icon="pencil" icon-placement="before"
-                                    >Link as button
-                                </vl-link>
-                            </div>
-                        </div>
-                    </vl-tabs-pane>
-                </vl-tabs>
+                <style>
+                    .armos-metric {
+                        flex: 1;
+                        display: inline-grid;
+                        align-self: stretch;
+                    }
+                        .armos-metric__content {
+                            display: flex;
+                            flex: 1;
+                            flex-direction: column;
+                        }
+                        .armos-metric__number {
+                            ${vlHeading1}
+                            flex: 1;
+                            text-align: center;
+                            margin: 2rem 0;
+                            align-content: center;
+                        }
+
+                    @media screen and (min-width: ${vlMediaScreenSmall}px) {
+                        vl-side-navigation {
+                            margin-left: 2rem;
+                        }
+                    }
+                </style>
 
                 <!-- NOTE: de toevoegingen aan vl-info-block met custom-css zouden opgenomen kunnen worden in het component zelf -->
-                <div class="vl-section">
+                <section class="vl-section">
                     <div class="vl-content-block">
+                        <vl-title type="h1">ARMOS</vl-title>
+                        <vl-title type="h2">Registratie</vl-title>
                         <div class="vl-grid">
                             <vl-info-tile
                                 center
@@ -417,29 +267,9 @@ export class AppComponent extends LitElement {
                             </vl-info-tile>
                         </div>
                     </div>
-                </div>
+                </section>
 
-                <style>
-                    .armos-metric {
-                        flex: 1;
-                        display: inline-grid;
-                        align-self: stretch;
-                    }
-                        .armos-metric__content {
-                            display: flex;
-                            flex: 1;
-                            flex-direction: column;
-                        }
-                        .armos-metric__number {
-                            ${vlHeading1}
-                            flex: 1;
-                            text-align: center;
-                            margin: 2rem 0;
-                            align-content: center;
-                        }
-                </style>
-
-                <div class="vl-section">
+                <section class="vl-section">
                     <div class="vl-content-block vl-content-block--full-width">
                         <div class="vl-group">
                             <vl-info-tile
@@ -560,45 +390,195 @@ export class AppComponent extends LitElement {
                             </vl-info-tile>
                         </div>
                     </div>
-                </div>
+                </section>
+
+                <section class="vl-section">
+                    <div class="vl-content-block vl-content-block--full-width">
+                        <div class="vl-grid">
+                            <div class="vl-column vl-column--10 vl-column--m-8 vl-column--s-12">
+                                <vl-side-navigation-reference>
+                                    <vl-title type="h2" id="content-1">Luchtzuiveringssystemen</vl-title>
+                                    <div class="vl-grid">
+                                        <vl-info-tile
+                                            size="small"
+                                            class="vl-column vl-column--6 vl-column--m-12 armos-metric"
+                                        >
+                                            <h1 slot="title"><vl-text bold>Naam luchtzuiveringssysteem/ID</vl-text></h1>
+                                            <div slot="content">
+                                                <vl-properties>
+                                                    <label>Status</label>
+                                                    <data>
+                                                        <vl-pill type="success">actief</vl-pill>
+                                                    </data>
+                                                    <label>Installatiedatum</label>
+                                                    <data>23-11-2020</data>
+                                                    <label>Exploitant</label>
+                                                    <data><vl-link href="#">Boer Charel</vl-link></data>
+                                                    <label>Contact naam</label>
+                                                    <data>Charel De Boer</data>
+                                                    <label>GSM-nummer</label>
+                                                    <data>
+                                                        <vl-link
+                                                            icon="mobile-phone"
+                                                            icon-placement="before"
+                                                            href="tel:0456123456"
+                                                        >
+                                                            0456/12.34.56
+                                                        </vl-link>
+                                                    </data>
+                                                    <label>Email-adres</label>
+                                                    <data>
+                                                        <vl-link
+                                                            icon="mail"
+                                                            icon-placement="before"
+                                                            href="mailto:boercharel@example.com"
+                                                        >
+                                                            BOER.CHAREL@example.com
+                                                        </vl-link>
+                                                    </data>
+                                                    <label>Adres</label>
+                                                    <data>
+                                                        <address>Straatnaamlaan 123<br />9876 't Gentse</address>
+                                                    </data>
+                                                </vl-properties>
+                                            </div>
+                                            <div slot="menu">
+                                                <vl-button icon="file-download" icon-placement="before"
+                                                    >Exporteer data</vl-button
+                                                >
+                                            </div>
+                                        </vl-info-tile>
+                                        <!-- 
+                                            NOTE: het nesten van verschillende vl-group elementen is experimenteel 
+                                            en kan onverwachte effecten hebben. 
+                                        -->
+                                        <div
+                                            class="vl-column vl-column--6 vl-column--m-12 vl-group vl-group--column armos-metric"
+                                        >
+                                            <div class="vl-group armos-metric">
+                                                <vl-info-tile size="small" class="armos-metric">
+                                                    <h2 slot="title"><vl-text small bold>[grafiek]</vl-text></h2>
+                                                    <div slot="content">[grafiek]</div>
+                                                </vl-info-tile>
+                                                <vl-info-tile size="small" class="armos-metric">
+                                                    <h2 slot="title"><vl-text small bold>[grafiek]</vl-text></h2>
+                                                    <div slot="content">[grafiek]</div>
+                                                </vl-info-tile>
+                                            </div>
+                                            <div class="vl-group armos-metric">
+                                                <vl-info-tile size="small" class="armos-metric">
+                                                    <h2 slot="title"><vl-text small bold>[grafiek]</vl-text></h2>
+                                                    <div slot="content">[grafiek]</div>
+                                                </vl-info-tile>
+                                                <vl-info-tile size="small" class="armos-metric">
+                                                    <h2 slot="title"><vl-text small bold>[grafiek]</vl-text></h2>
+                                                    <div slot="content">[grafiek]</div>
+                                                </vl-info-tile>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <vl-title type="h2" id="content-2">Exploitanten</vl-title>
+                                    <div class="vl-grid">
+                                        <vl-info-tile
+                                            size="small"
+                                            class="vl-column vl-column--6 vl-column--m-12 armos-metric"
+                                        >
+                                            <h1 slot="title"><vl-text bold>Naam luchtzuiveringssysteem/ID</vl-text></h1>
+                                            <div slot="content">
+                                                <vl-properties>
+                                                    <label>Status</label>
+                                                    <data>
+                                                        <vl-pill type="success">actief</vl-pill>
+                                                    </data>
+                                                    <label>Installatiedatum</label>
+                                                    <data>23-11-2020</data>
+                                                    <label>Exploitant</label>
+                                                    <data><vl-link href="#">Boer Charel</vl-link></data>
+                                                    <label>Contact naam</label>
+                                                    <data>Charel De Boer</data>
+                                                    <label>GSM-nummer</label>
+                                                    <data>
+                                                        <vl-link
+                                                            icon="mobile-phone"
+                                                            icon-placement="before"
+                                                            href="tel:0456123456"
+                                                        >
+                                                            0456/12.34.56
+                                                        </vl-link>
+                                                    </data>
+                                                    <label>Email-adres</label>
+                                                    <data>
+                                                        <vl-link
+                                                            icon="mail"
+                                                            icon-placement="before"
+                                                            href="mailto:boercharel@example.com"
+                                                        >
+                                                            BOER.CHAREL@example.com
+                                                        </vl-link>
+                                                    </data>
+                                                    <label>Adres</label>
+                                                    <data>
+                                                        <address>Straatnaamlaan 123<br />9876 't Gentse</address>
+                                                    </data>
+                                                </vl-properties>
+                                            </div>
+                                            <div slot="menu">
+                                                <vl-button icon="file-download" icon-placement="before"
+                                                    >Exporteer data</vl-button
+                                                >
+                                            </div>
+                                        </vl-info-tile>
+                                        <!-- 
+                                            NOTE: het nesten van verschillende vl-group elementen is experimenteel 
+                                            en kan onverwachte effecten hebben. 
+                                        -->
+                                        <div
+                                            class="vl-column vl-column--6 vl-column--m-12 vl-group vl-group--column armos-metric"
+                                        >
+                                            <div class="vl-group armos-metric">
+                                                <vl-info-tile size="small" class="armos-metric">
+                                                    <h2 slot="title"><vl-text small bold>[grafiek]</vl-text></h2>
+                                                    <div slot="content">[grafiek]</div>
+                                                </vl-info-tile>
+                                                <vl-info-tile size="small" class="armos-metric">
+                                                    <h2 slot="title"><vl-text small bold>[grafiek]</vl-text></h2>
+                                                    <div slot="content">[grafiek]</div>
+                                                </vl-info-tile>
+                                            </div>
+                                            <div class="vl-group armos-metric">
+                                                <vl-info-tile size="small" class="armos-metric">
+                                                    <h2 slot="title"><vl-text small bold>[grafiek]</vl-text></h2>
+                                                    <div slot="content">[grafiek]</div>
+                                                </vl-info-tile>
+                                                <vl-info-tile size="small" class="armos-metric">
+                                                    <h2 slot="title"><vl-text small bold>[grafiek]</vl-text></h2>
+                                                    <div slot="content">[grafiek]</div>
+                                                </vl-info-tile>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </vl-side-navigation-reference>
+                            </div>
+                            <div class="vl-column vl-column--2 vl-column--m-4 vl-column--s-12">
+                                <vl-side-navigation aria-label="inhoudsopgave">
+                                    <vl-side-navigation-h5>Op deze pagina</vl-side-navigation-h5>
+                                    <vl-side-navigation-content>
+                                        <vl-side-navigation-group>
+                                            <vl-side-navigation-item>
+                                                <a href="#content-1">Luchtzuiveringssystemen</a>
+                                            </vl-side-navigation-item>
+                                            <vl-side-navigation-item>
+                                                <a href="#content-2">Exploitanten</a>
+                                            </vl-side-navigation-item>
+                                        </vl-side-navigation-group>
+                                    </vl-side-navigation-content>
+                                </vl-side-navigation>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </main>
         `;
     }
-
-    protected createRenderRoot(): HTMLElement | DocumentFragment {
-        // gaat shadow dom uitzetten
-        return this;
-    }
-
-    private addOptions = (selectElement?: VlSelectComponent) => {
-        const select = selectElement || this.selectElement;
-        if (select.options.length === 0) {
-            select.options = this.selectOptions;
-        }
-    };
-
-    private addPlaceholder = (selectElement?: VlSelectComponent) => {
-        const select = selectElement || this.selectElement;
-        select.setAttribute('placeholder', 'My placeholder');
-    };
-
-    private addSelect = () => {
-        if (this.selectElement) {
-            const newSelect = document.createElement('vl-select');
-            this.addPlaceholder(newSelect);
-            this.addOptions(newSelect);
-            this.selectElement.insertAdjacentElement('afterend', newSelect);
-        }
-    };
-
-    private applyError = () => {
-        if (this.selectElement) {
-            this.selectElement.setAttribute('error', 'Fout!');
-        }
-    };
-
-    private openSidesheet = () => {
-        const sidesheet = this.querySelector('#sidesheet') as unknown as VlSideSheet;
-        sidesheet.toggle();
-    };
 }
