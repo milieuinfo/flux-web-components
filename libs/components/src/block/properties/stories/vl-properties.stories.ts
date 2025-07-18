@@ -50,12 +50,12 @@ export const PropertiesHtmlEnriched = story(
         <vl-properties label-width=${labelWidth} .props=${props}>
             <label>
                 <vl-icon icon="location" small right-margin=""></vl-icon>
-                <span>Woonplaats</span></label
-            >
+                Woonplaats
+            </label>
             <data>
                 <vl-icon icon="alert-triangle" small right-margin=""></vl-icon>
-                <span>Brussel</span></data
-            >
+                Brussel
+            </data>
             <label>Postcode</label>
             <data>1000</data>
         </vl-properties>
