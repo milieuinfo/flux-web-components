@@ -158,6 +158,23 @@ verwijzen we naar hierboven._**
 <Canvas of={VlTableStories.TableExpandableCustomToggleDetailsColumn} layout="padded" />
 
 
+## Styling
+
+De tabel ondersteunt verschillende stijlen voor de rijen, om de status van gegevens aan te geven:
+
+### Rij styling
+
+Je kunt de volgende CSS-klassen gebruiken om specifieke stijlen toe te passen op hele rijen of individuele cellen:
+
+- **Success**: Gebruik `vl-table--success` voor een groene achtergrond (met groene rand)
+- **Warning**: Gebruik `vl-table--warning` voor een oranje achtergrond (met oranje rand)
+- **Error**: Gebruik `vl-table--error` voor een rode achtergrond (met rode rand)
+- **Disabled**: Gebruik `vl-table--disabled` voor een grijze achtergrond
+
+Deze klassen kunnen zowel op een `<tr>` element worden toegepast om een hele rij te stylen, als op een `<td>` element om een individuele cel te stylen.
+
+<Canvas of={VlTableStories.TableRowStyling} layout="padded" />
+
 
 ## Referenties
 

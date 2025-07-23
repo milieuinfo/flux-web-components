@@ -3,7 +3,7 @@ import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { registerWebComponents } from '@domg-wc/common-utilities';
 import { VlTableComponent } from '../vl-table.component';
-import { tableArgTypes, tableArgs } from './vl-table.stories-arg';
+import { tableArgs, tableArgTypes } from './vl-table.stories-arg';
 import tableDoc from './vl-table.stories-doc.mdx';
 
 registerWebComponents([VlTableComponent]);
@@ -130,14 +130,14 @@ export const TableJoinedRowTitles = story(
     tableArgs,
     ({ hover, matrix, grid, zebra, uigZebra, collapsedM, collapsedS, collapsedXS }) => html`
         <vl-table-next
-                ?hover=${hover}
-                ?matrix=${matrix}
-                ?grid=${grid}
-                ?zebra=${zebra}
-                ?uig-zebra=${uigZebra}
-                ?collapsed-m=${collapsedM}
-                ?collapsed-s=${collapsedS}
-                ?collapsed-xs=${collapsedXS}
+            ?hover=${hover}
+            ?matrix=${matrix}
+            ?grid=${grid}
+            ?zebra=${zebra}
+            ?uig-zebra=${uigZebra}
+            ?collapsed-m=${collapsedM}
+            ?collapsed-s=${collapsedS}
+            ?collapsed-xs=${collapsedXS}
         >
             <table>
                 <caption>
@@ -401,3 +401,70 @@ TableExpandableCustomToggleDetailsColumn.parameters = {
         },
     },
 };
+
+export const TableRowStyling = story(
+    tableArgs,
+
+    ({ hover, matrix, grid, zebra, uigZebra, collapsedM, collapsedS, collapsedXS }) => html`
+        <vl-table-next
+            ?hover=${hover}
+            ?matrix=${matrix}
+            ?grid=${grid}
+            ?zebra=${zebra}
+            ?uig-zebra=${uigZebra}
+            ?collapsed-m=${collapsedM}
+            ?collapsed-s=${collapsedS}
+            ?collapsed-xs=${collapsedXS}
+        >
+            <table>
+                <thead>
+                    <tr>
+                        <th>Naam</th>
+                        <th>Verzamelaar</th>
+                        <th>Verzamelaarnummer</th>
+                        <th>Familie</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Standaard rij</th>
+                        <td>Van Hoeck Eddy</td>
+                        <td>42</td>
+                        <td>Onagraceae</td>
+                    </tr>
+                    <tr class="vl-table--success">
+                        <th>Success rij</th>
+                        <td>Franz Heylemans</td>
+                        <td>160</td>
+                        <td>Onagraceae</td>
+                    </tr>
+                    <tr class="vl-table--warning">
+                        <th>Warning rij</th>
+                        <td>Brunel J.F.</td>
+                        <td>7603</td>
+                        <td>Euphorbiaceae</td>
+                    </tr>
+                    <tr class="vl-table--error">
+                        <th>Error rij</th>
+                        <td>Bamps P.</td>
+                        <td>7549</td>
+                        <td>Euphorbiaceae</td>
+                    </tr>
+                    <tr class="vl-table--disabled">
+                        <th>Disabled rij</th>
+                        <td>Rammeloo J.</td>
+                        <td>9438</td>
+                        <td>Trichiaceae</td>
+                    </tr>
+                    <tr>
+                        <th>Individuele cellen</th>
+                        <td class="vl-table--success">Success</td>
+                        <td class="vl-table--warning">Warning</td>
+                        <td class="vl-table--error">Error</td>
+                    </tr>
+                </tbody>
+            </table>
+        </vl-table-next>
+    `
+);
+TableRowStyling.storyName = 'vl-table - rij styling';
