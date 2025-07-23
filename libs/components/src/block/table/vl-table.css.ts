@@ -17,7 +17,9 @@ export const tableStyles = css`
         }
 
         tbody tr.vl-table__element--disabled,
-        tbody td.vl-table__element--disabled {
+        tbody tr.vl-table--disabled,
+        tbody td.vl-table__element--disabled,
+        tbody td.vl-table--disabled {
             background: #cbd2d9;
             color: var(--vl-theme-fg-color-70);
         }
@@ -66,17 +68,20 @@ export const tableStyles = css`
 
         tbody tr,
         tbody td {
-            &.vl-table__element--error {
+            &.vl-table__element--error,
+            &.vl-table--error {
                 background: #fbebec;
                 border-bottom: 1px solid #d2373c;
             }
 
-            &.vl-table__element--warning {
+            &.vl-table__element--warning,
+            &.vl-table--warning {
                 background: #fff6e7;
                 border-bottom: 1px solid #ffa10a;
             }
 
-            &.vl-table__element--success {
+            &.vl-table__element--success,
+            &.vl-table--success {
                 background: #e6f5ed;
                 border-bottom: 1px solid #009e47;
             }
