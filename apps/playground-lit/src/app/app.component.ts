@@ -226,10 +226,30 @@ export class AppComponent extends LitElement {
 
                     @media screen and (min-width: ${vlMediaScreenSmall}px) {
                         vl-side-navigation {
-                            margin-left: 2rem;
+                            display: block;
+                            padding-left: 2rem;
                         }
                     }
                 </style>
+
+                <vl-functional-header
+                    title="School- en studietoelagen"
+                    custom-css="#sub-title{ vertical-align: text-top;}"
+                    full-width
+                >
+                    <vl-tabs
+                        slot="sub-title"
+                        disable-links
+                        within-functional-header
+                        active-tab="trein"
+                        @change=${(event: CustomEvent) => console.log('change', event.detail)}
+                        custom-css=":host(.vl-tabs--within-functional-header) .vl-tab__link { padding-top: 0;}"
+                    >
+                        <vl-tabs-pane id="trein" title="Trein"></vl-tabs-pane>
+                        <vl-tabs-pane id="metro" title="Metro, tram en bus"></vl-tabs-pane>
+                        <vl-tabs-pane id="fiets" title="Fiets"></vl-tabs-pane>
+                    </vl-tabs>
+                </vl-functional-header>
 
                 <!-- NOTE: de toevoegingen aan vl-info-block met custom-css zouden opgenomen kunnen worden in het component zelf -->
                 <section class="vl-section">
