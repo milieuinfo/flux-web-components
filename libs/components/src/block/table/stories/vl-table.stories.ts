@@ -397,3 +397,69 @@ TableExpandableCustomToggleDetailsColumn.parameters = {
         },
     },
 };
+
+export const TableRowStyling = story(
+    tableArgs,
+    ({ hover, matrix, grid, zebra, fluxZebra, collapsedM, collapsedS, collapsedXS }) => html`
+        <vl-table
+            ?hover=${hover}
+            ?matrix=${matrix}
+            ?grid=${grid}
+            ?zebra=${zebra}
+            ?flux-zebra=${fluxZebra}
+            ?collapsed-m=${collapsedM}
+            ?collapsed-s=${collapsedS}
+            ?collapsed-xs=${collapsedXS}
+        >
+            <table>
+                <thead>
+                    <tr>
+                        <th>Naam</th>
+                        <th>Verzamelaar</th>
+                        <th>Verzamelaarnummer</th>
+                        <th>Familie</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Standaard rij</th>
+                        <td>Van Hoeck Eddy</td>
+                        <td>42</td>
+                        <td>Onagraceae</td>
+                    </tr>
+                    <tr class="vl-table--success">
+                        <th>Success rij</th>
+                        <td>Franz Heylemans</td>
+                        <td>160</td>
+                        <td>Onagraceae</td>
+                    </tr>
+                    <tr class="vl-table--warning">
+                        <th>Warning rij</th>
+                        <td>Brunel J.F.</td>
+                        <td>7603</td>
+                        <td>Euphorbiaceae</td>
+                    </tr>
+                    <tr class="vl-table--error">
+                        <th>Error rij</th>
+                        <td>Bamps P.</td>
+                        <td>7549</td>
+                        <td>Euphorbiaceae</td>
+                    </tr>
+                    <tr class="vl-table--disabled">
+                        <th>Disabled rij</th>
+                        <td>Rammeloo J.</td>
+                        <td>9438</td>
+                        <td>Trichiaceae</td>
+                    </tr>
+                    <tr>
+                        <th>Individuele cellen</th>
+                        <td class="vl-table--success">Success</td>
+                        <td class="vl-table--warning">Warning</td>
+                        <td class="vl-table--error">Error</td>
+                    </tr>
+                </tbody>
+            </table>
+        </vl-table>
+    `
+);
+TableRowStyling.storyName = 'vl-table - row styling';
