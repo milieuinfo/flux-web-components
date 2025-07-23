@@ -20,6 +20,7 @@ import { datepickerDefaults } from './vl-datepicker.defaults';
 import { vlDatepickerFluxStyles } from './vl-datepicker.flux-css';
 
 const dateRangeSeparator = ' tot en met ';
+const dateRangeSeparatorCharacter = '/';
 
 @webComponent('vl-datepicker')
 export class VlDatepickerComponent extends FormControl {
@@ -113,7 +114,7 @@ export class VlDatepickerComponent extends FormControl {
             flatpickr.l10ns.default.rangeSeparator = dateRangeSeparator;
         }
 
-        if (!this.initialValue && typeof this.value === 'string' && this.type !== 'range') {
+        if (!this.initialValue && typeof this.value === 'string') {
             this.initialValue = this.value;
         }
     }
@@ -303,9 +304,21 @@ export class VlDatepickerComponent extends FormControl {
     }
 
     private setInitialValue() {
-        const initialDate = this.flatpickrInstance?.parseDate(this.initialValue, 'Z');
         this.value = this.initialValue;
 
+        if (this.type === 'range' && this.initialValue) {
+            const dates = this.parseRangeISODateString(this.initialValue);
+            if (dates.length === 1) {
+                this.inputValue = this.formatInputValue(dates[0]);
+                this.flatpickrInstance?.setDate(dates[0], true);
+            } else if (dates.length === 2) {
+                this.inputValue = this.formatRangeInputValue(dates);
+                this.flatpickrInstance?.setDate(dates, true);
+            }
+            return;
+        }
+
+        const initialDate = this.flatpickrInstance?.parseDate(this.initialValue, 'Z');
         if (initialDate instanceof Date && !isNaN(initialDate as unknown as number) && this.type !== 'range') {
             this.flatpickrInstance?.setDate(initialDate, true);
             this.inputValue = flatpickr.formatDate(initialDate, this.format);
@@ -501,13 +514,16 @@ export class VlDatepickerComponent extends FormControl {
                 return flatpickr.formatDate(date, 'Y-m-dTH:i');
             case 'range':
                 return `${flatpickr.formatDate(date, 'Y-m-d')}${
-                    date2 ? '/' + flatpickr.formatDate(date2, 'Y-m-d') : ''
+                    date2 ? dateRangeSeparatorCharacter + flatpickr.formatDate(date2, 'Y-m-d') : ''
                 }`;
             case 'date':
             default:
                 return flatpickr.formatDate(date, 'Y-m-d');
         }
     }
+
+    private parseRangeISODateString = (isoDateString: string): Date[] =>
+        isoDateString.split(dateRangeSeparatorCharacter).map((dateString) => flatpickr.parseDate(dateString, 'Y-m-d')!);
 
     // functie die de start- en einddatum zal extraheren uit de geformatteerde invoerwaarde met scheidingsteken (tot en met)
     private getDatesFromInputValue(inputValue: string): Date[] | undefined {
@@ -554,14 +570,18 @@ export class VlDatepickerComponent extends FormControl {
         }
     }
 
+    private formatInputValue = (date: Date): string => flatpickr.formatDate(date, this.format);
+
+    private formatRangeInputValue = (dates: Date[]): string =>
+        dates.map((date) => this.formatInputValue(date)).join(Dutch?.nl?.rangeSeparator || dateRangeSeparator);
+
     private handleDatePickerChange = (dates: Date[]) => {
-        const format = (date: Date) => flatpickr.formatDate(date, this.format);
         if (dates.length === 1) {
-            this.inputValue = format(dates[0]);
+            this.inputValue = this.formatInputValue(dates[0]);
             this.value = this.getISODateString(dates[0]);
         } else if (dates.length === 2) {
             this.value = this.getISODateString(dates[0], dates[1]);
-            this.inputValue = `${format(dates[0])}${Dutch?.nl?.rangeSeparator}${format(dates[1])}`;
+            this.inputValue = this.formatRangeInputValue(dates);
         }
     };
 
