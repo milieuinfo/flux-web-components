@@ -1,4 +1,4 @@
-import { vlMediaScreenExtraSmall, vlMediaScreenSmall, vlMediaScreenMedium } from '@domg-wc/common-utilities/css';
+import { vlMediaScreenExtraSmall, vlMediaScreenMedium, vlMediaScreenSmall } from '@domg-wc/common-utilities/css';
 import { css } from 'lit';
 
 export const tableStyles = css`
@@ -16,7 +16,9 @@ export const tableStyles = css`
         }
 
         tbody tr.vl-table-next__element--disabled,
-        tbody td.vl-table-next__element--disabled {
+        tbody tr.vl-table-next--disabled,
+        tbody td.vl-table-next__element--disabled,
+        tbody td.vl-table-next--disabled {
             background: #cbd2d9;
             color: var(--vl-theme-fg-color-70);
         }
@@ -65,17 +67,20 @@ export const tableStyles = css`
 
         tbody tr,
         tbody td {
-            &.vl-table-next__element--error {
+            &.vl-table-next__element--error,
+            &.vl-table-next--error {
                 background: #fbebec;
                 border-bottom: 1px solid #d2373c;
             }
 
-            &.vl-table-next__element--warning {
+            &.vl-table-next__element--warning,
+            &.vl-table-next--warning {
                 background: #fff6e7;
                 border-bottom: 1px solid #ffa10a;
             }
 
-            &.vl-table-next__element--success {
+            &.vl-table-next__element--success,
+            &.vl-table-next--success {
                 background: #e6f5ed;
                 border-bottom: 1px solid #009e47;
             }
@@ -156,6 +161,7 @@ export const tableStyles = css`
                 .vl-table-next__element--success
             ).odd {
             background-color: #f3f5f6;
+
             &:hover {
                 background-color: #edf0f2;
             }
