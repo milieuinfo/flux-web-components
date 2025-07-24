@@ -17,7 +17,7 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
     }
 
     static get _observedAttributes() {
-        return ['auto-open', 'toggleable', 'center', 'vertical-stretch', 'size', 'icon', 'icon-as-badge', 'type'];
+        return ['auto-open', 'toggleable', 'center', 'full-height', 'size', 'icon', 'icon-as-badge', 'type'];
     }
 
     constructor() {
@@ -173,11 +173,11 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
         }
     }
 
-    _verticalStretchChangedCallback(oldValue: string, newValue: string) {
+    _fullHeightChangedCallback(oldValue: string, newValue: string) {
         if (newValue === null) {
-            this._element.classList.remove('vl-info-tile--vertical-stretch');
+            this._element.classList.remove('vl-info-tile--full-height');
         } else {
-            this._element.classList.add('vl-info-tile--vertical-stretch');
+            this._element.classList.add('vl-info-tile--full-height');
         }
     }
 

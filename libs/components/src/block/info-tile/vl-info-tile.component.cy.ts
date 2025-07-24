@@ -22,7 +22,7 @@ const mountDefault = ({
     icon = '',
     iconAsBadge,
     type = 'default',
-    verticalStretch = false,
+    fullHeight = false,
 }: {
     autoOpen?: boolean;
     toggleable?: boolean;
@@ -37,7 +37,7 @@ const mountDefault = ({
     icon?: string;
     iconAsBadge?: boolean;
     type?: INFO_TILE_TYPE;
-    verticalStretch?: boolean;
+    fullHeight?: boolean;
 }) =>
     cy.mount(html`
         <vl-info-tile
@@ -45,7 +45,7 @@ const mountDefault = ({
             ?center=${center}
             ?icon-as-badge=${iconAsBadge}
             ?toggleable=${toggleable}
-            ?vertical-stretch="${verticalStretch}"
+            ?full-height="${fullHeight}"
             icon="${icon}"
             size="${size}"
             type="${type}"
@@ -296,13 +296,13 @@ describe('story vl-info-tile - success', () => {
     });
 });
 
-describe('story vl-info-tile - vertical stretch', () => {
+describe('story vl-info-tile - full height', () => {
     beforeEach(() => {
         mountDefault({
             titleSlot,
             subtitleSlot,
             contentSlot,
-            verticalStretch: true,
+            fullHeight: true,
         });
     });
 
@@ -316,8 +316,8 @@ describe('story vl-info-tile - vertical stretch', () => {
         cy.checkA11y('vl-info-tile');
     });
 
-    it('should have class vl-info-tile--vertical-stretch', () => {
-        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'vl-info-tile--vertical-stretch');
+    it('should have class vl-info-tile--full-height', () => {
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'vl-info-tile--full-height');
     });
 });
 
