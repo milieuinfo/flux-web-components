@@ -35,7 +35,7 @@ const Template = story(
         icon,
         iconAsBadge,
         type,
-        verticalStretch = false,
+        fullHeight = false,
         classes = '',
     }) => html`
         <vl-info-tile
@@ -43,7 +43,7 @@ const Template = story(
             ?center=${center}
             ?icon-as-badge=${iconAsBadge}
             ?toggleable=${toggleable}
-            ?vertical-stretch=${verticalStretch}
+            ?full-height=${fullHeight}
             icon="${icon}"
             size="${size}"
             type="${type}"
@@ -126,21 +126,21 @@ InfoTileWarning.args = {
     type: 'warning',
 };
 
-export const InfoTileVerticalStretch = Template.bind({});
-InfoTileVerticalStretch.storyName = 'vl-info-tile - vertical stretch';
-InfoTileVerticalStretch.args = {
+export const InfoTileFullHeight = Template.bind({});
+InfoTileFullHeight.storyName = 'vl-info-tile - full height';
+InfoTileFullHeight.args = {
     titleSlot: `<span slot="title">Broos Deprez</span>`,
     subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
     contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
-    verticalStretch: true,
+    fullHeight: true,
     classes: 'vl-column vl-column--6 vl-column--s-12 vl-column--align-self-stretch',
 };
-InfoTileVerticalStretch.decorators = [
+InfoTileFullHeight.decorators = [
     (story: () => unknown) => html`
         <div class="vl-grid">
             ${story()}
-            <vl-info-tile verticalStretch class="vl-column vl-column--6 vl-column--s-12 vl-column--align-self-stretch">
-                <span slot="title">Grotere info-tile</span>
+            <vl-info-tile fullHeight class="vl-column vl-column--6 vl-column--s-12 vl-column--align-self-stretch">
+                <span slot="title">Grotere info tile</span>
                 <span slot="subtitle">sub-title</span>
                 <div slot="content">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur

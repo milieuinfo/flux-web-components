@@ -24,7 +24,7 @@ export const infoTileArgs = {
     icon: '',
     iconAsBadge: false,
     type: '',
-    verticalStretch: false,
+    fullHeight: false,
 };
 
 export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
@@ -32,7 +32,7 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
     autoOpen: {
         name: 'auto-open',
         description:
-            'Opent de info-tile automatisch bij de eerste render.<br>Alleen bruikbaar indien toggleable aanstaat.',
+            'Opent de info tile automatisch bij de eerste render.<br>Alleen bruikbaar indien toggleable aanstaat.',
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
@@ -41,25 +41,25 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
     },
     center: {
         name: 'center',
-        description: 'Centreert de tekst van de info-tile.',
+        description: 'Centreert de tekst van de info tile.',
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
             defaultValue: { summary: infoTileArgs.center },
         },
     },
-    verticalStretch: {
-        name: 'vertical-stretch',
-        description: 'Strekt de info-tile verticaal uit om de volledige hoogte van de container te vullen.',
+    fullHeight: {
+        name: 'full-height',
+        description: 'Strekt de info tile verticaal uit om de volledige hoogte van de container te vullen.',
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: infoTileArgs.verticalStretch },
+            defaultValue: { summary: infoTileArgs.fullHeight },
         },
     },
     toggleable: {
         name: 'toggleable',
-        description: 'Maakt de info-tile openklapbaar.',
+        description: 'Maakt de info tile openklapbaar.',
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
@@ -68,7 +68,7 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
     },
     contentSlot: {
         name: 'content',
-        description: 'De content van de info-tile.',
+        description: 'De content van de info tile.',
         table: {
             category: CATEGORIES.SLOTS,
             type: { summary: TYPES.HTML },
@@ -77,7 +77,7 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
     },
     subtitleSlot: {
         name: 'subtitle',
-        description: 'De subtitel van de info-tile.',
+        description: 'De subtitel van de info tile.',
         table: {
             category: CATEGORIES.SLOTS,
             type: { summary: TYPES.HTML },
@@ -86,7 +86,7 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
     },
     titleSlot: {
         name: 'title',
-        description: 'De titel van de info-tile.',
+        description: 'De titel van de info tile.',
         table: {
             category: CATEGORIES.SLOTS,
             type: { summary: TYPES.HTML },
@@ -95,7 +95,7 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
     },
     footerSlot: {
         name: 'footer',
-        description: 'De footer van de info-tile. Dit is de plaats waar actieknoppen toegevoegd kunnen worden.',
+        description: 'De footer van de info tile. Dit is de plaats waar actieknoppen toegevoegd kunnen worden.',
         table: {
             category: CATEGORIES.SLOTS,
             type: { summary: TYPES.HTML },

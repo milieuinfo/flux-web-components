@@ -134,7 +134,7 @@ export const vlInfoTyleFluxStyles: CSSResult = css`
         }
     }
 
-    :host .vl-info-tile--vertical-stretch {
+    :host .vl-info-tile--full-height {
         height: 100%;
     }
 `;
