@@ -7,7 +7,7 @@ import {
     TYPES,
 } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components';
-import { INFO_TILE_SIZE } from '../vl-info-tile.model';
+import { INFO_TILE_SIZE, INFO_TILE_TYPE } from '../vl-info-tile.model';
 
 export const infoTileArgs = {
     ...defaultArgs,
@@ -23,6 +23,8 @@ export const infoTileArgs = {
     size: '',
     icon: '',
     iconAsBadge: false,
+    type: '',
+    verticalStretch: false,
 };
 
 export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
@@ -44,6 +46,15 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
             defaultValue: { summary: infoTileArgs.center },
+        },
+    },
+    verticalStretch: {
+        name: 'vertical-stretch',
+        description: 'Strekt de info-tile verticaal uit om de volledige hoogte van de container te vullen.',
+        table: {
+            category: CATEGORIES.ATTRIBUTES,
+            type: { summary: TYPES.BOOLEAN },
+            defaultValue: { summary: infoTileArgs.verticalStretch },
         },
     },
     toggleable: {
@@ -121,6 +132,18 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
             defaultValue: { summary: infoTileArgs.size },
         },
     },
+    type: {
+        name: 'type',
+        description:
+            'Type van de info tile. Dit bepaalt de stijl en het uiterlijk van de tile. Standaard is dit "default". De andere opties zijn "alt", "error", "success", en "warning".',
+        control: { type: CONTROLS.SELECT },
+        options: Object.values(INFO_TILE_TYPE),
+        table: {
+            category: CATEGORIES.ATTRIBUTES,
+            type: { summary: getSelectControlOptions(Object.values(INFO_TILE_TYPE)) },
+            defaultValue: { summary: infoTileArgs.type },
+        },
+    },
     icon: {
         name: 'icon',
         description: 'Beeldt een icoon af in de info tile. Dit werkt niet in combinatie met het "badge" slot.',
@@ -139,5 +162,5 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
             type: { summary: TYPES.BOOLEAN },
             defaultValue: { summary: infoTileArgs.iconAsBadge },
         },
-    }
+    },
 };
