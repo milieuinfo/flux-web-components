@@ -20,7 +20,7 @@ export default {
 } as Meta<typeof infoTileArgs>;
 
 const Template = story(
-    infoTileArgs,
+    { ...infoTileArgs, classes: '' },
     ({
         autoOpen,
         toggleable,
@@ -34,14 +34,20 @@ const Template = story(
         size,
         icon,
         iconAsBadge,
+        type,
+        verticalStretch = false,
+        classes = '',
     }) => html`
         <vl-info-tile
-            ?toggleable=${toggleable}
             ?auto-open=${autoOpen}
             ?center=${center}
-            size="${size}"
-            icon="${icon}"
             ?icon-as-badge=${iconAsBadge}
+            ?toggleable=${toggleable}
+            ?vertical-stretch=${verticalStretch}
+            icon="${icon}"
+            size="${size}"
+            type="${type}"
+            class="${classes}"
         >
             ${unsafeHTML(badgeSlot)} ${unsafeHTML(titleSlot)} ${unsafeHTML(menuSlot)} ${unsafeHTML(subtitleSlot)}
             ${unsafeHTML(contentSlot)} ${unsafeHTML(footerSlot)}
@@ -83,6 +89,67 @@ InfoTileLarge.args = {
     contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
     size: 'large',
 };
+
+export const InfoTileAlt = Template.bind({});
+InfoTileAlt.storyName = 'vl-info-tile - alt';
+InfoTileAlt.args = {
+    titleSlot: `<span slot="title">Broos Deprez</span>`,
+    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    type: 'alt',
+};
+
+export const InfoTileError = Template.bind({});
+InfoTileError.storyName = 'vl-info-tile - error';
+InfoTileError.args = {
+    titleSlot: `<span slot="title">Broos Deprez</span>`,
+    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    type: 'error',
+};
+
+export const InfoTileSuccess = Template.bind({});
+InfoTileSuccess.storyName = 'vl-info-tile - success';
+InfoTileSuccess.args = {
+    titleSlot: `<span slot="title">Broos Deprez</span>`,
+    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    type: 'success',
+};
+
+export const InfoTileWarning = Template.bind({});
+InfoTileWarning.storyName = 'vl-info-tile - warning';
+InfoTileWarning.args = {
+    titleSlot: `<span slot="title">Broos Deprez</span>`,
+    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    type: 'warning',
+};
+
+export const InfoTileVerticalStretch = Template.bind({});
+InfoTileVerticalStretch.storyName = 'vl-info-tile - vertical stretch';
+InfoTileVerticalStretch.args = {
+    titleSlot: `<span slot="title">Broos Deprez</span>`,
+    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    verticalStretch: true,
+    classes: 'vl-column vl-column--6 vl-column--s-12 vl-column--align-self-stretch',
+};
+InfoTileVerticalStretch.decorators = [
+    (story: () => unknown) => html`
+        <div class="vl-grid">
+            ${story()}
+            <vl-info-tile verticalStretch class="vl-column vl-column--6 vl-column--s-12 vl-column--align-self-stretch">
+                <span slot="title">Grotere info-tile</span>
+                <span slot="subtitle">sub-title</span>
+                <div slot="content">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                </div>
+            </vl-info-tile>
+        </div>
+    `,
+];
 
 export const InfoTileCentered = Template.bind({});
 InfoTileCentered.storyName = 'vl-info-tile - centered';

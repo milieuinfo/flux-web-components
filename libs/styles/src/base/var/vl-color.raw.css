@@ -1,4 +1,7 @@
 /*! Indien je een kleur aanpast, kijk dan even na of er andere kleuren op gebaseerd zijn die een alpha waarde toevoegen.*/
+/* TODO: kleuren gelijktrekken in hele codebase, volgens kleurenpalet uit Figma: 
+  https://www.figma.com/design/fjoJzse5CZSggMaZDe80CO/-VL--Foundations--team-D-?node-id=61-724
+*/
 
 :root {
     --vl-color--white: #ffffff;
@@ -28,22 +31,28 @@
     --vl-color--action-disabled: #687483;
     --vl-color--action-disabled-background: #cbd2d9;
 
-    --vl-color--action-tertiary: var(--vl-color--action); /* --vl-color--action */
-    --vl-color--action-tertiary-hover: var(--vl-color--action); /* --vl-color--action */
+    --vl-color--action-tertiary: var(--vl-color--action);
+    --vl-color--action-tertiary-hover: var(--vl-color--action);
     --vl-color--action-tertiary-border: #c6cdd3;
     --vl-color--action-tertiary-border-hover: #5990de;
 
+    
     --vl-color--error: #d2373c;
     --vl-color--error-hover: #aa2729;
     --vl-color--error-background: #fbebec;
+    --vl-color--error-bg: var(--vl-color--error-background);
+    --vl-color--error-text: var(--vl-color--error-hover);
+    --vl-color--error-border: #f1aeae;
 
     --vl-color--success: #009e47;
     --vl-color--success-bg: #e6f5ed;
     --vl-color--success-text: #007a37;
+    --vl-color--success-border: #99d8b5;
 
     --vl-color--warning: #ffa10a;
-    --vl-color--warning-bg: #fff3e0;
+    --vl-color--warning-bg: #fff6e7;
     --vl-color--warning-text: #9f5804;
+    --vl-color--warning-border: #ffd99d;
 
     --vl-color--focus: #0055cca6; /* --vl-color--action 65% opacity */
 

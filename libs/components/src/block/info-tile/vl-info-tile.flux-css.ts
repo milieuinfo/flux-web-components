@@ -82,7 +82,7 @@ export const vlInfoTyleFluxStyles: CSSResult = css`
         place-content: center center;
 
         &.vl-info-tile__icon--badge {
-            background-color: var(--vl-color--background-alt);
+            background-color: var(--vl-color--white-lilac);
             border: 1px solid var(--vl-color--mischka-grey);
             border-radius: 50%;
         }
@@ -91,5 +91,50 @@ export const vlInfoTyleFluxStyles: CSSResult = css`
     slot[name='title-label'] {
         display: inline-block;
         margin-left: 3rem;
+    }
+
+    :host .vl-info-tile--alt {
+        border-color: var(--vl-color--mischka-grey);
+        background-color: var(--vl-color--white-lilac);
+
+        .vl-info-tile__icon--badge {
+            background-color: white;
+        }
+    }
+
+    :host .vl-info-tile--error {
+        border-color: var(--vl-color--error-border);
+        background-color: var(--vl-color--error-bg);
+
+        .vl-info-tile__icon--badge {
+            background-color: var(--vl-color--error);
+            border-color: var(--vl-color--error);
+            color: white;
+        }
+    }
+
+    :host .vl-info-tile--success {
+        border-color: var(--vl-color--success-border);
+        background-color: var(--vl-color--success-bg);
+
+        .vl-info-tile__icon--badge {
+            background-color: var(--vl-color--success);
+            border-color: var(--vl-color--success);
+            color: white;
+        }
+    }
+
+    :host .vl-info-tile--warning {
+        border-color: var(--vl-color--warning-border);
+        background-color: var(--vl-color--warning-bg);
+
+        .vl-info-tile__icon--badge {
+            background-color: var(--vl-color--warning);
+            border-color: var(--vl-color--warning);
+        }
+    }
+
+    :host .vl-info-tile--vertical-stretch {
+        height: 100%;
     }
 `;

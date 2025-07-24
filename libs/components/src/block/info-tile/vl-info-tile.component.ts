@@ -6,7 +6,7 @@ import 'reflect-metadata';
 import { VlAccordionComponent } from '../accordion';
 import '../accordion/vl-accordion.lib.js';
 import { vlInfoTyleFluxStyles } from './vl-info-tile.flux-css';
-import { INFO_TILE_SIZE } from './vl-info-tile.model';
+import { INFO_TILE_SIZE, INFO_TILE_TYPE } from './vl-info-tile.model';
 
 declare const vl: VL;
 
@@ -17,7 +17,7 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
     }
 
     static get _observedAttributes() {
-        return ['auto-open', 'toggleable', 'center', 'size', 'icon', 'icon-as-badge'];
+        return ['auto-open', 'toggleable', 'center', 'vertical-stretch', 'size', 'icon', 'icon-as-badge', 'type'];
     }
 
     constructor() {
@@ -71,6 +71,7 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
         super.connectedCallback();
 
         this.__setSizeClass();
+        this.__setTypeClass();
         this.__processSlots();
         this.__processIcon();
         this.__processBadgeWrapper();
@@ -93,7 +94,7 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
     }
 
     get _titleWrapperElement(): HTMLDivElement | null {
-        return this._element.querySelector<HTMLDivElement>('.vl-info-tile__title-wrapper') ;
+        return this._element.querySelector<HTMLDivElement>('.vl-info-tile__title-wrapper');
     }
 
     get _titleElement(): HTMLHeadingElement | undefined | null {
@@ -129,7 +130,7 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
     }
 
     get _footerElement(): HTMLElement | null {
-        return this._element.querySelector<HTMLElement>('footer')
+        return this._element.querySelector<HTMLElement>('footer');
     }
 
     get _footerSlotElement(): HTMLSlotElement | null {
@@ -144,7 +145,7 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
         return this._element.querySelector<HTMLDivElement>('.vl-info-tile__badge__wrapper');
     }
 
-    get _iconElement(): HTMLDivElement  | null {
+    get _iconElement(): HTMLDivElement | null {
         return this._element.querySelector<HTMLDivElement>('#icon');
     }
 
@@ -172,6 +173,14 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
         }
     }
 
+    _verticalStretchChangedCallback(oldValue: string, newValue: string) {
+        if (newValue === null) {
+            this._element.classList.remove('vl-info-tile--vertical-stretch');
+        } else {
+            this._element.classList.add('vl-info-tile--vertical-stretch');
+        }
+    }
+
     _sizeChangedCallback() {
         this.__setSizeClass();
     }
@@ -189,6 +198,31 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
                 break;
             case INFO_TILE_SIZE.LARGE:
                 this._element.classList.add('vl-info-tile--l');
+                break;
+        }
+    }
+
+    _typeChangedCallback() {
+        this.__setTypeClass();
+    }
+
+    __setTypeClass() {
+        this._element.classList.remove('vl-info-tile--warning');
+        this._element.classList.remove('vl-info-tile--error');
+        this._element.classList.remove('vl-info-tile--success');
+        this._element.classList.remove('vl-info-tile--alt');
+        switch (this.getAttribute('type')) {
+            case INFO_TILE_TYPE.ERROR:
+                this._element.classList.add('vl-info-tile--error');
+                break;
+            case INFO_TILE_TYPE.WARNING:
+                this._element.classList.add('vl-info-tile--warning');
+                break;
+            case INFO_TILE_TYPE.SUCCESS:
+                this._element.classList.add('vl-info-tile--success');
+                break;
+            case INFO_TILE_TYPE.ALT:
+                this._element.classList.add('vl-info-tile--alt');
                 break;
         }
     }
@@ -279,7 +313,7 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
 
     __processBadgeWrapper() {
         if (!this.hasAttribute('icon') && !this._hasBadgeSlot()) {
-            this._badgeWrapperElement?.setAttribute('hidden', '')
+            this._badgeWrapperElement?.setAttribute('hidden', '');
         } else {
             this._badgeWrapperElement?.removeAttribute('hidden');
         }

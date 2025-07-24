@@ -4,7 +4,7 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { VlButtonComponent } from '../../atom/button';
 import { VlPopoverComponent } from '../popover';
 import { VlInfoTile } from './index';
-import { INFO_TILE_SIZE } from './vl-info-tile.model';
+import { INFO_TILE_SIZE, INFO_TILE_TYPE } from './vl-info-tile.model';
 
 registerWebComponents([VlInfoTile, VlPopoverComponent, VlButtonComponent]);
 
@@ -18,10 +18,11 @@ const mountDefault = ({
     footerSlot,
     menuSlot,
     badgeSlot,
-    size,
-    icon,
+    size = 'medium',
+    icon = '',
     iconAsBadge,
-
+    type = 'default',
+    verticalStretch = false,
 }: {
     autoOpen?: boolean;
     toggleable?: boolean;
@@ -35,15 +36,22 @@ const mountDefault = ({
     size?: INFO_TILE_SIZE;
     icon?: string;
     iconAsBadge?: boolean;
+    type?: INFO_TILE_TYPE;
+    verticalStretch?: boolean;
 }) =>
     cy.mount(html`
-        <vl-info-tile ?toggleable=${toggleable} ?auto-open=${autoOpen} ?center=${center} size="${size || 'medium'}" icon="${icon || ''}" ?icon-as-badge=${iconAsBadge}>
-            ${unsafeHTML(badgeSlot)}
-            ${unsafeHTML(titleSlot)}
-            ${unsafeHTML(menuSlot)}
-            ${unsafeHTML(subtitleSlot)}
-            ${unsafeHTML(contentSlot)}
-            ${unsafeHTML(footerSlot)}
+        <vl-info-tile
+            ?auto-open=${autoOpen}
+            ?center=${center}
+            ?icon-as-badge=${iconAsBadge}
+            ?toggleable=${toggleable}
+            ?vertical-stretch="${verticalStretch}"
+            icon="${icon}"
+            size="${size}"
+            type="${type}"
+        >
+            ${unsafeHTML(badgeSlot)} ${unsafeHTML(titleSlot)} ${unsafeHTML(menuSlot)} ${unsafeHTML(subtitleSlot)}
+            ${unsafeHTML(contentSlot)} ${unsafeHTML(footerSlot)}
         </vl-info-tile>
     `);
 
@@ -63,7 +71,7 @@ const menuSlot = `<span slot="menu">
 const icon = 'file-tasks-check';
 const footerSlot = `<div slot="footer">
         <vl-button icon="file-download">Download</vl-button>
-    </div>`
+    </div>`;
 const badgeSlot = `<div slot="badge" style="
             width: 45px; 
             height: 45px; 
@@ -74,7 +82,7 @@ const badgeSlot = `<div slot="badge" style="
             flex-wrap: wrap; 
             place-content: center center;
             font-weight: 500;
-        ">BD</div>`
+        ">BD</div>`;
 
 describe('component vl-info-tile - default', () => {
     beforeEach(() => {
@@ -185,6 +193,131 @@ describe('story vl-info-tile - large', () => {
 
     it('should have class vl-info-tile--l', () => {
         cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'vl-info-tile--l');
+    });
+});
+
+describe('story vl-info-tile - alt', () => {
+    beforeEach(() => {
+        mountDefault({
+            titleSlot,
+            subtitleSlot,
+            contentSlot,
+            type: 'alt',
+        });
+    });
+
+    it('should mount', () => {
+        cy.get('vl-info-tile');
+    });
+
+    it('should be accessible', () => {
+        cy.injectAxe();
+
+        cy.checkA11y('vl-info-tile');
+    });
+
+    it('should have class vl-info-tile--alt', () => {
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'vl-info-tile--alt');
+    });
+});
+
+describe('story vl-info-tile - warning', () => {
+    beforeEach(() => {
+        mountDefault({
+            titleSlot,
+            subtitleSlot,
+            contentSlot,
+            type: 'warning',
+        });
+    });
+
+    it('should mount', () => {
+        cy.get('vl-info-tile');
+    });
+
+    it('should be accessible', () => {
+        cy.injectAxe();
+
+        cy.checkA11y('vl-info-tile');
+    });
+
+    it('should have class vl-info-tile--warning', () => {
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'vl-info-tile--warning');
+    });
+});
+
+describe('story vl-info-tile - error', () => {
+    beforeEach(() => {
+        mountDefault({
+            titleSlot,
+            subtitleSlot,
+            contentSlot,
+            type: 'error',
+        });
+    });
+
+    it('should mount', () => {
+        cy.get('vl-info-tile');
+    });
+
+    it('should be accessible', () => {
+        cy.injectAxe();
+
+        cy.checkA11y('vl-info-tile');
+    });
+
+    it('should have class vl-info-tile--error', () => {
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'vl-info-tile--error');
+    });
+});
+
+describe('story vl-info-tile - success', () => {
+    beforeEach(() => {
+        mountDefault({
+            titleSlot,
+            subtitleSlot,
+            contentSlot,
+            type: 'success',
+        });
+    });
+
+    it('should mount', () => {
+        cy.get('vl-info-tile');
+    });
+
+    it('should be accessible', () => {
+        cy.injectAxe();
+
+        cy.checkA11y('vl-info-tile');
+    });
+
+    it('should have class vl-info-tile--success', () => {
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'vl-info-tile--success');
+    });
+});
+
+describe('story vl-info-tile - vertical stretch', () => {
+    beforeEach(() => {
+        mountDefault({
+            titleSlot,
+            subtitleSlot,
+            contentSlot,
+            verticalStretch: true,
+        });
+    });
+
+    it('should mount', () => {
+        cy.get('vl-info-tile');
+    });
+
+    it('should be accessible', () => {
+        cy.injectAxe();
+
+        cy.checkA11y('vl-info-tile');
+    });
+
+    it('should have class vl-info-tile--vertical-stretch', () => {
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'vl-info-tile--vertical-stretch');
     });
 });
 
