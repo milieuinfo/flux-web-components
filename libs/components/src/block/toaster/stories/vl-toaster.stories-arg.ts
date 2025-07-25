@@ -15,29 +15,30 @@ export const toasterArgTypes: ArgTypes = {
     ...defaultArgTypes,
     fadeOut: {
         name: 'fade-out',
-        description: 'Elke alert verdwijnt automatisch 5 seconden na openen. \n Dit attribuut is niet reactief.',
+        description: 'Elke alert verdwijnt automatisch 5 seconden na openen.<br>Dit attribuut is niet reactief.',
         table: {
             type: {
                 summary: TYPES.BOOLEAN,
             },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: false },
+            defaultValue: { summary: toasterDefaults.fadeOut },
         },
     },
     placement: {
         name: 'placement',
-        description: 'Positioneert de toaster. \nStandaard worden die geplaatst in de rechterbovenhoek.',
+        description: 'Positioneert de toaster.<br>Standaard worden die geplaatst in de rechterbovenhoek.',
         options: Object.values(TOASTER_PLACEMENT),
         table: {
             type: {
-                summary: TYPES.STRING,
+                summary: Object.values(TOASTER_PLACEMENT),
             },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: false },
+            defaultValue: { summary: toasterDefaults.placement },
         },
     },
     defaultSlot: {
         name: '[default]',
+        description: 'De inhoud van de toaster. Dit is typisch een vl-alert.',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
