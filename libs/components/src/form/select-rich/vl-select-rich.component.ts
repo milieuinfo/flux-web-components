@@ -2,8 +2,7 @@ import { webComponent } from '@domg-wc/common';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { iconStyle } from '@domg/govflanders-style/component';
 import { FormValue } from '@open-wc/form-control/src/types';
-import * as choices from 'choices.js';
-import { Options } from 'choices.js';
+import Choices, { Options } from 'choices.js';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { FormControl } from '../form-control';
@@ -13,11 +12,6 @@ import { vlSelectRichFluxStyles } from './styles/vl-select-rich.flux-css';
 import selectStyle from './styles/vl-select.dv-css';
 import { selectRichDefaults } from './vl-select-rich.defaults';
 import { SelectRichOption } from './vl-select-rich.model';
-
-// web-dev-server (rollup) fix: ambiguous indirect export
-export const DEFAULT_CLASSNAMES = choices.DEFAULT_CLASSNAMES;
-export const Choices = choices.default;
-export type Choices = choices.default;
 
 @webComponent('vl-select-rich')
 export class VlSelectRichComponent extends FormControl {
@@ -361,7 +355,7 @@ export class VlSelectRichComponent extends FormControl {
             noChoicesText: this.noChoicesText,
             searchPlaceholderValue: this.searchPlaceholder,
             classNames: {
-                ...DEFAULT_CLASSNAMES,
+                ...Choices.defaults.allOptions.classNames,
                 containerOuter: 'js-vl-select',
                 containerInner: 'vl-select__inner',
                 input: 'vl-input-field',
