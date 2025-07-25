@@ -8,3 +8,24 @@ export const formatEpoch = (epoch: number | string | symbol, format: string | sy
         return epoch as symbol;
     }
 };
+
+export const createDateRange = (
+    date: Date,
+    range: number,
+    format: string = 'd.m.Y',
+    delimiter: string = ''
+): [string, string] | string => {
+    if (date && range) {
+        const startDate = new Date(date);
+        const endDate = new Date(date);
+        startDate.setDate(startDate.getDate() - range);
+        endDate.setDate(endDate.getDate() + range);
+        const dates: [string, string] = [
+            flatpickr.formatDate(startDate, format),
+            flatpickr.formatDate(endDate, format),
+        ];
+        return delimiter ? dates.join(delimiter) : dates;
+    } else {
+        return '';
+    }
+};
