@@ -168,6 +168,19 @@ describe('component - vl-datepicker-next', () => {
         cy.checkA11y('vl-datepicker-next');
     });
 
+    it('should set initial range', () => {
+        const date = '2024-04-17/2025-12-31';
+        cy.mount(html`<vl-datepicker-next value=${date} label="date" type="range"></vl-datepicker-next>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker-next')
+            .shadow()
+            .find('input.vl-input-field')
+            .should('have.value', '17.04.2024 tot en met 31.12.2025');
+        cy.get('vl-datepicker-next').should('have.value', '2024-04-17/2025-12-31');
+        cy.checkA11y('vl-datepicker-next');
+    });
+
     it("should set today's date", () => {
         cy.mount(html`<vl-datepicker-next value="today" label="startdatum"></vl-datepicker-next>`);
         cy.injectAxe();
