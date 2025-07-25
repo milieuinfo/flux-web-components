@@ -129,7 +129,12 @@ export class AppComponent extends LitElement {
                                 Hier renderen we een aantal datepicker scenario's om te kijken hoe de datepicker zich
                                 gedraagt.
                             </vl-paragraph>
-                            <vl-datepicker></vl-datepicker>
+                            <vl-datepicker
+                                type="range"
+                                value="2025-04-01/2025-04-10"
+                                format="d/m/Y"
+                                @vl-change="${(e) => console.log('datepicker value', e.detail.value)}"
+                            ></vl-datepicker>
                             <div class="vl-group">
                                 <vl-button modal-open="modal-with-datepicker">Open modal with datepicker</vl-button>
                                 <vl-button @click=${this.openSidesheet}>Open sidesheet</vl-button>
