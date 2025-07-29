@@ -36,6 +36,8 @@ export const autocompleteArgs = {
     noMatchesText: 'Geen resultaat',
     items: [],
     search: action('search'),
+    selectedAutocomplete: action('selected-autocomplete'),
+    clear: action('clear'),
 };
 
 export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
@@ -60,7 +62,7 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
     },
     label: {
         name: 'data-vl-label',
-        description: 'Attribuut wordt gebruikt om de label te bepalen.',
+        description: 'Attribuut wordt gebruikt om het label te bepalen.',
         table: {
             type: { summary: TYPES.STRING, required: false },
             category: CATEGORIES.ATTRIBUTES,
@@ -69,7 +71,7 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
     },
     labelSmall: {
         name: 'data-vl-label-small',
-        description: 'Attribuut wordt gebruikt om de label kleiner te maken.',
+        description: 'Attribuut wordt gebruikt om het label kleiner te maken.',
         table: {
             type: { summary: TYPES.BOOLEAN, required: false },
             category: CATEGORIES.ATTRIBUTES,
@@ -89,7 +91,7 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
     },
     maxSuggestions: {
         name: 'data-vl-max-suggestions',
-        description: 'Attribuut wordt gebruikt om het maximum aantal suggesties dat moet getoond worden te bepalen.',
+        description: 'Attribuut wordt gebruikt om het maximum aantal suggesties dat getoond moet worden te bepalen.',
         control: { type: CONTROLS.RANGE, min: 1, max: 20, step: 1 },
         table: {
             type: { summary: TYPES.NUMBER, required: false },
@@ -99,7 +101,7 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
     },
     captionFormat: {
         name: 'data-vl-caption-format',
-        description: 'Attribuut bepaalt wat er hoe moet getoond worden voor ieder item in de suggestielijst.',
+        description: 'Attribuut bepaalt hoe ieder item in de suggestielijst getoond wordt.',
         control: { type: CONTROLS.SELECT },
         options: Object.values(CAPTION_FORMAT),
         table: {
@@ -127,7 +129,7 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
     },
     showClear: {
         name: 'data-vl-show-clear',
-        description: 'Attribuut wordt gebruikt te bepalen of het clear icoon moet tevoorschijn komen.',
+        description: 'Attribuut wordt gebruikt om te bepalen of het clear-icoon getoond moet worden.',
         table: {
             type: { summary: TYPES.BOOLEAN, required: false },
             category: CATEGORIES.ATTRIBUTES,
@@ -136,7 +138,7 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
     },
     disableLoading: {
         name: 'data-vl-disable-loading',
-        description: 'Bepaalt of loading animatie getoond wordt.',
+        description: 'Bepaalt of de laad-animatie getoond wordt.',
         table: {
             type: { summary: TYPES.BOOLEAN, required: false },
             category: CATEGORIES.ATTRIBUTES,
@@ -145,7 +147,7 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
     },
     clearTooltip: {
         name: 'data-vl-clear-tooltip',
-        description: 'Attribuut wordt gebruikt de tekst te bepalen die getoond moet worden bij hover van clear icon.',
+        description: 'Attribuut wordt gebruikt om de tekst te bepalen die getoond wordt bij hover van het clear-icoon.',
         table: {
             type: { summary: TYPES.STRING, required: false },
             category: CATEGORIES.ATTRIBUTES,
@@ -154,8 +156,7 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
     },
     noMatchesText: {
         name: 'data-vl-no-matches-text',
-        description:
-            'Attribuut wordt gebruikt de tekst te bepalen die getoond moet worden als er geen suggesties zijn.',
+        description: 'Attribuut wordt gebruikt om de tekst te bepalen die getoond wordt als er geen suggesties zijn.',
         table: {
             type: { summary: TYPES.STRING, required: false },
             category: CATEGORIES.ATTRIBUTES,
@@ -164,7 +165,7 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
     },
     items: {
         name: 'items',
-        description: 'Use this property when you want to use a static list of items.',
+        description: 'Gebruik deze property wanneer je een statische lijst van items wilt gebruiken.',
         control: { type: CONTROLS.OBJECT },
         table: {
             category: CATEGORIES.PROPERTIES,
@@ -174,9 +175,26 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
     },
     search: {
         name: 'search',
-        description:
-            'This custom event is triggered when the user enters characters in de textbox while the component has no items specified. ' +
-            'Use this event when you want to fill the suggestion list with items from an api call. Check out the WithInputAndApiCall story for more details.',
+        description: `Dit custom event wordt getriggerd wanneer de gebruiker karakters ingeeft in het tekstvak terwijl 
+            de component geen items heeft. Gebruik dit event wanneer je de suggestielijst wilt vullen met items uit een 
+            API-call. Bekijk de story "WithInputAndApiCall" voor meer details.`,
+        table: {
+            type: { summary: '-' },
+            category: CATEGORIES.EVENTS,
+        },
+    },
+    selectedAutocomplete: {
+        name: 'selected-autocomplete',
+        description: `Dit custom event wordt getriggerd wanneer de gebruiker een item selecteert uit de suggestielijst. 
+            De geselecteerde waarde kan worden opgevraagd via het detail van het event.`,
+        table: {
+            type: { summary: '-' },
+            category: CATEGORIES.EVENTS,
+        },
+    },
+    clear: {
+        name: 'clear',
+        description: `Dit custom event wordt getriggerd wanneer de gebruiker het clear-icoon aanklikt.`,
         table: {
             type: { summary: '-' },
             category: CATEGORIES.EVENTS,

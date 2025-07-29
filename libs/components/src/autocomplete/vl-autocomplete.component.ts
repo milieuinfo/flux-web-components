@@ -268,6 +268,7 @@ export class VlAutocomplete extends BaseLitElement {
         this._highlightedEl.classList.remove('vl-autocomplete__cta--focus');
         this._highlightedEl = this._highlightedEl.previousElementSibling;
         this._highlightedEl.classList.add('vl-autocomplete__cta--focus');
+        this.contentElement?.setAttribute('aria-activedescendant', this._highlightedEl.id);
         this._highlightedEl.scrollIntoView();
     }
 
@@ -279,6 +280,7 @@ export class VlAutocomplete extends BaseLitElement {
         this._highlightedEl.classList.remove('vl-autocomplete__cta--focus');
         this._highlightedEl = this._highlightedEl.nextElementSibling;
         this._highlightedEl.classList.add('vl-autocomplete__cta--focus');
+        this.contentElement?.setAttribute('aria-activedescendant', this._highlightedEl.id);
         this._highlightedEl.scrollIntoView();
     }
 
@@ -313,6 +315,7 @@ export class VlAutocomplete extends BaseLitElement {
     close() {
         this.opened = false;
         this._highlightedEl = null;
+        this.contentElement?.removeAttribute('aria-activedescendant');
     }
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -369,9 +372,15 @@ export class VlAutocomplete extends BaseLitElement {
             const liElements: any = [];
 
             this._groupedMatches.forEach((items: any, groupName: string) => {
+                const id = `uig-autocomplete-item-${groupName.toLowerCase().replace(/\s/g, '-')}-${groupIndex}`;
                 liElements.push(html` <li
+                    id="${id}"
                     class="vl-autocomplete__cta uig-autocomplete-group"
                     groupindex="${groupIndex}"
+                    role="option"
+                    aria-selected="false"
+                    aria-disabled="true"
+                    aria-label="Groep: ${groupName}"
                 >
                     ${groupName}
                 </li>`);
@@ -386,21 +395,28 @@ export class VlAutocomplete extends BaseLitElement {
     }
 
     generateItem(item: any, groupIndex: number) {
+        const id = `uig-autocomplete-item-${item.value || item.title.toLowerCase().replace(/\s/g, '-')}-${groupIndex}`;
         return html` <li
-            @click=${() => this.autocomplete(item.title, item.value ? item.value : null)}
+            id="${id}"
+            @click=${() => this.autocomplete(item.title, item.value ? item.value : null, id)}
             class="vl-autocomplete__cta uig-autocomplete-item"
             groupindex="${groupIndex}"
             role="option"
-            tabindex="-1"
+            aria-selected="${id === this._highlightedEl?.id ? 'true' : 'false'}"
         >
             ${this.formatCaption(item)}
         </li>`;
     }
 
-    autocomplete(title: string, value: string) {
+    autocomplete(title: string, value: string, id?: string) {
         if (value == null) return;
 
-        if (this.contentElement) this.contentElement.value = title;
+        if (this.contentElement) {
+            this.contentElement.value = title;
+            if (id) {
+                this.contentElement.setAttribute('aria-activedescendant', id);
+            }
+        }
 
         this.close();
 
@@ -443,7 +459,10 @@ export class VlAutocomplete extends BaseLitElement {
     }
 
     _clear() {
-        if (this.contentElement) this.contentElement.value = '';
+        if (this.contentElement) {
+            this.contentElement.value = '';
+            this.contentElement.removeAttribute('aria-activedescendant');
+        }
         this.suggest([]);
         const options = {
             bubbles: true,
@@ -483,14 +502,15 @@ export class VlAutocomplete extends BaseLitElement {
                             placeholder="${this.placeholder}"
                             ?show-clear="${this.showClear}"
                             class="vl-input-field vl-input-field--block"
-                            aria-describedby="vl-autocomplete-1-hint"
                             autocomplete="off"
                             autocapitalize="off"
-                            spellcheck="off"
+                            spellcheck="false"
+                            aria-label="${this.label || this.placeholder || 'Start met typen om suggesties te krijgen'}"
                             aria-autocomplete="list"
                             aria-owns="suggestions"
                             aria-controls="suggestions"
-                            aria-haspopup="listbox"
+                            aria-haspopup="true"
+                            aria-expanded="${this.opened}"
                             .value=${this.initialValue}
                             @input=${this._notify}
                         />
@@ -509,10 +529,15 @@ export class VlAutocomplete extends BaseLitElement {
                         @mouseenter=${this._handleItemMouseEnter}
                         @mouseleave=${this._handleItemMouseLeave}
                         aria-hidden="false"
-                        aria-labelledby="vl-autocomplete-1-input"
                     >
                         <div class="vl-autocomplete__list-wrapper uig-autocomplete__list-wrapper">
-                            <ul id="suggestions" class="vl-autocomplete__list" role="listbox">
+                            <ul
+                                id="suggestions"
+                                class="vl-autocomplete__list"
+                                role="listbox"
+                                aria-labelledby="${this.defaultInputId}"
+                                aria-live="polite"
+                            >
                                 ${this.generateItems()}
                             </ul>
                         </div>
