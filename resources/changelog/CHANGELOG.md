@@ -1,3 +1,15 @@
+## [1.49.2](https://github.com/milieuinfo/flux-web-components/compare/v1.49.1...v1.49.2) (2025-07-30)
+
+
+### Bug Fixes
+
+* FLUX-122 - vl-toaster-next - werking verbeterd ([1b0dda6](https://github.com/milieuinfo/flux-web-components/commit/1b0dda6d1ea0e810f268e3a730e205ce9b8d827f))
+* FLUX-124 - vl-table-next - documentatie verbeterd van de styling mogelijkheden ([6ddbae3](https://github.com/milieuinfo/flux-web-components/commit/6ddbae301ce0ebfe6ef212b979c4d2beb439f35f))
+* FLUX-125 - vl-stacked - margin-top door row-gap vervangen ([cb3ca91](https://github.com/milieuinfo/flux-web-components/commit/cb3ca91e183ddca4604baedec673826d32dce6d7))
+* FLUX-128 - vl-info-tile - volgorde imports rechtgezet ([b40ce87](https://github.com/milieuinfo/flux-web-components/commit/b40ce87a53a7b4ed25018b557edeabef2a0b49f6))
+* FLUX-130 - vl-properties-next - mix van text & element nodes wordt nu ondersteund ([8c62667](https://github.com/milieuinfo/flux-web-components/commit/8c62667e214693c645784107a479aa1922f1e612))
+* FLUX-93 - vl-autocomplete - accessibility en documentatie verbeteringen ([190d95a](https://github.com/milieuinfo/flux-web-components/commit/190d95acfb91f02461a89ad2a10d160c4fc08177))
+
 ## [1.49.1](https://github.com/milieuinfo/flux-web-components/compare/v1.49.0...v1.49.1) (2025-07-03)
 
 
