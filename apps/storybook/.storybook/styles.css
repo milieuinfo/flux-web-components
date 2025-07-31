@@ -3,6 +3,10 @@
         list-style: initial !important;
     }
 
+    ul ul {
+        list-style-type: circle !important; /* niveau 2 */
+    }
+
     ol {
         list-style-type: decimal !important;
     }

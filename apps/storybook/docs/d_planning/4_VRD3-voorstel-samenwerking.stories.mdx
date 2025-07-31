@@ -1,0 +1,86 @@
+import {Meta} from '@storybook/blocks';
+
+<Meta title="Planning/VRD3 - voorstel tot samenwerking" />
+
+# Voorstel tot samenwerking i.h.k.v. VRD3
+
+<div style={{marginTop: '30px'}}/>
+
+<vl-alert data-cy="alert" icon="info-circle" title="01/08/2025 - v1" type="info">
+    In het kader van VRD3 wensen we met dit document de mogelijkheid te bekijken om een samenwerking rond
+    web-componenten op te zetten tussen Departement Omgeving en Digitaal Vlaanderen. De initiatiefnemers zijn:
+    Tom Van Gulck (CIO team Digitalisering Departement Omgeving) en Kris Speltincx (lead team-Flux).
+</vl-alert>
+
+<div style={{marginTop: '30px'}}/>
+
+## Inhoudstafel
+
+- [Insteek](#insteek)
+- [Voorstel](#voorstel)
+- [Ervaring die wij bieden](#ervaring-die-wij-bieden)
+
+<div style={{marginTop: '30px'}}/>
+
+## Insteek
+
+**Het programma [Vlaanderen Radicaal Digitaal 3](https://themis.vlaanderen.be/files/9e8be310-0630-11f0-af24-072d6775edc4/download) (VRD3)
+heeft de ambitie een digitaliseringsprong te maken, over de grenzen heen van alle Vlaamse overheden.**
+
+pagina 2:
+> Digitaal Vlaanderen bereidt zich op deze ambitie voor door de stap te zetten naar “platformdenken” (een Government
+Operating System of GOVos) voor de Vlaamse overheid, waarbij alle bouwstenen opengesteld worden in één
+gemeenschappelijk, open, modulair en herbruikbaar platform waar ook andere overheidsinstanties en externe partners aan
+kunnen meewerken.
+
+> Het doel is om gericht, vanuit één strategie en aan de hand van beleidsdomeinoverschrijdende initiatieven en
+investeringsimpulsen samen de digitale transformatie naar de overheid als platform versneld waar te maken.
+
+pagina 3:
+> 1 van de hoofdlijnen van VRD 3 portfolio 2025 is: een verhoogde inzet op transversale architectuur, interoperabiliteit
+en andere initiatieven die de efficiëntie van digitale transformatieprojecten verhogen.
+
+<div style={{marginTop: '30px'}}/>
+
+## Voorstel
+
+Digitaal Vlaanderen heeft de keuze gemaakt om naast het [Webuniversum](https://overheid.vlaanderen.be/webuniversum/v3/),
+binnen het [Design System](https://www.vlaanderen.be/vlaanderen-design-system) ook web-componenten te gaan aanbieden,
+naast de huidige Vue en native componenten. Wij, Departement Omgeving, maakten 5 jaar geleden de keuze om platform
+onafhankelijke web-componenten te bouwen die de Vlaamse Huisstijl gebruiken. In die 5 jaar zijn onze web-componenten
+stelselmatig uitgebreid en verbeterd, ze worden in tientallen toepassingen gebruikt.
+
+VRD3 biedt een kader om efficiënter om te gaan met beschikbare middelen en promoot synergieën. Het idee is om vanuit de
+impuls die VRD3 biedt een samenwerking op te zetten tussen Departement Omgeving en Digitaal Vlaanderen om gezamenlijk 1
+web-componenten bibliotheek aan te bieden en af te laten nemen.
+
+Het plan dat Bavo Vanderghote eind juli 2025 met mij (Kris Speltincx) besprak had als timing om tegen eind 2025 een POC
+te hebben en midden 2026 een eerste release. Er zou ruwweg bij jullie met 2 VTE's aan gewerkt worden.
+
+Ons voorstel is 3 ledig:
+ - **Versnellen** door gebruik te maken van onze basis en kennis, i.p.v. dat jullie met beperkte ervaring vanaf een wit
+   blad starten. Wij hebben zeer recentelijk nieuwe atom componenten geschreven (button, link, icon, ...) en een nieuwe
+   styling opzet geïntroduceerd. Deze kan als startpunt genomen worden, niet persé om het 1 op 1 over te nemen maar wel
+   als basis.
+ - Wij zouden **actief** kunnen **meewerken**, wij hebben 3 VTE's, waarvan we ruwweg 1 VTE kunnen inzetten om mee te
+   ontwikkelen. Daarnaast zouden we zo snel als mogelijk jullie nieuwe bibliotheek omarmen: onze atom's en styles
+   vervangen door die van jullie en dat te laten afnemen door onze ontwikkel teams om op die manier een snelle feedback
+   loop te hebben.
+ - Door binnen het kader van VRD3 samen te werken kan er **extra budget** komen wat de ontwikkeling nog kan versnellen.
+
+<div style={{marginTop: '30px'}}/>
+
+## Ervaring die wij bieden
+
+- 5 jaar ervaring met web-componenten
+- meer dan 70 web-componenten die de huisstijl van de VO capteren
+- v2 release (juni 2025) met o.a. (webuniversum gebaseerd):
+    - nieuwe atom componenten
+    - een nieuwe styling setup
+    - nieuwe formulier componenten
+- actieve afnemers, meer dan 20 toepassingen die v1 of hoger gebruiken
+- uitgebreide ge-versioneerde [documentatie](https://milieuinfo.github.io/flux-builds/release-v2/latest/storybook)
+- een uitgebreide test setup
+- een monorepo setup
+- een gestructureerde release aanpak
+- [Lit](https://lit.dev/) als basis
