@@ -8,13 +8,13 @@ export class BaseHTMLElement<T = any> extends HTMLElement {
     /**
      * VlElement constructor die een shadow DOM voorziet op basis van de HTML {Literal} parameter.
      *
-     * @param {Literal} html - HTML literal die de DOM representeert
-     * @return {void}
+     * @param html - HTML literal die de DOM representeert
+     * @param styleSheets - de CSS die op de shadow-dom gezet wordt
      */
-    constructor(html: any = null) {
+    constructor(html: any = null, styleSheets?: CSSStyleSheet[]) {
         super();
         if (html) {
-            this.shadow(html);
+            this.shadow(html, styleSheets);
         }
     }
 
@@ -225,12 +225,15 @@ export class BaseHTMLElement<T = any> extends HTMLElement {
      * Definieer shadow DOM.
      *
      * @protected
-     * @param {Literal} html - HTML literal
-     * @return {void}
+     * @param html - HTML literal die de DOM representeert
+     * @param styleSheets - de CSS die op de shadow-dom gezet wordt
      */
-    shadow(html: any) {
+    shadow(html: any, styleSheets?: CSSStyleSheet[]) {
         this._shadow = this.attachShadow({ mode: 'open' });
         this._shadow.innerHTML = html;
+        if(styleSheets) {
+            this._shadow.adoptedStyleSheets = styleSheets;
+        }
     }
 
     /**

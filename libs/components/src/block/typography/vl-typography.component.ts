@@ -11,18 +11,20 @@ import { vlTypographyFluxStyles } from './vl-typography.flux-css';
 @webComponent('vl-typography')
 export class VlTypography extends BaseHTMLElement {
     constructor() {
-        super(`
-          <style>
-            ${resetStyle}
-            ${baseStyle}
-            ${elementStyle}
-            ${typographyStyle}
-            ${commonTypographyStyle}
-            ${vlTypographyFluxStyles}
-            ${titlesStyle}
-          </style>
-          <div id="content" class="vl-typography"></div>
-        `);
+        const html = `
+            <div id="content" class="vl-typography"></div>
+        `;
+        const styleSheets = [
+            resetStyle.styleSheet!,
+            baseStyle.styleSheet!,
+            elementStyle.styleSheet!,
+            typographyStyle.styleSheet!,
+            commonTypographyStyle.styleSheet!,
+            vlTypographyFluxStyles.styleSheet!,
+            titlesStyle.styleSheet!,
+        ];
+        super(html, styleSheets);
+
         this._observer = this.__observeSlotElements(() => this.__processSlotElements());
     }
 

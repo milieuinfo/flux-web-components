@@ -4,7 +4,7 @@ import {
     legacyBreakpoint,
     legacyCore,
     registerWebComponents,
-    webComponentCustom
+    webComponentCustom,
 } from '@domg-wc/common';
 import { CSSResult, PropertyDeclarations } from 'lit';
 import { headerContainerStyles, headerSkeletonStyles } from './vl-header.component.flux-css';
@@ -150,32 +150,16 @@ export class VlHeader extends BaseLitElement {
     }
 
     private injectHeaderContainer() {
-        const vlBody = document.querySelector('body');
-
-        (vlBody || document.body).insertAdjacentHTML(
+        (document.querySelector('body') || document.body).insertAdjacentHTML(
             'afterbegin',
             '<div id="header__container"><div id="header"></div></div>'
         );
-
-        this.addStylesToInjectedElement('#header__container', headerContainerStyles);
+        document.adoptedStyleSheets = [...document.adoptedStyleSheets, headerContainerStyles.styleSheet!];
     }
 
     private injectHeaderContainerSkeleton() {
-        const headerContainer = this.headerContainer;
-
-        if (headerContainer) {
-            headerContainer.insertAdjacentHTML('afterend', '<div id="header__skeleton"></div>');
-        }
-
-        this.addStylesToInjectedElement('#header__skeleton', headerSkeletonStyles);
-    }
-
-    private addStylesToInjectedElement(selector: string, cssContent: CSSResult) {
-        const style = document.createElement('style');
-        style.textContent = cssContent.cssText;
-
-        const element = document.querySelector(selector);
-        element?.appendChild(style);
+        this.headerContainer?.insertAdjacentHTML('afterend', '<div id="header__skeleton"></div>');
+        document.adoptedStyleSheets = [...document.adoptedStyleSheets, headerSkeletonStyles.styleSheet!];
     }
 
     private observeWidgetIsAdded() {

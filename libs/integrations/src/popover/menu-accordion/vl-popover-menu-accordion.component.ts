@@ -26,50 +26,50 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
     }
 
     static override get styles(): (CSSResult | CSSResult[])[] {
-        return [vlLegacyStyles, css``];
+        const customStyleSheet = css`
+            .laaginfo {
+                display: flex;
+            }
+
+            .laaginfo__image {
+                flex-basis: 15%;
+                margin-right: 20px;
+            }
+
+            .laaginfo__table {
+                display: flex;
+                flex-basis: 100%;
+                flex-direction: column;
+            }
+
+            .laaginfo__table--row {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .laaginfo__table--row div {
+                flex-basis: 50%;
+                padding-bottom: 10px;
+            }
+
+            .panel {
+                border: 1px solid darkgray;
+                border-radius: 4px;
+            }
+
+            .panel > div:not(:last-child) {
+                border-bottom: 1px solid darkgray;
+            }
+
+            .panel > div:last-child {
+                border-radius: 4px;
+            }
+        `;
+        return [vlLegacyStyles, customStyleSheet];
     }
 
     override render() {
         return html`
-            <style>
-                .laaginfo {
-                    display: flex;
-                }
-
-                .laaginfo__image {
-                    flex-basis: 15%;
-                    margin-right: 20px;
-                }
-
-                .laaginfo__table {
-                    display: flex;
-                    flex-basis: 100%;
-                    flex-direction: column;
-                }
-
-                .laaginfo__table--row {
-                    display: flex;
-                    justify-content: space-between;
-                }
-
-                .laaginfo__table--row div {
-                    flex-basis: 50%;
-                    padding-bottom: 10px;
-                }
-
-                .panel {
-                    border: 1px solid darkgray;
-                    border-radius: 4px;
-                }
-
-                .panel > div:not(:last-child) {
-                    border-bottom: 1px solid darkgray;
-                }
-
-                .panel > div:last-child {
-                    border-radius: 4px;
-                }
-            </style>
             <div class="panel">
                 <vl-accordion toggle-text="Stedelijk woongebied" custom-css=${topLevelAccordionCss}>
                     <span class="laaginfo">

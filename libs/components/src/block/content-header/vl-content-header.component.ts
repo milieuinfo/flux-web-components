@@ -5,13 +5,7 @@ import { baseStyle, layoutStyle, resetStyle } from '@domg/govflanders-style/comm
 @webComponent('vl-content-header')
 export class VlContentHeaderComponent extends BaseHTMLElement {
     constructor() {
-        super(`
-          <style>
-            ${resetStyle}
-            ${baseStyle}
-            ${layoutStyle}
-            ${contentHeaderStyle}
-          </style>
+        const html = `
           <header class="vl-content-header vl-content-header--large vl-content-header--show-mobile vl-content-header--has-context">
             <div class="vl-content-header__wrapper">
               <picture id="picture" class="vl-content-header__bg"></picture>
@@ -23,7 +17,14 @@ export class VlContentHeaderComponent extends BaseHTMLElement {
               </div>
             </div>
           </header>
-        `);
+        `;
+        const styleSheets = [
+            resetStyle.styleSheet!,
+            baseStyle.styleSheet!,
+            layoutStyle.styleSheet!,
+            contentHeaderStyle.styleSheet!,
+        ];
+        super(html, styleSheets);
     }
 
     connectedCallback() {

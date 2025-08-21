@@ -24,14 +24,13 @@ export class VlMap extends BaseHTMLElement {
     protected __ready: any;
 
     constructor() {
-        super(`
-          <style>
-            ${vlMapFluxStyles.join('')}
-          </style>
-          <div id='map'>
-            <slot></slot>
-          </div>
-        `);
+        const html = `
+            <div id='map'>
+                <slot></slot>
+            </div>
+        `;
+        const styleSheets = [...vlMapFluxStyles.map((style) => style.styleSheet!)];
+        super(html, styleSheets);
 
         this.__prepareReadyPromises();
     }

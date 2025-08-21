@@ -21,17 +21,7 @@ registerWebComponents([legacyCore, legacyBreakpoint, VlIconComponent]);
 @webComponent('vl-accordion')
 export class VlAccordionComponent extends BaseHTMLElement {
     constructor() {
-        super(`
-          <style>
-           ${resetStyle}
-           ${buttonStyle}
-           ${iconStyle}
-           ${linkStyle}
-           ${toggleStyle}
-           ${accordionStyle}
-           ${vlAccordionFluxStyles}
-           ${vlLinkIconStyles}
-          </style>
+        const html = `
           <div class="js">
             <div class="vl-accordion" accordion>
             <div class="vl-accordion__button-container">
@@ -53,7 +43,18 @@ export class VlAccordionComponent extends BaseHTMLElement {
               </div>
             </div>
           </div>
-        `);
+        `;
+        const styleSheets = [
+            resetStyle.styleSheet!,
+            buttonStyle.styleSheet!,
+            iconStyle.styleSheet!,
+            linkStyle.styleSheet!,
+            toggleStyle.styleSheet!,
+            accordionStyle.styleSheet!,
+            vlAccordionFluxStyles.styleSheet!,
+            vlLinkIconStyles.styleSheet!,
+        ];
+        super(html, styleSheets);
     }
 
     static get _observedAttributes() {

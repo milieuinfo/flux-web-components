@@ -13,11 +13,14 @@ export class VlRichDataSorter extends BaseHTMLElement {
     }
 
     constructor() {
-        super(`
-          <style>
-            ${vlLegacyStyles.join('')}
-            ${vlRichDataTableFluxStyles}
-
+        const html = `
+            <div id="container" class="vl-u-visually-hidden">
+                <vl-icon id="direction"></vl-icon>
+                <label id="priority"></label>
+            </div>
+        `;
+        const customStyleSheet = new CSSStyleSheet();
+        customStyleSheet.replaceSync(`
             div {
               display: inline;
             }
@@ -30,12 +33,13 @@ export class VlRichDataSorter extends BaseHTMLElement {
               font-size: x-small;
               vertical-align: super;
             }
-          </style>
-          <div id="container" class="vl-u-visually-hidden">
-            <vl-icon id="direction"></vl-icon>
-            <label id="priority"></label>
-          </div>
         `);
+        const styleSheets = [
+            ...vlLegacyStyles.map((style) => style.styleSheet!),
+            vlRichDataTableFluxStyles.styleSheet!,
+            customStyleSheet,
+        ];
+        super(html, styleSheets);
     }
 
     static get DIRECTIONS() {

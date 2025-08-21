@@ -28,9 +28,13 @@ export class VlMapSearch extends BaseHTMLElement {
     }
 
     constructor() {
-        super(`
-          <style>
-            ${vlLegacyStyles.join('')}
+        const html = `
+            <vl-search id="search" inline>
+                <vl-select-location slot="input" not-deletable position=${SelectRichPosition.BOTTOM}></vl-select-location>
+            </vl-search>
+        `;
+        const customStyleSheet = new CSSStyleSheet();
+        customStyleSheet.replaceSync(`
             :host {
               display: block;
             }
@@ -47,11 +51,10 @@ export class VlMapSearch extends BaseHTMLElement {
                 display: block;
                 height: 3.5rem;
             }
-          </style>
-          <vl-search id="search" inline>
-            <vl-select-location slot="input" not-deletable position=${SelectRichPosition.BOTTOM}></vl-select-location>
-          </vl-search>
         `);
+        const styleSheets = [...vlLegacyStyles.map((style) => style.styleSheet!), customStyleSheet];
+        super(html, styleSheets);
+
         this.configure();
     }
 

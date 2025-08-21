@@ -31,12 +31,7 @@ export class VlCookieConsent extends BaseHTMLElement {
     }
 
     constructor() {
-        super(`
-          <style>
-            ${vlLegacyStyles.join('')}
-            ${vlGridStyles}
-          </style>
-
+        const html = `
           <vl-modal title="Cookie-toestemming" not-cancellable>
             <div class="vl-grid" slot="content">
               <div class="vl-column vl-column--12">
@@ -57,7 +52,9 @@ export class VlCookieConsent extends BaseHTMLElement {
               </div>
             </div>
           </vl-modal>
-        `);
+        `;
+        const styleSheets = [...vlLegacyStyles.map((style) => style.styleSheet!), vlGridStyles.styleSheet!];
+        super(html, styleSheets);
 
         this.allowCustomCSS = false;
         this._optIns = {};

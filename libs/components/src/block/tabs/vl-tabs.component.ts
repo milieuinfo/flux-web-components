@@ -5,13 +5,13 @@ import {
     legacyCore,
     registerWebComponents,
     type VL,
-    webComponent
+    webComponent,
 } from '@domg-wc/common';
 import './vl-tabs.lib.js';
 import { vlLegacyStyles } from '@domg-wc/styles';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { linkStyle } from '@domg/govflanders-style/component';
-import { html, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
+import { CSSResult, html, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
 import { VlTabSectionComponent } from './vl-tab-section.component';
 import { VlTabComponent } from './vl-tab.component';
 import { VlTabsPaneComponent } from './vl-tabs-pane.component';
@@ -97,16 +97,12 @@ export class VlTabsComponent extends BaseLitElement {
         this.abortController.abort('disconnectedCallback');
     }
 
+    static get styles(): CSSResult[] {
+        return [resetStyle, tabsStyle, vlTabsFluxStyles, linkStyle, baseStyle, ...vlLegacyStyles ];
+    }
+
     render(): TemplateResult {
         return html`
-            <style>
-                ${resetStyle}
-                ${tabsStyle}
-                ${vlTabsFluxStyles}
-                ${linkStyle}
-                ${baseStyle}
-                ${vlLegacyStyles.join('')}
-            </style>
             <div id="tabs" tabs tabs-responsive-label="Navigatie">
                 <div id="tabs-wrapper" class="vl-tabs__wrapper">
                     <ul id="tab-list" class="vl-tabs" tabs-list role="tablist" aria-label="tabs"></ul>

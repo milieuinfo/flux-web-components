@@ -14,20 +14,21 @@ export class VlSearchComponent extends BaseHTMLElement {
     }
 
     constructor() {
-        super(`
-      <style>
-        ${resetStyle}
-        ${buttonStyles}
-        ${vlIconStyles}
-        ${inputFieldStyles}
-        ${selectStyle}
-        ${vlSearchFluxStyles}
-      </style>
-      <div class="vl-search">
-        <slot name="input"></slot>
-        <input class="vl-search__input vl-input-field" type="search" id="search-input" value="" title="Zoekterm"/>
-      </div>
-    `);
+        const html = `
+            <div class="vl-search">
+                <slot name="input"></slot>
+                <input class="vl-search__input vl-input-field" type="search" id="search-input" value="" title="Zoekterm"/>
+            </div>
+        `;
+        const styleSheets = [
+            resetStyle.styleSheet!,
+            buttonStyles.styleSheet!,
+            vlIconStyles.styleSheet!,
+            inputFieldStyles.styleSheet!,
+            selectStyle.styleSheet!,
+            vlSearchFluxStyles.styleSheet!,
+        ];
+        super(html, styleSheets);
     }
 
     static get _observedAttributes() {

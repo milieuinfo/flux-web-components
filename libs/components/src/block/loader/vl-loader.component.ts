@@ -9,22 +9,23 @@ export class VlLoaderComponent extends BaseHTMLElement {
     }
 
     constructor() {
-        super(`
-          <style>
-            ${resetStyle}
-            ${loaderStyle}
-            ${alignStyle}
-            ${accessibilityStyle}
-          </style>
-          <div class="vl-u-align-center">
-            <div class="vl-loader" role="alert" aria-busy="true"></div>
-            <p id="text">
-              <slot>
-                Pagina is aan het laden
-              </slot>
-            </p>
-          </div>
-        `);
+        const html = `
+            <div class="vl-u-align-center">
+                <div class="vl-loader" role="alert" aria-busy="true"></div>
+                <p id="text">
+                    <slot>
+                        Pagina is aan het laden
+                    </slot>
+                </p>
+            </div>
+        `;
+        const styleSheets = [
+            resetStyle.styleSheet!,
+            loaderStyle.styleSheet!,
+            alignStyle.styleSheet!,
+            accessibilityStyle.styleSheet!,
+        ];
+        super(html, styleSheets);
     }
 
     get _loader() {

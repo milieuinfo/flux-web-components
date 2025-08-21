@@ -14,14 +14,13 @@ export class VlCookieConsentOptIn extends BaseHTMLElement {
     }
 
     constructor() {
-        super(`
-      <style>
-        ${vlLegacyStyles.join('')}
-      </style>
-      <div>
-          <vl-checkbox></vl-checkbox>
-      </div>
-    `);
+        const html = `
+            <div>
+                <vl-checkbox></vl-checkbox>
+            </div>
+        `;
+        const styleSheets = [...vlLegacyStyles.map((style) => style.styleSheet!)];
+        super(html, styleSheets);
     }
 
     get checked() {

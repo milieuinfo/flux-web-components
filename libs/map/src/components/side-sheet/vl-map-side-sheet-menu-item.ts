@@ -8,32 +8,35 @@ export class VlMapSideSheetMenuItem extends BaseHTMLElement {
     }
 
     constructor() {
-        super(`
-      <style>
-        ${vlLinkIconStyles}
-        ${vlIconStyles}
-        ${vlLinkStyles('.vl-link')}
+        const html = `
+            <div>
+                <div class="vl-map-side-sheet-menu-item">
+                    <a id="vl-map-side-sheet-menu-item-link" class="vl-link" href="#">
+                        <span class="vl-icon vl-icon--arrow-left-fat vl-link__icon vl-link__icon--before"></span><span id="title">Terug</span>
+                    </a>
+                </div>
+                <slot></slot>
+            </div>
+        `;
+        const customStyleSheet = new CSSStyleSheet();
+        customStyleSheet.replaceSync(`
+            .vl-map-side-sheet-menu-item {
+                background: #e8ebee;
+                padding: 2rem;
+            }
 
-
-        .vl-map-side-sheet-menu-item {
-          background: #e8ebee;
-          padding: 2rem;
-        }
-
-        slot {
-          padding: 1.5rem;
-          display: block;
-        }
-      </style>
-      <div>
-        <div class="vl-map-side-sheet-menu-item">
-          <a id="vl-map-side-sheet-menu-item-link" class="vl-link" href="#">
-            <span class="vl-icon vl-icon--arrow-left-fat vl-link__icon vl-link__icon--before"></span><span id="title">Terug</span>
-          </a>
-        </div>
-        <slot></slot>
-      </div>
-    `);
+            slot {
+                padding: 1.5rem;
+                display: block;
+            }
+        `);
+        const styleSheets = [
+            vlLinkIconStyles.styleSheet!,
+            vlIconStyles.styleSheet!,
+            vlLinkStyles('.vl-link').styleSheet!,
+            customStyleSheet,
+        ];
+        super(html, styleSheets);
     }
 
     get _titleElement() {

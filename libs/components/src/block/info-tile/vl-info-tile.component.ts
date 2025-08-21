@@ -21,18 +21,7 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
     }
 
     constructor() {
-        super(`
-            <style>
-                ${resetStyle}
-                ${baseStyle}
-                ${vlLegacyStyles.join('')}
-                ${infoTileStyle}
-                ${vlInfoTyleFluxStyles}
-                ${linkStyle}
-                ${toggleStyle}
-                ${accordionStyle}
-                ${iconStyle}
-            </style>
+        const html = `
             <div class="vl-info-tile">
                 <header class="vl-info-tile__header" role="presentation">
                     <div class="vl-info-tile__badge__wrapper">
@@ -40,7 +29,7 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
                         <div id="icon" class="vl-info-tile__icon">
                             <i class="vl-vi vl-vi-u-l" aria-hidden="true"></i>
                         </div>
-                    </div>      
+                    </div>
                     <div id="wrapper" class="vl-info-tile__header__wrapper">
                         <div class="vl-info-tile__title-wrapper">
                         <h3 id="title" class="vl-info-tile__header__title">
@@ -64,7 +53,19 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
                     <slot name="footer"></slot>
                 </footer>
             </div>
-        `);
+        `;
+        const styleSheets = [
+            resetStyle.styleSheet!,
+            baseStyle.styleSheet!,
+            ...vlLegacyStyles.map((style) => style.styleSheet!),
+            infoTileStyle.styleSheet!,
+            vlInfoTyleFluxStyles.styleSheet!,
+            linkStyle.styleSheet!,
+            toggleStyle.styleSheet!,
+            accordionStyle.styleSheet!,
+            iconStyle.styleSheet!,
+        ];
+        super(html, styleSheets);
     }
 
     connectedCallback() {

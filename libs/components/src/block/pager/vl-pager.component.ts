@@ -21,16 +21,7 @@ export interface Pagination {
 @webComponent('vl-pager')
 export class VlPagerComponent extends BaseHTMLElement implements Pagination {
     constructor() {
-        super();
-        this.shadow(`
-          <style>
-            ${resetStyle}
-            ${pagerStyle}
-            ${vlPagerFluxStyles}
-            ${iconStyle}
-            ${linkStyle}
-            ${accessibilityStyle}
-          </style>
+        const html = `
           <div class="vl-pager">
             <ul id="pager-list" class="vl-pager__list">
               <li id="bounds" class="vl-pager__element"></li>
@@ -48,7 +39,16 @@ export class VlPagerComponent extends BaseHTMLElement implements Pagination {
               </li>
             </ul>
           </div>
-        `);
+        `;
+        const styleSheets = [
+            resetStyle.styleSheet!,
+            pagerStyle.styleSheet!,
+            vlPagerFluxStyles.styleSheet!,
+            iconStyle.styleSheet!,
+            linkStyle.styleSheet!,
+            accessibilityStyle.styleSheet!,
+        ];
+        super(html, styleSheets);
 
         this.__addPageBackLinkListener();
         this.__addPageForwardLinkListener();
