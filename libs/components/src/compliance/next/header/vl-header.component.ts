@@ -99,29 +99,18 @@ export class VlHeaderNext extends BaseLitElement {
     }
 
     private injectHeaderContainer() {
-        const vlBody = document.querySelector('body');
-
         if (this.headerContainer) return;
 
-        (vlBody || document.body).insertAdjacentHTML(
+        (document.querySelector('body') || document.body).insertAdjacentHTML(
             'afterbegin',
             '<header id="header__container"><div id="header"></div></header>'
         );
-
-        this.addStylesToInjectedElement('#header__container', headerContainerStyles);
+        document.adoptedStyleSheets = [...document.adoptedStyleSheets, headerContainerStyles.styleSheet!];
     }
 
     private injectHeaderContainerSkeleton() {
         this.headerContainer?.insertAdjacentHTML('afterend', '<div id="header__skeleton"></div>');
-        this.addStylesToInjectedElement('#header__skeleton', headerSkeletonStyles);
-    }
-
-    private addStylesToInjectedElement(selector: string, cssContent: CSSResult) {
-        const style = document.createElement('style');
-        style.textContent = cssContent.cssText;
-
-        const element = document.querySelector(selector);
-        element?.appendChild(style);
+        document.adoptedStyleSheets = [...document.adoptedStyleSheets, headerSkeletonStyles.styleSheet!];
     }
 
     private async isUserAuthenticated(): Promise<boolean> {

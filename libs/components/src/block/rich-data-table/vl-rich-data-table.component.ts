@@ -1,11 +1,8 @@
 import { registerWebComponents, webComponentPromised } from '@domg-wc/common';
-import { vlLegacyStyles } from '@domg-wc/styles';
 import { RichData, VlRichData } from '../rich-data/vl-rich-data.component';
 import { VlTableComponent } from '../table/vl-table.component';
-import { tableStyles } from '../table/vl-table.css';
 import { VlRichDataField } from './vl-rich-data-field.component';
 import { VlRichDataSorter } from './vl-rich-data-sorter.component';
-import { vlRichDataTableFluxStyles } from './vl-rich-data-table.flux-css';
 
 type ForEachNodeFn = (value: Node, key: number, parent: NodeList) => void;
 type Sorter = Pick<VlRichDataSorter, 'name' | 'direction' | 'priority'>;
@@ -20,28 +17,30 @@ export class VlRichDataTable extends VlRichData {
     }
 
     constructor() {
-        super(
-            `
-          <style>
-            ${vlLegacyStyles.join('')}
-            ${vlRichDataTableFluxStyles}
-            ${tableStyles}
-          </style>
-        <vl-table slot="content">
-          <table>
-            <thead>
-              <tr></tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </vl-table>
-        `
-        );
+        const content = `
+            <vl-table slot="content">
+                <table>
+                    <thead>
+                        <tr></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </vl-table>
+        `;
+        super(content);
+
         this.__observeSorters();
     }
 
     static get _observedAttributes() {
-        return super._observedAttributes.concat(['data', 'collapsed-m', 'collapsed-s', 'collapsed-xs', 'zebra', 'flux-zebra']);
+        return super._observedAttributes.concat([
+            'data',
+            'collapsed-m',
+            'collapsed-s',
+            'collapsed-xs',
+            'zebra',
+            'flux-zebra',
+        ]);
     }
 
     static get _tableAttributes(): string[] {

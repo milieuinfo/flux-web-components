@@ -20,16 +20,13 @@ export class VlProzaMessage extends BaseHTMLElement {
     }
 
     constructor() {
-        super();
-        this.shadow(`
-          <style>
-            ${vlLegacyStyles.join('')}
-            ${vlProzaMessageFluxStyles}
-          </style>
-          <div>
-            <vl-typography></vl-typography>
-          </div>
-        `);
+        const html = `
+            <div>
+                <vl-typography></vl-typography>
+            </div>
+        `;
+        const styleSheets = [...vlLegacyStyles.map((style) => style.styleSheet!), vlProzaMessageFluxStyles.styleSheet!];
+        super(html, styleSheets);
     }
 
     static get _observedAttributes() {

@@ -20,12 +20,12 @@ export class VlCookie extends BaseHTMLElement {
     }
 
     constructor({ title, name, purpose, domain, processor, validity }: VlCookieProps = {}) {
-        super(`
-            <style>
-                ${vlLegacyStyles.join('')}
-                ${vlCookieStatementFluxStyles}
-            </style>
-    `);
+        const html = `<div></div>`;
+        const styleSheets = [
+            ...vlLegacyStyles.map((style) => style.styleSheet!),
+            vlCookieStatementFluxStyles.styleSheet!,
+        ];
+        super(html, styleSheets);
 
         const nameTemplate = () => {
             const _name = name || this.getAttribute('name');

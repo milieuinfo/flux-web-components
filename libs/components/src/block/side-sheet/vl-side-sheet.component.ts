@@ -16,35 +16,34 @@ export class VlSideSheet extends BaseHTMLElement {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     constructor(style = '') {
-        super(`
-          <style>
-            ${vlLegacyStyles.join('')}
-            ${vlSideSheetFluxStyles}
-            ${vlAccessibilityStyles}
-            ${vlSectionStyles}
-            ${vlContentBlockStyles}
-          </style>
-          <div>
-              <vl-button
-                  aria-expanded="false"
-                  aria-controls="vl-side-sheet"
-                  icon="nav-left"
-                  tertiary
-                  part="toggle-button"
-                  class="vl-side-sheet__toggle"
-                  label="toggle side-sheet"
-              >
-              </vl-button>
-              <div id="vl-side-sheet-backdrop"></div>
-              <div id="vl-side-sheet">
-                <section class="vl-section">
-                  <div class="vl-content-block">
-                    <slot></slot>
-                  </div>
-                </section>
-              </div>
-          </div>
-        `);
+        const html = `
+            <div>
+                <vl-button aria-expanded="false"
+                           aria-controls="vl-side-sheet"
+                           icon="nav-left"
+                           tertiary
+                           part="toggle-button"
+                           class="vl-side-sheet__toggle"
+                           label="toggle side-sheet"
+                ></vl-button>
+                <div id="vl-side-sheet-backdrop"></div>
+                <div id="vl-side-sheet">
+                    <section class="vl-section">
+                        <div class="vl-content-block">
+                            <slot></slot>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        `;
+        const styleSheets = [
+            ...vlLegacyStyles.map((style) => style.styleSheet!),
+            vlSideSheetFluxStyles.styleSheet!,
+            vlAccessibilityStyles.styleSheet!,
+            vlSectionStyles.styleSheet!,
+            vlContentBlockStyles.styleSheet!,
+        ];
+        super(html, styleSheets);
     }
 
     static get _observedAttributes() {

@@ -25,21 +25,11 @@ export class VlModalComponent extends BaseHTMLElement {
     }
 
     constructor() {
-        super(`
-            <style>
-                ${resetStyle}
-                ${modalStyle}
-                ${vlModalFluxStyles}
-                ${accessibilityStyle}
-                ${vlGroupStyles}
-                ${vlGridStyles}
-                ${vlStackedStyles}
-                ${vlIconStyles}
-            </style>
+        const html = `
             <div class="vl-modal">
                 <dialog class="vl-modal-dialog" id="modal-dialog" modal tabindex="-1"
-                aria-modal="true" aria-hidden="true" aria-labelledby="modal-toggle-title"
-                 aria-describedby="modal-toggle-description">
+                        aria-modal="true" aria-hidden="true" aria-labelledby="modal-toggle-title"
+                        aria-describedby="modal-toggle-description">
                     <div class="vl-modal-dialog__wrapper" id="modal-dialog-wrapper">
                         <div class="vl-grid vl-stacked-small">
                             <div id="modal-toggle-description" class="vl-column vl-column--12 vl-column--m-12 vl-modal-dialog__content">
@@ -49,15 +39,26 @@ export class VlModalComponent extends BaseHTMLElement {
                                 <div id="modal-action-group" class="vl-group">
                                     <slot name="button" modal-close></slot>
                                     <vl-link id="modal-toggle-cancellable"
-                                     button-as-link icon="cross" icon-placement="before"
-                                     modal-close>Annuleer</vl-link>
+                                             button-as-link icon="cross" icon-placement="before"
+                                             modal-close>Annuleer</vl-link>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </dialog>
             </div>
-        `);
+        `;
+        const styleSheets = [
+            resetStyle.styleSheet!,
+            modalStyle.styleSheet!,
+            vlModalFluxStyles.styleSheet!,
+            accessibilityStyle.styleSheet!,
+            vlGroupStyles.styleSheet!,
+            vlGridStyles.styleSheet!,
+            vlStackedStyles.styleSheet!,
+            vlIconStyles.styleSheet!,
+        ];
+        super(html, styleSheets);
     }
 
     static get _observedAttributes() {

@@ -14,15 +14,7 @@ export class VlHttpErrorMessage extends BaseHTMLElement {
     }
 
     constructor() {
-        super(`
-          <style>
-            ${vlResetStyles}
-            ${vlTitleStyles.join('')}
-            ${vlHttpErrorMessageFluxStyles}
-            ${vlGroupStyles}
-            ${vlGridStyles}
-            ${vlStackedStyles}
-          </style>
+        const html = `
           <div class="vl-form-message-container vl-grid vl-stacked-small">
             <div class="vl-column vl-column--justify-self-center vl-column--6  vl-column--m-6  vl-column--s-8 vl-column--xs-12">
               <div class="vl-grid vl-stacked-small">
@@ -54,7 +46,16 @@ export class VlHttpErrorMessage extends BaseHTMLElement {
                 <img id="image-normal"/>
             </div>
           </div>
-        `);
+        `;
+        const styleSheets = [
+            vlResetStyles.styleSheet!,
+            ...vlTitleStyles.map((style) => style.styleSheet!),
+            vlHttpErrorMessageFluxStyles.styleSheet!,
+            vlGroupStyles.styleSheet!,
+            vlGridStyles.styleSheet!,
+            vlStackedStyles.styleSheet!,
+        ];
+        super(html, styleSheets);
 
         GlobalStyles.getInstance().register();
     }

@@ -24,13 +24,7 @@ export class VlRichData extends BaseHTMLElement {
     }
 
     constructor(content = '') {
-        super(`
-            <style>
-                ${vlLegacyStyles.join('')}
-                ${vlRichDataFluxStyles}
-                ${vlIconStyles}
-                ${vlGridStyles}
-            </style>
+        const html = `
             <div class="vl-rich-data">
                 <div id="toggle-filter" class="vl-u-align-right vl-u-hidden--s" hidden>
                     <vl-button id="toggle-filter-button" icon="content-filter" secondary
@@ -71,7 +65,14 @@ export class VlRichData extends BaseHTMLElement {
                     <slot name="pager"></slot>
                 </div>
             </div>
-        `);
+        `;
+        const styleSheets = [
+            ...vlLegacyStyles.map((style) => style.styleSheet!),
+            vlRichDataFluxStyles.styleSheet!,
+            vlIconStyles.styleSheet!,
+            vlGridStyles.styleSheet!,
+        ];
+        super(html, styleSheets);
 
         this.setFilterMaxWidthCssProperty();
     }

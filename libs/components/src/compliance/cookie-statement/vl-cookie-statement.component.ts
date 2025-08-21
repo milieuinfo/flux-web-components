@@ -40,17 +40,18 @@ export class VlCookieStatement extends BaseHTMLElement {
     }
 
     constructor() {
-        super(`
-            <style>
-                ${vlResetStyles}
-                ${vlLegacyStyles.join('')}
-                ${vlCookieStatementFluxStyles}
-                ${vlSectionStyles}
-                ${vlGridStyles}
-                ${vlContentBlockStyles}
-            </style>
-             <slot name="header"></slot>
-            `);
+        const html = `
+            <slot name="header"></slot>
+        `;
+        const styleSheets = [
+            vlResetStyles.styleSheet!,
+            ...vlLegacyStyles.map((style) => style.styleSheet!),
+            vlCookieStatementFluxStyles.styleSheet!,
+            vlSectionStyles.styleSheet!,
+            vlGridStyles.styleSheet!,
+            vlContentBlockStyles.styleSheet!,
+        ];
+        super(html, styleSheets);
 
         const headerSlot = this.shadowRoot?.querySelector<HTMLElement>('slot[name="header"]');
 

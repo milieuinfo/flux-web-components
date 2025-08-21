@@ -6,13 +6,7 @@ import { vlContactCardFluxStyles } from './vl-contact-card.flux-css';
 @webComponent('vl-contact-card')
 export class VlContactCardComponent extends BaseHTMLElement {
     constructor() {
-        super(`
-            <style>
-                ${vlResetStyles}
-                ${contactCardStyle}
-                ${vlContactCardFluxStyles}
-                ${vlGridStyles}
-            </style>
+        const html = `
             <div class="vl-contact-data">
                 <div class="vl-grid">
                     <div class="vl-column vl-column--4 vl-column--m-12">
@@ -23,7 +17,14 @@ export class VlContactCardComponent extends BaseHTMLElement {
                     </div>
                 </div>
             </div>
-         `);
+        `;
+        const styleSheets = [
+            vlResetStyles.styleSheet!,
+            contactCardStyle.styleSheet!,
+            vlContactCardFluxStyles.styleSheet!,
+            vlGridStyles.styleSheet!,
+        ];
+        super(html, styleSheets);
     }
 }
 

@@ -11,24 +11,25 @@ export class VlInfoblockComponent extends BaseHTMLElement {
     }
 
     constructor() {
-        super(`
-          <style>
-            ${resetStyle}
-            ${vlTitleStyles.join('')}
-            ${infoblockStyle}
-          </style>
-          <section id="infoblock-element" class="vl-infoblock">
-            <header class="vl-infoblock__header" role="presentation">
-              <vl-icon id="infoblock_icon" class="vl-infoblock__header__icon"></vl-icon>
-              <slot name="title">
-                  <h2 id="title_content" class="vl-infoblock__title">tester</h2>
-              </slot>
-            </header>
-            <div class="vl-infoblock__content" id="infoblock_content">
-              <slot></slot>
-            </div>
-          </section>
-        `);
+        const html = `
+            <section id="infoblock-element" class="vl-infoblock">
+                <header class="vl-infoblock__header" role="presentation">
+                    <vl-icon id="infoblock_icon" class="vl-infoblock__header__icon"></vl-icon>
+                    <slot name="title">
+                        <h2 id="title_content" class="vl-infoblock__title">tester</h2>
+                    </slot>
+                </header>
+                <div class="vl-infoblock__content" id="infoblock_content">
+                    <slot></slot>
+                </div>
+            </section>
+        `;
+        const styleSheets = [
+            resetStyle.styleSheet!,
+            ...vlTitleStyles.map((style) => style.styleSheet!),
+            infoblockStyle.styleSheet!,
+        ];
+        super(html, styleSheets);
     }
 
     static get _observedAttributes() {

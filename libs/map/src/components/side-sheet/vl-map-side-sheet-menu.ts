@@ -4,16 +4,18 @@ import { vlLegacyStyles } from '@domg-wc/styles';
 @webComponent('vl-map-side-sheet-menu')
 export class VlMapSideSheetMenu extends BaseHTMLElement {
     constructor() {
-        super(`
-      <style>
-        ${vlLegacyStyles.join('')}
-        :host {
-          margin: -1.5rem;
-          display: block;
-        }
-      </style>
-      <slot></slot>
-    `);
+        const html = `
+            <slot></slot>
+        `;
+        const customStyleSheet = new CSSStyleSheet();
+        customStyleSheet.replaceSync(`
+            :host {
+                margin: -1.5rem;
+                display: block;
+            }
+        `);
+        const styleSheets = [...vlLegacyStyles.map((style) => style.styleSheet!), customStyleSheet];
+        super(html, styleSheets);
     }
 }
 

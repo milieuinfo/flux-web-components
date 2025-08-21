@@ -9,14 +9,7 @@ export class VlDocumentComponent extends BaseHTMLElement {
     }
 
     constructor() {
-        super(`
-          <style>
-            ${resetStyle}
-            ${baseStyle}
-            ${elementStyle}
-            ${documentStyle}
-            ${iconStyle}
-          </style>
+        const html = `
           <a class="vl-document" href="#" download>
             <div class="vl-document__type">
               <i class="vl-vi vl-vi-document" aria-hidden="true"></i>
@@ -33,7 +26,15 @@ export class VlDocumentComponent extends BaseHTMLElement {
               </div>
             </div>
           </a>
-        `);
+        `;
+        const styleSheets = [
+            resetStyle.styleSheet!,
+            baseStyle.styleSheet!,
+            elementStyle.styleSheet!,
+            documentStyle.styleSheet!,
+            iconStyle.styleSheet!,
+        ];
+        super(html, styleSheets);
     }
 
     _hrefChangedCallback(oldValue: string, newValue: string) {
