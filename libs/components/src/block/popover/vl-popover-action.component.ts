@@ -1,8 +1,8 @@
 import { BaseLitElement } from '@domg-wc/common';
+import { vlIconStyles } from '@domg-wc/components/atom';
 import { resetStyle } from '@domg/govflanders-style/common';
-import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
+import { CSSResult, html, nothing, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { vlPopoverActionFluxStyles } from './vl-popover-action.flux-css';
 
 @customElement('vl-popover-action')
@@ -22,6 +22,11 @@ export class VlPopoverActionComponent extends BaseLitElement {
             action: { type: String },
             selected: { type: Boolean },
         };
+    }
+
+    protected firstUpdated(changedProperties: PropertyValues) {
+        super.firstUpdated(changedProperties);
+        this.setAttribute('role', 'option');
     }
 
     updated(changedProperties: Map<string | number | symbol, unknown>) {

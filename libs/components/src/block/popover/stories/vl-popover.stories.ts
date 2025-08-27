@@ -6,7 +6,7 @@ import { html } from 'lit-html';
 import { VlPopoverActionListComponent } from '../vl-popover-action-list.component';
 import { VlPopoverActionComponent } from '../vl-popover-action.component';
 import { VlPopoverComponent } from '../vl-popover.component';
-import { popoverActionArgs, popoverActionArgTypes } from './vl-popover-action.stories-arg';
+import { popoverActionArgs } from './vl-popover-action.stories-arg';
 import { popoverArgTypes, popoverDefaultArgs } from './vl-popover.stories-arg';
 import popoverDoc from './vl-popover.stories-doc.mdx';
 import { VlButtonComponent } from '../../../atom/button';
@@ -26,9 +26,12 @@ export default {
     },
 } as Meta<typeof popoverDefaultArgs>;
 
+const relativePositionDecorator = (story: () => unknown) =>
+    html` <div style="position: relative;min-height: 150px;">${story()}</div>`;
+
 export const PopoverDefault = story(
     popoverDefaultArgs,
-    ({ trigger, contentPadding, open, placement, hideArrow, hideOnClick, distance }) => {
+    ({ trigger, contentPadding, open, placement, hideArrow, hideOnClick, distance, strategy }) => {
         const actionListClickHandler = (event: CustomEvent) => {
             const actionElement = event.target as VlPopoverActionComponent;
             action('click')('vl-popover-action clicked > ' + actionElement.action);
@@ -50,6 +53,7 @@ export const PopoverDefault = story(
                 hide-arrow=${hideArrow}
                 hide-on-click="${hideOnClick}"
                 distance=${distance}
+                strategy=${strategy}
                 content-padding=${contentPadding}
             >
                 <vl-popover-action-list @click=${actionListClickHandler}>
@@ -62,13 +66,14 @@ export const PopoverDefault = story(
     }
 );
 PopoverDefault.storyName = 'vl-popover - default';
+PopoverDefault.decorators = [relativePositionDecorator];
 PopoverDefault.args = {
     placement: 'bottom-start',
 };
 
 export const PopoverHover = story(
     popoverDefaultArgs,
-    ({ trigger, open, contentPadding, placement, hideArrow, hideOnClick, distance }) => {
+    ({ trigger, open, contentPadding, placement, hideArrow, hideOnClick, distance, strategy }) => {
         return html`
             <vl-button id="btn-close" aria-describedby="tooltip">Hover over me</vl-button>
             <vl-popover
@@ -79,6 +84,7 @@ export const PopoverHover = story(
                 hide-arrow=${hideArrow}
                 hide-on-click=${hideOnClick}
                 distance=${distance}
+                strategy=${strategy}
                 content-padding=${contentPadding}
             >
                 Een boodschap die context geeft.
@@ -87,12 +93,12 @@ export const PopoverHover = story(
     }
 );
 PopoverHover.storyName = 'vl-popover - hover';
+PopoverHover.decorators = [relativePositionDecorator];
 PopoverHover.args = {
     trigger: 'focus hover',
 };
 PopoverHover.parameters = {
     layout: 'centered',
-    contentPadding: 'medium',
 };
 
 export const PopoverActions = story(popoverActionArgs, ({ selected }) => {
@@ -116,8 +122,6 @@ export const PopoverActions = story(popoverActionArgs, ({ selected }) => {
     `;
 });
 PopoverActions.storyName = 'vl-popover - actions';
-PopoverActions.args = popoverActionArgs;
-PopoverActions.argTypes = popoverActionArgTypes;
 PopoverActions.parameters = {
     controls: {
         include: ['selected'],
@@ -148,8 +152,6 @@ export const PopoverActionsDivider = story(popoverActionArgs, ({ selected }) => 
     `;
 });
 PopoverActionsDivider.storyName = 'vl-popover - actions divider';
-PopoverActionsDivider.args = popoverActionArgs;
-PopoverActionsDivider.argTypes = popoverActionArgTypes;
 PopoverActionsDivider.parameters = {
     controls: {
         include: ['selected'],

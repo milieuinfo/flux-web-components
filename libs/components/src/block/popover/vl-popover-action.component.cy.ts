@@ -1,8 +1,9 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import { VlPopoverActionComponent } from './vl-popover-action.component';
+import { VlPopoverActionListComponent } from './vl-popover-action-list.component';
 
-registerWebComponents([VlPopoverActionComponent]);
+registerWebComponents([VlPopoverActionComponent, VlPopoverActionListComponent]);
 
 describe('component vl-popover-action - default', () => {
     it('should mount', () => {
@@ -11,7 +12,11 @@ describe('component vl-popover-action - default', () => {
     });
 
     it('should be accessible', () => {
-        cy.mount(html` <vl-popover-action icon="search">Zoeken</vl-popover-action> `);
+        cy.mount(html`
+            <vl-popover-action-list>
+                <vl-popover-action icon="search">Zoeken</vl-popover-action>
+            </vl-popover-action-list>
+        `);
 
         cy.injectAxe();
         cy.get('vl-popover-action').click();
@@ -19,7 +24,11 @@ describe('component vl-popover-action - default', () => {
     });
 
     it('should set selected', () => {
-        cy.mount(html` <vl-popover-action icon="search">Zoeken</vl-popover-action> `);
+        cy.mount(html`
+            <vl-popover-action-list>
+                <vl-popover-action icon="search">Zoeken</vl-popover-action>
+            </vl-popover-action-list>
+        `);
 
         cy.injectAxe();
         cy.get('vl-popover-action').should('not.have.attr', 'aria-selected', 'true');

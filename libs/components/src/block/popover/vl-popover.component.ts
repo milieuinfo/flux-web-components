@@ -1,13 +1,13 @@
 import { BaseLitElement, registerWebComponents } from '@domg-wc/common';
 import { vlLegacyStyles } from '@domg-wc/styles';
 import { resetStyle } from '@domg/govflanders-style/common';
-import type { Placement } from '@floating-ui/dom';
 import { CSSResult, html, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import FloatingController from './vl-floating-ui.controller';
 import { VlPopoverActionListComponent } from './vl-popover-action-list.component';
 import { VlPopoverActionComponent } from './vl-popover-action.component';
+import { popoverDefaults } from './vl-popover.defaults';
 import { vlPopoverFluxStyles } from './vl-popover.flux-css';
 
 @customElement('vl-popover')
@@ -15,13 +15,14 @@ export class VlPopoverComponent extends BaseLitElement {
     open = false;
 
     private popup!: FloatingController;
-    private for = ''; // html id van het referentie-element
-    private trigger = 'click';
-    private placement: Placement = 'bottom';
-    private distance = 10; // afstand van referentie-element in px
-    private hideArrow = false;
-    private contentPadding: 'none' | 'small' | 'medium' | 'large' = 'small';
-    private hideOnClick = false;
+    private for = popoverDefaults.for; // html id van het referentie-element
+    private trigger = popoverDefaults.trigger;
+    private placement = popoverDefaults.placement;
+    private distance = popoverDefaults.distance; // afstand van referentie-element in px
+    private hideArrow = popoverDefaults.hideArrow;
+    private contentPadding = popoverDefaults.contentPadding;
+    private hideOnClick = popoverDefaults.hideOnClick;
+    private strategy = popoverDefaults.strategy;
 
     static {
         registerWebComponents([VlPopoverActionComponent, VlPopoverActionListComponent]);
@@ -41,6 +42,7 @@ export class VlPopoverComponent extends BaseLitElement {
             distance: { type: Number, attribute: 'distance' },
             hideArrow: { type: Boolean, attribute: 'hide-arrow' },
             hideOnClick: { type: Boolean, attribute: 'hide-on-click' },
+            strategy: { type: String, attribute: 'strategy' },
         };
     }
 
@@ -107,6 +109,7 @@ export class VlPopoverComponent extends BaseLitElement {
             showDelay: 0,
             hideDelay: 0,
             hideOnClick: this.hideOnClick,
+            strategy: this.strategy,
         };
     }
 }

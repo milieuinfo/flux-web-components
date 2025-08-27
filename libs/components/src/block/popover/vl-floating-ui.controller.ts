@@ -1,6 +1,16 @@
 import { LitElement, ReactiveController } from 'lit';
 import { offsetParent } from 'composed-offset-position';
-import { computePosition, arrow, flip, shift, offset, type Placement, Middleware, platform } from '@floating-ui/dom';
+import {
+    computePosition,
+    arrow,
+    flip,
+    shift,
+    offset,
+    type Placement,
+    Middleware,
+    platform,
+    Strategy,
+} from '@floating-ui/dom';
 
 type FloatingControllerOptions = {
     reference: string;
@@ -10,6 +20,7 @@ type FloatingControllerOptions = {
     showDelay: number;
     hideDelay: number;
     hideOnClick: boolean;
+    strategy: Strategy;
 };
 
 interface FloatingElement extends LitElement {
@@ -71,21 +82,17 @@ export default class FloatingController implements ReactiveController {
             return;
         }
 
-        const { x, y, strategy, placement, middlewareData } = await computePosition(
-            this.getReferenceElement()!,
-            this.host,
-            {
-                placement: this.options.placement,
-                middleware: this.buildMiddlewares(),
-                platform: {
-                    ...platform,
-                    getOffsetParent: (element) => platform.getOffsetParent(element, offsetParent),
-                },
-            }
-        );
+        const { x, y, placement, middlewareData } = await computePosition(this.getReferenceElement()!, this.host, {
+            placement: this.options.placement,
+            middleware: this.buildMiddlewares(),
+            platform: {
+                ...platform,
+                getOffsetParent: (element) => platform.getOffsetParent(element, offsetParent),
+            },
+        });
 
         Object.assign(this.host.style, {
-            position: strategy,
+            position: this.options.strategy,
             left: `${x}px`,
             top: `${y}px`,
         });
