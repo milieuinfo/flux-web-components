@@ -1,25 +1,21 @@
+// de import is bewust op deze manier om voor de web-types.generator 'binnen' de monorepo geen side-effect te geven
 import {
     CATEGORIES,
     CONTROLS,
     defaultArgs,
     defaultArgTypes,
     getSelectControlOptions,
+    PADDINGS,
     TYPES,
 } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components';
-// de import is bewust op deze manier om voor de web-types.generator 'binnen' de monorepo geen side-effect te geven
-import { PADDINGS } from '@resources/utils-storybook';
+import { popoverDefaults, PopoverDefaults } from '../vl-popover.defaults';
 
-export const popoverDefaultArgs = {
+export type PopoverArgs = typeof defaultArgs & PopoverDefaults;
+
+export const popoverDefaultArgs: PopoverArgs = {
     ...defaultArgs,
-    contentPadding: 'small',
-    for: '',
-    trigger: 'click',
-    hideArrow: false,
-    hideOnClick: false,
-    open: false,
-    placement: 'bottom',
-    distance: 10,
+    ...popoverDefaults,
 };
 
 export const popoverArgTypes: ArgTypes = {
@@ -102,6 +98,18 @@ export const popoverArgTypes: ArgTypes = {
             type: { summary: ['click', 'focus', 'hover'] },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: popoverDefaultArgs.trigger },
+        },
+    },
+    strategy: {
+        name: 'strategy',
+        description:
+            'Positioneringsstrategie van de popover. <br> [Meer info hier](https://floating-ui.com/docs/computePosition#strategy)',
+        control: { type: CONTROLS.SELECT },
+        options: ['absolute', 'fixed'],
+        table: {
+            type: { summary: ['absolute', 'fixed'] },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: popoverDefaultArgs.strategy },
         },
     },
 };

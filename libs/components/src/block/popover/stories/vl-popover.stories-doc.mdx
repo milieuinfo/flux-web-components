@@ -28,7 +28,7 @@ import { VlPopoverComponent } from '@domg-wc/components/block';
 <ArgTypes of={VlPopoverStories.PopoverDefault} />
 
 
-## Extra informatie
+## Gebruik
 
 ### Oriëntatie
 
@@ -51,6 +51,14 @@ Dit is er zodat de stijl van DV gevolgd wordt.
 Je kan de pijl verbergen door `hide-arrow` in te stellen.
 De afstand tot het referentie-element kan je volledig zelf bepalen.
 
+### Strategy
+> [strategy documentatie bij floating-ui](https://floating-ui.com/docs/computePosition#strategy)
+
+Default is positioneringsstrategie ingesteld op `absolute`. De popover zal gepositioneerd worden ten opzichte van het
+dichtstbijzijnde gepositioneerde parent-element (bv. een element met `position: relative`).
+
+Om te vermijden dat de popover gepositioneerd wordt tegenover het verkeerde element, kan je best de eerste parent van
+de popover instellen op `position: relative` zodat de popover steeds gepositioneerd wordt zoals verwacht.
 
 ## Varianten
 
@@ -114,7 +122,7 @@ Een lijst van acties kan visueel opgesplitst worden adhv de horizontale regel: `
 
 ### floating-ui
 
-De popover-component gebruikt achterliggend [floating-ui](https://floating-ui.com/), de opvolger van Popper
+De popover-component gebruikt achterliggend [floating-ui](https://floating-ui.com/)
 
 ### Digitaal Vlaanderen
 

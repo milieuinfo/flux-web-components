@@ -30,6 +30,8 @@ export const vlPopoverFluxStyles: CSSResult = css`
         will-change: filter;
         background-color: #fff;
         padding: 1rem;
+        max-width: 100vw;
+        word-break: break-all;
     }
 
     .padding-none {

@@ -1,7 +1,7 @@
 import { BaseLitElement } from '@domg-wc/common';
 import { vlLegacyStyles } from '@domg-wc/styles';
 import { resetStyle } from '@domg/govflanders-style/common';
-import { CSSResult, html, TemplateResult } from 'lit';
+import { CSSResult, html, PropertyValues, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { vlPopoverActionListFluxStyles } from './vl-popover-action-list.flux-css';
 
@@ -13,6 +13,11 @@ export class VlPopoverActionListComponent extends BaseLitElement {
 
     protected render(): TemplateResult {
         return html` <slot></slot> `;
+    }
+
+    protected firstUpdated(changedProperties: PropertyValues) {
+        super.firstUpdated(changedProperties);
+        this.setAttribute('role', 'listbox');
     }
 }
 

@@ -117,7 +117,7 @@ AccordionMenuSlot.args = {
     titleSlot: '<span slot="title">Lees meer over de onderwijsdoelstelling</span>',
     subtitleSlot: '<vl-annotation slot="subtitle">Lorem ipsum</vl-annotation>',
     menuSlot: `<span slot="menu">
-                 <vl-link button-as-link icon="menu" id="btn-acties"></vl-link>
+                 <vl-button ghost icon="menu" id="btn-acties" label="onderwijs-menu"></vl-button>
                  <vl-popover for="btn-acties" placement="bottom-end">
                    <vl-popover-action-list>
                      <vl-popover-action icon="search">Zoeken</vl-popover-action>

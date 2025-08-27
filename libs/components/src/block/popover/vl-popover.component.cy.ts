@@ -35,7 +35,7 @@ const mountDefault = ({
             distance=${distance || nothing}
             content-padding=${contentPadding || nothing}
         >
-            <vl-popover-action-list>
+            <vl-popover-action-list aria-label="Acties">
                 <vl-popover-action icon="search" .action=${'search'}>Zoeken</vl-popover-action>
                 <vl-popover-action icon="bell" .action=${'report'}>Rapportenoverzicht</vl-popover-action>
                 <vl-popover-action icon="pin" .action=${'locate'}>Vind locatie</vl-popover-action>
