@@ -477,9 +477,7 @@ export class VlSelectRichComponent extends FormControl {
         );
     }
 
-    private onClickChoices = (event: Event) => {
-        event.stopPropagation();
-
+    private onClickChoices = () => {
         if (!this.disabled) {
             this.choices?.showDropdown();
         }
