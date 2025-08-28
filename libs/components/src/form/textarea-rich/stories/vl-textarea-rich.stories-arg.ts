@@ -1,5 +1,5 @@
 import { CATEGORIES, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { textareaArgs, textareaArgTypes } from '../../textarea/stories/vl-textarea.stories-arg';
 import { textareaRichDefaults } from '../vl-textarea-rich.defaults';
 
@@ -39,7 +39,7 @@ export const textareaRichArgTypes: ArgTypes<TextareaRichArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: textareaRichArgs.preview },
+            defaultValue: { summary: String(textareaRichArgs.preview) },
         },
     },
     customConfig: {
@@ -49,7 +49,7 @@ export const textareaRichArgTypes: ArgTypes<TextareaRichArgs> = {
         table: {
             type: { summary: '{ key: value }' },
             category: CATEGORIES.PROPERTIES,
-            defaultValue: { summary: textareaRichArgs.customConfig },
+            defaultValue: { summary: String(textareaRichArgs.customConfig) },
         },
     },
 };

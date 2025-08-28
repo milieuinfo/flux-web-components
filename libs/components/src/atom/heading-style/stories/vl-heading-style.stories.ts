@@ -2,6 +2,7 @@ import { formattedSourceCode } from '@resources/utils-storybook';
 import { html } from 'lit-html';
 import { vlHeading1, vlHeading2, vlHeading3, vlHeading4, vlHeading5, vlHeading6 } from '../vl-heading-style.css';
 import vlHeadingStoriesDoc from './vl-heading-style.stories-doc.mdx';
+import { Meta } from '@storybook/web-components-vite';
 
 export default {
     id: 'components-atom-heading-style',
@@ -12,7 +13,7 @@ export default {
             page: vlHeadingStoriesDoc,
         },
     },
-};
+} as Meta;
 
 export const HeadingStyleDefault = ({}) => html`
     <style>

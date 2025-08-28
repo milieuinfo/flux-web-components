@@ -1,5 +1,7 @@
 import { Item, Props } from './vl-properties.model';
 
+const cloneChildNodes = (childNodes: ChildNode[]): Node[] => childNodes.map((node) => node.cloneNode(true));
+
 const buildItems = (elements: Element[]): Item[] => {
     const items: Item[] = [];
     let labels: any[] = [],
@@ -14,10 +16,10 @@ const buildItems = (elements: Element[]): Item[] => {
                     labels = [];
                     data = [];
                 }
-                labels.push(Array.from(element.childNodes).map((node) => node.cloneNode(true)));
+                labels.push(element.children.length > 0 ? cloneChildNodes([...element.childNodes]) : element.innerHTML);
                 break;
             case 'data':
-                data.push(Array.from(element.childNodes).map((node) => node.cloneNode(true)));
+                data.push(element.children.length > 0 ? cloneChildNodes([...element.childNodes]) : element.innerHTML);
                 break;
         }
     });

@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import '../../../vl-map';
 import '../../baselayer/vl-map-base-layer-grb-gray/vl-map-base-layer-grb-gray';
 import '../../layer-style/vl-map-layer-circle-style/vl-map-layer-circle-style';

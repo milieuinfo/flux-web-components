@@ -8,7 +8,7 @@ import {
     PADDINGS,
     TYPES,
 } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { popoverDefaults, PopoverDefaults } from '../vl-popover.defaults';
 
 export type PopoverArgs = typeof defaultArgs & PopoverDefaults;
@@ -18,7 +18,7 @@ export const popoverDefaultArgs: PopoverArgs = {
     ...popoverDefaults,
 };
 
-export const popoverArgTypes: ArgTypes = {
+export const popoverArgTypes: ArgTypes<typeof popoverDefaultArgs> = {
     ...defaultArgTypes,
     for: {
         name: 'for',
@@ -37,7 +37,7 @@ export const popoverArgTypes: ArgTypes = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.PROPERTIES,
-            defaultValue: { summary: popoverDefaultArgs.open },
+            defaultValue: { summary: String(popoverDefaultArgs.open) },
         },
     },
     hideArrow: {
@@ -46,7 +46,7 @@ export const popoverArgTypes: ArgTypes = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: popoverDefaultArgs.hideArrow },
+            defaultValue: { summary: String(popoverDefaultArgs.hideArrow) },
         },
     },
     hideOnClick: {
@@ -55,7 +55,7 @@ export const popoverArgTypes: ArgTypes = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: popoverDefaultArgs.hideOnClick },
+            defaultValue: { summary: String(popoverDefaultArgs.hideOnClick) },
         },
     },
     distance: {
@@ -65,7 +65,7 @@ export const popoverArgTypes: ArgTypes = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: popoverDefaultArgs.distance },
+            defaultValue: { summary: String(popoverDefaultArgs.distance) },
         },
     },
     contentPadding: {
@@ -85,7 +85,7 @@ export const popoverArgTypes: ArgTypes = {
         description:
             'Voorkeursoriëntatie van de popover als de ruimte het toelaat. Je kan ook `-start` of `-end` suffix toevoegen zodat oriëntatie start of eindigt aan respectievelijk begin of einde van het trigger element.',
         table: {
-            type: { summary: ['top', 'right', 'bottom', 'left'] },
+            type: { summary: 'top | right | bottom | left' },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: popoverDefaultArgs.placement },
         },
@@ -95,7 +95,7 @@ export const popoverArgTypes: ArgTypes = {
         description:
             'Gebruiker interacties die popover zal triggeren. Je kan verschillende combineren door ze met een spatie naast mekaar te zetten. Bv. met `focus hover` zal de popover zowel verschijnen bij focus als bij hover.',
         table: {
-            type: { summary: ['click', 'focus', 'hover'] },
+            type: { summary: 'click | focus | hover' },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: popoverDefaultArgs.trigger },
         },

@@ -1,4 +1,4 @@
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
 import { searchFilterDefaults } from '../vl-search-filter.defaults';
 
@@ -24,7 +24,7 @@ export const searchFilterArgTypes: ArgTypes<typeof searchFilterArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: searchFilterArgs.alt },
+            defaultValue: { summary: String(searchFilterArgs.alt) },
         },
     },
     mobileModal: {
@@ -34,7 +34,7 @@ export const searchFilterArgTypes: ArgTypes<typeof searchFilterArgs> = {
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: searchFilterArgs.mobileModal },
+            defaultValue: { summary: String(searchFilterArgs.mobileModal) },
         },
     },
     mobileModalTitle: {

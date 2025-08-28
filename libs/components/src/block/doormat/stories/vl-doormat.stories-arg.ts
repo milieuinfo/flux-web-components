@@ -1,5 +1,5 @@
 import { CATEGORIES, CONTROLS, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { doormatDefaults } from '../vl-doormat.defaults';
 
 export type DoormatArgs = typeof defaultArgs & typeof doormatDefaults & { titleSlot: string; textSlot: string };
@@ -28,7 +28,7 @@ export const doormatArgTypes: ArgTypes<DoormatArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: doormatArgs.external },
+            defaultValue: { summary: String(doormatArgs.external) },
         },
     },
     alt: {
@@ -37,7 +37,7 @@ export const doormatArgTypes: ArgTypes<DoormatArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: doormatArgs.alt },
+            defaultValue: { summary: String(doormatArgs.alt) },
         },
     },
     imageSrc: {
@@ -46,7 +46,7 @@ export const doormatArgTypes: ArgTypes<DoormatArgs> = {
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: doormatArgs.imageSrc },
+            defaultValue: { summary: String(doormatArgs.imageSrc) },
         },
     },
     imageAlt: {
@@ -66,7 +66,7 @@ export const doormatArgTypes: ArgTypes<DoormatArgs> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: doormatArgs.imageWidth },
+            defaultValue: { summary: String(doormatArgs.imageWidth) },
         },
     },
     imageHeight: {
@@ -76,7 +76,7 @@ export const doormatArgTypes: ArgTypes<DoormatArgs> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: doormatArgs.imageHeight },
+            defaultValue: { summary: String(doormatArgs.imageHeight) },
         },
     },
     graphic: {
@@ -86,7 +86,7 @@ export const doormatArgTypes: ArgTypes<DoormatArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: doormatArgs.graphic },
+            defaultValue: { summary: String(doormatArgs.graphic) },
         },
     },
     titleSlot: {

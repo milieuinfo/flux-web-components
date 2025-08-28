@@ -1,4 +1,4 @@
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { mapActionArgs, mapActionArgTypes } from '../../../stories/vl-map-action.stories-arg';
 import { CATEGORIES, TYPES } from '@resources/utils-storybook';
 
@@ -18,7 +18,7 @@ export const mapModifyActionArgTypes: ArgTypes<typeof mapModifyActionArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapModifyActionArgs.snapping },
+            defaultValue: { summary: String(mapModifyActionArgs.snapping) },
         },
     },
     snappingPixelTolerance: {
@@ -28,7 +28,7 @@ export const mapModifyActionArgTypes: ArgTypes<typeof mapModifyActionArgs> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapModifyActionArgs.snappingPixelTolerance },
+            defaultValue: { summary: String(mapModifyActionArgs.snappingPixelTolerance) },
         },
     },
 };

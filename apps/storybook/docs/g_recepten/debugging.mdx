@@ -1,0 +1,37 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Recepten/Debugging"/>
+
+# Debugging - map files
+
+## .map bestanden
+
+In de npm packages van de flux-web-components zitten .js.map bestanden. De gewone .js bestanden hebben een referentie
+naar die .js.map bestanden waarin de originele broncode (in TypeScript) zit. Als de configuratie juist is kan je
+daarmee de broncode van de flux-web-components debuggen.
+
+## webpack bundler
+
+Als je je eindtoepassing bundelt met [webpack](https://webpack.js.org/) dien je in je webpack configuratie de
+[source-map-loader](https://webpack.js.org/loaders/source-map-loader/) toe te voegen. Deze plugin zorgt ervoor dat
+de .js.map bestanden transitief mee opgenomen worden in de bundel van de eindtoepassing.
+
+Om de plugin te gebruiken moet je hem installeren
+```
+npm i -D source-map-loader
+```
+
+en nadien configureren
+```
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        enforce: "pre",
+        use: ["source-map-loader"],
+      },
+    ],
+  },
+};
+```

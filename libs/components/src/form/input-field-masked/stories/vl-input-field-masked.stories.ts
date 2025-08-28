@@ -1,5 +1,5 @@
 import { story } from '@resources/utils-storybook';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { inputFieldMaskedArgs, inputFieldMaskedArgTypes } from './vl-input-field-masked.stories-arg';
 import inputFieldMaskedDocs from './vl-input-field-masked.stories-doc.mdx';

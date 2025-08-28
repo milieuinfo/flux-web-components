@@ -15,20 +15,25 @@ const config = {
     module: {
         rules: [
             {
+                test: /\.css$/i,
+                resourceQuery: /raw/, // matcht ?raw
+                type: 'asset/source', // geeft de file-inhoud als string
+            },
+            {
+                test: /\.scss$/i,
+                use: [
+                    // Creates `style` nodes from JS strings
+                    'style-loader',
+                    // Translates CSS into CommonJS
+                    'css-loader',
+                    // Compiles Sass to CSS
+                    'sass-loader',
+                ],
+            },
+            {
                 test: /\.(js|ts)$/,
                 use: 'ts-loader',
                 exclude: /node_modules/,
-            },
-            {
-                test: /\.s[ac]ss$/i,
-                use: [
-                    // Creates `style` nodes from JS strings
-                    "style-loader",
-                    // Translates CSS into CommonJS
-                    "css-loader",
-                    // Compiles Sass to CSS
-                    "sass-loader",
-                ],
             },
         ],
     },

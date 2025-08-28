@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import '../vl-description-data-item.component';
 import { descriptionDataItemArgs, descriptionDataItemArgTypes } from './vl-description-data-item.stories-arg';

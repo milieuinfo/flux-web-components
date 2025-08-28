@@ -1,8 +1,8 @@
 import { CATEGORIES, CONTROLS, TYPES } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { formControlArgs, formControlArgTypes } from '../../form-control/stories/form-control.stories-arg';
 import { textareaDefaults } from '../vl-textarea.defaults';
+import { action } from 'storybook/actions';
 
 type TextareaArgs = typeof formControlArgs &
     typeof textareaDefaults & { onVlChange: () => void; onVlInput: () => void; onVlValid: () => void };
@@ -23,7 +23,7 @@ export const textareaArgTypes: ArgTypes<TextareaArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: textareaArgs.block },
+            defaultValue: { summary: String(textareaArgs.block) },
         },
     },
     readonly: {
@@ -32,7 +32,7 @@ export const textareaArgTypes: ArgTypes<TextareaArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: textareaArgs.readonly },
+            defaultValue: { summary: String(textareaArgs.readonly) },
         },
     },
     value: {
@@ -70,7 +70,7 @@ export const textareaArgTypes: ArgTypes<TextareaArgs> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: textareaArgs.minLength },
+            defaultValue: { summary: String(textareaArgs.minLength) },
         },
     },
     maxLength: {
@@ -80,7 +80,7 @@ export const textareaArgTypes: ArgTypes<TextareaArgs> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: textareaArgs.maxLength },
+            defaultValue: { summary: String(textareaArgs.maxLength) },
         },
     },
     rows: {
@@ -90,7 +90,7 @@ export const textareaArgTypes: ArgTypes<TextareaArgs> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: textareaArgs.rows },
+            defaultValue: { summary: String(textareaArgs.rows) },
         },
     },
     cols: {
@@ -100,7 +100,7 @@ export const textareaArgTypes: ArgTypes<TextareaArgs> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: textareaArgs.cols },
+            defaultValue: { summary: String(textareaArgs.cols) },
         },
     },
     onVlChange: {

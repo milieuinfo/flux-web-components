@@ -1,0 +1,186 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Bijdragen/Cypress" />
+
+# Cypress
+
+## Inhoudstafel
+
+-   [Richtlijnen](#richtlijnen)
+-   [Naamgeving](#naamgeving)
+-   [Structuur](#structuur)
+-   [DOM- vs WC-testen](#dom--vs-wc-testen)
+-   [Fijnmazigheid](#fijnmazigheid)
+-   [WCAG-compliancy](#wcag-compliancy)
+-   [Styling Aftesten](#styling-aftesten)
+-   [Uitvoeren](#uitvoeren)
+
+## Richtlijnen
+
+- geef een beschrijving van de test in het Engels
+- begin altijd met "should", bvb. "should set steps"
+- gebruik waar mogelijk de data ingesteld in de story/fixture die je test
+    * zorg dat je niet te diepe relatieve url's gebruikt (`../../../../`)
+    * plaats je data bestand in `storybook-e2e/src/fixtures`, zo kan je dat binnen
+      de story gebruiken via het pad `src/fixtures`
+- doorgaans enkel de visueel gerenderde html testen, niet de aanroepen van interne methodes
+
+
+## Naamgeving
+
+De conventie is het test-bestand te noemen conform het 'stories' bestand dat getest wordt met toevoeging van de 'cy'
+suffix; bvb. `vl-button.stories.cy.ts`.
+
+Indien er ook een wc-test geschreven wordt zullen we, om te differentiëren, de gewone test suffixen met '-dom.cy' en
+de wc test met '-wc.cy'; bvb. `vl-accordion.stories-dom.cy.ts` en `vl-accordion.stories-wc.cy.ts`.
+
+
+## Structuur
+
+Testen worden gegroepeerd op de standaard Mocha manier: `describe()` functies met daarin genest `it()` methodes.
+Daaraan wordt telkens als eerste parameter een (beknopte) omschrijving in het Engels meegegeven.
+
+Ga pragmatisch om met de structuur:
+ - beperk het aantal 'describe' blokken - indien zinvol
+ - geef de voorkeur aan meerdere beknopte testen i.p.v. minder maar complexere testen
+ - groepeer en sorteer de testen 'logisch' - dit is vaak subjectief en context specifiek
+
+
+## DOM- vs WC-testen
+
+### DOM-testen
+
+Dit zijn de gangbare testen die ge-suffixed zijn met '.stories.cy.ts' of '.stories-dom.cy.ts'.
+
+Hierin testen we met Cypress de functionaliteit door enkel te kijken naar de gerenderde HTML en te inter-reageren zoals
+een gebruiker dat doet met een browser. De interne implementatie van de component is irrelevant voor deze test.
+
+### WC-testen (Web Component testen)
+
+Dit zijn de testen die ge-suffixed zijn met '.stories-wc.cy.ts'.
+
+Met deze testen willen we de publieke 'api' van de web-component in kwestie aftesten. Het doel is via JavaScript te
+inter-reageren met de component en te verifiëren dat die correct reageert.
+
+
+## Fijnmazigheid
+
+De componenten baseren zich op styling aangeleverd door Digitaal Vlaanderen. Die css is vaak specifiek naar hoe
+de html gestructureerd moet worden. Om die rede is het zinvol de correctheid van de html-structuur af te testen.
+Door er via Cypress fijnmazig door te navigeren doe je dit op een minimale manier.
+
+Als je bvb. op een knop in een tabel wil klikken en je vindt de interne structuur van de tabel relevant dan kan
+je er als volgt naar navigeren i.p.v. gewoon te zoeken naar de knop in de tabel.
+```ts
+cy.get('vl-data-table')
+    .shadow()
+    .find('tbody > tr')
+    .first()
+    .find('td')
+    .last()
+    .find('button')
+    .click();
+```
+
+> Belangrijk: het is geen algemene regel om altijd zo fijnmazig mogelijk te navigeren, enkel indien die structuur
+              relevant is!
+
+
+## WCAG-compliancy
+
+> [WCAG](https://nl.wikipedia.org/wiki/Web_Content_Accessibility_Guidelines): Web Content Accessibility Guidelines
+  (WCAG 2.0) zijn de EU-richtlijnen die bepalen dat websites en apps toegankelijk en gebruiksvriendelijk moeten zijn
+  voor mensen met een beperking
+
+Het doel is in de testen (een deel van) de WCAG-compliancy te verifiëren. Daarvoor voorzien we het Cypress
+commando `visitWithA11y()`. Indien je dus in een test specifiek accessibility wil verifiëren gebruik je het
+`visitWithA11y()` commando i.p.v. de normale [visit()](https://docs.cypress.io/api/commands/visit) methode.
+De verificatie zelf doe je daarna met `cy.checkA11y()`. Achterliggend gebruikt dit commando [axe-core](https://github.com/dequelabs/axe-core).
+
+bvb.:
+```ts
+    it('should be accessible', () => {
+        cy.visitWithA11y(sideSheetUrl);
+        cy.checkA11y('vl-side-sheet');
+    });
+```
+
+
+## Styling Aftesten
+
+Doorgaans testen we of de juiste style-klasse (DV-styling) of het juiste attribuut aanwezig is in de DOM. In bepaalde
+gevallen is het ook zinvol te controleren of de component effectief correct gerenderd wordt. Op die manier verifieer
+je dat de css ingeladen is en ook effectief doet wat je verwacht.
+
+Om dit te testen kan je `shouldHaveStyle()` gebruiken. Dit gaat achterliggend via
+[`getComputedStyle`](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) de feitelijke style
+aftesten.
+
+bvb.:
+```ts
+cy.get('vl-document').find('span[slot="title"]').shouldHaveStyle('color', 'rgb(0, 85, 204)');
+```
+
+## Uitvoeren
+
+### Integrator E2E tests
+
+Start volgende scripts in parallel:
+
+Terminal 1:
+
+```
+npm run apps:integrator:dev
+```
+
+Terminal 2:
+
+Optie 1: Met Cypress UI en hot reloading:
+
+```
+npm run apps:integrator-e2e:watch
+```
+
+Optie 2: Alle tests zonder UI:
+
+```
+npm run apps:integrator-e2e:run
+```
+
+### Storybook E2E tests
+
+Start volgende scripts in parallel:
+
+Terminal 1:
+
+```
+npm run apps:storybook:dev
+```
+
+Terminal 2:
+
+Optie 1: Met Cypress UI en hot reloading:
+
+```
+npm run apps:storybook-e2e:watch
+```
+
+Optie 2: Alle tests zonder UI:
+
+```
+npm run apps:storybook-e2e:run
+```
+
+### Component tests
+
+Met Cypress UI en hot reloading:
+
+```
+npm run libs:component-tests:watch
+```
+
+Alle tests:
+
+```
+npm run libs:component-tests:run
+```

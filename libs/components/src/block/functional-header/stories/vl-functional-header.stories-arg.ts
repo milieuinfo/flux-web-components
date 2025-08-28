@@ -8,8 +8,8 @@ import {
 } from '@resources/utils-storybook';
 // de import is bewust op deze manier om voor de web-types.generator 'binnen' de monorepo geen side-effect te geven
 import { MARGINS } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
+import { action } from 'storybook/actions';
 
 export const functionalHeaderArgs = {
     ...defaultArgs,
@@ -60,7 +60,7 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: functionalHeaderArgs.disableBackLink },
+            defaultValue: { summary: String(functionalHeaderArgs.disableBackLink) },
         },
     },
     fullWidth: {
@@ -69,7 +69,7 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: functionalHeaderArgs.fullWidth },
+            defaultValue: { summary: String(functionalHeaderArgs.fullWidth) },
         },
     },
     hideBackLink: {
@@ -78,7 +78,7 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: functionalHeaderArgs.hideBackLink },
+            defaultValue: { summary: String(functionalHeaderArgs.hideBackLink) },
         },
     },
     hideSubHeader: {
@@ -87,7 +87,7 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: functionalHeaderArgs.hideSubHeader },
+            defaultValue: { summary: String(functionalHeaderArgs.hideSubHeader) },
         },
     },
     link: {

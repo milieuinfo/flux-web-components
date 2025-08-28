@@ -1,5 +1,5 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { propertiesDefaults } from '../vl-properties.defaults';
 
 type PropertiesArgs = typeof defaultArgs & typeof propertiesDefaults;
@@ -17,7 +17,7 @@ export const propertiesArgTypes: ArgTypes<PropertiesArgs> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: propertiesArgs.labelWidth },
+            defaultValue: { summary: String(propertiesArgs.labelWidth) },
         },
     },
     props: {
@@ -26,7 +26,7 @@ export const propertiesArgTypes: ArgTypes<PropertiesArgs> = {
         table: {
             type: { summary: TYPES.ARRAY },
             category: CATEGORIES.PROPERTIES,
-            defaultValue: { summary: propertiesArgs.props },
+            defaultValue: { summary: String(propertiesArgs.props) },
         },
     },
 };

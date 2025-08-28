@@ -1,0 +1,1990 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+export const v1AfsplitsRelease = "1.48.0";
+export const v1StorybookLink = `https://flux.omgeving.vlaanderen.be/release-v1/${v1AfsplitsRelease}/storybook/?path=`;
+export const v1AfsplitsReleaseVersie = `v${v1AfsplitsRelease}`;
+
+<Meta title="Afnemen/Migratie v2 - Impact" />
+
+# Migratie v2 - Impact
+
+## Geïmpacteerde Web Componenten
+
+Hieronder vind je alfabetisch, per component, een tabel met daarin een overzicht van de impact bij migratie naar v2.
+
+
+### Accordion List
+
+`Accordion List [legacy]` wordt in v2 vervangen door [Group](#group).
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td><a href={`${v1StorybookLink}/docs/components-accordion-list--documentatie`}>Accordion List [legacy]</a></td>
+        <td>deprecated</td>
+        <td>components</td>
+        <td><code>{`<vl-accordion-list>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+</table>
+
+
+### Action Group
+
+`Action Group [legacy]` wordt in v2 vervangen door [Group](#group).
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-action-group--documentatie`}
+            >Action Group [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<div is="vl-action-group">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+</table>
+
+
+### Annotation
+
+`Annotation [legacy]` wordt in v2  aangeboden via [Text](#text), met de attributen `annotation` en `small`.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-annotation--documentatie`}
+            >Annotation [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>components</td>
+        <td><code>{`<vl-annotation>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+</table>
+
+
+### Body
+
+De `Body [legacy]` wordt in v2 geschrapt, in v2 wordt automatisch de native body gestyled.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-body--documentatie`}
+            >Body [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<body is="vl-body">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Body](/docs/styles-base-body--documentatie)</td>
+        <td>native</td>
+        <td>-</td>
+        <td><code>{`<body>`}</code></td>
+        <td>-</td>
+        <td><code>{`<body>`}</code></td>
+    </tr>
+</table>
+
+
+### Button
+
+De `Button` vervangt de `Button [legacy]`, de `Icon Button [legacy]`, de `Toggle Button [legacy]` en de
+`Link Button [legacy]` (zie de [cta-link documentatie](/docs/components-atoms-button--documentatie#cta-link) voor
+meer informatie).
+
+<table style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-button-button--documentatie`}
+            >Button [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<button is="vl-button">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr></tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-button-icon-button--documentatie`}
+            >Icon Button [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<button is="vl-icon-button">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr></tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-button-link-button--documentatie`}
+            >Link Button [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<button is="vl-link-button">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr></tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-toggle-button--documentatie`}
+            >Toggle Button [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>components</td>
+        <td><code>{`<vl-toggle-button>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Button](/docs/components-atom-button--documentatie)</td>
+        <td>release v1.33.0</td>
+        <td>components</td>
+        <td><code>{`<vl-button-next>`}</code></td>
+        <td>components/atom</td>
+        <td><code>{`<vl-button>`}</code></td>
+    </tr>
+</table>
+
+nieuw in v2:
+- ghost variant: `<vl-button type="ghost">`
+- CTA link: `<vl-button cta-link>`
+
+
+### Button Pill
+
+De Button Pill wordt geschrapt in v2. De functionaliteit verhuist naar `<vl-pill clickable>`
+(zie de [vl-pill documentatie](/docs/components-block-pill-pill--documentatie) voor meer informatie).
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-pill-button-pill--documentatie`}
+            >Button Pill [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<button is="vl-button-pill">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Pill](/docs/components-block-pill-pill--documentatie)</td>
+        <td>release v1.45.0</td>
+        <td>components</td>
+        <td><code>{`<vl-pill data-vl-clickable>`}</code></td>
+        <td>components/block</td>
+        <td><code>{`<vl-pill clickable>`}</code></td>
+    </tr>
+</table>
+
+
+### Checkbox
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-checkbox--documentatie`}
+            >Checkbox [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>components</td>
+        <td><code>{`<vl-checkbox>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Checkbox](/docs/components-form-checkbox--documentatie)</td>
+        <td>release v1.25.0</td>
+        <td>form</td>
+        <td><code>{`<vl-checkbox-next>`}</code></td>
+        <td>components/form</td>
+        <td><code>{`<vl-checkbox>`}</code></td>
+    </tr>
+</table>
+
+
+### Code Preview
+
+De Code Preview component werd geschrapt in v2, die werd enkel in de legacy documentatie (van voor 2021) gebruikt.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-code-preview--documentatie`}
+            >Code Preview [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>components</td>
+        <td><code>{`<vl-code-preview>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+</table>
+
+
+### Content block
+
+`Content Block` is de nieuwe v2 opzet met style-classes die de v1 `Grid Layout [legacy]` vervangt.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-grid-grid-layout--documentatie`}
+            >Grid Layout [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<div is="vl-layout">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Content Block](/docs/styles-layout-afnemers-content-block--documentatie)</td>
+        <td>release v1.46.0</td>
+        <td>common-utilities/css</td>
+        <td><code>{`class="vl-content-block-next"`}</code></td>
+        <td>styles</td>
+        <td><code>{`class="vl-content-block"`}</code></td>
+    </tr>
+</table>
+
+
+### Datepicker
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-datepicker--documentatie`}
+            >Datepicker [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>components</td>
+        <td><code>{`<vl-datepicker>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Datepicker](/docs/components-form-datepicker--documentatie)</td>
+        <td>release v1.25.0</td>
+        <td>form</td>
+        <td><code>{`<vl-datepicker-next>`}</code></td>
+        <td>components/form</td>
+        <td><code>{`<vl-datepicker>`}</code></td>
+    </tr>
+</table>
+
+nieuw in v2:
+- de standaard waarde is nu in ISO-8601 formaat
+- mask validatie werd toegevoegd
+- de positionering werd verbeterd met de extra attributen `position` en `static`
+
+
+### Data Table
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-data-table--documentatie`}
+            >Data Table [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<table is="vl-data-table">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Table](/docs/components-block-table--documentatie)</td>
+        <td>release v1.42.0</td>
+        <td>components</td>
+        <td><code>{`<vl-table-next>`}</code></td>
+        <td>components/block</td>
+        <td><code>{`<vl-table>`}</code></td>
+    </tr>
+</table>
+
+
+### Doormat
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-doormat--documentatie`}
+            >Doormat [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<a is="vl-doormat">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Doormat](/docs/components-block-doormat--documentatie)</td>
+        <td>release v1.34.0</td>
+        <td>components</td>
+        <td><code>{`<vl-doormat-next>`}</code></td>
+        <td>components/block</td>
+        <td><code>{`<vl-doormat>`}</code></td>
+    </tr>
+</table>
+
+
+### Form
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-form--documentatie`}
+            >Form [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<label is="vl-form">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Form](/docs/ontwerp-form-demo--documentatie)</td>
+        <td>native</td>
+        <td>-</td>
+        <td><code>{`<form>`}</code></td>
+        <td>-</td>
+        <td><code>{`<form>`}</code></td>
+    </tr>
+</table>
+
+
+### Form Annotation
+
+Wordt niet meer voorzien in v2, voor een foutboodschap dien je nu `<vl-form-message>` te gebruiken.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-form-message-form-annotation--documentatie`}
+            >Form Annotation [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<label is="vl-form-annotation">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+</table>
+
+
+### Form Grid
+
+`Grid` voorziet style-classes voor `Form Grid [legacy]` en `Form Grid Column [legacy]`.<br/>
+Zie [Stacked](#stacked) voor de vervanger van de vroegere `stacked` attributen.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-form-grid-form-grid--documentatie`}
+            >Form Grid [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<div is="vl-form-grid">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Grid](/docs/styles-layout-afnemers-grid--documentatie)</td>
+        <td>release v1.40.0</td>
+        <td>common-utilities/css</td>
+        <td><code>{`class="vl-grid-next"`}</code></td>
+        <td>styles</td>
+        <td><code>{`class="vl-grid"`}</code></td>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-form-grid-form-column--documentatie`}
+            >Form Grid Column [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<div is="vl-form-column">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Grid Column](/docs/styles-layout-afnemers-grid--documentatie#column-opzet)</td>
+        <td>release v1.40.0</td>
+        <td>common-utilities/css</td>
+        <td><code>{`class="vl-column-next"`}</code></td>
+        <td>styles</td>
+        <td><code>{`class="vl-column"`}</code></td>
+    </tr>
+</table>
+
+
+### Form Label
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-form-message-form-label--documentatie`}
+            >Form Label [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<label is="vl-form-label">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Form Label](/docs/components-form-form-label--documentatie)</td>
+        <td>release v1.28.0</td>
+        <td>form</td>
+        <td><code>{`<vl-form-label-next>`}</code></td>
+        <td>components/form</td>
+        <td><code>{`<vl-form-label>`}</code></td>
+    </tr>
+</table>
+
+
+### Form Validation
+
+Dit was een utility mixin die gebruikt werd in de oude formulier componenten. De nieuwe formulier componenten
+gebruiken dit niet meer.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>Form Validation [legacy]</td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td>utility mixin</td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+</table>
+
+
+### Form Validation Message / Form Message
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-form-message-form-validation-message--documentatie`}
+            >Form Validation Message [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<p is="vl-form-validation-message">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Form Message](/docs/components-form-form-message--documentatie)</td>
+        <td>release v1.25.0</td>
+        <td>form</td>
+        <td><code>{`<vl-error-message-next>`}</code></td>
+        <td>components/form</td>
+        <td><code>{`<vl-form-message>`}</code></td>
+    </tr>
+</table>
+
+
+### Grid
+
+De `Grid` style-classes vervangen `Grid [legacy]` en `Grid Column [legacy]`.
+ - zie [Section](#section) voor `Grid Region [legacy]`
+ - zie [Content block](#content-block) voor `Grid Layout [legacy]`
+ - zie [Stacked](#stacked) voor de vervanger van de vroegere `stacked` attributen
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td><a href={`${v1StorybookLink}/docs/elements-grid-grid--documentatie`}>Grid [legacy]</a></td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<div is="vl-grid">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Grid](/docs/styles-layout-afnemers-grid--documentatie)</td>
+        <td>release v1.40.0</td>
+        <td>common-utilities/css</td>
+        <td><code>{`class="vl-grid-next"`}</code></td>
+        <td>styles</td>
+        <td><code>{`class="vl-grid"`}</code></td>
+    </tr>
+    <tr>
+        <td><a href={`${v1StorybookLink}/docs/elements-grid-grid-column--documentatie`}>Grid Column [legacy]</a></td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<div is="vl-column">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Grid Column](/docs/styles-layout-afnemers-grid--documentatie#column-opzet)</td>
+        <td>release v1.40.0</td>
+        <td>common-utilities/css</td>
+        <td><code>{`class="vl-column-next"`}</code></td>
+        <td>styles</td>
+        <td><code>{`class="vl-column"`}</code></td>
+    </tr>
+</table>
+
+
+### Group
+
+`Group` voorziet style-classes om componenten te groeperen; het is een vervanging voor onder andere:
+`Action Group [legacy]`, `Accordion List [legacy]`, `Link List [legacy]` en `Icon Wrapper [legacy]`.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td><a href={`${v1StorybookLink}/docs/elements-action-group--documentatie`}>Action Group [legacy]</a></td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<div is="vl-action-group">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td><a href={`${v1StorybookLink}/docs/components-accordion-list--documentatie`}>Accordion List [legacy]</a></td>
+        <td>deprecated</td>
+        <td>components</td>
+        <td><code>{`<vl-accordion-list>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td><a href={`${v1StorybookLink}/docs/elements-link-list--documentatie`}>Link List [legacy]</a></td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<div is="vl-link-list">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-icon-icon-wrapper--documentatie`}
+            >Icon Wrapper [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<div is="vl-icon-wrapper">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Group](/docs/styles-layout-afnemers-group--documentatie)</td>
+        <td>release v1.40.0</td>
+        <td>common-utilities/css</td>
+        <td><code>{`class="vl-group-next"`}</code></td>
+        <td>styles</td>
+        <td><code>{`class="vl-group"`}</code></td>
+    </tr>
+</table>
+
+
+### Http Error Message
+
+Alle specifieke &lt;vl-http-XXX-message&gt; (XXX = 400 tem 415 / 500 tem 506 ) componenten verdwijnen in v2. In v2 gebruik
+je `<vl-http-error-message error-code="XXX">`.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-http-error-message--documentatie`}
+            >Http Error Message [legacy]</a>
+        </td>
+        <td>impact</td>
+        <td>components</td>
+        <td><code>{`<vl-http-error-XXX-message>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Http Error Message](/docs/components-block-http-error-message--documentatie)</td>
+        <td>impact</td>
+        <td>components</td>
+        <td><code>{`<vl-http-error-message data-vl-error-code="XXX">`}</code></td>
+        <td>components/block</td>
+        <td><code>{`<vl-http-error-message error-code="XXX">`}</code></td>
+    </tr>
+</table>
+
+
+### Icon
+
+De `Icon Wrapper [legacy]` wordt geschrapt in v2, hij wordt vervangen door de [Group](#group).
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-icon-icon--documentatie`}
+            >Icon [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<span is="vl-icon">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr></tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-icon-icon-wrapper--documentatie`}
+            >Icon Wrapper [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<p is="vl-icon-wrapper">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Icon](/docs/components-atom-icon--documentatie)</td>
+        <td>release v1.34.0</td>
+        <td>components</td>
+        <td><code>{`<vl-icon-next>`}</code></td>
+        <td>components/atom</td>
+        <td><code>{`<vl-icon>`}</code></td>
+    </tr>
+</table>
+
+
+### Image
+
+Wordt niet meer voorzien in v2, de native `<img>` krijgt de voorkeur.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-image--documentatie`}
+            >Image [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<img is="vl-image">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Image](/docs/styles-base-image--documentatie)</td>
+        <td>native</td>
+        <td>-</td>
+        <td><code>{`<img>`}</code></td>
+        <td>-</td>
+        <td><code>{`<img>`}</code></td>
+    </tr>
+</table>
+
+
+### Infotext
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-infotext--documentatie`}
+            >Infotext [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<div is="vl-infotext">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Infotext](/docs/components-block-infotext--documentatie)</td>
+        <td>release v1.33.0</td>
+        <td>components</td>
+        <td><code>{`<vl-infotext-next>`}</code></td>
+        <td>components/block</td>
+        <td><code>{`<vl-infotext>`}</code></td>
+    </tr>
+</table>
+
+
+### Input Field
+
+<table style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-input-field--documentatie`}
+            >Input Field [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<input is="vl-input-field">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Input Field](/docs/components-form-input-field--documentatie)</td>
+        <td>release v1.25.0</td>
+        <td>form</td>
+        <td><code>{`<vl-input-field-next>`}</code></td>
+        <td>components/form</td>
+        <td><code>{`<vl-input-field>`}</code></td>
+    </tr>
+</table>
+
+
+### Input Group
+
+In v2 is `Input Group` geen aparte component meer.<br/> De `Group`, `Button` en `Input Field` werden uitgebreid om de
+groepeer functionaliteit te voorzien.
+
+<table style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-input-group--documentatie`}
+            >Input Group [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<div is="vl-input-group">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr></tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-input-addon-button-input-addon--documentatie`}
+            >Button Input Addon [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<button is="vl-button-input-addon">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr></tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-input-addon-input-addon--documentatie`}
+            >Input Addon [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<p is="vl-input-addon">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Input Group](/docs/styles-layout-afnemers-group--documentatie#input-group)</td>
+        <td>release v1.43.0</td>
+        <td>form</td>
+        <td><code>{`<div class="vl-group-next--input-group">`}</code></td>
+        <td>styles</td>
+        <td><code>{`<div class="vl-group--input-group">`}</code></td>
+    </tr>
+</table>
+
+
+### Link
+
+`Button Link [legacy]` verdwijnt in v2, gebruik de `<vl-link button-as-link>`
+(zie de [button-as-link](/docs/components-atom-link--documentatie#button-als-link) documentatie).
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-link-link--documentatie`}
+            >Link [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<a is="vl-link">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr></tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-link-button-link--documentatie`}
+            >Button Link [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<a is="vl-button-link">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Link](/docs/components-atom-link--documentatie)</td>
+        <td>release v1.32.0</td>
+        <td>components</td>
+        <td><code>{`<vl-link-next>`}</code></td>
+        <td>components/atom</td>
+        <td><code>{`<vl-link>`}</code></td>
+    </tr>
+</table>
+
+
+### Paragraph
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-introduction--documentatie`}
+            >Introduction [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<p is="vl-introduction">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Paragraph](/docs/components-atom-paragraph--documentatie)</td>
+        <td>release v1.42.0</td>
+        <td>components</td>
+        <td><code>{`<vl-paragraph-next>`}</code></td>
+        <td>components/atom</td>
+        <td><code>{`<vl-paragraph>`}</code></td>
+    </tr>
+</table>
+
+
+### Link List
+
+De `Link List [legacy]` wordt in v2 vervangen door [Group](#group).
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-link-list--documentatie`}
+            >Link List [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<div is="vl-link-list">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+</table>
+
+
+### Margin
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>[Margin](/docs/styles-layout-afnemers-margin--documentatie)</td>
+        <td>release v1.40.0</td>
+        <td>common-utilities/css</td>
+        <td><code>{`class="vl-margin-next"`}</code></td>
+        <td>styles</td>
+        <td><code>{`class="vl-margin"`}</code></td>
+    </tr>
+</table>
+
+
+### Padding
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>[Padding](/docs/styles-layout-afnemers-padding--documentatie)</td>
+        <td>release v1.40.0</td>
+        <td>common-utilities/css</td>
+        <td><code>{`class="vl-padding-next"`}</code></td>
+        <td>styles</td>
+        <td><code>{`class="vl-padding"`}</code></td>
+    </tr>
+</table>
+
+
+### Pattern
+
+`Pattern [legacy]` is een utility mixin die gebruikt werd in de oude formulier componenten.
+De nieuwe formulier componenten gebruiken dit niet meer, er wordt wel een mask voorzien voor de input velden.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>Pattern [legacy]</td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td>utility mixin</td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Input Field Masked](/docs/components-form-input-field-masked--documentatie)</td>
+        <td>release v1.25.0</td>
+        <td>form</td>
+        <td><code>{`<vl-input-field-masked-next>`}</code></td>
+        <td>components/form</td>
+        <td><code>{`vl-input-field-masked>`}</code></td>
+    </tr>
+</table>
+
+
+### Progress Bar / Progress Indicator
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-progress-bar--documentatie`}
+            >Progress Bar [v1]</a>
+        </td>
+        <td>release v1.0.0</td>
+        <td>components</td>
+        <td><code>{`<vl-progress-bar>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Progress Indicator [v2]](/docs/components-block-progress-indicator--documentatie)</td>
+        <td>release v2.0.0</td>
+        <td>-</td>
+        <td>-</td>
+        <td>components/block</td>
+        <td><code>{`<vl-progress-indicator>`}</code></td>
+    </tr>
+</table>
+
+
+### Properties
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-properties--documentatie`}
+            >Properties [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<vl-properties>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Properties](/docs/components-block-properties--documentatie)</td>
+        <td>release v1.33.0</td>
+        <td>components</td>
+        <td><code>{`<vl-properties-next>`}</code></td>
+        <td>components/block</td>
+        <td><code>{`<vl-properties>`}</code></td>
+    </tr>
+</table>
+
+
+### Radio Group / Radio
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-radio--documentatie`}
+            >Radio Group [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>components</td>
+        <td><code>{`<vl-radio-group>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Radio Group](/docs/components-form-radio-group--documentatie)</td>
+        <td>release v1.25.0</td>
+        <td>form</td>
+        <td><code>{`<vl-radio-group-next>`}</code></td>
+        <td>components/form</td>
+        <td><code>{`<vl-radio-group>`}</code></td>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-radio--documentatie`}
+            >Radio [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>components</td>
+        <td><code>{`<vl-radio>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Radio](/docs/components-form-radio-group--documentatie)</td>
+        <td>release v1.25.0</td>
+        <td>form</td>
+        <td><code>{`<vl-radio-next>`}</code></td>
+        <td>components/form</td>
+        <td><code>{`<vl-radio>`}</code></td>
+    </tr>
+</table>
+
+
+### Search Filter
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-search-filter--documentatie`}
+            >Search Filter [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<vl-search-filter>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Search Filter](/docs/components-block-search-filter--documentatie)</td>
+        <td>release v1.42.0</td>
+        <td>components</td>
+        <td><code>{`<vl-search-filter-next>`}</code></td>
+        <td>components/block</td>
+        <td><code>{`<vl-search-filter>`}</code></td>
+    </tr>
+</table>
+
+
+### Search Result
+
+De `Search Result` bestaat uit verschillende sub-componenten. Ze staan
+hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie pagina van de component.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-search-results-search-result--documentatie`}
+            >Search Result [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<li is="vl-search-result">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr></tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-search-results-search-results--documentatie`}
+            >Search Results [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<ul is="vl-search-results">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Search Result](/docs/components-block-search-result--documentatie)</td>
+        <td>release v1.43.0</td>
+        <td>components</td>
+        <td><code>{`<vl-search-result-next>`}</code></td>
+        <td>components/block</td>
+        <td><code>{`<vl-search-result>`}</code></td>
+    </tr>
+</table>
+
+
+### Section
+
+`Section` is de nieuwe opzet die style-classes voorziet ter vervanging van
+`Grid Region [legacy]`.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-grid-grid-region--documentatie`}
+            >Grid Region [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<section is="vl-region">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Section](/docs/styles-layout-afnemers-section--documentatie)</td>
+        <td>release v1.40.0</td>
+        <td>common-utilities/css</td>
+        <td><code>{`class="vl-section-next"`}</code></td>
+        <td>styles</td>
+        <td><code>{`class="vl-section"`}</code></td>
+    </tr>
+</table>
+
+
+### Select / MultiSelect / Select Rich
+
+<table style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-select--documentatie`}
+            >Select [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<select is="vl-select">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Select](/docs/components-form-select--documentatie)</td>
+        <td>release v1.25.0</td>
+        <td>form</td>
+        <td><code>{`<vl-select-next>`}</code></td>
+        <td>components/form</td>
+        <td><code>{`<vl-select>`}</code></td>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-multiselect--documentatie`}
+            >MultiSelect [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<select is="vl-multiselect">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Select Rich](/docs/components-form-select-rich--documentatie)</td>
+        <td>release v1.32.0</td>
+        <td>form</td>
+        <td><code>{`<vl-select-rich-next>`}</code></td>
+        <td>components/form</td>
+        <td><code>{`<vl-select-rich>`}</code></td>
+    </tr>
+</table>
+
+
+### Select Location
+
+<table style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/map-select-location--documentatie`}
+            >Select Location [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>map</td>
+        <td><code>{`<vl-select-location>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Select Location](/docs/map-select-location--documentatie)</td>
+        <td>release v1.46.0</td>
+        <td>map</td>
+        <td><code>{`<vl-select-location-next>`}</code></td>
+        <td>map</td>
+        <td><code>{`<vl-select-location>`}</code></td>
+    </tr>
+</table>
+
+
+### Separator
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>[Separator](/docs/styles-layout-afnemers-separator--documentatie)</td>
+        <td>release v1.43.0</td>
+        <td>common-utilities/css</td>
+        <td><code>{`class="vl-separator-next"`}</code></td>
+        <td>styles</td>
+        <td><code>{`class="vl-separator"`}</code></td>
+    </tr>
+</table>
+
+
+### Spacer
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>[Spacer](/docs/styles-layout-afnemers-spacer--documentatie)</td>
+        <td>release v1.43.0</td>
+        <td>common-utilities/css</td>
+        <td><code>{`class="vl-spacer-next"`}</code></td>
+        <td>styles</td>
+        <td><code>{`class="vl-spacer"`}</code></td>
+    </tr>
+</table>
+
+
+### Stacked
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr></tr>
+    <tr>
+        <td>[Stacked](/docs/styles-layout-afnemers-stacked--documentatie)</td>
+        <td>release v1.43.0</td>
+        <td>common-utilities/css</td>
+        <td><code>{`class="vl-stacked-next"`}</code></td>
+        <td>styles</td>
+        <td><code>{`class="vl-stacked"`}</code></td>
+    </tr>
+</table>
+
+
+### Side Navigation
+
+De `Side Navigation` bestaat uit verschillende sub-componenten. Ze staan
+hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie pagina van de component.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-side-navigation--documentatie`}
+            >Side Navigation [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<nav is="vl-side-navigation">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Side Navigation](/docs/components-block-side-navigation--documentatie)</td>
+        <td>release v1.43.0</td>
+        <td>components</td>
+        <td><code>{`<vl-side-navigation-next>`}</code></td>
+        <td>components/block</td>
+        <td><code>{`<vl-side-navigation>`}</code></td>
+    </tr>
+</table>
+
+
+### Steps / Step
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-steps--documentatie`}
+            >Steps [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>components</td>
+        <td><code>{`<vl-steps>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Steps](/docs/components-block-steps-steps--documentatie)</td>
+        <td>release v1.16.0</td>
+        <td>components</td>
+        <td><code>{`<vl-steps-next>`}</code></td>
+        <td>components/block</td>
+        <td><code>{`<vl-steps>`}</code></td>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-steps--documentatie`}
+            >Step [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>components</td>
+        <td><code>{`<vl-step>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Step](/docs/components-block-steps-step--documentatie)</td>
+        <td>release v1.16.0</td>
+        <td>components</td>
+        <td><code>{`<vl-step-next>`}</code></td>
+        <td>components/block</td>
+        <td><code>{`<vl-step>`}</code></td>
+    </tr>
+</table>
+
+
+### Tabs / Tabs Pane
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-tabs-tabs--documentatie`}
+            >Tabs [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>components</td>
+        <td><code>{`<vl-tabs>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Tabs](/docs/components-block-tabs-tabs--documentatie)</td>
+        <td>release v1.45.0</td>
+        <td>components</td>
+        <td><code>{`<vl-tabs-next>`}</code></td>
+        <td>components/block</td>
+        <td><code>{`<vl-tabs>`}</code></td>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-tabs-tabs-pane--documentatie`}
+            >Tabs Pane [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>components</td>
+        <td><code>{`<vl-tabs-pane>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Tabs Pane](/docs/components-block-tabs-tabs-pane--documentatie)</td>
+        <td>release v1.45.0</td>
+        <td>components</td>
+        <td><code>{`<vl-tabs-pane-next>`}</code></td>
+        <td>components/block</td>
+        <td><code>{`<vl-tabs-pane>`}</code></td>
+    </tr>
+</table>
+
+
+### Text
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-text--documentatie`}
+            >Text [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<span is="vl-text">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Text](/docs/components-atom-text--documentatie)</td>
+        <td>release v1.42.0</td>
+        <td>components</td>
+        <td><code>{`<vl-text-next>`}</code></td>
+        <td>components/atom</td>
+        <td><code>{`<vl-text>`}</code></td>
+    </tr>
+</table>
+
+
+### Textarea / Textarea Rich
+
+`Textarea [legacy]` had een attribuut om hem in 'rich'-mode te zetten, in v2 is die ontdubbeld in `Textarea` en
+`Textarea Rich`.
+
+<table style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-textarea--documentatie`}
+            >Textarea [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>components</td>
+        <td><code>{`<textarea is="vl-textarea">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Textarea](/docs/components-form-textarea--documentatie)</td>
+        <td>release v1.25.0</td>
+        <td>form</td>
+        <td><code>{`<vl-textarea-next>`}</code></td>
+        <td>components/form</td>
+        <td><code>{`<vl-textarea>`}</code></td>
+    </tr>
+    <tr></tr>
+    <tr>
+        <td>[Textarea Rich](/docs/components-form-textarea-rich--documentatie)</td>
+        <td>release v1.28.0</td>
+        <td>form</td>
+        <td><code>{`<vl-textarea-rich-next>`}</code></td>
+        <td>components/form</td>
+        <td><code>{`<vl-textarea-rich>`}</code></td>
+    </tr>
+</table>
+
+
+### Title
+
+`Title [legacy]` had een variant per grootte, in v2 zijn deze samengevoegd en is er het 'type' attribuut.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-title-h1--documentatie`}
+            >Title - h1 [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<h1 is="vl-h1">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr></tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-title-h2--documentatie`}
+            >Title - h2 [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<h2 is="vl-h2">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr></tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-title-h3--documentatie`}
+            >Title - h3 [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<h3 is="vl-h3">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr></tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-title-h4--documentatie`}
+            >Title - h4 [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<h4 is="vl-h4">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr></tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-title-h5--documentatie`}
+            >Title - h5 [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<h5 is="vl-h5">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr></tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-title-h6--documentatie`}
+            >Title - h6 [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<h6 is="vl-h6">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Title](/docs/components-atom-title--documentatie)</td>
+        <td>release v1.33.0</td>
+        <td>components</td>
+        <td><code>{`<vl-title-next type="hx">`}</code></td>
+        <td>components/atom</td>
+        <td><code>{`<vl-title type="hx">`}</code></td>
+    </tr>
+</table>
+
+
+### Toaster
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-toaster--documentatie`}
+            >Toaster [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>components</td>
+        <td><code>{`<div is="vl-toaster">`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Toaster](/docs/components-block-toaster--documentatie)</td>
+        <td>release v1.43.0</td>
+        <td>components</td>
+        <td><code>{`<vl-toaster-next>`}</code></td>
+        <td>components/block</td>
+        <td><code>{`<vl-toaster>`}</code></td>
+    </tr>
+</table>
+
+
+### Upload
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-upload--documentatie`}
+            >Upload [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>components</td>
+        <td><code>{`<vl-upload>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Upload](/docs/components-form-upload--documentatie)</td>
+        <td>release v1.26.0</td>
+        <td>form</td>
+        <td><code>{`<vl-upload-next>`}</code></td>
+        <td>components/form</td>
+        <td><code>{`<vl-upload>`}</code></td>
+    </tr>
+</table>
+
+nieuw in v2:
+- auto-default voor de URL werd toegevoegd
+- de timeout werd uitgeschakeld (stond voorheen op 30s)
+- het `parallel-uploads` attribuut is toegevoegd
+- dropzone event handling werd uitgebreid
+- in de context van WCAG verbeteringen komen de foutboodschappen nu onder de upload in plaats van erboven
+
+
+### Video Player
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/elements-video-player--documentatie`}
+            >Video Player [legacy]</a>
+        </td>
+        <td>deprecated</td>
+        <td>elements</td>
+        <td><code>{`<vl-video-player>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Video Player](/docs/components-block-video-player--documentatie)</td>
+        <td>release v1.38.0</td>
+        <td>components</td>
+        <td><code>{`<vl-video-player-next>`}</code></td>
+        <td>components/block</td>
+        <td><code>{`<vl-video-player>`}</code></td>
+    </tr>
+</table>

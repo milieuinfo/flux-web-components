@@ -1,6 +1,6 @@
 import { CATEGORIES, CONTROLS, TYPES } from '@resources/utils-storybook';
 import { mapLayerStyleArg, mapLayerStyleArgTypes } from '../../stories/vl-map-layer-style.stories-arg';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const mapLayerCircleStyleArg = {
     ...mapLayerStyleArg,
@@ -38,7 +38,7 @@ export const mapLayerCircleStyleArgTypes: ArgTypes<typeof mapLayerCircleStyleArg
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapLayerCircleStyleArg.clusterMultiplier },
+            defaultValue: { summary: String(mapLayerCircleStyleArg.clusterMultiplier) },
         },
     },
     clusterTextColor: {
@@ -56,7 +56,7 @@ export const mapLayerCircleStyleArgTypes: ArgTypes<typeof mapLayerCircleStyleArg
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapLayerCircleStyleArg.size },
+            defaultValue: { summary: String(mapLayerCircleStyleArg.size) },
         },
     },
 };

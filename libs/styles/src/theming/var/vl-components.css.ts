@@ -1,4 +1,4 @@
-import componentsRawCss from '!!raw-loader!./vl-components.raw.css';
+import componentsRawCss from './vl-components.raw.css?raw';
 import { css, CSSResult, unsafeCSS } from 'lit';
 
 export const vlComponentVars: CSSResult = css`

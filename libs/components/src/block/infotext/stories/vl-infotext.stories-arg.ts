@@ -1,5 +1,5 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { infotextDefaults } from '../vl-infotext.defaults';
 
 export type InfotextArgs = typeof defaultArgs & typeof infotextDefaults & { valueSlot: string; textSlot: string };
@@ -19,7 +19,7 @@ export const infotextArgTypes: ArgTypes<InfotextArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: infotextArgs.badge },
+            defaultValue: { summary: String(infotextArgs.badge) },
         },
     },
     href: {
@@ -37,7 +37,7 @@ export const infotextArgTypes: ArgTypes<InfotextArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: infotextArgs.external },
+            defaultValue: { summary: String(infotextArgs.external) },
         },
     },
     valueSlot: {

@@ -1,6 +1,6 @@
 import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import { VlFooter } from '../vl-footer.component';
 import { footerArgs, footerArgTypes } from './vl-footer.stories-arg';

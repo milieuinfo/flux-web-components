@@ -1,5 +1,5 @@
 import { story } from '@resources/utils-storybook';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import { VlLinkComponent } from '../vl-link.component';
 import { registerWebComponents } from '@domg-wc/common';

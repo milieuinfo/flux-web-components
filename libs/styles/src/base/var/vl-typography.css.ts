@@ -1,4 +1,4 @@
-import typographyRawCss from '!!raw-loader!./vl-typography.raw.css';
+import typographyRawCss from './vl-typography.raw.css?raw';
 import { css, CSSResult, unsafeCSS } from 'lit';
 
 export const vlTypographyVars: CSSResult = css`

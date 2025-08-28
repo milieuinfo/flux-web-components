@@ -1,0 +1,67 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Richtlijnen/Content Security Policy/Historiek CSP Aanpak"/>
+
+# Historiek CSP Aanpak
+
+Volgende acties werden in het verleden al genomen rond CSP:
+
+### augustus 2025 - v2.4.0
+
+Vanaf v2.4.0 zijn alle componenten zo CSP-compliant mogelijk gemaakt via
+[FLUX-99](https://jira.omgeving.vlaanderen.be/jira/browse/FLUX-99). Alle componenten die reeds herschreven waren
+via een 'next-' variant waren al CSP-compliant, er waren echter nog een hoop componenten die embedded `<style></style>`
+hadden. Deze zijn met deze release aangepast: de embedded style is verwijderd en de styling wordt nu geïnjecteerd via
+adoptedStyleSheets op de shadow-dom.
+
+De volgende componenten werden in release v2.4.0 CSP-compliant gemaakt:
+- in **components/block**: `vl-accordion`, `vl-contact-card`, `vl-content-header`, `vl-document`,
+`vl-http-error-message`, `vl-info-tile`, `vl-infoblock`, `vl-loader`, `vl-modal`, `vl-pager`, `vl-proza-message`,
+`vl-rich-data`, `vl-rich-data-sorter`, `vl-rich-data-table`, `vl-search`, `vl-side-sheet`, `vl-tabs`, `vl-template`,
+`vl-typography`
+- in **components/compliance**: `vl-cookie-consent`, `vl-cookie-consent-opt-in`, `vl-cookie`, `vl-cookie-statement`,
+`vl-header`, `vl-header-next`
+- in **components/map**: `vl-map`, `vl-map-search`, `vl-map-side-sheet-menu`, `vl-map-side-sheet-menu-item`
+
+De enige component die niet volledig CSP-compliant is is `vl-textarea-rich`,
+zie [CSP en vl-textarea-rich / TinyMCE](/docs/richtlijnen-content-security-policy-csp-problematieken--documentatie#csp-en-vl-textarea-rich--tinymce)
+voor meer informatie hierrond.
+
+### juni 2025 - v2.3.0
+
+Via [FLUX-100](https://jira.omgeving.vlaanderen.be/jira/browse/FLUX-100) is een CSP veilige versie van de header
+(vl-header-next) en de footer (vl-footer-next) beschikbaar.
+
+### april 2024
+
+In de 2e helft van 2024 worden alle elementen omgezet naar volwaardige componenten. Deze nieuwe code wordt ineens
+CSP-compliant gemaakt.
+
+### november 2023
+
+Sinds eind 2023 worden de form componenten herschreven. We streven er naar die ineens CSP-compliant te maken. We
+doen dit o.a. door de CSP-compliancy af te testen in de integrator-app.
+
+### maart 2023
+
+Het volgende is gemeld op de [TAW van 02/03/2023](https://www.milieuinfo.be/confluence/display/AEO/2023-03-02%3A%3A+Verslag)
+door Christophe De Blende en besproken:
+
+> Ik heb zo het gevoel dat de urgentie van CSP onderschat wordt. Hier een paar statistieken van de verschillende
+aanvallen die op de RP innet gecapteerd worden: <a href="top-threats-20221013.pdf" target="_blank">23/10/2022</a>, <a href="top-threats-20230213.pdf" target="_blank">23/02/2023</a> en <a href="top-threats-20230227.pdf" target="_blank">27/02/2023</a>.
+Van belang, al wat via SSL gebeurt zien we zelf niet. Dus er zijn veel exploits die nog niet gedetecteerd worden
+omwille van de huidige firewall / ssl terminatie setup.<br/>
+Er is wel een tijdje een firewall loop toegevoegd geweest om log4j shell exploit te kunnen firefighten en deze
+statistieken zijn ook meegenomen. Om aan te geven dat je met een factor 100 mag vermenigvuldigen wat je nu ziet
+in de dagdagelijkse statistieken.
+
+Hierbij zijn er volgende vragen / bemerkingen:
+- hoe verhouden die statistieken zich tot CSP: welke zullen er verminderen / verdwijnen als CSP actief wordt ?
+- het 'algemeen activeren van CSP' op de reverse-proxy (wat Lode al eens geprobeerd zou hebben - op ontwikkel?) is
+niet zinvol, veel toepassingen zullen dan niet meer werken
+- CSP activatie zou applicatie per applicatie moeten doorgevoerd worden, omdat dit een grote doorlooptijd
+(maanden / jaren) zal hebben zouden statistieken per sub-domein uitgesplitst moeten worden om impact te kunnen zien
+
+### januari 2023
+
+In het kader van ticket [UIG-2207](https://www.milieuinfo.be/jira/browse/UIG-2207) zijn er beperkt zaken bekeken.

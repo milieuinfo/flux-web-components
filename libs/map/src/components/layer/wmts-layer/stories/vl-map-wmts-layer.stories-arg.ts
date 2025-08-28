@@ -1,6 +1,6 @@
 import { CATEGORIES, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
 import { mapLayerArgs, mapLayerArgTypes } from '../../stories/vl-map-layer.stories-arg';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const mapWmtsLayerArgs = {
     ...mapLayerArgs,
@@ -49,7 +49,7 @@ export const mapWmtsLayerArgTypes: ArgTypes<typeof mapWmtsLayerArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapWmtsLayerArgs.matrixPrefix },
+            defaultValue: { summary: String(mapWmtsLayerArgs.matrixPrefix) },
         },
     },
 };

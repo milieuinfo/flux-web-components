@@ -1,5 +1,5 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const tabsPaneArgs = {
     ...defaultArgs,
@@ -35,7 +35,7 @@ export const tabsPaneArgTypes: ArgTypes<typeof tabsPaneArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: tabsPaneArgs.observeTitle },
+            defaultValue: { summary: String(tabsPaneArgs.observeTitle) },
         },
     },
 };

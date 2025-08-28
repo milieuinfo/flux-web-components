@@ -1,8 +1,8 @@
 import { CATEGORIES, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { formControlArgs, formControlArgTypes } from '../../form-control/stories/form-control.stories-arg';
 import { selectDefaults } from '../vl-select.defaults';
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
 
 type SelectArgs = typeof formControlArgs &
     typeof selectDefaults & { onVlChange: () => void; onVlInput: () => void; onVlValid: () => void };
@@ -23,7 +23,7 @@ export const selectArgTypes: ArgTypes<SelectArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: selectArgs.block },
+            defaultValue: { summary: String(selectArgs.block) },
         },
     },
     placeholder: {
@@ -51,7 +51,7 @@ export const selectArgTypes: ArgTypes<SelectArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: selectArgs.notDeletable },
+            defaultValue: { summary: String(selectArgs.notDeletable) },
         },
     },
     initialOptions: {
@@ -61,7 +61,7 @@ export const selectArgTypes: ArgTypes<SelectArgs> = {
         table: {
             type: { summary: 'SelectOption' },
             category: CATEGORIES.PROPERTIES,
-            defaultValue: { summary: selectArgs.options },
+            defaultValue: { summary: String(selectArgs.options) },
         },
     },
     options: {
@@ -70,7 +70,7 @@ export const selectArgTypes: ArgTypes<SelectArgs> = {
         table: {
             type: { summary: 'SelectOption' },
             category: CATEGORIES.PROPERTIES,
-            defaultValue: { summary: selectArgs.options },
+            defaultValue: { summary: String(selectArgs.options) },
         },
     },
     onVlChange: {

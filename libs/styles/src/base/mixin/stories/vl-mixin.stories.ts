@@ -3,6 +3,7 @@ import { html } from 'lit-html';
 import { vlWaveAnimationMixin } from '../vl-animations.css';
 import { vlFocusOutlineMixin } from '../vl-outlines.css';
 import vlMixinStoriesDoc from './vl-mixin.stories-doc.mdx';
+import { Meta } from '@storybook/web-components-vite';
 
 export default {
     id: 'styles-base-mixin',
@@ -13,7 +14,7 @@ export default {
             page: vlMixinStoriesDoc,
         },
     },
-};
+} as Meta;
 
 export const WaveAnimationMixinDefault = ({}) => html`
     <style>

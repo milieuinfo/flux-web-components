@@ -1,5 +1,6 @@
 import { CATEGORIES, CONTROLS, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const wizardArgs = {
     ...defaultArgs,
@@ -11,7 +12,7 @@ export const wizardArgs = {
     onClickStep: action('vl-click-step'),
 };
 
-export const wizardArgTypes = {
+export const wizardArgTypes: ArgTypes<typeof wizardArgs> = {
     ...defaultArgTypes,
     activeStep: {
         name: 'active-step',
@@ -20,7 +21,7 @@ export const wizardArgTypes = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: wizardArgs.activeStep },
+            defaultValue: { summary: String(wizardArgs.activeStep) },
         },
     },
     hideLabels: {
@@ -30,7 +31,7 @@ export const wizardArgTypes = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: wizardArgs.hideLabels },
+            defaultValue: { summary: String(wizardArgs.hideLabels) },
         },
     },
     numeric: {
@@ -39,7 +40,7 @@ export const wizardArgTypes = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: wizardArgs.numeric },
+            defaultValue: { summary: String(wizardArgs.numeric) },
         },
     },
     title: {
@@ -62,7 +63,7 @@ export const wizardArgTypes = {
             'Afgevuurd wanneer er op een stap geklikt wordt. In het event wordt het nummer en de naam vermeld.',
         table: {
             category: CATEGORIES.EVENTS,
-            defaultValue: { summary: wizardArgs.onClickStep() },
+            defaultValue: { summary: String(wizardArgs.onClickStep()) },
         },
     },
 };

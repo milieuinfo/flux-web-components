@@ -1,5 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import { VlContentHeaderComponent } from '../../content-header/vl-content-header.component';
 import '../vl-template.component';

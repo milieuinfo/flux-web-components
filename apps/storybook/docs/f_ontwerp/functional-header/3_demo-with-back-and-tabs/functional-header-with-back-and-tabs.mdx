@@ -1,0 +1,25 @@
+import { Canvas, Meta, Source } from '@storybook/addon-docs/blocks';
+import * as functionalHeaderWithBackAndTabsStories from './functional-header-with-back-and-tabs.stories'
+import { functionalHeaderWithBackAndTabsSourceCode } from '../functional-header.helpers'
+
+<Meta of={functionalHeaderWithBackAndTabsStories} />
+
+# Functional Header - Voorbeeld Met Back En Tabs
+
+In dit voorbeeld tonen we hoe een [vl-tabs](/docs/components-block-tabs-tabs--documentatie) component kan toegevoegd worden aan de [vl-functional-header](/docs/components-block-functional-header--documentatie) in combinatie met de back button.
+
+In dit geval wordt custom CSS meegegeven om deze layout mogelijk te maken.
+
+## Componenten
+
+- [vl-functional-header](/docs/components-block-functional-header--documentatie)
+- [vl-tabs](/docs/components-block-tabs-tabs--documentatie)
+
+## Demo
+
+<Canvas of={functionalHeaderWithBackAndTabsStories.functionalHeaderWithBackAndTabs} sourceState='none' />
+
+<details open>
+<summary>Code</summary>
+<Source code={functionalHeaderWithBackAndTabsSourceCode} language="ts" dark={true}/>
+</details>

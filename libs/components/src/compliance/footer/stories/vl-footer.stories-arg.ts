@@ -1,6 +1,6 @@
 import { CATEGORIES, TYPES } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { ArgTypes } from '@storybook/web-components';
+import { action } from 'storybook/actions';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const footerArgs = {
     development: false,
@@ -15,7 +15,7 @@ export const footerArgTypes: ArgTypes<typeof footerArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: footerArgs.development },
+            defaultValue: { summary: String(footerArgs.development) },
         },
     },
     identifier: {

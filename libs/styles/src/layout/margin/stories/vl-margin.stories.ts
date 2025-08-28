@@ -2,6 +2,7 @@ import { formattedSourceCode } from '@resources/utils-storybook';
 import { css } from 'lit';
 import { html } from 'lit-html';
 import vlMarginStoriesDoc from './vl-margin.stories-doc.mdx';
+import { Meta } from '@storybook/web-components-vite';
 
 export default {
     id: 'styles-layout-afnemers-margin',
@@ -12,7 +13,7 @@ export default {
             page: vlMarginStoriesDoc,
         },
     },
-};
+} as Meta;
 
 const marginCss = css`
     .sb-container {

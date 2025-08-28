@@ -6,7 +6,7 @@ import {
     getSelectControlOptions,
     TYPES,
 } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const mapSideSheetArgs = {
     ...defaultArgs,
@@ -38,7 +38,7 @@ export const mapSideSheetArgTypes: ArgTypes<typeof mapSideSheetArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapSideSheetArgs.enableSwipe },
+            defaultValue: { summary: String(mapSideSheetArgs.enableSwipe) },
         },
     },
     hideToggleButton: {
@@ -47,7 +47,7 @@ export const mapSideSheetArgTypes: ArgTypes<typeof mapSideSheetArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapSideSheetArgs.hideToggleButton },
+            defaultValue: { summary: String(mapSideSheetArgs.hideToggleButton) },
         },
     },
     iconPlacement: {
@@ -67,7 +67,7 @@ export const mapSideSheetArgTypes: ArgTypes<typeof mapSideSheetArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapSideSheetArgs.open },
+            defaultValue: { summary: String(mapSideSheetArgs.open) },
         },
     },
     right: {
@@ -76,7 +76,7 @@ export const mapSideSheetArgTypes: ArgTypes<typeof mapSideSheetArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapSideSheetArgs.right },
+            defaultValue: { summary: String(mapSideSheetArgs.right) },
         },
     },
     toggleText: {

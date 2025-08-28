@@ -1,9 +1,9 @@
-import {ArgTypes, Canvas} from '@storybook/blocks';
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
 import * as VlToasterStories from './vl-toaster.stories';
 
 # Toaster
 
-<FluxMetaData id="components-block-toaster"/>
+<FluxMetaData id="components-block-toaster" />
 
 Gebruik de `toaster` component om meldingen af te beelden.<br/>
 
@@ -17,11 +17,11 @@ import { VlToasterComponent } from '@domg-wc/components/block';
 <vl-toaster></vl-toaster>
 ```
 
-<Canvas of={VlToasterStories.ToasterDefault}/>
+<Canvas of={VlToasterStories.ToasterDefault} />
 
 ## Configuratie
 
-<ArgTypes of={VlToasterStories.ToasterDefault}/>
+<ArgTypes of={VlToasterStories.ToasterDefault} />
 
 ## Gebruik
 
@@ -31,7 +31,7 @@ Je kan de meldingen declaratief toevoegen in het default slot van de `vl-toaster
 hiervoor de [vl-alert](/docs/components-block-alert--documentatie) component.
 Het element verschijnt dan automatisch op de gekozen positie.
 
-<Canvas of={VlToasterStories.ToasterDefaultSlot}/>
+<Canvas of={VlToasterStories.ToasterDefaultSlot} />
 
 ### Dynamisch
 
@@ -52,7 +52,7 @@ toaster.showAlert({
 Je kan het meegegeven object uitbreiden met de properties van de [vl-alert](/docs/components-block-alert--documentatie)
 component.
 
-<Canvas of={VlToasterStories.ToasterShowAlert}/>
+<Canvas of={VlToasterStories.ToasterShowAlert} />
 
 Als je meer controle wilt over de melding, kan je ook de `show()` methode gebruiken om een zelf samengesteld
 HTML-element te tonen als melding.
@@ -86,7 +86,7 @@ We bieden de mogelijkheid aan om meldingen automatisch te laten verdwijnen na ee
 de `fade-out` property.
 
 <FluxAlert type="warning">
-    {`
+{`
    Echter raden we aan om dit te vermijden waar mogelijk gezien dit de toegankelijkheid van de
    toaster negatief kan beïnvloeden. Gebruikers kunnen de melding mogelijk niet op tijd lezen of begrijpen,
    vooral als ze gebruik maken van schermlezers of andere hulpmiddelen.
@@ -94,7 +94,7 @@ de `fade-out` property.
 </FluxAlert>
 
 
-<Canvas of={VlToasterStories.ToasterFadeOut}/>
+<Canvas of={VlToasterStories.ToasterFadeOut} />
 
 ## Toegankelijkheid
 

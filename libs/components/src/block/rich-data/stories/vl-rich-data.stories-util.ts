@@ -15,7 +15,9 @@ export const richDataPaginationImplementation = () => {
 
         const setContentData = (data: any[] | undefined, from: number, to: number) => {
             newData = data;
-            content.innerHTML = ``;
+            if(content) {
+                content.innerHTML = ``;
+            }
             data?.slice(from, to).forEach((project) => {
                 const now = new Date().toLocaleString();
                 const manager = project.manager;
@@ -42,7 +44,9 @@ export const richDataPaginationImplementation = () => {
                             </data>
                         </vl-search-result-properties>
                   `;
-                content.insertAdjacentHTML('beforeend', `<vl-search-result>${html}</vl-search-result>`);
+                if(content) {
+                    content.insertAdjacentHTML('beforeend', `<vl-search-result>${html}</vl-search-result>`);
+                }
             });
         };
 
@@ -70,14 +74,15 @@ export const richDataPaginationImplementation = () => {
             return current.toString();
         };
 
-        richDataComponent?.addEventListener('change', (event: CustomEvent) => {
+        richDataComponent?.addEventListener('change', (event: Event) => {
             let newData = data.data;
             let totalItems = data.data.length;
-
             let filterEntries = undefined;
-            if (event.detail.formData) {
+
+            const customEvent = event as CustomEvent;
+            if (customEvent.detail.formData) {
                 filterEntries = [];
-                for (const entry of event.detail.formData.entries()) {
+                for (const entry of customEvent.detail.formData.entries()) {
                     newData = filter(newData, entry[0], entry[1]);
                     totalItems = newData.length;
                     filterEntries.push({
@@ -86,7 +91,7 @@ export const richDataPaginationImplementation = () => {
                     });
                 }
             }
-            const pagination: Pagination = event.detail.paging;
+            const pagination: Pagination = customEvent.detail.paging;
             if (pagination) {
                 const from = (pagination.currentPage - 1) * 10;
                 setContentData(newData, from, from + 10);
@@ -94,7 +99,7 @@ export const richDataPaginationImplementation = () => {
             if (richDataComponent) {
                 richDataComponent.data = <RichData>{
                     paging: <Pagination>{
-                        currentPage: event.detail.paging.currentPage,
+                        currentPage: customEvent.detail.paging.currentPage,
                         totalItems: totalItems,
                     },
                     filter: filterEntries,
@@ -102,7 +107,7 @@ export const richDataPaginationImplementation = () => {
             }
         });
 
-        sorter?.addEventListener('vl-change', (event: CustomEvent) => {
+        sorter?.addEventListener('vl-change', (event: Event) => {
             const data = newData;
             event.stopPropagation();
             if (!data) return;
@@ -141,6 +146,7 @@ export const richDataPaginationImplementation = () => {
             };
         }
 
-        setContentData(data.data, 0, pager.getAttribute('items-per-page'));
+        const itemsPerPage = Number(pager?.getAttribute('items-per-page') ?? 10);
+        setContentData(data.data, 0, itemsPerPage);
     });
 };

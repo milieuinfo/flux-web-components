@@ -1,5 +1,5 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { formMessageDefaults } from '../vl-form-message.defaults';
 
 type FormMessageArgs = typeof defaultArgs & typeof formMessageDefaults & { defaultSlot: string };
@@ -18,7 +18,7 @@ export const formMessageArgTypes: ArgTypes<FormMessageArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.STRING },
-            defaultValue: { summary: formMessageArgs.for },
+            defaultValue: { summary: String(formMessageArgs.for) },
         },
     },
     state: {
@@ -27,7 +27,7 @@ export const formMessageArgTypes: ArgTypes<FormMessageArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: 'ValidityState' },
-            defaultValue: { summary: formMessageArgs.state },
+            defaultValue: { summary: String(formMessageArgs.state) },
         },
     },
     show: {
@@ -37,7 +37,7 @@ export const formMessageArgTypes: ArgTypes<FormMessageArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: formMessageArgs.show },
+            defaultValue: { summary: String(formMessageArgs.show) },
         },
     },
     preLine: {
@@ -46,7 +46,7 @@ export const formMessageArgTypes: ArgTypes<FormMessageArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: formMessageArgs.preLine },
+            defaultValue: { summary: String(formMessageArgs.preLine) },
         },
     },
     defaultSlot: {

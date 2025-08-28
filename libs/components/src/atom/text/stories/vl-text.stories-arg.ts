@@ -1,5 +1,5 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { textDefaults } from '../vl-text.defaults';
 
 type TextArgs = typeof defaultArgs & typeof textDefaults & { defaultSlot: string };
@@ -18,7 +18,7 @@ export const textArgTypes: ArgTypes<TextArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: textDefaults.bold },
+            defaultValue: { summary: String(textDefaults.bold) },
         },
     },
     success: {
@@ -27,7 +27,7 @@ export const textArgTypes: ArgTypes<TextArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: textDefaults.success },
+            defaultValue: { summary: String(textDefaults.success) },
         },
     },
     warning: {
@@ -36,7 +36,7 @@ export const textArgTypes: ArgTypes<TextArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: textDefaults.warning },
+            defaultValue: { summary: String(textDefaults.warning) },
         },
     },
     error: {
@@ -45,7 +45,7 @@ export const textArgTypes: ArgTypes<TextArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: textDefaults.error },
+            defaultValue: { summary: String(textDefaults.error) },
         },
     },
     italic: {
@@ -54,7 +54,7 @@ export const textArgTypes: ArgTypes<TextArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: textDefaults.italic },
+            defaultValue: { summary: String(textDefaults.italic) },
         },
     },
     underline: {
@@ -63,7 +63,7 @@ export const textArgTypes: ArgTypes<TextArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: textDefaults.underline },
+            defaultValue: { summary: String(textDefaults.underline) },
         },
     },
     annotation: {
@@ -72,7 +72,7 @@ export const textArgTypes: ArgTypes<TextArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: textDefaults.annotation },
+            defaultValue: { summary: String(textDefaults.annotation) },
         },
     },
     small: {
@@ -81,7 +81,7 @@ export const textArgTypes: ArgTypes<TextArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: textDefaults.small },
+            defaultValue: { summary: String(textDefaults.small) },
         },
     },
     defaultSlot: {

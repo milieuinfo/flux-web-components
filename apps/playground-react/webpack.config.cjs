@@ -15,24 +15,28 @@ const config = {
     module: {
         rules: [
             {
-                test: /\.(js|jsx|ts|tsx)$/,
-                use: 'ts-loader',
-                exclude: /node_modules/,
-            },
-            {
-                test: /\.s[ac]ss$/i,
-                use: [
-                    // Creates `style` nodes from JS strings
-                    "style-loader",
-                    // Translates CSS into CommonJS
-                    "css-loader",
-                    // Compiles Sass to CSS
-                    "sass-loader",
+                oneOf: [
+                    // 1) CSS met ?raw -> importeer als string
+                    {
+                        test: /\.css$/i,
+                        resourceQuery: /raw/, // matcht ?raw
+                        type: 'asset/source', // geeft de file-inhoud als string
+                    },
+                    // 2) normale CSS -> via style/css-loader of extract plugin
+                    {
+                        test: /\.css$/i,
+                        use: [
+                            // of MiniCssExtractPlugin.loader als je CSS wil extraheren
+                            'style-loader',
+                            'css-loader',
+                        ],
+                    },
                 ],
             },
             {
-                test: /\.css$/i,
-                use: ["style-loader", "css-loader"],
+                test: /\.(js|jsx|ts|tsx)$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
             },
         ],
     },

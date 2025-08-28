@@ -1,5 +1,5 @@
 import { story } from '@resources/utils-storybook';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import '../vl-side-sheet.component';
 import { sideSheetArgs, sideSheetArgTypes } from './vl-side-sheet.stories-arg';

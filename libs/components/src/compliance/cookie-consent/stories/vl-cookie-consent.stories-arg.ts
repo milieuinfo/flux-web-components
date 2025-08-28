@@ -1,6 +1,6 @@
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { CATEGORIES, TYPES } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
 
 export const cookieConsentArgs = {
     analytics: false,
@@ -20,7 +20,7 @@ export const cookieConsentArgTypes: ArgTypes<typeof cookieConsentArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: cookieConsentArgs.analytics },
+            defaultValue: { summary: String(cookieConsentArgs.analytics) },
         },
     },
     autoOpenDisabled: {
@@ -30,7 +30,7 @@ export const cookieConsentArgTypes: ArgTypes<typeof cookieConsentArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: cookieConsentArgs.autoOpenDisabled },
+            defaultValue: { summary: String(cookieConsentArgs.autoOpenDisabled) },
         },
     },
     autoOptInFunctionalDisabled: {
@@ -39,7 +39,7 @@ export const cookieConsentArgTypes: ArgTypes<typeof cookieConsentArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: cookieConsentArgs.autoOptInFunctionalDisabled },
+            defaultValue: { summary: String(cookieConsentArgs.autoOptInFunctionalDisabled) },
         },
     },
     owner: {

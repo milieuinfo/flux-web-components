@@ -1,16 +1,16 @@
+// de import is bewust op deze manier om voor de web-types.generator 'binnen' de monorepo geen side-effect te geven
 import {
     CATEGORIES,
     CONTROLS,
     defaultArgs,
     defaultArgTypes,
     getSelectControlOptions,
+    ICON_PLACEMENT,
     TYPES,
 } from '@resources/utils-storybook';
-// de import is bewust op deze manier om voor de web-types.generator 'binnen' de monorepo geen side-effect te geven
-import { ICON_PLACEMENT } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { buttonDefaults } from '../vl-button.defaults';
+import { action } from 'storybook/actions';
 
 type ButtonArgs = typeof defaultArgs &
     typeof buttonDefaults & { defaultSlot: string; onVlClick: () => void; onVlToggle: () => void };
@@ -40,7 +40,7 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: buttonArgs.disabled },
+            defaultValue: { summary: String(buttonArgs.disabled) },
         },
     },
     error: {
@@ -49,7 +49,7 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: buttonArgs.error },
+            defaultValue: { summary: String(buttonArgs.error) },
         },
     },
     block: {
@@ -58,7 +58,7 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: buttonArgs.block },
+            defaultValue: { summary: String(buttonArgs.block) },
         },
     },
     large: {
@@ -67,7 +67,7 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: buttonArgs.large },
+            defaultValue: { summary: String(buttonArgs.large) },
         },
     },
     wide: {
@@ -76,7 +76,7 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: buttonArgs.wide },
+            defaultValue: { summary: String(buttonArgs.wide) },
         },
     },
     narrow: {
@@ -85,7 +85,7 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: buttonArgs.narrow },
+            defaultValue: { summary: String(buttonArgs.narrow) },
         },
     },
     secondary: {
@@ -94,7 +94,7 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: buttonArgs.secondary },
+            defaultValue: { summary: String(buttonArgs.secondary) },
         },
     },
     tertiary: {
@@ -103,7 +103,7 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: buttonArgs.tertiary },
+            defaultValue: { summary: String(buttonArgs.tertiary) },
         },
     },
     ghost: {
@@ -112,7 +112,7 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: buttonArgs.ghost },
+            defaultValue: { summary: String(buttonArgs.ghost) },
         },
     },
     loading: {
@@ -122,7 +122,7 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: buttonArgs.loading },
+            defaultValue: { summary: String(buttonArgs.loading) },
         },
     },
     icon: {
@@ -153,7 +153,7 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: buttonArgs.toggle },
+            defaultValue: { summary: String(buttonArgs.toggle) },
         },
     },
     on: {
@@ -163,7 +163,7 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: buttonArgs.on },
+            defaultValue: { summary: String(buttonArgs.on) },
         },
     },
     controlled: {
@@ -173,7 +173,7 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: buttonArgs.controlled },
+            defaultValue: { summary: String(buttonArgs.controlled) },
         },
     },
     ctaLink: {
@@ -193,7 +193,7 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: buttonArgs.external },
+            defaultValue: { summary: String(buttonArgs.external) },
         },
     },
     inputGroup: {
@@ -202,7 +202,7 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: buttonArgs.inputGroup },
+            defaultValue: { summary: String(buttonArgs.inputGroup) },
         },
     },
     label: {

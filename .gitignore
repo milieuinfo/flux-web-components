@@ -35,3 +35,6 @@ testem.log
 Thumbs.db
 
 .nx/cache
+
+*storybook.log
+storybook-static

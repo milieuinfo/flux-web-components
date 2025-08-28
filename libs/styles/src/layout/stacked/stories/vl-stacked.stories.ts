@@ -1,5 +1,6 @@
 import { html } from 'lit-html';
 import vlStackedStoriesDoc from './vl-stacked.stories-doc.mdx';
+import { Meta } from '@storybook/web-components-vite';
 
 export default {
     id: 'styles-layout-afnemers-stacked',
@@ -10,7 +11,7 @@ export default {
             page: vlStackedStoriesDoc,
         },
     },
-};
+} as Meta;
 
 export const StackedLarge = ({}) => html`
     <style>

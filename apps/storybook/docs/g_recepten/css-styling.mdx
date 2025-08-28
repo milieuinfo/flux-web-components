@@ -1,0 +1,80 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { FluxAlert } from '../../.storybook/flux-alert/flux-alert.component';
+
+<Meta title="Recepten/CSS Styling"/>
+
+# Styling
+
+## Globale CSS
+
+Alle Flux web-componenten, zijnde de web-componenten die zich in de package `@domg-wc/components` bevinden, zorgen
+ervoor dat eenmalig alle css op document niveau geregistreerd wordt. Technisch gebeurt dat door de basis klasse
+`BaseLitElement` die de onderstaande `GlobalStyles.getInstance().register()` methode uitvoert:
+
+```
+public register() {
+    if (!this.registered) {
+        if (FluxConfig.getPreferences().autoRegisterStyles) {
+            document.adoptedStyleSheets = [
+                ...document.adoptedStyleSheets,
+                ...(this.defaultStyles.map((style) => style.styleSheet) as CSSStyleSheet[]),
+            ];
+            console.info('GlobalStyles: global styling toegevoegd aan het document');
+        } else {
+            console.info(
+                'GlobalStyles: geen global styling toegevoegd aan het document - autoRegisterStyles is uitgeschakeld'
+            );
+        }
+        this.registered = true;
+        this.registerCustomCSS();
+    }
+}
+```
+
+## Eigen componenten met shadow DOM
+
+Zoals hierboven vermeld injecteren de `@domg-wc elementen` hun eigen styling op root niveau.
+Dit is voldoende in een applicatie waar de elementen niet gebruikt worden binnen andere shadow DOM's.
+
+<FluxAlert type="warning">
+{`
+    Als je zelf componenten ontwikkelt met een shadow DOM, dan moet je onze styling opnieuw injecteren in je component.<br>
+    De shadow DOM zal de styling niet doorlaten die globaal op het document niveau geregistreerd is.
+`}
+</FluxAlert>
+
+In `Lit` kan je dit bvb. zo doen:
+
+```ts
+import { vlElementsStyle } from '@domg-wc/styles';
+
+export class ComponentMetShadowDom extends LitElement {
+
+    static get styles(): CSSResult[] {
+        return [...vlElementsStyle];
+    }
+}
+```
+
+
+## Custom CSS
+
+<FluxAlert type="warning">
+{`
+    Je kan de styling van DV breken bij het gebruik hiervan!
+`}
+</FluxAlert>
+
+Voor de componenten onder `map`, `form` en `components` is het mogelijk om een custom CSS-string mee te geven aan het
+attribuut `custom-css`. Deze CSS wordt dan toegevoegd aan de adoptedStyleSheets van de shadow DOM van
+de desbetreffende component.
+
+```html
+<vl-accordion-list custom-css=".vl-accordion-list {border: 10px solid lightblue}">
+```
+
+
+## Deactivatie Globale Styling
+
+Indien gewenst kan je de automatische registratie van globale (document) styling de-activeren via de
+`autoRegisterStyles` property, zie [configuratie](/docs/recepten-configuratie--documentatie).

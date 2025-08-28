@@ -1,5 +1,5 @@
 import { CATEGORIES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import * as fs from 'fs-extra';
 import { FluxMetaDataModel } from '../../apps/storybook/.storybook/flux-meta-data/flux-meta-data.model';
 import {
@@ -31,12 +31,20 @@ const buildDocUrl = (version: string, storyBookPath: string) =>
 const buildPrefix = (fluxMetaDataModel: FluxMetaDataModel): string => {
     switch (fluxMetaDataModel?.vStatus) {
         case 'replaced':
-        case 'v1-replace':
-        case 'v1-remove':
+        case 'v2-replace':
+        case 'v2-remove':
             return '<span style="color: rgb(240,0,0)">[legacy-component]</span><br/>';
-        case 'v1-todo':
+        case 'v2-todo':
             return '<span style="color: rgb(200,140,0)">[legacy-component]</span><br/>';
         case 'v2':
+            return '<span style="color: rgb(25,140,25)">[v2 component]</span><br/>';
+        case 'v2-style-atom':
+            return '<span style="color: rgb(25,140,25)">[v2 atom style]</span><br/>';
+        case 'v2-style-base':
+            return '<span style="color: rgb(25,140,25)">[v2 base style]</span><br/>';
+        case 'v2-style-layout':
+            return '<span style="color: rgb(25,140,25)">[v2 layout style]</span><br/>';
+        case 'v3-next':
             return '<span style="color: rgb(25,140,25)">[next-component]</span><br/>';
         default:
             return '';

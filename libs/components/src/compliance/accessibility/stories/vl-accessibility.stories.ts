@@ -1,7 +1,7 @@
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import '../vl-accessibility.component';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import accessibilityDoc from './vl-accessibility.stories-doc.mdx';
 import { accessibilityArgs, accessibilityArgTypes } from './vl-accessibility.stories-arg';
 import { story } from '@resources/utils-storybook';

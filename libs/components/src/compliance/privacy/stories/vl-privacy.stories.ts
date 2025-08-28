@@ -1,7 +1,7 @@
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import '../vl-privacy.component';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import privacyDoc from './vl-privacy.stories-doc.mdx';
 import { privacyArgs, privacyArgTypes } from './vl-privacy.stories-arg';
 import { story } from '@resources/utils-storybook';

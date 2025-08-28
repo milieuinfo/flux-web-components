@@ -1,0 +1,43 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Richtlijnen/Testen/Technische Test Aanpak Frontend"/>
+
+# Technische Test Aanpak Frontend
+
+## Unit Testen
+
+Jest
+
+
+## Component Testen
+
+Cypress & Storybook
+
+
+## Te Vermijden: Flaky Testen
+
+[Flaky testen](https://dev.to/codux/flaky-tests-and-how-to-deal-with-them-2id2) zijn testen die typisch lukken,
+maar 'soms' niet. De soms hangt af van randvoorwaarden als: de snelheid van de computer waar de testen / de toepassing
+op draaien, extra belastingen van het systeem, een trager netwerk, ... .
+Des te dynamischer toepassingen worden, des te flaky-er testen worden. De oorzaak is nooit het test framework,
+een tool die de problematiek echter in acht neemt kan de flakiness wel beperken en beheersbaar maken.
+
+Oorzaken van flakiness zijn vaak asynchrone gebeurtenissen:
+
+- door het gebruik van promises, async/await, observables (RxJS)<br/>
+-> eventueel ten gevolge van het maken van een reactive toepassing
+- events die gebeuren vanuit de server kant: via SSE of een websocket
+
+
+## Timing Problemen
+
+Selenium stamt uit 2004, een tijd waar de aanpak om een webtoepassing te schrijven was: het dynamisch maken van
+meerdere statische pagina's. Als het dynamische er uit bestaat te antwoorden met een volledig nieuwe pagina werkt
+Selenium perfect: het selecteren en verifiëren van aanwezige DOM elementen lukt feilloos. Vanaf dat er AJAX
+(Asynchronous JavaScript And XML) gebruikt werd, lag het al moeilijker. De feitelijke DOM-structuur wijzigt dan
+ten gevolge van gebruiker acties. Doordat AJAX bewust en gecontroleerd gebruikt werd, viel het nog wel mee om
+een Selenium test te schrijven. Je gebruikt typisch het patroon: wachten tot 'iets verwacht' gebeurt, om daarna
+verder te gaan.
+
+Bij een SPA is het echter minder eenduidig wat er in de DOM gebeurt, zie hiervoor de uitgebreidere uitleg m.b.t.
+[eenduidigheid](/docs/richtlijnen-testen-selenium-en-cypress--documentatie#eenduidigheid).

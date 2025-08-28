@@ -1,6 +1,6 @@
 import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import { VlIconComponent } from '../../../atom/icon';
 import { VlPropertiesComponent } from '../vl-properties.component';

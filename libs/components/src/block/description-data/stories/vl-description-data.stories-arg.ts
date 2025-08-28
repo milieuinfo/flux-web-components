@@ -1,4 +1,5 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const descriptionDataArgs = {
     ...defaultArgs,
@@ -9,7 +10,7 @@ export const descriptionDataArgs = {
     extraSmallSize: undefined,
 };
 
-export const descriptionDataArgTypes = {
+export const descriptionDataArgTypes: ArgTypes<typeof descriptionDataArgs> = {
     ...defaultArgTypes,
     bordered: {
         name: 'bordered',
@@ -17,7 +18,7 @@ export const descriptionDataArgTypes = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: descriptionDataArgs.bordered },
+            defaultValue: { summary: String(descriptionDataArgs.bordered) },
         },
     },
     size: {

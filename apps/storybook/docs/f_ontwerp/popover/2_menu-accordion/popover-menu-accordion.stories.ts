@@ -1,6 +1,5 @@
 import { html } from 'lit-html';
-import { Meta } from '@storybook/web-components';
-import PopoverMenuAccordionDoc from './popover-menu-accordion.stories-doc.mdx';
+import { Meta } from '@storybook/web-components-vite';
 import { registerWebComponents } from '@domg-wc/common';
 import { VlPopoverMenuAccordionComponent } from '@domg-wc/integrations/popover';
 
@@ -8,10 +7,8 @@ registerWebComponents([VlPopoverMenuAccordionComponent]);
 
 export default {
     title: 'Ontwerp/Popover/Menu Accordion',
-    tags: ['autodocs'],
     parameters: {
         docs: {
-            page: PopoverMenuAccordionDoc,
             story: {
                 inline: false,
                 iframeHeight: 500,

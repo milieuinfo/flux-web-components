@@ -2,6 +2,7 @@ import { formattedSourceCode } from '@resources/utils-storybook';
 import { html } from 'lit-html';
 import { vlParagraphStyles } from '../vl-paragraph-style.css';
 import vlParagraphStoriesDoc from './vl-paragraph-style.stories-doc.mdx';
+import { Meta } from '@storybook/web-components-vite';
 
 export default {
     id: 'components-atom-paragraph-style',
@@ -12,7 +13,7 @@ export default {
             page: vlParagraphStoriesDoc,
         },
     },
-};
+} as Meta;
 
 export const ParagraphStyleDefault = ({}) => html`
     <style>

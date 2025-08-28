@@ -1,5 +1,5 @@
 import React from 'react';
-import { Markdown } from '@storybook/blocks';
+import { Markdown } from '@storybook/addon-docs/blocks';
 
 export const FluxAlert = ({
     children,

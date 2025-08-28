@@ -3,6 +3,7 @@ import { html } from 'lit-html';
 import { vlIconStyles } from '../../icon-style/vl-icon-style.css';
 import { vlLinkStyles } from '../vl-link-style.css';
 import vlLinkStoriesDoc from './vl-link-style.stories-doc.mdx';
+import { Meta } from '@storybook/web-components-vite';
 
 export default {
     id: 'components-atom-link-style',
@@ -13,7 +14,7 @@ export default {
             page: vlLinkStoriesDoc,
         },
     },
-};
+} as Meta;
 
 export const LinkStyleDefault = ({}) => html`
     <style>

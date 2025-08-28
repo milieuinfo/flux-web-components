@@ -1,5 +1,5 @@
-import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { CATEGORIES, CONTROLS, defaultArgs, defaultArgTypes, ICON_PLACEMENT, TYPES } from '@resources/utils-storybook';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { toasterDefaults } from '../vl-toaster.defaults';
 import { TOASTER_PLACEMENT } from '../vl-toaster.model';
 
@@ -11,7 +11,7 @@ export const toasterArgs = {
     defaultSlot: '',
 };
 
-export const toasterArgTypes: ArgTypes = {
+export const toasterArgTypes: ArgTypes<typeof toasterArgs> = {
     ...defaultArgTypes,
     fadeOut: {
         name: 'fade-out',
@@ -24,19 +24,20 @@ export const toasterArgTypes: ArgTypes = {
                 summary: TYPES.BOOLEAN,
             },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: toasterDefaults.fadeOut },
+            defaultValue: { summary: String(toasterDefaults.fadeOut) },
         },
     },
     placement: {
         name: 'placement',
         description: 'Positioneert de toaster.<br>Standaard worden die geplaatst in de rechterbovenhoek.',
+        control: { type: CONTROLS.SELECT },
         options: Object.values(TOASTER_PLACEMENT),
         table: {
             type: {
-                summary: Object.values(TOASTER_PLACEMENT),
+                summary: TYPES.STRING,
             },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: toasterDefaults.placement },
+            defaultValue: { summary: String(toasterDefaults.placement) },
         },
     },
     defaultSlot: {

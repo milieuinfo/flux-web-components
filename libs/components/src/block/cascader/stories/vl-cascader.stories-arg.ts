@@ -1,8 +1,8 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { cascaderDefaults } from '../vl-cascader.defaults';
 import { CASCADER_SLOTS } from '../vl-cascader.model';
+import { action } from 'storybook/actions';
 
 export type CascaderArgs = typeof cascaderDefaults &
     typeof defaultArgs & {
@@ -27,7 +27,7 @@ export const cascaderArgTypes: ArgTypes<CascaderArgs> = {
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: cascaderArgs.headerText,
+            defaultValue: { summary: cascaderArgs.headerText },
         },
     },
     headerSlot: {
@@ -36,7 +36,7 @@ export const cascaderArgTypes: ArgTypes<CascaderArgs> = {
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
-            defaultValue: cascaderArgs.headerSlot,
+            defaultValue: { summary: cascaderArgs.headerSlot },
         },
     },
     breadcrumbPlaceholder: {
@@ -56,7 +56,7 @@ export const cascaderArgTypes: ArgTypes<CascaderArgs> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: cascaderArgs.level },
+            defaultValue: { summary: String(cascaderArgs.level) },
         },
     },
     homeSlot: {
@@ -74,7 +74,7 @@ export const cascaderArgTypes: ArgTypes<CascaderArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: cascaderArgs.hideBreadcrumb },
+            defaultValue: { summary: String(cascaderArgs.hideBreadcrumb) },
         },
     },
     loading: {
@@ -83,7 +83,7 @@ export const cascaderArgTypes: ArgTypes<CascaderArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: cascaderArgs.loading },
+            defaultValue: { summary: String(cascaderArgs.loading) },
         },
     },
     itemListFn: {
@@ -95,7 +95,7 @@ export const cascaderArgTypes: ArgTypes<CascaderArgs> = {
             disable: true,
             type: { summary: TYPES.FUNCTION },
             category: CATEGORIES.PROPERTIES,
-            defaultValue: { summary: cascaderArgs.itemListFn },
+            defaultValue: { summary: String(cascaderArgs.itemListFn) },
         },
     },
     items: {
@@ -106,7 +106,7 @@ export const cascaderArgTypes: ArgTypes<CascaderArgs> = {
             disable: true,
             type: { summary: TYPES.ARRAY },
             category: CATEGORIES.PROPERTIES,
-            defaultValue: { summary: cascaderArgs.items },
+            defaultValue: { summary: String(cascaderArgs.items) },
         },
     },
     loadingMessage: {
@@ -127,7 +127,7 @@ export const cascaderArgTypes: ArgTypes<CascaderArgs> = {
             disable: true,
             type: { summary: TYPES.MAP },
             category: CATEGORIES.PROPERTIES,
-            defaultValue: { summary: cascaderArgs.templates },
+            defaultValue: { summary: String(cascaderArgs.templates) },
         },
     },
     onVlClickBreadcrumb: {

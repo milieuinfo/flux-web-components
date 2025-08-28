@@ -1,6 +1,6 @@
 import { CATEGORIES, TYPES } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { ArgTypes } from '@storybook/web-components';
+import { action } from 'storybook/actions';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { headerDefaults } from '../vl-header.defaults';
 
 type HeaderArgs = typeof headerDefaults & { onReady: () => void };
@@ -26,7 +26,7 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: headerArgs.development },
+            defaultValue: { summary: String(headerArgs.development) },
         },
     },
     identifier: {
@@ -74,7 +74,7 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: headerArgs.simple },
+            defaultValue: { summary: String(headerArgs.simple) },
         },
     },
     skeleton: {
@@ -83,7 +83,7 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: headerArgs.skeleton },
+            defaultValue: { summary: String(headerArgs.skeleton) },
         },
     },
     switchCapacityUrl: {
@@ -103,7 +103,7 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: headerArgs.rejectLogout },
+            defaultValue: { summary: String(headerArgs.rejectLogout) },
         },
     },
     logoutCallback: {
@@ -113,7 +113,7 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
         table: {
             type: { summary: '(reason: string) => Promise<boolean>' },
             category: CATEGORIES.PROPERTIES,
-            defaultValue: { summary: headerArgs.logoutCallback },
+            defaultValue: { summary: String(headerArgs.logoutCallback) },
         },
     },
     applicationLinks: {

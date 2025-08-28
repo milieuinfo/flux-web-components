@@ -19,6 +19,10 @@ export class VlProzaMessage extends BaseHTMLElement {
         registerWebComponents([VlButtonComponent, VlTypography]);
     }
 
+    static clearCache() {
+        VlProzaMessage.__cache = {};
+    }
+
     constructor() {
         const html = `
             <div>

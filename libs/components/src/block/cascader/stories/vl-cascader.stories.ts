@@ -1,6 +1,6 @@
 import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { nothing } from 'lit';
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';

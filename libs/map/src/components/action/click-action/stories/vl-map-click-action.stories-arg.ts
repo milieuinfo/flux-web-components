@@ -1,5 +1,5 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, logStorybookEvent } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const mapClickActionArg = {
     ...defaultArgs,

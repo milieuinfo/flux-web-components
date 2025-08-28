@@ -1,0 +1,123 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Afnemen/Aan De Slag"/>
+
+# Aan De Slag
+
+## Inhoudstafel
+
+- [Node en NPM](#node-en-npm)
+- [Dependencies - package.json](#dependencies---packagejson)
+- [Registratie van een web-component](#registratie-van-een-web-component)
+- [Styling](#styling)
+- [Documentatie](#documentatie)
+
+
+## Node en NPM
+
+De basis van hedendaagse JavaScript ontwikkeling - zowel voor deze componenten bibliotheek als voor eindtoepassingen -
+is [Node.js](https://nodejs.org/en) gebruik makend van [npm](https://www.npmjs.com/) (of bvb.
+[Yarn](https://yarnpkg.com/)).
+
+
+## Dependencies - package.json
+
+Er worden [verschillende bibliotheken](/docs/afnemen-artifacts--documentatie) aangeboden, je dient ze - zie hieronder
+bij "dependencies" - op te nemen in je `package.json`. De packages kunnen enkel afgenomen worden als je toegang hebt
+tot de artifactory van Departement Omgeving! Om node versie problemen te vermijden is het aanbevolen
+[Volta](https://volta.sh/) te gebruiken.
+
+```
+{
+    "name": "web-app",
+    "version": "1.2.0",
+    "license": "MIT",
+    "scripts": {
+        "build": "nx build",
+    },
+    "private": true,
+    "devDependencies": {
+        "cypress": "13.6.6",
+        "eslint": "8.57.0",
+        "jest": "29.7.0",
+        "nx": "18.0.8",
+        "prettier": "2.8.8",
+        "typescript": "5.4.2"
+    },
+    "dependencies": {
+        "@domg-wc/components": "2.0.0",
+        "@domg-wc/map": "2.0.0"
+    },
+    "volta": {
+        "node": "20.11.0"
+    }
+}
+```
+
+> De minimaal op te nemen package is: __'@domg-wc/components'__, de package __'@domg-wc/map'__ bevat de kaart
+  functionaliteit en is optioneel.
+
+
+## Webpack build
+
+Om met native css properties te werken - en de IDE daar correct mee om te laten gaan - zitten deze (in de packages)
+apart in bestanden conform `vl-color.raw.css`. Bij gebruik van Webpack 5 dienen daarvoor de 'module rules' uitgebreid
+te worden met:
+
+```
+{
+    test: /\.css$/i,
+    resourceQuery: /raw/, // matcht ?raw
+    type: 'asset/source', // geeft de file-inhoud als string
+},
+```
+
+
+## Registratie van een web-component
+
+Om een web-component te gebruiken in je html dient hij geregistreerd te worden in de browser. Er zijn 2
+manieren om dat te doen:
+
+```
+import '@domg-wc/components/block/accordion';
+```
+
+of
+
+```
+import { registerWebComponents } from '@domg-wc/common';
+import { VlAccordionComponent } from '@domg-wc/components/block';
+
+registerWebComponents([VlAccordionComponent]);
+```
+
+Nadien kent je browser de tag `<vl-accordion></vl-accordion>`, de details van een component (attributen, events, ...)
+kan je terugvinden onder de desbetreffende docs pagina, [vl-accordion - documentatie](/docs/components-block-accordion--documentatie)
+in dit geval.
+
+
+## Styling
+
+Als afnemer dien je niets te doen m.b.t. styling. Componenten met een shadow DOM injecteren hun eigen styling in de
+shadow DOM. Daarnaast wordt er globale styling geïnjecteerd: algemene (font, body, ...) en layout (grid, group, ...)
+styling.
+
+Bij eigen ontwikkelde componenten (met een shadow DOM) is er in de shadow DOM geen specifieke flux-css (de globale css
+voor componenten zonder shadow DOM), je dient die dan zelf (indien nodig voor kind componenten) te injecteren.
+Meer info hierover vind je onder [eigen componenten met shadow DOM](/docs/recepten-css-styling--documentatie#eigen-componenten-met-shadow-dom).
+
+
+## Documentatie
+
+Technische documentatie is te vinden in deze Storybook waarvan de nieuwste versie terug te vinden is onder
+[flux-builds](https://flux.omgeving.vlaanderen.be/release-v2/latest/storybook)
+
+De Storybook documentatie wordt bij elke release verbeterd en aangevuld. Per component vind je onder de
+'documentatie'-node detail informatie, daaronder wordt typisch het volgende vermeld:
+
+- de beschrijving van de component
+- een 'default' voorbeeld, inclusief hoe je de component importeert en integreert
+- configuratie details van de attributen, slots, events en properties
+- specifieke varianten
+- referenties met eventueel links naar legacy versies en indien relevant naar de Digitaal Vlaanderen component (waar op
+verder gebouwd wordt)

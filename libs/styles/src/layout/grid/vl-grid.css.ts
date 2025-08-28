@@ -1,4 +1,4 @@
-import gridRawCss from '!!raw-loader!./vl-grid.raw.css';
+import gridRawCss from './vl-grid.raw.css?raw';
 import { css, unsafeCSS } from 'lit';
 import { vlMediaScreenExtraSmall, vlMediaScreenMedium, vlMediaScreenSmall } from '../../base/var/vl-media-screen.css';
 import { columnLargeStyles } from './column/vl-column-l.css';

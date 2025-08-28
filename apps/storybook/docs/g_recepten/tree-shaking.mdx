@@ -1,0 +1,31 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Recepten/Tree Shaking"/>
+
+# Tree Shaking
+
+Als je een bundler gebruikt - bvb. webpack of rollup - dan zal deze transitief (typisch vertrekkend vanuit je
+applicatieve index.js) enkel die code opnemen die je importeert. Code die niet gerefereerd wordt of als ongebruikt
+gezien wordt, belandt niet in de bundel. Dit proces van enkel relevante code opnemen noemt
+[tree shaking](https://webpack.js.org/guides/tree-shaking/).
+
+De te prefereren bundler bij Departement Omgeving is webpack. Om te tree-shaken houdt webpack rekening met de
+['sideEffects'](https://webpack.js.org/guides/tree-shaking/#clarifying-tree-shaking-and-sideeffects) zoals
+gespecifieerd in de package.json's (zowel van de applicatie als van de bibliotheken die gerefereerd worden).
+Belangrijk hierbij is dat de default (indien er niets gespecifieerd wordt) `sideEffects=true` is. Dit heeft tot
+gevolg dat als je eender welke named import doet via een barrel file ook alle andere vermelde exports geïmporteerd
+worden. Om die rede worden in de `@domg-wc` artifacts de root-barrel files ge-exclude uit de sideEffects. Vroeger
+(< v1.17.0) werd de default gebruikt waardoor er niet ge-tree-shaked werd als je op die manier imports deed en via
+webpack bundelde.
+
+Opmerking 1: webpack werkt eigenlijk niet conform de import specificatie, een named import zou eigenlijk geen
+side-effects mogen geven, daarvoor is expliciet de 'import with side-effects' voorzien.
+
+Opmerking 2: omdat we __op component niveau__ - voor webpack - sideffects activeren voor die sub-barrel files zorgt
+dat ervoor dat als je het onderstaande doet toch ook `VlLinkButtonElement` geregistreerd wordt. Terwijl als je via de
+root-barrel file gaat VlLinkButtonElement niet geregistreerd wordt!
+
+```
+import { VlButtonComponent } from '@domg-wc/components/atom';
+VlButtonComponent;
+```

@@ -5,6 +5,6 @@ describe('story - paragraph - default', () => {
     it('should render', () => {
         cy.visit(paragraphDefaultStylesUrl);
 
-        cy.get('p').eq(2).shouldHaveComputedStyle({ style: 'font-size', value: '18px' });
+        cy.get('p').eq(1).shouldHaveComputedStyle({ style: 'font-size', value: '18px' });
     });
 });

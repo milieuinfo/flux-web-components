@@ -7,11 +7,10 @@ import {
     VlFunctionalHeaderComponent,
     VlSearchComponent,
 } from '@domg-wc/components/block';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 import { functionalHeaderWithSearchHtml } from '../functional-header.helpers';
-import functionalHeaderWithSearchDoc from './functional-header-with-search.stories-doc.mdx';
 
 registerWebComponents([
     VlBreadcrumbComponent,
@@ -22,19 +21,13 @@ registerWebComponents([
 
 export default {
     title: 'Ontwerp/Functional Header/Voorbeeld Met Search',
-    tags: ['autodocs'],
-    parameters: {
-        docs: {
-            page: functionalHeaderWithSearchDoc,
-        },
-    },
 } as Meta;
 
-export const FunctionalHeaderWithSearch = story(
+export const functionalHeaderWithSearch = story(
     {},
     () => html` <style>
             ${vlGroupStyles}
         </style>
         ${unsafeHTML(functionalHeaderWithSearchHtml)}`
 );
-FunctionalHeaderWithSearch.storyName = 'vl-functional-header - met search';
+functionalHeaderWithSearch.storyName = 'vl-functional-header - met search';

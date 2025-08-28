@@ -1,4 +1,4 @@
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import {
     mapSelectActionsArgTypes,
     mapSelectActionsArgs,

@@ -1,6 +1,6 @@
 import { css, CSSResult, unsafeCSS } from 'lit';
-import basePlayerStyles from '!!raw-loader!vidstack/player/styles/base.css';
-import plyrTheme from '!!raw-loader!vidstack/player/styles/plyr/theme.css'; // Use a raw loader to import as string
+import basePlayerStyles from 'vidstack/player/styles/base.css?raw';
+import plyrTheme from 'vidstack/player/styles/plyr/theme.css?raw'; // Use a raw loader to import as string
 
 const styles: CSSResult[] = [
     css`

@@ -1,0 +1,104 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Bijdragen/Opzet & Structuur" />
+
+# Opzet & Structuur
+
+## Inhoudstafel
+
+-   [Opzet](#opzet)
+-   [Structuur](#structuur)
+
+## Opzet
+
+De code van de web-componenten bibliotheek zit in GitHub onder de
+[flux-web-components](https://github.com/milieuinfo/flux-web-components) repository. Het is een monorepo, opgezet met
+custom scripts, wel wordt de [Nx](https://nx.dev/) structuur gevolgd (vroeger was het Nx).
+
+Ontwikkeling gebeurt [branch-based](/docs/bijdragen-git-branching-strategie--documentatie) waarbij het
+[release proces](/docs/beheren-ci-cd--documentatie) volledig geautomatiseerd is.
+
+Naast de web-componenten bibliotheek zijn er nog [andere repositories](/docs/beheren-repositories--documentatie).
+
+### Private dependencies
+
+Een aantal dependencies zijn interne private npm packages. Om deze te kunnen installeren moet de Artifactory registry
+correct geconfigureerd worden, met een persoonlijke authToken, in het root `~/.npmrc` bestand. Meer informatie vind je
+[hier](/docs/recepten-artifactory-configuratie--documentatie).
+
+### Node versie en Volta
+
+We gebruiken Node en npm om dependencies te beheren en scripts uit te voeren. De Node versie is vastgelegd in de
+ package.json.<br/>
+We gebruiken [Volta](https://get.volta.sh) om de juiste Node versie te installeren:
+
+```
+volta install node@20.11.0
+node -v
+v20.11.0
+```
+
+Indien de versie niet klopt moet je de `PATH` variabele aanpassen en de Volta bin vooraan zetten. In `~/.zprofile` kan
+ je daarvoor deze lijn toevoegen:
+
+```
+export PATH="/Users/(your user)/.volta/bin:$PATH"
+```
+
+## Structuur
+
+Hieronder staat de projectstructuur van de [flux-web-components](https://github.com/milieuinfo/flux-web-components)
+repo beschreven, achter de pijltjes staan de artifacts gespecifieerd die uit de sub-projecten komen.
+
+```
+─ flux-web-components/
+  ├─ apps/
+  │  ├─ consumer/
+  │  ├─ consumer-e2e/
+  │  ├─ integrator/
+  │  ├─ integrator-e2e/ (Cypress CSP testen)
+  │  ├─ playground-lit/
+  │  ├─ playground-native/
+  │  ├─ playground-react/
+  │  ├─ storybook/
+  │  ├─ storybook-e2e/ (Cypress testen tov storybook)
+  │   -> worden niet als artifact gepubliceerd
+  ├─ libs/
+  │  ├─ common/
+  │  │   -> @domg-wc/common
+  │  ├─ components/
+  │  │   -> @domg-wc/components
+  │  ├─ integrations/
+  │  │   -> geen artifact, enkel voor intern gebruik in de integrator-app
+  │  ├─ map
+  │  │   -> @domg-wc/map
+  │  ├─ styles
+  │  │   -> @domg-wc/styles
+  ├─ resources/
+```
+
+Er zitten verschillende applicaties en libs in de repo.
+
+### Storybook
+
+Storybook (deze documentatie) streeft naar het aanbieden van zo correct mogelijke informatie en documentatie.
+
+### Playground's
+
+De verschillende Playground applicaties zijn bedoeld om integraties en combinaties van componenten in verschillende
+frameworks te testen.
+
+### Consumer
+
+Consumer is de toepassing om te verifiëren dat de gereleasete artifacts afneembaar zijn. Er zitten afnames in
+met named-imports, side-effect-imports en imports van de fat-lib.
+
+### Integrator
+
+Integrator wordt gebruikt om integraties te voorzien die ruimer zijn dan 1 component of die technisch nodig zijn
+om getest te kunnen worden, het wordt bvb. voor CSP verificatie gebruikt.
+
+### Libs
+
+De feitelijke componenten zitten opgesplitst in een aantal bibliotheken onder de libs folder. Ze worden aangeboden
+als [npm packages](/docs/afnemen-artifacts--documentatie).

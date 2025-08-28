@@ -1,5 +1,5 @@
 import { CATEGORIES, CONTROLS, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { titleDefaults } from '../vl-title.defaults';
 
 export type TitleArgs = typeof defaultArgs & typeof titleDefaults & { defaultSlot: string };
@@ -29,7 +29,7 @@ export const titleArgTypes: ArgTypes<TitleArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: titleArgs.underline },
+            defaultValue: { summary: String(titleArgs.underline) },
         },
     },
     alt: {
@@ -38,7 +38,7 @@ export const titleArgTypes: ArgTypes<TitleArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: titleArgs.alt },
+            defaultValue: { summary: String(titleArgs.alt) },
         },
     },
     noSpaceBottom: {
@@ -47,7 +47,7 @@ export const titleArgTypes: ArgTypes<TitleArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: titleArgs.noSpaceBottom },
+            defaultValue: { summary: String(titleArgs.noSpaceBottom) },
         },
     },
     defaultSlot: {

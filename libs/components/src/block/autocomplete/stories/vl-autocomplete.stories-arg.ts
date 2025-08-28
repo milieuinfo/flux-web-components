@@ -8,8 +8,8 @@ import {
     TYPES,
 } from '@resources/utils-storybook';
 import { DEFAULT_CAPTION_FORMAT, DEFAULT_MAX_MATCHES, DEFAULT_MIN_CHARS } from '../vl-autocomplete.defaults';
-import { ArgTypes } from '@storybook/web-components';
-import { action } from '@storybook/addon-actions';
+import { ArgTypes } from '@storybook/web-components-vite';
+import { action } from 'storybook/actions';
 
 export const complexItems = [
     { title: 'Gent', subtitle: 'Gemeente', value: '1' },
@@ -45,8 +45,9 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
     placeholder: {
         name: 'placeholder',
         description: 'Attribuut wordt gebruikt om de placeholder te bepalen.',
+        type: { name: TYPES.STRING, required: false },
         table: {
-            type: { summary: TYPES.STRING, required: false },
+            type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: autocompleteArgs.placeholder },
         },
@@ -54,8 +55,9 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
     initialValue: {
         name: 'initial-value',
         description: 'Attribuut wordt gebruikt om de initiële waarde te bepalen.',
+        type: { name: TYPES.STRING, required: false },
         table: {
-            type: { summary: TYPES.STRING, required: false },
+            type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: autocompleteArgs.initialValue },
         },
@@ -63,8 +65,9 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
     label: {
         name: 'label',
         description: 'Attribuut wordt gebruikt om het label te bepalen.',
+        type: { name: TYPES.STRING, required: false },
         table: {
-            type: { summary: TYPES.STRING, required: false },
+            type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: autocompleteArgs.label },
         },
@@ -72,10 +75,11 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
     labelSmall: {
         name: 'label-small',
         description: 'Attribuut wordt gebruikt om het label kleiner te maken.',
+        type: { name: TYPES.BOOLEAN, required: false },
         table: {
-            type: { summary: TYPES.BOOLEAN, required: false },
+            type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: autocompleteArgs.labelSmall },
+            defaultValue: { summary: String(autocompleteArgs.labelSmall) },
         },
     },
     minChars: {
@@ -83,20 +87,22 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
         description:
             'Attribuut wordt gebruikt om te bepalen hoeveel karakters de gebruiker moet ingeven alvorens de suggesties getoond worden.',
         control: { type: CONTROLS.RANGE, min: 1, max: 10, step: 1 },
+        type: { name: TYPES.NUMBER, required: false },
         table: {
-            type: { summary: TYPES.NUMBER, required: false },
+            type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: autocompleteArgs.minChars },
+            defaultValue: { summary: String(autocompleteArgs.minChars) },
         },
     },
     maxSuggestions: {
         name: 'max-suggestions',
         description: 'Attribuut wordt gebruikt om het maximum aantal suggesties dat getoond moet worden te bepalen.',
         control: { type: CONTROLS.RANGE, min: 1, max: 20, step: 1 },
+        type: { name: TYPES.NUMBER, required: false },
         table: {
-            type: { summary: TYPES.NUMBER, required: false },
+            type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: autocompleteArgs.maxSuggestions },
+            defaultValue: { summary: String(autocompleteArgs.maxSuggestions) },
         },
     },
     captionFormat: {
@@ -104,13 +110,13 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
         description: 'Attribuut bepaalt hoe ieder item in de suggestielijst getoond wordt.',
         control: { type: CONTROLS.SELECT },
         options: Object.values(CAPTION_FORMAT),
+        type: { name: TYPES.STRING, required: false },
         table: {
-            category: CATEGORIES.ATTRIBUTES,
             type: {
-                defaultValue: { summary: DEFAULT_CAPTION_FORMAT },
-                summary: getSelectControlOptions(Object.values(CAPTION_FORMAT)),
-                required: false,
+                summary: getSelectControlOptions(Object.values(CAPTION_FORMAT))
             },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: DEFAULT_CAPTION_FORMAT },
         },
     },
     groupBy: {
@@ -118,10 +124,10 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
         description: 'Attribuut bepaalt hoe de items in de lijst gegroepeerd moeten worden.',
         control: { type: CONTROLS.SELECT },
         options: [GROUP_BY.TITLE, GROUP_BY.SUBTITLE],
+        type: { name: TYPES.STRING, required: false },
         table: {
             type: {
                 summary: getSelectControlOptions(Object.values(GROUP_BY)),
-                required: false,
             },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: autocompleteArgs.groupBy },
@@ -130,37 +136,41 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
     showClear: {
         name: 'show-clear',
         description: 'Attribuut wordt gebruikt om te bepalen of het clear-icoon getoond moet worden.',
+        type: { name: TYPES.BOOLEAN, required: false },
         table: {
-            type: { summary: TYPES.BOOLEAN, required: false },
+            type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: autocompleteArgs.showClear },
+            defaultValue: { summary: String(autocompleteArgs.showClear) },
         },
     },
     disableLoading: {
         name: 'disable-loading',
         description: 'Bepaalt of de laad-animatie getoond wordt.',
+        type: { name: TYPES.BOOLEAN, required: false },
         table: {
-            type: { summary: TYPES.BOOLEAN, required: false },
+            type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: autocompleteArgs.disableLoading },
+            defaultValue: { summary: String(autocompleteArgs.disableLoading) },
         },
     },
     clearTooltip: {
         name: 'clear-tooltip',
         description: 'Attribuut wordt gebruikt om de tekst te bepalen die getoond wordt bij hover van het clear-icoon.',
+        type: { name: TYPES.STRING, required: false },
         table: {
-            type: { summary: TYPES.STRING, required: false },
+            type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: autocompleteArgs.clearTooltip },
+            defaultValue: { summary: String(autocompleteArgs.clearTooltip) },
         },
     },
     noMatchesText: {
         name: 'no-matches-text',
         description: 'Attribuut wordt gebruikt om de tekst te bepalen die getoond wordt als er geen suggesties zijn.',
+        type: { name: TYPES.STRING, required: false },
         table: {
-            type: { summary: TYPES.STRING, required: false },
+            type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: autocompleteArgs.noMatchesText },
+            defaultValue: { summary: String(autocompleteArgs.noMatchesText) },
         },
     },
     items: {
@@ -170,13 +180,13 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
         table: {
             category: CATEGORIES.PROPERTIES,
             type: { summary: TYPES.ARRAY },
-            defaultValue: { summary: autocompleteArgs.items },
+            defaultValue: { summary: String(autocompleteArgs.items) },
         },
     },
     search: {
         name: 'search',
-        description: `Dit custom event wordt getriggerd wanneer de gebruiker karakters ingeeft in het tekstvak terwijl 
-            de component geen items heeft. Gebruik dit event wanneer je de suggestielijst wilt vullen met items uit een 
+        description: `Dit custom event wordt getriggerd wanneer de gebruiker karakters ingeeft in het tekstvak terwijl
+            de component geen items heeft. Gebruik dit event wanneer je de suggestielijst wilt vullen met items uit een
             API-call. Bekijk de story "WithInputAndApiCall" voor meer details.`,
         table: {
             type: { summary: '-' },
@@ -185,7 +195,7 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
     },
     selectedAutocomplete: {
         name: 'selected-autocomplete',
-        description: `Dit custom event wordt getriggerd wanneer de gebruiker een item selecteert uit de suggestielijst. 
+        description: `Dit custom event wordt getriggerd wanneer de gebruiker een item selecteert uit de suggestielijst.
             De geselecteerde waarde kan worden opgevraagd via het detail van het event.`,
         table: {
             type: { summary: '-' },

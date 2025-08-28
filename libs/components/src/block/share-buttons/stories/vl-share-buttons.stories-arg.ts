@@ -1,11 +1,12 @@
 import { defaultArgs, defaultArgTypes } from '@resources/utils-storybook';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const shareButtonsArgs = {
     ...defaultArgs,
     alt: false,
 };
 
-export const shareButtonsArgTypes = {
+export const shareButtonsArgTypes: ArgTypes<typeof shareButtonsArgs> = {
     ...defaultArgTypes,
     alt: {
         name: 'alt',

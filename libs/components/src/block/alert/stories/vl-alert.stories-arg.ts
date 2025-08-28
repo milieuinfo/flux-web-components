@@ -7,7 +7,7 @@ import {
     logStorybookEvent,
     TYPES,
 } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { ALERT_ICON, ALERT_SIZE, ALERT_TYPE, VlAlertClosedEvent } from '../vl-alert.model';
 
 export const alertArgs = {
@@ -33,7 +33,7 @@ export const alertArgTypes: ArgTypes<typeof alertArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: alertArgs.closable },
+            defaultValue: { summary: String(alertArgs.closable) },
         },
     },
     naked: {
@@ -42,7 +42,7 @@ export const alertArgTypes: ArgTypes<typeof alertArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: alertArgs.naked },
+            defaultValue: { summary: String(alertArgs.naked) },
         },
     },
     title: {

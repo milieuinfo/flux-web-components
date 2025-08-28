@@ -1,4 +1,4 @@
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { CATEGORIES, TYPES } from '@resources/utils-storybook';
 import { mapSelectActionArgTypes, mapSelectActionArgs } from '../../stories/vl-map-select-action.stories-arg';
 

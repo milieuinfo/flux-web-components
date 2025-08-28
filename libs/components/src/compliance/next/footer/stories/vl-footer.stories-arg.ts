@@ -1,6 +1,6 @@
 import { CATEGORIES, TYPES } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { ArgTypes } from '@storybook/web-components';
+import { action } from 'storybook/actions';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const footerArgs = {
     development: false,
@@ -15,13 +15,13 @@ export const footerArgTypes: ArgTypes<typeof footerArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: footerArgs.development },
+            defaultValue: { summary: String(footerArgs.development) },
         },
     },
     identifier: {
         name: 'identifier',
-        description: `De identifier die gebruikt wordt om bij Digitaal Vlaanderen de footer op te halen. 
-        Deze identifier kan aangevraagd worden bij Team Infra van Departement Omgeving of via dit 
+        description: `De identifier die gebruikt wordt om bij Digitaal Vlaanderen de footer op te halen.
+        Deze identifier kan aangevraagd worden bij Team Infra van Departement Omgeving of via dit
         <vl-link external href="https://www.vlaanderen.be/digitaal-vlaanderen/onze-diensten-en-
         platformen/mijn-burgerprofiel/global-header-en-footer#stappenplan-koppeling-met-de-global-
         header-en-footer">stappenplan</vl-link> van Digitaal Vlaanderen.`,

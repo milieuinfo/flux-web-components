@@ -6,7 +6,7 @@ import {
     getSelectControlOptions,
     TYPES,
 } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { INFO_TILE_SIZE, INFO_TILE_TYPE } from '../vl-info-tile.model';
 
 export const infoTileArgs = {
@@ -36,7 +36,7 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: infoTileArgs.autoOpen },
+            defaultValue: { summary: String(infoTileArgs.autoOpen) },
         },
     },
     center: {
@@ -45,7 +45,7 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: infoTileArgs.center },
+            defaultValue: { summary: String(infoTileArgs.center) },
         },
     },
     fullHeight: {
@@ -54,7 +54,7 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: infoTileArgs.fullHeight },
+            defaultValue: { summary: String(infoTileArgs.fullHeight) },
         },
     },
     toggleable: {
@@ -63,7 +63,7 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: infoTileArgs.toggleable },
+            defaultValue: { summary: String(infoTileArgs.toggleable) },
         },
     },
     contentSlot: {
@@ -160,7 +160,7 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: infoTileArgs.iconAsBadge },
+            defaultValue: { summary: String(infoTileArgs.iconAsBadge) },
         },
     },
 };

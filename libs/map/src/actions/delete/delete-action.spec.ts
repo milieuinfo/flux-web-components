@@ -5,8 +5,10 @@ import VectorLayer from 'ol/layer/Vector';
 import Feature from 'ol/Feature';
 import { MapActionPayload, OlVectorLayerType } from '../../vl-map.model';
 import { VlDeleteAction } from './delete-action';
+import { Extent } from 'ol/extent';
 import ResizeObserver from 'resize-observer-polyfill';
 
+declare var global;
 global.ResizeObserver = ResizeObserver;
 
 describe('delete action', () => {
@@ -131,7 +133,7 @@ describe('delete action', () => {
             .mockClear()
             // @ts-ignore
             .mockReturnValue({
-                getExtent: () => {},
+                getExtent: (extent?: Extent) => extent,
             });
         deleteAction.dragBoxInteraction.dispatchEvent('boxdrag');
         deleteAction.dragBoxInteraction.dispatchEvent('boxend');

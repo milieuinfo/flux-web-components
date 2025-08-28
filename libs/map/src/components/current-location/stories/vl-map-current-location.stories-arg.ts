@@ -1,5 +1,5 @@
 import { CATEGORIES, CONTROLS, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { DEFAULT_TOOLTIP, DEFAULT_ZOOM } from '../vl-map-current-location.defaults';
 
 export const mapCurrentLocationArgs = {
@@ -26,7 +26,7 @@ export const mapCurrentLocationArgTypes: ArgTypes<typeof mapCurrentLocationArgs>
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapCurrentLocationArgs.zoom },
+            defaultValue: { summary: String(mapCurrentLocationArgs.zoom) },
         },
     },
 };

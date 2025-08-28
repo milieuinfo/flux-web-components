@@ -6,7 +6,7 @@ import {
     getSelectControlOptions,
     TYPES,
 } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { LEGEND_PLACEMENT } from '../vl-map-legend.defaults';
 
 export const mapLegendArgs = {
@@ -82,7 +82,7 @@ export const mapLegendArgTypes: ArgTypes<typeof mapLegendArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapLegendArgs.layoutVertical },
+            defaultValue: { summary: String(mapLegendArgs.layoutVertical) },
         },
     },
     hideTitle: {
@@ -91,7 +91,7 @@ export const mapLegendArgTypes: ArgTypes<typeof mapLegendArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapLegendArgs.hideTitle },
+            defaultValue: { summary: String(mapLegendArgs.hideTitle) },
         },
     },
     version: {

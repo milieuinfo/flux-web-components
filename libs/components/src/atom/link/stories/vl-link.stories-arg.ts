@@ -8,7 +8,7 @@ import {
 } from '@resources/utils-storybook';
 // de import is bewust op deze manier om voor de web-types.generator 'binnen' de monorepo geen side-effect te geven
 import { ICON_PLACEMENT } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { linkDefaults } from '../vl-link.defaults';
 
 type LinkArgs = typeof defaultArgs & typeof linkDefaults & { defaultSlot: string };
@@ -45,7 +45,7 @@ export const linkArgTypes: ArgTypes<LinkArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: linkArgs.bold },
+            defaultValue: { summary: String(linkArgs.bold) },
         },
     },
     small: {
@@ -54,7 +54,7 @@ export const linkArgTypes: ArgTypes<LinkArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: linkArgs.small },
+            defaultValue: { summary: String(linkArgs.small) },
         },
     },
     large: {
@@ -63,7 +63,7 @@ export const linkArgTypes: ArgTypes<LinkArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: linkArgs.large },
+            defaultValue: { summary: String(linkArgs.large) },
         },
     },
     error: {
@@ -72,7 +72,7 @@ export const linkArgTypes: ArgTypes<LinkArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: linkArgs.error },
+            defaultValue: { summary: String(linkArgs.error) },
         },
     },
     external: {
@@ -81,7 +81,7 @@ export const linkArgTypes: ArgTypes<LinkArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: linkArgs.external },
+            defaultValue: { summary: String(linkArgs.external) },
         },
     },
     icon: {
@@ -111,7 +111,7 @@ export const linkArgTypes: ArgTypes<LinkArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: linkArgs.buttonAsLink },
+            defaultValue: { summary: String(linkArgs.buttonAsLink) },
         },
     },
     defaultSlot: {

@@ -1,6 +1,6 @@
 import { CATEGORIES, TYPES } from '@resources/utils-storybook';
 import { mapLayerArgs, mapLayerArgTypes } from '../../stories/vl-map-layer.stories-arg';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const mapWmsLayerArgs = {
     ...mapLayerArgs,

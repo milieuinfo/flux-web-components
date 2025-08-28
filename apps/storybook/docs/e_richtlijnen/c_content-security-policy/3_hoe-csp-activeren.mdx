@@ -1,0 +1,110 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Richtlijnen/Content Security Policy/Hoe CSP Activeren"/>
+
+# Hoe CSP Activeren
+
+<vl-alert data-cy="alert" icon="info-circle" title="CSP Activeren" type="info">
+    Het doel is **op de server** waar je de toepassing host te zorgen dat er **zo strikt mogelijke CSP-headers**
+    geconfigureerd zijn die meegestuurd worden met de response(s).
+</vl-alert>
+
+
+## Voorbereiding
+
+De verschillende flux-web-componenten evolueren. Voor alle versies t.e.m. v2.2.0 is het niet zo zinvol om CSP te
+configureren. De global-header van DV in die versies heeft `"script-src 'unsafe-eval'"` nodig, waardoor
+[XSS](/docs/richtlijnen-content-security-policy-wat-is-csp--documentatie#cross-side-scripting) mogelijk
+is. Vanaf [v2.3.0](/docs/richtlijnen-content-security-policy-historiek-csp-aanpak--documentatie#juni-2025---v230)
+wordt de alternatieve `vl-header-next` aangeboden die wel CSP-compliant is.
+
+Vanaf [v2.4.0](/docs/richtlijnen-content-security-policy-historiek-csp-aanpak--documentatie#augustus-2025---v240)
+zijn ook de oudere flux-web-componenten zo CSP-compliant als mogelijk gemaakt.
+
+De **aanbeveling** is dus **eerst te migreren naar versie v2.4.0** (of hoger) alvorens het zinvol is CSP te activeren
+voor een toepassing!
+
+
+## Ideale CSP-configuratie
+
+De ideale, meest veilige, configuratie ziet er als volgt uit:
+```
+"Content-Security-Policy":
+    "default-src 'self'; " +
+    "font-src 'self'; " +
+    "script-src 'self'; " +
+    "style-src 'self'; " +
+    "img-src 'self'; " +
+    "connect-src 'self'; " +
+    "object-src 'none'; " +
+    "base-uri 'self'; " +
+    "frame-ancestors 'none'"
+```
+
+ - met **'self'** mogen er vanuit de toepassing enkel requests gebeuren naar hetzelfde domein - om fonts,
+   scripts, styles, images, ... op te vragen
+ - **"object-src 'none'"** verbiedt alle loads via `<object>`, `<embed>` en `<applet>`: niets mag via die elementen
+   weergegeven worden, ongeacht herkomst - dit is een aanbevolen default die legacy functionaliteit blokkeert
+ - **"frame-ancestors 'none'"** zorgt dat de pagina niet in een `<iframe>`, `<frame>`, `<object>` of `<embed>`
+   opgenomen kan worden - dit is een anti-clickjacking maatregel
+
+
+## Lossere CSP Regels
+
+Praktisch zal je typisch lossere CSP regels moeten specifiëren:
+
+ - fonts, en beperkt styles en scripts, komen in ons geval van de CDN, wat een ander domein is
+ - de global-header `vl-header-next` haalt - afhankelijk van de omgeving - fonts, scripts en styles uit andere domeinen
+ - bij gebruik van de `vl-textarea-rich` component moet `"style-src-attr 'unsafe-inline'; "` toegevoegd worden, zie
+   [CSP en vl-textarea-rich / TinyMCE](/docs/richtlijnen-content-security-policy-csp-problematieken--documentatie#csp-en-vl-textarea-rich--tinymce)
+   voor details
+
+Theoretisch zijn er, om te vermijden dat CSP regels versoepelt moeten worden, technisch nog 2 andere mogelijkheden:
+**hashes** en **nonce's**.
+
+### CSP Hash
+
+Indien bij strikte regels een bepaalde component toch een `<style>` blok in zijn html heeft dan geeft de browser een
+fout, hij zal die stijl niet verwerken. De browser specifieert als mogelijke oplossing een hash, dat is een SHA-256
+die berekend werd voor het desbetreffend blok code. Je kan die hash opnemen in de CSP-regel waarna het stijl-blok wel
+toegelaten is en toegepast zal worden.
+
+Dit werkt enkel voor statische stijl, als je nadien dynamisch stijl wijzigt, blijft dat een CSP violation. Voor styles
+kan je vermijden om met hashes te werken door ze niet in een `<style>` blok op te nemen, maar ze op de
+adoptedStyleSheets van de shadow-dom of het document toe te voegen.
+
+Hetzelfde geld voor scripts. In plaats van ze dynamisch toe te voegen, en met een hash te werken, kan je er beter voor
+zorgen dat de scripts al initieel als code aanwezig zijn zodat je ze op het gepaste moment kan aanroepen.
+
+### CSP Nonce
+
+Een CSP-nonce is een dynamisch gegenereerde key die je meestuurt via de header en die gespecifiëerd wordt op scripts
+of styles in je html. De nonce moet bij elke request random gegenereerd worden op de server, de implementatie is dus
+niet triviaal.
+
+
+## CSP Voorbeeld
+
+De [flux-csp-poc](https://git.omgeving.vlaanderen.be/git/flux/flux-csp-poc) in GitLab, is een voorbeeld toepassing
+die de componenten `vl-header-next`, `vl-footer-next`, `vl-textarea-rich` en `vl-map` integreert. De global-header
+komt in dit geval uit de tni-omgeving van DV. De CSP regels zijn gespecifieerd in de webpack dev-server, in het
+bestand `webpack.config.cjs`. De toepassing heeft volgende CSP-configuratie nodig om te werken:
+
+```
+"Content-Security-Policy":
+    "default-src 'self'; " +
+    "font-src 'self' https://widgets.test-vlaanderen.be https://ui.vlaanderen.be https://assets.vlaanderen.be https://widgets.tni-vlaanderen.be https://cdn.omgeving.vlaanderen.be; " +
+    "script-src 'self' https://widgets.tni-vlaanderen.be https://cdn.omgeving.vlaanderen.be; " +
+    "style-src 'self'; " +
+    "style-src-elem 'self' https://widgets.tni-vlaanderen.be https://cdn.omgeving.vlaanderen.be; " +
+    "style-src-attr 'unsafe-inline'; " +
+    "img-src 'self' data: https://assets.vlaanderen.be https://widgets.tni-vlaanderen.be https://geo.api.vlaanderen.be; " +
+    "connect-src 'self' https://staging.contactapi.cc.vlaanderen.be ws://localhost:8080 https://widgets.tni-vlaanderen.be wss://tni.contactapi.uat-vlaanderen.be https://chat.contactcenter.dev-vlaanderen.be https://tni.contactapi.uat-vlaanderen.be; " +
+    "object-src 'none'; " +
+    "base-uri 'self'; " +
+    "frame-ancestors 'none'"
+```
+
+Een goede aanpak om zo strikt mogelijke CSP-configuratie te verkrijgen is starten met bovenstaande ['Ideale
+CSP-configuratie'](#ideale-csp-configuratie)
+en deze te verfijnen a.d.h.v. de fout boodschappen in de console.

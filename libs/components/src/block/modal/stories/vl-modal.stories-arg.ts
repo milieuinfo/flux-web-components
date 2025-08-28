@@ -1,5 +1,5 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const modalArgs = {
     ...defaultArgs,
@@ -9,11 +9,13 @@ export const modalArgs = {
     notCancellable: false,
     notAutoClosable: false,
     allowOverflow: false,
+    contentSlot: '',
+    buttonSlot: '',
     size: 'default',
     position: 'center',
 };
 
-export const modalArgTypes: ArgTypes = {
+export const modalArgTypes: ArgTypes<typeof modalArgs> = {
     ...defaultArgTypes,
     title: {
         name: 'title',
@@ -110,4 +112,4 @@ export const modalArgTypes: ArgTypes = {
             category: CATEGORIES.ATTRIBUTES,
         },
     },
-};  
+};

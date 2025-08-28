@@ -1,12 +1,12 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
+import '../vl-modal.component';
 import { VlButtonComponent } from '../../../atom/button';
 import { VlLinkComponent } from '../../../atom/link';
-import { VlDatepickerComponent } from '../../../form/datepicker';
-import '../vl-modal.component';
 import { modalArgs, modalArgTypes } from './vl-modal.stories-arg';
+import { VlDatepickerComponent } from '../../../form/datepicker';
 
 registerWebComponents([VlDatepickerComponent, VlButtonComponent, VlLinkComponent]);
 

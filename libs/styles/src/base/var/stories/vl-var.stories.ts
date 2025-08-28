@@ -1,5 +1,6 @@
 import { html } from 'lit-html';
 import vlVarStoriesDoc from './vl-var.stories-doc.mdx';
+import { Meta } from '@storybook/web-components-vite';
 
 export default {
     id: 'styles-base-var',
@@ -10,7 +11,7 @@ export default {
             page: vlVarStoriesDoc,
         },
     },
-};
+} as Meta;
 
 export const VarColor = ({}) => html` <style>
         .sb-var {

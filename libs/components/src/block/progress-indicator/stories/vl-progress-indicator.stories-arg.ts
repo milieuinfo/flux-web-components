@@ -1,6 +1,6 @@
 import { CATEGORIES, CONTROLS, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
+import { action } from 'storybook/actions';
 
 export const progressIndicatorArgs = {
     ...defaultArgs,
@@ -21,7 +21,7 @@ export const progressIndicatorArgTypes: ArgTypes<typeof progressIndicatorArgs> =
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: progressIndicatorArgs.activeStep },
+            defaultValue: { summary: String(progressIndicatorArgs.activeStep) },
         },
     },
     showLabels: {
@@ -30,7 +30,7 @@ export const progressIndicatorArgTypes: ArgTypes<typeof progressIndicatorArgs> =
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: progressIndicatorArgs.showLabels },
+            defaultValue: { summary: String(progressIndicatorArgs.showLabels) },
         },
     },
     focusOnChange: {
@@ -39,7 +39,7 @@ export const progressIndicatorArgTypes: ArgTypes<typeof progressIndicatorArgs> =
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: progressIndicatorArgs.focusOnChange },
+            defaultValue: { summary: String(progressIndicatorArgs.focusOnChange) },
         },
     },
     numeric: {
@@ -48,7 +48,7 @@ export const progressIndicatorArgTypes: ArgTypes<typeof progressIndicatorArgs> =
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: progressIndicatorArgs.numeric },
+            defaultValue: { summary: String(progressIndicatorArgs.numeric) },
         },
     },
     steps: {
@@ -57,7 +57,7 @@ export const progressIndicatorArgTypes: ArgTypes<typeof progressIndicatorArgs> =
         table: {
             type: { summary: TYPES.ARRAY },
             category: CATEGORIES.PROPERTIES,
-            defaultValue: { summary: progressIndicatorArgs.steps },
+            defaultValue: { summary: String(progressIndicatorArgs.steps) },
         },
     },
     onClickStep: {

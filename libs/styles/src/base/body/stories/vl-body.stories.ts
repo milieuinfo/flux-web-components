@@ -1,5 +1,6 @@
 import { html } from 'lit-html';
 import vlBodyStoriesDoc from './vl-body.stories-doc.mdx';
+import { Meta } from '@storybook/web-components-vite';
 
 export default {
     id: 'styles-base-body',
@@ -10,7 +11,7 @@ export default {
             page: vlBodyStoriesDoc,
         },
     },
-};
+} as Meta;
 
 export const BodyDefault = ({}) => html`
     <div>Deze specifieke &lt;body&gt; en &lt;html&gt; styling wordt automatisch op het document gezet.</div>

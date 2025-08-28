@@ -1,5 +1,5 @@
 import { CATEGORIES, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { tableDefaults } from '../vl-table.defaults';
 
 export const tableArgs = {
@@ -14,7 +14,7 @@ export const tableArgTypes: ArgTypes<typeof tableArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: tableArgs.hover },
+            defaultValue: { summary: String(tableArgs.hover) },
         },
     },
     matrix: {
@@ -25,7 +25,7 @@ export const tableArgTypes: ArgTypes<typeof tableArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: tableArgs.matrix },
+            defaultValue: { summary: String(tableArgs.matrix) },
         },
     },
     grid: {
@@ -34,7 +34,7 @@ export const tableArgTypes: ArgTypes<typeof tableArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: tableArgs.grid },
+            defaultValue: { summary: String(tableArgs.grid) },
         },
     },
     zebra: {
@@ -45,7 +45,7 @@ export const tableArgTypes: ArgTypes<typeof tableArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: tableArgs.zebra },
+            defaultValue: { summary: String(tableArgs.zebra) },
         },
     },
     fluxZebra: {
@@ -56,7 +56,7 @@ export const tableArgTypes: ArgTypes<typeof tableArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: tableArgs.fluxZebra },
+            defaultValue: { summary: String(tableArgs.fluxZebra) },
         },
     },
     collapsedM: {
@@ -66,7 +66,7 @@ export const tableArgTypes: ArgTypes<typeof tableArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: tableArgs.collapsedM },
+            defaultValue: { summary: String(tableArgs.collapsedM) },
         },
     },
     collapsedS: {
@@ -76,7 +76,7 @@ export const tableArgTypes: ArgTypes<typeof tableArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: tableArgs.collapsedS },
+            defaultValue: { summary: String(tableArgs.collapsedS) },
         },
     },
     collapsedXS: {
@@ -87,7 +87,7 @@ export const tableArgTypes: ArgTypes<typeof tableArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: tableArgs.collapsedXS },
+            defaultValue: { summary: String(tableArgs.collapsedXS) },
         },
     },
 };

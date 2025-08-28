@@ -1,5 +1,5 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const richDataArgs = {
     ...defaultArgs,
@@ -17,7 +17,7 @@ export const richDataArgTypes: ArgTypes<typeof richDataArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: richDataArgs.filterClosable },
+            defaultValue: { summary: String(richDataArgs.filterClosable) },
         },
     },
     filterClosed: {
@@ -26,7 +26,7 @@ export const richDataArgTypes: ArgTypes<typeof richDataArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: richDataArgs.filterClosed },
+            defaultValue: { summary: String(richDataArgs.filterClosed) },
         },
     },
     filterMaxWidth: {

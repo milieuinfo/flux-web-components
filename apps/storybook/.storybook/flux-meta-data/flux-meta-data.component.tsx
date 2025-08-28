@@ -1,10 +1,11 @@
-import { Markdown } from '@storybook/blocks';
+import { Markdown } from '@storybook/addon-docs/blocks';
 import React from 'react';
 import fluxMetaData from './flux-meta-data.json';
 import { FluxMetaDataModel } from './flux-meta-data.model';
 
 export const FluxMetaData = ({ id }) => {
     const fluxMetaDataModel = fluxMetaData[id] as FluxMetaDataModel;
+    // @ts-ignore
     return fluxMetaDataModel ? (
         <vl-alert icon="warning" title={buildTitle(fluxMetaDataModel)} type={buildType(fluxMetaDataModel)} size="small">
             <Markdown options={{ forceInline: true }} style={{ fontSize: '14px' }}>
