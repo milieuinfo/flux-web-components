@@ -1,5 +1,5 @@
 import { css, CSSResult, unsafeCSS } from 'lit';
-import vlSectionRawCss from '!!raw-loader!./vl-section.raw.css';
+import vlSectionRawCss from './vl-section.raw.css?raw';
 import { vlMediaScreenMedium, vlMediaScreenSmall, vlPageMaxWidthWide } from '../../base/var/vl-media-screen.css';
 
 export const vlSectionStyles: CSSResult = css`

@@ -1,6 +1,5 @@
 import { html } from 'lit-html';
-import { Meta, StoryFn } from '@storybook/web-components';
-import formValidatorsDoc from './form-validation.stories-doc.mdx';
+import { Meta, StoryFn } from '@storybook/web-components-vite';
 import { registerWebComponents } from '@domg-wc/common';
 import { VlFormMessageComponent, VlFormLabelComponent, VlInputFieldComponent } from '@domg-wc/components/form';
 
@@ -8,12 +7,6 @@ registerWebComponents([VlInputFieldComponent, VlFormLabelComponent, VlFormMessag
 
 export default {
     title: 'Ontwerp/Form/Validation',
-    tags: ['autodocs'],
-    parameters: {
-        docs: {
-            page: formValidatorsDoc,
-        },
-    },
 } as Meta;
 
 export const ValidationRequired: StoryFn = () => html`

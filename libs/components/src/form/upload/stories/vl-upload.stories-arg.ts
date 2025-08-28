@@ -1,8 +1,8 @@
 import { CATEGORIES, TYPES } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { formControlArgs, formControlArgTypes } from '../../form-control/stories/form-control.stories-arg';
 import { uploadDefaults } from '../vl-upload.defaults';
+import { action } from 'storybook/actions';
 
 type UploadArgs = typeof uploadDefaults &
     typeof formControlArgs & {
@@ -43,7 +43,7 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: uploadArgs.readonly },
+            defaultValue: { summary: String(uploadArgs.readonly) },
         },
     },
     acceptedFiles: {
@@ -67,7 +67,7 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
                 summary: TYPES.BOOLEAN,
             },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: uploadArgs.autoProcess },
+            defaultValue: { summary: String(uploadArgs.autoProcess) },
         },
     },
     disallowDuplicates: {
@@ -79,7 +79,7 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
                 summary: TYPES.BOOLEAN,
             },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: uploadArgs.disallowDuplicates },
+            defaultValue: { summary: String(uploadArgs.disallowDuplicates) },
         },
     },
     errorMessageAcceptedFiles: {
@@ -129,7 +129,7 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
                 summary: 'number',
             },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: uploadArgs.maxFiles },
+            defaultValue: { summary: String(uploadArgs.maxFiles) },
         },
     },
     maxSize: {
@@ -140,7 +140,7 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
                 summary: 'number',
             },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: uploadArgs.maxSize },
+            defaultValue: { summary: String(uploadArgs.maxSize) },
         },
     },
     subTitle: {
@@ -173,7 +173,7 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
                 summary: 'number',
             },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: uploadArgs.parallelUploads },
+            defaultValue: { summary: String(uploadArgs.parallelUploads) },
         },
     },
     url: {
@@ -196,7 +196,7 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
                 summary: TYPES.BOOLEAN,
             },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: uploadArgs.chunking },
+            defaultValue: { summary: String(uploadArgs.chunking) },
         },
     },
     uploadProgressFn: {
@@ -208,7 +208,7 @@ export const uploadArgTypes: ArgTypes<UploadArgs> = {
                 summary: TYPES.FUNCTION,
             },
             category: CATEGORIES.PROPERTIES,
-            defaultValue: { summary: uploadArgs.uploadProgressFn },
+            defaultValue: { summary: String(uploadArgs.uploadProgressFn) },
         },
     },
     onVlChange: {

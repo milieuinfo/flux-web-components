@@ -1,7 +1,7 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { radioDefaults } from '../vl-radio.defaults';
+import { action } from 'storybook/actions';
 
 type RadioArgs = typeof defaultArgs &
     typeof radioDefaults & {
@@ -37,7 +37,7 @@ export const radioArgTypes: ArgTypes<RadioArgs> = {
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: radioArgs.value },
+            defaultValue: { summary: String(radioArgs.value) },
         },
     },
     name: {
@@ -65,7 +65,7 @@ export const radioArgTypes: ArgTypes<RadioArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: radioArgs.block },
+            defaultValue: { summary: String(radioArgs.block) },
         },
     },
     readonly: {
@@ -74,7 +74,7 @@ export const radioArgTypes: ArgTypes<RadioArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: radioArgs.readonly },
+            defaultValue: { summary: String(radioArgs.readonly) },
         },
     },
     disabled: {
@@ -83,7 +83,7 @@ export const radioArgTypes: ArgTypes<RadioArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: radioArgs.disabled },
+            defaultValue: { summary: String(radioArgs.disabled) },
         },
     },
     error: {
@@ -92,7 +92,7 @@ export const radioArgTypes: ArgTypes<RadioArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: radioArgs.error },
+            defaultValue: { summary: String(radioArgs.error) },
         },
     },
     success: {
@@ -101,7 +101,7 @@ export const radioArgTypes: ArgTypes<RadioArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: radioArgs.success },
+            defaultValue: { summary: String(radioArgs.success) },
         },
     },
     checked: {
@@ -110,7 +110,7 @@ export const radioArgTypes: ArgTypes<RadioArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: radioArgs.checked },
+            defaultValue: { summary: String(radioArgs.checked) },
         },
     },
     defaultSlot: {

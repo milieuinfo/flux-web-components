@@ -1,12 +1,12 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const popoverActionArgs = {
     ...defaultArgs,
     selected: false,
 };
 
-export const popoverActionArgTypes: ArgTypes = {
+export const popoverActionArgTypes: ArgTypes<typeof popoverActionArgs> = {
     ...defaultArgTypes,
     selected: {
         name: 'selected',
@@ -14,7 +14,7 @@ export const popoverActionArgTypes: ArgTypes = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.PROPERTIES,
-            defaultValue: { summary: popoverActionArgs.selected },
+            defaultValue: { summary: String(popoverActionArgs.selected) },
         },
     },
 };

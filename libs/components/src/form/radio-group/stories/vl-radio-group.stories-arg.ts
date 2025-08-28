@@ -1,8 +1,8 @@
 import { CATEGORIES, TYPES } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { formControlArgs, formControlArgTypes } from '../../form-control/stories/form-control.stories-arg';
 import { radioGroupDefaults } from '../vl-radio-group.defaults';
+import { action } from 'storybook/actions';
 
 type RadioGroupArgs = typeof formControlArgs &
     typeof radioGroupDefaults & { onVlChange: () => void; onVlInput: () => void; onVlValid: () => void };
@@ -23,7 +23,7 @@ export const radioGroupArgTypes: ArgTypes<RadioGroupArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: radioGroupArgs.readonly },
+            defaultValue: { summary: String(radioGroupArgs.readonly) },
         },
     },
     value: {
@@ -32,7 +32,7 @@ export const radioGroupArgTypes: ArgTypes<RadioGroupArgs> = {
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: radioGroupArgs.value },
+            defaultValue: { summary: String(radioGroupArgs.value) },
         },
     },
     onVlChange: {

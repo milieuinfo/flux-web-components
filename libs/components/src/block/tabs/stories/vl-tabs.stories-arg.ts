@@ -6,9 +6,9 @@ import {
     getSelectControlOptions,
     TYPES,
 } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { DISPLAY_STYLE } from '../vl-tabs.model';
+import { action } from 'storybook/actions';
 
 export const tabsArgs = {
     ...defaultArgs,
@@ -39,7 +39,7 @@ export const tabsArgTypes: ArgTypes<typeof tabsArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: tabsArgs.alt },
+            defaultValue: { summary: String(tabsArgs.alt) },
         },
     },
     disableLinks: {
@@ -49,7 +49,7 @@ export const tabsArgTypes: ArgTypes<typeof tabsArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: tabsArgs.disableLinks },
+            defaultValue: { summary: String(tabsArgs.disableLinks) },
         },
     },
     responsiveLabel: {

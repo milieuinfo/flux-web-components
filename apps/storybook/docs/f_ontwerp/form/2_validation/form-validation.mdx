@@ -1,0 +1,91 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as formValidationStories from './form-validation.stories';
+
+<Meta of={formValidationStories} />
+
+# Form - Validation
+
+> Uitgebreid voorbeeld van validatie met onze form componenten vind je op de [Form Demo pagina](/docs/ontwerp-form-demo--documentatie).
+
+> Voorbeeld om custom validatie te schrijven vind je op de [Form Custom Validation pagina](/docs/ontwerp-form-custom-validation--documentatie).
+
+Onze form componenten maken gebruik van open-wc's [form participation](https://github.com/open-wc/form-participation) om form validatie te bekomen met web components die gebruik maken van native HTML form elements.
+
+Deze library is gebaseerd op [native HTML form validatie](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation) en [Constraint Validation API](https://developer.mozilla.org/en-US/docs/Web/API/Constraint_validation) en blijft zo dicht mogelijk bij de native HTML form validatie.
+
+Daarnaast voorzien we ook de [`parseFormData()` helper functie](/docs/ontwerp-form-form-data--documentatie#parseformdataformelement-form-multiformcontrolnames-string) om met de [FormData API](https://developer.mozilla.org/en-US/docs/Web/API/FormData) om te gaan.
+
+## ValidityState in Formuliervalidatie
+
+Een essentieel onderdeel van de validatie is de [ValidityState interface](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState), onderdeel van de native Validation API.
+Dit object geeft de huidige validatiestatus van een form control weer en kan worden gebruikt om een gedetailleerde foutmelding te verkrijgen.
+
+Die foutmeldingen worden getoond door de [`vl-form-message` component](/docs/components-form-form-message--documentatie) die de `ValidityState` van de form control controleert.
+
+## Attributen van ValidityState
+
+Hieronder een overzicht van de gebruikte attributen van [ValidityState](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState#instance_properties) met hun betekenis en bijhorende [validation attributen](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation#validation-related_attributes):
+
+- `customError`: als je custom validatie instelt, [zie hier](/docs/ontwerp-form-custom-validation--documentatie) hoe je zelf een custom validator schrijft.
+- `patternMismatch`: als de waarde niet overeenkomt met het patroon dat is ingesteld door het `pattern` attribuut.
+- `rangeOverflow`: als de waarde hoger is dan de waarde die is gespecifieerd door het `max` attribuut.
+- `rangeUnderflow`: als de waarde lager is dan de waarde die is gespecifieerd door het `min` attribuut.
+- `tooLong`: als de waarde langer is dan de maximale lengte die is gespecifieerd door het `maxlength` attribuut.
+- `tooShort`: als de waarde korter is dan de minimale lengte die is gespecifieerd door het `minlength` attribuut.
+- `valueMissing`: als er een waarde is vereist, maar het invoerveld leeg is. Gespecificeerd door het `required` attribuut.
+- `valid`: als de waarde geldig is en geen van de bovenstaande fouten heeft.
+
+## Gebruik van ValidityState in Onze Componenten
+
+Om de validatiestatus van een form control te controleren, moet je:
+- een `id` attribuut toevoegen aan de form control
+- een constraint attribuut toevoegen aan de form control. Dit attribuut moet overeenkomen met de naam van de eigenschap van de `ValidityState` die je wil controleren, bv. `required`-attribuut voor `valueMissing` of `pattern`-attribuut voor `patternMismatch`.
+- een `for` attribuut toevoegen aan de `vl-form-message` component. Dit attribuut moet overeenkomen met de `id` van de form control.
+- het attribuut `state` instellen op de `vl-form-message` component. Dit attribuut moet overeenkomen met de naam van de eigenschap van de `ValidityState` die je wil controleren.
+
+Vervolgens zal de `vl-form-message` component de foutmelding tonen die is ingesteld voor de `ValidityState` van de form control wanneer gevalideerd wordt.
+Standaard gebeurt dit wanneer de form gesubmit wordt door bv.:
+- op de submit knop te klikken
+- de enter toets in te drukken terwijl een form control focus heeft
+
+Je kan ook de [`checkValidity` methode](https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement/checkValidity) van de form control aanroepen om de validatiestatus van de form control te controleren.
+
+## Enkele voorbeelden van ValidityState:
+
+### Ontbrekende waarde
+
+Op het moment dat een veld verplicht is en geen waarde heeft, zal de `valueMissing` eigenschap van de `ValidityState` van de form control `true` zijn.
+Een veld met een ontbrekende waarde zal een foutmelding tonen die is ingesteld met de `vl-form-message` component waarvan de `for` eigenschap overeenkomt met de `id` van de form control.
+De form control moet ook het `required` attribuut hebben.
+
+In onderstaande voorbeeld: druk op `enter` zonder iets in te vullen om de foutmelding te zien.
+
+<Canvas of={formValidationStories.ValidationRequired} sourceState={"shown"}/>
+
+### Patroon komt niet overeen
+
+Als een veld een patroon heeft (attribuut `pattern`) en de waarde van het veld komt niet overeen met het patroon,
+zal de `patternMismatch` eigenschap van de `ValidityState` van de form control `true` zijn en wordt ook de foutmelding getoond.
+
+In onderstaande voorbeeld: vul een cijfer of speciaal teken in en druk op `enter` om de foutmelding te zien.
+
+<Canvas of={formValidationStories.ValidationPattern} sourceState={"shown"}/>
+
+## Aanbevelingen voor Validatie
+
+Vóór ingave, informeer de gebruiker over de validatiecriteria van een veld door een hint te tonen in de buurt van het veld.
+
+Na validatie, vermeld altijd duidelijk waarom een veld niet geldig is en geef de gebruiker een duidelijke hint over hoe het probleem kan worden opgelost.
+
+## Lijst componenten met onze ValidityState implementatie
+
+- [vl-input-field](/docs/components-form-input-field--documentatie)
+- [vl-input-field-masked](/docs/components-form-input-field-masked--documentatie)
+- [vl-textarea](/docs/components-form-textarea--documentatie)
+- [vl-textarea-rich](/docs/components-form-textarea-rich--documentatie)
+- [vl-datepicker](/docs/components-form-datepicker--documentatie)
+- [vl-select-rich](/docs/components-form-select-rich--documentatie)
+- [vl-select](/docs/components-form-select--documentatie)
+- [vl-radio-group](/docs/components-form-radio-group--documentatie)
+- [vl-upload](/docs/components-form-upload--documentatie)
+- [vl-checkbox](/docs/components-form-checkbox--documentatie)

@@ -1,4 +1,4 @@
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { CONTROLS, defaultArgs, defaultArgTypes, getSelectControlOptions, TYPES } from '@resources/utils-storybook';
 
 export const sideSheetArgs = {
@@ -22,7 +22,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         description: 'Attribute wordt gebruikt om aan te duiden dat swipe functie toegelaten is.',
         table: {
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: sideSheetArgs.enableSwipe },
+            defaultValue: { summary: String(sideSheetArgs.enableSwipe) },
         },
     },
     left: {
@@ -30,7 +30,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         description: 'Attribute om de side-sheet aan de linkerrand te positioneren.',
         table: {
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: sideSheetArgs.left },
+            defaultValue: { summary: String(sideSheetArgs.left) },
         },
     },
     right: {
@@ -38,7 +38,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         description: 'Attribute om de side-sheet aan de rechterrand te positioneren. Dit is de standaard instelling.',
         table: {
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: sideSheetArgs.right },
+            defaultValue: { summary: String(sideSheetArgs.right) },
         },
     },
     absolute: {
@@ -46,7 +46,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         description: 'Attribute wordt gebruikt om aan te duiden dat de side-sheet absoluut gepositioneerd wordt.',
         table: {
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: sideSheetArgs.absolute },
+            defaultValue: { summary: String(sideSheetArgs.absolute) },
         },
     },
     open: {
@@ -54,7 +54,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         description: 'Duidt aan dat de side-sheet open is.',
         table: {
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: sideSheetArgs.open },
+            defaultValue: { summary: String(sideSheetArgs.open) },
         },
     },
     toggleText: {
@@ -97,7 +97,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         description: 'Toggle knop verbergen.',
         table: {
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: sideSheetArgs.hideToggleButton },
+            defaultValue: { summary: String(sideSheetArgs.hideToggleButton) },
         },
     },
 };

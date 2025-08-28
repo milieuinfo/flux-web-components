@@ -1,5 +1,5 @@
 import { CATEGORIES, CONTROLS, TYPES, getSelectControlOptions } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { inputFieldMaskedDefaults } from '../vl-input-field-masked.defaults';
 import { inputFieldArgTypes, inputFieldArgs } from '../../input-field/stories/vl-input-field.stories-arg';
 import { masks } from '../masks';
@@ -31,7 +31,7 @@ export const inputFieldMaskedArgTypes: ArgTypes<InputFieldMaskedArgs> = {
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: inputFieldMaskedArgs.maskPrefix },
+            defaultValue: { summary: String(inputFieldMaskedArgs.maskPrefix) },
         },
     },
     rawValue: {
@@ -40,7 +40,7 @@ export const inputFieldMaskedArgTypes: ArgTypes<InputFieldMaskedArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: inputFieldMaskedArgs.rawValue },
+            defaultValue: { summary: String(inputFieldMaskedArgs.rawValue) },
         },
     },
     disableMaskValidation: {
@@ -49,7 +49,7 @@ export const inputFieldMaskedArgTypes: ArgTypes<InputFieldMaskedArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: inputFieldMaskedArgs.disableMaskValidation },
+            defaultValue: { summary: String(inputFieldMaskedArgs.disableMaskValidation) },
         },
     },
     regex: {
@@ -60,7 +60,7 @@ export const inputFieldMaskedArgTypes: ArgTypes<InputFieldMaskedArgs> = {
         table: {
             type: { summary: TYPES.REGEX },
             category: CATEGORIES.PROPERTIES,
-            defaultValue: { summary: inputFieldMaskedArgs.regex },
+            defaultValue: { summary: String(inputFieldMaskedArgs.regex) },
         },
     },
 };

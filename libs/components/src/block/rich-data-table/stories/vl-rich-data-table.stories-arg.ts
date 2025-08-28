@@ -1,5 +1,5 @@
 import { CATEGORIES, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { richDataArgs, richDataArgTypes } from '../../rich-data/stories/vl-rich-data.stories-arg';
 
 export const richDataTableArgs = {
@@ -19,7 +19,7 @@ export const richDataTableArgTypes: ArgTypes<typeof richDataTableArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: richDataTableArgs.collapsedM },
+            defaultValue: { summary: String(richDataTableArgs.collapsedM) },
         },
     },
     collapsedS: {
@@ -28,7 +28,7 @@ export const richDataTableArgTypes: ArgTypes<typeof richDataTableArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: richDataTableArgs.collapsedS },
+            defaultValue: { summary: String(richDataTableArgs.collapsedS) },
         },
     },
     collapsedXS: {
@@ -37,7 +37,7 @@ export const richDataTableArgTypes: ArgTypes<typeof richDataTableArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: richDataTableArgs.collapsedXS },
+            defaultValue: { summary: String(richDataTableArgs.collapsedXS) },
         },
     },
     zebra: {
@@ -48,7 +48,7 @@ export const richDataTableArgTypes: ArgTypes<typeof richDataTableArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: richDataTableArgs.zebra },
+            defaultValue: { summary: String(richDataTableArgs.zebra) },
         },
     },
     fluxZebra: {
@@ -59,7 +59,7 @@ export const richDataTableArgTypes: ArgTypes<typeof richDataTableArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: richDataTableArgs.fluxZebra },
+            defaultValue: { summary: String(richDataTableArgs.fluxZebra) },
         },
     },
 };

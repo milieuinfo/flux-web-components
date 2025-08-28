@@ -1,5 +1,5 @@
 import { story } from '@resources/utils-storybook';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import '../vl-header.component';
 import { headerArgs, headerArgTypes } from './vl-header.stories-arg';
@@ -7,7 +7,7 @@ import headerDoc from './vl-header.stories-doc.mdx';
 
 export default {
     id: 'components-compliance-header-next',
-    title: 'Components - Compliance/Next/header',
+    title: 'Components - Compliance/next/header',
     tags: ['autodocs'],
     args: headerArgs,
     argTypes: headerArgTypes,
@@ -26,14 +26,11 @@ export const HeaderDefault = story(
         authenticatedUserUrl,
         development,
         identifier,
-        loginRedirectUrl,
         loginUrl,
         logoutUrl,
         skeleton,
         simple,
         switchCapacityUrl,
-        rejectLogout,
-        logoutCallback,
         applicationLinks,
         onReady,
     }) => html`
@@ -42,14 +39,11 @@ export const HeaderDefault = story(
                 authenticated-user-url=${authenticatedUserUrl}
                 ?development=${development}
                 identifier=${identifier}
-                login-redirect-url=${loginRedirectUrl}
                 login-url=${loginUrl}
                 logout-url=${logoutUrl}
                 ?simple=${simple}
                 ?skeleton=${skeleton}
                 switch-capacity-url=${switchCapacityUrl}
-                ?reject-logout=${rejectLogout}
-                .logoutCallback=${logoutCallback}
                 .applicationLinks=${applicationLinks}
                 @ready=${onReady}
             ></vl-header-next>

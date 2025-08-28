@@ -2,6 +2,7 @@ import { formattedSourceCode } from '@resources/utils-storybook';
 import { css } from 'lit';
 import { html } from 'lit-html';
 import vlPaddingStoriesDoc from './vl-padding.stories-doc.mdx';
+import { Meta } from '@storybook/web-components-vite';
 
 export default {
     id: 'styles-layout-afnemers-padding',
@@ -12,7 +13,7 @@ export default {
             page: vlPaddingStoriesDoc,
         },
     },
-};
+} as Meta;
 
 const paddingCss = css`
     .sb-container {

@@ -1,8 +1,10 @@
 import { VlBoxSelectAction } from './box-select-action';
 import Feature from 'ol/Feature';
 import Map from 'ol/Map';
+import { Extent } from 'ol/extent';
 import ResizeObserver from 'resize-observer-polyfill';
 
+declare var global;
 global.ResizeObserver = ResizeObserver;
 
 describe('box select action', () => {
@@ -31,7 +33,7 @@ describe('box select action', () => {
             .mockClear()
             // @ts-ignore
             .mockReturnValue({
-                getExtent: () => {},
+                getExtent: (extent?: Extent) => extent,
             });
         action.map = new Map({});
         return action;

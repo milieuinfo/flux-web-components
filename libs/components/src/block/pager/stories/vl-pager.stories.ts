@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import '../vl-pager.component';
 import { pagerArgs, pagerArgTypes } from './vl-pager.stories-arg';

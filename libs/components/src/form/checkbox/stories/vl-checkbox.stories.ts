@@ -1,6 +1,6 @@
 import { html } from 'lit-html';
 import { checkboxArgs, checkboxArgTypes } from './vl-checkbox.stories-arg';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import checkboxDoc from './vl-checkbox.stories-doc.mdx';
 import { story } from '@resources/utils-storybook';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';

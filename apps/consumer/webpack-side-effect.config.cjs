@@ -15,6 +15,11 @@ const config = {
     module: {
         rules: [
             {
+                test: /\.css$/i,
+                resourceQuery: /raw/, // matcht ?raw
+                type: 'asset/source', // geeft de file-inhoud als string
+            },
+            {
                 test: /\.(ts)$/,
                 use: 'ts-loader',
                 exclude: /node_modules/,
@@ -36,7 +41,6 @@ const config = {
         path: path.resolve(__dirname, '../../build/dist/apps/consumer-side-effect'),
         hashFunction: 'sha256',
         publicPath: '/',
-
     },
     optimization: {
         minimize: true,
@@ -49,7 +53,7 @@ const config = {
     performance: {
         maxAssetSize: 10 * 1024 * 1024,
         maxEntrypointSize: 10 * 1024 * 1024,
-        hints: "warning"
+        hints: 'warning',
     },
     plugins: [
         new HtmlWebpackPlugin({

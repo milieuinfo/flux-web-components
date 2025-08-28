@@ -1,5 +1,5 @@
 import { CATEGORIES, CONTROLS, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const mapLayerArgs = {
     ...defaultArgs,
@@ -18,7 +18,7 @@ export const mapLayerArgTypes: ArgTypes<typeof mapLayerArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapLayerArgs.hidden },
+            defaultValue: { summary: String(mapLayerArgs.hidden) },
         },
     },
     opacity: {
@@ -28,7 +28,7 @@ export const mapLayerArgTypes: ArgTypes<typeof mapLayerArgs> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapLayerArgs.opacity },
+            defaultValue: { summary: String(mapLayerArgs.opacity) },
         },
     },
     maxResolution: {
@@ -39,7 +39,7 @@ export const mapLayerArgTypes: ArgTypes<typeof mapLayerArgs> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapLayerArgs.maxResolution },
+            defaultValue: { summary: String(mapLayerArgs.maxResolution) },
         },
     },
     minResolution: {
@@ -50,7 +50,7 @@ export const mapLayerArgTypes: ArgTypes<typeof mapLayerArgs> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapLayerArgs.minResolution },
+            defaultValue: { summary: String(mapLayerArgs.minResolution) },
         },
     },
     name: {

@@ -1,7 +1,7 @@
-import { API_HashEntry } from '@storybook/types';
 import React, { useEffect, useRef } from 'react';
 import fluxMetaData from '../flux-meta-data/flux-meta-data.json';
 import { FluxMetaDataModel } from '../flux-meta-data/flux-meta-data.model';
+import { API_HashEntry } from 'storybook/internal/types';
 
 export const FluxSidebarLabel = ({ storyData }: { storyData: API_HashEntry }) => {
     const { name = '', id = '' } = storyData;

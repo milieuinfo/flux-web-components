@@ -2,7 +2,7 @@ import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { radioArgs, radioArgTypes } from './vl-radio.stories-arg';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { VlRadioComponent } from '../vl-radio.component';
 

@@ -1,7 +1,7 @@
 import { CATEGORIES, TYPES, defaultArgs, defaultArgTypes } from '@resources/utils-storybook';
 import { formControlDefaults } from '../form-control.defaults';
-import { ArgTypes } from '@storybook/web-components';
-import { action } from '@storybook/addon-actions';
+import { ArgTypes } from '@storybook/web-components-vite';
+import { action } from 'storybook/actions';
 
 type FormControlArgs = typeof defaultArgs & typeof formControlDefaults & { onVlReset: () => void };
 
@@ -47,7 +47,7 @@ export const formControlArgTypes: ArgTypes<FormControlArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: formControlArgs.required },
+            defaultValue: { summary: String(formControlArgs.required) },
         },
     },
     disabled: {
@@ -56,7 +56,7 @@ export const formControlArgTypes: ArgTypes<FormControlArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: formControlArgs.disabled },
+            defaultValue: { summary: String(formControlArgs.disabled) },
         },
     },
     error: {
@@ -65,7 +65,7 @@ export const formControlArgTypes: ArgTypes<FormControlArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: formControlArgs.error },
+            defaultValue: { summary: String(formControlArgs.error) },
         },
     },
     success: {
@@ -74,7 +74,7 @@ export const formControlArgTypes: ArgTypes<FormControlArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: formControlArgs.success },
+            defaultValue: { summary: String(formControlArgs.success) },
         },
     },
     onVlReset: {

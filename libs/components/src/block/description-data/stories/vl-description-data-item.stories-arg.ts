@@ -1,4 +1,5 @@
 import { defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const descriptionDataItemArgs = {
     ...defaultArgs,
@@ -8,7 +9,7 @@ export const descriptionDataItemArgs = {
     valueSlotText: 'Kind en Gezin',
 };
 
-export const descriptionDataItemArgTypes = {
+export const descriptionDataItemArgTypes: ArgTypes<typeof descriptionDataItemArgs> = {
     ...defaultArgTypes,
     label: {
         name: 'label',

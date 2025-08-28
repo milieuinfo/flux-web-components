@@ -1,5 +1,5 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const mapLayerStyleArg = {
     ...defaultArgs,
@@ -34,7 +34,7 @@ export const mapLayerStyleArgTypes: ArgTypes<typeof mapLayerStyleArg> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapLayerStyleArg.borderSize },
+            defaultValue: { summary: String(mapLayerStyleArg.borderSize) },
         },
     },
     color: {
@@ -79,7 +79,7 @@ export const mapLayerStyleArgTypes: ArgTypes<typeof mapLayerStyleArg> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapLayerStyleArg.textBorderSize },
+            defaultValue: { summary: String(mapLayerStyleArg.textBorderSize) },
         },
     },
     textColor: {
@@ -105,7 +105,7 @@ export const mapLayerStyleArgTypes: ArgTypes<typeof mapLayerStyleArg> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapLayerStyleArg.textOffsetX },
+            defaultValue: { summary: String(mapLayerStyleArg.textOffsetX) },
         },
     },
     textOffsetY: {
@@ -114,7 +114,7 @@ export const mapLayerStyleArgTypes: ArgTypes<typeof mapLayerStyleArg> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapLayerStyleArg.textOffsetY },
+            defaultValue: { summary: String(mapLayerStyleArg.textOffsetY) },
         },
     },
     textSize: {

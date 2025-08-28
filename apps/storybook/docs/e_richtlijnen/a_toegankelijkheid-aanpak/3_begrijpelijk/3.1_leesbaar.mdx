@@ -1,0 +1,101 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { FluxWcagRichtlijn } from "../../../../.storybook/flux-wcag/flux-wcag-richtlijn";
+import { FluxWcagBronsPlus, FluxWcagSilverPlus } from "../../../../.storybook/flux-wcag/flux-wcag-categorie";
+import {
+    FluxWcagExample,
+    FluxWcagExamplesTitle,
+    FluxWcagSuccesscriterium
+} from "../../../../.storybook/flux-wcag/flux-wcag-succescriterium";
+
+<Meta title="Richtlijnen/Toegankelijkheid - Aanpak/3. Begrijpelijk/3.1 Leesbaar"/>
+
+<FluxWcagRichtlijn
+    level="3.1"
+    title="Leesbaar"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#readable"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#readable"
+    text={
+        <>
+            Zorg ervoor dat iedereen de inhoud kan lezen en begrijpen. Of het nu gaat om inhoud die gebruikers zien,
+            horen of voelen.
+        </>
+    }
+>
+</FluxWcagRichtlijn>
+
+<FluxWcagBronsPlus></FluxWcagBronsPlus>
+
+<FluxWcagSuccesscriterium
+    title="Taal van de pagina"
+    level="3.1.1"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#language-of-page"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#language-of-page"
+    text={
+        <>
+            Geef in de code van elke pagina aan wat de <strong>hoofdtaal</strong> van de tekst is. Zo spreekt een
+            schermlezer alles uit met het juiste accent en de juiste uitspraak.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagExamplesTitle></FluxWcagExamplesTitle>
+
+<FluxWcagExample
+    exampleNumber="1"
+    title="Specifieer Frans als hoofdtaal."
+    link="https://www.w3.org/WAI/WCAG22/Techniques/html/H57"
+>
+    ```html
+    <!doctype html>
+    <html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>document écrit en français</title>
+    </head>
+    <body>
+    ... document écrit en français ...
+    </body>
+    </html>
+    ```
+</FluxWcagExample>
+
+<div style={{marginTop: '4em'}} />
+
+<FluxWcagSilverPlus></FluxWcagSilverPlus>
+
+<FluxWcagSuccesscriterium
+    title="Taal van onderdelen"
+    level="3.1.2"
+    refDescription="https://www.w3.org/Translations/WCAG22-nl/#language-of-parts"
+    refQuick="https://www.w3.org/WAI/WCAG22/quickref/?showtechniques=111%2C121#language-of-parts"
+    text={
+        <>
+            Geef aan wanneer de taal op een pagina <strong>verandert</strong> of wanneer een <strong>deel in een
+            andere</strong> taal is. Zo schakelen schermlezers daar over naar het juiste accent en de juiste uitspraak
+            voor die taal.
+        </>
+    }
+>
+</FluxWcagSuccesscriterium>
+
+<FluxWcagExamplesTitle></FluxWcagExamplesTitle>
+
+<FluxWcagExample
+    exampleNumber="1"
+    title="Specifieer Duits als de taal van een quote."
+    link="https://www.w3.org/WAI/WCAG22/Techniques/html/H58"
+>
+    ```html
+    <blockquote lang="de">
+        <p>
+            Da dachte der Herr daran, ihn aus dem Futter zu schaffen,
+            aber der Esel merkte, daß kein guter Wind wehte, lief fort
+            und machte sich auf den Weg nach Bremen: dort, meinte er,
+            könnte er ja Stadtmusikant werden.
+        </p>
+    </blockquote>
+    ```
+</FluxWcagExample>
+
+<div style={{marginTop: '4em'}} />

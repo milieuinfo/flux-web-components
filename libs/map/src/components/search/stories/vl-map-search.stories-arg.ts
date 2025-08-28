@@ -1,5 +1,5 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const mapSearchArgs = {
     ...defaultArgs,
@@ -55,7 +55,7 @@ export const mapSearchArgTypes: ArgTypes<typeof mapSearchArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapSearchArgs.withOffset },
+            defaultValue: { summary: String(mapSearchArgs.withOffset) },
         },
     },
 };

@@ -4,7 +4,7 @@ import { story } from '@resources/utils-storybook';
 // -> buiten de monorepo werkt dat niet omdat sideEffects disabled worden voor de root-barrel file in de artifacts
 import { registerWebComponents } from '@domg-wc/common';
 import { VlTitleComponent } from '@domg-wc/components/atom';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../components/action/draw-action/draw-line-action/vl-map-draw-line-action';
 import '../components/action/draw-action/draw-point-action/vl-map-draw-point-action';

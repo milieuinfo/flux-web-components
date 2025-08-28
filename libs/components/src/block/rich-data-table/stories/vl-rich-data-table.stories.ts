@@ -2,7 +2,7 @@
 import { story } from '@resources/utils-storybook';
 // -> buiten de monorepo werkt dat niet omdat sideEffects disabled worden voor de root-barrel file in de artifacts
 import { registerWebComponents } from '@domg-wc/common';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import { VlButtonComponent } from '../../../atom/button';
 import { VlTitleComponent } from '../../../atom/title';

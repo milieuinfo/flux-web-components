@@ -1,7 +1,7 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { Meta } from '@storybook/web-components';
+import { action } from 'storybook/actions';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import { VlButtonComponent } from '../../../atom/button';
 import { VlPopoverActionListComponent } from '../vl-popover-action-list.component';

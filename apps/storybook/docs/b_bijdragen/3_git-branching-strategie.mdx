@@ -1,0 +1,139 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import teamBranching from '../../resources/bijdragen/git-branching-strategie-teams.png';
+
+<Meta title="Bijdragen/Git Branching Strategie"/>
+
+# Git Branching Strategie
+
+## Inhoudstafel
+
+- [Overzicht](#overzicht)
+- [Branching Concepten](#branching-concepten)
+- [Team Branching Strategie](#team-branching-strategie)
+
+
+## Overzicht
+
+De ontwikkeling gebeurt in [git](https://git-scm.com/) op [GitHub](https://github.com/milieuinfo/flux-web-components).
+De algemene branching strategie is om via feature-branches tot pre-releases en uiteindelijk finale releases te komen.
+Ontwikkelteams (ApoCow, Decibel, Phoenix, ...) kunnen bijdrages leveren m.b.v. de
+[team branching strategie](#team-branching-strategie).
+
+
+## Branching Concepten
+
+### Feature Branches
+
+Jira tickets worden opgenomen en uitgevoerd in een aparte feature-branch. De conventie voor de branch naam is
+__feature/JIRA-123-sleutel-woorden__. Als het Flux team bvb. ticket FLUX-2322 opneemt met als titel
+'cdn-assets voorzien met tinyMCE theming en publiceren op artifactory' dan gebeurt dat in een branch met bvb. de
+naam __feature/FLUX-2322-tinymce-cdn__. De feature branch is tijdelijk en bij voorkeur / meestal enkel voor eigen
+gebruik. Het ticket nummer moet in de naam staan, de sleutelwoorden geven een indicatie van wat het inhoud. Vermijdt
+gebruik. Het ticket nummer moet in de naam staan, de sleutelwoorden geven een indicatie van wat het inhoud. Vermijdt
+er een ge-hyphende zin van te maken!
+
+### Commit Boodschappen
+
+Voor [releases](/docs/beheren-ci-cd--documentatie) wordt
+[semantic-release](https://github.com/semantic-release/semantic-release) gebruikt, dat steunt op commit
+boodschappen die de [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) specificatie volgen.
+
+Commits dienen volgende structuur te hebben, waarbij __type__ typisch 'fix' of 'feat' is.
+
+```
+<type>: <ticket-nummer> - <component> - <korte beschrijving>
+
+[optioneel - details / uitgebreidere beschrijving]
+```
+
+In het voorbeeld van hierboven zet je dus als commit boodschap:
+
+```
+feat: FLUX-2322 - op de CDN de TinyMCE theming publiceren
+
+de theming van TinyMCE wordt gepubliceerd in een artefact @domg-cdn/tinymce-theming
+het infra-team breidt hun scripts uit zodat de code uit de artefact op de CDN gezet wordt
+```
+
+### Squashen
+
+Het doel is: __1 ticket = 1 feature branch = 1 uiteindelijke commit__
+
+Om dit te bereiken dien je alvorens de feature-branch naar develop te brengen (via een PR) de commits te squashen.
+Tijdens ontwikkeling kan je committen en pushen naar believe, het is enkel op het moment dat je je werk afrond dat je
+zorgt te eindigen met 1 commit die de conventional commit conventie volgt.
+
+Opgelet: indien je squashed moet je nadien een force-push doen daar je je historiek herschreven hebt!
+
+### Rebasen
+
+Om het werk op een feature-branch naar de develop-branch te brengen zorgen we ervoor een lineaire historiek (d.m.v.
+fast-forwards) te behouden. Om dit te bereiken dien je eventueel te rebasen. Mergen of rebasen is een keuze, omdat
+het in dit geval om een componenten bibliotheek gaat (en geen eindtoepassing) opteren wij om te rebasen, dit is de
+minst makkelijke optie van de 2, je dient bewust om te gaan met de integratie van commits in andere branches!
+
+Op de git website (scroll helemaal naar beneden) staat er dit over
+[mergen vs rebasen](https://git-scm.com/book/en/v2/Git-Branching-Rebasing):
+
+> Merging: One point of view on this is that your repository’s commit history is a record of what actually happened.
+It’s a historical document, valuable in its own right, and shouldn’t be tampered with. From this angle, changing the
+commit history is almost blasphemous; you’re lying about what actually transpired. So what if there was a messy series
+of merge commits? That’s how it happened, and the repository should preserve that for posterity.
+
+> Rebasing: The opposing point of view is that the commit history is the story of how your project was made. You
+wouldn’t publish the first draft of a book, so why show your messy work? When you’re working on a project, you may need
+a record of all your missteps and dead-end paths, but when it’s time to show your work to the world, you may want to
+tell a more coherent story of how to get from A to B. People in this camp use tools like rebase and filter-branch to
+rewrite their commits before they’re merged into the mainline branch. They use tools like rebase and filter-branch, to
+tell the story in the way that’s best for future readers.
+
+Opgelet: door te rebasen (en/of te squashen) herschrijf je historiek, nadien dien je steeds een force-push te doen.
+Hou de ['Golden Rule of Rebasing'](https://www.gitkraken.com/blog/golden-rule-of-rebasing-in-git) in gedachte:
+herschrijf geen historiek voor branches met meer dan 2 ogen op.
+
+### Pull Requests (PR's)
+
+Alvorens een PR te lanceren via GitHub dien je te verifieren dat
+
+- je code correct geformatteerd is met Prettier
+- je ge-squash'ed hebt tot 1 commit
+- de commit boodschap conform conventional commit is
+
+Telkens je pushed naar je feature-branch zal er een build lopen. Alvorens de PR te lanceren dient de build van je
+feature branch geslaagd te zijn! Indien dit in orde is kan je de PR lanceren t.o.v. de develop branch. GitHub meld of
+hij de branch kan inmergen via een fast-forward, indien dit niet kan dien je eerst te rebasen tov develop en te
+force-pushen.
+
+Nadat de PR is ingediend wordt de code ge-reviewed door iemand van het Flux-team, na integratie wordt de feature-branch
+verwijderd!
+
+
+### PR Code Reviews
+
+Reviews mogen (op uitnodiging) ook door team-genoten gebeuren, om de code echter in develop te krijgen dienen er 2
+approvals te zijn van het Flux-team. Wij (Kris Speltincx, Koen Buckinx en Karim Dehbi) zijn in de verschillende repo's
+gespecifieerd als code-owners.
+
+In GitHub staat de vlag op dat approvals vervallen bij een nieuwe commit. Je dient dus ge-squashed te hebben en
+een correcte commit boodschap te voorzien alvorens we approven, ook de build op Bamboo moet gelukt zijn. Omdat
+integratie tussen Bamboo en GitHub op dit vlak niet mogelijk is vragen we dat de indiener in de PR de Bamboo-build-link
+van de branch vermeld, approvers kunnen dan snel verifiëren dat de build in orde is.
+
+
+## Team Branching Strategie
+
+Artifacts worden enkel gebouwd voor develop en release branches.
+
+Teams die ontwikkeling doen aan de component bibliotheek doen dat meestal in de context van aanpassingen voor een
+concrete eindtoepassing. Vaak is dat werk experimenteler van aard, je kan daarvoor ook snapshot-artifacts genereren zodat
+je kan integreren, je dient daarvoor de code te integreren met een branch die begint met `develop-`, bvb. `develop-xyz`.
+Op die manier kan de code afgenomen en geverifieerd worden, als het werk definitief is moet het wel nog steeds
+ge-squashed, rebased en via een PR geïntegreerd worden!
+
+De snapshot-releases kan je terugvinden op artifactory onder de
+[snapshot-npm](https://repo.omgeving.vlaanderen.be/ui/repos/tree/General/snapshot-npm). Je dient van alle artifacts
+steeds dezelfde versie af te nemen!
+
+De aanpak van deze specifieke branching strategy wordt verduidelijkt in onderstaand diagram.
+
+<img src={teamBranching} alt="Teams Branching Strategie"/>

@@ -1,6 +1,6 @@
 import { story } from '@resources/utils-storybook';
 import { selectArgs, selectArgTypes } from './vl-select.stories-arg';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import selectDocs from './vl-select.stories-doc.mdx';
 import { registerWebComponents } from '@domg-wc/common';

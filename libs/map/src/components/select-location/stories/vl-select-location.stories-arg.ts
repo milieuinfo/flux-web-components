@@ -1,4 +1,4 @@
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 // dit bestand (vl-select-location.stories-arg.ts) wordt enkel in storybook gebruikt - dus enkel in de monorepo opzet
 //  - op deze manier wordt de barrel-file omzeilt
 //  - selectRichArgTypes en selectRichDefaults mogen ook niet in de barrel-file, dat geeft neven-effect-import problemen

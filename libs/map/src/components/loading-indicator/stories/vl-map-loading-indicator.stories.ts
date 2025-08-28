@@ -1,7 +1,7 @@
+import { defaultArgs, defaultArgTypes, story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
 import { VlButtonComponent } from '@domg-wc/components/atom';
-import { defaultArgs, defaultArgTypes, story } from '@resources/utils-storybook';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { MapEvent } from 'ol';
 import '../../../vl-map';

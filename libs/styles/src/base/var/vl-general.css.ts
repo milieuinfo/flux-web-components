@@ -1,4 +1,4 @@
-import vlGeneralRawCss from '!!raw-loader!./vl-general.raw.css';
+import vlGeneralRawCss from './vl-general.raw.css?raw';
 import { css, CSSResult, unsafeCSS } from 'lit';
 
 export const vlGeneralVars: CSSResult = css`

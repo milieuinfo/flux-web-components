@@ -1,5 +1,5 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { formLabelDefaults } from '../vl-form-label.defaults';
 
 type FormLabelArgs = typeof defaultArgs & { defaultSlot: string } & typeof formLabelDefaults;
@@ -36,7 +36,7 @@ export const formLabelArgTypes: ArgTypes<FormLabelArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: formLabelArgs.block },
+            defaultValue: { summary: String(formLabelArgs.block) },
         },
     },
     light: {
@@ -45,7 +45,7 @@ export const formLabelArgTypes: ArgTypes<FormLabelArgs> = {
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: { summary: formLabelArgs.light },
+            defaultValue: { summary: String(formLabelArgs.light) },
         },
     },
     defaultSlot: {

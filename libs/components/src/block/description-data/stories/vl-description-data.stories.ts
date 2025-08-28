@@ -1,8 +1,9 @@
-import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import '../vl-description-data-item.component';
 import '../vl-description-data.component';
 import { descriptionDataArgs, descriptionDataArgTypes } from './vl-description-data.stories-arg';
+import { Meta } from '@storybook/web-components-vite';
+import documentDoc from '../../document/stories/vl-document.stories-doc.mdx';
 
 export default {
     id: 'components-block-description-data-description-data',
@@ -10,6 +11,11 @@ export default {
     tags: ['autodocs'],
     args: descriptionDataArgs,
     argTypes: descriptionDataArgTypes,
+    parameters: {
+        docs: {
+            page: documentDoc,
+        },
+    },
 } as Meta<typeof descriptionDataArgs>;
 
 export const descriptionDataDefault = ({

@@ -1,8 +1,8 @@
 import { CATEGORIES, CONTROLS, TYPES } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { formControlArgs, formControlArgTypes } from '../../form-control/stories/form-control.stories-arg';
 import { inputFieldDefaults } from '../vl-input-field.defaults';
+import { action } from 'storybook/actions';
 
 type InputFieldArgs = typeof formControlArgs &
     typeof inputFieldDefaults & { onVlChange: () => void; onVlInput: () => void; onVlValid: () => void };
@@ -23,7 +23,7 @@ export const inputFieldArgTypes: ArgTypes<InputFieldArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: inputFieldArgs.block },
+            defaultValue: { summary: String(inputFieldArgs.block) },
         },
     },
     readonly: {
@@ -32,7 +32,7 @@ export const inputFieldArgTypes: ArgTypes<InputFieldArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: inputFieldArgs.readonly },
+            defaultValue: { summary: String(inputFieldArgs.readonly) },
         },
     },
     type: {
@@ -80,7 +80,7 @@ export const inputFieldArgTypes: ArgTypes<InputFieldArgs> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: inputFieldArgs.minLength },
+            defaultValue: { summary: String(inputFieldArgs.minLength) },
         },
     },
     maxLength: {
@@ -90,7 +90,7 @@ export const inputFieldArgTypes: ArgTypes<InputFieldArgs> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: inputFieldArgs.maxLength },
+            defaultValue: { summary: String(inputFieldArgs.maxLength) },
         },
     },
     min: {
@@ -100,7 +100,7 @@ export const inputFieldArgTypes: ArgTypes<InputFieldArgs> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: inputFieldArgs.min },
+            defaultValue: { summary: String(inputFieldArgs.min) },
         },
     },
     max: {
@@ -110,7 +110,7 @@ export const inputFieldArgTypes: ArgTypes<InputFieldArgs> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: inputFieldArgs.max },
+            defaultValue: { summary: String(inputFieldArgs.max) },
         },
     },
     minExclusive: {
@@ -119,7 +119,7 @@ export const inputFieldArgTypes: ArgTypes<InputFieldArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: inputFieldArgs.minExclusive },
+            defaultValue: { summary: String(inputFieldArgs.minExclusive) },
         },
     },
     maxExclusive: {
@@ -128,7 +128,7 @@ export const inputFieldArgTypes: ArgTypes<InputFieldArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: inputFieldArgs.maxExclusive },
+            defaultValue: { summary: String(inputFieldArgs.maxExclusive) },
         },
     },
     pattern: {
@@ -147,7 +147,7 @@ export const inputFieldArgTypes: ArgTypes<InputFieldArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: inputFieldArgs.inputGroup },
+            defaultValue: { summary: String(inputFieldArgs.inputGroup) },
         },
     },
     regex: {
@@ -158,7 +158,7 @@ export const inputFieldArgTypes: ArgTypes<InputFieldArgs> = {
         table: {
             type: { summary: TYPES.REGEX },
             category: CATEGORIES.PROPERTIES,
-            defaultValue: { summary: inputFieldArgs.regex },
+            defaultValue: { summary: String(inputFieldArgs.regex) },
         },
     },
     onVlChange: {

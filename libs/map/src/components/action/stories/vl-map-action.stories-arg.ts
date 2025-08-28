@@ -1,5 +1,5 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const mapActionArgs = {
     ...defaultArgs,
@@ -16,7 +16,7 @@ export const mapActionArgTypes: ArgTypes<typeof mapActionArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.PROPERTIES,
-            defaultValue: { summary: mapActionArgs.active },
+            defaultValue: { summary: String(mapActionArgs.active) },
         },
     },
     defaultActive: {
@@ -25,7 +25,7 @@ export const mapActionArgTypes: ArgTypes<typeof mapActionArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapActionArgs.active },
+            defaultValue: { summary: String(mapActionArgs.active) },
         },
     },
     layer: {

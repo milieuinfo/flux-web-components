@@ -1,12 +1,14 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const contentHeaderArgs = {
     ...defaultArgs,
+    image: '',
     contextLink: '',
     titleLink: '',
 };
 
-export const contentHeaderArgTypes = {
+export const contentHeaderArgTypes: ArgTypes<typeof contentHeaderArgs> = {
     ...defaultArgTypes,
     image: {
         name: 'image (slot)',

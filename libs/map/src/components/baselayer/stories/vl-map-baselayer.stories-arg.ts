@@ -1,5 +1,5 @@
 import { CATEGORIES, CONTROLS, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const mapBaselayerArgs = {
     ...defaultArgs,
@@ -21,7 +21,7 @@ export const mapBaselayerArgTypes: ArgTypes<typeof mapBaselayerArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapBaselayerArgs.backgroundLayer },
+            defaultValue: { summary: String(mapBaselayerArgs.backgroundLayer) },
         },
     },
     backgroundType: {

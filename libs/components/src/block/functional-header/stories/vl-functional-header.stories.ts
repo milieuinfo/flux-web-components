@@ -1,7 +1,6 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { VlBreadcrumbItemComponent } from '../../breadcrumb/vl-breadcrumb-item.component';
@@ -11,6 +10,7 @@ import { VlTabsComponent } from '../../tabs';
 import { VlFunctionalHeaderComponent } from '../vl-functional-header.component';
 import { functionalHeaderArgs, functionalHeaderArgTypes } from './vl-functional-header.stories-arg';
 import functionalHeaderDoc from './vl-functional-header.stories-doc.mdx';
+import { action } from 'storybook/actions';
 
 registerWebComponents([
     VlBreadcrumbComponent,
@@ -155,12 +155,7 @@ FunctionalHeaderBreadcrumb.args = {
 export const FunctionalHeaderFullWidth = story(
     functionalHeaderArgs,
     ({ fullWidth, marginBottom, title, link }) => html`
-        <vl-functional-header 
-            ?full-width=${fullWidth} 
-            link=${link} 
-            margin-bottom=${marginBottom} 
-            title=${title}
-        >
+        <vl-functional-header ?full-width=${fullWidth} link=${link} margin-bottom=${marginBottom} title=${title}>
             <span slot="sub-title">Full width</span>
         </vl-functional-header>
     `

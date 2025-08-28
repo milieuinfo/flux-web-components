@@ -1,0 +1,80 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Planning/Aanpak Verbeteringen 2025"/>
+
+# Aanpak Verbeteringen 2025
+
+## Algemeen: dichter bij de teams staan
+
+ - UX-werk voor nieuwe onderdelen / toepassingen
+
+ - 'pragmatische' code-reviews voordat toepassingen in productie gaan<br/>
+    → aanbevelingen en best practices geven<br/>
+    → aanduiden met niveau's: brons(+) / zilver(+) / goud(+)
+
+ - introductie van een Frontend Guild met een frontend 'spoc' per team<br/>
+    → WCAG / testing / CSP
+
+
+## WCAG
+
+### Nieuwe WCAG Aanpak
+
+ - documentatie in Storybook<br/>
+    → WCAG aanpak - Europees minimaal AA (ineens 2.2)<br/>
+    → vereisten documenteren - minimaal brons voor interne toepassingen / zilver+ voor publieke
+
+ - presentatie (eventueel door Gijs) voor de ontwikkelaars rond WCAG
+    → niet weerhouden na met Gijs samen gezeten te hebben
+    → het is beter met een beperkte groep rond concrete acties samen te zitten
+
+ - toepassen op de Flux-componenten waarbij we WCAG gaan behandelen conform andere feature en bug tickets
+
+ - als eerste eigen Flux actie, de 'compliance'-componenten (privacy, cookie-consent, accessibility, ...)
+   verbeteren op WCAG vlak<br/>
+    → tickets uit de backlog wegwerken<br/>
+    → block- en atom-componenten die in de 'compliance'-componenten gebruikt worden ineens mee aanpakken
+
+ - op basis van het voorgaande: bouwen wij (Flux) onze WCAG kennis op zodat we zelf (basis) reviews van nieuwe
+   (en bestaande) toepassingen kunnen doen<br/>
+    → we doen dan WCAG aanbevelingen, waaronder deels verplichte verbeteringen<br/>
+    → iteratief wordt de toepassing zo verbeterd alvorens ze in productie gaat<br/>
+    → een finale review voor eerste in productie stelling dient nog door Gijs te gebeuren, hij blijft de expert
+
+
+### WCAG Verleden: waar staan we
+
+ - de toepassingen voldoen aan de wettelijke vereisten<br/>
+    → Gijs deed reviews en daar volgde een toegankelijkheidsverklaring uit die opgenomen werd in de toepassing<br/>
+    → Gijs maakte tickets aan om verbeteringen door te voeren
+
+ - de tickets werden minimaal opgenomen<br/>
+    → geen prioriteit<br/>
+    → is een kost met niet persé een zichtbare verbetering
+
+ - bij Flux is er een hele backlog van WCAG tickets (+130)<br/>
+    → we namen die in het verleden beperkt op<br/>
+    → een deel van de tickets overlapt of zijn out-dated (de component bestaat niet meer)
+
+
+### WCAG Referenties
+
+#### Specificaties
+
+[WCAG 2.2 Nederlandstalige Specificatie](https://www.w3.org/Translations/WCAG22-nl/).
+
+[EN 301 549](https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf)
+
+#### Overheid
+
+[Inter - het Vlaams Expertisecentrum Toegankelijkheid](https://www.vlaanderen.be/inter/toolbox-toegankelijke-steden-en-gemeenten/algemeen-bestuur-dienstverlening-en-communicatie/digitale-toegankelijkheid/richtlijnen-voor-toegankelijkheid-van-webcontent-wcag).
+
+[GOV UK WCAG Understanding](https://www.gov.uk/service-manual/helping-people-to-use-your-service/understanding-wcag)
+
+#### Algemeen
+
+[Mozilla WCAG Accessibility](https://developer.mozilla.org/en-US/docs/Web/Accessibility)
+
+[Mozilla WCAG Understanding](https://developer.mozilla.org/en-US/docs/Web/Accessibility/Guides/Understanding_WCAG)
+
+[W3 WAI](https://www.w3.org/WAI/)

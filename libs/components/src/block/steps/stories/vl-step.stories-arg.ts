@@ -1,5 +1,5 @@
-import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { CATEGORIES, CONTROLS, defaultArgs, defaultArgTypes, ICON_PLACEMENT, TYPES } from '@resources/utils-storybook';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const stepArgs = {
     ...defaultArgs,
@@ -7,7 +7,7 @@ export const stepArgs = {
     type: null,
 };
 
-export const stepArgTypes: ArgTypes = {
+export const stepArgTypes: ArgTypes<typeof stepArgs> = {
     ...defaultArgTypes,
     toggleable: {
         name: 'toggleable',
@@ -16,7 +16,7 @@ export const stepArgTypes: ArgTypes = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: stepArgs.toggleable },
+            defaultValue: { summary: String(stepArgs.toggleable) },
         },
     },
     type: {
@@ -24,9 +24,9 @@ export const stepArgTypes: ArgTypes = {
         description: 'Beeldt een stap af in een bepaalde staat.',
         control: false,
         table: {
-            type: { summary: ['highlighted', 'disabled', 'success', 'warning', 'error'] },
+            type: { summary: 'highlighted | disabled | success | warning | error' },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: stepArgs.type },
+            defaultValue: { summary: String(stepArgs.type) },
         },
     },
 };

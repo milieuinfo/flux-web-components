@@ -1,4 +1,4 @@
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { mapActionArgs, mapActionArgTypes } from '../../../stories/vl-map-action.stories-arg';
 import { CATEGORIES, TYPES } from '@resources/utils-storybook';
 
@@ -16,7 +16,7 @@ export const mapSelectActionArgTypes: ArgTypes<typeof mapSelectActionArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapSelectActionArgs.cluster },
+            defaultValue: { summary: String(mapSelectActionArgs.cluster) },
         },
     },
 };

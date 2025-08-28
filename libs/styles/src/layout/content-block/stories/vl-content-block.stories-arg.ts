@@ -1,5 +1,5 @@
 import { TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const vlContentBlockArgs = {
     contentBlock: false,
@@ -12,7 +12,7 @@ export const vlContentBlockArgTypes: ArgTypes<typeof vlContentBlockArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: 'block style',
-            defaultValue: { summary: false },
+            defaultValue: { summary: String(false) },
         },
         description: 'Verplichte root style.',
     },
@@ -21,7 +21,7 @@ export const vlContentBlockArgTypes: ArgTypes<typeof vlContentBlockArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: 'block style',
-            defaultValue: { summary: false },
+            defaultValue: { summary: String(false) },
         },
         description: 'Optionele style voor full width layout.',
     },

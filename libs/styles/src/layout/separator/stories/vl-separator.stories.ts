@@ -1,5 +1,6 @@
 import { html } from 'lit-html';
 import vlSteparatorStoriesDoc from './vl-separator.stories-doc.mdx';
+import { Meta } from '@storybook/web-components-vite';
 
 export default {
     id: 'styles-layout-afnemers-separator',
@@ -10,7 +11,7 @@ export default {
             page: vlSteparatorStoriesDoc,
         },
     },
-};
+} as Meta;
 
 export const SeparatorDefault = ({}) => html` <hr class="vl-separator" /> `;
 SeparatorDefault.storyName = 'vl-separator - default';

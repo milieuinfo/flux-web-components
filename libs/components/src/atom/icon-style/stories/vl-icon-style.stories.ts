@@ -1,6 +1,7 @@
 import { html } from 'lit-html';
 import { vlIconStyles } from '../vl-icon-style.css';
 import vlIconStoriesDoc from './vl-icon-style.stories-doc.mdx';
+import { Meta } from '@storybook/web-components-vite';
 
 export default {
     id: 'components-atom-icon-style',
@@ -11,7 +12,7 @@ export default {
             page: vlIconStoriesDoc,
         },
     },
-};
+} as Meta;
 
 export const IconStyleDefault = ({}) => html`
     <style>

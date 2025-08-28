@@ -1,8 +1,9 @@
-import { action } from '@storybook/addon-actions';
-import { StoryContext, StoryFn } from '@storybook/web-components';
+import { StoryContext, StoryFn } from '@storybook/web-components-vite';
 import { nothing } from 'lit';
 import * as prettierHtml from 'prettier/parser-html';
 import * as prettier from 'prettier/standalone';
+import { action } from 'storybook/actions';
+import { buttonArgs } from '../../libs/components/src/atom/button/stories/vl-button.stories-arg';
 
 export const CATEGORIES = {
     ATTRIBUTES: 'Attributes',
@@ -32,7 +33,7 @@ export const CONTROLS = {
     INLINE_RADIO: 'inline-radio',
     RANGE: 'range',
     NUMBER: 'number',
-};
+} as const;
 
 export const filterOutDataCy = (input: string) => {
     return input?.replace(/ data-cy=".*?"/, '');
@@ -87,7 +88,7 @@ export const story = <T extends object>(defaultArgs: T, storyFn: StoryFn<T>): St
 };
 
 export const defaultArgs = {
-    customCSS: null,
+    customCSS: '',
 } as const;
 
 export const defaultArgTypes = {
@@ -95,11 +96,10 @@ export const defaultArgTypes = {
         name: 'custom-css',
         description:
             'Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.',
-        control: { type: null },
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: null },
+            defaultValue: { summary: '' as string },
         },
     },
 };

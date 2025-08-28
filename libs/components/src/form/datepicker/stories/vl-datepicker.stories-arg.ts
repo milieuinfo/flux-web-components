@@ -1,9 +1,9 @@
 import { CATEGORIES, CONTROLS, getSelectControlOptions, TYPES } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { formControlArgs, formControlArgTypes } from '../../form-control/stories/form-control.stories-arg';
 import { datepickerDefaults } from '../vl-datepicker.defaults';
 import { DATEPICKER_POSITIONS, DATEPICKER_TYPES } from '../vl-datepicker.model';
+import { action } from 'storybook/actions';
 
 type DatepickerArgs = typeof formControlArgs &
     typeof datepickerDefaults & { onVlChange: () => void; onVlInput: () => void; onVlValid: () => void };
@@ -24,7 +24,7 @@ export const datepickerArgTypes: ArgTypes<DatepickerArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: datepickerArgs.block },
+            defaultValue: { summary: String(datepickerArgs.block) },
         },
     },
     readonly: {
@@ -33,7 +33,7 @@ export const datepickerArgTypes: ArgTypes<DatepickerArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: datepickerArgs.readonly },
+            defaultValue: { summary: String(datepickerArgs.readonly) },
         },
     },
     type: {
@@ -131,7 +131,7 @@ export const datepickerArgTypes: ArgTypes<DatepickerArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: datepickerArgs.amPm },
+            defaultValue: { summary: String(datepickerArgs.amPm) },
         },
     },
     disableMaskValidation: {
@@ -140,7 +140,7 @@ export const datepickerArgTypes: ArgTypes<DatepickerArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: datepickerArgs.disableMaskValidation },
+            defaultValue: { summary: String(datepickerArgs.disableMaskValidation) },
         },
     },
     disableMobileNativeInput: {
@@ -150,7 +150,7 @@ export const datepickerArgTypes: ArgTypes<DatepickerArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: datepickerArgs.disableMobileNativeInput },
+            defaultValue: { summary: String(datepickerArgs.disableMobileNativeInput) },
         },
     },
     pattern: {
@@ -171,7 +171,7 @@ export const datepickerArgTypes: ArgTypes<DatepickerArgs> = {
         table: {
             type: { summary: TYPES.REGEX },
             category: CATEGORIES.PROPERTIES,
-            defaultValue: { summary: datepickerArgs.regex },
+            defaultValue: { summary: String(datepickerArgs.regex) },
         },
     },
     onVlInput: {
@@ -218,7 +218,7 @@ export const datepickerArgTypes: ArgTypes<DatepickerArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: datepickerArgs.isStatic },
+            defaultValue: { summary: String(datepickerArgs.isStatic) },
         },
         control: false,
     },

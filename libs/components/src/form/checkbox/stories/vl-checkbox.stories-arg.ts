@@ -1,8 +1,8 @@
 import { CATEGORIES, TYPES } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { formControlArgs, formControlArgTypes } from '../../form-control/stories/form-control.stories-arg';
 import { checkboxDefaults } from '../vl-checkbox.defaults';
+import { action } from 'storybook/actions';
 
 type CheckboxArgs = typeof formControlArgs &
     typeof checkboxDefaults & {
@@ -29,15 +29,15 @@ export const checkboxArgTypes: ArgTypes<CheckboxArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: checkboxArgs.block },
+            defaultValue: { summary: String(checkboxArgs.block) },
         },
     },
     id: {
         name: 'id',
         description: 'De id van het veld.<br>Bij de switch variant moet je een id instellen.',
-        type: { name: 'boolean', required: true },
+        type: { name: TYPES.STRING, required: false },
         table: {
-            type: { summary: TYPES.STRING, required: true },
+            type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: formControlArgs.id },
         },
@@ -48,7 +48,7 @@ export const checkboxArgTypes: ArgTypes<CheckboxArgs> = {
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: checkboxArgs.value },
+            defaultValue: { summary: String(checkboxArgs.value) },
         },
     },
     checked: {
@@ -57,7 +57,7 @@ export const checkboxArgTypes: ArgTypes<CheckboxArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: checkboxArgs.checked },
+            defaultValue: { summary: String(checkboxArgs.checked) },
         },
     },
     isSwitch: {
@@ -66,7 +66,7 @@ export const checkboxArgTypes: ArgTypes<CheckboxArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: checkboxArgs.isSwitch },
+            defaultValue: { summary: String(checkboxArgs.isSwitch) },
         },
     },
     contentSlot: {

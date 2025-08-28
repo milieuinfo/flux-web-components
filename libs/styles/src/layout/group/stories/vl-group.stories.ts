@@ -5,6 +5,7 @@ import { html } from 'lit-html';
 import { classMap } from 'lit/directives/class-map.js';
 import { vlGroupArgs, vlGroupArgTypes } from './vl-group.stories-arg';
 import vlGroupStoriesDoc from './vl-group.stories-doc.mdx';
+import { Meta } from '@storybook/web-components-vite';
 
 export default {
     id: 'styles-layout-afnemers-group',
@@ -17,7 +18,7 @@ export default {
             page: vlGroupStoriesDoc,
         },
     },
-};
+} as Meta<typeof vlGroupArgs>;
 
 registerWebComponents([VlAccordionComponent, VlButtonComponent, VlLinkComponent, VlIconComponent]);
 

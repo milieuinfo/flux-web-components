@@ -5,6 +5,10 @@ import { ProzaRestClient } from './vl-proza-rest-client.util';
 export class VlProzaMessagePreloader extends BaseHTMLElement {
     static __cache: Record<string, string | unknown>;
 
+    static clearCache() {
+        VlProzaMessagePreloader.__cache = {};
+    }
+
     static get _observedAttributes() {
         return ['domain'];
     }

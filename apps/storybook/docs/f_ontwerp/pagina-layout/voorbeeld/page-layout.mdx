@@ -1,0 +1,73 @@
+import { Meta, Source } from '@storybook/addon-docs/blocks';
+import * as pageLayoutStories from './page-layout.stories';
+
+<Meta of={pageLayoutStories} />
+
+# Pagina layout
+
+## Standaard layout
+
+Dit is de standaard layout voor applicaties. Gebruik de alternatieve "Volledige breedte" variant enkel indien deze layout te smal is om alle content duidelijk te visualiseren.
+
+<details open>
+    <summary>Code</summary>
+    <Source
+        language="html"
+        dark
+        format={true}
+        code={`
+<html>
+    <body>
+        <main>
+            <vl-template>
+                <vl-header slot="header"></vl-header>
+                <div slot="main">
+                    <vl-functional-header title="Page Layout">...</vl-functional-header>
+                    <section class="vl-section">
+                        <div class="vl-content-block">...</div>
+                    </section>
+                </div>
+                <vl-footer slot="footer"></vl-footer>
+            </vl-template>
+        </main>
+    </body>
+</html>
+        `}
+    ></Source>
+</details>
+
+## Volledige breedte
+
+Dit is een layout voor applicaties die de volledige schermbreedte nodig hebben. Gebruik dit enkel wanneer de standaard layout niet mogelijk is, bijvoorbeeld in het geval van uitgebreide data tabellen.
+
+Voeg hiervoor de volgende attributen toe:
+
+- `full-width` op het `<vl-functional-header>` component
+- de class `vl-content-block--full-width` op alle content blokken
+
+<details open>
+    <summary>Code</summary>
+    <Source
+        language="html"
+        dark
+        format={true}
+        code={`
+<html>
+    <body>
+        <main>
+            <vl-template>
+                <vl-header slot="header"></vl-header>
+                <div slot="main">
+                    <vl-functional-header title="Page Layout" full-width>...</vl-functional-header>
+                    <section class="vl-section">
+                        <div class="vl-content-block vl-content-block--full-width">...</div>
+                    </section>
+                </div>
+                <vl-footer slot="footer"></vl-footer>
+            </vl-template>
+        </main>
+    </body>
+</html>
+        `}
+    ></Source>
+</details>

@@ -1,7 +1,7 @@
 import { COMPLIANCE_STATUS, EVALUATION_STATUS } from '../vl-accessibility.model';
 import { CATEGORIES, CONTROLS, getSelectControlOptions, TYPES } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
+import { action } from 'storybook/actions';
 
 export const accessibilityArgs = {
     application: 'deze applicatie',
@@ -62,7 +62,7 @@ export const accessibilityArgTypes: ArgTypes<typeof accessibilityArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: accessibilityArgs.disableBackLink },
+            defaultValue: { summary: String(accessibilityArgs.disableBackLink) },
         },
     },
     hideBackLink: {
@@ -71,7 +71,7 @@ export const accessibilityArgTypes: ArgTypes<typeof accessibilityArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: accessibilityArgs.hideBackLink },
+            defaultValue: { summary: String(accessibilityArgs.hideBackLink) },
         },
     },
     evaluation: {
@@ -119,7 +119,7 @@ export const accessibilityArgTypes: ArgTypes<typeof accessibilityArgs> = {
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
-            defaultValue: accessibilityArgs.headerSlot,
+            defaultValue: { summary: accessibilityArgs.headerSlot},
         },
     },
 };

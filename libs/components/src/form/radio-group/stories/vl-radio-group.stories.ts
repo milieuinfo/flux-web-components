@@ -1,7 +1,7 @@
 import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
 import { radioGroupArgs, radioGroupArgTypes } from './vl-radio-group.stories-arg';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import radioGroupDoc from './vl-radio-group.stories-doc.mdx';
 import { VlRadioComponent } from '../vl-radio.component';

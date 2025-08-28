@@ -9,6 +9,7 @@ import {
 } from '../../../base/var/vl-media-screen.css';
 import vlGridStoriesDoc from './vl-grid.stories-doc.mdx';
 import { gridStoriesResponsiveCss } from './vl-grid.stories.css';
+import { Meta } from '@storybook/web-components-vite';
 
 registerWebComponents([VlFormLabelComponent, VlInputFieldComponent, VlButtonComponent]);
 
@@ -21,7 +22,7 @@ export default {
             page: vlGridStoriesDoc,
         },
     },
-};
+} as Meta;
 
 export const GridResponsive = () => html`
     <style>

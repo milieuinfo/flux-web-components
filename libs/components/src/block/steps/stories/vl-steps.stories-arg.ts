@@ -1,5 +1,5 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const stepsArgs = {
     ...defaultArgs,
@@ -9,7 +9,7 @@ export const stepsArgs = {
     lastStepNoLine: false,
 };
 
-export const stepsArgTypes: ArgTypes = {
+export const stepsArgTypes: ArgTypes<typeof stepsArgs> = {
     ...defaultArgTypes,
     line: {
         name: 'line',
@@ -17,7 +17,7 @@ export const stepsArgTypes: ArgTypes = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: stepsArgs.line },
+            defaultValue: { summary: String(stepsArgs.line) },
         },
     },
     timeline: {
@@ -26,7 +26,7 @@ export const stepsArgTypes: ArgTypes = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: stepsArgs.timeline },
+            defaultValue: { summary: String(stepsArgs.timeline) },
         },
     },
     simpleTimeline: {
@@ -35,7 +35,7 @@ export const stepsArgTypes: ArgTypes = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: stepsArgs.simpleTimeline },
+            defaultValue: { summary: String(stepsArgs.simpleTimeline) },
         },
     },
     lastStepNoLine: {
@@ -45,7 +45,7 @@ export const stepsArgTypes: ArgTypes = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: stepsArgs.lastStepNoLine },
+            defaultValue: { summary: String(stepsArgs.lastStepNoLine) },
         },
     },
 };

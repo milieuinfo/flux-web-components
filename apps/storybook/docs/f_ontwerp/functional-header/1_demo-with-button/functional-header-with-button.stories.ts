@@ -7,11 +7,10 @@ import {
     VlFunctionalHeaderComponent,
 } from '@domg-wc/components/block';
 import { VlButtonComponent } from '@domg-wc/components/atom';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 import { functionalHeaderWithButtonHtml } from '../functional-header.helpers';
-import functionalHeaderWithButtonDoc from './functional-header-with-button.stories-doc.mdx';
 
 registerWebComponents([
     VlBreadcrumbComponent,
@@ -22,19 +21,13 @@ registerWebComponents([
 
 export default {
     title: 'Ontwerp/Functional Header/Voorbeeld Met Button',
-    tags: ['autodocs'],
-    parameters: {
-        docs: {
-            page: functionalHeaderWithButtonDoc,
-        },
-    },
 } as Meta;
 
-export const FunctionalHeaderWithButton = story(
+export const functionalHeaderWithButton = story(
     {},
     () => html` <style>
             ${vlGroupStyles}
         </style>
         ${unsafeHTML(functionalHeaderWithButtonHtml)}`
 );
-FunctionalHeaderWithButton.storyName = 'vl-functional-header - met button';
+functionalHeaderWithButton.storyName = 'vl-functional-header - met button';

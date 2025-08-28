@@ -1,4 +1,4 @@
-import { useOf } from '@storybook/blocks';
+import { useOf } from '@storybook/addon-docs/blocks';
 import React from 'react';
 import { FluxMetaData } from '../flux-meta-data/flux-meta-data.component';
 

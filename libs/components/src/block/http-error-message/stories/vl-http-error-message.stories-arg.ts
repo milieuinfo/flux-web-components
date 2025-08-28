@@ -1,4 +1,4 @@
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
 
 export const httpErrorMessageArgs = {
@@ -57,7 +57,7 @@ export const httpErrorMessageArgTypes: ArgTypes<typeof httpErrorMessageArgs> = {
         name: 'text',
         description: 'Past de omschrijvende tekst onder de titel aan. Dit slot is niet reactief',
         table: {
-            type: { name: TYPES.HTML },
+            type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
             defaultValue: { summary: httpErrorMessageArgs.textSlot },
         },
@@ -66,7 +66,7 @@ export const httpErrorMessageArgTypes: ArgTypes<typeof httpErrorMessageArgs> = {
         name: 'actions',
         description: 'Past de acties aan. Dit slot is niet reactief',
         table: {
-            type: { name: TYPES.HTML },
+            type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
             defaultValue: { summary: httpErrorMessageArgs.actionsSlot },
         },

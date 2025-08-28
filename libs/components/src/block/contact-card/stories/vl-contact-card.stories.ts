@@ -1,6 +1,6 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { defaultArgs, defaultArgTypes, story } from '@resources/utils-storybook';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import '../../infoblock/vl-infoblock.component';
 import '../vl-contact-card.component';

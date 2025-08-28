@@ -1,6 +1,6 @@
 import { CATEGORIES, TYPES } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { ArgTypes } from '@storybook/web-components';
+import { action } from 'storybook/actions';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { privacyDefaults } from '../vl-privacy.defaults';
 
 export const privacyArgs = {
@@ -24,7 +24,7 @@ export const privacyArgTypes: ArgTypes<typeof privacyArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: privacyArgs.disableBackLink },
+            defaultValue: { summary: String(privacyArgs.disableBackLink) },
         },
     },
     hideBackLink: {
@@ -33,7 +33,7 @@ export const privacyArgTypes: ArgTypes<typeof privacyArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: privacyArgs.hideBackLink },
+            defaultValue: { summary: String(privacyArgs.hideBackLink) },
         },
     },
     version: {
@@ -59,7 +59,7 @@ export const privacyArgTypes: ArgTypes<typeof privacyArgs> = {
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
-            defaultValue: privacyArgs.headerSlot,
+            defaultValue: { summary: privacyArgs.headerSlot },
         },
     },
     versionSlot: {
@@ -68,7 +68,7 @@ export const privacyArgTypes: ArgTypes<typeof privacyArgs> = {
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
-            defaultValue: privacyArgs.versionSlot,
+            defaultValue: { summary: privacyArgs.versionSlot },
         },
     },
     contentSlot: {
@@ -77,7 +77,7 @@ export const privacyArgTypes: ArgTypes<typeof privacyArgs> = {
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
-            defaultValue: privacyArgs.contentSlot,
+            defaultValue: { summary: privacyArgs.contentSlot },
         },
     },
     bottomSlot: {
@@ -86,7 +86,7 @@ export const privacyArgTypes: ArgTypes<typeof privacyArgs> = {
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
-            defaultValue: privacyArgs.bottomSlot,
+            defaultValue: { summary: privacyArgs.bottomSlot },
         },
     },
 };

@@ -1,5 +1,5 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { iconDefaults } from '../vl-icon.defaults';
 
 type IconArgs = typeof defaultArgs & typeof iconDefaults;
@@ -39,7 +39,7 @@ export const iconArgTypes: ArgTypes<IconArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: iconArgs.small },
+            defaultValue: { summary: String(iconArgs.small) },
         },
     },
     large: {
@@ -48,7 +48,7 @@ export const iconArgTypes: ArgTypes<IconArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: iconArgs.large },
+            defaultValue: { summary: String(iconArgs.large) },
         },
     },
     light: {
@@ -57,7 +57,7 @@ export const iconArgTypes: ArgTypes<IconArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: iconArgs.light },
+            defaultValue: { summary: String(iconArgs.light) },
         },
     },
     rightMargin: {
@@ -66,7 +66,7 @@ export const iconArgTypes: ArgTypes<IconArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: iconArgs.rightMargin },
+            defaultValue: { summary: String(iconArgs.rightMargin) },
         },
     },
     leftMargin: {
@@ -75,7 +75,7 @@ export const iconArgTypes: ArgTypes<IconArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: iconArgs.leftMargin },
+            defaultValue: { summary: String(iconArgs.leftMargin) },
         },
     },
     clickable: {
@@ -85,7 +85,7 @@ export const iconArgTypes: ArgTypes<IconArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: iconArgs.clickable },
+            defaultValue: { summary: String(iconArgs.clickable) },
         },
     },
 };

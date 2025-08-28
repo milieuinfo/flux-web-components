@@ -36,11 +36,11 @@ export const functionalHeaderWithSearchHtmlSourceCode = createFunctionalHeaderHt
 const createFunctionalHeaderHtmlWithBackAndTabs = (sourceCode = false) => ` <vl-functional-header
         title="School- en studietoelagen"
         custom-css="${`
-                #sub-title{ 
+                #sub-title{
                     vertical-align: text-top;
-                } 
-                :host .vl-functional-header__sub-row { 
-                    margin-bottom: 0; 
+                }
+                :host .vl-functional-header__sub-row {
+                    margin-bottom: 0;
                 }
                 ${sourceCode ? '' : ':host .vl-content-block { min-width: 900px}'}
             `}"
@@ -51,7 +51,7 @@ const createFunctionalHeaderHtmlWithBackAndTabs = (sourceCode = false) => ` <vl-
             within-functional-header
             active-tab="trein"
             custom-css="${`
-                :host(.vl-tabs--within-functional-header) .vl-tab__link { 
+                :host(.vl-tabs--within-functional-header) .vl-tab__link {
                     padding-top: 0;
                 }
             `}"
@@ -62,5 +62,5 @@ const createFunctionalHeaderHtmlWithBackAndTabs = (sourceCode = false) => ` <vl-
         </vl-tabs>
     </vl-functional-header>`;
 
-export const functionalHeaderWithBackAndTabs = createFunctionalHeaderHtmlWithBackAndTabs();
+export const functionalHeaderWithBackAndTabsHtml = createFunctionalHeaderHtmlWithBackAndTabs();
 export const functionalHeaderWithBackAndTabsSourceCode = createFunctionalHeaderHtmlWithBackAndTabs(true);

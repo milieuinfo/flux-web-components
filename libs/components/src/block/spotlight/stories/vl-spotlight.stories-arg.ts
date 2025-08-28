@@ -6,7 +6,7 @@ import {
     getSelectControlOptions,
     TYPES,
 } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { SIZE } from '../vl-spotlight.model';
 
 export const spotlightArgs = {
@@ -24,7 +24,7 @@ export const spotlightArgs = {
     content: '',
 };
 
-export const spotlightArgTypes: ArgTypes = {
+export const spotlightArgTypes: ArgTypes<typeof spotlightArgs> = {
     ...defaultArgTypes,
     link: {
         name: 'link',
@@ -32,7 +32,7 @@ export const spotlightArgTypes: ArgTypes = {
             'De component wordt een link. Door te klikken op de component wordt de gebruiker doorgestuurd naar de link die gezet is in dit attribuut.',
         table: {
             type: { summary: TYPES.STRING },
-            defaultValue: spotlightArgs.link,
+            defaultValue: { summary: spotlightArgs.link },
             category: CATEGORIES.ATTRIBUTES,
         },
     },
@@ -42,7 +42,7 @@ export const spotlightArgTypes: ArgTypes = {
             'Opent de link in een nieuw tabblad. Dit attribuut wordt enkel gebruikt als het attribuut `link` gezet is.',
         table: {
             type: { summary: TYPES.STRING },
-            defaultValue: spotlightArgs.external,
+            defaultValue: { summary: String(spotlightArgs.external) },
             category: CATEGORIES.ATTRIBUTES,
         },
     },
@@ -51,7 +51,7 @@ export const spotlightArgTypes: ArgTypes = {
         description: 'Geeft de component een alternatieve stijl. De achtergrond wordt grijs.',
         table: {
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: spotlightArgs.alt,
+            defaultValue: { summary: String(spotlightArgs.alt) },
             category: CATEGORIES.ATTRIBUTES,
         },
     },
@@ -60,30 +60,28 @@ export const spotlightArgTypes: ArgTypes = {
         description: 'Geeft de component weer zonder border.',
         table: {
             type: { summary: TYPES.BOOLEAN },
-            defaultValue: spotlightArgs.noBorder,
+            defaultValue: { summary: String(spotlightArgs.noBorder) },
             category: CATEGORIES.ATTRIBUTES,
         },
     },
     size: {
         name: 'size',
         description: 'Dit attribuut bepaalt de grootte van de component.',
-        table: {
-            type: {
-                summary: getSelectControlOptions(Object.values(SIZE)),
-                required: false,
-            },
-            category: CATEGORIES.ATTRIBUTES,
-            defaultValue: spotlightArgs.size,
-        },
+        type: { name: TYPES.STRING, required: false },
         control: { type: CONTROLS.SELECT },
         options: Object.values(SIZE),
+        table: {
+            type: { summary: getSelectControlOptions(Object.values(SIZE)) },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(spotlightArgs.size) },
+        },
     },
     imgSrc: {
         name: 'img-src',
         description: 'Het path van de image dat getoond moet worden in de spotlight.',
         table: {
             type: { summary: TYPES.STRING },
-            defaultValue: spotlightArgs.imgSrc,
+            defaultValue: { summary: String(spotlightArgs.imgSrc) },
             category: CATEGORIES.ATTRIBUTES,
         },
     },
@@ -92,7 +90,7 @@ export const spotlightArgTypes: ArgTypes = {
         description: 'De alternatieve tekst van de image dat getoond moet worden in de spotlight.',
         table: {
             type: { summary: TYPES.STRING },
-            defaultValue: spotlightArgs.imgAlt,
+            defaultValue: { summary: String(spotlightArgs.imgAlt) },
             category: CATEGORIES.ATTRIBUTES,
         },
     },
@@ -101,7 +99,7 @@ export const spotlightArgTypes: ArgTypes = {
         description: 'Titel van de spotlight.',
         table: {
             type: { summary: TYPES.STRING },
-            defaultValue: spotlightArgs.title,
+            defaultValue: { summary: String(spotlightArgs.title) },
             category: CATEGORIES.SLOTS,
         },
     },
@@ -110,7 +108,7 @@ export const spotlightArgTypes: ArgTypes = {
         description: 'Subtitle van de spotlight.',
         table: {
             type: { summary: TYPES.STRING },
-            defaultValue: spotlightArgs.subtitle,
+            defaultValue: { summary: String(spotlightArgs.subtitle) },
             category: CATEGORIES.SLOTS,
         },
     },
@@ -119,7 +117,7 @@ export const spotlightArgTypes: ArgTypes = {
         description: 'Text van de spotlight.',
         table: {
             type: { summary: TYPES.STRING },
-            defaultValue: spotlightArgs.text,
+            defaultValue: { summary: String(spotlightArgs.text) },
             category: CATEGORIES.SLOTS,
         },
     },
@@ -128,7 +126,7 @@ export const spotlightArgTypes: ArgTypes = {
         description: 'Content van de spotlight.',
         table: {
             type: { summary: TYPES.STRING },
-            defaultValue: spotlightArgs.content,
+            defaultValue: { summary: String(spotlightArgs.content) },
             category: CATEGORIES.SLOTS,
         },
     },

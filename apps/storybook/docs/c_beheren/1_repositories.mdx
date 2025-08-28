@@ -1,0 +1,67 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Beheren/Repositories"/>
+
+# Repositories
+
+## Inhoudstafel
+
+- [Overzicht](#overzicht)
+- [flux-web-components](#flux-web-components)
+- [flux-assets](#flux-assets)
+- [flux-builds](#flux-builds)
+
+
+## Overzicht
+
+Er zijn 3 repositories van Flux:
+- flux-web-components - [https://github.com/milieuinfo/flux-web-components](https://github.com/milieuinfo/flux-web-components)
+- flux-assets - [https://github.com/milieuinfo/flux-assets](https://github.com/milieuinfo/flux-assets)
+- flux-builds - [https://github.com/milieuinfo/flux-builds](https://github.com/milieuinfo/flux-builds)
+
+
+## flux-web-components
+
+De belangrijkste repo die de broncode van de flux-web-components bevat, de Storybook documentatie en de Playground
+toepassingen. Dit is een mono-repo.
+
+
+## flux-assets
+
+De flux-web-components hebben externe afhankelijkheden.  Die externe assets worden onder dit project opgenomen en
+gepubliceerd op de CDN van Departement Omgeving. Code zal dus gebruik maken van versies gepubliceerd op de CDN.
+
+Volgende assets zitten in deze repo: __govflanders-font__, __govflanders-style__ en __tinymce__
+
+### govflanders-font
+
+Digitaal Vlaanderen voorziet eigen fonts, er zijn er 2
+-  FlandersArt: in de varianten italic / sans - met telkens de sub-varianten black, bold, light, medium, regular
+   en thin
+-  vlaanderen-icon (en icon-classic)
+
+De flux-web-components refereren intern (geversioneerd) naar deze fonts. Voornamelijk voor het icon-font is de
+versionering belangrijk daar de icoon referenties gelijk moeten lopen met het font voor de desbetreffende versie.
+Voor meer informatie over het beheren van het icon-font zie de [Icon Font](/docs/beheren-icon-font--documentatie) documentatie.
+
+### govflanders-style
+
+De hoofdbrok van styling komt uit het Webuniversum van Digitaal Vlaanderen. Hun styling wordt aangeboden via
+verschillende packages die .scss bestanden bevatten. De Flux web-componenten hebben vaak een shadow-dom, dit heeft
+technische gevolgen die tot css duplicatie leiden, deze asset vermindert deze duplicatie.
+
+Technisch worden in deze asset de DV packages gerefereert, de sccs verwerkt en gewrapped in .js bestanden. Het
+resultaat wordt als geversioneerd artifact aangeboden waarop de flux-web-components dan dependen.
+
+### tinymce
+
+[TinyMCE](https://www.tiny.cloud/) - een WYSIWYG editor gebruikt in `vl-textarea` - heeft theming nodig die statisch
+gerefereerd wordt. I.p.v. elke toepassing deze theming apart te laten voorzien wordt die via dit asset geversioneerd
+aangeboden op de CDN.<br/>
+Onder `tinymce` zit de theming voor v5.10.6, onder `tinymce-next` deze voor v6.8.3.
+
+
+## flux-builds
+
+De repo die de geversioneerde documentatie bevat,
+zie [Beheren/Documentatie Publicatie](/docs/beheren-documentatie-publicatie--documentatie) voor meer informatie.

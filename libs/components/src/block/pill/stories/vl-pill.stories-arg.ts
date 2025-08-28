@@ -1,5 +1,6 @@
 import { CONTROLS, defaultArgs, defaultArgTypes, getSelectControlOptions } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const pillArgs = {
     ...defaultArgs,
@@ -14,7 +15,7 @@ export const pillArgs = {
     clickable: false,
 };
 
-export const pillArgTypes = {
+export const pillArgTypes: ArgTypes<typeof pillArgs> = {
     ...defaultArgTypes,
     closable: {
         name: 'closable',

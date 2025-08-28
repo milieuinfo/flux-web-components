@@ -1,6 +1,6 @@
 import { CATEGORIES, TYPES } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { ArgTypes } from '@storybook/web-components';
+import { action } from 'storybook/actions';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const cookieStatementArgs = {
     date: '3 maart 2021',
@@ -27,7 +27,7 @@ export const cookieStatementArgTypes: ArgTypes<typeof cookieStatementArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: cookieStatementArgs.disableBackLink },
+            defaultValue: { summary: String(cookieStatementArgs.disableBackLink) },
         },
     },
     hideBackLink: {
@@ -36,7 +36,7 @@ export const cookieStatementArgTypes: ArgTypes<typeof cookieStatementArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: cookieStatementArgs.hideBackLink },
+            defaultValue: { summary: String(cookieStatementArgs.hideBackLink) },
         },
     },
     version: {
@@ -62,7 +62,7 @@ export const cookieStatementArgTypes: ArgTypes<typeof cookieStatementArgs> = {
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
-            defaultValue: cookieStatementArgs.headerSlot,
+            defaultValue: { summary: cookieStatementArgs.headerSlot },
         },
     },
 };

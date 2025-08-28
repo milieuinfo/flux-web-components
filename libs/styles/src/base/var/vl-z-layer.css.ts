@@ -1,4 +1,4 @@
-import zLayerRawCss from '!!raw-loader!./vl-z-layer.raw.css';
+import zLayerRawCss from './vl-z-layer.raw.css?raw';
 import { css, CSSResult, unsafeCSS } from 'lit';
 
 export const vlZLayerVars: CSSResult = css`

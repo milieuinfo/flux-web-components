@@ -1,5 +1,4 @@
-import { ArgTypes } from '@storybook/web-components';
-import { action } from '@storybook/addon-actions';
+import { ArgTypes } from '@storybook/web-components-vite';
 // de import is bewust op deze manier om voor de web-types.generator 'binnen' de monorepo geen side-effect te geven
 import { PADDINGS } from '@resources/utils-storybook';
 import {
@@ -10,6 +9,7 @@ import {
     getSelectControlOptions,
     TYPES,
 } from '@resources/utils-storybook';
+import { action } from 'storybook/actions';
 
 export const accordionArgs = {
     ...defaultArgs,
@@ -36,7 +36,7 @@ export const accordionArgTypes: ArgTypes<typeof accordionArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: accordionArgs.bold },
+            defaultValue: { summary: String(accordionArgs.bold) },
         },
     },
     closeToggleText: {
@@ -46,7 +46,7 @@ export const accordionArgTypes: ArgTypes<typeof accordionArgs> = {
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: accordionArgs.closeToggleText },
+            defaultValue: { summary: String(accordionArgs.closeToggleText) },
         },
     },
     contentPadding: {
@@ -58,7 +58,7 @@ export const accordionArgTypes: ArgTypes<typeof accordionArgs> = {
         table: {
             type: { summary: getSelectControlOptions(Object.keys(PADDINGS)) },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: accordionArgs.contentPadding },
+            defaultValue: { summary: String(accordionArgs.contentPadding) },
         },
     },
     disabled: {
@@ -67,7 +67,7 @@ export const accordionArgTypes: ArgTypes<typeof accordionArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: accordionArgs.disabled },
+            defaultValue: { summary: String(accordionArgs.disabled) },
         },
     },
     defaultOpen: {
@@ -76,7 +76,7 @@ export const accordionArgTypes: ArgTypes<typeof accordionArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: accordionArgs.defaultOpen },
+            defaultValue: { summary: String(accordionArgs.defaultOpen) },
         },
     },
     icon: {

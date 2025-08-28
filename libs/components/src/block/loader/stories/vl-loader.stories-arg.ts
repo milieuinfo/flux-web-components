@@ -1,4 +1,5 @@
 import { defaultArgs, defaultArgTypes } from '@resources/utils-storybook';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const loaderArgs = {
     ...defaultArgs,
@@ -7,7 +8,7 @@ export const loaderArgs = {
     single: false,
 };
 
-export const loaderArgTypes = {
+export const loaderArgTypes: ArgTypes<typeof loaderArgs> = {
     ...defaultArgTypes,
     light: {
         name: 'light',

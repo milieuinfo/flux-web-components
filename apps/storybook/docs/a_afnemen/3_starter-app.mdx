@@ -1,0 +1,148 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Afnemen/Starter App"/>
+
+# Starter App
+
+## Inhoudstafel
+
+- [Doel](#doel)
+- [Bibliotheken](#bibliotheken)
+- [Concept](#concept)
+- [Praktisch](#praktisch)
+- [Opzet](#opzet)
+- [Scripts](#scripts)
+- [Tooling](#tooling)
+
+## Doel
+
+Onder [https://git.omgeving.vlaanderen.be/git/flux/flux-starter-app](https://git.omgeving.vlaanderen.be/git/flux/flux-starter-app)
+vind je een voorbeeld 'starter' project met een basis setup. Het is een WIP, gelieve via MR's wijzigingen of
+uitbreidingen aan te vragen.
+
+
+## Bibliotheken
+
+Hieronder is een overzicht van welke bibliotheken gebruikt worden in de flux-starter-app, de concrete versies
+vind je terug in de package.json.
+
+- [Node](https://nodejs.org/en) - een recentelijke LTS versie
+- [Volta](https://volta.sh/) - installeer de laatste versie
+- [Webpack](https://webpack.js.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Lit](https://lit.dev/)
+- [Prettier](https://prettier.io/)
+- [ESLint](https://eslint.org/)
+- [Jest](https://jestjs.io/)
+- [Cypress](https://www.cypress.io/)
+
+
+## Concept
+
+> Binnen Departement Omgeving streven we naar een Framework agnostische aanpak. Er wordt bewust niet ingezet op een
+concreet framework, dus geen React, Angular, Vue, ... . Het doel is toepassingen te bouwen op een native manier:
+met Html, Javascript en Css - gebruikmakend van web-standaarden - waarbij het bouwen van
+[Web Components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components) de basis vormt.
+
+
+## Praktisch
+
+Niettegenstaande de framework-agnostische aanpak willen we wel op een moderne manier aan frontend ontwikkeling doen -
+en vermijden het warm water uit te vinden. Een toepassing wordt gebouwd op het Node-platform en gebundeld met
+Webpack. Het is aanbevolen een linter te gebruiken en optioneel (maar aanbevolen) kan code in TypeScript geschreven
+worden. Om kwalitatieve code te behouden is het de bedoeling 3 types van testen te schrijven: unit testen (met Jest) en
+component- en e2e-testen (met Cypress).
+
+In het verleden werden web-componenten van 'scratch' geschreven, hierdoor ontstond een basis-klasse die resulteerde
+in een mini-custom-framework. Om dat te vermijden is er Lit geïntroduceerd: een (minimale) open-source bibliotheek
+met Web Components als basis.
+
+
+## Opzet
+
+Om te starten met een nieuwe toepassing vertrek je van een fork van de starter-app. Deze maakt gebruik van Volta,
+die tool zorgt ervoor dat er een expliciete Node versie gespecifieerd, geïnstalleerd en gebruikt wordt. Bij
+ontwikkeling voor meerdere toepassingen zal je daardoor telkens met de juiste Node versie werken.
+
+Je kan de nieuwste versie van Volta eenmalig als volgt installeren:
+```
+# install Volta
+curl https://get.volta.sh | bash
+
+# install Node
+volta install node
+
+# start using Node
+node
+```
+
+
+## Scripts
+
+In de package.json onder `scripts` staan verschillende shortcuts die je kan uitvoeren met `npm run {script}`.
+
+- **build**: build een bundel, je vind hem in de `dist` folder
+- **ct**: start lokaal de Cypress console om component testen uit te voeren
+- **ct-ci**: voert alle Cypress component testen uit
+- **e2e**: start lokaal de Cypress console om end-to-end testen uit te voeren
+- **e2e-ci**: voert alle Cypress end-to-end testen uit
+- **dev**: start lokaal een 'live' ontwikkel server
+- **lint**: voert de linter uit
+- **serve**: start een http-server waarmee de gebuilde bundel getest kan worden
+- **test**: voert alle Jest testen uit
+
+
+## Tooling
+
+### IDE & Git
+
+De IDE die bij Departement Omgeving de voorkeur heeft is [IntelliJ](https://www.jetbrains.com/idea/), versionering
+gebeurt met [Git](https://git-scm.com/).
+
+### Webpack
+
+Alhoewel er alternatieven zijn is er - via de TAW - een consensus om
+[Webpack](https://webpack.js.org/guides/getting-started/) als bundler te gebruiken.
+
+Javascript hoeft niet ge-compiled te worden, TypeScript echter wel. Hiervoor is in de Webpack configuratie - i.p.v.
+Babel en tsc - [SWC](https://swc.rs/) geconfigureerd. Babel is complex (er zijn verschillende plugins nodig), om de
+verschillende tools correct te configureren. SWC heeft 1 eenduidig configuratie bestand. Voornamelijk om van Lit
+[decorators](https://lit.dev/docs/components/decorators/) gebruik te kunnen maken werkt SWC out-of-the-box, terwijl
+Babel configuratie problemen geeft.
+
+### TypeScript
+
+Om de codekwaliteit te verhogen, raden we aan om [TypeScript](https://www.typescriptlang.org/) te gebruiken.
+
+### Lit
+
+Er wordt bewust voor [Lit](https://lit.dev/docs/) gekozen omdat het geen 'framework' is, het is een bibliotheek
+om web-componenten te schrijven. Die componenten hebben de
+[standard custom element lifecycle](https://lit.dev/docs/components/lifecycle/) en de mogelijkheid een
+[shadow-dom](https://lit.dev/docs/components/shadow-dom/) te voorzien. Shadow-dom's, die voor encapsulatie zorgen,
+zijn een goed concept maar geven net door die encapsulatie ook problemen. Eén van de grote problemen zit vaak in
+het stylen, een best practice is om dit op lossen is m.b.v. css-in-js (of css-in-ts) en
+[shared-styles](https://lit.dev/docs/components/styles/#sharing-styles). Op die manier kan je makkelijk de css
+injecteren op die plaatsen waar hij nodig is zonder nodeloze duplicatie.
+
+### Prettier
+
+Door [prettier](https://prettier.io/) te gebruiken krijg je via minimale configuratie eenduidige code formattering
+over projecten heen.
+
+### ESLint
+
+JavaScript code wordt geïnterpreteerd. Om, voordat het uitgevoerd wordt, toch een vorm van kwaliteit validatie te
+hebben wordt een linter, [ESLint](https://eslint.org/) in ons geval, gebruikt.
+
+### Jest
+
+Er is geen gebrek aan test tools in de JavaScript wereld. Voor het testen van pure JavaScript code is er voor
+[Jest](https://jestjs.io/) gekozen.
+
+### Cypress
+
+[Cypress](https://www.cypress.io/) maakt het schrijven van frontend testen makkelijk. Het voorziet een manier
+om e2e testen te schrijven, requests uit te mocken, a.d.h.v. fixtures componenten in isolatie te testen, ... .
+Het kan makkelijk om met de shadow-dom, je kan eigen commando's voorzien en Cypress gaat transparant om met reactieve
+html.

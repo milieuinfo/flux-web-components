@@ -1,5 +1,5 @@
 import { CONTROLS, defaultArgs, defaultArgTypes, getSelectControlOptions } from '@resources/utils-storybook';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { MEDIA } from '../vl-share-button.model';
 
 export const shareButtonArgs = {

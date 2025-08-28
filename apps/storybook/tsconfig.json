@@ -10,7 +10,6 @@
     "compilerOptions": {
         "outDir": "../../build/app/storybook",
         "strict": false,
-        "useDefineForClassFields": false,
         "jsx": "react"
     }
 }

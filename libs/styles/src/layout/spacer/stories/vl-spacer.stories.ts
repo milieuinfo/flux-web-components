@@ -1,5 +1,6 @@
 import { html } from 'lit-html';
 import vlSpacerStoriesDoc from './vl-spacer.stories-doc.mdx';
+import { Meta } from '@storybook/web-components-vite';
 
 export default {
     id: 'styles-layout-afnemers-spacer',
@@ -10,7 +11,7 @@ export default {
             page: vlSpacerStoriesDoc,
         },
     },
-};
+} as Meta;
 
 export const SpacerDefault = ({}) => html`
     <hr class="vl-separator vl-spacer" />

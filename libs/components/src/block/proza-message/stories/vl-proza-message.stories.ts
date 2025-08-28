@@ -1,9 +1,9 @@
 import { story } from '@resources/utils-storybook';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import { VlProzaMessage } from '../vl-proza-message.component';
 import { prozaMessageArgs, prozaMessageArgTypes } from './vl-proza-message.stories-arg';
-import { prozaMessageMockDomainData, prozaMessageMockDomainEditableData } from './vl-proza-message.stories-data';
+import { prozaMessageMockDomainData, prozaMessageMockDomainEditableData } from './vl-proza-message.stories-msw';
 import prozaMessageDoc from './vl-proza-message.stories-doc.mdx';
 
 export default {
@@ -19,12 +19,14 @@ export default {
         controls: {
             hideNoControlsWarning: true,
         },
-        mockData: [...prozaMessageMockDomainData, ...prozaMessageMockDomainEditableData],
+        msw: {
+            handlers: [...prozaMessageMockDomainData, ...prozaMessageMockDomainEditableData],
+        },
     },
 } as Meta<typeof prozaMessageArgs>;
 
 export const ProzaMessageDefault = story(prozaMessageArgs, () => {
-    delete VlProzaMessage.__cache;
+    VlProzaMessage.clearCache();
 
     return html`
         <div class="vl-grid vl-stacked-small">
@@ -54,7 +56,7 @@ export const ProzaMessageDefault = story(prozaMessageArgs, () => {
 ProzaMessageDefault.storyName = 'vl-proza-message - default';
 
 export const ProzaMessageEditable = story(prozaMessageArgs, () => {
-    delete VlProzaMessage.__cache;
+    VlProzaMessage.clearCache();
 
     return html`
         <div class="vl-grid vl-stacked-small">

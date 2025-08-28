@@ -37,6 +37,6 @@ export const handleOpacitySliderChange = ({ detail: { value } }: CustomEvent) =>
     const featureLayers = document.querySelectorAll('vl-map-features-layer');
 
     featureLayers?.forEach((layer) => {
-        layer.setAttribute('opacity', value / 100);
+        layer.setAttribute('opacity', String(value / 100));
     });
 };

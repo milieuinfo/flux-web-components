@@ -1,5 +1,6 @@
 import { html } from 'lit-html';
 import vlFontStoriesDoc from './vl-font.stories-doc.mdx';
+import { Meta } from '@storybook/web-components-vite';
 
 export default {
     id: 'styles-base-font',
@@ -10,7 +11,7 @@ export default {
             page: vlFontStoriesDoc,
         },
     },
-};
+} as Meta;
 
 export const FontFlandersArtSansNormal = ({}) => html`
     <style>

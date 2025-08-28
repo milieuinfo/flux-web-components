@@ -1,0 +1,62 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Richtlijnen/Content Security Policy/CSP Problematieken"/>
+
+# CSP Problematieken
+
+## Web-componenten problematiek
+
+Web-componenten encapsuleren zowel (technische) logica met JavaScript als visualisatie met html en css. Sommige
+componenten maken ook gebruik van externe bibliotheken. Voor CSP zijn er verschillende configuratie mogelijkheden.
+Vanaf dat 1 component (of de achterliggende bibliotheek) een specifieke CSP regel moet openzetten moet dit voor de
+ganse toepassing gebeuren.
+
+Sinds v2.4.0 van de flux-web-componenten kan CSP voor bijna alle componenten en alle regels op het meest strikte gezet
+worden. Er zijn nog een beperkt aantal uitzonderingen nodig:
+
+- het domein `https://cdn.omgeving.vlaanderen.be` moet toegestaan worden om fonts, scripts en styles uit te halen,
+  omdat we vandaaruit ondersteunende, algemene zaken beschikbaar stellen
+- de `global-header` heeft extra domeinen nodig waarnaar aanvragen mogen gebeuren, omdat elke toepassing deze component
+  integreert moet dit steeds geconfigureerd worden, zie hieronder voor meer informatie
+- bij gebruik van de `vl-map` moeten images uit `https://geo.api.vlaanderen.be` beschikbaar zijn
+- de `vl-textarea-rich` embed TinyMCE, deze heeft (net als alle alternatieve rich-text editors) de configuratie
+  `style-src-attr 'unsafe-inline';` nodig, dit moet enkel voorzien worden als de toepassing deze component gebruikt
+
+
+## CSP en de global-header
+
+T.e.m. v2.2.0 integreerden de flux-web-componenten de v4 versie van de
+[global header](https://www.vlaanderen.be/digitaal-vlaanderen/onze-diensten-en-platformen/mijn-burgerprofiel/global-header-en-footer).
+Sinds v2.3.0 is er een integratie beschikbaar met de nieuwe v5 versie via de `vl-header-next` en `vl-footer-next`
+component. Technische informatie over de upgrade kan je vinden in de documentatie van Digitaal Vlaanderen:
+[upgraden van global header versie 4 naar 5](https://vlaamseoverheid.atlassian.net/wiki/spaces/IKPubliek/pages/7488733769/Upgraden+van+global+header+versie+4+naar+5).
+
+De v4 versie van de header werkte enkel met de CSP configuratie `Content-Security-Policy: script-src 'unsafe-eval';`.
+Om die rede was CSP activeren met die versie redelijk zinloos: in de volledige toepassing moest 'unsafe-eval' actief
+zijn, waardoor [XSS](/docs/richtlijnen-content-security-policy-wat-is-csp--documentatie#cross-side-scripting) mogelijk
+is.
+
+De nieuwe v5 versie verhelpt dit probleem, 'unsafe-eval' is niet meer nodig. Door de functionaliteit van de header
+moeten er, afhankelijk van de omgeving, wel domeinen gespecifieerd worden waarnaar specifieke aanroepen mogen
+gebeuren. De lijst met CSP configuratie (per omgeving) is te vinden in de
+[v5 global-header](https://test.widgets.burgerprofiel.dev-vlaanderen.be/docs/global-header/index.html#content-security-policy-csp)
+documentatie.
+
+
+## CSP en vl-textarea-rich / TinyMCE
+
+De `vl-textarea-rich` maakt gebruik van [TinyMCE](https://github.com/tinymce/tinymce). Alle rich text editor's hebben,
+om correct te werken, dezelfde CSP regel nodig: `"Content-Security-Policy": "style-src-attr 'unsafe-inline';"`. De rede
+is dat ze dynamisch tekst stylen via het style attribuut.
+
+Een fundamentele oplossing is er niet, in alternatieve rich text editors kan je met een
+['nonce'](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/nonce) werken of
+functionaliteit beperken. Een 'nonce' configureren is echter complex. Als je functionaliteit wil beperken kan je
+overwegen de gewone `vl-textarea` component te gebruiken.
+
+Als je er voor kiest `vl-textarea-rich` te gebruiken dien je dus `"style-src-attr 'unsafe-inline';"` te specifiëren.
+Op die manier laat je enkel toe dat scripts dynamisch het style attribuut zetten (of bewerken) op een DOM-element.
+Als alle andere CSP-regels strikt gedefinieerd zijn is er geen risico. In dat geval kunnen er geen scripts geïnjecteerd
+worden en alle scripts aanwezig zijn gekend omdat ze afkomstig zijn van een eigen (of toegelaten) domein, dus te
+vertrouwen. Het enige wat die vertrouwde scripts dan nog kunnen doen is styling, zijnde visualisatie, van DOM-elementen
+beïnvloeden.

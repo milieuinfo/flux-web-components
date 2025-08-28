@@ -1,6 +1,6 @@
 import { CATEGORIES, TYPES } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { ArgTypes } from '@storybook/web-components';
+import { action } from 'storybook/actions';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { headerDefaults } from '../vl-header.defaults';
 
 type HeaderArgs = typeof headerDefaults & { onReady: () => void };
@@ -26,13 +26,13 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: headerArgs.development },
+            defaultValue: { summary: String(headerArgs.development) },
         },
     },
     identifier: {
         name: 'identifier',
-        description: `De identifier die gebruikt wordt om bij Digitaal Vlaanderen de header op te halen. 
-        Deze identifier kan aangevraagd worden bij Team Infra van Departement Omgeving of via dit 
+        description: `De identifier die gebruikt wordt om bij Digitaal Vlaanderen de header op te halen.
+        Deze identifier kan aangevraagd worden bij Team Infra van Departement Omgeving of via dit
         <vl-link external href="https://www.vlaanderen.be/digitaal-vlaanderen/onze-diensten-en-
         platformen/mijn-burgerprofiel/global-header-en-footer#stappenplan-koppeling-met-de-global-
         header-en-footer">stappenplan</vl-link> van Digitaal Vlaanderen.`,
@@ -45,8 +45,8 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
     loginUrl: {
         name: 'login-url',
         description: `De url die gebruikt wordt bij het aanmelden.<br>
-        Bij het aanpassen van dit attribuut wordt achterliggend de 
-        \`window.globalHeaderClient.accessMenu.setProfile()\` methode van Digitaal Vlaanderen 
+        Bij het aanpassen van dit attribuut wordt achterliggend de
+        \`window.globalHeaderClient.accessMenu.setProfile()\` methode van Digitaal Vlaanderen
         opnieuw aangeroepen.`,
         table: {
             type: { summary: TYPES.URL },
@@ -57,8 +57,8 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
     logoutUrl: {
         name: 'logout-url',
         description: `De url die wordt opgeroepen wanneer men zich wil afmelden.<br>
-        Bij het aanpassen van dit attribuut wordt achterliggend de 
-        \`window.globalHeaderClient.accessMenu.setProfile()\` methode van Digitaal Vlaanderen 
+        Bij het aanpassen van dit attribuut wordt achterliggend de
+        \`window.globalHeaderClient.accessMenu.setProfile()\` methode van Digitaal Vlaanderen
         opnieuw aangeroepen.`,
         table: {
             type: { summary: TYPES.URL },
@@ -72,7 +72,7 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: headerArgs.simple },
+            defaultValue: { summary: String(headerArgs.simple) },
         },
     },
     skeleton: {
@@ -81,14 +81,14 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: headerArgs.skeleton },
+            defaultValue: { summary: String(headerArgs.skeleton) },
         },
     },
     switchCapacityUrl: {
         name: 'switch-capacity-url',
         description: `De url die wordt opgeroepen wanneer men van organisatie wil wisselen.<br>
-        Bij het aanpassen van dit attribuut wordt achterliggend de 
-        \`window.globalHeaderClient.accessMenu.setProfile()\` methode van Digitaal Vlaanderen 
+        Bij het aanpassen van dit attribuut wordt achterliggend de
+        \`window.globalHeaderClient.accessMenu.setProfile()\` methode van Digitaal Vlaanderen
         opnieuw aangeroepen.`,
         table: {
             type: { summary: TYPES.URL },

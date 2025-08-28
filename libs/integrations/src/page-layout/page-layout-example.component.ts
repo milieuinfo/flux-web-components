@@ -1,18 +1,9 @@
 import { GlobalStyles, registerWebComponents, webComponent } from '@domg-wc/common';
 import { VlParagraphComponent, VlTitleComponent } from '@domg-wc/components/atom';
-import { VlAlert, VlFunctionalHeaderComponent, VlTemplate } from '@domg-wc/components/block';
+import { VlAlert, VlFunctionalHeaderComponent, VlSideNavigationComponent, VlTemplate } from '@domg-wc/components/block';
 import { VlFooter, VlHeader } from '@domg-wc/components/compliance';
 import { vlLayoutStyles, vlLegacyStyles } from '@domg-wc/styles';
-import {
-    VlSideNavigationComponent,
-    VlSideNavigationContentComponent,
-    VlSideNavigationGroupComponent,
-    VlSideNavigationH5,
-    VlSideNavigationItemComponent,
-    VlSideNavigationReferenceComponent,
-    VlSideNavigationToggleComponent,
-} from 'libs/components/src/block/side-navigation';
-import { CSSResult, LitElement, html } from 'lit';
+import { CSSResult, html, LitElement } from 'lit';
 
 registerWebComponents([
     VlTemplate,
@@ -22,13 +13,7 @@ registerWebComponents([
     VlTitleComponent,
     VlParagraphComponent,
     VlAlert,
-    VlSideNavigationReferenceComponent,
     VlSideNavigationComponent,
-    VlSideNavigationContentComponent,
-    VlSideNavigationH5,
-    VlSideNavigationItemComponent,
-    VlSideNavigationGroupComponent,
-    VlSideNavigationToggleComponent,
 ]);
 
 @webComponent('vl-page-layout-example')
@@ -164,7 +149,9 @@ export class VlPageLayoutExample extends LitElement {
                                             </vl-paragraph>
                                         </vl-side-navigation-reference>
                                     </div>
-                                    <div class="vl-column vl-column--3 vl-column--m-3 vl-column--s-12 vl-column--xs-12 vl-column--start-10 vl-column--s-start-1">
+                                    <div
+                                        class="vl-column vl-column--3 vl-column--m-3 vl-column--s-12 vl-column--xs-12 vl-column--start-10 vl-column--s-start-1"
+                                    >
                                         <vl-side-navigation aria-label="inhoudsopgave">
                                             <vl-side-navigation-h5>Op deze pagina</vl-side-navigation-h5>
                                             <vl-side-navigation-content>

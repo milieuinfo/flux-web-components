@@ -1,9 +1,9 @@
 import { CATEGORIES, CONTROLS, getSelectControlOptions, TYPES } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { formControlArgs, formControlArgTypes } from '../../form-control/stories/form-control.stories-arg';
 import { selectRichDefaults } from '../vl-select-rich.defaults';
 import { SelectRichPosition } from '../vl-select-rich.model';
+import { action } from 'storybook/actions';
 
 type SelectRichArgs = typeof formControlArgs &
     typeof selectRichDefaults & {
@@ -39,7 +39,7 @@ export const selectRichArgTypes: ArgTypes<SelectRichArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: selectRichArgs.notDeletable },
+            defaultValue: { summary: String(selectRichArgs.notDeletable) },
         },
     },
     multiple: {
@@ -48,7 +48,7 @@ export const selectRichArgTypes: ArgTypes<SelectRichArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: selectRichArgs.multiple },
+            defaultValue: { summary: String(selectRichArgs.multiple) },
         },
     },
     search: {
@@ -59,7 +59,7 @@ export const selectRichArgTypes: ArgTypes<SelectRichArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: selectRichArgs.search },
+            defaultValue: { summary: String(selectRichArgs.search) },
         },
     },
     position: {
@@ -79,7 +79,7 @@ export const selectRichArgTypes: ArgTypes<SelectRichArgs> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: selectRichArgs.resultLimit },
+            defaultValue: { summary: String(selectRichArgs.resultLimit) },
         },
     },
     noResultsText: {
@@ -118,7 +118,7 @@ export const selectRichArgTypes: ArgTypes<SelectRichArgs> = {
         table: {
             type: { summary: 'SelectRichOption' },
             category: CATEGORIES.PROPERTIES,
-            defaultValue: { summary: selectRichArgs.initialOptions },
+            defaultValue: { summary: String(selectRichArgs.initialOptions) },
         },
     },
     options: {
@@ -129,7 +129,7 @@ export const selectRichArgTypes: ArgTypes<SelectRichArgs> = {
         table: {
             type: { summary: 'SelectRichOption' },
             category: CATEGORIES.PROPERTIES,
-            defaultValue: { summary: selectRichArgs.options },
+            defaultValue: { summary: String(selectRichArgs.options) },
         },
     },
     onVlChange: {

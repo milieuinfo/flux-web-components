@@ -1,0 +1,42 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import cbTestPiramide from '../../../resources/applicatief-testen/component-bibliotheek-test-piramide.png';
+
+<Meta title="Richtlijnen/Testen/Test Piramide Component Bibliotheek"/>
+
+# Test Piramide Component Bibliotheek
+
+## Inleiding
+
+Het Flux-team bouwt een component bibliotheek, dit is verschillend van een eindtoepassing. Om die componenten afgebakend
+te testen wordt de algemene test aanpak gevolgd met een specifieke invulling.
+
+
+## Variant op de SPA Test Piramide
+
+De test piramide voor de component bibliotheek volgt de
+[klassieke test piramide](/docs/applicatief-testen-klassieke-test-piramide--documentatie) en is een variant op de
+[SPA test piramide](/docs/applicatief-testen-test-piramide-ssr-vs-spa--documentatie).
+
+<br/>
+<img src={cbTestPiramide} alt="Component Bibliotheek Test Piramide" height="450px"/>
+<br/><br/>
+
+Om de component bibliotheek te testen zijn volgende keuzes gemaakt:
+
+- de code wordt in [TypeScript](https://www.typescriptlang.org/) geschreven zodat we een stabiele basis verkrijgen die
+  o.a. refactorings minder fout gevoelig maakt
+- er zijn minimale unit testen, enkel daar waar 'logica' zit die onafhankelijk is van visualisatie (html / css) -
+  bvb. in de map actions
+  <br/>-> net omdat er geen business logica hoort te zitten in UI-componenten
+- de focus ligt op visuele component testen, hiervoor worden de componenten geïntegreerd in
+  [Storybook](https://storybook.js.org/)
+- Storybook geeft een 3 in 1 voordeel: de component wordt echt geïntegreerd - inclusief varianten - in een toepassing
+  (Storybook) die de documentatie (visueel raadpleegbaar) vormt van diezelfde component; na de integratie worden dan
+  de testen geschreven (2-staps proces)
+- een beperkt aantal componenten is een compositie van andere componenten, de testen daarvoor kunnen gezien worden als
+  component-integratie testen; omdat dat echter zelf een component is zien we dat als gewone component testen, hierdoor
+  zijn er dus geen integratie testen
+- e2e-testen zijn er niet, de component bibliotheek bevat bouwstenen, dat is het finale product
+- de bibliotheek wordt aangeboden via verschillende artefacts, om de garantie te hebben dat die artefacts afneembaar
+  zijn door andere teams is er de Consumer toepassing - die technisch op dezelfde manier de artefacts integreert zoals
+  een toepassing dat doet - de testen daarvoor zijn de 'artefact integratie testen'

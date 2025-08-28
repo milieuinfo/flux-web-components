@@ -1,5 +1,5 @@
 import { story } from '@resources/utils-storybook';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import '../vl-info-tile.component';
@@ -206,13 +206,13 @@ InfoTileBadgeSlot.args = {
     contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
     badgeSlot:
         `<div slot="badge" style="
-            width: 45px; 
-            height: 45px; 
-            background: var(--vl-color--background-alt); 
-            border: 1px solid var(--vl-color--mischka-grey); 
-            border-radius: 50%; 
-            display: flex; 
-            flex-wrap: wrap; 
+            width: 45px;
+            height: 45px;
+            background: var(--vl-color--background-alt);
+            border: 1px solid var(--vl-color--mischka-grey);
+            border-radius: 50%;
+            display: flex;
+            flex-wrap: wrap;
             place-content: center center;
             font-weight: 500;
         ">BD</div>`,

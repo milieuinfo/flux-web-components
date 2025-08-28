@@ -2,6 +2,7 @@ import { formattedSourceCode } from '@resources/utils-storybook';
 import { css } from 'lit';
 import { html } from 'lit-html';
 import vlSectionStoriesDoc from './vl-section.stories-doc.mdx';
+import { Meta } from '@storybook/web-components-vite';
 
 export default {
     id: 'styles-layout-afnemers-section',
@@ -12,7 +13,7 @@ export default {
             page: vlSectionStoriesDoc,
         },
     },
-};
+} as Meta;
 
 const sectionCss = css`
     .vl-section {

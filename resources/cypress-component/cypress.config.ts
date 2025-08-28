@@ -25,6 +25,25 @@ export default defineConfig({
                 module: {
                     rules: [
                         {
+                            oneOf: [
+                                // 1) CSS met ?raw -> importeer als string
+                                {
+                                    test: /\.css$/i,
+                                    resourceQuery: /raw/, // matcht ?raw
+                                    type: 'asset/source', // geeft de file-inhoud als string
+                                },
+                                // 2) normale CSS -> via style/css-loader of extract plugin
+                                {
+                                    test: /\.css$/i,
+                                    use: [
+                                        // of MiniCssExtractPlugin.loader als je CSS wil extraheren
+                                        'style-loader',
+                                        'css-loader',
+                                    ],
+                                },
+                            ],
+                        },
+                        {
                             exclude: /(node_modules)/,
                             loader: 'ts-loader',
                             test: /\.[t]sx?$/,

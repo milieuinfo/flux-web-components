@@ -6,11 +6,10 @@ import {
     VlSearchComponent,
 } from '@domg-wc/components/block';
 import { story } from '@resources/utils-storybook';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
-import { functionalHeaderWithBackAndTabs } from '../functional-header.helpers';
-import doc from './functional-header-with-back-and-tabs.stories-doc.mdx';
+import { functionalHeaderWithBackAndTabsHtml } from '../functional-header.helpers';
 
 registerWebComponents([
     VlBreadcrumbComponent,
@@ -21,13 +20,7 @@ registerWebComponents([
 
 export default {
     title: 'Ontwerp/Functional Header/Voorbeeld Met Back En Tabs',
-    tags: ['autodocs'],
-    parameters: {
-        docs: {
-            page: doc,
-        },
-    },
 } as Meta;
 
-export const FunctionalHeaderWithBackAndTabs = story({}, () => html`${unsafeHTML(functionalHeaderWithBackAndTabs)}`);
-FunctionalHeaderWithBackAndTabs.storyName = 'vl-functional-header - met back en tabs';
+export const functionalHeaderWithBackAndTabs = story({}, () => html`${unsafeHTML(functionalHeaderWithBackAndTabsHtml)}`);
+functionalHeaderWithBackAndTabs.storyName = 'vl-functional-header - met back en tabs';

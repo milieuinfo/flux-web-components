@@ -1,6 +1,6 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
+import { action } from 'storybook/actions';
 
 export const inputSliderArgs = {
     ...defaultArgs,
@@ -18,7 +18,7 @@ export const inputSliderArgTypes: ArgTypes<typeof inputSliderArgs> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: inputSliderArgs.maxValue },
+            defaultValue: { summary: String(inputSliderArgs.maxValue) },
         },
     },
     minValue: {
@@ -27,7 +27,7 @@ export const inputSliderArgTypes: ArgTypes<typeof inputSliderArgs> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: inputSliderArgs.minValue },
+            defaultValue: { summary: String(inputSliderArgs.minValue) },
         },
     },
     value: {
@@ -37,7 +37,7 @@ export const inputSliderArgTypes: ArgTypes<typeof inputSliderArgs> = {
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: inputSliderArgs.value },
+            defaultValue: { summary: String(inputSliderArgs.value) },
         },
     },
     onChangeValue: {

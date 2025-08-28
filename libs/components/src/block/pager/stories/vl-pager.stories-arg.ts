@@ -1,5 +1,6 @@
 import { defaultArgs, defaultArgTypes } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
+import { ArgTypes } from '@storybook/web-components-vite';
 
 export const pagerArgs = {
     ...defaultArgs,
@@ -12,7 +13,7 @@ export const pagerArgs = {
     change: action('change'),
 };
 
-export const pagerArgTypes = {
+export const pagerArgTypes: ArgTypes<typeof pagerArgs> = {
     ...defaultArgTypes,
     totalItems: {
         name: 'total-items',
@@ -20,7 +21,7 @@ export const pagerArgTypes = {
         table: {
             type: { summary: 'number' },
             category: 'Attributes',
-            defaultValue: { summary: 100 },
+            defaultValue: { summary: String(100) },
         },
     },
     currentPage: {
@@ -29,7 +30,7 @@ export const pagerArgTypes = {
         table: {
             type: { summary: 'number' },
             category: 'Attributes',
-            defaultValue: { summary: 1 },
+            defaultValue: { summary: String(1) },
         },
     },
     itemsPerPage: {
@@ -38,7 +39,7 @@ export const pagerArgTypes = {
         table: {
             type: { summary: 'number' },
             category: 'Attributes',
-            defaultValue: { summary: 10 },
+            defaultValue: { summary: String(10) },
         },
     },
     paginationDisabled: {

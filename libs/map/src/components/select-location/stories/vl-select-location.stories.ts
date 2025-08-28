@@ -1,6 +1,6 @@
 import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { VlSelectLocationComponent } from '../vl-select-location';
 import { selectLocationArgs, selectLocationArgTypes } from './vl-select-location.stories-arg';

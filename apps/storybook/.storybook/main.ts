@@ -1,69 +1,76 @@
-import type { StorybookConfig } from '@storybook/web-components-webpack5';
+import path from 'node:path';
+import type { StorybookConfig } from '@storybook/web-components-vite';
 
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-
-const tsconfigPathsPlugin = new TsconfigPathsPlugin({
-    configFile: './tsconfig.json',
-    extensions: ['.ts', '.tsx', '.js'],
-});
+const r = (...p: string[]) => path.resolve(__dirname, ...p);
 
 const config: StorybookConfig = {
+    framework: {
+        name: '@storybook/web-components-vite',
+        options: {},
+    },
+    // MSW's worker moet vanuit /public geserveerd worden:
+    staticDirs: ['../resources/public'],
     stories: [
-        '../docs/**/*.stories.mdx',
-        '../docs/**/*.stories.@(js|jsx|ts|tsx)',
-        '../../../libs/styles/**/*.stories.@(js|jsx|ts|tsx)',
+        '../docs/**/*.mdx',
+        '../docs/**/*.stories.@(js|jsx|mjs|ts|tsx)',
         '../../../libs/components/src/atom/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/components/src/block/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/components/src/compliance/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/components/src/form/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/map/src/**/*.stories.@(js|jsx|ts|tsx)',
+        '../../../libs/styles/src/**/*.stories.@(js|jsx|ts|tsx)',
     ],
     addons: [
-        '@storybook/addon-essentials',
-        '@storybook/addon-interactions',
-        'storybook-addon-mock',
-        {
-            name: 'storybook-addon-swc',
-            options: {
-                swcLoaderOptions: {
-                    isModule: true,
-                    module: {
-                        type: 'es6',
-                        noInterop: true,
-                    },
-                    jsc: {
-                        target: 'es2022',
-                        parser: {
-                            syntax: 'typescript',
-                            tsx: true,
-                            decorators: true,
-                            dynamicImport: true,
-                        },
-                        loose: true,
-                    },
-                },
-            },
-        },
+        '@chromatic-com/storybook',
+        '@storybook/addon-docs',
+        '@storybook/addon-a11y',
+        '@storybook/addon-vitest'
     ],
-    framework: {
-        name: '@storybook/web-components-webpack5',
-        options: {},
-    },
     docs: {
-        autodocs: 'tag',
         defaultName: 'documentatie',
     },
-    staticDirs: ['../resources/public'],
-    async webpackFinal(config, { configType }) {
+    async viteFinal(config, { configType }) {
+        config.resolve ??= {};
+        config.resolve.alias ??= {};
+        config.resolve.alias = {
+            ...config.resolve.alias,
+            '@resources/utils-storybook': path.resolve(__dirname, '../../../resources/utils-storybook/index.ts'),
+            '@resources/utils-test': path.resolve(__dirname, '../../../resources/utils-test/index.ts'),
+            '@domg-wc/common': path.resolve(__dirname, '../../../libs/common/src/index.ts'),
+            '@domg-wc/components/atom': path.resolve(__dirname, '../../../libs/components/src/atom/index.ts'),
+            '@domg-wc/components/block': path.resolve(__dirname, '../../../libs/components/src/block/index.ts'),
+            '@domg-wc/components/compliance': path.resolve(
+                __dirname,
+                '../../../libs/components/src/compliance/index.ts'
+            ),
+            '@domg-wc/components/form': path.resolve(__dirname, '../../../libs/components/src/form/index.ts'),
+            '@domg-wc/integrations/form': path.resolve(__dirname, '../../../libs/integrations/src/form/index.ts'),
+            '@domg-wc/integrations/map': path.resolve(__dirname, '../../../libs/integrations/src/map/index.ts'),
+            '@domg-wc/integrations/popover': path.resolve(__dirname, '../../../libs/integrations/src/popover/index.ts'),
+            '@domg-wc/integrations/page-layout': path.resolve(
+                __dirname,
+                '../../../libs/integrations/src/page-layout/index.ts'
+            ),
+            '@domg-wc/map': path.resolve(__dirname, '../../../libs/map/src/index.ts'),
+            '@domg-wc/styles': path.resolve(__dirname, '../../../libs/styles/src/index.ts'),
+        };
+
+        // alleen tijdens 'storybook dev' heb je een server
         if (configType === 'DEVELOPMENT') {
-            // Modify config for development
+            const allow = new Set([
+                ...(config.server.fs.allow ?? []),
+                r('.'), // .storybook
+                r('../docs'), // ← jouw MDX docs-map
+                r('../stories'), // (optioneel) stories-map
+                r('..'), // (optioneel) SB subproject-root
+            ]);
+            // Laat Vite buiten de SB-subfolder lezen:
+            config.server ??= {};
+            config.server.fs ??= {};
+            config.server.fs.allow = [...allow];
         }
-        if (configType === 'PRODUCTION') {
-            // Modify config for production
-        }
-        config.resolve.plugins = [tsconfigPathsPlugin];
+
         return config;
     },
 };
-
 export default config;

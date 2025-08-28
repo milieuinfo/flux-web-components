@@ -15,7 +15,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         }
                     ],
                     "js": {
@@ -40,7 +40,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "color",
@@ -87,7 +87,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "default-active",
@@ -128,7 +128,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "default-active",
@@ -169,7 +169,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "default-active",
@@ -210,7 +210,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "default-active",
@@ -255,7 +255,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "default-active",
@@ -286,7 +286,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "default-active",
@@ -327,7 +327,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "default-active",
@@ -363,7 +363,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "default-active",
@@ -405,7 +405,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "default-active",
@@ -447,7 +447,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "background-layer",
@@ -489,7 +489,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "background-layer",
@@ -531,7 +531,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "background-layer",
@@ -573,7 +573,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "background-layer",
@@ -615,7 +615,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         }
                     ]
                 },
@@ -627,7 +627,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "action-id",
@@ -659,7 +659,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         }
                     ]
                 },
@@ -671,7 +671,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "tooltip",
@@ -693,7 +693,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "hidden",
@@ -744,6 +744,11 @@
                             "name": "features",
                             "description": "Attribuut dat de kaartlaag bevat.",
                             "default": ""
+                        },
+                        {
+                            "name": "projection-code",
+                            "description": "Indien je Lambert 72 coördinaten gebruikt op een Lambert 2008 kaart, moet je de projectie code\n            EPSG:31370 meegeven als projection-code. Geef je dit niet mee, dan zal de kaartlaag de projectie code van\n            de kaart overnemen.<br>Dit attribuut is niet reactief.",
+                            "default": ""
                         }
                     ],
                     "js": {
@@ -765,7 +770,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "hidden",
@@ -798,6 +803,11 @@
                             "default": ""
                         },
                         {
+                            "name": "projection-code",
+                            "description": "Indien je Lambert 72 coördinaten gebruikt op een Lambert 2008 kaart, moet je de projectie code\n            EPSG:31370 meegeven als projection-code. Geef je dit niet mee, dan zal de kaartlaag de projectie code van\n            de kaart overnemen.<br>Dit attribuut is niet reactief.",
+                            "default": ""
+                        },
+                        {
                             "name": "url",
                             "description": "De WFS url.<br>Dit attribuut is niet reactief.",
                             "default": ""
@@ -812,7 +822,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "hidden",
@@ -869,7 +879,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "hidden",
@@ -920,12 +930,13 @@
                 },
                 {
                     "name": "vl-map-xyz-wms-layer",
+                    "description": "Gebruik de `map-xyz-wms-layer` component om een WMS kaartlaag af te beelden.<br/>\nDeze component erft over van de `VlMapWmsLayer` klasse, die op zijn beurt overerft van de `VlMapLayer` klasse.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-layer-wms-layer-xyz-wms-layer--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "hidden",
@@ -982,7 +993,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "sld",
@@ -999,7 +1010,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "hidden",
@@ -1039,7 +1050,7 @@
                         {
                             "name": "matrix-set",
                             "description": "De matrix set van de WMTS.<br>Dit attribuut is niet reactief.",
-                            "default": "BPL72VL"
+                            "default": "BPL2008VL"
                         },
                         {
                             "name": "matrix-prefix",
@@ -1056,7 +1067,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "border-color",
@@ -1126,7 +1137,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "border-color",
@@ -1216,7 +1227,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "title",
@@ -1243,7 +1254,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "bottom",
@@ -1295,7 +1306,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "layer",
@@ -1329,7 +1340,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         }
                     ]
                 },
@@ -1341,7 +1352,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         }
                     ]
                 },
@@ -1353,7 +1364,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "placeholder",
@@ -1384,13 +1395,13 @@
                 },
                 {
                     "name": "vl-select-location",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `vl-select-location` component om een zoekbalk af te beelden waarmee er een adres geselecteerd kan worden.\n\nDeze component erft over van de [vl-select-rich](/docs/components-form-select-rich--documentatie) component.",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[v2 component]</span><br/>Gebruik de `vl-select-location` component om een zoekbalk af te beelden waarmee er een adres geselecteerd kan worden.\n\nDeze component erft over van de [vl-select-rich](/docs/components-form-select-rich--documentatie) component.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-select-location--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "id",
@@ -1514,7 +1525,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "custom-icon",
@@ -1575,7 +1586,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "href",
@@ -1603,7 +1614,7 @@
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "allow-fullscreen",
@@ -1633,6 +1644,11 @@
                         {
                             "name": "full-height",
                             "description": "De map neemt de volledige beschikbare hoogte in van zijn parent.<br>Zie de docs pagina voor meer informatie over het gebruik van dit attribuut.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "lambert2008",
+                            "description": "Indien aanwezig wordt de kaart in het coördinatenstelsel Lambert 2008 weergegeven (EPSG:3812).<br>Indien niet aanwezig wordt de kaart in het coördinatenstelsel Lambert 72 weergegeven (EPSG:31370).<br>Dit attribuut is niet reactief. In de toekomst wordt Lambert 2008 de default.",
                             "default": "false"
                         },
                         {

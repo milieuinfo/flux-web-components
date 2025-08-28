@@ -1,7 +1,7 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
-import { action } from '@storybook/addon-actions';
-import { ArgTypes } from '@storybook/web-components';
+import { ArgTypes } from '@storybook/web-components-vite';
 import { EVENT } from '../vl-map.model';
+import { action } from 'storybook/actions';
 
 export const mapArgs = {
     ...defaultArgs,
@@ -26,7 +26,7 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapArgs.allowFullscreen },
+            defaultValue: { summary: String(mapArgs.allowFullscreen) },
         },
     },
     disableEscape: {
@@ -35,7 +35,7 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapArgs.disableEscape },
+            defaultValue: { summary: String(mapArgs.disableEscape) },
         },
     },
     disableRotation: {
@@ -44,7 +44,7 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapArgs.disableRotation },
+            defaultValue: { summary: String(mapArgs.disableRotation) },
         },
     },
     disableMousewheelZoom: {
@@ -53,7 +53,7 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapArgs.disableMousewheelZoom },
+            defaultValue: { summary: String(mapArgs.disableMousewheelZoom) },
         },
     },
     disableKeyboard: {
@@ -62,7 +62,7 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapArgs.disableKeyboard },
+            defaultValue: { summary: String(mapArgs.disableKeyboard) },
         },
     },
     fullHeight: {
@@ -72,7 +72,7 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapArgs.fullHeight },
+            defaultValue: { summary: String(mapArgs.fullHeight) },
         },
     },
     lambert2008: {
@@ -91,7 +91,7 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: mapArgs.noBorder },
+            defaultValue: { summary: String(mapArgs.noBorder) },
         },
     },
     activeActionChange: {

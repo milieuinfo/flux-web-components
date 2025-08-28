@@ -2,7 +2,7 @@ import { html } from 'lit-html';
 import { VlProzaMessage } from '../vl-proza-message.component';
 import { prozaMessageMockDomainData, prozaMessageMockDomainEditableData } from './vl-proza-message.stories-data';
 import { prozaMessageArgTypes, prozaMessageArgs } from './vl-proza-message.stories-arg';
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import prozaMessageDoc from './vl-proza-message.stories-doc.mdx';
 import { story, storyArgTypes, storyArgs } from '@resources/utils-storybook';
 

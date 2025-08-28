@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/web-components';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import '../vl-typography.component';
 import { typographyArgs, typographyArgTypes } from './vl-typography.stories-arg';
