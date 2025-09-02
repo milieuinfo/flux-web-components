@@ -215,7 +215,7 @@ export class VlFunctionalHeaderComponent extends BaseHTMLElement {
         this._backLinkElement!.href = newValue || document.referrer;
     }
 
-    _marginBottomChangedCallback(oldValue: string, newValue: string) {
+    _marginBottomChangedCallback(oldValue: keyof typeof MARGINS, newValue: keyof typeof MARGINS) {
         const margin = MARGINS[newValue];
         const header = this._shadow?.querySelector<HTMLElement>('.vl-functional-header');
         if (!header) {
