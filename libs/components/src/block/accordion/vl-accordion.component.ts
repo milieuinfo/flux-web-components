@@ -4,7 +4,7 @@ import {
     legacyCore,
     PADDINGS,
     registerWebComponents,
-    webComponent
+    webComponent,
 } from '@domg-wc/common';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { accordionStyle, buttonStyle, iconStyle, linkStyle, toggleStyle } from '@domg/govflanders-style/component';
@@ -189,7 +189,7 @@ export class VlAccordionComponent extends BaseHTMLElement {
         this._titleElement.setAttribute('accordion-close-text', newValue);
     }
 
-    _contentPaddingChangedCallback(oldValue: string, newValue: string) {
+    _contentPaddingChangedCallback(oldValue: keyof typeof PADDINGS, newValue: keyof typeof PADDINGS) {
         const padding = PADDINGS[newValue];
         const content = this._element.querySelector('.vl-accordion__panel');
 

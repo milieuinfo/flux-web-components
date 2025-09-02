@@ -1,4 +1,4 @@
-export const MARGINS: { [key: string]: string } = {
+export const MARGINS = {
     none: '0',
     small: '0.5rem',
     medium: '1rem',
@@ -7,7 +7,7 @@ export const MARGINS: { [key: string]: string } = {
 
 export type MARGINS = (typeof MARGINS)[keyof typeof MARGINS];
 
-export const PADDINGS: { [key: string]: string } = {
+export const PADDINGS = {
     none: '0',
     small: '0.5rem',
     medium: '1rem',
