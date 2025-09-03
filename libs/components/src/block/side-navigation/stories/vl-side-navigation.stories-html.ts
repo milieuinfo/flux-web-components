@@ -2,8 +2,9 @@
 // De source van de story toont niet de correcte code omdat er een aantal classes en attributen toegevoegd worden in de
 // interne keuken van de elementen.
 import '../index';
+import { sideNavigationArgs } from './vl-side-navigation.stories-arg';
 
-export const sideNavigationHTML = `
+export const sideNavigationHTML = ({ hashSync }: Partial<typeof sideNavigationArgs>) => `
 <section class="vl-section">
     <div class="vl-content-block">
         <div class="vl-grid vl-stacked-medium">
@@ -164,7 +165,9 @@ export const sideNavigationHTML = `
                 </vl-side-navigation-reference>
             </div>
             <div class="vl-column vl-column--3 vl-column--m-3 vl-column--s-12 vl-column--xs-12 vl-column--start-10 vl-column--s-start-1">
-                <vl-side-navigation aria-label="inhoudsopgave">
+                <vl-side-navigation aria-label="inhoudsopgave" ${
+                    hashSync ? 'hash-sync' : ''
+                } side-navigation-id="side-navigation">
                     <vl-side-navigation-h5>Op deze pagina</vl-side-navigation-h5>
                     <vl-side-navigation-content>
                         <vl-side-navigation-group>
