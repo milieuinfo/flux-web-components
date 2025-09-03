@@ -75,4 +75,8 @@ export const vlSelectFluxStyles: CSSResult = css`
         top: 0.8rem;
         pointer-events: none;
     }
+
+    .slot-container {
+        display: none;
+    }
 `;

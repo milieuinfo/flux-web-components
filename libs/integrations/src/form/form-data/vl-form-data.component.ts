@@ -2,7 +2,6 @@ import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/co
 import { VlButtonComponent, VlTitleComponent } from '@domg-wc/components/atom';
 import {
     parseFormData,
-    SelectOption,
     SelectRichOption,
     setFormData,
     VlCheckboxComponent,
@@ -20,6 +19,7 @@ import { css, CSSResult, html } from 'lit';
 
 @webComponent('vl-form-data')
 export class VlFormDataComponent extends BaseLitElement {
+
     private hobbies: SelectRichOption[] = [
         { label: 'Padel', value: 'padel' },
         { label: 'Dans', value: 'dans' },
@@ -28,14 +28,6 @@ export class VlFormDataComponent extends BaseLitElement {
         { label: 'Boardgames', value: 'boardgames' },
         { label: 'Fietsen', value: 'fietsen' },
         { label: 'Cocktails', value: 'cocktails' },
-    ];
-
-    private geboorteplaatsen: SelectOption[] = [
-        { label: 'Hasselt', value: 'hasselt' },
-        { label: 'Turnhout', value: 'turnhout' },
-        { label: 'Knokke-Heist', value: 'knokke-heist' },
-        { label: 'Waregem', value: 'waregem' },
-        { label: 'Lier', value: 'lier' },
     ];
 
     private parsedFormData: { naam: FormDataEntryValue; hobbies: FormDataEntryValue[] } | null = null;
@@ -102,9 +94,13 @@ export class VlFormDataComponent extends BaseLitElement {
                         <vl-select
                             id="geboorteplaats"
                             name="geboorteplaats"
-                            .options=${this.geboorteplaatsen}
                             placeholder="Selecteer geboorteplaats"
                         >
+                            <option value="hasselt">Hasselt</option>
+                            <option value="turnhout">Turnhout</option>
+                            <option value="knokke-heist">Knokke-Heist</option>
+                            <option value="waregem">Waregem</option>
+                            <option value="lier">Lier</option>
                         </vl-select>
                     </div>
                     <div class="vl-column vl-column--4">

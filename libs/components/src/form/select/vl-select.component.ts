@@ -25,6 +25,8 @@ export class VlSelectComponent extends FormControl {
     // Variables
     private DEFAULT_GROUP_LABEL = 'Overig';
     private dispatchInput = false;
+    private slotObserver?: MutationObserver;
+    private parsedOptions: SelectOption[] = [];
 
     static get styles(): CSSResult[] {
         return [resetStyle, baseStyle, selectStyle, iconStyle, vlSelectFluxStyles];
@@ -34,6 +36,7 @@ export class VlSelectComponent extends FormControl {
         return {
             options: {
                 type: Array,
+                attribute: false,
             },
             initialOptions: { type: Array, attribute: 'initial-options' },
             block: { type: Boolean },
@@ -52,9 +55,17 @@ export class VlSelectComponent extends FormControl {
     connectedCallback() {
         super.connectedCallback();
 
+        this.parseSlottedOptions();
         const selectedOption = this.getSelectedOption();
         this.value = selectedOption?.value || '';
-        this.initialOptions = structuredClone(this.options);
+        this.initialOptions = structuredClone(this.getAllOptions());
+
+        this.setupSlotObserver();
+    }
+
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.slotObserver?.disconnect();
     }
 
     updated(changedProperties: Map<string, unknown>) {
@@ -91,7 +102,7 @@ export class VlSelectComponent extends FormControl {
             'vl-select--block': this.block,
         };
         const hasValue = !!this.value;
-        const hasGroups = this.options.some((option) => option.group);
+        const hasGroups = this.getAllOptions().some((option) => option.group);
 
         return html`
             <div class=${classMap(containerClasses)}>
@@ -111,10 +122,13 @@ export class VlSelectComponent extends FormControl {
                     @input=${this.onSelect}
                 >
                     ${this.placeholder ? this.renderPlaceholder(hasValue) : nothing}
-                    ${hasGroups ? this.renderGroupedOptions() : this.renderSelectOptions(this.options)}
+                    ${hasGroups ? this.renderGroupedOptions() : this.renderSelectOptions(this.getAllOptions())}
                 </select>
                 ${hasValue && !this.notDeletable ? this.renderClearButton() : nothing}
                 <span class="vl-icon vl-vi vl-vi-nav-down" aria-hidden="true"></span>
+            </div>
+            <div class="slot-container">
+                <slot @slotchange=${this.onSlotChange}></slot>
             </div>
         `;
     }
@@ -161,7 +175,11 @@ export class VlSelectComponent extends FormControl {
     resetFormControl() {
         super.resetFormControl();
 
-        this.options = structuredClone(this.initialOptions);
+        if (this.options.length > 0) {
+            this.options = structuredClone(this.initialOptions);
+        } else {
+            this.parseSlottedOptions();
+        }
         const selectedOption = this.getSelectedOption();
         this.value = selectedOption?.value || '';
     }
@@ -179,13 +197,18 @@ export class VlSelectComponent extends FormControl {
         this.value = '';
     }
 
+    private onSlotChange() {
+        this.parseSlottedOptions();
+        this.requestUpdate();
+    }
+
     private getSelectedOption(): SelectOption | undefined {
         // Zoek de laatste optie met selected true, dit is dezelfde werking als een native select element.
-        return [...this.options].reverse().find((option) => option.selected);
+        return [...this.getAllOptions()].reverse().find((option) => option.selected);
     }
 
     private getGroupedOptions(): Record<string, SelectOption[]> {
-        const groupedOptions = this.options.reduce((groups, option) => {
+        const groupedOptions = this.getAllOptions().reduce((groups, option) => {
             const group = option.group || this.DEFAULT_GROUP_LABEL;
 
             if (!groups[group]) {
@@ -198,6 +221,56 @@ export class VlSelectComponent extends FormControl {
         }, {} as Record<string, SelectOption[]>);
 
         return groupedOptions;
+    }
+
+    private setupSlotObserver() {
+        this.slotObserver = new MutationObserver(() => {
+            this.parseSlottedOptions();
+            this.requestUpdate();
+        });
+
+        this.slotObserver.observe(this, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['value', 'label', 'selected', 'disabled'],
+        });
+    }
+
+    private parseSlottedOptions() {
+        const slottedElements = Array.from(this.children);
+
+        this.parsedOptions = slottedElements.reduce<SelectOption[]>((options, element) => {
+            if (element.tagName.toLowerCase() === 'option') {
+                options.push(this.parseOptionElement(element as HTMLOptionElement));
+            } else if (element.tagName.toLowerCase() === 'optgroup') {
+                const groupLabel = (element as HTMLOptGroupElement).label || this.DEFAULT_GROUP_LABEL;
+                const optionElements = Array.from(element.querySelectorAll('option'));
+
+                const groupOptions = optionElements.map((optionElement) => {
+                    const option = this.parseOptionElement(optionElement);
+                    option.group = groupLabel;
+                    return option;
+                });
+
+                options.push(...groupOptions);
+            }
+            return options;
+        }, []);
+    }
+
+    private parseOptionElement(optionElement: HTMLOptionElement): SelectOption {
+        return {
+            value: optionElement.value || optionElement.textContent?.trim() || '',
+            label: optionElement.textContent?.trim() || optionElement.value || '',
+            selected: optionElement.selected,
+            disabled: optionElement.disabled,
+        };
+    }
+
+    private getAllOptions(): SelectOption[] {
+        // Als we programmatische options hebben, gebruik die; anders gebruik parsed options van slot
+        return this.options.length > 0 ? this.options : this.parsedOptions;
     }
 }
 

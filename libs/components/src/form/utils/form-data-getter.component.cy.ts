@@ -8,6 +8,7 @@ import { VlFormMessageComponent } from '../form-message';
 import { VlInputFieldComponent } from '../input-field';
 import { VlInputFieldMaskedComponent } from '../input-field-masked';
 import { VlRadioGroupComponent } from '../radio-group';
+import { VlSelectComponent } from '../select';
 import { VlSelectRichComponent } from '../select-rich';
 import { VlTextareaComponent } from '../textarea';
 import { VlTextareaRichComponent } from '../textarea-rich';
@@ -18,6 +19,7 @@ registerWebComponents([
     VlButtonComponent,
     VlFormLabelComponent,
     VlInputFieldComponent,
+    VlSelectComponent,
     VlSelectRichComponent,
     VlFormMessageComponent,
     VlButtonComponent,
@@ -212,6 +214,32 @@ describe('component - parseFormData - vl form controls', () => {
             const formElement = form[0] as HTMLFormElement;
             const formData = parseFormData(formElement);
             expect(formData).to.have.property('iban', 'BE71 0961 2345 6769');
+        });
+    });
+
+    it('should get form data for vl-select with declarative options', () => {
+        cy.mount(
+            html`
+                <form id="form">
+                    <vl-select id="geboorteplaats" name="geboorteplaats" placeholder="Selecteer je geboorteplaats">
+                        <option value="hasselt">Hasselt</option>
+                        <option value="turnhout">Turnhout</option>
+                        <option value="asse">Asse</option>
+                        <option value="knokke-heist">Knokke-Heist</option>
+                    </vl-select>
+                </form>
+            `
+        );
+
+        cy.get('vl-select#geboorteplaats').shadow().find('select').select('asse');
+
+        cy.get('vl-select#geboorteplaats').shadow().find('option[value="asse"]').should('have.attr', 'selected');
+
+        cy.get('form').then((form) => {
+            const formElement = form[0] as HTMLFormElement;
+            const formData = parseFormData(formElement);
+
+            expect(formData).to.have.property('geboorteplaats', 'asse');
         });
     });
 
