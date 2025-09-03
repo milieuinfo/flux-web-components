@@ -476,7 +476,26 @@ describe('component - vl-side-navigation', () => {
         cy.get('vl-side-navigation').should('be.visible');
     });
 
-    it('should update the browser history on click', () => {
+    it('should not update the browser history on click', () => {
+        window.location.hash = ''; // Reset hash before test
+
+        cy.get('vl-side-navigation').find("vl-side-navigation-toggle[href='#content-1']").click();
+        cy.location('hash').should('eq', '');
+
+        cy.get('vl-side-navigation').find("vl-side-navigation-toggle[href='#content-2']").click();
+        cy.location('hash').should('eq', '');
+
+        cy.get('vl-side-navigation').find("a[href='#content-3']").click();
+        cy.location('hash').should('eq', '');
+    });
+
+    it('should update the browser history on click in case hash-sync is set', () => {
+        window.location.hash = ''; // Reset hash before test
+
+        cy.get('vl-side-navigation').then(([sideNavigation]) => {
+            sideNavigation.setAttribute('hash-sync', '');
+        });
+
         cy.get('vl-side-navigation').find("vl-side-navigation-toggle[href='#content-1']").click();
         cy.location('hash').should('eq', '#content-1');
 
@@ -485,22 +504,5 @@ describe('component - vl-side-navigation', () => {
 
         cy.get('vl-side-navigation').find("a[href='#content-3']").click();
         cy.location('hash').should('eq', '#content-3');
-    });
-
-    it('should not update the browser history on click in case has-hash-routing is set', () => {
-        window.location.hash = ''; // Reset hash before test
-        cy.location('hash').should('eq', '#');
-
-        cy.get('vl-side-navigation').then(([sideNavigation]) => {
-            sideNavigation.setAttribute('has-hash-routing', '');
-        });
-        cy.get('vl-side-navigation').find("vl-side-navigation-toggle[href='#content-1']").click();
-        cy.location('hash').should('eq', '#');
-
-        cy.get('vl-side-navigation').find("vl-side-navigation-toggle[href='#content-2']").click();
-        cy.location('hash').should('eq', '#');
-
-        cy.get('vl-side-navigation').find("a[href='#content-3']").click();
-        cy.location('hash').should('eq', '#');
     });
 });

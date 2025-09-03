@@ -15,22 +15,22 @@ export class VlSideNavigationItemComponent extends BaseLitElement {
             parent: { type: Boolean },
         };
     }
-    
+
     protected createRenderRoot(): HTMLElement | DocumentFragment {
         return this;
     }
 
     protected hasStickyHeader(): boolean {
-        return !!this.getRootNode().querySelector('vl-header')
+        return !!this.getRootNode().querySelector('vl-header');
     }
 
     protected get scrollOffset(): number {
         return this.hasStickyHeader() ? 43 : 0;
     }
 
-    protected get hasHashRouting(): boolean {
+    protected get hashSync(): boolean {
         const parent = this.closest('vl-side-navigation');
-        return parent ? parent.hasAttribute('has-hash-routing') : false;
+        return parent ? parent.hasAttribute('hash-sync') : false;
     }
 
     firstUpdated() {
@@ -50,20 +50,20 @@ export class VlSideNavigationItemComponent extends BaseLitElement {
                 console.warn('vl-side-navigation-item vereist een geldige href op het anchor element.');
                 return;
             }
-            
+
             const element = findDeepestElementThroughShadowRoot(this.getRootNode(), href);
             if (!element) {
                 console.warn(`Element met id "${href}" niet gevonden in de DOM.`);
                 return;
             }
-            
+
             const rect = element.getBoundingClientRect();
             const scrollTop = window.scrollY + rect.top - this.scrollOffset;
             window.scrollTo({ top: scrollTop, behavior: 'smooth' });
 
-            if (!this.hasHashRouting) {
+            if (this.hashSync) {
                 history.pushState(null, '', href);
-            }    
+            }
         });
     }
 }

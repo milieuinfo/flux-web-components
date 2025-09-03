@@ -47,7 +47,7 @@ import { VlSideNavigation } from '@domg-wc/components/block';
 
 <details>
     <summary>Side-navigation code voorbeeld</summary>
-    <Source code={sideNavigationHTML} language="html" dark={true}/>
+    <Source code={sideNavigationHTML({hashSync: true})} language="html" dark={true}/>
 </details>
 
 
@@ -68,9 +68,21 @@ manier (we gebruiken content 1 als voorbeeld):
 2. Plaats op het `VlSideNavigationToggle` component het attribuut `child="content-1"`
 3. Plaats op de child links het attribuut `parent="content-1"`
 
-Plaats naast het `VlSideNavigationToggle` component een lijst element (`<ul>`) met daaronder `VlSideNavigationItem` componenten als items.
+Plaats naast het `VlSideNavigationToggle` component een lijst element (`<ul>`) met daaronder `VlSideNavigationItem` 
+componenten als items.
 
-Gebruik geen `VlSideNavigationToggle` component indien er geen subnavigatie is. Een gewone link (`<a href="#">`) onder het `VlSideNavigationItem` component volstaat dan.
+Gebruik geen `VlSideNavigationToggle` component indien er geen subnavigatie is. Een gewone link (`<a href="#">`) 
+onder het `VlSideNavigationItem` component volstaat dan.
+
+## Hash sync
+
+Indien er geen gebruik gemaakt wordt van hash-routing en de url hash op geen enkele andere manier gemanipuleerd wordt, 
+kan `hash-sync` geactiveerd worden.
+
+Dit werkt in twee richtingen:
+- Indien er een hash aanwezig is in de url die overeenkomt met een element op de pagina dan zal de browser automatisch 
+scrollen naar dat item.
+- Wanneer je klikt op een item in de side navigation, zal de url hash worden bijgewerkt naar het id van dat item.
 
 
 ## Gekende beperkingen
@@ -84,10 +96,11 @@ werken is een tijdelijke quick-fix, in de nieuwe versie van de side-navigation g
 
 ### Initialisatie in een hidden parent
 
-Als de side-navigation gerenderd wordt in een parent component die `hidden` is, bijvoorbeeld bij verschillende stappen in een flow, dan gaat de initialisatie
-fout en zal de side-navigation niet sticky worden bij het scrollen. Dit komt omdat de side-navigation bij het initialiseren een aantal dimensies capteerd en, 
-in het geval dat er een parent `hidden` is, één van de waardes op 0 komt te staan. Dit kan vermeden worden door het gebruik van `hidden` te vervangen door de 
-`when()` directive van Lit.
+Als de side-navigation gerenderd wordt in een parent component die `hidden` is, bijvoorbeeld bij verschillende stappen 
+in een flow, dan gaat de initialisatie fout en zal de side-navigation niet sticky worden bij het scrollen. Dit komt 
+omdat de side-navigation bij het initialiseren een aantal dimensies capteerd en, in het geval dat er een parent 
+`hidden` is, één van de waardes op 0 komt te staan. Dit kan vermeden worden door het gebruik van `hidden` te vervangen 
+door de `when()` directive van Lit.
 
 
 #### ❌ Voorbeeld met "hidden"
