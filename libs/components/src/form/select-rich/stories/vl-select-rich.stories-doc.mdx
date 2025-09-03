@@ -106,6 +106,15 @@ De `select-rich` component heeft een aantal methodes die je kan gebruiken om de 
 
 De `options` property bevat een array van objecten die de opties van de select component bevatten.
 
+```code
+<vl-select-rich
+    .options=${[
+               { label: 'Hasselt', value: 'hasselt' },
+               { label: 'Turnhout', value: 'turnhout' }
+           ]}
+></vl-select-rich>
+```
+
 Als de referentie van deze array verandert, wordt de Lit lifecycle getriggerd en wordt de select opnieuw
 opgebouwd op basis van de nieuwe opties.<br/>
 Hierdoor is het noodzakelijk om de opties door te geven aan de select component met behulp van een variabele,

@@ -486,3 +486,151 @@ describe('component - vl-select - in form', () => {
         });
     });
 });
+
+describe('component - vl-select - declarative options', () => {
+    it('should mount with declarative options', () => {
+        cy.mount(html`
+            <vl-select label="geboorteplaats">
+                <option value="hasselt">Hasselt</option>
+                <option value="turnhout">Turnhout</option>
+                <option value="knokke-heist">Knokke-Heist</option>
+            </vl-select>
+        `);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select');
+        cy.get('vl-select').shadow().find('select');
+        cy.get('vl-select').shadow().find('select option').should('have.length', 3);
+        cy.get('vl-select').shadow().find('select option').first().should('contain', 'Hasselt');
+    });
+
+    it('should handle declarative options with groups', () => {
+        cy.mount(html`
+            <vl-select label="geboorteplaats">
+                <optgroup label="België">
+                    <option value="hasselt">Hasselt</option>
+                    <option value="turnhout">Turnhout</option>
+                </optgroup>
+                <optgroup label="Puerto Rico">
+                    <option value="rio-piedras">Rio Piedras</option>
+                </optgroup>
+            </vl-select>
+        `);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select');
+        cy.get('vl-select').shadow().find('select optgroup[label="België"]').should('exist');
+        cy.get('vl-select').shadow().find('select optgroup[label="Puerto Rico"]').should('exist');
+        cy.get('vl-select').shadow().find('select optgroup[label="België"] option').should('have.length', 2);
+        cy.get('vl-select').shadow().find('select optgroup[label="Puerto Rico"] option').should('have.length', 1);
+    });
+
+    it('should handle declarative options with selected state', () => {
+        cy.mount(html`
+            <vl-select label="geboorteplaats">
+                <option value="hasselt" selected>Hasselt</option>
+                <option value="turnhout">Turnhout</option>
+                <option value="knokke-heist">Knokke-Heist</option>
+            </vl-select>
+        `);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select');
+        cy.get('vl-select').should('have.value', 'hasselt');
+        cy.get('vl-select').shadow().find('select option[value="hasselt"]').should('have.attr', 'selected');
+    });
+
+    it('should handle declarative options with disabled state', () => {
+        cy.mount(html`
+            <vl-select label="geboorteplaats">
+                <option value="hasselt">Hasselt</option>
+                <option value="turnhout" disabled>Turnhout (niet beschikbaar)</option>
+                <option value="knokke-heist">Knokke-Heist</option>
+            </vl-select>
+        `);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select');
+        cy.get('vl-select').shadow().find('select option[value="turnhout"]').should('have.attr', 'disabled');
+    });
+
+    it('should dispatch events with declarative options', () => {
+        cy.mount(html`
+            <vl-select label="geboorteplaats">
+                <option value="hasselt">Hasselt</option>
+                <option value="turnhout">Turnhout</option>
+                <option value="knokke-heist">Knokke-Heist</option>
+            </vl-select>
+        `);
+        cy.injectAxe();
+
+        cy.createStubForEvent('vl-select', 'vl-change');
+        cy.checkA11y('vl-select');
+        cy.get('vl-select').shadow().find('select').select('turnhout').trigger('change');
+        cy.get('@vl-change')
+            .should('have.been.calledOnce')
+            .its('firstCall.args.0.detail')
+            .should('deep.equal', { value: 'turnhout' });
+    });
+
+    it('should work with placeholder and declarative options', () => {
+        cy.mount(html`
+            <vl-select label="geboorteplaats" placeholder="Kies je geboorteplaats">
+                <option value="hasselt">Hasselt</option>
+                <option value="turnhout">Turnhout</option>
+                <option value="knokke-heist">Knokke-Heist</option>
+            </vl-select>
+        `);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select');
+        cy.get('vl-select').shadow().find('.vl-select__placeholder').contains('Kies je geboorteplaats');
+        cy.get('vl-select').shadow().find('select option').should('have.length', 4); // 3 options + placeholder
+    });
+
+    it('should prioritize programmatic options over declarative options', () => {
+        const programmaticOptions = [
+            { label: 'Programmatic Option 1', value: 'prog1' },
+            { label: 'Programmatic Option 2', value: 'prog2' }
+        ];
+
+        cy.mount(html`
+            <vl-select label="geboorteplaats" .options=${programmaticOptions}>
+                <option value="hasselt">Hasselt</option>
+                <option value="turnhout">Turnhout</option>
+            </vl-select>
+        `);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select');
+        cy.get('vl-select').shadow().find('select option').should('have.length', 2);
+        cy.get('vl-select').shadow().find('select option').first().should('contain', 'Programmatic Option 1');
+        cy.get('vl-select').shadow().find('select option').should('not.contain', 'Hasselt');
+    });
+
+    it('should update when declarative options change dynamically', () => {
+        cy.mount(html`
+            <vl-select id="dynamic-select" label="geboorteplaats">
+                <option value="hasselt">Hasselt</option>
+                <option value="turnhout">Turnhout</option>
+            </vl-select>
+        `);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select');
+        cy.get('vl-select').shadow().find('select option').should('have.length', 2);
+
+        // Add a new option dynamically
+        cy.get('vl-select').then(($select) => {
+            const newOption = document.createElement('option');
+            newOption.value = 'lier';
+            newOption.textContent = 'Lier';
+            $select[0].appendChild(newOption);
+        });
+
+        // Wacht tot de mutation observer wordt getriggerd
+        cy.wait(100);
+        cy.get('vl-select').shadow().find('select option').should('have.length', 3);
+        cy.get('vl-select').shadow().find('select option').last().should('contain', 'Lier');
+    });
+});

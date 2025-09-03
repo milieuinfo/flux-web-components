@@ -164,3 +164,59 @@ SelectReadOnly.args = {
         { label: 'Rio Piedras', value: 'rio piedras', disabled: true },
     ],
 };
+
+const SelectDeclarativeOptionsTemplate = story(
+    selectArgs,
+    ({
+        id,
+        name,
+        label,
+        required,
+        disabled,
+        error,
+        success,
+        placeholder,
+        notDeletable,
+        autocomplete,
+        block,
+        onVlChange,
+        onVlInput,
+        onVlValid,
+        onVlReset,
+    }) => {
+        return html` <vl-select
+            id=${id}
+            name=${name}
+            label=${label}
+            ?required=${required}
+            ?disabled=${disabled}
+            ?error=${error}
+            ?success=${success}
+            placeholder=${placeholder}
+            ?not-deletable=${notDeletable}
+            ?block=${block}
+            autocomplete=${autocomplete}
+            @vl-change=${onVlChange}
+            @vl-input=${onVlInput}
+            @vl-valid=${onVlValid}
+            @vl-reset=${onVlReset}
+        >
+            <option value="antwerpen">Antwerpen</option>
+            <option value="brussel" selected>Brussel</option>
+            <option value="gent">gent</option>
+            <option value="hasselt" disabled>Hasselt (niet beschikbaar)</option>
+            <option value="waregem">Waregem</option>
+            <option value="lier">Lier</option>
+            <option value="rio-piedras">Rio Piedras</option>
+        </vl-select>`;
+    }
+);
+
+export const SelectDeclarativeStates = SelectDeclarativeOptionsTemplate.bind({});
+SelectDeclarativeStates.storyName = 'vl-select - declarative options';
+SelectDeclarativeStates.args = {
+    id: 'woonplaats',
+    name: 'woonplaats',
+    label: 'Kies je woonplaats',
+    placeholder: 'Kies je woonplaats',
+};

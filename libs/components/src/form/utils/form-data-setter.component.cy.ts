@@ -358,7 +358,7 @@ describe('component - setFormData - vl form controls', () => {
         });
     });
 
-    it('should set value for a vl-select', () => {
+    it('should set value for a vl-select with programmatic options', () => {
         cy.mount(
             html`
                 <form>
@@ -395,6 +395,49 @@ describe('component - setFormData - vl form controls', () => {
             const formElement = form[0] as HTMLFormElement;
             const formData = parseFormData(formElement);
             expect(formData).to.have.property('city', 'hasselt');
+        });
+    });
+
+    it('should set value for a vl-select with declarative options', () => {
+        cy.mount(
+            html`
+                <form>
+                    <vl-select name="city" placeholder="Selecteer stad">
+                        <option value="hasselt">Hasselt</option>
+                        <option value="turnhout">Turnhout</option>
+                        <option value="knokke-heist">Knokke-Heist</option>
+                    </vl-select>
+                </form>
+            `
+        );
+        cy.get('vl-select').shadow().find('select');
+        cy.get('form').then((form) => {
+            const formElement = form[0] as HTMLFormElement;
+
+            setFormData(formElement, { city: 'knokke-heist' });
+
+            cy.get('vl-select[name="city"]')
+                .shadow()
+                .find('select')
+                .find('option[value="knokke-heist"]')
+                .should('have.attr', 'selected');
+
+            cy.get('vl-select[name="city"]')
+                .shadow()
+                .find('select')
+                .find('option[value="hasselt"]')
+                .should('not.have.attr', 'selected');
+
+            cy.get('vl-select[name="city"]')
+                .shadow()
+                .find('select')
+                .find('option[value="turnhout"]')
+                .should('not.have.attr', 'selected');
+        });
+        cy.get('form').then((form) => {
+            const formElement = form[0] as HTMLFormElement;
+            const formData = parseFormData(formElement);
+            expect(formData).to.have.property('city', 'knokke-heist');
         });
     });
 
