@@ -18,237 +18,228 @@ registerWebComponents([
     VlSideNavigationH5,
 ]);
 
+const template = html`
+    <section class="vl-section-next">
+        <div class="vl-content-block-next">
+            <div class="vl-grid-next vl-stacked-next-medium">
+                <div
+                    class="vl-column-next vl-column-next--8 vl-column-next--m-8 vl-column-next--s-12 vl-column-next--xs-12"
+                >
+                    <vl-side-navigation-reference-next>
+                        <section id="content-1" class="vl-section-next">
+                            <vl-title-next type="h2">Content 1</vl-title-next>
+                        </section>
+                        <section id="content-1-1" class="vl-section-next">
+                            <vl-title-next type="h3">Content 1 - 1</vl-title-next>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+                                eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                                qui officia deserunt mollit anim id est laborum.
+                            </p>
+                        </section>
+                        <section id="content-1-2" class="vl-section-next">
+                            <vl-title-next type="h3">Content 1 - 2</vl-title-next>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+                                eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                                qui officia deserunt mollit anim id est laborum.
+                            </p>
+                        </section>
+                        <section id="content-1-3" class="vl-section-next">
+                            <vl-title-next type="h3">Content 1 - 3</vl-title-next>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+                                eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                                qui officia deserunt mollit anim id est laborum.
+                            </p>
+                        </section>
+                        <section id="content-1-4" class="vl-section-next">
+                            <vl-title-next type="h3">Content 1 - 4</vl-title-next>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+                                eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                                qui officia deserunt mollit anim id est laborum.
+                            </p>
+                        </section>
+                        <section id="content-2" class="vl-section-next">
+                            <vl-title-next type="h2">Content 2</vl-title-next>
+                        </section>
+                        <section id="content-2-1" class="vl-section-next">
+                            <vl-title-next type="h3">Content 2 - 1</vl-title-next>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+                                eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                                qui officia deserunt mollit anim id est laborum.
+                            </p>
+                        </section>
+                        <section id="content-2-2" class="vl-section-next">
+                            <vl-title-next type="h3">Content 2 - 2</vl-title-next>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+                                eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                                qui officia deserunt mollit anim id est laborum.
+                            </p>
+                        </section>
+                        <section id="content-2-3" class="vl-section-next">
+                            <vl-title-next type="h3">Content 2 - 3</vl-title-next>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+                                eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                                qui officia deserunt mollit anim id est laborum.
+                            </p>
+                        </section>
+                        <section id="content-2-4" class="vl-section-next">
+                            <vl-title-next type="h3">Content 2 - 4</vl-title-next>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+                                eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                                qui officia deserunt mollit anim id est laborum.
+                            </p>
+                        </section>
+                        <section id="content-3" class="vl-section-next">
+                            <vl-title-next type="h2">Content 3</vl-title-next>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                                mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+                                eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
+                                qui officia deserunt mollit anim id est laborum.
+                            </p>
+                        </section>
+                    </vl-side-navigation-reference-next>
+                </div>
+                <div
+                    class="vl-column-next vl-column-next--4 vl-column-next--m-4 vl-column-next--s-12 vl-column-next--xs-12"
+                >
+                    <vl-side-navigation-next aria-label="inhoudsopgave">
+                        <vl-side-navigation-h5-next>Op deze pagina</vl-side-navigation-h5-next>
+                        <vl-side-navigation-content-next>
+                            <vl-side-navigation-group-next>
+                                <vl-side-navigation-item-next parent="content-1">
+                                    <vl-side-navigation-toggle-next href="#content-1" child="content-1">
+                                        content 1
+                                    </vl-side-navigation-toggle-next>
+                                    <ul>
+                                        <vl-side-navigation-item-next>
+                                            <a href="#content-1-1" parent="content-1">content 1 - 1</a>
+                                        </vl-side-navigation-item-next>
+                                        <vl-side-navigation-item-next>
+                                            <a href="#content-1-2" parent="content-1">content 1 - 2</a>
+                                        </vl-side-navigation-item-next>
+                                        <vl-side-navigation-item-next>
+                                            <a href="#content-1-3" parent="content-1">content 1 - 3</a>
+                                        </vl-side-navigation-item-next>
+                                        <vl-side-navigation-item-next>
+                                            <a href="#content-1-4" parent="content-1">content 1 - 4</a>
+                                        </vl-side-navigation-item-next>
+                                    </ul>
+                                </vl-side-navigation-item-next>
+                                <vl-side-navigation-item-next parent="content-2">
+                                    <vl-side-navigation-toggle-next href="#content-2" child="content-2">
+                                        content 2
+                                    </vl-side-navigation-toggle-next>
+                                    <ul>
+                                        <vl-side-navigation-item-next>
+                                            <a href="#content-2-1" parent="content-2">content 2 - 1</a>
+                                        </vl-side-navigation-item-next>
+                                        <vl-side-navigation-item-next>
+                                            <a href="#content-2-2" parent="content-2">content 2 - 2</a>
+                                        </vl-side-navigation-item-next>
+                                        <vl-side-navigation-item-next>
+                                            <a href="#content-2-3" parent="content-2">content 2 - 3</a>
+                                        </vl-side-navigation-item-next>
+                                        <vl-side-navigation-item-next>
+                                            <a href="#content-2-4" parent="content-2">content 2 - 4</a>
+                                        </vl-side-navigation-item-next>
+                                    </ul>
+                                </vl-side-navigation-item-next>
+                                <vl-side-navigation-item-next>
+                                    <a href="#content-3"> content 3 </a>
+                                </vl-side-navigation-item-next>
+                            </vl-side-navigation-group-next>
+                        </vl-side-navigation-content-next>
+                    </vl-side-navigation-next>
+                </div>
+            </div>
+        </div>
+    </section>
+`;
+
 describe('component - vl-side-navigation-next', () => {
     beforeEach(() => {
         cy.viewport(960, 1440);
 
-        cy.mount(html`
-            <section class="vl-section-next">
-                <div class="vl-content-block-next">
-                    <div class="vl-grid-next vl-stacked-next-medium">
-                        <div
-                            class="vl-column-next vl-column-next--8 vl-column-next--m-8 vl-column-next--s-12 vl-column-next--xs-12"
-                        >
-                            <vl-side-navigation-reference-next>
-                                <section id="content-1" class="vl-section-next">
-                                    <vl-title-next type="h2">Content 1</vl-title-next>
-                                </section>
-                                <section id="content-1-1" class="vl-section-next">
-                                    <vl-title-next type="h3">Content 1 - 1</vl-title-next>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                                        culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit
-                                        amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                                        deserunt mollit anim id est laborum.
-                                    </p>
-                                </section>
-                                <section id="content-1-2" class="vl-section-next">
-                                    <vl-title-next type="h3">Content 1 - 2</vl-title-next>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                                        culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit
-                                        amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                                        deserunt mollit anim id est laborum.
-                                    </p>
-                                </section>
-                                <section id="content-1-3" class="vl-section-next">
-                                    <vl-title-next type="h3">Content 1 - 3</vl-title-next>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                                        culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit
-                                        amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                                        deserunt mollit anim id est laborum.
-                                    </p>
-                                </section>
-                                <section id="content-1-4" class="vl-section-next">
-                                    <vl-title-next type="h3">Content 1 - 4</vl-title-next>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                                        culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit
-                                        amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                                        deserunt mollit anim id est laborum.
-                                    </p>
-                                </section>
-                                <section id="content-2" class="vl-section-next">
-                                    <vl-title-next type="h2">Content 2</vl-title-next>
-                                </section>
-                                <section id="content-2-1" class="vl-section-next">
-                                    <vl-title-next type="h3">Content 2 - 1</vl-title-next>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                                        culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit
-                                        amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                                        deserunt mollit anim id est laborum.
-                                    </p>
-                                </section>
-                                <section id="content-2-2" class="vl-section-next">
-                                    <vl-title-next type="h3">Content 2 - 2</vl-title-next>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                                        culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit
-                                        amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                                        deserunt mollit anim id est laborum.
-                                    </p>
-                                </section>
-                                <section id="content-2-3" class="vl-section-next">
-                                    <vl-title-next type="h3">Content 2 - 3</vl-title-next>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                                        culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit
-                                        amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                                        deserunt mollit anim id est laborum.
-                                    </p>
-                                </section>
-                                <section id="content-2-4" class="vl-section-next">
-                                    <vl-title-next type="h3">Content 2 - 4</vl-title-next>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                                        culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit
-                                        amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                                        deserunt mollit anim id est laborum.
-                                    </p>
-                                </section>
-                                <section id="content-3" class="vl-section-next">
-                                    <vl-title-next type="h2">Content 3</vl-title-next>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                                        culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit
-                                        amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                                        ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                                        deserunt mollit anim id est laborum.
-                                    </p>
-                                </section>
-                            </vl-side-navigation-reference-next>
-                        </div>
-                        <div
-                            class="vl-column-next vl-column-next--4 vl-column-next--m-4 vl-column-next--s-12 vl-column-next--xs-12"
-                        >
-                            <vl-side-navigation-next aria-label="inhoudsopgave">
-                                <vl-side-navigation-h5-next>Op deze pagina</vl-side-navigation-h5-next>
-                                <vl-side-navigation-content-next>
-                                    <vl-side-navigation-group-next>
-                                        <vl-side-navigation-item-next parent="content-1">
-                                            <vl-side-navigation-toggle-next href="#content-1" child="content-1">
-                                                content 1
-                                            </vl-side-navigation-toggle-next>
-                                            <ul>
-                                                <vl-side-navigation-item-next>
-                                                    <a href="#content-1-1" parent="content-1">content 1 - 1</a>
-                                                </vl-side-navigation-item-next>
-                                                <vl-side-navigation-item-next>
-                                                    <a href="#content-1-2" parent="content-1">content 1 - 2</a>
-                                                </vl-side-navigation-item-next>
-                                                <vl-side-navigation-item-next>
-                                                    <a href="#content-1-3" parent="content-1">content 1 - 3</a>
-                                                </vl-side-navigation-item-next>
-                                                <vl-side-navigation-item-next>
-                                                    <a href="#content-1-4" parent="content-1">content 1 - 4</a>
-                                                </vl-side-navigation-item-next>
-                                            </ul>
-                                        </vl-side-navigation-item-next>
-                                        <vl-side-navigation-item-next parent="content-2">
-                                            <vl-side-navigation-toggle-next href="#content-2" child="content-2">
-                                                content 2
-                                            </vl-side-navigation-toggle-next>
-                                            <ul>
-                                                <vl-side-navigation-item-next>
-                                                    <a href="#content-2-1" parent="content-2">content 2 - 1</a>
-                                                </vl-side-navigation-item-next>
-                                                <vl-side-navigation-item-next>
-                                                    <a href="#content-2-2" parent="content-2">content 2 - 2</a>
-                                                </vl-side-navigation-item-next>
-                                                <vl-side-navigation-item-next>
-                                                    <a href="#content-2-3" parent="content-2">content 2 - 3</a>
-                                                </vl-side-navigation-item-next>
-                                                <vl-side-navigation-item-next>
-                                                    <a href="#content-2-4" parent="content-2">content 2 - 4</a>
-                                                </vl-side-navigation-item-next>
-                                            </ul>
-                                        </vl-side-navigation-item-next>
-                                        <vl-side-navigation-item-next>
-                                            <a href="#content-3">
-                                                content 3
-                                            </a>
-                                        </vl-side-navigation-item-next>
-                                    </vl-side-navigation-group-next>
-                                </vl-side-navigation-content-next>
-                            </vl-side-navigation-next>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        `);
+        cy.mount(template);
     });
 
     it('should mount', () => {
@@ -369,14 +360,14 @@ describe('component - vl-side-navigation-next', () => {
 
         cy.get('vl-side-navigation-next').find("a[href='#content-3']").click();
 
-        cy.wait(500); // about halfway the duration of the scroll animation
+        cy.wait(300); // about halfway the duration of the scroll animation
 
         cy.get('#content-3').then(($el) => {
             const rect = $el[0].getBoundingClientRect();
             expect(rect.top < viewportHeight).equal(false); // should still be animating
         });
 
-        cy.wait(500); // wait for scroll animation to finish
+        cy.wait(600); // wait for scroll animation to finish
 
         cy.get('#content-3').then(($el) => {
             const rect = $el[0].getBoundingClientRect();
@@ -384,9 +375,45 @@ describe('component - vl-side-navigation-next', () => {
         });
     });
 
-    it('should open mobile menu', () => {
+    it('should not update the browser history on click', () => {
+        window.location.hash = ''; // Reset hash before test
+
+        cy.get('vl-side-navigation-next').find("vl-side-navigation-toggle-next[href='#content-1']").click();
+        cy.location('hash').should('eq', '');
+
+        cy.get('vl-side-navigation-next').find("vl-side-navigation-toggle-next[href='#content-2']").click();
+        cy.location('hash').should('eq', '');
+
+        cy.get('vl-side-navigation-next').find("a[href='#content-3']").click();
+        cy.location('hash').should('eq', '');
+    });
+
+    it('should update the browser history on click in case hash-sync is set', () => {
+        window.location.hash = ''; // Reset hash before test
+
+        cy.get('vl-side-navigation-next').then(([sideNavigation]) => {
+            sideNavigation.setAttribute('hash-sync', '');
+        });
+
+        cy.get('vl-side-navigation-next').find("vl-side-navigation-toggle-next[href='#content-1']").click();
+        cy.location('hash').should('eq', '#content-1');
+
+        cy.get('vl-side-navigation-next').find("vl-side-navigation-toggle-next[href='#content-2']").click();
+        cy.location('hash').should('eq', '#content-2');
+
+        cy.get('vl-side-navigation-next').find("a[href='#content-3']").click();
+        cy.location('hash').should('eq', '#content-3');
+    });
+});
+
+describe('component - vl-side-navigation-next - mobile', () => {
+    beforeEach(() => {
         cy.viewport(320, 480);
 
+        cy.mount(template);
+    });
+
+    it('should open mobile menu', () => {
         cy.get('vl-side-navigation-next').should('have.attr', 'sticky-dressed', 'true');
         cy.get('vl-side-navigation-next').should('not.be.visible');
 
@@ -396,6 +423,7 @@ describe('component - vl-side-navigation-next', () => {
     });
 
     it('should switch between mobile & desktop', () => {
+        cy.viewport(960, 1440);
         cy.get('vl-side-navigation-next').find('button.vl-button.js-vl-scrollspy__toggle').should('not.exist');
         cy.get('vl-side-navigation-next').should('be.visible');
 
@@ -408,33 +436,5 @@ describe('component - vl-side-navigation-next', () => {
 
         cy.get('button.vl-button.js-vl-scrollspy__toggle').should('not.be.visible');
         cy.get('vl-side-navigation-next').should('be.visible');
-    });
-
-    it('should update the browser history on click', () => {
-        cy.get('vl-side-navigation-next').find("vl-side-navigation-toggle-next[href='#content-1']").click();
-        cy.location('hash').should('eq', '#content-1');
-
-        cy.get('vl-side-navigation-next').find("vl-side-navigation-toggle-next[href='#content-2']").click();
-        cy.location('hash').should('eq', '#content-2');
-
-        cy.get('vl-side-navigation-next').find("a[href='#content-3']").click();
-        cy.location('hash').should('eq', '#content-3');
-    });
-
-    it('should not update the browser history on click in case has-hash-routing is set', () => {
-        window.location.hash = ''; // Reset hash before test
-        cy.location('hash').should('eq', '#');
-
-        cy.get('vl-side-navigation-next').then(([sideNavigation]) => {
-            sideNavigation.setAttribute('has-hash-routing', '');
-        })
-        cy.get('vl-side-navigation-next').find("vl-side-navigation-toggle-next[href='#content-1']").click();
-        cy.location('hash').should('eq', '#');
-
-        cy.get('vl-side-navigation-next').find("vl-side-navigation-toggle-next[href='#content-2']").click();
-        cy.location('hash').should('eq', '#');
-
-        cy.get('vl-side-navigation-next').find("a[href='#content-3']").click();
-        cy.location('hash').should('eq', '#');
     });
 });
