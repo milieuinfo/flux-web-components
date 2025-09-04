@@ -235,6 +235,12 @@ export const buttonStyles: CSSResult = css`
                 background-color: var(--vl-color--action-disabled-background);
                 border-color: var(--vl-color--action-disabled-background);
             }
+
+            &.ghost {
+                color: var(--vl-color--action-disabled);
+                background-color: transparent;
+                border-color: transparent;
+            }
         }
 
         &.loading {
