@@ -14,11 +14,7 @@ declare const vl: VL;
 export class VlSideNavigationComponent extends BaseLitElement {
     static initializedSideNavigationId = '';
 
-    /**
-     * Indien de applicatie gebruik maakt van hash routing, kan je hiermee aangeven dat de side navigation
-     * geen browser history entry moet aanmaken bij het navigeren naar een item.
-     */
-    private hasHashRouting = sideNavigationDefaults.hasHashRouting;
+    private hashSync = sideNavigationDefaults.hashSync;
 
     constructor() {
         super();
@@ -29,8 +25,8 @@ export class VlSideNavigationComponent extends BaseLitElement {
 
     static get properties(): PropertyDeclarations {
         return {
-            hasHashRouting: { type: Boolean, attribute: 'has-hash-routing' },
-        }
+            hashSync: { type: Boolean, attribute: 'hash-sync' },
+        };
     }
 
     protected createRenderRoot(): HTMLElement | DocumentFragment {
@@ -38,7 +34,7 @@ export class VlSideNavigationComponent extends BaseLitElement {
     }
 
     protected hasStickyHeader(): boolean {
-        return !!this.getRootNode().querySelector('vl-header')
+        return !!this.getRootNode().querySelector('vl-header');
     }
 
     protected get scrollOffset(): number {
@@ -91,7 +87,7 @@ export class VlSideNavigationComponent extends BaseLitElement {
     }
 
     private initialScroll() {
-        if (this.hasHashRouting) {
+        if (!this.hashSync) {
             return;
         }
         const id = location.hash.slice(1);

@@ -1,3 +1,3 @@
 export const sideNavigationDefaults = {
-    hasHashRouting: false,
+    hashSync: false,
 } as const;
