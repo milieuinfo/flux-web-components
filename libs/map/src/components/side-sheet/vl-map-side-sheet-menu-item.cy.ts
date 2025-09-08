@@ -7,7 +7,7 @@ import { VlMapSideSheetMenuItem } from './vl-map-side-sheet-menu-item';
 registerWebComponents([VlMap, VlMapSideSheet, VlMapSideSheetMenuItem]);
 
 const mapSideSheetMenuItemFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-side-sheet open>
             <vl-map-side-sheet-menu-item></vl-map-side-sheet-menu-item>
         </vl-map-side-sheet>

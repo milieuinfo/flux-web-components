@@ -24,7 +24,7 @@ export const MapWfsLayerDefault = story(
     mapWfsLayerArgs,
     ({ hidden, layers, maxResolution, minResolution, name, opacity, url }) =>
         html`
-            <vl-map>
+            <vl-map lambert2008>
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
                 <vl-map-wfs-layer
                     ?hidden=${hidden}
@@ -34,6 +34,7 @@ export const MapWfsLayerDefault = story(
                     name=${name}
                     opacity=${opacity}
                     url=${url}
+                    projection-code="EPSG:31370"
                 >
                 </vl-map-wfs-layer>
             </vl-map>

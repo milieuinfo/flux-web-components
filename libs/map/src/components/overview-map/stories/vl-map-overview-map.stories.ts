@@ -27,7 +27,7 @@ export default {
 export const MapOverviewMapDefault = story(
     {},
     () => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-overview-map></vl-map-overview-map>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-baselayer-grb></vl-map-baselayer-grb>

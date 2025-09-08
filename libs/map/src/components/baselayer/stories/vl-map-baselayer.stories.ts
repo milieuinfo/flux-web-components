@@ -22,7 +22,7 @@ export default {
 const Template = story(
     mapBaselayerArgs,
     ({ backgroundLayer, backgroundType, backgroundOptions, layer, title, type, url }) => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer
                 ?background-layer=${backgroundLayer}
                 background-type=${backgroundType}

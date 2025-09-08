@@ -14,6 +14,7 @@ export const mapArgs = {
     noBorder: false,
     activeActionChange: action(EVENT.ACTIVE_ACTION_CHANGED),
     layerVisibleChange: action(EVENT.LAYER_VISIBLE_CHANGED),
+    lambert2008: false,
 };
 
 export const mapArgTypes: ArgTypes<typeof mapArgs> = {
@@ -72,6 +73,16 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: mapArgs.fullHeight },
+        },
+    },
+    lambert2008: {
+        name: 'lambert2008',
+        description:
+            'Indien aanwezig wordt de kaart in het coördinatenstelsel Lambert 2008 weergegeven (EPSG:3812).<br>Indien niet aanwezig wordt de kaart in het coördinatenstelsel Lambert 72 weergegeven (EPSG:31370).<br>Dit attribuut is niet reactief. In de toekomst wordt Lambert 2008 de default.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: mapArgs.lambert2008 },
         },
     },
     noBorder: {

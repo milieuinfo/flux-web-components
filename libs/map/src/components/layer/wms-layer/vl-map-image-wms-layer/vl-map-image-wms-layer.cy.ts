@@ -6,7 +6,7 @@ import { VlMapImageWmsLayer } from './vl-map-image-wms-layer';
 registerWebComponents([VlMap, VlMapImageWmsLayer]);
 
 const imageWmsLayerFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-image-wms-layer
             layers="GEM_GRENS"
             name="Gemeentegrenzen"
@@ -60,7 +60,7 @@ describe('component vl-map-image-wms - features layer', () => {
 
     it('wms image layer kan toegevoegd worden met een aangepaste configuratie', () => {
         cy.mount(html`
-            <vl-map>
+            <vl-map lambert2008>
                 <vl-map-image-wms-layer
                     url="http://dummy/wms-adjusted"
                     layers="layer1"

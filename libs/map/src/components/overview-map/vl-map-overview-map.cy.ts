@@ -7,7 +7,7 @@ import { VlMapOverviewMap } from './vl-map-overview-map';
 registerWebComponents([VlMap, VlMapBaseLayer, VlMapOverviewMap]);
 
 const mapOverviewMapFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-overview-map></vl-map-overview-map>
         <vl-map-baselayer url="https://localhost" layer="layername_1" title="layer title 1"></vl-map-baselayer>
     </vl-map>

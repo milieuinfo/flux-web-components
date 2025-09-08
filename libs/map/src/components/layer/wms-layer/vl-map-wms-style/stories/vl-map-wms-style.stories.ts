@@ -23,7 +23,7 @@ export default {
 
 export const MapWmsStyleDefault = story(mapWmsStyleArgs, ({ sld }) => {
     return html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-tiled-wms-layer
                 name="Overstromingsgevaarkaarten"

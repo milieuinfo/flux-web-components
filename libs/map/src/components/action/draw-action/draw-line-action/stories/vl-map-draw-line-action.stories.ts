@@ -26,7 +26,7 @@ export default {
 export const MapDrawLineActionDefault = story(
     mapDrawActionArgs,
     ({ active, defaultActive }) => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-features-layer>
                 <vl-map-draw-line-action .active=${active} ?default-active=${defaultActive}> </vl-map-draw-line-action>
@@ -43,7 +43,7 @@ MapDrawLineActionDefault.args = {
 export const MapDrawLineActionSnapping = story(
     mapDrawActionArgs,
     ({ active, defaultActive, snapping, snappingPixelTolerance }) => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-features-layer>
                 <vl-map-draw-line-action

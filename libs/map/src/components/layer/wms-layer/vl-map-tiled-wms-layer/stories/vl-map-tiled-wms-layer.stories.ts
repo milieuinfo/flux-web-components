@@ -24,7 +24,7 @@ export const MapTiledWmsLayerDefault = story(
     mapWmsLayerArgs,
     ({ hidden, layers, maxResolution, minResolution, name, opacity, styles, url, version }) =>
         html`
-            <vl-map>
+            <vl-map lambert2008>
                 <vl-map-tiled-wms-layer
                     ?hidden=${hidden}
                     layers=${layers}

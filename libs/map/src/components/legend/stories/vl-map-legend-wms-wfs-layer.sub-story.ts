@@ -10,7 +10,7 @@ import { mapLegendArgs } from './vl-map-legend.stories-arg';
 export default story(
     mapLegendArgs,
     ({ bottom, left, placement, right, top, layoutVertical }) => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-tiled-wms-layer
                 layers="grondwater:beschermingszones_2014"

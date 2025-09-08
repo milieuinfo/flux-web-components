@@ -2,11 +2,11 @@ import { story } from '@resources/utils-storybook';
 import { html } from 'lit';
 import '../../../vl-map';
 import '../../baselayer/vl-map-base-layer-grb-gray/vl-map-base-layer-grb-gray';
-import '../../layer/wms-layer/vl-map-tiled-wms-layer/vl-map-tiled-wms-layer';
 import '../../layer-style/vl-map-layer-circle-style/vl-map-layer-circle-style';
 import '../../layer-style/vl-map-layer-style';
 import '../../layer/vector-layer/vl-map-features-layer/vl-map-features-layer';
 import '../../layer/vector-layer/vl-map-wfs-layer/vl-map-wfs-layer';
+import '../../layer/wms-layer/vl-map-tiled-wms-layer/vl-map-tiled-wms-layer';
 import '../vl-map-legend';
 import { mapLegendArgs } from './vl-map-legend.stories-arg';
 import { linkStylesToFeatures } from './vl-map-legend.stories-util';
@@ -59,14 +59,14 @@ export default story(mapLegendArgs, ({ bottom, left, placement, right, top }) =>
     linkStylesToFeatures();
 
     return html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-tiled-wms-layer
                 layers="grondwater:beschermingszones_2014"
                 name="Beschermingszones"
                 url="https://www.dov.vlaanderen.be/geoserver/wms"
             ></vl-map-tiled-wms-layer>
-            <vl-map-features-layer .features=${features} name="Shapes">
+            <vl-map-features-layer .features=${features} name="Shapes" projection-code="EPSG:31370">
                 <vl-map-layer-circle-style
                     id="style-1"
                     name="Openbaar onderzoek"

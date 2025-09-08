@@ -35,7 +35,7 @@ export const MapFeaturesLayerDefault = story(
         opacity,
         featuresProp,
     }) => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-features-layer
                 ?auto-extent=${autoExtent}
@@ -49,6 +49,7 @@ export const MapFeaturesLayerDefault = story(
                 min-resolution=${minResolution}
                 name=${name}
                 opacity=${opacity}
+                projection-code="EPSG:31370"
             >
                 <vl-map-layer-style border-size="2"></vl-map-layer-style>
                 <vl-map-layer-circle-style></vl-map-layer-circle-style>

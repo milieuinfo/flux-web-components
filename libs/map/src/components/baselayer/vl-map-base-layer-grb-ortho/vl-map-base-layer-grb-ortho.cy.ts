@@ -6,7 +6,7 @@ import { VlMapBaseLayerGRBOrtho } from './vl-map-base-layer-grb-ortho';
 registerWebComponents([VlMap, VlMapBaseLayerGRBOrtho]);
 
 const baselayerGrbOrthoFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-baselayer-grb-ortho></vl-map-baselayer-grb-ortho>
     </vl-map>
 `;

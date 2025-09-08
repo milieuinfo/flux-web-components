@@ -1,6 +1,6 @@
-import { defaultArgs, defaultArgTypes, story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
 import { VlButtonComponent } from '@domg-wc/components/atom';
+import { defaultArgs, defaultArgTypes, story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit';
 import { MapEvent } from 'ol';
@@ -55,7 +55,7 @@ export const MapLoadingIndicatorDefault = story(
                 Fake lang wachten
             </vl-button>
         </div>
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-loading-indicator></vl-map-loading-indicator>
         </vl-map>

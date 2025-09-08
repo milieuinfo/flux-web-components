@@ -1,9 +1,14 @@
 import OlVectorLayer from 'ol/layer/Vector';
+import OlStyle from 'ol/style/Style';
+import { getLambert72Code } from '../../../utils/capabilities';
 import { VlMapLayerStyle } from '../../layer-style/vl-map-layer-style';
 import { VlMapLayer } from '../vl-map-layer';
-import OlStyle from 'ol/style/Style';
 
 export class VlMapVectorLayer extends VlMapLayer {
+    static get _observedAttributes() {
+        return VlMapLayer._observedAttributes.concat(['projection-code']);
+    }
+
     private pendingLayerStyles: (VlMapLayerStyle | OlStyle)[] = [];
 
     static get EVENTS() {
@@ -15,6 +20,17 @@ export class VlMapVectorLayer extends VlMapLayer {
     constructor() {
         super();
         this._styles = [];
+    }
+
+    get __layerProjectionCode(): string {
+        // Kan breaking changes veroorzaken als de data standaard in Lambert 72 is en de kaart in Lambert 2008.
+        // Om dit op te lossen, moet nu expliciet de projection-code op de layer gezet worden: `projection-code="EPSG:31370"`
+        // Zoniet wordt de default van de map gebruikt.
+        return this.hasAttribute('projection-code') ? this.getAttribute('projection-code') : this.__mapProjectionCode;
+    }
+
+    get __mapProjectionCode(): string {
+        return this.mapElement?._projection?.getCode() || getLambert72Code();
     }
 
     async connectedCallback(): Promise<void> {

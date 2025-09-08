@@ -1,13 +1,13 @@
-import { mapDrawActionStyleArgs, mapDrawActionStyleArgTypes } from './vl-map-draw-action-style.stories-arg';
-import mapDrawActionStyleDoc from './vl-map-draw-action-style.stories-doc.mdx';
-import { Meta } from '@storybook/web-components';
 import { story } from '@resources/utils-storybook';
+import { Meta } from '@storybook/web-components';
 import { html } from 'lit';
 import '../../../../../vl-map';
 import '../../../../baselayer/vl-map-base-layer-grb-gray/vl-map-base-layer-grb-gray';
 import '../../../../layer/vector-layer/vl-map-features-layer/vl-map-features-layer';
 import '../../draw-polygon-action/vl-map-draw-polygon-action';
 import '../vl-map-draw-action-style';
+import { mapDrawActionStyleArgs, mapDrawActionStyleArgTypes } from './vl-map-draw-action-style.stories-arg';
+import mapDrawActionStyleDoc from './vl-map-draw-action-style.stories-doc.mdx';
 
 export default {
     id: 'map-action-draw-action-draw-action-style',
@@ -25,7 +25,7 @@ export default {
 export const MapDrawActionStyleDefault = story(
     mapDrawActionStyleArgs,
     ({ color, borderColor, borderSize, circleColor, circleBorderColor, circleBorderSize, circleSize }) => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-features-layer>
                 <vl-map-draw-polygon-action .active=${true} default-active=${true}>

@@ -10,7 +10,7 @@ import { VlMapWfsLayer } from './vl-map-wfs-layer/vl-map-wfs-layer';
 registerWebComponents([VlMap, VlMapFeaturesLayer, VlMapLayerStyle, VlMapWfsLayer]);
 
 const featuresLayerFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer
             name="testlaag"
             min-resolution="2"
@@ -23,20 +23,20 @@ const featuresLayerFixture = html`
 `;
 
 const featuresLayerHiddenFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer hidden></vl-map-features-layer>
     </vl-map>
 `;
 
 const wfsLayerFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-wfs-layer name="foobar" url="http://dummy/wfs" layers="layer1,layer2"></vl-map-wfs-layer>
         <vl-map-layer-style color="rgba(255,0,0,1)"></vl-map-layer-style>
     </vl-map>
 `;
 
 const wfsLayerHiddenFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-wfs-layer hidden></vl-map-wfs-layer>
     </vl-map>
 `;

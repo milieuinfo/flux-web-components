@@ -55,9 +55,9 @@ const features = {
 export const MapSelectActionDefault = story(
     mapSelectActionArgs,
     ({ active, defaultActive }) => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
-            <vl-map-features-layer .features=${features}>
+            <vl-map-features-layer .features=${features} projection-code="EPSG:31370">
                 <vl-map-select-action .active=${active} default-active=${defaultActive}></vl-map-select-action>
                 <vl-map-layer-circle-style border-color="#000000"></vl-map-layer-circle-style>
             </vl-map-features-layer>
@@ -72,9 +72,9 @@ MapSelectActionDefault.args = {
 export const MapSelectActionCustomStyle = story(
     mapSelectActionArgs,
     ({ active, defaultActive }) => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
-            <vl-map-features-layer .features=${features}>
+            <vl-map-features-layer .features=${features} projection-code="EPSG:31370">
                 <vl-map-select-action .active=${active} default-active=${defaultActive}>
                     <vl-map-layer-circle-style color="#ff0000" border-color="#000000"></vl-map-layer-circle-style>
                 </vl-map-select-action>
@@ -91,9 +91,9 @@ MapSelectActionCustomStyle.args = {
 export const MapSelectActionClustering = story(
     mapSelectActionArgs,
     ({ active, defaultActive, cluster }) => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
-            <vl-map-features-layer .features=${features} cluster cluster-distance="100">
+            <vl-map-features-layer .features=${features} cluster cluster-distance="100" projection-code="EPSG:31370">
                 <vl-map-select-action .active=${active} default-active=${defaultActive} ?cluster=${cluster}>
                     <vl-map-layer-circle-style
                         color="#0099ff"
