@@ -1,8 +1,11 @@
 import { webComponent } from '@domg-wc/common';
 import * as OlExtent from 'ol/extent';
 import OlTileLayer from 'ol/layer/Tile';
+import { Projection } from 'ol/proj';
 import OlWMTSSource from 'ol/source/WMTS';
 import OlWMTSTileGrid from 'ol/tilegrid/WMTS';
+import { getLambert2008Code, getLambert2008Extent, getLambert72Code } from '../../../utils/capabilities';
+import { VlMap } from '../../../vl-map';
 import { VlMapLayer } from '../vl-map-layer';
 
 @webComponent('vl-map-wmts-layer')
@@ -13,9 +16,9 @@ export class VlMapWmtsLayer extends VlMapLayer {
         return super.connectedCallback();
     }
 
-    get _projection() {
-        if (this.parentNode) {
-            return (<any>this.parentNode)._projection;
+    get _projection(): Projection | undefined {
+        if (this.parentNode && this.parentNode instanceof VlMap) {
+            return this.parentNode._projection;
         }
     }
 
@@ -57,8 +60,8 @@ export class VlMapWmtsLayer extends VlMapLayer {
             format: this.__wmtsFormat,
             projection: this._projection,
             tileGrid: new OlWMTSTileGrid({
-                extent: this._projection.getExtent(),
-                origin: OlExtent.getTopLeft(this._projection.getExtent()),
+                extent: this.__extent,
+                origin: OlExtent.getTopLeft(this.__extent),
                 resolutions: tileLimits.resolutions,
                 matrixIds: tileLimits.matrixIds,
             }),
@@ -70,8 +73,22 @@ export class VlMapWmtsLayer extends VlMapLayer {
         return 'image/png';
     }
 
+    get __extent() {
+        return this._projection?.getExtent();
+    }
+
     get __grbMatrixSet(): string {
-        return this.getAttribute('matrix-set') || 'BPL72VL';
+        if (this.hasAttribute('matrix-set')) {
+            return this.getAttribute('matrix-set');
+        }
+        switch (this._projection?.getCode()) {
+            case getLambert2008Code():
+                return 'BPL2008VL';
+            case getLambert72Code():
+                return 'BPL72VL';
+            default:
+                return 'WGS84VL';
+        }
     }
 
     get __prefixMatrix(): boolean {
@@ -79,7 +96,7 @@ export class VlMapWmtsLayer extends VlMapLayer {
     }
 
     get __grbTileLimits() {
-        const size = OlExtent.getWidth(this._projection.getExtent()) / 256;
+        const size = OlExtent.getWidth(getLambert2008Extent()) / 256;
         const resolutions = new Array(16);
         const matrixIds = new Array(16);
         for (let z = 0; z < 16; ++z) {

@@ -56,18 +56,18 @@ const features3 = {
 const Template = story(
     mapLayerSwitcherArgs,
     ({ title, layers }) => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-side-sheet>
                 <vl-map-layer-switcher title=${title} .layers=${layers}></vl-map-layer-switcher>
             </vl-map-side-sheet>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
-            <vl-map-features-layer name="Kaartlaag 1" .features=${features1}>
+            <vl-map-features-layer name="Kaartlaag 1" .features=${features1} projection-code="EPSG:31370">
                 <vl-map-layer-circle-style color="black"></vl-map-layer-circle-style>
             </vl-map-features-layer>
-            <vl-map-features-layer name="Kaartlaag 2" .features=${features2}>
+            <vl-map-features-layer name="Kaartlaag 2" .features=${features2} projection-code="EPSG:31370">
                 <vl-map-layer-circle-style color="yellow"></vl-map-layer-circle-style>
             </vl-map-features-layer>
-            <vl-map-features-layer name="Kaartlaag 3" .features=${features3}>
+            <vl-map-features-layer name="Kaartlaag 3" .features=${features3} projection-code="EPSG:31370">
                 <vl-map-layer-circle-style color="red"></vl-map-layer-circle-style>
             </vl-map-features-layer>
             </vl-map-wmts-layer>
@@ -88,7 +88,7 @@ MapLayerSwitcherSubselection.args = {
 export const MapLayerSwitcherResolutions = story(
     mapLayerSwitcherArgs,
     ({ title, layers }) => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-side-sheet>
                 <vl-map-layer-switcher title=${title} .layers=${layers}></vl-map-layer-switcher>
             </vl-map-side-sheet>
@@ -98,6 +98,7 @@ export const MapLayerSwitcherResolutions = story(
                 min-resolution="0"
                 max-resolution="90"
                 .features=${features1}
+                projection-code="EPSG:31370"
             >
                 <vl-map-layer-circle-style color="black"></vl-map-layer-circle-style>
             </vl-map-features-layer>
@@ -106,6 +107,7 @@ export const MapLayerSwitcherResolutions = story(
                 min-resolution="90"
                 max-resolution="180"
                 .features=${features2}
+                projection-code="EPSG:31370"
             >
                 <vl-map-layer-circle-style color="yellow"></vl-map-layer-circle-style>
             </vl-map-features-layer>
@@ -114,6 +116,7 @@ export const MapLayerSwitcherResolutions = story(
                 min-resolution="180"
                 max-resolution="270"
                 .features=${features3}
+                projection-code="EPSG:31370"
             >
                 <vl-map-layer-circle-style color="red"></vl-map-layer-circle-style>
             </vl-map-features-layer>

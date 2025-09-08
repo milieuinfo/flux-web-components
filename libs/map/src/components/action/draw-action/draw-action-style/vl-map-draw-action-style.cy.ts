@@ -1,9 +1,9 @@
-import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
+import { html } from 'lit';
 import { VlMap } from '../../../../vl-map';
-import { VlMapWfsLayer } from '../../../layer/vector-layer/vl-map-wfs-layer/vl-map-wfs-layer';
 import { VlMapBaseLayerGRBGray } from '../../../baselayer/vl-map-base-layer-grb-gray/vl-map-base-layer-grb-gray';
 import { VlMapFeaturesLayer } from '../../../layer/vector-layer/vl-map-features-layer/vl-map-features-layer';
+import { VlMapWfsLayer } from '../../../layer/vector-layer/vl-map-wfs-layer/vl-map-wfs-layer';
 import { VlMapDrawPolygonAction } from '../draw-polygon-action/vl-map-draw-polygon-action';
 import { VlMapDrawActionStyle } from './vl-map-draw-action-style';
 
@@ -19,7 +19,7 @@ registerWebComponents([
 describe('component vl-map-draw-action-style', () => {
     beforeEach(() => {
         cy.mount(html`
-            <vl-map>
+            <vl-map lambert2008>
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
                 <vl-map-features-layer>
                     <vl-map-draw-polygon-action .active=${true} default-active=${true}>

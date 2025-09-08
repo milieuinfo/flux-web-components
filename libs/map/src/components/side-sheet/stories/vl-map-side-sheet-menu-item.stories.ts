@@ -20,7 +20,7 @@ export default {
 export const MapSideSheetMenuItemDefault = story(
     mapSideSheetMenuItemArgs,
     ({ title, href, defaultSlot }) => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-side-sheet>
                 <vl-map-side-sheet-menu>

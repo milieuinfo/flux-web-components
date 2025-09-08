@@ -8,7 +8,7 @@ import { VlMapWmtsLayer } from './vl-map-wmts-layer';
 registerWebComponents([VlMap, VlMapWmtsLayer]);
 
 const wmtsLayerFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-wmts-layer
             url="https://geo.api.vlaanderen.be/GRB/wmts"
             layer="grb_sel"
@@ -21,7 +21,7 @@ const wmtsLayerFixture = html`
 `;
 
 const wmtsLayerWithDifferentMatrixSetFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-wmts-layer
             url="https://geo.api.vlaanderen.be/GRB/wmts"
             layer="grb_sel"
@@ -36,7 +36,7 @@ const wmtsLayerWithDifferentMatrixSetFixture = html`
 `;
 
 const wmtsLayerHiddenFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-wmts-layer
             url="https://geo.api.vlaanderen.be/GRB/wmts"
             layer="grb_sel"
@@ -49,7 +49,7 @@ const wmtsLayerHiddenFixture = html`
     </vl-map>
 `;
 
-const mapFixture = html` <vl-map></vl-map> `;
+const mapFixture = html` <vl-map lambert2008></vl-map> `;
 
 const getLayer = (map) => map.querySelector('[is-layer]');
 
@@ -62,19 +62,18 @@ describe('vl-map-wmts-layer', () => {
                 expect(layers).to.be.lengthOf(1);
                 const layer = layers[0];
                 // @ts-ignore
-                // @ts-ignore
                 const source = layer.getSource();
                 expect(source).to.be.instanceof(OlWMTSSource);
                 expect(source.urls).to.be.lengthOf(1);
                 expect(source.urls[0]).to.be.equal('https://geo.api.vlaanderen.be/GRB/wmts');
                 expect(source.getLayer()).to.be.equal('grb_sel');
-                expect(source.getMatrixSet()).to.be.equal('BPL72VL');
+                expect(source.getMatrixSet()).to.be.equal('BPL2008VL');
                 expect(source.getFormat()).to.be.equal('image/png');
                 expect(JSON.stringify(source.getProjection())).to.be.equal(JSON.stringify(vlMap._projection));
                 expect(source.getStyle()).to.be.equal('');
                 const tileGrid = source.getTileGrid();
                 expect(tileGrid).to.be.instanceof(OlWMTSTileGrid);
-                expect(tileGrid.getOrigin()).to.deep.equal([9928, 329072]);
+                expect(tileGrid.getOrigin()).to.deep.equal([500000, 800000]);
                 expect(tileGrid.getResolutions()).to.deep.equal([
                     1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1, 0.5, 0.25, 0.125, 0.0625, 0.03125,
                 ]);

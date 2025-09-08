@@ -1,7 +1,7 @@
 import { BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { VlSearchComponent } from '@domg-wc/components/block';
-import { vlLegacyStyles } from '@domg-wc/styles';
 import { SelectRichPosition } from '@domg-wc/components/form';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import OlOverlay from 'ol/Overlay';
 import { VlMap } from '../../vl-map';
 import { VlSelectLocationComponent } from '../select-location/vl-select-location';
@@ -61,6 +61,10 @@ export class VlMapSearch extends BaseHTMLElement {
     connectedCallback() {
         this.addEventListener('vl-input', this.changeLocation);
         this.addEventListener('keypress', this.stopPropagation);
+
+        if (this.map?.isLambert2008) {
+            this._selectElement.setAttribute('lambert2008', '');
+        }
     }
 
     get _selectElement() {
@@ -69,6 +73,14 @@ export class VlMapSearch extends BaseHTMLElement {
 
     bindMap(map) {
         this._map = map;
+
+        if (map.isLambert2008) {
+            this._selectElement.setAttribute('lambert2008', '');
+        }
+    }
+
+    get map() {
+        return this._map || (this.parentNode && this.parentNode instanceof VlMap ? this.parentNode : null);
     }
 
     /**

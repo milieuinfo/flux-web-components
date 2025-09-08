@@ -77,9 +77,9 @@ const Template = story(
             ],
         };
 
-        return html` <vl-map>
+        return html` <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
-            <vl-map-features-layer .features=${features}>
+            <vl-map-features-layer .features=${features} projection-code="EPSG:31370">
                 <vl-map-layer-circle-style
                     border-color=${borderColor}
                     border-size=${borderSize}
@@ -287,9 +287,9 @@ export const MapLayerCircleStyleClustered = story(
             ],
         };
 
-        return html` <vl-map>
+        return html` <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
-            <vl-map-features-layer .features=${features} cluster cluster-distance="100">
+            <vl-map-features-layer .features=${features} cluster cluster-distance="100" projection-code="EPSG:31370">
                 <vl-map-layer-circle-style
                     border-color=${borderColor}
                     border-size=${borderSize}

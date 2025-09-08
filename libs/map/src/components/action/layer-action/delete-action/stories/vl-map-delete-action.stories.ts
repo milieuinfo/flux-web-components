@@ -64,9 +64,9 @@ const features = {
 export const MapDeleteActionDefault = story(
     mapActionArgs,
     ({ active, defaultActive }) => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
-            <vl-map-features-layer .features=${features}>
+            <vl-map-features-layer .features=${features} projection-code="EPSG:31370">
                 <vl-map-delete-action .active=${active} ?default-active=${defaultActive}></vl-map-delete-action>
                 <vl-map-layer-style border-size="2"></vl-map-layer-style>
                 <vl-map-layer-circle-style border-size="2"></vl-map-layer-circle-style>
@@ -82,9 +82,9 @@ MapDeleteActionDefault.args = {
 export const MapDeleteActionCustomStyle = story(
     mapActionArgs,
     ({ active, defaultActive }) => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
-            <vl-map-features-layer .features=${features}>
+            <vl-map-features-layer .features=${features} projection-code="EPSG:31370">
                 <vl-map-delete-action .active=${active} ?default-active=${defaultActive}>
                     <vl-map-layer-style
                         text-color="#000"

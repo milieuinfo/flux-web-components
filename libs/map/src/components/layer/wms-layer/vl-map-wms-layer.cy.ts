@@ -7,24 +7,24 @@ import { VlMapWmsStyle } from './vl-map-wms-style/vl-map-wms-style';
 
 registerWebComponents([VlMap, VlMapWmsStyle, VlMapImageWmsLayer, VlMapTiledWmsLayer]);
 
-const mapFixture = html` <vl-map></vl-map> `;
+const mapFixture = html` <vl-map lambert2008></vl-map> `;
 
 const wmsLayersFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-image-wms-layer url="http://dummy/wms" layers="layer1,layer2"></vl-map-image-wms-layer>
         <vl-map-tiled-wms-layer url="http://dummy/wms" layers="layer1,layer2"></vl-map-tiled-wms-layer>
     </vl-map>
 `;
 
 const wmsLayersHiddenFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-image-wms-layer url="http://dummy/wms" layers="layer1,layer2" hidden> </vl-map-image-wms-layer>
         <vl-map-tiled-wms-layer url="http://dummy/wms" layers="layer1,layer2" hidden> </vl-map-tiled-wms-layer>
     </vl-map>
 `;
 
 const wmsLayersSldFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-image-wms-layer url="http://dummy/wms" layers="layer1,layer2">
             <vl-map-wms-style
                 sld='

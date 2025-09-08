@@ -29,7 +29,7 @@ export default {
 export const MapMeasureControlDefault = story(
     {},
     () => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-action-controls>
                 <vl-map-measure-control></vl-map-measure-control>

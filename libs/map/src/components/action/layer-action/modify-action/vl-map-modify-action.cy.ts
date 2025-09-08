@@ -19,7 +19,7 @@ registerWebComponents([
 ]);
 
 const mapModifyActionFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer>
             <vl-map-modify-action></vl-map-modify-action>
         </vl-map-features-layer>
@@ -27,7 +27,7 @@ const mapModifyActionFixture = html`
 `;
 
 const mapModifyActionSnappingWfsLayersFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer>
             <vl-map-modify-action snapping snapping-pixel-tolerance="1000">
                 <vl-map-wfs-layer
@@ -62,7 +62,7 @@ const mapModifyActionSnappingWfsLayersFixture = html`
 `;
 
 const customMapModifyActionFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer>
             <vl-custom-map-modify-action></vl-custom-map-modify-action>
         </vl-map-features-layer>

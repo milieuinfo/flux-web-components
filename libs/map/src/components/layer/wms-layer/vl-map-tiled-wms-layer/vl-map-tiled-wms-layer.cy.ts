@@ -1,18 +1,18 @@
+import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import { VlMap } from '../../../../vl-map';
 import { VlMapTiledWmsLayer } from './vl-map-tiled-wms-layer';
-import { registerWebComponents } from '@domg-wc/common';
 
 registerWebComponents([VlMap, VlMapTiledWmsLayer]);
 
 const tiledWmsLayerFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-tiled-wms-layer url="http://dummy/wms" name="dummy" layers="layer1,layer2"></vl-map-tiled-wms-layer>
     </vl-map>
 `;
 
 const tiledWmsLayerAdjustedConfigFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-tiled-wms-layer
             url="http://dummy/wms-adjusted"
             layers="layer1"

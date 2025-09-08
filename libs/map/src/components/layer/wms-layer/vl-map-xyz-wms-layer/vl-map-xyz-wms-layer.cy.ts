@@ -6,7 +6,7 @@ import { VlMapXYZWmsLayer } from './vl-map-xyz-wms-layer';
 registerWebComponents([VlMap, VlMapXYZWmsLayer]);
 
 const xyzWmsLayerFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-xyz-wms-layer url="http://dummy/{z}/{x}/{y}" name="dummy"></vl-map-xyz-wms-layer>
     </vl-map>
 `;

@@ -28,7 +28,7 @@ export default {
 export const MapMeasureActionDefault = story(
     mapDrawActionArgs,
     ({ active, defaultActive }) => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-features-layer>
                 <vl-map-measure-action .active=${active} default-active=${defaultActive}></vl-map-measure-action>
@@ -45,7 +45,7 @@ MapMeasureActionDefault.args = {
 export const MapMeasureActionSnapping = story(
     mapDrawActionArgs,
     ({ active, defaultActive, snapping, snappingPixelTolerance }) => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-features-layer>
                 <vl-map-measure-action
@@ -78,7 +78,7 @@ export const MapMeasureActionControl = story(
     mapDrawActionArgs,
     ({ active, defaultActive }) =>
         html`
-            <vl-map>
+            <vl-map lambert2008>
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
                 <vl-map-action-controls>
                     <vl-map-measure-control></vl-map-measure-control>

@@ -24,7 +24,7 @@ export const MapWmtsLayerDefault = story(
     mapWmtsLayerArgs,
     ({ hidden, layer, maxResolution, minResolution, name, opacity, url }) =>
         html`
-            <vl-map>
+            <vl-map lambert2008>
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
                 <vl-map-wmts-layer
                     ?hidden=${hidden}

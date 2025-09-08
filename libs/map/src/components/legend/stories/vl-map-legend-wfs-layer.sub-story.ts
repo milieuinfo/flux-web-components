@@ -10,13 +10,14 @@ import { mapLegendArgs } from './vl-map-legend.stories-arg';
 export default story(
     mapLegendArgs,
     ({ bottom, left, placement, right, top, layoutVertical }) => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-wfs-layer
                 name="Oppervlaktewaterlichamen"
                 url="https://geoserver.vmm.be/geoserver/vmm/wfs"
                 layers="owl_l"
                 max-resolution="8"
+                projection-code="EPSG:31370"
             >
                 <vl-map-layer-circle-style
                     color="#ffe615"

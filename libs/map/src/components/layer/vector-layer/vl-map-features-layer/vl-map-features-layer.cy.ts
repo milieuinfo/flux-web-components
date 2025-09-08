@@ -10,53 +10,57 @@ import { VlMapFeaturesLayer } from './vl-map-features-layer';
 registerWebComponents([VlMap, VlMapFeaturesLayer]);
 
 const featuresLayerFixture = html`
-    <vl-map>
-        <vl-map-features-layer></vl-map-features-layer>
+    <vl-map lambert2008>
+        <vl-map-features-layer projection-code="EPSG:31370"></vl-map-features-layer>
     </vl-map>
 `;
 
 const mapFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer
             name="testlaag"
             min-resolution="2"
             max-resolution="4"
             features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":null,"id":1}]}'
+            projection-code="EPSG:31370"
         >
         </vl-map-features-layer>
     </vl-map>
 `;
 
 const mapClusterFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer
             name="testlaag"
             cluster="true"
             cluster-distance="20"
             features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":null,"id":1}]}'
+            projection-code="EPSG:31370"
         >
         </vl-map-features-layer>
     </vl-map>
 `;
 
 const mapAutoExtentFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer
             name="testlaag"
             features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":null,"id":1}, {"type":"Feature","geometry":{"type":"Point","coordinates":[148055,197908]},"properties":null,"id":2}]}'
             auto-extent
+            projection-code="EPSG:31370"
         >
         </vl-map-features-layer>
     </vl-map>
 `;
 
 const mapAutoExtentMaxZoomFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer
             name="testlaag"
             features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":null,"id":1}]}'
             auto-extent
             auto-extent-max-zoom="3"
+            projection-code="EPSG:31370"
         >
         </vl-map-features-layer>
     </vl-map>
@@ -72,10 +76,18 @@ describe('vl-map-features-layer', () => {
                 expect(vlMapFeaturesLayer.layer).to.exist;
                 const layers = vlMap.map.getOverlayLayers();
                 expect(vlMap.map.getOverlayLayers()).to.be.lengthOf(1);
+
+                const originalFeatures = JSON.parse(vlMapFeaturesLayer.getAttribute('features'));
                 // @ts-ignore
-                expect(geoJSON.writeFeatures(layers[0].getSource().getFeatures())).to.be.equal(
-                    vlMapFeaturesLayer.getAttribute('features')
-                );
+                const sourceFeatures = geoJSON.writeFeatures(layers[0].getSource().getFeatures());
+                // De coordinaten van de features in de source worden automatisch getransformeerd naar
+                // EPSG:3812, de kaartprojectie.
+                originalFeatures.features.forEach((feature) => {
+                    const coord = feature.geometry.coordinates;
+                    const point = new OlPoint(coord).transform('EPSG:31370', 'EPSG:3812') as OlPoint;
+                    feature.geometry.coordinates = point.getCoordinates();
+                });
+                expect(sourceFeatures).to.be.equal(JSON.stringify(originalFeatures));
             });
         });
     });
@@ -84,7 +96,7 @@ describe('vl-map-features-layer', () => {
         cy.mount(mapFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             cy.wrap(vlMap.ready).then(() => {
-                expect(vlMap['map'].getView().getCenter()).to.deep.equal([140860.69299028325, 190532.7165957574]);
+                expect(vlMap['map'].getView().getCenter()).to.deep.equal([639845.7772538576, 700521.2187096793]);
             });
         });
     });
@@ -93,7 +105,7 @@ describe('vl-map-features-layer', () => {
         cy.mount(mapAutoExtentFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             cy.waitUntil(() => vlMap.map.getView().getZoom() > 3).then(() => {
-                expect(vlMap['map'].getView().getCenter()).to.deep.equal([147555, 197908]);
+                expect(vlMap['map'].getView().getCenter()).to.deep.equal([647551.3818336367, 697907.8956367383]);
             });
         });
     });
@@ -102,7 +114,7 @@ describe('vl-map-features-layer', () => {
         cy.mount(mapAutoExtentMaxZoomFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             cy.waitUntil(() => vlMap.map.getView().getZoom() === 3).then(() => {
-                expect(vlMap['map'].getView().getCenter()).to.deep.equal([147055, 197908]);
+                expect(vlMap['map'].getView().getCenter()).to.deep.equal([647051.3858496706, 697907.836081326]);
             });
         });
     });
@@ -112,12 +124,12 @@ describe('vl-map-features-layer', () => {
         cy.runTestFor2<VlMap, VlMapFeaturesLayer>('vl-map', 'vl-map-features-layer', (vlMap, vlMapFeaturesLayer) => {
             cy.wrap(vlMap.ready).then(() => {
                 const view = vlMap.map.getView();
-                expect(view.getCenter()).to.not.deep.equal([147055, 197908]);
+                expect(view.getCenter()).to.not.deep.equal([647051.3858496706, 697907.836081326]);
                 cy.wrap(vlMapFeaturesLayer.zoomToExtent(99)).then(() => {
-                    expect(view.getCenter()).to.deep.equal([147055, 197908]);
+                    expect(view.getCenter()).to.deep.equal([647051.3858496706, 697907.836081326]);
                     expect(view.getZoom()).to.be.above(3);
                     cy.wrap(vlMapFeaturesLayer.zoomToExtent(3)).then(() => {
-                        expect(view.getCenter()).to.deep.equal([147055, 197908]);
+                        expect(view.getCenter()).to.deep.equal([647051.3858496706, 697907.836081326]);
                         expect(view.getZoom()).to.be.equal(3);
                     });
                 });
@@ -132,11 +144,20 @@ describe('vl-map-features-layer', () => {
                 let layer = vlMap.map.getOverlayLayers()[0];
                 // @ts-ignore
                 expect(layer.getSource().getFeatures()).to.be.lengthOf(1);
+
+                const originalFeatures = JSON.parse(vlMapFeaturesLayer.getAttribute('features'));
                 // @ts-ignore
-                expect(geoJSON.writeFeatures(layer.getSource().getFeatures())).to.equal(
-                    vlMapFeaturesLayer.getAttribute('features')
-                );
-                expect(vlMap.map.getView().getCenter()).to.deep.equal([140860.69299028325, 190532.7165957574]);
+                const sourceFeatures = geoJSON.writeFeatures(layer.getSource().getFeatures());
+                // De coordinaten van de features in de source worden automatisch getransformeerd naar
+                // EPSG:3812, de kaartprojectie.
+                originalFeatures.features.forEach((feature) => {
+                    const coord = feature.geometry.coordinates;
+                    const point = new OlPoint(coord).transform('EPSG:31370', 'EPSG:3812') as OlPoint;
+                    feature.geometry.coordinates = point.getCoordinates();
+                });
+                expect(sourceFeatures).to.be.equal(JSON.stringify(originalFeatures));
+
+                expect(vlMap.map.getView().getCenter()).to.deep.equal([639845.7772538576, 700521.2187096793]);
                 vlMapFeaturesLayer.setAttribute(
                     'features',
                     '{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":null},{"type":"Feature","geometry":{"type":"Point","coordinates":[157055,207908]},"properties":null}]}'
@@ -144,12 +165,20 @@ describe('vl-map-features-layer', () => {
                 vlMapFeaturesLayer.setAttribute('auto-extent', '');
                 layer = vlMap.map.getOverlayLayers()[0];
                 // @ts-ignore
-                const feature = geoJSON.writeFeatures(layer.getSource().getFeatures());
-                // @ts-ignore
                 expect(layer.getSource().getFeatures().length).to.be.equal(2);
-                expect(feature).to.be.equal(vlMapFeaturesLayer.getAttribute('features'));
-                expect(vlMap.map.getView().getCenter()[0]).to.be.equal(152055);
-                expect(vlMap.map.getView().getCenter()[1]).to.be.equal(202908);
+                const originalFeatures2 = JSON.parse(vlMapFeaturesLayer.getAttribute('features'));
+                // @ts-ignore
+                const sourceFeatures2 = geoJSON.writeFeatures(layer.getSource().getFeatures());
+                // De coordinaten van de features in de source worden automatisch getransformeerd naar
+                // EPSG:3812, de kaartprojectie.
+                originalFeatures2.features.forEach((feature) => {
+                    const coord = feature.geometry.coordinates;
+                    const point = new OlPoint(coord).transform('EPSG:31370', 'EPSG:3812') as OlPoint;
+                    feature.geometry.coordinates = point.getCoordinates();
+                });
+                expect(sourceFeatures2).to.be.equal(JSON.stringify(originalFeatures2));
+                expect(vlMap.map.getView().getCenter()[0]).to.be.equal(652050.7501594654);
+                expect(vlMap.map.getView().getCenter()[1]).to.be.equal(702908.3913168148);
             });
         });
     });
@@ -163,7 +192,9 @@ describe('vl-map-features-layer', () => {
                     'features',
                     '{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":null},{"type":"Feature","geometry":{"type":"Point","coordinates":[157055,207908]},"properties":null}]}'
                 );
-                expect(vlMapFeaturesLayer.boundingBox).to.deep.equal([147055, 197908, 157055, 207908]);
+                expect(vlMapFeaturesLayer.boundingBox).to.deep.equal([
+                    647051.3858496706, 697907.836081326, 657050.1144692601, 707908.9465523036,
+                ]);
             });
         });
     });
@@ -320,9 +351,9 @@ describe('vl-map-features-layer', () => {
             cy.wrap(vlMap.ready)
                 .wait(0)
                 .then(() => {
-                    expect(vlMap.map.getView().getCenter()).to.deep.equal([147555, 197908]);
+                    expect(vlMap.map.getView().getCenter()).to.deep.equal([647551.3818336367, 697907.8956367383]);
                     vlMapFeaturesLayer.clearFeatures();
-                    expect(vlMap.map.getView().getCenter()).to.deep.equal([147555, 197908]);
+                    expect(vlMap.map.getView().getCenter()).to.deep.equal([647551.3818336367, 697907.8956367383]);
                 });
         });
     });
@@ -331,27 +362,27 @@ describe('vl-map-features-layer', () => {
         cy.mount(mapAutoExtentFixture);
         cy.runTestFor2<VlMap, VlMapFeaturesLayer>('vl-map', 'vl-map-features-layer', (vlMap, vlMapFeaturesLayer) => {
             cy.wrap(vlMap.ready).then(() => {
-                cy.waitUntil(() => vlMap.map.getView().getZoom() > 3).then(() => {
-                    expect(vlMap.map.getView().getCenter()).to.deep.equal([147055, 197908]);
-                });
+                cy.spy(vlMapFeaturesLayer, 'rerender').as('rerender');
+
                 vlMapFeaturesLayer.addFeature({
                     type: 'Feature',
                     geometry: { type: 'Point', coordinates: [146055, 197908] },
                     properties: null,
                     id: 3,
                 });
-                expect(vlMap.map.getView().getCenter()).to.deep.equal([147055, 197908]);
+                cy.get('@rerender').should('have.been.called');
+                expect(vlMap.map.getView().getCenter()).to.deep.equal([647051.3858489256, 697907.8360811225]);
+
                 vlMapFeaturesLayer.clearFeatures();
-                cy.wait(0).then(() => {
-                    // de wait zorgt ervoor dat de clearFeatures afgehandeld is - volgende event loop
-                    vlMapFeaturesLayer.addFeature({
-                        type: 'Feature',
-                        geometry: { type: 'Point', coordinates: [146055, 197908] },
-                        properties: null,
-                        id: 3,
-                    });
-                    expect(vlMap.map.getView().getCenter()).to.deep.equal([146055, 197908]);
+
+                vlMapFeaturesLayer.addFeature({
+                    type: 'Feature',
+                    geometry: { type: 'Point', coordinates: [146055, 197908] },
+                    properties: null,
+                    id: 3,
                 });
+                cy.get('@rerender').should('have.been.called');
+                expect(vlMap.map.getView().getCenter()).to.deep.equal([646051.3938802485, 697907.7169700945]);
             });
         });
     });
@@ -362,7 +393,7 @@ describe('vl-map-features-layer', () => {
             cy.wrap(vlMap.ready)
                 .wait(0)
                 .then(() => {
-                    expect(vlMap.map.getView().getCenter()).to.deep.equal([147555, 197908]);
+                    expect(vlMap.map.getView().getCenter()).to.deep.equal([647551.3818336367, 697907.8956367383]);
                     vlMapFeaturesLayer.addFeatureCollection({
                         type: 'FeatureCollection',
                         features: [
@@ -374,7 +405,7 @@ describe('vl-map-features-layer', () => {
                             },
                         ],
                     });
-                    expect(vlMap.map.getView().getCenter()).to.deep.equal([147055, 197908]);
+                    expect(vlMap.map.getView().getCenter()).to.deep.equal([647051.3858489256, 697907.8360811225]);
                     vlMapFeaturesLayer.clearFeatures();
                     vlMapFeaturesLayer.addFeature({
                         type: 'Feature',
@@ -382,7 +413,7 @@ describe('vl-map-features-layer', () => {
                         properties: null,
                         id: 3,
                     });
-                    expect(vlMap.map.getView().getCenter()).to.deep.equal([146055, 197908]);
+                    expect(vlMap.map.getView().getCenter()).to.deep.equal([646051.3938802485, 697907.7169700945]);
                 });
         });
     });

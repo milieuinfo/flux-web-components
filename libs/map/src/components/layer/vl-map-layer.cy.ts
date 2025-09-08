@@ -17,7 +17,7 @@ registerWebComponents([
 ]);
 
 const featuresLayerFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer
             name="testlaag"
             min-resolution="2"
@@ -29,7 +29,7 @@ const featuresLayerFixture = html`
 `;
 
 const imageWmsLayerFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-image-wms-layer
             url="http://dummy/wms-adjusted"
             layers="layer1"
@@ -45,7 +45,7 @@ const imageWmsLayerFixture = html`
 `;
 
 const tiledWmsLayerFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-tiled-wms-layer
             url="http://dummy/wms-adjusted"
             layers="layer1"
@@ -61,7 +61,7 @@ const tiledWmsLayerFixture = html`
 `;
 
 const wfsLayerFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-wfs-layer
             name="foobar"
             url="http://dummy/wfs"
@@ -74,7 +74,7 @@ const wfsLayerFixture = html`
 `;
 
 const wmtsLayerFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-wmts-layer
             url="http://dummy/wmts"
             layer="grb_sel"
@@ -87,35 +87,35 @@ const wmtsLayerFixture = html`
 `;
 
 const featuresLayersFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer></vl-map-features-layer>
         <vl-map-features-layer></vl-map-features-layer>
     </vl-map>
 `;
 
 const imageWmsLayersFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-image-wms-layer url="http://dummy/wms-adjusted" layers="layer1"></vl-map-image-wms-layer>
         <vl-map-image-wms-layer url="http://dummy/wms-adjusted" layers="layer1"></vl-map-image-wms-layer>
     </vl-map>
 `;
 
 const tiledWmsLayersFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-tiled-wms-layer url="http://dummy/wms-adjusted" layers="layer1"></vl-map-tiled-wms-layer>
         <vl-map-tiled-wms-layer url="http://dummy/wms-adjusted" layers="layer1"></vl-map-tiled-wms-layer>
     </vl-map>
 `;
 
 const wfsLayersFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-wfs-layer url="http://dummy/wms-adjusted" layers="layer1"></vl-map-wfs-layer>
         <vl-map-wfs-layer url="http://dummy/wms-adjusted" layers="layer1"></vl-map-wfs-layer>
     </vl-map>
 `;
 
 const wmtsLayersFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-wmts-layer url="http://dummy/wmts" layer="grb_sel"></vl-map-wmts-layer>
         <vl-map-wmts-layer url="http://dummy/wmts" layer="grb_sel"></vl-map-wmts-layer>
     </vl-map>

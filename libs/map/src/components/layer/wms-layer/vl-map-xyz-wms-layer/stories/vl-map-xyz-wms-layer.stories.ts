@@ -24,7 +24,7 @@ export const MapXYZWmsLayerDefault = story(
     mapWmsLayerArgs,
     ({ hidden, maxResolution, minResolution, name, opacity, styles, url, version }) =>
         html`
-            <vl-map>
+            <vl-map lambert2008>
                 <vl-map-xyz-wms-layer
                     ?hidden=${hidden}
                     max-resolution=${maxResolution}

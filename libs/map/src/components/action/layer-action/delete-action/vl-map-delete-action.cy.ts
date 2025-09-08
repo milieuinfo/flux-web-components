@@ -10,7 +10,7 @@ import { VlMapDeleteAction } from './vl-map-delete-action';
 registerWebComponents([VlMap, VlMapFeaturesLayer, VlMapLayerStyle, VlMapDeleteAction, VlTestCustomMapDeleteAction]);
 
 const mapDeleteActionFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer>
             <vl-map-delete-action></vl-map-delete-action>
         </vl-map-features-layer>
@@ -18,7 +18,7 @@ const mapDeleteActionFixture = html`
 `;
 
 const mapDeleteActionFixtureCustomStijl = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer>
             <vl-map-delete-action>
                 <vl-map-layer-style text-color="#000" color="#FFE615" border-color="#FFE615"></vl-map-layer-style>
@@ -28,7 +28,7 @@ const mapDeleteActionFixtureCustomStijl = html`
 `;
 
 const customMapDeleteActionFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer>
             <vl-custom-map-delete-action></vl-custom-map-delete-action>
         </vl-map-features-layer>

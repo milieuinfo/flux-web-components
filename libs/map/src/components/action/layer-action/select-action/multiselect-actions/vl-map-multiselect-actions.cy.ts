@@ -1,5 +1,5 @@
-import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
+import { html } from 'lit';
 import { VlMap } from '../../../../../vl-map';
 import { VlMapBaseLayerGRBGray } from '../../../../baselayer/vl-map-base-layer-grb-gray/vl-map-base-layer-grb-gray';
 import { VlMapFeaturesLayer } from '../../../../layer/vector-layer/vl-map-features-layer/vl-map-features-layer';
@@ -51,12 +51,12 @@ const layers = ['layer-1', 'layer-2'];
 describe('component vl-map-multiselect-actions', () => {
     beforeEach(() => {
         cy.mount(html`
-            <vl-map>
+            <vl-map lambert2008>
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
-                <vl-map-features-layer name="layer-1" .features=${featuresLayer1}>
+                <vl-map-features-layer name="layer-1" .features=${featuresLayer1} projection-code="EPSG:31370">
                     <vl-map-layer-style border-size="2"></vl-map-layer-style>
                 </vl-map-features-layer>
-                <vl-map-features-layer .features=${featuresLayer2} name="layer-2">
+                <vl-map-features-layer .features=${featuresLayer2} name="layer-2" projection-code="EPSG:31370">
                     <vl-map-layer-style border-size="2"></vl-map-layer-style>
                 </vl-map-features-layer>
                 <vl-map-multiselect-actions .active=${true} .layers=${layers} ?default-active=${true}>

@@ -1,13 +1,13 @@
+import { story } from '@resources/utils-storybook';
+import { Meta } from '@storybook/web-components';
+import { html } from 'lit-html';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import '../../../vl-map';
 import '../../baselayer/vl-map-base-layer-grb-gray/vl-map-base-layer-grb-gray';
 import '../../layer-style/vl-map-layer-circle-style/vl-map-layer-circle-style';
 import '../../layer/vector-layer/vl-map-features-layer/vl-map-features-layer';
 import '../../legend/vl-map-legend';
 import '../vl-map-legend-item';
-import { story } from '@resources/utils-storybook';
-import { Meta } from '@storybook/web-components';
-import { html } from 'lit-html';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { mapLegendItemArgs, mapLegendItemArgTypes } from './vl-map-legend-item.stories-arg';
 import mapLegendItemDoc from './vl-map-legend-item.stories-doc.mdx';
 
@@ -27,7 +27,7 @@ export default {
 const MapLegendItemTemplate = story(
     mapLegendItemArgs,
     ({ layer, iconText, iconSlot, labelSlot }) =>
-        html` <vl-map>
+        html` <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-action-controls>
                 <vl-map-measure-control></vl-map-measure-control>
@@ -35,6 +35,7 @@ const MapLegendItemTemplate = story(
             <vl-map-features-layer
                 name="Shapes"
                 features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[153055,203908]},"properties":{"styleId":"style-1"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[141000,200908]},"properties":{"styleId":"style-2"}},{"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[147055,197908],[157055,197908],[157055,187908],[147055,187908],[147055,197908]]]},"properties":{"styleId":"style-3"}}]}'
+                projection-code="EPSG:31370"
             >
                 <vl-map-layer-circle-style
                     id="style-1"

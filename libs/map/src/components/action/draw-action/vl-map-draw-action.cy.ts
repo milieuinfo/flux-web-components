@@ -10,7 +10,7 @@ import { VlMapDrawAction } from './vl-map-draw-action';
 registerWebComponents([VlMap, VlMapFeaturesLayer, VlMapDrawPointAction, VlMapDrawLineAction, VlMapDrawPolygonAction]);
 
 const mapDrawActionsFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer id="line-layer">
             <vl-map-draw-point-action id="draw-point-action"></vl-map-draw-point-action>
             <vl-map-draw-line-action id="draw-line-action"></vl-map-draw-line-action>

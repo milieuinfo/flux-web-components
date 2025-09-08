@@ -128,9 +128,8 @@ export abstract class VlMapLayer extends BaseHTMLElement {
     }
 
     get mapElement(): VlMap {
-        // @ts-expect-error: The parentNode is expected to have a map property
-        if (this.parentNode && this.parentNode.map) {
-            return <VlMap>this.parentNode;
+        if (this.parentNode && this.parentNode instanceof VlMap) {
+            return this.parentNode;
         }
         return null;
     }
