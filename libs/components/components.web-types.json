@@ -10,7 +10,7 @@
                 {
                     "name": "vl-accordion",
                     "description": "Gebruik de `accordion` component om informatie te tonen of te verbergen aan de hand van een toggle.\nVoor meer informatie over het afbeelden van meerdere accordions zie de\n[accordion-list](/docs/components-accordion-list--documentatie) component.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-accordion--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-accordion--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -93,7 +93,7 @@
                 {
                     "name": "vl-accordion-list",
                     "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Een lijst component die kan gebruikt worden als je meerdere accordions wilt afbeelden.\nVoor meer informatie over accordions zie de [accordion](/docs/components-accordion--documentatie) component.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-accordion-list--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-accordion-list--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -110,7 +110,7 @@
                 {
                     "name": "vl-alert",
                     "description": "Gebruik de `alert` component om de gebruiker op de hoogte te houden van belangrijke informatie.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-alert--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-alert--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -182,7 +182,7 @@
                 },
                 {
                     "name": "vl-annotation",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-annotation--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-annotation--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -206,7 +206,7 @@
                 {
                     "name": "vl-autocomplete",
                     "description": "Gebruik de `autocomplete` component om een lijst met suggesties weer te geven, gefilterd op de ingevoerde tekst. De\nlijst kan een statische lijst zijn (`data-vl-static-list`) of kan worden opgehaald uit een api (dataFetcher).",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-autocomplete--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-autocomplete--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -304,11 +304,11 @@
                 {
                     "name": "vl-breadcrumb",
                     "description": "Gebruik de `breadcrumb` component om de locatie van de huidige pagina af te beelden binnen een navigeerbare hiërarchie.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-breadcrumb--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-breadcrumb--documentatie"
                 },
                 {
                     "name": "vl-breadcrumb-item",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-breadcrumb--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-breadcrumb--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -325,7 +325,7 @@
                 {
                     "name": "vl-checkbox",
                     "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik een `checkbox` om de gebruiker de mogelijkheid te geven 1 of meerdere items te selecteren uit een lijst.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-checkbox--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-checkbox--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -381,16 +381,16 @@
                 },
                 {
                     "name": "vl-code-preview",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-code-preview--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-code-preview--documentatie"
                 },
                 {
                     "name": "vl-contact-card",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-contact-card--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-contact-card--documentatie"
                 },
                 {
                     "name": "vl-content-header",
                     "description": "Gebruik de `content-header` component bovenaan informerende pagina's. Hij biedt gebruikers alle informatie over de\nwebsite die ze bezoeken.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-content-header--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-content-header--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -418,7 +418,7 @@
                 {
                     "name": "vl-datepicker",
                     "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik de `datepicker` component om de gebruiker op een gebruiksvriendelijke manier een datum of tijd te laten selecteren.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-datepicker--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-datepicker--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-type",
@@ -494,7 +494,7 @@
                 },
                 {
                     "name": "vl-description-data",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-description-data-description-data--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-description-data-description-data--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -530,7 +530,7 @@
                 },
                 {
                     "name": "vl-description-data-item",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-description-data-description-data-item--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-description-data-description-data-item--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -564,7 +564,7 @@
                 {
                     "name": "vl-document",
                     "description": "Gebruik de `document` component om een link naar een bestand toe te voegen dat de gebruiker in de browser kan bekijken\nof downloaden.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-document--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-document--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -600,7 +600,7 @@
                 {
                     "name": "vl-functional-header",
                     "description": "Gebruik de `functional-header` component om bovenaan de pagina generieke informatie te tonen zoals bijvoorbeeld\neen titel en acties.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-functional-header--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-functional-header--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -705,7 +705,7 @@
                 {
                     "name": "vl-http-error-message",
                     "description": "Gebruik de `http-error-message` component om een error boodschap aan de gebruiker te tonen.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-http-error-message--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-http-error-message--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -749,7 +749,7 @@
                 {
                     "name": "vl-info-tile",
                     "description": "Gebruik de `info-tile` component in informatieve en interactieve dashboards.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-info-tile--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-info-tile--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -802,7 +802,7 @@
                 },
                 {
                     "name": "vl-infoblock",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-infoblock--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-infoblock--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -814,7 +814,7 @@
                 {
                     "name": "vl-input-slider",
                     "description": "Gebruik de `input-slider` om een waarde te selecteren tussen een minimum en maximum waarde.\n**Let op**: deze component is niet dezelfde als de `vl-ui-range` component van Digitaal Vlaanderen.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-input-slider--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-input-slider--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -849,7 +849,7 @@
                 },
                 {
                     "name": "vl-loader",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-loader--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-loader--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -875,7 +875,7 @@
                 },
                 {
                     "name": "vl-modal",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-modal--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-modal--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -927,7 +927,7 @@
                 {
                     "name": "vl-button-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `button-next` component om een button af te beelden op een pagina.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-button--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-button--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1059,7 +1059,7 @@
                 {
                     "name": "vl-cascader",
                     "description": "Gebruik de `cascader` component om hiërarchische data weer te geven als een drilldown van lijsten.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-cascader-cascader--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-cascader-cascader--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1139,7 +1139,7 @@
                 },
                 {
                     "name": "vl-cascader-item",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-cascader-cascader-item--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-cascader-cascader-item--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1173,7 +1173,7 @@
                 {
                     "name": "vl-table-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `table` component om op een gestructureerde manier (grote hoeveelheden) relationele data te tonen.\n\n<VluxAlert type=\"info\">\n{`\n    In de v2 versie van deze component gebruik je hem via de custom-tag, de interne implementatie is voor de rest\n    gelijk gebleven aan deze van de v1 versie. In de toekomst zal deze component grondig herwerkt worden; in de\n    context van een herwerking van de vl-table.\n`}\n</VluxAlert>",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-table--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-table--documentatie",
                     "attributes": [
                         {
                             "name": "hover",
@@ -1220,7 +1220,7 @@
                 {
                     "name": "vl-doormat-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `doormat-next` component om een snel en duidelijk overzicht weer te geven van de informatie op je website.<br/>\nElke doormat krijgt zijn eigen titel, tekst, optionele afbeelding en linkt naar een pagina binnen je website.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-doormat--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-doormat--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1284,7 +1284,7 @@
                 {
                     "name": "vl-icon-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `icon-next` component om een icoon af te beelden op een pagina.<br/>\nZie het [overzicht](#overzicht) hieronder voor alle beschikbare iconen.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-icon--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-icon--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1331,7 +1331,7 @@
                 {
                     "name": "vl-infotext-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `infotext-next` component om belangrijke nummers duidelijk weer te gevem.<br/>",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-infotext--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-infotext--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1370,7 +1370,7 @@
                 {
                     "name": "vl-link-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `link-next` component om een link af te beelden op een pagina.<br/>",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-link--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-link--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1433,7 +1433,7 @@
                 {
                     "name": "vl-paragraph-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `paragraph-next` component om een paragraaf af te beelden op een pagina.<br/>",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-paragraph--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-paragraph--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1462,7 +1462,7 @@
                 {
                     "name": "vl-properties-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `properties-next` component om properties te tonen op een pagina. Je kan de properties specifiëren als\ninner-html of als json-structuur meegeven aan het `props` attribuut.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-properties--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-properties--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1489,7 +1489,7 @@
                 {
                     "name": "vl-search-result-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `search-result-next` component om een zoekresultaat weer te geven.<br/>\n\nVolgende sub-componenten zijn beschikbaar om het zoekresultaat op te bouwen:\n\n- VlSearchResultProperties `[vl-search-result-properties-next]`\n- VlSearchResultText `[vl-search-result-text-next]`\n- VlSearchResultTitle `[vl-search-result-title-next]`",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-search-result--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-search-result--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1507,69 +1507,69 @@
                 },
                 {
                     "name": "vl-search-result-title-next",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-search-result--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-search-result--documentatie"
                 },
                 {
                     "name": "vl-search-result-text-next",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-search-result--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-search-result--documentatie"
                 },
                 {
                     "name": "vl-search-result-properties-next",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-search-result--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-search-result--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/><br/>\n\n<VluxAlert type=\"info\">\n{`\n    De v2 versie van deze component gebruik je via custom-tags, de interne implementatie is gelijk gebleven aan\n    de v1 versie. In v3 zal deze component grondig herwerkt worden.\n`}\n</VluxAlert>\n\n<br/>\n\nGebruik de `side-navigation-next` component om een compact navigatie-element aan een pagina toe te voegen. Het vat de\ninhoud van lange pagina's samen, leidt de gebruiker door de pagina inhoud en kan ook naar externe pagina's verwijzen.\n\nDe `vl-side-navigation-next` wordt opgebouwd uit volgende sub-componenten:\n\n- VlSideNavigation `[vl-side-navigation-next]`\n- VlSideNavigationTitle<br/>\n    `[vl-side-navigation-h1-next / vl-side-navigation-h2-next / vl-side-navigation-h3-next /`\n    `vl-side-navigation-h4-next / vl-side-navigation-h5-next / vl-side-navigation-h6-next]`\n- VlSideNavigationContent `[vl-side-navigation-content-next]`\n- VlSideNavigationGroup `[vl-side-navigation-group-next]`\n- VlSideNavigationItem `[vl-side-navigation-item-next]`\n- VlSideNavigationToggle `[vl-side-navigation-toggle-next]`\n- VlSideNavigationReference `[vl-side-navigation-reference-next]`\n\n```js\nimport { VlSideNavigation } from '@domg-wc/components';\n```\n\n```html\n<vl-side-navigation-next></vl-side-navigation-next>\n```\n\n<Canvas of={VlSideNavigationStories.SideNavigationDefault}/>",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-content-next",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-group-next",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-item-next",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-reference-next",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-h1-next",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-h2-next",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-h3-next",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-h4-next",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-h5-next",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-h6-next",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-side-navigation-toggle-next",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-side-navigation--documentatie"
                 },
                 {
                     "name": "vl-search-filter-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/><br/>\n\n<VluxAlert type=\"info\">\n{`\n    In de v2 versie van deze component gebruik je hem via de custom-tag, de interne implementatie is voor de rest\n    gelijk gebleven aan deze van de v1 versie. In de toekomst zal deze component grondig herwerkt worden; in de context\n    van een herwerking van de vl-table.\n`}\n</VluxAlert>\n\nGebruik de `search-filter-next` component om een zoek filter te tonen op een pagina.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-search-filter--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-search-filter--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1601,7 +1601,7 @@
                 {
                     "name": "vl-steps-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `steps-next` component om een verticale lijst van stappen af te beelden om de gebruiker door een procedure te begeleiden.<br/>\n\nDeze component is de nieuwe versie van de [vl-steps](/docs/components-steps--documentatie) component, we raden aan deze versie te gebruiken.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-steps-steps--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-steps-steps--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -1632,7 +1632,7 @@
                 },
                 {
                     "name": "vl-step-next",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-steps-step--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-steps-step--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -1653,12 +1653,12 @@
                 },
                 {
                     "name": "vl-duration-step-next",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-steps-steps--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-steps-steps--documentatie"
                 },
                 {
                     "name": "vl-text-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `text-next` component om een tekst af te beelden op andere wijze.<br/>",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-text-text--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-text-text--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1717,7 +1717,7 @@
                 {
                     "name": "vl-title-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `title-next` component om een title af te beelden.<br/>\n\nDeze component is de nieuwe versie van het [vl-title](/docs/elements-title-h1--documentatie) element, we raden aan om op termijn deze versie te gebruiken.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-title--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-title--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1753,7 +1753,7 @@
                 },
                 {
                     "name": "vl-pager",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-pager--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-pager--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -1802,7 +1802,7 @@
                 },
                 {
                     "name": "vl-pill",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-pill-pill--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-pill-pill--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -1862,7 +1862,7 @@
                 },
                 {
                     "name": "vl-button-pill",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-pill-button-pill--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-pill-button-pill--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -1879,7 +1879,7 @@
                 {
                     "name": "vl-popover",
                     "description": "Een `popover` is een nieuw, meestal kleiner venster / popup dat boven de andere inhoud op het scherm verschijnt.\nGebruik een popover om aanvullende informatie aan de gebruiker te geven of om gebruikersinteractie te vragen.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-popover--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-popover--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1936,16 +1936,16 @@
                 },
                 {
                     "name": "vl-popover-action",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-popover--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-popover--documentatie"
                 },
                 {
                     "name": "vl-popover-action-list",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-popover--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-popover--documentatie"
                 },
                 {
                     "name": "vl-progress-bar",
                     "description": "Gebruik een `progress-bar` om de vooruitgang te tonen van een proces dat uit verschillende stappen bestaat.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-progress-bar--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-progress-bar--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -1993,7 +1993,7 @@
                 {
                     "name": "vl-proza-message",
                     "description": "Gebruik de `proza-message` component om een Proza bericht af te beelden dat achterliggend beheerd kan worden door de\nbusiness.<br/>\nVoor het ophalen van alle Proza berichten voor een domein zie de\n[proza-message-preloader](/docs/components-proza-message-preloader--proza-message-preloader-default) component.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-proza-message--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-proza-message--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -2030,7 +2030,7 @@
                 {
                     "name": "vl-proza-message-preloader",
                     "description": "Gebruik de `proza-message-preloader` component om alle Proza berichten van een domein in 1 keer op te halen en in\ncache te stoppen.<br/>\nDe [proza-message](/docs/components-proza-message--proza-message-default) component gaat eerst kijken of het bericht in\nde cache zit vooraleer een request naar buiten te sturen.<br/>\nDeze component voeg je 1 keer toe in je applicatie per domein, bij voorkeur op het hoogste niveau.\n\n```js\nimport { VlProzaMessagePreloader } from '@domg-wc/components';\n```\n\n```html\n<vl-proza-message-preloader></vl-proza-message-preloader>\n```\n\n<Canvas of={VlProzaMessagePreloaderStories.ProzaMessagePreloaderDefault} />",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-proza-message-preloader--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-proza-message-preloader--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -2052,7 +2052,7 @@
                 {
                     "name": "vl-radio",
                     "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>De `radio` laat de gebruiker toe om een enkele optie te selecteren uit een lijst. Gebruik de `radio` in formulieren.<br/>\nVermijd een voorgedefinieerde keuze vast te leggen zodat de gebruiker een bewuste keuze dient te maken.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-radio--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-radio--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -2103,11 +2103,11 @@
                 },
                 {
                     "name": "vl-radio-group",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-radio--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-radio--documentatie"
                 },
                 {
                     "name": "vl-rich-data",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-rich-data--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-rich-data--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -2129,7 +2129,7 @@
                 {
                     "name": "vl-rich-data-table",
                     "description": "Een tabel op basis van een dynamische lijst van data die uitgebreid kan worden met functionaliteiten om het consumeren\nvan data door de gebruiker te verbeteren.\n\nDe code voorbeelden bij elke story is dezelfde code die gebruikt wordt om de stories te laten werken.\n- combineert de functionaliteiten van het [rich-data](?path=/docs/components-rich-data--rich-data-default)-component en [data-table](?path=/docs/elements-data-table--data-table-default)-component.\n- om de velden te configureren kan je gebruik maken van `rich-data-field`",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-rich-data-table--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-rich-data-table--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -2165,19 +2165,19 @@
                 },
                 {
                     "name": "vl-rich-data-field",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-rich-data-table--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-rich-data-table--documentatie"
                 },
                 {
                     "name": "vl-rich-data-sorter",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-rich-data-table--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-rich-data-table--documentatie"
                 },
                 {
                     "name": "vl-search",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-search--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-search--documentatie"
                 },
                 {
                     "name": "vl-share-button",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-share-buttons-button--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-share-buttons-button--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -2188,7 +2188,7 @@
                 },
                 {
                     "name": "vl-share-buttons",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-share-buttons-buttons--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-share-buttons-buttons--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -2205,7 +2205,7 @@
                 {
                     "name": "vl-side-sheet",
                     "description": "De `side-sheet`-component heeft containers die aan de linker- of rechterrand van het scherm zijn verankerd. Deze kunnen\ngeopend of gesloten worden aan de hand van een knop.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-side-sheet--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-side-sheet--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -2216,7 +2216,7 @@
                 },
                 {
                     "name": "vl-spotlight",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-spotlight--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-spotlight--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -2275,7 +2275,7 @@
                 {
                     "name": "vl-steps",
                     "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik de `steps` component om een verticale lijst van stappen af te beelden om de gebruiker door een procedure te begeleiden.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-steps--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-steps--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -2306,16 +2306,16 @@
                 },
                 {
                     "name": "vl-step",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-steps--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-steps--documentatie"
                 },
                 {
                     "name": "vl-duration-step",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-steps--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-steps--documentatie"
                 },
                 {
                     "name": "vl-tabs",
                     "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik de `tabs` component om gerelateerde informatie op te splitsen in kleinere stukken content.\nOp mobiel wordt de tab navigatie omgevormd tot een uitklapbaar menu.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-tabs--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-tabs--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -2365,7 +2365,7 @@
                 },
                 {
                     "name": "vl-tabs-pane",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-tabs--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-tabs--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -2389,16 +2389,16 @@
                 },
                 {
                     "name": "vl-tab",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-tabs--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-tabs--documentatie"
                 },
                 {
                     "name": "vl-tab-section",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-tabs--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-tabs--documentatie"
                 },
                 {
                     "name": "vl-tabs-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `tabs-next` component om gerelateerde informatie op te splitsen in kleinere stukken content.\nOp mobiel wordt de tab navigatie omgevormd tot een uitklapbaar menu.\n\n<VluxAlert type=\"info\">\n{`\n    De v2 versie van deze component gebruik je via de custom-tag, de interne implementatie is voor de rest\n    gelijk gebleven aan de v1 versie. In de toekomst zal deze component grondig herwerkt worden.\n`}\n</VluxAlert>",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-tabs--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-tabs--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -2448,7 +2448,7 @@
                 },
                 {
                     "name": "vl-tabs-pane-next",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-tabs--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-tabs--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -2472,15 +2472,15 @@
                 },
                 {
                     "name": "vl-tab-next",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-tabs--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-tabs--documentatie"
                 },
                 {
                     "name": "vl-tab-section-next",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-tabs--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-tabs--documentatie"
                 },
                 {
                     "name": "vl-template",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-template--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-template--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -2492,7 +2492,7 @@
                 {
                     "name": "vl-textarea",
                     "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik een `textarea` als invoervak in een formulier, waarin de gebruiker over meerdere regels tekst kan invoeren.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-textarea--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-textarea--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -2543,11 +2543,11 @@
                 },
                 {
                     "name": "vl-textarea-modal",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-textarea--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-textarea--documentatie"
                 },
                 {
                     "name": "vl-toaster",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-toaster--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-toaster--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-top-left",
@@ -2579,7 +2579,7 @@
                 {
                     "name": "vl-toaster-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `toaster-next` component om meldingen af te beelden.<br/>\n\nDeze component is de nieuwe versie van het [vl-toaster](/docs/elements-toaster-h1--documentatie) element.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-toaster--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-toaster--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -2606,7 +2606,7 @@
                 },
                 {
                     "name": "vl-toggle-button",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-toggle-button--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-toggle-button--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -2685,7 +2685,7 @@
                 {
                     "name": "vl-tooltip",
                     "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik de `tooltip` component om beschrijvende informatie over de functie van een knop, label of ander element weer te\ngeven. Wanneer een gebruiker met de muis over een element beweegt of het selecteert, verschijnt de tooltip om extra\ninformatie te geven.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-tooltip--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-tooltip--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -2704,7 +2704,7 @@
                 },
                 {
                     "name": "vl-typography",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-typography--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-typography--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -2716,7 +2716,7 @@
                 {
                     "name": "vl-upload",
                     "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik de `upload`-component om één of meerdere bestanden te selecteren of te slepen naar het upload-veld. De gebruiker\nkan alternatief ook één of meerdere bestanden uploaden door op de link in het upload-veld te klikken en de bestanden\nselecteren in het bestand-menu.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-upload--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-upload--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -2827,7 +2827,7 @@
                 {
                     "name": "vl-video-player-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `video-player-next` component om een video-player af te beelden.<br/>\n\nDeze component is de nieuwe versie van het [vl-video-player](/docs/elements-video-player--documentatie) element, we raden aan om op termijn deze versie te gebruiken.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-video-player--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-next-video-player--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -2859,7 +2859,7 @@
                 {
                     "name": "vl-wizard",
                     "description": "Gebruik een `wizard` om een gebruiker door een meerstapsproces te begeleiden. Een wizard maakt het mogelijk om een\ningewikkeld proces op te delen in overzichtelijke, kleine stappen. Een wizard biedt ook de mogelijkheid opties in een\nbepaalde stap aan te passen op basis van keuzes die de gebruiker in een voorgaande stap heeft gemaakt.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-wizard-wizard--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-wizard-wizard--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",
@@ -2904,7 +2904,7 @@
                 {
                     "name": "vl-wizard-pane",
                     "description": "Gebruik de `wizard-pane` component om een stap in de wizard af te beelden.\nTe gebruiken in combinatie met de [wizard](/docs/components-wizard-wizard--documentatie) component",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-wizard-wizard-pane--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-wizard-wizard-pane--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-custom-css",

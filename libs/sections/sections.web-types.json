@@ -10,7 +10,7 @@
                 {
                     "name": "vl-accessibility",
                     "description": "Toegankelijkheidsverklaring pagina.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-accessibility--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-accessibility--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-application",
@@ -79,7 +79,7 @@
                 {
                     "name": "vl-cookie-consent",
                     "description": "De cookie consent kan gebruikt worden om de gebruiker te informeren over al de cookies die gebruikt worden.\nDaarnaast kunnen er mits toestemming van de gebruiker analytics worden toegepast.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-cookie-consent--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-cookie-consent--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-analytics",
@@ -128,12 +128,12 @@
                 },
                 {
                     "name": "vl-cookie-consent-opt-in",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-cookie-consent--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-cookie-consent--documentatie"
                 },
                 {
                     "name": "vl-cookie-statement",
                     "description": "Cookieverklaring pagina.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-cookie-statement--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-cookie-statement--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-date",
@@ -174,32 +174,32 @@
                 },
                 {
                     "name": "vl-authentication-cookie",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-cookie-statement--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-cookie-statement--documentatie"
                 },
                 {
                     "name": "vl-cookie",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-cookie-statement--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-cookie-statement--documentatie"
                 },
                 {
                     "name": "vl-header-authentication-cookie",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-cookie-statement--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-cookie-statement--documentatie"
                 },
                 {
                     "name": "vl-header-cookie",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-cookie-statement--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-cookie-statement--documentatie"
                 },
                 {
                     "name": "vl-jsessionid-cookie",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-cookie-statement--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-cookie-statement--documentatie"
                 },
                 {
                     "name": "vl-sticky-session-cookie",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-cookie-statement--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-cookie-statement--documentatie"
                 },
                 {
                     "name": "vl-footer",
                     "description": "Injecteert de footer widget van Digitaal Vlaanderen.\nDefault wordt de footer geïnjecteerd in de body, bij het gebruik van het `vl-body`-element wordt de footer geïnjecteerd\nin de `vl-body`.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-footer--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-footer--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-development",
@@ -225,7 +225,7 @@
                 {
                     "name": "vl-header",
                     "description": "Injecteert de global header widget van Digitaal Vlaanderen.\nDefault wordt de header geïnjecteerd in de body, bij het gebruik van het vl-body element wordt de header geïnjecteerd in\nde vl-body.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-header--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-header--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-authenticated-user-url",
@@ -305,7 +305,7 @@
                 {
                     "name": "vl-privacy",
                     "description": "Privacy pagina.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-privacy--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/sections-privacy--documentatie",
                     "attributes": [
                         {
                             "name": "data-vl-date",
