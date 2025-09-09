@@ -12,9 +12,12 @@ describe('story vl-input-group', () => {
                 ${vlGroupStyles}
             </style>
             <div class="vl-group vl-group--input-group">
-                <vl-button input-group>Locatie kiezen</vl-button>
-                <vl-input-field input-group></vl-input-field>
+                <vl-button input-group label="locatie kiezen">Locatie kiezen</vl-button>
+                <vl-input-field input-group label="locatie ingave"></vl-input-field>
             </div>`);
+        cy.injectAxe();
+
+        cy.checkA11y('.vl-group');
         cy.get('.vl-group')
             .should('have.class', 'vl-group--input-group')
             .children()
@@ -42,9 +45,12 @@ describe('story vl-input-group', () => {
                 ${vlGroupStyles}
             </style>
             <div class="vl-group vl-group--input-group">
-                <vl-input-field input-group></vl-input-field>
-                <vl-button input-group>Locatie kiezen</vl-button>
+                <vl-input-field input-group label="locatie ingave"></vl-input-field>
+                <vl-button input-group label="locatie kiezen">Locatie kiezen</vl-button>
             </div>`);
+        cy.injectAxe();
+
+        cy.checkA11y('.vl-group');
         cy.get('.vl-group')
             .should('have.class', 'vl-group--input-group')
             .children()
