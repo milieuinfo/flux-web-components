@@ -1,14 +1,14 @@
 import {Meta, Markdown} from '@storybook/blocks';
 
 export const v1AfsplitsRelease = "1.48.2";
-export const v1StorybookLink = `https://milieuinfo.github.io/flux-builds/release-v1/${v1AfsplitsRelease}/storybook/?path=`;
+export const v1StorybookLink = `https://flux.omgeving.vlaanderen.be/release-v1/${v1AfsplitsRelease}/storybook/?path=`;
 export const v1AfsplitsReleaseVersie = `v${v1AfsplitsRelease}`;
 export const v2InfoBlock = `
 - Imports aan te passen naar \`@domg-wc/components/next/...\`
-- Componenten te registreren met \`registerWebComponents()\` 
+- Componenten te registreren met \`registerWebComponents()\`
 - CSS styles toe te voegen via \`static get styles()\`
 - Legacy imports (zoals \`VlGridElement\`, \`vlElementsStyle\`, etc.) te verwijderen
-- Opletten bij het selecteren van elementen in code of in tests  
+- Opletten bij het selecteren van elementen in code of in tests
   bv: \`.querySelector('h1')\` of \`.querySelector('[is="vl-button"]')\` zullen breken
 `
 export const dataVlInfoBlock = `
@@ -83,27 +83,27 @@ De legacy componenten zijn componenten die geschrapt worden, ze moeten vervangen
 
 <vl-alert type="info" title="Info" icon="info-circle" size="small" custom-css=".vl-alert{margin-bottom: 3rem;}">
     <Markdown options={{ forceInline: true }} style={{ fontSize: '14px' }}>{`
-    Zie [Migratie v2 - Impact](/docs/afnemen-migratie-v2-impact--documentatie) voor gedetaileerde informatie over welke elementen vervangen worden.  
+    Zie [Migratie v2 - Impact](/docs/afnemen-migratie-v2-impact--documentatie) voor gedetaileerde informatie over welke elementen vervangen worden.
     In deze stap migreren we naar de waarden onder **v1 - Gebruik**.
     `}</Markdown>
-</vl-alert> 
+</vl-alert>
 
 #### **2.1 Elementen wegwerken**
 
 Vervang alle `<x is="...">` elementen door hun nieuwe component of class.
 
-Een aantal elementen verdwijnen, bv:  
+Een aantal elementen verdwijnen, bv:
 `<body is="vl-body">` → `<body>`
 
-Een aantal elementen worden vervangen door componenten, bv:  
+Een aantal elementen worden vervangen door componenten, bv:
 `<button is="vl-button">` →  `<vl-button-next>`
 
-Een aantal elementen worden vervangen door classes, bv:  
+Een aantal elementen worden vervangen door classes, bv:
 `is="vl-grid"` en `is="vl-form-grid"` → `class="vl-grid-next"`
 
 <vl-alert type="info" title="Vergeet niet" icon="info-circle" size="small" custom-css=".vl-alert{margin-bottom: 3rem;}">
     <Markdown style={{ fontSize: '14px' }}>{v2InfoBlock}</Markdown>
-</vl-alert> 
+</vl-alert>
 
 #### **2.2 "next"-varianten implementeren**
 
@@ -128,10 +128,10 @@ Volgende wijzigingen werden doorgevoerd in v2 tov v1:
 
 <vl-alert type="info" title="Info" icon="info-circle" size="small" custom-css=".vl-alert{margin-bottom: 3rem;}">
     <Markdown options={{ forceInline: true }} style={{ fontSize: '14px' }}>{`
-    Zie [Migratie v2 - Impact](/docs/afnemen-migratie-v2-impact--documentatie) voor gedetaileerde informatie over welke componeten vervangen worden.  
+    Zie [Migratie v2 - Impact](/docs/afnemen-migratie-v2-impact--documentatie) voor gedetaileerde informatie over welke componeten vervangen worden.
     In deze stap migreren we naar de waarden onder **v2 - Gebruik**.
     `}</Markdown>
-</vl-alert> 
+</vl-alert>
 
 #### **3.2 Migratie acties**
 
@@ -143,7 +143,7 @@ De te ondernemen acties om te migreren zijn:
 
 <vl-alert type="info" title="Opgelet" icon="info-circle" size="small" custom-css=".vl-alert{margin-bottom: 3rem;}">
     <Markdown options={{ forceInline: true }} style={{ fontSize: '14px' }}>{dataVlInfoBlock}</Markdown>
-</vl-alert> 
+</vl-alert>
 
 #### **3.3 Imports**
 

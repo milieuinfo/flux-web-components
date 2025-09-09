@@ -10,7 +10,7 @@
                 {
                     "name": "vl-checkbox",
                     "description": "Gebruik de `checkbox` component om de gebruiker de mogelijkheid te geven om 1 of meerdere dingen te selecteren in een lijst.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-checkbox--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-checkbox--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -107,7 +107,7 @@
                 {
                     "name": "vl-datepicker",
                     "description": "Gebruik de `datepicker` component om de gebruiker op een gebruiksvriendelijke manier een datum of tijd te laten selecteren.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-datepicker--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-datepicker--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -270,7 +270,7 @@
                 {
                     "name": "vl-form-message",
                     "description": "Gebruik de `form-message` component om een boodschap af te beelden voor een input veld.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-form-message--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-form-message--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -308,7 +308,7 @@
                 },
                 {
                     "name": "vl-form-label",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-form-label--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-form-label--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -346,7 +346,7 @@
                 },
                 {
                     "name": "vl-input-field",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-input-field--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-input-field--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -493,7 +493,7 @@
                 },
                 {
                     "name": "vl-input-field-masked",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-input-field-masked--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-input-field-masked--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -660,7 +660,7 @@
                 },
                 {
                     "name": "vl-radio",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-radio-group--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-radio-group--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -748,7 +748,7 @@
                 {
                     "name": "vl-radio-group",
                     "description": "Gebruik de `radio-group` component om de gebruiker de mogelijkheid te geven om 1 keuze te selecteren in een lijst.<br/>\nWanneer mogelijk, selecteer geen `radio` van vooraf zodat de gebruiker een bewuste keuze kan maken.<br/>\nDe `radio` component is een onderdeel van de `radio-group` component.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-radio-group--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-radio-group--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -827,7 +827,7 @@
                 },
                 {
                     "name": "vl-select",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-select--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-select--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -924,7 +924,7 @@
                 },
                 {
                     "name": "vl-select-rich",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-select-rich--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-select-rich--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1051,7 +1051,7 @@
                 },
                 {
                     "name": "vl-textarea",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-textarea--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-textarea--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1166,7 +1166,7 @@
                 {
                     "name": "vl-textarea-rich",
                     "description": "Gebruik de `textarea-rich` component om een rich textarea veld toe te voegen aan een pagina.<br/>",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-textarea-rich--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-textarea-rich--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -1304,7 +1304,7 @@
                 {
                     "name": "vl-upload",
                     "description": "Gebruik de `upload` component om één of meerdere bestanden te selecteren of te slepen naar het upload-veld.\n\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
-                    "doc-url": "https://milieuinfo.github.io/flux-builds/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-upload--documentatie",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-upload--documentatie",
                     "attributes": [
                         {
                             "name": "custom-css",

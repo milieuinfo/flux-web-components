@@ -21,7 +21,7 @@ import fluxMetaData from '../../apps/storybook/.storybook/flux-meta-data/flux-me
 
 const templateFileLocation: string = './wt-template/web-types.template';
 
-const docUrl = `https://milieuinfo.github.io/flux-builds/release-v2/$VERSION/storybook/?path=$STORYBOOK-PATH`;
+const docUrl = `https://flux.omgeving.vlaanderen.be/release-v2/$VERSION/storybook/?path=$STORYBOOK-PATH`;
 
 const readTemplateFile = () => fs.readFileSync(templateFileLocation).toString();
 
