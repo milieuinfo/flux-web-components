@@ -1,3 +1,12 @@
+## [1.49.3](https://github.com/milieuinfo/flux-web-components/compare/v1.49.2...v1.49.3) (2025-09-09)
+
+
+### Bug Fixes
+
+* de documentatie staat nu onder 'flux.omgeving.vlaanderen.be' ([7231deb](https://github.com/milieuinfo/flux-web-components/commit/7231deb5a047de28be85314d37ade4d7da995dbe))
+* FLUX-126 - vl-side-navigation - hash-sync attribute vervangt has-hash-routing ([900114f](https://github.com/milieuinfo/flux-web-components/commit/900114fcf944df6710f14038da96b5d140c80ceb))
+* FLUX-135 - vl-datepicker-next - initial value werd genegeerd bij type "range" ([cac55a1](https://github.com/milieuinfo/flux-web-components/commit/cac55a1c7b4488b652be9de8e382ca2e28406834))
+
 ## [1.49.2](https://github.com/milieuinfo/flux-web-components/compare/v1.49.1...v1.49.2) (2025-07-30)
 
 

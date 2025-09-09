@@ -1,6 +1,6 @@
 {
     "name": "flux-web-components",
-    "version": "1.49.2",
+    "version": "1.49.3",
     "author": "Flux <flux@omgeving.vlaanderen.be>",
     "license": "MIT",
     "scripts": {
