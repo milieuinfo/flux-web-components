@@ -27,6 +27,9 @@
             "@domg-wc/components/block": [
                 "libs/components/src/block/index.ts"
             ],
+            "@domg-wc/components/block/next": [
+                "libs/components/src/block/next/index.ts"
+            ],
             "@domg-wc/components/compliance": [
                 "libs/components/src/compliance/index.ts"
             ],

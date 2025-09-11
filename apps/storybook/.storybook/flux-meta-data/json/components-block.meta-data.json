@@ -478,6 +478,52 @@
             "documentation": "uitgebreid",
             "wcagLevel": "TODO",
             "jiraMeta": "FLUX-18"
+        },
+        "evolution": {
+            "vStatus": "v2-replace",
+            "legacyText": "vl-side-navigation",
+            "nextText": "[vl-side-navigation-next](/docs/components-block-next-side-navigation-next--documentatie)",
+            "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#side-navigation)"
+        }
+    },
+    "components-block-next-side-navigation-next": {
+        "name": "side-navigation",
+        "docs": "components-block-next-side-navigation-next--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-18"
+        },
+        "evolution": {
+            "vStatus": "v3-next",
+            "legacyText": "[vl-side-navigation](/docs/components-block-side-navigation--documentatie)",
+            "nextText": "vl-side-navigation-next",
+            "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#side-navigation)"
+        }
+    },
+    "components-block-next-side-navigation-layout": {
+        "name": "side-navigation-layout",
+        "docs": "components-block-next-side-navigation-layout--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "Flux",
+            "tests": [
+                "Component",
+                "Storybook"
+            ],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-18"
+        }, "evolution": {
+            "vStatus": "v3-next",
+            "legacyText": "[vl-side-navigation](/docs/components-block-side-navigation--documentatie)",
+            "nextText": "vl-side-navigation-layout",
+            "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#side-navigation)"
         }
     },
     "components-block-side-sheet": {

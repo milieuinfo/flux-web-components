@@ -20,12 +20,7 @@ const config: StorybookConfig = {
         '../../../libs/map/src/**/*.stories.@(js|jsx|ts|tsx)',
         '../../../libs/styles/src/**/*.stories.@(js|jsx|ts|tsx)',
     ],
-    addons: [
-        '@chromatic-com/storybook',
-        '@storybook/addon-docs',
-        '@storybook/addon-a11y',
-        '@storybook/addon-vitest'
-    ],
+    addons: ['@chromatic-com/storybook', '@storybook/addon-docs', '@storybook/addon-a11y', '@storybook/addon-vitest'],
     docs: {
         defaultName: 'documentatie',
     },
@@ -38,6 +33,10 @@ const config: StorybookConfig = {
             '@resources/utils-test': path.resolve(__dirname, '../../../resources/utils-test/index.ts'),
             '@domg-wc/common': path.resolve(__dirname, '../../../libs/common/src/index.ts'),
             '@domg-wc/components/atom': path.resolve(__dirname, '../../../libs/components/src/atom/index.ts'),
+            '@domg-wc/components/block/next': path.resolve(
+                __dirname,
+                '../../../libs/components/src/block/next/index.ts'
+            ),
             '@domg-wc/components/block': path.resolve(__dirname, '../../../libs/components/src/block/index.ts'),
             '@domg-wc/components/compliance/next': path.resolve(
                 __dirname,

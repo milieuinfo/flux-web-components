@@ -48,4 +48,3 @@ export { VlTooltipComponent } from './tooltip';
 export { VlTypography } from './typography';
 export { VlVideoPlayerComponent } from './video-player';
 export { VlWizard, VlWizardPane } from './wizard';
-
