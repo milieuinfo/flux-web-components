@@ -13,6 +13,7 @@ const componentsBlockWCMismatch = [
 const componentsBlockWTMismatch = [
     'vl-cascader', // in next folder - verwacht een  suffix, maar die is er niet voor deze componentsBlock
     'vl-cascader-item', // in next folder - verwacht een  suffix, maar die is er niet voor deze componentsBlock
+    'vl-side-navigation-next', // in next folder - naam komt niet overeen met bestandsnaam
     'vl-side-navigation-h1', // in vl-side-navigation-title.componentsBlock.ts
     'vl-side-navigation-h2', // in vl-side-navigation-title.componentsBlock.ts
     'vl-side-navigation-h3', // in vl-side-navigation-title.componentsBlock.ts

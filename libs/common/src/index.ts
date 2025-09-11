@@ -26,6 +26,7 @@ export {
     debounce,
     defineWebComponent,
     findDeepestElementThroughShadowRoot,
+    findElementsThroughShadowRoot,
     findNodesForSlot,
     hexToString,
     ifDefinedNumber,
@@ -42,4 +43,3 @@ export {
 
 // Legacy module exports
 export { legacyBreakpoint, legacyCore } from './util/legacy-initialisation';
-

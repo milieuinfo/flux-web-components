@@ -17,6 +17,8 @@ import { infotextArgTypes } from '../../../libs/components/src/block/infotext/st
 import { inputSliderArgTypes } from '../../../libs/components/src/block/input-slider/stories/vl-input-slider.stories-arg';
 import { loaderArgTypes } from '../../../libs/components/src/block/loader/stories/vl-loader.stories-arg';
 import { modalArgTypes } from '../../../libs/components/src/block/modal/stories/vl-modal.stories-arg';
+import { sideNavigationLayoutArgTypes } from '../../../libs/components/src/block/next/side-navigation/stories/vl-side-navigation-layout.stories-arg';
+import { sideNavigationArgTypes } from '../../../libs/components/src/block/next/side-navigation/stories/vl-side-navigation.stories-arg';
 import { pagerArgTypes } from '../../../libs/components/src/block/pager/stories/vl-pager.stories-arg';
 import { pillArgTypes } from '../../../libs/components/src/block/pill/stories/vl-pill.stories-arg';
 import { popoverArgTypes } from '../../../libs/components/src/block/popover/stories/vl-popover.stories-arg';
@@ -178,8 +180,20 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
     buildWTConfig('vl-search-result-text', null, null, '/docs/components-block-search-result--documentatie'),
     buildWTConfig('vl-search-result-properties', null, null, '/docs/components-block-search-result--documentatie'),
     buildWTConfig(
-        'vl-side-navigation',
+        'vl-side-navigation-next',
         null,
+        '../../libs/components/src/block/next/side-navigation/stories/vl-side-navigation.stories-doc.mdx',
+        '/docs/components-block-next-side-navigation-next--documentatie'
+    ),
+    buildWTConfig(
+        'vl-side-navigation-layout',
+        sideNavigationLayoutArgTypes,
+        '../../libs/components/src/block/next/side-navigation/stories/vl-side-navigation-layout.stories-doc.mdx',
+        '/docs/components-block-next-side-navigation-layout--documentatie'
+    ),
+    buildWTConfig(
+        'vl-side-navigation',
+        sideNavigationArgTypes,
         '../../libs/components/src/block/side-navigation/stories/vl-side-navigation.stories-doc.mdx',
         '/docs/components-block-side-navigation--documentatie'
     ),
