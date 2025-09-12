@@ -1,0 +1,5 @@
+:root {
+    --vl-side-sheet-width: 33.3333333333%;
+    --vl-side-sheet-width-mobile: calc(100vw - 56px);
+    --vl-toaster-width: 30rem;
+}

@@ -15,6 +15,7 @@ import { vlSectionStyles } from './layout/section/vl-section.css';
 import { vlSeparatorStyles } from './layout/separator/vl-separator.css';
 import { vlSpacerStyles } from './layout/spacer/vl-spacer.css';
 import { vlStackedStyles } from './layout/stacked/vl-stacked.css';
+import { vlComponentVars } from './theming/var/vl-components.css';
 
 export const vlLayoutStyles = [
     vlAccessibilityStyles,
@@ -35,6 +36,7 @@ export const vlGlobalStyles = [
     vlSpacingVars,
     vlTypographyVars,
     vlZLayerVars,
+    vlComponentVars,
     vlFontStyles,
     vlBodyStyles,
     ...vlLayoutStyles,
