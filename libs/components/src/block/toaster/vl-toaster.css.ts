@@ -3,8 +3,7 @@ import { css } from 'lit';
 export const toasterStyles = css`
     :host {
         position: fixed;
-        width: 100%;
-        max-width: 30rem;
+        width: var(--vl-toaster-width);
         top: 0;
         right: 0;
         z-index: var(--vl-z-layer--toaster);
@@ -13,6 +12,15 @@ export const toasterStyles = css`
         vl-alert {
             display: block;
             margin: 1rem 1rem 0 0;
+        }
+
+        @media (max-width: var(--vl-toaster-width)) {
+            width: 100%;
+
+            ::slotted(vl-alert),
+            vl-alert {
+                margin: 0;
+            }
         }
     }
 
@@ -23,6 +31,9 @@ export const toasterStyles = css`
         ::slotted(vl-alert),
         vl-alert {
             margin: 1rem 0 0 1rem;
+            @media (max-width: var(--vl-toaster-width)) {
+                margin: 0;
+            }
         }
     }
 
@@ -33,6 +44,9 @@ export const toasterStyles = css`
         ::slotted(vl-alert),
         vl-alert {
             margin: 0 1rem 1rem 0;
+            @media (max-width: var(--vl-toaster-width)) {
+                margin: 0;
+            }
         }
     }
 
@@ -45,6 +59,9 @@ export const toasterStyles = css`
         ::slotted(vl-alert),
         vl-alert {
             margin: 0 0 1rem 1rem;
+            @media (max-width: var(--vl-toaster-width)) {
+                margin: 0;
+            }
         }
     }
 

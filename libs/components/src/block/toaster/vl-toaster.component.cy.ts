@@ -65,6 +65,31 @@ describe('component - vl-toaster', () => {
         cy.get('vl-toaster').shouldHaveComputedStyle({ style: 'z-index', value: '10012' });
     });
 
+    it('should have default width', () => {
+        cy.mount(html` <vl-toaster></vl-toaster>`);
+
+        cy.get('vl-toaster').shouldHaveComputedStyle({ style: 'width', value: '300px' });
+    });
+
+    it('should have custom width', () => {
+        cy.mount(html`
+            <style>
+                aside {
+                    --vl-toaster-width: 50rem; /* 500px */
+                }
+            </style>
+            <main>
+                <vl-toaster></vl-toaster>
+            </main>
+            <aside>
+                <vl-toaster></vl-toaster>
+            </aside>
+        `);
+
+        cy.get('main vl-toaster').shouldHaveComputedStyle({ style: 'width', value: '300px' });
+        cy.get('aside vl-toaster').shouldHaveComputedStyle({ style: 'width', value: '500px' });
+    });
+
     it('should show a toast', () => {
         cy.mount(html`
             <vl-toaster>
