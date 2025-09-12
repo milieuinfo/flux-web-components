@@ -1,0 +1,278 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Recepten/Formattering" />
+
+# Formattering (Common)
+
+We bieden verschillende helper-functies aan voor het formatteren van getallen en datum‑/tijdwaarden,
+volgens de "nl-BE" locale.
+
+-   [formatNumber()](#formatnumber)
+-   [formatCurrency()](#formatcurrency)
+-   [formatDate()](#formatdate)
+-   [formatTime()](#formattime)
+-   [formatReadableDate()](#formatreadabledate)
+-   [formatDaysFromNow()](#formatdaysfromnow)
+-   [formatPercentage()](#formatpercentage)
+
+## formatNumber()
+
+```ts
+formatNumber(value: number, options?: {
+    decimals?: number | undefined;
+    thousandsSeparator?: string | undefined;
+} | undefined): string
+```
+
+### Gebruik
+
+`formatNumber` zet een numerieke waarde om naar de `nl-BE` notatie. Hierbij wordt een spatie gebruikt als
+scheidingsteken voor duizendtallen en een komma voor de decimalen.
+
+**Opmerking**: We wijken af van de browser implementatie van de `nl-BE` locale, omwille van deze richtlijnen:  
+- [https://www.vlaanderen.be/team-taaladvies/taaladviezen/getallen-en-geldbedragen-notatie-komma-punt-spatie](https://www.vlaanderen.be/team-taaladvies/taaladviezen/getallen-en-geldbedragen-notatie-komma-punt-spatie)
+- [https://taaladvies.net/10000000-of-10-000-000/](https://taaladvies.net/10000000-of-10-000-000/)
+
+Concreet kiezen we standaard voor een **spatie** (niet-breekbare spatie: `"\u00A0"`) zodra het getal langer is dan 4 
+cijfers. Dit is aanpasbaar met de optie `thousandsSeparator`. Bij valuta wordt voorkeur gegeven aan een **punt** als 
+scheidingsteken.
+
+De optie `decimals` geeft aan hoeveel decimalen er moeten verschijnen. Wanneer deze optie wordt meegegeven, werkt de 
+functie als [Number.toFixed()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed): 
+indien nodig worden er extra nullen aangevuld zodat precies het opgegeven aantal decimalen wordt bereikt. 
+Het afrondingsgedrag volgt dezelfde logica als [Math.round()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round).
+
+### Voorbeelden
+
+```ts
+import { formatNumber } from '@domg-wc/common';
+
+console.log(formatNumber(1234567));
+// output: '1 234 567'
+
+console.log(formatNumber(-42));
+// output: '-42'
+
+console.log(formatNumber(1234.56));
+// output: '1234,56'
+
+console.log(formatNumber(1234.5678, { decimals: 3 }));
+// output: '1234,568'
+
+console.log(formatNumber(1234.5678, { decimals: 0 }));
+// output: '1235'
+
+console.log(formatNumber(1000, { decimals: 2 }));
+// output: '1000,00'
+
+console.log(formatNumber(1234567.89, { thousandsSeparator: '.' }));
+// output: '1.234.567,89'
+
+console.log(formatNumber(1234567.89, { thousandsSeparator: '' }));
+// output: '1234567,89'
+```
+
+## formatCurrency()
+
+```ts
+formatCurrency(value: number, options?: {
+    decimals?: number | undefined;
+    currency?: string | undefined;
+} | undefined): string
+```
+
+### Gebruik
+
+`formatCurrency` formateert een getal als euro‑valuta (`"€"`). Het resultaat bevat een niet‑breekbare spatie (`"\u00A0"`) tussen het valutateken en het getal. Standaard worden twee decimalen getoond en is de valuta euro.
+
+De optie `decimals` geeft aan hoeveel decimalen er moeten verschijnen. Wanneer deze optie wordt meegegeven, werkt de functie als [Number.toFixed()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toFixed): indien nodig worden er extra nullen aangevuld zodat precies het opgegeven aantal decimalen wordt bereikt. Het afrondingsgedrag volgt dezelfde logica als [Math.round()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round).
+
+De optie `currency` laat toe om een andere valuta (ISO-code) te kiezen.
+
+### Voorbeelden
+
+```ts
+import { formatCurrency } from '@domg-wc/common';
+
+console.log(formatCurrency(1234.5));
+// output: '€ 1.234,50'
+
+console.log(formatCurrency(1234.5678, { decimals: 3 }));
+// output: '€ 1.234,568'
+
+console.log(formatCurrency(1234.5678, { decimals: 0 }));
+// output: '€ 1.235'
+
+console.log(formatCurrency(1234.5, { currency: 'GBP' }));
+// output: '£ 1.234,50'
+```
+
+## formatDate()
+
+```ts
+formatDate(date: Date, options?: {
+    fullYear: boolean;
+} | undefined): string
+```
+
+### Gebruik
+
+`formatDate` converteert een Date‑object naar een korte datumweergave `"DD.MM.YY"`.
+
+De optie `fullYear` laat toe om het volledige jaartal weer te geven (`"DD.MM.YYYY"`).
+
+**Opmerking**: We wijken af van de browser implementatie van de `nl-BE` locale, omwille van deze richtlijn:  
+- [https://www.vlaanderen.be/vlaanderen-design-system/richtlijnen/formulieren/datum](https://www.vlaanderen.be/vlaanderen-design-system/richtlijnen/formulieren/datum)
+
+Concreet kiezen we standaard voor een **punt**. Dit is aanpasbaar met de optie `dateSeparator`.
+
+Bij een ongeldig argument (geen Date‑instantie) retourneert de functie de oorspronkelijke invoer als string.
+
+### Voorbeelden
+
+```ts
+import { formatDate } from '@domg-wc/common';
+
+const d = new Date('2025-03-15T13:05:09Z');
+
+console.log(formatDate(d));
+// output: '15.03.25'
+
+console.log(formatDate(d, { fullYear: true }));
+// output: '15.03.2025'
+
+console.log(formatDate(d, { dateSeparator: '/' }));
+// output: '15/03/25'
+
+console.log(formatDate(d, { fullYear: true, dateSeparator: '-' }));
+// output: '15-03-2025'
+
+console.log(formatDate(1234));
+// output: '1234' (ongeldige invoer wordt onveranderd teruggegeven)
+```
+
+## formatTime()
+
+```ts
+formatTime(date: Date, options?: {
+    seconds: boolean;
+} | undefined): string
+```
+
+### Gebruik
+
+`formatTime` geeft de tijd van een Date‑object weer in 24‑uur‑formaat `"HH:mm"`.
+
+De optie `seconds` laat toe om de secondes weer te geven(`"HH:mm:ss"`).
+
+Bij een ongeldig argument (geen Date‑instantie) retourneert de functie de oorspronkelijke invoer als string.
+
+### Voorbeelden
+
+```ts
+import { formatTime } from '@domg-wc/common';
+
+const d = new Date('2025-03-15T13:05:09Z'); // UTC → CET (+1 uur)
+
+console.log(formatTime(d));
+// output: '14:05'
+
+console.log(formatTime(d, { seconds: true }));
+// output: '14:05:09'
+
+console.log(formatTime(1234));
+// output: '1234' (ongeldige invoer wordt onveranderd teruggegeven)
+```
+
+## formatReadableDate()
+
+```ts
+formatReadableDate(date: Date): string
+```
+
+### Gebruik
+
+`formatReadableDate` converteert een Date‑object naar een tekstuele datumweergave (bv. donderdag 25 december 2025).
+
+Bij een ongeldig argument (geen Date‑instantie) retourneert de functie de oorspronkelijke invoer als string.
+
+### Voorbeelden
+
+```ts
+import { formatReadableDate } from '@domg-wc/common';
+
+console.log(formatReadableDate(new Date('2025-12-25T00:00:00Z')));
+// output: 'donderdag 25 december 2025'
+
+console.log(formatReadableDate(1234));
+// output: '1234' (ongeldige invoer wordt onveranderd teruggegeven)
+```
+
+## formatDaysFromNow()
+
+```ts
+formatDaysFromNow(date: Date): string
+```
+
+### Gebruik
+
+`formatDaysFromNow` geeft een relatieve datumbeschrijving van het Date-object ten opzichte van "vandaag".
+
+### Voorbeelden
+
+```ts
+import { formatDaysFromNow } from '@domg-wc/common';
+
+const msPerDay = 24 * 60 * 60 * 1000;
+
+console.log(formatDaysFromNow(new Date(Date.now() - 1 * msPerDay)));
+// output: 'gisteren'
+
+console.log(formatDaysFromNow(new Date(Date.now() - 2 * msPerDay)));
+// output: 'eergisteren'
+
+console.log(formatDaysFromNow(new Date(Date.now() - 3 * msPerDay)));
+// output: '3 dagen geleden'
+
+console.log(formatDaysFromNow(new Date(Date.now() + 1 * msPerDay)));
+// output: 'morgen'
+
+console.log(formatDaysFromNow(new Date(Date.now() + 2 * msPerDay)));
+// output: 'overmorgen'
+
+console.log(formatDaysFromNow(new Date(Date.now() + 5 * msPerDay)));
+// output: 'over 5 dagen'
+
+console.log(formatDaysFromNow(1));
+// output: '1' (ongeldige invoer wordt onveranderd teruggegeven)
+```
+
+## formatPercentage()
+
+```ts
+formatPercentage(value: number, options?: {
+    decimals?: number | undefined;
+    thousandsSeparator?: string | undefined;
+} | undefined): string
+```
+
+### Gebruik
+
+`formatPercentage` converteert een decimale waarde naar een percentage‑string.
+
+De opties `decimals` en `thousandsSeparator` werken op dezelfde manier als bij [formatNumber()](#formatnumber).
+
+### Voorbeelden
+
+```ts
+import { formatPercentage } from '@domg-wc/common';
+
+console.log(formatPercentage(0.1234));
+// output: '12%'
+
+console.log(formatPercentage(0.1234, 2));
+// output: '12,34%'
+
+console.log(formatPercentage(0.5, 2));
+// output: '50,00%'
+```

@@ -1,4 +1,4 @@
-import { BaseLitElement, throttle, webComponent } from '@domg-wc/common';
+import { BaseLitElement, formatNumber, throttle, webComponent } from '@domg-wc/common';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import infotextStyle from './vl-infotext.css';
@@ -91,7 +91,7 @@ export class VlInfotextComponent extends BaseLitElement {
             return value || '';
         }
 
-        return Intl.NumberFormat('nl-BE').format(Number(value));
+        return formatNumber(Number(value));
     }
 
     private getCustomFontSize = (textLength = 0): string => {
