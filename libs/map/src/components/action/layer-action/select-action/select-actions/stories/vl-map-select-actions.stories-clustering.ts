@@ -39,9 +39,9 @@ const featuresLayer2 = {
 const layers = ['layer-1', 'layer-2'];
 
 export const component = (active: boolean, defaultActive: boolean) => html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
-        <vl-map-features-layer .features=${featuresLayer1} data-vl-name="layer-1">
+        <vl-map-features-layer .features=${featuresLayer1} data-vl-name="layer-1" projection-code="EPSG:31370">
             <vl-map-layer-circle-style data-vl-border-color="#000000"></vl-map-layer-circle-style>
         </vl-map-features-layer>
         <vl-map-features-layer
@@ -49,6 +49,7 @@ export const component = (active: boolean, defaultActive: boolean) => html`
             data-vl-name="layer-2"
             data-vl-cluster
             data-vl-cluster-distance="100"
+            projection-code="EPSG:31370"
         >
             <vl-map-layer-circle-style
                 data-vl-color="rgba(255, 230, 21, 1)"

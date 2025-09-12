@@ -27,7 +27,7 @@ export default {
 export const MapClickActionDefault = story(
     mapClickActionArg,
     ({ onMapClicked }) => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-click-action @vl-map-clicked=${onMapClicked}></vl-map-click-action>
         </vl-map>

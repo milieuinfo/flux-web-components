@@ -17,7 +17,7 @@ registerWebComponents([VlMap, VlMapBaseLayerGRB, VlMapSearch]);
 const mapSearchFixture = html` <vl-map-search></vl-map-search> `;
 
 const mapWithSearchFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-baselayer-grb></vl-map-baselayer-grb>
         <vl-map-search></vl-map-search>
     </vl-map>
@@ -25,7 +25,7 @@ const mapWithSearchFixture = html`
 
 const standaloneVlMapSearchFixture = html`
     <div>
-        <vl-map></vl-map>
+        <vl-map lambert2008></vl-map>
         <vl-map-search></vl-map-search>
     </div>
 `;
@@ -85,10 +85,10 @@ describe('vl-map-search', () => {
             selectLocationSuggestion(0, getSelectLocationComponent).should(
                 () =>
                     expect(onSelectSpy).to.be.calledWith([
-                        locationAntwerpen1.BoundingBox.LowerLeft.X_Lambert72,
-                        locationAntwerpen1.BoundingBox.LowerLeft.Y_Lambert72,
-                        locationAntwerpen1.BoundingBox.UpperRight.X_Lambert72,
-                        locationAntwerpen1.BoundingBox.UpperRight.Y_Lambert72,
+                        locationAntwerpen1.BoundingBox.LowerLeft.X_Lambert2008,
+                        locationAntwerpen1.BoundingBox.LowerLeft.Y_Lambert2008,
+                        locationAntwerpen1.BoundingBox.UpperRight.X_Lambert2008,
+                        locationAntwerpen1.BoundingBox.UpperRight.Y_Lambert2008,
                     ]) && expect(onZoomSpy).not.to.be.called
             );
         });

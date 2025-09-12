@@ -6,7 +6,7 @@ import { VlMapSideSheet } from './vl-map-side-sheet';
 registerWebComponents([VlMap, VlMapSideSheet]);
 
 const mapSideSheetFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-side-sheet></vl-map-side-sheet>
     </vl-map>
 `;

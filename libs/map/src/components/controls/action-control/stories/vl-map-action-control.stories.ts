@@ -31,7 +31,7 @@ export default {
 const Template = story(
     mapActionControlArgs,
     ({ actionId, icon, label, defaultActive }) => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-features-layer>
                 <vl-map-draw-polygon-action id=${actionId}></vl-map-draw-polygon-action>
@@ -70,11 +70,10 @@ MapActionControlIcon.args = {
     icon: 'pencil',
 };
 
-
 export const MapActionControlMultiple = story(
     {},
     () => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-features-layer>
                 <vl-map-draw-polygon-action id="draw-action"></vl-map-draw-polygon-action>

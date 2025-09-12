@@ -25,7 +25,7 @@ export default {
 export const MapBaselayerGrbGrayDefault = story(
     {},
     () => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
         </vl-map>
     `
@@ -35,7 +35,7 @@ MapBaselayerGrbGrayDefault.storyName = 'vl-map-baselayer-grb-gray - default';
 export const MapBaselayerGrbGrayBackgroundLayer = story(
     {},
     () => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray data-vl-background-layer></vl-map-baselayer-grb-gray>
         </vl-map>
     `

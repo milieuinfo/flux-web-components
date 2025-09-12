@@ -1,11 +1,11 @@
-import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlMapLegend } from '../legend/vl-map-legend';
+import { html } from 'lit';
 import { VlMap } from '../../vl-map';
-import { VlMapWfsLayer } from '../layer/vector-layer/vl-map-wfs-layer/vl-map-wfs-layer';
 import { VlMapBaseLayerGRBGray } from '../baselayer/vl-map-base-layer-grb-gray/vl-map-base-layer-grb-gray';
 import { VlMapLayerCircleStyle } from '../layer-style/vl-map-layer-circle-style/vl-map-layer-circle-style';
 import { VlMapFeaturesLayer } from '../layer/vector-layer/vl-map-features-layer/vl-map-features-layer';
+import { VlMapWfsLayer } from '../layer/vector-layer/vl-map-wfs-layer/vl-map-wfs-layer';
+import { VlMapLegend } from '../legend/vl-map-legend';
 import { VlMapLegendItem } from './vl-map-legend-item';
 
 registerWebComponents([
@@ -35,11 +35,12 @@ const legendItem = `
 describe('component vl-map-legend-item', () => {
     beforeEach(() => {
         cy.mount(html`
-            <vl-map>
+            <vl-map lambert2008>
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
                 <vl-map-features-layer
                     data-vl-name="Shapes"
                     features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[153055,203908]},"properties":{"styleId":"style-1"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[141000,200908]},"properties":{"styleId":"style-2"}},{"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[147055,197908],[157055,197908],[157055,187908],[147055,187908],[147055,197908]]]},"properties":{"styleId":"style-3"}}]}'
+                    projection-code="EPSG:31370"
                 >
                     <vl-map-layer-circle-style
                         id="style-1"

@@ -94,26 +94,51 @@ export class VlSelectLocationComponent extends VlSelectRichComponent {
         if (!value) return undefined;
 
         if (isLocation(value)) {
-            return Promise.resolve([
-                value.BoundingBox.LowerLeft.X_Lambert72,
-                value.BoundingBox.LowerLeft.Y_Lambert72,
-                value.BoundingBox.UpperRight.X_Lambert72,
-                value.BoundingBox.UpperRight.Y_Lambert72,
-            ]);
+            return Promise.resolve(
+                this.isLambert2008
+                    ? [
+                          value.BoundingBox.LowerLeft.X_Lambert2008,
+                          value.BoundingBox.LowerLeft.Y_Lambert2008,
+                          value.BoundingBox.UpperRight.X_Lambert2008,
+                          value.BoundingBox.UpperRight.Y_Lambert2008,
+                      ]
+                    : [
+                          value.BoundingBox.LowerLeft.X_Lambert72,
+                          value.BoundingBox.LowerLeft.Y_Lambert72,
+                          value.BoundingBox.UpperRight.X_Lambert72,
+                          value.BoundingBox.UpperRight.Y_Lambert72,
+                      ]
+            );
         } else if (isCoord(value) && LambertCoordinaat.isLambertCoordinaat(value)) {
             return Promise.resolve([value.x - 1, value.y - 1, value.x + 1, value.y + 1]);
         } else if (typeof value === 'string') {
             return fetch(this.locationUrl + encodeURIComponent(value))
                 .then((response) => response.json() as Promise<LocationData>)
-                .then(({ LocationResult }) => [
-                    LocationResult[0].BoundingBox.LowerLeft.X_Lambert72,
-                    LocationResult[0].BoundingBox.LowerLeft.Y_Lambert72,
-                    LocationResult[0].BoundingBox.UpperRight.X_Lambert72,
-                    LocationResult[0].BoundingBox.UpperRight.Y_Lambert72,
-                ]);
+                .then(({ LocationResult }) =>
+                    this.isLambert2008
+                        ? [
+                              LocationResult[0].BoundingBox.LowerLeft.X_Lambert2008,
+                              LocationResult[0].BoundingBox.LowerLeft.Y_Lambert2008,
+                              LocationResult[0].BoundingBox.UpperRight.X_Lambert2008,
+                              LocationResult[0].BoundingBox.UpperRight.Y_Lambert2008,
+                          ]
+                        : [
+                              LocationResult[0].BoundingBox.LowerLeft.X_Lambert72,
+                              LocationResult[0].BoundingBox.LowerLeft.Y_Lambert72,
+                              LocationResult[0].BoundingBox.UpperRight.X_Lambert72,
+                              LocationResult[0].BoundingBox.UpperRight.Y_Lambert72,
+                          ]
+                );
         }
 
         return undefined;
+    }
+
+    /**
+     * Voorlopig is dit een opt-in attribuut. In de toekomst wordt Lambert 2008 de default.
+     */
+    private get isLambert2008(): boolean {
+        return this.hasAttribute('lambert2008');
     }
 }
 

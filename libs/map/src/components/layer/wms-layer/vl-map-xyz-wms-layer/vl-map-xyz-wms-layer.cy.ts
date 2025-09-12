@@ -6,11 +6,8 @@ import { VlMapXYZWmsLayer } from './vl-map-xyz-wms-layer';
 registerWebComponents([VlMap, VlMapXYZWmsLayer]);
 
 const xyzWmsLayerFixture = html`
-    <vl-map>
-        <vl-map-xyz-wms-layer
-            data-vl-url="http://dummy/{z}/{x}/{y}"
-            data-vl-name="dummy"
-        ></vl-map-xyz-wms-layer>
+    <vl-map lambert2008>
+        <vl-map-xyz-wms-layer data-vl-url="http://dummy/{z}/{x}/{y}" data-vl-name="dummy"></vl-map-xyz-wms-layer>
     </vl-map>
 `;
 

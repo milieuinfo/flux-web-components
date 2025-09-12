@@ -107,16 +107,16 @@ export default story(mapLegendArgs, ({ bottom, left, placement, right, top, layo
         ],
     };
 
-    return html` <vl-map>
+    return html` <vl-map lambert2008>
         <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
         <vl-map-action-controls>
             <vl-map-measure-control></vl-map-measure-control>
         </vl-map-action-controls>
-        <vl-map-features-layer data-vl-name="Measurements">
+        <vl-map-features-layer data-vl-name="Measurements" projection-code="EPSG:31370">
             <vl-map-layer-style data-vl-border-size="2"></vl-map-layer-style>
             <vl-map-measure-action></vl-map-measure-action>
         </vl-map-features-layer>
-        <vl-map-features-layer .features=${features1} data-vl-name="Openbare onderzoeken">
+        <vl-map-features-layer .features=${features1} data-vl-name="Openbare onderzoeken" projection-code="EPSG:31370">
             <vl-map-layer-circle-style
                 data-vl-color="#ffe615"
                 data-vl-size="10"
@@ -126,7 +126,7 @@ export default story(mapLegendArgs, ({ bottom, left, placement, right, top, layo
                 data-vl-text-size="bold 14px"
             ></vl-map-layer-circle-style>
         </vl-map-features-layer>
-        <vl-map-features-layer .features=${features2} data-vl-name="Beslissingen">
+        <vl-map-features-layer .features=${features2} data-vl-name="Beslissingen" projection-code="EPSG:31370">
             <vl-map-layer-circle-style
                 data-vl-color="red"
                 data-vl-size="10"
@@ -136,7 +136,7 @@ export default story(mapLegendArgs, ({ bottom, left, placement, right, top, layo
                 data-vl-text-size="bold 14px"
             ></vl-map-layer-circle-style>
         </vl-map-features-layer>
-        <vl-map-features-layer .features=${features3} data-vl-name="Wateroppervlaktes">
+        <vl-map-features-layer .features=${features3} data-vl-name="Wateroppervlaktes" projection-code="EPSG:31370">
             <vl-map-layer-circle-style
                 data-vl-color="green"
                 data-vl-size="10"

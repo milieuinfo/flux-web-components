@@ -55,7 +55,7 @@ export const MapLoadingIndicatorDefault = story(
                 Fake lang wachten
             </vl-button-next>
         </div>
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-loading-indicator></vl-map-loading-indicator>
         </vl-map>

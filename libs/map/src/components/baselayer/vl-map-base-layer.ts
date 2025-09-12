@@ -1,18 +1,21 @@
 import { BaseElementOfType, webComponent } from '@domg-wc/common-utilities';
 import * as OlExtent from 'ol/extent';
 import OlGeoJSON from 'ol/format/GeoJSON';
+import { Layer, Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
+import Group from 'ol/layer/Group';
 import * as OlLoadingstrategy from 'ol/loadingstrategy';
-import { XYZ, TileWMS, WMTS, Vector as VectorSource } from 'ol/source';
+import { Projection } from 'ol/proj';
+import { TileWMS, Vector as VectorSource, WMTS, XYZ } from 'ol/source';
+import type { Options as WMSOptions } from 'ol/source/TileWMS';
+import type { Options as VectorOptions } from 'ol/source/Vector';
+import type { Options as WMTSOptions } from 'ol/source/WMTS';
+import type { Options as XYZOptions } from 'ol/source/XYZ';
 import OlStyleFill from 'ol/style/Fill';
 import OlStyleStroke from 'ol/style/Stroke';
 import OlStyle from 'ol/style/Style';
 import OlWMTSTileGrid from 'ol/tilegrid/WMTS';
-import Group from 'ol/layer/Group';
-import { Layer, Tile as TileLayer, Vector as VectorLayer } from 'ol/layer';
-import type { Options as XYZOptions } from 'ol/source/XYZ';
-import type { Options as WMSOptions } from 'ol/source/TileWMS';
-import type { Options as WMTSOptions } from 'ol/source/WMTS';
-import type { Options as VectorOptions } from 'ol/source/Vector';
+import { getLambert2008Code, getLambert72Code } from '../../utils/capabilities';
+import { VlMap } from '../../vl-map';
 
 type BackgroundLayerType = 'xyz' | 'wms' | 'wmts' | 'vector';
 type BackgroundLayerOptions = XYZOptions | WMSOptions | WMTSOptions | VectorOptions;
@@ -79,10 +82,11 @@ export class VlMapBaseLayer extends BaseElementOfType(HTMLElement) {
         }
     }
 
-    get _projection() {
-        if (this.parentNode) {
+    get _projection(): Projection | undefined {
+        if (this.parentNode && this.parentNode instanceof VlMap) {
             return this.parentNode._projection;
         }
+        return undefined;
     }
 
     get _WMTSSource() {
@@ -121,6 +125,21 @@ export class VlMapBaseLayer extends BaseElementOfType(HTMLElement) {
         }
     }
 
+    get _extent(): OlExtent.Extent | undefined {
+        return this._projection?.getExtent();
+    }
+
+    get _matrixSet(): string {
+        switch (this._projection?.getCode()) {
+            case getLambert2008Code():
+                return 'BPL2008VL';
+            case getLambert72Code():
+                return 'BPL72VL';
+            default:
+                return 'WGS84VL';
+        }
+    }
+
     _configureMap() {
         if (this._map) {
             this._map.addBaseLayerAndOverlayMapLayer(this._createBaseLayer(), this._createBaseLayer());
@@ -128,7 +147,7 @@ export class VlMapBaseLayer extends BaseElementOfType(HTMLElement) {
     }
 
     _createWMTSSource() {
-        const size = OlExtent.getWidth(this._projection.getExtent()) / 256;
+        const size = OlExtent.getWidth(this._extent) / 256;
         const resolutions = new Array(16);
         const matrixIds = new Array(16);
         for (let z = 0; z < 16; ++z) {
@@ -139,12 +158,12 @@ export class VlMapBaseLayer extends BaseElementOfType(HTMLElement) {
         return new WMTS({
             url: this.url,
             layer: this.layer,
-            matrixSet: 'BPL72VL',
+            matrixSet: this._matrixSet,
             format: 'image/png',
             projection: this._projection,
             tileGrid: new OlWMTSTileGrid({
-                extent: this._projection.getExtent(),
-                origin: OlExtent.getTopLeft(this._projection.getExtent()),
+                extent: this._extent,
+                origin: OlExtent.getTopLeft(this._extent),
                 resolutions,
                 matrixIds,
             }),

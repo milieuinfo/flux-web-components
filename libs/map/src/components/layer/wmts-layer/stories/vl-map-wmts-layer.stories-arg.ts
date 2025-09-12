@@ -1,13 +1,13 @@
 import { CATEGORIES, TYPES } from '@domg-wc/common-storybook';
-import { mapLayerArgs, mapLayerArgTypes } from '../../stories/vl-map-layer.stories-arg';
 import { ArgTypes } from '@storybook/web-components';
+import { mapLayerArgs, mapLayerArgTypes } from '../../stories/vl-map-layer.stories-arg';
 
 export const mapWmtsLayerArgs = {
     ...mapLayerArgs,
     layer: '',
     url: '',
-    matrixSet: 'BPL72VL',
-    matrixPrefix: false
+    matrixSet: 'BPL2008VL',
+    matrixPrefix: false,
 };
 
 export const mapWmtsLayerArgTypes: ArgTypes<typeof mapWmtsLayerArgs> = {

@@ -10,6 +10,7 @@ import { VlMapFeaturesLayer } from './components/layer/vector-layer/vl-map-featu
 import { VlMapWfsLayer } from './components/layer/vector-layer/vl-map-wfs-layer/vl-map-wfs-layer';
 import { VlMapLayer } from './components/layer/vl-map-layer';
 import { VlMapWmsLayer } from './components/layer/wms-layer/vl-map-wms-layer';
+import { getLambert2008Code, getLambert2008Extent, getLambert72Code, getLambert72Extent } from './utils/capabilities';
 import { EVENT } from './vl-map.model';
 import vlMapStyles from './vl-map.uig-css';
 
@@ -34,6 +35,7 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
           </div>
         `);
 
+        this.__initializeCoordinateSystem();
         this.__prepareReadyPromises();
     }
 
@@ -124,21 +126,34 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
 
     get _projection() {
         return new OlProjection({
-            code: 'EPSG:31370',
+            code: this._code,
             extent: this._extent,
-            getPointResolution: (r) => r,
         });
     }
 
+    /**
+     * Voorlopig is dit een opt-in attribuut. In de toekomst wordt Lambert 2008 de default.
+     */
+    get isLambert2008() {
+        return this.hasAttribute('lambert2008');
+    }
+
+    get _code() {
+        return this.isLambert2008 ? getLambert2008Code() : getLambert72Code();
+    }
+
     get _extent() {
-        return [9928, 66928, 272072, 329072];
+        return this.isLambert2008 ? getLambert2008Extent() : getLambert72Extent();
     }
 
     connectedCallback() {
         super.connectedCallback();
 
         this.__initializeCoordinateSystem();
+        this._initializeMap();
+    }
 
+    _initializeMap() {
         this._map = new VlCustomMap({
             actions: [],
             disableEscapeKey: this.disableEscapeKey,
@@ -383,9 +398,15 @@ export class VlMap extends BaseElementOfType(HTMLElement) {
     }
 
     __initializeCoordinateSystem() {
+        // Lambert 78
         proj4.defs(
             'EPSG:31370',
             '+proj=lcc +lat_1=51.16666723333333 +lat_2=49.8333339 +lat_0=90 +lon_0=4.367486666666666 +x_0=150000.013 +y_0=5400088.438 +ellps=intl +towgs84=-106.869,52.2978,-103.724,0.3366,-0.457,1.8422,-1.2747 +units=m +no_defs'
+        );
+        // Lambert 2008
+        proj4.defs(
+            'EPSG:3812',
+            '+proj=lcc +lat_0=50.797815 +lon_0=4.35921583333333 +lat_1=49.8333333333333 +lat_2=51.1666666666667 +x_0=649328 +y_0=665262 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs'
         );
         register(proj4);
     }

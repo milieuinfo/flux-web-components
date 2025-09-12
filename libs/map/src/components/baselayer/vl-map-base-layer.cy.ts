@@ -9,7 +9,7 @@ import { VlMapBaseLayer } from './vl-map-base-layer';
 registerWebComponents([VlMap, VlMapBaseLayer]);
 
 const baselayerFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-baselayer
             data-vl-url="https://localhost"
             data-vl-layer="layername_1"
@@ -19,7 +19,7 @@ const baselayerFixture = html`
 `;
 
 const baselayerWmtsFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-baselayer
             data-vl-url="https://localhost/wmts"
             data-vl-layer="layername_2"
@@ -30,7 +30,7 @@ const baselayerWmtsFixture = html`
 `;
 
 const baselayerWfsFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-baselayer
             data-vl-url="https://localhost/wfs"
             data-vl-layer="layername_3"
@@ -77,13 +77,13 @@ describe('vl-map-baselayer', () => {
             expect((source as any).urls).to.be.lengthOf(1);
             expect((source as any).urls[0]).to.be.equal('https://localhost/wmts');
             expect(source.getLayer()).to.be.equal('layername_2');
-            expect(source.getMatrixSet()).to.be.equal('BPL72VL');
+            expect(source.getMatrixSet()).to.be.equal('BPL2008VL');
             expect(source.getFormat()).to.be.equal('image/png');
             expect(JSON.stringify(source.getProjection())).to.be.equal(JSON.stringify(vlMapBaseLayer._projection));
             expect(source.getStyle()).to.be.equal('');
             const tileGrid = source.getTileGrid();
             expect(tileGrid).to.be.instanceof(OlWMTSTileGrid);
-            expect((tileGrid as any).getOrigin()).to.deep.equal([9928, 329072]);
+            expect((tileGrid as any).getOrigin()).to.deep.equal([500000, 800000]);
             expect(tileGrid.getResolutions()).to.deep.equal([
                 1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1, 0.5, 0.25, 0.125, 0.0625, 0.03125,
             ]);

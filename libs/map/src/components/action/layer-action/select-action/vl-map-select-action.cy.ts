@@ -11,7 +11,7 @@ import { VlMapSelectAction } from './vl-map-select-action';
 registerWebComponents([VlMap, VlMapFeaturesLayer, VlMapSelectAction, VlMapLayerStyle, VlTestCustomMapSelectAction]);
 
 const mapSelectActionFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer>
             <vl-map-select-action>
                 <vl-map-layer-style
@@ -25,7 +25,7 @@ const mapSelectActionFixture = html`
 `;
 
 const customMapSelectActionFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer>
             <vl-custom-map-select-action>
                 <vl-map-layer-style

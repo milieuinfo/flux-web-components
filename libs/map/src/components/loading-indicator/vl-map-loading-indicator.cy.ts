@@ -8,7 +8,7 @@ import { VlMapLoadingIndicator } from './vl-map-loading-indicator';
 registerWebComponents([VlMap, VlMapLoadingIndicator, VlMapBaseLayerGRBGray]);
 
 const loadingIndicatorFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
         <vl-map-loading-indicator></vl-map-loading-indicator>
     </vl-map>

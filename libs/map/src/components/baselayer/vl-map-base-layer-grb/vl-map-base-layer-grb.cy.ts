@@ -6,7 +6,7 @@ import { VlMapBaseLayerGRB } from './vl-map-base-layer-grb';
 registerWebComponents([VlMap, VlMapBaseLayerGRB]);
 
 const baselayerGrbFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-baselayer-grb></vl-map-baselayer-grb>
     </vl-map>
 `;

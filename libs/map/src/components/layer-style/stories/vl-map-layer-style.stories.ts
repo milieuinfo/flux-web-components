@@ -59,9 +59,9 @@ const Template = story(
             ],
         };
 
-        return html` <vl-map>
+        return html` <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
-            <vl-map-features-layer .features=${features}>
+            <vl-map-features-layer .features=${features} projection-code="EPSG:31370">
                 <vl-map-layer-style
                     data-vl-border-color=${borderColor}
                     data-vl-border-size=${borderSize}
@@ -130,9 +130,9 @@ export const MapLayerStyleLegend = story(
             ],
         };
 
-        return html` <vl-map>
+        return html` <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
-            <vl-map-features-layer .features=${features}>
+            <vl-map-features-layer .features=${features} projection-code="EPSG:31370">
                 <vl-map-layer-style
                     data-vl-border-color=${borderColor}
                     data-vl-border-size=${borderSize}

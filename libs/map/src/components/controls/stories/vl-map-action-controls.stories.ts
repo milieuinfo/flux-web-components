@@ -29,7 +29,7 @@ export default {
 export const MapActionControlsDefault = story(
     {},
     () => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-features-layer>
                 <vl-map-draw-polygon-action id="draw-action"></vl-map-draw-polygon-action>

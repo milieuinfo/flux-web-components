@@ -2,6 +2,7 @@ import { BaseElementOfType, registerWebComponents, webComponent } from '@domg-wc
 import { VlSearchComponent } from '@domg-wc/components';
 import { SELECT_POSITION, vlElementsStyle, VlSelect } from '@domg-wc/elements';
 import OlOverlay from 'ol/Overlay';
+import { VlMap } from '../../vl-map';
 import { VlSelectLocationComponent } from '../next/select-location/vl-select-location';
 
 @webComponent('vl-map-search')
@@ -44,7 +45,9 @@ export class VlMapSearch extends BaseElementOfType(HTMLElement) {
             }
           </style>
           <vl-search id="search" data-vl-inline>
-            <vl-select-location-next slot="input" not-deletable position=${SELECT_POSITION.BOTTOM}></vl-select-location-next>
+            <vl-select-location-next slot="input" not-deletable position=${
+                SELECT_POSITION.BOTTOM
+            }></vl-select-location-next>
           </vl-search>
         `);
         this.configure();
@@ -53,6 +56,10 @@ export class VlMapSearch extends BaseElementOfType(HTMLElement) {
     connectedCallback() {
         this.addEventListener('vl-input', this.changeLocation);
         this.addEventListener('keypress', this.stopPropagation);
+
+        if (this.map?.isLambert2008) {
+            this._selectElement.setAttribute('lambert2008', '');
+        }
     }
 
     get _selectElement() {
@@ -61,6 +68,14 @@ export class VlMapSearch extends BaseElementOfType(HTMLElement) {
 
     bindMap(map) {
         this._map = map;
+
+        if (map.isLambert2008) {
+            this._selectElement.setAttribute('lambert2008', '');
+        }
+    }
+
+    get map() {
+        return this._map || (this.parentNode && this.parentNode instanceof VlMap ? this.parentNode : null);
     }
 
     /**

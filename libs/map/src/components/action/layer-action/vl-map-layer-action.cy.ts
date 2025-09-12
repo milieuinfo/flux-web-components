@@ -20,7 +20,7 @@ describe('vl-map-layer-action', () => {
     it('de actie wordt standaard gekoppeld aan de kaartlaag waarin gedeclareerd', () => {
         const createActionStub = cy.stub(VlMapLayerAction.prototype, '_createAction').returns(<any>action);
         cy.mount(html`
-            <vl-map>
+            <vl-map lambert2008>
                 <vl-map-features-layer>
                     <vl-map-layer-action></vl-map-layer-action>
                 </vl-map-features-layer>
@@ -39,7 +39,7 @@ describe('vl-map-layer-action', () => {
     it('de actie kaartlaag koppeling kan gebeuren via een attribuut', () => {
         const createActionStub = cy.stub(VlMapLayerAction.prototype, '_createAction').returns(<any>action);
         cy.mount(html`
-            <vl-map>
+            <vl-map lambert2008>
                 <vl-map-features-layer data-vl-name="layer"></vl-map-features-layer>
                 <vl-map-layer-action data-vl-layer="layer"></vl-map-layer-action>
             </vl-map>
@@ -56,7 +56,7 @@ describe('vl-map-layer-action', () => {
     it('de actie kaartlaag kan gezet worden zodat één actie voor meerdere kaartlagen gebruikt kan worden', () => {
         cy.stub(VlMapLayerAction.prototype, '_createAction').returns(<any>action);
         cy.mount(html`
-            <vl-map>
+            <vl-map lambert2008>
                 <vl-map-features-layer></vl-map-features-layer>
                 <vl-map-layer-action></vl-map-layer-action>
             </vl-map>

@@ -75,9 +75,9 @@ export const MapModifyActionDefault = story(mapModifyActionArgs, ({ active, defa
     };
 
     return html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
-            <vl-map-features-layer .features=${features}>
+            <vl-map-features-layer .features=${features} projection-code="EPSG:31370">
                 <vl-map-modify-action .active=${active} ?data-vl-default-active=${defaultActive}></vl-map-modify-action>
                 <vl-map-layer-style data-vl-border-size="2"></vl-map-layer-style>
                 <vl-map-layer-circle-style data-vl-border-size="2"></vl-map-layer-circle-style>
@@ -108,9 +108,9 @@ export const MapModifyActionSnapping = story(
         };
 
         return html`
-            <vl-map>
+            <vl-map lambert2008>
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
-                <vl-map-features-layer .features=${features}>
+                <vl-map-features-layer .features=${features} projection-code="EPSG:31370">
                     <vl-map-modify-action
                         .active=${active}
                         ?data-vl-default-active=${defaultActive}
