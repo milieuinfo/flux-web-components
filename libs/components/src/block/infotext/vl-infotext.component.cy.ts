@@ -1,5 +1,5 @@
-import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
+import { html } from 'lit';
 import { VlInfotextComponent } from './vl-infotext.component';
 
 registerWebComponents([VlInfotextComponent]);
@@ -74,13 +74,13 @@ describe('component - vl-infotext', () => {
     it('should format value', () => {
         cy.mount(html`
             <vl-infotext>
-                <span slot="value">3200</span>
+                <span slot="value">32000</span>
                 <span slot="text">Bezoekers per dag</span>
             </vl-infotext>
         `);
 
-        cy.get('vl-infotext').find('span[slot="value"]').contains('3200');
-        cy.get('vl-infotext').shadow().find('.vl-infotext__value').contains('3.200');
+        cy.get('vl-infotext').find('span[slot="value"]').contains('32000');
+        cy.get('vl-infotext').shadow().find('.vl-infotext__value').contains('32 000');
     });
 
     it('should alter font-size based on value length', () => {
