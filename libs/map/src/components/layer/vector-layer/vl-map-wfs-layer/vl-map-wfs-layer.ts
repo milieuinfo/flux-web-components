@@ -1,6 +1,7 @@
 import { webComponent } from '@domg-wc/common-utilities';
 import OlGML2 from 'ol/format/GML2';
 import * as OlLoadingstrategy from 'ol/loadingstrategy';
+import { transformExtent } from 'ol/proj';
 import OlVectorSource from 'ol/source/Vector';
 import { VlMapVectorLayer } from '../vl-map-vector-layer';
 
@@ -29,21 +30,32 @@ export class VlMapWfsLayer extends VlMapVectorLayer {
     }
 
     __createSource() {
-        return new OlVectorSource({
+        const vectorSource = new OlVectorSource({
             format: this.__sourceFormat,
             strategy: this.__loadingStrategy,
             url: this.__getWfsUrl.bind(this),
         });
+
+        vectorSource.on('featuresloadend', (evt) => {
+            evt.features.forEach((f) => {
+                f.getGeometry().transform(this.__layerProjectionCode, this.__mapProjectionCode);
+            });
+        });
+
+        return vectorSource;
     }
 
-    __getWfsUrl(extent, resolution, projection) {
+    __getWfsUrl(extent) {
         const url = this._url;
         const { searchParams } = url;
         searchParams.set('service', 'WFS');
         searchParams.set('request', 'GetFeature');
         searchParams.set('typename', this._layers);
-        searchParams.set('bbox', extent.join(','));
-        searchParams.set('srsname', projection.getCode());
+        searchParams.set(
+            'bbox',
+            transformExtent(extent, this.__mapProjectionCode, this.__layerProjectionCode).join(',')
+        );
+        searchParams.set('srsname', this.__layerProjectionCode);
         searchParams.set('outputFormat', this.__wfsOutputFormat);
         searchParams.set('version', this.__wfsVersion);
         return url;

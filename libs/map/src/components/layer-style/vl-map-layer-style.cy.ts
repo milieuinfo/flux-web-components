@@ -8,7 +8,7 @@ import { VlMapLayerCircleStyle } from './vl-map-layer-circle-style/vl-map-layer-
 registerWebComponents([VlMap, VlMapFeaturesLayer, VlMapLayerStyle, VlMapLayerCircleStyle]);
 
 const mapLayerStyleFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer>
             <vl-map-layer-style></vl-map-layer-style>
         </vl-map-features-layer>
@@ -16,7 +16,7 @@ const mapLayerStyleFixture = html`
 `;
 
 const mapLayerCircleStyleFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer>
             <vl-map-layer-circle-style></vl-map-layer-circle-style>
         </vl-map-features-layer>
@@ -24,7 +24,7 @@ const mapLayerCircleStyleFixture = html`
 `;
 
 const mapLayerStyleMetTextFeatureAttributeNameFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer>
             <vl-map-layer-style data-vl-text-feature-attribute-name="label"></vl-map-layer-style>
         </vl-map-features-layer>
@@ -32,7 +32,7 @@ const mapLayerStyleMetTextFeatureAttributeNameFixture = html`
 `;
 
 const mapLayerStyleMetPropertiesFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer>
             <vl-map-layer-style
                 data-vl-color="rgba(255,0,0,0.5)"
@@ -52,7 +52,7 @@ const mapLayerStyleMetPropertiesFixture = html`
 `;
 
 const mapLayerStyleMetMeerdereStijlenFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer>
             <vl-map-layer-style id="map-layer-style-red" data-vl-color="rgba(255,0,0,0.8)"></vl-map-layer-style>
             <vl-map-layer-style id="map-layer-style-green" data-vl-color="rgba(0,255,0,0.8)"></vl-map-layer-style>

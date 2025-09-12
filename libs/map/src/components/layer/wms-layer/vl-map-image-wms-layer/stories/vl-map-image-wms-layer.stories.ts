@@ -24,7 +24,7 @@ export const MapImageWmsLayerDefault = story(
     mapWmsLayerArgs,
     ({ hidden, layers, maxResolution, minResolution, name, opacity, styles, url, version }) =>
         html`
-            <vl-map>
+            <vl-map lambert2008>
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
                 <vl-map-image-wms-layer
                     ?data-vl-hidden=${hidden}

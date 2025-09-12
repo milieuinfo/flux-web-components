@@ -7,7 +7,7 @@ import { Location } from './vl-select-location.model';
 registerWebComponents([VlSelectLocationComponent]);
 
 const selectLocationFixture = html`
-    <vl-select-location-next id="zoeken-op-kaart" name="zoeken-op-kaart"></vl-select-location-next>
+    <vl-select-location-next id="zoeken-op-kaart" name="zoeken-op-kaart" lambert2008></vl-select-location-next>
 `;
 
 const locationGent1 = {
@@ -22,6 +22,8 @@ const locationGent1 = {
         Lon_WGS84: 3.723601443431199,
         X_Lambert72: 104751.84,
         Y_Lambert72: 192389.4,
+        X_Lambert2008: 604749.22,
+        Y_Lambert2008: 692384.23,
     },
     LocationType: 'crab_huisnummer_manueleAanduidingVanPerceel',
     BoundingBox: {
@@ -30,12 +32,16 @@ const locationGent1 = {
             Lon_WGS84: 3.723601443431199,
             X_Lambert72: 104751.84,
             Y_Lambert72: 192389.4,
+            X_Lambert2008: 604749.22,
+            Y_Lambert2008: 692384.23,
         },
         UpperRight: {
             Lat_WGS84: 51.03991219945412,
             Lon_WGS84: 3.723601443431199,
             X_Lambert72: 104751.84,
             Y_Lambert72: 192389.4,
+            X_Lambert2008: 604749.22,
+            Y_Lambert2008: 692384.23,
         },
     },
 };
@@ -52,6 +58,8 @@ const locationGent2 = {
         Lon_WGS84: 3.7236600414926286,
         X_Lambert72: 104755.91,
         Y_Lambert72: 192384.79,
+        X_Lambert2008: 604753.29,
+        Y_Lambert2008: 692379.63,
     },
     LocationType: 'crab_huisnummer_manueleAanduidingVanPerceel',
     BoundingBox: {
@@ -60,12 +68,16 @@ const locationGent2 = {
             Lon_WGS84: 3.7236600414926286,
             X_Lambert72: 104755.91,
             Y_Lambert72: 192384.79,
+            X_Lambert2008: 604753.29,
+            Y_Lambert2008: 692379.63,
         },
         UpperRight: {
             Lat_WGS84: 51.0398710793381,
             Lon_WGS84: 3.7236600414926286,
             X_Lambert72: 104755.91,
             Y_Lambert72: 192384.79,
+            X_Lambert2008: 604753.29,
+            Y_Lambert2008: 692379.63,
         },
     },
 };
@@ -82,6 +94,8 @@ export const locationAntwerpen1 = {
         Lon_WGS84: 4.358436586642045,
         X_Lambert72: 149279.48,
         Y_Lambert72: 216739.74,
+        X_Lambert2008: 649273.6,
+        Y_Lambert2008: 716739.68,
     },
     LocationType: 'crab_gemeente',
     BoundingBox: {
@@ -90,12 +104,16 @@ export const locationAntwerpen1 = {
             Lon_WGS84: 4.218833610929702,
             X_Lambert72: 139508.19,
             Y_Lambert72: 203712.17,
+            X_Lambert2008: 649273.6,
+            Y_Lambert2008: 716739.68,
         },
         UpperRight: {
             Lat_WGS84: 51.377571431614676,
             Lon_WGS84: 4.498743162727715,
             X_Lambert72: 159050.77,
             Y_Lambert72: 229767.3,
+            X_Lambert2008: 649273.6,
+            Y_Lambert2008: 716739.68,
         },
     },
 };
@@ -240,10 +258,10 @@ describe('vl-select-location-next', () => {
                         const location = await vlSelectLocationComponent.location;
                         cy.wait('@getLocation').then(() => {
                             assert.deepEqual(location, [
-                                locationAntwerpen1.BoundingBox.LowerLeft.X_Lambert72,
-                                locationAntwerpen1.BoundingBox.LowerLeft.Y_Lambert72,
-                                locationAntwerpen1.BoundingBox.UpperRight.X_Lambert72,
-                                locationAntwerpen1.BoundingBox.UpperRight.Y_Lambert72,
+                                locationAntwerpen1.BoundingBox.LowerLeft.X_Lambert2008,
+                                locationAntwerpen1.BoundingBox.LowerLeft.Y_Lambert2008,
+                                locationAntwerpen1.BoundingBox.UpperRight.X_Lambert2008,
+                                locationAntwerpen1.BoundingBox.UpperRight.Y_Lambert2008,
                             ]);
                         });
                     }
@@ -300,10 +318,10 @@ describe('vl-select-location-next', () => {
                 ]);
                 const location = await vlSelectLocationComponent.location;
                 assert.deepEqual(location, [
-                    locationAntwerpen1.BoundingBox.LowerLeft.X_Lambert72,
-                    locationAntwerpen1.BoundingBox.LowerLeft.Y_Lambert72,
-                    locationAntwerpen1.BoundingBox.UpperRight.X_Lambert72,
-                    locationAntwerpen1.BoundingBox.UpperRight.Y_Lambert72,
+                    locationAntwerpen1.BoundingBox.LowerLeft.X_Lambert2008,
+                    locationAntwerpen1.BoundingBox.LowerLeft.Y_Lambert2008,
+                    locationAntwerpen1.BoundingBox.UpperRight.X_Lambert2008,
+                    locationAntwerpen1.BoundingBox.UpperRight.Y_Lambert2008,
                 ]);
                 // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                 expect(fetchSpy).to.be.not.called;

@@ -24,7 +24,7 @@ export const MapSearchDefault = story(
     mapSearchArgs,
     ({ placeholder, searchEmptyText, searchNoResultsText, searchPlaceholder, withOffset }) =>
         html`
-            <vl-map>
+            <vl-map lambert2008>
                 <vl-map-search
                     data-vl-placeholder=${placeholder}
                     data-vl-search-empty-text=${searchEmptyText}
@@ -47,7 +47,7 @@ export const MapSearchOutsideMap = story(
             data-vl-search-no-results-text=${searchNoResultsText}
             data-vl-search-placeholder=${searchPlaceholder}
         ></vl-map-search>
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
         </vl-map>
         <script>

@@ -21,12 +21,13 @@ registerWebComponents([
     VlMapMeasureControl,
 ]);
 
-const mapFixture = html` <vl-map></vl-map>`;
+const mapFixture = html` <vl-map lambert2008></vl-map>`;
+const mapFixtureWithoutLambert2008 = html` <vl-map></vl-map> `;
 
-const mapFullscreenFixture = html` <vl-map data-vl-allow-fullscreen></vl-map>`;
+const mapFullscreenFixture = html` <vl-map data-vl-allow-fullscreen lambert2008></vl-map>`;
 
 const mapWithActionsFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer>
             <vl-map-select-action data-vl-default-active></vl-map-select-action>
             <vl-map-measure-action></vl-map-measure-action>
@@ -35,7 +36,7 @@ const mapWithActionsFixture = html`
 `;
 
 const mapWithActionsAndMultipleLayersFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer>
             <vl-map-select-action data-vl-default-active></vl-map-select-action>
         </vl-map-features-layer>
@@ -46,7 +47,7 @@ const mapWithActionsAndMultipleLayersFixture = html`
 `;
 
 const mapWithActionsAndControlFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-action-controls>
             <vl-map-measure-control></vl-map-measure-control>
         </vl-map-action-controls>
@@ -87,11 +88,11 @@ describe('vl-map', () => {
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             const extent = vlMap._extent;
             expect(extent).to.be.lengthOf(4);
-            expect(extent[0]).to.be.equal(9928);
-            expect(extent[1]).to.be.equal(66928);
-            expect(extent[2]).to.be.equal(272072);
-            expect(extent[3]).to.be.equal(329072);
-            expect(vlMap._map.getView().getCenter()).to.be.deep.equal([140860.69299028325, 190532.7165957574]);
+            expect(extent[0]).to.be.equal(500000);
+            expect(extent[1]).to.be.equal(537856);
+            expect(extent[2]).to.be.equal(762144);
+            expect(extent[3]).to.be.equal(800000);
+            expect(vlMap.map.getView().getCenter()).to.be.deep.equal([639845.7772538576, 700521.2187096793]);
         });
     });
 
@@ -369,10 +370,10 @@ describe('vl-map', () => {
         cy.mount(mapFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             cy.wrap(vlMap.ready).then(() => {
-                cy.spy(vlMap._map, 'zoomToExtent');
+                cy.spy(vlMap.map, 'zoomToExtent');
                 const boundingbox = [0, 1, 2, 3];
                 vlMap.zoomTo(boundingbox, null);
-                expect(vlMap._map.zoomToExtent).to.be.calledWith(boundingbox);
+                expect(vlMap.map.zoomToExtent).to.be.calledWith(boundingbox);
             });
         });
     });
@@ -381,13 +382,13 @@ describe('vl-map', () => {
         cy.mount(mapFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             cy.wrap(vlMap.ready).then(() => {
-                cy.spy(vlMap._map, 'zoomToGeometry');
+                cy.spy(vlMap.map, 'zoomToGeometry');
                 const geometry = {
                     type: 'Point',
                     coordinates: [104719.27, 192387.25],
                 };
                 vlMap.zoomTo(geometry, null);
-                expect(vlMap._map.zoomToGeometry).to.be.calledWith(geometry);
+                expect(vlMap.map.zoomToGeometry).to.be.calledWith(geometry);
             });
         });
     });
@@ -396,7 +397,7 @@ describe('vl-map', () => {
         cy.mount(mapFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             cy.wrap(vlMap.ready).then(() => {
-                expect(vlMap._map.controls.getArray().find((control) => control instanceof OlFullScreenControl)).to.be
+                expect(vlMap.map.controls.getArray().find((control) => control instanceof OlFullScreenControl)).to.be
                     .undefined;
             });
         });
@@ -406,8 +407,96 @@ describe('vl-map', () => {
         cy.mount(mapFullscreenFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             cy.wrap(vlMap.ready).then(() => {
-                expect(vlMap._map.controls.getArray().find((control) => control instanceof OlFullScreenControl)).to
+                expect(vlMap.map.controls.getArray().find((control) => control instanceof OlFullScreenControl)).to
                     .exist;
+            });
+        });
+    });
+
+    describe('vl-map without lambert2008 attribute', () => {
+        it('the projection is that of Lambert 72', () => {
+            cy.mount(mapFixtureWithoutLambert2008);
+            cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+                cy.wrap(vlMap.ready).then(() => {
+                    expect(vlMap.map.getView().getProjection().getCode()).to.be.equal('EPSG:31370');
+                });
+            });
+        });
+        it('feature layers with a Lambert 72 projection-code should not reproject to Lambert 2008 (EPSG:3812)', () => {
+            cy.mount(html`
+                <vl-map>
+                    <vl-map-features-layer
+                        name="Shapes"
+                        features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[153055,203908]},"properties":{"styleId":"style-1"}}]}'
+                        projection-code="EPSG:31370"
+                    >
+                        <vl-map-layer-circle-style
+                            id="style-1"
+                            name="Openbaar onderzoek"
+                            color="#ffe615"
+                            size="5"
+                            border-color="#000"
+                            border-size="1"
+                        ></vl-map-layer-circle-style>
+                    </vl-map-features-layer>
+                </vl-map>
+            `);
+            cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+                cy.wrap(vlMap.ready).then(() => {
+                    const layer = vlMap.nonBaseLayers[0];
+                    const source = layer._layer.getSource();
+                    const features = source.getFeatures();
+                    expect(features).to.have.length(1);
+                    const feature = features.find((feature) => feature.get('styleId') === 'style-1');
+                    expect(feature.getGeometry().getType()).to.be.equal('Point');
+                    expect(feature.getGeometry().getCoordinates()).to.be.deep.equal([153055, 203908]);
+                });
+            });
+        });
+    });
+
+    // with lambert2008 attribute
+    describe('vl-map with lambert2008 attribute', () => {
+        it('the projection is that of Lambert 2008', () => {
+            cy.mount(mapFixture);
+            cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+                cy.wrap(vlMap.ready).then(() => {
+                    expect(vlMap.map.getView().getProjection().getCode()).to.be.equal('EPSG:3812');
+                });
+            });
+        });
+        it('feature layers with a Lambert 72 projection-code should reproject to Lambert 2008 (EPSG:3812)', () => {
+            cy.mount(html`
+                <vl-map lambert2008>
+                    <vl-map-features-layer
+                        name="Shapes"
+                        features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[153055,203908]},"properties":{"styleId":"style-1"}}]}'
+                        projection-code="EPSG:31370"
+                    >
+                        <vl-map-layer-circle-style
+                            id="style-1"
+                            name="Openbaar onderzoek"
+                            color="#ffe615"
+                            size="5"
+                            border-color="#000"
+                            border-size="1"
+                        ></vl-map-layer-circle-style>
+                    </vl-map-features-layer>
+                </vl-map>
+            `);
+            cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+                cy.wrap(vlMap.ready).then(() => {
+                    const layer = vlMap.nonBaseLayers[0];
+                    const source = layer._layer.getSource();
+                    const features = source.getFeatures();
+                    expect(features).to.have.length(1);
+                    const feature = features.find((feature) => feature.get('styleId') === 'style-1');
+                    expect(feature.getGeometry().getType()).to.be.equal('Point');
+                    // coordinates should be reprojected to EPSG:3812
+                    expect(feature.getGeometry().getCoordinates()).to.be.deep.equal([
+                        653050.623011303, 703908.5023996672,
+                    ]);
+                });
             });
         });
     });

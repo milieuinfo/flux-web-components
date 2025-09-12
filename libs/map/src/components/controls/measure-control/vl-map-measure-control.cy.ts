@@ -1,11 +1,11 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
 import { html } from 'lit';
 import { VlMap } from '../../../vl-map';
-import { VlMapMeasureControl } from './vl-map-measure-control';
-import { VlMapActionControls } from '../vl-map-action-controls';
-import { VlMapFeaturesLayer } from '../../layer/vector-layer/vl-map-features-layer/vl-map-features-layer';
-import { VlMapBaseLayerGRBGray } from '../../baselayer/vl-map-base-layer-grb-gray/vl-map-base-layer-grb-gray';
 import { VlMapMeasureAction } from '../../action/draw-action/measure-action/vl-map-measure-action';
+import { VlMapBaseLayerGRBGray } from '../../baselayer/vl-map-base-layer-grb-gray/vl-map-base-layer-grb-gray';
+import { VlMapFeaturesLayer } from '../../layer/vector-layer/vl-map-features-layer/vl-map-features-layer';
+import { VlMapActionControls } from '../vl-map-action-controls';
+import { VlMapMeasureControl } from './vl-map-measure-control';
 
 registerWebComponents([
     VlMap,
@@ -17,7 +17,7 @@ registerWebComponents([
 ]);
 
 const measureControlFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
         <vl-map-action-controls>
             <vl-map-measure-control></vl-map-measure-control>

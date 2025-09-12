@@ -16,8 +16,10 @@ export type LocationData = {
 export type GeoCoords = {
     Lat_WGS84: number;
     Lon_WGS84: number;
-    X_Lambert72: number;
-    Y_Lambert72: number;
+    X_Lambert72?: number;
+    Y_Lambert72?: number;
+    X_Lambert2008?: number;
+    Y_Lambert2008?: number;
 };
 
 export type BoundingBox = {

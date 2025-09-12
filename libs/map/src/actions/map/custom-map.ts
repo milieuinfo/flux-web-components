@@ -1,10 +1,14 @@
 import Collection from 'ol/Collection';
+import { OverviewMap, Rotate, ScaleLine, Zoom } from 'ol/control';
+import { getCenter } from 'ol/extent';
 import GeoJSON from 'ol/format/GeoJSON';
 import BaseLayer from 'ol/layer/Base';
 import LayerGroup from 'ol/layer/Group';
-import View from 'ol/View';
+import { MapOptions } from 'ol/Map';
 import Overlay from 'ol/Overlay';
-import { Zoom, Rotate, ScaleLine, OverviewMap } from 'ol/control';
+import { Projection, transformExtent } from 'ol/proj';
+import View from 'ol/View';
+import { getGRBLayerExtent, getWGS84Code } from '../../utils/capabilities';
 import { VlMapWithActions } from './map-with-actions';
 
 /**
@@ -14,7 +18,7 @@ import { VlMapWithActions } from './map-with-actions';
 export class VlCustomMap extends VlMapWithActions {
     overviewMapControl: any;
 
-    private projection: any;
+    private projection: Projection;
     private view: any;
     private custom: any;
     private geoJSONFormat: GeoJSON;
@@ -22,7 +26,21 @@ export class VlCustomMap extends VlMapWithActions {
     private maxZoomViewToExtent: any;
     private overviewMapLayers: any;
 
-    constructor(options) {
+    constructor(
+        options: MapOptions & {
+            customLayers?: { baseLayerGroup: LayerGroup; overlayGroup: LayerGroup; overviewMapLayers?: BaseLayer[] };
+            projection?: Projection;
+            defaultZoom?: boolean;
+            maxZoomViewToExtent?: number;
+            custom?: any;
+            controls?: any[];
+            actions?: any[];
+            disableEscapeKey?: boolean;
+            disableRotation?: boolean;
+            disableMouseWheelZoom?: boolean;
+            disableKeyboard?: boolean;
+        } = <any>{}
+    ) {
         options.layers = [options.customLayers.baseLayerGroup, options.customLayers.overlayGroup];
 
         options.controls = [
@@ -38,7 +56,7 @@ export class VlCustomMap extends VlMapWithActions {
             projection: options.projection,
             maxZoom: 16,
             minZoom: 2,
-            center: [140860.69299028325, 190532.7165957574],
+            center: getCenter(options.projection.getExtent()),
             zoom: 2,
             // overwrite default
             ...options.view,
@@ -147,7 +165,17 @@ export class VlCustomMap extends VlMapWithActions {
         this._getOverlayLayersCollection().remove(layer);
     }
 
-    initializeView(boundingBox, maxZoom) {
+    initializeView(boundingBox?, maxZoom?) {
+        const lambertExtent = transformExtent(
+            getGRBLayerExtent(),
+            getWGS84Code(), // bron = WGS84
+            this.projection.getCode() // doel = Belgische Lambert 72 of 2008
+        );
+        const view = this.getView();
+        view.fit(lambertExtent, {
+            size: this.getSize(),
+        });
+
         this.zoomViewToExtent(this.getView(), boundingBox, maxZoom);
     }
 

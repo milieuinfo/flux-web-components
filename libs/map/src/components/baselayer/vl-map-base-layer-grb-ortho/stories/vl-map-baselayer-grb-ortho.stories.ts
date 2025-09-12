@@ -25,7 +25,7 @@ export default {
 export const MapBaselayerGrbOrthoDefault = story(
     {},
     () => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-ortho></vl-map-baselayer-grb-ortho>
         </vl-map>
     `
@@ -35,7 +35,7 @@ MapBaselayerGrbOrthoDefault.storyName = 'vl-map-baselayer-grb-ortho - default';
 export const MapBaselayerGrbOrthoBackgroundLayer = story(
     {},
     () => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-ortho data-vl-background-layer></vl-map-baselayer-grb-ortho>
         </vl-map>
     `

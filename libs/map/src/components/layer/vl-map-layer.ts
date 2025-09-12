@@ -125,7 +125,7 @@ export abstract class VlMapLayer extends BaseElementOfType(HTMLElement) {
     }
 
     get mapElement(): VlMap {
-        if (this.parentNode && this.parentNode.map) {
+        if (this.parentNode && this.parentNode instanceof VlMap) {
             return this.parentNode;
         }
         return null;

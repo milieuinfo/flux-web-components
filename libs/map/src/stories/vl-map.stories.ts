@@ -2,9 +2,9 @@ import { story } from '@domg-wc/common-storybook';
 import '@domg-wc/components';
 // deze imports van alle elements, components en map werken IN de monorepo
 // -> buiten de monorepo werkt dat niet omdat sideEffects disabled worden voor de root-barrel file in de artifacts
-import '@domg-wc/elements';
 import { registerWebComponents } from '@domg-wc/common-utilities';
 import { VlTitleComponent } from '@domg-wc/components/next/title';
+import '@domg-wc/elements';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit';
 import '../components/action/draw-action/draw-line-action/vl-map-draw-line-action';
@@ -23,8 +23,8 @@ import '../components/layer-style/vl-map-layer-circle-style/vl-map-layer-circle-
 import '../components/layer-style/vl-map-layer-style';
 import '../components/layer-switcher/vl-map-layer-switcher';
 import '../components/layer/vector-layer/vl-map-features-layer/vl-map-features-layer';
-import { LEGEND_PLACEMENT } from '../components/legend/vl-map-legend.defaults';
 import '../components/legend/vl-map-legend';
+import { LEGEND_PLACEMENT } from '../components/legend/vl-map-legend.defaults';
 import '../components/overview-map/vl-map-overview-map';
 import '../components/side-sheet/vl-map-side-sheet';
 import '../vl-map';
@@ -164,6 +164,175 @@ const features = {
 };
 
 export const MapPlayground = story(
+    mapArgs,
+    ({
+        allowFullscreen,
+        disableEscape,
+        disableRotation,
+        disableMousewheelZoom,
+        disableKeyboard,
+        noBorder,
+        fullHeight,
+        activeActionChange,
+        layerVisibleChange,
+    }) => html`
+        <vl-map
+            lambert2008
+            ?data-vl-allow-fullscreen=${allowFullscreen}
+            ?data-vl-disable-escape-key=${disableEscape}
+            ?data-vl-disable-rotation=${disableRotation}
+            ?data-vl-disable-mouse-wheel-zoom=${disableMousewheelZoom}
+            ?data-vl-disable-keyboard=${disableKeyboard}
+            ?data-vl-no-border=${noBorder}
+            ?data-vl-full-height=${fullHeight}
+            @vl-active-action-changed=${(event) => {
+                activeActionChange({ previous: event.detail.previous });
+                activeActionChange({ current: event.detail.current });
+                handleActiveActionChange(event);
+            }}
+            @vl-layer-visible-changed=${(event) => {
+                layerVisibleChange(event.detail);
+                handleLayerVisibleChange(event);
+            }}
+        >
+            <vl-map-action-controls>
+                <vl-map-measure-control></vl-map-measure-control>
+            </vl-map-action-controls>
+
+            <vl-map-side-sheet>
+                <vl-title-next type="h6">Layers</vl-title-next>
+
+                <vl-map-layer-switcher></vl-map-layer-switcher>
+                <vl-input-slider data-vl-value=${100} @vl-change-value=${handleOpacitySliderChange}></vl-input-slider>
+
+                <hr />
+
+                <vl-title-next type="h6">Measure</vl-title-next>
+
+                <div>
+                    <vl-button-next
+                        @click=${() => {
+                            getActionElement('measure').active = true;
+                        }}
+                    >
+                        Start
+                    </vl-button-next>
+                    <vl-button-next
+                        @click=${() => {
+                            getActionElement('measure').active = false;
+                        }}
+                    >
+                        Stop
+                    </vl-button-next>
+                </div>
+
+                <hr />
+
+                <div style=${toggleGroupStyling}>
+                    <vl-title-next type="h6">Shapes</vl-title-next>
+
+                    <div style="margin-bottom: 2rem;">
+                        <vl-button-next
+                            toggle
+                            class="modify-toggle-button"
+                            @click=${() => {
+                                getActionElement('modify').active = getToggleButton('modify').on;
+                            }}
+                        >
+                            Modify
+                        </vl-button-next>
+                        <vl-button-next
+                            toggle
+                            class="delete-toggle-button"
+                            @click=${() => {
+                                getActionElement('delete').active = getToggleButton('delete').on;
+                            }}
+                        >
+                            Delete
+                        </vl-button-next>
+                    </div>
+
+                    <div style=${toggleItemStyling}>
+                        <vl-button-next
+                            toggle
+                            icon="pencil"
+                            label="Toggle draw point action"
+                            class="draw-point-toggle-button"
+                            @click=${() => {
+                                getActionElement('draw-point').active = getToggleButton('draw-point').on;
+                            }}
+                        >
+                        </vl-button-next>
+                        <p>Draw point</p>
+                    </div>
+
+                    <div style=${toggleItemStyling}>
+                        <vl-button-next
+                            toggle
+                            icon="pencil"
+                            label="Toggle draw line action"
+                            class="draw-line-toggle-button"
+                            @click=${() => {
+                                getActionElement('draw-line').active = getToggleButton('draw-line').on;
+                            }}
+                        >
+                        </vl-button-next>
+                        <p>Draw line</p>
+                    </div>
+
+                    <div style=${toggleItemStyling}>
+                        <vl-button-next
+                            toggle
+                            icon="pencil"
+                            label="Toggle draw polygon action"
+                            class="draw-polygon-toggle-button"
+                            @click=${() => {
+                                getActionElement('draw-polygon').active = getToggleButton('draw-polygon').on;
+                            }}
+                        >
+                        </vl-button-next>
+                        <p>Draw Polygon</p>
+                    </div>
+                </div>
+            </vl-map-side-sheet>
+
+            <vl-map-overview-map></vl-map-overview-map>
+
+            <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
+            <vl-map-baselayer-grb></vl-map-baselayer-grb>
+            <vl-map-baselayer-grb-ortho></vl-map-baselayer-grb-ortho>
+
+            <vl-map-features-layer data-vl-name="Shapes" .features=${features} projection-code="EPSG:31370">
+                <vl-map-layer-style data-vl-name="Shapes" border-color=${purple} color=${purple}></vl-map-layer-style>
+                <vl-map-layer-circle-style
+                    data-vl-border-color=${purple}
+                    data-vl-color=${purple}
+                ></vl-map-layer-circle-style>
+
+                <vl-map-draw-point-action class="draw-point-action action"></vl-map-draw-point-action>
+                <vl-map-draw-line-action class="draw-line-action action"></vl-map-draw-line-action>
+                <vl-map-draw-polygon-action class="draw-polygon-action action"></vl-map-draw-polygon-action>
+
+                <vl-map-modify-action class="modify-action action"></vl-map-modify-action>
+                <vl-map-delete-action class="delete-action action"></vl-map-delete-action>
+                <vl-map-select-action class="select-action action" data-vl-default-active></vl-map-select-action>
+            </vl-map-features-layer>
+
+            <vl-map-features-layer data-vl-name="Measurements" projection-code="EPSG:31370">
+                <vl-map-layer-style
+                    data-vl-color="rgba(6, 163, 247, 1)"
+                    data-vl-border-size="2"
+                    data-vl-border-color="rgba(6, 163, 247, 1)"
+                ></vl-map-layer-style>
+                <vl-map-measure-action class="measure-action action"></vl-map-measure-action>
+            </vl-map-features-layer>
+            <vl-map-legend data-vl-placement=${LEGEND_PLACEMENT.BOTTOM_RIGHT} right="140px"></vl-map-legend>
+        </vl-map>
+    `
+);
+MapPlayground.storyName = 'vl-map - playground';
+
+export const MapPlaygroundLB72 = story(
     mapArgs,
     ({
         allowFullscreen,
@@ -333,4 +502,4 @@ export const MapPlayground = story(
         </vl-map>
     `
 );
-MapPlayground.storyName = 'vl-map - playground';
+MapPlaygroundLB72.storyName = 'vl-map - playground - Lambert 72';

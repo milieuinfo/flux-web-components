@@ -14,7 +14,7 @@ export class VlMapNonLambert72Sources extends LitElement {
 
     render() {
         return html`
-            <vl-map>
+            <vl-map lambert2008>
                 <!--
                     Test andere niet-lambert 72 laag met volledig zoombare wereldkaart (EPSG:3857)
                     Custom background layer met OpenStreetMap tiles

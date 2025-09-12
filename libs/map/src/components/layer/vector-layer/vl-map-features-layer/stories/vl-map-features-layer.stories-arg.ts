@@ -1,6 +1,6 @@
 import { CATEGORIES, TYPES } from '@domg-wc/common-storybook';
-import { mapLayerArgs, mapLayerArgTypes } from '../../../stories/vl-map-layer.stories-arg';
 import { ArgTypes } from '@storybook/web-components';
+import { mapLayerArgs, mapLayerArgTypes } from '../../../stories/vl-map-layer.stories-arg';
 
 export const mapFeaturesLayerArgs = {
     ...mapLayerArgs,
@@ -10,6 +10,7 @@ export const mapFeaturesLayerArgs = {
     clusterDistance: null as number,
     features: '',
     featuresProp: null,
+    projectionCode: '',
 };
 
 export const mapFeaturesLayerArgTypes: ArgTypes<typeof mapFeaturesLayerArgs> = {
@@ -57,6 +58,17 @@ export const mapFeaturesLayerArgTypes: ArgTypes<typeof mapFeaturesLayerArgs> = {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: mapFeaturesLayerArgs.features },
+        },
+    },
+    projectionCode: {
+        name: 'projection-code',
+        description: `Indien je Lambert 72 coördinaten gebruikt op een Lambert 2008 kaart, moet je de projectie code 
+            EPSG:31370 meegeven als projection-code. Geef je dit niet mee, dan zal de kaartlaag de projectie code van 
+            de kaart overnemen.<br>Dit attribuut is niet reactief.`,
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: mapFeaturesLayerArgs.projectionCode },
         },
     },
     featuresProp: {

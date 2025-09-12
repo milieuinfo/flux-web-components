@@ -7,14 +7,14 @@ import { VlMapWfsLayer } from './vl-map-wfs-layer';
 registerWebComponents([VlMap, VlMapWfsLayer]);
 
 const wfsLayerFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-wfs-layer data-vl-name="foobar" data-vl-url="http://localhost/wfs" data-vl-layers="layer1,layer2">
         </vl-map-wfs-layer>
     </vl-map>
 `;
 
 const wfsLayerWithQueryParamsInUrlFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-wfs-layer
             data-vl-name="foobar"
             data-vl-url="http://localhost/wfs?foo=bar"
@@ -36,7 +36,7 @@ describe('vl-map-wfs-layer', () => {
             expect(
                 vlMapWfsLayer.layer.getSource().getUrl()([1.2, 3.4, 5.6, 7.8], 123, projection).toString()
             ).to.be.equal(
-                'http://localhost/wfs?service=WFS&request=GetFeature&typename=layer1%2Clayer2&bbox=1.2%2C3.4%2C5.6%2C7.8&srsname=EPSG%3A31370&outputFormat=GML2&version=2.0.0'
+                'http://localhost/wfs?service=WFS&request=GetFeature&typename=layer1%2Clayer2&bbox=1.2%2C3.4%2C5.6%2C7.8&srsname=EPSG%3A3812&outputFormat=GML2&version=2.0.0'
             );
         });
     });
@@ -52,7 +52,7 @@ describe('vl-map-wfs-layer', () => {
             expect(
                 vlMapWfsLayer.layer.getSource().getUrl()([1.2, 3.4, 5.6, 7.8], 123, projection).toString()
             ).to.be.equal(
-                'http://localhost/wfs?foo=bar&service=WFS&request=GetFeature&typename=layer1%2Clayer2&bbox=1.2%2C3.4%2C5.6%2C7.8&srsname=EPSG%3A31370&outputFormat=GML2&version=2.0.0'
+                'http://localhost/wfs?foo=bar&service=WFS&request=GetFeature&typename=layer1%2Clayer2&bbox=1.2%2C3.4%2C5.6%2C7.8&srsname=EPSG%3A3812&outputFormat=GML2&version=2.0.0'
             );
         });
     });

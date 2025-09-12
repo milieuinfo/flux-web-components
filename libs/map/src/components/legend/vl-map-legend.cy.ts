@@ -20,11 +20,12 @@ registerWebComponents([
 describe('component vl-map-legend - features layer - multiple styles', () => {
     beforeEach(() => {
         cy.mount(html`
-            <vl-map>
+            <vl-map lambert2008>
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
                 <vl-map-features-layer
                     data-vl-name="Shapes"
                     features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[153055,203908]},"properties":{"styleId":"style-1"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[141000,200908]},"properties":{"styleId":"style-2"}},{"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[147055,197908],[157055,197908],[157055,187908],[147055,187908],[147055,197908]]]},"properties":{"styleId":"style-3"}}]}'
+                    projection-code="EPSG:31370"
                 >
                     <vl-map-layer-circle-style
                         id="style-1"
@@ -193,11 +194,12 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
 describe('component vl-map-legend - features layer - multiple styles', () => {
     beforeEach(() => {
         cy.mount(html`
-            <vl-map>
+            <vl-map lambert2008>
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
                 <vl-map-features-layer
                     data-vl-name="Openbare onderzoeken"
                     features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":{"featureCharacter":"O","zIndex":"1"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[147075,197908]},"properties":{"featureCharacter":"O","zIndex":"2"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[147095,197908]},"properties":{"featureCharacter":"O","zIndex":"3"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[147105,197908]},"properties":{"featureCharacter":"O","zIndex":"4"}},{"type":"Feature","geometry":{"type":"Point","coordinates":[147106,197908]},"properties":{"featureCharacter":"O","zIndex":"5"}}]}'
+                    projection-code="EPSG:31370"
                 >
                     <vl-map-layer-circle-style
                         data-vl-color="#ffe615"
@@ -211,6 +213,7 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
                 <vl-map-features-layer
                     data-vl-name="Beslissingen"
                     features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[141000,200908]},"properties":{"featureCharacter":"B","zIndex":"5"}}]}'
+                    projection-code="EPSG:31370"
                 >
                     <vl-map-layer-circle-style
                         data-vl-color="red"
@@ -224,6 +227,7 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
                 <vl-map-features-layer
                     data-vl-name="Wateroppervlaktes"
                     features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[153055,203908]},"properties":{"featureCharacter":"W","zIndex":"5"}}]}'
+                    projection-code="EPSG:31370"
                 >
                     <vl-map-layer-circle-style
                         data-vl-color="green"
@@ -279,7 +283,7 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
 describe('component vl-map-legend - wfs layer', () => {
     beforeEach(() => {
         cy.mount(html`
-            <vl-map>
+            <vl-map lambert2008>
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
                 <vl-map-wfs-layer
                     data-vl-name="Oppervlaktewaterlichamen"
@@ -340,7 +344,7 @@ describe('component vl-map-legend - wfs layer', () => {
 describe('component vl-map-legend - wfs and wms layers', () => {
     beforeEach(() => {
         cy.mount(html`
-            <vl-map>
+            <vl-map lambert2008>
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
                 <vl-map-tiled-wms-layer
                     data-vl-layers="grondwater:beschermingszones_2014"
@@ -415,7 +419,7 @@ describe('component vl-map-legend - wfs and wms layers', () => {
 
 describe('component vl-map-legend - wms layer that requires a version', () => {
     const mapLegendWithVersion = (version: string) => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-tiled-wms-layer
                 data-vl-name="overstromingsgevoelige_gebieden_vanuit_de_zee"

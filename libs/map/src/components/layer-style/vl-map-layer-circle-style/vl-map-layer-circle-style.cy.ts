@@ -14,7 +14,7 @@ import { VlMapLayerCircleStyle } from './vl-map-layer-circle-style';
 registerWebComponents([VlMap, VlMapFeaturesLayer, VlMapLayerCircleStyle]);
 
 const mapLayerCircleStyleFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer>
             <vl-map-layer-circle-style></vl-map-layer-circle-style>
         </vl-map-features-layer>
@@ -22,7 +22,7 @@ const mapLayerCircleStyleFixture = html`
 `;
 
 const mapLayerCircleStylePropertiesFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer>
             <vl-map-layer-circle-style
                 data-vl-color="#fff"
@@ -40,7 +40,7 @@ const mapLayerCircleStylePropertiesFixture = html`
 `;
 
 const mapLayerCircleStyleMetTextFeatureAttributeNameFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer>
             <vl-map-layer-circle-style data-vl-text-feature-attribute-name="label"></vl-map-layer-circle-style>
         </vl-map-features-layer>

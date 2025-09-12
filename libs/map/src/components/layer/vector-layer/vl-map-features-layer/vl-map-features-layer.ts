@@ -140,7 +140,7 @@ export class VlMapFeaturesLayer extends VlMapVectorLayer {
      */
     addFeature(feature) {
         if (this.__featuresSource) {
-            this.__featuresSource.addFeatures([this._geoJSON.readFeature(feature)]);
+            this.__featuresSource.addFeatures([this._geoJSON.readFeature(feature, this.__readOptions)]);
             this._featuresChanged();
         }
     }
@@ -152,7 +152,7 @@ export class VlMapFeaturesLayer extends VlMapVectorLayer {
      */
     addFeatureCollection(featureCollection) {
         if (this.__featuresSource) {
-            this.__featuresSource.addFeatures(this._geoJSON.readFeatures(featureCollection));
+            this.__featuresSource.addFeatures(this._geoJSON.readFeatures(featureCollection, this.__readOptions));
             this._featuresChanged();
         }
     }
@@ -219,7 +219,14 @@ export class VlMapFeaturesLayer extends VlMapVectorLayer {
     }
 
     __readGeoJsonFeatures(value) {
-        return this._geoJSON.readFeatures(value);
+        return this._geoJSON.readFeatures(value, this.__readOptions);
+    }
+
+    get __readOptions() {
+        return {
+            dataProjection: this.__layerProjectionCode,
+            featureProjection: this.__mapProjectionCode,
+        };
     }
 }
 

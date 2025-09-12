@@ -206,7 +206,7 @@ describe('component - vl-button-next', () => {
     });
 
     it('should set class if displayed in map', () => {
-        cy.mount(html` <vl-map>
+        cy.mount(html` <vl-map lambert2008>
             <vl-button-next map>Klik op mij</vl-button-next>
         </vl-map>`);
 
@@ -418,7 +418,7 @@ describe('component - vl-button-next - cta-link', () => {
 
     it('should set class if displayed in map', () => {
         cy.mount(
-            html` <vl-map>
+            html` <vl-map lambert2008>
                 <vl-button-next map cta-link="https://www.vlaanderen.be">Klik op mij</vl-button-next>
             </vl-map>`
         );

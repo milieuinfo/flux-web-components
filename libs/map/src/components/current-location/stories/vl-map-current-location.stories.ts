@@ -23,7 +23,7 @@ export default {
 export const MapCurrentLocationDefault = story(
     mapCurrentLocationArgs,
     ({ tooltip, zoom }) => html`
-        <vl-map>
+        <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             <vl-map-current-location data-vl-tooltip=${tooltip} data-vl-zoom=${zoom}></vl-map-current-location>
         </vl-map>

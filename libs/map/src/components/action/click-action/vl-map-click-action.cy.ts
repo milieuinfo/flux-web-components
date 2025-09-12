@@ -17,7 +17,7 @@ describe('vl-map-click-action', () => {
     beforeEach(() => {
         cy.mount(html`
             <section style="width: 100%">
-                <vl-map>
+                <vl-map lambert2008>
                     <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
                     <vl-map-click-action></vl-map-click-action>
                 </vl-map>

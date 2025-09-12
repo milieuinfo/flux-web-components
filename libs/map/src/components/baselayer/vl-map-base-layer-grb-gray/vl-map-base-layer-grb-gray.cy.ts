@@ -6,7 +6,7 @@ import { VlMapBaseLayerGRBGray } from './vl-map-base-layer-grb-gray';
 registerWebComponents([VlMap, VlMapBaseLayerGRBGray]);
 
 const baselayerGrbGrayFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
     </vl-map>
 `;

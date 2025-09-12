@@ -60,7 +60,7 @@ const mapMeasureActionSnappingFixture = html`
 `;
 
 const mapMeasureActionFixture = html`
-    <vl-map>
+    <vl-map lambert2008>
         <vl-map-features-layer>
             <vl-map-measure-action></vl-map-measure-action>
         </vl-map-features-layer>
