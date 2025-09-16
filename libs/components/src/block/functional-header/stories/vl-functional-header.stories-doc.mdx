@@ -21,6 +21,31 @@ import { VlFunctionalHeaderComponent } from '@domg-wc/components/block';
 
 <Canvas of={VlFunctionalHeaderStories.FunctionalHeaderDefault} />
 
+## Consistent gebruik van de "Terug"-link
+
+De volgende richtlijnen gelden voor het instellen van de "Terug"-link:
+
+- Vermijd het gebruik van `history.back()`. De gebruiker kan op verschillende manieren op je pagina belandt zijn.
+- Je moet expliciet een URL instellen.
+    - De ingestelde URL verwijst naar een vast en logisch startpunt, 
+      relatief tov de pagina waarop de gebruiker zich bevindt.
+    - Kies als URL het startpunt van de toepassing, tenzij deze meerdere luiken bevat. Kies in dat geval het startpunt
+      van het huidige luik. 
+    - Je kan de URL van de "Terug"-link vervangen met het `back-link`-attribuut.
+- "Terug" moet vermeden worden als naam, want het zegt niet naar waar je terugkeert. 
+  Je kan de tekst van de "Terug"-link vervangen met het `back`-slot.
+- Indien de functional header "breadcrumbs" bevat ipv een "Terug"-link, 
+  zoals in de [breadcrumbs variant](#met-breadcrumb), dan wijst de eerste link altijd naar het "startpunt" van de 
+  toepassing. Vermijd termen als "Home" of "Start", maar gebruik de naam van de toepassing of de naam van het luik
+  waar je naar terugkeert.
+- Vergeet de "Terug"-link ook niet in te stellen op de statische pagina's: 
+  [privacy](/docs/components-compliance-privacy--documentatie), 
+  [toegankelijkheid](/docs/components-compliance-accessibility--documentatie) en 
+  [cookieverklaring](/docs/components-compliance-cookie-statement--documentatie). 
+  Je kan de standaard functional header in deze componenten vervangen
+  met het `header`-slot. 
+- Je kan de "Terug"-link in zijn geheel vervangen met het `back-link`-slot.
+
 
 ## Configuratie
 
@@ -50,9 +75,9 @@ Gebruik de [vl-breadcrumb](/docs/components-block-breadcrumb--breadcrumb-default
 
 <Canvas of={VlFunctionalHeaderStories.FunctionalHeaderBreadcrumb} />
 
-### Met extra button of search component
+### Andere patronen
 
-Zie [Ontwerp/Functional Header](/docs/ontwerp-functional-header-voorbeeld-met-button--documentatie) voor voorbeelden van functional headers met een extra button of search component.
+Zie [Ontwerp/Functional Header](/docs/ontwerp-functional-header-voorbeeld-met-button--documentatie) voor voorbeelden van functional headers met een extra button of search component, of met de combinatie van "Terug"-link en tabs.
 
 ## Referenties
 

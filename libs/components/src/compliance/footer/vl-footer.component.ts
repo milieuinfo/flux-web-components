@@ -80,7 +80,7 @@ export class VlFooter extends BaseLitElement {
             }
         });
 
-        this.footerContainer && this.observer.observe(this.footerContainer, { childList: true });
+        if (this.footerContainer) this.observer.observe(this.footerContainer, { childList: true });
     }
 
     private loadWidget() {

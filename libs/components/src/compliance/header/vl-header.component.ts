@@ -6,7 +6,7 @@ import {
     registerWebComponents,
     webComponentCustom,
 } from '@domg-wc/common';
-import { CSSResult, PropertyDeclarations } from 'lit';
+import { PropertyDeclarations } from 'lit';
 import { headerContainerStyles, headerSkeletonStyles } from './vl-header.component.flux-css';
 import { headerDefaults } from './vl-header.defaults';
 
@@ -178,7 +178,7 @@ export class VlHeader extends BaseLitElement {
             }
         });
 
-        this.headerContainer && this.observer.observe(this.headerContainer, { childList: true });
+        if (this.headerContainer) this.observer.observe(this.headerContainer, { childList: true });
     }
 
     private async isUserAuthenticated(): Promise<boolean> {
