@@ -61,6 +61,12 @@ describe('component - vl-link - default', () => {
         cy.get('vl-link').shadow().find('a').should('have.attr', 'rel', 'noopener noreferrer nofollow');
     });
 
+    it('should set aria-label', () => {
+        cy.mount(html`<vl-link label="link naar Vlaanderen">Vlaanderen</vl-link>`);
+
+        cy.get('vl-link').shadow().find('a').should('have.attr', 'aria-label', 'link naar Vlaanderen');
+    });
+
     it('should set icon', () => {
         cy.mount(html`<vl-link icon="pin">Vlaanderen</vl-link>`);
 
@@ -120,6 +126,12 @@ describe('component - vl-link - button as link', () => {
         cy.injectAxe();
 
         cy.checkA11y('vl-link');
+    });
+
+    it('should set aria-label', () => {
+        cy.mount(html`<vl-link button-as-link label="registreren">Registratie</vl-link>`);
+
+        cy.get('vl-link').shadow().find('button').should('have.attr', 'aria-label', 'registreren');
     });
 
     it('should set href', () => {
