@@ -33,7 +33,8 @@ export const PillDefault = ({
         @check=${(event: any) => check(event.detail)}
         @click=${(event: any) => click(event)}
         data-cy="pill"
-        >Optie 1
+    >
+        ${type || 'Optie 1'}
     </vl-pill>
 `;
 PillDefault.storyName = 'vl-pill - default';
