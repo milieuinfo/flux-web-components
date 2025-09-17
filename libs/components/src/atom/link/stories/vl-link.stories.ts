@@ -3,7 +3,7 @@ import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
 import { VlLinkComponent } from '../vl-link.component';
 import { registerWebComponents } from '@domg-wc/common';
-import { linkArgTypes, linkArgs } from './vl-link.stories-arg';
+import { linkArgs, linkArgTypes } from './vl-link.stories-arg';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import linkDoc from './vl-link.stories-doc.mdx';
 
@@ -109,4 +109,5 @@ ButtonStyledAsLink.storyName = 'vl-link - button as link';
 ButtonStyledAsLink.args = {
     defaultSlot: 'Annuleren',
     buttonAsLink: true,
+    label: 'annuleer inschrijving',
 };

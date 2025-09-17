@@ -30,6 +30,15 @@ export const linkArgTypes: ArgTypes<LinkArgs> = {
             defaultValue: { summary: linkArgs.href },
         },
     },
+    label: {
+        name: 'label',
+        description: 'Vult het aria-label attribuut van de link in.',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: linkArgs.label },
+        },
+    },
     bold: {
         name: 'bold',
         description: 'Beeldt de tekst van de link vet af.',
