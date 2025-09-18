@@ -230,7 +230,7 @@ export const linkButtonStyles: CSSResult = css`
         }
 
         &.loading {
-            color: var(--vl-color--white);
+            color: var(--vl-color--action-disabled);
             background-color: var(--vl-color--action-disabled-background);
             border-color: var(--vl-color--action-disabled-background);
             padding-right: 8rem;
@@ -255,7 +255,7 @@ export const linkButtonStyles: CSSResult = css`
             &:focus,
             &:hover,
             &:active {
-                color: var(--vl-color--white);
+                color: var(--vl-color--action-disabled);
             }
 
             &.disabled {
