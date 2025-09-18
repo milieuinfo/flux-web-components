@@ -152,6 +152,9 @@
     "styles-base-var": {
         "vStatus": "v2-style-base"
     },
+    "styles-layout-afnemers-accessibility": {
+        "vStatus": "v2-style-layout"
+    },
     "styles-layout-afnemers-content-block": {
         "vStatus": "v2-style-layout"
     },
