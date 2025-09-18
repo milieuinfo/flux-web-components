@@ -6,85 +6,174 @@ import {Meta} from '@storybook/addon-docs';
 
 <FluxAlert type="success">
     {`
-    Dit is de next / v2 aanpak voor **opmaak** in toepassingen. Deze is bedoeld om te gebruiken in de
-    ['next' opzet](/docs/planning-aanpak-v2-2024-v3-2025--documentatie#next-conventies) in
-    combinatie met [next-componenten](/docs/planning-aanpak-v2-2024-v3-2025--documentatie#waarom-componenten).
+    Dit is de v2 aanpak voor **opmaak** in toepassingen.
 `}
 </FluxAlert>
 <br/>
 
 
 ## Inhoudstafel
-
 - [Concept](#concept)
-- [Conventies](#conventies)
 - [Base (intern)](#base-intern)
-- [Layout](#layout-afnemers)
-
+- [Layout (afnemers)](#layout-afnemers)
+- [Aanbevolen volgorde van styling](#aanbevolen-volgorde-van-styling)
+- [Utility classes (Digitaal Vlaanderen)](#utility-classes-digitaal-vlaanderen)
+- [Conventies](#conventies)
 
 ## Concept
 
-In de next / v2 opzet worden de [elementen weggewerkt](/docs/planning-aanpak-v2-2024-v3-2025--documentatie#element-complicatie),
-dit heeft impact op de globale styling. De elementen uit v1, bvb. button moeten gebruikt worden als `<button is="vl-button">`;
-hierdoor hebben die geen shadow-dom en wordt die CSS globaal (op het document) voorzien. In v2 wordt `button` een
-volwaardige web-component, te gebruiken via `<vl-button>`, met een shadow-dom. Hierdoor kan de 'button' style
-nu in de shadow-dom gestoken worden.
+Sinds de v2-release zijn de `element`-componenten weggewerkt. Dit heeft impact op de globale styling.
 
-Alle styling voor componenten wordt in v2 op die manier aangeboden. Naast het stylen van componenten is er nog andere
-opmaak nodig:
+- In **v1**:  
+  Componenten zoals `vl-button` moesten gebruikt worden als:  
+  ```html
+  <button is="vl-button">Actie</button>
+  ```
+  Deze hadden geen shadow DOM. CSS werd dus globaal toegepast.
 
-- **font definities** voor gebruik van het Vlaanderen font
-- **mixins** en **variabelen** om duplicatie tegen te gaan
-- **layout** en **witruimte** voor pagina-opmaak
+- In **v2**:
+  Componenten zijn nu volwaardige web-componenten, bv.:
 
-Onder het hoofd-item 'STYLES' wordt de aanpak voor de desbetreffend opmaak beschreven: alles wat **niet** in de
-shadow-dom van een component kan.
-
-
-## Conventies
-
-- alle CSS wordt geschreven als CSS-in-TS en aangeboden als **CSS-in-JS**
-- de CSS volgt de [**BEM**](https://getbem.com/) methodologie
-- om styling eenduidig te specifiëren worden [**CSS-variabelen**](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) gebruikt
-- CSS-variabelen worden globaal gedefiniëerd maar kunnen lokaal (in een component) een afwijkende waarde krijgen
-- we gebruiken het **mixin concept** in de vorm van geparametriseerde typescript methodes
-
+  ```html
+  <vl-button>Actie</vl-button>
+  ```
+  Deze hebben een shadow DOM. De styling van het component zelf zit in die shadow DOM. Externe CSS “lekt” daar niet 
+  automatisch in. Om tweaks mogelijk te maken voorzien de meeste componenten een `custom-css`-attribuut.
 
 ## Base (intern)
 
-Dit is basis CSS, bouwstenen die intern gebruikt worden. Afnemers dienen dit nooit rechtstreeks te gebruiken, deze CSS
-wordt ofwel globaal op het document gezet of in web-componenten gebruikt. Hierin zitten:
+Dit is basis CSS, bouwstenen die **intern** gebruikt worden.
+Afnemers gebruiken dit nooit rechtstreeks.
+Deze CSS wordt ofwel globaal op het document gezet of in web-componenten toegepast.
 
-- de specifieke Vlaanderen **fonts**
-- de **mixins** voor bvb. animaties, ...
-- de **variabelen** voor kleuren, media-queries, ...
-- styling voor **native elementen**
+Inhoud van de base-styles:
 
+- [Vlaanderen fonts](/docs/styles-base-font--documentatie)
+- [Mixins](/docs/styles-base-mixin--documentatie) (bv. animaties)
+- [Variabelen](/docs/styles-base-var--documentatie) (kleuren, media-queries, …)
+- Styling voor native elementen, zoals [body](/docs/styles-base-body--documentatie)
 
 ## Layout (afnemers)
 
-Dit is de basis voor algemene layout: alles wat orde en structuur geeft. Het zijn containers waar andere componenten
-in gestoken worden. Dit wordt aangeboden in de vorm van CSS-classes die typisch op `<div>` elementen gezet worden.
+Dit is de basis voor algemene layout: alles wat orde en structuur geeft. Het zijn **containers** waarin andere 
+componenten geplaatst worden.
 
-In v1 waren deze zaken als 'element' geïmplementeerd (wat als concept verdwijnt), er web-componenten van maken leek
-niet de geschikte keuze:
+In **v1** waren dit `element`-implementaties. Sinds **v2** zijn dit **CSS-classes** op native elementen.
 
-- CSS vormt samen met HTML en JavaScript de basis van een webpagina - er is dus niets mis met dit rechtstreeks te
-  gebruiken
-- container's zijn niet visueel zoals componenten, ze bepalen de plaats en ruimte van componenten
-- met CSS op native elementen kan er zoveel als nodig genest worden zonder shadow-dom problematiek
-- door met CSS-variabelen te werken kunnen deze globaal voorzien worden maar kan er lokaal (in een web-component)
-van afgeweken worden
+Waarom geen web-componenten?
 
-De containers die aangeboden worden zijn:
+- CSS en HTML vormen de basis van de layout en opmaak van een web-pagina. Het is aan te raden deze zoveel mogelijk 
+  rechtstreeks toe te passen zonder JavaScript.
+- Containers zijn niet visueel, maar bepalen enkel plaats en ruimte.
+- Met CSS op native elementen kan er zoveel genest worden als nodig, zonder shadow DOM problemen.
 
-- **vl-grid**: biedt de opzet van een 12-kolom layout aan
-- **vl-group** is bedoeld om componenten horizontaal of verticaal te groeperen
-- met **vl-margin** en **vl-padding** kan desgewenst witruimte aangepast worden
-- via **vl-section** kan structuur gedefinieerd worden
+### Beschikbare classes
 
+- `.vl-content-block` – om content te groeperen
+- `.vl-grid`, `.vl-column` – 12-koloms layout
+- `.vl-group` – groepeert componenten horizontaal of verticaal
+- `.vl-margin-...`, `.vl-padding-...`, `.vl-spacer-...` en `.vl-stacked-...` – witruimte aanpassen
+- `.vl-section` – structuur definiëren
+- `.vl-separator-...` – varianten op de horizontale regel
 
-## Afname
+### Voorbeeld
 
-Afnemers dienen niets specifiek te doen. Vanaf dat er 1 Flux-component gebruikt wordt registreert deze alle
-layout-css globaal.
+```html
+<section class="vl-section">
+  <div class="vl-content-block">
+    <div class="vl-grid">
+      <div class="vl-column vl-column--6">
+        <!-- Slechts op dit niveau is er nood aan een web-component -->
+        <vl-info-tile>...</vl-info-tile>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+### Afname
+
+Afnemers hoeven niets specifiek te doen om deze classes in te laden.
+Zodra er één Flux-component gebruikt wordt, wordt alle layout-CSS globaal geregistreerd.
+
+Indien je in je toepassing ook zelf web-componenten bouwt en je binnen je component de Flux layout styles wilt 
+gebruiken, moet je de `vlLayoutStyles` manueel registreren adhv de `styles()`-method:
+
+```ts
+import { vlLayoutStyles } from '@domg-wc/styles';
+
+// Binnen de component class:
+static get styles() {
+  return [
+    vlLayoutStyles,
+  ]
+}
+```
+
+## Aanbevolen volgorde van styling
+
+Bij het toepassen van styling raden we deze volgorde aan:
+
+1. **Gebruik de Flux-styles**
+
+  - Layout-classes zoals `.vl-padding-...`, `.vl-margin-...`, `.vl-group`, `.vl-section`, …
+  - In de meeste gevallen voldoende voor een nette opmaak.
+
+2. **Tweaken met custom-css**
+
+  - Voor kleine afwijkingen of correcties.
+  - Hou dit beperkt en consistent.
+  - Dit wordt door de meeste componenten ondersteund via het `custom-css` attribuut. Deze CSS wordt toegevoegd aan de 
+    `adoptedStyleSheets` in de shadow DOM van de component.
+  - Voorbeeld
+    ```html
+    <vl-info-tile custom-css="h3 { color: yellow; }">...</vl-info-tile>
+    ```
+
+3. **Schrijf custom style classes**
+
+  - Voor het stylen / layouten van elementen en pagina's die specifiek gebruikt worden in de toepassing (voor grote 
+    of herbruikbare aanpassingen).
+  - Voor het aanpassen van Flux CSS-variabelen:
+    - CSS-variabelen kunnen globaal aangepast worden en worden ook toegepast binnen de shadow DOM van web-componenten.
+    - CSS-variabelen kunnen in een custom class aangepast worden om enkel een deel van de pagina te beïnvloeden.
+  - Gebruik een duidelijke prefix (bv. `app-`) om conflicten te vermijden.
+  - Injecteer deze classes in de `adoptedStyleSheets` van je toepassing.
+  - Voorbeeld
+    ```ts
+    export class ToepassingMain extends BaseLitElement {
+      static get styles() {
+        return [
+          vlLayoutStyles,
+          css`
+            .toepassing-main { 
+              --vl-side-sheet-width: 600px;
+            }
+          `,
+        ]
+      }
+
+      render() {
+        return html`
+          <main class="toepassing-main">...</main>
+        `
+      }
+    }
+    ```
+
+## Utility classes (Digitaal Vlaanderen)
+
+De [layout utitily classes](https://overheid.vlaanderen.be/webuniversum/v3/documentation/utilities/) van Digitaal 
+Vlaanderen worden niet as-is overgenomen en niet standaard beschikbaar gemaakt in de Flux web-componenten. Sommige van 
+deze utilities hebben we overgenomen als web-component indien daar een use-case voor was. Gebruikers kunnen ontbrekende 
+styles overnemen in custom classes (zoals [hierboven](#aanbevolen-volgorde-van-styling) uitgelegd wordt) en ze op die 
+manier toepassen in hun applicatie. 
+
+## Conventies
+
+- Alle CSS wordt geschreven als **CSS-in-TS** en aangeboden als **CSS-in-JS**.
+- De CSS volgt de [**BEM**](https://getbem.com/)-methodologie.
+- CSS-variabelen worden gebruikt om styling eenduidig te specificeren.
+  - Variabelen zijn globaal gedefinieerd.
+  - Lokale afwijkingen zijn mogelijk binnen een component.
+- Mixins worden geïmplementeerd als TypeScript-functies die parametriseerbare CSS teruggeven.
