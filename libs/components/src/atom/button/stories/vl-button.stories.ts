@@ -1,10 +1,11 @@
+import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
-import { buttonArgs, buttonArgTypes } from './vl-button.stories-arg';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit';
-import { VlButtonComponent } from '../vl-button.component';
-import { registerWebComponents } from '@domg-wc/common';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { when } from 'lit/directives/when.js';
+import { VlButtonComponent } from '../vl-button.component';
+import { buttonArgs, buttonArgTypes } from './vl-button.stories-arg';
 import buttonDoc from './vl-button.stories-doc.mdx';
 
 registerWebComponents([VlButtonComponent]);
@@ -48,34 +49,44 @@ const ButtonTemplate = story(
         defaultSlot,
         onVlClick,
         onVlToggle,
-    }) => html`
-        <vl-button
-            type=${type}
-            ?disabled=${disabled}
-            ?error=${error}
-            ?block=${block}
-            ?large=${large}
-            ?wide=${wide}
-            ?narrow=${narrow}
-            ?secondary=${secondary}
-            ?tertiary=${tertiary}
-            ?ghost=${ghost}
-            ?loading=${loading}
-            label=${label}
-            icon=${icon}
-            cta-link=${ctaLink}
-            icon-placement=${iconPlacement}
-            ?toggle=${toggle}
-            ?on=${on}
-            ?controlled=${controlled}
-            ?external=${external}
-            ?inputGroup=${inputGroup}
-            @vl-click=${onVlClick}
-            @vl-toggle=${onVlToggle}
-        >
-            ${unsafeHTML(defaultSlot)}
-        </vl-button>
-    `
+    }) =>
+        html`
+            <vl-button
+                type=${type}
+                ?disabled=${disabled}
+                ?error=${error}
+                ?block=${block}
+                ?large=${large}
+                ?wide=${wide}
+                ?narrow=${narrow}
+                ?secondary=${secondary}
+                ?tertiary=${tertiary}
+                ?ghost=${ghost}
+                ?loading=${loading}
+                label=${label}
+                icon=${icon}
+                cta-link=${ctaLink}
+                icon-placement=${iconPlacement}
+                ?toggle=${toggle}
+                ?on=${on}
+                ?controlled=${controlled}
+                ?external=${external}
+                ?inputGroup=${inputGroup}
+                @vl-click=${onVlClick}
+                @vl-toggle=${onVlToggle}
+            >
+                ${unsafeHTML(
+                    typeof defaultSlot === 'string'
+                        ? `
+                            ${error === true ? 'Error: ' : ''}
+                            ${defaultSlot}
+                            ${disabled === true ? ' (disabled)' : ''}
+                        `
+                        : ''
+                )}
+                ${when(loading, () => html`<span class="vl-visually-hidden">(wordt geladen)</span>`)}
+            </vl-button>
+        `
 );
 
 export const ButtonPrimary = ButtonTemplate.bind({});

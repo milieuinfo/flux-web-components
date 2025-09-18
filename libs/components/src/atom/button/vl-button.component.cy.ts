@@ -243,6 +243,26 @@ describe('component - vl-button', () => {
         cy.get('vl-button').should('not.have.attr', 'on');
         cy.get('@vl-toggle').should('not.have.been.called');
     });
+
+    it('should set aria-pressed in case it is a toggle button', () => {
+        cy.mount(html`<vl-button toggle></vl-button>`);
+
+        cy.get('vl-button').shadow().find('button').should('have.attr', 'aria-pressed', 'false');
+
+        cy.get('vl-button').click();
+
+        cy.get('vl-button').shadow().find('button').should('have.attr', 'aria-pressed', 'true');
+    });
+
+    it('should not set aria-pressed in case it is not a toggle button', () => {
+        cy.mount(html`<vl-button></vl-button>`);
+
+        cy.get('vl-button').shadow().find('button').should('not.have.attr', 'aria-pressed');
+
+        cy.get('vl-button').click();
+
+        cy.get('vl-button').shadow().find('button').should('not.have.attr', 'aria-pressed');
+    });
 });
 
 describe('component - vl-button - cta-link', () => {
