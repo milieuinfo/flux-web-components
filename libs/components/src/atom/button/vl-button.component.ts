@@ -1,6 +1,7 @@
 import { BaseLitElement, ICON_PLACEMENT, isSlotEmpty, webComponent } from '@domg-wc/common';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { ClassInfo, classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { vlIconStyles } from '../icon-style/vl-icon-style.css';
 import { buttonStyles } from './vl-button.css';
 import { buttonDefaults } from './vl-button.defaults';
@@ -113,7 +114,14 @@ export class VlButtonComponent extends BaseLitElement {
         }
     }
 
-    protected handleClick() {
+    protected handleClick(e: MouseEvent) {
+        if (this.disabled || this.loading) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            return;
+        }
+
         if (this.toggle && !this.controlled) {
             this.on = !this.on;
         }
@@ -129,7 +137,14 @@ export class VlButtonComponent extends BaseLitElement {
         this.dispatchEvent(new CustomEvent('vl-click', { bubbles: true, composed: true }));
     }
 
-    protected handleLinkClick() {
+    protected handleLinkClick(e: MouseEvent) {
+        if (this.disabled || this.loading) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            return;
+        }
+
         if (this.toggle && !this.controlled) {
             this.on = !this.on;
         }
@@ -148,6 +163,12 @@ export class VlButtonComponent extends BaseLitElement {
         }
     };
 
+    get ariaLabel(): string {
+        const labelText = this.label || '';
+        const loadingText = this.loading ? ' (Wordt geladen...)' : '';
+        return labelText + loadingText;
+    }
+
     private renderButton(classes: ClassInfo): TemplateResult {
         const positionIconBefore = this.iconPlacement !== ICON_PLACEMENT.AFTER;
 
@@ -158,7 +179,10 @@ export class VlButtonComponent extends BaseLitElement {
                 type=${this.type}
                 ?disabled=${this.disabled}
                 @click=${this.handleClick}
-                aria-label=${this.label ?? nothing}
+                aria-label=${ifDefined(this.ariaLabel || undefined)}
+                aria-pressed=${ifDefined(this.toggle ? (this.on ? 'true' : 'false') : undefined)}
+                aria-disabled=${this.disabled || this.loading ? 'true' : 'false'}
+                aria-busy=${this.loading ? 'true' : 'false'}
             >
                 ${positionIconBefore ? this.renderIcon() : nothing}
                 <slot @slotchange=${this.handleSlotChange}></slot>
@@ -174,14 +198,15 @@ export class VlButtonComponent extends BaseLitElement {
             <a
                 part="link"
                 href=${this.disabled ? 'javascript:void(0);' : this.ctaLink}
-                tabindex=${this.disabled ? '-1' : nothing}
+                tabindex=${ifDefined(this.disabled ? '-1' : undefined)}
                 class=${classMap(classes)}
                 role="button"
                 target=${this.ctaLink && this.external ? '_blank' : nothing}
                 @click=${this.handleLinkClick}
-                aria-label=${this.label ?? nothing}
-                ?aria-pressed=${this.on}
-                ?aria-disabled=${this.disabled}
+                aria-label=${ifDefined(this.ariaLabel || undefined)}
+                aria-pressed=${ifDefined(this.toggle ? (this.on ? 'true' : 'false') : undefined)}
+                aria-disabled=${this.disabled || this.loading ? 'true' : 'false'}
+                aria-busy=${this.loading ? 'true' : 'false'}
             >
                 ${positionIconBefore ? this.renderIcon() : nothing}
                 <slot @slotchange=${this.handleSlotChange}></slot>
