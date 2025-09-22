@@ -1,10 +1,10 @@
-import { ArgTypes, Canvas } from '@storybook/addon-docs';
+import {ArgTypes, Canvas} from '@storybook/addon-docs';
 import * as VlUploadStories from './vl-upload.stories';
 import FormControlPublicMethods from '../../form-control/stories/form-control.public-methods-doc.mdx'
 
 # Upload
 
-<FluxMetaData id="components-form-upload" />
+<FluxMetaData id="components-form-upload"/>
 
 Gebruik de `upload` component om één of meerdere bestanden te selecteren of te slepen naar het upload-veld.
 
@@ -33,7 +33,7 @@ import { VlUploadComponent } from '@domg-wc/components/form';
 
 De volgende publieke methodes zijn beschikbaar op het `VlUploadComponent`:
 
-<FormControlPublicMethods />
+<FormControlPublicMethods/>
 
 ### getFiles(): DropzoneFile[]
 
@@ -42,6 +42,14 @@ Geeft een lijst van geaccepteerde bestanden terug.
 ### addFile(file: File): void
 
 Handmatig bestand toevoegen aan de lijst van opgeladen bestanden zonder achterliggende upload
+
+### removeFile(file: File): void
+
+Handmatig bestand verwijderen van de lijst van opgeladen bestanden
+
+### removeAllFiles(): void
+
+Handmatig verwijderen van alle geselecteerde bestanden
 
 ### upload(url?: string): void
 
@@ -79,9 +87,10 @@ De reden hiervoor is dat het belangrijk is om de gebruiker te informeren over de
 <details>
     <summary>voorbeeld aangepaste sub-titel</summary>
     ```ts
-    const { maxFiles, subTitle: subtitleDefault, maxSize } = uploadDefaults;
+    const {maxFiles, subTitle: subtitleDefault, maxSize} = uploadDefaults;
     const acceptedFilesMessage = acceptedFiles ? `\n De toegestane bestandstypes zijn: ${acceptedFiles}\n` : '';
-    subtitleComposed = `${subtitleDefault} \nUpload ${maxFiles} bestand(en) van maximaal ${maxSize} MB${acceptedFilesMessage}`;
+    subtitleComposed = `${subtitleDefault} \nUpload ${maxFiles} bestand(en) van maximaal
+    ${maxSize} MB${acceptedFilesMessage}`;
     ```
 </details>
 
