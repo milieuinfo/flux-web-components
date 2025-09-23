@@ -6,24 +6,82 @@ import {Meta} from '@storybook/addon-docs';
 
 ## Native- vs Custom-events
 
-De Flux-componenten bieden eigen - custom -
-events aan, deze hebben de prefix `vl-`. De prefix maakt duidelijk dat het Flux-events zijn en vermijden conflicten
-met standaard events of events van andere bibliotheken. Op de documentatie pagina van een component vind je onder
-`Configuratie` een overzicht van de custom-events, de native events worden niet vermeld!
+De Flux-componenten bieden eigen custom-events aan, deze hebben de prefix `vl-`.
+- De prefix maakt duidelijk dat het Flux-events zijn
+- en vermijden conflicten met standaard events of events van andere bibliotheken
 
-Indien aanwezig heeft het de voorkeur te luisteren naar de custom events; deze worden voorzien bij componenten:
+Luister bvb. naar `vl-change` of `vl-input` (i.p.v. `click`) bij het aanvinken van `vl-checkbox`. Dit kan belangrijk
+zijn wanneer je code momenteel naar native events luistert.
+
+Op de documentatie pagina van een component vind je onder `Configuratie` een overzicht van de custom-events,
+de native events worden niet vermeld!
+
+Indien aanwezig, heeft het de voorkeur te luisteren naar de custom events; deze worden typisch voorzien bij componenten:
 - die een complexe DOM-structuur hebben
 - waar extra informatie meegegeven wordt met het event
+- waar het belangrijk is dat we de timing / frequentie van de events zelf kunnen bepalen
+- waar we complexiteit rond retargeting willen omzeilen (zie hieronder)
 
-Luister bvb. naar `vl-change` of `vl-input` (i.p.v. `click`) bij het aanvinken van `vl-checkbox`.
+### Retargeting
+
+De Flux-componenten ontsluiten typisch native componenten die op hun beurt native events hebben. Bv. een `<vl-button>`
+bevat een `<button>` die de `click`'s  ontvangt van de gebruiker.
+
+Web-componenten [re-targetten](https://web.dev/articles/shadowdom-v1#the_shadow_dom_event_model) zelf bepaalde events,
+hierdoor lijken die native events voor afnemers van de web-component host (`vl-button`) zelf te komen in plaats van het
+native element `<button>`. In dat voorbeeld is het belangrijk om `event.composedPath()` te gebruiken om het geklikte
+element te achterhalen (`button`), in plaats van `event.target` die bv. `vl-button` zou geven.
+
+Retargeting kan er ook voor zorgen dat bv. bepaalde events meerdere keren binnen komen,
+terwijl je die maar 1 keer verwacht.
+Meer info rond het onderwerp vind je op [Lit.dev](https://lit.dev/docs/components/events/#adding-event-listeners-to-the-component-or-its-shadow-root).
 
 ## Events in Lit
 
-Lit, waar de nieuwere Flux-componenten gebruik van maken, heeft zelf een documentatie pagina over
+Lit, waar de nieuwere Flux-componenten gebruik van maken, heeft zelf een uitgebreide documentatie pagina over
 [events](https://lit.dev/docs/components/events/).
 
-## Retargeting
+In plaats van event listeners te definiëren kan je `@event-naam` gebruiken om op een eenvoudigere manier met events
+om te gaan.
 
-De Flux-componenten ontsluiten typisch native componenten die op hun beurt native events hebben. Web-componenten
-[re-targetten](https://web.dev/articles/shadowdom-v1#the_shadow_dom_event_model) zelf bepaalde events, hierdoor lijken
-die native events voor afnemers van de web-component zelf te komen of worden bepaalde event meerdere keren binnen.
+```html
+<vl-button @vl-click="${(event: CustomEvent) => console.log('er is geklikt', event)}">Click Me!</vl-button>
+```
+
+## Events afnemen in React
+
+Tot en met React 18 was het minder eenvoudig om met web componenten om te gaan en is het aan de afnemer om bv. wrappers
+te voorzien.
+
+Lit voorziet `@lit/react` die dit makkelijker maakt: [lit/react](https://lit.dev/docs/frameworks/react/). Dit laat het
+toe om Lit componenten op een meer React native manier te gebruiken.
+
+Vanaf React 19 zijn [custom elements nu volledig ondersteund](https://react.dev/blog/2024/12/05/react-19#support-for-custom-elements).
+
+<table>
+    <tr>
+        <td>Versie</td>
+        <td>Ondersteuning</td>
+    </tr>
+    <tr>
+        <td>React &lt;= 18</td>
+        <td>weinig ondersteuning maar gebruik van <strong>&#64;lit/react</strong> maakt het makkelijker</td>
+    </tr>
+    <tr>
+        <td>React 19</td>
+        <td>volledig ondersteund</td>
+    </tr>
+</table>
+
+
+> Voor React specifieke controllers, kan het belangrijk zijn om de wrapper aan te passen zodat je kan omgaan met onze
+specifieke custom events
+
+
+## Referenties
+
+[Lit - Events](https://lit.dev/docs/components/events/)
+
+[Lit - @lit/react](https://lit.dev/docs/frameworks/react/)
+
+[MDN - Events](https://developer.mozilla.org/en-US/docs/Web/API/Event)
