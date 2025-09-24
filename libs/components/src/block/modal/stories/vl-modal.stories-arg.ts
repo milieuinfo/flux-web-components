@@ -9,6 +9,8 @@ export const modalArgs = {
     notCancellable: false,
     notAutoClosable: false,
     allowOverflow: false,
+    size: 'default',
+    position: 'center',
 };
 
 export const modalArgTypes: ArgTypes = {
@@ -86,4 +88,26 @@ export const modalArgTypes: ArgTypes = {
             category: CATEGORIES.SLOTS,
         },
     },
-};
+    size: {
+        name: 'size',
+        description: 'Attribuut om de grootte van de modal te bepalen.',
+        options: ['default', 'medium', 'large', 'full-screen'],
+        control: { type: 'select' },
+        table: {
+            type: { summary: 'String' },
+            defaultValue: { summary: modalArgs.size },
+            category: CATEGORIES.ATTRIBUTES,
+        },
+    },
+    position: {
+        name: 'position',
+        description: 'Attribuut om de positie van de modal op het scherm te bepalen.',
+        options: ['center', 'left', 'right'],
+        control: { type: 'select' },
+        table: {
+            type: { summary: 'String' },
+            defaultValue: { summary: modalArgs.position },
+            category: CATEGORIES.ATTRIBUTES,
+        },
+    },
+};  

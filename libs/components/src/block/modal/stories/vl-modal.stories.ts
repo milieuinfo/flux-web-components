@@ -24,6 +24,8 @@ export const modalDefault = ({
     notCancellable,
     notAutoClosable,
     allowOverflow,
+    size,
+    position,
 }: typeof modalArgs) => html`
     <div>
         <vl-button id="button-open-modal-vt" modal-open="modal-vt" data-cy="button-modal-toggle"> Open </vl-button>
@@ -36,6 +38,8 @@ export const modalDefault = ({
             ?not-auto-closable=${notAutoClosable}
             ?allow-overflow=${allowOverflow}
             data-cy="modal"
+            size="${size}"
+            position="${position}"
         >
             <span slot="content">
                 <vl-datepicker block></vl-datepicker>
@@ -63,4 +67,44 @@ export const modalWithOtherAction = () => html`
 modalWithOtherAction.storyName = 'vl-modal - with other action';
 modalWithOtherAction.parameters = {
     controls: { hideNoControlsWarning: true },
+};
+
+export const modalMedium = modalDefault.bind({});
+modalMedium.storyName = 'vl-modal - medium';
+modalMedium.args = {
+    size: 'medium',
+    open: true,
+    closable: true,
+};
+
+export const modalLarge = modalDefault.bind({});
+modalLarge.storyName = 'vl-modal - large';
+modalLarge.args = {
+    size: 'large',
+    open: true,
+    closable: true,
+};
+
+export const modalFullScreen = modalDefault.bind({});
+modalFullScreen.storyName = 'vl-modal - full screen';
+modalFullScreen.args = {
+    size: 'full-screen',
+    open: true,
+    closable: true,
+};
+
+export const modalLeft = modalDefault.bind({});
+modalLeft.storyName = 'vl-modal - left';
+modalLeft.args = {
+    position: 'left',
+    open: true,
+    closable: true,
+};
+
+export const modalRight = modalDefault.bind({});
+modalRight.storyName = 'vl-modal - right';
+modalRight.args = {
+    position: 'right',
+    open: true,
+    closable: true,
 };

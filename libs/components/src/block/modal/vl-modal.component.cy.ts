@@ -18,6 +18,8 @@ const renderModal = ({
     content = html`<p>Modal content</p>
         <p>Lorem ipsum dolor sit amet.</p>`,
     button = html`<vl-button>button</vl-button>`,
+    size = 'default',
+    position = 'center',
 }: {
     title?: string;
     open?: boolean;
@@ -27,6 +29,8 @@ const renderModal = ({
     allowOverflow?: boolean;
     content?: TemplateResult;
     button?: TemplateResult;
+    size?: 'default' | 'medium' | 'large' | 'full-screen';
+    position?: 'center' | 'left' | 'right';
 }) => html`<vl-modal
     id="modal-vt"
     title=${title}
@@ -36,6 +40,8 @@ const renderModal = ({
     ?not-auto-closable=${notAutoClosable}
     ?allow-overflow=${allowOverflow}
     data-cy="modal"
+    size="${size}"
+    position="${position}"
 >
     <span slot="content"> ${content} </span>
     <span slot="button">${button}</span>
@@ -50,12 +56,20 @@ const openModal = () => {
     cy.getDataCy('button-modal-toggle').click();
 };
 
+const getDialog = () => {
+    return cy.getDataCy('modal').shadow().find('.vl-modal-dialog');
+};
+
 const isDialogHidden = () => {
-    cy.getDataCy('modal').shadow().find('.vl-modal-dialog').should('have.attr', 'aria-hidden', 'true');
+    getDialog().should('have.attr', 'aria-hidden', 'true');
 };
 
 const isDialogVisible = () => {
-    cy.getDataCy('modal').shadow().find('.vl-modal-dialog').should('have.attr', 'aria-hidden', 'false');
+    getDialog().should('have.attr', 'aria-hidden', 'false');
+};
+
+const checkDialogClass = (className: string) => {
+    getDialog().should('have.class', className);
 };
 
 const closeWithCancelButton = () => {
@@ -139,6 +153,46 @@ describe('component - vl-modal', () => {
         closeByPressingEscape();
         isDialogHidden();
         cy.checkA11y('vl-modal');
+    });
+
+    it('should be able to render a medium sized modal', () => {
+        cy.viewport(1024, 768);
+        cy.mount(html`${renderOpenButton()} ${renderModal({ size: 'medium' })}`);
+
+        openModal();
+        checkDialogClass('vl-modal-dialog--medium');
+    });
+
+    it('should be able to render a large sized modal', () => {
+        cy.viewport(1024, 768);
+        cy.mount(html`${renderOpenButton()} ${renderModal({ size: 'large' })}`);
+
+        openModal();
+        checkDialogClass('vl-modal-dialog--large');
+    });
+
+    it('should be able to render a full-screen sized modal', () => {
+        cy.viewport(1024, 768);
+        cy.mount(html`${renderOpenButton()} ${renderModal({ size: 'full-screen', closable: true })}`);
+
+        openModal();
+        checkDialogClass('vl-modal-dialog--full-screen');
+    });
+
+    it('should be able to render a left positioned modal', () => {
+        cy.viewport(1024, 768);
+        cy.mount(html`${renderOpenButton()} ${renderModal({ position: 'left', closable: true })}`);
+
+        openModal();
+        checkDialogClass('vl-modal-dialog--left');
+    });
+
+    it('should be able to render a right positioned modal', () => {
+        cy.viewport(1024, 768);
+        cy.mount(html`${renderOpenButton()} ${renderModal({ position: 'right', closable: true })}`);
+
+        openModal();
+        checkDialogClass('vl-modal-dialog--right');
     });
 });
 
