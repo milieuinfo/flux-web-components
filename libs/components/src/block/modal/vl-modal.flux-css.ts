@@ -6,7 +6,22 @@ export const vlModalFluxStyles: CSSResult = css`
         overflow: visible;
     }
 
+    :host .vl-modal-dialog__wrapper {
+        height: 100%;
+    }
+
     .vl-modal-dialog__close {
         cursor: pointer;
+    }
+
+    .vl-modal-dialog--full-screen {
+        left: 0;
+        right: 0;
+        top: 0px;
+        transform: initial;
+        max-height: initial;
+        max-width: initial;
+        height: 100vh;
+        width: 100vw;
     }
 `;
