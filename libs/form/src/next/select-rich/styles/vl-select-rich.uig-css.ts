@@ -1,7 +1,7 @@
-import { vlFocusOutlineMixin } from '@domg-wc/common-utilities/css';
 import { css, CSSResult } from 'lit';
+import { vlFocusOutlineMixin } from '@domg-wc/common-utilities/css';
 
-const styles: CSSResult = css`
+export const vlSelectRichFluxStyles: CSSResult = css`
     .js-vl-select .vl-select__inner {
         font-size: var(--vl-font-size--small);
         border-color: var(--vl-color--border-alt);
@@ -92,7 +92,6 @@ const styles: CSSResult = css`
         &.is-focused,
         &.is-open {
             ${vlFocusOutlineMixin()}
-
             &:hover .vl-select__inner {
                 box-shadow: none;
                 border-color: var(--vl-color--border-alt);
@@ -100,4 +99,3 @@ const styles: CSSResult = css`
         }
     }
 `;
-export default styles;
