@@ -3,6 +3,7 @@ import { SelectRichOption, SelectRichPosition } from './vl-select-rich.model';
 
 export const selectRichDefaults = {
     ...formControlDefaults,
+    initialOptions: [] as SelectRichOption[],
     options: [] as SelectRichOption[],
     placeholder: '' as string,
     notDeletable: false as boolean,

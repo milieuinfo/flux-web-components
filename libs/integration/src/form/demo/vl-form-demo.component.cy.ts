@@ -137,13 +137,19 @@ describe('integration - form demo', () => {
             expect(component.value).to.be.empty;
         });
         getGeboortedatumDatepicker().find('input#geboortedatum').should('have.value', '');
-        getGeboortePlaatsSelectRich().find('select').find('option[value="hasselt"]').should('not.exist');
-        getHobbiesSelectRich().find('select').find('option[value="padel"]').should('not.exist');
-        getHobbiesSelectRich().find('select').find('option[value="dans"]').should('not.exist');
+        getGeboortePlaatsSelectRich()
+            .find('select')
+            .find('option[value="hasselt"]')
+            .should('not.have.attr', 'selected');
+
+        getHobbiesSelectRich().find('select').find('option[value="padel"]').should('not.have.attr', 'selected');
+        getHobbiesSelectRich().find('select').find('option[value="dans"]').should('not.have.attr', 'selected');
+
         getHobbiesSelectRich({ shadow: false }).runTest((component) => {
             // @ts-ignore access private property
             expect(component.value).to.be.null;
         });
+
         getKinderenSelect().find('select').find('option[value="0"]').should('not.have.attr', 'selected');
         getInteressesTextarea().find('textarea').should('have.value', '');
         getLeeftijdInput().find('input').should('have.value', '');

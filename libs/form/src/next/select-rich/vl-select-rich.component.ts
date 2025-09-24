@@ -1,29 +1,28 @@
 import { webComponent } from '@domg-wc/common-utilities';
-import { SelectRichOption } from '@domg-wc/form/next/select-rich/vl-select-rich.model';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { iconStyle } from '@domg/govflanders-style/component';
 import { FormValue } from '@open-wc/form-control/src/types';
-import * as choices from 'choices.js';
-import { Item, Options } from 'choices.js';
+import { SelectRichOption } from './vl-select-rich.model';
+import Choices, { Options } from 'choices.js';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { FormControl } from '../form-control/form-control';
 import { inputFieldStyles } from '../input-field/vl-input-field.css';
 import multiselectStyle from './styles/vl-multiselect.dv-css';
-import selectRichUigStyle from './styles/vl-select-rich.uig-css';
 import selectStyle from './styles/vl-select.dv-css';
 import { selectRichDefaults } from './vl-select-rich.defaults';
-
-// web-dev-server (rollup) fix: ambiguous indirect export
-export const DEFAULT_CLASSNAMES = choices.DEFAULT_CLASSNAMES;
-export const Choices = choices.default;
-export type Choices = choices.default;
+import { vlSelectRichFluxStyles } from './styles/vl-select-rich.uig-css';
 
 @webComponent('vl-select-rich-next')
 export class VlSelectRichComponent extends FormControl {
     // Properties
     options = selectRichDefaults.options;
-
+    initialOptions = selectRichDefaults.initialOptions;
+    protected placeholder = selectRichDefaults.placeholder;
+    protected search = selectRichDefaults.search;
+    protected searchPlaceholder = selectRichDefaults.searchPlaceholder;
+    // Variables
+    protected choices: Choices | null = null;
     // Attributes
     private notDeletable = selectRichDefaults.notDeletable;
     private multiple = selectRichDefaults.multiple;
@@ -31,24 +30,33 @@ export class VlSelectRichComponent extends FormControl {
     private resultLimit = selectRichDefaults.resultLimit;
     private noResultsText = selectRichDefaults.noResultsText;
     private noChoicesText = selectRichDefaults.noChoicesText;
-    protected placeholder = selectRichDefaults.placeholder;
-    protected search = selectRichDefaults.search;
-    protected searchPlaceholder = selectRichDefaults.searchPlaceholder;
-
     // State
     private value: FormValue = null;
+    private dropdownInitialised = false;
+    private initialised = false;
+    private isDropdownOpen = false;
     private dispatchInput = false;
 
-    // Variables
-    protected choices: Choices | null = null;
-    private initialOptions: SelectRichOption[] = [];
+    constructor() {
+        super();
+        this.submitFormOnEnter = false;
+    }
 
     static get styles(): CSSResult[] {
-        return [resetStyle, baseStyle, inputFieldStyles, selectStyle, multiselectStyle, iconStyle, selectRichUigStyle];
+        return [
+            resetStyle,
+            baseStyle,
+            inputFieldStyles,
+            selectStyle,
+            multiselectStyle,
+            iconStyle,
+            vlSelectRichFluxStyles,
+        ];
     }
 
     static get properties(): PropertyDeclarations {
         return {
+            initialOptions: { type: Array, attribute: 'initial-options' },
             options: { type: Array },
             placeholder: { type: String },
             notDeletable: { type: Boolean, attribute: 'not-deletable' },
@@ -74,25 +82,45 @@ export class VlSelectRichComponent extends FormControl {
         };
     }
 
-    constructor() {
-        super();
+    connectedCallback() {
+        super.connectedCallback();
 
-        this.submitFormOnEnter = false;
+        if (this.initialised) {
+            this.choices = new Choices(this.validationTarget!, this.getChoicesConfig());
+            this.initialOptions = structuredClone(this.options);
+        }
     }
 
     firstUpdated(changedProperties: Map<string, unknown>) {
         super.firstUpdated(changedProperties);
 
         this.choices = new Choices(this.validationTarget!, this.getChoicesConfig());
-        this.initialOptions = [...JSON.parse(JSON.stringify(this.options))];
+        this.initialOptions = structuredClone(this.options);
+    }
+
+    private callbackOnInit = (): void => {
+        // Fix voor Choices.js dropdown te openen in een Shadow DOM
+        this.getChoicesElement()?.addEventListener('click', this.onClickChoices);
+
+        // Fix voor Choices.js dropdown te openen als er geklikt wordt op het label
+        this.internals.labels[0]?.addEventListener('click', this.onClickChoices);
+
+        this.getChoicesElement()?.addEventListener('showDropdown', () => {
+            const dropdownElement = this.getChoicesElement()?.querySelector('.vl-select__list--dropdown');
+            if (dropdownElement && !this.dropdownInitialised) {
+                dropdownElement.setAttribute('role', 'group');
+                dropdownElement.setAttribute('id', 'vl-select__list');
+                this.dropdownInitialised = true;
+            }
+            this.isDropdownOpen = true;
+        });
+        this.getChoicesElement()?.addEventListener('hideDropdown', () => {
+            this.isDropdownOpen = false;
+        });
+
+        this.setChoicesInputAttributes();
 
         setTimeout(() => {
-            // Fix voor Choices.js dropdown te openen in een Shadow DOM
-            this.getChoicesElement()?.addEventListener('click', this.onClickChoices);
-
-            // Fix voor Choices.js dropdown te openen als er geklikt wordt op het label
-            this.internals.labels[0]?.addEventListener('click', this.onClickChoices);
-
             // Fix voor required validator
             if (!this.value) {
                 this.setValue(null);
@@ -101,7 +129,9 @@ export class VlSelectRichComponent extends FormControl {
             // Fix voor Choices.js search event dat niet afgevuurd wordt als de search value verwijderd wordt.
             this.choices?.input?.element?.addEventListener('input', this.onSearchInput);
         }, 0);
-    }
+
+        this.initialised = true;
+    };
 
     updated(changedProperties: Map<string, unknown>) {
         super.updated(changedProperties);
@@ -112,20 +142,17 @@ export class VlSelectRichComponent extends FormControl {
 
         if (changedProperties.has('options')) {
             this.choices.clearStore();
-            this.choices.setChoices(this.getOptions(), 'value', 'label', true);
-            this.onChange();
+            this.choices.setChoices(this.options, 'value', 'label', true);
+            this.updateSelectedOptions(this.options);
         }
 
         if (changedProperties.has('value')) {
             const detail = { value: this.getSelected() };
-
             this.setValue(this.value);
             this.dispatchEvent(new CustomEvent('vl-change', { bubbles: true, composed: true, detail }));
-            if (this.dispatchInput) {
-                this.dispatchEvent(new CustomEvent('vl-input', { bubbles: true, composed: true, detail }));
-                this.dispatchInput = false;
+            if (this.validity.valid) {
+                this.dispatchEventIfValid(detail);
             }
-            this.dispatchEventIfValid(detail);
         }
 
         if (changedProperties.has('disabled')) {
@@ -151,6 +178,7 @@ export class VlSelectRichComponent extends FormControl {
         this.getChoicesElement()?.removeEventListener('click', this.onClickChoices);
         this.internals.labels[0]?.removeEventListener('click', this.onClickChoices);
         this.choices?.input?.element?.removeEventListener('input', this.onSearchInput);
+        this.choices?.destroy();
     }
 
     render(): TemplateResult {
@@ -173,9 +201,9 @@ export class VlSelectRichComponent extends FormControl {
                 ?disabled=${this.disabled}
                 ?error=${this.error}
                 ?multiple=${this.multiple}
-                @change=${this.onChange}
-                @choice=${this.onSelect}
-                @removeItem=${this.onSelect}
+                @change=${this.onInput}
+                @addItem=${this.onChange}
+                @removeItem=${this.onChange}
             ></select>
         `;
     }
@@ -184,22 +212,126 @@ export class VlSelectRichComponent extends FormControl {
         return this.shadowRoot?.querySelector('select');
     }
 
+    /**
+     * Reset de form control naar de initiële staat.
+     */
     resetFormControl() {
         super.resetFormControl();
 
-        this.options = [...this.initialOptions];
+        this.choices?.clearStore();
+        this.choices?.setChoices(this.options, 'value', 'label', true);
+        this.updateSelectedOptions(this.initialOptions);
+        this.onChange();
+    }
+
+    /**
+     * Vervangt de huidige opties van de select.
+     * @param options
+     */
+    setOptions(options: SelectRichOption[]): void {
+        if (!options || !options.length) {
+            return;
+        }
+        this.options = structuredClone(options);
+    }
+
+    /**
+     * Update de opties van de select met de opgegeven opties.
+     * @param options
+     */
+    updateSelectedOptions(options: SelectRichOption[]): void {
+        const selectedValues = options.filter((option) => option.selected).map((option) => option.value);
+        const unselectedValues = options.filter((option) => !option.selected).map((option) => option.value);
+        this.removeSelectionByValue(unselectedValues);
+        this.selectByValue(selectedValues);
+    }
+
+    /**
+     * Stelt de geselecteerde optie(s) in op basis van de opgegeven waarde(s).
+     * @param value
+     */
+    setSelectedValues(value: string | string[]): void {
+        this.removeAllSelections();
+        this.selectByValue(value);
     }
 
     getSelected(): string | string[] | null {
         return this.multiple ? this.getSelectedValues() : this.getSelectedValues()[0] || null;
     }
 
+    /**
+     * Selecteert 1 of meerdere keuzes op basis van de opgegeven waarde(s).
+     * @param value
+     */
+    selectByValue(value: string | string[]): void {
+        if (!this.choices) {
+            return;
+        }
+
+        if (Array.isArray(value)) {
+            this.choices.setChoiceByValue(value);
+        } else {
+            this.choices.setChoiceByValue([value]);
+        }
+        this.setValue(this.collectFormData());
+    }
+
+    /**
+     * Deselecteert 1 of meerdere keuzes op basis van de opgegeven waarde(s).
+     * @param value
+     */
+    removeSelectionByValue(value: string | string[]): void {
+        if (!this.choices) {
+            return;
+        }
+
+        if (Array.isArray(value)) {
+            value.forEach((val) => this.choices!.removeActiveItemsByValue(val));
+        } else {
+            this.choices.removeActiveItemsByValue(value);
+        }
+        this.setValue(this.collectFormData());
+    }
+
+    /**
+     * Verwijdert alle selecties.
+     */
+    removeAllSelections(): void {
+        if (!this.choices) {
+            return;
+        }
+
+        this.choices.removeActiveItems();
+        this.setValue(this.collectFormData());
+    }
+
+    protected onKeydown(event: KeyboardEvent) {
+        // de keyboard-events mogen niet buiten deze component bubbelen
+        // om te vermijden dat - bij integratie in bvb. de tabs - navigeren met de pijltjes een tab wissel veroorzaakt
+        event.stopPropagation();
+        super.onKeydown(event);
+    }
+
+    private setChoicesInputAttributes(): void {
+        if (this.choices?.input?.element) {
+            const inputElement = this.choices.input.element;
+            inputElement.setAttribute('type', 'text');
+            inputElement.classList.add('vl-input-field', 'vl-input-field-cloned');
+            inputElement.setAttribute('autocomplete', 'off');
+            inputElement.setAttribute('autocapitalize', 'off');
+            inputElement.setAttribute('spellcheck', 'false');
+            inputElement.setAttribute('role', 'textbox');
+            inputElement.setAttribute('aria-autocomplete', 'list');
+            inputElement.setAttribute('aria-label', 'zoek item');
+        }
+    }
+
     private getSelectedValues(): string[] {
         const selectedOptions = (this.validationTarget! as HTMLSelectElement).selectedOptions;
         return (
             Array.from(selectedOptions)
-                // Filter placeholder optie eruit
-                .filter((option) => option.value)
+                // Filter placeholders en niet-geselecteerde opties eruit
+                .filter((option) => option.value && option.hasAttribute('selected'))
                 .map((option) => option.value)
         );
     }
@@ -209,6 +341,7 @@ export class VlSelectRichComponent extends FormControl {
         const selectedValues = this.getSelectedValues();
         return selectedValues?.length
             ? selectedValues.reduce((formData: FormData, string, currentIndex) => {
+                  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                   currentIndex ? formData.append(name, string) : formData.set(name, string);
                   return formData;
               }, new FormData())
@@ -221,6 +354,7 @@ export class VlSelectRichComponent extends FormControl {
 
     private getChoicesConfig(): Partial<Options> {
         return {
+            callbackOnInit: this.callbackOnInit,
             shouldSort: false,
             removeItemButton: !this.notDeletable,
             removeItems: !this.notDeletable,
@@ -233,7 +367,7 @@ export class VlSelectRichComponent extends FormControl {
             noChoicesText: this.noChoicesText,
             searchPlaceholderValue: this.searchPlaceholder,
             classNames: {
-                ...DEFAULT_CLASSNAMES,
+                ...Choices.defaults.allOptions.classNames,
                 containerOuter: 'js-vl-select',
                 containerInner: 'vl-select__inner',
                 input: 'vl-input-field',
@@ -241,7 +375,7 @@ export class VlSelectRichComponent extends FormControl {
                 list: 'vl-select__list',
                 listItems: 'vl-select__list--multiple',
                 listSingle: 'vl-select__list--single',
-                listDropdown: 'vl-select__list--dropdown',
+                listDropdown: ['vl-select__list', 'vl-select__list--dropdown'],
                 item: 'vl-select__item',
                 itemSelectable: 'vl-select__item--selectable',
                 itemDisabled: 'vl-select__item--disabled',
@@ -255,29 +389,33 @@ export class VlSelectRichComponent extends FormControl {
                 return {
                     containerOuter: () => {
                         return template(
-                            `<div
+                            `
+                            <div
                                 class="js-vl-select vl-vi vl-vi-nav-down"
                                 data-type="${this.multiple ? 'select-multiple' : 'select-one'}"
                                 ${this.search ? 'aria-autocomplete="list"' : ''}
-                                role="combobox"
                                 part="vl-select-rich__combobox"
+                                role="combobox"
                                 aria-haspopup="true"
-                                aria-expanded="false"
+                                aria-expanded=${this.isDropdownOpen ? 'true' : 'false'}
                                 tabindex="0"
                                 aria-controls="vl-select__list"
                                 aria-label="${
                                     this.multiple ? 'selecteer één of meerdere opties' : 'selecteer één optie'
-                                }">
-                            </div>`
-                        );
+                                }"
+                            ></div>
+                            `
+                        ) as HTMLDivElement;
                     },
-                    item: (_config: Partial<Options>, data: Item) => {
+                    item: (_config: Partial<Options>, data: SelectRichOption) => {
+                        const isPlaceholder = data.placeholder === true;
                         if (this.notDeletable) {
                             return template(`
                             <div class="vl-select__item
                                 ${data.highlighted ? 'is-highlighted' : 'vl-select__item--selectable'}
                                 ${this.multiple ? 'vl-pill' : ''}
                                 ${data.placeholder ? 'vl-select__placeholder' : ''}"
+                                role="option"
                                 data-item
                                 data-id="${data.id}"
                                 data-value="${data.value}"
@@ -285,7 +423,7 @@ export class VlSelectRichComponent extends FormControl {
                             >
                                 ${data.label}
                             </div>
-                        `);
+                        `) as HTMLDivElement;
                         }
 
                         return template(
@@ -298,12 +436,15 @@ export class VlSelectRichComponent extends FormControl {
                                     data-item
                                     data-id="${data.id}"
                                     data-value="${data.value}"
+                                            ${isPlaceholder ? 'role="option"' : ''}
                                     ${data.disabled ? 'aria-disabled="true"' : 'data-deletable'}
                                 >
                                     <span>${data.label}</span>
-                                    <button type="button" class="vl-pill__close ${
-                                        !this.multiple ? 'vl-vi vl-vi-close' : ''
-                                    }" data-button aria-label="verwijder">
+                                    <button type="button"
+                                    ${isPlaceholder ? '' : 'role="option"'}
+                                     class="vl-pill__close ${
+                                         !this.multiple ? 'vl-vi vl-vi-close' : ''
+                                     }" data-button aria-label="verwijder ${data.label}">
                                         ${
                                             this.multiple
                                                 ? `<span class="vl-pill__close__icon vl-vi vl-vi-close" aria-hidden="true"></span>`
@@ -311,80 +452,44 @@ export class VlSelectRichComponent extends FormControl {
                                         }
                                     </button>
                                 </div>`
-                        );
+                        ) as HTMLDivElement;
                     },
-
-                    itemList: () => {
-                        if (!this.multiple) {
-                            return template(`<div class="vl-input-field"></div>`);
-                        }
-
-                        return template(`<div class="vl-input-field vl-select__list--multiple"></div>`);
-                    },
-                    input: () => {
-                        return template(
-                            `<input
-                                    @keydown=${this.onKeydown}
-                                    type="text"
-                                    class="vl-input-field vl-input-field-cloned"
-                                    autocomplete="off"
-                                    autocapitalize="off"
-                                    spellcheck="false"
-                                    role="textbox"
-                                    aria-autocomplete="list"
-                                    aria-label="zoek item">`
-                        );
-                    },
-                    dropdown: () => {
-                        return template(
-                            `<div class="vl-select__list vl-select__list--dropdown" role="group" id="vl-select__list"></div>`
-                        );
-                    },
-                    choiceList: () => {
-                        return template(
+                    itemList: () =>
+                        template(
+                            `<div class="vl-input-field ${
+                                !this.multiple ? '' : 'vl-select__list--multiple'
+                            }" role="listbox"></div>`
+                        ) as HTMLDivElement,
+                    choiceList: () =>
+                        template(
                             `<div class="vl-select__list" role="listbox" aria-label="item lijst" tabindex="0"></div>`
-                        );
-                    },
+                        ) as HTMLDivElement,
                 };
             },
         };
     }
 
-    protected onKeydown(event: KeyboardEvent) {
-        // de keyboard-events mogen niet buiten deze component bubbelen
-        // om te vermijden dat - bij integratie in bvb. de tabs - navigeren met de pijltjes een tab wissel veroorzaakt
-        event.stopPropagation();
-        super.onKeydown(event);
-    }
-
-    private getOptions(): SelectRichOption[] {
-        const options = [...this.options];
-
-        if (this.placeholder && !this.multiple) {
-            const placeholderOption: SelectRichOption = {
-                value: '',
-                label: this.placeholder,
-                placeholder: true,
-                disabled: true,
-                selected: true,
-            };
-            options.unshift(placeholderOption);
-        }
-
-        return options;
-    }
-
+    /**
+     * Event handler voor de change event van de select. Deze wordt aangeroepen wanneer de waarde van de
+     * select verandert, ongeacht de bron (bijv. door de gebruiker of door code).
+     * @private
+     */
     private onChange() {
         this.value = this.collectFormData();
     }
 
-    private onSelect() {
-        this.dispatchInput = true;
+    /**
+     * Event handler voor de input event van de select. Deze wordt aangeroepen wanneer de gebruiker
+     * de waarde van de select wijzigt.
+     * @private
+     */
+    private onInput() {
+        this.dispatchEvent(
+            new CustomEvent('vl-input', { bubbles: true, composed: true, detail: { value: this.getSelected() } })
+        );
     }
 
-    private onClickChoices = (event: Event) => {
-        event.stopPropagation();
-
+    private onClickChoices = () => {
         if (!this.disabled) {
             this.choices?.showDropdown();
         }
