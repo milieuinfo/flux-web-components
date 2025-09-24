@@ -1,5 +1,5 @@
 import { registerWebComponents, webComponent } from '@domg-wc/common-utilities';
-import { vlGridStyles } from '@domg-wc/common-utilities/css';
+import { vlGridStyles, vlStackedStyles } from '@domg-wc/common-utilities/css';
 import { VlButtonComponent } from '@domg-wc/components/next/button';
 import { VlTextComponent } from '@domg-wc/components/next/text';
 import { vlElementsStyle } from '@domg-wc/elements';
@@ -79,6 +79,7 @@ export class VlFormDemoComponent extends LitElement {
         return [
             vlElementsStyle,
             vlGridStyles,
+            vlStackedStyles,
             css`
                 form {
                     margin-top: 1rem;

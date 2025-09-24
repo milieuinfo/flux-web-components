@@ -1,12 +1,12 @@
-import { ArgTypes, Canvas, Source } from '@storybook/addon-docs';
+import {ArgTypes, Canvas, Source} from '@storybook/addon-docs';
 import * as VlSelectRichStories from './vl-select-rich.stories';
 import FormControlPublicMethods from '../../form-control/stories/form-control.public-methods-doc.mdx'
 
 # Select Rich - next
 
-<VluxMetaData id="form-next-select-rich" />
+<VluxMetaData id="form-next-select-rich"/>
 
-Gebruik de `select-rich-next` component om een uitgebreid select of multiselect veld toe te voegen aan een pagina.<br/>
+Gebruik de `select-rich` component om een uitgebreid select of multiselect veld toe te voegen aan een pagina.<br/>
 Zie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.
 
 
@@ -20,7 +20,7 @@ import { VlSelectRichComponent } from '@domg-wc/form/next/select-rich';
 <vl-select-rich-next></vl-select-rich-next>
 ```
 
-<Canvas of={VlSelectRichStories.SelectRichDefault} />
+<Canvas of={VlSelectRichStories.SelectRichDefault}/>
 
 <details>
     <summary>options</summary>
@@ -32,24 +32,35 @@ import { VlSelectRichComponent } from '@domg-wc/form/next/select-rich';
         { label: 'Waregem', value: 'waregem' },
         { label: 'Lier', value: 'lier' },
         { label: 'Rio Piedras', value: 'rio piedras' }
-]`} language="ts" dark={true} />
+]`} language="ts" dark={true}/>
 </details>
 
 
 ## Configuratie
 
-<ArgTypes of={VlSelectRichStories.SelectRichDefault} />
+<ArgTypes of={VlSelectRichStories.SelectRichDefault}/>
 
 
 ## Publieke methodes
 
-<FormControlPublicMethods />
+<FormControlPublicMethods/>
 
 ### getSelected(): string | string[]
 
 Geeft de geselecteerde values terug.<br/>
 Bij de single select geeft deze methode een string terug, bij de multi select een array van strings.
 
+### selectByValue(value: string | string[]): void
+
+Vinkt 1 of meerdere opties aan op basis van de value.
+
+### removeSelectionByValue(value: string | string[]): void
+
+Vinkt 1 of meerdere opties uit op basis van de value.
+
+### removeAllSelections(): void
+
+Vinkt alle opties uit.
 
 ## Styles
 
@@ -57,34 +68,69 @@ De styles van DV zijn lokaal gezet en aangepast omdat deze niet CSP compliant wa
 Er werd gebruik gemaakt van een `data:` attribuut om een SVG op te halen van w3.org.
 Hierdoor breekt de CSP compliance tenzij je alle `data:` attributen whitelist, wat niet de bedoeling is.
 
+## Events
 
-## Change event
+### Change event
 
-Bij het selecteren of verwijderen van een optie (zowel programmatorisch als door de gebruiker) wordt het `vl-change` event afgevuurd, het detail object van dit event bevat de value van de geselecteerde opties.<br/>
-Gelijkaardig aan de `getSelected()` methode, bevat de value bij de single select 1 string en bij de multi select een array van strings.
+Bij het selecteren of verwijderen van een optie (zowel programmatorisch als door de gebruiker) wordt het `vl-change`
+event afgevuurd, het detail object van dit event bevat de value van de geselecteerde opties.<br/>
+Gelijkaardig aan de `getSelected()` methode, bevat de value bij de single select 1 string en bij de
+multi select een array van strings.
 
-## Input event
+### Input event
 
-Wanneer de gebruiker een optie verwijdert of selecteert, wordt het `vl-input` event afgevuurd, het detail object van dit event bevat de value van de geselecteerde opties.<br/>
-Gelijkaardig aan de `getSelected()` methode, bevat de value bij de single select 1 string en bij de multi select een array van strings.
+Wanneer de gebruiker een optie verwijdert of selecteert, wordt het `vl-input` event afgevuurd, het detail object van
+dit event bevat de value van de geselecteerde opties.<br/>
+Gelijkaardig aan de `getSelected()` methode, bevat de value bij de single select 1 string en bij de multi select
+een array van strings.
 
+### Search Event
+
+Wanneer de gebruiker een zoekopdracht uitvoert, wordt het `vl-search` event afgevuurd,
+het detail object van dit event bevat de zoekterm die de gebruiker heeft ingegeven.<br/>
 
 ## Select opties
 
+De `select-rich` component kan 1 of meerdere waardes bevatten. Die waardes worden weergegeven als opties in de select
+component.<br/> Om die opties te beheren, zijn er verschillende mogelijkheden:
+
+### met methods
+
+De `select-rich` component heeft een aantal methodes die je kan gebruiken om de opties te beheren:
+
+- `selectByValue(value: string | string[])`: vinkt 1 of meerdere optie(s) aan
+- `removeSelectionByValue(value: string | string[])`: vinkt 1 of meerdere optie(s) uit
+- `removeAllSelections()`: vinkt alle opties uit
+
+### `options` property
+
 De `options` property bevat een array van objecten die de opties van de select component bevatten.
 
-Als de referentie van deze array verandert, wordt de Lit lifecycle getriggerd en wordt de select opnieuw opgebouwd op basis van de nieuwe opties.<br/>
-Hierdoor is het noodzakelijk om de opties door te geven aan de select component met behulp van een variabele, en de opties niet direct in de template te zetten.<br/>
-Indien je de opties direct in de template zet, zal bij elke render de select opnieuw opgebouwd worden en de gekozen opties verwijderd worden.
+Als de referentie van deze array verandert, wordt de Lit lifecycle getriggerd en wordt de select opnieuw
+opgebouwd op basis van de nieuwe opties.<br/>
+Hierdoor is het noodzakelijk om de opties door te geven aan de select component met behulp van een variabele,
+en de opties niet direct in de template te zetten.<br/>
+Indien je de opties direct in de template zet, zal bij elke render de select opnieuw opgebouwd worden en de
+gekozen opties verwijderd worden.
 
-Dit betekent ook dat als je programmatorisch een optie wil veranderen, toevoegen of verwijderen, je de referentie van de array moet aanpassen.<br/>
+Dit betekent ook dat als je programmatorisch een optie wil veranderen, toevoegen of verwijderen,
+je de referentie van de array moet aanpassen.<br/>
 Dit kan je doen door de opties de spreaden in een nieuwe array (`[...options]`).
 
+### `initial-options` property
+
+De `initial-options` property is een array van objecten die de opties van de select component bevatten.<br/>
+Deze zijn de standaard opties die worden getoond bij het laden van de pagina.<br/>
+
+Als de form reset, worden deze opties getoond in de select component.<br/>
+
+Indien je de `opties` direct in de template zet bij het laden van de `vl-select-rich`, worden deze intern ingesteld als
+de `initial-options` property.<br/>
 
 ## Accessibility
 
 Door de complexiteit van dit component is het niet mogelijk om het WCAG-compliant aan te bieden.<br/>
-We raden aan waar mogelijk gebruik te maken van de [vl-select](/docs/form-next-select--documentatie).<br/>
+We raden aan waar mogelijk gebruik te maken van de [vl-select](/docs/components-form-select--documentatie).<br/>
 Indien er minder dan 7 opties zijn raden we aan checkboxes of radio buttons te gebruiken.
 
 
@@ -94,7 +140,7 @@ Indien er minder dan 7 opties zijn raden we aan checkboxes of radio buttons te g
 
 De zoekfunctie is standaard geactiveerd voor de multiselect.
 
-<Canvas of={VlSelectRichStories.SelectRichSearch} />
+<Canvas of={VlSelectRichStories.SelectRichSearch}/>
 
 <details>
     <summary>options</summary>
@@ -106,12 +152,12 @@ De zoekfunctie is standaard geactiveerd voor de multiselect.
         { label: 'Waregem', value: 'waregem' },
         { label: 'Lier', value: 'lier' },
         { label: 'Rio Piedras', value: 'rio piedras' }
-]`} language="ts" dark={true} />
+]`} language="ts" dark={true}/>
 </details>
 
 ### Niet verwijderbaar
 
-<Canvas of={VlSelectRichStories.SelectRichNotDeletable} />
+<Canvas of={VlSelectRichStories.SelectRichNotDeletable}/>
 
 <details>
     <summary>options</summary>
@@ -123,12 +169,12 @@ De zoekfunctie is standaard geactiveerd voor de multiselect.
         { label: 'Waregem', value: 'waregem' },
         { label: 'Lier', value: 'lier' },
         { label: 'Rio Piedras', value: 'rio piedras' }
-]`} language="ts" dark={true} />
+]`} language="ts" dark={true}/>
 </details>
 
 ### Groepen
 
-<Canvas of={VlSelectRichStories.SelectRichGroups} />
+<Canvas of={VlSelectRichStories.SelectRichGroups}/>
 
 <details>
     <summary>options</summary>
@@ -150,14 +196,14 @@ De zoekfunctie is standaard geactiveerd voor de multiselect.
             value: '',
             choices: [{ label: 'Rio Piedras', value: 'rio piedras' }],
         }
-]`} language="ts" dark={true} />
+]`} language="ts" dark={true}/>
 </details>
 
 ### Multiselect
 
 De zoekfunctie is standaard geactiveerd voor de multiselect.
 
-<Canvas of={VlSelectRichStories.SelectRichMultiple} />
+<Canvas of={VlSelectRichStories.SelectRichMultiple}/>
 
 <details>
     <summary>options</summary>
@@ -169,14 +215,14 @@ De zoekfunctie is standaard geactiveerd voor de multiselect.
         { label: 'Zwemmen', value: 'zwemmen' },
         { label: 'Boardgames', value: 'boardgames' },
         { label: 'Fietsen', value: 'fietsen' }
-]`} language="ts" dark={true} />
+]`} language="ts" dark={true}/>
 </details>
 
 ### Geselecteerde optie
 
 Als je een optie programmatorisch wil selecteren moet je voor deze optie de 'selected' boolean op true zetten.
 
-<Canvas of={VlSelectRichStories.SelectRichSelectedOption} />
+<Canvas of={VlSelectRichStories.SelectRichSelectedOption}/>
 
 <details>
     <summary>options</summary>
@@ -188,14 +234,14 @@ Als je een optie programmatorisch wil selecteren moet je voor deze optie de 'sel
         { label: 'Waregem', value: 'waregem' },
         { label: 'Lier', value: 'lier' },
         { label: 'Rio Piedras', value: 'rio piedras' }
-]`} language="ts" dark={true} />
+]`} language="ts" dark={true}/>
 </details>
 
 ### Disabled optie
 
 Als je een optie programmatorisch wil uitzetten moet je voor deze optie de 'disabled' boolean op true zetten.
 
-<Canvas of={VlSelectRichStories.SelectRichDisabledOption} />
+<Canvas of={VlSelectRichStories.SelectRichDisabledOption}/>
 
 <details>
     <summary>options</summary>
@@ -207,7 +253,7 @@ Als je een optie programmatorisch wil uitzetten moet je voor deze optie de 'disa
         { label: 'Waregem', value: 'waregem' },
         { label: 'Lier', value: 'lier' },
         { label: 'Rio Piedras', value: 'rio piedras' }
-]`} language="ts" dark={true} />
+]`} language="ts" dark={true}/>
 </details>
 
 ### Read only
@@ -215,7 +261,7 @@ Als je een optie programmatorisch wil uitzetten moet je voor deze optie de 'disa
 Als je wil dat de select read only is, moet je voor alle opties de 'disabled' boolean op true zetten.<br/>
 Indien de 'required' boolean op true staat, moet je een value programmatorisch selecteren of je form wordt unsubmittable.
 
-<Canvas of={VlSelectRichStories.SelectRichReadOnly} />
+<Canvas of={VlSelectRichStories.SelectRichReadOnly}/>
 
 <details>
     <summary>options</summary>
@@ -227,12 +273,13 @@ Indien de 'required' boolean op true staat, moet je een value programmatorisch s
         { label: 'Waregem', value: 'waregem', disabled: true },
         { label: 'Lier', value: 'lier', disabled: true },
         { label: 'Rio Piedras', value: 'rio piedras', disabled: true }
-]`} language="ts" dark={true} />
+]`} language="ts" dark={true}/>
 </details>
 
 ## Validatie
 
-Meer info over validatie binnen onze form componenten vind je hier: [Form - Validatie](/docs/ontwerp-form-validation--documentatie)
+Meer info over validatie binnen onze form componenten vind je hier:
+[Form - Validatie](/docs/ontwerp-form-validation--documentatie)
 
 
 ## Referenties
@@ -243,6 +290,8 @@ Meer info over validatie binnen onze form componenten vind je hier: [Form - Vali
 
 ### Digitaal Vlaanderen
 
-[Documentatie Digitaal Vlaanderen - Select](https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-select)
+[Documentatie Digitaal Vlaanderen -
+Select](https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-select)
 
-[Documentatie Digitaal Vlaanderen - Multiselect](https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-multiselect)
+[Documentatie Digitaal Vlaanderen -
+Multiselect](https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-multiselect)
