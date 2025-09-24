@@ -54,6 +54,16 @@ export const selectArgTypes: ArgTypes<SelectArgs> = {
             defaultValue: { summary: selectArgs.notDeletable },
         },
     },
+    initialOptions: {
+        name: 'initial-options',
+        description:
+            'De opties die geselecteerd worden bij reset van de form.<br>Zie de documentatie pagina voor meer info.',
+        table: {
+            type: { summary: 'SelectOption' },
+            category: CATEGORIES.PROPERTIES,
+            defaultValue: { summary: selectArgs.options },
+        },
+    },
     options: {
         name: 'options',
         description: 'De opties die geselecteerd kunnen worden.<br>Zie de documentatie pagina voor meer info.',

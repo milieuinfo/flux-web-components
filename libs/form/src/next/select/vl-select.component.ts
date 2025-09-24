@@ -14,18 +14,15 @@ import { SelectOption } from './vl-select.model';
 export class VlSelectComponent extends FormControl {
     // Properties
     options = selectDefaults.options;
-
+    initialOptions = selectDefaults.initialOptions;
+    // State
+    public value = '';
     // Attributes
     private block = selectDefaults.block;
     private placeholder = selectDefaults.placeholder;
     private autocomplete = selectDefaults.autocomplete;
     private notDeletable = selectDefaults.notDeletable;
-
-    // State
-    public value = '';
-
     // Variables
-    private initialOptions = [] as SelectOption[];
     private DEFAULT_GROUP_LABEL = 'Overig';
     private dispatchInput = false;
 
@@ -35,14 +32,21 @@ export class VlSelectComponent extends FormControl {
 
     static get properties(): PropertyDeclarations {
         return {
-            options: { type: Array },
+            options: {
+                type: Array,
+            },
+            initialOptions: { type: Array, attribute: 'initial-options' },
             block: { type: Boolean },
             readonly: { type: Boolean },
             placeholder: { type: String },
             autocomplete: { type: String },
             notDeletable: { type: Boolean, attribute: 'not-deletable' },
-            value: { type: String, state: true },
+            value: { type: String },
         };
+    }
+
+    get validationTarget(): HTMLSelectElement | undefined | null {
+        return this.shadowRoot?.querySelector('select');
     }
 
     connectedCallback() {
@@ -50,7 +54,7 @@ export class VlSelectComponent extends FormControl {
 
         const selectedOption = this.getSelectedOption();
         this.value = selectedOption?.value || '';
-        this.initialOptions = JSON.parse(JSON.stringify(this.options));
+        this.initialOptions = structuredClone(this.options);
     }
 
     updated(changedProperties: Map<string, unknown>) {
@@ -154,24 +158,12 @@ export class VlSelectComponent extends FormControl {
         });
     }
 
-    get validationTarget(): HTMLSelectElement | undefined | null {
-        return this.shadowRoot?.querySelector('select');
-    }
-
     resetFormControl() {
         super.resetFormControl();
 
-        // We maken de options array leeg en vullen deze op met de initialOptions zodat de referentie van de array hetzelfde blijft.
-        // Anders zou bij een volgende render de opties array opgevat worden als veranderd.
-        while (this.options.length) {
-            this.options.pop();
-        }
-        this.initialOptions.forEach((option) => this.options.push({ ...option }));
-        // We renderen enkel de options opnieuw als de value niet leeg is.
-        if (this.value) {
-            // Aangezien we de referentie van de array niet veranderen, moeten we expliciet een update aanvragen voor de options array.
-            this.requestUpdate('options');
-        }
+        this.options = structuredClone(this.initialOptions);
+        const selectedOption = this.getSelectedOption();
+        this.value = selectedOption?.value || '';
     }
 
     private onChange(event: Event & { target: HTMLSelectElement }) {
