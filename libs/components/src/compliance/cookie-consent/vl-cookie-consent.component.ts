@@ -35,12 +35,12 @@ export class VlCookieConsent extends BaseHTMLElement {
           <vl-modal title="Cookie-toestemming" not-cancellable>
             <div class="vl-grid" slot="content">
               <div class="vl-column vl-column--12">
-                <span owner>Departement Omgeving</span> maakt op de websites waarvoor zij verantwoordelijk is gebruik van "cookies" en vergelijkbare internettechnieken. Cookies zijn kleine "tekstbestanden" die worden gebruikt om onze websites en apps beter te laten werken en jouw surfervaring te verbeteren. Zij kunnen worden opgeslagen in de context van de webbrowser(s) die je gebruikt bij het bezoeken van onze website(s).
+                <span data-vl-owner>Departement Omgeving</span> maakt op de websites waarvoor zij verantwoordelijk is gebruik van "cookies" en vergelijkbare internettechnieken. Cookies zijn kleine "tekstbestanden" die worden gebruikt om onze websites en apps beter te laten werken en jouw surfervaring te verbeteren. Zij kunnen worden opgeslagen in de context van de webbrowser(s) die je gebruikt bij het bezoeken van onze website(s).
               </div>
               <div class="vl-column vl-column--12">
                 Er zijn verschillende soorten cookies, en deze hebben ook een verschillende doelstelling en geldigheidsduur. Een beperkt aantal cookies (essenti&#235;le cookies) zijn absoluut noodzakelijk, deze zijn altijd anoniem. Andere cookies dragen bij aan het gebruikscomfort, je hebt de keuze om deze al dan niet te aanvaarden.</div>
               <div class="vl-column vl-column--12">
-                Op <a id="link" href="https://www.omgevingvlaanderen.be/privacy" target="_blank">https://www.omgevingvlaanderen.be/privacy</a> vind je meer informatie over de manier waarop <span owner>Departement Omgeving</span> omgaat met uw privacy:
+                Op <a id="link" href="https://www.omgevingvlaanderen.be/privacy" target="_blank">https://www.omgevingvlaanderen.be/privacy</a> vind je meer informatie over de manier waarop <span data-vl-owner>Departement Omgeving</span> omgaat met uw privacy:
                 <ul>
                   <li>ons privacybeleid, vertaald in de Privacyverklaring</li>
                   <li>algemene informatie over de nieuwe Privacywet</li>
@@ -48,7 +48,7 @@ export class VlCookieConsent extends BaseHTMLElement {
                 </ul>
               </div>
               <div class="vl-column vl-column--12">
-                De cookie-toestemming die je geeft is van toepassing op meerdere websites, subsites en apps van <span owner>Departement Omgeving</span>. Welke dit zijn, vind je via de Privacyverklaring. Je kunt naderhand een eerdere toestemming intrekken of wijzigen.
+                De cookie-toestemming die je geeft is van toepassing op meerdere websites, subsites en apps van <span data-vl-owner>Departement Omgeving</span>. Welke dit zijn, vind je via de Privacyverklaring. Je kunt naderhand een eerdere toestemming intrekken of wijzigen.
               </div>
             </div>
           </vl-modal>
@@ -101,7 +101,7 @@ export class VlCookieConsent extends BaseHTMLElement {
     }
 
     get _ownerElements() {
-        return this._shadow?.querySelectorAll<HTMLElement>('[owner]');
+        return this._shadow?.querySelectorAll<HTMLElement>('[data-vl-owner]');
     }
 
     get _linkElement() {
