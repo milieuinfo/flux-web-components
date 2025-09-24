@@ -26,7 +26,7 @@ const optionsGrouped: SelectOption[] = ['België', 'België', 'België', 'Belgi�
 
 describe('component - vl-select-next', () => {
     it('should mount', () => {
-        cy.mount(html`<vl-select-next label="geboorteplaats" .options=${options}></vl-select-next>`);
+        cy.mount(html`<vl-select label="geboorteplaats" .options=${options}></vl-select>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-next');
@@ -34,7 +34,7 @@ describe('component - vl-select-next', () => {
     });
 
     it('should set id', () => {
-        cy.mount(html`<vl-select-next id="test-id" label="geboorteplaats" .options=${options}></vl-select-next>`);
+        cy.mount(html`<vl-select id="test-id" label="geboorteplaats" .options=${options}></vl-select>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-next');
@@ -42,7 +42,7 @@ describe('component - vl-select-next', () => {
     });
 
     it('should set name', () => {
-        cy.mount(html`<vl-select-next name="test-name" label="geboorteplaats" .options=${options}></vl-select-next>`);
+        cy.mount(html`<vl-select name="test-name" label="geboorteplaats" .options=${options}></vl-select>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-next');
@@ -50,7 +50,7 @@ describe('component - vl-select-next', () => {
     });
 
     it('should set label', () => {
-        cy.mount(html`<vl-select-next label="geboorteplaats" .options=${options}></vl-select-next>`);
+        cy.mount(html`<vl-select label="geboorteplaats" .options=${options}></vl-select>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-next');
@@ -58,7 +58,7 @@ describe('component - vl-select-next', () => {
     });
 
     it('should set required', () => {
-        cy.mount(html`<vl-select-next label="geboorteplaats" required .options=${options}></vl-select-next>`);
+        cy.mount(html`<vl-select label="geboorteplaats" required .options=${options}></vl-select>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-next');
@@ -66,7 +66,7 @@ describe('component - vl-select-next', () => {
     });
 
     it('should set disabled', () => {
-        cy.mount(html`<vl-select-next label="geboorteplaats" disabled .options=${options}></vl-select-next>`);
+        cy.mount(html`<vl-select label="geboorteplaats" disabled .options=${options}></vl-select>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-next');
@@ -75,7 +75,7 @@ describe('component - vl-select-next', () => {
     });
 
     it('should set error', () => {
-        cy.mount(html`<vl-select-next label="geboorteplaats" error .options=${options}></vl-select-next>`);
+        cy.mount(html`<vl-select label="geboorteplaats" error .options=${options}></vl-select>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-next');
@@ -84,7 +84,7 @@ describe('component - vl-select-next', () => {
     });
 
     it('should set success', () => {
-        cy.mount(html`<vl-select-next label="geboorteplaats" success .options=${options}></vl-select-next>`);
+        cy.mount(html`<vl-select label="geboorteplaats" success .options=${options}></vl-select>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-next');
@@ -93,11 +93,11 @@ describe('component - vl-select-next', () => {
 
     it('should set placeholder', () => {
         cy.mount(
-            html`<vl-select-next
+            html`<vl-select
                 label="geboorteplaats"
                 placeholder="Selecteer je geboorteplaats"
                 .options=${options}
-            ></vl-select-next>`
+            ></vl-select>`
         );
         cy.injectAxe();
 
@@ -106,7 +106,7 @@ describe('component - vl-select-next', () => {
     });
 
     it('should be deletable', () => {
-        cy.mount(html`<vl-select-next label="geboorteplaats" .options=${optionsWithSelected}></vl-select-next>`);
+        cy.mount(html`<vl-select label="geboorteplaats" .options=${optionsWithSelected}></vl-select>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-next');
@@ -114,9 +114,7 @@ describe('component - vl-select-next', () => {
     });
 
     it('should set not-deletable', () => {
-        cy.mount(
-            html`<vl-select-next label="geboorteplaats" not-deletable .options=${optionsWithSelected}></vl-select-next>`
-        );
+        cy.mount(html`<vl-select label="geboorteplaats" not-deletable .options=${optionsWithSelected}></vl-select>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-next');
@@ -124,9 +122,7 @@ describe('component - vl-select-next', () => {
     });
 
     it('should set autocomplete', () => {
-        cy.mount(
-            html`<vl-select-next label="geboorteplaats" autocomplete="name" .options=${options}></vl-select-next>`
-        );
+        cy.mount(html`<vl-select label="geboorteplaats" autocomplete="name" .options=${options}></vl-select>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-next');
@@ -134,7 +130,7 @@ describe('component - vl-select-next', () => {
     });
 
     it('should set block', () => {
-        cy.mount(html`<vl-select-next label="geboorteplaats" block .options=${options}></vl-select-next>`);
+        cy.mount(html`<vl-select label="geboorteplaats" block .options=${options}></vl-select>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-next');
@@ -142,7 +138,7 @@ describe('component - vl-select-next', () => {
     });
 
     it('should dispatch vl-change event on select and delete option', () => {
-        cy.mount(html`<vl-select-next label="geboorteplaats" .options=${options}></vl-select-next>`);
+        cy.mount(html`<vl-select label="geboorteplaats" .options=${options}></vl-select>`);
         cy.injectAxe();
 
         cy.createStubForEvent('vl-select-next', 'vl-change');
@@ -161,7 +157,7 @@ describe('component - vl-select-next', () => {
     });
 
     it('should dispatch vl-select event when the user selects and deletes an option', () => {
-        cy.mount(html`<vl-select-next label="geboorteplaats" .options=${options}></vl-select-next>`);
+        cy.mount(html`<vl-select label="geboorteplaats" .options=${options}></vl-select>`);
         cy.injectAxe();
 
         cy.createStubForEvent('vl-select-next', 'vl-input');
@@ -181,7 +177,7 @@ describe('component - vl-select-next', () => {
     });
 
     it('should dispatch vl-change, but not vl-select when programmatically selecting and deleting option', () => {
-        cy.mount(html`<vl-select-next label="geboorteplaats" .options=${options}></vl-select-next>`);
+        cy.mount(html`<vl-select label="geboorteplaats" .options=${options}></vl-select>`);
         cy.injectAxe();
 
         cy.createStubForEvent('vl-select-next', 'vl-change');
@@ -212,7 +208,7 @@ describe('component - vl-select-next', () => {
     });
 
     it('should dispatch vl-valid event on valid selection', () => {
-        cy.mount(html`<vl-select-next label="geboorteplaats" .options=${options} required></vl-select-next>`);
+        cy.mount(html`<vl-select label="geboorteplaats" .options=${options} required></vl-select>`);
         cy.injectAxe();
 
         cy.createStubForEvent('vl-select-next', 'vl-valid');
@@ -228,7 +224,7 @@ describe('component - vl-select-next', () => {
     });
 
     it('should select option', () => {
-        cy.mount(html`<vl-select-next label="geboorteplaats" .options=${options}></vl-select-next>`);
+        cy.mount(html`<vl-select label="geboorteplaats" .options=${options}></vl-select>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-next');
@@ -245,7 +241,7 @@ describe('component - vl-select-next', () => {
     });
 
     it('should delete option', () => {
-        cy.mount(html`<vl-select-next label="geboorteplaats" .options=${options}></vl-select-next>`);
+        cy.mount(html`<vl-select label="geboorteplaats" .options=${options}></vl-select>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-next');
@@ -267,7 +263,7 @@ describe('component - vl-select-next', () => {
     });
 
     it('should select option programmatically', () => {
-        cy.mount(html`<vl-select-next label="geboorteplaats" .options=${optionsWithSelected}></vl-select-next>`);
+        cy.mount(html`<vl-select label="geboorteplaats" .options=${optionsWithSelected}></vl-select>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-next');
@@ -283,7 +279,7 @@ describe('component - vl-select-next', () => {
     });
 
     it('should disable option programmatically', () => {
-        cy.mount(html`<vl-select-next label="geboorteplaats" .options=${optionsWithDisabled}></vl-select-next>`);
+        cy.mount(html`<vl-select label="geboorteplaats" .options=${optionsWithDisabled}></vl-select>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-next');
@@ -297,7 +293,7 @@ describe('component - vl-select-next', () => {
     });
 
     it('should use groups', () => {
-        cy.mount(html`<vl-select-next label="geboorteplaats" .options=${optionsGrouped}></vl-select-next>`);
+        cy.mount(html`<vl-select label="geboorteplaats" .options=${optionsGrouped}></vl-select>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-next');
@@ -318,7 +314,7 @@ describe('component - vl-select-next', () => {
 
     it('should be able to add options dynamically and show the placeholder if none of the options are selected', () => {
         const mockPlaceholder = 'Mock placeholder';
-        cy.mount(html`<vl-select-next placeholder="${mockPlaceholder}"></vl-select-next>`);
+        cy.mount(html`<vl-select placeholder="${mockPlaceholder}"></vl-select>`);
         cy.wait(0)
             .get('vl-select-next')
             .then(($vlSelect) => {
@@ -333,14 +329,14 @@ describe('component - vl-select-next', () => {
             .shadow()
             .find('select')
             .then(
-                // De lege value van de `vl-select-next` moet `""` zijn om de placeholder te tonen.
+                // De lege value van de `vl-select` moet `""` zijn om de placeholder te tonen.
                 // `null` of `undefined` doen dit niet en zorgen ervoor dat het eerstvolgende element getoond wordt.
                 ($select) => expect($select.children(`option[value="${String(selectedValue)}"]`)[0]).not.to.be.undefined
             );
     });
 
     it('should be able to add options dynamically and show the selected option', () => {
-        cy.mount(html`<vl-select-next></vl-select-next>`);
+        cy.mount(html`<vl-select></vl-select>`);
         cy.wait(0)
             .get('vl-select-next')
             .then(($vlSelect) => {
@@ -365,23 +361,23 @@ describe('component - vl-select-next', () => {
     });
 });
 
-describe('component - vl-select-next - in form', () => {
+describe('component - vl-select - in form', () => {
     beforeEach(() => {
         cy.mount(html`
             <form
                 id="form"
                 class="vl-form"
                 @submit=${(e: Event) => {
-                    e.preventDefault();
-                }}
+            e.preventDefault();
+        }}
             >
-                <vl-select-next
+                <vl-select
                     id="geboorteplaats"
                     name="geboorteplaats"
                     placeholder="Selecteer je geboorteplaats"
                     .options=${options}
                     required
-                ></vl-select-next>
+                ></vl-select>
                 <button class="vl-button" type="submit">Verstuur</button>
                 <button class="vl-button" type="reset">Reset</button>
             </form>
@@ -432,6 +428,44 @@ describe('component - vl-select-next - in form', () => {
             .find('select')
             .find('option:selected')
             .should('contain', 'Selecteer je geboorteplaats');
+    });
+
+    it('should reset value with dynamically changed preselected options', () => {
+        cy.createStubForEvent('form', 'reset');
+
+        cy.get('vl-select-next').shadow().find('select').select(options[0].value).trigger('change');
+        cy.get('form').then(($el) => {
+            const formData = Object.fromEntries(new FormData($el.get(0) as HTMLFormElement));
+            expect(formData).to.deep.equal({ geboorteplaats: options[0].value });
+        });
+        cy.get('form').find('button[type="reset"]').click();
+        cy.get('@reset').should('have.been.calledOnce');
+        cy.get('form').then(($el) => {
+            const formData = Object.fromEntries(new FormData($el.get(0) as HTMLFormElement));
+            expect(formData).to.deep.equal({ geboorteplaats: '' });
+        });
+        cy.get('vl-select-next')
+            .shadow()
+            .find('select')
+            .find('option:selected')
+            .should('contain', 'Selecteer je geboorteplaats');
+
+        cy.get('vl-select-next').then((el) => {
+            const select = el[0] as VlSelectComponent;
+            select.initialOptions = [
+                { label: 'Hasselt', value: 'hasselt' },
+                { label: 'Turnhout', value: 'turnhout' },
+                { label: 'Knokke-Heist', value: 'knokke-heist' },
+                { label: 'Waregem', value: 'waregem' },
+                { label: 'Lier', value: 'lier' },
+                { label: 'Rio Piedras', value: 'rio piedras', selected: true },
+            ];
+        });
+
+        // we resetten een lege select; in dat geval moet de placeholder hetzelfde blijven
+        cy.get('form').find('button[type="reset"]').click();
+
+        cy.get('vl-select-next').shadow().find('select').find('option:selected').should('contain', 'Rio Piedras');
     });
 
     it('should prevent form submission on validation error', () => {
