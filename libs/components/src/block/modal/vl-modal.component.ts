@@ -62,7 +62,17 @@ export class VlModalComponent extends BaseHTMLElement {
     }
 
     static get _observedAttributes() {
-        return ['id', 'title', 'closable', 'not-cancellable', 'open', 'not-auto-closable', 'allow-overflow'];
+        return [
+            'id',
+            'title',
+            'closable',
+            'not-cancellable',
+            'open',
+            'not-auto-closable',
+            'allow-overflow',
+            'size',
+            'position',
+        ];
     }
 
     static get _closableAttribute() {
@@ -110,6 +120,13 @@ export class VlModalComponent extends BaseHTMLElement {
 
         this.dress();
         this._shadow?.host.addEventListener('keyup', this._onEscape);
+
+        if (this.hasAttribute('size')) {
+            this._addDialogClassModifier(this.getAttribute('size') || '');
+        }
+        if (this.hasAttribute('position')) {
+            this._addDialogClassModifier(this.getAttribute('position') || '');
+        }
     }
 
     disconnectedCallback() {
@@ -243,6 +260,22 @@ export class VlModalComponent extends BaseHTMLElement {
             this._slotButtonElement.removeAttribute(VlModalComponent._closeAttribute);
             this._slotButtonElement.removeAttribute('aria-expanded');
         }
+    }
+
+    _addDialogClassModifier(modifier: string) {
+        if (['medium', 'large', 'full-screen', 'left', 'right'].includes(modifier)) {
+            this._dialogElement.classList.add(`vl-modal-dialog--${modifier}`);
+        }
+    }
+
+    _sizeChangedCallback(oldValue: string, newValue: string) {
+        this._dialogElement.classList.remove('vl-modal-dialog--medium', 'vl-modal-dialog--large');
+        this._addDialogClassModifier(newValue);
+    }
+
+    _positionChangedCallback(oldValue: string, newValue: string) {
+        this._dialogElement.classList.remove('vl-modal-dialog--left', 'vl-modal-dialog--right');
+        this._addDialogClassModifier(newValue);
     }
 
     private _onEscape = (e: KeyboardEvent | Event) => {
