@@ -13,6 +13,9 @@ const selectNextDisabledOptionUrl =
 
 const selectNextReadOnlyUrl = 'http://localhost:8080/iframe.html?id=form-next-select--select-read-only&viewMode=story';
 
+const selectNextDeclarativeOptionsUrl =
+    'http://localhost:8080/iframe.html?id=form-next-select--select-declarative-options&viewMode=story';
+
 describe('story - vl-select-next - default', () => {
     it('should render', () => {
         cy.visit(selectNextDefaultUrl);
@@ -56,6 +59,14 @@ describe('story - vl-select-next - disabled option', () => {
 describe('story - vl-select-next - read only', () => {
     it('should render', () => {
         cy.visit(selectNextReadOnlyUrl);
+
+        cy.get('vl-select-next').shadow().find('select');
+    });
+});
+
+describe('story - vl-select-next - declarative options', () => {
+    it('should render', () => {
+        cy.visit(selectNextDeclarativeOptionsUrl);
 
         cy.get('vl-select-next').shadow().find('select');
     });
