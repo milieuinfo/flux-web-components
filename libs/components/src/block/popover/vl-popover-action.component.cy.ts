@@ -1,7 +1,7 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
-import { VlPopoverActionComponent } from './vl-popover-action.component';
 import { VlPopoverActionListComponent } from './vl-popover-action-list.component';
+import { VlPopoverActionComponent } from './vl-popover-action.component';
 
 registerWebComponents([VlPopoverActionComponent, VlPopoverActionListComponent]);
 
@@ -49,5 +49,16 @@ describe('component vl-popover-action - default', () => {
         cy.get('vl-popover-action')
             .shouldHaveComputedStyle({ not: true, style: 'border-left-width', value: '3px' })
             .shouldHaveComputedStyle({ not: true, style: 'border-left-style', value: 'solid' });
+    });
+
+    it('should render as link in case an href is provided', () => {
+        cy.mount(html`
+            <vl-popover-action icon="search" href="#zoeken" target="_blank" rel="noopener nofollow noreferrer"
+                >Zoeken</vl-popover-action
+            >
+        `);
+        cy.get('vl-popover-action').shadow().find('a').should('have.attr', 'href', '#zoeken');
+        cy.get('vl-popover-action').shadow().find('a').should('have.attr', 'target', '_blank');
+        cy.get('vl-popover-action').shadow().find('a').should('have.attr', 'rel', 'noopener nofollow noreferrer');
     });
 });

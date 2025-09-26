@@ -102,6 +102,18 @@ Hieronder vind je een voorbeeld implementatie met LitElement:
     `} language="ts" dark={true} />
 </details>
 
+<br/>
+<FluxAlert type="warning">
+{`
+    Sinds versie <strong>2.5.0</strong> wordt er automatisch een "button"- of "a"-element gerenderd in de vl-popover-action.<br/><br/>
+    Indien je reeds je eigen buttons of links renderde binnenin een action moet je:
+    <ul>
+        <li><strong>In het geval van een button:</strong> de "click" en andere handlers verplaatsen naar het vl-popover-action component.</li>
+        <li><strong>In het geval van een link:</strong> de "href", "target" en/of "rel" attributen verplaatsen naar het vl-popover-action component.</li>
+    </ul>
+`}
+</FluxAlert>
+
 ### Popover Actions Divider
 
 Een lijst van acties kan visueel opgesplitst worden adhv de horizontale regel: `<hr class="vl-separator" />`.

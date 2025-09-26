@@ -1,18 +1,18 @@
-import { LitElement, ReactiveController } from 'lit';
-import { offsetParent } from 'composed-offset-position';
 import {
-    computePosition,
     arrow,
+    computePosition,
     flip,
-    shift,
-    offset,
-    type Placement,
     Middleware,
+    offset,
     platform,
+    shift,
     Strategy,
+    type Placement,
 } from '@floating-ui/dom';
+import { offsetParent } from 'composed-offset-position';
+import { LitElement, ReactiveController } from 'lit';
 
-type FloatingControllerOptions = {
+export type FloatingControllerOptions = {
     reference: string;
     trigger: string;
     placement: Placement;
@@ -34,6 +34,7 @@ export default class FloatingController implements ReactiveController {
     private host: FloatingElement;
     private hoverTimeout = 0;
     private options!: FloatingControllerOptions;
+    private hostHover = false;
 
     constructor(host: FloatingElement, options: FloatingControllerOptions) {
         this.setOptions(options);
@@ -43,7 +44,13 @@ export default class FloatingController implements ReactiveController {
 
     hostConnected(): void {
         this.addEventListeners();
-        this.getReferenceElement()?.setAttribute('aria-controls', this.options.reference);
+        if (!this.getReferenceElement()?.hasAttribute('aria-controls')) {
+            if (!this.host.id) this.host.id = `popover-${Math.random().toString().substring(2, 10)}`;
+            this.getReferenceElement()?.setAttribute('aria-controls', this.host.id);
+        }
+        if (!this.getReferenceElement()?.hasAttribute('aria-haspopup')) {
+            this.getReferenceElement()?.setAttribute('aria-haspopup', 'true');
+        }
     }
 
     hostDisconnected(): void {
@@ -133,6 +140,10 @@ export default class FloatingController implements ReactiveController {
             referenceElement?.addEventListener('focusout', this.handleFocusOut, true);
         }
 
+        this.host.addEventListener('mouseover', this.handleHostMouseOver);
+        this.host.addEventListener('mouseout', this.handleHostMouseOut);
+        this.host.addEventListener('focusout', this.handleHostFocusOut);
+
         window.addEventListener('resize', this.handleResize);
     }
 
@@ -162,6 +173,10 @@ export default class FloatingController implements ReactiveController {
             referenceElement.removeEventListener('focusout', this.handleFocusOut, true);
         }
 
+        this.host.removeEventListener('mouseover', this.handleHostMouseOver);
+        this.host.removeEventListener('mouseout', this.handleHostMouseOut);
+        this.host.removeEventListener('focusout', this.handleHostFocusOut);
+
         window.removeEventListener('resize', this.handleResize);
     }
 
@@ -180,7 +195,22 @@ export default class FloatingController implements ReactiveController {
 
     private handleMouseOut = (): void => {
         clearTimeout(this.hoverTimeout);
-        this.hoverTimeout = window.setTimeout(() => this.host.hide(), this.options.hideDelay);
+        this.hoverTimeout = window.setTimeout(
+            () => {
+                if (!this.hostHover) this.host.hide();
+                else this.handleMouseOut();
+            },
+            // A minimum delay of 100ms is added to prevent the popover from hiding too quickly when moving the mouse from the reference to the popover.
+            this.options.hideDelay > 100 ? this.options.hideDelay : 100
+        );
+    };
+
+    private handleHostMouseOver = (): void => {
+        this.hostHover = true;
+    };
+
+    private handleHostMouseOut = (): void => {
+        this.hostHover = false;
     };
 
     private handleFocusIn = (): void => {
@@ -188,7 +218,17 @@ export default class FloatingController implements ReactiveController {
     };
 
     private handleFocusOut = (): void => {
-        this.host.hide();
+        setTimeout(() => {
+            if (!this.host.matches(':focus') && !this.host.matches(':focus-within')) {
+                this.host.hide();
+            }
+        }, 100);
+    };
+
+    private handleHostFocusOut = (): void => {
+        if (!this.host.matches(':focus-within')) {
+            this.host.hide();
+        }
     };
 
     private handleClickOutside = (event: MouseEvent): void => {
