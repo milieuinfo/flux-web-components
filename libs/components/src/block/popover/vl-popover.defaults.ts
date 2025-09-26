@@ -1,9 +1,8 @@
-import { PADDINGS } from '@domg-wc/common';
 import { Placement, Strategy } from '@floating-ui/dom';
 
 export type PopoverDefaults = {
     for: string;
-    contentPadding: PADDINGS;
+    contentPadding: 'none' | 'small' | 'medium' | 'large';
     trigger: string;
     hideArrow: boolean;
     hideOnClick: boolean;
@@ -15,7 +14,7 @@ export type PopoverDefaults = {
 
 export const popoverDefaults: PopoverDefaults = {
     for: '',
-    contentPadding: '2rem',
+    contentPadding: 'medium',
     trigger: 'click',
     hideArrow: false,
     hideOnClick: false,

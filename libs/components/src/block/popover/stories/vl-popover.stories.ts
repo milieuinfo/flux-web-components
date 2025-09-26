@@ -1,15 +1,15 @@
-import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
+import { story } from '@resources/utils-storybook';
 import { action } from '@storybook/addon-actions';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit-html';
+import { VlButtonComponent } from '../../../atom/button';
 import { VlPopoverActionListComponent } from '../vl-popover-action-list.component';
 import { VlPopoverActionComponent } from '../vl-popover-action.component';
 import { VlPopoverComponent } from '../vl-popover.component';
 import { popoverActionArgs } from './vl-popover-action.stories-arg';
 import { popoverArgTypes, popoverDefaultArgs } from './vl-popover.stories-arg';
 import popoverDoc from './vl-popover.stories-doc.mdx';
-import { VlButtonComponent } from '../../../atom/button';
 
 registerWebComponents([VlPopoverComponent, VlPopoverActionComponent, VlPopoverActionListComponent, VlButtonComponent]);
 
@@ -36,9 +36,9 @@ export const PopoverDefault = story(
             const actionElement = event.target as VlPopoverActionComponent;
             action('click')('vl-popover-action clicked > ' + actionElement.action);
             const allActions = Array.from(actionElement.parentElement?.querySelectorAll('vl-popover-action') || []);
-            allActions.forEach((action) => {
-                if (action !== actionElement) {
-                    action.removeAttribute('selected');
+            allActions.forEach((item) => {
+                if (item !== actionElement) {
+                    item.removeAttribute('selected');
                 }
             });
             actionElement.setAttribute('selected', '');
@@ -47,7 +47,7 @@ export const PopoverDefault = story(
             <vl-button ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button>
             <vl-popover
                 for="btn-acties"
-                open="${open}"
+                ?open="${open}"
                 placement=${placement}
                 trigger=${trigger}
                 hide-arrow=${hideArrow}
@@ -78,7 +78,7 @@ export const PopoverHover = story(
             <vl-button id="btn-close" aria-describedby="tooltip">Hover over me</vl-button>
             <vl-popover
                 for="btn-close"
-                open=${open}
+                ?open=${open}
                 placement=${placement}
                 trigger=${trigger}
                 hide-arrow=${hideArrow}
@@ -106,18 +106,18 @@ export const PopoverActions = story(popoverActionArgs, ({ selected }) => {
         const actionElement = event.target as VlPopoverActionComponent;
         action('click')('vl-popover-action clicked > ' + actionElement.action, actionElement);
         const allActions = Array.from(actionElement.parentElement?.querySelectorAll('vl-popover-action') || []);
-        allActions.forEach((action) => {
-            if (action !== actionElement) {
-                action.removeAttribute('selected');
+        allActions.forEach((item) => {
+            if (item !== actionElement) {
+                item.removeAttribute('selected');
             }
         });
         actionElement.setAttribute('selected', '');
     };
     return html`
         <vl-popover-action-list @click=${actionListClickHandler}>
-            <vl-popover-action selected=${selected} icon="search" action="zoeken">Zoeken</vl-popover-action>
-            <vl-popover-action icon="bell" action="rapporten-tonen">Rapportenoverzicht</vl-popover-action>
-            <vl-popover-action icon="pin" action="locatie-vinden">Vind locatie</vl-popover-action>
+            <vl-popover-action ?selected=${selected} icon="search" .action="${'zoeken'}">Zoeken</vl-popover-action>
+            <vl-popover-action icon="bell" .action="${'rapporten-tonen'}">Rapportenoverzicht</vl-popover-action>
+            <vl-popover-action icon="pin" .action="${'locatie-vinden'}">Vind locatie</vl-popover-action>
         </vl-popover-action-list>
     `;
 });
@@ -133,16 +133,16 @@ export const PopoverActionsDivider = story(popoverActionArgs, ({ selected }) => 
         const actionElement = event.target as VlPopoverActionComponent;
         action('click')('vl-popover-action clicked > ' + actionElement.action);
         const allActions = Array.from(actionElement.parentElement?.querySelectorAll('vl-popover-action') || []);
-        allActions.forEach((action) => {
-            if (action !== actionElement) {
-                action.removeAttribute('selected');
+        allActions.forEach((item) => {
+            if (item !== actionElement) {
+                item.removeAttribute('selected');
             }
         });
         actionElement.setAttribute('selected', '');
     };
     return html`
         <vl-popover-action-list @click=${actionListClickHandler}>
-            <vl-popover-action selected=${selected} icon="search" action="zoeken">Zoeken</vl-popover-action>
+            <vl-popover-action ?selected=${selected} icon="search" action="zoeken">Zoeken</vl-popover-action>
             <vl-popover-action icon="bell" action="rapporten-tonen">Rapportenoverzicht</vl-popover-action>
             <vl-popover-action icon="pin" action="locatie-vinden">Vind locatie</vl-popover-action>
             <hr class="vl-separator" />
@@ -153,6 +153,34 @@ export const PopoverActionsDivider = story(popoverActionArgs, ({ selected }) => 
 });
 PopoverActionsDivider.storyName = 'vl-popover - actions divider';
 PopoverActionsDivider.parameters = {
+    controls: {
+        include: ['selected'],
+    },
+};
+
+export const PopoverActionsLinks = story(popoverActionArgs, ({ selected }) => {
+    return html`
+        <vl-popover-action-list>
+            <vl-popover-action
+                ?selected=${selected}
+                icon="search"
+                href="#zoeken"
+                target="_blank"
+                rel="nofollow noopener noreferrer"
+            >
+                Zoeken</vl-popover-action
+            >
+            <vl-popover-action icon="bell" href="#rapporten-tonen" target="_blank" rel="nofollow noopener noreferrer">
+                Rapportenoverzicht</vl-popover-action
+            >
+            <vl-popover-action icon="pin" href="#locatie-vinden" target="_blank" rel="nofollow noopener noreferrer">
+                Vind locatie</vl-popover-action
+            >
+        </vl-popover-action-list>
+    `;
+});
+PopoverActionsLinks.storyName = 'vl-popover - actions - links';
+PopoverActionsLinks.parameters = {
     controls: {
         include: ['selected'],
     },

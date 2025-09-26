@@ -4,7 +4,8 @@ import { resetStyle } from '@domg/govflanders-style/common';
 import { CSSResult, html, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import FloatingController from './vl-floating-ui.controller';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import FloatingController, { FloatingControllerOptions } from './vl-floating-ui.controller';
 import { VlPopoverActionListComponent } from './vl-popover-action-list.component';
 import { VlPopoverActionComponent } from './vl-popover-action.component';
 import { popoverDefaults } from './vl-popover.defaults';
@@ -64,7 +65,7 @@ export class VlPopoverComponent extends BaseLitElement {
 
     protected firstUpdated() {
         this.hidden = !this.open;
-        this.popup = new FloatingController(this, this.popupOptions());
+        this.popup = new FloatingController(this, this.popupOptions);
 
         if (this.open) {
             this.popup.updatePosition();
@@ -74,8 +75,12 @@ export class VlPopoverComponent extends BaseLitElement {
     protected render(): TemplateResult {
         const classes = { 'popover-content': true, [`padding-${this.contentPadding}`]: true };
         return html`
-            <div class=${classMap(classes)}>
-                <slot role="content"></slot>
+            <div
+                class=${classMap(classes)}
+                role="${ifDefined(!this.trigger.includes('click') ? 'tooltip' : undefined)}"
+                aria-hidden="${!this.open}"
+            >
+                <slot></slot>
                 ${!this.hideArrow ? html`<i id="popover-arrow" role="presentation"></i>` : null}
             </div>
         `;
@@ -85,7 +90,7 @@ export class VlPopoverComponent extends BaseLitElement {
         if (changedProperties.has('open')) {
             this.handleOpenChange();
         } else {
-            this.popup.setOptions(this.popupOptions());
+            this.popup.setOptions(this.popupOptions);
             this.popup.updatePosition();
         }
     }
@@ -100,7 +105,7 @@ export class VlPopoverComponent extends BaseLitElement {
         this.popup.getReferenceElement()?.setAttribute('aria-expanded', this.open ? 'true' : 'false');
     }
 
-    private popupOptions() {
+    private get popupOptions(): FloatingControllerOptions {
         return {
             reference: this.for,
             trigger: this.trigger,
