@@ -26,8 +26,9 @@ const mountDefault = ({
     return cy.mount(html`
         <vl-button ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button>
         <vl-popover
+            id="popover"
             for="btn-acties"
-            open=${open || nothing}
+            ?open=${open}
             placement=${placement || nothing}
             trigger=${trigger || nothing}
             hide-arrow=${hideArrow || nothing}
@@ -62,10 +63,10 @@ const mountHover = ({
     distance?: number;
 }) => {
     cy.mount(html`
-        <vl-button id="btn-close" aria-describedby="tooltip">Hover over me</vl-button>
+        <vl-button id="btn-acties" aria-describedby="tooltip">Hover over me</vl-button>
         <vl-popover
-            for="btn-close"
-            open=${open || nothing}
+            for="btn-acties"
+            ?open=${open}
             placement=${placement || nothing}
             trigger=${trigger || nothing}
             hide-arrow=${hideArrow || nothing}
@@ -90,6 +91,9 @@ describe('component vl-popover - default', () => {
 
         cy.injectAxe();
         cy.get('#btn-acties').click();
+
+        cy.get('#btn-acties').should('have.attr', 'aria-haspopup', 'true');
+        cy.get('#btn-acties').should('have.attr', 'aria-controls', 'popover');
         cy.checkA11y('vl-popover');
     });
 
@@ -140,6 +144,15 @@ describe('component vl-popover - default', () => {
         cy.get('vl-popover').should('have.attr', 'placement', 'bottom');
         cy.checkA11y('vl-popover');
     });
+
+    it('should not have role tooltip if trigger is click', () => {
+        mountDefault({});
+        cy.injectAxe();
+
+        cy.get('#btn-acties').trigger('click');
+        cy.get('vl-popover').shadow().find('div[role="tooltip"]').should('not.exist');
+        cy.checkA11y('vl-popover');
+    });
 });
 
 describe('story vl-popover hover', () => {
@@ -149,14 +162,14 @@ describe('story vl-popover hover', () => {
 
     it('should be accessible', () => {
         cy.injectAxe();
-        cy.get('#btn-close').trigger('mouseover');
+        cy.get('#btn-acties').trigger('mouseover');
         cy.checkA11y('vl-popover');
     });
 
     it('should open', () => {
         cy.injectAxe();
 
-        cy.get('#btn-close').trigger('mouseover');
+        cy.get('#btn-acties').trigger('mouseover');
         cy.get('vl-popover').should('have.attr', 'open');
         cy.checkA11y('vl-popover');
     });
@@ -164,8 +177,16 @@ describe('story vl-popover hover', () => {
     it('should have default bottom placement', () => {
         cy.injectAxe();
 
-        cy.get('#btn-close').trigger('mouseover');
+        cy.get('#btn-acties').trigger('mouseover');
         cy.get('vl-popover').should('have.attr', 'placement', 'bottom');
+        cy.checkA11y('vl-popover');
+    });
+
+    it('should have role tooltip', () => {
+        cy.injectAxe();
+
+        cy.get('#btn-acties').trigger('mouseover');
+        cy.get('vl-popover').shadow().find('div[role="tooltip"]').should('exist');
         cy.checkA11y('vl-popover');
     });
 });

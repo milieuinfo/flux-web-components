@@ -38,10 +38,10 @@ export const vlPopoverFluxStyles: CSSResult = css`
         padding: 0;
     }
     .padding-small {
-        padding: 1rem;
+        padding: 0.5rem;
     }
     .padding-medium {
-        padding: 1.5rem;
+        padding: 1rem;
     }
     .padding-large {
         padding: 2rem;

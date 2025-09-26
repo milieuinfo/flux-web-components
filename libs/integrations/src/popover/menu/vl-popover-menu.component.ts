@@ -12,8 +12,18 @@ export class VlPopoverMenuComponent extends LitElement {
     override render() {
         return html`
             <div>
-                <vl-button ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button>
-                <vl-popover for="btn-acties" placement="bottom-end">
+                <vl-button
+                    ghost
+                    icon="nav-show-more-vertical"
+                    id="btn-acties"
+                    label="Acties"
+                ></vl-button>
+                <vl-popover
+                    for="btn-acties"
+                    placement="bottom-end"
+                    trigger="focus click hover"
+                    hide-on-click
+                >
                     <vl-popover-action-list>
                         <vl-popover-action icon="search">Zoeken</vl-popover-action>
                         <vl-popover-action icon="edit">Aanpassen</vl-popover-action>
