@@ -8,7 +8,7 @@ export const FluxWcagBronsBase = () => (
 
 export const FluxWcagBronsPlus = () => (
     <h2 style={{ color: 'brown', margin: '40px 0 -10px 0', borderBottomColor: 'brown' }}>
-        <strong>Brons[+]</strong>
+        <strong>Brons[plus]</strong>
     </h2>
 );
 
@@ -20,6 +20,6 @@ export const FluxWcagSilverBase = () => (
 
 export const FluxWcagSilverPlus = () => (
     <h2 style={{ color: 'rgb(100,100,100)', margin: '40px 0 -10px 0', borderBottomColor: 'rgb(100,100,100)' }}>
-        <strong>Zilver[+]</strong>
+        <strong>Zilver[plus]</strong>
     </h2>
 );
