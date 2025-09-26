@@ -6,6 +6,10 @@ export const vlModalFluxStyles: CSSResult = css`
         overflow: visible;
     }
 
+    :host .vl-modal-dialog__wrapper {
+        height: 100%;
+    }
+
     .vl-modal-dialog__close {
         cursor: pointer;
     }
