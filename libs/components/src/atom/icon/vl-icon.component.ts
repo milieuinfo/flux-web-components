@@ -1,6 +1,7 @@
 import { BaseLitElement, webComponent } from '@domg-wc/common';
-import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
+import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { vlIconStyles } from '../icon-style/vl-icon-style.css';
 import { vlIconWebComponentStyles } from './vl-icon.css';
 import { iconDefaults } from './vl-icon.defaults';
@@ -14,6 +15,7 @@ export class VlIconComponent extends BaseLitElement {
     private rightMargin = iconDefaults.rightMargin;
     private leftMargin = iconDefaults.leftMargin;
     private clickable = iconDefaults.clickable;
+    private label = iconDefaults.label;
 
     static get styles(): CSSResult[] {
         return [vlIconStyles, vlIconWebComponentStyles];
@@ -28,7 +30,17 @@ export class VlIconComponent extends BaseLitElement {
             rightMargin: { type: Boolean, attribute: 'right-margin' },
             leftMargin: { type: Boolean, attribute: 'left-margin' },
             clickable: { type: Boolean },
+            label: { type: String },
         };
+    }
+
+    connectedCallback(): void {
+        super.connectedCallback();
+        if (this.clickable) {
+            console.warn(
+                'Deprecated: `<vl-icon clickable>`: De `clickable` property is deprecated wegens niet WCAG-compliant. Gebruik in de plaats een `vl-button` of `vl-link` met een icon.'
+            );
+        }
     }
 
     render(): TemplateResult {
@@ -43,7 +55,15 @@ export class VlIconComponent extends BaseLitElement {
             'vl-icon--clickable': this.clickable,
         };
 
-        return html` <span class=${classMap(classes)} tabindex=${this.clickable ? 0 : nothing} part="icon"></span> `;
+        return html`
+            <span
+                class=${classMap(classes)}
+                tabindex=${ifDefined(this.clickable ? '0' : undefined)}
+                aria-label=${ifDefined(this.label ? this.label : undefined)}
+                aria-hidden=${ifDefined(this.label ? undefined : 'true')}
+                part="icon"
+            ></span>
+        `;
     }
 }
 

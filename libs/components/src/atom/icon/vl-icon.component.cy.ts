@@ -1,5 +1,5 @@
-import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
+import { html } from 'lit';
 import { VlIconComponent } from './vl-icon.component';
 
 registerWebComponents([VlIconComponent]);
@@ -14,6 +14,9 @@ describe('component - vl-icon', () => {
     it('should be accessible', () => {
         cy.mount(html`<vl-icon icon="calendar"></vl-icon>`);
         cy.injectAxe();
+
+        // Test dat het icoon als decoratief beschouwd wordt indien er geen label is meegegeven.
+        cy.get('vl-icon').shadow().find('span.vl-icon').should('have.attr', 'aria-hidden', 'true');
 
         cy.checkA11y('vl-icon');
     });
@@ -65,6 +68,17 @@ describe('component - vl-icon', () => {
 
         cy.get('vl-icon').should('have.attr', 'clickable', '');
         cy.get('vl-icon').shadow().find('span.vl-icon').should('have.class', 'vl-icon--clickable');
+    });
+
+    it('should set label', () => {
+        cy.mount(html`<vl-icon icon="calendar" label="Dit is een toegankelijk label"></vl-icon>`);
+
+        cy.get('vl-icon').should('have.attr', 'label', 'Dit is een toegankelijk label');
+        cy.get('vl-icon')
+            .shadow()
+            .find('span.vl-icon')
+            .should('have.attr', 'aria-label', 'Dit is een toegankelijk label');
+        cy.get('vl-icon').shadow().find('span.vl-icon').should('not.have.attr', 'aria-hidden');
     });
 
     it('should display icon', () => {

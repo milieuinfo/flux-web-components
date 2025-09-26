@@ -21,6 +21,18 @@ export const iconArgTypes: ArgTypes<IconArgs> = {
             defaultValue: { summary: iconArgs.icon },
         },
     },
+    label: {
+        name: 'label',
+        description: `Een beschrijvende tekst voor het icoon, wordt gebruikt door screenreaders. 
+        <br><br><strong>Opgelet</strong>: indien \`label\` niet meegegeven wordt, wordt het icoon als 
+        'decoratief' beschouwd en zal het genegeerd worden door screenreaders, door middel van \`aria-hidden\`.`,
+        type: { name: TYPES.STRING, required: false },
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: iconArgs.label },
+        },
+    },
     small: {
         name: 'small',
         description: 'Beeldt het icoon klein af.',
@@ -68,7 +80,8 @@ export const iconArgTypes: ArgTypes<IconArgs> = {
     },
     clickable: {
         name: 'clickable',
-        description: 'Beeldt het icoon klikbaar af.',
+        description: `**Deprecated**: De \`clickable\` property is deprecated wegens niet WCAG-compliant. 
+            Gebruik in de plaats een \`vl-button\` of \`vl-link\` met een icon.`,
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,

@@ -40,9 +40,12 @@ import { VlIconComponent } from '@domg-wc/components/atom';
 
 <Canvas of={VlIconStories.IconLight} />
 
-### Clickable
+### Label (toegankelijkheid)
 
-<Canvas of={VlIconStories.IconClickable} />
+Standaard wordt een icon als decoratief beschouwd en wordt er `aria-hidden` op geplaatst. Indien het relevant is voor de
+inhoud en gelezen moet worden door screenreaders moet er een `label` meegegeven worden.
+
+<Canvas of={VlIconStories.IconLabel} />
 
 ### Voor tekst
 
