@@ -6,4 +6,5 @@ export const iconDefaults = {
     rightMargin: false as boolean,
     leftMargin: false as boolean,
     clickable: false as boolean,
+    label: '' as string,
 } as const;
