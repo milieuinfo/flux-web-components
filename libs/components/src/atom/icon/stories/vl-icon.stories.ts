@@ -1,5 +1,5 @@
-import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
+import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit';
 import { VlAllIconsComponent } from '../vl-all-icons.component';
@@ -24,7 +24,7 @@ export default {
 
 const IconTemplate = story(
     iconArgs,
-    ({ icon, small, large, light, rightMargin, leftMargin, clickable }) => html`
+    ({ icon, small, large, light, rightMargin, leftMargin, label }) => html`
         <vl-icon
             icon=${icon}
             ?small=${small}
@@ -32,7 +32,7 @@ const IconTemplate = story(
             ?light=${light}
             ?right-margin=${rightMargin}
             ?left-margin=${leftMargin}
-            ?clickable=${clickable}
+            label=${label}
         >
         </vl-icon>
     `
@@ -65,16 +65,16 @@ IconLight.args = {
     light: true,
 };
 
-export const IconClickable = IconTemplate.bind({});
-IconClickable.storyName = 'vl-icon - clickable';
-IconClickable.args = {
+export const IconLabel = IconTemplate.bind({});
+IconLabel.storyName = 'vl-icon - met accessible label';
+IconLabel.args = {
     icon: 'calendar',
-    clickable: true,
+    label: 'Dit is een toegankelijk label',
 };
 
 export const IconBeforeText = story(
     iconArgs,
-    ({ icon, small, large, light, rightMargin, leftMargin, clickable }) => html`
+    ({ icon, small, large, light, rightMargin, leftMargin }) => html`
         <div class="flex-center">
             <vl-icon
                 icon=${icon}
@@ -83,7 +83,6 @@ export const IconBeforeText = story(
                 ?light=${light}
                 ?right-margin=${rightMargin}
                 ?left-margin=${leftMargin}
-                ?clickable=${clickable}
             >
             </vl-icon>
             <span>Dit is een tekst</span>
@@ -98,7 +97,7 @@ IconBeforeText.args = {
 
 export const IconAfterText = story(
     iconArgs,
-    ({ icon, small, large, light, rightMargin, leftMargin, clickable }) => html`
+    ({ icon, small, large, light, rightMargin, leftMargin }) => html`
         <div class="flex-center">
             <span>Dit is een tekst</span>
             <vl-icon
@@ -108,7 +107,6 @@ export const IconAfterText = story(
                 ?light=${light}
                 ?right-margin=${rightMargin}
                 ?left-margin=${leftMargin}
-                ?clickable=${clickable}
             >
             </vl-icon>
         </div>
