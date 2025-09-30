@@ -80,14 +80,14 @@ echo 'git config user.email'
 git config user.email ${GITHUB_EMAIL}
 git config user.email
 
-echo "npm install - no 'ci' to avoid the clean"
+echo "npm ci - to force the clean"
 set +e
-npm install --save-exact 2> buffer-stderr.txt 1> buffer-stdout.txt
+npm ci --maxsockets 5 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
-    echo "npm install - success"
+    echo "npm ci - success"
   else
-    echo "npm install - error - buffer-stderr.txt" >&2
+    echo "npm ci - error - buffer-stderr.txt" >&2
     cat buffer-stderr.txt >&2
     cat buffer-stdout.txt >&2
     set -e
