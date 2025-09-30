@@ -8,6 +8,8 @@ GlobalStyles.getInstance().register();
 
 registerWebComponents([VlFunctionalHeaderComponent, VlTabsComponent, VlBreadcrumbComponent]);
 
+const mockBackLink = 'https://www.example.com';
+
 describe('story - vl-functional-header', () => {
     it('should be accessible', () => {
         cy.mount(html` <vl-functional-header title="test"></vl-functional-header>`);
@@ -35,19 +37,19 @@ describe('story - vl-functional-header', () => {
     });
 
     it('should set back link', () => {
-        cy.mount(html` <vl-functional-header back-link="test"></vl-functional-header>`);
+        cy.mount(html` <vl-functional-header back-link="${mockBackLink}"></vl-functional-header>`);
 
         shouldSetBackLink();
     });
 
     it('should hide back link', () => {
-        cy.mount(html` <vl-functional-header hide-back-link=""></vl-functional-header>`);
+        cy.mount(html` <vl-functional-header hide-back-link></vl-functional-header>`);
 
-        cy.get('vl-functional-header').shadow().find('a#back-link').should('not.exist');
+        cy.get('vl-functional-header').shadow().find('#back-link').should('not.exist');
     });
 
     it('should hide sub-header', () => {
-        cy.mount(html` <vl-functional-header hide-sub-header=""></vl-functional-header>`);
+        cy.mount(html` <vl-functional-header hide-sub-header></vl-functional-header>`);
 
         cy.get('vl-functional-header')
             .shadow()
@@ -59,7 +61,9 @@ describe('story - vl-functional-header', () => {
     });
 
     it('should disable back link and emit event', () => {
-        cy.mount(html` <vl-functional-header disable-back-link=""></vl-functional-header>`);
+        cy.mount(html` <vl-functional-header disable-back-link></vl-functional-header>`);
+
+        cy.get('vl-functional-header').shadow().find('#back-link').should('have.attr', 'button-as-link');
 
         shouldDisableBackLinkAndEmitEvent();
     });
@@ -139,7 +143,7 @@ describe('story - vl-functional-header - actions', () => {
 
     it('should set back link', () => {
         cy.mount(html`
-            <vl-functional-header back-link="test">
+            <vl-functional-header back-link="${mockBackLink}">
                 <div slot="actions">
                     <a href="#">Actie 1</a>
                     <a href="#">Actie 2</a>
@@ -611,24 +615,24 @@ describe('story - vl-functional-header - slots', () => {
 });
 
 const shouldHaveDefaultBackText = () => {
-    cy.get('vl-functional-header').shadow().find('a#back-link').contains('Terug');
+    cy.get('vl-functional-header').shadow().find('#back-link').contains('Terug');
 };
 
 const shouldSetBackText = () => {
-    cy.get('vl-functional-header').shadow().find('a#back-link').contains('Keer terug');
+    cy.get('vl-functional-header').shadow().find('#back-link').contains('Keer terug');
 };
 
 const shouldHaveDefaultBackLink = () => {
-    cy.get('vl-functional-header').shadow().find('a#back-link').should('have.attr', 'href', document.referrer);
+    cy.get('vl-functional-header').shadow().find('#back-link').should('have.attr', 'href', document.referrer);
 };
 
 const shouldSetBackLink = () => {
-    cy.get('vl-functional-header').shadow().find('a#back-link').should('have.attr', 'href', 'test');
+    cy.get('vl-functional-header').shadow().find('#back-link').should('have.attr', 'href', mockBackLink);
 };
 
 const shouldDisableBackLinkAndEmitEvent = () => {
     cy.createStubForEvent('vl-functional-header', 'vl-click-back');
-    cy.get('vl-functional-header').shadow().find('a#back-link').click();
+    cy.get('vl-functional-header').shadow().find('#back-link').click({ force: true });
     cy.get('@vl-click-back').should('have.been.calledOnce');
 };
 
