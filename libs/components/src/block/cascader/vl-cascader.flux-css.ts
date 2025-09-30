@@ -40,6 +40,15 @@ export const vlCascaderFluxStyles: CSSResult = css`
         animation: slideOut 0.3s ease-in-out;
     }
 
+    @media (prefers-reduced-motion: reduce) {
+        div.content section.slide-in {
+            animation-duration: 0s;
+        }
+        div.content section.slide-out {
+            animation-duration: 0s;
+        }
+    }
+
     @keyframes slideIn {
         from {
             left: 100%;

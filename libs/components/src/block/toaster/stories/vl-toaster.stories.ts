@@ -117,14 +117,14 @@ export const ToasterFadeOut = story<ToasterArgs>(toasterArgs, ({ placement, fade
                 toaster.show('#alert-loader');
             });
         </script>
-        <template>
+        <div style="display: none;">
             <vl-alert id="alert-error" type="error" icon="warning" title="Error">
                 <p>Er is een fout opgetreden.</p>
             </vl-alert>
             <vl-alert id="alert-loader" title="Melding">
                 <vl-loader></vl-loader>
             </vl-alert>
-        </template>
+        </div>
         <vl-toaster id="toaster-fade-out" placement=${placement} ?fade-out=${fadeOut}>
             ${unsafeHTML(defaultSlot)}
         </vl-toaster>

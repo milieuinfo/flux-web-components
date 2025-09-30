@@ -19,11 +19,20 @@ export class VlLoaderComponent extends BaseHTMLElement {
                 </p>
             </div>
         `;
+        const customStyleSheet = new CSSStyleSheet();
+        customStyleSheet.replaceSync(`
+            @media (prefers-reduced-motion: reduce) {
+                .vl-loader::before {
+                    animation-duration: 0s;
+                }
+            }
+        `);
         const styleSheets = [
             resetStyle.styleSheet!,
             loaderStyle.styleSheet!,
             alignStyle.styleSheet!,
             accessibilityStyle.styleSheet!,
+            customStyleSheet,
         ];
         super(html, styleSheets);
     }
