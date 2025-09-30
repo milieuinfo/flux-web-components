@@ -6,6 +6,11 @@ import '../../baselayer/vl-map-base-layer-grb-gray/vl-map-base-layer-grb-gray';
 import '../vl-map-search';
 import { mapSearchArgs, mapSearchArgTypes } from './vl-map-search.stories-arg';
 import mapSearchDoc from './vl-map-search.stories-doc.mdx';
+import { registerWebComponents } from '@domg-wc/common-utilities';
+import { VlMapSearch, VlSelectLocationComponent } from '@domg-wc/map';
+import { VlSelectRichComponent } from '@domg-wc/form/next/select-rich';
+
+registerWebComponents([VlMapSearch, VlSelectRichComponent, VlSelectLocationComponent]);
 
 export default {
     id: 'map-search',
@@ -42,16 +47,17 @@ export const MapSearchOutsideMap = story(
     mapSearchArgs,
     ({ placeholder, searchEmptyText, searchNoResultsText, searchPlaceholder }) => html`
         <vl-map-search
+            id="outside"
             data-vl-placeholder=${placeholder}
             data-vl-search-empty-text=${searchEmptyText}
             data-vl-search-no-results-text=${searchNoResultsText}
             data-vl-search-placeholder=${searchPlaceholder}
         ></vl-map-search>
-        <vl-map lambert2008>
+        <vl-map lambert2008 id="outside-map">
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
         </vl-map>
         <script>
-            document.querySelector('vl-map-search').bindMap(document.querySelector('vl-map'));
+            document.querySelector('vl-map-search#outside').bindMap(document.querySelector('vl-map#outside-map'));
         </script>
     `
 );
