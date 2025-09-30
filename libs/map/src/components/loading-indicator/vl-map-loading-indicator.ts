@@ -22,6 +22,18 @@ export class VlMapLoadingIndicator extends BaseLitElement {
             }
         }
 
+        @keyframes reducedMotion {
+            0% {
+                opacity: 0.25;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.25;
+            }
+        }
+
         :host(.loading) {
             position: absolute;
             height: 3px;
@@ -29,6 +41,13 @@ export class VlMapLoadingIndicator extends BaseLitElement {
             animation: progress 2s infinite ease-in-out;
             animation-delay: 250ms;
             z-index: 2;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            :host(.loading) {
+                width: 100%;
+                animation: reducedMotion 2s infinite ease-in-out;
+            }
         }
     `;
     private eventKeyLoadStart: EventsKey;

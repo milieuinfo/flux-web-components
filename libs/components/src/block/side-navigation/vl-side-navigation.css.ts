@@ -181,6 +181,12 @@ export const vlSideNavigationStyles: CSSResult = css`
         animation: side-navigation-transition 0.3s;
     }
 
+    @media (prefers-reduced-motion: reduce) {
+        .vl-side-navigation__toggle[aria-expanded='true'] + ul {
+            animation-duration: 0s;
+        }
+    }
+
     .vl-side-navigation__toggle[aria-expanded='true'] + ul .vl-side-navigation__toggle:first-child {
         margin-top: 0;
     }

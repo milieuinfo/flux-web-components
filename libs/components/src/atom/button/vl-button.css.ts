@@ -266,6 +266,14 @@ export const buttonStyles: CSSResult = css`
                     3rem 0 var(--vl-color--background);
             }
 
+            @media (prefers-reduced-motion: reduce) {
+                &::after {
+                    animation-duration: 0s;
+                    box-shadow: 1rem 0 var(--vl-color--action-disabled), 2rem 0 var(--vl-color--action-disabled),
+                    3rem 0 var(--vl-color--action-disabled);
+                }
+            }
+
             &:focus,
             &:hover,
             &:active {
