@@ -125,7 +125,7 @@ describe('component vl-accessibility - hide-back-link', () => {
 
         cy.get('vl-accessibility').should('not.have.attr', 'hide-back-link');
         cy.get('vl-accessibility').shadow().find('vl-functional-header').should('not.have.attr', 'hide-back-link');
-        cy.get('vl-accessibility').shadow().find('vl-functional-header').shadow().find('a#back-link').should('exist');
+        cy.get('vl-accessibility').shadow().find('vl-functional-header').shadow().find('#back-link').should('exist');
     });
 
     it('back-link should be hidden', () => {
@@ -137,7 +137,7 @@ describe('component vl-accessibility - hide-back-link', () => {
             .shadow()
             .find('vl-functional-header')
             .shadow()
-            .find('a#back-link')
+            .find('#back-link')
             .should('not.exist');
     });
 });

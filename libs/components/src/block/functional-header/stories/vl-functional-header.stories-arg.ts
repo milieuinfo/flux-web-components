@@ -56,7 +56,10 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
     },
     disableBackLink: {
         name: 'disable-back-link',
-        description: 'Zet de terug-link uit.',
+        description: `Schakelt de terug-link uit. Dit zorgt ervoor dat de terug-link gerenderd wordt als button
+        in plaats van als link.<br/> 
+        **Let op**: indien je dit attribuut gebruikt, moet je zelf het event \`vl-click-back\` afhandelen.
+        Het \`back-link\` attribuut wordt genegeerd indien dit attribuut gebruikt wordt.`,
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,

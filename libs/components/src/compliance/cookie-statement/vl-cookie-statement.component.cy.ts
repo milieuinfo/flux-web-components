@@ -111,7 +111,7 @@ describe('vl-cookie-statement component - properties reflect', () => {
         mountDefault({ ...props, disableBackLink: true });
         cy.createStubForEvent('vl-cookie-statement', 'vl-click-back');
 
-        cy.get('vl-cookie-statement').shadow().find('vl-functional-header').shadow().find('a#back-link').click();
+        cy.get('vl-cookie-statement').shadow().find('vl-functional-header').shadow().find('#back-link').click();
         cy.get('@vl-click-back').should('have.been.calledOnce');
     });
 
@@ -139,12 +139,7 @@ describe('vl-cookie-statement component - hide-back-link', () => {
 
         cy.get('vl-cookie-statement').should('not.have.attr', 'hide-back-link');
         cy.get('vl-cookie-statement').shadow().find('vl-functional-header').should('not.have.attr', 'hide-back-link');
-        cy.get('vl-cookie-statement')
-            .shadow()
-            .find('vl-functional-header')
-            .shadow()
-            .find('a#back-link')
-            .should('exist');
+        cy.get('vl-cookie-statement').shadow().find('vl-functional-header').shadow().find('#back-link').should('exist');
     });
 
     it('back-link should be hidden', () => {
@@ -156,7 +151,7 @@ describe('vl-cookie-statement component - hide-back-link', () => {
             .shadow()
             .find('vl-functional-header')
             .shadow()
-            .find('a#back-link')
+            .find('#back-link')
             .should('not.exist');
     });
 });

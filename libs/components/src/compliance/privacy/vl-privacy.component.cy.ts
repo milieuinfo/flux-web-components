@@ -86,7 +86,7 @@ describe('vl-privacy component - properties functionality', () => {
         mountDefault({ ...defaultProps, disableBackLink: true });
 
         cy.createStubForEvent('vl-privacy', 'vl-click-back');
-        cy.get('vl-privacy').shadow().find('vl-functional-header').shadow().find('a#back-link').click();
+        cy.get('vl-privacy').shadow().find('vl-functional-header').shadow().find('#back-link').click();
         cy.get('@vl-click-back').should('have.been.calledOnce');
     });
     it('should show child links on scroll', () => {

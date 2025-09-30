@@ -1,4 +1,5 @@
 import { BaseHTMLElement, GlobalStyles, MARGINS, registerWebComponents, webComponent } from '@domg-wc/common';
+import { VlLinkComponent } from '@domg-wc/components/atom';
 import { vlContentBlockStyles, vlGridStyles, vlLegacyStyles, vlResetStyles, vlSectionStyles } from '@domg-wc/styles';
 import { functionalHeaderStyle } from '@domg/govflanders-style/component';
 import { VlIconComponent } from '../../atom/icon';
@@ -16,7 +17,7 @@ export class VlFunctionalHeaderComponent extends BaseHTMLElement {
     private _subTitleListElement: HTMLLIElement | null = null;
 
     static {
-        registerWebComponents([VlIconComponent]);
+        registerWebComponents([VlIconComponent, VlLinkComponent]);
     }
 
     constructor() {
@@ -48,9 +49,9 @@ export class VlFunctionalHeaderComponent extends BaseHTMLElement {
                   <ul class="vl-functional-header__sub-row vl-functional-header__sub-actions">
                       <li id="back-link-container" class="vl-functional-header__sub__action">
                           <slot name="back-link">
-                              <a id="back-link" class="vl-link" tabindex="0" href="${document.referrer}">
+                              <vl-link id="back-link" href="${document.referrer}">
                                   <span class="vl-icon vl-icon--arrow-left-fat vl-link__icon vl-link__icon--before"></span><slot id="back-link-text" name="back"><span>Terug</span></slot>
-                              </a>
+                              </vl-link>
                           </slot>
                       </li>
                       <li id="sub-title" class="vl-functional-header__sub__action">
@@ -134,6 +135,7 @@ export class VlFunctionalHeaderComponent extends BaseHTMLElement {
      * Zet de click event listener voor de 'Terug' knop. Default: ```document.referrer```
      *
      * @param {Function} eventListener - Functie met de uit te voeren handeling als op de terug knop wordt geklikt.
+     * @deprecated Gebruik in plaats hiervan de `@vl-click-back` event listener op het component zelf.
      */
     set backLinkEventListener(eventListener: EventListener) {
         if (this._backLinkEventListener) {
@@ -150,6 +152,11 @@ export class VlFunctionalHeaderComponent extends BaseHTMLElement {
         this.__processSlotElements();
 
         if (this._backLinkElement) {
+            if (this.hasAttribute('disable-back-link')) {
+                this._backLinkElement.removeAttribute('href');
+                this._backLinkElement.setAttribute('button-as-link', '');
+            }
+
             this._backLinkElement.onclick = (event: Event) => this._handleClickBackLink(event);
         }
 
@@ -212,7 +219,7 @@ export class VlFunctionalHeaderComponent extends BaseHTMLElement {
     }
 
     _backLinkChangedCallback(oldValue: string, newValue: string) {
-        this._backLinkElement!.href = newValue || document.referrer;
+        this._backLinkElement!.setAttribute('href', newValue || document.referrer);
     }
 
     _marginBottomChangedCallback(oldValue: keyof typeof MARGINS, newValue: keyof typeof MARGINS) {

@@ -3,6 +3,7 @@ import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { action } from 'storybook/actions';
 import { VlBreadcrumbItemComponent } from '../../breadcrumb/vl-breadcrumb-item.component';
 import { VlBreadcrumbComponent } from '../../breadcrumb/vl-breadcrumb.component';
 import { VlSearchComponent } from '../../search';
@@ -10,7 +11,6 @@ import { VlTabsComponent } from '../../tabs';
 import { VlFunctionalHeaderComponent } from '../vl-functional-header.component';
 import { functionalHeaderArgs, functionalHeaderArgTypes } from './vl-functional-header.stories-arg';
 import functionalHeaderDoc from './vl-functional-header.stories-doc.mdx';
-import { action } from 'storybook/actions';
 
 registerWebComponents([
     VlBreadcrumbComponent,
@@ -75,34 +75,46 @@ const Template = story(
     `
 );
 
+const subTitleString = 'Voor lager, middelbaar en hoger onderwijs';
+const titleString = 'School- en studietoelagen';
+const backString = 'Terug';
+const actionsSlotString = `<div slot="actions">
+        <a href="#">Actie 1</a>
+        <a href="#">Actie 2</a>
+    </div>`;
+const backSlotString = `<span slot="back">${backString}</span>`;
+const backLinkSlotString = `<a slot="back-link" href="#">${backString}</a>`;
+const subHeaderSlotString = '<span slot="sub-header">Sub header content</span>';
+const subTitleSlotString = `<span slot="sub-title">${subTitleString}</span>`;
+const titleSlotString = `<span slot="title">${titleString}</span>`;
+const topLeftSlotString = '<span slot="top-left">Linkerbovenhoek content</span>';
+const topRightSlotString = '<span slot="top-right">Rechterbovenhoek content</span>';
+
 export const FunctionalHeaderDefault = Template.bind({});
 FunctionalHeaderDefault.storyName = 'vl-functional-header - default';
 FunctionalHeaderDefault.args = {
-    subTitle: 'Voor lager, middelbaar en hoger onderwijs',
-    title: 'School- en studietoelagen',
+    subTitle: subTitleString,
+    title: titleString,
 };
 
 export const FunctionalHeaderActions = Template.bind({});
 FunctionalHeaderActions.storyName = 'vl-functional-header - actions';
 FunctionalHeaderActions.args = {
-    subTitle: 'Voor lager, middelbaar en hoger onderwijs',
-    title: 'School- en studietoelagen',
-    actionsSlot: `<div slot="actions">
-        <a href="#">Actie 1</a>
-        <a href="#">Actie 2</a>
-    </div>`,
+    subTitle: subTitleString,
+    title: titleString,
+    actionsSlot: actionsSlotString,
 };
 
 export const FunctionalHeaderSlots = Template.bind({});
 FunctionalHeaderSlots.storyName = 'vl-functional-header - slots';
 FunctionalHeaderSlots.args = {
-    backSlot: '<span slot="back">Terug</span>',
-    backLinkSlot: '<a slot="back-link" href="#">Terug</a>',
-    subHeaderSlot: '<span slot="sub-header">Sub header content</span>',
-    subTitleSlot: '<span slot="sub-title">Voor lager, middelbaar en hoger onderwijs</span>',
-    titleSlot: '<span slot="title">School- en studietoelagen</span>',
-    topLeftSlot: '<span slot="top-left">Linkerbovenhoek content</span>',
-    topRightSlot: '<span slot="top-right">Rechterbovenhoek content</span>',
+    backSlot: backSlotString,
+    backLinkSlot: backLinkSlotString,
+    subHeaderSlot: subHeaderSlotString,
+    subTitleSlot: subTitleSlotString,
+    titleSlot: titleSlotString,
+    topLeftSlot: topLeftSlotString,
+    topRightSlot: topRightSlotString,
 };
 
 export const FunctionalHeaderTabs = story(
@@ -125,7 +137,7 @@ export const FunctionalHeaderTabs = story(
 );
 FunctionalHeaderTabs.storyName = 'vl-functional-header - tabs';
 FunctionalHeaderTabs.args = {
-    title: 'School- en studietoelagen',
+    title: titleString,
 };
 
 export const FunctionalHeaderBreadcrumb = story(
@@ -149,7 +161,7 @@ export const FunctionalHeaderBreadcrumb = story(
 );
 FunctionalHeaderBreadcrumb.storyName = 'vl-functional-header - breadcrumb';
 FunctionalHeaderBreadcrumb.args = {
-    title: 'School- en studietoelagen',
+    title: titleString,
 };
 
 export const FunctionalHeaderFullWidth = story(
@@ -162,6 +174,34 @@ export const FunctionalHeaderFullWidth = story(
 );
 FunctionalHeaderFullWidth.storyName = 'vl-functional-header - full width';
 FunctionalHeaderFullWidth.args = {
-    title: 'School- en studietoelagen',
+    title: titleString,
     fullWidth: true,
+};
+
+export const FunctionalHeaderDisableBackLink = Template.bind({});
+FunctionalHeaderDisableBackLink.storyName = 'vl-functional-header - disable back link';
+FunctionalHeaderDisableBackLink.args = {
+    title: titleString,
+    subTitleSlot: subTitleSlotString,
+    back: backString,
+    disableBackLink: true,
+    onClickBack: (event: CustomEvent) => {
+        event.preventDefault();
+        action('vl-click-back')(event);
+    },
+};
+
+export const FunctionalHeaderHideBackLink = Template.bind({});
+FunctionalHeaderHideBackLink.storyName = 'vl-functional-header - hide back link';
+FunctionalHeaderHideBackLink.args = {
+    title: titleString,
+    subTitleSlot: subTitleSlotString,
+    hideBackLink: true,
+};
+
+export const FunctionalHeaderHideSubHeader = Template.bind({});
+FunctionalHeaderHideSubHeader.storyName = 'vl-functional-header - hide sub header';
+FunctionalHeaderHideSubHeader.args = {
+    title: titleString,
+    hideSubHeader: true,
 };
