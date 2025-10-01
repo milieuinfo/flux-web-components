@@ -398,7 +398,7 @@ export class VlAutocomplete extends BaseLitElement {
         const id = `flux-autocomplete-item-${item.value || item.title.toLowerCase().replace(/\s/g, '-')}-${groupIndex}`;
         return html` <li
             id="${id}"
-            @click=${() => this.autocomplete(item.title, item.value ? item.value : null, id)}
+            @click=${() => this.autocomplete(item, id)}
             class="vl-autocomplete__cta flux-autocomplete-item"
             groupindex="${groupIndex}"
             role="option"
@@ -408,7 +408,8 @@ export class VlAutocomplete extends BaseLitElement {
         </li>`;
     }
 
-    autocomplete(title: string, value: string, id?: string) {
+    autocomplete(item: { title: string; value: string }, id?: string) {
+        const { title, value } = item;
         if (value == null) return;
 
         if (this.contentElement) {
@@ -422,7 +423,7 @@ export class VlAutocomplete extends BaseLitElement {
 
         this.dispatchEvent(
             new CustomEvent('selected-autocomplete', {
-                detail: { title, value },
+                detail: item,
                 composed: true,
                 bubbles: true,
             })
