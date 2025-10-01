@@ -113,7 +113,7 @@ describe('component - vl-upload', () => {
         });
     });
 
-    it('should manually add file while readonly', () => {
+    it('should programmatically add file while readonly', () => {
         cy.mount(html` <vl-upload readonly></vl-upload>`);
 
         cy.get('vl-upload').should('have.attr', 'readonly');
@@ -132,7 +132,7 @@ describe('component - vl-upload', () => {
         shouldHaveUploadFiles(1);
     });
 
-    it('should manually upload', () => {
+    it('should programmatically upload', () => {
         cy.mount(html` <vl-upload url="http://httpbin.org/post"></vl-upload>`);
 
         cy.get('vl-upload').shadow();
@@ -199,6 +199,19 @@ describe('component - vl-upload', () => {
 
         cy.createStubForEvent('vl-upload', 'vl-input');
         shouldAddPdfFiles(1);
+        // voor elk bestand wordt er een vl-input event getriggerd van type `addedfile`
+        cy.get('@vl-input').its('callCount').should('eq', 1);
+    });
+
+    it('should dispatch vl-input events when adding file', () => {
+        cy.mount(html` <vl-upload max-files="4"></vl-upload>`);
+
+        cy.createStubForEvent('vl-upload', 'vl-input');
+        cy.get('vl-upload').shadow().find('#dropzone-container').selectFile(pdfFileFixturePath, {
+            action: 'drag-drop',
+            force: true,
+        });
+
         // voor elk bestand wordt er een vl-input event getriggerd van type `addedfile`
         cy.get('@vl-input').its('callCount').should('eq', 1);
     });

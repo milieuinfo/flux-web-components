@@ -544,7 +544,7 @@ export class VlUploadComponent extends FormControl {
         this.dropzoneInstance.on('queuecomplete', this.handleQueueComplete);
         this.dropzoneInstance.on('dragover', this.handleDragOver);
         this.dropzoneInstance.on('dragleave', this.handleDragLeave);
-        this.dropzoneInstance.on('drop', this.handleDragLeave);
+        this.dropzoneInstance.on('drop', this.handleDrop);
         this.dropzoneInstance.on('uploadprogress', this.handleUploadProgress);
 
         this.getInput()?.addEventListener('input', () => {
@@ -578,7 +578,7 @@ export class VlUploadComponent extends FormControl {
         this.dropzoneInstance.off('queuecomplete', this.handleQueueComplete);
         this.dropzoneInstance.off('dragover', this.handleDragOver);
         this.dropzoneInstance.off('dragleave', this.handleDragLeave);
-        this.dropzoneInstance.off('drop', this.handleDragLeave);
+        this.dropzoneInstance.off('drop', this.handleDrop);
         this.dropzoneInstance.off('uploadprogress', this.handleUploadProgress);
     }
 
@@ -600,8 +600,11 @@ export class VlUploadComponent extends FormControl {
         const name = this.name || this.id;
         return this.getFiles()?.length
             ? this.getFiles().reduce((formData: FormData, file, currentIndex) => {
-                  // eslint-disable-line @typescript-eslint/no-unused-expressions
-                  currentIndex ? formData.append(name, file, file.name) : formData.set(name, file, file.name);
+                  if (currentIndex) {
+                      formData.append(name, file, file.name);
+                  } else {
+                      formData.set(name, file, file.name);
+                  }
                   return formData;
               }, new FormData())
             : null;
@@ -684,10 +687,17 @@ export class VlUploadComponent extends FormControl {
 
     private handleDragOver = () => {
         this.getUploadElement()?.classList.add('vl-upload--dragging');
+        this.dispatchInput = true;
     };
 
     private handleDragLeave = () => {
         this.getUploadElement()?.classList.remove('vl-upload--dragging');
+        this.dispatchInput = false;
+    };
+
+    private handleDrop = () => {
+        this.getUploadElement()?.classList.remove('vl-upload--dragging');
+        this.dispatchInput = true;
     };
 
     /**
