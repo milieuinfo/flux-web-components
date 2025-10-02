@@ -1,3 +1,12 @@
+## [1.49.4](https://github.com/milieuinfo/flux-web-components/compare/v1.49.3...v1.49.4) (2025-10-02)
+
+
+### Bug Fixes
+
+* domg_flux@groepen.vlaanderen.be is het nieuwe email-adres ([4862652](https://github.com/milieuinfo/flux-web-components/commit/486265254aadd37ca37c126a9c38543f047b99d3))
+* FLUX-106 - vl-map - lambert-2008 opt-in ([8404455](https://github.com/milieuinfo/flux-web-components/commit/84044557c2475ce794b553e302d3dace0975aadf))
+* upgrade van node en semantic-release, checkout-install-and-cache stage geschrapt ([5dc653a](https://github.com/milieuinfo/flux-web-components/commit/5dc653a3ee75a14a27794ef43b199562a047374c))
+
 ## [1.49.3](https://github.com/milieuinfo/flux-web-components/compare/v1.49.2...v1.49.3) (2025-09-09)
 
 

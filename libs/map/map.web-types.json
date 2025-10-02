@@ -744,6 +744,11 @@
                             "name": "data-vl-features",
                             "description": "Attribuut dat de kaartlaag bevat.",
                             "default": ""
+                        },
+                        {
+                            "name": "projection-code",
+                            "description": "Indien je Lambert 72 coördinaten gebruikt op een Lambert 2008 kaart, moet je de projectie code \n            EPSG:31370 meegeven als projection-code. Geef je dit niet mee, dan zal de kaartlaag de projectie code van \n            de kaart overnemen.<br>Dit attribuut is niet reactief.",
+                            "default": ""
                         }
                     ],
                     "js": {
@@ -795,6 +800,11 @@
                         {
                             "name": "data-vl-layers",
                             "description": "De layers van de WFS.<br>Dit attribuut is niet reactief.",
+                            "default": ""
+                        },
+                        {
+                            "name": "projection-code",
+                            "description": "Indien je Lambert 72 coördinaten gebruikt op een Lambert 2008 kaart, moet je de projectie code \n            EPSG:31370 meegeven als projection-code. Geef je dit niet mee, dan zal de kaartlaag de projectie code van \n            de kaart overnemen.<br>Dit attribuut is niet reactief.",
                             "default": ""
                         },
                         {
@@ -1040,7 +1050,7 @@
                         {
                             "name": "data-vl-matrix-set",
                             "description": "De matrix set van de WMTS.<br>Dit attribuut is niet reactief.",
-                            "default": "BPL72VL"
+                            "default": "BPL2008VL"
                         },
                         {
                             "name": "data-vl-matrix-prefix",
@@ -1684,6 +1694,11 @@
                         {
                             "name": "data-vl-full-height",
                             "description": "De map neemt de volledige beschikbare hoogte in van zijn parent.<br>Zie de docs pagina voor meer informatie over het gebruik van dit attribuut.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "lambert2008",
+                            "description": "Indien aanwezig wordt de kaart in het coördinatenstelsel Lambert 2008 weergegeven (EPSG:3812).<br>Indien niet aanwezig wordt de kaart in het coördinatenstelsel Lambert 72 weergegeven (EPSG:31370).<br>Dit attribuut is niet reactief. In de toekomst wordt Lambert 2008 de default.",
                             "default": "false"
                         },
                         {
