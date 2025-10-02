@@ -6,9 +6,6 @@ plan:
   name: ci-flux-web-components
 
 stages:
-  - Checkout, Install and Cache Stage:
-      jobs:
-        - checkout-install-and-cache
   - Build and Test Stage:
       jobs:
         - build-apps-and-libs
@@ -21,37 +18,11 @@ stages:
       jobs:
         - verify-release
 
-checkout-install-and-cache:
+build-apps-and-libs:
   requirements: &requirements
     - Docker
     - Git
     - REMOTE_ONLY
-  tasks:
-    - clean
-    - script: |
-        #!/bin/bash
-        # bamboo.yml timestamp - 2024/02/05 11:40 - for verification purposes
-        # avoid git warning
-        git config --global init.defaultBranch develop-v2
-    - checkout
-    - script: |
-        # export variables
-        export SECRET_GITHUB_TOKEN=${bamboo.secret_github_token}
-        bash ./resources/ci-bamboo/bash/checkout-install-and-cache-docker.sh
-    - script: |
-        # move the folder './node_modules' to './node-modules-cache/node_modules'
-        # this is done so the artifact is shared (in other jobs) in the correct folder (Bamboo 7.2 limitation)
-        mkdir node-modules-cache
-        mv node_modules node-modules-cache
-  artifacts:
-    - name: node-modules-cache
-      location: node-modules-cache
-      pattern: '**/*.*'
-      required: true
-      shared: true
-
-build-apps-and-libs:
-  requirements: *requirements
   tasks:
     - clean
     - script: |
