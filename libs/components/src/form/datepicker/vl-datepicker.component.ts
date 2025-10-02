@@ -15,7 +15,7 @@ import { FormControl } from '../form-control';
 import { inputFieldStyles } from '../input-field';
 import { CleaveInstance, MaskOptions } from '../models/cleave.model';
 import { createDateMask, createTimeMask } from './masks';
-import { maskValidator } from './validators';
+import { maskValidator, rangeOverflowValidator, rangeUnderflowValidator } from './validators';
 import { datepickerDefaults } from './vl-datepicker.defaults';
 import { vlDatepickerFluxStyles } from './vl-datepicker.flux-css';
 
@@ -24,22 +24,27 @@ const dateRangeSeparatorCharacter = '/';
 
 @webComponent('vl-datepicker')
 export class VlDatepickerComponent extends FormControl {
-    static formControlValidators = [...FormControl.formControlValidators, maskValidator];
+    static formControlValidators = [
+        ...FormControl.formControlValidators,
+        maskValidator,
+        rangeOverflowValidator,
+        rangeUnderflowValidator,
+    ];
     // Properties
     regex = datepickerDefaults.regex; // Wordt enkel gebruikt in de pattern validator
     // Attributes
+    public type = datepickerDefaults.type;
+    public minDate = datepickerDefaults.minDate;
+    public maxDate = datepickerDefaults.maxDate;
+    public minTime = datepickerDefaults.minTime;
+    public maxTime = datepickerDefaults.maxTime;
+    public format = datepickerDefaults.format;
     private block = datepickerDefaults.block;
     private readonly = datepickerDefaults.readonly;
     private value = datepickerDefaults.value;
     private placeholder = datepickerDefaults.placeholder;
     private autocomplete = datepickerDefaults.autocomplete;
-    private type = datepickerDefaults.type;
-    private format = datepickerDefaults.format;
     private amPm = datepickerDefaults.amPm;
-    private minDate = datepickerDefaults.minDate;
-    private maxDate = datepickerDefaults.maxDate;
-    private minTime = datepickerDefaults.minTime;
-    private maxTime = datepickerDefaults.maxTime;
     private disableMaskValidation = datepickerDefaults.disableMaskValidation; // Wordt enkel gebruikt in de mask validator
     private pattern = datepickerDefaults.pattern; // Wordt enkel gebruikt in de mask validator
     private disableMobileNativeInput = datepickerDefaults.disableMobileNativeInput;

@@ -8,12 +8,13 @@ import { action } from 'storybook/actions';
 type DatepickerArgs = typeof formControlArgs &
     typeof datepickerDefaults & { onVlChange: () => void; onVlInput: () => void; onVlValid: () => void };
 
-export const datepickerArgs: DatepickerArgs = {
+export const datepickerArgs: DatepickerArgs & { helperText?: string } = {
     ...formControlArgs,
     ...datepickerDefaults,
     onVlChange: action('vl-change'),
     onVlInput: action('vl-input'),
     onVlValid: action('vl-valid'),
+    helperText: '',
 };
 
 export const datepickerArgTypes: ArgTypes<DatepickerArgs> = {
