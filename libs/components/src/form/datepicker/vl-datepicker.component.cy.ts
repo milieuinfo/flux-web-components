@@ -1,7 +1,9 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { vlGridStyles } from '@domg-wc/styles';
 import { html, nothing } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { VlFormMessageComponent } from '../form-message';
+import { createDateRange } from './stories/vl-datepicker.stories-util';
 import { VlDatepickerComponent } from './vl-datepicker.component';
 import { datepickerDefaults } from './vl-datepicker.defaults';
 
@@ -1236,6 +1238,130 @@ describe('component - vl-datepicker - in form', () => {
         cy.get('button[type="submit"]').click();
         cy.checkA11y('vl-datepicker');
     });
+
+    it('should validate min/max with type "date"', () => {
+        const format = 'd.m.Y';
+        const [minDate, maxDate] = createDateRange(new Date('2024-04-10'), 2, format);
+        mountDatepickerInForm({ ...datepickerDefaults, minDate, maxDate, format, type: 'date' });
+        cy.get('form').then((form$) => {
+            form$.on('submit', (e) => {
+                e.preventDefault();
+            });
+        });
+        cy.injectAxe();
+
+        cy.get('vl-datepicker').shadow().find('input').should('not.have.class', 'vl-input-field--error');
+
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('10.04.2024');
+        cy.get('vl-datepicker').should('have.value', '2024-04-10');
+
+        cy.get('button[type="submit"]').click({ force: true });
+
+        cy.get('vl-form-message[state="rangeOverflow"]').should('not.be.visible');
+        cy.get('vl-form-message[state="rangeUnderflow"]').should('not.be.visible');
+
+        cy.get('button[type="reset"]').click();
+
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('13.04.2024');
+        cy.get('vl-datepicker').should('have.value', '2024-04-13');
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-form-message[state="rangeOverflow"]').should('be.visible');
+        cy.get('vl-form-message[state="rangeUnderflow"]').should('not.be.visible');
+
+        cy.get('button[type="reset"]').click();
+        cy.get('vl-form-message[state="rangeOverflow"]').should('not.be.visible');
+        cy.get('vl-form-message[state="rangeUnderflow"]').should('not.be.visible');
+
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('07.04.2024');
+        cy.get('vl-datepicker').should('have.value', '2024-04-07');
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-form-message[state="rangeOverflow"]').should('not.be.visible');
+        cy.get('vl-form-message[state="rangeUnderflow"]').should('be.visible');
+
+        cy.checkA11y('vl-datepicker');
+    });
+
+    it('should validate min/max with type "time"', () => {
+        mountDatepickerInForm({ ...datepickerDefaults, minTime: '10:00', maxTime: '12:00', type: 'time' });
+        cy.get('form').then((form$) => {
+            form$.on('submit', (e) => {
+                e.preventDefault();
+            });
+        });
+        cy.injectAxe();
+
+        cy.get('vl-datepicker').shadow().find('input').should('not.have.class', 'vl-input-field--error');
+
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('11:00');
+        cy.get('vl-datepicker').should('have.value', '11:00');
+
+        cy.get('button[type="submit"]').click({ force: true });
+
+        cy.get('vl-form-message[state="rangeOverflow"]').should('not.be.visible');
+        cy.get('vl-form-message[state="rangeUnderflow"]').should('not.be.visible');
+
+        cy.get('button[type="reset"]').click();
+
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('12:30');
+        cy.get('vl-datepicker').should('have.value', '12:30');
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-form-message[state="rangeOverflow"]').should('be.visible');
+        cy.get('vl-form-message[state="rangeUnderflow"]').should('not.be.visible');
+
+        cy.get('button[type="reset"]').click();
+        cy.get('vl-form-message[state="rangeOverflow"]').should('not.be.visible');
+        cy.get('vl-form-message[state="rangeUnderflow"]').should('not.be.visible');
+
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('9:30');
+        cy.get('vl-datepicker').should('have.value', '09:30');
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-form-message[state="rangeOverflow"]').should('not.be.visible');
+        cy.get('vl-form-message[state="rangeUnderflow"]').should('be.visible');
+
+        cy.checkA11y('vl-datepicker');
+    });
+
+    it('should validate min/max with type "range"', () => {
+        const format = 'd.m.Y';
+        const [minDate, maxDate] = createDateRange(new Date('2024-04-10'), 2, format);
+        mountDatepickerInForm({ ...datepickerDefaults, minDate, maxDate, format, type: 'range' });
+        cy.get('form').then((form$) => {
+            form$.on('submit', (e) => {
+                e.preventDefault();
+            });
+        });
+        cy.injectAxe();
+
+        cy.get('vl-datepicker').shadow().find('input').should('not.have.class', 'vl-input-field--error');
+
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('10.04.2024 tot en met 11.04.2024');
+        cy.get('vl-datepicker').should('have.value', '2024-04-10/2024-04-11');
+
+        cy.get('button[type="submit"]').click({ force: true });
+
+        cy.get('vl-form-message[state="rangeOverflow"]').should('not.be.visible');
+        cy.get('vl-form-message[state="rangeUnderflow"]').should('not.be.visible');
+
+        cy.get('button[type="reset"]').click();
+
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('10.04.2024 tot en met 13.04.2024');
+        cy.get('vl-datepicker').should('have.value', '2024-04-10/2024-04-13');
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-form-message[state="rangeOverflow"]').should('be.visible');
+        cy.get('vl-form-message[state="rangeUnderflow"]').should('not.be.visible');
+
+        cy.get('button[type="reset"]').click();
+        cy.get('vl-form-message[state="rangeOverflow"]').should('not.be.visible');
+        cy.get('vl-form-message[state="rangeUnderflow"]').should('not.be.visible');
+
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('07.04.2024 tot en met 11.04.2024');
+        cy.get('vl-datepicker').should('have.value', '2024-04-07/2024-04-11');
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-form-message[state="rangeOverflow"]').should('not.be.visible');
+        cy.get('vl-form-message[state="rangeUnderflow"]').should('be.visible');
+
+        cy.checkA11y('vl-datepicker');
+    });
 });
 
 /**
@@ -1321,6 +1447,10 @@ const mountDatepickerInForm = ({
     format,
     pattern,
     disableMaskValidation,
+    maxDate,
+    minDate,
+    maxTime,
+    minTime,
 }: typeof datepickerDefaults) => {
     cy.mount(html`
         <style>
@@ -1347,6 +1477,10 @@ const mountDatepickerInForm = ({
                             format=${format || nothing}
                             type=${type || nothing}
                             value=${value || nothing}
+                            min-date=${ifDefined(minDate || undefined)}
+                            max-date=${ifDefined(maxDate || undefined)}
+                            min-time=${ifDefined(minTime || undefined)}
+                            max-time=${ifDefined(maxTime || undefined)}
                         >
                         </vl-datepicker>
                         <vl-form-message for="geboortedatum" state="valueMissing">
@@ -1354,6 +1488,12 @@ const mountDatepickerInForm = ({
                         </vl-form-message>
                         <vl-form-message for="geboortedatum" state="patternMismatch"
                             >Gelieve het juiste formaat te gebruiken.</vl-form-message
+                        >
+                        <vl-form-message for="geboortedatum" state="rangeOverflow"
+                            >Waarde overschrijdt het toegestane maximum.</vl-form-message
+                        >
+                        <vl-form-message for="geboortedatum" state="rangeUnderflow"
+                            >Waarde ligt onder het toegestane minimum.</vl-form-message
                         >
                     </div>
                     <div class="vl-column vl-column--9 vl-column--start-4">
