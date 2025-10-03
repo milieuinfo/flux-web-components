@@ -1,17 +1,10 @@
-/*! Indien je een kleur aanpast, kijk dan even na of er andere kleuren op gebaseerd zijn die een alpha waarde toevoegen.*/
-/* TODO: kleuren gelijktrekken in hele codebase, volgens kleurenpalet uit Figma: 
-  https://www.figma.com/design/fjoJzse5CZSggMaZDe80CO/-VL--Foundations--team-D-?node-id=61-724
-*/
-
+/* Legacy kleuren */
 :root {
     --vl-color--white: #ffffff;
-    --vl-color--white-lilac: #f7f9fc;
-    --vl-color--mischka-grey: #CFD5DD;
 
     --vl-color--accent: #ffe615;
     --vl-color--background: var(--vl-color--white);
-    --vl-color--background-alt: var(--vl-color--white-lilac);
-
+    --vl-color--background-alt: #f7f9fc;
     --vl-color--map-background: #ffffff;
     --vl-color--doormat-background: #33333233;
 
@@ -30,12 +23,10 @@
     --vl-color--action-visited: #660599;
     --vl-color--action-disabled: #687483;
     --vl-color--action-disabled-background: #cbd2d9;
-
     --vl-color--action-tertiary: var(--vl-color--action);
     --vl-color--action-tertiary-hover: var(--vl-color--action);
     --vl-color--action-tertiary-border: #c6cdd3;
     --vl-color--action-tertiary-border-hover: #5990de;
-
     
     --vl-color--error: #d2373c;
     --vl-color--error-hover: #aa2729;

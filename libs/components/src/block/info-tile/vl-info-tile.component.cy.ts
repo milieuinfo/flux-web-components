@@ -76,7 +76,7 @@ const badgeSlot = `<div slot="badge" style="
             width: 45px; 
             height: 45px; 
             background: var(--vl-color--background-alt); 
-            border: 1px solid var(--vl-color--mischka-grey); 
+            border: 1px solid var(--vl-color--border-default); 
             border-radius: 50%; 
             display: flex; 
             flex-wrap: wrap; 

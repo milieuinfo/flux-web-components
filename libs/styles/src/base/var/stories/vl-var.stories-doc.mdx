@@ -1,5 +1,5 @@
 import { Canvas, Meta, Source } from '@storybook/addon-docs/blocks';
-import colorSource from '../vl-color.raw.css?raw';
+import { colorVarsCssString } from '../vl-color.css.ts';
 import generalSource from '../vl-general.raw.css?raw';
 import mediaScreenSource from '../vl-media-screen.css.ts?raw';
 import spacingSource from '../vl-spacing.raw.css?raw';
@@ -34,9 +34,9 @@ waarde krijgen. Dit moet niet gezien worden als theming, er is maar 1 stijl: die
 Het zijn standaard [CSS variabelen](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties):
 ze beginnen dus met `--` en zijn te gebruiken met `var()`.
 
-```
+```css
 .my-details {
-  background-color: var(--vl-color--background-alt);
+    background-color: var(--vl-color--background-default);
 }
 ```
 
@@ -48,13 +48,17 @@ ze beginnen dus met `--` en zijn te gebruiken met `var()`.
 
 ## Variabelen
 
-Hieronder volgt een overzicht van alle variabelen, dit is een representatie van de code, ze zijn dus steeds up-to-date.
+Hieronder volgt een overzicht van alle variabelen. 
+Dit is een representatie van de broncode, ze zijn dus steeds up-to-date.
 
 ### Color
 
+Meer informatie over het beschikbare kleurenpalet en toegankelijkheid van kleuren vind je op de
+[kleurenpalet documentatie pagina](/docs/styles-kleurenpalet--documentatie).
+
 <details open>
     <summary>Color Variables</summary>
-    <Source code={colorSource} language="css" dark={true}/>
+    <Source code={colorVarsCssString} language="css" dark={true}/>
 </details>
 
 ### General

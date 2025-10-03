@@ -1,8 +1,8 @@
 import { formattedSourceCode } from '@resources/utils-storybook';
+import { Meta } from '@storybook/web-components-vite';
 import { css } from 'lit';
 import { html } from 'lit-html';
 import vlSectionStoriesDoc from './vl-section.stories-doc.mdx';
-import { Meta } from '@storybook/web-components-vite';
 
 export default {
     id: 'styles-layout-afnemers-section',
@@ -73,24 +73,19 @@ SectionLightBlue.parameters = formattedSourceCode;
 
 export const SectionOverlap = ({}) => html`
     <style>
-        ${sectionCss} .sb-overlap {
-            &.vl-section {
-                --vl-section--alt-bg: lightblue;
-                --vl-section--border: lightblue;
-            }
-        }
+        ${sectionCss}
     </style>
-    <section class="sb-overlap vl-section vl-section--overlap">
+    <section class="vl-section vl-section--overlap">
         <p class="vl-content-block">vl-content-block</p>
         <p>vl-section vl-section--overlap</p>
     </section>
-    <section class="sb-overlap vl-section vl-section--bordered">
+    <section class="vl-section vl-section--bordered">
         <p>vl-section vl-section--bordered</p>
     </section>
-    <section class="sb-overlap vl-section vl-section--bordered">
+    <section class="vl-section vl-section--bordered">
         <p>vl-section vl-section--bordered</p>
     </section>
-    <section class="sb-overlap vl-section vl-section--bordered">
+    <section class="vl-section vl-section--bordered">
         <p>vl-section vl-section--bordered</p>
     </section>
 `;
