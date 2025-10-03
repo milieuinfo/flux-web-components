@@ -1,6 +1,6 @@
 :root {
-    --vl-section--border: var(--vl-color--background-alt);
-    --vl-section--alt-bg: var(--vl-color--background-alt);
+    --vl-section--border: var(--vl-color--border-default);
+    --vl-section--alt-bg: var(--vl-color--background-subtle);
     --vl-section--overlap-black-transparent: transparent;
-    --vl-section--overlap-bg: var(--vl-color--white-lilac);
+    --vl-section--overlap-bg: var(--vl-color--background-subtle);
 }

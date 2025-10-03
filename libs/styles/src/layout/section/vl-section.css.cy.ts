@@ -42,7 +42,7 @@ describe('section styles', () => {
         });
         cy.get('.cy-section-bordered2').shouldHaveComputedStyle({
             style: 'border-top',
-            value: '1px solid rgb(247, 249, 252)',
+            value: '1px solid rgb(207, 213, 221)',
         });
         // small screen
         cy.viewport(700, 800);
@@ -68,7 +68,7 @@ describe('section styles', () => {
         });
         cy.get('.cy-section-bordered2').shouldHaveComputedStyle({
             style: 'border-top',
-            value: '1px solid rgb(247, 249, 252)',
+            value: '1px solid rgb(207, 213, 221)',
         });
     });
 

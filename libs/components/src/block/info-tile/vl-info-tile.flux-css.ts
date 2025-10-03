@@ -82,8 +82,8 @@ export const vlInfoTyleFluxStyles: CSSResult = css`
         place-content: center center;
 
         &.vl-info-tile__icon--badge {
-            background-color: var(--vl-color--white-lilac);
-            border: 1px solid var(--vl-color--mischka-grey);
+            background-color: var(--vl-color--background-subtle);
+            border: 1px solid var(--vl-color--border-default);
             border-radius: 50%;
         }
     }
@@ -94,8 +94,8 @@ export const vlInfoTyleFluxStyles: CSSResult = css`
     }
 
     :host .vl-info-tile--alt {
-        border-color: var(--vl-color--mischka-grey);
-        background-color: var(--vl-color--white-lilac);
+        border-color: var(--vl-color--border-default);
+        background-color: var(--vl-color--background-subtle);
 
         .vl-info-tile__icon--badge {
             background-color: white;

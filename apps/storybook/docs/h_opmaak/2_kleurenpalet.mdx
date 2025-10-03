@@ -1,0 +1,279 @@
+import { Canvas, Meta, Source, ColorPalette, ColorItem } from '@storybook/addon-docs/blocks';
+import grafiekOrigineel from '../../resources/style/grafiek-kleuren-origineel.png';
+import grafiekProtanopia from '../../resources/style/grafiek-kleuren-1-protanopia.png';
+import grafiekDeuteranopia from '../../resources/style/grafiek-kleuren-2-deuteranopia.png';
+import grafiekTritanopia from '../../resources/style/grafiek-kleuren-3-tritanopia.png';
+import grafiekAchromatopsia from '../../resources/style/grafiek-kleuren-4-achromatopsia.png';
+
+<Meta title="Styles/Kleurenpalet" />
+
+# Kleurenpalet
+
+<FluxMetaData id="styles-kleurenpalet"/>
+<br/>
+
+## Inhoudstafel
+- [Concept](#concept)
+- [Hoofdkleuren](#hoofdkleuren)
+- [Status en ondersteunende kleuren](#status-en-ondersteunende-kleuren)
+- [Thema kleuren](#thema-kleuren)
+- [Kleurgebruik in grafieken](#kleurgebruik-in-grafieken)
+- [Toegankelijkheid](#toegankelijkheid)
+
+## Concept
+
+Dit kleurenpalet is overgenomen van het 
+[kleurenpalet van Vlaanderen Design System](https://www.vlaanderen.be/vlaanderen-design-system/foundations/kleuren).
+
+De kleuren op deze pagina zijn globaal beschikbaar als CSS variabelen. 
+Je kan ze toepassen op onderstaande manier:
+
+```css
+div {
+    color: var(--vl-color--text-default);
+    border: 1px solid var(--vl-color--border-default);
+    background-color: var(--vl-color--background-default);
+}
+```
+
+### Hoofdkleuren
+
+<ColorPalette>
+  <ColorItem
+    title="Primaire kleur"
+    subtitle="Vormt de visuele identiteit van de Vlaamse Overheid."
+    colors={{ 
+        Primary: 'var(--vl-color--primary)', 
+        'Primary 300': 'var(--vl-color--primary-300)', 
+        'Primary 100': 'var(--vl-color--primary-100)', 
+    }}
+  />
+  <ColorItem
+    title="Acties"
+    subtitle="Duidt interactieve elementen aan."
+    colors={{ 
+        Action: 'var(--vl-color--action)', 
+        'Action hover': 'var(--vl-color--action-800)',
+        'Action active': 'var(--vl-color--action-900)',
+    }}
+  />
+  <ColorItem
+    title="Tekst"
+    subtitle="De standaard tekstkleur en twee varianten."
+    colors={{ 
+        Default: 'var(--vl-color--text-default)',
+        Subtle: 'var(--vl-color--text-subtle)',
+        Disabled: 'var(--vl-color--text-disabled)',
+    }}
+  />
+  <ColorItem
+    title="Randen"
+    subtitle="De standaard randkleur en twee varianten."
+    colors={{ 
+        Default: 'var(--vl-color--border-default)', 
+        Bold: 'var(--vl-color--border-bold)', 
+        Disabled: 'var(--vl-color--border-disabled)', 
+    }}
+  />
+  <ColorItem
+    title="Achtergrond"
+    subtitle="De standaard achtergrondkleur en twee varianten."
+    colors={{ 
+        Default: 'var(--vl-color--background-default)', 
+        Subtle: 'var(--vl-color--background-subtle)', 
+        'Bold/Disabled': 'var(--vl-color--background-bold)', 
+    }}
+  />
+</ColorPalette>
+
+### Status en ondersteunende kleuren
+
+<ColorPalette>
+  <ColorItem
+    title="Algemene status kleuren"
+    subtitle="Statuskleuren geven gebruikers feedback over de status van een actie of element."
+    colors={{
+        Success: 'var(--vl-color--success)',
+        Warning: 'var(--vl-color--warning)',
+        Error: 'var(--vl-color--error)',
+    }}
+  />
+  <ColorItem
+    title="Success set"
+    subtitle="Set om een success kader op te bouwen."
+    colors={{
+      Tekst: 'var(--vl-color--text-success)',
+      Rand: 'var(--vl-color--border-success)', 
+      Achtergrond: 'var(--vl-color--background-success-subtle)', 
+    }}
+  />
+  <ColorItem
+    title="Warning set"
+    subtitle="Set om een warning kader op te bouwen."
+    colors={{
+      Tekst: 'var(--vl-color--text-warning)',
+      Rand: 'var(--vl-color--border-warning)', 
+      Achtergrond: 'var(--vl-color--background-warning-subtle)', 
+    }}
+  />
+  <ColorItem
+    title="Error set"
+    subtitle="Set om een error kader op te bouwen."
+    colors={{
+      Tekst: 'var(--vl-color--text-error)',
+      Rand: 'var(--vl-color--border-error)', 
+      Achtergrond: 'var(--vl-color--background-error-subtle)', 
+    }}
+  />
+  <ColorItem
+    title="Primary set"
+    subtitle="Set om een primary kader op te bouwen."
+    colors={{
+      Tekst: 'var(--vl-color--text-primary)',
+      Rand: 'var(--vl-color--border-primary)', 
+      Achtergrond: 'var(--vl-color--background-primary-subtle)', 
+    }}
+  />
+  <ColorItem
+    title="Action set"
+    subtitle="Set om een action kader op te bouwen."
+    colors={{
+      Tekst: 'var(--vl-color--active-text-action)',
+      Rand: 'var(--vl-color--border-action)', 
+      Achtergrond: 'var(--vl-color--background-action-subtle)', 
+    }}
+  />
+  <ColorItem
+    title="Info set"
+    subtitle="Set om een info kader op te bouwen."
+    colors={{
+      Tekst: 'var(--vl-color--text-default)',
+      Rand: 'var(--vl-color--border-default)', 
+      Achtergrond: 'var(--vl-color--background-info-subtle)', 
+    }}
+  />
+</ColorPalette>
+
+### Thema kleuren
+
+[Departement Omgeving](https://omgeving.vlaanderen.be/) heeft een eigen set van thematische kleuren. 
+Dit wordt gezien als een **niveau 2** thema. **Niveau 1** is het algemene Vlaamse thema met geel, zwart en blauw
+als hoofdkleuren.
+
+<ColorPalette>
+  <ColorItem
+    title="Hoofdkleur"
+    subtitle="Standaard themakleur met twee varianten voor accenten of contrast-aanpassingen."
+    colors={{
+      'Hoofdkleur': 'var(--vl-color--domg-hoofdkleur)',
+      'Licht': 'var(--vl-color--domg-hoofdkleur-light)',
+      'Extra licht': 'var(--vl-color--domg-hoofdkleur-extra-light)',
+    }}
+  />
+  <ColorItem
+    title="Steunkleur"
+    subtitle="Een extra steunkleur voor accenten. bv headings."
+    colors={{
+      'Steunkleur': 'var(--vl-color--domg-steunkleur)',
+      'Licht': 'var(--vl-color--domg-steunkleur-light)',
+      'Extra licht': 'var(--vl-color--domg-steunkleur-extra-light)',
+    }}
+  />
+</ColorPalette>
+
+### Kleurgebruik in grafieken
+
+Gebruik in grafieken liefst één kleur met verschillende helderheid. 
+Dit vermijdt "overlappende" kleuren indien een persoon bepaalde kleuren niet kan zien. 
+Je kan verschillende kleuren combineren als je daarbij oplet om per kleur een bepaalde helderheid aan te houden.
+In het onderste voorbeeld zijn geel de "lichte" kleuren, blauw-groen de "normale" kleuren en blauw de "donkere" kleuren.
+
+<ColorPalette>
+    <ColorItem
+        title="Blauw varianten"
+        colors={{
+                A: 'var(--vl-color--action-200)',
+                B: 'var(--vl-color--action-400)',
+                C: 'var(--vl-color--action-600)',
+                D: 'var(--vl-color--action-800)',
+                E: 'var(--vl-color--action-1000)',
+        }}
+    />
+    <ColorItem
+        title="Geel varianten"
+        colors={{
+                A: 'var(--vl-color--primary-200)',
+                B: 'var(--vl-color--primary-400)',
+                C: 'var(--vl-color--primary-600)',
+                D: 'var(--vl-color--primary-800)',
+                E: 'var(--vl-color--primary-1000)',
+        }}
+    />
+    <ColorItem
+        title="Blauw-groen varianten"
+        colors={{
+                A: 'var(--vl-color--primary-niveau2-200)',
+                B: 'var(--vl-color--primary-niveau2-400)',
+                C: 'var(--vl-color--primary-niveau2-600)',
+                D: 'var(--vl-color--primary-niveau2-800)',
+                E: 'var(--vl-color--primary-niveau2-1000)',
+        }}
+    />
+    <ColorItem
+        title="Combinatie"
+        colors={{
+                A: 'var(--vl-color--primary-200)',
+                B: 'var(--vl-color--primary-400)',
+                C: 'var(--vl-color--primary-600)',
+                D: 'var(--vl-color--primary-niveau2-400)',
+                E: 'var(--vl-color--primary-niveau2-600)',
+                F: 'var(--vl-color--primary-niveau2-800)',
+                G: 'var(--vl-color--action-600)',
+                H: 'var(--vl-color--action-800)',
+                I: 'var(--vl-color--action-1000)',
+        }}
+    />
+</ColorPalette>
+
+## Toegankelijkheid
+
+Al deze kleuren zijn ontworpen met toegankelijkheid in gedachten en voldoen aan de WCAG 2.1-richtlijnen voor contrast.
+
+- Normale tekst (kleiner dan 24px of 19px vet) moet een minimaal contrast van 4.5:1 hebben.
+- Grote tekst (24px of 19px vet en groter) moet een minimaal contrast van 3:1 hebben.
+- UI-componenten (zoals knoppen en invoervelden) moeten een minimaal contrast van 3:1 hebben.
+
+<FluxAlert type="warning">
+{`
+Kleur mag nooit het enige middel zijn om informatie over te brengen. Gebruik altijd een combinatie van kleur, tekst en 
+iconografie voor maximale toegankelijkheid.
+`}
+</FluxAlert>
+
+Test bij twijfel je gekozen kleuren met een tool als [Emulate vision deficiencies](https://dev.to/josefine/accessibility-testing-with-chrome-devtools-2bl4#emulate-vision-deficiencies) in Chrome Dev Tools.
+
+Voor de gecombineerde grafiekkleuren levert dat deze resultaten op. 
+Dit is uiteraard slechts een benadering van de werkelijkheid.
+
+<table>
+  <tr>
+    <td>Origineel</td>
+    <td><img src={grafiekOrigineel} alt="Originele grafiek kleuren" width="400" /></td>
+  </tr>
+  <tr>
+    <td>Protanopia (geen rood)</td>
+    <td><img src={grafiekProtanopia} alt="emulatie van protanopia" width="400" /></td>
+  </tr>
+  <tr>
+    <td>Deuteranopia (geen groen)</td>
+    <td><img src={grafiekDeuteranopia} alt="emulatie van deuteranopia" width="400" /></td>
+  </tr>
+  <tr>
+    <td>Tritanopia (geen blauw)</td>
+    <td><img src={grafiekTritanopia} alt="emulatie van tritanopia" width="400" /></td>
+  </tr>
+  <tr>
+    <td>Achromatopsia (geen kleur)</td>
+    <td><img src={grafiekAchromatopsia} alt="emulatie van achromatopsia" width="400" /></td>
+  </tr>
+</table>

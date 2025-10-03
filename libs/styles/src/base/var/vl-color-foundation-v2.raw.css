@@ -1,0 +1,171 @@
+/* Uit Vlaanderen Design System: https://www.vlaanderen.be/vlaanderen-design-system/foundations/kleuren */
+:root {
+    /* ── Alias definitions ──────────────────────────────────────── */
+    --vl-color--white:                #ffffff;
+    --vl-color--grey-100:             #f7f9fc;
+    --vl-color--grey-200:             #eceff4;
+    --vl-color--grey-300:             #cfd5dd;
+    --vl-color--grey-400:             #c3cad3;
+    --vl-color--grey-500:             #a7b1bf;
+    --vl-color--grey-600:             #8695a8;
+    --vl-color--grey-700:             #788799;
+    --vl-color--grey-800:             #687483;
+    --vl-color--grey-900:             #4d535b;
+    --vl-color--grey-1000:            #333332;
+
+    --vl-color--primary-100:          #fffdf2;
+    --vl-color--primary-200:          #fffce4;
+    --vl-color--primary-300:          #fff8c6;
+    --vl-color--primary-400:          #fff4a1;
+    --vl-color--primary-500:          #fff172;
+    --vl-color--primary-600:          #ffed00;
+    --vl-color--primary-700:          #e4d400;
+    --vl-color--primary-800:          #c6b800;
+    --vl-color--primary-900:          #a19600;
+    --vl-color--primary-1000:         #726a00;
+    --vl-color--primary:              var(--vl-color--primary-600);
+
+    --vl-color--primary-niveau2-100:  #f2f9f9;
+    --vl-color--primary-niveau2-200:  #e5f2f3;
+    --vl-color--primary-niveau2-300:  #c8e5e7;
+    --vl-color--primary-niveau2-400:  #a6d7da;
+    --vl-color--primary-niveau2-500:  #7ac7cd;
+    --vl-color--primary-niveau2-600:  #32b7be;
+    --vl-color--primary-niveau2-700:  #2da4aa;
+    --vl-color--primary-niveau2-800:  #278e93;
+    --vl-color--primary-niveau2-900:  #207478;
+    --vl-color--primary-niveau2-1000: #165255;
+    --vl-color--primary-niveau2:      var(--vl-color--primary-niveau2-600);
+
+    --vl-color--action-100:           #e4ebf5;
+    --vl-color--action-200:           #b2ccef;
+    --vl-color--action-300:           #8db4e8;
+    --vl-color--action-400:           #5990de;
+    --vl-color--action-500:           #2971d6;
+    --vl-color--action-600:           #0055cc;
+    --vl-color--action-700:           #0048ad;
+    --vl-color--action-800:           #003b8e;
+    --vl-color--action-900:           #002f70;
+    --vl-color--action-1000:          #00265b;
+    --vl-color--action:               var(--vl-color--action-600);
+
+    --vl-color--error-100:            #fbeded;
+    --vl-color--error-400:            #f1aeae;
+    --vl-color--error-600:            #d2373c;
+    --vl-color--error-700:            #bc3136;
+    --vl-color--error-800:            #aa2729;
+    --vl-color--error-900:            #852326;
+    --vl-color--error:                var(--vl-color--error-600);
+
+    --vl-color--warning-100:          #fff9e8;
+    --vl-color--warning-400:          #ffe49c;
+    --vl-color--warning-600:          #ffa10a;
+    --vl-color--warning-700:          #d07b06;
+    --vl-color--warning-800:          #9f5804;
+    --vl-color--warning:              var(--vl-color--warning-600);
+
+    --vl-color--success-100:          #ecf6ee;
+    --vl-color--success-400:          #9fd5af;
+    --vl-color--success-600:          #009e47;
+    --vl-color--success-800:          #007a37;
+    --vl-color--success:              var(--vl-color--success-600);
+
+    --vl-color--on-primary:           var(--vl-color--grey-1000);
+    --vl-color--focus-on-primary:     var(--vl-color--action-800);
+
+    /* ── Background tokens (reference aliases) ───────────────────── */
+    --vl-color--background-default:          var(--vl-color--white);
+    --vl-color--background-subtle:           var(--vl-color--grey-100);
+    --vl-color--background-bold:             var(--vl-color--grey-300);
+    --vl-color--background-bolder:           var(--vl-color--grey-600);
+    --vl-color--background-disabled:         var(--vl-color--grey-300);
+    --vl-color--background-disabled-subtle:  var(--vl-color--grey-100);
+    --vl-color--background-inverse:          var(--vl-color--grey-800);
+    --vl-color--background-action:           var(--vl-color--action);
+    --vl-color--background-action-soft:      var(--vl-color--action-400);
+    --vl-color--background-action-subtle:    var(--vl-color--action-100);
+    --vl-color--background-selected:         var(--vl-color--action);
+    --vl-color--background-primary:          var(--vl-color--primary);
+    --vl-color--background-primary-subtle:   var(--vl-color--primary-100);
+    --vl-color--background-error:            var(--vl-color--error-600);
+    --vl-color--background-error-subtle:     var(--vl-color--error-100);
+    --vl-color--background-warning:          var(--vl-color--warning-600);
+    --vl-color--background-warning-subtle:   var(--vl-color--warning-100);
+    --vl-color--background-success:          var(--vl-color--success-600);
+    --vl-color--background-success-subtle:   var(--vl-color--success-100);
+    --vl-color--background-info-subtle:      var(--vl-color--grey-200);
+    --vl-color--background-backdrop:         var(--vl-color--grey-200);
+    --vl-color--background-on-primary:       var(--vl-color--on-primary);
+
+    /* ── Border tokens (reference aliases) ─────────────────────── */
+    --vl-color--border-default:              var(--vl-color--grey-300);
+    --vl-color--border-bold:                 var(--vl-color--grey-600);
+    --vl-color--border-boldest:              var(--vl-color--grey-1000);
+    --vl-color--border-input:                var(--vl-color--grey-600);
+    --vl-color--border-disabled:             var(--vl-color--grey-300);
+    --vl-color--border-inverse:              var(--vl-color--white);
+    --vl-color--border-primary:              var(--vl-color--primary);
+    --vl-color--border-primary-subtle:       var(--vl-color--primary-300);
+    --vl-color--border-error:                var(--vl-color--error-600);
+    --vl-color--border-error-subtle:         var(--vl-color--error-400);
+    --vl-color--border-warning:              var(--vl-color--warning-600);
+    --vl-color--border-warning-subtle:       var(--vl-color--warning-400);
+    --vl-color--border-success:              var(--vl-color--success-600);
+    --vl-color--border-success-subtle:       var(--vl-color--success-400);
+    --vl-color--border-action:               var(--vl-color--action);
+    --vl-color--border-action-subtle:        var(--vl-color--action-400);
+    --vl-color--border-on-primary:           var(--vl-color--on-primary);
+    --vl-color--border-focus:                var(--vl-color--action-400);
+    --vl-color--border-focus-on-primary:     var(--vl-color--focus-on-primary);
+
+    /* ── Icon tokens (reference aliases) ─────────────────────── */
+    --vl-color--icon-default:                var(--vl-color--grey-1000);
+    --vl-color--icon-subtle:                 var(--vl-color--grey-800);
+    --vl-color--icon-disabled:               var(--vl-color--grey-600);
+    --vl-color--icon-inverse:                var(--vl-color--white);
+    --vl-color--icon-primary:                var(--vl-color--primary);
+    --vl-color--icon-action:                 var(--vl-color--action);
+    --vl-color--icon-error:                  var(--vl-color--error-600);
+    --vl-color--icon-warning:                var(--vl-color--warning-700);
+    --vl-color--icon-success:                var(--vl-color--success-600);
+    --vl-color--icon-on-primary:             var(--vl-color--on-primary);
+    --vl-color--icon-on-action:              var(--vl-color--white);
+
+    /* ── Link tokens (reference aliases) ─────────────────────── */
+    --vl-color--link-default:                var(--vl-color--action);
+    --vl-color--link-hover:                  var(--vl-color--action-800);
+    --vl-color--link-active:                 var(--vl-color--action-900);
+
+    /* ── Text tokens (reference aliases) ─────────────────────── */
+    --vl-color--text-default:                var(--vl-color--grey-1000);
+    --vl-color--text-subtle:                 var(--vl-color--grey-800);
+    --vl-color--text-disabled:               var(--vl-color--grey-600);
+    --vl-color--text-inverse:                var(--vl-color--white);
+    --vl-color--text-primary:                var(--vl-color--grey-1000);
+    --vl-color--text-action:                 var(--vl-color--action);
+    --vl-color--text-error:                  var(--vl-color--error-700);
+    --vl-color--text-warning:                var(--vl-color--warning-800);
+    --vl-color--text-success:                var(--vl-color--success-800);
+    --vl-color--text-on-primary:             var(--vl-color--on-primary);
+    --vl-color--text-on-action:              var(--vl-color--white);
+
+    /* ── State: Active (reference aliases) ───────────────────── */
+    --vl-color--active-bg-action:            var(--vl-color--action-900);
+    --vl-color--active-bg-error:             var(--vl-color--error-900);
+    --vl-color--active-border-action:       var(--vl-color--action-900);
+    --vl-color--active-border-error:        var(--vl-color--error-900);
+    --vl-color--active-icon-action:         var(--vl-color--action-900);
+    --vl-color--active-icon-error:          var(--vl-color--error-900);
+    --vl-color--active-text-action:         var(--vl-color--action-900);
+    --vl-color--active-text-error:          var(--vl-color--error-900);
+
+    /* ── State: Hover (reference aliases) ────────────────────── */
+    --vl-color--hover-bg-action:             var(--vl-color--action-800);
+    --vl-color--hover-bg-error:              var(--vl-color--error-800);
+    --vl-color--hover-border-action:        var(--vl-color--action-800);
+    --vl-color--hover-border-error:         var(--vl-color--error-800);
+    --vl-color--hover-icon-action:          var(--vl-color--action-800);
+    --vl-color--hover-icon-error:           var(--vl-color--error-800);
+    --vl-color--hover-text-action:          var(--vl-color--action-800);
+    --vl-color--hover-text-error:           var(--vl-color--error-800);
+}
