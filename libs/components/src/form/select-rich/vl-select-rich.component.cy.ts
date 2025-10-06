@@ -763,6 +763,7 @@ describe('component - vl-select-rich - single', () => {
         ];
 
         cy.mount(html`<vl-select-rich label="geboorteplaats" .options=${options}></vl-select-rich>`);
+        cy.createStubForEvent('vl-select-rich', 'vl-change');
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
@@ -803,6 +804,11 @@ describe('component - vl-select-rich - single', () => {
             .contains('Rio Piedras')
             .should('not.have.attr', 'selected');
 
+        cy.get('@vl-change')
+            .should('have.been.calledTwice')
+            .its('firstCall.args.0.detail')
+            .should('deep.equal', { value: 'knokke-heist' });
+
         cy.get('vl-select-rich').then((el) => {
             const select = el[0] as VlSelectRichComponent;
             select.options = [
@@ -840,6 +846,8 @@ describe('component - vl-select-rich - single', () => {
             .find('option')
             .contains('Rio Piedras')
             .should('have.attr', 'selected');
+
+        cy.get('@vl-change').its('lastCall.args.0.detail').should('deep.equal', { value: 'rio piedras' });
 
         cy.checkA11y('vl-select-rich');
     });
@@ -1634,6 +1642,43 @@ describe('component - vl-select-rich - multiple - in form', () => {
             const formData = parseFormData($el.get(0) as HTMLFormElement);
             cy.log(submittedAfterResetFormData['plaats'].join(' '));
             expect(formData).to.deep.equal(submittedAfterResetFormData);
+        });
+    });
+
+    it('should set initial options and be able to modify', () => {
+        const submittedFormData = {
+            plaats: ['hasselt', 'turnhout', 'knokke-heist', 'lier'],
+        };
+        const submittedAfterResetFormData = {
+            plaats: ['waregem', 'rio piedras'],
+        };
+
+        cy.createStubForEvent('form', 'submit');
+
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .contains('Turnhout')
+            .click({ force: true });
+
+        cy.get('form').then(($el) => {
+            const formData = parseFormData($el.get(0) as HTMLFormElement);
+            cy.log(submittedFormData['plaats'].join(' '));
+            expect(formData).to.deep.equal(submittedFormData);
+        });
+
+        cy.get('vl-select-rich').then((el) => {
+            const select = el[0] as VlSelectRichComponent;
+            select.initialOptions = [
+                { label: 'Hasselt', value: 'hasselt' },
+                { label: 'Turnhout', value: 'turnhout' },
+                { label: 'Knokke-Heist', value: 'knokke-heist' },
+                { label: 'Waregem', value: 'waregem', selected: true },
+                { label: 'Lier', value: 'lier' },
+                { label: 'Rio Piedras', value: 'rio piedras', selected: true },
+            ];
         });
     });
 });
