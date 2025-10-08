@@ -9,8 +9,8 @@ import {
     TYPES,
 } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components-vite';
-import { buttonDefaults } from '../vl-button.defaults';
 import { action } from 'storybook/actions';
+import { buttonDefaults } from '../vl-button.defaults';
 
 type ButtonArgs = typeof defaultArgs &
     typeof buttonDefaults & { defaultSlot: string; onVlClick: () => void; onVlToggle: () => void };

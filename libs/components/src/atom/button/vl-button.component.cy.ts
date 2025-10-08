@@ -126,7 +126,6 @@ describe('component - vl-button', () => {
             });
     });
 
-    // TODO: deze test slaagt op bamboo maar faalt lokaal
     it('should not grow when "loading" class is set (small viewport)', () => {
         cy.viewport(600, 400);
 
@@ -267,7 +266,7 @@ describe('component - vl-button', () => {
 
 describe('component - vl-button - cta-link', () => {
     it('should mount', () => {
-        cy.mount(html` <vl-button cta-link="https://www.vlaanderen.be"></vl-button>`);
+        cy.mount(html` <vl-button cta-link="https://www.vlaanderen.be">Klik op mij</vl-button>`);
 
         cy.get('vl-button').shadow().find('a');
     });
@@ -357,18 +356,16 @@ describe('component - vl-button - cta-link', () => {
         cy.get('vl-button').shadow().find('a').should('have.class', 'loading');
     });
 
-    it('should not grow when "loading" class is set', () => {
-        // In tegenstelling tot de gewone vl-button is er hier geen verschil tussen small en large viewports.
-        // De computed height van de a-tag houdt geen rekening met de extra margin of padding en is dus in beide
-        // viewports hetzelfde.
-        cy.mount(html` <vl-button>Klik op mij</vl-button>`);
+    it('should not grow when "loading" class is set (large viewport)', () => {
+        cy.viewport(1024, 786);
+
+        cy.mount(html` <vl-button cta-link="https://www.vlaanderen.be">Klik op mij</vl-button>`);
 
         cy.get('vl-button')
-            .invoke('attr', 'cta-link', 'https://www.vlaanderen.be')
             .shadow()
             .find('a')
             .then(($a) => {
-                const buttonHeight = $a.height();
+                const buttonHeight = $a[0].getBoundingClientRect().height;
 
                 cy.get('vl-button')
                     .invoke('attr', 'loading', true)
@@ -378,18 +375,54 @@ describe('component - vl-button - cta-link', () => {
             });
     });
 
-    it('should not grow when "loading" class is set (large button)', () => {
-        // In tegenstelling tot de gewone vl-button is er hier geen verschil tussen small en large viewports.
-        // De computed height van de a-tag houdt geen rekening met de extra margin of padding en is dus in beide
-        // viewports hetzelfde.
-        cy.mount(html` <vl-button large>Klik op mij</vl-button>`);
+    it('should not grow when "loading" class is set (large viewport, large button)', () => {
+        cy.viewport(1024, 786);
+
+        cy.mount(html` <vl-button cta-link="https://www.vlaanderen.be" large>Klik op mij</vl-button>`);
 
         cy.get('vl-button')
-            .invoke('attr', 'cta-link', 'https://www.vlaanderen.be')
             .shadow()
             .find('a')
             .then(($a) => {
-                const buttonHeight = $a.height();
+                const buttonHeight = $a[0].getBoundingClientRect().height;
+
+                cy.get('vl-button')
+                    .invoke('attr', 'loading', true)
+                    .shadow()
+                    .find('a')
+                    .shouldHaveComputedStyle({ style: 'height', value: `${buttonHeight}px` });
+            });
+    });
+
+    it('should not grow when "loading" class is set (small viewport)', () => {
+        cy.viewport(600, 400);
+
+        cy.mount(html` <vl-button cta-link="https://www.vlaanderen.be">Klik op mij</vl-button>`);
+
+        cy.get('vl-button')
+            .shadow()
+            .find('a')
+            .then(($a) => {
+                const buttonHeight = $a[0].getBoundingClientRect().height;
+
+                cy.get('vl-button')
+                    .invoke('attr', 'loading', true)
+                    .shadow()
+                    .find('a')
+                    .shouldHaveComputedStyle({ style: 'height', value: `${buttonHeight}px` });
+            });
+    });
+
+    it('should not grow when "loading" class is set (small viewport, large button)', () => {
+        cy.viewport(600, 400);
+
+        cy.mount(html` <vl-button cta-link="https://www.vlaanderen.be" large>Klik op mij</vl-button>`);
+
+        cy.get('vl-button')
+            .shadow()
+            .find('a')
+            .then(($a) => {
+                const buttonHeight = $a[0].getBoundingClientRect().height;
 
                 cy.get('vl-button')
                     .invoke('attr', 'loading', true)
@@ -426,7 +459,7 @@ describe('component - vl-button - cta-link', () => {
             .shadow()
             .find('a')
             .shouldHaveComputedStyle({ style: 'padding', value: '0px' })
-            .shouldHaveComputedStyle({ style: 'width', value: '31px' });
+            .shouldHaveComputedStyle({ style: 'width', value: '35px' });
     });
 
     it('should set content', () => {
