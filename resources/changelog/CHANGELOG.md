@@ -1,3 +1,10 @@
+## [2.4.1](https://github.com/milieuinfo/flux-web-components/compare/v2.4.0...v2.4.1) (2025-10-08)
+
+
+### Bug Fixes
+
+* FLUX-190 - vl-select-rich - component lifecycle verbeterd ([a2b7675](https://github.com/milieuinfo/flux-web-components/commit/a2b7675ac3c59022c62afd993efed84bc67a8d06))
+
 # [2.4.0](https://github.com/milieuinfo/flux-web-components/compare/v2.3.0...v2.4.0) (2025-09-09)
 
 
