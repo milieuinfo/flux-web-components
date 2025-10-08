@@ -5,7 +5,7 @@ import { parseFormData } from '@domg-wc/components/form';
 
 registerWebComponents([VlFormDemoComponent]);
 
-describe('integrations - form demo', () => {
+describe('cypress-component - integrations - vl-form-demo', () => {
     it('should render', () => {
         cy.mount(html`<vl-form-demo></vl-form-demo>`);
 

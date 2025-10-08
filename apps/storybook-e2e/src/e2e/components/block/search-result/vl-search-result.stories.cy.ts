@@ -3,7 +3,7 @@ const searchResultDefaultUrl =
 const searchResultGroupUrl =
     'http://localhost:8080/iframe.html?id=components-block-search-result--search-result-group&viewMode=story';
 
-describe('story - vl-search-result - default', () => {
+describe('cypress-e2e - block components - vl-search-result - default story', () => {
     it('should render', () => {
         cy.visit(searchResultDefaultUrl);
 
@@ -11,7 +11,7 @@ describe('story - vl-search-result - default', () => {
     });
 });
 
-describe('story - vl-search-result - group', () => {
+describe('cypress-e2e - block components - vl-search-result - group story', () => {
     it('should render', () => {
         cy.visit(searchResultGroupUrl);
 

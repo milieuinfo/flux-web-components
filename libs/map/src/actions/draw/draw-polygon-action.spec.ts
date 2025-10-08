@@ -1,7 +1,7 @@
 import VectorSource from 'ol/source/Vector';
 import { VlDrawPolygonAction } from './draw-polygon-action';
 
-describe('draw polygon action', () => {
+describe('jest - map - draw-polygon-action', () => {
     const source = new VectorSource({});
 
     const layer = {

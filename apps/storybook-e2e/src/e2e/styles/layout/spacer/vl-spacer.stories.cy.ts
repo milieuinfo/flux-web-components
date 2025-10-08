@@ -13,7 +13,7 @@ const spacerLargeUrl =
 const spacerNoneUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-spacer--spacer-none&viewMode=story';
 
-describe('story - spacer - default', () => {
+describe('cypress-e2e - layout - vl-spacer - default story', () => {
     it('should render', () => {
         cy.visit(spacerDefaultUrl);
 
@@ -21,7 +21,7 @@ describe('story - spacer - default', () => {
     });
 });
 
-describe('story - spacer - xxsmall', () => {
+describe('cypress-e2e - layout - vl-spacer - xxsmall story', () => {
     it('should render', () => {
         cy.visit(spacerXXSmallUrl);
 
@@ -29,7 +29,7 @@ describe('story - spacer - xxsmall', () => {
     });
 });
 
-describe('story - spacer - xsmall', () => {
+describe('cypress-e2e - layout - vl-spacer - xsmall story', () => {
     it('should render', () => {
         cy.visit(spacerXSmallUrl);
 
@@ -37,7 +37,7 @@ describe('story - spacer - xsmall', () => {
     });
 });
 
-describe('story - spacer - small', () => {
+describe('cypress-e2e - layout - vl-spacer - small story', () => {
     it('should render', () => {
         cy.visit(spacerSmallUrl);
 
@@ -45,7 +45,7 @@ describe('story - spacer - small', () => {
     });
 });
 
-describe('story - spacer - medium', () => {
+describe('cypress-e2e - layout - vl-spacer - medium story', () => {
     it('should render', () => {
         cy.visit(spacerMediumUrl);
 
@@ -53,7 +53,7 @@ describe('story - spacer - medium', () => {
     });
 });
 
-describe('story - spacer - large', () => {
+describe('cypress-e2e - layout - vl-spacer - large story', () => {
     it('should render', () => {
         cy.visit(spacerLargeUrl);
 
@@ -61,7 +61,7 @@ describe('story - spacer - large', () => {
     });
 });
 
-describe('story - spacer - none', () => {
+describe('cypress-e2e - layout - vl-spacer - none story', () => {
     it('should render', () => {
         cy.visit(spacerNoneUrl);
 

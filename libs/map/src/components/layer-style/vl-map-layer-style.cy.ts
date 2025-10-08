@@ -60,7 +60,7 @@ const mapLayerStyleMetMeerdereStijlenFixture = html`
     </vl-map>
 `;
 
-describe('vl-map-layer-style', () => {
+describe('cypress-component - map - vl-map-layer-style', () => {
     it('de style wordt goed geconfigureerd met default properties', () => {
         cy.mount(mapLayerStyleFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {

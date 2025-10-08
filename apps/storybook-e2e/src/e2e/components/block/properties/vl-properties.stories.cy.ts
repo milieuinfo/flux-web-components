@@ -9,7 +9,7 @@ const propertiesCollapsedUrl =
 const propertiesColumnsUrl =
     'http://localhost:8080/iframe.html?args=&id=components-block-properties--properties-columns&viewMode=story';
 
-describe('story - vl-properties - default', () => {
+describe('cypress-e2e - block components - vl-properties - default story', () => {
     it('should render', () => {
         cy.visit(propertiesDefaultUrl);
 
@@ -17,7 +17,7 @@ describe('story - vl-properties - default', () => {
     });
 });
 
-describe('story - vl-properties - with props', () => {
+describe('cypress-e2e - block components - vl-properties - with props story', () => {
     it('should render', () => {
         cy.visit(propertiesWithPropsUrl);
 
@@ -25,7 +25,7 @@ describe('story - vl-properties - with props', () => {
     });
 });
 
-describe('story - vl-properties - html enriched', () => {
+describe('cypress-e2e - block components - vl-properties - html enriched story', () => {
     it('should render', () => {
         cy.visit(propertiesHtmlEnrichedUrl);
 
@@ -33,7 +33,7 @@ describe('story - vl-properties - html enriched', () => {
     });
 });
 
-describe('story - vl-properties - collapsed', () => {
+describe('cypress-e2e - block components - vl-properties - collapsed story', () => {
     it('should render', () => {
         cy.visit(propertiesCollapsedUrl);
 
@@ -41,7 +41,7 @@ describe('story - vl-properties - collapsed', () => {
     });
 });
 
-describe('story - vl-properties - columns', () => {
+describe('cypress-e2e - block components - vl-properties - columns story', () => {
     it('should render', () => {
         cy.visit(propertiesColumnsUrl);
 

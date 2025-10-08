@@ -1,7 +1,7 @@
 import { GlobalStyles } from '@domg-wc/common';
 import { html } from 'lit';
 
-describe('font styles', () => {
+describe('cypress-component - base styles - vl-font', () => {
     beforeEach(() => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`

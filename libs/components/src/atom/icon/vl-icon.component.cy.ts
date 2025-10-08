@@ -4,7 +4,7 @@ import { VlIconComponent } from './vl-icon.component';
 
 registerWebComponents([VlIconComponent]);
 
-describe('component - vl-icon', () => {
+describe('cypress-component - atom components - vl-icon', () => {
     it('should mount', () => {
         cy.mount(html`<vl-icon icon="calendar"></vl-icon>`);
 

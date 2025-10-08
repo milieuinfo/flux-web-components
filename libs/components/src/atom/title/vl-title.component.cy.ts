@@ -4,7 +4,7 @@ import { VlTitleComponent } from './vl-title.component';
 
 registerWebComponents([VlTitleComponent]);
 
-describe('component - vl-title', () => {
+describe('cypress-component - atom components - vl-title', () => {
     it('should mount', () => {
         cy.mount(html` <vl-title></vl-title>`);
 

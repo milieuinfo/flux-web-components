@@ -6,7 +6,7 @@ const doormatImageUrl =
 const doormatGraphicUrl =
     'http://localhost:8080/iframe.html?id=components-block-doormat--doormat-graphic&viewMode=story';
 
-describe('story - vl-doormat - default', () => {
+describe('cypress-e2e - block components - vl-doormat - default story', () => {
     it('should render', () => {
         cy.visit(doormatDefaultUrl);
 
@@ -14,7 +14,7 @@ describe('story - vl-doormat - default', () => {
     });
 });
 
-describe('story - vl-doormat - alt', () => {
+describe('cypress-e2e - block components - vl-doormat - alt story', () => {
     it('should render', () => {
         cy.visit(doormatAltUrl);
 
@@ -22,7 +22,7 @@ describe('story - vl-doormat - alt', () => {
     });
 });
 
-describe('story - vl-doormat - image', () => {
+describe('cypress-e2e - block components - vl-doormat - image story', () => {
     it('should render', () => {
         cy.visit(doormatImageUrl);
 
@@ -30,7 +30,7 @@ describe('story - vl-doormat - image', () => {
     });
 });
 
-describe('story - vl-doormat - graphic', () => {
+describe('cypress-e2e - block components - vl-doormat - graphic story', () => {
     it('should render', () => {
         cy.visit(doormatGraphicUrl);
 

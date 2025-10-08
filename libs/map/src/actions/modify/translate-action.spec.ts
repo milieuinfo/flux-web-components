@@ -1,7 +1,7 @@
 import Feature from 'ol/Feature';
 import { VlTranslateAction } from './translate-action';
 
-describe('translate action', () => {
+describe('jest - map - translate-action', () => {
     it('roept de callback functie op nadat er een translate werd uitgevoerd en cleart ook de selectie interactie', () => {
         const callback = jest.fn();
         const translateAction = new VlTranslateAction({}, callback);

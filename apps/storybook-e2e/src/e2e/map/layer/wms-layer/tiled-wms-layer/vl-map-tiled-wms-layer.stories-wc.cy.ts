@@ -3,7 +3,7 @@ import { VlMapTiledWmsLayer } from '@domg-wc/map';
 const mapTiledWmsLayerUrl =
     'http://localhost:8080/iframe.html?id=map-layer-wms-layer-tiled-wms-layer--map-tiled-wms-layer-default&viewMode=story';
 
-describe('story vl-map-tiled-wms-layer default', () => {
+describe('cypress-e2e - map - vl-map-tiled-wms-layer - wc default story', () => {
     const wmsUrl = 'https://geo.api.vlaanderen.be/GRB/wms';
 
     it('should fetch new WMS layer on change url attribute', () => {

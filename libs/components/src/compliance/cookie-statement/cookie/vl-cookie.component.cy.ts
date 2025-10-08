@@ -30,7 +30,7 @@ const props = {
     validity: '10 uur',
 };
 
-describe('vl-cookie component - default', () => {
+describe('cypress-component - compliance components - cookie-statement vl-cookie - default', () => {
     beforeEach(() => {
         mountDefault(props);
     });
@@ -45,7 +45,7 @@ describe('vl-cookie component - default', () => {
     });
 });
 
-describe('vl-cookie component - props', () => {
+describe('cypress-component - compliance components - cookie-statement vl-cookie - props', () => {
     beforeEach(() => {
         mountDefault(props);
     });

@@ -61,7 +61,7 @@ const mountDefault = ({
         </vl-table>
     `);
 
-describe('component - vl-table', () => {
+describe('cypress-component - block components - vl-table', () => {
     it('should mount', () => {
         mountDefault({});
 
@@ -271,7 +271,7 @@ const toggleDetailsButton = () => {
         .click({ force: true });
 };
 
-describe('component - vl-table - expandable', () => {
+describe('cypress-component - block components - vl-table - expandable', () => {
     it('should mount', () => {
         mountExpandable({});
 
@@ -559,7 +559,7 @@ const mountExpandableCustom = ({
         </vl-table>
     `);
 
-describe('component - vl-table - expandable with custom button', () => {
+describe('cypress-component - block components - vl-table - expandable with custom button', () => {
     it('should mount', () => {
         mountExpandableCustom({});
 

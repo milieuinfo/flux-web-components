@@ -1,7 +1,7 @@
 import { GlobalStyles } from '@domg-wc/common';
 import { html } from 'lit';
 
-describe('separator styles', () => {
+describe('cypress-component - layout styles - vl-separator', () => {
     it('should have default separator style', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html` <hr class="vl-separator" /> `);

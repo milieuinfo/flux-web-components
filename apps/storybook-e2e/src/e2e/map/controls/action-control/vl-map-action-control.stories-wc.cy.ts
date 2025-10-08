@@ -17,7 +17,7 @@ const getButtonForAction = (actionId: string) => {
         .find('button');
 };
 
-describe('story vl-map-action-control multiple', () => {
+describe('cypress-e2e - map - vl-map-action-control - wc multiple story', () => {
     it('should activate/deactivate action and toggle button on click toggle', () => {
         cy.visit(mapActionControlMultipleUrl);
 

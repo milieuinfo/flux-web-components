@@ -6,7 +6,7 @@ registerWebComponents([VlHeaderCookie]);
 
 const mountDefault = () => cy.mount(html` <vl-header-cookie></vl-header-cookie> `);
 
-describe('vl-header-cookie component - default', () => {
+describe('cypress-component - compliance components - cookie-statement vl-header-cookie - default', () => {
     beforeEach(() => {
         mountDefault();
     });
@@ -23,7 +23,7 @@ describe('vl-header-cookie component - default', () => {
     });
 });
 
-describe('vl-header-cookie component - props', () => {
+describe('cypress-component - compliance components - cookie-statement vl-header-cookie - props', () => {
     beforeEach(() => {
         mountDefault();
     });

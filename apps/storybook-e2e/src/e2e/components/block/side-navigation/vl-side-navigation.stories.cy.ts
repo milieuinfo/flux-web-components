@@ -3,7 +3,7 @@ const sideNavigationUrl =
 const sideNavigationMobileUrl =
     'http://localhost:8080/iframe.html?id=components-block-side-navigation--side-navigation-mobile&viewMode=story';
 
-describe('story vl-side-navigation default', () => {
+describe('cypress-e2e - block components - vl-side-navigation - default story', () => {
     it('should display story', () => {
         cy.visit(sideNavigationUrl);
         cy.get('vl-side-navigation');
@@ -11,7 +11,7 @@ describe('story vl-side-navigation default', () => {
     });
 });
 
-describe('story vl-side-navigation mobile', () => {
+describe('cypress-e2e - block components - vl-side-navigation - mobile story', () => {
     it('should display story', () => {
         cy.viewport(500, 800);
         cy.visit(sideNavigationMobileUrl);

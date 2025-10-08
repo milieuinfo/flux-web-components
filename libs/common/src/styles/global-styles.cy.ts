@@ -33,7 +33,7 @@ const verifyBackgroundColorIsInitial = () => verifyBackgroundColor(initialColor)
 const verifyBackgroundColorIsCustom = () => verifyBackgroundColor(customColor);
 const verifyBackgroundColorIsExceptional = () => verifyBackgroundColor(exceptionalColor);
 
-describe('common global-styles', () => {
+describe('cypress-component - common - global-styles', () => {
     beforeEach(() => {
         GlobalStyles['instance'] = null;
         document.adoptedStyleSheets = [];

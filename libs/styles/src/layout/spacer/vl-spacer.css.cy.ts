@@ -1,7 +1,7 @@
 import { GlobalStyles } from '@domg-wc/common';
 import { html } from 'lit';
 
-describe('spacer styles', () => {
+describe('cypress-component - layout styles - vl-spacer', () => {
     it('should have default spacer style', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`

@@ -9,7 +9,7 @@ const linkIconOnlyUrl = 'http://localhost:8080/iframe.html?id=components-atom-li
 const linkButtonStyledAsLink =
     'http://localhost:8080/iframe.html?args=&id=components-atom-link--button-styled-as-link&viewMode=story';
 
-describe('story - vl-link - default', () => {
+describe('cypress-e2e - atom components - vl-link - default story', () => {
     it('should render', () => {
         cy.visit(linkDefaultUrl);
 
@@ -17,7 +17,7 @@ describe('story - vl-link - default', () => {
     });
 });
 
-describe('story - vl-link - bold', () => {
+describe('cypress-e2e - atom components - vl-link - bold story', () => {
     it('should render', () => {
         cy.visit(linkBoldUrl);
 
@@ -25,7 +25,7 @@ describe('story - vl-link - bold', () => {
     });
 });
 
-describe('story - vl-link - small', () => {
+describe('cypress-e2e - atom components - vl-link - small story', () => {
     it('should render', () => {
         cy.visit(linkSmallUrl);
 
@@ -33,7 +33,7 @@ describe('story - vl-link - small', () => {
     });
 });
 
-describe('story - vl-link - large', () => {
+describe('cypress-e2e - atom components - vl-link - large story', () => {
     it('should render', () => {
         cy.visit(linkLargeUrl);
 
@@ -41,7 +41,7 @@ describe('story - vl-link - large', () => {
     });
 });
 
-describe('story - vl-link - error', () => {
+describe('cypress-e2e - atom components - vl-link - error story', () => {
     it('should render', () => {
         cy.visit(linkErrorUrl);
 
@@ -49,7 +49,7 @@ describe('story - vl-link - error', () => {
     });
 });
 
-describe('story - vl-link - external', () => {
+describe('cypress-e2e - atom components - vl-link - external story', () => {
     it('should render', () => {
         cy.visit(linkExternalUrl);
 
@@ -57,7 +57,7 @@ describe('story - vl-link - external', () => {
     });
 });
 
-describe('story - vl-link - icon', () => {
+describe('cypress-e2e - atom components - vl-link - icon story', () => {
     it('should render', () => {
         cy.visit(linkIconUrl);
 
@@ -65,7 +65,7 @@ describe('story - vl-link - icon', () => {
     });
 });
 
-describe('story - vl-link - icon only', () => {
+describe('cypress-e2e - atom components - vl-link - icon only story', () => {
     it('should render', () => {
         cy.visit(linkIconOnlyUrl);
 
@@ -73,7 +73,7 @@ describe('story - vl-link - icon only', () => {
     });
 });
 
-describe('story - vl-link - button styled as link', () => {
+describe('cypress-e2e - atom components - vl-link - button styled as link story', () => {
     it('should render', () => {
         cy.visit(linkButtonStyledAsLink);
 

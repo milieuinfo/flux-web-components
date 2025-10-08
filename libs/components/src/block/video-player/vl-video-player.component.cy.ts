@@ -9,7 +9,7 @@ const source = 'https://files.vidstack.io/sprite-fight/720p.mp4';
 const subtitles = 'https://files.vidstack.io/sprite-fight/subs/english.vtt';
 const poster = 'https://files.vidstack.io/sprite-fight/poster.webp';
 
-describe('component - vl-video-player', () => {
+describe('cypress-component - block components - vl-video-player', () => {
     it('should mount', () => {
         cy.mount(html`<vl-video-player source=${source}></vl-video-player>`);
 

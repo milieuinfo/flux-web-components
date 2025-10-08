@@ -17,7 +17,7 @@ const inputFieldMaskedPhoneInternationalUrl =
 const inputFieldMaskedMobileUrl =
     'http://localhost:8080/iframe.html?id=components-form-input-field-masked--input-field-masked-mobile&viewMode=story';
 
-describe('story - vl-input-field-masked - iban', () => {
+describe('cypress-e2e - form components - vl-input-field-masked - iban story', () => {
     it('should render', () => {
         cy.visit(inputFieldMaskedIbanUrl);
 
@@ -25,7 +25,7 @@ describe('story - vl-input-field-masked - iban', () => {
     });
 });
 
-describe('story - vl-input-field-masked - rrn', () => {
+describe('cypress-e2e - form components - vl-input-field-masked - rrn story', () => {
     it('should render', () => {
         cy.visit(inputFieldMaskedRrnUrl);
 
@@ -33,7 +33,7 @@ describe('story - vl-input-field-masked - rrn', () => {
     });
 });
 
-describe('story - vl-input-field-masked - uuid', () => {
+describe('cypress-e2e - form components - vl-input-field-masked - uuid story', () => {
     it('should render', () => {
         cy.visit(inputFieldMaskedUuidUrl);
 
@@ -41,7 +41,7 @@ describe('story - vl-input-field-masked - uuid', () => {
     });
 });
 
-describe('story - vl-input-field-masked - date', () => {
+describe('cypress-e2e - form components - vl-input-field-masked - date story', () => {
     it('should render', () => {
         cy.visit(inputFieldMaskedDateUrl);
 
@@ -49,7 +49,7 @@ describe('story - vl-input-field-masked - date', () => {
     });
 });
 
-describe('story - vl-input-field-masked - numerical', () => {
+describe('cypress-e2e - form components - vl-input-field-masked - numerical story', () => {
     it('should render', () => {
         cy.visit(inputFieldMaskedNumericalUrl);
 
@@ -57,7 +57,7 @@ describe('story - vl-input-field-masked - numerical', () => {
     });
 });
 
-describe('story - vl-input-field-masked - price', () => {
+describe('cypress-e2e - form components - vl-input-field-masked - price story', () => {
     it('should render', () => {
         cy.visit(inputFieldMaskedPriceUrl);
 
@@ -65,7 +65,7 @@ describe('story - vl-input-field-masked - price', () => {
     });
 });
 
-describe('story - vl-input-field-masked - phone', () => {
+describe('cypress-e2e - form components - vl-input-field-masked - phone story', () => {
     it('should render', () => {
         cy.visit(inputFieldMaskedPhoneUrl);
 
@@ -73,7 +73,7 @@ describe('story - vl-input-field-masked - phone', () => {
     });
 });
 
-describe('story - vl-input-field-masked - phoneinternational', () => {
+describe('cypress-e2e - form components - vl-input-field-masked - phone international story', () => {
     it('should render', () => {
         cy.visit(inputFieldMaskedPhoneInternationalUrl);
 
@@ -81,7 +81,7 @@ describe('story - vl-input-field-masked - phoneinternational', () => {
     });
 });
 
-describe('story - vl-input-field-masked - mobile', () => {
+describe('cypress-e2e - form components - vl-input-field-masked - mobile story', () => {
     it('should render', () => {
         cy.visit(inputFieldMaskedMobileUrl);
 

@@ -1,7 +1,7 @@
 import VectorSource from 'ol/source/Vector';
 import { VlDrawLineAction } from './draw-line-action';
 
-describe('draw line action', () => {
+describe('jest - map - draw-line-action', () => {
     const source = new VectorSource({});
 
     const layer = {

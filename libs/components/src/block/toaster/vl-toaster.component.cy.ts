@@ -6,7 +6,7 @@ import { VlToasterComponent } from './vl-toaster.component';
 
 registerWebComponents([VlToasterComponent, VlButtonComponent, VlAlert]);
 
-describe('component - vl-toaster', () => {
+describe('cypress-component - block components - vl-toaster', () => {
     it('should mount', () => {
         cy.mount(html` <vl-toaster></vl-toaster>`);
 

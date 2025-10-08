@@ -2,7 +2,7 @@ import { GlobalStyles } from '@domg-wc/common';
 import { html } from 'lit';
 import { vlParagraphStyles } from './vl-paragraph-style.css';
 
-describe('paragraph styles', () => {
+describe('cypress-component - atom components - vl-paragraph-style', () => {
     beforeEach(() => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`

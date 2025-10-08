@@ -1,6 +1,6 @@
 import LambertCoordinaat from './lambert-coordinaat';
 
-describe('lambert-coördinaat', () => {
+describe('cypress-component - map - lambert-coördinaat', () => {
     const expectLambertCoordinaat = (lambertCoordinaat, expectedX, expectedY) => {
         expect(lambertCoordinaat).not.to.be.undefined;
         expect(lambertCoordinaat.x).to.be.equal(expectedX);

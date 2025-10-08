@@ -1,25 +1,25 @@
-const tabsUrl =
+const tabsDefaultUrl =
     'http://localhost:8080/iframe.html?args=&id=components-block-tabs-tabs--tabs-default&viewMode=story';
-const tabsWithoutActiveUrl =
+const tabsWithoutActiveTabUrl =
     'http://localhost:8080/iframe.html?args=&id=components-block-tabs-tabs--tabs-without-active-tab&viewMode=story';
 const tabsDynamicUrl =
     'http://localhost:8080/iframe.html?args=&id=components-block-tabs-tabs--tabs-dynamic&viewMode=story';
 
-describe('story vl-tabs - no active tab', () => {
+describe('cypress-e2e - block components - vl-tabs - default story', () => {
     it('should display the story', () => {
-        cy.visit(tabsWithoutActiveUrl);
+        cy.visit(tabsDefaultUrl);
         cy.get('vl-tabs').shadow();
     });
 });
 
-describe('story vl-tabs - default', () => {
+describe('cypress-e2e - block components - vl-tabs - without active tab story', () => {
     it('should display the story', () => {
-        cy.visit(tabsUrl);
+        cy.visit(tabsWithoutActiveTabUrl);
         cy.get('vl-tabs').shadow();
     });
 });
 
-describe('story vl-tabs - dynamic', () => {
+describe('cypress-e2e - block components - vl-tabs - dynamic story', () => {
     it('should display the story and add a tab dynamically', () => {
         cy.visit(tabsDynamicUrl);
 

@@ -7,7 +7,7 @@ const checkboxValueUrl =
 const checkboxReadonlyUrl =
     'http://localhost:8080/iframe.html?id=components-form-checkbox--checkbox-readonly&viewMode=story&args=';
 
-describe('story - vl-checkbox - default', () => {
+describe('cypress-e2e - form components - vl-checkbox - default story', () => {
     it('should render', () => {
         cy.visit(checkboxDefaultUrl);
 
@@ -15,7 +15,7 @@ describe('story - vl-checkbox - default', () => {
     });
 });
 
-describe('story - vl-checkbox - switch', () => {
+describe('cypress-e2e - form components - vl-checkbox - switch story', () => {
     it('should render', () => {
         cy.visit(checkboxSwitchUrl);
 
@@ -23,7 +23,7 @@ describe('story - vl-checkbox - switch', () => {
     });
 });
 
-describe('story - vl-checkbox - value', () => {
+describe('cypress-e2e - form components - vl-checkbox - value story', () => {
     it('should render', () => {
         cy.visit(checkboxValueUrl);
 
@@ -31,7 +31,7 @@ describe('story - vl-checkbox - value', () => {
     });
 });
 
-describe('story - vl-checkbox - readonly', () => {
+describe('cypress-e2e - form components - vl-checkbox - readonly story', () => {
     it('should render', () => {
         cy.visit(checkboxReadonlyUrl);
 

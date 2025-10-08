@@ -53,7 +53,7 @@ const mapDrawLineActionSnapping = html`
     </vl-map>
 `;
 
-describe('vl-map-draw-line-action', () => {
+describe('cypress-component - map - vl-map-draw-line-action', () => {
     it('a line draw action is a map action', () => {
         expect(VlMapDrawLineAction.isVlMapAction()).to.be.true;
     });

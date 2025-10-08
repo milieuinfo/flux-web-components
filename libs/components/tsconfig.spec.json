@@ -4,9 +4,7 @@
         "**/*.spec.ts"
     ],
     "compilerOptions": {
-        "types": [
-            "jest"
-        ],
+        "types": ["jest", "node"],
         "esModuleInterop": true,
         "allowJs": true
     }

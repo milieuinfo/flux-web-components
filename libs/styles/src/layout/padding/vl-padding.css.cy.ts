@@ -2,7 +2,7 @@ import { GlobalStyles } from '@domg-wc/common';
 import { html } from 'lit';
 import { vlPaddingStyles } from './vl-padding.css';
 
-describe('padding styles', () => {
+describe('cypress-component - layout styles - vl-padding', () => {
     beforeEach(() => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`

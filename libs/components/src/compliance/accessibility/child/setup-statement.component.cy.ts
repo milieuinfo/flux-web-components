@@ -10,7 +10,7 @@ const props: SetupStatementProps = {
     dateModified: '01/01/2021',
 };
 
-describe('component setup-statement - default', () => {
+describe('cypress-component - compliance components - accessibility setup-statement - default', () => {
     beforeEach(() => {
         mountDefault(props);
     });
@@ -26,7 +26,7 @@ describe('component setup-statement - default', () => {
     });
 });
 
-describe('component setup-statement - EVALUATION_STATUS messages', () => {
+describe('cypress-component - compliance components - accessibility setup-statement - EVALUATION_STATUS messages', () => {
     it('should render the EXPERT_EVALUATED message when evaluation == EXPERT_EVALUATED', () => {
         mountDefault({ ...props, evaluation: EVALUATION_STATUS.EXPERT_EVALUATED });
 

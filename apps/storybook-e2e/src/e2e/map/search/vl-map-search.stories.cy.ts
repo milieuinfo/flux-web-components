@@ -1,6 +1,6 @@
 const searchUrl = 'http://localhost:8080/iframe.html?id=map-search--map-search-default&viewMode=story';
 
-describe('story vl-map-search default', () => {
+describe('cypress-e2e - map - vl-map-search - default story', () => {
     it('should position options for extended functionality below select element', () => {
         cy.visit(searchUrl);
 

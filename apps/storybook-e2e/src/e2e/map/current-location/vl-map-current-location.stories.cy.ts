@@ -1,7 +1,7 @@
 const mapCurrentLocation =
     'http://localhost:8080/iframe.html?args=&id=map-current-location--map-current-location-default&viewMode=story';
 
-describe('story map-current-location - default', () => {
+describe('cypress-e2e - map - vl-map-current-location - default story', () => {
     it('should have a map', () => {
         cy.visit(`${mapCurrentLocation}`);
         cy.get('vl-map').shadow().find('div#map');

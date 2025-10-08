@@ -3,7 +3,7 @@ const sideSheetDefaultUrl =
 const sideSheetToggleUrl =
     'http://localhost:8080/iframe.html?id=components-block-side-sheet--side-sheet-toggle&viewMode=story';
 
-describe('story - vl-side-sheet - default', () => {
+describe('cypress-e2e - block components - vl-side-sheet - default story', () => {
     it('should render', () => {
         cy.visit(sideSheetDefaultUrl);
 
@@ -11,7 +11,7 @@ describe('story - vl-side-sheet - default', () => {
     });
 });
 
-describe('story - vl-side-sheet - toggle', () => {
+describe('cypress-e2e - block components - vl-side-sheet - toggle story', () => {
     it('should render', () => {
         cy.visit(sideSheetToggleUrl);
 

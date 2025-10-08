@@ -5,7 +5,7 @@ const gridOffsetUrl =
 const gridJustifyAlignUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-grid--grid-justify-align&viewMode=story';
 
-describe('story - grid - responsive', () => {
+describe('cypress-e2e - layout - vl-grid - responsive story', () => {
     it('should render', () => {
         cy.visit(gridResponsiveUrl);
 
@@ -16,7 +16,7 @@ describe('story - grid - responsive', () => {
     });
 });
 
-describe('story - grid - offset', () => {
+describe('cypress-e2e - layout - vl-grid - offset story', () => {
     it('should render', () => {
         cy.visit(gridOffsetUrl);
 
@@ -27,7 +27,7 @@ describe('story - grid - offset', () => {
     });
 });
 
-describe('story - grid - justify/align', () => {
+describe('cypress-e2e - layout - vl-grid - justify/align story', () => {
     it('should render', () => {
         cy.visit(gridJustifyAlignUrl);
 

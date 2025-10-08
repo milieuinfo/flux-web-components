@@ -1,8 +1,8 @@
 import { buildData, buildDiv, buildLabel } from '@resources/utils-test';
 import { onChildListChange } from './mutation-utils';
 
-describe('onChildListChange tests', () => {
-    it('should detect changes in child nodes', async () => {
+describe('jest - common - mutation-utils', () => {
+    it('should detect changes in child nodes onChildListChange', async () => {
         const columnElement = buildDiv(null, 'column');
         const changeList = [];
         onChildListChange(columnElement, () => {

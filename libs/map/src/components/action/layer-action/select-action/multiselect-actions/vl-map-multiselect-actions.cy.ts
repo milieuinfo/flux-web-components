@@ -48,7 +48,7 @@ const featuresLayer2 = {
 
 const layers = ['layer-1', 'layer-2'];
 
-describe('component vl-map-multiselect-actions', () => {
+describe('cypress-component - map - vl-map-multiselect-actions', () => {
     beforeEach(() => {
         cy.mount(html`
             <vl-map lambert2008>

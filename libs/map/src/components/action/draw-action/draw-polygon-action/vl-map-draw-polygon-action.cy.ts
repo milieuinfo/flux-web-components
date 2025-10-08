@@ -59,7 +59,7 @@ const mapDrawPolygonActionSnapping = html`
     </vl-map>
 `;
 
-describe('vl-map-draw-polygon-action', () => {
+describe('cypress-component - map - vl-map-draw-polygon-action', () => {
     it('a polygon draw action is a map action', () => {
         expect(VlMapDrawPolygonAction.isVlMapAction()).to.be.true;
     });

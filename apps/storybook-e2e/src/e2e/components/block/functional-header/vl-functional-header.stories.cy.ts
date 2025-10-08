@@ -17,7 +17,7 @@ const functionalHeaderHideBackLinkUrl =
 const functionalHeaderHideSubHeaderUrl =
     'http://localhost:8080/iframe.html?id=components-block-functional-header--functional-header-hide-sub-header&viewMode=story';
 
-describe('story - vl-functional-header - default', () => {
+describe('cypress-e2e - block components - vl-functional-header - default story', () => {
     it('should render', () => {
         cy.visit(functionalHeaderUrl);
 
@@ -25,7 +25,7 @@ describe('story - vl-functional-header - default', () => {
     });
 });
 
-describe('story - vl-functional-header - actions', () => {
+describe('cypress-e2e - block components - vl-functional-header - actions story', () => {
     it('should render', () => {
         cy.visit(functionalHeaderActionsUrl);
 
@@ -33,7 +33,7 @@ describe('story - vl-functional-header - actions', () => {
     });
 });
 
-describe('story - vl-functional-header - tabs', () => {
+describe('cypress-e2e - block components - vl-functional-header - tabs story', () => {
     it('should render', () => {
         cy.visit(functionalHeaderTabsUrl);
 
@@ -41,7 +41,7 @@ describe('story - vl-functional-header - tabs', () => {
     });
 });
 
-describe('story - vl-functional-header - breadcrumb', () => {
+describe('cypress-e2e - block components - vl-functional-header - breadcrumb story', () => {
     it('should render', () => {
         cy.visit(functionalHeaderBreadcrumbUrl);
 
@@ -49,7 +49,7 @@ describe('story - vl-functional-header - breadcrumb', () => {
     });
 });
 
-describe('story - vl-functional-header - slots', () => {
+describe('cypress-e2e - block components - vl-functional-header - slots story', () => {
     it('should render', () => {
         cy.visit(functionalHeaderSlotsUrl);
 

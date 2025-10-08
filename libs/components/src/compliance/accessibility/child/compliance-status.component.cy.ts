@@ -4,7 +4,7 @@ import { type ComplianceStatusProps, complianceStatus } from './compliance-statu
 const mountDefault = ({ compliance, evaluation }: ComplianceStatusProps) =>
     cy.mount(complianceStatus({ compliance, evaluation }));
 
-describe('component compliance-status ', () => {
+describe('cypress-component - compliance components - accessibility compliance-status', () => {
     const props: ComplianceStatusProps = {
         compliance: COMPLIANCE_STATUS.FULLY_COMPLIANT,
         evaluation: EVALUATION_STATUS.EXPERT_EVALUATED,
@@ -31,7 +31,7 @@ describe('component compliance-status ', () => {
     });
 });
 
-describe('component compliance-status  - EVALUATION_STATUS messages', () => {
+describe('cypress-component - compliance components - accessibility compliance-status - EVALUATION_STATUS messages', () => {
     const props: ComplianceStatusProps = {
         compliance: COMPLIANCE_STATUS.FULLY_COMPLIANT,
         evaluation: EVALUATION_STATUS.NOT_EVALUATED,
@@ -48,7 +48,7 @@ describe('component compliance-status  - EVALUATION_STATUS messages', () => {
     });
 });
 
-describe('component compliance-status  - COMPLIANCE_STATUS messages', () => {
+describe('cypress-component - compliance components - accessibility compliance-status - COMPLIANCE_STATUS messages', () => {
     const props: ComplianceStatusProps = {
         compliance: COMPLIANCE_STATUS.FULLY_COMPLIANT,
         evaluation: EVALUATION_STATUS.SELF_EVALUATED,

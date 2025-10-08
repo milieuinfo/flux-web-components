@@ -2,7 +2,7 @@ import { GlobalStyles } from '@domg-wc/common';
 import { html } from 'lit';
 import { vlMarginStyles } from './vl-margin.css';
 
-describe('margin styles', () => {
+describe('cypress-component - layout styles - vl-margin', () => {
     beforeEach(() => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`

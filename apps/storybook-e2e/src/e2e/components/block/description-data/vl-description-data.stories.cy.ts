@@ -1,7 +1,7 @@
 const descriptionDataUrl =
     'http://localhost:8080/iframe.html?id=components-block-description-data-description-data--description-data-default&viewMode=story';
 
-describe('story vl-description-data', () => {
+describe('cypress-e2e - block components - vl-description-data - default story', () => {
     it('should contain a valid value and label of each description data item', () => {
         cy.visit(`${descriptionDataUrl}&args=type:error`);
         cy.getDataCy('description-data-item-1').shadow().find('.vl-description-data__label').contains('Uitgever');

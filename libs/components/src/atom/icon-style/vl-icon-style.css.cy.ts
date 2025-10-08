@@ -2,7 +2,7 @@ import { GlobalStyles, hexToString } from '@domg-wc/common';
 import { html } from 'lit';
 import { vlIconStyles } from './vl-icon-style.css';
 
-describe('outline styles', () => {
+describe('cypress-component - atom components - vl-icon-style', () => {
     beforeEach(() => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`

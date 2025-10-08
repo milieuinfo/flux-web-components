@@ -25,7 +25,7 @@ export const mountWithSlotElements = ({
         </vl-infoblock>
     `);
 
-describe('component vl-infoblock - default', () => {
+describe('cypress-component - block components - vl-infoblock - default', () => {
     const title = 'Contactenlijst';
     const content = 'Hieronder bevindt zich een overzicht van al uw contacten binnen de Vlaamse Overheid.';
     const type = 'contact';
@@ -66,7 +66,7 @@ describe('component vl-infoblock - default', () => {
     });
 });
 
-describe('component vl-infoblock - types', () => {
+describe('cypress-component - block components - vl-infoblock - types', () => {
     const title = 'Contactenlijst';
     const content = 'Hieronder bevindt zich een overzicht van al uw contacten binnen de Vlaamse Overheid.';
     const icon = 'calendar';
@@ -86,7 +86,7 @@ describe('component vl-infoblock - types', () => {
     });
 });
 
-describe('component vl-infoblock with slots', () => {
+describe('cypress-component - block components - vl-infoblock with slots', () => {
     const title = 'Contactenlijst';
     const content = 'Hieronder bevindt zich een overzicht van al uw contacten binnen de Vlaamse Overheid.';
     const icon = 'calendar';

@@ -22,7 +22,7 @@ registerWebComponents([
     VlTitleComponent,
     VlButtonComponent,
 ]);
-describe('component - vl-rich-data', () => {
+describe('cypress-component - block components - vl-rich-data', () => {
     beforeEach(() => {
         cy.mount(html`
             <vl-rich-data filter-title="title">
@@ -72,7 +72,7 @@ describe('component - vl-rich-data', () => {
     });
 });
 
-describe('component - vl-rich-data with vl-search-filter', () => {
+describe('cypress-component - block components - vl-rich-data - with vl-search-filter', () => {
     const mockDefaultFilterMaxWidth = Math.floor(1280 / 3);
     const mockFilterMaxWidth = '500px';
 
@@ -183,7 +183,7 @@ describe('component - vl-rich-data with vl-search-filter', () => {
     });
 });
 
-describe('component - vl-rich-data with vl-select', () => {
+describe('cypress-component - block components - vl-rich-data - with vl-select', () => {
     it('should cut off long text with an ellipsis', () => {
         cy.viewport(1024, 768);
         cy.mount(html`

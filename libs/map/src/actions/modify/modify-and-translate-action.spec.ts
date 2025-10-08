@@ -5,7 +5,7 @@ import VectorSource from 'ol/source/Vector';
 import { VlModifyAndTranslateAction } from './modify-and-translate-action';
 import { VlSnapInteraction } from '../snap/snap-interaction';
 
-describe('modify and translate action', () => {
+describe('jest - map - modify-and-translate-action', () => {
     const source = new VectorSource();
     const layer = new VectorLayer({ source });
 

@@ -10,7 +10,7 @@ const marginNoBottomUrl =
 const marginNoTopUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-margin--margin-no-top&viewMode=story';
 
-describe('story - margin - default', () => {
+describe('cypress-e2e - layout - vl-margin - default story', () => {
     it('should render', () => {
         cy.visit(marginDefaultUrl);
 
@@ -18,7 +18,7 @@ describe('story - margin - default', () => {
     });
 });
 
-describe('story - margin - small', () => {
+describe('cypress-e2e - layout - vl-margin - small story', () => {
     it('should render', () => {
         cy.visit(marginSmallUrl);
 
@@ -26,7 +26,7 @@ describe('story - margin - small', () => {
     });
 });
 
-describe('story - margin - medium', () => {
+describe('cypress-e2e - layout - vl-margin - medium story', () => {
     it('should render', () => {
         cy.visit(marginMediumUrl);
 
@@ -34,7 +34,7 @@ describe('story - margin - medium', () => {
     });
 });
 
-describe('story - margin - no', () => {
+describe('cypress-e2e - layout - vl-margin - no story', () => {
     it('should render', () => {
         cy.visit(marginNoUrl);
 
@@ -42,7 +42,7 @@ describe('story - margin - no', () => {
     });
 });
 
-describe('story - margin - no bottom', () => {
+describe('cypress-e2e - layout - vl-margin - no bottom story', () => {
     it('should render', () => {
         cy.visit(marginNoBottomUrl);
 
@@ -52,7 +52,7 @@ describe('story - margin - no bottom', () => {
     });
 });
 
-describe('story - margin - no top', () => {
+describe('cypress-e2e - layout - vl-margin - no top story', () => {
     it('should render', () => {
         cy.visit(marginNoTopUrl);
 

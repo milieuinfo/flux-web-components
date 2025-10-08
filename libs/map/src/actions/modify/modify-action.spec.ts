@@ -11,7 +11,7 @@ import ResizeObserver from 'resize-observer-polyfill';
 
 global.ResizeObserver = ResizeObserver;
 
-describe('modify action', () => {
+describe('jest - map - modify-action', () => {
     const source = new VectorSource();
     const layer = new VectorLayer({ source });
     const callback = jest.fn();

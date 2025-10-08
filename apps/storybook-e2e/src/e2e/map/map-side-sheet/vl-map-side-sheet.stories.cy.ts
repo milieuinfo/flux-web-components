@@ -1,7 +1,7 @@
 const mapSideSheetDefaultUrl =
     'http://localhost:8080/iframe.html?id=map-side-sheet-side-sheet--map-side-sheet-default&viewMode=story';
 
-describe('story - vl-map-side-sheet - default', () => {
+describe('cypress-e2e - map - vl-map-side-sheet - default story', () => {
     it('should render', () => {
         cy.visit(mapSideSheetDefaultUrl);
 

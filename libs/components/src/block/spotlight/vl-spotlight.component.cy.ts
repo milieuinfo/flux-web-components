@@ -4,7 +4,7 @@ import { VlSpotlight } from './index';
 
 registerWebComponents([VlSpotlight]);
 
-describe('vl-spotlight', () => {
+describe('cypress-component - block components - vl-spotlight', () => {
     it('should render', () => {
         cy.mount(html`<vl-spotlight></vl-spotlight>`);
 

@@ -4,7 +4,7 @@ import { VlInputFieldMaskedComponent } from './vl-input-field-masked.component';
 
 registerWebComponents([VlInputFieldMaskedComponent]);
 
-describe('component - vl-input-field-masked', () => {
+describe('cypress-component - form components - vl-input-field-masked', () => {
     it('should mount', () => {
         cy.mount(html`<vl-input-field-masked label="test-label"></vl-input-field-masked>`);
 

@@ -154,7 +154,7 @@ export const interceptLocation = (data: Location[]) =>
         })
         .as('getLocation');
 
-describe('vl-select-location', () => {
+describe('cypress-component - map - vl-select-location', () => {
     it('heeft een div met de class .js-vl-select', () => {
         cy.mount(selectLocationFixture);
         cy.get('vl-select-location').shadow().find('div.js-vl-select').should('exist');

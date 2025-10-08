@@ -5,7 +5,7 @@ import { VlWizard } from './vl-wizard.component';
 
 registerWebComponents([VlWizardPane, VlWizard]);
 
-describe('component vl-wizard-pane - default', () => {
+describe('cypress-component - block components - vl-wizard-pane - default', () => {
     const mountDefault = ({ isActive, name }: { isActive?: boolean; name?: string }) => {
         return cy.mount(
             html`
@@ -61,7 +61,7 @@ describe('component vl-wizard-pane - default', () => {
     });
 });
 
-describe('component vl-wizard-pane - isActive state', () => {
+describe('cypress-component - block components - vl-wizard-pane - isActive state', () => {
     it('should initialize <vl-wizard-pane.isActive> as true if there is only 1 <vl-wizard-pane> in the <vl-wizard>', () => {
         cy.mount(html`
             <vl-wizard>

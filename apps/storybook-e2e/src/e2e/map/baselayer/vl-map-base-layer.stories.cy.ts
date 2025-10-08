@@ -1,6 +1,6 @@
 const baseLayerDefaultUrl = 'http://localhost:8080/iframe.html?id=map-baselayer--map-baselayer-default&viewMode=story';
 
-describe('story vl-map-base-layer - default', () => {
+describe('cypress-e2e - map - vl-map-base-layer - default story', () => {
     it('should have 1 baselayer', () => {
         cy.visit(baseLayerDefaultUrl);
 

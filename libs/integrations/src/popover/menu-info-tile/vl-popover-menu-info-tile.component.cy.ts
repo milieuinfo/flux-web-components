@@ -5,7 +5,7 @@ import { VlPopoverMenuInfoTileComponent } from './vl-popover-menu-info-tile.comp
 
 registerWebComponents([VlPopoverMenuInfoTileComponent]);
 
-describe('integrations - popover menu info tile', () => {
+describe('cypress-component - integrations - vl-popover-menu-info-tile', () => {
     it('should render', () => {
         cy.mount(html` <vl-popover-menu-info-tile></vl-popover-menu-info-tile>`);
 

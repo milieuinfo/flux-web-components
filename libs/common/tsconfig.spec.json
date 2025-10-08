@@ -1,10 +1,7 @@
 {
     "extends": "./tsconfig.json",
     "compilerOptions": {
-        "types": [
-            "jest",
-            "node"
-        ],
+        "types": ["jest", "node"],
         "esModuleInterop": true,
         "allowJs": true,
         "composite": true

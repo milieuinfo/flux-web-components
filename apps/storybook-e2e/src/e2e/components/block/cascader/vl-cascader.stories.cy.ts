@@ -9,7 +9,7 @@ const cascaderSideSheetUrl =
 const cascaderItemSlotsDefault =
     'http://localhost:8080/iframe.html?id=components-block-cascader-cascader-item--cascader-item-slots&viewMode=story';
 
-describe('story vl-cascader default', () => {
+describe('cypress-e2e - block components - vl-cascader - default story', () => {
     it('should display story', () => {
         cy.visit(cascaderDefault);
 
@@ -18,7 +18,7 @@ describe('story vl-cascader default', () => {
     });
 });
 
-describe('story vl-cascader dynamic templating', () => {
+describe('cypress-e2e - block components - vl-cascader - dynamic templating story', () => {
     it('should display story', () => {
         cy.visit(cascaderDynamicTemplating);
 
@@ -27,7 +27,7 @@ describe('story vl-cascader dynamic templating', () => {
     });
 });
 
-describe('story vl-cascader property binding', () => {
+describe('cypress-e2e - block components - vl-cascader - property binding story', () => {
     it('should display story', () => {
         cy.visit(cascaderPropertyBinding);
 
@@ -36,7 +36,7 @@ describe('story vl-cascader property binding', () => {
     });
 });
 
-describe('story vl-cascader in side-sheet', () => {
+describe('cypress-e2e - block components - vl-cascader - side-sheet story', () => {
     it('should display story', () => {
         cy.visit(cascaderSideSheetUrl);
 
@@ -47,7 +47,7 @@ describe('story vl-cascader in side-sheet', () => {
     });
 });
 
-describe('story vl-cascader-item-slots', () => {
+describe('cypress-e2e - block components - vl-cascader - item-slots story', () => {
     it('should display story', () => {
         cy.visit(cascaderItemSlotsDefault);
 

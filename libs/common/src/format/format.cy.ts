@@ -9,7 +9,7 @@ import {
     nbsp,
 } from './format';
 
-describe('Format utilities (nl-BE)', () => {
+describe('cypress-components - commmon - format utilities (nl-BE)', () => {
     describe('formatNumber', () => {
         it('should format numbers with thousands separator', () => {
             expect(formatNumber(1234567)).to.equal(`1${nbsp}234${nbsp}567`);

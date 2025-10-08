@@ -5,7 +5,7 @@ const stackedMediumUrl =
 const stackedSmallUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-stacked--stacked-small&viewMode=story';
 
-describe('story - stacked - large', () => {
+describe('cypress-e2e - layout - vl-stacked - large story', () => {
     it('should render', () => {
         cy.visit(stackedLargeUrl);
 
@@ -17,7 +17,7 @@ describe('story - stacked - large', () => {
     });
 });
 
-describe('story - stacked - medium', () => {
+describe('cypress-e2e - layout - vl-stacked - medium story', () => {
     it('should render', () => {
         cy.visit(stackedMediumUrl);
 
@@ -25,7 +25,7 @@ describe('story - stacked - medium', () => {
     });
 });
 
-describe('story - stacked - small', () => {
+describe('cypress-e2e - layout - vl-stacked - small story', () => {
     it('should render', () => {
         cy.visit(stackedSmallUrl);
 

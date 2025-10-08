@@ -26,7 +26,7 @@ const mountDefault = ({
         </vl-http-error-message>
     `);
 
-describe('component vl-http-error-message - default', () => {
+describe('cypress-component - block components - vl-http-error-message - default', () => {
     beforeEach(() => {
         mountDefault({
             title: 'Error title',
@@ -113,7 +113,7 @@ describe('component vl-http-error-message - default', () => {
     });
 });
 
-describe('component vl-http-error-message - alt image', () => {
+describe('cypress-component - block components - vl-http-error-message - alt image', () => {
     beforeEach(() => {
         mountDefault({
             title: 'Error title',
@@ -140,7 +140,7 @@ describe('component vl-http-error-message - alt image', () => {
     });
 });
 
-describe('component vl-http-error-message - error-code', () => {
+describe('cypress-component - block components - vl-http-error-message - error-code', () => {
     beforeEach(() => {
         mountDefault({
             errorCode: '404',
@@ -224,7 +224,7 @@ describe('component vl-http-error-message - error-code', () => {
     });
 });
 
-describe('component vl-http-error-message - error-code - overwritten fields', () => {
+describe('cypress-component - block components - vl-http-error-message - error-code - overwritten fields', () => {
     beforeEach(() => {
         mountDefault({
             title: 'Error title',

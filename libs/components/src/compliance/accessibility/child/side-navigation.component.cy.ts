@@ -10,7 +10,7 @@ const props: SideNavigationProps = {
     compliance: COMPLIANCE_STATUS.NOT_COMPLIANT,
 };
 
-describe('component side-navigation - default', () => {
+describe('cypress-component - compliance components - accessibility side-navigation - default', () => {
     beforeEach(() => {
         mountDefault(props);
     });
@@ -26,7 +26,7 @@ describe('component side-navigation - default', () => {
     });
 });
 
-describe('component side-navigation - COMPLIANCE messages and css', () => {
+describe('cypress-component - compliance components - accessibility side-navigation - COMPLIANCE messages and css', () => {
     it('should hide content for FULLY_COMPLIANT websites', () => {
         mountDefault({
             ...props,
@@ -42,7 +42,7 @@ describe('component side-navigation - COMPLIANCE messages and css', () => {
     });
 });
 
-describe('component side-navigation - helper function <sideNavigationComponents()> ', () => {
+describe('cypress-component - compliance components - accessibility side-navigation - helper function <sideNavigationComponents()> ', () => {
     it('should return an array of WebComponents with a length of 1', () => {
         const elements = sideNavigationComponents();
         expect(elements).to.be.an('array');

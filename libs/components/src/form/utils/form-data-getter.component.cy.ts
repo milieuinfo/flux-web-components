@@ -32,7 +32,7 @@ registerWebComponents([
     VlRadioGroupComponent,
 ]);
 
-describe('component - parseFormData - native inputs', () => {
+describe('cypress-component - form components - form-data-getter parseFormData - native inputs', () => {
     it('should get form data for native text input', () => {
         cy.mount(
             html`
@@ -178,7 +178,7 @@ describe('component - parseFormData - native inputs', () => {
     });
 });
 
-describe('component - parseFormData - vl form controls', () => {
+describe('cypress-component - form components - form-data-getter parseFormData - form controls', () => {
     it('should get form data for vl-input-field', () => {
         cy.mount(
             html`
@@ -370,6 +370,7 @@ describe('component - parseFormData - vl form controls', () => {
             expect(formData).to.have.property('foto').to.deep.equal(fileToTest);
         });
     });
+
     it('should get form data for vl-upload - multiple', () => {
         cy.mount(
             html`

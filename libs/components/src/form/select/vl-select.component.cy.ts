@@ -24,7 +24,7 @@ const optionsGrouped: SelectOption[] = ['België', 'België', 'België', 'Belgi�
     (group, i) => ({ ...options[i], group })
 );
 
-describe('component - vl-select', () => {
+describe('cypress-component - form components - vl-select', () => {
     it('should mount', () => {
         cy.mount(html`<vl-select label="geboorteplaats" .options=${options}></vl-select>`);
         cy.injectAxe();
@@ -361,7 +361,7 @@ describe('component - vl-select', () => {
     });
 });
 
-describe('component - vl-select - in form', () => {
+describe('cypress-component - form components - vl-select - in form', () => {
     beforeEach(() => {
         cy.mount(html`
             <form
@@ -487,7 +487,7 @@ describe('component - vl-select - in form', () => {
     });
 });
 
-describe('component - vl-select - declarative options', () => {
+describe('cypress-component - form components - vl-select - declarative options', () => {
     it('should mount with declarative options', () => {
         cy.mount(html`
             <vl-select label="geboorteplaats">

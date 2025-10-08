@@ -92,7 +92,7 @@ const testMountAndAccessibility = (additionalComponents?: string[]) => {
     });
 };
 
-describe('component vl-cascader default', () => {
+describe('cypress-component - block components - vl-cascader', () => {
     beforeEach(() => {
         mountDefault();
     });
@@ -149,7 +149,7 @@ describe('component vl-cascader default', () => {
     });
 });
 
-describe('component vl-cascader in vl-side-sheet', () => {
+describe('cypress-component - block components - vl-cascader - in vl-side-sheet', () => {
     beforeEach(() => {
         mountSideSheet();
     });
@@ -186,7 +186,7 @@ describe('component vl-cascader in vl-side-sheet', () => {
     });
 });
 
-describe('component vl-cascader - templating', () => {
+describe('cypress-component - block components - vl-cascader - templating', () => {
     beforeEach(() => {
         mountWithTemplates(cascaderItemTemplates);
     });
@@ -207,7 +207,7 @@ describe('component vl-cascader - templating', () => {
     });
 });
 
-describe('component vl-cascader - slots', () => {
+describe('cypress-component - block components - vl-cascader - slots', () => {
     const placeholderText = 'Zoek...';
     const label = 'West-Vlaanderen';
     const labelSlotText = `Provincie: West-Vlaanderen`;
@@ -299,7 +299,7 @@ describe('component vl-cascader - slots', () => {
     });
 });
 
-describe('component vl-cascader - property binding', () => {
+describe('cypress-component - block components - vl-cascader - property binding', () => {
     const vlaamseProvincies = nodeData[0].children;
 
     beforeEach(() => {

@@ -1,27 +1,27 @@
-const progressBarUrl =
+const progressIndicatorUrl =
     'http://localhost:8080/iframe.html?id=components-block-progress-indicator--progress-indicator-default&viewMode=story';
-const progressBarNumericUrl =
+const progressIndicatorNumericUrl =
     'http://localhost:8080/iframe.html?id=components-block-progress-indicator--progress-indicator-numeric&viewMode=story';
-const progressBarFocusedUrl =
+const progressIndicatorFocusedUrl =
     'http://localhost:8080/iframe.html?id=components-block-progress-indicator--progress-indicator-focused&viewMode=story';
 
-describe('story vl-progress-indicator - default', () => {
+describe('cypress-e2e - block components - vl-progress-indicator - default story', () => {
     it('should display story', () => {
-        cy.visit(progressBarUrl);
+        cy.visit(progressIndicatorUrl);
         cy.get('vl-progress-indicator').shadow();
     });
 });
 
-describe('story vl-progress-indicator numeric', () => {
+describe('cypress-e2e - block components - vl-progress-indicator - numeric story', () => {
     it('should display story', () => {
-        cy.visit(progressBarNumericUrl);
+        cy.visit(progressIndicatorNumericUrl);
         cy.get('vl-progress-indicator').shadow();
     });
 });
 
-describe('story vl-progress-indicator focused', () => {
+describe('cypress-e2e - block components - vl-progress-indicator - focused story', () => {
     it('should display story', () => {
-        cy.visit(progressBarFocusedUrl);
+        cy.visit(progressIndicatorFocusedUrl);
         cy.get('vl-progress-indicator').shadow();
     });
 });

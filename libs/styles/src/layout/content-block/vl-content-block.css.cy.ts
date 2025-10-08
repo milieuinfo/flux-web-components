@@ -2,7 +2,7 @@ import { GlobalStyles } from '@domg-wc/common';
 import { html } from 'lit';
 import { vlContentBlockStyles } from './vl-content-block.css';
 
-describe('content-block styles', () => {
+describe('cypress-component - layout styles - vl-content-block-styles', () => {
     beforeEach(() => {
         cy.then(() => GlobalStyles.getInstance().register());
     });

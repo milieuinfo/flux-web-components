@@ -1,7 +1,7 @@
 import { rowsForFiltering, rowsForPagination } from './vl-rich-data-table.mock';
 import { Pagination } from '@domg-wc/components/block';
 
-const richDataTableUrl =
+const richDataTableDefaultUrl =
     'http://localhost:8080/iframe.html?args=&id=components-block-rich-data-table--rich-data-table-default&viewMode=story';
 const richDataTableSortingUrl =
     'http://localhost:8080/iframe.html?args=&id=components-block-rich-data-table--rich-data-table-sorting&viewMode=story';
@@ -136,9 +136,9 @@ const selectPage = (pageNumber: number) => {
     cy.get('vl-rich-data-table').find('vl-pager').shadow().find(`[pager-page=${pageNumber}]`).click();
 };
 
-describe('story vl-rich-table default', () => {
+describe('cypress-e2e - block components - vl-rich-table - default story', () => {
     it('should set data in the table', () => {
-        cy.visit(richDataTableUrl);
+        cy.visit(richDataTableDefaultUrl);
 
         const { data: dataRows } = {
             data: [
@@ -151,7 +151,7 @@ describe('story vl-rich-table default', () => {
     });
 });
 
-describe('story vl-rich-table - sorting', () => {
+describe('cypress-e2e - block components - vl-rich-table - sorting story', () => {
     beforeEach(() => cy.visit(`${richDataTableSortingUrl}`));
 
     const { data: rowData } = {
@@ -199,7 +199,7 @@ describe('story vl-rich-table - sorting', () => {
     });
 });
 
-describe('story vl-rich-table - filter', () => {
+describe('cypress-e2e - block components - vl-rich-table - filter story', () => {
     beforeEach(() => cy.visit(`${richDataTableFilterUrl}`));
     const data = rowsForFiltering;
     const filterField = 'name';
@@ -225,7 +225,7 @@ describe('story vl-rich-table - filter', () => {
     });
 });
 
-describe('story vl-rich-table - paging', () => {
+describe('cypress-e2e - block components - vl-rich-table - paging story', () => {
     beforeEach(() => cy.visit(`${richDataTablePagingUrl}`));
 
     const data = rowsForPagination;

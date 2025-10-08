@@ -1,7 +1,7 @@
 import { GlobalStyles } from '@domg-wc/common';
 import { html } from 'lit';
 
-describe('section styles', () => {
+describe('cypress-component - layout styles - vl-section', () => {
     it('should style the defaults', () => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`

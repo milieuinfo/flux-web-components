@@ -32,7 +32,7 @@ const legendItem = `
     <span slot="label">Custom label</span>
 </vl-map-legend-item>`;
 
-describe('component vl-map-legend-item', () => {
+describe('cypress-component - map - vl-map-legend-item', () => {
     beforeEach(() => {
         cy.mount(html`
             <vl-map lambert2008>

@@ -1,16 +1,18 @@
-import { defineConfig } from 'cypress';
 import * as path from 'path';
+import dotenv from 'dotenv';
+import { defineConfig } from 'cypress';
+import registerReportPortalPlugin from '@reportportal/agent-js-cypress/lib/plugin';
 
-export default defineConfig({
+dotenv.config(); // laad .env
+
+const cypressConfig: any = {
     fileServerFolder: '.',
     fixturesFolder: './fixtures',
     modifyObstructiveCode: false,
     screenshotsFolder: '../../build/cypress/components/screenshots',
     chromeWebSecurity: false,
-    retries: {
-        runMode: 5,
-        openMode: 0,
-    },
+    retries: { runMode: 5, openMode: 0 },
+    env: { RP_ACTIVE: process.env.RP_ACTIVE },
     component: {
         supportFile: './support/component.ts',
         indexHtmlFile: './support/component-index.html',
@@ -18,36 +20,17 @@ export default defineConfig({
         devServer: {
             bundler: 'webpack',
             // @ts-ignore
-            headers: {
-                'Cache-Control': 'no-store',
-            },
+            headers: { 'Cache-Control': 'no-store' },
             webpackConfig: {
                 module: {
                     rules: [
                         {
                             oneOf: [
-                                // 1) CSS met ?raw -> importeer als string
-                                {
-                                    test: /\.css$/i,
-                                    resourceQuery: /raw/, // matcht ?raw
-                                    type: 'asset/source', // geeft de file-inhoud als string
-                                },
-                                // 2) normale CSS -> via style/css-loader of extract plugin
-                                {
-                                    test: /\.css$/i,
-                                    use: [
-                                        // of MiniCssExtractPlugin.loader als je CSS wil extraheren
-                                        'style-loader',
-                                        'css-loader',
-                                    ],
-                                },
+                                { test: /\.css$/i, resourceQuery: /raw/, type: 'asset/source' },
+                                { test: /\.css$/i, use: ['style-loader', 'css-loader'] },
                             ],
                         },
-                        {
-                            exclude: /(node_modules)/,
-                            loader: 'ts-loader',
-                            test: /\.[t]sx?$/,
-                        },
+                        { exclude: /(node_modules)/, loader: 'ts-loader', test: /\.[t]sx?$/ },
                     ],
                 },
                 resolve: {
@@ -66,4 +49,24 @@ export default defineConfig({
             },
         },
     },
-});
+};
+
+if (process.env.RP_ACTIVE === '1') {
+    cypressConfig.reporter = '../../node_modules/@reportportal/agent-js-cypress';
+
+    cypressConfig.reporterOptions = {
+        apiKey: process.env.RP_API_KEY,
+        endpoint: process.env.RP_BASE_URL,
+        launchId: process.env.RP_LAUNCH_ID,
+        project: process.env.RP_PROJECT,
+    };
+
+    const currSetupNodeEvents = cypressConfig.component.setupNodeEvents;
+    cypressConfig.component.setupNodeEvents = (on, config) => {
+        currSetupNodeEvents(on, config);
+        registerReportPortalPlugin(on, config);
+        return config;
+    };
+}
+
+export default defineConfig(cypressConfig);

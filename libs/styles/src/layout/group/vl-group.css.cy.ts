@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { vlGroupStyles } from './vl-group.css';
 
-describe('group styles', () => {
+describe('cypress-component - layout styles - vl-group', () => {
     it('should have default styles', () => {
         cy.mount(html`
             <style>

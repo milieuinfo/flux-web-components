@@ -11,7 +11,7 @@ import ResizeObserver from 'resize-observer-polyfill';
 
 global.ResizeObserver = ResizeObserver;
 
-describe('select action', () => {
+describe('jest - map - select-action', () => {
     const createVlSelectAction = ({ layer = <OlVectorLayerType>{}, callback, options }: MapActionPayload) => {
         const action = new VlSelectAction(layer, callback, options);
         action.map = new Map({});

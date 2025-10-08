@@ -4,7 +4,7 @@ import OlGML2 from 'ol/format/GML2';
 import { VlCompositeVectorLayer } from './composite-vector-layer';
 import { VlCompositeVectorSource } from '../source/composite-vector-source';
 
-describe('composite wfs layer', () => {
+describe('jest - map - composite-vector-layer', () => {
     const source1 = new VectorSource({
         format: new OlGML2(),
         url: () => 'http://localhost/kaartlaag1',

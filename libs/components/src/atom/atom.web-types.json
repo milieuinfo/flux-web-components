@@ -155,6 +155,11 @@
                             "default": ""
                         },
                         {
+                            "name": "label",
+                            "description": "Een beschrijvende tekst voor het icoon, wordt gebruikt door screenreaders. \n        <br><br><strong>Opgelet</strong>: indien `label` niet meegegeven wordt, wordt het icoon als \n        'decoratief' beschouwd en zal het genegeerd worden door screenreaders, door middel van `aria-hidden`.",
+                            "default": ""
+                        },
+                        {
                             "name": "small",
                             "description": "Beeldt het icoon klein af.",
                             "default": "false"
@@ -181,7 +186,7 @@
                         },
                         {
                             "name": "clickable",
-                            "description": "Beeldt het icoon klikbaar af.",
+                            "description": "**Deprecated**: De `clickable` property is deprecated wegens niet WCAG-compliant. \n            Gebruik in de plaats een `vl-button` of `vl-link` met een icon.",
                             "default": "false"
                         }
                     ]

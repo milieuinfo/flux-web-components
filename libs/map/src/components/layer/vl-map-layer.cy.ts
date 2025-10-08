@@ -170,7 +170,7 @@ const fixtures = [
     },
 ];
 
-describe('vl-map-layer', () => {
+describe('cypress-component - map - vl-map-layer', () => {
     fixtures.forEach((fixture) => {
         it(`${fixture.name} - kan een attribuut, titel, opvragen van de kaartlaag op basis van zijn sleutel`, () => {
             cy.mount(fixture.singleFixture);

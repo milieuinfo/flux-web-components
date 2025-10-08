@@ -1,7 +1,7 @@
 import { GlobalStyles } from '@domg-wc/common';
 import { html } from 'lit';
 
-describe('stacked styles', () => {
+describe('cypress-component - layout styles - vl-stacked', () => {
     const stackedLarge = html`
         <style>
             .vl-grid .vl-column {

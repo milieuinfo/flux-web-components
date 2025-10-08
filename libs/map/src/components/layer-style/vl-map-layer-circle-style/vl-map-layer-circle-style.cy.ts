@@ -47,7 +47,7 @@ const mapLayerCircleStyleMetTextFeatureAttributeNameFixture = html`
     </vl-map>
 `;
 
-describe('vl-map-layer-circle-style', () => {
+describe('cypress-component - map - vl-map-layer-circle-style', () => {
     it('de style wordt goed geconfigureerd met default properties', () => {
         cy.mount(mapLayerCircleStyleFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {

@@ -9,7 +9,7 @@ import { datepickerDefaults } from './vl-datepicker.defaults';
 
 registerWebComponents([VlDatepickerComponent, VlFormMessageComponent]);
 
-describe('component - vl-datepicker', () => {
+describe('cypress-component - form components - vl-datepicker', () => {
     it('should mount', () => {
         cy.mount(html`<vl-datepicker></vl-datepicker>`);
 
@@ -517,7 +517,7 @@ describe('component - vl-datepicker', () => {
     });
 });
 
-describe('component - vl-datepicker - native input on mobile', () => {
+describe('cypress-component - form components - vl-datepicker - native input on mobile', () => {
     beforeEach(() => {
         cy.viewport(320, 480);
     });
@@ -935,7 +935,7 @@ describe('component - vl-datepicker - native input on mobile', () => {
     });
 });
 
-describe('component - vl-datepicker - in form', () => {
+describe('cypress-component - form components - vl-datepicker - in form', () => {
     it('should reset datepicker with initial value', () => {
         const initialValue = createIsoDateString({ day: 2, month: 12, year: 2021 });
 
@@ -1041,17 +1041,18 @@ describe('component - vl-datepicker - in form', () => {
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('151220');
         cy.get('button[type="submit"]').click({ force: true });
 
-        cy.get('vl-form-message[state="valueMissing"]').should('not.be.visible');
+        cy.get('vl-form-message[state="valueMissing"]').shadow().find('p').should('have.attr', 'hidden');
+        cy.get('vl-form-message[state="patternMismatch"]');
         cy.get('vl-form-message[state="patternMismatch"]')
-            .should('be.visible')
-            .and('have.text', 'Gelieve het juiste formaat te gebruiken.');
+            .should('have.text', 'Gelieve het juiste formaat te gebruiken.')
+            .should('have.attr', 'show');
         cy.checkA11y('vl-datepicker');
 
         cy.get('button[type="reset"]').click();
 
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('15122023');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[state="patternMismatch"]').should('not.be.visible');
+        cy.get('vl-form-message[state="patternMismatch"]').shadow().find('p').should('have.attr', 'hidden');
         cy.checkA11y('vl-datepicker');
     });
 
@@ -1068,17 +1069,19 @@ describe('component - vl-datepicker - in form', () => {
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('1512202');
         cy.get('button[type="submit"]').click({ force: true });
 
-        cy.get('vl-form-message[state="valueMissing"]').should('not.be.visible');
+        cy.get('vl-form-message[state="valueMissing"]').should('not.have.attr', 'show');
+        cy.get('vl-form-message[state="valueMissing"]').shadow().find('p').should('have.attr', 'hidden');
+        cy.get('vl-form-message[state="patternMismatch"]');
         cy.get('vl-form-message[state="patternMismatch"]')
-            .should('be.visible')
-            .and('have.text', 'Gelieve het juiste formaat te gebruiken.');
+            .should('have.text', 'Gelieve het juiste formaat te gebruiken.')
+            .should('have.attr', 'show');
         cy.checkA11y('vl-datepicker');
 
         cy.get('button[type="reset"]').click();
 
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('15122023');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[state="patternMismatch"]').should('not.be.visible');
+        cy.get('vl-form-message[state="patternMismatch"]').should('not.have.attr', 'show');
         cy.checkA11y('vl-datepicker');
     });
 
@@ -1096,8 +1099,8 @@ describe('component - vl-datepicker - in form', () => {
         cy.get('vl-datepicker').should('have.value', 'hello');
         cy.get('button[type="submit"]').click({ force: true });
 
-        cy.get('vl-form-message[state="valueMissing"]').should('not.be.visible');
-        cy.get('vl-form-message[state="patternMismatch"]').should('not.be.visible');
+        cy.get('vl-form-message[state="valueMissing"]').shadow().find('p').should('have.attr', 'hidden');
+        cy.get('vl-form-message[state="patternMismatch"]').shadow().find('p').should('have.attr', 'hidden');
         cy.checkA11y('vl-datepicker');
     });
 
@@ -1114,8 +1117,8 @@ describe('component - vl-datepicker - in form', () => {
         cy.get('vl-datepicker').should('have.value', 'hello');
         cy.get('button[type="submit"]').click({ force: true });
 
-        cy.get('vl-form-message[state="valueMissing"]').should('not.be.visible');
-        cy.get('vl-form-message[state="patternMismatch"]').should('not.be.visible');
+        cy.get('vl-form-message[state="valueMissing"]').shadow().find('p').should('have.attr', 'hidden');
+        cy.get('vl-form-message[state="patternMismatch"]').shadow().find('p').should('have.attr', 'hidden');
         cy.checkA11y('vl-datepicker');
     });
 
@@ -1137,17 +1140,17 @@ describe('component - vl-datepicker - in form', () => {
         // cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('1');
         cy.get('button[type="submit"]').click({ force: true });
 
-        cy.get('vl-form-message[state="valueMissing"]').should('not.be.visible');
+        cy.get('vl-form-message[state="valueMissing"]').shadow().find('p').should('have.attr', 'hidden');
         cy.get('vl-form-message[state="patternMismatch"]')
-            .should('be.visible')
-            .and('have.text', 'Gelieve het juiste formaat te gebruiken.');
+            .should('have.text', 'Gelieve het juiste formaat te gebruiken.')
+            .should('have.attr', 'show');
         cy.checkA11y('vl-datepicker');
 
         cy.get('button[type="reset"]').click();
 
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('15.12.2023');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[state="patternMismatch"]').should('not.be.visible');
+        cy.get('vl-form-message[state="patternMismatch"]').shadow().find('p').should('have.attr', 'hidden');
         cy.checkA11y('vl-datepicker');
     });
 
@@ -1167,10 +1170,10 @@ describe('component - vl-datepicker - in form', () => {
 
         cy.get('button[type="submit"]').click({ force: true });
 
-        cy.get('vl-form-message[state="valueMissing"]').should('not.be.visible');
+        cy.get('vl-form-message[state="valueMissing"]').shadow().find('p').should('have.attr', 'hidden');
         cy.get('vl-form-message[state="patternMismatch"]')
-            .should('be.visible')
-            .and('have.text', 'Gelieve het juiste formaat te gebruiken.');
+            .should('have.text', 'Gelieve het juiste formaat te gebruiken.')
+            .should('have.attr', 'show');
         cy.checkA11y('vl-datepicker');
 
         cy.get('button[type="reset"]').click();
@@ -1178,7 +1181,7 @@ describe('component - vl-datepicker - in form', () => {
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('99');
         cy.get('vl-datepicker').should('have.value', '09:09');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[state="patternMismatch"]').should('not.be.visible');
+        cy.get('vl-form-message[state="patternMismatch"]').shadow().find('p').should('have.attr', 'hidden');
         cy.checkA11y('vl-datepicker');
     });
 
@@ -1198,10 +1201,10 @@ describe('component - vl-datepicker - in form', () => {
 
         cy.get('button[type="submit"]').click({ force: true });
 
-        cy.get('vl-form-message[state="valueMissing"]').should('not.be.visible');
+        cy.get('vl-form-message[state="valueMissing"]').shadow().find('p').should('have.attr', 'hidden');
         cy.get('vl-form-message[state="patternMismatch"]')
-            .should('be.visible')
-            .and('have.text', 'Gelieve het juiste formaat te gebruiken.');
+            .should('have.text', 'Gelieve het juiste formaat te gebruiken.')
+            .should('have.attr', 'show');
         cy.checkA11y('vl-datepicker');
 
         cy.get('button[type="reset"]').click();
@@ -1210,7 +1213,7 @@ describe('component - vl-datepicker - in form', () => {
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').should('have.value', '09:09:09');
         cy.get('vl-datepicker').should('have.value', '09:09:09');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[state="patternMismatch"]').should('not.be.visible');
+        cy.get('vl-form-message[state="patternMismatch"]').shadow().find('p').should('have.attr', 'hidden');
         cy.checkA11y('vl-datepicker');
     });
 
@@ -1257,26 +1260,26 @@ describe('component - vl-datepicker - in form', () => {
 
         cy.get('button[type="submit"]').click({ force: true });
 
-        cy.get('vl-form-message[state="rangeOverflow"]').should('not.be.visible');
-        cy.get('vl-form-message[state="rangeUnderflow"]').should('not.be.visible');
+        cy.get('vl-form-message[state="rangeOverflow"]').shadow().find('p').should('have.attr', 'hidden');
+        cy.get('vl-form-message[state="rangeUnderflow"]').shadow().find('p').should('have.attr', 'hidden');
 
         cy.get('button[type="reset"]').click();
 
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('13.04.2024');
         cy.get('vl-datepicker').should('have.value', '2024-04-13');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[state="rangeOverflow"]').should('be.visible');
-        cy.get('vl-form-message[state="rangeUnderflow"]').should('not.be.visible');
+        cy.get('vl-form-message[state="rangeOverflow"]').should('have.attr', 'show');
+        cy.get('vl-form-message[state="rangeUnderflow"]').shadow().find('p').should('have.attr', 'hidden');
 
         cy.get('button[type="reset"]').click();
-        cy.get('vl-form-message[state="rangeOverflow"]').should('not.be.visible');
-        cy.get('vl-form-message[state="rangeUnderflow"]').should('not.be.visible');
+        cy.get('vl-form-message[state="rangeOverflow"]').shadow().find('p').should('have.attr', 'hidden');
+        cy.get('vl-form-message[state="rangeUnderflow"]').shadow().find('p').should('have.attr', 'hidden');
 
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('07.04.2024');
         cy.get('vl-datepicker').should('have.value', '2024-04-07');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[state="rangeOverflow"]').should('not.be.visible');
-        cy.get('vl-form-message[state="rangeUnderflow"]').should('be.visible');
+        cy.get('vl-form-message[state="rangeOverflow"]').shadow().find('p').should('have.attr', 'hidden');
+        cy.get('vl-form-message[state="rangeUnderflow"]').should('have.attr', 'show');
 
         cy.checkA11y('vl-datepicker');
     });
@@ -1297,26 +1300,26 @@ describe('component - vl-datepicker - in form', () => {
 
         cy.get('button[type="submit"]').click({ force: true });
 
-        cy.get('vl-form-message[state="rangeOverflow"]').should('not.be.visible');
-        cy.get('vl-form-message[state="rangeUnderflow"]').should('not.be.visible');
+        cy.get('vl-form-message[state="rangeOverflow"]').shadow().find('p').should('have.attr', 'hidden');
+        cy.get('vl-form-message[state="rangeUnderflow"]').shadow().find('p').should('have.attr', 'hidden');
 
         cy.get('button[type="reset"]').click();
 
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('12:30');
         cy.get('vl-datepicker').should('have.value', '12:30');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[state="rangeOverflow"]').should('be.visible');
-        cy.get('vl-form-message[state="rangeUnderflow"]').should('not.be.visible');
+        cy.get('vl-form-message[state="rangeOverflow"]').should('have.attr', 'show');
+        cy.get('vl-form-message[state="rangeUnderflow"]').shadow().find('p').should('have.attr', 'hidden');
 
         cy.get('button[type="reset"]').click();
-        cy.get('vl-form-message[state="rangeOverflow"]').should('not.be.visible');
-        cy.get('vl-form-message[state="rangeUnderflow"]').should('not.be.visible');
+        cy.get('vl-form-message[state="rangeOverflow"]').shadow().find('p').should('have.attr', 'hidden');
+        cy.get('vl-form-message[state="rangeUnderflow"]').shadow().find('p').should('have.attr', 'hidden');
 
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('9:30');
         cy.get('vl-datepicker').should('have.value', '09:30');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[state="rangeOverflow"]').should('not.be.visible');
-        cy.get('vl-form-message[state="rangeUnderflow"]').should('be.visible');
+        cy.get('vl-form-message[state="rangeOverflow"]').shadow().find('p').should('have.attr', 'hidden');
+        cy.get('vl-form-message[state="rangeUnderflow"]').should('have.attr', 'show');
 
         cy.checkA11y('vl-datepicker');
     });
@@ -1339,26 +1342,26 @@ describe('component - vl-datepicker - in form', () => {
 
         cy.get('button[type="submit"]').click({ force: true });
 
-        cy.get('vl-form-message[state="rangeOverflow"]').should('not.be.visible');
-        cy.get('vl-form-message[state="rangeUnderflow"]').should('not.be.visible');
+        cy.get('vl-form-message[state="rangeOverflow"]').shadow().find('p').should('have.attr', 'hidden');
+        cy.get('vl-form-message[state="rangeUnderflow"]').shadow().find('p').should('have.attr', 'hidden');
 
         cy.get('button[type="reset"]').click();
 
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('10.04.2024 tot en met 13.04.2024');
         cy.get('vl-datepicker').should('have.value', '2024-04-10/2024-04-13');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[state="rangeOverflow"]').should('be.visible');
-        cy.get('vl-form-message[state="rangeUnderflow"]').should('not.be.visible');
+        cy.get('vl-form-message[state="rangeOverflow"]').should('have.attr', 'show');
+        cy.get('vl-form-message[state="rangeUnderflow"]').shadow().find('p').should('have.attr', 'hidden');
 
         cy.get('button[type="reset"]').click();
-        cy.get('vl-form-message[state="rangeOverflow"]').should('not.be.visible');
-        cy.get('vl-form-message[state="rangeUnderflow"]').should('not.be.visible');
+        cy.get('vl-form-message[state="rangeOverflow"]').shadow().find('p').should('have.attr', 'hidden');
+        cy.get('vl-form-message[state="rangeUnderflow"]').shadow().find('p').should('have.attr', 'hidden');
 
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('07.04.2024 tot en met 11.04.2024');
         cy.get('vl-datepicker').should('have.value', '2024-04-07/2024-04-11');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[state="rangeOverflow"]').should('not.be.visible');
-        cy.get('vl-form-message[state="rangeUnderflow"]').should('be.visible');
+        cy.get('vl-form-message[state="rangeOverflow"]').shadow().find('p').should('have.attr', 'hidden');
+        cy.get('vl-form-message[state="rangeUnderflow"]').should('have.attr', 'show');
 
         cy.checkA11y('vl-datepicker');
     });

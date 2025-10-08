@@ -1,7 +1,7 @@
 const demoWithBackAndTabsUrl =
     'http://localhost:8080/iframe.html?id=ontwerp-functional-header-voorbeeld-met-back-en-tabs--functional-header-with-back-and-tabs&viewMode=story';
 
-describe('story - functional header met back en tabs voorbeeld', () => {
+describe('cypress-e2e - ontwerp - functional header - met back en tabs story', () => {
     it('should render', () => {
         cy.visit(demoWithBackAndTabsUrl);
 

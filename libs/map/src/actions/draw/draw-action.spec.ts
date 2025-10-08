@@ -9,7 +9,7 @@ import { VlDrawAction } from './draw-action';
 import { VlSnapInteraction } from '../snap/snap-interaction';
 import Map from 'ol/Map';
 
-describe('draw action', () => {
+describe('jest - map - draw-action', () => {
     const source = new VectorSource({ features: [] });
     const layer = new VectorLayer({ source });
 

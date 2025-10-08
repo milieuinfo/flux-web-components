@@ -5,7 +5,7 @@ import { VlPopoverMenuComponent } from './vl-popover-menu.component';
 
 registerWebComponents([VlPopoverMenuComponent]);
 
-describe('integrations - popover menu', () => {
+describe('cypress-component - integrations - vl-popover-menu', () => {
     it('should render', () => {
         cy.mount(html` <vl-popover-menu></vl-popover-menu>`);
 

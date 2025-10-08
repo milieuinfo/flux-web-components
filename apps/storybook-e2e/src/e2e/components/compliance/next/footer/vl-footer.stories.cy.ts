@@ -1,9 +1,9 @@
-const footerUrl =
+const footerNextDefaultUrl =
     'http://localhost:8080/iframe.html?id=components-compliance-footer-next--footer-default&viewMode=story';
 
-describe('story vl-footer - default', () => {
+describe('cypress-e2e - compliance components - vl-footer-next - default story', () => {
     it('should render', () => {
-        cy.visit(footerUrl);
+        cy.visit(footerNextDefaultUrl);
 
         cy.get('vl-footer-next');
         cy.get('#footer__container')

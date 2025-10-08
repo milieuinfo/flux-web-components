@@ -4,7 +4,7 @@ import { VlRadioComponent } from './vl-radio.component';
 
 registerWebComponents([VlRadioComponent]);
 
-describe('component - vl-radio', () => {
+describe('cypress-component - form components - vl-radio', () => {
     it('should mount', () => {
         cy.mount(html`<vl-radio label="plaats"></vl-radio>`);
 

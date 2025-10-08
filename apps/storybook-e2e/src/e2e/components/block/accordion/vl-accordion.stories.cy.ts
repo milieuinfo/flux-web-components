@@ -11,42 +11,42 @@ const accordionSubtitleSlotUrl =
 const accordionMenuSlotUrl =
     'http://localhost:8080/iframe.html?id=components-block-accordion--accordion-menu-slot&viewMode=story';
 
-describe('story vl-accordion default', () => {
+describe('cypress-e2e - block components - vl-accordion - default story', () => {
     it('should display story', () => {
         cy.visit(accordionDefaultUrl);
         cy.get('vl-accordion').shadow();
     });
 });
 
-describe('story vl-accordion dynamic toggle', () => {
+describe('cypress-e2e - block components - vl-accordion - dynamic toggle story', () => {
     it('should display story', () => {
         cy.visit(accordionDynamicToggleUrl);
         cy.get('vl-accordion').shadow();
     });
 });
 
-describe('story vl-accordion title slot', () => {
+describe('cypress-e2e - block components - vl-accordion title - slot story', () => {
     it('should display story', () => {
         cy.visit(accordionTitleSlotUrl);
         cy.get('vl-accordion').shadow();
     });
 });
 
-describe('story vl-accordion icon', () => {
+describe('cypress-e2e - block components - vl-accordion - icon story', () => {
     it('should display story', () => {
         cy.visit(accordionIconUrl);
         cy.get('vl-accordion').shadow();
     });
 });
 
-describe('story vl-accordion subtitle slot', () => {
+describe('cypress-e2e - block components - vl-accordion - subtitle slot story', () => {
     it('should display story', () => {
         cy.visit(accordionSubtitleSlotUrl);
         cy.get('vl-accordion').shadow();
     });
 });
 
-describe('story vl-accordion menu slot', () => {
+describe('cypress-e2e - block components - vl-accordion - menu slot story', () => {
     it('should display story', () => {
         cy.visit(accordionMenuSlotUrl);
         cy.get('vl-accordion').shadow();

@@ -52,7 +52,7 @@ const propertiesWithPropsTemplate = ({ props }: PropertiesDefaultTypes = {}) => 
     </vl-properties>
 `;
 
-describe('component - vl-properties', () => {
+describe('cypress-component - block components - vl-properties', () => {
     it('should mount', () => {
         cy.mount(defaultPropertiesTemplate);
 

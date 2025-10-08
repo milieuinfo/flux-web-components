@@ -24,7 +24,7 @@ function sleep() {
     return new Promise((resolve) => setTimeout(resolve, VlMapWithActions.CLICK_COUNT_TIMEOUT + 10));
 }
 
-describe('map with actions', () => {
+describe('jest - map - map-with-actions', () => {
     let map;
     let action1;
     let action2;

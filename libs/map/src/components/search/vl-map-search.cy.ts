@@ -35,7 +35,7 @@ const getSearchComponent = () => cy.get('vl-map-search').shadow().find('vl-searc
 const getSelectLocationComponent = () =>
     cy.get('vl-map').shadow().find('vl-map-search').shadow().find('vl-search').find('vl-select-location');
 
-describe('vl-map-search', () => {
+describe('cypress-component - map - vl-map-search', () => {
     it('bevat een search element met correct geconfigureerd select element als input slot', () => {
         cy.mount(mapSearchFixture);
         getSearchComponent().should('exist').should('have.attr', 'inline');

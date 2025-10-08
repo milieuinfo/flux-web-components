@@ -11,49 +11,49 @@ const mapLegendWmsAndWfsLayerUrl =
 const mapLegendLayoutVerticalUrl =
     'http://localhost:8080/iframe.html?args=&id=map-legend--map-legend-layout-vertical&viewMode=story';
 
-describe('story vl-legend multiple styles', () => {
+describe('cypress-e2e - map - vl-map-legend - multiple styles story', () => {
     it('should display story', () => {
         cy.visit(mapLegendMultipleStylesUrl);
         cy.get('vl-map-legend').shadow();
     });
 });
 
-describe('story vl-legend features layer', () => {
+describe('cypress-e2e - map - vl-map-legend - features layer story', () => {
     it('should display story', () => {
         cy.visit(mapLegendFeaturesLayerUrl);
         cy.get('vl-map-legend').shadow();
     });
 });
 
-describe('story vl-legend multiple features layers', () => {
+describe('cypress-e2e - map - vl-map-legend - multiple features layer story', () => {
     it('should display story', () => {
         cy.visit(mapLegendMultipleFeaturesLayerUrl);
         cy.get('vl-map-legend').shadow();
     });
 });
 
-describe('story vl-legend wfs layer', () => {
+describe('cypress-e2e - map - vl-map-legend - wfs layer story', () => {
     it('should display story', () => {
         cy.visit(mapLegendWfsLayerUrl);
         cy.get('vl-map-legend').shadow();
     });
 });
 
-describe('story vl-legend wms layer', () => {
+describe('cypress-e2e - map - vl-map-legend - wms layer story', () => {
     it('should display story', () => {
         cy.visit(mapLegendWmsLayerUrl);
         cy.get('vl-map-legend').shadow();
     });
 });
 
-describe('story vl-legend multiple styles', () => {
+describe('cypress-e2e - map - vl-map-legend - wms and wfs layer story', () => {
     it('should display story', () => {
         cy.visit(mapLegendWmsAndWfsLayerUrl);
         cy.get('vl-map-legend').shadow();
     });
 });
 
-describe('story vl-legend layout vertical', () => {
+describe('cypress-e2e - map - vl-map-legend - layout vertical story', () => {
     it('should display story', () => {
         cy.visit(mapLegendLayoutVerticalUrl);
         cy.get('vl-map-legend').shadow();

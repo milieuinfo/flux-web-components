@@ -3,7 +3,7 @@ const mapSelectActionsUrl =
 const mapSelectActionsClusteringUrl =
     'http://localhost:8080/iframe.html?id=map-action-layer-action-select-action-select-actions--map-select-actions-clustering&viewMode=story';
 
-describe('story vl-map-select-actions default', () => {
+describe('cypress-e2e - map - vl-map-select-actions - dom default story', () => {
     it('should render a map', () => {
         cy.visit(mapSelectActionsUrl);
 
@@ -23,7 +23,7 @@ describe('story vl-map-select-actions default', () => {
     });
 });
 
-describe('story vl-map-select-actions clustering', () => {
+describe('cypress-e2e - map - vl-map-select-actions - dom clustering story', () => {
     it('should render a map', () => {
         cy.visit(mapSelectActionsClusteringUrl);
 

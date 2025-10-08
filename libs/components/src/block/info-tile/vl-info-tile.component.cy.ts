@@ -73,18 +73,18 @@ const footerSlot = `<div slot="footer">
         <vl-button icon="file-download">Download</vl-button>
     </div>`;
 const badgeSlot = `<div slot="badge" style="
-            width: 45px; 
-            height: 45px; 
-            background: var(--vl-color--background-alt); 
-            border: 1px solid var(--vl-color--border-default); 
-            border-radius: 50%; 
-            display: flex; 
-            flex-wrap: wrap; 
+            width: 45px;
+            height: 45px;
+            background: var(--vl-color--background-alt);
+            border: 1px solid var(--vl-color--border-default);
+            border-radius: 50%;
+            display: flex;
+            flex-wrap: wrap;
             place-content: center center;
             font-weight: 500;
         ">BD</div>`;
 
-describe('component vl-info-tile - default', () => {
+describe('cypress-component - block components - vl-info-tile - default', () => {
     beforeEach(() => {
         mountDefault({
             titleSlot,
@@ -121,7 +121,7 @@ describe('component vl-info-tile - default', () => {
     });
 });
 
-describe('story vl-info-tile - small', () => {
+describe('cypress-component - block components - vl-info-tile - small', () => {
     beforeEach(() => {
         mountDefault({
             size: 'small',
@@ -146,7 +146,7 @@ describe('story vl-info-tile - small', () => {
     });
 });
 
-describe('story vl-info-tile - medium', () => {
+describe('cypress-component - block components - vl-info-tile - medium', () => {
     beforeEach(() => {
         mountDefault({
             size: 'medium',
@@ -171,7 +171,7 @@ describe('story vl-info-tile - medium', () => {
     });
 });
 
-describe('story vl-info-tile - large', () => {
+describe('cypress-component - block components - vl-info-tile - large', () => {
     beforeEach(() => {
         mountDefault({
             size: 'large',
@@ -196,7 +196,7 @@ describe('story vl-info-tile - large', () => {
     });
 });
 
-describe('story vl-info-tile - alt', () => {
+describe('cypress-component - block components - vl-info-tile - alt', () => {
     beforeEach(() => {
         mountDefault({
             titleSlot,
@@ -221,7 +221,7 @@ describe('story vl-info-tile - alt', () => {
     });
 });
 
-describe('story vl-info-tile - warning', () => {
+describe('cypress-component - block components - vl-info-tile - warning', () => {
     beforeEach(() => {
         mountDefault({
             titleSlot,
@@ -246,7 +246,7 @@ describe('story vl-info-tile - warning', () => {
     });
 });
 
-describe('story vl-info-tile - error', () => {
+describe('cypress-component - block components - vl-info-tile - error', () => {
     beforeEach(() => {
         mountDefault({
             titleSlot,
@@ -271,7 +271,7 @@ describe('story vl-info-tile - error', () => {
     });
 });
 
-describe('story vl-info-tile - success', () => {
+describe('cypress-component - block components - vl-info-tile - success', () => {
     beforeEach(() => {
         mountDefault({
             titleSlot,
@@ -296,7 +296,7 @@ describe('story vl-info-tile - success', () => {
     });
 });
 
-describe('story vl-info-tile - full height', () => {
+describe('cypress-component - block components - vl-info-tile - full height', () => {
     beforeEach(() => {
         mountDefault({
             titleSlot,
@@ -321,7 +321,7 @@ describe('story vl-info-tile - full height', () => {
     });
 });
 
-describe('story vl-info-tile - toggleable', () => {
+describe('cypress-component - block components - vl-info-tile - toggleable', () => {
     beforeEach(() => {
         mountDefault({
             toggleable: true,
@@ -373,7 +373,7 @@ describe('story vl-info-tile - toggleable', () => {
     });
 });
 
-describe('story vl-info-tile - center', () => {
+describe('cypress-component - block components - vl-info-tile - center', () => {
     beforeEach(() => {
         mountDefault({
             center: true,
@@ -398,7 +398,7 @@ describe('story vl-info-tile - center', () => {
     });
 });
 
-describe('story vl-info-tile - auto open', () => {
+describe('cypress-component - block components - vl-info-tile - auto open', () => {
     beforeEach(() => {
         mountDefault({
             autoOpen: true,
@@ -425,7 +425,7 @@ describe('story vl-info-tile - auto open', () => {
     });
 });
 
-describe('story vl-info-tile - menu', () => {
+describe('cypress-component - block components - vl-info-tile - menu', () => {
     beforeEach(() => {
         mountDefault({
             titleSlot,
@@ -449,7 +449,7 @@ describe('story vl-info-tile - menu', () => {
     });
 });
 
-describe('story vl-info-tile - menu and toggleable', () => {
+describe('cypress-component - block components - vl-info-tile - menu and toggleable', () => {
     beforeEach(() => {
         mountDefault({
             toggleable: true,
@@ -496,7 +496,7 @@ describe('story vl-info-tile - menu and toggleable', () => {
     });
 });
 
-describe('story vl-info-tile - icon', () => {
+describe('cypress-component - block components - vl-info-tile - icon', () => {
     beforeEach(() => {
         mountDefault({
             titleSlot,
@@ -511,7 +511,7 @@ describe('story vl-info-tile - icon', () => {
     });
 });
 
-describe('story vl-info-tile - icon as badge', () => {
+describe('cypress-component - block components - vl-info-tile - icon as badge', () => {
     beforeEach(() => {
         mountDefault({
             titleSlot,
@@ -527,7 +527,7 @@ describe('story vl-info-tile - icon as badge', () => {
     });
 });
 
-describe('story vl-info-tile - badge', () => {
+describe('cypress-component - block components - vl-info-tile - badge', () => {
     beforeEach(() => {
         mountDefault({
             titleSlot,
@@ -543,7 +543,7 @@ describe('story vl-info-tile - badge', () => {
     });
 });
 
-describe('story vl-info-tile - footer', () => {
+describe('cypress-component - block components - vl-info-tile - footer', () => {
     beforeEach(() => {
         mountDefault({
             titleSlot,

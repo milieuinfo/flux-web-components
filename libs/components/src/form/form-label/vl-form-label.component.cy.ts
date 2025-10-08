@@ -6,7 +6,7 @@ import { VlFormLabelComponent } from './vl-form-label.component';
 
 registerWebComponents([VlFormLabelComponent, VlInputFieldComponent]);
 
-describe('component - vl-form-label', () => {
+describe('cypress-component - form components - vl-form-label', () => {
     it('should mount', () => {
         cy.mount(html` <vl-form-label>Naam</vl-form-label>`);
 
@@ -65,7 +65,7 @@ describe('component - vl-form-label', () => {
     });
 });
 
-describe('component - vl-form-label - in form', () => {
+describe('cypress-component - form components - vl-form-label - in form', () => {
     beforeEach(() => {
         cy.mount(html`
             <style>

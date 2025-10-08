@@ -79,7 +79,7 @@ const mountHover = ({
     `);
 };
 
-describe('component vl-popover - default', () => {
+describe('cypress-component - block components - vl-popover - default', () => {
     it('should mount', () => {
         mountDefault({});
 
@@ -155,7 +155,7 @@ describe('component vl-popover - default', () => {
     });
 });
 
-describe('story vl-popover hover', () => {
+describe('cypress-component - block components - vl-popover - hover', () => {
     beforeEach(() => {
         mountHover({ trigger: 'hover' });
     });

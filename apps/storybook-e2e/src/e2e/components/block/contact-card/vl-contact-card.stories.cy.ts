@@ -1,7 +1,7 @@
 const contactCardUrl =
     'http://localhost:8080/iframe.html?id=components-block-contact-card--contact-card-default&viewMode=story';
 
-describe('story vl-contact-card', () => {
+describe('cypress-e2e - block components - vl-contact-card - default story', () => {
     it('should be accessible', () => {
         cy.visitWithA11y(`${contactCardUrl}`);
     });

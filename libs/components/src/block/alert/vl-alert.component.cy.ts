@@ -5,7 +5,7 @@ import { VlAlert } from './vl-alert.component';
 
 registerWebComponents([VlAlert]);
 
-describe('component vl-alert', () => {
+describe('cypress-component - block components - vl-alert', () => {
     beforeEach(() => {
         cy.mount(html`
             <vl-alert data-cy="alert" icon="warning" title="Lorem ipsum" size="" type="error" closable="">
@@ -96,7 +96,7 @@ describe('component vl-alert', () => {
     });
 });
 
-describe('component vl-alert naked', () => {
+describe('cypress-component - block components - vl-alert - naked', () => {
     beforeEach(() => {
         cy.mount(html`
             <vl-alert

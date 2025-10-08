@@ -11,7 +11,7 @@ const xyzWmsLayerFixture = html`
     </vl-map>
 `;
 
-describe('component vl-map-xyz-wms', () => {
+describe('cypress-component - map - vl-map-xyz-wms-layer', () => {
     it('should mount', () => {
         cy.mount(xyzWmsLayerFixture);
         cy.get('vl-map').shadow();

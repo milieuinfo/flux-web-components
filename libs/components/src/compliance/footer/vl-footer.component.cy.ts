@@ -28,7 +28,7 @@ const props: MountDefaultProps = {
     onReady: () => console.log('ready'),
 };
 
-describe('vl-footer component - default', () => {
+describe('cypress-component - compliance components - vl-footer - default', () => {
     beforeEach(() => {
         mountDefault(props);
     });
@@ -45,7 +45,7 @@ describe('vl-footer component - default', () => {
     });
 });
 
-describe('vl-footer component - properties default ', () => {
+describe('cypress-component - compliance components - vl-footer - properties default ', () => {
     it('should have default values properties', () => {
         mountDefault(props);
 
@@ -54,7 +54,7 @@ describe('vl-footer component - properties default ', () => {
     });
 });
 
-describe('vl-footer component - properties reflect ', () => {
+describe('cypress-component - compliance components - vl-footer - properties reflect ', () => {
     it('should reflect the <development> attribute', () => {
         mountDefault({ ...props, development: true });
 
@@ -68,7 +68,7 @@ describe('vl-footer component - properties reflect ', () => {
     });
 });
 
-describe('vl-footer component - events', () => {
+describe('cypress-component - compliance components - vl-footer - events', () => {
     it('should emit ready event', () => {
         mountDefault({ ...props, development: true });
 

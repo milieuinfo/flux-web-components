@@ -3,7 +3,7 @@ import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
 import VectorSource from 'ol/source/Vector';
 
-describe('show info action', () => {
+describe('jest - map - show-info-action', () => {
     let map;
     let showInfoAction;
     let feature;

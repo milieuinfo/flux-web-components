@@ -46,7 +46,7 @@ const getLayer = (map) => {
 };
 
 // eens herbekijken, zijn allemaal rare testen
-describe('vl-map-vector-layer', () => {
+describe('cypress-component - map - vl-map-vector-layer', () => {
     it('de stijl kan op de features-layer gezet worden met een VlMapLayerStyle object', () => {
         cy.mount(featuresLayerFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {

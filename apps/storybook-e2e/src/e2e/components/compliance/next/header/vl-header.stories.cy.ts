@@ -1,8 +1,8 @@
-const headerUrl = 'http://localhost:8080/iframe.html?id=components-compliance-header-next--header-default&viewMode=story';
+const headerNextDefaultUrl = 'http://localhost:8080/iframe.html?id=components-compliance-header-next--header-default&viewMode=story';
 
-describe('story vl-header-next - default', () => {
+describe('cypress-e2e - compliance components - vl-header-next - default story', () => {
     it('should render', () => {
-        cy.visit(headerUrl);
+        cy.visit(headerNextDefaultUrl);
 
         cy.get('vl-header-next');
         cy.get('#header__container')

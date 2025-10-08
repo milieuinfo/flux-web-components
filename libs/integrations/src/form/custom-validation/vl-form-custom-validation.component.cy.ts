@@ -5,7 +5,7 @@ import { VlFormCustomValidationComponent } from './vl-form-custom-validation.com
 
 registerWebComponents([VlFormCustomValidationComponent]);
 
-describe('integrations - form custom validation', () => {
+describe('cypress-component - integrations - vl-form-custom-validation', () => {
     it('should render', () => {
         cy.mount(html` <vl-form-custom-validation></vl-form-custom-validation>`);
 

@@ -3,7 +3,7 @@ const mapLayerSwitcherDefaultUrl =
 const mapLayerSwitcherSpecialisedUrl =
     'http://localhost:8080/iframe.html?id=map-layer-switcher--map-layer-switcher-subselection&viewMode=story';
 
-describe('story vl-map-layer-switcher default ', () => {
+describe('cypress-e2e - map - vl-map-layer-switcher - dom default story', () => {
     it('should display all layers', () => {
         const layers = ['Kaartlaag 1', 'Kaartlaag 2', 'Kaartlaag 3'];
 
@@ -20,7 +20,7 @@ describe('story vl-map-layer-switcher default ', () => {
     });
 });
 
-describe('story vl-map-layer-switcher subselection ', () => {
+describe('cypress-e2e - map - vl-map-layer-switcher - subselection story', () => {
     it('should display a subselection of layers', () => {
         const layers = ['Kaartlaag 1', 'Kaartlaag 2'];
 

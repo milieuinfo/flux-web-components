@@ -56,7 +56,7 @@ const shouldSetTitleText = () => {
         .contains('School en studietoelagen');
 };
 
-describe('story - vl-functional-header', () => {
+describe('cypress-component - block components - vl-functional-header', () => {
     it('should be accessible', () => {
         cy.mount(html` <vl-functional-header title="test"></vl-functional-header>`);
 
@@ -133,7 +133,7 @@ describe('story - vl-functional-header', () => {
     });
 });
 
-describe('story - vl-functional-header - actions', () => {
+describe('cypress-component - block components - vl-functional-header - actions', () => {
     it('should be accessible', () => {
         cy.mount(html`
             <vl-functional-header title="test">
@@ -280,7 +280,7 @@ describe('story - vl-functional-header - actions', () => {
     });
 });
 
-describe('story - vl-functional-header - tabs', () => {
+describe('cypress-component - block components - vl-functional-header - tabs', () => {
     it('should be accessible', () => {
         cy.mount(html`
             <vl-functional-header title="test">
@@ -401,7 +401,7 @@ describe('story - vl-functional-header - tabs', () => {
     });
 });
 
-describe('story - vl-functional-header - breadcrumb', () => {
+describe('cypress-component - block components - vl-functional-header - breadcrumb', () => {
     it('should be accessible', () => {
         cy.mount(html`
             <vl-functional-header title="test">
@@ -510,7 +510,7 @@ describe('story - vl-functional-header - breadcrumb', () => {
     });
 });
 
-describe('story - vl-functional-header - slots', () => {
+describe('cypress-component - block components - vl-functional-header - slots', () => {
     it('should be accessible', () => {
         cy.mount(html`
             <vl-functional-header>
@@ -692,5 +692,5 @@ describe('story - vl-functional-header - sticky', () => {
                 value: '43px',
             });
         })
-
+    });
 });

@@ -3,7 +3,7 @@ import { html } from 'lit';
 import { vlIconStyles } from '../icon-style/vl-icon-style.css';
 import { vlLinkStyles } from './vl-link-style.css';
 
-describe('link styles', () => {
+describe('cypress-component - atom components - vl-link-style', () => {
     beforeEach(() => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`

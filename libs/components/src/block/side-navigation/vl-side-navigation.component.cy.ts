@@ -237,7 +237,7 @@ const template = html`
     </section>
 `;
 
-describe('component - vl-side-navigation', () => {
+describe('cypress-component - block components - vl-side-navigation', () => {
     beforeEach(() => {
         cy.viewport(960, 1440);
 
@@ -400,7 +400,7 @@ describe('component - vl-side-navigation', () => {
     });
 });
 
-describe('component - vl-side-navigation - mobile', () => {
+describe('cypress-component - block components - vl-side-navigation - mobile', () => {
     beforeEach(() => {
         cy.viewport(320, 480);
 
@@ -433,7 +433,7 @@ describe('component - vl-side-navigation - mobile', () => {
     });
 });
 
-describe('component - vl-side-navigation - with sticky headers', () => {
+describe('cypress-component - block components - vl-side-navigation - with sticky headers', () => {
     it('should adjust scroll offset to sticky header height', () => {
         cy.viewport(1440, 800);
 
@@ -490,7 +490,7 @@ describe('component - vl-side-navigation - with sticky headers', () => {
     });
 });
 
-describe('component - vl-side-navigation - scrollspy toggle', () => {
+describe('cypress-component - block components - vl-side-navigation - scrollspy toggle', () => {
     beforeEach(() => {
         cy.viewport(320, 480);
 

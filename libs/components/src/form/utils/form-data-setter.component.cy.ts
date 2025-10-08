@@ -25,7 +25,7 @@ registerWebComponents([
     VlUploadComponent,
 ]);
 
-describe('component - setFormData - native', () => {
+describe('cypress-component - form components - form-data-setter setFormData - native', () => {
     it('should set value for a text input', () => {
         const formData = { name: 'John Doe' };
 
@@ -255,7 +255,7 @@ describe('component - setFormData - native', () => {
     });
 });
 
-describe('component - setFormData - vl form controls', () => {
+describe('cypress-component - form components - form-data-setter setFormData - form controls', () => {
     it('should set value for a vl-input-field', () => {
         const formData = { name: 'Jane Doe' };
 

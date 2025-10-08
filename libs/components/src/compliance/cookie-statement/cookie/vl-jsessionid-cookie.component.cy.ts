@@ -6,7 +6,7 @@ registerWebComponents([VlJSessionIdCookie]);
 
 const mountDefault = () => cy.mount(html` <vl-jsessionid-cookie></vl-jsessionid-cookie> `);
 
-describe('vl-jsessionid-cookie component - default', () => {
+describe('cypress-component - compliance components - cookie-statement vl-jsessionid-cookie - default', () => {
     beforeEach(() => {
         mountDefault();
     });
@@ -23,7 +23,7 @@ describe('vl-jsessionid-cookie component - default', () => {
     });
 });
 
-describe('vl-jsessionid-cookie component - props', () => {
+describe('cypress-component - compliance components - cookie-statement vl-jsessionid-cookie - props', () => {
     beforeEach(() => {
         mountDefault();
     });

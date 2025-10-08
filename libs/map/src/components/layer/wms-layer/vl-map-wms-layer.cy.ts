@@ -78,7 +78,7 @@ const wmsLayersSldFixture = html`
 
 const getLayers = (map) => Array.from(map.querySelectorAll('[is-layer]'));
 
-describe('vl-map-wms-layer', () => {
+describe('cypress-component - map - vl-map-wms-layer', () => {
     it('de kaartlaag zal pas aangemaakt worden na constructie zodat op moment van constructie nog niet al de attributen gekend moeten zijn', () => {
         const types = ['image', 'tiled'];
         cy.mount(mapFixture);

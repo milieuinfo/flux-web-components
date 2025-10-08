@@ -18,7 +18,7 @@ const buttonIconOnlyUrl =
     'http://localhost:8080/iframe.html?id=components-atom-button--button-icon-only&viewMode=story';
 const buttonToggleUrl = 'http://localhost:8080/iframe.html?id=components-atom-button--button-toggle&viewMode=story';
 
-describe('story - vl-button - default', () => {
+describe('cypress-e2e - atom components - vl-button - default story', () => {
     it('should render', () => {
         cy.visit(buttonPrimaryUrl);
 
@@ -26,7 +26,7 @@ describe('story - vl-button - default', () => {
     });
 });
 
-describe('story - vl-button - secondary', () => {
+describe('cypress-e2e - atom components - vl-button - secondary story', () => {
     it('should render', () => {
         cy.visit(buttonSecondaryUrl);
 
@@ -34,7 +34,7 @@ describe('story - vl-button - secondary', () => {
     });
 });
 
-describe('story - vl-button - tertiary', () => {
+describe('cypress-e2e - atom components - vl-button - tertiary story', () => {
     it('should render', () => {
         cy.visit(buttonTertiaryUrl);
 
@@ -42,7 +42,7 @@ describe('story - vl-button - tertiary', () => {
     });
 });
 
-describe('story - vl-button - disabled', () => {
+describe('cypress-e2e - atom components - vl-button - disabled story', () => {
     it('should render', () => {
         cy.visit(buttonDisabledUrl);
 
@@ -50,7 +50,7 @@ describe('story - vl-button - disabled', () => {
     });
 });
 
-describe('story - vl-button - error', () => {
+describe('cypress-e2e - atom components - vl-button - error story', () => {
     it('should render', () => {
         cy.visit(buttonErrorUrl);
 
@@ -58,7 +58,7 @@ describe('story - vl-button - error', () => {
     });
 });
 
-describe('story - vl-button - block', () => {
+describe('cypress-e2e - atom components - vl-button - block story', () => {
     it('should render', () => {
         cy.visit(buttonBlockUrl);
 
@@ -66,7 +66,7 @@ describe('story - vl-button - block', () => {
     });
 });
 
-describe('story - vl-button - large', () => {
+describe('cypress-e2e - atom components - vl-button - large story', () => {
     it('should render', () => {
         cy.visit(buttonLargeUrl);
 
@@ -74,7 +74,7 @@ describe('story - vl-button - large', () => {
     });
 });
 
-describe('story - vl-button - wide', () => {
+describe('cypress-e2e - atom components - vl-button - wide story', () => {
     it('should render', () => {
         cy.visit(buttonWideUrl);
 
@@ -82,7 +82,7 @@ describe('story - vl-button - wide', () => {
     });
 });
 
-describe('story - vl-button - narrow', () => {
+describe('cypress-e2e - atom components - vl-button - narrow story', () => {
     it('should render', () => {
         cy.visit(buttonNarrowUrl);
 
@@ -90,7 +90,7 @@ describe('story - vl-button - narrow', () => {
     });
 });
 
-describe('story - vl-button - loading', () => {
+describe('cypress-e2e - atom components - vl-button - loading story', () => {
     it('should render', () => {
         cy.visit(buttonLoadingUrl);
 
@@ -98,7 +98,7 @@ describe('story - vl-button - loading', () => {
     });
 });
 
-describe('story - vl-button - icon', () => {
+describe('cypress-e2e - atom components - vl-button - icon story', () => {
     it('should render', () => {
         cy.visit(buttonIconUrl);
 
@@ -106,7 +106,7 @@ describe('story - vl-button - icon', () => {
     });
 });
 
-describe('story - vl-button - icon only', () => {
+describe('cypress-e2e - atom components - vl-button - icon only story', () => {
     it('should render', () => {
         cy.visit(buttonIconOnlyUrl);
 
@@ -114,7 +114,7 @@ describe('story - vl-button - icon only', () => {
     });
 });
 
-describe('story - vl-button - toggle', () => {
+describe('cypress-e2e - atom components - vl-button - toggle story', () => {
     it('should render', () => {
         cy.visit(buttonToggleUrl);
 

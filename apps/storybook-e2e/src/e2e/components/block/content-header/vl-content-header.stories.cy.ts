@@ -1,7 +1,7 @@
 const contentHeaderUrl =
     'http://localhost:8080/iframe.html?id=components-block-content-header--content-header-default&viewMode=story';
 
-describe('story vl-content-header', () => {
+describe('cypress-e2e - block components - vl-content-header - default story', () => {
     it('should be accessible', () => {
         cy.visitWithA11y(`${contentHeaderUrl}`);
         cy.get('vl-content-header')

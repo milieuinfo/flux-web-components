@@ -1,6 +1,6 @@
 const documentUrl = 'http://localhost:8080/iframe.html?id=components-block-document--document-default&viewMode=story';
 
-describe('story vl-document', () => {
+describe('cypress-e2e - block components - vl-document - default story', () => {
     it('should contain a document type and icon', () => {
         cy.visit(`${documentUrl}`);
         cy.get('vl-document')

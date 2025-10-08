@@ -5,7 +5,7 @@ const textareaRichToolbarUrl =
 const textareaRichPluginsUrl =
     'http://localhost:8080/iframe.html?id=components-form-textarea-rich--textarea-rich-plugins&viewMode=story';
 
-describe('story - vl-textarea-rich - default', () => {
+describe('cypress-e2e - form components - vl-textarea-rich - default story', () => {
     it('should render', () => {
         cy.visit(textareaRichDefaultUrl);
 
@@ -13,7 +13,7 @@ describe('story - vl-textarea-rich - default', () => {
     });
 });
 
-describe('story - vl-textarea-rich - custom toolbar', () => {
+describe('cypress-e2e - form components - vl-textarea-rich - custom toolbar story', () => {
     it('should render', () => {
         cy.visit(textareaRichToolbarUrl);
 
@@ -21,7 +21,7 @@ describe('story - vl-textarea-rich - custom toolbar', () => {
     });
 });
 
-describe('story - vl-textarea-rich - custom plugins', () => {
+describe('cypress-e2e - form components - vl-textarea-rich - custom plugins story', () => {
     it('should render', () => {
         cy.visit(textareaRichPluginsUrl);
 

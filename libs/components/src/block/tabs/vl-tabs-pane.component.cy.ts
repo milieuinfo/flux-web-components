@@ -22,7 +22,7 @@ const mountDefault = ({ id, title, content }: MountDefaultProps) => {
     </vl-tabs-pane>`);
 };
 
-describe('component vl-tabs-pane', () => {
+describe('cypress-component - block components - vl-tabs-pane', () => {
     beforeEach(() => {
         mountDefault({ ...props });
     });
@@ -40,7 +40,7 @@ describe('component vl-tabs-pane', () => {
     });
 });
 
-describe('component vl-tabs-pane attributes', () => {
+describe('cypress-component - block components - vl-tabs-pane - attributes', () => {
     it('should have correct <id> and <title> attributes', () => {
         mountDefault({ ...props, id: 'metro', title: 'Metro' });
 

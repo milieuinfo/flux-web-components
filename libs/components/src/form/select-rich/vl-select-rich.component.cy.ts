@@ -6,7 +6,7 @@ import { SelectRichOption } from './index';
 
 registerWebComponents([VlSelectRichComponent]);
 
-describe('component - vl-select-rich - single', () => {
+describe('cypress-component - form components - vl-select-rich - single', () => {
     const options: SelectRichOption[] = [
         { label: 'Hasselt', value: 'hasselt' },
         { label: 'Turnhout', value: 'turnhout' },
@@ -955,7 +955,7 @@ describe('component - vl-select-rich - single', () => {
     });
 });
 
-describe('component - vl-select-rich - multiple', () => {
+describe('cypress-component - form components - vl-select-rich - multiple', () => {
     const options: SelectRichOption[] = [
         { label: 'Padel', value: 'padel' },
         { label: 'Dans', value: 'dans' },
@@ -1433,7 +1433,7 @@ describe('component - vl-select-rich - multiple', () => {
     });
 });
 
-describe('component - vl-select-rich - single - in form', () => {
+describe('cypress-component - form components - vl-select-rich - single in form', () => {
     const options: SelectRichOption[] = [
         { label: 'Hasselt', value: 'hasselt' },
         { label: 'Turnhout', value: 'turnhout' },
@@ -1516,7 +1516,7 @@ describe('component - vl-select-rich - single - in form', () => {
     });
 });
 
-describe('component - vl-select-rich - multiple - in form', () => {
+describe('cypress-component - form components - vl-select-rich - multiple in form', () => {
     const options: SelectRichOption[] = [
         { label: 'Hasselt', value: 'hasselt', selected: true },
         { label: 'Turnhout', value: 'turnhout' },

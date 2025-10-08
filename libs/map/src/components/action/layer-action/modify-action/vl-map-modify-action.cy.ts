@@ -69,7 +69,7 @@ const customMapModifyActionFixture = html`
     </vl-map>
 `;
 
-describe('vl-map-modify-action', () => {
+describe('cypress-component - map - vl-map-modify-action', () => {
     it('a modify action is a map action', () => {
         expect(VlMapModifyAction.isVlMapAction()).to.be.true;
     });

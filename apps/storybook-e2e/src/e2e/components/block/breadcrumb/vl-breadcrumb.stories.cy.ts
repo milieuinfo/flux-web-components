@@ -1,7 +1,7 @@
 const breadcrumbUrl =
     'http://localhost:8080/iframe.html?id=components-block-breadcrumb--breadcrumb-default&viewMode=story';
 
-describe('story vl-breadcrumb', () => {
+describe('cypress-e2e - block components - vl-breadcrumb - default story', () => {
     it('should contain a nav section', () => {
         cy.visit(breadcrumbUrl);
 

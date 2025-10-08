@@ -14,7 +14,7 @@ const loadingIndicatorFixture = html`
     </vl-map>
 `;
 
-describe('vl-map-loading-indicator', () => {
+describe('cypress-component - map - vl-map-loading-indicator', () => {
     it('when the map is loading, the loading animation is shown', () => {
         cy.mount(loadingIndicatorFixture);
         cy.runTestFor2<VlMap, VlMapLoadingIndicator>(
