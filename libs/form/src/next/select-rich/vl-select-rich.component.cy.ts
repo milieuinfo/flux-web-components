@@ -1,8 +1,8 @@
-import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common-utilities';
-import { VlSelectRichComponent } from './vl-select-rich.component';
-import { SelectRichOption } from './index';
 import { parseFormData } from '@domg-wc/form/utils';
+import { html } from 'lit';
+import { SelectRichOption } from './index';
+import { VlSelectRichComponent } from './vl-select-rich.component';
 
 registerWebComponents([VlSelectRichComponent]);
 
@@ -798,6 +798,7 @@ describe('component - vl-select-rich - single', () => {
             .contains('Knokke-Heist')
             .should('not.have.attr', 'selected');
 
+
         cy.get('vl-select-rich-next').then((el) => {
             const select = el[0] as VlSelectRichComponent;
             select.selectByValue('rio piedras');
@@ -824,6 +825,7 @@ describe('component - vl-select-rich - single', () => {
         ];
 
         cy.mount(html`<vl-select-rich-next label="geboorteplaats" .options=${options}></vl-select-rich-next>`);
+        cy.createStubForEvent('vl-select-rich-next', 'vl-change');
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich-next');
@@ -864,6 +866,12 @@ describe('component - vl-select-rich - single', () => {
             .contains('Rio Piedras')
             .should('not.have.attr', 'selected');
 
+        cy.get('@vl-change')
+            .should('have.been.calledTwice')
+            .its('firstCall.args.0.detail')
+            .should('deep.equal', { value: 'knokke-heist' });
+
+
         cy.get('vl-select-rich-next').then((el) => {
             const select = el[0] as VlSelectRichComponent;
             select.options = [
@@ -901,6 +909,8 @@ describe('component - vl-select-rich - single', () => {
             .find('option')
             .contains('Rio Piedras')
             .should('have.attr', 'selected');
+
+        cy.get('@vl-change').its('lastCall.args.0.detail').should('deep.equal', { value: 'rio piedras' });
 
         cy.checkA11y('vl-select-rich-next');
     });
