@@ -5,7 +5,7 @@ import { ProzaRestClient } from './vl-proza-rest-client.util';
 
 registerWebComponents([VlProzaMessagePreloader]);
 
-describe('vl-proza-message-preloader', () => {
+describe('cypress-component - block components - vl-proza-message-preloader', () => {
     const mockDomain = 'mock-domain';
 
     beforeEach(() => {

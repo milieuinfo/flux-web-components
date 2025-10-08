@@ -53,7 +53,7 @@ const mapFixture = html` <vl-map lambert2008></vl-map> `;
 
 const getLayer = (map) => map.querySelector('[is-layer]');
 
-describe('vl-map-wmts-layer', () => {
+describe('cypress-component - map - vl-map-wmts-layer', () => {
     it('de wmts source wordt correct geconfigureerd', () => {
         cy.mount(wmtsLayerFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {

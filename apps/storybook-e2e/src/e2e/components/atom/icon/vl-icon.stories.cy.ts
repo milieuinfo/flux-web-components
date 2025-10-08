@@ -6,7 +6,7 @@ const iconLabelUrl = 'http://localhost:8080/iframe.html?id=components-atom-icon-
 const iconBeforeTextUrl = 'http://localhost:8080/iframe.html?id=components-atom-icon--icon-before-text&viewMode=story';
 const iconAfterTextUrl = 'http://localhost:8080/iframe.html?id=components-atom-icon--icon-after-text&viewMode=story';
 
-describe('story - vl-icon - default', () => {
+describe('cypress-e2e - atom components - vl-icon - default story', () => {
     it('should render', () => {
         cy.visit(iconDefaultUrl);
 
@@ -14,7 +14,7 @@ describe('story - vl-icon - default', () => {
     });
 });
 
-describe('story - vl-icon - small', () => {
+describe('cypress-e2e - atom components - vl-icon - small story', () => {
     it('should render', () => {
         cy.visit(iconSmallUrl);
 
@@ -22,7 +22,7 @@ describe('story - vl-icon - small', () => {
     });
 });
 
-describe('story - vl-icon - large', () => {
+describe('cypress-e2e - atom components - vl-icon - large story', () => {
     it('should render', () => {
         cy.visit(iconLargeUrl);
 
@@ -30,7 +30,7 @@ describe('story - vl-icon - large', () => {
     });
 });
 
-describe('story - vl-icon - light', () => {
+describe('cypress-e2e - atom components - vl-icon - light story', () => {
     it('should render', () => {
         cy.visit(iconLightUrl);
 
@@ -38,7 +38,7 @@ describe('story - vl-icon - light', () => {
     });
 });
 
-describe('story - vl-icon - label', () => {
+describe('cypress-e2e - atom components - vl-icon - label story', () => {
     it('should render', () => {
         cy.visit(iconLabelUrl);
 
@@ -46,7 +46,7 @@ describe('story - vl-icon - label', () => {
     });
 });
 
-describe('story - vl-icon - before text', () => {
+describe('cypress-e2e - atom components - vl-icon - before text story', () => {
     it('should render', () => {
         cy.visit(iconBeforeTextUrl);
 
@@ -54,7 +54,7 @@ describe('story - vl-icon - before text', () => {
     });
 });
 
-describe('story - vl-icon - after text', () => {
+describe('cypress-e2e - atom components - vl-icon - after text story', () => {
     it('should render', () => {
         cy.visit(iconAfterTextUrl);
 

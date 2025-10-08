@@ -9,35 +9,35 @@ const mapLegendItemIconLabelUrl =
 const mapLegendItemIconTextUrl =
     'http://localhost:8080/iframe.html?args=&id=map-legend-item--map-legend-item-icon-text&viewMode=story';
 
-describe('story vl-map-legend-item default', () => {
+describe('cypress-e2e - map - vl-map-legend-item - default story', () => {
     it('should display story', () => {
         cy.visit(mapLegendItemDefaultUrl);
         cy.get('vl-map-legend-item').shadow();
     });
 });
 
-describe('story vl-map-legend-item icon', () => {
+describe('cypress-e2e - map - vl-map-legend-item - icon story', () => {
     it('should display story', () => {
         cy.visit(mapLegendItemIconUrl);
         cy.get('vl-map-legend-item').shadow();
     });
 });
 
-describe('story vl-map-legend-item label', () => {
+describe('cypress-e2e - map - vl-map-legend-item - label story', () => {
     it('should display story', () => {
         cy.visit(mapLegendItemLabelUrl);
         cy.get('vl-map-legend-item').shadow();
     });
 });
 
-describe('story vl-map-legend-item default icon and label', () => {
+describe('cypress-e2e - map - vl-map-legend-item - icon and label story', () => {
     it('should display story', () => {
         cy.visit(mapLegendItemIconLabelUrl);
         cy.get('vl-map-legend-item').shadow();
     });
 });
 
-describe('story vl-map-legend-item icon text', () => {
+describe('cypress-e2e - map - vl-map-legend-item - icon text story', () => {
     it('should display story', () => {
         cy.visit(mapLegendItemIconTextUrl);
         cy.get('vl-map-legend-item').shadow();

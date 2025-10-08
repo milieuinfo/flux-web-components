@@ -6,7 +6,7 @@ registerWebComponents([VlHeaderNext]);
 
 const identifier = '59188ff6-662b-45b9-b23a-964ad48c2bfb';
 
-describe('component - vl-header-next', () => {
+describe('cypress-component - compliance components - vl-header-next', () => {
     afterEach(() => {
         document.querySelector('script#vl-header-widget')?.remove();
         document.querySelector('#header__container')?.remove();

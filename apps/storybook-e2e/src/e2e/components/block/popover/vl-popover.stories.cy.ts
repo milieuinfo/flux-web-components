@@ -4,19 +4,19 @@ const popoverHoverUrl = 'http://localhost:8080/iframe.html?id=components-block-p
 const popoverActionsUrl =
     'http://localhost:8080/iframe.html?id=components-block-popover--popover-actions&viewMode=story';
 
-describe('story vl-popover default', () => {
+describe('cypress-e2e - block components - vl-popover - default story', () => {
     it('should render', () => {
         cy.visit(popoverDefaultUrl);
     });
 });
 
-describe('story vl-popover hover', () => {
+describe('cypress-e2e - block components - vl-popover - hover story', () => {
     it('should render', () => {
         cy.visit(popoverHoverUrl);
     });
 });
 
-describe('story vl-popover actions', () => {
+describe('cypress-e2e - block components - vl-popover - actions story', () => {
     it('should render', () => {
         cy.visit(popoverActionsUrl);
     });

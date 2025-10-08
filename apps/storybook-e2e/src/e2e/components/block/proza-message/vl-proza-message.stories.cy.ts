@@ -3,7 +3,7 @@ const prozaMessageDefaultUrl =
 const prozaMessageEditableUrl =
     'http://localhost:8080/iframe.html?id=components-block-proza-message--proza-message-editable&viewMode=story';
 
-describe('story vl-proza-message - default', () => {
+describe('cypress-e2e - block components - vl-proza-message - default story', () => {
     it('should display Proza messages', () => {
         cy.visit(prozaMessageDefaultUrl);
 
@@ -13,7 +13,7 @@ describe('story vl-proza-message - default', () => {
     });
 });
 
-describe('story vl-proza-message - editable', () => {
+describe('cypress-e2e - block components - vl-proza-message - editable story', () => {
     it('should display Proza messages', () => {
         cy.visit(prozaMessageEditableUrl);
 

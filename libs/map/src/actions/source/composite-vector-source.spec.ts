@@ -12,7 +12,7 @@ import { JSDOM } from 'jsdom';
 import { VlCompositeVectorSource } from './composite-vector-source';
 import 'node-fetch';
 
-describe('composite wfs source', () => {
+describe('jest - map - composite-vector-source', () => {
     // node heeft geen fetch dus die polyfillen we
     // if (!globalThis.fetch) {
     //   globalThis.fetch = fetch;

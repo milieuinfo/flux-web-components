@@ -58,7 +58,7 @@ const mapDrawPointActionSnapping = html`
     </vl-map>
 `;
 
-describe('vl-map-draw-point-action', () => {
+describe('cypress-component - map - vl-map-draw-point-action', () => {
     it('a dot draw action is a map action', () => {
         expect(VlMapDrawPointAction.isVlMapAction()).to.be.true;
     });

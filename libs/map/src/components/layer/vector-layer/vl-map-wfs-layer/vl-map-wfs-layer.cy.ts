@@ -18,7 +18,7 @@ const wfsLayerWithQueryParamsInUrlFixture = html`
     </vl-map>
 `;
 
-describe('vl-map-wfs-layer', () => {
+describe('cypress-component - map - vl-map-wfs-layer', () => {
     it('wfs layer kan toegevoegd worden aan een map met de correcte configuratie', () => {
         cy.intercept('http://localhost/wfs*', {}).as('getWfsLayer');
         cy.mount(wfsLayerFixture);

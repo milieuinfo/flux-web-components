@@ -1,7 +1,7 @@
 const infoblockUrl =
     'http://localhost:8080/iframe.html?id=components-block-infoblock--infoblock-contact&viewMode=story';
 
-describe('story vl-infoblock', () => {
+describe('cypress-e2e - block components - vl-infoblock - default story', () => {
     it('should display default story', () => {
         cy.visit(`${infoblockUrl}`);
     });

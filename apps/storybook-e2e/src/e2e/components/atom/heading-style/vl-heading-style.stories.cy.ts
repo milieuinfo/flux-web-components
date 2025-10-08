@@ -1,7 +1,7 @@
 const headingDefaultUrl =
     'http://localhost:8080/iframe.html?id=components-atom-heading-style--heading-style-default&viewMode=story';
 
-describe('story - heading - default', () => {
+describe('cypress-e2e - atom components - vl-heading-style - default story', () => {
     it('should render', () => {
         cy.visit(headingDefaultUrl);
 

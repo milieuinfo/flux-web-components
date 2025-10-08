@@ -4,7 +4,7 @@ import { VlMapClickActionPindrop } from './vl-map-click-action-pindrop';
 
 registerWebComponents([VlMapClickActionPindrop]);
 
-describe('vl-map-click-action-pindrop', () => {
+describe('cypress-component - map - vl-map-click-action-pindrop', () => {
     beforeEach(() => {
         cy.mount(html` <vl-map-click-action-pindrop></vl-map-click-action-pindrop> `);
     });

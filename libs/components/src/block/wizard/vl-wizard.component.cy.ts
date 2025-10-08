@@ -32,7 +32,7 @@ const mountDefault = ({ activeStep, panes, hideLabels = false, numeric = false }
     );
 };
 
-describe('component vl-wizard - default', () => {
+describe('cypress-component - block components - vl-wizard - default', () => {
     it('should mount', () => {
         mountDefault({});
         cy.get('[data-cy-root]').within(() => {
@@ -48,7 +48,7 @@ describe('component vl-wizard - default', () => {
     });
 });
 
-describe('component vl-wizard-pane - properties', () => {
+describe('cypress-component - block components - vl-wizard - properties', () => {
     it('should reflect <activeStep> attribute', () => {
         mountDefault({ activeStep: 2 });
 

@@ -12,7 +12,7 @@ const props: TitleProps = {
     date: '01/01/2021',
 };
 
-describe('component title', () => {
+describe('cypress-component - compliance components - accessibility title', () => {
     beforeEach(() => {
         mountDefault({ ...props });
     });
@@ -35,14 +35,14 @@ describe('component title', () => {
     });
 });
 
-describe('component title - version and date props', () => {
+describe('cypress-component - compliance components - accessibility title - version and date props', () => {
     it('should render the version and date', () => {
         mountDefault({ ...props });
         cy.get('section.vl-section').contains(`Versie ${props.version} - ${props.date}`);
     });
 });
 
-describe('component title - helper function <titleElements()> ', () => {
+describe('cypress-component - compliance components - accessibility title - helper function <titleElements()> ', () => {
     it('should return an array of WebComponents with a length of 1', () => {
         const elements = titleElements();
         expect(elements).to.be.an('array');

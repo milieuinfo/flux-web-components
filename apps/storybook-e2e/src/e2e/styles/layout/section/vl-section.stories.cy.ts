@@ -5,7 +5,7 @@ const sectionLightBlueUrl =
 const sectionOverlapUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-section--section-overlap&viewMode=story';
 
-describe('story - section - default', () => {
+describe('cypress-e2e - layout - vl-section - default story', () => {
     it('should render', () => {
         cy.visit(sectionDefaultUrl);
 
@@ -18,7 +18,7 @@ describe('story - section - default', () => {
     });
 });
 
-describe('story - section - light blue', () => {
+describe('cypress-e2e - layout - vl-section - light blue story', () => {
     it('should render', () => {
         cy.visit(sectionLightBlueUrl);
 
@@ -31,7 +31,7 @@ describe('story - section - light blue', () => {
     });
 });
 
-describe('story - section - overlap', () => {
+describe('cypress-e2e - layout - vl-section - overlap story', () => {
     it('should render', () => {
         cy.visit(sectionOverlapUrl);
 

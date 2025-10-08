@@ -28,7 +28,7 @@ const props: MountDefaultProps = {
     onReady: () => console.log('ready'),
 };
 
-describe('vl-footer-next component', () => {
+describe('cypress-component - compliance components - vl-footer-next', () => {
     afterEach(() => {
         cy.get('script#vl-footer-widget').then(([script]) => {
             script.remove();

@@ -1,15 +1,15 @@
-const privacyUrl = 'http://localhost:8080/iframe.html?id=components-compliance-privacy--privacy-default&viewMode=story';
+const privacyDefaultUrl = 'http://localhost:8080/iframe.html?id=components-compliance-privacy--privacy-default&viewMode=story';
 const privacyHeaderSlotUrl =
     'http://localhost:8080/iframe.html?args=&id=components-compliance-privacy--privacy-header-slot&viewMode=story';
 
-describe('story vl-privacy - default', () => {
+describe('cypress-e2e - compliance components - vl-privacy - default story', () => {
     it('should display story', () => {
-        cy.visit(privacyUrl);
+        cy.visit(privacyDefaultUrl);
         cy.get('vl-privacy').shadow();
     });
 });
 
-describe('story vl-privacy - header slot', () => {
+describe('cypress-e2e - compliance components - vl-privacy - header slot story', () => {
     it('should have replace default header with custom header', () => {
         cy.visit(privacyHeaderSlotUrl);
 

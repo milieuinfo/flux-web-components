@@ -43,7 +43,7 @@ const mount = ({
         </vl-pill>
     `);
 
-describe('component vl-pill', () => {
+describe('cypress-component - block components - vl-pill', () => {
     it('should contain a text', () => {
         const mockContent = 'Optie 1';
         mount({ content: mockContent });

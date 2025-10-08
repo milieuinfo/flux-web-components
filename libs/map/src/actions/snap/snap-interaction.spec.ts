@@ -1,7 +1,7 @@
 import VectorSource from 'ol/source/Vector';
 import { VlSnapInteraction } from './snap-interaction';
 
-describe('snapinteraction interaction', () => {
+describe('jest - map - snap-interaction', () => {
     it('bij het aanmaken van een snap interactie zullen de options correct worden gezet', () => {
         const source = new VectorSource({ features: [] });
         const snapInteraction = new VlSnapInteraction(source);

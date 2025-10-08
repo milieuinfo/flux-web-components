@@ -11,7 +11,7 @@ const baselayerGrbOrthoFixture = html`
     </vl-map>
 `;
 
-describe('vl-map-baselayer-grb-ortho', () => {
+describe('cypress-component - map - vl-map-baselayer-grb-ortho', () => {
     it('de grb basiskaartlaag wordt goed geconfigureerd', () => {
         cy.mount(baselayerGrbOrthoFixture);
         cy.runTestFor<VlMapBaseLayerGRBOrtho>('vl-map-baselayer-grb-ortho', (vlMapBaseLayerGRBOrtho) => {

@@ -1,7 +1,7 @@
 const loadingIndicatorUrl =
     'http://localhost:8080/iframe.html?args=&id=map-loading-indicator--map-loading-indicator-default&viewMode=story';
 
-describe('story vl-map-loading-indicator default', () => {
+describe('cypress-e2e - map - vl-map-loading-indicator - default story', () => {
     it('should be loading when clicking on short wait button', () => {
         cy.visit(loadingIndicatorUrl);
         cy.getDataCy('short-wait').click();

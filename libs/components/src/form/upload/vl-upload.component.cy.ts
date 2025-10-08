@@ -9,7 +9,7 @@ const txtFileFixturePath = 'fixtures/upload/file.txt';
 const mockedResponseFixturePath = 'upload/upload-mock-response-200.json';
 const uploadTargetUrl = 'fake-url';
 
-describe('component - vl-upload', () => {
+describe('cypress-component - form components - vl-upload', () => {
     it('should mount', () => {
         cy.mount(html` <vl-upload label="test-label"></vl-upload>`);
 

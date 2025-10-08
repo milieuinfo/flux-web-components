@@ -6,7 +6,7 @@ const mountDefault = (props: AccessibilityProperties) => cy.mount(content(props)
 
 registerWebComponents(contentElements());
 
-describe('component content', () => {
+describe('cypress-component - compliance components - accessibility content', () => {
     const props: AccessibilityProperties = {
         application: 'Test Application',
         compliance: COMPLIANCE_STATUS.FULLY_COMPLIANT,
@@ -62,7 +62,7 @@ describe('component content', () => {
     });
 });
 
-describe('component content - helper function <contentChildElements()> ', () => {
+describe('cypress-component - compliance components - accessibility content - helper function <contentChildElements()> ', () => {
     it('should return an array of WebComponents with a length of 5', () => {
         const elements = contentElements();
         expect(elements).to.be.an('array');

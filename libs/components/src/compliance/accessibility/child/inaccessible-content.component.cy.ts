@@ -19,7 +19,7 @@ const baseProps: InaccessibleContentProps = {
     },
 };
 
-describe('component  inaccessible-content - default', () => {
+describe('cypress-component - compliance components - accessibility inaccessible-content - default', () => {
     beforeEach(() => {
         mountDefault(baseProps);
     });
@@ -44,7 +44,7 @@ describe('component  inaccessible-content - default', () => {
     });
 });
 
-describe('component  inaccessible-content - EVALUATION_STATUS && COMPLIANCE messages and css', () => {
+describe('cypress-component - compliance components - accessibility inaccessible-content - EVALUATION_STATUS && COMPLIANCE messages and css', () => {
     it('should render the NOT_EVALUATED message when evaluation == NOT_EVALUATED', () => {
         mountDefault({ ...baseProps, evaluation: EVALUATION_STATUS.NOT_EVALUATED });
 
@@ -67,7 +67,7 @@ describe('component  inaccessible-content - EVALUATION_STATUS && COMPLIANCE mess
     });
 });
 
-describe('component  inaccessible-content - LIMITATIONS messages', () => {
+describe('cypress-component - compliance components - accessibility inaccessible-content - LIMITATIONS messages', () => {
     it('should render the LIMITATIONS messages when limitations are present', () => {
         mountDefault({
             ...baseProps,
@@ -134,7 +134,7 @@ describe('component  inaccessible-content - LIMITATIONS messages', () => {
     });
 });
 
-describe('inaccessible-content component - helper function <inaccessibleContentElements()> ', () => {
+describe('cypress-component - compliance components - accessibility inaccessible-content - helper function <inaccessibleContentElements()> ', () => {
     it('should return an array of WebComponents with a length of 2', () => {
         const elements = inaccessibleContentElements();
         expect(elements).to.be.an('array');

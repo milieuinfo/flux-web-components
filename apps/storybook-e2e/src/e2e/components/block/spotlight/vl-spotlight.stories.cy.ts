@@ -1,6 +1,5 @@
-const spotlightUrl =
+const spotlightDefaultUrl =
     'http://localhost:8080/iframe.html?id=components-block-spotlight--spot-light-default&viewMode=story';
-
 const spotlightWithLinkUrl =
     'http://localhost:8080/iframe.html?id=components-block-spotlight--spotlight-with-link&viewMode=story';
 const spotlightWithNoLinkUrl =
@@ -14,15 +13,15 @@ const spotlightWithImageUrl =
 const spotlightSubtitleUrl =
     'http://localhost:8080/iframe.html?id=components-block-spotlight--spotlight-with-subtitle&viewMode=story';
 
-describe('story - vl-spotlight - default', () => {
+describe('cypress-e2e - block components - vl-spotlight - default story', () => {
     it('should render', () => {
-        cy.visit(`${spotlightUrl}`);
+        cy.visit(`${spotlightDefaultUrl}`);
 
         cy.get('vl-spotlight').shadow().find('.vl-spotlight');
     });
 });
 
-describe('story - vl-spotlight - with link', () => {
+describe('cypress-e2e - block components - vl-spotlight - with link story', () => {
     it('should render', () => {
         cy.visit(`${spotlightWithLinkUrl}`);
 
@@ -30,7 +29,7 @@ describe('story - vl-spotlight - with link', () => {
     });
 });
 
-describe('story - vl-spotlight - with no link', () => {
+describe('cypress-e2e - block components - vl-spotlight - with no link story', () => {
     it('should render', () => {
         cy.visit(`${spotlightWithNoLinkUrl}`);
 
@@ -38,7 +37,7 @@ describe('story - vl-spotlight - with no link', () => {
     });
 });
 
-describe('story - vl-spotlight - with content', () => {
+describe('cypress-e2e - block components - vl-spotlight - with content story', () => {
     it('should render', () => {
         cy.visit(`${spotlightWithContentUrl}`);
 
@@ -46,7 +45,7 @@ describe('story - vl-spotlight - with content', () => {
     });
 });
 
-describe('story - vl-spotlight - with text', () => {
+describe('cypress-e2e - block components - vl-spotlight - with text story', () => {
     it('should render', () => {
         cy.visit(`${spotlightWithTextUrl}`);
 
@@ -54,7 +53,7 @@ describe('story - vl-spotlight - with text', () => {
     });
 });
 
-describe('story - vl-spotlight - with image', () => {
+describe('cypress-e2e - block components - vl-spotlight - with image story', () => {
     it('should render', () => {
         cy.visit(`${spotlightWithImageUrl}`);
 
@@ -62,7 +61,7 @@ describe('story - vl-spotlight - with image', () => {
     });
 });
 
-describe('story - vl-spotlight - with subtitle', () => {
+describe('cypress-e2e - block components - vl-spotlight - with subtitle story', () => {
     it('should render', () => {
         cy.visit(`${spotlightSubtitleUrl}`);
 

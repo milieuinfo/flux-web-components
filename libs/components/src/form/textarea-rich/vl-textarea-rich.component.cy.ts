@@ -4,7 +4,7 @@ import { VlTextareaRichComponent } from './vl-textarea-rich.component';
 
 registerWebComponents([VlTextareaRichComponent]);
 
-describe('component - vl-textarea', () => {
+describe('cypress-component - form components - vl-textarea', () => {
     it('should mount', () => {
         cy.mount(html`<vl-textarea-rich></vl-textarea-rich>`);
 

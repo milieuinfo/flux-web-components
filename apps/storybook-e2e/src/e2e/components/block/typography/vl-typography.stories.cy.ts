@@ -1,15 +1,15 @@
-const typographyParagraphUrl =
+const typographyDefaultUrl =
     'http://localhost:8080/iframe.html?id=components-block-typography--typography-default&viewMode=story';
-const typographyHeadingsUrl =
+const typographyTitlesUrl =
     'http://localhost:8080/iframe.html?id=components-block-typography--typography-titles&viewMode=story';
 const typographyMarkupUrl =
     'http://localhost:8080/iframe.html?id=components-block-typography--typography-markup&viewMode=story';
 const typographyTableUrl =
     'http://localhost:8080/iframe.html?id=components-block-typography--typography-table&viewMode=story';
 
-describe('story vl-typography', () => {
+describe('cypress-e2e - block components - vl-typography - default story', () => {
     it('should contain a styled paragraph', () => {
-        cy.visit(`${typographyParagraphUrl}`);
+        cy.visit(`${typographyDefaultUrl}`);
         cy.getDataCy('typography')
             .shadow()
             .find('div.vl-typography')
@@ -21,7 +21,7 @@ describe('story vl-typography', () => {
     });
 
     it('should contain a styled link inside a paragraph', () => {
-        cy.visit(`${typographyParagraphUrl}`);
+        cy.visit(`${typographyDefaultUrl}`);
         cy.getDataCy('typography')
             .shadow()
             .find('div.vl-typography')
@@ -31,9 +31,11 @@ describe('story vl-typography', () => {
             .should('have.css', 'font-weight', '400')
             .should('have.css', 'color', 'rgb(0, 85, 204)');
     });
+});
 
+describe('cypress-e2e - block components - vl-typography - titles story', () => {
     it('should contain a styled h1', () => {
-        cy.visit(`${typographyHeadingsUrl}`);
+        cy.visit(`${typographyTitlesUrl}`);
         cy.getDataCy('typography')
             .shadow()
             .find('div.vl-typography')
@@ -46,7 +48,7 @@ describe('story vl-typography', () => {
     });
 
     it('should contain a styled h2', () => {
-        cy.visit(`${typographyHeadingsUrl}`);
+        cy.visit(`${typographyTitlesUrl}`);
         cy.getDataCy('typography')
             .shadow()
             .find('div.vl-typography')
@@ -59,7 +61,7 @@ describe('story vl-typography', () => {
     });
 
     it('should contain a styled h3', () => {
-        cy.visit(`${typographyHeadingsUrl}`);
+        cy.visit(`${typographyTitlesUrl}`);
         cy.getDataCy('typography')
             .shadow()
             .find('div.vl-typography')
@@ -72,7 +74,7 @@ describe('story vl-typography', () => {
     });
 
     it('should contain a styled h4', () => {
-        cy.visit(`${typographyHeadingsUrl}`);
+        cy.visit(`${typographyTitlesUrl}`);
         cy.getDataCy('typography')
             .shadow()
             .find('div.vl-typography')
@@ -85,7 +87,7 @@ describe('story vl-typography', () => {
     });
 
     it('should contain a styled h5', () => {
-        cy.visit(`${typographyHeadingsUrl}`);
+        cy.visit(`${typographyTitlesUrl}`);
         cy.getDataCy('typography')
             .shadow()
             .find('div.vl-typography')
@@ -98,7 +100,7 @@ describe('story vl-typography', () => {
     });
 
     it('should contain a styled h6', () => {
-        cy.visit(`${typographyHeadingsUrl}`);
+        cy.visit(`${typographyTitlesUrl}`);
         cy.getDataCy('typography')
             .shadow()
             .find('div.vl-typography')
@@ -109,7 +111,9 @@ describe('story vl-typography', () => {
             .should('have.css', 'margin-bottom', '14px')
             .contains('Heading 6');
     });
+});
 
+describe('cypress-e2e - block components - vl-typography - markup story', () => {
     it('should contain a styled strong and bold tag', () => {
         cy.visit(`${typographyMarkupUrl}`);
         cy.getDataCy('typography')
@@ -212,7 +216,9 @@ describe('story vl-typography', () => {
             .should('have.css', 'margin-bottom', '20px')
             .contains('Lorem ipsum dolor sit amet.');
     });
+});
 
+describe('cypress-e2e - block components - vl-typography - table story', () => {
     it('should contain a styled table', () => {
         cy.visit(`${typographyTableUrl}`);
 

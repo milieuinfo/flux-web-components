@@ -1,7 +1,7 @@
 import { VlBaseMapAction } from './mapaction';
 import Interaction from 'ol/interaction/Interaction';
 
-describe('map action', () => {
+describe('jest - map - mapaction', () => {
     it('kan een interactie toevoegen die niet actief staat', () => {
         const VlmapAction = new VlBaseMapAction([new Interaction(), new Interaction()]);
         const extraInteractie = new Interaction();

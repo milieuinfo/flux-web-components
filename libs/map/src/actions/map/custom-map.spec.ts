@@ -6,7 +6,7 @@ import ResizeObserver from 'resize-observer-polyfill';
 
 global.ResizeObserver = ResizeObserver;
 
-describe('custom map', () => {
+describe('jest - map - custom-map', () => {
     let map;
 
     const layers = [

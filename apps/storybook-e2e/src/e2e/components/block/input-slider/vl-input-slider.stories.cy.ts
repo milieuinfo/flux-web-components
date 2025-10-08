@@ -6,7 +6,7 @@ const shouldHaveValue = (value: number) => {
     cy.get('vl-input-slider').shadow().find('input[type="number"]').should('have.value', value);
 };
 
-describe('story vl-input-slider default', () => {
+describe('cypress-e2e - block components - vl-input-slider - default story', () => {
     it('should be accessible', () => {
         cy.visitWithA11y(inputSliderUrl);
 

@@ -764,6 +764,16 @@
                             "name": "allow-overflow",
                             "description": "Attribuut om de afgesneden inhoud van de modal zichtbaar te maken.",
                             "default": "false"
+                        },
+                        {
+                            "name": "size",
+                            "description": "Attribuut om de grootte van de modal te bepalen.",
+                            "default": "default"
+                        },
+                        {
+                            "name": "position",
+                            "description": "Attribuut om de positie van de modal op het scherm te bepalen.",
+                            "default": "center"
                         }
                     ],
                     "slots": [
@@ -1376,7 +1386,7 @@
                         {
                             "name": "content-padding",
                             "description": "De grootte van de padding van de content.<br>Deze padding wordt toegepast op zowel desktop als mobile.",
-                            "default": "2rem"
+                            "default": "medium"
                         },
                         {
                             "name": "placement",

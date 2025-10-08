@@ -4,7 +4,7 @@ import { VlSideSheet } from './vl-side-sheet.component';
 
 registerWebComponents([VlSideSheet]);
 
-describe('vl-side-sheet', () => {
+describe('cypress-component - block components - vl-side-sheet', () => {
     it('should be accessible', () => {
         mountDefault({});
         cy.injectAxe();

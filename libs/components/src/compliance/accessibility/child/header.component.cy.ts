@@ -5,7 +5,7 @@ registerWebComponents(headerElements());
 
 const mountDefault = (props: HeaderProps) => cy.mount(header(props));
 
-describe('component header', () => {
+describe('cypress-component - compliance components - accessibility header', () => {
     beforeEach(() => {
         mountDefault({ disableBackLink: false, hideBackLink: false });
     });
@@ -52,7 +52,7 @@ describe('component header', () => {
     });
 });
 
-describe('component header - with disableBackLink set to true', () => {
+describe('cypress-component - compliance components - accessibility header - with disableBackLink set to true', () => {
     it('should disable the back link when disableBackLink is true', () => {
         mountDefault({ disableBackLink: true, hideBackLink: false });
         cy.get('vl-functional-header').should('have.attr', 'disable-back-link');
@@ -64,7 +64,7 @@ describe('component header - with disableBackLink set to true', () => {
     });
 });
 
-describe('component header - with hideBackLink set to true', () => {
+describe('cypress-component - compliance components - accessibility header - with hideBackLink set to true', () => {
     it('should hide the back link when hideBackLink is true', () => {
         mountDefault({ disableBackLink: false, hideBackLink: true });
         cy.get('vl-functional-header').should('have.attr', 'hide-back-link');
@@ -76,7 +76,7 @@ describe('component header - with hideBackLink set to true', () => {
     });
 });
 
-describe('component header - helper function <headerElements()> ', () => {
+describe('cypress-component - compliance components - accessibility header - helper function <headerElements()> ', () => {
     it('should return an array of WebComponents with a length of 1', () => {
         const elements = headerElements();
         expect(elements).to.be.an('array');

@@ -28,7 +28,7 @@ const measureControlFixture = html`
     </vl-map>
 `;
 
-describe('vl-map-measure-control', () => {
+describe('cypress-component - map - vl-map-measure-control', () => {
     it('the measure control is configured correctly', () => {
         cy.mount(measureControlFixture);
         cy.runTestFor<VlMapMeasureControl>('vl-map-measure-control', (vlMapMeasureControl) => {

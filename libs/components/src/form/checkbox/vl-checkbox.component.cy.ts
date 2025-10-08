@@ -93,7 +93,7 @@ const shouldHaveErrorStyleSwitch = () => {
         .shouldHaveComputedStyle({ pseudo: 'after', style: 'color', value: 'rgb(210, 55, 60)' });
 };
 
-describe('component - vl-checkbox', () => {
+describe('cypress-component - form components - vl-checkbox', () => {
     it('should mount', () => {
         cy.mount(html` <vl-checkbox value=${value}>Bevestig.</vl-checkbox> `);
 
@@ -194,7 +194,7 @@ describe('component - vl-checkbox', () => {
     });
 });
 
-describe('component - vl-checkbox - in form', () => {
+describe('cypress-component - form components - vl-checkbox - in form', () => {
     it('should mount', () => {
         mountCheckboxInForm();
 
@@ -216,49 +216,62 @@ describe('component - vl-checkbox - in form', () => {
         cy.checkA11y('vl-checkbox');
     });
 
+    it('should sync show attribute and content paragraph', () => {
+        mountCheckboxInForm();
+
+        cy.get('vl-form-message[for="confirmation"]').should('not.have.attr', 'show');
+        cy.get('vl-form-message[for="confirmation"]').shadow().find('p').should('have.attr', 'hidden');
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-form-message[for="confirmation"]').should('have.attr', 'show');
+        cy.get('vl-form-message[for="confirmation"]').shadow().find('p').should('not.have.attr', 'hidden');
+        cy.get('vl-checkbox').click();
+        cy.get('vl-form-message[for="confirmation"]').should('not.have.attr', 'show');
+        cy.get('vl-form-message[for="confirmation"]').shadow().find('p').should('have.attr', 'hidden');
+    });
+
     it('should validate', () => {
         mountCheckboxInForm();
 
-        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.have.attr', 'show');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[for="confirmation"]').should('be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('have.attr', 'show');
         cy.get('vl-checkbox').click();
-        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.have.attr', 'show');
     });
 
     it('should validate with initial value', () => {
         mountCheckboxInForm({ checked: true });
 
-        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.have.attr', 'show');
         cy.get('vl-checkbox').click();
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[for="confirmation"]').should('be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('have.attr', 'show');
         cy.get('vl-checkbox').click();
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.have.attr', 'show');
     });
 
     it('should be disabled', () => {
         mountCheckboxInForm({ disabled: true });
 
         shouldBeDisabled();
-        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.have.attr', 'show');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.have.attr', 'show');
     });
 
     it('should reset', () => {
         mountCheckboxInForm({});
 
-        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.have.attr', 'show');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[for="confirmation"]').should('be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('have.attr', 'show');
         cy.get('button[type="reset"]').click();
-        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.have.attr', 'show');
     });
 });
 
-describe('component - vl-checkbox - switch', () => {
+describe('cypress-component - form components - vl-checkbox - switch', () => {
     it('should mount', () => {
         cy.mount(html` <vl-checkbox value=${value} switch>Bevestig.</vl-checkbox> `);
 
@@ -353,7 +366,7 @@ describe('component - vl-checkbox - switch', () => {
     });
 });
 
-describe('component - vl-checkbox - switch in form', () => {
+describe('cypress-component - form components - vl-checkbox - switch in form', () => {
     it('should mount', () => {
         mountCheckboxInForm({ isSwitch: true });
 
@@ -379,41 +392,41 @@ describe('component - vl-checkbox - switch in form', () => {
     it('should validate', () => {
         mountCheckboxInForm({ isSwitch: true });
 
-        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.have.attr', 'show');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[for="confirmation"]').should('be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('have.attr', 'show');
         cy.get('vl-checkbox').click();
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.have.attr', 'show');
     });
 
     it('should validate with initial value', () => {
         mountCheckboxInForm({ checked: true, isSwitch: true });
 
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.have.attr', 'show');
         cy.get('vl-checkbox').click();
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[for="confirmation"]').should('be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('have.attr', 'show');
     });
 
     it('should be disabled', () => {
         mountCheckboxInForm({ isSwitch: true, disabled: true });
 
         shouldBeDisabledSwitch();
-        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.have.attr', 'show');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.have.attr', 'show');
     });
 
     it('should reset', () => {
         mountCheckboxInForm({ isSwitch: true });
 
-        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.have.attr', 'show');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[for="confirmation"]').should('be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('have.attr', 'show');
         shouldHaveErrorStyleSwitch();
         cy.get('button[type="reset"]').click();
-        cy.get('vl-form-message[for="confirmation"]').should('not.be.visible');
+        cy.get('vl-form-message[for="confirmation"]').should('not.have.attr', 'show');
     });
 });

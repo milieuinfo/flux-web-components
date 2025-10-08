@@ -19,7 +19,7 @@ const mapDrawActionsFixture = html`
     </vl-map>
 `;
 
-describe('vl-map', () => {
+describe('cypress-component - map - vl-map-draw-action', () => {
     it('after the draw action is completed, the callback will be called with the feature as the first argument and a reject callback as the second argument', () => {
         cy.mount(mapDrawActionsFixture);
         for (let type of ['point', 'line', 'polygon']) {

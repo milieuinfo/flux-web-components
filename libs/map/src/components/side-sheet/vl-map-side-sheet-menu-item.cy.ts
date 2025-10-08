@@ -14,7 +14,7 @@ const mapSideSheetMenuItemFixture = html`
     </vl-map>
 `;
 
-describe('vl-map-side-sheet-menu-item', () => {
+describe('cypress-component - map - vl-map-side-sheet-menu-item', () => {
     it('bevat default titel', () => {
         cy.mount(mapSideSheetMenuItemFixture);
         cy.runTestFor<VlMapSideSheetMenuItem>('vl-map-side-sheet-menu-item', (vlMapSideSheetMenuItem) => {

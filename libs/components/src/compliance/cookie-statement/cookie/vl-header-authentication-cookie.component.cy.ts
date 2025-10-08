@@ -6,7 +6,7 @@ registerWebComponents([VlHeaderAuthenticationCookie]);
 
 const mountDefault = () => cy.mount(html` <vl-header-authentication-cookie></vl-header-authentication-cookie> `);
 
-describe('vl-header-authentication-cookie component - default', () => {
+describe('cypress-component - compliance components - cookie-statement vl-header-authentication-cookie - default', () => {
     beforeEach(() => {
         mountDefault();
     });
@@ -23,7 +23,7 @@ describe('vl-header-authentication-cookie component - default', () => {
     });
 });
 
-describe('vl-authentication-cookie component - props', () => {
+describe('cypress-component - compliance components - cookie-statement vl-authentication-cookie - props', () => {
     beforeEach(() => {
         mountDefault();
     });

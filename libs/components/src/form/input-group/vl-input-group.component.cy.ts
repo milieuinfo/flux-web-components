@@ -6,7 +6,7 @@ import { VlInputFieldComponent } from '../input-field';
 
 registerWebComponents([VlButtonComponent, VlInputFieldComponent]);
 
-describe('story vl-input-group', () => {
+describe('cypress-component - form components - vl-input-group', () => {
     it('should contain an input-group with a button and an input-field', () => {
         cy.mount(html` <style>
                 ${vlGroupStyles}

@@ -11,7 +11,7 @@ const paddingNoBottomUrl =
 const paddingNoTopUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-padding--padding-no-top&viewMode=story';
 
-describe('story - padding - default', () => {
+describe('cypress-e2e - layout - vl-padding - default story', () => {
     it('should render', () => {
         cy.visit(paddingDefaultUrl);
 
@@ -19,7 +19,7 @@ describe('story - padding - default', () => {
     });
 });
 
-describe('story - padding - small', () => {
+describe('cypress-e2e - layout - vl-padding - small story', () => {
     it('should render', () => {
         cy.visit(paddingSmallUrl);
 
@@ -27,7 +27,7 @@ describe('story - padding - small', () => {
     });
 });
 
-describe('story - padding - medium', () => {
+describe('cypress-e2e - layout - vl-padding - medium story', () => {
     it('should render', () => {
         cy.visit(paddingMediumUrl);
 
@@ -35,7 +35,7 @@ describe('story - padding - medium', () => {
     });
 });
 
-describe('story - padding - no', () => {
+describe('cypress-e2e - layout - vl-padding - no story', () => {
     it('should render', () => {
         cy.visit(paddingNoUrl);
 
@@ -43,7 +43,7 @@ describe('story - padding - no', () => {
     });
 });
 
-describe('story - padding - no bottom', () => {
+describe('cypress-e2e - layout - vl-padding - no bottom story', () => {
     it('should render', () => {
         cy.visit(paddingNoBottomUrl);
 
@@ -51,7 +51,7 @@ describe('story - padding - no bottom', () => {
     });
 });
 
-describe('story - padding - no top', () => {
+describe('cypress-e2e - layout - vl-padding - no top story', () => {
     it('should render', () => {
         cy.visit(paddingNoTopUrl);
 

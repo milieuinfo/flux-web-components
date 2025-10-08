@@ -1,21 +1,21 @@
 import { buildSpan, buildData, buildDiv, buildLabel } from '@resources/utils-test';
 import { buildProperties } from './vl-properties.builder';
 
-describe('buildProperties tests', () => {
+describe('jest - components - vl-properties', () => {
     beforeEach(() => {
         // console logging afzetten
         jest.spyOn(console, 'warn').mockImplementation(() => {});
     });
 
-    it('should build empty properties for a null element', () => {
+    it('buildProperties should build empty properties for a null element', () => {
         expect(buildProperties(null)).toEqual([]);
     });
 
-    it('should build empty properties for empty elements', () => {
+    it('buildProperties should build empty properties for empty elements', () => {
         expect(buildProperties([])).toEqual([]);
     });
 
-    it('should build properties for an array of labels and data', () => {
+    it('buildProperties should build properties for an array of labels and data', () => {
         const elements: Element[] = [];
         elements.push(buildLabel('Woonplaats'));
         elements.push(buildData('Brussel'));
@@ -37,7 +37,7 @@ describe('buildProperties tests', () => {
         ]);
     });
 
-    it('should build properties for an array of labels and data that contain html', () => {
+    it('buildProperties should build properties for an array of labels and data that contain html', () => {
         const elements: Element[] = [];
         elements.push(buildLabel('<span style="color: red">Woonplaats</span>'));
         elements.push(buildData('<span style="color: blue">Brussel</span>'));
@@ -57,7 +57,7 @@ describe('buildProperties tests', () => {
         ]);
     });
 
-    it('should build properties for an array of columns', () => {
+    it('buildProperties sshould build properties for an array of columns', () => {
         const columns: Element[] = [];
         const column = buildDiv(null, 'column');
         columns.push(column);

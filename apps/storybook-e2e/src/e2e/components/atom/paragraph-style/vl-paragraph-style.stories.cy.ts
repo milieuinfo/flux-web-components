@@ -1,7 +1,7 @@
 const paragraphDefaultStylesUrl =
     'http://localhost:8080/iframe.html?id=components-atom-paragraph-style--paragraph-style-default&viewMode=story';
 
-describe('story - paragraph - default', () => {
+describe('cypress-e2e - atom components - vl-paragraph-style - default story', () => {
     it('should render', () => {
         cy.visit(paragraphDefaultStylesUrl);
 

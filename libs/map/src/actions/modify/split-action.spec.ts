@@ -5,7 +5,7 @@
 // import Feature from 'ol/Feature';
 // import { VlSplitAction } from '../../../../../../components/map/actions';
 
-describe('split action', () => {
+describe('jest - map - split-action', () => {
     // TODO: fix testen en uncomment
     it('TODO: fix testen en uncomment', () => {});
 

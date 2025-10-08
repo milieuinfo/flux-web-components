@@ -4,7 +4,7 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import Style from 'ol/style/Style';
 
-describe('highlight action', () => {
+describe('jest - map - highlight-action', () => {
     it('kan de highlight stijl definiëren', () => {
         const style = new Style();
         const highlightAction = new VlHighlightAction(

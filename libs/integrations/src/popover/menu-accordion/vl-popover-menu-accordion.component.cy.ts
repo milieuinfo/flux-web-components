@@ -5,7 +5,7 @@ import { VlPopoverMenuAccordionComponent } from './vl-popover-menu-accordion.com
 
 registerWebComponents([VlPopoverMenuAccordionComponent]);
 
-describe('integrations - popover menu accordion', () => {
+describe('cypress-component - integrations - vl-popover-menu-accordion', () => {
     it('should render', () => {
         cy.mount(html` <vl-popover-menu-accordion></vl-popover-menu-accordion>`);
 

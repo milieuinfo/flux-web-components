@@ -7,7 +7,7 @@ const toasterShowAlertUrl =
 const toasterFadeOutStoryUrl =
     'http://localhost:8080/iframe.html?args=&id=components-block-toaster--toaster-fade-out&viewMode=story';
 
-describe('story - vl-toaster', () => {
+describe('cypress-e2e - block components - vl-toaster - default story', () => {
     it('should render', () => {
         cy.visit(toasterDefaultUrl);
 
@@ -15,7 +15,7 @@ describe('story - vl-toaster', () => {
     });
 });
 
-describe('story - vl-toaster - default slot', () => {
+describe('cypress-e2e - block components - vl-toaster - default slot story', () => {
     it('should render', () => {
         cy.visit(toasterDefaultSlottUrl);
 
@@ -23,7 +23,7 @@ describe('story - vl-toaster - default slot', () => {
     });
 });
 
-describe('story - vl-toaster - show alert', () => {
+describe('cypress-e2e - block components - vl-toaster - show alert story', () => {
     it('should render', () => {
         cy.visit(toasterShowAlertUrl);
 
@@ -31,7 +31,7 @@ describe('story - vl-toaster - show alert', () => {
     });
 });
 
-describe('story - vl-toaster - fade out', () => {
+describe('cypress-e2e - block components - vl-toaster - fade out story', () => {
     it('should render', () => {
         cy.visit(toasterFadeOutStoryUrl);
 

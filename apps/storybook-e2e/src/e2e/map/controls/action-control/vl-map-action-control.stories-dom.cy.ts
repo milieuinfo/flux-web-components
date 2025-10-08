@@ -5,7 +5,7 @@ const mapActionControlIconUrl =
 const mapActionControlMultipleUrl =
     'http://localhost:8080/iframe.html?id=map-controls-action-control--map-action-control-multiple&viewMode=story';
 
-describe('story vl-map-action-control default', () => {
+describe('cypress-e2e - map - vl-map-action-control - dom default story', () => {
     it('should render a map', () => {
         cy.visit(mapActionControlUrl);
 
@@ -47,7 +47,7 @@ describe('story vl-map-action-control default', () => {
     });
 });
 
-describe('story vl-map-action-control icon', () => {
+describe('cypress-e2e - map - vl-map-action-control - dom icon story', () => {
     it('should render a map', () => {
         cy.visit(mapActionControlIconUrl);
 
@@ -89,7 +89,7 @@ describe('story vl-map-action-control icon', () => {
     });
 });
 
-describe('story vl-map-action-control multiple', () => {
+describe('cypress-e2e - map - vl-map-action-control - dom multiple story', () => {
     it('should render a map', () => {
         cy.visit(mapActionControlMultipleUrl);
 

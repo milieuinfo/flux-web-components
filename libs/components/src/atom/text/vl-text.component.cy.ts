@@ -4,7 +4,7 @@ import { VlTextComponent } from './vl-text.component';
 
 registerWebComponents([VlTextComponent]);
 
-describe('component - vl-text', () => {
+describe('cypress-component - atom components - vl-text', () => {
     it('should mount', () => {
         cy.mount(html` <vl-text></vl-text>`);
         cy.get('vl-text').shadow().find('span');

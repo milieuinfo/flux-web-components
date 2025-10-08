@@ -61,7 +61,7 @@ const mapMeasureActionFixture = html`
     </vl-map>
 `;
 
-describe('vl-map-measure-action', () => {
+describe('cypress-component - map - vl-map-measure-action', () => {
     it('a measure action is a map action', () => {
         expect(VlMapMeasureAction.isVlMapAction()).to.be.true;
     });

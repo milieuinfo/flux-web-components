@@ -1,6 +1,6 @@
 import { FluxConfig } from './flux-config';
 
-describe('flux-config preferences', () => {
+describe('jest - common - flux-config', () => {
     beforeEach(() => {
         // foefel om te zorgen dat elke test met niet geïnitialiseerde preferences start
         FluxConfig['preferences'] = null;

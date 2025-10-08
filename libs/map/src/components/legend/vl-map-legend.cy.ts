@@ -17,7 +17,7 @@ registerWebComponents([
     VlMapFeaturesLayer,
 ]);
 
-describe('component vl-map-legend - features layer - multiple styles', () => {
+describe('cypress-component - map - vl-map-legend - features layer multiple styles', () => {
     beforeEach(() => {
         cy.mount(html`
             <vl-map lambert2008>
@@ -191,7 +191,7 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
     });
 });
 
-describe('component vl-map-legend - features layer - multiple styles', () => {
+describe('cypress-component - map - vl-map-legend - features layer multiple styles', () => {
     beforeEach(() => {
         cy.mount(html`
             <vl-map lambert2008>
@@ -280,7 +280,7 @@ describe('component vl-map-legend - features layer - multiple styles', () => {
     });
 });
 
-describe('component vl-map-legend - wfs layer', () => {
+describe('cypress-component - map - vl-map-legend - wfs layer', () => {
     beforeEach(() => {
         cy.mount(html`
             <vl-map lambert2008>
@@ -341,7 +341,7 @@ describe('component vl-map-legend - wfs layer', () => {
     });
 });
 
-describe('component vl-map-legend - wfs and wms layers', () => {
+describe('cypress-component - map - vl-map-legend - wfs and wms layers', () => {
     beforeEach(() => {
         cy.mount(html`
             <vl-map lambert2008>
@@ -417,7 +417,7 @@ describe('component vl-map-legend - wfs and wms layers', () => {
     });
 });
 
-describe('component vl-map-legend - wms layer that requires a version', () => {
+describe('cypress-component - map - vl-map-legend - wms layer that requires a version', () => {
     const mapLegendWithVersion = (version: string) => html`
         <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>

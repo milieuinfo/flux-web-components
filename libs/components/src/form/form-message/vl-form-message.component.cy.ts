@@ -4,7 +4,7 @@ import { VlFormMessageComponent } from './vl-form-message.component';
 
 registerWebComponents([VlFormMessageComponent]);
 
-describe('component - vl-form-message', () => {
+describe('cypress-component - form components - vl-form-message', () => {
     it('should mount', () => {
         cy.mount(html`<vl-form-message>Test form message</vl-form-message>`);
 
@@ -21,7 +21,7 @@ describe('component - vl-form-message', () => {
     it('should be hidden', () => {
         cy.mount(html`<vl-form-message>Test form message</vl-form-message>`);
 
-        cy.get('vl-form-message').should('be.hidden');
+        cy.get('vl-form-message').shadow().find('p').should('have.attr', 'hidden');
         cy.get('vl-form-message').shadow().find('.vl-form__error').should('be.hidden');
     });
 

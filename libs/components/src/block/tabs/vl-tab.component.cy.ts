@@ -24,7 +24,7 @@ const mountDefault = ({ disableLinks, id, title }: MountDefaultProps) => {
     </ul>`);
 };
 
-describe('component vl-tab-section', () => {
+describe('cypress-component - block components - vl-tab', () => {
     beforeEach(() => {
         mountDefault({ ...props });
     });
@@ -52,7 +52,7 @@ describe('component vl-tab-section', () => {
     });
 });
 
-describe('component vl-tab-section - attributes', () => {
+describe('cypress-component - block components - vl-tab - attributes', () => {
     it('should handle <id> attribute correctly', () => {
         mountDefault({ ...props, id: 'new-tab' });
 

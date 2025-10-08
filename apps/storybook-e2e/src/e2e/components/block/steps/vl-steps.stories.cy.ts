@@ -1,4 +1,4 @@
-const stepsUrl = 'http://localhost:8080/iframe.html?id=components-block-steps-steps--steps-default&viewMode=story';
+const stepsDefaultUrl = 'http://localhost:8080/iframe.html?id=components-block-steps-steps--steps-default&viewMode=story';
 const stepsIconsUrl =
     'http://localhost:8080/iframe.html?id=components-block-steps-steps--steps-icons&viewMode=story';
 const stepsLineUrl = 'http://localhost:8080/iframe.html?id=components-block-steps-steps--steps-line&viewMode=story';
@@ -13,15 +13,15 @@ const stepsStatesUrl =
 const stepsToggleableUrl =
     'http://localhost:8080/iframe.html?id=components-block-steps-step--steps-toggleable&viewMode=story';
 
-describe('story vl-steps default', () => {
+describe('cypress-e2e - block components - vl-steps -  story', () => {
     it('should be accessible', () => {
-        cy.visitWithA11y(stepsUrl);
+        cy.visitWithA11y(stepsDefaultUrl);
         cy.get('vl-steps');
         cy.checkA11y('vl-steps');
     });
 
     it('should contain steps', () => {
-        cy.visit(stepsUrl);
+        cy.visit(stepsDefaultUrl);
 
         cy.get('vl-steps').find('vl-step').find('span[slot="icon"]').contains('1');
         cy.get('vl-steps').find('vl-step').find('span[slot="title"]').contains('Stap 1: eerste actie');
@@ -40,7 +40,7 @@ describe('story vl-steps default', () => {
     });
 });
 
-describe('story vl-steps icons', () => {
+describe('cypress-e2e - block components - vl-steps - icons story', () => {
     it('should be accessible', () => {
         cy.visitWithA11y(stepsIconsUrl);
         cy.get('vl-steps');
@@ -72,7 +72,7 @@ describe('story vl-steps icons', () => {
     });
 });
 
-describe('story vl-steps states', () => {
+describe('cypress-e2e - block components - vl-steps - states story', () => {
     it('should be accessible', () => {
         cy.visitWithA11y(stepsStatesUrl);
         cy.get('vl-steps');
@@ -129,7 +129,7 @@ describe('story vl-steps states', () => {
     });
 });
 
-describe('story vl-steps toggleable', () => {
+describe('cypress-e2e - block components - vl-steps - toggleable story', () => {
     it('should be accessible', () => {
         cy.visitWithA11y(stepsToggleableUrl);
         cy.get('vl-steps');
@@ -171,7 +171,7 @@ describe('story vl-steps toggleable', () => {
     });
 });
 
-describe('story vl-steps line', () => {
+describe('cypress-e2e - block components - vl-steps - line story', () => {
     it('should be accessible', () => {
         cy.visitWithA11y(stepsLineUrl);
         cy.get('vl-steps');
@@ -204,7 +204,7 @@ describe('story vl-steps line', () => {
     });
 });
 
-describe('story vl-steps timeline', () => {
+describe('cypress-e2e - block components - vl-steps - timeline story', () => {
     it('should be accessible', () => {
         cy.visitWithA11y(stepsTimelineUrl);
         cy.get('vl-steps');
@@ -247,7 +247,7 @@ describe('story vl-steps timeline', () => {
     });
 });
 
-describe('story vl-steps simple-timeline', () => {
+describe('cypress-e2e - block components - vl-steps - simple-timeline story', () => {
     it('should be accessible', () => {
         cy.visitWithA11y(stepsSimpleTimelineUrl);
         cy.get('vl-steps');
@@ -277,7 +277,7 @@ describe('story vl-steps simple-timeline', () => {
     });
 });
 
-describe('story vl-steps side-navigation', () => {
+describe('cypress-e2e - block components - vl-steps - side-navigation story', () => {
     it('should show child links on scroll', () => {
         cy.visit(stepsSideNavigationUrl);
 

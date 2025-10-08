@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { vlHeading1, vlHeading2, vlHeading3, vlHeading4, vlHeading5, vlHeading6 } from './vl-heading-style.css';
 
-describe('heading styles', () => {
+describe('cypress-component - atom components - vl-heading-style', () => {
     beforeEach(() => {
         cy.mount(html`
             <style>

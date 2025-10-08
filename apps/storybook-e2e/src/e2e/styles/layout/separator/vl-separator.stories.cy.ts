@@ -5,7 +5,7 @@ const separatorSlashUrl =
 const separatorWaveUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-separator--separator-wave&viewMode=story';
 
-describe('story - separator - default', () => {
+describe('cypress-e2e - layout - vl-separator - default story', () => {
     it('should render', () => {
         cy.visit(separatorDefaultUrl);
 
@@ -16,7 +16,7 @@ describe('story - separator - default', () => {
     });
 });
 
-describe('story - separator - slash', () => {
+describe('cypress-e2e - layout - vl-separator - slash story', () => {
     it('should render', () => {
         cy.visit(separatorSlashUrl);
 
@@ -24,7 +24,7 @@ describe('story - separator - slash', () => {
     });
 });
 
-describe('story - separator - wave', () => {
+describe('cypress-e2e - layout - vl-separator - wave story', () => {
     it('should render', () => {
         cy.visit(separatorWaveUrl);
 

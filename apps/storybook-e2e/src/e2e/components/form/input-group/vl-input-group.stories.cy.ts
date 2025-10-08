@@ -1,4 +1,4 @@
-describe('story vl-input-group', () => {
+describe('cypress-e2e - form components - vl-input-group - button left story', () => {
     it('should contain an input-group with button on the left', () => {
         cy.visit(
             'http://localhost:8080/iframe.html?id=components-form-input-group--input-group-button-left&viewMode=story'
@@ -10,7 +10,9 @@ describe('story vl-input-group', () => {
             .should('have.prop', 'tagName')
             .should('eq', 'VL-BUTTON');
     });
+});
 
+describe('cypress-e2e - form components - vl-input-group - button right story', () => {
     it('should contain an input-group with button on the right', () => {
         cy.visit(
             'http://localhost:8080/iframe.html?id=components-form-input-group--input-group-button-right&viewMode=story'
@@ -22,7 +24,9 @@ describe('story vl-input-group', () => {
             .should('have.prop', 'tagName')
             .should('eq', 'VL-INPUT-FIELD');
     });
+});
 
+describe('cypress-e2e - form components - vl-input-group - icon left story', () => {
     it('should contain an input-group with icon on the left', () => {
         cy.visit(
             'http://localhost:8080/iframe.html?id=components-form-input-group--input-group-icon-left&viewMode=story'

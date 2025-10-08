@@ -6,7 +6,7 @@ import { VlMapLayerAction } from './vl-map-layer-action';
 
 registerWebComponents([VlMap, VlMapFeaturesLayer, VlMapLayerAction]);
 
-describe('vl-map-layer-action', () => {
+describe('cypress-component - map - vl-map-layer-action', () => {
     let action;
 
     beforeEach(() => {

@@ -4,7 +4,7 @@ import { VlLinkComponent } from './vl-link.component';
 
 registerWebComponents([VlLinkComponent]);
 
-describe('component - vl-link - default', () => {
+describe('cypress-component - atom components - vl-link', () => {
     it('should mount', () => {
         cy.mount(html`<vl-link></vl-link>`);
 
@@ -114,7 +114,7 @@ describe('component - vl-link - default', () => {
     });
 });
 
-describe('component - vl-link - button as link', () => {
+describe('cypress-component - atom components - vl-link - button as link', () => {
     it('should mount', () => {
         cy.mount(html`<vl-link button-as-link></vl-link>`);
 

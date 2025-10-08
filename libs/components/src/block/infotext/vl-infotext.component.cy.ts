@@ -4,7 +4,7 @@ import { VlInfotextComponent } from './vl-infotext.component';
 
 registerWebComponents([VlInfotextComponent]);
 
-describe('component - vl-infotext', () => {
+describe('cypress-component - block components - vl-infotext', () => {
     it('should mount', () => {
         cy.mount(html`<vl-infotext></vl-infotext>`);
 

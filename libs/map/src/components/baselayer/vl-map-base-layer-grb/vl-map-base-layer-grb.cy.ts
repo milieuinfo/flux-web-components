@@ -11,7 +11,7 @@ const baselayerGrbFixture = html`
     </vl-map>
 `;
 
-describe('vl-map-baselayer-grb', () => {
+describe('cypress-component - map - vl-map-baselayer-grb', () => {
     it('de grb basiskaartlaag wordt goed geconfigureerd', () => {
         cy.mount(baselayerGrbFixture);
         cy.runTestFor<VlMapBaseLayerGRB>('vl-map-baselayer-grb', (vlMapBaseLayerGRB) => {

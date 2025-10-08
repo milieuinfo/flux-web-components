@@ -33,7 +33,7 @@ const shouldHaveFeatureLayerCount = (count: number) => {
     });
 };
 
-describe('story vl-map-layer-switcher default', () => {
+describe('cypress-e2e - map - vl-map-layer-switcher - wc default story', () => {
     it('should show/hide layer when clicking the checkbox linked to a layer', () => {
         const layerName = 'Kaartlaag 1';
         cy.visit(mapLayerSwitcherDefaultUrl);
@@ -45,7 +45,7 @@ describe('story vl-map-layer-switcher default', () => {
     });
 });
 
-describe('story vl-map-layer-switcher dynamic', () => {
+describe('cypress-e2e - map - vl-map-layer-switcher - wc dynamic story', () => {
     it('should add/remove layers dynamically', () => {
         const layerId = 'zwart';
         const layerName = `Kaartlaag ${layerId}`;

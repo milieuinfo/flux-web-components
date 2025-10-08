@@ -35,7 +35,7 @@ const props = {
     error: true,
 };
 
-describe('component vl-cookie-consent-opt-in', () => {
+describe('cypress-component - compliance components - vl-cookie-consent-opt-in', () => {
     beforeEach(() => {
         mountDefault({ ...props });
     });
@@ -50,7 +50,7 @@ describe('component vl-cookie-consent-opt-in', () => {
     });
 });
 
-describe('vl-cookie-consent-opt-in - properties reflect', () => {
+describe('cypress-component - compliance components - vl-cookie-consent-opt-in - properties reflect', () => {
     it('should correctly reflect the <label> attribute', () => {
         mountDefault({ ...props, label: 'Test Cookies' });
 

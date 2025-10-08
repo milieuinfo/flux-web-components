@@ -8,7 +8,7 @@ import webTypesSchema from './web-types.schema.json';
 const zSchema = require('z-schema');
 const schemaValidator = new zSchema();
 
-describe('valideer de gegenereerde web-types tov het schema', () => {
+describe('jest - generate-web-types - web-types-schema', () => {
     it('components-atom - valideer de web-types tov het schema', () => {
         expect(schemaValidator.validate(componentsAtomWebTypes, webTypesSchema)).toEqual(true);
         expect(schemaValidator.getLastErrors()).toBeNull();

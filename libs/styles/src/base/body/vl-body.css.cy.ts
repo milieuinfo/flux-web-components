@@ -1,7 +1,7 @@
 import { GlobalStyles } from '@domg-wc/common';
 import { html } from 'lit';
 
-describe('body styles', () => {
+describe('cypress-component - base styles - vl-body', () => {
     beforeEach(() => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html` <div class="cy-div">een div</div> `);

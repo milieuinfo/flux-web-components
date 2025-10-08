@@ -8,8 +8,8 @@ const stories = [
     'without-suggestions',
     'in-side-sheet',
 ];
-describe(`story - vl-autocomplete`, () => {
-    stories.forEach((storyName) => {
+stories.forEach((storyName) => {
+    describe(`cypress-e2e - block components - vl-autocomplete - ${storyName} story`, () => {
         it(`should display story - ${storyName}`, () => {
             const urlForStory = `http://localhost:8080/iframe.html?id=components-block-autocomplete--autocomplete-${storyName}&viewMode=story`;
             cy.visit(urlForStory);

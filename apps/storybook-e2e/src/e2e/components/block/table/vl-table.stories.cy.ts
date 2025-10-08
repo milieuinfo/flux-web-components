@@ -8,7 +8,7 @@ const tableExpandableCustomToggleDetailsColumnUrl =
 const tableNextRowStylingUrl =
     'http://localhost:8080/iframe.html?id=components-block-table--table-row-styling&viewMode=story';
 
-describe('story - vl-table - default', () => {
+describe('cypress-e2e - block components - vl-table - default story', () => {
     it('should render', () => {
         cy.visit(tableDefaultUrl);
 
@@ -16,7 +16,7 @@ describe('story - vl-table - default', () => {
     });
 });
 
-describe('story - vl-table - joined row titles', () => {
+describe('cypress-e2e - block components - vl-table - joined row titles story', () => {
     it('should render', () => {
         cy.visit(tableJoinedRowTitlesUrl);
 
@@ -24,7 +24,7 @@ describe('story - vl-table - joined row titles', () => {
     });
 });
 
-describe('story - vl-table - expandable', () => {
+describe('cypress-e2e - block components - vl-table - expandable story', () => {
     it('should render', () => {
         cy.visit(tableExpandableUrl);
 
@@ -32,7 +32,7 @@ describe('story - vl-table - expandable', () => {
     });
 });
 
-describe('story - vl-table - expandable custom toggle details column', () => {
+describe('cypress-e2e - block components - vl-table - expandable custom toggle details column story', () => {
     it('should render', () => {
         cy.visit(tableExpandableCustomToggleDetailsColumnUrl);
 
@@ -40,7 +40,7 @@ describe('story - vl-table - expandable custom toggle details column', () => {
     });
 });
 
-describe('story - vl-table-next - row styling', () => {
+describe('cypress-e2e - block components - vl-table-next - row styling story', () => {
     it('should render', () => {
         cy.visit(tableNextRowStylingUrl);
 

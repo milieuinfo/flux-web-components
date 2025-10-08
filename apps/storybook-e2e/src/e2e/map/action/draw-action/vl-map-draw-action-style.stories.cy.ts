@@ -1,7 +1,7 @@
 const mapDrawActionStyleUrl =
     'http://localhost:8080/iframe.html?args=&id=map-action-draw-action-draw-action-style--map-draw-action-style-default&viewMode=story';
 
-describe('story vl-map-draw-action-style default', () => {
+describe('cypress-e2e - map - vl-map-draw-action-style - default story', () => {
     it('should mount the component', () => {
         cy.visit(mapDrawActionStyleUrl);
         cy.get('vl-map-draw-action-style').then(($styleElement) => {

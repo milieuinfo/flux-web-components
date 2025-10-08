@@ -3,7 +3,7 @@ const contentBlockDefaultUrl =
 const contentBlockFullWidthUrl =
     'http://localhost:8080/iframe.html?args=&id=styles-layout-afnemers-content-block--content-block-full-width&viewMode=story';
 
-describe('story - content-block', () => {
+describe('cypress-e2e - layout - vl-content-block - default story', () => {
     it('should render - default', () => {
         cy.visit(contentBlockDefaultUrl);
 
@@ -14,7 +14,9 @@ describe('story - content-block', () => {
             value: '0px 30px',
         });
     });
+});
 
+describe('cypress-e2e - layout - vl-content-block - full width story', () => {
     it('should render - full width', () => {
         cy.visit(contentBlockFullWidthUrl);
 

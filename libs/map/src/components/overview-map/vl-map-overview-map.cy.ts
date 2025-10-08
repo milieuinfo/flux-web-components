@@ -13,7 +13,7 @@ const mapOverviewMapFixture = html`
     </vl-map>
 `;
 
-describe('vl-map-overview-map', () => {
+describe('cypress-component - map - vl-map-overview-map', () => {
     it('de overview map wordt goed geconfigureerd', () => {
         cy.mount(mapOverviewMapFixture);
         cy.runTestFor<VlMapOverviewMap>('vl-map-overview-map', (vlMapOverviewMap) => {

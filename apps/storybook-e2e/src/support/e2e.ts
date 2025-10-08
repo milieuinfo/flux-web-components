@@ -1,6 +1,6 @@
 import 'cypress-axe';
-
 import '../../../../resources/cypress-commands/commands';
+import '@reportportal/agent-js-cypress/lib/commands/reportPortalCommands';
 
 // Log alle unhandled rejections met volledige reason/stack
 cy.on('window:before:load', (win) => {
@@ -16,4 +16,14 @@ cy.on('window:before:load', (win) => {
             reason: r,
         });
     });
+});
+
+before(() => {
+    cy.wait(1000); // wacht 1s voordat de eerste test in het spec-bestand start
+});
+
+beforeEach(() => {
+    if (Cypress.env('RP_ACTIVE') === '1') {
+        cy.addTestAttributes([{ key: 'testType', value: 'cypress-e2e' }]);
+    }
 });

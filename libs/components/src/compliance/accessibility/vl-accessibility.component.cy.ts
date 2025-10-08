@@ -38,7 +38,7 @@ const defaultProps: MountDefaultProps = {
     headerSlot: undefined,
 };
 
-describe('component vl-accessibility', () => {
+describe('cypress-component - compliance components - vl-accessibility', () => {
     beforeEach(() => {
         mountDefault(defaultProps);
     });
@@ -53,7 +53,7 @@ describe('component vl-accessibility', () => {
     });
 });
 
-describe('component vl-accessibility - properties default ', () => {
+describe('cypress-component - compliance components - vl-accessibility - properties default ', () => {
     it('should have default values properties', () => {
         mountDefault(defaultProps);
 
@@ -69,7 +69,7 @@ describe('component vl-accessibility - properties default ', () => {
     });
 });
 
-describe('component vl-accessibility - properties reflect ', () => {
+describe('cypress-component - compliance components - vl-accessibility - properties reflect ', () => {
     it('should reflect the <application> attribute', () => {
         mountDefault({ ...defaultProps, application: 'Omgeving' });
 
@@ -119,7 +119,7 @@ describe('component vl-accessibility - properties reflect ', () => {
     });
 });
 
-describe('component vl-accessibility - hide-back-link', () => {
+describe('cypress-component - compliance components - vl-accessibility - hide-back-link', () => {
     it('back-link should be visible', () => {
         mountDefault({ ...defaultProps, hideBackLink: false });
 
@@ -142,7 +142,7 @@ describe('component vl-accessibility - hide-back-link', () => {
     });
 });
 
-describe('component vl-accessibility - header slot', () => {
+describe('cypress-component - compliance components - vl-accessibility - header slot', () => {
     it('should replace default header with custom header', () => {
         mountDefault({
             ...defaultProps,

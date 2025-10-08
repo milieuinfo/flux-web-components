@@ -66,7 +66,7 @@ const mapAutoExtentMaxZoomFixture = html`
     </vl-map>
 `;
 
-describe('vl-map-features-layer', () => {
+describe('cypress-component - map - vl-map-features-layer', () => {
     const geoJSON = new OlGeoJSON();
 
     it('het features attribuut op de kaartlaag bevat dezelfde features als in de source', () => {
@@ -105,7 +105,7 @@ describe('vl-map-features-layer', () => {
         cy.mount(mapAutoExtentFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             cy.waitUntil(() => vlMap.map.getView().getZoom() > 3).then(() => {
-                expect(vlMap['map'].getView().getCenter()).to.deep.equal([647551.3818336367, 697907.8956367383]);
+                expect(vlMap['map'].getView().getCenter()).to.deep.equal([647551.3818336367, 697907.8956367387]);
             });
         });
     });
@@ -114,7 +114,7 @@ describe('vl-map-features-layer', () => {
         cy.mount(mapAutoExtentMaxZoomFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             cy.waitUntil(() => vlMap.map.getView().getZoom() === 3).then(() => {
-                expect(vlMap['map'].getView().getCenter()).to.deep.equal([647051.3858496706, 697907.836081326]);
+                expect(vlMap['map'].getView().getCenter()).to.deep.equal([647051.3858496706, 697907.8360813269]);
             });
         });
     });
@@ -126,10 +126,10 @@ describe('vl-map-features-layer', () => {
                 const view = vlMap.map.getView();
                 expect(view.getCenter()).to.not.deep.equal([647051.3858496706, 697907.836081326]);
                 cy.wrap(vlMapFeaturesLayer.zoomToExtent(99)).then(() => {
-                    expect(view.getCenter()).to.deep.equal([647051.3858496706, 697907.836081326]);
+                    expect(view.getCenter()).to.deep.equal([647051.3858496706, 697907.8360813269]);
                     expect(view.getZoom()).to.be.above(3);
                     cy.wrap(vlMapFeaturesLayer.zoomToExtent(3)).then(() => {
-                        expect(view.getCenter()).to.deep.equal([647051.3858496706, 697907.836081326]);
+                        expect(view.getCenter()).to.deep.equal([647051.3858496706, 697907.8360813269]);
                         expect(view.getZoom()).to.be.equal(3);
                     });
                 });
@@ -178,7 +178,7 @@ describe('vl-map-features-layer', () => {
                 });
                 expect(sourceFeatures2).to.be.equal(JSON.stringify(originalFeatures2));
                 expect(vlMap.map.getView().getCenter()[0]).to.be.equal(652050.7501594654);
-                expect(vlMap.map.getView().getCenter()[1]).to.be.equal(702908.3913168148);
+                expect(vlMap.map.getView().getCenter()[1]).to.be.equal(702908.3913168153);
             });
         });
     });
@@ -193,7 +193,7 @@ describe('vl-map-features-layer', () => {
                     '{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":null},{"type":"Feature","geometry":{"type":"Point","coordinates":[157055,207908]},"properties":null}]}'
                 );
                 expect(vlMapFeaturesLayer.boundingBox).to.deep.equal([
-                    647051.3858496706, 697907.836081326, 657050.1144692601, 707908.9465523036,
+                    647051.3858496706, 697907.8360813269, 657050.1144692601, 707908.9465523036,
                 ]);
             });
         });
@@ -351,9 +351,9 @@ describe('vl-map-features-layer', () => {
             cy.wrap(vlMap.ready)
                 .wait(0)
                 .then(() => {
-                    expect(vlMap.map.getView().getCenter()).to.deep.equal([647551.3818336367, 697907.8956367383]);
+                    expect(vlMap.map.getView().getCenter()).to.deep.equal([647551.3818336367, 697907.8956367387]);
                     vlMapFeaturesLayer.clearFeatures();
-                    expect(vlMap.map.getView().getCenter()).to.deep.equal([647551.3818336367, 697907.8956367383]);
+                    expect(vlMap.map.getView().getCenter()).to.deep.equal([647551.3818336367, 697907.8956367387]);
                 });
         });
     });
@@ -371,7 +371,7 @@ describe('vl-map-features-layer', () => {
                     id: 3,
                 });
                 cy.get('@rerender').should('have.been.called');
-                expect(vlMap.map.getView().getCenter()).to.deep.equal([647051.3858489256, 697907.8360811225]);
+                expect(vlMap.map.getView().getCenter()).to.deep.equal([647051.3858489256, 697907.836081122]);
 
                 vlMapFeaturesLayer.clearFeatures();
 
@@ -382,7 +382,7 @@ describe('vl-map-features-layer', () => {
                     id: 3,
                 });
                 cy.get('@rerender').should('have.been.called');
-                expect(vlMap.map.getView().getCenter()).to.deep.equal([646051.3938802485, 697907.7169700945]);
+                expect(vlMap.map.getView().getCenter()).to.deep.equal([646051.3938802485, 697907.7169700935]);
             });
         });
     });
@@ -393,7 +393,7 @@ describe('vl-map-features-layer', () => {
             cy.wrap(vlMap.ready)
                 .wait(0)
                 .then(() => {
-                    expect(vlMap.map.getView().getCenter()).to.deep.equal([647551.3818336367, 697907.8956367383]);
+                    expect(vlMap.map.getView().getCenter()).to.deep.equal([647551.3818336367, 697907.8956367387]);
                     vlMapFeaturesLayer.addFeatureCollection({
                         type: 'FeatureCollection',
                         features: [
@@ -405,7 +405,7 @@ describe('vl-map-features-layer', () => {
                             },
                         ],
                     });
-                    expect(vlMap.map.getView().getCenter()).to.deep.equal([647051.3858489256, 697907.8360811225]);
+                    expect(vlMap.map.getView().getCenter()).to.deep.equal([647051.3858489256, 697907.836081122]);
                     vlMapFeaturesLayer.clearFeatures();
                     vlMapFeaturesLayer.addFeature({
                         type: 'Feature',
@@ -413,7 +413,7 @@ describe('vl-map-features-layer', () => {
                         properties: null,
                         id: 3,
                     });
-                    expect(vlMap.map.getView().getCenter()).to.deep.equal([646051.3938802485, 697907.7169700945]);
+                    expect(vlMap.map.getView().getCenter()).to.deep.equal([646051.3938802485, 697907.7169700935]);
                 });
         });
     });

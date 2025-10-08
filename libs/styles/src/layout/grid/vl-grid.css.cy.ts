@@ -1,7 +1,7 @@
 import { GlobalStyles } from '@domg-wc/common';
 import { html } from 'lit';
 
-describe('grid styles', () => {
+describe('cypress-component - layout styles - vl-grid-css', () => {
     const gridResponsive = html`
         <style>
             .vl-grid {

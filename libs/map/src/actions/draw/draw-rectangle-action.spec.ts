@@ -1,7 +1,7 @@
 import VectorSource from 'ol/source/Vector';
 import { VlDrawRectangleAction } from './draw-rectangle-action';
 
-describe('draw rectangle action', () => {
+describe('jest - map - draw-rectangle-action', () => {
     const source = new VectorSource({});
 
     const layer = {

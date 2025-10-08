@@ -7,7 +7,7 @@ const groupAccordionsUrl =
 const groupIconsUrl =
     'http://localhost:8080/iframe.html?id=styles-layout-afnemers-group--group-icons&viewMode=story';
 
-describe('story - group - buttons', () => {
+describe('cypress-e2e - layout - vl-group - buttons story', () => {
     it('should render', () => {
         cy.visit(groupButtonsUrl);
 
@@ -20,7 +20,7 @@ describe('story - group - buttons', () => {
     });
 });
 
-describe('story - group - links', () => {
+describe('cypress-e2e - layout - vl-group - links story', () => {
     it('should render', () => {
         cy.visit(groupLinksUrl);
 
@@ -34,7 +34,7 @@ describe('story - group - links', () => {
     });
 });
 
-describe('story - group - accordions', () => {
+describe('cypress-e2e - layout - vl-group - accordions story', () => {
     it('should render', () => {
         cy.visit(groupAccordionsUrl);
 
@@ -42,7 +42,7 @@ describe('story - group - accordions', () => {
     });
 });
 
-describe('story - group - icons', () => {
+describe('cypress-e2e - layout - vl-group - icons story', () => {
     it('should render', () => {
         cy.visit(groupIconsUrl);
 

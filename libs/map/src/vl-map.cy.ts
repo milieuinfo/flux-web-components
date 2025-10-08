@@ -62,7 +62,7 @@ const sleep = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
-describe('vl-map', () => {
+describe('cypress-component - map - vl-map', () => {
     it('the Lambert 31370 projection is correctly defined', () => {
         // TODO: Remove this when the bug in proj4 is fixed
         cy.on('uncaught:exception', (err) => {

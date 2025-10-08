@@ -11,7 +11,7 @@ const mapSideSheetFixture = html`
     </vl-map>
 `;
 
-describe('vl-map-side-sheet', () => {
+describe('cypress-component - map - vl-map-side-sheet', () => {
     it('de side sheet zal absoluut en links gepositioneerd worden', () => {
         cy.mount(mapSideSheetFixture);
         cy.runTestFor<VlMapSideSheet>('vl-map-side-sheet', (vlMapSideSheet) => {

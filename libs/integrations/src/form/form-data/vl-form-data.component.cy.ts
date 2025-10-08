@@ -4,7 +4,7 @@ import { VlFormDataComponent } from './vl-form-data.component';
 
 registerWebComponents([VlFormDataComponent]);
 
-describe('integrations - form data', () => {
+describe('cypress-component - integrations - vl-form-data', () => {
     it('should render', () => {
         cy.mount(html`<vl-form-data></vl-form-data>`);
 

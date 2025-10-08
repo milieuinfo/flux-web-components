@@ -16,7 +16,7 @@ registerWebComponents([
     VlButtonComponent,
 ]);
 
-describe('component - vl-search-filter', () => {
+describe('cypress-component - block components - vl-search-filter', () => {
     it('should mount', () => {
         cy.mount(html` <vl-search-filter></vl-search-filter>`);
 

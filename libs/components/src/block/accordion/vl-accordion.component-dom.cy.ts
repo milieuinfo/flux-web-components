@@ -5,7 +5,7 @@ import { VlAccordionComponent } from './vl-accordion.component';
 
 registerWebComponents([VlAccordionComponent, VlLinkComponent]);
 
-describe('component vl-accordion', () => {
+describe('cypress-component - block components - vl-accordion dom', () => {
     const content = `Onderwijs helpt jonge mensen en volwassenen om zichzelf te ontwikkelen en hun weg te vinden in onze
     samenleving. Het hoger onderwijs speelt daarnaast een belangrijke rol in innovatie dankzij het
     belang van wetenschappelijk onderzoek.`;
@@ -127,7 +127,7 @@ describe('component vl-accordion', () => {
     });
 });
 
-describe('component vl-accordion - dom - default testen', () => {
+describe('cypress-component - block components - vl-accordion dom - default testen', () => {
     const accordionDefaultHtml = html`
         <vl-accordion icon="university" toggle-text="Lees meer over de onderwijsdoelstelling">
             <span>Onderwijs helpt jonge mensen.</span>
@@ -200,7 +200,7 @@ describe('component vl-accordion - dom - default testen', () => {
     });
 });
 
-describe('component vl-accordion - dom - dynamic toggle testen', () => {
+describe('cypress-component - block components - vl-accordion dom - dynamic toggle testen', () => {
     const accordionDynamicToggleHtml = html`
         <vl-accordion
             icon="university"
@@ -281,7 +281,7 @@ describe('component vl-accordion - dom - dynamic toggle testen', () => {
     });
 });
 
-describe('component vl-accordion - dom - title slot testen', () => {
+describe('cypress-component - block components - vl-accordion dom - title slot testen', () => {
     const accordionTitleSlotHtml = html`
         <vl-accordion icon="university">
             <span slot="title">Lees meer over de onderwijsdoelstelling</span>

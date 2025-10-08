@@ -35,7 +35,7 @@ const customMapDeleteActionFixture = html`
     </vl-map>
 `;
 
-describe('vl-map-delete-action', () => {
+describe('cypress-component - map - vl-map-delete-action', () => {
     it('a delete action is a map action', () => {
         expect(VlMapDeleteAction.isVlMapAction()).to.be.true;
     });

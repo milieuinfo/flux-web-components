@@ -15,7 +15,7 @@ const mountDefault = () => {
     );
 };
 
-describe('component vl-cookie-consent', () => {
+describe('cypress-component - compliance components - vl-cookie-consent', () => {
     beforeEach(() => {
         mountDefault();
     });
@@ -30,7 +30,7 @@ describe('component vl-cookie-consent', () => {
     });
 });
 
-describe('component vl-cookie-consent - content', () => {
+describe('cypress-component - compliance components - vl-cookie-consent - content', () => {
     it('should contain the `Cookie-toestemming`', () => {
         mountDefault();
 

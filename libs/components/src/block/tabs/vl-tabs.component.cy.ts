@@ -99,7 +99,7 @@ const mountDefault = ({
     </div>`);
 };
 
-describe('component vl-tabs', () => {
+describe('cypress-component - block components - vl-tabs', () => {
     it('should mount', () => {
         mountDefault({ ...props });
 
@@ -109,7 +109,7 @@ describe('component vl-tabs', () => {
     });
 });
 
-describe('component vl-tabs - accessibility', () => {
+describe('cypress-component - block components - vl-tabs - accessibility', () => {
     it('should be accessible on larger devices', () => {
         mountDefault({ ...props });
         cy.viewport(1920, 1080);
@@ -129,7 +129,7 @@ describe('component vl-tabs - accessibility', () => {
     });
 });
 
-describe('component vl-tabs - attributes', () => {
+describe('cypress-component - block components - vl-tabs - attributes', () => {
     it('should render tabs view for containers with width > 767', () => {
         mountDefault({ ...props });
         cy.viewport(1920, 1080);
@@ -217,7 +217,7 @@ describe('component vl-tabs - attributes', () => {
     });
 });
 
-describe('component vl-tabs-pane - functionality on larger devices', () => {
+describe('cypress-component - block components - vl-tabs - functionality on larger devices', () => {
     beforeEach(() => {
         cy.viewport(1920, 1080);
         document.querySelector('div')?.setAttribute('style', 'width:768px');
@@ -272,7 +272,7 @@ describe('component vl-tabs-pane - functionality on larger devices', () => {
     });
 });
 
-describe('component vl-tabs-pane - functionality on smaller devices', () => {
+describe('cypress-component - block components - vl-tabs - functionality on smaller devices', () => {
     beforeEach(() => {
         cy.viewport(550, 750);
         document.querySelector('div')?.setAttribute('style', 'width:767px');

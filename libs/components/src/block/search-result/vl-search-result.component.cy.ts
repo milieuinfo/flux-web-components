@@ -4,7 +4,7 @@ import { VlSearchResultComponent } from './vl-search-result.component';
 
 registerWebComponents([VlSearchResultComponent]);
 
-describe('component - vl-search-result', () => {
+describe('cypress-component - block components - vl-search-result', () => {
     beforeEach(() => {
         cy.viewport(960, 1440);
         cy.then(() => GlobalStyles.getInstance().register());

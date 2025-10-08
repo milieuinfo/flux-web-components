@@ -3,7 +3,7 @@ const inputFieldDefaultUrl =
 const inputFieldNumberUrl =
     'http://localhost:8080/iframe.html?id=components-form-input-field--input-field-number&viewMode=story';
 
-describe('story - vl-input-field - default', () => {
+describe('cypress-e2e - form components - vl-input-field - default story', () => {
     it('should render', () => {
         cy.visit(inputFieldDefaultUrl);
 
@@ -11,7 +11,7 @@ describe('story - vl-input-field - default', () => {
     });
 });
 
-describe('story - vl-input-field - number', () => {
+describe('cypress-e2e - form components - vl-input-field - number story', () => {
     it('should render', () => {
         cy.visit(inputFieldNumberUrl);
 

@@ -2,7 +2,7 @@ import { GlobalStyles } from '@domg-wc/common';
 import { html } from 'lit';
 import { vlAccessibilityStyles } from './vl-accessibility-styles.css';
 
-describe('accessibility styles', () => {
+describe('cypress-component - layout styles - vl-accessibility-styles', () => {
     beforeEach(() => {
         cy.then(() => GlobalStyles.getInstance().register());
     });

@@ -6,7 +6,7 @@ import { VlAccordionComponent } from './vl-accordion.component';
 registerWebComponents([VlAccordionComponent, VlLinkComponent]);
 
 
-describe('component vl-accordion - wc - default testen', () => {
+describe('cypress-component - block components - vl-accordion wc - default testen', () => {
     const accordionDefaultHtml = html`
         <vl-accordion icon="university" toggle-text="Lees meer over de onderwijsdoelstelling">
             <span>Onderwijs helpt jonge mensen.</span>
@@ -52,7 +52,7 @@ describe('component vl-accordion - wc - default testen', () => {
     });
 });
 
-describe('component vl-accordion - wc - dynamic toggle testen', () => {
+describe('cypress-component - block components - vl-accordion wc - dynamic toggle testen', () => {
     const accordionDynamicToggleHtml = html`
         <vl-accordion
             icon="university"
@@ -99,7 +99,7 @@ describe('component vl-accordion - wc - dynamic toggle testen', () => {
     });
 });
 
-describe('component vl-accordion - wc - title slot testen', () => {
+describe('cypress-component - block components - vl-accordion wc - title slot testen', () => {
     const accordionTitleSlotHtml = html`
         <vl-accordion icon="university">
             <span slot="title">Lees meer over de onderwijsdoelstelling</span>

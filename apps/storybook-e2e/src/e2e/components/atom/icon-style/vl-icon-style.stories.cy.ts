@@ -3,7 +3,7 @@ import { hexToString } from '@domg-wc/common';
 const iconDefaultUrl =
     'http://localhost:8080/iframe.html?id=components-atom-icon-style--icon-style-default&viewMode=story';
 
-describe('story - icon - default', () => {
+describe('cypress-e2e - atom components - vl-icon-style - default story', () => {
     it('should render', () => {
         cy.visit(iconDefaultUrl);
 

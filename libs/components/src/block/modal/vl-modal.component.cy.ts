@@ -96,7 +96,7 @@ const closeByPressingEscape = () => {
     cy.getDataCy('modal').shadow().find('vl-link').shadow().find('button').first().type('{esc}', { force: true });
 };
 
-describe('component - vl-modal', () => {
+describe('cypress-component - block components - vl-modal', () => {
     it('should mount', () => {
         cy.mount(renderModal({ open: true }));
         cy.injectAxe();
@@ -196,7 +196,7 @@ describe('component - vl-modal', () => {
     });
 });
 
-describe('component - vl-modal - notAutoClosable (true)', () => {
+describe('cypress-component - block components - vl-modal - notAutoClosable (true)', () => {
     it('should NOT automatically close the modal when using the action button', () => {
         cy.mount(html`${renderOpenButton()} ${renderModal({ notAutoClosable: true })}`);
         cy.injectAxe();
@@ -230,7 +230,7 @@ describe('component - vl-modal - notAutoClosable (true)', () => {
     });
 });
 
-describe('component - vl-modal - notAutoClosable (false)', () => {
+describe('cypress-component - block components - vl-modal - notAutoClosable (false)', () => {
     it('should automatically close the modal when using the action button', () => {
         cy.mount(html`${renderOpenButton()} ${renderModal({ notAutoClosable: false })}`);
         cy.injectAxe();

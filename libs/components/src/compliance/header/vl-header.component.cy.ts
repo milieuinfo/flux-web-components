@@ -4,7 +4,7 @@ import { ApplicationLink, VlHeader } from './index';
 
 registerWebComponents([VlHeader]);
 
-describe('component - vl-header', () => {
+describe('cypress-component - compliance components - vl-header', () => {
     beforeEach(() => {
         cy.mount(html`
             <body>
@@ -37,7 +37,7 @@ describe('component - vl-header', () => {
     });
 });
 
-describe('component - vl-header - skeleton', () => {
+describe('cypress-component - compliance components - vl-header - skeleton', () => {
     it('should render the skeleton container', () => {
         cy.mount(html`
             <body>
@@ -49,7 +49,7 @@ describe('component - vl-header - skeleton', () => {
     });
 });
 
-describe('component - vl-header - applicationLinks', () => {
+describe('cypress-component - compliance components - vl-header - applicationLinks', () => {
     const mockApplicationLinks: ApplicationLink[] = [
         {
             label: 'Link 1',

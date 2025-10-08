@@ -4,7 +4,7 @@ import { VlDoormatComponent } from './vl-doormat.component';
 
 registerWebComponents([VlDoormatComponent]);
 
-describe('component - vl-doormat', () => {
+describe('cypress-component - block components - vl-doormat', () => {
     it('should mount', () => {
         cy.mount(html`
             <vl-doormat href="https://www.vlaanderen.be/bouwen-wonen-en-energie">

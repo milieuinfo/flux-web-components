@@ -1,21 +1,15 @@
-const selectDefaultUrl =
-    'http://localhost:8080/iframe.html?id=components-form-select--select-default&viewMode=story';
-
+const selectDefaultUrl = 'http://localhost:8080/iframe.html?id=components-form-select--select-default&viewMode=story';
 const selectNotDeletableUrl =
     'http://localhost:8080/iframe.html?id=components-form-select--select-not-deletable&viewMode=story';
-
 const selectGroupsUrl = 'http://localhost:8080/iframe.html?id=components-form-select--select-groups&viewMode=story';
-
 const selectSelectedOptionUrl =
     'http://localhost:8080/iframe.html?id=components-form-select--select-selected-option&viewMode=story';
-
 const selectDisabledOptionUrl =
     'http://localhost:8080/iframe.html?id=components-form-select--select-disabled-option&viewMode=story';
-
 const selectReadOnlyUrl =
     'http://localhost:8080/iframe.html?id=components-form-select--select-read-only&viewMode=story';
 
-describe('story - vl-select - default', () => {
+describe('cypress-e2e - form components - vl-select - default story', () => {
     it('should render', () => {
         cy.visit(selectDefaultUrl);
 
@@ -23,7 +17,7 @@ describe('story - vl-select - default', () => {
     });
 });
 
-describe('story - vl-select - not-deletable', () => {
+describe('cypress-e2e - form components - vl-select - not-deletable story', () => {
     it('should render', () => {
         cy.visit(selectNotDeletableUrl);
 
@@ -31,7 +25,7 @@ describe('story - vl-select - not-deletable', () => {
     });
 });
 
-describe('story - vl-select - groups', () => {
+describe('cypress-e2e - form components - vl-select - groups story', () => {
     it('should render', () => {
         cy.visit(selectGroupsUrl);
 
@@ -39,7 +33,7 @@ describe('story - vl-select - groups', () => {
     });
 });
 
-describe('story - vl-select - selected option', () => {
+describe('cypress-e2e - form components - vl-select - selected option story', () => {
     it('should render', () => {
         cy.visit(selectSelectedOptionUrl);
 
@@ -47,7 +41,7 @@ describe('story - vl-select - selected option', () => {
     });
 });
 
-describe('story - vl-select - disabled option', () => {
+describe('cypress-e2e - form components - vl-select - disabled option story', () => {
     it('should render', () => {
         cy.visit(selectDisabledOptionUrl);
 
@@ -55,7 +49,7 @@ describe('story - vl-select - disabled option', () => {
     });
 });
 
-describe('story - vl-select - read only', () => {
+describe('cypress-e2e - form components - vl-select - read only story', () => {
     it('should render', () => {
         cy.visit(selectReadOnlyUrl);
 

@@ -24,7 +24,7 @@ const props: MountDefaultProps = {
     hideBackLink: false,
 };
 
-describe('vl-cookie-statement - default', () => {
+describe('cypress-component - compliance components - vl-cookie-statement - default', () => {
     beforeEach(() => {
         mountDefault(props);
     });
@@ -41,7 +41,7 @@ describe('vl-cookie-statement - default', () => {
     });
 });
 
-describe('vl-cookie-statement component - children', () => {
+describe('cypress-component - compliance components - vl-cookie-statement - children', () => {
     beforeEach(() => {
         mountDefault(props);
     });
@@ -67,7 +67,7 @@ describe('vl-cookie-statement component - children', () => {
     });
 });
 
-describe('vl-cookie-statement component - default content', () => {
+describe('cypress-component - compliance components - vl-cookie-statement - default content', () => {
     beforeEach(() => {
         mountDefault(props);
     });
@@ -100,7 +100,7 @@ describe('vl-cookie-statement component - default content', () => {
     });
 });
 
-describe('vl-cookie-statement component - properties reflect', () => {
+describe('cypress-component - compliance components - vl-cookie-statement - properties reflect', () => {
     it('should set date', () => {
         mountDefault({ ...props, date: '27 januari 2023' });
 
@@ -133,7 +133,7 @@ describe('vl-cookie-statement component - properties reflect', () => {
     });
 });
 
-describe('vl-cookie-statement component - hide-back-link', () => {
+describe('cypress-component - compliance components - vl-cookie-statement - hide-back-link', () => {
     it('back-link should be visible', () => {
         mountDefault({ ...props, hideBackLink: false });
 

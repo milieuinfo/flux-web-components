@@ -24,7 +24,7 @@ import {
 } from './compare-wc-wt-components-form';
 import { mapWCNameCount, mapWCWithoutWT, mapWTNameCount, mapWTWithoutWC } from './compare-wc-wt-map';
 
-describe('valideer de volledigheid van de gegenereerde web-types', () => {
+describe('jest - generate-web-types - web-types-completeness', () => {
     // beforeAll(() => {
     //     jest.spyOn(console, 'log').mockImplementation(() => {});
     // });

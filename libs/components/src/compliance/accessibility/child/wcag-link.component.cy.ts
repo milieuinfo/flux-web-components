@@ -2,7 +2,7 @@ import { wcagLink } from './wcag-link.component';
 
 const mountDefault = () => cy.mount(wcagLink());
 
-describe('component wcag-link', () => {
+describe('cypress-component - compliance components - accessibility wcag-link', () => {
     beforeEach(() => {
         mountDefault();
     });

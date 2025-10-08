@@ -4,7 +4,7 @@ import { VlParagraphComponent } from './vl-paragraph.component';
 
 registerWebComponents([VlParagraphComponent]);
 
-describe('component - vl-paragraph', () => {
+describe('cypress-component - atom components - vl-paragraph', () => {
     it('should mount', () => {
         cy.mount(html` <vl-paragraph></vl-paragraph>`);
         cy.get('vl-paragraph').shadow().find('p');

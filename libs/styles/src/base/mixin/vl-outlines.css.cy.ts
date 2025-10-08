@@ -2,7 +2,7 @@ import { GlobalStyles } from '@domg-wc/common';
 import { html } from 'lit';
 import { vlFocusOutlineMixin } from './vl-outlines.css';
 
-describe('outline styles', () => {
+describe('cypress-component - base styles - vl-outlines', () => {
     beforeEach(() => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`

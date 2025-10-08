@@ -8,7 +8,7 @@ const mountDefault = () => {
     return cy.mount(html`<vl-tab-section></vl-tab-section>`);
 };
 
-describe('component vl-tab-section', () => {
+describe('cypress-component - block components - vl-tab-section', () => {
     beforeEach(() => {
         mountDefault();
     });
@@ -26,7 +26,7 @@ describe('component vl-tab-section', () => {
     });
 });
 
-describe('component vl-tab-section - classes', () => {
+describe('cypress-component - block components - vl-tab-section - classes', () => {
     it('should have class vl-tab__pane', () => {
         mountDefault();
 
@@ -34,7 +34,7 @@ describe('component vl-tab-section - classes', () => {
     });
 });
 
-describe('component vl-tab-section - attributes', () => {
+describe('cypress-component - block components - vl-tab-section - attributes', () => {
     beforeEach(() => {
         mountDefault();
     });

@@ -30,7 +30,7 @@ const customMapSelectActionFixture = html`
     </vl-map>
 `;
 
-describe('vl-map-select-action', () => {
+describe('cypress-component - map - vl-map-select-action', () => {
     it('a select action is a map action', async () => {
         expect(VlMapSelectAction.isVlMapAction()).to.be.true;
     });

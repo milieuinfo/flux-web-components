@@ -34,7 +34,7 @@ const mountDefault = ({ bordered = false }: { bordered?: boolean }) => {
     );
 };
 
-describe('component vl-description-data - default', () => {
+describe('cypress-component - block components - vl-description-data - default', () => {
     it('should mount', () => {
         mountDefault({});
 

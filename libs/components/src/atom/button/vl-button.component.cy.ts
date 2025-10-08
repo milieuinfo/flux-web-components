@@ -5,7 +5,7 @@ import { VlButtonComponent } from './vl-button.component';
 
 registerWebComponents([VlButtonComponent]);
 
-describe('component - vl-button', () => {
+describe('cypress-component - atom components - vl-button', () => {
     it('should mount', () => {
         cy.mount(html` <vl-button></vl-button>`);
 
@@ -264,7 +264,7 @@ describe('component - vl-button', () => {
     });
 });
 
-describe('component - vl-button - cta-link', () => {
+describe('cypress-component - atom components - vl-button - cta-link', () => {
     it('should mount', () => {
         cy.mount(html` <vl-button cta-link="https://www.vlaanderen.be">Klik op mij</vl-button>`);
 
@@ -512,7 +512,7 @@ describe('component - vl-button - cta-link', () => {
     });
 });
 
-describe('component - vl-button - in form', () => {
+describe('cypress-component - atom components - vl-button - in form', () => {
     it('should mount', () => {
         cy.mount(html` <form>
             <vl-button>Klik op mij</vl-button>
@@ -559,7 +559,7 @@ describe('component - vl-button - in form', () => {
     });
 });
 
-describe('component - vl-button - in input-group', () => {
+describe('cypress-component - atom components - vl-button - in input-group', () => {
     it('should have no radius depending on the side', () => {
         cy.mount(html` <style>
                 ${vlGroupStyles}

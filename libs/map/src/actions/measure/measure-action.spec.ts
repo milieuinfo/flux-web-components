@@ -4,7 +4,7 @@ import Feature from 'ol/Feature';
 import LineString from 'ol/geom/LineString';
 import { VlMeasureAction } from './measure-action';
 
-describe('measure action', () => {
+describe('jest - map - measure-action', () => {
     let measureAction;
     let layer;
     let addOverlay;

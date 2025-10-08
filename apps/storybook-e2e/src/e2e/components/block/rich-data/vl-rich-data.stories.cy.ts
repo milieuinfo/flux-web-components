@@ -1,7 +1,7 @@
 const richDataUrl =
     'http://localhost:8080/iframe.html?args=&id=components-block-rich-data--rich-data-pager&viewMode=story';
 
-describe('story - vl-rich-data', () => {
+describe('cypress-e2e - block components - vl-rich-data - default story', () => {
     it('should render', () => {
         cy.visit(`${richDataUrl}`);
 

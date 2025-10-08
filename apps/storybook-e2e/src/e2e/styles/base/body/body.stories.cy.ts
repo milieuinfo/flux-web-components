@@ -1,6 +1,6 @@
 const bodyDefaultUrl = 'http://localhost:8080/iframe.html?id=styles-base-body--body-default&viewMode=story';
 
-describe('story - body - default', () => {
+describe('cypress-e2e - styles - body - default story', () => {
     it('should render', () => {
         cy.visit(bodyDefaultUrl);
 

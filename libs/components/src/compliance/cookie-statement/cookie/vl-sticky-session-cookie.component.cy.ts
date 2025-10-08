@@ -6,7 +6,7 @@ registerWebComponents([VlStickySessionCookie]);
 
 const mountDefault = () => cy.mount(html` <vl-sticky-session-cookie></vl-sticky-session-cookie> `);
 
-describe('vl-sticky-session-cookie component - default', () => {
+describe('cypress-component - compliance components - cookie-statement vl-sticky-session-cookie - default', () => {
     beforeEach(() => {
         mountDefault();
     });
@@ -22,7 +22,7 @@ describe('vl-sticky-session-cookie component - default', () => {
     });
 });
 
-describe('vl-sticky-session-cookie component - props', () => {
+describe('cypress-component - compliance components - cookie-statement vl-sticky-session-cookie - props', () => {
     beforeEach(() => {
         mountDefault();
     });

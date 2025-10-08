@@ -4,7 +4,7 @@ import { VlInputFieldComponent } from './vl-input-field.component';
 
 registerWebComponents([VlInputFieldComponent]);
 
-describe('component - vl-input-field', () => {
+describe('cypress-component - form components - vl-input-field', () => {
     it('should mount', () => {
         cy.mount(html`<vl-input-field label="test-label"></vl-input-field>`);
 

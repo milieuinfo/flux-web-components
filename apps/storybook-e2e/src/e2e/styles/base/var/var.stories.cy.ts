@@ -1,6 +1,6 @@
 const varColorUrl = 'http://localhost:8080/iframe.html?id=styles-base-var--var-color&viewMode=story';
 
-describe('story - var - color', () => {
+describe('cypress-e2e - styles - var - color story', () => {
     it('should render', () => {
         cy.visit(varColorUrl);
 

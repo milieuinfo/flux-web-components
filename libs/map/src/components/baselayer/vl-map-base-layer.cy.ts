@@ -36,7 +36,7 @@ const baselayerWfsFixture = html`
     </vl-map>
 `;
 
-describe('vl-map-baselayer', () => {
+describe('cypress-component - map - vl-map-baselayer', () => {
     const assertLayerProperties = (element, url, typeLayer, layerName, title) => {
         expect(element.url).to.be.equal(url);
         expect(element.type).to.be.equal(typeLayer);

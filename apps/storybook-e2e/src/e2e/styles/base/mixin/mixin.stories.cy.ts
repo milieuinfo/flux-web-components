@@ -3,7 +3,7 @@ const mixinWaveAnimationUrl =
 const mixinFocusOutlineUrl =
     'http://localhost:8080/iframe.html?id=styles-base-mixin--focus-outline-mixin-default&viewMode=story';
 
-describe('story - mixin - wave animation', () => {
+describe('cypress-e2e - styles - mixin - wave animation story', () => {
     it('should render', () => {
         cy.visit(mixinWaveAnimationUrl);
 
@@ -11,7 +11,7 @@ describe('story - mixin - wave animation', () => {
     });
 });
 
-describe('story - mixin - focus outline', () => {
+describe('cypress-e2e - styles - mixin - focus outline story', () => {
     it('should render', () => {
         cy.visit(mixinFocusOutlineUrl);
 

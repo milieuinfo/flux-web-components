@@ -2,7 +2,7 @@ import { VlMapFeaturesLayer } from '@domg-wc/map';
 
 const mapPlaygroundUrl = 'http://localhost:8080/iframe.html?id=map-map--map-playground&viewMode=story';
 
-describe('story vl-map playground', () => {
+describe('cypress-e2e - map - vl-map - wc playground story', () => {
     it('should adjust opacity of shapes layer', () => {
         cy.visit(mapPlaygroundUrl);
 

@@ -13,7 +13,7 @@ const pointerEvent = new PointerEvent('pointerdown', {
     clientY: 1,
 });
 
-describe('vl-map-click-action', () => {
+describe('cypress-component - map - vl-map-click-action', () => {
     beforeEach(() => {
         cy.mount(html`
             <section style="width: 100%">

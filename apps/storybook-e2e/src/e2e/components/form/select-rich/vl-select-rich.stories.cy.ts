@@ -1,28 +1,21 @@
 const selectRichDefaultUrl =
     'http://localhost:8080/iframe.html?id=components-form-select-rich--select-rich-default&viewMode=story';
-
 const selectRichSearchUrl =
     'http://localhost:8080/iframe.html?id=components-form-select-rich--select-rich-search&viewMode=story';
-
 const selectRichNotDeletableUrl =
     'http://localhost:8080/iframe.html?id=components-form-select-rich--select-rich-not-deletable&viewMode=story';
-
 const selectRichGroupsUrl =
     'http://localhost:8080/iframe.html?id=components-form-select-rich--select-rich-groups&viewMode=story';
-
 const selectRichMultipleUrl =
     'http://localhost:8080/iframe.html?id=components-form-select-rich--select-rich-multiple&viewMode=story';
-
 const selectRichSelectedOptionUrl =
     'http://localhost:8080/iframe.html?id=components-form-select-rich--select-rich-selected-option&viewMode=story';
-
 const selectRichDisabledOptionUrl =
     'http://localhost:8080/iframe.html?id=components-form-select-rich--select-rich-disabled-option&viewMode=story';
-
 const selectRichReadOnlyUrl =
     'http://localhost:8080/iframe.html?id=components-form-select-rich--select-rich-read-only&viewMode=story';
 
-describe('story - vl-select-rich - default', () => {
+describe('cypress-e2e - form components - vl-select-rich - default story', () => {
     it('should render', () => {
         cy.visit(selectRichDefaultUrl);
 
@@ -30,7 +23,7 @@ describe('story - vl-select-rich - default', () => {
     });
 });
 
-describe('story - vl-select-rich - search', () => {
+describe('cypress-e2e - form components - vl-select-rich - search story', () => {
     it('should render', () => {
         cy.visit(selectRichSearchUrl);
 
@@ -38,7 +31,7 @@ describe('story - vl-select-rich - search', () => {
     });
 });
 
-describe('story - vl-select-rich - not-deletable', () => {
+describe('cypress-e2e - form components - vl-select-rich - not-deletable story', () => {
     it('should render', () => {
         cy.visit(selectRichNotDeletableUrl);
 
@@ -46,7 +39,7 @@ describe('story - vl-select-rich - not-deletable', () => {
     });
 });
 
-describe('story - vl-select-rich - groups', () => {
+describe('cypress-e2e - form components - vl-select-rich - groups story', () => {
     it('should render', () => {
         cy.visit(selectRichGroupsUrl);
 
@@ -54,7 +47,7 @@ describe('story - vl-select-rich - groups', () => {
     });
 });
 
-describe('story - vl-select-rich - multiple', () => {
+describe('cypress-e2e - form components - vl-select-rich - multiple story', () => {
     it('should render', () => {
         cy.visit(selectRichMultipleUrl);
 
@@ -62,7 +55,7 @@ describe('story - vl-select-rich - multiple', () => {
     });
 });
 
-describe('story - vl-select-rich - selected option', () => {
+describe('cypress-e2e - form components - vl-select-rich - selected option story', () => {
     it('should render', () => {
         cy.visit(selectRichSelectedOptionUrl);
 
@@ -70,7 +63,7 @@ describe('story - vl-select-rich - selected option', () => {
     });
 });
 
-describe('story - vl-select-rich - disabled option', () => {
+describe('cypress-e2e - form components - vl-select-rich - disabled option story', () => {
     it('should render', () => {
         cy.visit(selectRichDisabledOptionUrl);
 
@@ -78,7 +71,7 @@ describe('story - vl-select-rich - disabled option', () => {
     });
 });
 
-describe('story - vl-select-rich - read only', () => {
+describe('cypress-e2e - form components - vl-select-rich - read only story', () => {
     it('should render', () => {
         cy.visit(selectRichReadOnlyUrl);
 

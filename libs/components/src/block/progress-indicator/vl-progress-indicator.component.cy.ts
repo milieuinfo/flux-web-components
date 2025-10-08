@@ -62,7 +62,7 @@ const VlProgressIndicatorTestUtils = {
     },
 };
 
-describe('component vl-progress-indicator - default', () => {
+describe('cypress-component - block components - vl-progress-indicator - default', () => {
     const steps = ['Step 1', 'Step 2', 'Step 3'];
 
     beforeEach(() => {
@@ -91,7 +91,7 @@ describe('component vl-progress-indicator - default', () => {
     });
 });
 
-describe('component vl-progress-indicator - properties default ', () => {
+describe('cypress-component - block components - vl-progress-indicator - properties default ', () => {
     it('should have default values for properties', () => {
         mountDefault(props);
 
@@ -102,7 +102,7 @@ describe('component vl-progress-indicator - properties default ', () => {
     });
 });
 
-describe('component vl-progress-indicator - properties reflect', () => {
+describe('cypress-component - block components - vl-progress-indicator - properties reflect', () => {
     const steps = ['Step 1', 'Step 2', 'Step 3'];
 
     it('should have active step class on the correct step when <activeStep> property is set', () => {

@@ -11,7 +11,7 @@ import ResizeObserver from 'resize-observer-polyfill';
 declare var global;
 global.ResizeObserver = ResizeObserver;
 
-describe('delete action', () => {
+describe('jest - map - delete-action', () => {
     const createVlDeleteAction = ({ layer = <OlVectorLayerType>{}, callback, options }: MapActionPayload) => {
         const action = new VlDeleteAction(layer, callback, options);
         action.map = new Map({});

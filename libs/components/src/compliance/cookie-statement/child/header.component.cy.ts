@@ -5,7 +5,7 @@ registerWebComponents(cookieStatementHeaderElements());
 
 const mountDefault = () => cy.mount(header());
 
-describe('component header', () => {
+describe('cypress-component - compliance components - cookie-statement header', () => {
     beforeEach(() => {
         mountDefault();
     });
@@ -44,7 +44,7 @@ describe('component header', () => {
     });
 });
 
-describe('component header - helper function <cookieStatementHeaderElements()> ', () => {
+describe('cypress-component - compliance components - cookie-statement header - helper function <cookieStatementHeaderElements()> ', () => {
     it('should return an array of WebComponents with a length of 1', () => {
         const elements = cookieStatementHeaderElements();
         expect(elements).to.be.an('array');

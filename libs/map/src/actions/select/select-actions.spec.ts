@@ -5,7 +5,7 @@ import { VlSelectActions } from './select-actions';
 import { OlVectorLayerType } from '../../vl-map.model';
 import { Style as OlStyle } from 'ol/style';
 
-describe('select actions', () => {
+describe('jest - map - select-actions', () => {
     it('is een select action', () => {
         const selectActions = new VlSelectActions([{}] as OlVectorLayerType[], null, {});
         expect(selectActions instanceof VlSelectActions).toBe(true);

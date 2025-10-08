@@ -3,7 +3,7 @@ const fontNormalUrl =
 const fontItalicUrl =
     'http://localhost:8080/iframe.html?id=styles-base-font--font-flanders-art-sans-italic&viewMode=story';
 
-describe('story - font - normal', () => {
+describe('cypress-e2e - styles - font - normal story', () => {
     it('should render', () => {
         cy.visit(fontNormalUrl);
 
@@ -15,7 +15,7 @@ describe('story - font - normal', () => {
     });
 });
 
-describe('story - font - italic', () => {
+describe('cypress-e2e - styles - font - italic story', () => {
     it('should render', () => {
         cy.visit(fontItalicUrl);
 

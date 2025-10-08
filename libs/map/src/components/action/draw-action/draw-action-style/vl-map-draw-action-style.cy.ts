@@ -16,7 +16,7 @@ registerWebComponents([
     VlMapDrawActionStyle,
 ]);
 
-describe('component vl-map-draw-action-style', () => {
+describe('cypress-component - map - vl-map-draw-action-style', () => {
     beforeEach(() => {
         cy.mount(html`
             <vl-map lambert2008>

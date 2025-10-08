@@ -19,7 +19,7 @@ const mountDefault = ({ ...props }: typeof privacyDefaults) =>
 
 const defaultProps = privacyDefaults;
 
-describe('vl-privacy component', () => {
+describe('cypress-component - compliance components - vl-privacy', () => {
     beforeEach(() => {
         mountDefault(defaultProps);
         cy.viewport(960, 1440);
@@ -43,7 +43,7 @@ describe('vl-privacy component', () => {
     });
 });
 
-describe('vl-privacy component - properties default ', () => {
+describe('cypress-component - compliance components - vl-privacy - properties default ', () => {
     it('should have default values for properties', () => {
         mountDefault(defaultProps);
 
@@ -53,7 +53,7 @@ describe('vl-privacy component - properties default ', () => {
     });
 });
 
-describe('vl-privacy component - properties reflect ', () => {
+describe('cypress-component - compliance components - vl-privacy - properties reflect ', () => {
     it('should reflect the <date> attribute', () => {
         mountDefault({ ...defaultProps, date: '27 januari 2024' });
 
@@ -81,7 +81,7 @@ describe('vl-privacy component - properties reflect ', () => {
     });
 });
 
-describe('vl-privacy component - properties functionality', () => {
+describe('cypress-component - compliance components - vl-privacy - properties functionality', () => {
     it('should disable back link and emit event', () => {
         mountDefault({ ...defaultProps, disableBackLink: true });
 
@@ -110,7 +110,7 @@ describe('vl-privacy component - properties functionality', () => {
     });
 });
 
-describe('vl-privacy component - slots', () => {
+describe('cypress-component - compliance components - vl-privacy - slots', () => {
     it('should replace default header with custom header', () => {
         mountDefault({
             ...defaultProps,

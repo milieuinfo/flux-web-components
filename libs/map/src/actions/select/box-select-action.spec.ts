@@ -7,7 +7,7 @@ import ResizeObserver from 'resize-observer-polyfill';
 declare var global;
 global.ResizeObserver = ResizeObserver;
 
-describe('box select action', () => {
+describe('jest - map - box-select-action', () => {
     const feature1 = new Feature({ id: 1 });
     const feature2 = new Feature({ id: 2 });
     const intersectingFeatures = [feature1, feature2];

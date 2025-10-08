@@ -27,7 +27,7 @@ const tiledWmsLayerAdjustedConfigFixture = html`
     </vl-map>
 `;
 
-describe('component vl-map-tiled-wms - features layer', () => {
+describe('cypress-component - map - vl-map-tiled-wms-layer', () => {
     it('should mount', () => {
         cy.mount(tiledWmsLayerFixture);
         cy.get('vl-map').shadow();

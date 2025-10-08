@@ -5,7 +5,7 @@ import { VlPopoverActionComponent } from './vl-popover-action.component';
 
 registerWebComponents([VlPopoverActionComponent, VlPopoverActionListComponent]);
 
-describe('component vl-popover-action - default', () => {
+describe('cypress-component - block components - vl-popover-action - default', () => {
     it('should mount', () => {
         cy.mount(html` <vl-popover-action icon="search">Zoeken</vl-popover-action> `);
         cy.get('vl-popover-action');
