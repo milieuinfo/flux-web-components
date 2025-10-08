@@ -6,7 +6,9 @@ export const vlModalFluxStyles: CSSResult = css`
         overflow: visible;
     }
 
-    :host .vl-modal-dialog__wrapper {
+    :host .vl-modal-dialog--full-screen .vl-modal-dialog__wrapper,
+    :host .vl-modal-dialog--left .vl-modal-dialog__wrapper,
+    :host .vl-modal-dialog--right .vl-modal-dialog__wrapper {
         height: 100%;
     }
 
