@@ -65,6 +65,10 @@ export const vlSearchFluxStyles: CSSResult = css`
     .vl-search {
         position: relative;
     }
+    .vl-search__submit {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
     .vl-search--inline {
         display: inline-block;
         width: 25rem;

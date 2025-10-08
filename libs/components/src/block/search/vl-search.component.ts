@@ -1,7 +1,7 @@
 import { BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { selectStyle } from '@domg/govflanders-style/component';
-import { buttonStyles } from '../../atom/button/vl-button.css';
+import { vlButtonStyles } from '../../atom/button-style/vl-button-style.css';
 import { VlIconComponent } from '../../atom/icon';
 import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { inputFieldStyles, VlInputFieldComponent } from '../../form/input-field';
@@ -22,7 +22,7 @@ export class VlSearchComponent extends BaseHTMLElement {
         `;
         const styleSheets = [
             resetStyle.styleSheet!,
-            buttonStyles.styleSheet!,
+            vlButtonStyles().styleSheet!,
             vlIconStyles.styleSheet!,
             inputFieldStyles.styleSheet!,
             selectStyle.styleSheet!,

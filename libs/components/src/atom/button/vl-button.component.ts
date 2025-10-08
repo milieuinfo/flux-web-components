@@ -2,10 +2,9 @@ import { BaseLitElement, ICON_PLACEMENT, isSlotEmpty, webComponent } from '@domg
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { ClassInfo, classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { vlButtonStyles } from '../button-style/vl-button-style.css';
 import { vlIconStyles } from '../icon-style/vl-icon-style.css';
-import { buttonStyles } from './vl-button.css';
 import { buttonDefaults } from './vl-button.defaults';
-import { linkButtonStyles } from './vl-link-button.css';
 
 @webComponent('vl-button')
 export class VlButtonComponent extends BaseLitElement {
@@ -32,7 +31,7 @@ export class VlButtonComponent extends BaseLitElement {
     private slotIsEmpty = true;
 
     static get styles(): CSSResult[] {
-        return [buttonStyles, linkButtonStyles, vlIconStyles];
+        return [vlButtonStyles(), vlButtonStyles('a'), vlIconStyles];
     }
 
     static get properties(): PropertyDeclarations {
