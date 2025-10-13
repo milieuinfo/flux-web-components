@@ -337,18 +337,16 @@ describe('component - vl-button-next - cta-link', () => {
         cy.get('vl-button-next').shadow().find('a').should('have.class', 'loading');
     });
 
-    it('should not grow when "loading" class is set', () => {
-        // In tegenstelling tot de gewone vl-button-next is er hier geen verschil tussen small en large viewports.
-        // De computed height van de a-tag houdt geen rekening met de extra margin of padding en is dus in beide
-        // viewports hetzelfde.
-        cy.mount(html` <vl-button-next>Klik op mij</vl-button-next>`);
+    it('should not grow when "loading" class is set (large viewport)', () => {
+        cy.viewport(1024, 786);
+
+        cy.mount(html` <vl-button-next cta-link="https://www.vlaanderen.be">Klik op mij</vl-button-next>`);
 
         cy.get('vl-button-next')
-            .invoke('attr', 'cta-link', 'https://www.vlaanderen.be')
             .shadow()
             .find('a')
             .then(($a) => {
-                const buttonHeight = $a.height();
+                const buttonHeight = $a[0].getBoundingClientRect().height;
 
                 cy.get('vl-button-next')
                     .invoke('attr', 'loading', true)
@@ -358,18 +356,54 @@ describe('component - vl-button-next - cta-link', () => {
             });
     });
 
-    it('should not grow when "loading" class is set (large button)', () => {
-        // In tegenstelling tot de gewone vl-button-next is er hier geen verschil tussen small en large viewports.
-        // De computed height van de a-tag houdt geen rekening met de extra margin of padding en is dus in beide
-        // viewports hetzelfde.
-        cy.mount(html` <vl-button-next large>Klik op mij</vl-button-next>`);
+    it('should not grow when "loading" class is set (large viewport, large button)', () => {
+        cy.viewport(1024, 786);
+
+        cy.mount(html` <vl-button-next cta-link="https://www.vlaanderen.be" large>Klik op mij</vl-button-next>`);
 
         cy.get('vl-button-next')
-            .invoke('attr', 'cta-link', 'https://www.vlaanderen.be')
             .shadow()
             .find('a')
             .then(($a) => {
-                const buttonHeight = $a.height();
+                const buttonHeight = $a[0].getBoundingClientRect().height;
+
+                cy.get('vl-button-next')
+                    .invoke('attr', 'loading', true)
+                    .shadow()
+                    .find('a')
+                    .shouldHaveComputedStyle({ style: 'height', value: `${buttonHeight}px` });
+            });
+    });
+
+    it('should not grow when "loading" class is set (small viewport)', () => {
+        cy.viewport(600, 400);
+
+        cy.mount(html` <vl-button-next cta-link="https://www.vlaanderen.be">Klik op mij</vl-button-next>`);
+
+        cy.get('vl-button-next')
+            .shadow()
+            .find('a')
+            .then(($a) => {
+                const buttonHeight = $a[0].getBoundingClientRect().height;
+
+                cy.get('vl-button-next')
+                    .invoke('attr', 'loading', true)
+                    .shadow()
+                    .find('a')
+                    .shouldHaveComputedStyle({ style: 'height', value: `${buttonHeight}px` });
+            });
+    });
+
+    it('should not grow when "loading" class is set (small viewport, large button)', () => {
+        cy.viewport(600, 400);
+
+        cy.mount(html` <vl-button-next cta-link="https://www.vlaanderen.be" large>Klik op mij</vl-button-next>`);
+
+        cy.get('vl-button-next')
+            .shadow()
+            .find('a')
+            .then(($a) => {
+                const buttonHeight = $a[0].getBoundingClientRect().height;
 
                 cy.get('vl-button-next')
                     .invoke('attr', 'loading', true)
@@ -406,7 +440,7 @@ describe('component - vl-button-next - cta-link', () => {
             .shadow()
             .find('a')
             .shouldHaveComputedStyle({ style: 'padding', value: '0px' })
-            .shouldHaveComputedStyle({ style: 'width', value: '31px' });
+            .shouldHaveComputedStyle({ style: 'width', value: '35px' });
     });
 
     it('should set content', () => {
