@@ -1,19 +1,19 @@
 import { http, HttpResponse } from 'msw';
 
 export const prozaMessageMockDomainData = [
-    http.get('/proza/domein/mockdomain/inline', async () => {
+    http.get('proza/domein/mockdomain/inline', async () => {
         return HttpResponse.json({
             code: 'inline',
             tekst: 'Inline',
         }); // status=200 is default
     }),
-    http.get('/proza/domein/mockdomain/action', async () => {
+    http.get('proza/domein/mockdomain/action', async () => {
         return HttpResponse.json({
             code: 'action',
             tekst: 'Action',
         }); // status=200 is default
     }),
-    http.get('/proza/domein/mockdomain/block', async () => {
+    http.get('proza/domein/mockdomain/block', async () => {
         return HttpResponse.json({
             code: 'block',
             tekst: `
@@ -27,7 +27,7 @@ export const prozaMessageMockDomainData = [
                 `,
         }); // status=200 is default
     }),
-    http.get('/proza/domein/mockdomain/toegelatenoperaties', async () => {
+    http.get('proza/domein/mockdomain/toegelatenoperaties', async () => {
         return HttpResponse.json({
             create: false,
             read: true,
@@ -35,7 +35,7 @@ export const prozaMessageMockDomainData = [
             delete: false,
         }); // status=200 is default
     }),
-    http.get('/proza/domein/mockdomain', async () => {
+    http.get('proza/domein/mockdomain', async () => {
         return HttpResponse.json([
             {
                 code: 'inline',
@@ -62,19 +62,19 @@ export const prozaMessageMockDomainData = [
 ];
 
 export const prozaMessageMockDomainEditableData = [
-    http.get('/proza/domein/mockdomaineditable/inline', async () => {
+    http.get('proza/domein/mockdomaineditable/inline', async () => {
         return HttpResponse.json({
             code: 'inline',
             tekst: 'Inline',
         }); // status=200 is default
     }),
-    http.get('/proza/domein/mockdomaineditable/action', async () => {
+    http.get('proza/domein/mockdomaineditable/action', async () => {
         return HttpResponse.json({
             code: 'action',
             tekst: 'Action',
         }); // status=200 is default
     }),
-    http.get('/proza/domein/mockdomaineditable/block', async () => {
+    http.get('proza/domein/mockdomaineditable/block', async () => {
         return HttpResponse.json({
             code: 'block',
             tekst: `<div>
@@ -86,7 +86,7 @@ export const prozaMessageMockDomainEditableData = [
                     </div>`,
         }); // status=200 is default
     }),
-    http.get('/proza/domein/mockdomaineditable/toegelatenoperaties', async () => {
+    http.get('proza/domein/mockdomaineditable/toegelatenoperaties', async () => {
         return HttpResponse.json({
             create: true,
             read: true,
