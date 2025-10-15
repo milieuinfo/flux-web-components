@@ -75,5 +75,9 @@ const styles: CSSResult = css`
         top: 0.8rem;
         pointer-events: none;
     }
+
+    .slot-container {
+        display: none;
+    }
 `;
 export default styles;
