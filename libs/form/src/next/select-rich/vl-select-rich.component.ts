@@ -2,16 +2,16 @@ import { webComponent } from '@domg-wc/common-utilities';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { iconStyle } from '@domg/govflanders-style/component';
 import { FormValue } from '@open-wc/form-control/src/types';
-import { SelectRichOption } from './vl-select-rich.model';
 import Choices, { Options } from 'choices.js';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { FormControl } from '../form-control/form-control';
 import { inputFieldStyles } from '../input-field/vl-input-field.css';
 import multiselectStyle from './styles/vl-multiselect.dv-css';
+import { vlSelectRichFluxStyles } from './styles/vl-select-rich.uig-css';
 import selectStyle from './styles/vl-select.dv-css';
 import { selectRichDefaults } from './vl-select-rich.defaults';
-import { vlSelectRichFluxStyles } from './styles/vl-select-rich.uig-css';
+import { SelectRichOption } from './vl-select-rich.model';
 
 @webComponent('vl-select-rich-next')
 export class VlSelectRichComponent extends FormControl {
@@ -56,8 +56,8 @@ export class VlSelectRichComponent extends FormControl {
 
     static get properties(): PropertyDeclarations {
         return {
-            initialOptions: { type: Array, attribute: 'initial-options' },
-            options: { type: Array },
+            initialOptions: { type: Array, attribute: 'initial-options', hasChanged: this.compareValue },
+            options: { type: Array, hasChanged: this.compareValue },
             placeholder: { type: String },
             notDeletable: { type: Boolean, attribute: 'not-deletable' },
             multiple: { type: Boolean },
@@ -67,20 +67,21 @@ export class VlSelectRichComponent extends FormControl {
             noResultsText: { type: String, attribute: 'no-results-text' },
             noChoicesText: { type: String, attribute: 'no-choices-text' },
             searchPlaceholder: { type: String, attribute: 'search-placeholder' },
-            value: {
-                type: FormData,
-                state: true,
-                hasChanged: (value: FormValue, oldValue: FormValue) => {
-                    if (value instanceof FormData && oldValue instanceof FormData) {
-                        // We vergelijken de letterlijke inhoud van de entries van dit FormData object, omdat default FormData vergelijking niet voldoet
-                        return JSON.stringify([...value.entries()]) !== JSON.stringify([...oldValue.entries()]);
-                    } else {
-                        return value !== oldValue;
-                    }
-                },
-            },
+            value: { type: FormData, state: true, hasChanged: this.compareValue },
         };
     }
+
+    static compareValue = (value: unknown, oldValue: unknown): boolean => {
+        // We vergelijken de letterlijke inhoud van de entries van dit FormData object
+        // omdat default FormData vergelijking niet voldoet
+        const valueList = value instanceof FormData ? [...value.entries()] : value;
+        const oldValueList = oldValue instanceof FormData ? [...oldValue.entries()] : oldValue;
+        if (valueList instanceof Array && oldValueList instanceof Array) {
+            return JSON.stringify(valueList) !== JSON.stringify(oldValueList);
+        } else {
+            return value !== oldValue;
+        }
+    };
 
     connectedCallback() {
         super.connectedCallback();
@@ -119,7 +120,6 @@ export class VlSelectRichComponent extends FormControl {
         });
 
         this.setChoicesInputAttributes();
-
         setTimeout(() => {
             // Fix voor required validator
             if (!this.value) {
@@ -141,9 +141,14 @@ export class VlSelectRichComponent extends FormControl {
         }
 
         if (changedProperties.has('options')) {
-            this.choices.clearStore();
-            this.choices.setChoices(this.options, 'value', 'label', true);
-            this.updateSelectedOptions(this.options);
+            if (this.choices.initialised) {
+                this.choices.clearStore();
+                this.choices.setChoices(this.options, 'value', 'label', true);
+                this.updateSelectedOptions(this.options);
+            }
+            if (VlSelectRichComponent.compareValue(this.value, changedProperties.has('value'))) {
+                this.value = this.collectFormData();
+            }
         }
 
         if (changedProperties.has('value')) {
@@ -221,7 +226,7 @@ export class VlSelectRichComponent extends FormControl {
         this.choices?.clearStore();
         this.choices?.setChoices(this.options, 'value', 'label', true);
         this.updateSelectedOptions(this.initialOptions);
-        this.onChange();
+        this.value = this.collectFormData();
     }
 
     /**
@@ -267,12 +272,7 @@ export class VlSelectRichComponent extends FormControl {
         if (!this.choices) {
             return;
         }
-
-        if (Array.isArray(value)) {
-            this.choices.setChoiceByValue(value);
-        } else {
-            this.choices.setChoiceByValue([value]);
-        }
+        this.choices.setChoiceByValue(value);
         this.setValue(this.collectFormData());
     }
 
