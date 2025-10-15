@@ -1,10 +1,11 @@
+import { story } from '@resources/utils-storybook';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import '../vl-accessibility.component';
-import { Meta } from '@storybook/web-components-vite';
-import accessibilityDoc from './vl-accessibility.stories-doc.mdx';
+import { COMPLIANCE_STATUS, EVALUATION_STATUS } from '../vl-accessibility.model';
 import { accessibilityArgs, accessibilityArgTypes } from './vl-accessibility.stories-arg';
-import { story } from '@resources/utils-storybook';
+import accessibilityDoc from './vl-accessibility.stories-doc.mdx';
 
 // TODO kspeltin: deze commentaar was dode code, moet die ergens opgenomen worden ?
 // const limitationsDescription = `<p>Attribuut om limitaties mee te geven aan de verklaring. De string die verwacht wordt is de <code>id</code> van een script dat aanwezig is op de pagina waarin een object zit.</p>
@@ -82,6 +83,22 @@ const limitations = {
 export const AccessibilityDefault = Template.bind({});
 AccessibilityDefault.storyName = 'vl-accessibility - default';
 AccessibilityDefault.args = {
+    evaluation: EVALUATION_STATUS.NOT_EVALUATED,
+};
+
+export const AccessibilitySelfEvaluated = Template.bind({});
+AccessibilitySelfEvaluated.storyName = 'vl-accessibility - self evaluated';
+AccessibilitySelfEvaluated.args = {
+    evaluation: EVALUATION_STATUS.SELF_EVALUATED,
+    compliance: COMPLIANCE_STATUS.NOT_COMPLIANT,
+    limitations,
+};
+
+export const AccessibilityExpertEvaluated = Template.bind({});
+AccessibilityExpertEvaluated.storyName = 'vl-accessibility - expert evaluated';
+AccessibilityExpertEvaluated.args = {
+    evaluation: EVALUATION_STATUS.EXPERT_EVALUATED,
+    compliance: COMPLIANCE_STATUS.NOT_COMPLIANT,
     limitations,
 };
 
