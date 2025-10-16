@@ -284,6 +284,15 @@ export const vlButtonStyles = (element: VlButtonElementType = 'button', selector
                     color: var(--vl-color--action-disabled);
                     background-color: transparent;
                     border-color: transparent;
+
+                    &.error {
+                        &:focus,
+                        &:hover {
+                            color: var(--vl-color--action-disabled);
+                            background-color: transparent;
+                            border-color: transparent;
+                        }
+                    }
                 }
             }
 
@@ -331,6 +340,9 @@ export const vlButtonStyles = (element: VlButtonElementType = 'button', selector
 
                 &.disabled {
                     cursor: not-allowed;
+                    &::after {
+                        animation-name: ${unsafeCSS(loadingAnimationName)};
+                    }
                 }
 
                 &.ghost {
