@@ -3,7 +3,6 @@ import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import '../vl-document.component';
 import { documentArgs, documentArgTypes } from './vl-document.stories-arg';
-import documentDoc from './vl-document.stories-doc.mdx';
 
 export default {
     id: 'components-block-document',
@@ -11,11 +10,6 @@ export default {
     tags: ['autodocs'],
     args: documentArgs,
     argTypes: documentArgTypes,
-    parameters: {
-        docs: {
-            page: documentDoc,
-        },
-    },
 } as Meta<typeof documentArgs>;
 
 export const DocumentDefault = story(
@@ -32,5 +26,5 @@ DocumentDefault.storyName = 'vl-document - default';
 DocumentDefault.args = {
     type: 'PDF',
     title: 'Hubert en Jan van Eyck, Vlaamse Primitieven',
-    metadata: 'PDF - 580 kB',
+    metadata: 'PDF - 580 kB'
 };
