@@ -1,0 +1,23 @@
+import { Canvas, Meta, Source } from '@storybook/addon-docs/blocks';
+import * as functionalHeaderWithActionButtonsStories from './functional-header-with-action-buttons.stories'
+import { functionalHeaderWithActionButtonsHTML } from '../functional-header.helpers'
+
+<Meta of={functionalHeaderWithActionButtonsStories} />
+
+# Functional Header - Voorbeeld Met Action Buttons
+
+In dit voorbeeld tonen we hoe je acties kan definiëren als buttons in plaats van de standaard action links.
+
+## Componenten
+
+- [vl-functional-header](/docs/components-block-functional-header--documentatie)
+- [vl-button](/docs/components-atom-button--documentatie)
+
+## Demo
+
+<Canvas of={functionalHeaderWithActionButtonsStories.functionalHeaderWithActionButtons} sourceState='none' />
+
+<details open>
+<summary>Code</summary>
+<Source code={functionalHeaderWithActionButtonsHTML} language="ts" dark={true}/>
+</details>

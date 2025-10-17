@@ -1,6 +1,8 @@
 import { BaseLitElement, findDeepestElementThroughShadowRoot, registerWebComponents, webComponent } from '@domg-wc/common';
 import { VlIconComponent } from '@domg-wc/components/atom';
+import { VlHeader, VlHeaderNext } from '@domg-wc/components/compliance';
 import { PropertyDeclarations } from 'lit';
+import { VlFunctionalHeaderComponent } from '../functional-header';
 
 registerWebComponents([VlIconComponent]);
 
@@ -30,7 +32,14 @@ export class VlSideNavigationToggleComponent extends BaseLitElement {
     }
 
     protected get scrollOffset(): number {
-        return this.hasStickyHeader() ? 43 : 0;
+        const vlHeader =
+            (findDeepestElementThroughShadowRoot(document.documentElement, 'vl-header') as VlHeader) ||
+            (findDeepestElementThroughShadowRoot(document.documentElement, 'vl-header-next') as VlHeaderNext);
+        const vlFunctionalHeaderSticky = findDeepestElementThroughShadowRoot(
+            document.documentElement,
+            'vl-functional-header[sticky]'
+        ) as VlFunctionalHeaderComponent;
+        return (vlHeader?.height || 0) + (vlFunctionalHeaderSticky?.height || 0);
     }
 
     protected get hashSync(): boolean {

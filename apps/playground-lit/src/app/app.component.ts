@@ -1,23 +1,27 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { vlGroupStyles, vlLegacyStyles, vlStackedStyles } from '@domg-wc/styles';
 import { VlButtonComponent, VlLinkComponent, VlParagraphComponent, VlTitleComponent } from '@domg-wc/components/atom';
 import {
     VlAccordionComponent,
+    VlFunctionalHeaderComponent,
     VlModalComponent,
     VlPillComponent,
     VlPopoverComponent,
+    VlSideNavigationComponent,
     VlSideSheet,
     VlTabsComponent,
 } from '@domg-wc/components/block';
+import { VlHeader } from '@domg-wc/components/compliance';
 import {
     SelectRichOption,
     VlDatepickerComponent,
     VlSelectComponent,
     VlSelectRichComponent,
 } from '@domg-wc/components/form';
+import { VlFormDemoComponent } from '@domg-wc/integrations/form';
+import { vlGroupStyles, vlLegacyStyles, vlStackedStyles } from '@domg-wc/styles';
+import { VlSideNavigationReferenceComponent } from 'libs/components/src/block/side-navigation';
 import { CSSResult, html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { VlFormDemoComponent } from '@domg-wc/integrations/form';
 
 @customElement('app-component')
 export class AppComponent extends LitElement {
@@ -37,6 +41,10 @@ export class AppComponent extends LitElement {
             VlSideSheet,
             VlTabsComponent,
             VlTitleComponent,
+            VlFunctionalHeaderComponent,
+            VlHeader,
+            VlSideNavigationComponent,
+            VlSideNavigationReferenceComponent,
         ]);
     }
 
@@ -82,137 +90,270 @@ export class AppComponent extends LitElement {
     render() {
         return html`
             <main>
-                <vl-tabs active-tab="vl-select-rich" disable-links="">
-                    <vl-tabs-pane id="vl-select-rich" title="vl-select-rich">
-                        <vl-select-rich
-                            style="width: 300px; display: block"
-                            id="geboorteplaats"
-                            name="geboorteplaats"
-                            placeholder="Kies je geboorteplaats"
-                            .options=${this.geboorteplaatsen}
-                            search=""
+                <vl-header development simple identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb"></vl-header>
+                <vl-functional-header sticky>
+                    <div slot="title">Application name</div>
+                    <div class="vl-group vl-margin--small vl-margin--no-bottom" slot="top-right">
+                        <vl-button
+                            tertiary
+                            icon="add"
+                            label="Taak aanmaken"
+                            @click=${() => {
+                                document.querySelector<VlModalComponent>('#taak-modal')?.open();
+                            }}
+                            >Taak</vl-button
                         >
-                        </vl-select-rich>
-                    </vl-tabs-pane>
-                    <vl-tabs-pane id="vl-select" title="vl-select">
-                        <div class="vl-stacked-small">
-                            <vl-title type="h2">Select</vl-title>
-                            <vl-paragraph
-                                >Test om te zien hoe de select placeholder zich gedraagt bij dynamische selects.
-                            </vl-paragraph>
-                            <vl-title type="h3">Gerelateerd aan:</vl-title>
-                            <vl-pill
-                                clickable
-                                @click=${() => window.open('https://www.milieuinfo.be/jira/browse/UIG-3214')}
-                                >UIG-3214
-                            </vl-pill>
-                            <vl-pill
-                                clickable
-                                @click=${() => window.open('https://www.milieuinfo.be/jira/browse/UIG-3203')}
-                                >UIG-3202
-                            </vl-pill>
-                            <div class="vl-group">
-                                <vl-button @click=${() => this.addPlaceholder()}>Add placeholder</vl-button>
-                                <vl-button @click=${() => this.addOptions()}>Add options</vl-button>
-                                <vl-button @click=${this.applyError}>Apply error</vl-button>
-                                <vl-button @click=${this.addSelect}>Add select</vl-button>
-                            </div>
-                            <div>
-                                <vl-select id="select"></vl-select>
-                            </div>
+                        <vl-button
+                            tertiary
+                            icon="add"
+                            label="Aantekening aanmaken"
+                            @click=${() => {
+                                document.querySelector<VlModalComponent>('#aantekening-modal')?.open();
+                            }}
+                            >Aantekening</vl-button
+                        >
+                        <vl-button
+                            tertiary
+                            icon="edit"
+                            label="edit"
+                            @click=${() => {
+                                document.querySelector<VlModalComponent>('#edit-modal')?.open();
+                            }}
+                        ></vl-button>
+                        <vl-button
+                            tertiary
+                            error
+                            icon="bin"
+                            label="delete"
+                            @click=${() => {
+                                document.querySelector<VlModalComponent>('#delete-modal')?.open();
+                            }}
+                        ></vl-button>
+                    </div>
+                </vl-functional-header>
+
+                <div class="vl-content-block">
+                    <div class="vl-grid vl-stacked-small">
+                        <div class="vl-column vl-column--8 vl-column--m-9 vl-column--s-12 vl-column--xs-12">
+                            <vl-side-navigation-reference>
+                                <section class="vl-section">
+                                    <vl-title type="h2" id="hoofdstuk-1">Hoofdstuk 1</vl-title>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac dignissim magna.
+                                    Integer ligula lacus, volutpat vitae arcu eu, laoreet euismod sapien. Donec viverra
+                                    nunc non lectus hendrerit, eget faucibus dolor congue. Fusce at dolor dictum ligula
+                                    efficitur varius vitae quis massa. Pellentesque porta et ligula at feugiat. Nulla
+                                    sit amet erat fringilla, dapibus sapien quis, efficitur neque. Fusce vulputate eu
+                                    felis ut rhoncus. Maecenas suscipit nunc ligula. Cras ullamcorper interdum risus, id
+                                    tempus erat aliquet ut. Duis dapibus convallis eros. Praesent mollis, nunc vitae
+                                    molestie mattis, leo nisl sagittis tortor, sit amet tristique justo metus ac justo.
+                                    Suspendisse potenti. Phasellus non lobortis felis. Nam sit amet dui magna. Etiam a
+                                    sagittis turpis. Nulla vitae mattis massa. Donec pulvinar, ipsum eget luctus
+                                    molestie, odio orci vehicula nibh, sed molestie mauris justo ut est. Nam gravida,
+                                    turpis fringilla luctus tempor, neque velit volutpat nibh, nec volutpat est nibh sed
+                                    augue. Mauris malesuada nibh est. Nam suscipit quam nec placerat efficitur.
+                                </section>
+
+                                <section class="vl-section">
+                                    <vl-title type="h2" id="hoofdstuk-2">Hoofdstuk 2</vl-title>
+                                    Morbi sed mollis justo, sed ultrices nibh. Morbi sagittis rutrum quam, quis suscipit
+                                    lectus vestibulum eu. Cras vehicula placerat velit, eu tincidunt nunc dapibus sed.
+                                    Morbi quis bibendum dolor, id bibendum risus. Nulla ultricies bibendum bibendum.
+                                    Aliquam et iaculis lacus. Donec rutrum luctus lectus, at molestie dui suscipit eu.
+                                    Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed metus turpis,
+                                    gravida et lobortis viverra, consequat id arcu. Phasellus aliquet mollis euismod.
+                                    Morbi scelerisque, erat at fringilla accumsan, magna neque facilisis quam, ac
+                                    aliquet tortor ipsum ut sem. Nunc diam tellus, suscipit sit amet egestas ut, auctor
+                                    nec eros. Cras quis libero arcu. Maecenas sed ornare diam. Ut ac sollicitudin
+                                    tortor. Integer ac sapien viverra sapien auctor aliquet dignissim et nibh. Curabitur
+                                    mollis condimentum vehicula. Aenean eu egestas massa. Nam accumsan sapien lectus, id
+                                    tincidunt tellus commodo at. Fusce rutrum imperdiet semper. Nam porttitor tincidunt
+                                    est eget tristique. Curabitur tempus ex libero, a tristique leo sagittis non. Etiam
+                                    id tincidunt dui. Aliquam erat volutpat. Vivamus placerat in diam eu consectetur. In
+                                    hac habitasse platea dictumst. Aenean est urna, rhoncus vel feugiat vel, feugiat sed
+                                    tellus. Maecenas gravida, justo suscipit consequat vulputate, nisl nunc blandit
+                                    felis, non varius tortor ipsum et leo. Proin arcu tortor, euismod a venenatis sed,
+                                    volutpat quis metus. Integer lacinia libero quis lorem fringilla vehicula. Sed augue
+                                    urna, posuere quis est vel, convallis tristique neque. Morbi efficitur scelerisque
+                                    eros nec vulputate. In hac habitasse platea dictumst. Lorem ipsum dolor sit amet,
+                                    consectetur adipiscing elit. Sed ac dignissim magna. Integer ligula lacus, volutpat
+                                    vitae arcu eu, laoreet euismod sapien. Donec viverra nunc non lectus hendrerit, eget
+                                    faucibus dolor congue. Fusce at dolor dictum ligula efficitur varius vitae quis
+                                    massa. Pellentesque porta et ligula at feugiat. Nulla sit amet erat fringilla,
+                                    dapibus sapien quis, efficitur neque. Fusce vulputate eu felis ut rhoncus. Maecenas
+                                    suscipit nunc ligula. Cras ullamcorper interdum risus, id tempus erat aliquet ut.
+                                    Duis dapibus convallis eros. Praesent mollis, nunc vitae molestie mattis, leo nisl
+                                    sagittis tortor, sit amet tristique justo metus ac justo. Suspendisse potenti.
+                                    Phasellus non lobortis felis. Nam sit amet dui magna. Etiam a sagittis turpis. Nulla
+                                    vitae mattis massa. Donec pulvinar, ipsum eget luctus molestie, odio orci vehicula
+                                    nibh, sed molestie mauris justo ut est. Nam gravida, turpis fringilla luctus tempor,
+                                    neque velit volutpat nibh, nec volutpat est nibh sed augue. Mauris malesuada nibh
+                                    est.
+                                </section>
+
+                                <section class="vl-section">
+                                    <vl-title type="h2" id="hoofdstuk-3">Hoofdstuk 3</vl-title>Nam suscipit quam nec
+                                    placerat efficitur. Morbi sed mollis justo, sed ultrices nibh. Morbi sagittis rutrum
+                                    quam, quis suscipit lectus vestibulum eu. Cras vehicula placerat velit, eu tincidunt
+                                    nunc dapibus sed. Morbi quis bibendum dolor, id bibendum risus. Nulla ultricies
+                                    bibendum bibendum. Aliquam et iaculis lacus. Donec rutrum luctus lectus, at molestie
+                                    dui suscipit eu. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed
+                                    metus turpis, gravida et lobortis viverra, consequat id arcu. Phasellus aliquet
+                                    mollis euismod. Morbi scelerisque, erat at fringilla accumsan, magna neque facilisis
+                                    quam, ac aliquet tortor ipsum ut sem. Nunc diam tellus, suscipit sit amet egestas
+                                    ut, auctor nec eros. Cras quis libero arcu. Maecenas sed ornare diam. Ut ac
+                                    sollicitudin tortor. Integer ac sapien viverra sapien auctor aliquet dignissim et
+                                    nibh. Curabitur mollis condimentum vehicula. Aenean eu egestas massa. Nam accumsan
+                                    sapien lectus, id tincidunt tellus commodo at. Fusce rutrum imperdiet semper. Nam
+                                    porttitor tincidunt est eget tristique. Curabitur tempus ex libero, a tristique leo
+                                    sagittis non. Etiam id tincidunt dui. Aliquam erat volutpat. Vivamus placerat in
+                                    diam eu consectetur. In hac habitasse platea dictumst. Aenean est urna, rhoncus vel
+                                    feugiat vel, feugiat sed tellus. Maecenas gravida, justo suscipit consequat
+                                    vulputate, nisl nunc blandit felis, non varius tortor ipsum et leo. Proin arcu
+                                    tortor, euismod a venenatis sed, volutpat quis metus. Integer lacinia libero quis
+                                    lorem fringilla vehicula. Sed augue urna, posuere quis est vel, convallis tristique
+                                    neque. Morbi efficitur scelerisque eros nec vulputate. In hac habitasse platea
+                                    dictumst. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac dignissim
+                                    magna. Integer ligula lacus, volutpat vitae arcu eu, laoreet euismod sapien. Donec
+                                    viverra nunc non lectus hendrerit, eget faucibus dolor congue. Fusce at dolor dictum
+                                    ligula efficitur varius vitae quis massa. Pellentesque porta et ligula at feugiat.
+                                    Nulla sit amet erat fringilla, dapibus sapien quis, efficitur neque. Fusce vulputate
+                                    eu felis ut rhoncus. Maecenas suscipit nunc ligula. Cras ullamcorper interdum risus,
+                                    id tempus erat aliquet ut. Duis dapibus convallis eros. Praesent mollis, nunc vitae
+                                    molestie mattis, leo nisl sagittis tortor, sit amet tristique justo metus ac justo.
+                                </section>
+
+                                <section class="vl-section">
+                                    <vl-title type="h2" id="hoofdstuk-4">Hoofdstuk 4</vl-title>
+                                    Suspendisse potenti. Phasellus non lobortis felis. Nam sit amet dui magna. Etiam a
+                                    sagittis turpis. Nulla vitae mattis massa. Donec pulvinar, ipsum eget luctus
+                                    molestie, odio orci vehicula nibh, sed molestie mauris justo ut est. Nam gravida,
+                                    turpis fringilla luctus tempor, neque velit volutpat nibh, nec volutpat est nibh sed
+                                    augue. Mauris malesuada nibh est. Nam suscipit quam nec placerat efficitur. Morbi
+                                    sed mollis justo, sed ultrices nibh. Morbi sagittis rutrum quam, quis suscipit
+                                    lectus vestibulum eu. Cras vehicula placerat velit, eu tincidunt nunc dapibus sed.
+                                    Morbi quis bibendum dolor, id bibendum risus. Nulla ultricies bibendum bibendum.
+                                    Aliquam et iaculis lacus. Donec rutrum luctus lectus, at molestie dui suscipit eu.
+                                    Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed metus turpis,
+                                    gravida et lobortis viverra, consequat id arcu. Phasellus aliquet mollis euismod.
+                                    Morbi scelerisque, erat at fringilla accumsan, magna neque facilisis quam, ac
+                                    aliquet tortor ipsum ut sem. Nunc diam tellus, suscipit sit amet egestas ut, auctor
+                                    nec eros. Cras quis libero arcu. Maecenas sed ornare diam. Ut ac sollicitudin
+                                    tortor. Integer ac sapien viverra sapien auctor aliquet dignissim et nibh. Curabitur
+                                    mollis condimentum vehicula. Aenean eu egestas massa. Nam accumsan sapien lectus, id
+                                    tincidunt tellus commodo at. Fusce rutrum imperdiet semper. Nam porttitor tincidunt
+                                    est eget tristique. Curabitur tempus ex libero, a tristique leo sagittis non. Etiam
+                                    id tincidunt dui. Aliquam erat volutpat. Vivamus placerat in diam eu consectetur. In
+                                    hac habitasse platea dictumst. Aenean est urna, rhoncus vel feugiat vel, feugiat sed
+                                    tellus. Maecenas gravida, justo suscipit consequat vulputate, nisl nunc blandit
+                                    felis, non varius tortor ipsum et leo. Proin arcu tortor, euismod a venenatis sed,
+                                    volutpat quis metus. Integer lacinia libero quis lorem fringilla vehicula. Sed augue
+                                    urna, posuere quis est vel, convallis tristique neque. Morbi efficitur scelerisque
+                                    eros nec vulputate. In hac habitasse platea dictumst. Lorem ipsum dolor sit amet,
+                                    consectetur adipiscing elit. Sed ac dignissim magna. Integer ligula lacus, volutpat
+                                    vitae arcu eu, laoreet euismod sapien. Donec viverra nunc non lectus hendrerit, eget
+                                    faucibus dolor congue. Fusce at dolor dictum ligula efficitur varius vitae quis
+                                    massa. Pellentesque porta et ligula at feugiat. Nulla sit amet erat fringilla,
+                                    dapibus sapien quis, efficitur neque. Fusce vulputate eu felis ut rhoncus. Maecenas
+                                    suscipit nunc ligula. Cras ullamcorper interdum risus, id tempus erat aliquet ut.
+                                    Duis dapibus convallis eros. Praesent mollis, nunc vitae molestie mattis, leo nisl
+                                    sagittis tortor, sit amet tristique justo metus ac justo. Suspendisse potenti.
+                                    Phasellus non lobortis felis. Nam sit amet dui magna. Etiam a sagittis turpis. Nulla
+                                    vitae mattis massa. Donec pulvinar, ipsum eget luctus molestie, odio orci vehicula
+                                    nibh, sed molestie mauris justo ut est. Nam gravida, turpis fringilla luctus tempor,
+                                    neque velit volutpat nibh, nec volutpat est nibh sed augue. Mauris malesuada nibh
+                                    est. Nam suscipit quam nec placerat efficitur. Morbi sed mollis justo, sed ultrices
+                                    nibh. Morbi sagittis rutrum quam, quis suscipit lectus vestibulum eu. Cras vehicula
+                                    placerat velit, eu tincidunt nunc dapibus sed. Morbi quis bibendum dolor, id
+                                    bibendum risus. Nulla ultricies bibendum bibendum. Aliquam et iaculis lacus. Donec
+                                    rutrum luctus lectus, at molestie dui suscipit eu. Interdum et malesuada fames ac
+                                    ante ipsum primis in faucibus. Sed metus turpis, gravida et lobortis viverra,
+                                    consequat id arcu. Phasellus aliquet mollis euismod. Morbi scelerisque, erat at
+                                    fringilla accumsan, magna neque facilisis quam, ac aliquet tortor ipsum ut sem. Nunc
+                                    diam tellus, suscipit sit amet egestas ut, auctor nec eros. Cras quis libero arcu.
+                                    Maecenas sed ornare diam. Ut ac sollicitudin tortor. Integer ac sapien viverra
+                                    sapien auctor aliquet dignissim et nibh. Curabitur mollis condimentum vehicula.
+                                    Aenean eu egestas massa. Nam accumsan sapien lectus, id tincidunt tellus commodo at.
+                                    Fusce rutrum imperdiet semper. Nam porttitor tincidunt est eget tristique. Curabitur
+                                    tempus ex libero, a tristique leo sagittis non. Etiam id tincidunt dui. Aliquam erat
+                                    volutpat. Vivamus placerat in diam eu consectetur. In hac habitasse platea dictumst.
+                                    Aenean est urna, rhoncus vel feugiat vel, feugiat sed tellus. Maecenas gravida,
+                                    justo suscipit consequat vulputate, nisl nunc blandit felis, non varius tortor ipsum
+                                    et leo. Proin arcu tortor, euismod a venenatis sed, volutpat quis metus. Integer
+                                    lacinia libero quis lorem fringilla vehicula. Sed augue urna, posuere quis est vel,
+                                    convallis tristique neque. Morbi efficitur scelerisque eros nec vulputate. In hac
+                                    habitasse platea dictumst. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    Sed ac dignissim magna. Integer ligula lacus, volutpat vitae arcu eu, laoreet
+                                    euismod sapien. Donec viverra nunc non lectus hendrerit, eget faucibus dolor congue.
+                                    Fusce at dolor dictum ligula efficitur varius vitae quis massa. Pellentesque porta
+                                    et ligula at feugiat. Nulla sit amet erat fringilla, dapibus sapien quis, efficitur
+                                    neque. Fusce vulputate eu felis ut rhoncus. Maecenas suscipit nunc ligula. Cras
+                                    ullamcorper interdum risus, id tempus erat aliquet ut. Duis dapibus convallis eros.
+                                    Praesent mollis, nunc vitae molestie mattis, leo nisl sagittis tortor, sit amet
+                                    tristique justo metus ac justo. Suspendisse potenti. Phasellus non lobortis felis.
+                                    Nam sit amet dui magna. Etiam a sagittis turpis. Nulla vitae mattis massa.
+                                </section>
+                                <section class="vl-section">
+                                    <vl-title type="h2" id="hoofdstuk-5">Hoofdstuk 5</vl-title>
+                                    Donec pulvinar, ipsum eget luctus molestie, odio orci vehicula nibh, sed molestie
+                                    mauris justo ut est. Nam gravida, turpis fringilla luctus tempor, neque velit
+                                    volutpat nibh, nec volutpat est nibh sed augue. Mauris malesuada nibh est. Nam
+                                    suscipit quam nec placerat efficitur. Morbi sed mollis justo, sed ultrices nibh.
+                                    Morbi sagittis rutrum quam, quis suscipit lectus vestibulum eu. Cras vehicula
+                                    placerat velit, eu tincidunt nunc dapibus sed. Morbi quis bibendum dolor, id
+                                    bibendum risus. Nulla ultricies bibendum bibendum. Aliquam et iaculis lacus. Donec
+                                    rutrum luctus lectus, at molestie dui suscipit eu. Interdum et malesuada fames ac
+                                    ante ipsum primis in faucibus. Sed metus turpis, gravida et lobortis viverra,
+                                    consequat id arcu. Phasellus aliquet mollis euismod. Morbi scelerisque, erat at
+                                    fringilla accumsan, magna neque facilisis quam, ac aliquet tortor ipsum ut sem. Nunc
+                                    diam tellus, suscipit sit amet egestas ut, auctor nec eros. Cras quis libero arcu.
+                                    Maecenas sed ornare diam. Ut ac sollicitudin tortor. Integer ac sapien viverra
+                                    sapien auctor aliquet dignissim et nibh. Curabitur mollis condimentum vehicula.
+                                    Aenean eu egestas massa. Nam accumsan sapien lectus, id tincidunt tellus commodo at.
+                                    Fusce rutrum imperdiet semper. Nam porttitor tincidunt est eget tristique. Curabitur
+                                    tempus ex libero, a tristique leo sagittis non. Etiam id tincidunt dui. Aliquam erat
+                                    volutpat. Vivamus placerat in diam eu consectetur. In hac habitasse platea dictumst.
+                                    Aenean est urna, rhoncus vel feugiat vel, feugiat sed tellus. Maecenas gravida,
+                                    justo suscipit consequat vulputate, nisl nunc blandit felis, non varius tortor ipsum
+                                    et leo. Proin arcu tortor, euismod a venenatis sed, volutpat quis metus. Integer
+                                    lacinia libero quis lorem fringilla vehicula. Sed augue urna, posuere quis est vel,
+                                    convallis tristique neque. Morbi efficitur scelerisque eros nec vulputate. In hac
+                                    habitasse platea dictumst.
+                                </section>
+                            </vl-side-navigation-reference>
                         </div>
-                    </vl-tabs-pane>
-                    <vl-tabs-pane id="vl-datepicker" title="vl-datepicker">
-                        <div class="vl-stacked-small">
-                            <vl-title type="h2">Datepicker</vl-title>
-                            <vl-paragraph>
-                                Hier renderen we een aantal datepicker scenario's om te kijken hoe de datepicker zich
-                                gedraagt.
-                            </vl-paragraph>
-                            <vl-datepicker
-                                type="range"
-                                value="2025-04-01/2025-04-10"
-                                format="d/m/Y"
-                                @vl-change="${(e) => console.log('datepicker value', e.detail.value)}"
-                            ></vl-datepicker>
-                            <div class="vl-group">
-                                <vl-button modal-open="modal-with-datepicker">Open modal with datepicker</vl-button>
-                                <vl-button @click=${this.openSidesheet}>Open sidesheet</vl-button>
-                            </div>
+                        <div
+                            class="vl-column vl-column--3 vl-column--m-3 vl-column--s-12 vl-column--xs-12 vl-column--start-10 vl-column--s-start-1 vl-margin--medium"
+                        >
+                            <vl-side-navigation aria-label="inhoudsopgave">
+                                <vl-side-navigation-h5>Op deze pagina</vl-side-navigation-h5>
+                                <vl-side-navigation-content>
+                                    <vl-side-navigation-group>
+                                        <vl-side-navigation-item>
+                                            <a href="#hoofdstuk-1"> Hoofdstuk 1 </a>
+                                        </vl-side-navigation-item>
+                                        <vl-side-navigation-item>
+                                            <a href="#hoofdstuk-2"> Hoofdstuk 2 </a>
+                                        </vl-side-navigation-item>
+                                        <vl-side-navigation-item>
+                                            <a href="#hoofdstuk-3"> Hoofdstuk 3 </a>
+                                        </vl-side-navigation-item>
+                                        <vl-side-navigation-item>
+                                            <a href="#hoofdstuk-4"> Hoofdstuk 4 </a>
+                                        </vl-side-navigation-item>
+                                        <vl-side-navigation-item>
+                                            <a href="#hoofdstuk-5"> Hoofdstuk 5 </a>
+                                        </vl-side-navigation-item>
+                                    </vl-side-navigation-group>
+                                </vl-side-navigation-content>
+                            </vl-side-navigation>
                         </div>
-                        <vl-modal id="modal-with-datepicker" title="Modal" closable>
-                            <span slot="content">
-                                <vl-datepicker block position="below right"></vl-datepicker>
-                            </span>
-                        </vl-modal>
-                        <vl-side-sheet id="sidesheet">
-                            <vl-form-demo></vl-form-demo>
-                        </vl-side-sheet>
-                    </vl-tabs-pane>
-                    <vl-tabs-pane id="vl-group__column">
-                        <span slot="title">vl-group__column</span>
-                        <div class="vl-stacked-small">
-                            <vl-title type="h2">vl-group__column</vl-title>
-                            <vl-paragraph>Width test voor columns in vl-group.</vl-paragraph>
-                            <vl-title type="h3">Gerelateerd aan:</vl-title>
-                            <vl-pill
-                                clickable
-                                @click=${() => window.open('https://www.milieuinfo.be/jira/browse/UIG-3226')}
-                                >UIG-3226
-                            </vl-pill>
-                            <div
-                                class="vl-group vl-group--column vl-group--separator-column vl-group--stretch-children"
-                            >
-                                <vl-accordion>
-                                    <span slot="title">Accordion title</span>
-                                    <span slot="subtitle">subtitle</span>
-                                    <span slot="menu">
-                                        <vl-button ghost id="popover-button" icon="nav-show-more-vertical"></vl-button>
-                                        <vl-popover for="popover-button" placement="bottom-end" hide-on-click>
-                                            <vl-popover-action-list>
-                                                <vl-popover-action icon="bin" @click="${() => {}}">
-                                                    Verwijderen
-                                                </vl-popover-action>
-                                            </vl-popover-action-list>
-                                        </vl-popover>
-                                    </span>
-                                    <div>content</div>
-                                </vl-accordion>
-                            </div>
-                        </div>
-                    </vl-tabs-pane>
-                    <vl-tabs-pane id="vl-group--baseline" title="vl-group--baseline">
-                        <div class="vl-stacked-small">
-                            <vl-title type="h2">vl-group--baseline</vl-title>
-                            <vl-paragraph>Baseline alignering test voor links in vl-group.</vl-paragraph>
-                            <vl-title type="h3">Gerelateerd aan:</vl-title>
-                            <vl-pill
-                                clickable
-                                @click=${() => window.open('https://www.milieuinfo.be/jira/browse/UIG-3225')}
-                                >UIG-3225
-                            </vl-pill>
-                            <div class="vl-group vl-group--baseline">
-                                <vl-title type="h1">Pagina titel</vl-title>
-                                <vl-link href="#" icon="pencil" icon-placement="before">Link</vl-link>
-                            </div>
-                            <div class="vl-group vl-group--baseline">
-                                <vl-title type="h2">Pagina titel</vl-title>
-                                <vl-link href="#">Link</vl-link>
-                            </div>
-                            <div class="vl-group vl-group--baseline">
-                                <vl-title type="h3">Pagina titel</vl-title>
-                                <vl-link href="#" external>Link</vl-link>
-                            </div>
-                            <div class="vl-group vl-group--baseline">
-                                <vl-title type="h3">Pagina titel</vl-title>
-                                <vl-link href="#" button-as-link icon="pencil" icon-placement="before"
-                                    >Link as button
-                                </vl-link>
-                            </div>
-                        </div>
-                    </vl-tabs-pane>
-                </vl-tabs>
+                    </div>
+                </div>
             </main>
+            <vl-modal closable id="taak-modal" position="right"> Taak modal (right) </vl-modal>
+            <vl-modal closable id="aantekening-modal" size="full-screen"> Aantekening modal (full-screen)</vl-modal>
+            <vl-modal closable id="edit-modal" position="left"> Edit modal (left)</vl-modal>
+            <vl-modal closable id="delete-modal"> Delete modal</vl-modal>
         `;
     }
 

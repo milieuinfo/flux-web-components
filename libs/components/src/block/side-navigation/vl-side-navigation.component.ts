@@ -8,9 +8,11 @@ import {
     VL,
     webComponent,
 } from '@domg-wc/common';
+import { VlHeader, VlHeaderNext } from '@domg-wc/components/compliance';
 import { vlContentBlockStyles, vlGridStyles, vlLegacyStyles, vlSectionStyles } from '@domg-wc/styles';
 import { PropertyDeclarations } from 'lit';
 import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
+import { VlFunctionalHeaderComponent } from '../functional-header';
 import { vlSideNavigationStyles } from './vl-side-navigation.css';
 import { sideNavigationDefaults } from './vl-side-navigation.defaults';
 import './vl-side-navigation.lib.js';
@@ -27,7 +29,6 @@ export class VlSideNavigationComponent extends BaseLitElement {
 
     constructor() {
         super();
-        this.processAttributes();
         this.processClasses();
         this.rerender();
     }
@@ -42,12 +43,15 @@ export class VlSideNavigationComponent extends BaseLitElement {
         return this;
     }
 
-    protected hasStickyHeader(): boolean {
-        return !!this.getRootNode().querySelector('vl-header');
-    }
-
     protected get scrollOffset(): number {
-        return this.hasStickyHeader() ? 43 : 0;
+        const vlHeader =
+            (findDeepestElementThroughShadowRoot(document.documentElement, 'vl-header') as VlHeader) ||
+            (findDeepestElementThroughShadowRoot(document.documentElement, 'vl-header-next') as VlHeaderNext);
+        const vlFunctionalHeaderSticky = findDeepestElementThroughShadowRoot(
+            document.documentElement,
+            'vl-functional-header[sticky]'
+        ) as VlFunctionalHeaderComponent;
+        return (vlHeader?.height || 0) + (vlFunctionalHeaderSticky?.height || 0);
     }
 
     connectedCallback(): void {
@@ -75,7 +79,12 @@ export class VlSideNavigationComponent extends BaseLitElement {
             ];
         }
 
+        this.processAttributes();
         this.initialScroll();
+
+        this.closest<VlHeader | VlHeaderNext>('vl-header, vl-header-next')?.addEventListener('ready', () => {
+            this.processAttributes();
+        });
     }
 
     private initialScroll() {
@@ -151,7 +160,7 @@ export class VlSideNavigationComponent extends BaseLitElement {
         this.setAttribute('scrollspy', '');
         this.setAttribute('scrollspy-mobile', 'Navigatie');
         this.setAttribute('sticky', '');
-        this.setAttribute('sticky-offset-top', '43');
+        this.setAttribute('sticky-offset-top', `${this.scrollOffset}`);
     }
 
     private processClasses() {
