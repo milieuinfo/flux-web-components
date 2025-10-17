@@ -1,5 +1,7 @@
 import { BaseLitElement, findDeepestElementThroughShadowRoot, webComponent } from '@domg-wc/common';
+import { VlHeader, VlHeaderNext } from '@domg-wc/components/compliance';
 import { PropertyDeclarations } from 'lit';
+import { VlFunctionalHeaderComponent } from '../functional-header';
 
 @webComponent('vl-side-navigation-item')
 export class VlSideNavigationItemComponent extends BaseLitElement {
@@ -20,12 +22,15 @@ export class VlSideNavigationItemComponent extends BaseLitElement {
         return this;
     }
 
-    protected hasStickyHeader(): boolean {
-        return !!this.getRootNode().querySelector('vl-header');
-    }
-
     protected get scrollOffset(): number {
-        return this.hasStickyHeader() ? 43 : 0;
+        const vlHeader =
+            (findDeepestElementThroughShadowRoot(document.documentElement, 'vl-header') as VlHeader) ||
+            (findDeepestElementThroughShadowRoot(document.documentElement, 'vl-header-next') as VlHeaderNext);
+        const vlFunctionalHeaderSticky = findDeepestElementThroughShadowRoot(
+            document.documentElement,
+            'vl-functional-header[sticky]'
+        ) as VlFunctionalHeaderComponent;
+        return (vlHeader?.height || 0) + (vlFunctionalHeaderSticky?.height || 0);
     }
 
     protected get hashSync(): boolean {

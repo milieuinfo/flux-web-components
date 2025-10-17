@@ -21,10 +21,10 @@ export const footerArgTypes: ArgTypes<typeof footerArgs> = {
     identifier: {
         name: 'identifier',
         description: `De identifier die gebruikt wordt om bij Digitaal Vlaanderen de footer op te halen.
-        Deze identifier kan aangevraagd worden bij Team Infra van Departement Omgeving of via dit
-        <vl-link external href="https://www.vlaanderen.be/digitaal-vlaanderen/onze-diensten-en-
-        platformen/mijn-burgerprofiel/global-header-en-footer#stappenplan-koppeling-met-de-global-
-        header-en-footer">stappenplan</vl-link> van Digitaal Vlaanderen.`,
+Deze identifier kan aangevraagd worden bij Team Infra van Departement Omgeving of via dit
+<vl-link external href="https://www.vlaanderen.be/digitaal-vlaanderen/onze-diensten-en-
+platformen/mijn-burgerprofiel/global-header-en-footer#stappenplan-koppeling-met-de-global-
+header-en-footer">stappenplan</vl-link> van Digitaal Vlaanderen.`,
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,

@@ -3,12 +3,58 @@ import { html } from 'lit';
 import { VlTabsComponent } from '../tabs';
 import { VlBreadcrumbComponent } from './../breadcrumb';
 import { VlFunctionalHeaderComponent } from './vl-functional-header.component';
+import { VlHeader } from '@domg-wc/components/compliance';
 
 GlobalStyles.getInstance().register();
 
-registerWebComponents([VlFunctionalHeaderComponent, VlTabsComponent, VlBreadcrumbComponent]);
+registerWebComponents([VlFunctionalHeaderComponent, VlTabsComponent, VlBreadcrumbComponent, VlHeader]);
 
 const mockBackLink = 'https://www.example.com';
+
+const shouldHaveDefaultBackText = () => {
+    cy.get('vl-functional-header').shadow().find('#back-link').contains('Terug');
+};
+
+const shouldSetBackText = () => {
+    cy.get('vl-functional-header').shadow().find('#back-link').contains('Keer terug');
+};
+
+const shouldHaveDefaultBackLink = () => {
+    cy.get('vl-functional-header').shadow().find('#back-link').should('have.attr', 'href', document.referrer);
+};
+
+const shouldSetBackLink = () => {
+    cy.get('vl-functional-header').shadow().find('#back-link').should('have.attr', 'href', mockBackLink);
+};
+
+const shouldDisableBackLinkAndEmitEvent = () => {
+    cy.createStubForEvent('vl-functional-header', 'vl-click-back');
+    cy.get('vl-functional-header').shadow().find('#back-link').click({ force: true });
+    cy.get('@vl-click-back').should('have.been.calledOnce');
+};
+
+const shouldSetTitleLink = () => {
+    cy.get('vl-functional-header')
+        .shadow()
+        .find('.vl-functional-header__title')
+        .find('a')
+        .should('have.attr', 'href', 'test');
+};
+
+const shouldSetSubTitleText = () => {
+    cy.get('vl-functional-header')
+        .shadow()
+        .find('li.vl-functional-header__sub__action')
+        .contains('Voor lager onderwijs');
+};
+
+const shouldSetTitleText = () => {
+    cy.get('vl-functional-header')
+        .shadow()
+        .find('.vl-functional-header__title')
+        .find('a')
+        .contains('School en studietoelagen');
+};
 
 describe('story - vl-functional-header', () => {
     it('should be accessible', () => {
@@ -614,47 +660,37 @@ describe('story - vl-functional-header - slots', () => {
     });
 });
 
-const shouldHaveDefaultBackText = () => {
-    cy.get('vl-functional-header').shadow().find('#back-link').contains('Terug');
-};
+describe('story - vl-functional-header - sticky', () => {
+    it('should set sticky offset top CSS variable when sticky attribute is set', () => {
+        cy.viewport(1440, 800);
+        cy.mount(html` <vl-functional-header sticky title="test"></vl-functional-header>`);
 
-const shouldSetBackText = () => {
-    cy.get('vl-functional-header').shadow().find('#back-link').contains('Keer terug');
-};
+        cy.get('vl-functional-header').shouldHaveComputedStyle({
+            style: '--vl-functional-header--sticky-offset-top',
+            value: '0px',
+        });
+    });
 
-const shouldHaveDefaultBackLink = () => {
-    cy.get('vl-functional-header').shadow().find('#back-link').should('have.attr', 'href', document.referrer);
-};
+    it('should set sticky offset top CSS variable when header is present', () => {
+        cy.viewport(1440, 800);
+        cy.mount(html`
+            <!-- dummy vl-header -->
+             <vl-header></vl-header>
+            <vl-functional-header sticky title="test"></vl-functional-header>
+        `);
 
-const shouldSetBackLink = () => {
-    cy.get('vl-functional-header').shadow().find('#back-link').should('have.attr', 'href', mockBackLink);
-};
+        cy.get('#header__container').should('exist');
 
-const shouldDisableBackLinkAndEmitEvent = () => {
-    cy.createStubForEvent('vl-functional-header', 'vl-click-back');
-    cy.get('vl-functional-header').shadow().find('#back-link').click({ force: true });
-    cy.get('@vl-click-back').should('have.been.calledOnce');
-};
+        cy.get('vl-header').then(([vlHeader]) => {
+            const headerHeight = (vlHeader as VlHeader).height
+            expect(headerHeight).to.equal(43);
 
-const shouldSetTitleLink = () => {
-    cy.get('vl-functional-header')
-        .shadow()
-        .find('.vl-functional-header__title')
-        .find('a')
-        .should('have.attr', 'href', 'test');
-};
+            vlHeader.dispatchEvent(new Event('ready'));
 
-const shouldSetSubTitleText = () => {
-    cy.get('vl-functional-header')
-        .shadow()
-        .find('li.vl-functional-header__sub__action')
-        .contains('Voor lager onderwijs');
-};
+            cy.get('vl-functional-header').shouldHaveComputedStyle({
+                style: '--vl-functional-header--sticky-offset-top',
+                value: '43px',
+            });
+        })
 
-const shouldSetTitleText = () => {
-    cy.get('vl-functional-header')
-        .shadow()
-        .find('.vl-functional-header__title')
-        .find('a')
-        .contains('School en studietoelagen');
-};
+});

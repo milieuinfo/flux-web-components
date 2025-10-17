@@ -270,6 +270,10 @@ export class VlHeader extends BaseLitElement {
 
         this.session?.configure(config);
     }
+
+    public get height(): number {
+        return this.headerContainer?.getBoundingClientRect().height || 0;
+    }
 }
 
 declare global {

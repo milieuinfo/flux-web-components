@@ -1,5 +1,13 @@
-import { BaseHTMLElement, GlobalStyles, MARGINS, registerWebComponents, webComponent } from '@domg-wc/common';
+import {
+    BaseHTMLElement,
+    findDeepestElementThroughShadowRoot,
+    GlobalStyles,
+    MARGINS,
+    registerWebComponents,
+    webComponent,
+} from '@domg-wc/common';
 import { VlLinkComponent } from '@domg-wc/components/atom';
+import { VlHeader, VlHeaderNext } from '@domg-wc/components/compliance';
 import { vlContentBlockStyles, vlGridStyles, vlLegacyStyles, vlResetStyles, vlSectionStyles } from '@domg-wc/styles';
 import { functionalHeaderStyle } from '@domg/govflanders-style/component';
 import { VlIconComponent } from '../../atom/icon';
@@ -80,7 +88,7 @@ export class VlFunctionalHeaderComponent extends BaseHTMLElement {
     }
 
     static get _observedClassAttributes() {
-        return ['full-width'];
+        return ['full-width', 'sticky'];
     }
 
     get _classPrefix() {
@@ -180,6 +188,8 @@ export class VlFunctionalHeaderComponent extends BaseHTMLElement {
         if (this.hasAttribute('full-width')) {
             this.shadowRoot?.querySelector('.vl-content-block')?.classList.add('vl-content-block--full-width');
         }
+
+        this._updateStickyOffsetTop();
     }
 
     disconnectedCallback() {
@@ -249,6 +259,21 @@ export class VlFunctionalHeaderComponent extends BaseHTMLElement {
         }
     }
 
+    _stickyChangedCallback() {
+        this._updateStickyOffsetTop();
+    }
+
+    _updateStickyOffsetTop() {
+        const vlHeader: VlHeader | VlHeaderNext | null =
+            (findDeepestElementThroughShadowRoot(document.documentElement, 'vl-header') as VlHeader) ||
+            (findDeepestElementThroughShadowRoot(document.documentElement, 'vl-header-next') as VlHeaderNext);
+        this.style.setProperty('--vl-functional-header--sticky-offset-top', `${vlHeader?.height || 0}px`);
+        
+        vlHeader?.addEventListener('ready', () => {
+            this.style.setProperty('--vl-functional-header--sticky-offset-top', `${vlHeader.height}px`);
+        });
+    }
+
     _handleClickBackLink(event: Event) {
         if (this.hasAttribute('disable-back-link')) {
             event.preventDefault();
@@ -301,6 +326,10 @@ export class VlFunctionalHeaderComponent extends BaseHTMLElement {
             subtree: true,
         });
         return observer;
+    }
+
+    public get height(): number {
+        return this.getBoundingClientRect().height;
     }
 }
 

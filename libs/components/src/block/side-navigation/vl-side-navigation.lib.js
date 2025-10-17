@@ -414,8 +414,8 @@ class Sticky {
         dims.containerBottom = dims.containerTop + dims.containerHeight;
 
         // Sidebar dimensions.
-        dims.sidebarHeight = this.sidebarInner.offsetHeight;
-        dims.sidebarWidth = this.sidebarInner.offsetWidth;
+        dims.sidebarHeight = this.sidebarInner.offsetHeight || this.sidebarInner.getBoundingClientRect().height;
+        dims.sidebarWidth = this.sidebarInner.offsetWidth || this.sidebarInner.getBoundingClientRect().width;
 
         // Screen viewport dimensions.
         dims.viewportHeight = window.innerHeight;

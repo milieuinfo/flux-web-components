@@ -1,5 +1,7 @@
 import { registerWebComponents } from '@domg-wc/common';
+import { VlHeader } from '@domg-wc/components/compliance';
 import { html } from 'lit';
+import { VlFunctionalHeaderComponent } from '../functional-header';
 import { VlSideNavigationContentComponent } from './vl-side-navigation-content.component';
 import { VlSideNavigationGroupComponent } from './vl-side-navigation-group.component';
 import { VlSideNavigationItemComponent } from './vl-side-navigation-item.component';
@@ -16,6 +18,8 @@ registerWebComponents([
     VlSideNavigationToggleComponent,
     VlSideNavigationReferenceComponent,
     VlSideNavigationH5,
+    VlFunctionalHeaderComponent,
+    VlHeader,
 ]);
 
 const template = html`
@@ -290,7 +294,7 @@ describe('component - vl-side-navigation', () => {
             .should('have.attr', 'scrollspy', '')
             .should('have.attr', 'scrollspy-mobile', 'Navigatie')
             .should('have.attr', 'sticky', '')
-            .should('have.attr', 'sticky-offset-top', '43');
+            .should('have.attr', 'sticky-offset-top', '0');
 
         cy.get('vl-side-navigation-reference').should('have.attr', 'scrollspy-content', '');
     });
@@ -426,6 +430,63 @@ describe('component - vl-side-navigation - mobile', () => {
 
         cy.get('button.vl-button.js-vl-scrollspy__toggle').should('not.be.visible');
         cy.get('vl-side-navigation').should('be.visible');
+    });
+});
+
+describe('component - vl-side-navigation - with sticky headers', () => {
+    it('should adjust scroll offset to sticky header height', () => {
+        cy.viewport(1440, 800);
+
+        cy.mount(html`
+            <vl-header></vl-header>
+            ${template}
+        `);
+
+        cy.get('#header__container').then(([headerContainer]) => {
+            const headerHeight = headerContainer.getBoundingClientRect().height;
+            cy.get('vl-side-navigation').should('have.attr', 'sticky-offset-top', headerHeight);
+        });
+    });
+
+    it('should adjust scroll offset to sticky functional header height', () => {
+        cy.viewport(1440, 800);
+
+        cy.mount(html`
+            <vl-functional-header sticky title="Functional header"></vl-functional-header>
+            ${template}
+        `);
+
+        cy.get('vl-functional-header').then(([vlFunctionalHeader]) => {
+            const functionHeaderHeight = vlFunctionalHeader.shadowRoot
+                ?.querySelector('.vl-functional-header')
+                ?.getBoundingClientRect().height;
+            cy.get('vl-side-navigation').should('have.attr', 'sticky-offset-top', functionHeaderHeight);
+        });
+    });
+
+    it('should adjust scroll offset to header AND sticky functional header height', () => {
+        cy.viewport(1440, 800);
+
+        cy.mount(html`
+            <vl-header></vl-header>
+            <vl-functional-header sticky title="Functional header"></vl-functional-header>
+            ${template}
+        `);
+
+        cy.get('#header__container').then(([headerContainer]) => {
+            const headerHeight = headerContainer.getBoundingClientRect().height;
+
+            cy.get('vl-functional-header').then(([vlFunctionalHeader]) => {
+                const functionHeaderHeight =
+                    vlFunctionalHeader.shadowRoot?.querySelector('.vl-functional-header')?.getBoundingClientRect()
+                        .height || 0;
+                cy.get('vl-side-navigation').should(
+                    'have.attr',
+                    'sticky-offset-top',
+                    headerHeight + functionHeaderHeight
+                );
+            });
+        });
     });
 });
 

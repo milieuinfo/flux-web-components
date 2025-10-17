@@ -24,6 +24,12 @@ export const vlFunctionalHeaderFluxStyles: CSSResult = css`
         max-width: 100%;
     }
 
+    :host(.vl-functional-header--sticky) header.vl-functional-header {
+        position: sticky;
+        top: var(--vl-functional-header--sticky-offset-top, '43px');
+        z-index: 10003;
+    }
+
     a#title {
         text-decoration: none;
     }

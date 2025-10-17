@@ -26,6 +26,8 @@ export const functionalHeaderArgs = {
     actionsSlot: '',
     backSlot: '',
     backLinkSlot: '',
+    sticky: false,
+    stickyOffsetTop: '',
     subHeaderSlot: '',
     subTitleSlot: '',
     titleSlot: '',
@@ -56,10 +58,10 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
     },
     disableBackLink: {
         name: 'disable-back-link',
-        description: `Schakelt de terug-link uit. Dit zorgt ervoor dat de terug-link gerenderd wordt als button
-        in plaats van als link.<br/> 
-        **Let op**: indien je dit attribuut gebruikt, moet je zelf het event \`vl-click-back\` afhandelen.
-        Het \`back-link\` attribuut wordt genegeerd indien dit attribuut gebruikt wordt.`,
+        description: `Schakelt de terug-link uit.
+Dit zorgt ervoor dat de terug-link gerenderd wordt als button in plaats van als link.<br/>
+**Let op**: indien je dit attribuut gebruikt, moet je zelf het event \`vl-click-back\` afhandelen.
+Het \`back-link\` attribuut wordt genegeerd indien dit attribuut gebruikt wordt.`,
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
@@ -111,6 +113,15 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
             type: { summary: getSelectControlOptions(Object.keys(MARGINS)) },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: functionalHeaderArgs.marginBottom },
+        },
+    },
+    sticky: {
+        name: 'sticky',
+        description: 'Maakt de functional header sticky.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(functionalHeaderArgs.sticky) },
         },
     },
     subTitle: {

@@ -168,6 +168,10 @@ export class VlHeaderNext extends BaseLitElement {
             switchCapacityUrl: this.switchCapacityUrl,
         });
     }
+
+    public get height(): number {
+        return this.headerContainer?.getBoundingClientRect().height || 0;
+    }
 }
 
 declare global {
