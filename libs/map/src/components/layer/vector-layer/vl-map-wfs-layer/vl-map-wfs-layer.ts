@@ -48,13 +48,14 @@ export class VlMapWfsLayer extends VlMapVectorLayer {
     __getWfsUrl(extent) {
         const url = this._url;
         const { searchParams } = url;
+        const transformedExtent: string =
+            extent && extent.length === 4
+                ? transformExtent(extent, this.__mapProjectionCode, this.__layerProjectionCode).join(',')
+                : '';
         searchParams.set('service', 'WFS');
         searchParams.set('request', 'GetFeature');
         searchParams.set('typename', this._layers);
-        searchParams.set(
-            'bbox',
-            transformExtent(extent, this.__mapProjectionCode, this.__layerProjectionCode).join(',')
-        );
+        searchParams.set('bbox', transformedExtent);
         searchParams.set('srsname', this.__layerProjectionCode);
         searchParams.set('outputFormat', this.__wfsOutputFormat);
         searchParams.set('version', this.__wfsVersion);
