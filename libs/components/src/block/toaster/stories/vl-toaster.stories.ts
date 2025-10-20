@@ -37,16 +37,18 @@ export const ToasterDefault = story<ToasterArgs>(toasterArgs, ({ placement, fade
         <script>
             document.querySelector('#default-toaster-button')?.addEventListener('click', () => {
                 const toaster = document.querySelector('vl-toaster');
-                const template = document.querySelector('template');
+                const template = document.querySelector('template#alert-success-template');
 
                 if (template && toaster) {
-                    const clone = template.content.cloneNode(true);
-                    const alert = clone.querySelector('#alert-success');
+                    // gerelateerde element ophalen uit de relevante template
+                    const documentFragment = template.content.cloneNode(true);
+                    const alert = documentFragment.querySelector('#alert-success');
+                    // het element toevogen aan de toaster
                     toaster.appendChild(alert);
                 }
             });
         </script>
-        <template>
+        <template id="alert-success-template">
             <vl-alert id="alert-success" type="success" icon="check" title="Gelukt" closable>
                 <p>Wij hebben uw melding goed ontvangen en nemen deze spoedig in behandeling.</p>
             </vl-alert>
@@ -109,22 +111,25 @@ export const ToasterFadeOut = story<ToasterArgs>(toasterArgs, ({ placement, fade
     return html`
         <script>
             document.querySelector('#button-error')?.addEventListener('vl-click', () => {
-                const toaster = document.querySelector('#toaster-fade-out');
-                toaster.show('#alert-error');
+                const toaster = document.querySelector('vl-toaster#toaster-fade-out');
+                // toon inhoud van de gerelateerde template
+                toaster?.show('#alert-error-template');
             });
             document.querySelector('#button-loader')?.addEventListener('vl-click', () => {
-                const toaster = document.querySelector('#toaster-fade-out');
-                toaster.show('#alert-loader');
+                const toaster = document.querySelector('vl-toaster#toaster-fade-out');
+                toaster?.show('#alert-loader-template');
             });
         </script>
-        <div style="display: none;">
-            <vl-alert id="alert-error" type="error" icon="warning" title="Error">
+        <template id="alert-error-template">
+            <vl-alert type="error" icon="warning" title="Error">
                 <p>Er is een fout opgetreden.</p>
             </vl-alert>
-            <vl-alert id="alert-loader" title="Melding">
+        </template>
+        <template id="alert-loader-template">
+            <vl-alert title="Melding">
                 <vl-loader></vl-loader>
             </vl-alert>
-        </div>
+        </template>
         <vl-toaster id="toaster-fade-out" placement=${placement} ?fade-out=${fadeOut}>
             ${unsafeHTML(defaultSlot)}
         </vl-toaster>

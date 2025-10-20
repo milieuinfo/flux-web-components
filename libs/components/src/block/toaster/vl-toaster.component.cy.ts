@@ -1,9 +1,10 @@
 import { registerWebComponents } from '@domg-wc/common';
+import { VlButtonComponent } from '@domg-wc/components/atom';
 import { html } from 'lit';
 import { VlAlert } from '../alert';
 import { VlToasterComponent } from './vl-toaster.component';
 
-registerWebComponents([VlToasterComponent, VlAlert]);
+registerWebComponents([VlToasterComponent, VlButtonComponent, VlAlert]);
 
 describe('component - vl-toaster', () => {
     it('should mount', () => {
@@ -160,5 +161,32 @@ describe('component - vl-toaster', () => {
             .find('output')
             .find('vl-alert')
             .should('be.visible');
+    });
+
+    it('should show alerts defined in a template', () => {
+        cy.mount(html`
+            <template id="alert-error-template">
+                <vl-alert type="error" icon="warning" title="Error">
+                    <p>Er is een fout opgetreden.</p>
+                </vl-alert>
+            </template>
+            <vl-toaster id="toaster-template"></vl-toaster>
+            <vl-button id="button-error"> Toon foutmelding</vl-button>
+        `);
+
+        cy.get('vl-button#button-error').then(($button) => {
+            const button = $button[0];
+            button.addEventListener('vl-click', () => {
+                const toaster = document.querySelector('vl-toaster#toaster-template') as VlToasterComponent;
+                // tonen het eerst gevonden kind element van de <template>
+                toaster?.show('#alert-error-template');
+            });
+        });
+
+        cy.get('vl-toaster').shadow().find('vl-alert').should('not.exist');
+
+        cy.get('vl-button#button-error').shadow().find('button').click({ force: true });
+
+        cy.get('vl-toaster').shadow().find('vl-alert').should('exist');
     });
 });
