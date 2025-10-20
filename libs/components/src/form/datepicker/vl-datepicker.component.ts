@@ -93,7 +93,6 @@ export class VlDatepickerComponent extends FormControl {
             disableMobileNativeInput: { type: Boolean, attribute: 'disable-mobile-native-input' },
             rawValue: { type: Boolean, attribute: 'raw-value' },
             inputValue: { type: String, state: true }, // Houdt de waarde van het getoonde inputveld bij
-            inputHasFocus: { type: Boolean, state: true },
             isOpen: { type: Boolean, state: true },
             position: { type: String },
             isStatic: { type: Boolean, attribute: 'static' },
