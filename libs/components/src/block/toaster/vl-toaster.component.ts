@@ -55,7 +55,12 @@ export class VlToasterComponent extends BaseLitElement {
             toast?.removeAttribute('slot');
         } else if (target && typeof target === 'string') {
             const foundElement = document.querySelector(target);
-            toast = foundElement?.cloneNode(true) as HTMLElement;
+            if (foundElement instanceof HTMLTemplateElement) {
+                const documentFragment = foundElement.content.cloneNode(true) as DocumentFragment;
+                toast = documentFragment?.firstElementChild as HTMLElement;
+            } else {
+                toast = foundElement?.cloneNode(true) as HTMLElement;
+            }
             // we verwijderen het id attribuut op de gekloonde node om dubbele id's te voorkomen
             toast?.removeAttribute('id');
             toast?.removeAttribute('slot');
