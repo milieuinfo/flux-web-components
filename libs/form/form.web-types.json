@@ -897,6 +897,12 @@
                     "js": {
                         "properties": [
                             {
+                                "name": "initial-options",
+                                "description": "De opties die geselecteerd worden bij reset van de form.<br>Zie de documentatie pagina voor meer info.",
+                                "type": "SelectOption",
+                                "default": ""
+                            },
+                            {
                                 "name": "options",
                                 "description": "De opties die geselecteerd kunnen worden.<br>Zie de documentatie pagina voor meer info.",
                                 "type": "SelectOption",
@@ -928,7 +934,7 @@
                 },
                 {
                     "name": "vl-select-rich-next",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `select-rich-next` component om een uitgebreid select of multiselect veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `select-rich` component om een uitgebreid select of multiselect veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/form-next-select-rich--documentatie",
                     "attributes": [
                         {
@@ -1020,8 +1026,14 @@
                     "js": {
                         "properties": [
                             {
+                                "name": "initial-options",
+                                "description": "De standaard opties die geselecteerd kunnen worden. Bij een reset van de form worden deze opties getoond.<br>Niet dynamisch.<br>Zie de documentatie pagina voor meer info.",
+                                "type": "SelectRichOption",
+                                "default": ""
+                            },
+                            {
                                 "name": "options",
-                                "description": "De opties die geselecteerd kunnen worden.<br>Zie de documentatie pagina voor meer info.",
+                                "description": "De opties die geselecteerd kunnen worden.<br>Zal de opties van de select-rich dynamisch bijwerken.<br>Zie de documentatie pagina voor meer info.",
                                 "type": "SelectRichOption",
                                 "default": ""
                             }

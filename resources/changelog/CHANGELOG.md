@@ -1,3 +1,15 @@
+## [1.49.5](https://github.com/milieuinfo/flux-web-components/compare/v1.49.4...v1.49.5) (2025-10-22)
+
+
+### Bug Fixes
+
+* FLUX-116 - vl-button-next - cta-link layout fix ([68351f9](https://github.com/milieuinfo/flux-web-components/commit/68351f960573c5235599b830a8486527bf19aedc))
+* FLUX-121 - vl-select-next - declaratieve options toegevoegd ([fddfde9](https://github.com/milieuinfo/flux-web-components/commit/fddfde966d1c5653608a2a8ef1ad217cc7b484ab))
+* FLUX-190 - vl-select-rich-next - component lifecycle verbeterd ([e4f4b54](https://github.com/milieuinfo/flux-web-components/commit/e4f4b548a66303e9d67517a500bb602713889eb7))
+* FLUX-77 - vl-select-rich-next - choices.js bijgewerkt tot v11.1 ([c490f0e](https://github.com/milieuinfo/flux-web-components/commit/c490f0ef11759c3e64d05715aa29ec0ba0f196d2))
+* FLUX-81 - vl-form-next - introductie setFormData() functie om form data in te stellen ([5c8ce1a](https://github.com/milieuinfo/flux-web-components/commit/5c8ce1ad5bdb367768767dde0ac09b0f2a2fcc73))
+* vl-map-search - stories werken opnieuw ([dc64a47](https://github.com/milieuinfo/flux-web-components/commit/dc64a47b6fc26beb41c2ece53751591dff259110))
+
 ## [1.49.4](https://github.com/milieuinfo/flux-web-components/compare/v1.49.3...v1.49.4) (2025-10-02)
 
 
