@@ -747,7 +747,7 @@
                         },
                         {
                             "name": "projection-code",
-                            "description": "Indien je Lambert 72 coördinaten gebruikt op een Lambert 2008 kaart, moet je de projectie code\n            EPSG:31370 meegeven als projection-code. Geef je dit niet mee, dan zal de kaartlaag de projectie code van\n            de kaart overnemen.<br>Dit attribuut is niet reactief.",
+                            "description": "Indien je Lambert 72 coördinaten gebruikt op een Lambert 2008 kaart, moet je de projectie code\nEPSG:31370 meegeven als projection-code. Geef je dit niet mee, dan zal de kaartlaag de projectie code van\nde kaart overnemen.<br>Dit attribuut is niet reactief.",
                             "default": ""
                         }
                     ],
@@ -804,7 +804,7 @@
                         },
                         {
                             "name": "projection-code",
-                            "description": "Indien je Lambert 72 coördinaten gebruikt op een Lambert 2008 kaart, moet je de projectie code\n            EPSG:31370 meegeven als projection-code. Geef je dit niet mee, dan zal de kaartlaag de projectie code van\n            de kaart overnemen.<br>Dit attribuut is niet reactief.",
+                            "description": "Indien je Lambert 72 coördinaten gebruikt op een Lambert 2008 kaart, moet je de projectie code\nEPSG:31370 meegeven als projection-code. Geef je dit niet mee, dan zal de kaartlaag de projectie code van\nde kaart overnemen.<br>Dit attribuut is niet reactief.",
                             "default": ""
                         },
                         {
