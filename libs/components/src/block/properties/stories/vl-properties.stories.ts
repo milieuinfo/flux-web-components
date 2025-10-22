@@ -1,12 +1,12 @@
-import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
+import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import { VlIconComponent } from '../../../atom/icon';
 import { VlPropertiesComponent } from '../vl-properties.component';
-import { dummyProps } from './vl-properties.stories-util';
-import propertiesDoc from './vl-properties.stories-doc.mdx';
 import { propertiesArgs, propertiesArgTypes } from './vl-properties.stories-arg';
+import propertiesDoc from './vl-properties.stories-doc.mdx';
+import { dummy2Props, dummyProps } from './vl-properties.stories-util';
 
 registerWebComponents([VlPropertiesComponent, VlIconComponent]);
 
@@ -35,13 +35,18 @@ const PropertiesTemplate = story(
     `
 );
 
+const PropertiesEmptyTemplate = story(
+    propertiesArgs,
+    ({ labelWidth, props }) => html` <vl-properties label-width=${labelWidth} .props=${props}></vl-properties> `
+);
+
 export const PropertiesDefault = PropertiesTemplate.bind({});
 PropertiesDefault.storyName = 'vl-properties - default';
 
-export const PropertiesWithProps = PropertiesDefault.bind({});
+export const PropertiesWithProps = PropertiesEmptyTemplate.bind({});
 PropertiesWithProps.storyName = 'vl-properties - with props';
 PropertiesWithProps.args = {
-    props: dummyProps,
+    props: [...dummyProps, ...dummy2Props],
 };
 
 export const PropertiesHtmlEnriched = story(

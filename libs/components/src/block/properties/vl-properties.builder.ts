@@ -31,7 +31,6 @@ const buildItems = (elements: Element[]): Item[] => {
 
 export const buildProperties = (elements: Element[] | null): Props => {
     if (elements == null || elements.length == 0) {
-        console.warn('vl-properties - geen props opgegeven');
         return [];
     }
     if (elements[0]?.localName === 'div') {
