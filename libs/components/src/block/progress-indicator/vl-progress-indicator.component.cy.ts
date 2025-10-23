@@ -46,18 +46,20 @@ const VlProgressIndicatorTestUtils = {
 
         cy.get('vl-progress-indicator')
             .shadow()
-            .find('.vl-progress-bar__step')
+            .find('.vl-progress-indicator__segment')
             .eq(stepNumber - 1)
-            .should('have.class', 'vl-progress-bar__step--active');
+            .should('have.class', 'vl-progress-indicator__segment--active');
     },
     shouldHaveVisibleTooltipForStep: function shouldHaveVisibleTooltipForStep(stepNumber: number) {
         cy.get('vl-progress-indicator')
             .shadow()
-            .find('.vl-progress-bar__step')
+            .find('.vl-progress-indicator__segment')
             .eq(stepNumber - 1)
-            .find('button.vl-progress-bar__bullet')
-            .click()
-            .find('vl-tooltip')
+            .find('button.vl-progress-indicator__step')
+            .click();
+        cy.get('vl-progress-indicator')
+            .shadow()
+            .find(`vl-tooltip[for="step-${stepNumber}"]`)
             .should('have.attr', 'open');
     },
 };
@@ -79,12 +81,15 @@ describe('cypress-component - block components - vl-progress-indicator - default
     });
 
     it('should render steps correctly', () => {
-        cy.get('vl-progress-indicator').shadow().find('.vl-progress-bar__step').should('have.length', steps.length);
+        cy.get('vl-progress-indicator')
+            .shadow()
+            .find('.vl-progress-indicator__segment')
+            .should('have.length', steps.length);
 
         steps.forEach((step, index) => {
             cy.get('vl-progress-indicator')
                 .shadow()
-                .find(`.vl-progress-bar__step:nth-child(${index + 1}) `)
+                .find(`.vl-progress-indicator__segment:nth-child(${index + 1}) `)
                 .find('vl-tooltip')
                 .contains(step);
         });
@@ -112,29 +117,30 @@ describe('cypress-component - block components - vl-progress-indicator - propert
 
         cy.get('vl-progress-indicator')
             .shadow()
-            .find(`.vl-progress-bar__step:nth-child(${activeStep})`)
-            .should('have.class', 'vl-progress-bar__step--active');
+            .find(`.vl-progress-indicator__segment:nth-child(${activeStep})`)
+            .should('have.class', 'vl-progress-indicator__segment--active');
     });
 
-    it('should add the <.vl-progress-bar--numeric> class when <numeric> property is true', () => {
+    it('should add the <.vl-progress-indicator--numeric> class when <numeric> property is true', () => {
         mountDefault({ ...props, steps, numeric: true });
-        cy.get('vl-progress-indicator').shadow().find('.vl-progress-bar--numeric').should('exist');
+        cy.get('vl-progress-indicator').shadow().find('.vl-progress-indicator--numeric').should('exist');
     });
 
     it('should set the steps when the <steps> property is passed', () => {
         mountDefault({ ...props, steps });
-        cy.get('vl-progress-indicator').shadow().find('.vl-progress-bar__step').should('have.length', steps.length);
+        cy.get('vl-progress-indicator')
+            .shadow()
+            .find('.vl-progress-indicator__segment')
+            .should('have.length', steps.length);
     });
 
     it('should always show the labels when <showLabels> property is true', () => {
         mountDefault({ ...props, steps, showLabels: true });
 
-        steps.forEach((__, index) => {
-            cy.get('vl-progress-indicator')
-                .shadow()
-                .find(`.vl-progress-bar__step:nth-child(${index + 1}) .vl-progress-bar__bullet__text`)
-                .should('exist');
-        });
+        cy.get('vl-progress-indicator')
+            .shadow()
+            .find('.vl-progress-indicator__label')
+            .should('have.length', steps.length);
     });
 
     it('should dynamically update the active step', () => {
@@ -162,9 +168,8 @@ describe('cypress-component - block components - vl-progress-indicator - propert
 
         cy.createStubForEvent('vl-progress-indicator', 'vl-click-step');
 
-        cy.get('vl-progress-indicator').shadow().find('.vl-progress-bar__step:nth-child(2) button').click();
+        cy.get('vl-progress-indicator').shadow().find('.vl-progress-indicator__segment:nth-child(1) button').click();
 
-        cy.get('@vl-click-step').should('have.been.calledWithMatch', { detail: { step: steps[1], number: 2 } });
-        cy.get('@vl-click-step').should('not.have.been.calledWithMatch', { detail: { step: steps[1], number: 1 } });
+        cy.get('@vl-click-step').should('have.been.calledWithMatch', { detail: { step: steps[0], number: 1 } });
     });
 });

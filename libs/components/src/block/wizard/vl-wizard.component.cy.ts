@@ -86,7 +86,7 @@ describe('cypress-component - block components - vl-wizard - properties', () => 
             .shadow()
             .find('vl-progress-indicator')
             .shadow()
-            .find('div.vl-progress-bar.vl-progress-bar--numeric');
+            .find('.vl-progress-indicator.vl-progress-indicator--numeric');
     });
 
     it('should display the step labels by default', () => {
@@ -98,17 +98,17 @@ describe('cypress-component - block components - vl-wizard - properties', () => 
             .shadow()
             .find('vl-progress-indicator')
             .shadow()
-            .find('.vl-progress-bar__step')
+            .find('.vl-progress-indicator__segment')
             .eq(0)
-            .find('.vl-progress-bar__bullet__text')
+            .find('.vl-progress-indicator__label')
             .should('contain.text', 'Step 1');
         cy.get('vl-wizard')
             .shadow()
             .find('vl-progress-indicator')
             .shadow()
-            .find('.vl-progress-bar__step')
+            .find('.vl-progress-indicator__segment')
             .eq(1)
-            .find('.vl-progress-bar__bullet__text')
+            .find('.vl-progress-indicator__label')
             .should('contain.text', 'Step 2');
     });
 
@@ -121,17 +121,17 @@ describe('cypress-component - block components - vl-wizard - properties', () => 
             .shadow()
             .find('vl-progress-indicator')
             .shadow()
-            .find('.vl-progress-bar__step')
+            .find('.vl-progress-indicator__segment')
             .eq(0)
-            .find('.vl-progress-bar__bullet__text')
+            .find('.vl-progress-indicator__label')
             .should('not.exist');
         cy.get('vl-wizard')
             .shadow()
             .find('vl-progress-indicator')
             .shadow()
-            .find('.vl-progress-bar__step')
+            .find('.vl-progress-indicator__segment')
             .eq(1)
-            .find('.vl-progress-bar__bullet__text')
+            .find('.vl-progress-indicator__label')
             .should('not.exist');
     });
 });

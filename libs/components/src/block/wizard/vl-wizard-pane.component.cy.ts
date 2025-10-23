@@ -1,5 +1,6 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { html, nothing } from 'lit';
+import { html } from 'lit';
+import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { VlWizardPane } from './vl-wizard-pane.component';
 import { VlWizard } from './vl-wizard.component';
 
@@ -10,7 +11,7 @@ describe('cypress-component - block components - vl-wizard-pane - default', () =
         return cy.mount(
             html`
                 <vl-wizard>
-                    <vl-wizard-pane isActive=${isActive} name=${name || nothing}>
+                    <vl-wizard-pane ?isActive=${isActive} name=${ifDefined(name || undefined)}>
                         <p>Wizard Pane Content (1)</p>
                     </vl-wizard-pane>
                 </vl-wizard>
@@ -48,7 +49,7 @@ describe('cypress-component - block components - vl-wizard-pane - default', () =
             .shadow()
             .find('vl-progress-indicator')
             .shadow()
-            .find('.vl-progress-bar__bullet__text')
+            .find('.vl-progress-indicator__label')
             .should('have.text', 'TEST-NAME');
 
         cy.get('vl-wizard').find('vl-wizard-pane').invoke('attr', 'name', 'NEW-NAME');
@@ -56,7 +57,7 @@ describe('cypress-component - block components - vl-wizard-pane - default', () =
             .shadow()
             .find('vl-progress-indicator')
             .shadow()
-            .find('.vl-progress-bar__bullet__text')
+            .find('.vl-progress-indicator__label')
             .should('have.text', 'NEW-NAME');
     });
 });
@@ -106,7 +107,7 @@ describe('cypress-component - block components - vl-wizard-pane - isActive state
             .shadow()
             .find('vl-progress-indicator')
             .shadow()
-            .find('.vl-progress-bar__bullet__text')
+            .find('.vl-progress-indicator__label')
             .first()
             .should('have.text', 'first-pane');
 
@@ -115,7 +116,7 @@ describe('cypress-component - block components - vl-wizard-pane - isActive state
             .shadow()
             .find('vl-progress-indicator')
             .shadow()
-            .find('.vl-progress-bar__bullet__text')
+            .find('.vl-progress-indicator__label')
             .first()
             .should('have.text', 'NEW-NAME');
     });

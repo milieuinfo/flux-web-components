@@ -10,6 +10,8 @@ export const progressIndicatorArgs = {
     numeric: false,
     steps: [''],
     onClickStep: action('vl-click-step'),
+    staticSteps: false,
+    enableFutureSteps: false,
 };
 
 export const progressIndicatorArgTypes: ArgTypes<typeof progressIndicatorArgs> = {
@@ -49,6 +51,25 @@ export const progressIndicatorArgTypes: ArgTypes<typeof progressIndicatorArgs> =
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: String(progressIndicatorArgs.numeric) },
+        },
+    },
+    staticSteps: {
+        name: 'static-steps',
+        description:
+            'Gebruik het `static-steps` attribuut indien de stappen niet aanklikbaar zijn. Deze worden dan als `div` ipv als `button` gerenderd.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(progressIndicatorArgs.staticSteps) },
+        },
+    },
+    enableFutureSteps: {
+        name: 'enable-future-steps',
+        description: 'Voorkomt het disablen van stappen na de huidige stap.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(progressIndicatorArgs.enableFutureSteps) },
         },
     },
     steps: {

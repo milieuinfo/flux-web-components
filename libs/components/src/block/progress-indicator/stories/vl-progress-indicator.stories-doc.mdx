@@ -32,10 +32,39 @@ import { VlProgressIndicatorComponent } from '@domg-wc/components/block';
 
 <Canvas of={VlProgressIndicatorStories.ProgressIndicatorNumeric} />
 
+### Met labels
+
+Labels hebben een maximum breedte en krijgen een ellipsis indien ze langer zijn. De volledige tekst is dan beschikbaar
+via de default `title` tooltip. 
+
+De laatste stap neemt de beschikbare breedte in, naar gelang de breedte van het 
+label.
+
+De labels worden verborgen op resoluties kleiner dan 768 pixels.
+
+Kies je voor `showLabels: false` dan worden de labels vervangen door een tooltip.
+
+<Canvas of={VlProgressIndicatorStories.ProgressIndicatorLabels} />
+
+### Statische stappen
+
+In sommige gevallen zijn de stappen louter indicatief en mogen ze niet aanklikbaar zijn. Gebruik in dat geval
+het attribuut `static-steps`. Er zullen dan geen `<nav>` en `<button>` elementen gebruikt worden.
+
+<Canvas of={VlProgressIndicatorStories.ProgressIndicatorStaticSteps} />
+
 ### Focus op de actieve stap
+
+`focus-on-change` zorgt ervoor dat een stap focus krijgt bij het laden van deze stap.
 
 <Canvas of={VlProgressIndicatorStories.ProgressIndicatorFocused} />
 
+### Toekomstige stappen aanklikbaar houden
+
+Doorgaans zijn de stappen na de huidige stap niet aanklikbaar omdat eerst de voorgaande stappen afgewerkt moeten worden.
+Indien dit niet gewenst is kan je dit uitschakelen met `enable-future-steps`.
+
+<Canvas of={VlProgressIndicatorStories.ProgressIndicatorEnableFutureSteps} />
 
 ## Referenties
 
