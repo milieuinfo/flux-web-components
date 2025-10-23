@@ -1,4 +1,5 @@
 import { BaseLitElement, registerWebComponents } from '@domg-wc/common';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import { accessibilityStyle, resetStyle } from '@domg/govflanders-style/common';
 import { progressBarStyle } from '@domg/govflanders-style/component';
 import { html, nothing, type PropertyDeclarations } from 'lit';
@@ -11,11 +12,11 @@ import { vlProgressIndicatorFluxStyles } from './vl-progress-indicator.flux-css'
 class ProgressIndicator {
     updateStep(shadowRoot: ShadowRoot | null, activeStep: number, focusOnChange: boolean) {
         if (shadowRoot) {
-            const steps = shadowRoot.querySelectorAll<HTMLDivElement>('.vl-progress-bar__step');
-            steps.forEach((step, index) => {
-                step.classList.toggle('vl-progress-bar__step--active', index + 1 === activeStep);
+            const segments = shadowRoot.querySelectorAll<HTMLDivElement>('.vl-progress-indicator__segment');
+            segments.forEach((segment, index) => {
+                segment.classList.toggle('vl-progress-indicator__segment--active', index + 1 === activeStep);
                 if (focusOnChange && index + 1 === activeStep) {
-                    step.focus();
+                    segment.querySelector<HTMLButtonElement>('button.vl-progress-indicator__step')?.focus();
                 }
             });
         }
@@ -28,8 +29,10 @@ export class VlProgressIndicatorComponent extends BaseLitElement {
     private focusOnChange = false;
     private numeric = false;
     private progressIndicator = new ProgressIndicator();
-    private steps = [];
+    private steps: string[] = [];
     private showLabels = false;
+    private staticSteps = false;
+    private enableFutureSteps = false;
 
     static {
         registerWebComponents([VlTooltipComponent]);
@@ -43,10 +46,12 @@ export class VlProgressIndicatorComponent extends BaseLitElement {
         this.progressIndicator = new ProgressIndicator();
         this.steps = [];
         this.showLabels = false;
+        this.staticSteps = false;
+        this.enableFutureSteps = false;
     }
 
     static get styles() {
-        return [resetStyle, progressBarStyle, vlProgressIndicatorFluxStyles, accessibilityStyle];
+        return [resetStyle, vlLegacyStyles, progressBarStyle, vlProgressIndicatorFluxStyles, accessibilityStyle];
     }
 
     static get properties(): PropertyDeclarations {
@@ -64,44 +69,99 @@ export class VlProgressIndicatorComponent extends BaseLitElement {
             numeric: { type: Boolean, attribute: 'numeric', reflect: true },
             steps: { type: Array },
             showLabels: { type: Boolean, attribute: 'show-labels', reflect: true },
+            staticSteps: { type: Boolean, attribute: 'static-steps' },
+            enableFutureSteps: { type: Boolean, attribute: 'enable-future-steps' },
         };
     }
 
-    updated() {
+    private updatePadding = async () => {
+        this.style.setProperty(
+            '--vl-progress-indicator--padding-right',
+            `${this.showLabels ? this.lastLabelWidth / 2 : 0}px`
+        );
+    };
+
+    async updated(changedProps: Map<string, unknown>) {
         this.progressIndicator.updateStep(this.shadowRoot, this.activeStep, this.focusOnChange);
+
+        if (changedProps.has('showLabels') || changedProps.has('steps')) {
+            this.updatePadding();
+        }
+    }
+
+    connectedCallback(): void {
+        super.connectedCallback();
+
+        window.addEventListener('resize', this.updatePadding);
+    }
+
+    disconnectedCallback(): void {
+        super.disconnectedCallback();
+
+        window.removeEventListener('resize', this.updatePadding);
     }
 
     render() {
         const progressIndicatorClasses = {
-            'vl-progress-bar': true,
-            'vl-progress-bar--numeric': this.numeric,
+            'vl-progress-indicator': true,
+            'vl-progress-indicator--numeric': this.numeric,
+            'vl-progress-indicator--padded': this.showLabels,
         };
 
-        return html` <div class=${classMap(progressIndicatorClasses)}>
-            ${this.steps.map((step, index) => this.renderStep(step, index))}
-        </div>`;
+        return this.staticSteps
+            ? html`
+                  <div class=${classMap(progressIndicatorClasses)}>
+                      ${this.steps.map((step, index) => this.renderSegment(step, index))}
+                  </div>
+              `
+            : html` <nav class=${classMap(progressIndicatorClasses)}>
+                  ${this.steps.map((step, index) => this.renderSegment(step, index))}
+              </nav>`;
     }
 
-    private renderStep = (step: string, index: number) => {
-        const stepClasses = {
-            'vl-progress-bar__step': true,
-            'vl-progress-bar__step--active': this.activeStep === index + 1,
-        };
+    private get lastLabelWidth(): number {
+        return (
+            this.shadowRoot
+                ?.querySelector('.vl-progress-indicator__segment:last-child .vl-progress-indicator__label')
+                ?.getBoundingClientRect().width || 0
+        );
+    }
 
-        return html` <div class=${classMap(stepClasses)}>
-            <button
-                @click=${() => this.handleStepClick(step, index + 1)}
-                class="vl-progress-bar__bullet"
-                aria-label=${step}
-                id="step-${index + 1}"
-            >
-                ${!this.showLabels
-                    ? html` <vl-tooltip for="step-${index + 1}" placement="top"> ${step} </vl-tooltip> `
-                    : nothing}
-                ${this.showLabels ? html`<span class="vl-progress-bar__bullet__text" title=${step}>${step}</span>` : ''}
-            </button>
-        </div>`;
-    };
+    private renderBullet(step: string, index: number) {
+        return html`<span class="vl-progress-indicator__bullet"></span>
+            ${this.showLabels
+                ? html`<span class="vl-progress-indicator__label" title=${step}>${step}</span>`
+                : nothing} `;
+    }
+
+    private renderStep(step: string, index: number) {
+        return html`${this.staticSteps
+            ? html`<div class="vl-progress-indicator__step" tabindex="0" id="step-${index + 1}">
+                  ${this.renderBullet(step, index)}
+              </div>`
+            : html` <button
+                  ?disabled=${index > this.activeStep - 1 && !this.enableFutureSteps}
+                  @click=${() => this.handleStepClick(step, index + 1)}
+                  aria-label=${step}
+                  class="vl-progress-indicator__step"
+                  tabindex="0"
+                  type="button"
+                  id="step-${index + 1}"
+              >
+                  ${this.renderBullet(step, index)}
+              </button>`}
+        ${this.showLabels
+            ? nothing
+            : html` <vl-tooltip for="step-${index + 1}" placement="top" distance="15"> ${step} </vl-tooltip> `}`;
+    }
+
+    private renderSegment(step: string, index: number) {
+        const segmentClasses = {
+            'vl-progress-indicator__segment': true,
+            'vl-progress-indicator__segment--active': this.activeStep === index + 1,
+        };
+        return html`<div class=${classMap(segmentClasses)}>${this.renderStep(step, index)}</div>`;
+    }
 
     private handleStepClick(step: string, stepNumber: number) {
         this.dispatchEvent(

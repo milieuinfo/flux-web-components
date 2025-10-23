@@ -35,7 +35,7 @@ export class VlTooltipComponent extends VlPopoverComponent {
         return html`
             <div class=${classMap(classes)} role="tooltip" aria-hidden="${!this.open}">
                 <slot></slot>
-                ${!this.hideArrow ? html`<i id="popover-arrow" role="presentation"></i>` : null}
+                ${!this.hideArrow ? html`<i id="popover-arrow" part="arrow" role="presentation"></i>` : null}
             </div>
         `;
     }
