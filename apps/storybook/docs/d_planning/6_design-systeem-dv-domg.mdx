@@ -1,0 +1,114 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Planning/Design System - DV & dOMG" />
+
+# Design System - DV & dOMG
+
+<div style={{marginTop: '20px'}}/>
+
+<vl-alert data-cy="alert" icon="info-circle" title="28/10/2025 - v1.0" type="info">
+    In het kader van de samenwerking tussen DV en dOMG m.b.t. de nieuwe web-componenten zouden we graag een
+    formele samenwerking zien waarbij het commitment van beide partijen duidelijk is.
+</vl-alert>
+
+<div style={{marginTop: '40px'}}/>
+
+## Inhoudstafel
+
+- [Design System - samenwerking DV en dOMG](#design-system---samenwerking-dv-en-domg)
+- [Community Werking - voorstel](#community-werking---voorstel)
+- [Commitment dOMG](#commitment-domg)
+- [Vereisten - samenvatting](#vereisten---samenvatting)
+- [Referenties](#referenties)
+
+
+## Design System - samenwerking DV en dOMG
+
+Ik besprak met Tom Van Gulck het plan rond de samenwerking tussen DV en dOMG over het op te zetten Design System, wat
+zal resulteren in een web-componenten bibliotheek.
+
+Tom ziet veel goede elementen in de aanpak maar zou graag een formeel commitment hebben op lange termijn. Hij is
+wat sceptisch omdat er bij jullie (momenteel) maar 2 ontwikkelaars zijn die de nieuwe componenten zullen ontwikkelen,
+maar daarnaast moeten ze ook nog de oude opzet onderhouden en technische ondersteuning geven. Tom wil garanties dat
+het project op lange termijn blijft bestaan. Hij heeft schrik dat er gestart wordt met web-componenten maar dat het
+project al na bvb. 1 of 2 jaar een stille dood sterft.<br/>
+Wat is jullie visie op lange termijn? Zijn er plannen om het team te laten groeien?
+
+Enerzijds pleit hij ervoor dat jullie, Digitaal Vlaanderen, zelf de nieuwe web-componenten afnemen. Als jullie zelf
+die nieuwe componenten afnemen - vanuit andere teams dan diegene die de feitelijke ontwikkeling doen - bewijst dat
+een commitment. Je gaf al aan dat de Vue-componenten uit jullie Web Platform vervangen zullen worden door de nieuwe
+web-componenten. Mogelijks is er aan deze voorwaarde dus al (deels) voldaan? Zijn er nog andere ontwikkel-teams
+bij jullie die de web-componenten gaan afnemen?
+
+Anderzijds zou hij graag hebben dat de drempel om af te nemen - maar ook om bij te dragen - door ander entiteiten zo laag
+mogelijk is. Ik werkte dit verder uit in het volgende puntje: community werking.
+
+
+## Community Werking - voorstel
+
+Iedere VO-entiteit moet makkelijk kunnen bijdragen. Jullie waren echter terughoudend om er gewoon een publieke repo van
+te maken. Het voelt inderdaad onveilig aan om je broncode publiek te zetten. Maar voor frontend-code is hier niets
+onveilig aan. Alle publieke toepassingen die uiteindelijk web-componenten afnemen bevatten de broncode en die zal via
+de web-browser zichtbaar zijn. GOV.UK (zie [referenties](#referenties)) bvb. heeft ook zijn volledig design-system
+publiek staan. Net omdat je frontend code uiteindelijk niet kan verbergen verplicht het publiek stellen dat de code
+veilig is.
+
+De grote meerwaarden van een publieke repo op bvb. GitHub zijn:
+ - iedereen kan de broncode zien, ze moet dus veilig zijn, maar ook iedereen kan bijdragen
+ - iedereen kan PR's indienen voor fixes, verbeteringen ideeën of nieuwe componenten
+ - enkel personen met rechten kunnen PR's integreren, de kwaliteit blijft dus gegarandeerd
+ - via 'Discussions' heeft iedereen inbreng
+ - via 'Projects' kan iedereen de roadmap zien (en opvolgen), ook niet-technische personen
+ - door te builden met 'Actions' (en testen te voorzien) is er een snelle feedback-loop voor iedereen
+
+Ons inziens is er nood aan een publieke repo. Zonder ga je moeilijk draagvlak kunnen creëren - toegang vragen alvorens
+je iets kan zien geeft een hoge drempel. Een voorwaarde om het te doen slagen is natuurlijk dat het project moet
+aanvoelen als een levend project: voldoende contributers, een duidelijk plan, een eerste release binnen een
+aanvaardbare termijn, ... .
+
+Je zit altijd met het probleem dat je voldoende kritische massa (kwalitatieve componenten) nodig hebt alvorens
+projecten van andere entiteiten ze zullen willen afnemen. Tonen dat er gestaag vooruitgang geboekt wordt en de
+mogelijkheid bieden aan afnemers om zelf bvb. fixes te doen helpt dan.
+
+
+## Commitment dOMG
+
+Wij - team-Flux (3 VTE) - zullen actief bijdragen aan de web-componenten. We kunnen 1 VTE voorzien (verdeeld over ons
+3-en), waarmee we op alle gewenste manieren kunnen helpen. Eens de basis opzet (atoms + styling) uitgeklaard is zouden
+we web-componenten die we al hebben kunnen refactoren conform jullie conventies (o.a. de theming) en contributen. Op die
+manier hopen we snelheid te kunnen maken maar ook dat ons werk rendeert door een grotere afnemersgroep te krijgen.
+
+Doordat wij zelf contributers zullen zijn aan jullie opzet zouden we de manier waarop wij bijdragen via een blog
+willen verduidelijken. Of we op die manier meer en andere afnemers krijgen is afwachten, maar het geeft in elk geval
+zichtbaarheid.
+
+Op middellange termijn zouden we ook een kaart-component - gebaseerd op OpenLayers - willen bijdragen. Wij hebben een
+OpenLayers kaart-component maar deze is verouderd. Wij starten hierrond nog dit jaar een analyse traject, de feitelijke
+ontwikkeling is voorzien voor 2026. Binnen dOMG wordt de huidige component door verschillende teams afgenomen, maar
+bvb. [DOV](https://www.dov.vlaanderen.be/portaal/) - ook onderdeel van dOMG - gebruikt deze niet. Jullie gaven aan dat
+Athumi vanuit deze insteek ook geïnteresseerd was. Ikzelf (Kris S.) heb een aantal jaren bij AWV gewerkt, zij hebben
+ook een eigen OpenLayers kaart.<br/>
+Het lijkt ons dus dat een kaart-component een web-component enabler kan zijn om verschillende entiteiten op zijn minst
+samen te krijgen. Van daaruit kan dan iedereen input geven (requirements) voor die kaart component. Het kan een
+startpunt zijn voor anderen om te contributen alsook om meer componenten af te nemen.
+
+
+## Vereisten - samenvatting
+
+De minimale vereisten lijken ons:
+ - een duidelijk lange termijn visie en commitment
+ - publieke readonly toegang tot de code - geeft een lage drempel om mee te werken
+ - mogelijkheid voor iedereen om PR's in te dienen
+ - actieve community werking
+ - geversioneerde documentatie
+ - een duidelijke roadmap (die gehaald wordt)
+
+Optioneel kunnen volgde zaken gedaan worden:
+ - een blog met geregeld (maandelijkse) posts om andere overheidsentiteiten op de hoogte te houden / te betrekken
+ - online / fysische presentaties (paar keer per jaar), bvb. op de Trefdag Vlaanderen Digitaal
+
+
+## Referenties
+
+[https://github.com/topics/govuk-design-system-team](https://github.com/topics/govuk-design-system-team)<br/>
+[https://github.com/alphagov/govuk-design-system](https://github.com/alphagov/govuk-design-system)
