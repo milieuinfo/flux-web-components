@@ -1,8 +1,8 @@
-import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
+import { html } from 'lit';
 import { parseFormData } from '../utils';
-import { VlSelectRichComponent } from './vl-select-rich.component';
 import { SelectRichOption } from './index';
+import { VlSelectRichComponent } from './vl-select-rich.component';
 
 registerWebComponents([VlSelectRichComponent]);
 
@@ -260,13 +260,7 @@ describe('cypress-component - form components - vl-select-rich - single', () => 
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
-        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
-        cy.get('vl-select-rich')
-            .shadow()
-            .find('.vl-select__list')
-            .find('.vl-select__item.vl-select__item--disabled')
-            .contains('Hasselt');
-        cy.get('vl-select-rich').shadow().find('.vl-select__list').find('.vl-select__item').contains('Hasselt').click();
+
         cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
         cy.get('vl-select-rich')
             .shadow()
@@ -274,6 +268,36 @@ describe('cypress-component - form components - vl-select-rich - single', () => 
             .find('.vl-select__item')
             .contains('Turnhout')
             .click();
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Turnhout')
+            .should('have.attr', 'selected');
+        cy.checkA11y('vl-select-rich');
+
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item.vl-select__item--disabled')
+            .contains('Hasselt');
+        cy.get('vl-select-rich').shadow().find('.vl-select__list').find('.vl-select__item').contains('Hasselt').click();
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Turnhout')
+            .should('have.attr', 'selected');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('select')
+            .find('option')
+            .contains('Hasselt')
+            .should('not.have.attr', 'selected');
+
+        cy.checkA11y('vl-select-rich');
+
         cy.get('vl-select-rich').shadow().find('select').find('option').contains('Hasselt').should('be.disabled');
         cy.get('vl-select-rich').shadow().find('select').find('option').contains('Turnhout').should('not.be.disabled');
         cy.checkA11y('vl-select-rich');
