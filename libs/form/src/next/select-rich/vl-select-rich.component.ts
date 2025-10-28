@@ -100,12 +100,8 @@ export class VlSelectRichComponent extends FormControl {
     }
 
     private callbackOnInit = (): void => {
-        // Fix voor Choices.js dropdown te openen in een Shadow DOM
         this.getChoicesElement()?.addEventListener('click', this.onClickChoices);
-
-        // Fix voor Choices.js dropdown te openen als er geklikt wordt op het label
         this.internals.labels[0]?.addEventListener('click', this.onClickChoices);
-
         this.getChoicesElement()?.addEventListener('showDropdown', () => {
             const dropdownElement = this.getChoicesElement()?.querySelector('.vl-select__list--dropdown');
             if (dropdownElement && !this.dropdownInitialised) {
@@ -365,6 +361,7 @@ export class VlSelectRichComponent extends FormControl {
             noResultsText: this.noResultsText,
             searchResultLimit: this.resultLimit,
             noChoicesText: this.noChoicesText,
+            shadowRoot: this.shadowRoot,
             searchPlaceholderValue: this.searchPlaceholder,
             classNames: {
                 ...Choices.defaults.allOptions.classNames,
