@@ -278,6 +278,14 @@ describe('component - vl-select-rich - single', () => {
         cy.get('vl-select-rich-next')
             .shadow()
             .find('.vl-select__list')
+            .find('.vl-select__item')
+            .contains('Turnhout')
+            .click();
+
+        cy.get('vl-select-rich-next').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich-next')
+            .shadow()
+            .find('.vl-select__list')
             .find('.vl-select__item.vl-select__item--disabled')
             .contains('Hasselt');
         cy.get('vl-select-rich-next')
@@ -286,13 +294,21 @@ describe('component - vl-select-rich - single', () => {
             .find('.vl-select__item')
             .contains('Hasselt')
             .click();
-        cy.get('vl-select-rich-next').shadow().find('.vl-select__inner').click();
+
         cy.get('vl-select-rich-next')
             .shadow()
-            .find('.vl-select__list')
-            .find('.vl-select__item')
+            .find('select')
+            .find('option')
+            .contains('Hasselt')
+            .should('not.have.attr', 'selected');
+
+        cy.get('vl-select-rich-next')
+            .shadow()
+            .find('select')
+            .find('option')
             .contains('Turnhout')
-            .click();
+            .should('have.attr', 'selected');
+
         cy.get('vl-select-rich-next').shadow().find('select').find('option').contains('Hasselt').should('be.disabled');
         cy.get('vl-select-rich-next')
             .shadow()
@@ -798,7 +814,6 @@ describe('component - vl-select-rich - single', () => {
             .contains('Knokke-Heist')
             .should('not.have.attr', 'selected');
 
-
         cy.get('vl-select-rich-next').then((el) => {
             const select = el[0] as VlSelectRichComponent;
             select.selectByValue('rio piedras');
@@ -870,7 +885,6 @@ describe('component - vl-select-rich - single', () => {
             .should('have.been.calledTwice')
             .its('firstCall.args.0.detail')
             .should('deep.equal', { value: 'knokke-heist' });
-
 
         cy.get('vl-select-rich-next').then((el) => {
             const select = el[0] as VlSelectRichComponent;
