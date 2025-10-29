@@ -62,9 +62,9 @@ export const mapFeaturesLayerArgTypes: ArgTypes<typeof mapFeaturesLayerArgs> = {
     },
     projectionCode: {
         name: 'projection-code',
-        description: `Indien je Lambert 72 coördinaten gebruikt op een Lambert 2008 kaart, moet je de projectie code
-EPSG:31370 meegeven als projection-code. Geef je dit niet mee, dan zal de kaartlaag de projectie code van
-de kaart overnemen.<br>Dit attribuut is niet reactief.`,
+        description: 'Indien je Lambert 72 coördinaten gebruikt op een Lambert 2008 kaart, moet je de projectie' +
+            ' code EPSG:31370 meegeven als projection-code. Geef je dit niet mee, dan zal de kaartlaag de projectie' +
+            ' code van de kaart overnemen.<br>Dit attribuut is niet reactief.',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
