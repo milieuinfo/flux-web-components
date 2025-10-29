@@ -136,9 +136,25 @@ describe('component - vl-rich-data with vl-search-filter-next', () => {
         cy.get('vl-rich-data').shadow().find('#content').should('have.class', 'vl-column-next--8');
     });
 
-    it('should be able to close the search filter using the escape key', () => {
+    it('should be able to close the search filter using the escape key when closable', () => {
         cy.viewport(1024, 768);
         cy.get('vl-search-filter-next').should('not.have.attr', 'hidden');
+        cy.get('#filterOpId').shadow().find('input').type('{esc}', { force: true });
+        cy.get('vl-search-filter-next').should('have.attr', 'hidden');
+    });
+
+    it('should not close the search filter using the escape key when not closable', () => {
+        cy.viewport(1024, 768);
+        cy.get('vl-search-filter-next').should('not.have.attr', 'hidden');
+        cy.get('vl-rich-data').invoke('removeAttr', 'data-vl-filter-closable');
+        cy.get('#filterOpId').shadow().find('input').type('{esc}', { force: true });
+        cy.get('vl-search-filter-next').should('not.have.attr', 'hidden');
+    });
+
+    it('should close the search filter using the escape key without closable attribute in mobile', () => {
+        cy.viewport(375, 667);
+        cy.get('vl-search-filter-next').should('not.have.attr', 'hidden');
+        cy.get('vl-rich-data').invoke('removeAttr', 'data-vl-filter-closable');
         cy.get('#filterOpId').shadow().find('input').type('{esc}', { force: true });
         cy.get('vl-search-filter-next').should('have.attr', 'hidden');
     });
