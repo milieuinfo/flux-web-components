@@ -31,7 +31,10 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
     },
     identifier: {
         name: 'identifier',
-        description: 'De identifier die gebruikt wordt om bij Digitaal Vlaanderen de header op te halen. Deze identifier kan aangevraagd worden bij Team Infra van Departement Omgeving of via dit <vl-link external href="https://www.vlaanderen.be/digitaal-vlaanderen/onze-diensten-en-platformen/mijn-burgerprofiel/global-header-en-footer#stappenplan-koppeling-met-de-global-header-en-footer">stappenplan</vl-link> van Digitaal Vlaanderen.',
+        description: 'De identifier die gebruikt wordt om bij Digitaal Vlaanderen de header op te halen. Deze' +
+            ' identifier kan aangevraagd worden bij Team Infra van Departement Omgeving of via' +
+            ' dit <vl-link external href="https://www.vlaanderen.be/digitaal-vlaanderen/onze-diensten-en-platformen/mijn-burgerprofiel/global-header-en-footer#stappenplan-koppeling-met-de-global-header-en-footer">stappenplan</vl-link>' +
+            ' van Digitaal Vlaanderen.',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
@@ -41,7 +44,8 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
     loginRedirectUrl: {
         name: 'login-redirect-url',
         description:
-            'De redirect url die gebruikt wordt bij het aanmelden.<br>Bij het aanpassen van dit attribuut wordt achterliggend de session.configure() methode van Digitaal Vlaanderen opnieuw aangeroepen.',
+            'De redirect url die gebruikt wordt bij het aanmelden.<br>Bij het aanpassen van dit attribuut wordt' +
+            ' achterliggend de session.configure() methode van Digitaal Vlaanderen opnieuw aangeroepen.',
         table: {
             type: { summary: TYPES.URL },
             category: CATEGORIES.ATTRIBUTES,
@@ -51,7 +55,8 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
     loginUrl: {
         name: 'login-url',
         description:
-            'De url die gebruikt wordt bij het aanmelden.<br>Bij het aanpassen van dit attribuut wordt achterliggend de session.configure() methode van Digitaal Vlaanderen opnieuw aangeroepen.',
+            'De url die gebruikt wordt bij het aanmelden.<br>Bij het aanpassen van dit attribuut wordt' +
+            ' achterliggend de session.configure() methode van Digitaal Vlaanderen opnieuw aangeroepen.',
         table: {
             type: { summary: TYPES.URL },
             category: CATEGORIES.ATTRIBUTES,
@@ -61,7 +66,8 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
     logoutUrl: {
         name: 'logout-url',
         description:
-            'De url die wordt opgeroepen wanneer men zich wil afmelden.<br>Bij het aanpassen van dit attribuut wordt achterliggend de session.configure() methode van Digitaal Vlaanderen opnieuw aangeroepen.',
+            'De url die wordt opgeroepen wanneer men zich wil afmelden.<br>Bij het aanpassen van dit attribuut' +
+            ' wordt achterliggend de session.configure() methode van Digitaal Vlaanderen opnieuw aangeroepen.',
         table: {
             type: { summary: TYPES.URL },
             category: CATEGORIES.ATTRIBUTES,
@@ -89,7 +95,9 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
     switchCapacityUrl: {
         name: 'switch-capacity-url',
         description:
-            'De url die wordt opgeroepen wanneer men van organisatie wil wisselen.<br>Bij het aanpassen van dit attribuut wordt achterliggend de session.configure() methode van Digitaal Vlaanderen opnieuw aangeroepen.',
+            'De url die wordt opgeroepen wanneer men van organisatie wil wisselen.<br>Bij het aanpassen van dit' +
+            ' attribuut wordt achterliggend de session.configure() methode van Digitaal Vlaanderen opnieuw' +
+            ' aangeroepen.',
         table: {
             type: { summary: TYPES.URL },
             category: CATEGORIES.ATTRIBUTES,
@@ -99,7 +107,8 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
     rejectLogout: {
         name: 'reject-logout',
         description:
-            'Geeft aan of het logout request moet worden afgewezen.<br/>Een logout request door de gebruiker wordt nooit afgewezen.',
+            'Geeft aan of het logout request moet worden afgewezen.<br/>Een logout request door de gebruiker wordt' +
+            ' nooit afgewezen.',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
@@ -108,7 +117,10 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
     },
     logoutCallback: {
         name: 'logoutCallback',
-        description: `De callback die aangeroepen wordt bij een logout request.<br/>De logout reason wordt meegegeven aan de callback, door een boolean promise terug te geven kan je het logout request accepteren of afwijzen.<br/>De mogelijke reasons zijn: 'inactivity' en 'expired'.<br/>Een logout request door de gebruiker wordt nooit afgewezen.`,
+        description: "De callback die aangeroepen wordt bij een logout request.<br/>De logout reason wordt" +
+            " meegegeven aan de callback, door een boolean promise terug te geven kan je het logout request" +
+            " accepteren of afwijzen.<br/>De mogelijke reasons zijn: 'inactivity' en 'expired'.<br/>Een logout" +
+            " request door de gebruiker wordt nooit afgewezen.",
         control: false,
         table: {
             type: { summary: '(reason: string) => Promise<boolean>' },

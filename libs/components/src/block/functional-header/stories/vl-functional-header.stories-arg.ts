@@ -58,10 +58,10 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
     },
     disableBackLink: {
         name: 'disable-back-link',
-        description: `Schakelt de terug-link uit.
-Dit zorgt ervoor dat de terug-link gerenderd wordt als button in plaats van als link.<br/>
-**Let op**: indien je dit attribuut gebruikt, moet je zelf het event \`vl-click-back\` afhandelen.
-Het \`back-link\` attribuut wordt genegeerd indien dit attribuut gebruikt wordt.`,
+        description: "Schakelt de terug-link uit. Dit zorgt ervoor dat de terug-link gerenderd wordt als button in" +
+            " plaats van als link.<br/><br/> **Let op**: indien je dit attribuut gebruikt, moet je zelf het event" +
+            " \`vl-click-back\` afhandelen. Het \`back-link\` attribuut wordt genegeerd indien dit attribuut" +
+            " gebruikt wordt.",
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
@@ -153,7 +153,8 @@ Het \`back-link\` attribuut wordt genegeerd indien dit attribuut gebruikt wordt.
     backSlot: {
         name: 'back',
         description:
-            'Wordt afgebeeld ipv de tekst van de terug-link.<br>Kan niet in combinatie gebruikt worden met:<br>• back attribuut<br>• back-link slot<br>• sub-header slot',
+            'Wordt afgebeeld ipv de tekst van de terug-link.<br>Kan niet in combinatie gebruikt worden met:' +
+            '<br>• back attribuut<br>• back-link slot<br>• sub-header slot',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
@@ -162,7 +163,12 @@ Het \`back-link\` attribuut wordt genegeerd indien dit attribuut gebruikt wordt.
     backLinkSlot: {
         name: 'back-link',
         description:
-            'Wordt afgebeeld ipv de terug-link.<br>Kan niet in combinatie gebruikt worden met:<br>• back attribuut<br>• back-link attribuut<br>• disable-back-link attribuutt<br>• back slot<br>• sub-header slot',
+            'Wordt afgebeeld ipv de terug-link.<br>Kan niet in combinatie gebruikt worden met:' +
+            '<br>• back attribuut' +
+            '<br>• back-link attribuut' +
+            '<br>• disable-back-link ' +
+            '<br>• back slot' +
+            '<br>• sub-header slot',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
@@ -171,7 +177,15 @@ Het \`back-link\` attribuut wordt genegeerd indien dit attribuut gebruikt wordt.
     subHeaderSlot: {
         name: 'sub-header',
         description:
-            'Wordt afgebeeld onder de horizontale lijn.<br>Kan niet in combinatie gebruikt worden met:<br>• back attribuut<br>• back-link attribuut<br>• disable-back-link attribuut<br>• sub-title attribuut<br>• back slot<br>• back-link slot<br>• sub-title slot',
+            'Wordt afgebeeld onder de horizontale lijn.' +
+            '<br>Kan niet in combinatie gebruikt worden met:' +
+            '<br>• back attribuut' +
+            '<br>• back-link attribuut' +
+            '<br>• disable-back-link attribuut' +
+            '<br>• sub-title attribuut' +
+            '<br>• back slot' +
+            '<br>• back-link slot' +
+            '<br>• sub-title slot',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
@@ -180,7 +194,10 @@ Het \`back-link\` attribuut wordt genegeerd indien dit attribuut gebruikt wordt.
     subTitleSlot: {
         name: 'sub-title',
         description:
-            'Wordt afgebeeld ipv de tekst van de subtitel.<br>Kan niet in combinatie gebruikt worden met:<br>• sub-title<br>• sub-header slot',
+            'Wordt afgebeeld ipv de tekst van de subtitel.' +
+            '<br>Kan niet in combinatie gebruikt worden met:' +
+            '<br>• sub-title' +
+            '<br>• sub-header slot',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
@@ -189,7 +206,9 @@ Het \`back-link\` attribuut wordt genegeerd indien dit attribuut gebruikt wordt.
     titleSlot: {
         name: 'title',
         description:
-            'Wordt afgebeeld ipv de tekst van de titel.<br>Kan niet in combinatie gebruikt worden met:<br>• title',
+            'Wordt afgebeeld ipv de tekst van de titel.' +
+            '<br>Kan niet in combinatie gebruikt worden met:' +
+            '<br>• title',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
@@ -198,7 +217,9 @@ Het \`back-link\` attribuut wordt genegeerd indien dit attribuut gebruikt wordt.
     topLeftSlot: {
         name: 'top-left',
         description:
-            'Wordt afgebeeld in de linkerbovenhoek.<br>Kan niet in combinatie gebruikt worden met:<br>• actions slot',
+            'Wordt afgebeeld in de linkerbovenhoek.' +
+            '<br>Kan niet in combinatie gebruikt worden met:' +
+            '<br>• actions slot',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
@@ -207,7 +228,9 @@ Het \`back-link\` attribuut wordt genegeerd indien dit attribuut gebruikt wordt.
     topRightSlot: {
         name: 'top-right',
         description:
-            'Wordt afgebeeld in de rechterbovenhoek.<br>Kan niet in combinatie gebruikt worden met:<br>• actions slot',
+            'Wordt afgebeeld in de rechterbovenhoek.' +
+            '<br>Kan niet in combinatie gebruikt worden met:' +
+            '<br>• actions slot',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,

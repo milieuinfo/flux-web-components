@@ -14,7 +14,9 @@ export const prozaMessageArgTypes: ArgTypes<typeof prozaMessageArgs> = {
     ...defaultArgTypes,
     baseUrl: {
         name: 'base-url',
-        description: `Optionele baseUrl waarvan het Proza bericht opgehaald wordt.<br>Indien deze baseUrl niet meegegeven wordt, wordt het Proza bericht opgehaald relatief tov de huidige url op het pad 'proza/domein/{domain}/{code}'.<br>Dit attribuut is niet reactief.`,
+        description: "Optionele baseUrl waarvan het Proza bericht opgehaald wordt.<br>Indien deze baseUrl niet" +
+            " meegegeven wordt, wordt het Proza bericht opgehaald relatief tov de huidige url op het pad" +
+            " 'proza/domein/{domain}/{code}'.<br>Dit attribuut is niet reactief.",
         control: false,
         table: {
             type: { summary: TYPES.URL },

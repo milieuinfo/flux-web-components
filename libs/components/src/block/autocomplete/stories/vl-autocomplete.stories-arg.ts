@@ -185,9 +185,9 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
     },
     search: {
         name: 'search',
-        description: `Dit custom event wordt getriggerd wanneer de gebruiker karakters ingeeft in het tekstvak terwijl
-de component geen items heeft. Gebruik dit event wanneer je de suggestielijst wilt vullen met items uit een
-API-call. Bekijk de story "WithInputAndApiCall" voor meer details.`,
+        description: 'Dit custom event wordt getriggerd wanneer de gebruiker karakters ingeeft in het tekstvak' +
+            ' terwijl de component geen items heeft. Gebruik dit event wanneer je de suggestielijst wilt vullen met' +
+            ' items uit een API-call. Bekijk de story "WithInputAndApiCall" voor meer details.',
         table: {
             type: { summary: '-' },
             category: CATEGORIES.EVENTS,
@@ -195,8 +195,8 @@ API-call. Bekijk de story "WithInputAndApiCall" voor meer details.`,
     },
     selectedAutocomplete: {
         name: 'selected-autocomplete',
-        description: `Dit custom event wordt getriggerd wanneer de gebruiker een item selecteert uit de suggestielijst.
-De geselecteerde waarde kan worden opgevraagd via het detail van het event.`,
+        description: 'Dit custom event wordt getriggerd wanneer de gebruiker een item selecteert uit de' +
+            ' suggestielijst. De geselecteerde waarde kan worden opgevraagd via het detail van het event.',
         table: {
             type: { summary: '-' },
             category: CATEGORIES.EVENTS,
@@ -204,7 +204,7 @@ De geselecteerde waarde kan worden opgevraagd via het detail van het event.`,
     },
     clear: {
         name: 'clear',
-        description: `Dit custom event wordt getriggerd wanneer de gebruiker het clear-icoon aanklikt.`,
+        description: 'Dit custom event wordt getriggerd wanneer de gebruiker het clear-icoon aanklikt.',
         table: {
             type: { summary: '-' },
             category: CATEGORIES.EVENTS,
