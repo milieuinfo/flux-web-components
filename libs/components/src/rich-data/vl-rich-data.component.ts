@@ -513,7 +513,11 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
                 });
             });
             this.__searchFilterForm.addEventListener('keyup', ({ code }: KeyboardEvent) => {
-                if (code.toLowerCase() === 'escape' && !this.hasAttribute('data-vl-filter-closed')) {
+                const isClosable = this.hasAttribute('data-vl-filter-closable');
+                const isFilterClosed = !this.hasAttribute('data-vl-filter-closed');
+                const isMobile =
+                    this.hasAttribute('mobile-modal') || this.hasAttribute('data-vl-mobile-modal') || this.__isModal();
+                if (code.toLowerCase() === 'escape' && isFilterClosed && (isClosable || isMobile)) {
                     this._onToggleFilter();
                 }
             });
@@ -536,11 +540,14 @@ export class VlRichData extends BaseElementOfType(HTMLElement) {
         return observer;
     }
 
+    __isModal() {
+        return Boolean(
+            this.__searchFilter.hasAttribute('data-vl-mobile-modal') || this.__searchFilter.hasAttribute('mobile-modal')
+        );
+    }
+
     __processScrollableBody() {
-        if (
-            this.__searchFilter.hasAttribute('data-vl-mobile-modal') ||
-            this.__searchFilter.hasAttribute('mobile-modal')
-        ) {
+        if (this.__isModal()) {
             this.__disableBodyScroll();
         } else {
             this.__enableBodyScroll();
