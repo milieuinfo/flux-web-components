@@ -21,29 +21,28 @@ export const vlPopoverFluxStyles: CSSResult = css`
     }
 
     .popover-content {
-        /* combinatie van 3 drop-shadows:
-          - de eerste is de styling voor schaduw (deze weglaten als je geen schaduw wilt)
-          - de 2e & 3e is de styling voor border (deze weglaten als je geen border wilt)
-        */
-        filter: drop-shadow(rgba(0, 0, 0, 0.1) 0px 0px 2.1rem) drop-shadow(rgb(207, 213, 221) -1px -1px 1px)
-            drop-shadow(rgb(207, 213, 221) 1px 1px 1px);
+        filter: drop-shadow(0 0.2rem 0.6rem rgba(106, 118, 134, 0.15))
+            drop-shadow(0 0 0.1rem var(--vl-color--border-default))
+            drop-shadow(0 0 0.1rem var(--vl-color--border-default));
         will-change: filter;
         background-color: #fff;
         padding: 1rem;
         max-width: 100vw;
         word-break: break-all;
-    }
 
-    .padding-none {
-        padding: 0;
-    }
-    .padding-small {
-        padding: 0.5rem;
-    }
-    .padding-medium {
-        padding: 1rem;
-    }
-    .padding-large {
-        padding: 2rem;
+        &[role='tooltip'] {
+            font-size: var(--vl-font-size--xsmall);
+            padding: 0.3rem 1rem;
+        }
+
+        &.padding-none {
+            padding: 0;
+        }
+        &.padding-small {
+            padding: 0.5rem;
+        }
+        &.padding-large {
+            padding: 2rem;
+        }
     }
 `;

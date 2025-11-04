@@ -1,8 +1,8 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
-import { action } from 'storybook/actions';
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
+import { action } from 'storybook/actions';
 import { VlButtonComponent } from '../../../atom/button';
 import { VlPopoverActionListComponent } from '../vl-popover-action-list.component';
 import { VlPopoverActionComponent } from '../vl-popover-action.component';
@@ -71,11 +71,11 @@ PopoverDefault.args = {
     placement: 'bottom-start',
 };
 
-export const PopoverHover = story(
+export const PopoverTooltip = story(
     popoverDefaultArgs,
-    ({ trigger, open, contentPadding, placement, hideArrow, hideOnClick, distance, strategy }) => {
+    ({ trigger, open, contentPadding, placement, hideArrow, hideOnClick, distance, strategy, tooltip }) => {
         return html`
-            <vl-button id="btn-close" aria-describedby="tooltip">Hover over me</vl-button>
+            <vl-button id="btn-close">Hover over me</vl-button>
             <vl-popover
                 for="btn-close"
                 ?open=${open}
@@ -86,18 +86,19 @@ export const PopoverHover = story(
                 distance=${distance}
                 strategy=${strategy}
                 content-padding=${contentPadding}
+                ?tooltip=${tooltip}
             >
                 Een boodschap die context geeft.
             </vl-popover>
         `;
     }
 );
-PopoverHover.storyName = 'vl-popover - hover';
-PopoverHover.decorators = [relativePositionDecorator];
-PopoverHover.args = {
-    trigger: 'focus hover',
+PopoverTooltip.storyName = 'vl-popover - tooltip';
+PopoverTooltip.decorators = [relativePositionDecorator];
+PopoverTooltip.args = {
+    tooltip: true,
 };
-PopoverHover.parameters = {
+PopoverTooltip.parameters = {
     layout: 'centered',
 };
 

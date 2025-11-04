@@ -24,6 +24,7 @@ export class VlPopoverComponent extends BaseLitElement {
     private contentPadding = popoverDefaults.contentPadding;
     private hideOnClick = popoverDefaults.hideOnClick;
     private strategy = popoverDefaults.strategy;
+    private tooltip = popoverDefaults.tooltip;
 
     static {
         registerWebComponents([VlPopoverActionComponent, VlPopoverActionListComponent]);
@@ -44,6 +45,7 @@ export class VlPopoverComponent extends BaseLitElement {
             hideArrow: { type: Boolean, attribute: 'hide-arrow' },
             hideOnClick: { type: Boolean, attribute: 'hide-on-click' },
             strategy: { type: String, attribute: 'strategy' },
+            tooltip: { type: Boolean, attribute: 'tooltip' },
         };
     }
 
@@ -64,6 +66,14 @@ export class VlPopoverComponent extends BaseLitElement {
     }
 
     protected firstUpdated() {
+        // Bepaal defaults op basis van tooltip gerelateerde properties
+        if (this.tooltip) {
+            this.trigger = 'hover focus';
+        }
+        if (!this.trigger.includes('click')) {
+            this.tooltip = true;
+        }
+
         this.hidden = !this.open;
         this.popup = new FloatingController(this, this.popupOptions);
 
@@ -73,11 +83,14 @@ export class VlPopoverComponent extends BaseLitElement {
     }
 
     protected render(): TemplateResult {
-        const classes = { 'popover-content': true, [`padding-${this.contentPadding}`]: true };
+        const classes = {
+            'popover-content': true,
+            [`padding-${this.contentPadding}`]: true,
+        };
         return html`
             <div
                 class=${classMap(classes)}
-                role="${ifDefined(!this.trigger.includes('click') ? 'tooltip' : undefined)}"
+                role="${ifDefined(this.tooltip ? 'tooltip' : undefined)}"
                 aria-hidden="${!this.open}"
             >
                 <slot></slot>
@@ -102,7 +115,9 @@ export class VlPopoverComponent extends BaseLitElement {
         } else {
             this.hidden = true;
         }
-        this.popup.getReferenceElement()?.setAttribute('aria-expanded', this.open ? 'true' : 'false');
+        if (!this.tooltip) {
+            this.popup.getReferenceElement()?.setAttribute('aria-expanded', this.open ? 'true' : 'false');
+        }
     }
 
     private get popupOptions(): FloatingControllerOptions {
@@ -115,6 +130,7 @@ export class VlPopoverComponent extends BaseLitElement {
             hideDelay: 0,
             hideOnClick: this.hideOnClick,
             strategy: this.strategy,
+            tooltip: this.tooltip,
         };
     }
 }
