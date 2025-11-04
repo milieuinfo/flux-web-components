@@ -107,9 +107,19 @@ export const popoverArgTypes: ArgTypes<typeof popoverDefaultArgs> = {
         control: { type: CONTROLS.SELECT },
         options: ['absolute', 'fixed'],
         table: {
-            type: { summary: ['absolute', 'fixed'] },
+            type: { summary: 'absolute | fixed' },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: popoverDefaultArgs.strategy },
+        },
+    },
+    tooltip: {
+        name: 'tooltip',
+        description:
+            'Rendert de popover als tooltip. Dit zal automatisch de trigger instellen op "hover focus", de layout verkleinen en tooltip-specifieke aria-attributen voorzien.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(popoverDefaultArgs.tooltip) },
         },
     },
 };

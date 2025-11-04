@@ -21,6 +21,7 @@ export type FloatingControllerOptions = {
     hideDelay: number;
     hideOnClick: boolean;
     strategy: Strategy;
+    tooltip: boolean;
 };
 
 interface FloatingElement extends LitElement {
@@ -44,12 +45,14 @@ export default class FloatingController implements ReactiveController {
 
     hostConnected(): void {
         this.addEventListeners();
-        if (!this.getReferenceElement()?.hasAttribute('aria-controls')) {
-            if (!this.host.id) this.host.id = `popover-${Math.random().toString().substring(2, 10)}`;
-            this.getReferenceElement()?.setAttribute('aria-controls', this.host.id);
+        if (!this.host.id) {
+            this.host.id = `popover-${Math.random().toString().substring(2, 10)}`;
         }
-        if (!this.getReferenceElement()?.hasAttribute('aria-haspopup')) {
-            this.getReferenceElement()?.setAttribute('aria-haspopup', 'true');
+        this.addAttributeToReferenceElement('aria-controls', this.host.id);
+        if (this.options.tooltip) {
+            this.addAttributeToReferenceElement('aria-describedby', this.host.id);
+        } else {
+            this.addAttributeToReferenceElement('aria-haspopup', 'true');
         }
     }
 
@@ -250,4 +253,10 @@ export default class FloatingController implements ReactiveController {
             this.host.hide();
         }
     };
+
+    private addAttributeToReferenceElement(attribute: string, value: string): void {
+        if (!this.getReferenceElement()?.hasAttribute(attribute)) {
+            this.getReferenceElement()?.setAttribute(attribute, value);
+        }
+    }
 }
