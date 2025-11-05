@@ -43,30 +43,29 @@ export const mapLayersToAddOrRemove = () => {
 
 export const storyControlTemplates = (
     layerIds: string[],
-    addFn: (id: string, event: Event) => void,
-    removeFn: (id: string, event: Event) => void
+    addFn: (id: string) => void,
+    toggleFn: (id: string) => void,
+    removeFn: (id: string) => void
 ) => {
     return layerIds.map(
         (id) =>
             html`
-                <section id=${id}>
-                    <button
-                        id=${`add-${id}`}
-                        @click=${(event: Event) => {
-                            addFn(id, event);
-                        }}
+                <section class="vl-group vl-margin--small" id=${id}>
+                    <vl-button id=${`add-${id}`} @click=${() => addFn(id)} icon="add"> Voeg laag ${id} toe </vl-button>
+                    <vl-button
+                        toggle
+                        data-layer=${`Kaartlaag ${id}`}
+                        on
+                        id=${`toggle-${id}`}
+                        @click=${() => toggleFn(id)}
+                        icon="view-add"
+                        hidden
                     >
-                        toevoegen ${id} laag
-                    </button>
-                    <button
-                        id=${`remove-${id}`}
-                        disabled
-                        @click=${(event: Event) => {
-                            removeFn(id, event);
-                        }}
-                    >
-                        verwijderen ${id} laag
-                    </button>
+                        Toggle laag ${id} zichtbaarheid
+                    </vl-button>
+                    <vl-button id=${`remove-${id}`} @click=${() => removeFn(id)} error icon="bin" hidden>
+                        Verwijder laag ${id}
+                    </vl-button>
                 </section>
             `
     );

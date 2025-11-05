@@ -17,6 +17,9 @@ const shouldHaveInvisibleLayerFor = (layerName: string): void => {
     });
 };
 
+const toggleSideSheet = () =>
+    cy.get('vl-map-side-sheet').shadow().find('.vl-side-sheet__toggle').click({ force: true });
+
 const clickLayerSwitcherCheckboxOf = (layerName: string): void => {
     cy.get('vl-map')
         .find('vl-map-layer-switcher')
@@ -51,14 +54,15 @@ describe('cypress-e2e - map - vl-map-layer-switcher - wc dynamic story', () => {
         const layerName = `Kaartlaag ${layerId}`;
         cy.visit(`${mapLayerSwitcherDynamic}`);
         shouldHaveFeatureLayerCount(0);
-        cy.get(`button#add-${layerId}`).click();
+        cy.get(`vl-button#add-${layerId}`).click();
         shouldHaveFeatureLayerCount(1);
         shouldHaveVisibleLayerFor(layerName);
+        toggleSideSheet();
         clickLayerSwitcherCheckboxOf(layerName);
         shouldHaveInvisibleLayerFor(layerName);
         clickLayerSwitcherCheckboxOf(layerName);
         shouldHaveVisibleLayerFor(layerName);
-        cy.get(`button#remove-${layerId}`).click();
+        cy.get(`vl-button#remove-${layerId}`).click();
         shouldHaveFeatureLayerCount(0);
     });
 });

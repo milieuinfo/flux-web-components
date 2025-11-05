@@ -1,3 +1,4 @@
+import { VlButtonComponent } from '@domg-wc/components/atom';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
@@ -127,11 +128,23 @@ MapLayerSwitcherResolutions.storyName = 'vl-map-layer-switcher - resolutions';
 
 export const MapLayerSwitcherDynamic = story(mapLayerSwitcherArgs, ({ title, layers }) => {
     const layerIds = ['zwart', 'geel', 'rood'];
-    const { handleAddLayerForId, handleRemoveLayerForId } = dynamicLayerSwitcherImplementation();
+    const { handleAddLayerForId, handleToggleLayerForId, handleRemoveLayerForId } =
+        dynamicLayerSwitcherImplementation();
 
     return html`
-        ${storyControlTemplates(layerIds, handleAddLayerForId, handleRemoveLayerForId)} ${mapLayersToAddOrRemove()}
-        <vl-map id="map-dynamic-layers">
+        ${storyControlTemplates(layerIds, handleAddLayerForId, handleToggleLayerForId, handleRemoveLayerForId)}
+        ${mapLayersToAddOrRemove()}
+        <vl-map
+            id="map-dynamic-layers"
+            @vl-change=${(e) => {
+                const toggleButton = document.querySelector<VlButtonComponent>(
+                    `vl-button[data-layer="${e.detail?.currentTarget?.label}"]`
+                );
+                if (toggleButton) {
+                    toggleButton.on = e.detail.checked;
+                }
+            }}
+        >
             <vl-map-side-sheet>
                 <vl-map-layer-switcher title=${title} .layers=${layers}></vl-map-layer-switcher>
             </vl-map-side-sheet>

@@ -51,7 +51,7 @@ export class VlMapLayerSwitcher extends BaseLitElement {
         this.mapElement = this.closest('vl-map');
         await this.layersReady();
         this.vlMapLayers = this.getVlMapLayers();
-        this.mapElement?.on('moveend', this.computeDisabledAttributes);
+        this.mapElement?.on('moveend', this.computeCheckboxAttributes);
 
         if (!this.layers) {
             this.observeMapLayers();
@@ -62,7 +62,7 @@ export class VlMapLayerSwitcher extends BaseLitElement {
         super.disconnectedCallback();
 
         this.layerObserver?.disconnect();
-        this.mapElement?.un('moveend', this.computeDisabledAttributes);
+        this.mapElement?.un('moveend', this.computeCheckboxAttributes);
     }
 
     protected async willUpdate(changedProperties: Map<string, unknown>): Promise<void> {
@@ -70,10 +70,17 @@ export class VlMapLayerSwitcher extends BaseLitElement {
             await this.layersReady();
             this.vlMapLayers = this.getVlMapLayers();
         }
+        if (changedProperties.has('vlMapLayers') && !!this.vlMapLayers) {
+            this.vlMapLayers?.forEach(({ layer }) => {
+                layer.on('change:visible', () => {
+                    this.computeCheckboxAttributes();
+                });
+            });
+        }
     }
 
     protected updated(): void {
-        this.computeDisabledAttributes();
+        this.computeCheckboxAttributes();
     }
 
     protected render(): TemplateResult {
@@ -111,16 +118,22 @@ export class VlMapLayerSwitcher extends BaseLitElement {
         return this.mapElement?.nonBaseLayers.filter((layer) => this.layers?.includes(layer.name)) || [];
     }
 
-    private computeDisabledAttributes = () => {
+    private computeCheckboxAttributes = () => {
         const resolution = this.mapElement?.resolution;
 
         this.vlMapLayers.forEach((layer) => {
-            const checkbox = this.shadowRoot?.querySelector(`vl-checkbox[data-layer="${layer.title}"]`);
+            const checkbox = this.shadowRoot?.querySelector(`vl-checkbox[layer="${layer.title}"]`);
 
             if (!layer.isVisibleAtResolution(resolution)) {
                 checkbox?.setAttribute('disabled', '');
             } else {
                 checkbox?.removeAttribute('disabled');
+            }
+
+            if (layer.visible) {
+                checkbox?.setAttribute('checked', '');
+            } else {
+                checkbox?.removeAttribute('checked');
             }
         });
     };
