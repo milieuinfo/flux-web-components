@@ -11,12 +11,7 @@ import {
     VlTabsComponent,
 } from '@domg-wc/components/block';
 import { VlHeader } from '@domg-wc/components/compliance';
-import {
-    SelectRichOption,
-    VlDatepickerComponent,
-    VlSelectComponent,
-    VlSelectRichComponent,
-} from '@domg-wc/components/form';
+import { VlDatepickerComponent, VlSelectComponent, VlSelectRichComponent } from '@domg-wc/components/form';
 import { VlFormDemoComponent } from '@domg-wc/integrations/form';
 import { vlGroupStyles, vlLegacyStyles, vlStackedStyles } from '@domg-wc/styles';
 import { VlSideNavigationReferenceComponent } from 'libs/components/src/block/side-navigation';
@@ -48,50 +43,15 @@ export class AppComponent extends LitElement {
         ]);
     }
 
-    private selectOptions = [
-        { value: 'value1', label: 'option 1' },
-        { value: 'value2', label: 'option 2' },
-        { value: 'value3', label: 'option 3' },
-    ];
-    private geboorteplaatsen: SelectRichOption[] = [
-        {
-            label: 'België',
-            value: '',
-            choices: [
-                { label: 'Hasselt', value: 'hasselt' },
-                { label: 'Turnhout', value: 'turnhout' },
-                { label: 'Knokke-Heist', value: 'knokke-heist' },
-                { label: 'Waregem', value: 'waregem' },
-                { label: 'Lier', value: 'lier' },
-            ],
-        },
-        {
-            label: 'Puerto Rico',
-            value: '',
-            choices: [{ label: 'Rio Piedras', value: 'rio piedras' }],
-        },
-    ];
-
-    constructor() {
-        super();
-    }
-
     static get styles(): (CSSResult | CSSResult[])[] {
         return [vlLegacyStyles, vlGroupStyles, vlStackedStyles];
-    }
-
-    private _selectElement: VlSelectComponent;
-
-    private get selectElement() {
-        this._selectElement = this._selectElement ?? (this.shadowRoot?.querySelector('#select') as VlSelectComponent);
-        return this._selectElement;
     }
 
     render() {
         return html`
             <main>
                 <vl-header development simple identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb"></vl-header>
-                <vl-functional-header sticky>
+                <vl-functional-header sticky hide-back-link>
                     <div slot="title">Application name</div>
                     <div class="vl-group vl-margin--small vl-margin--no-bottom" slot="top-right">
                         <vl-button
@@ -129,6 +89,105 @@ export class AppComponent extends LitElement {
                                 document.querySelector<VlModalComponent>('#delete-modal')?.open();
                             }}
                         ></vl-button>
+                    </div>
+                    <div class="vl-group vl-group--separator-row" slot="sub-title">
+                        <vl-button ghost narrow id="back" icon="arrow-left-fat">Terug</vl-button>
+                        <vl-button ghost narrow id="trein">Trein</vl-button>
+                        <vl-button ghost narrow id="metro">Metro, tram en bus</vl-button>
+                        <div>
+                            <vl-button ghost narrow id="submenu" icon="arrow-down-fat" icon-placement="after"
+                                >Knop met submenu</vl-button
+                            >
+                            <vl-popover for="submenu" hide-arrow placement="bottom-end">
+                                <vl-popover-action-list>
+                                    <vl-button
+                                        ghost
+                                        narrow
+                                        block
+                                        cta-link="https://google.be"
+                                        icon="external"
+                                        icon-placement="after"
+                                        >Google.be</vl-button
+                                    >
+                                    <vl-button ghost narrow block>Andere actie</vl-button>
+
+                                    <vl-button
+                                        ghost
+                                        narrow
+                                        block
+                                        id="submenu2"
+                                        icon="arrow-down-fat"
+                                        icon-placement="after"
+                                        >Level 2</vl-button
+                                    >
+                                    <vl-popover for="submenu2" hide-arrow placement="right-start">
+                                        <vl-popover-action-list>
+                                            <vl-button ghost narrow block>Andere actie</vl-button>
+
+                                            <vl-button
+                                                ghost
+                                                narrow
+                                                block
+                                                id="submenu3"
+                                                icon="arrow-down-fat"
+                                                icon-placement="after"
+                                                >Level 3</vl-button
+                                            >
+                                            <vl-popover for="submenu3" hide-arrow placement="right-start">
+                                                <vl-popover-action-list>
+                                                    <vl-button
+                                                        ghost
+                                                        narrow
+                                                        block
+                                                        id="submenu4"
+                                                        icon="arrow-down-fat"
+                                                        icon-placement="after"
+                                                        >Level 4</vl-button
+                                                    >
+                                                    <vl-popover for="submenu4" hide-arrow placement="right-start">
+                                                        <vl-popover-action-list>
+                                                            <vl-button ghost narrow block>Andere actie</vl-button>
+
+                                                            <vl-button
+                                                                ghost
+                                                                narrow
+                                                                block
+                                                                id="submenu5"
+                                                                icon="arrow-down-fat"
+                                                                icon-placement="after"
+                                                                >Level 5</vl-button
+                                                            >
+                                                            <vl-popover
+                                                                for="submenu5"
+                                                                hide-arrow
+                                                                placement="right-start"
+                                                            >
+                                                                <vl-popover-action-list>
+                                                                    <vl-button ghost narrow block
+                                                                        >Andere actie</vl-button
+                                                                    >
+                                                                    <vl-button ghost narrow block
+                                                                        >Andere actie</vl-button
+                                                                    >
+                                                                </vl-popover-action-list>
+                                                            </vl-popover>
+
+                                                            <vl-button ghost narrow block>Andere actie</vl-button>
+                                                        </vl-popover-action-list>
+                                                    </vl-popover>
+                                                    <vl-button ghost narrow block>Andere actie</vl-button>
+                                                    <vl-button ghost narrow block>Andere actie</vl-button>
+                                                </vl-popover-action-list>
+                                            </vl-popover>
+
+                                            <vl-button ghost narrow block>Andere actie</vl-button>
+                                        </vl-popover-action-list>
+                                    </vl-popover>
+                                </vl-popover-action-list>
+                            </vl-popover>
+                        </div>
+
+                        <vl-button ghost narrow id="fiets">Fiets</vl-button>
                     </div>
                 </vl-functional-header>
 
@@ -361,36 +420,4 @@ export class AppComponent extends LitElement {
         // gaat shadow dom uitzetten
         return this;
     }
-
-    private addOptions = (selectElement?: VlSelectComponent) => {
-        const select = selectElement || this.selectElement;
-        if (select.options.length === 0) {
-            select.options = this.selectOptions;
-        }
-    };
-
-    private addPlaceholder = (selectElement?: VlSelectComponent) => {
-        const select = selectElement || this.selectElement;
-        select.setAttribute('placeholder', 'My placeholder');
-    };
-
-    private addSelect = () => {
-        if (this.selectElement) {
-            const newSelect = document.createElement('vl-select');
-            this.addPlaceholder(newSelect);
-            this.addOptions(newSelect);
-            this.selectElement.insertAdjacentElement('afterend', newSelect);
-        }
-    };
-
-    private applyError = () => {
-        if (this.selectElement) {
-            this.selectElement.setAttribute('error', 'Fout!');
-        }
-    };
-
-    private openSidesheet = () => {
-        const sidesheet = this.querySelector('#sidesheet') as unknown as VlSideSheet;
-        sidesheet.toggle();
-    };
 }
