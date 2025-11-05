@@ -98,7 +98,13 @@ export class AppComponent extends LitElement {
                             <vl-button ghost narrow id="submenu" icon="arrow-down-fat" icon-placement="after"
                                 >Knop met submenu</vl-button
                             >
-                            <vl-popover for="submenu" hide-arrow distance="12" placement="bottom-end">
+                            <vl-popover
+                                for="submenu"
+                                hide-arrow
+                                distance="12"
+                                trigger="hover focus"
+                                placement="bottom-end"
+                            >
                                 <vl-popover-action-list>
                                     <vl-button
                                         ghost
@@ -132,6 +138,7 @@ export class AppComponent extends LitElement {
                                         for="submenu2"
                                         hide-arrow
                                         distance="12"
+                                        trigger="hover focus"
                                         placement="right-start"
                                         custom-css=".popover-content { filter: none }"
                                     >
@@ -158,6 +165,7 @@ export class AppComponent extends LitElement {
                                                 for="submenu3"
                                                 hide-arrow
                                                 distance="12"
+                                                trigger="hover focus"
                                                 placement="right-start"
                                                 custom-css=".popover-content { filter: none }"
                                             >
@@ -176,6 +184,7 @@ export class AppComponent extends LitElement {
                                                         for="submenu4"
                                                         hide-arrow
                                                         distance="12"
+                                                        trigger="hover focus"
                                                         placement="right-start"
                                                         custom-css=".popover-content { filter: none }"
                                                     >
@@ -202,6 +211,7 @@ export class AppComponent extends LitElement {
                                                                 for="submenu5"
                                                                 hide-arrow
                                                                 distance="12"
+                                                                trigger="hover focus"
                                                                 placement="right-start"
                                                                 custom-css=".popover-content { filter: none }"
                                                             >
