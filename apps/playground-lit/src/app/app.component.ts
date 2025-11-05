@@ -98,7 +98,7 @@ export class AppComponent extends LitElement {
                             <vl-button ghost narrow id="submenu" icon="arrow-down-fat" icon-placement="after"
                                 >Knop met submenu</vl-button
                             >
-                            <vl-popover for="submenu" hide-arrow placement="bottom-end">
+                            <vl-popover for="submenu" hide-arrow distance="12" placement="bottom-end">
                                 <vl-popover-action-list>
                                     <vl-button
                                         ghost
@@ -107,80 +107,155 @@ export class AppComponent extends LitElement {
                                         cta-link="https://google.be"
                                         icon="external"
                                         icon-placement="after"
+                                        custom-css="a { align-content: flex-start; justify-content: space-between; }"
                                         >Google.be</vl-button
                                     >
-                                    <vl-button ghost narrow block>Andere actie</vl-button>
+                                    <vl-button
+                                        ghost
+                                        narrow
+                                        block
+                                        custom-css="button { align-content: flex-start; justify-content: space-between; }"
+                                        >Andere actie</vl-button
+                                    >
 
                                     <vl-button
                                         ghost
                                         narrow
                                         block
                                         id="submenu2"
-                                        icon="arrow-down-fat"
+                                        icon="arrow-right-fat"
                                         icon-placement="after"
+                                        custom-css="button { align-content: flex-start; justify-content: space-between; }"
                                         >Level 2</vl-button
                                     >
-                                    <vl-popover for="submenu2" hide-arrow placement="right-start">
+                                    <vl-popover
+                                        for="submenu2"
+                                        hide-arrow
+                                        distance="12"
+                                        placement="right-start"
+                                        custom-css=".popover-content { filter: none }"
+                                    >
                                         <vl-popover-action-list>
-                                            <vl-button ghost narrow block>Andere actie</vl-button>
+                                            <vl-button
+                                                ghost
+                                                narrow
+                                                block
+                                                custom-css="button { align-content: flex-start; justify-content: space-between; }"
+                                                >Heellangwoorddfasdfasdfasdfasdfasdfasdfasdfsd</vl-button
+                                            >
 
                                             <vl-button
                                                 ghost
                                                 narrow
                                                 block
                                                 id="submenu3"
-                                                icon="arrow-down-fat"
+                                                icon="arrow-right-fat"
                                                 icon-placement="after"
+                                                custom-css="button { align-content: flex-start; justify-content: space-between; }"
                                                 >Level 3</vl-button
                                             >
-                                            <vl-popover for="submenu3" hide-arrow placement="right-start">
+                                            <vl-popover
+                                                for="submenu3"
+                                                hide-arrow
+                                                distance="12"
+                                                placement="right-start"
+                                                custom-css=".popover-content { filter: none }"
+                                            >
                                                 <vl-popover-action-list>
                                                     <vl-button
                                                         ghost
                                                         narrow
                                                         block
                                                         id="submenu4"
-                                                        icon="arrow-down-fat"
+                                                        icon="arrow-right-fat"
                                                         icon-placement="after"
+                                                        custom-css="button { align-content: flex-start; justify-content: space-between; }"
                                                         >Level 4</vl-button
                                                     >
-                                                    <vl-popover for="submenu4" hide-arrow placement="right-start">
+                                                    <vl-popover
+                                                        for="submenu4"
+                                                        hide-arrow
+                                                        distance="12"
+                                                        placement="right-start"
+                                                        custom-css=".popover-content { filter: none }"
+                                                    >
                                                         <vl-popover-action-list>
-                                                            <vl-button ghost narrow block>Andere actie</vl-button>
+                                                            <vl-button
+                                                                ghost
+                                                                narrow
+                                                                block
+                                                                custom-css="button { align-content: flex-start; justify-content: space-between; }"
+                                                                >Andere actie</vl-button
+                                                            >
 
                                                             <vl-button
                                                                 ghost
                                                                 narrow
                                                                 block
                                                                 id="submenu5"
-                                                                icon="arrow-down-fat"
+                                                                icon="arrow-right-fat"
                                                                 icon-placement="after"
+                                                                custom-css="button { align-content: flex-start; justify-content: space-between; }"
                                                                 >Level 5</vl-button
                                                             >
                                                             <vl-popover
                                                                 for="submenu5"
                                                                 hide-arrow
+                                                                distance="12"
                                                                 placement="right-start"
+                                                                custom-css=".popover-content { filter: none }"
                                                             >
                                                                 <vl-popover-action-list>
-                                                                    <vl-button ghost narrow block
+                                                                    <vl-button
+                                                                        ghost
+                                                                        narrow
+                                                                        block
+                                                                        custom-css="button { align-content: flex-start; justify-content: space-between; }"
                                                                         >Andere actie</vl-button
                                                                     >
-                                                                    <vl-button ghost narrow block
+                                                                    <vl-button
+                                                                        ghost
+                                                                        narrow
+                                                                        block
+                                                                        custom-css="button { align-content: flex-start; justify-content: space-between; }"
                                                                         >Andere actie</vl-button
                                                                     >
                                                                 </vl-popover-action-list>
                                                             </vl-popover>
 
-                                                            <vl-button ghost narrow block>Andere actie</vl-button>
+                                                            <vl-button
+                                                                ghost
+                                                                narrow
+                                                                block
+                                                                custom-css="button { align-content: flex-start; justify-content: space-between; }"
+                                                                >Andere actie</vl-button
+                                                            >
                                                         </vl-popover-action-list>
                                                     </vl-popover>
-                                                    <vl-button ghost narrow block>Andere actie</vl-button>
-                                                    <vl-button ghost narrow block>Andere actie</vl-button>
+                                                    <vl-button
+                                                        ghost
+                                                        narrow
+                                                        block
+                                                        custom-css="button { align-content: flex-start; justify-content: space-between; }"
+                                                        >Andere actie</vl-button
+                                                    >
+                                                    <vl-button
+                                                        ghost
+                                                        narrow
+                                                        block
+                                                        custom-css="button { align-content: flex-start; justify-content: space-between; }"
+                                                        >Andere actie</vl-button
+                                                    >
                                                 </vl-popover-action-list>
                                             </vl-popover>
 
-                                            <vl-button ghost narrow block>Andere actie</vl-button>
+                                            <vl-button
+                                                ghost
+                                                narrow
+                                                block
+                                                custom-css="button { align-content: flex-start; justify-content: space-between; }"
+                                                >Andere actie</vl-button
+                                            >
                                         </vl-popover-action-list>
                                     </vl-popover>
                                 </vl-popover-action-list>
