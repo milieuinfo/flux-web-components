@@ -27,7 +27,6 @@ export const functionalHeaderArgs = {
     backSlot: '',
     backLinkSlot: '',
     sticky: false,
-    stickyOffsetTop: '',
     subHeaderSlot: '',
     subTitleSlot: '',
     titleSlot: '',

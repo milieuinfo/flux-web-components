@@ -4,7 +4,6 @@ import { ArgTypes } from '@storybook/web-components';
 export const sideNavigationArgs = {
     ...defaultArgs,
     hashSync: false,
-    stickyOffsetTop: '43',
 };
 
 export const sideNavigationArgTypes: ArgTypes<typeof sideNavigationArgs> = {
