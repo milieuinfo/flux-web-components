@@ -52,7 +52,10 @@ export class VlCheckboxComponent extends FormControl {
 
         if (changedProperties.has('checked') || changedProperties.has('value')) {
             const value = this.checked ? this.value || 'on' : null;
-            const detail: { checked: boolean; value?: string | null } = { checked: this.checked };
+            const detail: { checked: boolean; value?: string | null; currentTarget: HTMLElement } = {
+                checked: this.checked,
+                currentTarget: this,
+            };
 
             if (this.checked) {
                 detail.value = value;
