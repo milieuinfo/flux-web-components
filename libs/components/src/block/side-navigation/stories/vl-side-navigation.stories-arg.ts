@@ -4,7 +4,6 @@ import { ArgTypes } from '@storybook/web-components';
 export const sideNavigationArgs = {
     ...defaultArgs,
     hashSync: false,
-    stickyOffsetTop: '43',
 };
 
 export const sideNavigationArgTypes: ArgTypes<typeof sideNavigationArgs> = {
@@ -18,7 +17,7 @@ wanneer je klikt op een item in de side navigation, zal de url hash worden bijge
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: sideNavigationArgs.hashSync },
+            defaultValue: { summary: String(sideNavigationArgs.hashSync) },
         },
     },
 };
