@@ -2,6 +2,12 @@ import { vlMediaScreenExtraSmall, vlMediaScreenMedium, vlMediaScreenSmall } from
 import { css } from 'lit';
 
 export const tableStyles = css`
+    vl-table {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
     .vl-table {
         width: 100%;
         max-width: 100%;

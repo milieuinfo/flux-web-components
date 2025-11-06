@@ -39,7 +39,6 @@ export default {
         docs: {
             page: richDataTableDoc,
         },
-        layout: 'fullscreen',
     },
 } as Meta<typeof richDataTableArgs>;
 

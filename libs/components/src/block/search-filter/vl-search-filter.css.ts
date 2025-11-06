@@ -6,7 +6,7 @@ export const searchFilterStyles: CSSResult = css`
             display: flex;
             flex-direction: column;
             position: fixed;
-            z-index: var(--vl-z-layer--search);
+            z-index: var(--vl-z-layer--search-filter);
             padding: 0;
             top: 0;
             right: 0;
@@ -14,6 +14,7 @@ export const searchFilterStyles: CSSResult = css`
             left: 0;
             height: 100vh;
             overflow-y: hidden;
+            background-color: #fff;
             .form-container {
                 flex: 1;
                 overflow-y: auto;
@@ -45,13 +46,11 @@ export const searchFilterStyles: CSSResult = css`
             border-bottom: 1px solid #8695a8;
             display: flex;
             align-items: center;
+            background-color: #fff;
             h2 {
                 font-size: 2.6rem;
                 margin: 0;
             }
-        }
-        :host([alt]) .vl-search-filter--header-modal {
-            background-color: #fff;
         }
     }
 `;
