@@ -7,8 +7,8 @@ import {
     TYPES,
 } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components-vite';
-import { DISPLAY_STYLE } from '../vl-tabs.model';
 import { action } from 'storybook/actions';
+import { DISPLAY_STYLE } from '../vl-tabs.model';
 
 export const tabsArgs = {
     ...defaultArgs,
@@ -19,6 +19,7 @@ export const tabsArgs = {
     displayStyle: 'default',
     onChangeActiveTab: action('change'),
     onClickActiveTab: action('vl-click'),
+    withinFunctionalHeader: false,
 };
 
 export const tabsArgTypes: ArgTypes<typeof tabsArgs> = {
@@ -72,6 +73,17 @@ export const tabsArgTypes: ArgTypes<typeof tabsArgs> = {
             type: { summary: getSelectControlOptions(Object.values(DISPLAY_STYLE)) },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: tabsArgs.displayStyle },
+        },
+    },
+    withinFunctionalHeader: {
+        name: 'within-functional-header',
+        description:
+            'Duidt aan dat de tabs in de functional header gerenderd worden. Aan de hand van dit attribuut wordt de layout van de tabs licht aangepast.',
+        control: false,
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(tabsArgs.withinFunctionalHeader) },
         },
     },
     onChangeActiveTab: {
