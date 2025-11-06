@@ -39,6 +39,11 @@ export const vlRichDataFluxStyles: CSSResult = css`
         }
 
         @media screen and (max-width: ${vlMediaScreenSmall}px) {
+            grid-template-areas:
+                'toggle-area toggle-area'
+                'content-area content-area'
+                'pager-area pager-area';
+
             &:has(#search.vl-u-hidden--s) {
                 grid-template-columns: 0 1fr;
             }

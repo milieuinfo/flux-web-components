@@ -51,6 +51,10 @@ export class VlTableComponent extends LitElement {
         super.connectedCallback();
         this.processScopeAttributes();
         this.processRowElements();
+
+        // scrollable element moet focusbaar zijn voor a11y
+        this.setAttribute('tabindex', '0');
+
         this.observer = this.observeHeaderElements(() => this.processScopeAttributes());
     }
 

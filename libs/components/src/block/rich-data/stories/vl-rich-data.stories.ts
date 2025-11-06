@@ -95,6 +95,9 @@ export const RichDataPager = story(richDataArgs, (pagerArgs: typeof richDataArgs
     return pagerTemplate(pagerArgs);
 });
 RichDataPager.storyName = 'vl-rich-data - pager';
+RichDataPager.args = {
+    filterClosable: true,
+};
 
 export const RichDataFilterMaxWidth = story(richDataArgs, (pagerArgs: typeof richDataArgs) => {
     richDataPaginationImplementation();
@@ -103,4 +106,5 @@ export const RichDataFilterMaxWidth = story(richDataArgs, (pagerArgs: typeof ric
 RichDataFilterMaxWidth.storyName = 'vl-rich-data - filter-max-width';
 RichDataFilterMaxWidth.args = {
     filterMaxWidth: 'calc(1280px / 3)',
+    filterClosable: true,
 };
