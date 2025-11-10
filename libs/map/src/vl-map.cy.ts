@@ -1,6 +1,8 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import OlFullScreenControl from 'ol/control/FullScreen';
+import Feature from 'ol/Feature';
+import { LineString, Polygon } from 'ol/geom';
 import OlLayerGroup from 'ol/layer/Group';
 import proj4 from 'proj4';
 import { VlSelectAction } from './actions/select/select-action';
@@ -411,6 +413,69 @@ describe('cypress-component - map - vl-map', () => {
                 // @ts-ignore
                 expect(vlMap.map.controls.getArray().find((control) => control instanceof OlFullScreenControl)).to
                     .exist;
+            });
+        });
+    });
+
+    it('returns true if one of the layers has an invalid feature', () => {
+        const badPolygon = new Polygon([
+            [
+                [2, 2],
+                [4, 4],
+                [4, 2],
+                [2, 4],
+                [2, 2],
+            ],
+        ]);
+        const feature = new Feature(badPolygon);
+
+        const mockLayer = {
+            layer: {
+                getSource: () => ({
+                    getFeatures: () => [feature],
+                }),
+            },
+        } as any;
+
+        cy.mount(mapFixture);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                Object.defineProperty(vlMap, 'nonBaseLayers', {
+                    get: () => [mockLayer],
+                });
+
+                const result = vlMap.hasInvalidGeometries();
+                expect(result).equals(true);
+            });
+        });
+    });
+
+    it('returns false if none of the layers have invalid features', () => {
+        const feature = new Feature(
+            new LineString([
+                [0, 0],
+                [1, 1],
+                [2, 2],
+            ])
+        );
+
+        const mockLayer = {
+            layer: {
+                getSource: () => ({
+                    getFeatures: () => [feature],
+                }),
+            },
+        } as any;
+
+        cy.mount(mapFixture);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                Object.defineProperty(vlMap, 'nonBaseLayers', {
+                    get: () => [mockLayer],
+                });
+
+                const result = vlMap.hasInvalidGeometries();
+                expect(result).equals(false);
             });
         });
     });

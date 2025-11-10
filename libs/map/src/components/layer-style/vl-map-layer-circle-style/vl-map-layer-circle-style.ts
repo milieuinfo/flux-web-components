@@ -34,7 +34,7 @@ export class VlMapLayerCircleStyle extends VlMapLayerStyle {
     }
 
     get _styleFunction() {
-        return (feature, resolution) => {
+        return (feature) => {
             const features = feature && feature.get ? feature.get('features') || [] : [];
             let { textColor, color, borderColor, borderSize } = this;
             const numberOfFeatures = features.length || 1;

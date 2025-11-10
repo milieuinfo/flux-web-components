@@ -1,3 +1,10 @@
+import { GeoJSONReader } from 'jsts/org/locationtech/jts/io';
+import { IsValidOp } from 'jsts/org/locationtech/jts/operation/valid';
+import GeoJSON from 'ol/format/GeoJSON';
+import { Geometry } from 'ol/geom';
+
+const geoJsonFormatter = new GeoJSON();
+
 export class OpenLayersUtil {
     static createDummyLayer(id, source?) {
         return {
@@ -41,5 +48,17 @@ export class OpenLayersUtil {
                 }
             },
         };
+    }
+
+    static geometryIsInvalid(geometry: Geometry): boolean {
+        if (!geometry) return false;
+
+        const geoJSON = new GeoJSON();
+        const geoJSONReader = new GeoJSONReader();
+
+        const geojson = geoJSON.writeGeometryObject(geometry as Geometry);
+        const jstsGeometry = geoJSONReader.read(geojson);
+
+        return !IsValidOp.isValid(jstsGeometry);
     }
 }

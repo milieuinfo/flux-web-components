@@ -28,6 +28,7 @@ const Template = story(
         borderSize,
         color,
         name,
+        invalid,
         textBackgroundColor,
         textBorderColor,
         textBorderSize,
@@ -67,6 +68,7 @@ const Template = story(
                     border-size=${borderSize}
                     color=${color}
                     name=${name}
+                    invalid=${invalid}
                     text-background-color=${textBackgroundColor}
                     text-border-color=${textBorderColor}
                     text-border-size=${textBorderSize}
@@ -90,6 +92,12 @@ MapLayerStyleText.args = {
     textColor: 'rgba(255, 255, 255, 1)',
     textFeatureAttributeName: 'label',
     textSize: '12px',
+};
+
+export const MapLayerStyleInvalid = Template.bind({});
+MapLayerStyleInvalid.storyName = 'vl-map-layer-style - invalid';
+MapLayerStyleInvalid.args = {
+    invalid: true,
 };
 
 export const MapLayerStyleLegend = story(

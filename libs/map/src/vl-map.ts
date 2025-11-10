@@ -11,6 +11,7 @@ import { VlMapWfsLayer } from './components/layer/vector-layer/vl-map-wfs-layer/
 import { VlMapLayer } from './components/layer/vl-map-layer';
 import { VlMapWmsLayer } from './components/layer/wms-layer/vl-map-wms-layer';
 import { getLambert2008Code, getLambert2008Extent, getLambert72Code, getLambert72Extent } from './utils/capabilities';
+import { OpenLayersUtil } from './utils/ol-util';
 import { vlMapFluxStyles } from './vl-map.flux-css';
 import { EVENT } from './vl-map.model';
 
@@ -25,7 +26,7 @@ export class VlMap extends BaseHTMLElement {
     protected __ready: any;
 
     static get _observedAttributes() {
-        return ['lambert2008'];
+        return ['lambert2008', 'allow-invalid-geometry'];
     }
 
     constructor() {
@@ -148,6 +149,29 @@ export class VlMap extends BaseHTMLElement {
 
     get _extent() {
         return this.isLambert2008 ? getLambert2008Extent() : getLambert72Extent();
+    }
+
+    get invalidGeometryAllowed() {
+        return this.hasAttribute('allow-invalid-geometry');
+    }
+
+    public hasInvalidGeometries(): boolean {
+        return this.nonBaseLayers.some((vlMapLayer) => {
+            const { layer } = vlMapLayer;
+            if (!layer?.getSource) return false;
+
+            return layer
+                .getSource()
+                .getFeatures()
+                .some((feature) => {
+                    const geometry = feature.getGeometry();
+                    if (geometry) {
+                        return OpenLayersUtil.geometryIsInvalid(geometry);
+                    }
+
+                    return false;
+                });
+        });
     }
 
     get zoomInTipLabel() {
