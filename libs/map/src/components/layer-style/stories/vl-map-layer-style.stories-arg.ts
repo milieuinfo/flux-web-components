@@ -6,6 +6,7 @@ export const mapLayerStyleArg = {
     borderColor: 'rgba(2, 85, 204, 1)',
     borderSize: 1,
     color: 'rgba(2, 85, 204, 0.8)',
+    invalid: false,
     name: '',
     textBackgroundColor: 'rgba(0, 0, 0, 0)',
     textBorderColor: 'rgba(255, 255, 255, 0)',
@@ -44,6 +45,16 @@ export const mapLayerStyleArgTypes: ArgTypes<typeof mapLayerStyleArg> = {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: mapLayerStyleArg.color },
+        },
+    },
+    invalid: {
+        name: 'invalid',
+        description:
+            'Geeft aan of de "invalid" stijl toegepast moet worden. Je kan dit gebruiken om de kaartlaag manueel als "invalid" te renderen.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(mapLayerStyleArg.invalid) },
         },
     },
     name: {

@@ -1,5 +1,8 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
+import Feature from 'ol/Feature';
+import { LineString, Polygon } from 'ol/geom';
+import OlStyle from 'ol/style/Style';
 import { VlMap } from '../../vl-map';
 import { VlMapLayerStyle } from '../layer-style/vl-map-layer-style';
 import { VlMapFeaturesLayer } from '../layer/vector-layer/vl-map-features-layer/vl-map-features-layer';
@@ -230,3 +233,50 @@ describe('cypress-component - map - vl-map-layer-style', () => {
         });
     });
 });
+
+describe('cypress-component - map - vl-map-layer-style - _styleFunction', () => {
+    it('geeft de invalid style terug voor een ongeldige feature', () => {
+        const badPolygon = new Polygon([
+            [
+                [2, 2],
+                [4, 4],
+                [4, 2],
+                [2, 4],
+                [2, 2],
+            ],
+        ]);
+        const feature = new Feature(badPolygon);
+
+        cy.mount(mapLayerStyleFixture);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                const layerStyle = vlMap.querySelector<VlMapLayerStyle>('vl-map-layer-style');
+                const style = layerStyle._styleFunction(feature);
+                expect(style).to.be.instanceOf(OlStyle);
+                const strokeColor = style.getStroke().getColor();
+                expect(strokeColor).to.eq('#d2373c');
+            });
+        });
+    });
+
+    it('geeft de gewone style terug voor een valid feature', () => {
+        const goodLine = new LineString([
+            [0, 0],
+            [1, 1],
+            [2, 2],
+        ]);
+        const feature = new Feature({ geometry: goodLine });
+
+        cy.mount(mapLayerStyleFixture);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                const layerStyle = vlMap.querySelector<VlMapLayerStyle>('vl-map-layer-style');
+                const style = layerStyle._styleFunction(feature);
+                expect(style).to.be.instanceOf(OlStyle);
+                const strokeColor = style.getStroke().getColor();
+                expect(strokeColor).to.eq(layerStyle.borderColor);
+            });
+        });
+    });
+});
+
