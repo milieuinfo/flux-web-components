@@ -1,13 +1,20 @@
 import { BaseElementOfType, webComponent } from '@domg-wc/common-utilities';
+import { Feature } from 'ol';
 import OlStyleFill from 'ol/style/Fill';
 import OlStyleStroke from 'ol/style/Stroke';
 import OlStyle from 'ol/style/Style';
 import OlStyleText from 'ol/style/Text';
+import { OpenLayersUtil } from '../../utils/ol-util';
+import { VlMap } from '../../vl-map';
 
 @webComponent('vl-map-layer-style')
 export class VlMapLayerStyle extends BaseElementOfType(HTMLElement) {
+    private mapElement: VlMap | null = null;
+
     connectedCallback() {
         super.connectedCallback();
+
+        this.mapElement = this.closest('vl-map');
 
         this._setStyleOnParent();
     }
@@ -60,28 +67,46 @@ export class VlMapLayerStyle extends BaseElementOfType(HTMLElement) {
         return this.getAttribute('text-offset-y') || 0;
     }
 
+    get invalid() {
+        return this.hasAttribute('invalid');
+    }
+
     get style() {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         return (feature, resolution) => {
             if (!this.appliesTo(feature)) {
                 return null;
             }
-            return this._styleFunction(feature, resolution);
+            return this._styleFunction(feature);
         };
     }
 
     get _styleFunction() {
-        return (feature, resolution) => {
+        return (feature) => {
+            const geometry = feature instanceof Feature && feature?.getGeometry();
+
+            if (
+                this.invalid ||
+                (!this.mapElement.invalidGeometryAllowed && geometry && OpenLayersUtil.geometryIsInvalid(geometry))
+            ) {
+                return new OlStyle({
+                    fill: new OlStyleFill({ color: 'rgba(210, 55, 60, 0.3)' }),
+                    stroke: new OlStyleStroke({ color: '#d2373c', width: 2, lineDash: [4, 4] }),
+                    text: this._getTextStyle(feature),
+                });
+            }
+
             const styleConfig = {
                 fill: new OlStyleFill({
                     color: this.color,
                 }),
                 stroke: new OlStyleStroke({
                     color: this.borderColor,
-                    width: this.borderSize,
+                    width: this.borderSize as number,
                 }),
-                text: undefined,
+                text: this._getTextStyle(feature),
             };
-            styleConfig.text = this._getTextStyle(feature);
+
             return new OlStyle(styleConfig);
         };
     }
@@ -112,6 +137,7 @@ export class VlMapLayerStyle extends BaseElementOfType(HTMLElement) {
      *
      * @Return {boolean} true als de stijl geldig is op basis van een feature, indien false, zal de stijl niet gemaakt worden
      */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     appliesTo(feature) {
         return true;
     }
