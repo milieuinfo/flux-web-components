@@ -3,7 +3,9 @@ import '@domg-wc/components';
 // deze imports van alle elements, components en map werken IN de monorepo
 // -> buiten de monorepo werkt dat niet omdat sideEffects disabled worden voor de root-barrel file in de artifacts
 import { registerWebComponents } from '@domg-wc/common-utilities';
+import { VlButtonComponent } from '@domg-wc/components/next/button';
 import { VlTitleComponent } from '@domg-wc/components/next/title';
+import { VlToasterComponent } from '@domg-wc/components/next/toaster';
 import '@domg-wc/elements';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit';
@@ -28,6 +30,7 @@ import { LEGEND_PLACEMENT } from '../components/legend/vl-map-legend.defaults';
 import '../components/overview-map/vl-map-overview-map';
 import '../components/side-sheet/vl-map-side-sheet';
 import '../vl-map';
+import { VlMap } from '../vl-map';
 import { mapArgs, mapArgTypes } from './vl-map.stories-arg';
 import mapDoc from './vl-map.stories-doc.mdx';
 import {
@@ -38,7 +41,7 @@ import {
     handleOpacitySliderChange,
 } from './vl-map.stories-util';
 
-registerWebComponents([VlTitleComponent]);
+registerWebComponents([VlTitleComponent, VlButtonComponent, VlToasterComponent]);
 
 export default {
     id: 'map-map',
@@ -167,6 +170,7 @@ export const MapPlayground = story(
     mapArgs,
     ({
         allowFullscreen,
+        allowInvalidGeometry,
         disableEscape,
         disableRotation,
         disableMousewheelZoom,
@@ -177,7 +181,9 @@ export const MapPlayground = story(
         layerVisibleChange,
     }) => html`
         <vl-map
+            id="map-playground"
             lambert2008
+            ?allow-invalid-geometry=${allowInvalidGeometry}
             ?data-vl-allow-fullscreen=${allowFullscreen}
             ?data-vl-disable-escape-key=${disableEscape}
             ?data-vl-disable-rotation=${disableRotation}
@@ -292,6 +298,27 @@ export const MapPlayground = story(
                         >
                         </vl-button-next>
                         <p>Draw Polygon</p>
+                    </div>
+
+                    <div>
+                        <vl-button-next
+                            @click=${() => {
+                                const hasInvalidGeometries = (
+                                    document.querySelector('#map-playground') as unknown as VlMap
+                                )?.hasInvalidGeometries();
+                                const toaster = document.querySelector<VlToasterComponent>('#toaster-invalid');
+                                toaster.showAlert({
+                                    icon: hasInvalidGeometries ? 'alert-circle' : 'check-circle',
+                                    type: hasInvalidGeometries ? 'error' : 'success',
+                                    message: `Deze kaart heeft ${
+                                        hasInvalidGeometries ? '' : 'GEEN'
+                                    } ongeldige geometrieën.`,
+                                    closable: true,
+                                });
+                            }}
+                            >Check invalid shapes</vl-button-next
+                        >
+                        <vl-toaster-next id="toaster-invalid" fade-out></vl-toaster-next>
                     </div>
                 </div>
             </vl-map-side-sheet>
@@ -336,6 +363,7 @@ export const MapPlaygroundLB72 = story(
     mapArgs,
     ({
         allowFullscreen,
+        allowInvalidGeometry,
         disableEscape,
         disableRotation,
         disableMousewheelZoom,
@@ -346,6 +374,8 @@ export const MapPlaygroundLB72 = story(
         layerVisibleChange,
     }) => html`
         <vl-map
+            id="map-playground-lb72"
+            ?allow-invalid-geometry=${allowInvalidGeometry}
             ?data-vl-allow-fullscreen=${allowFullscreen}
             ?data-vl-disable-escape-key=${disableEscape}
             ?data-vl-disable-rotation=${disableRotation}
@@ -460,6 +490,27 @@ export const MapPlaygroundLB72 = story(
                         >
                         </vl-button-next>
                         <p>Draw Polygon</p>
+                    </div>
+
+                    <div>
+                        <vl-button-next
+                            @click=${() => {
+                                const hasInvalidGeometries = (
+                                    document.querySelector('#map-playground-lb72') as unknown as VlMap
+                                )?.hasInvalidGeometries();
+                                const toaster = document.querySelector<VlToasterComponent>('#toaster-invalid-lb72');
+                                toaster.showAlert({
+                                    icon: hasInvalidGeometries ? 'alert-circle' : 'check-circle',
+                                    type: hasInvalidGeometries ? 'error' : 'success',
+                                    message: `Deze kaart heeft ${
+                                        hasInvalidGeometries ? '' : 'GEEN'
+                                    } ongeldige geometrieën.`,
+                                    closable: true,
+                                });
+                            }}
+                            >Check invalid shapes</vl-button-next
+                        >
+                        <vl-toaster-next id="toaster-invalid-lb72" fade-out></vl-toaster-next>
                     </div>
                 </div>
             </vl-map-side-sheet>

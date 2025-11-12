@@ -6,15 +6,16 @@ import { EVENT } from '../vl-map.model';
 export const mapArgs = {
     ...defaultArgs,
     allowFullscreen: false,
+    allowInvalidGeometry: false,
     disableEscape: false,
-    disableRotation: false,
-    disableMousewheelZoom: false,
     disableKeyboard: false,
+    disableMousewheelZoom: false,
+    disableRotation: false,
     fullHeight: false,
+    lambert2008: false,
     noBorder: false,
     activeActionChange: action(EVENT.ACTIVE_ACTION_CHANGED),
     layerVisibleChange: action(EVENT.LAYER_VISIBLE_CHANGED),
-    lambert2008: false,
 };
 
 export const mapArgTypes: ArgTypes<typeof mapArgs> = {
@@ -27,6 +28,16 @@ export const mapArgTypes: ArgTypes<typeof mapArgs> = {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: mapArgs.allowFullscreen },
+        },
+    },
+    allowInvalidGeometry: {
+        name: 'allow-invalid-geometry',
+        description:
+            'Standaard worden ongeldige geometrieën gemarkeerd met een rode "invalid" stijl. Je kan dit attribuut gebruiken om dit gedrag uit te zetten.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(mapArgs.allowInvalidGeometry) },
         },
     },
     disableEscape: {

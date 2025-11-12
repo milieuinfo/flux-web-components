@@ -1,5 +1,8 @@
 import { registerWebComponents } from '@domg-wc/common-utilities';
 import { html } from 'lit';
+import Feature from 'ol/Feature';
+import { LineString, Polygon } from 'ol/geom';
+import OlStyle from 'ol/style/Style';
 import { VlMap } from '../../vl-map';
 import { VlMapLayerStyle } from '../layer-style/vl-map-layer-style';
 import { VlMapFeaturesLayer } from '../layer/vector-layer/vl-map-features-layer/vl-map-features-layer';
@@ -212,6 +215,52 @@ describe('vl-map-layer-style', () => {
                 expect(styleGreen.length).to.be.equal(1);
                 expect(styleGreen[0].getFill().getColor()).to.be.equal('rgba(0,255,0,0.8)');
                 expect(styleOnbestaand.length).to.be.equal(0);
+            });
+        });
+    });
+});
+
+describe('vl-map-layer-style - _styleFunction', () => {
+    it('geeft de invalid style terug voor een ongeldige feature', () => {
+        const badPolygon = new Polygon([
+            [
+                [2, 2],
+                [4, 4],
+                [4, 2],
+                [2, 4],
+                [2, 2],
+            ],
+        ]);
+        const feature = new Feature(badPolygon);
+
+        cy.mount(mapLayerStyleFixture);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                const layerStyle = vlMap.querySelector('vl-map-layer-style') as unknown as VlMapLayerStyle;
+                const style = layerStyle._styleFunction(feature);
+                expect(style).to.be.instanceOf(OlStyle);
+                const strokeColor = style.getStroke().getColor();
+                expect(strokeColor).to.eq('#d2373c');
+            });
+        });
+    });
+
+    it('geeft de gewone style terug voor een valid feature', () => {
+        const goodLine = new LineString([
+            [0, 0],
+            [1, 1],
+            [2, 2],
+        ]);
+        const feature = new Feature({ geometry: goodLine });
+
+        cy.mount(mapLayerStyleFixture);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                const layerStyle = vlMap.querySelector('vl-map-layer-style') as unknown as VlMapLayerStyle;
+                const style = layerStyle._styleFunction(feature);
+                expect(style).to.be.instanceOf(OlStyle);
+                const strokeColor = style.getStroke().getColor();
+                expect(strokeColor).to.eq(layerStyle.borderColor);
             });
         });
     });

@@ -59,6 +59,20 @@ Vereist je project Lambert 72 coordinaten bij het intekenen, dan wordt het upgra
 beter uitgesteld tot wanneer het project ook Lambert 2008 data ondersteunt. De regel hierbij is dat het 
 coördinatenstelsel van intekenen hetzelfde moet zijn als dat van de kaart.
 
+## Ongeldige geometrieën
+
+Wanneer je op de kaart een ongeldige geometrie tekent, bijvoorbeeld een zelf-kruisende polygoon, dan krijgt deze 
+standaard een rode "invalid" stijl. Indien je dit niet wenst kan je het 
+attribuut `allow-invalid-geometries` gebruiken.
+
+Om te controleren of een kaart 1 of meerdere ongeldige geometrieën bevat kan je de methode 
+`hasInvalidGeometries` gebruiken:
+
+```typescript
+const map = document.querySelector('#my-map') as unknown as VlMap;
+const hasInvalidGeometries = map.hasInvalidGeometries();
+```
+
 ## Configuratie
 
 <ArgTypes of={VlMapStories.MapDefault} />
