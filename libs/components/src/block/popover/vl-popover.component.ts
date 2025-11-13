@@ -4,7 +4,6 @@ import { resetStyle } from '@domg/govflanders-style/common';
 import { CSSResult, html, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import FloatingController, { FloatingControllerOptions } from './vl-floating-ui.controller';
 import { VlPopoverActionListComponent } from './vl-popover-action-list.component';
 import { VlPopoverActionComponent } from './vl-popover-action.component';
@@ -15,16 +14,15 @@ import { vlPopoverFluxStyles } from './vl-popover.flux-css';
 export class VlPopoverComponent extends BaseLitElement {
     open = false;
 
-    private popup!: FloatingController;
+    protected popup!: FloatingController;
     private for = popoverDefaults.for; // html id van het referentie-element
-    private trigger = popoverDefaults.trigger;
+    protected trigger = popoverDefaults.trigger;
     private placement = popoverDefaults.placement;
     private distance = popoverDefaults.distance; // afstand van referentie-element in px
-    private hideArrow = popoverDefaults.hideArrow;
-    private contentPadding = popoverDefaults.contentPadding;
+    protected hideArrow = popoverDefaults.hideArrow;
+    protected contentPadding = popoverDefaults.contentPadding;
     private hideOnClick = popoverDefaults.hideOnClick;
     private strategy = popoverDefaults.strategy;
-    private tooltip = popoverDefaults.tooltip;
 
     static {
         registerWebComponents([VlPopoverActionComponent, VlPopoverActionListComponent]);
@@ -45,7 +43,6 @@ export class VlPopoverComponent extends BaseLitElement {
             hideArrow: { type: Boolean, attribute: 'hide-arrow' },
             hideOnClick: { type: Boolean, attribute: 'hide-on-click' },
             strategy: { type: String, attribute: 'strategy' },
-            tooltip: { type: Boolean, attribute: 'tooltip' },
         };
     }
 
@@ -66,14 +63,6 @@ export class VlPopoverComponent extends BaseLitElement {
     }
 
     protected firstUpdated() {
-        // Bepaal defaults op basis van tooltip gerelateerde properties
-        if (this.tooltip) {
-            this.trigger = 'hover focus';
-        }
-        if (!this.trigger.includes('click')) {
-            this.tooltip = true;
-        }
-
         this.hidden = !this.open;
         this.popup = new FloatingController(this, this.popupOptions);
 
@@ -88,11 +77,7 @@ export class VlPopoverComponent extends BaseLitElement {
             [`padding-${this.contentPadding}`]: true,
         };
         return html`
-            <div
-                class=${classMap(classes)}
-                role="${ifDefined(this.tooltip ? 'tooltip' : undefined)}"
-                aria-hidden="${!this.open}"
-            >
+            <div class=${classMap(classes)} aria-hidden="${!this.open}">
                 <slot></slot>
                 ${!this.hideArrow ? html`<i id="popover-arrow" role="presentation"></i>` : null}
             </div>
@@ -115,12 +100,10 @@ export class VlPopoverComponent extends BaseLitElement {
         } else {
             this.hidden = true;
         }
-        if (!this.tooltip) {
-            this.popup.getReferenceElement()?.setAttribute('aria-expanded', this.open ? 'true' : 'false');
-        }
+        this.popup.setExpanded(this.open);
     }
 
-    private get popupOptions(): FloatingControllerOptions {
+    protected get popupOptions(): FloatingControllerOptions {
         return {
             reference: this.for,
             trigger: this.trigger,
@@ -130,7 +113,7 @@ export class VlPopoverComponent extends BaseLitElement {
             hideDelay: 0,
             hideOnClick: this.hideOnClick,
             strategy: this.strategy,
-            tooltip: this.tooltip,
+            tooltip: !this.trigger.includes('click'),
         };
     }
 }

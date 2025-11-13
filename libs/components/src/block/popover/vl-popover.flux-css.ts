@@ -30,11 +30,6 @@ export const vlPopoverFluxStyles: CSSResult = css`
         max-width: 100vw;
         word-break: break-all;
 
-        &[role='tooltip'] {
-            font-size: var(--vl-font-size--xsmall);
-            padding: 0.3rem 1rem;
-        }
-
         &.padding-none {
             padding: 0;
         }

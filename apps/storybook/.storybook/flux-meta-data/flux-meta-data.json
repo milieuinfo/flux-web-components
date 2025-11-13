@@ -71,6 +71,9 @@
     "components-block-toaster": {
         "vStatus": "v2"
     },
+    "components-block-tooltip": {
+        "vStatus": "v2"
+    },
     "components-block-player": {
         "vStatus": "v2"
     },

@@ -5,8 +5,8 @@ import * as VlPopoverStories from './vl-popover.stories';
 
 <FluxMetaData id="components-block-popover" />
 
-Een `popover` is een nieuw, meestal kleiner venster / popup dat boven de andere inhoud op het scherm verschijnt.
-Gebruik een popover om aanvullende informatie aan de gebruiker te geven of om gebruikersinteractie te vragen.
+Een popover is een nieuw, meestal kleiner venster / popup dat boven de andere inhoud op het scherm verschijnt.
+Het doel van de popover is het bouwen van context- of submenu's. Je kan deze menu's opbouwen adhv de `vl-popover-action-list` en `vl-popover-action` componenten. De popover kan ook andere interactieve HTML-elementen bevatten.
 
 
 ## Voorbeeld
@@ -16,7 +16,8 @@ import { VlPopoverComponent } from '@domg-wc/components/block';
 ```
 
 ```html
-<vl-popover></vl-popover>
+<vl-button id="popover-trigger"></vl-button>
+<vl-popover for="popover-trigger"></vl-popover>
 ```
 
 <Canvas of={VlPopoverStories.PopoverDefault} />
@@ -29,41 +30,34 @@ import { VlPopoverComponent } from '@domg-wc/components/block';
 
 ## Gebruik
 
-### Oriëntatie
-
-Je kan de oriëntatie bepalen van de popover als daarvoor plaats is met `placement`. Anders zal `floating-ui`
-achterliggend zoeken naar de volgende geschikt oriëntatie; standaard zal dit dan de tegenovergestelde oriëntatie
-zijn van de initieel ingestelde.
-Meer info kan je [hier](https://floating-ui.com/docs/tutorial#placements) vinden.
-
-Je kan een `-start` of `-end` suffix toevoegen zodat de oriëntatie start of eindigt aan respectievelijk het begin of
-einde van het referentie-element.
-
 ### Standaard pijl & afstand
 
 Standaard wordt:
-- de pijl getoond
+- de pijl getoond (je kan de pijl verbergen met `hide-arrow`)
 - wordt de `distance` ingesteld op `10px`
 
-Dit is er zodat de stijl van DV gevolgd wordt.
+### Oriëntatie
+> [Raadpleeg de placement documentatie van floating-ui](https://floating-ui.com/docs/tutorial#placements)
 
-Je kan de pijl verbergen door `hide-arrow` in te stellen.
-De afstand tot het referentie-element kan je volledig zelf bepalen.
+Je kan de oriëntatie bepalen van de popover als daarvoor plaats is met `placement`. Als er niet genoeg ruimte is zal `floating-ui` achterliggend een alternatieve oriëntatie kiezen.
+
+Je kan een `-start` of `-end` suffix toevoegen zodat de oriëntatie start of eindigt aan respectievelijk het begin of einde van het referentie-element.
 
 ### Strategy
-> [strategy documentatie bij floating-ui](https://floating-ui.com/docs/computePosition#strategy)
+> [Raadpleeg de strategy documentatie van floating-ui](https://floating-ui.com/docs/computePosition#strategy)
 
-Default is positioneringsstrategie ingesteld op `absolute`. De popover zal gepositioneerd worden ten opzichte van het
+Standaard is `strategy` ingesteld op `absolute`. De popover zal gepositioneerd worden ten opzichte van het
 dichtstbijzijnde gepositioneerde parent-element (bv. een element met `position: relative`).
 
-Om te vermijden dat de popover gepositioneerd wordt tegenover het verkeerde element, kan je best de eerste parent van
-de popover instellen op `position: relative` zodat de popover steeds gepositioneerd wordt zoals verwacht.
+Om te vermijden dat de popover gepositioneerd wordt tegenover het verkeerde element, kan je best de eerste parent van de popover instellen op `position: relative` zodat de popover steeds gepositioneerd wordt zoals verwacht.
 
 ## Varianten
 
-### Tooltip
+### Hover / Tooltip
 
-<Canvas of={VlPopoverStories.PopoverTooltip} />
+Je kan de standaard `click` waarde voor `trigger` ook instellen op bv. de combinatie van `hover` & `focus` interacties.
+
+Het gebruik van het vl-popover component als tooltip is echter **deprecated**. Gebruik hiervoor het [vl-tooltip](/docs/components-block-tooltip--documentatie) component.
 
 ### Popover Actions
 
@@ -131,7 +125,7 @@ Een lijst van acties kan visueel opgesplitst worden adhv de horizontale regel: `
 
 ### floating-ui
 
-De popover-component gebruikt achterliggend [floating-ui](https://floating-ui.com/)
+De popover-component gebruikt achterliggend [floating-ui](https://floating-ui.com/).
 
 ### Digitaal Vlaanderen
 

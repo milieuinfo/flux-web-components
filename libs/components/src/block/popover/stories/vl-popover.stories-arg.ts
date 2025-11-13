@@ -60,7 +60,7 @@ export const popoverArgTypes: ArgTypes<typeof popoverDefaultArgs> = {
     },
     distance: {
         name: 'distance',
-        description: 'Afstand van popover tegenover trigger element.',
+        description: 'Afstand van de popover tegenover het trigger element.',
         control: { type: CONTROLS.RANGE, min: 0, max: 100, step: 1 },
         table: {
             type: { summary: TYPES.NUMBER },
@@ -83,7 +83,7 @@ export const popoverArgTypes: ArgTypes<typeof popoverDefaultArgs> = {
     placement: {
         name: 'placement',
         description:
-            'Voorkeursoriëntatie van de popover als de ruimte het toelaat. Je kan ook `-start` of `-end` suffix toevoegen zodat oriëntatie start of eindigt aan respectievelijk begin of einde van het trigger element.',
+            'Voorkeursoriëntatie van de popover als de ruimte het toelaat. Je kan ook `-start` of `-end` suffix toevoegen zodat oriëntatie start of eindigt aan respectievelijk begin of einde van het trigger element.<br />[Raadpleeg de placement documentatie van floating-ui](https://floating-ui.com/docs/tutorial#placements).',
         table: {
             type: { summary: 'top | right | bottom | left' },
             category: CATEGORIES.ATTRIBUTES,
@@ -103,23 +103,13 @@ export const popoverArgTypes: ArgTypes<typeof popoverDefaultArgs> = {
     strategy: {
         name: 'strategy',
         description:
-            'Positioneringsstrategie van de popover. <br> [Meer info hier](https://floating-ui.com/docs/computePosition#strategy)',
+            'Positioneringsstrategie van de popover.<br />[Raadpleeg de strategy documentatie van floating-ui](https://floating-ui.com/docs/computePosition#strategy).',
         control: { type: CONTROLS.SELECT },
         options: ['absolute', 'fixed'],
         table: {
             type: { summary: 'absolute | fixed' },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: popoverDefaultArgs.strategy },
-        },
-    },
-    tooltip: {
-        name: 'tooltip',
-        description:
-            'Rendert de popover als tooltip. Dit zal automatisch de trigger instellen op "hover focus", de layout verkleinen en tooltip-specifieke aria-attributen voorzien.',
-        table: {
-            type: { summary: TYPES.BOOLEAN },
-            category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: String(popoverDefaultArgs.tooltip) },
         },
     },
 };

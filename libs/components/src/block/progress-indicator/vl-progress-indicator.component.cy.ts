@@ -1,9 +1,9 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { VlPopoverComponent } from '../popover/vl-popover.component';
-import { VlProgressIndicatorComponent } from './vl-progress-indicator.component';
 import { html } from 'lit';
+import { VlTooltipComponent } from '../tooltip';
+import { VlProgressIndicatorComponent } from './vl-progress-indicator.component';
 
-registerWebComponents([VlProgressIndicatorComponent, VlPopoverComponent]);
+registerWebComponents([VlProgressIndicatorComponent, VlTooltipComponent]);
 
 type MountDefaultProps = {
     activeStep: number;
@@ -50,14 +50,14 @@ const VlProgressIndicatorTestUtils = {
             .eq(stepNumber - 1)
             .should('have.class', 'vl-progress-bar__step--active');
     },
-    shouldHaveVisiblePopoverForStep: function shouldHaveVisiblePopoverForStep(stepNumber: number) {
+    shouldHaveVisibleTooltipForStep: function shouldHaveVisibleTooltipForStep(stepNumber: number) {
         cy.get('vl-progress-indicator')
             .shadow()
             .find('.vl-progress-bar__step')
             .eq(stepNumber - 1)
             .find('button.vl-progress-bar__bullet')
             .click()
-            .find('vl-popover')
+            .find('vl-tooltip')
             .should('have.attr', 'open');
     },
 };
@@ -85,7 +85,7 @@ describe('cypress-component - block components - vl-progress-indicator - default
             cy.get('vl-progress-indicator')
                 .shadow()
                 .find(`.vl-progress-bar__step:nth-child(${index + 1}) `)
-                .find('vl-popover')
+                .find('vl-tooltip')
                 .contains(step);
         });
     });
@@ -145,16 +145,16 @@ describe('cypress-component - block components - vl-progress-indicator - propert
         VlProgressIndicatorTestUtils.verifyActiveStepChange(3);
     });
 
-    it('should have visible popover for active step', () => {
+    it('should have visible tooltip for active step', () => {
         mountDefault({ ...props, steps, focusOnChange: true });
 
-        VlProgressIndicatorTestUtils.shouldHaveVisiblePopoverForStep(1);
+        VlProgressIndicatorTestUtils.shouldHaveVisibleTooltipForStep(1);
 
         VlProgressIndicatorTestUtils.changeActiveStep(2);
-        VlProgressIndicatorTestUtils.shouldHaveVisiblePopoverForStep(2);
+        VlProgressIndicatorTestUtils.shouldHaveVisibleTooltipForStep(2);
 
         VlProgressIndicatorTestUtils.changeActiveStep(3);
-        VlProgressIndicatorTestUtils.shouldHaveVisiblePopoverForStep(3);
+        VlProgressIndicatorTestUtils.shouldHaveVisibleTooltipForStep(3);
     });
 
     it('should emit vl-click-step event when a step is clicked', () => {

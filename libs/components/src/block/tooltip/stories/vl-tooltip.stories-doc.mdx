@@ -1,0 +1,57 @@
+import { ArgTypes, Canvas, Source } from '@storybook/addon-docs/blocks';
+import * as VlTooltipStories from './vl-tooltip.stories';
+
+# Tooltip
+
+<FluxMetaData id="components-block-tooltip" />
+
+Een tooltip is een klein contextueel venster dat verschijnt wanneer de gebruiker over een element hovert of het element focust. Gebruik een tooltip om korte bijkomende informatie te tonen.
+
+
+## Voorbeeld
+
+```js
+import { VlTooltipComponent } from '@domg-wc/components/block';
+```
+
+```html
+<vl-button id="tooltip-trigger"></vl-button>
+<vl-tooltip for="tooltip-trigger"></vl-tooltip>
+```
+
+<Canvas of={VlTooltipStories.TooltipDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlTooltipStories.TooltipDefault} />
+
+
+## Gebruik
+
+### Standaard pijl & afstand
+
+Standaard wordt:
+- de pijl getoond (je kan de pijl verbergen met `hide-arrow`)
+- wordt de `distance` ingesteld op `10px`
+
+### Oriëntatie
+> [Raadpleeg de placement documentatie van floating-ui](https://floating-ui.com/docs/tutorial#placements)
+
+Je kan de oriëntatie bepalen van de tooltip als daarvoor plaats is met `placement`. Als er niet genoeg ruimte is zal `floating-ui` achterliggend een alternatieve oriëntatie kiezen.
+
+Je kan een `-start` of `-end` suffix toevoegen zodat de oriëntatie start of eindigt aan respectievelijk het begin of einde van het referentie-element.
+
+### Strategy
+> [Raadpleeg de strategy documentatie van floating-ui](https://floating-ui.com/docs/computePosition#strategy)
+
+Standaard is `strategy` ingesteld op `absolute`. De tooltip zal gepositioneerd worden ten opzichte van het
+dichtstbijzijnde gepositioneerde parent-element (bv. een element met `position: relative`).
+
+Om te vermijden dat de tooltip gepositioneerd wordt tegenover het verkeerde element, kan je best de eerste parent van de tooltip instellen op `position: relative` zodat de tooltip steeds gepositioneerd wordt zoals verwacht.
+
+## Referenties
+
+### floating-ui
+
+De tooltip-component gebruikt achterliggend [floating-ui](https://floating-ui.com/).
