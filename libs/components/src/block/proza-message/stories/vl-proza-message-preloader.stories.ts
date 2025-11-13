@@ -50,7 +50,7 @@ export const ProzaMessagePreloaderDefault = story(prozaMessagePreloaderArgs, () 
                     <vl-title type="h6">In een link:</vl-title>
                     <vl-link href="#" external>
                         <vl-proza-message domain="mockdomain" code="action"></vl-proza-message>
-                    </a>
+                    </vl-link>
                 </div>
             </div>
         </div>

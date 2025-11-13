@@ -63,9 +63,9 @@ describe('cypress-component - compliance components - accessibility content', ()
 });
 
 describe('cypress-component - compliance components - accessibility content - helper function <contentChildElements()> ', () => {
-    it('should return an array of WebComponents with a length of 5', () => {
+    it('should return an array of WebComponents with a length of 6', () => {
         const elements = contentElements();
         expect(elements).to.be.an('array');
-        expect(elements).to.have.length(5);
+        expect(elements).to.have.length(6);
     });
 });

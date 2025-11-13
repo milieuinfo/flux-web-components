@@ -74,14 +74,25 @@ export const privacyContentSection = () => html`
                                         <div class="vl-column vl-column--12 vl-column--m-12">
                                             <vl-contact-card>
                                                 <vl-infoblock slot="info" type="contact">
-                                                    <vl-title type="h4" slot="title" custom-css="h4 {font-size: var(--vl-font-size); margin-top: 1rem; }"> Departement Omgeving </vl-title>
+                                                    <vl-title
+                                                        type="h4"
+                                                        slot="title"
+                                                        custom-css="h4 {font-size: var(--vl-font-size); margin-top: 1rem; }"
+                                                    >
+                                                        Departement Omgeving
+                                                    </vl-title>
                                                 </vl-infoblock>
-                                                <vl-properties slot="properties" custom-css="dl:has(.item) { margin-top: 0.8rem; display: block; }">
+                                                <vl-properties
+                                                    slot="properties"
+                                                    custom-css="dl:has(.item) { margin-top: 0.8rem; display: block; }"
+                                                >
                                                     <label>Adres</label>
                                                     <data>
-                                                        <div>Herman Teirlinckgebouw</div>
-                                                        <div>Havenlaan 88</div>
-                                                        <div>1000 Brussel, België</div>
+                                                        <address aria-label="Adresgegevens">
+                                                            Herman Teirlinckgebouw<br />
+                                                            Havenlaan 88<br />
+                                                            1000 Brussel, België
+                                                        </address>
                                                     </data>
                                                     <label>Telefoon</label>
                                                     <data>
@@ -89,6 +100,7 @@ export const privacyContentSection = () => html`
                                                             href="tel:02 553 80 11"
                                                             icon-placement="after"
                                                             icon="phone"
+                                                            label="Bel naar 02 553 80 11"
                                                         >
                                                             02 553 80 11
                                                         </vl-link>
@@ -99,13 +111,18 @@ export const privacyContentSection = () => html`
                                                             href="mailto:omgeving@vlaanderen.be"
                                                             icon-placement="after"
                                                             icon="mail"
+                                                            label="Mail naar omgeving@vlaanderen.be"
                                                         >
                                                             omgeving@vlaanderen.be
                                                         </vl-link>
                                                     </data>
                                                     <label>Website</label>
                                                     <data>
-                                                        <vl-link href="http://www.omgevingvlaanderen.be" external>
+                                                        <vl-link
+                                                            href="http://www.omgevingvlaanderen.be"
+                                                            external
+                                                            label="Ga naar omgevingvlaanderen.be (opent in een nieuw venster)"
+                                                        >
                                                             http://www.omgevingvlaanderen.be
                                                         </vl-link>
                                                     </data>
@@ -225,30 +242,20 @@ export const privacyContentSection = () => html`
                                                     verwerking van (persoons)gegevens mogelijk de volgende gegevens:
                                                 </p>
                                                 <ul>
-                                                    <li
-                                                        >Aanhef/aanspreking
-                                                    </li>
-                                                    <li>Voornaam </li>
-                                                    <li>Tussenvoegsel </li>
-                                                    <li>Familienaam </li>
-                                                    <li
-                                                        >Rijksregisternummer
-                                                    </li>
-                                                    <li>Geslacht </li>
-                                                    <li>Geboortedatum </li>
-                                                    <li
-                                                        >Leeftijd of geboortejaar
-                                                    </li>
-                                                    <li>Nationaliteit </li>
-                                                    <li>Adres(sen) </li>
-                                                    <li>E-mailadres(sen) </li>
-                                                    <li>Telefoon/gsm/fax </li>
-                                                    <li
-                                                        >Beroepsgegevens, diploma’s, certificeringen
-                                                    </li>
-                                                    <li
-                                                        >Strafrechtelijke en justitiële gegevens
-                                                    </li>
+                                                    <li>Aanhef/aanspreking</li>
+                                                    <li>Voornaam</li>
+                                                    <li>Tussenvoegsel</li>
+                                                    <li>Familienaam</li>
+                                                    <li>Rijksregisternummer</li>
+                                                    <li>Geslacht</li>
+                                                    <li>Geboortedatum</li>
+                                                    <li>Leeftijd of geboortejaar</li>
+                                                    <li>Nationaliteit</li>
+                                                    <li>Adres(sen)</li>
+                                                    <li>E-mailadres(sen)</li>
+                                                    <li>Telefoon/gsm/fax</li>
+                                                    <li>Beroepsgegevens, diploma’s, certificeringen</li>
+                                                    <li>Strafrechtelijke en justitiële gegevens</li>
                                                 </ul>
                                                 <p>
                                                     Tijdens het gebruik van de informatieverwerkende systemen door
@@ -267,19 +274,11 @@ export const privacyContentSection = () => html`
                                                     gegevens:
                                                 </p>
                                                 <ul>
-                                                    <li>IP-adres </li>
-                                                    <li
-                                                        >gebruikersnaam (login) of identificatienummer
-                                                    </li>
-                                                    <li
-                                                        >eID identificatie- en authenticatiegegevens
-                                                    </li>
-                                                    <li
-                                                        >tijdstip van handelingen in de software
-                                                    </li>
-                                                    <li
-                                                        >registratie van de handelingen in de software (logging).
-                                                    </li>
+                                                    <li>IP-adres</li>
+                                                    <li>gebruikersnaam (login) of identificatienummer</li>
+                                                    <li>eID identificatie- en authenticatiegegevens</li>
+                                                    <li>tijdstip van handelingen in de software</li>
+                                                    <li>registratie van de handelingen in de software (logging).</li>
                                                 </ul>
                                             </vl-typography>
                                         </div>
@@ -409,9 +408,7 @@ export const privacyContentSection = () => html`
                                                         Europese Unie is gevestigd), en van de functionaris voor
                                                         gegevensbescherming of FG – de Data Protection Officer (DPO).
                                                     </li>
-                                                    <li
-                                                        >de doeleinden waarvoor gegevens worden verwerkt;
-                                                    </li>
+                                                    <li>de doeleinden waarvoor gegevens worden verwerkt;</li>
                                                     <li>
                                                         de categorieën gegevens (bijvoorbeeld Rijksregistergegevens,
                                                         contactgegevens, betaalgegevens …);
@@ -457,9 +454,7 @@ export const privacyContentSection = () => html`
                                                         informatie over eventueel doorgifte van gegevens naar landen
                                                         buiten de Europese Unie;
                                                     </li>
-                                                    <li
-                                                        >de manieren waarop gegevens zijn beveiligd.
-                                                    </li>
+                                                    <li>de manieren waarop gegevens zijn beveiligd.</li>
                                                 </ul>
                                                 <p>
                                                     Het Departement Omgeving spant zich in om de verwerkingsactiviteiten
@@ -567,9 +562,7 @@ export const privacyContentSection = () => html`
                                                         wij geen wettelijke of andere wettelijke basis kunnen inroepen
                                                         voor verdere verwerking inbegrepen bewaring ervan (AVG art. 17);
                                                     </li>
-                                                    <li
-                                                        >Recht op beperking van verwerking (AVG art. 18);
-                                                    </li>
+                                                    <li>Recht op beperking van verwerking (AVG art. 18);</li>
                                                     <li>
                                                         Notificatie van rechtzetting, van uitwissing of van beperking
                                                         van verwerking (AVG art. 19);
@@ -646,8 +639,11 @@ export const privacyContentSection = () => html`
                                             Als de doelstellingen wijzigen waarvoor verwerking van persoonsgegevens
                                             gebeurt, zal het Departement Omgeving dit publiek melden en hiervan op
                                             transparante wijze mededeling doen in nieuwsbrieven, op de website
-                                            <a href="www.omgevingvlaanderen.be" target="_blank"
-                                                >www.omgevingvlaanderen.be</a
+                                            <vl-link
+                                                href="www.omgevingvlaanderen.be"
+                                                external
+                                                label="Bezoek de website omgevingvlaanderen.be (opent in een nieuw venster)"
+                                                >www.omgevingvlaanderen.be</vl-link
                                             >
                                             en via andere mediakanalen waarvan het Departement Omgeving gebruik maakt.
                                         </p>
@@ -655,10 +651,11 @@ export const privacyContentSection = () => html`
                                             Het Departement Omgeving behoudt zich het recht voor om de privacyverklaring
                                             aan te passen aan nieuwe noden of inzichten. Er zal van wijzigingen aan de
                                             Privacyverklaring transparant melding gemaakt worden op de hoofdwebsite van
-                                            het Departement Omgeving (<a
+                                            het Departement Omgeving (<vl-link
                                                 href="www.omgevingvlaanderen.be"
-                                                target="_blank"
-                                                >www.omgevingvlaanderen.be</a
+                                                external
+                                                label="Bezoek de website omgevingvlaanderen.be (opent in een nieuw venster)"
+                                                >www.omgevingvlaanderen.be</vl-link
                                             >) alsook op de papieren versie die op eenvoudige aanvraag verkrijgbaar is
                                             bij de Dienst Communicatie van het Departement Omgeving en via de
                                             Functionaris voor gegevensbescherming (Data Protection Officer) van het
@@ -721,7 +718,9 @@ export const privacyContentSection = () => html`
                     </div>
                 </vl-side-navigation-reference>
             </div>
-            <div class="vl-column vl-column--3 vl-column--m-3 vl-column--s-12 vl-column--xs-12 vl-column--start-10 vl-column--s-start-1">
+            <div
+                class="vl-column vl-column--3 vl-column--m-3 vl-column--s-12 vl-column--xs-12 vl-column--start-10 vl-column--s-start-1"
+            >
                 <vl-side-navigation id="side-nav-privacy-content" aria-label="inhoudsopgave">
                     <vl-side-navigation-h1>Op deze pagina</vl-side-navigation-h1>
                     <vl-side-navigation-content>
@@ -762,7 +761,10 @@ export const privacyContentSection = () => html`
                                 </ul>
                             </vl-side-navigation-item>
                             <vl-side-navigation-item parent="privacy-permissions-protocols">
-                                <vl-side-navigation-toggle href="#privacy-permissions-protocols" child="privacy-permissions-protocols">
+                                <vl-side-navigation-toggle
+                                    href="#privacy-permissions-protocols"
+                                    child="privacy-permissions-protocols"
+                                >
                                     Machtigingen en protocollen
                                 </vl-side-navigation-toggle>
                                 <ul>

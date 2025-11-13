@@ -160,6 +160,7 @@ export class VlCookieStatement extends BaseHTMLElement {
                                                         <vl-link
                                                             href="https://support.microsoft.com/nl-be/help/17479/windows-internet-explorer-11-change-security-privacy-settings"
                                                             external
+                                                            label="Ga naar Microsoft Internet Explorer (opent in een nieuw venster)"
                                                             >Microsoft Internet Explorer</vl-link
                                                         >
                                                     </li>
@@ -167,6 +168,7 @@ export class VlCookieStatement extends BaseHTMLElement {
                                                         <vl-link
                                                             href="https://support.microsoft.com/nl-nl/help/4468242/microsoft-edge-browsing-data-and-privacy-microsoft-privacy"
                                                             external
+                                                            label="Ga naar Microsoft Edge (opent in een nieuw venster)"
                                                             >Microsoft Edge</vl-link
                                                         >
                                                     </li>
@@ -174,6 +176,7 @@ export class VlCookieStatement extends BaseHTMLElement {
                                                         <vl-link
                                                             href="http://support.google.com/chrome/bin/answer.py?hl=nl&amp;answer=95647"
                                                             external
+                                                            label="Ga naar Google Chrome (opent in een nieuw venster)"
                                                             >Google Chrome</vl-link
                                                         >
                                                     </li>
@@ -181,11 +184,13 @@ export class VlCookieStatement extends BaseHTMLElement {
                                                         <vl-link
                                                             href="http://support.mozilla.org/nl/kb/cookies-in-en-uitschakelen-websites-voorkeuren?redirectlocale=nl&amp;redirectslug=Cookies+in-+en+uitschakelen"
                                                             external
+                                                            label="Ga naar Mozilla Firefox (opent in een nieuw venster)"
                                                             >Mozilla Firefox</vl-link
                                                         >
                                                     </li>
                                                     <li>
                                                         <vl-link href="http://support.apple.com/kb/PH5042" external
+                                                            label="Ga naar Apple Safari (opent in een nieuw venster)"
                                                             >Apple Safari</vl-link
                                                         >
                                                     </li>
@@ -258,13 +263,15 @@ export class VlCookieStatement extends BaseHTMLElement {
                                     <vl-properties slot="properties">
                                         <label>Adres</label>
                                         <data>
-                                            <div>Herman Teirlinckgebouw</div>
-                                            <div>Havenlaan 88</div>
-                                            <div>1000 Brussel, België</div>
+                                            <address aria-label="Adresgegevens">
+                                                Herman Teirlinckgebouw<br />
+                                                Havenlaan 88<br />
+                                                1000 Brussel, België
+                                            </address>
                                         </data>
                                         <label>Telefoon</label>
                                         <data>
-                                            <vl-link href="tel:02 553 80 11" icon-placement="after" icon="phone">
+                                            <vl-link href="tel:02 553 80 11" icon-placement="after" icon="phone" label="Bel naar 02 553 80 11">
                                                 02 553 80 11
                                             </vl-link>
                                         </data>
@@ -274,13 +281,14 @@ export class VlCookieStatement extends BaseHTMLElement {
                                                 href="mailto:omgeving@vlaanderen.be"
                                                 icon-placement="after"
                                                 icon="mail"
+                                                label="Mail naar omgeving@vlaanderen.be"
                                             >
                                                 omgeving@vlaanderen.be
                                             </vl-link>
                                         </data>
                                         <label>Website</label>
                                         <data>
-                                            <vl-link href="http://www.omgevingvlaanderen.be" external>
+                                            <vl-link href="http://www.omgevingvlaanderen.be" external label="Ga naar omgevingvlaanderen.be (opent in een nieuw venster)">
                                                 http://www.omgevingvlaanderen.be
                                             </vl-link>
                                         </data>

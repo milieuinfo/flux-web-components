@@ -35,21 +35,29 @@ export const contactCardDefault = story(
                 <label>Telefoon</label>
                 <data>
                     <p>
-                        <vl-link href="#" icon-placement="after" icon="phone"> 02 553 72 02</vl-link>
+                        <vl-link href="tel:003225537202" icon-placement="after" icon="phone"> 02 553 72 02</vl-link>
                         (Onthaal Consciencegebouw)
                     </p>
                     <p>
-                        <vl-link href="#" icon-placement="after" icon="phone"> 1700</vl-link>
+                        <vl-link href="tel:1700" icon-placement="after" icon="phone"> 1700</vl-link>
                         (Infolijn Onderwijs)
                     </p>
                 </data>
                 <label>E-mail</label>
                 <data>
-                    <vl-link href="#" icon-placement="after" icon="mail"> onderwijs.vlaanderen@vlaanderen.be</vl-link>
+                    <vl-link href="mailto:onderwijs.vlaanderen@vlaanderen.be" icon-placement="after" icon="mail">
+                        onderwijs.vlaanderen@vlaanderen.be</vl-link
+                    >
                 </data>
                 <label>Website</label>
                 <data>
-                    <vl-link href="#" external> http://onderwijs.vlaanderen.be</vl-link>
+                    <vl-link
+                        href="http://onderwijs.vlaanderen.be"
+                        external
+                        label="Ga naar onderwijs.vlaanderen.be (opent in een nieuw venster)"
+                    >
+                        http://onderwijs.vlaanderen.be</vl-link
+                    >
                 </data>
             </vl-properties>
         </vl-contact-card>
