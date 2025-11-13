@@ -5,7 +5,7 @@ import { html, nothing, type PropertyDeclarations } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import 'reflect-metadata';
-import { VlPopoverComponent } from '../popover';
+import { VlTooltipComponent } from '../tooltip';
 import { vlProgressIndicatorFluxStyles } from './vl-progress-indicator.flux-css';
 
 class ProgressIndicator {
@@ -32,7 +32,7 @@ export class VlProgressIndicatorComponent extends BaseLitElement {
     private showLabels = false;
 
     static {
-        registerWebComponents([VlPopoverComponent]);
+        registerWebComponents([VlTooltipComponent]);
     }
 
     constructor() {
@@ -96,11 +96,7 @@ export class VlProgressIndicatorComponent extends BaseLitElement {
                 id="step-${index + 1}"
             >
                 ${!this.showLabels
-                    ? html`
-                          <vl-popover for="step-${index + 1}" placement="top" trigger="focus hover">
-                              ${step}
-                          </vl-popover>
-                      `
+                    ? html` <vl-tooltip for="step-${index + 1}" placement="top"> ${step} </vl-tooltip> `
                     : nothing}
                 ${this.showLabels ? html`<span class="vl-progress-bar__bullet__text" title=${step}>${step}</span>` : ''}
             </button>

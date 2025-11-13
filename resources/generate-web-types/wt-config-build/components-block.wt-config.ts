@@ -39,6 +39,7 @@ import { tabsPaneArgTypes } from '../../../libs/components/src/block/tabs/storie
 import { tabsArgTypes } from '../../../libs/components/src/block/tabs/stories/vl-tabs.stories-arg';
 import { templateArgTypes } from '../../../libs/components/src/block/template/stories/vl-template.stories-arg';
 import { toasterArgTypes } from '../../../libs/components/src/block/toaster/stories/vl-toaster.stories-arg';
+import { tooltipArgTypes } from '../../../libs/components/src/block/tooltip/stories/vl-tooltip.stories-arg';
 import { typographyArgTypes } from '../../../libs/components/src/block/typography/stories/vl-typography.stories-arg';
 import { videoPlayerArgTypes } from '../../../libs/components/src/block/video-player/stories/vl-video-player.stories-arg';
 import { wizardPaneArgTypes } from '../../../libs/components/src/block/wizard/stories/vl-wizard-pane.stories-arg';
@@ -277,6 +278,12 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
         toasterArgTypes,
         '../../libs/components/src/block/toaster/stories/vl-toaster.stories-doc.mdx',
         '/docs/components-block-toaster--documentatie'
+    ),
+    buildWTConfig(
+        'vl-tooltip',
+        tooltipArgTypes,
+        '../../libs/components/src/block/tooltip/stories/vl-tooltip.stories-doc.mdx',
+        '/docs/components-block-tooltip--documentatie'
     ),
     buildWTConfig('vl-typography', typographyArgTypes, null, '/docs/components-block-typography--documentatie'),
     buildWTConfig(

@@ -48,10 +48,11 @@ export default class FloatingController implements ReactiveController {
         if (!this.host.id) {
             this.host.id = `popover-${Math.random().toString().substring(2, 10)}`;
         }
-        this.addAttributeToReferenceElement('aria-controls', this.host.id);
         if (this.options.tooltip) {
             this.addAttributeToReferenceElement('aria-describedby', this.host.id);
+            this.host.shadowRoot?.querySelector('.popover-content')?.setAttribute('role', 'tooltip');
         } else {
+            this.addAttributeToReferenceElement('aria-controls', this.host.id);
             this.addAttributeToReferenceElement('aria-haspopup', 'true');
         }
     }
@@ -259,4 +260,10 @@ export default class FloatingController implements ReactiveController {
             this.getReferenceElement()?.setAttribute(attribute, value);
         }
     }
+
+    public setExpanded = (expanded: boolean): void => {
+        if (!this.options.tooltip) {
+            this.getReferenceElement()?.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        }
+    };
 }

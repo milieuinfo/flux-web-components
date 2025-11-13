@@ -1,14 +1,14 @@
 export { VlAccordionComponent } from './accordion';
-export { VlAlert, VlAlertClosedEvent, ALERT_ICON, ALERT_SIZE, ALERT_TYPE } from './alert';
+export { ALERT_ICON, ALERT_SIZE, ALERT_TYPE, VlAlert, VlAlertClosedEvent } from './alert';
 export { VlAutocomplete } from './autocomplete';
 export { VlBreadcrumbComponent, VlBreadcrumbItemComponent } from './breadcrumb';
 export {
     VlCascaderComponent,
     VlCascaderItemComponent,
-    type TemplateFn,
+    type CascaderItem,
     type ItemListFn,
     type NarrowDownFn,
-    type CascaderItem,
+    type TemplateFn,
 } from './cascader';
 export { VlContactCardComponent } from './contact-card';
 export { VlContentHeaderComponent } from './content-header';
@@ -24,8 +24,8 @@ export { VlInputSliderComponent } from './input-slider';
 export { VlLoaderComponent } from './loader';
 export { VlModalComponent } from './modal';
 export { VlPagerComponent, type Pagination } from './pager';
-export { VlPillComponent, TYPE } from './pill';
-export { VlPopoverComponent, VlPopoverActionComponent, VlPopoverActionListComponent } from './popover';
+export { TYPE, VlPillComponent } from './pill';
+export { VlPopoverActionComponent, VlPopoverActionListComponent, VlPopoverComponent } from './popover';
 export { VlProgressIndicatorComponent } from './progress-indicator';
 export { VlPropertiesComponent } from './properties';
 export { VlProzaMessage, VlProzaMessagePreloader } from './proza-message';
@@ -34,15 +34,17 @@ export { VlRichDataField, VlRichDataSorter, VlRichDataTable } from './rich-data-
 export { VlSearchComponent } from './search';
 export { VlSearchFilterComponent } from './search-filter';
 export { VlSearchResultComponent } from './search-result';
-export { VlShareButton, MEDIA, MEDIA_NAMES, VlShareButtonsComponent } from './share-buttons';
-export { VlSideSheet } from './side-sheet';
+export { MEDIA, MEDIA_NAMES, VlShareButton, VlShareButtonsComponent } from './share-buttons';
 export { VlSideNavigationComponent } from './side-navigation';
-export { VlStepsComponent } from './steps';
+export { VlSideSheet } from './side-sheet';
 export { VlSpotlight } from './spotlight';
+export { VlStepsComponent } from './steps';
 export { VlTableComponent } from './table';
 export { VlTabsComponent } from './tabs';
 export { VlTemplate } from './template';
 export { VlToasterComponent } from './toaster';
+export { VlTooltipComponent } from './tooltip';
 export { VlTypography } from './typography';
 export { VlVideoPlayerComponent } from './video-player';
 export { VlWizard, VlWizardPane } from './wizard';
+

@@ -29,7 +29,7 @@ export default {
 const relativePositionDecorator = (story: () => unknown) =>
     html` <div style="position: relative;min-height: 150px;">${story()}</div>`;
 
-export const PopoverDefault = story(
+const PopoverTemplate = story(
     popoverDefaultArgs,
     ({ trigger, contentPadding, open, placement, hideArrow, hideOnClick, distance, strategy }) => {
         const actionListClickHandler = (event: CustomEvent) => {
@@ -65,43 +65,20 @@ export const PopoverDefault = story(
         `;
     }
 );
+
+export const PopoverDefault = PopoverTemplate.bind({});
 PopoverDefault.storyName = 'vl-popover - default';
 PopoverDefault.decorators = [relativePositionDecorator];
 PopoverDefault.args = {
     placement: 'bottom-start',
 };
 
-export const PopoverTooltip = story(
-    popoverDefaultArgs,
-    ({ trigger, open, contentPadding, placement, hideArrow, hideOnClick, distance, strategy, tooltip }) => {
-        return html`
-            <vl-button id="btn-close">Hover over me</vl-button>
-            <vl-popover
-                for="btn-close"
-                ?open=${open}
-                placement=${placement}
-                trigger=${trigger}
-                hide-arrow=${hideArrow}
-                hide-on-click=${hideOnClick}
-                distance=${distance}
-                strategy=${strategy}
-                content-padding=${contentPadding}
-                ?tooltip=${tooltip}
-            >
-                Een boodschap die context geeft.
-            </vl-popover>
-        `;
-    }
-);
-PopoverTooltip.storyName = 'vl-popover - tooltip';
-PopoverTooltip.decorators = [relativePositionDecorator];
-PopoverTooltip.args = {
-    tooltip: true,
+export const PopoverHover = PopoverTemplate.bind({});
+PopoverHover.storyName = 'vl-popover - hover';
+PopoverHover.decorators = [relativePositionDecorator];
+PopoverHover.args = {
+    trigger: 'focus hover',
 };
-PopoverTooltip.parameters = {
-    layout: 'centered',
-};
-
 export const PopoverActions = story(popoverActionArgs, ({ selected }) => {
     const actionListClickHandler = (event: CustomEvent) => {
         const actionElement = event.target as VlPopoverActionComponent;

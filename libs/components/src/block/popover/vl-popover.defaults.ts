@@ -10,7 +10,6 @@ export type PopoverDefaults = {
     open: boolean;
     distance: number;
     strategy: Strategy;
-    tooltip: boolean;
 };
 
 export const popoverDefaults: PopoverDefaults = {
@@ -23,5 +22,4 @@ export const popoverDefaults: PopoverDefaults = {
     open: false,
     distance: 10,
     strategy: 'absolute',
-    tooltip: false,
 };
