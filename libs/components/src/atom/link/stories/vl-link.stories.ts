@@ -1,10 +1,10 @@
+import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
-import { VlLinkComponent } from '../vl-link.component';
-import { registerWebComponents } from '@domg-wc/common';
-import { linkArgs, linkArgTypes } from './vl-link.stories-arg';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { VlLinkComponent } from '../vl-link.component';
+import { linkArgs, linkArgTypes } from './vl-link.stories-arg';
 import linkDoc from './vl-link.stories-doc.mdx';
 
 registerWebComponents([VlLinkComponent]);
@@ -24,7 +24,7 @@ export default {
 
 const LinkTemplate = story(
     linkArgs,
-    ({ href, bold, small, large, error, external, buttonAsLink, icon, iconPlacement, defaultSlot }) =>
+    ({ href, bold, small, large, error, external, buttonAsLink, icon, iconPlacement, defaultSlot, label }) =>
         html`
             <vl-link
                 href=${href}
@@ -36,6 +36,7 @@ const LinkTemplate = story(
                 ?button-as-link=${buttonAsLink}
                 icon=${icon}
                 icon-placement=${iconPlacement}
+                label=${label}
                 >${unsafeHTML(defaultSlot)}</vl-link
             >
         `
@@ -46,6 +47,7 @@ LinkDefault.storyName = 'vl-link - default';
 LinkDefault.args = {
     href: 'https://www.vlaanderen.be',
     defaultSlot: 'Vlaanderen',
+    label: 'Ga naar Vlaanderen.be',
 };
 
 export const LinkBold = LinkTemplate.bind({});
@@ -54,6 +56,7 @@ LinkBold.args = {
     href: 'https://www.vlaanderen.be',
     defaultSlot: 'Vlaanderen',
     bold: true,
+    label: 'Ga naar Vlaanderen.be',
 };
 
 export const LinkSmall = LinkTemplate.bind({});
@@ -62,6 +65,7 @@ LinkSmall.args = {
     href: 'https://www.vlaanderen.be',
     defaultSlot: 'Vlaanderen',
     small: true,
+    label: 'Ga naar Vlaanderen.be',
 };
 
 export const LinkLarge = LinkTemplate.bind({});
@@ -70,6 +74,7 @@ LinkLarge.args = {
     href: 'https://www.vlaanderen.be',
     defaultSlot: 'Vlaanderen',
     large: true,
+    label: 'Ga naar Vlaanderen.be',
 };
 
 export const LinkError = LinkTemplate.bind({});
@@ -78,6 +83,7 @@ LinkError.args = {
     href: 'https://www.vlaanderen.be',
     defaultSlot: 'Vlaanderen',
     error: true,
+    label: 'Ga naar Vlaanderen.be',
 };
 
 export const LinkExternal = LinkTemplate.bind({});
@@ -86,6 +92,7 @@ LinkExternal.args = {
     href: 'https://www.vlaanderen.be',
     defaultSlot: 'Vlaanderen',
     external: true,
+    label: 'Ga naar Vlaanderen.be (opent in een nieuw venster)',
 };
 
 export const LinkIcon = LinkTemplate.bind({});
@@ -95,6 +102,7 @@ LinkIcon.args = {
     defaultSlot: 'Vlaanderen',
     icon: 'arrow-right-fat',
     iconPlacement: 'before',
+    label: 'Ga naar Vlaanderen.be',
 };
 
 export const LinkIconOnly = LinkTemplate.bind({});
@@ -102,6 +110,7 @@ LinkIconOnly.storyName = 'vl-link - icon only';
 LinkIconOnly.args = {
     href: 'https://www.vlaanderen.be',
     icon: 'arrow-right-fat',
+    label: 'Ga naar Vlaanderen.be',
 };
 
 export const ButtonStyledAsLink = LinkTemplate.bind({});
@@ -109,5 +118,5 @@ ButtonStyledAsLink.storyName = 'vl-link - button as link';
 ButtonStyledAsLink.args = {
     defaultSlot: 'Annuleren',
     buttonAsLink: true,
-    label: 'annuleer inschrijving',
+    label: 'Annuleer inschrijving',
 };

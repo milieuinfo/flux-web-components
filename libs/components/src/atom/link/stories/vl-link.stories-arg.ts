@@ -32,7 +32,8 @@ export const linkArgTypes: ArgTypes<LinkArgs> = {
     },
     label: {
         name: 'label',
-        description: 'Vult het aria-label attribuut van de link in.',
+        description:
+            'Vult het aria-label attribuut van de link in. Geef een duidelijke omschrijving mee van waar de link naartoe leidt. bv "Ga naar Vlaanderen.be (opent in een nieuw venster)',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
