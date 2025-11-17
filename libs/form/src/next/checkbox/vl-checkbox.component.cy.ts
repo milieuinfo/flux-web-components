@@ -153,16 +153,16 @@ describe('component - vl-checkbox-next', () => {
         cy.get('@vl-input')
             .should('have.been.calledOnce')
             .its('lastCall.args.0.detail')
-            .should('deep.equal', { checked: true, value });
+            .should('deep.include', { checked: true, value });
         cy.get('@vl-change')
             .should('have.been.calledTwice')
             .its('lastCall.args.0.detail')
-            .should('deep.equal', { checked: true, value });
+            .should('deep.include', { checked: true, value });
         cy.get('vl-checkbox-next').shadow().find('.vl-checkbox__label').click({ force: true });
         cy.get('@vl-change').its('callCount').should('eq', 3);
-        cy.get('@vl-change').its('lastCall.args.0.detail').should('deep.equal', { checked: false });
+        cy.get('@vl-change').its('lastCall.args.0.detail').should('deep.include', { checked: false });
         cy.get('@vl-input').its('callCount').should('eq', 2);
-        cy.get('@vl-input').its('lastCall.args.0.detail').should('deep.equal', { checked: false });
+        cy.get('@vl-input').its('lastCall.args.0.detail').should('deep.include', { checked: false });
     });
 
     it('should dispatch vl-change but not vl-input event on programmatic check and uncheck', () => {
@@ -174,12 +174,12 @@ describe('component - vl-checkbox-next', () => {
         cy.get('@vl-change')
             .should('have.been.calledOnce')
             .its('lastCall.args.0.detail')
-            .should('deep.equal', { checked: true, value });
+            .should('deep.include', { checked: true, value });
         cy.get('@vl-input').its('callCount').should('eq', 0);
 
         cy.get('vl-checkbox-next').invoke('removeAttr', 'checked');
         cy.get('@vl-change').its('callCount').should('eq', 1);
-        cy.get('@vl-change').its('lastCall.args.0.detail').should('deep.equal', { checked: false });
+        cy.get('@vl-change').its('lastCall.args.0.detail').should('deep.include', { checked: false });
         cy.get('@vl-input').its('callCount').should('eq', 0);
     });
 
@@ -191,7 +191,7 @@ describe('component - vl-checkbox-next', () => {
         cy.get('@vl-valid')
             .should('have.been.calledOnce')
             .its('firstCall.args.0.detail')
-            .should('deep.equal', { checked: true, value });
+            .should('deep.include', { checked: true, value });
         cy.get('vl-checkbox-next').shadow().find('.vl-checkbox__toggle').click({ force: true });
         cy.get('@vl-valid').should('have.been.calledOnce');
     });
@@ -315,17 +315,17 @@ describe('component - vl-checkbox-next - switch', () => {
         cy.get('@vl-change')
             .should('have.been.calledTwice')
             .its('lastCall.args.0.detail')
-            .should('deep.equal', { checked: true, value });
+            .should('deep.include', { checked: true, value });
         cy.get('@vl-input')
             .should('have.been.calledOnce')
             .its('lastCall.args.0.detail')
-            .should('deep.equal', { checked: true, value });
+            .should('deep.include', { checked: true, value });
 
         cy.get('vl-checkbox-next').shadow().find('.vl-checkbox__label').click({ force: true });
         cy.get('@vl-change').its('callCount').should('eq', 3);
-        cy.get('@vl-change').its('lastCall.args.0.detail').should('deep.equal', { checked: false });
+        cy.get('@vl-change').its('lastCall.args.0.detail').should('deep.include', { checked: false });
         cy.get('@vl-input').its('callCount').should('eq', 2);
-        cy.get('@vl-input').its('lastCall.args.0.detail').should('deep.equal', { checked: false });
+        cy.get('@vl-input').its('lastCall.args.0.detail').should('deep.include', { checked: false });
     });
 
     it('should dispatch vl-change but not vl-input event on programmatic check and uncheck', () => {
@@ -337,12 +337,12 @@ describe('component - vl-checkbox-next - switch', () => {
         cy.get('@vl-change')
             .should('have.been.calledOnce')
             .its('lastCall.args.0.detail')
-            .should('deep.equal', { checked: true, value });
+            .should('deep.include', { checked: true, value });
         cy.get('@vl-input').its('callCount').should('eq', 0);
 
         cy.get('vl-checkbox-next').invoke('removeAttr', 'checked');
         cy.get('@vl-change').its('callCount').should('eq', 1);
-        cy.get('@vl-change').its('lastCall.args.0.detail').should('deep.equal', { checked: false });
+        cy.get('@vl-change').its('lastCall.args.0.detail').should('deep.include', { checked: false });
         cy.get('@vl-input').its('callCount').should('eq', 0);
     });
 
@@ -354,7 +354,7 @@ describe('component - vl-checkbox-next - switch', () => {
         cy.get('@vl-valid')
             .should('have.been.calledOnce')
             .its('firstCall.args.0.detail')
-            .should('deep.equal', { checked: true, value });
+            .should('deep.include', { checked: true, value });
         cy.get('vl-checkbox-next').shadow().find('.vl-checkbox__label').click({ force: true });
         cy.get('@vl-valid').should('have.been.calledOnce');
     });

@@ -1,52 +1,42 @@
+import { VlButtonComponent } from '@domg-wc/components/next/button';
+import { Layer } from 'ol/layer';
 import { VlMap } from '../../../vl-map';
 import { VlMapLayer } from '../../layer/vl-map-layer';
-
-/**
- * voegt een nieuwe map layer to aan de `vl-map`
- * @param layerSelector - geef de huidige selector mee voor de nieuwe layer die toegevoegd moet worden
- * @param vlMapSelector - geef de selector mee om het element te kunnen bepalen waarop de layer moet toegevoegd worden
- */
-const addMapLayer = (layerSelector: string, vlMapSelector: string): void => {
-    const newLayer = document.querySelector(layerSelector) as unknown as VlMapLayer;
-    const vlMap = document.querySelector(vlMapSelector) as unknown as VlMap;
-    vlMap.appendChild(newLayer);
-};
-
-/**
- * verwijdert een bestaande map layer uit zijn `vl-map`
- * @param layerSelector - geef de selector mee om de layer te kunnen bepalen die verwijderd moet worden
- */
-const removeMapLayer = (layerSelector: string, vlMapSelector: string): void => {
-    const layerToRemove = document.querySelector(layerSelector) as unknown as VlMapLayer;
-    const vlMap = document.querySelector(vlMapSelector) as unknown as VlMap;
-    vlMap.removeChild(layerToRemove);
-};
 
 export const dynamicLayerSwitcherImplementation = () => {
     const vlMapSelector = 'vl-map#map-dynamic-layers';
 
-    const handleAddLayerForId = (id: string, event: Event) => {
-        // voeg kaartlaag dynamisch toe
-        addMapLayer(`vl-map-features-layer#${id}`, vlMapSelector);
+    const handleAddLayerForId = (id: string) => {
+        const newLayer = document.querySelector(`vl-map-features-layer#${id}`) as unknown as VlMapLayer;
+        const vlMap = document.querySelector(vlMapSelector) as unknown as VlMap;
+        vlMap.appendChild(newLayer);
 
-        const addButton = <HTMLButtonElement>event.target;
-        // enable remove button nadat laag is toegevoegd
-        (<HTMLButtonElement>addButton.nextElementSibling).disabled = false;
-        // add button verwijderen
-        addButton.remove();
+        const addButton = document.querySelector<VlButtonComponent>(`#add-${id}`);
+        const toggleButton = document.querySelector<VlButtonComponent>(`#toggle-${id}`);
+        const removeButton = document.querySelector<VlButtonComponent>(`#remove-${id}`);
+
+        toggleButton.hidden = false;
+        removeButton.hidden = false;
+        addButton.hidden = true;
     };
 
-    const handleRemoveLayerForId = (id: string, event: Event) => {
-        // verwijder kaartlaag uit vl-map component & uit de OpenLayers Overlay
-        removeMapLayer(`vl-map-features-layer#${id}`, vlMapSelector);
+    const handleToggleLayerForId = (id: string) => {
+        const layerToToggle = document.querySelector(`vl-map-features-layer#${id}`) as unknown as VlMapLayer;
+        const layer: Layer = layerToToggle.layer;
+        layer.setVisible(!layer.getVisible());
+    };
 
-        // remove button verwijderen
-        const removeButton = <HTMLButtonElement>event.target;
-        removeButton.remove();
+    const handleRemoveLayerForId = (id: string) => {
+        const layerToRemove = document.querySelector(`vl-map-features-layer#${id}`) as unknown as VlMapLayer;
+        const vlMap = document.querySelector(vlMapSelector) as unknown as VlMap;
+        vlMap.removeChild(layerToRemove);
+
+        const removeButton = document.querySelector<VlButtonComponent>(`#remove-${id}`);
+        removeButton.parentElement.remove();
     };
 
     // exporteren functies die gebruikt worden in template
-    return { handleAddLayerForId, handleRemoveLayerForId };
+    return { handleAddLayerForId, handleToggleLayerForId, handleRemoveLayerForId };
 };
 
 export default dynamicLayerSwitcherImplementation;

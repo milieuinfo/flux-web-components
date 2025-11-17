@@ -17,11 +17,14 @@ const shouldHaveInvisibleLayerFor = (layerName: string): void => {
     });
 };
 
+const toggleSideSheet = () =>
+    cy.get('vl-map-side-sheet').shadow().find('.vl-side-sheet__toggle').click({ force: true });
+
 const clickLayerSwitcherCheckboxOf = (layerName: string): void => {
     cy.get('vl-map')
         .find('vl-map-layer-switcher')
         .shadow()
-        .find(`vl-checkbox[data-vl-layer="${layerName}"]`)
+        .find(`vl-checkbox-next[data-vl-layer="${layerName}"]`)
         .shadow()
         .find('input')
         .click({ force: true });
@@ -51,14 +54,15 @@ describe('story vl-map-layer-switcher dynamic', () => {
         const layerName = `Kaartlaag ${layerId}`;
         cy.visit(`${mapLayerSwitcherDynamic}`);
         shouldHaveFeatureLayerCount(0);
-        cy.get(`button#add-${layerId}`).click();
+        cy.get(`vl-button-next#add-${layerId}`).click();
         shouldHaveFeatureLayerCount(1);
         shouldHaveVisibleLayerFor(layerName);
+        toggleSideSheet();
         clickLayerSwitcherCheckboxOf(layerName);
         shouldHaveInvisibleLayerFor(layerName);
         clickLayerSwitcherCheckboxOf(layerName);
         shouldHaveVisibleLayerFor(layerName);
-        cy.get(`button#remove-${layerId}`).click();
+        cy.get(`vl-button-next#remove-${layerId}`).click();
         shouldHaveFeatureLayerCount(0);
     });
 });
