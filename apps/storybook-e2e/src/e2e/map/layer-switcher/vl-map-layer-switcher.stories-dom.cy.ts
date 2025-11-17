@@ -12,15 +12,10 @@ describe('story vl-map-layer-switcher default ', () => {
         cy.get('vl-map')
             .find('vl-map-layer-switcher')
             .shadow()
-            .find('vl-checkbox')
+            .find('vl-checkbox-next')
             .should('have.length', 3)
             .each((checkbox: HTMLInputElement, index) => {
-                cy.wrap(checkbox)
-                    .shadow()
-                    .find('label')
-                    .find('div.vl-checkbox__label')
-                    .find('span')
-                    .should('have.text', layers[index]);
+                cy.wrap(checkbox).should('have.text', layers[index]);
             });
     });
 });
@@ -34,15 +29,11 @@ describe('story vl-map-layer-switcher subselection ', () => {
         cy.get('vl-map')
             .find('vl-map-layer-switcher')
             .shadow()
-            .find('vl-checkbox')
+            .find('vl-checkbox-next')
             .should('have.length', 2)
             .each((checkbox: HTMLInputElement, index) => {
                 cy.wrap(checkbox)
-                    .shadow()
-                    .find('label')
-                    .find('div.vl-checkbox__label')
-                    .find('span')
-                    .should('have.text', layers[index]);
+                .should('have.text', layers[index]);
             });
     });
 });
