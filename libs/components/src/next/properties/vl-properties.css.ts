@@ -76,7 +76,8 @@ export const propertiesStyles: CSSResult = css`
     }
 
     dl:has(.item) {
-        display: initial;
+        display: flow-root;
+        margin-block: 0;
     }
 
     dl .item {
