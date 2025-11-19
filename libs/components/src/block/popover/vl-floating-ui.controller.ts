@@ -11,6 +11,7 @@ import {
 } from '@floating-ui/dom';
 import { offsetParent } from 'composed-offset-position';
 import { LitElement, ReactiveController } from 'lit';
+import { POPOVER_ARIA_TYPE, POPOVER_TYPE } from './vl-popover.model';
 
 export type FloatingControllerOptions = {
     reference: string;
@@ -21,7 +22,9 @@ export type FloatingControllerOptions = {
     hideDelay: number;
     hideOnClick: boolean;
     strategy: Strategy;
-    tooltip: boolean;
+    type: POPOVER_TYPE;
+    // Een tooltip kan dienst doen als "label" van de trigger knop of als extra "description" voor de trigger
+    ariaType?: POPOVER_ARIA_TYPE;
 };
 
 interface FloatingElement extends LitElement {
@@ -43,14 +46,25 @@ export default class FloatingController implements ReactiveController {
         this.host.addController(this);
     }
 
+    get isTooltip() {
+        return this.options.type === POPOVER_TYPE.TOOLTIP;
+    }
+
     hostConnected(): void {
         this.addEventListeners();
         if (!this.host.id) {
             this.host.id = `popover-${Math.random().toString().substring(2, 10)}`;
         }
-        if (this.options.tooltip) {
-            this.addAttributeToReferenceElement('aria-describedby', this.host.id);
+        if (this.isTooltip) {
             this.host.shadowRoot?.querySelector('.popover-content')?.setAttribute('role', 'tooltip');
+            if (this.options.ariaType === POPOVER_ARIA_TYPE.DESCRIPTION) {
+                this.addAttributeToReferenceElement('aria-describedby', this.host.id);
+            } else if (
+                this.options.ariaType === POPOVER_ARIA_TYPE.LABEL &&
+                !this.getReferenceElement()?.hasAttribute('aria-label')
+            ) {
+                this.addAttributeToReferenceElement('aria-labelledby', this.host.id);
+            }
         } else {
             this.addAttributeToReferenceElement('aria-controls', this.host.id);
             this.addAttributeToReferenceElement('aria-haspopup', 'true');
@@ -262,7 +276,7 @@ export default class FloatingController implements ReactiveController {
     }
 
     public setExpanded = (expanded: boolean): void => {
-        if (!this.options.tooltip) {
+        if (!this.isTooltip) {
             this.getReferenceElement()?.setAttribute('aria-expanded', expanded ? 'true' : 'false');
         }
     };

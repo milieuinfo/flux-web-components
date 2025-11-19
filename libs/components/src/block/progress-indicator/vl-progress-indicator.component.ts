@@ -142,9 +142,7 @@ export class VlProgressIndicatorComponent extends BaseLitElement {
             : html` <button
                   ?disabled=${index > this.activeStep - 1 && !this.enableFutureSteps}
                   @click=${() => this.handleStepClick(step, index + 1)}
-                  aria-label=${step}
                   class="vl-progress-indicator__step"
-                  tabindex="0"
                   type="button"
                   id="step-${index + 1}"
               >
@@ -152,7 +150,17 @@ export class VlProgressIndicatorComponent extends BaseLitElement {
               </button>`}
         ${this.showLabels
             ? nothing
-            : html` <vl-tooltip for="step-${index + 1}" placement="top" distance="15"> ${step} </vl-tooltip> `}`;
+            : html`
+                  <vl-tooltip
+                      id="tooltip-step-${index + 1}"
+                      for="step-${index + 1}"
+                      placement="top"
+                      distance="15"
+                      type="label"
+                  >
+                      ${step}
+                  </vl-tooltip>
+              `}`;
     }
 
     private renderSegment(step: string, index: number) {

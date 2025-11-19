@@ -1,0 +1,7 @@
+import { POPOVER_ARIA_TYPE, POPOVER_STRATEGY } from "../popover/vl-popover.model";
+
+export const TOOLTIP_STRATEGY = POPOVER_STRATEGY;
+export type TOOLTIP_STRATEGY = POPOVER_STRATEGY;
+
+export const TOOLTIP_TYPE = POPOVER_ARIA_TYPE;
+export type TOOLTIP_TYPE = POPOVER_ARIA_TYPE;

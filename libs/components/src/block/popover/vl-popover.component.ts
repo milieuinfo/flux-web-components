@@ -9,6 +9,7 @@ import { VlPopoverActionListComponent } from './vl-popover-action-list.component
 import { VlPopoverActionComponent } from './vl-popover-action.component';
 import { popoverDefaults } from './vl-popover.defaults';
 import { vlPopoverFluxStyles } from './vl-popover.flux-css';
+import { POPOVER_ARIA_TYPE, POPOVER_TYPE } from './vl-popover.model';
 
 @customElement('vl-popover')
 export class VlPopoverComponent extends BaseLitElement {
@@ -113,7 +114,8 @@ export class VlPopoverComponent extends BaseLitElement {
             hideDelay: 0,
             hideOnClick: this.hideOnClick,
             strategy: this.strategy,
-            tooltip: !this.trigger.includes('click'),
+            type: this.trigger.includes('click') ? POPOVER_TYPE.POPOVER : POPOVER_TYPE.TOOLTIP,
+            ariaType: this.trigger.includes('click') ? undefined : POPOVER_ARIA_TYPE.DESCRIPTION,
         };
     }
 }

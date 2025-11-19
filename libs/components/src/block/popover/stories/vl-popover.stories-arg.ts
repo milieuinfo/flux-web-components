@@ -10,6 +10,7 @@ import {
 } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components-vite';
 import { popoverDefaults, PopoverDefaults } from '../vl-popover.defaults';
+import { POPOVER_STRATEGY } from '../vl-popover.model';
 
 export type PopoverArgs = typeof defaultArgs & PopoverDefaults;
 
@@ -105,9 +106,9 @@ export const popoverArgTypes: ArgTypes<typeof popoverDefaultArgs> = {
         description:
             'Positioneringsstrategie van de popover.<br />[Raadpleeg de strategy documentatie van floating-ui](https://floating-ui.com/docs/computePosition#strategy).',
         control: { type: CONTROLS.SELECT },
-        options: ['absolute', 'fixed'],
+        options: Object.values(POPOVER_STRATEGY),
         table: {
-            type: { summary: 'absolute | fixed' },
+            type: { summary: getSelectControlOptions(Object.values(POPOVER_STRATEGY)) },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: popoverDefaultArgs.strategy },
         },
