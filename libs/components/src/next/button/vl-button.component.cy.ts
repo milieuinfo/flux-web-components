@@ -243,6 +243,26 @@ describe('component - vl-button-next', () => {
         cy.get('vl-button-next').should('not.have.attr', 'on');
         cy.get('@vl-toggle').should('not.have.been.called');
     });
+
+    it('should set aria-pressed in case it is a toggle button', () => {
+        cy.mount(html`<vl-button-next toggle></vl-button-next>`);
+
+        cy.get('vl-button-next').shadow().find('button').should('have.attr', 'aria-pressed', 'false');
+
+        cy.get('vl-button-next').click();
+
+        cy.get('vl-button-next').shadow().find('button').should('have.attr', 'aria-pressed', 'true');
+    });
+
+    it('should not set aria-pressed in case it is not a toggle button', () => {
+        cy.mount(html`<vl-button-next></vl-button-next>`);
+
+        cy.get('vl-button-next').shadow().find('button').should('not.have.attr', 'aria-pressed');
+
+        cy.get('vl-button-next').click();
+
+        cy.get('vl-button-next').shadow().find('button').should('not.have.attr', 'aria-pressed');
+    });
 });
 
 describe('component - vl-button-next - cta-link', () => {
