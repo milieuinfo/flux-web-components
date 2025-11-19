@@ -4,7 +4,9 @@ import { classMap } from 'lit-html/directives/class-map.js';
 import { customElement } from 'lit/decorators.js';
 import { FloatingControllerOptions } from '../popover/vl-floating-ui.controller';
 import { VlPopoverComponent } from '../popover/vl-popover.component';
+import { POPOVER_TYPE } from '../popover/vl-popover.model';
 import { vlTooltipFluxStyles } from './vl-tooltip.flux-css';
+import { TOOLTIP_TYPE } from './vl-tooltip.model';
 
 @customElement('vl-tooltip')
 export class VlTooltipComponent extends VlPopoverComponent {
@@ -16,8 +18,11 @@ export class VlTooltipComponent extends VlPopoverComponent {
             distance: { type: Number, attribute: 'distance' },
             hideArrow: { type: Boolean, attribute: 'hide-arrow' },
             strategy: { type: String, attribute: 'strategy' },
+            type: { type: String, attribute: 'type' },
         };
     }
+
+    type: TOOLTIP_TYPE = TOOLTIP_TYPE.DESCRIPTION;
 
     static get styles(): (CSSResult | CSSResult[])[] {
         return [...super.styles, vlTooltipFluxStyles];
@@ -45,8 +50,9 @@ export class VlTooltipComponent extends VlPopoverComponent {
         return {
             ...options,
             trigger: 'hover focus',
-            tooltip: true,
+            type: POPOVER_TYPE.TOOLTIP,
             hideOnClick: false,
+            ariaType: this.type,
         };
     }
 }

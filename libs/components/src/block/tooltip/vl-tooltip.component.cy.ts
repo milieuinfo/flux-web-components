@@ -47,6 +47,23 @@ describe('cypress-component - block components - vl-tooltip', () => {
     });
 });
 
+describe('cypress-component - block components - vl-tooltip - type', () => {
+    it('should have aria-describedby by default', () => {
+        mountDefault();
+        cy.get('#btn-acties').should('have.attr', 'aria-describedby', 'tooltip-default');
+        cy.get('#btn-acties').should('not.have.attr', 'aria-labelledby');
+    });
+
+    it('should have aria-labelledby when type is label', () => {
+        cy.mount(html`
+            <vl-button id="btn-label">Hover me</vl-button>
+            <vl-tooltip id="tooltip-label" for="btn-label" type="label">Een label</vl-tooltip>
+        `);
+        cy.get('#btn-label').should('have.attr', 'aria-labelledby', 'tooltip-label');
+        cy.get('#btn-label').should('not.have.attr', 'aria-describedby');
+    });
+});
+
 describe('cypress-component - block components - vl-tooltip - hover behavior', () => {
     beforeEach(() => {
         mountDelay();

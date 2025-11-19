@@ -1,7 +1,15 @@
 // de import is bewust op deze manier om voor de web-types.generator 'binnen' de monorepo geen side-effect te geven
-import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
+import {
+    CATEGORIES,
+    CONTROLS,
+    defaultArgs,
+    defaultArgTypes,
+    getSelectControlOptions,
+    TYPES,
+} from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components-vite';
 import { tooltipDefaults, TooltipDefaults } from '../vl-tooltip.defaults';
+import { TOOLTIP_STRATEGY, TOOLTIP_TYPE } from '../vl-tooltip.model';
 
 export type TooltipArgs = typeof defaultArgs & TooltipDefaults;
 
@@ -64,10 +72,24 @@ export const tooltipArgTypes: ArgTypes<typeof tooltipDefaultArgs> = {
         name: 'strategy',
         description:
             'Positioneringsstrategie van de tooltip.<br />[Raadpleeg de strategy documentatie van floating-ui](https://floating-ui.com/docs/computePosition#strategy).',
+        control: { type: CONTROLS.SELECT },
+        options: Object.values(TOOLTIP_STRATEGY),
         table: {
-            type: { summary: 'absolute | fixed' },
+            type: { summary: getSelectControlOptions(Object.values(TOOLTIP_STRATEGY)) },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: tooltipDefaultArgs.strategy },
+        },
+    },
+    type: {
+        name: 'type',
+        description:
+            'Aria type van de tooltip. Een tooltip kan dienst doen als "label" van de trigger knop of als extra "description" voor de trigger. Dit bepaalt of de trigger een `aria-labelledby` of `aria-describedby` attribuut krijgt. Standaard gaan we uit van "description". Indien de trigger al een `aria-label` heeft wordt "label" genegeerd.',
+        control: { type: CONTROLS.SELECT },
+        options: Object.values(TOOLTIP_TYPE),
+        table: {
+            type: { summary: getSelectControlOptions(Object.values(TOOLTIP_TYPE)) },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: tooltipDefaultArgs.type },
         },
     },
 };
