@@ -1,10 +1,11 @@
 import { story } from '@domg-wc/common-storybook';
-import { buttonArgs, buttonArgTypes } from './vl-button.stories-arg';
+import { registerWebComponents } from '@domg-wc/common-utilities';
 import { Meta } from '@storybook/web-components';
 import { html } from 'lit';
-import { VlButtonComponent } from '../vl-button.component';
-import { registerWebComponents } from '@domg-wc/common-utilities';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { when } from 'lit/directives/when.js';
+import { VlButtonComponent } from '../vl-button.component';
+import { buttonArgs, buttonArgTypes } from './vl-button.stories-arg';
 import buttonDoc from './vl-button.stories-doc.mdx';
 
 registerWebComponents([VlButtonComponent]);
@@ -73,7 +74,16 @@ const ButtonTemplate = story(
             @vl-click=${onVlClick}
             @vl-toggle=${onVlToggle}
         >
-            ${unsafeHTML(defaultSlot)}
+            ${unsafeHTML(
+                typeof defaultSlot === 'string'
+                    ? `
+                            ${error === true ? 'Error: ' : ''}
+                            ${defaultSlot}
+                            ${disabled === true ? ' (disabled)' : ''}
+                        `
+                    : ''
+            )}
+            ${when(loading, () => html`<span class="vl-visually-hidden">(wordt geladen)</span>`)}
         </vl-button-next>
     `
 );
