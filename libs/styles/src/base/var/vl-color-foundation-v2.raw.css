@@ -10,6 +10,10 @@
     --vl-color--grey-600:             #8695a8;
     --vl-color--grey-700:             #788799;
     --vl-color--grey-800:             #687483;
+    /* edit FLUX: Door de transparantie is deze kleur ook conform de WCAG contrast ratio richtlijnen bij gebruik 
+       op een lichtgrijze achtergrond. Getest met nieuwe en oude grijswaarden: #e8ebee, #f3f5f6, #f7f9fc, #ffffff
+     */
+    --vl-color--grey-800-transparent:  rgba(0, 20, 46, 0.6);
     --vl-color--grey-900:             #4d535b;
     --vl-color--grey-1000:            #333332;
 
@@ -120,7 +124,7 @@
 
     /* ── Icon tokens (reference aliases) ─────────────────────── */
     --vl-color--icon-default:                var(--vl-color--grey-1000);
-    --vl-color--icon-subtle:                 var(--vl-color--grey-800);
+    --vl-color--icon-subtle:                 var(--vl-color--grey-800-transparent); /* edit FLUX */
     --vl-color--icon-disabled:               var(--vl-color--grey-600);
     --vl-color--icon-inverse:                var(--vl-color--white);
     --vl-color--icon-primary:                var(--vl-color--primary);
@@ -138,7 +142,7 @@
 
     /* ── Text tokens (reference aliases) ─────────────────────── */
     --vl-color--text-default:                var(--vl-color--grey-1000);
-    --vl-color--text-subtle:                 var(--vl-color--grey-800);
+    --vl-color--text-subtle:                 var(--vl-color--grey-800-transparent); /* edit FLUX */ 
     --vl-color--text-disabled:               var(--vl-color--grey-600);
     --vl-color--text-inverse:                var(--vl-color--white);
     --vl-color--text-primary:                var(--vl-color--grey-1000);

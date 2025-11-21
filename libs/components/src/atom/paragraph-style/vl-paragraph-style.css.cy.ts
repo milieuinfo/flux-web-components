@@ -26,7 +26,7 @@ describe('cypress-component - atom components - vl-paragraph-style', () => {
     it('should render an introduction paragraph', () => {
         cy.viewport(1100, 800);
         cy.get('.cy-p-introduction').shouldHaveComputedStyle({ style: 'font-size', value: '22px' });
-        cy.get('.cy-p-introduction').shouldHaveComputedStyle({ style: 'color', value: 'rgb(104, 116, 131)' });
+        cy.get('.cy-p-introduction').shouldHaveComputedStyle({ style: 'color', value: 'rgba(0, 20, 46, 0.6)' });
         cy.viewport(1000, 800);
         cy.get('.cy-p-introduction').shouldHaveComputedStyle({ style: 'font-size', value: '20px' });
         cy.viewport(700, 800);

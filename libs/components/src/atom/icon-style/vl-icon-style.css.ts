@@ -29,7 +29,7 @@ export const vlIconStyles: CSSResult = css`
         }
 
         &.vl-icon--light {
-            color: var(--vl-color--text-light);
+            color: var(--vl-color--icon-subtle);
         }
 
         &.vl-icon--right-margin,

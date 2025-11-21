@@ -59,7 +59,7 @@ describe('cypress-component - atom components - vl-icon-style', () => {
     it('should have the light style when set', () => {
         cy.get('.cy-icon-light').shouldHaveComputedStyle({
             style: 'color',
-            value: 'rgb(134, 149, 168)',
+            value: 'rgba(0, 20, 46, 0.6)',
         });
     });
 
