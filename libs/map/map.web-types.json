@@ -1085,6 +1085,11 @@
                             "default": "rgba(2, 85, 204, 0.8)"
                         },
                         {
+                            "name": "invalid",
+                            "description": "Geeft aan of de \"invalid\" stijl toegepast moet worden. Je kan dit gebruiken om de kaartlaag manueel als \"invalid\" te renderen.",
+                            "default": "false"
+                        },
+                        {
                             "name": "data-vl-name",
                             "description": "De naam van de stijl, deze naam wordt getoond als tekst in de legende als de map-legend op de kaart is toegevoegd. Een stijl zonder data-vl-name attribuut zal nooit in de legende getoond worden. Tenzij het om een enkele stijl in een features-layer of wfs-layer gaat, in dat geval wordt de data-vl-name van de layer in de legende getoond."
                         },
@@ -1153,6 +1158,11 @@
                             "name": "data-vl-color",
                             "description": "De kleur van de kaartlaagstijl.",
                             "default": "rgba(2, 85, 204, 0.8)"
+                        },
+                        {
+                            "name": "invalid",
+                            "description": "Geeft aan of de \"invalid\" stijl toegepast moet worden. Je kan dit gebruiken om de kaartlaag manueel als \"invalid\" te renderen.",
+                            "default": "false"
                         },
                         {
                             "name": "data-vl-name",
@@ -1675,6 +1685,11 @@
                         {
                             "name": "data-vl-allow-fullscreen",
                             "description": "Laat de map toe afgebeeld te worden in fullscreen.<br>Dit kan niet gebruikt worden op mobile.<br>Dit attribuut is niet reactief.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "allow-invalid-geometry",
+                            "description": "Standaard worden ongeldige geometrieën gemarkeerd met een rode \"invalid\" stijl. Je kan dit attribuut gebruiken om dit gedrag uit te zetten.",
                             "default": "false"
                         },
                         {

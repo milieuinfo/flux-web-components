@@ -1,3 +1,15 @@
+## [1.49.6](https://github.com/milieuinfo/flux-web-components/compare/v1.49.5...v1.49.6) (2025-11-21)
+
+
+### Bug Fixes
+
+* FLUX-154 - vl-button-next - toegankelijkheid verbeterd ([d288211](https://github.com/milieuinfo/flux-web-components/commit/d288211f7eb3046bb1d638ea5faa18b563358010))
+* FLUX-253 - vl-select-rich - werking events verbeterd ([320421f](https://github.com/milieuinfo/flux-web-components/commit/320421f9b1f9fa476707049a324ec419d0f3a444))
+* FLUX-303 - vl-map-layer-switcher - sync layer visibility ([5e73506](https://github.com/milieuinfo/flux-web-components/commit/5e73506a5168e7ef373cbb653f3d85fbbfcf11de))
+* FLUX-304 - vl-map - invalid style toegevoegd voor invalid geometry, 'allow-invalid-geometry' attribuut en 'hasInvalidGeometries' method toegevoegd op vl-map ([868c1a6](https://github.com/milieuinfo/flux-web-components/commit/868c1a647f015b10d5cebc6cf918435648ae72ee))
+* FLUX-310 - vl-rich-data - escape functionaliteit verbeterd ([8a4febd](https://github.com/milieuinfo/flux-web-components/commit/8a4febd79fb4dd713b1059ba9f1ff01644e9d532))
+* FLUX-358 - vl-properties - columns layout brak uit zijn parent container ([88a4edc](https://github.com/milieuinfo/flux-web-components/commit/88a4edce458a9b2416a89515d95202bd1d44eacf))
+
 ## [1.49.5](https://github.com/milieuinfo/flux-web-components/compare/v1.49.4...v1.49.5) (2025-10-22)
 
 
