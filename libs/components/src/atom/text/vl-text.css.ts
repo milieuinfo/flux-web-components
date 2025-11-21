@@ -28,7 +28,7 @@ export const vlTextStyles: CSSResult = css`
         }
 
         &.vl-text--annotation {
-            color: var(--vl-color--text-alt);
+            color: var(--vl-color--text-subtle);
         }
 
         &.vl-text--small {

@@ -74,14 +74,14 @@ export const vlLinkStyles = (selector = 'a') => css`
         /* Icon styles */
 
         .vl-icon.vl-icon--external {
-            color: var(--vl-color--text-light);
+            color: var(--vl-color--icon-subtle);
         }
 
         &:hover,
         &:focus,
         &:active {
             .vl-icon.vl-icon--external {
-                color: var(--vl-color--text-light);
+                color: var(--vl-color--icon-subtle);
             }
         }
 
@@ -92,7 +92,7 @@ export const vlLinkStyles = (selector = 'a') => css`
         }
 
         &:visited .vl-icon.vl-icon--external {
-            color: var(--vl-color--text-light);
+            color: var(--vl-color--icon-subtle);
         }
 
         &.error:visited .vl-icon {
@@ -100,7 +100,7 @@ export const vlLinkStyles = (selector = 'a') => css`
         }
 
         &.error:visited .vl-icon.vl-icon--external {
-            color: var(--vl-color--text-light);
+            color: var(--vl-color--icon-subtle);
         }
 
         &.neutral {

@@ -243,6 +243,29 @@ Al deze kleuren zijn ontworpen met toegankelijkheid in gedachten en voldoen aan 
 - Grote tekst (24px of 19px vet en groter) moet een minimaal contrast van 3:1 hebben.
 - UI-componenten (zoals knoppen en invoervelden) moeten een minimaal contrast van 3:1 hebben.
 
+### Annotations, externe links, andere subtiel grijze content
+Voor `--vl-color--text-subtle` en `--vl-color--icon-subtle` gebruikten we `--vl-color--grey-800`. Deze kleur had een te
+lage contrast-ratio bij gebruik op een lichtgrijze achtergrond (bv in een table met zebra stijl of alert).
+
+Deze kleur is licht aangepast en heeft een subtiele transparantie meegekregen om ervoor te zorgen dat ze ook voldoet aan
+de WCAG-richtlijnen indien ze op een lichtgrijze achtergrond gebruikt wordt. Dit is getest met nieuwe en oude 
+grijswaarden: #e8ebee, #f3f5f6, #f7f9fc, #ffffff.
+ 
+Op een witte achtergrond komt ze heel dicht in de buurt van de oorspronkelijke `--vl-color--grey-800`, ondanks de 
+transparantie. 
+
+Indien de transparantie problemen geeft in een bepaalde layout, kan je terugvallen op de oorspronkelijke 
+`--vl-color--grey-800` waarde.
+
+Hieronder zie je een voorbeeld van een alert met een annotation tekst en het externe link icoon.
+
+<vl-alert title="Voorbeeld van een alert">
+  <vl-text annotation>Voorbeeld van een annotation tekst.</vl-text><br />
+  <vl-link external href="#">Voorbeeld van het externe link icoon</vl-link>
+</vl-alert>
+
+### Betekenisvolle kleuren
+
 <FluxAlert type="warning">
 {`
 Kleur mag nooit het enige middel zijn om informatie over te brengen. Gebruik altijd een combinatie van kleur, tekst en 

@@ -1,6 +1,7 @@
 import { BaseHTMLElement, webComponent } from '@domg-wc/common';
 import { baseStyle, elementStyle, resetStyle } from '@domg/govflanders-style/common';
 import { documentStyle, iconStyle } from '@domg/govflanders-style/component';
+import { vlDocumentFluxStyles } from './vl-document.flux-css';
 
 @webComponent('vl-document')
 export class VlDocumentComponent extends BaseHTMLElement {
@@ -33,6 +34,7 @@ export class VlDocumentComponent extends BaseHTMLElement {
             elementStyle.styleSheet!,
             documentStyle.styleSheet!,
             iconStyle.styleSheet!,
+            vlDocumentFluxStyles.styleSheet!,
         ];
         super(html, styleSheets);
     }

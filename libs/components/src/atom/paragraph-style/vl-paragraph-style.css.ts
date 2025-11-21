@@ -10,7 +10,7 @@ export const vlParagraphStyles = css`
         &.introduction {
             font-family: var(--vl-font);
             font-size: var(--vl-font-size--xlarge);
-            color: var(--vl-color--text-alt);
+            color: var(--vl-color--text-subtle);
             line-height: 1.5;
         }
 

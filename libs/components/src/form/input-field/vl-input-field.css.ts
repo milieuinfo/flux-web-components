@@ -61,7 +61,7 @@ export const inputFieldStyles = css`
             box-shadow: none;
             outline: 3px solid var(--vl-color--focus);
             outline-offset: 2px;
-            border: 0.1rem solid var(--vl-color--text-light);
+            border: 0.1rem solid var(--vl-color--border-alt);
             padding: 0 1rem;
         }
 
