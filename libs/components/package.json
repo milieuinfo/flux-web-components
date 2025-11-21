@@ -8,8 +8,7 @@
     },
     "dependencies": {
         "@domg-wc/styles": "DOMG-WC-VERSION",
-        "@domg-wc/common": "DOMG-WC-VERSION",
-        "tinymce": "npm:tinymce@6.8.3"
+        "@domg-wc/common": "DOMG-WC-VERSION"
     },
     "web-types": [
         "./atom/atom.web-types.json",
