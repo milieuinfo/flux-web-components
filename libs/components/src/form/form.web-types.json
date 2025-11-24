@@ -162,6 +162,10 @@
                         {
                             "name": "type",
                             "description": "Type van de datepicker",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'date' | 'range' | 'time' | 'date-time'"
+                            },
                             "default": "date"
                         },
                         {
@@ -611,6 +615,10 @@
                         {
                             "name": "mask",
                             "description": "Het mask dat gebruikt moet worden.<br/>Dit attribuut is niet reactief.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'iban' | 'rrn' | 'uuid' | 'date' | 'numerical' | 'price' | 'phone' | 'phoneinternational' | 'mobile'"
+                            },
                             "default": ""
                         },
                         {
@@ -1000,6 +1008,10 @@
                         {
                             "name": "position",
                             "description": "De positie van de dropdown.<br>Dit attribuut is niet reactief.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'auto' | 'top' | 'bottom'"
+                            },
                             "default": "auto"
                         },
                         {

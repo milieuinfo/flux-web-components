@@ -1,5 +1,7 @@
+import { VlIcon } from './vl-icon-list';
+
 export const iconDefaults = {
-    icon: '' as string,
+    icon: '' as VlIcon,
     small: false as boolean,
     large: false as boolean,
     light: false as boolean,

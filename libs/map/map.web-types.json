@@ -456,7 +456,11 @@
                         },
                         {
                             "name": "background-type",
-                            "description": "Met background-type en background-options kan je zelf een achtergrond-laag instellen.<br>Dit attribuut is niet reactief."
+                            "description": "Met background-type en background-options kan je zelf een achtergrond-laag instellen.<br>Dit attribuut is niet reactief.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'xyz' | 'wms' | 'wmts' | 'vector'"
+                            }
                         },
                         {
                             "name": "background-options",
@@ -473,7 +477,11 @@
                         },
                         {
                             "name": "type",
-                            "description": "Het type van de kaartlaag.<br>Dit attribuut is niet reactief."
+                            "description": "Het type van de kaartlaag.<br>Dit attribuut is niet reactief.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'wmts' | 'wfs'"
+                            }
                         },
                         {
                             "name": "url",
@@ -498,7 +506,11 @@
                         },
                         {
                             "name": "background-type",
-                            "description": "Met background-type en background-options kan je zelf een achtergrond-laag instellen.<br>Dit attribuut is niet reactief."
+                            "description": "Met background-type en background-options kan je zelf een achtergrond-laag instellen.<br>Dit attribuut is niet reactief.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'xyz' | 'wms' | 'wmts' | 'vector'"
+                            }
                         },
                         {
                             "name": "background-options",
@@ -515,7 +527,11 @@
                         },
                         {
                             "name": "type",
-                            "description": "Het type van de kaartlaag.<br>Dit attribuut is niet reactief."
+                            "description": "Het type van de kaartlaag.<br>Dit attribuut is niet reactief.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'wmts' | 'wfs'"
+                            }
                         },
                         {
                             "name": "url",
@@ -540,7 +556,11 @@
                         },
                         {
                             "name": "background-type",
-                            "description": "Met background-type en background-options kan je zelf een achtergrond-laag instellen.<br>Dit attribuut is niet reactief."
+                            "description": "Met background-type en background-options kan je zelf een achtergrond-laag instellen.<br>Dit attribuut is niet reactief.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'xyz' | 'wms' | 'wmts' | 'vector'"
+                            }
                         },
                         {
                             "name": "background-options",
@@ -557,7 +577,11 @@
                         },
                         {
                             "name": "type",
-                            "description": "Het type van de kaartlaag.<br>Dit attribuut is niet reactief."
+                            "description": "Het type van de kaartlaag.<br>Dit attribuut is niet reactief.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'wmts' | 'wfs'"
+                            }
                         },
                         {
                             "name": "url",
@@ -582,7 +606,11 @@
                         },
                         {
                             "name": "background-type",
-                            "description": "Met background-type en background-options kan je zelf een achtergrond-laag instellen.<br>Dit attribuut is niet reactief."
+                            "description": "Met background-type en background-options kan je zelf een achtergrond-laag instellen.<br>Dit attribuut is niet reactief.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'xyz' | 'wms' | 'wmts' | 'vector'"
+                            }
                         },
                         {
                             "name": "background-options",
@@ -599,7 +627,11 @@
                         },
                         {
                             "name": "type",
-                            "description": "Het type van de kaartlaag.<br>Dit attribuut is niet reactief."
+                            "description": "Het type van de kaartlaag.<br>Dit attribuut is niet reactief.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'wmts' | 'wfs'"
+                            }
                         },
                         {
                             "name": "url",
@@ -1279,6 +1311,10 @@
                         {
                             "name": "placement",
                             "description": "Bepaalt de plaats van de legende op de kaart.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'top_left' | 'top_right' | 'bottom_left' | 'bottom_right'"
+                            },
                             "default": "bottom_right"
                         },
                         {
@@ -1461,6 +1497,10 @@
                         {
                             "name": "position",
                             "description": "De positie van de dropdown.<br>Dit attribuut is niet reactief.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'auto' | 'top' | 'bottom'"
+                            },
                             "default": "auto"
                         },
                         {
@@ -1555,6 +1595,10 @@
                         {
                             "name": "icon-placement",
                             "description": "De positie van het icoon van de toggle button.<br>Dit attribuut is niet reactief.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'before' | 'after'"
+                            },
                             "default": "before"
                         },
                         {
