@@ -12,6 +12,10 @@ export type WTConfigArray = WTConfig[];
 export interface WTElementAttribute {
     name: string;
     description: string;
+    value?: {
+        kind: string;
+        type: string;
+    };
     default?: string;
 }
 

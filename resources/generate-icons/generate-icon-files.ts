@@ -1,4 +1,4 @@
-// ! Dit script genereert de vl-icon-mapping.css.ts en vl-all-icons.component.ts bestanden.
+// ! Dit script genereert de vl-icon-style-mapping.css.ts en vl-icon-list.component.ts bestanden.
 // ! Voer dit bestand uit met volgend commando: tsx generate-icon-files.ts
 
 import * as fs from 'fs-extra';
@@ -30,7 +30,6 @@ const parseSvgGlyphs = (svgString) => {
 const generateIconMapping = (glyphs) => {
     const iconMapping = glyphs.reduce((mapping, { glyph_name, unicode }) => {
         const parsedUnicode = unicode.slice(unicode.indexOf('x') + 1).replace(';', '');
-
         const cssString = `
             .vl-icon--${glyph_name}::before {
                 content: '\\\\${parsedUnicode}';
@@ -51,84 +50,15 @@ const generateIconMapping = (glyphs) => {
     `;
 };
 
-const generateAllIconsComponent = (glyphs) => {
-    const allIconsLitComponent = `
+const generateIconList = (glyphs) => `
         // ! dit bestand werd gegenereerd door het script: generate-icon-files.ts
 
-        import { CSSResult, LitElement, css, html } from 'lit';
-        import { registerWebComponents, webComponent } from '@domg-wc/common';
-        import { vlIconStyles } from '@domg-wc/styles';
-        import { VlIconComponent } from '@domg-wc/components/atom';
+        export const vlIconList = [${glyphs.map(({ glyph_name }) => `'${glyph_name}'`)}] as const;
 
-        @webComponent('vl-all-icons')
-        export class VlAllIconsComponent extends LitElement {
-            static {
-                registerWebComponents([VlIconComponent]);
-            }
-
-            static override get styles(): CSSResult[] {
-                return [vlIconStyles,
-                    css${'`'}
-                        .container {
-                            display: flex;
-                            flex-wrap: wrap;
-                        }
-
-                        .icon {
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            justify-content: center;
-                            width: 12rem;
-                            margin-bottom: 3rem;
-                            text-align: center;
-                            font-size: 2.4rem;
-                            cursor: copy;
-                        }
-
-                        .name {
-                            font-size: 1.4rem;
-                            display: block;
-                            margin-top: 1rem;
-                        }
-                    ${'`'}
-                ];
-            }
-
-            override render() {
-                const allIcons = [${glyphs.map(({ glyph_name }) => `'${glyph_name}'`)}];
-
-                return html${'`'}
-                    <div class="container">
-                        ${
-                            `$` +
-                            `{allIcons.map((icon) => html${'`'}
-                                <div class="icon" @click=${'$'}{() => this.handleClickIcon(icon)}>
-                                    <vl-icon icon=${'$'}{icon}></vl-icon>
-                                    <span class="name">${'$'}{icon}</span>
-                                </div>
-                        ${'`'})}`
-                        }
-                    </div>
-                ${'`'};
-            }
-
-            private handleClickIcon(icon: string) {
-                navigator.clipboard.writeText(icon);
-            }
-        }
-
-        declare global {
-            interface HTMLElementTagNameMap {
-                'vl-all-icons': VlAllIconsComponent;
-            }
-        }
+        export type VlIcon = '' | typeof vlIconList[number];
     `;
 
-    return allIconsLitComponent;
-};
-
-const writeFile = (location, content) => {
+const writeFile = (location, content) =>
     fs.writeFile(location, content, (err) => {
         if (err) {
             console.error(err);
@@ -136,18 +66,17 @@ const writeFile = (location, content) => {
             // file written successfully
         }
     });
-};
 
 const processIcons = async () => {
     const svgIconString = await getSvgIconString();
     const glyphs = parseSvgGlyphs(svgIconString);
     const iconMapping = generateIconMapping(glyphs);
-    const allIconsComponent = generateAllIconsComponent(glyphs);
+    const iconList = generateIconList(glyphs);
 
-    writeFile('../../libs/styles/src/base/icon/vl-icon-mapping.css.ts', iconMapping);
-    writeFile('../../libs/components/src/block/icon/vl-all-icons.component.ts', allIconsComponent);
+    writeFile('../../libs/components/src/atom/icon-style/vl-icon-style-mapping.css.ts', iconMapping);
+    writeFile('../../libs/components/src/atom/icon/vl-icon-list.ts', iconList);
 };
 
 processIcons();
 
-console.log('iconen gegenereerd - TODO verbeteren');
+console.log('iconen gegenereerd');

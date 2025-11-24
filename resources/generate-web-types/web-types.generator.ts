@@ -88,11 +88,26 @@ const extractDocFileDescription = (component: string, docFile: string): string =
     return description;
 };
 
+const buildAttributeValueList = (values: string): string =>
+    // de values (uit de stories-arg's) zijn niet ge-quote, het resultaat (voor de web-types) moet wel ge-quote zijn
+    values
+        .split('|')
+        .map((value) => `'${value.trim()}'`)
+        .join(' | ');
+
 const buildWTElementAttribute = (key: string, argTypes: ArgTypes): WTElementAttribute => {
     const wtElementAttribute: WTElementAttribute = {
         name: argTypes[key].name,
         description: argTypes[key].description,
     };
+    const tableTypeSummary = argTypes[key]?.table?.type?.summary;
+    if (tableTypeSummary && tableTypeSummary.includes('|')) {
+        // enkel types die enum waardes vertegenwoordigen opnemen in de web-types
+        wtElementAttribute.value = {
+            kind: 'plain',
+            type: buildAttributeValueList(tableTypeSummary),
+        };
+    }
     if (argTypes[key]?.table?.defaultValue) {
         // de schema validatie faalt als bvb. de boolean waarde false of true als default wordt gezet
         wtElementAttribute.default = String(argTypes[key]?.table?.defaultValue.summary);

@@ -45,6 +45,10 @@
                         {
                             "name": "evaluation",
                             "description": "De evaluatiestatus van de verklaring.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'EXPERT_EVALUATED' | 'SELF_EVALUATED' | 'NOT_EVALUATED'"
+                            },
                             "default": "NOT_EVALUATED"
                         },
                         {

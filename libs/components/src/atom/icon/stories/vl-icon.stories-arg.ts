@@ -1,6 +1,7 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components-vite';
 import { iconDefaults } from '../vl-icon.defaults';
+import { vlIconList } from '../vl-icon-list';
 
 type IconArgs = typeof defaultArgs & typeof iconDefaults;
 
@@ -16,16 +17,17 @@ export const iconArgTypes: ArgTypes<IconArgs> = {
         description: 'Het icoon dat moet afgebeeld worden.',
         type: { name: TYPES.STRING, required: true },
         table: {
-            type: { summary: TYPES.STRING },
+            type: { summary: vlIconList.join(' | ') },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: iconArgs.icon },
         },
     },
     label: {
         name: 'label',
-        description: "Een beschrijvende tekst voor het icoon, wordt gebruikt door screenreaders." +
-            " <br><br><strong>Opgelet</strong>: indien \`label\` niet meegegeven wordt, wordt het icoon als" +
-            " 'decoratief' beschouwd en zal het genegeerd worden door screenreaders, door middel van \`aria-hidden\`.",
+        description:
+            'Een beschrijvende tekst voor het icoon, wordt gebruikt door screenreaders.' +
+            ' <br><br><strong>Opgelet</strong>: indien `label` niet meegegeven wordt, wordt het icoon als' +
+            " 'decoratief' beschouwd en zal het genegeerd worden door screenreaders, door middel van `aria-hidden`.",
         type: { name: TYPES.STRING, required: false },
         table: {
             type: { summary: TYPES.STRING },
@@ -80,8 +82,9 @@ export const iconArgTypes: ArgTypes<IconArgs> = {
     },
     clickable: {
         name: 'clickable',
-        description: "**Deprecated**: De \`clickable\` property is deprecated wegens niet WCAG-compliant. Gebruik" +
-            " in de plaats een \`vl-button\` of \`vl-link\` met een icon.",
+        description:
+            '**Deprecated**: De `clickable` property is deprecated wegens niet WCAG-compliant. Gebruik' +
+            ' in de plaats een `vl-button` of `vl-link` met een icon.',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,

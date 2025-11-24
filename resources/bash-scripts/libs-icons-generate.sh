@@ -9,8 +9,8 @@ cd ../generate-icons
 # generate the icons
 tsx generate-icon-files.ts
 # format the generated files
-prettier ../../libs/styles/src/base/icon/vl-icon-mapping.css.ts --write
-prettier ../../libs/components/src/block/icon/vl-all-icons.component.ts --write
+prettier ../../libs/components/src/atom/icon-style/vl-icon-style-mapping.css.ts --write
+prettier ../../libs/components/src/atom/icon/vl-icon-list.ts --write
 
 # back to the initial folder
 cd ../bash-scripts

@@ -30,6 +30,10 @@
                         {
                             "name": "content-padding",
                             "description": "De grootte van de padding van de content.<br>Deze padding wordt toegepast op zowel desktop als mobile.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'none' | 'small' | 'medium' | 'large'"
+                            },
                             "default": "null"
                         },
                         {
@@ -118,6 +122,10 @@
                         {
                             "name": "icon",
                             "description": "Icon van de waarschuwing.<br>Het icoon kan gekozen worden uit de lijst op https://overheid.vlaanderen.be/webuniversum/v3/documentation/atoms/vl-ui-icon.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'warning' | 'check' | 'info-circle'"
+                            },
                             "default": ""
                         },
                         {
@@ -133,6 +141,10 @@
                         {
                             "name": "type",
                             "description": "Soort van de waarschuwing, foutmelding, probleemmelding of succesmelding.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'info' | 'success' | 'warning' | 'error'"
+                            },
                             "default": ""
                         }
                     ],
@@ -206,11 +218,19 @@
                         {
                             "name": "caption-format",
                             "description": "Attribuut bepaalt hoe ieder item in de suggestielijst getoond wordt.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'title-only' | 'subtitle-only' | 'value-only' | 'title-subtitle-vertical' | 'title-subtitle-horizontal' | 'subtitle-title-horizontal'"
+                            },
                             "default": "title-subtitle-vertical"
                         },
                         {
                             "name": "group-by",
                             "description": "Attribuut bepaalt hoe de items in de lijst gegroepeerd moeten worden.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'title' | 'subtitle'"
+                            },
                             "default": ""
                         },
                         {
@@ -402,6 +422,10 @@
                         {
                             "name": "target",
                             "description": "Bepaalt waar de link geopend wordt. Mogelijke waarden zijn `_blank`, `_self`, `_parent` en `_top`.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'_blank' | '_self' | '_parent' | '_top' | 'timeline' | 'question'"
+                            },
                             "default": "_self"
                         }
                     ],
@@ -468,6 +492,10 @@
                         {
                             "name": "margin-bottom",
                             "description": "De grootte van de margin onder de functional header.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'none' | 'small' | 'medium' | 'large'"
+                            },
                             "default": "large"
                         },
                         {
@@ -607,11 +635,19 @@
                         {
                             "name": "size",
                             "description": "Grootte van de info tile. Dit attribuut past de padding van het component aan. Standaard is dit \"small\". De andere opties zijn \"medium\" en \"large\".",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'small' | 'medium' | 'large'"
+                            },
                             "default": ""
                         },
                         {
                             "name": "type",
                             "description": "Type van de info tile. Dit bepaalt de stijl en het uiterlijk van de tile. Standaard is dit \"default\". De andere opties zijn \"alt\", \"error\", \"success\", en \"warning\".",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'default' | 'alt' | 'warning' | 'error' | 'success'"
+                            },
                             "default": ""
                         },
                         {
@@ -1246,6 +1282,10 @@
                         {
                             "name": "type",
                             "description": "Beeldt een stap af in een bepaalde staat.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'highlighted' | 'disabled' | 'success' | 'warning' | 'error'"
+                            },
                             "default": "null"
                         }
                     ]
@@ -1325,6 +1365,10 @@
                         {
                             "name": "type",
                             "description": "The attribute that determines the type. ",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'success' | 'warning' | 'error'"
+                            },
                             "default": ""
                         },
                         {
@@ -1391,21 +1435,37 @@
                         {
                             "name": "content-padding",
                             "description": "De grootte van de padding van de content.<br>Deze padding wordt toegepast op zowel desktop als mobile.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'none' | 'small' | 'medium' | 'large'"
+                            },
                             "default": "medium"
                         },
                         {
                             "name": "placement",
                             "description": "Voorkeursoriëntatie van de popover als de ruimte het toelaat. Je kan ook `-start` of `-end` suffix toevoegen zodat oriëntatie start of eindigt aan respectievelijk begin of einde van het trigger element.<br />[Raadpleeg de placement documentatie van floating-ui](https://floating-ui.com/docs/tutorial#placements).",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'top' | 'right' | 'bottom' | 'left'"
+                            },
                             "default": "bottom"
                         },
                         {
                             "name": "trigger",
                             "description": "Gebruiker interacties die popover zal triggeren. Je kan verschillende combineren door ze met een spatie naast mekaar te zetten. Bv. met `focus hover` zal de popover zowel verschijnen bij focus als bij hover.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'click' | 'focus' | 'hover'"
+                            },
                             "default": "click"
                         },
                         {
                             "name": "strategy",
                             "description": "Positioneringsstrategie van de popover.<br />[Raadpleeg de strategy documentatie van floating-ui](https://floating-ui.com/docs/computePosition#strategy).",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'absolute' | 'fixed'"
+                            },
                             "default": "absolute"
                         }
                     ],
@@ -1712,6 +1772,10 @@
                         {
                             "name": "size",
                             "description": "Dit attribuut bepaalt de grootte van de component.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'xs' | 's' | 'l'"
+                            },
                             "default": "s"
                         },
                         {
@@ -1781,6 +1845,10 @@
                         {
                             "name": "display-style",
                             "description": "Geeft aan op welke manier de tabs getoond worden.<br>Standaard gedrag (`default`) is responsief; bij een breedte groter dan 768px is stijl de `tabs` stijl, anders is het de `collapsed` stijl.<br>Je kan ook expliciet de `tabs` of `collapsed` stijl kiezen die respectievelijk altijd de tabs of altijd de collapsed stijl toont.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'default' | 'tabs' | 'collapsed'"
+                            },
                             "default": "default"
                         },
                         {
@@ -1888,6 +1956,10 @@
                         {
                             "name": "placement",
                             "description": "Voorkeursoriëntatie van de tooltip als de ruimte het toelaat. Je kan ook `-start` of `-end` suffix toevoegen zodat oriëntatie start of eindigt aan respectievelijk begin of einde van het trigger element.<br />[Raadpleeg de placement documentatie van floating-ui](https://floating-ui.com/docs/tutorial#placements).",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'top' | 'right' | 'bottom' | 'left'"
+                            },
                             "default": "bottom"
                         },
                         {
@@ -1903,11 +1975,19 @@
                         {
                             "name": "strategy",
                             "description": "Positioneringsstrategie van de tooltip.<br />[Raadpleeg de strategy documentatie van floating-ui](https://floating-ui.com/docs/computePosition#strategy).",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'absolute' | 'fixed'"
+                            },
                             "default": "absolute"
                         },
                         {
                             "name": "type",
                             "description": "Aria type van de tooltip. Een tooltip kan dienst doen als \"label\" van de trigger knop of als extra \"description\" voor de trigger. Dit bepaalt of de trigger een `aria-labelledby` of `aria-describedby` attribuut krijgt. Standaard gaan we uit van \"description\". Indien de trigger al een `aria-label` heeft wordt \"label\" genegeerd.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'label' | 'description'"
+                            },
                             "default": "description"
                         }
                     ],

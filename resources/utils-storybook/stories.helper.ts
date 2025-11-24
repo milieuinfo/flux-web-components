@@ -63,11 +63,8 @@ export const formatHTML = (input: string) => {
     }
 };
 
-export const getSelectControlOptions = (options: string[]) => {
-    return options.reduce((result, key, currentIndex) => {
-        return result + `"${key}"${currentIndex === options.length - 1 ? '' : ' | '}`;
-    }, '');
-};
+export const getSelectControlOptions = (options: string[]) =>
+    options.join(' | ');
 
 // Logt het event in zowel in Storybook als in de developer console.
 // Logt het event in de developer console omdat in Storybook custom event properties soms niet gelogd worden.

@@ -1,10 +1,11 @@
 import { BaseLitElement, webComponent } from '@domg-wc/common';
-import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
+import { CSSResult, html, PropertyDeclaration, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { vlIconStyles } from '../icon-style/vl-icon-style.css';
 import { vlIconWebComponentStyles } from './vl-icon.css';
 import { iconDefaults } from './vl-icon.defaults';
+import { VlIcon } from './vl-icon-list';
 
 @webComponent('vl-icon')
 export class VlIconComponent extends BaseLitElement {
@@ -23,7 +24,7 @@ export class VlIconComponent extends BaseLitElement {
 
     static get properties(): PropertyDeclarations {
         return {
-            icon: { type: String },
+            icon: { type: String } as PropertyDeclaration<VlIcon>,
             small: { type: Boolean },
             large: { type: Boolean },
             light: { type: Boolean },
