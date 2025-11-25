@@ -31,7 +31,10 @@
                     "resources/changelog/CHANGELOG.md",
                     "package.json",
                     "package-lock.json",
-                    "libs/components/components.web-types.json",
+                    "libs/components/src/atom/atom.web-types.json",
+                    "libs/components/src/block/block.web-types.json",
+                    "libs/components/src/compliance/compliance.web-types.json",
+                    "libs/components/src/form/form.web-types.json",
                     "libs/map/map.web-types.json"
                 ],
                 "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"

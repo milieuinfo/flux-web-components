@@ -246,12 +246,12 @@
                         "events": [
                             {
                                 "name": "search",
-                                "description": "Dit custom event wordt getriggerd wanneer de gebruiker karakters ingeeft in het tekstvak terwijl\n            de component geen items heeft. Gebruik dit event wanneer je de suggestielijst wilt vullen met items uit een\n            API-call. Bekijk de story \"WithInputAndApiCall\" voor meer details.",
+                                "description": "Dit custom event wordt getriggerd wanneer de gebruiker karakters ingeeft in het tekstvak terwijl de component geen items heeft. Gebruik dit event wanneer je de suggestielijst wilt vullen met items uit een API-call. Bekijk de story \"WithInputAndApiCall\" voor meer details.",
                                 "type": "-"
                             },
                             {
                                 "name": "selected-autocomplete",
-                                "description": "Dit custom event wordt getriggerd wanneer de gebruiker een item selecteert uit de suggestielijst.\n            De geselecteerde waarde kan worden opgevraagd via het detail van het event.",
+                                "description": "Dit custom event wordt getriggerd wanneer de gebruiker een item selecteert uit de suggestielijst. De geselecteerde waarde kan worden opgevraagd via het detail van het event.",
                                 "type": "-"
                             },
                             {
@@ -442,7 +442,7 @@
                         },
                         {
                             "name": "disable-back-link",
-                            "description": "Zet de terug-link uit.",
+                            "description": "Schakelt de terug-link uit. Dit zorgt ervoor dat de terug-link gerenderd wordt als button in plaats van als link.<br/><br/> **Let op**: indien je dit attribuut gebruikt, moet je zelf het event `vl-click-back` afhandelen. Het `back-link` attribuut wordt genegeerd indien dit attribuut gebruikt wordt.",
                             "default": "false"
                         },
                         {
@@ -471,6 +471,11 @@
                             "default": "large"
                         },
                         {
+                            "name": "sticky",
+                            "description": "Maakt de functional header sticky.",
+                            "default": "false"
+                        },
+                        {
                             "name": "sub-title",
                             "description": "Tekst van de subtitel.",
                             "default": ""
@@ -492,7 +497,7 @@
                         },
                         {
                             "name": "back-link",
-                            "description": "Wordt afgebeeld ipv de terug-link.<br>Kan niet in combinatie gebruikt worden met:<br>• back attribuut<br>• back-link attribuut<br>• disable-back-link attribuutt<br>• back slot<br>• sub-header slot"
+                            "description": "Wordt afgebeeld ipv de terug-link.<br>Kan niet in combinatie gebruikt worden met:<br>• back attribuut<br>• back-link attribuut<br>• disable-back-link <br>• back slot<br>• sub-header slot"
                         },
                         {
                             "name": "sub-header",
@@ -1360,7 +1365,7 @@
                 },
                 {
                     "name": "vl-popover",
-                    "description": "Een `popover` is een nieuw, meestal kleiner venster / popup dat boven de andere inhoud op het scherm verschijnt.\nGebruik een popover om aanvullende informatie aan de gebruiker te geven of om gebruikersinteractie te vragen.",
+                    "description": "Een popover is een nieuw, meestal kleiner venster / popup dat boven de andere inhoud op het scherm verschijnt.\nHet doel van de popover is het bouwen van context- of submenu's. Je kan deze menu's opbouwen adhv de `vl-popover-action-list` en `vl-popover-action` componenten. De popover kan ook andere interactieve HTML-elementen bevatten.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-popover--documentatie",
                     "attributes": [
                         {
@@ -1380,7 +1385,7 @@
                         },
                         {
                             "name": "distance",
-                            "description": "Afstand van popover tegenover trigger element.",
+                            "description": "Afstand van de popover tegenover het trigger element.",
                             "default": "10"
                         },
                         {
@@ -1390,7 +1395,7 @@
                         },
                         {
                             "name": "placement",
-                            "description": "Voorkeursoriëntatie van de popover als de ruimte het toelaat. Je kan ook `-start` of `-end` suffix toevoegen zodat oriëntatie start of eindigt aan respectievelijk begin of einde van het trigger element.",
+                            "description": "Voorkeursoriëntatie van de popover als de ruimte het toelaat. Je kan ook `-start` of `-end` suffix toevoegen zodat oriëntatie start of eindigt aan respectievelijk begin of einde van het trigger element.<br />[Raadpleeg de placement documentatie van floating-ui](https://floating-ui.com/docs/tutorial#placements).",
                             "default": "bottom"
                         },
                         {
@@ -1400,7 +1405,7 @@
                         },
                         {
                             "name": "strategy",
-                            "description": "Positioneringsstrategie van de popover. <br> [Meer info hier](https://floating-ui.com/docs/computePosition#strategy)",
+                            "description": "Positioneringsstrategie van de popover.<br />[Raadpleeg de strategy documentatie van floating-ui](https://floating-ui.com/docs/computePosition#strategy).",
                             "default": "absolute"
                         }
                     ],
@@ -1457,6 +1462,16 @@
                         {
                             "name": "numeric",
                             "description": "Voorziet numerieke indicatoren bij de stappen.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "static-steps",
+                            "description": "Gebruik het `static-steps` attribuut indien de stappen niet aanklikbaar zijn. Deze worden dan als `div` ipv als `button` gerenderd.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "enable-future-steps",
+                            "description": "Voorkomt het disablen van stappen na de huidige stap.",
                             "default": "false"
                         }
                     ],
@@ -1767,6 +1782,11 @@
                             "name": "display-style",
                             "description": "Geeft aan op welke manier de tabs getoond worden.<br>Standaard gedrag (`default`) is responsief; bij een breedte groter dan 768px is stijl de `tabs` stijl, anders is het de `collapsed` stijl.<br>Je kan ook expliciet de `tabs` of `collapsed` stijl kiezen die respectievelijk altijd de tabs of altijd de collapsed stijl toont.",
                             "default": "default"
+                        },
+                        {
+                            "name": "within-functional-header",
+                            "description": "Duidt aan dat de tabs in de functional header gerenderd worden. Aan de hand van dit attribuut wordt de layout van de tabs licht aangepast.",
+                            "default": "false"
                         }
                     ],
                     "js": {
@@ -1854,6 +1874,59 @@
                             "description": "De inhoud van de toaster. Dit is typisch een vl-alert."
                         }
                     ]
+                },
+                {
+                    "name": "vl-tooltip",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[v2 component]</span><br/>Een tooltip is een klein contextueel venster dat verschijnt wanneer de gebruiker over een element hovert of het element focust. Gebruik een tooltip om korte bijkomende informatie te tonen.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tooltip--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "placement",
+                            "description": "Voorkeursoriëntatie van de tooltip als de ruimte het toelaat. Je kan ook `-start` of `-end` suffix toevoegen zodat oriëntatie start of eindigt aan respectievelijk begin of einde van het trigger element.<br />[Raadpleeg de placement documentatie van floating-ui](https://floating-ui.com/docs/tutorial#placements).",
+                            "default": "bottom"
+                        },
+                        {
+                            "name": "hide-arrow",
+                            "description": "Verbergt de pijl die wijst naar het element die de tooltip triggert.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "distance",
+                            "description": "Afstand van de tooltip tegenover het trigger element.",
+                            "default": "10"
+                        },
+                        {
+                            "name": "strategy",
+                            "description": "Positioneringsstrategie van de tooltip.<br />[Raadpleeg de strategy documentatie van floating-ui](https://floating-ui.com/docs/computePosition#strategy).",
+                            "default": "absolute"
+                        },
+                        {
+                            "name": "type",
+                            "description": "Aria type van de tooltip. Een tooltip kan dienst doen als \"label\" van de trigger knop of als extra \"description\" voor de trigger. Dit bepaalt of de trigger een `aria-labelledby` of `aria-describedby` attribuut krijgt. Standaard gaan we uit van \"description\". Indien de trigger al een `aria-label` heeft wordt \"label\" genegeerd.",
+                            "default": "description"
+                        }
+                    ],
+                    "js": {
+                        "properties": [
+                            {
+                                "name": "for",
+                                "description": "HTML id van het element die de tooltip zal triggeren en waar tegenover de tooltip zich zal oriënteren.",
+                                "type": "string",
+                                "default": ""
+                            },
+                            {
+                                "name": "open",
+                                "description": "Bepaalt of de tooltip open is.",
+                                "type": "boolean",
+                                "default": "false"
+                            }
+                        ]
+                    }
                 },
                 {
                     "name": "vl-typography",

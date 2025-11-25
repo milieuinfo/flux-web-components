@@ -146,7 +146,7 @@
   },
   "web-types": [
     "./libs/components/src/atom/atom.web-types.json",
-    "./libs/components/src/block/basic.web-types.json",
+    "./libs/components/src/block/block.web-types.json",
     "./libs/components/src/compliance/compliance.web-types.json",
     "./libs/components/src/form/form.web-types.json",
     "./libs/map/map.web-types.json"

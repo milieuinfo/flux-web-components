@@ -156,7 +156,7 @@
                         },
                         {
                             "name": "label",
-                            "description": "Een beschrijvende tekst voor het icoon, wordt gebruikt door screenreaders. \n        <br><br><strong>Opgelet</strong>: indien `label` niet meegegeven wordt, wordt het icoon als \n        'decoratief' beschouwd en zal het genegeerd worden door screenreaders, door middel van `aria-hidden`.",
+                            "description": "Een beschrijvende tekst voor het icoon, wordt gebruikt door screenreaders. <br><br><strong>Opgelet</strong>: indien `label` niet meegegeven wordt, wordt het icoon als 'decoratief' beschouwd en zal het genegeerd worden door screenreaders, door middel van `aria-hidden`.",
                             "default": ""
                         },
                         {
@@ -186,7 +186,7 @@
                         },
                         {
                             "name": "clickable",
-                            "description": "**Deprecated**: De `clickable` property is deprecated wegens niet WCAG-compliant. \n            Gebruik in de plaats een `vl-button` of `vl-link` met een icon.",
+                            "description": "**Deprecated**: De `clickable` property is deprecated wegens niet WCAG-compliant. Gebruik in de plaats een `vl-button` of `vl-link` met een icon.",
                             "default": "false"
                         }
                     ]
@@ -208,7 +208,7 @@
                         },
                         {
                             "name": "label",
-                            "description": "Vult het aria-label attribuut van de link in.",
+                            "description": "Vult het aria-label attribuut van de link in. Geef een duidelijke omschrijving mee van waar de link naartoe leidt. bv \"Ga naar Vlaanderen.be (opent in een nieuw venster)",
                             "default": ""
                         },
                         {
