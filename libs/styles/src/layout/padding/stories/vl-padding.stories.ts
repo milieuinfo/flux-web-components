@@ -5,7 +5,7 @@ import vlPaddingStoriesDoc from './vl-padding.stories-doc.mdx';
 import { Meta } from '@storybook/web-components-vite';
 
 export default {
-    id: 'styles-layout-afnemers-padding',
+    id: 'styles-layout-padding',
     title: 'Styles/Layout (afnemers)/padding',
     tags: ['autodocs'],
     parameters: {

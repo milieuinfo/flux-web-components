@@ -14,7 +14,7 @@ import { Meta } from '@storybook/web-components-vite';
 registerWebComponents([VlFormLabelComponent, VlInputFieldComponent, VlButtonComponent]);
 
 export default {
-    id: 'styles-layout-afnemers-grid',
+    id: 'styles-layout-grid',
     title: 'Styles/Layout (afnemers)/grid',
     tags: ['autodocs'],
     parameters: {
@@ -109,7 +109,7 @@ GridResponsive.storyName = 'vl-grid - responsive';
 
 export const GridColumnStart = () => html`
     <style>
-        #story--styles-layout-afnemers-grid--grid-column-start-inner {
+        #story--styles-layout-grid--grid-column-start-inner {
             .vl-grid {
                 --vl-column-min-height: 20px;
                 grid-template-rows: 20px;

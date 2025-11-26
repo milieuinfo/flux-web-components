@@ -3,13 +3,19 @@ import * as VlProzaMessagePreloaderStories from './vl-proza-message-preloader.st
 
 # Proza Message Preloader
 
-<FluxMetaData id="components-block-proza-message-preloader" />
+<FluxComponentMetaData id="components-block-proza-message-proza-message-preloader" />
+
+
+## Doel
 
 Gebruik de `proza-message-preloader` component om alle Proza berichten van een domein in 1 keer op te halen en in
 cache te stoppen.<br/>
 De [proza-message](/docs/components-block-proza-message--proza-message-default) component gaat eerst kijken of het bericht in
 de cache zit vooraleer een request naar buiten te sturen.<br/>
 Deze component voeg je 1 keer toe in je applicatie per domein, bij voorkeur op het hoogste niveau.
+
+
+## Voorbeeld
 
 ```js
 import { VlProzaMessagePreloader } from '@domg-wc/components/block';

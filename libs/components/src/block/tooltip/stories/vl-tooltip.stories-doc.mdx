@@ -3,9 +3,13 @@ import * as VlTooltipStories from './vl-tooltip.stories';
 
 # Tooltip
 
-<FluxMetaData id="components-block-tooltip" />
+<FluxComponentMetaData id="components-block-tooltip" />
 
-Een tooltip is een klein contextueel venster dat verschijnt wanneer de gebruiker over een element hovert of het element focust. Gebruik een tooltip om korte bijkomende informatie te tonen.
+
+## Doel
+
+Een tooltip is een klein contextueel venster dat verschijnt wanneer de gebruiker over een element hovert of het
+element focust. Gebruik een tooltip om korte bijkomende informatie te tonen.
 
 
 ## Voorbeeld
@@ -48,19 +52,21 @@ Je kan een `-start` of `-end` suffix toevoegen zodat de oriëntatie start of ein
 Standaard is `strategy` ingesteld op `absolute`. De tooltip zal gepositioneerd worden ten opzichte van het
 dichtstbijzijnde gepositioneerde parent-element (bv. een element met `position: relative`).
 
-Om te vermijden dat de tooltip gepositioneerd wordt tegenover het verkeerde element, kan je best de eerste parent van 
+Om te vermijden dat de tooltip gepositioneerd wordt tegenover het verkeerde element, kan je best de eerste parent van
 de tooltip instellen op `position: relative` zodat de tooltip steeds gepositioneerd wordt zoals verwacht.
+
 
 ## Varianten
 
 ### Tooltip als label
 
-Een tooltip kan dienst doen als "label" van de trigger knop of als extra "description" voor de trigger. Dit bepaalt of 
-de trigger een `aria-labelledby` of `aria-describedby` attribuut krijgt. Standaard gaan we uit van "description". 
-Indien de trigger al een `aria-label` heeft wordt "label" genegeerd. Voor een patroon waarbij een 
-button enkel een icoon bevat, raden we de default variant aan met `<vl-button label="Mijn aria label">`. 
+Een tooltip kan dienst doen als "label" van de trigger knop of als extra "description" voor de trigger. Dit bepaalt of
+de trigger een `aria-labelledby` of `aria-describedby` attribuut krijgt. Standaard gaan we uit van "description".
+Indien de trigger al een `aria-label` heeft wordt "label" genegeerd. Voor een patroon waarbij een
+button enkel een icoon bevat, raden we de default variant aan met `<vl-button label="Mijn aria label">`.
 
 <Canvas of={VlTooltipStories.TooltipAsLabel} />
+
 
 ## Referenties
 

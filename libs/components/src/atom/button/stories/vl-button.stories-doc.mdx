@@ -3,7 +3,10 @@ import * as VlButtonStories from './vl-button.stories';
 
 # Button
 
-<FluxMetaData id="components-atom-button" />
+<FluxComponentMetaData id="components-atom-button"/>
+
+
+## Doel
 
 Gebruik de `button` component om een button af te beelden op een pagina.
 
@@ -18,12 +21,12 @@ import { VlButtonComponent } from '@domg-wc/components/atom';
 <vl-button></vl-button>
 ```
 
-<Canvas of={VlButtonStories.ButtonPrimary} />
+<Canvas of={VlButtonStories.ButtonPrimary}/>
 
 
 ## Configuratie
 
-<ArgTypes of={VlButtonStories.ButtonPrimary} />
+<ArgTypes of={VlButtonStories.ButtonPrimary}/>
 
 
 ## Varianten
@@ -32,49 +35,49 @@ import { VlButtonComponent } from '@domg-wc/components/atom';
 
 Gebruik een secondary button om een 1 of meerdere buttons af te beelden in combinatie met een primary button.
 
-<Canvas of={VlButtonStories.ButtonSecondary} />
+<Canvas of={VlButtonStories.ButtonSecondary}/>
 
 ### Tertiary
 
 Gebruik een tertiary button om een 1 of meerdere buttons af te beelden in combinatie met een primary button.<br/>
 Een tertiary button is subtieler dan een secondary button.
 
-<Canvas of={VlButtonStories.ButtonTertiary} />
+<Canvas of={VlButtonStories.ButtonTertiary}/>
 
 ### Ghost
 
 Gebruik een ghost button om enkel de knop tekst of icoon af te beelden, zonder opmaak (border, background).
 Een ghost button neemt de andere variaties over van de tertiary button (hover, focus, disabled, error, ...).
 
-<Canvas of={VlButtonStories.ButtonGhost} />
+<Canvas of={VlButtonStories.ButtonGhost}/>
 
 ### Disabled
 
 Gebruik een disabled button om aan te tonen dat een actie niet uitgevoerd kan worden.
 
-<Canvas of={VlButtonStories.ButtonDisabled} />
+<Canvas of={VlButtonStories.ButtonDisabled}/>
 
 ### Error
 
 Gebruik een error button om de belangrijkheid van een actie aan te tonen.
 
-<Canvas of={VlButtonStories.ButtonError} />
+<Canvas of={VlButtonStories.ButtonError}/>
 
 ### Block
 
-<Canvas of={VlButtonStories.ButtonBlock} />
+<Canvas of={VlButtonStories.ButtonBlock}/>
 
 ### Large
 
-<Canvas of={VlButtonStories.ButtonLarge} />
+<Canvas of={VlButtonStories.ButtonLarge}/>
 
 ### Wide
 
-<Canvas of={VlButtonStories.ButtonWide} />
+<Canvas of={VlButtonStories.ButtonWide}/>
 
 ### Narrow
 
-<Canvas of={VlButtonStories.ButtonNarrow} />
+<Canvas of={VlButtonStories.ButtonNarrow}/>
 
 ### Loading
 
@@ -84,22 +87,22 @@ We raden aan een loading button enkel te gebruiken voor primary buttons.<br/>
 Indien je wil dat de loading button ook disabled is, kan je het `disabled` attribuut in combinatie met het `loading`
 attribuut gebruiken.
 
-<Canvas of={VlButtonStories.ButtonLoading} />
+<Canvas of={VlButtonStories.ButtonLoading}/>
 
 ### Icoon
 
-<Canvas of={VlButtonStories.ButtonIcon} />
+<Canvas of={VlButtonStories.ButtonIcon}/>
 
 ### Enkel icoon
 
 Om een icon-only button weer te geven kan je onderstaande code gebruiken.
 Het invullen van het `label` attribuut is hierbij verplicht ([WCAG richtlijn](https://www.w3.org/TR/WCAG22/#name-role-value)).
 
-<Canvas of={VlButtonStories.ButtonIconOnly} />
+<Canvas of={VlButtonStories.ButtonIconOnly}/>
 
 Voor een variant zonder opmaak (border, background), kan je het `ghost` attribuut gebruiken.
 
-<Canvas of={VlButtonStories.ButtonIconOnlyGhost} />
+<Canvas of={VlButtonStories.ButtonIconOnlyGhost}/>
 
 ### Toggle
 
@@ -109,7 +112,7 @@ Gebruik het `on` attribuut om de button programmatorisch aan- of uit te zetten.<
 Gebruik het `controlled` attribuut als je wil dat de button zich niet zelf aan- of uitzet, gebruik dan het `on`
 attribuut om de button aan- of uit te zetten.
 
-<Canvas of={VlButtonStories.ButtonToggle} />
+<Canvas of={VlButtonStories.ButtonToggle}/>
 
 ### CTA link
 
@@ -121,22 +124,22 @@ naar een andere pagina te navigeren.
 Aanbevelingen:
 
 -   probeer `cta-link` enkel te gebruiken als het echt nodig is, zoals om de aandacht te vestigen op een link
-    voor het uitvoeren van een belangrijke actie, bv.:
-    -   een link, die in een overzicht van objecten, wijst naar een formulier om een nieuw object aan te maken
-    -   de "Begin hier" link in een onboarding flow
-    -   bij "Registreer" of "Maak een account aan"
+voor het uitvoeren van een belangrijke actie, bv.:
+-   een link, die in een overzicht van objecten, wijst naar een formulier om een nieuw object aan te maken
+-   de "Begin hier" link in een onboarding flow
+-   bij "Registreer" of "Maak een account aan"
 -   zorg ervoor dat de stijl verschillend is t.o.v. een standaard button (gebruik bv. een icoon)
 
 Beperkingen:
 
 -   bij gebruik van `cta-link` wordt de `<button>` tag vervangen door een `<a>` tag, hierdoor kan dit niet binnen een
-    form gebruikt worden
+form gebruikt worden
 -   het type attribuut heeft geen effect bij gebruik van `cta-link`
 
 Meer context over wanneer een button of een link te gebruiken kan je vinden in de blogpost
 ['but sometimes buttons look like links'](https://adamsilver.io/blog/but-sometimes-buttons-look-like-links/).
 
-<Canvas of={VlButtonStories.ButtonCtaLink} />
+<Canvas of={VlButtonStories.ButtonCtaLink}/>
 
 ### Input Group
 

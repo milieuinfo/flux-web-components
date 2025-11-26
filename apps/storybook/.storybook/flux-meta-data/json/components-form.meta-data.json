@@ -1,0 +1,171 @@
+{
+    "components-form-checkbox": {
+        "name": "checkbox",
+        "docs": "components-form-checkbox--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "components-form-datepicker": {
+        "name": "datepicker",
+        "docs": "components-form-datepicker--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-132"
+        }
+    },
+    "components-form-form-label": {
+        "name": "form-label",
+        "docs": "components-form-form-label--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "components-form-form-message": {
+        "name": "form-message",
+        "docs": "components-form-form-message--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-224"
+        }
+    },
+    "components-form-input-field": {
+        "name": "input-field",
+        "docs": "components-form-input-field--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-197"
+        }
+    },
+    "components-form-input-field-masked": {
+        "name": "input-field-masked",
+        "docs": "components-form-input-field-masked--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-257"
+        }
+    },
+    "components-form-input-group": {
+        "name": "input-group",
+        "docs": "components-form-input-group--documentatie",
+        "condition": {
+            "base": "n.v.t.",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "components-form-radio-group": {
+        "name": "radio-group",
+        "docs": "components-form-radio-group--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-186"
+        }
+    },
+    "components-form-select": {
+        "name": "select",
+        "docs": "components-form-select--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "components-form-select-rich": {
+        "name": "select-rich",
+        "docs": "components-form-select-rich--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-86"
+        }
+    },
+    "components-form-textarea": {
+        "name": "textarea",
+        "docs": "components-form-textarea--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "components-form-textarea-rich": {
+        "name": "textarea-rich",
+        "docs": "components-form-textarea-rich--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-192"
+        }
+    },
+    "components-form-upload": {
+        "name": "upload",
+        "docs": "components-form-upload--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-193"
+        }
+    }
+}

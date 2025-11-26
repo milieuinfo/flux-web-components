@@ -7,8 +7,8 @@ import prozaMessagePreloaderDoc from './vl-proza-message-preloader.stories-doc.m
 import { prozaMessageMockDomainData } from './vl-proza-message.stories-msw';
 
 export default {
-    id: 'components-block-proza-message-preloader',
-    title: 'Components - Block/proza-message-preloader',
+    id: 'components-block-proza-message-proza-message-preloader',
+    title: 'Components - Block/proza-message/proza-message-preloader',
     tags: ['autodocs'],
     args: prozaMessagePreloaderArgs,
     argTypes: prozaMessagePreloaderArgTypes,

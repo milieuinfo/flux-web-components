@@ -1,13 +1,13 @@
 import { useOf } from '@storybook/addon-docs/blocks';
 import React from 'react';
-import { FluxMetaData } from '../flux-meta-data/flux-meta-data.component';
+import { FluxComponentMetaData } from '../flux-meta-data/flux-component-meta-data.component';
 
 export const FluxHeader = ({ of }) => {
     const storyData = useOf(of || 'story', ['story']);
     return (
         <div>
             <h1>{formatTitle(storyData?.story?.title)}</h1>
-            <FluxMetaData id={storyData?.story?.componentId} />
+            <FluxComponentMetaData id={storyData?.story?.componentId} />
         </div>
     );
 };

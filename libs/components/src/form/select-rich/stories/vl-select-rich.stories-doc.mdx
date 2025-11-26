@@ -4,7 +4,10 @@ import FormControlPublicMethods from '../../form-control/stories/form-control.pu
 
 # Select Rich
 
-<FluxMetaData id="components-form-select-rich" />
+<FluxComponentMetaData id="components-form-select-rich" />
+
+
+## Doel
 
 Gebruik de `select-rich` component om een uitgebreid select of multiselect veld toe te voegen aan een pagina.<br/>
 Zie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.
@@ -62,11 +65,13 @@ Vinkt 1 of meerdere opties uit op basis van de value.
 
 Vinkt alle opties uit.
 
+
 ## Styles
 
 De styles van DV zijn lokaal gezet en aangepast omdat deze niet CSP compliant waren.<br/>
 Er werd gebruik gemaakt van een `data:` attribuut om een SVG op te halen van w3.org.
 Hierdoor breekt de CSP compliance tenzij je alle `data:` attributen whitelist, wat niet de bedoeling is.
+
 
 ## Events
 
@@ -88,6 +93,7 @@ een array van strings.
 
 Wanneer de gebruiker een zoekopdracht uitvoert, wordt het `vl-search` event afgevuurd,
 het detail object van dit event bevat de zoekterm die de gebruiker heeft ingegeven.<br/>
+
 
 ## Select opties
 
@@ -135,6 +141,7 @@ Als de form reset, worden deze opties getoond in de select component.<br/>
 
 Indien je de `opties` direct in de template zet bij het laden van de `vl-select-rich`, worden deze intern ingesteld als
 de `initial-options` property.<br/>
+
 
 ## Accessibility
 
@@ -285,6 +292,7 @@ Indien de 'required' boolean op true staat, moet je een value programmatorisch s
 ]`} language="ts" dark={true} />
 </details>
 
+
 ## Validatie
 
 Meer info over validatie binnen onze form componenten vind je hier:
@@ -299,8 +307,6 @@ Meer info over validatie binnen onze form componenten vind je hier:
 
 ### Digitaal Vlaanderen
 
-[Documentatie Digitaal Vlaanderen -
-    Select](https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-select)
+[Documentatie Digitaal Vlaanderen - Select](https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-select)
 
-[Documentatie Digitaal Vlaanderen -
-    Multiselect](https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-multiselect)
+[Documentatie Digitaal Vlaanderen - Multiselect](https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-multiselect)

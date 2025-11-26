@@ -8,10 +8,13 @@ import { filterOutClasses, filterOutDataCy, formatHTML } from '@resources/utils-
 import { addons } from 'storybook/internal/preview-api';
 import { FluxAlert } from './flux-alert/flux-alert.component';
 import FluxDocument from './flux-document/flux-document.template.mdx';
-import { FluxMetaData } from './flux-meta-data/flux-meta-data.component';
+import { FluxComponentEvolution } from './flux-meta-data/flux-component-evolution.component';
 import { initialize, mswLoader } from 'msw-storybook-addon';
 import { FluxCanvasIframe } from './flux-canvas-iframe/flux-canvas-iframe';
 import { STORY_CHANGED } from 'storybook/internal/core-events';
+import { FluxComponentCondition } from './flux-meta-data/flux-component-condition.component';
+import { FluxComponentMetaData } from './flux-meta-data/flux-component-meta-data.component';
+import { FluxComponentOverview } from './flux-meta-data/flux-component-overview.component';
 
 // Start MSW in Storybook. Laat on-handled requests doorgaan (geen errors in non-mock stories).
 initialize({ onUnhandledRequest: 'bypass' });
@@ -26,7 +29,7 @@ export const parameters = {
         sort: 'alpha',
     },
     docs: {
-        components: { FluxAlert, FluxMetaData, FluxCanvasIframe },
+        components: { FluxAlert, FluxComponentOverview, FluxComponentMetaData, FluxComponentEvolution, FluxComponentCondition, FluxCanvasIframe },
         transformSource: (input: string, { id }: { id: string }) => {
             if (id.startsWith('elements-')) {
                 return formatHTML(filterOutDataCy(filterOutClasses(input)));

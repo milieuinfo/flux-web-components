@@ -1,17 +1,17 @@
 const spacerDefaultUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-spacer--spacer-default&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-spacer--spacer-default&viewMode=story';
 const spacerXXSmallUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-spacer--spacer-xx-small&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-spacer--spacer-xx-small&viewMode=story';
 const spacerXSmallUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-spacer--spacer-x-small&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-spacer--spacer-x-small&viewMode=story';
 const spacerSmallUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-spacer--spacer-small&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-spacer--spacer-small&viewMode=story';
 const spacerMediumUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-spacer--spacer-medium&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-spacer--spacer-medium&viewMode=story';
 const spacerLargeUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-spacer--spacer-large&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-spacer--spacer-large&viewMode=story';
 const spacerNoneUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-spacer--spacer-none&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-spacer--spacer-none&viewMode=story';
 
 describe('cypress-e2e - layout - vl-spacer - default story', () => {
     it('should render', () => {

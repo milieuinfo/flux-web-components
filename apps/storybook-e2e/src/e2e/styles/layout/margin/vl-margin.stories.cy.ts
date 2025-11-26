@@ -1,14 +1,14 @@
 const marginDefaultUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-margin--margin-default&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-margin--margin-default&viewMode=story';
 const marginSmallUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-margin--margin-small&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-margin--margin-small&viewMode=story';
 const marginMediumUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-margin--margin-medium&viewMode=story';
-const marginNoUrl = 'http://localhost:8080/iframe.html?id=styles-layout-afnemers-margin--margin-no&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-margin--margin-medium&viewMode=story';
+const marginNoUrl = 'http://localhost:8080/iframe.html?id=styles-layout-margin--margin-no&viewMode=story';
 const marginNoBottomUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-margin--margin-no-bottom&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-margin--margin-no-bottom&viewMode=story';
 const marginNoTopUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-margin--margin-no-top&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-margin--margin-no-top&viewMode=story';
 
 describe('cypress-e2e - layout - vl-margin - default story', () => {
     it('should render', () => {

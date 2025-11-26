@@ -1,0 +1,160 @@
+{
+    "components-atom-button-style": {
+        "name": "button-style",
+        "docs": "components-atom-button-style--documentatie",
+        "condition": {
+            "base": "CSSResult",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        },
+        "evolution": {
+            "vStatus": "v2-style-atom"
+        }
+    },
+    "components-atom-button": {
+        "name": "button",
+        "docs": "components-atom-button--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-250"
+        }
+    },
+    "components-atom-heading-style": {
+        "name": "heading-style",
+        "docs": "components-atom-heading-style--documentatie",
+        "condition": {
+            "base": "CSSResult",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        },
+        "evolution": {
+            "vStatus": "v2-style-atom"
+        }
+    },
+    "components-atom-icon-style": {
+        "name": "icon-style",
+        "docs": "components-atom-icon-style--documentatie",
+        "condition": {
+            "base": "CSSResult",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        },
+        "evolution": {
+            "vStatus": "v2-style-atom"
+        }
+    },
+    "components-atom-icon": {
+        "name": "icon",
+        "docs": "components-atom-icon--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "components-atom-link-style": {
+        "name": "link-style",
+        "docs": "components-atom-link-style--documentatie",
+        "condition": {
+            "base": "CSSResult",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        },
+        "evolution": {
+            "vStatus": "v2-style-atom"
+        }
+    },
+    "components-atom-link": {
+        "name": "link",
+        "docs": "components-atom-link--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "components-atom-paragraph-style": {
+        "name": "paragraph-style",
+        "docs": "components-atom-paragraph-style--documentatie",
+        "condition": {
+            "base": "CSSResult",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        },
+        "evolution": {
+            "vStatus": "v2-style-atom"
+        }
+    },
+    "components-atom-paragraph": {
+        "name": "paragraph",
+        "docs": "components-atom-paragraph--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "components-atom-text": {
+        "name": "text",
+        "docs": "components-atom-text--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "components-atom-title": {
+        "name": "title",
+        "docs": "components-atom-title--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-280"
+        }
+    }
+}

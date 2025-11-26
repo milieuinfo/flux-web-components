@@ -1,7 +1,7 @@
 import { CATEGORIES } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components-vite';
 import * as fs from 'fs-extra';
-import { FluxMetaDataModel } from '../../apps/storybook/.storybook/flux-meta-data/flux-meta-data.model';
+import { FluxMetaDataComponent } from '../../apps/storybook/.storybook/flux-meta-data/flux-meta-data.model';
 import {
     WTConfig,
     WTConfigArray,
@@ -17,7 +17,7 @@ import { buildWTConfigComponentsBlock } from './wt-config-build/components-block
 import { buildWTConfigComponentsCompliance } from './wt-config-build/components-compliance.wt-config';
 import { buildWTConfigComponentsForm } from './wt-config-build/components-form.wt-config';
 import { buildWTConfigMap } from './wt-config-build/map.wt-config';
-import fluxMetaData from '../../apps/storybook/.storybook/flux-meta-data/flux-meta-data.json';
+import { fluxAllMetaData } from '../../apps/storybook/.storybook/flux-meta-data/flux-meta-data.data';
 
 const templateFileLocation: string = './wt-template/web-types.template';
 
@@ -28,8 +28,8 @@ const readTemplateFile = () => fs.readFileSync(templateFileLocation).toString();
 const buildDocUrl = (version: string, storyBookPath: string) =>
     docUrl.replace('$VERSION', version).replace('$STORYBOOK-PATH', storyBookPath);
 
-const buildPrefix = (fluxMetaDataModel: FluxMetaDataModel): string => {
-    switch (fluxMetaDataModel?.vStatus) {
+const buildPrefix = (fluxMetaDataComponent: FluxMetaDataComponent): string => {
+    switch (fluxMetaDataComponent?.evolution?.vStatus) {
         case 'replaced':
         case 'v2-replace':
         case 'v2-remove':
@@ -65,12 +65,12 @@ const extractDocFileDescription = (component: string, docFile: string): string =
             firstHashLinePassed = true;
             continue;
         }
-        if (!fluxMetaDataPassed && line.includes('FluxMetaData')) {
-            // de <FluxMetaData /> maakt geen deel uit van de omschrijving
+        if (!fluxMetaDataPassed && line.includes('FluxComponentEvolution')) {
+            // de <FluxComponentEvolution /> maakt geen deel uit van de omschrijving
             fluxMetaDataPassed = true;
             // de id bepalen
             const componentId = line.split('"')[1];
-            prefix = buildPrefix(fluxMetaData[componentId]);
+            prefix = buildPrefix(fluxAllMetaData()[componentId]);
             continue;
         }
         if (firstHashLinePassed && fluxMetaDataPassed) {

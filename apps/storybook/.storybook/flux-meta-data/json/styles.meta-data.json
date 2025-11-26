@@ -1,0 +1,196 @@
+{
+    "styles-base-body": {
+        "name": "base - body",
+        "docs": "styles-base-body--documentatie",
+        "condition": {
+            "base": "CSSResult",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        },
+        "evolution": {
+            "vStatus": "v2-style-base"
+        }
+    },
+    "styles-base-font": {
+        "name": "base - font",
+        "docs": "styles-base-font--documentatie",
+        "condition": {
+            "base": "CSSResult",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        },
+        "evolution": {
+            "vStatus": "v2-style-base"
+        }
+    },
+    "styles-base-mixin": {
+        "name": "base - mixin",
+        "docs": "styles-base-mixin--documentatie",
+        "condition": {
+            "base": "CSSResult",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        },
+        "evolution": {
+            "vStatus": "v2-style-base"
+        }
+    },
+    "styles-base-var": {
+        "name": "base - var",
+        "docs": "styles-base-var--documentatie",
+        "condition": {
+            "base": "CSSResult",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        },
+        "evolution": {
+            "vStatus": "v2-style-base"
+        }
+    },
+    "styles-layout-accessibility": {
+        "name": "layout - accessibility",
+        "docs": "styles-layout-accessibility--documentatie",
+        "condition": {
+            "base": "CSSResult",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "styles-layout-content-block": {
+        "name": "layout - content-block",
+        "docs": "styles-layout-content-block--documentatie",
+        "condition": {
+            "base": "CSSResult",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-96"
+        }
+    },
+    "styles-layout-grid": {
+        "name": "layout - grid",
+        "docs": "styles-layout-grid--documentatie",
+        "condition": {
+            "base": "CSSResult",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "styles-layout-group": {
+        "name": "layout - group",
+        "docs": "styles-layout-group--documentatie",
+        "condition": {
+            "base": "CSSResult",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "styles-layout-margin": {
+        "name": "layout - margin",
+        "docs": "styles-layout-margin--documentatie",
+        "condition": {
+            "base": "CSSResult",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "styles-layout-padding": {
+        "name": "layout - padding",
+        "docs": "styles-layout-padding--documentatie",
+        "condition": {
+            "base": "CSSResult",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "styles-layout-section": {
+        "name": "layout - section",
+        "docs": "styles-layout-section--documentatie",
+        "condition": {
+            "base": "CSSResult",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "styles-layout-separator": {
+        "name": "layout - separator",
+        "docs": "styles-layout-separator--documentatie",
+        "condition": {
+            "base": "CSSResult",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "styles-layout-spacer": {
+        "name": "layout - spacer",
+        "docs": "styles-layout-spacer--documentatie",
+        "condition": {
+            "base": "CSSResult",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "styles-layout-stacked": {
+        "name": "layout - stacked",
+        "docs": "styles-layout-stacked--documentatie",
+        "condition": {
+            "base": "CSSResult",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    }
+}

@@ -1,7 +1,7 @@
 const contentBlockDefaultUrl =
-    'http://localhost:8080/iframe.html?args=&id=styles-layout-afnemers-content-block--content-block-default&viewMode=story';
+    'http://localhost:8080/iframe.html?args=&id=styles-layout-content-block--content-block-default&viewMode=story';
 const contentBlockFullWidthUrl =
-    'http://localhost:8080/iframe.html?args=&id=styles-layout-afnemers-content-block--content-block-full-width&viewMode=story';
+    'http://localhost:8080/iframe.html?args=&id=styles-layout-content-block--content-block-full-width&viewMode=story';
 
 describe('cypress-e2e - layout - vl-content-block - default story', () => {
     it('should render - default', () => {

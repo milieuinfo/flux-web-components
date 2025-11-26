@@ -1,11 +1,11 @@
 const groupButtonsUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-group--group-buttons&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-group--group-buttons&viewMode=story';
 const groupLinksUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-group--group-links&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-group--group-links&viewMode=story';
 const groupAccordionsUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-group--group-accordions&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-group--group-accordions&viewMode=story';
 const groupIconsUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-group--group-icons&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-group--group-icons&viewMode=story';
 
 describe('cypress-e2e - layout - vl-group - buttons story', () => {
     it('should render', () => {

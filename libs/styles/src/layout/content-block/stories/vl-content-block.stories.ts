@@ -8,7 +8,7 @@ import { vlContentBlockArgs, vlContentBlockArgTypes } from './vl-content-block.s
 import vlContentBlockStoriesDoc from './vl-content-block.stories-doc.mdx';
 
 export default {
-    id: 'styles-layout-afnemers-content-block',
+    id: 'styles-layout-content-block',
     title: 'Styles/Layout (afnemers)/content-block',
     tags: ['autodocs'],
     args: vlContentBlockArgs,

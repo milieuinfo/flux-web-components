@@ -1,26 +1,30 @@
-import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import { ArgTypes } from '@storybook/addon-docs/blocks';
 import * as VlFooterStories from './vl-footer.stories';
 
 # Digitaal Vlaanderen Footer
 
-<FluxMetaData id="components-compliance-footer-next" />
+<FluxComponentMetaData id="components-compliance-footer-next"/>
+
+
+## Doel
 
 Injecteert de footer widget (v5) van Digitaal Vlaanderen.
 Default wordt de footer geïnjecteerd in het native `<body>` element.
 
-Voor het consistent gebruik van de footer doorheen alle applicaties van Departement Omgeving, raden we aan om volgende 
-template aan te houden: 
+Voor het consistent gebruik van de footer doorheen alle applicaties van Departement Omgeving, raden we aan om volgende
+template aan te houden:
 
 
->   **[app-name] is een officiële website van de Vlaamse overheid**  
->    uitgegeven door Departement Omgeving  
+>   **[app-name] is een officiële website van de Vlaamse overheid**
+>    uitgegeven door Departement Omgeving
 
 
 "Departement Omgeving" is hierbij een externe link naar https://omgeving.vlaanderen.be/.
 
 Deze gegevens worden beheerd door Digitaal Vlaanderen en kunnen ingesteld worden bij het verkrijgen van de unieke
-identifier. Deze identifier kan aangevraagd worden bij Team Infra van Departement Omgeving of via dit 
+identifier. Deze identifier kan aangevraagd worden bij Team Infra van Departement Omgeving of via dit
 [stappenplan](https://www.vlaanderen.be/digitaal-vlaanderen/onze-diensten-en-platformen/mijn-burgerprofiel/global-header-en-footer#stappenplan-koppeling-met-de-global-header-en-footer) van Digitaal Vlaanderen.
+
 
 ## Voorbeeld
 
@@ -32,12 +36,12 @@ import { VlFooterNext } from '@domg-wc/components/compliance';
 <vl-footer-next></vl-footer-next>
 ```
 
-<FluxCanvasIframe height="166" />
+<FluxCanvasIframe height="166"/>
 
 
 ## Configuratie
 
-<ArgTypes of={VlFooterStories.FooterDefault} />
+<ArgTypes of={VlFooterStories.FooterDefault}/>
 
 
 ## Referenties

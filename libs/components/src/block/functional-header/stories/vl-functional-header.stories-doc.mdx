@@ -3,7 +3,10 @@ import * as VlFunctionalHeaderStories from './vl-functional-header.stories';
 
 # Functional Header
 
-<FluxMetaData id="components-block-functional-header" />
+<FluxComponentMetaData id="components-block-functional-header" />
+
+
+## Doel
 
 Gebruik de `functional-header` component om bovenaan de pagina generieke informatie te tonen zoals bijvoorbeeld
 een titel en acties.
@@ -27,29 +30,29 @@ De volgende richtlijnen gelden voor het instellen van de "Terug"-link:
 
 - Vermijd het gebruik van `history.back()`. De gebruiker kan op verschillende manieren op je pagina belandt zijn.
 - Je moet expliciet een URL instellen.
-    - De ingestelde URL verwijst naar een vast en logisch startpunt, 
+    - De ingestelde URL verwijst naar een vast en logisch startpunt,
       relatief tov de pagina waarop de gebruiker zich bevindt.
     - Kies als URL het startpunt van de toepassing, tenzij deze meerdere luiken bevat. Kies in dat geval het startpunt
-      van het huidige luik. 
+      van het huidige luik.
     - Je kan de URL van de "Terug"-link vervangen met het `back-link`-attribuut.
-- "Terug" moet vermeden worden als naam, want het zegt niet naar waar je terugkeert. 
+- "Terug" moet vermeden worden als naam, want het zegt niet naar waar je terugkeert.
   Je kan de tekst van de "Terug"-link vervangen met het `back`-slot.
-- Indien de functional header "breadcrumbs" bevat ipv een "Terug"-link, 
-  zoals in de [breadcrumbs variant](#met-breadcrumb), dan wijst de eerste link altijd naar het "startpunt" van de 
+- Indien de functional header "breadcrumbs" bevat ipv een "Terug"-link,
+  zoals in de [breadcrumbs variant](#met-breadcrumb), dan wijst de eerste link altijd naar het "startpunt" van de
   toepassing. Vermijd termen als "Home" of "Start", maar gebruik de naam van de toepassing of de naam van het luik
   waar je naar terugkeert.
-- Vergeet de "Terug"-link ook niet in te stellen op de statische pagina's: 
-  [privacy](/docs/components-compliance-privacy--documentatie), 
-  [toegankelijkheid](/docs/components-compliance-accessibility--documentatie) en 
-  [cookieverklaring](/docs/components-compliance-cookie-statement--documentatie). 
+- Vergeet de "Terug"-link ook niet in te stellen op de statische pagina's:
+  [privacy](/docs/components-compliance-privacy--documentatie),
+  [toegankelijkheid](/docs/components-compliance-accessibility--documentatie) en
+  [cookieverklaring](/docs/components-compliance-cookie-statement--documentatie).
   Je kan de standaard functional header in deze componenten vervangen
-  met het `header`-slot. 
+  met het `header`-slot.
 - Je kan de "Terug"-link in zijn geheel vervangen met het `back-link`-slot.
 
 ## Sticky functional header
 
 Je kan de functional header "sticky" maken door het `sticky`-attribuut toe te voegen. Dit zorgt ervoor dat de header
-bovenaan het scherm blijft plakken wanneer je naar beneden scrollt. Indien er een side navigation aanwezig is op de 
+bovenaan het scherm blijft plakken wanneer je naar beneden scrollt. Indien er een side navigation aanwezig is op de
 pagina, houdt die rekening met de hoogte van de sticky functional header bij het bepalen van de scroll offset. Een
 demo van deze opzet vind je hier: [Voorbeeld Met Sticky En Side Navigation](/docs/ontwerp-functional-header-voorbeeld-met-sticky-en-side-navigation--functional-header-sticky-with-side-navigation).
 

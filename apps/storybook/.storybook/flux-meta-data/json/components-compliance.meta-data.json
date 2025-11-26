@@ -1,0 +1,130 @@
+{
+    "components-compliance-accessibility": {
+        "name": "accessibility",
+        "docs": "components-compliance-accessibility--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "components-compliance-cookie-consent": {
+        "name": "cookie-consent",
+        "docs": "components-compliance-cookie-consent--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "components-compliance-cookie-statement": {
+        "name": "cookie-statement",
+        "docs": "components-compliance-cookie-statement--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-95"
+        }
+    },
+    "components-compliance-footer": {
+        "name": "footer",
+        "docs": "components-compliance-footer--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        },
+        "evolution": {
+            "vStatus": "v2-replace",
+            "legacyText": "vl-footer",
+            "nextText": "[vl-footer-next](/docs/components-compliance-footer-next--documentatie)",
+            "planningInfo": "[v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#footer)"
+        }
+    },
+    "components-compliance-footer-next": {
+        "name": "footer-next",
+        "docs": "components-compliance-footer-next--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "n.v.t.",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        },
+        "evolution": {
+            "vStatus": "v3-next",
+            "legacyText": "[vl-footer](/docs/components-compliance-footer--documentatie)",
+            "nextText": "vl-footer-next",
+            "planningInfo": "[v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#footer)"
+        }
+    },
+    "components-compliance-header": {
+        "name": "header",
+        "docs": "components-compliance-header--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-113"
+        },
+        "evolution": {
+            "vStatus": "v2-replace",
+            "legacyText": "vl-header",
+            "nextText": "[vl-header-next](/docs/components-compliance-header-next--documentatie)",
+            "planningInfo": "[v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#header)"
+        }
+    },
+    "components-compliance-header-next": {
+        "name": "header-next",
+        "docs": "components-compliance-header-next--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        },
+        "evolution": {
+            "vStatus": "v3-next",
+            "legacyText": "[vl-header](/docs/components-compliance-header--documentatie)",
+            "nextText": "vl-header-next",
+            "planningInfo": "[v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#header)"
+        }
+    },
+    "components-compliance-privacy": {
+        "name": "privacy",
+        "docs": "components-compliance-privacy--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    }
+}
