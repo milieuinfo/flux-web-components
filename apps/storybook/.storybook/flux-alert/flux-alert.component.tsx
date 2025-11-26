@@ -20,10 +20,16 @@ export const FluxAlert = ({
 };
 
 declare global {
-    // eslint-disable-line @typescript-eslint/no-namespace
     namespace JSX {
         interface IntrinsicElements {
-            'vl-alert': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+            'vl-alert': React.HTMLAttributes<HTMLElement> & {
+                icon?: string;
+                title?: string;
+                type?: string;
+                naked?: string;
+                message?: string;
+                size?: string;
+            };
         }
     }
 }

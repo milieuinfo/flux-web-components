@@ -9,6 +9,7 @@
     ],
     "compilerOptions": {
         "outDir": "../../build/app/storybook",
+        "resolveJsonModule": true,
         "strict": false,
         "jsx": "react"
     }

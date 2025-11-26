@@ -4,7 +4,10 @@ import FormControlPublicMethods from '../../form-control/stories/form-control.pu
 
 # Select
 
-<FluxMetaData id="components-form-select" />
+<FluxComponentMetaData id="components-form-select" />
+
+
+## Doel
 
 Gebruik de `select` component om een select veld toe te voegen aan een pagina.<br/>
 Zie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.
@@ -52,6 +55,7 @@ De styles van DV zijn lokaal gezet en aangepast omdat deze niet CSP compliant wa
 Er werd gebruik gemaakt van een `data:` attribuut om een SVG op te halen van w3.org.
 Hierdoor breekt de CSP compliance tenzij je alle `data:` attributen whitelist, wat niet de bedoeling is.
 
+
 ## Events
 
 ### Change event
@@ -61,6 +65,7 @@ Bij het selecteren of verwijderen van een optie (zowel programmatorisch als door
 ### Input event
 
 Als de gebruiker een optie selecteert of verwijdert, wordt het `vl-input` event afgevuurd. Het detail object van dit event bevat de value van de geselecteerde opties.<br/>
+
 
 ## Select opties
 
@@ -114,6 +119,7 @@ Indien je declaratieve opties gebruikt bij het laden van de `vl-select`, worden 
 ### `value` attribuut
 
 Je kan ook de geselecteerde optie(s) van de select component instellen door het `value` attribuut te gebruiken.<br/>
+
 
 ## Accessibility
 
@@ -226,6 +232,7 @@ In plaats van de `options` property te gebruiken, kan je ook gebruik maken van s
 - `value`: De waarde van de optie
 - `selected`: Markeert de optie als geselecteerd
 - `disabled`: Schakelt de optie uit
+
 
 ## Validatie
 

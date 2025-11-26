@@ -3,7 +3,7 @@ import vlStackedStoriesDoc from './vl-stacked.stories-doc.mdx';
 import { Meta } from '@storybook/web-components-vite';
 
 export default {
-    id: 'styles-layout-afnemers-stacked',
+    id: 'styles-layout-stacked',
     title: 'Styles/Layout (afnemers)/stacked',
     tags: ['autodocs'],
     parameters: {

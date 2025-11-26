@@ -1,15 +1,15 @@
 const paddingDefaultUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-padding--padding-default&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-padding--padding-default&viewMode=story';
 const paddingSmallUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-padding--padding-small&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-padding--padding-small&viewMode=story';
 const paddingMediumUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-padding--padding-medium&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-padding--padding-medium&viewMode=story';
 const paddingNoUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-padding--padding-no&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-padding--padding-no&viewMode=story';
 const paddingNoBottomUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-padding--padding-no-bottom&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-padding--padding-no-bottom&viewMode=story';
 const paddingNoTopUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-padding--padding-no-top&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-padding--padding-no-top&viewMode=story';
 
 describe('cypress-e2e - layout - vl-padding - default story', () => {
     it('should render', () => {

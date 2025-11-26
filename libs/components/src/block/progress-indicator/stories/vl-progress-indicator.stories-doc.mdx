@@ -3,7 +3,10 @@ import * as VlProgressIndicatorStories from './vl-progress-indicator.stories';
 
 # Progress Indicator
 
-<FluxMetaData id="components-block-progress-indicator" />
+<FluxComponentMetaData id="components-block-progress-indicator" />
+
+
+## Doel
 
 Gebruik een `progress-indicator` om de vooruitgang te tonen van een proces dat uit verschillende stappen bestaat.
 
@@ -35,9 +38,9 @@ import { VlProgressIndicatorComponent } from '@domg-wc/components/block';
 ### Met labels
 
 Labels hebben een maximum breedte en krijgen een ellipsis indien ze langer zijn. De volledige tekst is dan beschikbaar
-via de default `title` tooltip. 
+via de default `title` tooltip.
 
-De laatste stap neemt de beschikbare breedte in, naar gelang de breedte van het 
+De laatste stap neemt de beschikbare breedte in, naar gelang de breedte van het
 label.
 
 De labels worden verborgen op resoluties kleiner dan 768 pixels.
@@ -65,6 +68,7 @@ Doorgaans zijn de stappen na de huidige stap niet aanklikbaar omdat eerst de voo
 Indien dit niet gewenst is kan je dit uitschakelen met `enable-future-steps`.
 
 <Canvas of={VlProgressIndicatorStories.ProgressIndicatorEnableFutureSteps} />
+
 
 ## Referenties
 

@@ -1,9 +1,9 @@
 const sectionDefaultUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-section--section-default&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-section--section-default&viewMode=story';
 const sectionLightBlueUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-section--section-light-blue&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-section--section-light-blue&viewMode=story';
 const sectionOverlapUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-section--section-overlap&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-section--section-overlap&viewMode=story';
 
 describe('cypress-e2e - layout - vl-section - default story', () => {
     it('should render', () => {

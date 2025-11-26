@@ -1,0 +1,652 @@
+{
+    "components-block-accordion": {
+        "name": "accordion",
+        "docs": "components-block-accordion--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook", "DOM"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-21"
+        }
+    },
+    "components-block-alert": {
+        "name": "alert",
+        "docs": "components-block-alert--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "TODO",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-206"
+        }
+    },
+    "components-block-autocomplete": {
+        "name": "autocomplete",
+        "docs": "components-block-autocomplete--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-200"
+        }
+    },
+    "components-block-breadcrumb": {
+        "name": "breadcrumb",
+        "docs": "components-block-breadcrumb--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "TODO",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-210"
+        }
+    },
+    "components-block-breadcrumb-item": {
+        "name": "breadcrumb",
+        "docs": "components-block-breadcrumb--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "TODO",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-210"
+        }
+    },
+    "components-block-cascader-cascader": {
+        "name": "cascader",
+        "docs": "components-block-cascader-cascader--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-212"
+        }
+    },
+    "components-block-cascader-cascader-item": {
+        "name": "cascader-item",
+        "docs": "components-block-cascader-cascader-item--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "template",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "components-block-contact-card": {
+        "name": "contact-card",
+        "docs": "components-block-contact-card--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Storybook"],
+            "documentation": "template",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-214"
+        }
+    },
+    "components-block-content-header": {
+        "name": "content-header",
+        "docs": "components-block-content-header--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-217"
+        }
+    },
+    "components-block-description-data-description-data": {
+        "name": "description-data",
+        "docs": "components-block-description-data-description-data--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "template",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-220"
+        }
+    },
+    "components-block-description-data-description-data-item": {
+        "name": "description-data-item",
+        "docs": "components-block-description-data-description-data-item--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "template",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "components-block-document": {
+        "name": "document",
+        "docs": "components-block-document--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "components-block-doormat": {
+        "name": "doormat",
+        "docs": "components-block-doormat--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-222"
+        }
+    },
+    "components-block-functional-header": {
+        "name": "functional-header",
+        "docs": "components-block-functional-header--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-225"
+        }
+    },
+    "components-block-http-error-message": {
+        "name": "http-error-message",
+        "docs": "components-block-http-error-message--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-237"
+        }
+    },
+    "components-block-info-tile": {
+        "name": "info-tile",
+        "docs": "components-block-info-tile--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-97"
+        }
+    },
+    "components-block-infoblock": {
+        "name": "infoblock",
+        "docs": "components-block-infoblock--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "template",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-240"
+        }
+    },
+    "components-block-infotext": {
+        "name": "infotext",
+        "docs": "components-block-infotext--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-23"
+        }
+    },
+    "components-block-input-slider": {
+        "name": "input-slider",
+        "docs": "components-block-input-slider--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "govflanders",
+            "tests": ["Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-242"
+        }
+    },
+    "components-block-loader": {
+        "name": "loader",
+        "docs": "components-block-loader--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Storybook"],
+            "documentation": "template",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-245"
+        }
+    },
+    "components-block-modal": {
+        "name": "modal",
+        "docs": "components-block-modal--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Component"],
+            "documentation": "template",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-17"
+        }
+    },
+    "components-block-pager": {
+        "name": "pager",
+        "docs": "components-block-pager--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Storybook"],
+            "documentation": "template",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-255"
+        }
+    },
+    "components-block-pill": {
+        "name": "pill",
+        "docs": "components-block-pill--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "TODO",
+            "css": "govflanders",
+            "tests": ["Component"],
+            "documentation": "template",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-259"
+        }
+    },
+    "components-block-popover": {
+        "name": "popover",
+        "docs": "components-block-popover--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "TODO",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-333"
+        }
+    },
+    "components-block-progress-indicator": {
+        "name": "progress-indicator",
+        "docs": "components-block-progress-indicator--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "TODO",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-261"
+        }
+    },
+    "components-block-properties": {
+        "name": "properties",
+        "docs": "components-block-properties--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-264"
+        }
+    },
+    "components-block-proza-message-proza-message": {
+        "name": "proza-message",
+        "docs": "components-block-proza-message-proza-message--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "Flux",
+            "tests": ["Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-265"
+        }
+    },
+    "components-block-proza-message-proza-message-preloader": {
+        "name": "proza-message-preloader",
+        "docs": "components-block-proza-message-proza-message-preloader--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "components-block-rich-data": {
+        "name": "rich-data",
+        "docs": "components-block-rich-data--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-87"
+        }
+    },
+    "components-block-rich-data-table": {
+        "name": "rich-data-table",
+        "docs": "components-block-rich-data-table--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "Flux",
+            "tests": ["Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-88"
+        }
+    },
+    "components-block-search": {
+        "name": "search",
+        "docs": "components-block-search--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": [],
+            "documentation": "template",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-272"
+        }
+    },
+    "components-block-search-filter": {
+        "name": "search-filter",
+        "docs": "components-block-search-filter--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "Flux",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-273"
+        }
+    },
+    "components-block-search-result": {
+        "name": "search-result",
+        "docs": "components-block-search-result--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "components-block-share-buttons-share-button": {
+        "name": "share-button",
+        "docs": "components-block-share-buttons-share-button--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": [],
+            "documentation": "template",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "components-block-share-buttons-share-buttons": {
+        "name": "share-buttons",
+        "docs": "components-block-share-buttons-share-buttons--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "Flux",
+            "tests": ["Storybook"],
+            "documentation": "template",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "components-block-side-navigation": {
+        "name": "side-navigation",
+        "docs": "components-block-side-navigation--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-18"
+        }
+    },
+    "components-block-side-sheet": {
+        "name": "side-sheet",
+        "docs": "components-block-side-sheet--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-281"
+        }
+    },
+    "components-block-spotlight": {
+        "name": "spotlight",
+        "docs": "components-block-spotlight--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "template",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-284"
+        }
+    },
+    "components-block-steps-step": {
+        "name": "step",
+        "docs": "components-block-steps-step--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "govflanders",
+            "tests": [],
+            "documentation": "template",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "components-block-steps-steps": {
+        "name": "steps",
+        "docs": "components-block-steps-steps--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "govflanders",
+            "tests": ["Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-286"
+        }
+    },
+    "components-block-table": {
+        "name": "table",
+        "docs": "components-block-table--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-101"
+        }
+    },
+    "components-block-tabs-tabs-pane": {
+        "name": "tabs-pane",
+        "docs": "components-block-tabs-tabs-pane--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "template",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "components-block-tabs-tabs": {
+        "name": "tabs",
+        "docs": "components-block-tabs-tabs--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-16"
+        }
+    },
+    "components-block-template": {
+        "name": "template",
+        "docs": "components-block-template--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Storybook"],
+            "documentation": "template",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-293"
+        }
+    },
+    "components-block-toaster": {
+        "name": "toaster",
+        "docs": "components-block-toaster--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-19"
+        }
+    },
+    "components-block-tooltip": {
+        "name": "tooltip",
+        "docs": "components-block-tooltip--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-20"
+        }
+    },
+    "components-block-typography": {
+        "name": "typography",
+        "docs": "components-block-typography--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-297"
+        }
+    },
+    "components-block-video-player": {
+        "name": "video-player",
+        "docs": "components-block-video-player--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-299"
+        }
+    },
+    "components-block-wizard-wizard-pane": {
+        "name": "wizard-pane",
+        "docs": "components-block-wizard-wizard-pane--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "components-block-wizard-wizard": {
+        "name": "wizard",
+        "docs": "components-block-wizard-wizard--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-301"
+        }
+    }
+}

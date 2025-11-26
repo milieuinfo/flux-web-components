@@ -1,0 +1,580 @@
+{
+    "map-components-action-click-action": {
+        "name": "action - click - click-action",
+        "docs": "map-action-click-action--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component", "Storybook"],
+            "documentation": "minimaal",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-action-click-action-pindrop": {
+        "name": "action - click - click-action-pindrop",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-action-draw-action": {
+        "name": "action - draw - draw-action",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-action-draw-action-style": {
+        "name": "action - draw - draw-action-style",
+        "docs": "map-action-draw-action-draw-action-style--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-action-draw-line-action": {
+        "name": "action - draw - draw-line-action",
+        "docs": "map-action-draw-action-draw-line-action--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-action-draw-point-action": {
+        "name": "action - draw - draw-point-action",
+        "docs": "map-action-draw-action-draw-point-action--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-action-draw-polygon-action": {
+        "name": "action - draw - draw-polygon-action",
+        "docs": "map-action-draw-action-draw-polygon-action--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-action-draw-measure-action": {
+        "name": "action - draw - measure-action",
+        "docs": "map-action-draw-action-measure-action--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-action-layer-action": {
+        "name": "action - layer - layer-action",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-action-layer-delete-action": {
+        "name": "action - layer - delete-action",
+        "docs": "map-action-layer-action-delete-action--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-action-layer-modify-action": {
+        "name": "action - layer - modify-action",
+        "docs": "map-action-layer-action-modify-action--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-action-layer-select-action": {
+        "name": "action - layer - select-action",
+        "docs": "map-action-layer-action-select-action--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-action-layer-select-actions": {
+        "name": "action - layer - select-actions",
+        "docs": "map-action-layer-action-select-action-select-actions--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-action-layer-multiselect-actions": {
+        "name": "action - layer - multiselect-actions",
+        "docs": "map-action-layer-action-select-action-multiselect-actions--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-baselayer-base-layer": {
+        "name": "baselayer - base-layer",
+        "docs": "map-baselayer--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-baselayer-base-layer-grb": {
+        "name": "baselayer - base-layer-grb",
+        "docs": "map-baselayer-baselayer-grb--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-baselayer-base-layer-grb-gray": {
+        "name": "baselayer - base-layer-grb-gray",
+        "docs": "map-baselayer-baselayer-grb-gray--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-baselayer-base-layer-grb-ortho": {
+        "name": "baselayer - base-layer-grb-ortho",
+        "docs": "map-baselayer-baselayer-grb-ortho--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-controls-action-control": {
+        "name": "controls - action-control",
+        "docs": "map-controls-action-control--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-controls-action-controls": {
+        "name": "controls - action-controls",
+        "docs": "map-controls-action-controls--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": [],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-controls-measure-control": {
+        "name": "controls - measure-control",
+        "docs": "map-controls-measure-control--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-current-location": {
+        "name": "current-location",
+        "docs": "map-current-location--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-layer-layer": {
+        "name": "layer - layer",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-layer-vector-vector-layer": {
+        "name": "layer - vector - vector-layer",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-layer-vector-features-layer": {
+        "name": "layer - vector - features-layer",
+        "docs": "map-layer-vector-layer-features-layer--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-layer-vector-wfs-layer": {
+        "name": "layer - vector - wfs-layer",
+        "docs": "map-layer-vector-layer-wfs-layer--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-layer-wms-wms-layer": {
+        "name": "layer - wms - wms-layer",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-layer-wms-image-wms-layer": {
+        "name": "layer - wms - image-wms-layer",
+        "docs": "map-layer-wms-layer-image-wms-layer--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-layer-wms-tiled-wms-layer": {
+        "name": "layer - wms - tiled-wms-layer",
+        "docs": "map-layer-wms-layer-tiled-wms-layer--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-layer-wms-wms-style": {
+        "name": "layer - wms - wms-style",
+        "docs": "map-layer-wms-layer-wms-style--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": [],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-layer-wms-xyz-wms-layer": {
+        "name": "layer - wms - xyz-wms-layer",
+        "docs": "map-layer-wms-layer-xyz-wms-layer--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-layer-wmts-layer": {
+        "name": "layer - wmts-layer",
+        "docs": "map-layer-wmts-layer--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-layer-style-layer-style": {
+        "name": "layer-style - layer-style",
+        "docs": "map-layer-style--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-layer-style-layer-circle-style": {
+        "name": "layer-style - layer-circle-style",
+        "docs": "map-layer-style-layer-circle-style--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-layer-switcher": {
+        "name": "layer-switcher",
+        "docs": "map-layer-switcher--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-legend": {
+        "name": "legend",
+        "docs": "map-legend--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-legend-item": {
+        "name": "legend-item",
+        "docs": "map-legend-item--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-loading-indicator": {
+        "name": "loading-indicator",
+        "docs": "map-loading-indicator--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component", "Storybook"],
+            "documentation": "minimaal",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-map": {
+        "name": "map",
+        "docs": "map-map--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "govflanders",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-146"
+        }
+    },
+    "map-components-overview-map": {
+        "name": "overview-map",
+        "docs": "map-overview-map--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-search": {
+        "name": "search",
+        "docs": "map-search--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-select-location": {
+        "name": "select-location",
+        "docs": "map-select-location--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-side-sheet": {
+        "name": "side-sheet",
+        "docs": "map-side-sheet-side-sheet--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-components-side-sheet-menu": {
+        "name": "side-sheet-menu",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": [],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-side-sheet-side-sheet-menu-item": {
+        "name": "side-sheet-menu-item",
+        "docs": "map-side-sheet-side-sheet-menu-item--documentatie",
+        "condition": {
+            "base": "HTMLElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["component"],
+            "documentation": "basis",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    }
+}

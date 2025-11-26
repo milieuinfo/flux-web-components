@@ -1,5 +1,5 @@
 const shareButtonsDefaultUrl =
-    'http://localhost:8080/iframe.html?id=components-block-share-buttons-buttons--share-buttons-default&viewMode=story';
+    'http://localhost:8080/iframe.html?id=components-block-share-buttons-share-buttons--share-buttons-default&viewMode=story';
 
 describe('cypress-e2e - block components - vl-share-buttons - default story', () => {
     it('should contain share buttons', () => {

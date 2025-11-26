@@ -91,4 +91,32 @@ summary {
     }
 }
 
+.flux-condition--no-focus:focus {
+    outline: none;
+}
 
+.flux-component-condition--margin-bottom {
+    margin-bottom: 8px !important;
+}
+
+.flux-component-overview__table {
+    th {
+        border-top-color: transparent !important;
+        border-left-color: transparent !important;
+        border-right-color: transparent !important;
+        border-bottom-color: grey !important;
+        border-bottom-width: 1.5px !important;
+    }
+
+    tr {
+        background-color: transparent !important;
+    }
+
+    td {
+        border-color: transparent !important;
+
+        img {
+            transform: scale(1.15);
+        }
+    }
+}

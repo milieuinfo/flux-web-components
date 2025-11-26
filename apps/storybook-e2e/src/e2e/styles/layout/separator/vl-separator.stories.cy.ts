@@ -1,9 +1,9 @@
 const separatorDefaultUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-separator--separator-default&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-separator--separator-default&viewMode=story';
 const separatorSlashUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-separator--separator-slash&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-separator--separator-slash&viewMode=story';
 const separatorWaveUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-separator--separator-wave&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-separator--separator-wave&viewMode=story';
 
 describe('cypress-e2e - layout - vl-separator - default story', () => {
     it('should render', () => {

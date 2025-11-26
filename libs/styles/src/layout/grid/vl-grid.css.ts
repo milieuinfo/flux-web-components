@@ -1,5 +1,5 @@
 import gridRawCss from './vl-grid.raw.css?raw';
-import { css, unsafeCSS } from 'lit';
+import { css, CSSResult, unsafeCSS } from 'lit';
 import { vlMediaScreenExtraSmall, vlMediaScreenMedium, vlMediaScreenSmall } from '../../base/var/vl-media-screen.css';
 import { columnLargeStyles } from './column/vl-column-l.css';
 import { columnMediumStyles } from './column/vl-column-m.css';
@@ -10,7 +10,7 @@ import { gridMediumStyles } from './grid/vl-grid-m.css';
 import { gridSmallStyles } from './grid/vl-grid-s.css';
 import { gridExtraSmallStyles } from './grid/vl-grid-xs.css';
 
-export const vlGridStyles = css`
+export const vlGridStyles: CSSResult = css`
     ${unsafeCSS(gridRawCss)}
     .vl-grid {
         display: grid;

@@ -4,8 +4,8 @@ import '../vl-pill.component';
 import { pillArgs, pillArgTypes } from './vl-pill.stories-arg';
 
 export default {
-    id: 'components-block-pill-pill',
-    title: 'Components - Block/pill/pill',
+    id: 'components-block-pill',
+    title: 'Components - Block/pill',
     tags: ['autodocs'],
     args: pillArgs,
     argTypes: pillArgTypes,

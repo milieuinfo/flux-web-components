@@ -1,9 +1,9 @@
 const stackedLargeUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-stacked--stacked-large&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-stacked--stacked-large&viewMode=story';
 const stackedMediumUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-stacked--stacked-medium&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-stacked--stacked-medium&viewMode=story';
 const stackedSmallUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-stacked--stacked-small&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-stacked--stacked-small&viewMode=story';
 
 describe('cypress-e2e - layout - vl-stacked - large story', () => {
     it('should render', () => {

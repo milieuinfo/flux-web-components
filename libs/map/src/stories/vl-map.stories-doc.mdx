@@ -3,7 +3,10 @@ import * as VlMapStories from './vl-map.stories';
 
 # Map
 
-<FluxMetaData id="map-map" />
+<FluxComponentMetaData id="map-components-map" />
+
+
+## Doel
 
 Gebruik de `map` component om een kaart af te beelden met verschillende lagen en acties.
 
@@ -22,9 +25,9 @@ import { VlMap } from '@domg-wc/map';
 
 ## Lambert 2008
 
-In het kader van de transitie naar het Lambert 2008 coördinatenstelsel, hebben we ervoor gekozen om te starten met een 
-opt-in voor Lambert 2008. In een volgende versie wordt dit de default. Om kaarten en kaartlagen weer te geven als 
-Lambert 2008 kan je het attribuut `lambert2008` toevoegen: 
+In het kader van de transitie naar het Lambert 2008 coördinatenstelsel, hebben we ervoor gekozen om te starten met een
+opt-in voor Lambert 2008. In een volgende versie wordt dit de default. Om kaarten en kaartlagen weer te geven als
+Lambert 2008 kan je het attribuut `lambert2008` toevoegen:
 
 ```html
 <vl-map lambert2008></vl-map>
@@ -32,8 +35,8 @@ Lambert 2008 kan je het attribuut `lambert2008` toevoegen:
 
 ### Lambert 72 data op een Lambert 2008 kaart
 
-Indien je vector kaartlagen (features en WFS) gebruikt met Lambert 72 coördinaten op een Lambert 2008 kaart, moet je de 
-projectie code `EPSG:31370` meegeven als attribuut op de kaartlaag. Geef je geen projectie code mee, dan zal de 
+Indien je vector kaartlagen (features en WFS) gebruikt met Lambert 72 coördinaten op een Lambert 2008 kaart, moet je de
+projectie code `EPSG:31370` meegeven als attribuut op de kaartlaag. Geef je geen projectie code mee, dan zal de
 kaartlaag de projectie code van de kaart overnemen.
 
 ```html
@@ -45,27 +48,27 @@ kaartlaag de projectie code van de kaart overnemen.
 
 <FluxAlert type="warning">
 {`
-    De client-side transformatie van Lambert 72 naar Lambert 2008 heeft een begrensde nauwkeurigheid van ~1m. Is cm 
+    De client-side transformatie van Lambert 72 naar Lambert 2008 heeft een begrensde nauwkeurigheid van ~1m. Is cm
     nauwkeurigheid vereist, dan is het belangrijk dat de kaart en de kaartlagen hetzelfde coördinatenstelsel gebruiken.
 `}
 </FluxAlert>
 
 ### Intekenen op een Lambert 2008 kaart
 
-Om in te tekenen op een Lambert 2008 kaart moet een Lambert 2008 kaartlaag gebruikt worden, omwille van de 
+Om in te tekenen op een Lambert 2008 kaart moet een Lambert 2008 kaartlaag gebruikt worden, omwille van de
 beschikbare nauwkeurigheid van ~1m van de Lambert 72 naar Lambert 2008 transformatie.
 
 Vereist je project Lambert 72 coordinaten bij het intekenen, dan wordt het upgraden naar de Lambert 2008 kaart
-beter uitgesteld tot wanneer het project ook Lambert 2008 data ondersteunt. De regel hierbij is dat het 
+beter uitgesteld tot wanneer het project ook Lambert 2008 data ondersteunt. De regel hierbij is dat het
 coördinatenstelsel van intekenen hetzelfde moet zijn als dat van de kaart.
 
 ## Ongeldige geometrieën
 
-Wanneer je op de kaart een ongeldige geometrie tekent, bijvoorbeeld een zelf-kruisende polygoon, dan krijgt deze 
-standaard een rode "invalid" stijl. Indien je dit niet wenst kan je het 
+Wanneer je op de kaart een ongeldige geometrie tekent, bijvoorbeeld een zelf-kruisende polygoon, dan krijgt deze
+standaard een rode "invalid" stijl. Indien je dit niet wenst kan je het
 attribuut `allow-invalid-geometries` gebruiken.
 
-Om te controleren of een kaart 1 of meerdere ongeldige geometrieën bevat kan je de methode 
+Om te controleren of een kaart 1 of meerdere ongeldige geometrieën bevat kan je de methode
 `hasInvalidGeometries` gebruiken:
 
 ```typescript
@@ -95,6 +98,7 @@ De map de volledige beschikbare hoogte in laten nemen kan op de volgende manier:
 Zie de code onder de story voor het volledige voorbeeld.
 
 <Canvas of={VlMapStories.MapPlayground} />
+
 
 ## Referenties
 

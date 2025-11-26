@@ -3,7 +3,7 @@ import vlSpacerStoriesDoc from './vl-spacer.stories-doc.mdx';
 import { Meta } from '@storybook/web-components-vite';
 
 export default {
-    id: 'styles-layout-afnemers-spacer',
+    id: 'styles-layout-spacer',
     title: 'Styles/Layout (afnemers)/spacer',
     tags: ['autodocs'],
     parameters: {

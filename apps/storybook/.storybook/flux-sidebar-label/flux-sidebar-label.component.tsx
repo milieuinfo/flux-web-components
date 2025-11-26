@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import fluxMetaData from '../flux-meta-data/flux-meta-data.json';
-import { FluxMetaDataModel } from '../flux-meta-data/flux-meta-data.model';
+import { fluxAllMetaData } from '../flux-meta-data/flux-meta-data.data';
+import { FluxMetaDataComponent } from '../flux-meta-data/flux-meta-data.model';
 import { API_HashEntry } from 'storybook/internal/types';
 
 export const FluxSidebarLabel = ({ storyData }: { storyData: API_HashEntry }) => {
@@ -9,9 +9,10 @@ export const FluxSidebarLabel = ({ storyData }: { storyData: API_HashEntry }) =>
 
     useEffect(() => {
         const input = inputRef.current;
-        const componentMetaData = fluxMetaData[id] as FluxMetaDataModel;
-        if (componentMetaData && componentMetaData.vStatus)
-            input.parentElement.setAttribute('data-version', componentMetaData.vStatus);
+        const fluxMetaDataComponent = fluxAllMetaData()[id] as FluxMetaDataComponent;
+        const componentEvolution = fluxMetaDataComponent?.evolution;
+        if (componentEvolution && componentEvolution.vStatus)
+            input.parentElement.setAttribute('data-version', componentEvolution.vStatus);
     }, []);
 
     return <div ref={inputRef}>{name}</div>;

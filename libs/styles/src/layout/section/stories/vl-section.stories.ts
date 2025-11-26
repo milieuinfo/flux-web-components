@@ -5,7 +5,7 @@ import { html } from 'lit-html';
 import vlSectionStoriesDoc from './vl-section.stories-doc.mdx';
 
 export default {
-    id: 'styles-layout-afnemers-section',
+    id: 'styles-layout-section',
     title: 'Styles/Layout (afnemers)/section',
     tags: ['autodocs'],
     parameters: {

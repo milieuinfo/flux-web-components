@@ -8,7 +8,7 @@ import vlGroupStoriesDoc from './vl-group.stories-doc.mdx';
 import { Meta } from '@storybook/web-components-vite';
 
 export default {
-    id: 'styles-layout-afnemers-group',
+    id: 'styles-layout-group',
     title: 'Styles/Layout (afnemers)/group',
     tags: ['autodocs'],
     args: vlGroupArgs,

@@ -1,0 +1,266 @@
+{
+    "map-actions-delete-action": {
+        "name": "delete - delete-action",
+        "condition": {
+            "base": "MapAction",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Jest"],
+            "documentation": "n.v.t.",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-actions-draw-action": {
+        "name": "draw - draw-action",
+        "condition": {
+            "base": "MapAction",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Jest"],
+            "documentation": "n.v.t.",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-actions-draw-line-action": {
+        "name": "draw - draw-line-action",
+        "condition": {
+            "base": "MapAction",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Jest"],
+            "documentation": "n.v.t.",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-actions-draw-polygon-action": {
+        "name": "draw - draw-polygon-action",
+        "condition": {
+            "base": "MapAction",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Jest"],
+            "documentation": "n.v.t.",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-actions-draw-rectangle-action": {
+        "name": "draw - draw-rectangle-action",
+        "condition": {
+            "base": "MapAction",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Jest"],
+            "documentation": "n.v.t.",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-actions-layer-composite-vector-layer": {
+        "name": "layer - composite-vector-layer",
+        "condition": {
+            "base": "MapAction",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Jest"],
+            "documentation": "n.v.t.",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-actions-map-custom-map": {
+        "name": "map - custom-map",
+        "condition": {
+            "base": "MapAction",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Jest"],
+            "documentation": "n.v.t.",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-actions-map-map-with-actions": {
+        "name": "map - map-with-actions",
+        "condition": {
+            "base": "MapAction",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Jest"],
+            "documentation": "n.v.t.",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-actions-measure-action": {
+        "name": "measure - measure-action",
+        "condition": {
+            "base": "MapAction",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Jest"],
+            "documentation": "n.v.t.",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-actions-modify-action": {
+        "name": "modify - modify-action",
+        "condition": {
+            "base": "MapAction",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Jest"],
+            "documentation": "n.v.t.",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-actions-modify-and-translate-action": {
+        "name": "modify - modify-and-translate-action",
+        "condition": {
+            "base": "MapAction",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Jest"],
+            "documentation": "n.v.t.",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-actions-modify-split-action": {
+        "name": "modify - split-action",
+        "condition": {
+            "base": "MapAction",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Jest"],
+            "documentation": "n.v.t.",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-actions-modify-translate-action": {
+        "name": "modify - translate-action",
+        "condition": {
+            "base": "MapAction",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Jest"],
+            "documentation": "n.v.t.",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-actions-select-box-select-action": {
+        "name": "select - box-select-action",
+        "condition": {
+            "base": "MapAction",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Jest"],
+            "documentation": "n.v.t.",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-actions-select-highlight-action": {
+        "name": "select - highlight-action",
+        "condition": {
+            "base": "MapAction",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Jest"],
+            "documentation": "n.v.t.",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-actions-select-multiselect-actions": {
+        "name": "select - multiselect-actions",
+        "condition": {
+            "base": "MapAction",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": [],
+            "documentation": "n.v.t.",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-actions-select-select-action": {
+        "name": "select - select-action",
+        "condition": {
+            "base": "MapAction",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Jest"],
+            "documentation": "n.v.t.",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-actions-select-select-actions": {
+        "name": "select - select-actions",
+        "condition": {
+            "base": "MapAction",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Jest"],
+            "documentation": "n.v.t.",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-actions-select-show-info-action": {
+        "name": "select - show-info-action",
+        "condition": {
+            "base": "MapAction",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Jest"],
+            "documentation": "n.v.t.",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-actions-select-show-info-select-action": {
+        "name": "select - show-info-select-action",
+        "condition": {
+            "base": "MapAction",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Jest"],
+            "documentation": "n.v.t.",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-actions-snap-snap-interaction": {
+        "name": "snap - snap-interaction",
+        "condition": {
+            "base": "MapAction",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Jest"],
+            "documentation": "n.v.t.",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    },
+    "map-actions-source-composite-vector-source": {
+        "name": "source - composite-vector-source",
+        "condition": {
+            "base": "MapAction",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Jest"],
+            "documentation": "n.v.t.",
+            "wcagLevel": "TODO",
+            "jiraMeta": "geen"
+        }
+    }
+}

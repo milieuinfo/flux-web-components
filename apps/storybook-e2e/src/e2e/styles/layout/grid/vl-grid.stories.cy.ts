@@ -1,9 +1,9 @@
 const gridResponsiveUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-grid--grid-responsive&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-grid--grid-responsive&viewMode=story';
 const gridOffsetUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-grid--grid-column-start&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-grid--grid-column-start&viewMode=story';
 const gridJustifyAlignUrl =
-    'http://localhost:8080/iframe.html?id=styles-layout-afnemers-grid--grid-justify-align&viewMode=story';
+    'http://localhost:8080/iframe.html?id=styles-layout-grid--grid-justify-align&viewMode=story';
 
 describe('cypress-e2e - layout - vl-grid - responsive story', () => {
     it('should render', () => {

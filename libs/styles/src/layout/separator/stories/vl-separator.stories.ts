@@ -3,7 +3,7 @@ import vlSteparatorStoriesDoc from './vl-separator.stories-doc.mdx';
 import { Meta } from '@storybook/web-components-vite';
 
 export default {
-    id: 'styles-layout-afnemers-separator',
+    id: 'styles-layout-separator',
     title: 'Styles/Layout (afnemers)/separator',
     tags: ['autodocs'],
     parameters: {

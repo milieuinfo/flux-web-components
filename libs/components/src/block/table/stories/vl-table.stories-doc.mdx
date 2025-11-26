@@ -3,17 +3,21 @@ import * as VlTableStories from './vl-table.stories';
 
 # Table
 
-<FluxMetaData id="components-block-table" />
-
-Gebruik de `table` component om op een gestructureerde manier (grote hoeveelheden) relationele data te tonen.
+<FluxComponentMetaData id="components-block-table" />
 
 <FluxAlert type="info">
-{`
+    {`
     In de v2 versie van deze component gebruik je hem via de custom-tag, de interne implementatie is voor de rest
     gelijk gebleven aan deze van de v1 versie. In de toekomst zal deze component grondig herwerkt worden; in de
     context van een herwerking van de vl-table.
 `}
 </FluxAlert>
+
+
+## Doel
+
+Gebruik de `table` component om op een gestructureerde manier (grote hoeveelheden) relationele data te tonen.
+
 
 ## Voorbeeld
 
@@ -51,9 +55,11 @@ import { VlTableComponent } from '@domg-wc/components/block';
 
 <Canvas of={VlTableStories.TableDefault} layout="padded" />
 
+
 ## Configuratie
 
 <ArgTypes of={VlTableStories.TableDefault} />
+
 
 ## Functionaliteit
 
@@ -174,7 +180,6 @@ Je kunt de volgende CSS-klassen gebruiken om specifieke stijlen toe te passen op
 Deze klassen kunnen zowel op een `<tr>` element worden toegepast om een hele rij te stylen, als op een `<td>` element om een individuele cel te stylen.
 
 <Canvas of={VlTableStories.TableRowStyling} layout="padded" />
-
 
 
 ## Referenties

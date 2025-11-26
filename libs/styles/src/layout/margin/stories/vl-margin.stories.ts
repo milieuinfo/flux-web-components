@@ -5,7 +5,7 @@ import vlMarginStoriesDoc from './vl-margin.stories-doc.mdx';
 import { Meta } from '@storybook/web-components-vite';
 
 export default {
-    id: 'styles-layout-afnemers-margin',
+    id: 'styles-layout-margin',
     title: 'Styles/Layout (afnemers)/margin',
     tags: ['autodocs'],
     parameters: {
