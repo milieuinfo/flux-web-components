@@ -1,359 +1,405 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { VlButtonComponent, VlLinkComponent, VlParagraphComponent, VlTitleComponent } from '@domg-wc/components/atom';
-import {
-    VlAccordionComponent,
-    VlFunctionalHeaderComponent,
-    VlModalComponent,
-    VlPillComponent,
-    VlPopoverComponent,
-    VlSideNavigationComponent,
-    VlSideSheet,
-    VlTabsComponent,
-} from '@domg-wc/components/block';
+import { VlAccordionComponent } from '@domg-wc/components/block';
 import { VlHeader } from '@domg-wc/components/compliance';
-import {
-    SelectRichOption,
-    VlDatepickerComponent,
-    VlSelectComponent,
-    VlSelectRichComponent,
-} from '@domg-wc/components/form';
-import { VlFormDemoComponent } from '@domg-wc/integrations/form';
-import { vlGroupStyles, vlLegacyStyles, vlStackedStyles } from '@domg-wc/styles';
-import { VlSideNavigationReferenceComponent } from 'libs/components/src/block/side-navigation';
-import { CSSResult, html, LitElement } from 'lit';
+import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
 @customElement('app-component')
 export class AppComponent extends LitElement {
     static {
-        registerWebComponents([
-            VlAccordionComponent,
-            VlButtonComponent,
-            VlDatepickerComponent,
-            VlFormDemoComponent,
-            VlLinkComponent,
-            VlModalComponent,
-            VlParagraphComponent,
-            VlPillComponent,
-            VlPopoverComponent,
-            VlSelectComponent,
-            VlSelectRichComponent,
-            VlSideSheet,
-            VlTabsComponent,
-            VlTitleComponent,
-            VlFunctionalHeaderComponent,
-            VlHeader,
-            VlSideNavigationComponent,
-            VlSideNavigationReferenceComponent,
-        ]);
+        registerWebComponents([VlAccordionComponent, VlHeader]);
     }
 
-    private selectOptions = [
-        { value: 'value1', label: 'option 1' },
-        { value: 'value2', label: 'option 2' },
-        { value: 'value3', label: 'option 3' },
-    ];
-    private geboorteplaatsen: SelectRichOption[] = [
-        {
-            label: 'België',
-            value: '',
-            choices: [
-                { label: 'Hasselt', value: 'hasselt' },
-                { label: 'Turnhout', value: 'turnhout' },
-                { label: 'Knokke-Heist', value: 'knokke-heist' },
-                { label: 'Waregem', value: 'waregem' },
-                { label: 'Lier', value: 'lier' },
-            ],
-        },
-        {
-            label: 'Puerto Rico',
-            value: '',
-            choices: [{ label: 'Rio Piedras', value: 'rio piedras' }],
-        },
-    ];
+    updated() {
+        const treeViews = document.querySelectorAll<HTMLElement>('.tree-view');
 
-    constructor() {
-        super();
-    }
-
-    static get styles(): (CSSResult | CSSResult[])[] {
-        return [vlLegacyStyles, vlGroupStyles, vlStackedStyles];
-    }
-
-    private _selectElement: VlSelectComponent;
-
-    private get selectElement() {
-        this._selectElement = this._selectElement ?? (this.shadowRoot?.querySelector('#select') as VlSelectComponent);
-        return this._selectElement;
+        treeViews.forEach((treeView) => {
+            const folders = treeView.querySelectorAll<HTMLElement>('vl-link:has(+ ul)');
+            folders.forEach((folder) => {
+                folder.addEventListener('click', () => {
+                    folder.classList.toggle('open');
+                });
+            });
+        });
     }
 
     render() {
         return html`
-            <main>
-                <vl-header development simple identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb"></vl-header>
-                <vl-functional-header sticky>
-                    <div slot="title">Application name</div>
-                    <div class="vl-group vl-margin--small vl-margin--no-bottom" slot="top-right">
-                        <vl-button
-                            tertiary
-                            icon="add"
-                            label="Taak aanmaken"
-                            @click=${() => {
-                                document.querySelector<VlModalComponent>('#taak-modal')?.open();
-                            }}
-                            >Taak</vl-button
-                        >
-                        <vl-button
-                            tertiary
-                            icon="add"
-                            label="Aantekening aanmaken"
-                            @click=${() => {
-                                document.querySelector<VlModalComponent>('#aantekening-modal')?.open();
-                            }}
-                            >Aantekening</vl-button
-                        >
-                        <vl-button
-                            tertiary
-                            icon="edit"
-                            label="edit"
-                            @click=${() => {
-                                document.querySelector<VlModalComponent>('#edit-modal')?.open();
-                            }}
-                        ></vl-button>
-                        <vl-button
-                            tertiary
-                            error
-                            icon="bin"
-                            label="delete"
-                            @click=${() => {
-                                document.querySelector<VlModalComponent>('#delete-modal')?.open();
-                            }}
-                        ></vl-button>
-                    </div>
-                </vl-functional-header>
+            <style>
+                .tree-view {
+                    padding: 0.5rem;
+                    border-right: 1px solid var(--vl-color--border);
+                    height: 300px;
+                    max-width: 100%;
+                    overflow: auto;
 
-                <div class="vl-content-block">
-                    <div class="vl-grid vl-stacked-small">
-                        <div class="vl-column vl-column--8 vl-column--m-9 vl-column--s-12 vl-column--xs-12">
-                            <vl-side-navigation-reference>
-                                <section class="vl-section">
-                                    <vl-title type="h2" id="hoofdstuk-1">Hoofdstuk 1</vl-title>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac dignissim magna.
-                                    Integer ligula lacus, volutpat vitae arcu eu, laoreet euismod sapien. Donec viverra
-                                    nunc non lectus hendrerit, eget faucibus dolor congue. Fusce at dolor dictum ligula
-                                    efficitur varius vitae quis massa. Pellentesque porta et ligula at feugiat. Nulla
-                                    sit amet erat fringilla, dapibus sapien quis, efficitur neque. Fusce vulputate eu
-                                    felis ut rhoncus. Maecenas suscipit nunc ligula. Cras ullamcorper interdum risus, id
-                                    tempus erat aliquet ut. Duis dapibus convallis eros. Praesent mollis, nunc vitae
-                                    molestie mattis, leo nisl sagittis tortor, sit amet tristique justo metus ac justo.
-                                    Suspendisse potenti. Phasellus non lobortis felis. Nam sit amet dui magna. Etiam a
-                                    sagittis turpis. Nulla vitae mattis massa. Donec pulvinar, ipsum eget luctus
-                                    molestie, odio orci vehicula nibh, sed molestie mauris justo ut est. Nam gravida,
-                                    turpis fringilla luctus tempor, neque velit volutpat nibh, nec volutpat est nibh sed
-                                    augue. Mauris malesuada nibh est. Nam suscipit quam nec placerat efficitur.
-                                </section>
+                    ul,
+                    li {
+                        list-style: none;
+                        padding: 0;
+                        margin: 0;
+                        display: block;
+                        box-sizing: border-box;
+                        white-space: nowrap;
+                    }
 
-                                <section class="vl-section">
-                                    <vl-title type="h2" id="hoofdstuk-2">Hoofdstuk 2</vl-title>
-                                    Morbi sed mollis justo, sed ultrices nibh. Morbi sagittis rutrum quam, quis suscipit
-                                    lectus vestibulum eu. Cras vehicula placerat velit, eu tincidunt nunc dapibus sed.
-                                    Morbi quis bibendum dolor, id bibendum risus. Nulla ultricies bibendum bibendum.
-                                    Aliquam et iaculis lacus. Donec rutrum luctus lectus, at molestie dui suscipit eu.
-                                    Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed metus turpis,
-                                    gravida et lobortis viverra, consequat id arcu. Phasellus aliquet mollis euismod.
-                                    Morbi scelerisque, erat at fringilla accumsan, magna neque facilisis quam, ac
-                                    aliquet tortor ipsum ut sem. Nunc diam tellus, suscipit sit amet egestas ut, auctor
-                                    nec eros. Cras quis libero arcu. Maecenas sed ornare diam. Ut ac sollicitudin
-                                    tortor. Integer ac sapien viverra sapien auctor aliquet dignissim et nibh. Curabitur
-                                    mollis condimentum vehicula. Aenean eu egestas massa. Nam accumsan sapien lectus, id
-                                    tincidunt tellus commodo at. Fusce rutrum imperdiet semper. Nam porttitor tincidunt
-                                    est eget tristique. Curabitur tempus ex libero, a tristique leo sagittis non. Etiam
-                                    id tincidunt dui. Aliquam erat volutpat. Vivamus placerat in diam eu consectetur. In
-                                    hac habitasse platea dictumst. Aenean est urna, rhoncus vel feugiat vel, feugiat sed
-                                    tellus. Maecenas gravida, justo suscipit consequat vulputate, nisl nunc blandit
-                                    felis, non varius tortor ipsum et leo. Proin arcu tortor, euismod a venenatis sed,
-                                    volutpat quis metus. Integer lacinia libero quis lorem fringilla vehicula. Sed augue
-                                    urna, posuere quis est vel, convallis tristique neque. Morbi efficitur scelerisque
-                                    eros nec vulputate. In hac habitasse platea dictumst. Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit. Sed ac dignissim magna. Integer ligula lacus, volutpat
-                                    vitae arcu eu, laoreet euismod sapien. Donec viverra nunc non lectus hendrerit, eget
-                                    faucibus dolor congue. Fusce at dolor dictum ligula efficitur varius vitae quis
-                                    massa. Pellentesque porta et ligula at feugiat. Nulla sit amet erat fringilla,
-                                    dapibus sapien quis, efficitur neque. Fusce vulputate eu felis ut rhoncus. Maecenas
-                                    suscipit nunc ligula. Cras ullamcorper interdum risus, id tempus erat aliquet ut.
-                                    Duis dapibus convallis eros. Praesent mollis, nunc vitae molestie mattis, leo nisl
-                                    sagittis tortor, sit amet tristique justo metus ac justo. Suspendisse potenti.
-                                    Phasellus non lobortis felis. Nam sit amet dui magna. Etiam a sagittis turpis. Nulla
-                                    vitae mattis massa. Donec pulvinar, ipsum eget luctus molestie, odio orci vehicula
-                                    nibh, sed molestie mauris justo ut est. Nam gravida, turpis fringilla luctus tempor,
-                                    neque velit volutpat nibh, nec volutpat est nibh sed augue. Mauris malesuada nibh
-                                    est.
-                                </section>
+                    ul ul {
+                        position: relative;
+                        &::before {
+                            position: absolute;
+                            top: 0;
+                            left: 0.8rem;
+                            content: '';
+                            display: block;
+                            height: 100%;
+                            width: 1px;
+                            border-left: 1px dotted var(--vl-color--border);
+                        }
+                        & > li {
+                            margin-left: 2rem;
+                            & > vl-link {
+                                margin-right: 0.5rem;
+                            }
+                        }
+                    }
 
-                                <section class="vl-section">
-                                    <vl-title type="h2" id="hoofdstuk-3">Hoofdstuk 3</vl-title>Nam suscipit quam nec
-                                    placerat efficitur. Morbi sed mollis justo, sed ultrices nibh. Morbi sagittis rutrum
-                                    quam, quis suscipit lectus vestibulum eu. Cras vehicula placerat velit, eu tincidunt
-                                    nunc dapibus sed. Morbi quis bibendum dolor, id bibendum risus. Nulla ultricies
-                                    bibendum bibendum. Aliquam et iaculis lacus. Donec rutrum luctus lectus, at molestie
-                                    dui suscipit eu. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed
-                                    metus turpis, gravida et lobortis viverra, consequat id arcu. Phasellus aliquet
-                                    mollis euismod. Morbi scelerisque, erat at fringilla accumsan, magna neque facilisis
-                                    quam, ac aliquet tortor ipsum ut sem. Nunc diam tellus, suscipit sit amet egestas
-                                    ut, auctor nec eros. Cras quis libero arcu. Maecenas sed ornare diam. Ut ac
-                                    sollicitudin tortor. Integer ac sapien viverra sapien auctor aliquet dignissim et
-                                    nibh. Curabitur mollis condimentum vehicula. Aenean eu egestas massa. Nam accumsan
-                                    sapien lectus, id tincidunt tellus commodo at. Fusce rutrum imperdiet semper. Nam
-                                    porttitor tincidunt est eget tristique. Curabitur tempus ex libero, a tristique leo
-                                    sagittis non. Etiam id tincidunt dui. Aliquam erat volutpat. Vivamus placerat in
-                                    diam eu consectetur. In hac habitasse platea dictumst. Aenean est urna, rhoncus vel
-                                    feugiat vel, feugiat sed tellus. Maecenas gravida, justo suscipit consequat
-                                    vulputate, nisl nunc blandit felis, non varius tortor ipsum et leo. Proin arcu
-                                    tortor, euismod a venenatis sed, volutpat quis metus. Integer lacinia libero quis
-                                    lorem fringilla vehicula. Sed augue urna, posuere quis est vel, convallis tristique
-                                    neque. Morbi efficitur scelerisque eros nec vulputate. In hac habitasse platea
-                                    dictumst. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac dignissim
-                                    magna. Integer ligula lacus, volutpat vitae arcu eu, laoreet euismod sapien. Donec
-                                    viverra nunc non lectus hendrerit, eget faucibus dolor congue. Fusce at dolor dictum
-                                    ligula efficitur varius vitae quis massa. Pellentesque porta et ligula at feugiat.
-                                    Nulla sit amet erat fringilla, dapibus sapien quis, efficitur neque. Fusce vulputate
-                                    eu felis ut rhoncus. Maecenas suscipit nunc ligula. Cras ullamcorper interdum risus,
-                                    id tempus erat aliquet ut. Duis dapibus convallis eros. Praesent mollis, nunc vitae
-                                    molestie mattis, leo nisl sagittis tortor, sit amet tristique justo metus ac justo.
-                                </section>
+                    vl-link:has(+ ul) {
+                        & + ul {
+                            display: none;
+                        }
+                        &.open {
+                            & + ul {
+                                display: block;
+                            }
+                        }
+                        & + ul {
+                            display: none;
+                        }
+                    }
 
-                                <section class="vl-section">
-                                    <vl-title type="h2" id="hoofdstuk-4">Hoofdstuk 4</vl-title>
-                                    Suspendisse potenti. Phasellus non lobortis felis. Nam sit amet dui magna. Etiam a
-                                    sagittis turpis. Nulla vitae mattis massa. Donec pulvinar, ipsum eget luctus
-                                    molestie, odio orci vehicula nibh, sed molestie mauris justo ut est. Nam gravida,
-                                    turpis fringilla luctus tempor, neque velit volutpat nibh, nec volutpat est nibh sed
-                                    augue. Mauris malesuada nibh est. Nam suscipit quam nec placerat efficitur. Morbi
-                                    sed mollis justo, sed ultrices nibh. Morbi sagittis rutrum quam, quis suscipit
-                                    lectus vestibulum eu. Cras vehicula placerat velit, eu tincidunt nunc dapibus sed.
-                                    Morbi quis bibendum dolor, id bibendum risus. Nulla ultricies bibendum bibendum.
-                                    Aliquam et iaculis lacus. Donec rutrum luctus lectus, at molestie dui suscipit eu.
-                                    Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed metus turpis,
-                                    gravida et lobortis viverra, consequat id arcu. Phasellus aliquet mollis euismod.
-                                    Morbi scelerisque, erat at fringilla accumsan, magna neque facilisis quam, ac
-                                    aliquet tortor ipsum ut sem. Nunc diam tellus, suscipit sit amet egestas ut, auctor
-                                    nec eros. Cras quis libero arcu. Maecenas sed ornare diam. Ut ac sollicitudin
-                                    tortor. Integer ac sapien viverra sapien auctor aliquet dignissim et nibh. Curabitur
-                                    mollis condimentum vehicula. Aenean eu egestas massa. Nam accumsan sapien lectus, id
-                                    tincidunt tellus commodo at. Fusce rutrum imperdiet semper. Nam porttitor tincidunt
-                                    est eget tristique. Curabitur tempus ex libero, a tristique leo sagittis non. Etiam
-                                    id tincidunt dui. Aliquam erat volutpat. Vivamus placerat in diam eu consectetur. In
-                                    hac habitasse platea dictumst. Aenean est urna, rhoncus vel feugiat vel, feugiat sed
-                                    tellus. Maecenas gravida, justo suscipit consequat vulputate, nisl nunc blandit
-                                    felis, non varius tortor ipsum et leo. Proin arcu tortor, euismod a venenatis sed,
-                                    volutpat quis metus. Integer lacinia libero quis lorem fringilla vehicula. Sed augue
-                                    urna, posuere quis est vel, convallis tristique neque. Morbi efficitur scelerisque
-                                    eros nec vulputate. In hac habitasse platea dictumst. Lorem ipsum dolor sit amet,
-                                    consectetur adipiscing elit. Sed ac dignissim magna. Integer ligula lacus, volutpat
-                                    vitae arcu eu, laoreet euismod sapien. Donec viverra nunc non lectus hendrerit, eget
-                                    faucibus dolor congue. Fusce at dolor dictum ligula efficitur varius vitae quis
-                                    massa. Pellentesque porta et ligula at feugiat. Nulla sit amet erat fringilla,
-                                    dapibus sapien quis, efficitur neque. Fusce vulputate eu felis ut rhoncus. Maecenas
-                                    suscipit nunc ligula. Cras ullamcorper interdum risus, id tempus erat aliquet ut.
-                                    Duis dapibus convallis eros. Praesent mollis, nunc vitae molestie mattis, leo nisl
-                                    sagittis tortor, sit amet tristique justo metus ac justo. Suspendisse potenti.
-                                    Phasellus non lobortis felis. Nam sit amet dui magna. Etiam a sagittis turpis. Nulla
-                                    vitae mattis massa. Donec pulvinar, ipsum eget luctus molestie, odio orci vehicula
-                                    nibh, sed molestie mauris justo ut est. Nam gravida, turpis fringilla luctus tempor,
-                                    neque velit volutpat nibh, nec volutpat est nibh sed augue. Mauris malesuada nibh
-                                    est. Nam suscipit quam nec placerat efficitur. Morbi sed mollis justo, sed ultrices
-                                    nibh. Morbi sagittis rutrum quam, quis suscipit lectus vestibulum eu. Cras vehicula
-                                    placerat velit, eu tincidunt nunc dapibus sed. Morbi quis bibendum dolor, id
-                                    bibendum risus. Nulla ultricies bibendum bibendum. Aliquam et iaculis lacus. Donec
-                                    rutrum luctus lectus, at molestie dui suscipit eu. Interdum et malesuada fames ac
-                                    ante ipsum primis in faucibus. Sed metus turpis, gravida et lobortis viverra,
-                                    consequat id arcu. Phasellus aliquet mollis euismod. Morbi scelerisque, erat at
-                                    fringilla accumsan, magna neque facilisis quam, ac aliquet tortor ipsum ut sem. Nunc
-                                    diam tellus, suscipit sit amet egestas ut, auctor nec eros. Cras quis libero arcu.
-                                    Maecenas sed ornare diam. Ut ac sollicitudin tortor. Integer ac sapien viverra
-                                    sapien auctor aliquet dignissim et nibh. Curabitur mollis condimentum vehicula.
-                                    Aenean eu egestas massa. Nam accumsan sapien lectus, id tincidunt tellus commodo at.
-                                    Fusce rutrum imperdiet semper. Nam porttitor tincidunt est eget tristique. Curabitur
-                                    tempus ex libero, a tristique leo sagittis non. Etiam id tincidunt dui. Aliquam erat
-                                    volutpat. Vivamus placerat in diam eu consectetur. In hac habitasse platea dictumst.
-                                    Aenean est urna, rhoncus vel feugiat vel, feugiat sed tellus. Maecenas gravida,
-                                    justo suscipit consequat vulputate, nisl nunc blandit felis, non varius tortor ipsum
-                                    et leo. Proin arcu tortor, euismod a venenatis sed, volutpat quis metus. Integer
-                                    lacinia libero quis lorem fringilla vehicula. Sed augue urna, posuere quis est vel,
-                                    convallis tristique neque. Morbi efficitur scelerisque eros nec vulputate. In hac
-                                    habitasse platea dictumst. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    Sed ac dignissim magna. Integer ligula lacus, volutpat vitae arcu eu, laoreet
-                                    euismod sapien. Donec viverra nunc non lectus hendrerit, eget faucibus dolor congue.
-                                    Fusce at dolor dictum ligula efficitur varius vitae quis massa. Pellentesque porta
-                                    et ligula at feugiat. Nulla sit amet erat fringilla, dapibus sapien quis, efficitur
-                                    neque. Fusce vulputate eu felis ut rhoncus. Maecenas suscipit nunc ligula. Cras
-                                    ullamcorper interdum risus, id tempus erat aliquet ut. Duis dapibus convallis eros.
-                                    Praesent mollis, nunc vitae molestie mattis, leo nisl sagittis tortor, sit amet
-                                    tristique justo metus ac justo. Suspendisse potenti. Phasellus non lobortis felis.
-                                    Nam sit amet dui magna. Etiam a sagittis turpis. Nulla vitae mattis massa.
-                                </section>
-                                <section class="vl-section">
-                                    <vl-title type="h2" id="hoofdstuk-5">Hoofdstuk 5</vl-title>
-                                    Donec pulvinar, ipsum eget luctus molestie, odio orci vehicula nibh, sed molestie
-                                    mauris justo ut est. Nam gravida, turpis fringilla luctus tempor, neque velit
-                                    volutpat nibh, nec volutpat est nibh sed augue. Mauris malesuada nibh est. Nam
-                                    suscipit quam nec placerat efficitur. Morbi sed mollis justo, sed ultrices nibh.
-                                    Morbi sagittis rutrum quam, quis suscipit lectus vestibulum eu. Cras vehicula
-                                    placerat velit, eu tincidunt nunc dapibus sed. Morbi quis bibendum dolor, id
-                                    bibendum risus. Nulla ultricies bibendum bibendum. Aliquam et iaculis lacus. Donec
-                                    rutrum luctus lectus, at molestie dui suscipit eu. Interdum et malesuada fames ac
-                                    ante ipsum primis in faucibus. Sed metus turpis, gravida et lobortis viverra,
-                                    consequat id arcu. Phasellus aliquet mollis euismod. Morbi scelerisque, erat at
-                                    fringilla accumsan, magna neque facilisis quam, ac aliquet tortor ipsum ut sem. Nunc
-                                    diam tellus, suscipit sit amet egestas ut, auctor nec eros. Cras quis libero arcu.
-                                    Maecenas sed ornare diam. Ut ac sollicitudin tortor. Integer ac sapien viverra
-                                    sapien auctor aliquet dignissim et nibh. Curabitur mollis condimentum vehicula.
-                                    Aenean eu egestas massa. Nam accumsan sapien lectus, id tincidunt tellus commodo at.
-                                    Fusce rutrum imperdiet semper. Nam porttitor tincidunt est eget tristique. Curabitur
-                                    tempus ex libero, a tristique leo sagittis non. Etiam id tincidunt dui. Aliquam erat
-                                    volutpat. Vivamus placerat in diam eu consectetur. In hac habitasse platea dictumst.
-                                    Aenean est urna, rhoncus vel feugiat vel, feugiat sed tellus. Maecenas gravida,
-                                    justo suscipit consequat vulputate, nisl nunc blandit felis, non varius tortor ipsum
-                                    et leo. Proin arcu tortor, euismod a venenatis sed, volutpat quis metus. Integer
-                                    lacinia libero quis lorem fringilla vehicula. Sed augue urna, posuere quis est vel,
-                                    convallis tristique neque. Morbi efficitur scelerisque eros nec vulputate. In hac
-                                    habitasse platea dictumst.
-                                </section>
-                            </vl-side-navigation-reference>
+                    vl-link::part(icon) {
+                        color: var(--vl-color--icon-subtle);
+                    }
+
+                    vl-link vl-icon::part(icon) {
+                        color: var(--vl-color--icon-subtle);
+                        padding-right: 0.3rem;
+                    }
+
+                    vl-link::part(button) {
+                        text-decoration: none;
+                    }
+                }
+            </style>
+            <vl-template>
+                <vl-header
+                    slot="header"
+                    development
+                    simple
+                    identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb"
+                ></vl-header>
+                <main slot="main">
+                    <!-- <section class="vl-section">
+                        <div class="vl-content-block vl-content-block--full-width">
+                            <vl-title type="h2">Boomstructuur met vl-link</vl-title>
+                            <div class="vl-grid">
+                                <div class="vl-column vl-column--2">
+                                    <div class="tree-view">
+                                        <ul role="tree">
+                                            <li role="treeitem">
+                                                <vl-link button-as-link icon="folder" icon-placement="before"
+                                                    ><vl-icon small icon="arrow-down-fat"></vl-icon> Top folder</vl-link
+                                                >
+                                                <ul role="group">
+                                                    <li role="treeitem">
+                                                        <vl-link button-as-link icon="folder" icon-placement="before"
+                                                            ><vl-icon small icon="arrow-down-fat"></vl-icon> Level
+                                                            2a</vl-link
+                                                        >
+                                                        <ul role="group">
+                                                            <li role="treeitem">
+                                                                <vl-link
+                                                                    button-as-link
+                                                                    icon="folder"
+                                                                    icon-placement="before"
+                                                                    ><vl-icon small icon="arrow-down-fat"></vl-icon>
+                                                                    Level 3</vl-link
+                                                                >
+                                                                <ul role="group">
+                                                                    <li role="treeitem">
+                                                                        <vl-link
+                                                                            button-as-link
+                                                                            icon="folder"
+                                                                            icon-placement="before"
+                                                                            ><vl-icon
+                                                                                small
+                                                                                icon="arrow-down-fat"
+                                                                            ></vl-icon>
+                                                                            Level 4a</vl-link
+                                                                        >
+                                                                        <ul role="group">
+                                                                            <li role="treeitem">
+                                                                                <vl-link
+                                                                                    button-as-link
+                                                                                    icon="folder"
+                                                                                    icon-placement="before"
+                                                                                    ><vl-icon
+                                                                                        small
+                                                                                        icon="arrow-down-fat"
+                                                                                    ></vl-icon>
+                                                                                    Level 5</vl-link
+                                                                                >
+                                                                                <ul role="group">
+                                                                                    <li role="treeitem">
+                                                                                        <vl-link
+                                                                                            button-as-link
+                                                                                            icon="folder"
+                                                                                            icon-placement="before"
+                                                                                            ><vl-icon
+                                                                                                small
+                                                                                                icon="arrow-down-fat"
+                                                                                                style="opacity: 0"
+                                                                                            ></vl-icon>
+                                                                                            Level 6a</vl-link
+                                                                                        >
+                                                                                    </li>
+                                                                                    <li role="treeitem">
+                                                                                        <vl-link
+                                                                                            button-as-link
+                                                                                            icon="folder"
+                                                                                            icon-placement="before"
+                                                                                            ><vl-icon
+                                                                                                small
+                                                                                                icon="arrow-down-fat"
+                                                                                                style="opacity: 0"
+                                                                                            ></vl-icon>
+                                                                                            Level 6b</vl-link
+                                                                                        >
+                                                                                    </li>
+                                                                                    <li role="treeitem">
+                                                                                        <vl-link
+                                                                                            button-as-link
+                                                                                            icon="folder"
+                                                                                            icon-placement="before"
+                                                                                            ><vl-icon
+                                                                                                small
+                                                                                                icon="arrow-down-fat"
+                                                                                                style="opacity: 0"
+                                                                                            ></vl-icon>
+                                                                                            Level
+                                                                                            6cccccccccccccccccccccccc</vl-link
+                                                                                        >
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </li>
+                                                                    <li role="treeitem">
+                                                                        <vl-link
+                                                                            button-as-link
+                                                                            icon="folder"
+                                                                            icon-placement="before"
+                                                                            ><vl-icon
+                                                                                small
+                                                                                icon="arrow-down-fat"
+                                                                                style="opacity: 0"
+                                                                            ></vl-icon>
+                                                                            Level 4b</vl-link
+                                                                        >
+                                                                    </li>
+                                                                    <li role="treeitem">
+                                                                        <vl-link
+                                                                            button-as-link
+                                                                            icon="folder"
+                                                                            icon-placement="before"
+                                                                            ><vl-icon
+                                                                                small
+                                                                                icon="arrow-down-fat"
+                                                                                style="opacity: 0"
+                                                                            ></vl-icon>
+                                                                            Level 4c</vl-link
+                                                                        >
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                    <li role="treeitem">
+                                                        <vl-link button-as-link icon="folder" icon-placement="before"
+                                                            ><vl-icon
+                                                                small
+                                                                icon="arrow-down-fat"
+                                                                style="opacity: 0"
+                                                            ></vl-icon>
+                                                            Level 2b</vl-link
+                                                        >
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div
-                            class="vl-column vl-column--3 vl-column--m-3 vl-column--s-12 vl-column--xs-12 vl-column--start-10 vl-column--s-start-1 vl-margin--medium"
-                        >
-                            <vl-side-navigation aria-label="inhoudsopgave">
-                                <vl-side-navigation-h5>Op deze pagina</vl-side-navigation-h5>
-                                <vl-side-navigation-content>
-                                    <vl-side-navigation-group>
-                                        <vl-side-navigation-item>
-                                            <a href="#hoofdstuk-1"> Hoofdstuk 1 </a>
-                                        </vl-side-navigation-item>
-                                        <vl-side-navigation-item>
-                                            <a href="#hoofdstuk-2"> Hoofdstuk 2 </a>
-                                        </vl-side-navigation-item>
-                                        <vl-side-navigation-item>
-                                            <a href="#hoofdstuk-3"> Hoofdstuk 3 </a>
-                                        </vl-side-navigation-item>
-                                        <vl-side-navigation-item>
-                                            <a href="#hoofdstuk-4"> Hoofdstuk 4 </a>
-                                        </vl-side-navigation-item>
-                                        <vl-side-navigation-item>
-                                            <a href="#hoofdstuk-5"> Hoofdstuk 5 </a>
-                                        </vl-side-navigation-item>
-                                    </vl-side-navigation-group>
-                                </vl-side-navigation-content>
-                            </vl-side-navigation>
+                    </section> -->
+                    <section class="vl-section">
+                        <div class="vl-content-block vl-content-block--full-width">
+                            <vl-title type="h2">Breadcrumbs met submenus</vl-title>
+                            <!-- <div>
+                                <vl-icon icon="folder" small></vl-icon>
+                                <vl-button ghost narrow>Dieren</vl-button>
+                                <vl-icon icon="arrow-right-fat" small></vl-icon>
+                                <vl-button ghost narrow id="submenu-dieren-zoogdieren">Zoogdieren</vl-button>
+                                <vl-popover for="submenu-dieren-zoogdieren" hide-arrow placement="bottom-start">
+                                    <vl-popover-action-list>
+                                        <vl-button
+                                            ghost
+                                            narrow
+                                            block
+                                            icon="folder"
+                                            icon-placement="before"
+                                            custom-css="button { align-content: flex-start; justify-content: flex-start; }"
+                                            >Zoogdieren
+                                        </vl-button>
+                                        <vl-button
+                                            ghost
+                                            narrow
+                                            block
+                                            icon="folder"
+                                            icon-placement="before"
+                                            custom-css="button { align-content: flex-start; justify-content: flex-start; }"
+                                            >Reptielen
+                                        </vl-button>
+                                        <vl-button
+                                            ghost
+                                            narrow
+                                            block
+                                            id="submenu2"
+                                            icon="folder"
+                                            icon-placement="before"
+                                            custom-css="button { align-content: flex-start; justify-content: flex-start; }"
+                                            >Vogels</vl-button
+                                        >
+                                    </vl-popover-action-list>
+                                </vl-popover>
+                                <vl-icon icon="arrow-right-fat" small></vl-icon>
+                                <vl-button narrow ghost id="submenu-dieren-zoogdieren-apen">Apen</vl-button>
+                                <vl-popover for="submenu-dieren-zoogdieren-apen" hide-arrow placement="bottom-start">
+                                    <vl-popover-action-list>
+                                        <vl-button
+                                            ghost
+                                            narrow
+                                            block
+                                            icon="folder"
+                                            icon-placement="before"
+                                            custom-css="button { align-content: flex-start; justify-content: flex-start; }"
+                                            >Apen
+                                        </vl-button>
+                                        <vl-button
+                                            ghost
+                                            narrow
+                                            block
+                                            icon="folder"
+                                            icon-placement="before"
+                                            custom-css="button { align-content: flex-start; justify-content: flex-start; }"
+                                            >Knaagdieren
+                                        </vl-button>
+                                    </vl-popover-action-list>
+                                </vl-popover>
+                            </div> -->
+
+                            <vl-breadcrumb>
+                                <vl-breadcrumb-item type="button" @click=${(e: Event) => e.preventDefault()}>
+                                    <vl-icon small right-margin icon="folder"></vl-icon>
+                                    Dieren
+                                </vl-breadcrumb-item>
+                                <vl-breadcrumb-item
+                                    id="submenu"
+                                    type="button"
+                                    @click=${(e: Event) => e.preventDefault()}
+                                >
+                                    Zoogdieren
+
+                                    <vl-popover
+                                        distance="6"
+                                        for="submenu"
+                                        hide-arrow
+                                        placement="bottom-start"
+                                        trigger="click hover focus"
+                                    >
+                                        <vl-popover-action-list>
+                                            <vl-button
+                                                ghost
+                                                narrow
+                                                block
+                                                icon="folder"
+                                                icon-placement="before"
+                                                custom-css="button { align-content: flex-start; justify-content: flex-start; }"
+                                                >Zoogdieren
+                                            </vl-button>
+                                            <vl-button
+                                                ghost
+                                                narrow
+                                                block
+                                                icon="folder"
+                                                icon-placement="before"
+                                                custom-css="button { align-content: flex-start; justify-content: flex-start; }"
+                                                >Reptielen
+                                            </vl-button>
+                                            <vl-button
+                                                ghost
+                                                narrow
+                                                block
+                                                id="submenu2"
+                                                icon="folder"
+                                                icon-placement="before"
+                                                custom-css="button { align-content: flex-start; justify-content: flex-start; }"
+                                                >Vogels</vl-button
+                                            >
+                                        </vl-popover-action-list>
+                                    </vl-popover>
+                                </vl-breadcrumb-item>
+                                <vl-breadcrumb-item
+                                    id="submenu-apen"
+                                    type="button"
+                                    @click=${(e: Event) => e.preventDefault()}
+                                >
+                                    Apen
+
+                                    <vl-popover
+                                        distance="6"
+                                        for="submenu-apen"
+                                        hide-arrow
+                                        placement="bottom-start"
+                                        trigger="click hover focus"
+                                    >
+                                        <vl-popover-action-list>
+                                            <vl-button
+                                                ghost
+                                                narrow
+                                                block
+                                                icon="folder"
+                                                icon-placement="before"
+                                                custom-css="button { align-content: flex-start; justify-content: flex-start; }"
+                                                >Apen
+                                            </vl-button>
+                                            <vl-button
+                                                ghost
+                                                narrow
+                                                block
+                                                icon="folder"
+                                                icon-placement="before"
+                                                custom-css="button { align-content: flex-start; justify-content: flex-start; }"
+                                                >Knaagdieren
+                                            </vl-button>
+                                        </vl-popover-action-list>
+                                    </vl-popover>
+                                </vl-breadcrumb-item>
+                            </vl-breadcrumb>
                         </div>
-                    </div>
-                </div>
-            </main>
-            <vl-modal closable id="taak-modal" position="right"> Taak modal (right) </vl-modal>
-            <vl-modal closable id="aantekening-modal" size="full-screen"> Aantekening modal (full-screen)</vl-modal>
-            <vl-modal closable id="edit-modal" position="left"> Edit modal (left)</vl-modal>
-            <vl-modal closable id="delete-modal"> Delete modal</vl-modal>
+                    </section>
+                </main>
+            </vl-template>
         `;
     }
 
@@ -361,36 +407,4 @@ export class AppComponent extends LitElement {
         // gaat shadow dom uitzetten
         return this;
     }
-
-    private addOptions = (selectElement?: VlSelectComponent) => {
-        const select = selectElement || this.selectElement;
-        if (select.options.length === 0) {
-            select.options = this.selectOptions;
-        }
-    };
-
-    private addPlaceholder = (selectElement?: VlSelectComponent) => {
-        const select = selectElement || this.selectElement;
-        select.setAttribute('placeholder', 'My placeholder');
-    };
-
-    private addSelect = () => {
-        if (this.selectElement) {
-            const newSelect = document.createElement('vl-select');
-            this.addPlaceholder(newSelect);
-            this.addOptions(newSelect);
-            this.selectElement.insertAdjacentElement('afterend', newSelect);
-        }
-    };
-
-    private applyError = () => {
-        if (this.selectElement) {
-            this.selectElement.setAttribute('error', 'Fout!');
-        }
-    };
-
-    private openSidesheet = () => {
-        const sidesheet = this.querySelector('#sidesheet') as unknown as VlSideSheet;
-        sidesheet.toggle();
-    };
 }

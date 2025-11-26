@@ -79,7 +79,30 @@ export default class FloatingController implements ReactiveController {
         const referenceId = `#${this.options.reference}`;
         const hostRootNode = this.host.getRootNode() as Element;
         const referenceElement = document.querySelector(referenceId) || hostRootNode.querySelector(referenceId);
-        return referenceElement ? (referenceElement as HTMLElement) : null;
+        if (!referenceElement) {
+            console.warn(
+                this.host.tagName,
+                `Opgelet! Het referentie element (#${this.options.reference}) kon niet gevonden worden.`
+            );
+            return null;
+        }
+
+        if (referenceElement instanceof HTMLButtonElement) {
+            return referenceElement;
+        }
+
+        // Indien het referentie element geen knop is, zoek dan de eerste knop binnen het reference element.
+        // Dit is nodig om de aria attributen te plaatsen. Deze moeten op de knop zelf staan.
+        const firstButton =
+            referenceElement.querySelector<HTMLButtonElement>('button') ||
+            referenceElement.shadowRoot?.querySelector<HTMLButtonElement>('button');
+        if (!firstButton) {
+            console.warn(
+                this.host.tagName,
+                `Opgelet! Het referentie element (#${this.options.reference}) is geen knop en bevat ook geen knop. Dit is vereist voor een correcte toegankelijkheid.`
+            );
+        }
+        return firstButton || (referenceElement as HTMLElement);
     }
 
     private getArrowElement(): HTMLElement {
@@ -103,7 +126,6 @@ export default class FloatingController implements ReactiveController {
 
     async updatePosition(): Promise<void> {
         if (!this.getReferenceElement) {
-            console.warn(this.host.tagName, ' could not find reference element with id: #', this.options?.reference);
             return;
         }
 
@@ -169,7 +191,6 @@ export default class FloatingController implements ReactiveController {
         const referenceElement = this.getReferenceElement();
 
         if (!referenceElement) {
-            console.warn(this.host.tagName, ' could not find reference element with id: #', this.options?.reference);
             return;
         }
 
