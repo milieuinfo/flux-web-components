@@ -50,11 +50,11 @@ export class VlPopoverActionComponent extends BaseLitElement {
                   href="${this.href}"
                   target="${this.target || nothing}"
                   rel="${this.rel || nothing}"
-                  role="option"
+                  role="menuitem"
               >
                   ${this.renderIcon()} <span><slot></slot></span>
               </a>`
-            : html` <button type="button" role="option">
+            : html` <button type="button" role="menuitem">
                   ${this.renderIcon()} <span><slot></slot></span>
               </button>`;
     }

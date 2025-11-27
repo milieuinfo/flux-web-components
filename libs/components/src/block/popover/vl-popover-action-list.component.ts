@@ -17,7 +17,7 @@ export class VlPopoverActionListComponent extends BaseLitElement {
 
     protected firstUpdated(changedProperties: PropertyValues) {
         super.firstUpdated(changedProperties);
-        this.setAttribute('role', 'listbox');
+        this.setAttribute('role', 'menu');
     }
 }
 
