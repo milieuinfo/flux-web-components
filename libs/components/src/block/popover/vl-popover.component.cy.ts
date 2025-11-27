@@ -58,8 +58,8 @@ describe('cypress-component - block components - vl-popover - default', () => {
         cy.injectAxe();
         cy.get('#btn-acties').click();
 
-        cy.get('#btn-acties').should('have.attr', 'aria-haspopup', 'true');
-        cy.get('#btn-acties').should('have.attr', 'aria-controls', 'popover');
+        cy.get('#btn-acties').shadow().find('[aria-haspopup="true"]').should('exist');
+        cy.get('#btn-acties').shadow().find('[aria-controls="popover"]').should('exist');
         cy.checkA11y('vl-popover');
     });
 

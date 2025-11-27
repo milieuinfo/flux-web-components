@@ -1,3 +1,4 @@
+import { isSafari } from '@domg-wc/common';
 import {
     arrow,
     computePosition,
@@ -39,6 +40,7 @@ export default class FloatingController implements ReactiveController {
     private hoverTimeout = 0;
     private options!: FloatingControllerOptions;
     private hostHover = false;
+    private ignoreNextClick = false;
 
     constructor(host: FloatingElement, options: FloatingControllerOptions) {
         this.setOptions(options);
@@ -58,16 +60,16 @@ export default class FloatingController implements ReactiveController {
         if (this.isTooltip) {
             this.host.shadowRoot?.querySelector('.popover-content')?.setAttribute('role', 'tooltip');
             if (this.options.ariaType === POPOVER_ARIA_TYPE.DESCRIPTION) {
-                this.addAttributeToReferenceElement('aria-describedby', this.host.id);
+                this.addAttributeToTrigger('aria-describedby', this.host.id);
             } else if (
                 this.options.ariaType === POPOVER_ARIA_TYPE.LABEL &&
                 !this.getReferenceElement()?.hasAttribute('aria-label')
             ) {
-                this.addAttributeToReferenceElement('aria-labelledby', this.host.id);
+                this.addAttributeToTrigger('aria-labelledby', this.host.id);
             }
         } else {
-            this.addAttributeToReferenceElement('aria-controls', this.host.id);
-            this.addAttributeToReferenceElement('aria-haspopup', 'true');
+            this.addAttributeToTrigger('aria-controls', this.host.id);
+            this.addAttributeToTrigger('aria-haspopup', 'true');
         }
     }
 
@@ -75,11 +77,64 @@ export default class FloatingController implements ReactiveController {
         this.removeEventListeners();
     }
 
-    getReferenceElement(): HTMLElement | null {
+    // For popovers that are not tooltips, we need to distinguish between the reference element itself and the trigger button
+    // The trigger button:
+    // - captures the events
+    // - is the button on which we need to set the aria attributes and the event listeners
+    // The reference element:
+    // - is the element that is used to position the popover
+    // - captures the keydown event to close the popover on 'Escape'
+    // They are the same element if the reference element is a button
+    get triggerButton(): HTMLElement {
+        if (this.isTooltip) {
+            // For tooltips, if the reference element is not a button, we can use the reference element itself as the trigger
+            return this.referenceElement;
+        }
+
+        if (this.referenceElement instanceof HTMLButtonElement) {
+            return this.referenceElement;
+        }
+
+        if (this.referenceElement instanceof HTMLElement && this.referenceElement.getAttribute('role') === 'button') {
+            return this.referenceElement;
+        }
+
+        // If the reference element is not a button, then find the first button within the reference element.
+        // This is necessary to place the aria attributes. These must be on the button itself.
+        const firstButton: HTMLElement | null =
+            this.referenceElement.querySelector<HTMLButtonElement>('button') ||
+            this.referenceElement.shadowRoot?.querySelector<HTMLButtonElement>('button') ||
+            this.referenceElement.querySelector<HTMLElement>('[role="button"]') ||
+            this.referenceElement.shadowRoot?.querySelector<HTMLElement>('[role="button"]') ||
+            null;
+
+        if (!firstButton) {
+            const message = `Het referentie element (#${this.options.reference}) bevat geen button. Gebruik een button of pas \`role="button"\` correct toe (https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/button_role).`;
+            console.warn(this.host.tagName, message);
+            return this.referenceElement;
+        }
+
+        return firstButton;
+    }
+
+    get referenceElement(): HTMLElement {
+        return this.getReferenceElement();
+    }
+
+    getReferenceElement(): HTMLElement {
         const referenceId = `#${this.options.reference}`;
         const hostRootNode = this.host.getRootNode() as Element;
-        const referenceElement = document.querySelector(referenceId) || hostRootNode.querySelector(referenceId);
-        return referenceElement ? (referenceElement as HTMLElement) : null;
+        const referenceElement =
+            document.querySelector<HTMLElement>(referenceId) || hostRootNode.querySelector<HTMLElement>(referenceId);
+
+        if (!referenceElement) {
+            const message = `Het referentie element (#${this.options.reference}) kon niet gevonden worden.`;
+            console.warn(this.host.tagName, message);
+            // Fallback to the parent element of the host if the reference element is not found
+            return this.host.parentElement as HTMLElement;
+        }
+
+        return referenceElement;
     }
 
     private getArrowElement(): HTMLElement {
@@ -102,12 +157,7 @@ export default class FloatingController implements ReactiveController {
     }
 
     async updatePosition(): Promise<void> {
-        if (!this.getReferenceElement) {
-            console.warn(this.host.tagName, ' could not find reference element with id: #', this.options?.reference);
-            return;
-        }
-
-        const { x, y, placement, middlewareData } = await computePosition(this.getReferenceElement()!, this.host, {
+        const { x, y, placement, middlewareData } = await computePosition(this.referenceElement, this.host, {
             placement: this.options.placement,
             middleware: this.buildMiddlewares(),
             platform: {
@@ -139,71 +189,72 @@ export default class FloatingController implements ReactiveController {
     }
 
     private addEventListeners(): void {
-        const referenceElement = this.getReferenceElement();
-        referenceElement?.addEventListener('keydown', this.handleKeyDown);
+        this.referenceElement.addEventListener('keydown', this.handleKeyDown);
 
         if (this.hasTrigger('click')) {
-            referenceElement?.addEventListener('click', this.handleClick);
+            this.triggerButton.addEventListener('click', this.handleClick);
             document.addEventListener('click', this.handleClickOutside, true);
-            if (this.options.hideOnClick) this.host.addEventListener('click', this.host.hide);
+        }
+        if (this.options.hideOnClick) {
+            this.host.addEventListener('click', this.handleHideOnClick);
         }
 
         if (this.hasTrigger('hover')) {
-            referenceElement?.addEventListener('mouseover', this.handleMouseOver);
-            referenceElement?.addEventListener('mouseout', this.handleMouseOut);
+            this.triggerButton.addEventListener('mouseover', this.handleMouseOver);
+            this.triggerButton.addEventListener('mouseout', this.handleMouseOut);
         }
 
-        if (this.hasTrigger('focus')) {
-            referenceElement?.addEventListener('focusin', this.handleFocusIn, true);
-            referenceElement?.addEventListener('focusout', this.handleFocusOut, true);
-        }
+        this.triggerButton.addEventListener('focusin', this.handleFocusIn, true);
+        this.triggerButton.addEventListener('focusout', this.handleFocusOut, true);
 
         this.host.addEventListener('mouseover', this.handleHostMouseOver);
         this.host.addEventListener('mouseout', this.handleHostMouseOut);
         this.host.addEventListener('focusout', this.handleHostFocusOut);
+        this.host.addEventListener('keydown', this.handleKeyDown);
 
         window.addEventListener('resize', this.handleResize);
     }
 
     private removeEventListeners(): void {
-        const referenceElement = this.getReferenceElement();
-
-        if (!referenceElement) {
-            console.warn(this.host.tagName, ' could not find reference element with id: #', this.options?.reference);
-            return;
-        }
-
-        referenceElement.removeEventListener('keydown', this.handleKeyDown);
+        this.referenceElement.removeEventListener('keydown', this.handleKeyDown);
 
         if (this.hasTrigger('click')) {
-            referenceElement.removeEventListener('click', this.handleClick);
+            this.triggerButton.removeEventListener('click', this.handleClick);
             document.removeEventListener('click', this.handleClickOutside, true);
-            this.host.removeEventListener('click', this.host.hide);
         }
+        this.host.removeEventListener('click', this.handleHideOnClick);
 
         if (this.hasTrigger('hover')) {
-            referenceElement.removeEventListener('mouseover', this.handleMouseOver);
-            referenceElement.removeEventListener('mouseout', this.handleMouseOut);
+            this.triggerButton.removeEventListener('mouseover', this.handleMouseOver);
+            this.triggerButton.removeEventListener('mouseout', this.handleMouseOut);
         }
 
-        if (this.hasTrigger('focus')) {
-            referenceElement.removeEventListener('focusin', this.handleFocusIn, true);
-            referenceElement.removeEventListener('focusout', this.handleFocusOut, true);
-        }
+        this.triggerButton.removeEventListener('focusin', this.handleFocusIn, true);
+        this.triggerButton.removeEventListener('focusout', this.handleFocusOut, true);
 
         this.host.removeEventListener('mouseover', this.handleHostMouseOver);
         this.host.removeEventListener('mouseout', this.handleHostMouseOut);
         this.host.removeEventListener('focusout', this.handleHostFocusOut);
+        this.host.removeEventListener('keydown', this.handleKeyDown);
 
         window.removeEventListener('resize', this.handleResize);
     }
 
     private hasTrigger(trigger: string): boolean {
-        return this.options.trigger.split(' ').includes(trigger);
+        return this.options.trigger.includes(trigger);
     }
 
     private handleClick = (): void => {
+        if (this.ignoreNextClick) {
+            this.ignoreNextClick = false;
+            return;
+        }
+
         this.host.toggle();
+    };
+
+    private handleHideOnClick = (): void => {
+        this.host.hide();
     };
 
     private handleMouseOver = (): void => {
@@ -233,6 +284,8 @@ export default class FloatingController implements ReactiveController {
 
     private handleFocusIn = (): void => {
         this.host.show();
+        // Ignore the next click coming from the same event
+        this.ignoreNextClick = true;
     };
 
     private handleFocusOut = (): void => {
@@ -243,15 +296,26 @@ export default class FloatingController implements ReactiveController {
         }, 100);
     };
 
-    private handleHostFocusOut = (): void => {
+    private handleHostFocusOut = ({ relatedTarget }: FocusEvent): void => {
+        if (isSafari && relatedTarget instanceof HTMLElement && this.host.contains(relatedTarget)) {
+            // In Safari, tabbing from one popover-action to another triggers the focusout event.
+            // As a result the popover closes when you tab from one action to another, which would make any action but
+            // the first one unreachable using the keyboard. If the focus stays within the popover, we don't hide it.
+            return;
+        }
         if (!this.host.matches(':focus-within')) {
             this.host.hide();
         }
     };
 
-    private handleClickOutside = (event: MouseEvent): void => {
-        const target = event.target as HTMLElement;
-        if (!this.host.contains(target) && !this.getReferenceElement()?.contains(target) && event.button === 0) {
+    private handleClickOutside = ({ target }: MouseEvent): void => {
+        if (
+            target !== this.referenceElement &&
+            target !== this.triggerButton &&
+            target !== this.host &&
+            !this.host.contains(target as HTMLElement)
+        ) {
+            this.host.blur();
             this.host.hide();
         }
     };
@@ -269,15 +333,15 @@ export default class FloatingController implements ReactiveController {
         }
     };
 
-    private addAttributeToReferenceElement(attribute: string, value: string): void {
-        if (!this.getReferenceElement()?.hasAttribute(attribute)) {
-            this.getReferenceElement()?.setAttribute(attribute, value);
+    private addAttributeToTrigger(attribute: string, value: string): void {
+        if (!this.triggerButton.hasAttribute(attribute)) {
+            this.triggerButton.setAttribute(attribute, value);
         }
     }
 
     public setExpanded = (expanded: boolean): void => {
         if (!this.isTooltip) {
-            this.getReferenceElement()?.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            this.triggerButton.setAttribute('aria-expanded', expanded ? 'true' : 'false');
         }
     };
 }
