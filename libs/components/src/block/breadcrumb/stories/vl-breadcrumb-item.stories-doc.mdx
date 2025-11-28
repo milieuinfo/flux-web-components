@@ -1,0 +1,53 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlBreadcrumbItemStories from './vl-breadcrumb-item.stories';
+
+# Breadcrumb Item
+
+<FluxMetaData id="components-block-breadcrumb-item" />
+
+Gebruik de `breadcrumb-item` component om een stap binnen de breadcrumbs weer te geven.
+
+
+## Voorbeeld
+
+```js
+import { VlBreadcrumbItemComponent } from '@domg-wc/components/block';
+```
+
+```html
+<vl-breadcrumb-item></vl-breadcrumb-item>
+```
+
+<Canvas of={VlBreadcrumbItemStories.BreadcrumbDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlBreadcrumbItemStories.BreadcrumbDefault} />
+
+## Varianten
+
+### Link breadcrumb item
+
+Dit is de default variant. Type `link` kan weggelaten worden. 
+Het wordt automatisch als link weergegeven wanneer er een `href` attribuut wordt meegegeven.
+
+<Canvas of={VlBreadcrumbItemStories.BreadcrumbDefault} />
+
+### Button breadcrumb item
+
+Indien je onderliggend een button wenst te gebruiken, kan je het type `button` gebruiken. 
+Een `@click` handler is in dat geval vereist.
+
+Vermijd het gebruik van links en buttons binnen dezelfde breadcrumb component.
+
+<Canvas of={VlBreadcrumbItemStories.BreadcrumbButton} />
+
+### Text breadcrumb item
+
+Indien je een breadcrumb item wenst weer te geven zonder link of button, kan je het type `text` gebruiken.
+Dit is bijvoorbeeld handig voor het weergeven van de huidige pagina.
+Indien je zowel `type` als `href` weglaat, wordt het item automatisch als text weergegeven.
+
+<Canvas of={VlBreadcrumbItemStories.BreadcrumbText} />
+

@@ -221,7 +221,7 @@ export class VlButtonComponent extends BaseLitElement {
             [`vl-icon--${this.icon}`]: true,
         };
 
-        return this.icon ? html`<span class=${classMap(classes)} part="icon"></span>` : nothing;
+        return this.icon ? html`<span class=${classMap(classes)} part="icon" aria-hidden="true"></span>` : nothing;
     }
 }
 
