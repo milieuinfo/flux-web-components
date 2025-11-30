@@ -1,5 +1,5 @@
-import { ArgTypes, Canvas } from '@storybook/blocks';
-import * as VlInfoTileStories from './vl-info-tile.stories';
+import { ArgTypes, Canvas } from "@storybook/blocks";
+import * as VlInfoTileStories from "./vl-info-tile.stories";
 
 # Info Tile
 
@@ -51,6 +51,13 @@ import { VlInfoTile } from '@domg-wc/components';
 ### Met menu
 
 <Canvas of={VlInfoTileStories.InfoTileMenuSlot} />
+
+### Clickable
+
+Maakt de info-tile aanklikbaar. Dit is niet combineerbaar met het `data-vl-toggleable`-attribuut.
+In dit voorbeeld wordt dit gebruikt in combinatie met een menu-slot.
+
+<Canvas of={VlInfoTileStories.InfoTileClickable} />
 
 ## Referenties
 

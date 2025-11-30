@@ -65,5 +65,18 @@ const styles: CSSResult = css`
         display: inline-block;
         margin-left: 3rem;
     }
+
+    button.info-tile-clickable {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: none;
+    }
+
+    .vl-info-tile__menu {
+        z-index: 1;
+    }
 `;
 export default styles;

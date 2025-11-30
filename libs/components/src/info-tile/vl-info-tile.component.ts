@@ -6,8 +6,8 @@ import '@govflanders/vl-ui-util/dist/js/util.js';
 import '@govflanders/vl-ui-accordion/dist/js/accordion.js';
 import 'reflect-metadata';
 import { VlAccordionComponent } from '../accordion/vl-accordion.component';
-import infoTileUigStyle from './vl-info-tile.uig-css';
 import { INFO_TILE_SIZE } from './vl-info-tile.model';
+import infoTileUigStyle from './vl-info-tile.uig-css';
 
 declare const vl: VL;
 
@@ -18,7 +18,7 @@ export class VlInfoTile extends BaseHTMLElement {
     }
 
     static get _observedAttributes() {
-        return ['auto-open', 'toggleable', 'center', 'size'];
+        return ['auto-open', 'toggleable', 'clickable-label', 'clickable', 'center', 'size'];
     }
 
     constructor() {
@@ -107,7 +107,7 @@ export class VlInfoTile extends BaseHTMLElement {
     }
 
     get _buttonElement(): HTMLButtonElement | undefined | null {
-        return this._element?.querySelector('button');
+        return this._element?.querySelector('button.vl-toggle');
     }
 
     get _footerElement(): HTMLElement | null {
@@ -184,6 +184,31 @@ export class VlInfoTile extends BaseHTMLElement {
             vl.accordion.dress(this._buttonElement);
             this.__preventContentClickPropagation();
             this.__processAutoOpen();
+        }
+    }
+
+    handleInfoTileClicked(): void {
+        this.dispatchEvent(new CustomEvent('vl-click-info-tile', { bubbles: true, composed: true }));
+    }
+
+    _clickableChangedCallback(oldValue: string, newValue: string) {
+        const clickable = newValue !== null;
+        const infoTileContainer = this.shadowRoot?.querySelector('.vl-info-tile');
+        if (clickable) {
+            const clickableButton = document.createElement('button');
+            clickableButton.classList.add('info-tile-clickable');
+            const clickableLabel = this.getAttribute('data-vl-clickable-label');
+            if (clickableLabel) {
+                clickableButton.setAttribute('aria-label', clickableLabel);
+            } else if (!clickableLabel) {
+                console.warn('VlInfoTile - data-vl-clickable-label is vereist.');
+            }
+            clickableButton.addEventListener('click', this.handleInfoTileClicked);
+            infoTileContainer?.prepend(clickableButton);
+        } else {
+            const clickableButton = infoTileContainer?.querySelector('.info-tile-clickable');
+            clickableButton?.removeEventListener('click', this.handleInfoTileClicked);
+            clickableButton?.remove();
         }
     }
 

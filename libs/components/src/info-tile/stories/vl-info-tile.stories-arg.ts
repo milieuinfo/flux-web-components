@@ -3,9 +3,10 @@ import {
     CONTROLS,
     defaultArgs,
     defaultArgTypes,
-    TYPES,
     getSelectControlOptions,
+    TYPES,
 } from '@domg-wc/common-storybook';
+import { action } from '@storybook/addon-actions';
 import { ArgTypes } from '@storybook/web-components';
 import { INFO_TILE_SIZE } from '../vl-info-tile.model';
 
@@ -13,12 +14,15 @@ export const infoTileArgs = {
     ...defaultArgs,
     autoOpen: false,
     center: false,
+    clickable: false,
+    clickableLabel: '',
     toggleable: false,
     contentSlot: '',
     subtitleSlot: '',
     titleSlot: '',
     menuSlot: '',
     size: '',
+    onVlClickInfoTile: action('vl-click-info-tile'),
 };
 
 export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
@@ -40,6 +44,26 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
             defaultValue: { summary: infoTileArgs.center },
+        },
+    },
+    clickable: {
+        name: 'data-vl-clickable',
+        description: 'Maakt de info-tile aanklikbaar. <br>Werkt niet in combinatie met `data-vl-toggleable`-attribuut',
+        table: {
+            category: CATEGORIES.ATTRIBUTES,
+            type: { summary: TYPES.BOOLEAN },
+            defaultValue: { summary: infoTileArgs.clickable },
+        },
+    },
+    clickableLabel: {
+        name: 'data-vl-clickable-label',
+        description:
+            'Stelt de aria-label in van de button die de info-tile aanklikbaar maakt. ' +
+            '<br>Van belang voor WCAG wanneer het `data-vl-clickable`-attribuut aanstaat.',
+        table: {
+            category: CATEGORIES.ATTRIBUTES,
+            type: { summary: TYPES.STRING },
+            defaultValue: { summary: infoTileArgs.clickableLabel },
         },
     },
     toggleable: {
@@ -97,6 +121,13 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: getSelectControlOptions(Object.values(INFO_TILE_SIZE)) },
             defaultValue: { summary: infoTileArgs.size },
+        },
+    },
+    onVlClickInfoTile: {
+        name: 'vl-click-info-tile',
+        description: 'Event dat afgevuurd wordt als er op de info-tile wordt geklikt.',
+        table: {
+            category: CATEGORIES.EVENTS,
         },
     },
 };
