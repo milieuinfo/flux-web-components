@@ -1,6 +1,7 @@
-import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
-import * as VlInputFieldMaskedStories from './vl-input-field-masked.stories';
-import FormControlPublicMethods from '../../form-control/stories/form-control.public-methods-doc.mdx'
+import { ArgTypes, Canvas } from "@storybook/addon-docs/blocks";
+import * as VlInputFieldMaskedStories from "./vl-input-field-masked.stories";
+import FormControlPublicMethods from "../../form-control/stories/form-control.public-methods-doc.mdx";
+import { VlInputFieldMaskedComponent } from "../vl-input-field-masked.component";
 
 # Input Field Masked
 
@@ -130,6 +131,29 @@ Bij het `price` mask wordt de prefix weggelaten.
 - Regex: `/^\+[0-9]{11}$/`
 
 <Canvas of={VlInputFieldMaskedStories.InputFieldMaskedMobile} />
+
+### Custom
+
+Je kan ook zelf masks toevoegen door de functie `VlInputFieldMasked.setMasks()` aan te roepen.
+
+Hieronder volgt een code voorbeeld:
+
+```js
+export const CUSTOM_MASK = {
+  blocks: [8, 4],
+  delimiters: ['-'],
+  numericOnly: true,
+  numeralPositiveOnly: true,
+  regex: /^[0-9]{12}$/
+}
+
+VlInputFieldMaskedComponent.setMasks({'custom-mask': CUSTOM_MASK})
+```
+
+Je roept deze best aan bij het entry point van je applicatie. Daarna is de mask beschikbaar voor elke
+`vl-input-field-masked`.
+
+<Canvas of={VlInputFieldMaskedStories.InputFieldMaskedCustom} />
 
 
 ## Referenties

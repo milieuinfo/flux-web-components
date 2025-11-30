@@ -2,7 +2,7 @@ import { CATEGORIES, CONTROLS, TYPES, getSelectControlOptions } from '@resources
 import { ArgTypes } from '@storybook/web-components-vite';
 import { inputFieldMaskedDefaults } from '../vl-input-field-masked.defaults';
 import { inputFieldArgTypes, inputFieldArgs } from '../../input-field/stories/vl-input-field.stories-arg';
-import { masks } from '../masks';
+import { DEFAULT_MASKS } from '../default-masks';
 
 type InputFieldMaskedArgs = typeof inputFieldArgs & typeof inputFieldMaskedDefaults;
 
@@ -17,9 +17,9 @@ export const inputFieldMaskedArgTypes: ArgTypes<InputFieldMaskedArgs> = {
         name: 'mask',
         description: 'Het mask dat gebruikt moet worden.<br/>Dit attribuut is niet reactief.',
         control: { type: CONTROLS.SELECT },
-        options: Object.keys(masks),
+        options: Object.keys(DEFAULT_MASKS),
         table: {
-            type: { summary: getSelectControlOptions(Object.keys(masks)) },
+            type: { summary: getSelectControlOptions(Object.keys(DEFAULT_MASKS)) },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: inputFieldMaskedArgs.mask },
         },

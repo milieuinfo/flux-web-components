@@ -3,7 +3,7 @@ import Cleave from 'cleave.js';
 import { PropertyDeclarations } from 'lit';
 import { CleaveInstance, MaskOptions } from '../models/cleave.model';
 import { VlInputFieldComponent } from '../input-field';
-import { masks } from './masks';
+import { DEFAULT_MASKS } from './default-masks';
 import { maskValidator, maxValueValidator, minValueValidator } from './validators';
 import { inputFieldMaskedDefaults } from './vl-input-field-masked.defaults';
 
@@ -16,6 +16,7 @@ export class VlInputFieldMaskedComponent extends VlInputFieldComponent {
     private disableMaskValidation = inputFieldMaskedDefaults.disableMaskValidation; // Wordt enkel gebruikt in de mask validator
 
     // Variables
+    private static masks: Record<string, MaskOptions> = { ...DEFAULT_MASKS };
     private maskOptions: MaskOptions | null = null;
     private cleaveInstance: CleaveInstance | null = null;
 
@@ -35,11 +36,19 @@ export class VlInputFieldMaskedComponent extends VlInputFieldComponent {
         };
     }
 
+    static setMasks(masks: Record<string, MaskOptions>) {
+        VlInputFieldMaskedComponent.masks = { ...DEFAULT_MASKS, ...masks };
+    }
+
+    static getMask(key: string): MaskOptions | undefined {
+        return VlInputFieldMaskedComponent.masks[key];
+    }
+
     connectedCallback(): void {
         super.connectedCallback();
 
         this.maskOptions = {
-            ...masks[this.mask],
+            ...VlInputFieldMaskedComponent.getMask(this.mask),
             onValueChanged: (event: { target: { value: string } }) => {
                 this.handleValueChanged(event?.target?.value);
             },
