@@ -4,7 +4,7 @@ import { MaskOptions } from '../models/cleave.model';
 // De 'customTransformFn' wordt gebruikt om features die Cleave.js niet ondersteunt toe te voegen, bv. het verwijderen van niet hexadecimale karakters.
 // De 'regex' wordt gebruikt om de waarde te valideren, tijdens het valideren wordt altijd de rawValue gebruikt.
 
-export const masks: { [key: string]: MaskOptions } = {
+export const DEFAULT_MASKS: Record<string, MaskOptions> = {
     iban: {
         blocks: [4, 4, 4, 4],
         prefix: 'BE',
