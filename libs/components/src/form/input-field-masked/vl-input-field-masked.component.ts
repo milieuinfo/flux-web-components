@@ -74,8 +74,9 @@ export class VlInputFieldMaskedComponent extends VlInputFieldComponent {
             this.maskOptions.prefix = this.maskPrefix;
         }
 
-        if (!this.value.startsWith(this.maskOptions.prefix || '')) {
-            this.value = this.maskOptions.prefix + this.value;
+        const value = this.value ?? '';
+        if (!value.startsWith(this.maskOptions.prefix || '')) {
+            this.value = this.maskOptions.prefix + value;
         }
     }
 
@@ -92,8 +93,9 @@ export class VlInputFieldMaskedComponent extends VlInputFieldComponent {
     resetFormControl() {
         super.resetFormControl();
 
-        if (!this.initialValue.startsWith(this.maskOptions?.prefix || '')) {
-            this.value = this.maskOptions?.prefix + this.initialValue;
+        const initialValue = this.initialValue ?? '';
+        if (!initialValue.startsWith(this.maskOptions?.prefix || '')) {
+            this.value = this.maskOptions?.prefix + initialValue;
         } else {
             this.value = this.initialValue;
         }
