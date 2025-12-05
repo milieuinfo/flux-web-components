@@ -311,6 +311,19 @@
             "jiraMeta": "FLUX-333"
         }
     },
+    "components-block-progress-bar": {
+        "name": "progress-bar",
+        "docs": "components-block-progress-bar--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-24"
+        }
+    },
     "components-block-progress-indicator": {
         "name": "progress-indicator",
         "docs": "components-block-progress-indicator--documentatie",
