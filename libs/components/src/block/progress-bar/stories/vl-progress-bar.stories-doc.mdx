@@ -1,0 +1,59 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlProgressBarStories from './vl-progress-bar.stories';
+
+# Progress Bar
+
+<FluxComponentMetaData id="components-block-progress-bar" />
+
+## Doel
+
+Gebruik een `vl-progress-bar` om procentuele voortgang te tonen. 
+
+## Voorbeeld
+
+```js
+import { VlProgressBarComponent } from '@domg-wc/components/block';
+```
+
+```html
+<vl-progress-bar></vl-progress-bar>
+```
+
+<Canvas of={VlProgressBarStories.ProgressBarDefault} />
+
+## Configuratie
+
+<ArgTypes of={VlProgressBarStories.ProgressBarDefault} />
+
+## Varianten
+
+### Onbepaalde voortgang
+
+Indien de voortgang niet bepaald kan worden, kan je het attribuut `indeterminate` gebruiken.
+
+<Canvas of={VlProgressBarStories.ProgressBarIndeterminate} />
+
+### Error
+
+Indien de voortgang faalde, kan je het attribuut `error` gebruiken.
+
+<Canvas of={VlProgressBarStories.ProgressBarError} />
+
+## Witruimte
+
+Deze component heeft geen eigen witruimte om zo flexibel mogelijk ingezet te kunnen worden. Extra padding of margin
+kan eenvoudig toegevoegd worden met de [vl-padding](/docs/styles-layout-afnemers-padding--documentatie) of 
+[vl-margin](/docs/styles-layout-afnemers-margin--documentatie) styles:
+
+```html
+<vl-progress-bar class="vl-padding vl-padding--small" value="50" label="Progress bar met witruimte"></vl-progress-bar>
+```
+
+## Toegankelijkheid
+
+De progress bar wordt opgebouwd met `role="progressbar"` en de bijhorende `aria-valuenow`. Het is noodzakelijk om een
+waarde voor `label` of `labelledby` in te vullen, zodat een screenreader kan voorlezen over welke voortgang het gaat.
+
+Indien de gebruiker "verminderde beweging" heeft ingesteld in diens besturingssyteem, worden de bewegende animaties 
+uitgeschakeld. In het geval van "indeterminate" blijft er enkel een fade-in/fade-out animatie zichtbaar.
+

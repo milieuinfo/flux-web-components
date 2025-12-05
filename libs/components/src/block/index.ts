@@ -26,6 +26,7 @@ export { VlModalComponent } from './modal';
 export { VlPagerComponent, type Pagination } from './pager';
 export { TYPE, VlPillComponent } from './pill';
 export { VlPopoverActionComponent, VlPopoverActionListComponent, VlPopoverComponent } from './popover';
+export { VlProgressBarComponent } from './progress-bar';
 export { VlProgressIndicatorComponent } from './progress-indicator';
 export { VlPropertiesComponent } from './properties';
 export { VlProzaMessage, VlProzaMessagePreloader } from './proza-message';
