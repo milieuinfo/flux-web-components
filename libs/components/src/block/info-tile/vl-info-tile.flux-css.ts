@@ -137,4 +137,17 @@ export const vlInfoTyleFluxStyles: CSSResult = css`
     :host .vl-info-tile--full-height {
         height: 100%;
     }
+
+    button.info-tile-clickable {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: none;
+    }
+
+    .vl-info-tile__menu {
+        z-index: 1;
+    }
 `;

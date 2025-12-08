@@ -10,6 +10,8 @@ registerWebComponents([VlInfoTile, VlPopoverComponent, VlButtonComponent]);
 
 const mountDefault = ({
     autoOpen,
+    clickable,
+    clickableLabel,
     toggleable,
     center,
     contentSlot,
@@ -25,6 +27,8 @@ const mountDefault = ({
     fullHeight = false,
 }: {
     autoOpen?: boolean;
+    clickable?: boolean;
+    clickableLabel?: string;
     toggleable?: boolean;
     center?: boolean;
     contentSlot?: string;
@@ -45,6 +49,8 @@ const mountDefault = ({
             ?center=${center}
             ?icon-as-badge=${iconAsBadge}
             ?toggleable=${toggleable}
+            ?clickable=${clickable}
+            clickable-label=${clickableLabel}
             ?full-height="${fullHeight}"
             icon="${icon}"
             size="${size}"
@@ -83,6 +89,7 @@ const badgeSlot = `<div slot="badge" style="
             place-content: center center;
             font-weight: 500;
         ">BD</div>`;
+const clickableLabel = 'opent info-tile';
 
 describe('cypress-component - block components - vl-info-tile - default', () => {
     beforeEach(() => {
@@ -556,5 +563,58 @@ describe('cypress-component - block components - vl-info-tile - footer', () => {
     it('should have a footer', () => {
         cy.get('vl-info-tile').shadow().find('slot[name="footer"]').should('exist');
         cy.get('vl-info-tile').find('div[slot="footer"]').contains('Download');
+    });
+});
+
+describe('story vl-info-tile - menu and clickable', () => {
+    beforeEach(() => {
+        mountDefault({
+            clickable: true,
+            clickableLabel,
+            titleSlot,
+            subtitleSlot,
+            contentSlot,
+            menuSlot,
+        });
+    });
+
+    it('should be accessible', () => {
+        cy.injectAxe();
+
+        cy.checkA11y('vl-info-tile');
+    });
+
+    it('should be clickable & dispatch `vl-click-info-tile` event', () => {
+        cy.injectAxe();
+        cy.createStubForEvent('vl-info-tile', 'vl-click-info-tile');
+
+        cy.get('vl-info-tile').shadow().find('button.info-tile-clickable').click('bottomLeft');
+        cy.get('@vl-click-info-tile').should('have.been.calledOnce');
+        cy.checkA11y('vl-info-tile');
+    });
+
+    it('should not dispatch `vl-click-info-tile` event on menu slot click but open popover-menu', () => {
+        cy.injectAxe();
+        cy.createStubForEvent('vl-info-tile', 'vl-click-info-tile');
+
+        cy.get('vl-popover').should('not.have.attr', 'open');
+        cy.get('#btn-acties').click();
+        cy.get('vl-popover').should('have.attr', 'open');
+        cy.get('#btn-acties').click();
+        cy.get('vl-popover').should('not.have.attr', 'open');
+
+        cy.get('@vl-click-info-tile').should('not.have.been.called');
+        cy.checkA11y('vl-info-tile');
+
+        cy.get('vl-info-tile').shadow().find('button.info-tile-clickable').click('bottomLeft');
+        cy.get('@vl-click-info-tile').should('have.been.calledOnce');
+        cy.checkA11y('vl-info-tile');
+    });
+
+    it('should set clickable label', () => {
+        cy.get('vl-info-tile')
+            .shadow()
+            .find('button.info-tile-clickable')
+            .should('have.attr', 'aria-label', clickableLabel);
     });
 });

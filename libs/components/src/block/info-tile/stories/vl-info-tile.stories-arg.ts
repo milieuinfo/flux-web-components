@@ -7,12 +7,15 @@ import {
     TYPES,
 } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components-vite';
+import { action } from 'storybook/actions';
 import { INFO_TILE_SIZE, INFO_TILE_TYPE } from '../vl-info-tile.model';
 
 export const infoTileArgs = {
     ...defaultArgs,
     autoOpen: false,
     center: false,
+    clickable: false,
+    clickableLabel: '',
     toggleable: false,
     contentSlot: '',
     subtitleSlot: '',
@@ -25,6 +28,7 @@ export const infoTileArgs = {
     iconAsBadge: false,
     type: '',
     fullHeight: false,
+    onVlClickInfoTile: action('vl-click-info-tile'),
 };
 
 export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
@@ -55,6 +59,27 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
             defaultValue: { summary: String(infoTileArgs.fullHeight) },
+        },
+    },
+
+    clickable: {
+        name: 'clickable',
+        description: 'Maakt de info-tile aanklikbaar. <br>Werkt niet in combinatie met `toggleable`-attribuut',
+        table: {
+            category: CATEGORIES.ATTRIBUTES,
+            type: { summary: TYPES.BOOLEAN },
+            defaultValue: { summary: String(infoTileArgs.clickable) },
+        },
+    },
+    clickableLabel: {
+        name: 'clickable-label',
+        description:
+            'Stelt de aria-label in van de button die de info-tile aanklikbaar maakt. ' +
+            '<br>Van belang voor WCAG wanneer het `clickable`-attribuut aanstaat.',
+        table: {
+            category: CATEGORIES.ATTRIBUTES,
+            type: { summary: TYPES.STRING },
+            defaultValue: { summary: infoTileArgs.clickableLabel },
         },
     },
     toggleable: {
@@ -161,6 +186,13 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
             defaultValue: { summary: String(infoTileArgs.iconAsBadge) },
+        },
+    },
+    onVlClickInfoTile: {
+        name: 'vl-click-info-tile',
+        description: 'Event dat afgevuurd wordt als er op de info-tile wordt geklikt.',
+        table: {
+            category: CATEGORIES.EVENTS,
         },
     },
 };
