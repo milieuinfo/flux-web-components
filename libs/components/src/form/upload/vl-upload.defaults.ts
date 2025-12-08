@@ -14,7 +14,7 @@ export const uploadDefaults = {
     maxFiles: 1 as number,
     maxSize: 2 as number,
     parallelUploads: 2 as number,
-    subTitle: 'Sleep de bijlage naar hier om toe te voegen' as string,
+    subTitle: 'Sleep de bijlage naar hier om toe te voegen.' as string,
     mainTitle: 'Bijlage toevoegen' as string,
     url: 'dummy-url' as string,
     uploadProgressFn: null as ((file: DropzoneFile, progress: number, bytesSent: number) => void) | null,

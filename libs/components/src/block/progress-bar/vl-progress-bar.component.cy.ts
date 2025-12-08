@@ -19,7 +19,7 @@ const mountDefault = ({ value, indeterminate, label, labelledby }: { value?: num
     `);
 };
 
-describe('component vl-progress-bar', () => {
+describe('cypress-component - block components - vl-progress-bar', () => {
     beforeEach(() => {
         cy.spy(console, 'warn').as('consoleWarn');
     });
