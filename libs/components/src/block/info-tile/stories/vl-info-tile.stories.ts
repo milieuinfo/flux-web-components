@@ -25,6 +25,8 @@ const Template = story(
         autoOpen,
         toggleable,
         center,
+        clickable,
+        clickableLabel,
         contentSlot,
         subtitleSlot,
         titleSlot,
@@ -37,6 +39,7 @@ const Template = story(
         type,
         fullHeight = false,
         classes = '',
+        onVlClickInfoTile,
     }) => html`
         <vl-info-tile
             ?auto-open=${autoOpen}
@@ -44,10 +47,13 @@ const Template = story(
             ?icon-as-badge=${iconAsBadge}
             ?toggleable=${toggleable}
             ?full-height=${fullHeight}
+            ?clickable=${clickable}
+            clickable-label=${clickableLabel}
             icon="${icon}"
             size="${size}"
             type="${type}"
             class="${classes}"
+            @vl-click-info-tile="${onVlClickInfoTile}"
         >
             ${unsafeHTML(badgeSlot)} ${unsafeHTML(titleSlot)} ${unsafeHTML(menuSlot)} ${unsafeHTML(subtitleSlot)}
             ${unsafeHTML(contentSlot)} ${unsafeHTML(footerSlot)}
@@ -204,8 +210,7 @@ InfoTileBadgeSlot.args = {
     titleSlot: `<span slot="title">Broos Deprez</span>`,
     subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
     contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
-    badgeSlot:
-        `<div slot="badge" style="
+    badgeSlot: `<div slot="badge" style="
             width: 45px;
             height: 45px;
             background: var(--vl-color--background-alt);
@@ -227,4 +232,24 @@ InfoTileFooterSlot.args = {
     footerSlot: `<div slot="footer">
         <vl-button icon="file-download">Download</vl-button>
     </div>`,
+};
+
+export const InfoTileClickable = Template.bind({});
+InfoTileClickable.storyName = 'vl-info-tile - clickable';
+InfoTileClickable.args = {
+    titleSlot: `<span slot="title">Broos Deprez</span>`,
+    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    menuSlot: `<span slot="menu">
+        <vl-button ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button>
+        <vl-popover for="btn-acties" placement="bottom-end">
+            <vl-popover-action-list>
+                <vl-popover-action icon="search">Zoeken</vl-popover-action>
+                <vl-popover-action icon="edit">Aanpassen</vl-popover-action>
+                <vl-popover-action icon="bin">Verwijderen</vl-popover-action>
+            </vl-popover-action-list>
+        </vl-popover>
+    </span>`,
+    clickable: true,
+    clickableLabel: 'detail pagina Broos Deprez openen',
 };

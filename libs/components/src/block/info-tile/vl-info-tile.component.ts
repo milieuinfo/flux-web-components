@@ -17,7 +17,18 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
     }
 
     static get _observedAttributes() {
-        return ['auto-open', 'toggleable', 'center', 'full-height', 'size', 'icon', 'icon-as-badge', 'type'];
+        return [
+            'auto-open',
+            'toggleable',
+            'clickable-label',
+            'clickable',
+            'center',
+            'full-height',
+            'size',
+            'icon',
+            'icon-as-badge',
+            'type',
+        ];
     }
 
     constructor() {
@@ -77,6 +88,7 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
         this.__processIcon();
         this.__processBadgeWrapper();
         this.__processAutoOpen();
+        this.__processClickableLabel();
     }
 
     get isToggleable() {
@@ -114,8 +126,12 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
         return this._titleElement?.querySelector('[name="title-label"]');
     }
 
-    get _buttonElement(): HTMLButtonElement | null {
-        return this._element.querySelector('button');
+    get _buttonElement() {
+        return this._element?.querySelector<HTMLButtonElement>('button.vl-toggle');
+    }
+
+    get _buttonClickableElement() {
+        return this._element?.querySelector<HTMLButtonElement>('button.info-tile-clickable');
     }
 
     get _toggleElement() {
@@ -248,6 +264,39 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
     _iconAsBadgeChangedCallback() {
         this.__processIcon();
         this.__processBadgeWrapper();
+    }
+
+    handleInfoTileClicked(): void {
+        this.dispatchEvent(new CustomEvent('vl-click-info-tile', { bubbles: true, composed: true }));
+    }
+
+    _clickableChangedCallback(oldValue: string, newValue: string) {
+        const clickable = newValue !== null;
+        const infoTileContainer = this.shadowRoot?.querySelector('.vl-info-tile');
+        if (clickable) {
+            const clickableButton = document.createElement('button');
+            clickableButton.classList.add('info-tile-clickable');
+            clickableButton.addEventListener('click', this.handleInfoTileClicked);
+            infoTileContainer?.prepend(clickableButton);
+        } else {
+            const clickableButton = infoTileContainer?.querySelector('.info-tile-clickable');
+            clickableButton?.removeEventListener('click', this.handleInfoTileClicked);
+            clickableButton?.remove();
+        }
+    }
+
+    private __processClickableLabel(): void {
+        const clickableButton = this._buttonClickableElement;
+        const clickable = this.hasAttribute('clickable');
+        const clickableLabel = this.getAttribute('clickable-label');
+
+        if (clickable) {
+            if (clickableLabel) {
+                clickableButton?.setAttribute('aria-label', clickableLabel);
+            } else {
+                console.warn('VlInfoTile - clickable-label is vereist.');
+            }
+        }
     }
 
     __prepareAccordionElements() {
