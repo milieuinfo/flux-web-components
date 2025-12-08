@@ -1,11 +1,11 @@
+import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
-import { uploadArgTypes, uploadArgs } from './vl-upload.stories-arg';
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import uploadDocs from './vl-upload.stories-doc.mdx';
-import { registerWebComponents } from '@domg-wc/common';
 import { VlUploadComponent } from '../vl-upload.component';
 import { uploadDefaults } from '../vl-upload.defaults';
+import { uploadArgTypes, uploadArgs } from './vl-upload.stories-arg';
+import uploadDocs from './vl-upload.stories-doc.mdx';
 
 registerWebComponents([VlUploadComponent]);
 
@@ -60,11 +60,17 @@ export const UploadDefault = story(
     }) => {
         let subtitleComposed;
         if (subTitle.toString() === 'Symbol(lit-nothing)') {
-            const { maxFiles, subTitle: subtitleDefault, maxSize } = uploadDefaults;
+            const { maxFiles: maxFilesDefault, subTitle: subtitleDefault, maxSize: maxSizeDefault } = uploadDefaults;
             const acceptedFilesMessage = !(acceptedFiles.toString() === 'Symbol(lit-nothing)')
                 ? `\n De toegestane bestandstypes zijn: ${acceptedFiles}\n`
                 : '';
-            subtitleComposed = `${subtitleDefault} \nUpload ${maxFiles} bestand(en) van maximaal ${maxSize} MB${acceptedFilesMessage}`;
+
+            const storyMaxFiles = typeof maxFiles === 'number' ? maxFiles : maxFilesDefault;
+            const storyMaxSize = typeof maxSize === 'number' ? maxSize : maxSizeDefault;
+
+            subtitleComposed = `${subtitleDefault} \nUpload ${storyMaxFiles} ${
+                storyMaxFiles > 1 ? 'bestanden' : 'bestand'
+            } van maximaal ${storyMaxSize} MB${acceptedFilesMessage}.`;
         } else {
             subtitleComposed = subTitle;
         }

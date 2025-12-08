@@ -20,6 +20,7 @@ import { modalArgTypes } from '../../../libs/components/src/block/modal/stories/
 import { pagerArgTypes } from '../../../libs/components/src/block/pager/stories/vl-pager.stories-arg';
 import { pillArgTypes } from '../../../libs/components/src/block/pill/stories/vl-pill.stories-arg';
 import { popoverArgTypes } from '../../../libs/components/src/block/popover/stories/vl-popover.stories-arg';
+import { progressBarArgTypes } from '../../../libs/components/src/block/progress-bar/stories/vl-progress-bar.stories-arg';
 import { progressIndicatorArgTypes } from '../../../libs/components/src/block/progress-indicator/stories/vl-progress-indicator.stories-arg';
 import { propertiesArgTypes } from '../../../libs/components/src/block/properties/stories/vl-properties.stories-arg';
 import { prozaMessagePreloaderArgTypes } from '../../../libs/components/src/block/proza-message/stories/vl-proza-message-preloader.stories-arg';
@@ -41,6 +42,7 @@ import { templateArgTypes } from '../../../libs/components/src/block/template/st
 import { toasterArgTypes } from '../../../libs/components/src/block/toaster/stories/vl-toaster.stories-arg';
 import { tooltipArgTypes } from '../../../libs/components/src/block/tooltip/stories/vl-tooltip.stories-arg';
 import { typographyArgTypes } from '../../../libs/components/src/block/typography/stories/vl-typography.stories-arg';
+import { uploadProgressArgTypes } from '../../../libs/components/src/block/upload-progress/stories/vl-upload-progress.stories-arg';
 import { videoPlayerArgTypes } from '../../../libs/components/src/block/video-player/stories/vl-video-player.stories-arg';
 import { wizardPaneArgTypes } from '../../../libs/components/src/block/wizard/stories/vl-wizard-pane.stories-arg';
 import { wizardArgTypes } from '../../../libs/components/src/block/wizard/stories/vl-wizard.stories-arg';
@@ -217,6 +219,12 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
     buildWTConfig('vl-popover-action', null, null, '/docs/components-block-popover--documentatie'),
     buildWTConfig('vl-popover-action-list', null, null, '/docs/components-block-popover--documentatie'),
     buildWTConfig(
+        'vl-progress-bar',
+        progressBarArgTypes,
+        '../../libs/components/src/block/progress-bar/stories/vl-progress-bar.stories-doc.mdx',
+        '/docs/components-block-progress-bar--documentatie'
+    ),
+    buildWTConfig(
         'vl-progress-indicator',
         progressIndicatorArgTypes,
         '../../libs/components/src/block/progress-indicator/stories/vl-progress-indicator.stories-doc.mdx',
@@ -286,6 +294,12 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
         '/docs/components-block-tooltip--documentatie'
     ),
     buildWTConfig('vl-typography', typographyArgTypes, null, '/docs/components-block-typography--documentatie'),
+    buildWTConfig(
+        'vl-upload-progress',
+        uploadProgressArgTypes,
+        '../../libs/components/src/block/upload-progress/stories/vl-upload-progress.stories-doc.mdx',
+        '/docs/components-block-upload-progress--documentatie'
+    ),
     buildWTConfig(
         'vl-video-player',
         videoPlayerArgTypes,

@@ -9,6 +9,9 @@ export const vlLinkStyles = (selector = 'a') => css`
         padding: 0;
 
         /* Link styles (gebaseerd op DV _anchor.scss en _link.scss) */
+        font-family: var(--vl-font);
+        font-size: var(--vl-font-size);
+        text-decoration: underline;
         display: inline-flex;
         align-items: center;
         word-break: break-word;
@@ -21,7 +24,7 @@ export const vlLinkStyles = (selector = 'a') => css`
         }
 
         &:focus {
-            ${vlFocusOutlineMixin()}
+            ${vlFocusOutlineMixin()};
         }
 
         &:focus,

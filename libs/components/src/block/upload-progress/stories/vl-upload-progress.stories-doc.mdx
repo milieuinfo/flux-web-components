@@ -1,0 +1,54 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlUploadProgressStories from './vl-upload-progress.stories';
+
+# Upload progress
+
+<FluxComponentMetaData id="components-block-upload-progress" />
+
+## Doel
+
+Gebruik `vl-upload-progress` om procentuele voortgang van een bestandsupload te tonen.
+
+Dit component laadt toe om de upload te annuleren of te herstarten en heeft de mogelijkheid om een foutboodschap
+weer te geven.
+
+## Voorbeeld
+
+```js
+import { VlUploadProgressComponent } from '@domg-wc/components/block';
+```
+
+```html
+<vl-upload-progress></vl-upload-progress>
+```
+
+<Canvas of={VlUploadProgressStories.UploadProgressDefault} />
+
+## Configuratie
+
+<ArgTypes of={VlUploadProgressStories.UploadProgressDefault} />
+
+## Varianten
+
+### Onbepaalde voortgang
+
+Indien de voortgang niet bepaald kan worden, kan je het attribuut `indeterminate` gebruiken.
+
+<Canvas of={VlUploadProgressStories.UploadProgressIndeterminate} />
+
+### Error
+
+Indien de voortgang faalde, kan je het attribuut `error` gebruiken.
+
+<Canvas of={VlUploadProgressStories.UploadProgressError} />
+
+## Witruimte
+
+Deze component heeft geen eigen witruimte om zo flexibel mogelijk ingezet te kunnen worden. Extra padding of margin
+kan eenvoudig toegevoegd worden met de [vl-padding](/docs/styles-layout-afnemers-padding--documentatie) of 
+[vl-margin](/docs/styles-layout-afnemers-margin--documentatie) styles:
+
+```html
+<vl-upload-progress filename="document.pdf" filesize="123 MB" class="vl-padding vl-padding--small" progress="50"></vl-upload-progress>
+```
+

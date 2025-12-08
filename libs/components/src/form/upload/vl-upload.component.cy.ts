@@ -1,5 +1,5 @@
-import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
+import { html } from 'lit';
 import { VlUploadComponent } from './vl-upload.component';
 
 registerWebComponents([VlUploadComponent]);
@@ -73,12 +73,12 @@ describe('cypress-component - form components - vl-upload', () => {
         cy.get('vl-upload').should('be.disabled');
         cy.get('vl-upload').shadow().find('div').should('have.class', 'vl-upload--disabled');
         cy.get('vl-upload').shadow().find('input').should('be.disabled');
-        cy.get('vl-upload').shadow().find('button.vl-upload__element__button').should('be.disabled');
+        cy.get('vl-upload').shadow().find('button.vl-upload__button').should('be.disabled');
 
         cy.get('vl-upload')
             .shadow()
             .find('.vl-upload__element')
-            .shouldHaveComputedStyle({ style: 'background-color', value: 'rgb(203, 210, 217)' });
+            .shouldHaveComputedStyle({ style: 'background-color', value: 'rgb(247, 249, 252)' });
     });
 
     it('should set readonly', () => {
@@ -157,7 +157,7 @@ describe('cypress-component - form components - vl-upload', () => {
         cy.get('vl-upload')
             .shadow()
             .find('.vl-upload__element')
-            .shouldHaveComputedStyle({ style: 'background-color', value: 'rgb(251, 235, 236)' });
+            .shouldHaveComputedStyle({ style: 'background-color', value: 'rgb(251, 237, 237)' });
     });
 
     it('should set success', () => {
@@ -169,7 +169,7 @@ describe('cypress-component - form components - vl-upload', () => {
         cy.get('vl-upload')
             .shadow()
             .find('.vl-upload__element')
-            .shouldHaveComputedStyle({ style: 'background-color', value: 'rgb(230, 245, 237)' });
+            .shouldHaveComputedStyle({ style: 'background-color', value: 'rgb(236, 246, 238)' });
     });
 
     it('should dispatch vl-change events when adding file', () => {
@@ -297,7 +297,7 @@ describe('cypress-component - form components - vl-upload', () => {
         cy.mount(html` <vl-upload accepted-files="txt" error-message-accepted-files=${errorMessage}></vl-upload> `);
 
         cy.get('vl-upload').shadow().find('input[type=file]').selectFile(pdfFileFixturePath, { force: true });
-        cy.get('vl-upload').shadow().find('.dz-error-message').should('contain', errorMessage, '');
+        cy.get('vl-upload').shadow().find('vl-upload-progress[message]').should('have.attr', 'message', errorMessage);
     });
 
     it('should handle upload events when error occurs', () => {
@@ -313,7 +313,7 @@ describe('cypress-component - form components - vl-upload', () => {
         cy.createStubForEvent('vl-upload', 'vl-upload-progress');
 
         cy.get('vl-upload').shadow().find('input[type=file]').selectFile(pdfFileFixturePath, { force: true });
-        cy.get('vl-upload').shadow().find('.dz-error-message').should('contain', errorMessage, '');
+        cy.get('vl-upload').shadow().find('vl-upload-progress[message]').should('have.attr', 'message', errorMessage);
 
         cy.get('@vl-success').should('not.have.been.called');
         cy.get('@vl-error').should('have.been.called');
@@ -357,7 +357,7 @@ describe('cypress-component - form components - vl-upload', () => {
         cy.mount(html` <vl-upload error-message-max-files=${errorMessage}></vl-upload>`);
 
         shouldAddPdfFiles(2);
-        cy.get('vl-upload').shadow().find('.dz-error-message').should('contain', errorMessage, '');
+        cy.get('vl-upload').shadow().find('vl-upload-progress[message]').should('have.attr', 'message', errorMessage);
     });
 
     it('should generate error when exceeding the number of files allowed', () => {
@@ -365,9 +365,9 @@ describe('cypress-component - form components - vl-upload', () => {
         cy.mount(html` <vl-upload max-files="2" error-message-max-files=${errorMessage}></vl-upload>`);
 
         shouldAddPdfFiles(3);
-        shouldHaveUploadFiles(3, true);
-        shouldHaveValidUploadFiles(2, true);
-        cy.get('vl-upload').shadow().find('.dz-error-message').should('contain', errorMessage, '');
+        shouldHaveUploadFiles(3);
+        shouldHaveValidUploadFiles(2);
+        cy.get('vl-upload').shadow().find('vl-upload-progress[message]').should('have.attr', 'message', errorMessage);
     });
 
     it('should remove duplicate files', () => {
@@ -390,7 +390,7 @@ describe('cypress-component - form components - vl-upload', () => {
         cy.createStubForEvent('vl-upload', 'vl-error');
         cy.get('vl-upload').shadow().find('.dz-default');
         shouldAddPdfFiles(1);
-        cy.get('vl-upload').shadow().find('.dz-error-message').should('contain', errorMessage, '');
+        cy.get('vl-upload').shadow().find('vl-upload-progress[message]').should('have.attr', 'message', errorMessage);
         cy.get('@vl-error').should('have.been.called');
     });
 
@@ -409,7 +409,7 @@ describe('cypress-component - form components - vl-upload', () => {
             });
         }).as('uploadPost');
 
-        cy.get('vl-upload').shadow().find('div').not('.vl-upload__file');
+        cy.get('vl-upload').shadow().find('div').not('vl-upload-progress');
         shouldAddPdfFiles(1);
         shouldHaveUploadFiles(1);
 
@@ -447,27 +447,27 @@ const shouldAddTxtFiles = (number = 1) => {
 };
 
 const shouldRemoveFile = () => {
-    cy.get('vl-upload').shadow().find('button.vl-upload__files__close').click();
+    cy.get('vl-upload').shadow().find('button.vl-upload-files__remove-all').click();
 };
 
-const shouldHaveUploadFiles = (number: number, isMultiple?: boolean) => {
-    const previewFileSelector = `${isMultiple ? 'li' : 'div'}.vl-upload__file`;
+const shouldHaveUploadFiles = (number: number) => {
+    const previewFileSelector = `.vl-upload-files__list > li`;
     cy.get('vl-upload').shadow().find(previewFileSelector).its('length').should('eq', number);
 };
 
-const shouldHaveValidUploadFiles = (number: number, isMultiple?: boolean) => {
+const shouldHaveValidUploadFiles = (number: number) => {
     cy.get('vl-upload')
         .shadow()
-        .find(`${isMultiple ? 'li' : 'div'}.vl-upload__file`)
+        .find(`.vl-upload-files__list > li`)
         .not('.dz-error')
         .its('length')
         .should('eq', number);
 };
 
-const shouldHaveUploadFilesWithNoSuccess = (number: number, isMultiple?: boolean) => {
+const shouldHaveUploadFilesWithNoSuccess = (number: number) => {
     cy.get('vl-upload')
         .shadow()
-        .find(`${isMultiple ? 'li' : 'div'}.vl-upload__file`)
+        .find(`.vl-upload-files__list > li`)
         .not('.dz-success')
         .its('length')
         .should('eq', number);
@@ -477,10 +477,10 @@ const shouldHaveSuccessUploadFiles = (number: number) => {
     cy.get('vl-upload').shadow().find('.dz-success').its('length').should('eq', number);
 };
 
-const shouldOnlyHaveUnprocessedUploadFiles = (number: number, isMultiple?: boolean) => {
+const shouldOnlyHaveUnprocessedUploadFiles = (number: number) => {
     cy.get('vl-upload')
         .shadow()
-        .find(`${isMultiple ? 'li' : 'div'}.vl-upload__file`)
+        .find(`.vl-upload-files__list > li`)
         .not('.dz-error')
         .not('.dz-success')
         .its('length')

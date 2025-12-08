@@ -1,12 +1,14 @@
-import { findNodesForSlot, webComponent } from '@domg-wc/common';
-import { Dropzone as DropzoneInstance, DropzoneFile } from '../dropzone-types';
-import { accessibilityStyle, baseStyle, resetStyle } from '@domg/govflanders-style/common';
-import { iconStyle, linkStyle, uploadStyle } from '@domg/govflanders-style/component';
+import { findNodesForSlot, registerWebComponents, webComponent } from '@domg-wc/common';
+import { VlIconComponent, vlLinkStyles } from '@domg-wc/components/atom';
+import { vlLayoutStyles, vlResetStyles } from '@domg-wc/styles';
 import { Validator } from '@open-wc/form-control';
 import { FormValue } from '@open-wc/form-control/src/types';
 import DropzoneImport from 'dropzone';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { vlTextStyles } from '../../atom/text/vl-text.css';
+import { VlUploadProgressComponent } from '../../block/upload-progress';
+import { DropzoneFile, Dropzone as DropzoneInstance } from '../dropzone-types';
 import { FormControl } from '../form-control/form-control';
 import { uploadDefaults } from './vl-upload.defaults';
 import { vlUploadFluxStyles } from './vl-upload.flux-css';
@@ -35,6 +37,8 @@ const dropzoneValidator: Validator = {
         return !hasDropzoneError;
     },
 };
+
+registerWebComponents([VlUploadProgressComponent, VlIconComponent]);
 
 @webComponent('vl-upload')
 export class VlUploadComponent extends FormControl {
@@ -69,7 +73,14 @@ export class VlUploadComponent extends FormControl {
     static formControlValidators = [...FormControl.formControlValidators, dropzoneValidator];
 
     static get styles(): CSSResult[] {
-        return [resetStyle, baseStyle, linkStyle, uploadStyle, vlUploadFluxStyles, iconStyle, accessibilityStyle];
+        return [
+            vlResetStyles,
+            ...vlLayoutStyles,
+            vlTextStyles,
+            vlLinkStyles('.vl-upload__button'),
+            vlLinkStyles('.vl-upload-files__remove-all'),
+            vlUploadFluxStyles,
+        ];
     }
 
     static get properties(): PropertyDeclarations {
@@ -201,6 +212,10 @@ export class VlUploadComponent extends FormControl {
 
         if (changedProperties.has('autoProcess')) {
             if (this.dropzoneInstance) this.dropzoneInstance.options.autoProcessQueue = this.autoProcess;
+            this.shadowRoot?.querySelectorAll('vl-upload-progress').forEach((uploadProgressElement) => {
+                if (this.autoProcess) uploadProgressElement?.removeAttribute('hide-progress');
+                else uploadProgressElement?.setAttribute('hide-progress', '');
+            });
         }
 
         if (changedProperties.has('url')) {
@@ -237,40 +252,32 @@ export class VlUploadComponent extends FormControl {
             'vl-upload--disabled': this.disabled,
             'vl-upload--error': this.isInvalid || this.error,
             'vl-upload--success': this.success,
+            'vl-upload--readonly': this.readonly,
         };
 
         const dropzoneContainerClasses = {
             'dz-clickable': this.readonly,
             dropzone: true,
-            'vl-upload__element__label': true,
+            'vl-upload__dropzone': true,
         };
 
-        // Als er meer dan 1 bestand getoond wordt, is het beter een lijst te tonen.
-        // Dit verbetert toegankelijkheid voor gebruikers die een screenreader gebruiken
-        // Echter, als er maar 1 bestand kan upgeload worden, dan is het beter geen lijst te gebruiken
-        // omdat een lijst 4 extra onnodige stappen geeft in de screenreader
-        const shouldShowPreviewList = this.maxFiles <= 1;
-
         return html`
-            ${this.getUploadElementTemplate()}
-            ${shouldShowPreviewList ? this.getPreviewTemplate() : this.getPreviewTemplateListItem()}
+            ${this.getUploadElementTemplate()} ${this.getPreviewTemplate()}
             <div class=${classMap(uploadClasses)}>
                 <div class="vl-upload__element">
                     <div class="vl-upload__overlay">
-                        <p class="vl-upload__overlay__text">
-                            <span class="vl-link__icon vl-vi vl-vi-paperclip" aria-hidden="true"></span>
-                        </p>
+                        <div class="vl-upload__overlay-content">
+                            <vl-icon icon="paperclip" aria-hidden="true"></vl-icon>
+                        </div>
                     </div>
                     <div id="dropzone-container" class=${classMap(dropzoneContainerClasses)}></div>
                 </div>
             </div>
-            <div class="vl-upload__files">
-                ${shouldShowPreviewList
-                    ? html`<div class="vl-upload__files__container"></div>`
-                    : html`<ul class="vl-upload__files__container"></ul>`}
-                <div class="vl-upload__files__input__container"></div>
-                <button class="vl-upload__files__close vl-link vl-link--icon" type="button">
-                    <span class="vl-link__icon vl-vi vl-vi-trash" aria-hidden="true"></span>
+            <div class="vl-upload-files" hidden>
+                <ul class="vl-upload-files__list"></ul>
+                <div id="input-container"></div>
+                <button class="vl-upload-files__remove-all" type="button">
+                    <vl-icon icon="trash" right-margin aria-hidden="true"></vl-icon>
                     Verwijder alle bestanden
                 </button>
             </div>
@@ -356,27 +363,29 @@ export class VlUploadComponent extends FormControl {
     }
 
     private getUploadButton(): HTMLButtonElement | undefined | null {
-        return this.shadowRoot?.querySelector<HTMLButtonElement>('.vl-upload__element__button');
+        return this.shadowRoot?.querySelector<HTMLButtonElement>('.vl-upload__button');
     }
 
     private getFilesCloseButton(): HTMLButtonElement | undefined | null {
-        return this.shadowRoot?.querySelector<HTMLButtonElement>('.vl-upload__files__close');
+        return this.shadowRoot?.querySelector<HTMLButtonElement>('.vl-upload-files__remove-all');
+    }
+
+    private getFilesList(): HTMLUListElement | undefined | null {
+        return this.shadowRoot?.querySelector<HTMLUListElement>('.vl-upload-files__list');
     }
 
     private getUploadElementTemplate(): TemplateResult {
         return html`
             <template id="uploadTemplate">
-                <button type="button" class="vl-upload__element__button vl-link" aria-label="upload-button">
-                    <i class="vl-vi vl-vi-paperclip" aria-hidden="true"></i>
-                    <span class="vl-upload__element__button__container" id="title"></span>
-                    <span class="vl-upload__element__button__container" id="slotted-title">
-                        <slot name="title"></slot
-                    ></span>
+                <button type="button" class="vl-upload__button" aria-label="Upload knop">
+                    <vl-icon icon="paperclip" small right-margin aria-hidden="true"></vl-icon>
+                    <span id="title"></span>
+                    <span id="slotted-title"> <slot name="title"></slot></span>
                 </button>
-                <small id="sub-title"></small>
-                <small id="slotted-sub-title">
+                <div class="vl-text vl-text--annotation vl-text--small" id="sub-title"></div>
+                <div class="vl-text vl-text--annotation vl-text--small" id="slotted-sub-title">
                     <slot name="sub-title"></slot>
-                </small>
+                </div>
             </template>
         `;
     }
@@ -384,38 +393,10 @@ export class VlUploadComponent extends FormControl {
     private getPreviewTemplate(): TemplateResult {
         return html`
             <template id="previewTemplate">
-                <div class="vl-upload__file">
-                    <p class="vl-upload__file__name">
-                        <span class="vl-upload__file__name__icon vl-vi vl-vi-document" aria-hidden="true"></span>
-                        <span data-dz-name></span>
-                        <span class="vl-upload__file__size"> (<span data-dz-size></span>) </span>
-                    </p>
-                    <div class="dz-error-message">
-                        <span data-dz-errormessage></span>
-                    </div>
-                    <button type="button" class="vl-upload__file__close vl-link vl-link--icon" data-dz-remove>
-                        <span class="vl-vi vl-vi-cross" aria-hidden="true"></span>
-                    </button>
-                </div>
-            </template>
-        `;
-    }
-
-    private getPreviewTemplateListItem(): TemplateResult {
-        return html`
-            <template id="previewTemplate">
-                <li class="vl-upload__file">
-                    <p class="vl-upload__file__name">
-                        <span class="vl-upload__file__name__icon vl-vi vl-vi-document" aria-hidden="true"></span>
-                        <span data-dz-name></span>
-                        <span class="vl-upload__file__size"> (<span data-dz-size></span>) </span>
-                    </p>
-                    <div class="dz-error-message">
-                        <span data-dz-errormessage></span>
-                    </div>
-                    <button type="button" class="vl-upload__file__close vl-link vl-link--icon" data-dz-remove>
-                        <span class="vl-vi vl-vi-cross" aria-hidden="true"></span>
-                    </button>
+                <li>
+                    <vl-upload-progress cancellable hide-progress class="vl-padding vl-padding--small">
+                        <span data-dz-size hidden></span>
+                    </vl-upload-progress>
                 </li>
             </template>
         `;
@@ -433,10 +414,10 @@ export class VlUploadComponent extends FormControl {
     }
 
     private async updateFileList(dropzone: DropzoneInstance, file?: DropzoneFile) {
-        const fileList = this.shadowRoot?.querySelector(`.vl-upload__files`);
+        const fileList = this.shadowRoot?.querySelector(`.vl-upload-files`);
 
         if (dropzone.files.length) {
-            fileList?.classList.add('vl-upload__files--has-files');
+            fileList?.removeAttribute('hidden');
 
             if (this.disallowDuplicates) {
                 if (file && this.dropzoneInstance) {
@@ -453,14 +434,13 @@ export class VlUploadComponent extends FormControl {
                 }
             }
         } else {
-            fileList?.classList.remove('vl-upload__files--has-files');
+            fileList?.setAttribute('hidden', '');
         }
     }
 
     private initializeComponent() {
         this.setupTitles();
         this.setupEventListeners();
-        this.dropzoneInstance?.hiddenFileInput?.classList.add('vl-upload__element__input');
     }
 
     private setupDropzone() {
@@ -476,9 +456,8 @@ export class VlUploadComponent extends FormControl {
             parallelUploads: this.parallelUploads,
             acceptedFiles: this.acceptedFiles,
             createImageThumbnails: false,
-            previewsContainer: this.shadowRoot?.querySelector<HTMLElement>('.vl-upload__files__container') || undefined,
-            hiddenInputContainer:
-                this.shadowRoot?.querySelector<HTMLElement>('.vl-upload__files__input__container') || undefined,
+            previewsContainer: this.shadowRoot?.querySelector<HTMLElement>('.vl-upload-files__list') || undefined,
+            hiddenInputContainer: this.shadowRoot?.querySelector<HTMLElement>('#input-container') || undefined,
             dictDefaultMessage: uploadTemplate?.innerHTML,
             previewTemplate: previewTemplate?.innerHTML,
             url: this.url,
@@ -546,6 +525,7 @@ export class VlUploadComponent extends FormControl {
         this.dropzoneInstance.on('dragleave', this.handleDragLeave);
         this.dropzoneInstance.on('drop', this.handleDrop);
         this.dropzoneInstance.on('uploadprogress', this.handleUploadProgress);
+        this.dropzoneInstance.on('processing', this.handleProcessing);
 
         this.getInput()?.addEventListener('input', () => {
             this.dispatchInput = true;
@@ -553,6 +533,18 @@ export class VlUploadComponent extends FormControl {
     }
 
     handleUploadProgress = (file: DropzoneFile) => {
+        const uploadProgressElement = file.previewElement?.querySelector('vl-upload-progress');
+        if (uploadProgressElement) {
+            uploadProgressElement.removeAttribute('error');
+            uploadProgressElement.removeAttribute('message');
+            if (file.upload?.progress !== undefined) {
+                uploadProgressElement.removeAttribute('indeterminate');
+                uploadProgressElement.setAttribute('progress', String(file.upload?.progress));
+            } else {
+                uploadProgressElement.removeAttribute('progress');
+                uploadProgressElement.setAttribute('indeterminate', '');
+            }
+        }
         this.dispatchEvent(
             new CustomEvent('vl-upload-progress', {
                 composed: true,
@@ -580,6 +572,7 @@ export class VlUploadComponent extends FormControl {
         this.dropzoneInstance.off('dragleave', this.handleDragLeave);
         this.dropzoneInstance.off('drop', this.handleDrop);
         this.dropzoneInstance.off('uploadprogress', this.handleUploadProgress);
+        this.dropzoneInstance.off('processing', this.handleProcessing);
     }
 
     private updateValue(detail: { type: string; file?: DropzoneFile; value: FormValue }) {
@@ -611,6 +604,27 @@ export class VlUploadComponent extends FormControl {
     }
 
     private handleAddedFile = async (file: DropzoneFile): Promise<void> => {
+        const uploadProgressElement = file.previewElement?.querySelector('vl-upload-progress');
+        if (uploadProgressElement) {
+            uploadProgressElement.setAttribute('filename', file.name);
+            const sizeElement = file.previewElement?.querySelector('[data-dz-size]');
+            if (sizeElement) {
+                uploadProgressElement.setAttribute('filesize', sizeElement.textContent || '');
+            }
+
+            uploadProgressElement.addEventListener('vl-upload-progress-cancel', () => {
+                this.dropzoneInstance?.removeFile(file);
+            });
+
+            uploadProgressElement.addEventListener('vl-upload-progress-retry', () => {
+                this.dropzoneInstance?.uploadFile(file);
+            });
+
+            if (this.autoProcess) {
+                uploadProgressElement.removeAttribute('hide-progress');
+            }
+        }
+
         await this.updateFileList(this.dropzoneInstance!, file);
         this.updateValue({ type: 'addedfile', file: file, value: this.value });
         this.dispatchEvent(
@@ -635,6 +649,17 @@ export class VlUploadComponent extends FormControl {
     };
 
     private handleError = (file: DropzoneFile, errorMessage: string) => {
+        const uploadProgressElement = file.previewElement?.querySelector('vl-upload-progress');
+        if (uploadProgressElement) {
+            uploadProgressElement.setAttribute('error', '');
+            const isRetryableError = file.accepted;
+            if (isRetryableError) {
+                uploadProgressElement.setAttribute('retryable', '');
+            }
+
+            if (errorMessage) uploadProgressElement.setAttribute('message', errorMessage);
+        }
+
         this.dispatchEvent(
             new CustomEvent('vl-error', {
                 composed: true,
@@ -645,6 +670,12 @@ export class VlUploadComponent extends FormControl {
     };
 
     private handleSuccess = (file: DropzoneFile, response: object | string) => {
+        const uploadProgressElement = file.previewElement?.querySelector('vl-upload-progress');
+        if (uploadProgressElement) {
+            uploadProgressElement.removeAttribute('error');
+            uploadProgressElement.removeAttribute('message');
+        }
+
         this.dispatchEvent(
             new CustomEvent('vl-success', {
                 composed: true,
@@ -655,6 +686,12 @@ export class VlUploadComponent extends FormControl {
     };
 
     private handleComplete = (file: DropzoneFile) => {
+        const uploadProgressElement = file.previewElement?.querySelector('vl-upload-progress');
+        if (uploadProgressElement) {
+            uploadProgressElement.removeAttribute('indeterminate');
+            uploadProgressElement.setAttribute('progress', '100');
+        }
+
         this.dispatchEvent(
             new CustomEvent('vl-complete', {
                 composed: true,
@@ -662,6 +699,16 @@ export class VlUploadComponent extends FormControl {
                 detail: { type: 'vl-complete', file, value: this.value },
             })
         );
+    };
+
+    private handleProcessing = (file: DropzoneFile) => {
+        const uploadProgressElement = file.previewElement?.querySelector('vl-upload-progress');
+        if (uploadProgressElement) {
+            uploadProgressElement.removeAttribute('error');
+            uploadProgressElement.removeAttribute('message');
+            uploadProgressElement.removeAttribute('progress');
+            uploadProgressElement.setAttribute('indeterminate', '');
+        }
     };
 
     private handleQueueComplete = () => {

@@ -623,6 +623,19 @@
             "jiraMeta": "FLUX-297"
         }
     },
+    "components-block-upload-progress": {
+        "name": "upload-progress",
+        "docs": "components-block-upload-progress--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-387"
+        }
+    },
     "components-block-video-player": {
         "name": "video-player",
         "docs": "components-block-video-player--documentatie",
