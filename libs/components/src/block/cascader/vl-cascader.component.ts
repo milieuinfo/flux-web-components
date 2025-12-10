@@ -13,6 +13,7 @@ import { cascaderDefaults } from './vl-cascader.defaults';
 import { CASCADER_SLOTS, CascaderItem, ItemListFn, NarrowDownFn, TemplateFn } from './vl-cascader.model';
 import { vlCascaderFluxStyles } from './vl-cascader.flux-css';
 import { getDefaultItemTemplate, getTemplateFunctionForType } from './vl-cascader.utils';
+import { vlLayoutStyles } from '@domg-wc/styles';
 
 @customElement('vl-cascader')
 export class VlCascaderComponent extends BaseLitElement {
@@ -54,7 +55,7 @@ export class VlCascaderComponent extends BaseLitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, breadcrumbStyle, vlCascaderFluxStyles, vlCascaderItemFluxStyles, vlTitleStyles];
+        return [resetStyle, breadcrumbStyle, vlCascaderFluxStyles, vlTitleStyles, vlLayoutStyles];
     }
 
     get items(): CascaderItem[] {

@@ -1,4 +1,4 @@
-import { vlGroupStyles } from '@domg-wc/styles';
+import { vlGroupStyles, vlLayoutStyles } from '@domg-wc/styles';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { BaseLitElement, findNodesForSlot } from '@domg-wc/common';
 import { customElement } from 'lit/decorators.js';
@@ -26,7 +26,7 @@ export class VlCascaderItemComponent extends BaseLitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, vlGroupStyles, vlCascaderItemFluxStyles];
+        return [resetStyle, vlLayoutStyles, vlCascaderItemFluxStyles];
     }
 
     connectedCallback() {
