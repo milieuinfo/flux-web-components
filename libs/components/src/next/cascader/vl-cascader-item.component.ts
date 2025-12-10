@@ -1,13 +1,12 @@
-import { vlGroupStyles } from '@domg-wc/common-utilities/css';
-import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { BaseLitElement, findNodesForSlot } from '@domg-wc/common-utilities';
-import { customElement } from 'lit/decorators.js';
+import { vlLayoutStyles } from '@domg-wc/common-utilities/css';
 import { resetStyle } from '@domg/govflanders-style/common';
-import { vlElementsStyle } from '@domg-wc/elements';
+import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
+import { customElement } from 'lit/decorators.js';
 import cascaderItemUigStyle from './vl-cascader-item.uig-css';
+import { VlCascaderComponent } from './vl-cascader.component';
 import { CASCADER_MESSAGES, CASCADER_SLOTS, CascaderItem } from './vl-cascader.model';
 import { defaultItemActionTemplate, getDefaultItemTemplate, getTemplateFunctionForType } from './vl-cascader.utils';
-import { VlCascaderComponent } from './vl-cascader.component';
 
 @customElement('vl-cascader-item')
 export class VlCascaderItemComponent extends BaseLitElement {
@@ -27,7 +26,7 @@ export class VlCascaderItemComponent extends BaseLitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, vlGroupStyles, cascaderItemUigStyle];
+        return [resetStyle, vlLayoutStyles, cascaderItemUigStyle];
     }
 
     connectedCallback() {
