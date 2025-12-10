@@ -1,4 +1,5 @@
 import { BaseLitElement, findNodesForSlot, registerWebComponents } from '@domg-wc/common-utilities';
+import { vlLayoutStyles } from '@domg-wc/common-utilities/css';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { breadcrumbStyle } from '@domg/govflanders-style/component';
 import { CSSResult, html, nothing, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
@@ -8,7 +9,6 @@ import { VlIconComponent } from '../icon';
 import { VlLinkComponent } from '../link';
 import { vlTitleStyles } from '../title/vl-title.css';
 import { VlCascaderItemComponent } from './vl-cascader-item.component';
-import vlCascaderItemUigCss from './vl-cascader-item.uig-css';
 import { cascaderDefaults } from './vl-cascader.defaults';
 import { CASCADER_SLOTS, CascaderItem, ItemListFn, NarrowDownFn, TemplateFn } from './vl-cascader.model';
 import cascaderUigStyle from './vl-cascader.uig-css';
@@ -54,7 +54,7 @@ export class VlCascaderComponent extends BaseLitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, breadcrumbStyle, cascaderUigStyle, vlCascaderItemUigCss, vlTitleStyles];
+        return [resetStyle, breadcrumbStyle, cascaderUigStyle, vlTitleStyles, vlLayoutStyles];
     }
 
     connectedCallback() {
