@@ -1,12 +1,12 @@
-import { html } from 'lit-html';
-import { checkboxArgs, checkboxArgTypes } from './vl-checkbox.stories-arg';
-import { Meta } from '@storybook/web-components-vite';
-import checkboxDoc from './vl-checkbox.stories-doc.mdx';
-import { story } from '@resources/utils-storybook';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { registerWebComponents } from '@domg-wc/common';
-import { VlCheckboxComponent } from '../vl-checkbox.component';
+import { story } from '@resources/utils-storybook';
+import { Meta } from '@storybook/web-components-vite';
 import { nothing } from 'lit';
+import { html } from 'lit-html';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { VlCheckboxComponent } from '../vl-checkbox.component';
+import { checkboxArgs, checkboxArgTypes } from './vl-checkbox.stories-arg';
+import checkboxDoc from './vl-checkbox.stories-doc.mdx';
 
 registerWebComponents([VlCheckboxComponent]);
 
@@ -36,6 +36,7 @@ const CheckboxTemplate = story(
         block,
         value,
         checked,
+        indeterminate,
         isSwitch,
         contentSlot,
         onVlChange,
@@ -54,6 +55,7 @@ const CheckboxTemplate = story(
             ?block=${block}
             value=${value}
             ?checked=${checked}
+            ?indeterminate=${indeterminate}
             ?switch=${isSwitch}
             @vl-input=${onVlInput}
             @vl-change=${onVlChange}
