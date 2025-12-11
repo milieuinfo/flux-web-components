@@ -6,4 +6,5 @@ export const checkboxDefaults = {
     value: null as string | null,
     checked: false as boolean,
     isSwitch: false as boolean,
+    indeterminate: false as boolean,
 } as const;

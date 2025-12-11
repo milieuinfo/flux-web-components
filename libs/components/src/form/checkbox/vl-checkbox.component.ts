@@ -15,6 +15,7 @@ export class VlCheckboxComponent extends FormControl {
     private value = checkboxDefaults.value;
     private checked = checkboxDefaults.checked;
     private isSwitch = checkboxDefaults.isSwitch;
+    private indeterminate = checkboxDefaults.indeterminate;
 
     // Variables
     private initialValue: string | null = null;
@@ -30,6 +31,7 @@ export class VlCheckboxComponent extends FormControl {
             block: { type: Boolean },
             value: { type: String },
             checked: { type: Boolean, reflect: true },
+            indeterminate: { type: Boolean, reflect: true },
             isSwitch: { type: Boolean, attribute: 'switch' },
         };
     }
@@ -98,12 +100,14 @@ export class VlCheckboxComponent extends FormControl {
                     name=${this.name || nothing}
                     class="vl-checkbox__toggle"
                     type="checkbox"
+                    aria-label=${this.label || nothing}
                     aria-invalid=${this.isInvalid || nothing}
                     ?required=${this.required}
                     ?disabled=${this.disabled}
                     ?error=${this.error}
                     .value=${this.value}
                     .checked=${this.checked}
+                    .indeterminate=${this.indeterminate && !this.checked}
                     @click=${this.toggle}
                 />
                 <div class="vl-checkbox__label">

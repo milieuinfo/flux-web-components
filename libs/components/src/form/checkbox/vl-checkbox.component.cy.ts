@@ -9,7 +9,7 @@ type CheckboxDefaultTypes = Partial<typeof checkboxDefaults>;
 
 const value = 'Optie 1';
 
-const mountCheckboxInForm = ({ isSwitch, checked, disabled }: CheckboxDefaultTypes = {}) => {
+const mountCheckboxInForm = ({ isSwitch, checked, disabled, indeterminate }: CheckboxDefaultTypes = {}) => {
     cy.mount(html`
         <style>
             ${vlGridStyles}
@@ -38,6 +38,7 @@ const mountCheckboxInForm = ({ isSwitch, checked, disabled }: CheckboxDefaultTyp
                         ?switch=${isSwitch}
                         ?checked=${checked}
                         ?disabled=${disabled}
+                        ?indeterminate=${indeterminate}
                     >
                         Bevestig.
                     </vl-checkbox>
@@ -82,6 +83,25 @@ const shouldToggleCheckedWithClick = (clickTarget: string) => {
     cy.get('vl-checkbox').should('have.attr', 'checked');
 };
 
+const shouldToggleIndeterminateWithClick = (clickTarget: string) => {
+    cy.get('vl-checkbox').should('have.attr', 'indeterminate');
+    cy.get('vl-checkbox')
+        .shadow()
+        .find('input')
+        .then(([input]) => {
+            expect(input.indeterminate).to.equal(true);
+            expect(input.checked).to.equal(false);
+        });
+    cy.get('vl-checkbox').shadow().find(clickTarget).click({ force: true });
+    cy.get('vl-checkbox')
+        .shadow()
+        .find('input')
+        .then(([input]) => {
+            expect(input.indeterminate).to.equal(false);
+            expect(input.checked).to.equal(true);
+        });
+};
+
 const shouldHaveErrorStyleSwitch = () => {
     cy.get('vl-checkbox').shadow().find('.vl-checkbox--switch__wrapper').should('have.class', 'vl-checkbox--error');
 
@@ -116,6 +136,18 @@ describe('cypress-component - form components - vl-checkbox', () => {
             .find('.vl-checkbox__label')
             .find('.vl-checkbox__box')
             .shouldHaveComputedStyle({ pseudo: 'after', style: 'background-color', value: 'rgb(0, 85, 204)' });
+    });
+
+    it('should be indeterminate', () => {
+        cy.mount(html` <vl-checkbox id="cy-test-id" value=${value} indeterminate>Bevestig.</vl-checkbox> `);
+
+        cy.get('vl-checkbox')
+            .shadow()
+            .find('.vl-checkbox__label')
+            .find('.vl-checkbox__box')
+            .shouldHaveComputedStyle({ pseudo: 'after', style: 'background-color', value: 'rgb(0, 85, 204)' });
+
+        shouldToggleIndeterminateWithClick('.vl-checkbox__label');
     });
 
     it('should be disabled', () => {

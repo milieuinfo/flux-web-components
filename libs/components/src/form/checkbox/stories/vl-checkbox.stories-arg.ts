@@ -1,8 +1,8 @@
 import { CATEGORIES, TYPES } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components-vite';
+import { action } from 'storybook/actions';
 import { formControlArgs, formControlArgTypes } from '../../form-control/stories/form-control.stories-arg';
 import { checkboxDefaults } from '../vl-checkbox.defaults';
-import { action } from 'storybook/actions';
 
 type CheckboxArgs = typeof formControlArgs &
     typeof checkboxDefaults & {
@@ -58,6 +58,16 @@ export const checkboxArgTypes: ArgTypes<CheckboxArgs> = {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: String(checkboxArgs.checked) },
+        },
+    },
+    indeterminate: {
+        name: 'indeterminate',
+        description:
+            'Toont de indeterminate state van de checkbox. De switch-variant ondersteunt geen indeterminate state.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(checkboxArgs.indeterminate) },
         },
     },
     isSwitch: {
