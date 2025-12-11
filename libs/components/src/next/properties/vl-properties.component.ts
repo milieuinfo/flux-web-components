@@ -10,9 +10,10 @@ import { Column, Item, Props } from './vl-properties.model';
 export class VlPropertiesComponent extends BaseLitElement {
     private attributeProps: Props = propertiesDefaults.props;
     private aggregatedProps: Props = propertiesDefaults.props;
-    private mutationObserverList: MutationObserver[] = [];
     private labelWidth: number = propertiesDefaults.labelWidth;
     private labelWidthSheet: CSSStyleSheet = new CSSStyleSheet();
+    private noClone: boolean = false;
+    private mutationObserverList: MutationObserver[] = [];
 
     static get styles(): (CSSResult | CSSResult[])[] {
         return [vlElementsStyle, propertiesStyles];
@@ -23,6 +24,7 @@ export class VlPropertiesComponent extends BaseLitElement {
             props: { type: Array },
             aggregatedProps: { type: Array, state: true },
             labelWidth: { type: Number, attribute: 'label-width' },
+            noClone: { type: Boolean, attribute: 'no-clone' },
         };
     }
 
@@ -93,7 +95,7 @@ export class VlPropertiesComponent extends BaseLitElement {
     }
 
     private buildInternalProperties() {
-        this.aggregatedProps = [...this.attributeProps, ...buildProperties([...this.children])];
+        this.aggregatedProps = [...this.attributeProps, ...buildProperties([...this.children], !this.noClone)];
     }
 
     private disconnectMutationObservers() {

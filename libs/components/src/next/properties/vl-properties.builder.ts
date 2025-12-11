@@ -1,6 +1,9 @@
 import { Item, Props } from './vl-properties.model';
 
-const buildItems = (elements: Element[]): Item[] => {
+const moveChildNodes = (childNodes: ChildNode[], clone: boolean): Node[] =>
+    clone ? childNodes.map((node) => node.cloneNode(true)) : childNodes;
+
+const buildItems = (elements: Element[], clone: boolean): Item[] => {
     const items: Item[] = [];
     let labels: any[] = [],
         data: any[] = [];
@@ -14,10 +17,14 @@ const buildItems = (elements: Element[]): Item[] => {
                     labels = [];
                     data = [];
                 }
-                labels.push(Array.from(element.childNodes).map((node) => node.cloneNode(true)));
+                labels.push(
+                    element.children.length > 0 ? moveChildNodes([...element.childNodes], clone) : element.innerHTML
+                );
                 break;
             case 'data':
-                data.push(Array.from(element.childNodes).map((node) => node.cloneNode(true)));
+                data.push(
+                    element.children.length > 0 ? moveChildNodes([...element.childNodes], clone) : element.innerHTML
+                );
                 break;
         }
     });
@@ -27,19 +34,18 @@ const buildItems = (elements: Element[]): Item[] => {
     return items;
 };
 
-export const buildProperties = (elements: Element[] | null): Props => {
+export const buildProperties = (elements: Element[] | null, clone: boolean): Props => {
     if (elements == null || elements.length == 0) {
-        console.warn('vl-properties - geen props opgegeven');
         return [];
     }
     if (elements[0]?.localName === 'div') {
         // er is een 'column' gedefinieerd: verwerk ze
         return elements.map((element: Element) => ({
             class: element.className,
-            items: buildItems([...element.children]),
+            items: buildItems([...element.children], clone),
         }));
     } else {
         // er is geen 'column' aanwezig, enkel labels en data
-        return [{ items: buildItems(elements) }];
+        return [{ items: buildItems(elements, clone) }];
     }
 };
