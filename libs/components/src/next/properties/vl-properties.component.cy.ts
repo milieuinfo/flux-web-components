@@ -65,7 +65,7 @@ describe('component - vl-properties-next', () => {
         cy.checkA11y('vl-properties-next');
     });
 
-    it("should contain a shadow-dom with dl, dt's and dd's", () => {
+    it("should contain a Shadow DOM with dl, dt's and dd's", () => {
         cy.mount(defaultPropertiesTemplate);
 
         cy.get('vl-properties-next')
@@ -87,7 +87,7 @@ describe('component - vl-properties-next', () => {
             });
     });
 
-    it('should update shadow-dom after light-dom changed', () => {
+    it('should update Shadow DOM after Light DOM changed', () => {
         cy.mount(defaultPropertiesTemplate);
 
         cy.runTestFor<VlPropertiesComponent>('vl-properties-next', (component) => {
@@ -108,7 +108,7 @@ describe('component - vl-properties-next', () => {
             });
     });
 
-    it("should contain a shadow-dom with dt's and dd's with inner html", () => {
+    it("should contain a Shadow DOM with dt's and dd's with inner html", () => {
         cy.mount(propertiesHtmlEnrichedTemplate);
 
         cy.get('vl-properties-next')
@@ -132,7 +132,7 @@ describe('component - vl-properties-next', () => {
             });
     });
 
-    it('should contain a shadow-dom with columns', () => {
+    it('should contain a Shadow DOM with columns', () => {
         cy.mount(propertiesColumnsTemplate);
 
         cy.get('vl-properties-next')
@@ -178,7 +178,7 @@ describe('component - vl-properties-next', () => {
             });
     });
 
-    it("should contain a shadow-dom with dl, dt's and dd's specified through props", () => {
+    it("should contain a Shadow DOM with dl, dt's and dd's specified through props", () => {
         cy.mount(propertiesWithPropsTemplate({ props: dummyProps }));
 
         cy.get('vl-properties-next')
@@ -201,7 +201,7 @@ describe('component - vl-properties-next', () => {
             });
     });
 
-    it('should reflect a props change in the shadow-dom', () => {
+    it('should reflect a props change in the Shadow DOM', () => {
         cy.mount(propertiesWithPropsTemplate({ props: dummyProps }));
 
         cy.get('vl-properties-next')
