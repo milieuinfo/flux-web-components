@@ -5,6 +5,7 @@ import filterRichTableImplementation from './vl-rich-data-table-filter.stories-u
 import richDataFilterData from './vl-rich-data-table-filter.stories-mock?raw';
 import paginationRichTableImplementation from './vl-rich-data-table-pagination.stories-util.ts?raw';
 import richDataFilterPagerData from './vl-rich-data-table-pagination.stories-mock?raw';
+import selectableRichTableImplementation from './vl-rich-data-table-selectable.stories-util.ts?raw';
 
 # Rich Data Table
 
@@ -71,11 +72,11 @@ Wil je client-side mogelijkheden aanbieden om te filteren / pagineren, is het be
 Om sorting te laten werken moet je zelf een sorting algoritme implementeren:
 
 <details>
-    <summary>code voorbeeld hoe sorting toe te passen</summary>
+    <summary>Code voorbeeld hoe sorting toe te passen</summary>
     <Source code={sortingRichTableImplementation} language="ts" dark={true} />
 </details>
 
-Een template voorbeeld vind je hieronder. Klik `Show code` de html te zien.
+Een template voorbeeld vind je hieronder. Klik op `Show code` om de html te zien.
 
 Belangrijk:
 - `sortable` toevoegen op de `vl-rich-data-field`-velden waarop gesorteerd moet worden
@@ -92,16 +93,16 @@ Meer info over `vl-search-filter` [hier](?path=/docs/elements-search-filter--sea
 Daarnaast moet je ook de filtering & change detection zelf implementeren.
 
 <details>
-    <summary>gebruikte mock data in onderstaande voorbeeld</summary>
+    <summary>Gebruikte mock data in onderstaande voorbeeld</summary>
     <Source code={richDataFilterData} language="ts" dark={true} />
 </details>
 
 <details>
-    <summary>code voorbeeld hoe filtering toe te passen</summary>
+    <summary>Code voorbeeld hoe filtering toe te passen</summary>
     <Source code={filterRichTableImplementation} language="ts" dark={true} />
 </details>
 
-Template voorbeeld vind je hieronder. Klik `Show code` de html te zien.
+Template voorbeeld vind je hieronder. Klik op `Show code` om de html te zien.
 
 <Canvas of={VlRichDataTableStories.RichDataTableFilter} layout="padded" />
 
@@ -115,16 +116,16 @@ Daarnaast moet je specifieke logica schrijven gerelateerd tot de paginatie om `v
 In onderstaande code kan je zien op welke manier je filtering & paginatie kan combineren.
 
 <details>
-    <summary>gebruikte mock data in onderstaande voorbeeld</summary>
+    <summary>Gebruikte mock data in onderstaande voorbeeld</summary>
     <Source code={richDataFilterPagerData} language="ts" dark={true} />
 </details>
 
 <details>
-    <summary>code voorbeeld hoe paginatie toe te passen</summary>
+    <summary>Code voorbeeld hoe paginatie toe te passen</summary>
     <Source code={paginationRichTableImplementation} language="ts" dark={true} />
 </details>
 
-Template voorbeeld vind je hieronder. Klik `Show code` de html te zien.
+Template voorbeeld vind je hieronder. Klik op `Show code` om de html te zien.
 
 ### Instellen van VlPager component
 
@@ -136,6 +137,18 @@ Template voorbeeld vind je hieronder. Klik `Show code` de html te zien.
 
 <Canvas of={VlRichDataTableStories.RichDataTableFilterAndPagination} layout="padded" />
 
+## Selecteerbare rijen
+
+Hieronder vind je een voorbeeld van hoe je rijen selecteerbaar kan maken, met een custom header voor de selectie acties.
+
+<details>
+    <summary>Code voorbeeld van een implementatie met selecteerbare rijen</summary>
+    <Source code={selectableRichTableImplementation} language="ts" dark={true} />
+</details>
+
+Template voorbeeld van een implementatie met selecteerbare rijen. Klik op `Show code` om de html te zien.
+
+<Canvas of={VlRichDataTableStories.RichDataTableSelectable} layout="padded" />
 
 ## Configuratie
 
