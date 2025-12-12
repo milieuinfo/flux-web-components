@@ -13,7 +13,7 @@ export interface RichDataMeta {
     paging?: Pagination;
 }
 
-export type RichData = { data: unknown[] } & RichDataMeta;
+export type RichData<T = unknown> = { data: T[] } & RichDataMeta;
 
 @webComponent('vl-rich-data')
 export class VlRichData extends BaseHTMLElement {

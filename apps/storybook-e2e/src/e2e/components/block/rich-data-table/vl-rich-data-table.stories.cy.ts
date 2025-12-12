@@ -1,5 +1,5 @@
-import { rowsForFiltering, rowsForPagination } from './vl-rich-data-table.mock';
 import { Pagination } from '@domg-wc/components/block';
+import { rowsForFiltering, rowsForPagination } from './vl-rich-data-table.mock';
 
 const richDataTableDefaultUrl =
     'http://localhost:8080/iframe.html?args=&id=components-block-rich-data-table--rich-data-table-default&viewMode=story';
@@ -9,6 +9,8 @@ const richDataTableFilterUrl =
     'http://localhost:8080/iframe.html?args=&id=components-block-rich-data-table--rich-data-table-filter&viewMode=story';
 const richDataTablePagingUrl =
     'http://localhost:8080/iframe.html?args=&id=components-block-rich-data-table--rich-data-table-filter-and-pagination&viewMode=story';
+const richDataTableSelectableUrl =
+    'http://localhost:8080/iframe.html?args=&id=components-block-rich-data-table--rich-data-table-selectable&viewMode=story';
 
 const executeForEveryRow = (test: (row: JQuery<HTMLElement>, rowIndex: number) => void) => {
     cy.get('vl-rich-data-table').shadow().find('tbody').find('tr').each(test);
@@ -256,5 +258,70 @@ describe('cypress-e2e - block components - vl-rich-table - paging story', () => 
             itemsPerPage: itemsPerPage,
             totalItems: data.length,
         });
+    });
+});
+
+const getSelectAllCheckbox = () => {
+    return cy.get('vl-rich-data-table').shadow().find('vl-checkbox[label="Selecteer alles"]');
+};
+
+const getDefaultActions = () => {
+    return cy.get('#default-actions');
+};
+
+const getSelectionActions = () => {
+    return cy.get('#selection-actions');
+};
+
+const getRemoveSelectionButton = () => {
+    return getSelectionActions().find('#remove-selection');
+};
+
+const getAllRows = () => {
+    return cy.get('vl-rich-data-table').shadow().find('tbody').find('tr');
+};
+
+describe('cypress-e2e - block components - vl-rich-table - selectable story', () => {
+    beforeEach(() => cy.visit(`${richDataTableSelectableUrl}`));
+
+    it('should be able to select all using the select all checkbox', () => {
+        getSelectAllCheckbox().shadow().find('input').click({ force: true });
+
+        getDefaultActions().should('not.be.visible');
+        getSelectionActions().should('be.visible');
+        getAllRows().each(($row) => {
+            cy.wrap($row).find('vl-checkbox').shadow().find('input').should('be.checked');
+        });
+    });
+
+    it('should be able to deselect all using the remove-selection button', () => {
+        getSelectAllCheckbox().shadow().find('input').click({ force: true });
+        getRemoveSelectionButton().shadow().find('button').click({ force: true });
+
+        getSelectionActions().should('not.be.visible');
+        getDefaultActions().should('be.visible');
+        getAllRows().each(($row) => {
+            cy.wrap($row).find('vl-checkbox').shadow().find('input').should('not.be.checked');
+        });
+    });
+
+    it('should be able to select a row using its checkbox', () => {
+        getRemoveSelectionButton().shadow().find('button').click({ force: true });
+        getAllRows().eq(2).find('vl-checkbox').shadow().find('input').click({ force: true });
+
+        getDefaultActions().should('not.be.visible');
+        getSelectionActions().should('be.visible');
+    });
+
+    it('should check the select-all checkbox by selecting all rows', () => {
+        getRemoveSelectionButton().shadow().find('button').click({ force: true });
+        getAllRows().each(($row) => {
+            cy.wait(200);
+            cy.wrap($row).find('vl-checkbox').shadow().find('input').click({ force: true });
+        });
+
+        getSelectAllCheckbox().shadow().find('input').should('be.checked');
+        getDefaultActions().should('not.be.visible');
+        getSelectionActions().should('be.visible');
     });
 });
