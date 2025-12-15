@@ -1,8 +1,14 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { VlPopoverActionComponent, VlPopoverActionListComponent, VlPopoverComponent } from '@domg-wc/components/block';
+import {
+    VlPopoverActionComponent,
+    VlPopoverActionListComponent,
+    VlPopoverComponent,
+    VlRichDataTable,
+} from '@domg-wc/components/block';
 import { VlHeader } from '@domg-wc/components/compliance';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
+import { DropTargetComponent } from './drop-target/drop-target.component';
 
 @customElement('app-component')
 export class AppComponent extends LitElement {
@@ -12,6 +18,8 @@ export class AppComponent extends LitElement {
             VlPopoverComponent,
             VlPopoverActionListComponent,
             VlPopoverActionComponent,
+            VlRichDataTable,
+            DropTargetComponent,
         ]);
     }
 
@@ -78,6 +86,29 @@ export class AppComponent extends LitElement {
                                     </vl-popover>
                                 </div>
                             </vl-breadcrumb>
+                        </div>
+                    </section>
+                    <section class="vl-section">
+                        <div class="vl-content-block vl-content-block--full-width">
+                            <vl-title type="h2">Drop target</vl-title>
+                            <drop-target
+                                @drop-target-files-dropped=${(e: CustomEvent) => {
+                                    console.log('Files:', e.detail.files);
+                                }}
+                            >
+                                <vl-rich-data-table
+                                    data='{"data": [{ "id" : 0, "name" : "Project #1" , "owner" : "Jan Jansens" }, { "id" : 1, "name" : "Project #2" , "owner" : "Marie Vermeersch" }]}'
+                                    style="--vl-rich-data-filter-max-width: calc(var(--vl-page--max-width-wide) / 3);"
+                                >
+                                    <vl-rich-data-field name="id" label="ID" selector="id"></vl-rich-data-field>
+                                    <vl-rich-data-field name="name" label="Naam" selector="name"></vl-rich-data-field>
+                                    <vl-rich-data-field name="owner" selector="owner">
+                                        <template slot="label">
+                                            <span>Eigenaar</span>
+                                        </template>
+                                    </vl-rich-data-field>
+                                </vl-rich-data-table>
+                            </drop-target>
                         </div>
                     </section>
                 </main>
