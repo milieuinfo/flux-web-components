@@ -32,6 +32,7 @@ echo '[done] - build-libs - map'
 
 # integrations
 tsc -p ./libs/integrations/tsconfig.lib.json
+tsc -p ./libs/integrations/tsconfig-map.lib.json
 # there is no integrations package to make - it is just an internal library (that should transpile)
 echo '[done] - build-libs - integrations'
 

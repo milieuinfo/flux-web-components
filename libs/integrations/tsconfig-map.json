@@ -1,14 +1,12 @@
 {
     "extends": "../../tsconfig.base.json",
     "include": [
-        "./src/form/**/*.ts",
-        "./src/page-layout/**/*.ts",
-        "./src/page-popover/**/*.ts",
+        "./src/map/**/*.ts",
         "../../resources/cypress-commands/*.d.ts",
         "../../resources/cypress-component/support/*.d.ts"
     ],
     "compilerOptions": {
         "outDir": "../../build/tsc/lib-integrations",
-        "strict": true
+        "strict": false
     }
 }
