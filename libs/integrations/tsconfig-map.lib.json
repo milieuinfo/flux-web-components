@@ -1,0 +1,9 @@
+{
+    "extends": "./tsconfig-map.json",
+    "exclude": [
+        "./src/**/*.spec.ts",
+        "./src/**/*.cy.ts",
+        "./src/**/stories"
+    ],
+    "compilerOptions": {}
+}
