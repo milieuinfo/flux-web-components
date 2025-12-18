@@ -9,7 +9,6 @@
             "elements": [
                 {
                     "name": "vl-button",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[v2 component]</span><br/>Gebruik de `button` component om een button af te beelden op een pagina.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-atom-button--documentatie",
                     "attributes": [
                         {
@@ -145,7 +144,6 @@
                 },
                 {
                     "name": "vl-icon",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[v2 component]</span><br/>Gebruik de `icon` component om een icoon af te beelden op een pagina.<br/>\nZie het [overzicht](#overzicht) hieronder voor alle beschikbare iconen.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-atom-icon--documentatie",
                     "attributes": [
                         {
@@ -201,7 +199,6 @@
                 },
                 {
                     "name": "vl-link",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[v2 component]</span><br/>Gebruik de `link` component om een link af te beelden op een pagina.<br/>",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-atom-link--documentatie",
                     "attributes": [
                         {
@@ -273,7 +270,6 @@
                 },
                 {
                     "name": "vl-paragraph",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[v2 component]</span><br/>Gebruik de `paragraph` component om een paragraaf af te beelden op een pagina.<br/>",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-atom-paragraph--documentatie",
                     "attributes": [
                         {
@@ -302,7 +298,6 @@
                 },
                 {
                     "name": "vl-text",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[v2 component]</span><br/>Gebruik de `text` component om een tekst af te beelden op andere wijze.<br/>",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-atom-text-text--documentatie",
                     "attributes": [
                         {
@@ -361,7 +356,6 @@
                 },
                 {
                     "name": "vl-title",
-                    "description": "<span style=\"color: rgb(25,140,25)\">[v2 component]</span><br/>Gebruik de `title` component om een title af te beelden.<br/>\n\nDeze component is de nieuwe versie van het [vl-title](/docs/elements-title-h1--documentatie) element, we raden aan om op termijn deze versie te gebruiken.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-atom-title--documentatie",
                     "attributes": [
                         {
