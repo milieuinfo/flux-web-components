@@ -22,7 +22,7 @@ export const propertiesArgTypes: ArgTypes<PropertiesArgs> = {
     },
     noClone: {
         name: 'no-clone',
-        description: "Default wordt de inhoud van label en data ge-cloned: van de Light DOM naar de Shadow DOM," +
+        description: "Default wordt de inhoud van label en data ge-cloned: van de Light DOM naar de shadow DOM," +
                      " met no-clone actief wordt de inhoud verplaatst.",
         table: {
             type: { summary: TYPES.BOOLEAN },

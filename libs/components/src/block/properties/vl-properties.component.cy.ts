@@ -66,7 +66,7 @@ describe('cypress-component - block components - vl-properties', () => {
         cy.checkA11y('vl-properties');
     });
 
-    it("should contain a Shadow DOM with dl, dt's and dd's", () => {
+    it("should contain a shadow DOM with dl, dt's and dd's", () => {
         cy.mount(defaultPropertiesTemplate);
 
         cy.get('vl-properties')
@@ -88,7 +88,7 @@ describe('cypress-component - block components - vl-properties', () => {
             });
     });
 
-    it('should update Shadow DOM after Light DOM changed', () => {
+    it('should update shadow DOM after Light DOM changed', () => {
         cy.mount(defaultPropertiesTemplate);
 
         cy.runTestFor<VlPropertiesComponent>('vl-properties', (component) => {
@@ -109,7 +109,7 @@ describe('cypress-component - block components - vl-properties', () => {
             });
     });
 
-    it("should contain a Shadow DOM with dt's and dd's with inner html", () => {
+    it("should contain a shadow DOM with dt's and dd's with inner html", () => {
         cy.mount(propertiesHtmlEnrichedTemplate);
 
         cy.get('vl-properties')
@@ -133,7 +133,7 @@ describe('cypress-component - block components - vl-properties', () => {
             });
     });
 
-    it('should contain a Shadow DOM with columns', () => {
+    it('should contain a shadow DOM with columns', () => {
         cy.mount(propertiesColumnsTemplate);
 
         cy.get('vl-properties')
@@ -179,7 +179,7 @@ describe('cypress-component - block components - vl-properties', () => {
             });
     });
 
-    it("should contain a Shadow DOM with dl, dt's and dd's specified through props", () => {
+    it("should contain a shadow DOM with dl, dt's and dd's specified through props", () => {
         cy.mount(propertiesWithPropsTemplate({ props: dummyProps }));
 
         cy.get('vl-properties')
@@ -202,7 +202,7 @@ describe('cypress-component - block components - vl-properties', () => {
             });
     });
 
-    it('should reflect a props change in the Shadow DOM', () => {
+    it('should reflect a props change in the shadow DOM', () => {
         cy.mount(propertiesWithPropsTemplate({ props: dummyProps }));
 
         cy.get('vl-properties')
