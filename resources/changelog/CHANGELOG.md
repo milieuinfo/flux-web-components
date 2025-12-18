@@ -1,3 +1,14 @@
+## [1.49.7](https://github.com/milieuinfo/flux-web-components/compare/v1.49.6...v1.49.7) (2025-12-18)
+
+
+### Bug Fixes
+
+* FLUX - vlLayoutStyles toegevoegd aan barrel file ([0a969a9](https://github.com/milieuinfo/flux-web-components/commit/0a969a9a3a9a495313f7dcdb66168e6b3fdf3294))
+* FLUX-360 - vl-info-tile - aanklikbaarheid toegevoegd ([3e13289](https://github.com/milieuinfo/flux-web-components/commit/3e132899a69d4707287d75f523faa83c029135e6))
+* FLUX-371 - vl-link-next - cursor: pointer ingesteld voor button-as-link ([18783a2](https://github.com/milieuinfo/flux-web-components/commit/18783a2bdc02ab1d87607721615200cc150be5cf))
+* FLUX-374 - vl-cascader - vlLayoutStyles toegevoegd in shadow DOM ([5aacf38](https://github.com/milieuinfo/flux-web-components/commit/5aacf386373a3d1fcbf970856632825060ca6a36))
+* FLUX-375 - vl-properties - no-clone attribuut ([93642de](https://github.com/milieuinfo/flux-web-components/commit/93642deac77b72238ea06d684bd25020b743e31e))
+
 ## [1.49.6](https://github.com/milieuinfo/flux-web-components/compare/v1.49.5...v1.49.6) (2025-11-21)
 
 

@@ -767,6 +767,16 @@
                             "default": "false"
                         },
                         {
+                            "name": "data-vl-clickable",
+                            "description": "Maakt de info-tile aanklikbaar. <br>Werkt niet in combinatie met `data-vl-toggleable`-attribuut",
+                            "default": "false"
+                        },
+                        {
+                            "name": "data-vl-clickable-label",
+                            "description": "Stelt de aria-label in van de button die de info-tile aanklikbaar maakt. <br>Van belang voor WCAG wanneer het `data-vl-clickable`-attribuut aanstaat.",
+                            "default": ""
+                        },
+                        {
                             "name": "data-vl-toggleable",
                             "description": "Maakt de info-tile openklapbaar.",
                             "default": "false"
@@ -798,7 +808,15 @@
                             "description": "Slotelement om menu item toe te voegen in rechterbovenhoek.",
                             "default": ""
                         }
-                    ]
+                    ],
+                    "js": {
+                        "events": [
+                            {
+                                "name": "vl-click-info-tile",
+                                "description": "Event dat afgevuurd wordt als er op de info-tile wordt geklikt."
+                            }
+                        ]
+                    }
                 },
                 {
                     "name": "vl-infoblock",
@@ -1473,6 +1491,11 @@
                             "name": "label-width",
                             "description": "De breedte van de labels, in %. Heeft geen impact als de properties 'collapsed' worden.",
                             "default": "25"
+                        },
+                        {
+                            "name": "no-clone",
+                            "description": "Default wordt de inhoud van label en data ge-cloned: van de Light DOM naar de Shadow DOM, met no-clone actief wordt de inhoud verplaatst.",
+                            "default": "false"
                         }
                     ],
                     "js": {
