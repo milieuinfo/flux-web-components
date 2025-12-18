@@ -23,6 +23,5 @@ export const buttonAsLinkStyles = css`
         position: relative;
         word-break: break-word;
         line-height: inherit;
-        cursor: default;
     }
 `;
