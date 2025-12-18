@@ -1,10 +1,10 @@
+import { story } from '@resources/utils-storybook';
+import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import '../vl-privacy.component';
-import { Meta } from '@storybook/web-components-vite';
-import privacyDoc from './vl-privacy.stories-doc.mdx';
 import { privacyArgs, privacyArgTypes } from './vl-privacy.stories-arg';
-import { story } from '@resources/utils-storybook';
+import privacyDoc from './vl-privacy.stories-doc.mdx';
 
 export default {
     id: 'components-compliance-privacy',
@@ -47,6 +47,7 @@ PrivacyHeaderSlot.args = {
         sub-title="Privacy"
         link="https://omgeving.vlaanderen.be"
         back="Start"
+        skip-to-content-id="#main-content"
     ></vl-functional-header>
 `,
 };

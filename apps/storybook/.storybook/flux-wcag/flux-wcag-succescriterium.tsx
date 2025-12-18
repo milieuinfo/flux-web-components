@@ -16,7 +16,9 @@ export const FluxWcagSuccesscriterium = ({
     refQuick,
 }: FluxWcagSuccesscriteriumProps) => (
     <div style={{ marginTop: '2em' }}>
-        <h3 style={{ textDecoration: 'underline' }}>{title}</h3>
+        <h3 style={{ textDecoration: 'underline' }} id={title.toLowerCase().replace(' ', '-').trim()}>
+            {title}
+        </h3>
         <p style={{ fontSize: '16px', marginBottom: '1.5em' }}>{text}</p>
         <div style={{ color: 'black' }}>
             <strong>Referenties:</strong>

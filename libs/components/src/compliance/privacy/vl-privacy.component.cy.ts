@@ -1,6 +1,6 @@
+import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { registerWebComponents } from '@domg-wc/common';
 import { VlPrivacy } from './vl-privacy.component';
 import { privacyDefaults } from './vl-privacy.defaults';
 
@@ -33,6 +33,12 @@ describe('cypress-component - compliance components - vl-privacy', () => {
         cy.get('vl-privacy');
 
         cy.injectAxe();
+        // Schakel de skip‑link‑regel uit.
+        // De target wordt niet gevonden door de shadow DOM.
+        // De skip-link wordt verder getest in de vl-functional-header tests.
+        cy.configureAxe({
+            rules: [{ id: 'skip-link', enabled: false }],
+        });
         cy.checkA11y('vl-privacy');
     });
 

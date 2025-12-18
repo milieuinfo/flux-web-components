@@ -2,8 +2,8 @@ import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit-html';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { VlLinkComponent } from '../../atom/link';
-import type { AccessibilityProperties } from './vl-accessibility.model';
 import { VlAccessibility } from './vl-accessibility.component';
+import type { AccessibilityProperties } from './vl-accessibility.model';
 
 registerWebComponents([VlAccessibility, VlLinkComponent]);
 
@@ -49,6 +49,12 @@ describe('cypress-component - compliance components - vl-accessibility', () => {
 
     it('should be accessible', () => {
         cy.injectAxe();
+        // Schakel de skip‑link‑regel uit.
+        // De target wordt niet gevonden door de shadow DOM.
+        // De skip-link wordt verder getest in de vl-functional-header tests.
+        cy.configureAxe({
+            rules: [{ id: 'skip-link', enabled: false }],
+        });
         cy.checkA11y('vl-accessibility');
     });
 });

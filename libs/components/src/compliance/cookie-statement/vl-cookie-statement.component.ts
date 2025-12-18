@@ -67,7 +67,7 @@ export class VlCookieStatement extends BaseHTMLElement {
                     <div class="vl-content-block">
                         <div class="vl-grid vl-stacked-small">
                             <div class="vl-column vl-column--10">
-                                <vl-title type="h1" no-space-bottom>Cookieverklaring</vl-title>
+                                <vl-title type="h1" no-space-bottom id="main-content">Cookieverklaring</vl-title>
                             </div>
                             <div class="vl-column vl-column--10">
                                 <vl-paragraph introduction>

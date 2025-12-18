@@ -99,6 +99,7 @@ export const MapFullHeight = story(
                 title=${'School- en studietoelagen'}
                 margin-bottom=${'none'}
                 ?disable-back-link=${true}
+                skip-to-content-id="#main-content"
             ></vl-functional-header>
             <vl-map
                 ?allow-fullscreen=${allowFullscreen}
@@ -110,6 +111,7 @@ export const MapFullHeight = story(
                 ?full-height=${fullHeight}
                 zoomInTooltip="Zoom in"
                 zoomOutTooltip="Zoom uit"
+                id="main-content"
             >
                 <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
             </vl-map>

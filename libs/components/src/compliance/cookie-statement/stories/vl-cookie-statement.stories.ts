@@ -1,8 +1,8 @@
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
-import '../vl-cookie-statement.component';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import '../vl-cookie-statement.component';
 import { cookieStatementArgs, cookieStatementArgTypes } from './vl-cookie-statement.stories-arg';
 import cookieStatementDoc from './vl-cookie-statement.stories-doc.mdx';
 
@@ -66,6 +66,7 @@ CookieStatementHeaderSlot.args = {
         sub-title="Cookieverklaring"
         link="https://omgeving.vlaanderen.be"
         back="Start"
+        skip-to-content-id="#main-content"
     ></vl-functional-header>
 `,
 };
