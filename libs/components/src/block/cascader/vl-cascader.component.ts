@@ -8,7 +8,6 @@ import { VlIconComponent } from '../../atom/icon';
 import { VlLinkComponent } from '../../atom/link';
 import { vlTitleStyles } from '../../atom/title/vl-title.css';
 import { VlCascaderItemComponent } from './vl-cascader-item.component';
-import { vlCascaderItemFluxStyles } from './vl-cascader-item.flux-css';
 import { cascaderDefaults } from './vl-cascader.defaults';
 import { CASCADER_SLOTS, CascaderItem, ItemListFn, NarrowDownFn, TemplateFn } from './vl-cascader.model';
 import { vlCascaderFluxStyles } from './vl-cascader.flux-css';

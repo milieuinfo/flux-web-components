@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/addon-docs/blocks';
+import { Markdown, Meta } from '@storybook/addon-docs/blocks';
 import { FluxAlert } from '../../.storybook/flux-alert/flux-alert.component';
 
 <Meta title="Recepten/CSS Styling"/>
@@ -59,18 +59,54 @@ export class ComponentMetShadowDom extends LitElement {
 
 ## Custom CSS
 
+### Component niveau
+
 <FluxAlert type="warning">
-{`
+    {`
     Je kan de styling van DV breken bij het gebruik hiervan!
 `}
 </FluxAlert>
 
-Voor de componenten onder `map`, `form` en `components` is het mogelijk om een custom CSS-string mee te geven aan het
+Voor alle componenten behalve `compliance` is het mogelijk om een custom CSS-string mee te geven aan het
 attribuut `custom-css`. Deze CSS wordt dan toegevoegd aan de adoptedStyleSheets van de shadow DOM van
 de desbetreffende component.
 
 ```html
 <vl-accordion-list custom-css=".vl-accordion-list {border: 10px solid lightblue}">
+```
+
+Een alternatieve manier om dezelfde custom CSS toe te voegen bij elke instantie van dat component:
+
+```ts
+import { VlCascaderComponent } from '@domg-wc/components/block';
+VlCascaderComponent.elementStyles = [...VlCascaderComponent.elementStyles, css`
+    .sbs-title-annotation-group {
+        gap: var(--vl-spacing--xxsmall);
+    }
+`];
+```
+
+### Applicatie niveau
+
+Onze globale styling wordt automatisch op de DOM geplaatst. Je dient de volgende functie aan te roepen om je er van te
+te verzekeren dat je applicatie-specifieke CSS pas ingeladen wordt nadat onze CSS ingeladen is:
+
+<vl-alert type="info" title="Opgelet" icon="info-circle" size="small" custom-css=".vl-alert{margin-bottom: 3rem;}">
+    <Markdown options={{ forceInline: true }} style={{ fontSize: '14px' }}>{'Je dient onderstaande code aan te roepen vóór je onze componenten importeert.'}</Markdown>
+</vl-alert>
+
+```js
+import { css } from 'lit';
+import { GlobalStyles } from '@domg-wc/common';
+
+const customCSS = css`
+:root {
+    --vl-side-sheet-width: 580px; /* voor desktop */
+    --vl-side-sheet-width-mobile: 100%; /* voor mobile */
+}
+`;
+
+GlobalStyles.getInstance().addCustomCss([customCSS]);
 ```
 
 

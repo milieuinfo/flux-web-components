@@ -156,6 +156,16 @@ Hieronder een voorbeeld van de cascader binnen een `vl-side-sheet` component.
 <Canvas of={VlCascaderStories.CascaderSideSheet} />
 
 
+## Gekende beperkingen
+
+De cascader zal het huidige niveau van de meegegeven boomstructuur in zijn eigen shadow DOM renderen.
+Dit heeft als gevolg dat eigen CSS en klasses, die toegepast zijn op die boomstructuur, niet door de shadow DOM
+zullen penetreren.
+
+Om dit op te lossen, dien je Custom CSS toe te voegen (die dan wel zal werken op de styles binnen de shadow DOM van
+de cascader). [Hier vind je meer uitleg over Custom CSS toevoegen](/docs/recepten-css-styling--documentatie#custom-css)
+
+
 ## Referenties
 
 ### Digitaal Vlaanderen

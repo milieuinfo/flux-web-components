@@ -22,6 +22,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 De expliciete registratie wordt aangeraden om tree-shaking te optimaliseren en alleen de benodigde componenten te laden.
 
+[Meer informatie over hoe imports wijzigen vind je hier](/docs/afnemen-migratie-v2-aanpak--documentatie#33-imports)
 
 <br/>
 ## Blijft de fat-js bundel beschikbaar?
@@ -34,6 +35,31 @@ De expliciete registratie wordt aangeraden om tree-shaking te optimaliseren en a
 
 Echter, voor nieuwe projecten wordt het aangeraden om de npm-packages te gebruiken in plaats van de fat-js bundel.
 
+
+<br/>
+## Hoe komt dat klasses die in Web Universum v3 staan, niet meer beschikbaar zijn?
+
+**Antwoord:** Vroeger gebruikten we de css klasses van Digitaal Vlaanderen, zoals die gedocumenteerd waren in Web
+Universum v3, als basis voor onze web componenten, zoals bv. de `vl-u-visually-hidden`-klasse of de `vl-grid`-klasse.
+
+Wat voor ons problematisch was, is dat bestaande klasses van DV voor conflicten zorgden; `vl-grid` bv
+aan onze kant gebruikt achterliggend CSS grid, terwijl die van Web Universum v3 `flexbox` gebruikt.
+
+Daarnaast pasten we vaak onze HTML templates aan, aan de CSS van DV, ipv andersom. Vanaf v2 hebben we beslist om de CSS
+te schrijven die het beste past bij onze HTML template, in plaats van onze HTML templates te wijzigen zodat we DV's CSS
+kunnen afnemen zonder enige wijziging.
+
+De CSS van DV kwam transitief binnen, ook hetgeen wij niet gedocumenteerd hebben in onze storybook.
+Nu staat al die CSS aan onze kant en behouden we enkel wat we zelf gebruiken.
+
+Daarnaast schrijven we nu voor nieuwe componenten onze eigen CSS, maar volgen daar op vlak van spacing, styling
+& layout wel de guidelines die Digitaal Vlaanderen vooropstelt.
+
+
+## `vl-u-visually-hidden` werkt niet meer
+
+**Antwoord:** De `vl-u-visually-hidden`-klasse is nu vervangen door `vl-visually-hidden`,
+[zie deze pagina voor meer info](docs/styles-layout-afnemers-accessibility--documentatie)
 
 <br/>
 ## De event listeners werken niet meer.
@@ -75,10 +101,37 @@ Algemene wijzigingen:
 
 
 <br/>
+## Eigen stylesheet instellen werkt niet?
+
+**Probleem:** Custom styling wordt overschreven of werkt niet.
+
+**Oplossing:**
+
+Onze [globale styling](/docs/recepten-css-styling--documentatie#globale-css) wordt automatisch op de DOM geplaatst.
+Je dient de volgende functie aan te roepen om je er van te
+te verzekeren dat je applicatie-specifieke CSS pas ingeladen wordt nadat onze CSS ingeladen is:
+
+```js
+import { css } from 'lit';
+import { GlobalStyles } from '@domg-wc/common';
+
+const customCSS = css`
+ :root {
+    --vl-side-sheet-width: 580px; /* voor desktop */
+    --vl-side-sheet-width-mobile: 100%; /* voor mobile */
+  }
+`;
+
+GlobalStyles.getInstance().addCustomCss([customCSS]);
+```
+
+<br/>
 ## Wat is de impact op vl-grid?
 
 **Antwoord:** De grid is grondig gewijzigd en heeft een aantal specifieke aanpassingen nodig.
 
+- `vl-grid` gebruikt nu achterliggend [CSS grid](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout)
+ipv flexbox
 - `vl-column` heeft een default waarde nodig zoals `vl-column--12` (bij `is="vl-grid"` was dat niet het geval).
 - Kolommen worden op een nieuwe manier aangeboden:
 
@@ -111,9 +164,10 @@ Algemene wijzigingen:
 
 Verifieer na de wijzigingen de grid layout zeker ook op verschillende resoluties.
 
-De `data-vl-is-stacked...` attributen op `vl-grid` kunnen vervangen worden door de stacked classes: `vl-stacked-...`. Zie [Stacked](/docs/styles-layout-stacked--documentatie).
+De `data-vl-is-stacked...` attributen op `vl-grid` kunnen vervangen worden door de stacked classes: `vl-stacked-...`.
+Zie [vl-stacked documentatie](/docs/styles-layout-stacked--documentatie).
 
-Check voor meer informatie de [vl-grid documentatie](/docs/styles-layout-grid--documentatie).
+Voor meer informatie kan je de [vl-grid documentatie hier raadplegen](/docs/styles-layout-grid--documentatie).
 
 
 <br/>
