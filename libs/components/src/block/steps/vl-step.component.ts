@@ -15,6 +15,7 @@ export class VlStepComponent extends BaseLitElement {
     // Attributen
     private type: string | null = null;
     private toggleable = false;
+    private defaultOpen = false;
 
     // Private properties
     private isTitleAnnotationSlotAssigned = true;
@@ -30,8 +31,9 @@ export class VlStepComponent extends BaseLitElement {
 
     static get properties(): PropertyDeclarations {
         return {
-            type: { type: String, attribute: 'type', reflect: true },
-            toggleable: { type: Boolean, attribute: 'toggleable', reflect: true },
+            type: { type: String, reflect: true },
+            toggleable: { type: Boolean, reflect: true },
+            defaultOpen: { type: Boolean, attribute: 'default-open', reflect: true },
             isTitleAnnotationSlotAssigned: { attribute: false },
         };
     }
@@ -85,15 +87,21 @@ export class VlStepComponent extends BaseLitElement {
         super.firstUpdated(changedProperties);
 
         if (this.toggleable) {
-            const accordion = this.shadowRoot?.querySelector('.js-vl-accordion__toggle');
-            const isAccordionDressed = accordion?.hasAttribute('accordion-dressed');
+            const accordionToggle = this.shadowRoot?.querySelector<HTMLButtonElement>('.js-vl-accordion__toggle');
+            const isAccordionDressed = accordionToggle?.hasAttribute('accordion-dressed');
 
             if (!isAccordionDressed) {
-                vl.accordion.dress(accordion);
+                vl.accordion.dress(accordionToggle);
                 this.shadowRoot?.querySelector('slot[name="title"]')?.addEventListener('click', (event: Event) => {
                     event.stopPropagation();
                     (this.shadowRoot?.querySelector('button.js-vl-accordion__toggle') as HTMLButtonElement)?.click();
                 });
+            }
+
+            if (this.defaultOpen) {
+                if (!(this.shadowRoot?.querySelector('li.js-vl-accordion--open'))) {
+                    accordionToggle?.click();
+                }
             }
         }
 
