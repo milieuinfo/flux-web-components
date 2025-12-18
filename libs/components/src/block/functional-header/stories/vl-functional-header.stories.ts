@@ -54,6 +54,7 @@ const Template = story(
         titleSlot,
         topLeftSlot,
         topRightSlot,
+        skipToContentId,
         onClickBack,
     }) => html`
         <vl-functional-header
@@ -67,6 +68,7 @@ const Template = story(
             margin-bottom=${marginBottom}
             sub-title=${subTitle}
             title=${title}
+            skip-to-content-id=${skipToContentId}
             @vl-click-back=${onClickBack}
         >
             ${unsafeHTML(actionsSlot)}${unsafeHTML(backSlot)}${unsafeHTML(backLinkSlot)}${unsafeHTML(subHeaderSlot)}
@@ -119,8 +121,14 @@ FunctionalHeaderSlots.args = {
 
 export const FunctionalHeaderTabs = story(
     functionalHeaderArgs,
-    ({ fullWidth, marginBottom, title, link }) => html`
-        <vl-functional-header ?full-width=${fullWidth} link=${link} margin-bottom=${marginBottom} title=${title}>
+    ({ fullWidth, marginBottom, title, link, skipToContentId }) => html`
+        <vl-functional-header
+            ?full-width=${fullWidth}
+            link=${link}
+            margin-bottom=${marginBottom}
+            title=${title}
+            skip-to-content-id="${skipToContentId}"
+        >
             <vl-tabs
                 slot="sub-header"
                 disable-links
@@ -142,12 +150,13 @@ FunctionalHeaderTabs.args = {
 
 export const FunctionalHeaderBreadcrumb = story(
     functionalHeaderArgs,
-    ({ fullWidth, marginBottom, title, link }) => html`
+    ({ fullWidth, marginBottom, title, link, skipToContentId }) => html`
         <vl-functional-header
             ?full-width=${fullWidth}
             link=${link}
             margin-bottom=${marginBottom}
             title=${title}
+            skipToContentId=${skipToContentId}
             hide-back-link
         >
             <vl-breadcrumb slot="sub-title">
@@ -166,8 +175,14 @@ FunctionalHeaderBreadcrumb.args = {
 
 export const FunctionalHeaderFullWidth = story(
     functionalHeaderArgs,
-    ({ fullWidth, marginBottom, title, link }) => html`
-        <vl-functional-header ?full-width=${fullWidth} link=${link} margin-bottom=${marginBottom} title=${title}>
+    ({ fullWidth, marginBottom, title, link, skipToContentId }) => html`
+        <vl-functional-header
+            ?full-width=${fullWidth}
+            link=${link}
+            margin-bottom=${marginBottom}
+            title=${title}
+            skip-to-content-id=${skipToContentId}
+        >
             <span slot="sub-title">Full width</span>
         </vl-functional-header>
     `

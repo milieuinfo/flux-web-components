@@ -8,5 +8,6 @@ export const header = () => html`
         title="Departement Omgeving"
         sub-title="Cookieverklaring"
         link="https://omgeving.vlaanderen.be"
+        skip-to-content-id="main-content"
     ></vl-functional-header>
 `;

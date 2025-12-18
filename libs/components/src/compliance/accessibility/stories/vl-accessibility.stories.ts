@@ -113,5 +113,6 @@ AccessibilityHeaderSlot.args = {
         sub-title="Toegankelijkheid en gebruiksvoorwaarden "
         link="https://omgeving.vlaanderen.be"
         back="Start"
+        skip-to-content-id="#main-content"
     ></vl-functional-header>`,
 };

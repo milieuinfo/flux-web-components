@@ -32,6 +32,7 @@ export const functionalHeaderArgs = {
     titleSlot: '',
     topLeftSlot: '',
     topRightSlot: '',
+    skipToContentId: '',
     onClickBack: action('vl-click-back'),
 };
 
@@ -57,10 +58,11 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
     },
     disableBackLink: {
         name: 'disable-back-link',
-        description: "Schakelt de terug-link uit. Dit zorgt ervoor dat de terug-link gerenderd wordt als button in" +
-            " plaats van als link.<br/><br/> **Let op**: indien je dit attribuut gebruikt, moet je zelf het event" +
-            " \`vl-click-back\` afhandelen. Het \`back-link\` attribuut wordt genegeerd indien dit attribuut" +
-            " gebruikt wordt.",
+        description:
+            'Schakelt de terug-link uit. Dit zorgt ervoor dat de terug-link gerenderd wordt als button in' +
+            ' plaats van als link.<br/><br/> **Let op**: indien je dit attribuut gebruikt, moet je zelf het event' +
+            ' `vl-click-back` afhandelen. Het `back-link` attribuut wordt genegeerd indien dit attribuut' +
+            ' gebruikt wordt.',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
@@ -112,6 +114,17 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
             type: { summary: getSelectControlOptions(Object.keys(MARGINS)) },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: functionalHeaderArgs.marginBottom },
+        },
+    },
+    skipToContentId: {
+        name: 'skip-to-content-id',
+        description:
+            'Aanbevolen voor [toegankelijkheidsrichtlijn 2.4 Blokken omzeilen](/?path=/docs/richtlijnen-toegankelijkheid-aanpak-2-bedienbaar-2-4-navigeerbaar--documentatie#blokken-omzeilen).' +
+            ' Vul hier de ID in van de eerste heading van de content.',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(functionalHeaderArgs.skipToContentId) },
         },
     },
     sticky: {

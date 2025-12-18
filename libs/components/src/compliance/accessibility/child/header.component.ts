@@ -1,6 +1,6 @@
 import { html } from 'lit';
-import type { AccessibilityProperties } from '../vl-accessibility.model';
 import { VlFunctionalHeaderComponent } from '../../../block/functional-header';
+import type { AccessibilityProperties } from '../vl-accessibility.model';
 
 export type HeaderProps = Pick<AccessibilityProperties, 'disableBackLink' | 'hideBackLink'>;
 
@@ -13,5 +13,6 @@ export const header = ({ disableBackLink, hideBackLink }: HeaderProps) => html`
         link="https://omgeving.vlaanderen.be"
         ?disable-back-link=${disableBackLink}
         ?hide-back-link=${hideBackLink}
+        skip-to-content-id="#main-content"
     ></vl-functional-header>
 `;

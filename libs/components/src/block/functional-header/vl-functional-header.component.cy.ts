@@ -1,9 +1,9 @@
 import { GlobalStyles, registerWebComponents } from '@domg-wc/common';
+import { VlHeader } from '@domg-wc/components/compliance';
 import { html } from 'lit';
 import { VlTabsComponent } from '../tabs';
 import { VlBreadcrumbComponent } from './../breadcrumb';
 import { VlFunctionalHeaderComponent } from './vl-functional-header.component';
-import { VlHeader } from '@domg-wc/components/compliance';
 
 GlobalStyles.getInstance().register();
 
@@ -660,7 +660,7 @@ describe('cypress-component - block components - vl-functional-header - slots', 
     });
 });
 
-describe('story - vl-functional-header - sticky', () => {
+describe('cypress-component - block components - vl-functional-header - sticky', () => {
     it('should set sticky offset top CSS variable when sticky attribute is set', () => {
         cy.viewport(1440, 800);
         cy.mount(html` <vl-functional-header sticky title="test"></vl-functional-header>`);
@@ -675,14 +675,14 @@ describe('story - vl-functional-header - sticky', () => {
         cy.viewport(1440, 800);
         cy.mount(html`
             <!-- dummy vl-header -->
-             <vl-header></vl-header>
+            <vl-header></vl-header>
             <vl-functional-header sticky title="test"></vl-functional-header>
         `);
 
         cy.get('#header__container').should('exist');
 
         cy.get('vl-header').then(([vlHeader]) => {
-            const headerHeight = (vlHeader as VlHeader).height
+            const headerHeight = (vlHeader as VlHeader).height;
             expect(headerHeight).to.equal(43);
 
             vlHeader.dispatchEvent(new Event('ready'));
@@ -691,6 +691,55 @@ describe('story - vl-functional-header - sticky', () => {
                 style: '--vl-functional-header--sticky-offset-top',
                 value: '43px',
             });
-        })
+        });
+    });
+});
+
+describe('cypress-component - block components - vl-functional-header - skip-to-content-id', () => {
+    it('should not create a skip-link when skip-to-content-id is not set', () => {
+        cy.mount(html` <vl-functional-header></vl-functional-header> `);
+
+        cy.get('vl-functional-header').shadow().find(`a.vl-skip-link`).should('not.exist');
+    });
+
+    it('should warn the user when skip-to-content-id is not set', () => {
+        cy.spy(console, 'warn').as('warn');
+
+        cy.mount(html` <vl-functional-header></vl-functional-header> `);
+
+        cy.get('@warn').should('have.been.calledOnce');
+        cy.get('@warn').should(
+            'have.been.calledWith',
+            'vl-functional-header -',
+            'Denk eraan om een skip-to-content-id mee te geven zodat er een skip-link kan gerenderd worden.',
+            'Gebruik hiervoor de ID van de eerste heading van de content.',
+            '(WCAG 2.4.1: https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks.html)'
+        );
+    });
+
+    it('should create a skip-link when skip-to-content-id is set', () => {
+        const mockSkipToContentId = 'test-id';
+        cy.mount(html` <vl-functional-header skip-to-content-id="${mockSkipToContentId}"></vl-functional-header> `);
+
+        cy.get('vl-functional-header').shadow().find(`a[href="#${mockSkipToContentId}"].vl-skip-link`).should('exist');
+    });
+
+    it('should show the skip-link on focus', () => {
+        const mockSkipToContentId = 'test-id';
+        cy.mount(html` <vl-functional-header skip-to-content-id="${mockSkipToContentId}"></vl-functional-header> `);
+
+        cy.get('vl-functional-header')
+            .shadow()
+            .find(`a[href="#${mockSkipToContentId}"].vl-skip-link`)
+            .then(([skipLink]) => {
+                expect(skipLink.getBoundingClientRect().width).to.equal(1);
+                expect(skipLink.getBoundingClientRect().height).to.equal(1);
+                skipLink.focus();
+                expect(skipLink.getBoundingClientRect().width).to.be.greaterThan(1);
+                expect(skipLink.getBoundingClientRect().height).to.be.greaterThan(1);
+                skipLink.blur();
+                expect(skipLink.getBoundingClientRect().width).to.equal(1);
+                expect(skipLink.getBoundingClientRect().height).to.equal(1);
+            });
     });
 });

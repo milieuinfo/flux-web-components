@@ -39,7 +39,12 @@ export class VlPageLayoutExample extends LitElement {
                     <vl-header slot="header" identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb" development></vl-header>
 
                     <div slot="main">
-                        <vl-functional-header title="Pagina layout" hide-back-link ?full-width=${this.isFullWidth}>
+                        <vl-functional-header
+                            title="Pagina layout"
+                            hide-back-link
+                            ?full-width=${this.isFullWidth}
+                            skip-to-content-id="#main-content"
+                        >
                             <div slot="sub-title">${this.isFullWidth ? 'Volledige breedte' : 'Standaard layout'}</div>
                         </vl-functional-header>
 
@@ -48,7 +53,7 @@ export class VlPageLayoutExample extends LitElement {
                                 <div class="vl-grid vl-stacked-medium">
                                     <div class="vl-column vl-column--8 vl-column--m-9 vl-column--s-12 vl-column--xs-12">
                                         <vl-side-navigation-reference>
-                                            <vl-title type="h1"
+                                            <vl-title id="#main-content" type="h1"
                                                 >${this.isFullWidth ? 'Volledige breedte' : 'Standaard layout'}
                                             </vl-title>
                                             <vl-alert icon="info-circle">

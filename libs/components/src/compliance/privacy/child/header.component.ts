@@ -10,5 +10,6 @@ export const header = ({ disableBackLink, hideBackLink }: { disableBackLink: boo
         link="https://omgeving.vlaanderen.be"
         ?disable-back-link=${disableBackLink}
         ?hide-back-link=${hideBackLink}
+        skip-to-content-id="#main-content"
     ></vl-functional-header>
 `;

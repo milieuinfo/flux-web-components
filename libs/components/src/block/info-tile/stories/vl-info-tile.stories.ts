@@ -145,7 +145,7 @@ InfoTileFullHeight.decorators = [
     (story: () => unknown) => html`
         <div class="vl-grid">
             ${story()}
-            <vl-info-tile fullHeight class="vl-column vl-column--6 vl-column--s-12 vl-column--align-self-stretch">
+            <vl-info-tile full-height class="vl-column vl-column--6 vl-column--s-12 vl-column--align-self-stretch">
                 <span slot="title">Grotere info tile</span>
                 <span slot="subtitle">sub-title</span>
                 <div slot="content">

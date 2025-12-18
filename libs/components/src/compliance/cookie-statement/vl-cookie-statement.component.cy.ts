@@ -1,5 +1,5 @@
-import { html } from 'lit-html';
 import { registerWebComponents } from '@domg-wc/common';
+import { html } from 'lit-html';
 import { VlCookieStatement } from './vl-cookie-statement.component';
 
 registerWebComponents([VlCookieStatement]);
@@ -37,6 +37,12 @@ describe('cypress-component - compliance components - vl-cookie-statement - defa
         cy.get('vl-cookie-statement');
 
         cy.injectAxe();
+        // Schakel de skip‑link‑regel uit.
+        // De target wordt niet gevonden door de shadow DOM.
+        // De skip-link wordt verder getest in de vl-functional-header tests.
+        cy.configureAxe({
+            rules: [{ id: 'skip-link', enabled: false }],
+        });
         cy.checkA11y('vl-cookie-statement');
     });
 });

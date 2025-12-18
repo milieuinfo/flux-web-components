@@ -1,5 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { header, cookieStatementHeaderElements } from './header.component';
+import { cookieStatementHeaderElements, header } from './header.component';
 
 registerWebComponents(cookieStatementHeaderElements());
 
@@ -18,6 +18,12 @@ describe('cypress-component - compliance components - cookie-statement header', 
         cy.get('vl-functional-header');
 
         cy.injectAxe();
+        // Schakel de skip‑link‑regel uit.
+        // De target wordt niet gevonden door de shadow DOM.
+        // De skip-link wordt verder getest in de vl-functional-header tests.
+        cy.configureAxe({
+            rules: [{ id: 'skip-link', enabled: false }],
+        });
         cy.checkA11y('vl-functional-header');
     });
 

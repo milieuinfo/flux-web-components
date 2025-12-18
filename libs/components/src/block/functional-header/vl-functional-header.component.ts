@@ -8,7 +8,14 @@ import {
 } from '@domg-wc/common';
 import { VlLinkComponent } from '@domg-wc/components/atom';
 import { VlHeader, VlHeaderNext } from '@domg-wc/components/compliance';
-import { vlContentBlockStyles, vlGridStyles, vlLegacyStyles, vlResetStyles, vlSectionStyles } from '@domg-wc/styles';
+import {
+    vlAccessibilityStyles,
+    vlContentBlockStyles,
+    vlGridStyles,
+    vlLegacyStyles,
+    vlResetStyles,
+    vlSectionStyles,
+} from '@domg-wc/styles';
 import { functionalHeaderStyle } from '@domg/govflanders-style/component';
 import { VlIconComponent } from '../../atom/icon';
 import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
@@ -84,6 +91,7 @@ export class VlFunctionalHeaderComponent extends BaseHTMLElement {
             'margin-bottom',
             'sub-title',
             'title',
+            'skip-to-content-id',
         ];
     }
 
@@ -93,6 +101,10 @@ export class VlFunctionalHeaderComponent extends BaseHTMLElement {
 
     get _classPrefix() {
         return 'vl-functional-header--';
+    }
+
+    get _headerElement(): HTMLElement | undefined {
+        return this._shadow?.querySelector<HTMLElement>('header')!;
     }
 
     get _titleElement() {
@@ -182,6 +194,7 @@ export class VlFunctionalHeaderComponent extends BaseHTMLElement {
                 vlLinkStyles('.vl-link').styleSheet!,
                 vlLinkIconStyles.styleSheet!,
                 vlIconStyles.styleSheet!,
+                vlAccessibilityStyles.styleSheet!,
             ];
         }
 
@@ -189,11 +202,45 @@ export class VlFunctionalHeaderComponent extends BaseHTMLElement {
             this.shadowRoot?.querySelector('.vl-content-block')?.classList.add('vl-content-block--full-width');
         }
 
+        if (this.hasAttribute('skip-to-content-id')) {
+            const skipToContentId = this.getAttribute('skip-to-content-id')!;
+            const targetId = `${skipToContentId.startsWith('#') ? '' : '#'}${skipToContentId}`;
+
+            const skipLink = document.createElement('a');
+            skipLink.setAttribute('href', targetId);
+            skipLink.classList.add('vl-skip-link');
+            skipLink.textContent = 'Ga meteen naar de inhoud';
+
+            skipLink.addEventListener('click', (e: MouseEvent) => {
+                e.preventDefault();
+                const target =
+                    document.querySelector<HTMLElement>(targetId) ||
+                    (findDeepestElementThroughShadowRoot(document.body, targetId) as HTMLElement);
+                const hasTabIndex = target.hasAttribute('tabindex');
+                if (!hasTabIndex) {
+                    target.setAttribute('tabindex', '-1');
+                }
+                target.focus();
+                target.scrollIntoView();
+            });
+
+            this._headerElement?.prepend(skipLink);
+        } else {
+            console.warn(
+                'vl-functional-header -',
+                'Denk eraan om een skip-to-content-id mee te geven zodat er een skip-link kan gerenderd worden.',
+                'Gebruik hiervoor de ID van de eerste heading van de content.',
+                '(WCAG 2.4.1: https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks.html)'
+            );
+        }
+
         this._updateStickyOffsetTop();
     }
 
     disconnectedCallback() {
         this._observer?.disconnect();
+
+        this._headerElement?.querySelector('.vl-skip-link')?.remove();
     }
 
     _getActionTemplate(element: Element) {
@@ -268,7 +315,7 @@ export class VlFunctionalHeaderComponent extends BaseHTMLElement {
             (findDeepestElementThroughShadowRoot(document.documentElement, 'vl-header') as VlHeader) ||
             (findDeepestElementThroughShadowRoot(document.documentElement, 'vl-header-next') as VlHeaderNext);
         this.style.setProperty('--vl-functional-header--sticky-offset-top', `${vlHeader?.height || 0}px`);
-        
+
         vlHeader?.addEventListener('ready', () => {
             this.style.setProperty('--vl-functional-header--sticky-offset-top', `${vlHeader.height}px`);
         });

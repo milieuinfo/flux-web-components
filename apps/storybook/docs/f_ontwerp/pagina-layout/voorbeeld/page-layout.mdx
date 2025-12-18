@@ -22,9 +22,11 @@ Dit is de standaard layout voor applicaties. Gebruik de alternatieve "Volledige 
             <vl-template>
                 <vl-header slot="header"></vl-header>
                 <div slot="main">
-                    <vl-functional-header title="Page Layout">...</vl-functional-header>
+                    <vl-functional-header title="Page Layout" skip-to-content-id="#main-content">...</vl-functional-header>
                     <section class="vl-section">
-                        <div class="vl-content-block">...</div>
+                        <div class="vl-content-block">
+                            <vl-title type="h1" id="main-content">Content</vl-title>
+                        </div>
                     </section>
                 </div>
                 <vl-footer slot="footer"></vl-footer>
@@ -58,9 +60,11 @@ Voeg hiervoor de volgende attributen toe:
             <vl-template>
                 <vl-header slot="header"></vl-header>
                 <div slot="main">
-                    <vl-functional-header title="Page Layout" full-width>...</vl-functional-header>
+                    <vl-functional-header title="Page Layout" full-width skip-to-content-id="#main-content">...</vl-functional-header>
                     <section class="vl-section">
-                        <div class="vl-content-block vl-content-block--full-width">...</div>
+                        <div class="vl-content-block vl-content-block--full-width">
+                            <vl-title type="h1" id="main-content">Content</vl-title>
+                        </div>
                     </section>
                 </div>
                 <vl-footer slot="footer"></vl-footer>

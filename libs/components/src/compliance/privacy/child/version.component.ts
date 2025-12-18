@@ -4,7 +4,7 @@ export const privacyVersionSection = (version: string, date: string) => html`
     <div class="vl-content-block">
         <div class="vl-grid">
             <div class="vl-column vl-column--10">
-                <vl-title type="h1" no-space-bottom>Privacy</vl-title>
+                <vl-title type="h1" no-space-bottom id="main-content">Privacy</vl-title>
             </div>
             <div class="vl-column vl-column--10">
                 <vl-paragraph introduction>

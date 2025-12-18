@@ -95,7 +95,7 @@ export const functionalHeaderWithActionButtonsHTML = ` <vl-functional-header
 export const functionalHeaderStickyWithSideNavigationHTML = `
     <main>
         <vl-header development simple identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb"></vl-header>
-        <vl-functional-header sticky>
+        <vl-functional-header sticky skip-to-content-id="#hoofdstuk-1">
             <div slot="title">Sticky functional header demo</div>     
         </vl-functional-header>
 
