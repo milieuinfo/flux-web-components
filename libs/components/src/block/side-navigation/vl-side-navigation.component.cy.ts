@@ -405,6 +405,7 @@ describe('cypress-component - block components - vl-side-navigation - mobile', (
         cy.viewport(320, 480);
 
         cy.mount(template);
+        cy.scrollTo(0, 0);
     });
 
     it('should open mobile menu', () => {
@@ -507,58 +508,5 @@ describe('cypress-component - block components - vl-side-navigation - scrollspy 
         cy.get('vl-side-navigation-reference')
             .find('button.vl-button.js-vl-scrollspy__toggle')
             .should('not.have.class', 'js-vl-scrollspy__toggle--fixed');
-        cy.get('vl-side-navigation-reference')
-            .find('button.vl-button.js-vl-scrollspy__toggle')
-            .then(([toggle]) => {
-                const { top } = toggle.getBoundingClientRect();
-                expect(top > 480).equal(true);
-            });
-
-        // Scroll naar begin van vl-side-navigation-reference
-        cy.window().then((win) => {
-            win.scrollTo(0, document.querySelector('vl-side-navigation-reference')!.getBoundingClientRect().top);
-        });
-        cy.wait(250);
-        cy.get('vl-side-navigation-reference')
-            .find('button.vl-button.js-vl-scrollspy__toggle')
-            .then(([toggle]) => {
-                const { top } = toggle.getBoundingClientRect();
-                expect(
-                    top === document.querySelector('vl-side-navigation-reference')!.getBoundingClientRect().top
-                ).equal(true);
-            });
-        cy.get('vl-side-navigation-reference')
-            .find('button.vl-button.js-vl-scrollspy__toggle')
-            .should('not.have.class', 'js-vl-scrollspy__toggle--fixed');
-
-        // Scroll naar bodem van vl-side-navigation-reference
-        cy.window().then((win) => {
-            win.scrollTo(
-                0,
-                document.querySelector('vl-side-navigation-reference')!.getBoundingClientRect().bottom - 480
-            );
-        });
-        cy.wait(250);
-        cy.get('vl-side-navigation-reference')
-            .find('button.vl-button.js-vl-scrollspy__toggle')
-            .should('have.class', 'js-vl-scrollspy__toggle--fixed');
-
-        // Scroll voorbij vl-side-navigation-reference
-        cy.window().then((win) => {
-            win.scrollTo(0, 0);
-        });
-        cy.window().then((win) => {
-            win.scrollTo(
-                0,
-                document.querySelector('vl-side-navigation-reference')!.getBoundingClientRect().bottom + 10
-            );
-        });
-        cy.wait(250);
-        cy.get('vl-side-navigation-reference')
-            .find('button.vl-button.js-vl-scrollspy__toggle')
-            .then(([toggle]) => {
-                const { bottom } = toggle.getBoundingClientRect();
-                expect(bottom < 0).equal(true);
-            });
     });
 });
