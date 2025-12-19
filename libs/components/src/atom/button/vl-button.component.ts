@@ -199,7 +199,6 @@ export class VlButtonComponent extends BaseLitElement {
                 href=${this.disabled ? 'javascript:void(0);' : this.ctaLink}
                 tabindex=${ifDefined(this.disabled ? '-1' : undefined)}
                 class=${classMap(classes)}
-                role="button"
                 target=${this.ctaLink && this.external ? '_blank' : nothing}
                 @click=${this.handleLinkClick}
                 aria-label=${ifDefined(this.ariaLabel || undefined)}
