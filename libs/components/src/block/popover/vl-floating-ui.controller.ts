@@ -188,6 +188,24 @@ export default class FloatingController implements ReactiveController {
         this.options = options;
     }
 
+    show(): void {
+        this.host.show();
+        document.addEventListener('click', this.handleClickOutside, true);
+    }
+
+    hide(): void {
+        this.host.hide();
+        document.removeEventListener('click', this.handleClickOutside, true);
+    }
+
+    toggle(): void {
+        if (this.host.open) {
+            this.hide();
+        } else {
+            this.show();
+        }
+    }
+
     private addEventListeners(): void {
         this.referenceElement.addEventListener('keydown', this.handleKeyDown);
 
@@ -254,19 +272,19 @@ export default class FloatingController implements ReactiveController {
     };
 
     private handleHideOnClick = (): void => {
-        this.host.hide();
+        this.hide();
     };
 
     private handleMouseOver = (): void => {
         clearTimeout(this.hoverTimeout);
-        this.hoverTimeout = window.setTimeout(() => this.host.show(), this.options.showDelay);
+        this.hoverTimeout = window.setTimeout(() => this.show(), this.options.showDelay);
     };
 
     private handleMouseOut = (): void => {
         clearTimeout(this.hoverTimeout);
         this.hoverTimeout = window.setTimeout(
             () => {
-                if (!this.hostHover) this.host.hide();
+                if (!this.hostHover) this.hide();
                 else this.handleMouseOut();
             },
             // A minimum delay of 100ms is added to prevent the popover from hiding too quickly when moving the mouse from the reference to the popover.
@@ -283,7 +301,7 @@ export default class FloatingController implements ReactiveController {
     };
 
     private handleFocusIn = (): void => {
-        this.host.show();
+        this.show();
         // Ignore the next click coming from the same event
         this.ignoreNextClick = true;
     };
@@ -291,7 +309,7 @@ export default class FloatingController implements ReactiveController {
     private handleFocusOut = (): void => {
         setTimeout(() => {
             if (!this.host.matches(':focus') && !this.host.matches(':focus-within')) {
-                this.host.hide();
+                this.hide();
             }
         }, 100);
     };
@@ -304,32 +322,30 @@ export default class FloatingController implements ReactiveController {
             return;
         }
         if (!this.host.matches(':focus-within')) {
-            this.host.hide();
+            this.hide();
         }
     };
 
-    private handleClickOutside = ({ target }: MouseEvent): void => {
-        if (
-            target !== this.referenceElement &&
-            target !== this.triggerButton &&
-            target !== this.host &&
-            !this.host.contains(target as HTMLElement)
-        ) {
-            this.host.blur();
-            this.host.hide();
-        }
+    private handleClickOutside = (e: MouseEvent): void => {
+        const path = e.composedPath();
+        if (path.includes(this.referenceElement)) return;
+        if (path.includes(this.triggerButton)) return;
+        if (path.includes(this.host)) return;
+
+        this.host.blur();
+        this.hide();
     };
 
     private handleKeyDown = (event: KeyboardEvent): void => {
         if (this.host.open && event.key === 'Escape') {
             event.stopPropagation();
-            this.host.hide();
+            this.hide();
         }
     };
 
     private handleResize = (): void => {
         if (this.host.open) {
-            this.host.hide();
+            this.hide();
         }
     };
 
