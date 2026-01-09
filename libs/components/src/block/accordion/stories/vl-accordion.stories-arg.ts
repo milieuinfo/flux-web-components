@@ -1,12 +1,12 @@
 import { ArgTypes } from '@storybook/web-components-vite';
 // de import is bewust op deze manier om voor de web-types.generator 'binnen' de monorepo geen side-effect te geven
-import { PADDINGS } from '@resources/utils-storybook';
 import {
     CATEGORIES,
     CONTROLS,
     defaultArgs,
     defaultArgTypes,
     getSelectControlOptions,
+    PADDINGS,
     TYPES,
 } from '@resources/utils-storybook';
 import { action } from 'storybook/actions';
@@ -25,6 +25,7 @@ export const accordionArgs = {
     titleSlot: '',
     subtitleSlot: '',
     menuSlot: '',
+    headingLevel: '',
     onToggle: action('vl-on-toggle'),
 };
 
@@ -143,6 +144,17 @@ export const accordionArgTypes: ArgTypes<typeof accordionArgs> = {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
             defaultValue: { summary: accordionArgs.menuSlot },
+        },
+    },
+    headingLevel: {
+        name: 'heading-level',
+        description: 'Bepaalt het heading level (h1, h2, h3, ...) van de titel van de accordion.',
+        control: { type: CONTROLS.SELECT },
+        options: ['1', '2', '3', '4', '5', '6'],
+        table: {
+            type: { summary: '1 | 2 | 3 | 4 | 5 | 6' },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: '' },
         },
     },
     onToggle: {

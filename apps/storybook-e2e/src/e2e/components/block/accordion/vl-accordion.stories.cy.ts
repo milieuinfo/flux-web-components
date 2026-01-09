@@ -1,9 +1,11 @@
 const accordionDefaultUrl =
     'http://localhost:8080/iframe.html?id=components-block-accordion--accordion-default&viewMode=story';
+const accordionHeadingUrl =
+    'http://localhost:8080/iframe.html?id=components-block-accordion--accordion-heading&viewMode=story';
 const accordionDynamicToggleUrl =
     'http://localhost:8080/iframe.html?id=components-block-accordion--accordion-dynamic-toggle&viewMode=story';
 const accordionIconUrl =
-    'http://localhost:8080/iframe.html?id=components-block-accordion--accordion-title-slot&viewMode=story';
+    'http://localhost:8080/iframe.html?id=components-block-accordion--accordion-icon&viewMode=story';
 const accordionTitleSlotUrl =
     'http://localhost:8080/iframe.html?id=components-block-accordion--accordion-title-slot&viewMode=story';
 const accordionSubtitleSlotUrl =
@@ -14,6 +16,13 @@ const accordionMenuSlotUrl =
 describe('cypress-e2e - block components - vl-accordion - default story', () => {
     it('should display story', () => {
         cy.visit(accordionDefaultUrl);
+        cy.get('vl-accordion').shadow();
+    });
+});
+
+describe('cypress-e2e - block components - vl-accordion - heading story', () => {
+    it('should display story', () => {
+        cy.visit(accordionHeadingUrl);
         cy.get('vl-accordion').shadow();
     });
 });

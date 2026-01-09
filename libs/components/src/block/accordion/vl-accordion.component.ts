@@ -8,11 +8,11 @@ import {
 } from '@domg-wc/common';
 import { resetStyle } from '@domg/govflanders-style/common';
 import { accordionStyle, buttonStyle, iconStyle, linkStyle, toggleStyle } from '@domg/govflanders-style/component';
+import 'reflect-metadata';
 import { VlIconComponent } from '../../atom/icon';
 import { vlLinkIconStyles } from '../../atom/link-style/vl-link-icon-style.css';
 import { vlAccordionFluxStyles } from './vl-accordion.flux-css';
 import './vl-accordion.lib.js';
-import 'reflect-metadata';
 
 declare const vl: any;
 
@@ -58,7 +58,7 @@ export class VlAccordionComponent extends BaseHTMLElement {
     }
 
     static get _observedAttributes() {
-        return ['toggle-text', 'open-toggle-text', 'close-toggle-text', 'content-padding'];
+        return ['toggle-text', 'open-toggle-text', 'close-toggle-text', 'content-padding', 'heading-level'];
     }
 
     static get _observedClassAttributes() {
@@ -77,8 +77,16 @@ export class VlAccordionComponent extends BaseHTMLElement {
         return this._element.querySelector('button');
     }
 
+    get _buttonContainerElement() {
+        return this._element.querySelector('.vl-accordion__button-container');
+    }
+
     get _titleElement() {
         return this._buttonElement.querySelector('slot[name="title"]');
+    }
+
+    get _headingLevelAttribute(): string | null {
+        return this.getAttribute('heading-level');
     }
 
     get _openToggleTextAttribute() {
@@ -102,6 +110,61 @@ export class VlAccordionComponent extends BaseHTMLElement {
         return this._accordionElement.classList.contains('js-vl-accordion--open');
     }
 
+    _addHeadingElement() {
+        if (this._headingLevelAttribute) {
+            let headingElement: HTMLHeadingElement;
+            switch (this._headingLevelAttribute) {
+                case '1':
+                    headingElement = document.createElement('h1');
+                    break;
+                case '2':
+                    headingElement = document.createElement('h2');
+                    break;
+                case '3':
+                    headingElement = document.createElement('h3');
+                    break;
+                case '4':
+                    headingElement = document.createElement('h4');
+                    break;
+                case '5':
+                    headingElement = document.createElement('h5');
+                    break;
+                case '6':
+                    headingElement = document.createElement('h6');
+                    break;
+                default:
+                    console.warn(
+                        `De waarde "${this._headingLevelAttribute}" van het attribuut "heading-level" is ongeldig. Gebruik een waarde tussen 1 en 6.`
+                    );
+                    return;
+            }
+            headingElement.appendChild(this._buttonElement);
+            const existingHeadingElement = this._buttonContainerElement.querySelector('h1, h2, h3, h4, h5, h6');
+            if (existingHeadingElement) {
+                existingHeadingElement.remove();
+            }
+            this._buttonContainerElement.prepend(headingElement);
+        }
+    }
+
+    _onButtonClick = () => {
+        this.dispatchEvent(
+            new CustomEvent('vl-on-toggle', {
+                detail: {
+                    open: this._isOpen,
+                },
+            })
+        );
+    };
+
+    _addEventListeners() {
+        this._buttonElement?.addEventListener('click', this._onButtonClick);
+    }
+
+    _removeEventListeners() {
+        this._buttonElement?.removeEventListener('click', this._onButtonClick);
+    }
+
     connectedCallback() {
         super.connectedCallback();
 
@@ -120,20 +183,18 @@ export class VlAccordionComponent extends BaseHTMLElement {
             this.open();
         }
 
+        this._addHeadingElement();
+
         /*
             Voeg de eventListener toe nadat this.dress() is aangeroepen om de correcte volgorde van de event listeners te garanderen.
             Digitaal Vlaanderen accordion.js vuurt zelf een onChange event af bij het openen of sluiten van de accordion,
             maar om te vermijden dat we te veel steunen op de JS van Digitaal Vlaanderen vangen we het click event zelf op.
         */
-        this._buttonElement?.addEventListener('click', () => {
-            this.dispatchEvent(
-                new CustomEvent('vl-on-toggle', {
-                    detail: {
-                        open: this._isOpen,
-                    },
-                })
-            );
-        });
+        this._addEventListeners();
+    }
+
+    disconnectedCallback() {
+        this._removeEventListeners();
     }
 
     _propagateTitleSlotClickToAccordion() {
@@ -144,6 +205,7 @@ export class VlAccordionComponent extends BaseHTMLElement {
     }
 
     _addIconElement() {
+        if (this._buttonElement?.querySelector('vl-icon.vl-accordion__icon:not(#toggle-icon)')) return;
         const icon = this.getAttribute('icon');
         const iconEl = document.createElement('vl-icon');
         iconEl.classList.add('vl-accordion__icon', 'vl-link__icon', 'vl-link__icon--before', 'vl-toggle__icon');
@@ -199,6 +261,11 @@ export class VlAccordionComponent extends BaseHTMLElement {
         } else {
             content.style.removeProperty('padding');
         }
+    }
+
+    _headingLevelChangedCallback(oldValue: string, newValue: string) {
+        this._addHeadingElement();
+        this._addEventListeners();
     }
 
     _disabledChangedCallback(oldValue: string, newValue: string) {
