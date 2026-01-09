@@ -200,6 +200,114 @@ describe('cypress-component - block components - vl-accordion dom - default test
     });
 });
 
+describe('cypress-component - block components - vl-accordion dom - headings testen', () => {
+    const accordionHeadingsHtml = html`
+        <vl-accordion icon="university" toggle-text="Dit is een heading van ingevouwen inhoud" heading-level="3">
+            <span>Onderwijs helpt jonge mensen.</span>
+        </vl-accordion>
+    `;
+
+    it('should display story', () => {
+        cy.mount(accordionHeadingsHtml);
+        cy.get('vl-accordion').shadow();
+    });
+
+    it('should have heading level 3', () => {
+        cy.mount(accordionHeadingsHtml);
+        cy.get('vl-accordion')
+            .shadow()
+            .find('.vl-accordion__button-container > h3 > button > slot.vl-accordion__title')
+            .contains('Dit is een heading van ingevouwen inhoud');
+    });
+
+    it('should not have heading level when not set', () => {
+        cy.mount(html`
+            <vl-accordion icon="university" toggle-text="Dit is een heading van ingevouwen inhoud">
+                <span>Onderwijs helpt jonge mensen.</span>
+            </vl-accordion>
+        `);
+        cy.get('vl-accordion')
+            .shadow()
+            .find(
+                '.vl-accordion__button-container > h1, .vl-accordion__button-container > h2, .vl-accordion__button-container > h3, .vl-accordion__button-container > h4, .vl-accordion__button-container > h5, .vl-accordion__button-container > h6'
+            )
+            .should('not.exist');
+    });
+
+    it('should update heading level when changed', () => {
+        cy.mount(accordionHeadingsHtml);
+        cy.get('vl-accordion').then(($accordion) => {
+            $accordion[0].setAttribute('heading-level', '4');
+        });
+        cy.get('vl-accordion')
+            .shadow()
+            .find('.vl-accordion__button-container > h4 > button > slot.vl-accordion__title')
+            .contains('Dit is een heading van ingevouwen inhoud');
+    });
+
+    it('should be toggleable', () => {
+        cy.mount(accordionHeadingsHtml);
+        shouldBeToggleable();
+    });
+
+    it('should set default slot', () => {
+        cy.mount(accordionHeadingsHtml);
+        shouldSetDefaultSlot();
+    });
+
+    it('should set title', () => {
+        cy.mount(accordionHeadingsHtml);
+        shouldSetTitle('Dit is een heading van ingevouwen inhoud');
+    });
+
+    it('should disable accordion', () => {
+        cy.mount(html`
+            <vl-accordion
+                icon="university"
+                toggle-text="Dit is een heading van ingevouwen inhoud"
+                heading-level="3"
+                disabled
+            >
+                <span>Onderwijs helpt jonge mensen.</span>
+            </vl-accordion>
+        `);
+        shouldDisableAccordion();
+    });
+
+    it('should set bold', () => {
+        cy.mount(html`
+            <vl-accordion
+                icon="university"
+                toggle-text="Dit is een heading van ingevouwen inhoud"
+                heading-level="3"
+                bold
+            >
+                <span>Onderwijs helpt jonge mensen.</span>
+            </vl-accordion>
+        `);
+        shouldSetBold();
+    });
+
+    it('should set content padding', () => {
+        cy.mount(html`
+            <vl-accordion
+                icon="university"
+                toggle-text="Dit is een heading van ingevouwen inhoud"
+                heading-level="3"
+                content-padding="none"
+            >
+                <span>Onderwijs helpt jonge mensen.</span>
+            </vl-accordion>
+        `);
+        shouldSetContentPadding('0px');
+    });
+
+    it('should emit event on toggle', () => {
+        cy.mount(accordionHeadingsHtml);
+        shouldEmitEventOnToggle();
+    });
+});
+
 describe('cypress-component - block components - vl-accordion dom - dynamic toggle testen', () => {
     const accordionDynamicToggleHtml = html`
         <vl-accordion
@@ -238,11 +346,13 @@ describe('cypress-component - block components - vl-accordion dom - dynamic togg
 
     it('should disable accordion', () => {
         cy.mount(html`
-            <vl-accordion icon="university"
-                              toggle-text="Lees meer over de onderwijsdoelstelling"
-                              close-toggle-text="Sluit de onderwijsdoelstelling"
-                              open-toggle-text="Open de onderwijsdoelstelling"
-                              disabled
+            <vl-accordion
+                icon="university"
+                toggle-text="Lees meer over de onderwijsdoelstelling"
+                close-toggle-text="Sluit de onderwijsdoelstelling"
+                open-toggle-text="Open de onderwijsdoelstelling"
+                disabled
+            >
                 <span>Onderwijs helpt jonge mensen.</span>
             </vl-accordion>
         `);
@@ -251,11 +361,13 @@ describe('cypress-component - block components - vl-accordion dom - dynamic togg
 
     it('should set bold', () => {
         cy.mount(html`
-            <vl-accordion icon="university"
-                          toggle-text="Lees meer over de onderwijsdoelstelling"
-                          close-toggle-text="Sluit de onderwijsdoelstelling"
-                          open-toggle-text="Open de onderwijsdoelstelling"
-                          bold
+            <vl-accordion
+                icon="university"
+                toggle-text="Lees meer over de onderwijsdoelstelling"
+                close-toggle-text="Sluit de onderwijsdoelstelling"
+                open-toggle-text="Open de onderwijsdoelstelling"
+                bold
+            >
                 <span>Onderwijs helpt jonge mensen.</span>
             </vl-accordion>
         `);
@@ -264,11 +376,13 @@ describe('cypress-component - block components - vl-accordion dom - dynamic togg
 
     it('should set content padding', () => {
         cy.mount(html`
-            <vl-accordion icon="university"
-                          toggle-text="Lees meer over de onderwijsdoelstelling"
-                          close-toggle-text="Sluit de onderwijsdoelstelling"
-                          open-toggle-text="Open de onderwijsdoelstelling"
-                          content-padding="none"
+            <vl-accordion
+                icon="university"
+                toggle-text="Lees meer over de onderwijsdoelstelling"
+                close-toggle-text="Sluit de onderwijsdoelstelling"
+                open-toggle-text="Open de onderwijsdoelstelling"
+                content-padding="none"
+            >
                 <span>Onderwijs helpt jonge mensen.</span>
             </vl-accordion>
         `);

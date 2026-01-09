@@ -71,7 +71,7 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
     override render() {
         return html`
             <div class="panel">
-                <vl-accordion toggle-text="Stedelijk woongebied" custom-css=${topLevelAccordionCss}>
+                <vl-accordion toggle-text="Stedelijk woongebied" custom-css=${topLevelAccordionCss} heading-level="2">
                     <span class="laaginfo">
                         <div class="laaginfo__image">
                             <img class="laaginfo__image" src="cat.jpeg" alt="Example image" />
@@ -104,7 +104,7 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
                     </span>
                     <div class="panel">
                         <div>
-                            <vl-accordion toggle-text="$1.1" custom-css=${subAccordionCss}>
+                            <vl-accordion toggle-text="Item $1.1" custom-css=${subAccordionCss} heading-level="3">
                                 <span slot="menu">
                                     <vl-button id="btn-acties2" icon="nav-show-more-vertical" ghost></vl-button>
                                     <vl-popover for="btn-acties2" placement="bottom-end" distance="5">
@@ -117,7 +117,11 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
                                 </span>
                                 <div class="panel">
                                     <div>
-                                        <vl-accordion toggle-text="Alle werken" custom-css=${subAccordionCss}>
+                                        <vl-accordion
+                                            toggle-text="Alle werken (1.1.1)"
+                                            custom-css=${subAccordionCss}
+                                            heading-level="4"
+                                        >
                                             <span slot="menu">
                                                 <vl-button
                                                     id="btn-acties3"
@@ -144,7 +148,11 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
                                         </vl-accordion>
                                     </div>
                                     <div>
-                                        <vl-accordion toggle-text="Alle werken" custom-css=${subAccordionCss}>
+                                        <vl-accordion
+                                            toggle-text="Alle werken (1.1.2)"
+                                            custom-css=${subAccordionCss}
+                                            heading-level="4"
+                                        >
                                             <span slot="menu">
                                                 <vl-button
                                                     id="btn-acties4"
@@ -174,7 +182,7 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
                             </vl-accordion>
                         </div>
                         <div>
-                            <vl-accordion toggle-text="$1.2" custom-css=${subAccordionCss}>
+                            <vl-accordion toggle-text="Item $1.2" custom-css=${subAccordionCss} heading-level="3">
                                 <span slot="menu">
                                     <vl-button id="btn-acties5" icon="nav-show-more-vertical" ghost></vl-button>
                                     <vl-popover for="btn-acties5" placement="bottom-end" distance="5">
@@ -187,7 +195,11 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
                                 </span>
                                 <div class="panel">
                                     <div>
-                                        <vl-accordion toggle-text="Alle werken" custom-css=${subAccordionCss}>
+                                        <vl-accordion
+                                            toggle-text="Alle werken (1.2.1)"
+                                            custom-css=${subAccordionCss}
+                                            heading-level="4"
+                                        >
                                             <span slot="menu">
                                                 <vl-button
                                                     id="btn-acties6"
@@ -214,7 +226,11 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
                                         </vl-accordion>
                                     </div>
                                     <div>
-                                        <vl-accordion toggle-text="Alle werken" custom-css=${subAccordionCss}>
+                                        <vl-accordion
+                                            toggle-text="Alle werken (1.2.2)"
+                                            custom-css=${subAccordionCss}
+                                            heading-level="4"
+                                        >
                                             <span slot="menu">
                                                 <vl-button
                                                     id="btn-acties7"
@@ -244,7 +260,7 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
                             </vl-accordion>
                         </div>
                         <div>
-                            <vl-accordion toggle-text="$1.3" custom-css=${subAccordionCss}>
+                            <vl-accordion toggle-text="Item $1.3" custom-css=${subAccordionCss} heading-level="3">
                                 <span slot="menu">
                                     <vl-button id="btn-acties8" icon="nav-show-more-vertical" ghost></vl-button>
                                     <vl-popover for="btn-acties8" placement="bottom-end" distance="5">
@@ -257,7 +273,11 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
                                 </span>
                                 <div class="panel">
                                     <div>
-                                        <vl-accordion toggle-text="Alle werken" custom-css=${subAccordionCss}>
+                                        <vl-accordion
+                                            toggle-text="Alle werken (1.3.1)"
+                                            custom-css=${subAccordionCss}
+                                            heading-level="4"
+                                        >
                                             <span slot="menu">
                                                 <vl-button
                                                     id="btn-acties9"
@@ -284,7 +304,11 @@ export class VlPopoverMenuAccordionComponent extends LitElement {
                                         </vl-accordion>
                                     </div>
                                     <div>
-                                        <vl-accordion toggle-text="Alle werken" custom-css=${subAccordionCss}>
+                                        <vl-accordion
+                                            toggle-text="Alle werken (1.3.2)"
+                                            custom-css=${subAccordionCss}
+                                            heading-level="4"
+                                        >
                                             <span slot="menu">
                                                 <vl-button
                                                     id="btn-acties10"

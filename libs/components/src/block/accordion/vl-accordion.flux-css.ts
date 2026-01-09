@@ -34,6 +34,15 @@ export const vlAccordionFluxStyles: CSSResult = css`
 
     .vl-accordion__button-container {
         display: flex;
+
+        > h1,
+        > h2,
+        > h3,
+        > h4,
+        > h5,
+        > h6 {
+            flex: 1;
+        }
     }
 
     .js-vl-accordion--open vl-icon#toggle-icon::part(icon)::before {

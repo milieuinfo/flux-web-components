@@ -1,6 +1,6 @@
 // import { parseFormData } from '@domg-wc/components/form';
-import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
+import { html } from 'lit';
 import { VlPopoverMenuAccordionComponent } from './vl-popover-menu-accordion.component';
 
 registerWebComponents([VlPopoverMenuAccordionComponent]);
@@ -49,22 +49,22 @@ describe('cypress-component - integrations - vl-popover-menu-accordion', () => {
             .should('have.class', 'js-vl-accordion--open');
 
         cy.get('vl-popover-menu-accordion')
-            .find('vl-accordion[toggle-text="$1.1"]')
+            .find('vl-accordion[toggle-text="Item $1.1"]')
             .shadow()
             .find('button.vl-toggle')
             .click();
         cy.get('vl-popover-menu-accordion')
-            .find('vl-accordion[toggle-text="$1.1"]')
+            .find('vl-accordion[toggle-text="Item $1.1"]')
             .shadow()
             .find('div.vl-accordion')
             .should('have.class', 'js-vl-accordion--open');
         cy.get('vl-popover-menu-accordion')
-            .find('vl-accordion[toggle-text="$1.1"]')
+            .find('vl-accordion[toggle-text="Item $1.1"]')
             .shadow()
             .find('button.vl-toggle')
             .click();
         cy.get('vl-popover-menu-accordion')
-            .find('vl-accordion[toggle-text="$1.1"]')
+            .find('vl-accordion[toggle-text="Item $1.1"]')
             .shadow()
             .find('div.vl-accordion')
             .should('not.have.class', 'js-vl-accordion--open');
