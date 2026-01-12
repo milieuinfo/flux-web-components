@@ -1,6 +1,7 @@
 export { iconFontLocation } from './base/font/vl-font.css';
 export { vlWaveAnimationMixin } from './base/mixin/vl-animations.css';
 export { vlFocusOutlineMixin } from './base/mixin/vl-outlines.css';
+export { vlHyphenateMixin } from './base/mixin/vl-hyphenate.css';
 export { vlResetStyles } from './base/reset/vl-reset.css';
 export { vlColorVars } from './base/var/vl-color.css';
 export {
