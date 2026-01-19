@@ -47,8 +47,8 @@ describe('jest - generate-web-types - web-types-completeness', () => {
         expect(componentsComplianceWTWithoutWC).toStrictEqual([]);
     });
     it('components-form - valideer de volledigheid van de web-types', () => {
-        expect(componentsFormWCNameCount).toEqual(13);
-        expect(componentsFormWTNameCount).toEqual(13);
+        expect(componentsFormWCNameCount).toEqual(14);
+        expect(componentsFormWTNameCount).toEqual(14);
         expect(componentsFormWCWithoutWT).toStrictEqual([]);
         expect(componentsFormWTWithoutWC).toStrictEqual([]);
     });

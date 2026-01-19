@@ -1,5 +1,4 @@
 import { registerWebComponents, webComponent } from '@domg-wc/common';
-import { vlGridStyles, vlLegacyStyles, vlStackedStyles } from '@domg-wc/styles';
 import { VlButtonComponent, VlTextComponent } from '@domg-wc/components/atom';
 import {
     parseFormData,
@@ -7,8 +6,8 @@ import {
     SelectRichOption,
     VlCheckboxComponent,
     VlDatepickerComponent,
-    VlFormMessageComponent,
     VlFormLabelComponent,
+    VlFormMessageComponent,
     VlInputFieldComponent,
     VlInputFieldMaskedComponent,
     VlRadioComponent,
@@ -18,6 +17,7 @@ import {
     VlTextareaComponent,
     VlUploadComponent,
 } from '@domg-wc/components/form';
+import { vlGridStyles, vlLegacyStyles, vlStackedStyles } from '@domg-wc/styles';
 import { css, CSSResult, html, LitElement } from 'lit';
 
 @webComponent('vl-form-demo')
@@ -312,6 +312,33 @@ export class VlFormDemoComponent extends LitElement {
                             Gelieve te bevestigen dat bovenstaande gegevens naar waarheid zijn ingevuld.
                         </vl-form-message>
                     </div>
+                    <vl-fieldset horizontal class="vl-column vl-column--12">
+                        <span slot="legend">Gerelateerde velden *</span>
+                        <div class="vl-column vl-column--8 vl-column--s-12">
+                            <div class="vl-group vl-group--collapse-xs">
+                                <vl-input-field
+                                    id="gerelateerd-1"
+                                    name="gerelateerd-1"
+                                    label="Gerelateerd veld 1 *"
+                                    placeholder="Voorbeeld eerste veld"
+                                    required
+                                ></vl-input-field>
+                                <vl-input-field
+                                    id="gerelateerd-2"
+                                    name="gerelateerd-2"
+                                    label="Gerelateerd veld 2 *"
+                                    placeholder="Voorbeeld tweede veld"
+                                    required
+                                ></vl-input-field>
+                            </div>
+                            <vl-form-message for="gerelateerd-1" state="valueMissing"
+                                >Gelieve een waarde in te vullen voor "Gerelateerd veld 1".
+                            </vl-form-message>
+                            <vl-form-message for="gerelateerd-2" state="valueMissing"
+                                >Gelieve een waarde in te vullen voor "Gerelateerd veld 2".
+                            </vl-form-message>
+                        </div>
+                    </vl-fieldset>
                     <div class="vl-column vl-column--8 vl-column--s-12 vl-column--start-5 vl-column--s-start-1">
                         <div class="form-buttons">
                             <vl-button type="submit">Verstuur</vl-button>
