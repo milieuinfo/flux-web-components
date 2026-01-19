@@ -1,5 +1,4 @@
 import { registerWebComponents, webComponent } from '@domg-wc/common';
-import { vlGridStyles, vlLegacyStyles, vlStackedStyles } from '@domg-wc/styles';
 import { VlButtonComponent, VlTextComponent } from '@domg-wc/components/atom';
 import {
     parseFormData,
@@ -7,8 +6,9 @@ import {
     SelectRichOption,
     VlCheckboxComponent,
     VlDatepickerComponent,
-    VlFormMessageComponent,
+    VlFieldsetComponent,
     VlFormLabelComponent,
+    VlFormMessageComponent,
     VlInputFieldComponent,
     VlInputFieldMaskedComponent,
     VlRadioComponent,
@@ -18,6 +18,7 @@ import {
     VlTextareaComponent,
     VlUploadComponent,
 } from '@domg-wc/components/form';
+import { vlLayoutStyles, vlLegacyStyles } from '@domg-wc/styles';
 import { css, CSSResult, html, LitElement } from 'lit';
 
 @webComponent('vl-form-demo')
@@ -75,14 +76,14 @@ export class VlFormDemoComponent extends LitElement {
             VlFormMessageComponent,
             VlButtonComponent,
             VlTextComponent,
+            VlFieldsetComponent,
         ]);
     }
 
     static override get styles(): (CSSResult | CSSResult[])[] {
         return [
             vlLegacyStyles,
-            vlGridStyles,
-            vlStackedStyles,
+            vlLayoutStyles,
             css`
                 form {
                     margin-top: 1rem;
@@ -150,6 +151,31 @@ export class VlFormDemoComponent extends LitElement {
                             >Gelieve een geldig rijksregisternummer in te vullen.</vl-form-message
                         >
                     </div>
+                    <vl-fieldset
+                        legend="Adres"
+                        class="vl-column vl-column--12 vl-column--s-12"
+                        horizontal
+                        legend-classes="vl-column--4"
+                    >
+                        <div class="vl-column vl-column--8 vl-column--s-12 vl-group">
+                            <vl-input-field
+                                id="straat"
+                                name="straat"
+                                required
+                                placeholder="bv. Stationsstraat"
+                                block
+                                label="Straat"
+                            ></vl-input-field>
+                            <vl-input-field
+                                id="huisnummer"
+                                name="huisnummer"
+                                required
+                                placeholder="bv. 123"
+                                block
+                                label="Huisnummer"
+                            ></vl-input-field>
+                        </div>
+                    </vl-fieldset>
                     <div class="vl-column vl-column--4 vl-column--s-12">
                         <vl-form-label for="geboortedatum" label="Geboortedatum *" block></vl-form-label>
                     </div>
@@ -191,25 +217,6 @@ export class VlFormDemoComponent extends LitElement {
                         </vl-form-message>
                     </div>
                     <div class="vl-column vl-column--4 vl-column--s-12">
-                        <vl-form-label for="hobbies" label="Hobbies *" block></vl-form-label>
-                    </div>
-                    <div class="vl-column vl-column--8 vl-column--s-12">
-                        <vl-select-rich
-                            id="hobbies"
-                            name="hobbies"
-                            required
-                            multiple
-                            .options=${this.hobbies}
-                            placeholder="bv. Boardgames"
-                            no-results-text="Geen hobbies gevonden"
-                            no-choices-text="Geen resterende hobbies gevonden"
-                        >
-                        </vl-select-rich>
-                        <vl-form-message for="hobbies" state="valueMissing"
-                            >Gelieve een hobby te selecteren.
-                        </vl-form-message>
-                    </div>
-                    <div class="vl-column vl-column--4 vl-column--s-12">
                         <vl-form-label for="kinderen" label="Aantal kinderen *" block></vl-form-label>
                     </div>
                     <div class="vl-column vl-column--8 vl-column--s-12">
@@ -225,30 +232,53 @@ export class VlFormDemoComponent extends LitElement {
                             >Gelieve een aantal kinderen te kiezen.
                         </vl-form-message>
                     </div>
-                    <div class="vl-column vl-column--4 vl-column--s-12">
-                        <vl-form-label for="interesses" label="Interesses *" block></vl-form-label>
-                    </div>
-                    <div class="vl-column vl-column--8 vl-column--s-12">
-                        <vl-textarea
-                            id="interesses"
-                            name="interesses"
-                            block
-                            required
-                            min-length=${5}
-                            max-length=${100}
-                            rows=${10}
-                            placeholder="bv. Ik ben geïnteresseerd in..."
-                        ></vl-textarea>
-                        <vl-form-message for="interesses" state="valueMissing"
-                            >Gelieve je interesses in te vullen.
-                        </vl-form-message>
-                        <vl-form-message for="interesses" state="tooShort"
-                            >Gelieve minimum 5 karakters te gebruiken.
-                        </vl-form-message>
-                        <vl-form-message for="interesses" state="tooLong"
-                            >Gelieve maximum 100 karakters te gebruiken.
-                        </vl-form-message>
-                    </div>
+                    <vl-fieldset legend="Extra informatie" border class="vl-column vl-column--12 vl-column--s-12">
+                        <div class="vl-grid">
+                            <div class="vl-column vl-column--4 vl-column--s-12">
+                                <vl-form-label for="hobbies" label="Hobbies *" block></vl-form-label>
+                            </div>
+                            <div class="vl-column vl-column--8 vl-column--s-12">
+                                <vl-select-rich
+                                    id="hobbies"
+                                    name="hobbies"
+                                    required
+                                    multiple
+                                    .options=${this.hobbies}
+                                    placeholder="bv. Boardgames"
+                                    no-results-text="Geen hobbies gevonden"
+                                    no-choices-text="Geen resterende hobbies gevonden"
+                                >
+                                </vl-select-rich>
+                                <vl-form-message for="hobbies" state="valueMissing"
+                                    >Gelieve een hobby te selecteren.
+                                </vl-form-message>
+                            </div>
+                            <div class="vl-column vl-column--4 vl-column--s-12">
+                                <vl-form-label for="interesses" label="Interesses *" block></vl-form-label>
+                            </div>
+                            <div class="vl-column vl-column--8 vl-column--s-12">
+                                <vl-textarea
+                                    id="interesses"
+                                    name="interesses"
+                                    block
+                                    required
+                                    min-length=${5}
+                                    max-length=${100}
+                                    rows=${10}
+                                    placeholder="bv. Ik ben geïnteresseerd in..."
+                                ></vl-textarea>
+                                <vl-form-message for="interesses" state="valueMissing"
+                                    >Gelieve je interesses in te vullen.
+                                </vl-form-message>
+                                <vl-form-message for="interesses" state="tooShort"
+                                    >Gelieve minimum 5 karakters te gebruiken.
+                                </vl-form-message>
+                                <vl-form-message for="interesses" state="tooLong"
+                                    >Gelieve maximum 100 karakters te gebruiken.
+                                </vl-form-message>
+                            </div>
+                        </div>
+                    </vl-fieldset>
                     <div class="vl-column vl-column--4 vl-column--s-12">
                         <vl-form-label for="leeftijd" label="Leeftijd *" block></vl-form-label>
                     </div>
