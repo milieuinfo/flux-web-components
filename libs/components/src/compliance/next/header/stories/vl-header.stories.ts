@@ -6,7 +6,7 @@ import { headerArgs, headerArgTypes } from './vl-header.stories-arg';
 import headerDoc from './vl-header.stories-doc.mdx';
 
 export default {
-    id: 'components-compliance-header-next',
+    id: 'components-compliance-next-header',
     title: 'Components - Compliance/next/header',
     tags: ['autodocs'],
     args: headerArgs,
