@@ -9,7 +9,7 @@ import footerDoc from './vl-footer.stories-doc.mdx';
 registerWebComponents([VlFooterNext]);
 
 export default {
-    id: 'components-compliance-footer-next',
+    id: 'components-compliance-next-footer',
     title: 'Components - Compliance/next/footer',
     tags: ['autodocs'],
     args: footerArgs,

@@ -53,13 +53,13 @@
         "evolution": {
             "vStatus": "v2-replace",
             "legacyText": "vl-footer",
-            "nextText": "[vl-footer-next](/docs/components-compliance-footer-next--documentatie)",
+            "nextText": "[vl-footer-next](/docs/components-compliance-next-footer--documentatie)",
             "planningInfo": "[v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#footer)"
         }
     },
-    "components-compliance-footer-next": {
+    "components-compliance-next-footer": {
         "name": "footer-next",
-        "docs": "components-compliance-footer-next--documentatie",
+        "docs": "components-compliance-next-footer--documentatie",
         "condition": {
             "base": "LitElement",
             "generation": "v3-next",
@@ -91,13 +91,13 @@
         "evolution": {
             "vStatus": "v2-replace",
             "legacyText": "vl-header",
-            "nextText": "[vl-header-next](/docs/components-compliance-header-next--documentatie)",
+            "nextText": "[vl-header-next](/docs/components-compliance-next-header--documentatie)",
             "planningInfo": "[v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#header)"
         }
     },
-    "components-compliance-header-next": {
+    "components-compliance-next-header": {
         "name": "header-next",
-        "docs": "components-compliance-header-next--documentatie",
+        "docs": "components-compliance-next-header--documentatie",
         "condition": {
             "base": "LitElement",
             "generation": "v3-next",
