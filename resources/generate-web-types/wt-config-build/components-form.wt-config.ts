@@ -1,7 +1,8 @@
 import { checkboxArgTypes } from '../../../libs/components/src/form/checkbox/stories/vl-checkbox.stories-arg';
 import { datepickerArgTypes } from '../../../libs/components/src/form/datepicker/stories/vl-datepicker.stories-arg';
-import { formMessageArgTypes } from '../../../libs/components/src/form/form-message/stories/vl-form-message.stories-arg';
+import { fieldsetArgTypes } from '../../../libs/components/src/form/fieldset/stories/vl-fieldset.stories-arg';
 import { formLabelArgTypes } from '../../../libs/components/src/form/form-label/stories/vl-form-label.stories-arg';
+import { formMessageArgTypes } from '../../../libs/components/src/form/form-message/stories/vl-form-message.stories-arg';
 import { inputFieldMaskedArgTypes } from '../../../libs/components/src/form/input-field-masked/stories/vl-input-field-masked.stories-arg';
 import { inputFieldArgTypes } from '../../../libs/components/src/form/input-field/stories/vl-input-field.stories-arg';
 import { radioGroupArgTypes } from '../../../libs/components/src/form/radio-group/stories/vl-radio-group.stories-arg';
@@ -26,6 +27,12 @@ export const buildWTConfigComponentsForm: WTConfigArray = [
         datepickerArgTypes,
         '../../libs/components/src/form/datepicker/stories/vl-datepicker.stories-doc.mdx',
         '/docs/components-form-datepicker--documentatie'
+    ),
+    buildWTConfig(
+        'vl-fieldset',
+        fieldsetArgTypes,
+        '../../libs/components/src/form/fieldset/stories/vl-fieldset.stories-doc.mdx',
+        '/docs/components-form-fieldset--documentatie'
     ),
     buildWTConfig(
         'vl-form-message',

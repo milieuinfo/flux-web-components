@@ -1,7 +1,7 @@
-import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
-import { VlFormDemoComponent } from './vl-form-demo.component';
 import { parseFormData } from '@domg-wc/components/form';
+import { html } from 'lit';
+import { VlFormDemoComponent } from './vl-form-demo.component';
 
 registerWebComponents([VlFormDemoComponent]);
 
@@ -33,12 +33,12 @@ describe('cypress-component - integrations - vl-form-demo', () => {
         createStubForSubmitEvent();
 
         getFormMessages().should('have.length', 0);
-        getSubmitButton().click({ force: true }); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
+        getSubmitButton().click({ force: true });
 
         // Naam input error messages
         getFormMessages({ forAttr: 'naam', state: 'valueMissing' });
         getNaamInput().find('input').type('a');
-        getSubmitButton().click('bottomLeft'); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
+        getSubmitButton().click({ force: true });
         getFormMessages({ forAttr: 'naam', state: 'tooShort' });
         getNaamInput().find('input').clear();
 
@@ -51,24 +51,24 @@ describe('cypress-component - integrations - vl-form-demo', () => {
             .find('input')
             .should('contain.value', longNameText);
 
-        getSubmitButton().click('bottomLeft'); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
+        getSubmitButton().click({ force: true });
 
         getFormMessages({ forAttr: 'naam', state: 'tooLong' });
         getNaamInput().find('input').clear();
         getNaamInput().find('input').type('!');
-        getSubmitButton().click({ force: true }); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
+        getSubmitButton().click({ force: true });
         getFormMessages({ forAttr: 'naam', state: 'patternMismatch' });
 
         // Rrn input error messages
         getFormMessages({ forAttr: 'rrn', state: 'valueMissing' });
         getRrnInput().find('input').click().type('1');
-        getSubmitButton().click({ force: true }); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
+        getSubmitButton().click({ force: true });
         getFormMessages({ forAttr: 'rrn', state: 'patternMismatch' });
 
         // Geboortedatum datepicker error messages
         getFormMessages({ forAttr: 'geboortedatum', state: 'valueMissing' });
         getGeboortedatumDatepicker().find('input#geboortedatum').click().type('1');
-        getSubmitButton().click({ force: true }); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
+        getSubmitButton().click({ force: true });
         getFormMessages({ forAttr: 'geboortedatum', state: 'patternMismatch' });
 
         // Geboorteplaats select rich error messages
@@ -83,7 +83,7 @@ describe('cypress-component - integrations - vl-form-demo', () => {
         // Interesses textarea error messages
         getFormMessages({ forAttr: 'interesses', state: 'valueMissing' });
         getInteressesTextarea().find('textarea').click().type('a');
-        getSubmitButton().click({ force: true }); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
+        getSubmitButton().click({ force: true });
         getFormMessages({ forAttr: 'interesses', state: 'tooShort' });
         const interessesText =
             'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
@@ -94,17 +94,17 @@ describe('cypress-component - integrations - vl-form-demo', () => {
             .shadow()
             .find('textarea')
             .should('contain.value', interessesText);
-        getSubmitButton().click({ force: true }); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
+        getSubmitButton().click({ force: true });
 
         getFormMessages({ forAttr: 'interesses', state: 'tooLong' });
 
         // Leeftijd input error messages
         getFormMessages({ forAttr: 'leeftijd', state: 'valueMissing' });
         getLeeftijdInput().find('input').click().type('-1');
-        getSubmitButton().click({ force: true }); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
+        getSubmitButton().click({ force: true });
         getFormMessages({ forAttr: 'leeftijd', state: 'rangeUnderflow' });
         getLeeftijdInput().find('input').click().clear().type('100');
-        getSubmitButton().click({ force: true }); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
+        getSubmitButton().click({ force: true });
         getFormMessages({ forAttr: 'leeftijd', state: 'rangeOverflow' });
 
         // Contact methode error messages
@@ -116,7 +116,7 @@ describe('cypress-component - integrations - vl-form-demo', () => {
         // Waarheidsgetrouw error messages
         getFormMessages({ forAttr: 'waarheidsgetrouw', state: 'valueMissing' });
 
-        getResetButton().click('bottomLeft'); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
+        getResetButton().click({ force: true });
         getFormMessages().should('have.length', 0);
         cy.get('@submit').should('not.have.been.called');
 
@@ -127,7 +127,7 @@ describe('cypress-component - integrations - vl-form-demo', () => {
         cy.mount(html`<vl-form-demo></vl-form-demo>`);
 
         fillInForm();
-        getResetButton().click('bottomLeft'); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
+        getResetButton().click({ force: true });
         getNaamInput().find('input').should('have.value', '');
         getNaamInput({ shadow: false }).runTest((component) => {
             // @ts-ignore access private property
@@ -192,6 +192,8 @@ describe('cypress-component - integrations - vl-form-demo', () => {
             contactmethode: 'telefoon',
             foto: null,
             waarheidsgetrouw: 'on',
+            'gerelateerd-1': 'Gerelateerd veld 1 waarde',
+            'gerelateerd-2': 'Gerelateerd veld 2 waarde',
         };
 
         cy.mount(html`<vl-form-demo></vl-form-demo>`);
@@ -199,7 +201,7 @@ describe('cypress-component - integrations - vl-form-demo', () => {
         setupMockedUploadFormData(submittedFormData);
 
         fillInForm();
-        getSubmitButton().click('bottomLeft'); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
+        getSubmitButton().click({ force: true });
         cy.get('@submit').should('have.been.calledOnce');
         cy.get('vl-form-demo')
             .shadow()
@@ -223,6 +225,8 @@ describe('cypress-component - integrations - vl-form-demo', () => {
             contactmethode: 'telefoon',
             foto: null as File[] | null,
             waarheidsgetrouw: 'on',
+            'gerelateerd-1': 'Gerelateerd veld 1 waarde',
+            'gerelateerd-2': 'Gerelateerd veld 2 waarde',
         };
 
         cy.mount(html`<vl-form-demo></vl-form-demo>`);
@@ -231,7 +235,7 @@ describe('cypress-component - integrations - vl-form-demo', () => {
 
         getRrnInput({ shadow: false }).invoke('attr', 'raw-value', '');
         fillInForm();
-        getSubmitButton().click({ force: true }); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
+        getSubmitButton().click({ force: true });
         cy.get('@submit').should('have.been.calledOnce');
         cy.get('vl-form-demo')
             .shadow()
@@ -250,6 +254,8 @@ describe('cypress-component - integrations - vl-form-demo', () => {
             leeftijd: '',
             geboortedatum: '',
             kinderen: '',
+            'gerelateerd-1': '',
+            'gerelateerd-2': '',
         };
 
         cy.mount(html`<vl-form-demo></vl-form-demo>`);
@@ -266,7 +272,10 @@ describe('cypress-component - integrations - vl-form-demo', () => {
         getContactMethodeRadioGroup({ shadow: false }).invoke('removeAttr', 'required');
         getFotosUpload({ shadow: false }).invoke('removeAttr', 'required');
         getWaarheidsGetrouwCheckbox({ shadow: false }).invoke('removeAttr', 'required');
-        getSubmitButton().click('bottomLeft'); // Hack om click te triggeren op de button, anders werd de click getriggered op de vl-button tag.
+        getGerelateerdeVeldenInput1({ shadow: false }).invoke('removeAttr', 'required');
+        getGerelateerdeVeldenInput2({ shadow: false }).invoke('removeAttr', 'required');
+
+        getSubmitButton().click({ force: true });
         cy.get('@submit').should('have.been.calledOnce');
         cy.get('vl-form-demo')
             .shadow()
@@ -330,6 +339,14 @@ const getWaarheidsGetrouwCheckbox = ({ shadow = true } = {}) => {
     return getFormControl({ selector: 'vl-checkbox#waarheidsgetrouw', shadow });
 };
 
+const getGerelateerdeVeldenInput1 = ({ shadow = true } = {}) => {
+    return getFormControl({ selector: 'vl-input-field#gerelateerd-1', shadow });
+};
+
+const getGerelateerdeVeldenInput2 = ({ shadow = true } = {}) => {
+    return getFormControl({ selector: 'vl-input-field#gerelateerd-2', shadow });
+};
+
 const getSubmitButton = () => {
     return cy.get('vl-form-demo').shadow().find('vl-button[type="submit"]').shadow().find('button');
 };
@@ -377,6 +394,8 @@ const fillInForm = () => {
     // Force true omdat anders Cypress klaagt dat de radio gecovered is door zijn parent tag, wat een zeer vreemde error is.
     // Zoek een andere manier moest deze test flaky zijn hierdoor.
     getWaarheidsGetrouwCheckbox().find('input').check({ force: true });
+    getGerelateerdeVeldenInput1().find('input').type('Gerelateerd veld 1 waarde');
+    getGerelateerdeVeldenInput2().find('input').type('Gerelateerd veld 2 waarde');
 };
 
 const setupMockedUploadFormData = (submittedFormData: unknown & { foto: File[] | null }) => {

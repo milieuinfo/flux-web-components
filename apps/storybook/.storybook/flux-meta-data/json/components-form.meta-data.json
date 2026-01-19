@@ -25,6 +25,19 @@
             "jiraMeta": "FLUX-132"
         }
     },
+    "components-form-fieldset": {
+        "name": "fieldset",
+        "docs": "components-form-fieldset--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v2",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-495"
+        }
+    },
     "components-form-form-label": {
         "name": "form-label",
         "docs": "components-form-form-label--documentatie",
