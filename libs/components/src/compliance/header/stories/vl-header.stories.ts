@@ -4,6 +4,10 @@ import { html } from 'lit-html';
 import '../vl-header.component';
 import { headerArgs, headerArgTypes } from './vl-header.stories-arg';
 import headerDoc from './vl-header.stories-doc.mdx';
+import { registerWebComponents } from '@domg-wc/common';
+import { VlHeader } from '@domg-wc/components/compliance/next';
+
+registerWebComponents([VlHeader]);
 
 export default {
     id: 'components-compliance-header',

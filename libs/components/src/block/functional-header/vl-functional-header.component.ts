@@ -7,7 +7,8 @@ import {
     webComponent,
 } from '@domg-wc/common';
 import { VlLinkComponent } from '@domg-wc/components/atom';
-import { VlHeader, VlHeaderNext } from '@domg-wc/components/compliance';
+import { VlHeader } from '@domg-wc/components/compliance';
+import { VlHeader as VlHeaderNext } from '@domg-wc/components/compliance/next';
 import {
     vlAccessibilityStyles,
     vlContentBlockStyles,

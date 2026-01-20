@@ -39,6 +39,10 @@ const config: StorybookConfig = {
             '@domg-wc/common': path.resolve(__dirname, '../../../libs/common/src/index.ts'),
             '@domg-wc/components/atom': path.resolve(__dirname, '../../../libs/components/src/atom/index.ts'),
             '@domg-wc/components/block': path.resolve(__dirname, '../../../libs/components/src/block/index.ts'),
+            '@domg-wc/components/compliance/next': path.resolve(
+                __dirname,
+                '../../../libs/components/src/compliance/next/index.ts'
+            ),
             '@domg-wc/components/compliance': path.resolve(
                 __dirname,
                 '../../../libs/components/src/compliance/index.ts'

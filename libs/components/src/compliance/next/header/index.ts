@@ -1,1 +1,1 @@
-export { VlHeaderNext, type ApplicationLink } from './vl-header.component';
+export { VlHeader, type ApplicationLink } from './vl-header.component';
