@@ -30,6 +30,9 @@
             "@domg-wc/components/compliance": [
                 "libs/components/src/compliance/index.ts"
             ],
+            "@domg-wc/components/compliance/next": [
+                "libs/components/src/compliance/next/index.ts"
+            ],
             "@domg-wc/components/form": [
                 "libs/components/src/form/index.ts"
             ],

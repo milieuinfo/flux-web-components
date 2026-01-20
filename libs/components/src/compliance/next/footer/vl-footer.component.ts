@@ -17,7 +17,7 @@ declare global {
 registerWebComponents([legacyCore, legacyBreakpoint]);
 
 @webComponent('vl-footer-next')
-export class VlFooterNext extends BaseLitElement {
+export class VlFooter extends BaseLitElement {
     private development = false;
     private identifier = '';
 
@@ -99,6 +99,6 @@ export class VlFooterNext extends BaseLitElement {
 
 declare global {
     interface HTMLElementTagNameMap {
-        'vl-footer-next': VlFooterNext;
+        'vl-footer-next': VlFooter;
     }
 }

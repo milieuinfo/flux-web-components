@@ -1,7 +1,7 @@
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
-import '../vl-header.component';
+import '../vl.header';
 import { headerArgs, headerArgTypes } from './vl-header.stories-arg';
 import headerDoc from './vl-header.stories-doc.mdx';
 

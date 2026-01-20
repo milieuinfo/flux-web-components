@@ -2,11 +2,11 @@ import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
-import { VlFooterNext } from '../vl-footer.component';
+import { VlFooter } from '../vl-footer.component';
 import { footerArgs, footerArgTypes } from './vl-footer.stories-arg';
 import footerDoc from './vl-footer.stories-doc.mdx';
 
-registerWebComponents([VlFooterNext]);
+registerWebComponents([VlFooter]);
 
 export default {
     id: 'components-compliance-footer-next',

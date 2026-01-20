@@ -8,7 +8,8 @@ import {
     VL,
     webComponent,
 } from '@domg-wc/common';
-import { VlHeader, VlHeaderNext } from '@domg-wc/components/compliance';
+import { VlHeader } from '@domg-wc/components/compliance';
+import { VlHeader as VlHeaderNext } from '@domg-wc/components/compliance/next';
 import { vlContentBlockStyles, vlGridStyles, vlLegacyStyles, vlSectionStyles } from '@domg-wc/styles';
 import { PropertyDeclarations } from 'lit';
 import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';

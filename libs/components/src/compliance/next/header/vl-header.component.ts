@@ -21,7 +21,7 @@ declare global {
 registerWebComponents([legacyCore, legacyBreakpoint]);
 
 @webComponent('vl-header-next')
-export class VlHeaderNext extends BaseLitElement {
+export class VlHeader extends BaseLitElement {
     // Properties
     applicationLinks = headerDefaults.applicationLinks;
     // Attributes
@@ -176,6 +176,6 @@ export class VlHeaderNext extends BaseLitElement {
 
 declare global {
     interface HTMLElementTagNameMap {
-        'vl-header-next': VlHeaderNext;
+        'vl-header-next': VlHeader;
     }
 }

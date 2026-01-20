@@ -1,1 +1,1 @@
-export { VlFooterNext } from './vl-footer.component';
+export { VlFooter } from './vl-footer.component';
