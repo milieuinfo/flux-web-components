@@ -1,8 +1,8 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit-html';
-import { VlFooterNext } from './vl-footer.component';
+import { VlFooter } from './vl-footer.component';
 
-registerWebComponents([VlFooterNext]);
+registerWebComponents([VlFooter]);
 
 type MountDefaultProps = {
     development: boolean;

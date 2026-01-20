@@ -1,5 +1,6 @@
 import { BaseLitElement, findDeepestElementThroughShadowRoot, webComponent } from '@domg-wc/common';
-import { VlHeader, VlHeaderNext } from '@domg-wc/components/compliance';
+import { VlHeader } from '@domg-wc/components/compliance';
+import { VlHeader as VlHeaderNext } from '@domg-wc/components/compliance/next';
 import { PropertyDeclarations } from 'lit';
 import { VlFunctionalHeaderComponent } from '../functional-header';
 

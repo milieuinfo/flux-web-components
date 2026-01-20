@@ -1,8 +1,8 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
-import { ApplicationLink, VlHeaderNext } from './index';
+import { ApplicationLink, VlHeader } from './index';
 
-registerWebComponents([VlHeaderNext]);
+registerWebComponents([VlHeader]);
 
 const identifier = '59188ff6-662b-45b9-b23a-964ad48c2bfb';
 
