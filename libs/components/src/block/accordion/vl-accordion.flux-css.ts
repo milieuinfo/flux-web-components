@@ -1,17 +1,17 @@
 import { css, CSSResult } from 'lit';
 
 export const vlAccordionFluxStyles: CSSResult = css`
-    :host(.vl-accordion--bold) .vl-accordion__title,
-    :host(.vl-accordion--bold) .vl-accordion__icon::before {
+    :host([bold]) .vl-accordion__title,
+    :host([bold]) .vl-accordion__icon::before {
         font-weight: 700;
     }
 
-    :host(.vl-accordion--disabled) .vl-toggle {
+    :host([disabled]) .vl-toggle {
         cursor: not-allowed;
         text-decoration: none;
     }
-    :host(.vl-accordion--disabled) .vl-accordion__title,
-    :host(.vl-accordion--disabled) .vl-accordion__icon::before {
+    :host([disabled]) .vl-accordion__title,
+    :host([disabled]) .vl-accordion__icon::before {
         color: #687483;
     }
 
