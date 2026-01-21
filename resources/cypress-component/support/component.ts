@@ -1,6 +1,14 @@
 import '../../cypress-commands/commands';
 import { getContainerEl } from '@cypress/mount-utils';
 import { LitElement, render, TemplateResult } from 'lit';
+import { addMatchImageSnapshotCommand } from '@simonsmith/cypress-image-snapshot/command';
+
+addMatchImageSnapshotCommand({
+    failureThreshold: 0.001,
+    failureThresholdType: 'percent',
+    customDiffConfig: { threshold: 0.001 },
+    capture: 'viewport',
+});
 
 // de reportPortalCommands importeren overschrijft cy.log en geeft daardoor een probleem als ReportPortal niet
 // correct geconfigureerd is - dus conditioneel activeren zodat alle configuratie overal samen actief wordt
