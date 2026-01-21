@@ -1,0 +1,16 @@
+:host {
+    /* Font sizing (62.5% = 10px base for rem calculations) */
+    font-size: 62.5%;
+
+    /* Box */
+    --vl-checkbox--box-size: 1.8rem;
+
+    /* Icon */
+    --vl-checkbox--icon-size: 0.8rem;
+
+    /* Switch variant */
+    --vl-checkbox--switch-width: 4rem;
+    --vl-checkbox--switch-height: 2.2rem;
+    --vl-checkbox--switch-knob-size: 1.8rem;
+    --vl-checkbox--switch-knob-size-checked: 2rem;
+}
