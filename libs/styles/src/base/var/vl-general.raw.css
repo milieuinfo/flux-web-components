@@ -12,5 +12,17 @@
 
     --vl-box--max-width: 1600px;
 
+    /* Border */
     --vl-border--radius: 0.3rem;
+    --vl-border--width: 0.1rem;
+
+    /* Transitions */
+    --vl-transition--fast: 0.1s cubic-bezier(1, 0.1, 0, 0.9);
+    --vl-transition: 0.2s cubic-bezier(1, 0.1, 0, 0.9);
+    --vl-transition--slow: 0.3s ease;
+
+    /* Focus state */
+    --vl-focus--shadow: 0 0 0 2px var(--vl-color--white), 0 0 0 5px var(--vl-color--focus);
+    --vl-focus--outline: 3px solid var(--vl-color--focus);
+    --vl-focus--outline-offset: 2px;
 }

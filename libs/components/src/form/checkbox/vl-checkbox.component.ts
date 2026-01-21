@@ -1,18 +1,18 @@
 import { webComponent } from '@domg-wc/common';
-import { vlLegacyStyles } from '@domg-wc/styles';
-import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
-import { checkboxStyle } from '@domg/govflanders-style/component';
+import { vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { FormControl } from '../form-control';
-import { vlCheckboxComponentFluxStyles } from './vl-checkbox.component.flux-css';
+import { vlCheckboxComponentFluxStyles } from './vl-checkbox.component.css';
 import { checkboxDefaults } from './vl-checkbox.defaults';
 
 @webComponent('vl-checkbox')
 export class VlCheckboxComponent extends FormControl {
+    private static instanceCounter = 0;
+
     // Attributes
     private block = checkboxDefaults.block;
-    private value = checkboxDefaults.value;
+    private value: string | null = checkboxDefaults.value;
     private checked = checkboxDefaults.checked;
     private isSwitch = checkboxDefaults.isSwitch;
     private indeterminate = checkboxDefaults.indeterminate;
@@ -23,7 +23,7 @@ export class VlCheckboxComponent extends FormControl {
     private dispatchInput = false;
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, baseStyle, vlLegacyStyles, checkboxStyle, vlCheckboxComponentFluxStyles];
+        return [vlResetStyles, vlCheckboxComponentFluxStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -43,6 +43,12 @@ export class VlCheckboxComponent extends FormControl {
     connectedCallback() {
         super.connectedCallback();
 
+        if (!this.id) {
+            // For switch checkboxes, an id is required to link the label and input via the 'for' attribute.
+            // Regular checkboxes use implicit labeling but benefit from having an id for accessibility.
+            // An id is automatically generated if none is provided.
+            this.id = `vl-checkbox-${++VlCheckboxComponent.instanceCounter}`;
+        }
         if (!this.initialValue) {
             this.initialValue = this.value;
             this.initialCheckedValue = this.checked;
@@ -96,7 +102,7 @@ export class VlCheckboxComponent extends FormControl {
         return html`
             <label class=${classMap(classes)}>
                 <input
-                    id=${this.id || nothing}
+                    id=${this.id}
                     name=${this.name || nothing}
                     class="vl-checkbox__toggle"
                     type="checkbox"
@@ -132,7 +138,7 @@ export class VlCheckboxComponent extends FormControl {
         return html`
             <div class=${classMap(classes)}>
                 <input
-                    id=${this.id || nothing}
+                    id=${this.id}
                     name=${this.name || nothing}
                     type="checkbox"
                     class="vl-checkbox--switch"

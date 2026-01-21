@@ -78,6 +78,7 @@
     "cypress": "15.4.0",
     "cypress-axe": "1.7.0",
     "cypress-wait-until": "3.0.2",
+    "@simonsmith/cypress-image-snapshot": "10.0.3",
     "depcheck": "1.4.7",
     "dotenv": "17.2.3",
     "eslint": "9.1.0",
