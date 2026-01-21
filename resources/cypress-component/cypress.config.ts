@@ -2,6 +2,7 @@ import * as path from 'path';
 import dotenv from 'dotenv';
 import { defineConfig } from 'cypress';
 import registerReportPortalPlugin from '@reportportal/agent-js-cypress/lib/plugin';
+import { addMatchImageSnapshotPlugin } from '@simonsmith/cypress-image-snapshot/plugin';
 
 dotenv.config(); // laad .env
 
@@ -17,6 +18,10 @@ const cypressConfig: any = {
         supportFile: './support/component.ts',
         indexHtmlFile: './support/component-index.html',
         specPattern: '../../libs/**/*.cy.{js,jsx,ts,tsx}',
+        setupNodeEvents(on, config) {
+            addMatchImageSnapshotPlugin(on);
+            return config;
+        },
         devServer: {
             bundler: 'webpack',
             // @ts-ignore
@@ -63,9 +68,9 @@ if (process.env.RP_ACTIVE === '1') {
 
     const currSetupNodeEvents = cypressConfig.component.setupNodeEvents;
     cypressConfig.component.setupNodeEvents = (on, config) => {
-        currSetupNodeEvents(on, config);
-        registerReportPortalPlugin(on, config);
-        return config;
+        const updatedConfig = currSetupNodeEvents(on, config);
+        registerReportPortalPlugin(on, updatedConfig);
+        return updatedConfig;
     };
 }
 
