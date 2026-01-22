@@ -30,13 +30,18 @@ const styles: CSSResult = css`
         right: 20px;
     }
 
-    .uig-autocomplete__clear {
+    .js-vl-autocomplete .uig-autocomplete__clear {
         position: absolute;
         top: 0px;
         right: 0px;
         width: 25px;
         height: 3.5rem;
         z-index: 2;
+    }
+
+    .js-vl-autocomplete .vl-autocomplete {
+        /* bij de CSS die transitief binnenkomt van DV staat het ingesteld op z-index: 3 */
+        z-index: var(--vl-z-layer--autocomplete) !important;
     }
 
     .uig-autocomplete__clear .uig-autocomplete__clear-icon::before {
