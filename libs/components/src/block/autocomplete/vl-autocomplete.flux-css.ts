@@ -21,15 +21,20 @@ export const vlAutocompleteFluxStyles: CSSResult = css`
         font-weight: bold;
     }
 
-    .js-vl-autocomplete div.vl-autocomplete__list-wrapper,
-    .js-vl-autocomplete div.autocomplete__list-wrapper {
-        max-height: 100vh;
+    .js-vl-autocomplete {
+         div.vl-autocomplete__list-wrapper,
+         div.autocomplete__list-wrapper {
+            max-height: 100vh;
+        }
+        .ui-autocomplete__loader-with-clear {
+            right: 20px;
+        }
+        .vl-autocomplete {
+            /* bij de CSS die transitief binnenkomt van DV staat het ingesteld op z-index: 3 */
+            z-index: var(--vl-z-layer--autocomplete) !important;
+        }
     }
-
-    .js-vl-autocomplete .ui-autocomplete__loader-with-clear {
-        right: 20px;
-    }
-
+    
     .flux-autocomplete__clear {
         position: absolute;
         top: 0px;
@@ -37,16 +42,16 @@ export const vlAutocompleteFluxStyles: CSSResult = css`
         width: 25px;
         height: 3.5rem;
         z-index: 2;
-    }
 
-    .flux-autocomplete__clear .flux-autocomplete__clear-icon::before {
-        display: block;
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        margin-top: 4px;
-        cursor: pointer;
-        line-height: 1.5;
-        font-size: 1.8rem;
+        .flux-autocomplete__clear-icon::before {
+            display: block;
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            margin-top: 4px;
+            cursor: pointer;
+            line-height: 1.5;
+            font-size: 1.8rem;
+        }
     }
 `;

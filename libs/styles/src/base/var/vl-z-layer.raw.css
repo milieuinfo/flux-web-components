@@ -11,6 +11,7 @@
     */
     --vl-z-layer--select-list-dropdown: 100;
     --vl-z-layer--select-list-dropdown-open: 101;
+    --vl-z-layer--autocomplete: 1000;
     --vl-z-layer--datepicker: 1000;
     --vl-z-layer--search: 1000;
     --vl-z-layer--search-filter: 10011;
