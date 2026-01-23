@@ -1,7 +1,6 @@
 import { isSafari, webComponent } from '@domg-wc/common';
-import { vlGroupStyles } from '@domg-wc/styles';
-import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
-import { datepickerStyle, iconStyle, tooltipStyle } from '@domg/govflanders-style/component';
+import { vlGroupStyles, vlLegacyStyles } from '@domg-wc/styles';
+import { datepickerStyle, tooltipStyle } from '@domg/govflanders-style/component';
 import Cleave from 'cleave.js';
 import flatpickr from 'flatpickr';
 import Dutch from 'flatpickr/dist/l10n/nl.js';
@@ -62,9 +61,7 @@ export class VlDatepickerComponent extends FormControl {
 
     static get styles(): (CSSResult | CSSResult[])[] {
         return [
-            resetStyle,
-            baseStyle,
-            iconStyle,
+            vlLegacyStyles,
             inputFieldStyles,
             tooltipStyle,
             datepickerStyle,

@@ -1,12 +1,12 @@
 import { webComponent } from '@domg-wc/common';
-import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
-import { textareaStyle } from '@domg/govflanders-style/component';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import { maxLengthValidator, minLengthValidator } from '@open-wc/form-control';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
 import { FormControl } from '../form-control/form-control';
 import { textareaDefaults } from './vl-textarea.defaults';
+import { vlTextareaFluxStyles } from './vl-textarea.flux-css';
 
 @webComponent('vl-textarea')
 export class VlTextareaComponent extends FormControl {
@@ -28,7 +28,7 @@ export class VlTextareaComponent extends FormControl {
     static formControlValidators = [...FormControl.formControlValidators, minLengthValidator, maxLengthValidator];
 
     static get styles(): CSSResult[] {
-        return [resetStyle, baseStyle, textareaStyle];
+        return [...vlLegacyStyles, vlTextareaFluxStyles];
     }
 
     static get properties(): PropertyDeclarations {

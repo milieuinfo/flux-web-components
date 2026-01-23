@@ -1,5 +1,5 @@
 import { BaseLitElement, webComponent } from '@domg-wc/common';
-import { resetStyle } from '@domg/govflanders-style/common';
+import { vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, PropertyDeclarations, TemplateResult, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { formLabelStyles } from './vl-form-label.css';
@@ -14,7 +14,7 @@ export class VlFormLabelComponent extends BaseLitElement {
     private light = formLabelDefaults.light;
 
     static get styles(): CSSResult[] {
-        return [resetStyle, formLabelStyles];
+        return [vlResetStyles, formLabelStyles];
     }
 
     static get properties(): PropertyDeclarations {

@@ -1,6 +1,5 @@
 import { BaseLitElement, webComponent } from '@domg-wc/common';
-import { resetStyle } from '@domg/govflanders-style/common';
-import { formMessageStyle } from '@domg/govflanders-style/component';
+import { vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { formMessageDefaults } from './vl-form-message.defaults';
@@ -18,7 +17,7 @@ export class VlFormMessageComponent extends BaseLitElement {
     private validationMessage = '';
 
     static get styles(): CSSResult[] {
-        return [resetStyle, formMessageStyle, vFormMessageFluxStyles];
+        return [vlResetStyles, vFormMessageFluxStyles];
     }
 
     static get properties(): PropertyDeclarations {

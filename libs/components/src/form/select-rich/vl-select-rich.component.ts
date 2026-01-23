@@ -1,6 +1,5 @@
 import { webComponent } from '@domg-wc/common';
-import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
-import { iconStyle } from '@domg/govflanders-style/component';
+import { vlLegacyStyles } from '@domg-wc/styles';
 import { FormValue } from '@open-wc/form-control/src/types';
 import Choices, { Options } from 'choices.js';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
@@ -43,15 +42,7 @@ export class VlSelectRichComponent extends FormControl {
     }
 
     static get styles(): CSSResult[] {
-        return [
-            resetStyle,
-            baseStyle,
-            inputFieldStyles,
-            selectStyle,
-            multiselectStyle,
-            iconStyle,
-            vlSelectRichFluxStyles,
-        ];
+        return [...vlLegacyStyles, inputFieldStyles, selectStyle, multiselectStyle, vlSelectRichFluxStyles];
     }
 
     static get properties(): PropertyDeclarations {
