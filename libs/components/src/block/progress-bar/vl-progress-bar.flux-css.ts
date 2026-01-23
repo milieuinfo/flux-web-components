@@ -42,6 +42,15 @@ export const vlProgressBarFluxStyles: CSSResult = css`
         }
     }
 
+    .vl-progress-bar.vl-progress-bar--success {
+        .vl-progress-bar__track {
+            background-color: var(--vl-color--background-success-subtle);
+        }
+        .vl-progress-bar__progress {
+            background-color: var(--vl-color--background-success);
+        }
+    }
+
     .vl-progress-bar.vl-progress-bar--indeterminate .vl-progress-bar__progress {
         width: 66.666%;
         animation: vl-progress-bar-indeterminate 1.8s linear infinite;

@@ -33,6 +33,7 @@ const Template = story(
         cancellable,
         retryable,
         error,
+        success,
         message,
         hideProgress,
         onVlUploadProgressRetry,
@@ -47,6 +48,7 @@ const Template = story(
             ?cancellable=${cancellable}
             ?retryable=${retryable}
             ?error=${error}
+            ?success=${success}
             ?hide-progress=${hideProgress}
             message=${ifDefined(message)}
             @vl-upload-progress-retry=${onVlUploadProgressRetry}
@@ -83,4 +85,14 @@ UploadProgressError.args = {
     message: 'Er liep iets fout bij het uploaden, gelieve opnieuw te proberen of de upload te annuleren.',
     retryable: true,
     cancellable: true,
+};
+
+export const UploadProgressSuccess = Template.bind({});
+UploadProgressSuccess.storyName = 'vl-upload-progress - success';
+UploadProgressSuccess.args = {
+    filename: 'Document.pdf',
+    filesize: '123 MB',
+    progress: 100,
+    success: true,
+    message: 'Upload voltooid',
 };

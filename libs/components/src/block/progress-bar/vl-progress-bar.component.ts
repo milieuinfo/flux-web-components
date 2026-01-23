@@ -13,6 +13,7 @@ export class VlProgressBarComponent extends BaseLitElement {
     private labelledby = progressBarDefaults.labelledby;
     private indeterminate = progressBarDefaults.indeterminate;
     private error = progressBarDefaults.error;
+    private success = progressBarDefaults.success;
 
     static get styles() {
         return [vlProgressBarFluxStyles];
@@ -43,6 +44,11 @@ export class VlProgressBarComponent extends BaseLitElement {
                 attribute: 'error',
                 reflect: true,
             },
+            success: {
+                type: Boolean,
+                attribute: 'success',
+                reflect: true,
+            },
         };
     }
 
@@ -62,6 +68,7 @@ export class VlProgressBarComponent extends BaseLitElement {
             'vl-progress-bar': true,
             'vl-progress-bar--indeterminate': this.indeterminate,
             'vl-progress-bar--error': this.error,
+            'vl-progress-bar--success': this.success,
         };
     }
 

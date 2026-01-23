@@ -5,16 +5,30 @@ import { VlProgressBarComponent } from './vl-progress-bar.component';
 
 registerWebComponents([VlProgressBarComponent]);
 
-const mountDefault = ({ value, indeterminate, label, labelledby }: { value?: number; indeterminate?: boolean; label?: string; labelledby?: string } = {}) => {
+const mountDefault = ({
+    value,
+    indeterminate,
+    label,
+    labelledby,
+    error,
+    success,
+}: {
+    value?: number;
+    indeterminate?: boolean;
+    label?: string;
+    labelledby?: string;
+    error?: boolean;
+    success?: boolean;
+} = {}) => {
     return cy.mount(html`
-        ${labelledby
-            ? html`<span id=${labelledby}>Progress bar label</span>`
-            : ''}
+        ${labelledby ? html`<span id=${labelledby}>Progress bar label</span>` : ''}
         <vl-progress-bar
-            value=${ifDefined(indeterminate ? undefined : (value || 0))}
+            value=${ifDefined(indeterminate ? undefined : value || 0)}
             ?indeterminate=${indeterminate}
             label=${ifDefined(label)}
             labelledby=${ifDefined(labelledby)}
+            ?error=${error}
+            ?success=${success}
         ></vl-progress-bar>
     `);
 };
@@ -110,5 +124,15 @@ describe('cypress-component - block components - vl-progress-bar', () => {
             throw new Error('trackWidth or progressWidth is undefined')
         
         });
+    });
+
+    it('should add the error class when error attribute is set', () => {
+        mountDefault({ error: true, value: 50 });
+        cy.get('vl-progress-bar').shadow().find('.vl-progress-bar').should('have.class', 'vl-progress-bar--error');
+    });
+
+    it('should add the success class when success attribute is set', () => {
+        mountDefault({ success: true, value: 100 });
+        cy.get('vl-progress-bar').shadow().find('.vl-progress-bar').should('have.class', 'vl-progress-bar--success');
     });
 });

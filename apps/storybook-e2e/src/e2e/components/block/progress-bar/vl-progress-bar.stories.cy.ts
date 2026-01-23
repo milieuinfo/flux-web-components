@@ -4,6 +4,8 @@ const progressBarIndeterminateUrl =
     'http://localhost:8080/iframe.html?id=components-block-progress-bar--progress-bar-indeterminate&viewMode=story';
 const progressBarErrorUrl =
     'http://localhost:8080/iframe.html?id=components-block-progress-bar--progress-bar-error&viewMode=story';
+const progressBarSuccessUrl =
+    'http://localhost:8080/iframe.html?id=components-block-progress-bar--progress-bar-success&viewMode=story';
 
 describe('cypress-e2e - block components - vl-progress-bar - default story', () => {
     it('should display story', () => {
@@ -23,5 +25,12 @@ describe('cypress-e2e - block components - vl-progress-bar - error story', () =>
     it('should display story', () => {
         cy.visit(progressBarErrorUrl);
         cy.get('vl-progress-bar[error]').shadow();
+    });
+});
+
+describe('cypress-e2e - block components - vl-progress-bar - success story', () => {
+    it('should display story', () => {
+        cy.visit(progressBarSuccessUrl);
+        cy.get('vl-progress-bar[success]').shadow();
     });
 });

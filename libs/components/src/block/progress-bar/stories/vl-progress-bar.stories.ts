@@ -24,13 +24,14 @@ export default {
 
 const Template = story(
     progressBarDefaultArgs,
-    ({ value, indeterminate, label, labelledby, error }) => html`
+    ({ value, indeterminate, label, labelledby, error, success }) => html`
         <vl-progress-bar
             value="${value}"
             label=${ifDefined(label)}
             labelledby=${ifDefined(labelledby)}
             ?indeterminate=${indeterminate}
             ?error=${error}
+            ?success=${success}
         ></vl-progress-bar>
     `
 );
@@ -52,4 +53,12 @@ export const ProgressBarError = Template.bind({});
 ProgressBarError.storyName = 'vl-progress-bar - error';
 ProgressBarError.args = {
     error: true,
+    value: 75,
+};
+
+export const ProgressBarSuccess = Template.bind({});
+ProgressBarSuccess.storyName = 'vl-progress-bar - success';
+ProgressBarSuccess.args = {
+    success: true,
+    value: 100,
 };

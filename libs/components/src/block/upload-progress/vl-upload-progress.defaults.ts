@@ -8,6 +8,7 @@ export type UploadProgressDefaults = {
     cancellable: boolean;
     retryable: boolean;
     error: boolean;
+    success: boolean;
     message: string;
     hideProgress?: boolean;
 };
@@ -21,6 +22,7 @@ export const uploadProgressDefaults: UploadProgressDefaults = {
     cancellable: false,
     retryable: false,
     error: false,
+    success: false,
     message: '',
     hideProgress: false,
 };

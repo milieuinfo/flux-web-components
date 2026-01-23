@@ -5,6 +5,7 @@ export type ProgressBarDefaults = {
     labelledby: string;
     indeterminate: boolean;
     error: boolean;
+    success: boolean;
 };
 
 export const progressBarDefaults: ProgressBarDefaults = {
@@ -13,4 +14,5 @@ export const progressBarDefaults: ProgressBarDefaults = {
     labelledby: '',
     indeterminate: false,
     error: false,
+    success: false,
 };
