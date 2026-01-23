@@ -4,7 +4,7 @@ import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { accordionStyle, iconStyle, infoTileStyle, linkStyle, toggleStyle } from '@domg/govflanders-style/component';
 import 'reflect-metadata';
 import { VlAccordionComponent } from '../accordion';
-import '../accordion/vl-accordion.lib.js';
+// import '../accordion/vl-accordion.lib.js';
 import { vlInfoTyleFluxStyles } from './vl-info-tile.flux-css';
 import { INFO_TILE_SIZE, INFO_TILE_TYPE } from './vl-info-tile.model';
 

@@ -1,6 +1,6 @@
 import { BaseLitElement, PADDINGS, registerWebComponents } from '@domg-wc/common';
 import { resetStyle } from '@domg/govflanders-style/common';
-import { accordionStyle, buttonStyle, iconStyle, linkStyle, toggleStyle } from '@domg/govflanders-style/component';
+import { buttonStyle, iconStyle, linkStyle, toggleStyle } from '@domg/govflanders-style/component';
 import { CSSResult, html, nothing, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -48,7 +48,6 @@ export class VlAccordionComponent extends BaseLitElement {
             iconStyle,
             linkStyle,
             toggleStyle,
-            accordionStyle,
             vlAccordionFluxStyles,
             vlLinkIconStyles,
         ];
