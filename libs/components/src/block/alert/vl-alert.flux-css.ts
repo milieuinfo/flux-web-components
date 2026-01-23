@@ -10,4 +10,8 @@ export const vlAlertFluxStyles: CSSResult = css`
             max-width: 90%;
         }
     }
+    
+    #message.vl-alert-message > p {
+        white-space: pre-line;
+    }
 `;
