@@ -15,6 +15,7 @@ const mountDefault = ({
     cancellable,
     retryable,
     error,
+    success,
     message,
     hideProgress,
 }: Partial<UploadProgressDefaults> = {}) => {
@@ -27,6 +28,7 @@ const mountDefault = ({
             ?cancellable=${cancellable}
             ?retryable=${retryable}
             ?error=${error}
+            ?success=${success}
             hide-progress=${ifDefined(hideProgress === true ? true : undefined)}
             message=${ifDefined(message)}
             label=${ifDefined(label)}
@@ -101,6 +103,20 @@ describe('cypress-component - block components - vl-upload-progress', () => {
         getElement('vl-icon').should('have.attr', 'icon', 'alert-triangle');
         getElement('#message').should('contain.text', message);
         getElement('#message').should('have.attr', 'error');
+    });
+
+    it('should show a success state', () => {
+        const message = 'Upload voltooid';
+        mountDefault({ success: true, message });
+
+        cy.get('vl-upload-progress')
+            .shadow()
+            .find('.vl-upload-progress')
+            .should('have.class', 'vl-upload-progress--success');
+        cy.get('vl-upload-progress').shadow().find('vl-progress-bar').should('have.attr', 'success');
+        getElement('vl-icon').should('have.attr', 'icon', 'check-circle');
+        getElement('#message').should('contain.text', message);
+        getElement('#message').should('have.attr', 'success');
     });
 
     it('should show the cancel button when cancellable', () => {

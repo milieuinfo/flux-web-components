@@ -14,6 +14,16 @@ export const vlUploadProgressStyles: CSSResult = css`
                 color: var(--vl-color--error);
             }
         }
+
+        &.vl-upload-progress--success {
+            vl-icon::part(icon) {
+                color: var(--vl-color--success);
+            }
+        }
+    }
+
+    .vl-upload-progress__filename {
+        word-break: break-word;
     }
 
     .vl-upload-progress__filesize {
@@ -22,7 +32,6 @@ export const vlUploadProgressStyles: CSSResult = css`
     }
 
     .vl-upload-progress__actions {
-        display: block;
         height: 3.5rem;
     }
 `;

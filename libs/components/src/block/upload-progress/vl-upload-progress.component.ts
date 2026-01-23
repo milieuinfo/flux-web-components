@@ -24,6 +24,7 @@ export class VlUploadProgressComponent extends BaseLitElement {
     private retryable = uploadProgressDefaults.retryable;
     private cancellable = uploadProgressDefaults.cancellable;
     private error = uploadProgressDefaults.error;
+    private success = uploadProgressDefaults.success;
     private message = uploadProgressDefaults.message;
     private hideProgress = uploadProgressDefaults.hideProgress;
 
@@ -70,6 +71,11 @@ export class VlUploadProgressComponent extends BaseLitElement {
                 attribute: 'error',
                 reflect: true,
             },
+            success: {
+                type: Boolean,
+                attribute: 'success',
+                reflect: true,
+            },
             message: {
                 type: String,
                 attribute: 'message',
@@ -112,6 +118,7 @@ export class VlUploadProgressComponent extends BaseLitElement {
         const classes = {
             'vl-upload-progress': true,
             'vl-upload-progress--error': this.error,
+            'vl-upload-progress--success': this.success,
         };
         return html`
             <div class=${classMap(classes)}>
@@ -120,7 +127,10 @@ export class VlUploadProgressComponent extends BaseLitElement {
                         <span id="label" class="vl-text vl-text--bold ${!this.label ? 'vl-visually-hidden' : ''}">
                             ${this.label || `Bestand`}
                         </span>
-                        <vl-icon icon=${this.error ? 'alert-triangle' : 'file'} light></vl-icon>
+                        <vl-icon
+                            icon=${this.error ? 'alert-triangle' : this.success ? 'check-circle' : 'file'}
+                            light
+                        ></vl-icon>
                         <span class="vl-upload-progress__filename">${this.fileName}</span>
                         ${when(
                             !!this.fileSize,
@@ -154,7 +164,10 @@ export class VlUploadProgressComponent extends BaseLitElement {
                 </div>
                 ${when(
                     !!this.message,
-                    () => html` <vl-text id="message" ?error=${this.error} bold small>${this.message}</vl-text>`
+                    () =>
+                        html` <vl-text id="message" ?error=${this.error} ?success=${this.success} bold small
+                            >${this.message}</vl-text
+                        >`
                 )}
                 ${when(
                     !this.hideProgress,
@@ -163,6 +176,7 @@ export class VlUploadProgressComponent extends BaseLitElement {
                         value=${this.progress}
                         ?indeterminate=${this.indeterminate}
                         ?error=${this.error}
+                        ?success=${this.success}
                         label="Upload voortgang"
                     ></vl-progress-bar>`
                 )}

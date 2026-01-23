@@ -61,4 +61,14 @@ export const progressBarArgTypes: ArgTypes<typeof progressBarDefaultArgs> = {
             defaultValue: { summary: String(progressBarDefaultArgs.indeterminate) },
         },
     },
+    success: {
+        name: 'success',
+        description: 'Past de "success" stijl toe.',
+        control: { type: CONTROLS.BOOLEAN },
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(progressBarDefaultArgs.success) },
+        },
+    },
 };
