@@ -128,5 +128,5 @@ const buildStorybookName = (name: string, docs: string) => {
 };
 
 const buildStorybookLink = (docsRef: string) => {
-    return `..?path=/docs/${docsRef}`;
+    return `/?path=/docs/${docsRef}`;
 };
