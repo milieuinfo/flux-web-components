@@ -9,6 +9,7 @@
             "elements": [
                 {
                     "name": "vl-map-click-action",
+                    "description": "Gebruik het `map-click-action` component om een klikactie op de [map](/docs/map-map--map-default) op te vangen.<br/>\nBij het klikken op de [map](/docs/map-map--map-default) wordt er een `vl-map-click-action-pindrop` op de kaart geplaatst.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-action-click-action--documentatie",
                     "attributes": [
                         {
@@ -33,6 +34,7 @@
                 },
                 {
                     "name": "vl-map-draw-action-style",
+                    "description": "Gebruik de `map-draw-action-style` component om een style mee te geven aan de `map-draw-action`.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-action-draw-action-draw-action-style--documentatie",
                     "attributes": [
                         {
@@ -79,6 +81,7 @@
                 },
                 {
                     "name": "vl-map-draw-line-action",
+                    "description": "Gebruik de `map-draw-line-action` component om een lijn te tekenen op een\n[map-features-layer](/docs/map-layer-vector-layer-features-layer--map-features-layer-default).<br/>\nDeze component erft over van de `VlMapDrawAction` klasse, die op zijn beurt overerft van de `VlMapLayerAction` klasse,\ndie op zijn beurt overerft van de `VlMapAction` klasse.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-action-draw-action-draw-action-style--documentatie",
                     "attributes": [
                         {
@@ -119,6 +122,7 @@
                 },
                 {
                     "name": "vl-map-draw-point-action",
+                    "description": "Gebruik het `map-draw-point-action` component om een punt te tekenen op een\n[map-features-layer](/docs/map-layer-vector-layer-features-layer--map-features-layer-default).<br/>\nDit component erft over van de `VlMapDrawAction` klasse, die op zijn beurt overerft van de `VlMapLayerAction` klasse,\ndie op zijn beurt overerft van de `VlMapAction` klasse.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-action-draw-action-draw-point-action--documentatie",
                     "attributes": [
                         {
@@ -159,6 +163,7 @@
                 },
                 {
                     "name": "vl-map-draw-polygon-action",
+                    "description": "Gebruik het `map-draw-polygon-action` component om een polygon te tekenen op een\n[map-features-layer](/docs/map-layer-vector-layer-features-layer--map-features-layer-default).<br/>\nDit component erft over van de `VlMapDrawAction` klasse, die op zijn beurt overerft van de `VlMapLayerAction` klasse,\ndie op zijn beurt overerft van de `VlMapAction` klasse.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-action-draw-action-draw-polygon-action--documentatie",
                     "attributes": [
                         {
@@ -199,6 +204,7 @@
                 },
                 {
                     "name": "vl-map-measure-action",
+                    "description": "Gebruik het `map-measure-action` component om de afstand tussen 2 punten te meten op een\n[map-features-layer](/docs/map-layer-vector-layer-features-layer--map-features-layer-default).<br/>\nDit component erft over van de `VlMapDrawAction` klasse, die op zijn beurt overerft van de `VlMapLayerAction` klasse,\ndie op zijn beurt overerft van de `VlMapAction` klasse.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-action-draw-action-measure-action--documentatie",
                     "attributes": [
                         {
@@ -243,6 +249,7 @@
                 },
                 {
                     "name": "vl-map-delete-action",
+                    "description": "Gebruik het `map-delete-action` component om een feature op een\n[map-features-layer](/docs/map-layer-vector-layer-features-layer--map-features-layer-default) te verwijderen.<br/>\nDit component erft over van de `VlMapLayerAction` klasse, die op zijn beurt overerft van de `VlMapAction` klasse.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-action-layer-action-delete-action--documentatie",
                     "attributes": [
                         {
@@ -273,6 +280,7 @@
                 },
                 {
                     "name": "vl-map-modify-action",
+                    "description": "Gebruik het `map-modify-action` component om een feature op een [map-features-layer](/docs/map-layer-vector-layer-features-layer--map-features-layer-default) aan te passen.<br/>\nDit component erft over van de `VlMapLayerAction` klasse, die op zijn beurt overerft van de `VlMapAction` klasse.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-action-layer-action-modify-action--documentatie",
                     "attributes": [
                         {
@@ -313,6 +321,7 @@
                 },
                 {
                     "name": "vl-map-select-action",
+                    "description": "Gebruik het `map-select-action` component om een feature op een [map-features-layer](/docs/map-layer-vector-layer-features-layer--map-features-layer-default) te selecteren.<br/>\nDit component erft over van de `VlMapLayerAction` klasse, die op zijn beurt overerft van de `VlMapAction` klasse.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-action-layer-action-select-action--documentatie",
                     "attributes": [
                         {
@@ -348,6 +357,7 @@
                 },
                 {
                     "name": "vl-map-multiselect-actions",
+                    "description": "Gebruik de `map-multiselect-actions` component om meerdere overlappende features samen te selecteren.<br/>\nDeze component erft over van de\n[map-select-actions](/docs/map-action-layer-action-select-action--map-select-actions-default) component.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-action-layer-action-select-action-multiselect-actions--documentatie",
                     "attributes": [
                         {
@@ -389,6 +399,7 @@
                 },
                 {
                     "name": "vl-map-select-actions",
+                    "description": "Gebruik het `map-select-actions` component om features op meerdere\n[map-features-layers](/docs/map-layer-vector-layer-features-layer--map-features-layer-default) te selecteren.<br/>\nDeze component erft over van de\n[map-select-action](/docs/map-action-layer-action-select-action--map-select-action-default) component.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-action-layer-action-select-action-select-actions--documentatie",
                     "attributes": [
                         {
@@ -430,6 +441,7 @@
                 },
                 {
                     "name": "vl-map-baselayer",
+                    "description": "Gebruik het `map-baselayer` component om een basis kaartlaag af te beelden.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-baselayer--documentatie",
                     "attributes": [
                         {
@@ -479,6 +491,7 @@
                 },
                 {
                     "name": "vl-map-baselayer-grb",
+                    "description": "Gebruik het `map-baselayer-grb` component om een basis GRB kaartlaag af te beelden.<br/>\nDit component erft over van het [map-baselayer](/docs/map-baselayer--map-baselayer-default) component.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-baselayer-baselayer-grb--documentatie",
                     "attributes": [
                         {
@@ -528,6 +541,7 @@
                 },
                 {
                     "name": "vl-map-baselayer-grb-gray",
+                    "description": "Gebruik de `map-baselayer-grb-gray` component om een basis GRB kaartlaag met grijstinten af te beelden.<br/>\nDeze component erft over van de [map-baselayer](/docs/map-baselayer--map-baselayer-default) component.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-baselayer-baselayer-grb-gray--documentatie",
                     "attributes": [
                         {
@@ -577,6 +591,7 @@
                 },
                 {
                     "name": "vl-map-baselayer-grb-ortho",
+                    "description": "Gebruik de `map-baselayer-grb-ortho` component om een basis GRB ortho kaartlaag af te beelden.<br/>\nDeze component erft over van de [map-baselayer](/docs/map-baselayer--map-baselayer-default) component.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-baselayer-baselayer-grb-ortho--documentatie",
                     "attributes": [
                         {
@@ -626,6 +641,7 @@
                 },
                 {
                     "name": "vl-map-action-controls",
+                    "description": "Gebruik de `map-action-controls` component als wrapper rond\n[map-action-control](/docs/map-controls-action-control--map-action-control-default) componenten.<br/>\nDe `map-action-controls` zorgt ervoor dat de map-acties in de rechterbovenhoek van de `map` afgebeeld worden.<br/>\nVerder zorgt deze ervoor dat er altijd maar 1 actieve `map-action-control` is.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-controls-action-controls--documentatie",
                     "attributes": [
                         {
@@ -637,6 +653,7 @@
                 },
                 {
                     "name": "vl-map-action-control",
+                    "description": "Gebruik de `map-action-control` component om een map-actie aan of uit te zetten met behulp van een\n[button met toggle](/docs/components-atom-button--documentatie#toggle).<br/>\nEen `map-action-control` linken aan een map-actie gebeurt op de volgende manier:\n    - plaats op de `map-action-control` het attribuut `action-id` met als waarde bv. 'draw-polygon-action'\n    - plaats op de map-actie het attribuut `id` en geef hier dezelfde waarde mee als in de vorige stap",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-controls-action-control--documentatie",
                     "attributes": [
                         {
@@ -668,6 +685,7 @@
                 },
                 {
                     "name": "vl-map-measure-control",
+                    "description": "Gebruik de `map-measure-control` component om de meet-actie aan of uit te zetten door behulp van een\n[button met toggle](/docs/components-atom-button--documentatie#toggle).",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-controls-measure-control--documentatie",
                     "attributes": [
                         {
@@ -679,6 +697,7 @@
                 },
                 {
                     "name": "vl-map-current-location",
+                    "description": "Gebruik het `map-current-location` component om een huidige locatie knop af te beelden op de map.<br/>\nNa het drukken op de knop wordt de huidige locatie van de gebruiker centraal afgebeeld.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-current-location--documentatie",
                     "attributes": [
                         {
@@ -700,6 +719,7 @@
                 },
                 {
                     "name": "vl-map-features-layer",
+                    "description": "Gebruik de `map-features-layer` component om een kaartlaag af te beelden waarbij je een set van te tonen features kan\nstellen.<br/>\nDeze component erft over van de `VlMapVectorLayer` klasse, die op zijn beurt overerft van de `VlMapLayer` klasse.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-layer-vector-layer-features-layer--documentatie",
                     "attributes": [
                         {
@@ -776,6 +796,7 @@
                 },
                 {
                     "name": "vl-map-wfs-layer",
+                    "description": "Gebruik de `map-wfs-layer` component om een WFS kaartlaag af te beelden.<br/>\nDeze component erft over van de `VlMapVectorLayer` klasse, die op zijn beurt overerft van de `VlMapLayer` klasse.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-layer-vector-layer-wfs-layer--documentatie",
                     "attributes": [
                         {
@@ -827,6 +848,7 @@
                 },
                 {
                     "name": "vl-map-image-wms-layer",
+                    "description": "Gebruik de `map-image-wms-layer` component om een WMS kaartlaag af te beelden waarbij de bevraging telkens met één\nafbeelding gebeurt.<br/>\nDeze component erft over van de `VlMapWmsLayer` klasse, die op zijn beurt overerft van de `VlMapLayer` klasse.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-layer-wms-layer-image-wms-layer--documentatie",
                     "attributes": [
                         {
@@ -883,6 +905,7 @@
                 },
                 {
                     "name": "vl-map-tiled-wms-layer",
+                    "description": "Gebruik de `map-tiled-wms-layer` component om een WMS kaartlaag af te beelden.<br/>\nDeze component erft over van de `VlMapWmsLayer` klasse, die op zijn beurt overerft van de `VlMapLayer` klasse.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-layer-wms-layer-tiled-wms-layer--documentatie",
                     "attributes": [
                         {
@@ -939,6 +962,7 @@
                 },
                 {
                     "name": "vl-map-xyz-wms-layer",
+                    "description": "Gebruik de `map-xyz-wms-layer` component om een WMS kaartlaag af te beelden.<br/>\nDeze component erft over van de `VlMapWmsLayer` klasse, die op zijn beurt overerft van de `VlMapLayer` klasse.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-layer-wms-layer-xyz-wms-layer--documentatie",
                     "attributes": [
                         {
@@ -995,6 +1019,7 @@
                 },
                 {
                     "name": "vl-map-wms-style",
+                    "description": "Gebruik de `map-wms-style` component om een WMS kaartlaag server side te stijlen.<br/>",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-layer-wms-layer-wms-style--documentatie",
                     "attributes": [
                         {
@@ -1011,6 +1036,7 @@
                 },
                 {
                     "name": "vl-map-wmts-layer",
+                    "description": "Gebruik de `map-wmts-layer` component om een WMTS kaartlaag af te beelden.<br/>\nDeze component erft over van de `VlMapLayer` klasse.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-layer-wmts-layer--documentatie",
                     "attributes": [
                         {
@@ -1067,6 +1093,7 @@
                 },
                 {
                     "name": "vl-map-layer-style",
+                    "description": "Gebruik de `map-layer-style` component om een\n[features-layer](/docs/map-layer-vector-layer-features-layer--map-features-layer-default) of een\n[wfs-layer](/docs/map-layer-vector-layer-wfs-layer--map-wfs-layer-default) te stylen.<br/>\n**Let op**: Bij gebruik van de [map-legend](/docs/map-legend--map-legend-features-layer-multiple-styles) worden de\nattributen niet reactief toegepast op de legende.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-layer-style--documentatie",
                     "attributes": [
                         {
@@ -1141,6 +1168,7 @@
                 },
                 {
                     "name": "vl-map-layer-circle-style",
+                    "description": "Gebruik de `map-layer-circle-style` component om een\n[features-layer](/docs/map-layer-vector-layer-features-layer--map-features-layer-default) te stylen.<br/>\nDeze component erft over van de [map-layer-style](/docs/map-layer-style--map-layer-style-default) component.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-layer-style-layer-circle-style--documentatie",
                     "attributes": [
                         {
@@ -1235,6 +1263,7 @@
                 },
                 {
                     "name": "vl-map-layer-switcher",
+                    "description": "Gebruik de `map-layer-switcher` component om kaartlagen zichtbaar of onzichtbaar te maken.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-layer-switcher--documentatie",
                     "attributes": [
                         {
@@ -1261,6 +1290,7 @@
                 },
                 {
                     "name": "vl-map-legend",
+                    "description": "Gebruik de `map-legend` component om een legende af te beelden op de kaart.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-legend--documentatie",
                     "attributes": [
                         {
@@ -1316,6 +1346,7 @@
                 },
                 {
                     "name": "vl-map-legend-item",
+                    "description": "Gebruik de `map-legend-item` component om een custom legende af te beelden op de kaart.\n\nIndien geen icon- en labelslots meegegeven zijn zal het `map-legend-item` de default style items van de bijhorende laag tonen.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-legend-item--documentatie",
                     "attributes": [
                         {
@@ -1349,6 +1380,7 @@
                 },
                 {
                     "name": "vl-map-loading-indicator",
+                    "description": "Gebruik de `map-loading-indicator` component om op te vangen wanneer de [vl-map](/docs/map-map--map-default) aan het\nladen is.<br/>\nToont een 'loading' bar bovenaan de map.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-loading-indicator--documentatie",
                     "attributes": [
                         {
@@ -1360,6 +1392,7 @@
                 },
                 {
                     "name": "vl-map-overview-map",
+                    "description": "Gebruik de `map-overview-map` component zodat gebruikers kunnen wisselen tussen de verschillende basis kaartlagen.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-overview-map--documentatie",
                     "attributes": [
                         {
@@ -1371,6 +1404,7 @@
                 },
                 {
                     "name": "vl-map-search",
+                    "description": "Gebruik de `map-search` component om een zoekbalk toe te voegen aan de map waarmee gebruikers kunnen zoeken op adres.<br/>\nDeze component maakt gebruik van de [select-location](/docs/map-select-location--select-location-default) component en\nvan de [search](/docs/components-block-search--search-default) component.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-search--documentatie",
                     "attributes": [
                         {
@@ -1407,6 +1441,7 @@
                 },
                 {
                     "name": "vl-select-location",
+                    "description": "Gebruik de `vl-select-location` component om een zoekbalk af te beelden waarmee er een adres geselecteerd kan worden.\n\nDeze component erft over van de [vl-select-rich](/docs/components-form-select-rich--documentatie) component.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-select-location--documentatie",
                     "attributes": [
                         {
@@ -1534,6 +1569,7 @@
                 },
                 {
                     "name": "vl-map-side-sheet",
+                    "description": "Gebruik de `map-side-sheet` component om een uitklapbaar zijpaneel af te beelden over de map.<br/>\nDeze component erft over van de [side-sheet](/docs/components-block-side-sheet--side-sheet-default) component en heeft ook al diens functionaliteit.<br/>\n**Let op**: de default positie van de `map-side-sheet` is links, terwijl de default positie van de\n[side-sheet](/docs/components-block-side-sheet--side-sheet-default) rechts is.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-side-sheet-side-sheet--documentatie",
                     "attributes": [
                         {
@@ -1626,6 +1662,7 @@
                 },
                 {
                     "name": "vl-map",
+                    "description": "Gebruik de `map` component om een kaart af te beelden met verschillende lagen en acties.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-map--documentatie",
                     "attributes": [
                         {

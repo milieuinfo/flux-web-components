@@ -9,6 +9,7 @@
             "elements": [
                 {
                     "name": "vl-checkbox",
+                    "description": "Gebruik de `checkbox` component om de gebruiker de mogelijkheid te geven om 1 of meerdere dingen te selecteren in een\nlijst.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-checkbox--documentatie",
                     "attributes": [
                         {
@@ -110,6 +111,7 @@
                 },
                 {
                     "name": "vl-datepicker",
+                    "description": "Gebruik de `datepicker` component om de gebruiker op een gebruiksvriendelijke manier een datum of tijd te laten selecteren.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-datepicker--documentatie",
                     "attributes": [
                         {
@@ -276,6 +278,7 @@
                 },
                 {
                     "name": "vl-form-message",
+                    "description": "Gebruik de `form-message` component om een boodschap af te beelden voor een input veld.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-form-message--documentatie",
                     "attributes": [
                         {
@@ -314,6 +317,7 @@
                 },
                 {
                     "name": "vl-form-label",
+                    "description": "Gebruik de `form-label` component om een form label af te beelden.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-form-label--documentatie",
                     "attributes": [
                         {
@@ -352,6 +356,7 @@
                 },
                 {
                     "name": "vl-input-field",
+                    "description": "Gebruik de `input-field` component om een input veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-input-field--documentatie",
                     "attributes": [
                         {
@@ -499,6 +504,7 @@
                 },
                 {
                     "name": "vl-input-field-masked",
+                    "description": "Gebruik de `input-field-masked` component om een input veld met een mask toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-input-field-masked--documentatie",
                     "attributes": [
                         {
@@ -757,6 +763,7 @@
                 },
                 {
                     "name": "vl-radio-group",
+                    "description": "Gebruik de `radio-group` component om de gebruiker de mogelijkheid te geven om 1 keuze te selecteren in een lijst.<br/>\nWanneer mogelijk, selecteer geen `radio` van vooraf zodat de gebruiker een bewuste keuze kan maken.<br/>\nDe `radio` component is een onderdeel van de `radio-group` component.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-radio-group--documentatie",
                     "attributes": [
                         {
@@ -836,6 +843,7 @@
                 },
                 {
                     "name": "vl-select",
+                    "description": "Gebruik de `select` component om een select veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-select--documentatie",
                     "attributes": [
                         {
@@ -939,6 +947,7 @@
                 },
                 {
                     "name": "vl-select-rich",
+                    "description": "Gebruik de `select-rich` component om een uitgebreid select of multiselect veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-select-rich--documentatie",
                     "attributes": [
                         {
@@ -1076,6 +1085,7 @@
                 },
                 {
                     "name": "vl-textarea",
+                    "description": "Gebruik de `textarea` component om een textarea veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.\n\nDeze component bevat geen rich-text modus: gebruik daarvoor\n[vl-textarea-rich](/docs/components-form--text-area-rich--documentatie).",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-textarea--documentatie",
                     "attributes": [
                         {
@@ -1190,6 +1200,7 @@
                 },
                 {
                     "name": "vl-textarea-rich",
+                    "description": "Gebruik de `textarea-rich` component om een rich textarea veld toe te voegen aan een pagina.<br/>",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-textarea-rich--documentatie",
                     "attributes": [
                         {
@@ -1327,6 +1338,7 @@
                 },
                 {
                     "name": "vl-upload",
+                    "description": "Gebruik de `upload` component om één of meerdere bestanden te selecteren of te slepen naar het upload-veld.\n\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-upload--documentatie",
                     "attributes": [
                         {

@@ -9,6 +9,7 @@
             "elements": [
                 {
                     "name": "vl-button",
+                    "description": "Gebruik de `button` component om een button af te beelden op een pagina.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-atom-button--documentatie",
                     "attributes": [
                         {
@@ -144,6 +145,7 @@
                 },
                 {
                     "name": "vl-icon",
+                    "description": "Gebruik de `icon` component om een icoon af te beelden op een pagina.<br/>\nZie het [overzicht](#overzicht) onderaan voor alle beschikbare iconen.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-atom-icon--documentatie",
                     "attributes": [
                         {
@@ -199,6 +201,7 @@
                 },
                 {
                     "name": "vl-link",
+                    "description": "Gebruik de `link` component om een link af te beelden op een pagina.<br/>",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-atom-link--documentatie",
                     "attributes": [
                         {
@@ -270,6 +273,7 @@
                 },
                 {
                     "name": "vl-paragraph",
+                    "description": "Gebruik de `paragraph` component om een paragraaf af te beelden op een pagina.<br/>",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-atom-paragraph--documentatie",
                     "attributes": [
                         {
@@ -298,6 +302,7 @@
                 },
                 {
                     "name": "vl-text",
+                    "description": "Gebruik de `text` component om een tekst af te beelden op andere wijze.<br/>",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-atom-text-text--documentatie",
                     "attributes": [
                         {
@@ -356,6 +361,7 @@
                 },
                 {
                     "name": "vl-title",
+                    "description": "Gebruik de `title` component om een title af te beelden.<br/>\n\nDeze component geniet de voorkeur boven het oude [vl-title](/docs/elements-title-h1--documentatie) element.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-atom-title--documentatie",
                     "attributes": [
                         {

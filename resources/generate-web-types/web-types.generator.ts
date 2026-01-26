@@ -60,13 +60,13 @@ const extractDocFileDescription = (component: string, docFile: string): string =
     let prefix = '';
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
-        if (!firstHashLinePassed && line.startsWith('#')) {
+        if (!firstHashLinePassed && line.startsWith('##')) {
             // de eerste lijn met een # bevat een titel, deze maakt geen deel uit van de omschrijving
             firstHashLinePassed = true;
             continue;
         }
-        if (!fluxMetaDataPassed && line.includes('FluxComponentEvolution')) {
-            // de <FluxComponentEvolution /> maakt geen deel uit van de omschrijving
+        if (!fluxMetaDataPassed && line.includes('FluxComponentMetaData')) {
+            // de <FluxComponentMetaData /> maakt geen deel uit van de omschrijving
             fluxMetaDataPassed = true;
             // de id bepalen
             const componentId = line.split('"')[1];
@@ -75,7 +75,7 @@ const extractDocFileDescription = (component: string, docFile: string): string =
         }
         if (firstHashLinePassed && fluxMetaDataPassed) {
             // bij de tweede lijn met een # stopt de omschrijving
-            if (line.startsWith('#')) {
+            if (line.startsWith('##')) {
                 // de witruimte voor- en achteraan verwijderen
                 description = prefix + description.trim();
                 // de omschrijving is volledig
