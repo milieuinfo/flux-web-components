@@ -9,6 +9,7 @@
             "elements": [
                 {
                     "name": "vl-accessibility",
+                    "description": "Toegankelijkheidsverklaring pagina.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-accessibility--documentatie",
                     "attributes": [
                         {
@@ -82,6 +83,7 @@
                 },
                 {
                     "name": "vl-cookie-consent",
+                    "description": "De cookie consent kan gebruikt worden om de gebruiker te informeren over al de cookies die gebruikt worden.\nDaarnaast kunnen er mits toestemming van de gebruiker analytics worden toegepast.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-cookie-consent--documentatie",
                     "attributes": [
                         {
@@ -135,6 +137,7 @@
                 },
                 {
                     "name": "vl-cookie-statement",
+                    "description": "Cookieverklaring pagina.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-cookie-statement--documentatie",
                     "attributes": [
                         {
@@ -201,6 +204,7 @@
                 },
                 {
                     "name": "vl-footer",
+                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Injecteert de footer widget van Digitaal Vlaanderen.\nDefault wordt de footer geïnjecteerd in het native `<body>` element.\n\nVoor het consistent gebruik van de footer doorheen alle applicaties van Departement Omgeving, raden we aan om volgende\ntemplate aan te houden:\n\n\n>   **[app-name] is een officiële website van de Vlaamse overheid**\n>    uitgegeven door Departement Omgeving\n\n\n\"Departement Omgeving\" is hierbij een externe link naar https://omgeving.vlaanderen.be/.\n\nDeze gegevens worden beheerd door Digitaal Vlaanderen en kunnen ingesteld worden bij het verkrijgen van de unieke\nidentifier. Deze identifier kan aangevraagd worden bij Team Infra van Departement Omgeving of via dit\n[stappenplan](https://www.vlaanderen.be/digitaal-vlaanderen/onze-diensten-en-platformen/mijn-burgerprofiel/global-header-en-footer#stappenplan-koppeling-met-de-global-header-en-footer) van Digitaal Vlaanderen.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-footer--documentatie",
                     "attributes": [
                         {
@@ -226,6 +230,7 @@
                 },
                 {
                     "name": "vl-header",
+                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Injecteert de global header widget van Digitaal Vlaanderen.\nDefault wordt de header geïnjecteerd in het native `<body>` element.\n\nVoor het consistent gebruik van de header doorheen alle applicaties van Departement Omgeving, raden we aan om volgende\ntemplate aan te houden:\n\n\n>   **[Logo Vlaanderen]** | **[App-name]** | witruimte | **Aanmelden** | **Hulp nodig?**\n\n- **\"Logo Vlaanderen\"** is hierbij een link naar https://vlaanderen.be.\n- **\"App-name\"** blijft op alle pagina's de naam van de applicatie en krijgt als link de startpagina van de applicatie.\n- Onder **\"Aanmelden\"** kan je app-links definiëren (zie [Applicatieve links](#applicatieve-links)).\n- Onder **\"Hulp nodig?\"** komt de tekst: **\"Neem contact op met Departement Omgeving\"**, gevolgd door verschillende\ncontact opties (telefoonnummer, adres, e-mailadres).\n\nDeze gegevens worden beheerd door Digitaal Vlaanderen en kunnen ingesteld worden bij het verkrijgen van de unieke\nidentifier. Deze identifier kan aangevraagd worden bij Team Infra van Departement Omgeving of via dit\n[stappenplan](https://www.vlaanderen.be/digitaal-vlaanderen/onze-diensten-en-platformen/mijn-burgerprofiel/global-header-en-footer#stappenplan-koppeling-met-de-global-header-en-footer) van Digitaal Vlaanderen.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-header--documentatie",
                     "attributes": [
                         {
@@ -305,6 +310,7 @@
                 },
                 {
                     "name": "vl-privacy",
+                    "description": "Privacy pagina.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-compliance-privacy--documentatie",
                     "attributes": [
                         {
