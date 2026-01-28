@@ -53,9 +53,21 @@ export class VlStepComponent extends BaseLitElement {
 
             if (!isAccordionDressed) {
                 vl.accordion.dress(accordion);
+                const accordionButton = this.shadowRoot?.querySelector(
+                    'button.js-vl-accordion__toggle'
+                ) as HTMLButtonElement;
                 this.shadowRoot?.querySelector('slot[name="title"]')?.addEventListener('click', (event: Event) => {
                     event.stopPropagation();
-                    (this.shadowRoot?.querySelector('button.js-vl-accordion__toggle') as HTMLButtonElement)?.click();
+                    accordionButton?.addEventListener('click', () => {
+                        this.dispatchEvent(
+                            new CustomEvent('vl-on-toggle', {
+                                detail: {
+                                    open: this._isOpen,
+                                },
+                            })
+                        );
+                    });
+                    accordionButton?.click();
                 });
             }
         }
@@ -65,6 +77,11 @@ export class VlStepComponent extends BaseLitElement {
         ) as HTMLSlotElement | null;
         this.isTitleAnnotationSlotAssigned =
             (titleAnnotationSlot && titleAnnotationSlot.assignedNodes().length > 0) || false;
+    }
+
+    get _isOpen() {
+        const accordion = this.shadowRoot?.querySelector('.js-vl-accordion');
+        return accordion?.classList.contains('js-vl-accordion--open');
     }
 
     render(): TemplateResult {
