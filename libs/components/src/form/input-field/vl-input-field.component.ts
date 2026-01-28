@@ -1,6 +1,7 @@
 import { webComponent } from '@domg-wc/common';
 import { maxLengthValidator, minLengthValidator } from '@open-wc/form-control';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
+import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
 import { FormControl } from '../form-control';
@@ -123,7 +124,7 @@ export class VlInputFieldComponent extends FormControl {
                 maxlength=${this.maxLength ?? nothing}
                 min=${this.min ?? nothing}
                 max=${this.max ?? nothing}
-                pattern=${this.pattern}
+                pattern=${ifDefined(this.pattern ? this.pattern : undefined)}
                 inputmode=${this.inputMode}
                 @input=${this.onInput}
             />

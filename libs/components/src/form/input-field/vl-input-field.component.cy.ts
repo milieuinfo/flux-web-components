@@ -134,6 +134,13 @@ describe('cypress-component - form components - vl-input-field', () => {
         cy.get('vl-input-field').shadow().find('input').should('have.attr', 'pattern', 'Van(.*)');
     });
 
+    it('should not set pattern when empty', () => {
+        cy.mount(html`<vl-input-field></vl-input-field>`);
+
+        cy.get('vl-input-field').should('not.have.attr', 'pattern');
+        cy.get('vl-input-field').shadow().find('input').should('not.have.attr', 'pattern');
+    });
+
     it('should set min-exlusive', () => {
         cy.mount(html`<vl-input-field min-exclusive></vl-input-field>`);
 
