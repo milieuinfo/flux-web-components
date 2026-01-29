@@ -58,15 +58,13 @@ export class VlStepComponent extends BaseLitElement {
                 ) as HTMLButtonElement;
                 this.shadowRoot?.querySelector('slot[name="title"]')?.addEventListener('click', (event: Event) => {
                     event.stopPropagation();
-                    accordionButton?.addEventListener('click', () => {
-                        this.dispatchEvent(
-                            new CustomEvent('vl-on-toggle', {
-                                detail: {
-                                    open: this._isOpen,
-                                },
-                            })
-                        );
-                    });
+                    this.dispatchEvent(
+                        new CustomEvent('vl-on-toggle', {
+                            detail: {
+                                open: this._isOpen,
+                            },
+                        })
+                    );
                     accordionButton?.click();
                 });
             }
