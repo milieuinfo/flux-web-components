@@ -462,3 +462,246 @@ describe('cypress-component - form components - vl-checkbox - switch in form', (
         cy.get('vl-form-message[for="confirmation"]').should('not.have.attr', 'show');
     });
 });
+
+describe('cypress-component - form components - vl-checkbox - additional coverage', () => {
+    it('should render with block attribute', () => {
+        cy.mount(html` <vl-checkbox value=${value} block>Bevestig.</vl-checkbox> `);
+
+        cy.get('vl-checkbox').should('have.attr', 'block');
+        cy.get('vl-checkbox').shadow().find('.vl-checkbox').should('have.class', 'vl-checkbox--block');
+    });
+
+    it('should render switch with block attribute', () => {
+        cy.mount(html` <vl-checkbox value=${value} switch block>Bevestig.</vl-checkbox> `);
+
+        cy.get('vl-checkbox').should('have.attr', 'block');
+        cy.get('vl-checkbox').shadow().find('.vl-checkbox--switch__wrapper').should('have.class', 'vl-checkbox--block');
+    });
+
+    it('should render with success state', () => {
+        cy.mount(html` <vl-checkbox value=${value} success>Bevestig.</vl-checkbox> `);
+
+        cy.get('vl-checkbox').should('have.attr', 'success');
+        cy.get('vl-checkbox').shadow().find('.vl-checkbox').should('have.class', 'vl-checkbox--success');
+    });
+
+    it('should render switch with success state', () => {
+        cy.mount(html` <vl-checkbox value=${value} switch success>Bevestig.</vl-checkbox> `);
+
+        cy.get('vl-checkbox').should('have.attr', 'success');
+        cy.get('vl-checkbox')
+            .shadow()
+            .find('.vl-checkbox--switch__wrapper')
+            .should('have.class', 'vl-checkbox--success');
+    });
+
+    it('should apply label attribute as aria-label', () => {
+        const labelText = 'Acceptance checkbox';
+        cy.mount(html` <vl-checkbox value=${value} label=${labelText}>Bevestig.</vl-checkbox> `);
+
+        cy.get('vl-checkbox').should('have.attr', 'label', labelText);
+        cy.get('vl-checkbox').shadow().find('input').should('have.attr', 'aria-label', labelText);
+    });
+
+    it('should set aria-invalid when invalid', () => {
+        cy.mount(html`
+            <form id="test-form">
+                <vl-checkbox id="test-checkbox" name="test" value=${value} required>Bevestig.</vl-checkbox>
+                <button type="submit">Submit</button>
+            </form>
+        `);
+
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-checkbox').shadow().find('input').should('have.attr', 'aria-invalid', 'true');
+    });
+
+    it('should toggle with Space key', () => {
+        cy.mount(html` <vl-checkbox value=${value}>Bevestig.</vl-checkbox> `);
+
+        cy.get('vl-checkbox').should('not.have.attr', 'checked');
+        cy.get('vl-checkbox').shadow().find('input').focus();
+        cy.press(Cypress.Keyboard.Keys.SPACE);
+        cy.get('vl-checkbox').should('have.attr', 'checked');
+        cy.press(Cypress.Keyboard.Keys.SPACE);
+        cy.get('vl-checkbox').should('not.have.attr', 'checked');
+    });
+
+    it('should submit form data with correct name and value', () => {
+        let formData: FormData | null = null;
+
+        cy.mount(
+            html`
+                <form
+                    id="test-form"
+                    @submit=${(e: Event) => {
+                        e.preventDefault();
+                        formData = new FormData(e.target as HTMLFormElement);
+                    }}
+                >
+                    <vl-checkbox name="terms" value="accepted" checked>Accept terms</vl-checkbox>
+                    <button type="submit">Submit</button>
+                </form>
+            `
+        ).then(() => {
+            cy.get('button[type="submit"]')
+                .click()
+                .then(() => {
+                    expect(formData).to.not.be.null;
+                    expect(formData?.get('terms')).to.equal('accepted');
+                });
+        });
+    });
+
+    it('should not include unchecked checkbox in form data', () => {
+        let formData: FormData | null = null;
+
+        cy.mount(
+            html`
+                <form
+                    id="test-form"
+                    @submit=${(e: Event) => {
+                        e.preventDefault();
+                        formData = new FormData(e.target as HTMLFormElement);
+                    }}
+                >
+                    <vl-checkbox name="terms" value="accepted">Accept terms</vl-checkbox>
+                    <button type="submit">Submit</button>
+                </form>
+            `
+        ).then(() => {
+            cy.get('button[type="submit"]')
+                .click()
+                .then(() => {
+                    expect(formData).to.not.be.null;
+                    expect(formData?.has('terms')).to.be.false;
+                });
+        });
+    });
+
+    it('should dispatch vl-reset event on form reset', () => {
+        cy.mount(html`
+            <form id="test-form">
+                <vl-checkbox name="test" value=${value} checked>Bevestig.</vl-checkbox>
+                <button type="reset">Reset</button>
+            </form>
+        `);
+        cy.createStubForEvent('vl-checkbox', 'vl-reset');
+
+        cy.get('vl-checkbox').shadow().find('.vl-checkbox__toggle').click({ force: true });
+        cy.get('vl-checkbox').should('not.have.attr', 'checked');
+        cy.get('button[type="reset"]').click();
+        cy.get('@vl-reset').should('have.been.calledOnce');
+        cy.get('vl-checkbox').should('have.attr', 'checked');
+    });
+
+    it('should handle indeterminate state when both indeterminate and checked are set', () => {
+        cy.mount(html` <vl-checkbox value=${value} indeterminate checked>Bevestig.</vl-checkbox> `);
+
+        cy.get('vl-checkbox').should('have.attr', 'checked');
+        cy.get('vl-checkbox').should('have.attr', 'indeterminate');
+        cy.get('vl-checkbox')
+            .shadow()
+            .find('input')
+            .then(([input]) => {
+                expect(input.indeterminate).to.equal(false);
+                expect(input.checked).to.equal(true);
+            });
+    });
+
+    it('should not apply indeterminate state to switch variant', () => {
+        cy.mount(html` <vl-checkbox value=${value} switch indeterminate>Bevestig.</vl-checkbox> `);
+
+        cy.get('vl-checkbox').should('have.attr', 'indeterminate');
+        cy.get('vl-checkbox')
+            .shadow()
+            .find('input')
+            .then(([input]) => {
+                expect(input.indeterminate).to.be.false;
+            });
+    });
+
+    it('should handle multiple checkboxes in one form', () => {
+        let formData: FormData | null = null;
+
+        cy.mount(
+            html`
+                <form
+                    id="test-form"
+                    @submit=${(e: Event) => {
+                        e.preventDefault();
+                        formData = new FormData(e.target as HTMLFormElement);
+                    }}
+                >
+                    <vl-checkbox name="option1" value="value1" checked>Option 1</vl-checkbox>
+                    <vl-checkbox name="option2" value="value2">Option 2</vl-checkbox>
+                    <vl-checkbox name="option3" value="value3" checked>Option 3</vl-checkbox>
+                    <button type="submit">Submit</button>
+                </form>
+            `
+        ).then(() => {
+            cy.get('button[type="submit"]')
+                .click()
+                .then(() => {
+                    expect(formData).to.not.be.null;
+                    expect(formData?.get('option1')).to.equal('value1');
+                    expect(formData?.has('option2')).to.be.false;
+                    expect(formData?.get('option3')).to.equal('value3');
+                });
+        });
+    });
+
+    it('should use default value "on" when no value is specified', () => {
+        let formData: FormData | null = null;
+
+        cy.mount(
+            html`
+                <form
+                    id="test-form"
+                    @submit=${(e: Event) => {
+                        e.preventDefault();
+                        formData = new FormData(e.target as HTMLFormElement);
+                    }}
+                >
+                    <vl-checkbox name="test" checked>Test</vl-checkbox>
+                    <button type="submit">Submit</button>
+                </form>
+            `
+        ).then(() => {
+            cy.get('button[type="submit"]')
+                .click()
+                .then(() => {
+                    expect(formData).to.not.be.null;
+                    expect(formData?.get('test')).to.equal('on');
+                });
+        });
+    });
+
+    it('should validate indeterminate checkbox as unchecked when required', () => {
+        cy.mount(html`
+            <form id="test-form">
+                <vl-checkbox id="test-checkbox" name="test" value=${value} required indeterminate
+                    >Bevestig.</vl-checkbox
+                >
+                <vl-form-message for="test-checkbox" state="valueMissing">Required field.</vl-form-message>
+                <button type="submit">Submit</button>
+            </form>
+        `);
+
+        cy.get('vl-form-message').should('not.have.attr', 'show');
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-form-message').should('have.attr', 'show');
+    });
+
+    it('should focus first invalid checkbox on form submit', () => {
+        cy.mount(html`
+            <form id="test-form">
+                <vl-checkbox id="checkbox1" name="test1" value="value1" required>First</vl-checkbox>
+                <vl-checkbox id="checkbox2" name="test2" value="value2" required>Second</vl-checkbox>
+                <button type="submit">Submit</button>
+            </form>
+        `);
+
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-checkbox#checkbox1').shadow().find('input').should('have.focus');
+    });
+});
