@@ -114,15 +114,17 @@ const shouldHaveErrorStyleSwitch = () => {
 };
 
 describe('vl-checkbox - properties & states', () => {
-    it('should mount', () => {
+    it.only('should mount', () => {
         cy.mount(html` <vl-checkbox value=${value}>Bevestig.</vl-checkbox> `);
 
         cy.get('vl-checkbox').shadow().find('input');
+        cy.get('vl-checkbox').matchImageSnapshot('checkbox-mount');
     });
 
     it('should be checked', () => {
         cy.mount(html` <vl-checkbox value=${value} checked>Bevestig.</vl-checkbox> `);
 
+        cy.get('vl-checkbox').matchImageSnapshot('checkbox-checked');
         shouldToggleCheckedWithClick('.vl-checkbox__label');
         cy.get('vl-checkbox')
             .shadow()
@@ -134,6 +136,7 @@ describe('vl-checkbox - properties & states', () => {
     it('should be indeterminate', () => {
         cy.mount(html` <vl-checkbox value=${value} indeterminate>Bevestig.</vl-checkbox> `);
 
+        cy.get('vl-checkbox').matchImageSnapshot('checkbox-indeterminate');
         cy.get('vl-checkbox')
             .shadow()
             .find('.vl-checkbox__label')
@@ -146,6 +149,7 @@ describe('vl-checkbox - properties & states', () => {
     it('should handle indeterminate state when both indeterminate and checked are set', () => {
         cy.mount(html` <vl-checkbox value=${value} indeterminate checked>Bevestig.</vl-checkbox> `);
 
+        cy.get('vl-checkbox').matchImageSnapshot('checkbox-indeterminate-and-checked');
         cy.get('vl-checkbox').should('have.attr', 'checked');
         cy.get('vl-checkbox').should('have.attr', 'indeterminate');
         cy.get('vl-checkbox')
@@ -160,6 +164,7 @@ describe('vl-checkbox - properties & states', () => {
     it('should be disabled', () => {
         cy.mount(html` <vl-checkbox value=${value} disabled>Bevestig.</vl-checkbox> `);
 
+        cy.get('vl-checkbox').matchImageSnapshot('checkbox-disabled');
         shouldBeDisabled();
     });
 
