@@ -3,7 +3,7 @@ import { vlLegacyStyles } from '@domg-wc/styles';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { FormControl } from '../form-control';
-import { vlCheckboxComponentFluxStyles } from './vl-checkbox.component.flux-css';
+import { vlCheckboxComponentFluxStyles } from './vl-checkbox.component.css';
 import { checkboxDefaults } from './vl-checkbox.defaults';
 
 @webComponent('vl-checkbox')

@@ -1,12 +1,8 @@
-import { css, CSSResult } from 'lit';
+import { css, CSSResult, unsafeCSS } from 'lit';
+import checkboxComponentRawCss from './vl-checkbox.component.raw.css?raw';
 
 export const vlCheckboxComponentFluxStyles: CSSResult = css`
-    :host {
-        --vl-checkbox--switch__error-color: #d2373c;
-        --vl-checkbox--switch__error-background-color: #fbebec;
-        --vl-checkbox--switch__success-color: #009e47;
-        --vl-checkbox--switch__success-background-color: #e6f5ed;
-    }
+    ${unsafeCSS(checkboxComponentRawCss)}
 
     /* Base checkbox styles */
     .vl-checkbox {
@@ -68,9 +64,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
         line-height: 1;
         text-align: center;
         transform: translateZ(0) translate(-50%, -50%) scale(0);
-        transition:
-            transform 0.2s cubic-bezier(1, 0.1, 0, 0.9),
-            color 0.2s cubic-bezier(1, 0.1, 0, 0.9);
+        transition: transform 0.2s cubic-bezier(1, 0.1, 0, 0.9), color 0.2s cubic-bezier(1, 0.1, 0, 0.9);
         top: 0.9rem;
         left: 0.9rem;
         z-index: 2;
@@ -103,9 +97,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     }
 
     .vl-checkbox__toggle:focus + .vl-checkbox__label .vl-checkbox__box::after {
-        box-shadow:
-            0 0 0 2px #fff,
-            0 0 0 5px rgba(0, 85, 204, 0.65);
+        box-shadow: 0 0 0 2px #fff, 0 0 0 5px rgba(0, 85, 204, 0.65);
         outline: transparent solid 0.2rem;
     }
 
@@ -140,6 +132,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     }
 
     /* Checkbox variants */
+
     .vl-checkbox--block {
         display: block;
         margin: 0;
@@ -184,6 +177,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     }
 
     /* Error state */
+
     .vl-checkbox--error .vl-checkbox__label .vl-checkbox__box::after,
     .vl-checkbox.invalid.validated .vl-checkbox__label .vl-checkbox__box::after {
         background-color: #fff;
@@ -206,6 +200,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     }
 
     /* Success state */
+
     .vl-checkbox--success .vl-checkbox__label .vl-checkbox__box::after,
     .vl-checkbox.valid.validated .vl-checkbox__label .vl-checkbox__box::after {
         background-color: #fff;
@@ -232,6 +227,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     }
 
     /* Switch styles */
+
     .vl-checkbox--switch {
         position: absolute;
         overflow: hidden;
@@ -243,9 +239,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     }
 
     .vl-checkbox--switch:focus + .vl-checkbox__label .vl-checkbox--switch__label {
-        box-shadow:
-            0 0 0 2px #fff,
-            0 0 0 5px rgba(0, 85, 204, 0.65);
+        box-shadow: 0 0 0 2px #fff, 0 0 0 5px rgba(0, 85, 204, 0.65);
     }
 
     .vl-checkbox--switch:checked + .vl-checkbox__label .vl-checkbox--switch__label {
@@ -322,9 +316,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
         margin: 0.3rem 0 0 0.3rem;
         transform: translate(0.4rem, 0.4rem) scale(0.6);
         transform-origin: 50%;
-        transition:
-            margin 0.2s cubic-bezier(1, 0.1, 0, 0.9),
-            opacity 0.2s cubic-bezier(1, 0.1, 0, 0.9);
+        transition: margin 0.2s cubic-bezier(1, 0.1, 0, 0.9), opacity 0.2s cubic-bezier(1, 0.1, 0, 0.9);
         opacity: 0;
         visibility: hidden;
         z-index: 2;
@@ -340,9 +332,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
         border-radius: 2em;
         background: #8695a8;
         border: 0.1rem #8695a8 solid;
-        transition:
-            padding 0.3s ease,
-            margin 0.2s cubic-bezier(1, 0.1, 0, 0.9);
+        transition: padding 0.3s ease, margin 0.2s cubic-bezier(1, 0.1, 0, 0.9);
     }
 
     .vl-checkbox--switch:disabled + .vl-checkbox__label {
@@ -360,6 +350,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     }
 
     /* Switch error state */
+
     .vl-checkbox--error .vl-checkbox--switch + .vl-checkbox__label .vl-checkbox--switch__label::after {
         border-color: var(--vl-checkbox--switch__error-color) !important;
     }
@@ -380,6 +371,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     }
 
     /* Switch success state */
+
     .vl-checkbox--success .vl-checkbox--switch + .vl-checkbox__label .vl-checkbox--switch__label::after {
         border-color: var(--vl-checkbox--switch__success-color) !important;
     }
@@ -400,6 +392,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     }
 
     /* Checkbox annotation */
+
     .vl-checkbox__annotation {
         margin-left: auto;
         font-size: 1.5rem;

@@ -1,0 +1,6 @@
+:host {
+    --vl-checkbox--switch__error-color: #d2373c;
+    --vl-checkbox--switch__error-background-color: #fbebec;
+    --vl-checkbox--switch__success-color: #009e47;
+    --vl-checkbox--switch__success-background-color: #e6f5ed;
+}
