@@ -114,17 +114,31 @@ const shouldHaveErrorStyleSwitch = () => {
 };
 
 describe('vl-checkbox - properties & states', () => {
-    it.only('should mount', () => {
-        cy.mount(html` <vl-checkbox value=${value}>Bevestig.</vl-checkbox> `);
+    beforeEach(() => {
+        cy.viewport(1200, 800);
+    });
+
+    it('should mount', () => {
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 300px; padding: 20px; background: white;">
+                <vl-checkbox value=${value}>Bevestig.</vl-checkbox>
+            </div>
+        `);
 
         cy.get('vl-checkbox').shadow().find('input');
-        cy.get('vl-checkbox').matchImageSnapshot('checkbox-mount');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('checkbox-mount');
     });
 
     it('should be checked', () => {
-        cy.mount(html` <vl-checkbox value=${value} checked>Bevestig.</vl-checkbox> `);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 300px; padding: 20px; background: white;">
+                <vl-checkbox value=${value} checked>Bevestig.</vl-checkbox>
+            </div>
+        `);
 
-        cy.get('vl-checkbox').matchImageSnapshot('checkbox-checked');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('checkbox-checked');
         shouldToggleCheckedWithClick('.vl-checkbox__label');
         cy.get('vl-checkbox')
             .shadow()
@@ -134,9 +148,14 @@ describe('vl-checkbox - properties & states', () => {
     });
 
     it('should be indeterminate', () => {
-        cy.mount(html` <vl-checkbox value=${value} indeterminate>Bevestig.</vl-checkbox> `);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 300px; padding: 20px; background: white;">
+                <vl-checkbox value=${value} indeterminate>Bevestig.</vl-checkbox>
+            </div>
+        `);
 
-        cy.get('vl-checkbox').matchImageSnapshot('checkbox-indeterminate');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('checkbox-indeterminate');
         cy.get('vl-checkbox')
             .shadow()
             .find('.vl-checkbox__label')
@@ -147,9 +166,14 @@ describe('vl-checkbox - properties & states', () => {
     });
 
     it('should handle indeterminate state when both indeterminate and checked are set', () => {
-        cy.mount(html` <vl-checkbox value=${value} indeterminate checked>Bevestig.</vl-checkbox> `);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 300px; padding: 20px; background: white;">
+                <vl-checkbox value=${value} indeterminate checked>Bevestig.</vl-checkbox>
+            </div>
+        `);
 
-        cy.get('vl-checkbox').matchImageSnapshot('checkbox-indeterminate-and-checked');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('checkbox-indeterminate-and-checked');
         cy.get('vl-checkbox').should('have.attr', 'checked');
         cy.get('vl-checkbox').should('have.attr', 'indeterminate');
         cy.get('vl-checkbox')
@@ -162,15 +186,26 @@ describe('vl-checkbox - properties & states', () => {
     });
 
     it('should be disabled', () => {
-        cy.mount(html` <vl-checkbox value=${value} disabled>Bevestig.</vl-checkbox> `);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 300px; padding: 20px; background: white;">
+                <vl-checkbox value=${value} disabled>Bevestig.</vl-checkbox>
+            </div>
+        `);
 
-        cy.get('vl-checkbox').matchImageSnapshot('checkbox-disabled');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('checkbox-disabled');
         shouldBeDisabled();
     });
 
     it('should have error state', () => {
-        cy.mount(html` <vl-checkbox value=${value} error>Bevestig.</vl-checkbox> `);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 300px; padding: 20px; background: white;">
+                <vl-checkbox value=${value} error>Bevestig.</vl-checkbox>
+            </div>
+        `);
 
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('checkbox-error');
         cy.get('vl-checkbox').should('have.attr', 'error');
         cy.get('vl-checkbox').shadow().find('.vl-checkbox').should('have.class', 'vl-checkbox--error');
         cy.get('vl-checkbox')
@@ -179,6 +214,8 @@ describe('vl-checkbox - properties & states', () => {
             .shouldHaveComputedStyle({ pseudo: ':after', style: 'background-color', value: 'rgb(255, 255, 255)' })
             .shouldHaveComputedStyle({ pseudo: ':after', style: 'border-color', value: 'rgb(210, 55, 60)' });
         cy.get('vl-checkbox').shadow().find('.vl-checkbox__toggle').click({ force: true });
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('checkbox-error-checked');
         cy.get('vl-checkbox')
             .shadow()
             .find('i.vl-checkbox__box')
@@ -186,15 +223,27 @@ describe('vl-checkbox - properties & states', () => {
     });
 
     it('should have success state', () => {
-        cy.mount(html` <vl-checkbox value=${value} success>Bevestig.</vl-checkbox> `);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 300px; padding: 20px; background: white;">
+                <vl-checkbox value=${value} success>Bevestig.</vl-checkbox>
+            </div>
+        `);
 
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('checkbox-success');
         cy.get('vl-checkbox').should('have.attr', 'success');
         cy.get('vl-checkbox').shadow().find('.vl-checkbox').should('have.class', 'vl-checkbox--success');
     });
 
     it('should render with block attribute', () => {
-        cy.mount(html` <vl-checkbox value=${value} block>Bevestig.</vl-checkbox> `);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 300px; padding: 20px; background: white;">
+                <vl-checkbox value=${value} block>Bevestig.</vl-checkbox>
+            </div>
+        `);
 
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('checkbox-block');
         cy.get('vl-checkbox').should('have.attr', 'block');
         cy.get('vl-checkbox').shadow().find('.vl-checkbox').should('have.class', 'vl-checkbox--block');
     });
@@ -526,9 +575,15 @@ describe('vl-checkbox - accessibility & keyboard', () => {
 
 describe('vl-checkbox - switch variant', () => {
     it('should mount switch', () => {
-        cy.mount(html` <vl-checkbox value=${value} switch>Bevestig.</vl-checkbox> `);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 300px; padding: 20px; background: white;">
+                <vl-checkbox value=${value} switch>Bevestig.</vl-checkbox>
+            </div>
+        `);
 
         cy.get('vl-checkbox').shadow().find('input');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('checkbox-switch-mount');
     });
 
     it('should be accessible', () => {
@@ -555,8 +610,14 @@ describe('vl-checkbox - switch variant', () => {
     });
 
     it('should be checked', () => {
-        cy.mount(html` <vl-checkbox id="id-is-necessary-to-succeed-test" value=${value} switch checked>Bevestig.</vl-checkbox> `);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 300px; padding: 20px; background: white;">
+                <vl-checkbox id="id-is-necessary-to-succeed-test" value=${value} switch checked>Bevestig.</vl-checkbox>
+            </div>
+        `);
 
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('checkbox-switch-checked');
         shouldToggleCheckedWithClick('.vl-checkbox__label');
         cy.get('vl-checkbox')
             .shadow()
@@ -568,23 +629,43 @@ describe('vl-checkbox - switch variant', () => {
 
 
     it('should be disabled', () => {
-        cy.mount(html` <vl-checkbox value=${value} switch disabled>Bevestig.</vl-checkbox> `);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 300px; padding: 20px; background: white;">
+                <vl-checkbox value=${value} switch disabled>Bevestig.</vl-checkbox>
+            </div>
+        `);
 
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('checkbox-switch-disabled');
         shouldBeDisabledSwitch();
     });
 
     it('should have error state', () => {
-        cy.mount(html` <vl-checkbox value=${value} switch error>Bevestig.</vl-checkbox> `);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 300px; padding: 20px; background: white;">
+                <vl-checkbox value=${value} switch error>Bevestig.</vl-checkbox>
+            </div>
+        `);
 
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('checkbox-switch-error');
         cy.get('vl-checkbox').should('have.attr', 'error');
         shouldHaveErrorStyleSwitch();
         cy.get('vl-checkbox').shadow().find('.vl-checkbox__label').click({ force: true });
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('checkbox-switch-error-checked');
         shouldHaveErrorStyleSwitch();
     });
 
     it('should have success state', () => {
-        cy.mount(html` <vl-checkbox value=${value} switch success>Bevestig.</vl-checkbox> `);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 300px; padding: 20px; background: white;">
+                <vl-checkbox value=${value} switch success>Bevestig.</vl-checkbox>
+            </div>
+        `);
 
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('checkbox-switch-success');
         cy.get('vl-checkbox').should('have.attr', 'success');
         cy.get('vl-checkbox')
             .shadow()
@@ -593,8 +674,14 @@ describe('vl-checkbox - switch variant', () => {
     });
 
     it('should render with block attribute', () => {
-        cy.mount(html` <vl-checkbox value=${value} switch block>Bevestig.</vl-checkbox> `);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 300px; padding: 20px; background: white;">
+                <vl-checkbox value=${value} switch block>Bevestig.</vl-checkbox>
+            </div>
+        `);
 
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('checkbox-switch-block');
         cy.get('vl-checkbox').should('have.attr', 'block');
         cy.get('vl-checkbox')
             .shadow()
@@ -603,8 +690,14 @@ describe('vl-checkbox - switch variant', () => {
     });
 
     it('should not apply indeterminate state to switch', () => {
-        cy.mount(html` <vl-checkbox value=${value} switch indeterminate>Bevestig.</vl-checkbox> `);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 300px; padding: 20px; background: white;">
+                <vl-checkbox value=${value} switch indeterminate>Bevestig.</vl-checkbox>
+            </div>
+        `);
 
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('checkbox-switch-indeterminate');
         cy.get('vl-checkbox').should('have.attr', 'indeterminate');
         cy.get('vl-checkbox')
             .shadow()
