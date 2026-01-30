@@ -975,6 +975,7 @@
                             vl.util.removeClass(document.body, noOverflowClass);
                         } else {
                             element.showModal();
+                            if (element.dataset.focusOnModal === 'true') element.focus();
                             element.setAttribute('aria-hidden', false);
                             vl.util.addClass(document.body, noOverflowClass);
                         }

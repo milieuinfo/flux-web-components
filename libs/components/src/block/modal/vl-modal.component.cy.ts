@@ -104,6 +104,14 @@ describe('cypress-component - block components - vl-modal', () => {
         cy.get('vl-modal').shadow().find('dialog.vl-modal-dialog');
     });
 
+    it('should be accessible', () => {
+        cy.mount(renderModal({ open: true }));
+        cy.injectAxe();
+
+        cy.get('vl-modal');
+        cy.checkA11y('vl-modal');
+    });
+
     it('should be able to open by default', () => {
         cy.mount(renderModal({ open: true }));
         cy.injectAxe();

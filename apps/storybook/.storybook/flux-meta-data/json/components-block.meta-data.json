@@ -267,7 +267,7 @@
             "generation": "legacy",
             "css": "govflanders",
             "tests": ["Component"],
-            "documentation": "template",
+            "documentation": "uitgebreid",
             "wcagLevel": "TODO",
             "jiraMeta": "FLUX-17"
         }

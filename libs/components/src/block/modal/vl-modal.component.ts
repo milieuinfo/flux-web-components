@@ -9,10 +9,10 @@ import {
 import { vlGridStyles, vlGroupStyles, vlStackedStyles } from '@domg-wc/styles';
 import { accessibilityStyle, resetStyle } from '@domg/govflanders-style/common';
 import { modalStyle } from '@domg/govflanders-style/component';
-import './vl-modal.lib.js';
 import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { VlLinkComponent } from '../../atom/link';
 import { vlModalFluxStyles } from './vl-modal.flux-css';
+import './vl-modal.lib.js';
 
 declare const vl: any;
 
@@ -28,11 +28,10 @@ export class VlModalComponent extends BaseHTMLElement {
         const html = `
             <div class="vl-modal">
                 <dialog class="vl-modal-dialog" id="modal-dialog" modal tabindex="-1"
-                        aria-modal="true" aria-hidden="true" aria-labelledby="modal-toggle-title"
-                        aria-describedby="modal-toggle-description">
+                        aria-modal="true" aria-hidden="true" aria-labelledby="modal-toggle-title">
                     <div class="vl-modal-dialog__wrapper" id="modal-dialog-wrapper">
                         <div class="vl-grid vl-stacked-small">
-                            <div id="modal-toggle-description" class="vl-column vl-column--12 vl-column--m-12 vl-modal-dialog__content">
+                            <div class="vl-column vl-column--12 vl-column--m-12 vl-modal-dialog__content">
                                 <slot name="content">Modal content</slot>
                             </div>
                             <div class="vl-column vl-column--12 vl-column--m-12">
@@ -65,6 +64,7 @@ export class VlModalComponent extends BaseHTMLElement {
         return [
             'id',
             'title',
+            'label',
             'closable',
             'not-cancellable',
             'open',
@@ -72,6 +72,7 @@ export class VlModalComponent extends BaseHTMLElement {
             'allow-overflow',
             'size',
             'position',
+            'focus-on-modal',
         ];
     }
 
@@ -115,6 +116,20 @@ export class VlModalComponent extends BaseHTMLElement {
         return !!this.getAttribute('modal-dressed');
     }
 
+    setAriaLabel() {
+        const title = this.getAttribute('title');
+        const label = this.getAttribute('label');
+        if (title) {
+            this._dialogElement.setAttribute('aria-labelledby', 'modal-toggle-title');
+            this._dialogElement.removeAttribute('aria-label');
+        } else if (label) {
+            this._dialogElement.setAttribute('aria-label', label);
+            this._dialogElement.removeAttribute('aria-labelledby');
+        } else {
+            console.warn('vl-modal: title of label attribuut is verplicht.');
+        }
+    }
+
     connectedCallback() {
         super.connectedCallback();
 
@@ -127,6 +142,8 @@ export class VlModalComponent extends BaseHTMLElement {
         if (this.hasAttribute('position')) {
             this._addDialogClassModifier(this.getAttribute('position') || '');
         }
+
+        this.setAriaLabel();
     }
 
     disconnectedCallback() {
@@ -139,6 +156,7 @@ export class VlModalComponent extends BaseHTMLElement {
     dress() {
         if (!this._dressed) {
             vl.modal.dress(this._dialogElement);
+            this._dialogElement.dataset.focusOnModal = this.hasAttribute('focus-on-modal') ? 'true' : 'false';
         }
     }
 
@@ -226,6 +244,11 @@ export class VlModalComponent extends BaseHTMLElement {
         } else if (this._titleElement) {
             this._titleElement.remove();
         }
+        this.setAriaLabel();
+    }
+
+    _labelChangedCallback(oldValue: string, newValue: string) {
+        this.setAriaLabel();
     }
 
     _notCancellableChangedCallback(oldValue: string, newValue: string) {

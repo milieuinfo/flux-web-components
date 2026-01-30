@@ -4,6 +4,7 @@ import { ArgTypes } from '@storybook/web-components-vite';
 export const modalArgs = {
     ...defaultArgs,
     title: 'Modal',
+    label: '',
     open: false,
     closable: false,
     notCancellable: false,
@@ -13,6 +14,7 @@ export const modalArgs = {
     buttonSlot: '',
     size: 'default',
     position: 'center',
+    focusOnModal: false,
 };
 
 export const modalArgTypes: ArgTypes<typeof modalArgs> = {
@@ -21,6 +23,16 @@ export const modalArgTypes: ArgTypes<typeof modalArgs> = {
         name: 'title',
         description:
             'Attribuut gebruikt om een `<h2>` titel toe te voegen. Indien leeg, wordt er geen titel element aangemaakt.',
+        table: {
+            type: { summary: 'String' },
+            defaultValue: { summary: '' },
+            category: 'Attributes',
+        },
+    },
+    label: {
+        name: 'label',
+        description:
+            'Attribuut gebruikt om een aria-label toe te voegen aan de modal. Dit is verplicht indien er geen title attribuut is opgegeven.',
         table: {
             type: { summary: 'String' },
             defaultValue: { summary: '' },
@@ -109,6 +121,15 @@ export const modalArgTypes: ArgTypes<typeof modalArgs> = {
         table: {
             type: { summary: 'String' },
             defaultValue: { summary: modalArgs.position },
+            category: CATEGORIES.ATTRIBUTES,
+        },
+    },
+    focusOnModal: {
+        name: 'focus-on-modal',
+        description: 'Attribuut om de focus op de modal zelf te zetten bij het openen.',
+        table: {
+            type: { summary: 'Boolean' },
+            defaultValue: { summary: String(modalArgs.focusOnModal) },
             category: CATEGORIES.ATTRIBUTES,
         },
     },
