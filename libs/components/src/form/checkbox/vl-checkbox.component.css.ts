@@ -4,6 +4,19 @@ import checkboxComponentRawCss from './vl-checkbox.component.raw.css?raw';
 export const vlCheckboxComponentFluxStyles: CSSResult = css`
     ${unsafeCSS(checkboxComponentRawCss)}
 
+    :host {
+        font-size: 62.5%;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    *::before,
+    *::after {
+        box-sizing: inherit;
+    }
+
     /* Base checkbox styles */
     .vl-checkbox {
         position: relative;

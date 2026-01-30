@@ -1,5 +1,5 @@
 import { webComponent } from '@domg-wc/common';
-import { vlLegacyStyles } from '@domg-wc/styles';
+import { vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { FormControl } from '../form-control';
@@ -23,7 +23,7 @@ export class VlCheckboxComponent extends FormControl {
     private dispatchInput = false;
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [vlLegacyStyles, vlCheckboxComponentFluxStyles];
+        return [vlResetStyles, vlCheckboxComponentFluxStyles];
     }
 
     static get properties(): PropertyDeclarations {
