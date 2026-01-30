@@ -2,59 +2,56 @@
     /* Font sizing (62.5% = 10px base for rem calculations) */
     font-size: 62.5%;
 
-    /* Block: Base colors */
+    /* Base colors */
     --vl-checkbox--color-primary: #05c;
     --vl-checkbox--color-border: #8695a8;
     --vl-checkbox--color-white: #fff;
-    --vl-checkbox--color-text: #333332;
 
-    /* Block: Sizes */
+    /* Base sizes */
     --vl-checkbox--border-width: 0.1rem;
     --vl-checkbox--border-radius: 0.3rem;
     --vl-checkbox--margin: 1.5rem;
 
-    /* Element: Box */
-    --vl-checkbox__box--size: 1.8rem;
+    /* Box */
+    --vl-checkbox--box-size: 1.8rem;
 
-    /* Element: Icon */
-    --vl-checkbox__icon--size: 0.8rem;
+    /* Icon */
+    --vl-checkbox--icon-size: 0.8rem;
 
-    /* Element: Label */
-    --vl-checkbox__label--gap: 1rem;
+    /* Label */
+    --vl-checkbox--label-gap: 1rem;
 
-    /* Modifier: Disabled state */
-    --vl-checkbox--disabled--color: #687483;
-    --vl-checkbox--disabled--background: #8695a8;
-    --vl-checkbox--disabled--background-light: #f3f5f6;
+    /* Disabled state */
+    --vl-checkbox--disabled-color: #687483;
+    --vl-checkbox--disabled-background: #8695a8;
+    --vl-checkbox--disabled-background-light: #f3f5f6;
 
-    /* Modifier: Error state */
-    --vl-checkbox--error--color: #d2373c;
+    /* Error state */
+    --vl-checkbox--error-color: #d2373c;
 
-    /* Modifier: Success state */
-    --vl-checkbox--success--color: #009e47;
+    /* Success state */
+    --vl-checkbox--success-color: #009e47;
 
-    /* Modifier: Switch variant - Element: Label */
-    --vl-checkbox--switch__label--width: 4rem;
-    --vl-checkbox--switch__label--height: 2.2rem;
+    /* Switch variant */
+    --vl-checkbox--switch-width: 4rem;
+    --vl-checkbox--switch-height: 2.2rem;
+    --vl-checkbox--switch-knob-size: 1.8rem;
+    --vl-checkbox--switch-knob-size-checked: 2rem;
 
-    /* Modifier: Switch variant - Element: Knob */
-    --vl-checkbox--switch__knob--size: 1.8rem;
-    --vl-checkbox--switch__knob--size-checked: 2rem;
+    /* Switch error state */
+    --vl-checkbox--switch-error-color: #d2373c;
+    --vl-checkbox--switch-error-background: #fbebec;
 
-    /* Modifier: Switch variant - Modifier: Error state */
-    --vl-checkbox--switch--error--color: #d2373c;
-    --vl-checkbox--switch--error--background: #fbebec;
+    /* Switch success state */
+    --vl-checkbox--switch-success-color: #009e47;
+    --vl-checkbox--switch-success-background: #e6f5ed;
 
-    /* Modifier: Switch variant - Modifier: Success state */
-    --vl-checkbox--switch--success--color: #009e47;
-    --vl-checkbox--switch--success--background: #e6f5ed;
-
-    /* Block: Transitions */
+    /* Transitions */
     --vl-checkbox--transition-fast: 0.1s cubic-bezier(1, 0.1, 0, 0.9);
     --vl-checkbox--transition: 0.2s cubic-bezier(1, 0.1, 0, 0.9);
     --vl-checkbox--transition-slow: 0.3s ease;
 
-    /* Block: Focus state */
+    /* Focus state */
     --vl-checkbox--focus-shadow: 0 0 0 2px var(--vl-checkbox--color-white), 0 0 0 5px rgba(0, 85, 204, 0.65);
     --vl-checkbox--focus-outline: 3px solid rgba(0, 85, 204, 0.65);
     --vl-checkbox--focus-outline-offset: 2px;

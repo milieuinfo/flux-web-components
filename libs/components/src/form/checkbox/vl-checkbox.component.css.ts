@@ -74,11 +74,11 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
 
     .vl-checkbox__box {
         position: relative;
-        flex: 0 0 var(--vl-checkbox__box--size);
-        width: var(--vl-checkbox__box--size);
-        height: var(--vl-checkbox__box--size);
+        flex: 0 0 var(--vl-checkbox--box-size);
+        width: var(--vl-checkbox--box-size);
+        height: var(--vl-checkbox--box-size);
         margin-top: 0.3rem;
-        margin-right: var(--vl-checkbox__label--gap);
+        margin-right: var(--vl-checkbox--label-gap);
         line-height: 1;
     }
 
@@ -96,7 +96,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
         left: 0.9rem;
         z-index: 2;
         display: block;
-        font-size: var(--vl-checkbox__icon--size);
+        font-size: var(--vl-checkbox--icon-size);
         color: var(--vl-checkbox--color-border);
         line-height: 1;
         text-align: center;
@@ -108,8 +108,8 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
 
     .vl-checkbox__box::after {
         display: inline-block;
-        width: var(--vl-checkbox__box--size);
-        height: var(--vl-checkbox__box--size);
+        width: var(--vl-checkbox--box-size);
+        height: var(--vl-checkbox--box-size);
         content: '';
         background: var(--vl-checkbox--color-white);
         border: var(--vl-checkbox--border-width) var(--vl-checkbox--color-border) solid;
@@ -151,7 +151,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
 
     .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::before {
         content: '\\f20e';
-        font-size: var(--vl-checkbox__icon--size);
+        font-size: var(--vl-checkbox--icon-size);
         font-weight: bold;
     }
 
@@ -183,19 +183,19 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     /* Disabled variant */
 
     .vl-checkbox--disabled .vl-checkbox__label {
-        color: var(--vl-checkbox--disabled--color);
+        color: var(--vl-checkbox--disabled-color);
     }
 
     .vl-checkbox--disabled .vl-checkbox__box::after {
-        background-color: var(--vl-checkbox--disabled--background);
-        border-color: var(--vl-checkbox--disabled--background);
+        background-color: var(--vl-checkbox--disabled-background);
+        border-color: var(--vl-checkbox--disabled-background);
         cursor: auto;
     }
 
     .vl-checkbox--disabled .vl-checkbox__toggle:checked + .vl-checkbox__label .vl-checkbox__box::after,
     .vl-checkbox--disabled .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::after {
-        background: var(--vl-checkbox--disabled--background);
-        border-color: var(--vl-checkbox--disabled--background);
+        background: var(--vl-checkbox--disabled-background);
+        border-color: var(--vl-checkbox--disabled-background);
     }
 
     /* ===================================================================
@@ -207,7 +207,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     .vl-checkbox--error .vl-checkbox__box::after,
     .vl-checkbox.invalid.validated .vl-checkbox__box::after {
         background-color: var(--vl-checkbox--color-white);
-        border-color: var(--vl-checkbox--error--color);
+        border-color: var(--vl-checkbox--error-color);
     }
 
     /* Error state - checkmark color when checked/indeterminate */
@@ -216,7 +216,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     .vl-checkbox.invalid.validated .vl-checkbox__toggle:checked + .vl-checkbox__label .vl-checkbox__box::before,
     .vl-checkbox--error .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::before,
     .vl-checkbox.invalid.validated .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::before {
-        color: var(--vl-checkbox--error--color);
+        color: var(--vl-checkbox--error-color);
     }
 
     /* Error state - box background when checked/indeterminate */
@@ -226,7 +226,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     .vl-checkbox--error .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::after,
     .vl-checkbox.invalid.validated .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::after {
         background-color: var(--vl-checkbox--color-white);
-        border-color: var(--vl-checkbox--error--color);
+        border-color: var(--vl-checkbox--error-color);
     }
 
     /* Success state - unchecked */
@@ -234,7 +234,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     .vl-checkbox--success .vl-checkbox__box::after,
     .vl-checkbox.valid.validated .vl-checkbox__box::after {
         background-color: var(--vl-checkbox--color-white);
-        border-color: var(--vl-checkbox--success--color);
+        border-color: var(--vl-checkbox--success-color);
     }
 
     /* Success state - checkmark color when checked/indeterminate */
@@ -243,7 +243,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     .vl-checkbox.valid.validated .vl-checkbox__toggle:checked + .vl-checkbox__label .vl-checkbox__box::before,
     .vl-checkbox--success .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::before,
     .vl-checkbox.valid.validated .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::before {
-        color: var(--vl-checkbox--success--color);
+        color: var(--vl-checkbox--success-color);
     }
 
     /* Success state - box background when checked/indeterminate */
@@ -253,7 +253,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     .vl-checkbox--success .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::after,
     .vl-checkbox.valid.validated .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::after {
         background-color: var(--vl-checkbox--color-white);
-        border-color: var(--vl-checkbox--success--color);
+        border-color: var(--vl-checkbox--success-color);
     }
 
     /* ===================================================================
@@ -267,9 +267,9 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     .vl-checkbox--switch__label {
         position: relative;
         display: inline-block;
-        width: var(--vl-checkbox--switch__label--width);
-        height: var(--vl-checkbox--switch__label--height);
-        margin: 0 var(--vl-checkbox__label--gap) 0 0;
+        width: var(--vl-checkbox--switch-width);
+        height: var(--vl-checkbox--switch-height);
+        margin: 0 var(--vl-checkbox--label-gap) 0 0;
         padding: var(--vl-checkbox--border-width);
         background: var(--vl-checkbox--color-white);
         border: var(--vl-checkbox--border-width) solid var(--vl-checkbox--color-border);
@@ -287,8 +287,8 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     .vl-checkbox--switch__label::after {
         position: relative;
         display: block;
-        width: var(--vl-checkbox--switch__knob--size);
-        height: var(--vl-checkbox--switch__knob--size);
+        width: var(--vl-checkbox--switch-knob-size);
+        height: var(--vl-checkbox--switch-knob-size);
         margin-left: 0;
         content: '';
         background: var(--vl-checkbox--color-border);
@@ -305,7 +305,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
         z-index: 2;
         display: block;
         margin: 0.3rem 0 0 0.3rem;
-        font-size: var(--vl-checkbox__icon--size);
+        font-size: var(--vl-checkbox--icon-size);
         content: '\\f15c';
         opacity: 0;
         visibility: hidden;
@@ -341,8 +341,8 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     }
 
     .vl-checkbox--switch:checked + .vl-checkbox__label .vl-checkbox--switch__label::after {
-        width: var(--vl-checkbox--switch__knob--size-checked);
-        height: var(--vl-checkbox--switch__knob--size-checked);
+        width: var(--vl-checkbox--switch-knob-size-checked);
+        height: var(--vl-checkbox--switch-knob-size-checked);
         margin-left: 50%;
         background-color: var(--vl-checkbox--color-white);
         border-color: var(--vl-checkbox--color-primary);
@@ -352,25 +352,25 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     /* Disabled state */
 
     .vl-checkbox--switch:disabled + .vl-checkbox__label {
-        color: var(--vl-checkbox--disabled--color);
+        color: var(--vl-checkbox--disabled-color);
     }
 
     .vl-checkbox--switch:disabled + .vl-checkbox__label .vl-checkbox--switch__label {
-        background-color: var(--vl-checkbox--disabled--background);
-        border-color: var(--vl-checkbox--disabled--background);
+        background-color: var(--vl-checkbox--disabled-background);
+        border-color: var(--vl-checkbox--disabled-background);
         cursor: default;
     }
 
     .vl-checkbox--switch:disabled + .vl-checkbox__label .vl-checkbox--switch__label::after {
-        border-color: var(--vl-checkbox--disabled--background-light);
+        border-color: var(--vl-checkbox--disabled-background-light);
     }
 
     .vl-checkbox--switch:checked:disabled + .vl-checkbox__label .vl-checkbox--switch__label {
-        border-color: var(--vl-checkbox--disabled--background);
+        border-color: var(--vl-checkbox--disabled-background);
     }
 
     .vl-checkbox--switch:checked:disabled + .vl-checkbox__label .vl-checkbox--switch__label::after {
-        border-color: var(--vl-checkbox--disabled--background);
+        border-color: var(--vl-checkbox--disabled-background);
     }
 
     /* ===================================================================
@@ -381,12 +381,12 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
 
     .vl-checkbox--error .vl-checkbox--switch + .vl-checkbox__label .vl-checkbox--switch__label {
         background: var(--vl-checkbox--color-white);
-        color: var(--vl-checkbox--switch--error--color);
-        border-color: var(--vl-checkbox--switch--error--color);
+        color: var(--vl-checkbox--switch-error-color);
+        border-color: var(--vl-checkbox--switch-error-color);
     }
 
     .vl-checkbox--error .vl-checkbox--switch + .vl-checkbox__label .vl-checkbox--switch__label::after {
-        border-color: var(--vl-checkbox--switch--error--color) !important;
+        border-color: var(--vl-checkbox--switch-error-color) !important;
     }
 
     .vl-checkbox--error .vl-checkbox--switch:not(:checked) + .vl-checkbox__label .vl-checkbox--switch__label::after {
@@ -394,20 +394,20 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     }
 
     .vl-checkbox--error .vl-checkbox--switch:checked + .vl-checkbox__label .vl-checkbox--switch__label {
-        background: var(--vl-checkbox--switch--error--background);
-        border-color: var(--vl-checkbox--switch--error--color);
+        background: var(--vl-checkbox--switch-error-background);
+        border-color: var(--vl-checkbox--switch-error-color);
     }
 
     /* Success state */
 
     .vl-checkbox--success .vl-checkbox--switch + .vl-checkbox__label .vl-checkbox--switch__label {
         background: var(--vl-checkbox--color-white);
-        color: var(--vl-checkbox--switch--success--color);
-        border-color: var(--vl-checkbox--switch--success--color);
+        color: var(--vl-checkbox--switch-success-color);
+        border-color: var(--vl-checkbox--switch-success-color);
     }
 
     .vl-checkbox--success .vl-checkbox--switch + .vl-checkbox__label .vl-checkbox--switch__label::after {
-        border-color: var(--vl-checkbox--switch--success--color) !important;
+        border-color: var(--vl-checkbox--switch-success-color) !important;
     }
 
     .vl-checkbox--success .vl-checkbox--switch:not(:checked) + .vl-checkbox__label .vl-checkbox--switch__label::after {
@@ -415,7 +415,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     }
 
     .vl-checkbox--success .vl-checkbox--switch:checked + .vl-checkbox__label .vl-checkbox--switch__label {
-        background: var(--vl-checkbox--switch--success--background);
-        border-color: var(--vl-checkbox--switch--success--color);
+        background: var(--vl-checkbox--switch-success-background);
+        border-color: var(--vl-checkbox--switch-success-color);
     }
 `;
