@@ -8,6 +8,8 @@ import { checkboxDefaults } from './vl-checkbox.defaults';
 
 @webComponent('vl-checkbox')
 export class VlCheckboxComponent extends FormControl {
+    private static instanceCounter = 0;
+
     // Attributes
     private block = checkboxDefaults.block;
     private value = checkboxDefaults.value;
@@ -41,6 +43,12 @@ export class VlCheckboxComponent extends FormControl {
     connectedCallback() {
         super.connectedCallback();
 
+        if (!this.id) {
+            // For switch checkboxes, an id is required to link the separate label and input via the 'for' attribute.
+            // Regular checkboxes use implicit labeling (input inside label) and don't require an id.
+            // In all cases - if no id is provided - one is automatically generated.
+            this.id = `vl-checkbox-${++VlCheckboxComponent.instanceCounter}`;
+        }
         if (!this.initialValue) {
             this.initialValue = this.value;
             this.initialCheckedValue = this.checked;
