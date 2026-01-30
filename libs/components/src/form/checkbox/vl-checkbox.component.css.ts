@@ -4,20 +4,49 @@ import checkboxComponentRawCss from './vl-checkbox.component.raw.css?raw';
 export const vlCheckboxComponentFluxStyles: CSSResult = css`
     ${unsafeCSS(checkboxComponentRawCss)}
 
-    :host {
-        font-size: 62.5%;
-    }
-
-    * {
+    *,
+    *::before,
+    *::after {
         box-sizing: border-box;
     }
 
-    *::before,
-    *::after {
-        box-sizing: inherit;
+    /* ===================================================================
+       Shared Icon Styles (for both checkbox and switch)
+       =================================================================== */
+
+    .vl-checkbox__box::before,
+    .vl-checkbox__box::after,
+    .vl-checkbox--switch__label span::before,
+    .vl-checkbox--switch__label span::after {
+        font-family: 'vlaanderen-icon' !important;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-style: normal;
+        font-variant: normal;
+        font-weight: normal;
+        text-decoration: none;
+        text-transform: none;
     }
 
-    /* Base checkbox styles */
+    /* ===================================================================
+       Visually Hidden Input (for both checkbox and switch)
+       =================================================================== */
+
+    .vl-checkbox__toggle,
+    .vl-checkbox--switch {
+        position: absolute;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        width: 0.1rem;
+        height: 0.1rem;
+        padding: 0;
+        margin: -0.1rem;
+    }
+
+    /* ===================================================================
+       Regular Checkbox Base Styles
+       =================================================================== */
+
     .vl-checkbox {
         position: relative;
         display: inline-block;
@@ -25,7 +54,7 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
     }
 
     .vl-checkbox:not(.vl-checkbox--block):not(:last-of-type) {
-        margin-right: 1.5rem;
+        margin-right: var(--vl-checkbox--margin);
     }
 
     .vl-checkbox__label {
@@ -41,373 +70,352 @@ export const vlCheckboxComponentFluxStyles: CSSResult = css`
         }
     }
 
-    .vl-checkbox__label .vl-checkbox__box {
+    /* Checkbox Box (visual indicator) */
+
+    .vl-checkbox__box {
         position: relative;
-        flex: 0 0 1.8rem;
-        width: 1.8rem;
-        height: 1.8rem;
+        flex: 0 0 var(--vl-checkbox__box--size);
+        width: var(--vl-checkbox__box--size);
+        height: var(--vl-checkbox__box--size);
         margin-top: 0.3rem;
-        margin-right: 1rem;
+        margin-right: var(--vl-checkbox__label--gap);
         line-height: 1;
     }
 
-    .vl-checkbox__label .vl-checkbox__box::before,
-    .vl-checkbox__label .vl-checkbox__box::after {
-        font-family: 'vlaanderen-icon' !important;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        font-style: normal;
-        font-variant: normal;
-        font-weight: normal;
-        text-decoration: none;
-        text-transform: none;
-    }
-
     @media screen and (max-width: 767px) {
-        .vl-checkbox__label .vl-checkbox__box {
+        .vl-checkbox__box {
             margin-top: 0.2rem;
         }
     }
 
-    .vl-checkbox__label .vl-checkbox__box::before {
+    /* Checkbox checkmark icon (::before) */
+
+    .vl-checkbox__box::before {
         position: absolute;
-        display: block;
-        font-size: 0.8rem;
-        color: #8695a8;
-        line-height: 1;
-        text-align: center;
-        transform: translateZ(0) translate(-50%, -50%) scale(0);
-        transition: transform 0.2s cubic-bezier(1, 0.1, 0, 0.9), color 0.2s cubic-bezier(1, 0.1, 0, 0.9);
         top: 0.9rem;
         left: 0.9rem;
         z-index: 2;
+        display: block;
+        font-size: var(--vl-checkbox__icon--size);
+        color: var(--vl-checkbox--color-border);
+        line-height: 1;
+        text-align: center;
+        transform: translateZ(0) translate(-50%, -50%) scale(0);
+        transition: transform var(--vl-checkbox--transition), color var(--vl-checkbox--transition);
     }
 
-    .vl-checkbox__label .vl-checkbox__box::after {
+    /* Checkbox box background (::after) */
+
+    .vl-checkbox__box::after {
         display: inline-block;
+        width: var(--vl-checkbox__box--size);
+        height: var(--vl-checkbox__box--size);
         content: '';
-        background: #fff;
-        width: 1.8rem;
-        height: 1.8rem;
-        border: 0.1rem #8695a8 solid;
+        background: var(--vl-checkbox--color-white);
+        border: var(--vl-checkbox--border-width) var(--vl-checkbox--color-border) solid;
+        border-radius: var(--vl-checkbox--border-radius);
         outline: 0.2rem transparent solid;
         cursor: pointer;
         overflow: hidden;
         white-space: nowrap;
-        transition: all 0.2s cubic-bezier(1, 0.1, 0, 0.9);
+        transition: all var(--vl-checkbox--transition);
         z-index: 1;
-        border-radius: 0.3rem;
     }
 
-    .vl-checkbox__toggle {
-        position: absolute;
-        overflow: hidden;
-        clip: rect(0 0 0 0);
-        width: 0.1rem;
-        height: 0.1rem;
-        padding: 0;
-        margin: -0.1rem;
-    }
+    /* ===================================================================
+       Checkbox States (Checked, Indeterminate, Focus)
+       =================================================================== */
+
+    /* Focus state */
 
     .vl-checkbox__toggle:focus + .vl-checkbox__label .vl-checkbox__box::after {
-        box-shadow: 0 0 0 2px #fff, 0 0 0 5px rgba(0, 85, 204, 0.65);
+        box-shadow: var(--vl-checkbox--focus-shadow);
         outline: transparent solid 0.2rem;
     }
 
     @supports (outline-offset: 2px) {
         .vl-checkbox__toggle:focus + .vl-checkbox__label .vl-checkbox__box::after {
             box-shadow: none;
-            outline: 3px solid rgba(0, 85, 204, 0.65);
-            outline-offset: 2px;
+            outline: var(--vl-checkbox--focus-outline);
+            outline-offset: var(--vl-checkbox--focus-outline-offset);
         }
     }
+
+    /* Checked state */
 
     .vl-checkbox__toggle:checked + .vl-checkbox__label .vl-checkbox__box::before {
         content: '\\f15c';
     }
 
+    /* Indeterminate state */
+
     .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::before {
         content: '\\f20e';
-        font-size: 0.8rem;
+        font-size: var(--vl-checkbox__icon--size);
         font-weight: bold;
     }
+
+    /* Checked & Indeterminate: show icon and change colors */
 
     .vl-checkbox__toggle:checked + .vl-checkbox__label .vl-checkbox__box::before,
     .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::before {
         transform: translateZ(0) translate(-50%, -50%) scale(1);
-        color: #fff;
+        color: var(--vl-checkbox--color-white);
     }
 
     .vl-checkbox__toggle:checked + .vl-checkbox__label .vl-checkbox__box::after,
     .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::after {
-        background: #05c;
-        border: 0.1rem #05c solid;
+        background: var(--vl-checkbox--color-primary);
+        border-color: var(--vl-checkbox--color-primary);
     }
 
-    /* Checkbox variants */
+    /* ===================================================================
+       Checkbox Variants (Block, Disabled)
+       =================================================================== */
+
+    /* Block variant */
 
     .vl-checkbox--block {
         display: block;
         margin: 0;
     }
 
+    /* Disabled variant */
+
     .vl-checkbox--disabled .vl-checkbox__label {
-        color: #687483;
+        color: var(--vl-checkbox--disabled--color);
     }
 
-    .vl-checkbox--disabled .vl-checkbox__label .vl-checkbox__box::after {
-        background-color: #8695a8;
-        border-color: #8695a8;
+    .vl-checkbox--disabled .vl-checkbox__box::after {
+        background-color: var(--vl-checkbox--disabled--background);
+        border-color: var(--vl-checkbox--disabled--background);
         cursor: auto;
     }
 
     .vl-checkbox--disabled .vl-checkbox__toggle:checked + .vl-checkbox__label .vl-checkbox__box::after,
     .vl-checkbox--disabled .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::after {
-        background: #8695a8;
-        border: 0.1rem #8695a8 solid;
+        background: var(--vl-checkbox--disabled--background);
+        border-color: var(--vl-checkbox--disabled--background);
     }
 
-    .vl-checkbox--single {
-        margin: 0;
+    /* ===================================================================
+       Checkbox Validation States (Error, Success)
+       =================================================================== */
+
+    /* Error state - unchecked */
+
+    .vl-checkbox--error .vl-checkbox__box::after,
+    .vl-checkbox.invalid.validated .vl-checkbox__box::after {
+        background-color: var(--vl-checkbox--color-white);
+        border-color: var(--vl-checkbox--error--color);
     }
 
-    .vl-checkbox--single .vl-checkbox__label {
-        padding: 0;
-    }
-
-    .vl-checkbox--single .vl-checkbox__label .vl-checkbox__box {
-        margin: 0;
-    }
-
-    .vl-checkbox--single .vl-checkbox__label .vl-checkbox__box::after {
-        position: relative;
-        top: auto;
-        left: auto;
-    }
-
-    .vl-checkbox--single .vl-checkbox--switch + .vl-checkbox__label .vl-checkbox--switch__label {
-        margin: 0;
-    }
-
-    /* Error state */
-
-    .vl-checkbox--error .vl-checkbox__label .vl-checkbox__box::after,
-    .vl-checkbox.invalid.validated .vl-checkbox__label .vl-checkbox__box::after {
-        background-color: #fff;
-        border-color: #d2373c;
-    }
+    /* Error state - checkmark color when checked/indeterminate */
 
     .vl-checkbox--error .vl-checkbox__toggle:checked + .vl-checkbox__label .vl-checkbox__box::before,
     .vl-checkbox.invalid.validated .vl-checkbox__toggle:checked + .vl-checkbox__label .vl-checkbox__box::before,
     .vl-checkbox--error .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::before,
     .vl-checkbox.invalid.validated .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::before {
-        color: #d2373c;
+        color: var(--vl-checkbox--error--color);
     }
+
+    /* Error state - box background when checked/indeterminate */
 
     .vl-checkbox--error .vl-checkbox__toggle:checked + .vl-checkbox__label .vl-checkbox__box::after,
     .vl-checkbox.invalid.validated .vl-checkbox__toggle:checked + .vl-checkbox__label .vl-checkbox__box::after,
     .vl-checkbox--error .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::after,
     .vl-checkbox.invalid.validated .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::after {
-        background-color: #fff;
-        border: 0.1rem #d2373c solid;
+        background-color: var(--vl-checkbox--color-white);
+        border-color: var(--vl-checkbox--error--color);
     }
 
-    /* Success state */
+    /* Success state - unchecked */
 
-    .vl-checkbox--success .vl-checkbox__label .vl-checkbox__box::after,
-    .vl-checkbox.valid.validated .vl-checkbox__label .vl-checkbox__box::after {
-        background-color: #fff;
-        border-color: #009e47;
+    .vl-checkbox--success .vl-checkbox__box::after,
+    .vl-checkbox.valid.validated .vl-checkbox__box::after {
+        background-color: var(--vl-checkbox--color-white);
+        border-color: var(--vl-checkbox--success--color);
     }
+
+    /* Success state - checkmark color when checked/indeterminate */
 
     .vl-checkbox--success .vl-checkbox__toggle:checked + .vl-checkbox__label .vl-checkbox__box::before,
     .vl-checkbox.valid.validated .vl-checkbox__toggle:checked + .vl-checkbox__label .vl-checkbox__box::before,
     .vl-checkbox--success .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::before,
     .vl-checkbox.valid.validated .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::before {
-        color: #009e47;
+        color: var(--vl-checkbox--success--color);
     }
+
+    /* Success state - box background when checked/indeterminate */
 
     .vl-checkbox--success .vl-checkbox__toggle:checked + .vl-checkbox__label .vl-checkbox__box::after,
     .vl-checkbox.valid.validated .vl-checkbox__toggle:checked + .vl-checkbox__label .vl-checkbox__box::after,
     .vl-checkbox--success .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::after,
     .vl-checkbox.valid.validated .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::after {
-        background-color: #fff;
-        border: 0.1rem #009e47 solid;
+        background-color: var(--vl-checkbox--color-white);
+        border-color: var(--vl-checkbox--success--color);
     }
 
-    .vl-checkbox--empty {
-        margin-top: 0;
-    }
-
-    /* Switch styles */
-
-    .vl-checkbox--switch {
-        position: absolute;
-        overflow: hidden;
-        clip: rect(0 0 0 0);
-        width: 0.1rem;
-        height: 0.1rem;
-        padding: 0;
-        margin: -0.1rem;
-    }
-
-    .vl-checkbox--switch:focus + .vl-checkbox__label .vl-checkbox--switch__label {
-        box-shadow: 0 0 0 2px #fff, 0 0 0 5px rgba(0, 85, 204, 0.65);
-    }
-
-    .vl-checkbox--switch:checked + .vl-checkbox__label .vl-checkbox--switch__label {
-        background: #05c;
-        border-color: #05c;
-        position: relative;
-    }
-
-    .vl-checkbox--switch:checked + .vl-checkbox__label .vl-checkbox--switch__label::before,
-    .vl-checkbox--switch:checked + .vl-checkbox__label .vl-checkbox--switch__label span::before {
-        margin-left: calc(50% + 0.3rem);
-        transform: translate(0.1rem, 0.1rem) scale(1);
-        visibility: visible;
-        opacity: 1;
-    }
-
-    .vl-checkbox--switch:checked + .vl-checkbox__label .vl-checkbox--switch__label::after {
-        width: 2rem;
-        height: 2rem;
-        margin-left: 50%;
-        background-color: #fff;
-        border-color: #05c;
-        transform: translate(-0.1rem, -0.1rem);
-    }
-
-    .vl-checkbox--switch:checked:disabled + .vl-checkbox__label .vl-checkbox--switch__label {
-        border-color: #8695a8;
-    }
-
-    .vl-checkbox--switch:checked:disabled + .vl-checkbox__label .vl-checkbox--switch__label::after {
-        border-color: #8695a8;
-    }
+    /* ===================================================================
+       Switch Variant Base Styles
+       =================================================================== */
 
     .vl-checkbox--switch + .vl-checkbox__label {
         align-items: center;
     }
 
-    .vl-checkbox--switch + .vl-checkbox__label .vl-checkbox--switch__label {
+    .vl-checkbox--switch__label {
         position: relative;
         display: inline-block;
-        width: 4rem;
-        height: 2.2rem;
+        width: var(--vl-checkbox--switch__label--width);
+        height: var(--vl-checkbox--switch__label--height);
+        margin: 0 var(--vl-checkbox__label--gap) 0 0;
+        padding: var(--vl-checkbox--border-width);
+        background: var(--vl-checkbox--color-white);
+        border: var(--vl-checkbox--border-width) solid var(--vl-checkbox--color-border);
+        border-radius: 2em;
+        outline: 0.2rem transparent solid;
         cursor: pointer;
         user-select: none;
         vertical-align: middle;
-        outline: transparent solid 0.2rem;
-        margin: 0 1rem 0 0;
-        background: #fff;
-        border: 0.1rem solid #8695a8;
-        border-radius: 2em;
-        padding: 0.1rem;
-        transition: box-shadow 0.1s cubic-bezier(1, 0.1, 0, 0.9);
         line-height: 1rem;
+        transition: box-shadow var(--vl-checkbox--transition-fast);
     }
 
-    .vl-checkbox--switch + .vl-checkbox__label .vl-checkbox--switch__label span::before,
-    .vl-checkbox--switch + .vl-checkbox__label .vl-checkbox--switch__label span::after {
-        font-family: 'vlaanderen-icon' !important;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        font-style: normal;
-        font-variant: normal;
-        font-weight: normal;
-        text-decoration: none;
-        text-transform: none;
-    }
+    /* Switch knob (::after) */
 
-    .vl-checkbox--switch + .vl-checkbox__label .vl-checkbox--switch__label span::before {
-        content: '\\f15c';
-        font-size: 0.8rem;
-        display: block;
-        position: absolute;
-        left: 0;
-        margin: 0.3rem 0 0 0.3rem;
-        transform: translate(0.4rem, 0.4rem) scale(0.6);
-        transform-origin: 50%;
-        transition: margin 0.2s cubic-bezier(1, 0.1, 0, 0.9), opacity 0.2s cubic-bezier(1, 0.1, 0, 0.9);
-        opacity: 0;
-        visibility: hidden;
-        z-index: 2;
-    }
-
-    .vl-checkbox--switch + .vl-checkbox__label .vl-checkbox--switch__label::after {
+    .vl-checkbox--switch__label::after {
         position: relative;
         display: block;
+        width: var(--vl-checkbox--switch__knob--size);
+        height: var(--vl-checkbox--switch__knob--size);
         margin-left: 0;
         content: '';
-        width: 1.8rem;
-        height: 1.8rem;
+        background: var(--vl-checkbox--color-border);
+        border: var(--vl-checkbox--border-width) var(--vl-checkbox--color-border) solid;
         border-radius: 2em;
-        background: #8695a8;
-        border: 0.1rem #8695a8 solid;
-        transition: padding 0.3s ease, margin 0.2s cubic-bezier(1, 0.1, 0, 0.9);
+        transition: padding var(--vl-checkbox--transition-slow), margin var(--vl-checkbox--transition);
     }
 
+    /* Switch checkmark icon (span::before) */
+
+    .vl-checkbox--switch__label span::before {
+        position: absolute;
+        left: 0;
+        z-index: 2;
+        display: block;
+        margin: 0.3rem 0 0 0.3rem;
+        font-size: var(--vl-checkbox__icon--size);
+        content: '\\f15c';
+        opacity: 0;
+        visibility: hidden;
+        transform: translate(0.4rem, 0.4rem) scale(0.6);
+        transform-origin: 50%;
+        transition: margin var(--vl-checkbox--transition), opacity var(--vl-checkbox--transition);
+    }
+
+    /* ===================================================================
+       Switch States (Checked, Focus, Disabled)
+       =================================================================== */
+
+    /* Focus state */
+
+    .vl-checkbox--switch:focus + .vl-checkbox__label .vl-checkbox--switch__label {
+        box-shadow: var(--vl-checkbox--focus-shadow);
+    }
+
+    /* Checked state */
+
+    .vl-checkbox--switch:checked + .vl-checkbox__label .vl-checkbox--switch__label {
+        position: relative;
+        background: var(--vl-checkbox--color-primary);
+        border-color: var(--vl-checkbox--color-primary);
+    }
+
+    .vl-checkbox--switch:checked + .vl-checkbox__label .vl-checkbox--switch__label::before,
+    .vl-checkbox--switch:checked + .vl-checkbox__label .vl-checkbox--switch__label span::before {
+        margin-left: calc(50% + 0.3rem);
+        opacity: 1;
+        visibility: visible;
+        transform: translate(0.1rem, 0.1rem) scale(1);
+    }
+
+    .vl-checkbox--switch:checked + .vl-checkbox__label .vl-checkbox--switch__label::after {
+        width: var(--vl-checkbox--switch__knob--size-checked);
+        height: var(--vl-checkbox--switch__knob--size-checked);
+        margin-left: 50%;
+        background-color: var(--vl-checkbox--color-white);
+        border-color: var(--vl-checkbox--color-primary);
+        transform: translate(-0.1rem, -0.1rem);
+    }
+
+    /* Disabled state */
+
     .vl-checkbox--switch:disabled + .vl-checkbox__label {
-        color: #687483;
+        color: var(--vl-checkbox--disabled--color);
     }
 
     .vl-checkbox--switch:disabled + .vl-checkbox__label .vl-checkbox--switch__label {
-        background-color: #8695a8;
-        border-color: #8695a8;
+        background-color: var(--vl-checkbox--disabled--background);
+        border-color: var(--vl-checkbox--disabled--background);
         cursor: default;
     }
 
     .vl-checkbox--switch:disabled + .vl-checkbox__label .vl-checkbox--switch__label::after {
-        border-color: #f3f5f6;
+        border-color: var(--vl-checkbox--disabled--background-light);
     }
 
-    /* Switch error state */
+    .vl-checkbox--switch:checked:disabled + .vl-checkbox__label .vl-checkbox--switch__label {
+        border-color: var(--vl-checkbox--disabled--background);
+    }
+
+    .vl-checkbox--switch:checked:disabled + .vl-checkbox__label .vl-checkbox--switch__label::after {
+        border-color: var(--vl-checkbox--disabled--background);
+    }
+
+    /* ===================================================================
+       Switch Validation States (Error, Success)
+       =================================================================== */
+
+    /* Error state */
+
+    .vl-checkbox--error .vl-checkbox--switch + .vl-checkbox__label .vl-checkbox--switch__label {
+        background: var(--vl-checkbox--color-white);
+        color: var(--vl-checkbox--switch--error--color);
+        border-color: var(--vl-checkbox--switch--error--color);
+    }
 
     .vl-checkbox--error .vl-checkbox--switch + .vl-checkbox__label .vl-checkbox--switch__label::after {
-        border-color: var(--vl-checkbox--switch__error-color) !important;
+        border-color: var(--vl-checkbox--switch--error--color) !important;
     }
 
     .vl-checkbox--error .vl-checkbox--switch:not(:checked) + .vl-checkbox__label .vl-checkbox--switch__label::after {
-        background: #fff;
-    }
-
-    .vl-checkbox--error .vl-checkbox--switch + .vl-checkbox__label .vl-checkbox--switch__label {
-        background: #fff;
-        color: var(--vl-checkbox--switch__error-color);
-        border-color: var(--vl-checkbox--switch__error-color);
+        background: var(--vl-checkbox--color-white);
     }
 
     .vl-checkbox--error .vl-checkbox--switch:checked + .vl-checkbox__label .vl-checkbox--switch__label {
-        background: var(--vl-checkbox--switch__error-background-color);
-        border-color: var(--vl-checkbox--switch__error-color);
+        background: var(--vl-checkbox--switch--error--background);
+        border-color: var(--vl-checkbox--switch--error--color);
     }
 
-    /* Switch success state */
+    /* Success state */
+
+    .vl-checkbox--success .vl-checkbox--switch + .vl-checkbox__label .vl-checkbox--switch__label {
+        background: var(--vl-checkbox--color-white);
+        color: var(--vl-checkbox--switch--success--color);
+        border-color: var(--vl-checkbox--switch--success--color);
+    }
 
     .vl-checkbox--success .vl-checkbox--switch + .vl-checkbox__label .vl-checkbox--switch__label::after {
-        border-color: var(--vl-checkbox--switch__success-color) !important;
+        border-color: var(--vl-checkbox--switch--success--color) !important;
     }
 
     .vl-checkbox--success .vl-checkbox--switch:not(:checked) + .vl-checkbox__label .vl-checkbox--switch__label::after {
-        background: #fff;
-    }
-
-    .vl-checkbox--success .vl-checkbox--switch + .vl-checkbox__label .vl-checkbox--switch__label {
-        background: #fff;
-        color: var(--vl-checkbox--switch__success-color);
-        border-color: var(--vl-checkbox--switch__success-color);
+        background: var(--vl-checkbox--color-white);
     }
 
     .vl-checkbox--success .vl-checkbox--switch:checked + .vl-checkbox__label .vl-checkbox--switch__label {
-        background: var(--vl-checkbox--switch__success-background-color);
-        border-color: var(--vl-checkbox--switch__success-color);
-    }
-
-    /* Checkbox annotation */
-
-    .vl-checkbox__annotation {
-        margin-left: auto;
-        font-size: 1.5rem;
+        background: var(--vl-checkbox--switch--success--background);
+        border-color: var(--vl-checkbox--switch--success--color);
     }
 `;
