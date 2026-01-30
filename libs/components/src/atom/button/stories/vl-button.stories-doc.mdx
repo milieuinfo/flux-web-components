@@ -147,6 +147,13 @@ Het `input-group` attribuut is er om de knop een specifieke stijl te geven in co
 attribuut doet enkel iets in die combinatie. Zie [Input Group [next]](/docs/components-form-input-group--documentatie)
 voor meer informatie en voorbeelden.
 
+## Toegankelijkheid
+
+Zorg er steeds voor dat de button een duidelijke en beknopte tekstuele beschrijving heeft van de actie die uitgevoerd wordt bij het klikken op de button. Dit is belangrijk voor alle gebruikers, maar vooral voor gebruikers die schermlezers gebruiken.
+
+Indien de button enkel een icoon bevat, is het verplicht om het `label` attribuut te gebruiken zodat een beschrijvende `aria-label` wordt toegevoegd aan de button.
+
+Indien de button een dropdown menu of dialog opent, gebruik dan het `aria-haspopup` attribuut met de juiste waarde (`true`, `menu`, `listbox`, `tree`, `grid`, `dialog`) om aan te geven dat er een popup aanwezig is. Dit helpt schermlezers om de gebruiker correct te informeren over de aanwezigheid van een popup. `aria-haspopup` wordt doorgegeven aan de onderliggende button.
 
 ## Referenties
 

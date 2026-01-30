@@ -182,6 +182,18 @@ export class VlButtonComponent extends BaseLitElement {
                 aria-pressed=${ifDefined(this.toggle ? (this.on ? 'true' : 'false') : undefined)}
                 aria-disabled=${this.disabled || this.loading ? 'true' : 'false'}
                 aria-busy=${this.loading ? 'true' : 'false'}
+                aria-haspopup=${ifDefined(
+                    this.hasAttribute('aria-haspopup')
+                        ? (this.getAttribute('aria-haspopup') as
+                              | 'false'
+                              | 'true'
+                              | 'menu'
+                              | 'listbox'
+                              | 'tree'
+                              | 'grid'
+                              | 'dialog')
+                        : undefined
+                )}
             >
                 ${positionIconBefore ? this.renderIcon() : nothing}
                 <slot @slotchange=${this.handleSlotChange}></slot>
@@ -205,6 +217,18 @@ export class VlButtonComponent extends BaseLitElement {
                 aria-pressed=${ifDefined(this.toggle ? (this.on ? 'true' : 'false') : undefined)}
                 aria-disabled=${this.disabled || this.loading ? 'true' : 'false'}
                 aria-busy=${this.loading ? 'true' : 'false'}
+                aria-haspopup=${ifDefined(
+                    this.hasAttribute('aria-haspopup')
+                        ? (this.getAttribute('aria-haspopup') as
+                              | 'false'
+                              | 'true'
+                              | 'menu'
+                              | 'listbox'
+                              | 'tree'
+                              | 'grid'
+                              | 'dialog')
+                        : undefined
+                )}
             >
                 ${positionIconBefore ? this.renderIcon() : nothing}
                 <slot @slotchange=${this.handleSlotChange}></slot>

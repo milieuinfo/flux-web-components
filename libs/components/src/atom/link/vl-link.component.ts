@@ -1,5 +1,6 @@
 import { BaseLitElement, ICON_PLACEMENT, webComponent } from '@domg-wc/common';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
+import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { vlIconStyles } from '../icon-style/vl-icon-style.css';
 import { vlLinkIconStyles } from '../link-style/vl-link-icon-style.css';
@@ -60,6 +61,18 @@ export class VlLinkComponent extends BaseLitElement {
                       rel=${rel}
                       part="link"
                       aria-label=${this.label || nothing}
+                      aria-haspopup=${ifDefined(
+                          this.hasAttribute('aria-haspopup')
+                              ? (this.getAttribute('aria-haspopup') as
+                                    | 'false'
+                                    | 'true'
+                                    | 'menu'
+                                    | 'listbox'
+                                    | 'tree'
+                                    | 'grid'
+                                    | 'dialog')
+                              : undefined
+                      )}
                   >
                       ${positionIconBefore ? this.renderIcon() : nothing}
                       <slot></slot>
@@ -72,6 +85,18 @@ export class VlLinkComponent extends BaseLitElement {
                       class="vl-button-as-link ${classMap(classes)}"
                       part="button"
                       aria-label=${this.label || nothing}
+                      aria-haspopup=${ifDefined(
+                          this.hasAttribute('aria-haspopup')
+                              ? (this.getAttribute('aria-haspopup') as
+                                    | 'false'
+                                    | 'true'
+                                    | 'menu'
+                                    | 'listbox'
+                                    | 'tree'
+                                    | 'grid'
+                                    | 'dialog')
+                              : undefined
+                      )}
                   >
                       ${positionIconBefore ? this.renderIcon() : nothing}
                       <slot></slot>

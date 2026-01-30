@@ -6,6 +6,12 @@ export const vlModalFluxStyles: CSSResult = css`
         overflow: visible;
     }
 
+    :host .vl-modal-dialog[open]:focus,
+    :host .vl-modal-dialog.vl-modal-dialog--opened:focus {
+        outline: 3px solid color-mix(in srgb, var(--vl-color--border-action-subtle) 70%, transparent);
+        outline-offset: -3px;
+    }
+
     :host .vl-modal-dialog--full-screen .vl-modal-dialog__wrapper,
     :host .vl-modal-dialog--left .vl-modal-dialog__wrapper,
     :host .vl-modal-dialog--right .vl-modal-dialog__wrapper {
