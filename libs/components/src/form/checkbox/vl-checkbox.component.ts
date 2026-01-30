@@ -12,7 +12,7 @@ export class VlCheckboxComponent extends FormControl {
 
     // Attributes
     private block = checkboxDefaults.block;
-    private value = checkboxDefaults.value;
+    private value: string | null = checkboxDefaults.value;
     private checked = checkboxDefaults.checked;
     private isSwitch = checkboxDefaults.isSwitch;
     private indeterminate = checkboxDefaults.indeterminate;
@@ -44,9 +44,9 @@ export class VlCheckboxComponent extends FormControl {
         super.connectedCallback();
 
         if (!this.id) {
-            // For switch checkboxes, an id is required to link the separate label and input via the 'for' attribute.
-            // Regular checkboxes use implicit labeling (input inside label) and don't require an id.
-            // In all cases - if no id is provided - one is automatically generated.
+            // For switch checkboxes, an id is required to link the label and input via the 'for' attribute.
+            // Regular checkboxes use implicit labeling but benefit from having an id for accessibility.
+            // An id is automatically generated if none is provided.
             this.id = `vl-checkbox-${++VlCheckboxComponent.instanceCounter}`;
         }
         if (!this.initialValue) {
@@ -102,11 +102,12 @@ export class VlCheckboxComponent extends FormControl {
         return html`
             <label class=${classMap(classes)}>
                 <input
-                    id=${this.id || nothing}
+                    id=${this.id}
                     name=${this.name || nothing}
                     class="vl-checkbox__toggle"
                     type="checkbox"
                     aria-label=${this.label || nothing}
+                    aria-checked=${this.indeterminate ? 'mixed' : nothing}
                     aria-invalid=${this.isInvalid || nothing}
                     ?required=${this.required}
                     ?disabled=${this.disabled}
@@ -114,7 +115,7 @@ export class VlCheckboxComponent extends FormControl {
                     .value=${this.value}
                     .checked=${this.checked}
                     .indeterminate=${this.indeterminate && !this.checked}
-                    @click=${this.toggle}
+                    @change=${this.handleChange}
                 />
                 <div class="vl-checkbox__label">
                     <i class="vl-checkbox__box" aria-hidden="true"></i>
@@ -138,17 +139,18 @@ export class VlCheckboxComponent extends FormControl {
         return html`
             <div class=${classMap(classes)}>
                 <input
-                    id=${this.id || nothing}
+                    id=${this.id}
                     name=${this.name || nothing}
                     type="checkbox"
                     class="vl-checkbox--switch"
                     role="switch"
+                    aria-checked=${this.checked ? 'true' : 'false'}
                     ?required=${this.required}
                     ?disabled=${this.disabled}
                     ?error=${this.error}
                     .value=${this.value}
                     .checked=${this.checked}
-                    @click=${this.toggle}
+                    @change=${this.handleChange}
                 />
                 <label for=${this.id} class="vl-checkbox__label">
                     <span class="vl-checkbox--switch__label">
@@ -162,8 +164,9 @@ export class VlCheckboxComponent extends FormControl {
         `;
     }
 
-    private toggle() {
-        this.checked = !this.checked;
+    private handleChange(e: Event) {
+        const target = e.target as HTMLInputElement;
+        this.checked = target.checked;
         this.dispatchInput = true;
     }
 }
