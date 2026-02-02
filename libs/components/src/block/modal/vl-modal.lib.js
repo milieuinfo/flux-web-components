@@ -949,6 +949,39 @@
     const mFallbackBackdropClass = '.backdrop';
     const noOverflowClass = ''.concat(vl.ns, 'u-no-overflow');
 
+    /**
+     * Zoekt elementen in zowel document als parent shadow DOMs.
+     * Dit lost het probleem op waarbij modals niet werken als de parent een shadow DOM heeft.
+     * @param {Element} element - Het modal dialog element
+     * @param {string} selector - De CSS selector om naar te zoeken
+     * @return {NodeList|Array} Array van gevonden elementen
+     */
+    function findOpenTrigger(element, selector) {
+        const triggers = [];
+
+        // Zoek in document root
+        triggers.push(...Array.from(document.querySelectorAll(selector)));
+
+        // Zoek in parent shadow DOMs
+        let currentElement = element.parentNode;
+        while (currentElement) {
+            if (currentElement instanceof ShadowRoot) {
+                triggers.push(...Array.from(currentElement.querySelectorAll(selector)));
+            }
+
+            // Ga naar de volgende parent
+            if (currentElement instanceof ShadowRoot) {
+                currentElement = currentElement.host.parentNode;
+            } else if (currentElement instanceof Element) {
+                currentElement = currentElement.parentNode;
+            } else {
+                break;
+            }
+        }
+
+        return triggers;
+    }
+
     const Modal =
         /* #__PURE__ */
         (function () {
@@ -992,7 +1025,7 @@
 
                         element.setAttribute(mDressedAtt, true); // Handle open/close
 
-                        linkedOpenTrigger = document.querySelectorAll('['.concat(mOpen, '="').concat(element.id, '"]'));
+                        linkedOpenTrigger = findOpenTrigger(element, '['.concat(mOpen, '="').concat(element.id, '"]'));
                         linkedClosedTrigger = element.querySelectorAll('['.concat(mClose, ']')); // See if closable (by esc or backdrop)
 
                         closable = element.hasAttribute(mClosable);
