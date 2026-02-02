@@ -100,10 +100,10 @@ export class VlFooter extends BaseLitElement {
             });
     }
 
-    render() {
-        this.footerContainer?.remove();
+    connectedCallback() {
+        super.connectedCallback();
+
         this.injectFooterContainer();
-        this.observer?.disconnect();
         this.observeWidgetIsAdded();
         this.loadWidget();
         // setTimeout(() => {
@@ -117,6 +117,7 @@ export class VlFooter extends BaseLitElement {
 
     disconnectedCallback() {
         this.observer?.disconnect();
+        this.footerContainer?.remove();
     }
 
     /**

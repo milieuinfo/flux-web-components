@@ -82,8 +82,9 @@ export class VlFooter extends BaseLitElement {
         }
     }
 
-    render() {
-        this.footerContainer?.remove();
+    connectedCallback() {
+        super.connectedCallback();
+
         this.injectFooterContainer();
         this.loadWidget();
     }
@@ -93,7 +94,10 @@ export class VlFooter extends BaseLitElement {
     }
 
     disconnectedCallback() {
+        super.disconnectedCallback();
+
         window.removeEventListener('widget.global_footer.mounted', this.onReady);
+        this.footerContainer?.remove();
     }
 }
 
