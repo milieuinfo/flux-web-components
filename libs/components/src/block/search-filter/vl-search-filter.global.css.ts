@@ -28,6 +28,8 @@ export const searchFilterGlobalStyles: CSSResult = css`
         vl-title::part(h2) {
             font-size: 1.6rem;
             letter-spacing: 0.1rem;
+            text-transform: uppercase;
+            line-height: 2.7rem;
 
             @media screen and (max-width: ${vlMediaScreenSmall}px) {
                 font-size: 1.4rem;
@@ -107,5 +109,11 @@ export const searchFilterGlobalStyles: CSSResult = css`
                 right: 0;
             }
         }
+    }
+
+    vl-rich-data form.vl-search-filter--form,
+    vl-rich-data-table form.vl-search-filter--form {
+        padding-left: 0;
+        padding-top: 0;
     }
 `;
