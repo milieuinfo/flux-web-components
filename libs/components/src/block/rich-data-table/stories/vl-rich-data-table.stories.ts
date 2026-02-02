@@ -141,7 +141,7 @@ const TemplateFilter = story(
                 <vl-search-filter slot="filter" alt>
                     <form>
                         <section>
-                            <vl-title type="h2" alt no-space-bottom="">Doorzoek projecten</vl-title>
+                            <vl-title type="h2" no-space-bottom>Doorzoek projecten</vl-title>
                             <div>
                                 <vl-form-label for="filterOpId" label="Project id" light></vl-form-label>
                                 <vl-input-field id="filterOpId" type="text" name="id" block></vl-input-field>
@@ -212,7 +212,7 @@ const TemplateFilterPaging = story(
                 <vl-search-filter slot="filter" alt>
                     <form>
                         <section>
-                            <vl-title type="h2" alt no-space-bottom="">Doorzoek projecten</vl-title>
+                            <vl-title type="h2" no-space-bottom>Doorzoek projecten</vl-title>
                             <div>
                                 <vl-form-label for="filterOpId" label="Project id" light></vl-form-label>
                                 <vl-input-field id="filterOpId" type="text" name="id" block></vl-input-field>
