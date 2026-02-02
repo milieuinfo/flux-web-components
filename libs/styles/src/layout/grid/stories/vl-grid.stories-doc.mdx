@@ -21,6 +21,7 @@ import * as VlGridStories from './vl-grid.stories';
 ## Inhoudstafel
 
 - [Doel](#doel)
+- [Niet: vl-grid in vl-grid](#niet-vl-grid-in-vl-grid)
 - [Grid Opzet](#grid-opzet)
 - [Column Opzet](#column-opzet)
 - [Responsief Voorbeeld](#responsief-voorbeeld)
@@ -37,6 +38,23 @@ De opzet is responsief, er zijn style-classes voor 4 verschillende scherm groott
 van CSS-grid, bestaande kennis of documentatie blijft dus representatief. Afwijkingen kunnen desgewenst in de afnemende
 code voorzien worden door de naamgeving door te trekken: de CSS-grid naamgeving overnemen in
 [kebab case](https://developer.mozilla.org/en-US/docs/Glossary/Kebab_case).
+
+
+## Niet: vl-grid in vl-grid
+
+Een 12-kolom grid systeem is bedoeld als layout framework voor je pagina, vaak om responsiviteit te ondersteunen.
+Als je binnen één grid-cel opnieuw een volledig 12-kolom grid nodig hebt, suggereert dat meestal één van deze zaken:
+
+- **je cel is te complex** - misschien moet die content een eigen component zijn met interne layout-logica die niet
+  via het grid-systeem werkt
+- **je design is inconsistent** - als verschillende niveaus andere grid-opdeling nodig hebben, heb je misschien geen
+  echt grid-systeem maar ad-hoc layouts
+- **je hebt geen vl-grid nodig maar vl-group** - binnen een kolom wil je vaak gewoon items naast elkaar, daarvoor is
+  een vol grid overkill
+
+> Opmerking: Technisch is er niets mis met een (css) grid in een (css) grid te steken. Conceptueel is de vl-grid
+  component echter een concrete technische implementatie van een 12-kolom layout, door die te nesten krijg je een
+  144-kolom layout, dat is nooit de bedoeling!
 
 
 ## Grid Opzet
