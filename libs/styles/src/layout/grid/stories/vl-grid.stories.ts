@@ -117,7 +117,7 @@ export const GridColumnStart = () => html`
             }
         }
 
-        .vl-grid {
+        .vl-grid.grid-column-start-story {
             --vl-column-min-height: 20px;
             grid-template-rows: 20px;
             padding: 1vmax;
@@ -139,9 +139,18 @@ export const GridColumnStart = () => html`
                 background-color: mediumspringgreen;
                 border: lightseagreen 2px solid;
             }
+
+            .sb-reset-example {
+                background-color: lightcoral;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.8rem;
+                text-align: center;
+            }
         }
     </style>
-    <div class="vl-grid">
+    <div class="vl-grid grid-column-start-story">
         <div class="vl-column vl-column--1 vl-column--start-12 vl-column--m-4 vl-column--m-start-9"></div>
         <div class="vl-column vl-column--2 vl-column--start-11 vl-column--m-4 vl-column--m-start-9"></div>
         <div class="vl-column vl-column--3 vl-column--start-10 vl-column--m-4 vl-column--m-start-9"></div>
@@ -154,6 +163,9 @@ export const GridColumnStart = () => html`
         <div class="vl-column vl-column--10 vl-column--start-3 vl-column--m-start-1 vl-column--m-12"></div>
         <div class="vl-column vl-column--11 vl-column--start-2 vl-column--m-start-1 vl-column--m-12"></div>
         <div class="vl-column vl-column--12 vl-column--start-1"></div>
+        <div class="vl-column sb-reset-example vl-column--4 vl-column--start-9 vl-column--m-6 vl-column--m-start-auto">
+            start-9 → m-start-auto
+        </div>
     </div>
 `;
 GridColumnStart.storyName = 'vl-grid - column start';

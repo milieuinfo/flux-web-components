@@ -39,6 +39,9 @@ export const columnExtraSmallStyles = (): CSSResult => css`
         grid-column-end: span 12;
     }
 
+    &.vl-column--xs-start-auto {
+        grid-column-start: auto;
+    }
     &.vl-column--xs-start-1 {
         grid-column-start: 1;
     }

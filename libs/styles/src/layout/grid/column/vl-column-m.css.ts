@@ -39,6 +39,9 @@ export const columnMediumStyles = (): CSSResult => css`
         grid-column-end: span 12;
     }
 
+    &.vl-column--m-start-auto {
+        grid-column-start: auto;
+    }
     &.vl-column--m-start-1 {
         grid-column-start: 1;
     }
