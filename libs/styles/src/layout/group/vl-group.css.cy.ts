@@ -18,7 +18,7 @@ describe('cypress-component - layout styles - vl-group', () => {
         });
         cy.get('.cy-group-default').shouldHaveComputedStyle({
             style: 'align-items',
-            value: 'center',
+            value: 'normal',
         });
         cy.get('.cy-group-default').shouldHaveComputedStyle({
             style: 'flex-direction',

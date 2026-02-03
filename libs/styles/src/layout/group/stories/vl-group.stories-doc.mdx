@@ -32,17 +32,19 @@ Met `vl-group--column` worden items onder elkaar gegroepeerd. In onderstaand voo
 
 ### Uitlijning
 
-Default worden items links uitgelijnd. Centreren kan met `vl-group--justify-center`, rechts uitlijnen
-met `vl-group--justify-end`. In combinatie met de kolom layout (`vl-group--column`), wijzigt de richting.
-Er wordt dan respectievelijk boven, midden of onderaan uitgelijnd.
+De uitlijning volgt de opzet van flex-box:
+ - op de **hoofdas uitlijnen** doe je met `vl-group--justify-start`, `vl-group--justify-center` en
+   `vl-group--justify-end`
+ - op de **dwarsas uitlijnen** doe je met `vl-group--align-start`, `vl-group--align-center` en
+   `vl-group--align-end`
 
-Met `vl-group--space-between` wordt het eerste item uiterst links gezet, het laaste uiterst rechts en de
-overige ertussen, gelijkmatig verdeeld.
+Met `vl-group--space-between` wordt het eerste item in het begin gezet, het laatste op het einde en de overige
+ertussen - gelijkmatig verdeeld.
 
 Met `vl-group--baseline` worden de items uitgelijnd volgens de tekst basis van hun eerste element.
 Dit is vooral handig voor items met een verschillende `font-size`, zoals een heading met daarnaast een tekstuele link.
 
-De container waarin uitgelijnd wordt dient ruimte te hebben om uit te lijnen!
+De container waarin uitgelijnd wordt dient voldoende ruimte te hebben om uit te lijnen!
 
 ### Scheidingslijnen
 
