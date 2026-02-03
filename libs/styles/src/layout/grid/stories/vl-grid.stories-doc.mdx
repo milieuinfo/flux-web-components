@@ -100,6 +100,11 @@ Voor het specifiëren van kolommen is er `vl-column--1` t.e.m. `vl-column--12` m
 Om de start van een kolom te verschuiven is er `vl-column--start-1` t.e.m. `vl-column--start-12` met de
 responsieve varianten `vl-column--X-start-N` waarbij X [m, s, xs] kan zijn. Een kolom met `vl-column--start-2` zal starten in de tweede kolom en N kolommen breed zijn, zoals gedefinieerd met `vl-column--N`.
 
+Om een kolom start positie te resetten naar de automatische flow is er `vl-column--start-auto` met de
+responsieve varianten `vl-column--X-start-auto` waarbij X [m, s, xs] kan zijn. Dit is nuttig wanneer je een
+expliciete start positie hebt op grotere schermen maar wil terugkeren naar de natuurlijke flow op kleinere
+schermen (zie laatste rij in onderstaand voorbeeld).
+
 <Canvas of={VlGridStories.GridColumnStart} />
 
 ### **vl-column - justify-self / align-self**

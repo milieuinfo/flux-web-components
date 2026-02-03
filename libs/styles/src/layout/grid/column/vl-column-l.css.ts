@@ -39,6 +39,9 @@ export const columnLargeStyles = (): CSSResult => css`
         grid-column-end: span 12;
     }
 
+    &.vl-column--start-auto {
+        grid-column-start: auto;
+    }
     &.vl-column--start-1 {
         grid-column-start: 1;
     }
