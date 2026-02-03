@@ -4,7 +4,6 @@ import { vlMediaScreenExtraSmall, vlMediaScreenMedium, vlMediaScreenSmall } from
 export const vlGroupStyles: CSSResult = css`
     .vl-group {
         display: flex;
-        align-items: center;
         gap: 1.4rem;
 
         &.vl-group--column {
@@ -25,12 +24,28 @@ export const vlGroupStyles: CSSResult = css`
             justify-content: space-between;
         }
 
+        &.vl-group--justify-start {
+            justify-content: flex-start;
+        }
+
         &.vl-group--justify-center {
             justify-content: center;
         }
 
         &.vl-group--justify-end {
             justify-content: flex-end;
+        }
+
+        &.vl-group--align-start {
+            align-items: flex-start;
+        }
+
+        &.vl-group--align-center {
+            align-items: center;
+        }
+
+        &.vl-group--align-end {
+            align-items: flex-end;
         }
 
         &.vl-group--baseline {

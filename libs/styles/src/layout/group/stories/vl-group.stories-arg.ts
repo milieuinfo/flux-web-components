@@ -8,8 +8,12 @@ export const vlGroupArgs = {
     collapseS: false,
     collapseXS: false,
     column: false,
+    justifyStart: false,
     justifyCenter: false,
     justifyEnd: false,
+    alignStart: false,
+    alignCenter: false,
+    alignEnd: false,
     separatorColumn: false,
     separatorRow: false,
     spaceBetween: false,
@@ -71,6 +75,15 @@ export const vlGroupArgTypes: ArgTypes<typeof vlGroupArgs> = {
         },
         description: 'Lijnt de items uit in een kolom.',
     },
+    justifyStart: {
+        name: 'vl-group--justify-start',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: 'modifier style',
+            defaultValue: { summary: String(false) },
+        },
+        description: 'Lijnt de items uit naar het begin op de hoofdas.',
+    },
     justifyCenter: {
         name: 'vl-group--justify-center',
         table: {
@@ -78,7 +91,7 @@ export const vlGroupArgTypes: ArgTypes<typeof vlGroupArgs> = {
             category: 'modifier style',
             defaultValue: { summary: String(false) },
         },
-        description: 'Lijnt de items centraal uit.',
+        description: 'Lijnt de items centraal uit op de hoofdas.',
     },
     justifyEnd: {
         name: 'vl-group--justify-end',
@@ -87,7 +100,34 @@ export const vlGroupArgTypes: ArgTypes<typeof vlGroupArgs> = {
             category: 'modifier style',
             defaultValue: { summary: String(false) },
         },
-        description: 'Lijnt de items uit naar het einde.',
+        description: 'Lijnt de items uit naar het einde op de hoofdas.',
+    },
+    alignStart: {
+        name: 'vl-group--align-start',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: 'modifier style',
+            defaultValue: { summary: String(false) },
+        },
+        description: 'Lijnt de items uit naar het begin op de dwarsas.',
+    },
+    alignCenter: {
+        name: 'vl-group--align-center',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: 'modifier style',
+            defaultValue: { summary: String(false) },
+        },
+        description: 'Lijnt de items centraal uit op de dwarsas.',
+    },
+    alignEnd: {
+        name: 'vl-group--align-end',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: 'modifier style',
+            defaultValue: { summary: String(false) },
+        },
+        description: 'Lijnt de items uit naar het einde op de dwarsas.',
     },
     separatorColumn: {
         name: 'vl-group--separator-column',
