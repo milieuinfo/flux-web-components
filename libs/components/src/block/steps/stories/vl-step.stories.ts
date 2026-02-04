@@ -44,6 +44,48 @@ export const StepsToggleable = story(
 );
 StepsToggleable.storyName = 'vl-step - toggleable';
 
+export const StepsToggleableWithContentRenderer = story(
+    stepArgs,
+    ({defaultOpen}) => html`
+        <vl-steps>
+            <vl-step
+                toggleable
+                ?default-open=${defaultOpen}
+                .contentRenderer=${(open: boolean) => open
+                    ? html`<p><strong>Open:</strong> Dit is de uitgebreide content die alleen zichtbaar is wanneer de step geopend is.</p>`
+                    : html`<p><em>Gesloten:</em> Klik om meer te zien...</p>`
+                }
+            >
+                <span slot="icon">1</span>
+                <span slot="title">Stap 1: dynamische content</span>
+                <span slot="subtitle">Content wijzigt op basis van open/closed state.</span>
+            </vl-step>
+            <vl-step
+                toggleable
+                ?default-open=${defaultOpen}
+                .contentRenderer=${(open: boolean) => open
+                    ? html`
+                        <div>
+                            <p>De step is nu open!</p>
+                            <ul>
+                                <li>Item 1</li>
+                                <li>Item 2</li>
+                                <li>Item 3</li>
+                            </ul>
+                        </div>
+                    `
+                    : html`<p>Samenvatting...</p>`
+                }
+            >
+                <span slot="icon">2</span>
+                <span slot="title">Stap 2: complexe content</span>
+                <span slot="subtitle">Verschillende structuren per state.</span>
+            </vl-step>
+        </vl-steps>
+    `
+);
+StepsToggleableWithContentRenderer.storyName = 'vl-step - toggleable with content renderer';
+
 export const StepsStates = story(
     stepArgs,
     () => html`

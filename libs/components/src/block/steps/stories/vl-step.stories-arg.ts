@@ -9,6 +9,7 @@ export const stepArgs = {
     toggleable: false,
     type: null,
     onToggle: action('vl-on-toggle'),
+    contentRenderer: undefined,
     iconSlot: '',
     subIconSlot: '',
     titleSlot: '',
@@ -58,6 +59,20 @@ export const stepArgTypes: ArgTypes<typeof stepArgs> = {
             category: CATEGORIES.EVENTS,
         },
     },
+    contentRenderer: {
+        name: 'contentRenderer',
+        description:
+            'Functie die aangeroepen wordt om dynamische content te renderen op basis van de open/closed state.<br>' +
+            'Signatuur: `(open: boolean) => TemplateResult`<br>' +
+            'Werkt enkel in combinatie met het `toggleable` attribuut.<br>' +
+            'Wanneer deze property is ingesteld, wordt het `content` slot genegeerd.',
+        control: false,
+        table: {
+            type: { summary: '(open: boolean) => TemplateResult' },
+            category: CATEGORIES.PROPERTIES,
+            defaultValue: { summary: 'undefined' },
+        },
+    },
     iconSlot: {
         name: 'icon',
         description: 'Element voor het hoofd-icoon van de step.',
@@ -105,7 +120,9 @@ export const stepArgTypes: ArgTypes<typeof stepArgs> = {
     },
     contentSlot: {
         name: 'content',
-        description: 'Element voor de hoofdcontent van de step.',
+        description:
+            'Element voor de hoofdcontent van de step.<br>' +
+            'Wordt genegeerd wanneer de `contentRenderer` property is ingesteld.',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,

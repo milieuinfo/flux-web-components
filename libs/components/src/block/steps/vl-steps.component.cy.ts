@@ -339,6 +339,74 @@ describe('cypress-component - block components - vl-steps - toggleable', () => {
             .its('secondCall.args.0.detail')
             .should('deep.equal', { open: false });
     });
+
+    it('should render dynamic content based on open state using contentRenderer', () => {
+        const contentRendererTemplate = html`
+            <vl-steps>
+                <vl-step toggleable id="test-step">
+                    <span slot="icon">1</span>
+                    <span slot="title">Stap 1: dynamische content</span>
+                    <span slot="subtitle">Content wijzigt op basis van state.</span>
+                </vl-step>
+            </vl-steps>
+        `;
+
+        cy.mount(contentRendererTemplate);
+
+        // set contentRenderer on the step
+        cy.get('vl-step#test-step').then(($step) => {
+            const step = $step.get(0) as any;
+            step.contentRenderer = (open: boolean) =>
+                open
+                    ? html`<p class="open-content">De step is open!</p>`
+                    : html`<p class="closed-content">De step is gesloten.</p>`;
+            step.requestUpdate();
+        });
+
+        // verify closed content is shown initially
+        cy.get('vl-step#test-step')
+            .shadow()
+            .find('.vl-step__content')
+            .find('.closed-content')
+            .should('exist')
+            .contains('De step is gesloten.');
+
+        // open content should not be visible
+        cy.get('vl-step#test-step').shadow().find('.vl-step__content').find('.open-content').should('not.exist');
+
+        // click to open the step
+        cy.get('vl-step#test-step')
+            .shadow()
+            .find('button.vl-step__header.js-vl-accordion__toggle')
+            .click()
+            .wait(100);
+
+        // verify open content is shown
+        cy.get('vl-step#test-step')
+            .shadow()
+            .find('.vl-step__content')
+            .find('.open-content')
+            .should('exist')
+            .contains('De step is open!');
+
+        // closed content should not be visible
+        cy.get('vl-step#test-step').shadow().find('.vl-step__content').find('.closed-content').should('not.exist');
+
+        // click to close the step again
+        cy.get('vl-step#test-step')
+            .shadow()
+            .find('button.vl-step__header.js-vl-accordion__toggle')
+            .click()
+            .wait(100);
+
+        // verify closed content is shown again
+        cy.get('vl-step#test-step')
+            .shadow()
+            .find('.vl-step__content')
+            .find('.closed-content')
+            .should('exist')
+            .contains('De step is gesloten.');
+    });
 });
 
 describe('cypress-component - block components - vl-steps - line', () => {
