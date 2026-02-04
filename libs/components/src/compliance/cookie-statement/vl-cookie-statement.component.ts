@@ -8,7 +8,7 @@ import { VlContactCardComponent } from '../../block/contact-card';
 import { VlFunctionalHeaderComponent } from '../../block/functional-header';
 import { VlInfoblockComponent } from '../../block/infoblock';
 import { VlPropertiesComponent } from '../../block/properties';
-import { VlSideNavigationComponent } from '../../block/side-navigation';
+import { VlSideNavigationLayoutComponent } from '../../block/next/side-navigation';
 import { VlTypography } from '../../block/typography';
 import { cookieStatementHeaderElements, header } from './child/header.component';
 import './cookie/vl-authentication-cookie.component';
@@ -28,7 +28,7 @@ export class VlCookieStatement extends BaseHTMLElement {
             VlInfoblockComponent,
             VlPropertiesComponent,
             VlTypography,
-            VlSideNavigationComponent,
+            VlSideNavigationLayoutComponent,
             VlTitleComponent,
             VlLinkComponent,
             VlParagraphComponent,
@@ -86,170 +86,133 @@ export class VlCookieStatement extends BaseHTMLElement {
                 </section>
 
                 <section class="vl-section">
-                    <div class="vl-content-block">
-                        <div class="vl-grid vl-stacked-medium">
-                            <div class="vl-column vl-column--8 vl-column--m-9 vl-column--s-12 vl-column--xs-12">
-                                <vl-side-navigation-reference>
-                                    <div class="vl-grid vl-stacked-large">
-                                        <div id="cookie-policy" class="vl-column vl-column--12 vl-column--m-12">
-                                            <vl-title type="h2">Cookiebeleid</vl-title>
-                                            <p>
-                                                Departement Omgeving (verder ‘dOMG’) vindt het belangrijk dat u op
-                                                iedere plaats en elk ogenblik haar dOMG-inhoud kan bekijken,
-                                                beluisteren, lezen of beleven via diverse mediaplatformen. dOMG wil ook
-                                                werken aan interactieve diensten en diensten op uw maat. Op
-                                                dOMG-onlinediensten worden technieken gehanteerd om dit mogelijk te
-                                                maken, bijvoorbeeld met behulp van cookies en scripts. Deze technieken
-                                                worden hierna gemakkelijkheidshalve cookies genoemd. In dit cookiebeleid
-                                                wenst dOMG u te informeren welke cookies worden gebruikt en waarom dit
-                                                gebeurt. Verder wordt toegelicht in welke mate u als gebruiker het
-                                                gebruik kan controleren. dOMG wil namelijk graag uw privacy en de
-                                                gebruiksvriendelijkheid van haar onlinediensten zoveel mogelijk
-                                                waarborgen.
-                                            </p>
-                                            <br />
-                                            <p>
-                                                Dit cookiebeleid is van toepassing op alle 'dOMG-onlinediensten', met
-                                                name alle websites, (mobiele) applicaties en internetdiensten die dOMG
-                                                aanbiedt en die toegang geven tot dOMG-inhoud.
-                                            </p>
-                                            <br />
-                                            <p>
-                                                dOMG kan het cookiebeleid op elk moment veranderen. Dat kan bijvoorbeeld
-                                                gebeuren in het kader van veranderingen aan haar diensten of de geldende
-                                                wetgeving. Het gewijzigde beleid wordt dan bekendgemaakt op de relevante
-                                                onlinediensten en geldt vanaf het moment dat deze bekendgemaakt wordt.
-                                            </p>
-                                        </div>
-
-                                        <div id="cookie-definition" class="vl-column vl-column--12 vl-column--m-12">
-                                            <vl-title type="h2">Wat zijn cookies precies?</vl-title>
-                                            <p>
-                                                Cookies zijn kleine gegevens- of tekstbestanden die op uw computer of
-                                                mobiele apparaat worden geïnstalleerd wanneer u een website bezoekt of
-                                                een (mobiele) toepassing gebruikt. Het cookiebestand bevat een unieke
-                                                code waarmee uw browser herkend kan worden tijdens het bezoek aan de
-                                                online service of tijdens opeenvolgende, herhaalde bezoeken. Cookies
-                                                kunnen worden geplaatst door de server van de website of applicatie die
-                                                u bezoekt, maar ook door servers van derden die al dan niet met deze
-                                                website of applicatie samenwerken.
-                                            </p>
-                                            <br />
-                                            <p>
-                                                Cookies maken over het algemeen de interactie tussen de bezoeker en de
-                                                website of applicatie gemakkelijker en sneller en helpen de bezoeker om
-                                                te navigeren tussen de verschillende delen van een website of
-                                                applicatie.
-                                            </p>
-                                        </div>
-
-                                        <div id="cookie-management" class="vl-column vl-column--12 vl-column--m-12">
-                                            <vl-title type="h2"
-                                                >Hoe kan ik het gebruik van cookies op deze onlinediensten weigeren of
-                                                beheren?</vl-title
-                                            >
-                                            <vl-typography>
-                                                <p>
-                                                    U kunt de installatie van cookies weigeren via uw
-                                                    browserinstellingen. U kunt op elk gewenst moment ook de reeds
-                                                    geïnstalleerde cookies van uw computer of mobiele apparaat
-                                                    verwijderen. Instructies vindt u op de website van uw browser:
-                                                </p>
-                                                <ul>
-                                                    <li>
-                                                        <vl-link
-                                                            href="https://support.microsoft.com/nl-be/help/17479/windows-internet-explorer-11-change-security-privacy-settings"
-                                                            external
-                                                            label="Ga naar Microsoft Internet Explorer (opent in een nieuw venster)"
-                                                            >Microsoft Internet Explorer</vl-link
-                                                        >
-                                                    </li>
-                                                    <li>
-                                                        <vl-link
-                                                            href="https://support.microsoft.com/nl-nl/help/4468242/microsoft-edge-browsing-data-and-privacy-microsoft-privacy"
-                                                            external
-                                                            label="Ga naar Microsoft Edge (opent in een nieuw venster)"
-                                                            >Microsoft Edge</vl-link
-                                                        >
-                                                    </li>
-                                                    <li>
-                                                        <vl-link
-                                                            href="http://support.google.com/chrome/bin/answer.py?hl=nl&amp;answer=95647"
-                                                            external
-                                                            label="Ga naar Google Chrome (opent in een nieuw venster)"
-                                                            >Google Chrome</vl-link
-                                                        >
-                                                    </li>
-                                                    <li>
-                                                        <vl-link
-                                                            href="http://support.mozilla.org/nl/kb/cookies-in-en-uitschakelen-websites-voorkeuren?redirectlocale=nl&amp;redirectslug=Cookies+in-+en+uitschakelen"
-                                                            external
-                                                            label="Ga naar Mozilla Firefox (opent in een nieuw venster)"
-                                                            >Mozilla Firefox</vl-link
-                                                        >
-                                                    </li>
-                                                    <li>
-                                                        <vl-link href="http://support.apple.com/kb/PH5042" external
-                                                            label="Ga naar Apple Safari (opent in een nieuw venster)"
-                                                            >Apple Safari</vl-link
-                                                        >
-                                                    </li>
-                                                </ul>
-                                                <p>
-                                                    Wanneer u cookies uitschakelt, moet u er rekening mee houden dat
-                                                    bepaalde grafische elementen er niet mooi kunnen uitzien, of dat u
-                                                    bepaalde toepassingen niet kunt gebruiken. Hieronder vindt u een
-                                                    gedetailleerde lijst van alle cookies die in deze website of
-                                                    toepassing worden gebruikt.
-                                                </p>
-                                            </vl-typography>
-                                        </div>
-
-                                        <div id="cookie-usage" class="vl-column vl-column--12 vl-column--m-12">
-                                            <vl-title type="h2">Gebruikte cookies</vl-title>
-                                            <vl-header-cookie></vl-header-cookie>
-                                            <vl-header-authentication-cookie></vl-header-authentication-cookie>
-                                            <vl-authentication-cookie></vl-authentication-cookie>
-                                            <vl-jsessionid-cookie></vl-jsessionid-cookie>
-                                            <vl-sticky-session-cookie></vl-sticky-session-cookie>
-                                            <slot></slot>
-                                        </div>
-                                    </div>
-                                </vl-side-navigation-reference>
+                    <vl-side-navigation-layout content-block max-depth="1">
+                        <div slot="content" class="vl-grid vl-stacked-large">
+                            <div class="vl-column vl-column--12 vl-column--m-12">
+                                <vl-title type="h2" id="cookie-policy">Cookiebeleid</vl-title>
+                                <p>
+                                    Departement Omgeving (verder 'dOMG') vindt het belangrijk dat u op
+                                    iedere plaats en elk ogenblik haar dOMG-inhoud kan bekijken,
+                                    beluisteren, lezen of beleven via diverse mediaplatformen. dOMG wil ook
+                                    werken aan interactieve diensten en diensten op uw maat. Op
+                                    dOMG-onlinediensten worden technieken gehanteerd om dit mogelijk te
+                                    maken, bijvoorbeeld met behulp van cookies en scripts. Deze technieken
+                                    worden hierna gemakkelijkheidshalve cookies genoemd. In dit cookiebeleid
+                                    wenst dOMG u te informeren welke cookies worden gebruikt en waarom dit
+                                    gebeurt. Verder wordt toegelicht in welke mate u als gebruiker het
+                                    gebruik kan controleren. dOMG wil namelijk graag uw privacy en de
+                                    gebruiksvriendelijkheid van haar onlinediensten zoveel mogelijk
+                                    waarborgen.
+                                </p>
+                                <br />
+                                <p>
+                                    Dit cookiebeleid is van toepassing op alle 'dOMG-onlinediensten', met
+                                    name alle websites, (mobiele) applicaties en internetdiensten die dOMG
+                                    aanbiedt en die toegang geven tot dOMG-inhoud.
+                                </p>
+                                <br />
+                                <p>
+                                    dOMG kan het cookiebeleid op elk moment veranderen. Dat kan bijvoorbeeld
+                                    gebeuren in het kader van veranderingen aan haar diensten of de geldende
+                                    wetgeving. Het gewijzigde beleid wordt dan bekendgemaakt op de relevante
+                                    onlinediensten en geldt vanaf het moment dat deze bekendgemaakt wordt.
+                                </p>
                             </div>
 
-                            <div class="vl-column vl-column--3 vl-column--m-3 vl-column--s-12 vl-column--xs-12 vl-column--start-10 vl-column--s-start-1">
-                                <vl-side-navigation aria-label="inhoudsopgave">
-                                    <vl-side-navigation-h2>Op deze pagina</vl-side-navigation-h2>
-                                    <vl-side-navigation-content>
-                                        <vl-side-navigation-group>
-                                            <vl-side-navigation-item>
-                                                <a href="#cookie-policy">
-                                                    Cookiebeleid
-                                                </a>
-                                            </vl-side-navigation-item>
-                                            <vl-side-navigation-item>
-                                                <a href="#cookie-definition">
-                                                    Wat zijn cookies precies
-                                                </a>
-                                            </vl-side-navigation-item>
-                                            <vl-side-navigation-item>
-                                                <a href="#cookie-management">
-                                                    Hoe kan ik het gebruik van cookies op deze onlinediensten weigeren
-                                                    of beheren?
-                                                </a>
-                                            </vl-side-navigation-item>
-                                            <vl-side-navigation-item>
-                                                <a href="#cookie-usage">
-                                                    Gebruikte cookies
-                                                </a>
-                                            </vl-side-navigation-item>
-                                        </vl-side-navigation-group>
-                                    </vl-side-navigation-content>
-                                </vl-side-navigation>
+                            <div class="vl-column vl-column--12 vl-column--m-12">
+                                <vl-title type="h2" id="cookie-definition">Wat zijn cookies precies?</vl-title>
+                                <p>
+                                    Cookies zijn kleine gegevens- of tekstbestanden die op uw computer of
+                                    mobiele apparaat worden geïnstalleerd wanneer u een website bezoekt of
+                                    een (mobiele) toepassing gebruikt. Het cookiebestand bevat een unieke
+                                    code waarmee uw browser herkend kan worden tijdens het bezoek aan de
+                                    online service of tijdens opeenvolgende, herhaalde bezoeken. Cookies
+                                    kunnen worden geplaatst door de server van de website of applicatie die
+                                    u bezoekt, maar ook door servers van derden die al dan niet met deze
+                                    website of applicatie samenwerken.
+                                </p>
+                                <br />
+                                <p>
+                                    Cookies maken over het algemeen de interactie tussen de bezoeker en de
+                                    website of applicatie gemakkelijker en sneller en helpen de bezoeker om
+                                    te navigeren tussen de verschillende delen van een website of
+                                    applicatie.
+                                </p>
+                            </div>
+
+                            <div class="vl-column vl-column--12 vl-column--m-12">
+                                <vl-title type="h2" id="cookie-management"
+                                    >Hoe kan ik het gebruik van cookies op deze onlinediensten weigeren of
+                                    beheren?</vl-title
+                                >
+                                <vl-typography>
+                                    <p>
+                                        U kunt de installatie van cookies weigeren via uw
+                                        browserinstellingen. U kunt op elk gewenst moment ook de reeds
+                                        geïnstalleerde cookies van uw computer of mobiele apparaat
+                                        verwijderen. Instructies vindt u op de website van uw browser:
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            <vl-link
+                                                href="https://support.microsoft.com/nl-be/help/17479/windows-internet-explorer-11-change-security-privacy-settings"
+                                                external
+                                                label="Ga naar Microsoft Internet Explorer (opent in een nieuw venster)"
+                                                >Microsoft Internet Explorer</vl-link
+                                            >
+                                        </li>
+                                        <li>
+                                            <vl-link
+                                                href="https://support.microsoft.com/nl-nl/help/4468242/microsoft-edge-browsing-data-and-privacy-microsoft-privacy"
+                                                external
+                                                label="Ga naar Microsoft Edge (opent in een nieuw venster)"
+                                                >Microsoft Edge</vl-link
+                                            >
+                                        </li>
+                                        <li>
+                                            <vl-link
+                                                href="http://support.google.com/chrome/bin/answer.py?hl=nl&amp;answer=95647"
+                                                external
+                                                label="Ga naar Google Chrome (opent in een nieuw venster)"
+                                                >Google Chrome</vl-link
+                                            >
+                                        </li>
+                                        <li>
+                                            <vl-link
+                                                href="http://support.mozilla.org/nl/kb/cookies-in-en-uitschakelen-websites-voorkeuren?redirectlocale=nl&amp;redirectslug=Cookies+in-+en+uitschakelen"
+                                                external
+                                                label="Ga naar Mozilla Firefox (opent in een nieuw venster)"
+                                                >Mozilla Firefox</vl-link
+                                            >
+                                        </li>
+                                        <li>
+                                            <vl-link href="http://support.apple.com/kb/PH5042" external
+                                                label="Ga naar Apple Safari (opent in een nieuw venster)"
+                                                >Apple Safari</vl-link
+                                            >
+                                        </li>
+                                    </ul>
+                                    <p>
+                                        Wanneer u cookies uitschakelt, moet u er rekening mee houden dat
+                                        bepaalde grafische elementen er niet mooi kunnen uitzien, of dat u
+                                        bepaalde toepassingen niet kunt gebruiken. Hieronder vindt u een
+                                        gedetailleerde lijst van alle cookies die in deze website of
+                                        toepassing worden gebruikt.
+                                    </p>
+                                </vl-typography>
+                            </div>
+
+                            <div class="vl-column vl-column--12 vl-column--m-12">
+                                <vl-title type="h2" id="cookie-usage">Gebruikte cookies</vl-title>
+                                <vl-header-cookie></vl-header-cookie>
+                                <vl-header-authentication-cookie></vl-header-authentication-cookie>
+                                <vl-authentication-cookie></vl-authentication-cookie>
+                                <vl-jsessionid-cookie></vl-jsessionid-cookie>
+                                <vl-sticky-session-cookie></vl-sticky-session-cookie>
+                                <slot></slot>
                             </div>
                         </div>
-                    </div>
+                    </vl-side-navigation-layout>
                 </section>
 
                 <section class="vl-section vl-section--overlap">

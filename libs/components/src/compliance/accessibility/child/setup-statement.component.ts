@@ -19,8 +19,8 @@ export const setupStatement = ({ evaluation, date, dateModified }: SetupStatemen
                 return null;
         }
     };
-    return html` <div id="setup-accessibility-statement" class="vl-column vl-column--12 vl-column--m-12">
-        <vl-title type="h2">Opstelling van deze toegankelijkheidsverklaring</vl-title>
+    return html` <div class="vl-column vl-column--12 vl-column--m-12">
+        <vl-title type="h2" id="setup-accessibility-statement">Opstelling van deze toegankelijkheidsverklaring</vl-title>
         <p>${setupStatementTemplate()}</p>
     </div>`;
 };

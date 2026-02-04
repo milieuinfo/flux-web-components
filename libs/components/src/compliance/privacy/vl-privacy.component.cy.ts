@@ -99,20 +99,23 @@ describe('cypress-component - compliance components - vl-privacy - properties fu
         cy.viewport(1920, 1080);
         mountDefault(defaultProps);
 
-        const shouldHaveExpandedToggle = (href: string, expanded: boolean) => {
-            const have = expanded ? 'have' : 'not.have';
+        // The new side-navigation-next component uses active class to indicate active state
+        const shouldHaveActiveLink = (href: string, active: boolean) => {
+            const have = active ? 'have' : 'not.have';
             cy.get('vl-privacy')
                 .shadow()
-                .find('vl-side-navigation')
-                .find(`vl-side-navigation-toggle[href="${href}"]`)
-                .should(`${have}.attr`, 'aria-expanded', `${expanded}`);
+                .find('vl-side-navigation-layout')
+                .find('vl-side-navigation-next')
+                .shadow()
+                .find(`a[href="${href}"]`)
+                .should(`${have}.class`, 'active');
         };
 
-        shouldHaveExpandedToggle('#privacy-declaration', false);
+        shouldHaveActiveLink('#privacy-declaration', false);
 
         cy.get('vl-privacy').shadow().find('vl-title#privacy-declaration').scrollIntoView();
 
-        shouldHaveExpandedToggle('#privacy-declaration', true);
+        shouldHaveActiveLink('#privacy-declaration', true);
     });
 });
 

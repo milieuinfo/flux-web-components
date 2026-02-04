@@ -4,7 +4,7 @@ import { content, contentElements } from './content.component';
 
 const mountDefault = (props: AccessibilityProperties) => cy.mount(content(props));
 
-registerWebComponents(contentElements());
+registerWebComponents([...contentElements()]);
 
 describe('cypress-component - compliance components - accessibility content', () => {
     const props: AccessibilityProperties = {
@@ -28,13 +28,13 @@ describe('cypress-component - compliance components - accessibility content', ()
     });
 
     it('should mount', () => {
-        cy.get('section[id="content"]');
+        cy.get('[id="content"]');
     });
 
     it('should be accessible', () => {
         cy.injectAxe();
 
-        cy.checkA11y('section[id="content"]');
+        cy.checkA11y('[id="content"]');
     });
 
     it('should render the correct application', () => {
@@ -46,12 +46,7 @@ describe('cypress-component - compliance components - accessibility content', ()
     });
 
     it('should render the correct enforcement procedure', () => {
-        cy.get('div[id="enforcement-procedure"]');
-    });
-
-    it('should render the side navigation', () => {
-        cy.get('[id="side-nav-accessibility"]').should('have.attr', 'aria-label', 'inhoudsopgave');
-        cy.get('vl-side-navigation').should('exist');
+        cy.get('#enforcement-procedure');
     });
 
     it('should render with some basic styling from DV - h2 should have the correct style', () => {
@@ -62,10 +57,10 @@ describe('cypress-component - compliance components - accessibility content', ()
     });
 });
 
-describe('cypress-component - compliance components - accessibility content - helper function <contentChildElements()> ', () => {
-    it('should return an array of WebComponents with a length of 6', () => {
+describe('cypress-component - compliance components - accessibility content - helper function <contentElements()> ', () => {
+    it('should return an array of WebComponents with a length of 5', () => {
         const elements = contentElements();
         expect(elements).to.be.an('array');
-        expect(elements).to.have.length(6);
+        expect(elements).to.have.length(5);
     });
 });

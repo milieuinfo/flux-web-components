@@ -96,15 +96,13 @@ export const functionalHeaderStickyWithSideNavigationHTML = `
     <main>
         <vl-header development simple identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb"></vl-header>
         <vl-functional-header sticky skip-to-content-id="#hoofdstuk-1">
-            <div slot="title">Sticky functional header demo</div>     
+            <div slot="title">Sticky functional header demo</div>
         </vl-functional-header>
 
-        <div class="vl-content-block">
-            <div class="vl-grid vl-stacked-small">
-                <div class="vl-column vl-column--8 vl-column--m-9 vl-column--s-12 vl-column--xs-12">
-                    <vl-side-navigation-reference>
-                        <section class="vl-section">
-                            <vl-title type="h2" id="hoofdstuk-1">Hoofdstuk 1</vl-title>
+        <vl-side-navigation-layout content-block class="vl-margin--large" custom-css=":host {--vl-side-navigation-top: 200px}">
+            <div slot="content" id="sticky-demo-content">
+                <section class="vl-section">
+                    <vl-title type="h2" id="hoofdstuk-1">Hoofdstuk 1</vl-title>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac dignissim magna.
                             Integer ligula lacus, volutpat vitae arcu eu, laoreet euismod sapien. Donec viverra
                             nunc non lectus hendrerit, eget faucibus dolor congue. Fusce at dolor dictum ligula
