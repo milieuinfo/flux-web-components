@@ -7,6 +7,12 @@ export const stepArgs = {
     defaultOpen: false,
     toggleable: false,
     type: null,
+    iconSlot: '',
+    subIconSlot: '',
+    titleSlot: '',
+    titleAnnotationSlot: '',
+    subtitleSlot: '',
+    contentSlot: '',
 };
 
 export const stepArgTypes: ArgTypes<typeof stepArgs> = {
@@ -39,6 +45,60 @@ export const stepArgTypes: ArgTypes<typeof stepArgs> = {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: String(stepArgs.defaultOpen) },
+        },
+    },
+    iconSlot: {
+        name: 'icon',
+        description: 'Element voor het hoofd-icoon van de step.',
+        table: {
+            type: { summary: TYPES.HTML },
+            category: CATEGORIES.SLOTS,
+            defaultValue: { summary: stepArgs.iconSlot },
+        },
+    },
+    subIconSlot: {
+        name: 'sub-icon',
+        description: 'Element voor het sub-icoon van de step.',
+        table: {
+            type: { summary: TYPES.HTML },
+            category: CATEGORIES.SLOTS,
+            defaultValue: { summary: stepArgs.subIconSlot },
+        },
+    },
+    titleSlot: {
+        name: 'title',
+        description: 'Element voor de titel van de step.',
+        table: {
+            type: { summary: TYPES.HTML },
+            category: CATEGORIES.SLOTS,
+            defaultValue: { summary: stepArgs.titleSlot },
+        },
+    },
+    titleAnnotationSlot: {
+        name: 'title-annotation',
+        description: 'Element voor een annotatie bij de titel van de step.',
+        table: {
+            type: { summary: TYPES.HTML },
+            category: CATEGORIES.SLOTS,
+            defaultValue: { summary: stepArgs.titleAnnotationSlot },
+        },
+    },
+    subtitleSlot: {
+        name: 'subtitle',
+        description: 'Element voor de subtitel van de step.',
+        table: {
+            type: { summary: TYPES.HTML },
+            category: CATEGORIES.SLOTS,
+            defaultValue: { summary: stepArgs.subtitleSlot },
+        },
+    },
+    contentSlot: {
+        name: 'content',
+        description: 'Element voor de hoofdcontent van de step.',
+        table: {
+            type: { summary: TYPES.HTML },
+            category: CATEGORIES.SLOTS,
+            defaultValue: { summary: stepArgs.contentSlot },
         },
     },
 };
