@@ -308,6 +308,37 @@ describe('cypress-component - block components - vl-steps - toggleable', () => {
             .find('li.vl-step.vl-step--accordion.js-vl-accordion.js-vl-accordion--open')
             .should('have.length', 3);
     });
+
+    it('should dispatch vl-on-toggle event when toggling a step', () => {
+        cy.mount(toggleableTemplate());
+        cy.createStubForEvent('vl-step', 'vl-on-toggle');
+
+        // click the toggle button to open the step
+        cy.get('vl-steps')
+            .find('vl-step')
+            .first()
+            .shadow()
+            .find('button.vl-step__header.js-vl-accordion__toggle')
+            .click();
+
+        cy.get('@vl-on-toggle')
+            .should('have.been.calledOnce')
+            .its('firstCall.args.0.detail')
+            .should('deep.equal', { open: true });
+
+        // click the toggle button again to close the step
+        cy.get('vl-steps')
+            .find('vl-step')
+            .first()
+            .shadow()
+            .find('button.vl-step__header.js-vl-accordion__toggle')
+            .click();
+
+        cy.get('@vl-on-toggle')
+            .should('have.been.calledTwice')
+            .its('secondCall.args.0.detail')
+            .should('deep.equal', { open: false });
+    });
 });
 
 describe('cypress-component - block components - vl-steps - line', () => {

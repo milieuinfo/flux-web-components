@@ -98,8 +98,10 @@ export class VlStepComponent extends BaseLitElement {
                 });
             }
 
+            accordionToggle?.addEventListener('click', () => this.handleClick());
+
             if (this.defaultOpen) {
-                if (!(this.shadowRoot?.querySelector('li.js-vl-accordion--open'))) {
+                if (!this.shadowRoot?.querySelector('li.js-vl-accordion--open')) {
                     accordionToggle?.click();
                 }
             }
@@ -110,6 +112,19 @@ export class VlStepComponent extends BaseLitElement {
         ) as HTMLSlotElement | null;
         this.isTitleAnnotationSlotAssigned =
             (titleAnnotationSlot && titleAnnotationSlot.assignedNodes().length > 0) || false;
+    }
+
+    private handleClick(): void {
+        const accordionElement = this.shadowRoot?.querySelector('.js-vl-accordion');
+        const isOpen = accordionElement?.classList.contains('js-vl-accordion--open') || false;
+
+        this.dispatchEvent(
+            new CustomEvent('vl-on-toggle', {
+                detail: {
+                    open: isOpen,
+                },
+            })
+        );
     }
 
     private getStepHeaderTemplate(): TemplateResult {

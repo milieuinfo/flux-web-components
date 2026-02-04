@@ -1,5 +1,6 @@
 import { CATEGORIES, CONTROLS, defaultArgs, defaultArgTypes, ICON_PLACEMENT, TYPES } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components-vite';
+import { action } from 'storybook/actions';
 import { accordionArgs } from '../../accordion/stories/vl-accordion.stories-arg';
 
 export const stepArgs = {
@@ -7,6 +8,7 @@ export const stepArgs = {
     defaultOpen: false,
     toggleable: false,
     type: null,
+    onToggle: action('vl-on-toggle'),
 };
 
 export const stepArgTypes: ArgTypes<typeof stepArgs> = {
@@ -39,6 +41,15 @@ export const stepArgTypes: ArgTypes<typeof stepArgs> = {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: String(stepArgs.defaultOpen) },
+        },
+    },
+    onToggle: {
+        name: 'vl-on-toggle',
+        description:
+            'Afgevuurd bij het openen of sluiten van de toggleable step.<br>Het event bevat of de step geopend of gesloten is.<br>Werkt enkel in combinatie met het `toggleable` attribuut.',
+        table: {
+            type: { summary: '{ open: boolean }' },
+            category: CATEGORIES.EVENTS,
         },
     },
 };
