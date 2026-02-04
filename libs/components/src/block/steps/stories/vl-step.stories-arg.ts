@@ -7,6 +7,7 @@ export const stepArgs = {
     defaultOpen: false,
     toggleable: false,
     type: null,
+    contentRenderer: undefined,
     iconSlot: '',
     subIconSlot: '',
     titleSlot: '',
@@ -45,6 +46,20 @@ export const stepArgTypes: ArgTypes<typeof stepArgs> = {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: String(stepArgs.defaultOpen) },
+        },
+    },
+    contentRenderer: {
+        name: 'contentRenderer',
+        description:
+            'Functie die aangeroepen wordt om dynamische content te renderen op basis van de open/closed state.<br>' +
+            'Signatuur: `(open: boolean) => TemplateResult`<br>' +
+            'Werkt enkel in combinatie met het `toggleable` attribuut.<br>' +
+            'Wanneer deze property is ingesteld, wordt het `content` slot genegeerd.',
+        control: false,
+        table: {
+            type: { summary: '(open: boolean) => TemplateResult' },
+            category: CATEGORIES.PROPERTIES,
+            defaultValue: { summary: 'undefined' },
         },
     },
     iconSlot: {
@@ -94,7 +109,9 @@ export const stepArgTypes: ArgTypes<typeof stepArgs> = {
     },
     contentSlot: {
         name: 'content',
-        description: 'Element voor de hoofdcontent van de step.',
+        description:
+            'Element voor de hoofdcontent van de step.<br>' +
+            'Wordt genegeerd wanneer de `contentRenderer` property is ingesteld.',
         table: {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,

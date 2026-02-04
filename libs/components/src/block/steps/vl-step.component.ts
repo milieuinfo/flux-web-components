@@ -17,6 +17,10 @@ export class VlStepComponent extends BaseLitElement {
     private toggleable = false;
     private defaultOpen = false;
 
+    // Properties
+    open = false;
+    contentRenderer?: (open: boolean) => TemplateResult;
+
     // Private properties
     private isTitleAnnotationSlotAssigned = true;
     private customCSSStyleSheet = new CSSStyleSheet();
@@ -34,6 +38,8 @@ export class VlStepComponent extends BaseLitElement {
             type: { type: String, reflect: true },
             toggleable: { type: Boolean, reflect: true },
             defaultOpen: { type: Boolean, attribute: 'default-open', reflect: true },
+            open: { type: Boolean, reflect: true, attribute: false },
+            contentRenderer: { type: Function, attribute: false },
             isTitleAnnotationSlotAssigned: { attribute: false },
         };
     }
@@ -57,6 +63,10 @@ export class VlStepComponent extends BaseLitElement {
             'vl-step--accordion js-vl-accordion': this.toggleable,
         };
 
+        const contentTemplate = this.contentRenderer
+            ? this.contentRenderer(this.open)
+            : html`<slot name="content"></slot>`;
+
         return html`
             <li role="listitem" class=${classMap(classes)}>
                 <div class="vl-step__container">
@@ -69,9 +79,7 @@ export class VlStepComponent extends BaseLitElement {
                     <div class="vl-step__wrapper">
                         ${stepHeaderTemplate}
                         <div class="vl-step__content-wrapper">
-                            <div class="vl-step__content">
-                                <slot name="content"></slot>
-                            </div>
+                            <div class="vl-step__content">${contentTemplate}</div>
                         </div>
                     </div>
                 </div>
@@ -98,8 +106,10 @@ export class VlStepComponent extends BaseLitElement {
                 });
             }
 
+            accordionToggle?.addEventListener('click', () => this.handleClick());
+
             if (this.defaultOpen) {
-                if (!(this.shadowRoot?.querySelector('li.js-vl-accordion--open'))) {
+                if (!this.shadowRoot?.querySelector('li.js-vl-accordion--open')) {
                     accordionToggle?.click();
                 }
             }
@@ -110,6 +120,21 @@ export class VlStepComponent extends BaseLitElement {
         ) as HTMLSlotElement | null;
         this.isTitleAnnotationSlotAssigned =
             (titleAnnotationSlot && titleAnnotationSlot.assignedNodes().length > 0) || false;
+    }
+
+    private handleClick(): void {
+        const accordionElement = this.shadowRoot?.querySelector('.js-vl-accordion');
+        const isOpen = accordionElement?.classList.contains('js-vl-accordion--open') || false;
+
+        this.open = isOpen;
+
+        this.dispatchEvent(
+            new CustomEvent('vl-on-toggle', {
+                detail: {
+                    open: isOpen,
+                },
+            })
+        );
     }
 
     private getStepHeaderTemplate(): TemplateResult {
