@@ -43,10 +43,9 @@ export const inaccessibleContent = ({ compliance, evaluation, limitations }: Ina
     };
     return html` <div
         style=${compliance === 'FULLY_COMPLIANT' ? 'display: none' : ''}
-        id="inaccessible-content"
-        class="vl-column vl-column--12 vl-column--m-12" 
+        class="vl-column vl-column--12 vl-column--m-12"
     >
-        <vl-title type="h2">Niet-toegankelijke inhoud</vl-title>
+        <vl-title type="h2" id="inaccessible-content">Niet-toegankelijke inhoud</vl-title>
         ${inaccessibleContentTemplate()}
     </div>`;
 };

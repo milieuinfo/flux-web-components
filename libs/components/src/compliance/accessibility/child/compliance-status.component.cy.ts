@@ -16,18 +16,18 @@ describe('cypress-component - compliance components - accessibility compliance-s
 
     it('should mount', () => {
         cy.get('[data-cy-root]').within(() => {
-            cy.get('div[id="compliance-status"]').should('exist');
+            cy.get('#compliance-status').should('exist');
         });
     });
 
     it('should be accessible', () => {
         cy.injectAxe();
 
-        cy.checkA11y('div[id="compliance-status"]');
+        cy.get('#compliance-status').parent().then(($section) => cy.checkA11y($section[0]));
     });
 
     it('should render with some basic styling from DV - h2 should have the correct style', () => {
-        cy.get('div[id="compliance-status"]').should('have.class', 'vl-column--m-12');
+        cy.get('#compliance-status').parent().should('have.class', 'vl-column--m-12');
     });
 });
 
@@ -39,12 +39,12 @@ describe('cypress-component - compliance components - accessibility compliance-s
 
     it('should render the NOT_EVALUATED message when evaluation == NOT_EVALUATED', () => {
         mountDefault({ ...props });
-        cy.get('div[id="compliance-status"]').contains('Deze website voldoet niet aan de');
+        cy.get('#compliance-status').parent().contains('Deze website voldoet niet aan de');
     });
 
     it('should NOT render the NOT_EVALUATED message when evaluation == *-EVALUATED', () => {
         mountDefault({ ...props, evaluation: EVALUATION_STATUS.EXPERT_EVALUATED });
-        cy.get('div[id="compliance-status"]').should('not.contain', 'Deze website voldoet niet aan de');
+        cy.get('#compliance-status').parent().should('not.contain', 'Deze website voldoet niet aan de');
     });
 });
 
@@ -56,16 +56,16 @@ describe('cypress-component - compliance components - accessibility compliance-s
 
     it('should render the FULLY_COMPLIANT message when compliance == FULLY_COMPLIANT', () => {
         mountDefault({ ...props });
-        cy.get('div[id="compliance-status"]').contains('Deze website voldoet volledig aan de ');
+        cy.get('#compliance-status').parent().contains('Deze website voldoet volledig aan de ');
     });
 
     it('should render the PARTIALLY_COMPLIANT message when compliance == PARTIALLY_COMPLIANT', () => {
         mountDefault({ ...props, compliance: COMPLIANCE_STATUS.PARTIALLY_COMPLIANT });
-        cy.get('div[id="compliance-status"]').contains('Deze website voldoet gedeeltelijk aan de ');
+        cy.get('#compliance-status').parent().contains('Deze website voldoet gedeeltelijk aan de ');
     });
 
     it('should render the NOT_COMPLIANT message when compliance == NOT_COMPLIANT', () => {
         mountDefault({ ...props, compliance: COMPLIANCE_STATUS.NOT_COMPLIANT });
-        cy.get('div[id="compliance-status"]').contains('Deze website voldoet niet aan de');
+        cy.get('#compliance-status').parent().contains('Deze website voldoet niet aan de');
     });
 });

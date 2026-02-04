@@ -16,7 +16,7 @@ describe('cypress-component - compliance components - accessibility side-navigat
     });
 
     it('should mount', () => {
-        cy.get('div.vl-column').contains('Opstelling van deze toegankelijkheidsverklaring');
+        cy.get('vl-side-navigation-next').contains('Opstelling van deze toegankelijkheidsverklaring');
     });
 
     it('should be accessible', () => {
@@ -33,10 +33,7 @@ describe('cypress-component - compliance components - accessibility side-navigat
             compliance: COMPLIANCE_STATUS.FULLY_COMPLIANT,
         });
 
-        const listItemWithComplianceStyles = cy
-            .get('div.vl-column')
-            .find('vl-side-navigation-group > vl-side-navigation-item')
-            .eq(1);
+        const listItemWithComplianceStyles = cy.get('vl-side-navigation-next').find('ul > li').eq(1);
 
         listItemWithComplianceStyles.should('have.css', 'display', 'none');
     });

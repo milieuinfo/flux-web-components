@@ -25,18 +25,17 @@ describe('cypress-component - compliance components - accessibility inaccessible
     });
 
     it('should mount', () => {
-        cy.get('div[id="inaccessible-content"]');
+        cy.get('#inaccessible-content');
     });
 
     it('should be accessible', () => {
         cy.injectAxe();
 
-        cy.checkA11y('div[id="inaccessible-content"]');
+        cy.get('#inaccessible-content').parent().then(($section) => cy.checkA11y($section[0]));
     });
 
     it('should render with some basic styling from DV - h2 should have the correct style', () => {
-        cy.get('div[id="inaccessible-content"]')
-            .find('vl-title[type="h2"]')
+        cy.get('#inaccessible-content')
             .shadow()
             .find('h2')
             .should('have.css', 'font-size', '26px')
@@ -63,7 +62,7 @@ describe('cypress-component - compliance components - accessibility inaccessible
             compliance: COMPLIANCE_STATUS.FULLY_COMPLIANT,
             evaluation: EVALUATION_STATUS.EXPERT_EVALUATED,
         });
-        cy.get('div[id="inaccessible-content"]').should('have.css', 'display', 'none');
+        cy.get('#inaccessible-content').parent().should('have.css', 'display', 'none');
     });
 });
 
@@ -86,12 +85,14 @@ describe('cypress-component - compliance components - accessibility inaccessible
     it('should NOT render the LIMITATIONS messages when limitations are NOT present', () => {
         mountDefault({ ...baseProps });
 
-        cy.get('div[id="inaccessible-content"]').should('not.contain', 'Niet-naleving van het bestuursdecreet');
-        cy.get('div[id="inaccessible-content"]').should('not.contain', 'Onevenredige last');
-        cy.get('div[id="inaccessible-content"]').should(
-            'not.contain',
-            'De inhoud valt buiten de werkingssfeer van de toepasselijke wetgeving'
-        );
+        cy.get('#inaccessible-content').parent().should('not.contain', 'Niet-naleving van het bestuursdecreet');
+        cy.get('#inaccessible-content').parent().should('not.contain', 'Onevenredige last');
+        cy.get('#inaccessible-content')
+            .parent()
+            .should(
+                'not.contain',
+                'De inhoud valt buiten de werkingssfeer van de toepasselijke wetgeving'
+            );
     });
 
     it('should render limitations with timing', () => {

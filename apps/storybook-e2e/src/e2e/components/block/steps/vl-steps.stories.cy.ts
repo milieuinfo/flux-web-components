@@ -67,7 +67,8 @@ describe('cypress-e2e - block components - vl-steps - side-navigation story', ()
         cy.visitWithA11y(stepsSideNavigationUrl);
         cy.get('vl-steps').shadow();
 
-        cy.get('vl-side-navigation')
-            .find('vl-side-navigation-toggle[href="#vl-steps-vl-step-2"]')
+        cy.get('vl-side-navigation-next')
+            .shadow()
+            .find('nav a[href="#vl-steps-vl-step-2"]');
     });
 });
