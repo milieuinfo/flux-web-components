@@ -14,3 +14,12 @@ export const SelectRichPosition = {
 } as const;
 
 export type SelectRichPosition = (typeof SelectRichPosition)[keyof typeof SelectRichPosition];
+
+export const SelectSearchStrategy = {
+    DEFAULT: 'default',
+    EXACT_AND: 'exact-and',
+    EXACT_OR: 'exact-or',
+} as const;
+
+export type SelectSearchStrategy =
+    (typeof SelectSearchStrategy)[keyof typeof SelectSearchStrategy];

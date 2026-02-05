@@ -7,6 +7,22 @@ import FormControlPublicMethods from '../../form-control/stories/form-control.pu
 <FluxComponentMetaData id="components-form-select-rich" />
 
 
+## Inhoudstafel
+
+ - [Doel](#doel)
+ - [Voorbeeld](#voorbeeld)
+ - [Configuratie](#configuratie)
+ - [Publieke methodes](#publieke-methodes)
+ - [Styles](#styles)
+ - [Events](#events)
+ - [Select opties](#select-opties)
+ - [Accessibility](#accessibility)
+ - [Varianten](#varianten)
+ - [Zoek strategieën](#zoek-strategieën)
+ - [Validatie](#validatie)
+ - [Referenties](#referenties)
+
+
 ## Doel
 
 Gebruik de `select-rich` component om een uitgebreid select of multiselect veld toe te voegen aan een pagina.<br/>
@@ -156,7 +172,7 @@ Indien er minder dan 7 opties zijn raden we aan checkboxes of radio buttons te g
 
 De zoekfunctie is standaard geactiveerd voor de multiselect.
 
-<Canvas of={VlSelectRichStories.SelectRichSearch} />
+<Canvas of={VlSelectRichStories.SelectRichDefault} />
 
 <details>
     <summary>options</summary>
@@ -291,6 +307,40 @@ Indien de 'required' boolean op true staat, moet je een value programmatorisch s
         { label: 'Rio Piedras', value: 'rio piedras', disabled: true }
 ]`} language="ts" dark={true} />
 </details>
+
+
+## Zoek strategieën
+
+Het `search-strategy` attribuut (reactief) bepaalt hoe de zoekfunctie werkt bij het filteren van opties.<br/>
+Er zijn drie zoek strategieën beschikbaar: `default`, `exact-and` en `exact-or`.<br/>
+
+### default
+
+De standaard zoek strategie gebruikt de native Choices.js fuzzy matching van [Fuse.js](https://www.fusejs.io/).<br/>
+Dit betekent dat de zoekterm niet exact hoeft voor te komen in de optie.
+
+### exact-and
+
+Bij de `exact-and` strategie moeten **alle** zoekwoorden exact voorkomen in het label of value van een optie
+(substring match). Bij invoer van meerdere woorden, worden alleen de opties getoond die alle woorden bevatten
+(AND-logica).
+
+**Voorbeeld:** Als je zoekt op "standaard gent", wordt alleen "De Standaard van Gent" getoond, omdat dit de enige optie
+is die zowel "standaard" als "gent" bevat.
+
+Deze strategie is geschikt wanneer je precies wil kunnen filteren op meerdere criteria tegelijk.
+
+### exact-or
+
+Bij de `exact-or` strategie moet **minstens één** zoekwoord exact voorkomen in het label of value van een optie
+(substring match). Wanneer je meerdere woorden invoert, worden alle opties getoond die één of meer woorden bevatten
+(OR-logica).
+
+**Voorbeeld:** Als je zoekt op "standaard gent", worden alle opties getoond die "standaard" **of** "gent" bevatten,
+zoals "De Standaard van gisteren", "De Standaard van morgen", "De Standaard van Berchem", "De Standaard van Gent"
+en "Brussel Antwerpen Gent".
+
+Deze strategie is geschikt wanneer je breed wil kunnen zoeken op meerdere termen tegelijk.
 
 
 ## Validatie

@@ -12,6 +12,7 @@ import { vlSelectRichFluxStyles } from './styles/vl-select-rich.flux-css';
 import selectStyle from './styles/vl-select.dv-css';
 import { selectRichDefaults } from './vl-select-rich.defaults';
 import { SelectRichOption } from './vl-select-rich.model';
+import { getSearchMatcher, SelectRichSearchMatcher } from './vl-select-rich.search-matchers';
 
 @webComponent('vl-select-rich')
 export class VlSelectRichComponent extends FormControl {
@@ -30,6 +31,10 @@ export class VlSelectRichComponent extends FormControl {
     private resultLimit = selectRichDefaults.resultLimit;
     private noResultsText = selectRichDefaults.noResultsText;
     private noChoicesText = selectRichDefaults.noChoicesText;
+    private searchStrategy = selectRichDefaults.searchStrategy;
+    // Search matcher
+    private searchMatcher: SelectRichSearchMatcher | null = null;
+    private nativeSearchMethod: ((value: string) => number | null) | null = null;
     // State
     private value: FormValue = null;
     private dropdownInitialised = false;
@@ -77,6 +82,7 @@ export class VlSelectRichComponent extends FormControl {
             noResultsText: { type: String, attribute: 'no-results-text' },
             noChoicesText: { type: String, attribute: 'no-choices-text' },
             searchPlaceholder: { type: String, attribute: 'search-placeholder' },
+            searchStrategy: { type: String, attribute: 'search-strategy' },
             value: {
                 type: FormData,
                 state: true,
@@ -138,6 +144,9 @@ export class VlSelectRichComponent extends FormControl {
         // Fix voor Choices.js search event dat niet afgevuurd wordt als de search value verwijderd wordt.
         this.choices?.input?.element?.addEventListener('input', this.onSearchInput);
 
+        // Installeer de search wrapper die dynamisch de juiste matcher gebruikt
+        this.installSearchWrapper();
+
         this.initialised = true;
     };
 
@@ -182,6 +191,11 @@ export class VlSelectRichComponent extends FormControl {
 
         if (changedProperties.has('resultLimit')) {
             this.choices.config.searchResultLimit = this.resultLimit;
+        }
+
+        if (changedProperties.has('searchStrategy')) {
+            // Update de matcher - de wrapper zal automatisch de juiste gebruiken
+            this.searchMatcher = getSearchMatcher(this.searchStrategy);
         }
     }
 
@@ -246,6 +260,23 @@ export class VlSelectRichComponent extends FormControl {
             return;
         }
         this.options = structuredClone(options);
+    }
+
+    /**
+     * Registreert een custom search matcher voor het zoeken in de opties.
+     * Gebruik null om terug te keren naar het native Choices.js gedrag.
+     * @param matcher - De search matcher functie die gebruikt moet worden, of null voor native gedrag
+     * @example
+     * ```typescript
+     * import { exactAndMatcher } from './vl-select-rich.search-matchers';
+     * selectRichComponent.setSearchMatcher(exactAndMatcher);
+     * // Of terug naar native gedrag:
+     * selectRichComponent.setSearchMatcher(null);
+     * ```
+     */
+    setSearchMatcher(matcher: SelectRichSearchMatcher | null): void {
+        this.searchMatcher = matcher;
+        // De wrapper functie zal automatisch de juiste matcher gebruiken
     }
 
     /**
@@ -508,6 +539,29 @@ export class VlSelectRichComponent extends FormControl {
         const value = (event?.target as HTMLInputElement)?.value;
         this.dispatchEvent(new CustomEvent('vl-select-search', { bubbles: true, composed: true, detail: { value } }));
     };
+
+    /**
+     * Installeert een wrapper functie die dynamisch tussen native en custom search schakelt.
+     * Deze wrapper blijft altijd aanwezig en roept de juiste matcher aan op basis van searchMatcher.
+     */
+    private installSearchWrapper(): void {
+        if (!this.choices) {
+            return;
+        }
+
+        // Sla de originele native search methode op
+        this.nativeSearchMethod = (this.choices as any)._searchChoices.bind(this.choices);
+
+        // Installeer een permanente wrapper die dynamisch de juiste matcher gebruikt
+        (this.choices as any)._searchChoices = (value: string) => {
+            // Als er een custom matcher is, gebruik die
+            if (this.searchMatcher) {
+                return this.searchMatcher(this.choices!, value);
+            }
+            // Anders gebruik de native Choices.js methode
+            return this.nativeSearchMethod!(value);
+        };
+    }
 }
 
 declare global {

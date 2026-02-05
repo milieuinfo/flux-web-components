@@ -2,7 +2,7 @@ import { CATEGORIES, CONTROLS, getSelectControlOptions, TYPES } from '@resources
 import { ArgTypes } from '@storybook/web-components-vite';
 import { formControlArgs, formControlArgTypes } from '../../form-control/stories/form-control.stories-arg';
 import { selectRichDefaults } from '../vl-select-rich.defaults';
-import { SelectRichPosition } from '../vl-select-rich.model';
+import { SelectRichPosition, SelectSearchStrategy } from '../vl-select-rich.model';
 import { action } from 'storybook/actions';
 
 type SelectRichArgs = typeof formControlArgs &
@@ -108,6 +108,17 @@ export const selectRichArgTypes: ArgTypes<SelectRichArgs> = {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: selectRichArgs.searchPlaceholder },
+        },
+    },
+    searchStrategy: {
+        name: 'search-strategy',
+        description: 'De zoek strategie die gebruikt wordt bij het zoeken in de opties.<br>Dit attribuut is reactief.',
+        control: { type: CONTROLS.SELECT },
+        options: Object.values(SelectSearchStrategy),
+        table: {
+            type: { summary: getSelectControlOptions(Object.values(SelectSearchStrategy)) },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: selectRichArgs.searchStrategy },
         },
     },
     initialOptions: {
