@@ -1706,3 +1706,317 @@ describe('cypress-component - form components - vl-select-rich - multiple in for
         });
     });
 });
+
+describe('cypress-component - form components - vl-select-rich - search strategies', () => {
+    const newspaperOptions: SelectRichOption[] = [
+        { label: 'De Morgen van gisteren', value: 'De Morgen van gisteren' },
+        { label: 'De Standaard van gisteren', value: 'De Standaard van gisteren' },
+        { label: 'De Standaard van morgen', value: 'De Standaard van morgen' },
+        { label: 'De Standaard van Berchem', value: 'De Standaard van Berchem' },
+        { label: 'De Standaard van Gent', value: 'De Standaard van Gent' },
+        { label: 'Brussel Antwerpen Gent', value: 'Brussel Antwerpen Gent' },
+    ];
+
+    it('should use default fuzzy search strategy', () => {
+        cy.mount(
+            html`<vl-select-rich
+                label="krant"
+                placeholder="Kies een krant"
+                search
+                search-strategy="default"
+                result-limit="20"
+                .options=${newspaperOptions}
+            ></vl-select-rich>`
+        );
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select-rich');
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+
+        // Test fuzzy search - typo should still find results
+        cy.get('vl-select-rich').shadow().find('input').type('standrd');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length.greaterThan', 0);
+
+        cy.checkA11y('vl-select-rich');
+    });
+
+    it('should use exact-and search strategy', () => {
+        cy.mount(
+            html`<vl-select-rich
+                label="krant"
+                placeholder="Kies een krant"
+                search
+                search-strategy="exact-and"
+                result-limit="20"
+                .options=${newspaperOptions}
+            ></vl-select-rich>`
+        );
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select-rich');
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+
+        // Search for "morgen standaard" - should only find "De Standaard van morgen" (1 result)
+        cy.get('vl-select-rich').shadow().find('input').type('morgen standaard');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 1);
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .contains('De Standaard van morgen');
+
+        cy.checkA11y('vl-select-rich');
+    });
+
+    it('should use exact-or search strategy', () => {
+        cy.mount(
+            html`<vl-select-rich
+                label="krant"
+                placeholder="Kies een krant"
+                search
+                search-strategy="exact-or"
+                result-limit="20"
+                .options=${newspaperOptions}
+            ></vl-select-rich>`
+        );
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select-rich');
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+
+        // Search for "morgen standaard" - should find all items with "morgen" OR "standaard" (5 results)
+        cy.get('vl-select-rich').shadow().find('input').type('morgen standaard');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 5);
+
+        cy.checkA11y('vl-select-rich');
+    });
+
+    it('should switch from default to exact-and strategy', () => {
+        cy.mount(
+            html`<vl-select-rich
+                id="test-select"
+                label="krant"
+                placeholder="Kies een krant"
+                search
+                search-strategy="default"
+                result-limit="20"
+                .options=${newspaperOptions}
+            ></vl-select-rich>`
+        );
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select-rich');
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+
+        // With default strategy, fuzzy search should work
+        cy.get('vl-select-rich').shadow().find('input').type('morgen');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length.greaterThan', 0);
+
+        // Clear search
+        cy.get('vl-select-rich').shadow().find('input').clear();
+
+        // Switch to exact-and strategy
+        cy.get('vl-select-rich').then((el) => {
+            const select = el[0] as VlSelectRichComponent;
+            select.setAttribute('search-strategy', 'exact-and');
+        });
+
+        // Search with exact-and - both words must be present
+        cy.get('vl-select-rich').shadow().find('input').type('morgen standaard');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 1);
+
+        cy.checkA11y('vl-select-rich');
+    });
+
+    it('should switch from exact-and to exact-or strategy', () => {
+        cy.mount(
+            html`<vl-select-rich
+                label="krant"
+                placeholder="Kies een krant"
+                search
+                search-strategy="exact-and"
+                result-limit="20"
+                .options=${newspaperOptions}
+            ></vl-select-rich>`
+        );
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select-rich');
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+
+        // With exact-and, should find 1 result
+        cy.get('vl-select-rich').shadow().find('input').type('morgen standaard');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 1);
+
+        // Clear search
+        cy.get('vl-select-rich').shadow().find('input').clear();
+
+        // Switch to exact-or strategy
+        cy.get('vl-select-rich').then((el) => {
+            const select = el[0] as VlSelectRichComponent;
+            select.setAttribute('search-strategy', 'exact-or');
+        });
+
+        // Search with exact-or - any word can be present
+        cy.get('vl-select-rich').shadow().find('input').type('morgen standaard');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 5);
+
+        cy.checkA11y('vl-select-rich');
+    });
+
+    it('should handle adding characters with exact-or strategy', () => {
+        cy.mount(
+            html`<vl-select-rich
+                label="krant"
+                placeholder="Kies een krant"
+                search
+                search-strategy="exact-or"
+                result-limit="20"
+                .options=${newspaperOptions}
+            ></vl-select-rich>`
+        );
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select-rich');
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+
+        // Search for "morgen" - should find 2 results
+        cy.get('vl-select-rich').shadow().find('input').type('morgen');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 2);
+
+        // Add " standaard" - should find 5 results (OR logic)
+        cy.get('vl-select-rich').shadow().find('input').type(' standaard');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 5);
+
+        cy.checkA11y('vl-select-rich');
+    });
+
+    it('should handle removing characters with exact-or strategy', () => {
+        cy.mount(
+            html`<vl-select-rich
+                label="krant"
+                placeholder="Kies een krant"
+                search
+                search-strategy="exact-or"
+                result-limit="20"
+                .options=${newspaperOptions}
+            ></vl-select-rich>`
+        );
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select-rich');
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+
+        // Search for "morgen standaard" - should find 5 results
+        cy.get('vl-select-rich').shadow().find('input').type('morgen standaard');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 5);
+
+        // Remove " standaard" by clearing and typing "morgen" - should find 2 results
+        cy.get('vl-select-rich').shadow().find('input').clear();
+        cy.get('vl-select-rich').shadow().find('input').type('morgen');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 2);
+
+        // Clear completely - should show all 6 options
+        cy.get('vl-select-rich').shadow().find('input').clear();
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 6);
+
+        cy.checkA11y('vl-select-rich');
+    });
+
+    it('should handle adding and removing characters with exact-and strategy', () => {
+        cy.mount(
+            html`<vl-select-rich
+                label="krant"
+                placeholder="Kies een krant"
+                search
+                search-strategy="exact-and"
+                result-limit="20"
+                .options=${newspaperOptions}
+            ></vl-select-rich>`
+        );
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select-rich');
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+
+        // Search for "standaard" - should find 4 results
+        cy.get('vl-select-rich').shadow().find('input').type('standaard');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 4);
+
+        // Add " gent" - should find 1 result (AND logic)
+        cy.get('vl-select-rich').shadow().find('input').type(' gent');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 1);
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .contains('De Standaard van Gent');
+
+        // Remove " gent" - should find 4 results again
+        cy.get('vl-select-rich').shadow().find('input').clear();
+        cy.get('vl-select-rich').shadow().find('input').type('standaard');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 4);
+
+        cy.checkA11y('vl-select-rich');
+    });
+});
