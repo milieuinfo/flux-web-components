@@ -1,4 +1,4 @@
 :root {
-    --vl-grid-row-gap: 1vmax;
-    --vl-grid-col-gap: 1vmax;
+    --vl-grid-row-gap: var(--vl-spacing--small);
+    --vl-grid-col-gap: var(--vl-spacing--small);
 }
