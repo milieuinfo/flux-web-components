@@ -345,9 +345,7 @@ export class VlCookieConsent extends BaseHTMLElement {
     }
 
     _addAnalytics() {
-        if (!document.getElementById(analytics.scriptId)) {
-            document.head.appendChild(analytics.script);
-        }
+        analytics.initializeTracking();
     }
 
     _getCookie(name: string) {

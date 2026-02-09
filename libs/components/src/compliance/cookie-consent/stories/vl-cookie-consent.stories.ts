@@ -21,8 +21,12 @@ export default {
 
 export const CookieConsentDefault = story(
     cookieConsentArgs,
-    ({ analytics, autoOptInFunctionalDisabled, owner, link, matomoId, matomoUrl, onClose }) =>
-        html`
+    ({ analytics, autoOptInFunctionalDisabled, owner, link, matomoId, matomoUrl, onClose }) => {
+        const handleOpenClick = () => {
+            document.querySelector<any>('#cookie-consent')?.open();
+        };
+
+        return html`
             <div>
                 <vl-cookie-consent
                     id="cookie-consent"
@@ -35,10 +39,11 @@ export const CookieConsentDefault = story(
                     link=${link}
                     @vl-close=${onClose}
                 ></vl-cookie-consent>
-                <vl-button id="button-open-cookie-consent" onClick="document.querySelector('#cookie-consent').open();">
+                <vl-button id="button-open-cookie-consent" @click=${handleOpenClick}>
                     Open cookie-consent
                 </vl-button>
             </div>
-        `
+        `;
+    }
 );
 CookieConsentDefault.storyName = 'vl-cookie-consent - default';
