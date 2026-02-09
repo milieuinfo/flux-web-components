@@ -6,7 +6,7 @@ export const vlInfoTyleFluxStyles: CSSResult = css`
         flex-direction: row;
     }
     :host .vl-info-tile__header__wrapper {
-        flex: 1 0 auto;
+        flex: 1 1 auto;
         display: flex;
         justify-content: space-between;
     }
