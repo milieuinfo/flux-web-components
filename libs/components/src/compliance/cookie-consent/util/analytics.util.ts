@@ -1,15 +1,15 @@
+declare global {
+    interface Window {
+        _paq?: Array<Array<string | number | object | undefined>>;
+    }
+}
+
 class AnalyticsUtil {
-    private _matomoScriptId: string;
     private _matomoPiwikScriptId: string;
     private matomoParameters: { matomoId: number; matomoUrl: string } | undefined;
 
     constructor() {
-        this._matomoScriptId = 'vl-cookie-consent-matomo-script';
         this._matomoPiwikScriptId = 'vl-cookie-consent-matomo-piwik-script';
-    }
-
-    get scriptId(): string {
-        return this._matomoScriptId;
     }
 
     /**
@@ -31,51 +31,76 @@ class AnalyticsUtil {
         return undefined;
     }
 
-    get script(): HTMLScriptElement {
-        const matomo = analytics.id;
-        const element = document.createElement('script');
-        element.setAttribute('id', this._matomoScriptId);
-        if (matomo) {
-            const script = document.createTextNode(
-                '' +
-                    'if (!window._paq) {' +
-                    'var _paq = window._paq || [];' +
-                    "_paq.push(['trackPageView']);" +
-                    "_paq.push(['enableLinkTracking']);" +
-                    '(function() {' +
-                    "var u='" +
-                    matomo.url +
-                    "';" +
-                    "_paq.push(['setTrackerUrl', u+'piwik.php']);" +
-                    "_paq.push(['setSiteId', " +
-                    matomo.id +
-                    ']);' +
-                    "var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];" +
-                    "g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; g.id='" +
-                    this._matomoPiwikScriptId +
-                    "'; s.parentNode.insertBefore(g,s);" +
-                    '})();' +
-                    '' +
-                    'var currentUrl = window.location.href;' +
-                    "window.addEventListener('hashchange', function() {" +
-                    "_paq.push(['setReferrerUrl', currentUrl]);" +
-                    "currentUrl = '' + window.location.hash.substr(1);" +
-                    "_paq.push(['setCustomUrl', currentUrl]);" +
-                    "_paq.push(['setDocumentTitle', document.title]);" +
-                    "_paq.push(['deleteCustomVariables', 'page']);" +
-                    "_paq.push(['setPagePerformanceTiming', 0]);" +
-                    "_paq.push(['trackPageView']);" +
-                    "var content = document.getElementById('content');" +
-                    "_paq.push(['MediaAnalytics::scanForMedia', content]);" +
-                    "_paq.push(['FormAnalytics::scanForForms', content]);" +
-                    "_paq.push(['trackContentImpressionsWithinNode', content]);" +
-                    "_paq.push(['enableLinkTracking']);" +
-                    '});' +
-                    '}'
-            );
-            element.appendChild(script);
+    /**
+     * Initialiseert Matomo tracking op een CSP-vriendelijke manier.
+     * In plaats van inline scripts te injecteren, wordt de configuratie via window._paq gedaan
+     * en wordt het externe Matomo script geladen.
+     */
+    initializeTracking(): void {
+        const matomo = this.id;
+        if (!matomo) {
+            return;
         }
-        return element;
+
+        // Initialiseer _paq array als deze nog niet bestaat
+        if (!window._paq) {
+            window._paq = [];
+        }
+
+        const _paq = window._paq;
+
+        // Configureer Matomo
+        _paq.push(['setTrackerUrl', matomo.url + 'piwik.php']);
+        _paq.push(['setSiteId', matomo.id]);
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+
+        // Load Matomo script
+        this.loadMatomoScript(matomo.url);
+
+        // Setup hashchange tracking voor SPAs
+        this.setupHashChangeTracking();
+    }
+
+    private loadMatomoScript(baseUrl: string): void {
+        // Check of script al geladen is
+        if (document.getElementById(this._matomoPiwikScriptId)) {
+            return;
+        }
+
+        const script = document.createElement('script');
+        script.id = this._matomoPiwikScriptId;
+        script.type = 'text/javascript';
+        script.async = true;
+        script.defer = true;
+        script.src = baseUrl + 'piwik.js';
+
+        const firstScript = document.getElementsByTagName('script')[0];
+        firstScript.parentNode?.insertBefore(script, firstScript);
+    }
+
+    private setupHashChangeTracking(): void {
+        let currentUrl = window.location.href;
+
+        window.addEventListener('hashchange', () => {
+            if (!window._paq) return;
+
+            window._paq.push(['setReferrerUrl', currentUrl]);
+            currentUrl = window.location.hash.substring(1);
+            window._paq.push(['setCustomUrl', currentUrl]);
+            window._paq.push(['setDocumentTitle', document.title]);
+            window._paq.push(['deleteCustomVariables', 'page']);
+            window._paq.push(['setPagePerformanceTiming', 0]);
+            window._paq.push(['trackPageView']);
+
+            const content = document.getElementById('content');
+            if (content) {
+                window._paq.push(['MediaAnalytics::scanForMedia', content]);
+                window._paq.push(['FormAnalytics::scanForForms', content]);
+                window._paq.push(['trackContentImpressionsWithinNode', content]);
+            }
+            window._paq.push(['enableLinkTracking']);
+        });
     }
 }
 
