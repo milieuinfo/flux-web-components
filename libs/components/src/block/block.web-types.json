@@ -822,6 +822,11 @@
                             "default": ""
                         },
                         {
+                            "name": "label",
+                            "description": "Attribuut gebruikt om een aria-label toe te voegen aan de modal. Dit is verplicht indien er geen title attribuut is opgegeven.",
+                            "default": ""
+                        },
+                        {
                             "name": "open",
                             "description": "Attribuut om de modal onmiddellijk te openen na de rendering.",
                             "default": "false"
@@ -855,6 +860,11 @@
                             "name": "position",
                             "description": "Attribuut om de positie van de modal op het scherm te bepalen.",
                             "default": "center"
+                        },
+                        {
+                            "name": "focus-on-modal",
+                            "description": "Attribuut om de focus op de modal zelf te zetten bij het openen.",
+                            "default": "false"
                         }
                     ],
                     "slots": [
@@ -1338,7 +1348,56 @@
                             "description": "Indien gezet zal de step standaard geopend zijn. Werkt enkel in combinatie met het `toggleable` attribuut. <br>Dit attribuut is niet reactief.",
                             "default": "false"
                         }
-                    ]
+                    ],
+                    "slots": [
+                        {
+                            "name": "icon",
+                            "description": "Element voor het hoofd-icoon van de step.",
+                            "default": ""
+                        },
+                        {
+                            "name": "sub-icon",
+                            "description": "Element voor het sub-icoon van de step.",
+                            "default": ""
+                        },
+                        {
+                            "name": "title",
+                            "description": "Element voor de titel van de step.",
+                            "default": ""
+                        },
+                        {
+                            "name": "title-annotation",
+                            "description": "Element voor een annotatie bij de titel van de step.",
+                            "default": ""
+                        },
+                        {
+                            "name": "subtitle",
+                            "description": "Element voor de subtitel van de step.",
+                            "default": ""
+                        },
+                        {
+                            "name": "content",
+                            "description": "Element voor de hoofdcontent van de step.<br>Wordt genegeerd wanneer de `contentRenderer` property is ingesteld.",
+                            "default": ""
+                        }
+                    ],
+                    "js": {
+                        "properties": [
+                            {
+                                "name": "contentRenderer",
+                                "description": "Functie die aangeroepen wordt om dynamische content te renderen op basis van de open/closed state.<br>Signatuur: `(open: boolean) => TemplateResult`<br>Werkt enkel in combinatie met het `toggleable` attribuut.<br>Wanneer deze property is ingesteld, wordt het `content` slot genegeerd.",
+                                "type": "(open: boolean) => TemplateResult",
+                                "default": "undefined"
+                            }
+                        ],
+                        "events": [
+                            {
+                                "name": "vl-on-toggle",
+                                "description": "Afgevuurd bij het openen of sluiten van de toggleable step.<br>Het event bevat of de step geopend of gesloten is.<br>Werkt enkel in combinatie met het `toggleable` attribuut.",
+                                "type": "{ open: boolean }"
+                            }
+                        ]
+                    }
                 },
                 {
                     "name": "vl-duration-step",
@@ -1577,6 +1636,11 @@
                         {
                             "name": "error",
                             "description": "Past de \"error\" stijl toe.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "success",
+                            "description": "Past de \"success\" stijl toe.",
                             "default": "false"
                         }
                     ]
@@ -2154,6 +2218,11 @@
                         {
                             "name": "error",
                             "description": "Past de \"error\" stijl toe.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "success",
+                            "description": "Past de \"success\" stijl toe.",
                             "default": "false"
                         },
                         {

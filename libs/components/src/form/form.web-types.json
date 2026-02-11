@@ -277,6 +277,45 @@
                     }
                 },
                 {
+                    "name": "vl-fieldset",
+                    "description": "Gebruik de `vl-fieldset` component om een fieldset af te beelden.\n\nFieldsets worden gebruikt om gerelateerde formulierelementen te groeperen binnen een formulier.\n\nIn uitzonderlijke gevallen kan dit gebruikt worden om verschillende input fields te groeperen onder één label. Gebruik\ndit enkel wanneer andere layoutmogelijkheden niet mogelijk zijn.\n\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-fieldset--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "border",
+                            "description": "Duidt aan of de fieldset een rand moet tonen.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "horizontal",
+                            "description": "Duidt aan of de inhoud van de fieldset horizontaal moet worden uitgelijnd.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "legend-classes",
+                            "description": "Extra CSS-classes voor de legend van de fieldset (space-separated).",
+                            "default": "vl-column--4"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "legend slot (vereist)",
+                            "description": "De legend van de fieldset.",
+                            "default": ""
+                        },
+                        {
+                            "name": "content slot (vereist)",
+                            "description": "De inhoud van de fieldset.",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
                     "name": "vl-form-message",
                     "description": "Gebruik de `form-message` component om een boodschap af te beelden voor een input veld.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-form-message--documentatie",
@@ -947,7 +986,7 @@
                 },
                 {
                     "name": "vl-select-rich",
-                    "description": "Gebruik de `select-rich` component om een uitgebreid select of multiselect veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "description": "- [Doel](#doel)\n - [Voorbeeld](#voorbeeld)\n - [Configuratie](#configuratie)\n - [Publieke methodes](#publieke-methodes)\n - [Styles](#styles)\n - [Events](#events)\n - [Select opties](#select-opties)\n - [Accessibility](#accessibility)\n - [Varianten](#varianten)\n - [Zoek strategieën](#zoek-strategieën)\n - [Validatie](#validatie)\n - [Referenties](#referenties)",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-select-rich--documentatie",
                     "attributes": [
                         {
@@ -1038,6 +1077,15 @@
                             "name": "search-placeholder",
                             "description": "De placeholder tekst van het zoekveld.<br>Dit attribuut is niet reactief.",
                             "default": "Zoek item"
+                        },
+                        {
+                            "name": "search-strategy",
+                            "description": "De zoek strategie die gebruikt wordt bij het zoeken in de opties.<br>Dit attribuut is reactief.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'default' | 'exact-and' | 'exact-or'"
+                            },
+                            "default": "default"
                         }
                     ],
                     "js": {

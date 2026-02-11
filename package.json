@@ -1,6 +1,6 @@
 {
   "name": "flux-web-components",
-  "version": "2.8.1",
+  "version": "2.9.0",
   "author": "Flux <domg_flux@groepen.vlaanderen.be>",
   "license": "MIT",
   "scripts": {
