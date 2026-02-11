@@ -11,6 +11,7 @@ type SelectLocationArgs = typeof selectLocationDefaults;
 const minimalSelectRichDefaults = { ...selectRichDefaults };
 delete minimalSelectRichDefaults.multiple;
 delete minimalSelectRichDefaults.search;
+delete minimalSelectRichDefaults.searchStrategy;
 
 export const selectLocationDefaults = {
     ...minimalSelectRichDefaults,
@@ -25,6 +26,7 @@ export const selectLocationArgs: SelectLocationArgs = {
 const minimalSelectRichArgTypes = { ...selectRichArgTypes };
 delete minimalSelectRichArgTypes.multiple;
 delete minimalSelectRichArgTypes.search;
+delete minimalSelectRichArgTypes.searchStrategy;
 
 export const selectLocationArgTypes: ArgTypes<SelectLocationArgs> = {
     ...minimalSelectRichArgTypes,

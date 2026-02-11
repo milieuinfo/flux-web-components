@@ -18,6 +18,9 @@ export class VlSelectLocationComponent extends VlSelectRichComponent {
         this.placeholder = placeholder;
         this.search = true;
         this.searchPlaceholder = searchPlaceholder;
+        // deactiveer de custom search matchers omdat de API al de filtering doet - de searchMatcher zou de
+        // API-resultaten nog eens filteren, wat tot verkeerde resultaten leidt
+        this.setSearchMatcher(null);
     }
 
     /**
@@ -82,6 +85,17 @@ export class VlSelectLocationComponent extends VlSelectRichComponent {
         super.disconnectedCallback();
 
         this.removeEventListener('vl-select-search', this.debouncedOnSearch);
+    }
+
+    updated(changedProperties: Map<string, unknown>): void {
+        super.updated(changedProperties);
+
+        // voor deze component (VlSelectLocationComponent) moet de searchMatcher altijd null blijven omdat de API al
+        // de filtering doet - een custom search matcher zou de API-resultaten nog eens filteren, wat tot verkeerde
+        // resultaten leidt
+        if (changedProperties.has('searchStrategy')) {
+            this.setSearchMatcher(null);
+        }
     }
 
     private onSearch = (event: CustomEvent<{ value?: string }>[]) => {
