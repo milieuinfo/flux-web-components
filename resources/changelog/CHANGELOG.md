@@ -1,3 +1,10 @@
+## [1.49.8](https://github.com/milieuinfo/flux-web-components/compare/v1.49.7...v1.49.8) (2026-02-11)
+
+
+### Bug Fixes
+
+* FLUX-487 - vl-autocomplete - z-index verhoogd ([2b490af](https://github.com/milieuinfo/flux-web-components/commit/2b490af15afb4502a558879ebe450e6205ab1a5e))
+
 ## [1.49.7](https://github.com/milieuinfo/flux-web-components/compare/v1.49.6...v1.49.7) (2025-12-18)
 
 
