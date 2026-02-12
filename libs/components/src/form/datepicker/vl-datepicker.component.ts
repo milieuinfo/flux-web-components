@@ -1,7 +1,5 @@
 import { isSafari, webComponent } from '@domg-wc/common';
-import { vlGroupStyles } from '@domg-wc/styles';
-import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
-import { datepickerStyle, iconStyle, tooltipStyle } from '@domg/govflanders-style/component';
+import { vlGroupStyles, vlResetStyles } from '@domg-wc/styles';
 import Cleave from 'cleave.js';
 import flatpickr from 'flatpickr';
 import Dutch from 'flatpickr/dist/l10n/nl.js';
@@ -16,8 +14,8 @@ import { inputFieldStyles } from '../input-field';
 import { CleaveInstance, MaskOptions } from '../models/cleave.model';
 import { createDateMask, createTimeMask } from './masks';
 import { maskValidator, rangeOverflowValidator, rangeUnderflowValidator } from './validators';
+import { vlDatepickerComponentStyles } from './vl-datepicker.component.css';
 import { datepickerDefaults } from './vl-datepicker.defaults';
-import { vlDatepickerFluxStyles } from './vl-datepicker.flux-css';
 
 const dateRangeSeparator = ' tot en met ';
 const dateRangeSeparatorCharacter = '/';
@@ -60,15 +58,11 @@ export class VlDatepickerComponent extends FormControl {
     private inputValue: string | undefined = ''; // Houdt de waarde van het getoonde inputveld bij
     private dispatchInput = false;
 
-    static get styles(): (CSSResult | CSSResult[])[] {
+    static get styles(): CSSResult[] {
         return [
-            resetStyle,
-            baseStyle,
-            iconStyle,
+            vlResetStyles,
             inputFieldStyles,
-            tooltipStyle,
-            datepickerStyle,
-            vlDatepickerFluxStyles,
+            vlDatepickerComponentStyles,
             vlGroupStyles,
             vlInputAddonStyles,
         ];

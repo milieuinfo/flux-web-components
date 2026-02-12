@@ -1,0 +1,39 @@
+:host {
+    /* Calendar colors */
+    --vl-datepicker--calendar-background: var(--vl-color--background);
+    --vl-datepicker--calendar-border: var(--vl-color--border-alt);
+    --vl-datepicker--calendar-shadow: rgba(0, 0, 0, 0.08);
+
+    /* Month header */
+    --vl-datepicker--header-background: #eceef1;
+    --vl-datepicker--header-text: #5a6171;
+    --vl-datepicker--header-border: var(--vl-color--border);
+    --vl-datepicker--month-text: var(--vl-color--action);
+
+    /* Day colors */
+    --vl-datepicker--day-text: #484848;
+    --vl-datepicker--day-hover: #e2e2e2;
+    --vl-datepicker--day-today-border: #bbb;
+    --vl-datepicker--day-disabled: rgba(72, 72, 72, 0.3);
+    --vl-datepicker--day-disabled-strong: #6a7686;
+    --vl-datepicker--day-other-month: #80807d;
+
+    /* Selection colors */
+    --vl-datepicker--day-selected-bg: var(--vl-color--action);
+    --vl-datepicker--day-selected-text: var(--vl-color--background);
+    --vl-datepicker--range-bg: #80aae6;
+    --vl-datepicker--range-shadow: #80aae6;
+    --vl-datepicker--day-selected-shadow: #ff5a5f;
+
+    /* State colors */
+    --vl-datepicker--error-border: var(--vl-color--error);
+    --vl-datepicker--error-background: var(--vl-color--error-background);
+    --vl-datepicker--success-border: var(--vl-color--success);
+    --vl-datepicker--success-background: var(--vl-color--success-bg);
+
+    /* Tooltip colors */
+    --vl-datepicker--tooltip-background: var(--vl-color--background);
+    --vl-datepicker--tooltip-border: #cfd5dd;
+    --vl-datepicker--tooltip-text: var(--vl-color--text);
+    --vl-datepicker--tooltip-shadow: rgba(51, 51, 50, 0.15);
+}
