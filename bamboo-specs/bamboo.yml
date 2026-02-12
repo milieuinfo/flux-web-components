@@ -23,6 +23,7 @@ build-apps-and-libs:
     - Docker
     - Git
     - REMOTE_ONLY
+    - FAT_AGENT
   tasks:
     - clean
     - script: |
