@@ -1268,8 +1268,47 @@
                 },
                 {
                     "name": "vl-side-navigation",
-                    "description": "Gebruik de `side-navigation` component om een compact navigatie-element aan een pagina toe te voegen. Het vat de\ninhoud van lange pagina's samen, leidt de gebruiker door de pagina inhoud en kan ook naar externe pagina's verwijzen.\n\nDe `vl-side-navigation` wordt opgebouwd uit volgende sub-componenten:\n\n- VlSideNavigation `[vl-side-navigation]`\n- VlSideNavigationTitle<br/>\n    `[vl-side-navigation-h1 / vl-side-navigation-h2 / vl-side-navigation-h3 /`\n    `vl-side-navigation-h4 / vl-side-navigation-h5 / vl-side-navigation-h6]`\n- VlSideNavigationContent `[vl-side-navigation-content]`\n- VlSideNavigationGroup `[vl-side-navigation-group]`\n- VlSideNavigationItem `[vl-side-navigation-item]`\n- VlSideNavigationToggle `[vl-side-navigation-toggle]`\n- VlSideNavigationReference `[vl-side-navigation-reference]`\n\n```js\nimport { VlSideNavigation } from '@domg-wc/components/block';\n```\n\n```html\n<vl-side-navigation></vl-side-navigation>\n```\n\n<Canvas of={VlSideNavigationStories.SideNavigationDefault}/>",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik de `side-navigation` component om een compact navigatie-element aan een pagina toe te voegen. Het vat de\ninhoud van lange pagina's samen, leidt de gebruiker door de pagina inhoud en kan ook naar externe pagina's verwijzen.\n\nDe `vl-side-navigation` wordt opgebouwd uit volgende sub-componenten:\n\n- VlSideNavigationComponent `[vl-side-navigation]`\n- VlSideNavigationTitleComponent<br/>\n    `[vl-side-navigation-h1 / vl-side-navigation-h2 / vl-side-navigation-h3 /`\n    `vl-side-navigation-h4 / vl-side-navigation-h5 / vl-side-navigation-h6]`\n- VlSideNavigationContentComponent `[vl-side-navigation-content]`\n- VlSideNavigationGroupComponent `[vl-side-navigation-group]`\n- VlSideNavigationItemComponent `[vl-side-navigation-item]`\n- VlSideNavigationToggleComponent `[vl-side-navigation-toggle]`\n- VlSideNavigationReferenceComponent `[vl-side-navigation-reference]`\n\n```js\nimport { VlSideNavigationComponent } from '@domg-wc/components/block';\n```\n\n```html\n<vl-side-navigation></vl-side-navigation>\n```\n\n<Canvas of={VlSideNavigationStories.SideNavigationDefault}/>",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "closed",
+                            "description": "Wanneer aanwezig wordt de inhoudstafel standaard verborgen. Heeft enkel effect wanneer het attribuut `compact` is gezet of bij mobiele weergave (viewport < 768px). Op desktop zonder compact wordt de navigatie altijd getoond.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "compact",
+                            "description": "Forceert de compacte weergave (toggle knop, verborgen navigatie standaard) ongeacht de viewport grootte.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "heading-root-selector",
+                            "description": "CSS selector om het root container element te vinden waarbinnen naar headings gezocht wordt. Indien niet opgegeven, wordt het volledige document/shadow root doorzocht. Voorbeeld: \"#section-1\" om enkel headings binnen die sectie te scannen.",
+                            "default": ""
+                        },
+                        {
+                            "name": "max-depth",
+                            "description": "Optionele maximum diepte voor shadow DOM traversal (bij scannen van headings én bij zoeken van scroll-target). Biedt fijnmazige controle over performantie vs compatibiliteit. 0 = enkel light DOM, 1 = light DOM + eerste niveau shadow DOM, undefined = onbeperkt (standaard).",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "navigation-title",
+                            "description": "Tekst die getoond wordt als titel boven de inhoudstafel.",
+                            "default": "Op deze pagina"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "[default]",
+                            "description": "Custom inhoudsopgave. Wanneer je hier content plaatst (bijv. een ul/li-structuur met vl-link elementen met href=\"#...\"), wordt die gebruikt in plaats van de automatisch gegenereerde inhoudsopgave. De links moeten verwijzen naar heading-ids in de content.",
+                            "default": ""
+                        }
+                    ]
                 },
                 {
                     "name": "vl-side-navigation-content",
