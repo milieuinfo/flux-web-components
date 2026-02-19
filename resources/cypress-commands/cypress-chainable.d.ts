@@ -7,6 +7,8 @@ namespace Cypress {
 
         visitWithA11y(url: string): void;
 
+        waitForLitUpdate(selector: string): Chainable<JQuery<HTMLElement>>;
+
         shouldHaveComputedStyle({
                                     style,
                                     value,

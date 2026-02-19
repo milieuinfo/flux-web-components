@@ -142,6 +142,22 @@ describe('cypress-component - block components - vl-alert - naked', () => {
             );
     });
 
+    it('should render multiline message from the message attribute', () => {
+        const multilineMessage = 'Folder D is in gebruik\nFolder F is in gebruik\nFolder G is in gebruik';
+
+        cy.get('vl-alert').invoke('attr', 'message', multilineMessage);
+
+        cy.waitForLitUpdate('vl-alert');
+
+        cy.get('vl-alert')
+            .shadow()
+            .find('#alert #message > p')
+            .then(($message) => {
+                expect($message.text()).to.equal(multilineMessage);
+                expect(getComputedStyle($message[0]).whiteSpace).to.equal('pre-line');
+            });
+    });
+
     it('should change the title marking', () => {
         cy.get('vl-alert').invoke('attr', 'type', 'success');
         cy.get('vl-alert')
