@@ -54,7 +54,7 @@ export const findHeadings = (
     const seenIds = new Map<string, HeadingItem>();
 
     headingLevels.forEach(({ element, level }) => {
-        const text = element.textContent?.trim() ?? '';
+        const text = getHeadingText(element);
         const id = element.getAttribute('id')?.trim() ?? '';
 
         if (!id) {
@@ -77,6 +77,44 @@ export const findHeadings = (
         elements: headingItems.map(({ element }) => element),
         headings: headingItems,
     };
+};
+
+const getHeadingText = (element: HTMLElement): string => collectNodeText(element);
+
+const normalizeText = (text?: string | null): string => (text ?? '').replace(/\s+/g, ' ').trim();
+
+const collectNodeText = (node: Node, visited = new Set<Node>()): string => {
+    if (visited.has(node)) {
+        return '';
+    }
+    visited.add(node);
+
+    if (node.nodeType === Node.TEXT_NODE) {
+        return normalizeText(node.textContent);
+    }
+
+    if (!(node instanceof Element || node instanceof ShadowRoot)) {
+        return '';
+    }
+
+    const fragments: string[] = [];
+    // If an element has a shadow root, read its rendered tree via shadow root only.
+    // Reading both light DOM children and slotted shadow content causes duplicate text.
+    if (node instanceof Element && node.shadowRoot) {
+        const text = collectNodeText(node.shadowRoot, visited);
+        return normalizeText(text);
+    }
+
+    const children = node instanceof HTMLSlotElement ? node.assignedNodes({ flatten: true }) : Array.from(node.childNodes);
+
+    children.forEach((child) => {
+        const text = collectNodeText(child, visited);
+        if (text) {
+            fragments.push(text);
+        }
+    });
+
+    return normalizeText(fragments.join(' '));
 };
 
 /**
