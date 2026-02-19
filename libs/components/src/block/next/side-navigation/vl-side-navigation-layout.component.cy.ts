@@ -5,6 +5,7 @@ import { VlButtonComponent } from '../../../atom/button';
 import { VlIconComponent } from '../../../atom/icon';
 import { VlLinkComponent } from '../../../atom/link';
 import { VlTitleComponent } from '../../../atom/title';
+import { VlProzaMessage, VlProzaMessagePreloader } from '../../proza-message';
 import { VlSideNavigationLayoutComponent } from './vl-side-navigation-layout.component';
 import { VlSideNavigationComponent } from './vl-side-navigation.component';
 
@@ -64,6 +65,17 @@ class TocTestNestedLightDomWrapper extends LitElement {
     }
 }
 
+/**
+ * Shadow DOM custom element that renders text without any light DOM text nodes.
+ * Used to verify TOC labels can resolve text rendered in nested shadow roots.
+ */
+@customElement('toc-test-shadow-text')
+class TocTestShadowText extends LitElement {
+    render() {
+        return html`<span>Tekst uit shadow root</span>`;
+    }
+}
+
 registerWebComponents([
     VlSideNavigationLayoutComponent,
     VlSideNavigationComponent,
@@ -71,6 +83,8 @@ registerWebComponents([
     VlLinkComponent,
     VlButtonComponent,
     VlIconComponent,
+    VlProzaMessagePreloader,
+    VlProzaMessage,
 ]);
 
 const mountSideNavigationLayout = () => {
@@ -1258,5 +1272,220 @@ describe('cypress-component - block components - vl-side-navigation-layout - slo
             .find('ul a[href="#details-vaststelling"]')
             .should('exist')
             .and('contain', 'Details vaststelling');
+    });
+
+    it('should resolve heading text from nested shadow DOM content inside vl-title', () => {
+        cy.mount(html`
+            <vl-side-navigation-layout content-block>
+                <vl-side-navigation-next slot="navigation"></vl-side-navigation-next>
+                <div slot="content" style="min-height: 1200px;">
+                    <section style="margin-top: 100px; min-height: 300px;">
+                        <vl-title type="h2" id="shadow-heading">
+                            <toc-test-shadow-text></toc-test-shadow-text>
+                        </vl-title>
+                        <p>Content under a heading with shadow-rendered text.</p>
+                    </section>
+                </div>
+            </vl-side-navigation-layout>
+        `);
+
+        cy.wait(150);
+
+        cy.get('vl-side-navigation-layout')
+            .find('vl-side-navigation-next')
+            .shadow()
+            .find('nav a[href="#shadow-heading"]')
+            .should('exist')
+            .and('contain', 'Tekst uit shadow root');
+    });
+});
+
+const prozaDomain = 'side-navigation-layout-proza-message-test';
+
+const preloadProzaMessages = () => {
+    VlProzaMessagePreloader.__setPreloadedMessagesCacheForDomain(
+        prozaDomain,
+        Promise.resolve({
+            'page-title': 'Side navigation met proza message',
+            'section-1-title': 'Ontwerpprincipes',
+            'section-1-sub-1': 'Consistente headings',
+            'section-1-sub-2': 'Scanbare content',
+            'section-2-title': 'Implementatie',
+            'section-2-sub-1': 'Preloaden van berichten',
+            'section-3-title': 'Resultaat',
+        })
+    );
+    VlProzaMessage.__setToegelatenOperatiesCacheForDomain(prozaDomain, Promise.resolve({ update: false }));
+};
+
+const mountSideNavigationLayoutWithProzaMessage = () => {
+    preloadProzaMessages();
+
+    return cy.mount(html`
+        <vl-proza-message-preloader domain="${prozaDomain}"></vl-proza-message-preloader>
+        <vl-side-navigation-layout-next content-block heading-root-selector="#proza-content">
+            <div slot="content" id="proza-content" style="min-height: 2000px;">
+                <vl-title type="h1" id="proza-main-title">
+                    <vl-proza-message domain="${prozaDomain}" code="page-title"></vl-proza-message>
+                </vl-title>
+
+                <vl-title type="h2" id="proza-section-1">
+                    <vl-proza-message domain="${prozaDomain}" code="section-1-title"></vl-proza-message>
+                </vl-title>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+                <vl-title type="h3" id="proza-section-1-sub-1">
+                    <vl-proza-message domain="${prozaDomain}" code="section-1-sub-1"></vl-proza-message>
+                </vl-title>
+                <p>Integer malesuada lorem vitae lorem volutpat.</p>
+
+                <vl-title type="h3" id="proza-section-1-sub-2">
+                    <vl-proza-message domain="${prozaDomain}" code="section-1-sub-2"></vl-proza-message>
+                </vl-title>
+                <p>Nulla facilisi. Vestibulum ante ipsum primis in faucibus.</p>
+
+                <vl-title type="h2" id="proza-section-2">
+                    <vl-proza-message domain="${prozaDomain}" code="section-2-title"></vl-proza-message>
+                </vl-title>
+                <p>Donec et erat vel est sodales viverra.</p>
+
+                <vl-title type="h3" id="proza-section-2-sub-1">
+                    <vl-proza-message domain="${prozaDomain}" code="section-2-sub-1"></vl-proza-message>
+                </vl-title>
+                <p>Phasellus in elit neque.</p>
+
+                <vl-title type="h2" id="proza-section-3">
+                    <vl-proza-message domain="${prozaDomain}" code="section-3-title"></vl-proza-message>
+                </vl-title>
+                <p>Curabitur non malesuada purus.</p>
+            </div>
+        </vl-side-navigation-layout-next>
+    `);
+};
+
+describe('cypress-component - block components - vl-side-navigation-layout-next - with proza message', () => {
+    beforeEach(() => {
+        cy.viewport(1440, 900);
+    });
+
+    afterEach(() => {
+        VlProzaMessagePreloader.clearCache();
+        VlProzaMessage.clearCache();
+    });
+
+    it('should mount with proza message headings', () => {
+        mountSideNavigationLayoutWithProzaMessage();
+        cy.get('vl-side-navigation-layout-next').should('exist');
+    });
+
+    it('should resolve proza message text in the auto-generated TOC', () => {
+        mountSideNavigationLayoutWithProzaMessage();
+
+        cy.wait(300);
+
+        const nav = () =>
+            cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('nav');
+
+        nav().find('a[href="#proza-section-1"]').should('exist').and('contain', 'Ontwerpprincipes');
+        nav().find('a[href="#proza-section-2"]').should('exist').and('contain', 'Implementatie');
+        nav().find('a[href="#proza-section-3"]').should('exist').and('contain', 'Resultaat');
+    });
+
+    it('should resolve proza message text for nested h3 headings in the TOC', () => {
+        mountSideNavigationLayoutWithProzaMessage();
+
+        cy.wait(300);
+
+        const nav = () =>
+            cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('nav');
+
+        nav().find('a[href="#proza-section-1-sub-1"]').should('exist').and('contain', 'Consistente headings');
+        nav().find('a[href="#proza-section-1-sub-2"]').should('exist').and('contain', 'Scanbare content');
+        nav().find('a[href="#proza-section-2-sub-1"]').should('exist').and('contain', 'Preloaden van berichten');
+    });
+
+    it('should maintain correct TOC hierarchy with proza message headings', () => {
+        mountSideNavigationLayoutWithProzaMessage();
+
+        cy.wait(300);
+
+        const nav = () =>
+            cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('nav');
+
+        // Verify first top-level section exists
+        nav().find('a[href="#proza-section-1"]').should('exist').and('contain', 'Ontwerpprincipes');
+
+        // Verify nested items under first section
+        nav()
+            .find('ul > li')
+            .first()
+            .find('ul a[href="#proza-section-1-sub-1"]')
+            .should('exist')
+            .and('contain', 'Consistente headings');
+
+        nav()
+            .find('ul > li')
+            .first()
+            .find('ul a[href="#proza-section-1-sub-2"]')
+            .should('exist')
+            .and('contain', 'Scanbare content');
+
+        // Verify last top-level section exists
+        nav().find('a[href="#proza-section-3"]').should('exist').and('contain', 'Resultaat');
+    });
+
+    it('should navigate to proza message section when clicking TOC link', () => {
+        mountSideNavigationLayoutWithProzaMessage();
+
+        cy.wait(300);
+
+        cy.get('vl-side-navigation-layout-next')
+            .find('vl-side-navigation-next')
+            .shadow()
+            .find('nav a[href="#proza-section-2"]')
+            .click();
+
+        cy.wait(600);
+
+        cy.get('#proza-section-2').then(($el) => {
+            const rect = $el[0].getBoundingClientRect();
+            expect(rect.top).to.be.lessThan(900);
+        });
+    });
+
+    it('should be accessible with proza message headings', () => {
+        mountSideNavigationLayoutWithProzaMessage();
+
+        cy.wait(300);
+
+        cy.injectAxe();
+        cy.checkA11y('vl-side-navigation-layout-next');
+    });
+
+    it('should not render proza message titles twice in the TOC', () => {
+        mountSideNavigationLayoutWithProzaMessage();
+
+        cy.wait(300);
+
+        const nav = () =>
+            cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('nav');
+
+        const expectedTitles: [string, string][] = [
+            ['#proza-section-1', 'Ontwerpprincipes'],
+            ['#proza-section-1-sub-1', 'Consistente headings'],
+            ['#proza-section-1-sub-2', 'Scanbare content'],
+            ['#proza-section-2', 'Implementatie'],
+            ['#proza-section-2-sub-1', 'Preloaden van berichten'],
+            ['#proza-section-3', 'Resultaat'],
+        ];
+
+        expectedTitles.forEach(([href, expectedText]) => {
+            nav()
+                .find(`a[href="${href}"]`)
+                .invoke('text')
+                .then((text) => {
+                    expect(text.trim()).to.equal(expectedText);
+                });
+        });
     });
 });
