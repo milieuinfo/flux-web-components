@@ -16,6 +16,16 @@ Cypress.Commands.add('visitWithA11y', (url) => {
     cy.injectAxe();
 });
 
+Cypress.Commands.add('waitForLitUpdate', (selector: string) => {
+    return cy.get(selector).then(($el) => {
+        const element = $el.get(0) as HTMLElement & { updateComplete?: Promise<unknown> };
+        if (!element?.updateComplete) {
+            throw new Error(`waitForLitUpdate: element "${selector}" has no updateComplete promise`);
+        }
+        return cy.wrap(element.updateComplete).then(() => cy.wrap($el));
+    });
+});
+
 /**
  * @param style - style property om af te testen
  * @param value - waarde van de style property
