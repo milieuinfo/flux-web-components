@@ -1805,3 +1805,298 @@ describe('component - vl-select-rich - multiple - in form', () => {
         });
     });
 });
+
+describe('component - vl-select-rich-next - search strategies', () => {
+    const newspaperOptions: SelectRichOption[] = [
+        { label: 'De Morgen van gisteren', value: 'De Morgen van gisteren' },
+        { label: 'De Standaard van gisteren', value: 'De Standaard van gisteren' },
+        { label: 'De Standaard van morgen', value: 'De Standaard van morgen' },
+        { label: 'De Standaard van Berchem', value: 'De Standaard van Berchem' },
+        { label: 'De Standaard van Gent', value: 'De Standaard van Gent' },
+        { label: 'Brussel Antwerpen Gent', value: 'Brussel Antwerpen Gent' },
+    ];
+
+    it('should use default fuzzy search strategy', () => {
+        cy.mount(
+            html`<vl-select-rich-next
+                label="krant"
+                placeholder="Kies een krant"
+                search
+                search-strategy="default"
+                result-limit="20"
+                .options=${newspaperOptions}
+            ></vl-select-rich-next>`
+        );
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select-rich-next');
+        cy.get('vl-select-rich-next').shadow().find('.vl-select__inner').click();
+
+        cy.get('vl-select-rich-next').shadow().find('input').type('standrd');
+        cy.get('vl-select-rich-next')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length.greaterThan', 0);
+
+        cy.checkA11y('vl-select-rich-next');
+    });
+
+    it('should use exact-and search strategy', () => {
+        cy.mount(
+            html`<vl-select-rich-next
+                label="krant"
+                placeholder="Kies een krant"
+                search
+                search-strategy="exact-and"
+                result-limit="20"
+                .options=${newspaperOptions}
+            ></vl-select-rich-next>`
+        );
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select-rich-next');
+        cy.get('vl-select-rich-next').shadow().find('.vl-select__inner').click();
+
+        cy.get('vl-select-rich-next').shadow().find('input').type('morgen standaard');
+        cy.get('vl-select-rich-next')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 1);
+        cy.get('vl-select-rich-next')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .contains('De Standaard van morgen');
+
+        cy.checkA11y('vl-select-rich-next');
+    });
+
+    it('should use exact-or search strategy', () => {
+        cy.mount(
+            html`<vl-select-rich-next
+                label="krant"
+                placeholder="Kies een krant"
+                search
+                search-strategy="exact-or"
+                result-limit="20"
+                .options=${newspaperOptions}
+            ></vl-select-rich-next>`
+        );
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select-rich-next');
+        cy.get('vl-select-rich-next').shadow().find('.vl-select__inner').click();
+
+        cy.get('vl-select-rich-next').shadow().find('input').type('morgen standaard');
+        cy.get('vl-select-rich-next')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 5);
+
+        cy.checkA11y('vl-select-rich-next');
+    });
+
+    it('should switch from default to exact-and strategy', () => {
+        cy.mount(
+            html`<vl-select-rich-next
+                id="test-select"
+                label="krant"
+                placeholder="Kies een krant"
+                search
+                search-strategy="default"
+                result-limit="20"
+                .options=${newspaperOptions}
+            ></vl-select-rich-next>`
+        );
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select-rich-next');
+        cy.get('vl-select-rich-next').shadow().find('.vl-select__inner').click();
+
+        cy.get('vl-select-rich-next').shadow().find('input').type('morgen');
+        cy.get('vl-select-rich-next')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length.greaterThan', 0);
+
+        cy.get('vl-select-rich-next').shadow().find('input').clear();
+
+        cy.get('vl-select-rich-next').then((el) => {
+            const select = el[0] as VlSelectRichComponent;
+            select.setAttribute('search-strategy', 'exact-and');
+        });
+
+        cy.get('vl-select-rich-next').shadow().find('input').type('morgen standaard');
+        cy.get('vl-select-rich-next')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 1);
+
+        cy.checkA11y('vl-select-rich-next');
+    });
+
+    it('should switch from exact-and to exact-or strategy', () => {
+        cy.mount(
+            html`<vl-select-rich-next
+                label="krant"
+                placeholder="Kies een krant"
+                search
+                search-strategy="exact-and"
+                result-limit="20"
+                .options=${newspaperOptions}
+            ></vl-select-rich-next>`
+        );
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select-rich-next');
+        cy.get('vl-select-rich-next').shadow().find('.vl-select__inner').click();
+
+        cy.get('vl-select-rich-next').shadow().find('input').type('morgen standaard');
+        cy.get('vl-select-rich-next')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 1);
+
+        cy.get('vl-select-rich-next').shadow().find('input').clear();
+
+        cy.get('vl-select-rich-next').then((el) => {
+            const select = el[0] as VlSelectRichComponent;
+            select.setAttribute('search-strategy', 'exact-or');
+        });
+
+        cy.get('vl-select-rich-next').shadow().find('input').type('morgen standaard');
+        cy.get('vl-select-rich-next')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 5);
+
+        cy.checkA11y('vl-select-rich-next');
+    });
+
+    it('should handle adding characters with exact-or strategy', () => {
+        cy.mount(
+            html`<vl-select-rich-next
+                label="krant"
+                placeholder="Kies een krant"
+                search
+                search-strategy="exact-or"
+                result-limit="20"
+                .options=${newspaperOptions}
+            ></vl-select-rich-next>`
+        );
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select-rich-next');
+        cy.get('vl-select-rich-next').shadow().find('.vl-select__inner').click();
+
+        cy.get('vl-select-rich-next').shadow().find('input').type('morgen');
+        cy.get('vl-select-rich-next')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 2);
+
+        cy.get('vl-select-rich-next').shadow().find('input').type(' standaard');
+        cy.get('vl-select-rich-next')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 5);
+
+        cy.checkA11y('vl-select-rich-next');
+    });
+
+    it('should handle removing characters with exact-or strategy', () => {
+        cy.mount(
+            html`<vl-select-rich-next
+                label="krant"
+                placeholder="Kies een krant"
+                search
+                search-strategy="exact-or"
+                result-limit="20"
+                .options=${newspaperOptions}
+            ></vl-select-rich-next>`
+        );
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select-rich-next');
+        cy.get('vl-select-rich-next').shadow().find('.vl-select__inner').click();
+
+        cy.get('vl-select-rich-next').shadow().find('input').type('morgen standaard');
+        cy.get('vl-select-rich-next')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 5);
+
+        cy.get('vl-select-rich-next').shadow().find('input').clear();
+        cy.get('vl-select-rich-next').shadow().find('input').type('morgen');
+        cy.get('vl-select-rich-next')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 2);
+
+        cy.get('vl-select-rich-next').shadow().find('input').clear();
+        cy.get('vl-select-rich-next')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 6);
+
+        cy.checkA11y('vl-select-rich-next');
+    });
+
+    it('should handle adding and removing characters with exact-and strategy', () => {
+        cy.mount(
+            html`<vl-select-rich-next
+                label="krant"
+                placeholder="Kies een krant"
+                search
+                search-strategy="exact-and"
+                result-limit="20"
+                .options=${newspaperOptions}
+            ></vl-select-rich-next>`
+        );
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select-rich-next');
+        cy.get('vl-select-rich-next').shadow().find('.vl-select__inner').click();
+
+        cy.get('vl-select-rich-next').shadow().find('input').type('standaard');
+        cy.get('vl-select-rich-next')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 4);
+
+        cy.get('vl-select-rich-next').shadow().find('input').type(' gent');
+        cy.get('vl-select-rich-next')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 1);
+        cy.get('vl-select-rich-next')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .contains('De Standaard van Gent');
+
+        cy.get('vl-select-rich-next').shadow().find('input').clear();
+        cy.get('vl-select-rich-next').shadow().find('input').type('standaard');
+        cy.get('vl-select-rich-next')
+            .shadow()
+            .find('.vl-select__list')
+            .find('.vl-select__item')
+            .should('have.length', 4);
+
+        cy.checkA11y('vl-select-rich-next');
+    });
+});

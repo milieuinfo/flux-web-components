@@ -12,6 +12,7 @@ import { vlSelectRichFluxStyles } from './styles/vl-select-rich.uig-css';
 import selectStyle from './styles/vl-select.dv-css';
 import { selectRichDefaults } from './vl-select-rich.defaults';
 import { SelectRichOption } from './vl-select-rich.model';
+import { getSearchMatcher, SelectRichSearchMatcher } from './vl-select-rich.search-matchers';
 
 @webComponent('vl-select-rich-next')
 export class VlSelectRichComponent extends FormControl {
@@ -30,6 +31,9 @@ export class VlSelectRichComponent extends FormControl {
     private resultLimit = selectRichDefaults.resultLimit;
     private noResultsText = selectRichDefaults.noResultsText;
     private noChoicesText = selectRichDefaults.noChoicesText;
+    private searchStrategy = selectRichDefaults.searchStrategy;
+    private searchMatcher: SelectRichSearchMatcher | null = null;
+    private nativeSearchMethod: ((value: string) => number | null) | null = null;
     // State
     private value: FormValue = null;
     private dropdownInitialised = false;
@@ -67,6 +71,7 @@ export class VlSelectRichComponent extends FormControl {
             noResultsText: { type: String, attribute: 'no-results-text' },
             noChoicesText: { type: String, attribute: 'no-choices-text' },
             searchPlaceholder: { type: String, attribute: 'search-placeholder' },
+            searchStrategy: { type: String, attribute: 'search-strategy' },
             value: { type: FormData, state: true, hasChanged: this.compareValue },
         };
     }
@@ -124,6 +129,8 @@ export class VlSelectRichComponent extends FormControl {
 
             // Fix voor Choices.js search event dat niet afgevuurd wordt als de search value verwijderd wordt.
             this.choices?.input?.element?.addEventListener('input', this.onSearchInput);
+
+            this.installSearchWrapper();
         }, 0);
 
         this.initialised = true;
@@ -170,6 +177,10 @@ export class VlSelectRichComponent extends FormControl {
 
         if (changedProperties.has('resultLimit')) {
             this.choices.config.searchResultLimit = this.resultLimit;
+        }
+
+        if (changedProperties.has('searchStrategy')) {
+            this.searchMatcher = getSearchMatcher(this.searchStrategy);
         }
     }
 
@@ -234,6 +245,10 @@ export class VlSelectRichComponent extends FormControl {
             return;
         }
         this.options = structuredClone(options);
+    }
+
+    setSearchMatcher(matcher: SelectRichSearchMatcher | null): void {
+        this.searchMatcher = matcher;
     }
 
     /**
@@ -496,6 +511,24 @@ export class VlSelectRichComponent extends FormControl {
         const value = (event?.target as HTMLInputElement)?.value;
         this.dispatchEvent(new CustomEvent('vl-select-search', { bubbles: true, composed: true, detail: { value } }));
     };
+
+    private installSearchWrapper(): void {
+        if (!this.choices) {
+            return;
+        }
+
+        // Capture the original method from the prototype to avoid infinite recursion.
+        // Using the instance directly would capture the wrapper after it's installed.
+        const originalSearchChoices =
+            Object.getPrototypeOf(this.choices)._searchChoices ?? (this.choices as any)._searchChoices;
+        this.nativeSearchMethod = originalSearchChoices.bind(this.choices);
+        (this.choices as any)._searchChoices = (value: string) => {
+            if (this.searchMatcher) {
+                return this.searchMatcher(this.choices!, value);
+            }
+            return this.nativeSearchMethod!(value);
+        };
+    }
 }
 
 declare global {
