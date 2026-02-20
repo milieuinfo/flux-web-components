@@ -318,6 +318,10 @@ export class VlUploadComponent extends FormControl {
         return this.dropzoneInstance?.getAcceptedFiles() || [];
     }
 
+    getRejectedFiles(): DropzoneFile[] {
+        return this.dropzoneInstance?.getRejectedFiles() || [];
+    }
+
     /**
      * Handmatig bestand toevoegen aan de lijst van opgeladen bestanden zonder achterliggende upload
      */

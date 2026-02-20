@@ -352,6 +352,17 @@ describe('cypress-component - form components - vl-upload', () => {
         cy.get('@handleQueueComplete').should('have.been.called');
     });
 
+    it('should return rejected files via `getRejectedFiles()` public method', () => {
+        cy.mount(html` <vl-upload accepted-files="txt"></vl-upload>`);
+
+        cy.get('vl-upload').shadow().find('input[type=file]').selectFile(pdfFileFixturePath, { force: true });
+        cy.get('vl-upload').then((upload) => {
+            const rejectedFiles = (<HTMLElement & { getRejectedFiles(): File[] }>upload[0]).getRejectedFiles();
+            expect(rejectedFiles.length).to.equal(1);
+            expect(rejectedFiles[0].name).to.equal('file.pdf');
+        });
+    });
+
     it('should only allow one file by default', () => {
         const errorMessage = 'U mag maar 1 bestand tegelijk uploaden';
         cy.mount(html` <vl-upload error-message-max-files=${errorMessage}></vl-upload>`);
