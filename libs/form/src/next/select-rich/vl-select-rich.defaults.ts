@@ -1,5 +1,5 @@
 import { formControlDefaults } from '../form-control/form-control.defaults';
-import { SelectRichOption, SelectRichPosition } from './vl-select-rich.model';
+import { SelectRichOption, SelectRichPosition, SelectSearchStrategy } from './vl-select-rich.model';
 
 export const selectRichDefaults = {
     ...formControlDefaults,
@@ -14,4 +14,5 @@ export const selectRichDefaults = {
     noResultsText: 'Geen resultaten gevonden' as string,
     noChoicesText: 'Geen resterende opties gevonden' as string,
     searchPlaceholder: 'Zoek item' as string,
+    searchStrategy: SelectSearchStrategy.DEFAULT as SelectSearchStrategy,
 } as const;

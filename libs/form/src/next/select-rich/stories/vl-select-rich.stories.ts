@@ -42,6 +42,7 @@ const SelectRichTemplate = story(
         noResultsText,
         noChoicesText,
         searchPlaceholder,
+        searchStrategy,
         onVlChange,
         onVlInput,
         onVlSelectSearch,
@@ -66,6 +67,7 @@ const SelectRichTemplate = story(
             no-results-text=${noResultsText}
             no-choices-text=${noChoicesText}
             search-placeholder=${searchPlaceholder}
+            search-strategy=${searchStrategy}
             @vl-change=${onVlChange}
             @vl-input=${onVlInput}
             @vl-select-search=${onVlSelectSearch}
@@ -105,6 +107,63 @@ SelectRichSearch.args = {
         { label: 'Waregem', value: 'waregem' },
         { label: 'Lier', value: 'lier' },
         { label: 'Rio Piedras', value: 'rio piedras' },
+    ],
+};
+
+export const SelectRichSearchStrategyDefault = SelectRichTemplate.bind({});
+SelectRichSearchStrategyDefault.storyName = 'vl-select-rich-next - search default';
+SelectRichSearchStrategyDefault.args = {
+    id: 'krant',
+    name: 'krant',
+    placeholder: 'Kies een krant',
+    search: true,
+    searchStrategy: 'default',
+    resultLimit: 20,
+    options: [
+        { label: 'De Morgen van gisteren', value: 'De Morgen van gisteren' },
+        { label: 'De Standaard van gisteren', value: 'De Standaard van gisteren' },
+        { label: 'De Standaard van morgen', value: 'De Standaard van morgen' },
+        { label: 'De Standaard van Berchem', value: 'De Standaard van Berchem' },
+        { label: 'De Standaard van Gent', value: 'De Standaard van Gent' },
+        { label: 'Brussel Antwerpen Gent', value: 'Brussel Antwerpen Gent' },
+    ],
+};
+
+export const SelectRichSearchStrategyExactAnd = SelectRichTemplate.bind({});
+SelectRichSearchStrategyExactAnd.storyName = 'vl-select-rich-next - search exact-and';
+SelectRichSearchStrategyExactAnd.args = {
+    id: 'krant',
+    name: 'krant',
+    placeholder: 'Kies een krant',
+    search: true,
+    searchStrategy: 'exact-and',
+    resultLimit: 20,
+    options: [
+        { label: 'De Morgen van gisteren', value: 'De Morgen van gisteren' },
+        { label: 'De Standaard van gisteren', value: 'De Standaard van gisteren' },
+        { label: 'De Standaard van morgen', value: 'De Standaard van morgen' },
+        { label: 'De Standaard van Berchem', value: 'De Standaard van Berchem' },
+        { label: 'De Standaard van Gent', value: 'De Standaard van Gent' },
+        { label: 'Brussel Antwerpen Gent', value: 'Brussel Antwerpen Gent' },
+    ],
+};
+
+export const SelectRichSearchStrategyExactOr = SelectRichTemplate.bind({});
+SelectRichSearchStrategyExactOr.storyName = 'vl-select-rich-next - search exact-or';
+SelectRichSearchStrategyExactOr.args = {
+    id: 'krant',
+    name: 'krant',
+    placeholder: 'Kies een krant',
+    search: true,
+    searchStrategy: 'exact-or',
+    resultLimit: 20,
+    options: [
+        { label: 'De Morgen van gisteren', value: 'De Morgen van gisteren' },
+        { label: 'De Standaard van gisteren', value: 'De Standaard van gisteren' },
+        { label: 'De Standaard van morgen', value: 'De Standaard van morgen' },
+        { label: 'De Standaard van Berchem', value: 'De Standaard van Berchem' },
+        { label: 'De Standaard van Gent', value: 'De Standaard van Gent' },
+        { label: 'Brussel Antwerpen Gent', value: 'Brussel Antwerpen Gent' },
     ],
 };
 
