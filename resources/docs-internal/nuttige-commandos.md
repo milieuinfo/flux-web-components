@@ -74,12 +74,12 @@ git notes --ref semantic-release show f823c9a8
 
 na een historiek herschrijving een tag opnieuw leggen + de notes toevoegen
 ```
-git push --delete origin v2.0.0-rc.3
-git tag -d v2.0.0-rc.3
-git tag v2.0.0-rc.3 b3ddb069
-git push origin v2.0.0-rc.3
+git push --delete origin v2.11.0-develop-v2.1
+git tag -d v2.11.0-develop-v2.1
+git tag v2.11.0-develop-v2.1 185f5df6
+git push origin v2.11.0-develop-v2.1
 
-git notes --ref semantic-release add -f -m '{"channels":["release-v2-rc"]}' v2.0.0-rc.3
+git notes --ref semantic-release add -f -m '{"channels":["develop-v2"]}' v2.11.0-develop-v2.1
 git push --force origin refs/notes/semantic-release
 ```
 
