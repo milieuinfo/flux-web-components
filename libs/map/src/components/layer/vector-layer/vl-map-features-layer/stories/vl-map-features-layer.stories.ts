@@ -3,9 +3,24 @@ import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 import '../../../../../vl-map';
 import '../../../../baselayer/vl-map-base-layer-grb-gray/vl-map-base-layer-grb-gray';
+import '../../../../layer-style/vl-map-layer-style';
 import '../vl-map-features-layer';
 import { mapFeaturesLayerArgs, mapFeaturesLayerArgTypes } from './vl-map-features-layer.stories-arg';
 import mapFeaturesLayerDoc from './vl-map-features-layer.stories-doc.mdx';
+
+const redPolygonFeatures = JSON.stringify({
+    type: 'FeatureCollection',
+    features: [
+        {
+            type: 'Feature',
+            id: 10,
+            geometry: {
+                type: 'Polygon',
+                coordinates: [[[80000, 180000], [120000, 180000], [120000, 210000], [80000, 210000], [80000, 180000]]],
+            },
+        },
+    ],
+});
 
 export default {
     id: 'map-layer-vector-layer-features-layer',
@@ -34,6 +49,7 @@ export const MapFeaturesLayerDefault = story(
         name,
         opacity,
         featuresProp,
+        zIndex,
     }) => html`
         <vl-map lambert2008>
             <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
@@ -50,9 +66,22 @@ export const MapFeaturesLayerDefault = story(
                 name=${name}
                 opacity=${opacity}
                 projection-code="EPSG:31370"
+                z-index=${zIndex}
             >
                 <vl-map-layer-style border-size="2"></vl-map-layer-style>
                 <vl-map-layer-circle-style></vl-map-layer-circle-style>
+            </vl-map-features-layer>
+            <vl-map-features-layer
+                name="rode laag"
+                features=${redPolygonFeatures}
+                projection-code="EPSG:31370"
+                z-index="1"
+            >
+                <vl-map-layer-style
+                    color="rgba(204, 40, 40, 0.6)"
+                    border-color="rgba(204, 40, 40, 1)"
+                    border-size="2"
+                ></vl-map-layer-style>
             </vl-map-features-layer>
         </vl-map>
     `

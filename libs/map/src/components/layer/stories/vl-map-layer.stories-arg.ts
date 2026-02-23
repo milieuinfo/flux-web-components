@@ -8,6 +8,7 @@ export const mapLayerArgs = {
     maxResolution: Infinity,
     minResolution: 0,
     name: '',
+    zIndex: null as number | null,
 };
 
 export const mapLayerArgTypes: ArgTypes<typeof mapLayerArgs> = {
@@ -60,6 +61,16 @@ export const mapLayerArgTypes: ArgTypes<typeof mapLayerArgs> = {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: mapLayerArgs.name },
+        },
+    },
+    zIndex: {
+        name: 'z-index',
+        description: 'De z-index van de kaartlaag. Bepaalt de volgorde waarin kaartlagen worden weergegeven.',
+        control: { type: CONTROLS.NUMBER },
+        table: {
+            type: { summary: TYPES.NUMBER },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(mapLayerArgs.zIndex) },
         },
     },
 };
