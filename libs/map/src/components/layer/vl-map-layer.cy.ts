@@ -86,6 +86,45 @@ const wmtsLayerFixture = html`
     </vl-map>
 `;
 
+const featuresLayerZIndexFixture = html`
+    <vl-map lambert2008>
+        <vl-map-features-layer
+            name="testlaag"
+            z-index="5"
+            features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[147055,197908]},"properties":null,"id":1}]}'
+        >
+        </vl-map-features-layer>
+    </vl-map>
+`;
+
+const imageWmsLayerZIndexFixture = html`
+    <vl-map lambert2008>
+        <vl-map-image-wms-layer url="http://dummy/wms-adjusted" layers="layer1" z-index="5">
+        </vl-map-image-wms-layer>
+    </vl-map>
+`;
+
+const tiledWmsLayerZIndexFixture = html`
+    <vl-map lambert2008>
+        <vl-map-tiled-wms-layer url="http://dummy/wms-adjusted" layers="layer1" z-index="5">
+        </vl-map-tiled-wms-layer>
+    </vl-map>
+`;
+
+const wfsLayerZIndexFixture = html`
+    <vl-map lambert2008>
+        <vl-map-wfs-layer url="http://dummy/wfs" layers="layer1" z-index="5">
+        </vl-map-wfs-layer>
+    </vl-map>
+`;
+
+const wmtsLayerZIndexFixture = html`
+    <vl-map lambert2008>
+        <vl-map-wmts-layer url="http://dummy/wmts" layer="grb_sel" z-index="5">
+        </vl-map-wmts-layer>
+    </vl-map>
+`;
+
 const featuresLayersFixture = html`
     <vl-map lambert2008>
         <vl-map-features-layer></vl-map-features-layer>
@@ -143,30 +182,35 @@ const fixtures = [
         singleFixture: featuresLayerFixture,
         singleSelector: 'vl-map-features-layer',
         multipleFixture: featuresLayersFixture,
+        zIndexFixture: featuresLayerZIndexFixture,
     },
     {
         name: 'image-wms-layer',
         singleFixture: imageWmsLayerFixture,
         singleSelector: 'vl-map-image-wms-layer',
         multipleFixture: imageWmsLayersFixture,
+        zIndexFixture: imageWmsLayerZIndexFixture,
     },
     {
         name: 'tiled-wms-layer',
         singleFixture: tiledWmsLayerFixture,
         singleSelector: 'vl-map-tiled-wms-layer',
         multipleFixture: tiledWmsLayersFixture,
+        zIndexFixture: tiledWmsLayerZIndexFixture,
     },
     {
         name: 'wfs-layer',
         singleFixture: wfsLayerFixture,
         singleSelector: 'vl-map-wfs-layer',
         multipleFixture: wfsLayersFixture,
+        zIndexFixture: wfsLayerZIndexFixture,
     },
     {
         name: 'wmts-layer',
         singleFixture: wmtsLayerFixture,
         singleSelector: 'vl-map-wmts-layer',
         multipleFixture: wmtsLayersFixture,
+        zIndexFixture: wmtsLayerZIndexFixture,
     },
 ];
 
@@ -278,6 +322,31 @@ describe('cypress-component - map - vl-map-layer', () => {
             cy.runTestFor<VlMap>('vl-map', (vlMap) => {
                 cy.wrap(vlMap.ready).then(() => {
                     expect(getLayers(vlMap)).to.be.lengthOf(vlMap.children.length);
+                });
+            });
+        });
+    });
+
+    fixtures.forEach((fixture) => {
+        it(`${fixture.name} - het z-index attribuut wordt doorgezet naar de OpenLayers laag`, () => {
+            cy.mount(fixture.zIndexFixture);
+            cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+                cy.wrap(vlMap.ready).then(() => {
+                    const layer = getLayer(vlMap);
+                    expect(layer._layer.getZIndex()).to.equal(5);
+                });
+            });
+        });
+    });
+
+    fixtures.forEach((fixture) => {
+        it(`${fixture.name} - het z-index attribuut kan dynamisch gewijzigd worden`, () => {
+            cy.mount(fixture.singleFixture);
+            cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+                cy.wrap(vlMap.ready).then(() => {
+                    const layer = getLayer(vlMap);
+                    layer.setAttribute('z-index', '10');
+                    expect(layer._layer.getZIndex()).to.equal(10);
                 });
             });
         });

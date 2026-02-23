@@ -6,7 +6,7 @@ export abstract class VlMapLayer extends BaseHTMLElement {
     static __counter: any;
 
     static get _observedAttributes() {
-        return ['hidden', 'opacity'];
+        return ['hidden', 'opacity', 'z-index'];
     }
 
     __counter: number;
@@ -32,6 +32,9 @@ export abstract class VlMapLayer extends BaseHTMLElement {
         if (this.mapElement) {
             await this.mapElement.ready;
             this.mapElement.addLayer(this._layer);
+            if (this.getAttribute('z-index') != null) {
+                this._layer.setZIndex(this._zIndex);
+            }
         }
         // bereken hoeveel VlMapStyle elementen er actief zouden moeten zijn
         this.__styleCount = this.getStyleCount();
@@ -154,6 +157,10 @@ export abstract class VlMapLayer extends BaseHTMLElement {
         return Number(this.getAttribute('opacity') || 1);
     }
 
+    get _zIndex() {
+        return Number(this.getAttribute('z-index') || 0);
+    }
+
     get _visible() {
         return this.getAttribute('hidden') == undefined;
     }
@@ -204,6 +211,10 @@ export abstract class VlMapLayer extends BaseHTMLElement {
 
     _opacityChangedCallback(oldValue: string, newValue: string) {
         this.opacity = Number(newValue || 1);
+    }
+
+    _zIndexChangedCallback(oldValue: string, newValue: string) {
+        this._layer?.setZIndex(Number(newValue || 0));
     }
 
     __setIsLayerMarkerAttribute() {
