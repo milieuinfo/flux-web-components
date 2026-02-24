@@ -71,9 +71,18 @@ Dit werkt best in combinatie met een `.vl-grid`, met verschillende `vl-info-tile
 
 <Canvas of={VlInfoTileStories.InfoTileFullHeight} />
 
+### Heading
+
+Je kan een heading (h1-h6) laten renderen in de info-tile door gebruik te maken van de `heading-level` attribute.
+
+<Canvas of={VlInfoTileStories.InfoTileHeadingLevel} />
+
 ### Met toggle
 
 <Canvas of={VlInfoTileStories.InfoTileToggleable} />
+
+> **Let op:** Gebruik het `subtitle` slot niet wanneer de info tile `toggleable` is. De subtitle hoort bij de content, 
+maar is geen onderdeel van het getogglede gedeelte. 
 
 ### Met menu
 

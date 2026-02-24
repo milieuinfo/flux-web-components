@@ -1,6 +1,7 @@
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
+import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import '../vl-info-tile.component';
 import { infoTileArgs, infoTileArgTypes } from './vl-info-tile.stories-arg';
@@ -39,6 +40,7 @@ const Template = story(
         type,
         fullHeight = false,
         classes = '',
+        headingLevel,
         onVlClickInfoTile,
     }) => html`
         <vl-info-tile
@@ -53,6 +55,7 @@ const Template = story(
             size="${size}"
             type="${type}"
             class="${classes}"
+            heading-level="${ifDefined(headingLevel)}"
             @vl-click-info-tile="${onVlClickInfoTile}"
         >
             ${unsafeHTML(badgeSlot)} ${unsafeHTML(titleSlot)} ${unsafeHTML(menuSlot)} ${unsafeHTML(subtitleSlot)}
@@ -157,6 +160,15 @@ InfoTileFullHeight.decorators = [
     `,
 ];
 
+export const InfoTileHeadingLevel = Template.bind({});
+InfoTileHeadingLevel.storyName = 'vl-info-tile - heading level';
+InfoTileHeadingLevel.args = {
+    titleSlot: `<span slot="title">Broos Deprez</span>`,
+    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    headingLevel: '6',
+};
+
 export const InfoTileCentered = Template.bind({});
 InfoTileCentered.storyName = 'vl-info-tile - centered';
 InfoTileCentered.args = {
@@ -172,7 +184,6 @@ InfoTileToggleable.storyName = 'vl-info-tile - toggleable';
 InfoTileToggleable.args = {
     toggleable: true,
     titleSlot: `<span slot="title">Broos Deprez</span>`,
-    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
     contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
 };
 
