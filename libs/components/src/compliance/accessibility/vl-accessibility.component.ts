@@ -120,7 +120,7 @@ export class VlAccessibility extends BaseLitElement {
         return html`
             <div>
                 <slot name="header">${header(props)}</slot> ${title(props)}
-                <vl-side-navigation-layout
+                <vl-side-navigation-layout-next
                     content-block
                     heading-root-selector="#content"
                     min-level="2"
@@ -128,7 +128,7 @@ export class VlAccessibility extends BaseLitElement {
                     max-depth="0"
                 >
                     ${content(props)}
-                </vl-side-navigation-layout>
+                </vl-side-navigation-layout-next>
             </div>
         `;
     }

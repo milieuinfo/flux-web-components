@@ -104,7 +104,7 @@ describe('cypress-component - compliance components - vl-privacy - properties fu
             const have = active ? 'have' : 'not.have';
             cy.get('vl-privacy')
                 .shadow()
-                .find('vl-side-navigation-layout')
+                .find('vl-side-navigation-layout-next')
                 .find('vl-side-navigation-next')
                 .shadow()
                 .find(`a[href="${href}"]`)

@@ -15,7 +15,7 @@ registerWebComponents([VlSideNavigationComponent]);
  *
  * Uses light DOM rendering to ensure VL grid classes work properly.
  */
-@webComponent('vl-side-navigation-layout')
+@webComponent('vl-side-navigation-layout-next')
 export class VlSideNavigationLayoutComponent extends BaseLitElement {
     @property({ type: Boolean, attribute: 'compact' })
     compact = false;
@@ -273,6 +273,6 @@ export class VlSideNavigationLayoutComponent extends BaseLitElement {
 
 declare global {
     interface HTMLElementTagNameMap {
-        'vl-side-navigation-layout': VlSideNavigationLayoutComponent;
+        'vl-side-navigation-layout-next': VlSideNavigationLayoutComponent;
     }
 }

@@ -18,7 +18,7 @@ const sideNavigationLayoutWithProzaMessageHTML = html`
     <section class="vl-section">
         <div class="vl-content-block vl-content-block--full-width">
             <vl-proza-message-preloader domain="side-navigation-layout-proza-message"></vl-proza-message-preloader>
-            <vl-side-navigation-layout
+            <vl-side-navigation-layout-next
                 content-block
                 heading-root-selector="#side-navigation-layout-content"
             >
@@ -165,7 +165,7 @@ const sideNavigationLayoutWithProzaMessageHTML = html`
                         pagina als in de side navigation consistent blijft.
                     </p>
                 </div>
-            </vl-side-navigation-layout>
+            </vl-side-navigation-layout-next>
         </div>
     </section>
 `;
@@ -192,7 +192,7 @@ const preloadProzaMessages = () => {
 };
 
 export default {
-    title: 'Ontwerp/Side Navigation/Layout Met Proza Message',
+    title: 'Patronen/Pagina Opbouw/Side Navigation Met Proza Message',
     parameters: {
         layout: 'fullscreen',
         docs: {
@@ -210,4 +210,4 @@ export const LayoutMetProzaMessage = () => {
     return sideNavigationLayoutWithProzaMessageHTML;
 };
 
-LayoutMetProzaMessage.storyName = 'vl-side-navigation-layout - met proza message';
+LayoutMetProzaMessage.storyName = 'vl-side-navigation-layout-next - met proza message';

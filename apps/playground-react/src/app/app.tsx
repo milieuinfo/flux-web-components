@@ -35,6 +35,12 @@ export const VlTitle = createComponent({
     react: React,
 });
 
+export const VlSideNavigationLayout = createComponent({
+    tagName: 'vl-side-navigation-layout-next',
+    elementClass: VlSideNavigationLayoutComponent,
+    react: React,
+});
+
 const sideNavContent = (
     <div slot="content">
         <div id="side-nav-example-content">
@@ -53,7 +59,7 @@ const sideNavContent = (
                     Usage
                 </VlTitle>
                 <p>
-                    Use <code>vl-side-navigation-layout</code> to combine the grid layout with an automatic side
+                    Use <code>vl-side-navigation-layout-next</code> to combine the grid layout with an automatic side
                     navigation. Put your main content in a div with <code>slot="content"</code> and give the content
                     root an id that you pass as <code>heading-root-selector</code>. Use <code>vl-title</code> or native
                     h2/h3 with <code>id</code> attributes for each section.
@@ -146,13 +152,13 @@ const sideNavContent = (
 export function App() {
     return (
         <main style={{ padding: 0 }}>
-            <vl-side-navigation-layout
-                content-block
-                heading-root-selector="#side-nav-example-content"
-                navigation-title="On this page"
+            <VlSideNavigationLayout
+                contentBlock
+                headingRootSelector="#side-nav-example-content"
+                navigationTitle="On this page"
             >
                 {sideNavContent}
-            </vl-side-navigation-layout>
+            </VlSideNavigationLayout>
         </main>
     );
 }
@@ -183,7 +189,7 @@ declare global {
                 open: boolean;
                 'custom-css': string;
             };
-            'vl-side-navigation-layout': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+            'vl-side-navigation-layout-next': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
                 'content-block'?: boolean;
                 'heading-root-selector'?: string;
                 'navigation-title'?: string;
