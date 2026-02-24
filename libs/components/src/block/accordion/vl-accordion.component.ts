@@ -112,32 +112,13 @@ export class VlAccordionComponent extends BaseHTMLElement {
 
     _addHeadingElement() {
         if (this._headingLevelAttribute) {
-            let headingElement: HTMLHeadingElement;
-            switch (this._headingLevelAttribute) {
-                case '1':
-                    headingElement = document.createElement('h1');
-                    break;
-                case '2':
-                    headingElement = document.createElement('h2');
-                    break;
-                case '3':
-                    headingElement = document.createElement('h3');
-                    break;
-                case '4':
-                    headingElement = document.createElement('h4');
-                    break;
-                case '5':
-                    headingElement = document.createElement('h5');
-                    break;
-                case '6':
-                    headingElement = document.createElement('h6');
-                    break;
-                default:
-                    console.warn(
-                        `De waarde "${this._headingLevelAttribute}" van het attribuut "heading-level" is ongeldig. Gebruik een waarde tussen 1 en 6.`
-                    );
-                    return;
+            if (!['1', '2', '3', '4', '5', '6'].includes(this._headingLevelAttribute)) {
+                console.warn(
+                    `De waarde "${this._headingLevelAttribute}" van het attribuut "heading-level" is ongeldig. Gebruik een waarde tussen 1 en 6.`
+                );
+                return;
             }
+            const headingElement = document.createElement(`h${this._headingLevelAttribute}`);
             headingElement.appendChild(this._buttonElement);
             const existingHeadingElement = this._buttonContainerElement.querySelector('h1, h2, h3, h4, h5, h6');
             if (existingHeadingElement) {

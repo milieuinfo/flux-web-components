@@ -148,7 +148,9 @@ export const accordionArgTypes: ArgTypes<typeof accordionArgs> = {
     },
     headingLevel: {
         name: 'heading-level',
-        description: 'Bepaalt het heading level (h1, h2, h3, ...) van de titel van de accordion.',
+        description:
+            'Het heading-level van de titel (h1 t.e.m. h6).' +
+            ' Indien niet opgegeven of ongeldig, wordt standaard h3 gebruikt.',
         control: { type: CONTROLS.SELECT },
         options: ['1', '2', '3', '4', '5', '6'],
         table: {

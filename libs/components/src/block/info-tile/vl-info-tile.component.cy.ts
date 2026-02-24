@@ -1,5 +1,6 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { VlButtonComponent } from '../../atom/button';
 import { VlPopoverComponent } from '../popover';
@@ -25,6 +26,7 @@ const mountDefault = ({
     iconAsBadge,
     type = 'default',
     fullHeight = false,
+    headingLevel,
 }: {
     autoOpen?: boolean;
     clickable?: boolean;
@@ -42,6 +44,7 @@ const mountDefault = ({
     iconAsBadge?: boolean;
     type?: INFO_TILE_TYPE;
     fullHeight?: boolean;
+    headingLevel?: string;
 }) =>
     cy.mount(html`
         <vl-info-tile
@@ -50,11 +53,12 @@ const mountDefault = ({
             ?icon-as-badge=${iconAsBadge}
             ?toggleable=${toggleable}
             ?clickable=${clickable}
-            clickable-label=${clickableLabel}
+            clickable-label=${ifDefined(clickableLabel)}
             ?full-height="${fullHeight}"
             icon="${icon}"
             size="${size}"
             type="${type}"
+            heading-level="${ifDefined(headingLevel)}"
         >
             ${unsafeHTML(badgeSlot)} ${unsafeHTML(titleSlot)} ${unsafeHTML(menuSlot)} ${unsafeHTML(subtitleSlot)}
             ${unsafeHTML(contentSlot)} ${unsafeHTML(footerSlot)}
@@ -566,7 +570,7 @@ describe('cypress-component - block components - vl-info-tile - footer', () => {
     });
 });
 
-describe('story vl-info-tile - menu and clickable', () => {
+describe('cypress-component - block components - vl-info-tile - menu and clickable', () => {
     beforeEach(() => {
         mountDefault({
             clickable: true,
@@ -616,5 +620,97 @@ describe('story vl-info-tile - menu and clickable', () => {
             .shadow()
             .find('button.info-tile-clickable')
             .should('have.attr', 'aria-label', clickableLabel);
+    });
+});
+
+describe('cypress-component - block components - vl-info-tile - heading-level', () => {
+    it('should render the title in a h2 when headingLevel is set to 2', () => {
+        mountDefault({
+            titleSlot,
+            contentSlot,
+            headingLevel: '2',
+        });
+        cy.get('vl-info-tile').shadow().find('h2.vl-info-tile__header__title').should('exist');
+        cy.get('vl-info-tile').find('span[slot="title"]').contains('Broos Deprez');
+    });
+
+    it('should fallback to h3 if headingLevel is invalid', () => {
+        mountDefault({
+            titleSlot,
+            contentSlot,
+            headingLevel: 'invalid',
+        });
+        cy.get('vl-info-tile').shadow().find('h3.vl-info-tile__header__title').should('exist');
+    });
+});
+
+describe('cypress-component - block components - vl-info-tile - dynamic title rendering', () => {
+    it('should not render title wrapper if no titleSlot is given', () => {
+        mountDefault({
+            contentSlot,
+        });
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile__header__title').should('not.exist');
+    });
+
+    it('should render title wrapper if titleSlot is given', () => {
+        mountDefault({
+            titleSlot,
+            contentSlot,
+        });
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile__header__title').should('exist');
+        cy.get('vl-info-tile').find('span[slot="title"]').contains('Broos Deprez');
+    });
+});
+
+describe('cypress-component - block components - vl-info-tile - dynamic header rendering', () => {
+    it('should not render .vl-info-tile__header wrapper if no titleSlot, subtitleSlot, titleLabelSlot, badgeSlot and menuSlot is given', () => {
+        mountDefault({
+            contentSlot,
+        });
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile__header').should('not.exist');
+    });
+
+    it('should render .vl-info-tile__header wrapper if any of titleSlot, subtitleSlot, titleLabelSlot, badgeSlot or menuSlot is given', () => {
+        mountDefault({
+            titleSlot,
+            contentSlot,
+        });
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile__header').should('exist');
+    });
+});
+
+describe('cypress-component - block components - vl-info-tile - dynamic subtitle rendering', () => {
+    it('should not render subtitle wrapper if no subtitleSlot is given', () => {
+        mountDefault({
+            titleSlot,
+            contentSlot,
+        });
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile__header__subtitle').should('not.exist');
+    });
+
+    it('should render subtitle wrapper if subtitleSlot is given', () => {
+        mountDefault({
+            titleSlot,
+            subtitleSlot,
+            contentSlot,
+        });
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile__header__subtitle').should('exist');
+        cy.get('vl-info-tile').find('span[slot="subtitle"]').contains('Uw zoon (19.05.2005)');
+    });
+});
+
+describe('cypress-component - block components - vl-info-tile - title click event', () => {
+    it('should trigger toggle/click when clicking the title slot', () => {
+        mountDefault({
+            titleSlot,
+            contentSlot,
+            toggleable: true,
+        });
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('not.have.class', 'js-vl-accordion--open');
+        cy.get('vl-info-tile')
+            .shadow()
+            .find('h3.vl-info-tile__header__title slot[name="title"]')
+            .click({ force: true });
+        cy.get('vl-info-tile').shadow().find('.vl-info-tile').should('have.class', 'js-vl-accordion--open');
     });
 });

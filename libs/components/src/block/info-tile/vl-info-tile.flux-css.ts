@@ -1,7 +1,13 @@
 import { css, CSSResult } from 'lit';
 
 // deze css is gegenereerd uit de oude custom scss
-export const vlInfoTyleFluxStyles: CSSResult = css`
+export const vlInfoTileFluxStyles: CSSResult = css`
+    :host .vl-info-tile__content {
+        margin-top: 0;
+    }
+    :host .vl-info-tile__header + .vl-info-tile__content {
+        margin-top: 1rem;
+    }
     :host .vl-info-tile__header {
         flex-direction: row;
     }
