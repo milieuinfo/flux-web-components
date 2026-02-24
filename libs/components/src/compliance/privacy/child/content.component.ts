@@ -1,7 +1,7 @@
 import { html } from 'lit';
 
 export const privacyContentSection = () => html`
-    <vl-side-navigation-layout content-block max-depth="0">
+    <vl-side-navigation-layout-next content-block max-depth="0">
         <div slot="content" class="vl-grid vl-stacked-large">
             <div class="vl-column vl-column--12 vl-column--m-12">
                 <vl-title type="h2" id="privacy-department">Het Departement Omgeving en uw privacy</vl-title>
@@ -654,5 +654,5 @@ export const privacyContentSection = () => html`
                 </div>
             </div>
         </div>
-    </vl-side-navigation-layout>
+    </vl-side-navigation-layout-next>
 `;

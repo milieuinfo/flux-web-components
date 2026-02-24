@@ -86,7 +86,7 @@ export class VlCookieStatement extends BaseHTMLElement {
                 </section>
 
                 <section class="vl-section">
-                    <vl-side-navigation-layout content-block max-depth="1">
+                    <vl-side-navigation-layout-next content-block max-depth="1">
                         <div slot="content" class="vl-grid vl-stacked-large">
                             <div class="vl-column vl-column--12 vl-column--m-12">
                                 <vl-title type="h2" id="cookie-policy">Cookiebeleid</vl-title>
@@ -212,7 +212,7 @@ export class VlCookieStatement extends BaseHTMLElement {
                                 <slot></slot>
                             </div>
                         </div>
-                    </vl-side-navigation-layout>
+                    </vl-side-navigation-layout-next>
                 </section>
 
                 <section class="vl-section vl-section--overlap">

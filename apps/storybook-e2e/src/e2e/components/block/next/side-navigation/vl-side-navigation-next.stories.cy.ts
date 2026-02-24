@@ -1,9 +1,9 @@
 const sideNavigationNextDefaultUrl =
-    'http://localhost:8080/iframe.html?id=components-block-next-side-navigation-next--side-navigation-default&viewMode=story';
+    'http://localhost:8080/iframe.html?id=components-block-next-side-navigation--side-navigation-default&viewMode=story';
 const sideNavigationNextCompactUrl =
-    'http://localhost:8080/iframe.html?id=components-block-next-side-navigation-next--side-navigation-compact&viewMode=story';
+    'http://localhost:8080/iframe.html?id=components-block-next-side-navigation--side-navigation-compact&viewMode=story';
 const sideNavigationNextCustomTocUrl =
-    'http://localhost:8080/iframe.html?id=components-block-next-side-navigation-next--side-navigation-with-custom-toc&viewMode=story';
+    'http://localhost:8080/iframe.html?id=components-block-next-side-navigation--side-navigation-with-custom-toc&viewMode=story';
 
 describe('cypress-e2e - block components - vl-side-navigation-next - default story', () => {
     it('should render', () => {

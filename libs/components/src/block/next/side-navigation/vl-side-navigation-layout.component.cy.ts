@@ -89,7 +89,7 @@ registerWebComponents([
 
 const mountSideNavigationLayout = () => {
     return cy.mount(html`
-        <vl-side-navigation-layout>
+        <vl-side-navigation-layout-next>
             <vl-side-navigation-next slot="navigation"></vl-side-navigation-next>
             <div slot="content" style="min-height: 2000px;">
                 <section id="content-1" style="margin-top: 100px; min-height: 400px;">
@@ -121,13 +121,13 @@ const mountSideNavigationLayout = () => {
                     </p>
                 </section>
             </div>
-        </vl-side-navigation-layout>
+        </vl-side-navigation-layout-next>
     `);
 };
 
 const mountSideNavigationLayoutOnlyContent = () => {
     return cy.mount(html`
-        <vl-side-navigation-layout>
+        <vl-side-navigation-layout-next>
             <div slot="content" style="min-height: 2000px;">
                 <section id="content-1" style="margin-top: 100px; min-height: 400px;">
                     <vl-title type="h2" id="content-1-heading">Content 1</vl-title>
@@ -158,13 +158,13 @@ const mountSideNavigationLayoutOnlyContent = () => {
                     </p>
                 </section>
             </div>
-        </vl-side-navigation-layout>
+        </vl-side-navigation-layout-next>
     `);
 };
 
 const mountSideNavigationLayoutWithCustomToc = () => {
     return cy.mount(html`
-        <vl-side-navigation-layout heading-root-selector="#custom-toc-content">
+        <vl-side-navigation-layout-next heading-root-selector="#custom-toc-content">
             <vl-side-navigation-next slot="navigation">
                 <ul style="list-style: none; padding: 0; margin: 0;">
                     <li style="margin-bottom: 8px;">
@@ -259,31 +259,31 @@ const mountSideNavigationLayoutWithCustomToc = () => {
                     </section>
                 </div>
             </div>
-        </vl-side-navigation-layout>
+        </vl-side-navigation-layout-next>
     `);
 };
 
 const getSideNavigation = (isAutoNav: boolean) => {
     return isAutoNav
-        ? cy.get('vl-side-navigation-layout').shadow().find('vl-side-navigation-next')
-        : cy.get('vl-side-navigation-layout').find('vl-side-navigation-next');
+        ? cy.get('vl-side-navigation-layout-next').shadow().find('vl-side-navigation-next')
+        : cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next');
 };
 
 const runDesktopTests = (mountFn: () => Cypress.Chainable, isAutoNav = false) => {
     it('should mount', () => {
         mountFn();
-        cy.get('vl-side-navigation-layout').should('exist');
+        cy.get('vl-side-navigation-layout-next').should('exist');
     });
 
     it('should render navigation and content slots', () => {
         mountFn();
         getSideNavigation(false).should('exist');
-        cy.get('vl-side-navigation-layout').find('[slot="content"]').should('exist');
+        cy.get('vl-side-navigation-layout-next').find('[slot="content"]').should('exist');
     });
 
     it('should apply grid classes to navigation', () => {
         mountFn();
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .shadow()
             .find('navigation-part')
             .should('have.class', 'vl-column')
@@ -294,7 +294,7 @@ const runDesktopTests = (mountFn: () => Cypress.Chainable, isAutoNav = false) =>
 
     it('should apply grid classes to content', () => {
         mountFn();
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .shadow()
             .find('content-part')
             .should('have.class', 'vl-column')
@@ -302,24 +302,24 @@ const runDesktopTests = (mountFn: () => Cypress.Chainable, isAutoNav = false) =>
             .should('have.class', 'vl-column--m-9');
 
         cy.injectAxe();
-        cy.checkA11y('vl-side-navigation-layout');
+        cy.checkA11y('vl-side-navigation-layout-next');
     });
 
     it('should apply order-1 class to navigation by default', () => {
         mountFn();
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .shadow()
             .find('navigation-part')
             .shouldHaveComputedStyle({ style: 'order', value: '1' });
 
         cy.injectAxe();
-        cy.checkA11y('vl-side-navigation-layout');
+        cy.checkA11y('vl-side-navigation-layout-next');
     });
 
     it('should be accessible', () => {
         mountFn();
         cy.injectAxe();
-        cy.checkA11y('vl-side-navigation-layout');
+        cy.checkA11y('vl-side-navigation-layout-next');
     });
 
     it('should have aria-controls on toggle buttons pointing to nested ul elements', () => {
@@ -434,7 +434,7 @@ const runDesktopTests = (mountFn: () => Cypress.Chainable, isAutoNav = false) =>
 
     it('should apply vl-content-block class when content-block attribute is set', () => {
         cy.mount(html`
-            <vl-side-navigation-layout content-block>
+            <vl-side-navigation-layout-next content-block>
                 <vl-side-navigation-next slot="navigation"></vl-side-navigation-next>
                 <div slot="content">
                     <section>
@@ -442,23 +442,23 @@ const runDesktopTests = (mountFn: () => Cypress.Chainable, isAutoNav = false) =>
                         <p>Test paragraph</p>
                     </section>
                 </div>
-            </vl-side-navigation-layout>
+            </vl-side-navigation-layout-next>
         `);
 
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .shadow()
             .find('layout-container')
             .should('have.class', 'vl-grid')
             .should('have.class', 'vl-content-block');
 
         cy.injectAxe();
-        cy.checkA11y('vl-side-navigation-layout');
+        cy.checkA11y('vl-side-navigation-layout-next');
     });
 
     it('should not apply vl-content-block class when content-block attribute is not set', () => {
         mountFn();
 
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .shadow()
             .find('layout-container')
             .should('have.class', 'vl-grid')
@@ -474,13 +474,13 @@ const runDesktopTests = (mountFn: () => Cypress.Chainable, isAutoNav = false) =>
         getSideNavigation(false).shadow().find('nav a[href="#content-2-heading"].active').should('exist');
 
         cy.injectAxe();
-        cy.checkA11y('vl-side-navigation-layout');
+        cy.checkA11y('vl-side-navigation-layout-next');
     });
 
     it('should maintain layout during scrolling', () => {
         mountFn();
 
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .shadow()
             .find('navigation-part')
             .then(($nav) => {
@@ -489,14 +489,14 @@ const runDesktopTests = (mountFn: () => Cypress.Chainable, isAutoNav = false) =>
                 cy.get('#content-2-heading').scrollIntoView();
                 cy.wait(300);
 
-                cy.get('vl-side-navigation-layout')
+                cy.get('vl-side-navigation-layout-next')
                     .shadow()
                     .find('navigation-part')
                     .should('have.attr', 'class', initialClasses);
             });
 
         cy.injectAxe();
-        cy.checkA11y('vl-side-navigation-layout');
+        cy.checkA11y('vl-side-navigation-layout-next');
     });
 
     it('should support keyboard navigation through TOC items', () => {
@@ -546,17 +546,17 @@ const runDesktopTests = (mountFn: () => Cypress.Chainable, isAutoNav = false) =>
 const runMobileTests = (mountFn: () => Cypress.Chainable, isAutoNav = false) => {
     it('should apply full width classes on mobile viewport', () => {
         mountFn();
-        cy.get('vl-side-navigation-layout').shadow().find('navigation-part').should('have.class', 'vl-column--s-12');
-        cy.get('vl-side-navigation-layout').shadow().find('content-part').should('have.class', 'vl-column--s-12');
+        cy.get('vl-side-navigation-layout-next').shadow().find('navigation-part').should('have.class', 'vl-column--s-12');
+        cy.get('vl-side-navigation-layout-next').shadow().find('content-part').should('have.class', 'vl-column--s-12');
 
         cy.injectAxe();
-        cy.checkA11y('vl-side-navigation-layout');
+        cy.checkA11y('vl-side-navigation-layout-next');
     });
 
     it('should be accessible on mobile viewport', () => {
         mountFn();
         cy.injectAxe();
-        cy.checkA11y('vl-side-navigation-layout');
+        cy.checkA11y('vl-side-navigation-layout-next');
     });
 
     it('should update navigation when scrolling on mobile viewport', () => {
@@ -570,7 +570,7 @@ const runMobileTests = (mountFn: () => Cypress.Chainable, isAutoNav = false) => 
         getSideNavigation(false).shadow().find('nav a[href="#content-2-heading"].active').should('exist');
 
         cy.injectAxe();
-        cy.checkA11y('vl-side-navigation-layout');
+        cy.checkA11y('vl-side-navigation-layout-next');
     });
 
     it('should have role="dialog" and aria-modal when in overlay mode (mobile)', () => {
@@ -646,7 +646,7 @@ const runMobileTests = (mountFn: () => Cypress.Chainable, isAutoNav = false) => 
 };
 
 // explicit navigation slot tests
-describe('cypress-component - block components - vl-side-navigation-layout', () => {
+describe('cypress-component - block components - vl-side-navigation-layout-next', () => {
     beforeEach(() => {
         cy.viewport(1440, 900);
     });
@@ -654,7 +654,7 @@ describe('cypress-component - block components - vl-side-navigation-layout', () 
     runDesktopTests(mountSideNavigationLayout, false);
 });
 
-describe('cypress-component - block components - vl-side-navigation-layout - mobile viewport', () => {
+describe('cypress-component - block components - vl-side-navigation-layout-next - mobile viewport', () => {
     beforeEach(() => {
         cy.viewport(375, 667);
     });
@@ -663,7 +663,7 @@ describe('cypress-component - block components - vl-side-navigation-layout - mob
 });
 
 // auto-generated navigation tests
-describe('cypress-component - block components - vl-side-navigation-layout - only content (auto navigation)', () => {
+describe('cypress-component - block components - vl-side-navigation-layout-next - only content (auto navigation)', () => {
     beforeEach(() => {
         cy.viewport(1440, 900);
     });
@@ -671,7 +671,7 @@ describe('cypress-component - block components - vl-side-navigation-layout - onl
     runDesktopTests(mountSideNavigationLayoutOnlyContent, true);
 });
 
-describe('cypress-component - block components - vl-side-navigation-layout - only content (auto navigation) - mobile viewport', () => {
+describe('cypress-component - block components - vl-side-navigation-layout-next - only content (auto navigation) - mobile viewport', () => {
     beforeEach(() => {
         cy.viewport(375, 667);
     });
@@ -680,20 +680,20 @@ describe('cypress-component - block components - vl-side-navigation-layout - onl
 });
 
 // custom table of contents tests
-describe('cypress-component - block components - vl-side-navigation-layout - with custom TOC', () => {
+describe('cypress-component - block components - vl-side-navigation-layout-next - with custom TOC', () => {
     beforeEach(() => {
         cy.viewport(1440, 900);
     });
 
     it('should mount with custom TOC', () => {
         mountSideNavigationLayoutWithCustomToc();
-        cy.get('vl-side-navigation-layout').should('exist');
-        cy.get('vl-side-navigation-layout').find('vl-side-navigation-next').should('exist');
+        cy.get('vl-side-navigation-layout-next').should('exist');
+        cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').should('exist');
     });
 
     it('should render custom TOC with vl-link components', () => {
         mountSideNavigationLayoutWithCustomToc();
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .find('vl-link')
             .should('have.length.greaterThan', 0);
@@ -701,15 +701,15 @@ describe('cypress-component - block components - vl-side-navigation-layout - wit
 
     it('should render custom TOC with links', () => {
         mountSideNavigationLayoutWithCustomToc();
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .find('vl-link[href="#custom-intro"]')
             .should('exist');
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .find('vl-link[href="#custom-aanvraag"]')
             .should('exist');
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .find('vl-link[href="#custom-termijnen"]')
             .should('exist');
@@ -718,7 +718,7 @@ describe('cypress-component - block components - vl-side-navigation-layout - wit
     it('should navigate when clicking custom TOC links', () => {
         mountSideNavigationLayoutWithCustomToc();
 
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .find('vl-link[href="#custom-aanvraag"]')
             .click();
@@ -738,7 +738,7 @@ describe('cypress-component - block components - vl-side-navigation-layout - wit
         cy.get('#custom-aanvraag').scrollIntoView();
         cy.wait(500);
 
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .find('vl-link[href="#custom-aanvraag"].active')
             .should('exist');
@@ -750,7 +750,7 @@ describe('cypress-component - block components - vl-side-navigation-layout - wit
         cy.wait(500);
         cy.get('#custom-vereisten').scrollIntoView();
         // Wait for IntersectionObserver to update and apply expand state to parent section
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .find('vl-link[href="#custom-intro"]')
             .parent('li')
@@ -760,7 +760,7 @@ describe('cypress-component - block components - vl-side-navigation-layout - wit
 
         cy.get('#custom-termijnen').scrollIntoView();
         // Wait for IntersectionObserver to update and collapse parent section
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .find('vl-link[href="#custom-intro"]')
             .parent('li')
@@ -771,19 +771,19 @@ describe('cypress-component - block components - vl-side-navigation-layout - wit
     it('should be accessible with custom TOC', () => {
         mountSideNavigationLayoutWithCustomToc();
         cy.injectAxe();
-        cy.checkA11y('vl-side-navigation-layout');
+        cy.checkA11y('vl-side-navigation-layout-next');
     });
 
     it('should have aria-labelledby on table-of-contents with custom TOC', () => {
         mountSideNavigationLayoutWithCustomToc();
 
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .shadow()
             .find('table-of-contents')
             .should('have.attr', 'aria-labelledby', 'side-navigation-title');
 
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .shadow()
             .find('#side-navigation-title')
@@ -793,7 +793,7 @@ describe('cypress-component - block components - vl-side-navigation-layout - wit
     it('should have role="region" with custom TOC in sidebar mode', () => {
         mountSideNavigationLayoutWithCustomToc();
 
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .shadow()
             .find('table-of-contents')
@@ -805,14 +805,14 @@ describe('cypress-component - block components - vl-side-navigation-layout - wit
     it('should support keyboard navigation through custom TOC items', () => {
         mountSideNavigationLayoutWithCustomToc();
 
-        cy.get('vl-side-navigation-layout').find('vl-side-navigation-next').shadow().find('table-of-contents').click();
+        cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('table-of-contents').click();
 
         cy.press(Cypress.Keyboard.Keys.TAB);
-        cy.get('vl-side-navigation-layout').find('vl-link').first().shadow().find('a').should('have.focus');
+        cy.get('vl-side-navigation-layout-next').find('vl-link').first().shadow().find('a').should('have.focus');
 
         cy.press(Cypress.Keyboard.Keys.TAB);
         // Next is the child link
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-link[href="#custom-vereisten"]')
             .shadow()
             .find('a')
@@ -820,7 +820,7 @@ describe('cypress-component - block components - vl-side-navigation-layout - wit
 
         cy.press(Cypress.Keyboard.Keys.TAB);
         // Now the second top-level link
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-link[href="#custom-aanvraag"]')
             .shadow()
             .find('a')
@@ -830,12 +830,12 @@ describe('cypress-component - block components - vl-side-navigation-layout - wit
     it('should navigate to section when pressing Enter on custom TOC link', () => {
         mountSideNavigationLayoutWithCustomToc();
 
-        cy.get('vl-side-navigation-layout').find('vl-side-navigation-next').shadow().find('table-of-contents').click();
+        cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('table-of-contents').click();
         cy.press(Cypress.Keyboard.Keys.TAB); // First link
         cy.press(Cypress.Keyboard.Keys.TAB); // Second link
         cy.press(Cypress.Keyboard.Keys.TAB); // Third link
         cy.press(Cypress.Keyboard.Keys.TAB); // Fourth link
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-link[href="#custom-termijnen"]')
             .shadow()
             .find('a')
@@ -851,14 +851,14 @@ describe('cypress-component - block components - vl-side-navigation-layout - wit
     });
 });
 
-describe('cypress-component - block components - vl-side-navigation-layout - with custom TOC - mobile viewport', () => {
+describe('cypress-component - block components - vl-side-navigation-layout-next - with custom TOC - mobile viewport', () => {
     beforeEach(() => {
         cy.viewport(375, 667);
     });
 
     it('should render custom TOC on mobile viewport', () => {
         mountSideNavigationLayoutWithCustomToc();
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .find('vl-link')
             .should('have.length.greaterThan', 0);
@@ -867,13 +867,13 @@ describe('cypress-component - block components - vl-side-navigation-layout - wit
     it('should be accessible on mobile viewport with custom TOC', () => {
         mountSideNavigationLayoutWithCustomToc();
         cy.injectAxe();
-        cy.checkA11y('vl-side-navigation-layout');
+        cy.checkA11y('vl-side-navigation-layout-next');
     });
 
     it('should have role="dialog" and aria-modal with custom TOC in mobile viewport', () => {
         mountSideNavigationLayoutWithCustomToc();
 
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .shadow()
             .find('table-of-contents')
@@ -885,9 +885,9 @@ describe('cypress-component - block components - vl-side-navigation-layout - wit
     it('should support keyboard navigation on mobile viewport with custom TOC', () => {
         mountSideNavigationLayoutWithCustomToc();
 
-        cy.get('vl-side-navigation-layout').find('vl-side-navigation-next').click({ force: true });
+        cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').click({ force: true });
         cy.press(Cypress.Keyboard.Keys.TAB);
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .shadow()
             .find('#close-button')
@@ -896,11 +896,11 @@ describe('cypress-component - block components - vl-side-navigation-layout - wit
             .should('have.focus');
 
         cy.press(Cypress.Keyboard.Keys.TAB);
-        cy.get('vl-side-navigation-layout').find('vl-link').first().shadow().find('a').should('have.focus');
+        cy.get('vl-side-navigation-layout-next').find('vl-link').first().shadow().find('a').should('have.focus');
 
         cy.press(Cypress.Keyboard.Keys.TAB);
         // Next is the child link
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-link[href="#custom-vereisten"]')
             .shadow()
             .find('a')
@@ -908,7 +908,7 @@ describe('cypress-component - block components - vl-side-navigation-layout - wit
 
         cy.press(Cypress.Keyboard.Keys.TAB);
         // Now the second top-level link
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-link[href="#custom-aanvraag"]')
             .shadow()
             .find('a')
@@ -919,9 +919,9 @@ describe('cypress-component - block components - vl-side-navigation-layout - wit
         mountSideNavigationLayoutWithCustomToc();
 
         // Establish focus context, then close overlay via keyboard
-        cy.get('vl-side-navigation-layout').find('vl-side-navigation-next').shadow().find('nav').click({ force: true });
+        cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('nav').click({ force: true });
         cy.press(Cypress.Keyboard.Keys.TAB);
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .shadow()
             .find('#close-button')
@@ -929,7 +929,7 @@ describe('cypress-component - block components - vl-side-navigation-layout - wit
             .find('button')
             .should('have.focus');
         cy.press(Cypress.Keyboard.Keys.SPACE);
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .shadow()
             .find('table-of-contents')
@@ -938,7 +938,7 @@ describe('cypress-component - block components - vl-side-navigation-layout - wit
         // Open overlay via keyboard
         cy.press(Cypress.Keyboard.Keys.TAB);
         cy.press(Cypress.Keyboard.Keys.TAB);
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .shadow()
             .find('#show-toc-button')
@@ -950,12 +950,12 @@ describe('cypress-component - block components - vl-side-navigation-layout - wit
         cy.wait(50);
 
         // Verify overlay open and ARIA
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .shadow()
             .find('table-of-contents')
             .should('not.have.attr', 'hidden');
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .shadow()
             .find('table-of-contents')
@@ -966,55 +966,55 @@ describe('cypress-component - block components - vl-side-navigation-layout - wit
     });
 });
 
-describe('cypress-component - block components - vl-side-navigation-layout - compact attribute', () => {
+describe('cypress-component - block components - vl-side-navigation-layout-next - compact attribute', () => {
     beforeEach(() => {
         cy.viewport(1440, 900);
     });
 
     it('should force compact view when compact attribute is set', () => {
         cy.mount(html`
-            <vl-side-navigation-layout compact>
+            <vl-side-navigation-layout-next compact>
                 <div slot="content" style="min-height: 2000px;">
                     <section id="compact-test-content" style="margin-top: 100px; min-height: 400px;">
                         <vl-title type="h2" id="compact-test-heading">Compact Test Content</vl-title>
                         <p>Testing compact attribute on layout component.</p>
                     </section>
                 </div>
-            </vl-side-navigation-layout>
+            </vl-side-navigation-layout-next>
         `);
 
-        cy.get('vl-side-navigation-layout').should('have.attr', 'compact');
-        cy.get('vl-side-navigation-layout').find('vl-side-navigation-next').should('have.attr', 'compact');
+        cy.get('vl-side-navigation-layout-next').should('have.attr', 'compact');
+        cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').should('have.attr', 'compact');
 
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .shadow()
             .find('#show-toc-button')
             .should('exist');
 
         cy.injectAxe();
-        cy.checkA11y('vl-side-navigation-layout');
+        cy.checkA11y('vl-side-navigation-layout-next');
     });
 
     it('should have proper ARIA labels on navigation elements in compact mode', () => {
         cy.mount(html`
-            <vl-side-navigation-layout compact>
+            <vl-side-navigation-layout-next compact>
                 <div slot="content" style="min-height: 2000px;">
                     <section id="compact-test-content" style="margin-top: 100px; min-height: 400px;">
                         <vl-title type="h2" id="compact-test-heading">Compact Test Content</vl-title>
                         <p>Testing compact attribute on layout component.</p>
                     </section>
                 </div>
-            </vl-side-navigation-layout>
+            </vl-side-navigation-layout-next>
         `);
 
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .shadow()
             .find('nav')
             .should('have.attr', 'aria-label');
 
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .shadow()
             .find('#close-button')
@@ -1022,7 +1022,7 @@ describe('cypress-component - block components - vl-side-navigation-layout - com
             .find('button')
             .should('have.attr', 'aria-label');
 
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .shadow()
             .find('#show-toc-button')
@@ -1033,17 +1033,17 @@ describe('cypress-component - block components - vl-side-navigation-layout - com
 
     it('should have role="dialog" and aria-modal when compact attribute is set', () => {
         cy.mount(html`
-            <vl-side-navigation-layout compact>
+            <vl-side-navigation-layout-next compact>
                 <div slot="content" style="min-height: 2000px;">
                     <section id="compact-test-content" style="margin-top: 100px; min-height: 400px;">
                         <vl-title type="h2" id="compact-test-heading">Compact Test Content</vl-title>
                         <p>Testing compact attribute on layout component.</p>
                     </section>
                 </div>
-            </vl-side-navigation-layout>
+            </vl-side-navigation-layout-next>
         `);
 
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .shadow()
             .find('table-of-contents')
@@ -1053,28 +1053,28 @@ describe('cypress-component - block components - vl-side-navigation-layout - com
     });
 });
 
-describe('cypress-component - block components - vl-side-navigation-layout - navigation-title', () => {
+describe('cypress-component - block components - vl-side-navigation-layout-next - navigation-title', () => {
     beforeEach(() => {
         cy.viewport(1440, 900);
     });
 
     it('should pass navigation-title from layout to vl-side-navigation-next', () => {
         cy.mount(html`
-            <vl-side-navigation-layout navigation-title="Inhoud van deze pagina">
+            <vl-side-navigation-layout-next navigation-title="Inhoud van deze pagina">
                 <div slot="content" style="min-height: 2000px;">
                     <section id="toc-title-content" style="margin-top: 100px; min-height: 400px;">
                         <vl-title type="h2" id="toc-title-heading">Content</vl-title>
                         <p>Testing navigation-title pass-through.</p>
                     </section>
                 </div>
-            </vl-side-navigation-layout>
+            </vl-side-navigation-layout-next>
         `);
 
-        cy.get('vl-side-navigation-layout').should('have.attr', 'navigation-title', 'Inhoud van deze pagina');
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next').should('have.attr', 'navigation-title', 'Inhoud van deze pagina');
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .should('have.attr', 'navigation-title', 'Inhoud van deze pagina');
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .shadow()
             .find('.navigation-title')
@@ -1082,14 +1082,14 @@ describe('cypress-component - block components - vl-side-navigation-layout - nav
     });
 });
 
-describe('cypress-component - block components - vl-side-navigation-layout - max-depth', () => {
+describe('cypress-component - block components - vl-side-navigation-layout-next - max-depth', () => {
     beforeEach(() => {
         cy.viewport(1440, 900);
     });
 
     it('should work with max-depth attribute', () => {
         cy.mount(html`
-            <vl-side-navigation-layout max-depth="1">
+            <vl-side-navigation-layout-next max-depth="1">
                 <div slot="content" style="min-height: 2000px;">
                     <section id="content-1" style="margin-top: 100px; min-height: 400px;">
                         <vl-title type="h2" id="content-1-heading">Content 1</vl-title>
@@ -1100,16 +1100,16 @@ describe('cypress-component - block components - vl-side-navigation-layout - max
                         <p>Lorem ipsum dolor sit amet.</p>
                     </section>
                 </div>
-            </vl-side-navigation-layout>
+            </vl-side-navigation-layout-next>
         `);
 
-        cy.get('vl-side-navigation-layout').should('have.attr', 'max-depth', '1');
-        cy.get('vl-side-navigation-layout').find('vl-side-navigation-next').should('have.attr', 'max-depth', '1');
+        cy.get('vl-side-navigation-layout-next').should('have.attr', 'max-depth', '1');
+        cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').should('have.attr', 'max-depth', '1');
     });
 
     it('should find headings with max-depth set to 0', () => {
         cy.mount(html`
-            <vl-side-navigation-layout max-depth="0">
+            <vl-side-navigation-layout-next max-depth="0">
                 <div slot="content" style="min-height: 2000px;">
                     <section id="content-1" style="margin-top: 100px; min-height: 400px;">
                         <vl-title type="h2" id="content-1-heading">Content 1</vl-title>
@@ -1120,15 +1120,15 @@ describe('cypress-component - block components - vl-side-navigation-layout - max
                         <p>Lorem ipsum dolor sit amet.</p>
                     </section>
                 </div>
-            </vl-side-navigation-layout>
+            </vl-side-navigation-layout-next>
         `);
 
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .shadow()
             .find('nav a[href="#content-1-heading"]')
             .should('exist');
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .shadow()
             .find('nav a[href="#content-2-heading"]')
@@ -1137,7 +1137,7 @@ describe('cypress-component - block components - vl-side-navigation-layout - max
 
     it('should be accessible with max-depth', () => {
         cy.mount(html`
-            <vl-side-navigation-layout max-depth="2">
+            <vl-side-navigation-layout-next max-depth="2">
                 <div slot="content" style="min-height: 2000px;">
                     <section id="content-1" style="margin-top: 100px; min-height: 400px;">
                         <vl-title type="h2" id="content-1-heading">Content 1</vl-title>
@@ -1148,22 +1148,22 @@ describe('cypress-component - block components - vl-side-navigation-layout - max
                         <p>Lorem ipsum dolor sit amet.</p>
                     </section>
                 </div>
-            </vl-side-navigation-layout>
+            </vl-side-navigation-layout-next>
         `);
 
         cy.injectAxe();
-        cy.checkA11y('vl-side-navigation-layout');
+        cy.checkA11y('vl-side-navigation-layout-next');
     });
 });
 
-describe('cypress-component - block components - vl-side-navigation-layout - slotted content with light-DOM-only custom element', () => {
+describe('cypress-component - block components - vl-side-navigation-layout-next - slotted content with light-DOM-only custom element', () => {
     beforeEach(() => {
         cy.viewport(1440, 900);
     });
 
     it('should pick up headings inside light-DOM-only custom element and keep TOC in document order', () => {
         cy.mount(html`
-            <vl-side-navigation-layout content-block>
+            <vl-side-navigation-layout-next content-block>
                 <vl-side-navigation-next slot="navigation"></vl-side-navigation-next>
                 <div slot="content" style="min-height: 2000px;">
                     <section style="margin-top: 100px; min-height: 200px;">
@@ -1176,13 +1176,13 @@ describe('cypress-component - block components - vl-side-navigation-layout - slo
                         <p>Content that appears last in the page.</p>
                     </section>
                 </div>
-            </vl-side-navigation-layout>
+            </vl-side-navigation-layout-next>
         `);
 
         // Wait for slot assignment and deferred TOC scan (requestAnimationFrame)
         cy.wait(150);
 
-        const nav = () => cy.get('vl-side-navigation-layout').find('vl-side-navigation-next').shadow().find('nav');
+        const nav = () => cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('nav');
 
         // Heading inside light-DOM-only custom element must appear in TOC
         nav().find('a[href="#details-vaststelling"]').should('exist').and('contain', 'Details vaststelling');
@@ -1213,7 +1213,7 @@ describe('cypress-component - block components - vl-side-navigation-layout - slo
      */
     it('should maintain document order when headings are found through shadow DOM, nested light DOM, and direct slotted content', () => {
         cy.mount(html`
-            <vl-side-navigation-layout content-block>
+            <vl-side-navigation-layout-next content-block>
                 <vl-side-navigation-next slot="navigation"></vl-side-navigation-next>
                 <div slot="content" style="min-height: 2000px;">
                     <!-- Section 1: Shadow DOM component with h2 heading -->
@@ -1231,13 +1231,13 @@ describe('cypress-component - block components - vl-side-navigation-layout - slo
                         <p>Content that appears last in the page.</p>
                     </section>
                 </div>
-            </vl-side-navigation-layout>
+            </vl-side-navigation-layout-next>
         `);
 
         // Wait for slot assignment and deferred TOC scan
         cy.wait(150);
 
-        const nav = () => cy.get('vl-side-navigation-layout').find('vl-side-navigation-next').shadow().find('nav');
+        const nav = () => cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('nav');
 
         // All headings must appear in TOC
         nav().find('a[href="#laatste-vaststelling"]').should('exist').and('contain', 'Laatste vaststelling');
@@ -1276,7 +1276,7 @@ describe('cypress-component - block components - vl-side-navigation-layout - slo
 
     it('should resolve heading text from nested shadow DOM content inside vl-title', () => {
         cy.mount(html`
-            <vl-side-navigation-layout content-block>
+            <vl-side-navigation-layout-next content-block>
                 <vl-side-navigation-next slot="navigation"></vl-side-navigation-next>
                 <div slot="content" style="min-height: 1200px;">
                     <section style="margin-top: 100px; min-height: 300px;">
@@ -1286,12 +1286,12 @@ describe('cypress-component - block components - vl-side-navigation-layout - slo
                         <p>Content under a heading with shadow-rendered text.</p>
                     </section>
                 </div>
-            </vl-side-navigation-layout>
+            </vl-side-navigation-layout-next>
         `);
 
         cy.wait(150);
 
-        cy.get('vl-side-navigation-layout')
+        cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .shadow()
             .find('nav a[href="#shadow-heading"]')

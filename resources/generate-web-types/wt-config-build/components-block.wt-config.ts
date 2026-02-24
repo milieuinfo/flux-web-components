@@ -186,7 +186,7 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
         '/docs/components-block-next-side-navigation-next--documentatie'
     ),
     buildWTConfig(
-        'vl-side-navigation-layout',
+        'vl-side-navigation-layout-next',
         sideNavigationLayoutArgTypes,
         '../../libs/components/src/block/next/side-navigation/stories/vl-side-navigation-layout.stories-doc.mdx',
         '/docs/components-block-next-side-navigation-layout--documentatie'

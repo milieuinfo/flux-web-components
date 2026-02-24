@@ -486,9 +486,9 @@
             "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#side-navigation)"
         }
     },
-    "components-block-next-side-navigation-next": {
+    "components-block-next-side-navigation": {
         "name": "side-navigation",
-        "docs": "components-block-next-side-navigation-next--documentatie",
+        "docs": "components-block-next-side-navigation--documentatie",
         "condition": {
             "base": "LitElement",
             "generation": "v3-next",
@@ -522,7 +522,7 @@
         }, "evolution": {
             "vStatus": "v3-next",
             "legacyText": "[vl-side-navigation](/docs/components-block-side-navigation--documentatie)",
-            "nextText": "vl-side-navigation-layout",
+            "nextText": "vl-side-navigation-layout-next",
             "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#side-navigation)"
         }
     },

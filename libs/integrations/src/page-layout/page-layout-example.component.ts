@@ -51,7 +51,7 @@ export class VlPageLayoutExample extends LitElement {
 
                         <section class="vl-section">
                             <div class="vl-content-block ${this.isFullWidth ? 'vl-content-block--full-width' : ''}">
-                                <vl-side-navigation-layout content-block heading-root-selector="#main-content">
+                                <vl-side-navigation-layout-next content-block heading-root-selector="#main-content">
                                     <div slot="content" id="main-content">
                                         <vl-title type="h1"
                                             >${this.isFullWidth ? 'Volledige breedte' : 'Standaard layout'}
@@ -153,7 +153,7 @@ export class VlPageLayoutExample extends LitElement {
                                             venenatis, tellus arcu molestie nunc.
                                         </vl-paragraph>
                                     </div>
-                                </vl-side-navigation-layout>
+                                </vl-side-navigation-layout-next>
                             </div>
                         </section>
                     </div>
