@@ -332,7 +332,11 @@ export class VlMapLegend extends BaseLitElement {
             borderRadius = 'border-radius: 50%;';
         }
 
-        return `border: ${item.borderSize}px solid ${item.borderColor}; color:${item.textColor}; background-color:${item.color}; ${borderRadius}`;
+        const patternStyle = item.pattern
+            ? ` background-image: url(${item.pattern}); background-repeat: repeat; background-size: 50%;`
+            : '';
+
+        return `border: ${item.borderSize}px solid ${item.borderColor}; color:${item.textColor}; background-color:${item.color};${patternStyle} ${borderRadius}`;
     }
 }
 

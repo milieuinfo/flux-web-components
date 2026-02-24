@@ -74,7 +74,7 @@ export class VlMapVectorLayer extends VlMapLayer {
         if (style instanceof VlMapLayerStyle) {
             this._styles.push(style);
             this._layer.setStyle((feature) =>
-                this._styles.map((style) => style.style(feature)).filter((style) => style != null)
+                this._styles.flatMap((style) => style.style(feature)).filter((style) => style != null)
             );
         } else {
             this._styles = [];

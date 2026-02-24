@@ -3,6 +3,7 @@ import { html } from 'lit';
 import { VlMap } from '../../vl-map';
 import { VlMapBaseLayerGRBGray } from '../baselayer/vl-map-base-layer-grb-gray/vl-map-base-layer-grb-gray';
 import { VlMapLayerCircleStyle } from '../layer-style/vl-map-layer-circle-style/vl-map-layer-circle-style';
+import { VlMapLayerStyle } from '../layer-style/vl-map-layer-style';
 import { VlMapFeaturesLayer } from '../layer/vector-layer/vl-map-features-layer/vl-map-features-layer';
 import { VlMapWfsLayer } from '../layer/vector-layer/vl-map-wfs-layer/vl-map-wfs-layer';
 import { VlMapLegend } from './vl-map-legend';
@@ -14,10 +15,11 @@ registerWebComponents([
     VlMapWfsLayer,
     VlMapBaseLayerGRBGray,
     VlMapLayerCircleStyle,
+    VlMapLayerStyle,
     VlMapFeaturesLayer,
 ]);
 
-describe('cypress-component - map - vl-map-legend - features layer multiple styles', () => {
+describe('cypress-component - map - vl-map-legend - single features layer', () => {
     beforeEach(() => {
         cy.mount(html`
             <vl-map lambert2008>
@@ -191,7 +193,7 @@ describe('cypress-component - map - vl-map-legend - features layer multiple styl
     });
 });
 
-describe('cypress-component - map - vl-map-legend - features layer multiple styles', () => {
+describe('cypress-component - map - vl-map-legend - multiple features layers', () => {
     beforeEach(() => {
         cy.mount(html`
             <vl-map lambert2008>
@@ -447,5 +449,95 @@ describe('cypress-component - map - vl-map-legend - wms layer that requires a ve
             .find('div .flux-map-legend-image img')
             .invoke('width')
             .should('be.lessThan', 300);
+    });
+});
+
+describe('cypress-component - map - vl-map-legend - pattern support', () => {
+    // SVG met transparante achtergrond: diagonale lijn op 10x10px
+    const testPattern = `data:image/svg+xml;base64,${btoa('<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><line x1="0" y1="10" x2="10" y2="0" stroke="#000" stroke-width="2"/></svg>')}`;
+
+    it('should show both background-color and background-image when a style has a pattern and color', () => {
+        cy.mount(html`
+            <vl-map lambert2008>
+                <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
+                <vl-map-features-layer
+                    name="Arcering met kleur"
+                    features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[147055,197908],[157055,197908],[157055,187908],[147055,187908],[147055,197908]]]},"properties":{}}]}'
+                    projection-code="EPSG:31370"
+                >
+                    <vl-map-layer-style
+                        name="Arcering met kleur"
+                        pattern="${testPattern}"
+                        color="rgba(255,0,0,0.5)"
+                        border-color="#000"
+                        border-size="1"
+                    ></vl-map-layer-style>
+                </vl-map-features-layer>
+                <vl-map-legend></vl-map-legend>
+            </vl-map>
+        `);
+
+        cy.get('vl-map-legend')
+            .shadow()
+            .find('.flux-map-legend-icon')
+            .should('have.attr', 'style')
+            .and('contain', 'background-color:rgba(255,0,0,0.5)')
+            .and('contain', 'background-image');
+    });
+
+    it('should use background-color when only color is set (no pattern)', () => {
+        cy.mount(html`
+            <vl-map lambert2008>
+                <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
+                <vl-map-features-layer
+                    name="Geen patroon"
+                    features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[147055,197908],[157055,197908],[157055,187908],[147055,187908],[147055,197908]]]},"properties":{}}]}'
+                    projection-code="EPSG:31370"
+                >
+                    <vl-map-layer-style
+                        name="Geen patroon"
+                        color="rgba(255,0,0,0.5)"
+                        border-color="#000"
+                        border-size="1"
+                    ></vl-map-layer-style>
+                </vl-map-features-layer>
+                <vl-map-legend></vl-map-legend>
+            </vl-map>
+        `);
+
+        cy.get('vl-map-legend')
+            .shadow()
+            .find('.flux-map-legend-icon')
+            .should('have.attr', 'style')
+            .and('contain', 'background-color')
+            .and('not.contain', 'background-image');
+    });
+
+    it('should use background-image when only pattern is set (default blue background-color)', () => {
+        cy.mount(html`
+            <vl-map lambert2008>
+                <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
+                <vl-map-features-layer
+                    name="Alleen patroon"
+                    features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[147055,197908],[157055,197908],[157055,187908],[147055,187908],[147055,197908]]]},"properties":{}}]}'
+                    projection-code="EPSG:31370"
+                >
+                    <vl-map-layer-style
+                        name="Alleen patroon"
+                        pattern="${testPattern}"
+                        border-color="#000"
+                        border-size="1"
+                    ></vl-map-layer-style>
+                </vl-map-features-layer>
+                <vl-map-legend></vl-map-legend>
+            </vl-map>
+        `);
+
+        cy.get('vl-map-legend')
+            .shadow()
+            .find('.flux-map-legend-icon')
+            .should('have.attr', 'style')
+            .and('contain', 'background-image')
+            .and('contain', 'background-color');
     });
 });

@@ -10,12 +10,14 @@ import { VlMap } from '../../vl-map';
 @webComponent('vl-map-layer-style')
 export class VlMapLayerStyle extends BaseHTMLElement {
     private mapElement: VlMap | null = null;
+    private canvasPattern: CanvasPattern | null = null;
 
     connectedCallback() {
         super.connectedCallback();
 
         this.mapElement = this.closest('vl-map');
 
+        this._loadPattern();
         this._setStyleOnParent();
     }
 
@@ -25,6 +27,10 @@ export class VlMapLayerStyle extends BaseHTMLElement {
 
     get color() {
         return this.getAttribute('color') || 'rgba(2, 85, 204, 0.8)';
+    }
+
+    get pattern() {
+        return this.getAttribute('pattern');
     }
 
     get borderColor() {
@@ -82,7 +88,7 @@ export class VlMapLayerStyle extends BaseHTMLElement {
     }
 
     get _styleFunction() {
-        return (feature) => {
+        return (feature): OlStyle => {
             const geometry = feature instanceof Feature && feature?.getGeometry();
 
             if (
@@ -96,18 +102,16 @@ export class VlMapLayerStyle extends BaseHTMLElement {
                 });
             }
 
-            const styleConfig = {
+            return new OlStyle({
                 fill: new OlStyleFill({
-                    color: this.color,
+                    color: this.canvasPattern ?? this.color,
                 }),
                 stroke: new OlStyleStroke({
                     color: this.borderColor,
                     width: this.borderSize as number,
                 }),
                 text: this._getTextStyle(feature),
-            };
-
-            return new OlStyle(styleConfig);
+            });
         };
     }
 
@@ -174,6 +178,27 @@ export class VlMapLayerStyle extends BaseHTMLElement {
 
     _areIdentical(objects) {
         return objects.every((object, i, objects) => object == objects[0]);
+    }
+
+    _loadPattern() {
+        const patternUrl = this.pattern;
+        if (!patternUrl) return;
+
+        const img = new Image();
+        img.onload = async () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width || 1;
+            canvas.height = img.height || 1;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = this.color;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0);
+            this.canvasPattern = ctx.createPattern(canvas, 'repeat');
+
+            await this.mapElement?.ready;
+            (this.parentElement as any)?._layer?.getSource()?.changed();
+        };
+        img.src = patternUrl;
     }
 
     _setStyleOnParent() {
