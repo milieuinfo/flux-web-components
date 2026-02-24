@@ -10,6 +10,8 @@ const mapLegendWmsAndWfsLayerUrl =
     'http://localhost:8080/iframe.html?id=map-legend--map-legend-wms-wfs-layer&viewMode=story';
 const mapLegendLayoutVerticalUrl =
     'http://localhost:8080/iframe.html?args=&id=map-legend--map-legend-layout-vertical&viewMode=story';
+const mapLegendPatternUrl =
+    'http://localhost:8080/iframe.html?id=map-legend--map-legend-pattern&viewMode=story';
 
 describe('cypress-e2e - map - vl-map-legend - multiple styles story', () => {
     it('should display story', () => {
@@ -56,6 +58,13 @@ describe('cypress-e2e - map - vl-map-legend - wms and wfs layer story', () => {
 describe('cypress-e2e - map - vl-map-legend - layout vertical story', () => {
     it('should display story', () => {
         cy.visit(mapLegendLayoutVerticalUrl);
+        cy.get('vl-map-legend').shadow();
+    });
+});
+
+describe('cypress-e2e - map - vl-map-legend - pattern story', () => {
+    it('should display story', () => {
+        cy.visit(mapLegendPatternUrl);
         cy.get('vl-map-legend').shadow();
     });
 });
