@@ -4,7 +4,22 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 # Migratie v2 - FAQ
 
-<br/>
+## Inhoudstafel
+
+- [Kan ik direct importeren of moet ik de registerWebComponents functie gebruiken?](#kan-ik-direct-importeren-of-moet-ik-de-registerwebcomponents-functie-gebruiken)
+- [Blijft de fat-js bundel beschikbaar?](#blijft-de-fat-js-bundel-beschikbaar)
+- [CSS import met ?raw werkt niet in Webpack. Wat ontbreekt er?](#css-import-met-raw-werkt-niet-in-webpack-wat-ontbreekt-er)
+- [Hoe komt dat klasses die in Web Universum v3 staan, niet meer beschikbaar zijn?](#hoe-komt-dat-klasses-die-in-web-universum-v3-staan-niet-meer-beschikbaar-zijn)
+- [vl-u-visually-hidden werkt niet meer.](#vl-u-visually-hidden-werkt-niet-meer)
+- [De event listeners werken niet meer.](#de-event-listeners-werken-niet-meer)
+- [Attributen-wijzigingen.](#attributen-wijzigingen)
+- [Eigen stylesheet instellen werkt niet?](#eigen-stylesheet-instellen-werkt-niet)
+- [Wat is de impact op vl-grid?](#wat-is-de-impact-op-vl-grid)
+- [data-vl-no-space-top op een section werkt niet meer.](#data-vl-no-space-top-op-een-section-werkt-niet-meer)
+- [De form validation error message verschijnt niet. Wat kan de oorzaak zijn?](#de-form-validation-error-message-verschijnt-niet-wat-kan-de-oorzaak-zijn)
+- [Na het verwijderen van de data-vl- prefix zijn er zaken gebroken. Hoe kan dit?](#na-het-verwijderen-van-de-data-vl-prefix-zijn-er-zaken-gebroken-hoe-kan-dit)
+
+
 ## Kan ik direct importeren of moet ik de registerWebComponents functie gebruiken?
 
 **Antwoord:** Beide methoden worden ondersteund:
@@ -24,7 +39,7 @@ De expliciete registratie wordt aangeraden om tree-shaking te optimaliseren en a
 
 [Meer informatie over hoe imports wijzigen vind je hier](/docs/afnemen-migratie-v2-aanpak--documentatie#33-imports)
 
-<br/>
+
 ## Blijft de fat-js bundel beschikbaar?
 
 **Antwoord:** De fat-js bundel blijft beschikbaar voor legacy toepassingen. In v2 is deze aangepast om de nieuwe componentimplementaties te gebruiken, maar de API blijft grotendeels hetzelfde. Je kunt deze gebruiken via de CDN:
@@ -36,7 +51,41 @@ De expliciete registratie wordt aangeraden om tree-shaking te optimaliseren en a
 Echter, voor nieuwe projecten wordt het aangeraden om de npm-packages te gebruiken in plaats van de fat-js bundel.
 
 
-<br/>
+## CSS import met ?raw werkt niet in Webpack. Wat ontbreekt er?
+
+**Probleem:** Imports zoals `import varsCss from './vl-vars.raw.css?raw'` falen of geven geen string terug.
+
+**Oplossing:** Zorg dat Webpack 5 een aparte rule heeft voor `?raw`, zodat CSS als string ingelezen wordt:
+
+```js
+// webpack.config.js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        resourceQuery: /raw/, // matcht ?raw
+        type: 'asset/source', // geeft file-inhoud als string terug
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'], // normale CSS verwerking
+      },
+    ],
+  },
+};
+```
+
+Indien je TypeScript gebruikt, voeg dan ook een module-declaratie toe:
+
+```ts
+declare module '*.css?raw' {
+    const content: string;
+    export default content;
+}
+```
+
+
 ## Hoe komt dat klasses die in Web Universum v3 staan, niet meer beschikbaar zijn?
 
 **Antwoord:** Vroeger gebruikten we de css klasses van Digitaal Vlaanderen, zoals die gedocumenteerd waren in Web
@@ -56,12 +105,12 @@ Daarnaast schrijven we nu voor nieuwe componenten onze eigen CSS, maar volgen da
 & layout wel de guidelines die Digitaal Vlaanderen vooropstelt.
 
 
-## `vl-u-visually-hidden` werkt niet meer
+## vl-u-visually-hidden werkt niet meer.
 
 **Antwoord:** De `vl-u-visually-hidden`-klasse is nu vervangen door `vl-visually-hidden`,
 [zie deze pagina voor meer info](docs/styles-layout-afnemers-accessibility--documentatie)
 
-<br/>
+
 ## De event listeners werken niet meer.
 
 **Probleem:** Event listeners die luisteren naar v1 events zoals `vl-checked`, `vl-input` of `vl-select` werken niet meer.
@@ -86,8 +135,7 @@ radio.addEventListener('vl-input', (event) => { console.log('enkel bij gebruiker
 ```
 
 
-<br/>
-## Attributen-wijzigingen
+## Attributen-wijzigingen.
 
 **Probleem:** Sommige attributen zijn gewijzigd van naam of format.
 
@@ -100,7 +148,6 @@ Algemene wijzigingen:
 - alle componenten met `is=""` attributen zijn geschrapt; bv. `is="vl-button-pill"` → `<vl-pill clickable>`
 
 
-<br/>
 ## Eigen stylesheet instellen werkt niet?
 
 **Probleem:** Custom styling wordt overschreven of werkt niet.
@@ -125,7 +172,7 @@ const customCSS = css`
 GlobalStyles.getInstance().addCustomCss([customCSS]);
 ```
 
-<br/>
+
 ## Wat is de impact op vl-grid?
 
 **Antwoord:** De grid is grondig gewijzigd en heeft een aantal specifieke aanpassingen nodig.
@@ -170,14 +217,12 @@ Zie [vl-stacked documentatie](/docs/styles-layout-stacked--documentatie).
 Voor meer informatie kan je de [vl-grid documentatie hier raadplegen](/docs/styles-layout-grid--documentatie).
 
 
-<br/>
-## data-vl-no-space-top op een section werkt niet meer
+## data-vl-no-space-top op een section werkt niet meer.
 
 **Antwoord:** Klopt, in het geval van `<section is="vl-region">` zouden we aanraden dit te vervangen door `<section class="vl-section">`, waar we echter geen alternatief aanbieden voor `data-vl-no-space-top`.
 Een mogelijke oplossing is om hier de class `vl-section` te laten vallen en puur het semantische `<section>` element over te houden.
 
 
-<br/>
 ## De form validation error message verschijnt niet. Wat kan de oorzaak zijn?
 
 **Antwoord**: Dit zijn de stappen om `is="vl-form-validation-message data-vl-error"` te migreren:
@@ -187,8 +232,7 @@ Een mogelijke oplossing is om hier de class `vl-section` te laten vallen en puur
 - Indien de message niet kan gekoppeld worden aan een form element, moet het attribuut `show` toegevoegd worden.
 
 
-<br/>
-## Na het verwijderen van de `data-vl-` prefix zijn er zaken gebroken. Hoe kan dit?
+## Na het verwijderen van de data-vl- prefix zijn er zaken gebroken. Hoe kan dit?
 
 **Antwoord**: Dit kan komen door het gebruik van `data-vl-` in selectors of via het dataset object.
 
@@ -196,4 +240,3 @@ Een mogelijke oplossing is om hier de class `vl-section` te laten vallen en puur
 - Referenties via het dataset object zullen ook breken. Gebruik hiervoor `getAttribute` in de plaats.
   bv: `data-vl-max-resolution` → `element.dataset.vlMaxResolution` wordt:
   `max-resolution` → `element.getAttribute('max-resolution')`
-
