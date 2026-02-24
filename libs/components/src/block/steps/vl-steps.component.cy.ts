@@ -591,7 +591,7 @@ describe('cypress-component - block components - vl-steps - simple-timeline', ()
 describe('cypress-component - block components - vl-steps - side-navigation', () => {
     const sideNavigationTemplate = html`
         <section class="vl-section" id="steps-side-navigation-example">
-            <vl-side-navigation-layout>
+            <vl-side-navigation-layout-next>
                 <div slot="content">
                     <vl-steps>
                         <vl-step>
@@ -647,7 +647,7 @@ describe('cypress-component - block components - vl-steps - side-navigation', ()
                         </vl-step>
                     </vl-steps>
                 </div>
-            </vl-side-navigation-layout>
+            </vl-side-navigation-layout-next>
         </section>
     `;
 

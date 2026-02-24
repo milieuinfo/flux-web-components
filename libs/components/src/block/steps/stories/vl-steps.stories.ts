@@ -175,7 +175,7 @@ export const StepsSideNavigation = story(
     stepsArgs,
     () => html`
         <section class="vl-section" id="steps-side-navigation-example">
-            <vl-side-navigation-layout>
+            <vl-side-navigation-layout-next>
                 <div slot="content">
                     <vl-steps>
                         <vl-step>
@@ -472,7 +472,7 @@ export const StepsSideNavigation = story(
                                 </vl-step>
                             </vl-steps>
                 </div>
-            </vl-side-navigation-layout>
+            </vl-side-navigation-layout-next>
         </section>
     `
 );

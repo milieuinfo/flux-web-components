@@ -91,7 +91,7 @@ export class VlSideNavigationComponent extends BaseLitElement {
         if (slottedElements.length > 0) {
             this.initializeCustomToc(slottedElements);
         } else {
-            const insideLayout = this.closest?.('vl-side-navigation-layout');
+            const insideLayout = this.closest?.('vl-side-navigation-layout-next');
             if (insideLayout) {
                 this.buildTableOfContents();
                 this.setupIntersectionObserver();

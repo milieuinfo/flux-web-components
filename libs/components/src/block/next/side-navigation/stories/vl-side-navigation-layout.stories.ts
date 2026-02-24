@@ -50,7 +50,7 @@ export const SideNavigationLayoutDefault = story(
     sideNavigationLayoutArgs,
     ({ compact, contentBlock, navigationTitle, excludeSelectors }) => {
         return html`
-            <vl-side-navigation-layout
+            <vl-side-navigation-layout-next
                 ?compact=${compact}
                 ?content-block=${contentBlock}
                 heading-root-selector="#story-default-content"
@@ -93,17 +93,17 @@ export const SideNavigationLayoutDefault = story(
                         </section>
                     </div>
                 </div>
-            </vl-side-navigation-layout>
+            </vl-side-navigation-layout-next>
         `;
     }
 );
-SideNavigationLayoutDefault.storyName = 'vl-side-navigation-layout - default';
+SideNavigationLayoutDefault.storyName = 'vl-side-navigation-layout-next - default';
 
 export const SideNavigationLayoutWithSteps = story(
     sideNavigationLayoutArgs,
     ({ compact, contentBlock, maxDepth, excludeSelectors }) => {
         return html`
-            <vl-side-navigation-layout
+            <vl-side-navigation-layout-next
                 ?compact=${compact}
                 ?content-block=${contentBlock}
                 max-depth=${maxDepth}
@@ -165,11 +165,11 @@ export const SideNavigationLayoutWithSteps = story(
                         </vl-step>
                     </vl-steps>
                 </div>
-            </vl-side-navigation-layout>
+            </vl-side-navigation-layout-next>
         `;
     }
 );
-SideNavigationLayoutWithSteps.storyName = 'vl-side-navigation-layout - met steps';
+SideNavigationLayoutWithSteps.storyName = 'vl-side-navigation-layout-next - met steps';
 SideNavigationLayoutWithSteps.parameters = {
     docs: {
         story: {
@@ -183,7 +183,7 @@ export const SideNavigationLayoutTwoLayouts = story(
     sideNavigationLayoutArgs,
     ({ compact, contentBlock, excludeSelectors }) => {
         return html`
-            <vl-side-navigation-layout
+            <vl-side-navigation-layout-next
                 ?compact=${compact}
                 ?content-block=${contentBlock}
                 heading-root-selector="#content-subsidies"
@@ -251,9 +251,9 @@ export const SideNavigationLayoutTwoLayouts = story(
                         </section>
                     </div>
                 </div>
-            </vl-side-navigation-layout>
+            </vl-side-navigation-layout-next>
             <hr class="vl-separator-slash vl-padding--medium vl-margin--medium" />
-            <vl-side-navigation-layout
+            <vl-side-navigation-layout-next
                 ?compact=${compact}
                 ?content-block=${contentBlock}
                 heading-root-selector="#content-diensten"
@@ -318,11 +318,11 @@ export const SideNavigationLayoutTwoLayouts = story(
                         </section>
                     </div>
                 </div>
-            </vl-side-navigation-layout>
+            </vl-side-navigation-layout-next>
         `;
     }
 );
-SideNavigationLayoutTwoLayouts.storyName = 'vl-side-navigation-layout - twee layouts met eigen content';
+SideNavigationLayoutTwoLayouts.storyName = 'vl-side-navigation-layout-next - twee layouts met eigen content';
 SideNavigationLayoutTwoLayouts.parameters = {
     docs: {
         story: {
@@ -336,7 +336,7 @@ export const SideNavigationLayoutWithCustomToc = story(
     sideNavigationLayoutArgs,
     ({ compact, contentBlock, excludeSelectors }) => {
         return html`
-            <vl-side-navigation-layout
+            <vl-side-navigation-layout-next
                 ?compact=${compact}
                 ?content-block=${contentBlock}
                 heading-root-selector="#story-custom-toc-content"
@@ -420,8 +420,8 @@ export const SideNavigationLayoutWithCustomToc = story(
                         </section>
                     </div>
                 </div>
-            </vl-side-navigation-layout>
+            </vl-side-navigation-layout-next>
         `;
     }
 );
-SideNavigationLayoutWithCustomToc.storyName = 'vl-side-navigation-layout - custom table of contents';
+SideNavigationLayoutWithCustomToc.storyName = 'vl-side-navigation-layout-next - custom table of contents';

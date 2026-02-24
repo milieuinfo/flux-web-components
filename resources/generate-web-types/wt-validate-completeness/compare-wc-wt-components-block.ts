@@ -7,13 +7,11 @@ const componentsBlockWCIgnore = [
     'vl-side-navigation-title', // base class
 ];
 const componentsBlockWCMismatch = [
-    'vl-cascader', // in next folder - verwacht een  suffix, maar deze componentsBlock heeft die niet
-    'vl-cascader-item', // in next folder - verwacht een  suffix, maar deze componentsBlock heeft die niet
+    'vl-side-navigation-layout', // in next folder - naam komt niet overeen met bestandsnaam (WT is vl-side-navigation-layout-next)
 ];
 const componentsBlockWTMismatch = [
-    'vl-cascader', // in next folder - verwacht een  suffix, maar die is er niet voor deze componentsBlock
-    'vl-cascader-item', // in next folder - verwacht een  suffix, maar die is er niet voor deze componentsBlock
     'vl-side-navigation-next', // in next folder - naam komt niet overeen met bestandsnaam
+    'vl-side-navigation-layout-next', // in next folder - naam komt niet overeen met bestandsnaam (WC is vl-side-navigation-layout)
     'vl-side-navigation-h1', // in vl-side-navigation-title.componentsBlock.ts
     'vl-side-navigation-h2', // in vl-side-navigation-title.componentsBlock.ts
     'vl-side-navigation-h3', // in vl-side-navigation-title.componentsBlock.ts

@@ -12,8 +12,8 @@ import sideNavigationDoc from './vl-side-navigation.stories-doc.mdx';
 import { toggleCustomTocChildren } from '../vl-side-navigation-custom-toc.utils';
 
 export default {
-    id: 'components-block-next-side-navigation-next',
-    title: 'Components - Block/next/side-navigation-next',
+    id: 'components-block-next-side-navigation',
+    title: 'Components - Block/next/side-navigation',
     tags: ['autodocs'],
     args: sideNavigationArgs,
     argTypes: sideNavigationArgTypes,
