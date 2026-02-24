@@ -8,6 +8,7 @@ export const mapLayerStyleArg = {
     color: 'rgba(2, 85, 204, 0.8)',
     invalid: false,
     name: '',
+    pattern: '',
     textBackgroundColor: 'rgba(0, 0, 0, 0)',
     textBorderColor: 'rgba(255, 255, 255, 0)',
     textBorderSize: 1,
@@ -50,7 +51,8 @@ export const mapLayerStyleArgTypes: ArgTypes<typeof mapLayerStyleArg> = {
     invalid: {
         name: 'invalid',
         description:
-            'Geeft aan of de "invalid" stijl toegepast moet worden. Je kan dit gebruiken om de kaartlaag manueel als "invalid" te renderen.',
+            'Geeft aan of de "invalid" stijl toegepast moet worden. Je kan dit gebruiken om de kaartlaag manueel' +
+            ' als "invalid" te renderen.',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
@@ -60,7 +62,21 @@ export const mapLayerStyleArgTypes: ArgTypes<typeof mapLayerStyleArg> = {
     name: {
         name: 'name',
         description:
-            'De naam van de stijl, deze naam wordt getoond als tekst in de legende als de map-legend op de kaart is toegevoegd. Een stijl zonder name attribuut zal nooit in de legende getoond worden. Tenzij het om een enkele stijl in een features-layer of wfs-layer gaat, in dat geval wordt de name van de layer in de legende getoond.',
+            'De naam van de stijl, deze naam wordt getoond als tekst in de legende als de map-legend op de kaart is' +
+            ' toegevoegd. Een stijl zonder name attribuut zal nooit in de legende getoond worden. Tenzij het om een' +
+            ' enkele stijl in een features-layer of wfs-layer gaat, in dat geval wordt de name van de layer in de' +
+            ' legende getoond.',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+        },
+    },
+    pattern: {
+        name: 'pattern',
+        description:
+            'Een data:image/...-URL die een patroon (bv. diagonale arcering) voorstelt. Wanneer ingesteld, wordt dit' +
+            ' patroon als background-image getoond in de laag en in de legende, in combinatie (bovenop) de' +
+            ' achtergrondkleur.',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
@@ -131,7 +147,8 @@ export const mapLayerStyleArgTypes: ArgTypes<typeof mapLayerStyleArg> = {
     textSize: {
         name: 'text-size',
         description:
-            'De grootte van de tekst in CSS font-size eenheden (medium|xx-small|x-small|small|large|x-large|xx-large|smaller|larger|length|initial|inherit).',
+            'De grootte van de tekst in CSS font-size eenheden (medium|xx-small|x-small|small|large|x-large|xx-large|' +
+            'smaller|larger|length|initial|inherit).',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
