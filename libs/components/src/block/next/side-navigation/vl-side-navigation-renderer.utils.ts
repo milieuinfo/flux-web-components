@@ -46,17 +46,21 @@ export interface RenderConfig {
 }
 
 /**
- * renders a table of contents from a heading result.
+ * Renders a table of contents from a heading result or a pre-built tree.
+ * Accepts either a HeadingResult (builds the tree internally) or a pre-built HeadingTreeNode[]
+ * so callers can build the tree once and reuse it for cleanup and rendering.
  *
- * @param toc - HeadingResult object containing headings and elements
+ * @param tocOrTree - HeadingResult or pre-built HeadingTreeNode[]
  * @param config - configuration for rendering behavior (scroll, state, callbacks)
  * @returns template result for the table of contents
  */
 export const headingTableOfContentsTemplate = (
-    toc: HeadingResult,
+    tocOrTree: HeadingResult | HeadingTreeNode[],
     config: RenderConfig = { scroll: {}, state: {}, callbacks: {} }
 ): TemplateResult => {
-    return toc.headings.length > 0 ? renderHeadingTree(buildHeadingTree(toc.headings), config) : html``;
+    const tree =
+        'headings' in tocOrTree ? buildHeadingTree(tocOrTree.headings) : tocOrTree;
+    return tree.length > 0 ? renderHeadingTree(tree, config) : html``;
 };
 
 /**
@@ -135,9 +139,7 @@ const renderHeadingNode = (node: HeadingTreeNode, config: RenderConfig): Templat
     const hasManualToggle = expandedHeadingIds?.has(node.item.id) ?? false;
     const hasManualCollapse = expandedHeadingIds?.has(`-${node.item.id}`) ?? false;
 
-    // show children if:
-    // - manually expanded, OR
-    // - (active or child-active) AND not manually collapsed
+    // show children if: manually expanded, OR (active or child-active) AND not manually collapsed
     const shouldShowChildren = hasManualToggle || ((isActive || isChildActive) && !hasManualCollapse);
 
     const displayText = node.item.text || node.item.id;
@@ -173,7 +175,7 @@ const renderHeadingNode = (node: HeadingTreeNode, config: RenderConfig): Templat
 
     // render toggle button for parent items
     const toggleButton = hasChildren
-        ? html`<button
+            ? html`<button
               type="button"
               class="toggle-button"
               aria-expanded=${shouldShowChildren ? 'true' : 'false'}
@@ -183,7 +185,7 @@ const renderHeadingNode = (node: HeadingTreeNode, config: RenderConfig): Templat
           >
               <i class="vl-icon vl-icon--arrow-right-fat ${shouldShowChildren ? 'showing-children' : ''}"></i>
           </button>`
-        : nothing;
+            : nothing;
 
     return html`
         <li>

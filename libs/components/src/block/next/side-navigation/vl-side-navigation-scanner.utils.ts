@@ -98,11 +98,17 @@ const collectNodeText = (node: Node, visited = new Set<Node>()): string => {
     }
 
     const fragments: string[] = [];
-    // If an element has a shadow root, read its rendered tree via shadow root only.
-    // Reading both light DOM children and slotted shadow content causes duplicate text.
+    // If an element has a shadow root, read its rendered tree; also include light DOM children
+    // (e.g. fallback or content not assigned to a slot). The shared visited set avoids duplicate
+    // text when the same nodes are reached via slot.assignedNodes() inside the shadow.
     if (node instanceof Element && node.shadowRoot) {
-        const text = collectNodeText(node.shadowRoot, visited);
-        return normalizeText(text);
+        const shadowText = collectNodeText(node.shadowRoot, visited);
+        const lightFragments: string[] = [shadowText];
+        node.childNodes.forEach((child) => {
+            const text = collectNodeText(child, visited);
+            if (text) lightFragments.push(text);
+        });
+        return normalizeText(lightFragments.join(' '));
     }
 
     const children = node instanceof HTMLSlotElement ? node.assignedNodes({ flatten: true }) : Array.from(node.childNodes);

@@ -223,10 +223,7 @@ function getSectionLinkForUl(ul: Element): Element | null {
  * @param slottedElements - Elements assigned to the TOC slot (e.g. <ul>, fragment children)
  * @param activeHeadingId - ID of the heading currently considered active (e.g. from IntersectionObserver)
  */
-export function applyExpandCollapseToCustomToc(
-    slottedElements: Element[],
-    activeHeadingId: string
-): void {
+export function applyExpandCollapseToCustomToc(slottedElements: Element[], activeHeadingId: string): void {
     const activeLink = findLinkByHeadingId(slottedElements, activeHeadingId);
     const pathUls = activeLink ? getAncestorUlsForLink(activeLink) : new Set<HTMLUListElement>();
 
@@ -242,7 +239,7 @@ export function applyExpandCollapseToCustomToc(
     for (const root of slottedElements) {
         const nestedUls = root.querySelectorAll('li > ul');
         nestedUls.forEach((ul) => {
-            // keep sections visible if they are on the active path OR currently contain focus
+            // keep sections visible if on the active path or currently contain focus
             const isOnActivePath = pathUls.has(ul as HTMLUListElement);
             const containsFocusedElement =
                 typeof document !== 'undefined' && document.activeElement
@@ -253,11 +250,6 @@ export function applyExpandCollapseToCustomToc(
                 ul.removeAttribute('hidden');
             } else {
                 ul.setAttribute('hidden', '');
-            }
-
-            const sectionLink = getSectionLinkForUl(ul);
-            if (sectionLink) {
-                sectionLink.setAttribute('aria-expanded', String(shouldShow));
             }
 
             const li = ul.parentElement;

@@ -63,7 +63,6 @@ export class VlSideNavigationComponent extends BaseLitElement {
      */
     @property({ type: String, attribute: 'navigation-title' })
     navigationTitle = 'Op deze pagina';
-
     @state() private activeHeadingId: string = '';
     @state() private tocTemplate: TemplateResult = html``;
     @state() private hasCustomToc = false;
@@ -77,6 +76,8 @@ export class VlSideNavigationComponent extends BaseLitElement {
     private isTableOfContentsInitialized = false;
     private mediaQueryList?: MediaQueryList;
     private mediaQueryHandler = (e: MediaQueryListEvent) => this.handleMediaQueryChange(e);
+    private focusRecoveryMutationObserver?: MutationObserver;
+    private previousTocEffectivelyHidden = false;
 
     static get styles(): CSSResult[] {
         return [vlResetStyles, vlSideNavigationStyles, vlLinkStyles(), vlIconStyles];
@@ -142,6 +143,29 @@ export class VlSideNavigationComponent extends BaseLitElement {
         ) {
             this.refreshTableOfContents();
         }
+
+        // When the TOC panel becomes hidden (e.g. viewport resize to mobile), move focus to show button
+        const nowHidden = this.isTocEffectivelyHidden;
+        if (nowHidden && !this.previousTocEffectivelyHidden) {
+            this.updateComplete.then(() => this.handleTocVisibilityFocusRecovery());
+        }
+        this.previousTocEffectivelyHidden = nowHidden;
+
+        // When expand/collapse or active section changes, if the focused element is now hidden, move to logical neighbor
+        if (
+            (changedProperties.has('expandedHeadingIds') || changedProperties.has('activeHeadingId')) &&
+            this.isFocusInsideNav()
+        ) {
+            const el = this.getDeepActiveElement() as HTMLElement;
+            if (el) {
+                const hidden = el.offsetParent === null || el.hasAttribute('hidden') || el.getAttribute('aria-hidden') === 'true';
+                if (hidden) {
+                    // save a reference to the lost element before we lose it completely or focus moves
+                    const lostEl = el;
+                    this.updateComplete.then(() => this.moveFocusToLogicalNeighbor(lostEl));
+                }
+            }
+        }
     }
 
     override connectedCallback(): void {
@@ -150,12 +174,14 @@ export class VlSideNavigationComponent extends BaseLitElement {
             this.setupIntersectionObserver();
         }
         this.setupMediaQueryListener();
+        this.updateComplete.then(() => this.setupFocusRecoveryObserver());
     }
 
     override disconnectedCallback(): void {
         super.disconnectedCallback();
         this.cleanupIntersectionObserver();
         this.cleanupMediaQueryListener();
+        this.cleanupFocusRecoveryObserver();
     }
 
     private setupMediaQueryListener(): void {
@@ -169,6 +195,170 @@ export class VlSideNavigationComponent extends BaseLitElement {
         if (this.mediaQueryList) {
             this.mediaQueryList.removeEventListener('change', this.mediaQueryHandler);
             this.mediaQueryList = undefined;
+        }
+    }
+
+    /**
+     * When the TOC panel becomes hidden (e.g. viewport resize to mobile or compact),
+     * move focus to the show button so the user does not lose context (focus on body).
+     */
+    private handleTocVisibilityFocusRecovery(): void {
+        if (!this.isTocEffectivelyHidden) return;
+        if (!this.isFocusInsideNav()) return;
+        const showButton = this.shadowRoot?.querySelector('#show-toc-button') as HTMLElement | null;
+        const button = showButton?.shadowRoot?.querySelector('button');
+        button?.focus();
+    }
+
+    /**
+     * Returns all focusable elements (a[href], button) inside the nav in tree order,
+     * including slotted content and elements inside shadow roots (e.g. vl-link).
+     */
+    private getFocusableElementsInNav(): HTMLElement[] {
+        const nav = this.shadowRoot?.querySelector('nav');
+        if (!nav) return [];
+        const focusables: HTMLElement[] = [];
+        const slot = nav.querySelector('slot');
+        if (slot && slot instanceof HTMLSlotElement) {
+            const assigned = slot.assignedElements({ flatten: true });
+            for (const el of assigned) {
+                this.collectFocusablesInTreeOrder(el, focusables);
+            }
+        }
+        const inNav = nav.querySelectorAll('a[href], button');
+        inNav.forEach((el) => {
+            if (el instanceof HTMLElement) focusables.push(el);
+        });
+        return focusables;
+    }
+
+    private collectFocusablesInTreeOrder(root: Element, out: HTMLElement[]): void {
+        if (root instanceof HTMLElement && (root.matches?.('a[href]') || root.matches?.('button'))) {
+            out.push(root);
+        }
+        const children: Element[] = [];
+        if (root instanceof HTMLSlotElement) {
+            children.push(...root.assignedElements({ flatten: true }));
+        } else if (root.shadowRoot) {
+            children.push(...Array.from(root.shadowRoot.children));
+        }
+        children.push(...Array.from(root.children));
+        for (const child of children) {
+            this.collectFocusablesInTreeOrder(child, out);
+        }
+    }
+
+    private getDeepActiveElement(): Element | null {
+        if (typeof document === 'undefined') return null;
+        let active = document.activeElement;
+        while (active && active.shadowRoot && active.shadowRoot.activeElement) {
+            active = active.shadowRoot.activeElement;
+        }
+        return active;
+    }
+
+    /**
+     * Whether the current focus is inside the TOC nav (shadow content or slotted content).
+     */
+    private isFocusInsideNav(): boolean {
+        const nav = this.shadowRoot?.querySelector('nav');
+        if (!nav) return false;
+        const active = this.getDeepActiveElement();
+        if (!active) return false;
+        if (nav.contains(active)) return true;
+        const slot = nav.querySelector('slot');
+        const assigned = slot instanceof HTMLSlotElement ? slot.assignedElements({ flatten: true }) : [];
+        return assigned.some((el) => el === active || el.contains(active));
+    }
+
+    /**
+     * When the focused element is removed or hidden, move focus to the next or previous
+     * visible nav item so screen reader users keep context (WCAG 2.4.3).
+     */
+    private moveFocusToLogicalNeighbor(lostFocusElement?: HTMLElement): void {
+        const focusables = this.getFocusableElementsInNav();
+        const visible = focusables.filter(
+            (el) =>
+                el.offsetParent !== null &&
+                !el.hasAttribute('hidden') &&
+                el.getAttribute('aria-hidden') !== 'true'
+        );
+        if (visible.length === 0) {
+            const showButton = this.shadowRoot?.querySelector('#show-toc-button') as HTMLElement | null;
+            showButton?.shadowRoot?.querySelector('button')?.focus();
+            return;
+        }
+
+        const focusTarget = (target: HTMLElement) => {
+            if (target.tagName.toLowerCase() === 'vl-link') {
+                target.shadowRoot?.querySelector('a')?.focus();
+            } else {
+                target.focus();
+            }
+        };
+
+        // 1. Try to focus the currently active heading's link
+        if (this.activeHeadingId) {
+            const activeLink = visible.find((el) => {
+                const href = el.getAttribute('href') || el.closest('vl-link')?.getAttribute('href');
+                return href === `#${this.activeHeadingId}`;
+            });
+            if (activeLink) {
+                focusTarget(activeLink);
+                return;
+            }
+        }
+
+        // 2. Fallback: find the nearest visible element before or after the lost element
+        if (lostFocusElement) {
+            const lostIndex = focusables.indexOf(lostFocusElement);
+            if (lostIndex !== -1) {
+                // Find nearest visible element looking backwards from the lost element
+                const before = focusables.slice(0, lostIndex).reverse().find((el) => visible.includes(el));
+                if (before) {
+                    focusTarget(before);
+                    return;
+                }
+                // If none backwards, look forwards from the lost element
+                const after = focusables.slice(lostIndex + 1).find((el) => visible.includes(el));
+                if (after) {
+                    focusTarget(after);
+                    return;
+                }
+            }
+        }
+
+        // 3. Ultimate fallback: first visible item
+        focusTarget(visible[0]);
+    }
+
+    private setupFocusRecoveryObserver(): void {
+        if (this.focusRecoveryMutationObserver) return;
+        this.focusRecoveryMutationObserver = new MutationObserver((mutations) => {
+            if (typeof document === 'undefined') return;
+            const active = this.getDeepActiveElement();
+            if (active !== document.body) return; // Only if focus was lost to body
+            const nav = this.shadowRoot?.querySelector('nav');
+            const removalInOurNav = mutations.some(
+                (m) =>
+                    m.removedNodes.length > 0 &&
+                    (nav?.contains(m.target as Node) || m.target === this)
+            );
+            if (removalInOurNav) {
+                this.moveFocusToLogicalNeighbor();
+            }
+        });
+        const nav = this.shadowRoot?.querySelector('nav');
+        if (nav) {
+            this.focusRecoveryMutationObserver.observe(nav, { childList: true, subtree: true });
+        }
+        this.focusRecoveryMutationObserver.observe(this, { childList: true, subtree: true });
+    }
+
+    private cleanupFocusRecoveryObserver(): void {
+        if (this.focusRecoveryMutationObserver) {
+            this.focusRecoveryMutationObserver.disconnect();
+            this.focusRecoveryMutationObserver = undefined;
         }
     }
 
@@ -229,9 +419,6 @@ export class VlSideNavigationComponent extends BaseLitElement {
             const newActiveId = topMostEntry.target.getAttribute('id');
             if (newActiveId && newActiveId !== this.activeHeadingId) {
                 this.activeHeadingId = newActiveId;
-                // clear manual toggle state when scrolling changes active heading
-                // this ensures navigation always reflects current scroll position
-                this.expandedHeadingIds.clear();
                 this.updateActiveLinks();
             }
         }
@@ -409,8 +596,25 @@ export class VlSideNavigationComponent extends BaseLitElement {
         if (!this.tableOfContentsStructure) return;
 
         const rootElement = this.headingRoot ?? (this.getRootNode() as Document | ShadowRoot);
+        const tree = buildHeadingTree(this.tableOfContentsStructure.headings);
 
-        this.tocTemplate = headingTableOfContentsTemplate(this.tableOfContentsStructure, {
+        // Clean up manual collapses for sections that are no longer active so they auto-expand on next scroll.
+        // We only want to keep negative IDs (manual collapses) if their section or a child is still active.
+        // If a user scrolls away from a manually collapsed section, we forget the manual collapse
+        // so that it will auto-expand the next time the user scrolls back to it. Positive IDs (manual expands) are always kept.
+        const stillManualCollapsed = Array.from(this.expandedHeadingIds).filter((id) => {
+            if (!id.startsWith('-')) return true;
+            const realId = id.substring(1);
+            const node = findNodeById(tree, realId);
+            const isActive = this.activeHeadingId === realId;
+            const isChildActive = node ? isAnyChildActive(node.children, this.activeHeadingId) : false;
+            return isActive || isChildActive;
+        });
+        if (stillManualCollapsed.length !== this.expandedHeadingIds.size) {
+            this.expandedHeadingIds = new Set(stillManualCollapsed);
+        }
+
+        this.tocTemplate = headingTableOfContentsTemplate(tree, {
             scroll: {
                 scrollRoot: rootElement,
                 scrollBehavior: this.effectiveScrollBehavior,
@@ -433,28 +637,27 @@ export class VlSideNavigationComponent extends BaseLitElement {
                         const isActive = this.activeHeadingId === headingId;
 
                         // build tree and find the node to check if any children are active
-                        const tree = buildHeadingTree(this.tableOfContentsStructure.headings);
                         const node = findNodeById(tree, headingId);
                         const isChildActive = node ? isAnyChildActive(node.children, this.activeHeadingId) : false;
 
                         const wouldBeAutoExpanded = isActive || isChildActive;
 
                         // toggle logic:
-                        // - if manually expanded: remove manual expand
-                        // - if manually collapsed: remove manual collapse
+                        // - if manually expanded: remove manual expand (and add manual collapse if active so it closes immediately)
+                        // - if manually collapsed: remove manual collapse and add manual expand
                         // - if auto-expanded: add manual collapse (negative ID)
                         // - if not showing: add manual expand (positive ID)
                         if (hasManualToggle) {
-                            // currently manually expanded -> collapse it
                             this.expandedHeadingIds.delete(headingId);
+                            if (wouldBeAutoExpanded) {
+                                this.expandedHeadingIds.add(`-${headingId}`);
+                            }
                         } else if (hasManualCollapse) {
-                            // currently manually collapsed -> allow auto-expand
                             this.expandedHeadingIds.delete(`-${headingId}`);
+                            this.expandedHeadingIds.add(headingId);
                         } else if (wouldBeAutoExpanded) {
-                            // currently auto-expanded -> manually collapse it
                             this.expandedHeadingIds.add(`-${headingId}`);
                         } else {
-                            // currently not showing -> manually expand it
                             this.expandedHeadingIds.add(headingId);
                         }
 
