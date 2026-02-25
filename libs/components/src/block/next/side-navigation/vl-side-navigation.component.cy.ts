@@ -303,8 +303,8 @@ describe('cypress-component - block components - vl-side-navigation-next', () =>
 
         // Mock prefers-reduced-motion: reduce
         cy.window().then((win) => {
-            const originalMatchMedia = win.matchMedia;
-            win.matchMedia = (query: string) => {
+            const originalMatchMedia = win.matchMedia.bind(win);
+            cy.stub(win, 'matchMedia').callsFake((query: string) => {
                 if (query === '(prefers-reduced-motion: reduce)') {
                     return {
                         matches: true,
@@ -317,8 +317,8 @@ describe('cypress-component - block components - vl-side-navigation-next', () =>
                         dispatchEvent: () => true,
                     } as MediaQueryList;
                 }
-                return originalMatchMedia.call(win, query);
-            };
+                return originalMatchMedia(query);
+            });
         });
 
         // Click a link and verify scroll behavior is 'auto' (not smooth)
@@ -646,9 +646,8 @@ describe('cypress-component - block components - vl-side-navigation-next - with 
             .should('have.focus');
         cy.press(Cypress.Keyboard.Keys.ENTER);
 
-        cy.wait(100);
-
-        cy.get('#custom-termijnen').then(($el) => {
+        cy.location('hash').should('equal', '#custom-termijnen');
+        cy.get('#custom-termijnen').should(($el) => {
             const rect = $el[0].getBoundingClientRect();
             expect(rect.top).to.be.lessThan(900);
         });
@@ -835,7 +834,10 @@ describe('cypress-component - block components - vl-side-navigation-next - compa
 
         cy.get('vl-side-navigation-next').shadow().find('table-of-contents').should('not.have.attr', 'hidden');
 
+        // Establish focus context, then close overlay via keyboard
+        cy.get('vl-side-navigation-next').shadow().find('nav').click({ force: true });
         cy.press(Cypress.Keyboard.Keys.TAB); // focus close button
+        cy.get('vl-side-navigation-next').shadow().find('#close-button').shadow().find('button').should('have.focus');
         cy.press(Cypress.Keyboard.Keys.SPACE);
         // Close moves focus to show-toc-button (async); no TAB so focus stays there
         cy.wait(50);
