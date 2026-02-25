@@ -1722,6 +1722,43 @@ attribuut.
     </tr>
 </table>
 
+
+
+### Tooltip
+
+De `vl-tooltip` component was aanwezig in v1, maar werd **verwijderd** in v2.0.0.
+    Vanaf **v2.7.0** is er opnieuw een `vl-tooltip` beschikbaar, maar met een **gewijzigde API** (floating-ui, verplicht `for`-attribuut, geen `data-vl-*` prefix meer, nieuwe attributen).
+
+> Migreer rechtstreeks naar v2.7.0 of hoger om de nieuwe `vl-tooltip` te gebruiken.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>[Tooltip [legacy]](/docs/components-tooltip--documentatie)</td>
+        <td>deprecated</td>
+        <td>components</td>
+        <td><code>{`<vl-tooltip>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Tooltip v2.7.0]</td>
+        <td>release v2.7.0</td>
+        <td>-</td>
+        <td>-</td>
+        <td>components/block</td>
+        <td><code>{`<vl-tooltip for="trigger-id">`}</code></td>
+    </tr>
+</table>
+
+
 ### Upload
 
 <table  style={{width: 100 + '%'}}>
