@@ -7,6 +7,7 @@ export type DoormatArgs = typeof defaultArgs & typeof doormatDefaults & { titleS
 export const doormatArgs: DoormatArgs = {
     ...defaultArgs,
     ...doormatDefaults,
+    linkLabel: '',
     titleSlot: '',
     textSlot: '',
 };
@@ -20,6 +21,16 @@ export const doormatArgTypes: ArgTypes<DoormatArgs> = {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: doormatArgs.href },
+        },
+    },
+    linkLabel: {
+        name: 'link-label',
+        description:
+            'Aria-label voor de link. Aanbevolen voor toegankelijkheid. Let op: `aria-label` vervangt de volledige linktekst, bv. "Bouwen, wonen en energie - opent in nieuw venster" bij external links.',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: doormatArgs.linkLabel },
         },
     },
     external: {

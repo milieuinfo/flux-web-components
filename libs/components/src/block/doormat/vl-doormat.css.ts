@@ -84,6 +84,10 @@ const styles: CSSResult = css`
             width: 100%;
             transition: transform 0.2s;
         }
+
+        .vl-doormat__external-icon {
+            color: var(--vl-color--icon-subtle);
+        }
     }
 `;
 export default styles;

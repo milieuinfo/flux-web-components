@@ -24,9 +24,9 @@ export default {
 
 const InfotextTemplate = story(
     infotextArgs,
-    ({ badge, href, external, valueSlot, textSlot }) =>
+    ({ badge, href, linkLabel, external, valueSlot, textSlot }) =>
         html`
-            <vl-infotext ?badge=${badge} href=${href} ?external=${external}>
+            <vl-infotext ?badge=${badge} href=${href} link-label=${linkLabel} ?external=${external}>
                 <span slot="value">${unsafeHTML(valueSlot)}</span>
                 <span slot="text">${unsafeHTML(textSlot)}</span>
             </vl-infotext>
@@ -54,4 +54,12 @@ InfotextLink.args = {
     valueSlot: '3200',
     textSlot: 'Bezoekers per dag',
     href: 'https://www.vlaanderen.be',
+};
+
+export const InfotextExternalLink = InfotextTemplate.bind({});
+InfotextExternalLink.storyName = 'vl-infotext - external link';
+InfotextExternalLink.args = {
+    ...InfotextLink.args,
+    external: true,
+    linkLabel: 'Bezoekers per dag - opent in nieuw venster',
 };

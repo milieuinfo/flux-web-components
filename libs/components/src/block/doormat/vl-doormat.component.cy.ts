@@ -67,7 +67,35 @@ describe('cypress-component - block components - vl-doormat', () => {
         `);
 
         cy.get('vl-doormat').should('have.attr', 'external');
-        cy.get('vl-doormat').shadow().find('a.vl-doormat').should('have.attr', 'target', '_blank');
+        cy.get('vl-doormat')
+            .shadow()
+            .find('a.vl-doormat')
+            .should('have.attr', 'target', '_blank')
+            .and('have.attr', 'rel', 'noopener noreferrer nofollow');
+        cy.get('vl-doormat').shadow().find('.vl-doormat__external-icon.vl-icon--external').should('exist');
+    });
+
+    it('should set link-label', () => {
+        cy.mount(html`
+            <vl-doormat
+                href="https://www.vlaanderen.be/bouwen-wonen-en-energie"
+                link-label="Bouwen, wonen en energie - opent in nieuw venster"
+                external
+            >
+                <span slot="title">Bouwen, wonen en energie</span>
+                <span slot="text"
+                    >De overheid zet zich in om betaalbaar en kwaliteitsvol wonen voor iedereen beschikbaar te maken. Ze
+                    biedt sociale woningen aan, geeft premies aan wie zijn woning verbouwt en energiezuinig maakt en
+                    zoekt oplossingen om de stijging van de vastgoedprijzen onder controle te houden.</span
+                >
+            </vl-doormat>
+        `);
+
+        cy.get('vl-doormat').should('have.attr', 'link-label', 'Bouwen, wonen en energie - opent in nieuw venster');
+        cy.get('vl-doormat')
+            .shadow()
+            .find('a.vl-doormat')
+            .should('have.attr', 'aria-label', 'Bouwen, wonen en energie - opent in nieuw venster');
     });
 
     it('should set alt', () => {

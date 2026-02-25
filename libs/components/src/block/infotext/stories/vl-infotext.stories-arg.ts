@@ -7,6 +7,7 @@ export type InfotextArgs = typeof defaultArgs & typeof infotextDefaults & { valu
 export const infotextArgs: InfotextArgs = {
     ...defaultArgs,
     ...infotextDefaults,
+    linkLabel: '',
     valueSlot: '',
     textSlot: '',
 };
@@ -29,6 +30,16 @@ export const infotextArgTypes: ArgTypes<InfotextArgs> = {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: infotextArgs.href },
+        },
+    },
+    linkLabel: {
+        name: 'link-label',
+        description:
+            'Aria-label voor de link. Aanbevolen voor toegankelijkheid. Let op: `aria-label` vervangt de volledige linktekst, bv. "Bezoekers per dag - opent in nieuw venster" bij external links.',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: infotextArgs.linkLabel },
         },
     },
     external: {

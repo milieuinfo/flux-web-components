@@ -11,12 +11,11 @@ describe('cypress-component - block components - vl-spotlight', () => {
         cy.get(`vl-spotlight`).should('be.visible');
     });
 
-    it.skip('should be accessible', () => {
+    it('should be accessible', () => {
         cy.mount(html`<vl-spotlight></vl-spotlight>`);
 
-        // TODO: 2 accessibility violations to be solved
         cy.injectAxe();
-        cy.checkA11y();
+        cy.checkA11y('vl-spotlight');
     });
 
     it('should have a title', () => {
@@ -86,6 +85,18 @@ describe('cypress-component - block components - vl-spotlight', () => {
             .shadow()
             .find('a')
             .should('have.attr', 'href', 'http://www.google.com')
-            .and('have.attr', 'target', '_blank');
+            .and('have.attr', 'target', '_blank')
+            .and('have.attr', 'rel', 'noopener noreferrer nofollow');
+        cy.get(`vl-spotlight`).shadow().find('span.vl-icon--external').should('exist');
+    });
+
+    it('should set aria-label on link when link-label is provided', () => {
+        cy.mount(html`
+            <vl-spotlight link="https://example.com" link-label="Ga naar voorbeeld - opent in nieuw venster" external>
+                <span slot="title">Voorbeeld</span>
+            </vl-spotlight>
+        `);
+
+        cy.get(`vl-spotlight`).shadow().find('a').should('have.attr', 'aria-label', 'Ga naar voorbeeld - opent in nieuw venster');
     });
 });
