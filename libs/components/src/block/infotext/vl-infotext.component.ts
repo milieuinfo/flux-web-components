@@ -1,6 +1,7 @@
 import { BaseLitElement, formatNumber, throttle, webComponent } from '@domg-wc/common';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import infotextStyle from './vl-infotext.css';
 import { infotextDefaults } from './vl-infotext.defaults';
 
@@ -9,6 +10,7 @@ export class VlInfotextComponent extends BaseLitElement {
     // Attribute(s)
     private badge = infotextDefaults.badge;
     private href = infotextDefaults.href;
+    private linkLabel = infotextDefaults.linkLabel;
     private external = infotextDefaults.external;
 
     // State
@@ -20,13 +22,14 @@ export class VlInfotextComponent extends BaseLitElement {
     private throttledAdjustValue = throttle(() => this.adjustValue(), 100);
 
     static get styles(): CSSResult[] {
-        return [infotextStyle];
+        return [vlIconStyles, infotextStyle];
     }
 
     static get properties(): PropertyDeclarations {
         return {
             badge: { type: Boolean },
             href: { type: String },
+            linkLabel: { type: String, attribute: 'link-label' },
             external: { type: Boolean },
             value: { type: String, state: true },
         };
@@ -57,10 +60,24 @@ export class VlInfotextComponent extends BaseLitElement {
 
         if (this.href) {
             const target = this.external ? '_blank' : nothing;
-            return html`<a class=${classMap(classes)} href=${this.href} target=${target}>${this.renderContent()}</a>`;
+            const rel = this.external ? 'noopener noreferrer nofollow' : nothing;
+            return html`<a
+                class=${classMap(classes)}
+                href=${this.href}
+                target=${target}
+                rel=${rel}
+                aria-label=${this.linkLabel || nothing}
+            >
+                ${this.renderContent()}
+                ${this.external ? this.renderExternalIcon() : nothing}
+            </a>`;
         }
 
         return html` <div class=${classMap(classes)}>${this.renderContent()}</div>`;
+    }
+
+    private renderExternalIcon(): TemplateResult {
+        return html`<span class="vl-icon vl-icon--external vl-icon--after vl-infotext__external-icon" aria-hidden="true"></span>`;
     }
 
     renderContent(): TemplateResult {

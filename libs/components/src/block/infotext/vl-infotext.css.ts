@@ -50,6 +50,10 @@ const styles: CSSResult = css`
                 text-decoration: underline;
             }
         }
+
+        .vl-infotext__external-icon {
+            color: var(--vl-color--icon-subtle);
+        }
     }
 `;
 

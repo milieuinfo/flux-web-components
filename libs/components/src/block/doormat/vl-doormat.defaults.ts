@@ -1,5 +1,6 @@
 export const doormatDefaults = {
     href: '' as string,
+    linkLabel: '' as string,
     external: false as boolean,
     alt: false as boolean,
     imageSrc: '' as string,

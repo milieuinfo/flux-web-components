@@ -24,11 +24,12 @@ export default {
 
 const DoormatTemplate = story(
     doormatArgs,
-    ({ href, external, alt, imageSrc, imageAlt, imageHeight, imageWidth, graphic, textSlot, titleSlot }) =>
+    ({ href, linkLabel, external, alt, imageSrc, imageAlt, imageHeight, imageWidth, graphic, textSlot, titleSlot }) =>
         html`
             <div class="story--fixed-width">
                 <vl-doormat
                     href=${href}
+                    link-label=${linkLabel}
                     ?external=${external}
                     ?alt=${alt}
                     image-src=${imageSrc}
@@ -53,6 +54,14 @@ DoormatDefault.args = {
                 maken. Ze biedt sociale woningen aan, geeft premies aan wie zijn woning verbouwt en
                 energiezuinig maakt en zoekt oplossingen om de stijging van de vastgoedprijzen onder controle te
                 houden.`,
+};
+
+export const DoormatExternal = DoormatTemplate.bind({});
+DoormatExternal.storyName = 'vl-doormat - external';
+DoormatExternal.args = {
+    ...DoormatDefault.args,
+    external: true,
+    linkLabel: 'Bouwen, wonen en energie - opent in nieuw venster',
 };
 
 export const DoormatAlt = DoormatTemplate.bind({});

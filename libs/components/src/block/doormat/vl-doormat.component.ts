@@ -2,12 +2,14 @@ import { BaseLitElement, webComponent } from '@domg-wc/common';
 import { doormatDefaults } from './vl-doormat.defaults';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
-import doormatStyle from './vl-doormat.css';
+import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { vlLinkStyles } from '../../atom/link-style/vl-link-style.css';
+import doormatStyle from './vl-doormat.css';
 
 @webComponent('vl-doormat')
 export class VlDoormatComponent extends BaseLitElement {
     private href = doormatDefaults.href;
+    private linkLabel = doormatDefaults.linkLabel;
     private external = doormatDefaults.external;
     private alt = doormatDefaults.alt;
     private imageSrc = doormatDefaults.imageSrc;
@@ -17,12 +19,13 @@ export class VlDoormatComponent extends BaseLitElement {
     private graphic = doormatDefaults.graphic;
 
     static get styles(): CSSResult[] {
-        return [vlLinkStyles(), doormatStyle];
+        return [vlIconStyles, vlLinkStyles(), doormatStyle];
     }
 
     static get properties(): PropertyDeclarations {
         return {
             href: { type: String },
+            linkLabel: { type: String, attribute: 'link-label' },
             external: { type: Boolean },
             alt: { type: Boolean },
             imageSrc: { type: String, attribute: 'image-src' },
@@ -40,9 +43,16 @@ export class VlDoormatComponent extends BaseLitElement {
             'vl-doormat--graphic': this.graphic,
         };
         const target = this.external ? '_blank' : nothing;
+        const rel = this.external ? 'noopener noreferrer nofollow' : nothing;
 
         return html`
-            <a class=${classMap(classes)} href=${this.href} target=${target}>
+            <a
+                class=${classMap(classes)}
+                href=${this.href}
+                target=${target}
+                rel=${rel}
+                aria-label=${this.linkLabel || nothing}
+            >
                 ${this.imageSrc ? this.renderImage() : nothing}
                 <div class="vl-doormat__content">
                     <h2 class="vl-doormat__title">
@@ -52,8 +62,13 @@ export class VlDoormatComponent extends BaseLitElement {
                         <slot name="text"></slot>
                     </div>
                 </div>
+                ${this.external ? this.renderExternalIcon() : nothing}
             </a>
         `;
+    }
+
+    private renderExternalIcon(): TemplateResult {
+        return html`<span class="vl-icon vl-icon--external vl-icon--after vl-doormat__external-icon" aria-hidden="true"></span>`;
     }
 
     renderImage(): TemplateResult {

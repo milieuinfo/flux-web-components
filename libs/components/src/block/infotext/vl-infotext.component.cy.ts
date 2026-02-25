@@ -68,7 +68,30 @@ describe('cypress-component - block components - vl-infotext', () => {
         `);
 
         cy.get('vl-infotext').should('have.attr', 'external', '');
-        cy.get('vl-infotext').shadow().find('a[target="_blank"]');
+        cy.get('vl-infotext')
+            .shadow()
+            .find('a[target="_blank"]')
+            .should('have.attr', 'rel', 'noopener noreferrer nofollow');
+        cy.get('vl-infotext').shadow().find('.vl-infotext__external-icon.vl-icon--external').should('exist');
+    });
+
+    it('should set link-label', () => {
+        cy.mount(html`
+            <vl-infotext
+                href="https://www.vlaanderen.be"
+                link-label="Bezoekers per dag - opent in nieuw venster"
+                external
+            >
+                <span slot="value">32</span>
+                <span slot="text">Bezoekers per dag</span>
+            </vl-infotext>
+        `);
+
+        cy.get('vl-infotext').should('have.attr', 'link-label', 'Bezoekers per dag - opent in nieuw venster');
+        cy.get('vl-infotext')
+            .shadow()
+            .find('a')
+            .should('have.attr', 'aria-label', 'Bezoekers per dag - opent in nieuw venster');
     });
 
     it('should format value', () => {
