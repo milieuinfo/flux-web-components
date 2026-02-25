@@ -401,8 +401,8 @@ const runDesktopTests = (mountFn: () => Cypress.Chainable, isAutoNav = false) =>
 
         // Mock prefers-reduced-motion: reduce
         cy.window().then((win) => {
-            const originalMatchMedia = win.matchMedia;
-            win.matchMedia = (query: string) => {
+            const originalMatchMedia = win.matchMedia.bind(win);
+            cy.stub(win, 'matchMedia').callsFake((query: string) => {
                 if (query === '(prefers-reduced-motion: reduce)') {
                     return {
                         matches: true,
@@ -415,8 +415,8 @@ const runDesktopTests = (mountFn: () => Cypress.Chainable, isAutoNav = false) =>
                         dispatchEvent: () => true,
                     } as MediaQueryList;
                 }
-                return originalMatchMedia.call(win, query);
-            };
+                return originalMatchMedia(query);
+            });
         });
 
         // Click a link and verify scroll behavior
@@ -636,6 +636,9 @@ const runMobileTests = (mountFn: () => Cypress.Chainable, isAutoNav = false) => 
         mountFn();
         // TODO: onderstaande functionaliteit werkt ook met Enter (in de browser) maar niet binnen Cypress testen - te onderzoeken
         getSideNavigation(false).shadow().find('table-of-contents').should('not.have.attr', 'hidden');
+        
+        // Establish focus context, then close overlay via keyboard
+        getSideNavigation(false).shadow().find('nav').click({ force: true });
         cy.press(Cypress.Keyboard.Keys.TAB);
         cy.press(Cypress.Keyboard.Keys.SPACE);
         getSideNavigation(false).shadow().find('table-of-contents').should('have.attr', 'hidden');
