@@ -1,8 +1,7 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { nothing } from 'lit';
-import { html } from 'lit-html';
+import { html, nothing } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { VlCheckboxComponent } from '../vl-checkbox.component';
 import { checkboxArgs, checkboxArgTypes } from './vl-checkbox.stories-arg';

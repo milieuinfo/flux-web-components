@@ -1,5 +1,5 @@
 import { story } from '@resources/utils-storybook';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../../../vl-map';
 import '../../baselayer/vl-map-base-layer-grb-gray/vl-map-base-layer-grb-gray';
 import '../../layer-style/vl-map-layer-circle-style/vl-map-layer-circle-style';

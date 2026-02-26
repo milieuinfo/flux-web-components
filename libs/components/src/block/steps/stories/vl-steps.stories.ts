@@ -1,7 +1,7 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { VlSideNavigationLayoutComponent } from '../../next/side-navigation';
 import '../vl-steps.component';
 import { stepsArgs, stepsArgTypes } from './vl-steps.stories-arg';

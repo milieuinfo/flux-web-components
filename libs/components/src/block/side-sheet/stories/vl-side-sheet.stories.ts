@@ -1,6 +1,6 @@
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../vl-side-sheet.component';
 import { sideSheetArgs, sideSheetArgTypes } from './vl-side-sheet.stories-arg';
 import sideSheetDoc from './vl-side-sheet.stories-doc.mdx';

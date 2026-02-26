@@ -1,8 +1,7 @@
 import { BaseLitElement, registerWebComponents } from '@domg-wc/common';
 import { vlLayoutStyles } from '@domg-wc/styles';
-import { PropertyDeclarations } from 'lit';
-import { html, TemplateResult } from 'lit-html';
-import { classMap } from 'lit-html/directives/class-map.js';
+import { html, PropertyDeclarations, TemplateResult } from 'lit';
+import { classMap } from 'lit/directives/class-map.js';
 import { customElement } from 'lit/decorators.js';
 import { when } from 'lit/directives/when.js';
 import { vlTextStyles } from '../../atom/text/vl-text.css';

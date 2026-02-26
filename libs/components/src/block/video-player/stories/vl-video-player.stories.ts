@@ -1,6 +1,6 @@
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../vl-video-player.component';
 import { VideoPlayerArgs, videoPlayerArgs, videoPlayerArgTypes } from './vl-video-player.stories-arg';
 import videoPlayerDoc from './vl-video-player.stories-doc.mdx';

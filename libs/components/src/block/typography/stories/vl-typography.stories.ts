@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../vl-typography.component';
 import { typographyArgs, typographyArgTypes } from './vl-typography.stories-arg';
 import typographyDocs from './vl-typography.stories-doc.mdx';

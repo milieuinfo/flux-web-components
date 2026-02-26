@@ -1,4 +1,4 @@
-import { html } from 'lit-html';
+import { html } from 'lit';
 
 export const privacyBottomSection = () => html`
     <div class="vl-content-block">

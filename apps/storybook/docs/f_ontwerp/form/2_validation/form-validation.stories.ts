@@ -1,4 +1,4 @@
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { Meta, StoryFn } from '@storybook/web-components-vite';
 import { registerWebComponents } from '@domg-wc/common';
 import { VlFormMessageComponent, VlFormLabelComponent, VlInputFieldComponent } from '@domg-wc/components/form';

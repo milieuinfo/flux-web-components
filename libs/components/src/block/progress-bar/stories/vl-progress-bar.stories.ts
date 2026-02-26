@@ -1,8 +1,8 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
-import { ifDefined } from 'lit-html/directives/if-defined.js';
+import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { VlProgressBarComponent } from '../vl-progress-bar.component';
 import { progressBarArgTypes, progressBarDefaultArgs } from './vl-progress-bar.stories-arg';
 import progressBarDoc from './vl-progress-bar.stories-doc.mdx';

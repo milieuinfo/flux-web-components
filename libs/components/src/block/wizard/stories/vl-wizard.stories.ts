@@ -1,7 +1,7 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../vl-wizard-pane.component';
 import '../vl-wizard.component';
 import { VlLinkComponent } from '../../../atom/link';

@@ -1,4 +1,4 @@
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../vl-description-data-item.component';
 import '../vl-description-data.component';
 import { descriptionDataArgs, descriptionDataArgTypes } from './vl-description-data.stories-arg';

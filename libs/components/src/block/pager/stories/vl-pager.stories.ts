@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../vl-pager.component';
 import { pagerArgs, pagerArgTypes } from './vl-pager.stories-arg';
 

@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../vl-spotlight.component';
 import { SIZE } from '../vl-spotlight.model';
 import { spotlightArgs, spotlightArgTypes } from './vl-spotlight.stories-arg';

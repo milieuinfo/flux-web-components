@@ -1,4 +1,4 @@
-import { html } from 'lit-html';
+import { html } from 'lit';
 
 export const privacyContentSection = () => html`
     <vl-side-navigation-layout content-block max-depth="0">
