@@ -1,6 +1,6 @@
 import { BaseLitElement, ICON_PLACEMENT, webComponent } from '@domg-wc/common';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
-import { ifDefined } from 'lit-html/directives/if-defined.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { vlIconStyles } from '../icon-style/vl-icon-style.css';
 import { vlLinkIconStyles } from '../link-style/vl-link-icon-style.css';

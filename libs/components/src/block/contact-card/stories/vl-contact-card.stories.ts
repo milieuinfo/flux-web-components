@@ -1,7 +1,7 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { defaultArgs, defaultArgTypes, story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../../infoblock/vl-infoblock.component';
 import '../vl-contact-card.component';
 import { VlPropertiesComponent } from '../../properties';

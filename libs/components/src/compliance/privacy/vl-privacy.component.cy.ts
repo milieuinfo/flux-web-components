@@ -1,5 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { VlPrivacy } from './vl-privacy.component';
 import { privacyDefaults } from './vl-privacy.defaults';

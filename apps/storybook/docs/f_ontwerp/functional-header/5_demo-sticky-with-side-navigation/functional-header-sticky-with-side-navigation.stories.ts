@@ -6,8 +6,8 @@ import {
 import { VlHeader } from '@domg-wc/components/compliance';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
-import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
+import { html } from 'lit';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { functionalHeaderStickyWithSideNavigationHTML } from '../functional-header.helpers';
 
 registerWebComponents([

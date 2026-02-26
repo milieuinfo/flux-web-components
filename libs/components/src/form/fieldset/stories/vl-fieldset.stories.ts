@@ -2,7 +2,7 @@ import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
+import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { VlFieldsetComponent } from '../vl-fieldset.component';
 import { fieldsetArgs, fieldsetArgTypes } from './vl-fieldset.stories-arg';
 import fieldsetDocs from './vl-fieldset.stories-doc.mdx';

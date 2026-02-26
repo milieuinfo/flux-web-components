@@ -1,5 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { VlTitleComponent } from '../../atom/title';
 import { VlInfoblockComponent } from './index';
 

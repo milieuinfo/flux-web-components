@@ -6,7 +6,7 @@ import '../../legend/vl-map-legend';
 import '../vl-map-legend-item';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { mapLegendItemArgs, mapLegendItemArgTypes } from './vl-map-legend-item.stories-arg';
 import mapLegendItemDoc from './vl-map-legend-item.stories-doc.mdx';

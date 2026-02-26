@@ -1,6 +1,5 @@
 import { formattedSourceCode } from '@resources/utils-storybook';
-import { css } from 'lit';
-import { html } from 'lit-html';
+import { css, html } from 'lit';
 import vlPaddingStoriesDoc from './vl-padding.stories-doc.mdx';
 import { Meta } from '@storybook/web-components-vite';
 

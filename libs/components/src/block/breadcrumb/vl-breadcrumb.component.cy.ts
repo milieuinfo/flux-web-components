@@ -1,5 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { VlBreadcrumbItemComponent } from './vl-breadcrumb-item.component';
 import { VlBreadcrumbComponent } from './vl-breadcrumb.component';
 

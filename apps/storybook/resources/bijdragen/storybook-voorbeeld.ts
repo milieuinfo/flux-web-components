@@ -1,4 +1,4 @@
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { VlProzaMessage } from '../vl-proza-message.component';
 import { prozaMessageMockDomainData, prozaMessageMockDomainEditableData } from './vl-proza-message.stories-data';
 import { prozaMessageArgTypes, prozaMessageArgs } from './vl-proza-message.stories-arg';

@@ -1,6 +1,6 @@
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { VlDoormatComponent } from '../vl-doormat.component';
 import { registerWebComponents } from '@domg-wc/common';
 import { doormatArgTypes, doormatArgs } from './vl-doormat.stories-arg';

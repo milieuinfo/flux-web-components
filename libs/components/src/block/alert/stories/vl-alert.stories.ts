@@ -1,6 +1,6 @@
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import '../vl-alert.component';
 import { ALERT_ICON, ALERT_TYPE } from '../vl-alert.model';

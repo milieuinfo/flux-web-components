@@ -2,7 +2,7 @@ import { registerWebComponents } from '@domg-wc/common';
 import { VlButtonComponent } from '@domg-wc/components/atom';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { VlFormLabelComponent } from '../../form-label';
 import { VlFormMessageComponent } from '../../form-message';
 import { VlDatepickerComponent } from '../vl-datepicker.component';

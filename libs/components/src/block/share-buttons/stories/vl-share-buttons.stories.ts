@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../vl-share-button.component';
 import '../vl-share-buttons.component';
 import { shareButtonsArgs, shareButtonsArgTypes } from './vl-share-buttons.stories-arg';

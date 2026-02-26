@@ -1,6 +1,5 @@
 import { BaseLitElement, webComponent } from '@domg-wc/common';
-import { CSSResult, PropertyDeclarations } from 'lit';
-import { html } from 'lit-element';
+import { CSSResult, html, PropertyDeclarations } from 'lit';
 import { choose } from 'lit/directives/choose.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { vlTitleStyles } from './vl-title.css';

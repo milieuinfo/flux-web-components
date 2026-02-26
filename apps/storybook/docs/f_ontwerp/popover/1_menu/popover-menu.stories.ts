@@ -1,5 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { Meta } from '@storybook/web-components-vite';
 import { VlPopoverMenuComponent } from '@domg-wc/integrations/popover';
 

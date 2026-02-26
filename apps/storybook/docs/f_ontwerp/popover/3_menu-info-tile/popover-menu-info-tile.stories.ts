@@ -1,7 +1,7 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { VlPopoverMenuInfoTileComponent } from '@domg-wc/integrations/popover';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 
 registerWebComponents([VlPopoverMenuInfoTileComponent]);
 

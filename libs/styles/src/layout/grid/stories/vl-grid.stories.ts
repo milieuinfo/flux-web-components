@@ -1,7 +1,7 @@
 import { VlButtonComponent } from '@domg-wc/components/atom';
 import { VlFormLabelComponent, VlInputFieldComponent } from '@domg-wc/components/form';
 import { registerWebComponents } from '@domg-wc/common';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import {
     vlMediaScreenExtraSmall,
     vlMediaScreenMedium,

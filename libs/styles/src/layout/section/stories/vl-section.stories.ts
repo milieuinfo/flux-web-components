@@ -1,7 +1,6 @@
 import { formattedSourceCode } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { css } from 'lit';
-import { html } from 'lit-html';
+import { css, html } from 'lit';
 import vlSectionStoriesDoc from './vl-section.stories-doc.mdx';
 
 export default {

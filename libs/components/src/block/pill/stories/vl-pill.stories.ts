@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../vl-pill.component';
 import { pillArgs, pillArgTypes } from './vl-pill.stories-arg';
 

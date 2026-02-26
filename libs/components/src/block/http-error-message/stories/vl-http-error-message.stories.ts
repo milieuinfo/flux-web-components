@@ -1,6 +1,6 @@
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../vl-http-error-message.component';
 import { httpErrorMessageArgs, httpErrorMessageArgTypes } from './vl-http-error-message.stories-arg';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';

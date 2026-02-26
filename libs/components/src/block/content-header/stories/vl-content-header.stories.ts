@@ -1,6 +1,6 @@
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../vl-content-header.component';
 import { contentHeaderArgs, contentHeaderArgTypes } from './vl-content-header.stories-arg';
 import contentHeaderDoc from './vl-content-header.stories-doc.mdx';

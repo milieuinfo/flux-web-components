@@ -1,6 +1,6 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
-import { ifDefined } from 'lit-html/directives/if-defined.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { VlWizardPane } from './vl-wizard-pane.component';
 import { VlWizard } from './vl-wizard.component';
 

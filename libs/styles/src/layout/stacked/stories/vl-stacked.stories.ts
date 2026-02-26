@@ -1,4 +1,4 @@
-import { html } from 'lit-html';
+import { html } from 'lit';
 import vlStackedStoriesDoc from './vl-stacked.stories-doc.mdx';
 import { Meta } from '@storybook/web-components-vite';
 

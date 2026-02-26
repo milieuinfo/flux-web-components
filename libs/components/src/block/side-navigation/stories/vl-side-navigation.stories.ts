@@ -1,6 +1,6 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { VlSideNavigationContentComponent } from '../vl-side-navigation-content.component';
 import { VlSideNavigationGroupComponent } from '../vl-side-navigation-group.component';

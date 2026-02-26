@@ -1,6 +1,6 @@
 import { defaultArgs, defaultArgTypes, story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../../../vl-map';
 import '../../baselayer/vl-map-base-layer-grb-gray/vl-map-base-layer-grb-gray';
 import '../../baselayer/vl-map-base-layer-grb-ortho/vl-map-base-layer-grb-ortho';

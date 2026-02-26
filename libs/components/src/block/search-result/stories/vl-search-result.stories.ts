@@ -1,6 +1,6 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { VlSearchResultPropertiesComponent } from '../vl-search-result-properties.component';
 import { VlSearchResultTitleComponent } from '../vl-search-result-title.component';
 import { VlSearchResultComponent } from '../vl-search-result.component';

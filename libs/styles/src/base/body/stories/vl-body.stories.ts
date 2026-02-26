@@ -1,4 +1,4 @@
-import { html } from 'lit-html';
+import { html } from 'lit';
 import vlBodyStoriesDoc from './vl-body.stories-doc.mdx';
 import { Meta } from '@storybook/web-components-vite';
 
