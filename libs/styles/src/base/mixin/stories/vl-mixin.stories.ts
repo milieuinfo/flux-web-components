@@ -1,5 +1,5 @@
 import { formattedSourceCode } from '@resources/utils-storybook';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { vlWaveAnimationMixin } from '../vl-animations.css';
 import { vlFocusOutlineMixin } from '../vl-outlines.css';
 import vlMixinStoriesDoc from './vl-mixin.stories-doc.mdx';

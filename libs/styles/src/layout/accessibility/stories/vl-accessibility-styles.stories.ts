@@ -1,4 +1,4 @@
-import { html } from 'lit-html';
+import { html } from 'lit';
 import page from './vl-accessibility-styles.stories-doc.mdx';
 
 export default {

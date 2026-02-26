@@ -1,7 +1,7 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { VlIconComponent } from '../../../atom/icon';
 import { VlPropertiesComponent } from '../vl-properties.component';
 import { propertiesArgs, propertiesArgTypes } from './vl-properties.stories-arg';

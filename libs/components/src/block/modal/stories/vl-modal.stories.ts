@@ -1,7 +1,7 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { VlButtonComponent } from '../../../atom/button';
 import { VlLinkComponent } from '../../../atom/link';
 import { VlDatepickerComponent } from '../../../form/datepicker';

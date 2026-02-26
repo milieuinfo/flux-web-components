@@ -1,7 +1,7 @@
 import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../vl-side-navigation.component';
 import { VlButtonComponent } from '../../../../atom/button';
 import { VlIconComponent } from '../../../../atom/icon';

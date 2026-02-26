@@ -1,4 +1,4 @@
-import { html } from 'lit-html';
+import { html } from 'lit';
 import vlSteparatorStoriesDoc from './vl-separator.stories-doc.mdx';
 import { Meta } from '@storybook/web-components-vite';
 

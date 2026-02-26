@@ -1,6 +1,5 @@
 import { TemplateFn } from '../vl-cascader.model';
-import { html } from 'lit-html';
-import { nothing } from 'lit';
+import { html, nothing } from 'lit';
 
 export const cascaderItemTemplates = new Map<string, TemplateFn>([
     [

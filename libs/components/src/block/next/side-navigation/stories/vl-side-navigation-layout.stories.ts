@@ -1,7 +1,7 @@
 import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../vl-side-navigation-layout.component';
 import '../vl-side-navigation.component';
 import { toggleCustomTocChildren } from '../vl-side-navigation-custom-toc.utils';

@@ -1,7 +1,7 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../vl-autocomplete.component';
 import { VlSideSheet } from '../../side-sheet';
 import { CAPTION_FORMAT, GROUP_BY } from '../vl-autocomplete.model';

@@ -1,7 +1,7 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { VlMapNonLambert72Sources } from '@domg-wc/integrations/map';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 
 registerWebComponents([VlMapNonLambert72Sources]);
 

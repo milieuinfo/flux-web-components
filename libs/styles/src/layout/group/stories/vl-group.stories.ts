@@ -2,7 +2,7 @@ import { registerWebComponents } from '@domg-wc/common';
 import { VlButtonComponent, VlIconComponent, VlLinkComponent } from '@domg-wc/components/atom';
 import { VlAccordionComponent } from '@domg-wc/components/block';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { vlGroupArgs, vlGroupArgTypes } from './vl-group.stories-arg';
 import vlGroupStoriesDoc from './vl-group.stories-doc.mdx';

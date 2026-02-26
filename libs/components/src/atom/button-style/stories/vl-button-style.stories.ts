@@ -1,6 +1,6 @@
 import { formattedSourceCode } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { vlButtonStyles } from '../vl-button-style.css';
 import { renderAllButtonVariants } from '../vl-button-style.util';
 import vlButtonStoriesDoc from './vl-button-style.stories-doc.mdx';

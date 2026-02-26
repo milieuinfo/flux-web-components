@@ -1,6 +1,6 @@
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { VlProzaMessage } from '../vl-proza-message.component';
 import { prozaMessagePreloaderArgs, prozaMessagePreloaderArgTypes } from './vl-proza-message-preloader.stories-arg';
 import prozaMessagePreloaderDoc from './vl-proza-message-preloader.stories-doc.mdx';

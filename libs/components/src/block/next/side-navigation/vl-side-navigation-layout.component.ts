@@ -1,9 +1,8 @@
 import { BaseLitElement, findNodesForSlot, registerWebComponents, webComponent } from '@domg-wc/common';
 import { vlContentBlockStyles, vlGridStyles, vlMediaScreenSmall, vlSectionStyles } from '@domg-wc/styles';
 import { css, CSSResult, html, TemplateResult } from 'lit';
-import { classMap } from 'lit-html/directives/class-map.js';
+import { ClassInfo, classMap } from 'lit/directives/class-map.js';
 import { property } from 'lit/decorators.js';
-import { ClassInfo } from 'lit/directives/class-map.js';
 import { VlSideNavigationComponent } from './vl-side-navigation.component';
 
 registerWebComponents([VlSideNavigationComponent]);

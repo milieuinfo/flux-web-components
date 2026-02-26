@@ -5,7 +5,7 @@ import { registerWebComponents } from '@domg-wc/common';
 import { VlTextComponent } from '@domg-wc/components/atom';
 import { VlCheckboxComponent } from '@domg-wc/components/form';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { VlButtonComponent } from '../../../atom/button';
 import { VlTitleComponent } from '../../../atom/title';
 import { VlFormLabelComponent } from '../../../form/form-label';

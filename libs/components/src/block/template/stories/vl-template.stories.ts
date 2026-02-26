@@ -1,6 +1,6 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { VlContentHeaderComponent } from '../../content-header/vl-content-header.component';
 import '../vl-template.component';
 import { VlTitleComponent } from '../../../atom/title';

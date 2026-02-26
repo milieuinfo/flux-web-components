@@ -1,6 +1,6 @@
 import { BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { vlContentBlockStyles, vlGridStyles, vlLegacyStyles, vlResetStyles, vlSectionStyles } from '@domg-wc/styles';
-import { render } from 'lit-html';
+import { render } from 'lit';
 import { VlTitleComponent } from '../../atom';
 import { VlLinkComponent } from '../../atom/link';
 import { VlParagraphComponent } from '../../atom/paragraph';

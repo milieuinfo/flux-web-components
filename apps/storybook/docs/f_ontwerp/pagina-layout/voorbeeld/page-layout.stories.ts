@@ -1,7 +1,7 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { VlPageLayoutExample } from '@domg-wc/integrations/page-layout';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 
 registerWebComponents([VlPageLayoutExample]);
 

@@ -1,4 +1,4 @@
-import { html } from 'lit-html';
+import { html } from 'lit';
 import vlSpacerStoriesDoc from './vl-spacer.stories-doc.mdx';
 import { Meta } from '@storybook/web-components-vite';
 
