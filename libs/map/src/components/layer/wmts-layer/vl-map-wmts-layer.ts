@@ -12,6 +12,7 @@ import { VlMapLayer } from '../vl-map-layer';
 @webComponent('vl-map-wmts-layer')
 export class VlMapWmtsLayer extends VlMapLayer {
     async connectedCallback() {
+        this.__setIsLayerMarkerAttribute();
         if (this.hasAttribute('from-capabilities')) {
             this._source = await this.__createSourceFromCapabilities();
         } else {
