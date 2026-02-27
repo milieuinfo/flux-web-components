@@ -8,6 +8,7 @@ export const mapWmtsLayerArgs = {
     url: '',
     matrixSet: 'BPL2008VL',
     matrixPrefix: false,
+    fromCapabilities: false,
 };
 
 export const mapWmtsLayerArgTypes: ArgTypes<typeof mapWmtsLayerArgs> = {
@@ -50,6 +51,17 @@ export const mapWmtsLayerArgTypes: ArgTypes<typeof mapWmtsLayerArgs> = {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: String(mapWmtsLayerArgs.matrixPrefix) },
+        },
+    },
+    fromCapabilities: {
+        name: 'from-capabilities',
+        description:
+            'Haalt de TileMatrix configuratie op uit de WMTS GetCapabilities response.<br>Dit attribuut is niet' +
+            ' reactief.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: 'false' },
         },
     },
 };
