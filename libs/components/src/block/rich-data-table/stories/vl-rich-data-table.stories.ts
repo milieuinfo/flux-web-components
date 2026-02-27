@@ -48,29 +48,34 @@ export default {
     },
 } as Meta<typeof richDataTableArgs>;
 
-const TemplateBase = story(richDataTableArgs, ({ collapsedM, collapsedS, collapsedXS, zebra, fluxZebra }) => {
-    const data =
-        '{"data": [{ "id" : 0, "name" : "Project #1" , "owner" : "Jan Jansens" }, { "id" : 1, "name" : "Project #2" , "owner" : "Marie Vermeersch" }]}';
+const TemplateBase = story(
+    richDataTableArgs,
+    ({ collapsedM, collapsedS, collapsedXS, zebra, fluxZebra, label, caption }) => {
+        const data =
+            '{"data": [{ "id" : 0, "name" : "Project #1" , "owner" : "Jan Jansens" }, { "id" : 1, "name" : "Project #2" , "owner" : "Marie Vermeersch" }]}';
 
-    return html`
-        <vl-rich-data-table
-            data="${data}"
-            ?collapsed-m=${collapsedM}
-            ?collapsed-s=${collapsedS}
-            ?collapsed-xs=${collapsedXS}
-            ?zebra=${zebra}
-            ?flux-zebra=${fluxZebra}
-        >
-            <vl-rich-data-field name="id" label="ID" selector="id"></vl-rich-data-field>
-            <vl-rich-data-field name="name" label="Naam" selector="name"></vl-rich-data-field>
-            <vl-rich-data-field name="owner" selector="owner">
-                <template slot="label">
-                    <span>Eigenaar</span>
-                </template>
-            </vl-rich-data-field>
-        </vl-rich-data-table>
-    `;
-});
+        return html`
+            <vl-rich-data-table
+                data="${data}"
+                ?collapsed-m=${collapsedM}
+                ?collapsed-s=${collapsedS}
+                ?collapsed-xs=${collapsedXS}
+                ?zebra=${zebra}
+                ?flux-zebra=${fluxZebra}
+                label=${label}
+                caption=${caption}
+            >
+                <vl-rich-data-field name="id" label="ID" selector="id"></vl-rich-data-field>
+                <vl-rich-data-field name="name" label="Naam" selector="name"></vl-rich-data-field>
+                <vl-rich-data-field name="owner" selector="owner">
+                    <template slot="label">
+                        <span>Eigenaar</span>
+                    </template>
+                </vl-rich-data-field>
+            </vl-rich-data-table>
+        `;
+    }
+);
 
 export const RichDataTableDefault = TemplateBase.bind({});
 RichDataTableDefault.storyName = 'vl-rich-data-table - default';
@@ -78,49 +83,69 @@ RichDataTableDefault.args = {
     collapsedM: false,
     collapsedS: false,
     collapsedXS: false,
+    caption: 'Tabel met projectgegevens',
 };
 
-const TemplateSorting = story(richDataTableArgs, ({ collapsedM, collapsedS, collapsedXS, zebra, fluxZebra }) => {
-    const data =
-        '{"data": [{ "id" : 0, "name" : "Water" , "owner" : "Kevin Jansens" }, { "id" : 1, "name" : "Vuur" , "owner" : "Anton Vanherrewege" }, { "id" : 2, "name" : "Aarde" , "owner" : "Hedwig Jansens" }]}';
-    sortingRichTableImplementation();
-    return html`
-        <vl-rich-data-table
-            id="rich-data-table-sorting"
-            data="${data}"
-            ?collapsed-m=${collapsedM}
-            ?collapsed-s=${collapsedS}
-            ?collapsed-xs=${collapsedXS}
-            ?zebra=${zebra}
-            ?flux-zebra=${fluxZebra}
-        >
-            <vl-rich-data-field
-                name="id"
-                label="ID"
-                selector="id"
-                sortable=""
-                sorting-direction="asc"
-            ></vl-rich-data-field>
-            <vl-rich-data-field name="name" label="Naam" selector="name" sortable=""></vl-rich-data-field>
-            <vl-rich-data-field name="owner" selector="owner" sortable="">
-                <template slot="label">
-                    <span>Eigenaar</span>
-                </template>
-            </vl-rich-data-field>
-        </vl-rich-data-table>
-    `;
-});
+const TemplateSorting = story(
+    richDataTableArgs,
+    ({ collapsedM, collapsedS, collapsedXS, zebra, fluxZebra, multiSort, label, caption }) => {
+        const data =
+            '{"data": [{ "id" : 0, "name" : "Water" , "owner" : "Kevin Jansens" }, { "id" : 1, "name" : "Vuur" , "owner" : "Anton Vanherrewege" }, { "id" : 2, "name" : "Aarde" , "owner" : "Hedwig Jansens" }]}';
+        sortingRichTableImplementation();
+        return html`
+            <vl-rich-data-table
+                id="rich-data-table-sorting"
+                data="${data}"
+                ?collapsed-m=${collapsedM}
+                ?collapsed-s=${collapsedS}
+                ?collapsed-xs=${collapsedXS}
+                ?zebra=${zebra}
+                ?flux-zebra=${fluxZebra}
+                ?multi-sort=${multiSort}
+                label=${label}
+                caption=${caption}
+            >
+                <vl-rich-data-field
+                    name="id"
+                    label="ID"
+                    selector="id"
+                    sortable
+                    sorting-direction="asc"
+                ></vl-rich-data-field>
+                <vl-rich-data-field name="name" label="Naam" selector="name" sortable></vl-rich-data-field>
+                <vl-rich-data-field name="owner" selector="owner" sortable>
+                    <template slot="label">
+                        <span>Eigenaar</span>
+                    </template>
+                </vl-rich-data-field>
+            </vl-rich-data-table>
+        `;
+    }
+);
 export const RichDataTableSorting = TemplateSorting.bind({});
 RichDataTableSorting.storyName = 'vl-rich-data-table - sorting';
 RichDataTableSorting.args = {
     collapsedM: false,
     collapsedS: false,
     collapsedXS: false,
+    multiSort: false,
+    caption: 'Sorteerbare tabel',
 };
 
 const TemplateFilter = story(
     richDataTableArgs,
-    ({ collapsedM, collapsedS, collapsedXS, filterClosable, filterClosed, filterMaxWidth, zebra, fluxZebra }) => {
+    ({
+        collapsedM,
+        collapsedS,
+        collapsedXS,
+        filterClosable,
+        filterClosed,
+        filterMaxWidth,
+        zebra,
+        fluxZebra,
+        label,
+        caption,
+    }) => {
         filterRichTableImplementation();
         return html`
             <vl-rich-data-table
@@ -133,6 +158,8 @@ const TemplateFilter = story(
                 filter-max-width=${filterMaxWidth}
                 ?zebra=${zebra}
                 ?flux-zebra=${fluxZebra}
+                label=${label}
+                caption=${caption}
             >
                 <vl-rich-data-field label="ID" selector="id"></vl-rich-data-field>
                 <vl-rich-data-field label="Naam Project" selector="name"></vl-rich-data-field>
@@ -187,11 +214,23 @@ export const RichDataTableFilter = TemplateFilter.bind({});
 RichDataTableFilter.storyName = 'vl-rich-data-table - filter';
 RichDataTableFilter.args = {
     filterClosable: true,
+    caption: 'Tabel met filter',
 };
 
 const TemplateFilterPaging = story(
     richDataTableArgs,
-    ({ collapsedM, collapsedS, collapsedXS, filterClosable, filterClosed, filterMaxWidth, zebra, fluxZebra }) => {
+    ({
+        collapsedM,
+        collapsedS,
+        collapsedXS,
+        filterClosable,
+        filterClosed,
+        filterMaxWidth,
+        zebra,
+        fluxZebra,
+        label,
+        caption,
+    }) => {
         paginationRichTableImplementation();
         return html`
             <vl-rich-data-table
@@ -204,6 +243,8 @@ const TemplateFilterPaging = story(
                 filter-max-width=${filterMaxWidth}
                 ?zebra=${zebra}
                 ?flux-zebra=${fluxZebra}
+                label=${label}
+                caption=${caption}
             >
                 <vl-rich-data-field label="ID" selector="id"></vl-rich-data-field>
                 <vl-rich-data-field label="Naam Project" selector="name"></vl-rich-data-field>
@@ -261,143 +302,151 @@ RichDataTableFilterAndPagination.storyName = 'vl-rich-data-table - filter and pa
 RichDataTableFilterAndPagination.args = {
     filterClosable: true,
     filterClosed: true,
+    caption: 'Tabel met filter en paginatie',
 };
 
-const TemplateSelectable = story(richDataTableArgs, ({ collapsedM, collapsedS, collapsedXS, zebra, fluxZebra }) => {
-    type MyDataItem = { selected: boolean; name: string; extension: string; filesize: string };
-    type MyData = MyDataItem[];
+const TemplateSelectable = story(
+    richDataTableArgs,
+    ({ collapsedM, collapsedS, collapsedXS, zebra, fluxZebra, label, caption }) => {
+        type MyDataItem = { selected: boolean; name: string; extension: string; filesize: string };
+        type MyData = MyDataItem[];
 
-    const data: RichData<MyDataItem> = {
-        data: [
-            { selected: true, name: 'document.pdf', extension: 'pdf', filesize: '123 MB' },
-            { selected: false, name: 'bestand.docx', extension: 'docx', filesize: '2 GB' },
-            { selected: false, name: 'Een bestand met een lange naam.pptx', extension: 'pptx', filesize: '10 KB' },
-        ],
-    };
+        const data: RichData<MyDataItem> = {
+            data: [
+                { selected: true, name: 'document.pdf', extension: 'pdf', filesize: '123 MB' },
+                { selected: false, name: 'bestand.docx', extension: 'docx', filesize: '2 GB' },
+                { selected: false, name: 'Een bestand met een lange naam.pptx', extension: 'pptx', filesize: '10 KB' },
+            ],
+        };
 
-    const { checkActions, headerTemplate, dataFieldRenderer, applySelectionToAllRows } =
-        selectableRichTableImplementation();
+        const { checkActions, headerTemplate, dataFieldRenderer, applySelectionToAllRows } =
+            selectableRichTableImplementation();
 
-    return html`
-        <style>
-            vl-title::part(h1) {
-                font-size: var(--vl-font-size);
-                margin-bottom: 0;
-            }
-            vl-rich-data-table {
-                --vl-grid-col-gap: 0;
-                --vl-grid-row-gap: 0;
-            }
-        </style>
-        <div>
-            <div class="vl-group vl-group--space-between vl-group--collapse-s">
-                <vl-title type="h1">Documenten</vl-title>
-                <span
-                    id="selection-status"
-                    role="status"
-                    aria-live="polite"
-                    aria-atomic="true"
-                    class="vl-visually-hidden"
+        return html`
+            <style>
+                vl-title::part(h1) {
+                    font-size: var(--vl-font-size);
+                    margin-bottom: 0;
+                }
+                vl-rich-data-table {
+                    --vl-grid-col-gap: 0;
+                    --vl-grid-row-gap: 0;
+                }
+            </style>
+            <div>
+                <div class="vl-group vl-group--space-between vl-group--collapse-s">
+                    <vl-title type="h1">Documenten</vl-title>
+                    <span
+                        id="selection-status"
+                        role="status"
+                        aria-live="polite"
+                        aria-atomic="true"
+                        class="vl-visually-hidden"
+                    >
+                        Selectie
+                    </span>
+                    <div id="default-actions">
+                        <div class="vl-group vl-group--collapse-xs">
+                            <vl-button
+                                tertiary
+                                narrow
+                                type="button"
+                                icon="add"
+                                id="add-folder"
+                                @vl-click=${() => {
+                                    console.log('add folder');
+                                }}
+                                >Subfolder toevoegen</vl-button
+                            >
+                            <vl-button
+                                tertiary
+                                narrow
+                                type="button"
+                                icon="add"
+                                id="add-document"
+                                @vl-click=${() => {
+                                    console.log('add document');
+                                }}
+                                >Document toevoegen</vl-button
+                            >
+                        </div>
+                    </div>
+                    <div id="selection-actions" hidden>
+                        <div class="vl-group vl-group--collapse-xs">
+                            <vl-button
+                                ghost
+                                narrow
+                                icon="close"
+                                icon-placement="after"
+                                label="Alles deselecteren"
+                                id="remove-selection"
+                                type="button"
+                                @vl-click=${() => {
+                                    applySelectionToAllRows(false);
+                                }}
+                                >Selectie</vl-button
+                            >
+                            <vl-button
+                                tertiary
+                                narrow
+                                type="button"
+                                icon="move-left-right"
+                                @vl-click=${() => {
+                                    console.log('move selection', getSelection());
+                                }}
+                                >Verplaatsen</vl-button
+                            >
+                            <vl-button
+                                tertiary
+                                narrow
+                                type="button"
+                                icon="data-download"
+                                @vl-click=${() => {
+                                    console.log('download selection', getSelection());
+                                }}
+                                >Downloaden</vl-button
+                            >
+                            <vl-button
+                                tertiary
+                                narrow
+                                error
+                                type="button"
+                                icon="trash"
+                                @vl-click=${() => {
+                                    console.log('delete selection', getSelection());
+                                }}
+                                >Verwijderen</vl-button
+                            >
+                        </div>
+                    </div>
+                </div>
+                <vl-rich-data-table
+                    id="rich-data-table-selectable"
+                    data="${JSON.stringify(data)}"
+                    ?collapsed-m=${collapsedM}
+                    ?collapsed-s=${collapsedS}
+                    ?collapsed-xs=${collapsedXS}
+                    ?zebra=${zebra}
+                    ?flux-zebra=${fluxZebra}
+                    label=${label}
+                    caption=${caption}
+                    @vl-change=${() => checkActions()}
                 >
-                    Selectie
-                </span>
-                <div id="default-actions">
-                    <div class="vl-group vl-group--collapse-xs">
-                        <vl-button
-                            tertiary
-                            narrow
-                            type="button"
-                            icon="add"
-                            id="add-folder"
-                            @vl-click=${() => {
-                                console.log('add folder');
-                            }}
-                            >Subfolder toevoegen</vl-button
-                        >
-                        <vl-button
-                            tertiary
-                            narrow
-                            type="button"
-                            icon="add"
-                            id="add-document"
-                            @vl-click=${() => {
-                                console.log('add document');
-                            }}
-                            >Document toevoegen</vl-button
-                        >
-                    </div>
-                </div>
-                <div id="selection-actions" hidden>
-                    <div class="vl-group vl-group--collapse-xs">
-                        <vl-button
-                            ghost
-                            narrow
-                            icon="close"
-                            icon-placement="after"
-                            label="Alles deselecteren"
-                            id="remove-selection"
-                            type="button"
-                            @vl-click=${() => {
-                                applySelectionToAllRows(false);
-                            }}
-                            >Selectie</vl-button
-                        >
-                        <vl-button
-                            tertiary
-                            narrow
-                            type="button"
-                            icon="move-left-right"
-                            @vl-click=${() => {
-                                console.log('move selection', getSelection());
-                            }}
-                            >Verplaatsen</vl-button
-                        >
-                        <vl-button
-                            tertiary
-                            narrow
-                            type="button"
-                            icon="data-download"
-                            @vl-click=${() => {
-                                console.log('download selection', getSelection());
-                            }}
-                            >Downloaden</vl-button
-                        >
-                        <vl-button
-                            tertiary
-                            narrow
-                            error
-                            type="button"
-                            icon="trash"
-                            @vl-click=${() => {
-                                console.log('delete selection', getSelection());
-                            }}
-                            >Verwijderen</vl-button
-                        >
-                    </div>
-                </div>
+                    <vl-rich-data-field
+                        .renderer=${dataFieldRenderer}
+                        .headerTemplate=${headerTemplate}
+                    ></vl-rich-data-field>
+                    <vl-rich-data-field name="name" label="Naam" selector="name"></vl-rich-data-field>
+                    <vl-rich-data-field name="filesize" label="Grootte" selector="filesize"></vl-rich-data-field>
+                    <vl-rich-data-field name="extension" label="Type" selector="extension"></vl-rich-data-field>
+                </vl-rich-data-table>
             </div>
-            <vl-rich-data-table
-                id="rich-data-table-selectable"
-                data="${JSON.stringify(data)}"
-                ?collapsed-m=${collapsedM}
-                ?collapsed-s=${collapsedS}
-                ?collapsed-xs=${collapsedXS}
-                ?zebra=${zebra}
-                ?flux-zebra=${fluxZebra}
-                @vl-change=${() => checkActions()}
-            >
-                <vl-rich-data-field
-                    .renderer=${dataFieldRenderer}
-                    .headerTemplate=${headerTemplate}
-                ></vl-rich-data-field>
-                <vl-rich-data-field name="name" label="Naam" selector="name"></vl-rich-data-field>
-                <vl-rich-data-field name="filesize" label="Grootte" selector="filesize"></vl-rich-data-field>
-                <vl-rich-data-field name="extension" label="Type" selector="extension"></vl-rich-data-field>
-            </vl-rich-data-table>
-        </div>
-    `;
-});
+        `;
+    }
+);
 
 export const RichDataTableSelectable = TemplateSelectable.bind({});
 RichDataTableSelectable.storyName = 'vl-rich-data-table - selectable';
-RichDataTableSelectable.args = {};
+RichDataTableSelectable.args = {
+    caption: 'Tabel met selecteerbare rijen',
+};

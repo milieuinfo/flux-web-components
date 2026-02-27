@@ -151,6 +151,25 @@ describe('cypress-e2e - block components - vl-rich-table - default story', () =>
 
         shouldMatchTableData(dataRows);
     });
+
+    it('should render the caption text provided via the caption attribute', () => {
+        cy.visit(richDataTableDefaultUrl);
+        cy.get('vl-rich-data-table').shadow().find('caption').should('have.text', 'Tabel met projectgegevens');
+    });
+
+    it('should update the caption when the attribute changes', () => {
+        const newCaption = 'Andere titel';
+        cy.visit(richDataTableDefaultUrl);
+        cy.get('vl-rich-data-table').invoke('attr', 'caption', newCaption);
+        cy.get('vl-rich-data-table').shadow().find('caption').should('have.text', newCaption);
+    });
+
+    it('should apply an aria-label when only a label attribute is present', () => {
+        cy.visit(richDataTableDefaultUrl);
+        const ariaLabel = 'Mijn tabel label';
+        cy.get('vl-rich-data-table').invoke('removeAttr', 'caption').invoke('attr', 'label', ariaLabel);
+        cy.get('vl-rich-data-table').shadow().find('table').should('have.attr', 'aria-label', ariaLabel);
+    });
 });
 
 describe('cypress-e2e - block components - vl-rich-table - sorting story', () => {

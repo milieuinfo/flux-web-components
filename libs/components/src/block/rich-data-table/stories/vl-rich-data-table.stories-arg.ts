@@ -9,6 +9,9 @@ export const richDataTableArgs = {
     collapsedXS: false,
     zebra: false,
     fluxZebra: false,
+    multiSort: false,
+    label: '',
+    caption: '',
 };
 
 export const richDataTableArgTypes: ArgTypes<typeof richDataTableArgs> = {
@@ -60,6 +63,36 @@ export const richDataTableArgTypes: ArgTypes<typeof richDataTableArgs> = {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
             defaultValue: { summary: String(richDataTableArgs.fluxZebra) },
+        },
+    },
+    multiSort: {
+        name: 'multi-sort',
+        description: 'Maakt het mogelijk om op meerdere kolommen te sorteren.',
+        table: {
+            category: CATEGORIES.ATTRIBUTES,
+            type: { summary: TYPES.BOOLEAN },
+            defaultValue: { summary: String(richDataTableArgs.multiSort) },
+        },
+    },
+    label: {
+        name: 'label',
+        description:
+            'Wordt gebruikt als aria-label voor de tabel. Optioneel indien er een caption gedefinieerd is.' +
+            ' Voor screenreaders heeft label voorrang op caption als beide aanwezig zijn,' +
+            ' maar het is aanbevolen om caption te gebruiken als er een zichtbare titel voor de tabel gewenst is.',
+        table: {
+            category: CATEGORIES.ATTRIBUTES,
+            type: { summary: TYPES.STRING },
+            defaultValue: { summary: richDataTableArgs.label },
+        },
+    },
+    caption: {
+        name: 'caption',
+        description: 'Caption van de tabel. Optioneel indien er een label gedefinieerd is.',
+        table: {
+            category: CATEGORIES.ATTRIBUTES,
+            type: { summary: TYPES.STRING },
+            defaultValue: { summary: '' },
         },
     },
 };

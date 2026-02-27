@@ -14,15 +14,18 @@ export class VlRichDataSorter extends BaseHTMLElement {
 
     constructor() {
         const html = `
-            <div id="container" class="vl-u-visually-hidden">
+            <div id="container" class="vl-u-visually-hidden" aria-hidden="true">
                 <vl-icon id="direction"></vl-icon>
-                <label id="priority"></label>
+                <span id="priority"></span>
             </div>
         `;
         const customStyleSheet = new CSSStyleSheet();
         customStyleSheet.replaceSync(`
-            div {
+            #container {
               display: inline;
+            }
+            #container:has(#priority:not(:empty)) {
+                margin-right: 1rem;
             }
 
             #direction {
@@ -32,6 +35,8 @@ export class VlRichDataSorter extends BaseHTMLElement {
             #priority {
               font-size: x-small;
               vertical-align: super;
+              position: absolute;
+              white-space: nowrap;
             }
         `);
         const styleSheets = [
@@ -117,16 +122,16 @@ export class VlRichDataSorter extends BaseHTMLElement {
         }
     }
 
-    get __directionElement() {
-        return this.shadowRoot?.querySelector<HTMLElement>('#direction');
+    get __directionElement(): VlIconComponent | null | undefined {
+        return this.shadowRoot?.querySelector<VlIconComponent>('#direction');
     }
 
-    get __containerElement() {
-        return this.shadowRoot?.querySelector<HTMLElement>('#container');
+    get __containerElement(): HTMLDivElement | null | undefined {
+        return this.shadowRoot?.querySelector<HTMLDivElement>('#container');
     }
 
-    get __priorityElement() {
-        return this.shadowRoot?.querySelector<HTMLElement>('#priority');
+    get __priorityElement(): HTMLSpanElement | null | undefined {
+        return this.shadowRoot?.querySelector<HTMLSpanElement>('#priority');
     }
 
     _setDirectionAndPublishEvent(direction: string | undefined): void {
