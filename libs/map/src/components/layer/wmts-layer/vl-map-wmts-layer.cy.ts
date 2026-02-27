@@ -3,6 +3,7 @@ import { html } from 'lit';
 import OlWMTSSource from 'ol/source/WMTS';
 import OlWMTSTileGrid from 'ol/tilegrid/WMTS';
 import { VlMap } from '../../../vl-map';
+import { geoApiVlaanderenCapabilitiesXML } from '../../../utils/capabilities-response';
 import { VlMapWmtsLayer } from './vl-map-wmts-layer';
 
 registerWebComponents([VlMap, VlMapWmtsLayer]);
@@ -44,6 +45,18 @@ const wmtsLayerHiddenFixture = html`
             min-resolution="2"
             max-resolution="4"
             hidden
+        >
+        </vl-map-wmts-layer>
+    </vl-map>
+`;
+
+const wmtsLayerFromCapabilitiesFixture = html`
+    <vl-map lambert2008>
+        <vl-map-wmts-layer
+            url="https://geo.api.vlaanderen.be/GRB/wmts"
+            layer="grb_sel"
+            name="GRB Wegenkaart"
+            from-capabilities
         >
         </vl-map-wmts-layer>
     </vl-map>
@@ -157,6 +170,24 @@ describe('cypress-component - map - vl-map-wmts-layer', () => {
         cy.mount(wmtsLayerHiddenFixture);
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             expect(getLayer(vlMap).layer.getVisible()).to.be.false;
+        });
+    });
+
+    it('met from-capabilities wordt de WMTS source aangemaakt vanuit de capabilities response', () => {
+        cy.intercept('GET', '**/wmts?SERVICE=WMTS&REQUEST=GetCapabilities', geoApiVlaanderenCapabilitiesXML).as(
+            'capabilities'
+        );
+        cy.mount(wmtsLayerFromCapabilitiesFixture);
+        cy.wait('@capabilities');
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                const layers = vlMap.map.getOverlayLayers();
+                expect(layers).to.be.lengthOf(1);
+                const layer = layers[0];
+                // @ts-ignore
+                const source = layer.getSource();
+                expect(source).to.be.instanceof(OlWMTSSource);
+            });
         });
     });
 });
