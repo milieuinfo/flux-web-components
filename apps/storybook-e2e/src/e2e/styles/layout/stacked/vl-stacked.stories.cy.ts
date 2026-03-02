@@ -10,10 +10,10 @@ describe('cypress-e2e - layout - vl-stacked - large story', () => {
         cy.visit(stackedLargeUrl);
 
         cy.viewport(1920, 1080);
-        cy.get('.vl-grid').shouldHaveComputedStyle({ style: 'row-gap', value: '60px' });
+        cy.get('.vl-stacked').shouldHaveComputedStyle({ style: 'row-gap', value: '60px' });
 
         cy.viewport(375, 667);
-        cy.get('.vl-grid').shouldHaveComputedStyle({ style: 'row-gap', value: '30px' });
+        cy.get('.vl-stacked').shouldHaveComputedStyle({ style: 'row-gap', value: '30px' });
     });
 });
 
@@ -21,7 +21,7 @@ describe('cypress-e2e - layout - vl-stacked - medium story', () => {
     it('should render', () => {
         cy.visit(stackedMediumUrl);
 
-        cy.get('.vl-grid').shouldHaveComputedStyle({ style: 'row-gap', value: '30px' });
+        cy.get('.vl-stacked').shouldHaveComputedStyle({ style: 'row-gap', value: '30px' });
     });
 });
 
@@ -29,6 +29,6 @@ describe('cypress-e2e - layout - vl-stacked - small story', () => {
     it('should render', () => {
         cy.visit(stackedSmallUrl);
 
-        cy.get('.vl-grid').shouldHaveComputedStyle({ style: 'row-gap', value: '15px' });
+        cy.get('.vl-stacked').shouldHaveComputedStyle({ style: 'row-gap', value: '15px' });
     });
 });
