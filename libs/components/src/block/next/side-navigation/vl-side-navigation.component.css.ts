@@ -99,6 +99,35 @@ export const vlSideNavigationLightDomStyles = css`
             ${activeStateStyles}
         }
 
+        /* Match auto-generated nav link text-decoration and font-weight for custom TOC */
+        a {
+            text-decoration: none;
+            font-weight: 500;
+
+            &:hover {
+                text-decoration: underline;
+            }
+
+            &:focus {
+                text-decoration: underline;
+                ${vlFocusOutlineMixin()}
+            }
+        }
+
+        vl-link::part(link) {
+            text-decoration: none;
+            font-weight: 500;
+
+            &:hover {
+                text-decoration: underline;
+            }
+
+            &:focus {
+                text-decoration: underline;
+                ${vlFocusOutlineMixin()}
+            }
+        }
+
         /* Custom TOC styles for slotted content */
         ul {
             list-style: none;
@@ -243,6 +272,7 @@ export const vlSideNavigationStyles = css`
         background-color: var(--vl-color--white);
         padding: var(--vl-spacing--small);
         overflow-y: auto;
+        font-size: var(--vl-font-size--small);
 
         a,
         button {
