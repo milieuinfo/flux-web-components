@@ -383,7 +383,9 @@ export const SideNavigationLayoutWithCustomToc = story(
                             </ul>
                         </li>
                         <li>
-                            <vl-link href="#custom-termijnen">3. Termijnen</vl-link>
+                            <div class="nav-item-wrapper">
+                                <vl-link href="#custom-termijnen">3. Termijnen</vl-link>
+                            </div>
                         </li>
                     </ul>
                 </vl-side-navigation-next>
