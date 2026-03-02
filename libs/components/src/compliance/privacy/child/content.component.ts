@@ -3,8 +3,8 @@ import { html } from 'lit-html';
 export const privacyContentSection = () => html`
     <vl-side-navigation-layout content-block max-depth="0">
         <div slot="content" class="vl-grid vl-stacked-large">
-            <div id="privacy-department" class="vl-column vl-column--12 vl-column--m-12">
-                <vl-title type="h2">Het Departement Omgeving en uw privacy</vl-title>
+            <div class="vl-column vl-column--12 vl-column--m-12">
+                <vl-title type="h2" id="privacy-department">Het Departement Omgeving en uw privacy</vl-title>
                 <p>
                     Op 25 mei 2018 werd de Europese ‘Algemene Verordening Gegevensbescherming’ (AVG), ook gekend onder
                     de Engelse naam ‘General Data Protection Regulation’ (GDPR) van kracht. Naar aanleiding daarvan
@@ -15,13 +15,13 @@ export const privacyContentSection = () => html`
             </div>
             <div class="vl-column vl-column--12 vl-column--m-12">
                 <vl-title type="h2" id="privacy-declaration">Privacyverklaring</vl-title>
-                <div class="vl-grid vl-stacked-medium">
-                    <div class="vl-column vl-column--12 vl-column--m-12">
+                <div class="vl-stacked vl-stacked-medium">
+                    <div>
                         <vl-title type="h3" id="privacy-declaration-who"
                             >Wie is verantwoordelijk voor de verwerking van mijn persoonsgegevens?
                         </vl-title>
-                        <div class="vl-grid vl-stacked-medium">
-                            <div class="vl-column vl-column--12 vl-column--m-12">
+                        <div class="vl-stacked vl-stacked-medium">
+                            <div>
                                 <vl-typography>
                                     <p>
                                         Het Departement Omgeving verwerkt gegevens van haar doelgroepen en
@@ -52,7 +52,7 @@ export const privacyContentSection = () => html`
                                     </p>
                                 </vl-typography>
                             </div>
-                            <div class="vl-column vl-column--12 vl-column--m-12">
+                            <div>
                                 <vl-title type="h4">Over het Departement Omgeving</vl-title>
                                 <p>
                                     Het Departement Omgeving van de Vlaamse overheid is een officieel overheidsorgaan
@@ -64,7 +64,7 @@ export const privacyContentSection = () => html`
                                     andere overheden, inspectiediensten en burgers.
                                 </p>
                             </div>
-                            <div class="vl-column vl-column--12 vl-column--m-12">
+                            <div>
                                 <vl-contact-card>
                                     <vl-infoblock slot="info" type="contact">
                                         <vl-title
@@ -126,10 +126,10 @@ export const privacyContentSection = () => html`
                             </div>
                         </div>
                     </div>
-                    <div class="vl-column vl-column--12 vl-column--m-12">
+                    <div>
                         <vl-title type="h3" id="privacy-declaration-process">Verwerking van persoonsgegevens </vl-title>
-                        <div class="vl-grid vl-stacked-medium">
-                            <div class="vl-column vl-column--12 vl-column--m-12">
+                        <div class="vl-stacked vl-stacked-medium">
+                            <div>
                                 <p>
                                     Het Departement Omgeving verwerkt persoonsgegevens van u als burger of als
                                     medewerker van een overheid/bestuur, organisatie of onderneming. De Algemene
@@ -142,7 +142,7 @@ export const privacyContentSection = () => html`
                                     aligneren of combineren, afschermen, wissen of vernietigen van gegevens”.
                                 </p>
                             </div>
-                            <div class="vl-column vl-column--12 vl-column--m-12">
+                            <div>
                                 <vl-title type="h4">Hoe verzamelen en verwerken we uw persoonsgegevens? </vl-title>
                                 <vl-typography>
                                     <p>
@@ -167,7 +167,7 @@ export const privacyContentSection = () => html`
                                     </ul>
                                 </vl-typography>
                             </div>
-                            <div class="vl-column vl-column--12 vl-column--m-12">
+                            <div>
                                 <vl-title type="h4">Waarvoor verwerken we uw persoonsgegevens? </vl-title>
                                 <vl-typography>
                                     <p>
@@ -211,7 +211,7 @@ export const privacyContentSection = () => html`
                                     </ul>
                                 </vl-typography>
                             </div>
-                            <div class="vl-column vl-column--12 vl-column--m-12">
+                            <div>
                                 <vl-title type="h4">Welke persoonsgegevens worden verwerkt? </vl-title>
                                 <vl-typography>
                                     <p>
@@ -259,7 +259,7 @@ export const privacyContentSection = () => html`
                                     </ul>
                                 </vl-typography>
                             </div>
-                            <div class="vl-column vl-column--12 vl-column--m-12">
+                            <div>
                                 <vl-title type="h4">Hoelang bewaren we uw persoonsgegevens? </vl-title>
                                 <vl-typography>
                                     <p>
@@ -284,14 +284,14 @@ export const privacyContentSection = () => html`
                                     </p>
                                 </vl-typography>
                             </div>
-                            <div class="vl-column vl-column--12 vl-column--m-12">
+                            <div>
                                 <vl-title type="h4">Persoonsgegevens van kinderen</vl-title>
                                 <p>
                                     In principe gebeurt er geen systematische verwerking van persoonsgegevens van
                                     kinderen onder de door de AVG en de Belgische wetgever bepaalde leeftijdsgrens.
                                 </p>
                             </div>
-                            <div class="vl-column vl-column--12 vl-column--m-12">
+                            <div>
                                 <vl-title type="h4">Beeldmateriaal</vl-title>
                                 <p>
                                     Voor opname en gebruik (publicatie) van beeldmateriaal zoals foto of film, wordt
@@ -299,7 +299,7 @@ export const privacyContentSection = () => html`
                                     zijn.
                                 </p>
                             </div>
-                            <div class="vl-column vl-column--12 vl-column--m-12">
+                            <div>
                                 <vl-title type="h4">Mededeling van persoonsgegevens aan derde partijen </vl-title>
                                 <vl-typography>
                                     <p>
@@ -344,12 +344,12 @@ export const privacyContentSection = () => html`
                             </div>
                         </div>
                     </div>
-                    <div class="vl-column vl-column--12 vl-column--m-12">
+                    <div>
                         <vl-title type="h3" id="privacy-declaration-measures">
                             Maatregelen in het kader van de Algemene verordening Gegevensbescherming
                         </vl-title>
-                        <div class="vl-grid vl-stacked-medium">
-                            <div class="vl-column vl-column--12 vl-column--m-12">
+                        <div class="vl-stacked vl-stacked-medium">
+                            <div>
                                 <vl-title type="h4">Register van gegevensverwerkingen</vl-title>
                                 <vl-typography>
                                     <p>
@@ -428,13 +428,13 @@ export const privacyContentSection = () => html`
                                 </vl-typography>
                             </div>
 
-                            <div class="vl-column vl-column--12 vl-column--m-12">
+                            <div>
                                 <vl-title type="h4">
                                     Toe te passen principes vereist door de Algemene Verordening Gegevensbescherming
                                 </vl-title>
 
-                                <div class="vl-grid vl-stacked-medium">
-                                    <div class="vl-column vl-column--12 vl-column--m-12">
+                                <div class="vl-stacked vl-stacked-medium">
+                                    <div>
                                         <p>
                                             Het risico voor een privacyschending of het niet kunnen garanderen van de
                                             rechten van u als betrokkene wordt mee in kaart gebracht en voor die
@@ -447,7 +447,7 @@ export const privacyContentSection = () => html`
                                             inzake privacybescherming.
                                         </p>
                                     </div>
-                                    <div class="vl-column vl-column--12 vl-column--m-12">
+                                    <div>
                                         <vl-typography>
                                             <p>
                                                 Het Departement Omgeving voorziet in de nodige maatregelen om
@@ -481,10 +481,10 @@ export const privacyContentSection = () => html`
                             </div>
                         </div>
                     </div>
-                    <div class="vl-column vl-column--12 vl-column--m-12">
+                    <div>
                         <vl-title type="h3" id="privacy-declaration-rights">Uw rechten als betrokkene </vl-title>
-                        <div class="vl-grid vl-stacked-medium">
-                            <div class="vl-column vl-column--12 vl-column--m-12">
+                        <div class="vl-stacked vl-stacked-medium">
+                            <div>
                                 <vl-typography>
                                     <p>
                                         De Algemene Verordening Gegevensbescherming voorziet in een aantal
@@ -528,7 +528,7 @@ export const privacyContentSection = () => html`
                                     </ul>
                                 </vl-typography>
                             </div>
-                            <div class="vl-column vl-column--12 vl-column--m-12">
+                            <div>
                                 <vl-title type="h4">Recht op inzage, verbetering of verwijdering </vl-title>
                                 <vl-typography>
                                     <p>
@@ -568,7 +568,7 @@ export const privacyContentSection = () => html`
                             </div>
                         </div>
                     </div>
-                    <div class="vl-column vl-column--12 vl-column--m-12">
+                    <div>
                         <vl-title type="h3" id="privacy-declaration-aplpy">
                             Toepassing van deze Privacyverklaring
                         </vl-title>
@@ -613,14 +613,14 @@ export const privacyContentSection = () => html`
             </div>
             <div class="vl-column vl-column--12 vl-column--m-12">
                 <vl-title type="h2" id="privacy-permissions-protocols">Machtigingen en protocollen </vl-title>
-                <div class="vl-grid vl-stacked-medium">
-                    <div class="vl-column vl-column--12 vl-column--m-12">
+                <div class="vl-stacked vl-stacked-medium">
+                    <div>
                         <vl-title type="h3" id="privacy-permissions-protocols-process">
                             Machtigingen van de bevoegde autoriteiten en afgesloten protocollen voor het verwerken van
                             bepaalde gegevens
                         </vl-title>
-                        <div class="vl-grid vl-stacked-medium">
-                            <div class="vl-column vl-column--12 vl-column--m-12">
+                        <div class="vl-stacked vl-stacked-medium">
+                            <div>
                                 <vl-typography>
                                     <p>
                                         Het Departement Omgeving of de overheidsinstanties waarvoor zij handelt als
@@ -640,7 +640,7 @@ export const privacyContentSection = () => html`
                                     </p>
                                 </vl-typography>
                             </div>
-                            <div class="vl-column vl-column--4 vl-column--m-6" medium-size="6">
+                            <div>
                                 <vl-document
                                     href="https://cdn.milieuinfo.be/footer-assets/LATEST/docx/privacybeleid-v0.2.docx"
                                 >
