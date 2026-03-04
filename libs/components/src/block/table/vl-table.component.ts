@@ -127,8 +127,8 @@ export class VlTableComponent extends LitElement {
         this.caption?.classList.add('vl-table__caption');
     }
 
-    private detailsToggleButtonElement(id: string): HTMLButtonElement | null {
-        return this.querySelector<HTMLButtonElement>(`tbody tr td vl-button[id="details-toggle-${id}"]`);
+    private detailsToggleButtonElement(id: string): VlButtonComponent | null {
+        return this.querySelector<VlButtonComponent>(`tbody tr td vl-button[id="details-toggle-${id}"]`);
     }
 
     private detailsTableRowElements(id: string): NodeListOf<HTMLTableRowElement> | null | undefined {
@@ -151,6 +151,8 @@ export class VlTableComponent extends LitElement {
         button.setAttribute('narrow', '');
         button.setAttribute('secondary', '');
         button.setAttribute('icon', 'arrow-down-fat');
+        button.setAttribute('aria-expanded', 'false');
+        button.setAttribute('label', `Klap deze rij open`);
 
         button.addEventListener('vl-click', (e: Event) => {
             e.preventDefault();
@@ -165,11 +167,11 @@ export class VlTableComponent extends LitElement {
         const vlButton = this.detailsToggleButtonElement(id);
         if (show) {
             details?.forEach((detail) => detail.style.removeProperty('display'));
-            vlButton?.shadowRoot?.querySelector('button')?.setAttribute('aria-expanded', 'true');
+            vlButton?.setAttribute('aria-expanded', 'true');
             vlButton?.setAttribute('icon', 'arrow-up-fat');
         } else {
             details?.forEach((detail) => (detail.style.display = 'none'));
-            vlButton?.shadowRoot?.querySelector('button')?.setAttribute('aria-expanded', 'false');
+            vlButton?.setAttribute('aria-expanded', 'false');
             vlButton?.setAttribute('icon', 'arrow-down-fat');
         }
     }
@@ -188,13 +190,6 @@ export class VlTableComponent extends LitElement {
                     const vlButton = this.expandCollapseTemplate(id);
                     cell.appendChild(vlButton);
                     dataRow.appendChild(cell);
-
-                    vlButton.updateComplete.then(() => {
-                        vlButton.shadowRoot?.querySelector('button')?.setAttribute('aria-expanded', 'false');
-                        vlButton.shadowRoot
-                            ?.querySelector('button')
-                            ?.setAttribute('aria-label', 'toggle details for ' + id);
-                    });
                 }
 
                 const detailsCellCount = row?.querySelectorAll('td')?.length;
@@ -218,7 +213,7 @@ export class VlTableComponent extends LitElement {
 
             row.classList.add(dataRowIndex % 2 === 0 ? 'even' : 'odd');
         });
-    }    
+    }
 
     private observeHeaderElements(callback: MutationCallback): MutationObserver {
         const observer = new MutationObserver(callback);
