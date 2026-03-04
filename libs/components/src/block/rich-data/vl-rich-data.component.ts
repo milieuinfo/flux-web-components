@@ -1,5 +1,11 @@
-import { BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common';
-import { vlGridStyles, vlLegacyStyles } from '@domg-wc/styles';
+import {
+    BaseHTMLElement,
+    findElementsThroughShadowRoot,
+    formatNumber,
+    registerWebComponents,
+    webComponent,
+} from '@domg-wc/common';
+import { vlAccessibilityStyles, vlGridStyles, vlLegacyStyles, vlMediaScreenSmall } from '@domg-wc/styles';
 import { VlButtonComponent } from '../../atom/button';
 import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { VlFormLabelComponent } from '../../form/form-label';
@@ -15,6 +21,10 @@ export interface RichDataMeta {
 
 export type RichData<T = unknown> = { data: T[] } & RichDataMeta;
 
+const resultsTextMultiple = 'We vonden <strong>[x] resultaten</strong>';
+const resultsTextSingle = 'We vonden <strong>1 resultaat</strong>';
+const resultsTextNone = 'We vonden <strong>geen resultaten</strong>';
+
 @webComponent('vl-rich-data')
 export class VlRichData extends BaseHTMLElement {
     protected _sorting: any;
@@ -28,27 +38,26 @@ export class VlRichData extends BaseHTMLElement {
             <div class="vl-rich-data">
                 <div id="toggle-filter" class="vl-u-align-right vl-u-hidden--s" hidden>
                     <vl-button id="toggle-filter-button" icon="content-filter" secondary
-                     narrow aria-label="Filter verbergen" aria-controls="filter-slot-container" aria-expanded="true">
+                     narrow label="Filteren" aria-controls="filter-slot-container" aria-expanded="true">
                         <slot name="toggle-filter-button-text" hidden>Filter tonen</slot>
                         <slot name="close-filter-button-text">Filter verbergen</slot>
                     </vl-button>
                 </div>
                 <div id="open-filter" class="vl-u-align-right vl-u-hidden" hidden>
                     <vl-button id="open-toggle-filter-button" icon="content-filter"
-                     secondary narrow aria-label="Filter tonen" aria-controls="filter-slot-container" aria-expanded="false">
+                     secondary narrow label="Filteren" aria-controls="filter-slot-container" aria-expanded="false">
                         <slot name="toggle-filter-button-text">Filter</slot>
                     </vl-button>
                 </div>
-                <div id="search">
+                <div id="search" tabindex="-1" aria-label="Filteren en zoeken">
                     <div id="filter-slot-container">
                         <slot id="filter-slot" name="filter"></slot>
                     </div>
                 </div>
                 <div id="content">
                     <div class="vl-grid vl-stacked-small">
-                        <div id="search-results" class="vl-column vl-column--6 vl-column--m-6 vl-column--s-6 vl-column--xs-6" aria-live="polite">
-                            <span>We vonden</span> <strong><span id="search-results-number">0</span> resultaten</strong>
-                        </div>
+                        <div id="search-results" class="vl-column vl-column--6 vl-column--m-6 vl-column--s-6 vl-column--xs-6"></div>
+                        <div aria-live="polite" class="vl-visually-hidden" id="sr-search-results"></div>
                         <div id="sorter" class="vl-column vl-column--6 vl-column--m-6 vl-column--s-6 vl-column--xs-6">
                             <vl-form-label>
                                 Sorteer
@@ -71,6 +80,7 @@ export class VlRichData extends BaseHTMLElement {
             vlRichDataFluxStyles.styleSheet!,
             vlIconStyles.styleSheet!,
             vlGridStyles.styleSheet!,
+            vlAccessibilityStyles.styleSheet!,
         ];
         super(html, styleSheets);
 
@@ -170,8 +180,8 @@ export class VlRichData extends BaseHTMLElement {
         return this.shadowRoot?.querySelector<HTMLElement>('#search-results');
     }
 
-    get __numberOfSearchResults(): HTMLElement | null {
-        return this.__searchResults ? this.__searchResults.querySelector('#search-results-number') : null;
+    get __screenReaderSearchResults(): HTMLElement | null | undefined {
+        return this.shadowRoot?.querySelector<HTMLElement>('#sr-search-results');
     }
 
     get __sorterContainer() {
@@ -329,6 +339,15 @@ export class VlRichData extends BaseHTMLElement {
         this.__searchFilter!.hidden = false;
         this.__showHiddenInModalElements();
         this.toggleAttribute('filter-closed');
+        if (!this.hasAttribute('filter-closed')) {
+            if (this.__searchColumn) {
+                const selector =
+                    'button:not([disabled]), [href]:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]):not([disabled])';
+                const focusableElements = findElementsThroughShadowRoot(this.__searchColumn, selector) as HTMLElement[];
+                const firstFocusableElement = focusableElements?.[0];
+                firstFocusableElement?.focus();
+            }
+        }
     };
 
     __observeFilterButtons() {
@@ -339,6 +358,18 @@ export class VlRichData extends BaseHTMLElement {
             this.__hideHiddenInModalElements();
             if (this.__searchFilter instanceof VlSearchFilterComponent) {
                 this.__searchFilter.removeAttribute('hidden');
+                requestAnimationFrame(() => {
+                    if (this.__searchFilterForm) {
+                        const selector =
+                            'button:not([disabled]), [href]:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]):not([disabled])';
+                        const focusableElements = findElementsThroughShadowRoot(
+                            this.__searchFilterForm,
+                            selector
+                        ) as HTMLElement[];
+                        const firstFocusableElement = focusableElements?.[0];
+                        firstFocusableElement?.focus();
+                    }
+                });
             }
         });
     }
@@ -431,9 +462,19 @@ export class VlRichData extends BaseHTMLElement {
 
     __hideSearchColumn(): void {
         this.__searchColumn!.hidden = true;
-        this.__filterToggleButton?.setAttribute('aria-label', 'Filter tonen');
+        this.__filterToggleButton?.setAttribute('aria-expanded', 'false');
+        this.__filterToggleButton?.setAttribute('aria-controls', 'filter-slot-container');
+        this.__filterOpenButton?.setAttribute('aria-expanded', 'false');
+        this.__filterOpenButton?.setAttribute('aria-controls', 'filter-slot-container');
         this.__filterToggleButtonTextSlot!.hidden = false;
         this.__filterCloseButtonTextSlot!.hidden = true;
+        this.__searchColumn!.removeEventListener('keyup', this.__onEscapeFilter);
+
+        if (window.innerWidth > vlMediaScreenSmall) {
+            this.__filterToggleButton?.shadowRoot?.querySelector('button')?.focus();
+        } else {
+            this.__filterOpenButton?.shadowRoot?.querySelector('button')?.focus();
+        }
     }
 
     __hideSearchResults(): void {
@@ -444,9 +485,22 @@ export class VlRichData extends BaseHTMLElement {
         this.__sorterContainer!.hidden = true;
     }
 
+    __onEscapeFilter = ({ code }: KeyboardEvent): void => {
+        const isClosable = this.hasAttribute('filter-closable');
+        const isMobile = this.hasAttribute('mobile-modal') || this.__searchFilter?.hasAttribute('mobile-modal');
+        if (code.toLowerCase() === 'escape' && !this.hasAttribute('filter-closed') && (isClosable || isMobile)) {
+            this.setAttribute('filter-closed', '');
+            this.__hideSearchColumn();
+        }
+    };
+
     __showSearchColumn(): void {
         this.__searchColumn!.hidden = false;
-        this.__filterToggleButton?.setAttribute('aria-label', 'Filter verbergen');
+        this.__searchColumn!.addEventListener('keyup', this.__onEscapeFilter);
+        this.__filterToggleButton?.setAttribute('aria-expanded', 'true');
+        this.__filterToggleButton?.setAttribute('aria-controls', 'filter-slot-container');
+        this.__filterOpenButton?.setAttribute('aria-expanded', 'true');
+        this.__filterOpenButton?.setAttribute('aria-controls', 'filter-slot-container');
         this.__filterToggleButtonTextSlot!.hidden = true;
         this.__filterCloseButtonTextSlot!.hidden = false;
     }
@@ -461,15 +515,26 @@ export class VlRichData extends BaseHTMLElement {
 
     __updateNumberOfSearchResults(number: number | null) {
         if (number) {
-            if (this.__numberOfSearchResults) this.__numberOfSearchResults.textContent = String(number);
+            this.__searchResults!.innerHTML =
+                number === 1 ? resultsTextSingle : resultsTextMultiple.replace('[x]', formatNumber(number));
+        } else if (this.__pager) {
+            customElements.whenDefined('vl-pager').then(() => {
+                if (this.__pager!.totalItems === 0) {
+                    this.__searchResults!.innerHTML = resultsTextNone;
+                    return;
+                }
+                this.__searchResults!.innerHTML =
+                    this.__pager!.totalItems === 1
+                        ? resultsTextSingle
+                        : resultsTextMultiple.replace('[x]', formatNumber(this.__pager!.totalItems));
+            });
         } else {
-            if (this.__pager) {
-                customElements.whenDefined('vl-pager').then(() => {
-                    if (this.__numberOfSearchResults)
-                        this.__numberOfSearchResults.textContent = String(this.__pager?.totalItems || 0);
-                });
-            }
+            this.__searchResults!.innerHTML = resultsTextNone;
         }
+        // add some timeout to allow the screen reader to finish reading the input value
+        setTimeout(() => {
+            this.__screenReaderSearchResults!.textContent = this.__searchResults!.textContent;
+        }, 500);
     }
 
     __addSearchFilterEventListeners() {
@@ -482,15 +547,14 @@ export class VlRichData extends BaseHTMLElement {
                     this.__onFilterFieldChanged(e);
                 });
             });
-            this.__searchFilterForm.addEventListener('keyup', ({ code }: KeyboardEvent) => {
-                const isClosable = this.hasAttribute('filter-closable');
-                const isMobile = this.hasAttribute('mobile-modal') || this.__searchFilter?.hasAttribute('mobile-modal');
-                if (
-                    code.toLowerCase() === 'escape' &&
-                    !this.hasAttribute('filter-closed') &&
-                    (isClosable || isMobile)
-                ) {
-                    this._onToggleFilter();
+            this.__searchFilterForm.addEventListener('keyup', this.__onEscapeFilter);
+            this.__searchFilterForm.addEventListener('submit', () => {
+                this.toggleAttribute('filter-closed');
+
+                if (window.innerWidth > vlMediaScreenSmall) {
+                    this.__filterToggleButton?.shadowRoot?.querySelector('button')?.focus();
+                } else {
+                    this.__filterOpenButton?.shadowRoot?.querySelector('button')?.focus();
                 }
             });
         }

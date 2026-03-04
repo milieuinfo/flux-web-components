@@ -1,6 +1,7 @@
 import { Pagination } from '../../pager';
 import { RichData, VlRichData } from '../vl-rich-data.component';
 import { richDataMockData } from './vl-rich-data.stories-mock';
+import { debounce } from '@domg-wc/common';
 
 export const richDataPaginationImplementation = () => {
     customElements.whenDefined('vl-rich-data').then(() => {
@@ -74,7 +75,7 @@ export const richDataPaginationImplementation = () => {
             return current.toString();
         };
 
-        richDataComponent?.addEventListener('change', (event: Event) => {
+        const debouncedOnChange = debounce(([event]) => {
             let newData = data.data;
             let totalItems = data.data.length;
             let filterEntries = undefined;
@@ -105,7 +106,9 @@ export const richDataPaginationImplementation = () => {
                     filter: filterEntries,
                 };
             }
-        });
+        }, 500);
+
+        richDataComponent?.addEventListener('change', debouncedOnChange);
 
         sorter?.addEventListener('vl-change', (event: Event) => {
             const data = newData;

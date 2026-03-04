@@ -1,4 +1,4 @@
-import { vlMediaScreenExtraSmall, vlMediaScreenMedium, vlMediaScreenSmall } from '@domg-wc/styles';
+import { vlMediaScreenExtraSmall, vlMediaScreenMedium, vlMediaScreenSmall, vlFocusOutlineMixin } from '@domg-wc/styles';
 import { css } from 'lit';
 
 export const tableStyles = css`
@@ -6,6 +6,10 @@ export const tableStyles = css`
         display: block;
         max-width: 100%;
         overflow-x: auto;
+
+        &:focus {
+            ${vlFocusOutlineMixin()};
+        }
     }
 
     .vl-table {
