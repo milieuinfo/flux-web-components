@@ -56,6 +56,7 @@ export class VlButtonComponent extends BaseLitElement {
             label: { type: String },
             disabled: { type: Boolean, reflect: true },
             slotIsEmpty: { type: Boolean, state: true },
+            ariaExpanded: { type: String, attribute: 'aria-expanded', reflect: true },
             on: {
                 type: Boolean,
                 reflect: true,
@@ -192,6 +193,11 @@ export class VlButtonComponent extends BaseLitElement {
                               | 'tree'
                               | 'grid'
                               | 'dialog')
+                        : undefined
+                )}
+                aria-expanded=${ifDefined(
+                    this.hasAttribute('aria-expanded')
+                        ? (this.getAttribute('aria-expanded') as 'false' | 'true')
                         : undefined
                 )}
             >
