@@ -405,6 +405,29 @@ describe('cypress-component - form components - vl-upload', () => {
         cy.get('@vl-error').should('have.been.called');
     });
 
+    it('should upload multiple files sequentially when using parallel-uploads="1"', () => {
+        cy.mount(html`<vl-upload url=${uploadTargetUrl} max-files="3" parallel-uploads="1"></vl-upload>`);
+
+        cy.createStubForEvent('vl-upload', 'vl-success');
+        cy.createStubForEvent('vl-upload', 'vl-queuecomplete');
+
+        cy.intercept('POST', uploadTargetUrl, (req) => {
+            req.reply({ statusCode: 200, fixture: mockedResponseFixturePath });
+        }).as('uploadPost');
+
+        shouldAddPdfFiles(3);
+        shouldHaveUploadFiles(3);
+
+        cy.get('vl-upload').then((vlUploadQuery) => {
+            vlUploadQuery[0].upload(uploadTargetUrl);
+        });
+
+        cy.get('@uploadPost.all').should('have.length', 3);
+        cy.get('@vl-success').its('callCount').should('eq', 3);
+        cy.get('@vl-queuecomplete').its('callCount').should('eq', 1);
+        shouldHaveSuccessUploadFiles(3);
+    });
+
     it('should select a file to upload and automatically start the upload', () => {
         cy.mount(html`<vl-upload url=${uploadTargetUrl} auto-process></vl-upload>`);
 

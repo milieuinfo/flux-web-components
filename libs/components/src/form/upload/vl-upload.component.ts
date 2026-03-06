@@ -66,6 +66,7 @@ export class VlUploadComponent extends FormControl {
     private dropzoneInstance: DropzoneInstance | undefined | null;
     private isDropzoneInitialised = false;
     private dispatchInput = false;
+    private isManualUploadInProgress = false;
 
     // Properties
     uploadProgressFn: ((file: DropzoneFile, progress: number, bytesSent: number) => void) | undefined;
@@ -354,6 +355,7 @@ export class VlUploadComponent extends FormControl {
             if (url) {
                 this.dropzoneInstance.options.url = url;
             }
+            this.isManualUploadInProgress = true;
             this.dropzoneInstance.processQueue();
         }
     }
@@ -696,6 +698,10 @@ export class VlUploadComponent extends FormControl {
             uploadProgressElement.setAttribute('progress', '100');
         }
 
+        if (this.isManualUploadInProgress && this.dropzoneInstance?.getQueuedFiles().length) {
+            this.dropzoneInstance.processQueue();
+        }
+
         this.dispatchEvent(
             new CustomEvent('vl-complete', {
                 composed: true,
@@ -716,6 +722,7 @@ export class VlUploadComponent extends FormControl {
     };
 
     private handleQueueComplete = () => {
+        this.isManualUploadInProgress = false;
         this.dispatchEvent(
             new CustomEvent('vl-queuecomplete', {
                 composed: true,
