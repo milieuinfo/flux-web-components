@@ -4,6 +4,7 @@ import { descriptionDataStyle } from '@domg/govflanders-style/component';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { VlDescriptionDataItem } from './vl-description-data-item.component';
 
 @customElement('vl-description-data')
 export class VlDescriptionData extends BaseLitElement {
@@ -35,16 +36,24 @@ export class VlDescriptionData extends BaseLitElement {
         observer.observe(this, { subtree: true, childList: true });
     }
 
+    private buildColumnClasses(child: Element) {
+        const item = child instanceof VlDescriptionDataItem ? child : null;
+        const size = item?.itemsSize ?? this.size;
+        const mediumSize = item?.itemsMediumSize ?? this.mediumSize;
+        const smallSize = item?.itemsSmallSize ?? this.smallSize;
+        const extraSmallSize = item?.itemsExtraSmallSize ?? this.extraSmallSize;
+        return {
+            [`vl-column--${size}`]: !!size,
+            [`vl-column--m-${mediumSize}`]: !!mediumSize,
+            [`vl-column--s-${smallSize}`]: !!smallSize,
+            [`vl-column--xs-${extraSmallSize}`]: !!extraSmallSize,
+        };
+    }
+
     render() {
         this.size = this.size || 12 / this.children.length;
         const classes = {
             'vl-description-data--bordered': this.bordered,
-        };
-        const columnClasses = {
-            [`vl-column--${this.size}`]: this.size,
-            [`vl-column--m-${this.mediumSize}`]: this.mediumSize,
-            [`vl-column--s-${this.smallSize}`]: this.smallSize,
-            [`vl-column--xs-${this.extraSmallSize}`]: this.extraSmallSize,
         };
         return html`
             <div class="vl-description-data ${classMap(classes)}">
@@ -53,7 +62,7 @@ export class VlDescriptionData extends BaseLitElement {
                         const name = `item-${index}`;
                         child.setAttribute('slot', name);
                         return html`
-                            <div class="vl-column ${classMap(columnClasses)}">
+                            <div class="vl-column ${classMap(this.buildColumnClasses(child))}">
                                 <slot name=${name}></slot>
                             </div>
                         `;
