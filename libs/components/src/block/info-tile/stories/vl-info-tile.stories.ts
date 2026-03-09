@@ -245,6 +245,28 @@ InfoTileFooterSlot.args = {
     </div>`,
 };
 
+export const InfoTileIconPrimaryBackground = Template.bind({});
+InfoTileIconPrimaryBackground.storyName = 'vl-info-tile - icon primary background';
+InfoTileIconPrimaryBackground.args = {
+    titleSlot: `<span slot="title">Broos Deprez</span>`,
+    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    icon: 'file-tasks-check',
+    iconAsBadge: true,
+};
+InfoTileIconPrimaryBackground.decorators = [
+    (story: () => unknown) => html`
+        <style>
+            .info-tile-primary-icon {
+                --vl-info-tile-icon-background-color: var(--vl-color--icon-success);
+                --vl-info-tile-icon-border-color: var(--vl-color--border-success-subtle);
+                --vl-info-tile-icon-color: var(--vl-color--border-inverse);
+            }
+        </style>
+        <div class="info-tile-primary-icon">${story()}</div>
+    `,
+];
+
 export const InfoTileClickable = Template.bind({});
 InfoTileClickable.storyName = 'vl-info-tile - clickable';
 InfoTileClickable.args = {

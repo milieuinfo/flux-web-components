@@ -1,6 +1,12 @@
 :root {
     --vl-side-sheet-width: 33.3333333333%;
     --vl-side-sheet-width-mobile: calc(100vw - 56px);
+
     --vl-side-navigation-top: 50px;
+
     --vl-toaster-width: 30rem;
+
+    --vl-info-tile-icon-background-color: var(--vl-color--background-subtle);
+    --vl-info-tile-icon-border-color: var(--vl-color--border-default);
+    --vl-info-tile-icon-color: inherit;
 }
