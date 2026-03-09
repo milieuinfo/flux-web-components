@@ -1,4 +1,5 @@
 const infoTileUrl = 'http://localhost:8080/iframe.html?id=components-block-info-tile--info-tile-default&viewMode=story';
+const infoTileIconPrimaryBackgroundUrl = 'http://localhost:8080/iframe.html?id=components-block-info-tile--info-tile-icon-primary-background&viewMode=story';
 const infoTileSmallUrl = 'http://localhost:8080/iframe.html?id=components-block-info-tile--info-tile-small&viewMode=story';
 const infoTileMediumUrl = 'http://localhost:8080/iframe.html?id=components-block-info-tile--info-tile-medium&viewMode=story';
 const infoTileLargeUrl = 'http://localhost:8080/iframe.html?id=components-block-info-tile--info-tile-large&viewMode=story';
@@ -75,6 +76,13 @@ describe('cypress-e2e - block components - vl-info-tile - badge slot story', () 
 describe('cypress-e2e - block components - vl-info-tile - footer slot story', () => {
     it('should display story - footer slot', () => {
         cy.visit(infoTileFooterSlotUrl);
+        cy.get('vl-info-tile');
+    });
+});
+
+describe('cypress-e2e - block components - vl-info-tile - icon primary background story', () => {
+    it('should display story - icon primary background', () => {
+        cy.visit(infoTileIconPrimaryBackgroundUrl);
         cy.get('vl-info-tile');
     });
 });
