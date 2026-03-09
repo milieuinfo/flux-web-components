@@ -88,9 +88,10 @@ export const vlInfoTileFluxStyles: CSSResult = css`
         place-content: center center;
 
         &.vl-info-tile__icon--badge {
-            background-color: var(--vl-color--background-subtle);
-            border: 1px solid var(--vl-color--border-default);
+            background-color: var(--vl-info-tile-icon-background-color);
+            border: 1px solid var(--vl-info-tile-icon-border-color);
             border-radius: 50%;
+            color: var(--vl-info-tile-icon-color);
         }
     }
 

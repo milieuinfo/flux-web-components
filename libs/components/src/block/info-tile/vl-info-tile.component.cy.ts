@@ -538,6 +538,44 @@ describe('cypress-component - block components - vl-info-tile - icon as badge', 
     });
 });
 
+describe('cypress-component - block components - vl-info-tile - icon as badge custom css variables', () => {
+    beforeEach(() => {
+        cy.mount(html`
+            <style>
+                vl-info-tile {
+                    --vl-info-tile-icon-background-color: rgb(255, 0, 0);
+                    --vl-info-tile-icon-border-color: rgb(0, 255, 0);
+                    --vl-info-tile-icon-color: rgb(0, 0, 255);
+                }
+            </style>
+            <vl-info-tile icon=${icon} icon-as-badge>
+                ${unsafeHTML(titleSlot)}
+            </vl-info-tile>
+        `);
+    });
+
+    it('should apply custom icon background color', () => {
+        cy.get('vl-info-tile')
+            .shadow()
+            .find('#icon')
+            .should('have.css', 'background-color', 'rgb(255, 0, 0)');
+    });
+
+    it('should apply custom icon border color', () => {
+        cy.get('vl-info-tile')
+            .shadow()
+            .find('#icon')
+            .should('have.css', 'border-color', 'rgb(0, 255, 0)');
+    });
+
+    it('should apply custom icon color', () => {
+        cy.get('vl-info-tile')
+            .shadow()
+            .find('#icon')
+            .should('have.css', 'color', 'rgb(0, 0, 255)');
+    });
+});
+
 describe('cypress-component - block components - vl-info-tile - badge', () => {
     beforeEach(() => {
         mountDefault({
