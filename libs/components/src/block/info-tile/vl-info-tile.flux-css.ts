@@ -153,8 +153,8 @@ export const vlInfoTileFluxStyles: CSSResult = css`
         left: 0;
         border: none;
     }
-
-    .vl-info-tile__menu {
-        z-index: 1;
+    
+    :host([clickable]) .vl-info-tile__menu {
+        z-index: var(--vl-z-layer--info-tile-menu);
     }
 `;
