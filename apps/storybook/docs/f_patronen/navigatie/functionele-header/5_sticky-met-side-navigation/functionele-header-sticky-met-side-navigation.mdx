@@ -1,0 +1,23 @@
+import { Canvas, Meta, Source } from '@storybook/addon-docs/blocks';
+import * as functionalHeaderStickyWithSideNavigationStories from './functionele-header-sticky-met-side-navigation.stories'
+import { functionalHeaderStickyWithSideNavigationHTML } from '../functionele-header.helpers'
+
+<Meta of={functionalHeaderStickyWithSideNavigationStories} />
+
+# Functionele Header - Sticky met Side Navigation
+
+In dit voorbeeld tonen we hoe je een sticky functional header kan combineren met een side navigatie.
+
+## Componenten
+
+- [vl-functional-header](/docs/components-block-functional-header--documentatie)
+- [vl-side-navigation](/docs/components-block-side-navigation--documentatie)
+
+## Demo
+
+<Canvas of={functionalHeaderStickyWithSideNavigationStories.FunctioneleHeaderStickyMetSideNavigation} sourceState='none' />
+
+<details open>
+<summary>Code</summary>
+<Source code={functionalHeaderStickyWithSideNavigationHTML} language="ts" dark={true}/>
+</details>

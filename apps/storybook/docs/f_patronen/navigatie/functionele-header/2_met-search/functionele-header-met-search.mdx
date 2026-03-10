@@ -1,0 +1,31 @@
+import { Canvas, Meta, Source } from '@storybook/addon-docs/blocks';
+import * as functionalHeaderWithSearchStories from './functionele-header-met-search.stories'
+import { functionalHeaderWithSearchHtmlSourceCode } from '../functionele-header.helpers'
+
+<Meta of={functionalHeaderWithSearchStories} />
+
+# Functionele Header - met Search
+
+In dit voorbeeld tonen we hoe een [vl-search](/docs/components-block-search--documentatie) component kan toegevoegd worden aan de [vl-functional-header](/docs/components-block-functional-header--documentatie).
+
+We gebruiken een [vl-search](/docs/components-block-search--documentatie) component gecombineerd met de [vl-group](/docs/styles-layout-group--documentatie) stijl om een zoekveld rechts uit te lijnen naast een breadcrumb of andere variant.
+
+In dit geval wordt custom CSS meegegeven om deze layout mogelijk te maken.
+
+## Componenten
+
+- [vl-functional-header](/docs/components-block-functional-header--documentatie)
+- [vl-search](/docs/components-block-search--documentatie)
+
+## Stijlen
+
+- [vl-group](/docs/styles-layout-group--documentatie)
+
+## Demo
+
+<Canvas of={functionalHeaderWithSearchStories.FunctioneleHeaderMetSearch} sourceState='none' />
+
+<details open>
+<summary>Code</summary>
+<Source code={functionalHeaderWithSearchHtmlSourceCode} language="ts" dark={true}/>
+</details>
