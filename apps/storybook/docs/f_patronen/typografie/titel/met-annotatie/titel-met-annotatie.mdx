@@ -1,0 +1,22 @@
+import {Canvas, Meta, Source} from '@storybook/addon-docs/blocks';
+import * as titelMetAnnotatieStories from './titel-met-annotatie.stories';
+
+<Meta of={titelMetAnnotatieStories}/>
+
+# Titel - met Annotatie
+
+Een annotatie kan naast een titel geplaatst worden om extra context te bieden.
+
+## Voorbeeld
+
+<Canvas of={titelMetAnnotatieStories.TitelMetAnnotatie} sourceState='none'/>
+
+<details open>
+    <summary>Code</summary>
+    <Source code={
+        `<div class="vl-group vl-group--baseline">
+            <vl-title type="h2" no-space-bottom>Mijn sectie</vl-title>
+            <vl-text annotation>Optioneel</vl-text>
+        </div>`
+    } language="html" dark={true}/>
+</details>
