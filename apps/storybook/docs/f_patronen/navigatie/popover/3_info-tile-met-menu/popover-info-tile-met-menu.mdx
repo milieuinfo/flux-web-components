@@ -1,0 +1,33 @@
+import { Canvas, Meta, Source } from '@storybook/addon-docs/blocks';
+import * as popoverMenuInfoTileStories from './popover-info-tile-met-menu.stories';
+import menuInfoTileSource from '../../../../../../../libs/integrations/src/popover/menu-info-tile/vl-popover-menu-info-tile.component?raw';
+
+<Meta of={popoverMenuInfoTileStories} />
+
+# Popover - Info Tile met Menu
+
+De info tile wordt gebruikt om inhoud te organiseren in een uitklapbaar formaat.<br/>
+Elke info tile kan een popover-menu bevatten dat specifieke acties aanbiedt.
+
+## Gebruik
+
+De info tile met popover-menu wordt gebruikt om inhoud te structureren en gebruikers de mogelijkheid te geven om specifieke acties uit te voeren.
+
+## Ontwerp
+
+-   Info tile: elke info tile bestaat uit een titel, subtitel en een inhoudsgebied dat optioneel kan worden uit- of ingeklapt.
+
+-   Popover-menu: elke info tile kan een popover-menu bevatten dat specifieke acties aanbiedt.
+    Het menu wordt meestal afgebeeld mbv een kebab menu icoon (drie verticale punten).
+
+-   Interactie: gebruikers kunnen op de titel klikken om de info tile uit- of in te klappen, indien deze het attribuut `toggleable` heeft.
+    Door op het popover-menu icoon te klikken wordt het menu geopend en de extra acties weergegeven.
+
+## Voorbeeld
+
+<Canvas of={popoverMenuInfoTileStories.PopoverInfoTileMetMenu} sourceState="none" />
+
+<details open>
+    <summary>Code</summary>
+    <Source code={menuInfoTileSource} language="ts" dark={true} />
+</details>

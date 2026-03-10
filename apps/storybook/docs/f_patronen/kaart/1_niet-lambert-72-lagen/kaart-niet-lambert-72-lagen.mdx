@@ -1,0 +1,23 @@
+import { Canvas, Meta, Source } from '@storybook/addon-docs/blocks';
+import * as mapNonLambert72SourcesStories from './kaart-niet-lambert-72-lagen.stories';
+import mapNonLambert72Source from '../../../../../../libs/integrations/src/map/non-lambert-72-source/vl-map-non-lambert-72-sources.component?raw';
+
+<Meta of={mapNonLambert72SourcesStories} />
+
+# Kaart - niet Lambert-72 lagen
+
+Dit is een voorbeeld van hoe je niet Lambert-72 lagen kan toevoegen aan een kaart.
+
+## Componenten
+
+- [vl-map](/docs/map-map--documentatie)
+- [vl-map-baselayer-grb-gray](/docs/map-baselayer-baselayer-grb-gray--documentatie)
+- [vl-map-tiled-wms-layer](/docs/map-layer-wms-layer-tiled-wms-layer--documentatie)
+
+<Canvas of={mapNonLambert72SourcesStories.KaartNietLambert72Lagen} sourceState='none'/>
+
+<details open>
+    <summary>Code</summary>
+    <Source code={mapNonLambert72Source} language="ts" dark={true}/>
+</details>
+
