@@ -2707,7 +2707,7 @@
                 },
                 {
                     "name": "vl-tooltip",
-                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik de `tooltip` component om beschrijvende informatie over de functie van een knop, label of ander element weer te\ngeven. Wanneer een gebruiker met de muis over een element beweegt of het selecteert, verschijnt de tooltip om extra\ninformatie te geven.",
+                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/><br/>\n\n<VluxAlert type=\"warning\">\n{`\n    **v2 impact:** In v2 is er een nieuwe \\`vl-tooltip\\` beschikbaar (vanaf v2.7.0) met een gewijzigde API\n    (o.a. verplicht \\`for\\`-attribuut, floating-ui). <br> Zie Planning / [2024] van v1 naar v2 - beschikbaar voor details.\n`}\n</VluxAlert>\n\nGebruik de `tooltip` component om beschrijvende informatie over de functie van een knop, label of ander element weer te\ngeven. Wanneer een gebruiker met de muis over een element beweegt of het selecteert, verschijnt de tooltip om extra\ninformatie te geven.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v1/DOMG-WC-VERSION/storybook/?path=/docs/components-tooltip--documentatie",
                     "attributes": [
                         {

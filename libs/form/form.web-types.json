@@ -1021,6 +1021,11 @@
                             "name": "search-placeholder",
                             "description": "De placeholder tekst van het zoekveld.<br>Dit attribuut is niet reactief.",
                             "default": "Zoek item"
+                        },
+                        {
+                            "name": "search-strategy",
+                            "description": "De zoek strategie die gebruikt wordt bij het zoeken in de opties.<br>Dit attribuut is reactief.",
+                            "default": "default"
                         }
                     ],
                     "js": {

@@ -1,3 +1,11 @@
+## [1.49.9](https://github.com/milieuinfo/flux-web-components/compare/v1.49.8...v1.49.9) (2026-03-11)
+
+
+### Bug Fixes
+
+* FLUX-540 - vl-select-rich-next - search strategies (default / exact-and / exact-or) ([580759b](https://github.com/milieuinfo/flux-web-components/commit/580759bffb48e74a3b37df58366b9d03e5eb56f6))
+* FLUX-568 - storybook - migratie impact voor de v2 vl-tooltip ([fe2fdf6](https://github.com/milieuinfo/flux-web-components/commit/fe2fdf660e7136ef8bc30245a4a4393a9236a441))
+
 ## [1.49.8](https://github.com/milieuinfo/flux-web-components/compare/v1.49.7...v1.49.8) (2026-02-11)
 
 
