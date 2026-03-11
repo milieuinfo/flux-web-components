@@ -63,7 +63,7 @@
                         },
                         {
                             "name": "heading-level",
-                            "description": "Bepaalt het heading level (h1, h2, h3, ...) van de titel van de accordion.",
+                            "description": "Het heading-level van de titel (h1 t.e.m. h6). Indien niet opgegeven of ongeldig, wordt standaard h3 gebruikt.",
                             "value": {
                                 "kind": "plain",
                                 "type": "'1' | '2' | '3' | '4' | '5' | '6'"
@@ -363,27 +363,27 @@
                         },
                         {
                             "name": "bordered",
-                            "description": "Adds a border.",
+                            "description": "Voegt een rand toe aan de description-data.",
                             "default": "false"
                         },
                         {
                             "name": "items-size",
-                            "description": "The number (numerator) of the maximum (denominator) that will be taken for each data item on large screens, typically desktop.",
-                            "default": "12 / number of data items"
+                            "description": "Kolombreedte (teller van het 12-kolomsysteem) voor elk item op grote schermen, typisch desktop.",
+                            "default": "12 / aantal items"
                         },
                         {
                             "name": "items-medium-size",
-                            "description": "The number (numerator) of the maximum (denominator) that will be taken for each data item on medium screens, typically tablet.",
+                            "description": "Kolombreedte (teller van het 12-kolomsysteem) voor elk item op middelgrote schermen, typisch tablet.",
                             "default": "undefined"
                         },
                         {
                             "name": "items-small-size",
-                            "description": "The number (numerator) of the maximum (denominator) that will be taken for each data item on small screens, typically mobile.",
+                            "description": "Kolombreedte (teller van het 12-kolomsysteem) voor elk item op kleine schermen, typisch mobiel.",
                             "default": "undefined"
                         },
                         {
                             "name": "items-extra-small-size",
-                            "description": "The number (numerator) of the maximum (denominator) that will be taken for each data item on very small screens.",
+                            "description": "Kolombreedte (teller van het 12-kolomsysteem) voor elk item op zeer kleine schermen.",
                             "default": "undefined"
                         }
                     ]
@@ -396,6 +396,26 @@
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": ""
+                        },
+                        {
+                            "name": "items-size",
+                            "description": "Kolombreedte van dit item op grote schermen. Overschrijft het `items-size` attribuut van de parent `vl-description-data`.",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "items-medium-size",
+                            "description": "Kolombreedte van dit item op middelgrote schermen. Overschrijft het `items-medium-size` attribuut van de parent `vl-description-data`.",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "items-small-size",
+                            "description": "Kolombreedte van dit item op kleine schermen. Overschrijft het `items-small-size` attribuut van de parent `vl-description-data`.",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "items-extra-small-size",
+                            "description": "Kolombreedte van dit item op zeer kleine schermen. Overschrijft het `items-extra-small-size` attribuut van de parent `vl-description-data`.",
+                            "default": "undefined"
                         },
                         {
                             "name": "label",
@@ -629,6 +649,15 @@
                     "description": "Gebruik de `info-tile` component in informatieve en interactieve dashboards.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-info-tile--documentatie",
                     "attributes": [
+                        {
+                            "name": "heading-level",
+                            "description": "Het heading-level van de titel (h1 t.e.m. h6). Indien niet opgegeven of ongeldig, wordt standaard h3 gebruikt.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'1' | '2' | '3' | '4' | '5' | '6'"
+                            },
+                            "default": ""
+                        },
                         {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
@@ -1057,6 +1086,11 @@
                             "default": ""
                         },
                         {
+                            "name": "link-label",
+                            "description": "Aria-label voor de link. Aanbevolen voor toegankelijkheid. Let op: `aria-label` vervangt de volledige linktekst, bv. \"Bouwen, wonen en energie - opent in nieuw venster\" bij external links.",
+                            "default": ""
+                        },
+                        {
                             "name": "external",
                             "description": "Opent de link in een nieuw tabblad.",
                             "default": "false"
@@ -1123,6 +1157,11 @@
                         {
                             "name": "href",
                             "description": "De url waar de infotext naar verwijst.",
+                            "default": ""
+                        },
+                        {
+                            "name": "link-label",
+                            "description": "Aria-label voor de link. Aanbevolen voor toegankelijkheid. Let op: `aria-label` vervangt de volledige linktekst, bv. \"Bezoekers per dag - opent in nieuw venster\" bij external links.",
                             "default": ""
                         },
                         {
@@ -1935,6 +1974,21 @@
                             "name": "flux-zebra",
                             "description": "Variant waarin de rijen afwisselend een andere achtergrondkleur krijgen. Dit maakt de tabel makkelijker leesbaar. Deze zebra werkt voor tabellen met en zonder detail rijen.",
                             "default": "false"
+                        },
+                        {
+                            "name": "multi-sort",
+                            "description": "Maakt het mogelijk om op meerdere kolommen te sorteren.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "label",
+                            "description": "Wordt gebruikt als aria-label voor de tabel. Optioneel indien er een caption gedefinieerd is. Voor screenreaders heeft label voorrang op caption als beide aanwezig zijn, maar het is aanbevolen om caption te gebruiken als er een zichtbare titel voor de tabel gewenst is.",
+                            "default": ""
+                        },
+                        {
+                            "name": "caption",
+                            "description": "Caption van de tabel. Optioneel indien er een label gedefinieerd is.",
+                            "default": ""
                         }
                     ]
                 },
@@ -2001,6 +2055,11 @@
                         {
                             "name": "link",
                             "description": "De component wordt een link. Door te klikken op de component wordt de gebruiker doorgestuurd naar de link die gezet is in dit attribuut.",
+                            "default": ""
+                        },
+                        {
+                            "name": "link-label",
+                            "description": "Aria-label voor de link. Aanbevolen voor toegankelijkheid. Let op: `aria-label` vervangt de volledige linktekst, bv. \"Premies voor renovatie - opent in nieuw venster\" bij external links.",
                             "default": ""
                         },
                         {

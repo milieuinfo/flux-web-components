@@ -753,6 +753,11 @@
                             "default": ""
                         },
                         {
+                            "name": "z-index",
+                            "description": "De z-index van de kaartlaag. Bepaalt de volgorde waarin kaartlagen worden weergegeven.",
+                            "default": "null"
+                        },
+                        {
                             "name": "auto-extent",
                             "description": "Automatisch zoomen op de kaartlaag zodat al de features zichtbaar zijn.",
                             "default": "false"
@@ -830,6 +835,11 @@
                             "default": ""
                         },
                         {
+                            "name": "z-index",
+                            "description": "De z-index van de kaartlaag. Bepaalt de volgorde waarin kaartlagen worden weergegeven.",
+                            "default": "null"
+                        },
+                        {
                             "name": "layers",
                             "description": "De layers van de WFS.<br>Dit attribuut is niet reactief.",
                             "default": ""
@@ -880,6 +890,11 @@
                             "name": "name",
                             "description": "De naam van de kaartlaag.<br>Dit attribuut is niet reactief.",
                             "default": ""
+                        },
+                        {
+                            "name": "z-index",
+                            "description": "De z-index van de kaartlaag. Bepaalt de volgorde waarin kaartlagen worden weergegeven.",
+                            "default": "null"
                         },
                         {
                             "name": "layers",
@@ -939,6 +954,11 @@
                             "default": ""
                         },
                         {
+                            "name": "z-index",
+                            "description": "De z-index van de kaartlaag. Bepaalt de volgorde waarin kaartlagen worden weergegeven.",
+                            "default": "null"
+                        },
+                        {
                             "name": "layers",
                             "description": "De WMS layers.",
                             "default": ""
@@ -994,6 +1014,11 @@
                             "name": "name",
                             "description": "De naam van de kaartlaag.<br>Dit attribuut is niet reactief.",
                             "default": ""
+                        },
+                        {
+                            "name": "z-index",
+                            "description": "De z-index van de kaartlaag. Bepaalt de volgorde waarin kaartlagen worden weergegeven.",
+                            "default": "null"
                         },
                         {
                             "name": "layers",
@@ -1070,6 +1095,11 @@
                             "default": ""
                         },
                         {
+                            "name": "z-index",
+                            "description": "De z-index van de kaartlaag. Bepaalt de volgorde waarin kaartlagen worden weergegeven.",
+                            "default": "null"
+                        },
+                        {
                             "name": "layer",
                             "description": "De layer van de WMTS.<br>Dit attribuut is niet reactief.",
                             "default": ""
@@ -1087,6 +1117,11 @@
                         {
                             "name": "matrix-prefix",
                             "description": "Definieert of de matrix moet geprefixt worden met de matrix set.<br/>Dit attribuut is niet reactief.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "from-capabilities",
+                            "description": "Haalt de TileMatrix configuratie op uit de WMTS GetCapabilities response.<br>Dit attribuut is niet reactief.",
                             "default": "false"
                         }
                     ]
@@ -1124,6 +1159,10 @@
                         {
                             "name": "name",
                             "description": "De naam van de stijl, deze naam wordt getoond als tekst in de legende als de map-legend op de kaart is toegevoegd. Een stijl zonder name attribuut zal nooit in de legende getoond worden. Tenzij het om een enkele stijl in een features-layer of wfs-layer gaat, in dat geval wordt de name van de layer in de legende getoond."
+                        },
+                        {
+                            "name": "pattern",
+                            "description": "Een data:image/...-URL die een patroon (bv. diagonale arcering) voorstelt. Wanneer ingesteld, wordt dit patroon als background-image getoond in de laag en in de legende, in combinatie (bovenop) de achtergrondkleur."
                         },
                         {
                             "name": "text-background-color",
@@ -1199,6 +1238,10 @@
                         {
                             "name": "name",
                             "description": "De naam van de stijl, deze naam wordt getoond als tekst in de legende als de map-legend op de kaart is toegevoegd. Een stijl zonder name attribuut zal nooit in de legende getoond worden. Tenzij het om een enkele stijl in een features-layer of wfs-layer gaat, in dat geval wordt de name van de layer in de legende getoond."
+                        },
+                        {
+                            "name": "pattern",
+                            "description": "Een data:image/...-URL die een patroon (bv. diagonale arcering) voorstelt. Wanneer ingesteld, wordt dit patroon als background-image getoond in de laag en in de legende, in combinatie (bovenop) de achtergrondkleur."
                         },
                         {
                             "name": "text-background-color",
