@@ -27,11 +27,13 @@ export const vlRichDataFluxStyles: CSSResult = css`
             'toggle-area toggle-area'
             'search-area content-area'
             'pager-area pager-area';
-        gap: var(--vl-grid-col-gap);
+        row-gap: var(--vl-grid-col-gap);
+        column-gap: var(--vl-grid-col-gap);
 
         &:has(#search[hidden]),
         &:has(#search.vl-u-hidden) {
             grid-template-columns: 0 1fr;
+            column-gap: 0;
         }
 
         @media screen and (max-width: ${vlMediaScreenSmall}px) {
