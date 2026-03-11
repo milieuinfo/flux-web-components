@@ -28,7 +28,7 @@ export const selectableRichTableImplementation = (): SelectableRichTableImplemen
     };
 
     const applySelectionToAllRows = (selected: boolean): void => {
-        getHeaderCheckboxInput().indeterminate = false;
+        headerCheckbox.removeAttribute('indeterminate');
         const table = getTable();
         if (!table) return;
         const tableData = getTableData();
@@ -82,17 +82,16 @@ export const selectableRichTableImplementation = (): SelectableRichTableImplemen
             if (rowData) rowData.selected = checked;
 
             if (tableData.every((item) => item.selected)) {
-                getHeaderCheckboxInput().checked = true;
+                headerCheckbox.setAttribute('checked', '');
                 getHeaderCheckboxInput().indeterminate = false;
                 return;
             }
             if (tableData.every((item) => !item.selected)) {
-                getHeaderCheckboxInput().checked = false;
+                headerCheckbox.removeAttribute('checked');
                 getHeaderCheckboxInput().indeterminate = false;
                 return;
             }
 
-            getHeaderCheckboxInput().checked = false;
             getHeaderCheckboxInput().indeterminate = true;
         });
         td.appendChild(checkbox);
