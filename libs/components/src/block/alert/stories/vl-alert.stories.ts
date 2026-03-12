@@ -26,10 +26,24 @@ export default {
 
 const AlertTemplate = story(
     alertArgs,
-    ({ closable, icon, title, size, type, naked, message, defaultSlot, actionsSlot, titleSlot, alertClosed }) => html`
+    ({
+        closable,
+        icon,
+        title,
+        size,
+        type,
+        naked,
+        multiline,
+        message,
+        defaultSlot,
+        actionsSlot,
+        titleSlot,
+        alertClosed,
+    }) => html`
         <vl-alert
             ?closable=${closable}
             ?naked=${naked}
+            ?multiline=${multiline}
             icon=${icon}
             title=${title}
             size=${size}
@@ -38,9 +52,9 @@ const AlertTemplate = story(
             @vl-alert-closed="${alertClosed}"
             data-cy="alert"
         >
-            ${unsafeHTML(titleSlot)}${unsafeHTML(defaultSlot)}${unsafeHTML(actionsSlot)}
-        </vl-alert>
-    `
+            ${unsafeHTML(titleSlot)}${unsafeHTML(defaultSlot)}${unsafeHTML(actionsSlot)}</vl-alert
+        >
+    `,
 );
 
 export const AlertDefault = AlertTemplate.bind({});
@@ -140,4 +154,13 @@ AlertNakedSuccess.args = {
     icon: ALERT_ICON.CHECK,
     naked: true,
     message: 'U heeft geen rechten om deze actie uit te voeren.',
+};
+
+export const AlertMultiline = AlertTemplate.bind({});
+AlertMultiline.storyName = 'vl-alert - multiline';
+AlertMultiline.args = {
+    title: 'Info',
+    type: ALERT_TYPE.INFO,
+    icon: ALERT_ICON.INFO_CIRCLE,
+    multiline: true,
 };

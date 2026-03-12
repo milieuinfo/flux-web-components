@@ -37,4 +37,5 @@ export interface VlAlertModel {
     message?: string;
     naked?: boolean;
     closable?: boolean;
+    multiline?: boolean;
 }

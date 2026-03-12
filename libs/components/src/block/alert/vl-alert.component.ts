@@ -17,6 +17,7 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
     message = '';
     naked = false;
     closable = false;
+    multiline = false;
 
     static get styles(): CSSResult[] {
         return [resetStyle, alertStyle, accessibilityStyle, markStyle, vlAlertFluxStyles, vlIconStyles];
@@ -31,6 +32,7 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
             size: { type: String, attribute: 'size' },
             naked: { type: Boolean, attribute: 'naked' },
             message: { type: String, attribute: 'message' },
+            multiline: { type: Boolean, attribute: 'multiline', reflect: true },
         };
     }
 

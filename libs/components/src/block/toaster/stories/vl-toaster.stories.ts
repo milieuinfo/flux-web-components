@@ -91,8 +91,9 @@ export const ToasterShowAlert = story<ToasterArgs>(toasterArgs, ({ placement, fa
                     title: 'Technische storing',
                     icon: 'warning',
                     type: 'warning',
-                    message: 'Door een technische storing is dit loket tijdelijk niet beschikbaar.',
+                    message: 'Uw aanvraag is niet verwerkt.\\nFout code: 36981',
                     closable: true,
+                    multiline: true,
                 });
             });
         </script>

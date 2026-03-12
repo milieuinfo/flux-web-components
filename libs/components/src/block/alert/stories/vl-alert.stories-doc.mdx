@@ -71,6 +71,33 @@ import { VlAlert } from '@domg-wc/components/block';
 
 <Canvas of={VlAlertStories.AlertNakedSuccess}/>
 
+### Multiline
+
+Stelt `white-space: pre-line;` in voor de boodschap zodat nieuwe regels (newline karakters) in rekening worden gebracht.
+
+<FluxAlert type="warning">
+{`
+Let op: bij het gebruik van slot content moet de tekst direct na de opening-tag starten, zonder newline.
+Een newline na de opening-tag wordt door \`pre-line\` als witruimte weergegeven.
+`}
+</FluxAlert>
+
+```html
+<!-- Correct -->
+<vl-alert multiline
+    ><span>Eerste regel.</span>
+    <span>Tweede regel.</span>
+</vl-alert>
+
+<!-- Fout: newline na opening-tag geeft extra witruimte -->
+<vl-alert multiline>
+    <span>Eerste regel.</span>
+    <span>Tweede regel.</span>
+</vl-alert>
+```
+
+<Canvas of={VlAlertStories.AlertMultiline}/>
+
 
 ## Referenties
 
