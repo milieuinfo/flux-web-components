@@ -5,6 +5,19 @@ import { VlSideNavigationLayoutComponent } from '@domg-wc/components/block/next'
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit-html';
 
+export default {
+    title: 'Patronen/Navigatie/Side Navigation/met proza message',
+    parameters: {
+        layout: 'fullscreen',
+        docs: {
+            story: {
+                inline: false,
+                iframeHeight: 860,
+            },
+        },
+    },
+} as Meta;
+
 registerWebComponents([
     VlSideNavigationLayoutComponent,
     VlProzaMessagePreloader,
@@ -174,7 +187,7 @@ const preloadProzaMessages = () => {
     VlProzaMessagePreloader.__setPreloadedMessagesCacheForDomain(
         prozaDomain,
         Promise.resolve({
-            'page-title': 'Side navigation layout met proza message',
+            'page-title': 'Side Navigation - met Proza Message',
             'section-1-title': 'Ontwerpprincipes',
             'section-1-sub-1': 'Consistente headings',
             'section-1-sub-2': 'Scanbare content',
@@ -191,23 +204,10 @@ const preloadProzaMessages = () => {
     VlProzaMessage.__setToegelatenOperatiesCacheForDomain(prozaDomain, Promise.resolve({ update: false }));
 };
 
-export default {
-    title: 'Patronen/Pagina Opbouw/Side Navigation Met Proza Message',
-    parameters: {
-        layout: 'fullscreen',
-        docs: {
-            story: {
-                inline: false,
-                iframeHeight: 860,
-            },
-        },
-    },
-} as Meta;
-
-export const LayoutMetProzaMessage = () => {
+export const SideNavigationMetProzaMessage = () => {
     preloadProzaMessages();
 
     return sideNavigationLayoutWithProzaMessageHTML;
 };
 
-LayoutMetProzaMessage.storyName = 'vl-side-navigation-layout-next - met proza message';
+SideNavigationMetProzaMessage.storyName = 'side-navigation - met proza message';
