@@ -68,6 +68,14 @@ button enkel een icoon bevat, raden we de default variant aan met `<vl-button la
 <Canvas of={VlTooltipStories.TooltipAsLabel} />
 
 
+## Toegankelijkheid
+
+Een tooltip moet altijd verschijnen op hover én focus. Hier wordt in de achtergrond voor gezorgd in vl-tooltip.
+
+Een tooltip mag geen interactieve elementen bevatten. Indien dat toch vereist is moet het 
+[vl-popover](/docs/components-block-popover--documentatie) component gebruikt worden, dat eigen
+toegankelijkheidsaanpassingen heeft voor deze situatie.
+
 ## Referenties
 
 ### floating-ui

@@ -71,7 +71,7 @@ export const renderAllButtonVariants = (element: VlButtonElementType, selector: 
                                       </a>`}
                                 <vl-popover
                                     for="${[buttonVariant, buttonSize, buttonIcon, buttonState].join('_')}"
-                                    trigger="focus"
+                                    trigger="hover"
                                 >
                                     ${buttonTitle(element, buttonVariant, buttonSize, buttonIcon, buttonState)}
                                 </vl-popover>
