@@ -53,6 +53,18 @@ const mapAutoExtentFixture = html`
     </vl-map>
 `;
 
+const mapAutoExtentEmptyGeometryFixture = html`
+    <vl-map lambert2008>
+        <vl-map-features-layer
+            name="testlaag"
+            features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":null,"properties":null,"id":1}]}'
+            auto-extent
+            projection-code="EPSG:31370"
+        >
+        </vl-map-features-layer>
+    </vl-map>
+`;
+
 const mapAutoExtentMaxZoomFixture = html`
     <vl-map lambert2008>
         <vl-map-features-layer
@@ -341,6 +353,19 @@ describe('cypress-component - map - vl-map-features-layer', () => {
                     ],
                 });
                 expect(vlMapFeaturesLayer.layer.getSource().getFeatures()).to.be.lengthOf(2);
+            });
+        });
+    });
+
+    it('zoomen naar extent met lege geometrie gooit geen fout', () => {
+        cy.mount(mapAutoExtentEmptyGeometryFixture);
+        cy.runTestFor2<VlMap, VlMapFeaturesLayer>('vl-map', 'vl-map-features-layer', (vlMap, vlMapFeaturesLayer) => {
+            cy.wrap(vlMap.ready).then(() => {
+                const initialCenter = vlMap.map.getView().getCenter();
+                expect(vlMapFeaturesLayer.boundingBox).to.be.undefined;
+                cy.wrap(vlMapFeaturesLayer.zoomToExtent(null)).then(() => {
+                    expect(vlMap.map.getView().getCenter()).to.deep.equal(initialCenter);
+                });
             });
         });
     });

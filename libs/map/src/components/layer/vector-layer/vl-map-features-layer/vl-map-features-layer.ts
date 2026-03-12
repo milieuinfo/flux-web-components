@@ -1,4 +1,5 @@
 import { webComponent } from '@domg-wc/common';
+import { isEmpty as isEmptyExtent } from 'ol/extent';
 import OlGeoJSON from 'ol/format/GeoJSON';
 import OlPoint from 'ol/geom/Point';
 import OlClusterSource from 'ol/source/Cluster';
@@ -182,7 +183,10 @@ export class VlMapFeaturesLayer extends VlMapVectorLayer {
 
     get boundingBox() {
         if (this.__featuresSource && this.__featuresSource.getFeatures().length > 0) {
-            return this.__featuresSource.getExtent();
+            const extent = this.__featuresSource.getExtent();
+            if (!isEmptyExtent(extent)) {
+                return extent;
+            }
         }
     }
 
