@@ -222,11 +222,17 @@ export default class FloatingController implements ReactiveController {
             this.triggerButton.addEventListener('mouseout', this.handleMouseOut);
         }
 
-        this.triggerButton.addEventListener('focusin', this.handleFocusIn, true);
-        this.triggerButton.addEventListener('focusout', this.handleFocusOut, true);
-
         this.host.addEventListener('mouseover', this.handleHostMouseOver);
         this.host.addEventListener('mouseout', this.handleHostMouseOut);
+
+        if (this.hasTrigger('focus')) {
+            // Show the popover/tooltip on focus
+            this.triggerButton.addEventListener('focusin', this.handleFocusIn, true);
+        }
+        // Hide the popover/tooltip on focusout (also without the "focus" trigger)
+        // This makes sure the popover doesn't stay open when opening another popover
+        this.triggerButton.addEventListener('focusout', this.handleFocusOut, true);
+
         this.host.addEventListener('focusout', this.handleHostFocusOut);
         this.host.addEventListener('keydown', this.handleKeyDown);
 
@@ -247,11 +253,14 @@ export default class FloatingController implements ReactiveController {
             this.triggerButton.removeEventListener('mouseout', this.handleMouseOut);
         }
 
-        this.triggerButton.removeEventListener('focusin', this.handleFocusIn, true);
-        this.triggerButton.removeEventListener('focusout', this.handleFocusOut, true);
-
         this.host.removeEventListener('mouseover', this.handleHostMouseOver);
         this.host.removeEventListener('mouseout', this.handleHostMouseOut);
+
+        if (this.hasTrigger('focus')) {
+            this.triggerButton.removeEventListener('focusin', this.handleFocusIn, true);
+        }
+        this.triggerButton.removeEventListener('focusout', this.handleFocusOut, true);
+        
         this.host.removeEventListener('focusout', this.handleHostFocusOut);
         this.host.removeEventListener('keydown', this.handleKeyDown);
 

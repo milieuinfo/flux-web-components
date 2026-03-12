@@ -77,7 +77,7 @@ export const PopoverHover = PopoverTemplate.bind({});
 PopoverHover.storyName = 'vl-popover - hover';
 PopoverHover.decorators = [relativePositionDecorator];
 PopoverHover.args = {
-    trigger: 'focus hover',
+    trigger: 'hover',
 };
 export const PopoverActions = story(popoverActionArgs, ({ selected }) => {
     const actionListClickHandler = (event: CustomEvent) => {

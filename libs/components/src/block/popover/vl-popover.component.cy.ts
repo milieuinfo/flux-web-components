@@ -119,6 +119,20 @@ describe('cypress-component - block components - vl-popover - default', () => {
         cy.get('vl-popover').shadow().find('div[role="tooltip"]').should('not.exist');
         cy.checkA11y('vl-popover');
     });
+
+    it('should not open on focus when trigger is not set to focus', () => {
+        mountDefault({ trigger: 'click' });
+
+        cy.get('#btn-acties').shadow().find('button').focus();
+        cy.get('vl-popover').should('not.be.visible');
+    });
+
+    it('should open on focus when trigger is set to focus', () => {
+        mountDefault({ trigger: 'focus' });
+
+        cy.get('#btn-acties').shadow().find('button').focus();
+        cy.get('vl-popover').should('be.visible');
+    });
 });
 
 describe('cypress-component - block components - vl-popover - hover', () => {
