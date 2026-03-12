@@ -60,6 +60,7 @@ export class VlIconComponent extends BaseLitElement {
             <span
                 class=${classMap(classes)}
                 tabindex=${ifDefined(this.clickable ? '0' : undefined)}
+                role=${ifDefined(this.label ? 'img' : undefined)}
                 aria-label=${ifDefined(this.label ? this.label : undefined)}
                 aria-hidden=${ifDefined(this.label ? undefined : 'true')}
                 part="icon"
