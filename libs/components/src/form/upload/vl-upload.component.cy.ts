@@ -381,6 +381,28 @@ describe('cypress-component - form components - vl-upload', () => {
         cy.get('vl-upload').shadow().find('vl-upload-progress[message]').should('have.attr', 'message', errorMessage);
     });
 
+    it('should clear error on rejected file after a valid file is removed', () => {
+        const errorMessage = 'U mag maar 1 bestand tegelijk uploaden';
+        cy.mount(html` <vl-upload error-message-max-files=${errorMessage}></vl-upload>`);
+
+        shouldAddPdfFiles(2);
+        shouldHaveUploadFiles(2);
+        shouldHaveValidUploadFiles(1);
+        cy.get('vl-upload').shadow().find('vl-upload-progress[message]').should('have.attr', 'message', errorMessage);
+
+        // Verwijder het succesvol toegevoegde bestand
+        cy.get('vl-upload').then((upload) => {
+            const component = upload[0] as VlUploadComponent;
+            const acceptedFiles = component.getFiles();
+            component.removeFile(acceptedFiles[0]);
+        });
+
+        // Na verwijdering van bestand 1 moet bestand 2 opnieuw gevalideerd worden en nu geaccepteerd zijn
+        shouldHaveUploadFiles(1);
+        shouldHaveValidUploadFiles(1);
+        cy.get('vl-upload').shadow().find('vl-upload-progress[message]').should('not.exist');
+    });
+
     it('should remove duplicate files', () => {
         cy.mount(html` <vl-upload disallow-duplicates></vl-upload>`);
 

@@ -67,6 +67,7 @@ export class VlUploadComponent extends FormControl {
     private isDropzoneInitialised = false;
     private dispatchInput = false;
     private isManualUploadInProgress = false;
+    private isReprocessingRejectedFiles = false;
 
     // Properties
     uploadProgressFn: ((file: DropzoneFile, progress: number, bytesSent: number) => void) | undefined;
@@ -643,6 +644,24 @@ export class VlUploadComponent extends FormControl {
     };
 
     private handleRemovedFile = async (file: DropzoneFile): Promise<void> => {
+        if (this.isReprocessingRejectedFiles) {
+            return;
+        }
+
+        if (file.status !== 'error') {
+            const rejectedFiles = this.dropzoneInstance?.getRejectedFiles() ?? [];
+            if (rejectedFiles.length > 0) {
+                this.isReprocessingRejectedFiles = true;
+                for (const rejectedFile of rejectedFiles) {
+                    this.dropzoneInstance?.removeFile(rejectedFile);
+                }
+                for (const rejectedFile of rejectedFiles) {
+                    this.dropzoneInstance?.addFile(rejectedFile);
+                }
+                this.isReprocessingRejectedFiles = false;
+            }
+        }
+
         await this.updateFileList(this.dropzoneInstance!);
         this.updateValue({ type: 'removedfile', file: file, value: this.value });
         this.dispatchEvent(
