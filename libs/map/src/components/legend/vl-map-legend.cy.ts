@@ -452,6 +452,79 @@ describe('cypress-component - map - vl-map-legend - wms layer that requires a ve
     });
 });
 
+describe('cypress-component - map - vl-map-legend - reactiviteit', () => {
+    it('should update the legend when a features layer is added dynamically', () => {
+        cy.mount(html`
+            <vl-map lambert2008>
+                <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
+                <vl-map-legend bottom="10px" right=${'12px'}></vl-map-legend>
+            </vl-map>
+        `);
+
+        cy.get('vl-map-legend')
+            .shadow()
+            .find('div.flux-map-legend > div.flux-map-legend-item')
+            .should('have.length', 0);
+
+        cy.get('vl-map').then(($map) => {
+            const layer = document.createElement('vl-map-features-layer') as VlMapFeaturesLayer;
+            layer.setAttribute('name', 'Dynamische laag');
+            layer.setAttribute('projection-code', 'EPSG:31370');
+
+            const style = document.createElement('vl-map-layer-circle-style') as VlMapLayerCircleStyle;
+            style.setAttribute('color', '#ffe615');
+            style.setAttribute('size', '5');
+            style.setAttribute('border-color', '#000');
+            style.setAttribute('border-size', '1');
+            layer.appendChild(style);
+
+            $map[0].appendChild(layer);
+        });
+
+        cy.get('vl-map-legend')
+            .shadow()
+            .find('div.flux-map-legend > div.flux-map-legend-item > span.flux-map-legend-text')
+            .should('have.length', 1)
+            .first()
+            .should('have.text', 'Dynamische laag');
+    });
+
+    it('should update the legend when a features layer is removed dynamically', () => {
+        cy.mount(html`
+            <vl-map lambert2008>
+                <vl-map-baselayer-grb-gray></vl-map-baselayer-grb-gray>
+                <vl-map-features-layer
+                    id="te-verwijderen-laag"
+                    name="Te verwijderen laag"
+                    projection-code="EPSG:31370"
+                >
+                    <vl-map-layer-circle-style
+                        color="#ffe615"
+                        size="5"
+                        border-color="#000"
+                        border-size="1"
+                    ></vl-map-layer-circle-style>
+                </vl-map-features-layer>
+                <vl-map-legend bottom="10px" right=${'12px'}></vl-map-legend>
+            </vl-map>
+        `);
+
+        cy.get('vl-map-legend')
+            .shadow()
+            .find('div.flux-map-legend > div.flux-map-legend-item')
+            .should('have.length', 1);
+
+        cy.get('#te-verwijderen-laag').then(($layer) => {
+            $layer[0].remove();
+        });
+
+        cy.get('vl-map-legend')
+            .shadow()
+            .find('div.flux-map-legend > div.flux-map-legend-item')
+            .should('have.length', 0);
+    });
+});
+
 describe('cypress-component - map - vl-map-legend - pattern support', () => {
     // SVG met transparante achtergrond: diagonale lijn op 10x10px
     const testPattern = `data:image/svg+xml;base64,${btoa('<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><line x1="0" y1="10" x2="10" y2="0" stroke="#000" stroke-width="2"/></svg>')}`;
