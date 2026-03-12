@@ -17,6 +17,8 @@ describe('cypress-component - atom components - vl-icon', () => {
 
         // Test dat het icoon als decoratief beschouwd wordt indien er geen label is meegegeven.
         cy.get('vl-icon').shadow().find('span.vl-icon').should('have.attr', 'aria-hidden', 'true');
+        cy.get('vl-icon').shadow().find('span.vl-icon').should('not.have.attr', 'role');
+        cy.get('vl-icon').shadow().find('span.vl-icon').should('not.have.attr', 'aria-label');
 
         cy.checkA11y('vl-icon');
     });
@@ -77,6 +79,7 @@ describe('cypress-component - atom components - vl-icon', () => {
         cy.get('vl-icon')
             .shadow()
             .find('span.vl-icon')
+            .should('have.attr', 'role', 'img')
             .should('have.attr', 'aria-label', 'Dit is een toegankelijk label');
         cy.get('vl-icon').shadow().find('span.vl-icon').should('not.have.attr', 'aria-hidden');
     });
