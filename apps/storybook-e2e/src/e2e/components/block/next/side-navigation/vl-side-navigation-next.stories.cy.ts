@@ -47,7 +47,7 @@ describe('cypress-e2e - block components - vl-side-navigation-next - custom toc 
         cy.get('vl-side-navigation-next').find('ul > li > ul').should('have.attr', 'hidden');
 
         // Click the first toggle button to expand
-        cy.get('vl-side-navigation-next').find('vl-button.toggle-button').first().click();
+        cy.get('vl-side-navigation-next').find('vl-button.toggle-button').first().click({force: true});
 
         // The first nested ul should now be visible
         cy.get('vl-side-navigation-next').find('ul > li').first().find('> ul').should('not.have.attr', 'hidden');
