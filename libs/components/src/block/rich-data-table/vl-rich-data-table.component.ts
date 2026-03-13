@@ -172,7 +172,7 @@ export class VlRichDataTable extends VlRichData {
     }
 
     get _hasResults(): boolean {
-        return Boolean(this._data);
+        return Boolean(this._data && this._data.data && this._data.data.length > 0);
     }
 
     get __captionElement(): HTMLTableCaptionElement | null | undefined {
