@@ -10,13 +10,13 @@ describe('cypress-e2e - block components - vl-pager - default story', () => {
         cy.getDataCy('pager').shadow().find('#bounds > strong').contains('1-7');
 
         // Check if previous link is hidden
-        cy.getDataCy('pager').shadow().find('#page-back-list-item').should('have.attr', 'hidden');
+        cy.getDataCy('pager').shadow().find('#page-back-link').should('have.attr', 'hidden');
 
         // Go to next page
         cy.getDataCy('pager').shadow().find('#page-forward-link').click();
 
         // Check if previous link is shown now
-        cy.getDataCy('pager').shadow().find('#page-back-list-item').should('not.have.attr', 'hidden');
+        cy.getDataCy('pager').shadow().find('#page-back-link').should('not.have.attr', 'hidden');
 
         // Check updated page range
         cy.getDataCy('pager').shadow().find('#bounds > strong').contains('8-14');
@@ -34,7 +34,7 @@ describe('cypress-e2e - block components - vl-pager - default story', () => {
         cy.getDataCy('pager').shadow().find('#bounds > strong').contains('1-7');
 
         // Check if previous link is hidden again
-        cy.getDataCy('pager').shadow().find('#page-back-list-item').should('have.attr', 'hidden');
+        cy.getDataCy('pager').shadow().find('#page-back-link').should('have.attr', 'hidden');
     });
 
     it('should be able to see the total number of results', () => {
@@ -65,13 +65,13 @@ describe('cypress-e2e - block components - vl-pager - default story', () => {
         cy.getDataCy('pager').shadow().find('#bounds > strong').contains('1-7');
 
         // Check if previous link is hidden
-        cy.getDataCy('pager').shadow().find('#page-back-list-item').should('have.attr', 'hidden');
+        cy.getDataCy('pager').shadow().find('#page-back-link').should('have.attr', 'hidden');
 
         // Go to next page
         cy.getDataCy('pager').shadow().find('#page-forward-link').click();
 
         // Check if previous link is shown now
-        cy.getDataCy('pager').shadow().find('#page-back-list-item').should('not.have.attr', 'hidden');
+        cy.getDataCy('pager').shadow().find('#page-back-link').should('not.have.attr', 'hidden');
 
         // Check updated page range
         cy.getDataCy('pager').shadow().find('#bounds > strong').contains('8-14');

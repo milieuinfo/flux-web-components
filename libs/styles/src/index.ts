@@ -1,7 +1,8 @@
 export { iconFontLocation } from './base/font/vl-font.css';
+export { vlVisuallyHiddenMixin } from './base/mixin/vl-accessibility.css';
 export { vlWaveAnimationMixin } from './base/mixin/vl-animations.css';
-export { vlFocusOutlineMixin } from './base/mixin/vl-outlines.css';
 export { vlHyphenateMixin } from './base/mixin/vl-hyphenate.css';
+export { vlFocusOutlineMixin } from './base/mixin/vl-outlines.css';
 export { vlResetStyles } from './base/reset/vl-reset.css';
 export { vlColorVars } from './base/var/vl-color.css';
 export {
@@ -22,3 +23,4 @@ export { vlSpacerStyles } from './layout/spacer/vl-spacer.css';
 export { vlStackedStyles } from './layout/stacked/vl-stacked.css';
 export { vlLegacyStyles } from './vl-global-styles-legacy';
 export { vlGlobalStyles, vlLayoutStyles } from './vl-styles';
+
