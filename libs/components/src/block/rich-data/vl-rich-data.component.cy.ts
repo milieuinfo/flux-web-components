@@ -1,14 +1,13 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { filter } from 'cypress/types/minimatch';
 import { html } from 'lit';
 import { VlButtonComponent } from '../../atom/button';
 import { VlTitleComponent } from '../../atom/title';
 import { VlFormLabelComponent } from '../../form/form-label';
 import { VlInputFieldComponent } from '../../form/input-field';
-import { VlSearchFilterComponent } from '../search-filter';
-import { VlSearchResultComponent } from '../search-result';
 import { VlSelectComponent } from '../../form/select';
 import { VlPagerComponent } from '../pager';
+import { VlSearchFilterComponent } from '../search-filter';
+import { VlSearchResultComponent } from '../search-result';
 import { VlRichData } from './vl-rich-data.component';
 
 registerWebComponents([
@@ -56,7 +55,7 @@ describe('cypress-component - block components - vl-rich-data', () => {
     it('should see the rich-data pager', () => {
         cy.get('vl-pager')
             .shadow()
-            .find('li[id=bounds]')
+            .find('#bounds')
             .children('strong')
             .then((child) => {
                 expect(child[0]).to.contain('1-5');
@@ -64,7 +63,7 @@ describe('cypress-component - block components - vl-rich-data', () => {
         cy.get('vl-pager').shadow().find('li[pager-page=2]').click({ force: true });
         cy.get('vl-pager')
             .shadow()
-            .find('li[id=bounds]')
+            .find('#bounds')
             .children('strong')
             .then((child) => {
                 expect(child[0]).to.contain('6-10');

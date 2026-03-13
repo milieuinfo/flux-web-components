@@ -6,6 +6,6 @@ describe('cypress-e2e - block components - vl-rich-data - default story', () => 
         cy.visit(`${richDataUrl}`);
 
         cy.get('vl-rich-data').shadow().find('div.vl-grid');
-        cy.get('vl-pager').shadow().find('li[id=bounds]');
+        cy.get('vl-pager').shadow().find('#bounds');
     });
 });
