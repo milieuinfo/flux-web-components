@@ -1,6 +1,4 @@
 import { BaseHTMLElement, webComponent } from '@domg-wc/common';
-import { accessibilityStyle, resetStyle } from '@domg/govflanders-style/common';
-import { iconStyle, linkStyle, pagerStyle } from '@domg/govflanders-style/component';
 import { vlPagerFluxStyles } from './vl-pager.flux-css';
 
 /**
@@ -23,8 +21,8 @@ export class VlPagerComponent extends BaseHTMLElement implements Pagination {
     constructor() {
         const html = `
           <div class="vl-pager">
+            <div id="bounds" class="vl-pager__element"></div>
             <ul id="pager-list" class="vl-pager__list">
-              <li id="bounds" class="vl-pager__element"></li>
               <li id="page-back-list-item" class="vl-pager__element">
                 <a id="page-back-link" class="vl-pager__element__cta vl-link vl-link--bold" href="#" tabindex="0">
                   <i class="vl-link__icon vl-link__icon--before vl-vi vl-vi-arrow-left-fat" aria-hidden="true"></i>
@@ -40,14 +38,7 @@ export class VlPagerComponent extends BaseHTMLElement implements Pagination {
             </ul>
           </div>
         `;
-        const styleSheets = [
-            resetStyle.styleSheet!,
-            pagerStyle.styleSheet!,
-            vlPagerFluxStyles.styleSheet!,
-            iconStyle.styleSheet!,
-            linkStyle.styleSheet!,
-            accessibilityStyle.styleSheet!,
-        ];
+        const styleSheets = [vlPagerFluxStyles.styleSheet!];
         super(html, styleSheets);
 
         this.__addPageBackLinkListener();
@@ -169,8 +160,8 @@ export class VlPagerComponent extends BaseHTMLElement implements Pagination {
 
     __getActivePageTemplate(number: string) {
         return this._template(`
-      <li pager-page=${number} class="vl-pager__element">
-        <label>${number}</label>
+      <li pager-page=${number} class="vl-pager__element" aria-current="page">
+        <span class="vl-pager__element__cta">${number}</span>
       </li>
     `);
     }
