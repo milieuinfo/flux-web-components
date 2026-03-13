@@ -1,0 +1,13 @@
+:host {
+    /* Font sizing (62.5% = 10px base for rem calculations) */
+    font-size: 62.5%;
+
+    /* Circle */
+    --vl-radio--circle-size: 1.8rem;
+
+    /* Dot */
+    --vl-radio--dot-size: 0.6rem;
+
+    /* Label */
+    --vl-radio--label-padding-left: 2.4rem;
+}
