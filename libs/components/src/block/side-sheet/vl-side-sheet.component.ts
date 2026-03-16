@@ -55,6 +55,7 @@ export class VlSideSheet extends BaseHTMLElement {
             'hide-toggle-button',
             'icon-position',
             'custom-size',
+            'top',
             'open',
         ];
     }
@@ -208,7 +209,7 @@ export class VlSideSheet extends BaseHTMLElement {
                         this.close();
                     }
                 },
-                50
+                50,
             );
         } else {
             //TODO: disable does not work, needs to be refactored: https://github.com/mhfen/swipe-detect/issues/11
@@ -262,6 +263,14 @@ export class VlSideSheet extends BaseHTMLElement {
     _customIconChangedCallback(oldValue: string, newValue: string) {
         if (newValue) {
             this._toggleButton?.setAttribute('icon', newValue);
+        }
+    }
+
+    _topChangedCallback(oldValue: string | null, newValue: string | null) {
+        if (newValue !== null) {
+            this.style.setProperty('--vl-side-sheet-top', newValue);
+        } else {
+            this.style.removeProperty('--vl-side-sheet-top');
         }
     }
 }

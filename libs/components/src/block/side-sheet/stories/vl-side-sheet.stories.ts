@@ -26,6 +26,7 @@ export const SideSheetDefault = story(
         enableSwipe,
         absolute,
         left,
+        top,
         toggleText,
         tooltipText,
         right,
@@ -38,6 +39,7 @@ export const SideSheetDefault = story(
             ?enable-swipe=${enableSwipe}
             ?absolute=${absolute}
             ?left=${left}
+            top=${top}
             ?right=${right}
             toggle-text=${toggleText}
             tooltip-text=${tooltipText}
@@ -91,7 +93,7 @@ export const SideSheetDefault = story(
                 eros. In hac habitasse platea dictumst.
             </p>
         </vl-side-sheet>
-    `
+    `,
 );
 SideSheetDefault.storyName = 'vl-side-sheet - default';
 
@@ -101,6 +103,7 @@ export const SideSheetToggle = story(
         enableSwipe,
         absolute,
         left,
+        top,
         toggleText,
         tooltipText,
         right,
@@ -152,6 +155,7 @@ export const SideSheetToggle = story(
                 ?enable-swipe=${enableSwipe}
                 ?absolute=${absolute}
                 ?left=${left}
+                top=${top}
                 ?right=${right}
                 toggle-text=${toggleText}
                 tooltip-text=${tooltipText}
@@ -217,6 +221,16 @@ export const SideSheetToggle = story(
                 </p>
             </vl-side-sheet>
         `;
-    }
+    },
 );
 SideSheetToggle.storyName = 'vl-side-sheet - toggle';
+
+export const SideSheetTop = story(
+    sideSheetArgs,
+    ({ top }) => html`
+        <vl-side-sheet open top=${top}>
+            <p>De padding-top van deze side-sheet kan aangepast worden via het <code>top</code>-attribuut.</p>
+        </vl-side-sheet>
+    `,
+);
+SideSheetTop.storyName = 'vl-side-sheet - top';

@@ -1,5 +1,5 @@
-import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
+import { html } from 'lit';
 import { VlSideSheet } from './vl-side-sheet.component';
 
 registerWebComponents([VlSideSheet]);
@@ -31,6 +31,15 @@ describe('cypress-component - block components - vl-side-sheet', () => {
         shouldBeOpen();
         cy.get('vl-side-sheet').invoke('removeAttr', 'open');
         shouldBeClosed();
+    });
+
+    it('should respect top attribute as padding-top', () => {
+        mountDefault({ top: '80px', open: true });
+
+        cy.get('vl-side-sheet')
+            .shadow()
+            .find('div#vl-side-sheet')
+            .shouldHaveComputedStyle({ style: 'padding-top', value: '80px' });
     });
 
     it('should contain the expected data', () => {
@@ -220,6 +229,7 @@ const mountDefault = ({
     enableSwipe,
     absolute,
     left,
+    top,
     toggleText,
     tooltipText,
     right,
@@ -231,6 +241,7 @@ const mountDefault = ({
     enableSwipe?: boolean;
     absolute?: boolean;
     left?: boolean;
+    top?: string;
     toggleText?: string;
     tooltipText?: string;
     right?: boolean;
@@ -244,6 +255,7 @@ const mountDefault = ({
             ?enable-swipe=${enableSwipe}
             ?absolute=${absolute}
             ?left=${left}
+            top=${top}
             ?right=${right}
             toggle-text=${toggleText}
             tooltip-text=${tooltipText}
