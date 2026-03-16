@@ -74,7 +74,8 @@ export const vlSideSheetFluxStyles: CSSResult = css`
         /* z-index: 2; */
         background: white;
         overflow: auto;
-        box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+        /* Shadow/Large uit Figma [VL] Foundations */
+        box-shadow: 0px 10px 50px 0px #6a768659;
     }
 
     :host #vl-side-sheet .vl-content-block {
