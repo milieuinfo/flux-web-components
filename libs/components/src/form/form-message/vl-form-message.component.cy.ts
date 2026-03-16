@@ -4,11 +4,21 @@ import { VlFormMessageComponent } from './vl-form-message.component';
 
 registerWebComponents([VlFormMessageComponent]);
 
-describe('cypress-component - form components - vl-form-message', () => {
+describe('vl-form-message - properties & states', () => {
+    beforeEach(() => {
+        cy.viewport(1200, 800);
+    });
+
     it('should mount', () => {
-        cy.mount(html`<vl-form-message>Test form message</vl-form-message>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-form-message show>Test form message</vl-form-message>
+            </div>
+        `);
 
         cy.get('vl-form-message');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('form-message-mount');
     });
 
     it('should be accessible', () => {
@@ -26,19 +36,31 @@ describe('cypress-component - form components - vl-form-message', () => {
     });
 
     it('should be visible', () => {
-        cy.mount(html`<vl-form-message show>Test form message</vl-form-message>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-form-message show>Test form message</vl-form-message>
+            </div>
+        `);
 
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('form-message-visible');
         cy.get('vl-form-message').should('be.visible');
         cy.get('vl-form-message').shadow().find('.vl-form__error').should('be.visible');
         cy.get('vl-form-message')
             .shadow()
             .find('.vl-form__error')
-            .shouldHaveComputedStyle({ pseudo: 'after', style: 'color', value: 'rgb(210, 55, 60)' });
+            .shouldHaveComputedStyle({ style: 'color', value: 'rgb(210, 55, 60)' });
     });
 
     it('should set pre-line attribute', () => {
-        cy.mount(html`<vl-form-message pre-line>Test form message</vl-form-message>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-form-message pre-line show>Eerste lijn\nTweede lijn</vl-form-message>
+            </div>
+        `);
 
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('form-message-pre-line');
         cy.get('vl-form-message').shadow().find('p').should('have.css', 'white-space', 'pre-line');
 
         cy.get('vl-form-message').invoke('removeAttr', 'pre-line');
@@ -62,7 +84,9 @@ describe('cypress-component - form components - vl-form-message', () => {
             expect(component.state).to.equal('missingValue');
         });
     });
+});
 
+describe('vl-form-message - content & validation', () => {
     it('should set content', () => {
         cy.mount(html`<vl-form-message>Test form message</vl-form-message>`);
 
