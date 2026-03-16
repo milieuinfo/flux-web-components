@@ -14,6 +14,7 @@ export const sideSheetArgs = {
     top: '43px',
     toggleText: '',
     tooltipText: '',
+    shadow: 'default',
 };
 
 export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
@@ -71,6 +72,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
             ' op de pagina voorkomen, kan je deze waarde aanpassen.',
         table: {
             type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: sideSheetArgs.top },
         },
     },
@@ -121,6 +123,19 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: String(sideSheetArgs.hideToggleButton) },
+        },
+    },
+    shadow: {
+        name: 'shadow',
+        description:
+            'Schaduw van de side sheet. Gebruik "large" voor side sheets die een hoger contrast nodig hebben met de' +
+            ' onderliggende pagina.',
+        control: { type: CONTROLS.SELECT },
+        options: ['default', 'large'],
+        table: {
+            type: { summary: getSelectControlOptions(['default', 'large']) },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: 'default' },
         },
     },
 };
