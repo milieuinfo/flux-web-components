@@ -11,6 +11,7 @@ export const sideSheetArgs = {
     left: false,
     right: false,
     open: false,
+    top: '43px',
     toggleText: '',
     tooltipText: '',
 };
@@ -62,6 +63,17 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
             defaultValue: { summary: String(sideSheetArgs.open) },
         },
     },
+    top: {
+        name: 'top',
+        description:
+            'Attribute wordt gebruikt om de padding-top van de side-sheet aan te passen. Dit staat standaard' +
+            ' op 43px ingesteld om de hoogte van de sticky vl-header te compenseren. Indien er extra sticky elementen' +
+            ' op de pagina voorkomen, kan je deze waarde aanpassen.',
+        table: {
+            type: { summary: TYPES.STRING },
+            defaultValue: { summary: sideSheetArgs.top },
+        },
+    },
     toggleText: {
         name: 'toggle-text',
         description: 'Attribute wordt gebruikt om de toggle knop tekst te wijzigen.',
@@ -83,7 +95,8 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
     customIcon: {
         name: 'custom-icon',
         description:
-            'Dit vervangt zowel open & close icon door 1 custom icon. \n Standaard wordt afhankelijk van de positie van de side-sheet een pijltje getoond dat aanduidt of de side-sheet open of dicht is.',
+            'Dit vervangt zowel open & close icon door 1 custom icon. \n Standaard wordt afhankelijk van de positie' +
+            ' van de side-sheet een pijltje getoond dat aanduidt of de side-sheet open of dicht is.',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
