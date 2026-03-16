@@ -1,0 +1,10 @@
+:host {
+    /* Font sizing (62.5% = 10px base for rem calculations) */
+    font-size: 62.5%;
+
+    /* Padding */
+    --vl-textarea--padding: 1rem;
+
+    /* Margin */
+    --vl-textarea--margin: 0.5rem 0;
+}
