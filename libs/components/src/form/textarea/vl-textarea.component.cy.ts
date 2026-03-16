@@ -4,11 +4,21 @@ import { VlTextareaComponent } from './vl-textarea.component';
 
 registerWebComponents([VlTextareaComponent]);
 
-describe('cypress-component - form components - vl-textarea', () => {
+describe('vl-textarea - properties & states', () => {
+    beforeEach(() => {
+        cy.viewport(1200, 800);
+    });
+
     it('should mount', () => {
-        cy.mount(html`<vl-textarea></vl-textarea>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-textarea></vl-textarea>
+            </div>
+        `);
 
         cy.get('vl-textarea').shadow().find('textarea');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('textarea-mount');
     });
 
     it('should be accessible', () => {
@@ -37,8 +47,14 @@ describe('cypress-component - form components - vl-textarea', () => {
     });
 
     it('should set block', () => {
-        cy.mount(html`<vl-textarea block></vl-textarea>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-textarea block></vl-textarea>
+            </div>
+        `);
 
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('textarea-block');
         cy.get('vl-textarea').shadow().find('textarea').should('have.class', 'vl-textarea--block');
     });
 
@@ -49,24 +65,51 @@ describe('cypress-component - form components - vl-textarea', () => {
     });
 
     it('should set disabled', () => {
-        cy.mount(html`<vl-textarea disabled></vl-textarea>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-textarea disabled></vl-textarea>
+            </div>
+        `);
 
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('textarea-disabled');
         cy.get('vl-textarea').should('be.disabled');
         cy.get('vl-textarea').shadow().find('textarea').should('have.class', 'vl-textarea--disabled');
         cy.get('vl-textarea').shadow().find('textarea').should('be.disabled');
     });
 
     it('should set error', () => {
-        cy.mount(html`<vl-textarea error></vl-textarea>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-textarea error></vl-textarea>
+            </div>
+        `);
 
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('textarea-error');
         cy.get('vl-textarea').shadow().find('textarea').should('have.class', 'vl-textarea--error');
         cy.get('vl-textarea').shadow().find('textarea').should('have.attr', 'error');
+        cy.get('vl-textarea')
+            .shadow()
+            .find('textarea')
+            .shouldHaveComputedStyle({ style: 'border-color', value: 'rgb(210, 55, 60)' })
+            .shouldHaveComputedStyle({ style: 'background-color', value: 'rgb(251, 235, 236)' });
     });
 
     it('should set success', () => {
-        cy.mount(html`<vl-textarea success></vl-textarea>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-textarea success></vl-textarea>
+            </div>
+        `);
 
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('textarea-success');
         cy.get('vl-textarea').shadow().find('textarea').should('have.class', 'vl-textarea--success');
+        cy.get('vl-textarea')
+            .shadow()
+            .find('textarea')
+            .shouldHaveComputedStyle({ style: 'border-color', value: 'rgb(0, 158, 71)' });
     });
 
     it('should set readonly', () => {
@@ -104,7 +147,9 @@ describe('cypress-component - form components - vl-textarea', () => {
 
         cy.get('vl-textarea').shadow().find('textarea').should('have.attr', 'cols', 10);
     });
+});
 
+describe('vl-textarea - events', () => {
     it('should dispatch both vl-input & vl-change events on input', () => {
         cy.mount(html`<vl-textarea></vl-textarea>`);
         cy.createStubForEvent('vl-textarea', 'vl-input');
@@ -136,5 +181,21 @@ describe('cypress-component - form components - vl-textarea', () => {
         cy.get('vl-textarea').shadow().find('textarea').type('test');
         cy.get('@vl-valid').should('have.been.calledOnce');
         cy.get('@vl-valid').its('firstCall.args.0.detail').should('deep.equal', { value: 'test' });
+    });
+});
+
+describe('vl-textarea - form integration', () => {
+    it('should reset form', () => {
+        cy.mount(html`
+            <form>
+                <vl-textarea name="test" value="initieel"></vl-textarea>
+                <button type="reset">Reset</button>
+            </form>
+        `);
+
+        cy.get('vl-textarea').shadow().find('textarea').clear().type('gewijzigd');
+        cy.get('vl-textarea').shadow().find('textarea').should('have.value', 'gewijzigd');
+        cy.get('button[type="reset"]').click();
+        cy.get('vl-textarea').shadow().find('textarea').should('have.value', 'initieel');
     });
 });
