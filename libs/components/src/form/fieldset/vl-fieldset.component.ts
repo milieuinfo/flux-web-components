@@ -2,7 +2,7 @@ import { BaseLitElement, webComponent } from '@domg-wc/common';
 import { vlLayoutStyles } from '@domg-wc/styles';
 import { CSSResult, PropertyDeclarations, PropertyValues, TemplateResult, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
-import { formLabelStyles } from '../form-label';
+import { vlFormLabelComponentStyles } from '../form-label';
 import { fieldsetStyles } from './vl-fieldset.css';
 import { fieldsetDefaults } from './vl-fieldset.defaults';
 
@@ -15,7 +15,7 @@ export class VlFieldsetComponent extends BaseLitElement {
     private legendText = '';
 
     static get styles(): CSSResult[] {
-        return [...vlLayoutStyles, fieldsetStyles, formLabelStyles];
+        return [...vlLayoutStyles, fieldsetStyles, vlFormLabelComponentStyles];
     }
 
     static get properties(): PropertyDeclarations {

@@ -6,11 +6,25 @@ import { VlFormLabelComponent } from './vl-form-label.component';
 
 registerWebComponents([VlFormLabelComponent, VlInputFieldComponent]);
 
-describe('cypress-component - form components - vl-form-label', () => {
-    it('should mount', () => {
-        cy.mount(html` <vl-form-label>Naam</vl-form-label>`);
+describe('vl-form-label - properties & states', () => {
+    beforeEach(() => {
+        cy.viewport(1200, 800);
+    });
 
-        cy.get('vl-form-label');
+    it('should mount', () => {
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-form-label>Naam</vl-form-label>
+            </div>
+        `);
+
+        cy.get('vl-form-label')
+            .shadow()
+            .find('label')
+            .shouldHaveComputedStyle({ style: 'color', value: 'rgb(77, 77, 75)' });
+        cy.document().then((doc) => doc.fonts.ready);
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('form-label-mount');
     });
 
     it('should be accessible', () => {
@@ -53,19 +67,39 @@ describe('cypress-component - form components - vl-form-label', () => {
     });
 
     it('should set block', () => {
-        cy.mount(html` <vl-form-label block>Naam</vl-form-label>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-form-label block>Naam</vl-form-label>
+            </div>
+        `);
 
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('form-label-block');
         cy.get('vl-form-label').shadow().find('label').should('have.class', 'vl-form__label--block');
+        cy.get('vl-form-label')
+            .shadow()
+            .find('label')
+            .shouldHaveComputedStyle({ style: 'display', value: 'block' });
     });
 
     it('should set light', () => {
-        cy.mount(html` <vl-form-label light>Naam</vl-form-label>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-form-label light>Naam</vl-form-label>
+            </div>
+        `);
 
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('form-label-light');
         cy.get('vl-form-label').shadow().find('label').should('have.class', 'vl-form__label--light');
+        cy.get('vl-form-label')
+            .shadow()
+            .find('label')
+            .shouldHaveComputedStyle({ style: 'color', value: 'rgb(104, 116, 131)' });
     });
 });
 
-describe('cypress-component - form components - vl-form-label - in form', () => {
+describe('vl-form-label - in form', () => {
     beforeEach(() => {
         cy.mount(html`
             <style>

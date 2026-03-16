@@ -1,2 +1,2 @@
 export { VlFormLabelComponent } from './vl-form-label.component';
-export { formLabelStyles } from './vl-form-label.css';
+export { vlFormLabelComponentStyles } from './vl-form-label.component.css';
