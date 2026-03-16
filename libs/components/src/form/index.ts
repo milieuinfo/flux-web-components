@@ -1,4 +1,4 @@
-export { VlFormLabelComponent, formLabelStyles } from './form-label'; // TODO: volgorde imports is hier belangrijk, invloed op registratie
+export { VlFormLabelComponent, vlFormLabelComponentStyles } from './form-label'; // TODO: volgorde imports is hier belangrijk, invloed op registratie
 export { VlInputFieldComponent, inputFieldStyles } from './input-field'; // TODO: volgorde imports is hier belangrijk, invloed op registratie
 export { VlCheckboxComponent } from './checkbox';
 export { VlDatepickerComponent } from './datepicker';

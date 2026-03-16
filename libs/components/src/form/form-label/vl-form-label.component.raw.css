@@ -1,0 +1,11 @@
+:host {
+    /* Font sizing (62.5% = 10px base for rem calculations) */
+    font-size: 62.5%;
+
+    /* Colors */
+    --vl-form-label--color: #4d4d4b;
+
+    /* Margins */
+    --vl-form-label--margin-right: 0.5rem;
+    --vl-form-label--margin-bottom: 0.7rem;
+}
