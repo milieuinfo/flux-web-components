@@ -1,0 +1,17 @@
+:host {
+    /* Font sizing (62.5% = 10px base for rem calculations) */
+    font-size: 62.5%;
+
+    /* Dimensions */
+    --vl-select--height: 3.5rem;
+    --vl-select--padding: 0 4rem 0 1.5rem;
+
+    /* Clear button */
+    --vl-select--button-color: #0055cc;
+    --vl-select--button-hover-bg: #e6eefa;
+    --vl-select--button-hover-color: #003bb0;
+    --vl-select--button-hover-border: #0055cc;
+
+    /* Nav-down icon */
+    --vl-select--nav-icon-color: #6e7985;
+}
