@@ -1,12 +1,10 @@
 import { webComponent } from '@domg-wc/common';
-import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
-import { iconStyle } from '@domg/govflanders-style/component';
+import { vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
 import { FormControl } from '../form-control';
-import selectStyle from './styles/vl-select.dv-css';
-import { vlSelectFluxStyles } from './styles/vl-select.flux-css';
+import { vlSelectComponentStyles } from './vl-select.component.css';
 import { selectDefaults } from './vl-select.defaults';
 import { SelectOption } from './vl-select.model';
 
@@ -29,7 +27,7 @@ export class VlSelectComponent extends FormControl {
     private parsedOptions: SelectOption[] = [];
 
     static get styles(): CSSResult[] {
-        return [resetStyle, baseStyle, selectStyle, iconStyle, vlSelectFluxStyles];
+        return [vlResetStyles, vlSelectComponentStyles];
     }
 
     static get properties(): PropertyDeclarations {
