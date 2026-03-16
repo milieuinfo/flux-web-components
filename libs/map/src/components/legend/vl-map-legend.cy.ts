@@ -434,7 +434,15 @@ describe('cypress-component - map - vl-map-legend - wms layer that requires a ve
     `;
 
     it('should show the legend when a version is provided', () => {
+        const stubLegend = `<svg xmlns="http://www.w3.org/2000/svg" width="500" height="100"><rect width="500" height="100" fill="#4CAF50"/></svg>`;
+        cy.intercept('GET', '*WMSServer*version=1.3.0*', {
+            statusCode: 200,
+            headers: { 'Content-Type': 'image/svg+xml' },
+            body: stubLegend,
+        }).as('legendRequest');
+
         cy.mount(mapLegendWithVersion('1.3.0'));
+        cy.wait('@legendRequest');
         cy.get('vl-map-legend')
             .shadow()
             .find('div .flux-map-legend-image img')
@@ -443,7 +451,15 @@ describe('cypress-component - map - vl-map-legend - wms layer that requires a ve
     });
 
     it('should show no legend when no version is provided', () => {
+        const stubSmall = `<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"></svg>`;
+        cy.intercept('GET', '*WMSServer*GetLegendGraphic*', {
+            statusCode: 200,
+            headers: { 'Content-Type': 'image/svg+xml' },
+            body: stubSmall,
+        }).as('legendRequest');
+
         cy.mount(mapLegendWithVersion(null));
+        cy.wait('@legendRequest');
         cy.get('vl-map-legend')
             .shadow()
             .find('div .flux-map-legend-image img')
