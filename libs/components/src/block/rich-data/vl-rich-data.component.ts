@@ -549,11 +549,8 @@ export class VlRichData extends BaseHTMLElement {
             });
             this.__searchFilterForm.addEventListener('keyup', this.__onEscapeFilter);
             this.__searchFilterForm.addEventListener('submit', () => {
-                this.toggleAttribute('filter-closed');
-
-                if (window.innerWidth > vlMediaScreenSmall) {
-                    this.__filterToggleButton?.shadowRoot?.querySelector('button')?.focus();
-                } else {
+                if (window.innerWidth <= vlMediaScreenSmall) {
+                    this.toggleAttribute('filter-closed');
                     this.__filterOpenButton?.shadowRoot?.querySelector('button')?.focus();
                 }
             });

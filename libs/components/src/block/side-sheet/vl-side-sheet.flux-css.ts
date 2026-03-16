@@ -1,3 +1,4 @@
+import { vlFocusOutlineMixin, vlMediaScreenSmall } from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
 
 // deze css is gegenereerd uit de oude custom scss
@@ -17,9 +18,23 @@ export const vlSideSheetFluxStyles: CSSResult = css`
         height: 100%;
         padding-top: var(--vl-side-sheet-top, 43px);
         background: white;
-        overflow: auto;
-        /* Shadow/Large uit Figma [VL] Foundations */
-        box-shadow: 0px 10px 50px 0px #6a768659;
+        overflow-y: auto;
+
+        &:focus {
+            ${vlFocusOutlineMixin()};
+            outline-offset: -3px;
+        }
+
+        &,
+        &:focus {
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+        }
+
+        &.vl-side-sheet--large-shadow,
+        &.vl-side-sheet--large-shadow:focus {
+            /* Shadow/Large uit Figma [VL] Foundations */
+            box-shadow: 0px 10px 50px 0px #6a768659;
+        }
     }
 
     :host #vl-side-sheet .vl-content-block {
@@ -77,7 +92,7 @@ export const vlSideSheetFluxStyles: CSSResult = css`
         z-index: var(--vl-z-layer--side-sheet-open);
     }
 
-    @media screen and (max-width: 767px) {
+    @media screen and (max-width: ${vlMediaScreenSmall}px) {
         :host([open]) {
             width: var(--vl-side-sheet-width-mobile, calc(100vw - 56px));
         }
@@ -97,7 +112,7 @@ export const vlSideSheetFluxStyles: CSSResult = css`
         backdrop-filter: blur(2px);
     }
 
-    @media screen and (max-width: 767px) {
+    @media screen and (max-width: ${vlMediaScreenSmall}px) {
         :host([open]) #vl-side-sheet-backdrop {
             display: block;
         }

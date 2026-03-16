@@ -23,6 +23,14 @@ describe('cypress-component - block components - vl-side-sheet', () => {
         shouldBeClosed();
     });
 
+    it('should close on Escape key when open', () => {
+        mountDefault({ open: true });
+
+        shouldBeOpen();
+        cy.get('vl-side-sheet').shadow().find('vl-button').shadow().find('button').focus().type('{esc}');
+        shouldBeClosed();
+    });
+
     it('should open and close the side-sheet using open attribute', () => {
         mountDefault({});
 
@@ -93,7 +101,7 @@ describe('cypress-component - block components - vl-side-sheet', () => {
         const tooltipText = 'text on native tooltip';
         mountDefault({ tooltipText: tooltipText });
 
-        cy.get('vl-side-sheet').shadow().find('vl-button').should('have.attr', 'title', tooltipText);
+        cy.get('vl-side-sheet').shadow().find('vl-tooltip').should('contain.text', tooltipText);
     });
 
     it('should be right by default & change default icon direction when opening or closing', () => {
