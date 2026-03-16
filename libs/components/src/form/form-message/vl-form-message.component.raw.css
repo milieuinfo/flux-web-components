@@ -1,0 +1,8 @@
+:host {
+    /* Font sizing (62.5% = 10px base for rem calculations) */
+    font-size: 62.5%;
+
+    /* Margin */
+    --vl-form-message--margin-top: 0.2rem;
+    --vl-form-message--margin-bottom: 0.5rem;
+}
