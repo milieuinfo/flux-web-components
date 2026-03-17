@@ -22,7 +22,7 @@
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
             "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "jiraMeta": "FLUX-556"
         }
     },
     "components-compliance-cookie-statement": {
@@ -105,7 +105,7 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "jiraMeta": "FLUX-113"
         },
         "evolution": {
             "vStatus": "v3-next",

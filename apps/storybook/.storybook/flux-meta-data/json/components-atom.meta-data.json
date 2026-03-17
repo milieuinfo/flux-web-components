@@ -70,7 +70,7 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "jiraMeta": "FLUX-560"
         }
     },
     "components-atom-link-style": {
@@ -99,7 +99,7 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "jiraMeta": "FLUX-561"
         }
     },
     "components-atom-paragraph-style": {
@@ -141,7 +141,7 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "jiraMeta": "FLUX-565"
         }
     },
     "components-atom-title": {
