@@ -9,7 +9,7 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "jiraMeta": "FLUX-555"
         }
     },
     "components-form-datepicker": {
@@ -48,7 +48,7 @@
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
             "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "jiraMeta": "FLUX-581"
         }
     },
     "components-form-form-message": {
@@ -126,7 +126,7 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "jiraMeta": "FLUX-562"
         }
     },
     "components-form-select-rich": {
@@ -152,7 +152,7 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "jiraMeta": "FLUX-579"
         }
     },
     "components-form-textarea-rich": {
