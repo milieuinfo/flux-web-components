@@ -1,0 +1,16 @@
+:host {
+    /* Font sizing (62.5% = 10px base for rem calculations) */
+    font-size: 62.5%;
+
+    /* Toolbar button hover background */
+    --vl-textarea-rich--tbtn-hover-bg: #dee0e2;
+
+    /* Toolbar button enabled background */
+    --vl-textarea-rich--tbtn-enabled-bg: #c8cbcf;
+
+    /* Dialog label color */
+    --vl-textarea-rich--dialog-label-color: #4d4d4b;
+
+    /* Dialog shadow */
+    --vl-textarea-rich--dialog-shadow: 0 0 2.1rem 0 rgba(0, 0, 0, 0.3);
+}
