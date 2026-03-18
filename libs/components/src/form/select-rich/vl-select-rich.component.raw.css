@@ -1,0 +1,11 @@
+:host {
+    /* Colors */
+    --vl-select-rich--button-color: #0055cc;
+    --vl-select-rich--button-hover-bg: #e6eefa;
+    --vl-select-rich--button-hover-color: #003bb0;
+    --vl-select-rich--button-hover-border: #0055cc;
+    --vl-select-rich--nav-icon-color: #6e7985;
+    --vl-select-rich--placeholder-color: var(--vl-color--grey-800);
+    --vl-select-rich--item-highlight-bg: rgba(179, 207, 245, 0.3);
+    --vl-select-rich--group-heading-color: #4d4d4b;
+}

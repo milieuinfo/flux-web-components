@@ -135,7 +135,7 @@
         "condition": {
             "base": "LitElement",
             "generation": "v2",
-            "css": "govflanders",
+            "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcagLevel": "TODO",

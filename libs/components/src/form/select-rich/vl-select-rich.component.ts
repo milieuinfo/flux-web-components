@@ -1,15 +1,11 @@
 import { webComponent } from '@domg-wc/common';
-import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
-import { iconStyle } from '@domg/govflanders-style/component';
+import { vlResetStyles } from '@domg-wc/styles';
 import { FormValue } from '@open-wc/form-control/src/types';
 import Choices, { Options } from 'choices.js';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { FormControl } from '../form-control';
-import { inputFieldStyles } from '../input-field';
-import multiselectStyle from './styles/vl-multiselect.dv-css';
-import { vlSelectRichFluxStyles } from './styles/vl-select-rich.flux-css';
-import selectStyle from './styles/vl-select.dv-css';
+import { vlSelectRichComponentStyles } from './vl-select-rich.component.css';
 import { selectRichDefaults } from './vl-select-rich.defaults';
 import { SelectRichOption } from './vl-select-rich.model';
 import { getSearchMatcher, SelectRichSearchMatcher } from './vl-select-rich.search-matchers';
@@ -48,15 +44,7 @@ export class VlSelectRichComponent extends FormControl {
     }
 
     static get styles(): CSSResult[] {
-        return [
-            resetStyle,
-            baseStyle,
-            inputFieldStyles,
-            selectStyle,
-            multiselectStyle,
-            iconStyle,
-            vlSelectRichFluxStyles,
-        ];
+        return [vlResetStyles, vlSelectRichComponentStyles];
     }
 
     static get properties(): PropertyDeclarations {
