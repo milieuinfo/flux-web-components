@@ -69,7 +69,6 @@ export class VlInfotextComponent extends BaseLitElement {
                 aria-label=${this.linkLabel || nothing}
             >
                 ${this.renderContent()}
-                ${this.external ? this.renderExternalIcon() : nothing}
             </a>`;
         }
 
@@ -85,6 +84,7 @@ export class VlInfotextComponent extends BaseLitElement {
             <div class="vl-infotext__value">${this.value}</div>
             <div class="vl-infotext__text">
                 <slot name="text"></slot>
+                ${this.external && this.href ? this.renderExternalIcon() : nothing}
             </div>
             <slot name="value" hidden></slot>
         `;

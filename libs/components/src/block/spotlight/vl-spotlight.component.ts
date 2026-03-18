@@ -111,7 +111,7 @@ export class VlSpotlight extends BaseLitElement {
     }
 
     _getTitleTemplateWithValue(value: any) {
-        return html`<h3 class="vl-spotlight__title">${value}</h3>`;
+        return html`<h3 class="vl-spotlight__title">${value}${this.external ? this.__renderExternalIcon() : nothing}</h3>`;
     }
 
     _getSubTitleTemplateWithValue(value: any) {
@@ -156,7 +156,6 @@ export class VlSpotlight extends BaseLitElement {
                     ${this.__processHeader()} ${this.__processSlotTitle()} ${this.__processSlotSubTitle()}
                     ${this.__processSlotContent()} ${this.__processSlotText()}
                 </article>
-                ${this.external ? this.__renderExternalIcon() : nothing}
             </a>`;
         }
         return html`
