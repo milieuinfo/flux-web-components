@@ -4,11 +4,21 @@ import { VlTextareaRichComponent } from './vl-textarea-rich.component';
 
 registerWebComponents([VlTextareaRichComponent]);
 
-describe('cypress-component - form components - vl-textarea', () => {
+describe('vl-textarea-rich - properties & states', () => {
+    beforeEach(() => {
+        cy.viewport(1280, 720);
+    });
+
     it('should mount', () => {
-        cy.mount(html`<vl-textarea-rich></vl-textarea-rich>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 600px; padding: 20px; background: white;">
+                <vl-textarea-rich></vl-textarea-rich>
+            </div>
+        `);
 
         cy.get('vl-textarea-rich').shadow().find('textarea');
+        cy.wait(500);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('textarea-rich-mount');
     });
 
     it('should be accessible', () => {
@@ -24,7 +34,11 @@ describe('cypress-component - form components - vl-textarea', () => {
     });
 
     it('should set toolbar', () => {
-        cy.mount(html`<vl-textarea-rich toolbar="h1 h2 h3"></vl-textarea-rich>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 600px; padding: 20px; background: white;">
+                <vl-textarea-rich toolbar="h1 h2 h3"></vl-textarea-rich>
+            </div>
+        `);
 
         cy.get('vl-textarea-rich')
             .shadow()
@@ -46,10 +60,17 @@ describe('cypress-component - form components - vl-textarea', () => {
             .find('.tox-tbtn.tox-tbtn--select')
             .find('.tox-tbtn__select-label')
             .contains('H3');
+
+        cy.wait(500);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('textarea-rich-toolbar');
     });
 
     it('should set plugins', () => {
-        cy.mount(html`<vl-textarea-rich toolbar="link numlist bullist" plugins="link lists"></vl-textarea-rich>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 600px; padding: 20px; background: white;">
+                <vl-textarea-rich toolbar="link numlist bullist" plugins="link lists"></vl-textarea-rich>
+            </div>
+        `);
 
         cy.get('vl-textarea-rich')
             .shadow()
@@ -74,35 +95,22 @@ describe('cypress-component - form components - vl-textarea', () => {
             .next()
             .next()
             .should('have.attr', 'title', 'Ongeordende lijst');
+
+        cy.wait(500);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('textarea-rich-plugins');
     });
 
     it('should set preview', () => {
-        cy.mount(html`<vl-textarea-rich preview></vl-textarea-rich>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 600px; padding: 20px; background: white;">
+                <vl-textarea-rich preview></vl-textarea-rich>
+            </div>
+        `);
 
         cy.get('vl-textarea-rich').shadow().find('.tox-editor-header').should('not.be.visible');
-    });
 
-    it('should dispatch both vl-input & vl-change events on input', () => {
-        cy.mount(html`<vl-textarea></vl-textarea>`);
-        cy.createStubForEvent('vl-textarea', 'vl-input');
-        cy.createStubForEvent('vl-textarea', 'vl-change');
-
-        cy.get('vl-textarea').shadow().find('textarea').type('test');
-        cy.get('@vl-input').its('callCount').should('eq', 4);
-        cy.get('@vl-input').its('lastCall.args.0.detail').should('deep.equal', { value: 'test' });
-        // change event wordt ook gedispatched bij focus verandering, daarom 1 extra
-        cy.get('@vl-change').its('callCount').should('eq', 5);
-        cy.get('@vl-change').its('lastCall.args.0.detail').should('deep.equal', { value: 'test' });
-    });
-
-    it('should dispatch vl-change event on programmatic value change but no vl-input events', () => {
-        cy.mount(html`<vl-textarea></vl-textarea>`);
-        cy.createStubForEvent('vl-textarea', 'vl-change');
-        cy.createStubForEvent('vl-textarea', 'vl-input');
-
-        cy.get('vl-textarea').invoke('attr', 'value', 'test');
-        cy.get('@vl-change').its('callCount').should('eq', 1);
-        cy.get('@vl-change').its('lastCall.args.0.detail').should('deep.equal', { value: 'test' });
-        cy.get('@vl-input').its('callCount').should('eq', 0);
+        cy.wait(500);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('textarea-rich-preview');
     });
 });
+

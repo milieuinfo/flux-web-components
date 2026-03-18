@@ -2,7 +2,7 @@ import { webComponent } from '@domg-wc/common';
 import { CSSResult, PropertyDeclarations } from 'lit';
 import tinymce, { Editor } from 'tinymce';
 import { VlTextareaComponent } from '../textarea/vl-textarea.component';
-import { vlTextareaRichComponentFluxStyles } from './vl-textarea-rich.component.flux-css';
+import { vlTextareaRichComponentStyles } from './vl-textarea-rich.component.css';
 import { textareaRichDefaults } from './vl-textarea-rich.defaults';
 
 @webComponent('vl-textarea-rich')
@@ -28,7 +28,7 @@ export class VlTextareaRichComponent extends VlTextareaComponent {
     }
 
     static get styles(): CSSResult[] {
-        return [...VlTextareaComponent.styles, vlTextareaRichComponentFluxStyles];
+        return [...VlTextareaComponent.styles, vlTextareaRichComponentStyles];
     }
 
     static get properties(): PropertyDeclarations {
