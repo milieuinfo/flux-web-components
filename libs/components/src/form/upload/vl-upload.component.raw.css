@@ -1,0 +1,4 @@
+:host {
+    /* Transition */
+    --vl-upload--transition: 0.3s ease-out;
+}
