@@ -20,6 +20,18 @@ export const vlGroupStyles: CSSResult = css`
             gap: 0;
         }
 
+        &.vl-group--no-row-gap {
+            row-gap: 0;
+        }
+
+        &.vl-group--no-column-gap {
+            column-gap: 0;
+        }
+
+        &.vl-group--wrap {
+            flex-wrap: wrap;
+        }
+
         &.vl-group--space-between {
             justify-content: space-between;
         }
