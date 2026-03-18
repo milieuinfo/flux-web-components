@@ -57,12 +57,12 @@ export class VlDoormatComponent extends BaseLitElement {
                 <div class="vl-doormat__content">
                     <h2 class="vl-doormat__title">
                         <slot name="title"></slot>
+                        ${this.external ? this.renderExternalIcon() : nothing}
                     </h2>
                     <div class="vl-doormat__text">
                         <slot name="text"></slot>
                     </div>
                 </div>
-                ${this.external ? this.renderExternalIcon() : nothing}
             </a>
         `;
     }
