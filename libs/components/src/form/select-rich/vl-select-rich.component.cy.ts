@@ -16,12 +16,23 @@ describe('cypress-component - form components - vl-select-rich - single', () => 
         { label: 'Rio Piedras', value: 'rio piedras' },
     ];
 
+    beforeEach(() => {
+        cy.viewport(1200, 800);
+    });
+
     it('should mount', () => {
-        cy.mount(html`<vl-select-rich label="geboorteplaats" .options=${options}></vl-select-rich>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-select-rich label="geboorteplaats" .options=${options}></vl-select-rich>
+            </div>
+        `);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
         cy.get('vl-select-rich').shadow().find('select');
+        cy.document().then((doc) => doc.fonts.ready);
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-rich-single-mount');
     });
 
     it('should set id', () => {
@@ -57,70 +68,118 @@ describe('cypress-component - form components - vl-select-rich - single', () => 
     });
 
     it('should set disabled', () => {
-        cy.mount(html`<vl-select-rich label="geboorteplaats" disabled .options=${options}></vl-select-rich>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-select-rich label="geboorteplaats" disabled .options=${options}></vl-select-rich>
+            </div>
+        `);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-rich-single-disabled');
         cy.get('vl-select-rich').shadow().find('select').should('have.class', 'vl-select--disabled');
         cy.get('vl-select-rich').shadow().find('select').should('be.disabled');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.js-vl-select.is-disabled')
+            .shouldHaveComputedStyle({ style: 'background-color', value: 'rgb(243, 245, 246)' });
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.js-vl-select.is-disabled .vl-select__inner')
+            .shouldHaveComputedStyle({ style: 'border-color', value: 'rgb(134, 149, 168)' });
     });
 
     it('should set error', () => {
-        cy.mount(html`<vl-select-rich label="geboorteplaats" error .options=${options}></vl-select-rich>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-select-rich label="geboorteplaats" error .options=${options}></vl-select-rich>
+            </div>
+        `);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-rich-single-error');
         cy.get('vl-select-rich').shadow().find('select').should('have.class', 'vl-select--error');
         cy.get('vl-select-rich').shadow().find('select').should('have.attr', 'error');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.js-vl-select .vl-select__inner')
+            .shouldHaveComputedStyle({ style: 'border-color', value: 'rgb(210, 55, 60)' })
+            .shouldHaveComputedStyle({ style: 'background-color', value: 'rgb(251, 235, 236)' });
     });
 
     it('should set success', () => {
-        cy.mount(html`<vl-select-rich label="geboorteplaats" success .options=${options}></vl-select-rich>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-select-rich label="geboorteplaats" success .options=${options}></vl-select-rich>
+            </div>
+        `);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-rich-single-success');
         cy.get('vl-select-rich').shadow().find('select').should('have.class', 'vl-select--success');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.js-vl-select .vl-select__inner')
+            .shouldHaveComputedStyle({ style: 'border-color', value: 'rgb(0, 158, 71)' })
+            .shouldHaveComputedStyle({ style: 'background-color', value: 'rgb(230, 245, 237)' });
     });
 
     it('should set placeholder', () => {
-        cy.mount(
-            html`<vl-select-rich
-                label="geboorteplaats"
-                placeholder="Selecteer je geboorteplaats"
-                .options=${options}
-            ></vl-select-rich>`
-        );
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-select-rich
+                    label="geboorteplaats"
+                    placeholder="Selecteer je geboorteplaats"
+                    .options=${options}
+                ></vl-select-rich>
+            </div>
+        `);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
         cy.get('vl-select-rich').shadow().find('.vl-select__placeholder').contains('Selecteer je geboorteplaats');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-rich-single-placeholder');
     });
 
     it('should be deletable', () => {
-        cy.mount(
-            html`<vl-select-rich
-                label="geboorteplaats"
-                .options=${[{ label: 'Hasselt', value: 'hasselt', selected: true }]}
-            ></vl-select-rich>`
-        );
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-select-rich
+                    label="geboorteplaats"
+                    .options=${[{ label: 'Hasselt', value: 'hasselt', selected: true }]}
+                ></vl-select-rich>
+            </div>
+        `);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
         cy.get('vl-select-rich').shadow().find('.vl-pill__close');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-rich-single-selected');
     });
 
     it('should set not-deletable', () => {
-        cy.mount(
-            html`<vl-select-rich
-                label="geboorteplaats"
-                not-deletable
-                .options=${[{ label: 'Hasselt', value: 'hasselt', selected: true }]}
-            ></vl-select-rich>`
-        );
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-select-rich
+                    label="geboorteplaats"
+                    not-deletable
+                    .options=${[{ label: 'Hasselt', value: 'hasselt', selected: true }]}
+                ></vl-select-rich>
+            </div>
+        `);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
         cy.get('vl-select-rich').shadow().find('.vl-pill__close').should('not.exist');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-rich-single-not-deletable');
     });
 
     it('should set search', () => {
@@ -223,14 +282,16 @@ describe('cypress-component - form components - vl-select-rich - single', () => 
     });
 
     it('should search', () => {
-        cy.mount(
-            html`<vl-select-rich
-                label="geboorteplaats"
-                placeholder="kies je geboorteplaats"
-                search
-                .options=${options}
-            ></vl-select-rich>`
-        );
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; min-height: 300px; padding: 20px; background: white;">
+                <vl-select-rich
+                    label="geboorteplaats"
+                    placeholder="kies je geboorteplaats"
+                    search
+                    .options=${options}
+                ></vl-select-rich>
+            </div>
+        `);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
@@ -243,6 +304,8 @@ describe('cypress-component - form components - vl-select-rich - single', () => 
             .find('.vl-select__item')
             .contains('Turnhout')
             .should('not.exist');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-rich-single-search-open');
         cy.checkA11y('vl-select-rich');
     });
 
@@ -256,7 +319,11 @@ describe('cypress-component - form components - vl-select-rich - single', () => 
             { label: 'Rio Piedras', value: 'rio piedras' },
         ];
 
-        cy.mount(html`<vl-select-rich label="geboorteplaats" .options=${options}></vl-select-rich>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; min-height: 400px; padding: 20px; background: white;">
+                <vl-select-rich label="geboorteplaats" .options=${options}></vl-select-rich>
+            </div>
+        `);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
@@ -276,12 +343,18 @@ describe('cypress-component - form components - vl-select-rich - single', () => 
             .should('have.attr', 'selected');
         cy.checkA11y('vl-select-rich');
 
+        // axe-core focust intern de input van choices.js waardoor showDropdown() getriggerd wordt.
+        // Stuur expliciet Escape om de dropdown te sluiten als axe hem heropende.
+        cy.get('vl-select-rich').shadow().find('.js-vl-select').trigger('keydown', { key: 'Escape', keyCode: 27, which: 27 });
+        cy.get('vl-select-rich').shadow().find('.js-vl-select').should('not.have.class', 'is-open');
         cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich').shadow().find('.vl-select__list--dropdown').should('be.visible');
         cy.get('vl-select-rich')
             .shadow()
             .find('.vl-select__list')
             .find('.vl-select__item.vl-select__item--disabled')
             .contains('Hasselt');
+        // Click op uitgeschakelde optie: choices.js keert meteen terug, dropdown blijft open
         cy.get('vl-select-rich').shadow().find('.vl-select__list').find('.vl-select__item').contains('Hasselt').click();
         cy.get('vl-select-rich')
             .shadow()
@@ -301,6 +374,11 @@ describe('cypress-component - form components - vl-select-rich - single', () => 
         cy.get('vl-select-rich').shadow().find('select').find('option').contains('Hasselt').should('be.disabled');
         cy.get('vl-select-rich').shadow().find('select').find('option').contains('Turnhout').should('not.be.disabled');
         cy.checkA11y('vl-select-rich');
+
+        // Dropdown is al open na de Hasselt click (disabled optie sluit de dropdown niet)
+        cy.get('vl-select-rich').shadow().find('.vl-select__list--dropdown').should('be.visible');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-rich-single-disabled-option-open');
     });
 
     it('should use groups', () => {
@@ -323,7 +401,11 @@ describe('cypress-component - form components - vl-select-rich - single', () => 
             },
         ];
 
-        cy.mount(html`<vl-select-rich label="geboorteplaats" .options=${options}></vl-select-rich>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; min-height: 450px; padding: 20px; background: white;">
+                <vl-select-rich label="geboorteplaats" .options=${options}></vl-select-rich>
+            </div>
+        `);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
@@ -336,6 +418,8 @@ describe('cypress-component - form components - vl-select-rich - single', () => 
         cy.get('vl-select-rich').shadow().find('.vl-select__list').find('.vl-select__item').contains('Waregem');
         cy.get('vl-select-rich').shadow().find('.vl-select__list').find('.vl-select__item').contains('Lier');
         cy.get('vl-select-rich').shadow().find('.vl-select__list').find('.vl-select__item').contains('Rio Piedras');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-rich-single-groups-open');
 
         // TODO: het is niet accessible als de dropdown open is
         // cy.checkA11y('vl-select-rich');
@@ -475,11 +559,17 @@ describe('cypress-component - form components - vl-select-rich - single', () => 
     });
 
     it('should select option', () => {
-        cy.mount(html`<vl-select-rich label="geboorteplaats" .options=${options}></vl-select-rich>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; min-height: 400px; padding: 20px; background: white;">
+                <vl-select-rich label="geboorteplaats" .options=${options}></vl-select-rich>
+            </div>
+        `);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
         cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-rich-single-dropdown-open');
         cy.get('vl-select-rich').shadow().find('.vl-select__list').find('.vl-select__item').contains('Hasselt').click();
         cy.get('vl-select-rich')
             .shadow()
@@ -989,34 +1079,48 @@ describe('cypress-component - form components - vl-select-rich - multiple', () =
         { label: 'Fietsen', value: 'fietsen' },
     ];
 
+    beforeEach(() => {
+        cy.viewport(1200, 800);
+    });
+
     it('should mount', () => {
-        cy.mount(
-            html`
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
                 <vl-select-rich
                     label="hobby's"
                     placeholder="Vul hobby's in"
                     multiple
                     .options=${options}
                 ></vl-select-rich>
-            `
-        );
+            </div>
+        `);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
         cy.get('vl-select-rich').shadow().find('select');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-rich-multiple-mount');
     });
 
     it('should search', () => {
-        cy.mount(html`<vl-select-rich
-            label="hobby's"
-            placeholder="Vul hobby's in"
-            multiple
-            .options=${options}
-        ></vl-select-rich>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; min-height: 300px; padding: 20px; background: white;">
+                <vl-select-rich
+                    label="hobby's"
+                    placeholder="Vul hobby's in"
+                    multiple
+                    search
+                    .options=${options}
+                ></vl-select-rich>
+            </div>
+        `);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
         cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        // Wacht tot de dropdown zichtbaar is (requestAnimationFrame afgerond, input.focus() aangeroepen)
+        // zodat isFocussed=true is wanneer we typen, anders slaat _handleSearch de search over.
+        cy.get('vl-select-rich').shadow().find('.vl-select__list--dropdown').should('be.visible');
         cy.get('vl-select-rich').shadow().find('input').type('Padel');
         cy.get('vl-select-rich').shadow().find('.vl-select__list').find('.vl-select__item').contains('Padel');
         cy.get('vl-select-rich')
@@ -1025,6 +1129,8 @@ describe('cypress-component - form components - vl-select-rich - multiple', () =
             .find('.vl-select__item')
             .contains('Dans')
             .should('not.exist');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-rich-multiple-search-open');
         cy.checkA11y('vl-select-rich');
     });
 
@@ -1286,15 +1392,21 @@ describe('cypress-component - form components - vl-select-rich - multiple', () =
             { label: 'Fietsen', value: 'fietsen' },
         ];
 
-        cy.mount(html`<vl-select-rich
-            label="hobby's"
-            placeholder="Vul hobby's in"
-            multiple
-            .options=${options}
-        ></vl-select-rich>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-select-rich
+                    label="hobby's"
+                    placeholder="Vul hobby's in"
+                    multiple
+                    .options=${options}
+                ></vl-select-rich>
+            </div>
+        `);
         cy.injectAxe();
 
         cy.checkA11y('vl-select-rich');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-rich-multiple-selected');
         cy.get('vl-select-rich')
             .shadow()
             .find('select')
@@ -1717,6 +1829,10 @@ describe('cypress-component - form components - vl-select-rich - search strategi
         { label: 'Brussel Antwerpen Gent', value: 'Brussel Antwerpen Gent' },
     ];
 
+    beforeEach(() => {
+        cy.viewport(1200, 800);
+    });
+
     it('should use default fuzzy search strategy', () => {
         cy.mount(
             html`<vl-select-rich
@@ -1791,6 +1907,8 @@ describe('cypress-component - form components - vl-select-rich - search strategi
 
         cy.checkA11y('vl-select-rich');
         cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.wait(100);
+        cy.matchImageSnapshot('select-rich-exact-or-open');
 
         // Search for "morgen standaard" - should find all items with "morgen" OR "standaard" (5 results)
         cy.get('vl-select-rich').shadow().find('input').type('morgen standaard');
@@ -1799,6 +1917,8 @@ describe('cypress-component - form components - vl-select-rich - search strategi
             .find('.vl-select__list')
             .find('.vl-select__item')
             .should('have.length', 5);
+        cy.wait(100);
+        cy.matchImageSnapshot('select-rich-exact-or-search-results');
 
         cy.checkA11y('vl-select-rich');
     });
