@@ -11,7 +11,7 @@ import { VlUploadProgressComponent } from '../../block/upload-progress';
 import { DropzoneFile, Dropzone as DropzoneInstance } from '../dropzone-types';
 import { FormControl } from '../form-control/form-control';
 import { uploadDefaults } from './vl-upload.defaults';
-import { vlUploadFluxStyles } from './vl-upload.flux-css';
+import { vlUploadComponentStyles } from './vl-upload.component.css';
 
 // Definieer een union type dat rekening houdt met beide manieren waarop Dropzone kan worden geëxporteerd
 type DropzoneType =
@@ -81,7 +81,7 @@ export class VlUploadComponent extends FormControl {
             vlTextStyles,
             vlLinkStyles('.vl-upload__button'),
             vlLinkStyles('.vl-upload-files__remove-all'),
-            vlUploadFluxStyles,
+            vlUploadComponentStyles,
         ];
     }
 

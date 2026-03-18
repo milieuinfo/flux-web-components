@@ -1,12 +1,19 @@
-import { css, CSSResult } from 'lit';
+import { css, CSSResult, unsafeCSS } from 'lit';
+import uploadComponentRawCss from './vl-upload.component.raw.css?raw';
 
-export const vlUploadFluxStyles: CSSResult = css`
+export const vlUploadComponentStyles: CSSResult = css`
+    ${unsafeCSS(uploadComponentRawCss)}
+
+    /* ===================================================================
+       Upload Container
+       =================================================================== */
+
     .vl-upload {
         position: relative;
         margin-bottom: 0;
-        transition: background-color 0.3s ease-out;
+        transition: background-color var(--vl-upload--transition);
 
-        /* vl-upload elements */
+        /* Upload elements */
 
         .vl-upload__overlay-content {
             color: var(--vl-color--action);
@@ -14,19 +21,18 @@ export const vlUploadFluxStyles: CSSResult = css`
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            font-size: inherit; /* mag weg eens govflanders style weggewerkt is */
         }
 
         .vl-upload__element {
             font-family: var(--vl-font);
             border: 0.1rem dashed var(--vl-color--border-bold);
-            border-radius: 0.3rem;
+            border-radius: var(--vl-border--radius);
             text-align: center;
             position: relative;
             z-index: 4;
             min-height: 100%;
             background-color: transparent;
-            transition: background-color 0.3s ease-out;
+            transition: background-color var(--vl-upload--transition);
 
             &:focus-within,
             &:hover {
@@ -44,9 +50,9 @@ export const vlUploadFluxStyles: CSSResult = css`
             top: -0.1rem;
             width: 100%;
             height: 100%;
-            background-color: #fff;
+            background-color: var(--vl-color--white);
             border: 0.2rem dashed var(--vl-color--border-action);
-            border-radius: 0.3rem;
+            border-radius: var(--vl-border--radius);
             z-index: 10;
             opacity: 0.9;
             font-family: var(--vl-font);
@@ -74,12 +80,18 @@ export const vlUploadFluxStyles: CSSResult = css`
         }
     }
 
-    /* vl-upload variants */
+    /* ===================================================================
+       Upload Variants
+       =================================================================== */
+
+    /* Dragging state */
 
     .vl-upload--dragging .vl-upload__overlay {
         opacity: 1;
         display: block;
     }
+
+    /* Error state */
 
     .vl-upload--error .vl-upload__element {
         border-color: var(--vl-color--border-error-subtle);
@@ -91,6 +103,8 @@ export const vlUploadFluxStyles: CSSResult = css`
         }
     }
 
+    /* Success state */
+
     .vl-upload--success .vl-upload__element {
         border-color: var(--vl-color--border-success-subtle);
         background-color: var(--vl-color--background-success-subtle);
@@ -100,6 +114,8 @@ export const vlUploadFluxStyles: CSSResult = css`
             border-color: var(--vl-color--border-success);
         }
     }
+
+    /* Disabled and readonly states */
 
     .vl-upload--disabled,
     .vl-upload--readonly {
@@ -149,11 +165,11 @@ export const vlUploadFluxStyles: CSSResult = css`
         }
     }
 
-    /* vl-upload-files */
+    /* ===================================================================
+       Upload Files List
+       =================================================================== */
 
     .vl-upload-files {
-        /* vl-upload-files elements */
-
         .vl-upload-files__list {
             & > li + li {
                 border-top: 1px solid var(--vl-color--border);
