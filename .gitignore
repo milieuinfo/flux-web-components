@@ -38,3 +38,11 @@ Thumbs.db
 
 *storybook.log
 storybook-static
+
+# AI Agent local settings
+.claude/settings.local.json
+.claude/worktrees/
+.cursor/
+.cline/
+.windsurf/
+.claude/plans/
