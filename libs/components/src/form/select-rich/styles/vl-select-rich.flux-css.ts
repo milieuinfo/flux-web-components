@@ -5,6 +5,7 @@ export const vlSelectRichFluxStyles: CSSResult = css`
     .js-vl-select .vl-select__inner {
         font-size: var(--vl-font-size--small);
         border-color: var(--vl-color--border-alt);
+        background-color: var(--vl-color--background-default);
     }
 
     .js-vl-select .vl-select__inner .vl-select,
