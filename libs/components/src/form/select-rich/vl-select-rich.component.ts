@@ -352,8 +352,10 @@ export class VlSelectRichComponent extends FormControl {
     }
 
     private setChoicesInputAttributes(): void {
-        if (this.choices?.input?.element) {
-            const inputElement = this.choices.input.element;
+        const inputElement =
+            this.choices?.input?.element ||
+            this.shadowRoot?.querySelector<HTMLInputElement>('input.vl-input-field');
+        if (inputElement) {
             inputElement.setAttribute('type', 'text');
             inputElement.classList.add('vl-input-field', 'vl-input-field-cloned');
             inputElement.setAttribute('autocomplete', 'off');
