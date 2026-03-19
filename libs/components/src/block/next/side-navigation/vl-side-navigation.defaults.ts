@@ -4,6 +4,7 @@ export const sideNavigationDefaults: SideNavigationDefaults = {
     headingRootSelector: '',
     maxDepth: undefined,
     navigationTitle: 'Op deze pagina',
+    childSpacing: 'small',
 } as const;
 
 export type SideNavigationDefaults = {
@@ -12,4 +13,5 @@ export type SideNavigationDefaults = {
     headingRootSelector: string;
     maxDepth: number | undefined;
     navigationTitle: string;
+    childSpacing: string;
 };

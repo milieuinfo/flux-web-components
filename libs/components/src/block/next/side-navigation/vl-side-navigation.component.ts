@@ -31,6 +31,8 @@ registerWebComponents([VlButtonComponent, VlLinkComponent, VlTitleComponent]);
 export class VlSideNavigationComponent extends BaseLitElement {
     @property({ type: Boolean, reflect: true })
     compact = false;
+    @property({ type: String, reflect: true, attribute: 'child-spacing' })
+    childSpacing = 'small';
     @property({ type: Array })
     headingElements: HTMLElement[] = [];
     @property({ attribute: false })

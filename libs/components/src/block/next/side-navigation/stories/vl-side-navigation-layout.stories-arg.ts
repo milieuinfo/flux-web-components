@@ -88,6 +88,18 @@ export const sideNavigationLayoutArgTypes: ArgTypes<SideNavigationLayoutArgs> = 
             defaultValue: { summary: sideNavigationLayoutArgs.excludeSelectors },
         },
     },
+    childSpacing: {
+        name: 'child-spacing',
+        description:
+            'Bepaalt de verticale ruimte tussen child-links. `medium` geeft extra ruimte (1.3rem marge boven en onder). `small` is de standaard compacte weergave. Wordt doorgegeven aan vl-side-navigation-next.',
+        options: ['medium', 'small'],
+        control: { type: 'select' },
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: sideNavigationLayoutArgs.childSpacing },
+        },
+    },
     contentSlot: {
         name: 'content',
         description:

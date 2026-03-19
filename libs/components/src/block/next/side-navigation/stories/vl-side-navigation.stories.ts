@@ -141,13 +141,14 @@ const sampleContent = html`
 
 export const SideNavigationDefault = story(
     sideNavigationArgs,
-    ({ closed, compact, headingRootSelector, maxDepth, navigationTitle }) => {
+    ({ closed, compact, headingRootSelector, maxDepth, navigationTitle, childSpacing }) => {
         return html`
             <div class="vl-grid vl-content-block">
                 <vl-side-navigation-next
                     class="vl-column vl-column--3 vl-column--start-10 vl-column--m-3  vl-column--s-12 vl-side-navigation--order-1"
                     ?closed=${closed}
                     ?compact=${compact}
+                    child-spacing=${childSpacing}
                     max-depth=${maxDepth}
                     heading-root-selector=${headingRootSelector}
                     navigation-title=${navigationTitle}
@@ -165,13 +166,14 @@ SideNavigationDefault.args = {
 
 export const SideNavigationCompact = story(
     sideNavigationArgs,
-    ({ closed, headingRootSelector, maxDepth, navigationTitle }) => {
+    ({ closed, headingRootSelector, maxDepth, navigationTitle, childSpacing }) => {
         return html`
             <div class="vl-grid vl-content-block">
                 <vl-side-navigation-next
                     class="vl-column vl-column--12 vl-side-navigation--order-1"
                     ?closed=${closed}
                     compact
+                    child-spacing=${childSpacing}
                     max-depth=${maxDepth}
                     heading-root-selector=${headingRootSelector}
                     navigation-title=${navigationTitle}
@@ -188,13 +190,14 @@ SideNavigationCompact.args = {
     headingRootSelector: '#story-content-container',
 };
 
-export const SideNavigationWithCustomToc = story(sideNavigationArgs, ({ closed, compact, maxDepth }) => {
+export const SideNavigationWithCustomToc = story(sideNavigationArgs, ({ closed, compact, maxDepth, childSpacing }) => {
     return html`
         <div class="vl-grid vl-content-block">
             <vl-side-navigation-next
                 class="vl-column vl-column--3 vl-column--start-10 vl-column--m-3  vl-column--s-12  vl-side-navigation--order-1"
                 ?closed=${closed}
                 ?compact=${compact}
+                child-spacing=${childSpacing}
                 max-depth=${maxDepth}
             >
                 <ul>

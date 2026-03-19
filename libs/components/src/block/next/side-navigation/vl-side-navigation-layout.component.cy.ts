@@ -422,11 +422,8 @@ const runDesktopTests = (mountFn: () => Cypress.Chainable, isAutoNav = false) =>
         // Click a link and verify scroll behavior
         getSideNavigation(false).shadow().find('nav a[href="#content-3-heading"]').click();
 
-        // Wait for scroll to complete
-        cy.wait(100);
-
         // Verify we scrolled to the heading
-        cy.get('#content-3-heading').then(($el) => {
+        cy.get('#content-3-heading').should(($el) => {
             const rect = $el[0].getBoundingClientRect();
             expect(rect.top).to.be.lessThan(900);
         });
@@ -468,7 +465,9 @@ const runDesktopTests = (mountFn: () => Cypress.Chainable, isAutoNav = false) =>
     it('should update navigation active status when scrolling', () => {
         mountFn();
 
-        cy.wait(500);
+        // Ensure TOC is built and IntersectionObserver is set up before scrolling
+        getSideNavigation(false).shadow().find('nav a[href="#content-2-heading"]').should('exist');
+
         cy.get('#content-2-heading').scrollIntoView();
 
         getSideNavigation(false).shadow().find('nav a[href="#content-2-heading"].active').should('exist');
@@ -487,7 +486,6 @@ const runDesktopTests = (mountFn: () => Cypress.Chainable, isAutoNav = false) =>
                 const initialClasses = $nav.attr('class');
 
                 cy.get('#content-2-heading').scrollIntoView();
-                cy.wait(300);
 
                 cy.get('vl-side-navigation-layout-next')
                     .shadow()
@@ -534,9 +532,7 @@ const runDesktopTests = (mountFn: () => Cypress.Chainable, isAutoNav = false) =>
         getSideNavigation(false).shadow().find('nav a[href="#content-3-heading"]').should('have.focus');
         cy.press(Cypress.Keyboard.Keys.ENTER);
 
-        cy.wait(600);
-
-        cy.get('#content-3-heading').then(($el) => {
+        cy.get('#content-3-heading').should(($el) => {
             const rect = $el[0].getBoundingClientRect();
             expect(rect.top).to.be.lessThan(900);
         });
@@ -726,9 +722,7 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
             .find('vl-link[href="#custom-aanvraag"]')
             .click();
 
-        cy.wait(600);
-
-        cy.get('#custom-aanvraag').then(($el) => {
+        cy.get('#custom-aanvraag').should(($el) => {
             const rect = $el[0].getBoundingClientRect();
             expect(rect.top).to.be.lessThan(900);
         });
@@ -737,9 +731,13 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
     it('should update active state on custom TOC links when scrolling', () => {
         mountSideNavigationLayoutWithCustomToc();
 
-        cy.wait(500);
+        // Ensure IntersectionObserver is running (initial active state is applied to any link)
+        cy.get('vl-side-navigation-layout-next')
+            .find('vl-side-navigation-next')
+            .find('vl-link.active')
+            .should('exist');
+
         cy.get('#custom-aanvraag').scrollIntoView();
-        cy.wait(500);
 
         cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
@@ -750,7 +748,12 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
     it('should expand parent section when scrolling to child heading and collapse when scrolling away', () => {
         mountSideNavigationLayoutWithCustomToc();
 
-        cy.wait(500);
+        // Ensure IntersectionObserver is running (initial active state is applied to any link)
+        cy.get('vl-side-navigation-layout-next')
+            .find('vl-side-navigation-next')
+            .find('vl-link.active')
+            .should('exist');
+
         cy.get('#custom-vereisten').scrollIntoView();
         // Wait for IntersectionObserver to update and apply expand state to parent section
         cy.get('vl-side-navigation-layout-next')
@@ -758,8 +761,7 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
             .find('vl-link[href="#custom-intro"]')
             .parent('li')
             .find('> ul')
-            .should('not.have.attr', 'hidden')
-            .then(() => cy.wait(100));
+            .should('not.have.attr', 'hidden');
 
         cy.get('#custom-termijnen').scrollIntoView();
         // Wait for IntersectionObserver to update and collapse parent section
@@ -845,9 +847,7 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
             .should('have.focus');
         cy.press(Cypress.Keyboard.Keys.SPACE);
 
-        cy.wait(600);
-
-        cy.get('#custom-termijnen').then(($el) => {
+        cy.get('#custom-termijnen').should(($el) => {
             const rect = $el[0].getBoundingClientRect();
             expect(rect.top).to.be.lessThan(900);
         });
@@ -949,8 +949,6 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
             .find('button')
             .should('have.focus');
         cy.press(Cypress.Keyboard.Keys.SPACE);
-
-        cy.wait(50);
 
         // Verify overlay open and ARIA
         cy.get('vl-side-navigation-layout-next')
@@ -1183,7 +1181,6 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
         `);
 
         // Wait for slot assignment and deferred TOC scan (requestAnimationFrame)
-        cy.wait(150);
 
         const nav = () => cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('nav');
 
@@ -1238,7 +1235,6 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
         `);
 
         // Wait for slot assignment and deferred TOC scan
-        cy.wait(150);
 
         const nav = () => cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('nav');
 
@@ -1291,8 +1287,6 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
                 </div>
             </vl-side-navigation-layout-next>
         `);
-
-        cy.wait(150);
 
         cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
@@ -1384,8 +1378,6 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
     it('should resolve proza message text in the auto-generated TOC', () => {
         mountSideNavigationLayoutWithProzaMessage();
 
-        cy.wait(300);
-
         const nav = () =>
             cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('nav');
 
@@ -1397,8 +1389,6 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
     it('should resolve proza message text for nested h3 headings in the TOC', () => {
         mountSideNavigationLayoutWithProzaMessage();
 
-        cy.wait(300);
-
         const nav = () =>
             cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('nav');
 
@@ -1409,8 +1399,6 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
 
     it('should maintain correct TOC hierarchy with proza message headings', () => {
         mountSideNavigationLayoutWithProzaMessage();
-
-        cy.wait(300);
 
         const nav = () =>
             cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('nav');
@@ -1440,17 +1428,14 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
     it('should navigate to proza message section when clicking TOC link', () => {
         mountSideNavigationLayoutWithProzaMessage();
 
-        cy.wait(300);
-
         cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .shadow()
             .find('nav a[href="#proza-section-2"]')
+            .should('exist')
             .click();
 
-        cy.wait(600);
-
-        cy.get('#proza-section-2').then(($el) => {
+        cy.get('#proza-section-2').should(($el) => {
             const rect = $el[0].getBoundingClientRect();
             expect(rect.top).to.be.lessThan(900);
         });
@@ -1459,7 +1444,12 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
     it('should be accessible with proza message headings', () => {
         mountSideNavigationLayoutWithProzaMessage();
 
-        cy.wait(300);
+        // Wait for TOC to be rendered before running a11y check
+        cy.get('vl-side-navigation-layout-next')
+            .find('vl-side-navigation-next')
+            .shadow()
+            .find('nav a[href="#proza-section-1"]')
+            .should('exist');
 
         cy.injectAxe();
         cy.checkA11y('vl-side-navigation-layout-next');
@@ -1467,8 +1457,6 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
 
     it('should not render proza message titles twice in the TOC', () => {
         mountSideNavigationLayoutWithProzaMessage();
-
-        cy.wait(300);
 
         const nav = () =>
             cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('nav');
@@ -1490,5 +1478,67 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
                     expect(text.trim()).to.equal(expectedText);
                 });
         });
+    });
+});
+
+describe('cypress-component - block components - vl-side-navigation-layout-next - child-spacing attribuut', () => {
+    beforeEach(() => {
+        cy.viewport(1440, 900);
+    });
+
+    it('geeft child-spacing door aan de automatisch gegenereerde vl-side-navigation-next', () => {
+        cy.mount(html`
+            <vl-side-navigation-layout-next child-spacing="medium">
+                <div slot="content" id="content">
+                    <h2>Sectie 1</h2>
+                    <p style="min-height: 200px">Lorem ipsum.</p>
+                    <h3>Sectie 1.1</h3>
+                    <p style="min-height: 200px">Lorem ipsum.</p>
+                </div>
+            </vl-side-navigation-layout-next>
+        `);
+
+        cy.get('vl-side-navigation-layout-next')
+            .find('vl-side-navigation-next')
+            .should('have.attr', 'child-spacing', 'medium');
+    });
+
+    it('geeft child-spacing door aan een expliciet geslotde vl-side-navigation-next', () => {
+        cy.mount(html`
+            <vl-side-navigation-layout-next child-spacing="medium">
+                <vl-side-navigation-next slot="navigation"></vl-side-navigation-next>
+                <div slot="content" id="content">
+                    <h2>Sectie 1</h2>
+                    <p style="min-height: 200px">Lorem ipsum.</p>
+                    <h3>Sectie 1.1</h3>
+                    <p style="min-height: 200px">Lorem ipsum.</p>
+                </div>
+            </vl-side-navigation-layout-next>
+        `);
+
+        cy.get('vl-side-navigation-next').should('have.attr', 'child-spacing', 'medium');
+    });
+
+    it('werkt child-spacing bij op vl-side-navigation-next wanneer de waarde verandert', () => {
+        cy.mount(html`
+            <vl-side-navigation-layout-next child-spacing="medium">
+                <div slot="content" id="content">
+                    <h2>Sectie 1</h2>
+                    <p style="min-height: 200px">Lorem ipsum.</p>
+                </div>
+            </vl-side-navigation-layout-next>
+        `);
+
+        cy.get('vl-side-navigation-layout-next')
+            .find('vl-side-navigation-next')
+            .should('have.attr', 'child-spacing', 'medium');
+
+        cy.get('vl-side-navigation-layout-next').then(([el]) => {
+            el.setAttribute('child-spacing', 'small');
+        });
+
+        cy.get('vl-side-navigation-layout-next')
+            .find('vl-side-navigation-next')
+            .should('have.attr', 'child-spacing', 'small');
     });
 });

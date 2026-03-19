@@ -5,4 +5,5 @@ export const sideNavigationLayoutDefaults = {
     maxDepth: undefined as number | undefined,
     navigationTitle: '' as string,
     excludeSelectors: '' as string,
+    childSpacing: 'small' as string,
 } as const;

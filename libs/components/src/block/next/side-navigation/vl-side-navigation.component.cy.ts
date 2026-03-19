@@ -63,6 +63,49 @@ const mountSideNavigation = (headingRootSelector = '#story-content-container') =
     `);
 };
 
+const mountSideNavigationMediumSpacing = () => {
+    return cy.mount(html`
+        <div class="vl-grid">
+            <vl-side-navigation-next
+                class="${NAVIGATION_COLUMN_CLASSES}"
+                heading-root-selector="#story-content-container"
+                child-spacing="medium"
+            >
+            </vl-side-navigation-next>
+            <div class="${CONTENT_COLUMN_CLASSES}">${sampleContent}</div>
+        </div>
+    `);
+};
+
+const mountSideNavigationWithCustomTocMediumSpacing = () => {
+    return cy.mount(html`
+        <div class="vl-grid">
+            <vl-side-navigation-next class="${NAVIGATION_COLUMN_CLASSES}" child-spacing="medium">
+                <ul>
+                    <li>
+                        <div class="nav-item-wrapper">
+                            <vl-link href="#custom-section-1">Section 1</vl-link>
+                        </div>
+                        <ul>
+                            <li>
+                                <vl-link href="#custom-section-1-1">Section 1.1</vl-link>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </vl-side-navigation-next>
+            <div class="${CONTENT_COLUMN_CLASSES}">
+                <section style="min-height: 400px; margin-top: 100px;">
+                    <vl-title type="h2" id="custom-section-1">Section 1</vl-title>
+                </section>
+                <section style="min-height: 400px;">
+                    <vl-title type="h3" id="custom-section-1-1">Section 1.1</vl-title>
+                </section>
+            </div>
+        </div>
+    `);
+};
+
 const mountSideNavigationWithCustomToc = () => {
     return cy.mount(html`
         <div class="vl-grid">
@@ -324,11 +367,8 @@ describe('cypress-component - block components - vl-side-navigation-next', () =>
         // Click a link and verify scroll behavior is 'auto' (not smooth)
         cy.get('vl-side-navigation-next').shadow().find('nav a[href="#content-3-heading"]').click();
 
-        // Wait for scroll to complete
-        cy.wait(100);
-
         // Verify we scrolled to the heading (scroll happened, just without animation)
-        cy.get('#content-3-heading').then(($el) => {
+        cy.get('#content-3-heading').should(($el) => {
             const rect = $el[0].getBoundingClientRect();
             expect(rect.top).to.be.lessThan(900);
         });
@@ -394,8 +434,6 @@ describe('cypress-component - block components - vl-side-navigation-next', () =>
             .should('have.focus');
         cy.press(Cypress.Keyboard.Keys.SPACE);
 
-        cy.wait(50);
-
         // Verify overlay is open and ARIA: visible, focusable, role dialog, aria-modal
         cy.get('vl-side-navigation-next').shadow().find('table-of-contents').should('not.have.attr', 'hidden');
         cy.get('vl-side-navigation-next')
@@ -430,7 +468,6 @@ describe('cypress-component - block components - vl-side-navigation-next', () =>
         mountSideNavigation();
 
         cy.get('#content-2-heading').scrollIntoView();
-        cy.wait(100);
 
         cy.get('vl-side-navigation-next').shadow().find('nav a[href="#content-2-heading"].active').should('exist');
 
@@ -443,9 +480,7 @@ describe('cypress-component - block components - vl-side-navigation-next', () =>
 
         cy.get('vl-side-navigation-next').shadow().find('nav a[href="#content-3-heading"]').click();
 
-        cy.wait(100);
-
-        cy.get('#content-3-heading').then(($el) => {
+        cy.get('#content-3-heading').should(($el) => {
             const rect = $el[0].getBoundingClientRect();
             expect(rect.top).to.be.lessThan(900);
         });
@@ -487,9 +522,7 @@ describe('cypress-component - block components - vl-side-navigation-next', () =>
         cy.get('vl-side-navigation-next').shadow().find('nav a[href="#content-3-heading"]').should('have.focus');
         cy.press(Cypress.Keyboard.Keys.ENTER);
 
-        cy.wait(300);
-
-        cy.get('#content-3-heading').then(($el) => {
+        cy.get('#content-3-heading').should(($el) => {
             const rect = $el[0].getBoundingClientRect();
             expect(rect.top).to.be.lessThan(900);
         });
@@ -544,9 +577,7 @@ describe('cypress-component - block components - vl-side-navigation-next - with 
 
         cy.get('vl-side-navigation-next').find('vl-link[href="#custom-aanvraag"]').click();
 
-        cy.wait(100);
-
-        cy.get('#custom-aanvraag').then(($el) => {
+        cy.get('#custom-aanvraag').should(($el) => {
             const rect = $el[0].getBoundingClientRect();
             expect(rect.top).to.be.lessThan(900);
         });
@@ -556,7 +587,6 @@ describe('cypress-component - block components - vl-side-navigation-next - with 
         mountSideNavigationWithCustomToc();
 
         cy.get('#custom-aanvraag').scrollIntoView();
-        cy.wait(100);
 
         cy.get('vl-side-navigation-next').find('vl-link[href="#custom-aanvraag"].active').should('exist');
     });
@@ -660,7 +690,6 @@ describe('cypress-component - block components - vl-side-navigation-next - with 
         cy.press(Cypress.Keyboard.Keys.TAB);
         cy.get('vl-side-navigation-next').find('vl-link[href="#custom-vereisten"]').shadow().find('a').focus();
         cy.press(Cypress.Keyboard.Keys.ENTER);
-        cy.wait(150);
 
         cy.document().then((doc) => {
             const active = doc.activeElement;
@@ -690,7 +719,6 @@ describe('cypress-component - block components - vl-side-navigation-next - with 
         cy.press(Cypress.Keyboard.Keys.TAB);
         cy.get('vl-side-navigation-next').find('vl-link[href="#custom-aanvraag"]').shadow().find('a').focus();
         cy.press(Cypress.Keyboard.Keys.SPACE);
-        cy.wait(150);
 
         cy.document().then((doc) => {
             const active = doc.activeElement;
@@ -797,8 +825,6 @@ describe('cypress-component - block components - vl-side-navigation-next - compa
             .should('have.focus');
         cy.press(Cypress.Keyboard.Keys.SPACE);
 
-        cy.wait(50);
-
         // Verify overlay open and ARIA
         cy.get('vl-side-navigation-next').shadow().find('table-of-contents').should('not.have.attr', 'hidden');
         cy.get('vl-side-navigation-next')
@@ -839,8 +865,7 @@ describe('cypress-component - block components - vl-side-navigation-next - compa
         cy.press(Cypress.Keyboard.Keys.TAB); // focus close button
         cy.get('vl-side-navigation-next').shadow().find('#close-button').shadow().find('button').should('have.focus');
         cy.press(Cypress.Keyboard.Keys.SPACE);
-        // Close moves focus to show-toc-button (async); no TAB so focus stays there
-        cy.wait(50);
+        // Close moves focus to show-toc-button (async)
         cy.get('vl-side-navigation-next')
             .shadow()
             .find('#show-toc-button')
@@ -1108,11 +1133,54 @@ describe('cypress-component - block components - vl-side-navigation-next - exclu
             $el[0].setAttribute('exclude-selectors', '.skip-this-section');
         });
 
-        // Wait for the component to update
-        cy.wait(100);
-
         // Now the excluded heading should not be visible
         cy.get('vl-side-navigation-next').shadow().find('nav a[href="#excluded-heading-1"]').should('not.exist');
         cy.get('vl-side-navigation-next').shadow().find('nav a[href="#visible-heading-1"]').should('exist');
+    });
+});
+
+describe('child-spacing attribuut', () => {
+    it('child-links krijgen 1.3rem verticale marge wanneer child-spacing op medium staat', () => {
+        mountSideNavigationMediumSpacing();
+
+        // expand a parent by clicking the toggle button
+        cy.get('vl-side-navigation-next')
+            .shadow()
+            .find('button.toggle-button')
+            .first()
+            .click();
+
+        // The .nav-item-wrapper gets the spacing (the a/button inside it is reset to margin: 0)
+        cy.get('vl-side-navigation-next')
+            .shadow()
+            .find('nav li ul li .nav-item-wrapper')
+            .first()
+            .should('have.css', 'margin-top', '13px'); // 1.3rem * 10px root font = 13px
+    });
+
+    it('child-links hebben geen extra marge wanneer child-spacing op small staat', () => {
+        mountSideNavigation();
+
+        cy.get('vl-side-navigation-next')
+            .shadow()
+            .find('button.toggle-button')
+            .first()
+            .click();
+
+        cy.get('vl-side-navigation-next')
+            .shadow()
+            .find('nav li ul li .nav-item-wrapper')
+            .first()
+            .should('have.css', 'margin-top', '0px');
+    });
+
+    it('child-links in custom TOC krijgen verticale marge wanneer child-spacing op medium staat', () => {
+        mountSideNavigationWithCustomTocMediumSpacing();
+
+        // The nested li inside the custom TOC should have margin-top of 1.3rem (13px at 10px root font)
+        cy.get('vl-side-navigation-next')
+            .find('ul ul li') // light DOM — no .shadow() needed
+            .first()
+            .should('have.css', 'margin-top', '13px'); // 1.3rem * 10px root font = 13px
     });
 });

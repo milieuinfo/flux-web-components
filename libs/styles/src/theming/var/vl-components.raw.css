@@ -3,6 +3,7 @@
     --vl-side-sheet-width-mobile: calc(100vw - 56px);
 
     --vl-side-navigation-top: 50px;
+    --vl-side-navigation--child-spacing-margin: 1.3rem;
 
     --vl-toaster-width: 30rem;
 
