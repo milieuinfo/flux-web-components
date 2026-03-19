@@ -10,6 +10,18 @@ De defaults zijn:
 - autoRegisterStyles: true
 - logWebComponentRegistration: false
 - logTreeshakeRegistration: false
+- prozaDomain: undefined
+
+
+## Proza domein
+
+Door `prozaDomain` in te stellen hoef je het domein niet meer op elke `vl-proza-message`,
+`vl-proza-message-preloader` of `vlProza` directive aanroep mee te geven.
+Indien er geen expliciet domein wordt meegegeven, wordt het `prozaDomain` uit de `FluxConfig` gebruikt.
+
+```
+FluxConfig.setPreferences({ prozaDomain: 'mijn-domein' });
+```
 
 
 ## Afname via de npm-packages

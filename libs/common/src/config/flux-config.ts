@@ -2,6 +2,7 @@ export interface Preferences {
     autoRegisterStyles?: boolean;
     logWebComponentRegistration?: boolean;
     logTreeshakeRegistration?: boolean;
+    prozaDomain?: string;
 }
 
 const defaultPreferences = (): Preferences => ({

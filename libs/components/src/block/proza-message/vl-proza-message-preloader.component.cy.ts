@@ -1,4 +1,4 @@
-import { registerWebComponents } from '@domg-wc/common';
+import { FluxConfig, registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import { VlProzaMessagePreloader } from './vl-proza-message-preloader.component';
 import { ProzaRestClient } from './vl-proza-rest-client.util';
@@ -10,6 +10,8 @@ describe('cypress-component - block components - vl-proza-message-preloader', ()
 
     beforeEach(() => {
         VlProzaMessagePreloader.__cache = {};
+        // setPreferences() kan maar 1x aangeroepen worden, reset nodig tussen testen
+        FluxConfig['preferences'] = null;
 
         cy.spy(ProzaRestClient, 'getMessages').as('getMessagesSpy');
 
@@ -57,5 +59,25 @@ describe('cypress-component - block components - vl-proza-message-preloader', ()
             cy.get('@getMessagesSpy').should('have.been.calledOnce');
             cy.get('@getMessagesSpy').should('have.been.calledWith', mockDomain, null);
         });
+    });
+
+    it('should use prozaDomain from FluxConfig when no domain attribute is set', () => {
+        FluxConfig.setPreferences({ prozaDomain: mockDomain });
+
+        cy.mount(
+            html`
+                <div>
+                    <vl-proza-message-preloader></vl-proza-message-preloader>
+                </div>
+            `
+        );
+
+        cy.get('vl-proza-message-preloader').then((el) => {
+            const preloader = el[0] as VlProzaMessagePreloader;
+            expect(preloader['_domain']).to.equal(mockDomain);
+        });
+
+        cy.get('@getMessagesSpy').should('have.been.calledOnce');
+        cy.get('@getMessagesSpy').should('have.been.calledWith', mockDomain, null);
     });
 });
