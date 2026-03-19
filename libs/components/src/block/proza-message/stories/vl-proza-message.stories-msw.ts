@@ -61,6 +61,41 @@ export const prozaMessageMockDomainData = [
     }),
 ];
 
+export const prozaDirectiveMockData = [
+    http.get('proza/domein/mockdomain/alert.titel', async () => {
+        return HttpResponse.json({
+            code: 'alert.titel',
+            tekst: '<p>Opgelet! Dit is een belangrijk bericht.</p>',
+        });
+    }),
+    http.get('proza/domein/mockdomain/alert.bericht', async () => {
+        return HttpResponse.json({
+            code: 'alert.bericht',
+            tekst: '<p>Controleer de ingevoerde gegevens aub.</p>',
+        });
+    }),
+    http.get('proza/domein/mockdomain/welkom.titel', async () => {
+        return HttpResponse.json({
+            code: 'welkom.titel',
+            tekst: '<p>Welkom, ${parameter.naam}!</p>',
+        });
+    }),
+    http.get('proza/domein/otherdomain/alert.titel', async () => {
+        return HttpResponse.json({
+            code: 'alert.titel',
+            tekst: '<p>Titel uit een ander domein</p>',
+        });
+    }),
+    http.get('proza/domein/otherdomain/toegelatenoperaties', async () => {
+        return HttpResponse.json({
+            create: false,
+            read: true,
+            update: false,
+            delete: false,
+        });
+    }),
+];
+
 export const prozaMessageMockDomainEditableData = [
     http.get('proza/domein/mockdomaineditable/inline', async () => {
         return HttpResponse.json({

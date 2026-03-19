@@ -1,4 +1,4 @@
-import { BaseHTMLElement, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, FluxConfig, webComponent } from '@domg-wc/common';
 import { ProzaRestClient } from './vl-proza-rest-client.util';
 
 @webComponent('vl-proza-message-preloader')
@@ -23,7 +23,7 @@ export class VlProzaMessagePreloader extends BaseHTMLElement {
     }
 
     get _domain() {
-        return this.getAttribute('domain');
+        return this.getAttribute('domain') || FluxConfig.getPreferences().prozaDomain || null;
     }
 
     get _baseUrl() {
