@@ -48,7 +48,7 @@ const loremIpsumParagraph = html`
 
 export const SideNavigationLayoutDefault = story(
     sideNavigationLayoutArgs,
-    ({ compact, contentBlock, navigationTitle, excludeSelectors }) => {
+    ({ compact, contentBlock, navigationTitle, excludeSelectors, childSpacing }) => {
         return html`
             <vl-side-navigation-layout-next
                 ?compact=${compact}
@@ -56,6 +56,7 @@ export const SideNavigationLayoutDefault = story(
                 heading-root-selector="#story-default-content"
                 navigation-title=${navigationTitle}
                 exclude-selectors=${excludeSelectors}
+                child-spacing=${childSpacing}
             >
                 <div slot="content">
                     <div id="story-default-content">
@@ -101,7 +102,7 @@ SideNavigationLayoutDefault.storyName = 'vl-side-navigation-layout-next - defaul
 
 export const SideNavigationLayoutWithSteps = story(
     sideNavigationLayoutArgs,
-    ({ compact, contentBlock, maxDepth, excludeSelectors }) => {
+    ({ compact, contentBlock, maxDepth, excludeSelectors, childSpacing }) => {
         return html`
             <vl-side-navigation-layout-next
                 ?compact=${compact}
@@ -110,6 +111,7 @@ export const SideNavigationLayoutWithSteps = story(
                 heading-root-selector="#steps-content-container"
                 max-depth="0"
                 exclude-selectors=${excludeSelectors}
+                child-spacing=${childSpacing}
             >
                 <div slot="content" id="steps-content-container">
                     <vl-steps>
@@ -181,13 +183,14 @@ SideNavigationLayoutWithSteps.parameters = {
 
 export const SideNavigationLayoutTwoLayouts = story(
     sideNavigationLayoutArgs,
-    ({ compact, contentBlock, excludeSelectors }) => {
+    ({ compact, contentBlock, excludeSelectors, childSpacing }) => {
         return html`
             <vl-side-navigation-layout-next
                 ?compact=${compact}
                 ?content-block=${contentBlock}
                 heading-root-selector="#content-subsidies"
                 exclude-selectors=${excludeSelectors}
+                child-spacing=${childSpacing}
             >
                 <div slot="content">
                     <div id="content-subsidies">
@@ -334,13 +337,14 @@ SideNavigationLayoutTwoLayouts.parameters = {
 
 export const SideNavigationLayoutWithCustomToc = story(
     sideNavigationLayoutArgs,
-    ({ compact, contentBlock, excludeSelectors }) => {
+    ({ compact, contentBlock, excludeSelectors, childSpacing }) => {
         return html`
             <vl-side-navigation-layout-next
                 ?compact=${compact}
                 ?content-block=${contentBlock}
                 heading-root-selector="#story-custom-toc-content"
                 exclude-selectors=${excludeSelectors}
+                child-spacing=${childSpacing}
             >
                 <vl-side-navigation-next slot="navigation">
                     <ul>

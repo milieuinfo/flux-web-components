@@ -52,6 +52,8 @@ export class VlSideNavigationLayoutComponent extends BaseLitElement {
      */
     @property({ type: String, attribute: 'exclude-selectors' })
     excludeSelectors?: string;
+    @property({ type: String, attribute: 'child-spacing' })
+    childSpacing = 'small';
 
     static get styles(): CSSResult[] {
         return [
@@ -111,7 +113,8 @@ export class VlSideNavigationLayoutComponent extends BaseLitElement {
             changedProperties.has('maxLevel') ||
             changedProperties.has('minLevel') ||
             changedProperties.has('navigationTitle') ||
-            changedProperties.has('excludeSelectors')
+            changedProperties.has('excludeSelectors') ||
+            changedProperties.has('childSpacing')
         ) {
             this.updateNavigationComponents();
         }
@@ -174,6 +177,8 @@ export class VlSideNavigationLayoutComponent extends BaseLitElement {
                 nav.setAttribute('exclude-selectors', this.excludeSelectors);
             }
 
+            nav.setAttribute('child-spacing', this.childSpacing);
+
             this.appendChild(nav);
         } else {
             this.updateNavigationComponents();
@@ -230,6 +235,8 @@ export class VlSideNavigationLayoutComponent extends BaseLitElement {
                 } else {
                     item.removeAttribute('exclude-selectors');
                 }
+
+                item.setAttribute('child-spacing', this.childSpacing);
             }
         });
     }

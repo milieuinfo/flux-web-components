@@ -162,6 +162,21 @@ export const vlSideNavigationLightDomStyles = css`
             margin: 0;
         }
     }
+
+    vl-side-navigation-next[child-spacing="medium"] {
+        ul ul {
+            padding-bottom: 0;
+        }
+
+        li ul li {
+            margin: var(--vl-side-navigation--child-spacing-margin) 0;
+
+            /* reset: li provides the spacing, not the nested .nav-item-wrapper */
+            .nav-item-wrapper {
+                margin: 0;
+            }
+        }
+    }
 `;
 
 const mobileStyles = css`
@@ -394,6 +409,27 @@ export const vlSideNavigationStyles = css`
 
         @media screen and (max-width: ${vlMediaScreenSmall}px) {
             max-height: 60vh;
+        }
+    }
+
+    :host([child-spacing="medium"]) nav {
+        ul ul {
+            padding-bottom: 0;
+
+            a,
+            button {
+                margin: var(--vl-side-navigation--child-spacing-margin) 0;
+            }
+        }
+
+        li ul li .nav-item-wrapper {
+            margin: var(--vl-side-navigation--child-spacing-margin) 0;
+
+            /* reset: wrapper provides the spacing, not the individual a/button */
+            a,
+            button {
+                margin: 0;
+            }
         }
     }
 
