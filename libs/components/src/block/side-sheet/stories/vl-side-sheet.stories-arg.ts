@@ -1,5 +1,5 @@
 import { ArgTypes } from '@storybook/web-components-vite';
-import { CONTROLS, defaultArgs, defaultArgTypes, getSelectControlOptions, TYPES } from '@resources/utils-storybook';
+import { CATEGORIES, CONTROLS, defaultArgs, defaultArgTypes, getSelectControlOptions, TYPES } from '@resources/utils-storybook';
 
 export const sideSheetArgs = {
     ...defaultArgs,
@@ -22,6 +22,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         description: 'Attribute wordt gebruikt om aan te duiden dat swipe functie toegelaten is.',
         table: {
             type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: String(sideSheetArgs.enableSwipe) },
         },
     },
@@ -30,6 +31,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         description: 'Attribute om de side-sheet aan de linkerrand te positioneren.',
         table: {
             type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: String(sideSheetArgs.left) },
         },
     },
@@ -38,6 +40,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         description: 'Attribute om de side-sheet aan de rechterrand te positioneren. Dit is de standaard instelling.',
         table: {
             type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: String(sideSheetArgs.right) },
         },
     },
@@ -46,6 +49,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         description: 'Attribute wordt gebruikt om aan te duiden dat de side-sheet absoluut gepositioneerd wordt.',
         table: {
             type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: String(sideSheetArgs.absolute) },
         },
     },
@@ -54,6 +58,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         description: 'Duidt aan dat de side-sheet open is.',
         table: {
             type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: String(sideSheetArgs.open) },
         },
     },
@@ -62,6 +67,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         description: 'Attribute wordt gebruikt om de toggle knop tekst te wijzigen.',
         table: {
             type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: sideSheetArgs.toggleText },
         },
     },
@@ -70,6 +76,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         description: 'Attribute wordt gebruikt om de native tooltip te bepalen.',
         table: {
             type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: sideSheetArgs.tooltipText },
         },
     },
@@ -79,6 +86,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
             'Dit vervangt zowel open & close icon door 1 custom icon. \n Standaard wordt afhankelijk van de positie van de side-sheet een pijltje getoond dat aanduidt of de side-sheet open of dicht is.',
         table: {
             type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: sideSheetArgs.customIcon },
         },
     },
@@ -89,6 +97,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         options: ['before', 'after'],
         table: {
             type: { summary: getSelectControlOptions(['before', 'after']) },
+            category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: sideSheetArgs.iconPlacement },
         },
     },
@@ -97,6 +106,7 @@ export const sideSheetArgTypes: ArgTypes<typeof sideSheetArgs> = {
         description: 'Toggle knop verbergen.',
         table: {
             type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: String(sideSheetArgs.hideToggleButton) },
         },
     },

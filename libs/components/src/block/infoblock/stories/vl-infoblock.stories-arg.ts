@@ -1,4 +1,4 @@
-import { CONTROLS, defaultArgs, defaultArgTypes, getSelectControlOptions, TYPES } from '@resources/utils-storybook';
+import { CATEGORIES, CONTROLS, defaultArgs, defaultArgTypes, getSelectControlOptions, TYPES } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components-vite';
 
 export const infoblockArgs = {
@@ -20,6 +20,7 @@ export const infoblockArgTypes: ArgTypes<typeof infoblockArgs> = {
             type: {
                 summary: getSelectControlOptions(['contact', 'publications', 'faq', 'news', 'timeline', 'question']),
             },
+            category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: infoblockArgs.type },
         },
     },
@@ -28,6 +29,7 @@ export const infoblockArgTypes: ArgTypes<typeof infoblockArgs> = {
         description: 'Attribuut dat wordt gebruikt om de titel van de infoblock te zetten.',
         table: {
             type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: infoblockArgs.title },
         },
     },
@@ -42,6 +44,7 @@ export const infoblockArgTypes: ArgTypes<typeof infoblockArgs> = {
             'Attribuut dat wordt gebruikt om een icoon vooraan aan de titel toe te voegen. Het icoon kan gekozen worden uit de lijst op https://overheid.vlaanderen.be/webuniversum/v3/documentation/atoms/vl-ui-icon.',
         table: {
             type: { summary: getSelectControlOptions(['calendar', 'programming-bug', 'key']) },
+            category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: infoblockArgs.icon },
         },
     },
@@ -49,6 +52,7 @@ export const infoblockArgTypes: ArgTypes<typeof infoblockArgs> = {
         name: 'content (for demo purposes)',
         table: {
             type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
         },
     },
 };

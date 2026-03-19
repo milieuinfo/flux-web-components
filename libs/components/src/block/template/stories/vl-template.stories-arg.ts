@@ -1,4 +1,4 @@
-import { defaultArgs, defaultArgTypes } from '@resources/utils-storybook';
+import { CATEGORIES, defaultArgs, defaultArgTypes } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components-vite';
 
 export const templateArgs = {
@@ -14,6 +14,7 @@ export const templateArgTypes: ArgTypes<typeof templateArgs> = {
         description: 'Attribuut wordt gebruikt om ervoor te zorgen dat de content verticaal gecentreerd wordt.',
         table: {
             type: { summary: 'boolean' },
+            category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: 'false' },
         },
     },
@@ -22,6 +23,7 @@ export const templateArgTypes: ArgTypes<typeof templateArgs> = {
         description: 'Attribuut wordt gebruikt om ervoor te zorgen dat de content 100% zal innemen.',
         table: {
             type: { summary: 'boolean' },
+            category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: 'false' },
         },
     },

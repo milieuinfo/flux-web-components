@@ -1,4 +1,4 @@
-import { defaultArgs, defaultArgTypes } from '@resources/utils-storybook';
+import { CATEGORIES, defaultArgs, defaultArgTypes } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components-vite';
 
 export const typographyArgs = {
@@ -16,6 +16,7 @@ export const typographyArgTypes: ArgTypes<typeof typographyArgs> = {
         },
         table: {
             type: { summary: 'string' },
+            category: CATEGORIES.ATTRIBUTES,
         },
     },
 };
