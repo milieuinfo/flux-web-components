@@ -192,7 +192,19 @@ export class VlButtonComponent extends BaseLitElement {
                               | 'tree'
                               | 'grid'
                               | 'dialog')
-                        : undefined
+                        : undefined,
+                )}
+                aria-current=${ifDefined(
+                    this.hasAttribute('aria-current')
+                        ? (this.getAttribute('aria-current') as
+                              | 'false'
+                              | 'true'
+                              | 'page'
+                              | 'step'
+                              | 'location'
+                              | 'date'
+                              | 'time')
+                        : undefined,
                 )}
             >
                 ${positionIconBefore ? this.renderIcon() : nothing}

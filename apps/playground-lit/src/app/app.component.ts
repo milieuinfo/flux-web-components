@@ -1,451 +1,203 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { VlButtonComponent } from '@domg-wc/components/atom';
-import { VlPopoverActionComponent, VlPopoverActionListComponent, VlPopoverComponent } from '@domg-wc/components/block';
 import { VlHeader } from '@domg-wc/components/compliance';
-import { vlMediaScreenMedium } from '@domg-wc/styles';
+import { VlFooter } from '@domg-wc/components/compliance/next';
+import { VlInputFieldComponent } from '@domg-wc/components/form';
+import { vlResetStyles } from '@domg-wc/styles';
 import { html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
+import { VlDashboardComponent } from './vl-dashboard.component';
+import { VlNavLinkComponent } from './vl-nav-link.component';
 
 @customElement('app-component')
 export class AppComponent extends LitElement {
     static {
-        registerWebComponents([VlHeader, VlPopoverComponent, VlPopoverActionListComponent, VlPopoverActionComponent]);
+        registerWebComponents([VlHeader, VlFooter, VlDashboardComponent, VlNavLinkComponent, VlInputFieldComponent]);
     }
 
-    firstUpdated(): void {
-        const openMobileNavigationButton = this.querySelector<VlButtonComponent>('#vl-app-open-mobile-navigation-button');
-        const closeMobileNavigationButton = this.querySelector<VlButtonComponent>('#vl-app-close-mobile-navigation-button');
-        const toggleNavigationButton = this.querySelector<VlButtonComponent>('#vl-app-toggle-navigation-button');
-        const navigation = this.querySelector('.vl-app__navigation');
-        openMobileNavigationButton?.addEventListener('click', () => {
-            navigation?.classList.add('vl-app__navigation--mobile');
-            closeMobileNavigationButton?.shadowRoot?.querySelector('button')?.focus();
-        });
-        closeMobileNavigationButton?.addEventListener('click', () => {
-            navigation?.classList.remove('vl-app__navigation--mobile');
-            openMobileNavigationButton?.shadowRoot?.querySelector('button')?.focus();
-        });
-        toggleNavigationButton?.addEventListener('click', () => {
-            navigation?.classList.toggle('vl-app__navigation--collapsed');
-            this.setAttribute('aria-expanded', navigation?.classList.contains('vl-app__navigation--collapsed') ? 'false' : 'true');
+    static get styles() {
+        return [vlResetStyles];
+    }
+
+    @property({type: Boolean, attribute: false})
+    navCollapsed = false;
+
+
+    connectedCallback(): void {
+        super.connectedCallback();
+
+        this.addEventListener('vl-toggle-navigation', (event: CustomEvent) => {
+            const collapsed = event.detail.collapsed;
+            this.navCollapsed = collapsed;
         });
     }
 
     render() {
         return html`
             <style>
-                :root {
-                    --vl-header-height: 43px;
-                    --vl-footer-height: 128px;
-                }
-
-                /* App layout */
-                .vl-app {
-                    display: flex;
-                    flex-direction: row;
-                    height: calc(100vh - var(--vl-header-height) - var(--vl-footer-height));
-                }
-                @media screen and (max-width: ${vlMediaScreenMedium}px) {
-                    .vl-app {
-                        display: block;
-                        height: 100%;
-                    }
-                }
-
-                /* Common Header Styles */
-                .vl-app__navigation-header,
-                .vl-app__content-header {
-                    min-height: 8.8rem;
-                    padding: var(--vl-spacing--normal);
-                    border-bottom: 1px solid var(--vl-color--border-default);
-                    display: flex;
-                    align-items: center;
-                    gap: var(--vl-spacing--xsmall);
-                }
-
-                /* Navigation Panel */
-                .vl-app__navigation {
-                    flex: 0 1 300px;
-                    background-color: var(--vl-color--background-subtle);
-                    border-right: 1px solid var(--vl-color--border-default);
-                    display: grid;
-                    grid-template-areas:
-                        'navigation-header'
-                        'navigation'
-                        'navigation-footer';
-                    grid-template-columns: 1fr;
-                    grid-template-rows: auto 1fr auto;
-
-                    nav {
-                        grid-area: navigation;
-                        padding: var(--vl-spacing--medium);
-                        overflow-y: auto;
-                        max-height: 100%;
-                    }
-                    nav ul.vl-stacked-small {
-                        gap: var(--vl-spacing--xsmall);
-                    }
-                    nav > ul > li.vl-group > vl-button:first-child {
-                        flex: 1;
-
-                        &::part(button) {
-                            justify-content: flex-start;
-                        }
-                    }
-
-                    @media screen and (max-width: ${vlMediaScreenMedium}px) {
-                        display: none;
-                    }
-
-                    &.vl-app__navigation--mobile {
-                        @media screen and (max-width: ${vlMediaScreenMedium}px) {
-                            display: flex;
-                            flex-direction: column;
-                            height: calc(100vh - var(--vl-header-height));
-                            position: fixed;
-                            top: var(--vl-header-height);
-                            left: 0;
-                            width: 100%;
-
-                            + .vl-app__content {
-                                display: none;
-                            }
-                        }
-                    }
-
-                    &.vl-app__navigation--collapsed {
-                        @media screen and (min-width: ${vlMediaScreenMedium}px) {
-                            flex-basis: 4.1rem;
-                            overflow: hidden;
-
-                            vl-button::part(button) {
-                                font-size: 0;
-                                width: 100%;
-                                padding-inline: 0;
-                                justify-content: center !important;
-                            }
-                            vl-button::part(icon) {
-                                font-size: var(--vl-font-size);
-                            }
-                            nav {
-                                padding-inline: 0.3rem;
-                                text-align: center;
-                            }
-                            .vl-app__navigation-header {
-                                padding-inline: 0.8rem;
-                            }
-                            .vl-app__navigation-header-user > span {
-                                display: none;
-                            }
-                            .vl-app__navigation-header-user > vl-badge {
-                                width: 2.4rem;
-                                height: 2.4rem;
-                                font-size: 0.6em;
-                            }
-                            li > * {
-                                display: none;
-                            }
-                            li > vl-button:first-child {
-                                display: block;
-                            }
-                            #vl-app-toggle-navigation-button {
-                                display: block;
-                                transform: rotate(180deg);
-                            }
-                        }
-                    }
-                }
-                .vl-app__navigation-header {
-                    grid-area: navigation-header;
-                    font-size: var(--vl-font-size--large);
-                    font-weight: 500;
-                    justify-content: space-between;
-                }
-                .vl-app__navigation-header-user {
-                    display: flex;
-                    align-items: center;
-                    gap: var(--vl-spacing--xsmall);
-                }
-                .vl-app__navigation-footer {
-                    grid-area: navigation-footer;
-                    padding: 5px;
-
-                    vl-button::part(button) {
-                        justify-content: flex-start;
-                    }
-
-                    @media screen and (max-width: ${vlMediaScreenMedium}px) {
-                        display: none;
-                    }
-                }
-                .vl-app__navigation-open-mobile,
-                .vl-app__navigation-close-mobile {
-                    display: none;
-
-                    @media screen and (max-width: ${vlMediaScreenMedium}px) {
-                        display: block;
-                    }
-                }
-
-                /* Content Panel */
-                .vl-app__content {
-                    flex: 1;
-                    height: 100%;
-                    display: flex;
-                    flex-direction: column;
-                    min-width: 0; /* allow flex children to shrink */
-                }
-                .vl-app__content-header {
-                    justify-content: flex-end;
-                    flex-wrap: wrap;
-                }
-                .vl-app__content-header-title,
-                .vl-app__content-header-actions {
-                    display: flex;
-                    gap: var(--vl-spacing--xsmall);
-                    align-items: center;
-                }
-                .vl-app__content-header-title {
-                    flex: 1;
-                    min-width: 0; /* Important for flex and ellipsis */
-                }
-                .vl-app__content-header-title vl-title::part(h1) {
-                    font-size: var(--vl-font-size--large);
-                    word-break: break-word;
-                }
-                .vl-app__content-header-actions {
-                    flex-wrap: wrap;
-                }
-                .vl-app__content-area {
-                    flex: 1;
-                    min-height: 0; /* allow flex children to shrink */
-                    overflow-x: hidden;
-                    overflow-y: auto;
-
-                    &.vl-app__content-area--padded {
-                        padding: var(--vl-spacing--medium);
-                    }
-                }
-
-                /* Component overrides */
-                vl-badge {
-                    width: 2.4rem;
-                    height: 2.4rem;
+                /* TODO: eigen component van maken */
+                button-badge {
+                    min-width: 1.8rem;
+                    max-width: 50%;
+                    height: 1.8rem;
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    border-radius: 50%;
-                    background-color: var(--vl-color--background-default);
-                    border: 1px solid var(--vl-color--border-default);
+                    border-radius: 0.9rem;
+                    color: white;
+                    background-color: var(--vl-color--background-error);
+                    border: 1px solid var(--vl-color--background-error);
+                    padding: 0 0.3rem;
+                    font-size: 0.6em;
+                    font-weight: bold;
                 }
-                vl-badge[large] {
-                    width: 4.5rem;
-                    height: 4.5rem;
+
+                /* Beschikbare variabelen */
+                :root {
+                    --vl-dashboard-header-height: 43px;
+                    --vl-dashboard-footer-height: 128px; /* 35px in het geval dat de footer ingeklapt kan worden */
+                    --vl-dashboard-navigation-width: 300px;
+                    --vl-dashboard-title-min-width: 300px;
                 }
             </style>
+            <vl-dashboard
+                user-name="Bedrijfsnaam"
+                user-icon="building-big"
+                page-icon="places-home"
+                page-title="Overzicht"
+                content-max-width="1280px"
+            >
+                <!-- Slot header -->
+                <vl-header
+                    development
+                    identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb"
+                    simple
+                    slot="header"
+                ></vl-header>
 
-            <div class="vl-app">
-                <!-- header is altijd sticky bovenaan -->
-                <vl-header development identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb" simple></vl-header>
-                <!-- navigation is altijd 100% hoog tussen header en footer -->
-                <!-- navigation kan ingeklapt worden tot ongeveer breedte van icon-only knop met wat margin -->
-                <!-- navigation verdwijnt in hamburger menu op mobile -->
-                <!-- mobiele navigation neemt volledig scherm in onder de header wanneer opengeklapt -->
-                <div class="vl-app__navigation">
-                    <div class="vl-app__navigation-header">
-                        <div class="vl-app__navigation-header-user">
-                            <!-- vl-badge: te ontwikkelen -->
-                            <vl-badge large>
-                                <!-- initialen of logo -->
-                                <vl-icon icon="building-big"></vl-icon>
-                            </vl-badge>
-                            <span>Bedrijfsnaam</span>
-                        </div>
-                        <div class="vl-app__navigation-close-mobile">
-                            <vl-button id="vl-app-close-mobile-navigation-button" icon="close" ghost></vl-button>
-                        </div>
-                    </div>
-                    <nav id="vl-app-navigation">
-                        <ul class="vl-stacked vl-stacked-small">
-                            <li class="vl-group vl-group--align-center">
-                                <!-- actieve item krijgt tertiary attribuut en aria-current -->
-                                <!-- werkt aria-current op vl-button? of moet dit naar het li-element? -->
-                                <vl-button icon="places-home" tertiary aria-current="page" block>Overzicht</vl-button>
-                            </li>
-                            <li class="vl-group vl-group--align-center">
-                                <!-- een nav item kan een icon-only actie knop hebben -->
-                                <vl-button icon="list" ghost block>[beheer items]</vl-button>
-                                <vl-button icon="plus-circle-filled" label="[x] toevoegen" ghost></vl-button>
-                            </li>
-                            <li class="vl-group vl-group--align-center">
-                                <!-- een nav item kan een badge hebben -->
-                                <!-- vl-badge: te ontwikkelen -->
-                                <!-- aria-describedby support, hoe oplossen in shadow DOM? -->
-                                <vl-button icon="bell" ghost aria-describedby="notifications" block
-                                    >Notificaties</vl-button
-                                >
-                                <vl-badge id="notifications">8</vl-badge>
-                            </li>
+                <!-- Slot nav-main -->
+                <!-- Gebruik ofwel iconen voor àlle knoppen, ofwel geen iconen -->
+                <!-- href wordt aangeraden voor navigatie -->
+                <vl-nav-link slot="nav-main" ?collapsed=${this.navCollapsed} href="/" icon="places-home" active>
+                    Overzicht
+                </vl-nav-link>
+                <vl-nav-link slot="nav-main" ?collapsed=${this.navCollapsed} href="/" icon="list">
+                    Beheer items
+                    <!-- Een nav link kan een icon-only actie knop hebben -->
+                    <vl-button icon="plus-circle-filled" label="[x] toevoegen" ghost slot="link-action"></vl-button>
+                </vl-nav-link>
+                <vl-nav-link slot="nav-main" ?collapsed=${this.navCollapsed} href="/" icon="bell">
+                    Notificaties
+                    <!-- Een nav link kan een badge hebben -->
+                    <button-badge slot="link-badge">1</button-badge>
+                </vl-nav-link>
+                <vl-nav-link slot="nav-main" ?collapsed=${this.navCollapsed} href="/" icon="paperplane">
+                    Item 4
+                </vl-nav-link>
+                <vl-nav-link slot="nav-main" ?collapsed=${this.navCollapsed} href="/" icon="paperplane">
+                    Item 5
+                </vl-nav-link>
+                <vl-nav-link slot="nav-main" ?collapsed=${this.navCollapsed} href="/" icon="paperplane">
+                    Item 6
+                </vl-nav-link>
+                <vl-nav-link slot="nav-main" ?collapsed=${this.navCollapsed} href="/" icon="paperplane">
+                    Item 7
+                </vl-nav-link>
+                <vl-nav-link slot="nav-main" ?collapsed=${this.navCollapsed} href="/" icon="paperplane">
+                    Item 8
+                </vl-nav-link>
+                <vl-nav-link slot="nav-main" ?collapsed=${this.navCollapsed} href="/" icon="paperplane">
+                    Item 9
+                </vl-nav-link>
+                <vl-nav-link slot="nav-main" ?collapsed=${this.navCollapsed} href="/" icon="paperplane">
+                    Item 10
+                </vl-nav-link>
+                <vl-nav-link slot="nav-main" ?collapsed=${this.navCollapsed} href="/" icon="paperplane">
+                    Item 11
+                </vl-nav-link>
+                <vl-nav-link slot="nav-main" ?collapsed=${this.navCollapsed} href="/" icon="paperplane">
+                    Item 12
+                </vl-nav-link>
+                <vl-nav-link slot="nav-main" ?collapsed=${this.navCollapsed} href="/" icon="paperplane">
+                    Item 13
+                </vl-nav-link>
+                <vl-nav-link slot="nav-main" ?collapsed=${this.navCollapsed} href="/" icon="paperplane">
+                    Item 14
+                </vl-nav-link>
+                <vl-nav-link slot="nav-main" ?collapsed=${this.navCollapsed} href="/" icon="paperplane">
+                    Item 15
+                </vl-nav-link>
 
-                            <li class="vl-group vl-group--align-center">
-                                <vl-button icon="places-home" ghost block>Item 4</vl-button>
-                            </li>
-                            <li class="vl-group vl-group--align-center">
-                                <vl-button icon="places-home" ghost block>Item 5</vl-button>
-                            </li>
-                            <li class="vl-group vl-group--align-center">
-                                <vl-button icon="places-home" ghost block>Item 6</vl-button>
-                            </li>
-                            <li class="vl-group vl-group--align-center">
-                                <vl-button icon="places-home" ghost block>Item 7</vl-button>
-                            </li>
-                            <li class="vl-group vl-group--align-center">
-                                <vl-button icon="places-home" ghost block>Item 8</vl-button>
-                            </li>
-                            <li class="vl-group vl-group--align-center">
-                                <vl-button icon="places-home" ghost block>Item 9</vl-button>
-                            </li>
-                            <li class="vl-group vl-group--align-center">
-                                <vl-button icon="places-home" ghost block>Item 10</vl-button>
-                            </li>
-                            <li class="vl-group vl-group--align-center">
-                                <vl-button icon="places-home" ghost block>Item 11</vl-button>
-                            </li>
-                            <li class="vl-group vl-group--align-center">
-                                <vl-button icon="places-home" ghost block>Item 12</vl-button>
-                            </li>
-                            <li class="vl-group vl-group--align-center">
-                                <vl-button icon="places-home" ghost block>Item 13</vl-button>
-                            </li>
-                            <li class="vl-group vl-group--align-center">
-                                <vl-button icon="places-home" ghost block>Item 14</vl-button>
-                            </li>
-                            <li class="vl-group vl-group--align-center">
-                                <vl-button icon="places-home" ghost block>Item 15</vl-button>
-                            </li>
-                            <li class="vl-group vl-group--align-center">
-                                <vl-button icon="places-home" ghost block>Item 16</vl-button>
-                            </li>
-                            <li class="vl-group vl-group--align-center">
-                                <vl-button icon="places-home" ghost block>Item 17</vl-button>
-                            </li>
-                            <li class="vl-group vl-group--align-center">
-                                <vl-button icon="places-home" ghost block>Item 18</vl-button>
-                            </li>
-                            <li class="vl-group vl-group--align-center">
-                                <vl-button icon="places-home" ghost block>Item 19</vl-button>
-                            </li>
-                            <li class="vl-group vl-group--align-center">
-                                <vl-button icon="places-home" ghost block>Item 20</vl-button>
-                            </li>
-                        </ul>
-                    </nav>
-                    <div class="vl-app__navigation-footer">
-                        <!-- nakijken of hier aria-controls en aria-expanded op moeten -->
-                        <vl-button
-                            id="vl-app-toggle-navigation-button"
-                            icon="nav-left-double"
-                            ghost
-                            block
-                            aria-expanded="true"
-                            aria-controls="vl-app-navigation"
-                            >Paneel inklappen</vl-button
-                        >
-                    </div>
+                <!-- Slot nav-utils -->
+                <vl-nav-link slot="nav-utils" ?collapsed=${this.navCollapsed} href="/" icon="inbox"
+                    >Indienen
+                    <button-badge slot="link-badge">999</button-badge>
+                </vl-nav-link>
+
+                <!-- Slot header-actions -->
+                <div slot="header-actions" class="vl-group vl-group--input-group">
+                    <vl-input-field
+                        name="search"
+                        id="search"
+                        input-group
+                        placeholder="Zoek op deze pagina"
+                    ></vl-input-field>
+                    <vl-button tertiary label="Zoeken" icon="search" input-group></vl-button>
                 </div>
-                <!-- content is altijd 100% hoog tussen header en footer -->
-                <!-- content is altijd 100% breed naast navigation -->
-                <main class="vl-app__content">
-                    <div class="vl-app__content-header">
-                        <div class="vl-app__content-header-title">
-                            <div class="vl-app__navigation-open-mobile">
-                                <vl-button id="vl-app-open-mobile-navigation-button" icon="menu" ghost></vl-button>
-                            </div>
-                            <vl-icon icon="places-home" large></vl-icon>
-                            <vl-title type="h1" no-space-bottom>Page title</vl-title>
-                        </div>
-                        <!-- een pagina header kan acties hebben of een search balk -->
-                        <div class="vl-app__content-header-actions">
-                            <!-- zoeken -->
-                            <div class="vl-group vl-group--input-group">
-                                <vl-input-field
-                                    name="search"
-                                    id="search"
-                                    input-group
-                                    placeholder="Zoek op deze pagina"
-                                ></vl-input-field>
-                                <vl-button tertiary label="Zoeken" icon="search" input-group></vl-button>
-                            </div>
-                            <!-- acties -->
-                            <vl-button icon="add" secondary>Nieuw item</vl-button>
-                            <vl-button icon="bin" error>Verwijderen</vl-button>
-                        </div>
-                    </div>
-                    <div class="vl-app__content-area vl-app__content-area--padded">
-                        <!-- de content area is default 100% hoog en breed -->
-                        <!-- de content area kan 30px padding hebben, als de content niet container-vullend moet zijn -->
-                        <!-- de content area kan een max-width van 1280px hebben, als de content niet container-vullend moet zijn -->
-                        <!-- de content area kan links en rechts uitklapbare panelen hebben (nog niet in deze versie) -->
+                <vl-button slot="header-actions" icon="add" secondary>Nieuw item</vl-button>
+                <vl-button slot="header-actions" icon="bin" error>Verwijderen</vl-button>
 
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                        content<br />
-                    </div>
-                </main>
-                <!-- te bekijken wat er met de footer moet gebeuren op mobile, niet sticky onderaan en content niet beperken tot scherm hoogte? -->
-                <vl-footer development identifier="0337f8dc-3266-4e7a-8f4a-95fd65189e5b"></vl-footer>
-            </div>
+                <!-- Slot content -->
+                <div slot="content" class="vl-stacked vl-stacked-medium">
+                    <vl-title type="h2">Heading level 2</vl-title>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lobortis eu nunc in facilisis.
+                        Vestibulum facilisis, ipsum sit amet mollis lobortis, purus justo consectetur odio, vitae semper
+                        mi libero vitae enim. Nunc tincidunt lobortis nunc id vestibulum. Donec rutrum odio ut leo
+                        tincidunt, in molestie ante iaculis. Praesent finibus eros vitae libero faucibus vehicula. Sed
+                        sollicitudin quam ut sapien molestie, nec hendrerit ligula convallis. Nunc vestibulum, neque vel
+                        aliquet tristique, purus ligula elementum libero, nec iaculis orci dui sit amet felis.
+                        Suspendisse eu odio orci. Sed auctor odio vehicula feugiat lobortis. Nunc semper iaculis ante,
+                        eu fringilla mi ultricies non.
+                    </p>
+
+                    <p>
+                        Praesent non diam vehicula purus hendrerit elementum. Phasellus faucibus non tortor non viverra.
+                        Maecenas porttitor magna ut nisi scelerisque, vel condimentum orci sagittis. Quisque tincidunt,
+                        ligula id commodo convallis, enim ligula consequat nulla, vel tincidunt erat nunc in turpis. In
+                        iaculis accumsan arcu, vitae pellentesque tortor vestibulum sed. Etiam sed consequat quam, at
+                        laoreet metus. Phasellus eget quam at ante lobortis tristique a sit amet justo.
+                    </p>
+
+                    <p>
+                        Nam ac interdum orci, sit amet volutpat mauris. Etiam tincidunt massa augue, vel convallis lorem
+                        porta at. Maecenas tempor aliquet hendrerit. Curabitur non faucibus nisl, nec laoreet dui.
+                        Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
+                        Pellentesque in tincidunt mi. Donec id vehicula ligula.
+                    </p>
+
+                    <p>
+                        Phasellus quis arcu dignissim, lobortis purus et, tincidunt nisl. Nulla laoreet dignissim metus,
+                        ut dignissim odio eleifend eget. Duis et sollicitudin turpis, consectetur pulvinar leo.
+                        Suspendisse vel commodo nunc. Mauris tristique lacus sit amet mi vestibulum, at ullamcorper elit
+                        efficitur. Pellentesque mollis finibus accumsan. Mauris fringilla ex quam, pharetra pellentesque
+                        risus consequat vel.
+                    </p>
+
+                    <p>
+                        Proin risus orci, venenatis sed convallis id, semper vitae turpis. Curabitur nunc mi, semper sit
+                        amet leo ut, viverra sollicitudin erat. Vestibulum ut est sed odio ornare laoreet. In et
+                        pulvinar lorem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+                        himenaeos. Duis sollicitudin velit lorem, nec accumsan velit venenatis in. Maecenas faucibus
+                        posuere ante id faucibus. Suspendisse hendrerit metus sed nunc condimentum, ut eleifend nibh
+                        consequat. Aliquam id tellus libero. Nam non dui eu odio ullamcorper sollicitudin id id nulla.
+                        In sed maximus turpis. Duis sodales urna turpis, non volutpat felis congue sit amet. Suspendisse
+                        potenti. Aenean et gravida mi.
+                    </p>
+                </div>
+
+                <!-- Slot footer -->
+                <vl-footer development identifier="0337f8dc-3266-4e7a-8f4a-95fd65189e5b" slot="footer"></vl-footer>
+            </vl-dashboard>
         `;
     }
 
