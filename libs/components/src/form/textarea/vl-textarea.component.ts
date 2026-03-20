@@ -22,6 +22,7 @@ export class VlTextareaComponent extends FormControl {
     protected cols = textareaDefaults.cols;
 
     // Variables
+    protected override submitFormOnEnter = false;
     protected initialValue = '';
     protected dispatchInput = false;
 
@@ -109,14 +110,6 @@ export class VlTextareaComponent extends FormControl {
         super.resetFormControl();
 
         this.value = this.initialValue;
-    }
-
-    protected onKeydown(event: KeyboardEvent) {
-        if (event.key === 'Enter') {
-            // @ts-expect-error: event.bubbles is readonly
-            event['bubbles'] = false;
-        }
-        super.onKeydown(event);
     }
 
     private onInput(event: Event & { target: HTMLTextAreaElement }) {
