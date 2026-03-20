@@ -174,6 +174,24 @@ describe('vl-textarea - events', () => {
         cy.get('@vl-input').its('callCount').should('eq', 0);
     });
 
+    it('should not submit the form on Enter', () => {
+        cy.mount(html`
+            <form
+                @submit=${(e: Event) => {
+                    e.preventDefault();
+                }}
+            >
+                <vl-textarea label="test-label"></vl-textarea>
+                <button type="submit">Submit</button>
+            </form>
+        `);
+        cy.createStubForEvent('form', 'submit');
+
+        cy.get('vl-textarea').shadow().find('textarea').type('line 1{enter}line 2');
+        cy.get('@submit').should('not.have.been.called');
+        cy.get('vl-textarea').shadow().find('textarea').should('have.value', 'line 1\nline 2');
+    });
+
     it('should dispatch vl-valid event on valid input', () => {
         cy.mount(html`<vl-textarea required min-length="4"></vl-textarea>`);
 
