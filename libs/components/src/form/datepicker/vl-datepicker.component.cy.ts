@@ -431,16 +431,23 @@ describe('cypress-component - form components - vl-datepicker', () => {
             .shadow()
             .find('.flatpickr-calendar')
             .should('not.have.class', 'static')
-            // 'style' wordt toegevoegd bij het automatisch positioneren
-            .should('have.attr', 'style');
+            .should('be.visible');
 
+        // Controleer dat de kalender boven de button verschijnt (via CSS Anchor Positioning flip)
         cy.get('vl-datepicker')
             .shadow()
             .find('.flatpickr-calendar')
-            .invoke('attr', 'style')
-            .should('contain', 'top')
-            .should('contain', 'left')
-            .should('contain', 'right');
+            .then(($calendar) => {
+                cy.get('vl-datepicker')
+                    .shadow()
+                    .find('button#toggle-calendar')
+                    .then(($button) => {
+                        const buttonRect = $button[0].getBoundingClientRect();
+                        const calendarRect = $calendar[0].getBoundingClientRect();
+                        // Kalender bottom moet boven of gelijk aan de button top zijn
+                        expect(calendarRect.bottom).to.be.at.most(buttonRect.top + 10);
+                    });
+            });
     });
 
     it('should open the calendar below the input when static is true', () => {
@@ -461,21 +468,129 @@ describe('cypress-component - form components - vl-datepicker', () => {
             .should('not.have.attr', 'style');
     });
 
-    // TODO: lukt lokaal of op bamboo, maar niet op beide
-    //  dit type test gaan we niet meer doen, foutgevoelig en tijdsintensief
-    //  we gaan ook niet testen of pixels in een bepaalde range vallen
-    //  wat mag is (eerder functioneel) testen hoe 'iets' gepositioneerd wordt tov 'iets' anders - bv. links ervan of erboven
-    it.skip('should pass the position property to Flatpickr', () => {
-        cy.viewport(1920, 1080);
+    it('should position calendar near the toggle button using CSS Anchor Positioning', () => {
+        cy.mount(html`<vl-datepicker></vl-datepicker>`);
 
-        cy.mount(html`<vl-datepicker position="below left"></vl-datepicker>`);
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+
+        // Controleer dat de kalender dicht bij de button verschijnt
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .should('be.visible')
+            .then(($calendar) => {
+                cy.get('vl-datepicker')
+                    .shadow()
+                    .find('button#toggle-calendar')
+                    .then(($button) => {
+                        const buttonRect = $button[0].getBoundingClientRect();
+                        const calendarRect = $calendar[0].getBoundingClientRect();
+                        // Kalender moet binnen 20px van de button verschijnen (verticaal)
+                        const verticalDistance = Math.abs(calendarRect.top - buttonRect.bottom);
+                        expect(verticalDistance).to.be.lessThan(20);
+                    });
+            });
+    });
+
+    it('should position calendar correctly inside a scrollable container', () => {
+        cy.mount(html`
+            <div style="height: 200px; overflow: auto;">
+                <div style="height: 600px; padding-top: 100px;">
+                    <vl-datepicker></vl-datepicker>
+                </div>
+            </div>
+        `);
+
+        // Scroll de container
+        cy.get('div[style*="overflow"]').scrollTo(0, 80);
+
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .should('be.visible')
+            .then(($calendar) => {
+                cy.get('vl-datepicker')
+                    .shadow()
+                    .find('button#toggle-calendar')
+                    .then(($button) => {
+                        const buttonRect = $button[0].getBoundingClientRect();
+                        const calendarRect = $calendar[0].getBoundingClientRect();
+                        const verticalDistance = Math.abs(calendarRect.top - buttonRect.bottom);
+                        expect(verticalDistance).to.be.lessThan(20);
+                    });
+            });
+    });
+
+    it('should position calendar below the button with position="auto"', () => {
+        cy.viewport(1024, 768);
+        cy.mount(html`<vl-datepicker position="auto"></vl-datepicker>`);
 
         cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
         cy.get('vl-datepicker')
             .shadow()
             .find('.flatpickr-calendar')
-            .shouldHaveComputedStyle({ style: 'top', value: '37px' })
-            .shouldHaveComputedStyle({ style: 'left', value: '193px' });
+            .should('be.visible')
+            .then(($calendar) => {
+                cy.get('vl-datepicker')
+                    .shadow()
+                    .find('button#toggle-calendar')
+                    .then(($button) => {
+                        const buttonRect = $button[0].getBoundingClientRect();
+                        const calendarRect = $calendar[0].getBoundingClientRect();
+                        // Kalender moet onder de button staan (10px tolerantie voor borders/padding)
+                        expect(calendarRect.top).to.be.at.least(buttonRect.bottom - 10);
+                    });
+            });
+    });
+
+    it('should position calendar above the button with position="above"', () => {
+        cy.viewport(1024, 768);
+        cy.mount(html`
+            <div style="margin-top: 400px;">
+                <vl-datepicker position="above"></vl-datepicker>
+            </div>
+        `);
+
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .should('be.visible')
+            .then(($calendar) => {
+                cy.get('vl-datepicker')
+                    .shadow()
+                    .find('button#toggle-calendar')
+                    .then(($button) => {
+                        const buttonRect = $button[0].getBoundingClientRect();
+                        const calendarRect = $calendar[0].getBoundingClientRect();
+                        // Kalender bottom moet boven of gelijk aan de button top zijn
+                        expect(calendarRect.bottom).to.be.at.most(buttonRect.top + 5);
+                    });
+            });
+    });
+
+    it('should position calendar below the button with position="below"', () => {
+        cy.viewport(1024, 768);
+        cy.mount(html`<vl-datepicker position="below"></vl-datepicker>`);
+
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .should('be.visible')
+            .then(($calendar) => {
+                cy.get('vl-datepicker')
+                    .shadow()
+                    .find('button#toggle-calendar')
+                    .then(($button) => {
+                        const buttonRect = $button[0].getBoundingClientRect();
+                        const calendarRect = $calendar[0].getBoundingClientRect();
+                        // Kalender moet onder de button staan (10px tolerantie voor borders/padding)
+                        expect(calendarRect.top).to.be.at.least(buttonRect.bottom - 10);
+                    });
+            });
     });
 
     // TODO: lukt lokaal of op bamboo, maar niet op beide

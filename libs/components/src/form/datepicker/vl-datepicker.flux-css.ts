@@ -51,12 +51,4 @@ export const vlDatepickerFluxStyles: CSSResult = css`
             border-radius: 0px 0.3rem 0.3rem 0px;
         }
     }
-
-    #datepicker-calendar-placeholder {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        z-index: var(--vl-z-layer--datepicker);
-    }
 `;

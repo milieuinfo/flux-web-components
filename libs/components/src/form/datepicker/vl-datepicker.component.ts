@@ -1,4 +1,4 @@
-import { isSafari, webComponent } from '@domg-wc/common';
+import { webComponent } from '@domg-wc/common';
 import { vlGroupStyles } from '@domg-wc/styles';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { datepickerStyle, iconStyle, tooltipStyle } from '@domg/govflanders-style/component';
@@ -18,6 +18,8 @@ import { createDateMask, createTimeMask } from './masks';
 import { maskValidator, rangeOverflowValidator, rangeUnderflowValidator } from './validators';
 import { datepickerDefaults } from './vl-datepicker.defaults';
 import { vlDatepickerFluxStyles } from './vl-datepicker.flux-css';
+import { vlDatepickerPopoverResetStyles } from './vl-datepicker.popover-reset';
+import { vlDatepickerPositioningStyles } from './vl-datepicker.positioning-css';
 
 const dateRangeSeparator = ' tot en met ';
 const dateRangeSeparatorCharacter = '/';
@@ -69,6 +71,8 @@ export class VlDatepickerComponent extends FormControl {
             tooltipStyle,
             datepickerStyle,
             vlDatepickerFluxStyles,
+            vlDatepickerPositioningStyles,
+            vlDatepickerPopoverResetStyles,
             vlGroupStyles,
             vlInputAddonStyles,
         ];
@@ -158,7 +162,7 @@ export class VlDatepickerComponent extends FormControl {
         super.updated(changedProperties);
 
         const options = this.getDynamicOptions();
-        const dynamicAttributes = ['disabled', 'readonly', 'minDate', 'maxDate', 'minTime', 'maxTime', 'position'];
+        const dynamicAttributes = ['disabled', 'readonly', 'minDate', 'maxDate', 'minTime', 'maxTime'];
         const nativeInputAttributes = ['disabled', 'readonly', 'placeholder', 'required', 'block', 'error', 'success'];
 
         if (dynamicAttributes.some((prop) => changedProperties.has(prop))) {
@@ -363,7 +367,6 @@ export class VlDatepickerComponent extends FormControl {
             maxTime: this.maxTime,
             defaultHour: minimumDateTime?.getHours() ?? 12,
             defaultMinute: minimumDateTime?.getMinutes() ?? 0,
-            position: this.position || 'auto',
         };
     }
 
@@ -398,7 +401,6 @@ export class VlDatepickerComponent extends FormControl {
     };
 
     private getOptions(): Options {
-        const datepickerButton = this.shadowRoot?.querySelector('button');
         const defaultDate = this.type !== 'range' && this.parseTodayDate(this.initialValue);
         const staticOptions = {
             dateFormat: this.format,
@@ -407,7 +409,7 @@ export class VlDatepickerComponent extends FormControl {
             onChange: this.handleDatePickerChange,
             onOpen: this.handleOpenCalendar,
             onClose: this.handleCloseCalendar,
-            positionElement: datepickerButton,
+            position: this.isStatic ? undefined : (() => {}),
             static: this.isStatic,
             appendTo: this.getCalendarPlaceholder(),
             defaultDate: defaultDate,
@@ -478,23 +480,18 @@ export class VlDatepickerComponent extends FormControl {
             this.getDatePicker()?.classList.add('static');
             this.getDatePicker()?.removeAttribute('readonly');
 
-            if (!this.isStatic) {
-                this.calculateCalendarPlaceholderPosition();
+            // Voeg popover="manual" toe aan de flatpickr kalender zodat deze in de browser's
+            // top layer wordt gerenderd. Dit zorgt ervoor dat de kalender niet wordt afgekapt
+            // door overflow of transform op ancestor-elementen (bijv. vl-modal).
+            // "manual" betekent dat wij zelf showPopover()/hidePopover() aanroepen,
+            // niet de browser via gebruikersinteractie.
+            if (!this.isStatic && this.flatpickrInstance) {
+                this.flatpickrInstance.calendarContainer.setAttribute('popover', 'manual');
             }
         }
     }
 
-    private calculateCalendarPlaceholderPosition() {
-        if (this.getDatePicker()) {
-            const { top, left, height } = this.getDatePicker()!.getBoundingClientRect();
-            const calendarPlaceholder = this.getCalendarPlaceholder();
-            calendarPlaceholder.style.top = isSafari ? `calc(-${top}px - ${height}px)` : `-${top}px`;
-            calendarPlaceholder.style.left = `-${left}px`;
-        }
-    }
-
     private toggleCalendar = () => {
-        this.calculateCalendarPlaceholderPosition();
         this.flatpickrInstance?.toggle();
     };
 
@@ -597,11 +594,35 @@ export class VlDatepickerComponent extends FormControl {
     private handleOpenCalendar = () => {
         this.handleOpenChange(true);
         this.addEventListener('click', this.handleCalendarClicked);
+
+        // Promoveer de kalender naar de top layer via de Popover API.
+        // Niet nodig in static mode — daar staat de kalender inline in de DOM.
+        // try/catch: flatpickr kan onOpen meerdere keren triggeren (bijv. bij programmatische
+        // open() aanroepen), en showPopover() gooit een InvalidStateError als de popover al open is.
+        if (!this.isStatic) {
+            try {
+                this.flatpickrInstance?.calendarContainer?.showPopover();
+            } catch {
+                /* popover is al open — kan genegeerd worden */
+            }
+        }
     };
 
     private handleCloseCalendar = () => {
         this.handleOpenChange(false);
         this.removeEventListener('click', this.handleCalendarClicked);
+
+        // Verwijder de kalender uit de top layer.
+        // try/catch: flatpickr kan onClose triggeren wanneer de popover al verborgen is,
+        // bijv. bij destroy() of wanneer een andere popover de huidige verdringt.
+        // hidePopover() gooit dan een InvalidStateError.
+        if (!this.isStatic) {
+            try {
+                this.flatpickrInstance?.calendarContainer?.hidePopover();
+            } catch {
+                /* popover is al gesloten — kan genegeerd worden */
+            }
+        }
     };
 
     private updateFormControlValue = (inputValue: string) => {
