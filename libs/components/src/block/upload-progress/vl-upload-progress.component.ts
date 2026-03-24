@@ -122,7 +122,7 @@ export class VlUploadProgressComponent extends BaseLitElement {
         return html`
             <div class=${classMap(classes)}>
                 <div class="vl-group vl-group--space-between">
-                    <div class="vl-group">
+                    <div class="vl-group vl-group--align-center">
                         <span id="label" class="vl-text vl-text--bold ${!this.label ? 'vl-visually-hidden' : ''}">
                             ${this.label || `Bestand`}
                         </span>

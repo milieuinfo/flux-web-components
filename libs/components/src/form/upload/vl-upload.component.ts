@@ -279,8 +279,7 @@ export class VlUploadComponent extends FormControl {
                 <ul class="vl-upload-files__list"></ul>
                 <div id="input-container"></div>
                 <button class="vl-upload-files__remove-all" type="button">
-                    <vl-icon icon="trash" right-margin aria-hidden="true"></vl-icon>
-                    Verwijder alle bestanden
+                    <vl-icon icon="trash" right-margin aria-hidden="true"></vl-icon>Verwijder alle bestanden
                 </button>
             </div>
         `;
