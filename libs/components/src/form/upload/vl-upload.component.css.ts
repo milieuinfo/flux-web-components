@@ -71,6 +71,12 @@ export const vlUploadComponentStyles: CSSResult = css`
             }
         }
 
+        .vl-upload__button {
+            font-family: var(--vl-font);
+            font-size: var(--vl-font-size);
+            text-decoration: underline;
+        }
+
         slot[name='sub-title'] {
             white-space: pre-line;
         }
@@ -179,6 +185,12 @@ export const vlUploadComponentStyles: CSSResult = css`
         .vl-upload-files__remove-all {
             margin: 0 0 0 auto;
             display: block;
+        }
+
+        .vl-upload-files__remove-all {
+            font-family: var(--vl-font);
+            font-size: var(--vl-font-size);
+            text-decoration: underline;
         }
     }
 `;
