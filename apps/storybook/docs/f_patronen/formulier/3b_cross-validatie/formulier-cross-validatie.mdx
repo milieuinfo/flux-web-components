@@ -1,0 +1,170 @@
+import { Canvas, Meta, Source } from '@storybook/addon-docs/blocks';
+import * as formCrossValidationStories from './formulier-cross-validatie.stories';
+import formCrossValidationSource from '../../../../../../libs/integrations/src/form/cross-validation/vl-form-cross-validation.component?raw';
+
+<Meta of={formCrossValidationStories} />
+
+# Formulier - Cross-Validatie
+
+> Meer informatie over validatie binnen de formulier componenten vind je op
+  [Formulier - Validatie](/docs/patronen-formulier-validatie--documentatie).
+
+> Een voorbeeld om een eenvoudige custom validatie te schrijven (zonder afhankelijkheid van andere velden) vind je op
+  [Formulier - Aangepaste Validatie](/docs/patronen-formulier-aangepaste-validatie--documentatie).
+
+## Wanneer heb je cross-validatie nodig?
+
+Bij cross-validatie is de validatie van een veld afhankelijk van de waarde van een **ander** veld in hetzelfde formulier.
+Een typisch voorbeeld: een veld "Algemeen Plan ID" dat enkel verplicht is wanneer de gebruiker een specifieke procedure
+selecteert.
+
+## Het probleem
+
+De `isValid` functie van een validator ontvangt twee argumenten: `instance` en `value`. Bij een eenvoudige
+[aangepaste validatie](/docs/patronen-formulier-aangepaste-validatie--documentatie) is enkel de `value` parameter nodig
+en wordt `instance` genegeerd (vandaar de conventie `_instance`).
+
+Maar bij cross-validatie **heb je `instance` nodig** om aan de waarde van een ander veld te geraken.
+
+## De oplossing: `instance.form`
+
+Het `instance` argument is het **host element** van je form control (het `HTMLElement` zelf). Dit element is
+form-associated via [ElementInternals](https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals), wat betekent
+dat `instance.form` je toegang geeft tot het native `HTMLFormElement` waar het veld bij hoort.
+
+Via dat form element kan je elk ander veld opvragen met standaard DOM API's zoals `querySelector`.
+
+### Stap 1: Schrijf de validator
+
+```ts
+import { Validator } from '@open-wc/form-control';
+
+const crossFieldValidator: Validator = {
+    key: 'customError',
+    message: 'Algemeen Plan ID is verplicht bij deze procedure.',
+    isValid(instance: HTMLElement, value: string): boolean {
+        // Haal het native form element op via instance.form
+        const form = (instance as HTMLElement & { form: HTMLFormElement | null }).form;
+        if (!form) {
+            return true;
+        }
+
+        // Zoek het andere veld op in hetzelfde formulier
+        const procedureSelect = form.querySelector<HTMLElement & { value: string }>('#procedure');
+        const procedureValue = procedureSelect?.value;
+
+        // Bepaal de waarde waarvoor de validatie geldt
+        const grupValue = '0d6264ed-6c51-4559-a0ee-eab1e7aed9c3';
+
+        // Als de procedure niet de GRUP-procedure is, is het veld niet verplicht
+        if (procedureValue !== grupValue) {
+            return true;
+        }
+
+        // Bij de GRUP-procedure moet er een waarde ingevuld zijn
+        return !!value;
+    },
+};
+```
+
+### Stap 2: Maak een nieuw component met de validator
+
+Net zoals bij een eenvoudige aangepaste validatie moet je een nieuw component aanmaken dat overerft van de form control
+waarop je de validator wil toepassen. Dit is nodig omdat validators via een statische array worden toegevoegd.
+
+```ts
+import { webComponent } from '@domg-wc/common';
+import { VlInputFieldComponent } from '@domg-wc/components/form';
+
+@webComponent('vl-input-field-met-cross-validator')
+export class VlInputFieldMetCrossValidatorComponent extends VlInputFieldComponent {
+    static override formControlValidators = [
+        ...VlInputFieldComponent.formControlValidators,
+        crossFieldValidator,
+    ];
+}
+```
+
+### Stap 3: Gebruik het component met de bijhorende foutmelding
+
+In je template gebruik je het nieuwe component in plaats van `vl-input-field`. De foutmelding koppel je via de
+`vl-form-message` component met `state="customError"`:
+
+```html
+<vl-input-field-met-cross-validator
+    id="algemeen-plan-id"
+    name="algemeenPlanId"
+    block
+    required
+></vl-input-field-met-cross-validator>
+<vl-form-message for="algemeen-plan-id" state="customError">
+    Algemeen Plan ID is verplicht bij deze procedure.
+</vl-form-message>
+```
+
+### Stap 4: Trigger hervalidatie wanneer het andere veld wijzigt
+
+**Dit is de belangrijkste stap die vaak vergeten wordt.** De validator draait enkel wanneer het **eigen** veld wijzigt.
+Als de gebruiker het procedure-veld wijzigt, moet je handmatig hervalidatie triggeren op het code-veld.
+
+Dit doe je door `setValue()` aan te roepen op het veld dat gehervalideerd moet worden:
+
+```ts
+private onProcedureChange() {
+    const codeField =
+        this.shadowRoot?.querySelector<VlInputFieldMetCrossValidatorComponent>('#algemeen-plan-id');
+    if (codeField) {
+        const inputEl = codeField.shadowRoot?.querySelector('input');
+        codeField.setValue(inputEl?.value ?? '');
+    }
+}
+```
+
+Voeg deze handler toe aan het procedure-veld via het `@change` event:
+
+```html
+<vl-select
+    id="procedure"
+    name="procedure"
+    @change=${'this.onProcedureChange'}
+></vl-select>
+```
+
+## Belangrijke aandachtspunten
+
+### Eén `customError` per form control
+
+De form controls maken gebruik van de
+[ValidityState interface](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) waardoor er maximum 1 custom
+validator (`customError`) toegevoegd kan worden aan een form control. Als je zowel een eenvoudige custom validatie als
+een cross-validatie nodig hebt op hetzelfde veld, combineer dan de logica in één `isValid` functie.
+
+### Shadow DOM en `instance.form`
+
+Het `instance.form` property werkt correct over shadow DOM grenzen heen dankzij de
+[form-associated custom elements](https://web.dev/articles/more-capable-form-controls) API. Je hoeft je dus geen zorgen
+te maken over shadow DOM encapsulatie bij het opvragen van het formulier.
+
+### Naamgeving van het component
+
+Maak per validator een nieuw component aan met een duidelijke naam. Gebruik de naam niet opnieuw voor andere validators,
+want de validators worden gedeeld via een statische array over alle instanties van hetzelfde component.
+
+## Volledig voorbeeld
+
+In onderstaand voorbeeld is het code-veld afhankelijk van het procedure-veld:
+- Bij procedure **Standaard** is elke code geldig.
+- Bij procedure **Strikt** moet de code exact `ABC-123` zijn.
+
+Probeer het zelf:
+1. Selecteer **Strikt** als procedure.
+2. Vul een willekeurige code in en klik op **Verstuur** — je ziet de foutmelding.
+3. Vul `ABC-123` in en klik op **Verstuur** — het formulier is geldig.
+4. Wissel de procedure terug naar **Standaard** — het veld wordt automatisch opnieuw gevalideerd.
+
+<Canvas of={formCrossValidationStories.FormulierCrossValidatie} sourceState='none' />
+
+<details open>
+    <summary>Volledige broncode</summary>
+    <Source code={formCrossValidationSource} language="ts" dark={true} />
+</details>
