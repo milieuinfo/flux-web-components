@@ -21,6 +21,7 @@ export class VlLinkComponent extends BaseLitElement {
     private icon = linkDefaults.icon;
     private iconPlacement = linkDefaults.iconPlacement;
     private buttonAsLink = linkDefaults.buttonAsLink;
+    private type = linkDefaults.type;
 
     static get styles(): CSSResult[] {
         return [vlLinkFluxStyles, vlLinkStyles(), vlLinkIconStyles, buttonAsLinkStyles, vlIconStyles];
@@ -39,6 +40,7 @@ export class VlLinkComponent extends BaseLitElement {
             icon: { type: String },
             iconPlacement: { type: String, attribute: 'icon-placement' },
             buttonAsLink: { type: Boolean, attribute: 'button-as-link' },
+            type: { type: String },
         };
     }
 
@@ -83,6 +85,7 @@ export class VlLinkComponent extends BaseLitElement {
             : html`
                   <button
                       class="vl-button-as-link ${classMap(classes)}"
+                      type=${this.type}
                       part="button"
                       aria-label=${this.label || nothing}
                       aria-haspopup=${ifDefined(

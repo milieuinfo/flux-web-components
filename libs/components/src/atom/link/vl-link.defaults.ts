@@ -11,4 +11,5 @@ export const linkDefaults = {
     icon: '' as string,
     iconPlacement: '' as ICON_PLACEMENT,
     buttonAsLink: false as boolean,
+    type: 'button' as 'button' | 'submit' | 'reset',
 } as const;

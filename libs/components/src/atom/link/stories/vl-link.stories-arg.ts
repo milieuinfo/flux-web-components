@@ -115,6 +115,18 @@ export const linkArgTypes: ArgTypes<LinkArgs> = {
             defaultValue: { summary: String(linkArgs.buttonAsLink) },
         },
     },
+    type: {
+        name: 'type',
+        description:
+            'Het type van de button.<br/>Werkt enkel in combinatie met het `button-as-link`-attribuut.',
+        control: { type: CONTROLS.SELECT },
+        options: ['button', 'submit', 'reset'],
+        table: {
+            type: { summary: `${TYPES.STRING}: 'button' | 'submit' | 'reset'` },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: linkArgs.type },
+        },
+    },
     defaultSlot: {
         name: '[default]',
         description: 'De content van de link.',
