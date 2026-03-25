@@ -24,7 +24,7 @@ export default {
 
 const LinkTemplate = story(
     linkArgs,
-    ({ href, bold, small, large, error, external, buttonAsLink, icon, iconPlacement, defaultSlot, label }) =>
+    ({ href, bold, small, large, error, external, buttonAsLink, type, icon, iconPlacement, defaultSlot, label }) =>
         html`
             <vl-link
                 href=${href}
@@ -34,6 +34,7 @@ const LinkTemplate = story(
                 ?error=${error}
                 ?external=${external}
                 ?button-as-link=${buttonAsLink}
+                type=${type}
                 icon=${icon}
                 icon-placement=${iconPlacement}
                 label=${label}

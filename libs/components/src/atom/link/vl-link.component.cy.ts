@@ -221,4 +221,22 @@ describe('cypress-component - atom components - vl-link - button as link', () =>
         cy.get('vl-link').shadow().find('button').find('slot');
         cy.get('vl-link').contains('Vlaanderen');
     });
+
+    it('should have default type button', () => {
+        cy.mount(html`<vl-link button-as-link>Vlaanderen</vl-link>`);
+
+        cy.get('vl-link').shadow().find('button').should('have.attr', 'type', 'button');
+    });
+
+    it('should set type submit', () => {
+        cy.mount(html`<vl-link button-as-link type="submit">Vlaanderen</vl-link>`);
+
+        cy.get('vl-link').shadow().find('button').should('have.attr', 'type', 'submit');
+    });
+
+    it('should set type reset', () => {
+        cy.mount(html`<vl-link button-as-link type="reset">Vlaanderen</vl-link>`);
+
+        cy.get('vl-link').shadow().find('button').should('have.attr', 'type', 'reset');
+    });
 });
