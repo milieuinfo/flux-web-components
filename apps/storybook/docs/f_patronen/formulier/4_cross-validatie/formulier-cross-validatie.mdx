@@ -1,0 +1,60 @@
+import { Canvas, Meta, Source } from '@storybook/addon-docs/blocks';
+import * as formCrossValidationStories from './formulier-cross-validatie.stories';
+import formCrossValidationSource from '../../../../../../libs/integrations/src/form/cross-validation/vl-form-cross-validation.component?raw';
+
+<Meta of={formCrossValidationStories} />
+
+# Formulier - Cross-Validatie
+
+> Meer informatie over validatie binnen de formulier componenten vind je op
+  [Formulier - Validatie](/docs/patronen-formulier-validatie--documentatie)
+
+Bij cross-validatie is de validatie van een veld afhankelijk van de waarde van een ander veld in hetzelfde formulier.<br/>
+Net zoals bij een [aangepaste validatie](/docs/patronen-formulier-aangepaste-validatie--documentatie) maak je een
+nieuw component dat overerft van één van onze form controls.
+
+## Hoe werkt het?
+
+In de `isValid` functie van je validator krijg je het `instance` argument mee. Dit is het host element van je form
+control. Via `instance.form` (de native `HTMLFormElement` via `ElementInternals`) kan je bij elk ander veld in
+hetzelfde formulier:
+
+```ts
+const crossFieldValidator: Validator = {
+    key: 'customError',
+    message: 'Ongeldige waarde voor deze procedure.',
+    isValid(instance: HTMLElement, value: string): boolean {
+        const form = (instance as HTMLElement & { form: HTMLFormElement }).form;
+        const procedureSelect = form?.querySelector('#procedure');
+        const procedureValue = procedureSelect?.value;
+
+        if (procedureValue !== 'strikt') return true;
+        return value === 'ABC-123';
+    },
+};
+```
+
+## Hervalidatie bij wijziging van het andere veld
+
+Belangrijk: de validator draait enkel wanneer het **eigen** veld wijzigt. Als het veld waarvan je afhankelijk bent
+wijzigt, moet je handmatig hervalidatie triggeren:
+
+```ts
+private onProcedureChange() {
+    const codeField = this.shadowRoot?.querySelector('#code');
+    codeField?.setValue(codeField.value);
+}
+```
+
+## Voorbeeld
+
+In dit voorbeeld is het code-veld afhankelijk van het procedure-veld:
+- Bij procedure **Standaard** is elke code geldig.
+- Bij procedure **Strikt** moet de code exact `ABC-123` zijn.
+
+<Canvas of={formCrossValidationStories.FormulierCrossValidatie} sourceState='none' />
+
+<details open>
+    <summary>Code</summary>
+    <Source code={formCrossValidationSource} language="ts" dark={true} />
+</details>
