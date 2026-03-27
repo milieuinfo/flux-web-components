@@ -41,9 +41,16 @@ export const vlRichDataFluxStyles: CSSResult = css`
                 'toggle-area toggle-area'
                 'content-area content-area'
                 'pager-area pager-area';
+            column-gap: 0;
 
             &:has(#search.vl-u-hidden--s) {
                 grid-template-columns: 0 1fr;
+            }
+        }
+
+        @media screen and (min-width: ${vlMediaScreenSmall}px) {
+            #open-filter {
+                display: none;
             }
         }
 
