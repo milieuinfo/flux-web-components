@@ -43,7 +43,7 @@ export class VlRichData extends BaseHTMLElement {
                         <slot name="close-filter-button-text">Filter verbergen</slot>
                     </vl-button>
                 </div>
-                <div id="open-filter" class="vl-u-align-right vl-u-hidden" hidden>
+                <div id="open-filter" class="vl-u-align-right">
                     <vl-button id="open-toggle-filter-button" icon="content-filter"
                      secondary narrow label="Filteren" aria-controls="filter-slot-container" aria-expanded="false">
                         <slot name="toggle-filter-button-text">Filter</slot>
@@ -267,6 +267,24 @@ export class VlRichData extends BaseHTMLElement {
         }
     }
 
+    onResize = () => {
+        if (window.innerWidth > vlMediaScreenSmall) {
+            // In case the search filter was moved for the mobile view, put it back for desktop
+            // TODO: in a future version avoid moving the html around
+            if (
+                !!this.__filterSlotContainer &&
+                !!this.__filterSlot &&
+                !this.__filterSlotContainer.contains(this.__filterSlot)
+            ) {
+                this.__filterSlotContainer.appendChild(this.__filterSlot);
+            }
+
+            if (!this.hasAttribute('filter-closable')) {
+                this.removeAttribute('filter-closed');
+            }
+        }
+    };
+
     connectedCallback(): void {
         super.connectedCallback();
 
@@ -279,10 +297,14 @@ export class VlRichData extends BaseHTMLElement {
         this._observer = this.__observeSearchFilter(() => this.__processSearchFilter());
 
         this.__updateNumberOfSearchResults(null);
+
+        window.addEventListener('resize', this.onResize);
     }
 
     disconnectedCallback(): void {
         this._observer?.disconnect();
+
+        window.removeEventListener('resize', this.onResize);
     }
 
     __onStateChange(event: Event, { paging = false } = {}) {
@@ -315,12 +337,9 @@ export class VlRichData extends BaseHTMLElement {
 
     _filterClosableChangedCallback(oldValue: any, newValue: any) {
         this.__filterToggleContainer!.hidden = newValue == null;
-        this.__filterOpenContainer!.hidden = newValue == null;
         if (newValue == null) {
-            this.__filterOpenContainer!.classList.remove('vl-u-visible--s');
             this.__searchColumn?.classList.remove('vl-u-hidden--s');
         } else {
-            this.__filterOpenContainer!.classList.add('vl-u-visible--s');
             this.__searchColumn?.classList.add('vl-u-hidden--s');
         }
     }
@@ -353,7 +372,7 @@ export class VlRichData extends BaseHTMLElement {
     __observeFilterButtons() {
         this.__filterToggleButton?.addEventListener('click', this._onToggleFilter);
         this.__filterOpenButton?.addEventListener('click', () => {
-            this.setAttribute('filter-closed', '');
+            this.removeAttribute('filter-closed');
             this._element.appendChild(this.__filterSlot);
             this.__hideHiddenInModalElements();
             if (this.__searchFilter instanceof VlSearchFilterComponent) {
@@ -549,12 +568,10 @@ export class VlRichData extends BaseHTMLElement {
             });
             this.__searchFilterForm.addEventListener('keyup', this.__onEscapeFilter);
             this.__searchFilterForm.addEventListener('submit', () => {
-                this.toggleAttribute('filter-closed');
-
-                if (window.innerWidth > vlMediaScreenSmall) {
-                    this.__filterToggleButton?.shadowRoot?.querySelector('button')?.focus();
-                } else {
-                    this.__filterOpenButton?.shadowRoot?.querySelector('button')?.focus();
+                if (window.innerWidth <= vlMediaScreenSmall) {
+                    requestAnimationFrame(() => {
+                        this.__filterOpenButton?.shadowRoot?.querySelector('button')?.focus();
+                    });
                 }
             });
         }
