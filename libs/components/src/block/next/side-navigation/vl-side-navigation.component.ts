@@ -79,6 +79,7 @@ export class VlSideNavigationComponent extends BaseLitElement {
     private mediaQueryList?: MediaQueryList;
     private mediaQueryHandler = (e: MediaQueryListEvent) => this.handleMediaQueryChange(e);
     private focusRecoveryMutationObserver?: MutationObserver;
+    private lastFocusedNavElement?: WeakRef<HTMLElement>;
     private previousTocEffectivelyHidden = false;
 
     static get styles(): CSSResult[] {
@@ -336,18 +337,34 @@ export class VlSideNavigationComponent extends BaseLitElement {
 
     private setupFocusRecoveryObserver(): void {
         if (this.focusRecoveryMutationObserver) return;
+
+        // Track the last focused element inside the nav so we can detect when a removal causes focus loss
+        const trackFocus = () => {
+            if (this.isFocusInsideNav()) {
+                const el = this.getDeepActiveElement() as HTMLElement | null;
+                this.lastFocusedNavElement = el ? new WeakRef(el) : undefined;
+            }
+        };
+        this.shadowRoot?.addEventListener('focusin', trackFocus);
+        this.addEventListener('focusin', trackFocus);
+
         this.focusRecoveryMutationObserver = new MutationObserver((mutations) => {
             if (typeof document === 'undefined') return;
             const active = this.getDeepActiveElement();
             if (active !== document.body) return; // Only if focus was lost to body
-            const nav = this.shadowRoot?.querySelector('nav');
-            const removalInOurNav = mutations.some(
-                (m) =>
-                    m.removedNodes.length > 0 &&
-                    (nav?.contains(m.target as Node) || m.target === this)
+
+            // Only recover if a previously focused nav element was removed
+            const lastFocused = this.lastFocusedNavElement?.deref();
+            if (!lastFocused) return;
+
+            const removedFocusedElement = mutations.some((m) =>
+                Array.from(m.removedNodes).some(
+                    (node) => node === lastFocused || node.contains(lastFocused)
+                )
             );
-            if (removalInOurNav) {
-                this.moveFocusToLogicalNeighbor();
+            if (removedFocusedElement) {
+                this.lastFocusedNavElement = undefined;
+                this.moveFocusToLogicalNeighbor(lastFocused);
             }
         });
         const nav = this.shadowRoot?.querySelector('nav');
