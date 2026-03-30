@@ -261,6 +261,15 @@
                             "name": "button-as-link",
                             "description": "Maakt van de link een button maar behoudt de link-stijl.",
                             "default": "false"
+                        },
+                        {
+                            "name": "type",
+                            "description": "Het type van de button.<br/>Werkt enkel in combinatie met het `button-as-link`-attribuut.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'string: 'button'' | ''submit'' | ''reset''"
+                            },
+                            "default": "button"
                         }
                     ],
                     "slots": [
