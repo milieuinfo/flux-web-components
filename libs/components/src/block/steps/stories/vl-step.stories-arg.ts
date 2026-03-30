@@ -1,13 +1,15 @@
-import { CATEGORIES, CONTROLS, defaultArgs, defaultArgTypes, ICON_PLACEMENT, TYPES } from '@resources/utils-storybook';
+import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components-vite';
 import { action } from 'storybook/actions';
-import { accordionArgs } from '../../accordion/stories/vl-accordion.stories-arg';
 
 export const stepArgs = {
     ...defaultArgs,
     defaultOpen: false,
     toggleable: false,
     type: null,
+    headingLevel: 3,
+    iconAriaLabel: null,
+    timelineAriaLabel: null,
     onToggle: action('vl-on-toggle'),
     contentRenderer: undefined,
     iconSlot: '',
@@ -40,9 +42,40 @@ export const stepArgTypes: ArgTypes<typeof stepArgs> = {
             defaultValue: { summary: String(stepArgs.type) },
         },
     },
+    headingLevel: {
+        name: 'heading-level',
+        description: 'Het heading niveau voor de step titel.',
+        control: { type: 'select', options: [1, 2, 3, 4, 5, 6] },
+        table: {
+            type: { summary: TYPES.NUMBER },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(stepArgs.headingLevel) },
+        },
+    },
+    iconAriaLabel: {
+        name: 'icon-aria-label',
+        description: 'Aria label voor de icon container.',
+        control: 'text',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(stepArgs.iconAriaLabel) },
+        },
+    },
+    timelineAriaLabel: {
+        name: 'timeline-aria-label',
+        description: 'Aria label voor de timeline datum container, bijvoorbeeld voor volledige datum.',
+        control: 'text',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(stepArgs.timelineAriaLabel) },
+        },
+    },
     defaultOpen: {
         name: 'default-open',
-        description: 'Indien gezet zal de step standaard geopend zijn. Werkt enkel in combinatie met ' +
+        description:
+            'Indien gezet zal de step standaard geopend zijn. Werkt enkel in combinatie met ' +
             'het `toggleable` attribuut. <br>Dit attribuut is niet reactief.',
         table: {
             type: { summary: TYPES.BOOLEAN },

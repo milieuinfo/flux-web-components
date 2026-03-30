@@ -1,8 +1,8 @@
-import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
+import { html } from 'lit';
 import { VlTitleComponent } from '../../atom/title';
+import { VlSideNavigationComponent, VlSideNavigationLayoutComponent } from '../next/side-navigation';
 import { VlStepsComponent } from './index';
-import { VlSideNavigationLayoutComponent, VlSideNavigationComponent } from '../next/side-navigation';
 
 registerWebComponents([VlStepsComponent, VlSideNavigationLayoutComponent, VlSideNavigationComponent, VlTitleComponent]);
 
@@ -320,7 +320,7 @@ describe('cypress-component - block components - vl-steps - toggleable', () => {
             .first()
             .shadow()
             .find('button.vl-step__header.js-vl-accordion__toggle')
-            .click();
+            .click({ force: true });
 
         cy.get('@vl-on-toggle')
             .should('have.been.calledOnce')
@@ -333,7 +333,7 @@ describe('cypress-component - block components - vl-steps - toggleable', () => {
             .first()
             .shadow()
             .find('button.vl-step__header.js-vl-accordion__toggle')
-            .click();
+            .click({ force: true });
 
         cy.get('@vl-on-toggle')
             .should('have.been.calledTwice')
@@ -376,7 +376,11 @@ describe('cypress-component - block components - vl-steps - toggleable', () => {
         cy.get('vl-step#test-step').shadow().find('.vl-step__content').find('.open-content').should('not.exist');
 
         // click to open the step
-        cy.get('vl-step#test-step').shadow().find('button.vl-step__header.js-vl-accordion__toggle').click().wait(100);
+        cy.get('vl-step#test-step')
+            .shadow()
+            .find('button.vl-step__header.js-vl-accordion__toggle')
+            .click({ force: true })
+            .wait(100);
 
         // verify open content is shown
         cy.get('vl-step#test-step')
@@ -390,7 +394,11 @@ describe('cypress-component - block components - vl-steps - toggleable', () => {
         cy.get('vl-step#test-step').shadow().find('.vl-step__content').find('.closed-content').should('not.exist');
 
         // click to close the step again
-        cy.get('vl-step#test-step').shadow().find('button.vl-step__header.js-vl-accordion__toggle').click().wait(100);
+        cy.get('vl-step#test-step')
+            .shadow()
+            .find('button.vl-step__header.js-vl-accordion__toggle')
+            .click({ force: true })
+            .wait(100);
 
         // verify closed content is shown again
         cy.get('vl-step#test-step')
@@ -470,8 +478,8 @@ describe('cypress-component - block components - vl-steps - timeline', () => {
                 <span slot="title-annotation">12u00 - 14u00</span>
                 <span slot="subtitle">Dit is de eerste subtitel.</span>
                 <span slot="content">Dit is de eerste stap content.</span>
+                <vl-duration-step slot="duration">Vrije tijd: 1 uur</vl-duration-step>
             </vl-step>
-            <vl-duration-step>Vrije tijd: 1 uur</vl-duration-step>
             <vl-step>
                 <span slot="icon">1</span>
                 <span slot="sub-icon">maa</span>
@@ -479,8 +487,8 @@ describe('cypress-component - block components - vl-steps - timeline', () => {
                 <span slot="title-annotation">15u00 - 17u00</span>
                 <span slot="subtitle">Dit is de tweede subtitel.</span>
                 <span slot="content">Dit is de tweede stap content.</span>
+                <vl-duration-step slot="duration">Vrije tijd: 2 uur</vl-duration-step>
             </vl-step>
-            <vl-duration-step>Vrije tijd: 2 uur</vl-duration-step>
             <vl-step>
                 <span slot="icon">1</span>
                 <span slot="sub-icon">maa</span>
