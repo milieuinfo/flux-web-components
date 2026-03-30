@@ -55,7 +55,19 @@ Zie de 'toggleable' story onder [vl-step](/docs/components-block-steps-step--doc
 
 ### Tijdlijn
 
+#### vl-duration-step
+
+Een `<vl-duration-step>` moet je zien als een onderdeel van een `<vl-step>` en hoort dus in een eigen `<ul>` lijst
+element te staan. Plaats hem daarvoor in de `<vl-step>` met het slot "duration".
+
+```html
+<vl-step>
+    ...
+    <vl-duration-step slot="duration">...</vl-duration-step>
+</vl-step>
+```
 <Canvas of={VlStepsStories.StepsTimeline} />
+
 
 ### Simpele tijdlijn
 
@@ -63,6 +75,18 @@ Gebruik het `icon slot` of `sub-icon slot` niet in combinatie met de simpele tij
 
 <Canvas of={VlStepsStories.StepsSimpleTimeline} />
 
+## Toegankelijkheid
+
+### icon-aria-label en timeline-aria-label
+
+Bij het gebruik van de "iconen" of "tijdlijn" varianten is het aangeraden om respectievelijk de attributen 
+`icon-aria-label` en `timeline-aria-label` in te vullen op het `<vl-step>`-component. Dit kan een label voor het icoon 
+of de volledige datum bevatten.
+
+### heading-level
+
+Om de logische volgorde van de pagina headings te respecteren kan je een `heading-level` meegeven. Hiermee kan je ipv
+de standaard `<h3>`-heading, `<h1>` tot `<h6>` laten renderen.
 
 ## Referenties
 
