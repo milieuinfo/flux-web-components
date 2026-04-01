@@ -8,4 +8,5 @@ export const doormatDefaults = {
     imageWidth: null as number | null,
     imageHeight: null as number | null,
     graphic: false as boolean,
+    fullHeight: false as boolean,
 } as const;

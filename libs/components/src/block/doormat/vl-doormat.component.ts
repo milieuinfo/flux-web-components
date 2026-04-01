@@ -17,6 +17,7 @@ export class VlDoormatComponent extends BaseLitElement {
     private imageWidth = doormatDefaults.imageWidth;
     private imageHeight = doormatDefaults.imageHeight;
     private graphic = doormatDefaults.graphic;
+    private fullHeight = doormatDefaults.fullHeight;
 
     static get styles(): CSSResult[] {
         return [vlIconStyles, vlLinkStyles(), doormatStyle];
@@ -33,6 +34,7 @@ export class VlDoormatComponent extends BaseLitElement {
             imageWidth: { type: Number, attribute: 'image-width' },
             imageHeight: { type: Number, attribute: 'image-height' },
             graphic: { type: Boolean },
+            fullHeight: { type: Boolean, attribute: 'full-height' },
         };
     }
 
@@ -41,6 +43,7 @@ export class VlDoormatComponent extends BaseLitElement {
             'vl-doormat': true,
             'vl-doormat--alt': this.alt,
             'vl-doormat--graphic': this.graphic,
+            'vl-doormat--full-height': this.fullHeight,
         };
         const target = this.external ? '_blank' : nothing;
         const rel = this.external ? 'noopener noreferrer nofollow' : nothing;
