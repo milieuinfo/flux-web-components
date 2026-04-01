@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 
 const config = {
@@ -61,8 +62,14 @@ const config = {
         publicPath: '/',
     },
     optimization: {
-        minimize: false
+        minimize: false,
+        splitChunks: false,
     },
+    plugins: [
+        new webpack.optimize.LimitChunkCountPlugin({
+            maxChunks: 1,
+        }),
+    ],
 };
 
 module.exports = (env, argv) => {

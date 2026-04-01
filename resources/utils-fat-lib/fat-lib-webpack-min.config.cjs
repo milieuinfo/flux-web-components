@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
@@ -60,8 +61,14 @@ const config = {
         hashFunction: 'sha256',
         publicPath: '/',
     },
+    plugins: [
+        new webpack.optimize.LimitChunkCountPlugin({
+            maxChunks: 1,
+        }),
+    ],
     optimization: {
         minimize: true,
+        splitChunks: false,
         minimizer: [
             new TerserPlugin({
                 extractComments: false,
