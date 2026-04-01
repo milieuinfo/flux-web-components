@@ -48,6 +48,16 @@ import { VlDoormatComponent } from '@domg-wc/components/block';
 
 <Canvas of={VlDoormatStories.DoormatGraphic} />
 
+### Verticaal vullend
+
+De doormat krijgt een hoogte van 100%. Dit werkt enkel wanneer de container een vaste hoogte heeft.
+
+Dit kan je doen door bv. met een `vl-grid` layout werken, met meerdere doormat components als directe kinderen.
+Vervolgens op elke doormat de CSS-classes `vl-column`, `vl-column--align-self-stretch` en de gewenste breedteclasses
+plaatsen.
+
+<Canvas of={VlDoormatStories.DoormatFullHeight} />
+
 
 ## Referenties
 

@@ -90,6 +90,15 @@ export const doormatArgTypes: ArgTypes<DoormatArgs> = {
             defaultValue: { summary: String(doormatArgs.imageHeight) },
         },
     },
+    fullHeight: {
+        name: 'full-height',
+        description: 'Strekt de doormat verticaal uit om de volledige hoogte van de container te vullen.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(doormatArgs.fullHeight) },
+        },
+    },
     graphic: {
         name: 'graphic',
         description:

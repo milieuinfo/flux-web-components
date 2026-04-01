@@ -24,7 +24,20 @@ export default {
 
 const DoormatTemplate = story(
     doormatArgs,
-    ({ href, linkLabel, external, alt, imageSrc, imageAlt, imageHeight, imageWidth, graphic, textSlot, titleSlot }) =>
+    ({
+        href,
+        linkLabel,
+        external,
+        alt,
+        imageSrc,
+        imageAlt,
+        imageHeight,
+        imageWidth,
+        graphic,
+        fullHeight,
+        textSlot,
+        titleSlot,
+    }) =>
         html`
             <div class="story--fixed-width">
                 <vl-doormat
@@ -32,6 +45,7 @@ const DoormatTemplate = story(
                     link-label=${linkLabel}
                     ?external=${external}
                     ?alt=${alt}
+                    ?full-height=${fullHeight}
                     image-src=${imageSrc}
                     image-alt=${imageAlt}
                     image-height=${imageHeight}
@@ -86,4 +100,37 @@ DoormatGraphic.args = {
     imageSrc: 'https://picsum.photos/1600/400?image=1048',
     imageAlt: 'Bouwen in Brussel',
     graphic: true,
+};
+
+const DoormatFullHeightTemplate = story(
+    doormatArgs,
+    ({ fullHeight }) => html`
+        <div class="vl-grid">
+            <vl-doormat
+                ?full-height=${fullHeight}
+                href="https://www.vlaanderen.be/bouwen-wonen-en-energie"
+                class="vl-column vl-column--6 vl-column--align-self-stretch"
+            >
+                <span slot="title">Bouwen, wonen en energie</span>
+                <span slot="text">Weinig tekst.</span>
+            </vl-doormat>
+            <vl-doormat
+                ?full-height=${fullHeight}
+                href="https://www.vlaanderen.be/bouwen-wonen-en-energie"
+                class="vl-column vl-column--6 vl-column--align-self-stretch"
+            >
+                <span slot="title">Grotere doormat</span>
+                <span slot="text"
+                    >Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span
+                >
+            </vl-doormat>
+        </div>
+    `
+);
+
+export const DoormatFullHeight = DoormatFullHeightTemplate.bind({});
+DoormatFullHeight.storyName = 'vl-doormat - full height';
+DoormatFullHeight.args = {
+    fullHeight: true,
 };
