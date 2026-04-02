@@ -17,6 +17,9 @@ stages:
   - Verify Release Stage:
       jobs:
         - verify-release
+  - Finalise Release Stage:
+      jobs:
+        - finalise-release
 
 build-apps-and-libs:
   requirements: &requirements
@@ -41,7 +44,6 @@ build-apps-and-libs:
     - name: artifact-build-apps-and-libs
       location: build-artifact
       pattern: '**/*.*'
-      shared: true
 
 unit-component-integrator-tests:
   requirements: *requirements
@@ -104,6 +106,11 @@ verify-release:
         # avoid git warning
         git config --global init.defaultBranch develop-v2
     - checkout
+    - artifact-download:
+        source-plan: FLUX-CFWC
+        artifacts:
+          - name: artifact-release-and-publish
+            destination: build
     - script: |
         # export variables
         export ACD_REPOSITORY_DEBIAN_LOGIN=${bamboo.acd_repository_debian_login}
@@ -113,6 +120,27 @@ verify-release:
         bash ./resources/ci-bamboo/bash/verify-release-docker.sh
   artifacts:
     - name: artifact-verify-release
+      location: build
+      pattern: '**/*.*'
+
+finalise-release:
+  requirements: *requirements
+  tasks:
+    - clean
+    - script: |
+        #!/bin/bash
+        # avoid git warning
+        git config --global init.defaultBranch develop-v2
+    - checkout
+    - script: |
+        # export variables
+        export ACD_REPOSITORY_DEBIAN_LOGIN=${bamboo.acd_repository_debian_login}
+        export ACD_REPOSITORY_BAMBOO_PASSWORD=${bamboo.acd_repository_bamboo_password}
+        export ACD_REPOSITORY_URL=${bamboo.acd_repository_url}
+        # boot the specific docker container
+        bash ./resources/ci-bamboo/bash/finalise-release-docker.sh
+  artifacts:
+    - name: artifact-finalise-release
       location: build
       pattern: '**/*.*'
 
