@@ -338,7 +338,9 @@ export class VlRichData extends BaseHTMLElement {
     _filterClosableChangedCallback(oldValue: any, newValue: any) {
         this.__filterToggleContainer!.hidden = newValue == null;
         if (newValue == null) {
-            this.__searchColumn?.classList.remove('vl-u-hidden--s');
+            if (!this.__searchFilter) {
+                this.__searchColumn?.classList.remove('vl-u-hidden--s');
+            }
         } else {
             this.__searchColumn?.classList.add('vl-u-hidden--s');
         }
@@ -434,6 +436,7 @@ export class VlRichData extends BaseHTMLElement {
     __processSearchFilter(): void {
         if (this.__searchFilter) {
             this.__searchFilter.setAttribute('alt', '');
+            this.__searchColumn?.classList.add('vl-u-hidden--s');
 
             if (!this.hasAttribute('filter-closed')) {
                 this.__showSearchColumn();
@@ -446,6 +449,7 @@ export class VlRichData extends BaseHTMLElement {
                 this.__handleSearchFilterClosing();
             });
         } else {
+            this.__searchColumn?.classList.remove('vl-u-hidden--s');
             this.__hideSearchColumn();
             this.__hideSearchResults();
         }
