@@ -1,4 +1,4 @@
-import { CATEGORIES, TYPES } from '@resources/utils-storybook';
+import { CATEGORIES, CONTROLS, TYPES } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components-vite';
 import { textareaArgs, textareaArgTypes } from '../../textarea/stories/vl-textarea.stories-arg';
 import { textareaRichDefaults } from '../vl-textarea-rich.defaults';
@@ -12,6 +12,15 @@ export const textareaRichArgs: TextareaRichArgs = {
 
 export const textareaRichArgTypes: ArgTypes<TextareaRichArgs> = {
     ...textareaArgTypes,
+    rows: {
+        name: 'rows',
+        description:
+            '**Deprecated** Heeft geen effect op de `vl-textarea-rich` editor. Gebruik `height` om de hoogte in te stellen.',
+        table: {
+            type: { summary: TYPES.NUMBER },
+            category: CATEGORIES.ATTRIBUTES,
+        },
+    },
     toolbar: {
         name: 'toolbar',
         description:
@@ -40,6 +49,18 @@ export const textareaRichArgTypes: ArgTypes<TextareaRichArgs> = {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: String(textareaRichArgs.preview) },
+        },
+    },
+    height: {
+        name: 'height',
+        description:
+            'De hoogte van de editor in pixels (inclusief toolbar en statusbalk).' +
+            '<br/>Er is een minimale hoogte van **70px**.<br/>Dit attribuut is niet reactief.',
+        control: { type: CONTROLS.NUMBER },
+        table: {
+            type: { summary: TYPES.NUMBER },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(textareaRichArgs.height) },
         },
     },
     customConfig: {
