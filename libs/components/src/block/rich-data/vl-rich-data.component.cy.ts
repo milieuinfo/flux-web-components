@@ -182,6 +182,74 @@ describe('cypress-component - block components - vl-rich-data - with vl-search-f
     });
 });
 
+describe('cypress-component - block components - vl-rich-data - mobile filter behavior', () => {
+    const mountWithFilter = (filterClosable = false) => {
+        cy.mount(html`
+            <vl-rich-data ?filter-closable=${filterClosable}>
+                <vl-search-filter slot="filter">
+                    <form>
+                        <div>
+                            <vl-form-label for="filterInput" label="Project id" light></vl-form-label>
+                            <vl-input-field id="filterInput" type="text" name="id" block></vl-input-field>
+                        </div>
+                        <footer>
+                            <vl-button type="submit" custom-css="button {flex:1}">Zoeken</vl-button>
+                            <vl-button type="reset" custom-css="button {flex:1}" secondary>Reset</vl-button>
+                        </footer>
+                    </form>
+                </vl-search-filter>
+                <div slot="content">Content</div>
+                <span slot="no-content">Geen resultaten gevonden</span>
+            </vl-rich-data>
+        `);
+    };
+
+    it('should hide the search column on mobile on page load without filter-closable', () => {
+        cy.viewport(375, 667);
+        mountWithFilter(false);
+
+        cy.get('vl-rich-data').shadow().find('#search').should('have.class', 'vl-u-hidden--s');
+    });
+
+    it('should hide the search column on mobile on page load with filter-closable', () => {
+        cy.viewport(375, 667);
+        mountWithFilter(true);
+
+        cy.get('vl-rich-data').shadow().find('#search').should('have.class', 'vl-u-hidden--s');
+    });
+
+    it('should show the search filter when the open button is clicked on mobile', () => {
+        cy.viewport(375, 667);
+        mountWithFilter(false);
+
+        cy.get('vl-rich-data').shadow().find('#search').should('have.class', 'vl-u-hidden--s');
+
+        cy.get('vl-rich-data').shadow().find('#open-toggle-filter-button').click({ force: true });
+
+        cy.get('vl-search-filter').should('not.have.attr', 'hidden');
+    });
+
+    it('should hide the search filter after submitting the form on mobile', () => {
+        cy.viewport(375, 667);
+        mountWithFilter(false);
+
+        cy.get('vl-rich-data').shadow().find('#open-toggle-filter-button').click({ force: true });
+        cy.get('vl-search-filter').should('not.have.attr', 'hidden');
+
+        cy.get('vl-search-filter').find('form').submit();
+
+        cy.get('vl-search-filter').should('have.attr', 'hidden');
+    });
+
+    it('should show the search filter inline on desktop without filter-closable', () => {
+        cy.viewport(1280, 800);
+        mountWithFilter(false);
+
+        cy.get('vl-rich-data').shadow().find('#search').should('not.have.attr', 'hidden');
+        cy.get('vl-search-filter').should('not.have.attr', 'hidden');
+    });
+});
+
 describe('cypress-component - block components - vl-rich-data - with vl-select', () => {
     it('should cut off long text with an ellipsis', () => {
         cy.viewport(1024, 768);
