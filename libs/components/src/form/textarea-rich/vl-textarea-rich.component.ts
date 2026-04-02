@@ -11,6 +11,8 @@ export class VlTextareaRichComponent extends VlTextareaComponent {
     private toolbar = textareaRichDefaults.toolbar;
     private plugins = textareaRichDefaults.plugins;
     private preview = textareaRichDefaults.preview;
+    private height = textareaRichDefaults.height;
+    private minHeight = 70;
 
     // Properties
     private customConfig = textareaRichDefaults.customConfig;
@@ -36,6 +38,7 @@ export class VlTextareaRichComponent extends VlTextareaComponent {
             toolbar: { type: String },
             plugins: { type: String },
             preview: { type: Boolean },
+            height: { type: Number },
             customConfig: { type: Object },
         };
     }
@@ -107,6 +110,8 @@ export class VlTextareaRichComponent extends VlTextareaComponent {
             language: 'nl_BE',
             base_url: 'https://cdn.omgeving.vlaanderen.be/domg/tinymce/6.8.3',
             toolbar: this.toolbar,
+            height: this.height,
+            min_height: this.minHeight,
             menubar: false,
             elementpath: false,
             branding: false,

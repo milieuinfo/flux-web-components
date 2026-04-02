@@ -39,7 +39,7 @@ const Template = story(
         autocomplete,
         minLength,
         maxLength,
-        rows,
+        height,
         toolbar,
         plugins,
         preview,
@@ -62,7 +62,7 @@ const Template = story(
             autocomplete=${autocomplete}
             min-length=${minLength}
             max-length=${maxLength}
-            rows=${rows}
+            height=${height}
             toolbar=${toolbar}
             plugins=${plugins}
             ?preview=${preview}
@@ -88,7 +88,7 @@ export const TextareaRichToolbar = Template.bind({});
 TextareaRichToolbar.storyName = 'vl-textarea-rich - toolbar';
 TextareaRichToolbar.args = {
     id: 'textarea-rich-toolbar',
-    rows: 40,
+    height: 500,
     toolbar: 'undo redo | h1 h2 h3 h4 h5 h6 | bold italic underline strikethrough | blockquote | hr',
     value: '<h1>h1 title</h1><h2>h2 title</h2><h3>h3 title</h3><h4>h4 title</h4><h5>h5 title</h5><h6>h6 title</h6><hr><p><b>b-tag</b></p><p><i>i-tag</i></p><p><u>u-tag</u></p><p><s>s-tag</s></p><hr><blockquote>blockquote-tag</blockquote>',
 };
@@ -97,7 +97,7 @@ export const TextareaRichPlugins = Template.bind({});
 TextareaRichPlugins.storyName = 'vl-textarea-rich - plugins';
 TextareaRichPlugins.args = {
     id: 'textarea-rich-plugins',
-    rows: 30,
+    height: 400,
     toolbar: 'undo redo | h5 | bold italic underline strikethrough | bullist numlist | link',
     plugins: 'lists link',
     value: '<h5>Link</h5><p><a href="https://www.vlaanderen.be/" target="_blank" rel="noopener">https://www.vlaanderen.be/</a></p><h5>Unordered list</h5><ul><li>Unordered list item 1</li><li>Unordered list item 2</li><ul><li>Unordered list subitem 1</li><li>Unordered list subitem 2</li></ul><li>Unordered list item 3</ul><h5>Ordered list</h5><ol><li>Ordered list item 1</li><li>Ordered list item 2</li><ol><li>Ordered list subitem 1</li><li>Ordered list subitem 2</li></ol><li>Ordered list item 3</ol>',

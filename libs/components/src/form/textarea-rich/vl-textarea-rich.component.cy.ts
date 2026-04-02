@@ -112,5 +112,31 @@ describe('vl-textarea-rich - properties & states', () => {
         cy.wait(500);
         cy.get('.snapshot-wrapper').matchImageSnapshot('textarea-rich-preview');
     });
+
+    it('should set a small height', () => {
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 600px; padding: 20px; background: white;">
+                <vl-textarea-rich height="100"></vl-textarea-rich>
+            </div>
+        `);
+
+        cy.wait(500);
+        cy.get('vl-textarea-rich').shadow().find('.tox-tinymce').invoke('outerHeight').should('be.lte', 150);
+
+        cy.get('.snapshot-wrapper').matchImageSnapshot('textarea-rich-height-small');
+    });
+
+    it('should set a large height', () => {
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 600px; padding: 20px; background: white;">
+                <vl-textarea-rich height="400"></vl-textarea-rich>
+            </div>
+        `);
+
+        cy.wait(500);
+        cy.get('vl-textarea-rich').shadow().find('.tox-tinymce').invoke('outerHeight').should('be.gte', 350);
+
+        cy.get('.snapshot-wrapper').matchImageSnapshot('textarea-rich-height-large');
+    });
 });
 
