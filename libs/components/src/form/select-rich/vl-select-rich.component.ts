@@ -95,6 +95,8 @@ export class VlSelectRichComponent extends FormControl {
             this.choices = new Choices(this.validationTarget!, this.getChoicesConfig());
             this.initialOptions = structuredClone(this.options);
         }
+
+        this.addEventListener('keydown', this.onKeyDownIgnoreModifierKeys, { capture: true });
     }
 
     async firstUpdated(changedProperties: Map<string, unknown>) {
@@ -194,6 +196,8 @@ export class VlSelectRichComponent extends FormControl {
         this.internals.labels[0]?.removeEventListener('click', this.onClickChoices);
         this.choices?.input?.element?.removeEventListener('input', this.onSearchInput);
         this.choices?.destroy();
+
+        this.removeEventListener('keydown', this.onKeyDownIgnoreModifierKeys, { capture: true });
     }
 
     render(): TemplateResult {
@@ -528,6 +532,14 @@ export class VlSelectRichComponent extends FormControl {
     private onSearchInput = (event: Event) => {
         const value = (event?.target as HTMLInputElement)?.value;
         this.dispatchEvent(new CustomEvent('vl-select-search', { bubbles: true, composed: true, detail: { value } }));
+    };
+
+    private onKeyDownIgnoreModifierKeys = (e: KeyboardEvent) => {
+        // Don't open the dropdown or trigger actions when modifier keys are pressed,
+        // to allow for keyboard shortcuts in combination with Ctrl, Alt or Meta (Command or Windows)
+        if (e.ctrlKey || e.altKey || e.metaKey) {
+            e.stopImmediatePropagation(); // prevents Choices from seeing it
+        }
     };
 
     /**
