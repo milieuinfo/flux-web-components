@@ -1,0 +1,77 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlPillStories from './vl-pill.stories';
+
+# Pill
+
+<FluxComponentMetaData id="components-block-pill" />
+
+## Doel
+
+Gebruik de `pill` component voor het tonen van statussen, toegepaste filters, badges, etc.<br/>
+
+
+## Voorbeeld
+
+```js
+import { VlPillComponent } from '@domg-wc/components/block';
+```
+
+```html
+<vl-pill></vl-pill>
+```
+
+<Canvas of={VlPillStories.PillDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlPillStories.PillDefault} />
+
+
+## Varianten
+
+### Alle varianten
+
+<Canvas of={VlPillStories.PillAllVariants} />
+
+### Aangepaste kleuren
+
+De kleuren van vl-pill zijn aanpasbaar met de volgende CSS variabelen:
+
+```css
+/* Default */
+--vl-pill--border-color: var(--vl-color--border-alt);
+--vl-pill--text-color: var(--vl-color--text-alt);
+--vl-pill--background-color: #fff;
+/* Hover */
+--vl-pill--border-color-action: var(--vl-color--action);
+--vl-pill--text-color-action: var(--vl-color--action);
+--vl-pill--background-color-action: var(--vl-color--background-action-subtle);
+```
+
+**Tip**: maak globale klassen om aangepaste pills te definiëren: `<vl-pill class="paarse-pil">paarse pil</vl-pill>`
+
+<Canvas of={VlPillStories.PillCustomColors} />
+
+## Toegankelijkheid
+
+Kleur mag nooit het enige middel zijn om informatie over te brengen. Gebruik altijd een combinatie van kleur, tekst 
+en iconografie voor maximale toegankelijkheid.
+
+Controleer aangepaste kleuren op contrast en pas de verschillende kleurenblindheid emulaties toe.
+
+### Kleurencontrast
+
+Open Chrome Developer Tools, inspecteer het element. Er wordt een tooltip getoond met een groen vinkje indien 
+het kleurencontrast voldoende is. 
+
+### Kleurenblindheid emulatie
+
+Indien je verschillende pills met aangepaste kleuren gemaakt hebt, plaats deze dan samen op een pagina.
+Open Chrome Developer Tools, open het "Rendering" paneel. Hieronder vind je [Emulate vision deficiencies](https://dev.to/josefine/accessibility-testing-with-chrome-devtools-2bl4#emulate-vision-deficiencies). Ga door de
+verschillende opties en controleer of je steeds alle verschillende kleuren kan onderscheiden. Soms is het beter om 1 
+tint te kiezen met verschillende helderheden. Op de [kleurenpalet-pagina](/docs/styles-kleurenpalet--documentatie) vind
+je voorbeelden van kleuren die op deze manier getest zijn.
+
+
+

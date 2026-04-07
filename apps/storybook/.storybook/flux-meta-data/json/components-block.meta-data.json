@@ -291,9 +291,9 @@
         "condition": {
             "base": "LitElement",
             "generation": "TODO",
-            "css": "govflanders",
-            "tests": ["Component"],
-            "documentation": "template",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
             "wcagLevel": "TODO",
             "jiraMeta": "FLUX-259"
         }
