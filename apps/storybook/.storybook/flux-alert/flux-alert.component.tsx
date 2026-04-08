@@ -11,9 +11,9 @@ export const FluxAlert = ({
     message = '',
 }) => {
     return (
-        <vl-alert icon={icon} title={title} type={type} size={size} naked={naked ? '' : undefined} message={message}>
+        <vl-alert icon={icon} title={title} type={type} size={size} naked={naked ? '' : undefined}>
             <Markdown options={{ forceInline: true }} style={{ fontSize: '14px' }}>
-                {children}
+                {children || message}
             </Markdown>
         </vl-alert>
     );
