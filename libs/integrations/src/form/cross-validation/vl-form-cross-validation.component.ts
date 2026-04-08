@@ -105,7 +105,7 @@ export class VlFormCrossValidationComponent extends LitElement {
                             required
                             placeholder="Kies een procedure"
                             .options=${this.procedureOpties}
-                            @change=${this.onProcedureChange}
+                            @vl-change=${this.onProcedureChange}
                         ></vl-select>
                         <vl-form-message for="procedure" state="valueMissing"
                             >Gelieve een procedure te kiezen.</vl-form-message
@@ -151,8 +151,7 @@ export class VlFormCrossValidationComponent extends LitElement {
         const codeField =
             this.shadowRoot?.querySelector<VlInputFieldWithCrossValidatorComponent>('#code');
         if (codeField) {
-            const inputEl = codeField.shadowRoot?.querySelector('input');
-            codeField.setValue(inputEl?.value ?? '');
+            codeField.setValue(codeField.value);
         }
     }
 
