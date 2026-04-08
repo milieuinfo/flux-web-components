@@ -1,54 +1,54 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { buildData, buildLabel } from '@resources/utils-test';
+import { buildHTMLElement } from '@resources/utils-test';
+import { html } from 'lit';
 import { VlPropertiesComponent } from './index';
 import { dummy2Props, dummyProps } from './stories/vl-properties.stories-util';
 import { propertiesDefaults } from './vl-properties.defaults';
-import { html } from 'lit';
 
 registerWebComponents([VlPropertiesComponent]);
 type PropertiesDefaultTypes = Partial<typeof propertiesDefaults>;
 
 const defaultPropertiesTemplate = html`
     <vl-properties>
-        <label>Woonplaats</label>
-        <data>Brussel</data>
-        <label>Postcode</label>
-        <data>1000</data>
+        <vl-property>Woonplaats</vl-property>
+        <vl-property-data>Brussel</vl-property-data>
+        <vl-property>Postcode</vl-property>
+        <vl-property-data>1000</vl-property-data>
     </vl-properties>
 `;
 
 const propertiesHtmlEnrichedTemplate = html`
     <vl-properties>
-        <label><span style="color: red">Woonplaats</span></label>
-        <data><span style="color: blue">Brussel</span></data>
-        <label>Postcode</label>
-        <data>1000</data>
+        <vl-property><span style="color: red">Woonplaats</span></vl-property>
+        <vl-property-data><span style="color: blue">Brussel</span></vl-property-data>
+        <vl-property>Postcode</vl-property>
+        <vl-property-data>1000</vl-property-data>
     </vl-properties>
 `;
 
 const propertiesColumnsTemplate = html`
     <vl-properties>
         <div class="column">
-            <label>Woonplaats</label>
-            <data>Brussel</data>
+            <vl-property>Woonplaats</vl-property>
+            <vl-property-data>Brussel</vl-property-data>
         </div>
         <div class="column">
-            <label>Postcode</label>
-            <data>1000</data>
+            <vl-property>Postcode</vl-property>
+            <vl-property-data>1000</vl-property-data>
         </div>
         <div class="column column--full-width">
-            <label>Gewest</label>
-            <data>Brussel</data>
+            <vl-property>Gewest</vl-property>
+            <vl-property-data>Brussel</vl-property-data>
         </div>
     </vl-properties>
 `;
 
-const propertiesWithPropsTemplate = ({ props }: PropertiesDefaultTypes = {}) => html`
+const propertiesWithPropsTemplate = ({ props = [] }: PropertiesDefaultTypes = {}) => html`
     <vl-properties .props=${props}>
-        <label>Woonplaats</label>
-        <data>Brussel</data>
-        <label>Postcode</label>
-        <data>1000</data>
+        <vl-property>Woonplaats</vl-property>
+        <vl-property-data>Brussel</vl-property-data>
+        <vl-property>Postcode</vl-property>
+        <vl-property-data>1000</vl-property-data>
     </vl-properties>
 `;
 
@@ -73,18 +73,10 @@ describe('cypress-component - block components - vl-properties', () => {
             .shadow()
             .find('dl')
             .within(() => {
-                cy.get('div')
-                    .eq(0)
-                    .within(() => {
-                        cy.get('dt').should('contain.text', 'Woonplaats');
-                        cy.get('dd').should('contain.text', 'Brussel');
-                    });
-                cy.get('div')
-                    .eq(1)
-                    .within(() => {
-                        cy.get('dt').should('contain.text', 'Postcode');
-                        cy.get('dd').should('contain.text', '1000');
-                    });
+                cy.get('dt').eq(0).should('contain.text', 'Woonplaats');
+                cy.get('dd').eq(0).should('contain.text', 'Brussel');
+                cy.get('dt').eq(1).should('contain.text', 'Postcode');
+                cy.get('dd').eq(1).should('contain.text', '1000');
             });
     });
 
@@ -92,20 +84,16 @@ describe('cypress-component - block components - vl-properties', () => {
         cy.mount(defaultPropertiesTemplate);
 
         cy.runTestFor<VlPropertiesComponent>('vl-properties', (component) => {
-            component.append(buildLabel('Gewest'));
-            component.append(buildData('Brussels'));
+            component.append(buildHTMLElement('vl-property', 'Gewest'));
+            component.append(buildHTMLElement('vl-property-data', 'Brussels'));
         });
 
         cy.get('vl-properties')
             .shadow()
             .find('dl')
             .within(() => {
-                cy.get('div')
-                    .eq(2)
-                    .within(() => {
-                        cy.get('dt').should('contain.text', 'Gewest');
-                        cy.get('dd').should('contain.text', 'Brussels');
-                    });
+                cy.get('dt').eq(2).should('contain.text', 'Gewest');
+                cy.get('dd').eq(2).should('contain.text', 'Brussels');
             });
     });
 
@@ -116,20 +104,12 @@ describe('cypress-component - block components - vl-properties', () => {
             .shadow()
             .find('dl')
             .within(() => {
-                cy.get('div')
-                    .eq(0)
-                    .within(() => {
-                        cy.get('dt').find('span').should('have.attr', 'style', 'color: red');
-                        cy.get('dt').find('span').should('contain.text', 'Woonplaats');
-                        cy.get('dd').find('span').should('have.attr', 'style', 'color: blue');
-                        cy.get('dd').find('span').should('contain.text', 'Brussel');
-                    });
-                cy.get('div')
-                    .eq(1)
-                    .within(() => {
-                        cy.get('dt').should('contain.text', 'Postcode');
-                        cy.get('dd').should('contain.text', '1000');
-                    });
+                cy.get('dt').eq(0).find('span').should('have.attr', 'style', 'color: red');
+                cy.get('dt').eq(0).find('span').should('contain.text', 'Woonplaats');
+                cy.get('dd').eq(0).find('span').should('have.attr', 'style', 'color: blue');
+                cy.get('dd').eq(0).find('span').should('contain.text', 'Brussel');
+                cy.get('dt').eq(1).should('contain.text', 'Postcode');
+                cy.get('dd').eq(1).should('contain.text', '1000');
             });
     });
 
@@ -144,37 +124,22 @@ describe('cypress-component - block components - vl-properties', () => {
                     .eq(0)
                     .should('have.attr', 'class', 'column')
                     .within(() => {
-                        cy.get('div')
-                            .eq(0)
-                            .should('have.attr', 'class', 'item')
-                            .within(() => {
-                                cy.get('dt').should('contain.text', 'Woonplaats');
-                                cy.get('dd').should('contain.text', 'Brussel');
-                            });
+                        cy.get('dt').should('contain.text', 'Woonplaats');
+                        cy.get('dd').should('contain.text', 'Brussel');
                     });
                 cy.get('> div')
                     .eq(1)
                     .should('have.attr', 'class', 'column')
                     .within(() => {
-                        cy.get('div')
-                            .eq(0)
-                            .should('have.attr', 'class', 'item')
-                            .within(() => {
-                                cy.get('dt').should('contain.text', 'Postcode');
-                                cy.get('dd').should('contain.text', '1000');
-                            });
+                        cy.get('dt').should('contain.text', 'Postcode');
+                        cy.get('dd').should('contain.text', '1000');
                     });
                 cy.get('> div')
                     .eq(2)
                     .should('have.attr', 'class', 'column column--full-width')
                     .within(() => {
-                        cy.get('div')
-                            .eq(0)
-                            .should('have.attr', 'class', 'item')
-                            .within(() => {
-                                cy.get('dt').should('contain.text', 'Gewest');
-                                cy.get('dd').should('contain.text', 'Brussel');
-                            });
+                        cy.get('dt').should('contain.text', 'Gewest');
+                        cy.get('dd').should('contain.text', 'Brussel');
                     });
             });
     });
@@ -190,14 +155,9 @@ describe('cypress-component - block components - vl-properties', () => {
                     .eq(0)
                     .should('have.attr', 'class', 'column')
                     .within(() => {
-                        cy.get('div')
-                            .eq(0)
-                            .should('have.attr', 'class', 'item')
-                            .within(() => {
-                                cy.get('dt').should('contain.text', 'Straat');
-                                cy.get('dd').eq(0).should('contain.text', 'Appelstraat');
-                                cy.get('dd').eq(1).should('contain.text', 'Perenstraat');
-                            });
+                        cy.get('dt').should('contain.text', 'Straat');
+                        cy.get('dd').eq(0).should('contain.text', 'Appelstraat');
+                        cy.get('dd').eq(1).should('contain.text', 'Perenstraat');
                     });
             });
     });
@@ -213,14 +173,9 @@ describe('cypress-component - block components - vl-properties', () => {
                     .eq(0)
                     .should('have.attr', 'class', 'column')
                     .within(() => {
-                        cy.get('div')
-                            .eq(0)
-                            .should('have.attr', 'class', 'item')
-                            .within(() => {
-                                cy.get('dt').should('contain.text', 'Straat');
-                                cy.get('dd').eq(0).should('contain.text', 'Appelstraat');
-                                cy.get('dd').eq(1).should('contain.text', 'Perenstraat');
-                            });
+                        cy.get('dt').should('contain.text', 'Straat');
+                        cy.get('dd').eq(0).should('contain.text', 'Appelstraat');
+                        cy.get('dd').eq(1).should('contain.text', 'Perenstraat');
                     });
             });
 
@@ -236,15 +191,27 @@ describe('cypress-component - block components - vl-properties', () => {
                     .eq(0)
                     .should('have.attr', 'class', 'column')
                     .within(() => {
-                        cy.get('div')
-                            .eq(0)
-                            .should('have.attr', 'class', 'item')
-                            .within(() => {
-                                cy.get('dt').should('contain.text', 'Gemeente');
-                                cy.get('dd').eq(0).should('contain.text', 'Antwerpen');
-                                cy.get('dd').eq(1).should('contain.text', 'Berchem');
-                            });
+                        cy.get('dt').should('contain.text', 'Gemeente');
+                        cy.get('dd').eq(0).should('contain.text', 'Antwerpen');
+                        cy.get('dd').eq(1).should('contain.text', 'Berchem');
                     });
             });
+    });
+
+    it('should remove padding-bottom when no-padding-bottom attribute is set', () => {
+        cy.mount(html`
+            <vl-properties no-padding-bottom>
+                <vl-property>Woonplaats</vl-property>
+                <vl-property-data>Brussel</vl-property-data>
+            </vl-properties>
+        `);
+
+        cy.get('vl-properties').shadow().find('dl').should('have.css', 'padding-bottom', '0px');
+    });
+
+    it('should have default padding-bottom when no-padding-bottom attribute is not set', () => {
+        cy.mount(defaultPropertiesTemplate);
+
+        cy.get('vl-properties').shadow().find('dl').should('have.css', 'padding-bottom', '20px');
     });
 });

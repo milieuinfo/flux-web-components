@@ -1,7 +1,7 @@
 export type Props = Column[];
 
 export interface Column {
-    class?: string; // column / column--full-width / collapsed
+    class?: string; // column / column--full-width / stacked (collapsed)
     items: Item[];
 }
 

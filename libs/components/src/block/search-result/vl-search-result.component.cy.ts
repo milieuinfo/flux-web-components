@@ -17,10 +17,10 @@ describe('cypress-component - block components - vl-search-result', () => {
                     <time>Maandag 22 oktober 2018</time>
                 </vl-search-result-text>
                 <vl-search-result-properties>
-                    <label>Vlaanderenkiest.be</label>
-                    <data>Verkiezingsresultaten op Vlaanderenkiest.be...</data>
-                    <label>Vlaanderen intern</label>
-                    <data>Werkt u bij de Vlaamse overheid...</data>
+                    <vl-property>Vlaanderenkiest.be</vl-property>
+                    <vl-property-data>Verkiezingsresultaten op Vlaanderenkiest.be...</vl-property-data>
+                    <vl-property>Vlaanderen intern</vl-property>
+                    <vl-property-data>Werkt u bij de Vlaamse overheid...</vl-property-data>
                 </vl-search-result-properties>
             </vl-search-result>
         `);

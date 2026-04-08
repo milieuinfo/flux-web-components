@@ -38,7 +38,7 @@ De props zijn als volgt gespecifiëerd:
 export type Props = Column[];
 
 export interface Column {
-    class?: string; // column / column--full-width / collapsed
+    class?: string; // column / column--full-width / stacked (collapsed)
     items: Item[];
 }
 
@@ -77,12 +77,12 @@ Naast gewone tekst kan zowel in 'label' als in 'data' html-code gestoken worden 
 
 <Canvas of={VlPropertiesStories.PropertiesHtmlEnriched}/>
 
-### Collapsed
+### Stacked
 
 In mobiele-mode (< 767px) worden labels en data onder i.p.v. naast elkaar getoond. Deze layout kan ook expliciet
-afgedwongen worden via de `collapsed` class.
+afgedwongen worden via de `stacked` class (`stacked` vervangt de deprecated class `collapsed`).
 
-<Canvas of={VlPropertiesStories.PropertiesCollapsed}/>
+<Canvas of={VlPropertiesStories.PropertiesStacked}/>
 
 ### Columns
 

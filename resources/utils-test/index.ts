@@ -1,1 +1,1 @@
-export { buildSpan, buildDiv, buildLabel, buildData } from './html-element.builder';
+export { buildData, buildDiv, buildHTMLElement, buildLabel, buildSpan } from './html-element.builder';

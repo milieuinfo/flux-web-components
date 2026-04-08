@@ -79,16 +79,16 @@ export const privacyContentSection = () => html`
                                         slot="properties"
                                         custom-css="dl:has(.item) { margin-top: 0.8rem; display: block; }"
                                     >
-                                        <label>Adres</label>
-                                        <data>
+                                        <vl-property>Adres</vl-property>
+                                        <vl-property-data>
                                             <address aria-label="Adresgegevens">
                                                 Herman Teirlinckgebouw<br />
                                                 Havenlaan 88<br />
                                                 1000 Brussel, België
                                             </address>
-                                        </data>
-                                        <label>Telefoon</label>
-                                        <data>
+                                        </vl-property-data>
+                                        <vl-property>Telefoon</vl-property>
+                                        <vl-property-data>
                                             <vl-link
                                                 href="tel:02 553 80 11"
                                                 icon-placement="after"
@@ -97,9 +97,9 @@ export const privacyContentSection = () => html`
                                             >
                                                 02 553 80 11
                                             </vl-link>
-                                        </data>
-                                        <label>E-mail</label>
-                                        <data>
+                                        </vl-property-data>
+                                        <vl-property>E-mail</vl-property>
+                                        <vl-property-data>
                                             <vl-link
                                                 href="mailto:omgeving@vlaanderen.be"
                                                 icon-placement="after"
@@ -108,9 +108,9 @@ export const privacyContentSection = () => html`
                                             >
                                                 omgeving@vlaanderen.be
                                             </vl-link>
-                                        </data>
-                                        <label>Website</label>
-                                        <data>
+                                        </vl-property-data>
+                                        <vl-property>Website</vl-property>
+                                        <vl-property-data>
                                             <vl-link
                                                 href="http://www.omgevingvlaanderen.be"
                                                 external
@@ -118,9 +118,9 @@ export const privacyContentSection = () => html`
                                             >
                                                 http://www.omgevingvlaanderen.be
                                             </vl-link>
-                                        </data>
-                                        <label>KBO-nummer</label>
-                                        <data> 0316.380.841 (ondernemingsnummer van de Vlaamse Overheid) </data>
+                                        </vl-property-data>
+                                        <vl-property>KBO-nummer</vl-property>
+                                        <vl-property-data> 0316.380.841 (ondernemingsnummer van de Vlaamse Overheid) </vl-property-data>
                                     </vl-properties>
                                 </vl-contact-card>
                             </div>

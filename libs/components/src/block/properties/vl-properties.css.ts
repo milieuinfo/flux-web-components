@@ -1,12 +1,6 @@
 import { vlMediaScreenSmall } from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
 
-const columnWidth = (widthPercentage: number): CSSResult => {
-    return css`
-        width: ${widthPercentage}%;
-    `;
-};
-
 const collapsedDt = (): CSSResult => {
     return css`
         font-size: 1.6rem;
@@ -15,21 +9,21 @@ const collapsedDt = (): CSSResult => {
 
 const collapsedDd = (): CSSResult => {
     return css`
-        grid-column: 1;
         font-size: 1.6rem;
-        margin-inline-start: initial;
+        &:has(+ dt) {
+            padding-bottom: 2rem;
+        }
     `;
 };
 
 export const labelWidthPercentage = (labelWidth: number): CSSResult => {
     return css`
-        dl,
-        dl .item {
+        dl:has(> dt),
+        .column {
             grid-template-columns: [labels] ${labelWidth}% [data] auto;
         }
 
-        dl .column--full-width,
-        dl .column--full-width .item {
+        .column--full-width {
             grid-template-columns: [labels] ${labelWidth / 2}% [data] auto;
         }
     `;
@@ -37,21 +31,24 @@ export const labelWidthPercentage = (labelWidth: number): CSSResult => {
 
 export const sizeQueryStyles = css`
     @media screen and (max-width: ${vlMediaScreenSmall}px) {
-        dl,
-        dl .item {
-            grid-template-columns: 100%;
+        dl {
+            display: flex;
+            flex-direction: column;
+            row-gap: 2rem;
         }
 
-        .column {
-            ${columnWidth(100)};
-        }
-
-        dd {
-            ${collapsedDd()}
+        dl:has(> dt),
+        .column,
+        .column--full-width {
+            display: block;
         }
 
         dt {
-            ${collapsedDt()}
+            ${collapsedDt()};
+        }
+
+        dd {
+            ${collapsedDd()};
         }
     }
 `;
@@ -61,40 +58,24 @@ export const propertiesStyles: CSSResult = css`
         display: block;
     }
 
-    .column {
-        ${columnWidth(50)};
-        float: left;
-    }
-
-    .column--full-width {
-        ${columnWidth(100)};
-        float: left;
-    }
-
     dl {
         display: grid;
         word-break: break-word;
-    }
-
-    dl:has(.item) {
-        display: flow-root;
-        margin-block: 0;
-    }
-
-    dl .item {
-        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem 0;
         padding-bottom: 2rem;
     }
-
-    :host([no-padding-bottom]) dl .item:last-child {
-        padding-bottom: 0;
+    :host([no-padding-bottom]) {
+        dl {
+            padding-bottom: 0;
+        }
     }
 
     dt,
     dd {
         font-size: 1.8rem;
-        padding-right: 1rem;
         hyphens: auto;
+        padding-right: 1rem;
     }
 
     dt {
@@ -102,21 +83,43 @@ export const propertiesStyles: CSSResult = css`
         grid-column: 1;
     }
 
-    .collapsed dt {
-        ${collapsedDt()}
-    }
-
     dd {
         grid-column: 2;
-        margin-inline-start: initial;
     }
 
-    .collapsed dd {
-        ${collapsedDd()}
+    /* Column layout */
+    .column,
+    .column--full-width {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-auto-rows: auto;
+        grid-auto-flow: row;
+
+        & > dt {
+            grid-column: 1;
+        }
+        & > dd {
+            grid-column: 2;
+        }
     }
 
-    .collapsed .item,
+    .column--full-width {
+        grid-column: 1 / -1;
+    }
+
+    /* Stacked layout */
+    dl:has(.stacked),
     dl:has(.collapsed) {
         grid-template-columns: 100%;
+    }
+
+    .stacked dt,
+    .collapsed dt {
+        ${collapsedDt()};
+    }
+
+    .stacked dd,
+    .collapsed dd {
+        ${collapsedDd()};
     }
 `;
