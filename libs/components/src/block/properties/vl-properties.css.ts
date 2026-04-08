@@ -3,7 +3,7 @@ import { css, CSSResult } from 'lit';
 
 const columnWidth = (widthPercentage: number): CSSResult => {
     return css`
-        width: calc(${widthPercentage}% - 1rem);
+        width: ${widthPercentage}%;
     `;
 };
 
@@ -86,10 +86,19 @@ export const propertiesStyles: CSSResult = css`
         padding-bottom: 2rem;
     }
 
-    dt {
+    :host([no-padding-bottom]) dl .item:last-child {
+        padding-bottom: 0;
+    }
+
+    dt,
+    dd {
         font-size: 1.8rem;
-        color: var(--vl-color--label);
         padding-right: 1rem;
+        hyphens: auto;
+    }
+
+    dt {
+        color: var(--vl-color--label);
         grid-column: 1;
     }
 
@@ -98,7 +107,6 @@ export const propertiesStyles: CSSResult = css`
     }
 
     dd {
-        font-size: 1.8rem;
         grid-column: 2;
         margin-inline-start: initial;
     }

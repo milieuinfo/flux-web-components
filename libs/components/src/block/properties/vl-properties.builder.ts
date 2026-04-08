@@ -11,6 +11,7 @@ const buildItems = (elements: Element[], clone: boolean): Item[] => {
     elements.forEach((element: Element) => {
         switch (element.localName) {
             case 'label':
+            case 'vl-property':
                 // een nieuw item begint als er gestart wordt met een nieuw label (in dat geval is er al data)
                 if (labels.length && data.length) {
                     items.push({ labels, data });
@@ -18,12 +19,13 @@ const buildItems = (elements: Element[], clone: boolean): Item[] => {
                     data = [];
                 }
                 labels.push(
-                    element.children.length > 0 ? moveChildNodes([...element.childNodes], clone) : element.innerHTML
+                    element.children.length > 0 ? moveChildNodes([...element.childNodes], clone) : element.innerHTML,
                 );
                 break;
             case 'data':
+            case 'vl-property-data':
                 data.push(
-                    element.children.length > 0 ? moveChildNodes([...element.childNodes], clone) : element.innerHTML
+                    element.children.length > 0 ? moveChildNodes([...element.childNodes], clone) : element.innerHTML,
                 );
                 break;
         }
