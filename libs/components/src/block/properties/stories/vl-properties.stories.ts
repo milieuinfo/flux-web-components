@@ -21,18 +21,19 @@ export default {
             page: propertiesDoc,
         },
     },
+    // decorators: [(story: () => unknown) => html` <div lang="nl">${story()}</div>`],
 } as Meta<typeof propertiesArgs>;
 
 const PropertiesTemplate = story(
     propertiesArgs,
-    ({ labelWidth, props }) => html`
-        <vl-properties label-width=${labelWidth} .props=${props}>
-            <label>Woonplaats</label>
-            <data>Brussel</data>
-            <label>Postcode</label>
-            <data>1000</data>
+    ({ labelWidth, props, noPaddingBottom }) => html`
+        <vl-properties label-width=${labelWidth} .props=${props} ?no-padding-bottom=${noPaddingBottom}>
+            <vl-property>Woonplaats</vl-property>
+            <vl-property-data>Brussel</vl-property-data>
+            <vl-property>Postcode</vl-property>
+            <vl-property-data>1000</vl-property-data>
         </vl-properties>
-    `
+    `,
 );
 
 const PropertiesEmptyTemplate = story(
@@ -53,18 +54,18 @@ export const PropertiesHtmlEnriched = story(
     propertiesArgs,
     ({ labelWidth, props }) => html`
         <vl-properties label-width=${labelWidth} .props=${props}>
-            <label>
+            <vl-property>
                 <vl-icon icon="location" small right-margin=""></vl-icon>
                 Woonplaats
-            </label>
-            <data>
+            </vl-property>
+            <vl-property-data>
                 <vl-icon icon="alert-triangle" small right-margin=""></vl-icon>
                 Brussel
-            </data>
-            <label>Postcode</label>
-            <data>1000</data>
+            </vl-property-data>
+            <vl-property>Postcode</vl-property>
+            <vl-property-data>1000</vl-property-data>
         </vl-properties>
-    `
+    `,
 );
 PropertiesHtmlEnriched.storyName = 'vl-properties - html enriched';
 
@@ -73,13 +74,13 @@ export const PropertiesCollapsed = story(
     ({ labelWidth, props }) => html`
         <vl-properties label-width=${labelWidth} .props=${props}>
             <div class="collapsed">
-                <label>Woonplaats</label>
-                <data>Brussel</data>
-                <label>Postcode</label>
-                <data>1000</data>
+                <vl-property>Woonplaats</vl-property>
+                <vl-property-data>Brussel</vl-property-data>
+                <vl-property>Postcode</vl-property>
+                <vl-property-data>1000</vl-property-data>
             </div>
         </vl-properties>
-    `
+    `,
 );
 PropertiesCollapsed.storyName = 'vl-properties - collapsed';
 
@@ -88,18 +89,18 @@ export const PropertiesColumns = story(
     ({ labelWidth, props }) => html`
         <vl-properties label-width=${labelWidth} .props=${props}>
             <div class="column">
-                <label>Woonplaats</label>
-                <data>Brussel</data>
+                <vl-property>Woonplaats</vl-property>
+                <vl-property-data>Brussel</vl-property-data>
             </div>
             <div class="column">
-                <label>Postcode</label>
-                <data>1000</data>
+                <vl-property>Postcode</vl-property>
+                <vl-property-data>1000</vl-property-data>
             </div>
             <div class="column column--full-width">
-                <label>Gewest</label>
-                <data>Brussel</data>
+                <vl-property>Gewest</vl-property>
+                <vl-property-data>Brussel</vl-property-data>
             </div>
         </vl-properties>
-    `
+    `,
 );
 PropertiesColumns.storyName = 'vl-properties - columns';

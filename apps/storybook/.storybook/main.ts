@@ -75,6 +75,7 @@ const config: StorybookConfig = {
 
         const script = `
       <script>
+      document.documentElement.lang = 'nl';
         (function () {
           function inject() {
             const sidebar =
