@@ -4,8 +4,8 @@ const propertiesWithPropsUrl =
     'http://localhost:8080/iframe.html?args=&id=components-block-properties--properties-with-props&viewMode=story';
 const propertiesHtmlEnrichedUrl =
     'http://localhost:8080/iframe.html?args=&id=components-block-properties--properties-html-enriched&viewMode=story';
-const propertiesCollapsedUrl =
-    'http://localhost:8080/iframe.html?args=&id=components-block-properties--properties-collapsed&viewMode=story';
+const propertiesStackedUrl =
+    'http://localhost:8080/iframe.html?args=&id=components-block-properties--properties-stacked&viewMode=story';
 const propertiesColumnsUrl =
     'http://localhost:8080/iframe.html?args=&id=components-block-properties--properties-columns&viewMode=story';
 
@@ -33,9 +33,9 @@ describe('cypress-e2e - block components - vl-properties - html enriched story',
     });
 });
 
-describe('cypress-e2e - block components - vl-properties - collapsed story', () => {
+describe('cypress-e2e - block components - vl-properties - stacked story', () => {
     it('should render', () => {
-        cy.visit(propertiesCollapsedUrl);
+        cy.visit(propertiesStackedUrl);
 
         cy.get('vl-properties').shadow().find('dl');
     });

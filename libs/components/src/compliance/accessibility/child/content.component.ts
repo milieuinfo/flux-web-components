@@ -79,20 +79,17 @@ export const content = ({
                                 >Departement Omgeving</vl-title
                             >
                         </vl-infoblock>
-                        <vl-properties
-                            slot="properties"
-                            custom-css="dl:has(.item) { margin-top: 0.8rem; display: block; }"
-                        >
-                            <label>Adres</label>
-                            <data>
+                        <vl-properties slot="properties">
+                            <vl-property>Adres</vl-property>
+                            <vl-property-data>
                                 <address aria-label="Adresgegevens">
                                     Havenlaan 88<br />
                                     1000 Brussel<br />
                                     België
                                 </address>
-                            </data>
-                            <label>Telefoon</label>
-                            <data>
+                            </vl-property-data>
+                            <vl-property>Telefoon</vl-property>
+                            <vl-property-data>
                                 <vl-link
                                     href="tel:02 553 80 11"
                                     icon-placement="after"
@@ -101,9 +98,9 @@ export const content = ({
                                 >
                                     02 553 80 11
                                 </vl-link>
-                            </data>
-                            <label>E-mail</label>
-                            <data>
+                            </vl-property-data>
+                            <vl-property>E-mail</vl-property>
+                            <vl-property-data>
                                 <vl-link
                                     href="mailto:omgeving@vlaanderen.be"
                                     icon-placement="after"
@@ -112,7 +109,7 @@ export const content = ({
                                 >
                                     omgeving@vlaanderen.be
                                 </vl-link>
-                            </data>
+                            </vl-property-data>
                         </vl-properties>
                     </vl-contact-card>
                 </div>
@@ -133,20 +130,17 @@ export const content = ({
                                 >Klachten&shy;behandelaar</vl-title
                             >
                         </vl-infoblock>
-                        <vl-properties
-                            slot="properties"
-                            custom-css="dl:has(.item) { margin-top: 0.8rem; display: block; }"
-                        >
-                            <label>Adres</label>
-                            <data>
+                        <vl-properties slot="properties">
+                            <vl-property>Adres</vl-property>
+                            <vl-property-data>
                                 <address aria-label="Adresgegevens">
                                     Havenlaan 88<br />
                                     1000 Brussel<br />
                                     België
                                 </address>
-                            </data>
-                            <label>E-mail</label>
-                            <data>
+                            </vl-property-data>
+                            <vl-property>E-mail</vl-property>
+                            <vl-property-data>
                                 <vl-link
                                     href="mailto:klachten.omgeving@vlaanderen.be"
                                     icon-placement="after"
@@ -155,7 +149,7 @@ export const content = ({
                                 >
                                     klachten.omgeving@vlaanderen.be
                                 </vl-link>
-                            </data>
+                            </vl-property-data>
                         </vl-properties>
                     </vl-contact-card>
                     <br />
@@ -174,20 +168,17 @@ export const content = ({
                                 >Vlaamse ombudsdienst</vl-title
                             >
                         </vl-infoblock>
-                        <vl-properties
-                            slot="properties"
-                            custom-css="dl:has(.item) { margin-top: 0.8rem; display: block; }"
-                        >
-                            <label>Adres</label>
-                            <data>
+                        <vl-properties slot="properties">
+                            <vl-property>Adres</vl-property>
+                            <vl-property-data>
                                 <address aria-label="Adresgegevens">
                                     Leuvenseweg 86<br />
                                     1000 Brussel<br />
                                     België
                                 </address>
-                            </data>
-                            <label>Telefoon</label>
-                            <data>
+                            </vl-property-data>
+                            <vl-property>Telefoon</vl-property>
+                            <vl-property-data>
                                 <vl-link
                                     href="tel:08 002 40 50"
                                     icon-placement="after"
@@ -196,9 +187,9 @@ export const content = ({
                                 >
                                     08 002 40 50
                                 </vl-link>
-                            </data>
-                            <label>E-mail</label>
-                            <data>
+                            </vl-property-data>
+                            <vl-property>E-mail</vl-property>
+                            <vl-property-data>
                                 <vl-link
                                     href="mailto:klachten@vlaamseombudsdienst.be"
                                     icon-placement="after"
@@ -207,9 +198,9 @@ export const content = ({
                                 >
                                     klachten@vlaamseombudsdienst.be
                                 </vl-link>
-                            </data>
-                            <label>Website</label>
-                            <data>
+                            </vl-property-data>
+                            <vl-property>Website</vl-property>
+                            <vl-property-data>
                                 <vl-link
                                     href="http://www.vlaamseombudsdienst.be"
                                     external
@@ -217,7 +208,7 @@ export const content = ({
                                 >
                                     http://www.vlaamseombudsdienst.be
                                 </vl-link>
-                            </data>
+                            </vl-property-data>
                         </vl-properties>
                     </vl-contact-card>
                 </div>

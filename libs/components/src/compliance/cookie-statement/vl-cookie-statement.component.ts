@@ -7,8 +7,8 @@ import { VlParagraphComponent } from '../../atom/paragraph';
 import { VlContactCardComponent } from '../../block/contact-card';
 import { VlFunctionalHeaderComponent } from '../../block/functional-header';
 import { VlInfoblockComponent } from '../../block/infoblock';
-import { VlPropertiesComponent } from '../../block/properties';
 import { VlSideNavigationLayoutComponent } from '../../block/next/side-navigation';
+import { VlPropertiesComponent } from '../../block/properties';
 import { VlTypography } from '../../block/typography';
 import { cookieStatementHeaderElements, header } from './child/header.component';
 import './cookie/vl-authentication-cookie.component';
@@ -224,22 +224,22 @@ export class VlCookieStatement extends BaseHTMLElement {
                                         <h3 slot="title">Departement Omgeving</h3>
                                     </vl-infoblock>
                                     <vl-properties slot="properties">
-                                        <label>Adres</label>
-                                        <data>
+                                        <vl-property>Adres</vl-property>
+                                        <vl-property-data>
                                             <address aria-label="Adresgegevens">
                                                 Herman Teirlinckgebouw<br />
                                                 Havenlaan 88<br />
                                                 1000 Brussel, België
                                             </address>
-                                        </data>
-                                        <label>Telefoon</label>
-                                        <data>
+                                        </vl-property-data>
+                                        <vl-property>Telefoon</vl-property>
+                                        <vl-property-data>
                                             <vl-link href="tel:02 553 80 11" icon-placement="after" icon="phone" label="Bel naar 02 553 80 11">
                                                 02 553 80 11
                                             </vl-link>
-                                        </data>
-                                        <label>E-mail</label>
-                                        <data>
+                                        </vl-property-data>
+                                        <vl-property>E-mail</vl-property>
+                                        <vl-property-data>
                                             <vl-link
                                                 href="mailto:omgeving@vlaanderen.be"
                                                 icon-placement="after"
@@ -248,13 +248,13 @@ export class VlCookieStatement extends BaseHTMLElement {
                                             >
                                                 omgeving@vlaanderen.be
                                             </vl-link>
-                                        </data>
-                                        <label>Website</label>
-                                        <data>
+                                        </vl-property-data>
+                                        <vl-property>Website</vl-property>
+                                        <vl-property-data>
                                             <vl-link href="http://www.omgevingvlaanderen.be" external label="Ga naar omgevingvlaanderen.be (opent in een nieuw venster)">
                                                 http://www.omgevingvlaanderen.be
                                             </vl-link>
-                                        </data>
+                                        </vl-property-data>
                                     </vl-properties>
                                 </vl-contact-card>
                             </div>

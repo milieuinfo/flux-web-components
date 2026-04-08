@@ -14,16 +14,16 @@ export const privacyBottomSection = () => html`
                         >
                     </vl-infoblock>
                     <vl-properties slot="properties" custom-css="dl:has(.item) { margin-top: 0.8rem; display: block; }">
-                        <label>Adres</label>
-                        <data>
+                        <vl-property>Adres</vl-property>
+                        <vl-property-data>
                             <address aria-label="Adresgegevens">
                                 Herman Teirlinckgebouw<br />
                                 Havenlaan 88<br />
                                 1000 Brussel, België
                             </address>
-                        </data>
-                        <label>E-mail</label>
-                        <data>
+                        </vl-property-data>
+                        <vl-property>E-mail</vl-property>
+                        <vl-property-data>
                             <vl-link
                                 href="mailto:dpo@omgevingvlaanderen.be"
                                 icon-placement="after"
@@ -32,7 +32,7 @@ export const privacyBottomSection = () => html`
                             >
                                 dpo@omgevingvlaanderen.be
                             </vl-link>
-                        </data>
+                        </vl-property-data>
                     </vl-properties>
                 </vl-contact-card>
             </div>

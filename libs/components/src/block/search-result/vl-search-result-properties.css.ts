@@ -1,15 +1,19 @@
+import { vlMediaScreenSmall } from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
 
 export const vlSearchResultPropertiesStyles: CSSResult = css`
     dl {
-        margin: initial;
+        display: block;
     }
-
+    dt,
+    dd {
+        float: left;
+        margin-inline-start: initial;
+    }
     dt {
         display: inline;
         font-weight: 500;
-        float: left;
-
+        clear: left;
         &::after {
             display: block;
             content: ':';
@@ -17,9 +21,9 @@ export const vlSearchResultPropertiesStyles: CSSResult = css`
             margin-right: 0.5rem;
         }
     }
-
-    dd {
-        display: inline;
-        margin-inline-start: initial;
+    @media screen and (max-width: ${vlMediaScreenSmall}px) {
+        dl dd:has(+ dt) {
+            padding-bottom: 0;
+        }
     }
 `;

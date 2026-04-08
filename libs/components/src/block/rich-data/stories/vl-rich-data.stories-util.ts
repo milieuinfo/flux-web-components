@@ -31,18 +31,18 @@ export const richDataPaginationImplementation = () => {
                             <time>Gestart op ${now}</time>
                         </vl-search-result-text>
                         <vl-search-result-properties>
-                            <label>ID</label>
-                            <data>${project.id}</data>
-                            <label>Naam manager</label>
-                            <data>${manager.lastName}</data>
-                            <label>Eerste medewerker</label>
-                            <data>${medewerker.lastName}</data>
-                            <label>
+                            <vl-property>ID</vl-property>
+                            <vl-property-data>${project.id}</vl-property-data>
+                            <vl-property>Naam manager</vl-property>
+                            <vl-property-data>${manager.lastName}</vl-property-data>
+                            <vl-property>Eerste medewerker</vl-property>
+                            <vl-property-data>${medewerker.lastName}</vl-property-data>
+                            <vl-property>
                                 <span>Project o.l.v. <strong>manager</strong></span>
-                            </label>
-                            <data>
+                            </vl-property>
+                            <vl-property-data>
                                 <span>${project.name} o.l.v. <strong>${manager.firstName} ${manager.lastName}</strong></span>
-                            </data>
+                            </vl-property-data>
                         </vl-search-result-properties>
                   `;
                 if(content) {
