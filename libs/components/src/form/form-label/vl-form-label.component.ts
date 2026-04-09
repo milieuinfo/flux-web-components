@@ -1,15 +1,21 @@
-import { BaseLitElement, webComponent } from '@domg-wc/common';
+import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, PropertyDeclarations, TemplateResult, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { VlTextComponent } from '@domg-wc/components/atom';
 import { vlFormLabelComponentStyles } from './vl-form-label.component.css';
 import { formLabelDefaults } from './vl-form-label.defaults';
 
 @webComponent('vl-form-label')
 export class VlFormLabelComponent extends BaseLitElement {
+    static {
+        registerWebComponents([VlTextComponent]);
+    }
+
     // Attributes
     private for = formLabelDefaults.for;
     private label = formLabelDefaults.label;
+    private annotation = formLabelDefaults.annotation;
     private block = formLabelDefaults.block;
     private light = formLabelDefaults.light;
 
@@ -21,6 +27,7 @@ export class VlFormLabelComponent extends BaseLitElement {
         return {
             for: { type: String },
             label: { type: String },
+            annotation: { type: String },
             block: { type: Boolean },
             light: { type: Boolean },
         };
@@ -57,6 +64,9 @@ export class VlFormLabelComponent extends BaseLitElement {
         return html`
             <label for=${this.for} class=${classMap(classList)} part="label">
                 ${this.label ? this.label : html` <slot></slot>`}
+                ${this.annotation
+                    ? html`<vl-text annotation small part="annotation">${this.annotation}</vl-text>`
+                    : ''}
             </label>
         `;
     }

@@ -41,4 +41,12 @@ export const vlFormLabelComponentStyles: CSSResult = css`
     .vl-form__label--light {
         color: var(--vl-color--text-alt);
     }
+
+    /* ===================================================================
+       Form Label Annotation
+       =================================================================== */
+
+    vl-text[annotation] {
+        font-weight: 400;
+    }
 `;
