@@ -1,10 +1,11 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { vlGridStyles } from '@domg-wc/styles';
 import { html } from 'lit';
+import { VlTextComponent } from '../../atom/text/vl-text.component';
 import { VlInputFieldComponent } from '../input-field';
 import { VlFormLabelComponent } from './vl-form-label.component';
 
-registerWebComponents([VlFormLabelComponent, VlInputFieldComponent]);
+registerWebComponents([VlFormLabelComponent, VlInputFieldComponent, VlTextComponent]);
 
 describe('vl-form-label - properties & states', () => {
     beforeEach(() => {
@@ -96,6 +97,55 @@ describe('vl-form-label - properties & states', () => {
             .shadow()
             .find('label')
             .shouldHaveComputedStyle({ style: 'color', value: 'rgb(104, 116, 131)' });
+    });
+
+    it('should set annotation', () => {
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-form-label label="Naam" annotation="(enkel achternaam)"></vl-form-label>
+            </div>
+        `);
+
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('form-label-annotation');
+        cy.get('vl-form-label').shadow().find('label').contains('Naam');
+        cy.get('vl-form-label').shadow().find('vl-text[annotation]').should('exist');
+        cy.get('vl-form-label').shadow().find('vl-text[annotation]').contains('(enkel achternaam)');
+    });
+
+    it('should not render annotation when not set', () => {
+        cy.mount(html` <vl-form-label label="Naam"></vl-form-label>`);
+
+        cy.get('vl-form-label').shadow().find('vl-text[annotation]').should('not.exist');
+    });
+
+    it('should drop label margins when followed by a vl-text[annotation] sibling', () => {
+        cy.mount(html`
+            <div>
+                <vl-form-label label="Naam *"></vl-form-label>
+                <vl-text annotation small>(enkel achternaam)</vl-text>
+            </div>
+        `);
+
+        cy.get('vl-form-label').should('have.attr', 'has-annotation-sibling');
+        cy.get('vl-form-label')
+            .shadow()
+            .find('.vl-form__label')
+            .shouldHaveComputedStyle({ style: 'margin-right', value: '0px' });
+        cy.get('vl-form-label')
+            .shadow()
+            .find('.vl-form__label')
+            .shouldHaveComputedStyle({ style: 'margin-bottom', value: '0px' });
+    });
+
+    it('should keep label margins when no vl-text[annotation] sibling', () => {
+        cy.mount(html` <vl-form-label label="Naam"></vl-form-label>`);
+
+        cy.get('vl-form-label').should('not.have.attr', 'has-annotation-sibling');
+        cy.get('vl-form-label')
+            .shadow()
+            .find('.vl-form__label')
+            .shouldHaveComputedStyle({ style: 'margin-right', value: '5px' });
     });
 });
 
