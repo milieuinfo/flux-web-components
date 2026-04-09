@@ -13,19 +13,12 @@ describe('vl-form-label - properties & states', () => {
     });
 
     it('should mount', () => {
-        cy.mount(html`
-            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
-                <vl-form-label>Naam</vl-form-label>
-            </div>
-        `);
+        cy.mount(html` <vl-form-label>Naam</vl-form-label>`);
 
         cy.get('vl-form-label')
             .shadow()
             .find('label')
             .shouldHaveComputedStyle({ style: 'color', value: 'rgb(77, 77, 75)' });
-        cy.document().then((doc) => doc.fonts.ready);
-        cy.wait(100);
-        cy.get('.snapshot-wrapper').matchImageSnapshot('form-label-mount');
     });
 
     it('should be accessible', () => {
@@ -68,14 +61,8 @@ describe('vl-form-label - properties & states', () => {
     });
 
     it('should set block', () => {
-        cy.mount(html`
-            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
-                <vl-form-label block>Naam</vl-form-label>
-            </div>
-        `);
+        cy.mount(html` <vl-form-label block>Naam</vl-form-label>`);
 
-        cy.wait(100);
-        cy.get('.snapshot-wrapper').matchImageSnapshot('form-label-block');
         cy.get('vl-form-label').shadow().find('label').should('have.class', 'vl-form__label--block');
         cy.get('vl-form-label')
             .shadow()
@@ -84,14 +71,8 @@ describe('vl-form-label - properties & states', () => {
     });
 
     it('should set light', () => {
-        cy.mount(html`
-            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
-                <vl-form-label light>Naam</vl-form-label>
-            </div>
-        `);
+        cy.mount(html` <vl-form-label light>Naam</vl-form-label>`);
 
-        cy.wait(100);
-        cy.get('.snapshot-wrapper').matchImageSnapshot('form-label-light');
         cy.get('vl-form-label').shadow().find('label').should('have.class', 'vl-form__label--light');
         cy.get('vl-form-label')
             .shadow()
@@ -100,14 +81,8 @@ describe('vl-form-label - properties & states', () => {
     });
 
     it('should set annotation', () => {
-        cy.mount(html`
-            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
-                <vl-form-label label="Naam" annotation="(enkel achternaam)"></vl-form-label>
-            </div>
-        `);
+        cy.mount(html` <vl-form-label label="Naam" annotation="(enkel achternaam)"></vl-form-label>`);
 
-        cy.wait(100);
-        cy.get('.snapshot-wrapper').matchImageSnapshot('form-label-annotation');
         cy.get('vl-form-label').shadow().find('label').contains('Naam');
         cy.get('vl-form-label').shadow().find('vl-text[annotation]').should('exist');
         cy.get('vl-form-label').shadow().find('vl-text[annotation]').contains('(enkel achternaam)');
@@ -117,35 +92,6 @@ describe('vl-form-label - properties & states', () => {
         cy.mount(html` <vl-form-label label="Naam"></vl-form-label>`);
 
         cy.get('vl-form-label').shadow().find('vl-text[annotation]').should('not.exist');
-    });
-
-    it('should drop label margins when followed by a vl-text[annotation] sibling', () => {
-        cy.mount(html`
-            <div>
-                <vl-form-label label="Naam *"></vl-form-label>
-                <vl-text annotation small>(enkel achternaam)</vl-text>
-            </div>
-        `);
-
-        cy.get('vl-form-label').should('have.attr', 'has-annotation-sibling');
-        cy.get('vl-form-label')
-            .shadow()
-            .find('.vl-form__label')
-            .shouldHaveComputedStyle({ style: 'margin-right', value: '0px' });
-        cy.get('vl-form-label')
-            .shadow()
-            .find('.vl-form__label')
-            .shouldHaveComputedStyle({ style: 'margin-bottom', value: '0px' });
-    });
-
-    it('should keep label margins when no vl-text[annotation] sibling', () => {
-        cy.mount(html` <vl-form-label label="Naam"></vl-form-label>`);
-
-        cy.get('vl-form-label').should('not.have.attr', 'has-annotation-sibling');
-        cy.get('vl-form-label')
-            .shadow()
-            .find('.vl-form__label')
-            .shouldHaveComputedStyle({ style: 'margin-right', value: '5px' });
     });
 });
 

@@ -2,6 +2,7 @@ import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/co
 import { vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, PropertyDeclarations, TemplateResult, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { when } from 'lit/directives/when.js';
 import { VlTextComponent } from '@domg-wc/components/atom';
 import { vlFormLabelComponentStyles } from './vl-form-label.component.css';
 import { formLabelDefaults } from './vl-form-label.defaults';
@@ -64,9 +65,7 @@ export class VlFormLabelComponent extends BaseLitElement {
         return html`
             <label for=${this.for} class=${classMap(classList)} part="label">
                 ${this.label ? this.label : html` <slot></slot>`}
-                ${this.annotation
-                    ? html`<vl-text annotation small part="annotation">${this.annotation}</vl-text>`
-                    : ''}
+                ${when(this.annotation, () => html`<vl-text annotation small part="annotation">${this.annotation}</vl-text>`)}
             </label>
         `;
     }
