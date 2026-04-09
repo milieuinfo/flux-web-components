@@ -229,6 +229,18 @@ describe('cypress-component - block components - vl-rich-data-table - mobile fil
         cy.get('vl-rich-data-table').shadow().find('#search').should('not.have.attr', 'hidden');
         cy.get('vl-search-filter').should('not.have.attr', 'hidden');
     });
+
+    it('should not show the mobile filter button when there is no filter', () => {
+        cy.viewport(375, 667);
+        cy.mount(html`
+            <vl-rich-data-table>
+                <vl-rich-data-field label="ID" selector="id"></vl-rich-data-field>
+                <vl-rich-data-field label="Naam" selector="name"></vl-rich-data-field>
+            </vl-rich-data-table>
+        `);
+
+        cy.get('vl-rich-data-table').shadow().find('#open-filter').should('have.attr', 'hidden');
+    });
 });
 
 // ============================================================
