@@ -17,7 +17,7 @@ import {
     VlTextareaComponent,
     VlUploadComponent,
 } from '@domg-wc/components/form';
-import { vlGridStyles, vlLegacyStyles, vlStackedStyles } from '@domg-wc/styles';
+import { vlLayoutStyles, vlLegacyStyles } from '@domg-wc/styles';
 import { css, CSSResult, html, LitElement } from 'lit';
 
 @webComponent('vl-form-demo')
@@ -81,8 +81,7 @@ export class VlFormDemoComponent extends LitElement {
     static override get styles(): (CSSResult | CSSResult[])[] {
         return [
             vlLegacyStyles,
-            vlGridStyles,
-            vlStackedStyles,
+            vlLayoutStyles,
             css`
                 form {
                     margin-top: 1rem;

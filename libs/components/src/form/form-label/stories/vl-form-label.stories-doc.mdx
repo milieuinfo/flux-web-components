@@ -38,6 +38,20 @@ De annotatie wordt kleiner en in een subtielere kleur weergegeven.
 <Canvas of={VlFormLabelStories.FormLabelWithAnnotation} />
 
 
+## Witruimte naast annotatie corrigeren
+
+Wanneer een `vl-form-label` met een `annotation` onmiddellijk gevolgd wordt door een `vl-text[annotation]`-sibling in de light DOM,
+kan er een ongewenste witruimte verschijnen tussen de twee elementen.
+Dit is een light-DOM compositieprobleem: de marge van het label kan niet via de shadow DOM worden aangepast op basis van een sibling-relatie.
+
+Voeg deze CSS-regel toe in de styles van de host component:
+
+```css
+vl-form-label:has(+ vl-text[annotation])::part(label) {
+    margin-right: 0;
+}
+```
+
 ## Referenties
 
 ### Digitaal Vlaanderen
