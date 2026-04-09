@@ -437,6 +437,7 @@ export class VlRichData extends BaseHTMLElement {
         if (this.__searchFilter) {
             this.__searchFilter.setAttribute('alt', '');
             this.__searchColumn?.classList.add('vl-u-hidden--s');
+            this.__filterOpenContainer!.hidden = false;
 
             if (!this.hasAttribute('filter-closed')) {
                 this.__showSearchColumn();
@@ -452,6 +453,7 @@ export class VlRichData extends BaseHTMLElement {
             this.__searchColumn?.classList.remove('vl-u-hidden--s');
             this.__hideSearchColumn();
             this.__hideSearchResults();
+            this.__filterOpenContainer!.hidden = true;
         }
     }
 
