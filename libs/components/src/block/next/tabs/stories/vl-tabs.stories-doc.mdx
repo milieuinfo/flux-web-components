@@ -1,0 +1,64 @@
+import { ArgTypes, Canvas, Source } from '@storybook/addon-docs/blocks';
+import * as VlTabsStories from './vl-tabs.stories';
+import tabsStoryUtils from './vl-tabs.stories.ts?raw';
+
+# Tabs Next
+
+<FluxComponentMetaData id="components-block-next-tabs" />
+
+## Doel
+
+Gebruik deze component om content op te delen in verschillende tabbladen.
+
+Dit component heeft twee varianten:
+
+- **Standaard tabs patroon**: 
+    - Deze variant wordt best gebruikt als **widget op een pagina** en niet als navigatie element.
+    - Deze implementatie volgt de [ARIA tab patroon richtlijnen](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/) voor `role="tablist"`. 
+    - De tabs zijn bedienbaar met de pijltjestoetsen. 
+    - De tabpanelen worden allemaal gerenderd, maar enkel het selecteerde tabpaneel wordt getoond. 
+    - Bij deze variant gebruik je de `<vl-tab-next>` als tab elementen en de `<vl-tab-panel-next>` als tabpanelen.
+- **Horizontale navigatie**: 
+    - Deze variant implementeert geen `role="tablist"` maar doet dienst als **navigatie element**.
+    - Bij deze variant gebruik je de `<vl-tab-link-next>` als tab elementen.
+
+## Voorbeeld
+
+```js
+import { VlTabsComponent, VlTabComponent, VlTabPanelComponent } from '@domg-wc/components/block/next';
+```
+
+```html
+<vl-tabs-next label="Mijn tabs widget">
+    <vl-tab-next id="tab1" panel="tabpanel1">Trein</vl-tab-next>
+    <vl-tab-next id="tab2" panel="tabpanel2">Metro, tram en bus</vl-tab-next>
+    <vl-tab-next id="tab2" panel="tabpanel2">Fiets</vl-tab-next>
+    <div id="tabpanel1" role="tabpanel" slot="panel" aria-labelledby="tab1" tabindex="0">Tab 1</div>
+    <div id="tabpanel2" role="tabpanel" slot="panel" aria-labelledby="tab2" tabindex="0">Tab 2</div>
+</vl-tabs-next>
+```
+
+<Canvas of={VlTabsStories.TabsDefault} />
+
+## Configuratie
+
+<ArgTypes of={VlTabsStories.TabsDefault} />
+
+## Varianten
+
+### Horizontale navigatie
+
+```js
+import { VlTabsComponent, VlTabLinkComponent } from '@domg-wc/components/block/next';
+```
+
+```html
+<vl-tabs-next label="Mijn navigatie">
+    <vl-tab-link-next href="#tab1">Trein</vl-tab-link-next>
+    <vl-tab-link-next href="#tab2">Metro, tram en bus</vl-tab-link-next>
+    <vl-tab-link-next href="https://www.vlaanderen.be/intern/werkplek/dienstreizen-en-woon-werkverkeer/vervoersmiddelen/fietsen" external>Fiets</vl-tab-link-next>
+</vl-tabs-next>
+```
+
+<Canvas of={VlTabsStories.TabsHorizontalNavigation} />
+

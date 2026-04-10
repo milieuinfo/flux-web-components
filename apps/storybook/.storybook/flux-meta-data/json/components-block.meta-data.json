@@ -505,6 +505,25 @@
             "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#side-navigation)"
         }
     },
+    "components-block-next-tabs": {
+        "name": "tabs",
+        "docs": "components-block-next-tabs--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "TODO"
+        },
+        "evolution": {
+            "vStatus": "v3-next",
+            "legacyText": "[vl-tabs](/docs/components-block-tabs-tabs--documentatie)",
+            "nextText": "vl-tabs-next",
+            "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#tabs)"
+        }
+    },
     "components-block-next-side-navigation-layout": {
         "name": "side-navigation-layout",
         "docs": "components-block-next-side-navigation-layout--documentatie",
@@ -512,14 +531,12 @@
             "base": "LitElement",
             "generation": "v3-next",
             "css": "Flux",
-            "tests": [
-                "Component",
-                "Storybook"
-            ],
+            "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcagLevel": "TODO",
             "jiraMeta": "FLUX-18"
-        }, "evolution": {
+        },
+        "evolution": {
             "vStatus": "v3-next",
             "legacyText": "[vl-side-navigation](/docs/components-block-side-navigation--documentatie)",
             "nextText": "vl-side-navigation-layout-next",
