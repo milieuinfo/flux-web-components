@@ -11,6 +11,7 @@ export class VlTitleComponent extends BaseLitElement {
     private underline = titleDefaults.underline;
     private noSpaceBottom = titleDefaults.noSpaceBottom;
     private alt = titleDefaults.alt;
+    private appearance = titleDefaults.appearance;
 
     static get styles(): (CSSResult | CSSResult[])[] {
         return [vlTitleStyles];
@@ -22,6 +23,7 @@ export class VlTitleComponent extends BaseLitElement {
             underline: { type: Boolean },
             noSpaceBottom: { type: Boolean, attribute: 'no-space-bottom' },
             alt: { type: Boolean },
+            appearance: { type: String },
         };
     }
 
@@ -30,6 +32,7 @@ export class VlTitleComponent extends BaseLitElement {
             underline: this.underline,
             'no-space-bottom': this.noSpaceBottom,
             alt: this.alt,
+            [this.appearance || this.type || 'h1']: true,
         };
         return html`
             ${choose(
