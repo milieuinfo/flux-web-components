@@ -29,6 +29,8 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
             'icon-as-badge',
             'type',
             'heading-level',
+            'highlight',
+            'highlight-left',
         ];
     }
 

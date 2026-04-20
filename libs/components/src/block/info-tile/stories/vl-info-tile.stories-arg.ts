@@ -30,6 +30,8 @@ export const infoTileArgs = {
     fullHeight: false,
     onVlClickInfoTile: action('vl-click-info-tile'),
     headingLevel: '',
+    highlight: false,
+    highlightLeft: false,
 };
 
 export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
@@ -103,6 +105,24 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
             defaultValue: { summary: String(infoTileArgs.toggleable) },
+        },
+    },
+    highlight: {
+        name: 'highlight',
+        description: 'Voegt een accent toe aan de bovenkant van de info tile.',
+        table: {
+            category: CATEGORIES.ATTRIBUTES,
+            type: { summary: TYPES.BOOLEAN },
+            defaultValue: { summary: String(infoTileArgs.highlight) },
+        },
+    },
+    highlightLeft: {
+        name: 'highlight-left',
+        description: 'Voegt een accent toe aan de linkerkant van de info tile.',
+        table: {
+            category: CATEGORIES.ATTRIBUTES,
+            type: { summary: TYPES.BOOLEAN },
+            defaultValue: { summary: String(infoTileArgs.highlightLeft) },
         },
     },
     contentSlot: {
