@@ -11,6 +11,9 @@ export const vlInfoTileFluxStyles: CSSResult = css`
     :host .vl-info-tile__header {
         flex-direction: row;
     }
+    :host .vl-info-tile__header__subtitle {
+        color: var(--vl-color--text-subtle);
+    }
     :host .vl-info-tile__header__wrapper {
         flex: 1 1 auto;
         display: flex;
@@ -153,8 +156,15 @@ export const vlInfoTileFluxStyles: CSSResult = css`
         left: 0;
         border: none;
     }
-    
+
     :host([clickable]) .vl-info-tile__menu {
         z-index: var(--vl-z-layer--info-tile-menu);
+    }
+
+    :host([highlight]) .vl-info-tile {
+        box-shadow: inset 0 0.5rem 0 0 var(--vl-color--primary);
+    }
+    :host([highlight-left]) .vl-info-tile {
+        box-shadow: inset 0.5rem 0 0 0 var(--vl-color--primary);
     }
 `;

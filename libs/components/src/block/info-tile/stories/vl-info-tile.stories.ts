@@ -42,6 +42,8 @@ const Template = story(
         classes = '',
         headingLevel,
         onVlClickInfoTile,
+        highlight,
+        highlightLeft,
     }) => html`
         <vl-info-tile
             ?auto-open=${autoOpen}
@@ -56,12 +58,14 @@ const Template = story(
             type="${type}"
             class="${classes}"
             heading-level="${ifDefined(headingLevel)}"
+            ?highlight=${highlight}
+            ?highlight-left=${highlightLeft}
             @vl-click-info-tile="${onVlClickInfoTile}"
         >
             ${unsafeHTML(badgeSlot)} ${unsafeHTML(titleSlot)} ${unsafeHTML(menuSlot)} ${unsafeHTML(subtitleSlot)}
             ${unsafeHTML(contentSlot)} ${unsafeHTML(footerSlot)}
         </vl-info-tile>
-    `
+    `,
 );
 
 export const InfoTileDefault = Template.bind({});
@@ -285,4 +289,22 @@ InfoTileClickable.args = {
     </span>`,
     clickable: true,
     clickableLabel: 'detail pagina Broos Deprez openen',
+};
+
+export const InfoTileHighlight = Template.bind({});
+InfoTileHighlight.storyName = 'vl-info-tile - highlight';
+InfoTileHighlight.args = {
+    titleSlot: `<span slot="title">Broos Deprez</span>`,
+    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    highlight: true,
+};
+
+export const InfoTileHighlightLeft = Template.bind({});
+InfoTileHighlightLeft.storyName = 'vl-info-tile - highlight left';
+InfoTileHighlightLeft.args = {
+    titleSlot: `<span slot="title">Broos Deprez</span>`,
+    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    highlightLeft: true,
 };

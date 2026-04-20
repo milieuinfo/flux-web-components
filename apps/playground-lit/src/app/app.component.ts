@@ -1,5 +1,11 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { VlPopoverActionComponent, VlPopoverActionListComponent, VlPopoverComponent } from '@domg-wc/components/block';
+import {
+    VlInfoTile,
+    VlPopoverActionComponent,
+    VlPopoverActionListComponent,
+    VlPopoverComponent,
+    VlPropertiesComponent,
+} from '@domg-wc/components/block';
 import { VlHeader } from '@domg-wc/components/compliance';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
@@ -12,6 +18,8 @@ export class AppComponent extends LitElement {
             VlPopoverComponent,
             VlPopoverActionListComponent,
             VlPopoverActionComponent,
+            VlInfoTile,
+            VlPropertiesComponent,
         ]);
     }
 
@@ -27,6 +35,22 @@ export class AppComponent extends LitElement {
                 <main slot="main">
                     <section class="vl-section">
                         <div class="vl-content-block vl-content-block--full-width">
+                            <vl-info-tile highlight-left>
+                                <vl-properties
+                                    slot="content"
+                                    .props="${[
+                                        {
+                                            items: [
+                                                {
+                                                    labels: ['Item'],
+                                                    data: ['Value'],
+                                                },
+                                            ],
+                                        },
+                                    ]}"
+                                >
+                                </vl-properties>
+                            </vl-info-tile>
                             <vl-title type="h2">Breadcrumbs met submenus</vl-title>
                             <vl-breadcrumb>
                                 <vl-breadcrumb-item type="button" @click=${(e: Event) => e.preventDefault()}>
