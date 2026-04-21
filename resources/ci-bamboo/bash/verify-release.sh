@@ -15,7 +15,7 @@ fi
 echo "Branch verificatie OK: ${CURRENT_BRANCH}"
 
 # versie bepalen van de components in de dist folder - dit werkt voor release en develop branches
-cd ./build/dist/libs/components
+cd ./artifact-release-and-publish/dist/libs/components
 NEXT_RELEASE_VERSION=$(npm pkg get version | sed 's/"//g')
 echo "Using ${NEXT_RELEASE_VERSION} as NEXT_RELEASE_VERSION"
 cd ../../../..
@@ -40,6 +40,12 @@ echo "update consumer-app dependencies to version ${NEXT_RELEASE_VERSION}"
 cd apps/consumer
 npm pkg set "dependencies.@domg-wc/components=${NEXT_RELEASE_VERSION}"
 npm pkg set "dependencies.@domg-wc/map=${NEXT_RELEASE_VERSION}"
+
+# Controleer of de placeholder nog aanwezig is
+if grep -q "DOMG-WC-VERSION" package.json; then
+  echo "ERROR: Version placeholder in 'apps/consumer/package.json' was not replaced!"
+  exit 1
+fi
 
 echo "npm install in consumer-app"
 set +e
@@ -92,23 +98,7 @@ set -e
 cd ../..
 echo "prepare fat-lib consumer app"
 FAT_LIB_FILE="build/dist/fat-lib/domg-wc-compliance-${NEXT_RELEASE_VERSION}.min.js"
-if [[ ! -f "${FAT_LIB_FILE}" ]]; then
-    echo "fat-lib file not found at ${FAT_LIB_FILE} - attempting to build locally"
-    set +e
-    npm run fat-lib:build-min 2> buffer-stderr.txt 1> buffer-stdout.txt
-    if [[ $? -eq 0 ]]
-      then
-        echo "build fat-lib-min - success"
-      else
-        echo "build fat-lib-min - error" >&2
-        cat buffer-stderr.txt >&2
-        cat buffer-stdout.txt >&2
-        set -e
-        exit 1
-    fi
-    set -e
-    FAT_LIB_FILE="./build/dist/fat-lib/domg-wc-compliance.min.js"
-fi
+echo "Using ${FAT_LIB_FILE} for the fat-lib"
 
 # fat-lib kopiëren naar app-fat-lib directory
 echo "copy fat-lib to consumer-fat-lib"
