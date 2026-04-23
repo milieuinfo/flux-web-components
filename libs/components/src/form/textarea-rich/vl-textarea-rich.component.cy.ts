@@ -140,3 +140,33 @@ describe('vl-textarea-rich - properties & states', () => {
     });
 });
 
+describe('vl-textarea-rich - events', () => {
+    beforeEach(() => {
+        cy.viewport(1280, 720);
+    });
+
+    it('should dispatch vl-input when user types in the editor', () => {
+        cy.mount(html`<vl-textarea-rich label="omschrijving"></vl-textarea-rich>`);
+        cy.createStubForEvent('vl-textarea-rich', 'vl-input');
+        cy.createStubForEvent('vl-textarea-rich', 'vl-change');
+        cy.get('vl-textarea-rich')
+            .shadow()
+            .find('.tox-edit-area__iframe')
+            .its('0.contentDocument.body')
+            .type('hallo', { force: true });
+        cy.get('@vl-input').should('have.been.called');
+        cy.get('@vl-change').should('have.been.called');
+    });
+
+    it('should not dispatch vl-input when value is set programmatically', () => {
+        cy.mount(html`<vl-textarea-rich label="omschrijving"></vl-textarea-rich>`);
+        cy.createStubForEvent('vl-textarea-rich', 'vl-input');
+        cy.createStubForEvent('vl-textarea-rich', 'vl-change');
+        cy.get('vl-textarea-rich').then((el) => {
+            (el[0] as VlTextareaRichComponent).value = '<p>programmatisch</p>';
+        });
+        cy.get('@vl-change').should('have.been.calledOnce');
+        cy.get('@vl-input').should('not.have.been.called');
+    });
+});
+

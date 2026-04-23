@@ -36,6 +36,7 @@ export class VlSelectRichComponent extends FormControl {
     private dropdownInitialised = false;
     private isDropdownOpen = false;
     private dispatchInput = false;
+    private suppressUserInput = false;
     private initialised = false;
 
     constructor() {
@@ -162,6 +163,10 @@ export class VlSelectRichComponent extends FormControl {
             const detail = { value: this.getSelected() };
             this.setValue(this.value);
             this.dispatchEvent(new CustomEvent('vl-change', { bubbles: true, composed: true, detail }));
+            if (this.dispatchInput) {
+                this.dispatchEvent(new CustomEvent('vl-input', { bubbles: true, composed: true, detail }));
+                this.dispatchInput = false;
+            }
             if (this.validity.valid) {
                 this.dispatchEventIfValid(detail);
             }
@@ -220,7 +225,6 @@ export class VlSelectRichComponent extends FormControl {
                 ?disabled=${this.disabled}
                 ?error=${this.error}
                 ?multiple=${this.multiple}
-                @change=${this.onInput}
                 @addItem=${this.onChange}
                 @removeItem=${this.onChange}
             ></select>
@@ -303,7 +307,12 @@ export class VlSelectRichComponent extends FormControl {
         if (!this.choices) {
             return;
         }
-        this.choices.setChoiceByValue(value);
+        this.suppressUserInput = true;
+        try {
+            this.choices.setChoiceByValue(value);
+        } finally {
+            this.suppressUserInput = false;
+        }
         this.setValue(this.collectFormData());
     }
 
@@ -316,10 +325,15 @@ export class VlSelectRichComponent extends FormControl {
             return;
         }
 
-        if (Array.isArray(value)) {
-            value.forEach((val) => this.choices!.removeActiveItemsByValue(val));
-        } else {
-            this.choices.removeActiveItemsByValue(value);
+        this.suppressUserInput = true;
+        try {
+            if (Array.isArray(value)) {
+                value.forEach((val) => this.choices!.removeActiveItemsByValue(val));
+            } else {
+                this.choices.removeActiveItemsByValue(value);
+            }
+        } finally {
+            this.suppressUserInput = false;
         }
         this.setValue(this.collectFormData());
     }
@@ -332,7 +346,12 @@ export class VlSelectRichComponent extends FormControl {
             return;
         }
 
-        this.choices.removeActiveItems();
+        this.suppressUserInput = true;
+        try {
+            this.choices.removeActiveItems();
+        } finally {
+            this.suppressUserInput = false;
+        }
         this.setValue(this.collectFormData());
     }
 
@@ -504,23 +523,16 @@ export class VlSelectRichComponent extends FormControl {
     }
 
     /**
-     * Event handler voor de change event van de select. Deze wordt aangeroepen wanneer de waarde van de
-     * select verandert, ongeacht de bron (bijv. door de gebruiker of door code).
+     * Event handler voor de addItem/removeItem events van Choices.js. Wordt consistent afgevuurd bij
+     * elke (de)selectie, onafhankelijk van sync of async options. Zet dispatchInput alleen bij
+     * user-driven interacties (suppressUserInput is false bij programmatische aanroepen).
      * @private
      */
     private onChange() {
+        if (!this.suppressUserInput) {
+            this.dispatchInput = true;
+        }
         this.value = this.collectFormData();
-    }
-
-    /**
-     * Event handler voor de input event van de select. Deze wordt aangeroepen wanneer de gebruiker
-     * de waarde van de select wijzigt.
-     * @private
-     */
-    private onInput() {
-        this.dispatchEvent(
-            new CustomEvent('vl-input', { bubbles: true, composed: true, detail: { value: this.getSelected() } })
-        );
     }
 
     private onClickChoices = () => {

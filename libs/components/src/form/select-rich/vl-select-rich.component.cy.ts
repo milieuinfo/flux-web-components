@@ -506,6 +506,21 @@ describe('cypress-component - form components - vl-select-rich - single', () => 
         cy.get('@vl-input').should('to.not.have.been.called.at.all');
     });
 
+    it('should dispatch vl-input after user selects an option when options were loaded asynchronously', () => {
+        cy.mount(html`<vl-select-rich label="geboorteplaats"></vl-select-rich>`);
+        cy.createStubForEvent('vl-select-rich', 'vl-input');
+        cy.get('vl-select-rich').then((el) => {
+            const select = el[0] as VlSelectRichComponent;
+            select.options = options;
+        });
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click({ force: true });
+        cy.get('vl-select-rich').shadow().find('.vl-select__list').find('.vl-select__item').contains('Hasselt').click();
+        cy.get('@vl-input')
+            .should('have.been.calledOnce')
+            .its('firstCall.args.0.detail')
+            .should('deep.equal', { value: 'hasselt' });
+    });
+
     it('should dispatch vl-select-search event on input search value', () => {
         cy.mount(
             html`<vl-select-rich
