@@ -73,3 +73,19 @@ export const SearchResultGroup = () => html`
     </div>
 `;
 SearchResultGroup.storyName = 'vl-search-result - group';
+
+export const SearchResultMultilineTitle = () => html`
+    <vl-search-result>
+        <vl-search-result-title>
+            <a href="#">Een zeer lange zoekresultaat-titel die over meerdere regels loopt en de onderliggende inhoud niet mag overlappen</a>
+        </vl-search-result-title>
+        <vl-search-result-text>
+            <time>Maandag 22 oktober 2018</time>
+        </vl-search-result-text>
+        <vl-search-result-properties>
+            <label>Vlaanderenkiest.be</label>
+            <data>Verkiezingsresultaten op Vlaanderenkiest.be...</data>
+        </vl-search-result-properties>
+    </vl-search-result>
+`;
+SearchResultMultilineTitle.storyName = 'vl-search-result - multiline title';

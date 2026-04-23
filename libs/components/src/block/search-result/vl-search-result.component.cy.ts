@@ -70,3 +70,48 @@ describe('cypress-component - block components - vl-search-result', () => {
             .should('contain.text', 'Vlaanderenkiest.be');
     });
 });
+
+describe('cypress-component - block components - vl-search-result - multiline title', () => {
+    it('should not overlap content below when title wraps to multiple lines', () => {
+        cy.viewport(400, 600);
+        cy.then(() => GlobalStyles.getInstance().register());
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 380px; padding: 20px; background: white;">
+                <vl-search-result>
+                    <vl-search-result-title>
+                        <a href="#">Een zeer lange zoekresultaat-titel die over meerdere regels loopt en de onderliggende inhoud niet mag overlappen</a>
+                    </vl-search-result-title>
+                    <vl-search-result-text>
+                        <time>Maandag 22 oktober 2018</time>
+                    </vl-search-result-text>
+                    <vl-search-result-properties>
+                        <label>Vlaanderenkiest.be</label>
+                        <data>Verkiezingsresultaten op Vlaanderenkiest.be...</data>
+                    </vl-search-result-properties>
+                </vl-search-result>
+            </div>
+        `);
+
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('search-result-multiline-title');
+
+        // title must grow: its height should exceed one line-height (43.2px ≈ 2.7rem at 16px base)
+        cy.get('vl-search-result').shadow().find('vl-search-result-title').then(($title) => {
+            expect($title[0].getBoundingClientRect().height).to.be.greaterThan(44);
+        });
+
+        // text below must start after the title — no overlap
+        cy.get('vl-search-result')
+            .shadow()
+            .find('vl-search-result-title')
+            .then(($title) => {
+                const titleBottom = $title[0].getBoundingClientRect().bottom;
+                cy.get('vl-search-result')
+                    .shadow()
+                    .find('vl-search-result-text')
+                    .then(($text) => {
+                        expect($text[0].getBoundingClientRect().top).to.be.gte(titleBottom);
+                    });
+            });
+    });
+});

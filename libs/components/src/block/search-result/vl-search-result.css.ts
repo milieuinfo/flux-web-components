@@ -18,7 +18,8 @@ export const vlSearchResultStyles: CSSResult = css`
     vl-search-result-title {
         font-weight: 500;
         font-size: 2rem;
-        height: 2.7rem;
+        /* min-height matches line-height to keep the 1-line visual band; allows wrap for longer titles */
+        min-height: 2.7rem;
         line-height: 2.7rem;
 
         @media screen and (max-width: ${vlMediaScreenSmall}px) {

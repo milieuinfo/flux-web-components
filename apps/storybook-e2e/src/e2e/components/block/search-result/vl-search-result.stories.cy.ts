@@ -2,6 +2,8 @@ const searchResultDefaultUrl =
     'http://localhost:8080/iframe.html?id=components-block-search-result--search-result-default&viewMode=story';
 const searchResultGroupUrl =
     'http://localhost:8080/iframe.html?id=components-block-search-result--search-result-group&viewMode=story';
+const searchResultMultilineTitleUrl =
+    'http://localhost:8080/iframe.html?id=components-block-search-result--search-result-multiline-title&viewMode=story';
 
 describe('cypress-e2e - block components - vl-search-result - default story', () => {
     it('should render', () => {
@@ -16,5 +18,13 @@ describe('cypress-e2e - block components - vl-search-result - group story', () =
         cy.visit(searchResultGroupUrl);
 
         cy.get('vl-search-result').eq(1).shadow().find('vl-search-result-title');
+    });
+});
+
+describe('cypress-e2e - block components - vl-search-result - multiline title story', () => {
+    it('should render', () => {
+        cy.visit(searchResultMultilineTitleUrl);
+
+        cy.get('vl-search-result').shadow().find('vl-search-result-title');
     });
 });
