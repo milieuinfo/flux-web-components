@@ -136,8 +136,11 @@ export class VlTextareaRichComponent extends VlTextareaComponent {
 
         this.editor = tinymce.get(this.id) as Editor | null;
 
-        this.editor?.on('input change redo undo', () => {
+        this.editor?.on('input', () => {
             this.dispatchInput = true;
+            this.value = this.editor?.getContent() || '';
+        });
+        this.editor?.on('change redo undo', () => {
             this.value = this.editor?.getContent() || '';
         });
 
