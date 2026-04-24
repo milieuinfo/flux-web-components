@@ -59,6 +59,35 @@ describe('cypress-component - block components - vl-search-result', () => {
         });
     });
 
+    it('should not overlap sibling when title wraps over multiple lines', () => {
+        cy.mount(html`
+            <vl-search-result>
+                <vl-search-result-title>
+                    <a href="#">
+                        Dit is een heel lange zoekresultaattitel die zeker over meerdere regels wrapt in een normale viewport breedte zodat we overlap met de volgende sibling kunnen detecteren
+                    </a>
+                </vl-search-result-title>
+                <vl-search-result-text>
+                    <time>Maandag 22 oktober 2018</time>
+                </vl-search-result-text>
+            </vl-search-result>
+        `);
+
+        cy.get('vl-search-result')
+            .shadow()
+            .find('vl-search-result-title')
+            .then(($title) => {
+                const titleBottom = $title[0].getBoundingClientRect().bottom;
+                cy.get('vl-search-result')
+                    .shadow()
+                    .find('vl-search-result-text')
+                    .then(($text) => {
+                        const textTop = $text[0].getBoundingClientRect().top;
+                        expect(textTop).to.be.gte(titleBottom);
+                    });
+            });
+    });
+
     it('should have properties', () => {
         // enkel een test dat de properties component correct werkt, de properties component zelf doet voldoende testen
         cy.get('vl-search-result')
