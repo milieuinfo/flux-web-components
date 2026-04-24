@@ -29,8 +29,12 @@ registerWebComponents([VlTabsComponent, VlTabComponent, VlTabLinkComponent, VlTa
 
 export const TabsDefault = story(
     tabsArgs,
-    ({ defaultSlot, panelSlot, horizontalNavigation, label }) => html`
-        <vl-tabs-next label="${label}" ?horizontal-navigation="${horizontalNavigation}"
+    ({ defaultSlot, panelSlot, horizontalNavigation, label, onVlTabClick, onVlTabLinkClick }) => html`
+        <vl-tabs-next
+            label="${label}"
+            ?horizontal-navigation="${horizontalNavigation}"
+            @vl-tab-click="${onVlTabClick}"
+            @vl-tab-link-click="${onVlTabLinkClick}"
             >${unsafeHTML(defaultSlot)}${unsafeHTML(panelSlot)}</vl-tabs-next
         >
     `,

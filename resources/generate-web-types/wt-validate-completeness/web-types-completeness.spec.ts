@@ -35,8 +35,8 @@ describe('jest - generate-web-types - web-types-completeness', () => {
         expect(componentsAtomWTWithoutWC).toStrictEqual([]);
     });
     it('components-block - valideer de volledigheid van de web-types', () => {
-        expect(componentsBlockWCNameCount).toEqual(70);
-        expect(componentsBlockWTNameCount).toEqual(75);
+        expect(componentsBlockWCNameCount).toEqual(74);
+        expect(componentsBlockWTNameCount).toEqual(79);
         expect(componentsBlockWCWithoutWT).toStrictEqual([]);
         expect(componentsBlockWTWithoutWC).toStrictEqual([]);
     });

@@ -9,10 +9,17 @@ import { TabLinkClickEventDetail } from './vl-tabs.component';
 
 registerWebComponents([VlIconComponent]);
 
+/**
+ * Tab link voor horizontale navigatie.
+ * @property {string} href - Doel-URL van de link.
+ * @property {boolean} external - Open de link in een nieuw venster.
+ * @property {boolean} selected - Of deze tab link geselecteerd is.
+ * @fires vl-tab-link-click - Vuurt wanneer de link aangeklikt wordt.
+ */
 @webComponent('vl-tab-link-next')
 export class VlTabLinkComponent extends BaseLitElement {
     static get styles(): CSSResult[] {
-        return [vlTabFluxStyles];
+        return [vlTabFluxStyles(true)];
     }
 
     @property({ type: String, reflect: true, attribute: 'href' })
@@ -24,11 +31,9 @@ export class VlTabLinkComponent extends BaseLitElement {
     @property({ type: Boolean, reflect: true, attribute: 'selected' })
     selected = false;
 
-    private get link(): HTMLAnchorElement {
-        return this.shadowRoot!.querySelector<HTMLAnchorElement>('a')!;
-    }
-
     private onClick = () => {
+        // We only dispatch the click event here
+        // The navigation is handled by the browser via the anchor element, we don't want to interfere with that
         this.dispatchEvent(
             new CustomEvent<TabLinkClickEventDetail>('vl-tab-link-click', {
                 detail: {
@@ -40,23 +45,12 @@ export class VlTabLinkComponent extends BaseLitElement {
         );
     };
 
-    firstUpdated(): void {
-        this.link.addEventListener('click', this.onClick);
-    }
-
     connectedCallback(): void {
         super.connectedCallback();
-        this.setAttribute('role', 'listitem');
 
         if (!this.hasAttribute('href')) {
             console.warn('vl-tab-link-next: Attribuut "href" is verplicht');
         }
-    }
-
-    disconnectedCallback(): void {
-        super.disconnectedCallback();
-
-        this.link.removeEventListener('click', this.onClick);
     }
 
     protected override render(): TemplateResult {
@@ -65,7 +59,11 @@ export class VlTabLinkComponent extends BaseLitElement {
             target="${ifDefined(this.external ? '_blank' : undefined)}"
             rel="${ifDefined(this.external ? 'nofollow noopener noreferrer' : undefined)}"
             aria-current="${ifDefined(this.selected ? 'page' : undefined)}"
-            ><slot></slot>${when(!!this.external, () => html` <vl-icon icon="external"></vl-icon> `)}</a
+            @click=${this.onClick}
+            ><slot></slot>${when(
+                !!this.external,
+                () => html` <vl-icon icon="external" label="(opent in een nieuw venster)"></vl-icon> `,
+            )}</a
         >`;
     }
 }

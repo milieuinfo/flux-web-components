@@ -6,8 +6,8 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { action } from 'storybook/actions';
 import { VlBreadcrumbItemComponent } from '../../breadcrumb/vl-breadcrumb-item.component';
 import { VlBreadcrumbComponent } from '../../breadcrumb/vl-breadcrumb.component';
+import { VlTabsComponent } from '../../next/tabs';
 import { VlSearchComponent } from '../../search';
-import { VlTabsComponent } from '../../tabs';
 import { VlFunctionalHeaderComponent } from '../vl-functional-header.component';
 import { functionalHeaderArgs, functionalHeaderArgTypes } from './vl-functional-header.stories-arg';
 import functionalHeaderDoc from './vl-functional-header.stories-doc.mdx';
@@ -129,19 +129,13 @@ export const FunctionalHeaderTabs = story(
             title=${title}
             skip-to-content-id="${skipToContentId}"
         >
-            <vl-tabs
-                slot="sub-header"
-                disable-links
-                within-functional-header
-                active-tab="trein"
-                @change=${(event: CustomEvent) => action('change')(event.detail)}
-            >
-                <vl-tabs-pane id="trein" title="Trein"></vl-tabs-pane>
-                <vl-tabs-pane id="metro" title="Metro, tram en bus"></vl-tabs-pane>
-                <vl-tabs-pane id="fiets" title="Fiets"></vl-tabs-pane>
-            </vl-tabs>
+            <vl-tabs-next slot="sub-header" horizontal-navigation label="Transportmiddelen">
+                <vl-tab-link-next href="#trein">Trein</vl-tab-link-next>
+                <vl-tab-link-next href="#metro">Metro, tram en bus</vl-tab-link-next>
+                <vl-tab-link-next href="#fiets">Fiets</vl-tab-link-next>
+            </vl-tabs-next>
         </vl-functional-header>
-    `
+    `,
 );
 FunctionalHeaderTabs.storyName = 'vl-functional-header - tabs';
 FunctionalHeaderTabs.args = {

@@ -5,6 +5,7 @@ import {
     VlFunctionalHeaderComponent,
     VlSearchComponent,
 } from '@domg-wc/components/block';
+import { VlTabLinkComponent, VlTabsComponent } from '@domg-wc/components/block/next';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
@@ -16,6 +17,8 @@ registerWebComponents([
     VlBreadcrumbItemComponent,
     VlFunctionalHeaderComponent,
     VlSearchComponent,
+    VlTabsComponent,
+    VlTabLinkComponent,
 ]);
 
 export default {

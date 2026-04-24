@@ -10,10 +10,20 @@ describe('cypress-component - block components - vl-tab-panel-next', () => {
             <vl-tab-panel-next id="panel-1">Panel content</vl-tab-panel-next>
         `);
 
+        cy.get('vl-tab-panel-next').should('have.attr', 'role', 'tabpanel');
+        cy.get('vl-tab-panel-next').should('have.attr', 'hidden');
+        cy.get('vl-tab-panel-next').should('not.have.attr', 'tabindex');
+    });
+
+    it('should add tabindex when hidden is removed', () => {
+        cy.mount(html`
+            <vl-tab-panel-next id="panel-1">Panel content</vl-tab-panel-next>
+        `);
+
         cy.get('vl-tab-panel-next')
-            .should('have.attr', 'role', 'tabpanel')
-            .and('have.attr', 'tabindex', '0')
-            .and('have.attr', 'hidden');
+            .invoke('removeAttr', 'hidden')
+            .should('have.attr', 'tabindex', '0')
+            .and('not.have.attr', 'hidden');
     });
 
     it('should render slotted panel content', () => {
