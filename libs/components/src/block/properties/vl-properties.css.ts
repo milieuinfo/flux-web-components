@@ -1,12 +1,6 @@
 import { vlMediaScreenSmall } from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
 
-const columnWidth = (widthPercentage: number): CSSResult => {
-    return css`
-        width: calc(${widthPercentage}% - 1rem);
-    `;
-};
-
 const collapsedDt = (): CSSResult => {
     return css`
         font-size: 1.6rem;
@@ -42,8 +36,15 @@ export const sizeQueryStyles = css`
             grid-template-columns: 100%;
         }
 
-        .column {
-            ${columnWidth(100)};
+        /* Collapse 2-column grid to single column on small screens */
+        dl:has(> .column) {
+            grid-template-columns: 1fr;
+        }
+
+        /* Reset column placement so all items stack in a single column */
+        .column:nth-child(1):not(.column--full-width) > .item,
+        .column:nth-child(2):not(.column--full-width) > .item {
+            grid-column: 1;
         }
 
         dd {
@@ -61,14 +62,9 @@ export const propertiesStyles: CSSResult = css`
         display: block;
     }
 
+    /* display:contents makes .column transparent to the dl grid while keeping DOM structure */
     .column {
-        ${columnWidth(50)};
-        float: left;
-    }
-
-    .column--full-width {
-        ${columnWidth(100)};
-        float: left;
+        display: contents;
     }
 
     dl {
@@ -81,9 +77,30 @@ export const propertiesStyles: CSSResult = css`
         margin-block: 0;
     }
 
+    /* Override to CSS Grid when columns are present; same specificity as dl:has(.item) so
+       source order (this rule comes after) makes display:grid win for the column case */
+    dl:has(> .column) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
     dl .item {
         display: grid;
         padding-bottom: 2rem;
+    }
+
+    /* Place items from the first and second column into their respective grid tracks.
+       Items from both columns share row tracks in the dl grid, achieving cross-column alignment. */
+    .column:nth-child(1):not(.column--full-width) > .item {
+        grid-column: 1;
+    }
+
+    .column:nth-child(2):not(.column--full-width) > .item {
+        grid-column: 2;
+    }
+
+    .column--full-width > .item {
+        grid-column: 1 / -1;
     }
 
     dt {

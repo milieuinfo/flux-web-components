@@ -43,6 +43,29 @@ const propertiesColumnsTemplate = html`
     </vl-properties>
 `;
 
+// Column 1 has a 2-line label (via block spans) to force a taller row than column 2.
+// Used to verify that CSS Grid cross-column row alignment holds even when label heights differ.
+const propertiesColumnsAlignmentTemplate = html`
+    <vl-properties>
+        <div class="column">
+            <label><span style="display:block">Eerste regel</span><span style="display:block">Tweede regel</span></label>
+            <data>Waarde 1</data>
+            <label>Kort label</label>
+            <data>Waarde 2</data>
+        </div>
+        <div class="column">
+            <label>Kort</label>
+            <data>Waarde A</data>
+            <label>Kort</label>
+            <data>Waarde B</data>
+        </div>
+        <div class="column column--full-width">
+            <label>Volledig</label>
+            <data>Waarde X</data>
+        </div>
+    </vl-properties>
+`;
+
 const propertiesWithPropsTemplate = ({ props }: PropertiesDefaultTypes = {}) => html`
     <vl-properties .props=${props}>
         <label>Woonplaats</label>
@@ -199,6 +222,48 @@ describe('cypress-component - block components - vl-properties', () => {
                                 cy.get('dd').eq(1).should('contain.text', 'Perenstraat');
                             });
                     });
+            });
+    });
+
+    it('should align items at the same vertical position across columns', () => {
+        cy.mount(propertiesColumnsAlignmentTemplate);
+
+        cy.get('vl-properties')
+            .shadow()
+            .find('dl')
+            .then(($dl) => {
+                const dl = $dl[0];
+                const col1Items = dl.querySelectorAll<HTMLElement>('.column:nth-child(1) .item');
+                const col2Items = dl.querySelectorAll<HTMLElement>('.column:nth-child(2) .item');
+
+                expect(col1Items.length).to.equal(2);
+                expect(col2Items.length).to.equal(2);
+
+                [...col1Items].forEach((item1, i) => {
+                    const top1 = item1.getBoundingClientRect().top;
+                    const top2 = col2Items[i].getBoundingClientRect().top;
+                    expect(top1, `items at index ${i} should start at the same vertical position`).to.equal(top2);
+                });
+            });
+    });
+
+    it('should place the full-width column below both regular columns', () => {
+        cy.mount(propertiesColumnsAlignmentTemplate);
+
+        cy.get('vl-properties')
+            .shadow()
+            .find('dl')
+            .then(($dl) => {
+                const dl = $dl[0];
+                const col1Items = dl.querySelectorAll<HTMLElement>('.column:nth-child(1) .item');
+                const fullWidthItems = dl.querySelectorAll<HTMLElement>('.column--full-width .item');
+
+                expect(fullWidthItems.length).to.be.greaterThan(0);
+
+                const lastCol1Bottom = col1Items[col1Items.length - 1].getBoundingClientRect().bottom;
+                const fullWidthTop = fullWidthItems[0].getBoundingClientRect().top;
+
+                expect(fullWidthTop).to.be.gte(lastCol1Bottom);
             });
     });
 
