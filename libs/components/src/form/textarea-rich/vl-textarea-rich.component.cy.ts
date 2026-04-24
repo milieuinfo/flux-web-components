@@ -140,3 +140,38 @@ describe('vl-textarea-rich - properties & states', () => {
     });
 });
 
+describe('vl-textarea-rich - events', () => {
+    it('should dispatch vl-input and vl-change on TinyMCE input event', () => {
+        cy.mount(html`<vl-textarea-rich></vl-textarea-rich>`);
+        cy.wait(500);
+        cy.createStubForEvent('vl-textarea-rich', 'vl-input');
+        cy.createStubForEvent('vl-textarea-rich', 'vl-change');
+
+        cy.get('vl-textarea-rich').then(($el) => {
+            const el = $el.get(0) as Element & { id: string };
+            cy.window().then((win: Window & { tinymce?: { get: (id: string) => { setContent: (c: string) => void; fire: (e: string) => void } | null } }) => {
+                const editor = win.tinymce?.get(el.id);
+                editor?.setContent('<p>test</p>');
+                editor?.fire('input');
+            });
+        });
+
+        cy.get('@vl-input').its('callCount').should('eq', 1);
+        cy.get('@vl-input').its('lastCall.args.0.detail.value').should('include', 'test');
+        cy.get('@vl-change').its('callCount').should('eq', 1);
+    });
+
+    it('should not dispatch vl-input on programmatic value change', () => {
+        cy.mount(html`<vl-textarea-rich></vl-textarea-rich>`);
+        cy.wait(500);
+        cy.createStubForEvent('vl-textarea-rich', 'vl-input');
+        cy.createStubForEvent('vl-textarea-rich', 'vl-change');
+
+        cy.get('vl-textarea-rich').invoke('attr', 'value', '<p>programmatic test</p>');
+
+        cy.get('@vl-change').its('callCount').should('eq', 1);
+        cy.get('@vl-change').its('lastCall.args.0.detail').should('deep.equal', { value: '<p>programmatic test</p>' });
+        cy.get('@vl-input').its('callCount').should('eq', 0);
+    });
+});
+
