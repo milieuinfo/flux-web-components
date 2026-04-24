@@ -75,6 +75,7 @@ export class VlLinkComponent extends BaseLitElement {
                                     | 'dialog')
                               : undefined
                       )}
+                      @click=${this.handleClick}
                   >
                       ${positionIconBefore ? this.renderIcon() : nothing}
                       <slot></slot>
@@ -100,6 +101,7 @@ export class VlLinkComponent extends BaseLitElement {
                                     | 'dialog')
                               : undefined
                       )}
+                      @click=${this.handleClick}
                   >
                       ${positionIconBefore ? this.renderIcon() : nothing}
                       <slot></slot>
@@ -107,6 +109,10 @@ export class VlLinkComponent extends BaseLitElement {
                       ${this.external ? this.renderExternalIcon() : ''}
                   </button>
               `;
+    }
+
+    private handleClick(): void {
+        this.dispatchEvent(new CustomEvent('vl-click', { bubbles: true, composed: true }));
     }
 
     private renderIcon(): TemplateResult | typeof nothing {

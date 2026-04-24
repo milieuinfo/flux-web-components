@@ -24,23 +24,37 @@ export default {
 
 const LinkTemplate = story(
     linkArgs,
-    ({ href, bold, small, large, error, external, buttonAsLink, type, icon, iconPlacement, defaultSlot, label }) =>
-        html`
-            <vl-link
-                href=${href}
-                ?bold=${bold}
-                ?small=${small}
-                ?large=${large}
-                ?error=${error}
-                ?external=${external}
-                ?button-as-link=${buttonAsLink}
-                type=${type}
-                icon=${icon}
-                icon-placement=${iconPlacement}
-                label=${label}
-                >${unsafeHTML(defaultSlot)}</vl-link
-            >
-        `
+    ({
+        href,
+        bold,
+        small,
+        large,
+        error,
+        external,
+        buttonAsLink,
+        type,
+        icon,
+        iconPlacement,
+        defaultSlot,
+        label,
+        onVlClick
+    }) => html`
+        <vl-link
+            href=${href}
+            ?bold=${bold}
+            ?small=${small}
+            ?large=${large}
+            ?error=${error}
+            ?external=${external}
+            ?button-as-link=${buttonAsLink}
+            type=${type}
+            icon=${icon}
+            icon-placement=${iconPlacement}
+            label=${label}
+            @vl-click=${onVlClick}
+            >${unsafeHTML(defaultSlot)}</vl-link
+        >
+    `,
 );
 
 export const LinkDefault = LinkTemplate.bind({});
