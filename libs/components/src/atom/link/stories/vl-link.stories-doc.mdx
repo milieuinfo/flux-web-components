@@ -71,15 +71,45 @@ Via het `type`-attribuut kan je het type van de onderliggende `<button>` instell
 
 <Canvas of={VlLinkStories.ButtonStyledAsLink} />
 
+## Events
+
+`vl-link` dispatcht bij elke klik een custom `vl-click` event (`bubbles: true, composed: true`), zodat het event de
+Shadow DOM boundary overschrijdt en door parent-elementen kan worden opgevangen.
+
+```html
+<vl-link href="https://www.vlaanderen.be">Vlaanderen</vl-link>
+<script>
+  document.querySelector('vl-link').addEventListener('vl-click', () => {
+    console.log('link geklikt');
+  });
+</script>
+```
+
+Het native `click` event blijft ook werken — beide zijn geldig. Kies één van beide en gebruik ze niet gelijktijdig op
+hetzelfde element om dubbele callbacks te vermijden.
+
+> **Relatie met `vl-button`:** `vl-button` dispatcht `vl-click` alleen als de knop niet disabled of in laadstatus is.
+ `vl-link` heeft (nog) geen disabled-state, dus `vl-click` wordt altijd gedispatcht. De conventie is consistent: alle
+ interactieve flux-atoms dispatchen `vl-<actie>`.
+
 ## Toegankelijkheid
 
-Zorg er steeds voor dat de link een duidelijke en beknopte tekstuele beschrijving heeft van de actie die uitgevoerd wordt bij het klikken op de link. Dit is belangrijk voor alle gebruikers, maar vooral voor gebruikers die schermlezers gebruiken.
+Zorg er steeds voor dat de link een duidelijke en beknopte tekstuele beschrijving heeft van de actie die uitgevoerd
+wordt bij het klikken op de link. Dit is belangrijk voor alle gebruikers, maar vooral voor gebruikers die schermlezers
+gebruiken.
 
-Zorg er bij externe links voor dat gebruikers weten dat de link in een nieuw venster opent. Dit kan je doen adhv het `external` attribuut en door dit expliciet te vermelden in de linktekst of door het `label` attribuut te gebruiken om een beschrijvende `aria-label` toe te voegen aan de link. Indien `label` gebruikt wordt, is dit de enige linktekst die door schermlezers wordt voorgelezen. Dus neem ook de zichtbare linktekst hierin op.
+Zorg er bij externe links voor dat gebruikers weten dat de link in een nieuw venster opent. Dit kan je doen adhv het
+`external` attribuut en door dit expliciet te vermelden in de linktekst of door het `label` attribuut te gebruiken om
+een beschrijvende `aria-label` toe te voegen aan de link. Indien `label` gebruikt wordt, is dit de enige linktekst die
+door schermlezers wordt voorgelezen. Dus neem ook de zichtbare linktekst hierin op.
 
-Indien de link enkel een icoon bevat, is het verplicht om het `label` attribuut te gebruiken zodat een beschrijvende `aria-label` wordt toegevoegd aan de link.
+Indien de link enkel een icoon bevat, is het verplicht om het `label` attribuut te gebruiken zodat een beschrijvende
+`aria-label` wordt toegevoegd aan de link.
 
-Indien de link een dropdown menu of dialog opent, gebruik dan het `aria-haspopup` attribuut met de juiste waarde (`true`, `menu`, `listbox`, `tree`, `grid`, `dialog`) om aan te geven dat er een popup aanwezig is. Dit helpt schermlezers om de gebruiker correct te informeren over de aanwezigheid van een popup. `aria-haspopup` wordt doorgegeven aan de onderliggende link.
+Indien de link een dropdown menu of dialog opent, gebruik dan het `aria-haspopup` attribuut met de juiste waarde
+(`true`, `menu`, `listbox`, `tree`, `grid`, `dialog`) om aan te geven dat er een popup aanwezig is. Dit helpt
+schermlezers om de gebruiker correct te informeren over de aanwezigheid van een popup. `aria-haspopup` wordt doorgegeven
+aan de onderliggende link.
 
 ## Referenties
 

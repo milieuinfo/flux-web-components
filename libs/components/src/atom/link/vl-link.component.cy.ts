@@ -112,6 +112,14 @@ describe('cypress-component - atom components - vl-link', () => {
         cy.get('vl-link').shadow().find('a').find('slot');
         cy.get('vl-link').contains('Vlaanderen');
     });
+
+    it('should dispatch vl-click event', () => {
+        cy.mount(html`<vl-link href="#vlaanderen">Vlaanderen</vl-link>`);
+        cy.createStubForEvent('vl-link', 'vl-click');
+
+        cy.get('vl-link').shadow().find('a').click({ force: true });
+        cy.get('@vl-click').should('have.been.calledOnce');
+    });
 });
 
 describe('cypress-component - atom components - vl-link - button as link', () => {
@@ -238,5 +246,13 @@ describe('cypress-component - atom components - vl-link - button as link', () =>
         cy.mount(html`<vl-link button-as-link type="reset">Vlaanderen</vl-link>`);
 
         cy.get('vl-link').shadow().find('button').should('have.attr', 'type', 'reset');
+    });
+
+    it('should dispatch vl-click event', () => {
+        cy.mount(html`<vl-link button-as-link>Vlaanderen</vl-link>`);
+        cy.createStubForEvent('vl-link', 'vl-click');
+
+        cy.get('vl-link').shadow().find('button').click('bottomLeft');
+        cy.get('@vl-click').should('have.been.calledOnce');
     });
 });
