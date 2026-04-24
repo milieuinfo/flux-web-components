@@ -25,12 +25,12 @@ describe('jest - components - vl-properties', () => {
             {
                 items: [
                     {
-                        labels: ['Woonplaats'],
-                        data: ['Brussel'],
+                        labels: [[document.createTextNode('Woonplaats')]],
+                        data: [[document.createTextNode('Brussel')]],
                     },
                     {
-                        labels: ['Postcode'],
-                        data: ['1000'],
+                        labels: [[document.createTextNode('Postcode')]],
+                        data: [[document.createTextNode('1000')]],
                     },
                 ],
             },
@@ -96,15 +96,42 @@ describe('jest - components - vl-properties', () => {
                 class: 'column',
                 items: [
                     {
-                        labels: ['Woonplaats'],
-                        data: ['Brussel'],
+                        labels: [[document.createTextNode('Woonplaats')]],
+                        data: [[document.createTextNode('Brussel')]],
                     },
                     {
-                        labels: ['Postcode'],
-                        data: ['1000'],
+                        labels: [[document.createTextNode('Postcode')]],
+                        data: [[document.createTextNode('1000')]],
                     },
                 ],
             },
         ]);
+    });
+
+    it('buildProperties should handle Lit-binding comment markers without serialising them as text', () => {
+        const labelElement = document.createElement('label');
+        labelElement.appendChild(document.createComment('?lit$34872438$0?'));
+        labelElement.appendChild(document.createTextNode('Dynamische waarde'));
+        labelElement.appendChild(document.createComment('?'));
+
+        const dataElement = document.createElement('data');
+        dataElement.appendChild(document.createComment('?lit$34872438$0?'));
+        dataElement.appendChild(document.createTextNode('42'));
+        dataElement.appendChild(document.createComment('?'));
+
+        const result = buildProperties([labelElement, dataElement], false);
+
+        expect(result).toHaveLength(1);
+        const item = result[0].items[0];
+        const labelNodes = item.labels[0] as Node[];
+        const dataNodes = item.data[0] as Node[];
+        expect(labelNodes).toHaveLength(3);
+        expect(labelNodes[0].nodeType).toBe(Node.COMMENT_NODE);
+        expect(labelNodes[1].nodeType).toBe(Node.TEXT_NODE);
+        expect((labelNodes[1] as Text).textContent).toBe('Dynamische waarde');
+        expect(labelNodes[2].nodeType).toBe(Node.COMMENT_NODE);
+        expect(dataNodes).toHaveLength(3);
+        expect(dataNodes[1].nodeType).toBe(Node.TEXT_NODE);
+        expect((dataNodes[1] as Text).textContent).toBe('42');
     });
 });
