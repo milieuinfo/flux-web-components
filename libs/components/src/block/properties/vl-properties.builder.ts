@@ -5,8 +5,8 @@ const moveChildNodes = (childNodes: ChildNode[], clone: boolean): Node[] =>
 
 const buildItems = (elements: Element[], clone: boolean): Item[] => {
     const items: Item[] = [];
-    let labels: any[] = [],
-        data: any[] = [];
+    let labels: Node[][] = [],
+        data: Node[][] = [];
 
     elements.forEach((element: Element) => {
         switch (element.localName) {
@@ -18,15 +18,11 @@ const buildItems = (elements: Element[], clone: boolean): Item[] => {
                     labels = [];
                     data = [];
                 }
-                labels.push(
-                    element.children.length > 0 ? moveChildNodes([...element.childNodes], clone) : element.innerHTML,
-                );
+                labels.push(moveChildNodes([...element.childNodes], clone));
                 break;
             case 'data':
             case 'vl-property-data':
-                data.push(
-                    element.children.length > 0 ? moveChildNodes([...element.childNodes], clone) : element.innerHTML,
-                );
+                data.push(moveChildNodes([...element.childNodes], clone));
                 break;
         }
     });
