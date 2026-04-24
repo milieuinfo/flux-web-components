@@ -8,6 +8,8 @@ const componentsBlockWCIgnore = [
 ];
 const componentsBlockWCMismatch = [
     'vl-side-navigation-layout', // in next folder - naam komt niet overeen met bestandsnaam (WT is vl-side-navigation-layout-next)
+    'vl-tab-link', // in next folder - naam komt niet overeen met bestandsnaam (WT is vl-tab-link-next)
+    'vl-tab-panel', // in next folder - naam komt niet overeen met bestandsnaam (WT is vl-tab-panel-next)
 ];
 const componentsBlockWTMismatch = [
     'vl-side-navigation-next', // in next folder - naam komt niet overeen met bestandsnaam
@@ -18,6 +20,10 @@ const componentsBlockWTMismatch = [
     'vl-side-navigation-h4', // in vl-side-navigation-title.componentsBlock.ts
     'vl-side-navigation-h5', // in vl-side-navigation-title.componentsBlock.ts
     'vl-side-navigation-h6', // in vl-side-navigation-title.componentsBlock.ts
+    'vl-tabs-next', // in next folder - naam komt niet overeen met bestandsnaam (WC is vl-tabs)
+    'vl-tab-next', // in next folder - naam komt niet overeen met bestandsnaam (WC is vl-tab)
+    'vl-tab-link-next', // in next folder - naam komt niet overeen met bestandsnaam (WC is vl-tab-link)
+    'vl-tab-panel-next', // in next folder - naam komt niet overeen met bestandsnaam (WC is vl-tab-panel)
 ];
 
 export const componentsBlockWCNameCount = componentsBlockWCNames.length;

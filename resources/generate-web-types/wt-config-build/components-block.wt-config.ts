@@ -291,6 +291,15 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
         '../../libs/components/src/block/tabs/stories/vl-tabs.stories-doc.mdx',
         '/docs/components-block-tabs--documentatie'
     ),
+    buildWTConfig(
+        'vl-tabs-next',
+        tabsArgTypes,
+        '../../libs/components/src/block/next/tabs/stories/vl-tabs.stories-doc.mdx',
+        '/docs/components-block-next-tabs--documentatie'
+    ),
+    buildWTConfig('vl-tab-next', null, null, '/docs/components-block-next-tabs--documentatie'),
+    buildWTConfig('vl-tab-link-next', null, null, '/docs/components-block-next-tabs--documentatie'),
+    buildWTConfig('vl-tab-panel-next', null, null, '/docs/components-block-next-tabs--documentatie'),
     buildWTConfig('vl-tabs-pane', tabsPaneArgTypes, null, '/docs/components-block-tabs--documentatie'),
     buildWTConfig('vl-tab', null, null, '/docs/components-block-tabs--documentatie'),
     buildWTConfig('vl-tab-section', null, null, '/docs/components-block-tabs--documentatie'),

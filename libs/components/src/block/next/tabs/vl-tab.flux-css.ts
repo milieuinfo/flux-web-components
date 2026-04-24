@@ -1,15 +1,20 @@
 import { vlFocusOutlineMixin } from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
 
-export const vlTabFluxStyles: CSSResult = css`
+export const vlTabFluxStyles = (tabLink: boolean = false): CSSResult => css`
     :host {
         --vl-tab--padding-inline: 1.3rem;
     }
 
-    :host,
-    :host(:visited),
-    :host > a,
-    :host > a:visited {
+    ${tabLink
+        ? css`
+            :host > a, 
+            :host > a:visited
+    `
+        : css`
+              :host,
+              :host(:visited)
+    `} {
         color: var(--vl-color--text-action);
         cursor: pointer;
         display: block;
@@ -32,42 +37,66 @@ export const vlTabFluxStyles: CSSResult = css`
         }
     }
 
-    :host([selected]),
-    :host([selected]) > a {
-        color: var(--vl-color--text-default);
-    }
-
-    :host(:hover),
-    :host(:hover) > a {
-        color: var(--vl-color--hover-text-action);
-    }
-
-    :host(:focus),
-    :host(:focus) > a {
-        ${vlFocusOutlineMixin()};
-        outline-offset: -2px;
-    }
-
-    :host([selected]),
-    :host([selected]) > a,
-    :host(:hover),
-    :host(:hover) > a,
-    :host(:focus),
-    :host(:focus) > a,
-    :host(:active),
-    :host(:active) > a {
+    ${tabLink
+        ? css`
+        :host([selected]) > a,
+        :host(:hover) > a,
+        :host(:focus) > a,
+        :host(:active) > a
+    `
+        : css`
+        :host([selected]),
+        :host(:hover),
+        :host(:focus),
+        :host(:active)
+    `} {
         &::after {
             background-color: var(--vl-color--text-default);
         }
     }
 
-    :host:has(a) {
-        padding: 0;
-        &::after {
-            display: none;
-        }
+    ${tabLink
+        ? css`
+        :host([selected]) > a
+    `
+        : css`
+              :host([selected])
+          `} {
+        color: var(--vl-color--text-default);
     }
-    :host(:focus):has(a) {
-        outline: none;
+
+    ${tabLink
+        ? css`
+        :host(:hover) > a
+    `
+        : css`
+            :host(:hover)
+    `} {
+        color: var(--vl-color--hover-text-action);
     }
+
+    ${tabLink
+        ? css`
+        :host(:focus) > a
+    `
+        : css`
+              :host(:focus)
+    `} {
+        ${vlFocusOutlineMixin()};
+    }
+
+    ${tabLink
+        ? css`
+              :host:has(a) {
+                  padding: 0;
+                  &::after {
+                      display: none;
+                  }
+              }
+
+              :host(:focus):has(a) {
+                  outline: none;
+              }
+          `
+        : css``}
 `;

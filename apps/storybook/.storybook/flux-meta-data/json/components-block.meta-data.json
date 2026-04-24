@@ -515,7 +515,7 @@
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
             "wcagLevel": "TODO",
-            "jiraMeta": "TODO"
+            "jiraMeta": "FLUX-15"
         },
         "evolution": {
             "vStatus": "v3-next",

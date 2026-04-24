@@ -36,30 +36,25 @@ export const functionalHeaderWithSearchHtmlSourceCode = createFunctionalHeaderHt
 const createFunctionalHeaderHtmlWithBackAndTabs = (sourceCode = false) => ` <vl-functional-header
         title="School- en studietoelagen"
         custom-css="${`
-                #sub-title{
-                    vertical-align: text-top;
-                }
                 :host .vl-functional-header__sub-row {
                     margin-bottom: 0;
+                }
+                :host .vl-functional-header__sub__action + .vl-functional-header__sub__action::before {
+                    margin: 1rem;
                 }
                 ${sourceCode ? '' : ':host .vl-content-block { min-width: 900px}'}
             `}"
     >
-        <vl-tabs
+        <vl-tabs-next
             slot="sub-title"
-            disable-links
-            within-functional-header
-            active-tab="trein"
-            custom-css="${`
-                :host(.vl-tabs--within-functional-header) .vl-tab__link {
-                    padding-top: 0;
-                }
-            `}"
+            label="Onderwerpen"
+            horizontal-navigation
+            no-border
         >
-            <vl-tabs-pane id="trein" title="Trein"></vl-tabs-pane>
-            <vl-tabs-pane id="metro" title="Metro, tram en bus"></vl-tabs-pane>
-            <vl-tabs-pane id="fiets" title="Fiets"></vl-tabs-pane>
-        </vl-tabs>
+            <vl-tab-link-next id="tab1" href="#trein">Trein</vl-tab-link-next>
+            <vl-tab-link-next id="tab2" href="#ov">Metro, tram en bus</vl-tab-link-next>
+            <vl-tab-link-next id="tab3" href="#fiets">Fiets</vl-tab-link-next>
+        </vl-tabs-next>
     </vl-functional-header>`;
 
 export const functionalHeaderWithBackAndTabsHtml = createFunctionalHeaderHtmlWithBackAndTabs();
