@@ -95,11 +95,27 @@ export const PropertiesColumns = story(
                 <label>Postcode</label>
                 <data>1000</data>
             </div>
+            <div class="column">
+                <label>Woonplaats</label>
+                <data>Antwerpen</data>
+            </div>
+            <div class="column">
+                <label>Postcode langer</label>
+                <data>1000</data>
+            </div>
+            <div class="column">
+                <label>Woonplaats</label>
+                <data>Gent</data>
+            </div>
+            <div class="column">
+                <label>Postcode</label>
+                <data>1000</data>
+            </div>
             <div class="column column--full-width">
                 <label>Gewest</label>
-                <data>Brussel</data>
+                <data>Hier komt het gewest waar je woont, dit kan best lang zijn.</data>
             </div>
         </vl-properties>
-    `
+    `,
 );
 PropertiesColumns.storyName = 'vl-properties - columns';
