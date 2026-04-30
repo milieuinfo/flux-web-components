@@ -25,16 +25,16 @@ export const createDateMask = (format: string, minDate?: string, maxDate?: strin
         const minimumDate = flatpickr?.parseDate(minDate, format);
         maskOptions = {
             ...maskOptions,
-            // formatteren naar verwacht formaat voor cleave.js
-            dateMin: minimumDate ? flatpickr?.formatDate(minimumDate, 'Y-M-D') : undefined,
+            // formatteren naar verwacht formaat voor cleave.js (yyyy-mm-dd)
+            dateMin: minimumDate ? flatpickr?.formatDate(minimumDate, 'Y-m-d') : undefined,
         };
     }
     if (maxDate) {
         const maximumDate = flatpickr?.parseDate(maxDate, format);
         maskOptions = {
             ...maskOptions,
-            // formatteren naar verwacht formaat voor cleave.js
-            dateMax: maximumDate ? flatpickr?.formatDate(maximumDate, 'Y-M-D') : undefined,
+            // formatteren naar verwacht formaat voor cleave.js (yyyy-mm-dd)
+            dateMax: maximumDate ? flatpickr?.formatDate(maximumDate, 'Y-m-d') : undefined,
         };
     }
     return maskOptions;

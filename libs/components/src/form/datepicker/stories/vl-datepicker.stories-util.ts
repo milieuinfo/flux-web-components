@@ -1,12 +1,15 @@
 import flatpickr from 'flatpickr';
 
 export const formatEpoch = (epoch: number | string | symbol, format: string | symbol): string | symbol => {
-    if (epoch && (typeof epoch === 'string' || typeof epoch === 'number')) {
+    // Storybook's DATE-control geeft een Unix-timestamp (ms) terug; story-args bevatten doorgaans
+    // al een geformatteerde datum string. Enkel echte timestamps mogen geherformatteerd worden,
+    // anders wordt b.v. "05.05.2026" via Number(...) NaN en krijgen we "aN.aN.0NaN".
+    const isTimestamp = typeof epoch === 'number' || (typeof epoch === 'string' && /^\d+$/.test(epoch));
+    if (isTimestamp) {
         const dateFormat = format && typeof format !== 'symbol' ? format : 'd.m.Y';
         return flatpickr.formatDate(new Date(Number(epoch)), dateFormat);
-    } else {
-        return epoch as symbol;
     }
+    return epoch as symbol;
 };
 
 export const createDateRange = (

@@ -8,7 +8,7 @@ import { VlFormMessageComponent } from '../../form-message';
 import { VlDatepickerComponent } from '../vl-datepicker.component';
 import { datepickerArgs, datepickerArgTypes } from './vl-datepicker.stories-arg';
 import datepickerDocs from './vl-datepicker.stories-doc.mdx';
-import { createDateRange } from './vl-datepicker.stories-util';
+import { createDateRange, formatEpoch } from './vl-datepicker.stories-util';
 
 registerWebComponents([VlDatepickerComponent, VlFormMessageComponent, VlFormLabelComponent, VlButtonComponent]);
 
@@ -90,8 +90,8 @@ const DatepickerTemplate = story(
                             ?disable-mask-validation=${disableMaskValidation}
                             type=${type}
                             format=${format}
-                            min-date=${minDate}
-                            max-date=${maxDate}
+                            min-date=${formatEpoch(minDate, format)}
+                            max-date=${formatEpoch(maxDate, format)}
                             min-time=${minTime}
                             max-time=${maxTime}
                             am-pm=${amPm}

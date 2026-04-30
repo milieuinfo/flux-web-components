@@ -500,6 +500,18 @@ describe('vl-datepicker - constraints', () => {
         cy.checkA11y('vl-datepicker');
     });
 
+    it('should clamp to min-date without corrupting the input value', () => {
+        cy.mount(html`<vl-datepicker min-date="01.06.2026" label="date"></vl-datepicker>`);
+        cy.injectAxe();
+
+        // Typ een datum vóór de min-date (15 april 2025)
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('15042025');
+
+        // Na de fix: Cleave klampt correct naar dateMin (01.06.2026), geen corrupte output
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').should('have.value', '01.06.2026');
+        cy.checkA11y('vl-datepicker');
+    });
+
     it('should set max time', () => {
         const maxTime = '16:45';
         cy.mount(html`<vl-datepicker type="time" max-time=${maxTime} label="time"></vl-datepicker>`);
@@ -1005,6 +1017,7 @@ describe('vl-datepicker - form integration', () => {
     it('should validate min/max with type "date"', () => {
         const format = 'd.m.Y';
         const [minDate, maxDate] = createDateRange(new Date('2024-04-10'), 2, format);
+        // minDate = '08.04.2024', maxDate = '12.04.2024'
         mountDatepickerInForm({ ...datepickerDefaults, minDate, maxDate, format, type: 'date' });
         cy.injectAxe();
         cy.get('form').then((form$) => {
@@ -1015,6 +1028,7 @@ describe('vl-datepicker - form integration', () => {
 
         cy.get('vl-datepicker').shadow().find('input').should('not.have.class', 'vl-input-field--error');
 
+        // In-range invoer wordt onveranderd doorgegeven
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('10.04.2024');
         cy.get('vl-datepicker').should('have.value', '2024-04-10');
 
@@ -1025,21 +1039,24 @@ describe('vl-datepicker - form integration', () => {
 
         cy.get('button[type="reset"]').click();
 
+        // Boven max-date: Cleave klampt naar 12.04.2024 (FLUX-136 - Voorstel 1)
+        // Manuele invoer kan rangeOverflow niet meer triggeren - de waarde is steeds geldig.
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('13.04.2024');
-        cy.get('vl-datepicker').should('have.value', '2024-04-13');
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').should('have.value', '12.04.2024');
+        cy.get('vl-datepicker').should('have.value', '2024-04-12');
         cy.get('button[type="submit"]').click();
-        cy.get('vl-form-message[state="rangeOverflow"]').should('have.attr', 'show');
+        cy.get('vl-form-message[state="rangeOverflow"]').shadow().find('p').should('have.attr', 'hidden');
         cy.get('vl-form-message[state="rangeUnderflow"]').shadow().find('p').should('have.attr', 'hidden');
 
         cy.get('button[type="reset"]').click();
-        cy.get('vl-form-message[state="rangeOverflow"]').shadow().find('p').should('have.attr', 'hidden');
-        cy.get('vl-form-message[state="rangeUnderflow"]').shadow().find('p').should('have.attr', 'hidden');
 
+        // Onder min-date: Cleave klampt naar 08.04.2024 - rangeUnderflow blijft hidden.
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').type('07.04.2024');
-        cy.get('vl-datepicker').should('have.value', '2024-04-07');
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').should('have.value', '08.04.2024');
+        cy.get('vl-datepicker').should('have.value', '2024-04-08');
         cy.get('button[type="submit"]').click();
         cy.get('vl-form-message[state="rangeOverflow"]').shadow().find('p').should('have.attr', 'hidden');
-        cy.get('vl-form-message[state="rangeUnderflow"]').should('have.attr', 'show');
+        cy.get('vl-form-message[state="rangeUnderflow"]').shadow().find('p').should('have.attr', 'hidden');
         cy.checkA11y('vl-datepicker');
     });
 
