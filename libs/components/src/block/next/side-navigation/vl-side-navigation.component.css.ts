@@ -177,6 +177,15 @@ export const vlSideNavigationLightDomStyles = css`
             }
         }
     }
+
+    /* Ensure TOC scroll targets clear sticky headers.
+     * --vl-side-navigation-top is the same variable that positions the sticky TOC,
+     * so a consumer who sets it for layout automatically fixes scroll offset too.
+     * Applied globally to all [id] on document once any vl-side-navigation-next mounts;
+     * intentionally broad to reach headings inside nested shadow roots (e.g. vl-steps). */
+    [id] {
+        scroll-margin-top: var(--vl-side-navigation-top, 50px);
+    }
 `;
 
 const mobileStyles = css`

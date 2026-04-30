@@ -173,6 +173,7 @@ export class VlSideNavigationComponent extends BaseLitElement {
 
     override connectedCallback(): void {
         super.connectedCallback();
+        this.adoptLightDomStyles();
         if (this.isTableOfContentsInitialized && !this.intersectionObserver) {
             this.setupIntersectionObserver();
         }
@@ -529,7 +530,6 @@ export class VlSideNavigationComponent extends BaseLitElement {
     private initializeCustomToc(slottedElements: Element[]): void {
         this.hasCustomToc = true;
         this.extractHeadingIdsFromManualToc(slottedElements);
-        this.adoptLightDomStyles();
         initializeCustomTocHiddenState(slottedElements);
         setupCustomTocLinkHandlers(slottedElements, this.effectiveScrollBehavior);
         this.setupIntersectionObserver();

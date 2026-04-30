@@ -50,3 +50,25 @@ describe('cypress-e2e - block components - vl-side-navigation-layout-next - with
         cy.get('#vl-steps-vl-step-3').should('contain', 'Stap 3: derde actie');
     });
 });
+
+describe('cypress-e2e - block components - vl-side-navigation-layout-next - scroll offset', () => {
+    it('should apply scroll-margin-top on heading targets (auto-generated TOC)', () => {
+        cy.visit(sideNavigationLayoutDefaultUrl);
+
+        cy.window().then((win) => {
+            cy.get('#default-content-1').then(($heading) => {
+                expect(win.getComputedStyle($heading[0]).scrollMarginTop).to.equal('50px');
+            });
+        });
+    });
+
+    it('should apply scroll-margin-top on heading targets (custom TOC)', () => {
+        cy.visit(sideNavigationLayoutCustomTocUrl);
+
+        cy.window().then((win) => {
+            cy.get('#custom-intro').then(($heading) => {
+                expect(win.getComputedStyle($heading[0]).scrollMarginTop).to.equal('50px');
+            });
+        });
+    });
+});

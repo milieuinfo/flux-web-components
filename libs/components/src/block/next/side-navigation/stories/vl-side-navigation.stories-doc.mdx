@@ -42,6 +42,8 @@ zodat de side-navigation niet onder dat element schuift.
 - **`--vl-side-navigation-top`** (standaard: `50px`): de `top`-waarde voor de sticky positie van de TOC.
 Accepteert elke geldige CSS waarde (bijv. `140px`, `10rem`, of `var(--header-height)`). Definieer de variabele op een
 voorouder van de side navigation (bijv. op `main` of op de layout container).
+Dezelfde variabele wordt gebruikt als `scroll-margin-top` op heading-targets, zodat klikken op een TOC-link
+rekening houdt met dezelfde sticky-offset en de heading niet achter een sticky header scrollt.
 
 ## Eigenschappen
 

@@ -53,3 +53,25 @@ describe('cypress-e2e - block components - vl-side-navigation-next - custom toc 
         cy.get('vl-side-navigation-next').find('ul > li').first().find('> ul').should('not.have.attr', 'hidden');
     });
 });
+
+describe('cypress-e2e - block components - vl-side-navigation-next - scroll offset', () => {
+    it('should apply scroll-margin-top on heading targets (auto-generated TOC)', () => {
+        cy.visit(sideNavigationNextDefaultUrl);
+
+        cy.window().then((win) => {
+            cy.get('#content-1-heading').then(($heading) => {
+                expect(win.getComputedStyle($heading[0]).scrollMarginTop).to.equal('50px');
+            });
+        });
+    });
+
+    it('should apply scroll-margin-top on heading targets (custom TOC)', () => {
+        cy.visit(sideNavigationNextCustomTocUrl);
+
+        cy.window().then((win) => {
+            cy.get('#custom-intro').then(($heading) => {
+                expect(win.getComputedStyle($heading[0]).scrollMarginTop).to.equal('50px');
+            });
+        });
+    });
+});
