@@ -9,17 +9,25 @@ export const extractTime = (date: Date): Date => {
 
 export const getDatepickerBoundary = (instance: VlDatepickerComponent, kind: 'max' | 'min'): Date | undefined => {
     const { type, format, maxDate, maxTime, minDate, minTime } = instance;
+    const parseDateBoundary = (dateString: string) => {
+        if (dateString === 'today') {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            return today;
+        }
+        return flatpickr.parseDate(dateString, format);
+    };
 
     if (kind === 'max') {
         if (['date', 'date-time', 'range'].includes(type) && maxDate) {
-            return flatpickr.parseDate(maxDate, format);
+            return parseDateBoundary(maxDate);
         }
         if (type === 'time' && maxTime) {
             return flatpickr.parseDate(maxTime, format);
         }
     } else {
         if (['date', 'date-time', 'range'].includes(type) && minDate) {
-            return flatpickr.parseDate(minDate, format);
+            return parseDateBoundary(minDate);
         }
         if (type === 'time' && minTime) {
             return flatpickr.parseDate(minTime, format);
