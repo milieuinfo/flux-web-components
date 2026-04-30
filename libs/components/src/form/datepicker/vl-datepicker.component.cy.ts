@@ -1043,6 +1043,36 @@ describe('vl-datepicker - form integration', () => {
         cy.checkA11y('vl-datepicker');
     });
 
+    it('should disable dates outside min/max in calendar', () => {
+        const format = 'd.m.Y';
+        const [minDate, maxDate] = createDateRange(new Date('2024-04-10'), 2, format);
+        mountDatepickerInForm({ ...datepickerDefaults, minDate, maxDate, format, type: 'date', value: '2024-04-10' });
+
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+        cy.wait(100);
+
+        // dagen voor min-date zijn uitgeschakeld
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-day:not(.prevMonthDay):not(.nextMonthDay)')
+            .contains('7')
+            .should('have.class', 'flatpickr-disabled');
+
+        // dagen na max-date zijn uitgeschakeld
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-day:not(.prevMonthDay):not(.nextMonthDay)')
+            .contains('13')
+            .should('have.class', 'flatpickr-disabled');
+
+        // dag binnen range is selecteerbaar
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-day:not(.prevMonthDay):not(.nextMonthDay)')
+            .contains('10')
+            .should('not.have.class', 'flatpickr-disabled');
+    });
+
     it('should validate min/max with type "time"', () => {
         mountDatepickerInForm({ ...datepickerDefaults, minTime: '10:00', maxTime: '12:00', type: 'time' });
         cy.injectAxe();
@@ -1121,6 +1151,68 @@ describe('vl-datepicker - form integration', () => {
         cy.get('vl-form-message[state="rangeOverflow"]').shadow().find('p').should('have.attr', 'hidden');
         cy.get('vl-form-message[state="rangeUnderflow"]').should('have.attr', 'show');
         cy.checkA11y('vl-datepicker');
+    });
+
+    it('should validate min/max with min-date="today" and max-date="today"', () => {
+        const today = new Date();
+        const yesterday = new Date(today);
+        yesterday.setDate(today.getDate() - 1);
+        const tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1);
+
+        mountDatepickerInForm({ ...datepickerDefaults, minDate: 'today', maxDate: 'today', format: 'd.m.Y', type: 'date' });
+        cy.get('form').then((form$) => {
+            form$.on('submit', (e) => {
+                e.preventDefault();
+            });
+        });
+
+        // vandaag wordt geaccepteerd
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').type(createDateString({ date: today }));
+        cy.get('button[type="submit"]').click({ force: true });
+        cy.get('vl-form-message[state="rangeOverflow"]').shadow().find('p').should('have.attr', 'hidden');
+        cy.get('vl-form-message[state="rangeUnderflow"]').shadow().find('p').should('have.attr', 'hidden');
+
+        cy.get('button[type="reset"]').click();
+
+        // gisteren triggert rangeUnderflow
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').type(createDateString({ date: yesterday }));
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-form-message[state="rangeUnderflow"]').should('have.attr', 'show');
+        cy.get('vl-form-message[state="rangeOverflow"]').shadow().find('p').should('have.attr', 'hidden');
+
+        cy.get('button[type="reset"]').click();
+
+        // morgen triggert rangeOverflow
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').type(createDateString({ date: tomorrow }));
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-form-message[state="rangeOverflow"]').should('have.attr', 'show');
+        cy.get('vl-form-message[state="rangeUnderflow"]').shadow().find('p').should('have.attr', 'hidden');
+    });
+
+    it('should disable dates outside today in calendar with min-date="today" and max-date="today"', () => {
+        const today = new Date();
+        const todayDay = today.getDate();
+
+        cy.mount(html`<vl-datepicker min-date="today" max-date="today" label="date"></vl-datepicker>`);
+
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+        cy.wait(100);
+
+        // vandaag is selecteerbaar
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-day:not(.prevMonthDay):not(.nextMonthDay)')
+            .contains(new RegExp(`^${todayDay}$`))
+            .should('not.have.class', 'flatpickr-disabled');
+
+        // alle andere dagen zijn uitgeschakeld
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-day:not(.prevMonthDay):not(.nextMonthDay):not(.today)')
+            .each(($day) => {
+                cy.wrap($day).should('have.class', 'flatpickr-disabled');
+            });
     });
 });
 

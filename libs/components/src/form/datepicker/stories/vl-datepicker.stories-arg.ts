@@ -88,7 +88,7 @@ export const datepickerArgTypes: ArgTypes<DatepickerArgs> = {
     },
     minDate: {
         name: 'min-date',
-        description: "Minimum datum conform het ingestelde formaat (bv. '01-01-2019') of 'today' voor vandaag.",
+        description: "Minimum datum conform het ingestelde formaat (bv. '01.01.2019') of 'today' voor vandaag.",
         control: { type: CONTROLS.DATE },
         table: {
             type: { summary: TYPES.STRING },
@@ -98,7 +98,7 @@ export const datepickerArgTypes: ArgTypes<DatepickerArgs> = {
     },
     maxDate: {
         name: 'max-date',
-        description: "Maximum datum conform het ingestelde format (bv. '31-12-2019') of 'today' voor vandaag.",
+        description: "Maximum datum conform het ingestelde formaat (bv. '31.12.2019') of 'today' voor vandaag.",
         control: { type: CONTROLS.DATE },
         table: {
             type: { summary: TYPES.STRING },

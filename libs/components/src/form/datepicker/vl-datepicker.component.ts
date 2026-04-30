@@ -619,7 +619,7 @@ export class VlDatepickerComponent extends FormControl {
         let maskOptions: MaskOptions | null = null;
         switch (type) {
             case 'date':
-                maskOptions = createDateMask(format, this.minDate, this.maxDate);
+                maskOptions = createDateMask(format);
                 break;
             case 'time':
                 maskOptions = createTimeMask(format);

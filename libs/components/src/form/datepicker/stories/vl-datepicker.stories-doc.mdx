@@ -75,6 +75,45 @@ De uitgelezen waarde volgt eveneens het [ISO-formaat](https://en.wikipedia.org/w
 ```
 
 
+## Varianten
+
+### Static
+
+<Canvas of={VlDatepickerStories.DatepickerStatic} />
+
+### Range
+
+<Canvas of={VlDatepickerStories.DatepickerRange} />
+
+### Time
+
+<Canvas of={VlDatepickerStories.DatepickerTime} />
+
+### Min-date en Max-date
+
+Je kan de selecteerbare datumrange beperken via de `min-date` en `max-date` attributen.
+De waarde moet conform het ingestelde `format` zijn (standaard `d.m.Y`), of de speciale waarde `'today'` voor de huidige datum.
+
+> Met `format="d.m.Y"` (standaard): `min-date="01.01.2019"` en `max-date="31.12.2019"`
+```html
+<vl-datepicker min-date="01.01.2019" max-date="31.12.2019"></vl-datepicker>
+```
+
+> Gebruik `'today'` om de huidige datum als grens in te stellen:
+```html
+<vl-datepicker min-date="today"></vl-datepicker>
+```
+
+<Canvas of={VlDatepickerStories.DatepickerMinDateAndMaxDate} />
+
+- Dagen buiten de opgegeven range worden uitgeschakeld in de kalender.
+- Ingetypte datums buiten de range worden gevalideerd via respectievelijk de `rangeUnderflow` en `rangeOverflow` ValidityState keys.
+
+### Date-time
+
+<Canvas of={VlDatepickerStories.DatepickerDateTime} />
+
+
 ## Validatie
 > Meer info over validatie binnen onze form componenten vind je hier: [Form - Validatie](/docs/patronen-formulier-validatie--documentatie)
 
