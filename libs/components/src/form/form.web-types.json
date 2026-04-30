@@ -1328,8 +1328,7 @@
                         },
                         {
                             "name": "rows",
-                            "description": "Het aantal rijen van het textarea veld.",
-                            "default": "null"
+                            "description": "**Deprecated** Heeft geen effect op de `vl-textarea-rich` editor. Gebruik `height` om de hoogte in te stellen."
                         },
                         {
                             "name": "cols",
@@ -1350,6 +1349,11 @@
                             "name": "preview",
                             "description": "Beeldt de value af in preview mode.<br/>Er wordt geen TinyMCE toolbar getoond en de value is niet aanpasbaar.",
                             "default": "false"
+                        },
+                        {
+                            "name": "height",
+                            "description": "De hoogte van de editor in pixels (inclusief toolbar en statusbalk).<br/>Er is een minimale hoogte van **70px**.<br/>Dit attribuut is niet reactief.",
+                            "default": "250"
                         }
                     ],
                     "js": {

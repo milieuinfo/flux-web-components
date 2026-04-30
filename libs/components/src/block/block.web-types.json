@@ -699,6 +699,16 @@
                             "default": "false"
                         },
                         {
+                            "name": "highlight",
+                            "description": "Voegt een accent toe aan de bovenkant van de info tile.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "highlight-left",
+                            "description": "Voegt een accent toe aan de linkerkant van de info tile.",
+                            "default": "false"
+                        },
+                        {
                             "name": "size",
                             "description": "Grootte van de info tile. Dit attribuut past de padding van het component aan. Standaard is dit \"small\". De andere opties zijn \"medium\" en \"large\".",
                             "value": {
@@ -1152,6 +1162,11 @@
                             "default": "null"
                         },
                         {
+                            "name": "full-height",
+                            "description": "Strekt de doormat verticaal uit om de volledige hoogte van de container te vullen.",
+                            "default": "false"
+                        },
+                        {
                             "name": "graphic",
                             "description": "Beeldt de afbeelding af als een graphic.<br/>Zorg ervoor dat de afbeelding die je meegeeft de correcte afmetingen heeft.",
                             "default": "false"
@@ -1226,12 +1241,17 @@
                         },
                         {
                             "name": "label-width",
-                            "description": "De breedte van de labels, in %. Heeft geen impact als de properties 'collapsed' worden.",
+                            "description": "De breedte van de labels, in %. Heeft geen impact als de properties 'stacked' worden.",
                             "default": "25"
                         },
                         {
                             "name": "no-clone",
                             "description": "Default wordt de inhoud van label en data ge-cloned: van de Light DOM naar de shadow DOM, met no-clone actief wordt de inhoud verplaatst.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "no-padding-bottom",
+                            "description": "Haalt de witruimte onder het laatste item weg. Gebruik dit indien er via stacking al witruimte aanwezig is.",
                             "default": "false"
                         }
                     ],
@@ -1519,6 +1539,21 @@
                                 "kind": "plain",
                                 "type": "'highlighted' | 'disabled' | 'success' | 'warning' | 'error'"
                             },
+                            "default": "null"
+                        },
+                        {
+                            "name": "heading-level",
+                            "description": "Het heading niveau voor de step titel.",
+                            "default": "3"
+                        },
+                        {
+                            "name": "icon-aria-label",
+                            "description": "Aria label voor de icon container.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "timeline-aria-label",
+                            "description": "Aria label voor de timeline datum container, bijvoorbeeld voor volledige datum.",
                             "default": "null"
                         },
                         {
@@ -2300,6 +2335,78 @@
                             }
                         ]
                     }
+                },
+                {
+                    "name": "vl-tabs-next",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik deze component om content op te delen in verschillende tabbladen.\n\nDit component heeft twee varianten:\n\n- **Standaard tabs patroon**:\n    - Deze variant wordt best gebruikt als **widget op een pagina** en niet als navigatie element.\n    - Deze implementatie volgt de [ARIA tab patroon richtlijnen](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/) voor `role=\"tablist\"`.\n    - De tabs zijn bedienbaar met de pijltjestoetsen.\n    - De tabpanelen worden allemaal gerenderd, maar enkel het selecteerde tabpaneel wordt getoond.\n    - Bij deze variant gebruik je de `<vl-tab-next>` als tab elementen en de `<vl-tab-panel-next>` als tabpanelen.\n- **Horizontale navigatie**:\n    - Deze variant implementeert geen `role=\"tablist\"` maar doet dienst als **navigatie element**.\n    - Bij deze variant gebruik je de `<vl-tab-link-next>` als tab elementen.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-tabs--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "active-tab",
+                            "description": "Het id van de actieve tab. De tab in kwestie wordt geselecteerd bij het aanpassen van dit id.",
+                            "default": ""
+                        },
+                        {
+                            "name": "alt",
+                            "description": "Toont de alt variant van de tabs. Deze variant dient gebruikt te worden als subnavigatie onder de functional header.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "disable-links",
+                            "description": "Zet de automatische url manipulaties uit.<br>Dit attribuut wordt enkel bij de initiële render van een tab gebruikt en werkt niet dynamisch.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "responsive-label",
+                            "description": "Wordt afgebeeld op mobile wanneer de tabs samengevoegd worden tot een uitklapbaar menu. Wordt enkel afgebeeld wanneer er geen tab geselecteerd is.",
+                            "default": ""
+                        },
+                        {
+                            "name": "display-style",
+                            "description": "Geeft aan op welke manier de tabs getoond worden.<br>Standaard gedrag (`default`) is responsief; bij een breedte groter dan 768px is stijl de `tabs` stijl, anders is het de `collapsed` stijl.<br>Je kan ook expliciet de `tabs` of `collapsed` stijl kiezen die respectievelijk altijd de tabs of altijd de collapsed stijl toont.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'default' | 'tabs' | 'collapsed'"
+                            },
+                            "default": "default"
+                        },
+                        {
+                            "name": "within-functional-header",
+                            "description": "Duidt aan dat de tabs in de functional header gerenderd worden. Aan de hand van dit attribuut wordt de layout van de tabs licht aangepast.",
+                            "default": "false"
+                        }
+                    ],
+                    "js": {
+                        "events": [
+                            {
+                                "name": "change",
+                                "description": "Afgevuurd na het klikken op een niet actieve tab. Het event bevat het id van de tab.",
+                                "type": "{ activeTab: string }"
+                            },
+                            {
+                                "name": "vl-click",
+                                "description": "Afgevuurd na het klikken op een tab. Het event bevat het id van de tab.",
+                                "type": "{ activeTab: string }"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-tab-next",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-tabs--documentatie"
+                },
+                {
+                    "name": "vl-tab-link-next",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-tabs--documentatie"
+                },
+                {
+                    "name": "vl-tab-panel-next",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-tabs--documentatie"
                 },
                 {
                     "name": "vl-tabs-pane",

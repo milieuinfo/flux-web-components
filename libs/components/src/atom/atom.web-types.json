@@ -278,7 +278,15 @@
                             "description": "De content van de link.",
                             "default": ""
                         }
-                    ]
+                    ],
+                    "js": {
+                        "events": [
+                            {
+                                "name": "vl-click",
+                                "description": "Event dat afgevuurd wordt bij het klikken op de link."
+                            }
+                        ]
+                    }
                 },
                 {
                     "name": "vl-paragraph",
@@ -381,7 +389,7 @@
                         {
                             "name": "type",
                             "description": "Het type van de titel.",
-                            "default": "h1"
+                            "default": ""
                         },
                         {
                             "name": "underline",
@@ -397,6 +405,11 @@
                             "name": "no-space-bottom",
                             "description": "Vermindert ruimte onder de titel.",
                             "default": "false"
+                        },
+                        {
+                            "name": "appearance",
+                            "description": "Bepaalt de visuele stijl van de titel, onafhankelijk van het semantische type. Handig voor het behouden van semantiek terwijl je een andere stijl wilt toepassen.",
+                            "default": "''"
                         }
                     ],
                     "slots": [
