@@ -458,6 +458,7 @@ export const vlButtonStyles = (element: VlButtonElementType = 'button', selector
                               line-height: normal;
                               text-decoration: none;
                               box-sizing: border-box;
+                              cursor: pointer;
 
                               &.empty-slot,
                               &.icon-only {

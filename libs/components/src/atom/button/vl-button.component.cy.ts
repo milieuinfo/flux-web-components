@@ -495,6 +495,24 @@ describe('cypress-component - atom components - vl-button - cta-link', () => {
         cy.get('vl-button').shadow().find('a').should('have.class', 'button-in-map');
     });
 
+    it('should have pointer cursor', () => {
+        cy.mount(html` <vl-button cta-link="https://www.vlaanderen.be">Klik op mij</vl-button>`);
+
+        cy.get('vl-button').shadow().find('a').shouldHaveComputedStyle({ style: 'cursor', value: 'pointer' });
+    });
+
+    it('should have not-allowed cursor when disabled', () => {
+        cy.mount(html` <vl-button disabled cta-link="https://www.vlaanderen.be">Klik op mij</vl-button>`);
+
+        cy.get('vl-button').shadow().find('a').shouldHaveComputedStyle({ style: 'cursor', value: 'not-allowed' });
+    });
+
+    it('should have default cursor when loading', () => {
+        cy.mount(html` <vl-button loading cta-link="https://www.vlaanderen.be">Klik op mij</vl-button>`);
+
+        cy.get('vl-button').shadow().find('a').shouldHaveComputedStyle({ style: 'cursor', value: 'default' });
+    });
+
     it('should dispatch vl-click event', () => {
         cy.mount(html` <vl-button cta-link="#home">Klik op mij</vl-button>`);
         cy.createStubForEvent('vl-button', 'vl-click');
