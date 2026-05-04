@@ -510,3 +510,57 @@ describe('cypress-component - block components - vl-side-navigation - scrollspy 
             .should('not.have.class', 'js-vl-scrollspy__toggle--fixed');
     });
 });
+
+describe('cypress-component - block components - vl-side-navigation - externe links', () => {
+    beforeEach(() => {
+        cy.viewport(960, 1440);
+
+        cy.mount(html`
+            <vl-side-navigation aria-label="navigatie">
+                <vl-side-navigation-h5>Navigatie</vl-side-navigation-h5>
+                <vl-side-navigation-content>
+                    <vl-side-navigation-group>
+                        <vl-side-navigation-item>
+                            <a id="external-link" href="https://www.vlaanderen.be">Externe link</a>
+                        </vl-side-navigation-item>
+                        <vl-side-navigation-item>
+                            <a id="hash-link" href="#sectie-1">Hash link</a>
+                        </vl-side-navigation-item>
+                    </vl-side-navigation-group>
+                </vl-side-navigation-content>
+            </vl-side-navigation>
+            <section id="sectie-1" style="margin-top: 2000px;">
+                <h2>Sectie 1</h2>
+            </section>
+        `);
+    });
+
+    it('should not call console.warn and not prevent default when clicking an external link', () => {
+        cy.window().then((win) => {
+            cy.stub(win.console, 'warn').as('consoleWarn');
+        });
+
+        // Capture defaultPrevented state after the component's bubble-phase handler runs
+        let defaultPrevented: boolean;
+        cy.get('#external-link').then(($a) => {
+            $a[0].addEventListener('click', (e) => {
+                defaultPrevented = e.defaultPrevented;
+                e.preventDefault(); // prevent actual navigation in test
+            });
+        });
+
+        cy.get('#external-link').click();
+
+        cy.get('@consoleWarn').should('not.have.been.called');
+        cy.then(() => {
+            expect(defaultPrevented, 'component must not call preventDefault for external links').to.be.false;
+        });
+    });
+
+    it('should still prevent default and scroll for hash links', () => {
+        cy.get('#hash-link').click();
+
+        // After clicking a hash link, the page should attempt to scroll (no navigation away)
+        cy.location('pathname').should('not.contain', 'vlaanderen.be');
+    });
+});

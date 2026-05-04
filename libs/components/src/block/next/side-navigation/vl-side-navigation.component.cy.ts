@@ -1184,3 +1184,47 @@ describe('child-spacing attribuut', () => {
             .should('have.css', 'margin-top', '13px'); // 1.3rem * 10px root font = 13px
     });
 });
+
+describe('cypress-component - block components - vl-side-navigation-next - externe links in custom TOC', () => {
+    beforeEach(() => {
+        cy.viewport(1440, 900);
+    });
+
+    it('should not intercept external links in custom TOC (design choice: only a[href^="#"] are handled)', () => {
+        // setupCustomTocLinkHandlers selects only a[href^="#"] — external links pass through unmodified.
+        cy.mount(html`
+            <div class="vl-grid">
+                <vl-side-navigation-next class="${NAVIGATION_COLUMN_CLASSES}">
+                    <ul>
+                        <li>
+                            <a id="hash-link" href="#custom-section">Interne sectie</a>
+                        </li>
+                        <li>
+                            <a id="external-link" href="https://www.vlaanderen.be">Externe link</a>
+                        </li>
+                    </ul>
+                </vl-side-navigation-next>
+                <div class="${CONTENT_COLUMN_CLASSES}">
+                    <section style="min-height: 400px; margin-top: 100px;">
+                        <h2 id="custom-section">Sectie</h2>
+                    </section>
+                </div>
+            </div>
+        `);
+
+        // Capture defaultPrevented after any component handlers run (bubble phase)
+        let defaultPrevented: boolean;
+        cy.get('#external-link').then(($a) => {
+            $a[0].addEventListener('click', (e) => {
+                defaultPrevented = e.defaultPrevented;
+                e.preventDefault(); // prevent actual navigation in test
+            });
+        });
+
+        cy.get('#external-link').click();
+
+        cy.then(() => {
+            expect(defaultPrevented, 'vl-side-navigation-next must not prevent default for external links').to.be.false;
+        });
+    });
+});
