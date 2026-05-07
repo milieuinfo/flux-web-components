@@ -134,3 +134,20 @@ DoormatFullHeight.storyName = 'vl-doormat - full height';
 DoormatFullHeight.args = {
     fullHeight: true,
 };
+
+const DoormatTitleOnlyTemplate = story(
+    doormatArgs,
+    ({ href }) => html`
+        <div class="story--fixed-width">
+            <vl-doormat href=${href}>
+                <span slot="title">Bouwen, wonen en energie</span>
+            </vl-doormat>
+        </div>
+    `
+);
+
+export const DoormatTitleOnly = DoormatTitleOnlyTemplate.bind({});
+DoormatTitleOnly.storyName = 'vl-doormat - title only';
+DoormatTitleOnly.args = {
+    href: 'https://www.vlaanderen.be/bouwen-wonen-en-energie',
+};

@@ -95,6 +95,16 @@ const styles: CSSResult = css`
         &.vl-doormat--full-height {
             height: 100%;
         }
+
+        &.vl-doormat--no-text {
+            .vl-doormat__title {
+                margin-bottom: 0;
+            }
+
+            .vl-doormat__text {
+                display: none;
+            }
+        }
     }
 `;
 export default styles;

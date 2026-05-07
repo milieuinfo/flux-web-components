@@ -1,6 +1,7 @@
 import { BaseLitElement, webComponent } from '@domg-wc/common';
 import { doormatDefaults } from './vl-doormat.defaults';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
+import { state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { vlLinkStyles } from '../../atom/link-style/vl-link-style.css';
@@ -18,6 +19,7 @@ export class VlDoormatComponent extends BaseLitElement {
     private imageHeight = doormatDefaults.imageHeight;
     private graphic = doormatDefaults.graphic;
     private fullHeight = doormatDefaults.fullHeight;
+    @state() private hasText = false;
 
     static get styles(): CSSResult[] {
         return [vlIconStyles, vlLinkStyles(), doormatStyle];
@@ -44,6 +46,7 @@ export class VlDoormatComponent extends BaseLitElement {
             'vl-doormat--alt': this.alt,
             'vl-doormat--graphic': this.graphic,
             'vl-doormat--full-height': this.fullHeight,
+            'vl-doormat--no-text': !this.hasText,
         };
         const target = this.external ? '_blank' : nothing;
         const rel = this.external ? 'noopener noreferrer nofollow' : nothing;
@@ -63,11 +66,16 @@ export class VlDoormatComponent extends BaseLitElement {
                         ${this.external ? this.renderExternalIcon() : nothing}
                     </h2>
                     <div class="vl-doormat__text">
-                        <slot name="text"></slot>
+                        <slot name="text" @slotchange=${this.onTextSlotChange}></slot>
                     </div>
                 </div>
             </a>
         `;
+    }
+
+    private onTextSlotChange(e: Event): void {
+        const slot = e.target as HTMLSlotElement;
+        this.hasText = slot.assignedNodes({ flatten: true }).length > 0;
     }
 
     private renderExternalIcon(): TemplateResult {

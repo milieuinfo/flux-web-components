@@ -247,6 +247,48 @@ describe('cypress-component - block components - vl-doormat', () => {
             });
     });
 
+    it('should add vl-doormat--no-text class when no text slot is provided', () => {
+        cy.mount(html`
+            <vl-doormat href="https://www.vlaanderen.be/bouwen-wonen-en-energie">
+                <span slot="title">Bouwen, wonen en energie</span>
+            </vl-doormat>
+        `);
+
+        cy.get('vl-doormat').shadow().find('a.vl-doormat').should('have.class', 'vl-doormat--no-text');
+    });
+
+    it('should not add vl-doormat--no-text class when text slot is provided', () => {
+        cy.mount(html`
+            <vl-doormat href="https://www.vlaanderen.be/bouwen-wonen-en-energie">
+                <span slot="title">Bouwen, wonen en energie</span>
+                <span slot="text">Tekst over bouwen.</span>
+            </vl-doormat>
+        `);
+
+        cy.get('vl-doormat').shadow().find('a.vl-doormat').should('not.have.class', 'vl-doormat--no-text');
+    });
+
+    it('should hide the text wrapper when no text slot is provided', () => {
+        cy.mount(html`
+            <vl-doormat href="https://www.vlaanderen.be/bouwen-wonen-en-energie">
+                <span slot="title">Bouwen, wonen en energie</span>
+            </vl-doormat>
+        `);
+
+        cy.get('vl-doormat').shadow().find('.vl-doormat__text').should('have.css', 'display', 'none');
+    });
+
+    it('should show the text wrapper when a text slot is provided', () => {
+        cy.mount(html`
+            <vl-doormat href="https://www.vlaanderen.be/bouwen-wonen-en-energie">
+                <span slot="title">Bouwen, wonen en energie</span>
+                <span slot="text">Tekst over bouwen.</span>
+            </vl-doormat>
+        `);
+
+        cy.get('vl-doormat').shadow().find('.vl-doormat__text').should('not.have.css', 'display', 'none');
+    });
+
     it('should set graphic', () => {
         cy.mount(html`
             <vl-doormat
