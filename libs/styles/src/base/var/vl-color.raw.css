@@ -45,7 +45,7 @@
     --vl-color--warning-text: #9f5804;
     --vl-color--warning-border: #ffd99d;
 
-    --vl-color--focus: #0055cca6; /* --vl-color--action 65% opacity */
+    --vl-color--focus: rgba(0, 85, 204, 0.65); /* --vl-color--action 65% opacity — 8-digit hex (#0055cca6) fails in Edge outline-color context */
 
     --vl-color--label: #687483;
 }
