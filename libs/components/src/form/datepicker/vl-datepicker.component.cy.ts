@@ -1704,3 +1704,46 @@ describe('vl-datepicker - mobile', () => {
         cy.checkA11y('vl-datepicker');
     });
 });
+
+describe('vl-datepicker - auto positioning', () => {
+    it('should open calendar right-aligned when close to the right viewport edge', () => {
+        cy.viewport(400, 600);
+        cy.mount(html`
+            <div style="display: flex; justify-content: flex-end; width: 100%;">
+                <vl-datepicker label="datum"></vl-datepicker>
+            </div>
+        `);
+
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').should('have.class', 'arrowRight');
+    });
+
+    it('should open calendar left-aligned when there is sufficient space to the right', () => {
+        cy.viewport(1200, 800);
+        cy.mount(html`<vl-datepicker label="datum"></vl-datepicker>`);
+
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').should('not.have.class', 'arrowRight');
+    });
+
+    it('should respect an explicit position attribute even when there is insufficient space to the right', () => {
+        cy.viewport(400, 600);
+        cy.mount(html`
+            <div style="display: flex; justify-content: flex-end; width: 100%;">
+                <vl-datepicker label="datum" position="auto"></vl-datepicker>
+            </div>
+        `);
+
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+        // position="auto" falls through to the heuristic, so close to right edge → still arrowRight
+        cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').should('have.class', 'arrowRight');
+    });
+
+    it('should use explicit position="auto right" in a wide viewport', () => {
+        cy.viewport(1200, 800);
+        cy.mount(html`<vl-datepicker label="datum" position="auto right"></vl-datepicker>`);
+
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').should('have.class', 'arrowRight');
+    });
+});

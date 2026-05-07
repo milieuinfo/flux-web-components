@@ -357,8 +357,32 @@ export class VlDatepickerComponent extends FormControl {
             maxTime: this.maxTime,
             defaultHour: minimumDateTime?.getHours() ?? 12,
             defaultMinute: minimumDateTime?.getMinutes() ?? 0,
-            position: this.position || 'auto',
+            position: this.resolveAutoPosition(),
         };
+    }
+
+    /**
+     * Returns the flatpickr position string to use.
+     * When the consumer sets an explicit position (anything other than the default 'auto'),
+     * that value wins unchanged. For the default 'auto', we check whether the toggle button
+     * is close enough to the right viewport edge that the calendar would be clipped; if so
+     * we return 'auto right' so flatpickr right-aligns the calendar instead.
+     * Static mode is skipped because CSS controls positioning there.
+     */
+    private resolveAutoPosition(): string {
+        if (this.position && this.position !== 'auto') {
+            return this.position;
+        }
+        if (this.isStatic) {
+            return 'auto';
+        }
+        const button = this.shadowRoot?.querySelector<HTMLElement>('button#toggle-calendar');
+        if (!button) {
+            return 'auto';
+        }
+        const { right } = button.getBoundingClientRect();
+        // Calendar width from CSS is 307.875px; 320px provides a safe margin
+        return window.innerWidth - right < 320 ? 'auto right' : 'auto';
     }
 
     private addAccessibilityAttributes() {
