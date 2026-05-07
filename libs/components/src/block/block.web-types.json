@@ -1814,7 +1814,14 @@
                 },
                 {
                     "name": "vl-popover-action-list",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-popover--documentatie"
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-popover--documentatie",
+                    "attributes": [
+                        {
+                            "name": "keep-open",
+                            "description": "Verhindert dat de bijhorende popover sluit na het klikken op een actie.",
+                            "default": "false"
+                        }
+                    ]
                 },
                 {
                     "name": "vl-progress-bar",

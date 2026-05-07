@@ -14,6 +14,7 @@ const mountDefault = ({
     hideArrow,
     hideOnClick,
     distance,
+    keepOpen,
 }: {
     trigger?: string;
     contentPadding?: string;
@@ -22,6 +23,7 @@ const mountDefault = ({
     hideArrow?: boolean;
     hideOnClick?: boolean;
     distance?: number;
+    keepOpen?: boolean;
 }) => {
     return cy.mount(html`
         <vl-button ghost icon="nav-show-more-vertical" id="btn-acties" label="Acties"></vl-button>
@@ -36,7 +38,7 @@ const mountDefault = ({
             distance=${distance || nothing}
             content-padding=${contentPadding || nothing}
         >
-            <vl-popover-action-list aria-label="Acties">
+            <vl-popover-action-list aria-label="Acties" ?keep-open=${keepOpen}>
                 <vl-popover-action icon="search" .action=${'search'}>Zoeken</vl-popover-action>
                 <vl-popover-action icon="bell" .action=${'report'}>Rapportenoverzicht</vl-popover-action>
                 <vl-popover-action icon="pin" .action=${'locate'}>Vind locatie</vl-popover-action>
@@ -76,7 +78,20 @@ describe('cypress-component - block components - vl-popover - default', () => {
         cy.checkA11y('vl-popover');
     });
 
-    it('should close when clicking an action', () => {
+    it('should auto-close when clicking an action', () => {
+        mountDefault({});
+        cy.injectAxe();
+
+        cy.get('#btn-acties').click();
+        cy.get('vl-popover').should('have.attr', 'open');
+        cy.checkA11y('vl-popover');
+
+        cy.get('vl-popover').find('vl-popover-action').first().click();
+        cy.get('vl-popover').should('not.have.attr', 'open');
+        cy.checkA11y('vl-popover');
+    });
+
+    it('should close when clicking an action with hide-on-click', () => {
         mountDefault({ hideOnClick: true });
         cy.injectAxe();
 
@@ -89,8 +104,8 @@ describe('cypress-component - block components - vl-popover - default', () => {
         cy.checkA11y('vl-popover');
     });
 
-    it('should not close when clicking an action', () => {
-        mountDefault({});
+    it('should not close when clicking an action with keep-open on action-list', () => {
+        mountDefault({ keepOpen: true });
         cy.injectAxe();
 
         cy.get('#btn-acties').click();
