@@ -83,4 +83,24 @@ describe('cypress-component - compliance components - vl-footer-next', () => {
             cy.get('@ready').should('have.been.calledOnce');
         });
     });
+
+    describe('legacy theme tokens', () => {
+        beforeEach(() => {
+            mountDefault(props);
+        });
+
+        it('should set --vl-theme-primary-color to legacy VO yellow on body', () => {
+            cy.get('body').then(($body) => {
+                const value = getComputedStyle($body[0]).getPropertyValue('--vl-theme-primary-color').trim();
+                expect(value).to.equal('#ffe615');
+            });
+        });
+
+        it('should set --vl-theme-fg-color to legacy VO foreground on body', () => {
+            cy.get('body').then(($body) => {
+                const value = getComputedStyle($body[0]).getPropertyValue('--vl-theme-fg-color').trim();
+                expect(value).to.equal('#333332');
+            });
+        });
+    });
 });

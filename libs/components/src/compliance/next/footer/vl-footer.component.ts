@@ -7,6 +7,7 @@ import {
     webComponent,
 } from '@domg-wc/common';
 import { GlobalFooterClient } from '@govflanders/vl-widget-global-footer-types';
+import { legacyThemeTokenStyles } from './vl-footer.component.flux-css';
 
 declare global {
     interface Window {
@@ -54,6 +55,7 @@ export class VlFooter extends BaseLitElement {
             'beforeend',
             '<footer id="footer__container"><div id="footer"></div></footer>'
         );
+        document.adoptedStyleSheets = [...document.adoptedStyleSheets, legacyThemeTokenStyles.styleSheet!];
     }
 
     private onReady() {

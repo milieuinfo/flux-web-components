@@ -111,6 +111,30 @@ describe('cypress-component - compliance components - vl-header-next', () => {
             cy.get('#header__skeleton').should('have.css', 'height', '43px');
         });
     });
+
+    describe('legacy theme tokens', () => {
+        beforeEach(() => {
+            cy.mount(html`
+                <body>
+                    <vl-header-next development identifier="${identifier}"></vl-header-next>
+                </body>
+            `);
+        });
+
+        it('should set --vl-theme-primary-color to legacy VO yellow on body', () => {
+            cy.get('body').then(($body) => {
+                const value = getComputedStyle($body[0]).getPropertyValue('--vl-theme-primary-color').trim();
+                expect(value).to.equal('#ffe615');
+            });
+        });
+
+        it('should set --vl-theme-fg-color to legacy VO foreground on body', () => {
+            cy.get('body').then(($body) => {
+                const value = getComputedStyle($body[0]).getPropertyValue('--vl-theme-fg-color').trim();
+                expect(value).to.equal('#333332');
+            });
+        });
+    });
 });
 
 const stubWidgetScriptMinimal = () => ({

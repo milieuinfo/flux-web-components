@@ -8,7 +8,7 @@ import {
 } from '@domg-wc/common';
 import { ApplicationMenuLink, GlobalHeaderClient } from '@govflanders/vl-widget-global-header-types';
 import { PropertyDeclarations } from 'lit';
-import { headerContainerStyles, headerSkeletonStyles } from './vl-header.component.flux-css';
+import { headerContainerStyles, headerSkeletonStyles, legacyThemeTokenStyles } from './vl-header.component.flux-css';
 import { headerDefaults } from './vl-header.defaults';
 export type ApplicationLink = ApplicationMenuLink;
 
@@ -105,7 +105,11 @@ export class VlHeader extends BaseLitElement {
             'afterbegin',
             '<header id="header__container"><div id="header"></div></header>'
         );
-        document.adoptedStyleSheets = [...document.adoptedStyleSheets, headerContainerStyles.styleSheet!];
+        document.adoptedStyleSheets = [
+            ...document.adoptedStyleSheets,
+            headerContainerStyles.styleSheet!,
+            legacyThemeTokenStyles.styleSheet!,
+        ];
     }
 
     private injectHeaderContainerSkeleton() {
