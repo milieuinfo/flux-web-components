@@ -1668,35 +1668,69 @@ describe('vl-datepicker - interaction', () => {
     });
 });
 
+describe('vl-datepicker - mobile UA rendering', () => {
+    let originalUserAgent: string;
+
+    before(() => {
+        cy.window().then((win) => {
+            originalUserAgent = win.navigator.userAgent;
+        });
+    });
+
+    afterEach(() => {
+        cy.window().then((win) => {
+            Object.defineProperty(win.navigator, 'userAgent', {
+                get: () => originalUserAgent,
+                configurable: true,
+            });
+        });
+    });
+
+    it('should render the styled input + calendar button on mobile UA', () => {
+        cy.window().then((win) => {
+            Object.defineProperty(win.navigator, 'userAgent', {
+                get: () => 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15',
+                configurable: true,
+            });
+        });
+
+        cy.mount(html`<vl-datepicker label="date"></vl-datepicker>`);
+
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').should('exist').and('be.visible');
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').should('exist').and('be.visible');
+        cy.get('vl-datepicker').shadow().find('input[type="date"]').should('not.exist');
+    });
+});
+
 describe('vl-datepicker - mobile', () => {
     beforeEach(() => {
         cy.viewport(320, 480);
     });
 
-    it('should mount with native input disabled', () => {
-        cy.mount(html`<vl-datepicker disable-mobile-native-input label="date"></vl-datepicker>`);
+    it('should mount', () => {
+        cy.mount(html`<vl-datepicker label="date"></vl-datepicker>`);
         cy.injectAxe();
 
         cy.get('vl-datepicker').shadow().find('input');
         cy.checkA11y('vl-datepicker');
     });
 
-    it('should be accessible with native input disabled', () => {
-        cy.mount(html` <vl-datepicker disable-mobile-native-input id="date" name="date" label="date"></vl-datepicker> `);
+    it('should be accessible', () => {
+        cy.mount(html` <vl-datepicker id="date" name="date" label="date"></vl-datepicker> `);
         cy.injectAxe();
 
         cy.checkA11y('vl-datepicker');
     });
 
-    it('should open the datepicker on button click with native input disabled', () => {
-        cy.mount(html`<vl-datepicker disable-mobile-native-input label="date"></vl-datepicker>`);
+    it('should open the datepicker on button click', () => {
+        cy.mount(html`<vl-datepicker label="date"></vl-datepicker>`);
 
         shouldOpenCalendar();
     });
 
-    it('should set initial date with native input disabled', () => {
+    it('should set initial date', () => {
         const date = '2021-11-01';
-        cy.mount(html`<vl-datepicker disable-mobile-native-input value=${date} label="date"></vl-datepicker>`);
+        cy.mount(html`<vl-datepicker value=${date} label="date"></vl-datepicker>`);
         cy.injectAxe();
 
         cy.get('vl-datepicker').shadow().find('input.vl-input-field').should('have.value', '01.11.2021');

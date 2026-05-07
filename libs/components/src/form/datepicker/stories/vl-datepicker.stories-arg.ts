@@ -144,16 +144,6 @@ export const datepickerArgTypes: ArgTypes<DatepickerArgs> = {
             defaultValue: { summary: String(datepickerArgs.disableMaskValidation) },
         },
     },
-    disableMobileNativeInput: {
-        name: 'disable-mobile-native-input',
-        description:
-            'Rendert de native datepicker op mobiele toestellen in plaats van flatpickr calendar. [Meer Info](https://flatpickr.js.org/mobile-support/)',
-        table: {
-            type: { summary: TYPES.BOOLEAN },
-            category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: String(datepickerArgs.disableMobileNativeInput) },
-        },
-    },
     pattern: {
         name: 'pattern',
         description:

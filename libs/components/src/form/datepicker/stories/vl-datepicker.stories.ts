@@ -51,7 +51,6 @@ const DatepickerTemplate = story(
         error,
         readonly,
         required,
-        disableMobileNativeInput,
         disableMaskValidation,
         value,
         placeholder,
@@ -86,7 +85,6 @@ const DatepickerTemplate = story(
                             ?readonly=${readonly}
                             ?disabled=${disabled}
                             ?block=${block}
-                            ?disable-mobile-native-input=${disableMobileNativeInput}
                             ?disable-mask-validation=${disableMaskValidation}
                             type=${type}
                             format=${format}
