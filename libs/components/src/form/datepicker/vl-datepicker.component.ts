@@ -20,6 +20,9 @@ import { datepickerDefaults } from './vl-datepicker.defaults';
 const dateRangeSeparator = ' tot en met ';
 const dateRangeSeparatorCharacter = '/';
 
+const isMobileUserAgent = () =>
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
 @webComponent('vl-datepicker')
 export class VlDatepickerComponent extends FormControl {
     static formControlValidators = [
@@ -52,6 +55,7 @@ export class VlDatepickerComponent extends FormControl {
     private initialValue = '';
     private inputHasFocus = false;
     private isOpen: boolean | undefined;
+    private isMobileBrowser = isMobileUserAgent();
     private flatpickrInstance: Instance | null = null;
     private maskOptions: MaskOptions | null = null; // Wordt enkel gebruikt in de mask validator
     private cleaveInstance: CleaveInstance | null = null;
@@ -88,6 +92,7 @@ export class VlDatepickerComponent extends FormControl {
             rawValue: { type: Boolean, attribute: 'raw-value' },
             inputValue: { type: String, state: true }, // Houdt de waarde van het getoonde inputveld bij
             isOpen: { type: Boolean, state: true },
+            isMobileBrowser: { state: true },
             position: { type: String },
             isStatic: { type: Boolean, attribute: 'static' },
         };
@@ -208,7 +213,7 @@ export class VlDatepickerComponent extends FormControl {
             }
         }
 
-        if (this.flatpickrInstance?.isMobile && !this.disableMobileNativeInput) {
+        if (this.isMobileBrowser && !this.disableMobileNativeInput) {
             this.getNativeDateInput()?.classList.add(
                 'js-vl-datepicker-input',
                 'vl-input-field',
@@ -246,7 +251,7 @@ export class VlDatepickerComponent extends FormControl {
 
         return html`
             <div class="vl-group vl-group--input-group" id="datepicker-wrapper">
-                ${!(this.flatpickrInstance?.isMobile && !this.disableMobileNativeInput)
+                ${!(this.isMobileBrowser && !this.disableMobileNativeInput)
                     ? html`
                           <input
                               id=${this.id || nothing}

@@ -1668,6 +1668,75 @@ describe('vl-datepicker - interaction', () => {
     });
 });
 
+describe('vl-datepicker - mobile rendering regression', () => {
+    let originalUserAgent: string;
+
+    before(() => {
+        cy.window().then((win) => {
+            originalUserAgent = win.navigator.userAgent;
+        });
+    });
+
+    afterEach(() => {
+        cy.window().then((win) => {
+            Object.defineProperty(win.navigator, 'userAgent', {
+                get: () => originalUserAgent,
+                configurable: true,
+            });
+        });
+    });
+
+    it('should render only native date input on mobile UA', () => {
+        cy.window().then((win) => {
+            Object.defineProperty(win.navigator, 'userAgent', {
+                get: () => 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15',
+                configurable: true,
+            });
+        });
+
+        cy.mount(html`<vl-datepicker label="date"></vl-datepicker>`);
+
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').should('not.exist');
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').should('not.exist');
+        cy.get('vl-datepicker').shadow().find('input[type="date"]').should('exist').and('be.visible');
+    });
+
+    it('should render consistently across multiple instances on mobile UA', () => {
+        cy.window().then((win) => {
+            Object.defineProperty(win.navigator, 'userAgent', {
+                get: () => 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15',
+                configurable: true,
+            });
+        });
+
+        cy.mount(html`
+            <div>
+                <vl-datepicker id="dp1" label="date1"></vl-datepicker>
+                <vl-datepicker id="dp2" label="date2"></vl-datepicker>
+            </div>
+        `);
+
+        cy.get('vl-datepicker#dp1').shadow().find('input.vl-input-field').should('not.exist');
+        cy.get('vl-datepicker#dp1').shadow().find('input[type="date"]').should('exist').and('be.visible');
+        cy.get('vl-datepicker#dp2').shadow().find('input.vl-input-field').should('not.exist');
+        cy.get('vl-datepicker#dp2').shadow().find('input[type="date"]').should('exist').and('be.visible');
+    });
+
+    it('should render styled input when disable-mobile-native-input is set on mobile UA', () => {
+        cy.window().then((win) => {
+            Object.defineProperty(win.navigator, 'userAgent', {
+                get: () => 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15',
+                configurable: true,
+            });
+        });
+
+        cy.mount(html`<vl-datepicker disable-mobile-native-input label="date"></vl-datepicker>`);
+
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').should('exist').and('be.visible');
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').should('exist');
+    });
+});
+
 describe('vl-datepicker - mobile', () => {
     beforeEach(() => {
         cy.viewport(320, 480);
