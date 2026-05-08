@@ -15,6 +15,11 @@ export const vlAccordionFluxStyles: CSSResult = css`
         color: #687483;
     }
 
+    :host(.vl-accordion--alt-background) {
+        display: block;
+        background-color: var(--vl-color--background-alt, #f7f9fc);
+    }
+
     .vl-accordion:not(.js-vl-accordion--open) .vl-accordion__content {
         display: none;
     }

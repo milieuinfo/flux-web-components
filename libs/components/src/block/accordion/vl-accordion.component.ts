@@ -62,7 +62,7 @@ export class VlAccordionComponent extends BaseHTMLElement {
     }
 
     static get _observedClassAttributes() {
-        return ['bold', 'disabled'];
+        return ['alt-background', 'bold', 'disabled'];
     }
 
     get _classPrefix() {
