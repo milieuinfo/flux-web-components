@@ -459,6 +459,26 @@ describe('cypress-component - block components - vl-accordion dom - title slot t
     });
 });
 
+describe('cypress-component - block components - vl-accordion dom - border en achtergrond opties', () => {
+    it('should apply alt-background class when alt-background attribute is set', () => {
+        cy.mount(html`
+            <vl-accordion toggle-text="Alternatieve achtergrond" alt-background>
+                <span>Content.</span>
+            </vl-accordion>
+        `);
+        cy.get('vl-accordion').should('have.class', 'vl-accordion--alt-background');
+    });
+
+    it('should not have alt-background class by default', () => {
+        cy.mount(html`
+            <vl-accordion toggle-text="Standaard achtergrond">
+                <span>Content.</span>
+            </vl-accordion>
+        `);
+        cy.get('vl-accordion').should('not.have.class', 'vl-accordion--alt-background');
+    });
+});
+
 const toggleAccordion = () => {
     cy.get('vl-accordion').shadow().find('button.vl-toggle').click({ force: true });
 };

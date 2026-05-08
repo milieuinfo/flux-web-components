@@ -13,6 +13,7 @@ import { action } from 'storybook/actions';
 
 export const accordionArgs = {
     ...defaultArgs,
+    altBackground: false,
     bold: false,
     closeToggleText: '',
     contentPadding: null,
@@ -31,6 +32,15 @@ export const accordionArgs = {
 
 export const accordionArgTypes: ArgTypes<typeof accordionArgs> = {
     ...defaultArgTypes,
+    altBackground: {
+        name: 'alt-background',
+        description: 'Toont de accordion met een alternatieve grijze achtergrond.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(accordionArgs.altBackground) },
+        },
+    },
     bold: {
         name: 'bold',
         description: 'Beeldt de toggle-text van de accordion af in bold.',
