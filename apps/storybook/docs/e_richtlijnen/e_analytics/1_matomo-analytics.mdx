@@ -1,0 +1,60 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Richtlijnen/Analytics/Matomo Analytics"/>
+
+# Matomo Analytics
+
+## Inleiding
+
+[Matomo](https://matomo.org/) is een open source web-analytics platform en het privacy-vriendelijke alternatief
+voor Google Analytics. In tegenstelling tot veel andere oplossingen blijven de gegevens onder eigen beheer: bij
+Departement Omgeving wordt Matomo zelf gehost, waardoor bezoekersgegevens binnen de eigen infrastructuur blijven.
+
+Matomo verzamelt onder andere pageviews, sessies, gebruikte browsers/toestellen en navigatiepatronen. Het laat
+toe om via *custom dimensions* en *events* extra context mee te sturen.
+
+Meer info op de [Matomo website](https://matomo.org/).
+
+
+## Omgevingen
+
+Voor de Storybook-logging maken we gebruik van drie Matomo-omgevingen van Departement Omgeving:
+
+- [https://stats-ontwikkel.omgeving.vlaanderen.be](https://stats-ontwikkel.omgeving.vlaanderen.be) - ontwikkelomgeving,
+  ook gebruikt vanaf lokale hosts (`localhost`, `127.0.0.1`, `192.168.*`)
+- [https://stats-oefen.omgeving.vlaanderen.be](https://stats-oefen.omgeving.vlaanderen.be) - oefenomgeving
+- [https://stats.omgeving.vlaanderen.be](https://stats.omgeving.vlaanderen.be) - productieomgeving
+
+De productieomgeving is degene die je best raadpleegt.
+
+
+## Matomo logging in Storybook
+
+Voor Storybook hebben we een eigen, lichte Matomo-integratie voorzien. Die bestaat uit twee bestanden met een
+bewust verschillende plaatsing:
+
+- `apps/storybook/resources/public/matomo-loader.js` - zit in de `staticDirs` van Storybook en wordt dus per
+  build mee uitgeleverd in de root van elke gepubliceerde versie.
+- `apps/storybook/matomo-tracking.js` - staat bewust **niet** in `staticDirs`. Dit bestand wordt na het builden
+  één keer hoger in de boom geplaatst (typisch in `release-vX/` of `flux-builds/`), zodat alle gepubliceerde
+  versies datzelfde centrale bestand gebruiken.
+
+De loader probeert het trackingscript in een aantal stappen op te halen: `./matomo-tracking.js`,
+`../matomo-tracking.js`, `../../matomo-tracking.js` en `../../../matomo-tracking.js`. Op die manier vindt elke
+versie het centrale bestand, ongeacht hoe diep ze in de mappenboom zit.
+
+**Waarom deze opzet?** Wijzigingen aan de tracking-logica vereisen zo geen rebuild en redeploy van elke
+gepubliceerde versie. Eén centraal `matomo-tracking.js` vervangen volstaat - alle versies pikken de nieuwe
+versie op via de loader-fallback.
+
+### Wat wordt er gelogd?
+
+Het trackingscript voorziet onder meer:
+
+- een initiële pageview bij het laden van Storybook
+- pageviews bij SPA-navigatie (Storybook wisselt van story zonder volledige page-reload); hiervoor worden
+  `pushState` en `replaceState` gepatcht zodat een `locationchange` event afgevuurd wordt
+- een **custom dimension** (`dimension 1`) met de Storybook-versie, afgeleid uit het URL-pad
+  (`/release-vX/<versie>/storybook/`); voor lokale builds is dat `local`
+- het forceren van een *new visit* wanneer een gebruiker tussen versies navigeert, zodat gebruik per versie
+  zuiver geteld wordt
