@@ -6,8 +6,19 @@ set -e
 echo 'RUNNING SCRIPT: verify-release.sh'
 cd flux-web-components
 
+# Branchnaam bepalen via BAMBOO_BRANCH_NAME (bamboo.planRepository.branchName).
+# Bamboo's checkout-task zet de werkdir in detached HEAD op de trigger-SHA, waardoor
+# git rev-parse na de chore(release) [skip ci] commit niet meer de echte branchnaam
+# teruggeeft. Geen fallback op git rev-parse: zo faalt het script hard als de env var
+# niet correct wordt doorgegeven, in plaats van stilletjes het oude (falende) gedrag te
+# herhalen op de release branch.
+if [[ -z "${BAMBOO_BRANCH_NAME:-}" || "${BAMBOO_BRANCH_NAME}" == "not-specified" ]]; then
+    echo "ERROR: BAMBOO_BRANCH_NAME is niet gezet of staat op 'not-specified' - controleer bamboo.yml en compose.yaml" >&2
+    exit 1
+fi
+CURRENT_BRANCH="${BAMBOO_BRANCH_NAME}"
+
 # verificatie: enkel uitvoeren op een release of develop branch
-CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 if [[ "${CURRENT_BRANCH}" != *"release-v"* && "${CURRENT_BRANCH}" != "develop-v"* ]]; then
     echo "INFO: verify-release.sh moet enkel lopen op een release (bevat 'release-v') of develop branch (begint met 'develop-v'), huidige branch: ${CURRENT_BRANCH}" >&2
     exit 0

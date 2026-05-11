@@ -113,6 +113,7 @@ verify-release:
             destination: build
     - script: |
         # export variables
+        export BAMBOO_BRANCH_NAME=${bamboo.planRepository.branchName}
         export ACD_REPOSITORY_DEBIAN_LOGIN=${bamboo.acd_repository_debian_login}
         export ACD_REPOSITORY_BAMBOO_PASSWORD=${bamboo.acd_repository_bamboo_password}
         export ACD_REPOSITORY_URL=${bamboo.acd_repository_url}
@@ -134,6 +135,8 @@ finalise-release:
     - checkout
     - script: |
         # export variables
+        export BAMBOO_BRANCH_NAME=${bamboo.planRepository.branchName}
+        export SECRET_GITHUB_TOKEN=${bamboo.secret_github_token}
         export ACD_REPOSITORY_DEBIAN_LOGIN=${bamboo.acd_repository_debian_login}
         export ACD_REPOSITORY_BAMBOO_PASSWORD=${bamboo.acd_repository_bamboo_password}
         export ACD_REPOSITORY_URL=${bamboo.acd_repository_url}
