@@ -7,6 +7,7 @@ services:
       - ${HOME:-.}/.npmrc:/root/.npmrc:ro
       - ./../..:/flux-web-components
     environment:
+      - BAMBOO_BRANCH_NAME=${BAMBOO_BRANCH_NAME:-not-specified}
       - SECRET_GITHUB_TOKEN=${SECRET_GITHUB_TOKEN:-not-specified}
       - ACD_REPOSITORY_DEBIAN_LOGIN=${ACD_REPOSITORY_DEBIAN_LOGIN:-not-specified}
       - ACD_REPOSITORY_BAMBOO_PASSWORD=${ACD_REPOSITORY_BAMBOO_PASSWORD:-not-specified}
