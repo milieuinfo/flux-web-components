@@ -181,12 +181,17 @@ describe('cypress-component - map - vl-map-wmts-layer', () => {
         cy.wait('@capabilities');
         cy.runTestFor<VlMap>('vl-map', (vlMap) => {
             cy.wrap(vlMap.ready).then(() => {
-                const layers = vlMap.map.getOverlayLayers();
-                expect(layers).to.be.lengthOf(1);
-                const layer = layers[0];
-                // @ts-ignore
-                const source = layer.getSource();
-                expect(source).to.be.instanceof(OlWMTSSource);
+                // De WMTS-layer wordt asynchroon toegevoegd na het parsen van de capabilities en
+                // het awaiten van mapElement.ready. cy.wait('@capabilities') dekt enkel het response,
+                // niet de daaropvolgende microtasks. Gebruik should() zodat Cypress retried tot de
+                // layer effectief in de overlay layers zit.
+                cy.wrap(null).should(() => {
+                    const layers = vlMap.map.getOverlayLayers();
+                    expect(layers).to.be.lengthOf(1);
+                    // @ts-ignore
+                    const source = layers[0].getSource();
+                    expect(source).to.be.instanceof(OlWMTSSource);
+                });
             });
         });
     });
