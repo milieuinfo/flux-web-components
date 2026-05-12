@@ -197,6 +197,8 @@ export class VlSelectComponent extends FormControl {
 
     private onSlotChange() {
         this.parseSlottedOptions();
+        const selected = this.getSelectedOption();
+        if (selected) this.value = selected.value;
         this.requestUpdate();
     }
 
@@ -224,6 +226,8 @@ export class VlSelectComponent extends FormControl {
     private setupSlotObserver() {
         this.slotObserver = new MutationObserver(() => {
             this.parseSlottedOptions();
+            const selected = this.getSelectedOption();
+            if (selected) this.value = selected.value;
             this.requestUpdate();
         });
 

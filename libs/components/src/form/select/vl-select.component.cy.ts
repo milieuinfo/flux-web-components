@@ -657,6 +657,36 @@ describe('vl-select - declarative options', () => {
         cy.get('vl-select').shadow().find('select option').should('not.contain', 'Hasselt');
     });
 
+    it('should sync value with selected slotted option after slot mutation (FLUX-637)', () => {
+        // Bug: bij een slot mutatie (bv. wanneer de opties worden ververst nadat een modal opent)
+        // bleef this.value op de oude waarde staan terwijl de geselecteerde <option> in het slot
+        // een andere waarde had. Hierdoor toonde de native <select> de verkeerde waarde.
+        cy.mount(html`
+            <vl-select id="slot-sync-select" label="geboorteplaats">
+                <option value="hasselt" selected>Hasselt</option>
+                <option value="turnhout">Turnhout</option>
+            </vl-select>
+        `);
+
+        cy.get('vl-select').should('have.value', 'hasselt');
+        cy.get('vl-select').shadow().find('select').should('have.value', 'hasselt');
+
+        // Vervang de slotted opties zodat een andere optie selected is
+        cy.get('vl-select').then(($select) => {
+            const el = $select[0];
+            el.innerHTML = `
+                <option value="hasselt">Hasselt</option>
+                <option value="turnhout" selected>Turnhout</option>
+            `;
+        });
+
+        // Wacht tot de mutation observer / slotchange afgehandeld is
+        cy.wait(100);
+
+        cy.get('vl-select').should('have.value', 'turnhout');
+        cy.get('vl-select').shadow().find('select').should('have.value', 'turnhout');
+    });
+
     it('should update when declarative options change dynamically', () => {
         cy.mount(html`
             <vl-select id="dynamic-select" label="geboorteplaats">
