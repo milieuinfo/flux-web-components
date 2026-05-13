@@ -7,4 +7,5 @@ export const tableDefaults = {
     collapsedM: false as boolean,
     collapsedS: false as boolean,
     collapsedXS: false as boolean,
+    clickableRows: false as boolean,
 };

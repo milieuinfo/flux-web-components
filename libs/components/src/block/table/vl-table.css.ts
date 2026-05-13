@@ -1,4 +1,4 @@
-import { vlMediaScreenExtraSmall, vlMediaScreenMedium, vlMediaScreenSmall, vlFocusOutlineMixin } from '@domg-wc/styles';
+import { vlFocusOutlineMixin, vlMediaScreenExtraSmall, vlMediaScreenMedium, vlMediaScreenSmall } from '@domg-wc/styles';
 import { css } from 'lit';
 
 export const tableStyles = css`
@@ -535,14 +535,19 @@ export const tableStyles = css`
     }
 
     .vl-u-table-overflow {
-        background: linear-gradient(to right, white, white, rgba(255, 255, 255, 0) 30px),
+        background:
+            linear-gradient(to right, white, white, rgba(255, 255, 255, 0) 30px),
             radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0)),
             linear-gradient(to left, white, white, rgba(255, 255, 255, 0) 30px),
             radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, 0.3), rgba(255, 255, 255, 0)) 100%;
         background-color: white;
         background-repeat: no-repeat;
         background-attachment: local, scroll, local, scroll;
-        background-size: 100% 100%, 15px 100%, 100% 100%, 15px 100%;
+        background-size:
+            100% 100%,
+            15px 100%,
+            100% 100%,
+            15px 100%;
     }
 
     .vl-table__navigation {
@@ -550,5 +555,38 @@ export const tableStyles = css`
         z-index: 1;
         display: flex;
         justify-content: flex-end;
+    }
+
+    .vl-table--clickable-rows {
+        tr:has(button.select-row) {
+            position: relative;
+        }
+        tr:has(button.select-row.active) {
+            background-color: var(--vl-color--background-action-subtle);
+        }
+        td:has(button.select-row) {
+            /* Make sure the button positions relative to the row and not this cell */
+            position: unset;
+
+            & ~ td > * {
+                /* Make sure children of the row's cells remain interactive */
+                position: relative;
+                z-index: 1;
+            }
+        }
+        button.select-row {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            border: 0;
+            background: none;
+            padding: 0;
+            margin: 0;
+            &:focus {
+                outline-offset: -3px;
+            }
+        }
     }
 `;

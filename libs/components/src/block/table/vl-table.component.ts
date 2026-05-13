@@ -24,6 +24,7 @@ export class VlTableComponent extends LitElement {
             collapsedM: { type: Boolean, reflect: true, attribute: 'collapsed-m' },
             collapsedS: { type: Boolean, reflect: true, attribute: 'collapsed-s' },
             collapsedXs: { type: Boolean, reflect: true, attribute: 'collapsed-xs' },
+            clickableRows: { type: Boolean, reflect: true, attribute: 'clickable-rows' },
         };
     }
 
@@ -79,9 +80,10 @@ export class VlTableComponent extends LitElement {
             collapsedM: 'vl-table--collapsed-m',
             collapsedS: 'vl-table--collapsed-s',
             collapsedXs: 'vl-table--collapsed-xs',
+            clickableRows: 'vl-table--clickable-rows',
         };
 
-        // voeg of verwijder klassen op basis van property waarden
+        // Voeg klassen toe of verwijder klassen op basis van property waarden
         Object.entries(classMap).forEach(([property, className]) => {
             if (this[property as keyof this]) {
                 this.table!.classList.add(className);
@@ -91,6 +93,8 @@ export class VlTableComponent extends LitElement {
         });
 
         this.processEvenOdd();
+
+        this.processClickableRows();
     }
 
     collapseDetails(id: string) {
@@ -185,7 +189,11 @@ export class VlTableComponent extends LitElement {
                 row.style.display = 'none';
 
                 const dataRow = rows[i - 1];
-                if (dataRow.querySelectorAll('td[data-with-expand-details]').length === 0 && id && this.isDataRow(dataRow)) {
+                if (
+                    dataRow.querySelectorAll('td[data-with-expand-details]').length === 0 &&
+                    id &&
+                    this.isDataRow(dataRow)
+                ) {
                     const cell = document.createElement('td');
                     const vlButton = this.expandCollapseTemplate(id);
                     cell.appendChild(vlButton);
@@ -215,13 +223,59 @@ export class VlTableComponent extends LitElement {
         });
     }
 
+    private activateRow = (e: Event) => {
+        if (e instanceof KeyboardEvent) {
+            if (e.key !== 'Enter' && e.key !== ' ') return;
+            e.preventDefault();
+        }
+        const target = e.target as HTMLElement;
+        let clickableRowButton: HTMLButtonElement;
+        if (target instanceof HTMLButtonElement) {
+            clickableRowButton = target;
+        } else {
+            clickableRowButton = target.closest('button.select-row') as HTMLButtonElement;
+        }
+        this.deactivateAllRows();
+        clickableRowButton.classList.add('active');
+        clickableRowButton.setAttribute('aria-label', 'Rij geselecteerd');
+    };
+
+    private deactivateRow = (row: HTMLTableRowElement) => {
+        const clickableRowButton = row.querySelector<HTMLButtonElement>('button.select-row');
+        clickableRowButton?.classList.remove('active');
+        clickableRowButton?.setAttribute('aria-label', 'Selecteer rij');
+    };
+
+    private deactivateAllRows = () => {
+        const rows = this.bodyRowElements;
+        rows.forEach((row) => this.deactivateRow(row));
+    };
+
+    private processClickableRows = () => {
+        const rows = this.bodyRowElements;
+
+        rows.forEach((row) => {
+            if (this.hasAttribute('clickable-rows')) {
+                const clickableRowButton = document.createElement('button');
+                clickableRowButton.setAttribute('type', 'button');
+                clickableRowButton.setAttribute('aria-label', 'Selecteer rij');
+                clickableRowButton.classList.add('select-row');
+                row.querySelector('td:first-of-type')?.prepend(clickableRowButton);
+                clickableRowButton.addEventListener('click', this.activateRow);
+                clickableRowButton.addEventListener('keydown', this.activateRow);
+            } else {
+                row.querySelector('button.select-row')?.remove();
+            }
+        });
+    };
+
     private observeHeaderElements(callback: MutationCallback): MutationObserver {
         const observer = new MutationObserver(callback);
         observer.observe(this, { childList: true });
         return observer;
     }
 
-    private isDataRow(rowValue: HTMLTableRowElement) { 
-        return !rowValue.hasAttribute('data-details-id'); 
+    private isDataRow(rowValue: HTMLTableRowElement) {
+        return !rowValue.hasAttribute('data-details-id');
     }
 }

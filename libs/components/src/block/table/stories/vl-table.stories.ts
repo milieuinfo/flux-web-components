@@ -1,7 +1,7 @@
+import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import { registerWebComponents } from '@domg-wc/common';
 import { VlTableComponent } from '../vl-table.component';
 import { tableArgTypes, tableArgs } from './vl-table.stories-arg';
 import tableDoc from './vl-table.stories-doc.mdx';
@@ -34,6 +34,7 @@ export const TableDefault = story(
             ?collapsed-m=${collapsedM}
             ?collapsed-s=${collapsedS}
             ?collapsed-xs=${collapsedXS}
+            clickable-rows
         >
             <table>
                 <caption>
@@ -122,7 +123,7 @@ export const TableDefault = story(
                 </tfoot>
             </table>
         </vl-table>
-    `
+    `,
 );
 TableDefault.storyName = 'vl-table - default';
 
@@ -138,6 +139,7 @@ export const TableJoinedRowTitles = story(
             ?collapsed-m=${collapsedM}
             ?collapsed-s=${collapsedS}
             ?collapsed-xs=${collapsedXS}
+            clickable-rows
         >
             <table>
                 <caption>
@@ -187,7 +189,7 @@ export const TableJoinedRowTitles = story(
                 </tbody>
             </table>
         </vl-table>
-    `
+    `,
 );
 TableJoinedRowTitles.storyName = 'vl-table - joined row titles';
 
@@ -204,6 +206,7 @@ export const TableExpandable = story(
                 ?collapsed-m=${collapsedM}
                 ?collapsed-s=${collapsedS}
                 ?collapsed-xs=${collapsedXS}
+                clickable-rows
             >
                 <table id="vl-data-table-with-expandable-details">
                     <caption>
@@ -275,7 +278,7 @@ export const TableExpandable = story(
                 </table>
             </vl-table>
         `;
-    }
+    },
 );
 TableExpandable.storyName = 'vl-table - expandable';
 
@@ -293,6 +296,7 @@ export const TableExpandableCustomToggleDetailsColumn = story(
                 ?collapsed-m=${collapsedM}
                 ?collapsed-s=${collapsedS}
                 ?collapsed-xs=${collapsedXS}
+                clickable-rows
             >
                 <table>
                     <caption>
@@ -385,7 +389,7 @@ export const TableExpandableCustomToggleDetailsColumn = story(
                 </table>
             </vl-table>
         `;
-    }
+    },
 );
 TableExpandableCustomToggleDetailsColumn.storyName = 'vl-table - expandable custom toggle details column';
 TableExpandableCustomToggleDetailsColumn.parameters = {
@@ -410,6 +414,7 @@ export const TableRowStyling = story(
             ?collapsed-m=${collapsedM}
             ?collapsed-s=${collapsedS}
             ?collapsed-xs=${collapsedXS}
+            clickable-rows
         >
             <table>
                 <thead>
@@ -460,6 +465,6 @@ export const TableRowStyling = story(
                 </tbody>
             </table>
         </vl-table>
-    `
+    `,
 );
 TableRowStyling.storyName = 'vl-table - row styling';
