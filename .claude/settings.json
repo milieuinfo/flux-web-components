@@ -1,48 +1,15 @@
 {
-  "permissions": {
-    "allow": [
-      "Bash(git status*)",
-      "Bash(git log*)",
-      "Bash(git show*)",
-      "Bash(git branch)",
-      "Bash(git branch -a*)",
-      "Bash(git branch -v*)",
-      "Bash(git branch --list*)",
-      "Bash(git diff*)",
-      "Bash(git stash list*)",
-      "Bash(git stash show*)",
-      "Bash(git rev-parse*)",
-      "Bash(git remote -v*)",
-      "Bash(git merge-base*)",
-      "Bash(git shortlog*)",
-      "Bash(git describe*)",
-      "Bash(git tag --list*)",
-      "Bash(git ls-files*)",
-      "Bash(git add*)",
-      "Bash(git commit*)",
-      "Bash(git checkout -b*)",
-      "Bash(git switch*)",
-      "Bash(git stash)",
-      "Bash(git stash pop*)",
-      "Bash(git stash drop*)",
-      "Bash(git cherry-pick*)",
-      "Bash(git rebase*)",
-      "Bash(git merge*)",
-      "Bash(git restore*)",
-      "Bash(git reset*)",
-      "Bash(npm run test*)",
-      "Bash(npm run libs:build*)",
-      "Bash(npm run libs:component-tests:run*)",
-      "Bash(npm run libs:component-tests:watch*)",
-      "Bash(npm run libs:eslint*)",
-      "Bash(npm run libs:jest*)",
-      "Bash(npm run libs:web-types:validate*)",
-      "Bash(npm run apps:storybook:dev*)",
-      "Bash(npm run apps:playground-lit:dev*)",
-      "Bash(npm run apps:playground-native:dev*)",
-      "Bash(npm run apps:playground-react:dev*)",
-      "Bash(ls *)",
-      "Bash(cat package.json)"
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "test -f CLAUDE.local.md || cat <<'EOF'\n{\"hookSpecificOutput\":{\"hookEventName\":\"SessionStart\",\"additionalContext\":\"BOOTSTRAP CHECK VEREIST: CLAUDE.local.md ontbreekt in de project-root. Voor je antwoordt op de vraag van de gebruiker MOET je eerst de bootstrap-check uit CLAUDE.md uitvoeren: (1) lijst de profile-folders in ai/profiles/ (filter README.md eruit), (2) gebruik AskUserQuestion om te vragen welk profile te activeren (inclusief een skip optie), (3) voer ./set-ai-profile.sh {keuze} uit, (4) meld dat een Claude Code herstart nodig is om het profile volledig te laden, (5) ga verder met de oorspronkelijke vraag van de gebruiker. Als de gebruiker skip kiest: niet opnieuw vragen in deze sessie.\"}}\nEOF"
+          }
+        ]
+      }
     ]
   }
 }

@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status*)",
+      "Bash(git log*)",
+      "Bash(git show*)",
+      "Bash(git branch*)",
+      "Bash(git diff*)",
+      "Bash(git stash*)",
+      "Bash(git rev-parse*)",
+      "Bash(git remote -v*)",
+      "Bash(git merge-base*)",
+      "Bash(git shortlog*)",
+      "Bash(git describe*)",
+      "Bash(git tag --list*)",
+      "Bash(git ls-files*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git checkout -b*)",
+      "Bash(git switch*)",
+      "Bash(git cherry-pick*)",
+      "Bash(git rebase*)",
+      "Bash(git merge*)",
+      "Bash(git restore*)",
+      "Bash(git reset*)",
+      "Bash(npm run *)",
+      "Bash(ls *)",
+      "Bash(cat *)"
+    ]
+  }
+}
