@@ -73,9 +73,8 @@ export class VlFieldsetComponent extends BaseLitElement {
             'vl-grid': this.horizontal,
         };
 
-        const legendClassList = {
+        const formLabelClassList = {
             'vl-fieldset__legend': true,
-            'vl-form__label': true,
             'vl-column': this.horizontal,
             'vl-column--s-12': this.horizontal,
             ...this.legendClasses.split(' ').reduce((classes, className) => ({ ...classes, [className]: true }), {}),
@@ -86,7 +85,7 @@ export class VlFieldsetComponent extends BaseLitElement {
         return html`
             <fieldset class=${classMap(classList)}>
                 <legend class="vl-visually-hidden">${this.legendText}</legend>
-                <vl-form-label class=${classMap(legendClassList)} @click="${this.onLegendClick}" aria-hidden="true">
+                <vl-form-label class=${classMap(formLabelClassList)} @click="${this.onLegendClick}" aria-hidden="true">
                     <slot name="legend" @slotchange=${this.onLegendSlotChange}></slot>
                 </vl-form-label>
                 <slot></slot>
