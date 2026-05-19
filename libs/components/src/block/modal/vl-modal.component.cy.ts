@@ -202,6 +202,84 @@ describe('cypress-component - block components - vl-modal', () => {
         openModal();
         checkDialogClass('vl-modal-dialog--right');
     });
+
+    // Tests voor de centering na de transform: translate(-50%, -50%) → margin: auto wijziging.
+    // Verifieert dat de modal nog steeds correct gecentreerd is zonder transform.
+    it('should center the default modal horizontally on the viewport', () => {
+        cy.viewport(1024, 768);
+        cy.mount(html`${renderOpenButton()} ${renderModal({})}`);
+
+        openModal();
+        getDialog().then(($dialog) => {
+            const dialogRect = $dialog[0].getBoundingClientRect();
+            const viewportCenter = 1024 / 2;
+            const dialogCenter = dialogRect.left + dialogRect.width / 2;
+            // Modal moet horizontaal gecentreerd zijn (50px tolerantie)
+            expect(Math.abs(dialogCenter - viewportCenter)).to.be.lessThan(50);
+        });
+    });
+
+    it('should center the medium modal horizontally on the viewport', () => {
+        cy.viewport(1024, 768);
+        cy.mount(html`${renderOpenButton()} ${renderModal({ size: 'medium' })}`);
+
+        openModal();
+        getDialog().then(($dialog) => {
+            const dialogRect = $dialog[0].getBoundingClientRect();
+            const viewportCenter = 1024 / 2;
+            const dialogCenter = dialogRect.left + dialogRect.width / 2;
+            expect(Math.abs(dialogCenter - viewportCenter)).to.be.lessThan(50);
+        });
+    });
+
+    it('should center the large modal horizontally on the viewport', () => {
+        cy.viewport(1024, 768);
+        cy.mount(html`${renderOpenButton()} ${renderModal({ size: 'large' })}`);
+
+        openModal();
+        getDialog().then(($dialog) => {
+            const dialogRect = $dialog[0].getBoundingClientRect();
+            const viewportCenter = 1024 / 2;
+            const dialogCenter = dialogRect.left + dialogRect.width / 2;
+            expect(Math.abs(dialogCenter - viewportCenter)).to.be.lessThan(50);
+        });
+    });
+
+    it('should position the left modal on the left side of the viewport', () => {
+        cy.viewport(1024, 768);
+        cy.mount(html`${renderOpenButton()} ${renderModal({ position: 'left', closable: true })}`);
+
+        openModal();
+        getDialog().then(($dialog) => {
+            const dialogRect = $dialog[0].getBoundingClientRect();
+            // Left modal moet links staan (left < 50px)
+            expect(dialogRect.left).to.be.lessThan(50);
+        });
+    });
+
+    it('should position the right modal on the right side of the viewport', () => {
+        cy.viewport(1024, 768);
+        cy.mount(html`${renderOpenButton()} ${renderModal({ position: 'right', closable: true })}`);
+
+        openModal();
+        getDialog().then(($dialog) => {
+            const dialogRect = $dialog[0].getBoundingClientRect();
+            // Right modal moet rechts staan (right edge dicht bij viewport rechterrand)
+            expect(1024 - dialogRect.right).to.be.lessThan(50);
+        });
+    });
+
+    it('should not have a transform on the center modal dialog', () => {
+        cy.viewport(1024, 768);
+        cy.mount(html`${renderOpenButton()} ${renderModal({})}`);
+
+        openModal();
+        getDialog().then(($dialog) => {
+            const transform = getComputedStyle($dialog[0]).transform;
+            // transform moet 'none' zijn (geen translate(-50%, -50%) meer)
+            expect(transform).to.equal('none');
+        });
+    });
 });
 
 describe('cypress-component - block components - vl-modal - notAutoClosable (true)', () => {
