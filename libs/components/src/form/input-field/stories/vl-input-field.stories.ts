@@ -102,3 +102,19 @@ InputFieldBlurValidation.args = {
     blurValidation: true,
     placeholder: 'Min. 3 letters',
 };
+
+export const InputFieldDescribedby = story(
+    inputFieldArgs,
+    ({ name, label }) => html`
+        <div class="vl-group vl-group--align-center">
+            <vl-input-field name=${name} label=${label} type="text" describedby="eenheid"></vl-input-field>
+            <span aria-hidden="true">m</span>
+            <span class="vl-visually-hidden" id="eenheid">meter</span>
+        </div>
+    `
+);
+InputFieldDescribedby.storyName = 'vl-input-field - describedby';
+InputFieldDescribedby.args = {
+    label: 'Lengte',
+    name: 'lengte',
+};

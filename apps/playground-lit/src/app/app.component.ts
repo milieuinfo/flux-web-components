@@ -9,7 +9,11 @@ import {
 } from '@domg-wc/components/block';
 import { VlHeader } from '@domg-wc/components/compliance';
 import { VlFooter as VlFooterNext } from '@domg-wc/components/compliance/next';
-import { VlDatepickerComponent } from '@domg-wc/components/form';
+import {
+    VlDatepickerComponent,
+    VlFormLabelComponent,
+    VlInputFieldComponent,
+} from '@domg-wc/components/form';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
@@ -26,6 +30,8 @@ export class AppComponent extends LitElement {
             VlInfoTile,
             VlPropertiesComponent,
             VlFooterNext,
+            VlFormLabelComponent,
+            VlInputFieldComponent,
         ]);
     }
 
@@ -116,14 +122,15 @@ export class AppComponent extends LitElement {
                             <vl-title type="h2">FLUX-595 — datepicker positioning bug repro</vl-title>
                             <p>
                                 Beide datepickers zitten in een identieke <code>transform + overflow:auto</code> parent
-                                — de exacte ancestor-conditie die de oude positioning-hack breekt.
-                                Klik op de kalender-knoppen om te vergelijken.
+                                — de exacte ancestor-conditie die de oude positioning-hack breekt. Klik op de
+                                kalender-knoppen om te vergelijken.
                             </p>
                             <div style="display: flex; gap: 20px; margin-top: 16px;">
                                 <div style="flex: 1; border: 2px dashed crimson; padding: 12px; background: #fffbe6;">
                                     <strong style="color: crimson;">A — default mode (bug)</strong>
                                     <p style="margin: 4px 0 8px; font-size: 13px; color: #666;">
-                                        getBoundingClientRect-hack — calendar landt op verkeerde plek / clipt door overflow.
+                                        getBoundingClientRect-hack — calendar landt op verkeerde plek / clipt door
+                                        overflow.
                                     </p>
                                     <div
                                         style="transform: translateX(0); overflow: auto; max-height: 180px;
@@ -174,6 +181,28 @@ export class AppComponent extends LitElement {
                                 >
                                     Download als verslag.txt
                                 </vl-button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="vl-section">
+                        <div class="vl-content-block vl-content-block--full-width vl-stacked vl-stacked-medium">
+                            <vl-title type="h2" no-space-bottom
+                                >FLUX-659: vl-input-field met describedby attribuut</vl-title
+                            >
+                            <div>
+                                <vl-form-label for="waarde" label="Waarde"></vl-form-label>
+                                <div class="vl-group vl-group--align-center">
+                                    <vl-input-field
+                                        name="waarde"
+                                        id="waarde"
+                                        type="text"
+                                        label="Waarde"
+                                        describedby="eenheid"
+                                    ></vl-input-field>
+                                    <span aria-hidden="true">m</span>
+                                    <span class="vl-visually-hidden" id="eenheid">meter</span>
+                                </div>
                             </div>
                         </div>
                     </section>
