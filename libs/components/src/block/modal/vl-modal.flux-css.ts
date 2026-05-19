@@ -22,6 +22,25 @@ export const vlModalFluxStyles: CSSResult = css`
         cursor: pointer;
     }
 
+    /* Verwijder transform-gebaseerde centering van de center modal.
+       De <dialog> met showModal() wordt automatisch gecentreerd door de browser
+       via de UA stylesheet (margin: auto op de ::backdrop pseudo-element).
+
+       govflanders-style gebruikt: top: 50%; left: 50%; margin: 0; transform: translate(-50%, -50%).
+       Dit veroorzaakt problemen voor position: fixed en CSS Anchor Positioning in child elementen,
+       omdat transform een nieuw containing block creëert.
+
+       De fix: alle vier properties overschrijven naar de browser defaults voor <dialog>. */
+    .vl-modal-dialog:not(.vl-modal-dialog--full-screen):not(.vl-modal-dialog--left):not(.vl-modal-dialog--right) {
+        transform: none;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        max-height: 85vh;
+    }
+
     .vl-modal-dialog--full-screen {
         left: 0;
         right: 0;
