@@ -64,7 +64,7 @@ export const modalDefault = story(
                 ?focus-on-modal=${focusOnModal}
             >
                 <span slot="content">
-                    <vl-datepicker block label="Kies een datum"></vl-datepicker>
+                    <vl-datepicker block label="Kies een datum" anchor-positioning></vl-datepicker>
                     Lorem ipsum dolor sit amet.
                 </span>
                 <vl-button slot="button">Start aanvraag</vl-button>
