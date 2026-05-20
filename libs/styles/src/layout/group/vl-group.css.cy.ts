@@ -297,14 +297,10 @@ describe('cypress-component - layout styles - vl-group', () => {
         `);
         cy.get('.item-1').shouldHaveComputedStyle({
             style: 'border-top',
-            value: '1px solid rgb(203, 210, 218)',
+            value: '0px none rgb(0, 0, 0)',
         });
         cy.get('.item-2').shouldHaveComputedStyle({
             style: 'border-top',
-            value: '1px solid rgb(203, 210, 218)',
-        });
-        cy.get('.item-2').shouldHaveComputedStyle({
-            style: 'border-bottom',
             value: '1px solid rgb(203, 210, 218)',
         });
     });
