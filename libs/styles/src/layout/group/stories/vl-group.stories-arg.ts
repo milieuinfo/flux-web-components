@@ -18,7 +18,11 @@ export const vlGroupArgs = {
     alignEnd: false,
     baseline: false,
     separatorRow: false,
+    separatorRowBefore: false,
+    separatorRowAfter: false,
     separatorColumn: false,
+    separatorColumnBefore: false,
+    separatorColumnAfter: false,
     collapseL: false,
     collapseM: false,
     collapseS: false,
@@ -173,6 +177,26 @@ export const vlGroupArgTypes: ArgTypes<typeof vlGroupArgs> = {
         },
         description: 'Voegt verticale scheidingslijnen toe links en rechts tussen items.',
     },
+    separatorRowBefore: {
+        name: 'vl-group--separator-row-before',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: 'modifier style',
+            defaultValue: { summary: String(false) },
+        },
+        description:
+            'Voegt een verticale scheidingslijn toe uiterst links, vóór het eerste item. Enkel te gebruiken in combinatie met vl-group--separator-row.',
+    },
+    separatorRowAfter: {
+        name: 'vl-group--separator-row-after',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: 'modifier style',
+            defaultValue: { summary: String(false) },
+        },
+        description:
+            'Voegt een verticale scheidingslijn toe uiterst rechts, na het laatste item. Enkel te gebruiken in combinatie met vl-group--separator-row.',
+    },
     separatorColumn: {
         name: 'vl-group--separator-column',
         table: {
@@ -180,7 +204,27 @@ export const vlGroupArgTypes: ArgTypes<typeof vlGroupArgs> = {
             category: 'modifier style',
             defaultValue: { summary: String(false) },
         },
-        description: 'Voegt horizontale scheidingslijnen toe boven en onder items.',
+        description: 'Voegt horizontale scheidingslijnen toe tussen items.',
+    },
+    separatorColumnBefore: {
+        name: 'vl-group--separator-column-before',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: 'modifier style',
+            defaultValue: { summary: String(false) },
+        },
+        description:
+            'Voegt een horizontale scheidingslijn toe boven het eerste item. Enkel te gebruiken in combinatie met vl-group--separator-column.',
+    },
+    separatorColumnAfter: {
+        name: 'vl-group--separator-column-after',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: 'modifier style',
+            defaultValue: { summary: String(false) },
+        },
+        description:
+            'Voegt een horizontale scheidingslijn toe onder het laatste item. Enkel te gebruiken in combinatie met vl-group--separator-column.',
     },
     collapseL: {
         name: 'vl-group--collapse-l',
