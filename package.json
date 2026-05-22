@@ -90,6 +90,7 @@
         "node-fetch": "3.3.2",
         "ol": "8.2.0",
         "playwright": "1.55.0",
+        "playwright-webkit": "1.58.2",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "resize-observer-polyfill": "1.5.1",

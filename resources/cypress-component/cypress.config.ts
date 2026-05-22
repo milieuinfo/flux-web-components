@@ -7,6 +7,7 @@ import { addMatchImageSnapshotPlugin } from '@simonsmith/cypress-image-snapshot/
 dotenv.config(); // laad .env
 
 const cypressConfig: any = {
+    experimentalWebKitSupport: true,
     fileServerFolder: '.',
     fixturesFolder: './fixtures',
     modifyObstructiveCode: false,
