@@ -3,11 +3,12 @@ import { vlGridStyles } from '@domg-wc/styles';
 import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { VlFormMessageComponent } from '../form-message';
+import { VlModalComponent } from '../../block/modal';
 import { createDateRange } from './stories/vl-datepicker.stories-util';
 import { VlDatepickerComponent } from './vl-datepicker.component';
 import { datepickerDefaults } from './vl-datepicker.defaults';
 
-registerWebComponents([VlDatepickerComponent, VlFormMessageComponent]);
+registerWebComponents([VlDatepickerComponent, VlFormMessageComponent, VlModalComponent]);
 
 // Helper functions
 const createDateString = ({
@@ -654,15 +655,23 @@ describe('vl-datepicker - calendar interaction', () => {
             .shadow()
             .find('.flatpickr-calendar')
             .should('not.have.class', 'static')
-            .should('have.attr', 'style');
+            .should('have.class', 'open');
 
+        // Controleer dat de kalender boven de button verschijnt (via CSS Anchor Positioning flip)
         cy.get('vl-datepicker')
             .shadow()
             .find('.flatpickr-calendar')
-            .invoke('attr', 'style')
-            .should('contain', 'top')
-            .should('contain', 'left')
-            .should('contain', 'right');
+            .then(($calendar) => {
+                cy.get('vl-datepicker')
+                    .shadow()
+                    .find('button#toggle-calendar')
+                    .should(($button) => {
+                        const buttonRect = $button[0].getBoundingClientRect();
+                        const calendarRect = $calendar[0].getBoundingClientRect();
+                        // Kalender bottom moet boven of gelijk aan de button top zijn
+                        expect(calendarRect.bottom).to.be.at.most(buttonRect.top + 10);
+                    });
+            });
     });
 
     it('should open the calendar below the input when static is true', () => {
@@ -676,6 +685,696 @@ describe('vl-datepicker - calendar interaction', () => {
             .find('.flatpickr-calendar')
             .should('have.class', 'static')
             .should('not.have.attr', 'style');
+    });
+
+    it('should position calendar near the toggle button', () => {
+        cy.mount(html`<vl-datepicker></vl-datepicker>`);
+
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+
+        // Controleer dat de kalender dicht bij de button verschijnt.
+        // 50px tolerantie: flatpickr's default positionering verschilt per browser
+        // (Safari/WebKit voegt extra offset toe via de isSafari workaround).
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .should('have.class', 'open')
+            .then(($calendar) => {
+                cy.get('vl-datepicker')
+                    .shadow()
+                    .find('button#toggle-calendar')
+                    .should(($button) => {
+                        const buttonRect = $button[0].getBoundingClientRect();
+                        const calendarRect = $calendar[0].getBoundingClientRect();
+                        const verticalDistance = Math.abs(calendarRect.top - buttonRect.bottom);
+                        expect(verticalDistance).to.be.lessThan(50);
+                    });
+            });
+    });
+
+    it('should position calendar correctly inside a scrollable container', () => {
+        cy.mount(html`
+            <div style="height: 200px; overflow: auto;">
+                <div style="height: 600px; padding-top: 100px;">
+                    <vl-datepicker></vl-datepicker>
+                </div>
+            </div>
+        `);
+
+        // Scroll de container
+        cy.get('div[style*="overflow"]').scrollTo(0, 80);
+
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .should('have.class', 'open')
+            .then(($calendar) => {
+                cy.get('vl-datepicker')
+                    .shadow()
+                    .find('button#toggle-calendar')
+                    .should(($button) => {
+                        const buttonRect = $button[0].getBoundingClientRect();
+                        const calendarRect = $calendar[0].getBoundingClientRect();
+                        const verticalDistance = Math.abs(calendarRect.top - buttonRect.bottom);
+                        expect(verticalDistance).to.be.lessThan(50);
+                    });
+            });
+    });
+
+    // Test alle 12 position varianten (default flatpickr positionering)
+    const positionsBelowButton = [
+        'auto', 'below', 'auto left', 'below left', 'auto center', 'below center', 'auto right', 'below right',
+    ];
+    const positionsAboveButton = ['above', 'above left', 'above center', 'above right'];
+
+    positionsBelowButton.forEach((position) => {
+        it(`should position calendar below the button with position="${position}"`, () => {
+            cy.viewport(1024, 768);
+            cy.mount(html`
+                <div style="margin-top: 200px; margin-left: 300px;">
+                    <vl-datepicker position=${position}></vl-datepicker>
+                </div>
+            `);
+
+            cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+            cy.get('vl-datepicker')
+                .shadow()
+                .find('.flatpickr-calendar')
+                .should('have.class', 'open')
+                .then(($calendar) => {
+                    cy.get('vl-datepicker')
+                        .shadow()
+                        .find('button#toggle-calendar')
+                        .should(($button) => {
+                            const buttonRect = $button[0].getBoundingClientRect();
+                            const calendarRect = $calendar[0].getBoundingClientRect();
+                            // Kalender moet onder de button staan
+                            // 50px tolerantie: flatpickr positionering verschilt per browser
+                            expect(calendarRect.top).to.be.at.least(buttonRect.bottom - 50);
+                        });
+                });
+        });
+    });
+
+    positionsAboveButton.forEach((position) => {
+        it(`should position calendar above the button with position="${position}"`, () => {
+            cy.viewport(1024, 768);
+            cy.mount(html`
+                <div style="margin-top: 400px; margin-left: 300px;">
+                    <vl-datepicker position=${position}></vl-datepicker>
+                </div>
+            `);
+
+            cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+            cy.get('vl-datepicker')
+                .shadow()
+                .find('.flatpickr-calendar')
+                .should('have.class', 'open')
+                .then(($calendar) => {
+                    cy.get('vl-datepicker')
+                        .shadow()
+                        .find('button#toggle-calendar')
+                        .should(($button) => {
+                            const buttonRect = $button[0].getBoundingClientRect();
+                            const calendarRect = $calendar[0].getBoundingClientRect();
+                            // Kalender bottom moet boven of gelijk aan de button top zijn
+                            // 50px tolerantie: flatpickr positionering verschilt per browser
+                            expect(calendarRect.bottom).to.be.at.most(buttonRect.top + 50);
+                        });
+                });
+        });
+    });
+
+    // Test anchor-positioning modus
+    it('should position calendar using CSS Anchor Positioning when anchor-positioning is set', () => {
+        cy.viewport(1024, 768);
+        cy.mount(html`
+            <div style="margin-top: 200px; margin-left: 300px;">
+                <vl-datepicker anchor-positioning></vl-datepicker>
+            </div>
+        `);
+
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .should('have.class', 'open')
+            .then(($calendar) => {
+                cy.get('vl-datepicker')
+                    .shadow()
+                    .find('button#toggle-calendar')
+                    .should(($button) => {
+                        const buttonRect = $button[0].getBoundingClientRect();
+                        const calendarRect = $calendar[0].getBoundingClientRect();
+                        expect(calendarRect.top).to.be.at.least(buttonRect.bottom - 10);
+                    });
+            });
+
+        // Verify dat popover attribuut is gezet op de kalender
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .should('have.attr', 'popover', 'manual');
+    });
+
+    it('should not use popover when anchor-positioning is not set', () => {
+        cy.mount(html`<vl-datepicker></vl-datepicker>`);
+
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .should('have.class', 'open')
+            .should('not.have.attr', 'popover');
+    });
+
+    // Positie-metingen gebruiken een retrying .should(($button)) i.p.v. .then() zodat flatpickr's
+    // fpFadeInDown animatie (translate3d(0,-20px,0) → 0) gesettled is vóór de meting telt (anders
+    // flaky op trage browsers).
+    positionsBelowButton.forEach((position) => {
+        it(`should position calendar below the button with anchor-positioning and position="${position}"`, () => {
+            cy.viewport(1024, 768);
+            cy.mount(html`
+                <div style="margin-top: 200px; margin-left: 300px;">
+                    <vl-datepicker anchor-positioning position=${position}></vl-datepicker>
+                </div>
+            `);
+
+            cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+            cy.get('vl-datepicker')
+                .shadow()
+                .find('.flatpickr-calendar')
+                .should('have.class', 'open')
+                .then(($calendar) => {
+                    cy.get('vl-datepicker')
+                        .shadow()
+                        .find('button#toggle-calendar')
+                        .should(($button) => {
+                            const buttonRect = $button[0].getBoundingClientRect();
+                            const calendarRect = $calendar[0].getBoundingClientRect();
+                            expect(calendarRect.top).to.be.at.least(buttonRect.bottom - 10);
+                        });
+                });
+        });
+    });
+
+    positionsAboveButton.forEach((position) => {
+        it(`should position calendar above the button with anchor-positioning and position="${position}"`, () => {
+            cy.viewport(1024, 768);
+            cy.mount(html`
+                <div style="margin-top: 400px; margin-left: 300px;">
+                    <vl-datepicker anchor-positioning position=${position}></vl-datepicker>
+                </div>
+            `);
+
+            cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+            cy.get('vl-datepicker')
+                .shadow()
+                .find('.flatpickr-calendar')
+                .should('have.class', 'open')
+                .then(($calendar) => {
+                    cy.get('vl-datepicker')
+                        .shadow()
+                        .find('button#toggle-calendar')
+                        .should(($button) => {
+                            const buttonRect = $button[0].getBoundingClientRect();
+                            const calendarRect = $calendar[0].getBoundingClientRect();
+                            expect(calendarRect.bottom).to.be.at.most(buttonRect.top + 10);
+                        });
+                });
+        });
+    });
+
+    // FLUX-595 regression — anchor-positioning ontsnapt aan kapotte ancestor contexten
+    //
+    // De oude default-mode positioning gebruikt getBoundingClientRect + negative offsets en breekt
+    // wanneer een ancestor een transform of overflow:auto heeft (zie ticket screenshots).
+    // De anchor-positioning modus rendert in de popover top-layer en ontsnapt aan al deze
+    // ancestor-contexten. Deze tests asserten dat anchor-positioning altijd correct rendert.
+    describe('FLUX-595 — anchor-positioning in problematische ancestor contexten', () => {
+        const TOLERANCE_PX = 10;
+
+        it('should position calendar correctly when ancestor has transform', () => {
+            cy.viewport(1024, 768);
+            cy.mount(html`
+                <div style="transform: translateX(0); padding: 100px;">
+                    <vl-datepicker anchor-positioning></vl-datepicker>
+                </div>
+            `);
+
+            cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+            cy.get('vl-datepicker')
+                .shadow()
+                .find('.flatpickr-calendar')
+                .should('have.class', 'open')
+                .then(($calendar) => {
+                    cy.get('vl-datepicker')
+                        .shadow()
+                        .find('button#toggle-calendar')
+                        .should(($button) => {
+                            const buttonRect = $button[0].getBoundingClientRect();
+                            const calendarRect = $calendar[0].getBoundingClientRect();
+                            // Horizontaal aligned met button (binnen tolerance)
+                            expect(Math.abs(calendarRect.left - buttonRect.left)).to.be.lessThan(TOLERANCE_PX);
+                            // Vertikaal: ofwel net onder ofwel net boven button (flip), niet overlappend
+                            const below = calendarRect.top >= buttonRect.bottom - TOLERANCE_PX;
+                            const above = calendarRect.bottom <= buttonRect.top + TOLERANCE_PX;
+                            expect(below || above, 'calendar opens above or below button').to.be.true;
+                        });
+                });
+        });
+
+        it('should position calendar correctly when ancestor is scrollable (overflow:auto)', () => {
+            cy.viewport(1024, 768);
+            cy.mount(html`
+                <div style="overflow: auto; max-height: 300px; padding: 80px;">
+                    <div style="height: 100px;"></div>
+                    <vl-datepicker anchor-positioning></vl-datepicker>
+                    <div style="height: 400px;"></div>
+                </div>
+            `);
+
+            cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+            cy.get('vl-datepicker')
+                .shadow()
+                .find('.flatpickr-calendar')
+                .should('have.class', 'open')
+                .then(($calendar) => {
+                    cy.get('vl-datepicker')
+                        .shadow()
+                        .find('button#toggle-calendar')
+                        .should(($button) => {
+                            const buttonRect = $button[0].getBoundingClientRect();
+                            const calendarRect = $calendar[0].getBoundingClientRect();
+                            expect(Math.abs(calendarRect.left - buttonRect.left)).to.be.lessThan(TOLERANCE_PX);
+                            const below = calendarRect.top >= buttonRect.bottom - TOLERANCE_PX;
+                            const above = calendarRect.bottom <= buttonRect.top + TOLERANCE_PX;
+                            expect(below || above, 'calendar opens above or below button').to.be.true;
+                        });
+                });
+        });
+
+        it('should position calendar correctly when ancestor combines transform + overflow:auto (ticket screenshot scenario)', () => {
+            cy.viewport(1024, 768);
+            cy.mount(html`
+                <div
+                    style="transform: translateX(0); overflow: auto; max-height: 300px;
+                           padding: 80px; margin: 50px;"
+                >
+                    <div style="height: 100px;"></div>
+                    <vl-datepicker anchor-positioning></vl-datepicker>
+                    <div style="height: 400px;"></div>
+                </div>
+            `);
+
+            cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+            cy.get('vl-datepicker')
+                .shadow()
+                .find('.flatpickr-calendar')
+                .should('have.class', 'open')
+                .should('have.attr', 'popover', 'manual')
+                .then(($calendar) => {
+                    cy.get('vl-datepicker')
+                        .shadow()
+                        .find('button#toggle-calendar')
+                        .should(($button) => {
+                            const buttonRect = $button[0].getBoundingClientRect();
+                            const calendarRect = $calendar[0].getBoundingClientRect();
+                            expect(Math.abs(calendarRect.left - buttonRect.left)).to.be.lessThan(TOLERANCE_PX);
+                            const below = calendarRect.top >= buttonRect.bottom - TOLERANCE_PX;
+                            const above = calendarRect.bottom <= buttonRect.top + TOLERANCE_PX;
+                            expect(below || above, 'calendar opens above or below button').to.be.true;
+                        });
+                });
+        });
+    });
+
+    // Test datepicker in alle vl-modal varianten (center, full-screen, left, right)
+    // De transform: translate(-50%, -50%) is verwijderd uit vl-modal (flux-css override)
+    // zodat position: fixed en CSS Anchor Positioning correct werken voor child elementen.
+    const modalVariants: { size: string; position: string }[] = [
+        { size: 'default', position: 'center' },
+        { size: 'medium', position: 'center' },
+        { size: 'large', position: 'center' },
+        { size: 'full-screen', position: 'center' },
+        { size: 'default', position: 'left' },
+        { size: 'default', position: 'right' },
+    ];
+
+    modalVariants.forEach(({ size, position: modalPosition }) => {
+        it(`should position calendar correctly in vl-modal (size="${size}", position="${modalPosition}") with default positioning`, () => {
+            cy.viewport(1024, 768);
+            cy.mount(html`
+                <vl-modal id="test-modal" title="Modal" size=${size} position=${modalPosition}>
+                    <span slot="content">
+                        <vl-datepicker></vl-datepicker>
+                    </span>
+                </vl-modal>
+            `);
+
+            cy.get('vl-modal').then(($modal) => ($modal[0] as any).open());
+
+            cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+            cy.get('vl-datepicker')
+                .shadow()
+                .find('.flatpickr-calendar')
+                .should('have.class', 'open');
+        });
+
+        it(`should position calendar correctly in vl-modal (size="${size}", position="${modalPosition}") with anchor-positioning`, () => {
+            cy.viewport(1024, 768);
+            cy.mount(html`
+                <vl-modal id="test-modal" title="Modal" size=${size} position=${modalPosition}>
+                    <span slot="content">
+                        <vl-datepicker anchor-positioning></vl-datepicker>
+                    </span>
+                </vl-modal>
+            `);
+
+            cy.get('vl-modal').then(($modal) => ($modal[0] as any).open());
+
+            cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+            cy.get('vl-datepicker')
+                .shadow()
+                .find('.flatpickr-calendar')
+                .should('have.class', 'open')
+                .should('have.attr', 'popover', 'manual')
+                .then(($calendar) => {
+                    cy.get('vl-datepicker')
+                        .shadow()
+                        .find('button#toggle-calendar')
+                        .should(($button) => {
+                            const buttonRect = $button[0].getBoundingClientRect();
+                            const calendarRect = $calendar[0].getBoundingClientRect();
+                            // Kalender moet dicht bij de button staan (nu de transform verwijderd is)
+                            const verticalDistance = Math.abs(calendarRect.top - buttonRect.bottom);
+                            expect(verticalDistance).to.be.lessThan(20);
+                        });
+                });
+        });
+    });
+
+    // TODO: lukt lokaal of op bamboo, maar niet op beide
+    //  dit type test gaan we niet meer doen, foutgevoelig en tijdsintensief
+    //  we gaan ook niet testen of pixels in een bepaalde range vallen
+    //  wat mag is (eerder functioneel) testen hoe 'iets' gepositioneerd wordt tov 'iets' anders - bv. links ervan of erboven
+    it.skip('should position the calendar correctly after adding HTML elements to the DOM', () => {
+        cy.viewport(1920, 1080);
+
+        cy.mount(
+            html`<div>
+                <button
+                    id="add-line"
+                    onclick="document.getElementById('add-line').insertAdjacentElement('afterend', document.createElement('br'))"
+                >
+                    add line</button
+                ><vl-datepicker position="below left"></vl-datepicker>
+            </div>`
+        );
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('#datepicker-calendar-placeholder')
+            .shouldHaveComputedStyle({ style: 'top', value: '-27px' });
+        cy.get('#add-line').click();
+        cy.get('#add-line').click();
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('#datepicker-calendar-placeholder')
+            .shouldHaveComputedStyle({ style: 'top', value: '-54px' });
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+        cy.get('#add-line').click();
+        cy.get('#add-line').click();
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('#datepicker-calendar-placeholder')
+            .shouldHaveComputedStyle({ style: 'top', value: '-108px' });
+    });
+});
+
+describe('cypress-component - form components - vl-datepicker - native input on mobile', () => {
+    beforeEach(() => {
+        cy.viewport(320, 480);
+    });
+
+    it('should test', () => {});
+
+    it('should mount', () => {
+        cy.mount(html`<vl-datepicker disable-mobile-native-input></vl-datepicker>`);
+
+        cy.get('vl-datepicker').shadow();
+    });
+
+    it('should be accessible', () => {
+        cy.mount(html`
+            <vl-datepicker disable-mobile-native-input id="date" name="date" label="date"></vl-datepicker>
+        `);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-datepicker');
+    });
+
+    it('should open the datepicker on button click', () => {
+        cy.mount(html`<vl-datepicker disable-mobile-native-input></vl-datepicker>`);
+
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').should('have.class', 'open');
+    });
+
+    it('should set id', () => {
+        cy.mount(html`<vl-datepicker disable-mobile-native-input id="test-id"></vl-datepicker>`);
+
+        cy.get('vl-datepicker').should('have.id', 'test-id');
+        cy.get('vl-datepicker').shadow().find('input').should('have.id', 'test-id');
+    });
+
+    it('should set name', () => {
+        cy.mount(html`<vl-datepicker
+            disable-mobile-native-input
+            name="test-name"
+            label="geboortedatum"
+        ></vl-datepicker>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker').should('have.attr', 'name', 'test-name');
+        cy.get('vl-datepicker').shadow().find('input').should('have.attr', 'name', 'test-name');
+        cy.checkA11y('vl-datepicker');
+    });
+
+    it('should set label', () => {
+        cy.mount(html`<vl-datepicker disable-mobile-native-input label="test-label"></vl-datepicker>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker').should('have.attr', 'label', 'test-label');
+        cy.get('vl-datepicker').shadow().find('input').should('have.attr', 'aria-label', 'test-label');
+        cy.checkA11y('vl-datepicker');
+    });
+
+    it('should set block', () => {
+        cy.mount(html`<vl-datepicker disable-mobile-native-input block label="geboortedatum"></vl-datepicker>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker').should('have.attr', 'block');
+        cy.get('vl-datepicker').shadow().find('input').should('have.class', 'vl-input-field--block');
+        cy.checkA11y('vl-datepicker');
+    });
+
+    it('should set required', () => {
+        cy.mount(html`<vl-datepicker disable-mobile-native-input required label="geboortedatum"></vl-datepicker>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker').should('have.attr', 'required');
+        cy.get('vl-datepicker').shadow().find('input').should('have.attr', 'required');
+        cy.checkA11y('vl-datepicker');
+    });
+
+    it('should set disabled', () => {
+        cy.mount(html`<vl-datepicker disable-mobile-native-input disabled label="geboortedatum"></vl-datepicker>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker').should('have.attr', 'disabled');
+        cy.get('vl-datepicker').should('be.disabled');
+        cy.get('vl-datepicker').shadow().find('input').should('have.class', 'vl-input-field--disabled');
+        cy.get('vl-datepicker').shadow().find('input').should('be.disabled');
+        cy.checkA11y('vl-datepicker');
+    });
+
+    it('should set readonly', () => {
+        cy.mount(html`<vl-datepicker disable-mobile-native-input readonly label="geboortedatum"></vl-datepicker>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker').should('have.attr', 'readonly');
+        cy.get('vl-datepicker').shadow().find('input').should('have.attr', 'readonly');
+        cy.get('vl-datepicker').shadow().find('button').should('have.attr', 'disabled');
+
+        cy.checkA11y('vl-datepicker');
+    });
+
+    it('should set error', () => {
+        cy.mount(html`<vl-datepicker disable-mobile-native-input error label="geboortedatum"></vl-datepicker>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker').should('have.attr', 'error');
+        cy.get('vl-datepicker').shadow().find('input').should('have.class', 'vl-input-field--error');
+        cy.get('vl-datepicker').shadow().find('input').should('have.attr', 'error');
+        cy.checkA11y('vl-datepicker');
+    });
+
+    it('should set success', () => {
+        cy.mount(html`<vl-datepicker disable-mobile-native-input success label="geboortedatum"></vl-datepicker>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker').should('have.attr', 'success');
+        cy.get('vl-datepicker').shadow().find('input').should('have.class', 'vl-input-field--success');
+        cy.checkA11y('vl-datepicker');
+    });
+
+    it('should set date in format', () => {
+        const format = 'd-m-Y';
+        cy.mount(html`<vl-datepicker disable-mobile-native-input format=${format}></vl-datepicker>`);
+
+        const testDate = createDateString({ day: 15, format: format });
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.flatpickr-day:not(.prevMonthDay):not(.nextMonthDay)')
+            .contains('15')
+            .click();
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').should('have.value', testDate);
+        cy.get('vl-datepicker').should('have.value', createIsoDateString({ day: 15 }));
+    });
+
+    it('should set initial date', () => {
+        const date = '2021-11-01';
+        cy.mount(html`<vl-datepicker disable-mobile-native-input value=${date} label="date"></vl-datepicker>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').should('have.value', '01.11.2021');
+        cy.get('vl-datepicker').should('have.value', '2021-11-01');
+        cy.checkA11y('vl-datepicker');
+    });
+
+    it('should set initial time', () => {
+        const value = '09:06';
+        cy.mount(html`<vl-datepicker
+            disable-mobile-native-input
+            value=${value}
+            type="time"
+            label="time"
+        ></vl-datepicker>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').should('have.value', '09:06');
+        cy.get('vl-datepicker').should('have.value', '09:06');
+        cy.checkA11y('vl-datepicker');
+    });
+
+    it('should set initial date-time', () => {
+        const date = '2024-04-17T09:06:35';
+        cy.mount(html`<vl-datepicker
+            disable-mobile-native-input
+            value=${date}
+            type="date-time"
+            label="date-time"
+        ></vl-datepicker>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').should('have.value', '17.04.2024 09:06');
+        cy.get('vl-datepicker').should('have.value', '2024-04-17T09:06');
+        cy.checkA11y('vl-datepicker');
+    });
+
+    it('should set initial date in long ISO format', () => {
+        const date = '2024-04-17T09:06:35';
+        cy.mount(html`<vl-datepicker disable-mobile-native-input value=${date} label="date"></vl-datepicker>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').should('have.value', '17.04.2024');
+        cy.get('vl-datepicker').should('have.value', '2024-04-17');
+        cy.checkA11y('vl-datepicker');
+    });
+
+    it("should set today's date", () => {
+        cy.mount(html`<vl-datepicker disable-mobile-native-input value="today" label="startdatum"></vl-datepicker>`);
+        cy.injectAxe();
+
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').should('have.value', createDateString({}));
+        cy.get('vl-datepicker').should('have.value', createIsoDateString({}));
+        cy.checkA11y('vl-datepicker');
+    });
+
+    it('should set min date', () => {
+        const minDate = createDateString({ day: 15 });
+        cy.mount(html`<vl-datepicker disable-mobile-native-input min-date=${minDate}></vl-datepicker>`);
+
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('span.flatpickr-day')
+            .contains('14')
+            .and('contain.class', 'flatpickr-disabled');
+    });
+
+    it('should set max date', () => {
+        const maxDate = createDateString({ day: 20 });
+        cy.mount(html`<vl-datepicker disable-mobile-native-input max-date=${maxDate}></vl-datepicker>`);
+
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.flatpickr-day:not(.prevMonthDay):not(.nextMonthDay)')
+            .contains('21')
+            .and('contain.class', 'flatpickr-disabled');
+    });
+
+    it('should set min time', () => {
+        const minTime = '09:15';
+        cy.mount(html`<vl-datepicker disable-mobile-native-input type="time" min-time=${minTime}></vl-datepicker>`);
+
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.numInput.flatpickr-hour')
+            .should('have.value', '09');
+
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.numInput.flatpickr-minute')
+            .should('have.value', '15');
+
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.numInput.flatpickr-minute + .arrowUp')
+            .click();
+
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.numInput.flatpickr-minute')
+            .should('have.value', '20');
+
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.numInput.flatpickr-minute + .arrowUp + .arrowDown')
+            .click()
+            .click()
+            .click();
+
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .find('.numInput.flatpickr-minute')
+            .should('have.value', '15');
     });
 });
 
@@ -1296,7 +1995,8 @@ describe('vl-datepicker - keyboard navigation', () => {
         cy.injectAxe();
 
         shouldOpenCalendar();
-        cy.get('vl-datepicker').shadow().find('input.vl-input-field').first().type('{esc}');
+        // force: true — op WebKit dekt de open kalender het veld af.
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').first().type('{esc}', { force: true });
         cy.wait(100);
         cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').should('not.be.visible');
         cy.checkA11y('vl-datepicker');
@@ -1600,7 +2300,8 @@ describe('vl-datepicker - interaction', () => {
         shouldOpenCalendar();
         cy.get('vl-datepicker').shadow().find('button#toggle-calendar').should('have.attr', 'aria-expanded', 'true');
 
-        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+        // force: true — op WebKit dekt de open kalender de toggle-button af.
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click({ force: true });
         cy.get('vl-datepicker').shadow().find('button#toggle-calendar').should('have.attr', 'aria-expanded', 'false');
         cy.checkA11y('vl-datepicker');
     });
@@ -1614,7 +2315,8 @@ describe('vl-datepicker - interaction', () => {
         shouldOpenCalendar();
         cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').should('be.visible');
 
-        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+        // force: true — op WebKit dekt de open kalender de toggle-button af.
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click({ force: true });
         cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').should('not.be.visible');
         cy.checkA11y('vl-datepicker');
     });
@@ -1658,7 +2360,8 @@ describe('vl-datepicker - interaction', () => {
             .find('.flatpickr-day.selected')
             .should('contain.text', '15');
 
-        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
+        // force: true — op WebKit dekt de geopende kalender de toggle-button af.
+        cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click({ force: true });
         shouldOpenCalendar();
         cy.get('vl-datepicker')
             .shadow()

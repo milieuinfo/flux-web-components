@@ -6,7 +6,12 @@ import { DATEPICKER_POSITIONS, DATEPICKER_TYPES } from '../vl-datepicker.model';
 import { action } from 'storybook/actions';
 
 type DatepickerArgs = typeof formControlArgs &
-    typeof datepickerDefaults & { onVlChange: () => void; onVlInput: () => void; onVlValid: () => void };
+    typeof datepickerDefaults & {
+        onVlChange: () => void;
+        onVlInput: () => void;
+        onVlValid: () => void;
+        anchorPositioning: boolean;
+    };
 
 export const datepickerArgs: DatepickerArgs & { helperText?: string } = {
     ...formControlArgs,
@@ -14,6 +19,7 @@ export const datepickerArgs: DatepickerArgs & { helperText?: string } = {
     onVlChange: action('vl-change'),
     onVlInput: action('vl-input'),
     onVlValid: action('vl-valid'),
+    anchorPositioning: false,
     helperText: '',
 };
 
@@ -212,5 +218,17 @@ export const datepickerArgTypes: ArgTypes<DatepickerArgs> = {
             defaultValue: { summary: String(datepickerArgs.isStatic) },
         },
         control: false,
+    },
+    anchorPositioning: {
+        name: 'anchor-positioning',
+        description:
+            'Activeert CSS Anchor Positioning + Popover API voor de kalender positionering. ' +
+            'Dit zorgt ervoor dat de kalender correct wordt gepositioneerd in scrollbare containers ' +
+            'en niet wordt afgekapt door overflow of transform op ancestor-elementen (bijv. in een modal).',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: 'false' },
+        },
     },
 };

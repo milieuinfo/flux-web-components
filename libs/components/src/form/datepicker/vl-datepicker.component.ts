@@ -16,6 +16,9 @@ import { createDateMask, createTimeMask } from './masks';
 import { maskValidator, rangeOverflowValidator, rangeUnderflowValidator } from './validators';
 import { vlDatepickerComponentStyles } from './vl-datepicker.component.css';
 import { datepickerDefaults } from './vl-datepicker.defaults';
+import { vlDatepickerPopoverResetStyles } from './vl-datepicker.popover-reset';
+import { vlDatepickerPositioningStyles } from './vl-datepicker.positioning-css';
+import AnchorPositioningController from './vl-anchor-positioning.controller';
 
 const dateRangeSeparator = ' tot en met ';
 const dateRangeSeparatorCharacter = '/';
@@ -47,6 +50,9 @@ export class VlDatepickerComponent extends FormControl {
     private pattern = datepickerDefaults.pattern; // Wordt enkel gebruikt in de mask validator
     private position = datepickerDefaults.position;
     private isStatic = datepickerDefaults.isStatic;
+    private anchorPositioning = false;
+    // Controllers
+    private anchorController = new AnchorPositioningController(this);
     // Variables
     private initialValue = '';
     private inputHasFocus = false;
@@ -62,6 +68,8 @@ export class VlDatepickerComponent extends FormControl {
             vlResetStyles,
             inputFieldStyles,
             vlDatepickerComponentStyles,
+            vlDatepickerPositioningStyles,
+            vlDatepickerPopoverResetStyles,
             vlGroupStyles,
             vlInputAddonStyles,
         ];
@@ -88,11 +96,17 @@ export class VlDatepickerComponent extends FormControl {
             isOpen: { type: Boolean, state: true },
             position: { type: String },
             isStatic: { type: Boolean, attribute: 'static' },
+            anchorPositioning: { type: Boolean, attribute: 'anchor-positioning' },
         };
     }
 
     get validationTarget(): HTMLInputElement | undefined | null {
         return this.shadowRoot?.querySelector('input');
+    }
+
+    /** Anchor-modus enkel als het attribuut gezet is én de browser het ondersteunt (anders default positionering). */
+    private get useAnchorPositioning(): boolean {
+        return this.anchorPositioning && AnchorPositioningController.isSupported();
     }
 
     connectedCallback() {
@@ -150,7 +164,10 @@ export class VlDatepickerComponent extends FormControl {
         super.updated(changedProperties);
 
         const options = this.getDynamicOptions();
-        const dynamicAttributes = ['disabled', 'readonly', 'minDate', 'maxDate', 'minTime', 'maxTime', 'position'];
+        const dynamicAttributes = [
+            'disabled', 'readonly', 'minDate', 'maxDate', 'minTime', 'maxTime',
+            ...(this.useAnchorPositioning ? [] : ['position']),
+        ];
 
         if (dynamicAttributes.some((prop) => changedProperties.has(prop))) {
             this.updateOptionsForInstance(options);
@@ -333,7 +350,10 @@ export class VlDatepickerComponent extends FormControl {
             maxTime: this.maxTime,
             defaultHour: minimumDateTime?.getHours() ?? 12,
             defaultMinute: minimumDateTime?.getMinutes() ?? 0,
-            position: this.position || 'auto',
+            // Bij anchor-positioning wordt de positie via CSS afgehandeld, niet via flatpickr.
+            // position mag dan niet als string worden meegegeven, anders overschrijft flatpickr
+            // onze no-op position callback met de string waarde.
+            ...(this.useAnchorPositioning ? {} : { position: this.position || 'auto' }),
         };
     }
 
@@ -377,7 +397,10 @@ export class VlDatepickerComponent extends FormControl {
             onChange: this.handleDatePickerChange,
             onOpen: this.handleOpenCalendar,
             onClose: this.handleCloseCalendar,
-            positionElement: datepickerButton,
+            // Bij anchor-positioning: lege functie zodat flatpickr zijn eigen positionering skipt.
+            // Bij default: flatpickr handelt positionering zelf af via positionElement.
+            position: this.isStatic ? undefined : this.useAnchorPositioning ? (() => {}) : undefined,
+            positionElement: this.useAnchorPositioning ? undefined : datepickerButton,
             static: this.isStatic,
             appendTo: this.getCalendarPlaceholder(),
             defaultDate: defaultDate,
@@ -426,25 +449,36 @@ export class VlDatepickerComponent extends FormControl {
             this.getDatePicker()?.classList.add('static');
             this.getDatePicker()?.removeAttribute('readonly');
 
-            if (!this.isStatic) {
-                this.calculateCalendarPlaceholderPosition();
+            if (!this.isStatic && this.flatpickrInstance) {
+                if (this.useAnchorPositioning) {
+                    this.anchorController.attach(this.flatpickrInstance.calendarContainer);
+                } else {
+                    this.calculateCalendarPlaceholderPosition();
+                }
             }
         }
     }
 
+    private toggleCalendar = () => {
+        if (!this.useAnchorPositioning) {
+            this.calculateCalendarPlaceholderPosition();
+        }
+        this.flatpickrInstance?.toggle();
+    };
+
+    // Default modus: placeholder-offset (incl. scroll) zodat flatpickr's positionering t.o.v. viewport klopt.
     private calculateCalendarPlaceholderPosition() {
         if (this.getDatePicker()) {
             const { top, left, height } = this.getDatePicker()!.getBoundingClientRect();
+            const scrollTop = window.scrollY || 0;
+            const scrollLeft = window.scrollX || 0;
             const calendarPlaceholder = this.getCalendarPlaceholder();
-            calendarPlaceholder.style.top = isSafari ? `calc(-${top}px - ${height}px)` : `-${top}px`;
-            calendarPlaceholder.style.left = `-${left}px`;
+            calendarPlaceholder.style.top = isSafari
+                ? `calc(-${top + scrollTop}px - ${height}px)`
+                : `-${top + scrollTop}px`;
+            calendarPlaceholder.style.left = `-${left + scrollLeft}px`;
         }
     }
-
-    private toggleCalendar = () => {
-        this.calculateCalendarPlaceholderPosition();
-        this.flatpickrInstance?.toggle();
-    };
 
     private handleCalendarClicked() {
         this.dispatchInput = true;
@@ -545,11 +579,19 @@ export class VlDatepickerComponent extends FormControl {
     private handleOpenCalendar = () => {
         this.handleOpenChange(true);
         this.addEventListener('click', this.handleCalendarClicked);
+
+        if (!this.isStatic && this.useAnchorPositioning) {
+            this.anchorController.show();
+        }
     };
 
     private handleCloseCalendar = () => {
         this.handleOpenChange(false);
         this.removeEventListener('click', this.handleCalendarClicked);
+
+        if (!this.isStatic && this.useAnchorPositioning) {
+            this.anchorController.hide();
+        }
     };
 
     private updateFormControlValue = (inputValue: string) => {

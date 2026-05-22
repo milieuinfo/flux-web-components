@@ -7,6 +7,7 @@ import {
     VlPropertiesComponent,
 } from '@domg-wc/components/block';
 import { VlHeader } from '@domg-wc/components/compliance';
+import { VlDatepickerComponent } from '@domg-wc/components/form';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
@@ -18,6 +19,7 @@ export class AppComponent extends LitElement {
             VlPopoverComponent,
             VlPopoverActionListComponent,
             VlPopoverActionComponent,
+            VlDatepickerComponent,
             VlInfoTile,
             VlPropertiesComponent,
         ]);
@@ -102,6 +104,47 @@ export class AppComponent extends LitElement {
                                     </vl-popover>
                                 </div>
                             </vl-breadcrumb>
+                        </div>
+                    </section>
+
+                    <section class="vl-section">
+                        <div class="vl-content-block vl-content-block--full-width">
+                            <vl-title type="h2">FLUX-595 — datepicker positioning bug repro</vl-title>
+                            <p>
+                                Beide datepickers zitten in een identieke <code>transform + overflow:auto</code> parent
+                                — de exacte ancestor-conditie die de oude positioning-hack breekt.
+                                Klik op de kalender-knoppen om te vergelijken.
+                            </p>
+                            <div style="display: flex; gap: 20px; margin-top: 16px;">
+                                <div style="flex: 1; border: 2px dashed crimson; padding: 12px; background: #fffbe6;">
+                                    <strong style="color: crimson;">A — default mode (bug)</strong>
+                                    <p style="margin: 4px 0 8px; font-size: 13px; color: #666;">
+                                        getBoundingClientRect-hack — calendar landt op verkeerde plek / clipt door overflow.
+                                    </p>
+                                    <div
+                                        style="transform: translateX(0); overflow: auto; max-height: 180px;
+                                               border: 1px solid #ccc; padding: 10px;"
+                                    >
+                                        <div style="height: 60px;"></div>
+                                        <vl-datepicker label="Vanaf"></vl-datepicker>
+                                        <div style="height: 400px;"></div>
+                                    </div>
+                                </div>
+                                <div style="flex: 1; border: 2px dashed green; padding: 12px; background: #f0fff0;">
+                                    <strong style="color: green;">B — anchor-positioning opt-in (fix)</strong>
+                                    <p style="margin: 4px 0 8px; font-size: 13px; color: #666;">
+                                        Popover top-layer + CSS Anchor Positioning — ontsnapt aan ancestor context.
+                                    </p>
+                                    <div
+                                        style="transform: translateX(0); overflow: auto; max-height: 180px;
+                                               border: 1px solid #ccc; padding: 10px;"
+                                    >
+                                        <div style="height: 60px;"></div>
+                                        <vl-datepicker label="Vanaf" anchor-positioning></vl-datepicker>
+                                        <div style="height: 400px;"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </section>
                 </main>

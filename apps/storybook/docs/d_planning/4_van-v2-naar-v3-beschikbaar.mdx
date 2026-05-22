@@ -27,6 +27,29 @@ witte rij
 
 ## Geïmpacteerde Web Componenten
 
+### Datepicker
+
+In v2 is het `anchor-positioning` attribuut toegevoegd. In v3 wordt deze codepath de default
+en wordt de oude positionering verwijderd. Apps die `anchor-positioning` in v2 niet hebben gezet
+moeten na de v3 upgrade verifiëren dat hun datepicker correct rendert.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v2 - Default</th>
+        <th>v3 - Default</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>[Datepicker](/docs/components-form-datepicker--documentatie)</td>
+        <td>release v2.14.0</td>
+        <td>flatpickr getBoundingClientRect positionering</td>
+        <td>Popover API + CSS Anchor Positioning</td>
+        <td><code>{`<vl-datepicker anchor-positioning>`}</code></td>
+    </tr>
+</table>
+
 ### Footer
 
 `Footer [legacy]` wordt vervangen door `Footer [next]`.

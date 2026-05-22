@@ -65,6 +65,7 @@ const DatepickerTemplate = story(
         onVlValid,
         position,
         isStatic,
+        anchorPositioning,
         helperText,
     }: typeof datepickerArgs) => {
         return html`
@@ -101,6 +102,7 @@ const DatepickerTemplate = story(
                             @vl-valid=${onVlValid}
                             position=${position}
                             static=${isStatic}
+                            ?anchor-positioning=${anchorPositioning}
                         >
                         </vl-datepicker>
                     </div>
