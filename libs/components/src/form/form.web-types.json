@@ -195,12 +195,12 @@
                         },
                         {
                             "name": "min-date",
-                            "description": "Minimum datum conform het ingestelde formaat (bv. '01-01-2019') of 'today' voor vandaag.",
+                            "description": "Minimum datum conform het ingestelde formaat (bv. '01.01.2019') of 'today' voor vandaag.",
                             "default": ""
                         },
                         {
                             "name": "max-date",
-                            "description": "Maximum datum conform het ingestelde format (bv. '31-12-2019') of 'today' voor vandaag.",
+                            "description": "Maximum datum conform het ingestelde formaat (bv. '31.12.2019') of 'today' voor vandaag.",
                             "default": ""
                         },
                         {
@@ -221,11 +221,6 @@
                         {
                             "name": "disable-mask-validation",
                             "description": "Schakelt de automatische mask validatie uit.",
-                            "default": "false"
-                        },
-                        {
-                            "name": "disable-mobile-native-input",
-                            "description": "Rendert de native datepicker op mobiele toestellen in plaats van flatpickr calendar. [Meer Info](https://flatpickr.js.org/mobile-support/)",
                             "default": "false"
                         },
                         {
@@ -372,6 +367,11 @@
                         {
                             "name": "label",
                             "description": "De tekst van het label. Overschrijft de waarde van het default slot.",
+                            "default": ""
+                        },
+                        {
+                            "name": "annotation",
+                            "description": "De annotatie tekst die naast het label getoond wordt (bv. een voorbeeld of extra uitleg).",
                             "default": ""
                         },
                         {

@@ -18,6 +18,11 @@
                             "default": ""
                         },
                         {
+                            "name": "alt-background",
+                            "description": "Toont de accordion met een alternatieve grijze achtergrond.",
+                            "default": "false"
+                        },
+                        {
                             "name": "bold",
                             "description": "Beeldt de toggle-text van de accordion af in bold.",
                             "default": "false"
