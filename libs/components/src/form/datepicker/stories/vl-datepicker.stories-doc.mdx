@@ -39,12 +39,21 @@ import { VlDatepickerComponent } from '@domg-wc/components/form';
 ## Positionering
 
 De datepicker kalender positioneert zichzelf automatisch. Indien de automatische positionering niet het gewenste
-resultaat oplevert, kan dit op twee manieren aangepast worden:
+resultaat oplevert, kan dit op drie manieren aangepast worden:
 
 -   Het `position` attribuut: mogelijke waarden zijn: "auto" (default), "above", "below", "auto left", "auto center",
     "auto right", "above left", "above center", "above right", "below left", "below center", "below right".
 -   Het `static` attribuut: indien aanwezig wordt andere positionering genegeerd en wordt de kalender
     op een vaste plaats onder het datum invulveld getoond.
+-   Het `anchor-positioning` attribuut: indien aanwezig rendert de kalender in de browser top-layer,
+    zodat ancestor `transform`, `overflow` of `sticky` de positionering niet kan breken.
+
+```html
+<vl-datepicker anchor-positioning></vl-datepicker>
+```
+
+> ⚠️ `anchor-positioning` wijzigt het render-model (top-layer ipv shadow DOM). Test grondig als
+> je app afhankelijk is van de huidige DOM-positie of stacking volgorde van de kalender.
 
 
 ## Formaat
@@ -133,6 +142,7 @@ De waarde moet conform het ingestelde `format` zijn (standaard `d.m.Y`), of de s
 
 - De datepicker is gedeeltelijk toegankelijk voor gebruikers die enkel met het toetsenbord navigeren. Ze kunnen wel manueel een datum invullen.
 - Voor datepicker met type `date-time` & `range` is er geen standaard mask validatie voorzien gezien `cleave.js` hiervoor geen ondersteuning biedt.
+- Het `anchor-positioning` attribuut vereist Popover API + CSS Anchor Positioning (Chrome/Edge 125+, Safari 26+). Op andere browsers (oudere Safari, Firefox) valt de datepicker stil terug op de default positionering.
 
 
 ## Referenties
