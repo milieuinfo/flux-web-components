@@ -6,7 +6,8 @@ import {
     VlPopoverComponent,
     VlPropertiesComponent,
 } from '@domg-wc/components/block';
-import { VlHeader } from '@domg-wc/components/compliance';
+import { VlPrivacy } from '@domg-wc/components/compliance';
+import { VlHeader } from '@domg-wc/components/compliance/next';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
@@ -18,6 +19,7 @@ export class AppComponent extends LitElement {
             VlPopoverComponent,
             VlPopoverActionListComponent,
             VlPopoverActionComponent,
+            VlPrivacy,
             VlInfoTile,
             VlPropertiesComponent,
         ]);
@@ -26,13 +28,14 @@ export class AppComponent extends LitElement {
     render() {
         return html`
             <vl-template>
-                <vl-header
+                <vl-header-next
                     slot="header"
                     development
                     simple
                     identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb"
-                ></vl-header>
+                ></vl-header-next>
                 <main slot="main">
+                    <vl-privacy></vl-privacy>
                     <section class="vl-section">
                         <div class="vl-content-block vl-content-block--full-width">
                             <vl-info-tile highlight-left>
