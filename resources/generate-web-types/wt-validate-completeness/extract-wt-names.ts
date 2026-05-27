@@ -1,7 +1,7 @@
-import componentsAtomWebTypes from '../../../libs/components/src/atom/atom.web-types.json';
-import componentsBlockWebTypes from '../../../libs/components/src/block/block.web-types.json';
-import componentsComplianceWebTypes from '../../../libs/components/src/compliance/compliance.web-types.json';
-import componentsFormWebTypes from '../../../libs/components/src/form/form.web-types.json';
+import componentsAtomWebTypes from '../../../libs/components/atom/atom.web-types.json';
+import componentsBlockWebTypes from '../../../libs/components/block/block.web-types.json';
+import componentsComplianceWebTypes from '../../../libs/components/compliance/compliance.web-types.json';
+import componentsFormWebTypes from '../../../libs/components/form/form.web-types.json';
 import mapWebTypes from '../../../libs/map/map.web-types.json';
 
 const extractWTNames = (webTypes: { contributions: any }): string[] =>

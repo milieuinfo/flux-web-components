@@ -240,8 +240,8 @@ const generateWebTypesFile = (artifact: string, wtComponentList: WTConfigArray, 
     console.log('--------------------------------------------------\n');
 };
 
-generateWebTypesFile('atom', buildWTConfigComponentsAtom, '../../libs/components/src/atom');
-generateWebTypesFile('block', buildWTConfigComponentsBlock, '../../libs/components/src/block');
-generateWebTypesFile('compliance', buildWTConfigComponentsCompliance, '../../libs/components/src/compliance');
-generateWebTypesFile('form', buildWTConfigComponentsForm, '../../libs/components/src/form');
+generateWebTypesFile('atom', buildWTConfigComponentsAtom, '../../libs/components/atom');
+generateWebTypesFile('block', buildWTConfigComponentsBlock, '../../libs/components/block');
+generateWebTypesFile('compliance', buildWTConfigComponentsCompliance, '../../libs/components/compliance');
+generateWebTypesFile('form', buildWTConfigComponentsForm, '../../libs/components/form');
 generateWebTypesFile('map', buildWTConfigMap, '../../libs/map');
