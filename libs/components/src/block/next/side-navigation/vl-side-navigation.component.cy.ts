@@ -207,6 +207,45 @@ const mountSideNavigationWithCustomToc = () => {
     `);
 };
 
+// Test-only element that renders its headings inside a shadow root, so that the custom TOC
+// has to pierce shadow DOM to scroll to them (regression for "custom TOC cannot scroll into shadow DOM").
+const SHADOW_CONTENT_TAG = 'shadow-toc-content';
+if (!customElements.get(SHADOW_CONTENT_TAG)) {
+    customElements.define(
+        SHADOW_CONTENT_TAG,
+        class extends HTMLElement {
+            connectedCallback() {
+                if (this.shadowRoot) return;
+                const root = this.attachShadow({ mode: 'open' });
+                root.innerHTML = `
+                    <section style="min-height: 400px; margin-top: 100px;">
+                        <h2 id="shadow-intro">Inleiding</h2>
+                    </section>
+                    <section style="min-height: 400px;">
+                        <h2 id="shadow-aanvraag">Aanvraag indienen</h2>
+                    </section>
+                `;
+            }
+        }
+    );
+}
+
+const mountSideNavigationWithCustomTocInShadowDom = () => {
+    return cy.mount(html`
+        <div class="vl-grid">
+            <vl-side-navigation-next class="${NAVIGATION_COLUMN_CLASSES}">
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li><vl-link href="#shadow-intro">Inleiding</vl-link></li>
+                    <li><vl-link href="#shadow-aanvraag">Aanvraag indienen</vl-link></li>
+                </ul>
+            </vl-side-navigation-next>
+            <div class="${CONTENT_COLUMN_CLASSES}">
+                <shadow-toc-content></shadow-toc-content>
+            </div>
+        </div>
+    `);
+};
+
 describe('cypress-component - block components - vl-side-navigation-next', () => {
     beforeEach(() => {
         cy.viewport(1440, 900);
@@ -724,6 +763,21 @@ describe('cypress-component - block components - vl-side-navigation-next - with 
             const active = doc.activeElement;
             expect(active, 'activeElement should exist').to.exist;
             expect(active).not.to.equal(doc.body);
+        });
+    });
+
+    it('should scroll to headings rendered inside shadow DOM when clicking a custom TOC link', () => {
+        mountSideNavigationWithCustomTocInShadowDom();
+
+        cy.get('vl-side-navigation-next').find('vl-link[href="#shadow-aanvraag"]').click();
+
+        cy.get('shadow-toc-content').then(($host) => {
+            const heading = $host[0].shadowRoot?.getElementById('shadow-aanvraag');
+            expect(heading, 'shadow heading should exist').to.exist;
+            // Regression: with the old document.getElementById the heading inside shadow DOM was never
+            // found, so no scroll happened. It should now be scrolled into the viewport.
+            const rect = (heading as HTMLElement).getBoundingClientRect();
+            expect(rect.top).to.be.lessThan(900);
         });
     });
 });

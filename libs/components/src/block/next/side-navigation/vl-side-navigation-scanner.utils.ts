@@ -261,14 +261,33 @@ export const extractHeadingIdsFromLinks = (elements: Element[]): string[] => {
     return headingIds;
 };
 
-export const findHeadingElementById = (id: string, root: Element | ShadowRoot | Document): HTMLElement | null => {
-    const element = root.querySelector<HTMLElement>(`#${id}`);
+export const findHeadingElementById = (
+    id: string,
+    root: Element | ShadowRoot | Document,
+    maxDepth?: number
+): HTMLElement | null => {
+    const selector = `#${id}`;
+
+    const element = root.querySelector<HTMLElement>(selector);
     if (element) return element;
 
-    if (root !== document) {
-        const fallbackElement = document.querySelector<HTMLElement>(`#${id}`);
-        if (fallbackElement) return fallbackElement;
+    // headings may live inside slotted content of the given root
+    if (root instanceof Element || root instanceof ShadowRoot) {
+        const slottedResult = findElementInSlottedContent(root, selector);
+        if (slottedResult instanceof HTMLElement) return slottedResult;
     }
 
-    return null;
+    // headings may live inside (nested) shadow DOM (e.g. vl-cookie-statement, vl-title)
+    const searchDocument = (searchRoot: Document | ShadowRoot) => {
+        const elements = findElementsThroughShadowRoot(searchRoot, selector, maxDepth);
+        return elements.length > 0 && elements[0] instanceof HTMLElement ? elements[0] : null;
+    };
+
+    if (root === document) {
+        return searchDocument(document);
+    }
+
+    // fallback to a full document scan so the heading is found even when the
+    // provided root is a shadow/slot container that doesn't directly contain it
+    return searchDocument(document);
 };

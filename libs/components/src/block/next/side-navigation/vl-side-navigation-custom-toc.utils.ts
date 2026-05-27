@@ -1,5 +1,7 @@
 import { extractHeadingIdsFromLinks, findHeadingElementById } from './vl-side-navigation-scanner.utils';
 
+type ScrollRoot = Element | ShadowRoot | Document;
+
 /**
  * Resolves heading elements to observe when using a custom table of contents.
  * Extracts anchor IDs from links in the slotted TOC (a[href^="#"], vl-link[href^="#"])
@@ -58,8 +60,13 @@ export function toggleCustomTocChildren(event: Event): void {
  *
  * @param event - The click event from the anchor link
  * @param scrollBehavior - The scroll behavior to use ('smooth' or 'auto')
+ * @param scrollRoot - Root to resolve the heading element from (pierces shadow DOM / slotted content)
  */
-function handleCustomTocLinkClick(event: Event, scrollBehavior: ScrollBehavior = 'smooth'): void {
+function handleCustomTocLinkClick(
+    event: Event,
+    scrollBehavior: ScrollBehavior = 'smooth',
+    scrollRoot: ScrollRoot = document
+): void {
     const link = event.currentTarget as HTMLElement;
     const href = link.getAttribute('href');
 
@@ -68,7 +75,8 @@ function handleCustomTocLinkClick(event: Event, scrollBehavior: ScrollBehavior =
     const targetId = href.substring(1);
     if (!targetId) return;
 
-    const targetElement = document.getElementById(targetId);
+    // Resolve through shadow DOM so headings rendered inside web components are reachable.
+    const targetElement = findHeadingElementById(targetId, scrollRoot);
     if (!targetElement) return;
 
     // Prevent default anchor navigation which moves focus to target
@@ -91,10 +99,12 @@ function handleCustomTocLinkClick(event: Event, scrollBehavior: ScrollBehavior =
  *
  * @param slottedElements - Elements assigned to the TOC slot (e.g. <ul>, fragment children)
  * @param scrollBehavior - The scroll behavior to use ('smooth' or 'auto')
+ * @param scrollRoot - Root to resolve heading elements from (pierces shadow DOM / slotted content)
  */
 export function setupCustomTocLinkHandlers(
     slottedElements: Element[],
-    scrollBehavior: ScrollBehavior = 'smooth'
+    scrollBehavior: ScrollBehavior = 'smooth',
+    scrollRoot: ScrollRoot = document
 ): void {
     slottedElements.forEach((element) => {
         const links = element.querySelectorAll('a[href^="#"], vl-link[href^="#"]');
@@ -103,11 +113,13 @@ export function setupCustomTocLinkHandlers(
             if (link.tagName.toLowerCase() === 'vl-link') {
                 const shadowAnchor = link.shadowRoot?.querySelector('a');
                 if (shadowAnchor) {
-                    shadowAnchor.addEventListener('click', (e) => handleCustomTocLinkClick(e, scrollBehavior));
+                    shadowAnchor.addEventListener('click', (e) =>
+                        handleCustomTocLinkClick(e, scrollBehavior, scrollRoot)
+                    );
                 }
             } else {
                 // For regular anchor elements
-                link.addEventListener('click', (e) => handleCustomTocLinkClick(e, scrollBehavior));
+                link.addEventListener('click', (e) => handleCustomTocLinkClick(e, scrollBehavior, scrollRoot));
             }
         });
     });

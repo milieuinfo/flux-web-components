@@ -531,7 +531,8 @@ export class VlSideNavigationComponent extends BaseLitElement {
         this.extractHeadingIdsFromManualToc(slottedElements);
         this.adoptLightDomStyles();
         initializeCustomTocHiddenState(slottedElements);
-        setupCustomTocLinkHandlers(slottedElements, this.effectiveScrollBehavior);
+        const scrollRoot = this.headingRoot ?? (this.getRootNode() as Document | ShadowRoot);
+        setupCustomTocLinkHandlers(slottedElements, this.effectiveScrollBehavior, scrollRoot);
         this.setupIntersectionObserver();
     }
 
