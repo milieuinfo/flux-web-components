@@ -37,6 +37,16 @@ export class VlLoaderComponent extends BaseHTMLElement {
         super(html, styleSheets);
     }
 
+    connectedCallback(): void {
+        super.connectedCallback();
+        // opkuis van whitespace / lege tekst nodes
+        [...this.childNodes].forEach((node) => {
+            if (node.nodeType === Node.TEXT_NODE && !node.textContent?.trim()) {
+                node.remove();
+            }
+        });
+    }
+
     get _loader() {
         return this._shadow?.querySelector('.vl-loader');
     }
@@ -54,7 +64,7 @@ export class VlLoaderComponent extends BaseHTMLElement {
     }
 
     _textChangedCallback(oldValue: string, newValue: string) {
-        this._slot!.innerText = newValue;
+        this._slot!.textContent = newValue;
     }
 
     _singleChangedCallback(oldValue: string, newValue: string) {
