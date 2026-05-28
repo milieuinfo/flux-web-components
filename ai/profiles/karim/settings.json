@@ -42,7 +42,8 @@
       "Bash(npm run apps:playground-native:dev*)",
       "Bash(npm run apps:playground-react:dev*)",
       "Bash(ls *)",
-      "Bash(cat package.json)"
+      "Bash(cat package.json)",
+      "mcp__claude-peers__set_summary"
     ]
   }
 }

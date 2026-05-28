@@ -5,14 +5,23 @@
 #
 # Maakt/vervangt:
 #   - CLAUDE.local.md                  (als profile een CLAUDE.md heeft)
-#   - .claude/settings.local.json      symlink (als profile een settings.json heeft)
+#   - .claude/settings.local.json      MERGE (als profile een settings.json heeft)
 #   - .claude/skills                   symlink (als profile een skills/ folder heeft)
 #   - AGENTS.md                        symlink (als profile een AGENTS.md heeft, cross-tool)
 #   - SKILLS.md                        symlink (als profile een SKILLS.md heeft, cross-tool)
 #
 # Let op: .claude/settings.json is GECOMMIT (team-wide hook + permissies) en
-# wordt door dit script NIET aangeraakt. Profile-specifieke settings cascaden
-# via .claude/settings.local.json (gitignored).
+# wordt door dit script NIET aangeraakt.
+#
+# .claude/settings.local.json wordt door Claude Code zelf beheerd: het programma
+# schrijft daar jouw "altijd toelaten"-keuzes in weg. Daarom maken we er GEEN
+# symlink van (dat zou die keuzes naar de gecommitte profile-folder lekken en in
+# worktrees botsen). In plaats daarvan MERGEN we de profile-allowlist erin:
+#   - bestaande entries (incl. door Claude Code weggeschreven keuzes) blijven staan
+#   - de profile-allowlist wordt toegevoegd
+#   - bij een profielwissel wordt enkel de vorige profile-laag verwijderd
+# Welke entries het script zelf injecteerde, onthoudt het in het geheugenbriefje
+# .claude/.profile-injected.json (gitignored). Vergt 'jq'.
 
 # Weiger sourcen: dit script moet als subprocess draaien, anders kan een `exit`
 # de shell van de gebruiker afsluiten en blijven environment-wijzigingen plakken.
@@ -76,7 +85,6 @@ remove_existing_symlink() {
 
 mkdir -p .claude
 
-remove_existing_symlink .claude/settings.local.json
 remove_existing_symlink .claude/skills
 remove_existing_symlink AGENTS.md
 remove_existing_symlink SKILLS.md
@@ -94,8 +102,56 @@ else
 fi
 
 if [ -f "$PROFILE_DIR/settings.json" ]; then
-    ln -s "../$PROFILE_DIR/settings.json" .claude/settings.local.json
-    echo "  .claude/settings.local.json -> ../$PROFILE_DIR/settings.json"
+    if ! command -v jq >/dev/null 2>&1; then
+        echo "Fout: 'jq' is nodig om de profile-permissies te mergen, maar niet gevonden." >&2
+        echo "Installeer jq (bv. 'brew install jq') en draai dit script opnieuw." >&2
+        exit 1
+    fi
+
+    SETTINGS_LOCAL=".claude/settings.local.json"
+    MEMO=".claude/.profile-injected.json"
+
+    # Migratie van de oude aanpak: was settings.local.json nog een symlink
+    # (naar een profile), verwijder die. We starten dan met een lege local en
+    # Claude Code vult ze opnieuw met jouw keuzes.
+    if [ -L "$SETTINGS_LOCAL" ]; then
+        rm -f "$SETTINGS_LOCAL"
+    fi
+
+    # Huidige local (of leeg object). Weiger bij ongeldige JSON i.p.v. te overschrijven.
+    if [ -f "$SETTINGS_LOCAL" ]; then
+        if ! jq empty "$SETTINGS_LOCAL" >/dev/null 2>&1; then
+            echo "Fout: '$SETTINGS_LOCAL' bevat ongeldige JSON. Repareer of verwijder het manueel." >&2
+            exit 1
+        fi
+        CURRENT_JSON="$(cat "$SETTINGS_LOCAL")"
+    else
+        CURRENT_JSON='{}'
+    fi
+
+    # Geheugenbriefje: wat injecteerde de vorige activatie? (of lege lijst)
+    if [ -f "$MEMO" ] && jq empty "$MEMO" >/dev/null 2>&1; then
+        PREV_JSON="$(cat "$MEMO")"
+    else
+        PREV_JSON='[]'
+    fi
+
+    PROFILE_ALLOW_JSON="$(jq '.permissions.allow // []' "$PROFILE_DIR/settings.json")"
+
+    # Merge: (huidige allow ZONDER vorige profile-laag) + nieuwe profile-allow.
+    # Overige sleutels (permissions.deny/ask, env, hooks, ...) blijven ongemoeid.
+    NEW_LOCAL_JSON="$(jq -n \
+        --argjson cur "$CURRENT_JSON" \
+        --argjson prev "$PREV_JSON" \
+        --argjson prof "$PROFILE_ALLOW_JSON" \
+        '($cur.permissions.allow // []) as $curAllow
+         | (($curAllow - $prev) + $prof | unique) as $merged
+         | $cur
+         | .permissions = ((.permissions // {}) + {allow: $merged})')"
+
+    printf '%s\n' "$NEW_LOCAL_JSON" > "$SETTINGS_LOCAL"
+    printf '%s\n' "$PROFILE_ALLOW_JSON" > "$MEMO"
+    echo "  .claude/settings.local.json (merge: bestaande keuzes behouden + profile-allow toegevoegd)"
 fi
 
 if [ -d "$PROFILE_DIR/skills" ]; then
