@@ -261,14 +261,23 @@ export const extractHeadingIdsFromLinks = (elements: Element[]): string[] => {
     return headingIds;
 };
 
-export const findHeadingElementById = (id: string, root: Element | ShadowRoot | Document): HTMLElement | null => {
-    const element = root.querySelector<HTMLElement>(`#${id}`);
+export const findHeadingElementById = (
+    id: string,
+    root: Document | ShadowRoot | Element,
+    maxDepth?: number
+): HTMLElement | null => {
+    // CSS.escape so ids starting with a digit or containing CSS-significant chars don't throw SyntaxError
+    const selector = `#${CSS.escape(id)}`;
+
+    const element = root.querySelector<HTMLElement>(selector);
     if (element) return element;
 
-    if (root !== document) {
-        const fallbackElement = document.querySelector<HTMLElement>(`#${id}`);
-        if (fallbackElement) return fallbackElement;
+    if (root instanceof Element || root instanceof ShadowRoot) {
+        const slottedResult = findElementInSlottedContent(root, selector);
+        if (slottedResult instanceof HTMLElement) return slottedResult;
     }
 
-    return null;
+    // fall back to document so headings inside (nested) shadow DOM are found even when root doesn't contain them
+    const elements = findElementsThroughShadowRoot(document, selector, maxDepth);
+    return elements.length > 0 && elements[0] instanceof HTMLElement ? elements[0] : null;
 };

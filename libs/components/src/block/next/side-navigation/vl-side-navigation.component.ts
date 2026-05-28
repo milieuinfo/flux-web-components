@@ -78,6 +78,7 @@ export class VlSideNavigationComponent extends BaseLitElement {
     private isTableOfContentsInitialized = false;
     private mediaQueryList?: MediaQueryList;
     private mediaQueryHandler = (e: MediaQueryListEvent) => this.handleMediaQueryChange(e);
+    private customTocAbortController?: AbortController;
     private focusRecoveryMutationObserver?: MutationObserver;
     private lastFocusedNavElement?: WeakRef<HTMLElement>;
     private previousTocEffectivelyHidden = false;
@@ -185,6 +186,7 @@ export class VlSideNavigationComponent extends BaseLitElement {
         this.cleanupIntersectionObserver();
         this.cleanupMediaQueryListener();
         this.cleanupFocusRecoveryObserver();
+        this.cleanupCustomTocLinkHandlers();
     }
 
     private setupMediaQueryListener(): void {
@@ -199,6 +201,11 @@ export class VlSideNavigationComponent extends BaseLitElement {
             this.mediaQueryList.removeEventListener('change', this.mediaQueryHandler);
             this.mediaQueryList = undefined;
         }
+    }
+
+    private cleanupCustomTocLinkHandlers(): void {
+        this.customTocAbortController?.abort();
+        this.customTocAbortController = undefined;
     }
 
     /**
@@ -531,7 +538,17 @@ export class VlSideNavigationComponent extends BaseLitElement {
         this.extractHeadingIdsFromManualToc(slottedElements);
         this.adoptLightDomStyles();
         initializeCustomTocHiddenState(slottedElements);
-        setupCustomTocLinkHandlers(slottedElements, this.effectiveScrollBehavior);
+        const scrollRoot = this.headingRoot ?? (this.getRootNode() as Document | ShadowRoot);
+        // abort any previously attached handlers (e.g. on slot mutation / re-init) before re-binding
+        this.cleanupCustomTocLinkHandlers();
+        this.customTocAbortController = new AbortController();
+        setupCustomTocLinkHandlers(
+            slottedElements,
+            this.effectiveScrollBehavior,
+            scrollRoot,
+            this.maxDepth,
+            this.customTocAbortController.signal
+        );
         this.setupIntersectionObserver();
     }
 
@@ -553,7 +570,7 @@ export class VlSideNavigationComponent extends BaseLitElement {
 
     private extractHeadingIdsFromManualToc(slottedElements: Element[]): void {
         const rootElement = this.headingRoot ?? (this.getRootNode() as Document | ShadowRoot);
-        const headingElements = resolveHeadingElementsFromCustomToc(slottedElements, rootElement);
+        const headingElements = resolveHeadingElementsFromCustomToc(slottedElements, rootElement, this.maxDepth);
 
         if (headingElements.length > 0) {
             this.headingElements = headingElements;

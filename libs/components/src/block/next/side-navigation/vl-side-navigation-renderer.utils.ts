@@ -1,6 +1,5 @@
-import { findElementsThroughShadowRoot } from '@domg-wc/common';
 import { html, nothing, TemplateResult } from 'lit';
-import { findElementInSlottedContent } from './vl-side-navigation-scanner.utils';
+import { findHeadingElementById } from './vl-side-navigation-scanner.utils';
 import { HeadingItem, HeadingResult, HeadingTreeNode } from './vl-side-navigation.model';
 
 /**
@@ -149,7 +148,8 @@ const renderHeadingNode = (node: HeadingTreeNode, config: RenderConfig): Templat
     const handleLinkClick = (event: Event) => {
         event.preventDefault();
 
-        const target = node.item.element ?? findHeadingById(node.item.id, scrollRoot, config.scroll.maxDepth);
+        const target =
+            node.item.element ?? findHeadingElementById(node.item.id, scrollRoot ?? document, config.scroll.maxDepth);
         if (target) {
             target.scrollIntoView({ behavior: scrollBehavior ?? 'smooth', block: 'start' });
         }
@@ -228,46 +228,3 @@ export const findNodeById = (nodes: HeadingTreeNode[], id: string): HeadingTreeN
     return null;
 };
 
-/**
- * finds a heading element by ID, searching through shadow roots and slotted content.
- * @param maxDepth - optional limit for shadow DOM depth when searching from document (performance).
- */
-const findHeadingById = (
-    id: string,
-    scrollRoot?: Document | ShadowRoot | Element,
-    maxDepth?: number
-): HTMLElement | null => {
-    const effectiveRoot = scrollRoot ?? document;
-    const selector = `#${id}`;
-
-    const result = effectiveRoot.querySelector<HTMLElement>(selector);
-    if (result) {
-        return result;
-    }
-
-    if (effectiveRoot instanceof Element || effectiveRoot instanceof ShadowRoot) {
-        const slottedResult = findElementInSlottedContent(effectiveRoot, selector);
-        if (slottedResult instanceof HTMLElement) {
-            return slottedResult;
-        }
-    }
-
-    const searchDocument = (root: Document | ShadowRoot) => {
-        const elements = findElementsThroughShadowRoot(root, selector, maxDepth);
-        return elements.length > 0 && elements[0] instanceof HTMLElement ? elements[0] : null;
-    };
-
-    if (effectiveRoot === document) {
-        const found = searchDocument(document);
-        if (found) return found;
-    }
-
-    // fallback: search from document when scrollRoot is a shadow/slot container so we find
-    // the heading even inside nested shadow DOM (e.g. vl-cookie-statement)
-    if (effectiveRoot !== document) {
-        const found = searchDocument(document);
-        if (found) return found;
-    }
-
-    return null;
-};
