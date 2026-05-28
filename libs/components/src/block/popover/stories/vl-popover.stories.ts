@@ -1,7 +1,7 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import { action } from 'storybook/actions';
 import { VlButtonComponent } from '../../../atom/button';
 import { VlPopoverActionListComponent } from '../vl-popover-action-list.component';
@@ -31,7 +31,7 @@ const relativePositionDecorator = (story: () => unknown) =>
 
 const PopoverTemplate = story(
     popoverDefaultArgs,
-    ({ trigger, contentPadding, open, placement, hideArrow, hideOnClick, distance, strategy }) => {
+    ({ trigger, contentPadding, open, placement, hideArrow, hideOnClick, distance, strategy, maxHeight }) => {
         const actionListClickHandler = (event: CustomEvent) => {
             const actionElement = event.target as VlPopoverActionComponent;
             action('click')('vl-popover-action clicked > ' + actionElement.action);
@@ -55,6 +55,7 @@ const PopoverTemplate = story(
                 distance=${distance}
                 strategy=${strategy}
                 content-padding=${contentPadding}
+                max-height=${maxHeight || nothing}
             >
                 <vl-popover-action-list @click=${actionListClickHandler}>
                     <vl-popover-action icon="search" .action=${'search'}>Zoeken</vl-popover-action>

@@ -26,9 +26,14 @@ export const vlPopoverFluxStyles: CSSResult = css`
             drop-shadow(0 0 0.1rem var(--vl-color--border-default));
         will-change: filter;
         background-color: #fff;
-        padding: 1rem;
         max-width: 100vw;
         word-break: break-all;
+    }
+
+    .popover-scroll {
+        box-sizing: border-box;
+        padding: 1rem;
+        overflow: auto;
 
         &.padding-none {
             padding: 0;
