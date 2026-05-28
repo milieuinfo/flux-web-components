@@ -18,6 +18,11 @@ export const copyFiles = (directoryToSearch, directoryToCopyTo, pattern, log = f
     });
 };
 
+export const copyFile = (sourceFile, targetFile, log = false) => {
+    fs.copySync(sourceFile, targetFile);
+    if (log) console.log('file', sourceFile, 'copied to:', targetFile);
+};
+
 export const removeFiles = (directoryToSearch, pattern) => {
     fs.readdirSync(directoryToSearch).forEach((file) => {
         const filePath = path.resolve(directoryToSearch, file);
