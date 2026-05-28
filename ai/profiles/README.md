@@ -28,17 +28,19 @@ De meeste profiles hebben een `CLAUDE.md` als entrypoint, maar het kan ook bewus
 
 ## Welke paden moeten waarheen wijzen?
 
-Claude Code leest een aantal **vaste paden** in de project-root. Voor elk profile wijzen die via symlinks naar de bijbehorende folder — `set-ai-profile.sh` regelt het volledig, maar dit is wat het script onder de motorkap doet:
+Claude Code leest een aantal **vaste paden** in de project-root. `set-ai-profile.sh` regelt het volledig, maar dit is wat het script onder de motorkap doet:
 
 ### Verplicht (Claude Code minimaal werkend)
 
-| Vast pad | Wijst naar |
+| Vast pad | Hoe gevuld |
 |----------|--------------|
 | `CLAUDE.local.md` (gitignored, géén symlink) | bevat `@ai/profiles/{profile-naam}/CLAUDE.md`, of een marker-commentaar voor opt-out profiles |
-| `.claude/settings.local.json` (gitignored) | symlink → `../ai/profiles/{profile-naam}/settings.json` |
+| `.claude/settings.local.json` (gitignored, géén symlink) | de profile-allowlist wordt erin **gemerged** (zie waarschuwing hieronder) |
 | `.claude/skills` (gitignored) | symlink → `../ai/profiles/{profile-naam}/skills` |
 
-> **Belangrijk:** profile-settings cascaderen via `.claude/settings.local.json` (persoonlijk, lokaal). Het bestand `.claude/settings.json` op de project-root is **gecommit en team-wide** — het bevat de SessionStart bootstrap-check hook en wordt door `set-ai-profile.sh` níet aangeraakt. Zie [Team-wide vs persoonlijk](#wat-blijft-team-breed) hieronder.
+> **Belangrijk — waarom `settings.local.json` geen symlink is:** dit bestand wordt door **Claude Code zelf beheerd**: het programma schrijft er jouw "altijd toelaten"-permissiekeuzes in weg. Een symlink naar de profile-folder zou (1) die runtime-keuzes naar de gecommitte profile-folder laten lekken en (2) in worktrees botsen omdat het bestand daar al bestaat. Daarom **mergt** het script in plaats daarvan de profile-allowlist erin: bestaande keuzes blijven staan, de profile-allowlist wordt toegevoegd, en bij een profielwissel wordt enkel de vorige profile-laag verwijderd. Het script onthoudt zijn eigen injecties in `.claude/.profile-injected.json` (gitignored). De merge vergt `jq` en gebeurt **enkel** bij het draaien van `set-ai-profile.sh` — verder raakt niets dit bestand aan, en alleen de huidige repo/worktree wordt geraakt.
+>
+> Het bestand `.claude/settings.json` op de project-root is **gecommit en team-wide** — het bevat de SessionStart bootstrap-check hook en wordt door `set-ai-profile.sh` níet aangeraakt. Zie [Team-wide vs persoonlijk](#wat-blijft-team-breed) hieronder.
 
 ### Optioneel (enkel voor cross-tool support — Cursor, Codex, Aider, …)
 
@@ -59,10 +61,10 @@ Gebruik altijd het meegeleverde script vanuit de project-root:
 
 Het script:
 
-- maakt/vervangt `CLAUDE.local.md` (gewoon bestand, geen symlink) en de symlinks hierboven in één keer
+- maakt/vervangt `CLAUDE.local.md` (gewoon bestand, geen symlink), mergt de profile-allowlist in `.claude/settings.local.json`, en zet de symlinks hierboven — in één keer
 - slaat paden over waarvoor het profile geen bron heeft (bv. een profile zonder `AGENTS.md` krijgt geen `AGENTS.md`-symlink)
 - schrijft **altijd** een `CLAUDE.local.md` — ook voor opt-out profiles zonder `CLAUDE.md` (dan met een marker-commentaar zonder `@`-import). De aanwezigheid van het bestand is daarmee een betrouwbare "profile geactiveerd"-marker voor de bootstrap-check in de project-root `CLAUDE.md`
-- weigert bestaande **niet-symlink** bestanden/folders op de doelpaden te overschrijven — verplaats of verwijder die manueel als dat nodig is
+- weigert bestaande **niet-symlink** bestanden/folders op de symlink-doelpaden (`.claude/skills`, `AGENTS.md`, `SKILLS.md`) te overschrijven — verplaats of verwijder die manueel als dat nodig is. `.claude/settings.local.json` wordt niet geweigerd maar gemerged; een achtergebleven symlink van de oude aanpak wordt automatisch vervangen door een echt bestand
 - **moet uitgevoerd worden, niet gesourced** (anders kan een fout je shell afsluiten en blijven env-wijzigingen plakken)
 
 Na afloop: **herstart Claude Code** zodat de nieuwe configuratie geladen wordt.
@@ -90,10 +92,10 @@ Na afloop: **herstart Claude Code** zodat de nieuwe configuratie geladen wordt.
 ## Wat blijft team-breed?
 
 - `CLAUDE.md` (root) — generieke loader, identiek voor iedereen
-- `.claude/settings.json` (root) — **gecommit** team-wide config: bevat de SessionStart bootstrap-check hook die afdwingt dat elke nieuwe sessie eerst een profile activeert. Hier horen ook permissies die voor het hele team zinvol zijn. Profile-specifieke settings cascaderen er bovenop via `.claude/settings.local.json` (symlink).
+- `.claude/settings.json` (root) — **gecommit** team-wide config: bevat de SessionStart bootstrap-check hook die afdwingt dat elke nieuwe sessie eerst een profile activeert. Hier horen ook permissies die voor het hele team zinvol zijn. Profile-specifieke permissies worden er bovenop gemerged in `.claude/settings.local.json` (geen symlink — zie hierboven).
 - `.gitignore` — regels voor de gitignored symlinks en `CLAUDE.local.md`
 - `.claude/plans/`, `.claude/worktrees/` — lokale werkmappen (al gitignored)
 
 ## Persoonlijke permissies bovenop het profile
 
-`.claude/settings.local.json` is door `set-ai-profile.sh` ingezet als symlink naar je profile. Als je extra persoonlijke overrides wil die níet in je gecommit profile horen, voeg ze toe aan `~/.claude/settings.json` (user-global — geldt cross-project) of, voor project-specifiek persoonlijk, pas je eigen profile-folder aan.
+`.claude/settings.local.json` bevat na activatie de profile-allowlist (gemerged) plus de permissiekeuzes die je tijdens het werken met "altijd toelaten" goedkeurt. Die laatste blijven lokaal en per-repo, en overleven een profielwissel. Wil je extra persoonlijke overrides die níet in je gecommit profile horen én in álle projecten gelden, voeg ze dan toe aan `~/.claude/settings.json` (user-global). Wil je project-specifiek persoonlijke permissies die wél in de repo gecommit worden, pas dan je eigen profile-folder (`settings.json`) aan.

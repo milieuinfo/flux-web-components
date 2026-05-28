@@ -41,6 +41,7 @@ storybook-static
 
 # AI Agent local settings
 .claude/settings.local.json
+.claude/.profile-injected.json
 .claude/worktrees/
 .cursor/
 .cline/
@@ -48,7 +49,10 @@ storybook-static
 .claude/plans/
 
 # AI Agent profile activation (zie ai/profiles/README.md)
-# Deze paden zijn symlinks naar het actieve profile en blijven per-machine.
+# .claude/skills, /AGENTS.md en /SKILLS.md zijn symlinks naar het actieve profile.
+# .claude/settings.local.json wordt door Claude Code zelf beheerd; het script
+# mergt de profile-allowlist erin (geen symlink). Welke entries het script zelf
+# injecteerde, staat in .claude/.profile-injected.json (hierboven genegeerd).
 # .claude/settings.json wordt WEL gecommit (team-wide hook + permissies),
 # zie ai/profiles/README.md.
 CLAUDE.local.md

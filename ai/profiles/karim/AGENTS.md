@@ -288,6 +288,11 @@ When creating implementation plans, technical notes, or scratchpad documents:
 - Base branch: `develop-v2`
 - Main branch: `main` (protected)
 
+### Branch Safety (STRIKT)
+
+- **Claude pusht nooit in deze repo** — staande afspraak. Geen `git push` in welke vorm dan ook; pushen doet de gebruiker zelf.
+- **Bij het maken van een branch nooit een upstream / remote-tracking instellen.** Dus geen `git push -u` / `--set-upstream`, en niet aftakken van een remote-branch (`git checkout -b foo origin/...`). Branches blijven puur lokaal zonder gekoppelde origin.
+
 ### Commit Messages
 
 Commit messages describe **only the code changes** — no attribution, no trailers, no metadata about who or what made the changes.

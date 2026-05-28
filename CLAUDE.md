@@ -13,9 +13,11 @@ Dit project gebruikt **AI configuratie via profiles**: er zijn verschillende pro
 
    Dit maakt/vervangt in één keer:
    - `CLAUDE.local.md` (gitignored) met de import `@ai/profiles/{profile-naam}/CLAUDE.md`
-   - `.claude/settings.local.json` (gitignored) → symlink naar `../ai/profiles/{profile-naam}/settings.json` (profile-specifieke permissies)
+   - `.claude/settings.local.json` (gitignored) → de profile-permissies worden hierin **gemerged** (geen symlink). Dit bestand wordt door Claude Code zelf beheerd (het schrijft er jouw "altijd toelaten"-keuzes in); het script laat die keuzes staan en voegt enkel de profile-allowlist toe. Bij een profielwissel wordt de vorige profile-laag weer verwijderd. Vergt `jq`.
    - `.claude/skills` (gitignored) → symlink naar `../ai/profiles/{profile-naam}/skills`
    - `AGENTS.md` / `SKILLS.md` op de project-root — alleen als het profile die bestanden heeft (cross-tool support voor Cursor/Codex/Aider; overslaan als je enkel Claude Code gebruikt)
+
+   Welke permissie-entries het script zelf injecteerde, onthoudt het in `.claude/.profile-injected.json` (gitignored) zodat een profielwissel netjes opruimt zonder jouw eigen keuzes te wissen. Alles blijft per-repo: andere checkouts/worktrees worden nooit geraakt.
 
    Het bestand `.claude/settings.json` is gecommit en wordt door dit script níet aangeraakt — daarin staan team-wide hooks en eventuele gedeelde permissies (zie [`ai/profiles/README.md`](ai/profiles/README.md)).
 
@@ -30,5 +32,6 @@ Als `CLAUDE.local.md` ontbreekt, vraagt een `SessionStart` hook in het gecommitt
 ## Niet personaliseerbaar
 
 - `.claude/settings.json` — **gecommit** team-wide config: bootstrap-check hook + eventuele gedeelde permissies. Wijzig dit enkel als de aanpassing voor het hele team relevant is.
-- `.claude/settings.local.json` — symlink naar het actieve profile (`ai/profiles/{naam}/settings.json`), gitignored. Wordt door `set-ai-profile.sh` beheerd.
+- `.claude/settings.local.json` — gitignored, **door Claude Code zelf beheerd** (jouw "altijd toelaten"-keuzes). `set-ai-profile.sh` mergt de profile-allowlist erin en laat de rest staan. Geen symlink (zou keuzes naar git lekken en in worktrees botsen).
+- `.claude/.profile-injected.json` — gitignored geheugenbriefje: welke permissie-entries het script injecteerde, voor nette opkuis bij een profielwissel. Niet manueel bewerken.
 - `.claude/plans/`, `.claude/worktrees/` — lokale werkmappen, gitignored
