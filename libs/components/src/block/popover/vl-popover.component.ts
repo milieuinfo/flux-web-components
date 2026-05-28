@@ -24,6 +24,7 @@ export class VlPopoverComponent extends BaseLitElement {
     protected contentPadding = popoverDefaults.contentPadding;
     private hideOnClick = popoverDefaults.hideOnClick;
     private strategy = popoverDefaults.strategy;
+    private maxHeight = popoverDefaults.maxHeight;
 
     static {
         registerWebComponents([VlPopoverActionComponent, VlPopoverActionListComponent]);
@@ -44,6 +45,7 @@ export class VlPopoverComponent extends BaseLitElement {
             hideArrow: { type: Boolean, attribute: 'hide-arrow' },
             hideOnClick: { type: Boolean, attribute: 'hide-on-click' },
             strategy: { type: String, attribute: 'strategy' },
+            maxHeight: { type: String, attribute: 'max-height' },
         };
     }
 
@@ -73,13 +75,15 @@ export class VlPopoverComponent extends BaseLitElement {
     }
 
     protected render(): TemplateResult {
-        const classes = {
-            'popover-content': true,
+        const scrollClasses = {
+            'popover-scroll': true,
             [`padding-${this.contentPadding}`]: true,
         };
         return html`
-            <div class=${classMap(classes)} aria-hidden="${!this.open}">
-                <slot></slot>
+            <div class="popover-content" aria-hidden="${!this.open}">
+                <div class=${classMap(scrollClasses)}>
+                    <slot></slot>
+                </div>
                 ${!this.hideArrow ? html`<i id="popover-arrow" role="presentation"></i>` : null}
             </div>
         `;
@@ -114,6 +118,7 @@ export class VlPopoverComponent extends BaseLitElement {
             hideDelay: 0,
             hideOnClick: this.hideOnClick,
             strategy: this.strategy,
+            maxHeight: this.maxHeight,
             type: this.trigger.includes('click') ? POPOVER_TYPE.POPOVER : POPOVER_TYPE.TOOLTIP,
             ariaType: this.trigger.includes('click') ? undefined : POPOVER_ARIA_TYPE.DESCRIPTION,
         };
