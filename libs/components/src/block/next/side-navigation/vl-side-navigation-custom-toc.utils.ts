@@ -11,13 +11,14 @@ import { extractHeadingIdsFromLinks, findHeadingElementById } from './vl-side-na
  */
 export function resolveHeadingElementsFromCustomToc(
     slottedElements: Element[],
-    root: Element | ShadowRoot | Document
+    root: Document | ShadowRoot | Element,
+    maxDepth?: number
 ): HTMLElement[] {
     const headingIds = extractHeadingIdsFromLinks(slottedElements);
     if (headingIds.length === 0) return [];
 
     return headingIds
-        .map((id) => findHeadingElementById(id, root))
+        .map((id) => findHeadingElementById(id, root, maxDepth))
         .filter((el): el is HTMLElement => el !== null);
 }
 
@@ -58,8 +59,14 @@ export function toggleCustomTocChildren(event: Event): void {
  *
  * @param event - The click event from the anchor link
  * @param scrollBehavior - The scroll behavior to use ('smooth' or 'auto')
+ * @param scrollRoot - Root to resolve the heading element from (pierces shadow DOM / slotted content)
  */
-function handleCustomTocLinkClick(event: Event, scrollBehavior: ScrollBehavior = 'smooth'): void {
+function handleCustomTocLinkClick(
+    event: Event,
+    scrollBehavior: ScrollBehavior = 'smooth',
+    scrollRoot: Document | ShadowRoot | Element = document,
+    maxDepth?: number
+): void {
     const link = event.currentTarget as HTMLElement;
     const href = link.getAttribute('href');
 
@@ -68,7 +75,7 @@ function handleCustomTocLinkClick(event: Event, scrollBehavior: ScrollBehavior =
     const targetId = href.substring(1);
     if (!targetId) return;
 
-    const targetElement = document.getElementById(targetId);
+    const targetElement = findHeadingElementById(targetId, scrollRoot, maxDepth);
     if (!targetElement) return;
 
     // Prevent default anchor navigation which moves focus to target
@@ -91,11 +98,18 @@ function handleCustomTocLinkClick(event: Event, scrollBehavior: ScrollBehavior =
  *
  * @param slottedElements - Elements assigned to the TOC slot (e.g. <ul>, fragment children)
  * @param scrollBehavior - The scroll behavior to use ('smooth' or 'auto')
+ * @param scrollRoot - Root to resolve heading elements from (pierces shadow DOM / slotted content)
+ * @param maxDepth - Optional shadow DOM traversal depth limit for the document fallback
+ * @param signal - Optional AbortSignal so the component can remove all listeners in disconnectedCallback
  */
 export function setupCustomTocLinkHandlers(
     slottedElements: Element[],
-    scrollBehavior: ScrollBehavior = 'smooth'
+    scrollBehavior: ScrollBehavior = 'smooth',
+    scrollRoot: Document | ShadowRoot | Element = document,
+    maxDepth?: number,
+    signal?: AbortSignal
 ): void {
+    const listenerOptions: AddEventListenerOptions | undefined = signal ? { signal } : undefined;
     slottedElements.forEach((element) => {
         const links = element.querySelectorAll('a[href^="#"], vl-link[href^="#"]');
         links.forEach((link) => {
@@ -103,11 +117,19 @@ export function setupCustomTocLinkHandlers(
             if (link.tagName.toLowerCase() === 'vl-link') {
                 const shadowAnchor = link.shadowRoot?.querySelector('a');
                 if (shadowAnchor) {
-                    shadowAnchor.addEventListener('click', (e) => handleCustomTocLinkClick(e, scrollBehavior));
+                    shadowAnchor.addEventListener(
+                        'click',
+                        (e) => handleCustomTocLinkClick(e, scrollBehavior, scrollRoot, maxDepth),
+                        listenerOptions
+                    );
                 }
             } else {
                 // For regular anchor elements
-                link.addEventListener('click', (e) => handleCustomTocLinkClick(e, scrollBehavior));
+                link.addEventListener(
+                    'click',
+                    (e) => handleCustomTocLinkClick(e, scrollBehavior, scrollRoot, maxDepth),
+                    listenerOptions
+                );
             }
         });
     });

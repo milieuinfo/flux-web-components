@@ -207,6 +207,76 @@ const mountSideNavigationWithCustomToc = () => {
     `);
 };
 
+const SHADOW_CONTENT_TAG = 'shadow-toc-content';
+if (!customElements.get(SHADOW_CONTENT_TAG)) {
+    customElements.define(
+        SHADOW_CONTENT_TAG,
+        class extends HTMLElement {
+            connectedCallback() {
+                if (this.shadowRoot) return;
+                const root = this.attachShadow({ mode: 'open' });
+                root.innerHTML = `
+                    <section style="min-height: 400px; margin-top: 100px;">
+                        <h2 id="shadow-intro">Inleiding</h2>
+                    </section>
+                    <section style="min-height: 400px;">
+                        <h2 id="shadow-aanvraag">Aanvraag indienen</h2>
+                    </section>
+                `;
+            }
+        }
+    );
+}
+
+const mountSideNavigationWithCustomTocInShadowDom = () => {
+    return cy.mount(html`
+        <div class="vl-grid">
+            <vl-side-navigation-next class="${NAVIGATION_COLUMN_CLASSES}">
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li><vl-link href="#shadow-intro">Inleiding</vl-link></li>
+                    <li><vl-link href="#shadow-aanvraag">Aanvraag indienen</vl-link></li>
+                </ul>
+            </vl-side-navigation-next>
+            <div class="${CONTENT_COLUMN_CLASSES}">
+                <shadow-toc-content></shadow-toc-content>
+            </div>
+        </div>
+    `);
+};
+
+const mountSideNavigationWithCustomTocPlainAnchorInShadowDom = () => {
+    return cy.mount(html`
+        <div class="vl-grid">
+            <vl-side-navigation-next class="${NAVIGATION_COLUMN_CLASSES}">
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li><a href="#shadow-intro">Inleiding</a></li>
+                    <li><a href="#shadow-aanvraag">Aanvraag indienen</a></li>
+                </ul>
+            </vl-side-navigation-next>
+            <div class="${CONTENT_COLUMN_CLASSES}">
+                <shadow-toc-content></shadow-toc-content>
+            </div>
+        </div>
+    `);
+};
+
+const mountSideNavigationAutoTocInShadowDom = () => {
+    return cy.mount(html`
+        <div class="vl-grid">
+            <vl-side-navigation-next
+                class="${NAVIGATION_COLUMN_CLASSES}"
+                heading-root-selector="#shadow-auto-container"
+            >
+            </vl-side-navigation-next>
+            <div class="${CONTENT_COLUMN_CLASSES}">
+                <div id="shadow-auto-container">
+                    <shadow-toc-content></shadow-toc-content>
+                </div>
+            </div>
+        </div>
+    `);
+};
+
 describe('cypress-component - block components - vl-side-navigation-next', () => {
     beforeEach(() => {
         cy.viewport(1440, 900);
@@ -489,6 +559,21 @@ describe('cypress-component - block components - vl-side-navigation-next', () =>
         cy.checkA11y('vl-side-navigation-next');
     });
 
+    it('should scan and scroll to auto-TOC headings rendered inside shadow DOM', () => {
+        mountSideNavigationAutoTocInShadowDom();
+
+        cy.get('vl-side-navigation-next').shadow().find('nav a[href="#shadow-aanvraag"]').should('exist');
+
+        cy.get('vl-side-navigation-next').shadow().find('nav a[href="#shadow-aanvraag"]').click();
+
+        cy.get('shadow-toc-content').then(($host) => {
+            const heading = $host[0].shadowRoot?.getElementById('shadow-aanvraag');
+            expect(heading, 'shadow heading should exist').to.exist;
+            const rect = (heading as HTMLElement).getBoundingClientRect();
+            expect(rect.top).to.be.lessThan(900);
+        });
+    });
+
     it('should support keyboard navigation through TOC items', () => {
         mountSideNavigation();
 
@@ -724,6 +809,56 @@ describe('cypress-component - block components - vl-side-navigation-next - with 
             const active = doc.activeElement;
             expect(active, 'activeElement should exist').to.exist;
             expect(active).not.to.equal(doc.body);
+        });
+    });
+
+    it('should scroll to headings rendered inside shadow DOM when clicking a custom TOC link', () => {
+        mountSideNavigationWithCustomTocInShadowDom();
+
+        cy.get('vl-side-navigation-next').find('vl-link[href="#shadow-aanvraag"]').click();
+
+        cy.get('shadow-toc-content').then(($host) => {
+            const heading = $host[0].shadowRoot?.getElementById('shadow-aanvraag');
+            expect(heading, 'shadow heading should exist').to.exist;
+            const rect = (heading as HTMLElement).getBoundingClientRect();
+            expect(rect.top).to.be.lessThan(900);
+        });
+    });
+
+    it('should scroll to a shadow-DOM heading from a plain anchor in the custom TOC', () => {
+        mountSideNavigationWithCustomTocPlainAnchorInShadowDom();
+
+        cy.get('vl-side-navigation-next').find('a[href="#shadow-aanvraag"]').click();
+
+        cy.get('shadow-toc-content').then(($host) => {
+            const heading = $host[0].shadowRoot?.getElementById('shadow-aanvraag');
+            expect(heading, 'shadow heading should exist').to.exist;
+            const rect = (heading as HTMLElement).getBoundingClientRect();
+            expect(rect.top).to.be.lessThan(900);
+        });
+    });
+
+    it('should scroll to a heading whose id starts with a digit (CSS-unsafe selector)', () => {
+        cy.mount(html`
+            <div class="vl-grid">
+                <vl-side-navigation-next class="${NAVIGATION_COLUMN_CLASSES}">
+                    <ul>
+                        <li><a href="#1-inleiding">Inleiding</a></li>
+                    </ul>
+                </vl-side-navigation-next>
+                <div class="${CONTENT_COLUMN_CLASSES}">
+                    <section style="min-height: 400px; margin-top: 100px;">
+                        <h2 id="1-inleiding">Inleiding</h2>
+                    </section>
+                </div>
+            </div>
+        `);
+
+        cy.get('vl-side-navigation-next').find('a[href="#1-inleiding"]').click();
+
+        cy.get('#1-inleiding').should(($el) => {
+            const rect = $el[0].getBoundingClientRect();
+            expect(rect.top).to.be.lessThan(900);
         });
     });
 });
