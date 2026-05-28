@@ -688,6 +688,35 @@ describe('cypress-component - block components - vl-functional-header - sticky',
     });
 });
 
+describe('cypress-component - block components - vl-functional-header - title-label attribute', () => {
+    it('should set title text using title-label attribute', () => {
+        cy.mount(html` <vl-functional-header title-label="School en studietoelagen"></vl-functional-header>`);
+
+        shouldSetTitleText();
+    });
+
+    it('should set title text using deprecated title attribute', () => {
+        cy.mount(html` <vl-functional-header title="School en studietoelagen"></vl-functional-header>`);
+
+        shouldSetTitleText();
+    });
+
+    it('should not have title attribute on host after using deprecated title attribute', () => {
+        cy.mount(html` <vl-functional-header title="School en studietoelagen"></vl-functional-header>`);
+
+        cy.get('vl-functional-header').should('not.have.attr', 'title');
+    });
+
+    it('should prefer title-label over deprecated title when both are set', () => {
+        cy.mount(html`
+            <vl-functional-header title="Oude titel" title-label="School en studietoelagen"></vl-functional-header>
+        `);
+
+        shouldSetTitleText();
+        cy.get('vl-functional-header').should('not.have.attr', 'title');
+    });
+});
+
 describe('cypress-component - block components - vl-functional-header - skip-to-content-id', () => {
     it('should not create a skip-link when skip-to-content-id is not set', () => {
         cy.mount(html` <vl-functional-header></vl-functional-header> `);

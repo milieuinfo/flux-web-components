@@ -92,6 +92,7 @@ export class VlFunctionalHeaderComponent extends BaseHTMLElement {
             'margin-bottom',
             'sub-title',
             'title',
+            'title-label',
             'skip-to-content-id',
         ];
     }
@@ -260,7 +261,16 @@ export class VlFunctionalHeaderComponent extends BaseHTMLElement {
         return this._template(`<li class="vl-functional-header__sub__action">${text}</li>`);
     }
 
+    /** @deprecated Gebruik het `title-label` attribuut om de paginatitel in te stellen. */
     _titleChangedCallback(oldValue: string, newValue: string) {
+        if (!newValue) return;
+        this._titleElement!.innerText = newValue;
+        this.removeAttribute('title');
+    }
+
+    /** Zet de tekst van de paginatitel. */
+    _titleLabelChangedCallback(oldValue: string, newValue: string) {
+        if (!newValue) return;
         this._titleElement!.innerText = newValue;
     }
 

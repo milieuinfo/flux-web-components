@@ -2,6 +2,7 @@ import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { action } from 'storybook/actions';
 import { VlBreadcrumbItemComponent } from '../../breadcrumb/vl-breadcrumb-item.component';
@@ -46,6 +47,7 @@ const Template = story(
         marginBottom,
         subTitle,
         title,
+        titleLabel,
         actionsSlot,
         backSlot,
         backLinkSlot,
@@ -67,7 +69,8 @@ const Template = story(
             link=${link}
             margin-bottom=${marginBottom}
             sub-title=${subTitle}
-            title=${title}
+            title=${ifDefined(title || undefined)}
+            title-label=${ifDefined(titleLabel || undefined)}
             skip-to-content-id=${skipToContentId}
             @vl-click-back=${onClickBack}
         >
@@ -96,14 +99,14 @@ export const FunctionalHeaderDefault = Template.bind({});
 FunctionalHeaderDefault.storyName = 'vl-functional-header - default';
 FunctionalHeaderDefault.args = {
     subTitle: subTitleString,
-    title: titleString,
+    titleLabel: titleString,
 };
 
 export const FunctionalHeaderActions = Template.bind({});
 FunctionalHeaderActions.storyName = 'vl-functional-header - actions';
 FunctionalHeaderActions.args = {
     subTitle: subTitleString,
-    title: titleString,
+    titleLabel: titleString,
     actionsSlot: actionsSlotString,
 };
 
@@ -121,12 +124,12 @@ FunctionalHeaderSlots.args = {
 
 export const FunctionalHeaderTabs = story(
     functionalHeaderArgs,
-    ({ fullWidth, marginBottom, title, link, skipToContentId }) => html`
+    ({ fullWidth, marginBottom, titleLabel, link, skipToContentId }) => html`
         <vl-functional-header
             ?full-width=${fullWidth}
             link=${link}
             margin-bottom=${marginBottom}
-            title=${title}
+            title-label=${ifDefined(titleLabel || undefined)}
             skip-to-content-id="${skipToContentId}"
         >
             <vl-tabs-next slot="sub-header" horizontal-navigation label="Transportmiddelen">
@@ -139,17 +142,17 @@ export const FunctionalHeaderTabs = story(
 );
 FunctionalHeaderTabs.storyName = 'vl-functional-header - tabs';
 FunctionalHeaderTabs.args = {
-    title: titleString,
+    titleLabel: titleString,
 };
 
 export const FunctionalHeaderBreadcrumb = story(
     functionalHeaderArgs,
-    ({ fullWidth, marginBottom, title, link, skipToContentId }) => html`
+    ({ fullWidth, marginBottom, titleLabel, link, skipToContentId }) => html`
         <vl-functional-header
             ?full-width=${fullWidth}
             link=${link}
             margin-bottom=${marginBottom}
-            title=${title}
+            title-label=${ifDefined(titleLabel || undefined)}
             skipToContentId=${skipToContentId}
             hide-back-link
         >
@@ -164,17 +167,17 @@ export const FunctionalHeaderBreadcrumb = story(
 );
 FunctionalHeaderBreadcrumb.storyName = 'vl-functional-header - breadcrumb';
 FunctionalHeaderBreadcrumb.args = {
-    title: titleString,
+    titleLabel: titleString,
 };
 
 export const FunctionalHeaderFullWidth = story(
     functionalHeaderArgs,
-    ({ fullWidth, marginBottom, title, link, skipToContentId }) => html`
+    ({ fullWidth, marginBottom, titleLabel, link, skipToContentId }) => html`
         <vl-functional-header
             ?full-width=${fullWidth}
             link=${link}
             margin-bottom=${marginBottom}
-            title=${title}
+            title-label=${ifDefined(titleLabel || undefined)}
             skip-to-content-id=${skipToContentId}
         >
             <span slot="sub-title">Full width</span>
@@ -183,14 +186,14 @@ export const FunctionalHeaderFullWidth = story(
 );
 FunctionalHeaderFullWidth.storyName = 'vl-functional-header - full width';
 FunctionalHeaderFullWidth.args = {
-    title: titleString,
+    titleLabel: titleString,
     fullWidth: true,
 };
 
 export const FunctionalHeaderDisableBackLink = Template.bind({});
 FunctionalHeaderDisableBackLink.storyName = 'vl-functional-header - disable back link';
 FunctionalHeaderDisableBackLink.args = {
-    title: titleString,
+    titleLabel: titleString,
     subTitleSlot: subTitleSlotString,
     back: backString,
     disableBackLink: true,
@@ -203,7 +206,7 @@ FunctionalHeaderDisableBackLink.args = {
 export const FunctionalHeaderHideBackLink = Template.bind({});
 FunctionalHeaderHideBackLink.storyName = 'vl-functional-header - hide back link';
 FunctionalHeaderHideBackLink.args = {
-    title: titleString,
+    titleLabel: titleString,
     subTitleSlot: subTitleSlotString,
     hideBackLink: true,
 };
@@ -211,6 +214,6 @@ FunctionalHeaderHideBackLink.args = {
 export const FunctionalHeaderHideSubHeader = Template.bind({});
 FunctionalHeaderHideSubHeader.storyName = 'vl-functional-header - hide sub header';
 FunctionalHeaderHideSubHeader.args = {
-    title: titleString,
+    titleLabel: titleString,
     hideSubHeader: true,
 };

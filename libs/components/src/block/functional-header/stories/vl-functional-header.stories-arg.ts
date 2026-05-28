@@ -23,6 +23,7 @@ export const functionalHeaderArgs = {
     marginBottom: 'large',
     subTitle: '',
     title: '',
+    titleLabel: '',
     actionsSlot: '',
     backSlot: '',
     backLinkSlot: '',
@@ -147,11 +148,20 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
     },
     title: {
         name: 'title',
-        description: 'Tekst van de titel.',
+        description: '**Deprecated**: gebruik `title-label`.\n\nTekst van de titel.',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: functionalHeaderArgs.title },
+        },
+    },
+    titleLabel: {
+        name: 'title-label',
+        description: 'Tekst van de titel.',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: functionalHeaderArgs.titleLabel },
         },
     },
     actionsSlot: {

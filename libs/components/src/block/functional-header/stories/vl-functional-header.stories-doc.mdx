@@ -61,6 +61,14 @@ demo van deze opzet vind je hier: [Voorbeeld Met Sticky En Side Navigation](/doc
 
 <ArgTypes of={VlFunctionalHeaderStories.FunctionalHeaderDefault} />
 
+<FluxAlert type="warning">
+{`
+Het \`title\`-attribuut is **deprecated**. Gebruik voortaan \`title-label\` om de paginatitel in te stellen.
+Bestaande consumers die \`title\` gebruiken blijven werken: de waarde wordt correct overgenomen
+en het attribuut wordt daarna van het host-element verwijderd zodat de native browser-tooltip niet verschijnt.
+`}
+</FluxAlert>
+
 
 ## Varianten
 
