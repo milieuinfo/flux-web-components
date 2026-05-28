@@ -135,6 +135,80 @@ describe('cypress-component - block components - vl-popover - default', () => {
     });
 });
 
+const mountWithMaxHeight = (maxHeight: number) => {
+    return cy.mount(html`
+        <vl-button ghost icon="nav-show-more-vertical" id="btn-scroll" label="Acties"></vl-button>
+        <vl-popover id="popover-scroll" for="btn-scroll" max-height=${maxHeight}>
+            <vl-popover-action-list aria-label="Lange actielijst">
+                <vl-popover-action icon="search" .action=${'a1'}>Item 1</vl-popover-action>
+                <vl-popover-action icon="search" .action=${'a2'}>Item 2</vl-popover-action>
+                <vl-popover-action icon="search" .action=${'a3'}>Item 3</vl-popover-action>
+                <vl-popover-action icon="search" .action=${'a4'}>Item 4</vl-popover-action>
+                <vl-popover-action icon="search" .action=${'a5'}>Item 5</vl-popover-action>
+                <vl-popover-action icon="search" .action=${'a6'}>Item 6</vl-popover-action>
+                <vl-popover-action icon="search" .action=${'a7'}>Item 7</vl-popover-action>
+                <vl-popover-action icon="search" .action=${'a8'}>Item 8</vl-popover-action>
+            </vl-popover-action-list>
+        </vl-popover>
+    `);
+};
+
+describe('cypress-component - block components - vl-popover - scroll', () => {
+    it('should have overflow-y: auto on popover-content', () => {
+        mountDefault({});
+
+        cy.get('#btn-acties').click();
+        cy.get('vl-popover').shadow().find('.popover-content').should('have.css', 'overflow-y', 'auto');
+    });
+
+    it('should have tabindex on popover-content when open', () => {
+        mountDefault({});
+
+        cy.get('#btn-acties').click();
+        cy.get('vl-popover').shadow().find('.popover-content').should('have.attr', 'tabindex', '0');
+
+        cy.get('#btn-acties').click();
+        cy.get('vl-popover').shadow().find('.popover-content').should('not.have.attr', 'tabindex');
+    });
+
+    it('should not have tabindex on tooltip popover-content', () => {
+        mountDefault({ trigger: 'hover' });
+
+        cy.get('#btn-acties').trigger('mouseover', { force: true });
+        cy.get('vl-popover').shadow().find('.popover-content').should('not.have.attr', 'tabindex');
+    });
+
+    it('should respect max-height attribute', () => {
+        mountWithMaxHeight(100);
+
+        cy.get('#btn-scroll').click();
+        cy.get('vl-popover#popover-scroll')
+            .shadow()
+            .find('.popover-content')
+            .should('have.css', 'max-height', '100px');
+    });
+
+    it('should be scrollable when content exceeds max-height', () => {
+        mountWithMaxHeight(100);
+
+        cy.get('#btn-scroll').click();
+        cy.get('vl-popover#popover-scroll')
+            .shadow()
+            .find('.popover-content')
+            .then(($el) => {
+                expect($el[0].scrollHeight).to.be.greaterThan($el[0].clientHeight);
+            });
+    });
+
+    it('should be accessible when scrollable', () => {
+        mountWithMaxHeight(100);
+        cy.injectAxe();
+
+        cy.get('#btn-scroll').click();
+        cy.checkA11y('vl-popover#popover-scroll');
+    });
+});
+
 describe('cypress-component - block components - vl-popover - hover', () => {
     beforeEach(() => {
         mountDefault({ trigger: 'hover' });

@@ -7,6 +7,7 @@ import {
     offset,
     platform,
     shift,
+    size,
     Strategy,
     type Placement,
 } from '@floating-ui/dom';
@@ -148,6 +149,15 @@ export default class FloatingController implements ReactiveController {
             offset(this.options.distance),
             // https://floating-ui.com/docs/flip
             flip(),
+            // https://floating-ui.com/docs/size
+            // size() runs after flip() so it measures available height on the final chosen side.
+            // padding: 10 leaves room for the drop-shadow on .popover-content without viewport clipping.
+            size({
+                padding: 10,
+                apply({ availableHeight, elements }) {
+                    elements.floating.style.setProperty('--available-height', `${availableHeight}px`);
+                },
+            }),
             // https://floating-ui.com/docs/shift
             shift(),
             // https://floating-ui.com/docs/arrow
@@ -354,7 +364,7 @@ export default class FloatingController implements ReactiveController {
 
     private handleResize = (): void => {
         if (this.host.open) {
-            this.hide();
+            this.updatePosition();
         }
     };
 

@@ -1,7 +1,7 @@
 import { BaseLitElement, registerWebComponents } from '@domg-wc/common';
 import { vlLegacyStyles } from '@domg-wc/styles';
 import { resetStyle } from '@domg/govflanders-style/common';
-import { CSSResult, html, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
+import { CSSResult, html, nothing, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import FloatingController, { FloatingControllerOptions } from './vl-floating-ui.controller';
@@ -24,6 +24,7 @@ export class VlPopoverComponent extends BaseLitElement {
     protected contentPadding = popoverDefaults.contentPadding;
     private hideOnClick = popoverDefaults.hideOnClick;
     private strategy = popoverDefaults.strategy;
+    maxHeight: number | undefined = popoverDefaults.maxHeight;
 
     static {
         registerWebComponents([VlPopoverActionComponent, VlPopoverActionListComponent]);
@@ -44,6 +45,7 @@ export class VlPopoverComponent extends BaseLitElement {
             hideArrow: { type: Boolean, attribute: 'hide-arrow' },
             hideOnClick: { type: Boolean, attribute: 'hide-on-click' },
             strategy: { type: String, attribute: 'strategy' },
+            maxHeight: { type: Number, attribute: 'max-height' },
         };
     }
 
@@ -77,8 +79,15 @@ export class VlPopoverComponent extends BaseLitElement {
             'popover-content': true,
             [`padding-${this.contentPadding}`]: true,
         };
+        // tabindex="0" maakt de scrollbare container keyboard-bereikbaar (WCAG 2.1.1).
+        // Niet op tooltips: die zijn niet interactief en mogen geen extra tab-stop worden.
+        const isTooltip = !this.trigger.includes('click');
         return html`
-            <div class=${classMap(classes)} aria-hidden="${!this.open}">
+            <div
+                class=${classMap(classes)}
+                aria-hidden="${!this.open}"
+                tabindex=${this.open && !isTooltip ? '0' : nothing}
+            >
                 <slot></slot>
                 ${!this.hideArrow ? html`<i id="popover-arrow" role="presentation"></i>` : null}
             </div>
@@ -86,6 +95,14 @@ export class VlPopoverComponent extends BaseLitElement {
     }
 
     protected updated(changedProperties: PropertyValues<this>) {
+        if (changedProperties.has('maxHeight')) {
+            if (this.maxHeight != null) {
+                this.style.setProperty('--vl-popover-max-height', `${this.maxHeight}px`);
+            } else {
+                this.style.removeProperty('--vl-popover-max-height');
+            }
+        }
+
         if (changedProperties.has('open')) {
             this.handleOpenChange();
         } else {

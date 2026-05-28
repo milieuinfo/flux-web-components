@@ -29,6 +29,9 @@ export const vlPopoverFluxStyles: CSSResult = css`
         padding: 1rem;
         max-width: 100vw;
         word-break: break-all;
+        overflow-y: auto;
+        /* 9999px = geen limiet als fallback; echte beperking komt van --available-height of consumer */
+        max-height: min(var(--vl-popover-max-height, 9999px), var(--available-height, 9999px));
 
         &.padding-none {
             padding: 0;

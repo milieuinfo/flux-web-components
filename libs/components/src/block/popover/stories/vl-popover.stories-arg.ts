@@ -113,4 +113,15 @@ export const popoverArgTypes: ArgTypes<typeof popoverDefaultArgs> = {
             defaultValue: { summary: popoverDefaultArgs.strategy },
         },
     },
+    maxHeight: {
+        name: 'max-height',
+        description:
+            'Optionele maximale hoogte van de popover in pixels. De popover past zich automatisch aan de beschikbare viewport-hoogte aan; dit attribuut legt een bijkomende hardere limiet op.',
+        control: { type: CONTROLS.RANGE, min: 50, max: 800, step: 10 },
+        table: {
+            type: { summary: TYPES.NUMBER },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: 'onbeperkt' },
+        },
+    },
 };
