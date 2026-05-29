@@ -105,6 +105,56 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
             defaultValue: { summary: '[]' },
         },
     },
+    profileTokenUrl: {
+        name: 'profile-token-url',
+        description:
+            'De url die opgeroepen wordt om het PAPI profile token op te halen. Het token wordt' +
+            ' achterliggend doorgegeven aan `window.globalHeaderClient.accessMenu.setProfile()` als' +
+            ' `idpProfileToken`. Standaard `/sso/papi_token` (endpoint van de Cumuli security lib);' +
+            ' zet leeg om geen token op te halen. Het token wordt nooit' +
+            ' in de DOM opgenomen (om die reden is er geen `idp-profile-token` attribuut).<br/>' +
+            'Zie de documentatie pagina voor de verwachte response.',
+        table: {
+            type: { summary: TYPES.URL },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: headerArgs.profileTokenUrl },
+        },
+    },
+    idpDataUrl: {
+        name: 'idp-data-url',
+        description:
+            'De url die opgeroepen wordt om manueel IdpData op te halen (handig voor mock users via' +
+            ' lokale Keycloak). De response wordt doorgegeven aan' +
+            ' `window.globalHeaderClient.accessMenu.setProfile()` als `idpData`.',
+        table: {
+            type: { summary: TYPES.URL },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: headerArgs.idpDataUrl },
+        },
+    },
+    idpProfileToken: {
+        name: 'idpProfileToken',
+        description:
+            'Het PAPI profile token, te zetten via JavaScript (geen attribuut omdat het token niet' +
+            ' in de DOM mag belanden). Heeft voorrang op `profile-token-url`. Wordt enkel meegestuurd' +
+            ' wanneer de gebruiker is aangemeld.',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.PROPERTIES,
+            defaultValue: { summary: 'undefined' },
+        },
+    },
+    idpData: {
+        name: 'idpData',
+        description:
+            'Manuele override voor de IdpData. Heeft voorrang op `idp-data-url`. Handig voor mock' +
+            ' users via lokale Keycloak.<br/>Zie de documentatie pagina voor het type.',
+        table: {
+            type: { summary: 'IDPData' },
+            category: CATEGORIES.PROPERTIES,
+            defaultValue: { summary: 'undefined' },
+        },
+    },
     onReady: {
         name: 'ready',
         description: 'Afgevuurd nadat de widget toegevoegd is aan de DOM.',
