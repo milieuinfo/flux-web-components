@@ -117,7 +117,7 @@
         "@domg/govflanders-style": "21.3.0",
         "@floating-ui/dom": "1.7.6",
         "@govflanders/vl-widget-global-footer-types": "1.0.28",
-        "@govflanders/vl-widget-global-header-types": "2.0.20",
+        "@govflanders/vl-widget-global-header-types": "2.0.39",
         "@lit/react": "1.0.8",
         "@open-wc/form-control": "1.0.0",
         "@open-wc/form-helpers": "1.0.0",
