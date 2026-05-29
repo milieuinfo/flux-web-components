@@ -131,6 +131,28 @@ describe('cypress-component - block components - vl-functional-header', () => {
 
         shouldSetTitleText();
     });
+
+    it('should set title text via title-label', () => {
+        cy.mount(html` <vl-functional-header title-label="School en studietoelagen"></vl-functional-header>`);
+
+        shouldSetTitleText();
+    });
+
+    it('should not keep the title attribute on the host (no native tooltip)', () => {
+        cy.mount(html` <vl-functional-header title="School en studietoelagen"></vl-functional-header>`);
+
+        shouldSetTitleText();
+        cy.get('vl-functional-header').should('not.have.attr', 'title');
+    });
+
+    it('should prefer title-label over deprecated title when both are set', () => {
+        cy.mount(html`
+            <vl-functional-header title="Oude titel" title-label="School en studietoelagen"></vl-functional-header>
+        `);
+
+        shouldSetTitleText();
+        cy.get('vl-functional-header').should('not.have.attr', 'title');
+    });
 });
 
 describe('cypress-component - block components - vl-functional-header - actions', () => {

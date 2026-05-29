@@ -57,6 +57,18 @@ pagina, houdt die rekening met de hoogte van de sticky functional header bij het
 demo van deze opzet vind je hier: [Voorbeeld Met Sticky En Side Navigation](/docs/patronen-navigatie-functionele-header-sticky-met-side-navigation--documentatie).
 
 
+## Titel
+
+Zet de titel met het `title-label`-attribuut.
+
+<FluxAlert type="warning">
+{`
+    Het standaard HTML \`title\`-attribuut wordt afgeraden: de browser toont het als native tooltip. Gebruik in
+    plaats daarvan \`title-label\`. Bestaande \`title\`-waarden blijven werken - de tooltip wordt automatisch
+    weggenomen - migreer naar \`title-label\`.
+`}
+</FluxAlert>
+
 ## Configuratie
 
 <ArgTypes of={VlFunctionalHeaderStories.FunctionalHeaderDefault} />
