@@ -6,7 +6,12 @@ import {
     registerWebComponents,
     webComponent,
 } from '@domg-wc/common';
-import { ApplicationMenuLink, GlobalHeaderClient } from '@govflanders/vl-widget-global-header-types';
+import {
+    ApplicationMenuLink,
+    GlobalHeaderClient,
+    IDPData,
+    ProfileConfig,
+} from '@govflanders/vl-widget-global-header-types';
 import { PropertyDeclarations } from 'lit';
 import { headerContainerStyles, headerSkeletonStyles } from './vl-header.component.flux-css';
 import { headerDefaults } from './vl-header.defaults';
@@ -24,6 +29,8 @@ registerWebComponents([legacyCore, legacyBreakpoint]);
 export class VlHeader extends BaseLitElement {
     // Properties
     applicationLinks = headerDefaults.applicationLinks;
+    idpProfileToken: string | undefined = headerDefaults.idpProfileToken;
+    idpData: IDPData | undefined = headerDefaults.idpData;
     // Attributes
     private authenticatedUserUrl = headerDefaults.authenticatedUserUrl;
     private development = headerDefaults.development;
@@ -33,6 +40,8 @@ export class VlHeader extends BaseLitElement {
     private switchCapacityUrl = headerDefaults.switchCapacityUrl;
     private simple = headerDefaults.simple;
     private skeleton = headerDefaults.skeleton;
+    private profileTokenUrl = headerDefaults.profileTokenUrl;
+    private idpDataUrl = headerDefaults.idpDataUrl;
 
     constructor() {
         super();
@@ -51,6 +60,10 @@ export class VlHeader extends BaseLitElement {
             skeleton: { type: Boolean, attribute: 'skeleton' },
             switchCapacityUrl: { type: String, attribute: 'switch-capacity-url' },
             applicationLinks: { type: Array },
+            profileTokenUrl: { type: String, attribute: 'profile-token-url' },
+            idpDataUrl: { type: String, attribute: 'idp-data-url' },
+            idpProfileToken: { attribute: false },
+            idpData: { attribute: false },
         };
     }
 
@@ -87,7 +100,15 @@ export class VlHeader extends BaseLitElement {
     }
 
     protected willUpdate(changedProperties: Map<string, unknown>) {
-        const sessionProperties = ['loginUrl', 'logoutUrl', 'switchCapacityUrl'];
+        const sessionProperties = [
+            'loginUrl',
+            'logoutUrl',
+            'switchCapacityUrl',
+            'profileTokenUrl',
+            'idpDataUrl',
+            'idpProfileToken',
+            'idpData',
+        ];
 
         if (sessionProperties.some((property) => changedProperties.has(property))) {
             this.configureSession();
@@ -150,23 +171,59 @@ export class VlHeader extends BaseLitElement {
             }
 
             this.configureSession();
-
-            // Sinds v5 is het niet meer nodig om automatische logout requests te rejecten
-            // widget.on('citizen_profile.session.logout.request', async (logoutRequest: any) => {...});
         } catch (error) {
             console.error('De global header werd niet geladen.', error);
         }
     }
 
+    private async resolveProfileToken(): Promise<string | undefined> {
+        if (this.idpProfileToken) return this.idpProfileToken;
+        if (!this.profileTokenUrl) return undefined;
+
+        try {
+            const response = await fetch(this.profileTokenUrl);
+            if (!response.ok) return undefined;
+
+            return (await response.text()).trim() || undefined;
+        } catch (error) {
+            console.error('Kon het PAPI profile token niet ophalen.', error);
+            return undefined;
+        }
+    }
+
+    private async resolveIdpData(): Promise<IDPData | undefined> {
+        if (this.idpData) return this.idpData;
+        if (!this.idpDataUrl) return undefined;
+
+        try {
+            const response = await fetch(this.idpDataUrl);
+            if (!response.ok) return undefined;
+            return (await response.json()) as IDPData;
+        } catch (error) {
+            console.error('Kon de IDP data niet ophalen.', error);
+            return undefined;
+        }
+    }
+
     private async configureSession(): Promise<void> {
         const active = await this.isUserAuthenticated();
-
-        window.globalHeaderClient?.accessMenu?.setProfile({
+        const config: Partial<ProfileConfig> = {
             active,
             loginUrl: this.loginUrl,
             logoutUrl: this.logoutUrl,
             switchCapacityUrl: this.switchCapacityUrl,
-        });
+        };
+
+        const token = active ? await this.resolveProfileToken() : undefined;
+
+        if (token) {
+            config.idpProfileToken = token;
+        } else {
+            const idpData = await this.resolveIdpData();
+            if (idpData) config.idpData = idpData;
+        }
+
+        window.globalHeaderClient?.accessMenu?.setProfile(config);
     }
 
     public get height(): number {
