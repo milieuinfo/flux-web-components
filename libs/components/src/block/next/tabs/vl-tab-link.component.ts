@@ -5,7 +5,7 @@ import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { when } from 'lit/directives/when.js';
 import { vlTabFluxStyles } from './vl-tab.flux-css';
-import { TabLinkClickEventDetail } from './vl-tabs.component';
+import type { TabLinkClickEventDetail } from './vl-tabs.component';
 
 registerWebComponents([VlIconComponent]);
 

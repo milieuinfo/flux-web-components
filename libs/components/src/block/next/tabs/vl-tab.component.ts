@@ -2,7 +2,7 @@ import { BaseLitElement, webComponent } from '@domg-wc/common';
 import { CSSResult, html, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { vlTabFluxStyles } from './vl-tab.flux-css';
-import { TabClickEventDetail } from './vl-tabs.component';
+import type { TabClickEventDetail } from './vl-tabs.component';
 
 /**
  * Tab item dat gekoppeld kan worden aan een <vl-tab-panel-next>.
