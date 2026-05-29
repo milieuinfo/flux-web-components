@@ -10,6 +10,7 @@ export type PopoverDefaults = {
     open: boolean;
     distance: number;
     strategy: Strategy;
+    maxHeight: string;
 };
 
 export const popoverDefaults: PopoverDefaults = {
@@ -22,4 +23,5 @@ export const popoverDefaults: PopoverDefaults = {
     open: false,
     distance: 10,
     strategy: 'absolute',
+    maxHeight: '',
 };

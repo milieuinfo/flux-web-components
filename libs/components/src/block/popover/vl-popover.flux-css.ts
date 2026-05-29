@@ -21,23 +21,34 @@ export const vlPopoverFluxStyles: CSSResult = css`
     }
 
     .popover-content {
+        --vl-popover-content-padding: 1rem;
         filter: drop-shadow(0 0.2rem 0.6rem rgba(106, 118, 134, 0.15))
             drop-shadow(0 0 0.1rem var(--vl-color--border-default))
             drop-shadow(0 0 0.1rem var(--vl-color--border-default));
         will-change: filter;
         background-color: #fff;
-        padding: 1rem;
+        padding: var(--vl-popover-content-padding);
         max-width: 100vw;
         word-break: break-all;
 
         &.padding-none {
-            padding: 0;
+            --vl-popover-content-padding: 0;
         }
         &.padding-small {
-            padding: 0.5rem;
+            --vl-popover-content-padding: 0.5rem;
         }
         &.padding-large {
-            padding: 2rem;
+            --vl-popover-content-padding: 2rem;
         }
+    }
+
+    /* De scroll-container draagt overflow i.p.v. .popover-content, zodat de arrow (die buiten de
+       content-box uitsteekt) en de drop-shadow niet door overflow worden afgeknipt. */
+    .popover-scroll-container {
+        overflow-y: auto;
+        max-height: min(
+            calc(var(--vl-popover-available-height, 100vh) - 2 * var(--vl-popover-content-padding)),
+            var(--vl-popover-max-height, 100vh)
+        );
     }
 `;

@@ -1,7 +1,7 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import { action } from 'storybook/actions';
 import { VlButtonComponent } from '../../../atom/button';
 import { VlPopoverActionListComponent } from '../vl-popover-action-list.component';
@@ -31,7 +31,7 @@ const relativePositionDecorator = (story: () => unknown) =>
 
 const PopoverTemplate = story(
     popoverDefaultArgs,
-    ({ trigger, contentPadding, open, placement, hideArrow, hideOnClick, distance, strategy }) => {
+    ({ trigger, contentPadding, open, placement, hideArrow, hideOnClick, distance, strategy, maxHeight }) => {
         const actionListClickHandler = (event: CustomEvent) => {
             const actionElement = event.target as VlPopoverActionComponent;
             action('click')('vl-popover-action clicked > ' + actionElement.action);
@@ -55,6 +55,7 @@ const PopoverTemplate = story(
                 distance=${distance}
                 strategy=${strategy}
                 content-padding=${contentPadding}
+                max-height=${maxHeight || nothing}
             >
                 <vl-popover-action-list @click=${actionListClickHandler}>
                     <vl-popover-action icon="search" .action=${'search'}>Zoeken</vl-popover-action>
@@ -71,6 +72,37 @@ PopoverDefault.storyName = 'vl-popover - default';
 PopoverDefault.decorators = [relativePositionDecorator];
 PopoverDefault.args = {
     placement: 'bottom-start',
+};
+
+export const PopoverScroll = story(
+    popoverDefaultArgs,
+    ({ contentPadding, placement, maxHeight }) => html`
+        <vl-button ghost icon="nav-show-more-vertical" id="btn-acties-scroll" label="Acties"></vl-button>
+        <vl-popover
+            for="btn-acties-scroll"
+            placement=${placement}
+            content-padding=${contentPadding}
+            max-height=${maxHeight || nothing}
+        >
+            <vl-popover-action-list aria-label="Acties">
+                ${Array.from(
+                    { length: 20 },
+                    (_, i) => html`<vl-popover-action icon="pin" .action=${`actie-${i + 1}`}>Actie ${i + 1}</vl-popover-action>`
+                )}
+            </vl-popover-action-list>
+        </vl-popover>
+    `
+);
+PopoverScroll.storyName = 'vl-popover - scroll';
+PopoverScroll.decorators = [relativePositionDecorator];
+PopoverScroll.args = {
+    placement: 'bottom-start',
+    maxHeight: '200px',
+};
+PopoverScroll.parameters = {
+    controls: {
+        include: ['content-padding', 'placement', 'max-height'],
+    },
 };
 
 export const PopoverHover = PopoverTemplate.bind({});

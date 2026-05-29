@@ -56,6 +56,14 @@ dichtstbijzijnde gepositioneerde parent-element (bv. een element met `position: 
 
 Om te vermijden dat de popover gepositioneerd wordt tegenover het verkeerde element, kan je best de eerste parent van de popover instellen op `position: relative` zodat de popover steeds gepositioneerd wordt zoals verwacht.
 
+### Maximum-hoogte & scrollen
+
+De popover blijft automatisch binnen de zichtbare viewport: als de inhoud langer is dan de beschikbare ruimte tot de viewport-rand, krijgt de content een verticale scrollbar in plaats van buiten beeld te vallen. De scrollbare regio is met het toetsenbord bedienbaar (pijl-, Page Up/Down-toetsen).
+
+Met het optionele `max-height` attribuut kan je daarbovenop zelf een hardere bovengrens opleggen (een CSS-lengte, bv. `300px` of `50vh`). De effectieve hoogte is dan het minimum van die waarde en de ruimte tot de viewport-rand.
+
+<Canvas of={VlPopoverStories.PopoverScroll} />
+
 ## Varianten
 
 ### Hover / Tooltip

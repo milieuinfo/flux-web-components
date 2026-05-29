@@ -4,6 +4,7 @@ import { resetStyle } from '@domg/govflanders-style/common';
 import { CSSResult, html, PropertyDeclarations, PropertyValues, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import FloatingController, { FloatingControllerOptions } from './vl-floating-ui.controller';
 import { VlPopoverActionListComponent } from './vl-popover-action-list.component';
 import { VlPopoverActionComponent } from './vl-popover-action.component';
@@ -25,6 +26,13 @@ export class VlPopoverComponent extends BaseLitElement {
     private hideOnClick = popoverDefaults.hideOnClick;
     private strategy = popoverDefaults.strategy;
 
+    /**
+     * Optionele harde bovengrens voor de hoogte van de popover-content, als CSS-lengte (bv. `300px` of `50vh`).
+     * De effectieve hoogte is altijd het minimum van deze waarde en de ruimte tot de viewport-rand; bij
+     * overschrijding scrollt de content verticaal. Leeg laten betekent: enkel beperkt door de viewport.
+     */
+    private maxHeight = popoverDefaults.maxHeight;
+
     static {
         registerWebComponents([VlPopoverActionComponent, VlPopoverActionListComponent]);
     }
@@ -44,6 +52,7 @@ export class VlPopoverComponent extends BaseLitElement {
             hideArrow: { type: Boolean, attribute: 'hide-arrow' },
             hideOnClick: { type: Boolean, attribute: 'hide-on-click' },
             strategy: { type: String, attribute: 'strategy' },
+            maxHeight: { type: String, attribute: 'max-height' },
         };
     }
 
@@ -77,9 +86,12 @@ export class VlPopoverComponent extends BaseLitElement {
             'popover-content': true,
             [`padding-${this.contentPadding}`]: true,
         };
+        const contentStyles = this.maxHeight ? { '--vl-popover-max-height': this.maxHeight } : {};
         return html`
-            <div class=${classMap(classes)} aria-hidden="${!this.open}">
-                <slot></slot>
+            <div class=${classMap(classes)} style=${styleMap(contentStyles)} aria-hidden="${!this.open}">
+                <div class="popover-scroll-container">
+                    <slot></slot>
+                </div>
                 ${!this.hideArrow ? html`<i id="popover-arrow" role="presentation"></i>` : null}
             </div>
         `;

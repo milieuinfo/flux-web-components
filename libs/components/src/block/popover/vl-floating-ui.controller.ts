@@ -7,12 +7,17 @@ import {
     offset,
     platform,
     shift,
+    size,
     Strategy,
     type Placement,
 } from '@floating-ui/dom';
 import { offsetParent } from 'composed-offset-position';
 import { LitElement, ReactiveController } from 'lit';
 import { POPOVER_ARIA_TYPE, POPOVER_TYPE } from './vl-popover.model';
+
+// Ruimte (px) die de size-middleware vrijhoudt tot de viewport-rand zodat de drop-shadow van
+// .popover-content niet wordt afgeknipt (zie filter in vl-popover.flux-css.ts).
+const VIEWPORT_PADDING = 12;
 
 export type FloatingControllerOptions = {
     reference: string;
@@ -141,6 +146,10 @@ export default class FloatingController implements ReactiveController {
         return this.host.shadowRoot!.querySelector('i#popover-arrow')!;
     }
 
+    private getScrollContainer(): HTMLElement | null {
+        return this.host.shadowRoot?.querySelector<HTMLElement>('.popover-scroll-container') ?? null;
+    }
+
     private buildMiddlewares(): Middleware[] {
         return [
             // https://floating-ui.com/docs/offset
@@ -150,6 +159,17 @@ export default class FloatingController implements ReactiveController {
             flip(),
             // https://floating-ui.com/docs/shift
             shift(),
+            // https://floating-ui.com/docs/size
+            // size() runs after flip() so the available height is measured on the side that flip() chose.
+            size({
+                padding: VIEWPORT_PADDING,
+                apply: ({ availableHeight }) => {
+                    this.getScrollContainer()?.style.setProperty(
+                        '--vl-popover-available-height',
+                        `${Math.max(availableHeight, 0)}px`
+                    );
+                },
+            }),
             // https://floating-ui.com/docs/arrow
             // arrow() should generally be placed toward the end of your middleware array, after shift().
             arrow({ element: this.getArrowElement(), padding: 8 }),
@@ -181,6 +201,23 @@ export default class FloatingController implements ReactiveController {
                 top: y != null ? `${y}px` : '',
                 [staticSide!]: `${-this.getArrowElement().offsetWidth / 2}px`,
             });
+        }
+
+        this.updateScrollability();
+    }
+
+    // Een scrollbare regio moet met het toetsenbord bediend kunnen worden (WCAG 2.1.1): maak de
+    // content focusbaar zodra ze scrollt, zodat pijl-/PageUp-/PageDown-toetsen werken, ook als er
+    // geen focusbare children in de slot zitten.
+    private updateScrollability(): void {
+        const scrollContainer = this.getScrollContainer();
+        if (!scrollContainer) return;
+
+        const isScrollable = scrollContainer.scrollHeight > scrollContainer.clientHeight;
+        if (isScrollable) {
+            scrollContainer.setAttribute('tabindex', '0');
+        } else {
+            scrollContainer.removeAttribute('tabindex');
         }
     }
 

@@ -113,4 +113,14 @@ export const popoverArgTypes: ArgTypes<typeof popoverDefaultArgs> = {
             defaultValue: { summary: popoverDefaultArgs.strategy },
         },
     },
+    maxHeight: {
+        name: 'max-height',
+        description:
+            'Optionele harde bovengrens voor de hoogte van de popover-content (CSS-lengte, bv. `300px` of `50vh`). De effectieve hoogte is het minimum van deze waarde en de ruimte tot de viewport-rand; bij overschrijding scrollt de content verticaal.',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: popoverDefaultArgs.maxHeight },
+        },
+    },
 };
