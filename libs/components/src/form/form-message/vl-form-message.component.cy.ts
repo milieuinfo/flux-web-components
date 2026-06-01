@@ -84,6 +84,44 @@ describe('vl-form-message - properties & states', () => {
             expect(component.state).to.equal('missingValue');
         });
     });
+
+    it('should render error variant by default', () => {
+        cy.mount(html`<vl-form-message show>Test form message</vl-form-message>`);
+
+        cy.get('vl-form-message').shadow().find('p').should('have.class', 'vl-form__error');
+        cy.get('vl-form-message').shadow().find('p').should('not.have.class', 'vl-form__success');
+        cy.get('vl-form-message').shadow().find('p').should('not.have.class', 'vl-form__annotation');
+    });
+
+    it('should render success variant', () => {
+        cy.mount(html`<vl-form-message variant="success" show>Test form message</vl-form-message>`);
+
+        cy.get('vl-form-message').shadow().find('p').should('have.class', 'vl-form__success');
+        cy.get('vl-form-message').shadow().find('p').should('not.have.class', 'vl-form__error');
+        cy.get('vl-form-message').shadow().find('.vl-form__success').should('be.visible');
+    });
+
+    it('should render the success style for state="valid"', () => {
+        cy.mount(html`<vl-form-message state="valid" show>Test form message</vl-form-message>`);
+
+        cy.get('vl-form-message').shadow().find('p').should('have.class', 'vl-form__success');
+        cy.get('vl-form-message').shadow().find('p').should('not.have.class', 'vl-form__error');
+        cy.get('vl-form-message').shadow().find('.vl-form__success').should('be.visible');
+    });
+
+    it('should render annotation variant', () => {
+        cy.mount(html`<vl-form-message variant="annotation" show>Test form message</vl-form-message>`);
+
+        cy.get('vl-form-message').shadow().find('p').should('have.class', 'vl-form__annotation');
+        cy.get('vl-form-message').shadow().find('p').should('not.have.class', 'vl-form__error');
+        cy.get('vl-form-message').shadow().find('.vl-form__annotation').should('be.visible');
+    });
+
+    it('should always show an annotation message even without the show attribute', () => {
+        cy.mount(html`<vl-form-message variant="annotation">Test form message</vl-form-message>`);
+
+        cy.get('vl-form-message').shadow().find('.vl-form__annotation').should('be.visible');
+    });
 });
 
 describe('vl-form-message - content & validation', () => {

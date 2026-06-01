@@ -411,6 +411,24 @@ describe('vl-radio-group - events', () => {
             .should('deep.equal', { checked: true, value });
     });
 
+    it('should dispatch vl-valid event when a radio is checked', () => {
+        cy.mount(html`
+            <vl-radio-group id="land-zee" name="land-zee" required>
+                <vl-radio value="land">Land</vl-radio>
+                <vl-radio value="zee">Zee</vl-radio>
+                <vl-radio value="lucht">Lucht</vl-radio>
+            </vl-radio-group>
+        `);
+
+        cy.createStubForEvent('vl-radio-group', 'vl-valid');
+        clickRadioWithValue('land');
+
+        cy.get('@vl-valid')
+            .should('have.been.calledOnce')
+            .its('firstCall.args.0.detail')
+            .should('deep.equal', { value: 'land' });
+    });
+
     it('should only dispatch vl-change but not vl-input event on checking programmatically', () => {
         cy.mount(html`
             <vl-radio-group id="land-zee" name="land-zee">
@@ -450,6 +468,29 @@ describe('vl-radio-group - in form', () => {
         cy.get('vl-radio-group').find('vl-radio[value="zee"]').should('have.attr', 'checked');
         cy.get('vl-radio-group').find('vl-radio[value="land"]').should('not.have.attr', 'checked');
         cy.get('vl-radio-group').find('vl-radio[value="lucht"]').should('not.have.attr', 'checked');
+    });
+
+    it('should show the success message once a radio is checked after a validation error', () => {
+        cy.mount(html`
+            <form @submit=${(e: Event) => e.preventDefault()}>
+                <vl-radio-group id="land-zee" name="land-zee" required>
+                    <vl-radio value="land">Land</vl-radio>
+                    <vl-radio value="zee">Zee</vl-radio>
+                    <vl-radio value="lucht">Lucht</vl-radio>
+                </vl-radio-group>
+                <vl-form-message for="land-zee" state="valueMissing">Maak een keuze.</vl-form-message>
+                <vl-form-message for="land-zee" state="valid">Geldige keuze.</vl-form-message>
+                <button type="submit">Verstuur</button>
+            </form>
+        `);
+
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+        cy.get('vl-form-message[state="valid"]').should('not.have.attr', 'show');
+
+        clickRadioWithValue('zee');
+        cy.get('vl-form-message[state="valid"]').should('have.attr', 'show');
+        cy.get('vl-form-message[state="valueMissing"]').should('not.have.attr', 'show');
     });
 
     it('should reset to null when the form is reset with no value', () => {

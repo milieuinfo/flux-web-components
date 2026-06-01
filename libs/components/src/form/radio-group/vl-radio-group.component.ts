@@ -37,6 +37,7 @@ export class VlRadioGroupComponent extends FormControl {
 
         this.addEventListener('vl-change', this.updateGroupAfterCheck);
         this.addEventListener('keydown', this.handleKeyDown);
+        this.addEventListener('vl-valid', this.suppressChildValid);
     }
 
     updated(changedProperties: Map<string, unknown>) {
@@ -45,6 +46,7 @@ export class VlRadioGroupComponent extends FormControl {
         if (changedProperties.has('value')) {
             this.setValue(this.value);
             this.checkRadioForValue(this.value);
+            this.dispatchEventIfValid({ value: this.value });
         }
 
         if (changedProperties.has('name')) {
@@ -89,7 +91,14 @@ export class VlRadioGroupComponent extends FormControl {
         super.disconnectedCallback();
 
         this.removeEventListener('vl-change', this.updateGroupAfterCheck);
+        this.removeEventListener('vl-valid', this.suppressChildValid);
     }
+
+    private suppressChildValid = (event: Event) => {
+        if (event.target !== this) {
+            event.stopImmediatePropagation();
+        }
+    };
 
     render(): TemplateResult {
         return html`
