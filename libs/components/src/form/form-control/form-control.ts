@@ -24,8 +24,19 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
     // Sticky once true (reset via resetFormControl). Enables live re-validation on input after the first error.
     private erroredOnce = false;
 
+    // Pas success-styling toe zodra de control valid is geworden na een eerste validatie.
+    // Zonder die controle zou een veld dat van bij aanvang geldig is meteen groen worden.
+    private hasBeenValidated = false;
+
+    // De form waarop de validatiecyclus-listeners hangen.
+    private validatedForm: HTMLFormElement | null = null;
+
+    // Voorkomt dat er per update-cyclus meerdere message-refreshes ingepland worden.
+    private formMessageRefreshScheduled = false;
+
     // Variables
     protected submitFormOnEnter = true;
+    protected formMessageText: string | undefined | null;
 
     static formControlValidators = [requiredValidator, programmaticValidator];
 
@@ -52,6 +63,7 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
         this.addEventListener('invalid', this.onInvalid);
         this.addEventListener('vl-input', this.onUserMutation);
         this.addEventListener('focusout', this.onFocusOut);
+        this.addEventListener('vl-valid', this.onValid);
     }
 
     disconnectedCallback() {
@@ -61,6 +73,27 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
         this.removeEventListener('invalid', this.onInvalid);
         this.removeEventListener('vl-input', this.onUserMutation);
         this.removeEventListener('focusout', this.onFocusOut);
+        this.removeEventListener('vl-valid', this.onValid);
+
+        this.unbindFormValidationListeners();
+    }
+
+    // Verplaats de validatie-cyclus-listeners mee wanneer de control aan de form gekoppeld
+    // wordt. Wordt door de browser aangeroepen omdat de control form-associated is.
+    formAssociatedCallback(form: HTMLFormElement | null) {
+        if (this.validatedForm === form) {
+            return;
+        }
+
+        this.unbindFormValidationListeners();
+
+        this.validatedForm = form;
+        this.validatedForm?.addEventListener('submit', this.onFormValidated);
+    }
+
+    private unbindFormValidationListeners() {
+        this.validatedForm?.removeEventListener('submit', this.onFormValidated);
+        this.validatedForm = null;
     }
 
     updated(changedProperties: Map<string, unknown>) {
@@ -76,7 +109,7 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
 
         if (!changedProperties.has('isInvalid')) {
             this.isInvalid = false;
-            this.hideFormMessages();
+            this.scheduleFormMessageRefresh();
         }
     }
 
@@ -98,6 +131,7 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
     resetFormControl() {
         this.isInvalid = false;
         this.erroredOnce = false;
+        this.hasBeenValidated = false;
         this.hideFormMessages();
         this.dispatchEvent(new Event('vl-reset', { bubbles: true, composed: true }));
     }
@@ -120,6 +154,7 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
         event.preventDefault();
 
         this.isInvalid = true;
+        this.hasBeenValidated = true;
         // Only stick erroredOnce in blur-validation mode (live recovery after submit).
         if (this.blurValidationEnabled) {
             this.erroredOnce = true;
@@ -127,6 +162,24 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
         this.focusFirstInvalidInput();
         this.showFormMessage();
     }
+
+    private onValid(event: Event) {
+        if (event.target !== this) {
+            return;
+        }
+
+        if (this.hasBeenValidated && this.validity.valid) {
+            this.showSuccessMessage();
+        }
+    }
+
+    private onFormValidated = () => {
+        this.hasBeenValidated = true;
+
+        if (this.validity.valid) {
+            this.showSuccessMessage();
+        }
+    };
 
     private onUserMutation() {
         if (!this.blurValidationEnabled) return;
@@ -151,10 +204,17 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
     private runValidation() {
         if (this.validity.valid) {
             this.isInvalid = false;
-            this.hideFormMessages();
+            // Toon de success-boodschap zodra de control geldig wordt na een eerste validatie,
+            // anders enkel de (eventuele) foutmelding verbergen.
+            if (this.hasBeenValidated) {
+                this.showSuccessMessage();
+            } else {
+                this.hideFormMessages();
+            }
         } else {
             this.isInvalid = true;
             this.erroredOnce = true;
+            this.hasBeenValidated = true;
             this.showFormMessage();
         }
     }
@@ -169,6 +229,9 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
     }
 
     private showFormMessage() {
+        // Error en success sluiten elkaar uit: verberg eerst alles, toon dan de error.
+        this.hideFormMessages();
+
         let errorState = '';
 
         for (const key in this.validity) {
@@ -183,21 +246,75 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
             `${FORM_MESSAGE_CUSTOM_TAG}[for="${this.id}"][state="${errorState}"]`
         );
 
-        // Als er geen error message is voor de huidige error state, zoek dan de algemene error message zonder state attribuut
+        // Als er geen error message is voor de huidige error state, zoek dan de algemene error message zonder state attribuut.
+        // Success- en annotation-messages worden uitgesloten zodat ze nooit als error getoond worden.
         if (!errorMessage) {
-            errorMessage = this.form?.querySelector(`${FORM_MESSAGE_CUSTOM_TAG}[for="${this.id}"]:not([state])`);
+            errorMessage = this.form?.querySelector(
+                `${FORM_MESSAGE_CUSTOM_TAG}[for="${this.id}"]:not([state]):not([variant="success"]):not([variant="annotation"])`
+            );
         }
 
-        if (errorMessage) {
-            errorMessage.setAttribute('validation-message', this.validationMessage);
-            if (!errorMessage.hasAttribute('show')) {
-                errorMessage.setAttribute('show', '');
-            }
+        this.formMessageText = errorMessage?.textContent;
+
+        if (this.formMessageText) {
+            this.validationTarget?.setAttribute('aria-description', this.formMessageText);
+        } else {
+            this.validationTarget?.removeAttribute('aria-description');
+        }
+
+        errorMessage?.setAttribute('validation-message', this.validationMessage);
+        errorMessage?.setAttribute('show', '');
+    }
+
+    private scheduleFormMessageRefresh() {
+        if (this.formMessageRefreshScheduled) {
+            return;
+        }
+
+        this.formMessageRefreshScheduled = true;
+        queueMicrotask(() => this.refreshFormMessage());
+    }
+
+    private refreshFormMessage() {
+        this.formMessageRefreshScheduled = false;
+
+        if (this.hasBeenValidated && this.validity.valid) {
+            this.showSuccessMessage();
+        } else {
+            this.hideFormMessages();
         }
     }
 
+    private showSuccessMessage() {
+        // Altijd eerst verbergen: ook als er geen success-boodschap gedefinieerd is moet een
+        // eerder getoonde foutmelding verdwijnen zodra de control geldig wordt.
+        this.hideFormMessages();
+
+        const successMessage = this.form?.querySelector(
+            `${FORM_MESSAGE_CUSTOM_TAG}[for="${this.id}"][state="valid"]`
+        );
+
+        if (!successMessage) {
+            return;
+        }
+
+        this.formMessageText = successMessage.textContent;
+
+        if (this.formMessageText) {
+            this.validationTarget?.setAttribute('aria-description', this.formMessageText);
+        }
+
+        successMessage.setAttribute('show', '');
+    }
+
     private hideFormMessages() {
-        const formMessages = this.form?.querySelectorAll(`${FORM_MESSAGE_CUSTOM_TAG}[for="${this.id}"]`);
+        // Annotation-messages zijn louter informatief en blijven altijd zichtbaar; nooit verbergen.
+        const formMessages = this.form?.querySelectorAll(
+            `${FORM_MESSAGE_CUSTOM_TAG}[for="${this.id}"]:not([variant="annotation"])`
+        );
+
+        this.formMessageText = null;
+        this.validationTarget?.removeAttribute('aria-description');
 
         formMessages?.forEach((formMessage) => {
             formMessage.removeAttribute('show');

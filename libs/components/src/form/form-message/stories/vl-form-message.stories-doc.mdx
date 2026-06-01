@@ -11,6 +11,9 @@ import * as VlFormMessageStories from './vl-form-message.stories';
 Gebruik de `form-message` component om een boodschap af te beelden voor een input veld.<br/>
 Zie het [form demo](/docs/patronen-formulier-demo--documentatie) voorbeeld voor het gebruik binnen een form.
 
+Gebruik `vl-form-message` zodra een boodschap aan een form-control gekoppeld is: de component werkt samen met de
+validatie-lifecycle van de control (tonen/verbergen en `aria-description`).
+
 
 ## Voorbeeld
 
@@ -38,10 +41,36 @@ We raden aan 1 form message per validatie te tonen. Als er meerdere validaties z
 De volgorde waarin de form messages getoond worden volgt dezelfde volgorde van `vl-form-message` componenten in
 de DOM. Een voorbeeld hiervan kan je vinden in onze [form demo](/docs/patronen-formulier-demo--documentatie).
 
+### Varianten
+
+Met het `variant` attribuut bepaal je de visuele stijl van de message: `error` (default, rood), `success` (groen) of
+`annotation` (grijs). Bestaande markup zonder `variant` blijft de error-stijl tonen. Een `variant="annotation"` is een
+altijd zichtbare, informatieve tekst.
+
+De success-stijl wordt daarnaast ook automatisch toegepast bij `state="valid"`, zodat een auto-success boodschap geen
+expliciete `variant` nodig heeft (zie [Success](#success)).
+
+<Canvas of={VlFormMessageStories.FormMessageSuccess} />
+
+<Canvas of={VlFormMessageStories.FormMessageAnnotation} />
+
 ### Success
 
-Als je expliciet wil aantonen dat de form-control correct is ingevuld, kan je het `success` attribuut gebruiken op de
-gerelateerde form-control.
+Plaats een `vl-form-message` met `state="valid"` bij het veld om een success-boodschap automatisch te laten verschijnen
+zodra het veld valid is na een eerste validatie. De aanwezigheid van die boodschap is voldoende - er is geen extra
+attribuut op de form-control nodig, en de groene success-stijl wordt automatisch toegepast. De boodschap volgt dezelfde
+lifecycle als een foutmelding: ze verschijnt zodra het veld - na een eerdere foutmelding - correct wordt ingevuld, en
+verdwijnt opnieuw zodra het veld terug invalid is.
+
+```html
+<vl-input-field id="naam" name="naam" required></vl-input-field>
+<vl-form-message for="naam" state="valueMissing">Gelieve een naam in te vullen.</vl-form-message>
+<vl-form-message for="naam" state="valid">Dit veld is correct ingevuld.</vl-form-message>
+```
+
+> Wil je een boodschap los van de validatie-lifecycle manueel in de success-stijl tonen, gebruik dan
+> `variant="success"`. Wil je de form-control zelf in een success-stijl tonen (zonder boodschap), gebruik dan het
+> `success` attribuut op de form-control.
 
 ### Foutmeldingen
 

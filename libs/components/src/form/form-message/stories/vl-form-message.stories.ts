@@ -21,19 +21,41 @@ export default {
     },
 } as Meta<typeof formMessageArgs>;
 
-export const FormMessageDefault = story(formMessageArgs, ({ for: forValue, state, show, preLine, defaultSlot }) => {
-    return html`
-        <vl-form-message
-            for=${forValue}
-            state=${state}
-            ?show=${show}
-            ?pre-line=${preLine}
-            validation-message=${defaultSlot}
-        ></vl-form-message>
-    `;
-});
+export const FormMessageDefault = story(
+    formMessageArgs,
+    ({ for: forValue, state, variant, show, preLine, defaultSlot }) => {
+        return html`
+            <vl-form-message
+                for=${forValue}
+                state=${state}
+                variant=${variant}
+                ?show=${show}
+                ?pre-line=${preLine}
+                validation-message=${defaultSlot}
+            ></vl-form-message>
+        `;
+    }
+);
 FormMessageDefault.storyName = 'vl-form-message - default';
 FormMessageDefault.args = {
     show: true,
     defaultSlot: 'Dit is een form message.',
+};
+
+export const FormMessageSuccess = story(formMessageArgs, ({ show, defaultSlot }) => {
+    return html` <vl-form-message variant="success" ?show=${show}>${defaultSlot}</vl-form-message> `;
+});
+FormMessageSuccess.storyName = 'vl-form-message - success';
+FormMessageSuccess.args = {
+    show: true,
+    defaultSlot: 'Dit veld is correct ingevuld.',
+};
+
+export const FormMessageAnnotation = story(formMessageArgs, ({ show, defaultSlot }) => {
+    return html` <vl-form-message variant="annotation" ?show=${show}>${defaultSlot}</vl-form-message> `;
+});
+FormMessageAnnotation.storyName = 'vl-form-message - annotation';
+FormMessageAnnotation.args = {
+    show: true,
+    defaultSlot: 'Extra toelichting bij dit veld.',
 };

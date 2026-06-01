@@ -339,6 +339,25 @@ describe('vl-upload - events', () => {
         cy.get('@vl-input').its('callCount').should('eq', 0);
     });
 
+    it('should show the success message once a valid file is added after a validation error', () => {
+        cy.mount(html`
+            <form @submit=${(e: Event) => e.preventDefault()}>
+                <vl-upload id="foto" name="foto" required></vl-upload>
+                <vl-form-message for="foto" state="valueMissing">Kies een bestand.</vl-form-message>
+                <vl-form-message for="foto" state="valid">Geldig bestand.</vl-form-message>
+                <button type="submit">Verstuur</button>
+            </form>
+        `);
+
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+        cy.get('vl-form-message[state="valid"]').should('not.have.attr', 'show');
+
+        shouldAddPdfFiles(1);
+        cy.get('vl-form-message[state="valid"]').should('have.attr', 'show');
+        cy.get('vl-form-message[state="valueMissing"]').should('not.have.attr', 'show');
+    });
+
     it('should dispatch vl-change events when removing a file', () => {
         cy.mount(html` <vl-upload max-files="4"></vl-upload>`);
 
