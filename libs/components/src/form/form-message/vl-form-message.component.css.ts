@@ -11,20 +11,30 @@ export const vlFormMessageComponentStyles: CSSResult = css`
     }
 
     /* ===================================================================
-       Form Message Base Styles (Error & Success)
+       Form Message Base Styles (Error, Success & Annotation)
        =================================================================== */
 
     .vl-form__error,
-    .vl-form__success {
+    .vl-form__success,
+    .vl-form__annotation {
         font-size: 1.4rem;
-        font-weight: 500;
         margin-top: var(--vl-form-message--margin-top);
         margin-bottom: var(--vl-form-message--margin-bottom);
     }
 
+    .vl-form__error,
+    .vl-form__success {
+        font-weight: 500;
+    }
+
+    .vl-form__annotation {
+        font-weight: 400;
+    }
+
     @media screen and (max-width: 767px) {
         .vl-form__error,
-        .vl-form__success {
+        .vl-form__success,
+        .vl-form__annotation {
             font-size: var(--vl-font-size--small);
         }
     }
@@ -56,6 +66,14 @@ export const vlFormMessageComponentStyles: CSSResult = css`
 
     .vl-form__success {
         color: var(--vl-color--success);
+    }
+
+    /* ===================================================================
+       Form Message Annotation State
+       =================================================================== */
+
+    .vl-form__annotation {
+        color: var(--vl-color--text-subtle);
     }
 
     /* ===================================================================

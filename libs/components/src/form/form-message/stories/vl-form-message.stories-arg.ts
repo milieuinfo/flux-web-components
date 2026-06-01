@@ -23,11 +23,24 @@ export const formMessageArgTypes: ArgTypes<FormMessageArgs> = {
     },
     state: {
         name: 'state',
-        description: 'De state van het input element waarvoor de message getoond moet worden.',
+        description:
+            'De `ValidityState`-sleutel waarvoor de message getoond moet worden. Gebruik `state="valid"` voor een success-boodschap (groen) die automatisch verschijnt zodra het veld geldig is na een eerste validatie.',
         table: {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: 'ValidityState' },
             defaultValue: { summary: String(formMessageArgs.state) },
+        },
+    },
+    variant: {
+        name: 'variant',
+        description:
+            'De visuele stijl van de message: `error` (default), `success` of `annotation`. Gebruik `annotation` voor een altijd zichtbare, informatieve tekst. De success-stijl wordt ook automatisch toegepast bij `state="valid"`.',
+        control: { type: 'select' },
+        options: ['error', 'success', 'annotation'],
+        table: {
+            category: CATEGORIES.ATTRIBUTES,
+            type: { summary: 'error | success | annotation' },
+            defaultValue: { summary: String(formMessageArgs.variant) },
         },
     },
     show: {

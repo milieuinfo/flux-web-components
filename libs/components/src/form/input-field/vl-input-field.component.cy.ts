@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
 import { VlInputFieldComponent } from './vl-input-field.component';
 import { VlFormMessageComponent } from '../form-message/vl-form-message.component';
@@ -306,5 +306,72 @@ describe('cypress-component - form components - vl-input-field', () => {
             cy.get('vl-input-field').shadow().find('input').focus().blur();
             cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
         });
+    });
+});
+
+describe('cypress-component - form components - vl-input-field - success message', () => {
+    // De aanwezigheid van een vl-form-message met state="valid" is de opt-in voor de auto-success.
+    const mountInForm = (withSuccessMessage = true) =>
+        cy.mount(html`
+            <form @submit=${(e: Event) => e.preventDefault()}>
+                <vl-input-field id="naam" name="naam" required min-length="4"> </vl-input-field>
+                <vl-form-message for="naam" state="valueMissing">Verplicht veld.</vl-form-message>
+                ${withSuccessMessage
+                    ? html`<vl-form-message for="naam" state="valid">Correct ingevuld.</vl-form-message>`
+                    : nothing}
+                <button type="submit">Verstuur</button>
+            </form>
+        `);
+
+    it('should not show the success message before a first validation', () => {
+        mountInForm();
+
+        cy.get('vl-input-field').shadow().find('input').type('test');
+        cy.get('vl-form-message[state="valid"]').should('not.have.attr', 'show');
+    });
+
+    it('should show the success message once valid after a validation', () => {
+        mountInForm();
+
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+        cy.get('vl-form-message[state="valid"]').should('not.have.attr', 'show');
+
+        cy.get('vl-input-field').shadow().find('input').type('test');
+        cy.get('vl-form-message[state="valid"]').should('have.attr', 'show');
+        cy.get('vl-form-message[state="valueMissing"]').should('not.have.attr', 'show');
+        cy.get('vl-input-field').shadow().find('input').should('have.attr', 'aria-description', 'Correct ingevuld.');
+    });
+
+    it('should show the success message on a clean valid submit without a prior error', () => {
+        mountInForm();
+
+        // Eerst geldig invullen: nog geen success, want er was nog geen validatiecyclus.
+        cy.get('vl-input-field').shadow().find('input').type('test');
+        cy.get('vl-form-message[state="valid"]').should('not.have.attr', 'show');
+
+        // De submit is de eerste validatiecyclus; het veld is meteen geldig -> success.
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-form-message[state="valid"]').should('have.attr', 'show');
+        cy.get('vl-form-message[state="valueMissing"]').should('not.have.attr', 'show');
+    });
+
+    it('should hide the success message again when the field becomes invalid', () => {
+        mountInForm();
+
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-input-field').shadow().find('input').type('test');
+        cy.get('vl-form-message[state="valid"]').should('have.attr', 'show');
+
+        cy.get('vl-input-field').shadow().find('input').clear();
+        cy.get('vl-form-message[state="valid"]').should('not.have.attr', 'show');
+    });
+
+    it('should not show a success message when no valid-message is present', () => {
+        mountInForm(false);
+
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-input-field').shadow().find('input').type('test');
+        cy.get('vl-form-message[state="valid"]').should('not.exist');
     });
 });

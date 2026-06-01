@@ -120,6 +120,7 @@ export class VlUploadComponent extends FormControl {
 
         if (changedProperties.has('value')) {
             this.setValue(this.value);
+            this.dispatchEventIfValid({ value: this.value });
         }
 
         if (changedProperties.has('dropzoneInstance')) {
@@ -575,13 +576,14 @@ export class VlUploadComponent extends FormControl {
     }
 
     private updateValue(detail: { type: string; file?: DropzoneFile; value: FormValue }) {
+        // Het zetten van this.value triggert updated(), waar setValue en (na hideFormMessages) de
+        // vl-valid dispatch gebeuren. Zo blijft een gekoppelde state="valid" success-boodschap zichtbaar.
         this.value = this.collectFormData();
         this.dispatchEvent(new CustomEvent('vl-change', { composed: true, bubbles: true, detail }));
         if (this.dispatchInput) {
             this.dispatchEvent(new CustomEvent('vl-input', { composed: true, bubbles: true, detail }));
             this.dispatchInput = false;
         }
-        this.dispatchEventIfValid(detail);
     }
 
     /**

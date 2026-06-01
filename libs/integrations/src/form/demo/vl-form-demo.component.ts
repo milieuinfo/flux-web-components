@@ -120,6 +120,7 @@ export class VlFormDemoComponent extends LitElement {
                         <vl-form-message for="naam" state="valueMissing"
                             >Gelieve een naam in te vullen.
                         </vl-form-message>
+                        <vl-form-message for="naam" state="valid"> Deze naam is geldig. </vl-form-message>
                         <vl-form-message for="naam" state="tooShort"
                             >Gelieve minimum 2 karakters te gebruiken.
                         </vl-form-message>
@@ -142,12 +143,16 @@ export class VlFormDemoComponent extends LitElement {
                             mask="rrn"
                             placeholder="bv. 86-12-31-123-45"
                         ></vl-input-field-masked>
+                        <vl-form-message for="rrn" variant="annotation">
+                            Een rijksregisternummer heeft het formaat yy-dd-mm-xyz-cn
+                        </vl-form-message>
                         <vl-form-message for="rrn" state="valueMissing"
                             >Gelieve een rijksregisternummer in te vullen.</vl-form-message
                         >
                         <vl-form-message for="rrn" state="patternMismatch"
                             >Gelieve een geldig rijksregisternummer in te vullen.</vl-form-message
                         >
+                        <vl-form-message for="rrn" state="valid">Dit rijksregisternummer is geldig. </vl-form-message>
                     </div>
                     <div class="vl-column vl-column--4 vl-column--s-12">
                         <vl-form-label for="geboortedatum" label="Geboortedatum *" block></vl-form-label>
@@ -164,6 +169,9 @@ export class VlFormDemoComponent extends LitElement {
                         </vl-datepicker>
                         <vl-form-message for="geboortedatum" state="valueMissing">
                             Gelieve een geboortedatum in te vullen.
+                        </vl-form-message>
+                        <vl-form-message for="geboortedatum" state="valid">
+                            Deze geboortedatum is geldig.
                         </vl-form-message>
                         <vl-form-message for="geboortedatum" state="patternMismatch">
                             Gelieve het volgende datum formaat te gebruiken: "dd.mm.YYYY", bv. 01.12.1976 of 1.2.1993
@@ -188,6 +196,9 @@ export class VlFormDemoComponent extends LitElement {
                         <vl-form-message for="geboorteplaats" state="valueMissing"
                             >Gelieve een geboorteplaats te selecteren.
                         </vl-form-message>
+                        <vl-form-message for="geboorteplaats" state="valid"
+                            >Deze geboorteplaats is geldig.
+                        </vl-form-message>
                     </div>
                     <div class="vl-column vl-column--4 vl-column--s-12">
                         <vl-form-label for="hobbies" label="Hobbies *" block></vl-form-label>
@@ -207,6 +218,7 @@ export class VlFormDemoComponent extends LitElement {
                         <vl-form-message for="hobbies" state="valueMissing"
                             >Gelieve een hobby te selecteren.
                         </vl-form-message>
+                        <vl-form-message for="hobbies" state="valid">Deze hobbyselectie is geldig. </vl-form-message>
                     </div>
                     <div class="vl-column vl-column--4 vl-column--s-12">
                         <vl-form-label for="kinderen" label="Aantal kinderen *" block></vl-form-label>
@@ -223,6 +235,7 @@ export class VlFormDemoComponent extends LitElement {
                         <vl-form-message for="kinderen" state="valueMissing"
                             >Gelieve een aantal kinderen te kiezen.
                         </vl-form-message>
+                        <vl-form-message for="kinderen" state="valid">Dit aantal kinderen is geldig. </vl-form-message>
                     </div>
                     <div class="vl-column vl-column--4 vl-column--s-12">
                         <vl-form-label for="interesses" label="Interesses *" block></vl-form-label>
@@ -241,6 +254,7 @@ export class VlFormDemoComponent extends LitElement {
                         <vl-form-message for="interesses" state="valueMissing"
                             >Gelieve je interesses in te vullen.
                         </vl-form-message>
+                        <vl-form-message for="interesses" state="valid">Deze interesses zijn geldig. </vl-form-message>
                         <vl-form-message for="interesses" state="tooShort"
                             >Gelieve minimum 5 karakters te gebruiken.
                         </vl-form-message>
@@ -265,6 +279,7 @@ export class VlFormDemoComponent extends LitElement {
                         <vl-form-message for="leeftijd" state="valueMissing"
                             >Gelieve een leeftijd in te vullen.
                         </vl-form-message>
+                        <vl-form-message for="leeftijd" state="valid">Deze leeftijd is geldig. </vl-form-message>
                         <vl-form-message for="leeftijd" state="rangeUnderflow"
                             >De minimum leeftijd is 0 jaar.
                         </vl-form-message>
@@ -284,6 +299,9 @@ export class VlFormDemoComponent extends LitElement {
                         <vl-form-message for="contactmethode" state="valueMissing">
                             Gelieve een contactmethode te selecteren.
                         </vl-form-message>
+                        <vl-form-message for="contactmethode" state="valid">
+                            Deze contactmethode is geldig.
+                        </vl-form-message>
                     </div>
                     <div class="vl-column vl-column--4 vl-column--s-12">
                         <vl-form-label for="foto" label="Pasfoto *" block></vl-form-label>
@@ -299,6 +317,7 @@ export class VlFormDemoComponent extends LitElement {
                         <vl-form-message for="foto" state="valueMissing">
                             Gelieve een foto te selecteren.
                         </vl-form-message>
+                        <vl-form-message for="foto" state="valid"> Deze foto is geldig. </vl-form-message>
                     </div>
                     <div class="vl-column vl-column--4 vl-column--s-12">
                         <vl-form-label for="waarheidsgetrouw" label="Waarheidsgetrouw *" block></vl-form-label>
@@ -309,6 +328,9 @@ export class VlFormDemoComponent extends LitElement {
                         </vl-checkbox>
                         <vl-form-message for="waarheidsgetrouw" state="valueMissing">
                             Gelieve te bevestigen dat bovenstaande gegevens naar waarheid zijn ingevuld.
+                        </vl-form-message>
+                        <vl-form-message for="waarheidsgetrouw" state="valid">
+                            Bedankt voor het bevestigen.
                         </vl-form-message>
                     </div>
                     <vl-fieldset horizontal class="vl-column vl-column--12">
@@ -333,8 +355,14 @@ export class VlFormDemoComponent extends LitElement {
                             <vl-form-message for="gerelateerd-1" state="valueMissing"
                                 >Gelieve een waarde in te vullen voor "Gerelateerd veld 1".
                             </vl-form-message>
+                            <vl-form-message for="gerelateerd-1" state="valid"
+                                >"Gerelateerd veld 1" is geldig.
+                            </vl-form-message>
                             <vl-form-message for="gerelateerd-2" state="valueMissing"
                                 >Gelieve een waarde in te vullen voor "Gerelateerd veld 2".
+                            </vl-form-message>
+                            <vl-form-message for="gerelateerd-2" state="valid"
+                                >"Gerelateerd veld 2" is geldig.
                             </vl-form-message>
                         </div>
                     </vl-fieldset>
