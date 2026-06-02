@@ -4,6 +4,7 @@ import { FormValue } from '@open-wc/form-control/src/types';
 import Choices, { Options } from 'choices.js';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { FormControl } from '../form-control';
 import { vlSelectRichComponentStyles } from './vl-select-rich.component.css';
 import { selectRichDefaults } from './vl-select-rich.defaults';
@@ -44,7 +45,7 @@ export class VlSelectRichComponent extends FormControl {
     }
 
     static get styles(): CSSResult[] {
-        return [vlResetStyles, vlSelectRichComponentStyles];
+        return [vlResetStyles, vlIconStyles, vlSelectRichComponentStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -434,7 +435,7 @@ export class VlSelectRichComponent extends FormControl {
                         return template(
                             `
                             <div
-                                class="js-vl-select vl-vi vl-vi-nav-down"
+                                class="js-vl-select vl-icon--nav-down"
                                 data-type="${this.multiple ? 'select-multiple' : 'select-one'}"
                                 ${this.search ? 'aria-autocomplete="list"' : ''}
                                 part="vl-select-rich__combobox"
@@ -486,11 +487,11 @@ export class VlSelectRichComponent extends FormControl {
                                     <button type="button"
                                     ${isPlaceholder ? '' : 'role="option"'}
                                      class="vl-pill__close ${
-                                         !this.multiple ? 'vl-vi vl-vi-close' : ''
+                                         !this.multiple ? 'vl-icon vl-icon--close' : ''
                                      }" data-button aria-label="verwijder ${data.label}">
                                         ${
                                             this.multiple
-                                                ? `<span class="vl-pill__close__icon vl-vi vl-vi-close" aria-hidden="true"></span>`
+                                                ? `<span class="vl-pill__close__icon vl-icon vl-icon--close" aria-hidden="true"></span>`
                                                 : ''
                                         }
                                     </button>

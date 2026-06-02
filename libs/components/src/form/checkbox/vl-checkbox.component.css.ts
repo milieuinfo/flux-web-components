@@ -11,24 +11,6 @@ export const vlCheckboxComponentStyles: CSSResult = css`
     }
 
     /* ===================================================================
-       Shared Icon Styles (for both checkbox and switch)
-       =================================================================== */
-
-    .vl-checkbox__box::before,
-    .vl-checkbox__box::after,
-    .vl-checkbox--switch__label span::before,
-    .vl-checkbox--switch__label span::after {
-        font-family: 'vlaanderen-icon' !important;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        font-style: normal;
-        font-variant: normal;
-        font-weight: normal;
-        text-decoration: none;
-        text-transform: none;
-    }
-
-    /* ===================================================================
        Visually Hidden Input (for both checkbox and switch)
        =================================================================== */
 
@@ -141,16 +123,9 @@ export const vlCheckboxComponentStyles: CSSResult = css`
         }
     }
 
-    /* Checked state */
-
-    .vl-checkbox__toggle:checked + .vl-checkbox__label .vl-checkbox__box::before {
-        content: '\\f15c';
-    }
-
     /* Indeterminate state */
 
     .vl-checkbox__toggle:indeterminate + .vl-checkbox__label .vl-checkbox__box::before {
-        content: '\\f20e';
         font-size: var(--vl-checkbox--icon-size);
         font-weight: bold;
     }
@@ -306,7 +281,7 @@ export const vlCheckboxComponentStyles: CSSResult = css`
         display: block;
         margin: 0.3rem 0 0 0.3rem;
         font-size: var(--vl-checkbox--icon-size);
-        content: '\\f15c';
+        line-height: 1rem;
         opacity: 0;
         visibility: hidden;
         transform: translate(0.4rem, 0.4rem) scale(0.6);

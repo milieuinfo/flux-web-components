@@ -3,6 +3,7 @@ import { vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
+import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { FormControl } from '../form-control';
 import { vlSelectComponentStyles } from './vl-select.component.css';
 import { selectDefaults } from './vl-select.defaults';
@@ -27,7 +28,7 @@ export class VlSelectComponent extends FormControl {
     private parsedOptions: SelectOption[] = [];
 
     static get styles(): CSSResult[] {
-        return [vlResetStyles, vlSelectComponentStyles];
+        return [vlResetStyles, vlIconStyles, vlSelectComponentStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -123,7 +124,7 @@ export class VlSelectComponent extends FormControl {
                     ${hasGroups ? this.renderGroupedOptions() : this.renderSelectOptions(this.getAllOptions())}
                 </select>
                 ${hasValue && !this.notDeletable ? this.renderClearButton() : nothing}
-                <span class="vl-icon vl-vi vl-vi-nav-down" aria-hidden="true"></span>
+                <span class="vl-icon vl-icon--nav-down" aria-hidden="true"></span>
             </div>
             <div class="slot-container">
                 <slot @slotchange=${this.onSlotChange}></slot>
@@ -145,7 +146,7 @@ export class VlSelectComponent extends FormControl {
                 aria-label=${`Verwijder ${this.label} keuze ${this.getSelectedOption()?.label || this.value || ''}`}
                 @click=${this.clearValue}
             >
-                <span class="vl-icon vl-vi vl-vi-close" aria-hidden="true"></span>
+                <span class="vl-icon vl-icon--close" aria-hidden="true"></span>
             </button>
         `;
     }

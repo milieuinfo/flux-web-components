@@ -75,10 +75,10 @@ export const vlPillFluxStyles: CSSResult = css`
             padding-right: 0;
 
             .vl-pill__close {
-                font-family: 'vlaanderen-icon' !important;
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
+                font-size: 1.3rem;
                 color: var(--vl-pill--text-color);
                 width: 2.4rem;
                 height: 2.4rem;
@@ -95,10 +95,6 @@ export const vlPillFluxStyles: CSSResult = css`
                 margin-right: -0.1rem;
                 margin-bottom: -0.1rem;
                 min-width: 2.4rem;
-
-                &::before {
-                    content: '\\f181';
-                }
             }
 
             &:not(.vl-pill--disabled) .vl-pill__close {
@@ -217,20 +213,7 @@ export const vlPillFluxStyles: CSSResult = css`
                     top: -0.1rem;
                     border: 0.1rem solid var(--vl-pill--border-color);
 
-                    &::before,
-                    &::after {
-                        font-family: 'vlaanderen-icon' !important;
-                        -webkit-font-smoothing: antialiased;
-                        -moz-osx-font-smoothing: grayscale;
-                        font-style: normal;
-                        font-variant: normal;
-                        font-weight: normal;
-                        text-decoration: none;
-                        text-transform: none;
-                    }
-
                     &::before {
-                        content: '\\f15c';
                         position: absolute;
                         display: block;
                         font-size: 0.8rem;
