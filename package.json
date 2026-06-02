@@ -3,12 +3,13 @@
     "version": "2.15.0",
     "author": "Flux <domg_flux@groepen.vlaanderen.be>",
     "license": "MIT",
+    "packageManager": "pnpm@10.18.0",
     "scripts": {
         "apps:integrator:build": "cd ./apps/integrator && webpack --mode production",
         "apps:integrator:dev": "cd ./apps/integrator && webpack serve --progress --profile --mode development",
-        "apps:integrator:serve-and-e2e": "start-server-and-test 'npm run apps:integrator:dev' http://localhost:4204 'npm run apps:integrator-e2e:run'",
-        "apps:integrator-e2e:run": "cd ./apps/integrator-e2e && npx cypress run --e2e",
-        "apps:integrator-e2e:watch": "cd ./apps/integrator-e2e && npx cypress open --e2e",
+        "apps:integrator:serve-and-e2e": "start-server-and-test 'pnpm run apps:integrator:dev' http://localhost:4204 'pnpm run apps:integrator-e2e:run'",
+        "apps:integrator-e2e:run": "cd ./apps/integrator-e2e && pnpm exec cypress run --e2e",
+        "apps:integrator-e2e:watch": "cd ./apps/integrator-e2e && pnpm exec cypress open --e2e",
         "apps:playground-lit:build": "cd ./apps/playground-lit && webpack --mode production",
         "apps:playground-lit:dev": "cd ./apps/playground-lit && webpack serve --progress --profile --mode development",
         "apps:playground-native:build": "cd ./apps/playground-native && webpack --mode production",
@@ -17,16 +18,16 @@
         "apps:playground-react:dev": "cd ./apps/playground-react && webpack serve --progress --profile --mode development",
         "apps:storybook:build": "cd ./apps/storybook && storybook build -o ../../build/dist/apps/storybook",
         "apps:storybook:dev": "cd ./apps/storybook && storybook dev -p 8080",
-        "apps:storybook:ci": "npm run apps:storybook:build --quiet && http-server ./build/dist/apps/storybook -p 8080 -s",
-        "apps:storybook:serve-and-e2e": "start-server-and-test 'npm run apps:storybook:ci' http://localhost:8080 'npm run apps:storybook-e2e:run'",
-        "apps:storybook-e2e:run": "cd ./apps/storybook-e2e && npx cypress run --e2e",
-        "apps:storybook-e2e:watch": "cd ./apps/storybook-e2e && npx cypress open --e2e",
+        "apps:storybook:ci": "pnpm run apps:storybook:build && http-server ./build/dist/apps/storybook -p 8080 -s",
+        "apps:storybook:serve-and-e2e": "start-server-and-test 'pnpm run apps:storybook:ci' http://localhost:8080 'pnpm run apps:storybook-e2e:run'",
+        "apps:storybook-e2e:run": "cd ./apps/storybook-e2e && pnpm exec cypress run --e2e",
+        "apps:storybook-e2e:watch": "cd ./apps/storybook-e2e && pnpm exec cypress open --e2e",
         "fat-lib:build": "cd ./resources/utils-fat-lib && webpack --mode production --config fat-lib-webpack.config.cjs",
         "fat-lib:build-min": "cd ./resources/utils-fat-lib && webpack --mode production --config fat-lib-webpack-min.config.cjs",
         "libs:add-dependencies": "cd ./resources/bash-scripts && bash ./libs-add-dependencies.sh",
         "libs:build": "cd ./resources/bash-scripts && bash ./libs-build.sh",
-        "libs:component-tests:run": "cd ./resources/cypress-component && npx cypress run --component",
-        "libs:component-tests:watch": "cd ./resources/cypress-component && npx cypress open --component",
+        "libs:component-tests:run": "cd ./resources/cypress-component && pnpm exec cypress run --component",
+        "libs:component-tests:watch": "cd ./resources/cypress-component && pnpm exec cypress open --component",
         "libs:eslint": "cd ./resources/bash-scripts && bash ./libs-eslint.sh",
         "libs:icons:generate": "cd ./resources/bash-scripts && bash ./libs-icons-generate.sh",
         "libs:jest": "cd ./resources/bash-scripts && bash ./libs-jest.sh",
@@ -35,8 +36,8 @@
         "libs:publish": "cd ./resources/bash-scripts && bash ./libs-publish.sh",
         "libs:web-types:generate": "cd ./resources/bash-scripts && bash ./libs-web-types-generate.sh",
         "libs:web-types:validate": "cd ./resources/bash-scripts && bash ./libs-web-types-validate.sh",
-        "start": "npm run apps:storybook:dev",
-        "test": "npm run libs:component-tests:watch"
+        "start": "pnpm run apps:storybook:dev",
+        "test": "pnpm run libs:component-tests:watch"
     },
     "private": true,
     "devDependencies": {
@@ -145,10 +146,13 @@
         "./libs/components/src/form/form.web-types.json",
         "./libs/map/map.web-types.json"
     ],
-    "overrides": {
-        "color-parse": {
-            "color-name": "2.0.0"
-        }
+    "pnpm": {
+        "overrides": {
+            "color-parse>color-name": "2.0.0"
+        },
+        "onlyBuiltDependencies": [
+            "cypress"
+        ]
     },
     "volta": {
         "node": "22.20.0"

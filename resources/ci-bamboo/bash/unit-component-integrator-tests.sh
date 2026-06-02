@@ -6,14 +6,17 @@ set -e
 echo 'RUNNING SCRIPT: unit-component-integrator-tests.sh'
 cd flux-web-components
 
-echo "npm ci - to force the clean"
+# pnpm beschikbaar maken via corepack (gepind via het packageManager-veld in package.json)
+corepack enable
+
+echo "pnpm install - to force the clean"
 set +e
-npm ci --maxsockets 5 2> buffer-stderr.txt 1> buffer-stdout.txt
+pnpm install --frozen-lockfile 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
-    echo "npm ci - success"
+    echo "pnpm install - success"
   else
-    echo "npm ci - error - buffer-stderr.txt" >&2
+    echo "pnpm install - error - buffer-stderr.txt" >&2
     cat buffer-stderr.txt >&2
     cat buffer-stdout.txt >&2
     set -e
@@ -27,7 +30,7 @@ touch build/dummy.txt
 
 echo "run all jest (unit) tests"
 set +e
-npm run libs:jest 2> buffer-stderr.txt 1> buffer-stdout.txt
+pnpm run libs:jest 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
     echo "run all jest (unit) tests - success"
@@ -48,7 +51,7 @@ set +e
 ( while true; do sleep 60; echo "run all web component tests (cypress) - in progress"; done ) &
 PROGRESS_PID=$!
 
-npm run libs:component-tests:run 2> buffer-stderr.txt 1> buffer-stdout.txt
+pnpm run libs:component-tests:run 2> buffer-stderr.txt 1> buffer-stdout.txt
 CYPRESS_EXIT=$?
 
 # Stop de progress-logger zodra de tests klaar zijn
@@ -69,7 +72,7 @@ set -e
 
 echo "run the integrator e2e tests (cypress)"
 set +e
-npm run apps:integrator:serve-and-e2e 2> buffer-stderr.txt 1> buffer-stdout.txt
+pnpm run apps:integrator:serve-and-e2e 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
     echo "run the integrator e2e tests (cypress) - success"

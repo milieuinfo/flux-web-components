@@ -15,17 +15,17 @@ else
 fi
 
 cd ./common
-npm publish domg-wc-common-${RELEASE_VERSION}.tgz
+pnpm publish domg-wc-common-${RELEASE_VERSION}.tgz --no-git-checks
 echo "[done] - publish - @domg-wc/common-${RELEASE_VERSION}"
 
 cd ../styles
-npm publish domg-wc-styles-${RELEASE_VERSION}.tgz
+pnpm publish domg-wc-styles-${RELEASE_VERSION}.tgz --no-git-checks
 echo "[done] - publish - @domg-wc/styles-${RELEASE_VERSION}"
 
 cd ../components
-npm publish domg-wc-components-${RELEASE_VERSION}.tgz
+pnpm publish domg-wc-components-${RELEASE_VERSION}.tgz --no-git-checks
 echo "[done] - publish - @domg-wc/components-${RELEASE_VERSION}"
 
 cd ../map
-npm publish domg-wc-map-${RELEASE_VERSION}.tgz
+pnpm publish domg-wc-map-${RELEASE_VERSION}.tgz --no-git-checks
 echo "[done] - publish - @domg-wc/map-${RELEASE_VERSION}"
