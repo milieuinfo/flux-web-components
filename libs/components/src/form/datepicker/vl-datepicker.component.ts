@@ -9,6 +9,7 @@ import { CSSResult, html, nothing, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
 import { vlInputAddonStyles } from '../../atom/button';
+import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { FormControl } from '../form-control';
 import { inputFieldStyles } from '../input-field';
 import { CleaveInstance, MaskOptions } from '../models/cleave.model';
@@ -66,6 +67,7 @@ export class VlDatepickerComponent extends FormControl {
     static get styles(): CSSResult[] {
         return [
             vlResetStyles,
+            vlIconStyles,
             inputFieldStyles,
             vlDatepickerComponentStyles,
             vlDatepickerPositioningStyles,
@@ -276,7 +278,7 @@ export class VlDatepickerComponent extends FormControl {
                     @click=${this.toggleCalendar}
                 >
                     <span
-                        class="vl-icon vl-icon--small vl-vi vl-vi-${this.type === 'time' ? 'clock' : 'calendar'}"
+                        class="vl-icon vl-icon--small vl-vi vl-icon--${this.type === 'time' ? 'clock' : 'calendar'}"
                         aria-hidden="true"
                     ></span>
                 </button>

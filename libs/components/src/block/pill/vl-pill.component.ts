@@ -5,6 +5,7 @@ import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { createRef, ref } from 'lit/directives/ref.js';
+import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { vlPillFluxStyles } from './vl-pill.flux-css';
 import { TYPE } from './vl-pill.model';
 
@@ -29,7 +30,7 @@ export class VlPillComponent extends BaseLitElement {
     }
 
     static get styles() {
-        return [vlResetStyles, vlPillFluxStyles, vlAccessibilityStyles];
+        return [vlResetStyles, vlIconStyles, vlPillFluxStyles, vlAccessibilityStyles];
     }
 
     static get properties() {
@@ -125,7 +126,7 @@ export class VlPillComponent extends BaseLitElement {
             <div class="${classMap(closableClasses)}" aria-disabled=${ifDefined(this.disabled ? 'true' : undefined)}>
                 <slot></slot>
                 <button
-                    class="vl-pill__close"
+                    class="vl-pill__close vl-icon vl-icon--cross"
                     type="button"
                     ?disabled=${this.disabled}
                     @click=${() => this.dispatchEvent(new CustomEvent('close'))}
@@ -168,7 +169,7 @@ export class VlPillComponent extends BaseLitElement {
                         );
                     }}
                 />
-                <span aria-hidden="true"></span>
+                <span class="vl-icon vl-icon--check" aria-hidden="true"></span>
                 <slot></slot>
             </label>
         `;

@@ -2325,7 +2325,7 @@ describe('vl-datepicker - interaction', () => {
         cy.mount(html`<vl-datepicker type="date" label="date"></vl-datepicker>`);
         cy.injectAxe();
 
-        cy.get('vl-datepicker').shadow().find('button .vl-vi-calendar').should('exist');
+        cy.get('vl-datepicker').shadow().find('button .vl-icon--calendar').should('exist');
         cy.checkA11y('vl-datepicker');
     });
 
@@ -2333,7 +2333,7 @@ describe('vl-datepicker - interaction', () => {
         cy.mount(html`<vl-datepicker type="time" label="time"></vl-datepicker>`);
         cy.injectAxe();
 
-        cy.get('vl-datepicker').shadow().find('button .vl-vi-clock').should('exist');
+        cy.get('vl-datepicker').shadow().find('button .vl-icon--clock').should('exist');
         cy.checkA11y('vl-datepicker');
     });
 

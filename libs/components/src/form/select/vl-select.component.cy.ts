@@ -166,7 +166,7 @@ describe('vl-select - properties & states', () => {
         cy.injectAxe();
 
         cy.checkA11y('vl-select');
-        cy.get('vl-select').shadow().find('button.vl-select__button span.vl-icon.vl-vi.vl-vi-close');
+        cy.get('vl-select').shadow().find('button.vl-select__button span.vl-icon.vl-icon--close');
     });
 
     it('should set not-deletable', () => {
