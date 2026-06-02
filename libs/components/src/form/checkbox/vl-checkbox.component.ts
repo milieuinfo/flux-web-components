@@ -2,6 +2,7 @@ import { webComponent } from '@domg-wc/common';
 import { vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { FormControl } from '../form-control';
 import { vlCheckboxComponentStyles } from './vl-checkbox.component.css';
 import { checkboxDefaults } from './vl-checkbox.defaults';
@@ -23,7 +24,7 @@ export class VlCheckboxComponent extends FormControl {
     private dispatchInput = false;
 
     static get styles(): CSSResult[] {
-        return [vlResetStyles, vlCheckboxComponentStyles];
+        return [vlResetStyles, vlIconStyles, vlCheckboxComponentStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -117,7 +118,15 @@ export class VlCheckboxComponent extends FormControl {
                     @click=${this.toggle}
                 />
                 <div class="vl-checkbox__label">
-                    <i class="vl-checkbox__box" aria-hidden="true"></i>
+                    <i
+                        class=${classMap({
+                            'vl-checkbox__box': true,
+                            'vl-icon': true,
+                            'vl-icon--check': this.checked,
+                            'vl-icon--minus': this.indeterminate && !this.checked,
+                        })}
+                        aria-hidden="true"
+                    ></i>
                     <span>
                         <slot></slot>
                     </span>
@@ -152,7 +161,7 @@ export class VlCheckboxComponent extends FormControl {
                 />
                 <label for=${this.id} class="vl-checkbox__label">
                     <span class="vl-checkbox--switch__label">
-                        <span aria-hidden="true"></span>
+                        <span class="vl-icon vl-icon--check" aria-hidden="true"></span>
                     </span>
                     <span>
                         <slot></slot>

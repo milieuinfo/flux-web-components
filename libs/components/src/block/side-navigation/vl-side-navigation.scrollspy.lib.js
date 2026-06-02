@@ -69,6 +69,7 @@ const _scrollSpyMobile = (elements, wrapper, contentWrapper) => {
         closeButton.innerHTML = 'Navigatie sluiten';
 
         vl.util.addClass(closeButton, ssCloseClass);
+        vl.util.addClass(closeButton, `vl-icon--cross`);
         placeholder.insertBefore(closeButton, placeholder.firstChild);
 
         // Generate toggle button
@@ -90,6 +91,7 @@ const _scrollSpyMobile = (elements, wrapper, contentWrapper) => {
             openButton.innerHTML = scrollSpyBtnLabel || 'Navigatie';
 
             vl.util.addClass(openButton, ssToggleClass);
+            vl.util.addClass(openButton, `vl-icon--burger-alt`);
             vl.util.addClass(openButton, `vl-button`);
             vl.util.addClass(openButton, `vl-button--block`);
             contentWrapper.appendChild(openButton);

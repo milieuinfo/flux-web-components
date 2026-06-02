@@ -11,32 +11,6 @@ export const vlSelectComponentStyles: CSSResult = css`
     }
 
     /* ===================================================================
-       Icon Font Base
-       =================================================================== */
-
-    .vl-vi::before,
-    .vl-vi::after {
-        font-family: 'vlaanderen-icon' !important;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        font-style: normal;
-        font-variant: normal;
-        font-weight: normal;
-        text-decoration: none;
-        text-transform: none;
-        display: inline-block;
-        vertical-align: middle;
-    }
-
-    .vl-vi-nav-down::before {
-        content: '\\f21a';
-    }
-
-    .vl-vi-close::before {
-        content: '\\f162';
-    }
-
-    /* ===================================================================
        Select Container
        =================================================================== */
 
@@ -230,12 +204,12 @@ export const vlSelectComponentStyles: CSSResult = css`
        Nav-Down Icon
        =================================================================== */
 
-    .vl-vi.vl-vi-nav-down:before {
+    .vl-icon.vl-icon--nav-down:before {
         color: var(--vl-select--nav-icon-color);
         position: absolute;
         right: 1.3rem;
         font-size: 1.3rem;
-        top: 0.8rem;
+        top: 1.1rem;
         pointer-events: none;
     }
 

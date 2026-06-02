@@ -74,6 +74,8 @@ class TabsNext {
             tabsList.setAttribute('aria-hidden', isListOpen ? 'true' : 'false');
             toggleBtnEl.setAttribute('aria-expanded', isListOpen ? 'true' : 'false');
             toggleBtnEl.setAttribute(tabCloseAtt, isListOpen ? 'false' : 'true');
+            toggleBtnEl.classList.toggle('vl-icon--cross', !isListOpen);
+            toggleBtnEl.classList.toggle('vl-icon--arrow', isListOpen);
         }
     }
 

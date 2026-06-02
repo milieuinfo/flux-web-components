@@ -26,24 +26,6 @@ export const vlDatepickerComponentStyles: CSSResult = css`
         cursor: pointer;
     }
 
-    /* ===================================================================
-       Icon Font Base
-       =================================================================== */
-
-    .vl-vi::before,
-    .vl-vi::after {
-        font-family: 'vlaanderen-icon' !important;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        font-style: normal;
-        font-variant: normal;
-        font-weight: normal;
-        text-decoration: none;
-        text-transform: none;
-        display: inline-block;
-        vertical-align: middle;
-    }
-
     .vl-vi.vl-vi-u-180deg::before {
         display: inline-block;
         transform: rotate(180deg);
@@ -78,18 +60,6 @@ export const vlDatepickerComponentStyles: CSSResult = css`
     .vl-vi-u-180deg::before {
         display: inline-block;
         transform: rotate(180deg);
-    }
-
-    /* ===================================================================
-       Icon Definitions
-       =================================================================== */
-
-    .vl-vi-calendar::before {
-        content: '\\f14b';
-    }
-
-    .vl-vi-clock::before {
-        content: '\\f15e';
     }
 
     /* ===================================================================

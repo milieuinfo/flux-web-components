@@ -11,32 +11,6 @@ export const vlSelectRichComponentStyles: CSSResult = css`
     }
 
     /* ===================================================================
-       Icon Font Base
-       =================================================================== */
-
-    .vl-vi::before,
-    .vl-vi::after {
-        font-family: 'vlaanderen-icon' !important;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        font-style: normal;
-        font-variant: normal;
-        font-weight: normal;
-        text-decoration: none;
-        text-transform: none;
-        display: inline-block;
-        vertical-align: middle;
-    }
-
-    .vl-vi-nav-down::before {
-        content: '\\f21a';
-    }
-
-    .vl-vi-close::before {
-        content: '\\f162';
-    }
-
-    /* ===================================================================
        Choices.js Container (Outer)
        =================================================================== */
 
@@ -70,7 +44,13 @@ export const vlSelectRichComponentStyles: CSSResult = css`
        Nav-Down Icon
        =================================================================== */
 
-    .js-vl-select.vl-vi.vl-vi-nav-down:before {
+    /* De nav-down pijl staat op de combobox-container via ::before. We gebruiken
+       enkel .vl-icon--nav-down (codepoint uit de gedeelde icon-mapping, FLUX-172),
+       niet de .vl-icon basis-class: die zet display/font-family/font-size op het
+       element zelf, wat in de dropdown-kinderen zou lekken. Het icon-font zetten we
+       daarom hier rechtstreeks op de pseudo. */
+    .js-vl-select.vl-icon--nav-down:before {
+        font-family: var(--vl-icon-font);
         color: var(--vl-select-rich--nav-icon-color);
         position: absolute;
         right: 1.3rem;
@@ -250,6 +230,13 @@ export const vlSelectRichComponentStyles: CSSResult = css`
         margin-left: auto;
     }
 
+    /* Vroeger erfde dit kruisje de UA-default button-grootte (~1.3rem). Sinds de
+       .vl-icon class (FLUX-172) zet font-size: 1em die op de oudergrootte (1.6rem),
+       waardoor het kruisje groter werd. Expliciet terugzetten op de oude grootte. */
+    .js-vl-select[data-type*='select-one'] .vl-pill__close.vl-icon--close::before {
+        font-size: 1.3rem;
+    }
+
     .js-vl-select[data-type='select-one'] .vl-select__inner .vl-pill__close {
         margin: 0.1rem 0 0 auto;
         border-radius: 0.3rem;
@@ -329,6 +316,12 @@ export const vlSelectRichComponentStyles: CSSResult = css`
     .js-vl-select .vl-select__list--multiple .vl-select__item {
         margin: 0.2rem 0.6rem 0.5rem 0;
         display: inline-flex;
+        /* De algemene .vl-select__item regel forceert height: 2.3rem; voor een pill
+           is dat 0.1rem te laag t.o.v. de close-button (2.4rem + negatieve marges),
+           waardoor de onderrand onder het kruisje dubbel/verschoven oogt. De pill
+           zijn natuurlijke hoogte (line-height + randen = 2.4rem) teruggeven. */
+        height: auto;
+        min-height: 0;
     }
 
     .js-vl-select .vl-select__list--multiple .vl-select__item[data-deletable] {

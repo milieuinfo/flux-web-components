@@ -12,56 +12,6 @@ export const tabsStyle: CSSResult = css`
         --vl-theme-fg-color-70: #707070;
     }
 
-    .vl-vi::before,
-    .vl-vi::after {
-        font-family: 'vlaanderen-icon' !important;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        font-style: normal;
-        font-variant: normal;
-        font-weight: normal;
-        text-decoration: none;
-        text-transform: none;
-        display: inline-block;
-        vertical-align: middle;
-    }
-
-    .vl-vi.vl-vi-u-180deg::before {
-        display: inline-block;
-        transform: rotate(180deg);
-        vertical-align: middle;
-    }
-
-    .vl-vi-u-xs::before {
-        font-size: 0.8rem;
-    }
-
-    .vl-vi-u-s::before {
-        font-size: 1.3rem;
-    }
-
-    .vl-vi-u-m::before {
-        font-size: 1.7rem;
-    }
-
-    .vl-vi-u-l::before {
-        font-size: 2rem;
-    }
-
-    .vl-vi-u-xl::before {
-        font-size: 2.2rem;
-    }
-
-    .vl-vi-u-90deg::before {
-        display: inline-block;
-        transform: rotate(90deg);
-    }
-
-    .vl-vi-u-180deg::before {
-        display: inline-block;
-        transform: rotate(180deg);
-    }
-
     .vl-tabs {
         margin-bottom: 3rem;
         border-bottom: 1px #cbd2da solid;
@@ -294,24 +244,9 @@ export const tabsStyle: CSSResult = css`
         color: #05c;
     }
 
-    .vl-tabs__toggle::before,
-    .vl-tabs__toggle::after {
-        font-family: 'vlaanderen-icon' !important;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        font-style: normal;
-        font-variant: normal;
-        font-weight: normal;
-        text-decoration: none;
-        text-transform: none;
-    }
-
-    .vl-tabs__toggle::before {
-        content: '\\f126';
-    }
-
     .vl-tabs__toggle::before {
         position: absolute;
+        font-family: var(--vl-icon-font);
         font-size: 1.4rem;
     }
 
@@ -368,10 +303,6 @@ export const tabsStyle: CSSResult = css`
 
     .vl-tabs__toggle[close='true']::after {
         display: none;
-    }
-
-    .vl-tabs__toggle[close='true']::before {
-        content: '\\f181';
     }
 
     .vl-tabs__toggle[close='true']::before {
