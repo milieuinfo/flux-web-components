@@ -80,14 +80,15 @@ echo 'git config user.email'
 git config user.email ${GITHUB_EMAIL}
 git config user.email
 
-echo "npm ci - to force the clean"
+echo "pnpm install - to force the clean"
 set +e
-npm ci --maxsockets 5 2> buffer-stderr.txt 1> buffer-stdout.txt
+corepack enable
+pnpm install --frozen-lockfile 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
-    echo "npm ci - success"
+    echo "pnpm install - success"
   else
-    echo "npm ci - error - buffer-stderr.txt" >&2
+    echo "pnpm install - error - buffer-stderr.txt" >&2
     cat buffer-stderr.txt >&2
     cat buffer-stdout.txt >&2
     set -e
@@ -97,7 +98,7 @@ set -e
 
 echo "generate web-types - bring them up-to-date, semantic-release will commit them"
 set +e
-npm run libs:web-types:generate 2> buffer-stderr.txt 1> buffer-stdout.txt
+pnpm run libs:web-types:generate 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
     echo "generate web-types - success"
@@ -123,10 +124,10 @@ if [[ ${DEVELOP_BRANCH} == true ]];
 fi
 
 echo "semantic-release - uitvoering"
-npx semantic-release --no-ci
+pnpm exec semantic-release --no-ci
 
 echo "variabelen bepalen en zetten"
-NEXT_RELEASE_VERSION=$(npm pkg get version | sed 's/"//g')
+NEXT_RELEASE_VERSION=$(pnpm pkg get version | sed 's/"//g')
 echo using ${NEXT_RELEASE_VERSION} as NEXT_RELEASE_VERSION
 
 # de feitelijke release actie is afhankelijk van de branch
@@ -135,8 +136,8 @@ set +e
 if [[ ${RELEASE_BRANCH} == true ]];
   then
     echo "publiceren van de npm packages naar de DOMG 'local-npm' repository"
-    npm run libs:pack:release -- ${NEXT_RELEASE_VERSION}
-    npm run libs:publish -- ${NEXT_RELEASE_VERSION}
+    pnpm run libs:pack:release -- ${NEXT_RELEASE_VERSION}
+    pnpm run libs:publish -- ${NEXT_RELEASE_VERSION}
 fi
 if [[ $? -eq 0 ]]
   then
@@ -154,8 +155,8 @@ set +e
 if [[ ${DEVELOP_BRANCH} == true ]];
   then
     echo "publiceren van de npm packages naar de DOMG 'snapshot-npm' repository"
-    npm run libs:pack:develop -- ${NEXT_RELEASE_VERSION}
-    npm run libs:publish -- ${NEXT_RELEASE_VERSION}
+    pnpm run libs:pack:develop -- ${NEXT_RELEASE_VERSION}
+    pnpm run libs:publish -- ${NEXT_RELEASE_VERSION}
 fi
 if [[ $? -eq 0 ]]
   then
@@ -194,7 +195,7 @@ cd ..
 
 echo "rebuild storybook - because only now CHANGELOG.md is up-to-date"
 set +e
-npm run apps:storybook:build 2> buffer-stderr.txt 1> buffer-stdout.txt
+pnpm run apps:storybook:build 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
     echo "build storybook - success"

@@ -1,19 +1,27 @@
 {
     "scripts": {
         "consumer:fat-lib:dev": "http-server src/app-fat-lib/ -p 8080 --cors",
-        "consumer:fat-lib:serve-and-e2e": "start-server-and-test 'npx http-server src/app-fat-lib/ -p 8080 -s' http://localhost:8080 'cd ../consumer-e2e && npx cypress run --e2e --config baseUrl=http://localhost:8080 --spec src/e2e/consumer-fat-lib.cy.ts'",
+        "consumer:fat-lib:serve-and-e2e": "start-server-and-test 'pnpm exec http-server src/app-fat-lib/ -p 8080 -s' http://localhost:8080 'cd ../consumer-e2e && pnpm exec cypress run --e2e --config baseUrl=http://localhost:8080 --spec src/e2e/consumer-fat-lib.cy.ts'",
         "consumer:named:build": "webpack --config webpack-named.config.cjs --mode production",
         "consumer:named:dev": "webpack serve --config webpack-named.config.cjs --progress --profile --mode development",
-        "consumer:named:serve-and-e2e": "start-server-and-test 'npx http-server ../../build/dist/apps/consumer-named -p 4212 -s' http://localhost:4212 'cd ../consumer-e2e && npx cypress run --e2e --config baseUrl=http://localhost:4212 --spec src/e2e/consumer-named.cy.ts'",
+        "consumer:named:serve-and-e2e": "start-server-and-test 'pnpm exec http-server ../../build/dist/apps/consumer-named -p 4212 -s' http://localhost:4212 'cd ../consumer-e2e && pnpm exec cypress run --e2e --config baseUrl=http://localhost:4212 --spec src/e2e/consumer-named.cy.ts'",
         "consumer:side-effect:build": "webpack --config webpack-side-effect.config.cjs --mode production",
         "consumer:side-effect:dev": "webpack serve --config webpack-side-effect.config.cjs --progress --profile --mode development",
-        "consumer:side-effect:serve-and-e2e": "start-server-and-test 'npx http-server ../../build/dist/apps/consumer-side-effect -p 4213 -s' http://localhost:4213 'cd ../consumer-e2e && npx cypress run --e2e --config baseUrl=http://localhost:4213 --spec src/e2e/consumer-side-effect.cy.ts'",
-        "consumer-e2e:watch": "cd ../consumer-e2e && npx cypress open --e2e"
+        "consumer:side-effect:serve-and-e2e": "start-server-and-test 'pnpm exec http-server ../../build/dist/apps/consumer-side-effect -p 4213 -s' http://localhost:4213 'cd ../consumer-e2e && pnpm exec cypress run --e2e --config baseUrl=http://localhost:4213 --spec src/e2e/consumer-side-effect.cy.ts'",
+        "consumer-e2e:watch": "cd ../consumer-e2e && pnpm exec cypress open --e2e"
     },
     "devDependencies": {
-        "http-server": "14.1.1"
+        "html-webpack-plugin": "5.6.3",
+        "http-server": "14.1.1",
+        "terser-webpack-plugin": "5.3.11",
+        "ts-loader": "9.5.1",
+        "typescript": "5.4.2",
+        "webpack": "5.105.3",
+        "webpack-cli": "5.1.4",
+        "webpack-dev-server": "5.2.0"
     },
     "dependencies": {
+        "@domg-wc/common": "2.12.1",
         "@domg-wc/components": "2.12.1",
         "@domg-wc/map": "2.12.1"
     }
