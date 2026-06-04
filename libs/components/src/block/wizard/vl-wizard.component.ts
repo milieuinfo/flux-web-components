@@ -53,7 +53,7 @@ export class VlWizard extends BaseLitElement {
 
     render() {
         return html`
-            <section class="vl-wizard" wizard>
+            <section class="vl-wizard" data-wizard>
                 <header class="vl-wizard__heading" role="none">
                     <slot name="title"></slot>
                     <slot name="header"></slot>

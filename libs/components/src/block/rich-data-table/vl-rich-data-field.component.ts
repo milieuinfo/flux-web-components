@@ -32,7 +32,7 @@ export class VlRichDataField extends BaseHTMLElement {
             th.appendChild(headerContent);
         }
         if (this.sortable) {
-            th.setAttribute('sortable', '');
+            th.setAttribute('data-sortable', '');
         }
         return th;
     }

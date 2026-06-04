@@ -27,7 +27,7 @@ export class VlModalComponent extends BaseHTMLElement {
     constructor() {
         const html = `
             <div class="vl-modal">
-                <dialog class="vl-modal-dialog" id="modal-dialog" modal tabindex="-1"
+                <dialog class="vl-modal-dialog" id="modal-dialog" data-modal tabindex="-1"
                         aria-modal="true" aria-hidden="true" aria-labelledby="modal-toggle-title">
                     <div class="vl-modal-dialog__wrapper" id="modal-dialog-wrapper">
                         <div class="vl-grid vl-stacked-small">
@@ -36,7 +36,7 @@ export class VlModalComponent extends BaseHTMLElement {
                             </div>
                             <div class="vl-column vl-column--12 vl-column--m-12">
                                 <div id="modal-action-group" class="vl-group">
-                                    <slot name="button" modal-close></slot>
+                                    <slot name="button" data-modal-close></slot>
                                     <vl-link id="modal-toggle-cancellable"
                                              button-as-link icon="cross" icon-placement="before"
                                              modal-close>Annuleer</vl-link>
@@ -77,11 +77,11 @@ export class VlModalComponent extends BaseHTMLElement {
     }
 
     static get _closableAttribute() {
-        return 'modal-closable';
+        return 'data-modal-closable';
     }
 
     static get _closeAttribute() {
-        return 'modal-close';
+        return 'data-modal-close';
     }
 
     get _dialogElement(): HTMLDialogElement {
@@ -210,7 +210,7 @@ export class VlModalComponent extends BaseHTMLElement {
 
     _getCloseButtonTemplate() {
         return this._template(`
-      <button id="close" type="button" class="vl-modal-dialog__close" aria-expanded="true" modal-close>
+      <button id="close" type="button" class="vl-modal-dialog__close" aria-expanded="true" data-modal-close>
         <span class="vl-modal-dialog__close__icon vl-icon vl-icon--cross" aria-hidden="true"></span>
         <span class="vl-u-visually-hidden">Venster sluiten</span>
       </button>

@@ -376,7 +376,7 @@ export class VlAutocomplete extends BaseLitElement {
                 liElements.push(html` <li
                     id="${id}"
                     class="vl-autocomplete__cta flux-autocomplete-group"
-                    groupindex="${groupIndex}"
+                    data-groupindex="${groupIndex}"
                     role="option"
                     aria-selected="false"
                     aria-disabled="true"
@@ -400,7 +400,7 @@ export class VlAutocomplete extends BaseLitElement {
             id="${id}"
             @click=${() => this.autocomplete(item, id)}
             class="vl-autocomplete__cta flux-autocomplete-item"
-            groupindex="${groupIndex}"
+            data-groupindex="${groupIndex}"
             role="option"
             aria-selected="${id === this._highlightedEl?.id ? 'true' : 'false'}"
         >

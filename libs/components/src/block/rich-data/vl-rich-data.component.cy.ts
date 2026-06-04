@@ -60,7 +60,7 @@ describe('cypress-component - block components - vl-rich-data', () => {
             .then((child) => {
                 expect(child[0]).to.contain('1-5');
             });
-        cy.get('vl-pager').shadow().find('li[pager-page=2]').click({ force: true });
+        cy.get('vl-pager').shadow().find('li[data-pager-page=2]').click({ force: true });
         cy.get('vl-pager')
             .shadow()
             .find('#bounds')
