@@ -36,11 +36,6 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
         };
     }
 
-    protected updated(changedProperties: Map<string, unknown>): void {
-        super.updated(changedProperties);
-        this.processButtons();
-    }
-
     protected render(): TemplateResult {
         const classes = {
             'vl-alert': true,
@@ -92,15 +87,6 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
     private removeAlert() {
         this.remove();
         this.dispatchEvent(new VlAlertClosedEvent());
-    }
-
-    private processButtons() {
-        const actionsSlotElement = this.renderRoot.querySelector('slot[name="actions"]') as HTMLSlotElement;
-        const buttonNodes = actionsSlotElement
-            ?.assignedNodes()
-            .filter((element) => element instanceof HTMLButtonElement);
-
-        buttonNodes.forEach((node) => (node as HTMLButtonElement).setAttribute('data-narrow', ''));
     }
 }
 
