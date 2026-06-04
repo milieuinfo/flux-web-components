@@ -58,6 +58,6 @@ export class VlMapDrawAction extends VlMapLayerAction {
     }
 
     get __snappingLayers(): any {
-        return Array.from(this.querySelectorAll('vl-map-wfs-layer'));
+        return Array.from(this.querySelectorAll('*')).filter((layer) => layer instanceof VlMapVectorLayer);
     }
 }

@@ -58,6 +58,29 @@ const mapDrawPointActionSnapping = html`
     </vl-map>
 `;
 
+// Een vl-map-features-layer is een VlMapVectorLayer-subclass zonder vl-map-wfs-layer-tag. Vóór de instanceof-fix werd
+// die door de tag-gebaseerde __snappingLayers genegeerd; nu hoort hij wél als snapping target opgepikt te worden.
+const mapDrawPointActionSnappingVectorSubclassFixture = html`
+    <vl-map id="map-with-draw-point-snap-action">
+        <vl-map-features-layer id="point-layer">
+            <vl-map-draw-point-action
+                id="draw-point-snap-action"
+                default-active
+                snapping
+                snapping-pixel-tolerance="1000"
+            >
+                <vl-map-features-layer id="snap-features-layer">
+                    <vl-map-layer-style
+                        color="rgba(6, 163, 247, 0.4)"
+                        border-size="4"
+                        border-color="rgba(6, 163, 247, 1)"
+                    ></vl-map-layer-style>
+                </vl-map-features-layer>
+            </vl-map-draw-point-action>
+        </vl-map-features-layer>
+    </vl-map>
+`;
+
 describe('cypress-component - map - vl-map-draw-point-action', () => {
     it('a dot draw action is a map action', () => {
         expect(VlMapDrawPointAction.isVlMapAction()).to.be.true;
@@ -101,6 +124,26 @@ describe('cypress-component - map - vl-map-draw-point-action', () => {
                         expect(drawActionOptions.snapping.layer.getSource().sources[1]).to.equal(
                             stilstaandWaterLayer._layer.getSource()
                         );
+                    });
+                });
+            }
+        );
+    });
+
+    it('snapping pikt ook een niet-wfs VlMapVectorLayer subclass op als snapping target', () => {
+        cy.mount(mapDrawPointActionSnappingVectorSubclassFixture);
+        cy.runTestFor2<VlMap, VlMapDrawPointAction>(
+            'vl-map',
+            'vl-map-draw-point-action',
+            (vlMap, vlMapDrawPointAction) => {
+                cy.wrap(vlMap.ready).then(() => {
+                    const drawActionOptions = vlMapDrawPointAction.action.options;
+                    expect(drawActionOptions.snapping.layer instanceof VlCompositeVectorLayer).to.equal(true);
+                    const snappingSources = drawActionOptions.snapping.layer.getSource().sources;
+                    // Strikt: enkel de geneste features-layer, niet de point-layer (ancestor) of andere lagen.
+                    expect(snappingSources.length).to.equal(1);
+                    cy.runTestFor<VlMapFeaturesLayer>(`#snap-features-layer`, (featuresLayer) => {
+                        expect(snappingSources[0]).to.equal(featuresLayer._layer.getSource());
                     });
                 });
             }
