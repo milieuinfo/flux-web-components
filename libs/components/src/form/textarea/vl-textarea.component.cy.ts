@@ -1,8 +1,9 @@
 import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
 import { VlTextareaComponent } from './vl-textarea.component';
+import { VlFormMessageComponent } from '../form-message/vl-form-message.component';
 
-registerWebComponents([VlTextareaComponent]);
+registerWebComponents([VlTextareaComponent, VlFormMessageComponent]);
 
 describe('vl-textarea - properties & states', () => {
     beforeEach(() => {
@@ -215,5 +216,38 @@ describe('vl-textarea - form integration', () => {
         cy.get('vl-textarea').shadow().find('textarea').should('have.value', 'gewijzigd');
         cy.get('button[type="reset"]').click();
         cy.get('vl-textarea').shadow().find('textarea').should('have.value', 'initieel');
+    });
+});
+
+describe('vl-textarea - blur-validation', () => {
+    const mountWithValidation = () => {
+        cy.mount(html`
+            <form>
+                <vl-textarea id="ta" name="ta" required min-length="3" blur-validation></vl-textarea>
+                <vl-form-message for="ta" state="valueMissing">Gelieve een waarde in te vullen.</vl-form-message>
+                <vl-form-message for="ta" state="tooShort">Minimum 3 karakters.</vl-form-message>
+                <button type="reset">Reset</button>
+            </form>
+        `);
+    };
+
+    it('should show error on blur after focus, even without mutation', () => {
+        mountWithValidation();
+        cy.get('vl-textarea').shadow().find('textarea').focus().blur();
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+    });
+
+    it('should show error on blur after typing invalid value', () => {
+        mountWithValidation();
+        cy.get('vl-textarea').shadow().find('textarea').type('a').blur();
+        cy.get('vl-form-message[state="tooShort"]').should('have.attr', 'show');
+    });
+
+    it('should live-revalidate to valid', () => {
+        mountWithValidation();
+        cy.get('vl-textarea').shadow().find('textarea').type('a').blur();
+        cy.get('vl-form-message[state="tooShort"]').should('have.attr', 'show');
+        cy.get('vl-textarea').shadow().find('textarea').focus().type('bc');
+        cy.get('vl-form-message[state="tooShort"]').should('not.have.attr', 'show');
     });
 });

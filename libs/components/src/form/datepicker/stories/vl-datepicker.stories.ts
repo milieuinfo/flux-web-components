@@ -46,6 +46,7 @@ const DatepickerTemplate = story(
         maxTime,
         amPm,
         success,
+        blurValidation,
         block,
         disabled,
         error,
@@ -82,6 +83,7 @@ const DatepickerTemplate = story(
                             autocomplete=${autocomplete}
                             ?error=${error}
                             ?success=${success}
+                            ?blur-validation=${blurValidation}
                             ?required=${required}
                             ?readonly=${readonly}
                             ?disabled=${disabled}

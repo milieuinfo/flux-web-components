@@ -43,6 +43,7 @@ const InputFieldMaskedTemplate = story(
         disabled,
         error,
         success,
+        blurValidation,
         block,
         readonly,
         value,
@@ -73,6 +74,7 @@ const InputFieldMaskedTemplate = story(
                 ?disabled=${disabled}
                 ?error=${error}
                 ?success=${success}
+                ?blur-validation=${blurValidation}
                 ?block=${block}
                 ?readonly=${readonly}
                 value=${value}
