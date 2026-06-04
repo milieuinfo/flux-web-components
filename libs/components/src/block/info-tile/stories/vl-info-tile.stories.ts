@@ -1,7 +1,7 @@
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
-import { ifDefined } from 'lit-html/directives/if-defined.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import '../vl-info-tile.component';
 import { infoTileArgs, infoTileArgTypes } from './vl-info-tile.stories-arg';

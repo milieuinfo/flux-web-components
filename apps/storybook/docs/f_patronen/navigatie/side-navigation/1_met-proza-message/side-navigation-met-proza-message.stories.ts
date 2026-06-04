@@ -3,7 +3,7 @@ import { VlTitleComponent } from '@domg-wc/components/atom';
 import { VlProzaMessage, VlProzaMessagePreloader } from '@domg-wc/components/block';
 import { VlSideNavigationLayoutComponent } from '@domg-wc/components/block/next';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 
 export default {
     title: 'Patronen/Navigatie/Side Navigation/met proza message',
