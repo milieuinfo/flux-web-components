@@ -134,4 +134,13 @@ describe('vl-form-message - content & validation', () => {
                 expect(assignedNodes[0].textContent).to.contain('custom validation message');
             });
     });
+
+    it('should expose a polite aria-live region so screen readers announce changes', () => {
+        cy.mount(html`<vl-form-message validation-message="msg"></vl-form-message>`);
+        cy.get('vl-form-message')
+            .shadow()
+            .find('[role="status"]')
+            .should('have.attr', 'aria-live', 'polite')
+            .and('have.attr', 'aria-atomic', 'true');
+    });
 });

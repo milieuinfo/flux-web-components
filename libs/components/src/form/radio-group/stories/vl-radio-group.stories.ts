@@ -31,6 +31,7 @@ export const RadioGroupDefault = story(
         disabled,
         error,
         success,
+        blurValidation,
         label,
         name,
         value,
@@ -49,6 +50,7 @@ export const RadioGroupDefault = story(
             ?disabled=${disabled}
             ?error=${error}
             ?success=${success}
+            ?blur-validation=${blurValidation}
             @vl-change=${onVlChange}
             @vl-input=${onVlInput}
             @vl-reset=${onVlReset}
@@ -66,4 +68,15 @@ RadioGroupDefault.args = {
     name: 'land-zee',
     label: 'land-zee',
     value: 'land',
+};
+
+export const RadioGroupBlurValidation = RadioGroupDefault.bind({});
+RadioGroupBlurValidation.storyName = 'vl-radio-group - blur validation';
+RadioGroupBlurValidation.args = {
+    id: 'land-zee-validation',
+    name: 'land-zee-validation',
+    label: 'land-zee-validation',
+    value: '',
+    required: true,
+    blurValidation: true,
 };

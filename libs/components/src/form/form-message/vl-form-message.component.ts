@@ -35,10 +35,16 @@ export class VlFormMessageComponent extends BaseLitElement {
             'vl-form__error': true,
             'vl-pre-line': this.preLine,
         };
+        // The wrapper is the live region: kept in the a11y tree at all times so that
+        // when the inner <p> becomes visible (hidden removed + slot text), screen
+        // readers announce the new content. aria-live="polite" waits for an idle
+        // moment; aria-atomic ensures the full message is read on each change.
         return html`
-            <p class=${classMap(classes)} part="text" ?hidden=${!this.show}>
-                <slot>${this.validationMessage}</slot>
-            </p>
+            <div role="status" aria-live="polite" aria-atomic="true">
+                <p class=${classMap(classes)} part="text" ?hidden=${!this.show}>
+                    <slot>${this.validationMessage}</slot>
+                </p>
+            </div>
         `;
     }
 }

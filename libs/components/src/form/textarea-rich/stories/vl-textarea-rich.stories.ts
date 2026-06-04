@@ -34,6 +34,7 @@ const Template = story(
         disabled,
         error,
         success,
+        blurValidation,
         readonly,
         value,
         autocomplete,
@@ -57,6 +58,7 @@ const Template = story(
             ?disabled=${disabled}
             ?error=${error}
             ?success=${success}
+            ?blur-validation=${blurValidation}
             ?readonly=${readonly}
             value=${value}
             autocomplete=${autocomplete}

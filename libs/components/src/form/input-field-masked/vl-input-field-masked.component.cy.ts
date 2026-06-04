@@ -1,8 +1,9 @@
 import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
 import { VlInputFieldMaskedComponent } from './vl-input-field-masked.component';
+import { VlFormMessageComponent } from '../form-message/vl-form-message.component';
 
-registerWebComponents([VlInputFieldMaskedComponent]);
+registerWebComponents([VlInputFieldMaskedComponent, VlFormMessageComponent]);
 
 describe('cypress-component - form components - vl-input-field-masked', () => {
     it('should mount', () => {
@@ -237,5 +238,29 @@ describe('cypress-component - form components - vl-input-field-masked', () => {
         cy.get('@vl-valid').should('have.been.calledOnce');
         cy.get('@vl-valid').its('firstCall.args.0.detail').should('deep.equal', { value: '+32 12 34 56 78' });
         cy.checkA11y('vl-input-field-masked');
+    });
+
+    describe('blur-validation', () => {
+        const mount = () => {
+            cy.mount(html`
+                <form>
+                    <vl-input-field-masked id="ifm" name="ifm" required mask="rrn" blur-validation></vl-input-field-masked>
+                    <vl-form-message for="ifm" state="valueMissing">Verplicht.</vl-form-message>
+                    <vl-form-message for="ifm" state="patternMismatch">Ongeldig.</vl-form-message>
+                </form>
+            `);
+        };
+
+        it('should show error on blur after focus, even without mutation', () => {
+            mount();
+            cy.get('vl-input-field-masked').shadow().find('input').focus().blur();
+            cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+        });
+
+        it('should show error after typing invalid + blur', () => {
+            mount();
+            cy.get('vl-input-field-masked').shadow().find('input').type('1').blur();
+            cy.get('vl-form-message[show]').should('have.length.gte', 1);
+        });
     });
 });

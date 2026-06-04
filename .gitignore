@@ -46,6 +46,7 @@ storybook-static
 .cline/
 .windsurf/
 .claude/plans/
+.claude/launch.json
 
 # AI Agent profile activation (zie ai/profiles/README.md)
 # Deze paden zijn symlinks naar het actieve profile en blijven per-machine.

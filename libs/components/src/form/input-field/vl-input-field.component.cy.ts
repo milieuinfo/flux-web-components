@@ -1,8 +1,9 @@
 import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
 import { VlInputFieldComponent } from './vl-input-field.component';
+import { VlFormMessageComponent } from '../form-message/vl-form-message.component';
 
-registerWebComponents([VlInputFieldComponent]);
+registerWebComponents([VlInputFieldComponent, VlFormMessageComponent]);
 
 describe('cypress-component - form components - vl-input-field', () => {
     it('should mount', () => {
@@ -192,5 +193,118 @@ describe('cypress-component - form components - vl-input-field', () => {
         cy.get('vl-input-field').shadow().find('input').type('test');
         cy.get('@vl-valid').should('have.been.calledOnce');
         cy.get('@vl-valid').its('firstCall.args.0.detail').should('deep.equal', { value: 'test' });
+    });
+
+    describe('blur-validation attribuut', () => {
+        const mountWithValidation = () => {
+            cy.mount(html`
+                <form>
+                    <vl-input-field
+                        id="field"
+                        name="field"
+                        required
+                        min-length="3"
+                        pattern="^[a-zA-Z]+$"
+                        blur-validation
+                    ></vl-input-field>
+                    <vl-form-message for="field" state="valueMissing"
+                        >Gelieve een waarde in te vullen.</vl-form-message
+                    >
+                    <vl-form-message for="field" state="tooShort">Minimum 3 karakters.</vl-form-message>
+                    <vl-form-message for="field" state="patternMismatch">Enkel letters toegestaan.</vl-form-message>
+                    <button type="reset">Reset</button>
+                </form>
+            `);
+        };
+
+        it('should show error on blur after focus, even without mutation', () => {
+            mountWithValidation();
+            cy.get('vl-input-field').shadow().find('input').focus().blur();
+            cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+        });
+
+        it('should show error on blur after typing invalid value', () => {
+            mountWithValidation();
+            cy.get('vl-input-field').shadow().find('input').type('a').blur();
+            cy.get('vl-form-message[state="tooShort"]').should('have.attr', 'show');
+        });
+
+        it('should live-revalidate after first error and clear when valid', () => {
+            mountWithValidation();
+            cy.get('vl-input-field').shadow().find('input').type('a').blur();
+            cy.get('vl-form-message[state="tooShort"]').should('have.attr', 'show');
+
+            cy.get('vl-input-field').shadow().find('input').focus().type('b');
+            cy.get('vl-form-message[state="tooShort"]').should('have.attr', 'show');
+
+            cy.get('vl-input-field').shadow().find('input').type('c');
+            cy.get('vl-form-message[state="tooShort"]').should('not.have.attr', 'show');
+        });
+
+        it('should switch error state when validation reason changes during recovery', () => {
+            mountWithValidation();
+            cy.get('vl-input-field').shadow().find('input').type('a').blur();
+            cy.get('vl-form-message[state="tooShort"]').should('have.attr', 'show');
+
+            cy.get('vl-input-field').shadow().find('input').clear().type('1');
+            // Either tooShort or patternMismatch can fire first depending on ValidityState iteration order.
+            cy.get('vl-form-message[state="tooShort"], vl-form-message[state="patternMismatch"]')
+                .filter('[show]')
+                .should('have.length.gte', 1);
+        });
+
+        it('should clear error + erroredOnce state on form reset', () => {
+            mountWithValidation();
+            cy.get('vl-input-field').shadow().find('input').type('a').blur();
+            cy.get('vl-form-message[state="tooShort"]').should('have.attr', 'show');
+
+            cy.get('button[type="reset"]').click();
+            cy.get('vl-form-message[state="tooShort"]').should('not.have.attr', 'show');
+
+            cy.get('vl-input-field').shadow().find('input').focus().type('a');
+            cy.get('vl-form-message[state="tooShort"]').should('not.have.attr', 'show');
+        });
+
+        it('should mark the input invalid via aria-invalid when the error shows', () => {
+            mountWithValidation();
+            cy.get('vl-input-field').shadow().find('input').type('a').blur();
+            cy.get('vl-input-field').shadow().find('input').should('have.attr', 'aria-invalid', 'true');
+
+            cy.get('vl-input-field').shadow().find('input').focus().type('bc');
+            cy.get('vl-input-field').shadow().find('input').should('not.have.attr', 'aria-invalid');
+        });
+
+        it('should leave default submit-only behavior intact when attr is absent', () => {
+            cy.mount(html`
+                <form>
+                    <vl-input-field id="field2" name="field2" required min-length="3"></vl-input-field>
+                    <vl-form-message for="field2" state="tooShort">tooShort</vl-form-message>
+                </form>
+            `);
+            cy.get('vl-input-field').shadow().find('input').type('a').blur();
+            cy.get('vl-form-message[state="tooShort"]').should('not.have.attr', 'show');
+        });
+
+        it('should cascade from blur-validation on the parent form (no attr on field)', () => {
+            cy.mount(html`
+                <form blur-validation>
+                    <vl-input-field id="f3" name="f3" required min-length="3"></vl-input-field>
+                    <vl-form-message for="f3" state="valueMissing">Verplicht.</vl-form-message>
+                </form>
+            `);
+            cy.get('vl-input-field').shadow().find('input').focus().blur();
+            cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+        });
+
+        it('should cascade from data-blur-validation on the parent form', () => {
+            cy.mount(html`
+                <form data-blur-validation>
+                    <vl-input-field id="f4" name="f4" required min-length="3"></vl-input-field>
+                    <vl-form-message for="f4" state="valueMissing">Verplicht.</vl-form-message>
+                </form>
+            `);
+            cy.get('vl-input-field').shadow().find('input').focus().blur();
+            cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+        });
     });
 });

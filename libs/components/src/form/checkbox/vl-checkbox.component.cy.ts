@@ -2,9 +2,10 @@ import { registerWebComponents } from '@domg-wc/common';
 import { vlGridStyles } from '@domg-wc/styles';
 import { html } from 'lit';
 import { VlCheckboxComponent } from './vl-checkbox.component';
+import { VlFormMessageComponent } from '../form-message/vl-form-message.component';
 import { checkboxDefaults } from './vl-checkbox.defaults';
 
-registerWebComponents([VlCheckboxComponent]);
+registerWebComponents([VlCheckboxComponent, VlFormMessageComponent]);
 type CheckboxDefaultTypes = Partial<typeof checkboxDefaults>;
 
 const value = 'Optie 1';
@@ -799,5 +800,64 @@ describe('vl-checkbox - switch variant', () => {
         shouldHaveErrorStyleSwitch();
         cy.get('button[type="reset"]').click();
         cy.get('vl-form-message[for="confirmation"]').should('not.have.attr', 'show');
+    });
+});
+
+// Base-class isolation tests dispatch events on the host directly; Cypress's click sim does not reliably deliver vl-input.
+describe('vl-checkbox - blur-validation', () => {
+    const mountWithValidation = () => {
+        cy.mount(html`
+            <form>
+                <vl-checkbox id="cb" name="cb" required blur-validation>Bevestig</vl-checkbox>
+                <vl-form-message for="cb" state="valueMissing">Verplicht.</vl-form-message>
+                <button type="reset">Reset</button>
+            </form>
+        `);
+    };
+
+    it('should show error on blur after focus, even without interaction', () => {
+        mountWithValidation();
+        cy.get('vl-checkbox').shadow().find('input').focus().blur();
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+    });
+
+    it('should fire blur-validation flow via real user interaction', () => {
+        mountWithValidation();
+        cy.get('vl-checkbox').shadow().find('.vl-checkbox__label').click({ force: true });
+        cy.get('vl-checkbox').shadow().find('.vl-checkbox__label').click({ force: true });
+        cy.get('vl-checkbox').shadow().find('input').focus().blur();
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+    });
+
+    it('should show error after click + uncheck + blur (base-class isolation)', () => {
+        mountWithValidation();
+        cy.get('vl-checkbox').then(($el) => {
+            const cb = $el[0] as VlCheckboxComponent;
+            cb.dispatchEvent(new CustomEvent('vl-input', { bubbles: true, composed: true, detail: { value: null } }));
+            cb.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true }));
+        });
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+    });
+
+    it('should live-revalidate when value becomes valid after error', () => {
+        mountWithValidation();
+        cy.get('vl-checkbox').then(($el) => {
+            const cb = $el[0] as VlCheckboxComponent;
+            cb.dispatchEvent(new CustomEvent('vl-input', { bubbles: true, composed: true, detail: { value: null } }));
+            cb.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true }));
+        });
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+
+        cy.get('vl-checkbox').then(($el) => {
+            const cb = $el[0] as VlCheckboxComponent;
+            cb.checked = true;
+        });
+        cy.waitForLitUpdate('vl-checkbox');
+        cy.get('vl-checkbox').then(($el) => {
+            const cb = $el[0] as VlCheckboxComponent;
+            expect(cb.validity.valid, 'validity must be valid').to.be.true;
+            cb.dispatchEvent(new CustomEvent('vl-input', { bubbles: true, composed: true, detail: { value: 'on' } }));
+        });
+        cy.get('vl-form-message[state="valueMissing"]').should('not.have.attr', 'show');
     });
 });

@@ -2,8 +2,9 @@ import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
 import { VlRadioComponent } from './vl-radio.component';
 import { VlRadioGroupComponent } from './vl-radio-group.component';
+import { VlFormMessageComponent } from '../form-message/vl-form-message.component';
 
-registerWebComponents([VlRadioComponent, VlRadioGroupComponent]);
+registerWebComponents([VlRadioComponent, VlRadioGroupComponent, VlFormMessageComponent]);
 
 const clickRadioWithValue = (value: string) => {
     cy.get(`vl-radio[value="${value}"]`).shadow().find('input').click({ force: true });
@@ -515,5 +516,45 @@ describe('vl-radio-group - in form', () => {
         cy.get('vl-radio-group').find('vl-radio[value="zee"]').should('not.have.attr', 'checked');
         cy.get('vl-radio-group').find('vl-radio[value="lucht"]').should('not.have.attr', 'checked');
         cy.checkA11y('vl-radio-group');
+    });
+});
+
+describe('vl-radio-group - blur-validation', () => {
+    const mount = () => {
+        cy.mount(html`
+            <form>
+                <vl-radio-group id="rg" name="rg" required blur-validation>
+                    <vl-radio value="a">A</vl-radio>
+                    <vl-radio value="b">B</vl-radio>
+                </vl-radio-group>
+                <vl-form-message for="rg" state="valueMissing">Verplicht.</vl-form-message>
+            </form>
+        `);
+    };
+
+    it('should show error on blur after focus, even without selection', () => {
+        mount();
+        cy.get('vl-radio-group').then(($el) => {
+            const rg = $el[0] as VlRadioGroupComponent;
+            rg.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true }));
+        });
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+    });
+
+    it('should show error when touched + invalid + blur (base-class isolation)', () => {
+        mount();
+        cy.get('vl-radio-group').then(($el) => {
+            const rg = $el[0] as VlRadioGroupComponent;
+            rg.dispatchEvent(new CustomEvent('vl-input', { bubbles: true, composed: true, detail: { value: null } }));
+            rg.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true }));
+        });
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+    });
+
+    it('should not show error after real radio selection + blur (selection makes valid)', () => {
+        mount();
+        cy.get('vl-radio[value="a"]').shadow().find('input').click({ force: true });
+        cy.get('vl-radio[value="a"]').shadow().find('input').focus().blur();
+        cy.get('vl-form-message[state="valueMissing"]').should('not.have.attr', 'show');
     });
 });

@@ -1738,3 +1738,20 @@ describe('vl-datepicker - mobile', () => {
         cy.checkA11y('vl-datepicker');
     });
 });
+
+describe('vl-datepicker - blur-validation', () => {
+    it('should show error on blur after focus, even without input', () => {
+        cy.mount(html`
+            <form>
+                <vl-datepicker id="dp" name="dp" required blur-validation></vl-datepicker>
+                <vl-form-message for="dp" state="valueMissing">Gelieve een datum in te vullen.</vl-form-message>
+            </form>
+        `);
+        cy.get('vl-datepicker').shadow().find('input.vl-input-field').focus().blur();
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+    });
+
+    // Note: flatpickr filters invalid chars before they reach validity, so deeper
+    // typed-input blur-validation tests are not reliable. The focus-then-blur test
+    // above covers the core path; submit flow has its own existing coverage.
+});

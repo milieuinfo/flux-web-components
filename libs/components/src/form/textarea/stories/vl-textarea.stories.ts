@@ -31,6 +31,7 @@ export const TextareaDefault = story(
         disabled,
         error,
         success,
+        blurValidation,
         block,
         readonly,
         value,
@@ -53,6 +54,7 @@ export const TextareaDefault = story(
             ?disabled=${disabled}
             ?error=${error}
             ?success=${success}
+            ?blur-validation=${blurValidation}
             ?block=${block}
             ?readonly=${readonly}
             value=${value}
@@ -70,3 +72,12 @@ export const TextareaDefault = story(
     }
 );
 TextareaDefault.storyName = 'vl-textarea - default';
+
+export const TextareaBlurValidation = TextareaDefault.bind({});
+TextareaBlurValidation.storyName = 'vl-textarea - blur validation';
+TextareaBlurValidation.args = {
+    required: true,
+    minLength: 5,
+    blurValidation: true,
+    placeholder: 'Min. 5 karakters',
+};
