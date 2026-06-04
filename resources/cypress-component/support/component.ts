@@ -4,16 +4,11 @@ import { LitElement, render, TemplateResult } from 'lit';
 import { addMatchImageSnapshotCommand } from '@simonsmith/cypress-image-snapshot/command';
 
 if (Cypress.browser.name === 'webkit') {
-    // WebKit rendert op een andere DPR dan de Chromium-baselines → image-snapshots geven altijd een
-    // size mismatch. Skip ze op WebKit (no-op); functionele en positie-tests draaien wel.
-    Cypress.Commands.add(
-        'matchImageSnapshot',
-        { prevSubject: ['optional', 'element', 'window', 'document'] },
-        (subject) => {
-            cy.log('matchImageSnapshot overgeslagen op WebKit (Chromium-baselines, andere DPR).');
-            return cy.wrap(subject, { log: false });
-        }
-    );
+    // WebKit rendert op een andere device pixel ratio dan de Chromium-baselines, dus elke vergelijking
+    // faalt op een formaatverschil. Daarom geen vergelijking op WebKit: dit commando doet niets en slaagt
+    // altijd (lege return, want een waarde teruggeven zou een cast vereisen)
+    //TODO eventueel in toekomst eigen WebKit-baselines toevoegen
+    Cypress.Commands.add('matchImageSnapshot', { prevSubject: ['optional', 'element', 'window', 'document'] }, () => {});
 } else {
     addMatchImageSnapshotCommand({
         failureThreshold: 0.001,
