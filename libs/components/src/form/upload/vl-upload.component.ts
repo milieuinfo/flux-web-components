@@ -187,13 +187,6 @@ export class VlUploadComponent extends FormControl {
 
         if (changedProperties.has('isInvalid')) {
             this.updateInputForAttribute('isInvalid');
-            if (this.isInvalid) {
-                if (this.formMessageText) {
-                    this.getUploadButton()?.setAttribute('aria-description', this.formMessageText);
-                }
-            } else {
-                this.getUploadButton()?.removeAttribute('aria-description');
-            }
         }
 
         if (changedProperties.has('success')) {

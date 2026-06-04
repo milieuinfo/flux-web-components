@@ -77,6 +77,24 @@ export const formControlArgTypes: ArgTypes<FormControlArgs> = {
             defaultValue: { summary: String(formControlArgs.success) },
         },
     },
+    blurValidation: {
+        name: 'blur-validation',
+        description:
+            'Activeert on-blur validatie met live recovery.<br>' +
+            'Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer ' +
+            'verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding ' +
+            'schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. ' +
+            'Submit blijft de definitieve check.<br>' +
+            'Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen ' +
+            'door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. ' +
+            'Een veld met het eigen attribuut blijft daarnaast los werken.<br>' +
+            'Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(formControlArgs.blurValidation) },
+        },
+    },
     onVlReset: {
         name: 'vl-reset',
         description: 'Event dat afgevuurd wordt wanneer het veld gereset wordt.',

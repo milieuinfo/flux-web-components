@@ -15,13 +15,17 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
     protected disabled = formControlDefaults.disabled;
     protected error = formControlDefaults.error;
     protected success = formControlDefaults.success;
+    /** Validate on blur (after focus) with live recovery, instead of only on submit. */
+    protected blurValidation = formControlDefaults.blurValidation;
 
     // State
     protected isInvalid = false;
 
+    // Sticky once true (reset via resetFormControl). Enables live re-validation on input after the first error.
+    private erroredOnce = false;
+
     // Variables
     protected submitFormOnEnter = true;
-    protected formMessageText: string | undefined | null;
 
     static formControlValidators = [requiredValidator, programmaticValidator];
 
@@ -36,6 +40,7 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
             disabled: { type: Boolean },
             error: { type: Boolean },
             success: { type: Boolean },
+            blurValidation: { type: Boolean, attribute: 'blur-validation' },
             isInvalid: { type: Boolean, state: true },
         };
     }
@@ -45,6 +50,8 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
 
         this.addEventListener('keydown', this.onKeydown);
         this.addEventListener('invalid', this.onInvalid);
+        this.addEventListener('vl-input', this.onUserMutation);
+        this.addEventListener('focusout', this.onFocusOut);
     }
 
     disconnectedCallback() {
@@ -52,10 +59,20 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
 
         this.removeEventListener('keydown', this.onKeydown);
         this.removeEventListener('invalid', this.onInvalid);
+        this.removeEventListener('vl-input', this.onUserMutation);
+        this.removeEventListener('focusout', this.onFocusOut);
     }
 
     updated(changedProperties: Map<string, unknown>) {
         super.updated(changedProperties);
+
+        if (this.blurValidationEnabled) {
+            // update error after programmatic value change (no vl-input fired).
+            if (this.isInvalid && !changedProperties.has('isInvalid')) {
+                this.runValidation();
+            }
+            return;
+        }
 
         if (!changedProperties.has('isInvalid')) {
             this.isInvalid = false;
@@ -65,8 +82,22 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
 
     abstract get validationTarget(): HTMLElement | undefined | null;
 
+    /**
+     * True when `blur-validation` is set on this control, or when the associated
+     * `<form>` has `blur-validation` or `data-blur-validation` (cascade). OR-logic,
+     * no per-field opt-out.
+     */
+    protected get blurValidationEnabled(): boolean {
+        return (
+            this.blurValidation ||
+            !!this.form?.hasAttribute('blur-validation') ||
+            !!this.form?.hasAttribute('data-blur-validation')
+        );
+    }
+
     resetFormControl() {
         this.isInvalid = false;
+        this.erroredOnce = false;
         this.hideFormMessages();
         this.dispatchEvent(new Event('vl-reset', { bubbles: true, composed: true }));
     }
@@ -89,8 +120,43 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
         event.preventDefault();
 
         this.isInvalid = true;
+        // Only stick erroredOnce in blur-validation mode (live recovery after submit).
+        if (this.blurValidationEnabled) {
+            this.erroredOnce = true;
+        }
         this.focusFirstInvalidInput();
         this.showFormMessage();
+    }
+
+    private onUserMutation() {
+        if (!this.blurValidationEnabled) return;
+        // Live recovery only after the first error, so pristine input stays silent.
+        if (this.erroredOnce) {
+            this.runValidation();
+        }
+    }
+
+    private onFocusOut() {
+        if (!this.blurValidationEnabled) return;
+
+        // Defer to next tick so document.activeElement reflects the new focus target.
+        // With delegatesFocus, activeElement is the host on internal shadow focus shifts.
+        setTimeout(() => {
+            if (!this.isConnected) return;
+            if (document.activeElement === this) return;
+            this.runValidation();
+        }, 0);
+    }
+
+    private runValidation() {
+        if (this.validity.valid) {
+            this.isInvalid = false;
+            this.hideFormMessages();
+        } else {
+            this.isInvalid = true;
+            this.erroredOnce = true;
+            this.showFormMessage();
+        }
     }
 
     private focusFirstInvalidInput() {
@@ -122,22 +188,16 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
             errorMessage = this.form?.querySelector(`${FORM_MESSAGE_CUSTOM_TAG}[for="${this.id}"]:not([state])`);
         }
 
-        this.formMessageText = errorMessage?.textContent;
-
-        if (this.formMessageText) {
-            this.validationTarget?.setAttribute('aria-description', this.formMessageText);
-        } else {
-            this.validationTarget?.removeAttribute('aria-description');
+        if (errorMessage) {
+            errorMessage.setAttribute('validation-message', this.validationMessage);
+            if (!errorMessage.hasAttribute('show')) {
+                errorMessage.setAttribute('show', '');
+            }
         }
-
-        errorMessage?.setAttribute('validation-message', this.validationMessage);
-        errorMessage?.setAttribute('show', '');
     }
 
     private hideFormMessages() {
         const formMessages = this.form?.querySelectorAll(`${FORM_MESSAGE_CUSTOM_TAG}[for="${this.id}"]`);
-
-        this.formMessageText = null;
 
         formMessages?.forEach((formMessage) => {
             formMessage.removeAttribute('show');

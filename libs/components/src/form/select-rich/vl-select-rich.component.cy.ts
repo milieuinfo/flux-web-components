@@ -3,8 +3,9 @@ import { html } from 'lit';
 import { parseFormData } from '../utils';
 import { SelectRichOption } from './index';
 import { VlSelectRichComponent } from './vl-select-rich.component';
+import { VlFormMessageComponent } from '../form-message/vl-form-message.component';
 
-registerWebComponents([VlSelectRichComponent]);
+registerWebComponents([VlSelectRichComponent, VlFormMessageComponent]);
 
 describe('cypress-component - form components - vl-select-rich - single', () => {
     const options: SelectRichOption[] = [
@@ -2235,5 +2236,51 @@ describe('cypress-component - form components - vl-select-rich - search strategi
             .should('have.length', 4);
 
         cy.checkA11y('vl-select-rich');
+    });
+});
+
+describe('vl-select-rich - blur-validation', () => {
+    const mount = () => {
+        cy.mount(html`
+            <form>
+                <vl-select-rich
+                    id="sr"
+                    name="sr"
+                    required
+                    blur-validation
+                    .options=${[
+                        { label: 'Een', value: 'een' },
+                        { label: 'Twee', value: 'twee' },
+                    ] as SelectRichOption[]}
+                ></vl-select-rich>
+                <vl-form-message for="sr" state="valueMissing">Verplicht.</vl-form-message>
+            </form>
+        `);
+    };
+
+    it('should show error on blur after focus, even without selection', () => {
+        mount();
+        cy.get('vl-select-rich').then(($el) => {
+            const sr = $el[0] as VlSelectRichComponent;
+            sr.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true }));
+        });
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+    });
+
+    it('should show error after simulated user-mutation + blur (base-class isolation)', () => {
+        mount();
+        cy.get('vl-select-rich').then(($el) => {
+            const sr = $el[0] as VlSelectRichComponent;
+            sr.dispatchEvent(new CustomEvent('vl-input', { bubbles: true, composed: true, detail: { value: '' } }));
+            sr.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true }));
+        });
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+    });
+
+    it('should not show error after real option pick (selection makes valid)', () => {
+        mount();
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich').shadow().find('.vl-select__list .vl-select__item').first().click();
+        cy.get('vl-form-message[state="valueMissing"]').should('not.have.attr', 'show');
     });
 });

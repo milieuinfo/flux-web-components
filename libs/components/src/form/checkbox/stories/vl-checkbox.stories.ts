@@ -32,6 +32,7 @@ const CheckboxTemplate = story(
         disabled,
         error,
         success,
+        blurValidation,
         block,
         value,
         checked,
@@ -51,6 +52,7 @@ const CheckboxTemplate = story(
             ?disabled=${disabled}
             ?error=${error}
             ?success=${success}
+            ?blur-validation=${blurValidation}
             ?block=${block}
             value=${value}
             ?checked=${checked}

@@ -32,6 +32,7 @@ const SelectRichTemplate = story(
         disabled,
         error,
         success,
+        blurValidation,
         options,
         placeholder,
         notDeletable,
@@ -57,6 +58,7 @@ const SelectRichTemplate = story(
             ?disabled=${disabled}
             ?error=${error}
             ?success=${success}
+            ?blur-validation=${blurValidation}
             .options=${options}
             placeholder=${placeholder}
             ?not-deletable=${notDeletable}

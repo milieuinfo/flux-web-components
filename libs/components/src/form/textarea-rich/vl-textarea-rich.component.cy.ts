@@ -1,8 +1,9 @@
 import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
 import { VlTextareaRichComponent } from './vl-textarea-rich.component';
+import { VlFormMessageComponent } from '../form-message/vl-form-message.component';
 
-registerWebComponents([VlTextareaRichComponent]);
+registerWebComponents([VlTextareaRichComponent, VlFormMessageComponent]);
 
 describe('vl-textarea-rich - vl-input event', () => {
     beforeEach(() => {
@@ -183,5 +184,36 @@ describe('vl-textarea-rich - properties & states', () => {
         cy.get('vl-textarea-rich').shadow().find('.tox-tinymce').invoke('outerHeight').should('be.gte', 350);
 
         cy.get('.snapshot-wrapper').matchImageSnapshot('textarea-rich-height-large');
+    });
+});
+
+describe('vl-textarea-rich - blur-validation', () => {
+    const mount = () => {
+        cy.mount(html`
+            <form>
+                <vl-textarea-rich id="tar" name="tar" required blur-validation></vl-textarea-rich>
+                <vl-form-message for="tar" state="valueMissing">Verplicht.</vl-form-message>
+            </form>
+        `);
+        cy.wait(500); // tinymce init
+    };
+
+    it('should not show error on untouched blur', () => {
+        mount();
+        cy.get('vl-textarea-rich').then(($el) => {
+            const tar = $el[0] as VlTextareaRichComponent;
+            tar.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true }));
+        });
+        cy.get('vl-form-message[state="valueMissing"]').should('not.have.attr', 'show');
+    });
+
+    it('should show error after simulated user-mutation + blur', () => {
+        mount();
+        cy.get('vl-textarea-rich').then(($el) => {
+            const tar = $el[0] as VlTextareaRichComponent;
+            tar.dispatchEvent(new CustomEvent('vl-input', { bubbles: true, composed: true, detail: { value: '' } }));
+            tar.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true }));
+        });
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
     });
 });

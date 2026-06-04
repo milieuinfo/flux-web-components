@@ -2,8 +2,9 @@ import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import { VlSelectComponent } from './vl-select.component';
 import { SelectOption } from './vl-select.model';
+import { VlFormMessageComponent } from '../form-message/vl-form-message.component';
 
-registerWebComponents([VlSelectComponent]);
+registerWebComponents([VlSelectComponent, VlFormMessageComponent]);
 
 const options: SelectOption[] = [
     { label: 'Hasselt', value: 'hasselt' },
@@ -711,5 +712,48 @@ describe('vl-select - declarative options', () => {
         cy.wait(100);
         cy.get('vl-select').shadow().find('select option').should('have.length', 3);
         cy.get('vl-select').shadow().find('select option').last().should('contain', 'Lier');
+    });
+});
+
+describe('vl-select - blur-validation', () => {
+    const mount = () => {
+        cy.mount(html`
+            <form>
+                <vl-select
+                    id="sel"
+                    name="sel"
+                    required
+                    blur-validation
+                    .options=${[
+                        { label: 'Kies...', value: '' },
+                        { label: 'Een', value: 'een' },
+                    ]}
+                ></vl-select>
+                <vl-form-message for="sel" state="valueMissing">Verplicht.</vl-form-message>
+            </form>
+        `);
+    };
+
+    it('should show error on blur after focus, even without selection', () => {
+        mount();
+        cy.get('vl-select').shadow().find('select').focus().blur();
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+    });
+
+    it('should show error after simulated user-mutation + blur (base-class isolation)', () => {
+        mount();
+        cy.get('vl-select').then(($el) => {
+            const sel = $el[0] as VlSelectComponent;
+            sel.dispatchEvent(new CustomEvent('vl-input', { bubbles: true, composed: true, detail: { value: '' } }));
+            sel.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true }));
+        });
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+    });
+
+    it('should not show error after real option pick + blur (selection makes valid)', () => {
+        mount();
+        cy.get('vl-select').shadow().find('select').select('een');
+        cy.get('vl-select').shadow().find('select').focus().blur();
+        cy.get('vl-form-message[state="valueMissing"]').should('not.have.attr', 'show');
     });
 });

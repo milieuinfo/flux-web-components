@@ -1,8 +1,9 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import { VlUploadComponent } from './vl-upload.component';
+import { VlFormMessageComponent } from '../form-message/vl-form-message.component';
 
-registerWebComponents([VlUploadComponent]);
+registerWebComponents([VlUploadComponent, VlFormMessageComponent]);
 
 const pdfFileFixturePath = 'fixtures/upload/file.pdf';
 const txtFileFixturePath = 'fixtures/upload/file.txt';
@@ -599,6 +600,36 @@ describe('vl-upload - upload', () => {
         cy.get('@vl-upload-progress').should('have.been.called');
         cy.get('@vl-success').should('have.been.called');
         cy.get('@vl-complete').should('have.been.called');
+    });
+});
+
+describe('vl-upload - blur-validation', () => {
+    const mount = () => {
+        cy.mount(html`
+            <form>
+                <vl-upload id="up" name="up" required blur-validation></vl-upload>
+                <vl-form-message for="up" state="valueMissing">Verplicht.</vl-form-message>
+            </form>
+        `);
+    };
+
+    it('should show error on blur after focus, even without files', () => {
+        mount();
+        cy.get('vl-upload').then(($el) => {
+            const up = $el[0] as VlUploadComponent;
+            up.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true }));
+        });
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+    });
+
+    it('should show error after simulated user-mutation + blur (base-class isolation)', () => {
+        mount();
+        cy.get('vl-upload').then(($el) => {
+            const up = $el[0] as VlUploadComponent;
+            up.dispatchEvent(new CustomEvent('vl-input', { bubbles: true, composed: true, detail: { value: null } }));
+            up.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true }));
+        });
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
     });
 });
 
