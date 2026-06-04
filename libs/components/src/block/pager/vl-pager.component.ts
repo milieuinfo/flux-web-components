@@ -110,11 +110,11 @@ export class VlPagerComponent extends BaseHTMLElement implements Pagination {
     }
 
     get _pageElements() {
-        return [...this._pagesListElement!.querySelectorAll('[pager-page]')];
+        return [...this._pagesListElement!.querySelectorAll('[data-pager-page]')];
     }
 
     get _pageSkippedElements() {
-        return [...this._pagesListElement!.querySelectorAll('[pager-page-skipped]')];
+        return [...this._pagesListElement!.querySelectorAll('[data-pager-page-skipped]')];
     }
 
     get _pageBackLink() {
@@ -160,7 +160,7 @@ export class VlPagerComponent extends BaseHTMLElement implements Pagination {
 
     __getActivePageTemplate(number: string) {
         return this._template(`
-      <li pager-page=${number} class="vl-pager__element vl-pager__element--active" aria-current="page" tabindex="-1">
+      <li data-pager-page=${number} class="vl-pager__element vl-pager__element--active" aria-current="page" tabindex="-1">
         <span class="vl-pager__element-cta">${number}</span>
       </li>
     `);
@@ -168,7 +168,7 @@ export class VlPagerComponent extends BaseHTMLElement implements Pagination {
 
     __getSkippedPageTemplate() {
         return this._template(`
-      <li pager-page-skipped class="vl-pager__element">
+      <li data-pager-page-skipped class="vl-pager__element">
         <div class="vl-pager__element-cta">...</div>
       </li>
     `);
@@ -188,7 +188,7 @@ export class VlPagerComponent extends BaseHTMLElement implements Pagination {
 
     __getPageTemplate(number: string) {
         const template = this._template(`
-      <li pager-page=${number} class="vl-pager__element">
+      <li data-pager-page=${number} class="vl-pager__element">
         <a href="#" class="vl-pager__element-cta vl-link bold">${number}</a>
       </li>
     `);

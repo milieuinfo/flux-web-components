@@ -1,7 +1,7 @@
 import { css, CSSResult } from 'lit';
 
 export const vlRichDataTableFluxStyles: CSSResult = css`
-    th[sortable] a {
+    th[data-sortable] a {
         cursor: pointer;
     }
 `;

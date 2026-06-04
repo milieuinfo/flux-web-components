@@ -259,7 +259,7 @@ export class VlRichDataTable extends VlRichData {
 
     __initializeSortingOnHeaderColumn(header: any) {
         // Support both legacy anchors and new buttons used as sort toggles
-        const sorterButton = header.querySelector('th[sortable] > a, th[sortable] > button');
+        const sorterButton = header.querySelector('th[data-sortable] > a, th[data-sortable] > button');
         if (sorterButton) {
             sorterButton.addEventListener('click', () => {
                 sorterButton.querySelector('vl-rich-data-sorter').nextDirection();
@@ -346,14 +346,14 @@ export class VlRichDataTable extends VlRichData {
         }
 
         const allSortableHeaderCells: HTMLElement[] = Array.from(
-            this.__tableHeaderRow?.querySelectorAll('th[sortable]') || []
+            this.__tableHeaderRow?.querySelectorAll('th[data-sortable]') || []
         ) as HTMLElement[];
 
         allSortableHeaderCells.forEach((th) => th.removeAttribute('aria-sort'));
 
         this.__sortingState?.forEach(({ name, direction }) => {
             const header = this.__tableHeaderRow
-                ?.querySelector(`th[sortable] vl-rich-data-sorter[for="${name}"]`)
+                ?.querySelector(`th[data-sortable] vl-rich-data-sorter[for="${name}"]`)
                 ?.closest('th');
 
             header?.setAttribute('aria-sort', direction === 'asc' ? 'ascending' : 'descending');

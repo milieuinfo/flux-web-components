@@ -145,7 +145,7 @@ const shouldPaginateCorrectly = (dataRows: unknown[], pagination: { currentPage:
 };
 
 const selectPagerPage = (pageNumber: number) => {
-    cy.get('vl-rich-data-table').find('vl-pager').shadow().find(`[pager-page=${pageNumber}]`).click();
+    cy.get('vl-rich-data-table').find('vl-pager').shadow().find(`[data-pager-page=${pageNumber}]`).click();
 };
 
 const findValueByPath = (item: any, pathToKey: string): string | undefined => {

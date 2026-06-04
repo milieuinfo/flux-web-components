@@ -100,7 +100,7 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
             ?.assignedNodes()
             .filter((element) => element instanceof HTMLButtonElement);
 
-        buttonNodes.forEach((node) => (node as HTMLButtonElement).setAttribute('narrow', ''));
+        buttonNodes.forEach((node) => (node as HTMLButtonElement).setAttribute('data-narrow', ''));
     }
 }
 

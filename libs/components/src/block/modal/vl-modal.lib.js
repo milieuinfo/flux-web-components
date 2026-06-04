@@ -34,10 +34,14 @@
     }
 
     const mAttr = 'modal';
-    const mDressedAtt = ''.concat(mAttr, '-dressed');
-    const mClosable = ''.concat(mAttr, '-closable');
+    // Interne markers worden enkel door deze lib gezet/gelezen → enkel data-vorm.
+    const mDressedAtt = 'data-'.concat(mAttr, '-dressed');
+    const mClosable = 'data-'.concat(mAttr, '-closable');
+    // Publieke attributen: matchen zowel de oude vorm (geldig op een vl-element)
+    // als de data-vorm (geldig op een native element).
     const mOpen = ''.concat(mAttr, '-open');
     const mClose = ''.concat(mAttr, '-close');
+    const mCloseSelector = '['.concat(mClose, '],[data-').concat(mClose, ']');
     const mFallbackBackdropClass = '.backdrop';
     const noOverflowClass = ''.concat(vl.ns, 'u-no-overflow');
 
@@ -116,8 +120,15 @@
 
                         element.setAttribute(mDressedAtt, true); // Handle open/close
 
-                        linkedOpenTrigger = findOpenTrigger(element, '['.concat(mOpen, '="').concat(element.id, '"]'));
-                        linkedClosedTrigger = element.querySelectorAll('['.concat(mClose, ']')); // See if closable (by esc or backdrop)
+                        linkedOpenTrigger = findOpenTrigger(
+                            element,
+                            '['
+                                .concat(mOpen, '="')
+                                .concat(element.id, '"],[data-')
+                                .concat(mOpen, '="')
+                                .concat(element.id, '"]')
+                        );
+                        linkedClosedTrigger = element.querySelectorAll(mCloseSelector); // See if closable (by esc or backdrop)
 
                         closable = element.hasAttribute(mClosable);
                         vl.util.each(linkedOpenTrigger, (openTrigger) => {
@@ -178,7 +189,11 @@
                         const _this = this;
 
                         const elements = document.querySelectorAll(
-                            '['.concat(mAttr, ']:not([').concat(mDressedAtt, ']):not([js-dress="false"])')
+                            '['
+                                .concat(mAttr, ']:not([')
+                                .concat(mDressedAtt, ']):not([js-dress="false"]),[data-')
+                                .concat(mAttr, ']:not([')
+                                .concat(mDressedAtt, ']):not([js-dress="false"])')
                         );
                         vl.util.each(elements, (element) => {
                             _this.dress(element);
