@@ -74,8 +74,9 @@ export class VlMapAction extends BaseHTMLElement {
     }
 
     activate(): void {
-        // Do not activate action if its layer is invisible
-        if (this.action && this.action.layer.get('visible')) {
+        // Een multi-layer action blijft activeerbaar zolang minstens één gekoppelde layer
+        // zichtbaar is; baseer dit dus niet op de ene proxy-layer.
+        if (this.action && this.action.hasVisibleLayer()) {
             this._mapElement.changeActiveAction(this.action);
         }
     }
@@ -85,7 +86,7 @@ export class VlMapAction extends BaseHTMLElement {
         if (this.action && this.action === this._mapElement.activeAction) {
             const actionIsNotDefault = this.action !== this._mapElement.defaultAction;
             const layerIsVisible =
-                this._mapElement.defaultAction && this._mapElement.defaultAction.layer.get('visible');
+                this._mapElement.defaultAction && this._mapElement.defaultAction.hasVisibleLayer();
             this._mapElement.changeActiveAction(actionIsNotDefault && layerIsVisible && this._mapElement.defaultAction);
         }
     }
