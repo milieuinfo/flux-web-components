@@ -70,7 +70,68 @@ describe('cypress-component - block components - vl-search-filter', () => {
         cy.get('form.vl-search-filter--form').find('vl-button[type="submit"]').click();
         cy.get('form.vl-search-filter--form').find('vl-input-field[name="id"]').should('have.value', '123');
     });
+
+    it('should give a vl-title h2 the same bottom spacing as a native section h2', () => {
+        mountStylingFixture();
+
+        cy.get('#native-section h2').shouldHaveComputedStyle({ style: 'margin-bottom', value: '12px' });
+        cy.get('#title-section vl-title')
+            .shadow()
+            .find('h2')
+            .shouldHaveComputedStyle({ style: 'margin-bottom', value: '12px' });
+    });
+
+    it('should let no-space-bottom on a vl-title remove the bottom spacing', () => {
+        mountStylingFixture();
+
+        cy.get('#no-space-section vl-title')
+            .shadow()
+            .find('h2')
+            .shouldHaveComputedStyle({ style: 'margin-bottom', value: '0px' });
+    });
+
+    it('should not apply ruling or spacing to a section nested inside another section', () => {
+        mountStylingFixture();
+
+        cy.get('#location-section')
+            .shouldHaveComputedStyle({ style: 'padding-bottom', value: '20px' })
+            .shouldHaveComputedStyle({ style: 'border-bottom-width', value: '1px' });
+        cy.get('#nested-section')
+            .shouldHaveComputedStyle({ style: 'padding-bottom', value: '0px' })
+            .shouldHaveComputedStyle({ style: 'border-bottom-width', value: '0px' });
+    });
 });
+
+const mountStylingFixture = () => {
+    cy.viewport('macbook-15');
+    cy.mount(html`
+        <vl-search-filter filter-title="Filter title">
+            <form>
+                <div>
+                    <section id="title-section">
+                        <vl-title type="h2" alt>Doorzoek projecten</vl-title>
+                    </section>
+                    <section id="native-section">
+                        <h2>Native kop</h2>
+                    </section>
+                    <section id="no-space-section">
+                        <vl-title type="h2" alt no-space-bottom="">Geen onder-witruimte</vl-title>
+                    </section>
+                    <section id="location-section">
+                        <vl-title type="h2" alt no-space-bottom="">Locatie</vl-title>
+                        <section id="nested-section">
+                            <vl-form-label for="city" label="Stad" light></vl-form-label>
+                            <vl-input-field id="city" type="text" name="city" block></vl-input-field>
+                        </section>
+                    </section>
+                </div>
+                <footer>
+                    <vl-button type="submit">Zoeken</vl-button>
+                </footer>
+            </form>
+        </vl-search-filter>
+    `);
+};
 
 const mountWithSlottedForm = () => {
     cy.mount(html`

@@ -6,7 +6,8 @@ export const searchFilterGlobalStyles: CSSResult = css`
         padding: 2rem;
         background-color: #e8ebee;
 
-        section {
+        /* enkel niet-geneste sections krijgen de scheidingslijn - een geneste section-in-section krijgt 1 lijn */
+        section:not(section section) {
             padding-bottom: 2rem;
             margin-bottom: 2rem;
             border-bottom: 1px solid #cbd2da;
@@ -34,6 +35,10 @@ export const searchFilterGlobalStyles: CSSResult = css`
             @media screen and (max-width: ${vlMediaScreenSmall}px) {
                 font-size: 1.4rem;
             }
+        }
+
+        vl-title:not([no-space-bottom])::part(h2) {
+            margin-bottom: 1.2rem;
         }
     }
 
