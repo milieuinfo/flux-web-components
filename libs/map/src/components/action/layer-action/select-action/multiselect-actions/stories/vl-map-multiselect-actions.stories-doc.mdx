@@ -1,6 +1,7 @@
 import { ArgTypes, Canvas, Source } from '@storybook/addon-docs/blocks';
 import * as VlMapMultiselectActionsStories from './vl-map-multiselect-actions.stories';
 import defaultStorySource from './vl-map-multiselect-actions.stories-default?raw';
+import multilayerVisibilityStorySource from './vl-map-multiselect-actions.stories-util?raw';
 
 # Map Multiselect Actions
 
@@ -30,6 +31,25 @@ import { VlMapMultiselectActions } from '@domg-wc/map';
 <details>
     <summary>Toon code</summary>
     <Source code={defaultStorySource} language="ts" dark={true} />
+</details>
+
+
+## Zichtbaarheid bij meerdere kaartlagen
+
+Een `map-multiselect-actions` die aan meerdere kaartlagen gekoppeld is, blijft bruikbaar zolang minstens één
+gekoppelde kaartlaag zichtbaar is. De actie deactiveert pas wanneer álle gekoppelde kaartlagen verborgen zijn.<br/>
+Gebruik de layer-switcher in de side-sheet om `layer-1` en `layer-2` te tonen of te verbergen en het gedrag te testen:
+
+- Verberg één kaartlaag → de selectie-actie blijft actief (selecteren in de zichtbare laag werkt nog).
+- Verberg beide kaartlagen → de selectie-actie deactiveert.
+- Maak opnieuw één kaartlaag zichtbaar → de selectie-actie wordt terug actief.
+
+<Canvas of={VlMapMultiselectActionsStories.MapMultiselectActionsMultilayerVisibility} />
+
+
+<details>
+    <summary>Toon code</summary>
+    <Source code={multilayerVisibilityStorySource} language="ts" dark={true} />
 </details>
 
 

@@ -105,6 +105,29 @@ describe('jest - map - select-actions', () => {
         expect(selectActions.isMarked(feature2)).toBe(false);
     });
 
+    it('is van toepassing op elk van zijn gekoppelde layers', () => {
+        const layer1 = new OlVectorLayer({ source: new OlVectorSource() });
+        const layer2 = new OlVectorLayer({ source: new OlVectorSource() });
+        const otherLayer = new OlVectorLayer({ source: new OlVectorSource() });
+        const selectActions = new VlSelectActions([layer1, layer2] as OlVectorLayerType[]);
+        expect(selectActions.appliesToLayer(layer1 as OlVectorLayerType)).toBe(true);
+        expect(selectActions.appliesToLayer(layer2 as OlVectorLayerType)).toBe(true);
+        expect(selectActions.appliesToLayer(otherLayer as OlVectorLayerType)).toBe(false);
+    });
+
+    it('blijft een zichtbare layer hebben zolang minstens één gekoppelde layer zichtbaar is', () => {
+        const layer1 = new OlVectorLayer({ source: new OlVectorSource() });
+        const layer2 = new OlVectorLayer({ source: new OlVectorSource() });
+        const selectActions = new VlSelectActions([layer1, layer2] as OlVectorLayerType[]);
+        layer1.setVisible(true);
+        layer2.setVisible(false);
+        expect(selectActions.hasVisibleLayer()).toBe(true);
+        layer1.setVisible(false);
+        expect(selectActions.hasVisibleLayer()).toBe(false);
+        layer2.setVisible(true);
+        expect(selectActions.hasVisibleLayer()).toBe(true);
+    });
+
     it('kan clusters markeren en demarkeren', () => {
         const feature1 = new OlFeature();
         const feature2 = new OlFeature();
