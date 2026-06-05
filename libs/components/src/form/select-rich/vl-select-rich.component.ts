@@ -7,7 +7,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { FormControl } from '../form-control';
 import { vlSelectRichComponentStyles } from './vl-select-rich.component.css';
 import { selectRichDefaults } from './vl-select-rich.defaults';
-import { SelectRichOption } from './vl-select-rich.model';
+import { SelectRichOption, SelectRichPosition } from './vl-select-rich.model';
 import { getSearchMatcher, SelectRichSearchMatcher } from './vl-select-rich.search-matchers';
 
 @webComponent('vl-select-rich')
@@ -394,6 +394,30 @@ export class VlSelectRichComponent extends FormControl {
         return this.shadowRoot?.querySelector('.js-vl-select') as HTMLElement | null;
     }
 
+    /**
+     * Choices.js berekent de 'auto'-flip t.o.v. de viewport, niet t.o.v. de scroll-container van
+     * een <dialog>. Binnen een vl-modal zet dat in Edge de dropdown verkeerd (over het label / een
+     * volgend veld). Forceer daarom 'bottom' in modal-context, tenzij de consumer expliciet een
+     * positie koos.
+     */
+    private getDropdownPosition(): SelectRichPosition {
+        if (this.position === SelectRichPosition.AUTO && this.isInDialogContext()) {
+            return SelectRichPosition.BOTTOM;
+        }
+        return this.position;
+    }
+
+    private isInDialogContext(): boolean {
+        let node: Node | null = this;
+        while (node) {
+            if (node instanceof HTMLElement && (node.localName === 'dialog' || node.localName === 'vl-modal')) {
+                return true;
+            }
+            node = node instanceof ShadowRoot ? node.host : node.parentNode;
+        }
+        return false;
+    }
+
     private getChoicesConfig(): Partial<Options> {
         return {
             callbackOnInit: this.callbackOnInit,
@@ -403,7 +427,7 @@ export class VlSelectRichComponent extends FormControl {
             searchEnabled: this.search,
             placeholder: !!this.placeholder,
             placeholderValue: this.placeholder,
-            position: this.position,
+            position: this.getDropdownPosition(),
             noResultsText: this.noResultsText,
             searchResultLimit: this.resultLimit,
             noChoicesText: this.noChoicesText,

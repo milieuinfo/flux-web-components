@@ -4,8 +4,10 @@ import { parseFormData } from '../utils';
 import { SelectRichOption } from './index';
 import { VlSelectRichComponent } from './vl-select-rich.component';
 import { VlFormMessageComponent } from '../form-message/vl-form-message.component';
+import { VlModalComponent } from '../../block/modal/vl-modal.component';
+import { VlButtonComponent } from '../../atom/button';
 
-registerWebComponents([VlSelectRichComponent, VlFormMessageComponent]);
+registerWebComponents([VlSelectRichComponent, VlFormMessageComponent, VlModalComponent, VlButtonComponent]);
 
 describe('cypress-component - form components - vl-select-rich - single', () => {
     const options: SelectRichOption[] = [
@@ -2282,5 +2284,113 @@ describe('vl-select-rich - blur-validation', () => {
         cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
         cy.get('vl-select-rich').shadow().find('.vl-select__list .vl-select__item').first().click();
         cy.get('vl-form-message[state="valueMissing"]').should('not.have.attr', 'show');
+    });
+});
+
+describe('cypress-component - form components - vl-select-rich - in modal', () => {
+    const options: SelectRichOption[] = [
+        { label: 'Anzegem', value: 'anzegem' },
+        { label: 'Ardooie', value: 'ardooie' },
+        { label: 'Brugge', value: 'brugge' },
+        { label: 'Gent', value: 'gent' },
+        { label: 'Hasselt', value: 'hasselt' },
+        { label: 'Knokke-Heist', value: 'knokke-heist' },
+        { label: 'Lier', value: 'lier' },
+        { label: 'Turnhout', value: 'turnhout' },
+        { label: 'Waregem', value: 'waregem' },
+    ];
+
+    beforeEach(() => {
+        cy.viewport(1200, 800);
+    });
+
+    const mountInModal = () =>
+        cy.mount(html`
+            <vl-button modal-open="select-rich-modal" data-cy="open-modal">Open</vl-button>
+            <vl-modal id="select-rich-modal" title="Kenmerken bewerken">
+                <div slot="content">
+                    <vl-select-rich label="Medebehandelaars" placeholder="Kies een gemeente" search .options=${options}></vl-select-rich>
+                </div>
+                <span slot="button"><vl-button>Bewaren</vl-button></span>
+            </vl-modal>
+        `);
+
+    it('should open the dropdown below the combobox without flipping over the label', () => {
+        mountInModal();
+        cy.getDataCy('open-modal').click();
+
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich').shadow().find('.vl-select__list--dropdown').should('be.visible');
+        cy.get('vl-select-rich').shadow().find('.js-vl-select').should('not.have.class', 'is-flipped');
+
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.js-vl-select')
+            .then(($combobox) => {
+                const comboboxBottom = $combobox[0].getBoundingClientRect().bottom;
+                cy.get('vl-select-rich')
+                    .shadow()
+                    .find('.vl-select__list--dropdown')
+                    .then(($dropdown) => {
+                        expect($dropdown[0].getBoundingClientRect().top).to.be.greaterThan(comboboxBottom - 2);
+                    });
+            });
+    });
+
+    it('should respect an explicit position attribute inside a modal', () => {
+        cy.mount(html`
+            <vl-button modal-open="select-rich-modal" data-cy="open-modal">Open</vl-button>
+            <vl-modal id="select-rich-modal" title="Kenmerken bewerken">
+                <div slot="content">
+                    <vl-select-rich label="Medebehandelaars" position="top" .options=${options}></vl-select-rich>
+                </div>
+                <span slot="button"><vl-button>Bewaren</vl-button></span>
+            </vl-modal>
+        `);
+        cy.getDataCy('open-modal').click();
+
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich').shadow().find('.js-vl-select').should('have.class', 'is-flipped');
+    });
+
+    it('should keep mouse selection working inside the modal', () => {
+        mountInModal();
+        cy.getDataCy('open-modal').click();
+
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich').shadow().find('.vl-select__list .vl-select__item').contains('Gent').click();
+        cy.get('vl-select-rich').shadow().find('select').find('option[selected]').should('have.value', 'gent');
+    });
+
+    it('should keep keyboard search and selection working inside the modal', () => {
+        mountInModal();
+        cy.getDataCy('open-modal').click();
+
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich').shadow().find('input.vl-input-field').type('Turnhout{enter}');
+        cy.get('vl-select-rich').shadow().find('select').find('option[selected]').should('have.value', 'turnhout');
+    });
+
+    it('should close the dropdown with Escape inside the modal', () => {
+        mountInModal();
+        cy.getDataCy('open-modal').click();
+
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich').shadow().find('.vl-select__list--dropdown').should('be.visible');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.js-vl-select')
+            .trigger('keydown', { key: 'Escape', keyCode: 27, which: 27 });
+        cy.get('vl-select-rich').shadow().find('.js-vl-select').should('not.have.class', 'is-open');
+    });
+
+    it('should keep the combobox accessible with the dropdown open inside the modal', () => {
+        mountInModal();
+        cy.getDataCy('open-modal').click();
+
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich').shadow().find('.vl-select__list--dropdown').should('be.visible');
+        cy.injectAxe();
+        cy.checkA11y('vl-select-rich');
     });
 });

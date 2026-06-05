@@ -5,8 +5,10 @@ import { html } from 'lit';
 import selectRichDocs from './vl-select-rich.stories-doc.mdx';
 import { registerWebComponents } from '@domg-wc/common';
 import { VlSelectRichComponent } from '../vl-select-rich.component';
+import { VlModalComponent } from '../../../block/modal/vl-modal.component';
+import { VlButtonComponent } from '../../../atom/button';
 
-registerWebComponents([VlSelectRichComponent]);
+registerWebComponents([VlSelectRichComponent, VlModalComponent, VlButtonComponent]);
 
 export default {
     id: 'components-form-select-rich',
@@ -259,3 +261,29 @@ SelectRichReadOnly.args = {
         { label: 'Rio Piedras', value: 'rio piedras', disabled: true },
     ],
 };
+
+export const SelectRichInModal = () => html`
+    <vl-button modal-open="select-rich-modal">Kenmerken bewerken</vl-button>
+    <vl-modal id="select-rich-modal" title="Kenmerken bewerken">
+        <div slot="content">
+            <vl-select-rich
+                label="Medebehandelaars"
+                placeholder="Kies een gemeente"
+                search
+                .options=${[
+                    { label: 'Anzegem', value: 'anzegem' },
+                    { label: 'Ardooie', value: 'ardooie' },
+                    { label: 'Brugge', value: 'brugge' },
+                    { label: 'Gent', value: 'gent' },
+                    { label: 'Hasselt', value: 'hasselt' },
+                    { label: 'Knokke-Heist', value: 'knokke-heist' },
+                    { label: 'Lier', value: 'lier' },
+                    { label: 'Turnhout', value: 'turnhout' },
+                    { label: 'Waregem', value: 'waregem' },
+                ]}
+            ></vl-select-rich>
+        </div>
+        <span slot="button"><vl-button>Bewaren</vl-button></span>
+    </vl-modal>
+`;
+SelectRichInModal.storyName = 'vl-select-rich - in modal';
