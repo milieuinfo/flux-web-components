@@ -53,7 +53,6 @@ export class VlLinkComponent extends BaseLitElement {
         };
         const target = this.external ? '_blank' : nothing;
         const rel = this.external ? 'noopener noreferrer nofollow' : nothing;
-        const positionIconBefore = this.iconPlacement !== ICON_PLACEMENT.AFTER;
         return !this.buttonAsLink
             ? html`
                   <a
@@ -77,10 +76,7 @@ export class VlLinkComponent extends BaseLitElement {
                       )}
                       @click=${this.handleClick}
                   >
-                      ${positionIconBefore ? this.renderIcon() : nothing}
-                      <slot></slot>
-                      ${!positionIconBefore ? this.renderIcon() : nothing}
-                      ${this.external ? this.renderExternalIcon() : ''}
+                      ${this.renderContent()}
                   </a>
               `
             : html`
@@ -103,16 +99,25 @@ export class VlLinkComponent extends BaseLitElement {
                       )}
                       @click=${this.handleClick}
                   >
-                      ${positionIconBefore ? this.renderIcon() : nothing}
-                      <slot></slot>
-                      ${!positionIconBefore ? this.renderIcon() : nothing}
-                      ${this.external ? this.renderExternalIcon() : ''}
+                      ${this.renderContent()}
                   </button>
               `;
     }
 
     private handleClick(): void {
         this.dispatchEvent(new CustomEvent('vl-click', { bubbles: true, composed: true }));
+    }
+
+    private renderContent(): TemplateResult {
+        const positionIconBefore = this.iconPlacement !== ICON_PLACEMENT.AFTER;
+        const before = positionIconBefore ? this.renderIcon() : nothing;
+        const after = !positionIconBefore ? this.renderIcon() : nothing;
+
+        // Inline wrapper bij externe links: anders is het external icon een aparte
+        // flex-child die bij wrappende tekst los rechts hangt i.p.v. na het laatste woord.
+        return this.external
+            ? html`${before}<span class="vl-link__content"><slot></slot>${after}${this.renderExternalIcon()}</span>`
+            : html`${before}<slot></slot>${after}`;
     }
 
     private renderIcon(): TemplateResult | typeof nothing {
