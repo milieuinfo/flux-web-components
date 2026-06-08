@@ -409,6 +409,32 @@ describe('vl-select - options', () => {
                         .not.to.be.undefined
             );
     });
+
+    it('should reset value to empty when slotted options change to a set without a selection', () => {
+        cy.mount(
+            html`<vl-select placeholder="Selecteer">
+                <option value="hasselt">Hasselt</option>
+                <option value="turnhout" selected>Turnhout</option>
+            </vl-select>`
+        );
+
+        cy.get('vl-select').should(($vlSelect) => {
+            expect($vlSelect[0].value).to.equal('turnhout');
+        });
+
+        cy.get('vl-select').then(($vlSelect) => {
+            $vlSelect[0].innerHTML = `
+                <option value="hasselt">Hasselt</option>
+                <option value="turnhout">Turnhout</option>
+            `;
+        });
+
+        cy.get('vl-select').should(($vlSelect) => {
+            expect($vlSelect[0].value).to.equal('');
+        });
+
+        cy.get('vl-select').shadow().find('option:selected').should('contain', 'Selecteer');
+    });
 });
 
 describe('vl-select - in form', () => {
