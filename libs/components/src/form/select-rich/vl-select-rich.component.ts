@@ -296,6 +296,10 @@ export class VlSelectRichComponent extends FormControl {
     setSelectedValues(value: string | string[]): void {
         this.removeAllSelections();
         this.selectByValue(value);
+        // Werk de reactive property bij zodat updated() draait en vl-change consistent afgevuurd wordt
+        // (selectByValue/removeAllSelections muteren enkel de ElementInternals-laag).
+        this.dispatchInput = false;
+        this.value = this.collectFormData();
     }
 
     getSelected(): string | string[] | null {
