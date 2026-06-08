@@ -198,9 +198,15 @@ export class VlSelectComponent extends FormControl {
 
     private onSlotChange() {
         this.parseSlottedOptions();
-        const selected = this.getSelectedOption();
-        if (selected) this.value = selected.value;
+        this.syncValueWithOptions();
         this.requestUpdate();
+    }
+
+    private syncValueWithOptions() {
+        if (this.getAllOptions().length > 0) {
+            // Reset naar '' wanneer er opties zijn maar geen selectie (placeholder), zonder de value te wissen
+            this.value = this.getSelectedOption()?.value || '';
+        }
     }
 
     private getSelectedOption(): SelectOption | undefined {
@@ -225,10 +231,16 @@ export class VlSelectComponent extends FormControl {
     }
 
     private setupSlotObserver() {
-        this.slotObserver = new MutationObserver(() => {
+        this.slotObserver = new MutationObserver((mutations) => {
+            const optionsChanged = mutations.some(
+                (mutation) => mutation.type === 'childList' || mutation.target !== this
+            );
+            if (!optionsChanged) {
+                return;
+            }
+
             this.parseSlottedOptions();
-            const selected = this.getSelectedOption();
-            if (selected) this.value = selected.value;
+            this.syncValueWithOptions();
             this.requestUpdate();
         });
 
