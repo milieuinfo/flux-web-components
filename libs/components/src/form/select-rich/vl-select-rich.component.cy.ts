@@ -604,6 +604,32 @@ describe('cypress-component - form components - vl-select-rich - single', () => 
         cy.get('@vl-input').should('to.not.have.been.called.at.all');
     });
 
+    it('should dispatch vl-change but NOT vl-input on setSelectedValues', () => {
+        cy.mount(html`<vl-select-rich label="geboorteplaats" .options=${options}></vl-select-rich>`);
+        cy.createStubForEvent('vl-select-rich', 'vl-change');
+        cy.createStubForEvent('vl-select-rich', 'vl-input');
+        cy.injectAxe();
+        cy.checkA11y('vl-select-rich');
+
+        cy.get('vl-select-rich').then((el) => {
+            (el[0] as VlSelectRichComponent).setSelectedValues('hasselt');
+        });
+        cy.get('@vl-change')
+            .should('have.been.calledTwice')
+            .its('secondCall.args.0.detail')
+            .should('deep.equal', { value: 'hasselt' });
+        cy.get('@vl-input').should('to.not.have.been.called.at.all');
+
+        cy.get('vl-select-rich').then((el) => {
+            (el[0] as VlSelectRichComponent).setSelectedValues('turnhout');
+        });
+        cy.get('@vl-change')
+            .should('have.been.calledThrice')
+            .its('lastCall.args.0.detail')
+            .should('deep.equal', { value: 'turnhout' });
+        cy.get('@vl-input').should('to.not.have.been.called.at.all');
+    });
+
     it('should dispatch vl-select-search event on input search value', () => {
         cy.mount(
             html`<vl-select-rich
