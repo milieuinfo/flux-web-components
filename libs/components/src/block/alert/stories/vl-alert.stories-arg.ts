@@ -68,7 +68,7 @@ export const alertArgTypes: ArgTypes<typeof alertArgs> = {
     icon: {
         name: 'icon',
         description:
-            'Icon van de waarschuwing.<br>Het icoon kan gekozen worden uit de lijst op https://overheid.vlaanderen.be/webuniversum/v3/documentation/atoms/vl-ui-icon.',
+            'Icon van de waarschuwing.<br>Het icoon kan gekozen worden uit de lijst op https://www.vlaanderen.be/vlaanderen-design-system/componenten/icon.',
         control: { type: CONTROLS.SELECT },
         options: Object.values(ALERT_ICON),
         table: {

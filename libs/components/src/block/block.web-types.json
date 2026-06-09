@@ -140,7 +140,7 @@
                         },
                         {
                             "name": "icon",
-                            "description": "Icon van de waarschuwing.<br>Het icoon kan gekozen worden uit de lijst op https://overheid.vlaanderen.be/webuniversum/v3/documentation/atoms/vl-ui-icon.",
+                            "description": "Icon van de waarschuwing.<br>Het icoon kan gekozen worden uit de lijst op https://www.vlaanderen.be/vlaanderen-design-system/componenten/icon.",
                             "value": {
                                 "kind": "plain",
                                 "type": "'warning' | 'check' | 'info-circle'"
@@ -808,7 +808,7 @@
                         },
                         {
                             "name": "icon",
-                            "description": "Attribuut dat wordt gebruikt om een icoon vooraan aan de titel toe te voegen. Het icoon kan gekozen worden uit de lijst op https://overheid.vlaanderen.be/webuniversum/v3/documentation/atoms/vl-ui-icon.",
+                            "description": "Attribuut dat wordt gebruikt om een icoon vooraan aan de titel toe te voegen. Het icoon kan gekozen worden uit de lijst op https://www.vlaanderen.be/vlaanderen-design-system/componenten/icon.",
                             "value": {
                                 "kind": "plain",
                                 "type": "'calendar' | 'programming-bug' | 'key'"
