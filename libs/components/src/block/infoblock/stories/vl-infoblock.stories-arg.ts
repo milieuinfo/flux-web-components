@@ -41,7 +41,7 @@ export const infoblockArgTypes: ArgTypes<typeof infoblockArgs> = {
         },
         options: ['calendar', 'programming-bug', 'key'],
         description:
-            'Attribuut dat wordt gebruikt om een icoon vooraan aan de titel toe te voegen. Het icoon kan gekozen worden uit de lijst op https://overheid.vlaanderen.be/webuniversum/v3/documentation/atoms/vl-ui-icon.',
+            'Attribuut dat wordt gebruikt om een icoon vooraan aan de titel toe te voegen. Het icoon kan gekozen worden uit de lijst op https://www.vlaanderen.be/vlaanderen-design-system/componenten/icon.',
         table: {
             type: { summary: getSelectControlOptions(['calendar', 'programming-bug', 'key']) },
             category: CATEGORIES.ATTRIBUTES,
