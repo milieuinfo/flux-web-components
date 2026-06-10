@@ -319,7 +319,7 @@
                 },
                 {
                     "name": "vl-text",
-                    "description": "Gebruik de `text` component om een tekst af te beelden op andere wijze.<br/>",
+                    "description": "Gebruik de `text` component om een tekst af te beelden op andere wijze.<br/>\n\n`vl-text` is puur stilistisch en heeft geen koppeling met form-controls of validatie. Wil je een boodschap tonen die\nhoort bij een form-control (bv. een fout-, success- of toelichtingsboodschap), gebruik dan\n[`vl-form-message`](/docs/components-form-form-message--documentatie): die werkt samen met de validatie-lifecycle en\nzorgt voor de juiste `aria`-koppeling.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-atom-text-text--documentatie",
                     "attributes": [
                         {

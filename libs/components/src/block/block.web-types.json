@@ -561,8 +561,13 @@
                             "default": ""
                         },
                         {
-                            "name": "title",
+                            "name": "title-label",
                             "description": "Tekst van de titel.",
+                            "default": ""
+                        },
+                        {
+                            "name": "title",
+                            "description": "**Deprecated** - gebruik `title-label`. Het standaard HTML `title`-attribuut toont een ongewenste native browser-tooltip. Bestaande `title`-waarden blijven werken (de tooltip wordt weggenomen), maar migreer best naar `title-label`.",
                             "default": ""
                         }
                     ],
@@ -1794,6 +1799,11 @@
                                 "type": "'absolute' | 'fixed'"
                             },
                             "default": "absolute"
+                        },
+                        {
+                            "name": "max-height",
+                            "description": "Optionele maximumhoogte van de popover-inhoud (CSS-lengte, bv. `300px` of `50vh`). Bij overschrijding scrollt de inhoud verticaal. De effectieve hoogte is het minimum van deze waarde en de automatisch berekende viewport-ruimte.",
+                            "default": ""
                         }
                     ],
                     "js": {

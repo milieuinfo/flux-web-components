@@ -840,6 +840,16 @@
                             "default": "null"
                         },
                         {
+                            "name": "cql-filter",
+                            "description": "Een CQL-expressie waarmee de features van de WFS-laag server-side gefilterd worden. De waarde wordt als <code>cql_filter</code> query parameter naar de server gestuurd, gecombineerd met een <code>BBOX</code>-clausule op de geometry-property: <code>cql_filter=BBOX(geometry,extent) AND (filter)</code> in plaats van een <code>bbox</code> parameter. <br><strong>Let op:</strong> <code>cql_filter</code> is een GeoServer-specifieke extensie en wordt niet door elke WFS-implementatie ondersteund.<br>Dit attribuut is reactief.",
+                            "default": ""
+                        },
+                        {
+                            "name": "geometry-name",
+                            "description": "De naam van de geometry-property die in de CQL <code>BBOX(...)</code>-clausule gebruikt wordt. Enkel relevant samen met <code>cql-filter</code>. Indien niet meegegeven wordt de geometry-property best-effort gedetecteerd via een <code>DescribeFeatureType</code> call; geef dit attribuut expliciet mee wanneer die auto-detectie faalt.<br>Dit attribuut is niet reactief.",
+                            "default": ""
+                        },
+                        {
                             "name": "layers",
                             "description": "De layers van de WFS.<br>Dit attribuut is niet reactief.",
                             "default": ""
@@ -1525,6 +1535,11 @@
                         {
                             "name": "success",
                             "description": "Beeldt de component in een success state af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
                             "default": "false"
                         },
                         {

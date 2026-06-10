@@ -53,6 +53,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
+                            "default": "false"
+                        },
+                        {
                             "name": "block",
                             "description": "Duidt aan dat de component de volledige breedte van zijn parent mag innemen.",
                             "default": "false"
@@ -155,6 +160,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
+                            "default": "false"
+                        },
+                        {
                             "name": "block",
                             "description": "Duidt aan dat de component de volledige breedte van zijn parent mag innemen.",
                             "default": "false"
@@ -237,6 +247,11 @@
                             "name": "static",
                             "description": "Configuratie optie overgenomen van Flatpickr. (https://flatpickr.js.org/options/)",
                             "default": "false"
+                        },
+                        {
+                            "name": "anchor-positioning",
+                            "description": "Activeert CSS Anchor Positioning + Popover API voor de kalender positionering. Dit zorgt ervoor dat de kalender correct wordt gepositioneerd in scrollbare containers en niet wordt afgekapt door overflow of transform op ancestor-elementen (bijv. in een modal).",
+                            "default": "false"
                         }
                     ],
                     "js": {
@@ -312,7 +327,7 @@
                 },
                 {
                     "name": "vl-form-message",
-                    "description": "Gebruik de `form-message` component om een boodschap af te beelden voor een input veld.<br/>\nZie het [form demo](/docs/patronen-formulier-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "description": "Gebruik de `form-message` component om een boodschap af te beelden voor een input veld.<br/>\nZie het [form demo](/docs/patronen-formulier-demo--documentatie) voorbeeld voor het gebruik binnen een form.\n\nGebruik `vl-form-message` zodra een boodschap aan een form-control gekoppeld is: de component werkt samen met de\nvalidatie-lifecycle van de control (tonen/verbergen en `aria-description`).",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-form-message--documentatie",
                     "attributes": [
                         {
@@ -327,8 +342,17 @@
                         },
                         {
                             "name": "state",
-                            "description": "De state van het input element waarvoor de message getoond moet worden.",
+                            "description": "De `ValidityState`-sleutel waarvoor de message getoond moet worden. Gebruik `state=\"valid\"` voor een success-boodschap (groen) die automatisch verschijnt zodra het veld geldig is na een eerste validatie.",
                             "default": "null"
+                        },
+                        {
+                            "name": "variant",
+                            "description": "De visuele stijl van de message: `error` (default), `success` of `annotation`. Gebruik `annotation` voor een altijd zichtbare, informatieve tekst. De success-stijl wordt ook automatisch toegepast bij `state=\"valid\"`.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'error' | 'success' | 'annotation'"
+                            },
+                            "default": "error"
                         },
                         {
                             "name": "show",
@@ -436,6 +460,11 @@
                         {
                             "name": "success",
                             "description": "Beeldt de component in een success state af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
                             "default": "false"
                         },
                         {
@@ -584,6 +613,11 @@
                         {
                             "name": "success",
                             "description": "Beeldt de component in een success state af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
                             "default": "false"
                         },
                         {
@@ -846,6 +880,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
+                            "default": "false"
+                        },
+                        {
                             "name": "readonly",
                             "description": "Duidt aan dat het veld enkel leesbaar is.",
                             "default": "false"
@@ -923,6 +962,11 @@
                         {
                             "name": "success",
                             "description": "Beeldt de component in een success state af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
                             "default": "false"
                         },
                         {
@@ -1027,6 +1071,11 @@
                         {
                             "name": "success",
                             "description": "Beeldt de component in een success state af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
                             "default": "false"
                         },
                         {
@@ -1177,6 +1226,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
+                            "default": "false"
+                        },
+                        {
                             "name": "block",
                             "description": "Duidt aan dat de component de volledige breedte van zijn parent mag innemen.",
                             "default": "false"
@@ -1289,6 +1343,11 @@
                         {
                             "name": "success",
                             "description": "Beeldt de component in een success state af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
                             "default": "false"
                         },
                         {
@@ -1431,6 +1490,11 @@
                         {
                             "name": "success",
                             "description": "Beeldt de component in een success state af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
                             "default": "false"
                         },
                         {
