@@ -24,8 +24,6 @@ export class VlTypography extends BaseHTMLElement {
             titlesStyle.styleSheet!,
         ];
         super(html, styleSheets);
-
-        this._observer = this.__observeSlotElements(() => this.__processSlotElements());
     }
 
     static get _observedAttributes() {
@@ -49,11 +47,15 @@ export class VlTypography extends BaseHTMLElement {
     connectedCallback() {
         super.connectedCallback();
 
+        if (!this._observer) {
+            this._observer = this.__observeSlotElements(() => this.__processSlotElements());
+        }
         this.__processSlotElements();
     }
 
     disconnectedCallback() {
         this._observer?.disconnect();
+        this._observer = undefined;
     }
 
     _parametersChangedCallback() {
