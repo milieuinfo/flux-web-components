@@ -309,6 +309,117 @@ describe('cypress-component - form components - vl-input-field', () => {
     });
 });
 
+describe('cypress-component - form components - vl-input-field - badInput', () => {
+    // Programmatic value-assignment (zoals cy.type op een number-input) zet nooit badInput op de
+    // native input; alleen échte toetsenbordinvoer doet dat (bv. "12,3" in Safari). Het
+    // Safari-gedrag wordt daarom gesimuleerd door de native validity te stubben: lege value,
+    // badInput true, gevolgd door een echt input-event.
+    const simulateNativeBadInput = (input: HTMLInputElement) => {
+        Object.defineProperty(input, 'validity', {
+            configurable: true,
+            value: { badInput: true, valid: false },
+        });
+        input.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+    };
+
+    const restoreNativeValidity = (input: HTMLInputElement) => {
+        Reflect.deleteProperty(input, 'validity');
+    };
+
+    const mountNumberForm = () =>
+        cy.mount(html`
+            <form @submit=${(e: Event) => e.preventDefault()}>
+                <vl-input-field id="aantal" name="aantal" type="number" required></vl-input-field>
+                <vl-form-message for="aantal" state="valueMissing">Gelieve een aantal in te vullen.</vl-form-message>
+                <vl-form-message for="aantal" state="badInput">Gelieve een geldig getal in te vullen.</vl-form-message>
+                <button type="submit">Verstuur</button>
+            </form>
+        `);
+
+    it('should report badInput instead of valueMissing, also without a value change (badInput op een leeg veld)', () => {
+        mountNumberForm();
+
+        // De value blijft '' vóór en na het input-event: dit dekt expliciet de hervalidatie
+        // wanneer Lit geen update triggert.
+        cy.get('vl-input-field')
+            .shadow()
+            .find('input')
+            .then(($input) => simulateNativeBadInput($input[0] as HTMLInputElement));
+        cy.get('vl-input-field').should(($el) => {
+            const component = $el.get(0) as VlInputFieldComponent;
+            expect(component.validity.badInput).to.be.true;
+            expect(component.validity.valueMissing).to.be.false;
+            expect(component.validity.valid).to.be.false;
+        });
+    });
+
+    it('should report badInput when unparsable input clears the native value (Safari komma-scenario)', () => {
+        mountNumberForm();
+
+        cy.get('vl-input-field').shadow().find('input').type('12');
+        cy.get('vl-input-field')
+            .shadow()
+            .find('input')
+            .then(($input) => {
+                const input = $input[0] as HTMLInputElement;
+                input.value = '';
+                simulateNativeBadInput(input);
+            });
+        // .should(fn) retryt tot de asynchrone Lit-update en hervalidatie verwerkt zijn.
+        cy.get('vl-input-field').should(($el) => {
+            const component = $el.get(0) as VlInputFieldComponent;
+            expect(component.validity.badInput).to.be.true;
+            expect(component.validity.valueMissing).to.be.false;
+        });
+    });
+
+    it('should show the badInput message and not the valueMissing message on submit', () => {
+        mountNumberForm();
+
+        cy.get('vl-input-field')
+            .shadow()
+            .find('input')
+            .then(($input) => simulateNativeBadInput($input[0] as HTMLInputElement));
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-form-message[state="badInput"]').should('have.attr', 'show');
+        cy.get('vl-form-message[state="valueMissing"]').should('not.have.attr', 'show');
+        cy.get('vl-input-field')
+            .shadow()
+            .find('input')
+            .should('have.attr', 'aria-description', 'Gelieve een geldig getal in te vullen.');
+    });
+
+    it('should still report valueMissing for an empty required field', () => {
+        mountNumberForm();
+
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+        cy.get('vl-form-message[state="badInput"]').should('not.have.attr', 'show');
+    });
+
+    it('should recover once the input becomes parsable', () => {
+        mountNumberForm();
+
+        cy.get('vl-input-field')
+            .shadow()
+            .find('input')
+            .then(($input) => simulateNativeBadInput($input[0] as HTMLInputElement));
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-form-message[state="badInput"]').should('have.attr', 'show');
+
+        cy.get('vl-input-field')
+            .shadow()
+            .find('input')
+            .then(($input) => restoreNativeValidity($input[0] as HTMLInputElement));
+        cy.get('vl-input-field').shadow().find('input').type('12');
+        cy.get('vl-form-message[state="badInput"]').should('not.have.attr', 'show');
+        cy.get('vl-input-field').should(($el) => {
+            const component = $el.get(0) as VlInputFieldComponent;
+            expect(component.validity.valid).to.be.true;
+        });
+    });
+});
+
 describe('cypress-component - form components - vl-input-field - success message', () => {
     // De aanwezigheid van een vl-form-message met state="valid" is de opt-in voor de auto-success.
     const mountInForm = (withSuccessMessage = true) =>

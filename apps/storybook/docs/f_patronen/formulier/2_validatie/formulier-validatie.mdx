@@ -33,6 +33,12 @@ controleert.
 Hieronder een overzicht van de gebruikte attributen van [ValidityState](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState#instance_properties) met hun betekenis en bijhorende
 [validation attributen](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation#validation-related_attributes):
 
+- `badInput`: als de browser de ingevoerde tekst niet kan omzetten naar een waarde, bv. "12,3" in een
+   `vl-input-field` met `type="number"` in een browser die de komma niet als decimaalteken aanvaardt (Safari, Firefox).
+   Het veld toont dan zichtbaar tekst, maar de native waarde is leeg. Voorzie hiervoor een `vl-form-message` met
+   `state="badInput"` (bv. "Gelieve een geldig getal in te vullen, gebruik een punt als decimaalteken."), anders krijgt
+   de gebruiker enkel de foutstijl zonder boodschap. Zolang `badInput` actief is, wordt `valueMissing` niet
+   gerapporteerd.
 - `customError`: als je custom validatie instelt, [zie hier](/docs/patronen-formulier-aangepaste-validatie--documentatie) hoe je zelf een custom validator schrijft.
 - `patternMismatch`: als de waarde niet overeenkomt met het patroon dat is ingesteld door het `pattern` attribuut.
 - `rangeOverflow`: als de waarde hoger is dan de waarde die is gespecifieerd door het `max` attribuut.
