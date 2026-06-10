@@ -1,4 +1,5 @@
 import { webComponent } from '@domg-wc/common';
+import OlFeature from 'ol/Feature';
 import { isEmpty as isEmptyExtent } from 'ol/extent';
 import OlGeoJSON from 'ol/format/GeoJSON';
 import OlPoint from 'ol/geom/Point';
@@ -125,9 +126,10 @@ export class VlMapFeaturesLayer extends VlMapVectorLayer {
     }
 
     /**
-     * Verwijdert alle features van de laag
+     * Verwijdert alle features van de laag, ongeacht hoe ze toegevoegd werden
+     * (GeoJSON of rechtstreekse OpenLayers Feature-objecten).
      */
-    clearFeatures() {
+    clearFeatures () {
         if (this.__featuresSource) {
             this.__featuresSource.clear();
             this._featuresChanged();
@@ -135,9 +137,11 @@ export class VlMapFeaturesLayer extends VlMapVectorLayer {
     }
 
     /**
-     * Voegt een feature toe aan de kaartlaag via geojson
+     * Voegt één feature toe aan de kaartlaag via GeoJSON. De GeoJSON wordt ge-parsed en de geometrie
+     * wordt van de laag- naar de kaartprojectie getransformeerd.
+     * Gebruik {@link addFeatures} om bestaande OpenLayers Feature-objecten rechtstreeks toe te voegen.
      *
-     * @param {string} feature
+     * @param {string} feature - GeoJSON van één feature.
      */
     addFeature(feature) {
         if (this.__featuresSource) {
@@ -147,13 +151,44 @@ export class VlMapFeaturesLayer extends VlMapVectorLayer {
     }
 
     /**
-     * Voegt een featurecollection toe aan de kaartlaag via geojson
+     * Voegt meerdere features toe aan de kaartlaag via een GeoJSON FeatureCollection. De GeoJSON wordt
+     * ge-parsed en de geometrieën worden van de laag- naar de kaartprojectie getransformeerd.
+     * Gebruik {@link addFeatures} om bestaande OpenLayers Feature-objecten rechtstreeks toe te voegen.
      *
-     * @param {string} featureCollection
+     * @param {string} featureCollection - GeoJSON FeatureCollection.
      */
     addFeatureCollection(featureCollection) {
         if (this.__featuresSource) {
             this.__featuresSource.addFeatures(this._geoJSON.readFeatures(featureCollection, this.__readOptions));
+            this._featuresChanged();
+        }
+    }
+
+    /**
+     * Voegt OpenLayers Feature-objecten rechtstreeks toe aan de kaartlaag, zonder GeoJSON-serialisatie.
+     * Properties gezet via feature.set(...) en feature.setId(...) blijven behouden. De geometrieën worden
+     * niet getransformeerd: ze moeten al in de kaartprojectie staan (anders dan de GeoJSON-flows).
+     *
+     * @param {OlFeature[]} features
+     */
+    addFeatures(features: OlFeature[]) {
+        if (this.__featuresSource) {
+            this.__featuresSource.addFeatures(features);
+            this._featuresChanged();
+        }
+    }
+
+    /**
+     * Vervangt alle features op de kaartlaag door de meegegeven OpenLayers Feature-objecten, zonder
+     * GeoJSON-serialisatie. Properties gezet via feature.set(...) en feature.setId(...) blijven behouden.
+     * De geometrieën worden niet getransformeerd: ze moeten al in de kaartprojectie staan.
+     *
+     * @param {OlFeature[]} features
+     */
+    setFeatures(features: OlFeature[]) {
+        if (this.__featuresSource) {
+            this.__featuresSource.clear();
+            this.__featuresSource.addFeatures(features);
             this._featuresChanged();
         }
     }

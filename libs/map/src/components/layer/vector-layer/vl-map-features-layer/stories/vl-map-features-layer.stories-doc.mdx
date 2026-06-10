@@ -26,6 +26,28 @@ import { VlMapFeaturesLayer } from '@domg-wc/map';
 <Canvas of={VlMapFeaturesLayerStories.MapFeaturesLayerDefault} />
 
 
+## OpenLayers Feature-objecten rechtstreeks toevoegen
+
+Naast de GeoJSON-flows (`features`-attribuut, `addFeature`, `addFeatureCollection`) kan je ook OpenLayers
+`Feature`-objecten rechtstreeks op de laag zetten met `addFeatures(features)` (toevoegen) en `setFeatures(features)`
+(alles vervangen). Properties gezet via `feature.set(...)` en `feature.setId(...)` blijven daarbij behouden - er
+gebeurt geen GeoJSON-serialisatie.
+
+Let op: anders dan de GeoJSON-flows transformeren deze methodes de geometrie niet. De features moeten dus al in de
+kaartprojectie staan. Net als `addFeature` falen ze stil wanneer ze vóór `connectedCallback` worden aangeroepen.
+
+```js
+import Feature from 'ol/Feature';
+import Point from 'ol/geom/Point';
+
+const feature = new Feature({ geometry: new Point([x, y]) });
+feature.setId(1);
+feature.set('emissiebron', emissiebron);
+
+layer.setFeatures([feature]);
+```
+
+
 ## Configuratie
 
 <ArgTypes of={VlMapFeaturesLayerStories.MapFeaturesLayerDefault} />
