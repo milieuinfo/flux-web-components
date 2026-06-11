@@ -306,6 +306,14 @@ describe('cypress-component - atom components - vl-button - cta-link', () => {
 
         cy.get('vl-button').should('have.attr', 'external');
         cy.get('vl-button').shadow().find('a').should('have.attr', 'target', '_blank');
+        cy.get('vl-button').shadow().find('a').should('have.attr', 'rel', 'noopener noreferrer nofollow');
+    });
+
+    it('should not set target and rel when not external', () => {
+        cy.mount(html` <vl-button cta-link="https://www.vlaanderen.be">Klik op mij</vl-button>`);
+
+        cy.get('vl-button').shadow().find('a').should('not.have.attr', 'target');
+        cy.get('vl-button').shadow().find('a').should('not.have.attr', 'rel');
     });
 
     it('should set disabled', () => {

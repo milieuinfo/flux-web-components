@@ -207,7 +207,8 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
     },
     label: {
         name: 'label',
-        description: 'Stelt het aria-label attribuut van de button in.',
+        description:
+            'Stelt het aria-label attribuut van de button in. Gebruik je een `cta-link` met `external`, geef dan een duidelijke omschrijving mee van waar de link naartoe leidt, bv. "Ga naar Vlaanderen.be (opent in een nieuw venster)".',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,

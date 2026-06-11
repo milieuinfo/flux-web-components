@@ -218,6 +218,7 @@ export class VlButtonComponent extends BaseLitElement {
                 tabindex=${ifDefined(this.disabled ? '-1' : undefined)}
                 class=${classMap(classes)}
                 target=${this.ctaLink && this.external ? '_blank' : nothing}
+                rel=${this.ctaLink && this.external ? 'noopener noreferrer nofollow' : nothing}
                 @click=${this.handleLinkClick}
                 aria-label=${ifDefined(this.ariaLabel || undefined)}
                 aria-pressed=${ifDefined(this.toggle ? (this.on ? 'true' : 'false') : undefined)}
@@ -239,7 +240,9 @@ export class VlButtonComponent extends BaseLitElement {
                 ${positionIconBefore ? this.renderIcon() : nothing}
                 <slot @slotchange=${this.handleSlotChange}></slot>
                 ${!positionIconBefore ? this.renderIcon() : nothing}
-                ${this.external ? html`<span class="vl-icon vl-icon--external vl-icon--after"></span>` : nothing}
+                ${this.external
+                    ? html`<span class="vl-icon vl-icon--external vl-icon--after" aria-hidden="true"></span>`
+                    : nothing}
             </a>
         `;
     }
