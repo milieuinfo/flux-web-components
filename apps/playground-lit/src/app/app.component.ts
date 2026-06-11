@@ -8,6 +8,7 @@ import {
     VlPropertiesComponent,
 } from '@domg-wc/components/block';
 import { VlHeader } from '@domg-wc/components/compliance';
+import { VlFooter as VlFooterNext } from '@domg-wc/components/compliance/next';
 import { VlDatepickerComponent } from '@domg-wc/components/form';
 import { html, LitElement } from 'lit';
 import { customElement } from 'lit/decorators.js';
@@ -24,6 +25,7 @@ export class AppComponent extends LitElement {
             VlDatepickerComponent,
             VlInfoTile,
             VlPropertiesComponent,
+            VlFooterNext,
         ]);
     }
 
@@ -175,6 +177,26 @@ export class AppComponent extends LitElement {
                             </div>
                         </div>
                     </section>
+
+                    <section class="vl-section" style="padding-bottom: 0;">
+                        <div class="vl-content-block vl-content-block--full-width" style="margin-bottom: 0;">
+                            <vl-title type="h2">Sticky footer overlap repro</vl-title>
+                            <p>
+                                Echte global footer widget (tni, MJV identifier, collapsible). Zonder fix bedekt de
+                                fixed bar (35px) de onderste content; met fix reserveert
+                                <code>#footer__container</code> de bar-hoogte via <code>min-height</code>.
+                            </p>
+                            <div style="height: 900px;"></div>
+                            <div
+                                id="sticky-footer-last-content"
+                                style="border: 3px solid crimson; background: #fffbe6; padding: 6px 10px;
+                                       font-weight: bold; margin-bottom: 0;"
+                            >
+                                ONDERSTE CONTENT: moet volledig zichtbaar blijven boven de footer-bar
+                            </div>
+                        </div>
+                    </section>
+                    <vl-footer-next development identifier="9e74e418-5be0-48ba-9c43-7d420f3a0e1c"></vl-footer-next>
                 </main>
             </vl-template>
         `;
