@@ -170,6 +170,9 @@ const minimalWTElement = (wtComponent: WTConfig): WTElement => {
     if (docUrl) {
         wtElement['doc-url'] = docUrl;
     }
+    if (wtComponent.deprecated !== undefined) {
+        wtElement.deprecated = wtComponent.deprecated;
+    }
     return wtElement;
 };
 

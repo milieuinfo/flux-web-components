@@ -3,6 +3,7 @@ import { html } from 'lit';
 import '../vl-share-button.component';
 import '../vl-share-buttons.component';
 import { shareButtonArgs, shareButtonArgTypes } from './vl-share-button.stories-arg';
+import shareButtonDoc from './vl-share-button.stories-doc.mdx';
 
 export default {
     id: 'components-block-share-buttons-share-button',
@@ -10,6 +11,11 @@ export default {
     tags: ['autodocs'],
     args: shareButtonArgs,
     argTypes: shareButtonArgTypes,
+    parameters: {
+        docs: {
+            page: shareButtonDoc,
+        },
+    },
 } as Meta<typeof shareButtonArgs>;
 
 export const shareButtonDefault = ({ href, medium }: typeof shareButtonArgs) =>

@@ -4,12 +4,23 @@ import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { vlShareButtonsFluxStyles } from './vl-share-buttons.flux-css';
 
+/**
+ * @deprecated Wordt verwijderd in v3. Gebruik een `vl-button` met `cta-link`, `icon` en `label`,
+ * bv. `<vl-button cta-link="…" icon="facebook" label="Delen op Facebook">`.
+ */
 @customElement('vl-share-buttons')
 export class VlShareButtonsComponent extends BaseLitElement {
     private alt = '';
 
     static get styles() {
         return [vlShareButtonsFluxStyles];
+    }
+
+    connectedCallback() {
+        super.connectedCallback();
+        console.warn(
+            'vl-share-buttons is deprecated en wordt verwijderd in v3. Gebruik een vl-button met cta-link, icon en label, bv. <vl-button cta-link="…" icon="facebook" label="Delen op Facebook">.'
+        );
     }
 
     static get properties() {

@@ -269,14 +269,16 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
     buildWTConfig(
         'vl-share-button',
         shareButtonArgTypes,
-        null,
-        '/docs/components-block-share-buttons-button--documentatie'
+        '../../libs/components/src/block/share-buttons/stories/vl-share-button.stories-doc.mdx',
+        '/docs/components-block-share-buttons-share-button--documentatie',
+        'Deprecated en wordt verwijderd in v3. Gebruik een vl-button met cta-link, icon en label.'
     ),
     buildWTConfig(
         'vl-share-buttons',
         shareButtonsArgTypes,
-        null,
-        '/docs/components-block-share-buttons-buttons--documentatie'
+        '../../libs/components/src/block/share-buttons/stories/vl-share-buttons.stories-doc.mdx',
+        '/docs/components-block-share-buttons-share-buttons--documentatie',
+        'Deprecated en wordt verwijderd in v3. Gebruik een vl-button met cta-link, icon en label.'
     ),
     buildWTConfig(
         'vl-side-sheet',
