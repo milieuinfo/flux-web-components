@@ -1,3 +1,4 @@
+import { dispatchNavigateToAnchor } from '@domg-wc/common';
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../vl-typography.component';
@@ -31,6 +32,45 @@ export const TypographyDefault = () => html` <vl-typography data-cy="typography"
     <p>Lorem dolor sit amet, consectetur adipisicing elit. Deleniti, in.</p>
 </vl-typography>`;
 TypographyDefault.storyName = 'vl-typography - default';
+
+export const TypographyAnchors = () => html` <vl-typography update-url-hash data-cy="typography">
+    <p><a data-cy="anchor-link" href="#doel">Ga naar het doel</a></p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+    <p>Totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    <h2 data-cy="anchor-target" id="doel">Doel-sectie</h2>
+    <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
+    <div style="height: 500px"></div>
+</vl-typography>`;
+TypographyAnchors.storyName = 'vl-typography - anchors';
+// Wordt in de docs getoond via <Canvas> in de 'Anchor-navigatie'-sectie; niet nog eens onder 'Varianten'.
+TypographyAnchors.tags = ['!autodocs'];
+TypographyAnchors.parameters = { docs: { story: { inline: false, height: '450px' } } };
+
+export const TypographyAnchorsExternalLink = () => html`
+    <p>
+        Een gewone knop <strong>buiten</strong> vl-typography stuurt het <code>vl-navigate-to-anchor</code> event en
+        navigeert zo dwars doorheen shadow DOM-grenzen naar het doel binnen de component.
+    </p>
+    <button
+        data-cy="external-link"
+        @click=${(event: Event) => dispatchNavigateToAnchor(event.currentTarget as EventTarget, '#extern-doel')}
+    >
+        Ga naar het doel
+    </button>
+    <div style="height: 1000px"></div>
+    <vl-typography data-cy="typography">
+        <h2 data-cy="anchor-target" id="extern-doel">Doel-sectie (in shadow DOM)</h2>
+        <p>Dit doel zit in de shadow root van vl-typography, maar is toch bereikbaar vanuit de externe knop.</p>
+    </vl-typography>
+`;
+TypographyAnchorsExternalLink.storyName = 'vl-typography - anchors (externe link)';
+// Wordt in de docs getoond via <Canvas> in de 'Anchor-navigatie'-sectie; niet nog eens onder 'Varianten'.
+TypographyAnchorsExternalLink.tags = ['!autodocs'];
+TypographyAnchorsExternalLink.parameters = { docs: { story: { inline: false, height: '450px' } } };
 
 export const TypographyTitles = () => html` <vl-typography data-cy="typography">
     <h1>Heading 1</h1>

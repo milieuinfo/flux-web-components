@@ -1,4 +1,4 @@
-import { BaseHTMLElement, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, enableAnchorNavigation, handleAnchorClick, webComponent } from '@domg-wc/common';
 import {
     baseStyle,
     elementStyle,
@@ -31,6 +31,14 @@ export class VlTypography extends BaseHTMLElement {
     }
 
     /**
+     * Click-handler voor anchor-navigatie binnen de shadow root. Leest bij elke klik het `update-url-hash`-
+     * attribuut zodat het bijwerken van de URL-hash expliciet blijft; standaard wordt de hash niet
+     * aangepast (kan bv. botsen met een SPA-router).
+     */
+    private readonly onAnchorClick = (event: Event): void =>
+        handleAnchorClick(event as MouseEvent, { updateHash: this.hasAttribute('update-url-hash') });
+
+    /**
      * Dit vormt een template met placeholders voor parameters om in een tekst waarin deze placeholders vervangen
      * zijn met hun waarden.
      *
@@ -51,11 +59,16 @@ export class VlTypography extends BaseHTMLElement {
             this._observer = this.__observeSlotElements(() => this.__processSlotElements());
         }
         this.__processSlotElements();
+
+        // ondersteuning voor anchor-navigatie
+        this._shadow?.addEventListener('click', this.onAnchorClick);
+        enableAnchorNavigation();
     }
 
     disconnectedCallback() {
         this._observer?.disconnect();
         this._observer = undefined;
+        this._shadow?.removeEventListener('click', this.onAnchorClick);
     }
 
     _parametersChangedCallback() {
