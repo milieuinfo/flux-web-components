@@ -83,4 +83,32 @@ describe('cypress-component - compliance components - vl-footer-next', () => {
             cy.get('@ready').should('have.been.calledOnce');
         });
     });
+
+    describe('sticky footer spacer', () => {
+        const RESERVED_HEIGHT_VAR = '--vl-footer--bar-reserved-height';
+
+        afterEach(() => {
+            document.documentElement.style.removeProperty(RESERVED_HEIGHT_VAR);
+        });
+
+        it('should reserve space for the fixed footer bar on the container', () => {
+            mountDefault({ ...props, development: true, identifier: 'TEST_IDENTIFIER' });
+
+            cy.get('#footer__container').should('have.css', 'min-height', '48px');
+        });
+
+        it('should let consumers override the reserved height via CSS variable', () => {
+            document.documentElement.style.setProperty(RESERVED_HEIGHT_VAR, '60px');
+            mountDefault({ ...props, development: true, identifier: 'TEST_IDENTIFIER' });
+
+            cy.get('#footer__container').should('have.css', 'min-height', '60px');
+        });
+
+        it('should let consumers disable the reservation via CSS variable', () => {
+            document.documentElement.style.setProperty(RESERVED_HEIGHT_VAR, '0px');
+            mountDefault({ ...props, development: true, identifier: 'TEST_IDENTIFIER' });
+
+            cy.get('#footer__container').should('have.css', 'min-height', '0px');
+        });
+    });
 });

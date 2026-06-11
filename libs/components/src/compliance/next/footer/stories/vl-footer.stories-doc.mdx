@@ -44,6 +44,30 @@ import { VlFooter } from '@domg-wc/components/compliance/next';
 <ArgTypes of={VlFooterStories.FooterDefault}/>
 
 
+## Sticky footer bar
+
+In collapsible modus toont de widget een `position: fixed` bar onderaan de pagina. Zonder
+gereserveerde ruimte bedekt die bar de onderste content. De component reserveert daarom
+standaard `48px`: dat is de hoogte van de bar op een smal scherm, op een breed scherm is
+de bar `35px`.
+
+Afnemers kunnen die hoogte overschrijven of de reservering volledig uitzetten via de
+CSS-variabele `--vl-footer--bar-reserved-height`, gezet op `:root`, `body` of een ander
+element boven de footer container:
+
+```css
+/* Eigen hoogte reserveren */
+:root {
+    --vl-footer--bar-reserved-height: 60px;
+}
+
+/* Reservering uitzetten (bv. wanneer de pagina de ruimte zelf al voorziet) */
+:root {
+    --vl-footer--bar-reserved-height: 0px;
+}
+```
+
+
 ## Referenties
 
 ### Digitaal Vlaanderen

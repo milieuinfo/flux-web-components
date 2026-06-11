@@ -52,7 +52,7 @@ export class VlFooter extends BaseLitElement {
 
         (vlBody || document.body).insertAdjacentHTML(
             'beforeend',
-            '<footer id="footer__container"><div id="footer"></div></footer>'
+            '<footer id="footer__container" style="min-height: var(--vl-footer--bar-reserved-height, 48px)"><div id="footer"></div></footer>'
         );
     }
 
