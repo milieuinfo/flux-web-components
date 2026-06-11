@@ -1,0 +1,30 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlShareButtonStories from './vl-share-button.stories';
+
+# Share Button
+
+<FluxComponentMetaData id="components-block-share-buttons-share-button" />
+
+<FluxAlert type="warning" title="Deprecated">
+{`
+ Deze component is <strong>deprecated</strong> en wordt verwijderd in <strong>v3</strong>. Gebruik in plaats daarvan
+ een <code>vl-button</code> met <code>cta-link</code> en <code>icon</code> in de standaard action-stijl. Zie de
+ <a href="/docs/components-block-share-buttons-share-buttons--documentatie#ontwerp">Share Buttons documentatie</a>
+ voor het alternatief.
+`}
+</FluxAlert>
+
+
+## Doel
+
+De `share-button` component is één enkele deelknop binnen een `share-buttons` rij.
+
+
+## Voorbeeld
+
+<Canvas of={VlShareButtonStories.shareButtonDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlShareButtonStories.shareButtonDefault} />
