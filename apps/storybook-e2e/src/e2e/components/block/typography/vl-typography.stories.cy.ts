@@ -6,6 +6,8 @@ const typographyMarkupUrl =
     'http://localhost:8080/iframe.html?id=components-block-typography--typography-markup&viewMode=story';
 const typographyTableUrl =
     'http://localhost:8080/iframe.html?id=components-block-typography--typography-table&viewMode=story';
+const typographyAnchorsUrl =
+    'http://localhost:8080/iframe.html?id=components-block-typography--typography-anchors&viewMode=story';
 
 describe('cypress-e2e - block components - vl-typography - default story', () => {
     it('should contain a styled paragraph', () => {
@@ -159,7 +161,8 @@ describe('cypress-e2e - block components - vl-typography - markup story', () => 
             .find('div.vl-typography')
             .find('s')
             .should('have.css', 'font-family', '"Flanders Art Sans", sans-serif')
-            .should('have.css', 'text-decoration', 'line-through solid rgb(51, 51, 50)')
+            .should('have.css', 'text-decoration-line', 'line-through')
+            .should('have.css', 'text-decoration-color', 'rgb(51, 51, 50)')
             .contains('s-tag');
     });
 
@@ -215,6 +218,43 @@ describe('cypress-e2e - block components - vl-typography - markup story', () => 
             .should('have.css', 'padding-left', '90px')
             .should('have.css', 'margin-bottom', '20px')
             .contains('Lorem ipsum dolor sit amet.');
+    });
+});
+
+describe('cypress-e2e - block components - vl-typography - anchors story', () => {
+    it('should scroll to the in-page anchor target and update the hash on click', () => {
+        cy.viewport(800, 300);
+        cy.visit(`${typographyAnchorsUrl}`);
+
+        cy.getDataCy('typography')
+            .shadow()
+            .find('[data-cy="anchor-target"]')
+            .then(($el) => {
+                expect($el[0].getBoundingClientRect().top).to.be.greaterThan(200);
+            });
+
+        cy.getDataCy('typography').shadow().find('[data-cy="anchor-link"]').click();
+
+        cy.location('hash').should('eq', '#doel');
+
+        cy.getDataCy('typography')
+            .shadow()
+            .find('[data-cy="anchor-target"]')
+            .then(($el) => {
+                expect($el[0].getBoundingClientRect().top).to.be.lessThan(100);
+            });
+    });
+
+    it('should scroll to the anchor target when deep-linking with a hash', () => {
+        cy.viewport(800, 300);
+        cy.visit(`${typographyAnchorsUrl}#doel`);
+
+        cy.getDataCy('typography')
+            .shadow()
+            .find('[data-cy="anchor-target"]')
+            .then(($el) => {
+                expect($el[0].getBoundingClientRect().top).to.be.lessThan(100);
+            });
     });
 });
 
