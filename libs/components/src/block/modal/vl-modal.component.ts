@@ -24,6 +24,9 @@ export class VlModalComponent extends BaseHTMLElement {
         registerWebComponents([VlLinkComponent]);
     }
 
+    private _openObserver?: MutationObserver;
+    private _lastDispatchedOpen = false;
+
     constructor() {
         const html = `
             <div class="vl-modal">
@@ -134,6 +137,7 @@ export class VlModalComponent extends BaseHTMLElement {
         super.connectedCallback();
 
         this.dress();
+        this._observeDialogOpenState();
         this._shadow?.host.addEventListener('keyup', this._onEscape);
 
         if (this.hasAttribute('size')) {
@@ -147,7 +151,38 @@ export class VlModalComponent extends BaseHTMLElement {
     }
 
     disconnectedCallback() {
+        this._openObserver?.disconnect();
         this._shadow?.host?.removeEventListener('keyup', this._onEscape);
+    }
+
+    /**
+     * Houdt het host `open`-attribuut in sync met de werkelijke dialog-staat en vuurt de vl-open / vl-close events af,
+     * ongeacht via welk pad (attribuut, methode, knop, Escape, backdrop) de modal opent of sluit. De native `<dialog>`
+     * kent geen open-event, daarom observeren we het `open`-attribuut van de dialog zelf.
+     */
+    private _observeDialogOpenState() {
+        this._openObserver?.disconnect();
+        const dialog = this._dialogElement;
+        if (!dialog) {
+            return;
+        }
+        this._lastDispatchedOpen = !!this.isOpen();
+        this._openObserver = new MutationObserver(() => this._onDialogOpenStateChanged());
+        this._openObserver.observe(dialog, { attributes: true, attributeFilter: ['open'] });
+    }
+
+    private _onDialogOpenStateChanged() {
+        const isOpen = !!this.isOpen();
+        if (isOpen === this._lastDispatchedOpen) {
+            return;
+        }
+        this._lastDispatchedOpen = isOpen;
+        if (isOpen && !this.hasAttribute('open')) {
+            this.setAttribute('open', '');
+        } else if (!isOpen && this.hasAttribute('open')) {
+            this.removeAttribute('open');
+        }
+        this.dispatchEvent(new CustomEvent(isOpen ? 'vl-open' : 'vl-close', { bubbles: true, composed: true }));
     }
 
     /**
@@ -164,8 +199,10 @@ export class VlModalComponent extends BaseHTMLElement {
      * Handmatig openen van modal.
      */
     open() {
-        vl.modal.lastClickedToggle = this._dialogElement;
         if (!this.isOpen()) {
+            // enkel bij effectief openen zetten: anders zouden we de trigger-referentie die de lib bij een knop-klik
+            // bewaart overschrijven, waardoor focus bij sluiten niet terugkeert naar de openende knop
+            vl.modal.lastClickedToggle = this._dialogElement;
             awaitUntil(() => this._dialogElement.isConnected).then(() => {
                 vl.modal.toggle(this._dialogElement);
             });
@@ -259,8 +296,12 @@ export class VlModalComponent extends BaseHTMLElement {
         }
     }
 
-    _openChangedCallback() {
-        this.open();
+    _openChangedCallback(oldValue: string, newValue: string) {
+        if (newValue == undefined) {
+            this.close();
+        } else {
+            this.open();
+        }
     }
 
     _closableChangedCallback(oldValue: string, newValue: string) {
