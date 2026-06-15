@@ -1,12 +1,11 @@
 import { BaseLitElement, registerWebComponents } from '@domg-wc/common';
-import { vlLegacyStyles } from '@domg-wc/styles';
-import { resetStyle } from '@domg/govflanders-style/common';
-import { stepsStyle } from '@domg/govflanders-style/component';
+import { vlLegacyStyles, vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, PropertyDeclarations, TemplateResult, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { VlDurationStepComponent } from './vl-duration-step.component';
 import { VlStepComponent } from './vl-step.component';
+import { vlStepsStyles } from './vl-steps.flux-css';
 
 @customElement('vl-steps')
 export class VlStepsComponent extends BaseLitElement {
@@ -24,7 +23,7 @@ export class VlStepsComponent extends BaseLitElement {
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, vlLegacyStyles, stepsStyle];
+        return [vlResetStyles, vlLegacyStyles, vlStepsStyles];
     }
 
     static get properties(): PropertyDeclarations {
