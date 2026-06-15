@@ -28,6 +28,53 @@ import { VlModalComponent } from '@domg-wc/components/block';
 <ArgTypes of={VlModalStories.modalDefault} />
 
 
+## Reactief open-attribuut
+
+Het `open` attribuut is reactief en weerspiegelt de werkelijke open-staat van de modal. Het attribuut toevoegen opent
+de modal, het verwijderen sluit ze:
+
+```html
+<vl-modal open></vl-modal>
+```
+
+Wanneer de modal sluit via de annuleer-knop, de sluit-knop, de escape-toets of de backdrop, wordt het `open` attribuut
+automatisch van de host verwijderd.
+
+> **Let op met toegankelijkheid:** openen via het `open` attribuut (of via de `open()` methode) ontslaat de afnemer niet
+> van de regel dat een modal idealiter via een knop of link getriggerd wordt. Wie de modal opent zonder zo'n trigger
+> is zelf verantwoordelijk om de focus correct te beheren - in het bijzonder om de focus bij het sluiten terug te
+> plaatsen op een logisch element (typisch het element dat de modal opende). Doe je dat niet, dan blijft de focus achter
+> op een onvoorspelbare plaats, wat de toegankelijkheid voor toetsenbord- en schermlezer-gebruikers schaadt. Zie
+> [Toegankelijkheid](#toegankelijkheid) voor de aanbevolen werkwijze.
+
+
+## Events
+
+<table>
+    <tr>
+        <td>Event</td>
+        <td>Beschrijving</td>
+    </tr>
+    <tr>
+        <td>`vl-open`</td>
+        <td>Wordt afgevuurd wanneer de modal opent, ongeacht of dat via het `open` attribuut, de `open()` methode of een trigger gebeurde.</td>
+    </tr>
+    <tr>
+        <td>`vl-close`</td>
+        <td>Wordt afgevuurd wanneer de modal sluit, ongeacht of dat via het `open` attribuut, de `close()` methode, de annuleer-/sluit-knop, escape of de backdrop gebeurde.</td>
+    </tr>
+</table>
+
+Beide events bubbelen en gaan door de shadow-DOM (`bubbles: true, composed: true`), zodat ze ook buiten de component
+opgevangen kunnen worden:
+
+```js
+document.querySelector('vl-modal').addEventListener('vl-close', () => {
+    // reageer op het sluiten van de modal
+});
+```
+
+
 ## Varianten
 
 ### Met andere actie
@@ -60,17 +107,29 @@ import { VlModalComponent } from '@domg-wc/components/block';
 
 ## Toegankelijkheid
 
-Het triggeren van de modal moet altijd gebeuren via een knop of link. Voor screen readers is het belangrijk dat deze knop of link de juiste aria-attributen bevat. Het gebruik van `aria-haspopup="dialog"` is in dit geval verplicht. Optioneel kan je `aria-controls` toevoegen met als value de ID van de modal (dit is echter overbodig wanneer de knop binnen een shadow DOM zit (bv vl-button), omdat de koppeling met de ID niet werkt doorheen de shadow DOM). **Deze aria-attributen moet de afnemer zelf implementeren!**.
+Het triggeren van de modal moet altijd gebeuren via een knop of link. Voor screen readers is het belangrijk dat deze
+knop of link de juiste aria-attributen bevat. Het gebruik van `aria-haspopup="dialog"` is in dit geval verplicht.
+Optioneel kan je `aria-controls` toevoegen met als value de ID van de modal (dit is echter overbodig wanneer de knop
+binnen een shadow DOM zit (bv vl-button), omdat de koppeling met de ID niet werkt doorheen de shadow DOM). **Deze
+aria-attributen moet de afnemer zelf implementeren!**.
 
-De vl-modal zal standaard de focus leggen op het eerste focusbare element binnenin de modal wanneer deze geopend wordt. 
-Dit kan aangepast worden door het `focus-on-modal` attribuut toe te voegen aan de modal, 
+Een belangrijke reden voor deze regel is het focusbeheer: wanneer de modal sluit, moet de focus terugkeren naar de
+trigger (de knop of link die de modal opende). Door de modal via zo'n trigger te openen, gebeurt dit op een
+natuurlijke en voorspelbare manier. Het [reactief openen via het `open` attribuut](#reactief-open-attribuut) of de
+`open()` methode blijft mogelijk en is soms nodig (bv. om de open-staat declaratief te sturen), maar wie deze weg
+kiest in plaats van een trigger, moet het terugplaatsen van de focus bij het sluiten zelf afhandelen. De
+`vl-close`-event is hiervoor een geschikt aangrijpingspunt.
+
+De vl-modal zal standaard de focus leggen op het eerste focusbare element binnenin de modal wanneer deze geopend wordt.
+Dit kan aangepast worden door het `focus-on-modal` attribuut toe te voegen aan de modal,
 in dat geval zal de focus op de modal zelf gelegd worden bij het openen. Gebruik dit enkel indien
-het automatisch focussen op het eerste focusbare element problemen veroorzaakt, bijvoorbeeld wanneer dit meteen een popover triggert.
+het automatisch focussen op het eerste focusbare element problemen veroorzaakt, bijvoorbeeld wanneer dit meteen een
+popover triggert.
 
 Het is essentieel dat de modal goed gelabeld is voor gebruikers van schermlezers.
 Dit kan op twee manieren bereikt worden:
 - Door het `title` attribuut te gebruiken. Onderliggend wordt dit gekoppeld adhv `aria-labelledby`.
-- Indien het design geen titel toelaat, moet het `label` attribuut gebruikt worden zodat een beschrijvende `aria-label` 
+- Indien het design geen titel toelaat, moet het `label` attribuut gebruikt worden zodat een beschrijvende `aria-label`
   kan toegevoegd worden aan de modal.
 
 
