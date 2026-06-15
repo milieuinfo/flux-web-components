@@ -98,7 +98,7 @@ werken is een tijdelijke quick-fix, in de nieuwe versie van de side-navigation g
 
 Als de side-navigation gerenderd wordt in een parent component die `hidden` is, bijvoorbeeld bij verschillende stappen
 in een flow, dan gaat de initialisatie fout en zal de side-navigation niet sticky worden bij het scrollen. Dit komt
-omdat de side-navigation bij het initialiseren een aantal dimensies capteerd en, in het geval dat er een parent
+omdat de side-navigation bij het initialiseren een aantal dimensies capteert en, in het geval dat er een parent
 `hidden` is, één van de waardes op 0 komt te staan. Dit kan vermeden worden door het gebruik van `hidden` te vervangen
 door de `when()` directive van Lit.
 

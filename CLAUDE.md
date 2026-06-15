@@ -1,6 +1,6 @@
 # Claude Code Configuration
 
-Dit project gebruikt **AI configuratie via profiles**: er zijn verschillende profile-folders onder `ai/profiles/{profile-naam}/`. Inhoudelijk kan elke profile vrij gestructureerd zijn (splitsen cia `CLAUDE.md` + `AGENTS.md` + `SKILLS.md` / alles in één `CLAUDE.md`). De volledige uitleg over de structuur staat in [`ai/profiles/README.md`](ai/profiles/README.md).
+Dit project gebruikt **AI configuratie via profiles**: er zijn verschillende profile-folders onder `ai/profiles/{profile-naam}/`. Inhoudelijk kan elke profile vrij gestructureerd zijn (splitsen via `CLAUDE.md` + `AGENTS.md` + `SKILLS.md` / alles in één `CLAUDE.md`). De volledige uitleg over de structuur staat in [`ai/profiles/README.md`](ai/profiles/README.md).
 
 ## Activeer jouw configuratie
 
