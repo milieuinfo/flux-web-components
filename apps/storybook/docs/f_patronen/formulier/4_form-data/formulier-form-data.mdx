@@ -41,7 +41,7 @@ We hebben een helper functie voorzien om de data uit de form te parsen naar een 
 in het voorgestelde formaat zoals hierboven beschreven. Intern gebruikt deze functie
 de [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData) API en werkt die ook met native form controls.
 
-Deze functie aanvaard 2 parameters:
+Deze functie aanvaardt 2 parameters:
 - `formElement: Form`: het Form element waarvan je de data wil parsen
 - `multiFormControlNames?: string[]`: (optioneel) een array van form control namen die meerdere waardes kunnen bevatten.
 Als deze parameter niet wordt meegegeven, dan zoekt de functie zelf naar form controls die meerdere waardes kunnen
@@ -87,7 +87,7 @@ We hebben een helper functie voorzien om de data in te stellen op een form eleme
  de waardes van de form controls kan aanpassen. Deze functie is compatibel met al onze vl-form componenten maar ook met
 native HTML form controls.
 
-Deze functie aanvaard 2 parameters:
+Deze functie aanvaardt 2 parameters:
 - `formElement: Form`: het Form element waarvan je de data wil zetten
 - `data: { [p: string]: FormDataEntryValue[] | File | string }`: een object met de waardes van de velden
 
