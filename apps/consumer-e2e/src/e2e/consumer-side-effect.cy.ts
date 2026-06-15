@@ -23,7 +23,7 @@ describe('consumer-side-effect application', () => {
             .first()
             .shadow()
             .find('.vl-step__wrapper')
-            .should('have.css', 'background-color', 'rgb(230, 245, 237)');
+            .should('have.css', 'background-color', 'rgb(236, 246, 238)');
     });
 
     it('map - should contain a viewport', () => {

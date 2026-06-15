@@ -1,7 +1,5 @@
 import { BaseLitElement } from '@domg-wc/common';
-import { vlLegacyStyles } from '@domg-wc/styles';
-import { resetStyle } from '@domg/govflanders-style/common';
-import { stepsStyle } from '@domg/govflanders-style/component';
+import { vlLegacyStyles, vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, TemplateResult, html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { vlDurationStepFluxStyles } from './vl-duration-step.flux-css';
@@ -9,7 +7,7 @@ import { vlDurationStepFluxStyles } from './vl-duration-step.flux-css';
 @customElement('vl-duration-step')
 export class VlDurationStepComponent extends BaseLitElement {
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, vlLegacyStyles, stepsStyle, vlDurationStepFluxStyles];
+        return [vlResetStyles, vlLegacyStyles, vlDurationStepFluxStyles];
     }
 
     connectedCallback(): void {

@@ -24,8 +24,13 @@ export default {
 
 export const StepsDefault = story(
     stepsArgs,
-    ({ line, timeline, lastStepNoLine }) => html`
-        <vl-steps ?line=${line} ?timeline=${timeline} ?last-step-no-line=${lastStepNoLine}>
+    ({ line, timeline, simpleTimeline, lastStepNoLine }) => html`
+        <vl-steps
+            ?line=${line}
+            ?timeline=${timeline}
+            ?simple-timeline=${simpleTimeline}
+            ?last-step-no-line=${lastStepNoLine}
+        >
             <vl-step>
                 <span slot="icon">1</span>
                 <span slot="title">Stap 1: eerste actie</span>
@@ -45,14 +50,19 @@ export const StepsDefault = story(
                 <span slot="content">Dit is de derde stap content.</span>
             </vl-step>
         </vl-steps>
-    `
+    `,
 );
 StepsDefault.storyName = 'vl-steps - default';
 
 export const StepsIcons = story(
     stepsArgs,
-    ({ line, timeline, lastStepNoLine }) => html`
-        <vl-steps ?line=${line} ?timeline=${timeline} ?last-step-no-line=${lastStepNoLine}>
+    ({ line, timeline, simpleTimeline, lastStepNoLine }) => html`
+        <vl-steps
+            ?line=${line}
+            ?timeline=${timeline}
+            ?simple-timeline=${simpleTimeline}
+            ?last-step-no-line=${lastStepNoLine}
+        >
             <vl-step icon-aria-label="Zoeken">
                 <vl-icon slot="icon" icon="search"></vl-icon>
                 <span slot="title">Stap 1: eerste actie</span>
@@ -78,8 +88,13 @@ StepsIcons.storyName = 'vl-steps - icons';
 
 export const StepsLine = story(
     stepsArgs,
-    ({ line, lastStepNoLine }) => html`
-        <vl-steps ?line=${line} ?last-step-no-line=${lastStepNoLine}>
+    ({ line, timeline, simpleTimeline, lastStepNoLine }) => html`
+        <vl-steps
+            ?line=${line}
+            ?timeline=${timeline}
+            ?simple-timeline=${simpleTimeline}
+            ?last-step-no-line=${lastStepNoLine}
+        >
             <vl-step>
                 <span slot="icon">1</span>
                 <span slot="title">Stap 1: eerste actie</span>
@@ -99,7 +114,7 @@ export const StepsLine = story(
                 <span slot="content">Dit is de derde stap content.</span>
             </vl-step>
         </vl-steps>
-    `
+    `,
 );
 StepsLine.storyName = 'vl-steps - line';
 StepsLine.args = {
@@ -108,8 +123,13 @@ StepsLine.args = {
 
 export const StepsTimeline = story(
     stepsArgs,
-    ({ timeline, lastStepNoLine }) => html`
-        <vl-steps ?timeline=${timeline} ?last-step-no-line=${lastStepNoLine}>
+    ({ line, timeline, simpleTimeline, lastStepNoLine }) => html`
+        <vl-steps
+            ?line=${line}
+            ?timeline=${timeline}
+            ?simple-timeline=${simpleTimeline}
+            ?last-step-no-line=${lastStepNoLine}
+        >
             <vl-step timeline-aria-label="1 maart, 12 uur tot 14 uur">
                 <span slot="icon">1</span>
                 <span slot="sub-icon">maa</span>
@@ -150,8 +170,13 @@ StepsTimeline.args = {
 
 export const StepsSimpleTimeline = story(
     stepsArgs,
-    ({ simpleTimeline, lastStepNoLine }) => html`
-        <vl-steps ?simple-timeline=${simpleTimeline} ?last-step-no-line=${lastStepNoLine}>
+    ({ line, timeline, simpleTimeline, lastStepNoLine }) => html`
+        <vl-steps
+            ?line=${line}
+            ?timeline=${timeline}
+            ?simple-timeline=${simpleTimeline}
+            ?last-step-no-line=${lastStepNoLine}
+        >
             <vl-step>
                 <span slot="title">Stap 1: eerste actie</span>
                 <span slot="subtitle">Dit is de eerste subtitel.</span>
@@ -168,12 +193,112 @@ export const StepsSimpleTimeline = story(
                 <span slot="content">Dit is de derde stap content.</span>
             </vl-step>
         </vl-steps>
-    `
+    `,
 );
 StepsSimpleTimeline.storyName = 'vl-steps - simple timeline';
 StepsSimpleTimeline.args = {
     simpleTimeline: true,
 };
+
+export const StepsToggleable = story(
+    stepsArgs,
+    ({ line, timeline, simpleTimeline, lastStepNoLine }) => html`
+        <vl-steps
+            ?line=${line}
+            ?timeline=${timeline}
+            ?simple-timeline=${simpleTimeline}
+            ?last-step-no-line=${lastStepNoLine}
+        >
+            <vl-step toggleable default-open>
+                <span slot="icon">1</span>
+                <span slot="title">Stap 1: eerste actie</span>
+                <span slot="subtitle">Klik om de content te openen/sluiten.</span>
+                <span slot="content">
+                    <p>Dit is de eerste stap content. Deze stap is toggleable.</p>
+                    <ul>
+                        <li>Item A</li>
+                        <li>Item B</li>
+                        <li>Item C</li>
+                    </ul>
+                </span>
+            </vl-step>
+            <vl-step toggleable>
+                <span slot="icon">2</span>
+                <span slot="title">Stap 2: tweede actie</span>
+                <span slot="subtitle">Klik om de content te openen/sluiten.</span>
+                <span slot="content">
+                    <p>Dit is de tweede stap content. Deze stap is ook toggleable.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </span>
+            </vl-step>
+            <vl-step toggleable>
+                <span slot="icon">3</span>
+                <span slot="title">Stap 3: derde actie</span>
+                <span slot="subtitle">Klik om de content te openen/sluiten.</span>
+                <span slot="content">
+                    <p>Dit is de derde stap content. Deze stap is ook toggleable.</p>
+                </span>
+            </vl-step>
+        </vl-steps>
+    `,
+);
+StepsToggleable.storyName = 'vl-steps - toggleable';
+
+export const StepsAllStates = story(
+    stepsArgs,
+    ({ line, timeline, simpleTimeline, lastStepNoLine }) => html`
+        <vl-steps
+            ?line=${line}
+            ?timeline=${timeline}
+            ?simple-timeline=${simpleTimeline}
+            ?last-step-no-line=${lastStepNoLine}
+        >
+            <!-- default -->
+            <vl-step>
+                <span slot="icon">1</span>
+                <span slot="title">Default stap</span>
+                <span slot="subtitle">Standaard weergave.</span>
+                <span slot="content">Dit is een standaard stap zonder extra staat.</span>
+            </vl-step>
+            <!-- highlighted -->
+            <vl-step type="highlighted">
+                <span slot="icon">2</span>
+                <span slot="title">Highlighted stap</span>
+                <span slot="subtitle">Deze stap is gemarkeerd.</span>
+                <span slot="content">Deze stap valt op door de highlighted staat.</span>
+            </vl-step>
+            <!-- disabled -->
+            <vl-step type="disabled">
+                <span slot="icon">3</span>
+                <span slot="title">Disabled stap</span>
+                <span slot="subtitle">Deze stap is uitgeschakeld.</span>
+                <span slot="content">Deze stap kan niet worden geopend of gebruikt.</span>
+            </vl-step>
+            <!-- success -->
+            <vl-step type="success">
+                <span slot="icon">4</span>
+                <span slot="title">Success stap</span>
+                <span slot="subtitle">Deze stap is succesvol afgerond.</span>
+                <span slot="content">Deze stap is met succes voltooid.</span>
+            </vl-step>
+            <!-- warning -->
+            <vl-step type="warning">
+                <span slot="icon">5</span>
+                <span slot="title">Warning stap</span>
+                <span slot="subtitle">Let op: deze stap vereist aandacht.</span>
+                <span slot="content">Er is een waarschuwing voor deze stap.</span>
+            </vl-step>
+            <!-- error -->
+            <vl-step type="error">
+                <span slot="icon">6</span>
+                <span slot="title">Error stap</span>
+                <span slot="subtitle">Er is een fout opgetreden.</span>
+                <span slot="content">Deze stap kon niet worden voltooid.</span>
+            </vl-step>
+        </vl-steps>
+    `,
+);
+StepsAllStates.storyName = 'vl-steps - all states';
 
 export const StepsSideNavigation = story(
     stepsArgs,

@@ -1,4 +1,4 @@
-import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
+import { CATEGORIES, CONTROLS, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components-vite';
 import { action } from 'storybook/actions';
 
@@ -6,12 +6,16 @@ export const stepArgs = {
     ...defaultArgs,
     defaultOpen: false,
     toggleable: false,
-    type: null,
-    headingLevel: 3,
-    iconAriaLabel: null,
-    timelineAriaLabel: null,
+    type: '',
+    headingLevel: '3',
+    iconAriaLabel: '',
+    timelineAriaLabel: '',
     onToggle: action('vl-on-toggle'),
     contentRenderer: undefined,
+    line: false,
+    timeline: false,
+    simpleTimeline: false,
+    lastStepNoLine: false,
     iconSlot: '',
     subIconSlot: '',
     titleSlot: '',
@@ -25,7 +29,6 @@ export const stepArgTypes: ArgTypes<typeof stepArgs> = {
     toggleable: {
         name: 'toggleable',
         description: 'Beeldt een stap af als een accordion.',
-        control: false,
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
@@ -35,7 +38,9 @@ export const stepArgTypes: ArgTypes<typeof stepArgs> = {
     type: {
         name: 'type',
         description: 'Beeldt een stap af in een bepaalde staat.',
-        control: false,
+        control: { type: CONTROLS.SELECT },
+        options: ['(default)', 'highlighted', 'disabled', 'success', 'warning', 'error'],
+        mapping: { '(default)': '' },
         table: {
             type: { summary: 'highlighted | disabled | success | warning | error' },
             category: CATEGORIES.ATTRIBUTES,
@@ -45,9 +50,10 @@ export const stepArgTypes: ArgTypes<typeof stepArgs> = {
     headingLevel: {
         name: 'heading-level',
         description: 'Het heading niveau voor de step titel.',
-        control: { type: 'select', options: [1, 2, 3, 4, 5, 6] },
+        control: { type: CONTROLS.SELECT },
+        options: ['1', '2', '3', '4', '5', '6'],
         table: {
-            type: { summary: TYPES.NUMBER },
+            type: { summary: '1 | 2 | 3 | 4 | 5 | 6' },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: String(stepArgs.headingLevel) },
         },
@@ -55,7 +61,6 @@ export const stepArgTypes: ArgTypes<typeof stepArgs> = {
     iconAriaLabel: {
         name: 'icon-aria-label',
         description: 'Aria label voor de icon container.',
-        control: 'text',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
@@ -65,7 +70,6 @@ export const stepArgTypes: ArgTypes<typeof stepArgs> = {
     timelineAriaLabel: {
         name: 'timeline-aria-label',
         description: 'Aria label voor de timeline datum container, bijvoorbeeld voor volledige datum.',
-        control: 'text',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
@@ -160,6 +164,42 @@ export const stepArgTypes: ArgTypes<typeof stepArgs> = {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
             defaultValue: { summary: stepArgs.contentSlot },
+        },
+    },
+    line: {
+        name: 'line',
+        description: 'Toont een lijn naast de step.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(stepArgs.line) },
+        },
+    },
+    timeline: {
+        name: 'timeline',
+        description: 'Toont de step als een timeline item.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(stepArgs.timeline) },
+        },
+    },
+    simpleTimeline: {
+        name: 'simple-timeline',
+        description: 'Toont een vereenvoudigde timeline versie.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(stepArgs.simpleTimeline) },
+        },
+    },
+    lastStepNoLine: {
+        name: 'last-step-no-line',
+        description: 'Verbergt de lijn bij het laatste step item.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(stepArgs.lastStepNoLine) },
         },
     },
 };

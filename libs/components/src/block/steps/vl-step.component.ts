@@ -1,7 +1,6 @@
 import { BaseLitElement, registerWebComponents, VL } from '@domg-wc/common';
-import { vlLegacyStyles } from '@domg-wc/styles';
-import { resetStyle } from '@domg/govflanders-style/common';
-import { stepsStyle } from '@domg/govflanders-style/component';
+import { VlIconComponent } from '@domg-wc/components/atom';
+import { vlLegacyStyles, vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -17,9 +16,9 @@ export class VlStepComponent extends BaseLitElement {
     private type: string | null = null;
     private toggleable = false;
     private defaultOpen = false;
-    private headingLevel: number = 3;
-    private iconAriaLabel: string | null = null;
-    private timelineAriaLabel: string | null = null;
+    private headingLevel: string = '3';
+    private iconAriaLabel: string = '';
+    private timelineAriaLabel: string = '';
     public line = false;
     public timeline = false;
     public simpleTimeline = false;
@@ -34,11 +33,11 @@ export class VlStepComponent extends BaseLitElement {
     private customCSSStyleSheet = new CSSStyleSheet();
 
     static {
-        registerWebComponents([VlAccordionComponent]);
+        registerWebComponents([VlAccordionComponent, VlIconComponent]);
     }
 
     static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, vlLegacyStyles, stepsStyle, vlStepFluxStyles];
+        return [vlResetStyles, vlLegacyStyles, vlStepFluxStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -46,7 +45,7 @@ export class VlStepComponent extends BaseLitElement {
             type: { type: String, reflect: true },
             toggleable: { type: Boolean, reflect: true },
             defaultOpen: { type: Boolean, attribute: 'default-open', reflect: true },
-            headingLevel: { type: Number, attribute: 'heading-level', reflect: true },
+            headingLevel: { type: String, attribute: 'heading-level', reflect: true },
             iconAriaLabel: { type: String, attribute: 'icon-aria-label', reflect: true },
             timelineAriaLabel: { type: String, attribute: 'timeline-aria-label', reflect: true },
             open: { type: Boolean, reflect: true, attribute: false },
@@ -89,7 +88,8 @@ export class VlStepComponent extends BaseLitElement {
         const classes = {
             'vl-step': true,
             [`vl-step--${stepType}`]: !!stepType,
-            'vl-step--accordion js-vl-accordion': this.toggleable,
+            'vl-step--accordion': this.toggleable,
+            'js-vl-accordion': this.toggleable,
             'vl-step--has-line': this.line,
             'vl-step--timeline': this.timeline,
             'vl-step--timeline-simple': this.simpleTimeline,
@@ -196,7 +196,7 @@ export class VlStepComponent extends BaseLitElement {
             <button class="vl-step__header js-vl-accordion__toggle" aria-expanded="${this.open}">
                 ${stepHeaderTitleTemplate}
                 <div class="vl-step__header__info" aria-hidden="true">
-                    <em class="vl-step__accordion-toggle"></em>
+                    <vl-icon class="vl-step__accordion-toggle" icon="nav-down"></vl-icon>
                 </div>
             </button>
         `;
@@ -216,22 +216,22 @@ export class VlStepComponent extends BaseLitElement {
 
         let headingTemplate: TemplateResult;
         switch (this.headingLevel) {
-            case 1:
+            case '1':
                 headingTemplate = html`<h1 class="vl-step__title">${titleContent}</h1>`;
                 break;
-            case 2:
+            case '2':
                 headingTemplate = html`<h2 class="vl-step__title">${titleContent}</h2>`;
                 break;
-            case 4:
+            case '4':
                 headingTemplate = html`<h4 class="vl-step__title">${titleContent}</h4>`;
                 break;
-            case 5:
+            case '5':
                 headingTemplate = html`<h5 class="vl-step__title">${titleContent}</h5>`;
                 break;
-            case 6:
+            case '6':
                 headingTemplate = html`<h6 class="vl-step__title">${titleContent}</h6>`;
                 break;
-            case 3:
+            case '3':
             default:
                 headingTemplate = html`<h3 class="vl-step__title">${titleContent}</h3>`;
                 break;
