@@ -1,5 +1,6 @@
 import { CATEGORIES, defaultArgs, defaultArgTypes, TYPES } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components-vite';
+import { action } from 'storybook/actions';
 
 export const modalArgs = {
     ...defaultArgs,
@@ -15,6 +16,8 @@ export const modalArgs = {
     size: 'default',
     position: 'center',
     focusOnModal: false,
+    onVlOpen: action('vl-open'),
+    onVlClose: action('vl-close'),
 };
 
 export const modalArgTypes: ArgTypes<typeof modalArgs> = {
@@ -41,7 +44,8 @@ export const modalArgTypes: ArgTypes<typeof modalArgs> = {
     },
     open: {
         name: 'open',
-        description: 'Attribuut om de modal onmiddellijk te openen na de rendering.',
+        description:
+            'Reactief attribuut dat de open-staat van de modal stuurt: toevoegen opent de modal, verwijderen sluit hem. Het attribuut blijft in sync met de werkelijke staat (na sluiten via knop, escape of backdrop is het weg).',
         table: {
             type: { summary: 'Boolean' },
             defaultValue: { summary: 'false' },
@@ -131,6 +135,22 @@ export const modalArgTypes: ArgTypes<typeof modalArgs> = {
             type: { summary: 'Boolean' },
             defaultValue: { summary: String(modalArgs.focusOnModal) },
             category: CATEGORIES.ATTRIBUTES,
+        },
+    },
+    onVlOpen: {
+        name: 'vl-open',
+        description:
+            'Event dat afgevuurd wordt wanneer de modal opent, ongeacht of dat via het `open`-attribuut, de `open()`-methode, een knop of escape gebeurt.',
+        table: {
+            category: CATEGORIES.EVENTS,
+        },
+    },
+    onVlClose: {
+        name: 'vl-close',
+        description:
+            'Event dat afgevuurd wordt wanneer de modal sluit, ongeacht of dat via het `open`-attribuut, de `close()`-methode, een knop of escape gebeurt.',
+        table: {
+            category: CATEGORIES.EVENTS,
         },
     },
 };

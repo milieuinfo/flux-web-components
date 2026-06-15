@@ -282,6 +282,92 @@ describe('cypress-component - block components - vl-modal', () => {
     });
 });
 
+describe('cypress-component - block components - vl-modal - reactive open attribuut', () => {
+    it('should close the modal when the open attribuut is removed', () => {
+        cy.mount(renderModal({ open: true }));
+        cy.injectAxe();
+
+        isDialogVisible();
+        cy.getDataCy('modal').invoke('removeAttr', 'open');
+        isDialogHidden();
+        cy.checkA11y('vl-modal');
+    });
+
+    it('should open the modal when the open attribuut is added', () => {
+        cy.mount(renderModal({}));
+        cy.injectAxe();
+
+        isDialogHidden();
+        cy.getDataCy('modal').invoke('attr', 'open', '');
+        isDialogVisible();
+        cy.checkA11y('vl-modal');
+    });
+
+    it('should remove the open attribuut from the host when closing via the cancel button', () => {
+        cy.mount(html`${renderOpenButton()} ${renderModal({})}`);
+
+        openModal();
+        isDialogVisible();
+        cy.getDataCy('modal').should('have.attr', 'open');
+        closeWithCancelButton();
+        isDialogHidden();
+        cy.getDataCy('modal').should('not.have.attr', 'open');
+    });
+});
+
+describe('cypress-component - block components - vl-modal - events', () => {
+    it('should dispatch vl-open when opening via the open attribuut', () => {
+        cy.mount(renderModal({}));
+        cy.get('vl-modal').then(($el) => {
+            $el[0].addEventListener('vl-open', cy.stub().as('vlOpen'));
+        });
+
+        cy.getDataCy('modal').invoke('attr', 'open', '');
+        isDialogVisible();
+        cy.get('@vlOpen').should('have.been.calledOnce');
+    });
+
+    it('should dispatch vl-close when closing via the open attribuut', () => {
+        cy.mount(renderModal({ open: true }));
+        cy.get('vl-modal').then(($el) => {
+            $el[0].addEventListener('vl-close', cy.stub().as('vlClose'));
+        });
+
+        isDialogVisible();
+        cy.getDataCy('modal').invoke('removeAttr', 'open');
+        isDialogHidden();
+        cy.get('@vlClose').should('have.been.calledOnce');
+    });
+
+    it('should dispatch vl-open via a trigger and vl-close via the cancel button', () => {
+        cy.mount(html`${renderOpenButton()} ${renderModal({})}`);
+        cy.get('vl-modal').then(($el) => {
+            $el[0].addEventListener('vl-open', cy.stub().as('vlOpen'));
+            $el[0].addEventListener('vl-close', cy.stub().as('vlClose'));
+        });
+
+        openModal();
+        isDialogVisible();
+        cy.get('@vlOpen').should('have.been.calledOnce');
+        closeWithCancelButton();
+        isDialogHidden();
+        cy.get('@vlClose').should('have.been.calledOnce');
+    });
+
+    it('should dispatch vl-close when closing by pressing escape', () => {
+        cy.mount(html`${renderOpenButton()} ${renderModal({ button: otherActionButton })}`);
+        cy.get('vl-modal').then(($el) => {
+            $el[0].addEventListener('vl-close', cy.stub().as('vlClose'));
+        });
+
+        openModal();
+        isDialogVisible();
+        closeByPressingEscape();
+        isDialogHidden();
+        cy.get('@vlClose').should('have.been.calledOnce');
+    });
+});
+
 describe('cypress-component - block components - vl-modal - notAutoClosable (true)', () => {
     it('should NOT automatically close the modal when using the action button', () => {
         cy.mount(html`${renderOpenButton()} ${renderModal({ notAutoClosable: true })}`);
