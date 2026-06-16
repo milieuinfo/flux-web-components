@@ -72,12 +72,14 @@ export class VlPagerComponent extends BaseHTMLElement implements Pagination {
     }
 
     get currentPage() {
-        const currentPage = parseInt(this.getAttribute('current-page') ?? '0');
-        if (currentPage < 1) {
+        return this._clampPage(parseInt(this.getAttribute('current-page') ?? '0'));
+    }
+
+    private _clampPage(page: number): number {
+        if (page < 1) {
             return 1;
-        } else {
-            return currentPage <= this.totalPages ? currentPage : this.totalPages;
         }
+        return page <= this.totalPages ? page : this.totalPages;
     }
 
     get itemsPerPage() {
@@ -219,19 +221,35 @@ export class VlPagerComponent extends BaseHTMLElement implements Pagination {
 
     _currentPageChangedCallback(oldValue: string, newValue: string) {
         this._update();
-        if (oldValue && newValue != oldValue) {
-            const event = {
-                detail: {
-                    currentPage: Number(newValue),
-                    totalPage: this.totalPages,
-                    itemsPerPage: this.itemsPerPage,
-                    totalItems: this.totalItems,
-                },
-                bubbles: true,
-            };
-            this.dispatchEvent(new CustomEvent('change', event));
+        if (!oldValue) {
+            return;
+        }
+        // Vergelijk de effectieve pagina's: een attribuut wijziging naar bv. "1" terwijl de effectieve pagina
+        // al 1 was (door gekrompen total-items) mag geen event vuren. Het gedrag onafhankelijk van de volgorde
+        // waarin de consumer de attributen zet.
+        if (this.__previousPageBeforeChange == null) {
+            this.__previousPageBeforeChange = parseInt(oldValue);
+            queueMicrotask(() => {
+                const previousPage = this._clampPage(this.__previousPageBeforeChange!);
+                this.__previousPageBeforeChange = undefined;
+                const currentPage = this.currentPage;
+                if (currentPage !== previousPage) {
+                    const event = {
+                        detail: {
+                            currentPage,
+                            totalPage: this.totalPages,
+                            itemsPerPage: this.itemsPerPage,
+                            totalItems: this.totalItems,
+                        },
+                        bubbles: true,
+                    };
+                    this.dispatchEvent(new CustomEvent('change', event));
+                }
+            });
         }
     }
+
+    private __previousPageBeforeChange?: number;
 
     _paginationDisabledChangedCallback(oldValue: string, newValue: string) {
         if (newValue !== null) {

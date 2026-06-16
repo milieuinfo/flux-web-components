@@ -114,11 +114,15 @@ export class VlRichData extends BaseHTMLElement {
     protected _data: RichData | undefined;
 
     /**
-     * Geeft de data terug die in de tabel wordt getoond.
+     * Geeft de data terug die in de tabel wordt getoond. De actieve pagina komt
+     * uit de pager, ze is dus altijd up-to-date, ook na een pagina-wissel.
      * @return {Object[]}
      */
     get data() {
-        return this._data || <any>{ data: [] };
+        if (!this._data) {
+            return <any>{ data: [] };
+        }
+        return this._paging ? { ...this._data, paging: this._paging } : this._data;
     }
 
     /**
@@ -225,7 +229,7 @@ export class VlRichData extends BaseHTMLElement {
         return Boolean(this._paging && this._paging.totalItems > 0);
     }
 
-    get _paging(): Pagination | void {
+    get _paging(): Pagination | undefined {
         if (this.__pager) {
             return {
                 currentPage: this.__pager.currentPage,
@@ -234,9 +238,10 @@ export class VlRichData extends BaseHTMLElement {
                 totalItems: this.__pager.totalItems,
             };
         }
+        return undefined;
     }
 
-    set _paging(paging: Pagination | void) {
+    set _paging(paging: Pagination | undefined) {
         if (paging) {
             if (paging.currentPage != null) {
                 this.__pager?.setAttribute('current-page', String(paging.currentPage));
@@ -320,11 +325,11 @@ export class VlRichData extends BaseHTMLElement {
 
     __getState({ paging }: { paging: boolean }): {
         formData: FormData | undefined;
-        paging: Pagination | void;
+        paging: Pagination | undefined;
     } {
         const state: {
             formData: FormData | undefined;
-            paging: Pagination | void;
+            paging: Pagination | undefined;
         } = {
             formData: this.__formDataState,
             paging: this._paging,
