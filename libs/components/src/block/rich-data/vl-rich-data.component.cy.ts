@@ -8,7 +8,7 @@ import { VlSelectComponent } from '../../form/select';
 import { VlPagerComponent } from '../pager';
 import { VlSearchFilterComponent } from '../search-filter';
 import { VlSearchResultComponent } from '../search-result';
-import { VlRichData } from './vl-rich-data.component';
+import { RichData, VlRichData } from './vl-rich-data.component';
 
 registerWebComponents([
     VlRichData,
@@ -68,6 +68,21 @@ describe('cypress-component - block components - vl-rich-data', () => {
             .then((child) => {
                 expect(child[0]).to.contain('6-10');
             });
+    });
+
+    it('should reflect the live pager page in the data property after a page change', () => {
+        cy.get('vl-rich-data').then(($el) => {
+            ($el[0] as VlRichData).data = {
+                data: [],
+                paging: { currentPage: 1, totalPages: 5, itemsPerPage: 5, totalItems: 25 },
+            };
+        });
+
+        cy.get('vl-pager').shadow().find('li[data-pager-page=2]').click({ force: true });
+
+        cy.get('vl-rich-data').then(($el) => {
+            expect((($el[0] as VlRichData).data as RichData).paging?.currentPage).to.equal(2);
+        });
     });
 });
 
