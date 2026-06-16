@@ -191,9 +191,6 @@ export const PillCustomColors = () =>
                 <vl-pill checkable class="my-pill-omg-steunkleur"> Omgeving steunkleur </vl-pill>
                 <vl-pill closable class="my-pill-omg-steunkleur"> Omgeving steunkleur </vl-pill>
             </div>
-            <vl-link href="/?path=/docs/styles-kleurenpalet--documentatie"
-                >Zie kleurenpalet (met WCAG getestte kleuren)</vl-link
-            >
         </div>`;
 PillCustomColors.storyName = 'vl-pill - aangepaste kleuren';
 PillCustomColors.parameters = {
