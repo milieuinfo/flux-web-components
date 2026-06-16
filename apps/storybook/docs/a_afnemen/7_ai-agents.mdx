@@ -1,0 +1,87 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Afnemen/AI Agents"/>
+
+# AI Agents (Claude, Cursor, Copilot)
+
+Wanneer je met een AI-coding-assistent (Claude Code, Cursor, GitHub Copilot, Windsurf, Cline, Aider) Flux Web Components
+gebruikt, kan de assistent gemakkelijk attributen, events of slots verzinnen die niet bestaan. Om dat te voorkomen
+publiceren we per release een **machine-leesbare samenvatting** van de volledige component-API.
+
+## Wat publiceren we?
+
+Twee bestanden, gegenereerd uit dezelfde `*.web-types.json` bron die ook IntelliJ / WebStorm voedt, en mee gepubliceerd
+naast deze Storybook-site:
+
+- **`llms.txt`** (lean, ~30 kB): één regel per component met naam, korte omschrijving en directe link naar de
+  Storybook-documentatie. Bedoeld als _discovery-bestand_ dat een agent snel volledig in zijn context kan laden.
+- **`llms-full.txt`** (volledig, ~200 kB): per component een markdown-sectie met de volledige API (attributes met type
+  en default, events met payload, slots). Bedoeld als _referentie-bestand_ dat de agent on-demand raadpleegt.
+
+Beide bestanden volgen de [llms.txt-conventie](https://llmstxt.org/) en zijn versie-gepind aan de huidige release.
+
+## URLs
+
+Voor de huidige release (`2.15.0`):
+
+- Lean: `https://flux.omgeving.vlaanderen.be/release-v2/2.15.0/storybook/llms.txt`
+- Volledig: `https://flux.omgeving.vlaanderen.be/release-v2/2.15.0/storybook/llms-full.txt`
+
+Vervang `2.15.0` door de versie waarop jouw project gepind staat.
+
+## Hoe gebruik je dit?
+
+### Claude Code
+
+Voeg de URL toe aan je project-CLAUDE.md:
+
+```markdown
+## Flux Web Components
+
+Wij gebruiken Flux Web Components v2.15.0. Lees voor elke vl-* component eerst de officiële
+docs (https://flux.omgeving.vlaanderen.be/release-v2/2.15.0/storybook/llms-full.txt) en
+gebruik enkel attributes/events/slots die daar gedocumenteerd zijn.
+```
+
+Claude Code zal het bestand on-demand ophalen via WebFetch.
+
+### Cursor
+
+In `.cursor/rules/flux.mdc`:
+
+```markdown
+---
+description: Flux Web Components API reference
+globs: ["**/*.html", "**/*.ts", "**/*.tsx"]
+alwaysApply: false
+---
+
+Wij gebruiken Flux Web Components v2.15.0. Volledige API:
+https://flux.omgeving.vlaanderen.be/release-v2/2.15.0/storybook/llms-full.txt
+
+Verzin nooit attributen of events. Gebruik enkel wat in de referentie staat.
+```
+
+### GitHub Copilot
+
+In `.github/copilot-instructions.md`:
+
+```markdown
+Wij gebruiken Flux Web Components v2.15.0. API-referentie staat op
+https://flux.omgeving.vlaanderen.be/release-v2/2.15.0/storybook/llms-full.txt.
+Gebruik enkel attributen en events die in die referentie gedocumenteerd zijn.
+```
+
+## Wat staat er niet in?
+
+Bewust uit scope gehouden om de bestanden compact en betrouwbaar te houden:
+
+- Geen code-snippets uit Storybook-stories. Voor voorbeelden klik door naar de Storybook-pagina van de component
+  (`Storybook:`-link in elke sectie van `llms-full.txt`).
+- Geen CSS-custom-properties of CSS-shadow-parts. Voor styling: zie de Storybook-pagina.
+- Geen design-system tokens. Voor tokens: zie [`Design System`](/docs/design-system--documentatie).
+
+## Toekomstplannen
+
+We onderzoeken een lokale MCP-server (`@govflanders/flux-mcp`) die agents deterministische tool-calls geeft
+(`flux_get_component`, `flux_search`, ...) bovenop dezelfde data. Status: nog niet beschikbaar.
