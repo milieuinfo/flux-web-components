@@ -186,6 +186,16 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
             defaultValue: { summary: buttonArgs.ctaLink },
         },
     },
+    download: {
+        name: 'download',
+        description:
+            'Duidt aan dat de cta-link een download is in plaats van een navigatie.<br>Optioneel kan een bestandsnaam als waarde meegegeven worden, zonder waarde kiest de browser de bestandsnaam.<br>Werkt enkel voor same-origin URLs (browser-beperking).<br>Dit attribuut wordt enkel gebruikt als de `cta-link` is ingesteld.',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(buttonArgs.download) },
+        },
+    },
     external: {
         name: 'external',
         description:
