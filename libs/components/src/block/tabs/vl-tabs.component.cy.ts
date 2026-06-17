@@ -270,6 +270,17 @@ describe('cypress-component - block components - vl-tabs - functionality on larg
                 expect($el.css('display')).to.eq('block');
             });
     });
+
+    it('should hide the responsive toggle button', () => {
+        mountDefault({ ...props });
+
+        cy.get('vl-tabs')
+            .shadow()
+            .find('button.vl-tabs__toggle')
+            .should(($el) => {
+                expect($el.css('display')).to.eq('none');
+            });
+    });
 });
 
 describe('cypress-component - block components - vl-tabs - functionality on smaller devices', () => {
@@ -311,6 +322,17 @@ describe('cypress-component - block components - vl-tabs - functionality on smal
         cy.get('vl-tabs').shadow().find('ul#tab-list').should('have.attr', 'show', 'true');
         cy.get('vl-tabs').shadow().find('button.vl-tabs__toggle').click();
         cy.get('vl-tabs').shadow().find('ul#tab-list').should('have.attr', 'show', 'false');
+    });
+
+    it('should show the responsive toggle button', () => {
+        mountDefault({ ...props });
+
+        cy.get('vl-tabs')
+            .shadow()
+            .find('button.vl-tabs__toggle')
+            .should(($el) => {
+                expect($el.css('display')).to.eq('block');
+            });
     });
 
     it('should render as vertical tabs with "tabs" as displayStyle', () => {
