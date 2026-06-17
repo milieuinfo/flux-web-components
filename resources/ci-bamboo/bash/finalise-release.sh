@@ -18,9 +18,11 @@ if [[ -z "${BAMBOO_BRANCH_NAME:-}" || "${BAMBOO_BRANCH_NAME}" == "not-specified"
 fi
 CURRENT_BRANCH="${BAMBOO_BRANCH_NAME}"
 
-# verificatie: enkel uitvoeren op een release branch
-if [[ "${CURRENT_BRANCH}" != release-v* ]]; then
-    echo "INFO: finalise-release moet enkel lopen op een release branch (begint met 'release-v'), huidige branch: ${CURRENT_BRANCH}" >&2
+# verificatie: enkel uitvoeren op een hoofd-release branch (release-v<major>, bv.
+# release-v1 of release-v2). Een fix-release branch zoals release-v2-2.15 mag NIET
+# rebasen naar een develop branch - die wordt overgeslagen maar de stap slaagt (exit 0).
+if [[ ! "${CURRENT_BRANCH}" =~ ^release-v[0-9]+$ ]]; then
+    echo "INFO: finalise-release rebaset enkel een hoofd-release branch (release-v<major>, bv. release-v1 of release-v2) naar zijn develop branch; huidige branch '${CURRENT_BRANCH}' wordt overgeslagen" >&2
     exit 0
 fi
 echo "Branch verificatie OK: ${CURRENT_BRANCH}"
