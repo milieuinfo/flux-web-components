@@ -78,6 +78,16 @@ export const linkArgTypes: ArgTypes<LinkArgs> = {
             defaultValue: { summary: String(linkArgs.error) },
         },
     },
+    download: {
+        name: 'download',
+        description:
+            'Duidt aan dat de link een download is in plaats van een navigatie.<br>Optioneel kan een bestandsnaam als waarde meegegeven worden, zonder waarde kiest de browser de bestandsnaam.<br>Werkt enkel voor same-origin URLs (browser-beperking).<br>Werkt niet in combinatie met `button-as-link`-attribuut.',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(linkArgs.download) },
+        },
+    },
     external: {
         name: 'external',
         description: 'Opent de link in een nieuw tabblad.<br/>Werkt niet in combinatie met `button-as-link`-attribuut.',

@@ -18,6 +18,7 @@ export class VlLinkComponent extends BaseLitElement {
     private large = linkDefaults.large;
     private error = linkDefaults.error;
     private external = linkDefaults.external;
+    private download: string | null = linkDefaults.download;
     private icon = linkDefaults.icon;
     private iconPlacement = linkDefaults.iconPlacement;
     private buttonAsLink = linkDefaults.buttonAsLink;
@@ -37,6 +38,7 @@ export class VlLinkComponent extends BaseLitElement {
             small: { type: Boolean },
             large: { type: Boolean },
             external: { type: Boolean },
+            download: { type: String },
             icon: { type: String },
             iconPlacement: { type: String, attribute: 'icon-placement' },
             buttonAsLink: { type: Boolean, attribute: 'button-as-link' },
@@ -60,6 +62,7 @@ export class VlLinkComponent extends BaseLitElement {
                       href=${this.href}
                       target=${target}
                       rel=${rel}
+                      download=${ifDefined(this.download ?? undefined)}
                       part="link"
                       aria-label=${this.label || nothing}
                       aria-haspopup=${ifDefined(

@@ -61,6 +61,26 @@ describe('cypress-component - atom components - vl-link', () => {
         cy.get('vl-link').shadow().find('a').should('have.attr', 'rel', 'noopener noreferrer nofollow');
     });
 
+    it('should set download without filename', () => {
+        cy.mount(html`<vl-link download href="data:text/plain,demo">Download</vl-link>`);
+
+        cy.get('vl-link').should('have.attr', 'download');
+        cy.get('vl-link').shadow().find('a').should('have.attr', 'download', '');
+    });
+
+    it('should set download with filename', () => {
+        cy.mount(html`<vl-link download="verslag.pdf" href="data:text/plain,demo">Download</vl-link>`);
+
+        cy.get('vl-link').should('have.attr', 'download', 'verslag.pdf');
+        cy.get('vl-link').shadow().find('a').should('have.attr', 'download', 'verslag.pdf');
+    });
+
+    it('should not set download when absent', () => {
+        cy.mount(html`<vl-link href="https://www.vlaanderen.be">Vlaanderen</vl-link>`);
+
+        cy.get('vl-link').shadow().find('a').should('not.have.attr', 'download');
+    });
+
     it('should set aria-label', () => {
         cy.mount(html`<vl-link label="link naar Vlaanderen">Vlaanderen</vl-link>`);
 

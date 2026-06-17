@@ -57,6 +57,24 @@ Vul steeds het `label` attribuut in om duidelijk te maken dat de link in een nie
 
 <Canvas of={VlLinkStories.LinkIcon} />
 
+### Download
+
+Wijst de link naar een bestand, gebruik dan het `download` attribuut om aan te geven dat de browser het bestand
+moet downloaden in plaats van ernaar te navigeren. Geef je een waarde mee, dan wordt die gebruikt als suggestie voor de
+bestandsnaam; zonder waarde kiest de browser zelf een bestandsnaam.
+
+Beperkingen:
+
+-   het `download` attribuut werkt enkel voor same-origin URLs (en `data:` of `blob:` URLs), dit is een
+browser-beperking van het [native anchor `download` attribuut](https://developer.mozilla.org/en-US/docs/Web/API/HTMLAnchorElement/download)
+-   het attribuut werkt niet in combinatie met `button-as-link`
+
+Tip: maak in de zichtbare tekst of het `label` attribuut duidelijk dat het om een download gaat, zodat ook
+screen-reader gebruikers dit weten (bv. "Download verslag.pdf" i.p.v. "Verslag"). Een anchor met het `download`
+attribuut wordt nog steeds aangekondigd als een gewone link.
+
+<Canvas of={VlLinkStories.LinkDownload} />
+
 ### Button als link
 
 Soms wil je een button stylen als een link. Een specifieke use-case is bvb. om van `Annuleren` een link te maken
