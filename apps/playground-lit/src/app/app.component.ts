@@ -1,4 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common';
+import { VlButtonComponent } from '@domg-wc/components/atom';
 import {
     VlInfoTile,
     VlPopoverActionComponent,
@@ -15,6 +16,7 @@ import { customElement } from 'lit/decorators.js';
 export class AppComponent extends LitElement {
     static {
         registerWebComponents([
+            VlButtonComponent,
             VlHeader,
             VlPopoverComponent,
             VlPopoverActionListComponent,
@@ -144,6 +146,32 @@ export class AppComponent extends LitElement {
                                         <div style="height: 400px;"></div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="vl-section">
+                        <div class="vl-content-block vl-content-block--full-width">
+                            <vl-title type="h2">FLUX-710: vl-button cta-link met download attribuut</vl-title>
+                            <p>
+                                Drie varianten: zonder download (navigeert), download zonder waarde (browser kiest
+                                bestandsnaam) en download met bestandsnaam. Klik en controleer dat de browser het
+                                bestand downloadt in plaats van te navigeren.
+                            </p>
+                            <div style="display: flex; gap: 12px; margin-top: 16px;">
+                                <vl-button cta-link="data:text/plain;charset=utf-8,FLUX-710 demo">
+                                    Zonder download (navigeert)
+                                </vl-button>
+                                <vl-button download cta-link="data:text/plain;charset=utf-8,FLUX-710 demo">
+                                    Download zonder bestandsnaam
+                                </vl-button>
+                                <vl-button
+                                    download="verslag.txt"
+                                    icon="file-download"
+                                    cta-link="data:text/plain;charset=utf-8,FLUX-710 demo"
+                                >
+                                    Download als verslag.txt
+                                </vl-button>
                             </div>
                         </div>
                     </section>

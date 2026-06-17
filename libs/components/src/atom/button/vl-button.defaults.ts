@@ -17,6 +17,8 @@ export const buttonDefaults = {
     toggle: false as boolean,
     controlled: false as boolean,
     ctaLink: '' as string,
+    // null = attribuut afwezig; lege string betekent downloaden met de bestandsnaam die de browser kiest
+    download: null as string | null,
     external: false as boolean,
     inputGroup: false as boolean,
     label: '' as string,

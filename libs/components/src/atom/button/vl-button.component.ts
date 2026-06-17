@@ -25,6 +25,7 @@ export class VlButtonComponent extends BaseLitElement {
     private toggle = buttonDefaults.toggle;
     private controlled = buttonDefaults.controlled;
     private ctaLink = buttonDefaults.ctaLink;
+    private download: string | null = buttonDefaults.download;
     private external = buttonDefaults.external;
     private inputGroup = buttonDefaults.inputGroup;
     private label = buttonDefaults.label;
@@ -51,6 +52,7 @@ export class VlButtonComponent extends BaseLitElement {
             toggle: { type: Boolean },
             controlled: { type: Boolean },
             ctaLink: { type: String, attribute: 'cta-link' },
+            download: { type: String },
             external: { type: Boolean },
             inputGroup: { type: Boolean, attribute: 'input-group' },
             label: { type: String },
@@ -219,6 +221,7 @@ export class VlButtonComponent extends BaseLitElement {
                 class=${classMap(classes)}
                 target=${this.ctaLink && this.external ? '_blank' : nothing}
                 rel=${this.ctaLink && this.external ? 'noopener noreferrer nofollow' : nothing}
+                download=${ifDefined(this.disabled ? undefined : (this.download ?? undefined))}
                 @click=${this.handleLinkClick}
                 aria-label=${ifDefined(this.ariaLabel || undefined)}
                 aria-pressed=${ifDefined(this.toggle ? (this.on ? 'true' : 'false') : undefined)}
