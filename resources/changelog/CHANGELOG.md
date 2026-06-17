@@ -1,3 +1,10 @@
+## [2.15.1](https://github.com/milieuinfo/flux-web-components/compare/v2.15.0...v2.15.1) (2026-06-17)
+
+
+### Bug Fixes
+
+* FLUX-172 - vl-tabs - mobiele toggle niet langer zichtbaar op desktop ([3bc89d9](https://github.com/milieuinfo/flux-web-components/commit/3bc89d98646c7962eb4cf4015d44627e7e834f67))
+
 # [2.15.0](https://github.com/milieuinfo/flux-web-components/compare/v2.14.0...v2.15.0) (2026-06-10)
 
 
