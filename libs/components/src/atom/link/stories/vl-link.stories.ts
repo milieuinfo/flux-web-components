@@ -31,6 +31,7 @@ const LinkTemplate = story(
         large,
         error,
         external,
+        download,
         buttonAsLink,
         type,
         icon,
@@ -46,6 +47,7 @@ const LinkTemplate = story(
             ?large=${large}
             ?error=${error}
             ?external=${external}
+            download=${download}
             ?button-as-link=${buttonAsLink}
             type=${type}
             icon=${icon}
@@ -126,6 +128,17 @@ LinkIconOnly.args = {
     href: 'https://www.vlaanderen.be',
     icon: 'arrow-right-fat',
     label: 'Ga naar Vlaanderen.be',
+};
+
+export const LinkDownload = LinkTemplate.bind({});
+LinkDownload.storyName = 'vl-link - download';
+LinkDownload.args = {
+    href: 'data:text/plain;charset=utf-8,FLUX-710 link download demo',
+    defaultSlot: 'Download het verslag',
+    download: 'verslag.txt',
+    icon: 'file-download',
+    iconPlacement: 'before',
+    label: 'Download verslag.txt',
 };
 
 export const ButtonStyledAsLink = LinkTemplate.bind({});
