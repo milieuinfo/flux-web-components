@@ -1,7 +1,7 @@
 {
     "branches": [
         "release-v2",
-        { name: 'release-v2-2.4', range: '2.4.x', channel: '2.4.x' }
+        "release-v2-2.15"
     ],
     "plugins": [
         [

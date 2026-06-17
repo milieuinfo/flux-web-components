@@ -107,7 +107,7 @@ export class VlTabsComponent extends BaseLitElement {
             <div id="tabs" tabs tabs-responsive-label="Navigatie">
                 <div id="tabs-wrapper" class="vl-tabs__wrapper">
                     <ul id="tab-list" class="vl-tabs" tabs-list role="tablist" aria-label="tabs"></ul>
-                    <button type="button" tabs-toggle class="vl-tabs__toggle vl-icon vl-icon--arrow" close="false">
+                    <button type="button" tabs-toggle class="vl-tabs__toggle vl-icon--arrow" close="false">
                         <span id="tabs-responsive-label">Navigatie</span>
                     </button>
                 </div>
