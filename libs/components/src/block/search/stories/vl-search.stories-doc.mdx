@@ -1,0 +1,29 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlSearchStories from './vl-search.stories';
+
+# Search
+
+<FluxComponentMetaData id="components-block-search" />
+
+<FluxAlert type="warning" title="Deprecated">
+{`
+ Deze component is <strong>deprecated</strong> en wordt verwijderd in <strong>v3</strong>. Bouw voortaan een
+ zoekformulier met een <code>input-group</code> (<code>vl-input-field</code> + <code>vl-button</code> met
+ <code>loading</code>) zoals beschreven onder het [zoek-patroon](/docs/patronen-zoeken-loading-state--documentatie).
+`}
+</FluxAlert>
+
+
+## Doel
+
+De `search` component toont een zoekveld met een zoekknop.
+
+
+## Voorbeeld
+
+<Canvas of={VlSearchStories.searchDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlSearchStories.searchDefault} />

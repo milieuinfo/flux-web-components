@@ -3,7 +3,6 @@ import {
     VlBreadcrumbComponent,
     VlBreadcrumbItemComponent,
     VlFunctionalHeaderComponent,
-    VlSearchComponent,
 } from '@domg-wc/components/block';
 import { VlTabLinkComponent, VlTabsComponent } from '@domg-wc/components/block/next';
 import { story } from '@resources/utils-storybook';
@@ -16,7 +15,6 @@ registerWebComponents([
     VlBreadcrumbComponent,
     VlBreadcrumbItemComponent,
     VlFunctionalHeaderComponent,
-    VlSearchComponent,
     VlTabsComponent,
     VlTabLinkComponent,
 ]);
