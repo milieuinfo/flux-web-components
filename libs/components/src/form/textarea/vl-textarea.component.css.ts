@@ -1,3 +1,4 @@
+import { vlVisuallyHiddenMixin } from '@domg-wc/styles';
 import { css, CSSResult, unsafeCSS } from 'lit';
 import textareaComponentRawCss from './vl-textarea.component.raw.css?raw';
 
@@ -142,5 +143,19 @@ export const vlTextareaComponentStyles: CSSResult = css`
     .vl-textarea[disabled]:hover {
         border-width: var(--vl-border--width);
         padding: var(--vl-textarea--padding);
+    }
+
+    /* ===================================================================
+       Textarea Character Counter
+       =================================================================== */
+
+    .vl-textarea__counter {
+        font-family: var(--vl-font);
+        font-size: var(--vl-font-size--small);
+        color: var(--vl-textarea--counter-color);
+    }
+
+    .vl-textarea__counter-status {
+        ${vlVisuallyHiddenMixin()};
     }
 `;

@@ -8,11 +8,15 @@ import { FormControl } from '../form-control/form-control';
 import { vlTextareaComponentStyles } from './vl-textarea.component.css';
 import { textareaDefaults } from './vl-textarea.defaults';
 
+// de resterende tekens worden pas via aria-live aangekondigd vanaf de laatste 10 tekens
+const CHARACTER_COUNT_LIVE_THRESHOLD = 10;
+
 @webComponent('vl-textarea')
 export class VlTextareaComponent extends FormControl {
     // Attributes
     protected block = textareaDefaults.block;
     protected readonly = textareaDefaults.readonly;
+    protected characterCount = textareaDefaults.characterCount;
     protected value = textareaDefaults.value;
     protected placeholder = textareaDefaults.placeholder;
     protected autocomplete = textareaDefaults.autocomplete;
@@ -36,6 +40,7 @@ export class VlTextareaComponent extends FormControl {
         return {
             block: { type: Boolean },
             readonly: { type: Boolean },
+            characterCount: { type: Boolean, attribute: 'character-count' },
             value: { type: String, reflect: true },
             placeholder: { type: String },
             autocomplete: { type: String },
@@ -98,7 +103,21 @@ export class VlTextareaComponent extends FormControl {
                 rows=${this.rows ?? nothing}
                 cols=${this.cols ?? nothing}
                 @input=${this.onInput}
-            />
+            ></textarea>
+            ${this.characterCount && this.maxLength != null ? this.renderCharacterCount(this.maxLength) : nothing}
+        `;
+    }
+
+    private renderCharacterCount(maxLength: number): TemplateResult {
+        const remaining = maxLength - this.value.length;
+        const announcement =
+            remaining <= CHARACTER_COUNT_LIVE_THRESHOLD
+                ? `Nog ${remaining} ${remaining === 1 ? 'teken' : 'tekens'} beschikbaar`
+                : '';
+
+        return html`
+            <div class="vl-textarea__counter" aria-hidden="true">${this.value.length}/${maxLength}</div>
+            <div class="vl-textarea__counter-status" aria-live="polite" aria-atomic="true">${announcement}</div>
         `;
     }
 

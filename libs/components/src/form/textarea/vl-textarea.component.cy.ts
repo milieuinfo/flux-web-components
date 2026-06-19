@@ -150,6 +150,100 @@ describe('vl-textarea - properties & states', () => {
     });
 });
 
+describe('vl-textarea - character count', () => {
+    it('should not render a counter without the character-count attribute', () => {
+        cy.mount(html`<vl-textarea max-length="50"></vl-textarea>`);
+
+        cy.get('vl-textarea').shadow().find('.vl-textarea__counter').should('not.exist');
+        cy.get('vl-textarea').shadow().find('.vl-textarea__counter-status').should('not.exist');
+    });
+
+    it('should not render a counter when character-count is set without max-length', () => {
+        cy.mount(html`<vl-textarea character-count></vl-textarea>`);
+
+        cy.get('vl-textarea').shadow().find('.vl-textarea__counter').should('not.exist');
+    });
+
+    it('should render the counter in the {current}/{max} format', () => {
+        cy.mount(html`<vl-textarea character-count max-length="50" value="hallo"></vl-textarea>`);
+
+        cy.get('vl-textarea').shadow().find('.vl-textarea__counter').should('have.text', '5/50');
+        cy.get('vl-textarea').shadow().find('.vl-textarea__counter').should('have.attr', 'aria-hidden', 'true');
+    });
+
+    it('should update the counter live while typing', () => {
+        cy.mount(html`<vl-textarea character-count max-length="50"></vl-textarea>`);
+
+        cy.get('vl-textarea').shadow().find('.vl-textarea__counter').should('have.text', '0/50');
+        cy.get('vl-textarea').shadow().find('textarea').type('test');
+        cy.get('vl-textarea').shadow().find('.vl-textarea__counter').should('have.text', '4/50');
+    });
+
+    it('should update the counter on programmatic value change', () => {
+        cy.mount(html`<vl-textarea character-count max-length="50"></vl-textarea>`);
+
+        cy.get('vl-textarea').invoke('attr', 'value', 'programmatic');
+        cy.get('vl-textarea').shadow().find('.vl-textarea__counter').should('have.text', '12/50');
+    });
+
+    it('should keep the live region empty above the 10 character threshold', () => {
+        cy.mount(html`<vl-textarea character-count max-length="50"></vl-textarea>`);
+
+        // 39 chars => 11 remaining, still above threshold.
+        cy.get('vl-textarea').shadow().find('textarea').type('a'.repeat(39));
+        cy.get('vl-textarea').shadow().find('.vl-textarea__counter-status').should('have.text', '');
+    });
+
+    it('should announce the remaining characters from the last 10 characters', () => {
+        cy.mount(html`<vl-textarea character-count max-length="50"></vl-textarea>`);
+
+        // 40 chars => 10 remaining, threshold reached.
+        cy.get('vl-textarea').shadow().find('textarea').type('a'.repeat(40));
+        cy.get('vl-textarea')
+            .shadow()
+            .find('.vl-textarea__counter-status')
+            .should('have.text', 'Nog 10 tekens beschikbaar');
+    });
+
+    it('should use the singular form when one character remains', () => {
+        cy.mount(html`<vl-textarea character-count max-length="50"></vl-textarea>`);
+
+        cy.get('vl-textarea').shadow().find('textarea').type('a'.repeat(49));
+        cy.get('vl-textarea')
+            .shadow()
+            .find('.vl-textarea__counter-status')
+            .should('have.text', 'Nog 1 teken beschikbaar');
+    });
+
+    it('should announce zero remaining characters at the limit', () => {
+        cy.mount(html`<vl-textarea character-count max-length="50"></vl-textarea>`);
+
+        cy.get('vl-textarea').shadow().find('textarea').type('a'.repeat(50));
+        cy.get('vl-textarea').shadow().find('.vl-textarea__counter').should('have.text', '50/50');
+        cy.get('vl-textarea')
+            .shadow()
+            .find('.vl-textarea__counter-status')
+            .should('have.text', 'Nog 0 tekens beschikbaar');
+    });
+
+    it('should keep the live region permanently in the DOM with polite/atomic semantics', () => {
+        cy.mount(html`<vl-textarea character-count max-length="50"></vl-textarea>`);
+
+        cy.get('vl-textarea')
+            .shadow()
+            .find('.vl-textarea__counter-status')
+            .should('have.attr', 'aria-live', 'polite')
+            .and('have.attr', 'aria-atomic', 'true');
+    });
+
+    it('should be accessible with the counter enabled', () => {
+        cy.mount(html`<vl-textarea label="bericht" character-count max-length="50" value="hallo"></vl-textarea>`);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-textarea');
+    });
+});
+
 describe('vl-textarea - events', () => {
     it('should dispatch both vl-input & vl-change events on input', () => {
         cy.mount(html`<vl-textarea></vl-textarea>`);

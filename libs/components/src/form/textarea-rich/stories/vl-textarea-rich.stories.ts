@@ -17,7 +17,8 @@ export default {
     parameters: {
         // Excluding 'block' en 'cols': veld neemt altijd de volledige breedte van de parent in
         // Excluding 'placeholder': de vl-typography CSS van DV zorgt ervoor dat de placeholder niet zichtbaar is
-        controls: { exclude: ['block', 'cols', 'placeholder'] },
+        // Excluding 'character-count': TinyMCE handhaaft geen 'max-length' en de value bevat HTML-opmaak, dus de teller werkt niet correct in de rich editor
+        controls: { exclude: ['block', 'cols', 'placeholder', 'character-count'] },
         docs: {
             page: textareaRichDocs,
         },
