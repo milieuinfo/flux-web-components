@@ -15,4 +15,20 @@ describe('jest - common - mutation-utils', () => {
         await new Promise(process.nextTick);
         expect(changeList.length).toEqual(3);
     });
+
+    it('should detect in-place attribute changes when attributes is enabled', async () => {
+        const columnElement = buildDiv(null, 'column');
+        const changeList = [];
+        onChildListChange(
+            columnElement,
+            () => {
+                changeList.push('change');
+            },
+            { attributes: true }
+        );
+        columnElement.setAttribute('style', 'color: red');
+        // necessary to allow the MutationObserver in onChildListChange to do his job
+        await new Promise(process.nextTick);
+        expect(changeList.length).toEqual(1);
+    });
 });

@@ -97,6 +97,42 @@ describe('cypress-component - block components - vl-properties', () => {
             });
     });
 
+    it('should update shadow DOM when a light DOM text node is mutated in-place', () => {
+        cy.mount(html`
+            <vl-properties>
+                <vl-property>Woonplaats</vl-property>
+                <vl-property-data><span>Brussel</span></vl-property-data>
+            </vl-properties>
+        `);
+
+        cy.get('vl-properties').shadow().find('dd').find('span').should('contain.text', 'Brussel');
+
+        cy.runTestFor<VlPropertiesComponent>('vl-properties', (component) => {
+            const textNode = component.querySelector('vl-property-data span')?.firstChild;
+            textNode!.textContent = 'Antwerpen';
+        });
+
+        cy.get('vl-properties').shadow().find('dd').find('span').should('contain.text', 'Antwerpen');
+    });
+
+    it('should update shadow DOM when a light DOM attribute is mutated in-place', () => {
+        cy.mount(html`
+            <vl-properties>
+                <vl-property>Woonplaats</vl-property>
+                <vl-property-data><span style="color: blue">Brussel</span></vl-property-data>
+            </vl-properties>
+        `);
+
+        cy.get('vl-properties').shadow().find('dd').find('span').should('have.attr', 'style', 'color: blue');
+
+        cy.runTestFor<VlPropertiesComponent>('vl-properties', (component) => {
+            const span = component.querySelector('vl-property-data span');
+            span!.setAttribute('style', 'color: red');
+        });
+
+        cy.get('vl-properties').shadow().find('dd').find('span').should('have.attr', 'style', 'color: red');
+    });
+
     it("should contain a shadow DOM with dt's and dd's with inner html", () => {
         cy.mount(propertiesHtmlEnrichedTemplate);
 
@@ -213,5 +249,51 @@ describe('cypress-component - block components - vl-properties', () => {
         cy.mount(defaultPropertiesTemplate);
 
         cy.get('vl-properties').shadow().find('dl').should('have.css', 'padding-bottom', '20px');
+    });
+
+    describe('deprecated no-clone attribute', () => {
+        beforeEach(() => {
+            // private static enkel op compile-time; reset de "warn once"-vlag voor test-isolatie
+            (
+                VlPropertiesComponent as unknown as { noCloneDeprecationWarningShown: boolean }
+            ).noCloneDeprecationWarningShown = false;
+        });
+
+        it('should warn once that no-clone is deprecated when it is used', () => {
+            cy.spy(console, 'warn').as('warn');
+
+            cy.mount(html`
+                <vl-properties no-clone>
+                    <vl-property>Woonplaats</vl-property>
+                    <vl-property-data>Brussel</vl-property-data>
+                </vl-properties>
+            `);
+
+            cy.get('@warn').should('have.been.calledOnce');
+            cy.get('@warn').should(
+                'have.been.calledWith',
+                'Het no-clone attribuut van vl-properties is niet meer nodig en deprecated, het wordt verwijderd in v3'
+            );
+        });
+
+        it('should not warn when no-clone is not used', () => {
+            cy.spy(console, 'warn').as('warn');
+
+            cy.mount(defaultPropertiesTemplate);
+
+            cy.get('@warn').should('not.have.been.called');
+        });
+
+        it('should still render content when the deprecated no-clone attribute is used', () => {
+            cy.mount(html`
+                <vl-properties no-clone>
+                    <vl-property>Woonplaats</vl-property>
+                    <vl-property-data>Brussel</vl-property-data>
+                </vl-properties>
+            `);
+
+            cy.get('vl-properties').shadow().find('dt').should('contain.text', 'Woonplaats');
+            cy.get('vl-properties').shadow().find('dd').should('contain.text', 'Brussel');
+        });
     });
 });
