@@ -1,9 +1,8 @@
 import { Item, Props } from './vl-properties.model';
 
-const moveChildNodes = (childNodes: ChildNode[], clone: boolean): Node[] =>
-    clone ? childNodes.map((node) => node.cloneNode(true)) : childNodes;
+const cloneChildNodes = (childNodes: ChildNode[]): Node[] => childNodes.map((node) => node.cloneNode(true));
 
-const buildItems = (elements: Element[], clone: boolean): Item[] => {
+const buildItems = (elements: Element[]): Item[] => {
     const items: Item[] = [];
     let labels: Node[][] = [],
         data: Node[][] = [];
@@ -18,11 +17,11 @@ const buildItems = (elements: Element[], clone: boolean): Item[] => {
                     labels = [];
                     data = [];
                 }
-                labels.push(moveChildNodes([...element.childNodes], clone));
+                labels.push(cloneChildNodes([...element.childNodes]));
                 break;
             case 'data':
             case 'vl-property-data':
-                data.push(moveChildNodes([...element.childNodes], clone));
+                data.push(cloneChildNodes([...element.childNodes]));
                 break;
         }
     });
@@ -32,7 +31,7 @@ const buildItems = (elements: Element[], clone: boolean): Item[] => {
     return items;
 };
 
-export const buildProperties = (elements: Element[] | null, clone: boolean): Props => {
+export const buildProperties = (elements: Element[] | null): Props => {
     if (elements == null || elements.length == 0) {
         return [];
     }
@@ -40,10 +39,10 @@ export const buildProperties = (elements: Element[] | null, clone: boolean): Pro
         // er is een 'column' gedefinieerd: verwerk ze
         return elements.map((element: Element) => ({
             class: element.className,
-            items: buildItems([...element.children], clone),
+            items: buildItems([...element.children]),
         }));
     } else {
         // er is geen 'column' aanwezig, enkel labels en data
-        return [{ items: buildItems(elements, clone) }];
+        return [{ items: buildItems(elements) }];
     }
 };

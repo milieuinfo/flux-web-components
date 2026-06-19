@@ -12,8 +12,13 @@ export class VlPropertiesComponent extends BaseLitElement {
     private aggregatedProps: Props = propertiesDefaults.props;
     private labelWidth: number = propertiesDefaults.labelWidth;
     private labelWidthSheet: CSSStyleSheet = new CSSStyleSheet();
+    /**
+     * @deprecated Wordt verwijderd in v3 - de component houdt tegenwoordig zijn shadow DOM
+     * automatisch synchroon na wijzigingen in de light DOM (tekst en attributen).
+     */
     private noClone: boolean = false;
     private mutationObserverList: MutationObserver[] = [];
+    private static noCloneDeprecationWarningShown = false;
 
     static get styles(): (CSSResult | CSSResult[])[] {
         return [vlResetStyles, vlLegacyStyles, propertiesStyles];
@@ -64,6 +69,13 @@ export class VlPropertiesComponent extends BaseLitElement {
         if (changedProperties.has('labelWidth') && this.labelWidth) {
             this.labelWidthSheet.replace(labelWidthPercentage(this.labelWidth).toString());
         }
+
+        if (changedProperties.has('noClone') && this.noClone && !VlPropertiesComponent.noCloneDeprecationWarningShown) {
+            console.warn(
+                `Het no-clone attribuut van ${this.localName} is niet meer nodig en deprecated, het wordt verwijderd in v3`,
+            );
+            VlPropertiesComponent.noCloneDeprecationWarningShown = true;
+        }
     }
 
     disconnectedCallback() {
@@ -95,7 +107,8 @@ export class VlPropertiesComponent extends BaseLitElement {
     }
 
     private buildInternalProperties() {
-        this.aggregatedProps = [...this.attributeProps, ...buildProperties([...this.children], !this.noClone)];
+        // de inhoud wordt altijd ge-cloned zodat de shadow DOM synchroon blijft met de light DOM
+        this.aggregatedProps = [...this.attributeProps, ...buildProperties([...this.children])];
     }
 
     private disconnectMutationObservers() {
@@ -104,29 +117,16 @@ export class VlPropertiesComponent extends BaseLitElement {
     }
 
     private observeLightPropertiesChange() {
-        // verwijder alle bestaande mutation observers
         this.disconnectMutationObservers();
-        // altijd de vl-properties zelf observeren
+        // ondersteuning voor alle mogelijke mutaties - om de shadow-dom in-sync te houden met de light-dom
         this.mutationObserverList = [
-            ...this.mutationObserverList,
-            onChildListChange(this, (change: any) => {
-                this.buildInternalProperties();
-                // er kan een extra div toegevoegd zijn, deze heeft dan ook een mutation observer nodig
-                this.observeLightPropertiesChange();
+            onChildListChange(this, () => this.buildInternalProperties(), {
+                childList: true,
+                subtree: true,
+                characterData: true,
+                attributes: true,
             }),
         ];
-        // als de directe kinderen div's zijn deze ook observeren
-        if (this.children.length > 0 && this.children[0].localName === 'div') {
-            [...this.children].forEach(
-                (element) =>
-                    (this.mutationObserverList = [
-                        ...this.mutationObserverList,
-                        onChildListChange(element, (change: any) => {
-                            this.buildInternalProperties();
-                        }),
-                    ])
-            );
-        }
     }
 }
 

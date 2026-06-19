@@ -98,4 +98,66 @@ describe('cypress-component - block components - vl-search-result', () => {
             .first()
             .should('contain.text', 'Vlaanderenkiest.be');
     });
+
+    it('should update properties shadow DOM when a light DOM text node is mutated in-place', () => {
+        cy.get('vl-search-result')
+            .shadow()
+            .find('vl-search-result-properties')
+            .shadow()
+            .find('dd')
+            .first()
+            .should('contain.text', 'Verkiezingsresultaten op Vlaanderenkiest.be...');
+
+        cy.get('vl-search-result').then(($searchResult) => {
+            const textNode = $searchResult[0].shadowRoot?.querySelector(
+                'vl-search-result-properties vl-property-data'
+            )?.firstChild;
+            textNode!.textContent = 'Bijgewerkte verkiezingsresultaten';
+        });
+
+        cy.get('vl-search-result')
+            .shadow()
+            .find('vl-search-result-properties')
+            .shadow()
+            .find('dd')
+            .first()
+            .should('contain.text', 'Bijgewerkte verkiezingsresultaten');
+    });
+
+    it('should update properties shadow DOM when a light DOM attribute is mutated in-place', () => {
+        // het mount-command ruimt enkel op tussen tests, niet binnen een test: de container leegmaken zodat de
+        // eigen mount hieronder niet naast de beforeEach-mount terechtkomt
+        cy.document().then((doc) => (doc.querySelector('[data-cy-root]')!.innerHTML = ''));
+        cy.mount(html`
+            <vl-search-result>
+                <vl-search-result-properties>
+                    <vl-property>Vlaanderenkiest.be</vl-property>
+                    <vl-property-data><span style="color: blue">Verkiezingsresultaten</span></vl-property-data>
+                </vl-search-result-properties>
+            </vl-search-result>
+        `);
+
+        cy.get('vl-search-result')
+            .shadow()
+            .find('vl-search-result-properties')
+            .shadow()
+            .find('dd')
+            .first()
+            .find('span')
+            .should('have.attr', 'style', 'color: blue');
+
+        cy.get('vl-search-result').then(($searchResult) => {
+            const span = $searchResult[0].shadowRoot?.querySelector('vl-search-result-properties vl-property-data span');
+            span!.setAttribute('style', 'color: red');
+        });
+
+        cy.get('vl-search-result')
+            .shadow()
+            .find('vl-search-result-properties')
+            .shadow()
+            .find('dd')
+            .first()
+            .find('span')
+            .should('have.attr', 'style', 'color: red');
+    });
 });
