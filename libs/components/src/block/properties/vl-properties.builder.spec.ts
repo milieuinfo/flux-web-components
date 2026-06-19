@@ -8,11 +8,11 @@ describe('jest - components - vl-properties', () => {
     });
 
     it('buildProperties should build empty properties for a null element', () => {
-        expect(buildProperties(null, true)).toEqual([]);
+        expect(buildProperties(null)).toEqual([]);
     });
 
     it('buildProperties should build empty properties for empty elements', () => {
-        expect(buildProperties([], true)).toEqual([]);
+        expect(buildProperties([])).toEqual([]);
     });
 
     it('buildProperties should build properties for an array of labels and data', () => {
@@ -21,7 +21,7 @@ describe('jest - components - vl-properties', () => {
         elements.push(buildData('Brussel'));
         elements.push(buildLabel('Postcode'));
         elements.push(buildData('1000'));
-        expect(buildProperties(elements, true)).toEqual([
+        expect(buildProperties(elements)).toEqual([
             {
                 items: [
                     {
@@ -45,7 +45,7 @@ describe('jest - components - vl-properties', () => {
         labelElement.setAttribute('style', 'color: red');
         const dataElement = buildSpan('Brussel');
         dataElement.setAttribute('style', 'color: blue');
-        expect(buildProperties(elements, true)).toEqual([
+        expect(buildProperties(elements)).toEqual([
             {
                 items: [
                     {
@@ -57,7 +57,7 @@ describe('jest - components - vl-properties', () => {
         ]);
     });
 
-    it('buildProperties should not clone when specified', () => {
+    it('buildProperties should clone the child nodes', () => {
         const elements: Element[] = [];
         // build and add label
         const labelElement = document.createElement('label');
@@ -71,16 +71,12 @@ describe('jest - components - vl-properties', () => {
         dataChild.setAttribute('style', 'color: blue');
         dataElement.appendChild(dataChild);
         elements.push(dataElement);
-        // the cloned label and data are equal but have a different reference
-        // the no-cloned label and data have the same reference
-        const clonedProperties = buildProperties(elements, true);
-        const noCloneProperties = buildProperties(elements, false);
+        // de ge-clonede label en data zijn gelijk maar hebben een andere referentie dan de light DOM nodes
+        const clonedProperties = buildProperties(elements);
         expect(clonedProperties[0].items[0].labels[0][0]).not.toBe(labelChild);
         expect(clonedProperties[0].items[0].labels[0][0]).toEqual(labelChild);
-        expect(noCloneProperties[0].items[0].labels[0][0]).toBe(labelChild);
         expect(clonedProperties[0].items[0].data[0][0]).not.toBe(dataChild);
         expect(clonedProperties[0].items[0].data[0][0]).toEqual(dataChild);
-        expect(noCloneProperties[0].items[0].data[0][0]).toBe(dataChild);
     });
 
     it('buildProperties should build properties for an array of columns', () => {
@@ -91,7 +87,7 @@ describe('jest - components - vl-properties', () => {
         column.appendChild(buildData('Brussel'));
         column.appendChild(buildLabel('Postcode'));
         column.appendChild(buildData('1000'));
-        expect(buildProperties(columns, true)).toEqual([
+        expect(buildProperties(columns)).toEqual([
             {
                 class: 'column',
                 items: [
@@ -119,7 +115,7 @@ describe('jest - components - vl-properties', () => {
         dataElement.appendChild(document.createTextNode('42'));
         dataElement.appendChild(document.createComment('?'));
 
-        const result = buildProperties([labelElement, dataElement], false);
+        const result = buildProperties([labelElement, dataElement]);
 
         expect(result).toHaveLength(1);
         const item = result[0].items[0];
