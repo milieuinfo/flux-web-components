@@ -29,6 +29,15 @@ import { VlTextareaComponent } from '@domg-wc/components/form';
 <Canvas of={VlTextAreaStories.TextareaDefault} />
 
 
+## Karakterteller
+
+Zet het `character-count` attribute samen met `max-length` om onder de textarea een teller `{huidig}/{max}` te tonen
+die live meetelt terwijl je typt. Vanaf de laatste 10 resterende tekens wordt het aantal beschikbare tekens
+toegankelijk aangekondigd voor screenreader-gebruikers.
+
+<Canvas of={VlTextAreaStories.TextareaCharacterCount} />
+
+
 ## Configuratie
 
 <ArgTypes of={VlTextAreaStories.TextareaDefault} />

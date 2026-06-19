@@ -35,6 +35,18 @@ export const textareaArgTypes: ArgTypes<TextareaArgs> = {
             defaultValue: { summary: String(textareaArgs.readonly) },
         },
     },
+    characterCount: {
+        name: 'character-count',
+        description:
+            'Toont onder de textarea een teller `{huidig}/{max}` van het aantal getypte tekens t.o.v. `max-length`.' +
+            ' Een (visueel verborgen) `aria-live` regio kondigt het aantal resterende tekens aan vanaf de laatste 10.' +
+            ' Vereist een gezette `max-length`.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(textareaArgs.characterCount) },
+        },
+    },
     value: {
         name: 'value',
         description: 'De waarde van het textarea veld.',

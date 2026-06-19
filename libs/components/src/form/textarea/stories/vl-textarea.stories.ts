@@ -34,6 +34,7 @@ export const TextareaDefault = story(
         blurValidation,
         block,
         readonly,
+        characterCount,
         value,
         placeholder,
         autocomplete,
@@ -57,6 +58,7 @@ export const TextareaDefault = story(
             ?blur-validation=${blurValidation}
             ?block=${block}
             ?readonly=${readonly}
+            ?character-count=${characterCount}
             value=${value}
             placeholder=${placeholder}
             autocomplete=${autocomplete}
@@ -80,4 +82,12 @@ TextareaBlurValidation.args = {
     minLength: 5,
     blurValidation: true,
     placeholder: 'Min. 5 karakters',
+};
+
+export const TextareaCharacterCount = TextareaDefault.bind({});
+TextareaCharacterCount.storyName = 'vl-textarea - character count';
+TextareaCharacterCount.args = {
+    block: true,
+    characterCount: true,
+    maxLength: 250,
 };

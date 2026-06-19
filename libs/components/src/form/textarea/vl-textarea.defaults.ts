@@ -4,6 +4,7 @@ export const textareaDefaults = {
     ...formControlDefaults,
     block: false as boolean,
     readonly: false as boolean,
+    characterCount: false as boolean,
     value: '' as string,
     placeholder: '' as string,
     autocomplete: '' as string,

@@ -7,4 +7,7 @@
 
     /* Margin */
     --vl-textarea--margin: 0.5rem 0;
+
+    /* Character counter */
+    --vl-textarea--counter-color: var(--vl-color--text-alt);
 }
