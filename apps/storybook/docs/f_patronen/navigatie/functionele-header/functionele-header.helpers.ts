@@ -22,14 +22,24 @@ export const functionalHeaderWithButtonHtml = createFunctionalHeaderHtmlWithExtr
     '<vl-button>Actie knop</vl-button>'
 );
 export const functionalHeaderWithSearchHtml = createFunctionalHeaderHtmlWithExtraComponent(
-    '<vl-search id="search-inline" inline></vl-search>'
+    `<form role="search" aria-label="Zoeken op deze site">
+        <div class="vl-group vl-group--input-group">
+            <vl-input-field input-group block type="search" name="zoekterm" label="Zoekterm"></vl-input-field>
+            <vl-button input-group icon="search" type="submit" label="Zoeken" tertiary></vl-button>
+        </div>
+    </form>`
 );
 export const functionalHeaderWithButtonHtmlSourceCode = createFunctionalHeaderHtmlWithExtraComponent(
     '<vl-button>Actie knop</vl-button>',
     true
 );
 export const functionalHeaderWithSearchHtmlSourceCode = createFunctionalHeaderHtmlWithExtraComponent(
-    '<vl-search id="search-inline" inline></vl-search>',
+    `<form role="search" aria-label="Zoeken op deze site">
+        <div class="vl-group vl-group--input-group">
+            <vl-input-field input-group block type="search" name="zoekterm" label="Zoekterm"></vl-input-field>
+            <vl-button input-group icon="search" type="submit" label="Zoeken" tertiary></vl-button>
+        </div>
+    </form>`,
     true
 );
 

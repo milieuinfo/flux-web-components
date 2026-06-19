@@ -1,0 +1,55 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as zoekenStories from './zoeken-loading-state.stories';
+
+<Meta of={zoekenStories} />
+
+# Zoeken - loading state
+
+Een zoekformulier wordt opgebouwd met de [Input Group](/docs/components-form-input-group--documentatie):
+een [vl-input-field](/docs/components-form-input-field--documentatie) en een
+[vl-button](/docs/components-atom-button--documentatie) in de juiste toestand, gewrapt in een
+`<form>`. Zo is er geen aparte zoek-component nodig.
+
+Bij trage backends (bv. een MAGDA-call) is het belangrijk om aan te geven dat de zoekopdracht loopt,
+zodat gebruikers niet meermaals klikken. De `loading`-toestand van `vl-button` blokkeert het klikken
+en zet `aria-busy`; zodra het resultaat binnen is zet je `loading` terug op `false`.
+
+<Canvas of={zoekenStories.ZoekenLoadingState} sourceState="none" />
+
+## Opbouw
+
+```html
+<form role="search" aria-label="Zoeken op deze site">
+    <div class="vl-group vl-group--input-group">
+        <vl-input-field input-group block type="search" name="zoekterm" label="Zoekterm"></vl-input-field>
+        <vl-button input-group icon="search" type="submit" label="Zoeken" tertiary></vl-button>
+    </div>
+    <p role="status" aria-live="polite"></p>
+</form>
+```
+
+De loading-state stuur je aan op de `vl-button`: zet `loading` zodra je de zoekopdracht start en
+haal het er weer af zodra het resultaat binnen is.
+
+```ts
+button.toggleAttribute('loading', true); // zoekopdracht gestart: knop geblokkeerd, aria-busy actief
+// ... resultaat binnen ...
+button.toggleAttribute('loading', false); // terug naar de normale toestand
+status.textContent = '8 resultaten geladen.'; // aankondiging via aria-live
+```
+
+## Toegankelijkheid (WCAG 2.2 AA)
+
+- **`role="search"` landmark** - gebruik dit enkel voor de globale site-search, zodat hulptechnologie
+  het zoekblok als landmark herkent. Staan er meerdere zoekvelden op één pagina (bv. een filter binnen
+  een lijst), geef dan elke `role="search"` een eigen `aria-label`, of laat de role weg voor secundaire
+  zoekvelden.
+- **`aria-busy` tijdens het zoeken** - `vl-button` zet `aria-busy="true"` en `aria-disabled="true"`
+  zolang `loading` aanstaat en blokkeert herhaald klikken. Dat is voldoende om de knop-toestand te
+  communiceren, maar niet om het resultaat aan te kondigen.
+- **Resultaten aankondigen via `aria-live`** - `aria-busy` alleen meldt een screenreader niet dat de
+  zoekopdracht klaar is. Voorzie een `aria-live="polite"`-regio (`role="status"`) en vul die met een
+  korte samenvatting zodra het resultaat binnen is (bv. "8 resultaten geladen"). Zo voldoe je aan
+  [WCAG 4.1.3 Status Messages](https://www.w3.org/WAI/WCAG22/Understanding/status-messages.html).
+- **Label** - het `label`-attribuut op `vl-input-field` is verplicht voor een toegankelijke naam; de
+  `vl-button` ontleent zijn naam aan het label "Zoeken" en is visueel gelabeld door het "search" icoon.

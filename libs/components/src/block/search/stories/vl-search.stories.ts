@@ -2,6 +2,7 @@ import { defaultArgs, defaultArgTypes, story } from '@resources/utils-storybook'
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../vl-search.component';
+import searchDoc from './vl-search.stories-doc.mdx';
 
 export default {
     id: 'components-block-search',
@@ -9,6 +10,11 @@ export default {
     tags: ['autodocs'],
     args: defaultArgs,
     argTypes: defaultArgTypes,
+    parameters: {
+        docs: {
+            page: searchDoc,
+        },
+    },
 } as Meta<typeof defaultArgs>;
 
 // TODO Add options to the story.

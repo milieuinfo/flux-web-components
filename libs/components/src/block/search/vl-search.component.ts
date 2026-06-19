@@ -7,8 +7,14 @@ import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { inputFieldStyles, VlInputFieldComponent } from '../../form/input-field';
 import { vlSearchFluxStyles } from './vl-search.flux-css';
 
+/**
+ * @deprecated Wordt verwijderd in v3. Bouw een zoekformulier met de input-group
+ * (`vl-input-field` + `vl-button` met `loading`), zie het zoek-patroon onder Patronen/Zoeken.
+ */
 @webComponent('vl-search')
 export class VlSearchComponent extends BaseHTMLElement {
+    private static deprecationWarningShown = false;
+
     static {
         registerWebComponents([VlIconComponent, VlInputFieldComponent]);
     }
@@ -82,6 +88,14 @@ export class VlSearchComponent extends BaseHTMLElement {
 
     connectedCallback() {
         super.connectedCallback();
+
+        if (!VlSearchComponent.deprecationWarningShown) {
+            console.warn(
+                'vl-search is deprecated en wordt verwijderd in v3. Bouw een zoekformulier met de input-group' +
+                    ' (vl-input-field + vl-button met loading), zie het zoek-patroon onder Patronen/Zoeken.'
+            );
+            VlSearchComponent.deprecationWarningShown = true;
+        }
 
         if (!this._isInline && !this._isBlock) {
             this.setAttribute('block', ''); // default to block if none set
