@@ -265,7 +265,13 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
     ),
     buildWTConfig('vl-rich-data-field', null, null, '/docs/components-block-rich-data-table--documentatie'),
     buildWTConfig('vl-rich-data-sorter', null, null, '/docs/components-block-rich-data-table--documentatie'),
-    buildWTConfig('vl-search', null, null, '/docs/components-block-search--documentatie'),
+    buildWTConfig(
+        'vl-search',
+        null,
+        '../../libs/components/src/block/search/stories/vl-search.stories-doc.mdx',
+        '/docs/components-block-search--documentatie',
+        'Deprecated en wordt verwijderd in v3. Bouw een zoekformulier met de input-group (vl-input-field + vl-button met loading).'
+    ),
     buildWTConfig(
         'vl-share-button',
         shareButtonArgTypes,

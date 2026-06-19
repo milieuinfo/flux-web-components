@@ -1,11 +1,12 @@
 import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
 import { vlGroupStyles } from '@domg-wc/styles';
+import { VlButtonComponent } from '@domg-wc/components/atom';
+import { VlInputFieldComponent } from '@domg-wc/components/form';
 import {
     VlBreadcrumbComponent,
     VlBreadcrumbItemComponent,
     VlFunctionalHeaderComponent,
-    VlSearchComponent,
 } from '@domg-wc/components/block';
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
@@ -16,7 +17,8 @@ registerWebComponents([
     VlBreadcrumbComponent,
     VlBreadcrumbItemComponent,
     VlFunctionalHeaderComponent,
-    VlSearchComponent,
+    VlButtonComponent,
+    VlInputFieldComponent,
 ]);
 
 export default {
