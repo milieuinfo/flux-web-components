@@ -52,6 +52,7 @@ export class VlDatepickerComponent extends FormControl {
     private position = datepickerDefaults.position;
     private isStatic = datepickerDefaults.isStatic;
     private anchorPositioning = false;
+    private polyfillReady = AnchorPositioningController.isNativelySupported();
     // Controllers
     private anchorController = new AnchorPositioningController(this);
     // Variables
@@ -99,6 +100,7 @@ export class VlDatepickerComponent extends FormControl {
             position: { type: String },
             isStatic: { type: Boolean, attribute: 'static' },
             anchorPositioning: { type: Boolean, attribute: 'anchor-positioning' },
+            polyfillReady: { type: Boolean, state: true },
         };
     }
 
@@ -106,9 +108,9 @@ export class VlDatepickerComponent extends FormControl {
         return this.shadowRoot?.querySelector('input');
     }
 
-    /** Anchor-modus enkel als het attribuut gezet is én de browser het ondersteunt (anders default positionering). */
+    /** Anchor-modus enkel als het attribuut gezet is én de polyfills geladen zijn (anders default positionering). */
     private get useAnchorPositioning(): boolean {
-        return this.anchorPositioning && AnchorPositioningController.isSupported();
+        return this.anchorPositioning && this.polyfillReady;
     }
 
     connectedCallback() {
@@ -131,7 +133,7 @@ export class VlDatepickerComponent extends FormControl {
         }
     }
 
-    firstUpdated(changedProperties: Map<string, unknown>) {
+    async firstUpdated(changedProperties: Map<string, unknown>) {
         super.firstUpdated(changedProperties);
 
         // passen formaat aan indien niet opgegeven
@@ -158,12 +160,34 @@ export class VlDatepickerComponent extends FormControl {
             this.cleaveInstance = new Cleave(this.validationTarget!, this.maskOptions);
         }
 
+        if (this.anchorPositioning && !this.polyfillReady && this.shadowRoot) {
+            this.polyfillReady = await AnchorPositioningController.ensureSupport([this.shadowRoot]);
+        }
+
         this.initializeComponent();
         this.setInitialValue();
     }
 
     updated(changedProperties: Map<string, unknown>) {
         super.updated(changedProperties);
+
+        if (changedProperties.has('anchorPositioning') && this.anchorPositioning && !this.polyfillReady && this.shadowRoot) {
+            AnchorPositioningController.ensureSupport([this.shadowRoot]).then((ok) => {
+                this.polyfillReady = ok;
+            });
+        }
+        if (
+            (changedProperties.has('anchorPositioning') || changedProperties.has('polyfillReady')) &&
+            this.flatpickrInstance &&
+            !this.isStatic
+        ) {
+            if (this.useAnchorPositioning) {
+                this.anchorController.attach(this.flatpickrInstance.calendarContainer);
+            } else {
+                this.anchorController.detach();
+            }
+            this.updateOptionsForInstance(this.getOptions());
+        }
 
         const options = this.getDynamicOptions();
         const dynamicAttributes = [
