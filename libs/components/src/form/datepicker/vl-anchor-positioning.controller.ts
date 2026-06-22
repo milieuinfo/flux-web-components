@@ -1,4 +1,8 @@
 import { LitElement, ReactiveController } from 'lit';
+import {
+    ensureAnchorPositioningPolyfill,
+    isAnchorPositioningNativelySupported,
+} from './vl-anchor-positioning.polyfill';
 
 /**
  * Beheert de Popover API (popover="manual" + show/hidePopover) voor een floating element.
@@ -8,15 +12,12 @@ export default class AnchorPositioningController implements ReactiveController {
     private host: LitElement;
     private floatingElement: HTMLElement | null = null;
 
-    /** Popover API + CSS Anchor Positioning beide ondersteund? Zo niet → caller valt terug op default positionering. */
-    static isSupported(): boolean {
-        return (
-            typeof CSS !== 'undefined' &&
-            typeof CSS.supports === 'function' &&
-            CSS.supports('anchor-name: --x') &&
-            typeof HTMLElement !== 'undefined' &&
-            typeof HTMLElement.prototype.showPopover === 'function'
-        );
+    static isNativelySupported(): boolean {
+        return isAnchorPositioningNativelySupported();
+    }
+
+    static ensureSupport(roots: (Document | HTMLElement | ShadowRoot)[]): Promise<boolean> {
+        return ensureAnchorPositioningPolyfill(roots);
     }
 
     constructor(host: LitElement) {
