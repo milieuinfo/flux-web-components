@@ -30,4 +30,14 @@ if (process.env.RP_ACTIVE === '1') {
     ]);
 }
 
+if (process.env.CI === 'true') {
+    jestConfig.reporters!.push([
+        'jest-junit', {
+            outputDirectory: '<rootDir>/../../test-results',
+            uniqueOutputName: 'true',
+            suiteName: jestConfig.displayName as string,
+        },
+    ]);
+}
+
 export default jestConfig;
