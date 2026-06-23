@@ -4,19 +4,27 @@
 set -e
 
 echo 'RUNNING SCRIPT: verify-release.sh'
-cd flux-web-components
+cd "$(dirname "$0")/../../.."
 
-# Branchnaam bepalen via BAMBOO_BRANCH_NAME (bamboo.planRepository.branchName).
-# Bamboo's checkout-task zet de werkdir in detached HEAD op de trigger-SHA, waardoor
-# git rev-parse na de chore(release) [skip ci] commit niet meer de echte branchnaam
-# teruggeeft. Geen fallback op git rev-parse: zo faalt het script hard als de env var
-# niet correct wordt doorgegeven, in plaats van stilletjes het oude (falende) gedrag te
-# herhalen op de release branch.
-if [[ -z "${BAMBOO_BRANCH_NAME:-}" || "${BAMBOO_BRANCH_NAME}" == "not-specified" ]]; then
-    echo "ERROR: BAMBOO_BRANCH_NAME is niet gezet of staat op 'not-specified' - controleer bamboo.yml en compose.yaml" >&2
+# Branchnaam bepalen via de CI omgeving:
+# - Bamboo: BAMBOO_BRANCH_NAME (bamboo.planRepository.branchName). Bamboo's
+#   checkout-task zet de werkdir in detached HEAD op de trigger-SHA, waardoor
+#   git rev-parse na de chore(release) [skip ci] commit niet meer de echte
+#   branchnaam teruggeeft.
+# - Jenkins: BRANCH_NAME (multibranch) of GIT_BRANCH.
+# Geen fallback op git rev-parse: zo faalt het script hard als er geen branchnaam
+# wordt doorgegeven, in plaats van stilletjes het oude (falende) gedrag te herhalen
+# op de release branch.
+if [[ -n "${BAMBOO_BRANCH_NAME:-}" && "${BAMBOO_BRANCH_NAME}" != "not-specified" ]]; then
+    CURRENT_BRANCH="${BAMBOO_BRANCH_NAME}"
+elif [[ -n "${BRANCH_NAME:-}" ]]; then
+    CURRENT_BRANCH="${BRANCH_NAME}"
+elif [[ -n "${GIT_BRANCH:-}" ]]; then
+    CURRENT_BRANCH="${GIT_BRANCH#origin/}"
+else
+    echo "ERROR: geen branchnaam gevonden (BAMBOO_BRANCH_NAME/BRANCH_NAME/GIT_BRANCH) - controleer bamboo.yml en compose.yaml, of de Jenkins omgeving" >&2
     exit 1
 fi
-CURRENT_BRANCH="${BAMBOO_BRANCH_NAME}"
 
 # verificatie: enkel uitvoeren op een release of develop branch
 if [[ "${CURRENT_BRANCH}" != *"release-v"* && "${CURRENT_BRANCH}" != "develop-v"* ]]; then
@@ -25,8 +33,10 @@ if [[ "${CURRENT_BRANCH}" != *"release-v"* && "${CURRENT_BRANCH}" != "develop-v"
 fi
 echo "Branch verificatie OK: ${CURRENT_BRANCH}"
 
-# versie bepalen uit de components package.json — afkomstig uit het 'artifact-release-and-publish'
-# artifact (zie artifact-download task in bamboo.yml, destination: build)
+# versie bepalen uit de components package.json — op Bamboo afkomstig uit het
+# 'artifact-release-and-publish' artifact (zie artifact-download task in bamboo.yml,
+# destination: build), op Jenkins uit de gedeelde workspace waarin release-and-publish
+# net gedraaid heeft
 cd ./build/dist/libs/components
 NEXT_RELEASE_VERSION=$(npm pkg get version | sed 's/"//g')
 echo "Using ${NEXT_RELEASE_VERSION} as NEXT_RELEASE_VERSION"
