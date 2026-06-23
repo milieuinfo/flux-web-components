@@ -1,10 +1,48 @@
 @Library('Cumulus@1.2-stable') _
 
+String buildPod() {
+    '''
+spec:
+  containers:
+    - name: cypress
+      image: acd-docker.repository.milieuinfo.be/cypress/included:15.4.0
+      command:
+        - cat
+      tty: true
+      env:
+        - name: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD
+          value: "1"
+        - name: PUPPETEER_SKIP_DOWNLOAD
+          value: "true"
+        - name: NO_COLOR
+          value: "1"
+      volumeMounts:
+        - mountPath: /dev/shm
+          name: cypress-dshm
+        - mountPath: /root/.npmrc
+          subPath: .npmrc
+          name: js-settings
+      resources:
+        requests:
+          memory: "1Gi"
+          cpu: "500m"
+        limits:
+          memory: "8Gi"
+  volumes:
+    - name: cypress-dshm
+      emptyDir:
+        medium: Memory
+    - name: js-settings
+      secret:
+        secretName: jenkins-secrets
+'''
+}
+
 pipeline {
     agent {
         kubernetes {
             inheritFrom 'jenkins-jenkins-agent'
-            yaml podBuilder.from([cypress.podSpec('15.4.0', '8Gi'), trivy])
+            yaml podBuilder.from([buildPod(), trivy])
         }
     }
     stages {
