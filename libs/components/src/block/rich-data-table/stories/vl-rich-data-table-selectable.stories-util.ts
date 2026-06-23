@@ -27,6 +27,15 @@ export const selectableRichTableImplementation = (): SelectableRichTableImplemen
         return (getTable()?.data.data || []) as MyData;
     };
 
+    const syncHeaderCheckbox = (): void => {
+        const tableData = getTableData();
+        const allSelected = tableData.length > 0 && tableData.every((item) => item.selected);
+        const noneSelected = tableData.every((item) => !item.selected);
+
+        headerCheckbox.toggleAttribute('indeterminate', !allSelected && !noneSelected);
+        headerCheckbox.toggleAttribute('checked', allSelected);
+    };
+
     const applySelectionToAllRows = (selected: boolean): void => {
         headerCheckbox.removeAttribute('indeterminate');
         const table = getTable();
@@ -81,18 +90,7 @@ export const selectableRichTableImplementation = (): SelectableRichTableImplemen
             const rowData = tableData.find(({ name }) => name === rowName);
             if (rowData) rowData.selected = checked;
 
-            if (tableData.every((item) => item.selected)) {
-                headerCheckbox.setAttribute('checked', '');
-                getHeaderCheckboxInput().indeterminate = false;
-                return;
-            }
-            if (tableData.every((item) => !item.selected)) {
-                headerCheckbox.removeAttribute('checked');
-                getHeaderCheckboxInput().indeterminate = false;
-                return;
-            }
-
-            getHeaderCheckboxInput().indeterminate = true;
+            syncHeaderCheckbox();
         });
         td.appendChild(checkbox);
     };
@@ -106,7 +104,8 @@ export const selectableRichTableImplementation = (): SelectableRichTableImplemen
         td.appendChild(headerLabel);
         td.appendChild(headerCheckbox);
         requestAnimationFrame(() => {
-            headerCheckbox.addEventListener('vl-change', handleSelectAllToggle);
+            headerCheckbox.addEventListener('vl-input', handleSelectAllToggle);
+            syncHeaderCheckbox();
         });
         return td;
     };

@@ -581,15 +581,25 @@ describe('cypress-component - block components - vl-rich-data-table - selectable
             checkActions();
         };
 
+        const syncHeaderCheckbox = () => {
+            const tableData = getTableData();
+            const allSelected = tableData.length > 0 && tableData.every((item: any) => item.selected);
+            const noneSelected = tableData.every((item: any) => !item.selected);
+
+            headerCheckbox.toggleAttribute('indeterminate', !allSelected && !noneSelected);
+            headerCheckbox.toggleAttribute('checked', allSelected);
+        };
+
         const headerTemplate = () => {
             headerCheckbox = document.createElement('vl-checkbox') as any;
             headerCheckbox.setAttribute('label', 'Selecteer alles');
             const td = document.createElement('td');
             td.appendChild(headerCheckbox);
             requestAnimationFrame(() => {
-                headerCheckbox.addEventListener('vl-change', (e: any) => {
+                headerCheckbox.addEventListener('vl-input', (e: any) => {
                     applySelectionToAllRows(e.detail.checked);
                 });
+                syncHeaderCheckbox();
             });
             return td;
         };
@@ -603,22 +613,7 @@ describe('cypress-component - block components - vl-rich-data-table - selectable
                 const rowData = tableData.find(({ name }: any) => name === rowName);
                 if (rowData) rowData.selected = e.detail.checked;
 
-                const allSelected = tableData.every((item: any) => item.selected);
-                const noneSelected = tableData.every((item: any) => !item.selected);
-                if (headerCheckbox?.shadowRoot) {
-                    const headerInput = headerCheckbox.shadowRoot.querySelector('input');
-                    if (headerInput) {
-                        if (allSelected) {
-                            headerCheckbox.setAttribute('checked', '');
-                            headerInput.indeterminate = false;
-                        } else if (noneSelected) {
-                            headerCheckbox.removeAttribute('checked');
-                            headerInput.indeterminate = false;
-                        } else {
-                            headerInput.indeterminate = true;
-                        }
-                    }
-                }
+                syncHeaderCheckbox();
                 checkActions();
             });
             td.appendChild(checkbox);
