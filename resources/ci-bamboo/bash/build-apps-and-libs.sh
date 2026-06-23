@@ -4,10 +4,10 @@
 set -e
 
 echo 'RUNNING SCRIPT: build-apps-and-libs.sh'
-cd flux-web-components
+cd "$(dirname "$0")/../../.."
 
 # jq moet beschikbaar zijn om libs-add-dependencies.sh correct uit te kunnen voeren
-apt-get -y update; apt-get -y install jq
+#apt-get -y update; apt-get -y install jq
 
 echo "npm install - no 'ci' to avoid the clean"
 set +e

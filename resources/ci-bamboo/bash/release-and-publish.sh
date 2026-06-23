@@ -4,10 +4,27 @@
 set -e
 
 echo 'RUNNING SCRIPT: release-and-publish.sh'
-cd flux-web-components
+cd "$(dirname "$0")/../../.."
 
-# get branch name
-GIT_REF_NAME=$(git rev-parse --abbrev-ref HEAD)
+# op Jenkins is de checkout gedaan door een andere user (jnlp container) dan de user
+# die dit script draait (root in de cypress container) - zonder safe.directory weigert
+# git dan elke operatie; op Bamboo is dit een onschuldige extra config entry
+git config --global --add safe.directory "$(pwd)"
+
+# branchnaam bepalen:
+# - Bamboo: BAMBOO_BRANCH_NAME (indien doorgegeven; compose.yaml default is
+#   'not-specified'), anders via git rev-parse zoals voorheen
+# - Jenkins: BRANCH_NAME (multibranch) of GIT_BRANCH - de checkout staat daar in
+#   detached HEAD, dus git rev-parse zou enkel 'HEAD' teruggeven
+if [[ -n "${BAMBOO_BRANCH_NAME:-}" && "${BAMBOO_BRANCH_NAME}" != "not-specified" ]]; then
+    GIT_REF_NAME="${BAMBOO_BRANCH_NAME}"
+elif [[ -n "${BRANCH_NAME:-}" ]]; then
+    GIT_REF_NAME="${BRANCH_NAME}"
+elif [[ -n "${GIT_BRANCH:-}" ]]; then
+    GIT_REF_NAME="${GIT_BRANCH#origin/}"
+else
+    GIT_REF_NAME=$(git rev-parse --abbrev-ref HEAD)
+fi
 echo using $GIT_REF_NAME as GIT_REF_NAME
 
 # determine the branch type
@@ -37,7 +54,9 @@ if [[ ${DEVELOP_BRANCH} == false ]] && [[ ${RELEASE_BRANCH} == false ]];
 fi
 
 # op Bamboo bevat SECRET_GITHUB_TOKEN het GitHub PAT met de juiste rechten
-if [[ -z ${SECRET_GITHUB_TOKEN+x} ]];
+# (compose.yaml default is 'not-specified'); op Jenkins wordt GITHUB_TOKEN
+# rechtstreeks gezet via withCredentials
+if [[ -z ${SECRET_GITHUB_TOKEN+x} || "${SECRET_GITHUB_TOKEN}" == "not-specified" ]];
   then
     echo "SECRET_GITHUB_TOKEN is NIET gezet"
   else
@@ -54,20 +73,37 @@ if [[ -z ${GITHUB_TOKEN+x} ]];
     echo "GITHUB_TOKEN is gezet, OK"
 fi
 
-# the remote set by Bamboo is not authenticated, so remove the remote and add one with authentication
+# the remote set by the CI server is not authenticated, so remove the remote and add one with authentication
+# de 'x-access-token' username werkt zowel met een PAT (Bamboo) als met een GitHub App token (Jenkins)
 echo 'git remote rm origin'
 git remote rm origin &> /dev/null
-echo 'git remote add origin https://${SECRET_GITHUB_TOKEN}@github.com/milieuinfo/flux-web-components.git'
-git remote add origin https://${SECRET_GITHUB_TOKEN}@github.com/milieuinfo/flux-web-components.git &> /dev/null
+echo 'git remote add origin https://x-access-token:${GITHUB_TOKEN}@github.com/milieuinfo/flux-web-components.git'
+git remote add origin https://x-access-token:${GITHUB_TOKEN}@github.com/milieuinfo/flux-web-components.git &> /dev/null
 echo 'git fetch --prune origin'
 git fetch --prune origin &> /dev/null
+# Jenkins kan een shallow clone maken; semantic-release heeft de volledige historiek
+# nodig om de vorige versie te bepalen - op Bamboo is de clone niet shallow (no-op)
+if [[ "$(git rev-parse --is-shallow-repository)" == "true" ]];
+  then
+    echo 'git fetch --unshallow origin'
+    git fetch --unshallow origin &> /dev/null
+fi
+# op Jenkins staat de checkout in detached HEAD - de branch expliciet uitchecken,
+# want semantic-release moet op de branch zelf draaien; op Bamboo is dit een no-op
+echo "git checkout ${GIT_REF_NAME}"
+git checkout ${GIT_REF_NAME}
 echo 'git pull origin ${GIT_REF_NAME}'
 git config pull.ff only
 git pull origin ${GIT_REF_NAME}
 # the git fetch is necessary -> otherwise semantic-release is unaware of the previous version
 # this gives 'does not point to a valid object!' errors - they can be ignored
 echo 'delete all local git tags'
-git tag -d $(git tag -l) &> /dev/null
+# op een verse Jenkins clone kunnen er nog geen lokale tags zijn - 'git tag -d' zonder
+# argumenten zou dan falen onder 'set -e'
+if [[ -n "$(git tag -l)" ]];
+  then
+    git tag -d $(git tag -l) &> /dev/null
+fi
 echo 'fetch all remote git tags'
 git fetch --all --tags --force &> /dev/null
 
@@ -181,13 +217,40 @@ cd ..
 
 if [[ ${RELEASE_BRANCH} == true ]];
   then
-    # curl is niet meer geïnstalleerd in de cypress docker-image
-    apt-get -y update; apt-get -y install curl
-    # de tar uploaden naar artifactory (om het op de cdn te krijgen) - via curl omdat er geen package.json is
-    echo "upload-file 'domg-wc-${NEXT_RELEASE_VERSION}.tgz' naar artifactory"
-    curl --user "${ACD_REPOSITORY_DEBIAN_LOGIN}:${ACD_REPOSITORY_BAMBOO_PASSWORD}" \
-     --upload-file domg-wc-${NEXT_RELEASE_VERSION}.tgz \
-     -v -X PUT "${ACD_REPOSITORY_URL}/local-generic/domg/domg-wc-${NEXT_RELEASE_VERSION}.tgz"
+    # De tar uploaden naar artifactory (om het op de cdn te krijgen) - een PUT
+    # omdat er geen package.json is, dus geen 'npm publish'.
+    #
+    # Dit gebeurt via node en niet via curl: curl zit niet meer in de cypress
+    # docker-image, en 'apt-get install curl' werkt op de Jenkins-pod niet omdat
+    # die geen egress heeft naar deb.debian.org (apt-get update haalt dan geen
+    # enkele package-index op en apt kan de naam 'curl' niet resolven).
+    # Node is er sowieso - het is een cypress-image en npm install draait hierboven -
+    # en heeft fetch() globaal sinds Node 18.
+    TGZ="domg-wc-${NEXT_RELEASE_VERSION}.tgz"
+    TARGET="${ACD_REPOSITORY_URL}/local-generic/domg/${TGZ}"
+    echo "upload-file '${TGZ}' naar artifactory"
+    node -e '
+        const fs = require("fs");
+        const [file, url] = process.argv.slice(1);
+        const auth = Buffer.from(
+            `${process.env.ACD_REPOSITORY_DEBIAN_LOGIN}:${process.env.ACD_REPOSITORY_BAMBOO_PASSWORD}`
+        ).toString("base64");
+        fetch(url, {
+            method: "PUT",
+            headers: { Authorization: `Basic ${auth}` },
+            body: fs.readFileSync(file),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`upload faalde: HTTP ${response.status} ${response.statusText}`);
+                }
+                console.log(`upload OK: HTTP ${response.status}`);
+            })
+            .catch((error) => {
+                console.error(error.message);
+                process.exit(1);
+            });
+    ' "${TGZ}" "${TARGET}"
 fi
 
 cd ..

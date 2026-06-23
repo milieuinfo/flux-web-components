@@ -14,4 +14,20 @@ const jestConfig: JestConfigWithTsJest = {
     testEnvironment: 'jsdom',
 };
 
+// CI=true (gezet in unit-component-integrator-tests.sh) laat jest ook JUnit XML schrijven naar
+// test-results/, waar de junit-step van de Jenkins stage ze oppikt
+if (process.env.CI === 'true') {
+    jestConfig.reporters = [
+        'default',
+        [
+            'jest-junit',
+            {
+                outputDirectory: '<rootDir>/../../../test-results',
+                uniqueOutputName: 'true',
+                suiteName: jestConfig.displayName as string,
+            },
+        ],
+    ];
+}
+
 export default jestConfig;
