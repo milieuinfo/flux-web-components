@@ -2,21 +2,29 @@
 <html>
 <body>
 <style>
-    button[data-version="replaced"] svg,
-    button[data-version="v2-replace"] svg,
-    button[data-version="v2-remove"] svg {
-        color: red;
-    }
+    .sidebar-item {
+        button svg {
+            /* same as text but a little lighter */
+            color: rgba(51, 51, 50, 0.75);
+        }
 
-    button[data-version="v2-todo"] svg,
-    button[data-version="v3-impact"] svg {
-        color: darkorange;
-    }
-
-    button[data-version="v3-next"] svg,
-    button[data-version="next-folder"] svg {
-        color: forestgreen;
+        button[data-version="replaced"] svg,
+        button[data-version="v2-replace"] svg,
+        button[data-version="v2-remove"] svg {
+            color: red;
+        }
+        
+        button[data-version="v2-todo"] svg,
+        button[data-version="v3-impact"] svg {
+            color: darkorange;
+        }
+        
+        button[data-version="v3-next"] svg,
+        button[data-version="next-folder"] svg {
+            color: #10d510;
+        }
     }
 </style>
+<script defer src="./matomo-loader.js"></script>
 </body>
 </html>

@@ -15,6 +15,7 @@ import { CSSResult, html, PropertyDeclarations, PropertyValues, TemplateResult }
 import { VlTabSectionComponent } from './vl-tab-section.component';
 import { VlTabComponent } from './vl-tab.component';
 import { VlTabsPaneComponent } from './vl-tabs-pane.component';
+import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { tabsStyle } from './vl-tabs.css';
 import { vlTabsFluxStyles } from './vl-tabs.flux-css';
 
@@ -98,7 +99,7 @@ export class VlTabsComponent extends BaseLitElement {
     }
 
     static get styles(): CSSResult[] {
-        return [resetStyle, tabsStyle, vlTabsFluxStyles, linkStyle, baseStyle, ...vlLegacyStyles ];
+        return [resetStyle, vlIconStyles, tabsStyle, vlTabsFluxStyles, linkStyle, baseStyle, ...vlLegacyStyles ];
     }
 
     render(): TemplateResult {
@@ -106,7 +107,7 @@ export class VlTabsComponent extends BaseLitElement {
             <div id="tabs" tabs tabs-responsive-label="Navigatie">
                 <div id="tabs-wrapper" class="vl-tabs__wrapper">
                     <ul id="tab-list" class="vl-tabs" tabs-list role="tablist" aria-label="tabs"></ul>
-                    <button type="button" tabs-toggle class="vl-tabs__toggle" close="false">
+                    <button type="button" tabs-toggle class="vl-tabs__toggle vl-icon--arrow" close="false">
                         <span id="tabs-responsive-label">Navigatie</span>
                     </button>
                 </div>

@@ -35,8 +35,8 @@ describe('cypress-component - compliance components - accessibility header', () 
     });
 
     it('should render the correct title', () => {
-        cy.get('vl-functional-header').should('have.attr', 'title', 'Departement Omgeving');
-        cy.get('vl-functional-header').should('not.have.attr', 'title', 'Test');
+        cy.get('vl-functional-header').should('have.attr', 'title-label', 'Departement Omgeving');
+        cy.get('vl-functional-header').should('not.have.attr', 'title-label', 'Test');
     });
 
     it('should render the correct sub-title', () => {

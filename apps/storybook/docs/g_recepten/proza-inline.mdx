@@ -1,0 +1,166 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Recepten/Proza inline gebruik" />
+
+# Proza inline gebruik (`vlProza`)
+
+De `vlProza` directive laat toe om Proza berichten te gebruiken als **attribuut waarden** in Lit templates.
+Dit is handig voor componenten die tekst verwachten via attributen, zoals het `title` attribuut van `vl-alert`.
+
+Zie ook de [proza-directive documentatie](/docs/components-block-proza-message-proza-directive--documentatie).
+
+
+## Setup
+
+### 1. Default domein instellen
+
+Stel het default Proza domein in via `FluxConfig` bij het opstarten van je applicatie. Dit domein wordt
+gebruikt door zowel `vl-proza-message`, `vl-proza-message-preloader` als de `vlProza` directive wanneer er
+geen expliciet domein is meegegeven:
+
+```ts
+import { FluxConfig } from '@domg-wc/common';
+
+FluxConfig.setPreferences({ prozaDomain: 'mijn-domein' });
+```
+
+Dit doe je typisch eenmalig in je `main.ts`, `app.config.ts`, of een gelijkaardig bootstrap-bestand,
+**voordat** het eerste component geregistreerd wordt.
+Zie ook het [Configuratie](/docs/recepten-configuratie--documentatie) recept.
+
+### 2. Import
+
+```ts
+import { vlProza } from '@domg-wc/components/block';
+```
+
+
+## Voorbeelden
+
+### Alert met proza titel
+
+```ts
+import { html } from 'lit';
+import { vlProza } from '@domg-wc/components/block';
+
+const template = html`
+    <vl-alert
+        icon="warning"
+        title=${vlProza('disclaimer.titel')}
+        type="warning"
+        closable
+    ></vl-alert>
+`;
+```
+
+### Alert met proza titel en parameters
+
+```ts
+const template = html`
+    <vl-alert
+        icon="user"
+        title=${vlProza('welkom.titel', { parameters: { naam: gebruiker.naam } })}
+        type="success"
+    ></vl-alert>
+`;
+```
+
+### Ander domein voor een specifieke aanroep
+
+```ts
+const template = html`
+    <vl-alert
+        icon="info-circle"
+        title=${vlProza('melding.titel', { domain: 'ander-domein' })}
+        type="info"
+    ></vl-alert>
+`;
+```
+
+### Fallback tekst tijdens laden
+
+Standaard wordt de `code` getoond als fallback tijdens het laden. Je kan een eigen fallback opgeven:
+
+```ts
+const template = html`
+    <vl-alert
+        icon="warning"
+        title=${vlProza('disclaimer.titel', { fallback: 'Even geduld...' })}
+        type="warning"
+    ></vl-alert>
+`;
+```
+
+### Combinatie met preloader
+
+De `vlProza` directive werkt naadloos samen met `vl-proza-message-preloader`. Als het domein al gepreload is,
+worden berichten direct uit de cache gehaald. Wanneer `prozaDomain` is ingesteld via `FluxConfig`, hoef je
+het domein ook niet meer op de preloader te zetten:
+
+```ts
+const template = html`
+    <vl-proza-message-preloader></vl-proza-message-preloader>
+
+    <vl-alert
+        icon="warning"
+        title=${vlProza('disclaimer.titel')}
+        type="warning"
+    ></vl-alert>
+`;
+```
+
+
+## Verschil met de `vl-proza-message` component
+
+Gebruik `vl-proza-message` wanneer je het bericht als **HTML-inhoud** wilt tonen (bv. in een slot of als child
+element). Gebruik `vlProza` wanneer je het bericht als **plain text** nodig hebt in een attribuut.
+
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th><code>vl-proza-message</code></th>
+            <th><code>vlProza</code></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Gebruik</strong></td>
+            <td>Als child element</td>
+            <td>Als attribuut waarde in Lit template</td>
+        </tr>
+        <tr>
+            <td><strong>Output</strong></td>
+            <td>HTML (in shadow DOM)</td>
+            <td>Plain text</td>
+        </tr>
+        <tr>
+            <td><strong>Editeerbaar</strong></td>
+            <td>Ja (edit/refresh knoppen)</td>
+            <td>Nee</td>
+        </tr>
+    </tbody>
+</table>
+
+
+## Migratie van eigen implementatie
+
+Als je al een eigen `proza()` utility hebt die `until()` en `VlProzaMessage.getMessage()` combineert met
+een eigen HTML-stripping functie, kan je deze volledig vervangen door `vlProza`:
+
+**Na migratie:**
+
+```ts
+// eenmalig bij bootstrap (app.config.ts)
+import { FluxConfig } from '@domg-wc/common';
+FluxConfig.setPreferences({ prozaDomain: 'mijn-domein' });
+
+// gebruik in templates
+import { vlProza } from '@domg-wc/components/block';
+html`<vl-alert title=${vlProza('disclaimer.titel')} type="warning"></vl-alert>`
+
+// vl-proza-message zonder expliciet domein
+html`<vl-proza-message code="mijn-code"></vl-proza-message>`
+```
+
+De `vlProza` directive en `vl-proza-message` component halen het domein automatisch uit `FluxConfig`.

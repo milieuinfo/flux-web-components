@@ -2,8 +2,9 @@ import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import { VlSelectComponent } from './vl-select.component';
 import { SelectOption } from './vl-select.model';
+import { VlFormMessageComponent } from '../form-message/vl-form-message.component';
 
-registerWebComponents([VlSelectComponent]);
+registerWebComponents([VlSelectComponent, VlFormMessageComponent]);
 
 const options: SelectOption[] = [
     { label: 'Hasselt', value: 'hasselt' },
@@ -24,13 +25,23 @@ const optionsGrouped: SelectOption[] = ['België', 'België', 'België', 'Belgi�
     (group, i) => ({ ...options[i], group })
 );
 
-describe('cypress-component - form components - vl-select', () => {
+describe('vl-select - properties & states', () => {
+    beforeEach(() => {
+        cy.viewport(1200, 800);
+    });
+
     it('should mount', () => {
-        cy.mount(html`<vl-select label="geboorteplaats" .options=${options}></vl-select>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-select label="geboorteplaats" .options=${options}></vl-select>
+            </div>
+        `);
         cy.injectAxe();
 
         cy.checkA11y('vl-select');
         cy.get('vl-select').shadow().find('select');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-mount');
     });
 
     it('should set id', () => {
@@ -66,29 +77,60 @@ describe('cypress-component - form components - vl-select', () => {
     });
 
     it('should set disabled', () => {
-        cy.mount(html`<vl-select label="geboorteplaats" disabled .options=${options}></vl-select>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-select label="geboorteplaats" disabled .options=${options}></vl-select>
+            </div>
+        `);
         cy.injectAxe();
 
         cy.checkA11y('vl-select');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-disabled');
         cy.get('vl-select').shadow().find('select').should('have.class', 'vl-select--disabled');
         cy.get('vl-select').shadow().find('select').should('be.disabled');
+        cy.get('vl-select')
+            .shadow()
+            .find('select')
+            .shouldHaveComputedStyle({ style: 'background-color', value: 'rgb(243, 245, 246)' });
     });
 
     it('should set error', () => {
-        cy.mount(html`<vl-select label="geboorteplaats" error .options=${options}></vl-select>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-select label="geboorteplaats" error .options=${options}></vl-select>
+            </div>
+        `);
         cy.injectAxe();
 
         cy.checkA11y('vl-select');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-error');
         cy.get('vl-select').shadow().find('select').should('have.class', 'vl-select--error');
         cy.get('vl-select').shadow().find('select').should('have.attr', 'error');
+        cy.get('vl-select')
+            .shadow()
+            .find('select')
+            .shouldHaveComputedStyle({ style: 'border-color', value: 'rgb(210, 55, 60)' })
+            .shouldHaveComputedStyle({ style: 'background-color', value: 'rgb(251, 235, 236)' });
     });
 
     it('should set success', () => {
-        cy.mount(html`<vl-select label="geboorteplaats" success .options=${options}></vl-select>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-select label="geboorteplaats" success .options=${options}></vl-select>
+            </div>
+        `);
         cy.injectAxe();
 
         cy.checkA11y('vl-select');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-success');
         cy.get('vl-select').shadow().find('select').should('have.class', 'vl-select--success');
+        cy.get('vl-select')
+            .shadow()
+            .find('select')
+            .shouldHaveComputedStyle({ style: 'border-color', value: 'rgb(0, 158, 71)' });
     });
 
     it('should set placeholder', () => {
@@ -105,12 +147,26 @@ describe('cypress-component - form components - vl-select', () => {
         cy.get('vl-select').shadow().find('.vl-select__placeholder').contains('Selecteer je geboorteplaats');
     });
 
+    it('should set block', () => {
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-select label="geboorteplaats" block .options=${options}></vl-select>
+            </div>
+        `);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-block');
+        cy.get('vl-select').shadow().find('select').should('have.class', 'vl-select--block');
+    });
+
     it('should be deletable', () => {
         cy.mount(html`<vl-select label="geboorteplaats" .options=${optionsWithSelected}></vl-select>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select');
-        cy.get('vl-select').shadow().find('button.vl-select__button span.vl-icon.vl-vi.vl-vi-close');
+        cy.get('vl-select').shadow().find('button.vl-select__button span.vl-icon.vl-icon--close');
     });
 
     it('should set not-deletable', () => {
@@ -129,14 +185,28 @@ describe('cypress-component - form components - vl-select', () => {
         cy.get('vl-select').shadow().find('select').should('have.attr', 'autocomplete', 'name');
     });
 
-    it('should set block', () => {
-        cy.mount(html`<vl-select label="geboorteplaats" block .options=${options}></vl-select>`);
+    it('should use groups', () => {
+        cy.mount(html`<vl-select label="geboorteplaats" .options=${optionsGrouped}></vl-select>`);
         cy.injectAxe();
 
         cy.checkA11y('vl-select');
-        cy.get('vl-select').shadow().find('select').should('have.class', 'vl-select--block');
+        cy.get('vl-select')
+            .shadow()
+            .find('select')
+            .find(`optgroup[label="${optionsGrouped[0].group}"]`)
+            .find('option')
+            .should('have.length', 5);
+        cy.get('vl-select')
+            .shadow()
+            .find('select')
+            .find(`optgroup[label="${optionsGrouped[5].group}"]`)
+            .find('option')
+            .should('have.length', 1);
+        cy.checkA11y('vl-select');
     });
+});
 
+describe('vl-select - events', () => {
     it('should dispatch vl-change event on select and delete option', () => {
         cy.mount(html`<vl-select label="geboorteplaats" .options=${options}></vl-select>`);
         cy.injectAxe();
@@ -222,7 +292,9 @@ describe('cypress-component - form components - vl-select', () => {
         cy.get('@vl-valid').should('have.been.calledOnce');
         cy.checkA11y('vl-select');
     });
+});
 
+describe('vl-select - options', () => {
     it('should select option', () => {
         cy.mount(html`<vl-select label="geboorteplaats" .options=${options}></vl-select>`);
         cy.injectAxe();
@@ -292,26 +364,6 @@ describe('cypress-component - form components - vl-select', () => {
         cy.checkA11y('vl-select');
     });
 
-    it('should use groups', () => {
-        cy.mount(html`<vl-select label="geboorteplaats" .options=${optionsGrouped}></vl-select>`);
-        cy.injectAxe();
-
-        cy.checkA11y('vl-select');
-        cy.get('vl-select')
-            .shadow()
-            .find('select')
-            .find(`optgroup[label="${optionsGrouped[0].group}"]`)
-            .find('option')
-            .should('have.length', 5);
-        cy.get('vl-select')
-            .shadow()
-            .find('select')
-            .find(`optgroup[label="${optionsGrouped[5].group}"]`)
-            .find('option')
-            .should('have.length', 1);
-        cy.checkA11y('vl-select');
-    });
-
     it('should be able to add options dynamically and show the placeholder if none of the options are selected', () => {
         const mockPlaceholder = 'Mock placeholder';
         cy.mount(html`<vl-select placeholder="${mockPlaceholder}"></vl-select>`);
@@ -329,8 +381,6 @@ describe('cypress-component - form components - vl-select', () => {
             .shadow()
             .find('select')
             .then(
-                // De lege value van de `vl-select` moet `""` zijn om de placeholder te tonen.
-                // `null` of `undefined` doen dit niet en zorgen ervoor dat het eerstvolgende element getoond wordt.
                 ($select) => expect($select.children(`option[value="${String(selectedValue)}"]`)[0]).not.to.be.undefined
             );
     });
@@ -359,9 +409,35 @@ describe('cypress-component - form components - vl-select', () => {
                         .not.to.be.undefined
             );
     });
+
+    it('should reset value to empty when slotted options change to a set without a selection', () => {
+        cy.mount(
+            html`<vl-select placeholder="Selecteer">
+                <option value="hasselt">Hasselt</option>
+                <option value="turnhout" selected>Turnhout</option>
+            </vl-select>`
+        );
+
+        cy.get('vl-select').should(($vlSelect) => {
+            expect($vlSelect[0].value).to.equal('turnhout');
+        });
+
+        cy.get('vl-select').then(($vlSelect) => {
+            $vlSelect[0].innerHTML = `
+                <option value="hasselt">Hasselt</option>
+                <option value="turnhout">Turnhout</option>
+            `;
+        });
+
+        cy.get('vl-select').should(($vlSelect) => {
+            expect($vlSelect[0].value).to.equal('');
+        });
+
+        cy.get('vl-select').shadow().find('option:selected').should('contain', 'Selecteer');
+    });
 });
 
-describe('cypress-component - form components - vl-select - in form', () => {
+describe('vl-select - in form', () => {
     beforeEach(() => {
         cy.mount(html`
             <form
@@ -487,7 +563,7 @@ describe('cypress-component - form components - vl-select - in form', () => {
     });
 });
 
-describe('cypress-component - form components - vl-select - declarative options', () => {
+describe('vl-select - declarative options', () => {
     it('should mount with declarative options', () => {
         cy.mount(html`
             <vl-select label="geboorteplaats">
@@ -591,7 +667,7 @@ describe('cypress-component - form components - vl-select - declarative options'
     it('should prioritize programmatic options over declarative options', () => {
         const programmaticOptions = [
             { label: 'Programmatic Option 1', value: 'prog1' },
-            { label: 'Programmatic Option 2', value: 'prog2' }
+            { label: 'Programmatic Option 2', value: 'prog2' },
         ];
 
         cy.mount(html`
@@ -606,6 +682,36 @@ describe('cypress-component - form components - vl-select - declarative options'
         cy.get('vl-select').shadow().find('select option').should('have.length', 2);
         cy.get('vl-select').shadow().find('select option').first().should('contain', 'Programmatic Option 1');
         cy.get('vl-select').shadow().find('select option').should('not.contain', 'Hasselt');
+    });
+
+    it('should sync value with selected slotted option after slot mutation (FLUX-637)', () => {
+        // Bug: bij een slot mutatie (bv. wanneer de opties worden ververst nadat een modal opent)
+        // bleef this.value op de oude waarde staan terwijl de geselecteerde <option> in het slot
+        // een andere waarde had. Hierdoor toonde de native <select> de verkeerde waarde.
+        cy.mount(html`
+            <vl-select id="slot-sync-select" label="geboorteplaats">
+                <option value="hasselt" selected>Hasselt</option>
+                <option value="turnhout">Turnhout</option>
+            </vl-select>
+        `);
+
+        cy.get('vl-select').should('have.value', 'hasselt');
+        cy.get('vl-select').shadow().find('select').should('have.value', 'hasselt');
+
+        // Vervang de slotted opties zodat een andere optie selected is
+        cy.get('vl-select').then(($select) => {
+            const el = $select[0];
+            el.innerHTML = `
+                <option value="hasselt">Hasselt</option>
+                <option value="turnhout" selected>Turnhout</option>
+            `;
+        });
+
+        // Wacht tot de mutation observer / slotchange afgehandeld is
+        cy.wait(100);
+
+        cy.get('vl-select').should('have.value', 'turnhout');
+        cy.get('vl-select').shadow().find('select').should('have.value', 'turnhout');
     });
 
     it('should update when declarative options change dynamically', () => {
@@ -632,5 +738,48 @@ describe('cypress-component - form components - vl-select - declarative options'
         cy.wait(100);
         cy.get('vl-select').shadow().find('select option').should('have.length', 3);
         cy.get('vl-select').shadow().find('select option').last().should('contain', 'Lier');
+    });
+});
+
+describe('vl-select - blur-validation', () => {
+    const mount = () => {
+        cy.mount(html`
+            <form>
+                <vl-select
+                    id="sel"
+                    name="sel"
+                    required
+                    blur-validation
+                    .options=${[
+                        { label: 'Kies...', value: '' },
+                        { label: 'Een', value: 'een' },
+                    ]}
+                ></vl-select>
+                <vl-form-message for="sel" state="valueMissing">Verplicht.</vl-form-message>
+            </form>
+        `);
+    };
+
+    it('should show error on blur after focus, even without selection', () => {
+        mount();
+        cy.get('vl-select').shadow().find('select').focus().blur();
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+    });
+
+    it('should show error after simulated user-mutation + blur (base-class isolation)', () => {
+        mount();
+        cy.get('vl-select').then(($el) => {
+            const sel = $el[0] as VlSelectComponent;
+            sel.dispatchEvent(new CustomEvent('vl-input', { bubbles: true, composed: true, detail: { value: '' } }));
+            sel.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true }));
+        });
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+    });
+
+    it('should not show error after real option pick + blur (selection makes valid)', () => {
+        mount();
+        cy.get('vl-select').shadow().find('select').select('een');
+        cy.get('vl-select').shadow().find('select').focus().blur();
+        cy.get('vl-form-message[state="valueMissing"]').should('not.have.attr', 'show');
     });
 });

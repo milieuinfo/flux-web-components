@@ -1,7 +1,7 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html, TemplateResult } from 'lit-html';
+import { html, TemplateResult } from 'lit';
 import { VlButtonComponent } from '../../../atom/button';
 import { VlTooltipComponent } from '../vl-tooltip.component';
 import { tooltipArgTypes, tooltipDefaultArgs } from './vl-tooltip.stories-arg';

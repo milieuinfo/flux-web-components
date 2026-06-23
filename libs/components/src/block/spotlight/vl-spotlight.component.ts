@@ -4,6 +4,7 @@ import { documentStyle, iconListStyle, spotlightStyle } from '@domg/govflanders-
 import { html, nothing } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { vlSpotlightFluxStyles } from './vl-spotlight.flux-css';
 import { SIZE } from './vl-spotlight.model';
 
@@ -11,6 +12,7 @@ import { SIZE } from './vl-spotlight.model';
 export class VlSpotlight extends BaseLitElement {
     // Attributes
     private link = '';
+    private linkLabel = '';
     private external = false;
     private alt = false;
     private noBorder = false;
@@ -19,7 +21,15 @@ export class VlSpotlight extends BaseLitElement {
     private imgAlt = '';
 
     static get styles() {
-        return [vlResetStyles, ...vlLegacyStyles, spotlightStyle, documentStyle, iconListStyle, vlSpotlightFluxStyles];
+        return [
+            vlResetStyles,
+            ...vlLegacyStyles,
+            spotlightStyle,
+            documentStyle,
+            iconListStyle,
+            vlSpotlightFluxStyles,
+            vlIconStyles,
+        ];
     }
 
     static get properties() {
@@ -27,6 +37,10 @@ export class VlSpotlight extends BaseLitElement {
             link: {
                 type: String,
                 attribute: 'link',
+            },
+            linkLabel: {
+                type: String,
+                attribute: 'link-label',
             },
             external: {
                 type: Boolean,
@@ -62,7 +76,18 @@ export class VlSpotlight extends BaseLitElement {
         return html` <slot name="${slotName}"></slot>`;
     }
 
+    __hasSlotContent(slotName: string): boolean {
+        const slotElement = this.querySelector(`[slot="${slotName}"]`);
+        if (!slotElement) {
+            return false;
+        }
+        return slotElement.childElementCount > 0 || (slotElement.textContent || '').trim().length > 0;
+    }
+
     __processSlotTitle() {
+        if (!this.__hasSlotContent('title')) {
+            return nothing;
+        }
         return this._getTitleTemplateWithValue(this.__getSlot('title'));
     }
 
@@ -71,6 +96,9 @@ export class VlSpotlight extends BaseLitElement {
     }
 
     __processSlotTitleInHeader() {
+        if (!this.__hasSlotContent('title')) {
+            return nothing;
+        }
         return this._getTitleTemplateWithValue(this.__getSlot('title'));
     }
 
@@ -83,7 +111,7 @@ export class VlSpotlight extends BaseLitElement {
     }
 
     _getTitleTemplateWithValue(value: any) {
-        return html`<h3 class="vl-spotlight__title">${value}</h3>`;
+        return html`<h3 class="vl-spotlight__title">${value}${this.external ? this.__renderExternalIcon() : nothing}</h3>`;
     }
 
     _getSubTitleTemplateWithValue(value: any) {
@@ -115,10 +143,14 @@ export class VlSpotlight extends BaseLitElement {
             'vl-spotlight--no-border': this.noBorder,
         };
         if (this.link) {
+            const target = this.external ? '_blank' : nothing;
+            const rel = this.external ? 'noopener noreferrer nofollow' : nothing;
             return html`<a
                 href="${this.link}"
                 class="${classMap(classes)}"
-                target=${this.external ? '_blank' : nothing}
+                target=${target}
+                rel=${rel}
+                aria-label=${this.linkLabel || nothing}
             >
                 <article role="none">
                     ${this.__processHeader()} ${this.__processSlotTitle()} ${this.__processSlotSubTitle()}
@@ -132,6 +164,10 @@ export class VlSpotlight extends BaseLitElement {
                 ${this.__processSlotContent()} ${this.__processSlotText()}
             </article>
         `;
+    }
+
+    __renderExternalIcon() {
+        return html`<span class="vl-icon vl-icon--external vl-icon--after vl-spotlight__external-icon" aria-hidden="true"></span>`;
     }
 
     __processHeader() {

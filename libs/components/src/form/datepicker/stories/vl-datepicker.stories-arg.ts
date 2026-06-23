@@ -6,7 +6,12 @@ import { DATEPICKER_POSITIONS, DATEPICKER_TYPES } from '../vl-datepicker.model';
 import { action } from 'storybook/actions';
 
 type DatepickerArgs = typeof formControlArgs &
-    typeof datepickerDefaults & { onVlChange: () => void; onVlInput: () => void; onVlValid: () => void };
+    typeof datepickerDefaults & {
+        onVlChange: () => void;
+        onVlInput: () => void;
+        onVlValid: () => void;
+        anchorPositioning: boolean;
+    };
 
 export const datepickerArgs: DatepickerArgs & { helperText?: string } = {
     ...formControlArgs,
@@ -14,6 +19,7 @@ export const datepickerArgs: DatepickerArgs & { helperText?: string } = {
     onVlChange: action('vl-change'),
     onVlInput: action('vl-input'),
     onVlValid: action('vl-valid'),
+    anchorPositioning: false,
     helperText: '',
 };
 
@@ -88,7 +94,7 @@ export const datepickerArgTypes: ArgTypes<DatepickerArgs> = {
     },
     minDate: {
         name: 'min-date',
-        description: "Minimum datum conform het ingestelde formaat (bv. '01-01-2019') of 'today' voor vandaag.",
+        description: "Minimum datum conform het ingestelde formaat (bv. '01.01.2019') of 'today' voor vandaag.",
         control: { type: CONTROLS.DATE },
         table: {
             type: { summary: TYPES.STRING },
@@ -98,7 +104,7 @@ export const datepickerArgTypes: ArgTypes<DatepickerArgs> = {
     },
     maxDate: {
         name: 'max-date',
-        description: "Maximum datum conform het ingestelde format (bv. '31-12-2019') of 'today' voor vandaag.",
+        description: "Maximum datum conform het ingestelde formaat (bv. '31.12.2019') of 'today' voor vandaag.",
         control: { type: CONTROLS.DATE },
         table: {
             type: { summary: TYPES.STRING },
@@ -142,16 +148,6 @@ export const datepickerArgTypes: ArgTypes<DatepickerArgs> = {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: String(datepickerArgs.disableMaskValidation) },
-        },
-    },
-    disableMobileNativeInput: {
-        name: 'disable-mobile-native-input',
-        description:
-            'Rendert de native datepicker op mobiele toestellen in plaats van flatpickr calendar. [Meer Info](https://flatpickr.js.org/mobile-support/)',
-        table: {
-            type: { summary: TYPES.BOOLEAN },
-            category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: String(datepickerArgs.disableMobileNativeInput) },
         },
     },
     pattern: {
@@ -222,5 +218,17 @@ export const datepickerArgTypes: ArgTypes<DatepickerArgs> = {
             defaultValue: { summary: String(datepickerArgs.isStatic) },
         },
         control: false,
+    },
+    anchorPositioning: {
+        name: 'anchor-positioning',
+        description:
+            'Activeert CSS Anchor Positioning + Popover API voor de kalender positionering. ' +
+            'Dit zorgt ervoor dat de kalender correct wordt gepositioneerd in scrollbare containers ' +
+            'en niet wordt afgekapt door overflow of transform op ancestor-elementen (bijv. in een modal).',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: 'false' },
+        },
     },
 };

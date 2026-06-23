@@ -39,7 +39,7 @@ Wij gebruiken node via volta, de historiek van de versies die wij gebruiken is a
 - 16.18.1 / sinds 22/09/2022
 
 
-## Afname artifact's
+## Afname artifacts
 
 Als Flux team hebben wij geen productie toepassing. Wij hebben wel de 'ConsumerApp' die we gebruiken om manueel te testen, hiervoor
 zijn er nog geen automatische testen in de build.

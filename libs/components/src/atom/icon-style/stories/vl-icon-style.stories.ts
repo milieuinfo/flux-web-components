@@ -1,4 +1,4 @@
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { vlIconStyles } from '../vl-icon-style.css';
 import vlIconStoriesDoc from './vl-icon-style.stories-doc.mdx';
 import { Meta } from '@storybook/web-components-vite';

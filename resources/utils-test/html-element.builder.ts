@@ -1,7 +1,7 @@
-const buildHTMLElement = <H extends HTMLElement>(
+export const buildHTMLElement = <H extends HTMLElement>(
     tagName: string,
     innerHtml: string | null,
-    className: string | null = null
+    className: string | null = null,
 ): H => {
     const element: H = document.createElement(tagName) as H;
     if (className) element.className = className;

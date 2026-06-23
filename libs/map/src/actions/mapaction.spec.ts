@@ -1,5 +1,8 @@
 import { VlBaseMapAction } from './mapaction';
 import Interaction from 'ol/interaction/Interaction';
+import OlVectorLayer from 'ol/layer/Vector';
+import OlVectorSource from 'ol/source/Vector';
+import { OlVectorLayerType } from '../vl-map.model';
 
 describe('jest - map - mapaction', () => {
     it('kan een interactie toevoegen die niet actief staat', () => {
@@ -25,5 +28,24 @@ describe('jest - map - mapaction', () => {
         const VlmapAction = new VlBaseMapAction([new Interaction(), new Interaction()]);
         VlmapAction.deactivate();
         VlmapAction.interactions.forEach((interaction) => expect(interaction.getActive()).toBe(false));
+    });
+
+    it('is enkel van toepassing op zijn eigen layer', () => {
+        const layer = new OlVectorLayer({ source: new OlVectorSource() }) as OlVectorLayerType;
+        const otherLayer = new OlVectorLayer({ source: new OlVectorSource() }) as OlVectorLayerType;
+        const VlmapAction = new VlBaseMapAction([new Interaction()]);
+        VlmapAction.layer = layer;
+        expect(VlmapAction.appliesToLayer(layer)).toBe(true);
+        expect(VlmapAction.appliesToLayer(otherLayer)).toBe(false);
+    });
+
+    it('heeft een zichtbare layer enkel wanneer zijn eigen layer zichtbaar is', () => {
+        const layer = new OlVectorLayer({ source: new OlVectorSource() }) as OlVectorLayerType;
+        const VlmapAction = new VlBaseMapAction([new Interaction()]);
+        VlmapAction.layer = layer;
+        layer.setVisible(true);
+        expect(VlmapAction.hasVisibleLayer()).toBe(true);
+        layer.setVisible(false);
+        expect(VlmapAction.hasVisibleLayer()).toBe(false);
     });
 });

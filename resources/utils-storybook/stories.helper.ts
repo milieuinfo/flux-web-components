@@ -3,7 +3,6 @@ import { nothing } from 'lit';
 import * as prettierHtml from 'prettier/parser-html';
 import * as prettier from 'prettier/standalone';
 import { action } from 'storybook/actions';
-import { buttonArgs } from '../../libs/components/src/atom/button/stories/vl-button.stories-arg';
 
 export const CATEGORIES = {
     ATTRIBUTES: 'Attributes',
@@ -51,7 +50,7 @@ export const formatHTML = (input: string) => {
     try {
         return prettier.format(input, {
             parser: 'html',
-            plugins: [prettierHtml],
+            plugins: [prettierHtml as any],
             semi: false,
             printWidth: 120,
             tabWidth: 4,
@@ -63,8 +62,7 @@ export const formatHTML = (input: string) => {
     }
 };
 
-export const getSelectControlOptions = (options: string[]) =>
-    options.join(' | ');
+export const getSelectControlOptions = (options: string[]) => options.join(' | ');
 
 // Logt het event in zowel in Storybook als in de developer console.
 // Logt het event in de developer console omdat in Storybook custom event properties soms niet gelogd worden.

@@ -1,7 +1,7 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { VlLinkComponent } from '../../../atom/link';
 import { VlPopoverComponent } from '../../popover';
@@ -27,6 +27,7 @@ export default {
 const Template = story(
     accordionArgs,
     ({
+        altBackground,
         bold,
         closeToggleText,
         contentPadding,
@@ -43,6 +44,7 @@ const Template = story(
         onToggle,
     }) => html`
         <vl-accordion
+            ?alt-background=${altBackground}
             ?bold=${bold}
             content-padding=${contentPadding}
             close-toggle-text=${closeToggleText}
@@ -137,4 +139,13 @@ AccordionMenuSlot.args = {
                    </vl-popover-action-list>
                  </vl-popover>
                </span>`,
+};
+
+export const AccordionAltBackground = Template.bind({});
+AccordionAltBackground.storyName = 'vl-accordion - alt background';
+AccordionAltBackground.args = {
+    toggleText: 'Lees meer over de onderwijsdoelstelling',
+    altBackground: true,
+    defaultSlot:
+        '<span>Onderwijs helpt jonge mensen en volwassenen om zichzelf te ontwikkelen en hun weg te vinden in onze samenleving. Het hoger onderwijs speelt daarnaast een belangrijke rol in innovatie dankzij het belang van wetenschappelijk onderzoek.</span>',
 };

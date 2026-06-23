@@ -5,12 +5,14 @@ export const buildWTConfig = (
     componentName: string,
     argTypes: ArgTypes,
     storiesDocFile: string,
-    storybookPath: string
+    storybookPath: string,
+    deprecated?: boolean | string
 ): WTConfig => {
     return {
         componentName,
         argTypes,
         storiesDocFile,
         storybookPath,
+        ...(deprecated !== undefined && { deprecated }),
     };
 };

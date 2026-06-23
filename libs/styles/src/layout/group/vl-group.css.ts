@@ -20,6 +20,18 @@ export const vlGroupStyles: CSSResult = css`
             gap: 0;
         }
 
+        &.vl-group--no-row-gap {
+            row-gap: 0;
+        }
+
+        &.vl-group--no-column-gap {
+            column-gap: 0;
+        }
+
+        &.vl-group--wrap {
+            flex-wrap: wrap;
+        }
+
         &.vl-group--space-between {
             justify-content: space-between;
         }
@@ -70,17 +82,46 @@ export const vlGroupStyles: CSSResult = css`
                     margin-bottom: 0.6rem;
                 }
             }
+
+            &.vl-group--separator-row-before {
+                > :first-child::before {
+                    content: '';
+                    border-left: 1px solid #cbd2da;
+                    padding-left: calc(1.4rem - 1px);
+                    margin-top: 0.6rem;
+                    margin-bottom: 0.6rem;
+                }
+            }
+
+            &.vl-group--separator-row-after {
+                > :last-child::after {
+                    content: '';
+                    border-right: 1px solid #cbd2da;
+                    padding-right: calc(1.4rem - 1px);
+                    margin-top: 0.6rem;
+                    margin-bottom: 0.6rem;
+                }
+            }
         }
 
         &.vl-group--separator-column {
-            > * {
+            > * + * {
                 padding-top: 1.5rem;
                 border-top: 1px solid #cbd2da;
             }
 
-            > :last-child {
-                padding-bottom: 1.5rem;
-                border-bottom: 1px solid #cbd2da;
+            &.vl-group--separator-column-before {
+                > :first-child {
+                    padding-top: 1.5rem;
+                    border-top: 1px solid #cbd2da;
+                }
+            }
+
+            &.vl-group--separator-column-after {
+                > :last-child {
+                    padding-bottom: 1.5rem;
+                    border-bottom: 1px solid #cbd2da;
+                }
             }
         }
 

@@ -753,6 +753,11 @@
                             "default": ""
                         },
                         {
+                            "name": "z-index",
+                            "description": "De z-index van de kaartlaag. Bepaalt de volgorde waarin kaartlagen worden weergegeven.",
+                            "default": "null"
+                        },
+                        {
                             "name": "auto-extent",
                             "description": "Automatisch zoomen op de kaartlaag zodat al de features zichtbaar zijn.",
                             "default": "false"
@@ -830,6 +835,21 @@
                             "default": ""
                         },
                         {
+                            "name": "z-index",
+                            "description": "De z-index van de kaartlaag. Bepaalt de volgorde waarin kaartlagen worden weergegeven.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "cql-filter",
+                            "description": "Een CQL-expressie waarmee de features van de WFS-laag server-side gefilterd worden. De waarde wordt als <code>cql_filter</code> query parameter naar de server gestuurd, gecombineerd met een <code>BBOX</code>-clausule op de geometry-property: <code>cql_filter=BBOX(geometry,extent) AND (filter)</code> in plaats van een <code>bbox</code> parameter. <br><strong>Let op:</strong> <code>cql_filter</code> is een GeoServer-specifieke extensie en wordt niet door elke WFS-implementatie ondersteund.<br>Dit attribuut is reactief.",
+                            "default": ""
+                        },
+                        {
+                            "name": "geometry-name",
+                            "description": "De naam van de geometry-property die in de CQL <code>BBOX(...)</code>-clausule gebruikt wordt. Enkel relevant samen met <code>cql-filter</code>. Indien niet meegegeven wordt de geometry-property best-effort gedetecteerd via een <code>DescribeFeatureType</code> call; geef dit attribuut expliciet mee wanneer die auto-detectie faalt.<br>Dit attribuut is niet reactief.",
+                            "default": ""
+                        },
+                        {
                             "name": "layers",
                             "description": "De layers van de WFS.<br>Dit attribuut is niet reactief.",
                             "default": ""
@@ -880,6 +900,11 @@
                             "name": "name",
                             "description": "De naam van de kaartlaag.<br>Dit attribuut is niet reactief.",
                             "default": ""
+                        },
+                        {
+                            "name": "z-index",
+                            "description": "De z-index van de kaartlaag. Bepaalt de volgorde waarin kaartlagen worden weergegeven.",
+                            "default": "null"
                         },
                         {
                             "name": "layers",
@@ -939,6 +964,11 @@
                             "default": ""
                         },
                         {
+                            "name": "z-index",
+                            "description": "De z-index van de kaartlaag. Bepaalt de volgorde waarin kaartlagen worden weergegeven.",
+                            "default": "null"
+                        },
+                        {
                             "name": "layers",
                             "description": "De WMS layers.",
                             "default": ""
@@ -994,6 +1024,11 @@
                             "name": "name",
                             "description": "De naam van de kaartlaag.<br>Dit attribuut is niet reactief.",
                             "default": ""
+                        },
+                        {
+                            "name": "z-index",
+                            "description": "De z-index van de kaartlaag. Bepaalt de volgorde waarin kaartlagen worden weergegeven.",
+                            "default": "null"
                         },
                         {
                             "name": "layers",
@@ -1070,6 +1105,11 @@
                             "default": ""
                         },
                         {
+                            "name": "z-index",
+                            "description": "De z-index van de kaartlaag. Bepaalt de volgorde waarin kaartlagen worden weergegeven.",
+                            "default": "null"
+                        },
+                        {
                             "name": "layer",
                             "description": "De layer van de WMTS.<br>Dit attribuut is niet reactief.",
                             "default": ""
@@ -1087,6 +1127,11 @@
                         {
                             "name": "matrix-prefix",
                             "description": "Definieert of de matrix moet geprefixt worden met de matrix set.<br/>Dit attribuut is niet reactief.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "from-capabilities",
+                            "description": "Haalt de TileMatrix configuratie op uit de WMTS GetCapabilities response.<br>Dit attribuut is niet reactief.",
                             "default": "false"
                         }
                     ]
@@ -1124,6 +1169,10 @@
                         {
                             "name": "name",
                             "description": "De naam van de stijl, deze naam wordt getoond als tekst in de legende als de map-legend op de kaart is toegevoegd. Een stijl zonder name attribuut zal nooit in de legende getoond worden. Tenzij het om een enkele stijl in een features-layer of wfs-layer gaat, in dat geval wordt de name van de layer in de legende getoond."
+                        },
+                        {
+                            "name": "pattern",
+                            "description": "Een data:image/...-URL die een patroon (bv. diagonale arcering) voorstelt. Wanneer ingesteld, wordt dit patroon als background-image getoond in de laag en in de legende, in combinatie (bovenop) de achtergrondkleur."
                         },
                         {
                             "name": "text-background-color",
@@ -1199,6 +1248,10 @@
                         {
                             "name": "name",
                             "description": "De naam van de stijl, deze naam wordt getoond als tekst in de legende als de map-legend op de kaart is toegevoegd. Een stijl zonder name attribuut zal nooit in de legende getoond worden. Tenzij het om een enkele stijl in een features-layer of wfs-layer gaat, in dat geval wordt de name van de layer in de legende getoond."
+                        },
+                        {
+                            "name": "pattern",
+                            "description": "Een data:image/...-URL die een patroon (bv. diagonale arcering) voorstelt. Wanneer ingesteld, wordt dit patroon als background-image getoond in de laag en in de legende, in combinatie (bovenop) de achtergrondkleur."
                         },
                         {
                             "name": "text-background-color",
@@ -1482,6 +1535,11 @@
                         {
                             "name": "success",
                             "description": "Beeldt de component in een success state af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
                             "default": "false"
                         },
                         {

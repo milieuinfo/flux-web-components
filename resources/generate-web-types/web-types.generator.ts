@@ -170,36 +170,46 @@ const minimalWTElement = (wtComponent: WTConfig): WTElement => {
     if (docUrl) {
         wtElement['doc-url'] = docUrl;
     }
+    if (wtComponent.deprecated !== undefined) {
+        wtElement.deprecated = wtComponent.deprecated;
+    }
     return wtElement;
 };
 
-const buildWTElement = (wtComponent: WTConfig): WTElement => {
+const buildWTElement = (wtComponent: WTConfig): { element: WTElement; errors: string[] } => {
     console.log(wtComponent.componentName + ' - build web-types');
     let wtElement = minimalWTElement(wtComponent);
+    const errors: string[] = [];
     if (wtComponent?.argTypes) {
-        // add the attributes
         const argTypes = wtComponent.argTypes;
+        // controleer of elke argType een table.category heeft
+        Object.keys(argTypes).forEach((key) => {
+            if (!argTypes[key].table?.category) {
+                errors.push(`${wtComponent.componentName}: argType '${key}' has no table.category`);
+            }
+        });
+        // toevoegen van attributes
         const wtElementAttributeArray = Object.keys(argTypes)
             .filter((key) => argTypes[key].table?.category === CATEGORIES.ATTRIBUTES)
             .map((key) => buildWTElementAttribute(key, argTypes));
         if (wtElementAttributeArray) {
             wtElement.attributes = wtElementAttributeArray;
         }
-        // add the slots
+        // toevoegen van slots
         const wtElementSlotArray = Object.keys(argTypes)
             .filter((key) => argTypes[key].table?.category === CATEGORIES.SLOTS)
             .map((key) => buildWTElementSlot(key, argTypes));
         if (wtElementSlotArray && wtElementSlotArray.length > 0) {
             wtElement.slots = wtElementSlotArray;
         }
-        // add the properties
+        // toevoegen van properties
         const wtElementPropertyArray = Object.keys(argTypes)
             .filter((key) => argTypes[key].table?.category === CATEGORIES.PROPERTIES)
             .map((key) => buildWTElementProperty(key, argTypes));
         if (wtElementPropertyArray && wtElementPropertyArray.length > 0) {
             wtElement.js = { ...wtElement.js, properties: wtElementPropertyArray };
         }
-        // add the events
+        // toevoegen van events
         const wtElementEventArray = Object.keys(argTypes)
             .filter((key) => argTypes[key].table?.category === CATEGORIES.EVENTS)
             .map((key) => buildWTElementEvent(key, argTypes));
@@ -207,20 +217,29 @@ const buildWTElement = (wtComponent: WTConfig): WTElement => {
             wtElement.js = { ...wtElement.js, events: wtElementEventArray };
         }
     }
-    return wtElement;
+    return { element: wtElement, errors };
 };
 
 const generateWebTypesFile = (artifact: string, wtComponentList: WTConfigArray, targetFolder: string) => {
     console.log('--------------------------------------------------');
     console.log(artifact + ' - building web-types file');
     console.log('--------------------------------------------------');
-    const wtElementList: WTElementArray = wtComponentList.map((wtComponent) => buildWTElement(wtComponent));
+    const results = wtComponentList.map((wtComponent) => buildWTElement(wtComponent));
+    const wtElementList: WTElementArray = results.map((result) => result.element);
+    const allErrors: string[] = results.flatMap((result) => result.errors);
     let templateFile = readTemplateFile();
     const fileName = targetFolder + '/' + artifact + '.web-types.json';
     fs.createFileSync(fileName);
     templateFile = templateFile.replace('$ELEMENTS', JSON.stringify(wtElementList, null, 4));
     templateFile = JSON.stringify(JSON.parse(templateFile), null, 4);
     fs.writeFileSync(fileName, templateFile);
+    // error bestand wegschrijven in de build folder
+    const errorFileName = targetFolder + '/' + artifact + '.web-types.errors.log';
+    fs.removeSync(errorFileName);
+    if (allErrors.length > 0) {
+        console.log(`${artifact}: ${allErrors.length} argType(s) zonder table.category gevonden`);
+        fs.writeFileSync(errorFileName, allErrors.join('\n') + '\n');
+    }
     console.log('--------------------------------------------------\n');
 };
 

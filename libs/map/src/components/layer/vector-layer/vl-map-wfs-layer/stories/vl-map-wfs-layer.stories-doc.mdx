@@ -25,15 +25,23 @@ import { VlMapWfsLayer } from '@domg-wc/map';
 <Canvas of={VlMapWfsLayerStories.MapWfsLayerDefault} />
 
 
+## Filteren met de cql-filter
+
+Met het `cql-filter` attribuut filter je de features van de laag server-side. De waarde wordt als `cql_filter` query
+parameter naar de WFS server gestuurd, gecombineerd met een ruimtelijke `BBOX`-clausule:
+`cql_filter=BBOX(geometry,extent) AND (filter)`. Zonder `cql-filter` blijft het gedrag ongewijzigd (een gewone
+`bbox`-parameter).
+
+De `BBOX`-clausule heeft de naam van de geometry-property nodig. Geef die expliciet mee via `geometry-name`, of laat ze
+weg: dan wordt ze best-effort gedetecteerd via een `DescribeFeatureType` call. Faalt die detectie (bv. een
+niet-standaard WFS-server), dan valt de laag veilig terug op een gewone `bbox`-request en verschijnt er een
+`console.warn` - geef in dat geval `geometry-name` expliciet mee.
+
+> **Let op:** `cql_filter` is een GeoServer-specifieke extensie en wordt niet door elke WFS-implementatie ondersteund.
+
+<Canvas of={VlMapWfsLayerStories.MapWfsLayerCqlFilter} />
+
+
 ## Configuratie
 
 <ArgTypes of={VlMapWfsLayerStories.MapWfsLayerDefault} />
-
-
-## Referenties
-
-### Legacy Documentatie
-
-[Legacy Storybook - Map Wfs Layer](https://webcomponenten.omgeving.vlaanderen.be/storybook/?path=/docs/custom-elements-vl-map-vl-map-wfs-layer--default)
-
-[Legacy Documentatie - Map Wfs Layer](https://webcomponenten.omgeving.vlaanderen.be/doc/VlMapWfsLayer.html)

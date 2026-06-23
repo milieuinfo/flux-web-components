@@ -25,6 +25,7 @@ export class VlButtonComponent extends BaseLitElement {
     private toggle = buttonDefaults.toggle;
     private controlled = buttonDefaults.controlled;
     private ctaLink = buttonDefaults.ctaLink;
+    private download: string | null = buttonDefaults.download;
     private external = buttonDefaults.external;
     private inputGroup = buttonDefaults.inputGroup;
     private label = buttonDefaults.label;
@@ -51,11 +52,13 @@ export class VlButtonComponent extends BaseLitElement {
             toggle: { type: Boolean },
             controlled: { type: Boolean },
             ctaLink: { type: String, attribute: 'cta-link' },
+            download: { type: String },
             external: { type: Boolean },
             inputGroup: { type: Boolean, attribute: 'input-group' },
             label: { type: String },
             disabled: { type: Boolean, reflect: true },
             slotIsEmpty: { type: Boolean, state: true },
+            ariaExpanded: { type: String, attribute: 'aria-expanded', reflect: true },
             on: {
                 type: Boolean,
                 reflect: true,
@@ -194,6 +197,11 @@ export class VlButtonComponent extends BaseLitElement {
                               | 'dialog')
                         : undefined
                 )}
+                aria-expanded=${ifDefined(
+                    this.hasAttribute('aria-expanded')
+                        ? (this.getAttribute('aria-expanded') as 'false' | 'true')
+                        : undefined
+                )}
             >
                 ${positionIconBefore ? this.renderIcon() : nothing}
                 <slot @slotchange=${this.handleSlotChange}></slot>
@@ -212,6 +220,8 @@ export class VlButtonComponent extends BaseLitElement {
                 tabindex=${ifDefined(this.disabled ? '-1' : undefined)}
                 class=${classMap(classes)}
                 target=${this.ctaLink && this.external ? '_blank' : nothing}
+                rel=${this.ctaLink && this.external ? 'noopener noreferrer nofollow' : nothing}
+                download=${ifDefined(this.disabled ? undefined : (this.download ?? undefined))}
                 @click=${this.handleLinkClick}
                 aria-label=${ifDefined(this.ariaLabel || undefined)}
                 aria-pressed=${ifDefined(this.toggle ? (this.on ? 'true' : 'false') : undefined)}
@@ -233,7 +243,9 @@ export class VlButtonComponent extends BaseLitElement {
                 ${positionIconBefore ? this.renderIcon() : nothing}
                 <slot @slotchange=${this.handleSlotChange}></slot>
                 ${!positionIconBefore ? this.renderIcon() : nothing}
-                ${this.external ? html`<span class="vl-icon vl-icon--external vl-icon--after"></span>` : nothing}
+                ${this.external
+                    ? html`<span class="vl-icon vl-icon--external vl-icon--after" aria-hidden="true"></span>`
+                    : nothing}
             </a>
         `;
     }

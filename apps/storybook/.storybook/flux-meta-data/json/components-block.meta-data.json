@@ -87,7 +87,7 @@
             "tests": ["Component", "Storybook"],
             "documentation": "template",
             "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "jiraMeta": "FLUX-212"
         }
     },
     "components-block-contact-card": {
@@ -139,7 +139,7 @@
             "tests": ["Component", "Storybook"],
             "documentation": "template",
             "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "jiraMeta": "FLUX-220"
         }
     },
     "components-block-document": {
@@ -152,7 +152,7 @@
             "tests": ["Storybook"],
             "documentation": "basis",
             "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "jiraMeta": "FLUX-557"
         }
     },
     "components-block-doormat": {
@@ -291,9 +291,9 @@
         "condition": {
             "base": "LitElement",
             "generation": "TODO",
-            "css": "govflanders",
-            "tests": ["Component"],
-            "documentation": "template",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
             "wcagLevel": "TODO",
             "jiraMeta": "FLUX-259"
         }
@@ -373,7 +373,7 @@
             "tests": ["Component"],
             "documentation": "basis",
             "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "jiraMeta": "FLUX-265"
         }
     },
     "components-block-rich-data": {
@@ -451,7 +451,7 @@
             "tests": [],
             "documentation": "template",
             "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "jiraMeta": "FLUX-563"
         }
     },
     "components-block-share-buttons-share-buttons": {
@@ -464,7 +464,7 @@
             "tests": ["Storybook"],
             "documentation": "template",
             "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "jiraMeta": "FLUX-563"
         }
     },
     "components-block-side-navigation": {
@@ -478,6 +478,69 @@
             "documentation": "uitgebreid",
             "wcagLevel": "TODO",
             "jiraMeta": "FLUX-18"
+        },
+        "evolution": {
+            "vStatus": "v2-replace",
+            "legacyText": "vl-side-navigation",
+            "nextText": "[vl-side-navigation-next](/docs/components-block-next-side-navigation-next--documentatie)",
+            "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#side-navigation)"
+        }
+    },
+    "components-block-next-side-navigation": {
+        "name": "side-navigation",
+        "docs": "components-block-next-side-navigation--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-18"
+        },
+        "evolution": {
+            "vStatus": "v3-next",
+            "legacyText": "[vl-side-navigation](/docs/components-block-side-navigation--documentatie)",
+            "nextText": "vl-side-navigation-next",
+            "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#side-navigation)"
+        }
+    },
+    "components-block-next-tabs": {
+        "name": "tabs",
+        "docs": "components-block-next-tabs--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-15"
+        },
+        "evolution": {
+            "vStatus": "v3-next",
+            "legacyText": "[vl-tabs](/docs/components-block-tabs-tabs--documentatie)",
+            "nextText": "vl-tabs-next",
+            "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#tabs)"
+        }
+    },
+    "components-block-next-side-navigation-layout": {
+        "name": "side-navigation-layout",
+        "docs": "components-block-next-side-navigation-layout--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcagLevel": "TODO",
+            "jiraMeta": "FLUX-18"
+        },
+        "evolution": {
+            "vStatus": "v3-next",
+            "legacyText": "[vl-side-navigation](/docs/components-block-side-navigation--documentatie)",
+            "nextText": "vl-side-navigation-layout-next",
+            "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#side-navigation)"
         }
     },
     "components-block-side-sheet": {
@@ -516,7 +579,7 @@
             "tests": [],
             "documentation": "template",
             "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "jiraMeta": "FLUX-286"
         }
     },
     "components-block-steps-steps": {
@@ -555,7 +618,7 @@
             "tests": ["Component"],
             "documentation": "template",
             "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "jiraMeta": "FLUX-16"
         }
     },
     "components-block-tabs-tabs": {
@@ -659,7 +722,7 @@
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
             "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "jiraMeta": "FLUX-301"
         }
     },
     "components-block-wizard-wizard": {

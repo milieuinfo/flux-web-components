@@ -1,0 +1,64 @@
+import { Canvas, Meta, Source } from '@storybook/addon-docs/blocks';
+import * as formDemoStories from './formulier-demo.stories';
+import formDemoSource from '../../../../../../libs/integrations/src/form/demo/vl-form-demo.component?raw';
+
+<Meta of={formDemoStories} />
+
+# Formulier - Demo
+
+> Meer informatie over validatie binnen de formulier componenten vind je op
+  [Formulier - Validatie](/docs/patronen-formulier-validatie--documentatie).
+
+> Een uitgebreid voorbeeld over hoe je form data eenvoudiger kan parsen en gebruiken vind je
+  op [Formulier - Form Data](/docs/patronen-formulier-form-data--documentatie).
+
+Dit is een voorbeeld van hoe de form componenten in een form gebruikt kunnen worden.<br/>
+De submitted waarden worden in deze demo in de console gelogd.
+
+## Componenten
+
+- [vl-input-field](/docs/components-form-input-field--documentatie)
+- [vl-input-field-masked](/docs/components-form-input-field-masked--documentatie)
+- [vl-textarea](/docs/components-form-textarea--documentatie)
+- [vl-datepicker](/docs/components-form-datepicker--documentatie)
+- [vl-select-rich](/docs/components-form-select-rich--documentatie)
+- [vl-select](/docs/components-form-select--documentatie)
+- [vl-radio-group](/docs/components-form-radio-group--documentatie)
+- [vl-upload](/docs/components-form-upload--documentatie)
+- [vl-checkbox](/docs/components-form-checkbox--documentatie)
+- [vl-form-message](/docs/components-form-form-message--documentatie)
+- [vl-form-label](/docs/components-form-form-label--documentatie)
+- [vl-fieldset](/docs/components-form-fieldset--documentatie)
+
+## Native elementen
+
+Gebruik voor de volgende elementen native HtmlElements met css classes:
+- Form: native HTMLFormElement met class `vl-form` - `<form class="vl-form">`
+- Action Group: native HtmlDivElement met class `vl-action-group` - `<div class="vl-action-group">`
+- Button: `vl-button` component - [documentatie](/docs/components-atom-button--documentatie)
+
+## Grid
+
+Maak voor het opbouwen van de grid structuur gebruik van de [vl-grid classes](/docs/styles-layout-grid--documentatie).<br/>
+Plaats deze op native HtmlDivElements.
+
+## Form data
+
+Gebruik de [parseFormData](/docs/patronen-formulier-form-data--documentatie) helper functie om de form data te verzamelen.<br/>
+Indien je meer controle nodig hebt kan je zelf de [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData) API gebruiken.
+
+<FluxAlert type="warning">
+{`
+    Indien je een form control wrapped in een custom component, zorg er voor dat dit custom component geen shadow DOM
+    heeft.<br/>
+    Als dit custom component een shadow DOM heeft, zal het native HtmlFormElement de form control niet meer vinden.
+`}
+</FluxAlert>
+
+<Canvas of={formDemoStories.FormulierDemo} sourceState='none'/>
+
+<details open>
+    <summary>Code</summary>
+    <Source code={formDemoSource} language="ts" dark={true}/>
+</details>
+

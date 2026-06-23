@@ -10,13 +10,15 @@ import {
 import { ICON_PLACEMENT } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components-vite';
 import { linkDefaults } from '../vl-link.defaults';
+import { action } from 'storybook/actions';
 
-type LinkArgs = typeof defaultArgs & typeof linkDefaults & { defaultSlot: string };
+type LinkArgs = typeof defaultArgs & typeof linkDefaults & { defaultSlot: string; onVlClick: () => void; };
 
 export const linkArgs: LinkArgs = {
     ...defaultArgs,
     ...linkDefaults,
     defaultSlot: '',
+    onVlClick: action('vl-click'),
 };
 
 export const linkArgTypes: ArgTypes<LinkArgs> = {
@@ -76,6 +78,16 @@ export const linkArgTypes: ArgTypes<LinkArgs> = {
             defaultValue: { summary: String(linkArgs.error) },
         },
     },
+    download: {
+        name: 'download',
+        description:
+            'Duidt aan dat de link een download is in plaats van een navigatie.<br>Optioneel kan een bestandsnaam als waarde meegegeven worden, zonder waarde kiest de browser de bestandsnaam.<br>Werkt enkel voor same-origin URLs (browser-beperking).<br>Werkt niet in combinatie met `button-as-link`-attribuut.',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(linkArgs.download) },
+        },
+    },
     external: {
         name: 'external',
         description: 'Opent de link in een nieuw tabblad.<br/>Werkt niet in combinatie met `button-as-link`-attribuut.',
@@ -115,6 +127,17 @@ export const linkArgTypes: ArgTypes<LinkArgs> = {
             defaultValue: { summary: String(linkArgs.buttonAsLink) },
         },
     },
+    type: {
+        name: 'type',
+        description: 'Het type van de button.<br/>Werkt enkel in combinatie met het `button-as-link`-attribuut.',
+        control: { type: CONTROLS.SELECT },
+        options: ['button', 'submit', 'reset'],
+        table: {
+            type: { summary: `${TYPES.STRING}: 'button' | 'submit' | 'reset'` },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: linkArgs.type },
+        },
+    },
     defaultSlot: {
         name: '[default]',
         description: 'De content van de link.',
@@ -122,6 +145,13 @@ export const linkArgTypes: ArgTypes<LinkArgs> = {
             type: { summary: TYPES.HTML },
             category: CATEGORIES.SLOTS,
             defaultValue: { summary: linkArgs.defaultSlot },
+        },
+    },
+    onVlClick: {
+        name: 'vl-click',
+        description: 'Event dat afgevuurd wordt bij het klikken op de link.',
+        table: {
+            category: CATEGORIES.EVENTS,
         },
     },
 };

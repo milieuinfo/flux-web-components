@@ -5,7 +5,7 @@ export const privacyHeaderElements = () => [VlFunctionalHeaderComponent];
 
 export const header = ({ disableBackLink, hideBackLink }: { disableBackLink: boolean; hideBackLink: boolean }) => html`
     <vl-functional-header
-        title="Departement Omgeving"
+        title-label="Departement Omgeving"
         sub-title="Privacy"
         link="https://omgeving.vlaanderen.be"
         ?disable-back-link=${disableBackLink}

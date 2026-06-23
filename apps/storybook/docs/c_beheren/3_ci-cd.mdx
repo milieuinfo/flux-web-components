@@ -34,7 +34,7 @@ zijn gedefinieerd:
 2. __Build and Test Stage__ - met de volgende jobs die parallel lopen:
     * __build-apps-and-libs__ (de build),
     * __unit-component-integrator-tests__ (verschillende testen)
-    * __e2e-tests-storybook__ (Stroybook e2e-testen)
+    * __e2e-tests-storybook__ (Storybook e2e-testen)
 3. __Release and Publish Stage__ - met de jobs
     * __release-and-publish__: deze loopt niet voor feature branches, er is een licht verschillende flow voor release
       en pre-release branches
@@ -49,7 +49,7 @@ Een release vindt plaats in de __release-and-publish__ job en wordt gestuurd doo
 in de root folder en zit in 2 bestanden: `.releaserc-develop` en `.releaserc-release`. De develop variant loopt voor de
 pre-release branches ('develop' en 'develop-xyz'), de release variant voor de 'release' en 'release-x.y' branches.
 
-In die __release-and-publish__ stap gebeurd het volgende:
+In die __release-and-publish__ stap gebeurt het volgende:
 
 - semantic-release bepaalt het nieuwe versie nummer a.d.h.v. de commits (fix / feat / breaking-change) - met een
   `-develop` suffix voor develop branches

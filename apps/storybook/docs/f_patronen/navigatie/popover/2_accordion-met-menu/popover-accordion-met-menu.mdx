@@ -1,0 +1,33 @@
+import { Canvas, Meta, Source } from '@storybook/addon-docs/blocks';
+import * as popoverMenuAccordionStories from './popover-accordion-met-menu.stories'
+import popoverMenuAccordionSource from '../../../../../../../libs/integrations/src/popover/menu-accordion/vl-popover-menu-accordion.component?raw';
+
+<Meta of={popoverMenuAccordionStories} />
+
+# Popover - Accordion met Menu
+
+De accordion wordt gebruikt om inhoud te organiseren in een uitklapbaar formaat.<br/>
+Elke accordion kan een popover-menu bevatten dat specifieke acties aanbiedt.
+
+## Gebruik
+
+De accordion met popover-menu wordt gebruikt om inhoud te structureren en gebruikers de mogelijkheid te geven om specifieke acties uit te voeren.
+
+## Patroon
+
+- Accordion: elke accordion bestaat uit een titel en een inhoudsgebied dat kan worden uit- of ingeklapt.
+
+- Popover-menu: elke accordion kan een popover-menu bevatten dat specifieke acties aanbiedt.
+  Het menu wordt meestal afgebeeld mbv een kebab menu icoon (drie verticale punten).
+
+- Interactie: gebruikers kunnen op de titel klikken om de accordion uit- of in te klappen.
+  Door op het popover-menu icoon te klikken wordt het menu geopend en de extra acties weergegeven.
+
+## Voorbeeld
+
+<Canvas of={popoverMenuAccordionStories.PopoverAccordionMetMenu} sourceState='none'/>
+
+<details open>
+    <summary>Code</summary>
+    <Source code={popoverMenuAccordionSource} language="ts" dark={true} />
+</details>

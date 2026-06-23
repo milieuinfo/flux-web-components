@@ -1,6 +1,5 @@
-import { CSSResult, PropertyDeclarations } from 'lit';
-import { html, TemplateResult } from 'lit-html';
-import { classMap } from 'lit-html/directives/class-map.js';
+import { CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
+import { classMap } from 'lit/directives/class-map.js';
 import { customElement } from 'lit/decorators.js';
 import { FloatingControllerOptions } from '../popover/vl-floating-ui.controller';
 import { VlPopoverComponent } from '../popover/vl-popover.component';

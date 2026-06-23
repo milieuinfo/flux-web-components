@@ -1,6 +1,6 @@
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../vl-steps.component';
 import { stepArgs, stepArgTypes } from './vl-step.stories-arg';
 
@@ -98,36 +98,36 @@ export const StepsStates = story(
             </vl-step>
             <vl-step type="highlighted">
                 <span slot="icon">2</span>
-                <span slot="title">Stap 2: tweede actie</span>
+                <span slot="title">Stap 2: tweede actie (highlighted)</span>
                 <span slot="subtitle">Dit is de tweede subtitel.</span>
                 <span slot="content">Dit is de tweede stap content.</span>
             </vl-step>
             <vl-step type="disabled">
                 <span slot="icon">3</span>
-                <span slot="title">Stap 3: derde actie</span>
+                <span slot="title">Stap 3: derde actie (disabled)</span>
                 <span slot="subtitle">Dit is de derde subtitel.</span>
                 <span slot="content">Deze stap is geannuleerd.</span>
             </vl-step>
             <vl-step type="success">
                 <span slot="icon">4</span>
-                <span slot="title">Stap 4: vierde actie</span>
+                <span slot="title">Stap 4: vierde actie (success stijl)</span>
                 <span slot="subtitle">Dit is de vierde subtitel.</span>
                 <span slot="content">Dit is de vierde stap content.</span>
             </vl-step>
             <vl-step type="warning">
                 <span slot="icon">5</span>
-                <span slot="title">Stap 5: vijfde actie</span>
+                <span slot="title">Stap 5: vijfde actie (warning stijl)</span>
                 <span slot="subtitle">Dit is de vijfde subtitel.</span>
                 <span slot="content">Dit is de vijfde stap content.</span>
             </vl-step>
             <vl-step type="error">
                 <span slot="icon">6</span>
-                <span slot="title">Stap 6: zesde actie</span>
+                <span slot="title">Stap 6: zesde actie (error stijl)</span>
                 <span slot="subtitle">Dit is de zesde subtitel.</span>
                 <span slot="content">Dit is de zesde stap content.</span>
             </vl-step>
         </vl-steps>
-    `
+    `,
 );
 StepsStates.storyName = 'vl-step - states';
 StepsStates.parameters = {

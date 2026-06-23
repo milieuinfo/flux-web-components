@@ -21,18 +21,18 @@ inhoud van lange pagina's samen, leidt de gebruiker door de pagina inhoud en kan
 
 De `vl-side-navigation` wordt opgebouwd uit volgende sub-componenten:
 
-- VlSideNavigation `[vl-side-navigation]`
-- VlSideNavigationTitle<br/>
+- VlSideNavigationComponent `[vl-side-navigation]`
+- VlSideNavigationTitleComponent<br/>
     `[vl-side-navigation-h1 / vl-side-navigation-h2 / vl-side-navigation-h3 /`
     `vl-side-navigation-h4 / vl-side-navigation-h5 / vl-side-navigation-h6]`
-- VlSideNavigationContent `[vl-side-navigation-content]`
-- VlSideNavigationGroup `[vl-side-navigation-group]`
-- VlSideNavigationItem `[vl-side-navigation-item]`
-- VlSideNavigationToggle `[vl-side-navigation-toggle]`
-- VlSideNavigationReference `[vl-side-navigation-reference]`
+- VlSideNavigationContentComponent `[vl-side-navigation-content]`
+- VlSideNavigationGroupComponent `[vl-side-navigation-group]`
+- VlSideNavigationItemComponent `[vl-side-navigation-item]`
+- VlSideNavigationToggleComponent `[vl-side-navigation-toggle]`
+- VlSideNavigationReferenceComponent `[vl-side-navigation-reference]`
 
 ```js
-import { VlSideNavigation } from '@domg-wc/components/block';
+import { VlSideNavigationComponent } from '@domg-wc/components/block';
 ```
 
 ```html
@@ -98,7 +98,7 @@ werken is een tijdelijke quick-fix, in de nieuwe versie van de side-navigation g
 
 Als de side-navigation gerenderd wordt in een parent component die `hidden` is, bijvoorbeeld bij verschillende stappen
 in een flow, dan gaat de initialisatie fout en zal de side-navigation niet sticky worden bij het scrollen. Dit komt
-omdat de side-navigation bij het initialiseren een aantal dimensies capteerd en, in het geval dat er een parent
+omdat de side-navigation bij het initialiseren een aantal dimensies capteert en, in het geval dat er een parent
 `hidden` is, één van de waardes op 0 komt te staan. Dit kan vermeden worden door het gebruik van `hidden` te vervangen
 door de `when()` directive van Lit.
 
@@ -128,12 +128,4 @@ door de `when()` directive van Lit.
 
 ### Digitaal Vlaanderen
 
-[Documentatie Digitaal Vlaanderen - Side Navigation](https://overheid.vlaanderen.be/webuniversum/v3/documentation/components/vl-ui-side-navigation)
-
-### Legacy Documentatie
-
-[Legacy Storybook - Side Navigation](https://webcomponenten.omgeving.vlaanderen.be/storybook/?path=/docs/native-elements-vl-side-navigation--default)
-
-[Legacy Documentatie - Side Navigation](https://webcomponenten.omgeving.vlaanderen.be/doc/VlSideNavigation.html)
-
-[Legacy Demo - Side Navigation](https://webcomponenten.omgeving.vlaanderen.be/demo/vl-side-navigation.html)
+[Documentatie Digitaal Vlaanderen - Side Navigation](https://www.vlaanderen.be/vlaanderen-design-system/componenten/side-navigation)

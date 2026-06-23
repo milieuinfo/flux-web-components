@@ -1,0 +1,24 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as sideNavigationMetProzaMessageStories from './side-navigation-met-proza-message.stories';
+
+<Meta of={sideNavigationMetProzaMessageStories} />
+
+# Side Navigation - met Proza Message
+
+In dit voorbeeld wordt `vl-side-navigation-layout-next` gecombineerd met `vl-proza-message`. De titels in de content worden
+gevuld via Proza berichten en verschijnen zo ook in de side navigation.
+
+Dit voorbeeld toont ook:
+
+- titels gevuld via `vl-proza-message` binnen `vl-title`
+- automatische side navigation op basis van de standaard headingniveaus
+
+## Componenten
+
+- [vl-side-navigation-layout-next](/docs/components-block-next-side-navigation-layout--documentatie)
+- [vl-proza-message](/docs/components-block-proza-message--documentatie)
+- [vl-proza-message-preloader](/docs/components-block-proza-message-proza-message-preloader--documentatie)
+
+## Demo
+
+<Canvas of={sideNavigationMetProzaMessageStories.SideNavigationMetProzaMessage} sourceState="shown" />

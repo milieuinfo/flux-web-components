@@ -11,7 +11,7 @@ import FormControlPublicMethods from '../../form-control/stories/form-control.pu
 
 Gebruik de `upload` component om één of meerdere bestanden te selecteren of te slepen naar het upload-veld.
 
-Zie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.
+Zie het [form demo](/docs/patronen-formulier-demo--documentatie) voorbeeld voor het gebruik binnen een form.
 
 
 ## Voorbeeld
@@ -42,6 +42,10 @@ De volgende publieke methodes zijn beschikbaar op het `VlUploadComponent`:
 
 Geeft een lijst van geaccepteerde bestanden terug.
 
+### getRejectedFiles(): DropzoneFile[]
+
+Geeft een lijst van geweigerde bestanden terug.
+
 ### addFile(file: File): void
 
 Handmatig bestand toevoegen aan de lijst van opgeladen bestanden zonder achterliggende upload
@@ -62,7 +66,7 @@ Handmatig de upload aanroepen. Indien een url gegeven is, laad op naar die url.
 
 Event listener toevoegen aan de Dropzone instantie van het upload component.
 
-> Opgelet: je kan pas events registeren nadat de component geïnitialiseerd is met behulp van het `vl-initialised`-event
+> Opgelet: je kan pas events registreren nadat de component geïnitialiseerd is met behulp van het `vl-initialised`-event
 
 ### off(event: string, callback: (...args: unknown[]) => void)
 
@@ -71,7 +75,7 @@ Event listener verwijderen van de Dropzone instantie van het upload component.
 
 ## Validatie
 > Meer info over validatie binnen onze form componenten vind je hier:
-[Form - Validatie](/docs/ontwerp-form-validation--documentatie)
+[Form - Validatie](/docs/patronen-formulier-validatie--documentatie)
 
 De component gebruikt achterliggend de [Dropzone](https://www.dropzonejs.com/) library.
 
@@ -79,14 +83,32 @@ Dropzone genereert achterliggend ook fouten, typisch wanneer er een bestand te v
 te groot is.
 Deze fouten worden getoond in de preview van het toegevoegde bestand en tellen mee in de validatie van het formulier.
 
-Om deze functionaliteit te bekomen wordt er een `dropzoneValidator` gebruikt die overeenkomt met de `customError` [ValidityState](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) key.
+Om deze functionaliteit te bekomen wordt er een `dropzoneValidator` gebruikt die overeenkomt met de `customError`
+[ValidityState](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) key.
 Via de `customError` ValidityState key kan je een error message linken aan de `dropzoneValidator`.
+
+### Bestandsgrootte: MiB vs MB
+
+De `max-size`-waarde wordt achterliggend door Dropzone (`maxFilesize`) binair geïnterpreteerd, dus in **MiB**
+(1024-basis), niet in **MB** (1000-basis). De UI en de foutmelding spreken bewust over "MB" omdat Windows - de
+voornaamste use-case van onze doelgroep - diezelfde binaire waarden in de verkenner ook als "MB" toont. Voor de
+eindgebruiker op Windows klopt het getal in de UI dus visueel.
+
+Op macOS of Linux (die bestandsgroottes decimaal in MB tonen) en bij een MB-validerende backend kan dat verschil
+verwarren. Een `max-size` van bijvoorbeeld `900` laat een bestand tot 900 MiB = 943.718.400 bytes toe, wat decimaal
+neerkomt op ~943,7 MB.
+
+> **Advies voor afnemers:** valideer de bestandsgrootte ook aan de backend-zijde en reken die in MB (1000-basis),
+ zet die backend-limiet dan iets hoger dan `max-size`. Zo wordt een bestand dat de gebruiker volgens het upload-veld
+ mag uploaden, niet alsnog door de backend geweigerd.
 
 ### Aanbevelingen
 
-Breid de `sub-title`-attribuut uit met een korte uitleg over maximaal aantal bestanden, maximale bestandsgrootte en de toegestane bestandstypes indien relevant.
+Breid de `sub-title`-attribuut uit met een korte uitleg over maximaal aantal bestanden, maximale bestandsgrootte en de
+toegestane bestandstypes indien relevant.
 
-De reden hiervoor is dat het belangrijk is om de gebruiker te informeren over de beperkingen van het upload-veld. Het is cruciaal om duidelijke instructies te geven aan de gebruiker, zodat het risico op validatiefouten wordt verkleind.
+De reden hiervoor is dat het belangrijk is om de gebruiker te informeren over de beperkingen van het upload-veld. Het
+is cruciaal om duidelijke instructies te geven aan de gebruiker, zodat het risico op validatiefouten wordt verkleind.
 
 <details>
     <summary>voorbeeld aangepaste sub-titel</summary>
@@ -103,7 +125,8 @@ De reden hiervoor is dat het belangrijk is om de gebruiker te informeren over de
 
 Naast het slepen van bestanden, kan de gebruiker ook één of meerdere bestanden uploaden door op de
 link in het upload-veld te klikken en de bestanden
-selecteren in het bestandsmenu. Tenslotte is ook het ook mogelijk bestanden programmatorisch toe te voegen via de `addFile()` methode.
+selecteren in het bestandsmenu. Tenslotte is het ook mogelijk bestanden programmatorisch toe te voegen via de
+`addFile()` methode.
 
 ### Duplicaat detectie
 
@@ -117,7 +140,8 @@ dat bestanden werden verwijderd wegens duplicaat detectie.
 ### Content Security Policy
 
 De `vl-upload` component maakt gebruik van de [Dropzone](https://www.dropzonejs.com/) library. Deze library maakt
-gebruik van inline styles. Deze inline styles worden niet toegelaten in een strikte [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) policy.
+gebruik van inline styles. Deze inline styles worden niet toegelaten in een strikte [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
+policy.
 Deze inline styles zijn echter niet nodig voor de werking van de `vl-upload` component.
 
 
@@ -129,4 +153,4 @@ Deze inline styles zijn echter niet nodig voor de werking van de `vl-upload` com
 
 ### Digitaal Vlaanderen
 
-[Documentatie Digitaal Vlaanderen - Upload](https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-upload)
+[Documentatie Digitaal Vlaanderen - Upload](https://www.vlaanderen.be/vlaanderen-design-system/componenten/upload)

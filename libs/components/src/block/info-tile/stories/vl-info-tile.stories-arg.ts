@@ -29,9 +29,25 @@ export const infoTileArgs = {
     type: '',
     fullHeight: false,
     onVlClickInfoTile: action('vl-click-info-tile'),
+    headingLevel: '',
+    highlight: false,
+    highlightLeft: false,
 };
 
 export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
+    headingLevel: {
+        name: 'heading-level',
+        description:
+            'Het heading-level van de titel (h1 t.e.m. h6).' +
+            ' Indien niet opgegeven of ongeldig, wordt standaard h3 gebruikt.',
+        control: { type: CONTROLS.SELECT },
+        options: ['1', '2', '3', '4', '5', '6'],
+        table: {
+            type: { summary: '1 | 2 | 3 | 4 | 5 | 6' },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: '' },
+        },
+    },
     ...defaultArgTypes,
     autoOpen: {
         name: 'auto-open',
@@ -89,6 +105,24 @@ export const infoTileArgTypes: ArgTypes<typeof infoTileArgs> = {
             category: CATEGORIES.ATTRIBUTES,
             type: { summary: TYPES.BOOLEAN },
             defaultValue: { summary: String(infoTileArgs.toggleable) },
+        },
+    },
+    highlight: {
+        name: 'highlight',
+        description: 'Voegt een accent toe aan de bovenkant van de info tile.',
+        table: {
+            category: CATEGORIES.ATTRIBUTES,
+            type: { summary: TYPES.BOOLEAN },
+            defaultValue: { summary: String(infoTileArgs.highlight) },
+        },
+    },
+    highlightLeft: {
+        name: 'highlight-left',
+        description: 'Voegt een accent toe aan de linkerkant van de info tile.',
+        table: {
+            category: CATEGORIES.ATTRIBUTES,
+            type: { summary: TYPES.BOOLEAN },
+            defaultValue: { summary: String(infoTileArgs.highlightLeft) },
         },
     },
     contentSlot: {

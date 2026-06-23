@@ -1,0 +1,32 @@
+import {Canvas, Meta, Source} from '@storybook/addon-docs/blocks';
+import * as titelMetAnnotatieStories from './titel-met-annotatie.stories';
+
+<Meta of={titelMetAnnotatieStories}/>
+
+# Titel - met Annotatie
+
+Een annotatie kan naast of onder een titel geplaatst worden om extra context te bieden.
+
+
+## Aanbeveling
+
+De combinatie van een titel met annotatie gebeurt best met een vl-group.
+
+
+## Voorbeeld
+
+Dit voorbeeld zet de annotatie standaard rechts van de titel, wanneer de plaats beperkter wordt wrapped de
+annotatie onder de titel. De `vl-group--baseline` lijnt de titel en annotatie onderaan uit, de
+`vl-group--no-row-gap` beperkt de verticale wit-ruimte bij wrapping.
+
+<Canvas of={titelMetAnnotatieStories.TitelMetAnnotatie} sourceState='none'/>
+
+<details open>
+    <summary>Code</summary>
+    <Source code={
+        `<div class="vl-group vl-group--baseline vl-group--wrap vl-group--no-row-gap">
+            <vl-title type="h2" no-space-bottom>Een titel die wat langer is dan normaal</vl-title>
+            <vl-text annotation>Optioneel voeg je een annotatie toe.</vl-text>
+        </div>`
+    } language="html" dark={true}/>
+</details>

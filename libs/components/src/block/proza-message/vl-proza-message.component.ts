@@ -1,4 +1,4 @@
-import { BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common';
+import { BaseHTMLElement, FluxConfig, registerWebComponents, webComponent } from '@domg-wc/common';
 import { vlLegacyStyles } from '@domg-wc/styles';
 import { VlButtonComponent } from '../../atom/button';
 import { VlTypography } from '../typography/vl-typography.component';
@@ -61,7 +61,7 @@ export class VlProzaMessage extends BaseHTMLElement {
     }
 
     get _domain() {
-        return this.getAttribute('domain');
+        return this.getAttribute('domain') || FluxConfig.getPreferences().prozaDomain || null;
     }
 
     get _code() {

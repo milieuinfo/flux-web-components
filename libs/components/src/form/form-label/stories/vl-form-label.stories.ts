@@ -21,10 +21,37 @@ export default {
     },
 } as Meta<typeof formLabelArgs>;
 
-export const FormLabelDefault = story(formLabelArgs, ({ for: forValue, label, block, light }) => {
-    return html` <vl-form-label for=${forValue} label=${label} ?block=${block} ?light=${light}></vl-form-label> `;
-});
+export const FormLabelDefault = story(
+    formLabelArgs,
+    ({ for: forValue, label, annotation, block, light }) => html`
+        <vl-form-label
+            for=${forValue}
+            label=${label}
+            annotation=${annotation}
+            ?block=${block}
+            ?light=${light}
+        ></vl-form-label>
+    `,
+);
 FormLabelDefault.storyName = 'vl-form-label - default';
 FormLabelDefault.args = {
     label: 'Naam',
+};
+
+export const FormLabelWithAnnotation = story(
+    formLabelArgs,
+    ({ for: forValue, label, annotation, block, light }) => html`
+        <vl-form-label
+            for=${forValue}
+            label=${label}
+            annotation=${annotation}
+            ?block=${block}
+            ?light=${light}
+        ></vl-form-label>
+    `,
+);
+FormLabelWithAnnotation.storyName = 'vl-form-label - annotation';
+FormLabelWithAnnotation.args = {
+    label: 'Naam',
+    annotation: '(enkel achternaam)',
 };

@@ -12,6 +12,7 @@ import { SIZE } from '../vl-spotlight.model';
 export const spotlightArgs = {
     ...defaultArgs,
     link: '',
+    linkLabel: '',
     external: false,
     alt: false,
     noBorder: false,
@@ -33,6 +34,16 @@ export const spotlightArgTypes: ArgTypes<typeof spotlightArgs> = {
         table: {
             type: { summary: TYPES.STRING },
             defaultValue: { summary: spotlightArgs.link },
+            category: CATEGORIES.ATTRIBUTES,
+        },
+    },
+    linkLabel: {
+        name: 'link-label',
+        description:
+            'Aria-label voor de link. Aanbevolen voor toegankelijkheid. Let op: `aria-label` vervangt de volledige linktekst, bv. "Premies voor renovatie - opent in nieuw venster" bij external links.',
+        table: {
+            type: { summary: TYPES.STRING },
+            defaultValue: { summary: spotlightArgs.linkLabel },
             category: CATEGORIES.ATTRIBUTES,
         },
     },

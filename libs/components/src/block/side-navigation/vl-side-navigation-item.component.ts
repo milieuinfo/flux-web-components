@@ -49,13 +49,16 @@ export class VlSideNavigationItemComponent extends BaseLitElement {
         }
 
         a.addEventListener('click', (e) => {
-            e.preventDefault();
-
             const href = a.getAttribute('href');
             if (!href) {
                 console.warn('vl-side-navigation-item vereist een geldige href op het anchor element.');
                 return;
             }
+
+            // Non-hash hrefs (external URLs, relative paths) are handled by the browser.
+            if (!href.startsWith('#')) return;
+
+            e.preventDefault();
 
             const element = findDeepestElementThroughShadowRoot(this.getRootNode(), href);
             if (!element) {

@@ -45,20 +45,22 @@ export class VlCookie extends BaseHTMLElement {
         this._element.insertAdjacentHTML(
             'afterend',
             `
-                <vl-title type="h3">${title || this.getAttribute('title')}</vl-title>
+                <vl-title type="h3" id="${title || this.getAttribute('title')}">${
+                title || this.getAttribute('title')
+            }</vl-title>
                 <vl-properties slot="properties">
-                    <label>Naam</label>
-                    <data>${nameTemplate()}</data>
-                    <label>Doel</label>
-                    <data>${purpose || this.getAttribute('purpose')}</data>
-                    <label>Type</label>
-                    <data>Cookie</data>
-                    <label>Domein</label>
-                    <data>${domain || this.getAttribute('domain')}</data>
-                    <label>Verwerker</label>
-                    <data>${processor || this.getAttribute('processor')}</data>
-                    <label>Geldigheid</label>
-                    <data>${validity || this.getAttribute('validity')}</data>
+                    <vl-property>Naam</vl-property>
+                    <vl-property-data>${nameTemplate()}</vl-property-data>
+                    <vl-property>Doel</vl-property>
+                    <vl-property-data>${purpose || this.getAttribute('purpose')}</vl-property-data>
+                    <vl-property>Type</vl-property>
+                    <vl-property-data>Cookie</vl-property-data>
+                    <vl-property>Domein</vl-property>
+                    <vl-property-data>${domain || this.getAttribute('domain')}</vl-property-data>
+                    <vl-property>Verwerker</vl-property>
+                    <vl-property-data>${processor || this.getAttribute('processor')}</vl-property-data>
+                    <vl-property>Geldigheid</vl-property>
+                    <vl-property-data>${validity || this.getAttribute('validity')}</vl-property-data>
                 </vl-properties>
             `
         );

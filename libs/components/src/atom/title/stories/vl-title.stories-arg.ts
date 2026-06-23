@@ -50,6 +50,19 @@ export const titleArgTypes: ArgTypes<TitleArgs> = {
             defaultValue: { summary: String(titleArgs.noSpaceBottom) },
         },
     },
+    appearance: {
+        name: 'appearance',
+        description:
+            'Bepaalt de visuele stijl van de titel, onafhankelijk van het semantische type. ' +
+            'Handig voor het behouden van semantiek terwijl je een andere stijl wilt toepassen.',
+        control: { type: CONTROLS.INLINE_RADIO },
+        options: ['(none)', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: titleArgs.appearance || "''" },
+        },
+    },
     defaultSlot: {
         name: '[default]',
         table: {

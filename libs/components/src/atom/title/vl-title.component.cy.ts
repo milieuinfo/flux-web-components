@@ -56,4 +56,11 @@ describe('cypress-component - atom components - vl-title', () => {
         cy.get('vl-title').shadow().find('h1').find('slot');
         cy.get('vl-title').contains('Vlaanderen');
     });
+
+    it('should set appearance', () => {
+        cy.mount(html` <vl-title type="h2" appearance="h3">Vlaanderen</vl-title>`);
+
+        cy.get('vl-title').should('have.attr', 'appearance', 'h3');
+        cy.get('vl-title').shadow().find('h2').should('have.class', 'h3');
+    });
 });

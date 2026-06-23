@@ -17,14 +17,14 @@ import { Meta } from '@storybook/addon-docs/blocks';
 ## Waarom v2
 
 De basis van de code die er is [dateert](/docs/historiek-toekomst--documentatie) van 2020. Er is toen vertrokken
-vanuit het idee de code van [Webuniversum v3](https://overheid.vlaanderen.be/webuniversum/v3/) as-is af te nemen.
+vanuit het idee de code van Webuniversum v3 as-is af te nemen.
 Dit had een aantal gevolgen:
 
 ### Element complicatie
 
-Componenten zoals de DV [vl-ui-button](https://overheid.vlaanderen.be/webuniversum/v3/documentation/atoms/vl-ui-button)
+Componenten zoals de DV [vl-ui-button](https://www.vlaanderen.be/vlaanderen-design-system/componenten/button)
 moeten als een uitbreiding op een native button geïmplementeerd worden. De Flux web-component moet dus extenden van
-HTMLButtonElement. De rede is dat de scss van DV enkel werkt op een `button` tag, een custom component maken met als
+HTMLButtonElement. De reden is dat de scss van DV enkel werkt op een `button` tag, een custom component maken met als
 tag `vl-button` werkt niet (de css die DV voorziet is daarvoor niet correct). Er was wel de mogelijkheid geweest om de
 component te schrijven als wrapper: een `vl-button` die dan daarin een `button` rendert, maar die keuze is toen niet
 gemaakt.

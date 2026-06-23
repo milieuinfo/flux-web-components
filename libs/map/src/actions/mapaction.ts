@@ -33,6 +33,14 @@ export class VlBaseMapAction {
         this._layer = layer;
     }
 
+    appliesToLayer(layer: OlVectorLayerType): boolean {
+        return this._layer === layer;
+    }
+
+    hasVisibleLayer(): boolean {
+        return !!this._layer?.getVisible();
+    }
+
     get interactions(): OlInteraction[] {
         return this._interactions;
     }

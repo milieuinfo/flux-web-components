@@ -1,11 +1,13 @@
 import { BaseLitElement } from '@domg-wc/common';
-import { accessibilityStyle, baseStyle, resetStyle } from '@domg/govflanders-style/common';
+import { vlAccessibilityStyles, vlResetStyles } from '@domg-wc/styles';
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { createRef, ref } from 'lit/directives/ref.js';
-import { TYPE } from './vl-pill.model';
+import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { vlPillFluxStyles } from './vl-pill.flux-css';
+import { TYPE } from './vl-pill.model';
 
 @customElement('vl-pill')
 export class VlPillComponent extends BaseLitElement {
@@ -15,7 +17,6 @@ export class VlPillComponent extends BaseLitElement {
     private checkable = false;
     private checked: boolean | undefined;
     private checkboxRef: any;
-    private isInMap = false;
     private clickable = false;
 
     constructor() {
@@ -29,7 +30,7 @@ export class VlPillComponent extends BaseLitElement {
     }
 
     static get styles() {
-        return [resetStyle, vlPillFluxStyles, baseStyle, accessibilityStyle];
+        return [vlResetStyles, vlIconStyles, vlPillFluxStyles, vlAccessibilityStyles];
     }
 
     static get properties() {
@@ -74,7 +75,6 @@ export class VlPillComponent extends BaseLitElement {
             'vl-pill--success': this.type === TYPE.SUCCESS,
             'vl-pill--warning': this.type === TYPE.WARNING,
             'vl-pill--error': this.type === TYPE.ERROR,
-            'vl-pill--map': this.isInMap,
         };
     }
 
@@ -110,7 +110,7 @@ export class VlPillComponent extends BaseLitElement {
 
     private renderDefault() {
         return html`
-            <span class="${classMap(this.classes)}">
+            <span class="${classMap(this.classes)}" aria-disabled=${ifDefined(this.disabled ? 'true' : undefined)}>
                 <slot></slot>
             </span>
         `;
@@ -123,16 +123,16 @@ export class VlPillComponent extends BaseLitElement {
         };
 
         return html`
-            <div class="${classMap(closableClasses)}">
+            <div class="${classMap(closableClasses)}" aria-disabled=${ifDefined(this.disabled ? 'true' : undefined)}>
                 <slot></slot>
                 <button
-                    class="vl-pill__close"
+                    class="vl-pill__close vl-icon vl-icon--cross"
                     type="button"
+                    ?disabled=${this.disabled}
                     @click=${() => this.dispatchEvent(new CustomEvent('close'))}
                 >
-                    <span class="vl-u-visually-hidden">Optie verwijderen</span>
+                    <span class="vl-visually-hidden">Optie verwijderen</span>
                 </button>
-            </div>
             </div>
         `;
     }
@@ -144,7 +144,11 @@ export class VlPillComponent extends BaseLitElement {
         };
 
         return html`
-            <label class="${classMap(checkableClasses)}" for="checkbox">
+            <label
+                class="${classMap(checkableClasses)}"
+                for="checkbox"
+                aria-disabled=${ifDefined(this.disabled ? 'true' : undefined)}
+            >
                 <input
                     class="vl-pill--checkable__checkbox"
                     type="checkbox"
@@ -161,11 +165,11 @@ export class VlPillComponent extends BaseLitElement {
                                 bubbles: true,
                                 composed: true,
                                 detail: { checked: this.checked },
-                            })
+                            }),
                         );
                     }}
                 />
-                <span></span>
+                <span class="vl-icon vl-icon--check" aria-hidden="true"></span>
                 <slot></slot>
             </label>
         `;

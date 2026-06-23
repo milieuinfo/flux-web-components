@@ -27,6 +27,29 @@ witte rij
 
 ## Geïmpacteerde Web Componenten
 
+### Datepicker
+
+In v2 is het `anchor-positioning` attribuut toegevoegd. In v3 wordt deze codepath de default
+en wordt de oude positionering verwijderd. Apps die `anchor-positioning` in v2 niet hebben gezet
+moeten na de v3 upgrade verifiëren dat hun datepicker correct rendert.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v2 - Default</th>
+        <th>v3 - Default</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>[Datepicker](/docs/components-form-datepicker--documentatie)</td>
+        <td>release v2.14.0</td>
+        <td>flatpickr getBoundingClientRect positionering</td>
+        <td>Popover API + CSS Anchor Positioning</td>
+        <td><code>{`<vl-datepicker anchor-positioning>`}</code></td>
+    </tr>
+</table>
+
 ### Footer
 
 `Footer [legacy]` wordt vervangen door `Footer [next]`.
@@ -90,3 +113,115 @@ witte rij
 </table>
 
 
+### Share Buttons
+
+`Share Buttons` is deprecated in v2 en wordt verwijderd in v3. Er komt geen `next`-variant: gebruik een
+`vl-button` met `cta-link`, `icon` en een verplicht `label` (standaard action-blauw).
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+        <th>v3 - Artifact</th>
+        <th>v3 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>[Share Buttons [legacy]](/docs/components-block-share-buttons-share-buttons--documentatie)</td>
+        <td>deprecated</td>
+        <td>components/block</td>
+        <td><code>{`<vl-share-buttons>`}</code></td>
+        <td>-</td>
+        <td><code>-</code></td>
+    </tr>
+</table>
+
+### Side Navigation
+
+`Side Navigation [legacy]` wordt vervangen door `Side Navigation [next]`.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+        <th>v3 - Artifact</th>
+        <th>v3 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>[Side Navigation [legacy]](/docs/components-block-side-navigation--documentatie)</td>
+        <td>deprecated</td>
+        <td>components/block</td>
+        <td><code>{`<vl-side-navigation>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Side Navigation [next]](/docs/components-next-side-navigation-side-navigation--documentatie)</td>
+        <td>release v2.9.0</td>
+        <td>components/block/next</td>
+        <td><code>{`<vl-side-navigation-next>`}</code></td>
+        <td>components/block</td>
+        <td><code>{`<vl-side-navigation>`}</code></td>
+    </tr>
+</table>
+
+### Side Navigation Layout
+
+`Side Navigation Layout` is een nieuwe component zonder legacy equivalent. Deze component biedt een out-of-the-box
+layout oplossing met automatische grid styling voor de
+    [Side Navigation [next]](/docs/components-next-side-navigation-side-navigation--documentatie).
+
+Deze component is niet compatibel met de oude [Side Navigation [legacy]](/docs/components-block-side-navigation--documentatie).
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+        <th>v3 - Artifact</th>
+        <th>v3 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>[Side Navigation Layout](/docs/components-next-side-navigation-side-navigation-layout--documentatie)</td>
+        <td>release v2.9.0</td>
+        <td>components/block/next</td>
+        <td><code>{`<vl-side-navigation-layout-next>`}</code></td>
+        <td>components/block</td>
+        <td><code>{`<vl-side-navigation-layout-next>`}</code></td>
+    </tr>
+</table>
+
+### Tabs
+
+`Tabs [legacy]` wordt vervangen door `Tabs [next]`. Deze component is herschreven om naast een standaard Tab-widget ook een standaard horizontale navigatie mogelijk te maken. Daarnaast zijn er ook verbeteringen aangebracht om de ARIA standaarden voor de Tab-widget en Listbox-widget beter te implementeren.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+        <th>v3 - Artifact</th>
+        <th>v3 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>[Tabs [legacy]](/docs/components-block-tabs-tabs--documentatie)</td>
+        <td>deprecated</td>
+        <td>components/block</td>
+        <td><code>{`<vl-tabs>`}</code></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>[Tabs [next]](/docs/components-block-next-tabs--documentatie)</td>
+        <td>release v2.13.0</td>
+        <td>components/block/next</td>
+        <td><code>{`<vl-tabs-next>`}</code></td>
+        <td>components/block</td>
+        <td><code>{`<vl-tabs>`}</code></td>
+    </tr>
+</table>

@@ -11,7 +11,7 @@ import { VlUploadProgressComponent } from '../../block/upload-progress';
 import { DropzoneFile, Dropzone as DropzoneInstance } from '../dropzone-types';
 import { FormControl } from '../form-control/form-control';
 import { uploadDefaults } from './vl-upload.defaults';
-import { vlUploadFluxStyles } from './vl-upload.flux-css';
+import { vlUploadComponentStyles } from './vl-upload.component.css';
 
 // Definieer een union type dat rekening houdt met beide manieren waarop Dropzone kan worden geëxporteerd
 type DropzoneType =
@@ -66,6 +66,8 @@ export class VlUploadComponent extends FormControl {
     private dropzoneInstance: DropzoneInstance | undefined | null;
     private isDropzoneInitialised = false;
     private dispatchInput = false;
+    private isManualUploadInProgress = false;
+    private isReprocessingRejectedFiles = false;
 
     // Properties
     uploadProgressFn: ((file: DropzoneFile, progress: number, bytesSent: number) => void) | undefined;
@@ -79,7 +81,7 @@ export class VlUploadComponent extends FormControl {
             vlTextStyles,
             vlLinkStyles('.vl-upload__button'),
             vlLinkStyles('.vl-upload-files__remove-all'),
-            vlUploadFluxStyles,
+            vlUploadComponentStyles,
         ];
     }
 
@@ -118,6 +120,7 @@ export class VlUploadComponent extends FormControl {
 
         if (changedProperties.has('value')) {
             this.setValue(this.value);
+            this.dispatchEventIfValid({ value: this.value });
         }
 
         if (changedProperties.has('dropzoneInstance')) {
@@ -185,13 +188,6 @@ export class VlUploadComponent extends FormControl {
 
         if (changedProperties.has('isInvalid')) {
             this.updateInputForAttribute('isInvalid');
-            if (this.isInvalid) {
-                if (this.formMessageText) {
-                    this.getUploadButton()?.setAttribute('aria-description', this.formMessageText);
-                }
-            } else {
-                this.getUploadButton()?.removeAttribute('aria-description');
-            }
         }
 
         if (changedProperties.has('success')) {
@@ -277,8 +273,7 @@ export class VlUploadComponent extends FormControl {
                 <ul class="vl-upload-files__list"></ul>
                 <div id="input-container"></div>
                 <button class="vl-upload-files__remove-all" type="button">
-                    <vl-icon icon="trash" right-margin aria-hidden="true"></vl-icon>
-                    Verwijder alle bestanden
+                    <vl-icon icon="trash" right-margin aria-hidden="true"></vl-icon>Verwijder alle bestanden
                 </button>
             </div>
         `;
@@ -318,6 +313,10 @@ export class VlUploadComponent extends FormControl {
         return this.dropzoneInstance?.getAcceptedFiles() || [];
     }
 
+    getRejectedFiles(): DropzoneFile[] {
+        return this.dropzoneInstance?.getRejectedFiles() || [];
+    }
+
     /**
      * Handmatig bestand toevoegen aan de lijst van opgeladen bestanden zonder achterliggende upload
      */
@@ -350,6 +349,7 @@ export class VlUploadComponent extends FormControl {
             if (url) {
                 this.dropzoneInstance.options.url = url;
             }
+            this.isManualUploadInProgress = true;
             this.dropzoneInstance.processQueue();
         }
     }
@@ -576,13 +576,14 @@ export class VlUploadComponent extends FormControl {
     }
 
     private updateValue(detail: { type: string; file?: DropzoneFile; value: FormValue }) {
+        // Het zetten van this.value triggert updated(), waar setValue en (na hideFormMessages) de
+        // vl-valid dispatch gebeuren. Zo blijft een gekoppelde state="valid" success-boodschap zichtbaar.
         this.value = this.collectFormData();
         this.dispatchEvent(new CustomEvent('vl-change', { composed: true, bubbles: true, detail }));
         if (this.dispatchInput) {
             this.dispatchEvent(new CustomEvent('vl-input', { composed: true, bubbles: true, detail }));
             this.dispatchInput = false;
         }
-        this.dispatchEventIfValid(detail);
     }
 
     /**
@@ -637,6 +638,24 @@ export class VlUploadComponent extends FormControl {
     };
 
     private handleRemovedFile = async (file: DropzoneFile): Promise<void> => {
+        if (this.isReprocessingRejectedFiles) {
+            return;
+        }
+
+        if (file.status !== 'error') {
+            const rejectedFiles = this.dropzoneInstance?.getRejectedFiles() ?? [];
+            if (rejectedFiles.length > 0) {
+                this.isReprocessingRejectedFiles = true;
+                for (const rejectedFile of rejectedFiles) {
+                    this.dropzoneInstance?.removeFile(rejectedFile);
+                }
+                for (const rejectedFile of rejectedFiles) {
+                    this.dropzoneInstance?.addFile(rejectedFile);
+                }
+                this.isReprocessingRejectedFiles = false;
+            }
+        }
+
         await this.updateFileList(this.dropzoneInstance!);
         this.updateValue({ type: 'removedfile', file: file, value: this.value });
         this.dispatchEvent(
@@ -692,6 +711,10 @@ export class VlUploadComponent extends FormControl {
             uploadProgressElement.setAttribute('progress', '100');
         }
 
+        if (this.isManualUploadInProgress && this.dropzoneInstance?.getQueuedFiles().length) {
+            this.dropzoneInstance.processQueue();
+        }
+
         this.dispatchEvent(
             new CustomEvent('vl-complete', {
                 composed: true,
@@ -712,6 +735,7 @@ export class VlUploadComponent extends FormControl {
     };
 
     private handleQueueComplete = () => {
+        this.isManualUploadInProgress = false;
         this.dispatchEvent(
             new CustomEvent('vl-queuecomplete', {
                 composed: true,

@@ -5,6 +5,7 @@ export interface WTConfig {
     argTypes: ArgTypes;
     storiesDocFile: string;
     storybookPath: string;
+    deprecated?: boolean | string;
 }
 
 export type WTConfigArray = WTConfig[];
@@ -50,6 +51,7 @@ export interface WTElement {
     name: string;
     description?: string;
     'doc-url'?: string;
+    deprecated?: boolean | string;
     attributes?: WTElementAttributeArray;
     slots?: WTElementSlotArray;
     js?: {

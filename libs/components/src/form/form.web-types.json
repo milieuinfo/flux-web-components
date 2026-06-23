@@ -9,7 +9,7 @@
             "elements": [
                 {
                     "name": "vl-checkbox",
-                    "description": "Gebruik de `checkbox` component om de gebruiker de mogelijkheid te geven om 1 of meerdere dingen te selecteren in een\nlijst.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "description": "Gebruik de `checkbox` component om de gebruiker de mogelijkheid te geven om 1 of meerdere dingen te selecteren in een\nlijst.<br/>\nZie het [form demo](/docs/patronen-formulier-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-checkbox--documentatie",
                     "attributes": [
                         {
@@ -50,6 +50,11 @@
                         {
                             "name": "success",
                             "description": "Beeldt de component in een success state af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
                             "default": "false"
                         },
                         {
@@ -111,7 +116,7 @@
                 },
                 {
                     "name": "vl-datepicker",
-                    "description": "Gebruik de `datepicker` component om de gebruiker op een gebruiksvriendelijke manier een datum of tijd te laten selecteren.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "description": "Gebruik de `datepicker` component om de gebruiker op een gebruiksvriendelijke manier een datum of tijd te laten selecteren.<br/>\nZie het [form demo](/docs/patronen-formulier-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-datepicker--documentatie",
                     "attributes": [
                         {
@@ -155,6 +160,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
+                            "default": "false"
+                        },
+                        {
                             "name": "block",
                             "description": "Duidt aan dat de component de volledige breedte van zijn parent mag innemen.",
                             "default": "false"
@@ -195,12 +205,12 @@
                         },
                         {
                             "name": "min-date",
-                            "description": "Minimum datum conform het ingestelde formaat (bv. '01-01-2019') of 'today' voor vandaag.",
+                            "description": "Minimum datum conform het ingestelde formaat (bv. '01.01.2019') of 'today' voor vandaag.",
                             "default": ""
                         },
                         {
                             "name": "max-date",
-                            "description": "Maximum datum conform het ingestelde format (bv. '31-12-2019') of 'today' voor vandaag.",
+                            "description": "Maximum datum conform het ingestelde formaat (bv. '31.12.2019') of 'today' voor vandaag.",
                             "default": ""
                         },
                         {
@@ -224,11 +234,6 @@
                             "default": "false"
                         },
                         {
-                            "name": "disable-mobile-native-input",
-                            "description": "Rendert de native datepicker op mobiele toestellen in plaats van flatpickr calendar. [Meer Info](https://flatpickr.js.org/mobile-support/)",
-                            "default": "false"
-                        },
-                        {
                             "name": "pattern",
                             "description": "Het patroon dat je moet volgen bij het ingeven van een waarde.<br>Dit kan gebruikt worden voor eenvoudige validatie.<br>Gebruik de `regex` property voor complexe validatie.",
                             "default": ""
@@ -241,6 +246,11 @@
                         {
                             "name": "static",
                             "description": "Configuratie optie overgenomen van Flatpickr. (https://flatpickr.js.org/options/)",
+                            "default": "false"
+                        },
+                        {
+                            "name": "anchor-positioning",
+                            "description": "Activeert CSS Anchor Positioning + Popover API voor de kalender positionering. Dit zorgt ervoor dat de kalender correct wordt gepositioneerd in scrollbare containers en niet wordt afgekapt door overflow of transform op ancestor-elementen (bijv. in een modal).",
                             "default": "false"
                         }
                     ],
@@ -278,7 +288,7 @@
                 },
                 {
                     "name": "vl-fieldset",
-                    "description": "Gebruik de `vl-fieldset` component om een fieldset af te beelden.\n\nFieldsets worden gebruikt om gerelateerde formulierelementen te groeperen binnen een formulier.\n\nIn uitzonderlijke gevallen kan dit gebruikt worden om verschillende input fields te groeperen onder één label. Gebruik\ndit enkel wanneer andere layoutmogelijkheden niet mogelijk zijn.\n\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "description": "Gebruik de `vl-fieldset` component om een fieldset af te beelden.\n\nFieldsets worden gebruikt om gerelateerde formulierelementen te groeperen binnen een formulier.\n\nIn uitzonderlijke gevallen kan dit gebruikt worden om verschillende input fields te groeperen onder één label. Gebruik\ndit enkel wanneer andere layoutmogelijkheden niet mogelijk zijn.\n\nZie het [form demo](/docs/patronen-formulier-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-fieldset--documentatie",
                     "attributes": [
                         {
@@ -317,7 +327,7 @@
                 },
                 {
                     "name": "vl-form-message",
-                    "description": "Gebruik de `form-message` component om een boodschap af te beelden voor een input veld.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "description": "Gebruik de `form-message` component om een boodschap af te beelden voor een input veld.<br/>\nZie het [form demo](/docs/patronen-formulier-demo--documentatie) voorbeeld voor het gebruik binnen een form.\n\nGebruik `vl-form-message` zodra een boodschap aan een form-control gekoppeld is: de component werkt samen met de\nvalidatie-lifecycle van de control (tonen/verbergen en `aria-description`).",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-form-message--documentatie",
                     "attributes": [
                         {
@@ -332,8 +342,17 @@
                         },
                         {
                             "name": "state",
-                            "description": "De state van het input element waarvoor de message getoond moet worden.",
+                            "description": "De `ValidityState`-sleutel waarvoor de message getoond moet worden. Gebruik `state=\"valid\"` voor een success-boodschap (groen) die automatisch verschijnt zodra het veld geldig is na een eerste validatie.",
                             "default": "null"
+                        },
+                        {
+                            "name": "variant",
+                            "description": "De visuele stijl van de message: `error` (default), `success` of `annotation`. Gebruik `annotation` voor een altijd zichtbare, informatieve tekst. De success-stijl wordt ook automatisch toegepast bij `state=\"valid\"`.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'error' | 'success' | 'annotation'"
+                            },
+                            "default": "error"
                         },
                         {
                             "name": "show",
@@ -356,7 +375,7 @@
                 },
                 {
                     "name": "vl-form-label",
-                    "description": "Gebruik de `form-label` component om een form label af te beelden.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "description": "Gebruik de `form-label` component om een form label af te beelden.<br/>\nZie het [form demo](/docs/patronen-formulier-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-form-label--documentatie",
                     "attributes": [
                         {
@@ -372,6 +391,11 @@
                         {
                             "name": "label",
                             "description": "De tekst van het label. Overschrijft de waarde van het default slot.",
+                            "default": ""
+                        },
+                        {
+                            "name": "annotation",
+                            "description": "De annotatie tekst die naast het label getoond wordt (bv. een voorbeeld of extra uitleg).",
                             "default": ""
                         },
                         {
@@ -395,7 +419,7 @@
                 },
                 {
                     "name": "vl-input-field",
-                    "description": "Gebruik de `input-field` component om een input veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "description": "Gebruik de `input-field` component om een input veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/patronen-formulier-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-input-field--documentatie",
                     "attributes": [
                         {
@@ -436,6 +460,11 @@
                         {
                             "name": "success",
                             "description": "Beeldt de component in een success state af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
                             "default": "false"
                         },
                         {
@@ -543,7 +572,7 @@
                 },
                 {
                     "name": "vl-input-field-masked",
-                    "description": "Gebruik de `input-field-masked` component om een input veld met een mask toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "description": "Gebruik de `input-field-masked` component om een input veld met een mask toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/patronen-formulier-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-input-field-masked--documentatie",
                     "attributes": [
                         {
@@ -584,6 +613,11 @@
                         {
                             "name": "success",
                             "description": "Beeldt de component in een success state af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
                             "default": "false"
                         },
                         {
@@ -802,7 +836,7 @@
                 },
                 {
                     "name": "vl-radio-group",
-                    "description": "Gebruik de `radio-group` component om de gebruiker de mogelijkheid te geven om 1 keuze te selecteren in een lijst.<br/>\nWanneer mogelijk, selecteer geen `radio` van vooraf zodat de gebruiker een bewuste keuze kan maken.<br/>\nDe `radio` component is een onderdeel van de `radio-group` component.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "description": "Gebruik de `radio-group` component om de gebruiker de mogelijkheid te geven om 1 keuze te selecteren in een lijst.<br/>\nWanneer mogelijk, selecteer geen `radio` van vooraf zodat de gebruiker een bewuste keuze kan maken.<br/>\nDe `radio` component is een onderdeel van de `radio-group` component.<br/>\nZie het [form demo](/docs/patronen-formulier-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-radio-group--documentatie",
                     "attributes": [
                         {
@@ -846,6 +880,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
+                            "default": "false"
+                        },
+                        {
                             "name": "readonly",
                             "description": "Duidt aan dat het veld enkel leesbaar is.",
                             "default": "false"
@@ -882,7 +921,7 @@
                 },
                 {
                     "name": "vl-select",
-                    "description": "Gebruik de `select` component om een select veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "description": "Gebruik de `select` component om een select veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/patronen-formulier-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-select--documentatie",
                     "attributes": [
                         {
@@ -923,6 +962,11 @@
                         {
                             "name": "success",
                             "description": "Beeldt de component in een success state af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
                             "default": "false"
                         },
                         {
@@ -1030,6 +1074,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
+                            "default": "false"
+                        },
+                        {
                             "name": "placeholder",
                             "description": "De placeholder tekst.<br>Dit attribuut is niet reactief.",
                             "default": ""
@@ -1133,7 +1182,7 @@
                 },
                 {
                     "name": "vl-textarea",
-                    "description": "Gebruik de `textarea` component om een textarea veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.\n\nDeze component bevat geen rich-text modus: gebruik daarvoor\n[vl-textarea-rich](/docs/components-form--text-area-rich--documentatie).",
+                    "description": "Gebruik de `textarea` component om een textarea veld toe te voegen aan een pagina.<br/>\nZie het [form demo](/docs/patronen-formulier-demo--documentatie) voorbeeld voor het gebruik binnen een form.\n\nDeze component bevat geen rich-text modus: gebruik daarvoor\n[vl-textarea-rich](/docs/components-form--text-area-rich--documentatie).",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-textarea--documentatie",
                     "attributes": [
                         {
@@ -1174,6 +1223,11 @@
                         {
                             "name": "success",
                             "description": "Beeldt de component in een success state af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
                             "default": "false"
                         },
                         {
@@ -1292,6 +1346,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
+                            "default": "false"
+                        },
+                        {
                             "name": "block",
                             "description": "Duidt aan dat de component de volledige breedte van zijn parent mag innemen.",
                             "default": "false"
@@ -1328,8 +1387,7 @@
                         },
                         {
                             "name": "rows",
-                            "description": "Het aantal rijen van het textarea veld.",
-                            "default": "null"
+                            "description": "**Deprecated** Heeft geen effect op de `vl-textarea-rich` editor. Gebruik `height` om de hoogte in te stellen."
                         },
                         {
                             "name": "cols",
@@ -1350,6 +1408,11 @@
                             "name": "preview",
                             "description": "Beeldt de value af in preview mode.<br/>Er wordt geen TinyMCE toolbar getoond en de value is niet aanpasbaar.",
                             "default": "false"
+                        },
+                        {
+                            "name": "height",
+                            "description": "De hoogte van de editor in pixels (inclusief toolbar en statusbalk).<br/>Er is een minimale hoogte van **70px**.<br/>Dit attribuut is niet reactief.",
+                            "default": "250"
                         }
                     ],
                     "js": {
@@ -1386,7 +1449,7 @@
                 },
                 {
                     "name": "vl-upload",
-                    "description": "Gebruik de `upload` component om één of meerdere bestanden te selecteren of te slepen naar het upload-veld.\n\nZie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
+                    "description": "Gebruik de `upload` component om één of meerdere bestanden te selecteren of te slepen naar het upload-veld.\n\nZie het [form demo](/docs/patronen-formulier-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-upload--documentatie",
                     "attributes": [
                         {
@@ -1427,6 +1490,11 @@
                         {
                             "name": "success",
                             "description": "Beeldt de component in een success state af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
                             "default": "false"
                         },
                         {

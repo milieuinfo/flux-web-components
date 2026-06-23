@@ -40,10 +40,22 @@ if [[ $? -eq 0 ]]
 fi
 set -e
 
-echo "run all web component tests (cypress)"
+echo "run all web component tests (cypress) - start"
 set +e
+
+# Log elke minuut "in progress" zodat de CI-omgeving weet dat het proces nog loopt
+# (cypress-tests kunnen lang duren en sommige CI-tools killen jobs zonder output)
+( while true; do sleep 60; echo "run all web component tests (cypress) - in progress"; done ) &
+PROGRESS_PID=$!
+
 npm run libs:component-tests:run 2> buffer-stderr.txt 1> buffer-stdout.txt
-if [[ $? -eq 0 ]]
+CYPRESS_EXIT=$?
+
+# Stop de progress-logger zodra de tests klaar zijn
+kill $PROGRESS_PID 2>/dev/null
+wait $PROGRESS_PID 2>/dev/null
+
+if [[ $CYPRESS_EXIT -eq 0 ]]
   then
     echo "run all web component tests (cypress) - success"
   else

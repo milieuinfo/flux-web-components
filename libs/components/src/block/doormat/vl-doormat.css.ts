@@ -8,6 +8,9 @@ const styles: CSSResult = css`
     /* Doormat styles (gebaseerd op DV _doormat.scss) */
 
     .vl-doormat {
+        /* Shadow DOM erft de globale box-sizing reset niet — zet expliciet border-box
+           zodat padding en border meegeteld worden in de hoogte (o.a. bij full-height). */
+        box-sizing: border-box;
         display: flex;
         position: relative;
         padding: var(--vl-spacing--small) var(--vl-spacing--normal);
@@ -83,6 +86,24 @@ const styles: CSSResult = css`
             display: block;
             width: 100%;
             transition: transform 0.2s;
+        }
+
+        .vl-doormat__external-icon {
+            color: var(--vl-color--icon-subtle);
+        }
+
+        &.vl-doormat--full-height {
+            height: 100%;
+        }
+
+        &.vl-doormat--no-text {
+            .vl-doormat__title {
+                margin-bottom: 0;
+            }
+
+            .vl-doormat__text {
+                display: none;
+            }
         }
     }
 `;

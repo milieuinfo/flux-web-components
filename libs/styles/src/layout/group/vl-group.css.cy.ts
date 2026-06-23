@@ -71,6 +71,70 @@ describe('cypress-component - layout styles - vl-group', () => {
         });
     });
 
+    it('should have no gap when specified', () => {
+        cy.mount(html`
+            <style>
+                ${vlGroupStyles}
+            </style>
+            <div class="vl-group vl-group--no-gap cy-group-no-gap">
+                <span>item-1</span>
+                <span>item-2</span>
+            </div>
+        `);
+        cy.get('.cy-group-no-gap').shouldHaveComputedStyle({
+            style: 'gap',
+            value: '0px',
+        });
+    });
+
+    it('should have no row gap when specified', () => {
+        cy.mount(html`
+            <style>
+                ${vlGroupStyles}
+            </style>
+            <div class="vl-group vl-group--no-row-gap cy-group-no-row-gap">
+                <span>item-1</span>
+                <span>item-2</span>
+            </div>
+        `);
+        cy.get('.cy-group-no-row-gap').shouldHaveComputedStyle({
+            style: 'row-gap',
+            value: '0px',
+        });
+    });
+
+    it('should have no column gap when specified', () => {
+        cy.mount(html`
+            <style>
+                ${vlGroupStyles}
+            </style>
+            <div class="vl-group vl-group--no-column-gap cy-group-no-column-gap">
+                <span>item-1</span>
+                <span>item-2</span>
+            </div>
+        `);
+        cy.get('.cy-group-no-column-gap').shouldHaveComputedStyle({
+            style: 'column-gap',
+            value: '0px',
+        });
+    });
+
+    it('should wrap when specified', () => {
+        cy.mount(html`
+            <style>
+                ${vlGroupStyles}
+            </style>
+            <div class="vl-group vl-group--wrap cy-group-wrap">
+                <span>item-1</span>
+                <span>item-2</span>
+            </div>
+        `);
+        cy.get('.cy-group-wrap').shouldHaveComputedStyle({
+            style: 'flex-wrap',
+            value: 'wrap',
+        });
+    });
+
     it('should have content with space between when specified', () => {
         cy.mount(html`
             <style>
@@ -84,6 +148,22 @@ describe('cypress-component - layout styles - vl-group', () => {
         cy.get('.cy-group-justify-content').shouldHaveComputedStyle({
             style: 'justify-content',
             value: 'space-between',
+        });
+    });
+
+    it('should have content at the start when specified', () => {
+        cy.mount(html`
+            <style>
+                ${vlGroupStyles}
+            </style>
+            <div class="vl-group vl-group--justify-start cy-group-justify-start">
+                <span>item-1</span>
+                <span>item-2</span>
+            </div>
+        `);
+        cy.get('.cy-group-justify-start').shouldHaveComputedStyle({
+            style: 'justify-content',
+            value: 'flex-start',
         });
     });
 
@@ -115,6 +195,54 @@ describe('cypress-component - layout styles - vl-group', () => {
         `);
         cy.get('.cy-group-justify-content').shouldHaveComputedStyle({
             style: 'justify-content',
+            value: 'flex-end',
+        });
+    });
+
+    it('should align items at the start when specified', () => {
+        cy.mount(html`
+            <style>
+                ${vlGroupStyles}
+            </style>
+            <div class="vl-group vl-group--align-start cy-group-align-start">
+                <span>item-1</span>
+                <span>item-2</span>
+            </div>
+        `);
+        cy.get('.cy-group-align-start').shouldHaveComputedStyle({
+            style: 'align-items',
+            value: 'flex-start',
+        });
+    });
+
+    it('should align items at the center when specified', () => {
+        cy.mount(html`
+            <style>
+                ${vlGroupStyles}
+            </style>
+            <div class="vl-group vl-group--align-center cy-group-align-center">
+                <span>item-1</span>
+                <span>item-2</span>
+            </div>
+        `);
+        cy.get('.cy-group-align-center').shouldHaveComputedStyle({
+            style: 'align-items',
+            value: 'center',
+        });
+    });
+
+    it('should align items at the end when specified', () => {
+        cy.mount(html`
+            <style>
+                ${vlGroupStyles}
+            </style>
+            <div class="vl-group vl-group--align-end cy-group-align-end">
+                <span>item-1</span>
+                <span>item-2</span>
+            </div>
+        `);
+        cy.get('.cy-group-align-end').shouldHaveComputedStyle({
+            style: 'align-items',
             value: 'flex-end',
         });
     });
@@ -169,14 +297,10 @@ describe('cypress-component - layout styles - vl-group', () => {
         `);
         cy.get('.item-1').shouldHaveComputedStyle({
             style: 'border-top',
-            value: '1px solid rgb(203, 210, 218)',
+            value: '0px none rgb(0, 0, 0)',
         });
         cy.get('.item-2').shouldHaveComputedStyle({
             style: 'border-top',
-            value: '1px solid rgb(203, 210, 218)',
-        });
-        cy.get('.item-2').shouldHaveComputedStyle({
-            style: 'border-bottom',
             value: '1px solid rgb(203, 210, 218)',
         });
     });

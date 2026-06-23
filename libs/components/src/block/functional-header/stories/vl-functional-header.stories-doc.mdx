@@ -28,7 +28,7 @@ import { VlFunctionalHeaderComponent } from '@domg-wc/components/block';
 
 De volgende richtlijnen gelden voor het instellen van de "Terug"-link:
 
-- Vermijd het gebruik van `history.back()`. De gebruiker kan op verschillende manieren op je pagina belandt zijn.
+- Vermijd het gebruik van `history.back()`. De gebruiker kan op verschillende manieren op je pagina beland zijn.
 - Je moet expliciet een URL instellen.
     - De ingestelde URL verwijst naar een vast en logisch startpunt,
       relatief tov de pagina waarop de gebruiker zich bevindt.
@@ -54,8 +54,20 @@ De volgende richtlijnen gelden voor het instellen van de "Terug"-link:
 Je kan de functional header "sticky" maken door het `sticky`-attribuut toe te voegen. Dit zorgt ervoor dat de header
 bovenaan het scherm blijft plakken wanneer je naar beneden scrollt. Indien er een side navigation aanwezig is op de
 pagina, houdt die rekening met de hoogte van de sticky functional header bij het bepalen van de scroll offset. Een
-demo van deze opzet vind je hier: [Voorbeeld Met Sticky En Side Navigation](/docs/ontwerp-functional-header-voorbeeld-met-sticky-en-side-navigation--functional-header-sticky-with-side-navigation).
+demo van deze opzet vind je hier: [Voorbeeld Met Sticky En Side Navigation](/docs/patronen-navigatie-functionele-header-sticky-met-side-navigation--documentatie).
 
+
+## Titel
+
+Zet de titel met het `title-label`-attribuut.
+
+<FluxAlert type="warning">
+{`
+    Het standaard HTML \`title\`-attribuut wordt afgeraden: de browser toont het als native tooltip. Gebruik in
+    plaats daarvan \`title-label\`. Bestaande \`title\`-waarden blijven werken - de tooltip wordt automatisch
+    weggenomen - migreer naar \`title-label\`.
+`}
+</FluxAlert>
 
 ## Configuratie
 
@@ -93,17 +105,19 @@ Gebruik de [vl-breadcrumb](/docs/components-block-breadcrumb--breadcrumb-default
 
 ### Andere patronen
 
-Zie [Ontwerp/Functional Header](/docs/ontwerp-functional-header-voorbeeld-met-button--documentatie) voor voorbeelden van functional headers met een extra button of search component, of met de combinatie van "Terug"-link en tabs.
+Zie [Patronen/Navigatie/Functionele Header](/docs/patronen-navigatie-functionele-header-met-button--documentatie) voor voorbeelden
+van functional headers met een extra button of search component, of met de combinatie van "Terug"-link en tabs.
 
 ## Toegankelijkheid
 
-Vul steeds `skip-to-content-id` in. Kies hiervoor de ID van de eerste heading van de content. 
-Indien er uitzonderlijk geen headings zijn, kies dan voor de ID van de content zelf. 
+Vul steeds `skip-to-content-id` in. Kies hiervoor de ID van de eerste heading van de content.
+Indien er uitzonderlijk geen headings zijn, kies dan voor de ID van de content zelf.
 Indien deze ID's niet bestaan, moeten ze voorzien worden in de content.
 
-Een ingevulde `skip-to-content-id` zorgt ervoor dat er een skip-link gerenderd wordt. Dit laat gebruikers toe om meteen te skippen naar de 
-content en de header over te slaan. Vooral voor screenreader-gebruikers vormt dit een grote tijdswinst bij het 
-navigeren. Ook voor andere gebruikers kan dit interessant zijn, daarom wordt deze link zichtbaar bij focus.
+Een ingevulde `skip-to-content-id` zorgt ervoor dat er een skip-link gerenderd wordt. Dit laat gebruikers toe om meteen
+te skippen naar de content en de header over te slaan. Vooral voor screenreader-gebruikers vormt dit een grote
+tijdswinst bij het navigeren. Ook voor andere gebruikers kan dit interessant zijn, daarom wordt deze link zichtbaar
+bij focus.
 
 Meer info vind je in de [documentatie over toegankelijke navigatie: "Blokken omzeilen"](/docs/richtlijnen-toegankelijkheid-aanpak-2-bedienbaar-2-4-navigeerbaar--documentatie#blokken-omzeilen).
 
@@ -112,12 +126,4 @@ Meer info vind je in de [documentatie over toegankelijke navigatie: "Blokken omz
 
 ### Digitaal Vlaanderen
 
-[Documentatie Digitaal Vlaanderen - Functional Header](https://overheid.vlaanderen.be/webuniversum/v3/documentation/components/vl-ui-functional-header)
-
-### Legacy Documentatie
-
-[Legacy Storybook - Functional Header](https://webcomponenten.omgeving.vlaanderen.be/storybook/?path=/docs/custom-elements-vl-functional-header--default)
-
-[Legacy Documentatie - Functional Header](https://webcomponenten.omgeving.vlaanderen.be/doc/VlFunctionalHeader.html)
-
-[Legacy Demo  - Functional Header](https://webcomponenten.omgeving.vlaanderen.be/demo/vl-functional-header.html)
+[Documentatie Digitaal Vlaanderen - Functional Header](https://www.vlaanderen.be/vlaanderen-design-system/componenten/application-header)

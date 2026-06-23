@@ -1,11 +1,9 @@
 import { BaseLitElement, webComponent } from '@domg-wc/common';
-import { vlLegacyStyles } from '@domg-wc/styles';
-import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
-import { radioStyle } from '@domg/govflanders-style/component';
+import { vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, LitElement, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
-import { vlRadioComponentFluxStyles } from './vl-radio.component.flux-css';
+import { vlRadioComponentStyles } from './vl-radio.component.css';
 import { radioDefaults } from './vl-radio.defaults';
 
 @webComponent('vl-radio')
@@ -27,8 +25,8 @@ export class VlRadioComponent extends BaseLitElement {
 
     static shadowRootOptions = { ...LitElement.shadowRootOptions, delegatesFocus: true };
 
-    static get styles(): (CSSResult | CSSResult[])[] {
-        return [resetStyle, baseStyle, vlLegacyStyles, radioStyle, vlRadioComponentFluxStyles];
+    static get styles(): CSSResult[] {
+        return [vlResetStyles, vlRadioComponentStyles];
     }
 
     static get properties(): PropertyDeclarations {

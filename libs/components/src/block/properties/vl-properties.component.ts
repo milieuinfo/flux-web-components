@@ -83,7 +83,7 @@ export class VlPropertiesComponent extends BaseLitElement {
     }
 
     private renderItem(item: Item): TemplateResult {
-        return html` <div class="item">${this.renderLabels(item.labels)} ${this.renderData(item.data)}</div>`;
+        return html` ${this.renderLabels(item.labels)} ${this.renderData(item.data)} `;
     }
 
     private renderLabels(labels: string[] | Node[][]): TemplateResult[] {

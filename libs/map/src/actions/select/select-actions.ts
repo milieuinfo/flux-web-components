@@ -24,6 +24,16 @@ export class VlSelectActions extends VlSelectAction {
         this._layer = layer;
     }
 
+    // Een select-action is aan al zijn layers gekoppeld, niet enkel aan de proxy-layer
+    // die `layer` (via getLayer) teruggeeft.
+    public appliesToLayer(layer: OlVectorLayerType): boolean {
+        return this.layers.includes(layer);
+    }
+
+    public hasVisibleLayer(): boolean {
+        return this.layers.some((layer) => layer?.getVisible());
+    }
+
     protected getLayerByFeature(layers: OlVectorLayerType[], feature: OlFeature): OlVectorLayerType {
         return layers.find((layer) => {
             const features = layer?.getSource()?.getFeatures() || [];

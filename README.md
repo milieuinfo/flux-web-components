@@ -10,7 +10,7 @@
 
 ## Project
 
-Deze __monorepo__ bevat de ontwikkeling die gebeurd door het __flux-team__ (Frontend Library / User eXperience)
+Deze __monorepo__ bevat de ontwikkeling die gebeurt door het __flux-team__ (Frontend Library / User eXperience)
 van [Departement Omgeving](https://omgeving.vlaanderen.be/), onderdeel van
 de [Vlaamse Overheid](https://www.vlaanderen.be/).
 

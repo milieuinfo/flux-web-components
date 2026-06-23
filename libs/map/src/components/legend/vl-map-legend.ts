@@ -62,6 +62,8 @@ export class VlMapLegend extends BaseLitElement {
     private urlItems: UrlItem[] = [];
     private customItems: CustomItem[] = [];
     private observer: MutationObserver;
+    private mapObserver: MutationObserver;
+    private styleChangedCleanupFns: (() => void)[] = [];
 
     constructor() {
         super();
@@ -107,34 +109,18 @@ export class VlMapLegend extends BaseLitElement {
         super.connectedCallback();
         this.mapElement = this.closest('vl-map') as VlMap;
 
-        const imageLayers: VlMapWmsLayer[] = [].concat(this.mapElement.wmsLayers);
-        const geometryLayers: GeometryLayer[] = [].concat(this.mapElement.featuresLayers, this.mapElement.wfsLayers);
-
-        imageLayers.forEach((wmsLayer) => {
-            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-            wmsLayer &&
-                this.urlItems.push({
-                    type: 'url',
-                    url: this.legendUrl(wmsLayer),
-                    name: wmsLayer.getAttribute('name'),
-                });
-        });
-
         this.customItems = this.customLegendItems();
-        this.updateItems();
-
-        geometryLayers.forEach((layer) => {
-            layer.addEventListener(VlMapVectorLayer.EVENTS.styleChanged, () => {
-                this.updateLegendGeometryItems(geometryLayers);
-            });
-        });
-
+        this.rebuildLayerItems();
+        this.initializeMapLayersObserver();
         this.initializeCustomLegendObserver();
     }
 
     disconnectedCallback() {
         super.disconnectedCallback();
         this.observer.disconnect();
+        this.mapObserver.disconnect();
+        this.styleChangedCleanupFns.forEach((fn) => fn());
+        this.styleChangedCleanupFns = [];
     }
 
     render() {
@@ -220,6 +206,48 @@ export class VlMapLegend extends BaseLitElement {
             right: this.right ?? position.right,
             bottom: this.bottom ?? position.bottom,
         };
+    }
+
+    private rebuildLayerItems() {
+        this.styleChangedCleanupFns.forEach((fn) => fn());
+        this.styleChangedCleanupFns = [];
+
+        const imageLayers: VlMapWmsLayer[] = [].concat(this.mapElement.wmsLayers);
+        const geometryLayers: GeometryLayer[] = [].concat(this.mapElement.featuresLayers, this.mapElement.wfsLayers);
+
+        this.urlItems = [];
+        imageLayers.forEach((wmsLayer) => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+            wmsLayer &&
+                this.urlItems.push({
+                    type: 'url',
+                    url: this.legendUrl(wmsLayer),
+                    name: wmsLayer.getAttribute('name'),
+                });
+        });
+
+        this.updateLegendGeometryItems(geometryLayers);
+
+        geometryLayers.forEach((layer) => {
+            const handler = () => {
+                const currentGeometryLayers: GeometryLayer[] = [].concat(
+                    this.mapElement.featuresLayers,
+                    this.mapElement.wfsLayers
+                );
+                this.updateLegendGeometryItems(currentGeometryLayers);
+            };
+            layer.addEventListener(VlMapVectorLayer.EVENTS.styleChanged, handler);
+            this.styleChangedCleanupFns.push(() =>
+                layer.removeEventListener(VlMapVectorLayer.EVENTS.styleChanged, handler)
+            );
+        });
+    }
+
+    private initializeMapLayersObserver() {
+        this.mapObserver = new MutationObserver(() => {
+            this.rebuildLayerItems();
+        });
+        this.mapObserver.observe(this.mapElement, { childList: true });
     }
 
     private initializeCustomLegendObserver() {
@@ -332,7 +360,11 @@ export class VlMapLegend extends BaseLitElement {
             borderRadius = 'border-radius: 50%;';
         }
 
-        return `border: ${item.borderSize}px solid ${item.borderColor}; color:${item.textColor}; background-color:${item.color}; ${borderRadius}`;
+        const patternStyle = item.pattern
+            ? ` background-image: url(${item.pattern}); background-repeat: repeat; background-size: 50%;`
+            : '';
+
+        return `border: ${item.borderSize}px solid ${item.borderColor}; color:${item.textColor}; background-color:${item.color};${patternStyle} ${borderRadius}`;
     }
 }
 

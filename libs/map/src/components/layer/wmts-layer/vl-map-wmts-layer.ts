@@ -1,8 +1,9 @@
 import { webComponent } from '@domg-wc/common';
 import * as OlExtent from 'ol/extent';
+import WMTSCapabilities from 'ol/format/WMTSCapabilities';
 import OlTileLayer from 'ol/layer/Tile';
 import { Projection } from 'ol/proj';
-import OlWMTSSource from 'ol/source/WMTS';
+import OlWMTSSource, { optionsFromCapabilities } from 'ol/source/WMTS';
 import OlWMTSTileGrid from 'ol/tilegrid/WMTS';
 import { getLambert2008Code, getLambert2008Extent, getLambert72Code } from '../../../utils/capabilities';
 import { VlMap } from '../../../vl-map';
@@ -10,8 +11,13 @@ import { VlMapLayer } from '../vl-map-layer';
 
 @webComponent('vl-map-wmts-layer')
 export class VlMapWmtsLayer extends VlMapLayer {
-    connectedCallback() {
-        this._source = this.__createSource();
+    async connectedCallback() {
+        this.__setIsLayerMarkerAttribute();
+        if (this.hasAttribute('from-capabilities')) {
+            this._source = await this.__createSourceFromCapabilities();
+        } else {
+            this._source = this.__createSource();
+        }
         this._layer = this._createLayer();
         return super.connectedCallback();
     }
@@ -49,6 +55,22 @@ export class VlMapWmtsLayer extends VlMapLayer {
         });
         layer.set('id', VlMapLayer._counter);
         return layer;
+    }
+
+    async __createSourceFromCapabilities(): Promise<OlWMTSSource> {
+        const resp = await fetch(`${this.url}?SERVICE=WMTS&REQUEST=GetCapabilities`);
+        const text = await resp.text();
+        const parser = new WMTSCapabilities();
+        const caps = parser.read(text);
+        const options = optionsFromCapabilities(caps, {
+            layer: this._wmtsLayer,
+            ...(this.hasAttribute('matrix-set') ? { matrixSet: this.__grbMatrixSet } : {}),
+            projection: this._projection,
+        });
+        if (!options) {
+            throw new Error(`De WMTS source kon niet aangemaakt worden vanuit de capabilities voor de layer '${this._wmtsLayer}'`);
+        }
+        return new OlWMTSSource(options);
     }
 
     __createSource() {

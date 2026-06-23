@@ -262,6 +262,22 @@ describe('cypress-component - atom components - vl-button', () => {
 
         cy.get('vl-button').shadow().find('button').should('not.have.attr', 'aria-pressed');
     });
+
+    it('should propagate aria-expanded attribute to the inner button when present', () => {
+        cy.mount(html`<vl-button aria-expanded="false"></vl-button>`);
+
+        cy.get('vl-button').shadow().find('button').should('have.attr', 'aria-expanded', 'false');
+
+        // updating the attribute should update rendering as well
+        cy.get('vl-button').invoke('attr', 'aria-expanded', 'true');
+        cy.get('vl-button').shadow().find('button').should('have.attr', 'aria-expanded', 'true');
+    });
+
+    it('should not render aria-expanded on the inner button when host attribute is absent', () => {
+        cy.mount(html`<vl-button></vl-button>`);
+
+        cy.get('vl-button').shadow().find('button').should('not.have.attr', 'aria-expanded');
+    });
 });
 
 describe('cypress-component - atom components - vl-button - cta-link', () => {
@@ -290,6 +306,48 @@ describe('cypress-component - atom components - vl-button - cta-link', () => {
 
         cy.get('vl-button').should('have.attr', 'external');
         cy.get('vl-button').shadow().find('a').should('have.attr', 'target', '_blank');
+        cy.get('vl-button').shadow().find('a').should('have.attr', 'rel', 'noopener noreferrer nofollow');
+    });
+
+    it('should not set target and rel when not external', () => {
+        cy.mount(html` <vl-button cta-link="https://www.vlaanderen.be">Klik op mij</vl-button>`);
+
+        cy.get('vl-button').shadow().find('a').should('not.have.attr', 'target');
+        cy.get('vl-button').shadow().find('a').should('not.have.attr', 'rel');
+    });
+
+    it('should set download without filename', () => {
+        cy.mount(html` <vl-button download cta-link="https://www.vlaanderen.be/document.pdf">Download</vl-button>`);
+
+        cy.get('vl-button').should('have.attr', 'download');
+        cy.get('vl-button').shadow().find('a').should('have.attr', 'download', '');
+    });
+
+    it('should set download with filename', () => {
+        cy.mount(
+            html` <vl-button download="verslag.pdf" cta-link="https://www.vlaanderen.be/document.pdf"
+                >Download</vl-button
+            >`
+        );
+
+        cy.get('vl-button').should('have.attr', 'download', 'verslag.pdf');
+        cy.get('vl-button').shadow().find('a').should('have.attr', 'download', 'verslag.pdf');
+    });
+
+    it('should not set download when absent', () => {
+        cy.mount(html` <vl-button cta-link="https://www.vlaanderen.be">Klik op mij</vl-button>`);
+
+        cy.get('vl-button').shadow().find('a').should('not.have.attr', 'download');
+    });
+
+    it('should not set download when disabled', () => {
+        cy.mount(
+            html` <vl-button disabled download="verslag.pdf" cta-link="https://www.vlaanderen.be/document.pdf"
+                >Download</vl-button
+            >`
+        );
+
+        cy.get('vl-button').shadow().find('a').should('not.have.attr', 'download');
     });
 
     it('should set disabled', () => {

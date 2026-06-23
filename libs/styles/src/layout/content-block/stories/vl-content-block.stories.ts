@@ -2,7 +2,7 @@ import { registerWebComponents } from '@domg-wc/common';
 import { VlTitleComponent } from '@domg-wc/components/atom';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { vlContentBlockArgs, vlContentBlockArgTypes } from './vl-content-block.stories-arg';
 import vlContentBlockStoriesDoc from './vl-content-block.stories-doc.mdx';

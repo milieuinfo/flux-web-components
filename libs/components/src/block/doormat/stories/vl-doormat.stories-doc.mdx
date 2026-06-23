@@ -32,6 +32,10 @@ import { VlDoormatComponent } from '@domg-wc/components/block';
 
 ## Varianten
 
+### Externe link met aria-label
+
+<Canvas of={VlDoormatStories.DoormatExternal} />
+
 ### Alternatieve stijl
 
 <Canvas of={VlDoormatStories.DoormatAlt} />
@@ -44,9 +48,19 @@ import { VlDoormatComponent } from '@domg-wc/components/block';
 
 <Canvas of={VlDoormatStories.DoormatGraphic} />
 
+### Verticaal vullend
+
+De doormat krijgt een hoogte van 100%. Dit werkt enkel wanneer de container een vaste hoogte heeft.
+
+Dit kan je doen door bv. met een `vl-grid` layout werken, met meerdere doormat components als directe kinderen.
+Vervolgens op elke doormat de CSS-classes `vl-column`, `vl-column--align-self-stretch` en de gewenste breedteclasses
+plaatsen.
+
+<Canvas of={VlDoormatStories.DoormatFullHeight} />
+
 
 ## Referenties
 
 ### Digitaal Vlaanderen
 
-[Documentatie Digitaal Vlaanderen - Doormat](https://overheid.vlaanderen.be/webuniversum/v3/documentation/components/vl-ui-doormat)
+[Documentatie Digitaal Vlaanderen - Doormat](https://www.vlaanderen.be/vlaanderen-design-system/componenten/doormat)

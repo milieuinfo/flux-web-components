@@ -1,7 +1,6 @@
-import flatpickr from 'flatpickr';
 import { MaskOptions } from '../models/cleave.model';
 
-export const createDateMask = (format: string, minDate?: string, maxDate?: string): MaskOptions | null => {
+export const createDateMask = (format: string): MaskOptions | null => {
     if (!format) return null;
     let maskOptions: MaskOptions | null = null;
     const delimiters = format.split(/[dmyY]/).filter((delimiter) => delimiter);
@@ -21,22 +20,6 @@ export const createDateMask = (format: string, minDate?: string, maxDate?: strin
         delimiters: delimiters,
         regex: new RegExp(`^[0-9]{${length}}$`),
     };
-    if (minDate) {
-        const minimumDate = flatpickr?.parseDate(minDate, format);
-        maskOptions = {
-            ...maskOptions,
-            // formatteren naar verwacht formaat voor cleave.js
-            dateMin: minimumDate ? flatpickr?.formatDate(minimumDate, 'Y-M-D') : undefined,
-        };
-    }
-    if (maxDate) {
-        const maximumDate = flatpickr?.parseDate(maxDate, format);
-        maskOptions = {
-            ...maskOptions,
-            // formatteren naar verwacht formaat voor cleave.js
-            dateMax: maximumDate ? flatpickr?.formatDate(maximumDate, 'Y-M-D') : undefined,
-        };
-    }
     return maskOptions;
 };
 

@@ -3,6 +3,14 @@ export { BaseLitElement } from './base/base.lit.element';
 export { FluxConfig, type Preferences } from './config/flux-config';
 export { ICON_PLACEMENT, MARGINS, PADDINGS } from './constants/constants';
 export {
+    NAVIGATE_TO_ANCHOR_EVENT,
+    type NavigateToAnchorDetail,
+    dispatchNavigateToAnchor,
+    enableAnchorNavigation,
+    handleAnchorClick,
+    navigateToAnchor,
+} from './util/anchor-navigation';
+export {
     webComponent,
     webComponentConditional,
     webComponentCustom,
@@ -26,6 +34,7 @@ export {
     debounce,
     defineWebComponent,
     findDeepestElementThroughShadowRoot,
+    findElementsThroughShadowRoot,
     findNodesForSlot,
     hexToString,
     ifDefinedNumber,
@@ -42,4 +51,3 @@ export {
 
 // Legacy module exports
 export { legacyBreakpoint, legacyCore } from './util/legacy-initialisation';
-

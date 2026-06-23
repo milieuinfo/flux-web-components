@@ -1,6 +1,6 @@
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../vl-side-sheet.component';
 import { sideSheetArgs, sideSheetArgTypes } from './vl-side-sheet.stories-arg';
 import sideSheetDoc from './vl-side-sheet.stories-doc.mdx';
@@ -26,6 +26,7 @@ export const SideSheetDefault = story(
         enableSwipe,
         absolute,
         left,
+        top,
         toggleText,
         tooltipText,
         right,
@@ -33,11 +34,13 @@ export const SideSheetDefault = story(
         hideToggleButton,
         iconPlacement,
         open,
+        shadow,
     }) => html`
         <vl-side-sheet
             ?enable-swipe=${enableSwipe}
             ?absolute=${absolute}
             ?left=${left}
+            top=${top}
             ?right=${right}
             toggle-text=${toggleText}
             tooltip-text=${tooltipText}
@@ -45,6 +48,7 @@ export const SideSheetDefault = story(
             icon-placement=${iconPlacement}
             ?hide-toggle-button=${hideToggleButton}
             ?open=${open}
+            shadow=${shadow}
         >
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla interdum urna ante. Integer eu sem
@@ -91,7 +95,7 @@ export const SideSheetDefault = story(
                 eros. In hac habitasse platea dictumst.
             </p>
         </vl-side-sheet>
-    `
+    `,
 );
 SideSheetDefault.storyName = 'vl-side-sheet - default';
 
@@ -101,6 +105,7 @@ export const SideSheetToggle = story(
         enableSwipe,
         absolute,
         left,
+        top,
         toggleText,
         tooltipText,
         right,
@@ -108,6 +113,7 @@ export const SideSheetToggle = story(
         hideToggleButton,
         iconPlacement,
         open,
+        shadow,
     }) => {
         const { toggleSideSheet, openSideSheet, closeSideSheet } = sideSheetToggleImplementation();
         return html`
@@ -152,6 +158,7 @@ export const SideSheetToggle = story(
                 ?enable-swipe=${enableSwipe}
                 ?absolute=${absolute}
                 ?left=${left}
+                top=${top}
                 ?right=${right}
                 toggle-text=${toggleText}
                 tooltip-text=${tooltipText}
@@ -159,6 +166,7 @@ export const SideSheetToggle = story(
                 icon-placement=${iconPlacement}
                 ?hide-toggle-button=${hideToggleButton}
                 ?open=${open}
+                shadow=${shadow}
             >
                 <vl-button
                     id="vl-side-sheet-close-button"
@@ -168,6 +176,8 @@ export const SideSheetToggle = story(
                         closeSideSheet();
                     }}
                     icon="cross"
+                    label="Sluit de side-sheet"
+                    custom-css="button.tertiary { background: white }"
                 >
                 </vl-button>
                 <p>
@@ -217,6 +227,16 @@ export const SideSheetToggle = story(
                 </p>
             </vl-side-sheet>
         `;
-    }
+    },
 );
 SideSheetToggle.storyName = 'vl-side-sheet - toggle';
+
+export const SideSheetTop = story(
+    sideSheetArgs,
+    ({ top }) => html`
+        <vl-side-sheet open top=${top}>
+            <p>De padding-top van deze side-sheet kan aangepast worden via het <code>top</code>-attribuut.</p>
+        </vl-side-sheet>
+    `,
+);
+SideSheetTop.storyName = 'vl-side-sheet - top';

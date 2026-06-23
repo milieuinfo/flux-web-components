@@ -1,6 +1,6 @@
 import { BaseLitElement, ICON_PLACEMENT, webComponent } from '@domg-wc/common';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
-import { ifDefined } from 'lit-html/directives/if-defined.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { vlIconStyles } from '../icon-style/vl-icon-style.css';
 import { vlLinkIconStyles } from '../link-style/vl-link-icon-style.css';
@@ -18,9 +18,11 @@ export class VlLinkComponent extends BaseLitElement {
     private large = linkDefaults.large;
     private error = linkDefaults.error;
     private external = linkDefaults.external;
+    private download: string | null = linkDefaults.download;
     private icon = linkDefaults.icon;
     private iconPlacement = linkDefaults.iconPlacement;
     private buttonAsLink = linkDefaults.buttonAsLink;
+    private type = linkDefaults.type;
 
     static get styles(): CSSResult[] {
         return [vlLinkFluxStyles, vlLinkStyles(), vlLinkIconStyles, buttonAsLinkStyles, vlIconStyles];
@@ -36,9 +38,11 @@ export class VlLinkComponent extends BaseLitElement {
             small: { type: Boolean },
             large: { type: Boolean },
             external: { type: Boolean },
+            download: { type: String },
             icon: { type: String },
             iconPlacement: { type: String, attribute: 'icon-placement' },
             buttonAsLink: { type: Boolean, attribute: 'button-as-link' },
+            type: { type: String },
         };
     }
 
@@ -51,7 +55,6 @@ export class VlLinkComponent extends BaseLitElement {
         };
         const target = this.external ? '_blank' : nothing;
         const rel = this.external ? 'noopener noreferrer nofollow' : nothing;
-        const positionIconBefore = this.iconPlacement !== ICON_PLACEMENT.AFTER;
         return !this.buttonAsLink
             ? html`
                   <a
@@ -59,6 +62,7 @@ export class VlLinkComponent extends BaseLitElement {
                       href=${this.href}
                       target=${target}
                       rel=${rel}
+                      download=${ifDefined(this.download ?? undefined)}
                       part="link"
                       aria-label=${this.label || nothing}
                       aria-haspopup=${ifDefined(
@@ -73,16 +77,15 @@ export class VlLinkComponent extends BaseLitElement {
                                     | 'dialog')
                               : undefined
                       )}
+                      @click=${this.handleClick}
                   >
-                      ${positionIconBefore ? this.renderIcon() : nothing}
-                      <slot></slot>
-                      ${!positionIconBefore ? this.renderIcon() : nothing}
-                      ${this.external ? this.renderExternalIcon() : ''}
+                      ${this.renderContent()}
                   </a>
               `
             : html`
                   <button
                       class="vl-button-as-link ${classMap(classes)}"
+                      type=${this.type}
                       part="button"
                       aria-label=${this.label || nothing}
                       aria-haspopup=${ifDefined(
@@ -97,13 +100,27 @@ export class VlLinkComponent extends BaseLitElement {
                                     | 'dialog')
                               : undefined
                       )}
+                      @click=${this.handleClick}
                   >
-                      ${positionIconBefore ? this.renderIcon() : nothing}
-                      <slot></slot>
-                      ${!positionIconBefore ? this.renderIcon() : nothing}
-                      ${this.external ? this.renderExternalIcon() : ''}
+                      ${this.renderContent()}
                   </button>
               `;
+    }
+
+    private handleClick(): void {
+        this.dispatchEvent(new CustomEvent('vl-click', { bubbles: true, composed: true }));
+    }
+
+    private renderContent(): TemplateResult {
+        const positionIconBefore = this.iconPlacement !== ICON_PLACEMENT.AFTER;
+        const before = positionIconBefore ? this.renderIcon() : nothing;
+        const after = !positionIconBefore ? this.renderIcon() : nothing;
+
+        // Inline wrapper bij externe links: anders is het external icon een aparte
+        // flex-child die bij wrappende tekst los rechts hangt i.p.v. na het laatste woord.
+        return this.external
+            ? html`${before}<span class="vl-link__content"><slot></slot>${after}${this.renderExternalIcon()}</span>`
+            : html`${before}<slot></slot>${after}`;
     }
 
     private renderIcon(): TemplateResult | typeof nothing {

@@ -1,7 +1,7 @@
 import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { VlButtonComponent } from '../../../atom/button';
 import searchFilterDoc from './vl-search-filter.stories-doc.mdx';
 import { VlTitleComponent } from '../../../atom/title';

@@ -1,12 +1,11 @@
 import { webComponent } from '@domg-wc/common';
-import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
-import { iconStyle } from '@domg/govflanders-style/component';
+import { vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
+import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { FormControl } from '../form-control';
-import selectStyle from './styles/vl-select.dv-css';
-import { vlSelectFluxStyles } from './styles/vl-select.flux-css';
+import { vlSelectComponentStyles } from './vl-select.component.css';
 import { selectDefaults } from './vl-select.defaults';
 import { SelectOption } from './vl-select.model';
 
@@ -29,7 +28,7 @@ export class VlSelectComponent extends FormControl {
     private parsedOptions: SelectOption[] = [];
 
     static get styles(): CSSResult[] {
-        return [resetStyle, baseStyle, selectStyle, iconStyle, vlSelectFluxStyles];
+        return [vlResetStyles, vlIconStyles, vlSelectComponentStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -125,7 +124,7 @@ export class VlSelectComponent extends FormControl {
                     ${hasGroups ? this.renderGroupedOptions() : this.renderSelectOptions(this.getAllOptions())}
                 </select>
                 ${hasValue && !this.notDeletable ? this.renderClearButton() : nothing}
-                <span class="vl-icon vl-vi vl-vi-nav-down" aria-hidden="true"></span>
+                <span class="vl-icon vl-icon--nav-down" aria-hidden="true"></span>
             </div>
             <div class="slot-container">
                 <slot @slotchange=${this.onSlotChange}></slot>
@@ -147,7 +146,7 @@ export class VlSelectComponent extends FormControl {
                 aria-label=${`Verwijder ${this.label} keuze ${this.getSelectedOption()?.label || this.value || ''}`}
                 @click=${this.clearValue}
             >
-                <span class="vl-icon vl-vi vl-vi-close" aria-hidden="true"></span>
+                <span class="vl-icon vl-icon--close" aria-hidden="true"></span>
             </button>
         `;
     }
@@ -199,7 +198,15 @@ export class VlSelectComponent extends FormControl {
 
     private onSlotChange() {
         this.parseSlottedOptions();
+        this.syncValueWithOptions();
         this.requestUpdate();
+    }
+
+    private syncValueWithOptions() {
+        if (this.getAllOptions().length > 0) {
+            // Reset naar '' wanneer er opties zijn maar geen selectie (placeholder), zonder de value te wissen
+            this.value = this.getSelectedOption()?.value || '';
+        }
     }
 
     private getSelectedOption(): SelectOption | undefined {
@@ -224,8 +231,16 @@ export class VlSelectComponent extends FormControl {
     }
 
     private setupSlotObserver() {
-        this.slotObserver = new MutationObserver(() => {
+        this.slotObserver = new MutationObserver((mutations) => {
+            const optionsChanged = mutations.some(
+                (mutation) => mutation.type === 'childList' || mutation.target !== this
+            );
+            if (!optionsChanged) {
+                return;
+            }
+
             this.parseSlottedOptions();
+            this.syncValueWithOptions();
             this.requestUpdate();
         });
 

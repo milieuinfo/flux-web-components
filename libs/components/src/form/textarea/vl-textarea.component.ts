@@ -1,11 +1,11 @@
 import { webComponent } from '@domg-wc/common';
-import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
-import { textareaStyle } from '@domg/govflanders-style/component';
+import { vlResetStyles } from '@domg-wc/styles';
 import { maxLengthValidator, minLengthValidator } from '@open-wc/form-control';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
 import { FormControl } from '../form-control/form-control';
+import { vlTextareaComponentStyles } from './vl-textarea.component.css';
 import { textareaDefaults } from './vl-textarea.defaults';
 
 @webComponent('vl-textarea')
@@ -22,13 +22,14 @@ export class VlTextareaComponent extends FormControl {
     protected cols = textareaDefaults.cols;
 
     // Variables
+    protected override submitFormOnEnter = false;
     protected initialValue = '';
     protected dispatchInput = false;
 
     static formControlValidators = [...FormControl.formControlValidators, minLengthValidator, maxLengthValidator];
 
     static get styles(): CSSResult[] {
-        return [resetStyle, baseStyle, textareaStyle];
+        return [vlResetStyles, vlTextareaComponentStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -109,14 +110,6 @@ export class VlTextareaComponent extends FormControl {
         super.resetFormControl();
 
         this.value = this.initialValue;
-    }
-
-    protected onKeydown(event: KeyboardEvent) {
-        if (event.key === 'Enter') {
-            // @ts-expect-error: event.bubbles is readonly
-            event['bubbles'] = false;
-        }
-        super.onKeydown(event);
     }
 
     private onInput(event: Event & { target: HTMLTextAreaElement }) {

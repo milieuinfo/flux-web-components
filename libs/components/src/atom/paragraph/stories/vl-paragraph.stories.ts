@@ -1,7 +1,7 @@
 import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { VlParagraphComponent } from '../vl-paragraph.component';
 import { paragraphArgs, paragraphArgTypes } from './vl-paragraph.stories-arg';

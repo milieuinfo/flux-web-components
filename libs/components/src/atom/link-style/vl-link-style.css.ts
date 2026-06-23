@@ -10,7 +10,6 @@ export const vlLinkStyles = (selector = 'a') => css`
 
         /* Link styles (gebaseerd op DV _anchor.scss en _link.scss) */
         font-family: var(--vl-font);
-        font-size: var(--vl-font-size);
         text-decoration: underline;
         display: inline-flex;
         align-items: center;

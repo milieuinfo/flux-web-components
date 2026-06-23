@@ -61,6 +61,26 @@ describe('cypress-component - atom components - vl-link', () => {
         cy.get('vl-link').shadow().find('a').should('have.attr', 'rel', 'noopener noreferrer nofollow');
     });
 
+    it('should set download without filename', () => {
+        cy.mount(html`<vl-link download href="data:text/plain,demo">Download</vl-link>`);
+
+        cy.get('vl-link').should('have.attr', 'download');
+        cy.get('vl-link').shadow().find('a').should('have.attr', 'download', '');
+    });
+
+    it('should set download with filename', () => {
+        cy.mount(html`<vl-link download="verslag.pdf" href="data:text/plain,demo">Download</vl-link>`);
+
+        cy.get('vl-link').should('have.attr', 'download', 'verslag.pdf');
+        cy.get('vl-link').shadow().find('a').should('have.attr', 'download', 'verslag.pdf');
+    });
+
+    it('should not set download when absent', () => {
+        cy.mount(html`<vl-link href="https://www.vlaanderen.be">Vlaanderen</vl-link>`);
+
+        cy.get('vl-link').shadow().find('a').should('not.have.attr', 'download');
+    });
+
     it('should set aria-label', () => {
         cy.mount(html`<vl-link label="link naar Vlaanderen">Vlaanderen</vl-link>`);
 
@@ -111,6 +131,14 @@ describe('cypress-component - atom components - vl-link', () => {
 
         cy.get('vl-link').shadow().find('a').find('slot');
         cy.get('vl-link').contains('Vlaanderen');
+    });
+
+    it('should dispatch vl-click event', () => {
+        cy.mount(html`<vl-link href="#vlaanderen">Vlaanderen</vl-link>`);
+        cy.createStubForEvent('vl-link', 'vl-click');
+
+        cy.get('vl-link').shadow().find('a').click({ force: true });
+        cy.get('@vl-click').should('have.been.calledOnce');
     });
 });
 
@@ -220,5 +248,31 @@ describe('cypress-component - atom components - vl-link - button as link', () =>
 
         cy.get('vl-link').shadow().find('button').find('slot');
         cy.get('vl-link').contains('Vlaanderen');
+    });
+
+    it('should have default type button', () => {
+        cy.mount(html`<vl-link button-as-link>Vlaanderen</vl-link>`);
+
+        cy.get('vl-link').shadow().find('button').should('have.attr', 'type', 'button');
+    });
+
+    it('should set type submit', () => {
+        cy.mount(html`<vl-link button-as-link type="submit">Vlaanderen</vl-link>`);
+
+        cy.get('vl-link').shadow().find('button').should('have.attr', 'type', 'submit');
+    });
+
+    it('should set type reset', () => {
+        cy.mount(html`<vl-link button-as-link type="reset">Vlaanderen</vl-link>`);
+
+        cy.get('vl-link').shadow().find('button').should('have.attr', 'type', 'reset');
+    });
+
+    it('should dispatch vl-click event', () => {
+        cy.mount(html`<vl-link button-as-link>Vlaanderen</vl-link>`);
+        cy.createStubForEvent('vl-link', 'vl-click');
+
+        cy.get('vl-link').shadow().find('button').click('bottomLeft');
+        cy.get('@vl-click').should('have.been.calledOnce');
     });
 });

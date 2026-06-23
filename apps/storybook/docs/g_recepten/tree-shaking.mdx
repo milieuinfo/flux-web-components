@@ -14,7 +14,7 @@ De te prefereren bundler bij Departement Omgeving is webpack. Om te tree-shaken 
 gespecifieerd in de package.json's (zowel van de applicatie als van de bibliotheken die gerefereerd worden).
 Belangrijk hierbij is dat de default (indien er niets gespecifieerd wordt) `sideEffects=true` is. Dit heeft tot
 gevolg dat als je eender welke named import doet via een barrel file ook alle andere vermelde exports geïmporteerd
-worden. Om die rede worden in de `@domg-wc` artifacts de root-barrel files ge-exclude uit de sideEffects. Vroeger
+worden. Om die reden worden in de `@domg-wc` artifacts de root-barrel files ge-exclude uit de sideEffects. Vroeger
 (< v1.17.0) werd de default gebruikt waardoor er niet ge-tree-shaked werd als je op die manier imports deed en via
 webpack bundelde.
 

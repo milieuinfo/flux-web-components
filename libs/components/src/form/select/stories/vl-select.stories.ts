@@ -31,6 +31,7 @@ const SelectTemplate = story(
         disabled,
         error,
         success,
+        blurValidation,
         options,
         placeholder,
         notDeletable,
@@ -49,6 +50,7 @@ const SelectTemplate = story(
             ?disabled=${disabled}
             ?error=${error}
             ?success=${success}
+            ?blur-validation=${blurValidation}
             .options=${options}
             placeholder=${placeholder}
             ?not-deletable=${notDeletable}

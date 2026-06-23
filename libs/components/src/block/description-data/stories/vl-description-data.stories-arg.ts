@@ -14,7 +14,7 @@ export const descriptionDataArgTypes: ArgTypes<typeof descriptionDataArgs> = {
     ...defaultArgTypes,
     bordered: {
         name: 'bordered',
-        description: 'Adds a border.',
+        description: 'Voegt een rand toe aan de description-data.',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
@@ -25,18 +25,18 @@ export const descriptionDataArgTypes: ArgTypes<typeof descriptionDataArgs> = {
         name: 'items-size',
         type: { name: TYPES.NUMBER },
         description:
-            'The number (numerator) of the maximum (denominator) that will be taken for each data item on large screens, typically desktop.',
+            'Kolombreedte (teller van het 12-kolomsysteem) voor elk item op grote schermen, typisch desktop.',
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
-            defaultValue: { summary: '12 / number of data items' },
+            defaultValue: { summary: '12 / aantal items' },
         },
     },
     mediumSize: {
         name: 'items-medium-size',
         type: { name: TYPES.NUMBER },
         description:
-            'The number (numerator) of the maximum (denominator) that will be taken for each data item on medium screens, typically tablet.',
+            'Kolombreedte (teller van het 12-kolomsysteem) voor elk item op middelgrote schermen, typisch tablet.',
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
@@ -47,7 +47,7 @@ export const descriptionDataArgTypes: ArgTypes<typeof descriptionDataArgs> = {
         name: 'items-small-size',
         type: { name: TYPES.NUMBER },
         description:
-            'The number (numerator) of the maximum (denominator) that will be taken for each data item on small screens, typically mobile.',
+            'Kolombreedte (teller van het 12-kolomsysteem) voor elk item op kleine schermen, typisch mobiel.',
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,
@@ -58,7 +58,7 @@ export const descriptionDataArgTypes: ArgTypes<typeof descriptionDataArgs> = {
         name: 'items-extra-small-size',
         type: { name: TYPES.NUMBER },
         description:
-            'The number (numerator) of the maximum (denominator) that will be taken for each data item on very small screens.',
+            'Kolombreedte (teller van het 12-kolomsysteem) voor elk item op zeer kleine schermen.',
         table: {
             type: { summary: TYPES.NUMBER },
             category: CATEGORIES.ATTRIBUTES,

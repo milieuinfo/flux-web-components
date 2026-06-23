@@ -18,6 +18,11 @@
                             "default": ""
                         },
                         {
+                            "name": "alt-background",
+                            "description": "Toont de accordion met een alternatieve grijze achtergrond.",
+                            "default": "false"
+                        },
+                        {
                             "name": "bold",
                             "description": "Beeldt de toggle-text van de accordion af in bold.",
                             "default": "false"
@@ -63,7 +68,7 @@
                         },
                         {
                             "name": "heading-level",
-                            "description": "Bepaalt het heading level (h1, h2, h3, ...) van de titel van de accordion.",
+                            "description": "Het heading-level van de titel (h1 t.e.m. h6). Indien niet opgegeven of ongeldig, wordt standaard h3 gebruikt.",
                             "value": {
                                 "kind": "plain",
                                 "type": "'1' | '2' | '3' | '4' | '5' | '6'"
@@ -124,13 +129,18 @@
                             "default": "false"
                         },
                         {
+                            "name": "multiline",
+                            "description": "Behoudt nieuwe regels in de boodschap van de waarschuwing.",
+                            "default": "false"
+                        },
+                        {
                             "name": "title",
                             "description": "Titel van de waarschuwing.<br>Bij de naked variant mag de titel alleen met dit attribuut meegegeven worden.",
                             "default": ""
                         },
                         {
                             "name": "icon",
-                            "description": "Icon van de waarschuwing.<br>Het icoon kan gekozen worden uit de lijst op https://overheid.vlaanderen.be/webuniversum/v3/documentation/atoms/vl-ui-icon.",
+                            "description": "Icon van de waarschuwing.<br>Het icoon kan gekozen worden uit de lijst op https://www.vlaanderen.be/vlaanderen-design-system/componenten/icon.",
                             "value": {
                                 "kind": "plain",
                                 "type": "'warning' | 'check' | 'info-circle'"
@@ -139,7 +149,7 @@
                         },
                         {
                             "name": "message",
-                            "description": "De message van de waarschuwing.<br>Bij de naked variant mag de message alleen met dit attribuut meegegeven worden.",
+                            "description": "De message van de waarschuwing.<br>Bij de naked variant mag de message alleen met dit attribuut meegegeven worden.<br>Werkt niet in combinatie met het default slot.",
                             "default": ""
                         },
                         {
@@ -363,27 +373,27 @@
                         },
                         {
                             "name": "bordered",
-                            "description": "Adds a border.",
+                            "description": "Voegt een rand toe aan de description-data.",
                             "default": "false"
                         },
                         {
                             "name": "items-size",
-                            "description": "The number (numerator) of the maximum (denominator) that will be taken for each data item on large screens, typically desktop.",
-                            "default": "12 / number of data items"
+                            "description": "Kolombreedte (teller van het 12-kolomsysteem) voor elk item op grote schermen, typisch desktop.",
+                            "default": "12 / aantal items"
                         },
                         {
                             "name": "items-medium-size",
-                            "description": "The number (numerator) of the maximum (denominator) that will be taken for each data item on medium screens, typically tablet.",
+                            "description": "Kolombreedte (teller van het 12-kolomsysteem) voor elk item op middelgrote schermen, typisch tablet.",
                             "default": "undefined"
                         },
                         {
                             "name": "items-small-size",
-                            "description": "The number (numerator) of the maximum (denominator) that will be taken for each data item on small screens, typically mobile.",
+                            "description": "Kolombreedte (teller van het 12-kolomsysteem) voor elk item op kleine schermen, typisch mobiel.",
                             "default": "undefined"
                         },
                         {
                             "name": "items-extra-small-size",
-                            "description": "The number (numerator) of the maximum (denominator) that will be taken for each data item on very small screens.",
+                            "description": "Kolombreedte (teller van het 12-kolomsysteem) voor elk item op zeer kleine schermen.",
                             "default": "undefined"
                         }
                     ]
@@ -396,6 +406,26 @@
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": ""
+                        },
+                        {
+                            "name": "items-size",
+                            "description": "Kolombreedte van dit item op grote schermen. Overschrijft het `items-size` attribuut van de parent `vl-description-data`.",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "items-medium-size",
+                            "description": "Kolombreedte van dit item op middelgrote schermen. Overschrijft het `items-medium-size` attribuut van de parent `vl-description-data`.",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "items-small-size",
+                            "description": "Kolombreedte van dit item op kleine schermen. Overschrijft het `items-small-size` attribuut van de parent `vl-description-data`.",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "items-extra-small-size",
+                            "description": "Kolombreedte van dit item op zeer kleine schermen. Overschrijft het `items-extra-small-size` attribuut van de parent `vl-description-data`.",
+                            "default": "undefined"
                         },
                         {
                             "name": "label",
@@ -531,8 +561,13 @@
                             "default": ""
                         },
                         {
-                            "name": "title",
+                            "name": "title-label",
                             "description": "Tekst van de titel.",
+                            "default": ""
+                        },
+                        {
+                            "name": "title",
+                            "description": "**Deprecated** - gebruik `title-label`. Het standaard HTML `title`-attribuut toont een ongewenste native browser-tooltip. Bestaande `title`-waarden blijven werken (de tooltip wordt weggenomen), maar migreer best naar `title-label`.",
                             "default": ""
                         }
                     ],
@@ -630,6 +665,15 @@
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-info-tile--documentatie",
                     "attributes": [
                         {
+                            "name": "heading-level",
+                            "description": "Het heading-level van de titel (h1 t.e.m. h6). Indien niet opgegeven of ongeldig, wordt standaard h3 gebruikt.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'1' | '2' | '3' | '4' | '5' | '6'"
+                            },
+                            "default": ""
+                        },
+                        {
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": ""
@@ -662,6 +706,16 @@
                         {
                             "name": "toggleable",
                             "description": "Maakt de info tile openklapbaar.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "highlight",
+                            "description": "Voegt een accent toe aan de bovenkant van de info tile.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "highlight-left",
+                            "description": "Voegt een accent toe aan de linkerkant van de info tile.",
                             "default": "false"
                         },
                         {
@@ -742,6 +796,32 @@
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": ""
+                        },
+                        {
+                            "name": "type",
+                            "description": "Er kan een vast icoon gekozen worden (contact, publications, faq, news, timeline, question).",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'contact' | 'publications' | 'faq' | 'news' | 'timeline' | 'question'"
+                            },
+                            "default": ""
+                        },
+                        {
+                            "name": "title",
+                            "description": "Attribuut dat wordt gebruikt om de titel van de infoblock te zetten.",
+                            "default": ""
+                        },
+                        {
+                            "name": "icon",
+                            "description": "Attribuut dat wordt gebruikt om een icoon vooraan aan de titel toe te voegen. Het icoon kan gekozen worden uit de lijst op https://www.vlaanderen.be/vlaanderen-design-system/componenten/icon.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'calendar' | 'programming-bug' | 'key'"
+                            },
+                            "default": ""
+                        },
+                        {
+                            "name": "content (for demo purposes)"
                         }
                     ]
                 },
@@ -1057,6 +1137,11 @@
                             "default": ""
                         },
                         {
+                            "name": "link-label",
+                            "description": "Aria-label voor de link. Aanbevolen voor toegankelijkheid. Let op: `aria-label` vervangt de volledige linktekst, bv. \"Bouwen, wonen en energie - opent in nieuw venster\" bij external links.",
+                            "default": ""
+                        },
+                        {
                             "name": "external",
                             "description": "Opent de link in een nieuw tabblad.",
                             "default": "false"
@@ -1085,6 +1170,11 @@
                             "name": "image-height",
                             "description": "Past de hoogte van de afbeelding aan.<br/>Niet van toepassing als `graphic` op `true` staat.",
                             "default": "null"
+                        },
+                        {
+                            "name": "full-height",
+                            "description": "Strekt de doormat verticaal uit om de volledige hoogte van de container te vullen.",
+                            "default": "false"
                         },
                         {
                             "name": "graphic",
@@ -1126,6 +1216,11 @@
                             "default": ""
                         },
                         {
+                            "name": "link-label",
+                            "description": "Aria-label voor de link. Aanbevolen voor toegankelijkheid. Let op: `aria-label` vervangt de volledige linktekst, bv. \"Bezoekers per dag - opent in nieuw venster\" bij external links.",
+                            "default": ""
+                        },
+                        {
                             "name": "external",
                             "description": "Opent de link in een nieuw tabblad.<br/>Te gebruiken in combinatie met het href attribuut.",
                             "default": "false"
@@ -1156,12 +1251,17 @@
                         },
                         {
                             "name": "label-width",
-                            "description": "De breedte van de labels, in %. Heeft geen impact als de properties 'collapsed' worden.",
+                            "description": "De breedte van de labels, in %. Heeft geen impact als de properties 'stacked' worden.",
                             "default": "25"
                         },
                         {
                             "name": "no-clone",
                             "description": "Default wordt de inhoud van label en data ge-cloned: van de Light DOM naar de shadow DOM, met no-clone actief wordt de inhoud verplaatst.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "no-padding-bottom",
+                            "description": "Haalt de witruimte onder het laatste item weg. Gebruik dit indien er via stacking al witruimte aanwezig is.",
                             "default": "false"
                         }
                     ],
@@ -1208,9 +1308,117 @@
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search-result--documentatie"
                 },
                 {
+                    "name": "vl-side-navigation-next",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik de `side-navigation` component om een compact navigatie-element aan een pagina toe te voegen. Het vat de\ninhoud van lange pagina's samen aan de hand van de titels en leidt de gebruiker door de pagina inhoud.\n\n<FluxAlert type=\"info\">\n{`\n    Er bestaat een bijbehorend **Side Navigation Layout** component dat automatisch de grid-layout en een side navigation combineert.\n    Heb je meer controle of maatwerk nodig, gebruik dan \\`vl-side-navigation-next\\` rechtstreeks. Voor de standaard combinatie van layout en inhoudsopgave volstaat het layout-component.\n    Voor meer informatie: [Side Navigation Layout](/docs/components-next-side-navigation-layout--documentatie).\n`}\n</FluxAlert>",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-side-navigation-next--documentatie"
+                },
+                {
+                    "name": "vl-side-navigation-layout-next",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>De side navigation layout bouwt automatisch een inhoudstafel op voor een gestructureerde tekst met behulp van de\n[side navigation](/docs/components-next-side-navigation-side-navigation--documentatie).",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-side-navigation-layout--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "compact",
+                            "description": "Forceert de compacte weergave (toggle knop, verborgen navigatie standaard) ongeacht de viewport grootte.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "heading-root-selector",
+                            "description": "CSS selector om het root container element te vinden waarbinnen naar headings gezocht wordt. Indien niet opgegeven, wordt het volledige document/shadow root doorzocht. Voorbeeld: \"#section-1\" om enkel headings binnen die sectie te scannen.",
+                            "default": ""
+                        },
+                        {
+                            "name": "content-block",
+                            "description": "Past de vl-content-block class toe op de layout container voor correcte spacing.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "max-depth",
+                            "description": "Optionele maximum diepte voor shadow DOM traversal (bij scannen van headings én bij zoeken van scroll-target). Biedt fijnmazige controle over performantie vs compatibiliteit. 0 = enkel light DOM, 1 = light DOM + eerste niveau shadow DOM, undefined = onbeperkt (standaard).",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "navigation-title",
+                            "description": "Tekst die getoond wordt als titel boven de inhoudstafel in de side navigation. Wordt doorgegeven aan vl-side-navigation-next.",
+                            "default": ""
+                        },
+                        {
+                            "name": "exclude-selectors",
+                            "description": "Comma-separated CSS selectors van elementen om uit te sluiten tijdens het scannen van headings. Wordt doorgegeven aan vl-side-navigation-next. Voorbeeld: \"iframe, table.large-data, .skip-headings\".",
+                            "default": ""
+                        },
+                        {
+                            "name": "child-spacing",
+                            "description": "Bepaalt de verticale ruimte tussen child-links. `medium` geeft extra ruimte (1.3rem marge boven en onder). `small` is de standaard compacte weergave. Wordt doorgegeven aan vl-side-navigation-next.",
+                            "default": "small"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "content",
+                            "description": "De hoofdinhoud van de pagina. Plaats hier het element (bijv. een div) met de secties en headings waarop de inhoudsopgave gebaseerd wordt. Moet een element zijn dat overeenkomt met heading-root-selector of een kind daarvan bevat.",
+                            "default": ""
+                        },
+                        {
+                            "name": "navigation",
+                            "description": "Optioneel. Custom navigatie-component. Dit slot verwacht de [vl-side-navigation-next](/docs/components-next-side-navigation-side-navigation--documentatie). Indien niet gezet, wordt automatisch een `vl-side-navigation-next` gegenereerd op basis van de headings in de content slot.",
+                            "default": ""
+                        }
+                    ]
+                },
+                {
                     "name": "vl-side-navigation",
-                    "description": "Gebruik de `side-navigation` component om een compact navigatie-element aan een pagina toe te voegen. Het vat de\ninhoud van lange pagina's samen, leidt de gebruiker door de pagina inhoud en kan ook naar externe pagina's verwijzen.\n\nDe `vl-side-navigation` wordt opgebouwd uit volgende sub-componenten:\n\n- VlSideNavigation `[vl-side-navigation]`\n- VlSideNavigationTitle<br/>\n    `[vl-side-navigation-h1 / vl-side-navigation-h2 / vl-side-navigation-h3 /`\n    `vl-side-navigation-h4 / vl-side-navigation-h5 / vl-side-navigation-h6]`\n- VlSideNavigationContent `[vl-side-navigation-content]`\n- VlSideNavigationGroup `[vl-side-navigation-group]`\n- VlSideNavigationItem `[vl-side-navigation-item]`\n- VlSideNavigationToggle `[vl-side-navigation-toggle]`\n- VlSideNavigationReference `[vl-side-navigation-reference]`\n\n```js\nimport { VlSideNavigation } from '@domg-wc/components/block';\n```\n\n```html\n<vl-side-navigation></vl-side-navigation>\n```\n\n<Canvas of={VlSideNavigationStories.SideNavigationDefault}/>",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie"
+                    "description": "<span style=\"color: rgb(240,0,0)\">[legacy-component]</span><br/>Gebruik de `side-navigation` component om een compact navigatie-element aan een pagina toe te voegen. Het vat de\ninhoud van lange pagina's samen, leidt de gebruiker door de pagina inhoud en kan ook naar externe pagina's verwijzen.\n\nDe `vl-side-navigation` wordt opgebouwd uit volgende sub-componenten:\n\n- VlSideNavigationComponent `[vl-side-navigation]`\n- VlSideNavigationTitleComponent<br/>\n    `[vl-side-navigation-h1 / vl-side-navigation-h2 / vl-side-navigation-h3 /`\n    `vl-side-navigation-h4 / vl-side-navigation-h5 / vl-side-navigation-h6]`\n- VlSideNavigationContentComponent `[vl-side-navigation-content]`\n- VlSideNavigationGroupComponent `[vl-side-navigation-group]`\n- VlSideNavigationItemComponent `[vl-side-navigation-item]`\n- VlSideNavigationToggleComponent `[vl-side-navigation-toggle]`\n- VlSideNavigationReferenceComponent `[vl-side-navigation-reference]`\n\n```js\nimport { VlSideNavigationComponent } from '@domg-wc/components/block';\n```\n\n```html\n<vl-side-navigation></vl-side-navigation>\n```\n\n<Canvas of={VlSideNavigationStories.SideNavigationDefault}/>",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-side-navigation--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "closed",
+                            "description": "Wanneer aanwezig wordt de inhoudstafel standaard verborgen. Heeft enkel effect wanneer het attribuut `compact` is gezet of bij mobiele weergave (viewport < 768px). Op desktop zonder compact wordt de navigatie altijd getoond.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "compact",
+                            "description": "Forceert de compacte weergave (toggle knop, verborgen navigatie standaard) ongeacht de viewport grootte.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "heading-root-selector",
+                            "description": "CSS selector om het root container element te vinden waarbinnen naar headings gezocht wordt. Indien niet opgegeven, wordt het volledige document/shadow root doorzocht. Voorbeeld: \"#section-1\" om enkel headings binnen die sectie te scannen.",
+                            "default": ""
+                        },
+                        {
+                            "name": "max-depth",
+                            "description": "Optionele maximum diepte voor shadow DOM traversal (bij scannen van headings én bij zoeken van scroll-target). Biedt fijnmazige controle over performantie vs compatibiliteit. 0 = enkel light DOM, 1 = light DOM + eerste niveau shadow DOM, undefined = onbeperkt (standaard).",
+                            "default": "undefined"
+                        },
+                        {
+                            "name": "navigation-title",
+                            "description": "Tekst die getoond wordt als titel boven de inhoudstafel.",
+                            "default": "Op deze pagina"
+                        },
+                        {
+                            "name": "child-spacing",
+                            "description": "Bepaalt de verticale ruimte tussen child-links. `medium` geeft extra ruimte (1.3rem marge boven en onder), vergelijkbaar met de stijl van de klassieke vl-side-navigation. `small` is de standaard compacte weergave.",
+                            "default": "small"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "[default]",
+                            "description": "Custom inhoudsopgave. Wanneer je hier content plaatst (bijv. een ul/li-structuur met vl-link elementen met href=\"#...\"), wordt die gebruikt in plaats van de automatisch gegenereerde inhoudsopgave. De links moeten verwijzen naar heading-ids in de content.",
+                            "default": ""
+                        }
+                    ]
                 },
                 {
                     "name": "vl-side-navigation-content",
@@ -1341,6 +1549,21 @@
                                 "kind": "plain",
                                 "type": "'highlighted' | 'disabled' | 'success' | 'warning' | 'error'"
                             },
+                            "default": "null"
+                        },
+                        {
+                            "name": "heading-level",
+                            "description": "Het heading niveau voor de step titel.",
+                            "default": "3"
+                        },
+                        {
+                            "name": "icon-aria-label",
+                            "description": "Aria label voor de icon container.",
+                            "default": "null"
+                        },
+                        {
+                            "name": "timeline-aria-label",
+                            "description": "Aria label voor de timeline datum container, bijvoorbeeld voor volledige datum.",
                             "default": "null"
                         },
                         {
@@ -1561,7 +1784,7 @@
                         },
                         {
                             "name": "trigger",
-                            "description": "Gebruiker interacties die popover zal triggeren. Je kan verschillende combineren door ze met een spatie naast mekaar te zetten. Bv. met `focus hover` zal de popover zowel verschijnen bij focus als bij hover.",
+                            "description": "Gebruikersacties die de popover triggeren. Je kan verschillende acties combineren met spaties. Bv. met `focus hover` zal de popover zowel verschijnen bij focus als bij hover.<br />Tip: `hover` en `focus` zijn bij de popover meestal te vermijden. Gebruik hiervoor eerder [vl-tooltip](/?path=/docs/components-block-tooltip--documentatie).",
                             "value": {
                                 "kind": "plain",
                                 "type": "'click' | 'focus' | 'hover'"
@@ -1576,6 +1799,11 @@
                                 "type": "'absolute' | 'fixed'"
                             },
                             "default": "absolute"
+                        },
+                        {
+                            "name": "max-height",
+                            "description": "Optionele maximumhoogte van de popover-inhoud (CSS-lengte, bv. `300px` of `50vh`). Bij overschrijding scrollt de inhoud verticaal. De effectieve hoogte is het minimum van deze waarde en de automatisch berekende viewport-ruimte.",
+                            "default": ""
                         }
                     ],
                     "js": {
@@ -1837,6 +2065,21 @@
                             "name": "flux-zebra",
                             "description": "Variant waarin de rijen afwisselend een andere achtergrondkleur krijgen. Dit maakt de tabel makkelijker leesbaar. Deze zebra werkt voor tabellen met en zonder detail rijen.",
                             "default": "false"
+                        },
+                        {
+                            "name": "multi-sort",
+                            "description": "Maakt het mogelijk om op meerdere kolommen te sorteren.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "label",
+                            "description": "Wordt gebruikt als aria-label voor de tabel. Optioneel indien er een caption gedefinieerd is. Voor screenreaders heeft label voorrang op caption als beide aanwezig zijn, maar het is aanbevolen om caption te gebruiken als er een zichtbare titel voor de tabel gewenst is.",
+                            "default": ""
+                        },
+                        {
+                            "name": "caption",
+                            "description": "Caption van de tabel. Optioneel indien er een label gedefinieerd is.",
+                            "default": ""
                         }
                     ]
                 },
@@ -1860,6 +2103,18 @@
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": ""
+                        },
+                        {
+                            "name": "medium",
+                            "description": "This attribute is used to pass the medium.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'facebook' | 'twitter' | 'linkedin' | 'googleplus' | 'mail'"
+                            }
+                        },
+                        {
+                            "name": "href",
+                            "description": "The href attribute specifies the link's destination."
                         }
                     ]
                 },
@@ -1888,6 +2143,74 @@
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": ""
+                        },
+                        {
+                            "name": "enable-swipe",
+                            "description": "Attribute wordt gebruikt om aan te duiden dat swipe functie toegelaten is.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "left",
+                            "description": "Attribute om de side-sheet aan de linkerrand te positioneren.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "right",
+                            "description": "Attribute om de side-sheet aan de rechterrand te positioneren. Dit is de standaard instelling.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "absolute",
+                            "description": "Attribute wordt gebruikt om aan te duiden dat de side-sheet absoluut gepositioneerd wordt.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "open",
+                            "description": "Duidt aan dat de side-sheet open is.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "top",
+                            "description": "Attribute wordt gebruikt om de padding-top van de side-sheet aan te passen. Dit staat standaard op 43px ingesteld om de hoogte van de sticky vl-header te compenseren. Indien er extra sticky elementen op de pagina voorkomen, kan je deze waarde aanpassen.",
+                            "default": "43px"
+                        },
+                        {
+                            "name": "toggle-text",
+                            "description": "Attribute wordt gebruikt om de toggle knop tekst te wijzigen.",
+                            "default": ""
+                        },
+                        {
+                            "name": "tooltip-text",
+                            "description": "Attribute wordt gebruikt om de native tooltip te bepalen.",
+                            "default": ""
+                        },
+                        {
+                            "name": "custom-icon",
+                            "description": "Dit vervangt zowel open & close icon door 1 custom icon. \n Standaard wordt afhankelijk van de positie van de side-sheet een pijltje getoond dat aanduidt of de side-sheet open of dicht is.",
+                            "default": ""
+                        },
+                        {
+                            "name": "icon-placement",
+                            "description": "Positie van icon bepalen. Standaard bevindt die zich voor de tekst.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'before' | 'after'"
+                            },
+                            "default": "before"
+                        },
+                        {
+                            "name": "hide-toggle-button",
+                            "description": "Toggle knop verbergen.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "shadow",
+                            "description": "Schaduw van de side sheet. Gebruik \"large\" voor side sheets die een hoger contrast nodig hebben met de onderliggende pagina.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'default' | 'large'"
+                            },
+                            "default": "default"
                         }
                     ]
                 },
@@ -1903,6 +2226,11 @@
                         {
                             "name": "link",
                             "description": "De component wordt een link. Door te klikken op de component wordt de gebruiker doorgestuurd naar de link die gezet is in dit attribuut.",
+                            "default": ""
+                        },
+                        {
+                            "name": "link-label",
+                            "description": "Aria-label voor de link. Aanbevolen voor toegankelijkheid. Let op: `aria-label` vervangt de volledige linktekst, bv. \"Premies voor renovatie - opent in nieuw venster\" bij external links.",
                             "default": ""
                         },
                         {
@@ -2024,6 +2352,78 @@
                     }
                 },
                 {
+                    "name": "vl-tabs-next",
+                    "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>Gebruik deze component om content op te delen in verschillende tabbladen.\n\nDit component heeft twee varianten:\n\n- **Standaard tabs patroon**:\n    - Deze variant wordt best gebruikt als **widget op een pagina** en niet als navigatie element.\n    - Deze implementatie volgt de [ARIA tab patroon richtlijnen](https://www.w3.org/WAI/ARIA/apg/patterns/tabs/) voor `role=\"tablist\"`.\n    - De tabs zijn bedienbaar met de pijltjestoetsen.\n    - De tabpanelen worden allemaal gerenderd, maar enkel het selecteerde tabpaneel wordt getoond.\n    - Bij deze variant gebruik je de `<vl-tab-next>` als tab elementen en de `<vl-tab-panel-next>` als tabpanelen.\n- **Horizontale navigatie**:\n    - Deze variant implementeert geen `role=\"tablist\"` maar doet dienst als **navigatie element**.\n    - Bij deze variant gebruik je de `<vl-tab-link-next>` als tab elementen.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-tabs--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "active-tab",
+                            "description": "Het id van de actieve tab. De tab in kwestie wordt geselecteerd bij het aanpassen van dit id.",
+                            "default": ""
+                        },
+                        {
+                            "name": "alt",
+                            "description": "Toont de alt variant van de tabs. Deze variant dient gebruikt te worden als subnavigatie onder de functional header.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "disable-links",
+                            "description": "Zet de automatische url manipulaties uit.<br>Dit attribuut wordt enkel bij de initiële render van een tab gebruikt en werkt niet dynamisch.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "responsive-label",
+                            "description": "Wordt afgebeeld op mobile wanneer de tabs samengevoegd worden tot een uitklapbaar menu. Wordt enkel afgebeeld wanneer er geen tab geselecteerd is.",
+                            "default": ""
+                        },
+                        {
+                            "name": "display-style",
+                            "description": "Geeft aan op welke manier de tabs getoond worden.<br>Standaard gedrag (`default`) is responsief; bij een breedte groter dan 768px is stijl de `tabs` stijl, anders is het de `collapsed` stijl.<br>Je kan ook expliciet de `tabs` of `collapsed` stijl kiezen die respectievelijk altijd de tabs of altijd de collapsed stijl toont.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'default' | 'tabs' | 'collapsed'"
+                            },
+                            "default": "default"
+                        },
+                        {
+                            "name": "within-functional-header",
+                            "description": "Duidt aan dat de tabs in de functional header gerenderd worden. Aan de hand van dit attribuut wordt de layout van de tabs licht aangepast.",
+                            "default": "false"
+                        }
+                    ],
+                    "js": {
+                        "events": [
+                            {
+                                "name": "change",
+                                "description": "Afgevuurd na het klikken op een niet actieve tab. Het event bevat het id van de tab.",
+                                "type": "{ activeTab: string }"
+                            },
+                            {
+                                "name": "vl-click",
+                                "description": "Afgevuurd na het klikken op een tab. Het event bevat het id van de tab.",
+                                "type": "{ activeTab: string }"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "vl-tab-next",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-tabs--documentatie"
+                },
+                {
+                    "name": "vl-tab-link-next",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-tabs--documentatie"
+                },
+                {
+                    "name": "vl-tab-panel-next",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-tabs--documentatie"
+                },
+                {
                     "name": "vl-tabs-pane",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-tabs--documentatie",
                     "attributes": [
@@ -2063,6 +2463,16 @@
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": ""
+                        },
+                        {
+                            "name": "v-center",
+                            "description": "Attribuut wordt gebruikt om ervoor te zorgen dat de content verticaal gecentreerd wordt.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "v-stretch",
+                            "description": "Attribuut wordt gebruikt om ervoor te zorgen dat de content 100% zal innemen.",
+                            "default": "false"
                         }
                     ]
                 },
@@ -2167,6 +2577,10 @@
                             "name": "custom-css",
                             "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
                             "default": ""
+                        },
+                        {
+                            "name": "parameters",
+                            "description": "De key/value parameters die verwerkt en getoond zullen worden in het content element."
                         }
                     ]
                 },

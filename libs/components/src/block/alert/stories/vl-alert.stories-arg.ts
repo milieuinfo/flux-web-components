@@ -14,6 +14,7 @@ export const alertArgs = {
     ...defaultArgs,
     closable: false,
     naked: false,
+    multiline: false,
     title: '',
     icon: '',
     size: '',
@@ -45,6 +46,15 @@ export const alertArgTypes: ArgTypes<typeof alertArgs> = {
             defaultValue: { summary: String(alertArgs.naked) },
         },
     },
+    multiline: {
+        name: 'multiline',
+        description: 'Behoudt nieuwe regels in de boodschap van de waarschuwing.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(alertArgs.multiline) },
+        },
+    },
     title: {
         name: 'title',
         description:
@@ -58,7 +68,7 @@ export const alertArgTypes: ArgTypes<typeof alertArgs> = {
     icon: {
         name: 'icon',
         description:
-            'Icon van de waarschuwing.<br>Het icoon kan gekozen worden uit de lijst op https://overheid.vlaanderen.be/webuniversum/v3/documentation/atoms/vl-ui-icon.',
+            'Icon van de waarschuwing.<br>Het icoon kan gekozen worden uit de lijst op https://www.vlaanderen.be/vlaanderen-design-system/componenten/icon.',
         control: { type: CONTROLS.SELECT },
         options: Object.values(ALERT_ICON),
         table: {
@@ -70,7 +80,8 @@ export const alertArgTypes: ArgTypes<typeof alertArgs> = {
     message: {
         name: 'message',
         description:
-            'De message van de waarschuwing.<br>Bij de naked variant mag de message alleen met dit attribuut meegegeven worden.',
+            'De message van de waarschuwing.<br>Bij de naked variant mag de message alleen met dit attribuut ' +
+            'meegegeven worden.<br>Werkt niet in combinatie met het default slot.',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,

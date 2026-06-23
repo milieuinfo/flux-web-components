@@ -1,5 +1,5 @@
 import { formattedSourceCode } from '@resources/utils-storybook';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { vlIconStyles } from '../../icon-style/vl-icon-style.css';
 import { vlLinkStyles } from '../vl-link-style.css';
 import vlLinkStoriesDoc from './vl-link-style.stories-doc.mdx';

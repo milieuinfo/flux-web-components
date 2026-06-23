@@ -1,7 +1,7 @@
 import { GlobalStyles, registerWebComponents } from '@domg-wc/common';
 import { VlHeader } from '@domg-wc/components/compliance';
 import { html } from 'lit';
-import { VlTabsComponent } from '../tabs';
+import { VlTabsComponent } from '../next/tabs';
 import { VlBreadcrumbComponent } from './../breadcrumb';
 import { VlFunctionalHeaderComponent } from './vl-functional-header.component';
 
@@ -130,6 +130,28 @@ describe('cypress-component - block components - vl-functional-header', () => {
         cy.mount(html` <vl-functional-header title="School en studietoelagen"></vl-functional-header>`);
 
         shouldSetTitleText();
+    });
+
+    it('should set title text via title-label', () => {
+        cy.mount(html` <vl-functional-header title-label="School en studietoelagen"></vl-functional-header>`);
+
+        shouldSetTitleText();
+    });
+
+    it('should not keep the title attribute on the host (no native tooltip)', () => {
+        cy.mount(html` <vl-functional-header title="School en studietoelagen"></vl-functional-header>`);
+
+        shouldSetTitleText();
+        cy.get('vl-functional-header').should('not.have.attr', 'title');
+    });
+
+    it('should prefer title-label over deprecated title when both are set', () => {
+        cy.mount(html`
+            <vl-functional-header title="Oude titel" title-label="School en studietoelagen"></vl-functional-header>
+        `);
+
+        shouldSetTitleText();
+        cy.get('vl-functional-header').should('not.have.attr', 'title');
     });
 });
 
@@ -284,11 +306,11 @@ describe('cypress-component - block components - vl-functional-header - tabs', (
     it('should be accessible', () => {
         cy.mount(html`
             <vl-functional-header title="test">
-                <vl-tabs slot="sub-header" disable-links within-functional-header active-tab="trein">
-                    <vl-tabs-pane id="trein" title="Trein"></vl-tabs-pane>
-                    <vl-tabs-pane id="metro" title="Metro, tram en bus"></vl-tabs-pane>
-                    <vl-tabs-pane id="fiets" title="Fiets"></vl-tabs-pane>
-                </vl-tabs>
+                <vl-tabs-next slot="sub-header" horizontal-navigation label="Transportmiddelen">
+                    <vl-tab-link-next href="#trein">Trein</vl-tab-link-next>
+                    <vl-tab-link-next href="#metro">Metro, tram en bus</vl-tab-link-next>
+                    <vl-tab-link-next href="#fiets">Fiets</vl-tab-link-next>
+                </vl-tabs-next>
             </vl-functional-header>
         `);
 
@@ -299,11 +321,11 @@ describe('cypress-component - block components - vl-functional-header - tabs', (
     it('should set title link', () => {
         cy.mount(html`
             <vl-functional-header link="test">
-                <vl-tabs slot="sub-header" disable-links within-functional-header active-tab="trein">
-                    <vl-tabs-pane id="trein" title="Trein"></vl-tabs-pane>
-                    <vl-tabs-pane id="metro" title="Metro, tram en bus"></vl-tabs-pane>
-                    <vl-tabs-pane id="fiets" title="Fiets"></vl-tabs-pane>
-                </vl-tabs>
+                <vl-tabs-next slot="sub-header" horizontal-navigation label="Transportmiddelen">
+                    <vl-tab-link-next href="#trein">Trein</vl-tab-link-next>
+                    <vl-tab-link-next href="#metro">Metro, tram en bus</vl-tab-link-next>
+                    <vl-tab-link-next href="#fiets">Fiets</vl-tab-link-next>
+                </vl-tabs-next>
             </vl-functional-header>
         `);
 
@@ -313,11 +335,11 @@ describe('cypress-component - block components - vl-functional-header - tabs', (
     it('should set title text', () => {
         cy.mount(html`
             <vl-functional-header title="School en studietoelagen">
-                <vl-tabs slot="sub-header" disable-links within-functional-header active-tab="trein">
-                    <vl-tabs-pane id="trein" title="Trein"></vl-tabs-pane>
-                    <vl-tabs-pane id="metro" title="Metro, tram en bus"></vl-tabs-pane>
-                    <vl-tabs-pane id="fiets" title="Fiets"></vl-tabs-pane>
-                </vl-tabs>
+                <vl-tabs-next slot="sub-header" horizontal-navigation label="Transportmiddelen">
+                    <vl-tab-link-next href="#trein">Trein</vl-tab-link-next>
+                    <vl-tab-link-next href="#metro">Metro, tram en bus</vl-tab-link-next>
+                    <vl-tab-link-next href="#fiets">Fiets</vl-tab-link-next>
+                </vl-tabs-next>
             </vl-functional-header>
         `);
 
@@ -327,77 +349,70 @@ describe('cypress-component - block components - vl-functional-header - tabs', (
     it('should have three tabs with titles', () => {
         cy.mount(html`
             <vl-functional-header>
-                <vl-tabs slot="sub-header" disable-links within-functional-header active-tab="trein">
-                    <vl-tabs-pane id="trein" title="Trein"></vl-tabs-pane>
-                    <vl-tabs-pane id="metro" title="Metro, tram en bus"></vl-tabs-pane>
-                    <vl-tabs-pane id="fiets" title="Fiets"></vl-tabs-pane>
-                </vl-tabs>
+                <vl-tabs-next slot="sub-header" horizontal-navigation label="Transportmiddelen">
+                    <vl-tab-link-next href="#trein">Trein</vl-tab-link-next>
+                    <vl-tab-link-next href="#metro">Metro, tram en bus</vl-tab-link-next>
+                    <vl-tab-link-next href="#fiets">Fiets</vl-tab-link-next>
+                </vl-tabs-next>
             </vl-functional-header>
         `);
 
-        cy.get('vl-tabs')
-            .shadow()
-            .find('ul.vl-tabs')
-            .find('vl-tab[id="trein"]')
-            .find('a')
-            .find('slot')
-            .contains('Trein');
+        cy.get('vl-tabs-next').find('vl-tab-link-next').first().contains('Trein');
 
-        cy.get('vl-tabs')
-            .shadow()
-            .find('ul.vl-tabs')
-            .find('vl-tab[id="metro"]')
-            .find('a')
-            .find('slot')
-            .contains('Metro, tram en bus');
+        cy.get('vl-tabs-next').find('vl-tab-link-next').eq(1).contains('Metro, tram en bus');
 
-        cy.get('vl-tabs')
-            .shadow()
-            .find('ul.vl-tabs')
-            .find('vl-tab[id="fiets"]')
-            .find('a')
-            .find('slot')
-            .contains('Fiets');
+        cy.get('vl-tabs-next').find('vl-tab-link-next').last().contains('Fiets');
     });
 
     it('should emit event on click tab', () => {
         cy.mount(html`
             <vl-functional-header>
-                <vl-tabs slot="sub-header" disable-links within-functional-header active-tab="trein">
-                    <vl-tabs-pane id="trein" title="Trein"></vl-tabs-pane>
-                    <vl-tabs-pane id="metro" title="Metro, tram en bus"></vl-tabs-pane>
-                    <vl-tabs-pane id="fiets" title="Fiets"></vl-tabs-pane>
-                </vl-tabs>
+                <vl-tabs-next slot="sub-header" horizontal-navigation label="Transportmiddelen">
+                    <vl-tab-link-next href="#trein">Trein</vl-tab-link-next>
+                    <vl-tab-link-next href="#metro">Metro, tram en bus</vl-tab-link-next>
+                    <vl-tab-link-next href="#fiets">Fiets</vl-tab-link-next>
+                </vl-tabs-next>
             </vl-functional-header>
         `);
 
-        cy.createStubForEvent('vl-tabs', 'change');
-        cy.get('vl-tabs').shadow().find('button[tabs-toggle]').click({ force: true });
-        cy.get('vl-tabs').shadow().find('vl-tab[id="trein"]').click({ force: true });
-        cy.get('@change').should('have.been.calledOnce');
+        cy.get('vl-tabs-next').then(($tabs) => {
+            const tabs = $tabs[0];
+            const spy = cy.spy();
+            tabs.addEventListener('vl-tab-link-click', spy);
+            cy.wrap(spy).as('tabLinkClick');
+        });
+
+        cy.get('vl-tabs-next').find('vl-tab-link-next').first().shadow().find('a').click({ force: true });
+        cy.get('@tabLinkClick').should('have.been.calledOnce');
     });
 
     it('should open/close tablist on mobile', () => {
         cy.viewport(550, 750);
         cy.mount(html`
             <vl-functional-header>
-                <vl-tabs slot="sub-header" disable-links within-functional-header active-tab="trein">
-                    <vl-tabs-pane id="trein" title="Trein"></vl-tabs-pane>
-                    <vl-tabs-pane id="metro" title="Metro, tram en bus"></vl-tabs-pane>
-                    <vl-tabs-pane id="fiets" title="Fiets"></vl-tabs-pane>
-                </vl-tabs>
+                <vl-tabs-next slot="sub-header" horizontal-navigation label="Transportmiddelen">
+                    <vl-tab-link-next href="#trein">Trein</vl-tab-link-next>
+                    <vl-tab-link-next href="#metro">Metro, tram en bus</vl-tab-link-next>
+                    <vl-tab-link-next href="#fiets">Fiets</vl-tab-link-next>
+                </vl-tabs-next>
             </vl-functional-header>
         `);
 
-        cy.get('vl-tabs').shadow().find('ul#tab-list').should('have.attr', 'show', 'false');
-        cy.get('vl-tabs').shadow().find('button.vl-tabs__toggle').click();
-        cy.get('vl-tabs').shadow().find('ul#tab-list').should('have.attr', 'show', 'true');
-        cy.get('vl-tabs').shadow().find('button.vl-tabs__toggle').click();
-        cy.get('vl-tabs').shadow().find('ul#tab-list').should('have.attr', 'show', 'false');
-        cy.get('vl-tabs').shadow().find('button.vl-tabs__toggle').click();
-        cy.get('vl-tabs').shadow().find('ul#tab-list').should('have.attr', 'show', 'true');
-        cy.get('vl-tabs').shadow().find('vl-tab[id="trein"]').find('a').click();
-        cy.get('vl-tabs').shadow().find('ul#tab-list').should('have.attr', 'show', 'false');
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle').should('be.visible');
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-dropdown').should('not.be.visible');
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle').click();
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-dropdown').should('be.visible');
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle').click();
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-dropdown').should('not.be.visible');
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-toggle').click();
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-dropdown').should('be.visible');
+        cy.get('vl-tabs-next')
+            .shadow()
+            .find('.vl-tabs__mobile-dropdown')
+            .find('.vl-tabs__mobile-option')
+            .first()
+            .click();
+        cy.get('vl-tabs-next').shadow().find('.vl-tabs__mobile-dropdown').should('not.be.visible');
     });
 });
 

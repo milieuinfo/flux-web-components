@@ -1,6 +1,6 @@
 import { BaseHTMLElement, webComponent } from '@domg-wc/common';
-import { accessibilityStyle, resetStyle } from '@domg/govflanders-style/common';
-import { iconStyle, linkStyle, pagerStyle } from '@domg/govflanders-style/component';
+import { vlIconStyles, vlLinkStyles } from '@domg-wc/components/atom';
+import { vlAccessibilityStyles, vlResetStyles } from '@domg-wc/styles';
 import { vlPagerFluxStyles } from './vl-pager.flux-css';
 
 /**
@@ -23,30 +23,27 @@ export class VlPagerComponent extends BaseHTMLElement implements Pagination {
     constructor() {
         const html = `
           <div class="vl-pager">
-            <ul id="pager-list" class="vl-pager__list">
-              <li id="bounds" class="vl-pager__element"></li>
-              <li id="page-back-list-item" class="vl-pager__element">
-                <a id="page-back-link" class="vl-pager__element__cta vl-link vl-link--bold" href="#" tabindex="0">
-                  <i class="vl-link__icon vl-link__icon--before vl-vi vl-vi-arrow-left-fat" aria-hidden="true"></i>
-                  Vorige <span id="previous-items-per-page" class="vl-u-visually-hidden"></span>
+            <div id="bounds"></div>
+            <div class="vl-pager__list">
+                <a id="page-back-link" class="vl-pager__control vl-link bold" href="#" tabindex="0">
+                    <vl-icon icon="arrow-left-fat"></vl-icon>
+                    <span class="vl-pager__control-label">Vorige</span> <span id="previous-items-per-page" class="vl-visually-hidden"></span>
                 </a>
-              </li>
-              <li id="page-forward-list-item" class="vl-pager__element">
-                <a id="page-forward-link" class="vl-pager__element__cta vl-link vl-link--bold" href="#" tabindex="0">
-                  Volgende <span id="next-items-per-page" class="vl-u-visually-hidden"></span>
-                  <i class="vl-link__icon vl-link__icon--after vl-vi vl-vi-arrow-right-fat" aria-hidden="true"></i>
+                <ul id="pager-list"></ul>
+                <a id="page-forward-link" class="vl-pager__control vl-link bold" href="#" tabindex="0">
+                    <span class="vl-pager__control-label">Volgende</span> <span id="next-items-per-page" class="vl-visually-hidden"></span>
+                    <vl-icon icon="arrow-right-fat"></vl-icon>
                 </a>
-              </li>
-            </ul>
+            </div>
+            <span class="vl-visually-hidden" aria-live="polite" id="sr-current-page"></span>
           </div>
         `;
         const styleSheets = [
-            resetStyle.styleSheet!,
-            pagerStyle.styleSheet!,
+            vlResetStyles.styleSheet!,
+            vlAccessibilityStyles.styleSheet!,
+            vlIconStyles.styleSheet!,
+            vlLinkStyles('a').styleSheet!,
             vlPagerFluxStyles.styleSheet!,
-            iconStyle.styleSheet!,
-            linkStyle.styleSheet!,
-            accessibilityStyle.styleSheet!,
         ];
         super(html, styleSheets);
 
@@ -109,31 +106,23 @@ export class VlPagerComponent extends BaseHTMLElement implements Pagination {
     }
 
     get _pagesListElement() {
-        return this._shadow?.querySelector('.vl-pager__list');
+        return this._shadow?.querySelector('#pager-list');
     }
 
     get _pageElements() {
-        return [...this._pagesListElement!.querySelectorAll('[pager-page]')];
+        return [...this._pagesListElement!.querySelectorAll('[data-pager-page]')];
     }
 
     get _pageSkippedElements() {
-        return [...this._pagesListElement!.querySelectorAll('[pager-page-skipped]')];
+        return [...this._pagesListElement!.querySelectorAll('[data-pager-page-skipped]')];
     }
 
     get _pageBackLink() {
-        return this._shadow?.querySelector('#page-back-link');
+        return this._shadow?.querySelector<HTMLElement>('#page-back-link');
     }
 
     get _pageForwardLink() {
-        return this._shadow?.querySelector('#page-forward-link');
-    }
-
-    get _pageBackListItem() {
-        return this._shadow?.querySelector('#page-back-list-item');
-    }
-
-    get _pageForwardListItem() {
-        return this._shadow?.querySelector('#page-forward-list-item');
+        return this._shadow?.querySelector<HTMLElement>('#page-forward-link');
     }
 
     get _totalItemsElement() {
@@ -146,9 +135,11 @@ export class VlPagerComponent extends BaseHTMLElement implements Pagination {
         return [previous, next];
     }
 
+    _shouldCheckFocus = false;
+
     _getBoundsTemplate() {
         return `
-      <span class="vl-u-visually-hidden">Rij</span>
+      <span class="vl-visually-hidden">Rij</span>
       <strong>${this._firstItemNumberOfPage}-${this._lastItemNumberOfPage}</strong> van ${this.totalItems}
     `;
     }
@@ -169,29 +160,42 @@ export class VlPagerComponent extends BaseHTMLElement implements Pagination {
 
     __getActivePageTemplate(number: string) {
         return this._template(`
-      <li pager-page=${number} class="vl-pager__element">
-        <label>${number}</label>
+      <li data-pager-page=${number} class="vl-pager__element vl-pager__element--active" aria-current="page" tabindex="-1">
+        <span class="vl-pager__element-cta">${number}</span>
       </li>
     `);
     }
 
     __getSkippedPageTemplate() {
         return this._template(`
-      <li pager-page-skipped class="vl-pager__element">
-        <div class="vl-pager__element__cta">...</div>
+      <li data-pager-page-skipped class="vl-pager__element">
+        <div class="vl-pager__element-cta">...</div>
       </li>
     `);
     }
 
+    _announceActiveItem() {
+        this._shadow!.querySelector<HTMLElement>('#sr-current-page')!.innerText = `Pagina ${this.currentPage}`;
+    }
+
+    _focusActiveItem() {
+        // A small timeout is needed for screen readers (tested with VoiceOver)
+        setTimeout(() => {
+            this._shadow?.querySelector<HTMLElement>('.vl-pager__element--active')?.focus();
+            this._announceActiveItem();
+        }, 100);
+    }
+
     __getPageTemplate(number: string) {
         const template = this._template(`
-      <li pager-page=${number} class="vl-pager__element">
-        <a href="#" class="vl-pager__element__cta vl-link vl-link--bold">${number}</a>
+      <li data-pager-page=${number} class="vl-pager__element">
+        <a href="#" class="vl-pager__element-cta vl-link bold">${number}</a>
       </li>
     `);
         template?.firstElementChild?.addEventListener('click', (e: Event) => {
             e.preventDefault();
             this.setAttribute('current-page', number);
+            this._focusActiveItem();
         });
         return template;
     }
@@ -264,18 +268,25 @@ export class VlPagerComponent extends BaseHTMLElement implements Pagination {
             if (this.totalPages > 1) {
                 const pages = this.__generatePagination(this.currentPage, this.totalPages);
                 const templates = pages.map((number) => this._getPageTemplate(number));
-                templates.forEach((template) =>
-                    this._pagesListElement?.insertBefore(<Node>template, this._pageForwardListItem!)
-                );
+                templates.forEach((template) => this._pagesListElement?.append(<Node>template));
             }
         }
     }
 
     _updateListItems() {
-        this.currentPage <= 1 ? this._hide(this._pageBackListItem) : this._show(this._pageBackListItem);
-        this.currentPage >= this.totalPages
-            ? this._hide(this._pageForwardListItem)
-            : this._show(this._pageForwardListItem);
+        if (this.currentPage <= 1) {
+            this._hide(this._pageBackLink);
+            if (this._shouldCheckFocus) this._focusActiveItem();
+        } else {
+            this._show(this._pageBackLink);
+        }
+
+        if (this.currentPage >= this.totalPages) {
+            this._hide(this._pageForwardLink);
+            if (this._shouldCheckFocus) this._focusActiveItem();
+        } else {
+            this._show(this._pageForwardLink);
+        }
     }
 
     __generatePagination(currentPage: number, pageCount: number) {
@@ -299,7 +310,13 @@ export class VlPagerComponent extends BaseHTMLElement implements Pagination {
         this._pageBackLink?.addEventListener('click', (e: Event) => {
             e.preventDefault();
             if (!(this.currentPage - 1 <= 0)) {
+                this._shouldCheckFocus = true;
                 this.setAttribute('current-page', String(this.currentPage - 1));
+                this._announceActiveItem();
+                setTimeout(() => {
+                    this._pageBackLink?.focus();
+                }, 100);
+                this._shouldCheckFocus = false;
             }
         });
     }
@@ -308,7 +325,13 @@ export class VlPagerComponent extends BaseHTMLElement implements Pagination {
         this._pageForwardLink?.addEventListener('click', (e: Event) => {
             e.preventDefault();
             if (!(this.currentPage + 1 > this.totalPages)) {
+                this._shouldCheckFocus = true;
                 this.setAttribute('current-page', String(this.currentPage + 1));
+                this._announceActiveItem();
+                setTimeout(() => {
+                    this._pageForwardLink?.focus();
+                }, 100);
+                this._shouldCheckFocus = false;
             }
         });
     }

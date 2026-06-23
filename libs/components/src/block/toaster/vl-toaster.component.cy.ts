@@ -163,6 +163,59 @@ describe('cypress-component - block components - vl-toaster', () => {
             .should('be.visible');
     });
 
+    it('should show a dynamically created multiline alert', () => {
+        const multilineMessage = 'Eerste regel.\nTweede regel.\nDerde regel.';
+
+        cy.mount(html` <vl-toaster></vl-toaster> `);
+        cy.get('vl-toaster').then(($toaster) => {
+            cy.get('vl-toaster').shadow().find('vl-alert').should('not.exist');
+            $toaster[0].showAlert({
+                title: 'Info',
+                message: multilineMessage,
+                type: 'info',
+                multiline: true,
+            });
+            cy.get('vl-toaster')
+                .shadow()
+                .find('vl-alert')
+                .should('be.visible')
+                .and('have.attr', 'multiline');
+            cy.get('vl-toaster')
+                .shadow()
+                .find('vl-alert')
+                .shadow()
+                .find('#message.vl-alert__message > p')
+                .then(($message) => {
+                    expect($message.text()).to.equal(multilineMessage);
+                    expect(getComputedStyle($message[0]).whiteSpace).to.equal('pre-line');
+                });
+        });
+    });
+
+    it('should not apply pre-line white-space without multiline attribute', () => {
+        cy.mount(html` <vl-toaster></vl-toaster> `);
+        cy.get('vl-toaster').then(($toaster) => {
+            $toaster[0].showAlert({
+                title: 'Info',
+                message: 'Gewone boodschap zonder multiline.',
+                type: 'info',
+            });
+            cy.get('vl-toaster')
+                .shadow()
+                .find('vl-alert')
+                .should('be.visible')
+                .and('not.have.attr', 'multiline');
+            cy.get('vl-toaster')
+                .shadow()
+                .find('vl-alert')
+                .shadow()
+                .find('#message.vl-alert__message > p')
+                .then(($message) => {
+                    expect(getComputedStyle($message[0]).whiteSpace).to.not.equal('pre-line');
+                });
+        });
+    });
+
     it('should show alerts defined in a template', () => {
         cy.mount(html`
             <template id="alert-error-template">

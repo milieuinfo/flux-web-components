@@ -1,4 +1,4 @@
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
 import { VlFooter } from './vl-footer.component';
 

@@ -6,7 +6,7 @@ export class AppSideEffectComponent extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
             <div class="wrapper">
-                <vl-title type="h1">Consumer App</vl-title>
+                <vl-title type="h1">Consumer App - side-effect</vl-title>
                 <consumer-elements-side-effect></consumer-elements-side-effect>
                 <br><br>
                 <consumer-components-side-effect></consumer-components-side-effect>

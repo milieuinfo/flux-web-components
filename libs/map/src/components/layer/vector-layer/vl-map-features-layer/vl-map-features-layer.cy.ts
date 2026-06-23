@@ -53,6 +53,18 @@ const mapAutoExtentFixture = html`
     </vl-map>
 `;
 
+const mapAutoExtentEmptyGeometryFixture = html`
+    <vl-map lambert2008>
+        <vl-map-features-layer
+            name="testlaag"
+            features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":null,"properties":null,"id":1}]}'
+            auto-extent
+            projection-code="EPSG:31370"
+        >
+        </vl-map-features-layer>
+    </vl-map>
+`;
+
 const mapAutoExtentMaxZoomFixture = html`
     <vl-map lambert2008>
         <vl-map-features-layer
@@ -324,6 +336,84 @@ describe('cypress-component - map - vl-map-features-layer', () => {
         });
     });
 
+    it('kan programmatorisch OpenLayers Feature-objecten toevoegen met behoud van object-properties', () => {
+        cy.mount(mapFixture);
+        cy.runTestFor2<VlMap, VlMapFeaturesLayer>('vl-map', 'vl-map-features-layer', (vlMap, vlMapFeaturesLayer) => {
+            cy.wrap(vlMap.ready).then(() => {
+                expect(vlMapFeaturesLayer.layer.getSource().getFeatures()).to.be.lengthOf(1);
+
+                const reference = { naam: 'emissiebron' };
+                const feature = new OlFeature({ geometry: new OlPoint([647051, 697907]) });
+                feature.setId(2);
+                feature.set('emissiebron', reference);
+
+                vlMapFeaturesLayer.addFeatures([feature]);
+
+                expect(vlMapFeaturesLayer.layer.getSource().getFeatures()).to.be.lengthOf(2);
+                const added = vlMapFeaturesLayer.getFeature(2);
+                expect(added).to.exist;
+                expect(added.get('emissiebron')).to.equal(reference);
+            });
+        });
+    });
+
+    it('kan programmatorisch OpenLayers Feature-objecten toevoegen aan een laag met cluster', () => {
+        cy.mount(mapClusterFixture);
+        cy.runTestFor2<VlMap, VlMapFeaturesLayer>('vl-map', 'vl-map-features-layer', (vlMap, vlMapFeaturesLayer) => {
+            cy.wrap(vlMap.ready).then(() => {
+                expect(vlMapFeaturesLayer.source.getSource().getFeatures()).to.be.lengthOf(1);
+
+                const feature = new OlFeature({ geometry: new OlPoint([647051, 697907]) });
+                feature.setId(2);
+
+                vlMapFeaturesLayer.addFeatures([feature]);
+
+                expect(vlMapFeaturesLayer.source.getSource().getFeatures()).to.be.lengthOf(2);
+                expect(vlMapFeaturesLayer.getFeature(1)).to.exist;
+                expect(vlMapFeaturesLayer.getFeature(2)).to.exist;
+            });
+        });
+    });
+
+    it('kan programmatorisch alle features vervangen door OpenLayers Feature-objecten', () => {
+        cy.mount(mapFixture);
+        cy.runTestFor2<VlMap, VlMapFeaturesLayer>('vl-map', 'vl-map-features-layer', (vlMap, vlMapFeaturesLayer) => {
+            cy.wrap(vlMap.ready).then(() => {
+                expect(vlMapFeaturesLayer.layer.getSource().getFeatures()).to.be.lengthOf(1);
+                expect(vlMapFeaturesLayer.getFeature(1)).to.exist;
+
+                const feature2 = new OlFeature({ geometry: new OlPoint([647051, 697907]) });
+                const feature3 = new OlFeature({ geometry: new OlPoint([657050, 707908]) });
+                feature2.setId(2);
+                feature3.setId(3);
+
+                vlMapFeaturesLayer.setFeatures([feature2, feature3]);
+
+                expect(vlMapFeaturesLayer.layer.getSource().getFeatures()).to.be.lengthOf(2);
+                expect(vlMapFeaturesLayer.getFeature(1)).to.be.undefined;
+                expect(vlMapFeaturesLayer.getFeature(2)).to.exist;
+                expect(vlMapFeaturesLayer.getFeature(3)).to.exist;
+            });
+        });
+    });
+
+    it('wanneer programmatorisch OpenLayers Feature-objecten aan een laag met auto zoom toegevoegd worden zal de map daar naartoe zoomen', () => {
+        cy.mount(mapAutoExtentFixture);
+        cy.runTestFor2<VlMap, VlMapFeaturesLayer>('vl-map', 'vl-map-features-layer', (vlMap, vlMapFeaturesLayer) => {
+            cy.wrap(vlMap.ready).then(() => {
+                cy.spy(vlMapFeaturesLayer, 'rerender').as('rerender');
+
+                const feature = new OlFeature({ geometry: new OlPoint([646051.3938802485, 697907.7169700935]) });
+                feature.setId(3);
+
+                vlMapFeaturesLayer.setFeatures([feature]);
+
+                cy.get('@rerender').should('have.been.called');
+                expect(vlMap.map.getView().getCenter()).to.deep.equal([646051.3938802485, 697907.7169700935]);
+            });
+        });
+    });
+
     it('kan programmatorisch feature collection toevoegen', () => {
         cy.mount(mapFixture);
         cy.runTestFor2<VlMap, VlMapFeaturesLayer>('vl-map', 'vl-map-features-layer', (vlMap, vlMapFeaturesLayer) => {
@@ -341,6 +431,19 @@ describe('cypress-component - map - vl-map-features-layer', () => {
                     ],
                 });
                 expect(vlMapFeaturesLayer.layer.getSource().getFeatures()).to.be.lengthOf(2);
+            });
+        });
+    });
+
+    it('zoomen naar extent met lege geometrie gooit geen fout', () => {
+        cy.mount(mapAutoExtentEmptyGeometryFixture);
+        cy.runTestFor2<VlMap, VlMapFeaturesLayer>('vl-map', 'vl-map-features-layer', (vlMap, vlMapFeaturesLayer) => {
+            cy.wrap(vlMap.ready).then(() => {
+                const initialCenter = vlMap.map.getView().getCenter();
+                expect(vlMapFeaturesLayer.boundingBox).to.be.undefined;
+                cy.wrap(vlMapFeaturesLayer.zoomToExtent(null)).then(() => {
+                    expect(vlMap.map.getView().getCenter()).to.deep.equal(initialCenter);
+                });
             });
         });
     });

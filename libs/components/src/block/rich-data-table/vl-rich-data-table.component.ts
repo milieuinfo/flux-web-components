@@ -1,8 +1,10 @@
 import { registerWebComponents, webComponentPromised } from '@domg-wc/common';
+import { buttonAsLinkStyles } from '../../atom/link/vl-button-as-link.css';
 import { RichData, VlRichData } from '../rich-data/vl-rich-data.component';
 import { VlTableComponent } from '../table/vl-table.component';
 import { VlRichDataField } from './vl-rich-data-field.component';
 import { VlRichDataSorter } from './vl-rich-data-sorter.component';
+import { vlAccessibilityStyles } from '@domg-wc/styles';
 
 type ForEachNodeFn = (value: Node, key: number, parent: NodeList) => void;
 type Sorter = Pick<VlRichDataSorter, 'name' | 'direction' | 'priority'>;
@@ -20,11 +22,13 @@ export class VlRichDataTable extends VlRichData {
         const content = `
             <vl-table slot="content">
                 <table>
+                    <caption></caption>
                     <thead>
                         <tr></tr>
                     </thead>
                     <tbody></tbody>
                 </table>
+                <span class="vl-visually-hidden" id="sort-label" aria-live="polite"></span>
             </vl-table>
         `;
         super(content);
@@ -40,6 +44,8 @@ export class VlRichDataTable extends VlRichData {
             'collapsed-xs',
             'zebra',
             'flux-zebra',
+            'label',
+            'caption',
         ]);
     }
 
@@ -123,6 +129,10 @@ export class VlRichDataTable extends VlRichData {
         return this.shadowRoot?.querySelector<VlTableComponent>('vl-table');
     }
 
+    get __tableElement(): HTMLTableElement | null | undefined {
+        return this.__table?.querySelector('table');
+    }
+
     get __tableHeader() {
         return this.__table?.querySelector<HTMLElementTagNameMap['thead']>('thead');
     }
@@ -138,6 +148,10 @@ export class VlRichDataTable extends VlRichData {
 
     get __tableBody() {
         return this.__table?.querySelector<HTMLElementTagNameMap['tbody']>('tbody');
+    }
+
+    get __screenReaderSortLabel(): HTMLSpanElement {
+        return this.__table?.querySelector<HTMLSpanElement>('#sort-label')!;
     }
 
     get _isMultisortingEnabled(): boolean {
@@ -158,13 +172,37 @@ export class VlRichDataTable extends VlRichData {
     }
 
     get _hasResults(): boolean {
-        return Boolean(this._data);
+        return Boolean(this._data && this._data.data && this._data.data.length > 0);
+    }
+
+    get __captionElement(): HTMLTableCaptionElement | null | undefined {
+        return this.__table?.querySelector<HTMLTableCaptionElement>('caption');
+    }
+
+    get __label(): string | null {
+        return this.getAttribute('label') || this.getAttribute('caption') || 'Tabel';
     }
 
     connectedCallback() {
         super.connectedCallback();
         this._render();
         this.__observeFields();
+
+        if (this.hasAttribute('caption') && this.__captionElement) {
+            this.__captionElement.textContent = this.getAttribute('caption');
+        }
+
+        if (this.hasAttribute('label') && !this.hasAttribute('caption')) {
+            this.__tableElement?.setAttribute('aria-label', this.getAttribute('label')!);
+        }
+
+        if (this.shadowRoot) {
+            this.shadowRoot.adoptedStyleSheets = [
+                ...(this.shadowRoot.adoptedStyleSheets || []),
+                vlAccessibilityStyles.styleSheet!,
+                buttonAsLinkStyles.styleSheet!,
+            ];
+        }
     }
 
     attributeChangedCallback(attr: string, oldValue: any, newValue: any) {
@@ -220,7 +258,8 @@ export class VlRichDataTable extends VlRichData {
     }
 
     __initializeSortingOnHeaderColumn(header: any) {
-        const sorterButton = header.querySelector('th[sortable] > a');
+        // Support both legacy anchors and new buttons used as sort toggles
+        const sorterButton = header.querySelector('th[data-sortable] > a, th[data-sortable] > button');
         if (sorterButton) {
             sorterButton.addEventListener('click', () => {
                 sorterButton.querySelector('vl-rich-data-sorter').nextDirection();
@@ -244,6 +283,24 @@ export class VlRichDataTable extends VlRichData {
 
     _dataChangedCallback(oldValue: string, newValue: string): void {
         this.data = JSON.parse(newValue);
+    }
+
+    _labelChangedCallback(oldValue: string, newValue: string): void {
+        if (!this.hasAttribute('label') && !this.hasAttribute('caption')) {
+            console.warn('vl-rich-data-table vereist een label of caption attribuut.');
+        }
+        if (!this.hasAttribute('caption') && newValue !== oldValue) {
+            this.__tableElement?.setAttribute('aria-label', newValue);
+        }
+    }
+
+    _captionChangedCallback(oldValue: string, newValue: string): void {
+        if (!this.hasAttribute('label') && !this.hasAttribute('caption')) {
+            console.warn('vl-rich-data-table vereist een label of caption attribuut.');
+        }
+        if (this.__captionElement && newValue !== oldValue) {
+            this.__captionElement.textContent = newValue;
+        }
     }
 
     __listenToFieldChanges(field: any) {
@@ -287,6 +344,37 @@ export class VlRichDataTable extends VlRichData {
                     .filter((sorter) => sorter !== event.target)
                     .forEach((sorter: any) => (sorter.direction = undefined));
         }
+
+        const allSortableHeaderCells: HTMLElement[] = Array.from(
+            this.__tableHeaderRow?.querySelectorAll('th[data-sortable]') || []
+        ) as HTMLElement[];
+
+        allSortableHeaderCells.forEach((th) => th.removeAttribute('aria-sort'));
+
+        this.__sortingState?.forEach(({ name, direction }) => {
+            const header = this.__tableHeaderRow
+                ?.querySelector(`th[data-sortable] vl-rich-data-sorter[for="${name}"]`)
+                ?.closest('th');
+
+            header?.setAttribute('aria-sort', direction === 'asc' ? 'ascending' : 'descending');
+        });
+
+        const headerNamesMap = new Map(
+            allSortableHeaderCells.map((th) => [
+                th.querySelector('vl-rich-data-sorter')?.getAttribute('for'),
+                th.innerText,
+            ]) || []
+        );
+
+        this.__screenReaderSortLabel.textContent = !!this.__sortingState?.length
+            ? `Gesorteerd op ${this.__sortingState
+                  .map(
+                      ({ name, direction }) =>
+                          `${headerNamesMap.get(name) || name} ${direction === 'asc' ? 'oplopend' : 'aflopend'}`
+                  )
+                  .join(', en ')}`
+            : '';
+
         this.__onStateChange(event);
     }
 

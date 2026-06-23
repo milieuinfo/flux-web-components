@@ -10,7 +10,7 @@ import FormControlPublicMethods from '../../form-control/stories/form-control.pu
 ## Doel
 
 Gebruik de `datepicker` component om de gebruiker op een gebruiksvriendelijke manier een datum of tijd te laten selecteren.<br/>
-Zie het [form demo](/docs/ontwerp-form-demo--documentatie) voorbeeld voor het gebruik binnen een form.
+Zie het [form demo](/docs/patronen-formulier-demo--documentatie) voorbeeld voor het gebruik binnen een form.
 
 
 ## Voorbeeld
@@ -39,12 +39,21 @@ import { VlDatepickerComponent } from '@domg-wc/components/form';
 ## Positionering
 
 De datepicker kalender positioneert zichzelf automatisch. Indien de automatische positionering niet het gewenste
-resultaat oplevert, kan dit op twee manieren aangepast worden:
+resultaat oplevert, kan dit op drie manieren aangepast worden:
 
 -   Het `position` attribuut: mogelijke waarden zijn: "auto" (default), "above", "below", "auto left", "auto center",
     "auto right", "above left", "above center", "above right", "below left", "below center", "below right".
 -   Het `static` attribuut: indien aanwezig wordt andere positionering genegeerd en wordt de kalender
     op een vaste plaats onder het datum invulveld getoond.
+-   Het `anchor-positioning` attribuut: indien aanwezig rendert de kalender in de browser top-layer,
+    zodat ancestor `transform`, `overflow` of `sticky` de positionering niet kan breken.
+
+```html
+<vl-datepicker anchor-positioning></vl-datepicker>
+```
+
+> ⚠️ `anchor-positioning` wijzigt het render-model (top-layer ipv shadow DOM). Test grondig als
+> je app afhankelijk is van de huidige DOM-positie of stacking volgorde van de kalender.
 
 
 ## Formaat
@@ -75,8 +84,47 @@ De uitgelezen waarde volgt eveneens het [ISO-formaat](https://en.wikipedia.org/w
 ```
 
 
+## Varianten
+
+### Static
+
+<Canvas of={VlDatepickerStories.DatepickerStatic} />
+
+### Range
+
+<Canvas of={VlDatepickerStories.DatepickerRange} />
+
+### Time
+
+<Canvas of={VlDatepickerStories.DatepickerTime} />
+
+### Min-date en Max-date
+
+Je kan de selecteerbare datumrange beperken via de `min-date` en `max-date` attributen.
+De waarde moet conform het ingestelde `format` zijn (standaard `d.m.Y`), of de speciale waarde `'today'` voor de huidige datum.
+
+> Met `format="d.m.Y"` (standaard): `min-date="01.01.2019"` en `max-date="31.12.2019"`
+```html
+<vl-datepicker min-date="01.01.2019" max-date="31.12.2019"></vl-datepicker>
+```
+
+> Gebruik `'today'` om de huidige datum als grens in te stellen:
+```html
+<vl-datepicker min-date="today"></vl-datepicker>
+```
+
+<Canvas of={VlDatepickerStories.DatepickerMinDateAndMaxDate} />
+
+- Dagen buiten de opgegeven range worden uitgeschakeld in de kalender.
+- Ingetypte datums buiten de range worden gevalideerd via respectievelijk de `rangeUnderflow` en `rangeOverflow` ValidityState keys.
+
+### Date-time
+
+<Canvas of={VlDatepickerStories.DatepickerDateTime} />
+
+
 ## Validatie
-> Meer info over validatie binnen onze form componenten vind je hier: [Form - Validatie](/docs/ontwerp-form-validation--documentatie)
+> Meer info over validatie binnen onze form componenten vind je hier: [Form - Validatie](/docs/patronen-formulier-validatie--documentatie)
 
 ### Mask Validatie
 
@@ -90,14 +138,11 @@ De uitgelezen waarde volgt eveneens het [ISO-formaat](https://en.wikipedia.org/w
 - Als de mask validatie is uitgeschakeld, kan je met het `pattern` attribuut een regex patroon instellen. Je kan ook de `regex` property gebruiken voor complexere validatie.
 - De `patternMismatch` ValidityState key wordt gebruikt voor de pattern validatie error.
 
-## Mobile ondersteuning
-
-Standaard wordt de datepicker weergegeven als een kalender. Voor mobiele toestellen is het mogelijk de datepicker weer te geven als een input veld met een datepicker door het `enable-mobile-native-input` attribuut toe te voegen.
-
 ## Gekende Beperkingen
 
 - De datepicker is gedeeltelijk toegankelijk voor gebruikers die enkel met het toetsenbord navigeren. Ze kunnen wel manueel een datum invullen.
 - Voor datepicker met type `date-time` & `range` is er geen standaard mask validatie voorzien gezien `cleave.js` hiervoor geen ondersteuning biedt.
+- Het `anchor-positioning` attribuut vereist Popover API + CSS Anchor Positioning (Chrome/Edge 125+, Safari 26+). Op andere browsers (oudere Safari, Firefox) valt de datepicker stil terug op de default positionering.
 
 
 ## Referenties
@@ -108,4 +153,4 @@ Standaard wordt de datepicker weergegeven als een kalender. Voor mobiele toestel
 
 ### Digitaal Vlaanderen
 
-[Documentatie Digitaal Vlaanderen - Datepicker](https://overheid.vlaanderen.be/webuniversum/v3/documentation/components/vl-ui-datepicker/)
+[Documentatie Digitaal Vlaanderen - Datepicker](https://www.vlaanderen.be/vlaanderen-design-system/componenten/datepicker)

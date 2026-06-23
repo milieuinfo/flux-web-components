@@ -1,12 +1,14 @@
 import { BaseLitElement, registerWebComponents } from '@domg-wc/common';
-import { vlGroupStyles, vlLegacyStyles, vlMarginStyles, vlResetStyles } from '@domg-wc/styles';
+import { vlGroupStyles, vlLayoutStyles, vlLegacyStyles, vlMarginStyles, vlResetStyles } from '@domg-wc/styles';
 import { CSSResult, html, type PropertyDeclarations } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { VlTitleComponent } from '../../atom';
 import { VlLinkComponent } from '../../atom/link';
 import { VlFunctionalHeaderComponent } from '../../block/functional-header';
+import { VlSideNavigationLayoutComponent } from '../../block/next/side-navigation';
 import { content, contentElements } from './child/content.component';
 import { header, headerElements } from './child/header.component';
+import { sideNavigation } from './child/side-navigation.component';
 import { title, titleElements } from './child/title.component';
 import { AccessibilityProperties, COMPLIANCE_STATUS, EVALUATION_STATUS, Limitations } from './vl-accessibility.model';
 
@@ -14,7 +16,13 @@ import { AccessibilityProperties, COMPLIANCE_STATUS, EVALUATION_STATUS, Limitati
 export class VlAccessibility extends BaseLitElement {
     static {
         registerWebComponents([
-            ...new Set([VlFunctionalHeaderComponent, ...contentElements(), ...headerElements(), ...titleElements()]),
+            ...new Set([
+                VlFunctionalHeaderComponent,
+                VlSideNavigationLayoutComponent,
+                ...contentElements(),
+                ...headerElements(),
+                ...titleElements(),
+            ]),
             VlTitleComponent,
             VlLinkComponent,
         ]);
@@ -45,7 +53,7 @@ export class VlAccessibility extends BaseLitElement {
     }
 
     static get styles(): CSSResult[] {
-        return [vlResetStyles, ...vlLegacyStyles, vlGroupStyles, vlMarginStyles];
+        return [vlResetStyles, ...vlLegacyStyles, ...vlLayoutStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -109,7 +117,20 @@ export class VlAccessibility extends BaseLitElement {
             limitations: this.limitations,
         };
 
-        return html` <slot name="header">${header(props)}</slot> ${title(props)} ${content(props)} `;
+        return html`
+            <div>
+                <slot name="header">${header(props)}</slot> ${title(props)}
+                <vl-side-navigation-layout-next
+                    content-block
+                    heading-root-selector="#content"
+                    min-level="2"
+                    max-level="2"
+                    max-depth="0"
+                >
+                    ${content(props)}
+                </vl-side-navigation-layout-next>
+            </div>
+        `;
     }
 }
 

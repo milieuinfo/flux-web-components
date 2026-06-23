@@ -9,4 +9,7 @@ export const vlSpotlightFluxStyles: CSSResult = css`
     a.vl-spotlight .vl-spotlight__title:active {
         text-decoration: none;
     }
+    a.vl-spotlight .vl-spotlight__external-icon {
+        color: var(--vl-color--icon-subtle);
+    }
 `;

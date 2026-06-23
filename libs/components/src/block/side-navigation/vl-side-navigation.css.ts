@@ -96,28 +96,13 @@ export const vlSideNavigationStyles: CSSResult = css`
         cursor: pointer;
     }
 
-    .js-vl-scrollspy__content .js-vl-scrollspy__toggle::before,
-    .js-vl-scrollspy__content .js-vl-scrollspy__toggle::after {
-        font-family: 'vlaanderen-icon' !important;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        font-style: normal;
-        font-variant: normal;
-        font-weight: normal;
-        text-decoration: none;
-        text-transform: none;
-    }
-
-    .js-vl-scrollspy__content .js-vl-scrollspy__toggle::before {
-        content: '\\f13f';
-    }
-
     .js-vl-scrollspy__content .js-vl-scrollspy__toggle::before {
         position: absolute;
         top: 50%;
         right: 1rem;
         transform: translateY(-50%);
         color: #fff;
+        font-family: var(--vl-icon-font, 'vlaanderen-icon');
         font-size: 1.1rem;
     }
 
@@ -346,21 +331,8 @@ export const vlSideNavigationStyles: CSSResult = css`
         cursor: pointer;
         z-index: 5;
     }
-    .js-vl-scrollspy__close::before,
-    .js-vl-scrollspy__close::after {
-        font-family: 'vlaanderen-icon' !important;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        font-style: normal;
-        font-variant: normal;
-        font-weight: normal;
-        text-decoration: none;
-        text-transform: none;
-    }
     .js-vl-scrollspy__close::before {
-        content: '\\f181';
-    }
-    .js-vl-scrollspy__close::before {
+        font-family: var(--vl-icon-font, 'vlaanderen-icon');
         font-size: 1.2rem;
         line-height: 2.6rem;
     }

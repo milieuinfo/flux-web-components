@@ -1,6 +1,6 @@
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../../../../vl-map';
 import '../../../action/draw-action/draw-polygon-action/vl-map-draw-polygon-action';
 import '../../../action/layer-action/delete-action/vl-map-delete-action';

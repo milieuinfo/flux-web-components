@@ -33,6 +33,7 @@ export const UploadDefault = story(
         readonly,
         error,
         success,
+        blurValidation,
         url,
         disallowDuplicates,
         maxSize,
@@ -84,6 +85,7 @@ export const UploadDefault = story(
                 ?readonly=${readonly}
                 ?error=${error}
                 ?success=${success}
+                ?blur-validation=${blurValidation}
                 ?disallow-duplicates=${disallowDuplicates}
                 ?auto-process=${autoProcess}
                 accepted-files=${acceptedFiles}

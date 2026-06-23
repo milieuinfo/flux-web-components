@@ -1,8 +1,7 @@
 import { BaseLitElement, registerWebComponents } from '@domg-wc/common';
 import { vlLayoutStyles } from '@domg-wc/styles';
-import { PropertyDeclarations } from 'lit';
-import { html, TemplateResult } from 'lit-html';
-import { classMap } from 'lit-html/directives/class-map.js';
+import { html, PropertyDeclarations, TemplateResult } from 'lit';
+import { classMap } from 'lit/directives/class-map.js';
 import { customElement } from 'lit/decorators.js';
 import { when } from 'lit/directives/when.js';
 import { vlTextStyles } from '../../atom/text/vl-text.css';
@@ -123,7 +122,7 @@ export class VlUploadProgressComponent extends BaseLitElement {
         return html`
             <div class=${classMap(classes)}>
                 <div class="vl-group vl-group--space-between">
-                    <div class="vl-group">
+                    <div class="vl-group vl-group--align-center">
                         <span id="label" class="vl-text vl-text--bold ${!this.label ? 'vl-visually-hidden' : ''}">
                             ${this.label || `Bestand`}
                         </span>

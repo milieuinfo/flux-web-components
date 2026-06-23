@@ -1,8 +1,9 @@
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../vl-share-button.component';
 import '../vl-share-buttons.component';
 import { shareButtonsArgs, shareButtonsArgTypes } from './vl-share-buttons.stories-arg';
+import shareButtonsDoc from './vl-share-buttons.stories-doc.mdx';
 
 export default {
     id: 'components-block-share-buttons-share-buttons',
@@ -10,6 +11,11 @@ export default {
     tags: ['autodocs'],
     args: shareButtonsArgs,
     argTypes: shareButtonsArgTypes,
+    parameters: {
+        docs: {
+            page: shareButtonsDoc,
+        },
+    },
 } as Meta<typeof shareButtonsArgs>;
 
 export const shareButtonsDefault = ({ alt }: typeof shareButtonsArgs) => html` <vl-share-buttons

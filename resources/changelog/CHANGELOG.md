@@ -1,3 +1,214 @@
+# [2.15.0](https://github.com/milieuinfo/flux-web-components/compare/v2.14.0...v2.15.0) (2026-06-10)
+
+
+### Bug Fixes
+
+* FLUX-134 - data-prefix hersteld op native HTML-elementen ([05113c7](https://github.com/milieuinfo/flux-web-components/commit/05113c7a3ac15db54b60ebd701216b2c3ac31f88))
+* FLUX-134 - dode code zonder effect verwijderd (vl-alert, vl-autocomplete) ([b5c8f83](https://github.com/milieuinfo/flux-web-components/commit/b5c8f83222d1c3c43d28346bb180c4b0f89cca3c))
+* FLUX-244 - vl-loader - tekst wordt correct getoond onafhankelijk van de code formattering ([10df2d4](https://github.com/milieuinfo/flux-web-components/commit/10df2d47f2ca12ac371deaaf495f97862fe1eee5))
+* FLUX-595 - vl-modal - transform centering vervangen door margin: auto ([d5d7c1e](https://github.com/milieuinfo/flux-web-components/commit/d5d7c1e7f98e2ddc3b9b32bc5c8e58b6a6931839))
+* FLUX-623 - vl-search-filter - h2-spacing en geneste-section ([797b4ee](https://github.com/milieuinfo/flux-web-components/commit/797b4ee7b0c25d32431e65dfa000f7f374f2a587))
+* FLUX-634 - agents - settings.local.json mergen i.p.v. symlinken ([6880e95](https://github.com/milieuinfo/flux-web-components/commit/6880e95d77cdc37271d4beb1fdd99ac3118ad036))
+* FLUX-650 - vl-side-navigation-next - custom TOC scrollt naar headings in shadow DOM ([eb340ba](https://github.com/milieuinfo/flux-web-components/commit/eb340ba0ea7bf3f6eec908e5cc8a7b1c7849e8f0))
+* FLUX-663 - vl-select-rich - setSelectedValues() dispatcht nu vl-change-event ([7e1a004](https://github.com/milieuinfo/flux-web-components/commit/7e1a0049b0386ad6bdc6b900f4812231bd687d7e))
+* FLUX-674 - vl-link - external icon rechtgezet ([21ce087](https://github.com/milieuinfo/flux-web-components/commit/21ce08795392504f5ad89a8152cd1858c5ac5233))
+* FLUX-697 - vl-map-select-actions - actief zolang één layer zichtbaar ([63eef49](https://github.com/milieuinfo/flux-web-components/commit/63eef490e0872a05bb2fc35f8b06aafaa5b9892a))
+* FLUX-703 - web-types - hernoeming van de template package.json's ([7179279](https://github.com/milieuinfo/flux-web-components/commit/71792793f50dc5d648c004da03badb5fd2b2580b))
+* FLUX-720 - vl-select - reset value bij slot-mutatie zonder selectie ([fd09613](https://github.com/milieuinfo/flux-web-components/commit/fd0961311830b99ae2159f4d0757382b74b515f5))
+* vl-tabs - type-only exports zodat Storybook/Vite de barrel kan laden ([1e9f348](https://github.com/milieuinfo/flux-web-components/commit/1e9f348503589d9479cb74538eba99569f7948ff))
+
+
+### Features
+
+* cypress - experimentele WebKit-ondersteuning in Cypress component-tests ([ba5e875](https://github.com/milieuinfo/flux-web-components/commit/ba5e87571cd4a92cb1842e763a70040dcddfb260))
+* FLUX-172 - iconen via glyph-naam i.p.v. hard-coded codepoints ([efe406e](https://github.com/milieuinfo/flux-web-components/commit/efe406e3176b4ec1c48526309eb9a9aab9a975d8))
+* FLUX-223 - vl-form-message - success- en annotation-variant ([9da0864](https://github.com/milieuinfo/flux-web-components/commit/9da08645b99aadd01e43f08595e8c1177136d4a8))
+* FLUX-235 - vl-http-error-message - uniforme richtlijn standalone gebruik in Storybook ([79dc204](https://github.com/milieuinfo/flux-web-components/commit/79dc2047c5d60517726c38f5acd7973927874396))
+* FLUX-463 - vl-popover - max-height met interne scrolling ([e38e135](https://github.com/milieuinfo/flux-web-components/commit/e38e135f2eb4db99ad8598237aa3eaddaf8d2108))
+* FLUX-595 - vl-datepicker - anchor-positioning attribuut toegevoegd via Popover API + CSS Anchor Positioning ([69fc071](https://github.com/milieuinfo/flux-web-components/commit/69fc0718ced67105e226241fe5b15d5163e4b549))
+* FLUX-620 - vl-functional-header - title-label-attribuut, geen native tooltip meer ([d7586ea](https://github.com/milieuinfo/flux-web-components/commit/d7586eaee2843f6a6431de5ea88345f7cef14466))
+* FLUX-645 - form controls - blur-validation attribuut ([af13b22](https://github.com/milieuinfo/flux-web-components/commit/af13b22c1982dc2c77237961f731dcfbd494c623))
+* FLUX-672 - vl-input-field-masked - ontbrekende Cleave numeral-opties toegevoegd aan MaskOptions ([61eefcd](https://github.com/milieuinfo/flux-web-components/commit/61eefcdaeb98c575724f7b2f022cd721a755d8bc))
+* FLUX-673 - vl-map-wfs-layer - cql-filter met hybride geometry-name ([a2811d4](https://github.com/milieuinfo/flux-web-components/commit/a2811d44b01d8f03399469e316058bf468ae5917))
+* FLUX-727 - storybook - Web Universum referenties & links aangepast naar VDS ([8b55e1e](https://github.com/milieuinfo/flux-web-components/commit/8b55e1e1111b148c1c4d0636344cd4709b54b2b5))
+
+# [2.14.0](https://github.com/milieuinfo/flux-web-components/compare/v2.13.0...v2.14.0) (2026-05-22)
+
+
+### Bug Fixes
+
+* FLUX-209 - vl-breadcrumb - focus outline kleur correctie voor Edge ([25e8c24](https://github.com/milieuinfo/flux-web-components/commit/25e8c2413ebcf3d93ad45b1b96abcbf9122eba2f)), closes [#0055cca6](https://github.com/milieuinfo/flux-web-components/issues/0055cca6)
+* FLUX-586 - vl-form-label - witruimte tussen label en vl-text annotation verholpen ([b740b03](https://github.com/milieuinfo/flux-web-components/commit/b740b03be7136b5779da898f94dd898643fd3379))
+* FLUX-589 - vl-datepicker - min-date / max-date en 'today' ondersteuning ([ff79fff](https://github.com/milieuinfo/flux-web-components/commit/ff79fffa5179fb154a727058a188f5f13e1ba0c1))
+* FLUX-637 - vl-select - synchroniseer value na slot-mutatie ([5b735a7](https://github.com/milieuinfo/flux-web-components/commit/5b735a70493ae2c1a956d534c25992d02728dc8e))
+* FLUX-640 - vl-side-navigation - externe links navigeren nu correct ([4e910c0](https://github.com/milieuinfo/flux-web-components/commit/4e910c0f9f6761468c35fbd0836770cedfb0b76e))
+* FLUX-642 - verify-release en finalise-release tijdens de feitelijke release ([5d94a3a](https://github.com/milieuinfo/flux-web-components/commit/5d94a3a16e2cc321c13bdb79a41fb0af81deddf5))
+* vl-map-wmts-layer - aanpassing aan flaky test ([f0b8e9b](https://github.com/milieuinfo/flux-web-components/commit/f0b8e9b1c97fee761c6d5ea930b6e2b1114649bb))
+
+
+### Features
+
+* FLUX-174 - basis documentatie voor de Matomo analytics ([d8384d8](https://github.com/milieuinfo/flux-web-components/commit/d8384d814739edb94b18311a1fbfce80d0555515))
+* FLUX-204 - vl-accordion - alternatieve achtergrond kleur ([6a996d2](https://github.com/milieuinfo/flux-web-components/commit/6a996d2ad24ec1cd4475c7b9671f1d51710be8e0))
+* FLUX-204 - vl-group - optionele eerste en laatste border ([3902ea6](https://github.com/milieuinfo/flux-web-components/commit/3902ea66f6572a2257f3f92e931cb12939e1eae1))
+* FLUX-586 - vl-form-label - annotation attribuut toegevoegd ([9a8ae95](https://github.com/milieuinfo/flux-web-components/commit/9a8ae95628048d5db7dac1c5305351bf008cf609))
+* FLUX-633 - referenties naar legacy documentatie verwijderd ([acc01b9](https://github.com/milieuinfo/flux-web-components/commit/acc01b9e009cf04146652eb4e133c7e52358648a))
+* FLUX-634 - agents - ondersteuning van verschillende AI profiles ([d0f604b](https://github.com/milieuinfo/flux-web-components/commit/d0f604b08e4c5587f493da70c473b18034d80cfa))
+* FLUX-635 - vl-doormat - title-only rendering zonder witruimte ([5ba2037](https://github.com/milieuinfo/flux-web-components/commit/5ba20374543f2cf0833d8862f97f3bc383684998))
+* FLUX-638 - vl-datepicker - native ondersteuning geschrapt ([e9c69d6](https://github.com/milieuinfo/flux-web-components/commit/e9c69d66f46fadbb8a7723b675d35eeb57493ad4))
+
+# [2.13.0](https://github.com/milieuinfo/flux-web-components/compare/v2.12.1...v2.13.0) (2026-04-30)
+
+
+### Bug Fixes
+
+* FLUX-603 - fat-lib zonder chunking ([a993629](https://github.com/milieuinfo/flux-web-components/commit/a993629cda8b9f621acfd3fa67489b0aea963a5c))
+* FLUX-607 - vl-rich-data - `filter-closable`-werking verbeterd ([78c7c52](https://github.com/milieuinfo/flux-web-components/commit/78c7c52e37483006c86bc6859cedd45f724093a5))
+* FLUX-612 - vl-search-result-title - height naar min-height voor multiline wrapping ([23b005f](https://github.com/milieuinfo/flux-web-components/commit/23b005f3947a56f21fb6212755fe49a47c12791f))
+* FLUX-622 - vl-rich-data - verberg mobiele filterknop als er geen filter aanwezig is ([e953c9a](https://github.com/milieuinfo/flux-web-components/commit/e953c9a47540ee4bafb5be23b1be3b9fe2089206))
+* FLUX-631 - vl-textarea-rich - vl-input event dispatchen bij gebruikersinvoer ([78d7071](https://github.com/milieuinfo/flux-web-components/commit/78d707168f94c114928f0842f9d4e367ff33f495))
+* FluxAlert - message ([440d5ce](https://github.com/milieuinfo/flux-web-components/commit/440d5ceeb60b51b19c91249ddb24ddbc93b1be2f))
+
+
+### Features
+
+* FLUX-15 - vl-tabs-next - introductie nieuw component ([5a76a78](https://github.com/milieuinfo/flux-web-components/commit/5a76a786a0cf28392429723d89afb1fcc90cb7cd))
+* FLUX-15 - vl-tabs-next - mobiele layout ([e11c696](https://github.com/milieuinfo/flux-web-components/commit/e11c696057b927a2da6e496116c75789298b4810))
+* FLUX-170 - verify-release op Bamboo ([51b392c](https://github.com/milieuinfo/flux-web-components/commit/51b392cb3aded9300bd2cadab63612ad165183c5))
+* FLUX-263 - vl-properties - stacked ipv collapsed ([5c35364](https://github.com/milieuinfo/flux-web-components/commit/5c3536424bdda6c9cd183bc8f7d03218a6f20e01))
+* FLUX-278 - vl-title - appearance attribuut ([f0e6ad0](https://github.com/milieuinfo/flux-web-components/commit/f0e6ad083a2f6f998bb3be2ede6aa4df4c44c409))
+* FLUX-285 - vl-steps - WCAG verbeteringen ([6417317](https://github.com/milieuinfo/flux-web-components/commit/64173178412f7691a99b3df73985967f2d6d7e99))
+* FLUX-320 - vl-select-rich - modifier keys toelaten ([1834b2f](https://github.com/milieuinfo/flux-web-components/commit/1834b2f37c07c1c3b3b0447c9f1c3e199cbf1763))
+* FLUX-542 - Storybook consultatie tracken via Matomo ([6b50faa](https://github.com/milieuinfo/flux-web-components/commit/6b50faa7a6987a8b8898838b2824b702ac6418af))
+* FLUX-587 - vl-doormat - full-height property toegevoegd ([aa8cfa9](https://github.com/milieuinfo/flux-web-components/commit/aa8cfa9537fbc9ceec6f5dfa3f2d0bbdfdaff3cd))
+* FLUX-598 - vl-pill - aangepaste kleuren ([7fe3880](https://github.com/milieuinfo/flux-web-components/commit/7fe388037b88d3838beec2c4981c273bffd9044d))
+* FLUX-602 - vl-properties - no-padding-bottom attribuut toegevoegd, woorden splitsen waar mogelijk, label en data elementen uitfaseren ([60cd5de](https://github.com/milieuinfo/flux-web-components/commit/60cd5debbbf6642cfc79eef49042ca91de7fd16e))
+* FLUX-606 - vl-textarea-rich - height attribuut toegevoegd ([33f4fad](https://github.com/milieuinfo/flux-web-components/commit/33f4fad77b04340702a9ac104bfc4a072006de62))
+* FLUX-609 - vl-properties - voorkom zichtbare Lit-markers in label/data ([946f71a](https://github.com/milieuinfo/flux-web-components/commit/946f71ad333c54912afd69e07413cea9b91bf58a))
+* FLUX-616 - vl-select-rich / vl-textarea-rich - vl-input event bij gebruikersinteractie ([66cc1f9](https://github.com/milieuinfo/flux-web-components/commit/66cc1f9fb1a72277e29b16c5219f23fc68eee58f))
+* FLUX-617 - vl-modal - verwijder dialog-polyfill (IE10-only) ([eb5793f](https://github.com/milieuinfo/flux-web-components/commit/eb5793f43eafd27184ae753a882991e590fe0fcf))
+* FLUX-619 - vl-link - vl-click event toevoegen ([8efb347](https://github.com/milieuinfo/flux-web-components/commit/8efb34761c9cbee2ff227a4eb855e92a41950cd5))
+* FLUX-622 - vl-rich-data-table - cypress componenttesten gemigreerd vanuit storybook E2E ([613d096](https://github.com/milieuinfo/flux-web-components/commit/613d096ab509fe9d458de1633a0a90752657581c))
+* FLUX-625 - vl-info-tile - highlight en highlight-left varianten ([394dbac](https://github.com/milieuinfo/flux-web-components/commit/394dbacada9ec9798fc817094b539cd8048e9314))
+
+## [2.12.1](https://github.com/milieuinfo/flux-web-components/compare/v2.12.0...v2.12.1) (2026-03-30)
+
+
+### Bug Fixes
+
+* FLUX-604 - components build - raw css bestanden toevoegen aan dist ([3097387](https://github.com/milieuinfo/flux-web-components/commit/30973877764ec977640cffb80910188eb7a24dc7))
+
+# [2.12.0](https://github.com/milieuinfo/flux-web-components/compare/v2.11.0...v2.12.0) (2026-03-30)
+
+
+### Bug Fixes
+
+* FLUX-543 - vl-select-rich - background-color toegevoegd aan inner styling ([a5b8720](https://github.com/milieuinfo/flux-web-components/commit/a5b8720683acf10e969ae2abae12a397d6b92c5a))
+* FLUX-551 - storybook - arg-files  verbeterd ([be2b78d](https://github.com/milieuinfo/flux-web-components/commit/be2b78d2c3ffa5b1c2435e66b1cb5e2b9d3a2f4e))
+* FLUX-569 - vl-select-rich - native browser × knop overlapt eerste karakter in multiple select ([eb8dae5](https://github.com/milieuinfo/flux-web-components/commit/eb8dae5d89114da978cbbe3c3e1eeb3f76d26b4c))
+* FLUX-570 - correctie van 'side navigation met proza message' onder patronen ([51ff7b1](https://github.com/milieuinfo/flux-web-components/commit/51ff7b1c48791ac094e026398d2ea83119dcc445))
+* FLUX-570 - referenties naar patronen (ipv ontwerp) ([bdf0ff8](https://github.com/milieuinfo/flux-web-components/commit/bdf0ff824f86396f211d7b4644091f83fa451132))
+* FLUX-572 - vl-map-legend - legende reflecteert wijzigingen van kaartlagen ([a204e53](https://github.com/milieuinfo/flux-web-components/commit/a204e537a6e2fc8bf135e70152e316b4b9d3e713))
+* FLUX-573 - vl-map-features-layer - vermijden dat er een fout komt bij een lege geometrie ([1998055](https://github.com/milieuinfo/flux-web-components/commit/199805569233aa84eb6c6d4c620c1cf88e9dca65))
+* FLUX-585 - flaky testen stabiel gemaakt ([4f33961](https://github.com/milieuinfo/flux-web-components/commit/4f33961bd825dfee49307777379d32f271b43ddb))
+* FLUX-588 - vl-textarea - werking enter-knop verbeterd ([bf4b915](https://github.com/milieuinfo/flux-web-components/commit/bf4b91522ed59536763526b339bae11cb4df4630))
+* FLUX-592 - vl-spotlight, vl-infotext, vl-doormat - extern icoon inline na titel geplaatst ([8510a7c](https://github.com/milieuinfo/flux-web-components/commit/8510a7ca41ad23b8c85499469abd0a2783de8a40))
+* FLUX-600 - vl-rich-data - filter niet sluiten op submit ([97431ab](https://github.com/milieuinfo/flux-web-components/commit/97431ab24e804b46523438f70327990b91efd8b0))
+* FLUX-601 - vl-side-navigation-next - focus recovery verbeterd ([bbe7471](https://github.com/milieuinfo/flux-web-components/commit/bbe7471b01f497e2f9fe3eadfcee86c0494a4e78))
+* storybook - typo gecorrigeerd in Storybook docs: stories-args → stories-arg ([f8bf848](https://github.com/milieuinfo/flux-web-components/commit/f8bf848f05c5fa6f4062ee4bed0154ef71b6cd1e))
+
+
+### Features
+
+* de component testen loggen elke minuut dat ze nog bezig zijn ([a86e5c2](https://github.com/milieuinfo/flux-web-components/commit/a86e5c288a61b94984f411961cbd495cd2231ac0))
+* FLUX-254 - vl-pager - WCAG verbeteringen ([8ef7f42](https://github.com/milieuinfo/flux-web-components/commit/8ef7f426fbca411048cdc3d92bbba109ffd0fc07))
+* FLUX-282 - vl-side-sheet - instelbare "top" voor combinatie met sticky elementen ([224d89d](https://github.com/milieuinfo/flux-web-components/commit/224d89dc3b830e17ada19fc2a8aed67f33258843))
+* FLUX-282 - vl-side-sheet - voor WCAG zelfde box-shadow als de vl-modal ([02d6127](https://github.com/milieuinfo/flux-web-components/commit/02d61279f1fdac0eab1fd48d19c3c130c0e6e370))
+* FLUX-282 - vl-side-sheet - WCAG verbeteringen ([11f7bca](https://github.com/milieuinfo/flux-web-components/commit/11f7bca5061052ed549964c4ac4bc59f4a4ed24d))
+* FLUX-391 - vl-title - extra vl-group modifiers om te combineren met een annotatie ([c187f73](https://github.com/milieuinfo/flux-web-components/commit/c187f739697f196d3834bd6cad4612a3cedcf925))
+* FLUX-400 - vl-rich-data-table - gebruik van no-content slot verbeterd ([6995b96](https://github.com/milieuinfo/flux-web-components/commit/6995b96c3159efd962ce0b09ad0b22272f06ee45))
+* FLUX-483 - vl-link - type-attribuut toegevoegd aan button-as-link ([1457f5a](https://github.com/milieuinfo/flux-web-components/commit/1457f5a9657e9ad2a74a6781cbd7c98b29a669ad))
+* FLUX-493 - storybook - jiraMeta referenties toegevoegd ([a21f538](https://github.com/milieuinfo/flux-web-components/commit/a21f538d014e75830bc7ee85623861bbc2e991d2))
+* FLUX-514 - vl-checkbox - ai - legacy css weggewerkt en verbeterd ([991e9cb](https://github.com/milieuinfo/flux-web-components/commit/991e9cbad3bfe9983163d5f7930a6ec26f1a8ab4))
+* FLUX-532 - vl-datepicker - ai - legacy css weggewerkt en verbeterd ([7b9696a](https://github.com/milieuinfo/flux-web-components/commit/7b9696a0f273963c9fee9c4be5990bd26956feda))
+* FLUX-546 - vlProza directive toegevoegd ([21a542f](https://github.com/milieuinfo/flux-web-components/commit/21a542f27b520ca0d57c2c20e1746045b833781f))
+* FLUX-547 - vl-upload - validatie verbeteringen ([ade7011](https://github.com/milieuinfo/flux-web-components/commit/ade70111ca13b8f105720299e243799e3502832a))
+* FLUX-548 - vl-proza-message - domeinconfiguratie toegevoegd in FluxConfig ([9947ea1](https://github.com/milieuinfo/flux-web-components/commit/9947ea12ca7417da098375fcf7ca3790900eb608))
+* FLUX-551 - web-types - een category is verplicht in de stories-arg ([150566d](https://github.com/milieuinfo/flux-web-components/commit/150566d4870e0f7e7d3df0f6e6ea3bc2fb2534b2))
+* FLUX-566 - vl-popover - niet standaard openen op focus ([3767d73](https://github.com/milieuinfo/flux-web-components/commit/3767d73fbe602c30a1fdde64635fa20ebaa43dab))
+* FLUX-567 - vl-side-navigation-next - child-spacing attribuut toegevoegd ([1f34af2](https://github.com/milieuinfo/flux-web-components/commit/1f34af240f2808934066b557e2d885f010572c47))
+* FLUX-574 - vl-icon - role="img" toevoegen indien aria-label gebruikt wordt ([5a18442](https://github.com/milieuinfo/flux-web-components/commit/5a184423ceb1e0108c5bd07acd5ed14897a7567f))
+* FLUX-576 - vl-alert - multiline attribuut toegevoegd ([9a14ce4](https://github.com/milieuinfo/flux-web-components/commit/9a14ce4ecec1739a994bcbc83d6c29ab4988eb3a))
+* FLUX-577 - vl-radio & vl-radio-group - ai - legacy css weggewerkt en verbeterd ([96ff7ce](https://github.com/milieuinfo/flux-web-components/commit/96ff7ce4ffb2da10a5af7373a4e59e888bfb6d7a))
+* FLUX-578 - vl-textarea - ai - legacy css weggewerkt en verbeterd ([a88b733](https://github.com/milieuinfo/flux-web-components/commit/a88b7330c8f09a72ffda680d122bba07f08b3866))
+* FLUX-580 - vl-form-label - ai - legacy css weggewerkt en verbeterd ([d66177b](https://github.com/milieuinfo/flux-web-components/commit/d66177b7166bdac9e56a2ec2f7fef84f20355ce1))
+* FLUX-582 - vl-form-message - ai - legacy css weggewerkt en verbeterd ([8686168](https://github.com/milieuinfo/flux-web-components/commit/8686168e3ad9206b6619de1e84098c597f3fc10e))
+* FLUX-583 - vl-select - ai - legacy css weggewerkt en verbeterd ([d1ff564](https://github.com/milieuinfo/flux-web-components/commit/d1ff5641a4ffed0e78e7756e646d3f798668d0a9))
+* FLUX-584 - vl-select-rich - ai - legacy css weggewerkt en verbeterd ([b26e0df](https://github.com/milieuinfo/flux-web-components/commit/b26e0dfca966fa2bd998a20ee0d983ff235cdf2b))
+* FLUX-590 - agents - configuratie en project skills toegevoegd ([1f3cf20](https://github.com/milieuinfo/flux-web-components/commit/1f3cf208e556993c106b43fb710916cf733232e1))
+* FLUX-593 - vl-textarea-rich - ai - legacy css weggewerkt en verbeterd ([bfb79f3](https://github.com/milieuinfo/flux-web-components/commit/bfb79f39c76330b4dff5e6166830fe897ee106f3))
+* FLUX-594 - vl-upload - ai - legacy css weggewerkt en verbeterd ([2fde092](https://github.com/milieuinfo/flux-web-components/commit/2fde0921e066ebbc377bae30440c6ec6f9fc8628))
+* FLUX-596 - vl-link default font size verwijderd ([4b40d70](https://github.com/milieuinfo/flux-web-components/commit/4b40d709502432530f1aed657c337598e02b983a))
+* FLUX-599 - storybook theme volgens huisstijl domg ([74ac72a](https://github.com/milieuinfo/flux-web-components/commit/74ac72a304aa09cea2a19c3f8fa4cb9be862ddd6))
+
+# [2.11.0](https://github.com/milieuinfo/flux-web-components/compare/v2.10.1...v2.11.0) (2026-03-11)
+
+
+### Bug Fixes
+
+* FLUX-475 - vl-map-layer-switcher - alle dynamisch toegevoegde kaartlagen correct tonen ([84ad38c](https://github.com/milieuinfo/flux-web-components/commit/84ad38c098be5315458cfd77da7aa27ac8c3fc04))
+* FLUX-512 - vl-upload - opladen van meerdere bestanden ([4c7e229](https://github.com/milieuinfo/flux-web-components/commit/4c7e22958f94f67d3c0acaca2a7131c591c7c1fc))
+* FLUX-537 - vl-alert - multiline support verbeterd ([360ce29](https://github.com/milieuinfo/flux-web-components/commit/360ce29564f74783283afdb20a49cb03ae7bde7e))
+* FLUX-545 - onderhoud - lit imports en runtime alignment ([b17fb74](https://github.com/milieuinfo/flux-web-components/commit/b17fb74880e9b4842bc6c07b784bfbea80373c42))
+* FLUX-552 - vl-side-navigation-next - styling gestroomlijnd ([64e0056](https://github.com/milieuinfo/flux-web-components/commit/64e0056f4808d3878a630f3d693072bc0f77e346))
+* FLUX-571 - z-index aangepast voor info-tile menu ([1d487e6](https://github.com/milieuinfo/flux-web-components/commit/1d487e677480f36398038088a3277f5aae400624))
+
+
+### Features
+
+* FLUX - vl-form-message - storybook verbeterd ([9ad5c2e](https://github.com/milieuinfo/flux-web-components/commit/9ad5c2e90a630d479a2964ca560c59f135cd9238))
+* FLUX-238 - vl-info-tile - WCAG verbeteringen ([eb06ece](https://github.com/milieuinfo/flux-web-components/commit/eb06ecedf388b52985379b389c3e1cde77e29f2c))
+* FLUX-269 - vl-rich-data - WCAG verbeteringen ([79fd238](https://github.com/milieuinfo/flux-web-components/commit/79fd238dd56748f7876d388f35480044a6c65e4f))
+* FLUX-269 - vl-rich-data-table - WCAG verbeteringen ([bf8f065](https://github.com/milieuinfo/flux-web-components/commit/bf8f065dd7817cab76718104ad9993f9e23bde02))
+* FLUX-269 - vl-table - expandable - WCAG verbeteringen ([07647bb](https://github.com/milieuinfo/flux-web-components/commit/07647bb7c43953737c2c72b904ce092ab29a418e))
+* FLUX-279 - vl-side-navigation-next - WCAG - focus behandeling verbeterd wanneer die verdwijnt tijdens scroll ([ad4eb5f](https://github.com/milieuinfo/flux-web-components/commit/ad4eb5f024adb2df857ce89a81a213646a53fa4e))
+* FLUX-306 - z-index attribuut toegevoegd aan VlMapLayer ([f9ecc3c](https://github.com/milieuinfo/flux-web-components/commit/f9ecc3ca461fba66dc0d3d38c3903b7fc8466392))
+* FLUX-307 - vl-map - pattern attribuut op de laag en legende ([b9942f2](https://github.com/milieuinfo/flux-web-components/commit/b9942f268b37a3d43edd52b2c294fb6ca76fa628))
+* FLUX-317 - vl-rich-data-table - enkel column-gap wanneer filter zichtbaar is ([43b20de](https://github.com/milieuinfo/flux-web-components/commit/43b20dedc3c4063e89ecd0e5c6414fab9f58a7c3))
+* FLUX-335 - vl-description-data - size's op het item krijgen voorrang ([991d46a](https://github.com/milieuinfo/flux-web-components/commit/991d46a712c62f20991c0e52b3de779aa228ac47))
+* FLUX-390 - vl-spotlight, vl-infotext, vl-doormat - link-label & external toegevoegd ([4709e78](https://github.com/milieuinfo/flux-web-components/commit/4709e780c3c90605a2abaf6213eca02a9ddad000))
+* FLUX-391 - titel met annotatie als patroon ([d94d9de](https://github.com/milieuinfo/flux-web-components/commit/d94d9de190457e3577e13919e42f5823d1fb76ac))
+* FLUX-476 - vl-rich-data-table - gedrag van "select all" verbeterd ([2f02b6c](https://github.com/milieuinfo/flux-web-components/commit/2f02b6cd828ad80b7d4311e21fa9c0cf9b326e4d))
+* FLUX-482 - vl-privacy - genest grid omgezet naar vl-stacked ([bbbacb8](https://github.com/milieuinfo/flux-web-components/commit/bbbacb8b19211ac1ddb8fb63ebc27079f1099b6f))
+* FLUX-482 - vl-stacked - introductie van losstaande 'vl-stacked' ([6ff59e3](https://github.com/milieuinfo/flux-web-components/commit/6ff59e3dcc5bdf55bea154f9c60fe6720984b4e9))
+* FLUX-490 - vl-info-tile - aanpasbare background-color van het icon ([a3cdd08](https://github.com/milieuinfo/flux-web-components/commit/a3cdd08bb761cc0164612b655933666e3b518cd8))
+* FLUX-509 - vl-map-wmts-layer - TileMatrix uit de capabilities halen ([135d415](https://github.com/milieuinfo/flux-web-components/commit/135d41595d998e5bffe5ba2153c41622e23718bd))
+* FLUX-521 - vl-upload - getRejectedFiles() toegevoegd ([431d7a4](https://github.com/milieuinfo/flux-web-components/commit/431d7a464553f0eb3c44a7b7fdf6dcbcf6cd8388))
+* FLUX-541 - vl-side-navigation-layout-next - vl-side-navigation-layout hernoemd naar vl-side-navigation-layout-next ([b6b75e0](https://github.com/milieuinfo/flux-web-components/commit/b6b75e06cc719f279ce8fe89aee9eae9e01bef8c))
+* FLUX-541 - vl-side-navigation-next - ondersteuning proza-message toegevoegd ([071ea59](https://github.com/milieuinfo/flux-web-components/commit/071ea59c77a901a44b3105ba0f7eb8c2949e82a4))
+* FLUX-553 - npm package versies verhoogd ([e961cfd](https://github.com/milieuinfo/flux-web-components/commit/e961cfd859624088f04cf479f9aa9c45634940f7))
+* FLUX-553 - ongebruikte npm dependencies verwijderd ([e81b13b](https://github.com/milieuinfo/flux-web-components/commit/e81b13b552464c04f69d9a8a8f9899a52be6b7be))
+* FLUX-568 - migratie faq uitgebreid ([6329fba](https://github.com/milieuinfo/flux-web-components/commit/6329fba722a252b51d698e87e7667dc85e012dcb))
+* FLUX-568 - vl-tooltip - migratie impact gedocumenteerd ([bd255ce](https://github.com/milieuinfo/flux-web-components/commit/bd255ce6fe47c84d0fcad639b382d0bf49654a7a))
+* FLUX-570 - patronen ipv ontwerp (Storybook herwerking) ([52c5ff6](https://github.com/milieuinfo/flux-web-components/commit/52c5ff6db53983bd16c9d3b1df778d9e87f0f3f2))
+
+## [2.10.1](https://github.com/milieuinfo/flux-web-components/compare/v2.10.0...v2.10.1) (2026-02-13)
+
+
+### Bug Fixes
+
+* FLUX-27 - vl-side-navigation-next - storybook verbeterd ([2c3d907](https://github.com/milieuinfo/flux-web-components/commit/2c3d907cf4d8a7f1c0eae4a07557eacf8952f1af))
+* FLUX-536 - Bamboo build - in CI/CD Storybook via :build en http-server e2e-testen ipv via 'storybook dev' ([4069f66](https://github.com/milieuinfo/flux-web-components/commit/4069f661a0858866207f8224a63e5036e1ac4eda))
+
+# [2.10.0](https://github.com/milieuinfo/flux-web-components/compare/v2.9.0...v2.10.0) (2026-02-13)
+
+
+### Features
+
+* build op een Bamboo agent met extra geheugen - om te voorkomen dat die niet meer OOM gaat ([cf459eb](https://github.com/milieuinfo/flux-web-components/commit/cf459eb47571e3bceaa613fb39aa733b536f4fb5))
+* FLUX-27 - vl-side-navigation-next - integratie van side-navigation in onze eigen code ([8de71f8](https://github.com/milieuinfo/flux-web-components/commit/8de71f84a16205f3e12f366a3127c2e2d6e0ca55))
+* FLUX-27 - vl-side-navigation-next - introductie component ([f382f9b](https://github.com/milieuinfo/flux-web-components/commit/f382f9b1c37feb05b3b37f5a1b75c129934c47b1))
+
 # [2.9.0](https://github.com/milieuinfo/flux-web-components/compare/v2.8.1...v2.9.0) (2026-02-11)
 
 

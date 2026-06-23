@@ -29,7 +29,8 @@ export { VlPopoverActionComponent, VlPopoverActionListComponent, VlPopoverCompon
 export { VlProgressBarComponent } from './progress-bar';
 export { VlProgressIndicatorComponent } from './progress-indicator';
 export { VlPropertiesComponent } from './properties';
-export { VlProzaMessage, VlProzaMessagePreloader } from './proza-message';
+export { VlProzaMessage, VlProzaMessagePreloader, vlProza } from './proza-message';
+export type { VlProzaOptions } from './proza-message';
 export { VlRichData } from './rich-data';
 export { VlRichDataField, VlRichDataSorter, VlRichDataTable } from './rich-data-table';
 export { VlSearchComponent } from './search';
@@ -48,4 +49,3 @@ export { VlTooltipComponent } from './tooltip';
 export { VlTypography } from './typography';
 export { VlVideoPlayerComponent } from './video-player';
 export { VlWizard, VlWizardPane } from './wizard';
-

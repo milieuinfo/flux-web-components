@@ -1,6 +1,6 @@
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { headerArgs, headerArgTypes } from './vl-header.stories-arg';
 import headerDoc from './vl-header.stories-doc.mdx';
 import { registerWebComponents } from '@domg-wc/common';

@@ -31,6 +31,7 @@ const InputFieldTemplate = story(
         disabled,
         error,
         success,
+        blurValidation,
         block,
         readonly,
         type,
@@ -59,6 +60,7 @@ const InputFieldTemplate = story(
             ?disabled=${disabled}
             ?error=${error}
             ?success=${success}
+            ?blur-validation=${blurValidation}
             ?block=${block}
             ?readonly=${readonly}
             type=${type}
@@ -89,4 +91,14 @@ export const InputFieldNumber = InputFieldTemplate.bind({});
 InputFieldNumber.storyName = 'vl-input-field - number';
 InputFieldNumber.args = {
     type: 'number',
+};
+
+export const InputFieldBlurValidation = InputFieldTemplate.bind({});
+InputFieldBlurValidation.storyName = 'vl-input-field - blur validation';
+InputFieldBlurValidation.args = {
+    required: true,
+    minLength: 3,
+    pattern: '^[a-zA-Z]+$',
+    blurValidation: true,
+    placeholder: 'Min. 3 letters',
 };

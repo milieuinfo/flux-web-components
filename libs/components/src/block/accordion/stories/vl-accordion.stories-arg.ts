@@ -13,6 +13,7 @@ import { action } from 'storybook/actions';
 
 export const accordionArgs = {
     ...defaultArgs,
+    altBackground: false,
     bold: false,
     closeToggleText: '',
     contentPadding: null,
@@ -31,6 +32,15 @@ export const accordionArgs = {
 
 export const accordionArgTypes: ArgTypes<typeof accordionArgs> = {
     ...defaultArgTypes,
+    altBackground: {
+        name: 'alt-background',
+        description: 'Toont de accordion met een alternatieve grijze achtergrond.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(accordionArgs.altBackground) },
+        },
+    },
     bold: {
         name: 'bold',
         description: 'Beeldt de toggle-text van de accordion af in bold.',
@@ -148,7 +158,9 @@ export const accordionArgTypes: ArgTypes<typeof accordionArgs> = {
     },
     headingLevel: {
         name: 'heading-level',
-        description: 'Bepaalt het heading level (h1, h2, h3, ...) van de titel van de accordion.',
+        description:
+            'Het heading-level van de titel (h1 t.e.m. h6).' +
+            ' Indien niet opgegeven of ongeldig, wordt standaard h3 gebruikt.',
         control: { type: CONTROLS.SELECT },
         options: ['1', '2', '3', '4', '5', '6'],
         table: {

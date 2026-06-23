@@ -6,4 +6,5 @@ export const formControlDefaults = {
     disabled: false as boolean,
     error: false as boolean,
     success: false as boolean,
+    blurValidation: false as boolean,
 } as const;

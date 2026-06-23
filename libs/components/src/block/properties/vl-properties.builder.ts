@@ -5,26 +5,24 @@ const moveChildNodes = (childNodes: ChildNode[], clone: boolean): Node[] =>
 
 const buildItems = (elements: Element[], clone: boolean): Item[] => {
     const items: Item[] = [];
-    let labels: any[] = [],
-        data: any[] = [];
+    let labels: Node[][] = [],
+        data: Node[][] = [];
 
     elements.forEach((element: Element) => {
         switch (element.localName) {
             case 'label':
+            case 'vl-property':
                 // een nieuw item begint als er gestart wordt met een nieuw label (in dat geval is er al data)
                 if (labels.length && data.length) {
                     items.push({ labels, data });
                     labels = [];
                     data = [];
                 }
-                labels.push(
-                    element.children.length > 0 ? moveChildNodes([...element.childNodes], clone) : element.innerHTML
-                );
+                labels.push(moveChildNodes([...element.childNodes], clone));
                 break;
             case 'data':
-                data.push(
-                    element.children.length > 0 ? moveChildNodes([...element.childNodes], clone) : element.innerHTML
-                );
+            case 'vl-property-data':
+                data.push(moveChildNodes([...element.childNodes], clone));
                 break;
         }
     });

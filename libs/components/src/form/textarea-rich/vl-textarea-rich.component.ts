@@ -2,7 +2,7 @@ import { webComponent } from '@domg-wc/common';
 import { CSSResult, PropertyDeclarations } from 'lit';
 import tinymce, { Editor } from 'tinymce';
 import { VlTextareaComponent } from '../textarea/vl-textarea.component';
-import { vlTextareaRichComponentFluxStyles } from './vl-textarea-rich.component.flux-css';
+import { vlTextareaRichComponentStyles } from './vl-textarea-rich.component.css';
 import { textareaRichDefaults } from './vl-textarea-rich.defaults';
 
 @webComponent('vl-textarea-rich')
@@ -11,6 +11,8 @@ export class VlTextareaRichComponent extends VlTextareaComponent {
     private toolbar = textareaRichDefaults.toolbar;
     private plugins = textareaRichDefaults.plugins;
     private preview = textareaRichDefaults.preview;
+    private height = textareaRichDefaults.height;
+    private minHeight = 70;
 
     // Properties
     private customConfig = textareaRichDefaults.customConfig;
@@ -28,7 +30,7 @@ export class VlTextareaRichComponent extends VlTextareaComponent {
     }
 
     static get styles(): CSSResult[] {
-        return [...VlTextareaComponent.styles, vlTextareaRichComponentFluxStyles];
+        return [...VlTextareaComponent.styles, vlTextareaRichComponentStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -36,6 +38,7 @@ export class VlTextareaRichComponent extends VlTextareaComponent {
             toolbar: { type: String },
             plugins: { type: String },
             preview: { type: Boolean },
+            height: { type: Number },
             customConfig: { type: Object },
         };
     }
@@ -107,6 +110,8 @@ export class VlTextareaRichComponent extends VlTextareaComponent {
             language: 'nl_BE',
             base_url: 'https://cdn.omgeving.vlaanderen.be/domg/tinymce/6.8.3',
             toolbar: this.toolbar,
+            height: this.height,
+            min_height: this.minHeight,
             menubar: false,
             elementpath: false,
             branding: false,
@@ -131,7 +136,11 @@ export class VlTextareaRichComponent extends VlTextareaComponent {
 
         this.editor = tinymce.get(this.id) as Editor | null;
 
-        this.editor?.on('input change redo undo', () => {
+        this.editor?.on('input', () => {
+            this.dispatchInput = true;
+            this.value = this.editor?.getContent() || '';
+        });
+        this.editor?.on('change redo undo', () => {
             this.value = this.editor?.getContent() || '';
         });
 

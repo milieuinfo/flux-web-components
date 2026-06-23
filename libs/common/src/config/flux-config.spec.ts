@@ -14,6 +14,7 @@ describe('jest - common - flux-config', () => {
         expect(fluxPreferences.autoRegisterStyles).toEqual(true);
         expect(fluxPreferences.logWebComponentRegistration).toEqual(false);
         expect(fluxPreferences.logTreeshakeRegistration).toEqual(false);
+        expect(fluxPreferences.prozaDomain).toBeUndefined();
     });
 
     it('should use the custom specified preferences', () => {
@@ -34,6 +35,13 @@ describe('jest - common - flux-config', () => {
         expect(fluxPreferences.autoRegisterStyles).toEqual(true);
         expect(fluxPreferences.logWebComponentRegistration).toEqual(true);
         expect(fluxPreferences.logTreeshakeRegistration).toEqual(false);
+    });
+
+    it('should use the custom specified prozaDomain preference', () => {
+        FluxConfig.setPreferences({ prozaDomain: 'mijn-domein' });
+        const fluxPreferences = FluxConfig.getPreferences();
+        expect(fluxPreferences.prozaDomain).toEqual('mijn-domein');
+        expect(fluxPreferences.autoRegisterStyles).toEqual(true);
     });
 
     it('should use the default preferences when the custom ones are set too late', () => {

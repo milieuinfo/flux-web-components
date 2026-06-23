@@ -288,7 +288,10 @@ export class VlMap extends BaseHTMLElement {
 
         if (actions) {
             actions.forEach((action) => {
-                if (layerElement.visible) {
+                // Een action kan aan meerdere layers gekoppeld zijn; baseer (de)activatie op
+                // de zichtbaarheid van al die layers, niet op de ene layer die net wijzigde.
+                const hasVisibleLayer = action.hasVisibleLayer();
+                if (hasVisibleLayer) {
                     // Activate default active action on layer if applicable
                     if (!this.activeAction && action === this.defaultAction) {
                         action.element.activate();
@@ -306,7 +309,7 @@ export class VlMap extends BaseHTMLElement {
                 // Enable or disable the control of the action
                 const actionControl = action.getControl();
                 if (actionControl) {
-                    actionControl.get('element').setDisabled(!layerElement.visible);
+                    actionControl.get('element').setDisabled(!hasVisibleLayer);
                 }
             });
         }

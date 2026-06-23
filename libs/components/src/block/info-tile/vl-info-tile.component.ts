@@ -5,7 +5,7 @@ import { accordionStyle, iconStyle, infoTileStyle, linkStyle, toggleStyle } from
 import 'reflect-metadata';
 import { VlAccordionComponent } from '../accordion';
 import '../accordion/vl-accordion.lib.js';
-import { vlInfoTyleFluxStyles } from './vl-info-tile.flux-css';
+import { vlInfoTileFluxStyles } from './vl-info-tile.flux-css';
 import { INFO_TILE_SIZE, INFO_TILE_TYPE } from './vl-info-tile.model';
 
 declare const vl: VL;
@@ -28,13 +28,16 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
             'icon',
             'icon-as-badge',
             'type',
+            'heading-level',
+            'highlight',
+            'highlight-left',
         ];
     }
 
     constructor() {
         const html = `
             <div class="vl-info-tile">
-                <header class="vl-info-tile__header" role="presentation">
+                <div class="vl-info-tile__header">
                     <div class="vl-info-tile__badge__wrapper">
                         <slot name="badge"></slot>
                         <div id="icon" class="vl-info-tile__icon">
@@ -46,7 +49,7 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
                         <h3 id="title" class="vl-info-tile__header__title">
                             <slot name="title"></slot><slot name="title-label"></slot>
                         </h3>
-                        <p class="vl-info-tile__header__subtitle">
+                        <p id="subtitle" class="vl-info-tile__header__subtitle">
                             <slot name="subtitle"></slot>
                         </p>
                         </div>
@@ -54,8 +57,8 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
                             <slot name="menu"></slot>
                         </div>
                     </div>
-                </header>
 
+                </div>
                 <div class="vl-info-tile__content">
                     <slot name="content"></slot>
                 </div>
@@ -70,13 +73,17 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
             baseStyle.styleSheet!,
             ...vlLegacyStyles.map((style) => style.styleSheet!),
             infoTileStyle.styleSheet!,
-            vlInfoTyleFluxStyles.styleSheet!,
+            vlInfoTileFluxStyles.styleSheet!,
             linkStyle.styleSheet!,
             toggleStyle.styleSheet!,
             accordionStyle.styleSheet!,
             iconStyle.styleSheet!,
         ];
         super(html, styleSheets);
+    }
+
+    get _headingLevelAttribute(): string | null {
+        return this.getAttribute('heading-level');
     }
 
     connectedCallback() {
@@ -91,6 +98,44 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
         this.__processClickableLabel();
     }
 
+    _addHeadingElement(): HTMLHeadElement {
+        if (!this._headingLevelAttribute) {
+            return document.createElement('h3');
+        }
+
+        if (!['1', '2', '3', '4', '5', '6'].includes(this._headingLevelAttribute)) {
+            console.warn(
+                `De waarde "${this._headingLevelAttribute}" van het attribuut "heading-level" is ongeldig. Gebruik een waarde tussen 1 en 6.`
+            );
+            return document.createElement(`h3`);
+        }
+
+        return document.createElement(`h${this._headingLevelAttribute}`);
+    }
+
+    _updateHeaderLevel() {
+        const titleWrapper = this._titleWrapperElement;
+        if (!titleWrapper) return;
+
+        if (this._headingLevelAttribute) {
+            const existingHeadingElement = titleWrapper.querySelector('h1, h2, h3, h4, h5, h6');
+            const headingElement = this._addHeadingElement();
+            headingElement.id = 'title';
+            headingElement.className = 'vl-info-tile__header__title';
+
+            if (existingHeadingElement) {
+                while (existingHeadingElement.firstChild) {
+                    headingElement.appendChild(existingHeadingElement.firstChild);
+                }
+                existingHeadingElement.replaceWith(headingElement);
+            } else {
+                if (this._titleSlot) headingElement.appendChild(this._titleSlot);
+                if (this._titleLabelSlot) headingElement.appendChild(this._titleLabelSlot);
+                titleWrapper.prepend(headingElement);
+            }
+        }
+    }
+
     get isToggleable() {
         return !(this.getAttribute('toggleable') ?? false);
     }
@@ -100,6 +145,10 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
             return this._element.classList.contains('js-vl-accordion--open');
         }
         return true;
+    }
+
+    get _headerElement(): HTMLDivElement | null {
+        return this._element.querySelector('.vl-info-tile__header');
     }
 
     get _headerWrapperElement(): HTMLDivElement | null {
@@ -114,16 +163,32 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
         return this._headerWrapperElement?.querySelector('#title');
     }
 
-    get _titleSlot(): HTMLSlotElement | undefined | null {
-        return this.querySelector<HTMLSlotElement>(":scope > slot[name='title']");
+    get _subtitleElement(): HTMLParagraphElement | undefined | null {
+        return this._headerWrapperElement?.querySelector('#subtitle');
+    }
+
+    get _titleSlot(): Element | undefined | null {
+        return this.querySelector("[slot='title']");
+    }
+
+    get _titleSlotElement(): HTMLSlotElement | undefined | null {
+        return this._headerWrapperElement?.querySelector<HTMLSlotElement>('slot[name="title"]');
+    }
+
+    get _subtitleSlot(): Element | undefined | null {
+        return this.querySelector("[slot='subtitle']");
+    }
+
+    get _subtitleSlotElement(): HTMLSlotElement | undefined | null {
+        return this._headerWrapperElement?.querySelector<HTMLSlotElement>('slot[name="subtitle"]');
     }
 
     get _titleLabelSlot(): Element | undefined | null {
         return this.querySelector("[slot='title-label']");
     }
 
-    get _titleLabelSlotElement() {
-        return this._titleElement?.querySelector('[name="title-label"]');
+    get _titleLabelSlotElement(): HTMLSlotElement | undefined | null {
+        return this._titleElement?.querySelector<HTMLSlotElement>('slot[name="title-label"]');
     }
 
     get _buttonElement() {
@@ -136,10 +201,6 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
 
     get _toggleElement() {
         return this._shadow?.querySelector<HTMLElement>('.js-vl-accordion__toggle');
-    }
-
-    get _subtitleElement() {
-        return this._shadow?.querySelector('slot[name="subtitle"]');
     }
 
     get _contentElement() {
@@ -160,6 +221,10 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
 
     get _badgeWrapperElement(): HTMLDivElement | null {
         return this._element.querySelector<HTMLDivElement>('.vl-info-tile__badge__wrapper');
+    }
+
+    get _menuSlotElement(): HTMLSlotElement | null {
+        return this._element.querySelector<HTMLSlotElement>('slot[name="menu"]');
     }
 
     get _iconElement(): HTMLDivElement | null {
@@ -327,7 +392,15 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
     }
 
     _hasTitleSlot() {
-        return this._titleSlot && !isSlotEmpty(this._titleSlot);
+        return this._titleSlotElement && !isSlotEmpty(this._titleSlotElement);
+    }
+
+    _hasSubtitleSlot() {
+        return this._subtitleSlotElement && !isSlotEmpty(this._subtitleSlotElement);
+    }
+
+    _hasTitleLabelSlot() {
+        return this._titleLabelSlotElement && !isSlotEmpty(this._titleLabelSlotElement);
     }
 
     _hasFooterSlot() {
@@ -336,6 +409,10 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
 
     _hasBadgeSlot() {
         return this._badgeSlotElement && !isSlotEmpty(this._badgeSlotElement);
+    }
+
+    _hasMenuSlot() {
+        return this._menuSlotElement && !isSlotEmpty(this._menuSlotElement);
     }
 
     __processAutoOpen() {
@@ -349,16 +426,37 @@ export class VlInfoTile extends BaseHTMLElement<VlInfoTile> {
     }
 
     __processSlots() {
-        if (!this._titleLabelSlot) {
-            this._titleLabelSlotElement?.remove();
-        }
+        this._updateHeaderLevel();
         this._titleElement?.addEventListener('click', (event: Event) => {
             event.stopPropagation();
             this._buttonElement?.click();
         });
+
+        if (!this._hasTitleLabelSlot()) {
+            this._titleLabelSlotElement?.remove();
+        }
+        if (!this._hasSubtitleSlot()) {
+            this._subtitleElement?.remove();
+        }
+        if (!this._hasTitleSlot()) {
+            this._titleElement?.remove();
+        }
+        if (
+            !this._hasBadgeSlot() &&
+            !this._hasTitleSlot() &&
+            !this._hasSubtitleSlot() &&
+            !this._hasTitleLabelSlot() &&
+            !this._hasMenuSlot()
+        ) {
+            this._headerElement?.remove();
+        }
         if (!this._hasFooterSlot()) {
             this._footerElement?.remove();
         }
+    }
+
+    _headingLevelChangedCallback(oldValue: string, newValue: string) {
+        this._updateHeaderLevel();
     }
 
     __processBadgeWrapper() {

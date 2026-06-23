@@ -17,10 +17,10 @@ describe('cypress-component - block components - vl-search-result', () => {
                     <time>Maandag 22 oktober 2018</time>
                 </vl-search-result-text>
                 <vl-search-result-properties>
-                    <label>Vlaanderenkiest.be</label>
-                    <data>Verkiezingsresultaten op Vlaanderenkiest.be...</data>
-                    <label>Vlaanderen intern</label>
-                    <data>Werkt u bij de Vlaamse overheid...</data>
+                    <vl-property>Vlaanderenkiest.be</vl-property>
+                    <vl-property-data>Verkiezingsresultaten op Vlaanderenkiest.be...</vl-property-data>
+                    <vl-property>Vlaanderen intern</vl-property>
+                    <vl-property-data>Werkt u bij de Vlaamse overheid...</vl-property-data>
                 </vl-search-result-properties>
             </vl-search-result>
         `);
@@ -57,6 +57,35 @@ describe('cypress-component - block components - vl-search-result', () => {
             style: 'margin-bottom',
             value: '15px',
         });
+    });
+
+    it('should not overlap sibling when title wraps over multiple lines', () => {
+        cy.mount(html`
+            <vl-search-result>
+                <vl-search-result-title>
+                    <a href="#">
+                        Dit is een heel lange zoekresultaattitel die zeker over meerdere regels wrapt in een normale viewport breedte zodat we overlap met de volgende sibling kunnen detecteren
+                    </a>
+                </vl-search-result-title>
+                <vl-search-result-text>
+                    <time>Maandag 22 oktober 2018</time>
+                </vl-search-result-text>
+            </vl-search-result>
+        `);
+
+        cy.get('vl-search-result')
+            .shadow()
+            .find('vl-search-result-title')
+            .then(($title) => {
+                const titleBottom = $title[0].getBoundingClientRect().bottom;
+                cy.get('vl-search-result')
+                    .shadow()
+                    .find('vl-search-result-text')
+                    .then(($text) => {
+                        const textTop = $text[0].getBoundingClientRect().top;
+                        expect(textTop).to.be.gte(titleBottom);
+                    });
+            });
     });
 
     it('should have properties', () => {

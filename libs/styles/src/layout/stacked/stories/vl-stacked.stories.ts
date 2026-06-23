@@ -1,4 +1,4 @@
-import { html } from 'lit-html';
+import { html } from 'lit';
 import vlStackedStoriesDoc from './vl-stacked.stories-doc.mdx';
 import { Meta } from '@storybook/web-components-vite';
 
@@ -15,48 +15,48 @@ export default {
 
 export const StackedLarge = ({}) => html`
     <style>
-        .vl-grid .vl-column {
+        .sb-line {
             background-color: mediumspringgreen;
             border: lightseagreen 2px solid;
         }
     </style>
-    <div class="vl-grid vl-stacked-large">
-        <div class="vl-column vl-column--8 vl-column--start-3"></div>
-        <div class="vl-column vl-column--8 vl-column--start-3"></div>
-        <div class="vl-column vl-column--8 vl-column--start-3"></div>
-        <div class="vl-column vl-column--8 vl-column--start-3"></div>
+    <div class="vl-stacked vl-stacked-large">
+        <div class="sb-line"></div>
+        <div class="sb-line"></div>
+        <div class="sb-line"></div>
+        <div class="sb-line"></div>
     </div>
 `;
 StackedLarge.storyName = 'vl-stacked - large';
 
 export const StackedMedium = ({}) => html`
     <style>
-        .vl-grid .vl-column {
+        .sb-line {
             background-color: mediumspringgreen;
             border: lightseagreen 2px solid;
         }
     </style>
-    <div class="vl-grid vl-stacked-medium">
-        <div class="vl-column vl-column--8 vl-column--start-3"></div>
-        <div class="vl-column vl-column--8 vl-column--start-3"></div>
-        <div class="vl-column vl-column--8 vl-column--start-3"></div>
-        <div class="vl-column vl-column--8 vl-column--start-3"></div>
+    <div class="vl-stacked vl-stacked-medium">
+        <div class="sb-line"></div>
+        <div class="sb-line"></div>
+        <div class="sb-line"></div>
+        <div class="sb-line"></div>
     </div>
 `;
 StackedMedium.storyName = 'vl-stacked - medium';
 
 export const StackedSmall = ({}) => html`
     <style>
-        .vl-grid .vl-column {
+        .sb-line {
             background-color: mediumspringgreen;
             border: lightseagreen 2px solid;
         }
     </style>
-    <div class="vl-grid vl-stacked-small">
-        <div class="vl-column vl-column--8 vl-column--start-3"></div>
-        <div class="vl-column vl-column--8 vl-column--start-3"></div>
-        <div class="vl-column vl-column--8 vl-column--start-3"></div>
-        <div class="vl-column vl-column--8 vl-column--start-3"></div>
+    <div class="vl-stacked vl-stacked-small">
+        <div class="sb-line"></div>
+        <div class="sb-line"></div>
+        <div class="sb-line"></div>
+        <div class="sb-line"></div>
     </div>
 `;
 StackedSmall.storyName = 'vl-stacked - small';

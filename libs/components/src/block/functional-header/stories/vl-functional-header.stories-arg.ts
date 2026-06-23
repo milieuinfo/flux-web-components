@@ -23,6 +23,7 @@ export const functionalHeaderArgs = {
     marginBottom: 'large',
     subTitle: '',
     title: '',
+    titleLabel: '',
     actionsSlot: '',
     backSlot: '',
     backLinkSlot: '',
@@ -145,9 +146,21 @@ export const functionalHeaderArgTypes: ArgTypes<typeof functionalHeaderArgs> = {
             defaultValue: { summary: functionalHeaderArgs.subTitle },
         },
     },
+    titleLabel: {
+        name: 'title-label',
+        description: 'Tekst van de titel.',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: functionalHeaderArgs.titleLabel },
+        },
+    },
     title: {
         name: 'title',
-        description: 'Tekst van de titel.',
+        description:
+            '**Deprecated** - gebruik `title-label`. Het standaard HTML `title`-attribuut toont een ongewenste' +
+            ' native browser-tooltip. Bestaande `title`-waarden blijven werken (de tooltip wordt weggenomen), maar' +
+            ' migreer best naar `title-label`.',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,

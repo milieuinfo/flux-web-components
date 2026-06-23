@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../vl-spotlight.component';
 import { SIZE } from '../vl-spotlight.model';
 import { spotlightArgs, spotlightArgTypes } from './vl-spotlight.stories-arg';
@@ -21,6 +21,7 @@ const spotlightTemplate = story(
     spotlightArgs,
     ({
         link,
+        linkLabel,
         alt,
         size,
         imgSrc,
@@ -34,6 +35,7 @@ const spotlightTemplate = story(
     }: typeof spotlightArgs) => html`
         <vl-spotlight
             link=${link}
+            link-label=${linkLabel}
             ?alt=${alt}
             ?no-border=${noBorder}
             ?external=${external}
@@ -53,20 +55,20 @@ SpotLightDefault.storyName = 'vl-spotlight - default';
 SpotLightDefault.args = { title: 'Premies voor renovatie' };
 export const SpotlightWithLink = story(
     spotlightArgs,
-    ({ external }: typeof spotlightArgs) => html`
-        <vl-spotlight link="http://www.google.com" ?external=${external}>
-            <span slot="title">
-                Premies voor renovatie
-                <span class="vl-icon vl-icon--light vl-vi vl-vi-external"></span>
-                <span class="vl-u-visually-hidden">Opent in nieuw venster</span>
-            </span>
+    ({ external, linkLabel }: typeof spotlightArgs) => html`
+        <vl-spotlight
+            link="http://www.google.com"
+            link-label=${linkLabel || (external ? 'Premies voor renovatie - opent in nieuw venster' : 'Premies voor renovatie')}
+            ?external=${external}
+        >
+            <span slot="title">Premies voor renovatie</span>
         </vl-spotlight>
     `
 );
 SpotlightWithLink.storyName = 'vl-spotlight - with link';
 SpotlightWithLink.parameters = {
     controls: {
-        include: ['external'],
+        include: ['external', 'linkLabel'],
     },
 };
 
@@ -90,12 +92,8 @@ export const SpotlightWithContent = () => html`
 SpotlightWithContent.storyName = 'vl-spotlight - with content';
 
 export const SpotlightWithText = () => html`
-    <vl-spotlight link="https://google.be">
-        <span slot="title">
-            Premies voor renovatie
-            <span class="vl-icon vl-icon--light vl-vi vl-vi-external"></span>
-            <span class="vl-u-visually-hidden">Opent in nieuw venster</span>
-        </span>
+    <vl-spotlight link="https://google.be" external link-label="Premies voor renovatie - opent in nieuw venster">
+        <span slot="title">Premies voor renovatie</span>
         <span slot="text"
             >Gaat u bouwen of verbouwen? Investeer in energiebesparende maatregelen en bespaar heel wat op uw
             energiefactuur.</span

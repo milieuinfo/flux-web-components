@@ -1,4 +1,4 @@
-import { isSafari } from '@domg-wc/common';
+import { findElementsThroughShadowRoot, isSafari } from '@domg-wc/common';
 import {
     arrow,
     computePosition,
@@ -7,6 +7,7 @@ import {
     offset,
     platform,
     shift,
+    size,
     Strategy,
     type Placement,
 } from '@floating-ui/dom';
@@ -23,6 +24,7 @@ export type FloatingControllerOptions = {
     hideDelay: number;
     hideOnClick: boolean;
     strategy: Strategy;
+    maxHeight: string;
     type: POPOVER_TYPE;
     // Een tooltip kan dienst doen als "label" van de trigger knop of als extra "description" voor de trigger
     ariaType?: POPOVER_ARIA_TYPE;
@@ -141,6 +143,10 @@ export default class FloatingController implements ReactiveController {
         return this.host.shadowRoot!.querySelector('i#popover-arrow')!;
     }
 
+    private getScrollElement(): HTMLElement | null {
+        return this.host.shadowRoot?.querySelector('.popover-scroll') ?? null;
+    }
+
     private buildMiddlewares(): Middleware[] {
         return [
             // https://floating-ui.com/docs/offset
@@ -150,6 +156,14 @@ export default class FloatingController implements ReactiveController {
             flip(),
             // https://floating-ui.com/docs/shift
             shift(),
+            // https://floating-ui.com/docs/size
+            // size() na flip(), zodat de beschikbare hoogte voor de uiteindelijk gekozen kant wordt gemeten.
+            size({
+                padding: 16,
+                apply: ({ availableHeight }) => {
+                    this.applyMaxHeight(availableHeight);
+                },
+            }),
             // https://floating-ui.com/docs/arrow
             // arrow() should generally be placed toward the end of your middleware array, after shift().
             arrow({ element: this.getArrowElement(), padding: 8 }),
@@ -182,6 +196,40 @@ export default class FloatingController implements ReactiveController {
                 [staticSide!]: `${-this.getArrowElement().offsetWidth / 2}px`,
             });
         }
+
+        this.updateScrollableState();
+    }
+
+    // Beperkt de inhoud op het minimum van het optionele max-height attribuut en de beschikbare viewport-ruimte.
+    private applyMaxHeight(availableHeight: number): void {
+        const scrollElement = this.getScrollElement();
+        if (!scrollElement) return;
+
+        const available = `${Math.max(0, Math.round(availableHeight))}px`;
+        const maxHeight = this.options.maxHeight;
+        scrollElement.style.maxHeight = maxHeight ? `min(${maxHeight}, ${available})` : available;
+    }
+
+    // Zorgt dat de focus op het scrollable-element (of op het eerste kind erin) kan komen - WCAG 2.1.1.
+    private updateScrollableState(): void {
+        const scrollElement = this.getScrollElement();
+        if (!scrollElement) return;
+
+        const isScrollable = scrollElement.scrollHeight > scrollElement.clientHeight;
+        if (isScrollable && !this.hasFocusableContent(scrollElement)) {
+            scrollElement.setAttribute('tabindex', '0');
+        } else {
+            scrollElement.removeAttribute('tabindex');
+        }
+    }
+
+    private hasFocusableContent(scrollElement: HTMLElement): boolean {
+        return (
+            findElementsThroughShadowRoot(
+                scrollElement,
+                'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])',
+            ).length > 0
+        );
     }
 
     setOptions(options: FloatingControllerOptions): void {
@@ -222,11 +270,17 @@ export default class FloatingController implements ReactiveController {
             this.triggerButton.addEventListener('mouseout', this.handleMouseOut);
         }
 
-        this.triggerButton.addEventListener('focusin', this.handleFocusIn, true);
-        this.triggerButton.addEventListener('focusout', this.handleFocusOut, true);
-
         this.host.addEventListener('mouseover', this.handleHostMouseOver);
         this.host.addEventListener('mouseout', this.handleHostMouseOut);
+
+        if (this.hasTrigger('focus')) {
+            // Show the popover/tooltip on focus
+            this.triggerButton.addEventListener('focusin', this.handleFocusIn, true);
+        }
+        // Hide the popover/tooltip on focusout (also without the "focus" trigger)
+        // This makes sure the popover doesn't stay open when opening another popover
+        this.triggerButton.addEventListener('focusout', this.handleFocusOut, true);
+
         this.host.addEventListener('focusout', this.handleHostFocusOut);
         this.host.addEventListener('keydown', this.handleKeyDown);
 
@@ -247,11 +301,14 @@ export default class FloatingController implements ReactiveController {
             this.triggerButton.removeEventListener('mouseout', this.handleMouseOut);
         }
 
-        this.triggerButton.removeEventListener('focusin', this.handleFocusIn, true);
-        this.triggerButton.removeEventListener('focusout', this.handleFocusOut, true);
-
         this.host.removeEventListener('mouseover', this.handleHostMouseOver);
         this.host.removeEventListener('mouseout', this.handleHostMouseOut);
+
+        if (this.hasTrigger('focus')) {
+            this.triggerButton.removeEventListener('focusin', this.handleFocusIn, true);
+        }
+        this.triggerButton.removeEventListener('focusout', this.handleFocusOut, true);
+
         this.host.removeEventListener('focusout', this.handleHostFocusOut);
         this.host.removeEventListener('keydown', this.handleKeyDown);
 
@@ -288,7 +345,7 @@ export default class FloatingController implements ReactiveController {
                 else this.handleMouseOut();
             },
             // A minimum delay of 100ms is added to prevent the popover from hiding too quickly when moving the mouse from the reference to the popover.
-            this.options.hideDelay > 100 ? this.options.hideDelay : 100
+            this.options.hideDelay > 100 ? this.options.hideDelay : 100,
         );
     };
 

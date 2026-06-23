@@ -1,9 +1,18 @@
 import { css, CSSResult } from 'lit';
 
 // deze css is gegenereerd uit de oude custom scss
-export const vlInfoTyleFluxStyles: CSSResult = css`
+export const vlInfoTileFluxStyles: CSSResult = css`
+    :host .vl-info-tile__content {
+        margin-top: 0;
+    }
+    :host .vl-info-tile__header + .vl-info-tile__content {
+        margin-top: 1rem;
+    }
     :host .vl-info-tile__header {
         flex-direction: row;
+    }
+    :host .vl-info-tile__header__subtitle {
+        color: var(--vl-color--text-subtle);
     }
     :host .vl-info-tile__header__wrapper {
         flex: 1 1 auto;
@@ -82,9 +91,10 @@ export const vlInfoTyleFluxStyles: CSSResult = css`
         place-content: center center;
 
         &.vl-info-tile__icon--badge {
-            background-color: var(--vl-color--background-subtle);
-            border: 1px solid var(--vl-color--border-default);
+            background-color: var(--vl-info-tile-icon-background-color);
+            border: 1px solid var(--vl-info-tile-icon-border-color);
             border-radius: 50%;
+            color: var(--vl-info-tile-icon-color);
         }
     }
 
@@ -147,7 +157,14 @@ export const vlInfoTyleFluxStyles: CSSResult = css`
         border: none;
     }
 
-    .vl-info-tile__menu {
-        z-index: 1;
+    :host([clickable]) .vl-info-tile__menu {
+        z-index: var(--vl-z-layer--info-tile-menu);
+    }
+
+    :host([highlight]) .vl-info-tile {
+        box-shadow: inset 0 0.5rem 0 0 var(--vl-color--primary);
+    }
+    :host([highlight-left]) .vl-info-tile {
+        box-shadow: inset 0.5rem 0 0 0 var(--vl-color--primary);
     }
 `;

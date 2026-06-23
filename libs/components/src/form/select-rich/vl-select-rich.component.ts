@@ -1,15 +1,12 @@
 import { webComponent } from '@domg-wc/common';
-import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
-import { iconStyle } from '@domg/govflanders-style/component';
+import { vlResetStyles } from '@domg-wc/styles';
 import { FormValue } from '@open-wc/form-control/src/types';
 import Choices, { Options } from 'choices.js';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { FormControl } from '../form-control';
-import { inputFieldStyles } from '../input-field';
-import multiselectStyle from './styles/vl-multiselect.dv-css';
-import { vlSelectRichFluxStyles } from './styles/vl-select-rich.flux-css';
-import selectStyle from './styles/vl-select.dv-css';
+import { vlSelectRichComponentStyles } from './vl-select-rich.component.css';
 import { selectRichDefaults } from './vl-select-rich.defaults';
 import { SelectRichOption } from './vl-select-rich.model';
 import { getSearchMatcher, SelectRichSearchMatcher } from './vl-select-rich.search-matchers';
@@ -48,15 +45,7 @@ export class VlSelectRichComponent extends FormControl {
     }
 
     static get styles(): CSSResult[] {
-        return [
-            resetStyle,
-            baseStyle,
-            inputFieldStyles,
-            selectStyle,
-            multiselectStyle,
-            iconStyle,
-            vlSelectRichFluxStyles,
-        ];
+        return [vlResetStyles, vlIconStyles, vlSelectRichComponentStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -107,6 +96,8 @@ export class VlSelectRichComponent extends FormControl {
             this.choices = new Choices(this.validationTarget!, this.getChoicesConfig());
             this.initialOptions = structuredClone(this.options);
         }
+
+        this.addEventListener('keydown', this.onKeyDownIgnoreModifierKeys, { capture: true });
     }
 
     async firstUpdated(changedProperties: Map<string, unknown>) {
@@ -163,6 +154,8 @@ export class VlSelectRichComponent extends FormControl {
                 this.choices.setChoices(this.options, 'value', 'label', true);
                 this.updateSelectedOptions(this.options);
             }
+            // Guard: programmatische options-update mag geen vl-input triggeren
+            this.dispatchInput = false;
             if (VlSelectRichComponent.compareValue(this.value, changedProperties.has('value'))) {
                 this.value = this.collectFormData();
             }
@@ -172,6 +165,10 @@ export class VlSelectRichComponent extends FormControl {
             const detail = { value: this.getSelected() };
             this.setValue(this.value);
             this.dispatchEvent(new CustomEvent('vl-change', { bubbles: true, composed: true, detail }));
+            if (this.dispatchInput) {
+                this.dispatchEvent(new CustomEvent('vl-input', { bubbles: true, composed: true, detail }));
+                this.dispatchInput = false;
+            }
             if (this.validity.valid) {
                 this.dispatchEventIfValid(detail);
             }
@@ -206,6 +203,8 @@ export class VlSelectRichComponent extends FormControl {
         this.internals.labels[0]?.removeEventListener('click', this.onClickChoices);
         this.choices?.input?.element?.removeEventListener('input', this.onSearchInput);
         this.choices?.destroy();
+
+        this.removeEventListener('keydown', this.onKeyDownIgnoreModifierKeys, { capture: true });
     }
 
     render(): TemplateResult {
@@ -228,7 +227,6 @@ export class VlSelectRichComponent extends FormControl {
                 ?disabled=${this.disabled}
                 ?error=${this.error}
                 ?multiple=${this.multiple}
-                @change=${this.onInput}
                 @addItem=${this.onChange}
                 @removeItem=${this.onChange}
             ></select>
@@ -248,6 +246,7 @@ export class VlSelectRichComponent extends FormControl {
         this.choices?.clearStore();
         this.choices?.setChoices(this.options, 'value', 'label', true);
         this.updateSelectedOptions(this.initialOptions);
+        this.dispatchInput = false;
         this.value = this.collectFormData();
     }
 
@@ -297,6 +296,10 @@ export class VlSelectRichComponent extends FormControl {
     setSelectedValues(value: string | string[]): void {
         this.removeAllSelections();
         this.selectByValue(value);
+        // Werk de reactive property bij zodat updated() draait en vl-change consistent afgevuurd wordt
+        // (selectByValue/removeAllSelections muteren enkel de ElementInternals-laag).
+        this.dispatchInput = false;
+        this.value = this.collectFormData();
     }
 
     getSelected(): string | string[] | null {
@@ -312,6 +315,7 @@ export class VlSelectRichComponent extends FormControl {
             return;
         }
         this.choices.setChoiceByValue(value);
+        this.dispatchInput = false;
         this.setValue(this.collectFormData());
     }
 
@@ -329,6 +333,7 @@ export class VlSelectRichComponent extends FormControl {
         } else {
             this.choices.removeActiveItemsByValue(value);
         }
+        this.dispatchInput = false;
         this.setValue(this.collectFormData());
     }
 
@@ -341,6 +346,7 @@ export class VlSelectRichComponent extends FormControl {
         }
 
         this.choices.removeActiveItems();
+        this.dispatchInput = false;
         this.setValue(this.collectFormData());
     }
 
@@ -352,8 +358,10 @@ export class VlSelectRichComponent extends FormControl {
     }
 
     private setChoicesInputAttributes(): void {
-        if (this.choices?.input?.element) {
-            const inputElement = this.choices.input.element;
+        const inputElement =
+            this.choices?.input?.element ||
+            this.shadowRoot?.querySelector<HTMLInputElement>('input.vl-input-field');
+        if (inputElement) {
             inputElement.setAttribute('type', 'text');
             inputElement.classList.add('vl-input-field', 'vl-input-field-cloned');
             inputElement.setAttribute('autocomplete', 'off');
@@ -431,7 +439,7 @@ export class VlSelectRichComponent extends FormControl {
                         return template(
                             `
                             <div
-                                class="js-vl-select vl-vi vl-vi-nav-down"
+                                class="js-vl-select vl-icon--nav-down"
                                 data-type="${this.multiple ? 'select-multiple' : 'select-one'}"
                                 ${this.search ? 'aria-autocomplete="list"' : ''}
                                 part="vl-select-rich__combobox"
@@ -483,11 +491,11 @@ export class VlSelectRichComponent extends FormControl {
                                     <button type="button"
                                     ${isPlaceholder ? '' : 'role="option"'}
                                      class="vl-pill__close ${
-                                         !this.multiple ? 'vl-vi vl-vi-close' : ''
+                                         !this.multiple ? 'vl-icon vl-icon--close' : ''
                                      }" data-button aria-label="verwijder ${data.label}">
                                         ${
                                             this.multiple
-                                                ? `<span class="vl-pill__close__icon vl-vi vl-vi-close" aria-hidden="true"></span>`
+                                                ? `<span class="vl-pill__close__icon vl-icon vl-icon--close" aria-hidden="true"></span>`
                                                 : ''
                                         }
                                     </button>
@@ -510,23 +518,13 @@ export class VlSelectRichComponent extends FormControl {
     }
 
     /**
-     * Event handler voor de change event van de select. Deze wordt aangeroepen wanneer de waarde van de
-     * select verandert, ongeacht de bron (bijv. door de gebruiker of door code).
+     * Event handler voor addItem/removeItem events van Choices.js — vuurt alleen bij echte
+     * gebruikersinteractie (selecteren of verwijderen via UI).
      * @private
      */
     private onChange() {
+        this.dispatchInput = true;
         this.value = this.collectFormData();
-    }
-
-    /**
-     * Event handler voor de input event van de select. Deze wordt aangeroepen wanneer de gebruiker
-     * de waarde van de select wijzigt.
-     * @private
-     */
-    private onInput() {
-        this.dispatchEvent(
-            new CustomEvent('vl-input', { bubbles: true, composed: true, detail: { value: this.getSelected() } })
-        );
     }
 
     private onClickChoices = () => {
@@ -538,6 +536,14 @@ export class VlSelectRichComponent extends FormControl {
     private onSearchInput = (event: Event) => {
         const value = (event?.target as HTMLInputElement)?.value;
         this.dispatchEvent(new CustomEvent('vl-select-search', { bubbles: true, composed: true, detail: { value } }));
+    };
+
+    private onKeyDownIgnoreModifierKeys = (e: KeyboardEvent) => {
+        // Don't open the dropdown or trigger actions when modifier keys are pressed,
+        // to allow for keyboard shortcuts in combination with Ctrl, Alt or Meta (Command or Windows)
+        if (e.ctrlKey || e.altKey || e.metaKey) {
+            e.stopImmediatePropagation(); // prevents Choices from seeing it
+        }
     };
 
     /**

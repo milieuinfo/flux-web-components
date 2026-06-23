@@ -46,8 +46,19 @@ const vl = window.vl || { ns: 'vl' };
         acIconMin = ''.concat(vl.ns, 'vi-minus'),
         acContentClassName = ''.concat(vl.ns, 'accordion__content'),
         acAtt = 'accordion',
-        acDressedAtt = ''.concat(acAtt, '-dressed'),
-        acToggleAtt = ''.concat(acAtt, '-toggle');
+        // Interne marker: enkel door deze lib gezet/gelezen → enkel data-vorm.
+        acDressedAtt = 'data-'.concat(acAtt, '-dressed'),
+        acToggleAtt = ''.concat(acAtt, '-toggle'),
+        // Selectors matchen de oude vorm (geldig op een vl-element) én de
+        // data-vorm (geldig op een native element).
+        acAttSelector = '['.concat(acAtt, '],[data-').concat(acAtt, ']'),
+        acToggleSelector = '['.concat(acToggleAtt, '],[data-').concat(acToggleAtt, ']'),
+        acOpenTextAtt = ''.concat(acAtt, '-open-text'),
+        acCloseTextAtt = ''.concat(acAtt, '-close-text');
+
+    function getDualAttribute(element, name) {
+        return element.getAttribute('data-'.concat(name)) || element.getAttribute(name);
+    }
 
     var Accordion = /*#__PURE__*/ (function () {
         function Accordion() {
@@ -79,7 +90,7 @@ const vl = window.vl || { ns: 'vl' };
             {
                 key: 'open',
                 value: function open(element) {
-                    var toggle = element.querySelector('['.concat(acToggleAtt, ']'));
+                    var toggle = element.querySelector(acToggleSelector);
 
                     if (toggle && !vl.util.hasClass(element, acOpenClassName)) {
                         toggle.click();
@@ -94,7 +105,7 @@ const vl = window.vl || { ns: 'vl' };
             {
                 key: 'toggle',
                 value: function toggle(element) {
-                    var toggle = element.querySelector('['.concat(acToggleAtt, ']'));
+                    var toggle = element.querySelector(acToggleSelector);
 
                     if (toggle) {
                         toggle.click();
@@ -120,7 +131,7 @@ const vl = window.vl || { ns: 'vl' };
                         hiddenState = true;
                     element.setAttribute(acDressedAtt, true);
                     toggle = element.querySelector(acToggleTextClassName);
-                    accordion = element.closest('.'.concat(className, ', [').concat(acAtt, ']'));
+                    accordion = element.closest('.'.concat(className, ', ').concat(acAttSelector));
                     accordionContent = accordion.querySelector('.'.concat(acContentClassName));
 
                     if (vl.util.exists(accordionContent)) {
@@ -128,8 +139,8 @@ const vl = window.vl || { ns: 'vl' };
                     }
 
                     if (toggle) {
-                        closedText = toggle.getAttribute('accordion-close-text');
-                        openText = toggle.getAttribute('accordion-open-text');
+                        closedText = getDualAttribute(toggle, acCloseTextAtt);
+                        openText = getDualAttribute(toggle, acOpenTextAtt);
 
                         if (vl.util.hasClass(element, acOpenClassName)) {
                             toggle.innerHTML = closedText;
@@ -145,7 +156,7 @@ const vl = window.vl || { ns: 'vl' };
                     element.addEventListener(
                         'click',
                         function (event) {
-                            var accordion = event.target.closest('.'.concat(className, ', [').concat(acAtt, ']'));
+                            var accordion = event.target.closest('.'.concat(className, ', ').concat(acAttSelector));
 
                             if (accordion && !vl.util.hasClass(element, acDisabledClassName)) {
                                 event.preventDefault();
@@ -177,9 +188,9 @@ const vl = window.vl || { ns: 'vl' };
 
                                 if (toggle) {
                                     if (vl.util.hasClass(accordion, acOpenClassName)) {
-                                        toggle.innerHTML = toggle.getAttribute('accordion-close-text');
+                                        toggle.innerHTML = getDualAttribute(toggle, acCloseTextAtt);
                                     } else {
-                                        toggle.innerHTML = toggle.getAttribute('accordion-open-text');
+                                        toggle.innerHTML = getDualAttribute(toggle, acOpenTextAtt);
                                     }
                                 }
                             }
@@ -205,13 +216,16 @@ const vl = window.vl || { ns: 'vl' };
 
                     // get all accordion toggle elements
                     var elements = document.querySelectorAll(
-                        '\n      .'
+                        '.'
                             .concat(className, ':not([js-dress="false"]) .')
                             .concat(acToggleClassName, ':not([')
-                            .concat(acDressedAtt, ']),\n      [')
+                            .concat(acDressedAtt, ']),[')
                             .concat(acAtt, ']:not([js-dress="false"]) [')
                             .concat(acToggleAtt, ']:not([')
-                            .concat(acDressedAtt, '])\n    ')
+                            .concat(acDressedAtt, ']),[data-')
+                            .concat(acAtt, ']:not([js-dress="false"]) [data-')
+                            .concat(acToggleAtt, ']:not([')
+                            .concat(acDressedAtt, '])')
                     ); // add functionality to the accordions
 
                     vl.util.each(elements, function (element) {

@@ -46,10 +46,26 @@ Dit is vooral handig voor items met een verschillende `font-size`, zoals een hea
 
 De container waarin uitgelijnd wordt dient voldoende ruimte te hebben om uit te lijnen!
 
+### Witruimte
+
+Witruimte wordt voorzien door de default 'gap'. Er zijn 3 modifiers om die 'gap' te schrappen:
+`vl-group--no-gap` / `vl-group--no-row-gap` / `vl-group--no-column-gap`.
+
 ### Scheidingslijnen
 
 Tussen items kan een grijze lijn getoond worden. In row layout (default) gebruik je `vl-group--separator-row`,
 in kolom layout `vl-group--separator-column`.
+
+Zowel `vl-group--separator-row` als `vl-group--separator-column` plaatsen standaard enkel scheidingslijnen tússen items.
+Buitenste lijnen kunnen optioneel toegevoegd worden met:
+- `vl-group--separator-row-before` / `vl-group--separator-row-after` - voegt uiterst links of rechts een verticale lijn
+toe. Enkel in combinatie met `vl-group--separator-row`.
+- `vl-group--separator-column-before` / `vl-group--separator-column-after` - voegt boven het eerste of onder het laatste
+item een horizontale lijn toe. Enkel in combinatie met `vl-group--separator-column`.
+
+### Wrapping
+
+Om wrapping toe te voegen is er de modifier `vl-group--wrap`.
 
 ### Responsief
 

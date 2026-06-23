@@ -1,16 +1,24 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { vlGridStyles } from '@domg-wc/styles';
 import { html } from 'lit';
+import { VlTextComponent } from '../../atom/text/vl-text.component';
 import { VlInputFieldComponent } from '../input-field';
 import { VlFormLabelComponent } from './vl-form-label.component';
 
-registerWebComponents([VlFormLabelComponent, VlInputFieldComponent]);
+registerWebComponents([VlFormLabelComponent, VlInputFieldComponent, VlTextComponent]);
 
-describe('cypress-component - form components - vl-form-label', () => {
+describe('vl-form-label - properties & states', () => {
+    beforeEach(() => {
+        cy.viewport(1200, 800);
+    });
+
     it('should mount', () => {
         cy.mount(html` <vl-form-label>Naam</vl-form-label>`);
 
-        cy.get('vl-form-label');
+        cy.get('vl-form-label')
+            .shadow()
+            .find('label')
+            .shouldHaveComputedStyle({ style: 'color', value: 'rgb(77, 77, 75)' });
     });
 
     it('should be accessible', () => {
@@ -56,16 +64,38 @@ describe('cypress-component - form components - vl-form-label', () => {
         cy.mount(html` <vl-form-label block>Naam</vl-form-label>`);
 
         cy.get('vl-form-label').shadow().find('label').should('have.class', 'vl-form__label--block');
+        cy.get('vl-form-label')
+            .shadow()
+            .find('label')
+            .shouldHaveComputedStyle({ style: 'display', value: 'block' });
     });
 
     it('should set light', () => {
         cy.mount(html` <vl-form-label light>Naam</vl-form-label>`);
 
         cy.get('vl-form-label').shadow().find('label').should('have.class', 'vl-form__label--light');
+        cy.get('vl-form-label')
+            .shadow()
+            .find('label')
+            .shouldHaveComputedStyle({ style: 'color', value: 'rgb(104, 116, 131)' });
+    });
+
+    it('should set annotation', () => {
+        cy.mount(html` <vl-form-label label="Naam" annotation="(enkel achternaam)"></vl-form-label>`);
+
+        cy.get('vl-form-label').shadow().find('label').contains('Naam');
+        cy.get('vl-form-label').shadow().find('vl-text[annotation]').should('exist');
+        cy.get('vl-form-label').shadow().find('vl-text[annotation]').contains('(enkel achternaam)');
+    });
+
+    it('should not render annotation when not set', () => {
+        cy.mount(html` <vl-form-label label="Naam"></vl-form-label>`);
+
+        cy.get('vl-form-label').shadow().find('vl-text[annotation]').should('not.exist');
     });
 });
 
-describe('cypress-component - form components - vl-form-label - in form', () => {
+describe('vl-form-label - in form', () => {
     beforeEach(() => {
         cy.mount(html`
             <style>

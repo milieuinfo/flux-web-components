@@ -1,7 +1,7 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { VlLinkComponent } from '../vl-link.component';
 import { linkArgs, linkArgTypes } from './vl-link.stories-arg';
@@ -24,22 +24,39 @@ export default {
 
 const LinkTemplate = story(
     linkArgs,
-    ({ href, bold, small, large, error, external, buttonAsLink, icon, iconPlacement, defaultSlot, label }) =>
-        html`
-            <vl-link
-                href=${href}
-                ?bold=${bold}
-                ?small=${small}
-                ?large=${large}
-                ?error=${error}
-                ?external=${external}
-                ?button-as-link=${buttonAsLink}
-                icon=${icon}
-                icon-placement=${iconPlacement}
-                label=${label}
-                >${unsafeHTML(defaultSlot)}</vl-link
-            >
-        `
+    ({
+        href,
+        bold,
+        small,
+        large,
+        error,
+        external,
+        download,
+        buttonAsLink,
+        type,
+        icon,
+        iconPlacement,
+        defaultSlot,
+        label,
+        onVlClick
+    }) => html`
+        <vl-link
+            href=${href}
+            ?bold=${bold}
+            ?small=${small}
+            ?large=${large}
+            ?error=${error}
+            ?external=${external}
+            download=${download}
+            ?button-as-link=${buttonAsLink}
+            type=${type}
+            icon=${icon}
+            icon-placement=${iconPlacement}
+            label=${label}
+            @vl-click=${onVlClick}
+            >${unsafeHTML(defaultSlot)}</vl-link
+        >
+    `,
 );
 
 export const LinkDefault = LinkTemplate.bind({});
@@ -111,6 +128,17 @@ LinkIconOnly.args = {
     href: 'https://www.vlaanderen.be',
     icon: 'arrow-right-fat',
     label: 'Ga naar Vlaanderen.be',
+};
+
+export const LinkDownload = LinkTemplate.bind({});
+LinkDownload.storyName = 'vl-link - download';
+LinkDownload.args = {
+    href: 'data:text/plain;charset=utf-8,FLUX-710 link download demo',
+    defaultSlot: 'Download het verslag',
+    download: 'verslag.txt',
+    icon: 'file-download',
+    iconPlacement: 'before',
+    label: 'Download verslag.txt',
 };
 
 export const ButtonStyledAsLink = LinkTemplate.bind({});

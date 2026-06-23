@@ -38,6 +38,7 @@ const ButtonTemplate = story(
         loading,
         icon,
         ctaLink,
+        download,
         iconPlacement,
         toggle,
         on,
@@ -65,6 +66,7 @@ const ButtonTemplate = story(
                 label=${label}
                 icon=${icon}
                 cta-link=${ctaLink}
+                download=${download}
                 icon-placement=${iconPlacement}
                 ?toggle=${toggle}
                 ?on=${on}
@@ -199,6 +201,15 @@ ButtonCtaLink.args = {
     icon: 'add',
     defaultSlot: 'Voeg nieuw object toe.',
     ctaLink: 'https://www.vlaanderen.be',
+};
+
+export const ButtonCtaLinkDownload = ButtonTemplate.bind({});
+ButtonCtaLinkDownload.storyName = 'vl-button - cta-link - download';
+ButtonCtaLinkDownload.args = {
+    icon: 'file-download',
+    defaultSlot: 'Download het verslag',
+    ctaLink: 'data:text/plain;charset=utf-8,Verslag FLUX-710',
+    download: 'verslag.txt',
 };
 
 export const ButtonInputGroup = ButtonTemplate.bind({});

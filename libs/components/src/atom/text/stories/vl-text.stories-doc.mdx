@@ -10,6 +10,11 @@ import * as VlTextStories from './vl-text.stories';
 
 Gebruik de `text` component om een tekst af te beelden op andere wijze.<br/>
 
+`vl-text` is puur stilistisch en heeft geen koppeling met form-controls of validatie. Wil je een boodschap tonen die
+hoort bij een form-control (bv. een fout-, success- of toelichtingsboodschap), gebruik dan
+[`vl-form-message`](/docs/components-form-form-message--documentatie): die werkt samen met de validatie-lifecycle en
+zorgt voor de juiste `aria`-koppeling.
+
 
 ## Voorbeeld
 
@@ -46,6 +51,10 @@ import { VlTextComponent } from '@domg-wc/components/atom';
 
 <Canvas of={VlTextStories.TextSuccess} />
 
+> Hoort de boodschap bij een form-control? Gebruik dan
+> [`vl-form-message`](/docs/components-form-form-message--documentatie) met `variant="success"` (of `state="valid"` voor
+> een automatische success-boodschap). `vl-text` is enkel voor stijl, niet voor forms.
+
 ### Warning
 
 <Canvas of={VlTextStories.TextWarning} />
@@ -54,9 +63,17 @@ import { VlTextComponent } from '@domg-wc/components/atom';
 
 <Canvas of={VlTextStories.TextError} />
 
+> Hoort de boodschap bij een form-control? Gebruik dan
+> [`vl-form-message`](/docs/components-form-form-message--documentatie) (default `variant="error"`). `vl-text` is enkel
+> voor stijl, niet voor forms.
+
 ### Annotation
 
 <Canvas of={VlTextStories.TextAnnotation} />
+
+> Hoort de boodschap bij een form-control? Gebruik dan
+> [`vl-form-message`](/docs/components-form-form-message--documentatie) met `variant="annotation"`. `vl-text` is enkel
+> voor stijl, niet voor forms.
 
 ### Small
 

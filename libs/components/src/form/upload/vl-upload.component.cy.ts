@@ -1,19 +1,31 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import { VlUploadComponent } from './vl-upload.component';
+import { VlFormMessageComponent } from '../form-message/vl-form-message.component';
 
-registerWebComponents([VlUploadComponent]);
+registerWebComponents([VlUploadComponent, VlFormMessageComponent]);
 
 const pdfFileFixturePath = 'fixtures/upload/file.pdf';
 const txtFileFixturePath = 'fixtures/upload/file.txt';
 const mockedResponseFixturePath = 'upload/upload-mock-response-200.json';
 const uploadTargetUrl = 'fake-url';
 
-describe('cypress-component - form components - vl-upload', () => {
+describe('vl-upload - properties & states', () => {
+    beforeEach(() => {
+        cy.viewport(1280, 720);
+    });
+
     it('should mount', () => {
-        cy.mount(html` <vl-upload label="test-label"></vl-upload>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 600px; padding: 20px; background: white;">
+                <vl-upload label="test-label"></vl-upload>
+            </div>
+        `);
 
         cy.get('vl-upload').shadow().find('input');
+        cy.document().then((doc) => doc.fonts.ready);
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('upload-mount');
     });
 
     it('should be accessible', () => {
@@ -21,13 +33,6 @@ describe('cypress-component - form components - vl-upload', () => {
         cy.injectAxe();
 
         cy.checkA11y('vl-upload');
-    });
-
-    it('should initialise', () => {
-        cy.mount(html` <vl-upload label="test-label"></vl-upload>`);
-
-        cy.createStubForEvent('vl-upload', 'vl-initialised');
-        cy.get('@vl-initialised').its('callCount').should('eq', 1);
     });
 
     it('should set id', () => {
@@ -67,7 +72,11 @@ describe('cypress-component - form components - vl-upload', () => {
     });
 
     it('should set disabled', () => {
-        cy.mount(html` <vl-upload disabled></vl-upload>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 600px; padding: 20px; background: white;">
+                <vl-upload disabled></vl-upload>
+            </div>
+        `);
 
         cy.get('vl-upload').should('have.attr', 'disabled');
         cy.get('vl-upload').should('be.disabled');
@@ -79,6 +88,9 @@ describe('cypress-component - form components - vl-upload', () => {
             .shadow()
             .find('.vl-upload__element')
             .shouldHaveComputedStyle({ style: 'background-color', value: 'rgb(247, 249, 252)' });
+
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('upload-disabled');
     });
 
     it('should set readonly', () => {
@@ -89,6 +101,63 @@ describe('cypress-component - form components - vl-upload', () => {
         cy.get('vl-upload').shadow().find('input').should('have.attr', 'disabled');
     });
 
+    it('should set error', () => {
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 600px; padding: 20px; background: white;">
+                <vl-upload error></vl-upload>
+            </div>
+        `);
+
+        cy.get('vl-upload').should('have.attr', 'error');
+        cy.get('vl-upload').shadow().find('div').should('have.class', 'vl-upload--error');
+        cy.get('vl-upload').shadow().find('input').should('have.attr', 'error');
+
+        cy.get('vl-upload')
+            .shadow()
+            .find('.vl-upload__element')
+            .shouldHaveComputedStyle({ style: 'background-color', value: 'rgb(251, 237, 237)' });
+
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('upload-error');
+    });
+
+    it('should set success', () => {
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 600px; padding: 20px; background: white;">
+                <vl-upload success></vl-upload>
+            </div>
+        `);
+
+        cy.get('vl-upload').should('have.attr', 'success');
+        cy.get('vl-upload').shadow().find('div').should('have.class', 'vl-upload--success');
+
+        cy.get('vl-upload')
+            .shadow()
+            .find('.vl-upload__element')
+            .shouldHaveComputedStyle({ style: 'background-color', value: 'rgb(236, 246, 238)' });
+
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('upload-success');
+    });
+
+    it('should change the subtitle and title of the upload component', () => {
+        const titel = 'Upload je documenten';
+        const subTitel = 'Sleep je bestand naar hier om te uploaden ';
+        cy.mount(html` <vl-upload main-title=${titel} sub-title=${subTitel} url="fake-url"></vl-upload>`);
+
+        cy.get('vl-upload').contains(titel);
+        cy.get('vl-upload').contains(subTitel);
+    });
+
+    it('should initialise', () => {
+        cy.mount(html` <vl-upload label="test-label"></vl-upload>`);
+
+        cy.createStubForEvent('vl-upload', 'vl-initialised');
+        cy.get('@vl-initialised').its('callCount').should('eq', 1);
+    });
+});
+
+describe('vl-upload - dropzone options', () => {
     it('should set parallel uploads', () => {
         cy.mount(html` <vl-upload parallel-uploads="3"></vl-upload>`);
 
@@ -112,9 +181,19 @@ describe('cypress-component - form components - vl-upload', () => {
             expect(vlUploadQuery[0].dropzoneInstance.options.chunking).to.equal(true);
         });
     });
+});
+
+describe('vl-upload - file operations', () => {
+    beforeEach(() => {
+        cy.viewport(1280, 720);
+    });
 
     it('should programmatically add file while readonly', () => {
-        cy.mount(html` <vl-upload readonly></vl-upload>`);
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 600px; padding: 20px; background: white;">
+                <vl-upload readonly></vl-upload>
+            </div>
+        `);
 
         cy.get('vl-upload').should('have.attr', 'readonly');
         cy.createStubForEvent('vl-upload', 'vl-addedfile');
@@ -130,48 +209,125 @@ describe('cypress-component - form components - vl-upload', () => {
 
         cy.get('@vl-addedfile').should('have.been.called');
         shouldHaveUploadFiles(1);
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('upload-file-added-readonly');
     });
 
-    it('should programmatically upload', () => {
-        cy.mount(html` <vl-upload url="http://httpbin.org/post"></vl-upload>`);
+    it('should only allow one file by default', () => {
+        const errorMessage = 'U mag maar 1 bestand tegelijk uploaden';
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 600px; padding: 20px; background: white;">
+                <vl-upload error-message-max-files=${errorMessage}></vl-upload>
+            </div>
+        `);
 
-        cy.get('vl-upload').shadow();
+        shouldAddPdfFiles(2);
+        cy.get('vl-upload').shadow().find('vl-upload-progress[message]').should('have.attr', 'message', errorMessage);
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('upload-max-files-error');
+    });
 
+    it('should generate error when exceeding the number of files allowed', () => {
+        const errorMessage = 'Het maximum aantal toegelaten bestanden is overschreden';
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 600px; padding: 20px; background: white;">
+                <vl-upload max-files="2" error-message-max-files=${errorMessage}></vl-upload>
+            </div>
+        `);
+
+        shouldAddPdfFiles(3);
+        shouldHaveUploadFiles(3);
+        shouldHaveValidUploadFiles(2);
+        cy.get('vl-upload').shadow().find('vl-upload-progress[message]').should('have.attr', 'message', errorMessage);
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('upload-exceeded-max-files');
+    });
+
+    it('should generate error when adding a file with the wrong extension', () => {
+        const errorMessage = 'Dit bestandstype is niet toegestaan';
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 600px; padding: 20px; background: white;">
+                <vl-upload accepted-files="txt" error-message-accepted-files=${errorMessage}></vl-upload>
+            </div>
+        `);
+
+        cy.get('vl-upload').shadow().find('input[type=file]').selectFile(pdfFileFixturePath, { force: true });
+        cy.get('vl-upload').shadow().find('vl-upload-progress[message]').should('have.attr', 'message', errorMessage);
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('upload-wrong-extension-error');
+    });
+
+    it('should generate error when adding a file that is bigger than allowed', () => {
+        const errorMessage = 'Dit bestand heeft de maximale bestandsgrootte overschreden';
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 600px; padding: 20px; background: white;">
+                <vl-upload max-size="0.01" error-message-filesize=${errorMessage}></vl-upload>
+            </div>
+        `);
+
+        cy.createStubForEvent('vl-upload', 'vl-error');
+        cy.get('vl-upload').shadow().find('.dz-default');
         shouldAddPdfFiles(1);
-        shouldHaveUploadFiles(1);
+        cy.get('vl-upload').shadow().find('vl-upload-progress[message]').should('have.attr', 'message', errorMessage);
+        cy.get('@vl-error').should('have.been.called');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('upload-filesize-error');
+    });
 
-        cy.get('vl-upload').then((vlUploadQuery) => {
-            shouldSuccessfullyUploadFiles(1, 'http://httpbin.org/post', () => {
-                vlUploadQuery[0].upload();
-            });
+    it('should remove duplicate files', () => {
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 600px; padding: 20px; background: white;">
+                <vl-upload disallow-duplicates></vl-upload>
+            </div>
+        `);
+
+        cy.createStubForEvent('vl-upload', 'vl-input');
+        cy.createStubForEvent('vl-upload', 'vl-removedfile');
+        shouldAddPdfFiles(2);
+        shouldHaveUploadFiles(2);
+        cy.get('@vl-input').should('have.been.called');
+        cy.get('@vl-input').its('firstCall.args.0.detail').should('deep.include', { type: 'addedfile' });
+        cy.get('@vl-removedfile').should('have.been.called');
+        shouldHaveUploadFiles(1);
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('upload-after-duplicate-removed');
+    });
+
+    it('should return rejected files via `getRejectedFiles()` public method', () => {
+        cy.mount(html` <vl-upload accepted-files="txt"></vl-upload>`);
+
+        cy.get('vl-upload').shadow().find('input[type=file]').selectFile(pdfFileFixturePath, { force: true });
+        cy.get('vl-upload').then((upload) => {
+            const rejectedFiles = (<HTMLElement & { getRejectedFiles(): File[] }>upload[0]).getRejectedFiles();
+            expect(rejectedFiles.length).to.equal(1);
+            expect(rejectedFiles[0].name).to.equal('file.pdf');
         });
     });
 
-    it('should set error', () => {
-        cy.mount(html` <vl-upload error></vl-upload>`);
+    it('should clear error on rejected file after a valid file is removed', () => {
+        const errorMessage = 'U mag maar 1 bestand tegelijk uploaden';
+        cy.mount(html` <vl-upload error-message-max-files=${errorMessage}></vl-upload>`);
 
-        cy.get('vl-upload').should('have.attr', 'error');
-        cy.get('vl-upload').shadow().find('div').should('have.class', 'vl-upload--error');
-        cy.get('vl-upload').shadow().find('input').should('have.attr', 'error');
+        shouldAddPdfFiles(2);
+        shouldHaveUploadFiles(2);
+        shouldHaveValidUploadFiles(1);
+        cy.get('vl-upload').shadow().find('vl-upload-progress[message]').should('have.attr', 'message', errorMessage);
 
-        cy.get('vl-upload')
-            .shadow()
-            .find('.vl-upload__element')
-            .shouldHaveComputedStyle({ style: 'background-color', value: 'rgb(251, 237, 237)' });
+        // Verwijder het succesvol toegevoegde bestand
+        cy.get('vl-upload').then((upload) => {
+            const component = upload[0] as VlUploadComponent;
+            const acceptedFiles = component.getFiles();
+            component.removeFile(acceptedFiles[0]);
+        });
+
+        // Na verwijdering van bestand 1 moet bestand 2 opnieuw gevalideerd worden en nu geaccepteerd zijn
+        shouldHaveUploadFiles(1);
+        shouldHaveValidUploadFiles(1);
+        cy.get('vl-upload').shadow().find('vl-upload-progress[message]').should('not.exist');
     });
+});
 
-    it('should set success', () => {
-        cy.mount(html` <vl-upload success></vl-upload>`);
-
-        cy.get('vl-upload').should('have.attr', 'success');
-        cy.get('vl-upload').shadow().find('div').should('have.class', 'vl-upload--success');
-
-        cy.get('vl-upload')
-            .shadow()
-            .find('.vl-upload__element')
-            .shouldHaveComputedStyle({ style: 'background-color', value: 'rgb(236, 246, 238)' });
-    });
-
+describe('vl-upload - events', () => {
     it('should dispatch vl-change events when adding file', () => {
         cy.mount(html` <vl-upload max-files="4"></vl-upload>`);
 
@@ -181,6 +337,25 @@ describe('cypress-component - form components - vl-upload', () => {
         // voor elk bestand wordt er een vl-input event getriggerd van type `addedfile`
         cy.get('@vl-change').its('callCount').should('eq', 1);
         cy.get('@vl-input').its('callCount').should('eq', 0);
+    });
+
+    it('should show the success message once a valid file is added after a validation error', () => {
+        cy.mount(html`
+            <form @submit=${(e: Event) => e.preventDefault()}>
+                <vl-upload id="foto" name="foto" required></vl-upload>
+                <vl-form-message for="foto" state="valueMissing">Kies een bestand.</vl-form-message>
+                <vl-form-message for="foto" state="valid">Geldig bestand.</vl-form-message>
+                <button type="submit">Verstuur</button>
+            </form>
+        `);
+
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+        cy.get('vl-form-message[state="valid"]').should('not.have.attr', 'show');
+
+        shouldAddPdfFiles(1);
+        cy.get('vl-form-message[state="valid"]').should('have.attr', 'show');
+        cy.get('vl-form-message[state="valueMissing"]').should('not.have.attr', 'show');
     });
 
     it('should dispatch vl-change events when removing a file', () => {
@@ -194,7 +369,7 @@ describe('cypress-component - form components - vl-upload', () => {
         cy.get('@vl-input').its('callCount').should('eq', 0);
     });
 
-    it('should dispatch vl-input events when adding file', () => {
+    it('should dispatch vl-input events when adding file via input', () => {
         cy.mount(html` <vl-upload max-files="4"></vl-upload>`);
 
         cy.createStubForEvent('vl-upload', 'vl-input');
@@ -203,7 +378,7 @@ describe('cypress-component - form components - vl-upload', () => {
         cy.get('@vl-input').its('callCount').should('eq', 1);
     });
 
-    it('should dispatch vl-input events when adding file', () => {
+    it('should dispatch vl-input events when adding file via drag-drop', () => {
         cy.mount(html` <vl-upload max-files="4"></vl-upload>`);
 
         cy.createStubForEvent('vl-upload', 'vl-input');
@@ -239,65 +414,6 @@ describe('cypress-component - form components - vl-upload', () => {
         // voor elk individueel bestand wordt er een vl-input event getriggerd van type `addedfile`
         cy.get('@vl-change').its('callCount').should('eq', 4); // 4 addedFile events
         cy.get('@vl-input').its('callCount').should('eq', 1);
-    });
-
-    it('should not upload by default when selecting a file to upload', () => {
-        cy.mount(html` <vl-upload url=${uploadTargetUrl}></vl-upload>`);
-
-        const numberOfFiles = 1;
-
-        cy.intercept('POST', uploadTargetUrl, (req) => {
-            req.reply({
-                statusCode: 200,
-                fixture: mockedResponseFixturePath,
-            });
-        }).as('uploadPost');
-        shouldAddPdfFiles(numberOfFiles);
-        cy.get('@uploadPost.all').then((interceptions) => {
-            expect(interceptions).to.have.length(0);
-        });
-        shouldOnlyHaveUnprocessedUploadFiles(numberOfFiles);
-    });
-
-    it('should upload a file & have a success flag with auto-process', () => {
-        cy.mount(html` <vl-upload url=${uploadTargetUrl} auto-process></vl-upload>`);
-
-        shouldAddPdfFiles(1);
-        shouldSuccessfullyUploadFiles(1);
-    });
-
-    it('after adding a file and the upload fails, the related file should not have a success flag', () => {
-        const numberOfFiles = 1;
-        cy.mount(html` <vl-upload url=${uploadTargetUrl} auto-process></vl-upload>`);
-
-        cy.intercept('POST', uploadTargetUrl, (req) => {
-            req.reply({
-                statusCode: 500,
-            });
-        }).as('uploadPost');
-        shouldAddTxtFiles();
-        cy.wait('@uploadPost');
-        cy.get('@uploadPost.all').then((interceptions) => {
-            expect(interceptions).to.have.length(numberOfFiles);
-        });
-        shouldHaveUploadFilesWithNoSuccess(numberOfFiles);
-    });
-
-    it('should select a file to upload & cancel the upload', () => {
-        cy.mount(html` <vl-upload url=${uploadTargetUrl}></vl-upload>`);
-
-        shouldAddPdfFiles(1);
-        cy.createStubForEvent('vl-upload', 'vl-input');
-        shouldRemoveFile();
-        cy.get('@vl-input').should('have.been.called');
-    });
-
-    it('should generate error when adding a file with the wrong extension', () => {
-        const errorMessage = 'Dit bestandstype is niet toegestaan';
-        cy.mount(html` <vl-upload accepted-files="txt" error-message-accepted-files=${errorMessage}></vl-upload> `);
-
-        cy.get('vl-upload').shadow().find('input[type=file]').selectFile(pdfFileFixturePath, { force: true });
-        cy.get('vl-upload').shadow().find('vl-upload-progress[message]').should('have.attr', 'message', errorMessage);
     });
 
     it('should handle upload events when error occurs', () => {
@@ -351,47 +467,127 @@ describe('cypress-component - form components - vl-upload', () => {
         cy.get('@handleComplete').should('have.been.called');
         cy.get('@handleQueueComplete').should('have.been.called');
     });
+});
 
-    it('should only allow one file by default', () => {
-        const errorMessage = 'U mag maar 1 bestand tegelijk uploaden';
-        cy.mount(html` <vl-upload error-message-max-files=${errorMessage}></vl-upload>`);
-
-        shouldAddPdfFiles(2);
-        cy.get('vl-upload').shadow().find('vl-upload-progress[message]').should('have.attr', 'message', errorMessage);
+describe('vl-upload - upload', () => {
+    beforeEach(() => {
+        cy.viewport(1280, 720);
     });
 
-    it('should generate error when exceeding the number of files allowed', () => {
-        const errorMessage = 'Het maximum aantal toegelaten bestanden is overschreden';
-        cy.mount(html` <vl-upload max-files="2" error-message-max-files=${errorMessage}></vl-upload>`);
+    it('should not upload by default when selecting a file to upload', () => {
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 600px; padding: 20px; background: white;">
+                <vl-upload url=${uploadTargetUrl}></vl-upload>
+            </div>
+        `);
+
+        const numberOfFiles = 1;
+
+        cy.intercept('POST', uploadTargetUrl, (req) => {
+            req.reply({
+                statusCode: 200,
+                fixture: mockedResponseFixturePath,
+            });
+        }).as('uploadPost');
+        shouldAddPdfFiles(numberOfFiles);
+        cy.get('@uploadPost.all').then((interceptions) => {
+            expect(interceptions).to.have.length(0);
+        });
+        shouldOnlyHaveUnprocessedUploadFiles(numberOfFiles);
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('upload-file-queued');
+    });
+
+    it('should upload a file & have a success flag with auto-process', () => {
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 600px; padding: 20px; background: white;">
+                <vl-upload url=${uploadTargetUrl} auto-process></vl-upload>
+            </div>
+        `);
+
+        shouldAddPdfFiles(1);
+        shouldSuccessfullyUploadFiles(1);
+        cy.wait(500);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('upload-file-success');
+    });
+
+    it('should programmatically upload', () => {
+        cy.mount(html` <vl-upload url="http://httpbin.org/post"></vl-upload>`);
+
+        cy.get('vl-upload').shadow();
+
+        shouldAddPdfFiles(1);
+        shouldHaveUploadFiles(1);
+
+        cy.get('vl-upload').then((vlUploadQuery) => {
+            shouldSuccessfullyUploadFiles(1, 'http://httpbin.org/post', () => {
+                vlUploadQuery[0].upload();
+            });
+        });
+    });
+
+    it('after adding a file and the upload fails, the related file should not have a success flag', () => {
+        const numberOfFiles = 1;
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 600px; padding: 20px; background: white;">
+                <vl-upload url=${uploadTargetUrl} auto-process></vl-upload>
+            </div>
+        `);
+
+        cy.intercept('POST', uploadTargetUrl, (req) => {
+            req.reply({
+                statusCode: 500,
+            });
+        }).as('uploadPost');
+        shouldAddTxtFiles();
+        cy.wait('@uploadPost');
+        cy.get('@uploadPost.all').then((interceptions) => {
+            expect(interceptions).to.have.length(numberOfFiles);
+        });
+        shouldHaveUploadFilesWithNoSuccess(numberOfFiles);
+        cy.wait(500);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('upload-file-failed');
+    });
+
+    it('should select a file to upload & cancel the upload', () => {
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 600px; padding: 20px; background: white;">
+                <vl-upload url=${uploadTargetUrl}></vl-upload>
+            </div>
+        `);
+
+        shouldAddPdfFiles(1);
+        shouldHaveUploadFiles(1);
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('upload-file-before-cancel');
+        cy.createStubForEvent('vl-upload', 'vl-input');
+        shouldRemoveFile();
+        cy.get('@vl-input').should('have.been.called');
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('upload-file-after-cancel');
+    });
+
+    it('should upload multiple files sequentially when using parallel-uploads="1"', () => {
+        cy.mount(html`<vl-upload url=${uploadTargetUrl} max-files="3" parallel-uploads="1"></vl-upload>`);
+
+        cy.createStubForEvent('vl-upload', 'vl-success');
+        cy.createStubForEvent('vl-upload', 'vl-queuecomplete');
+
+        cy.intercept('POST', uploadTargetUrl, (req) => {
+            req.reply({ statusCode: 200, fixture: mockedResponseFixturePath });
+        }).as('uploadPost');
 
         shouldAddPdfFiles(3);
         shouldHaveUploadFiles(3);
-        shouldHaveValidUploadFiles(2);
-        cy.get('vl-upload').shadow().find('vl-upload-progress[message]').should('have.attr', 'message', errorMessage);
-    });
 
-    it('should remove duplicate files', () => {
-        cy.mount(html` <vl-upload disallow-duplicates></vl-upload>`);
+        cy.get('vl-upload').then((vlUploadQuery) => {
+            vlUploadQuery[0].upload(uploadTargetUrl);
+        });
 
-        cy.createStubForEvent('vl-upload', 'vl-input');
-        cy.createStubForEvent('vl-upload', 'vl-removedfile');
-        shouldAddPdfFiles(2);
-        shouldHaveUploadFiles(2);
-        cy.get('@vl-input').should('have.been.called');
-        cy.get('@vl-input').its('firstCall.args.0.detail').should('deep.include', { type: 'addedfile' });
-        cy.get('@vl-removedfile').should('have.been.called');
-        shouldHaveUploadFiles(1);
-    });
-
-    it('should generate error when adding a file that is bigger than allowed', () => {
-        const errorMessage = 'Dit bestand heeft de maximale bestandsgrootte overschreden';
-        cy.mount(html` <vl-upload max-size="0.01" error-message-filesize=${errorMessage}></vl-upload> `);
-
-        cy.createStubForEvent('vl-upload', 'vl-error');
-        cy.get('vl-upload').shadow().find('.dz-default');
-        shouldAddPdfFiles(1);
-        cy.get('vl-upload').shadow().find('vl-upload-progress[message]').should('have.attr', 'message', errorMessage);
-        cy.get('@vl-error').should('have.been.called');
+        cy.get('@uploadPost.all').should('have.length', 3);
+        cy.get('@vl-success').its('callCount').should('eq', 3);
+        cy.get('@vl-queuecomplete').its('callCount').should('eq', 1);
+        shouldHaveSuccessUploadFiles(3);
     });
 
     it('should select a file to upload and automatically start the upload', () => {
@@ -424,14 +620,35 @@ describe('cypress-component - form components - vl-upload', () => {
         cy.get('@vl-success').should('have.been.called');
         cy.get('@vl-complete').should('have.been.called');
     });
+});
 
-    it('should change the subtitle and title of the upload component', () => {
-        const titel = 'Upload je documenten';
-        const subTitel = 'Sleep je bestand naar hier om te uploaden ';
-        cy.mount(html` <vl-upload main-title=${titel} sub-title=${subTitel} url="fake-url"></vl-upload>`);
+describe('vl-upload - blur-validation', () => {
+    const mount = () => {
+        cy.mount(html`
+            <form>
+                <vl-upload id="up" name="up" required blur-validation></vl-upload>
+                <vl-form-message for="up" state="valueMissing">Verplicht.</vl-form-message>
+            </form>
+        `);
+    };
 
-        cy.get('vl-upload').contains(titel);
-        cy.get('vl-upload').contains(subTitel);
+    it('should show error on blur after focus, even without files', () => {
+        mount();
+        cy.get('vl-upload').then(($el) => {
+            const up = $el[0] as VlUploadComponent;
+            up.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true }));
+        });
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+    });
+
+    it('should show error after simulated user-mutation + blur (base-class isolation)', () => {
+        mount();
+        cy.get('vl-upload').then(($el) => {
+            const up = $el[0] as VlUploadComponent;
+            up.dispatchEvent(new CustomEvent('vl-input', { bubbles: true, composed: true, detail: { value: null } }));
+            up.dispatchEvent(new FocusEvent('focusout', { bubbles: true, composed: true }));
+        });
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
     });
 });
 

@@ -1,13 +1,21 @@
 import { BaseHTMLElement, registerWebComponents, webComponent } from '@domg-wc/common';
-import { vlAccessibilityStyles, vlContentBlockStyles, vlLegacyStyles, vlSectionStyles } from '@domg-wc/styles';
+import {
+    vlAccessibilityStyles,
+    vlContentBlockStyles,
+    vlLegacyStyles,
+    vlMediaScreenSmall,
+    vlSectionStyles,
+} from '@domg-wc/styles';
 import swipeDetect from 'swipe-detect/dist/';
 import { VlButtonComponent } from '../../atom/button';
+import { VlTooltipComponent } from '../tooltip';
 import { vlSideSheetFluxStyles } from './vl-side-sheet.flux-css';
 
 @webComponent('vl-side-sheet')
 export class VlSideSheet extends BaseHTMLElement {
     protected _toggle: (() => void) | undefined;
     protected _onClose: (() => void) | undefined;
+    protected _handleEsc: ((event: KeyboardEvent) => void) | undefined;
     private swipeDetect: typeof swipeDetect;
 
     static {
@@ -17,7 +25,7 @@ export class VlSideSheet extends BaseHTMLElement {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     constructor(style = '') {
         const html = `
-            <div>
+            <div id="vl-side-sheet-container">
                 <vl-button aria-expanded="false"
                            aria-controls="vl-side-sheet"
                            icon="nav-left"
@@ -25,9 +33,10 @@ export class VlSideSheet extends BaseHTMLElement {
                            part="toggle-button"
                            class="vl-side-sheet__toggle"
                            label="toggle side-sheet"
+                           id="toggle-button"
                 ></vl-button>
                 <div id="vl-side-sheet-backdrop"></div>
-                <div id="vl-side-sheet">
+                <div id="vl-side-sheet" tabindex="-1">
                     <section class="vl-section">
                         <div class="vl-content-block">
                             <slot></slot>
@@ -55,7 +64,9 @@ export class VlSideSheet extends BaseHTMLElement {
             'hide-toggle-button',
             'icon-position',
             'custom-size',
+            'top',
             'open',
+            'shadow',
         ];
     }
 
@@ -69,6 +80,13 @@ export class VlSideSheet extends BaseHTMLElement {
 
     get isLeft() {
         return this.hasAttribute('left');
+    }
+
+    get shadowStyle(): 'default' | 'large' {
+        if (['default', 'large'].includes(this.getAttribute('shadow') || '')) {
+            return this.getAttribute('shadow') as 'default' | 'large';
+        }
+        return 'default';
     }
 
     get toggleText() {
@@ -92,7 +110,7 @@ export class VlSideSheet extends BaseHTMLElement {
     }
 
     get _toggleButton() {
-        return this._shadow?.querySelector<VlButtonComponent>('.vl-side-sheet__toggle');
+        return this._shadow?.querySelector<VlButtonComponent>('#toggle-button');
     }
 
     get _toggleButtonTextElement() {
@@ -101,6 +119,10 @@ export class VlSideSheet extends BaseHTMLElement {
 
     get _sheetElement() {
         return this._shadow?.querySelector<HTMLElement>('#vl-side-sheet');
+    }
+
+    get _container(): HTMLElement {
+        return this.shadowRoot!.querySelector<HTMLElement>('#vl-side-sheet-container')!;
     }
 
     get _regionElement() {
@@ -115,6 +137,30 @@ export class VlSideSheet extends BaseHTMLElement {
         return this._shadow?.querySelector<HTMLElement>('slot');
     }
 
+    get _tooltip(): VlTooltipComponent | undefined | null {
+        return this._shadow?.querySelector<VlTooltipComponent>('vl-tooltip[for="toggle-button"]');
+    }
+
+    _focusToggleButton() {
+        this._toggleButton?.shadowRoot?.querySelector('button')?.focus();
+    }
+
+    _focusTrap = (event: FocusEvent) => {
+        if (window.innerWidth > vlMediaScreenSmall) {
+            return;
+        }
+
+        const next = event.relatedTarget;
+        const path = event.composedPath();
+        const stillInside = path.includes(this._container);
+
+        if (!next || !stillInside) {
+            requestAnimationFrame(() => {
+                this._toggleButton?.shadowRoot?.querySelector('button')?.focus();
+            });
+        }
+    };
+
     connectedCallback() {
         super.connectedCallback();
 
@@ -126,10 +172,25 @@ export class VlSideSheet extends BaseHTMLElement {
         } else {
             this._toggleButton?.setAttribute('icon-placement', 'after');
         }
+
+        this._handleEsc = (event: KeyboardEvent) => {
+            if (event.key.toLowerCase() === 'escape' && this.isOpen) {
+                this.close();
+            }
+        };
+        this.addEventListener('keydown', this._handleEsc);
+
+        this._sheetElement?.addEventListener('focusout', this._focusToggleButton);
     }
 
     disconnectedCallback() {
         this._toggleButton?.removeEventListener('click', this._toggle!);
+        if (this._handleEsc) {
+            this.removeEventListener('keydown', this._handleEsc);
+        }
+
+        this._sheetElement?.removeEventListener('focusout', this._focusToggleButton);
+        this._container.removeEventListener('focusout', this._focusTrap);
     }
 
     /**
@@ -162,6 +223,8 @@ export class VlSideSheet extends BaseHTMLElement {
         } else {
             openIcon = this.customIcon;
         }
+        this._sheetElement?.focus();
+        this._container.addEventListener('focusout', this._focusTrap);
         this._toggleButton?.setAttribute('icon', openIcon);
     }
 
@@ -184,6 +247,8 @@ export class VlSideSheet extends BaseHTMLElement {
             closeIcon = this.customIcon;
         }
         this._toggleButton?.setAttribute('icon', closeIcon);
+        this._container.removeEventListener('focusout', this._focusTrap);
+        this._toggleButton?.shadowRoot?.querySelector('button')?.focus();
         if (this._onClose) {
             this._onClose();
         }
@@ -208,7 +273,7 @@ export class VlSideSheet extends BaseHTMLElement {
                         this.close();
                     }
                 },
-                50
+                50,
             );
         } else {
             //TODO: disable does not work, needs to be refactored: https://github.com/mhfen/swipe-detect/issues/11
@@ -242,11 +307,17 @@ export class VlSideSheet extends BaseHTMLElement {
     }
 
     _tooltipTextChangedCallback(oldValue: any, newValue: any) {
-        // we voegen de title toe aan de button behalve als de waarde null / undefined is
         if (newValue ?? false) {
-            this._toggleButton?.setAttribute('title', newValue);
+            if (!this._tooltip) {
+                const tooltip = document.createElement('vl-tooltip');
+                tooltip.setAttribute('for', 'toggle-button');
+                this._toggleButton?.after(tooltip);
+            }
+            this._tooltip!.innerText = newValue;
         } else {
-            this._toggleButton?.removeAttribute('title');
+            if (this._tooltip) {
+                this._tooltip.remove();
+            }
         }
     }
 
@@ -262,6 +333,22 @@ export class VlSideSheet extends BaseHTMLElement {
     _customIconChangedCallback(oldValue: string, newValue: string) {
         if (newValue) {
             this._toggleButton?.setAttribute('icon', newValue);
+        }
+    }
+
+    _topChangedCallback(oldValue: string | null, newValue: string | null) {
+        if (newValue !== null) {
+            this.style.setProperty('--vl-side-sheet-top', newValue);
+        } else {
+            this.style.removeProperty('--vl-side-sheet-top');
+        }
+    }
+
+    _shadowChangedCallback(oldValue: string | null, newValue: string | null) {
+        if (newValue === 'large') {
+            this._sheetElement?.classList.add('vl-side-sheet--large-shadow');
+        } else {
+            this._sheetElement?.classList.remove('vl-side-sheet--large-shadow');
         }
     }
 }

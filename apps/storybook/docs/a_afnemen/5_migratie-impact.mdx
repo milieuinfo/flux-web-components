@@ -461,7 +461,7 @@ nieuw in v2:
         <td>-</td>
     </tr>
     <tr>
-        <td>[Form](/docs/ontwerp-form-demo--documentatie)</td>
+        <td>[Form](/docs/patronen-formulier-demo--documentatie)</td>
         <td>native</td>
         <td>-</td>
         <td><code>{`<form>`}</code></td>
@@ -1915,6 +1915,39 @@ hieronder niet expliciet opgelijst maar zijn terug te vinden op de documentatie 
         <td><code>{`<vl-toaster>`}</code></td>
     </tr>
 </table>
+
+
+### Tooltip
+
+De `Tooltip` is verwijderd in v2.0.0 en opnieuw beschikbaar vanaf v2.7.0, maar de API is gewijzigd.
+    In v1 werd de trigger impliciet bepaald door de context; in v2.7.0 is `for` verplicht en verwijs je expliciet naar het `id` van het trigger-element.
+
+<table  style={{width: 100 + '%'}}>
+    <tr>
+        <th>Naam</th>
+        <th>Toestand</th>
+        <th>v1 - Artifact</th>
+        <th>v1 - Gebruik</th>
+        <th>v2 - Artifact</th>
+        <th>v2 - Gebruik</th>
+    </tr>
+    <tr>
+        <td>
+            <a href={`${v1StorybookLink}/docs/components-tooltip--documentatie`}
+            >Tooltip</a>
+        </td>
+        <td>impact</td>
+        <td>components</td>
+        <td><code>{`<vl-tooltip data-vl-placement="top" data-vl-static>...</vl-tooltip>`}</code></td>
+        <td>components/block</td>
+        <td><code>{`<vl-tooltip for="trigger-id" placement="top" open>...</vl-tooltip>`}</code></td>
+    </tr>
+</table>
+
+nieuw in v2.7.0:
+- `for` attribuut is verplicht om het trigger-element te koppelen
+- `data-vl-placement` en `data-vl-static` worden respectievelijk `placement` en `open`
+- extra configuratie via `distance`, `hide-arrow`, `strategy` en `type`
 
 
 ### Upload

@@ -2,7 +2,7 @@ import { registerWebComponents } from '@domg-wc/common';
 import { VlButtonComponent } from '@domg-wc/components/atom';
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import { VlFormLabelComponent } from '../../form-label';
 import { VlFormMessageComponent } from '../../form-message';
 import { VlDatepickerComponent } from '../vl-datepicker.component';
@@ -46,12 +46,12 @@ const DatepickerTemplate = story(
         maxTime,
         amPm,
         success,
+        blurValidation,
         block,
         disabled,
         error,
         readonly,
         required,
-        disableMobileNativeInput,
         disableMaskValidation,
         value,
         placeholder,
@@ -66,6 +66,7 @@ const DatepickerTemplate = story(
         onVlValid,
         position,
         isStatic,
+        anchorPositioning,
         helperText,
     }: typeof datepickerArgs) => {
         return html`
@@ -82,11 +83,11 @@ const DatepickerTemplate = story(
                             autocomplete=${autocomplete}
                             ?error=${error}
                             ?success=${success}
+                            ?blur-validation=${blurValidation}
                             ?required=${required}
                             ?readonly=${readonly}
                             ?disabled=${disabled}
                             ?block=${block}
-                            ?disable-mobile-native-input=${disableMobileNativeInput}
                             ?disable-mask-validation=${disableMaskValidation}
                             type=${type}
                             format=${format}
@@ -103,6 +104,7 @@ const DatepickerTemplate = story(
                             @vl-valid=${onVlValid}
                             position=${position}
                             static=${isStatic}
+                            ?anchor-positioning=${anchorPositioning}
                         >
                         </vl-datepicker>
                     </div>

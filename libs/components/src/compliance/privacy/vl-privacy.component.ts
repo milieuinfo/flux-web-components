@@ -15,7 +15,7 @@ import { VlContactCardComponent } from '../../block/contact-card';
 import { VlDocumentComponent } from '../../block/document';
 import { VlInfoblockComponent } from '../../block/infoblock';
 import { VlPropertiesComponent } from '../../block/properties';
-import { VlSideNavigationComponent } from '../../block/side-navigation';
+import { VlSideNavigationLayoutComponent } from '../../block/next/side-navigation';
 import { VlTypography } from '../../block/typography';
 import { privacyBottomSection } from './child/bottom.component';
 import { privacyContentSection } from './child/content.component';
@@ -38,7 +38,7 @@ export class VlPrivacy extends BaseLitElement {
             VlInfoblockComponent,
             VlTypography,
             VlTitleComponent,
-            VlSideNavigationComponent,
+            VlSideNavigationLayoutComponent,
             VlPropertiesComponent,
             VlParagraphComponent,
             // child components

@@ -2,7 +2,7 @@ import { story } from '@resources/utils-storybook';
 import { registerWebComponents } from '@domg-wc/common';
 import { radioGroupArgs, radioGroupArgTypes } from './vl-radio-group.stories-arg';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import radioGroupDoc from './vl-radio-group.stories-doc.mdx';
 import { VlRadioComponent } from '../vl-radio.component';
 import { VlRadioGroupComponent } from '../vl-radio-group.component';
@@ -31,6 +31,7 @@ export const RadioGroupDefault = story(
         disabled,
         error,
         success,
+        blurValidation,
         label,
         name,
         value,
@@ -49,6 +50,7 @@ export const RadioGroupDefault = story(
             ?disabled=${disabled}
             ?error=${error}
             ?success=${success}
+            ?blur-validation=${blurValidation}
             @vl-change=${onVlChange}
             @vl-input=${onVlInput}
             @vl-reset=${onVlReset}
@@ -66,4 +68,15 @@ RadioGroupDefault.args = {
     name: 'land-zee',
     label: 'land-zee',
     value: 'land',
+};
+
+export const RadioGroupBlurValidation = RadioGroupDefault.bind({});
+RadioGroupBlurValidation.storyName = 'vl-radio-group - blur validation';
+RadioGroupBlurValidation.args = {
+    id: 'land-zee-validation',
+    name: 'land-zee-validation',
+    label: 'land-zee-validation',
+    value: '',
+    required: true,
+    blurValidation: true,
 };

@@ -30,6 +30,15 @@ export const formLabelArgTypes: ArgTypes<FormLabelArgs> = {
             defaultValue: { summary: formLabelArgs.label },
         },
     },
+    annotation: {
+        name: 'annotation',
+        description: 'De annotatie tekst die naast het label getoond wordt (bv. een voorbeeld of extra uitleg).',
+        table: {
+            category: CATEGORIES.ATTRIBUTES,
+            type: { summary: TYPES.STRING },
+            defaultValue: { summary: formLabelArgs.annotation },
+        },
+    },
     block: {
         name: 'block',
         description: 'Duidt aan of het label de volledige breedte van de parent moet innemen.',

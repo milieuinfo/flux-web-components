@@ -1,6 +1,6 @@
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../vl-progress-indicator.component';
 import { progressIndicatorArgs, progressIndicatorArgTypes } from './vl-progress-indicator.stories-arg';
 import progressIndicatorDoc from './vl-progress-indicator.stories-doc.mdx';

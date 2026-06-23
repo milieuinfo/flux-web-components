@@ -17,6 +17,7 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
     message = '';
     naked = false;
     closable = false;
+    multiline = false;
 
     static get styles(): CSSResult[] {
         return [resetStyle, alertStyle, accessibilityStyle, markStyle, vlAlertFluxStyles, vlIconStyles];
@@ -31,12 +32,8 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
             size: { type: String, attribute: 'size' },
             naked: { type: Boolean, attribute: 'naked' },
             message: { type: String, attribute: 'message' },
+            multiline: { type: Boolean, attribute: 'multiline', reflect: true },
         };
-    }
-
-    protected updated(changedProperties: Map<string, unknown>): void {
-        super.updated(changedProperties);
-        this.processButtons();
     }
 
     protected render(): TemplateResult {
@@ -90,15 +87,6 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
     private removeAlert() {
         this.remove();
         this.dispatchEvent(new VlAlertClosedEvent());
-    }
-
-    private processButtons() {
-        const actionsSlotElement = this.renderRoot.querySelector('slot[name="actions"]') as HTMLSlotElement;
-        const buttonNodes = actionsSlotElement
-            ?.assignedNodes()
-            .filter((element) => element instanceof HTMLButtonElement);
-
-        buttonNodes.forEach((node) => (node as HTMLButtonElement).setAttribute('narrow', ''));
     }
 }
 

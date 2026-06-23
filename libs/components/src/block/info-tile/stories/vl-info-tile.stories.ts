@@ -1,6 +1,7 @@
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
+import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import '../vl-info-tile.component';
 import { infoTileArgs, infoTileArgTypes } from './vl-info-tile.stories-arg';
@@ -39,7 +40,10 @@ const Template = story(
         type,
         fullHeight = false,
         classes = '',
+        headingLevel,
         onVlClickInfoTile,
+        highlight,
+        highlightLeft,
     }) => html`
         <vl-info-tile
             ?auto-open=${autoOpen}
@@ -53,12 +57,15 @@ const Template = story(
             size="${size}"
             type="${type}"
             class="${classes}"
+            heading-level="${ifDefined(headingLevel)}"
+            ?highlight=${highlight}
+            ?highlight-left=${highlightLeft}
             @vl-click-info-tile="${onVlClickInfoTile}"
         >
             ${unsafeHTML(badgeSlot)} ${unsafeHTML(titleSlot)} ${unsafeHTML(menuSlot)} ${unsafeHTML(subtitleSlot)}
             ${unsafeHTML(contentSlot)} ${unsafeHTML(footerSlot)}
         </vl-info-tile>
-    `
+    `,
 );
 
 export const InfoTileDefault = Template.bind({});
@@ -157,6 +164,15 @@ InfoTileFullHeight.decorators = [
     `,
 ];
 
+export const InfoTileHeadingLevel = Template.bind({});
+InfoTileHeadingLevel.storyName = 'vl-info-tile - heading level';
+InfoTileHeadingLevel.args = {
+    titleSlot: `<span slot="title">Broos Deprez</span>`,
+    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    headingLevel: '6',
+};
+
 export const InfoTileCentered = Template.bind({});
 InfoTileCentered.storyName = 'vl-info-tile - centered';
 InfoTileCentered.args = {
@@ -172,7 +188,6 @@ InfoTileToggleable.storyName = 'vl-info-tile - toggleable';
 InfoTileToggleable.args = {
     toggleable: true,
     titleSlot: `<span slot="title">Broos Deprez</span>`,
-    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
     contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
 };
 
@@ -234,6 +249,28 @@ InfoTileFooterSlot.args = {
     </div>`,
 };
 
+export const InfoTileIconPrimaryBackground = Template.bind({});
+InfoTileIconPrimaryBackground.storyName = 'vl-info-tile - icon primary background';
+InfoTileIconPrimaryBackground.args = {
+    titleSlot: `<span slot="title">Broos Deprez</span>`,
+    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    icon: 'file-tasks-check',
+    iconAsBadge: true,
+};
+InfoTileIconPrimaryBackground.decorators = [
+    (story: () => unknown) => html`
+        <style>
+            .info-tile-primary-icon {
+                --vl-info-tile-icon-background-color: var(--vl-color--icon-success);
+                --vl-info-tile-icon-border-color: var(--vl-color--border-success-subtle);
+                --vl-info-tile-icon-color: var(--vl-color--border-inverse);
+            }
+        </style>
+        <div class="info-tile-primary-icon">${story()}</div>
+    `,
+];
+
 export const InfoTileClickable = Template.bind({});
 InfoTileClickable.storyName = 'vl-info-tile - clickable';
 InfoTileClickable.args = {
@@ -252,4 +289,22 @@ InfoTileClickable.args = {
     </span>`,
     clickable: true,
     clickableLabel: 'detail pagina Broos Deprez openen',
+};
+
+export const InfoTileHighlight = Template.bind({});
+InfoTileHighlight.storyName = 'vl-info-tile - highlight';
+InfoTileHighlight.args = {
+    titleSlot: `<span slot="title">Broos Deprez</span>`,
+    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    highlight: true,
+};
+
+export const InfoTileHighlightLeft = Template.bind({});
+InfoTileHighlightLeft.storyName = 'vl-info-tile - highlight left';
+InfoTileHighlightLeft.args = {
+    titleSlot: `<span slot="title">Broos Deprez</span>`,
+    subtitleSlot: `<span slot="subtitle">Uw zoon (19.05.2005)</span>`,
+    contentSlot: `<div slot="content">De studietoelage voor Broos Deprez werd toegekend.</div>`,
+    highlightLeft: true,
 };

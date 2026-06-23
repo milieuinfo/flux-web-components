@@ -75,6 +75,31 @@ describe('cypress-component - map - vl-map-multiselect-actions', () => {
         cy.checkA11y('vl-map-multiselect-actions');
     });
 
+    it('should stay active while at least one coupled layer is visible and deactivate only when all are hidden', () => {
+        cy.get('vl-map').should('exist');
+        cy.get('vl-map-multiselect-actions').should('exist');
+        cy.wait(1000);
+
+        cy.document().then((doc) => {
+            const vlMap = doc.querySelector('vl-map') as VlMap;
+            const multiselectActions = doc.querySelector('vl-map-multiselect-actions') as VlMapMultiselectActions;
+            const layerElements = Array.from(
+                doc.querySelectorAll('vl-map-features-layer')
+            ) as VlMapFeaturesLayer[];
+
+            expect(vlMap.activeAction).to.equal(multiselectActions.action);
+
+            layerElements[0].visible = false;
+            expect(vlMap.activeAction).to.equal(multiselectActions.action);
+
+            layerElements[1].visible = false;
+            expect(vlMap.activeAction).to.not.equal(multiselectActions.action);
+
+            layerElements[0].visible = true;
+            expect(vlMap.activeAction).to.equal(multiselectActions.action);
+        });
+    });
+
     it('should fire the onSelect event', () => {
         cy.window().then((win) => {
             // @ts-ignore

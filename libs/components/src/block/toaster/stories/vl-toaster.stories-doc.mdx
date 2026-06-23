@@ -48,15 +48,16 @@ opgegeven parameters.
 ```js
 const toaster = document.querySelector('vl-toaster');
 toaster.showAlert({
-  type: 'error',
-  title: 'Fout',
-  message: 'Dit is een foutmelding',
-  fadeOut: true // optioneel, standaard is false
+  type: 'warning',
+  title: 'Technische storing',
+  message: 'Uw aanvraag is niet verwerkt.\nFout code: 36981',
+  closable: true,
+  multiline: true,
 });
 ```
 
-Je kan het meegegeven object uitbreiden met de properties van de [vl-alert](/docs/components-block-alert--documentatie)
-component.
+Het meegegeven object ondersteunt alle attributen van de [vl-alert](/docs/components-block-alert--documentatie)
+component, zoals `multiline` om regeleinden (`\n`) in de `message` te bewaren.
 
 <Canvas of={VlToasterStories.ToasterShowAlert} />
 
@@ -132,4 +133,4 @@ de melding mogelijk niet op tijd lezen of begrijpen, dit is problematisch bij he
 
 ### Digitaal Vlaanderen
 
-[Documentatie Digitaal Vlaanderen - Toaster](https://overheid.vlaanderen.be/webuniversum/v3/documentation/atoms/vl-ui-toasters)
+[Documentatie Digitaal Vlaanderen - Toaster](https://www.vlaanderen.be/vlaanderen-design-system/componenten/toaster)

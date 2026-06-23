@@ -1,6 +1,6 @@
 import { story } from '@resources/utils-storybook';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../vl-input-slider.component';
 import { inputSliderArgs, inputSliderArgTypes } from './vl-input-slider.stories-arg';
 import inputSliderDoc from './vl-input-slider.stories-doc.mdx';

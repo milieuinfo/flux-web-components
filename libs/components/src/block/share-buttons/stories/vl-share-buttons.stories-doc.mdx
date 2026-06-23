@@ -1,0 +1,40 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlShareButtonsStories from './vl-share-buttons.stories';
+
+# Share Buttons
+
+<FluxComponentMetaData id="components-block-share-buttons-share-buttons" />
+
+<FluxAlert type="warning" title="Deprecated">
+{`
+ Deze component is <strong>deprecated</strong> en wordt verwijderd in <strong>v3</strong>. Gebruik in plaats daarvan
+ een <code>vl-button</code> met <code>cta-link</code> en <code>icon</code> in de standaard action-stijl (zie
+ <a href="#ontwerp">Ontwerp</a>).
+`}
+</FluxAlert>
+
+
+## Doel
+
+De `share-buttons` component toont een rij knoppen om een pagina te delen op sociale media.
+
+
+## Voorbeeld
+
+<Canvas of={VlShareButtonsStories.shareButtonsDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlShareButtonsStories.shareButtonsDefault} />
+
+
+## Ontwerp
+
+Vervang elke share-knop door een gewone [`vl-button`](/docs/components-atom-button--documentatie) in de standaard action-stijl met `cta-link`, `icon` en een
+verplicht `label` voor toegankelijkheid (WCAG 2.1 AA). Geef per kanaal een eigen knop met de bijhorende share-URL:
+
+```html
+<vl-button cta-link="https://www.facebook.com/sharer/sharer.php?u=…" icon="facebook" label="Delen op Facebook"></vl-button>
+<vl-button cta-link="https://www.linkedin.com/sharing/share-offsite/?url=…" icon="linkedin" label="Delen op LinkedIn"></vl-button>
+```

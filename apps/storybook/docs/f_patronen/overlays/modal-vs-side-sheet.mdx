@@ -1,0 +1,86 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Patronen/Overlays/Modal vs Side sheet" />
+
+# Modal vs Side sheet
+
+Wanneer kies je een [modal](/docs/components-block-modal--documentatie) en wanneer een
+[side-sheet](/docs/components-block-side-sheet--documentatie)? Beide tonen inhoud over de pagina heen, maar ze
+dienen een ander doel. De vuistregel:
+
+- **Modal** voor een **geïsoleerde taak** die de volledige aandacht vraagt en de pagina-context tijdelijk afschermt.
+- **Side-sheet** wanneer de **pagina-context zichtbaar en bruikbaar** moet blijven naast de taak.
+
+## Wanneer gebruik je wat
+
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Scenario</th>
+            <th scope="col">Component</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Een geïsoleerde taak waarbij de gebruiker zich volledig op die taak moet richten</td>
+            <td>Gecentreerde modal</td>
+        </tr>
+        <tr>
+            <td>Verwijderen of een andere onomkeerbare bevestiging</td>
+            <td>Altijd een modal</td>
+        </tr>
+        <tr>
+            <td>Een formulier of taak waarbij de pagina-context zichtbaar en bruikbaar moet blijven</td>
+            <td>Side-sheet</td>
+        </tr>
+        <tr>
+            <td>Een zeer uitgebreide taak die geen pagina-context nodig heeft</td>
+            <td>Full-screen modal of een nieuwe pagina</td>
+        </tr>
+        <tr>
+            <td>Een taak die visueel aan een rand van de pagina hoort, maar de pagina afschermt</td>
+            <td>Links of rechts uitgelijnde modal</td>
+        </tr>
+    </tbody>
+</table>
+
+### Modal
+
+Gebruik een **modal** wanneer de gebruiker een geïsoleerde taak moet afwerken en de onderliggende pagina daarbij
+niet nodig of zelfs afleidend is. De modal schermt de pagina af met een overlay; de gebruiker moet de taak
+afronden of annuleren voor hij verder kan.
+
+- **Gecentreerde modal** - de standaard voor korte, op zichzelf staande taken en bevestigingen.
+- **Verwijderen** - gebruik **altijd** een modal. Een onomkeerbare actie vraagt een expliciete, afgeschermde
+  bevestiging.
+- **Full-screen modal** - voor een zeer uitgebreide taak die alle ruimte vraagt maar geen pagina-context nodig
+  heeft. Weeg af of een **nieuwe pagina** hier niet gepaster is: bij diepe, navigeerbare flows - die ook een eigen
+  URL, terug-navigatie of deelbaarheid nodig hebben - is een eigen pagina vaak duidelijker dan een overlay.
+- **Links of rechts uitgelijnde modal** - visueel aan een rand verankerd, maar nog steeds een overlay: de pagina
+  eronder is afgeschermd en niet bruikbaar.
+
+### Side-sheet
+
+Gebruik een **side-sheet** wanneer de gebruiker een taak uitvoert terwijl de pagina-context zichtbaar en bruikbaar
+moet blijven - bijvoorbeeld een formulier waarbij hij gegevens op de achterliggende pagina blijft raadplegen of
+aanpassen. De side-sheet schuift in vanaf een rand zonder de pagina af te schermen.
+
+## Links/rechts uitgelijnde modal vs side-sheet
+
+Een links of rechts uitgelijnde modal lijkt visueel op een side-sheet - beide hangen aan een schermrand - maar
+gedraagt zich fundamenteel anders:
+
+- De **uitgelijnde modal** legt een overlay over de pagina. De achterliggende inhoud is afgeschermd en niet
+  bruikbaar zolang de modal open is.
+- De **side-sheet** laat de pagina bruikbaar: de gebruiker kan blijven scrollen, lezen en interageren met de
+  context terwijl de side-sheet open is.
+
+Kies dus op basis van 'of de pagina-context bruikbaar moet blijven', niet op basis van de positie op het scherm.
+
+## Overlays stapelen
+
+- **Side-sheet → modal openen** kan. Het is niet ideaal - je stapelt twee niveaus van onderbreking - maar soms
+  onvermijdbaar, bijvoorbeeld een verwijder-bevestiging die vanuit een formulier in de side-sheet vertrekt.
+- **Modal → modal openen** is altijd te vermijden. Een tweede modal bovenop een eerste maakt onduidelijk waar de
+  gebruiker zit en hoe hij terugkeert. Herstructureer de taak zodat één modal volstaat, of gebruik een
+  full-screen modal of een nieuwe pagina.

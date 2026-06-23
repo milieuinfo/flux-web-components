@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "test -f CLAUDE.local.md || cat <<'EOF'\n{\"hookSpecificOutput\":{\"hookEventName\":\"SessionStart\",\"additionalContext\":\"BOOTSTRAP CHECK VEREIST: CLAUDE.local.md ontbreekt in de project-root. Voor je antwoordt op de vraag van de gebruiker MOET je eerst de bootstrap-check uit CLAUDE.md uitvoeren: (1) lijst de profile-folders in ai/profiles/ (filter README.md eruit), (2) gebruik AskUserQuestion om te vragen welk profile te activeren (inclusief een skip optie), (3) voer ./set-ai-profile.sh {keuze} uit, (4) meld dat een Claude Code herstart nodig is om het profile volledig te laden, (5) ga verder met de oorspronkelijke vraag van de gebruiker. Als de gebruiker skip kiest: niet opnieuw vragen in deze sessie.\"}}\nEOF"
+          }
+        ]
+      }
+    ]
+  }
+}

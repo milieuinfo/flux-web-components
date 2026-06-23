@@ -10,10 +10,13 @@ import DragZoom from 'ol/interaction/DragZoom';
 import Collection from 'ol/Collection';
 import Interaction from 'ol/interaction/Interaction';
 import VectorSource from 'ol/source/Vector';
+import OlVectorLayer from 'ol/layer/Vector';
 import { VlMapWithActions } from './map-with-actions';
 import { VlBaseMapAction } from '../mapaction';
 import { VlDrawLineAction } from '../draw/draw-line-action';
+import { VlSelectActions } from '../select/select-actions';
 import { VlMapAction } from '../../components/action/vl-map-action';
+import { OlVectorLayerType } from '../../vl-map.model';
 import ResizeObserver from 'resize-observer-polyfill';
 
 global.ResizeObserver = ResizeObserver;
@@ -114,6 +117,32 @@ describe('jest - map - map-with-actions', () => {
         map.removeAction(newAction);
 
         expect(activateDefaultActionSpy).toHaveBeenCalled();
+    });
+
+    it('matcht een single-layer action op zijn layer en niet op een vreemde layer', () => {
+        const layer = new OlVectorLayer({ source: new VectorSource() }) as OlVectorLayerType;
+        const otherLayer = new OlVectorLayer({ source: new VectorSource() }) as OlVectorLayerType;
+        action1.layer = layer;
+
+        map = new VlTestMapWithActions({ actions: [action1] });
+
+        expect(map.getLayerActions(layer)).toContain(action1);
+        expect(map.getLayerActions(otherLayer)).not.toContain(action1);
+    });
+
+    it('returns a multi-layer action for each of its coupled layers, not just the proxy layer', () => {
+        const layer1 = new OlVectorLayer({}) as OlVectorLayerType;
+        const layer2 = new OlVectorLayer({}) as OlVectorLayerType;
+        const otherLayer = new OlVectorLayer({}) as OlVectorLayerType;
+        const selectActions = new VlSelectActions([layer1, layer2]);
+
+        map = new VlTestMapWithActions({
+            actions: [selectActions],
+        });
+
+        expect(map.getLayerActions(layer1)).toContain(selectActions);
+        expect(map.getLayerActions(layer2)).toContain(selectActions);
+        expect(map.getLayerActions(otherLayer)).not.toContain(selectActions);
     });
 
     it('there are 9 predefined interactions', () => {

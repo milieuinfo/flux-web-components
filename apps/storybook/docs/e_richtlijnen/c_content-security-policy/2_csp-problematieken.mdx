@@ -32,7 +32,7 @@ component. Technische informatie over de upgrade kan je vinden in de documentati
 [upgraden van global header versie 4 naar 5](https://vlaamseoverheid.atlassian.net/wiki/spaces/IKPubliek/pages/7488733769/Upgraden+van+global+header+versie+4+naar+5).
 
 De v4 versie van de header werkte enkel met de CSP configuratie `Content-Security-Policy: script-src 'unsafe-eval';`.
-Om die rede was CSP activeren met die versie redelijk zinloos: in de volledige toepassing moest 'unsafe-eval' actief
+Om die reden was CSP activeren met die versie redelijk zinloos: in de volledige toepassing moest 'unsafe-eval' actief
 zijn, waardoor [XSS](/docs/richtlijnen-content-security-policy-wat-is-csp--documentatie#cross-side-scripting) mogelijk
 is.
 
@@ -46,7 +46,7 @@ documentatie.
 ## CSP en vl-textarea-rich / TinyMCE
 
 De `vl-textarea-rich` maakt gebruik van [TinyMCE](https://github.com/tinymce/tinymce). Alle rich text editor's hebben,
-om correct te werken, dezelfde CSP regel nodig: `"Content-Security-Policy": "style-src-attr 'unsafe-inline';"`. De rede
+om correct te werken, dezelfde CSP regel nodig: `"Content-Security-Policy": "style-src-attr 'unsafe-inline';"`. De reden
 is dat ze dynamisch tekst stylen via het style attribuut.
 
 Een fundamentele oplossing is er niet, in alternatieve rich text editors kan je met een

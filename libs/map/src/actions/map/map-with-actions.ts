@@ -100,7 +100,7 @@ export class VlMapWithActions extends Map {
     }
 
     getLayerActions(layer) {
-        return this.actions && this.actions.filter((action) => action.layer === layer);
+        return this.actions && this.actions.filter((action) => action.appliesToLayer(layer));
     }
 
     activateAction(action) {

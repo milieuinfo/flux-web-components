@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import '../vl-loader.component';
 import { loaderArgs, loaderArgTypes } from './vl-loader.stories-arg';
 

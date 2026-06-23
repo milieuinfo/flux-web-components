@@ -1,58 +1,8 @@
+import { vlFocusOutlineMixin, vlMediaScreenSmall } from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
-import { vlLegacyStyles } from '@domg-wc/styles';
 
 // deze css is gegenereerd uit de oude custom scss
 export const vlSideSheetFluxStyles: CSSResult = css`
-    .vl-vi::before,
-    .vl-vi::after {
-        font-family: 'vlaanderen-icon' !important;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        font-style: normal;
-        font-variant: normal;
-        font-weight: normal;
-        text-decoration: none;
-        text-transform: none;
-        display: inline-block;
-        vertical-align: middle;
-    }
-
-    .vl-vi.vl-vi-u-180deg::before {
-        display: inline-block;
-        transform: rotate(180deg);
-        vertical-align: middle;
-    }
-
-    .vl-vi-u-xs::before {
-        font-size: 0.8rem;
-    }
-
-    .vl-vi-u-s::before {
-        font-size: 1.3rem;
-    }
-
-    .vl-vi-u-m::before {
-        font-size: 1.7rem;
-    }
-
-    .vl-vi-u-l::before {
-        font-size: 2rem;
-    }
-
-    .vl-vi-u-xl::before {
-        font-size: 2.2rem;
-    }
-
-    .vl-vi-u-90deg::before {
-        display: inline-block;
-        transform: rotate(90deg);
-    }
-
-    .vl-vi-u-180deg::before {
-        display: inline-block;
-        transform: rotate(180deg);
-    }
-
     :host {
         position: fixed;
         top: 0px;
@@ -66,15 +16,25 @@ export const vlSideSheetFluxStyles: CSSResult = css`
         display: none;
         width: 100%;
         height: 100%;
-        padding-top: 43px;
-        /*
-            UIG-3004: z-index op dit niveau verwijderd, de z-index staat ook al op de host.
-            Zoek andere oplossing indien dit voor problemen zorgt.
-        */
-        /* z-index: 2; */
+        padding-top: var(--vl-side-sheet-top, 43px);
         background: white;
-        overflow: auto;
-        box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+        overflow-y: auto;
+
+        &:focus {
+            ${vlFocusOutlineMixin()};
+            outline-offset: -3px;
+        }
+
+        &,
+        &:focus {
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+        }
+
+        &.vl-side-sheet--large-shadow,
+        &.vl-side-sheet--large-shadow:focus {
+            /* Shadow/Large uit Figma [VL] Foundations */
+            box-shadow: 0px 10px 50px 0px #6a768659;
+        }
     }
 
     :host #vl-side-sheet .vl-content-block {
@@ -91,7 +51,7 @@ export const vlSideSheetFluxStyles: CSSResult = css`
 
     :host .vl-side-sheet__toggle {
         position: absolute;
-        top: calc(1rem + 43px);
+        top: calc(1rem + var(--vl-side-sheet-top, 43px));
         right: 0px;
         background-color: white !important;
         color: #333332 !important;
@@ -132,7 +92,7 @@ export const vlSideSheetFluxStyles: CSSResult = css`
         z-index: var(--vl-z-layer--side-sheet-open);
     }
 
-    @media screen and (max-width: 767px) {
+    @media screen and (max-width: ${vlMediaScreenSmall}px) {
         :host([open]) {
             width: var(--vl-side-sheet-width-mobile, calc(100vw - 56px));
         }
@@ -152,7 +112,7 @@ export const vlSideSheetFluxStyles: CSSResult = css`
         backdrop-filter: blur(2px);
     }
 
-    @media screen and (max-width: 767px) {
+    @media screen and (max-width: ${vlMediaScreenSmall}px) {
         :host([open]) #vl-side-sheet-backdrop {
             display: block;
         }

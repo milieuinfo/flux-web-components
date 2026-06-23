@@ -1,0 +1,165 @@
+import { Canvas } from '@storybook/addon-docs/blocks';
+import * as VlProzaDirectiveStories from './vl-proza-directive.stories';
+
+# Proza Directive (`vlProza`)
+
+## Doel
+
+Gebruik de `vlProza` directive om een Proza bericht te gebruiken als **attribuut waarde** op eender welke Lit-based
+component. Dit is handig wanneer je een Proza bericht wilt gebruiken op plaatsen waar enkel strings geaccepteerd worden,
+zoals het `title` attribuut van `vl-alert`.
+
+De directive haalt het bericht asynchroon op via `VlProzaMessage.getMessage()`, strip HTML-tags (retourneert plain
+text), en toont een fallback waarde tijdens het laden.
+
+
+## Import
+
+```ts
+import { vlProza } from '@domg-wc/components/block';
+```
+
+
+## Setup
+
+Stel eenmalig het default Proza domein in via `FluxConfig` bij het bootstrappen van je applicatie.
+Dit domein wordt gedeeld met `vl-proza-message` en `vl-proza-message-preloader`:
+
+```ts
+import { FluxConfig } from '@domg-wc/common';
+
+FluxConfig.setPreferences({ prozaDomain: 'mijn-domein' });
+```
+
+Zie ook het [Configuratie](/docs/recepten-configuratie--documentatie) recept.
+
+
+## Gebruik
+
+### Basis
+
+Gebruik `vlProza` in een Lit template expressie om een Proza bericht als attribuut waarde te binden:
+
+```html
+<vl-alert icon="warning" title=${vlProza('alert.titel')} type="warning"></vl-alert>
+```
+
+<Canvas of={VlProzaDirectiveStories.ProzaDirectiveDefault}/>
+
+
+### Met parameters
+
+Geef template parameters mee om placeholders (`${parameter.key}`) in het Proza bericht te vervangen:
+
+```ts
+vlProza('welkom.titel', { parameters: { naam: 'Jan' } })
+```
+
+<Canvas of={VlProzaDirectiveStories.ProzaDirectiveMetParameters}/>
+
+
+### Met domain override
+
+Gebruik de `domain` optie om het default domein te overschrijven voor een specifieke aanroep:
+
+```ts
+vlProza('alert.titel', { domain: 'ander-domein' })
+```
+
+<Canvas of={VlProzaDirectiveStories.ProzaDirectiveDomainOverride}/>
+
+
+## API
+
+### `vlProza(code, options?)`
+
+<table>
+    <thead>
+        <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Verplicht</th>
+            <th>Beschrijving</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>code</code></td>
+            <td><code>string</code></td>
+            <td>ja</td>
+            <td>De code die het Proza bericht identificeert.</td>
+        </tr>
+        <tr>
+            <td><code>options.domain</code></td>
+            <td><code>string</code></td>
+            <td>nee</td>
+            <td>Override van het default domein.</td>
+        </tr>
+        <tr>
+            <td><code>options.parameters</code></td>
+            <td><code>Record&lt;string, string&gt;</code></td>
+            <td>nee</td>
+            <td>Key/value parameters voor template vervanging.</td>
+        </tr>
+        <tr>
+            <td><code>options.fallback</code></td>
+            <td><code>string</code></td>
+            <td>nee</td>
+            <td>Tekst die getoond wordt tijdens het laden. Default: <code>code</code>.</td>
+        </tr>
+        <tr>
+            <td><code>options.baseUrl</code></td>
+            <td><code>string</code></td>
+            <td>nee</td>
+            <td>Optionele base URL voor de Proza API.</td>
+        </tr>
+    </tbody>
+</table>
+
+
+### Default domein via `FluxConfig`
+
+Het default domein wordt geconfigureerd via `FluxConfig.setPreferences({ prozaDomain: '...' })`.
+Dit domein wordt gedeeld met `vl-proza-message` en `vl-proza-message-preloader`.
+Wanneer een expliciet `domain` in de opties wordt meegegeven, heeft dit voorrang op het `FluxConfig` domein.
+
+
+## Verschil met `vl-proza-message`
+
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th><code>vl-proza-message</code></th>
+            <th><code>vlProza</code> directive</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Gebruik</strong></td>
+            <td>Als child element</td>
+            <td>Als attribuut waarde</td>
+        </tr>
+        <tr>
+            <td><strong>Output</strong></td>
+            <td>HTML (in shadow DOM)</td>
+            <td>Plain text (HTML-tags gestript)</td>
+        </tr>
+        <tr>
+            <td><strong>Editeerbaar</strong></td>
+            <td>Ja (edit/refresh knoppen)</td>
+            <td>Nee</td>
+        </tr>
+        <tr>
+            <td><strong>Voorbeeld</strong></td>
+            <td><code>&lt;vl-proza-message domain="d" code="c"&gt;</code></td>
+            <td><code>title=$&#123;vlProza('c')&#125;</code></td>
+        </tr>
+    </tbody>
+</table>
+
+
+## Referenties
+
+- [proza-message](/docs/components-block-proza-message-proza-message--proza-message-default) component
+- [proza-message-preloader](/docs/components-block-proza-message-proza-message-preloader--proza-message-preloader-default) component
