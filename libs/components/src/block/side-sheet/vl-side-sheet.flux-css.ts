@@ -20,7 +20,7 @@ export const vlSideSheetFluxStyles: CSSResult = css`
         background: white;
         overflow-y: auto;
 
-        &:focus {
+        &:focus-visible {
             ${vlFocusOutlineMixin()};
             outline-offset: -3px;
         }
