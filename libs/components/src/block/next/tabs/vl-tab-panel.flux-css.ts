@@ -11,7 +11,7 @@ export const vlTabPanelFluxStyles: CSSResult = css`
         display: none;
     }
 
-    :host(:focus) {
+    :host(:focus-visible) {
         ${vlFocusOutlineMixin()};
     }
 `;
