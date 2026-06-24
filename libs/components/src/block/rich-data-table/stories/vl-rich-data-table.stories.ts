@@ -193,8 +193,10 @@ const TemplateFilter = story(
                             </div>
                         </section>
                         <footer>
-                            <vl-button type="submit" custom-css="button {flex:1}">Zoeken</vl-button>
-                            <vl-button type="reset" custom-css="button {flex:1}" secondary>Reset</vl-button>
+                            <div class="vl-group vl-group--wrap">
+                                <vl-button type="submit">Zoeken</vl-button>
+                                <vl-button type="reset" secondary>Reset</vl-button>
+                            </div>
                         </footer>
                     </form>
                 </vl-search-filter>
@@ -280,8 +282,10 @@ const TemplateFilterPaging = story(
                             </div>
                         </section>
                         <footer>
-                            <vl-button type="submit" custom-css="button {flex:1}">Zoeken</vl-button>
-                            <vl-button type="reset" custom-css="button {flex:1}" secondary>Reset</vl-button>
+                            <div class="vl-group vl-group--wrap">
+                                <vl-button type="submit">Zoeken</vl-button>
+                                <vl-button type="reset" secondary>Reset</vl-button>
+                            </div>
                         </footer>
                     </form>
                 </vl-search-filter>

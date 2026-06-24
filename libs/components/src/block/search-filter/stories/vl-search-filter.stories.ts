@@ -109,8 +109,10 @@ const searchFilterTemplate = story(
                     </section>
                 </div>
                 <footer>
-                    <vl-button type="submit">Zoeken</vl-button>
-                    <vl-button type="reset" secondary>Reset</vl-button>
+                    <div class="vl-group vl-group--wrap">
+                        <vl-button type="submit">Zoeken</vl-button>
+                        <vl-button type="reset" secondary>Reset</vl-button>
+                    </div>
                 </footer>
             </form>
         </vl-search-filter>
