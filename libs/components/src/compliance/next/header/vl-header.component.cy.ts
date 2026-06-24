@@ -41,6 +41,11 @@ describe('cypress-component - compliance components - vl-header-next', () => {
         it('should render with fixed height', () => {
             cy.get('#header__container').should('have.css', 'min-height', '43px');
         });
+
+        it('should wrap the global header in a <header> element so screenreaders pick it up as banner landmark', () => {
+            cy.get('#header__container').should('have.prop', 'tagName', 'HEADER');
+            cy.get('header[id="header__container"]').should('have.length', 1);
+        });
     });
 
     describe('ready event', () => {

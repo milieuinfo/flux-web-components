@@ -152,7 +152,7 @@ export class VlHeader extends BaseLitElement {
     private injectHeaderContainer() {
         (document.querySelector('body') || document.body).insertAdjacentHTML(
             'afterbegin',
-            '<div id="header__container"><div id="header"></div></div>'
+            '<header id="header__container"><div id="header"></div></header>'
         );
         document.adoptedStyleSheets = [...document.adoptedStyleSheets, headerContainerStyles.styleSheet!];
     }
