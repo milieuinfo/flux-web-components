@@ -21,8 +21,8 @@ export interface ScrollConfig {
  * UI state and behavior configuration for navigation rendering
  */
 export interface NavigationState {
-    /** ID of the currently active heading */
-    activeHeadingId?: string;
+    /** Set of heading IDs that are currently active (single entry in single-active mode). */
+    activeHeadingIds?: Set<string>;
     /** Set of heading IDs that have their children expanded */
     expandedHeadingIds?: Set<string>;
 }
@@ -125,14 +125,14 @@ const renderHeadingTree = (
  */
 const renderHeadingNode = (node: HeadingTreeNode, config: RenderConfig): TemplateResult => {
     // destructure config for clearer dependencies
-    const { activeHeadingId, expandedHeadingIds } = config.state;
+    const { activeHeadingIds, expandedHeadingIds } = config.state;
     const { onActiveHeadingChange } = config.callbacks;
     const { scrollRoot, scrollBehavior } = config.scroll;
 
     // calculate node state
-    const isActive = activeHeadingId === node.item.id;
+    const isActive = activeHeadingIds?.has(node.item.id) ?? false;
     const hasChildren = node.children.length > 0;
-    const isChildActive = hasChildren && isAnyChildActive(node.children, activeHeadingId);
+    const isChildActive = hasChildren && isAnyChildActive(node.children, activeHeadingIds);
 
     // check if user has manually toggled this item
     const hasManualToggle = expandedHeadingIds?.has(node.item.id) ?? false;
@@ -198,14 +198,14 @@ const renderHeadingNode = (node: HeadingTreeNode, config: RenderConfig): Templat
 /**
  * recursively checks if any child node in the tree is active
  */
-export const isAnyChildActive = (nodes: HeadingTreeNode[], activeHeadingId?: string): boolean => {
-    if (!activeHeadingId) return false;
+export const isAnyChildActive = (nodes: HeadingTreeNode[], activeHeadingIds?: Set<string>): boolean => {
+    if (!activeHeadingIds || activeHeadingIds.size === 0) return false;
 
     for (const node of nodes) {
-        if (node.item.id === activeHeadingId) {
+        if (activeHeadingIds.has(node.item.id)) {
             return true;
         }
-        if (node.children.length > 0 && isAnyChildActive(node.children, activeHeadingId)) {
+        if (node.children.length > 0 && isAnyChildActive(node.children, activeHeadingIds)) {
             return true;
         }
     }

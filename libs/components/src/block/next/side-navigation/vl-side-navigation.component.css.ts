@@ -99,6 +99,11 @@ export const vlSideNavigationLightDomStyles = css`
             ${activeStateStyles}
         }
 
+        &[multi-active] a.active::before,
+        &[multi-active] vl-link.active::before {
+            display: none;
+        }
+
         /* Match auto-generated nav link text-decoration and font-weight for custom TOC */
         a {
             text-decoration: none;
@@ -284,6 +289,7 @@ export const vlSideNavigationStyles = css`
     }
 
     nav {
+        position: relative;
         background-color: var(--vl-color--white);
         padding: var(--vl-spacing--small);
         overflow-y: auto;
@@ -410,6 +416,23 @@ export const vlSideNavigationStyles = css`
         @media screen and (max-width: ${vlMediaScreenSmall}px) {
             max-height: 60vh;
         }
+    }
+
+    /* The continuous active-indicator line, positioned by the component over the run of active items.
+       Hidden until the component measures the active range and sets top/height. */
+    nav .active-indicator-line {
+        position: absolute;
+        left: calc(var(--vl-spacing--small) - 12px);
+        width: 3px;
+        background-color: var(--vl-color--action-400);
+        pointer-events: none;
+        display: none;
+    }
+
+    /* Multi-active replaces the stepped per-item bars with the single far-left line. */
+    :host([multi-active]) nav a.active::before,
+    :host([multi-active]) nav button.active::before {
+        display: none;
     }
 
     :host([child-spacing="medium"]) nav {

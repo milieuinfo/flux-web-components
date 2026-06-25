@@ -100,6 +100,19 @@ export const sideNavigationLayoutArgTypes: ArgTypes<SideNavigationLayoutArgs> = 
             defaultValue: { summary: sideNavigationLayoutArgs.childSpacing },
         },
     },
+    multiActive: {
+        name: 'multi-active',
+        description:
+            'Wanneer aanwezig worden alle items waarvan content zichtbaar is als actief gemarkeerd, in plaats van ' +
+            'enkel het bovenste. De actieve items worden aangeduid met een doorlopende lijn uiterst links. Zonder ' +
+            'dit attribuut kan het zijn dat de onderste items onderaan nooit aangeduid worden. Wordt doorgegeven aan ' +
+            'vl-side-navigation-next.<br>Dit attribuut is niet reactief.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(sideNavigationLayoutArgs.multiActive) },
+        },
+    },
     contentSlot: {
         name: 'content',
         description:

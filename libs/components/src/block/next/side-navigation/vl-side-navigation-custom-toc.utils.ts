@@ -166,11 +166,11 @@ export function initializeCustomTocHiddenState(slottedElements: Element[]): void
  * current active heading ID. Used so scroll position is reflected in the custom TOC.
  *
  * @param slottedElements - Elements assigned to the TOC slot
- * @param activeHeadingId - ID of the heading currently considered active (e.g. from IntersectionObserver)
+ * @param activeHeadingIds - IDs of the headings currently considered active (single entry in single-active mode)
  */
 export function applyActiveStateToCustomTocLinks(
     slottedElements: Element[],
-    activeHeadingId: string
+    activeHeadingIds: Set<string>
 ): void {
     slottedElements.forEach((element) => {
         const links = element.querySelectorAll('a[href^="#"], vl-link[href^="#"]');
@@ -178,7 +178,7 @@ export function applyActiveStateToCustomTocLinks(
             const href = link.getAttribute('href');
             if (href) {
                 const id = href.substring(1);
-                if (id === activeHeadingId) {
+                if (activeHeadingIds.has(id)) {
                     link.classList.add('active');
                     link.setAttribute('aria-current', 'location');
                 } else {
@@ -243,14 +243,20 @@ function getSectionLinkForUl(ul: Element): Element | null {
  * stay visible and in tab order); all other nested sections stay collapsed.
  *
  * @param slottedElements - Elements assigned to the TOC slot (e.g. <ul>, fragment children)
- * @param activeHeadingId - ID of the heading currently considered active (e.g. from IntersectionObserver)
+ * @param activeHeadingIds - IDs of the headings currently considered active (single entry in single-active mode)
  */
-export function applyExpandCollapseToCustomToc(slottedElements: Element[], activeHeadingId: string): void {
-    const activeLink = findLinkByHeadingId(slottedElements, activeHeadingId);
-    const pathUls = activeLink ? getAncestorUlsForLink(activeLink) : new Set<HTMLUListElement>();
+export function applyExpandCollapseToCustomToc(slottedElements: Element[], activeHeadingIds: Set<string>): void {
+    const pathUls = new Set<HTMLUListElement>();
 
-    // Also expand the active link's own section (its li's direct child ul) so nested links stay visible and in tab order
-    if (activeLink) {
+    for (const activeHeadingId of activeHeadingIds) {
+        const activeLink = findLinkByHeadingId(slottedElements, activeHeadingId);
+        if (!activeLink) continue;
+
+        for (const ul of getAncestorUlsForLink(activeLink)) {
+            pathUls.add(ul);
+        }
+
+        // Also expand the active link's own section (its li's direct child ul) so nested links stay visible and in tab order
         const activeLi = activeLink.closest('li');
         const activeSectionUl = activeLi?.querySelector(':scope > ul');
         if (activeSectionUl) {
