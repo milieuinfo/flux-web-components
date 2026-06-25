@@ -54,6 +54,11 @@ export class VlSideNavigationLayoutComponent extends BaseLitElement {
     excludeSelectors?: string;
     @property({ type: String, attribute: 'child-spacing' })
     childSpacing = 'small';
+    /**
+     * Markeer alle items waarvan content zichtbaar is als actief, in plaats van enkel het bovenste.
+     */
+    @property({ type: Boolean, attribute: 'multi-active' })
+    multiActive = false;
 
     static get styles(): CSSResult[] {
         return [
@@ -114,7 +119,8 @@ export class VlSideNavigationLayoutComponent extends BaseLitElement {
             changedProperties.has('minLevel') ||
             changedProperties.has('navigationTitle') ||
             changedProperties.has('excludeSelectors') ||
-            changedProperties.has('childSpacing')
+            changedProperties.has('childSpacing') ||
+            changedProperties.has('multiActive')
         ) {
             this.updateNavigationComponents();
         }
@@ -179,6 +185,10 @@ export class VlSideNavigationLayoutComponent extends BaseLitElement {
 
             nav.setAttribute('child-spacing', this.childSpacing);
 
+            if (this.multiActive) {
+                nav.setAttribute('multi-active', '');
+            }
+
             this.appendChild(nav);
         } else {
             this.updateNavigationComponents();
@@ -237,6 +247,12 @@ export class VlSideNavigationLayoutComponent extends BaseLitElement {
                 }
 
                 item.setAttribute('child-spacing', this.childSpacing);
+
+                if (this.multiActive) {
+                    item.setAttribute('multi-active', '');
+                } else {
+                    item.removeAttribute('multi-active');
+                }
             }
         });
     }

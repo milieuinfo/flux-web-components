@@ -542,7 +542,10 @@ const runDesktopTests = (mountFn: () => Cypress.Chainable, isAutoNav = false) =>
 const runMobileTests = (mountFn: () => Cypress.Chainable, isAutoNav = false) => {
     it('should apply full width classes on mobile viewport', () => {
         mountFn();
-        cy.get('vl-side-navigation-layout-next').shadow().find('navigation-part').should('have.class', 'vl-column--s-12');
+        cy.get('vl-side-navigation-layout-next')
+            .shadow()
+            .find('navigation-part')
+            .should('have.class', 'vl-column--s-12');
         cy.get('vl-side-navigation-layout-next').shadow().find('content-part').should('have.class', 'vl-column--s-12');
 
         cy.injectAxe();
@@ -632,7 +635,7 @@ const runMobileTests = (mountFn: () => Cypress.Chainable, isAutoNav = false) => 
         mountFn();
         // TODO: onderstaande functionaliteit werkt ook met Enter (in de browser) maar niet binnen Cypress testen - te onderzoeken
         getSideNavigation(false).shadow().find('table-of-contents').should('not.have.attr', 'hidden');
-        
+
         // Establish focus context, then close overlay via keyboard
         getSideNavigation(false).shadow().find('nav').click({ force: true });
         cy.press(Cypress.Keyboard.Keys.TAB);
@@ -732,10 +735,7 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
         mountSideNavigationLayoutWithCustomToc();
 
         // Ensure IntersectionObserver is running (initial active state is applied to any link)
-        cy.get('vl-side-navigation-layout-next')
-            .find('vl-side-navigation-next')
-            .find('vl-link.active')
-            .should('exist');
+        cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').find('vl-link.active').should('exist');
 
         cy.get('#custom-aanvraag').scrollIntoView();
 
@@ -749,10 +749,7 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
         mountSideNavigationLayoutWithCustomToc();
 
         // Ensure IntersectionObserver is running (initial active state is applied to any link)
-        cy.get('vl-side-navigation-layout-next')
-            .find('vl-side-navigation-next')
-            .find('vl-link.active')
-            .should('exist');
+        cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').find('vl-link.active').should('exist');
 
         cy.get('#custom-vereisten').scrollIntoView();
         // Wait for IntersectionObserver to update and apply expand state to parent section
@@ -810,7 +807,11 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
     it('should support keyboard navigation through custom TOC items', () => {
         mountSideNavigationLayoutWithCustomToc();
 
-        cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('table-of-contents').click();
+        cy.get('vl-side-navigation-layout-next')
+            .find('vl-side-navigation-next')
+            .shadow()
+            .find('table-of-contents')
+            .click();
 
         cy.press(Cypress.Keyboard.Keys.TAB);
         cy.get('vl-side-navigation-layout-next').find('vl-link').first().shadow().find('a').should('have.focus');
@@ -835,7 +836,11 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
     it('should navigate to section when pressing Enter on custom TOC link', () => {
         mountSideNavigationLayoutWithCustomToc();
 
-        cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('table-of-contents').click();
+        cy.get('vl-side-navigation-layout-next')
+            .find('vl-side-navigation-next')
+            .shadow()
+            .find('table-of-contents')
+            .click();
         cy.press(Cypress.Keyboard.Keys.TAB); // First link
         cy.press(Cypress.Keyboard.Keys.TAB); // Second link
         cy.press(Cypress.Keyboard.Keys.TAB); // Third link
@@ -922,7 +927,11 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
         mountSideNavigationLayoutWithCustomToc();
 
         // Establish focus context, then close overlay via keyboard
-        cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('nav').click({ force: true });
+        cy.get('vl-side-navigation-layout-next')
+            .find('vl-side-navigation-next')
+            .shadow()
+            .find('nav')
+            .click({ force: true });
         cy.press(Cypress.Keyboard.Keys.TAB);
         cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
@@ -1310,7 +1319,7 @@ const preloadProzaMessages = () => {
             'section-2-title': 'Implementatie',
             'section-2-sub-1': 'Preloaden van berichten',
             'section-3-title': 'Resultaat',
-        })
+        }),
     );
     VlProzaMessage.__setToegelatenOperatiesCacheForDomain(prozaDomain, Promise.resolve({ update: false }));
 };
@@ -1378,8 +1387,7 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
     it('should resolve proza message text in the auto-generated TOC', () => {
         mountSideNavigationLayoutWithProzaMessage();
 
-        const nav = () =>
-            cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('nav');
+        const nav = () => cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('nav');
 
         nav().find('a[href="#proza-section-1"]').should('exist').and('contain', 'Ontwerpprincipes');
         nav().find('a[href="#proza-section-2"]').should('exist').and('contain', 'Implementatie');
@@ -1389,8 +1397,7 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
     it('should resolve proza message text for nested h3 headings in the TOC', () => {
         mountSideNavigationLayoutWithProzaMessage();
 
-        const nav = () =>
-            cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('nav');
+        const nav = () => cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('nav');
 
         nav().find('a[href="#proza-section-1-sub-1"]').should('exist').and('contain', 'Consistente headings');
         nav().find('a[href="#proza-section-1-sub-2"]').should('exist').and('contain', 'Scanbare content');
@@ -1400,8 +1407,7 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
     it('should maintain correct TOC hierarchy with proza message headings', () => {
         mountSideNavigationLayoutWithProzaMessage();
 
-        const nav = () =>
-            cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('nav');
+        const nav = () => cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('nav');
 
         // Verify first top-level section exists
         nav().find('a[href="#proza-section-1"]').should('exist').and('contain', 'Ontwerpprincipes');
@@ -1458,8 +1464,7 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
     it('should not render proza message titles twice in the TOC', () => {
         mountSideNavigationLayoutWithProzaMessage();
 
-        const nav = () =>
-            cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('nav');
+        const nav = () => cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').shadow().find('nav');
 
         const expectedTitles: [string, string][] = [
             ['#proza-section-1', 'Ontwerpprincipes'],
@@ -1540,5 +1545,57 @@ describe('cypress-component - block components - vl-side-navigation-layout-next 
         cy.get('vl-side-navigation-layout-next')
             .find('vl-side-navigation-next')
             .should('have.attr', 'child-spacing', 'small');
+    });
+});
+
+describe('cypress-component - block components - vl-side-navigation-layout-next - multi-active attribuut', () => {
+    beforeEach(() => {
+        cy.viewport(1440, 900);
+    });
+
+    it('geeft multi-active door aan de automatisch gegenereerde vl-side-navigation-next', () => {
+        cy.mount(html`
+            <vl-side-navigation-layout-next multi-active>
+                <div slot="content" id="content">
+                    <h2>Sectie 1</h2>
+                    <p style="min-height: 200px">Lorem ipsum.</p>
+                    <h3>Sectie 1.1</h3>
+                    <p style="min-height: 200px">Lorem ipsum.</p>
+                </div>
+            </vl-side-navigation-layout-next>
+        `);
+
+        cy.get('vl-side-navigation-layout-next').find('vl-side-navigation-next').should('have.attr', 'multi-active');
+    });
+
+    it('geeft multi-active door aan een expliciet geslotde vl-side-navigation-next', () => {
+        cy.mount(html`
+            <vl-side-navigation-layout-next multi-active>
+                <vl-side-navigation-next slot="navigation"></vl-side-navigation-next>
+                <div slot="content" id="content">
+                    <h2>Sectie 1</h2>
+                    <p style="min-height: 200px">Lorem ipsum.</p>
+                    <h3>Sectie 1.1</h3>
+                    <p style="min-height: 200px">Lorem ipsum.</p>
+                </div>
+            </vl-side-navigation-layout-next>
+        `);
+
+        cy.get('vl-side-navigation-next').should('have.attr', 'multi-active');
+    });
+
+    it('zet geen multi-active op vl-side-navigation-next wanneer het attribuut niet aanwezig is', () => {
+        cy.mount(html`
+            <vl-side-navigation-layout-next>
+                <div slot="content" id="content">
+                    <h2>Sectie 1</h2>
+                    <p style="min-height: 200px">Lorem ipsum.</p>
+                </div>
+            </vl-side-navigation-layout-next>
+        `);
+
+        cy.get('vl-side-navigation-layout-next')
+            .find('vl-side-navigation-next')
+            .should('not.have.attr', 'multi-active');
     });
 });

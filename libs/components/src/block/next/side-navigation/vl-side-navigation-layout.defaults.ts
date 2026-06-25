@@ -6,4 +6,5 @@ export const sideNavigationLayoutDefaults = {
     navigationTitle: '' as string,
     excludeSelectors: '' as string,
     childSpacing: 'small' as string,
+    multiActive: false as boolean,
 } as const;

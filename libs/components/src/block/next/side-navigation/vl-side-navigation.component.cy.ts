@@ -277,6 +277,47 @@ const mountSideNavigationAutoTocInShadowDom = () => {
     `);
 };
 
+const mountSideNavigationMultiActive = () => {
+    return cy.mount(html`
+        <div class="vl-grid">
+            <vl-side-navigation-next
+                class="${NAVIGATION_COLUMN_CLASSES}"
+                heading-root-selector="#story-content-container"
+                multi-active
+            >
+            </vl-side-navigation-next>
+            <div class="${CONTENT_COLUMN_CLASSES}">${sampleContent}</div>
+        </div>
+    `);
+};
+
+const mountSideNavigationWithCustomTocMultiActive = () => {
+    return cy.mount(html`
+        <div class="vl-grid">
+            <vl-side-navigation-next class="${NAVIGATION_COLUMN_CLASSES}" multi-active>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 8px;"><vl-link href="#custom-intro">Inleiding</vl-link></li>
+                    <li style="margin-bottom: 8px;"><vl-link href="#custom-aanvraag">Aanvraag indienen</vl-link></li>
+                    <li style="margin-bottom: 8px;"><vl-link href="#custom-termijnen">Termijnen</vl-link></li>
+                </ul>
+            </vl-side-navigation-next>
+            <div class="${CONTENT_COLUMN_CLASSES}">
+                <div id="custom-toc-content">
+                    <section style="min-height: 400px; margin-top: 100px;">
+                        <vl-title type="h2" id="custom-intro">Inleiding</vl-title>
+                    </section>
+                    <section style="min-height: 400px;">
+                        <vl-title type="h2" id="custom-aanvraag">Aanvraag indienen</vl-title>
+                    </section>
+                    <section style="min-height: 400px;">
+                        <vl-title type="h2" id="custom-termijnen">Termijnen</vl-title>
+                    </section>
+                </div>
+            </div>
+        </div>
+    `);
+};
+
 describe('cypress-component - block components - vl-side-navigation-next', () => {
     beforeEach(() => {
         cy.viewport(1440, 900);
@@ -1361,5 +1402,133 @@ describe('cypress-component - block components - vl-side-navigation-next - exter
         cy.then(() => {
             expect(defaultPrevented, 'vl-side-navigation-next must not prevent default for external links').to.be.false;
         });
+    });
+});
+
+describe('cypress-component - block components - vl-side-navigation-next - multi-active', () => {
+    beforeEach(() => {
+        cy.viewport(1440, 900);
+    });
+
+    it('should mark multiple items active when multiple sections are visible', () => {
+        mountSideNavigationMultiActive();
+
+        cy.get('#content-2-heading').scrollIntoView();
+
+        cy.get('vl-side-navigation-next').shadow().find('nav a[href="#content-2-heading"].active').should('exist');
+        cy.get('vl-side-navigation-next').shadow().find('nav a[href="#content-3-heading"].active').should('exist');
+        cy.get('vl-side-navigation-next').shadow().find('nav a.active').should('have.length.greaterThan', 1);
+    });
+
+    it('should mark the bottom item active when scrolled to the end of the page', () => {
+        mountSideNavigationMultiActive();
+
+        cy.scrollTo('bottom');
+
+        cy.get('vl-side-navigation-next').shadow().find('nav a[href="#content-3-heading"].active').should('exist');
+    });
+
+    it('should keep a single active item by default (no multi-active attribute)', () => {
+        mountSideNavigation();
+
+        cy.get('#content-2-heading').scrollIntoView();
+
+        cy.get('vl-side-navigation-next').shadow().find('nav a[href="#content-2-heading"].active').should('exist');
+        cy.get('vl-side-navigation-next').shadow().find('nav a.active').should('have.length', 1);
+    });
+
+    it('should expose activeHeadingIds additively on the active-heading-changed event', () => {
+        mountSideNavigationMultiActive();
+
+        cy.get('vl-side-navigation-next').then(($el) => {
+            const spy = cy.spy().as('activeChanged');
+            $el[0].addEventListener('active-heading-changed', spy);
+        });
+
+        cy.get('#content-3-heading').scrollIntoView();
+
+        cy.get('@activeChanged').should('have.been.called');
+        cy.get('@activeChanged')
+            .its('lastCall.args.0.detail')
+            .should((detail) => {
+                expect(detail.activeHeadingId, 'activeHeadingId stays a string for existing consumers').to.be.a(
+                    'string'
+                );
+                expect(detail.activeHeadingIds, 'activeHeadingIds is added as an array').to.be.an('array');
+                expect(detail.activeHeadingIds).to.include('content-3-heading');
+            });
+    });
+
+    it('should be accessible with multiple active items', () => {
+        mountSideNavigationMultiActive();
+
+        cy.get('#content-2-heading').scrollIntoView();
+        cy.get('vl-side-navigation-next').shadow().find('nav a.active').should('have.length.greaterThan', 1);
+
+        cy.injectAxe();
+        cy.checkA11y('vl-side-navigation-next');
+    });
+
+    it('should mark multiple custom TOC links active when sections overlap', () => {
+        mountSideNavigationWithCustomTocMultiActive();
+
+        cy.get('#custom-aanvraag').scrollIntoView();
+
+        cy.get('vl-side-navigation-next').find('vl-link[href="#custom-aanvraag"].active').should('exist');
+        cy.get('vl-side-navigation-next').find('vl-link[href="#custom-termijnen"].active').should('exist');
+    });
+
+    it('should draw one continuous far-left line spanning all active items', () => {
+        mountSideNavigationMultiActive();
+
+        cy.get('#content-2-heading').scrollIntoView();
+        cy.get('vl-side-navigation-next').shadow().find('nav a.active').should('have.length.greaterThan', 1);
+
+        // the single line is visible and tall enough to cover more than one item
+        cy.get('vl-side-navigation-next')
+            .shadow()
+            .find('nav .active-indicator-line')
+            .should('be.visible')
+            .then(($line) => {
+                expect($line[0].getBoundingClientRect().height).to.be.greaterThan(0);
+            });
+
+        // the line sits at the far left, aligned regardless of nesting depth (no per-level indent)
+        cy.get('vl-side-navigation-next')
+            .shadow()
+            .find('nav')
+            .then(($nav) => {
+                const navRect = $nav[0].getBoundingClientRect();
+                cy.get('vl-side-navigation-next')
+                    .shadow()
+                    .find('nav .active-indicator-line')
+                    .then(($line) => {
+                        const lineRect = $line[0].getBoundingClientRect();
+                        // far left: within the nav's left padding, not stepped inward per level
+                        expect(lineRect.left - navRect.left).to.be.lessThan(20);
+                    });
+            });
+    });
+
+    it('should suppress the per-item indicator bars in multi-active mode', () => {
+        mountSideNavigationMultiActive();
+
+        cy.get('#content-2-heading').scrollIntoView();
+        cy.get('vl-side-navigation-next')
+            .shadow()
+            .find('nav a.active')
+            .first()
+            .then(($a) => {
+                const before = window.getComputedStyle($a[0], '::before');
+                expect(before.display).to.equal('none');
+            });
+    });
+
+    it('should not draw the continuous line without the multi-active attribute', () => {
+        mountSideNavigation();
+
+        cy.get('#content-2-heading').scrollIntoView();
+        cy.get('vl-side-navigation-next').shadow().find('nav a.active').should('exist');
+        cy.get('vl-side-navigation-next').shadow().find('nav .active-indicator-line').should('not.be.visible');
     });
 });
