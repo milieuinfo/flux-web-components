@@ -65,7 +65,13 @@ export class VlSideNavigationComponent extends BaseLitElement {
      */
     @property({ type: String, attribute: 'navigation-title' })
     navigationTitle = 'Op deze pagina';
+    /**
+     * Markeer alle items waarvan content zichtbaar is als actief, in plaats van enkel het bovenste.
+     */
+    @property({ type: Boolean, reflect: true, attribute: 'multi-active' })
+    multiActive = false;
     @state() private activeHeadingId: string = '';
+    @state() private activeHeadingIds: Set<string> = new Set();
     @state() private tocTemplate: TemplateResult = html``;
     @state() private hasCustomToc = false;
     @state() private expandedHeadingIds: Set<string> = new Set();
@@ -82,6 +88,7 @@ export class VlSideNavigationComponent extends BaseLitElement {
     private focusRecoveryMutationObserver?: MutationObserver;
     private lastFocusedNavElement?: WeakRef<HTMLElement>;
     private previousTocEffectivelyHidden = false;
+    private navResizeObserver?: ResizeObserver;
 
     static get styles(): CSSResult[] {
         return [vlResetStyles, vlSideNavigationStyles, vlLinkStyles(), vlIconStyles];
@@ -89,6 +96,7 @@ export class VlSideNavigationComponent extends BaseLitElement {
 
     override firstUpdated(): void {
         this.setupMediaQueryListener();
+        this.setupNavResizeObserver();
 
         const tocSlot = this.shadowRoot?.querySelector('slot') as HTMLSlotElement;
         const slottedElements = tocSlot?.assignedElements() ?? [];
@@ -148,6 +156,18 @@ export class VlSideNavigationComponent extends BaseLitElement {
             this.refreshTableOfContents();
         }
 
+        // Reposition the continuous multi-active line when anything that affects its span changes
+        if (
+            changedProperties.has('activeHeadingIds') ||
+            changedProperties.has('expandedHeadingIds') ||
+            changedProperties.has('multiActive') ||
+            changedProperties.has('isMobileView') ||
+            changedProperties.has('isTableOfContentsHidden') ||
+            changedProperties.has('tocTemplate')
+        ) {
+            this.updateComplete.then(() => this.updateActiveIndicatorLine());
+        }
+
         // When the TOC panel becomes hidden (e.g. viewport resize to mobile), move focus to show button
         const nowHidden = this.isTocEffectivelyHidden;
         if (nowHidden && !this.previousTocEffectivelyHidden) {
@@ -157,7 +177,9 @@ export class VlSideNavigationComponent extends BaseLitElement {
 
         // When expand/collapse or active section changes, if the focused element is now hidden, move to logical neighbor
         if (
-            (changedProperties.has('expandedHeadingIds') || changedProperties.has('activeHeadingId')) &&
+            (changedProperties.has('expandedHeadingIds') ||
+                changedProperties.has('activeHeadingId') ||
+                changedProperties.has('activeHeadingIds')) &&
             this.isFocusInsideNav()
         ) {
             const el = this.getDeepActiveElement() as HTMLElement;
@@ -178,7 +200,10 @@ export class VlSideNavigationComponent extends BaseLitElement {
             this.setupIntersectionObserver();
         }
         this.setupMediaQueryListener();
-        this.updateComplete.then(() => this.setupFocusRecoveryObserver());
+        this.updateComplete.then(() => {
+            this.setupFocusRecoveryObserver();
+            this.setupNavResizeObserver();
+        });
     }
 
     override disconnectedCallback(): void {
@@ -187,6 +212,24 @@ export class VlSideNavigationComponent extends BaseLitElement {
         this.cleanupMediaQueryListener();
         this.cleanupFocusRecoveryObserver();
         this.cleanupCustomTocLinkHandlers();
+        this.cleanupNavResizeObserver();
+    }
+
+    /**
+     * Repositions the continuous multi-active line whenever the nav resizes (responsive wrapping,
+     * font load, expand/collapse changing item heights). Cheap: it only runs when multi-active is on.
+     */
+    private setupNavResizeObserver(): void {
+        if (this.navResizeObserver || typeof ResizeObserver === 'undefined') return;
+        const nav = this.shadowRoot?.querySelector('nav');
+        if (!nav) return;
+        this.navResizeObserver = new ResizeObserver(() => this.updateActiveIndicatorLine());
+        this.navResizeObserver.observe(nav);
+    }
+
+    private cleanupNavResizeObserver(): void {
+        this.navResizeObserver?.disconnect();
+        this.navResizeObserver = undefined;
     }
 
     private setupMediaQueryListener(): void {
@@ -416,7 +459,10 @@ export class VlSideNavigationComponent extends BaseLitElement {
 
         const observerOptions: IntersectionObserverInit = {
             root: null, // use viewport as root
-            rootMargin: '0px 0px -70% 0px',
+            // Multi-active needs the full viewport so a section whose heading scrolled just above
+            // the top (but whose content is still visible) keeps triggering recomputation; single-active
+            // keeps the -70% detection line that highlights the top-most heading only.
+            rootMargin: this.multiActive ? '0px' : '0px 0px -70% 0px',
             threshold: 0,
         };
 
@@ -435,6 +481,11 @@ export class VlSideNavigationComponent extends BaseLitElement {
     }
 
     private handleIntersection(entries: IntersectionObserverEntry[]): void {
+        if (this.multiActive) {
+            this.updateActiveSections();
+            return;
+        }
+
         const visibleEntries = entries.filter((entry) => entry.isIntersecting);
 
         if (visibleEntries.length > 0) {
@@ -445,9 +496,49 @@ export class VlSideNavigationComponent extends BaseLitElement {
             const newActiveId = topMostEntry.target.getAttribute('id');
             if (newActiveId && newActiveId !== this.activeHeadingId) {
                 this.activeHeadingId = newActiveId;
+                this.activeHeadingIds = new Set([newActiveId]);
                 this.updateActiveLinks();
             }
         }
+    }
+
+    /**
+     * Multi-active: a section spans from its heading to the next heading. A section is active when that
+     * range overlaps the viewport, so every section with visible content is marked active - including the
+     * last one once the page is scrolled to the bottom. Recomputed from heading positions on each observer
+     * callback (the set only changes when a heading crosses a viewport edge, which is what fires the observer).
+     */
+    private updateActiveSections(): void {
+        if (typeof window === 'undefined') return;
+
+        const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+        const orderedIds = this.headingElements
+            .map((element) => ({ id: element.getAttribute('id') ?? '', top: element.getBoundingClientRect().top }))
+            .filter((entry) => entry.id)
+            .sort((a, b) => a.top - b.top);
+
+        const visibleIds = new Set<string>();
+        orderedIds.forEach((entry, index) => {
+            const sectionTop = entry.top;
+            const sectionBottom = index + 1 < orderedIds.length ? orderedIds[index + 1].top : Infinity;
+            if (sectionTop < viewportHeight && sectionBottom > 0) {
+                visibleIds.add(entry.id);
+            }
+        });
+
+        if (this.areSameIds(visibleIds, this.activeHeadingIds)) return;
+
+        this.activeHeadingId = orderedIds.find((entry) => visibleIds.has(entry.id))?.id ?? '';
+        this.activeHeadingIds = visibleIds;
+        this.updateActiveLinks();
+    }
+
+    private areSameIds(a: Set<string>, b: Set<string>): boolean {
+        if (a.size !== b.size) return false;
+        for (const id of a) {
+            if (!b.has(id)) return false;
+        }
+        return true;
     }
 
     private updateActiveLinks(): void {
@@ -457,12 +548,71 @@ export class VlSideNavigationComponent extends BaseLitElement {
             this.updateTableOfContents();
         }
 
+        const orderedActiveIds = this.headingElements
+            .map((element) => element.getAttribute('id'))
+            .filter((id): id is string => !!id && this.activeHeadingIds.has(id));
+
         this.dispatchEvent(
             new CustomEvent('active-heading-changed', {
-                detail: { activeHeadingId: this.activeHeadingId },
+                detail: { activeHeadingId: this.activeHeadingId, activeHeadingIds: orderedActiveIds },
                 bubbles: true,
             })
         );
+        // The continuous multi-active line is repositioned from updated() when activeHeadingIds changes.
+    }
+
+    /**
+     * Multi-active alternative to the per-item indicator: draws a single uninterrupted line at the far
+     * left of the nav, spanning the whole run of active items. Because the active set is always a
+     * contiguous range in document order, one vertical line from the first active link's top to the last
+     * active link's bottom exactly covers the active items - without the per-level indentation that made
+     * the per-item bars step inward.
+     */
+    private updateActiveIndicatorLine(): void {
+        const nav = this.shadowRoot?.querySelector('nav');
+        const line = nav?.querySelector('.active-indicator-line') as HTMLElement | null;
+        if (!nav || !line) return;
+
+        if (!this.multiActive || this.activeHeadingIds.size === 0 || this.isTocEffectivelyHidden) {
+            line.style.display = 'none';
+            return;
+        }
+
+        const rects = this.getActiveLinkElements()
+            .map((el) => el.getBoundingClientRect())
+            .filter((rect) => rect.height > 0);
+        if (rects.length === 0) {
+            line.style.display = 'none';
+            return;
+        }
+
+        const navRect = nav.getBoundingClientRect();
+        const top = Math.min(...rects.map((rect) => rect.top));
+        const bottom = Math.max(...rects.map((rect) => rect.bottom));
+
+        line.style.top = `${top - navRect.top + nav.scrollTop}px`;
+        line.style.height = `${bottom - top}px`;
+        line.style.display = 'block';
+    }
+
+    /**
+     * Resolves the link elements (shadow <a> for the auto TOC, slotted <a>/<vl-link> for a custom TOC)
+     * of the currently active headings. Used to measure the span of the continuous multi-active line.
+     */
+    private getActiveLinkElements(): HTMLElement[] {
+        const slot = this.shadowRoot?.querySelector('slot') as HTMLSlotElement | null;
+        const customRoots = this.hasCustomToc ? (slot?.assignedElements() ?? []) : [];
+        const nav = this.shadowRoot?.querySelector('nav');
+
+        const links: HTMLElement[] = [];
+        this.activeHeadingIds.forEach((id) => {
+            const selector = `a[href="#${CSS.escape(id)}"], vl-link[href="#${CSS.escape(id)}"]`;
+            const link =
+                customRoots.map((root) => root.querySelector(selector)).find(Boolean) ??
+                nav?.querySelector(selector);
+            if (link instanceof HTMLElement) links.push(link);
+        });
+        return links;
     }
 
     private cleanupIntersectionObserver(): void {
@@ -499,6 +649,7 @@ export class VlSideNavigationComponent extends BaseLitElement {
                     @vl-click=${this.closeSideNavigation}
                 ></vl-button>
                 <nav aria-label="inhoudstafel navigatie">
+                    <div class="active-indicator-line" aria-hidden="true"></div>
                     <slot @slotchange=${this.handleTocSlotChange}></slot>
                     ${!this.hasCustomToc ? this.tocTemplate || nothing : nothing}
                 </nav>
@@ -582,8 +733,8 @@ export class VlSideNavigationComponent extends BaseLitElement {
         const slot = this.shadowRoot?.querySelector('slot') as HTMLSlotElement;
         if (!slot) return;
         const slottedElements = slot.assignedElements();
-        applyActiveStateToCustomTocLinks(slottedElements, this.activeHeadingId);
-        applyExpandCollapseToCustomToc(slottedElements, this.activeHeadingId);
+        applyActiveStateToCustomTocLinks(slottedElements, this.activeHeadingIds);
+        applyExpandCollapseToCustomToc(slottedElements, this.activeHeadingIds);
     }
 
     private get tableOfContents() {
@@ -642,8 +793,8 @@ export class VlSideNavigationComponent extends BaseLitElement {
             if (!id.startsWith('-')) return true;
             const realId = id.substring(1);
             const node = findNodeById(tree, realId);
-            const isActive = this.activeHeadingId === realId;
-            const isChildActive = node ? isAnyChildActive(node.children, this.activeHeadingId) : false;
+            const isActive = this.activeHeadingIds.has(realId);
+            const isChildActive = node ? isAnyChildActive(node.children, this.activeHeadingIds) : false;
             return isActive || isChildActive;
         });
         if (stillManualCollapsed.length !== this.expandedHeadingIds.size) {
@@ -657,7 +808,7 @@ export class VlSideNavigationComponent extends BaseLitElement {
                 maxDepth: this.maxDepth,
             },
             state: {
-                activeHeadingId: this.activeHeadingId,
+                activeHeadingIds: this.activeHeadingIds,
                 expandedHeadingIds: this.expandedHeadingIds,
             },
             callbacks: {
@@ -670,11 +821,11 @@ export class VlSideNavigationComponent extends BaseLitElement {
                         const hasManualCollapse = this.expandedHeadingIds.has(`-${headingId}`);
 
                         // check if children would be auto-expanded (active or child-active)
-                        const isActive = this.activeHeadingId === headingId;
+                        const isActive = this.activeHeadingIds.has(headingId);
 
                         // build tree and find the node to check if any children are active
                         const node = findNodeById(tree, headingId);
-                        const isChildActive = node ? isAnyChildActive(node.children, this.activeHeadingId) : false;
+                        const isChildActive = node ? isAnyChildActive(node.children, this.activeHeadingIds) : false;
 
                         const wouldBeAutoExpanded = isActive || isChildActive;
 

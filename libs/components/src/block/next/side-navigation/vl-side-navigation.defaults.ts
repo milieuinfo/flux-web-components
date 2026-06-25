@@ -5,6 +5,7 @@ export const sideNavigationDefaults: SideNavigationDefaults = {
     maxDepth: undefined,
     navigationTitle: 'Op deze pagina',
     childSpacing: 'small',
+    multiActive: false,
 } as const;
 
 export type SideNavigationDefaults = {
@@ -14,4 +15,5 @@ export type SideNavigationDefaults = {
     maxDepth: number | undefined;
     navigationTitle: string;
     childSpacing: string;
+    multiActive: boolean;
 };
