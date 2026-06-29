@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm start)",
+      "Bash(npm test)",
+      "Bash(npm run test*)",
+      "Bash(npm run libs:build*)",
+      "Bash(npm run libs:component-tests:run*)",
+      "Bash(npm run libs:component-tests:watch*)",
+      "Bash(npm run libs:eslint*)",
+      "Bash(npm run libs:jest*)",
+      "Bash(npm run libs:web-types:validate*)",
+      "Bash(npm run apps:storybook:dev*)",
+      "Bash(npm run apps:playground-lit:dev*)",
+      "Bash(npm run apps:playground-native:dev*)",
+      "Bash(npm run apps:playground-react:dev*)",
+      "Bash(ls *)",
+      "Bash(cat package.json)",
+      "mcp__claude-peers__set_summary",
+      "mcp__figma__get_design_context",
+      "mcp__figma__get_metadata",
+      "mcp__figma__get_screenshot",
+      "mcp__figma__get_variable_defs",
+      "mcp__figma__get_figjam"
+    ],
+    "deny": [
+      "Read(../**)",
+      "Edit(../**)",
+      "Write(../**)",
+      "Bash(cd /*)",
+      "Bash(cd ~*)",
+      "Bash(cd ..*)",
+      "Bash(cd ../*)",
+      "Bash(pushd*)"
+    ]
+  }
+}
