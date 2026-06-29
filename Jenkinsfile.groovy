@@ -92,6 +92,11 @@ pipeline {
                                     git fetch --unshallow || git fetch --prune
                                     git fetch --tags --force
                                 '''
+                                sh '''
+                                    curl -s -H "Authorization: Bearer $GITHUB_TOKEN" \
+                                        "https://api.github.com/repos/milieuinfo/flux-web-components" \
+                                        | node -e 'let d="";process.stdin.on("data",c=>d+=c).on("end",()=>{const p=(JSON.parse(d).permissions)||{};console.log("repo permissions:",JSON.stringify({push:p.push,admin:p.admin}))})'
+                                '''
                                 // --dry-run !
                                 sh 'npx semantic-release --dry-run --no-ci --extends ./resources/ci-jenkins/github-publish-poc.releaserc.cjs'
                             }
