@@ -1,0 +1,73 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as samengesteldVeldStories from './formulier-samengesteld-veld.stories';
+
+<Meta of={samengesteldVeldStories} />
+
+# Formulier - Samengesteld veld
+
+> Meer informatie over validatie binnen de formulier componenten vind je op
+> [Formulier - Validatie](/docs/patronen-formulier-validatie--documentatie) en
+> [Formulier - Aangepaste validatie](/docs/patronen-formulier-aangepaste-validatie--documentatie).
+
+Soms vormen twee (of meer) velden **samen** één logische waarde: een coördinaat (longitude +
+latitude), een bedrag met munteenheid, een van/tot-bereik. In dat geval wil je dat de groep als
+**één form-control** functioneert: één gezamenlijke geldigheid (verplicht, min/max, een eigen regel),
+één deelname aan het formulier, en één gekoppelde foutboodschap per validiteitsstaat.
+
+Dit is **geen aparte component** in de bibliotheek. Het patroon hieronder toont hoe je als afnemer
+zelf zo'n samengestelde form-control bouwt met de bestaande bouwstenen: een form-associated custom
+element dat de waarden van zijn kinderen aggregeert en de validiteit beheert via de
+[Constraint Validation API](https://developer.mozilla.org/en-US/docs/Web/API/Constraint_validation).
+
+## Voorbeeld
+
+Het voorbeeld bundelt twee `vl-input-field` velden (longitude en latitude) tot één control. De
+control is `required`, elk veld draagt zijn eigen `min`/`max`, en een eigen validator controleert of
+het punt binnen België ligt. Probeer `lon=4.35, lat=50.85` (Brussel, geldig) en daarna
+`lon=7.5, lat=48` (buiten België).
+
+<Canvas of={samengesteldVeldStories.FormulierSamengesteldVeld} sourceState="none" />
+
+## Hoe werkt het?
+
+De samengestelde control:
+
+- is **form-associated** (`ElementInternals`) en aggregeert de waarden van zijn kinderen tot één
+  form-waarde: bij geldige invoer dient ze in als `<name>-first` en `<name>-second`; zonder `name`
+  neemt ze niet deel, net als elke andere form-control;
+- ontvangt de kinderen via de slots `slot="first"` en `slot="second"`; de kinderen dragen zelf hun
+  `min`/`max`;
+- valideert **verplicht** (`valueMissing`), aggregeert **min/max** (`rangeUnderflow` /
+  `rangeOverflow`) en ondersteunt een **eigen regel** via een `customValidator` property
+  (`({ first, second }) => string | null`) die naar `customError` mapt;
+- koppelt elke validiteitsstaat aan een eigen `vl-form-message` via `for` + `state`;
+- propageert `disabled`, `error` en `success` naar de kinderen.
+
+## Markup
+
+```html
+<vl-composite-input id="coordinaten" name="coordinaten" label="Coördinaten (lon, lat)" required>
+    <vl-input-field slot="first" label="Longitude" type="number" min="-180" max="180"></vl-input-field>
+    <vl-input-field slot="second" label="Latitude" type="number" min="-90" max="90"></vl-input-field>
+</vl-composite-input>
+
+<vl-form-message for="coordinaten" state="valueMissing">Beide velden zijn verplicht.</vl-form-message>
+<vl-form-message for="coordinaten" state="rangeUnderflow">Een coördinaat ligt onder het bereik.</vl-form-message>
+<vl-form-message for="coordinaten" state="rangeOverflow">Een coördinaat ligt boven het bereik.</vl-form-message>
+<vl-form-message for="coordinaten" state="customError"></vl-form-message>
+```
+
+```js
+document.querySelector('#coordinaten').customValidator = ({ first, second }) => {
+    const lon = parseFloat(first);
+    const lat = parseFloat(second);
+    return lon < 2.5 || lon > 6.5 || lat < 49.5 || lat > 51.6 ? `(lon=${first}, lat=${second}) ligt buiten België` : null;
+};
+```
+
+## Aandachtspunten
+
+- Geef de kinderen géén eigen `name`: de samengestelde control dient zelf in onder zijn `name`.
+- Zet een `label` op de control én op elk kind, zodat schermlezers elk veld kunnen identificeren.
+- De `customValidator` krijgt de **ruwe stringwaarden**; parse zelf naar het type dat je nodig hebt.
+  Zo blijft het patroon bruikbaar met `vl-select`, `vl-datepicker` en andere velden.
