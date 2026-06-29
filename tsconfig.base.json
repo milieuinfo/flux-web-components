@@ -59,7 +59,6 @@
             ]
         },
         "target": "es2021",
-        "module": "es2020",
         "moduleResolution": "node",
         "sourceMap": true,
         "inlineSources": true,
