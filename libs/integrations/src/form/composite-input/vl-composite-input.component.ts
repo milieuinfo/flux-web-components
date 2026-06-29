@@ -136,15 +136,13 @@ export class VlCompositeInputComponent extends FormControl {
         const second = this.getValue('second');
         const complete = first !== '' && second !== '';
 
-        if (!complete) {
-            this.setValue(null);
-        } else if (this.name) {
+        if (complete && this.name) {
             const data = new FormData();
             data.append(`${this.name}-first`, first);
             data.append(`${this.name}-second`, second);
             this.setValue(data);
         } else {
-            this.setValue(`${first},${second}`);
+            this.setValue(null);
         }
 
         const detail = { first, second };
