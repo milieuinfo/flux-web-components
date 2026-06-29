@@ -16,12 +16,13 @@
 # .claude/settings.local.json wordt door Claude Code zelf beheerd: het programma
 # schrijft daar jouw "altijd toelaten"-keuzes in weg. Daarom maken we er GEEN
 # symlink van (dat zou die keuzes naar de gecommitte profile-folder lekken en in
-# worktrees botsen). In plaats daarvan MERGEN we de profile-allowlist erin:
+# worktrees botsen). In plaats daarvan MERGEN we de profile-permissies erin
+# (permissions.allow, permissions.deny en permissions.ask):
 #   - bestaande entries (incl. door Claude Code weggeschreven keuzes) blijven staan
-#   - de profile-allowlist wordt toegevoegd
+#   - de profile-permissies worden toegevoegd
 #   - bij een profielwissel wordt enkel de vorige profile-laag verwijderd
 # Welke entries het script zelf injecteerde, onthoudt het in het geheugenbriefje
-# .claude/.profile-injected.json (gitignored). Vergt 'jq'.
+# .claude/.profile-injected.json (gitignored, object {allow,deny,ask}). Vergt 'jq'.
 
 # Weiger sourcen: dit script moet als subprocess draaien, anders kan een `exit`
 # de shell van de gebruiker afsluiten en blijven environment-wijzigingen plakken.
@@ -137,21 +138,40 @@ if [ -f "$PROFILE_DIR/settings.json" ]; then
     fi
 
     PROFILE_ALLOW_JSON="$(jq '.permissions.allow // []' "$PROFILE_DIR/settings.json")"
+    PROFILE_DENY_JSON="$(jq '.permissions.deny // []' "$PROFILE_DIR/settings.json")"
+    PROFILE_ASK_JSON="$(jq '.permissions.ask // []' "$PROFILE_DIR/settings.json")"
 
-    # Merge: (huidige allow ZONDER vorige profile-laag) + nieuwe profile-allow.
-    # Overige sleutels (permissions.deny/ask, env, hooks, ...) blijven ongemoeid.
+    # Merge per lijst: (huidige lijst ZONDER vorige profile-laag) + nieuwe profile-laag.
+    # Geldt voor allow, deny en ask. Overige sleutels (env, hooks, ...) blijven ongemoeid.
+    # $prev kan het oude memo-formaat (bare array = enkel allow) of het nieuwe object zijn.
     NEW_LOCAL_JSON="$(jq -n \
         --argjson cur "$CURRENT_JSON" \
         --argjson prev "$PREV_JSON" \
-        --argjson prof "$PROFILE_ALLOW_JSON" \
-        '($cur.permissions.allow // []) as $curAllow
-         | (($curAllow - $prev) + $prof | unique) as $merged
+        --argjson profAllow "$PROFILE_ALLOW_JSON" \
+        --argjson profDeny "$PROFILE_DENY_JSON" \
+        --argjson profAsk "$PROFILE_ASK_JSON" \
+        '(if ($prev | type) == "array"
+            then {allow: $prev, deny: [], ask: []}
+            else {allow: ($prev.allow // []), deny: ($prev.deny // []), ask: ($prev.ask // [])}
+          end) as $p
+         | (((($cur.permissions.allow // []) - $p.allow) + $profAllow) | unique) as $mAllow
+         | (((($cur.permissions.deny  // []) - $p.deny)  + $profDeny)  | unique) as $mDeny
+         | (((($cur.permissions.ask   // []) - $p.ask)   + $profAsk)   | unique) as $mAsk
          | $cur
-         | .permissions = ((.permissions // {}) + {allow: $merged})')"
+         | .permissions = ((.permissions // {})
+             | (if ($mAllow | length) > 0 then .allow = $mAllow else del(.allow) end)
+             | (if ($mDeny  | length) > 0 then .deny  = $mDeny  else del(.deny)  end)
+             | (if ($mAsk   | length) > 0 then .ask   = $mAsk   else del(.ask)   end))')"
+
+    MEMO_JSON="$(jq -n \
+        --argjson allow "$PROFILE_ALLOW_JSON" \
+        --argjson deny "$PROFILE_DENY_JSON" \
+        --argjson ask "$PROFILE_ASK_JSON" \
+        '{allow: $allow, deny: $deny, ask: $ask}')"
 
     printf '%s\n' "$NEW_LOCAL_JSON" > "$SETTINGS_LOCAL"
-    printf '%s\n' "$PROFILE_ALLOW_JSON" > "$MEMO"
-    echo "  .claude/settings.local.json (merge: bestaande keuzes behouden + profile-allow toegevoegd)"
+    printf '%s\n' "$MEMO_JSON" > "$MEMO"
+    echo "  .claude/settings.local.json (merge: bestaande keuzes behouden + profile allow/deny/ask toegevoegd)"
 fi
 
 if [ -d "$PROFILE_DIR/skills" ]; then

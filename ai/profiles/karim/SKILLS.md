@@ -148,7 +148,7 @@ buildWTConfig(
 
 #### 6. Export the component
 
-Add the export to `libs/components/src/index.ts`.
+Add the export to `libs/components/src/{type}/index.ts` (bv. `atom/index.ts`).
 
 #### 7. Verify
 

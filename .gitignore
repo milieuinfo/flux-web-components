@@ -48,6 +48,7 @@ storybook-static
 .windsurf/
 .claude/plans/
 .claude/launch.json
+.omc/
 
 # AI Agent profile activation (zie ai/profiles/README.md)
 # .claude/skills, /AGENTS.md en /SKILLS.md zijn symlinks naar het actieve profile.

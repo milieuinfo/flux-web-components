@@ -291,7 +291,9 @@ When creating implementation plans, technical notes, or scratchpad documents:
 ### Branch Safety (STRIKT)
 
 - **Claude pusht nooit in deze repo** — staande afspraak. Geen `git push` in welke vorm dan ook; pushen doet de gebruiker zelf.
-- **Bij het maken van een branch nooit een upstream / remote-tracking instellen.** Dus geen `git push -u` / `--set-upstream`, en niet aftakken van een remote-branch (`git checkout -b foo origin/...`). Branches blijven puur lokaal zonder gekoppelde origin.
+- **Branch-tracking, 2 regels:**
+  - Nieuwe branch met **andere naam** dan de branch/ref waarvan we vertrekken: `--no-track` (geen upstream). Bv. `git checkout --no-track -b feature-v2/FLUX-xxx origin/develop-v2`.
+  - **Bestaande** branch uitchecken: tracking moet er net wél zijn (niet wegnemen).
 
 ### Commit Messages
 
