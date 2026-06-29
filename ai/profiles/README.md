@@ -96,6 +96,23 @@ Na afloop: **herstart Claude Code** zodat de nieuwe configuratie geladen wordt.
 - `.gitignore` — regels voor de gitignored symlinks en `CLAUDE.local.md`
 - `.claude/plans/`, `.claude/worktrees/` — lokale werkmappen (al gitignored)
 
+## Team-brede conventie: AI-ondertekening van commits
+
+Onafhankelijk van welk profile je gebruikt geldt één gedeelde afspraak over commits:
+
+- **Subject en body** beschrijven enkel de codewijziging — geen metadata in de boodschap zelf.
+- **Bij AI-betrokkenheid is ondertekening verplicht.** Als AI meewerkte aan een wijziging, onderteken je de commit met een `Co-Authored-By`-trailer die **het effectief gebruikte model** benoemt:
+
+  ```
+  Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+  ```
+
+- Gebruik het model dat effectief gebruikt werd (bv. `Claude Opus 4.8`, `Claude Sonnet 4.6`, `Claude Haiku 4.5`) — nooit een vaste placeholder of een model dat niet gebruikt werd.
+- Dit is de **enige** toegelaten trailer; geen andere attribution of metadata.
+- Een puur manuele commit (geen AI) krijgt geen trailer.
+
+De concrete uitwerking staat per profile in de commit-sectie (`karim/AGENTS.md`, `kris/CLAUDE.md`, `koen/CLAUDE.md`). Het `no/` opt-out profile laadt geen instructies en valt hier dus buiten.
+
 ## Persoonlijke permissies bovenop het profile
 
 `.claude/settings.local.json` bevat na activatie de profile-allowlist (gemerged) plus de permissiekeuzes die je tijdens het werken met "altijd toelaten" goedkeurt. Die laatste blijven lokaal en per-repo, en overleven een profielwissel. Wil je extra persoonlijke overrides die níet in je gecommit profile horen én in álle projecten gelden, voeg ze dan toe aan `~/.claude/settings.json` (user-global). Wil je project-specifiek persoonlijke permissies die wél in de repo gecommit worden, pas dan je eigen profile-folder (`settings.json`) aan.

@@ -291,11 +291,23 @@ When creating implementation plans, technical notes, or scratchpad documents:
 ### Branch Safety (STRIKT)
 
 - **Claude pusht nooit in deze repo** — staande afspraak. Geen `git push` in welke vorm dan ook; pushen doet de gebruiker zelf.
-- **Bij het maken van een branch nooit een upstream / remote-tracking instellen.** Dus geen `git push -u` / `--set-upstream`, en niet aftakken van een remote-branch (`git checkout -b foo origin/...`). Branches blijven puur lokaal zonder gekoppelde origin.
+- **Branch-tracking, 2 regels:**
+  - Nieuwe branch met **andere naam** dan de branch/ref waarvan we vertrekken: `--no-track` (geen upstream). Bv. `git checkout --no-track -b feature-v2/FLUX-xxx origin/develop-v2`.
+  - **Bestaande** branch uitchecken: tracking moet er net wél zijn (niet wegnemen).
 
 ### Commit Messages
 
-Commit messages describe **only the code changes** — no attribution, no trailers, no metadata about who or what made the changes.
+The commit **subject and body** describe only the code changes — no metadata woven into the message itself.
+
+**AI sign-off (verplicht bij AI-betrokkenheid):** when AI was involved in producing the change, sign the commit with a `Co-Authored-By` trailer that names **the model that was actually used**:
+
+```
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+```
+
+- Use the model effectively used for the work (e.g. `Claude Opus 4.8`, `Claude Sonnet 4.6`, `Claude Haiku 4.5`) — never a fixed placeholder or a model that wasn't used.
+- This is the **only** trailer allowed; no other attribution or metadata.
+- A purely manual commit (no AI involvement) gets no trailer.
 
 **Format:** `feat/fix: FLUX-XXX - component name / theme - description in Dutch`
 
