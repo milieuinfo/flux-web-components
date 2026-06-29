@@ -1,0 +1,134 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Recepten/Composite Input" />
+
+# Composite Input
+
+Dit recept toont hoe je als **afnemer** twee invoervelden bundelt tot één form-control met
+**eigen, samengestelde validatie**, gebruik makend van `vl-composite-input-next`. De component is
+agnostisch van wat de velden voorstellen: het patroon werkt voor elke twee velden die samen één
+logische waarde vormen (bv. een coördinaat, een bedrag met munteenheid, een van/tot-bereik).
+
+## Wanneer gebruik je dit?
+
+Gebruik `vl-composite-input-next` wanneer:
+
+- twee velden **samen** één waarde vertegenwoordigen;
+- die groep een **gezamenlijke geldigheid** moet hebben (verplicht, min/max, of een eigen regel) in
+  plaats van enkel validatie per los veld;
+- de groep als **één control** moet deelnemen aan een `<form>` (submit, reset, validatie);
+- je elke foutsituatie aan een **eigen foutboodschap** wil koppelen.
+
+## Stap 1: registreer de componenten
+
+De ouder komt uit het `next`-kanaal; de kinderen en de foutboodschap uit het reguliere form-pakket.
+Slotted kinderen worden door jou (de afnemer) aangeleverd, dus registreer je ze zelf mee.
+
+```js
+import { registerWebComponents } from '@domg-wc/common';
+import { VlCompositeInputComponent } from '@domg-wc/components/form/next';
+import { VlInputFieldComponent, VlFormMessageComponent } from '@domg-wc/components/form';
+
+registerWebComponents([VlCompositeInputComponent, VlInputFieldComponent, VlFormMessageComponent]);
+```
+
+## Stap 2: plaats de markup in een formulier
+
+De velden gaan in de slots `first` en `second` en dragen **zelf** hun `min`/`max`. Geef de kinderen
+géén `name`: de ouder dient de waarden in onder zijn eigen `name` (`coords-first` en `coords-second`).
+
+```html
+<form id="locatie-form">
+    <vl-composite-input-next id="coords" name="coords" label="Coördinaten" required>
+        <vl-input-field slot="first" label="X" type="number" min="0" max="100"></vl-input-field>
+        <vl-input-field slot="second" label="Y" type="number" min="0" max="100"></vl-input-field>
+    </vl-composite-input-next>
+
+    <vl-form-message for="coords" state="valueMissing">Beide velden zijn verplicht.</vl-form-message>
+    <vl-form-message for="coords" state="rangeUnderflow">Een waarde ligt onder het minimum.</vl-form-message>
+    <vl-form-message for="coords" state="rangeOverflow">Een waarde ligt boven het maximum.</vl-form-message>
+
+    <button type="submit">Verzenden</button>
+</form>
+```
+
+Elke `vl-form-message` is via `for` + `state` gekoppeld aan één validiteitsstaat. De foutboodschappen
+verschijnen wanneer het formulier gevalideerd wordt (bij submit) en verdwijnen zodra de gebruiker de
+waarde corrigeert.
+
+## Stap 3: voeg een eigen validator toe (optioneel)
+
+Naast `required` en min/max kan je een **eigen regel** meegeven via de `.customValidator` property.
+De functie krijgt één object `{ first, second }` met de **ruwe stringwaarden** van de velden; je
+parset zelf wat je nodig hebt (getal, datum, ...). Dit houdt de component agnostisch: ze werkt met
+elk child-type dat een `.value` heeft (`vl-input-field`, `vl-select`, `vl-datepicker`, ...). Geeft de
+functie een **foutboodschap (string)** terug bij een fout, of `null` wanneer alles in orde is. De
+teruggegeven string verschijnt in `vl-form-message[state="customError"]` (laat dat slot leeg zodat de
+dynamische boodschap zichtbaar is).
+
+```js
+const composite = document.querySelector('#coords');
+
+composite.customValidator = ({ first, second }) => {
+    if (parseFloat(first) > parseFloat(second)) {
+        return `De eerste waarde (${first}) mag niet groter zijn dan de tweede (${second}).`;
+    }
+    return null;
+};
+```
+
+```html
+<vl-form-message for="coords" state="customError"></vl-form-message>
+```
+
+## Stap 4: lees en zet de formulierdata
+
+De component neemt deel aan het formulier als één control. Bij een geldige (volledige) invoer dient
+ze twee velden in; bij onvolledige invoer neemt ze niet deel zodat `required` afgaat. Zonder `name`
+neemt de component niet deel, net als elke andere form-control.
+
+```js
+const form = document.querySelector('#locatie-form');
+
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    console.log(data.get('coords-first'), data.get('coords-second'));
+});
+```
+
+Voorvullen doe je door de `value` van de kinderen te zetten (attribuut of property):
+
+```html
+<vl-input-field slot="first" label="X" type="number" min="0" max="100" value="40"></vl-input-field>
+<vl-input-field slot="second" label="Y" type="number" min="0" max="100" value="55"></vl-input-field>
+```
+
+## Stap 5: programmatische validatie & reset
+
+De component implementeert de standaard Constraint Validation API. Je kan dus programmatisch
+controleren en de validiteitsstaten uitlezen:
+
+```js
+composite.checkValidity(); // true / false
+composite.validity.valueMissing; // bv. true wanneer een veld leeg is
+composite.validity.rangeOverflow; // true wanneer een waarde boven het maximum ligt
+composite.validity.customError; // true wanneer je eigen validator een fout teruggaf
+composite.validationMessage; // de actuele foutboodschap
+```
+
+Een `form.reset()` wist de waarden van de kinderen, verbergt de foutboodschappen en herstelt de
+validiteit.
+
+## Samengevat
+
+| Behoefte | Hoe |
+| --- | --- |
+| Velden bundelen | Plaats ze in de slots `first` / `second` van `vl-composite-input-next` |
+| Verplicht maken | `required` op de ouder, geeft `valueMissing` |
+| Min/max per veld | `min` / `max` op de kinderen, geeft `rangeUnderflow` / `rangeOverflow` |
+| Eigen regel | `.customValidator = ({ first, second }) => string \| null`, geeft `customError` |
+| Foutboodschap tonen | `vl-form-message[for][state]` per validiteitsstaat |
+| Form data | Submit als `<name>-first` en `<name>-second` |
+| Uitschakelen | `disabled` op de ouder, propageert naar de kinderen |
+| Toegankelijkheid | Zet `label` op de ouder én op elk kind, zodat schermlezers elk veld kunnen identificeren |

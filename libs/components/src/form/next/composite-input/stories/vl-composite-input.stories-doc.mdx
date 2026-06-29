@@ -1,0 +1,101 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlCompositeInputStories from './vl-composite-input.stories';
+
+# Composite Input Next
+
+<FluxComponentMetaData id="components-form-next-composite-input" />
+
+## Doel
+
+`vl-composite-input-next` is een **generieke, form-associated ouder-component** die twee
+invoervelden bundelt tot één form-control. De component is agnostisch van wat die velden voorstellen;
+de kinderen worden via de slots `slot="first"` en `slot="second"` aangeleverd door de afnemer en
+dragen zelf hun `min`/`max`.
+
+De component:
+
+- valideert **verplicht** (`valueMissing` zodra één van beide velden leeg is);
+- aggregeert **min/max** over beide velden (`rangeUnderflow` / `rangeOverflow`);
+- ondersteunt een **eigen validator-functie** via de `.customValidator` property die een dynamische
+  foutboodschap teruggeeft (`customError`);
+- **neemt deel aan het formulier**: bij geldige invoer worden twee velden ingediend (`<name>-first` en
+  `<name>-second`); zonder `name` neemt de component niet deel, net als elke andere form-control;
+- propageert `disabled`, `error` en `success` naar de kinderen;
+- koppelt **elke validiteitsstaat aan een eigen `vl-form-message`** via `for` + `state`.
+
+## Voorbeeld
+
+```js
+import { VlCompositeInputComponent } from '@domg-wc/components/form/next';
+import { VlInputFieldComponent, VlFormMessageComponent } from '@domg-wc/components/form';
+```
+
+```html
+<vl-composite-input-next id="coords" name="coords" label="Coördinaten" required>
+    <vl-input-field slot="first" label="X" type="number" min="0" max="100"></vl-input-field>
+    <vl-input-field slot="second" label="Y" type="number" min="0" max="100"></vl-input-field>
+</vl-composite-input-next>
+
+<vl-form-message for="coords" state="valueMissing">Beide velden zijn verplicht.</vl-form-message>
+<vl-form-message for="coords" state="rangeUnderflow">Een waarde ligt onder het minimum.</vl-form-message>
+<vl-form-message for="coords" state="rangeOverflow">Een waarde ligt boven het maximum.</vl-form-message>
+```
+
+<Canvas of={VlCompositeInputStories.CompositeInputDefault} />
+
+## Configuratie
+
+<ArgTypes of={VlCompositeInputStories.CompositeInputDefault} />
+
+## Varianten
+
+### Eigen validator (België)
+
+Geef een functie `({ first, second }) => string | null` mee via de `.customValidator` property. De
+twee waarden zijn de ruwe strings van de velden; de afnemer parset zelf wat nodig is (getal, datum,
+...). Geeft de functie een string terug, dan wordt dat de dynamische foutboodschap voor de
+`customError`-staat. Laat het `vl-form-message[state="customError"]` slot leeg zodat de teruggegeven
+boodschap getoond wordt.
+
+```html
+<vl-composite-input-next id="geo" name="geo" label="Coördinaten (lon, lat)" required>
+    <vl-input-field slot="first" label="Longitude" type="number" min="-180" max="180"></vl-input-field>
+    <vl-input-field slot="second" label="Latitude" type="number" min="-90" max="90"></vl-input-field>
+</vl-composite-input-next>
+
+<vl-form-message for="geo" state="customError"></vl-form-message>
+```
+
+```js
+const inBelgium = ({ first, second }) => {
+    const lon = parseFloat(first);
+    const lat = parseFloat(second);
+    return lon < 2.5 || lon > 6.5 || lat < 49.5 || lat > 51.6 ? `(lon=${first}, lat=${second}) ligt buiten België` : null;
+};
+
+document.querySelector('#geo').customValidator = inBelgium;
+```
+
+<Canvas of={VlCompositeInputStories.CompositeInputCustomValidator} />
+
+### Datumbereik (twee `vl-datepicker`)
+
+De ouder werkt met elk form-control type dat een `.value` heeft. Hier gebruiken we twee
+`vl-datepicker` kinderen voor een begin- en einddatum. De eigen validator parset `first`/`second`
+als datums en controleert dat begin niet na einde ligt.
+
+<Canvas of={VlCompositeInputStories.CompositeInputDateRange} />
+
+### Afhankelijke `vl-select` velden (land + regio)
+
+Twee `vl-select` kinderen waar de tweede keuze afhangt van de eerste. De eigen validator kijkt of
+de gekozen regio bij het gekozen land hoort.
+
+<Canvas of={VlCompositeInputStories.CompositeInputSelects} />
+
+### Gemengd: bedrag + munteenheid
+
+Verschillende child-types in dezelfde composite: een numeriek invoerveld en een select. De eigen
+validator combineert beide waarden om grenzen per munt af te dwingen.
+
+<Canvas of={VlCompositeInputStories.CompositeInputMixed} />

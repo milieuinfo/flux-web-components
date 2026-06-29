@@ -39,6 +39,9 @@
             "@domg-wc/components/form": [
                 "libs/components/src/form/index.ts"
             ],
+            "@domg-wc/components/form/next": [
+                "libs/components/src/form/next/index.ts"
+            ],
             "@domg-wc/integrations/form": [
                 "libs/integrations/src/form/index.ts"
             ],
