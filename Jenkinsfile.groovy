@@ -87,6 +87,7 @@ pipeline {
                                     passwordVariable: 'GITHUB_TOKEN'
                             )]) {
                                 sh '''
+                                    git config --global --add safe.directory "$WORKSPACE"
                                     git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@${GIT_URL#https://}"
                                     git fetch --unshallow || git fetch --prune
                                     git fetch --tags --force
