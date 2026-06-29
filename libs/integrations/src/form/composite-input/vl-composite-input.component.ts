@@ -1,5 +1,5 @@
 import { webComponent } from '@domg-wc/common';
-import { html, PropertyDeclarations, TemplateResult } from 'lit';
+import { css, CSSResult, html, PropertyDeclarations, TemplateResult } from 'lit';
 import { FormControl } from '../../../../components/src/form/form-control/form-control';
 import {
     CompositeCustomValidator,
@@ -29,6 +29,34 @@ export class VlCompositeInputComponent extends FormControl {
         return {
             customValidator: { attribute: false },
         };
+    }
+
+    static get styles(): CSSResult[] {
+        return [
+            css`
+                fieldset {
+                    border: 0;
+                    padding: 0;
+                    margin: 0;
+                    display: flex;
+                    gap: 0.5rem;
+                    align-items: center;
+                }
+
+                .vl-u-visually-hidden {
+                    position: absolute !important;
+                    height: 1px;
+                    width: 1px;
+                    overflow: hidden;
+                    clip: rect(1px, 1px, 1px, 1px);
+                    margin: -1px;
+                    padding: 0;
+                    border: 0;
+                    left: 0;
+                    top: 0;
+                }
+            `,
+        ];
     }
 
     get validationTarget(): HTMLElement | undefined | null {
@@ -74,7 +102,7 @@ export class VlCompositeInputComponent extends FormControl {
 
     render(): TemplateResult {
         return html`
-            <fieldset part="fieldset" style="border:0;padding:0;display:flex;gap:.5rem;align-items:center;">
+            <fieldset part="fieldset">
                 <legend class="vl-u-visually-hidden">${this.label || 'Samengesteld invoerveld'}</legend>
                 <slot name="first" @slotchange=${this.onSlotChange}></slot>
                 <slot name="second" @slotchange=${this.onSlotChange}></slot>
