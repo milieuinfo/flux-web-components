@@ -1,5 +1,11 @@
 @Library('Cumulus@1.2-stable') _
 
+// Zet op true om de GitHub-publish PoC mee te draaien: een semantic-release --dry-run met de config
+// in resources/ci-jenkins/github-publish-poc.releaserc.cjs. Authenticeert de PAT, verifieert
+// push/release-recht en berekent de volgende versie. Maakt GEEN tag/commit/release aan. Zet terug
+// op false voor gewone builds.
+final boolean RUN_GITHUB_PUBLISH_POC = true
+
 String buildPod() {
     '''
 spec:
@@ -68,6 +74,26 @@ pipeline {
                     post {
                         always {
                             junit allowEmptyResults: true, testResults: 'test-results/*.xml'
+                        }
+                    }
+                }
+                stage('GitHub publish PoC') {
+                    when { expression { RUN_GITHUB_PUBLISH_POC } }
+                    steps {
+                        container('cypress') {
+                            withCredentials([usernamePassword(
+                                    credentialsId: 'github',
+                                    usernameVariable: 'GH_USER',
+                                    passwordVariable: 'GITHUB_TOKEN'
+                            )]) {
+                                sh '''
+                                    git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@${GIT_URL#https://}"
+                                    git fetch --unshallow || git fetch --prune
+                                    git fetch --tags --force
+                                '''
+                                // --dry-run !
+                                sh 'npx semantic-release --dry-run --no-ci --extends ./resources/ci-jenkins/github-publish-poc.releaserc.cjs'
+                            }
                         }
                     }
                 }
