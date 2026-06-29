@@ -231,6 +231,9 @@ importers:
       playwright:
         specifier: 1.55.0
         version: 1.55.0
+      playwright-webkit:
+        specifier: 1.58.2
+        version: 1.58.2
       react:
         specifier: 18.2.0
         version: 18.2.0
@@ -5656,6 +5659,16 @@ packages:
 
   playwright-core@1.55.0:
     resolution: {integrity: sha512-GvZs4vU3U5ro2nZpeiwyb0zuFaqb9sUiAJuyrWpcGouD8y9/HLgGbNRjIph7zU9D3hnPaisMl9zG9CgFi/biIg==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  playwright-core@1.58.2:
+    resolution: {integrity: sha512-yZkEtftgwS8CsfYo7nm0KE8jsvm6i/PTgVtB8DL726wNf6H2IMsDuxCpJj59KDaxCtSnrWan2AeDqM7JBaultg==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  playwright-webkit@1.58.2:
+    resolution: {integrity: sha512-wuZ8w65H4PYRjmgaEr69us8skcuWI1o+KhvXwU5XypzNSLevT+GigbYKbvg4TAEVzDIgV67nb70hHUogaczaGA==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -13126,6 +13139,12 @@ snapshots:
       find-up: 4.1.0
 
   playwright-core@1.55.0: {}
+
+  playwright-core@1.58.2: {}
+
+  playwright-webkit@1.58.2:
+    dependencies:
+      playwright-core: 1.58.2
 
   playwright@1.55.0:
     dependencies:
