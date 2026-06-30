@@ -50,7 +50,6 @@ pipeline {
             when { expression { git.notSkipCi() } }
             stages {
                 stage('Trivy scan') {
-                    when { expression { false } }
                     steps {
                         script {
                             trivy.scanFilesystem([targetPath: 'package-lock.json'])
@@ -58,7 +57,6 @@ pipeline {
                     }
                 }
                 stage('Build & test') {
-                    when { expression { false } }
                     steps {
                         container('cypress') {
                             sh 'npm ci'
