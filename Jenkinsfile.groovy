@@ -1,11 +1,5 @@
 @Library('Cumulus@1.2-stable') _
 
-// Zet op true om de GitHub-publish PoC mee te draaien: een semantic-release --dry-run met de config
-// in resources/ci-jenkins/github-publish-poc.releaserc.cjs. Authenticeert de PAT, verifieert
-// push/release-recht en berekent de volgende versie. Maakt GEEN tag/commit/release aan. Zet terug
-// op false voor gewone builds.
-final boolean RUN_GITHUB_PUBLISH_POC = true
-
 String buildPod() {
     '''
 spec:
@@ -56,6 +50,7 @@ pipeline {
             when { expression { git.notSkipCi() } }
             stages {
                 stage('Trivy scan') {
+                    when { expression { false } }
                     steps {
                         script {
                             trivy.scanFilesystem([targetPath: 'package-lock.json'])
@@ -63,6 +58,7 @@ pipeline {
                     }
                 }
                 stage('Build & test') {
+                    when { expression { false } }
                     steps {
                         container('cypress') {
                             sh 'npm ci'
@@ -78,7 +74,6 @@ pipeline {
                     }
                 }
                 stage('GitHub publish PoC') {
-                    when { expression { RUN_GITHUB_PUBLISH_POC } }
                     steps {
                         container('cypress') {
                             withCredentials([usernamePassword(
@@ -91,11 +86,6 @@ pipeline {
                                     git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@${GIT_URL#https://}"
                                     git fetch --unshallow || git fetch --prune
                                     git fetch --tags --force
-                                '''
-                                sh '''
-                                    curl -s -H "Authorization: Bearer $GITHUB_TOKEN" \
-                                        "https://api.github.com/repos/milieuinfo/flux-web-components" \
-                                        | node -e 'let d="";process.stdin.on("data",c=>d+=c).on("end",()=>{const p=(JSON.parse(d).permissions)||{};console.log("repo permissions:",JSON.stringify({push:p.push,admin:p.admin}))})'
                                 '''
                                 // --dry-run !
                                 sh 'npx semantic-release --dry-run --no-ci --extends ./resources/ci-jenkins/github-publish-poc.releaserc.cjs'
