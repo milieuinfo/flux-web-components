@@ -161,7 +161,7 @@ export class VlDatepickerComponent extends FormControl {
         }
 
         if (this.anchorPositioning && !this.polyfillReady && this.shadowRoot) {
-            this.polyfillReady = await AnchorPositioningController.ensureSupport([this.shadowRoot]);
+            this.polyfillReady = await AnchorPositioningController.ensureSupport();
         }
 
         this.initializeComponent();
@@ -172,7 +172,7 @@ export class VlDatepickerComponent extends FormControl {
         super.updated(changedProperties);
 
         if (changedProperties.has('anchorPositioning') && this.anchorPositioning && !this.polyfillReady && this.shadowRoot) {
-            AnchorPositioningController.ensureSupport([this.shadowRoot]).then((ok) => {
+            AnchorPositioningController.ensureSupport().then((ok) => {
                 this.polyfillReady = ok;
             });
         }

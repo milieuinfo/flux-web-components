@@ -1,44 +1,57 @@
-import applyCss from '@oddbird/css-anchor-positioning/fn';
 import { apply as applyPopover, isSupported as isPopoverSupported } from '@oddbird/popover-polyfill/fn';
 
 let popoverApplied = false;
 
-function isNativelySupported(): boolean {
+function supportsNativeAnchor(): boolean {
     return (
         typeof CSS !== 'undefined' &&
         typeof CSS.supports === 'function' &&
-        CSS.supports('anchor-name: --x') &&
-        typeof HTMLElement !== 'undefined' &&
-        typeof HTMLElement.prototype.showPopover === 'function'
+        CSS.supports('anchor-name: --x')
     );
+}
+
+function supportsPopover(): boolean {
+    return typeof HTMLElement !== 'undefined' && typeof HTMLElement.prototype.showPopover === 'function';
 }
 
 function ensurePopover(): void {
     if (popoverApplied) return;
     popoverApplied = true;
+    // De popover-polyfill enkel toepassen als de browser de Popover API niet native kent.
     if (!isPopoverSupported()) applyPopover();
 }
 
+/**
+ * Native pad: de browser kent zowel CSS Anchor Positioning als de Popover API. In dat geval
+ * positioneren we via de CSS-regels (zie vl-datepicker.positioning-css.ts) en is er geen JS nodig.
+ */
 export function isAnchorPositioningNativelySupported(): boolean {
-    return isNativelySupported();
+    return supportsNativeAnchor() && supportsPopover();
 }
 
-export async function ensureAnchorPositioningPolyfill(
-    roots: (Document | HTMLElement | ShadowRoot)[]
-): Promise<boolean> {
-    if (isNativelySupported()) return true;
+/**
+ * Zorgt dat de kalender in de top layer kan renderen (en zo ontsnapt aan overflow/transform van
+ * ancestors — FLUX-595). Dat vereist enkel de Popover API; die polyfillen we waar nodig.
+ *
+ * De CSS Anchor Positioning polyfill gebruiken we bewust niet: die leest enkel <style>/<link>
+ * elementen en niet de adoptedStyleSheets waarin Lit zijn `static styles` plaatst, waardoor ze de
+ * anchor()-regels van dit component nooit ziet. Op browsers zonder native anchor positioning
+ * gebeurt de positionering daarom via JS in de AnchorPositioningController.
+ *
+ * @returns true als de popover-modus bruikbaar is (top layer beschikbaar), anders false → fallback
+ *          naar de default flatpickr-positionering.
+ */
+export async function ensureAnchorPositioningPolyfill(): Promise<boolean> {
+    if (isAnchorPositioningNativelySupported()) return true;
     try {
         ensurePopover();
-        const positions = await applyCss({ roots: roots as (Document | HTMLElement)[] });
-        if (!positions || Object.keys(positions).length === 0) {
-            // eslint-disable-next-line no-console
-            console.warn('[vl-datepicker] anchor-positioning polyfill vond geen anker-regels, fallback naar default positionering');
-            return false;
-        }
-        return true;
+        return supportsPopover();
     } catch (err) {
         // eslint-disable-next-line no-console
-        console.warn('[vl-datepicker] anchor-positioning polyfill kon niet toegepast worden, fallback naar default positionering', err);
+        console.warn(
+            '[vl-datepicker] popover polyfill kon niet toegepast worden, fallback naar default positionering',
+            err
+        );
         return false;
     }
 }
