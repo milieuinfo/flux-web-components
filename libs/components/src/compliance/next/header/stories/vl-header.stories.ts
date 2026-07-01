@@ -35,6 +35,10 @@ export const HeaderDefault = story(
         simple,
         switchCapacityUrl,
         applicationLinks,
+        profileTokenUrl,
+        idpDataUrl,
+        idpProfileToken,
+        idpData,
         onReady,
     }) => html`
         <body>
@@ -47,7 +51,11 @@ export const HeaderDefault = story(
                 ?simple=${simple}
                 ?skeleton=${skeleton}
                 switch-capacity-url=${switchCapacityUrl}
+                profile-token-url=${profileTokenUrl}
+                idp-data-url=${idpDataUrl}
                 .applicationLinks=${applicationLinks}
+                .idpProfileToken=${idpProfileToken}
+                .idpData=${idpData}
                 @ready=${onReady}
             ></vl-header-next>
         </body>

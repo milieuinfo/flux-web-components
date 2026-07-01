@@ -116,6 +116,180 @@ describe('cypress-component - compliance components - vl-header-next', () => {
             cy.get('#header__skeleton').should('have.css', 'height', '43px');
         });
     });
+
+    describe('PAPI profile token + idpData', () => {
+        beforeEach(() => {
+            cy.intercept('GET', /widgets.*vlaanderen\.be.*entry/, stubWidgetScriptCapturingSetProfile()).as(
+                'widgetScript'
+            );
+            cy.intercept('GET', '/sso/ingelogde_gebruiker', { statusCode: 200, body: '' }).as('authActive');
+        });
+
+        const lastSetProfileCall = (): Cypress.Chainable<Record<string, unknown> | undefined> =>
+            cy.window().then((win) => {
+                const calls = (win as unknown as { __setProfileCalls: Record<string, unknown>[] }).__setProfileCalls;
+                return calls?.[calls.length - 1];
+            });
+
+        it('should pass idpProfileToken via JS property when set', () => {
+            cy.mount(html`
+                <body>
+                    <vl-header-next
+                        development
+                        identifier="${identifier}"
+                        .idpProfileToken=${'token-via-property'}
+                    ></vl-header-next>
+                </body>
+            `);
+            cy.wait('@widgetScript');
+            cy.wait('@authActive');
+
+            lastSetProfileCall().should((config) => {
+                expect(config).to.include({ active: true, idpProfileToken: 'token-via-property' });
+            });
+        });
+
+        it('should fetch and pass idpProfileToken via profile-token-url', () => {
+            cy.intercept('GET', '/api/papi-token', {
+                statusCode: 200,
+                headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+                body: 'token-from-url',
+            }).as('tokenFetch');
+
+            cy.mount(html`
+                <body>
+                    <vl-header-next
+                        development
+                        identifier="${identifier}"
+                        profile-token-url="/api/papi-token"
+                    ></vl-header-next>
+                </body>
+            `);
+            cy.wait('@widgetScript');
+            cy.wait('@authActive');
+            cy.wait('@tokenFetch');
+
+            lastSetProfileCall().should((config) => {
+                expect(config).to.include({ active: true, idpProfileToken: 'token-from-url' });
+            });
+        });
+
+        it('should let JS property win over profile-token-url', () => {
+            cy.intercept('GET', '/api/papi-token', {
+                statusCode: 200,
+                headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+                body: 'token-from-url',
+            }).as('tokenFetch');
+
+            cy.mount(html`
+                <body>
+                    <vl-header-next
+                        development
+                        identifier="${identifier}"
+                        profile-token-url="/api/papi-token"
+                        .idpProfileToken=${'token-via-property'}
+                    ></vl-header-next>
+                </body>
+            `);
+            cy.wait('@widgetScript');
+            cy.wait('@authActive');
+
+            lastSetProfileCall().should((config) => {
+                expect(config).to.include({ idpProfileToken: 'token-via-property' });
+            });
+        });
+
+        it('should not include idpProfileToken when user is not authenticated', () => {
+            cy.intercept('GET', '/sso/ingelogde_gebruiker', { statusCode: 401, body: '' }).as('authInactive');
+
+            cy.mount(html`
+                <body>
+                    <vl-header-next
+                        development
+                        identifier="${identifier}"
+                        .idpProfileToken=${'token-via-property'}
+                    ></vl-header-next>
+                </body>
+            `);
+            cy.wait('@widgetScript');
+            cy.wait('@authInactive');
+
+            lastSetProfileCall().should((config) => {
+                expect(config).to.have.property('active', false);
+                expect(config).to.not.have.property('idpProfileToken');
+            });
+        });
+
+        it('should pass idpData via JS property when set', () => {
+            const mockIdpData = {
+                user: { firstName: 'John', name: 'Doe' },
+            };
+
+            cy.mount(html`
+                <body>
+                    <vl-header-next
+                        development
+                        identifier="${identifier}"
+                        .idpData=${mockIdpData}
+                    ></vl-header-next>
+                </body>
+            `);
+            cy.wait('@widgetScript');
+            cy.wait('@authActive');
+
+            lastSetProfileCall().should((config) => {
+                expect(config).to.have.nested.property('idpData.user.firstName', 'John');
+            });
+        });
+
+        it('should fetch and pass idpData via idp-data-url', () => {
+            cy.intercept('GET', '/api/idp-data', {
+                statusCode: 200,
+                body: { user: { firstName: 'Jane', name: 'Smith' } },
+            }).as('idpDataFetch');
+
+            cy.mount(html`
+                <body>
+                    <vl-header-next
+                        development
+                        identifier="${identifier}"
+                        idp-data-url="/api/idp-data"
+                    ></vl-header-next>
+                </body>
+            `);
+            cy.wait('@widgetScript');
+            cy.wait('@authActive');
+            cy.wait('@idpDataFetch');
+
+            lastSetProfileCall().should((config) => {
+                expect(config).to.have.nested.property('idpData.user.firstName', 'Jane');
+            });
+        });
+
+        it('should not include idpData when a papi token is present', () => {
+            const mockIdpData = {
+                user: { firstName: 'John', name: 'Doe' },
+            };
+
+            cy.mount(html`
+                <body>
+                    <vl-header-next
+                        development
+                        identifier="${identifier}"
+                        .idpProfileToken=${'token-via-property'}
+                        .idpData=${mockIdpData}
+                    ></vl-header-next>
+                </body>
+            `);
+            cy.wait('@widgetScript');
+            cy.wait('@authActive');
+
+            lastSetProfileCall().should((config) => {
+                expect(config).to.include({ active: true, idpProfileToken: 'token-via-property' });
+                expect(config).to.not.have.property('idpData');
+            });
+        });
+    });
 });
 
 const stubWidgetScriptMinimal = () => ({
@@ -126,6 +300,22 @@ const stubWidgetScriptMinimal = () => ({
             mount: () => Promise.resolve(),
             accessMenu: {
                 setProfile: () => {},
+                setApplicationMenuLinks: () => Promise.resolve(),
+            },
+        };
+        window.dispatchEvent(new Event('widget.global_header.mounted'));
+    `,
+});
+
+const stubWidgetScriptCapturingSetProfile = () => ({
+    statusCode: 200,
+    headers: { 'Content-Type': 'application/javascript' },
+    body: `
+        window.__setProfileCalls = [];
+        window.globalHeaderClient = {
+            mount: () => Promise.resolve(),
+            accessMenu: {
+                setProfile: (config) => { window.__setProfileCalls.push(config); return Promise.resolve(true); },
                 setApplicationMenuLinks: () => Promise.resolve(),
             },
         };

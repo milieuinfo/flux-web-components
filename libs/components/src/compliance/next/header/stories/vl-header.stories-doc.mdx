@@ -60,6 +60,57 @@ Zie [global header interfaces | setProfile](https://test.widgets.burgerprofiel.d
 
 Zie [Digitaal Vlaanderen - De endpoints overschrijven](https://vlaamseoverheid.atlassian.net/wiki/spaces/IKPubliek/pages/6336119448/Aanmelden+met+eenvoudig+of+gekoppeld+toegangsbeheer#De-endpoints-overschrijven) voor meer informatie (v4 documentatie).
 
+### PAPI profile token
+
+Sinds global header v5 kan een PAPI profile token meegegeven worden aan de header. Hiermee toont de header automatisch de gegevens van de gebruiker (naam, hoedanigheden, ...). Zie [Profile API Integration Guide](https://docs.digitaal.vlaanderen.be/global-header/documents/Profile_API_Integration_Guide.html) van Digitaal Vlaanderen voor de achtergrond.
+
+`vl-header-next` ondersteunt twee manieren om het token mee te geven:
+
+1. **`profile-token-url` attribuut** (declaratief) — de component fetcht het token op deze endpoint van jouw backend wanneer de sessie geconfigureerd wordt. Standaard staat dit op `/sso/papi_token`, de endpoint van de Cumuli security lib. Verwachte response is het token als plain text (`text/plain`).
+
+    ```html
+    <vl-header-next
+        identifier="..."
+        profile-token-url="/api/papi-token"
+    ></vl-header-next>
+    ```
+
+2. **`idpProfileToken` JavaScript-property** (imperatief) — set het token direct vanuit je SPA. Heeft voorrang op `profile-token-url`. Handig wanneer je het token al in je client-side state hebt.
+
+    ```js
+    document.querySelector('vl-header-next').idpProfileToken = papiToken;
+    ```
+
+Het token wordt enkel aan `setProfile()` doorgegeven wanneer de gebruiker is aangemeld (`active: true`), conform de [vereiste van Digitaal Vlaanderen](https://docs.digitaal.vlaanderen.be/global-header/documents/Profile_API_Integration_Guide.html#3-frontend-passing-the-profile-token) dat `idpProfileToken` en `active: true` in dezelfde call moeten zitten.
+
+> **Waarom geen `idp-profile-token` HTML-attribuut?**
+> Het token is een bearer credential met korte levensduur. Een HTML-attribuut zou het token zichtbaar maken in View Source, server-side rendered HTML, MutationObservers van 3rd-party scripts en screenshots van de elementen-tab. Daarom wordt het token enkel via een URL-fetch of JS-property aanvaard — beide houden het token uit de DOM.
+
+### IdpData
+
+Wanneer er geen PAPI token beschikbaar is, kan IdpData manueel meegegeven worden (bijvoorbeeld bij mock users via een lokale Keycloak). Twee manieren, met dezelfde precedentie als bij het token:
+
+1. **`idp-data-url` attribuut** — de component fetcht een JSON-response op deze endpoint.
+
+    ```html
+    <vl-header-next
+        identifier="..."
+        idp-data-url="/api/idp-data"
+    ></vl-header-next>
+    ```
+
+2. **`idpData` JavaScript-property** — set het IDPData-object direct.
+
+    ```js
+    document.querySelector('vl-header-next').idpData = {
+        user: { firstName: 'John', name: 'Doe' },
+        loginHint: 'user-login-hint',
+        identities: [/* ... */],
+    };
+    ```
+
+Zie [IDPData interface](https://test.widgets.burgerprofiel.dev-vlaanderen.be/docs/global-header/interfaces/IDPData.html) voor het volledige type.
+
 ## Applicatieve Links
 
 Je kan applicatieve links toevoegen aan de header door gebruik te maken van de `applicationLinks` property.<br/>
