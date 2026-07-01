@@ -61,6 +61,45 @@ describe('cypress-component - atom components - vl-link', () => {
         cy.get('vl-link').shadow().find('a').should('have.attr', 'rel', 'noopener noreferrer nofollow');
     });
 
+    it('should announce the new window hint for external links', () => {
+        cy.mount(html`<vl-link external href="https://www.vlaanderen.be">Vlaanderen</vl-link>`);
+
+        cy.get('vl-link')
+            .shadow()
+            .find('a .vl-link__new-window-hint')
+            .should('exist')
+            .should('contain.text', '(opent in een nieuw venster)');
+    });
+
+    it('should keep the external icon decorative next to the new window hint', () => {
+        cy.mount(html`<vl-link external href="https://www.vlaanderen.be">Vlaanderen</vl-link>`);
+
+        cy.get('vl-link').shadow().find('a .vl-icon--external').should('have.attr', 'aria-hidden', 'true');
+    });
+
+    it('should not announce the new window hint for non-external links', () => {
+        cy.mount(html`<vl-link href="https://www.vlaanderen.be">Vlaanderen</vl-link>`);
+
+        cy.get('vl-link').shadow().find('a .vl-link__new-window-hint').should('not.exist');
+    });
+
+    it('should not announce the new window hint when a label is set', () => {
+        cy.mount(
+            html`<vl-link external href="https://www.vlaanderen.be" label="Ga naar Vlaanderen (opent in een nieuw venster)"
+                >Vlaanderen</vl-link
+            >`
+        );
+
+        cy.get('vl-link').shadow().find('a .vl-link__new-window-hint').should('not.exist');
+    });
+
+    it('should be accessible as an external link', () => {
+        cy.mount(html`<vl-link external href="https://www.vlaanderen.be">Vlaanderen</vl-link>`);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-link');
+    });
+
     it('should set download without filename', () => {
         cy.mount(html`<vl-link download href="data:text/plain,demo">Download</vl-link>`);
 
@@ -202,6 +241,12 @@ describe('cypress-component - atom components - vl-link - button as link', () =>
 
         cy.get('vl-link').should('have.attr', 'external');
         cy.get('vl-link').shadow().find('button').should('not.have.attr', 'target');
+    });
+
+    it('should not announce the new window hint (button does not open a new window)', () => {
+        cy.mount(html`<vl-link button-as-link external>Vlaanderen</vl-link>`);
+
+        cy.get('vl-link').shadow().find('button .vl-link__new-window-hint').should('not.exist');
     });
 
     it('should set icon', () => {

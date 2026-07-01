@@ -1,4 +1,4 @@
-import { vlFocusOutlineMixin, vlMediaScreenSmall } from '@domg-wc/styles';
+import { vlFocusOutlineMixin, vlMediaScreenSmall, vlVisuallyHiddenMixin } from '@domg-wc/styles';
 import { css, unsafeCSS } from 'lit';
 
 export const vlLinkStyles = (selector = 'a') => css`
@@ -103,6 +103,11 @@ export const vlLinkStyles = (selector = 'a') => css`
 
         &.error:visited .vl-icon.vl-icon--external {
             color: var(--vl-color--icon-subtle);
+        }
+
+        /* bij externe links: visueel verbergen, maar wel voorlezen door screenreaders */
+        .vl-link__new-window-hint {
+            ${vlVisuallyHiddenMixin()};
         }
 
         &.neutral {

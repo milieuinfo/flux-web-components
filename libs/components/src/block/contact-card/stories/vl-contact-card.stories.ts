@@ -51,11 +51,7 @@ export const contactCardDefault = story(
                 </vl-property-data>
                 <vl-property>Website</vl-property>
                 <vl-property-data>
-                    <vl-link
-                        href="http://onderwijs.vlaanderen.be"
-                        external
-                        label="Ga naar onderwijs.vlaanderen.be (opent in een nieuw venster)"
-                    >
+                    <vl-link href="http://onderwijs.vlaanderen.be" external>
                         http://onderwijs.vlaanderen.be</vl-link
                     >
                 </vl-property-data>
