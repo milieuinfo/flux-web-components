@@ -1241,6 +1241,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "character-count",
+                            "description": "Toont onder de textarea een teller `{huidig}/{max}` van het aantal getypte tekens t.o.v. `max-length`. Een (visueel verborgen) `aria-live` regio kondigt het aantal resterende tekens aan vanaf de laatste 10. Vereist een gezette `max-length`.",
+                            "default": "false"
+                        },
+                        {
                             "name": "value",
                             "description": "De waarde van het textarea veld.",
                             "default": ""
@@ -1358,6 +1363,11 @@
                         {
                             "name": "readonly",
                             "description": "Duidt aan dat het veld `readonly` is.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "character-count",
+                            "description": "Toont onder de textarea een teller `{huidig}/{max}` van het aantal getypte tekens t.o.v. `max-length`. Een (visueel verborgen) `aria-live` regio kondigt het aantal resterende tekens aan vanaf de laatste 10. Vereist een gezette `max-length`.",
                             "default": "false"
                         },
                         {

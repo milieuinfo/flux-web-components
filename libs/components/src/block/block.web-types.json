@@ -908,7 +908,7 @@
                         },
                         {
                             "name": "open",
-                            "description": "Attribuut om de modal onmiddellijk te openen na de rendering.",
+                            "description": "Reactief attribuut dat de open-staat van de modal stuurt: toevoegen opent de modal, verwijderen sluit hem. Het attribuut blijft in sync met de werkelijke staat (na sluiten via knop, escape of backdrop is het weg).",
                             "default": "false"
                         },
                         {
@@ -956,7 +956,19 @@
                             "name": "button",
                             "description": "Gebruik dit slot om de primaire actie mee te geven."
                         }
-                    ]
+                    ],
+                    "js": {
+                        "events": [
+                            {
+                                "name": "vl-open",
+                                "description": "Event dat afgevuurd wordt wanneer de modal opent, ongeacht of dat via het `open`-attribuut, de `open()`-methode, een knop of escape gebeurt."
+                            },
+                            {
+                                "name": "vl-close",
+                                "description": "Event dat afgevuurd wordt wanneer de modal sluit, ongeacht of dat via het `open`-attribuut, de `close()`-methode, een knop of escape gebeurt."
+                            }
+                        ]
+                    }
                 },
                 {
                     "name": "vl-cascader",
@@ -1197,7 +1209,7 @@
                 },
                 {
                     "name": "vl-infotext",
-                    "description": "Gebruik de `infotext` component om belangrijke nummers duidelijk weer te gevem.<br/>",
+                    "description": "Gebruik de `infotext` component om belangrijke nummers duidelijk weer te geven.<br/>",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-infotext--documentatie",
                     "attributes": [
                         {
@@ -1253,11 +1265,6 @@
                             "name": "label-width",
                             "description": "De breedte van de labels, in %. Heeft geen impact als de properties 'stacked' worden.",
                             "default": "25"
-                        },
-                        {
-                            "name": "no-clone",
-                            "description": "Default wordt de inhoud van label en data ge-cloned: van de Light DOM naar de shadow DOM, met no-clone actief wordt de inhoud verplaatst.",
-                            "default": "false"
                         },
                         {
                             "name": "no-padding-bottom",
@@ -1356,6 +1363,11 @@
                             "name": "child-spacing",
                             "description": "Bepaalt de verticale ruimte tussen child-links. `medium` geeft extra ruimte (1.3rem marge boven en onder). `small` is de standaard compacte weergave. Wordt doorgegeven aan vl-side-navigation-next.",
                             "default": "small"
+                        },
+                        {
+                            "name": "multi-active",
+                            "description": "Wanneer aanwezig worden alle items waarvan content zichtbaar is als actief gemarkeerd, in plaats van enkel het bovenste. De actieve items worden aangeduid met een doorlopende lijn uiterst links. Zonder dit attribuut kan het zijn dat de onderste items onderaan nooit aangeduid worden. Wordt doorgegeven aan vl-side-navigation-next.<br>Dit attribuut is niet reactief.",
+                            "default": "false"
                         }
                     ],
                     "slots": [
@@ -1410,6 +1422,11 @@
                             "name": "child-spacing",
                             "description": "Bepaalt de verticale ruimte tussen child-links. `medium` geeft extra ruimte (1.3rem marge boven en onder), vergelijkbaar met de stijl van de klassieke vl-side-navigation. `small` is de standaard compacte weergave.",
                             "default": "small"
+                        },
+                        {
+                            "name": "multi-active",
+                            "description": "Wanneer aanwezig worden alle items waarvan content zichtbaar is als actief gemarkeerd, in plaats van enkel het bovenste. De actieve items worden aangeduid met een doorlopende lijn uiterst links. Zonder dit attribuut kan het zijn dat de onderste items onderaan nooit aangeduid worden.<br>Dit attribuut is niet reactief.",
+                            "default": "false"
                         }
                     ],
                     "slots": [
@@ -1549,26 +1566,50 @@
                                 "kind": "plain",
                                 "type": "'highlighted' | 'disabled' | 'success' | 'warning' | 'error'"
                             },
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "heading-level",
                             "description": "Het heading niveau voor de step titel.",
+                            "value": {
+                                "kind": "plain",
+                                "type": "'1' | '2' | '3' | '4' | '5' | '6'"
+                            },
                             "default": "3"
                         },
                         {
                             "name": "icon-aria-label",
                             "description": "Aria label voor de icon container.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "timeline-aria-label",
                             "description": "Aria label voor de timeline datum container, bijvoorbeeld voor volledige datum.",
-                            "default": "null"
+                            "default": ""
                         },
                         {
                             "name": "default-open",
                             "description": "Indien gezet zal de step standaard geopend zijn. Werkt enkel in combinatie met het `toggleable` attribuut. <br>Dit attribuut is niet reactief.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "line",
+                            "description": "Toont een lijn naast de step.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "timeline",
+                            "description": "Toont de step als een timeline item.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "simple-timeline",
+                            "description": "Toont een vereenvoudigde timeline versie.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "last-step-no-line",
+                            "description": "Verbergt de lijn bij het laatste step item.",
                             "default": "false"
                         }
                     ],
@@ -2018,7 +2059,7 @@
                 },
                 {
                     "name": "vl-rich-data-table",
-                    "description": "Een tabel op basis van een dynamische lijst van data die uitgebreid kan worden met functionaliteiten om het consumeren\nvan data door de gebruiker te verbeteren.\n\nDe code voorbeelden bij elke story is dezelfde code die gebruikt wordt om de stories te laten werken.\n- combineert de functionaliteiten van het [rich-data](?path=/docs/components-block-rich-data--rich-data-default)-component en [data-table](?path=/docs/elements-data-table--data-table-default)-component.\n- om de velden te configureren kan je gebruik maken van `rich-data-field`",
+                    "description": "Een tabel op basis van een dynamische lijst van data die uitgebreid kan worden met functionaliteiten om het consumeren\nvan data door de gebruiker te verbeteren.\n\nDe code voorbeelden bij elke story zijn dezelfde code die gebruikt wordt om de stories te laten werken.\n- combineert de functionaliteiten van het [rich-data](?path=/docs/components-block-rich-data--rich-data-default)-component en [data-table](?path=/docs/elements-data-table--data-table-default)-component.\n- om de velden te configureren kan je gebruik maken van `rich-data-field`",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-rich-data-table--documentatie",
                     "attributes": [
                         {
@@ -2093,11 +2134,15 @@
                 },
                 {
                     "name": "vl-search",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search--documentatie"
+                    "description": "De `search` component toont een zoekveld met een zoekknop.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-search--documentatie",
+                    "deprecated": "Deprecated en wordt verwijderd in v3. Bouw een zoekformulier met de input-group (vl-input-field + vl-button met loading)."
                 },
                 {
                     "name": "vl-share-button",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-share-buttons-button--documentatie",
+                    "description": "De `share-button` component is één enkele deelknop binnen een `share-buttons` rij.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-share-buttons-share-button--documentatie",
+                    "deprecated": "Deprecated en wordt verwijderd in v3. Gebruik een vl-button met cta-link, icon en label.",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -2120,7 +2165,9 @@
                 },
                 {
                     "name": "vl-share-buttons",
-                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-share-buttons-buttons--documentatie",
+                    "description": "De `share-buttons` component toont een rij knoppen om een pagina te delen op sociale media.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-share-buttons-share-buttons--documentatie",
+                    "deprecated": "Deprecated en wordt verwijderd in v3. Gebruik een vl-button met cta-link, icon en label.",
                     "attributes": [
                         {
                             "name": "custom-css",
@@ -2581,12 +2628,17 @@
                         {
                             "name": "parameters",
                             "description": "De key/value parameters die verwerkt en getoond zullen worden in het content element."
+                        },
+                        {
+                            "name": "update-url-hash",
+                            "description": "Werkt bij een klik op een same-page anchor de URL-hash bij via history.pushState. Default wordt de hash niet aangepast (kan botsen met bv. een SPA-router).",
+                            "default": "false"
                         }
                     ]
                 },
                 {
                     "name": "vl-upload-progress",
-                    "description": "Gebruik `vl-upload-progress` om procentuele voortgang van een bestandsupload te tonen.\n\nDit component laadt toe om de upload te annuleren of te herstarten en heeft de mogelijkheid om een foutboodschap\nweer te geven.",
+                    "description": "Gebruik `vl-upload-progress` om procentuele voortgang van een bestandsupload te tonen.\n\nDit component laat toe om de upload te annuleren of te herstarten en heeft de mogelijkheid om een foutboodschap\nweer te geven.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-upload-progress--documentatie",
                     "attributes": [
                         {

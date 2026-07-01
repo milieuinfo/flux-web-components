@@ -685,7 +685,7 @@
                 },
                 {
                     "name": "vl-map-measure-control",
-                    "description": "Gebruik de `map-measure-control` component om de meet-actie aan of uit te zetten door behulp van een\n[button met toggle](/docs/components-atom-button--documentatie#toggle).",
+                    "description": "Gebruik de `map-measure-control` component om de meet-actie aan of uit te zetten met behulp van een\n[button met toggle](/docs/components-atom-button--documentatie#toggle).",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/map-controls-measure-control--documentatie",
                     "attributes": [
                         {
