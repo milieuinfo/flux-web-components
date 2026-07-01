@@ -26,7 +26,7 @@
         "libs:add-dependencies": "cd ./resources/bash-scripts && bash ./libs-add-dependencies.sh",
         "libs:build": "cd ./resources/bash-scripts && bash ./libs-build.sh",
         "libs:component-tests:run": "cd ./resources/cypress-component && npx cypress run --component",
-        "libs:component-tests:run-firefox-anchor": "cd ./resources/cypress-component && npx cypress run --component --browser firefox --spec '../../libs/components/src/form/datepicker/vl-datepicker-anchor-positioning.component.cy.ts'",
+        "libs:component-tests:run-firefox-anchor": "cd ./resources/cypress-component && npx cypress run --component --browser firefox --spec '../../libs/components/src/form/datepicker/vl-datepicker-anchor-positioning*.component.cy.ts'",
         "libs:component-tests:watch": "cd ./resources/cypress-component && npx cypress open --component",
         "libs:eslint": "cd ./resources/bash-scripts && bash ./libs-eslint.sh",
         "libs:icons:generate": "cd ./resources/bash-scripts && bash ./libs-icons-generate.sh",

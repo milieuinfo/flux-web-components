@@ -1,11 +1,10 @@
+import { autoUpdate, computePosition, flip, Middleware, offset, Placement, platform, shift } from '@floating-ui/dom';
+import { offsetParent } from 'composed-offset-position';
 import { LitElement, ReactiveController } from 'lit';
 import {
     ensureAnchorPositioningPolyfill,
     isAnchorPositioningNativelySupported,
 } from './vl-anchor-positioning.polyfill';
-
-type Vertical = 'above' | 'below';
-type Horizontal = 'left' | 'center' | 'right';
 
 const GAP = 2;
 
@@ -16,14 +15,15 @@ const GAP = 2;
  * Positionering:
  * - Native CSS Anchor Positioning beschikbaar → de CSS-regels (vl-datepicker.positioning-css.ts)
  *   doen het werk; deze controller raakt de positie niet aan.
- * - Geen native support → we positioneren via JS t.o.v. de toggle-button, met respect voor het
- *   position-attribuut, en herberekenen bij scroll/resize zolang de kalender open is.
+ * - Geen native support → we positioneren via @floating-ui/dom t.o.v. de toggle-button, met respect
+ *   voor het position-attribuut, en herberekenen via autoUpdate (scroll/resize/element-resize)
+ *   zolang de kalender open is.
  */
 export default class AnchorPositioningController implements ReactiveController {
     private host: LitElement;
     private floatingElement: HTMLElement | null = null;
     private readonly useJsPositioning = !isAnchorPositioningNativelySupported();
-    private repositionListener = () => this.reposition();
+    private cleanupAutoUpdate: (() => void) | null = null;
 
     static isNativelySupported(): boolean {
         return isAnchorPositioningNativelySupported();
@@ -64,7 +64,6 @@ export default class AnchorPositioningController implements ReactiveController {
             /* al open */
         }
         if (this.useJsPositioning) {
-            this.reposition();
             this.startRepositioning();
         }
     }
@@ -82,68 +81,62 @@ export default class AnchorPositioningController implements ReactiveController {
         return this.host.shadowRoot?.querySelector<HTMLElement>('button#toggle-calendar') ?? null;
     }
 
-    private resolvePlacement(button: DOMRect, calendar: DOMRect): { vertical: Vertical; horizontal: Horizontal } {
+    /**
+     * Mapt het position-attribuut (vertical auto/above/below × horizontal left/center/right) naar
+     * een floating-ui placement. Verticale flip enkel bij 'auto' (above/below zijn expliciet vast).
+     */
+    private resolvePlacement(): { placement: Placement; allowFlip: boolean } {
         const [rawVertical = 'auto', rawHorizontal = 'left'] = (this.host.getAttribute('position') || 'auto')
             .trim()
             .toLowerCase()
             .split(/\s+/);
 
-        const horizontal: Horizontal = (['left', 'center', 'right'].includes(rawHorizontal)
-            ? rawHorizontal
-            : 'left') as Horizontal;
-
-        let vertical: Vertical;
-        if (rawVertical === 'above' || rawVertical === 'below') {
-            vertical = rawVertical;
-        } else {
-            // auto: onder tonen tenzij er meer plaats boven is dan onder.
-            const spaceBelow = window.innerHeight - button.bottom;
-            const spaceAbove = button.top;
-            vertical = spaceBelow >= calendar.height + GAP || spaceBelow >= spaceAbove ? 'below' : 'above';
-        }
-        return { vertical, horizontal };
+        const side = rawVertical === 'above' ? 'top' : 'bottom';
+        const alignment = rawHorizontal === 'center' ? '' : rawHorizontal === 'right' ? '-end' : '-start';
+        return { placement: `${side}${alignment}` as Placement, allowFlip: rawVertical === 'auto' };
     }
 
-    /** Berekent en zet de positie van de (top-layer) kalender t.o.v. de toggle-button. */
-    private reposition(): void {
+    private reposition = async (): Promise<void> => {
         const floating = this.floatingElement;
         const anchor = this.getAnchorElement();
         if (!floating || !anchor) return;
 
-        const button = anchor.getBoundingClientRect();
-        const calendar = floating.getBoundingClientRect();
-        const { vertical, horizontal } = this.resolvePlacement(button, calendar);
+        const { placement, allowFlip } = this.resolvePlacement();
+        const middleware: Middleware[] = [offset(GAP), shift({ padding: GAP })];
+        if (allowFlip) middleware.splice(1, 0, flip());
 
-        let top = vertical === 'above' ? button.top - GAP - calendar.height : button.bottom + GAP;
-        let left =
-            horizontal === 'right'
-                ? button.right - calendar.width
-                : horizontal === 'center'
-                ? button.left + button.width / 2 - calendar.width / 2
-                : button.left;
+        const { x, y } = await computePosition(anchor, floating, {
+            placement,
+            strategy: 'fixed',
+            middleware,
+            platform: {
+                ...platform,
+                getOffsetParent: (element) => platform.getOffsetParent(element, offsetParent),
+            },
+        });
 
-        // Binnen de viewport houden.
-        left = Math.max(GAP, Math.min(left, window.innerWidth - calendar.width - GAP));
-        top = Math.max(GAP, Math.min(top, window.innerHeight - calendar.height - GAP));
-
-        const style = floating.style;
-        style.position = 'fixed';
-        style.margin = '0';
-        style.transform = 'none';
-        style.right = 'auto';
-        style.bottom = 'auto';
-        style.top = `${Math.round(top)}px`;
-        style.left = `${Math.round(left)}px`;
-    }
+        Object.assign(floating.style, {
+            position: 'fixed',
+            margin: '0',
+            transform: 'none',
+            right: 'auto',
+            bottom: 'auto',
+            left: `${Math.round(x)}px`,
+            top: `${Math.round(y)}px`,
+        });
+    };
 
     private startRepositioning(): void {
-        // capture: true → vangt ook scroll van tussenliggende scrollbare ancestors op.
-        window.addEventListener('scroll', this.repositionListener, true);
-        window.addEventListener('resize', this.repositionListener);
+        const anchor = this.getAnchorElement();
+        const floating = this.floatingElement;
+        if (!anchor || !floating) return;
+        // autoUpdate volgt window+ancestor-scroll, resize en element-resize (ResizeObserver) en roept
+        // reposition ook meteen 1x aan bij opzetten.
+        this.cleanupAutoUpdate = autoUpdate(anchor, floating, this.reposition);
     }
 
     private stopRepositioning(): void {
-        window.removeEventListener('scroll', this.repositionListener, true);
-        window.removeEventListener('resize', this.repositionListener);
+        this.cleanupAutoUpdate?.();
+        this.cleanupAutoUpdate = null;
     }
 }
