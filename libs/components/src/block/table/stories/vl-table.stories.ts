@@ -412,6 +412,9 @@ export const TableRowStyling = story(
             ?collapsed-xs=${collapsedXS}
         >
             <table>
+                <caption>
+                    Meise Botanic Garden herbarium collections
+                </caption>
                 <thead>
                     <tr>
                         <th>Naam</th>
