@@ -155,6 +155,132 @@ describe('cypress-component - block components - vl-table', () => {
     });
 });
 
+describe('cypress-component - block components - vl-table - accessible name', () => {
+    it('should reference the caption via aria-labelledby on the host', () => {
+        mountDefault({});
+
+        cy.get('vl-table')
+            .should('have.attr', 'aria-labelledby')
+            .then((labelledby) => {
+                cy.get('vl-table').find('caption').should('have.attr', 'id', labelledby);
+            });
+    });
+
+    it('should generate a caption id when none is provided', () => {
+        mountDefault({});
+
+        cy.get('vl-table').find('caption').invoke('attr', 'id').should('not.be.empty');
+    });
+
+    it('should reuse an existing caption id', () => {
+        cy.mount(html`
+            <vl-table>
+                <table>
+                    <caption id="my-caption">Data table</caption>
+                    <thead>
+                        <tr>
+                            <th>Entry Header 1</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Entry line 1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </vl-table>
+        `);
+
+        cy.get('vl-table').find('caption').should('have.attr', 'id', 'my-caption');
+        cy.get('vl-table').should('have.attr', 'aria-labelledby', 'my-caption');
+    });
+
+    it('should fall back to an aria-label and warn when there is no caption or aria-label', () => {
+        cy.window().then((win) => {
+            cy.spy(win.console, 'warn').as('consoleWarn');
+        });
+        cy.mount(html`
+            <vl-table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Entry Header 1</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Entry line 1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </vl-table>
+        `);
+
+        cy.get('vl-table').should('have.attr', 'aria-label', 'Naamloze tabel');
+        cy.get('@consoleWarn').should(
+            'be.calledWith',
+            'vl-table: geef de tabel een toegankelijke naam via een <caption> of een aria-label op <vl-table>.'
+        );
+    });
+
+    it('should respect a consumer-provided aria-label and not warn', () => {
+        cy.window().then((win) => {
+            cy.spy(win.console, 'warn').as('consoleWarn');
+        });
+        cy.mount(html`
+            <vl-table aria-label="Mijn tabel">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Entry Header 1</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Entry line 1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </vl-table>
+        `);
+
+        cy.get('vl-table').should('have.attr', 'aria-label', 'Mijn tabel');
+        cy.get('vl-table').should('not.have.attr', 'aria-labelledby');
+        cy.get('@consoleWarn').should('not.have.been.called');
+    });
+
+    it('should switch to aria-labelledby when the table is replaced with a captioned one', () => {
+        cy.mount(html`
+            <vl-table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Entry Header 1</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Entry line 1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </vl-table>
+        `);
+
+        cy.get('vl-table').should('have.attr', 'aria-label', 'Naamloze tabel');
+        cy.get('vl-table').then(($host) => {
+            $host[0].querySelector('table')?.remove();
+            const table = document.createElement('table');
+            table.innerHTML =
+                '<caption>Later added caption</caption><thead><tr><th>Entry Header 1</th></tr></thead><tbody><tr><td>Entry line 1</td></tr></tbody>';
+            $host[0].appendChild(table);
+        });
+
+        cy.get('vl-table').should('have.attr', 'aria-labelledby');
+        cy.get('vl-table').should('not.have.attr', 'aria-label');
+    });
+});
+
 const mountExpandable = ({
     hover,
     matrix,
