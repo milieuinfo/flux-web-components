@@ -119,7 +119,9 @@ export class VlLinkComponent extends BaseLitElement {
         // Inline wrapper bij externe links: anders is het external icon een aparte
         // flex-child die bij wrappende tekst los rechts hangt i.p.v. na het laatste woord.
         return this.external
-            ? html`${before}<span class="vl-link__content"><slot></slot>${after}${this.renderExternalIcon()}</span>`
+            ? html`${before}<span class="vl-link__content"
+                      ><slot></slot>${after}${this.renderExternalIcon()}${this.renderNewWindowHint()}</span
+                  >`
             : html`${before}<slot></slot>${after}`;
     }
 
@@ -139,6 +141,15 @@ export class VlLinkComponent extends BaseLitElement {
 
     private renderExternalIcon(): TemplateResult {
         return html`<span class="vl-icon vl-icon--external vl-icon--after" part="icon" aria-hidden="true"></span>`;
+    }
+
+    private renderNewWindowHint(): TemplateResult | typeof nothing {
+        // een button-as-link opent geen nieuw venster
+        // een gezet label zet ook het aria-label en vervangt de volledige accessible name
+        //  -> de consumer bepaalt in dat geval zelf de bewoording
+        return !this.buttonAsLink && !this.label
+            ? html`<span class="vl-link__new-window-hint"> (opent in een nieuw venster)</span>`
+            : nothing;
     }
 }
 
