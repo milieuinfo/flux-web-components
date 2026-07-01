@@ -1,4 +1,31 @@
-import { Validator } from '@open-wc/form-control';
+import { FormValue, requiredValidator, SyncValidator, Validator } from '@open-wc/form-control';
+
+type FormControlWithValidationTarget = HTMLElement & { validationTarget: HTMLInputElement | undefined | null };
+
+// Vóór de eerste render is validationTarget nog null; dan is er per definitie geen badInput.
+const hasNativeBadInput = (instance: FormControlWithValidationTarget): boolean =>
+    !!instance.validationTarget?.validity.badInput;
+
+export const badInputValidator: Validator = {
+    key: 'badInput',
+    message: 'Please enter a valid value.',
+    isValid(instance: FormControlWithValidationTarget): boolean {
+        return !hasNativeBadInput(instance);
+    },
+};
+
+export const badInputAwareRequiredValidator: Validator = {
+    ...requiredValidator,
+    isValid(instance: FormControlWithValidationTarget, value: FormValue): boolean {
+        // Bij badInput geeft de native input een lege value terug terwijl er zichtbaar tekst
+        // staat — valueMissing zou dan misleidend zijn, badInput dekt die toestand.
+        if (hasNativeBadInput(instance)) {
+            return true;
+        }
+
+        return (requiredValidator as SyncValidator).isValid(instance, value);
+    },
+};
 
 export const minValueValidator: Validator = {
     attribute: 'min',

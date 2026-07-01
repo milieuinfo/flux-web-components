@@ -5,7 +5,13 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
 import { FormControl } from '../form-control';
-import { maxValueValidator, minValueValidator, patternValidator } from './validators';
+import {
+    badInputAwareRequiredValidator,
+    badInputValidator,
+    maxValueValidator,
+    minValueValidator,
+    patternValidator,
+} from './validators';
 import { inputFieldStyles } from './vl-input-field.css';
 import { inputFieldDefaults } from './vl-input-field.defaults';
 
@@ -35,7 +41,11 @@ export class VlInputFieldComponent extends FormControl {
     protected dispatchInput = false;
 
     static formControlValidators = [
-        ...FormControl.formControlValidators,
+        // De standaard requiredValidator wordt vervangen door een badInput-bewuste variant,
+        // anders rapporteert een number-veld met onparsebare invoer (lege native value) valueMissing.
+        ...FormControl.formControlValidators.filter((validator) => validator.key !== 'valueMissing'),
+        badInputAwareRequiredValidator,
+        badInputValidator,
         minLengthValidator,
         maxLengthValidator,
         minValueValidator,
@@ -143,7 +153,14 @@ export class VlInputFieldComponent extends FormControl {
 
     protected onInput(event: Event & { target: HTMLInputElement }) {
         this.dispatchInput = true;
-        this.value = event?.target?.value;
+
+        const value = event?.target?.value ?? '';
+        if (value === this.value) {
+            // Een number-input met onparsebare invoer houdt een lege value maar wisselt wel van
+            // badInput-toestand; zonder value-wijziging triggert Lit geen update, dus hervalideer expliciet.
+            this.setValue(value);
+        }
+        this.value = value;
     }
 
     protected onUpdated(changedProperties: Map<string, unknown>) {
