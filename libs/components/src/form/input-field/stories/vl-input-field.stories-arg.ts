@@ -150,6 +150,16 @@ export const inputFieldArgTypes: ArgTypes<InputFieldArgs> = {
             defaultValue: { summary: String(inputFieldArgs.inputGroup) },
         },
     },
+    describedby: {
+        name: 'describedby',
+        description:
+            'Het `id` van een element (in de light DOM) waarvan de tekst als toegankelijke beschrijving aan het veld wordt gekoppeld via `aria-describedby`.<br>De tekst wordt gespiegeld naar een verborgen element en volgt latere wijzigingen.',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: inputFieldArgs.describedby },
+        },
+    },
     regex: {
         name: 'regex',
         description:

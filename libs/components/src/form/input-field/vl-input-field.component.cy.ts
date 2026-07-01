@@ -375,3 +375,65 @@ describe('cypress-component - form components - vl-input-field - success message
         cy.get('vl-form-message[state="valid"]').should('not.exist');
     });
 });
+
+describe('cypress-component - form components - vl-input-field - describedby', () => {
+    const mountWithDescriber = () =>
+        cy.mount(html`
+            <div>
+                <vl-input-field label="Lengte" name="lengte" describedby="eenheid"></vl-input-field>
+                <span aria-hidden="true">m</span>
+                <span id="eenheid">meter</span>
+            </div>
+        `);
+
+    it('should mirror the describer text into a hidden span and reference it via aria-describedby', () => {
+        mountWithDescriber();
+
+        cy.get('vl-input-field').should('have.attr', 'describedby', 'eenheid');
+        cy.get('vl-input-field').shadow().find('span#description').should('have.text', 'meter');
+        cy.get('vl-input-field').shadow().find('input').should('have.attr', 'aria-describedby', 'description');
+    });
+
+    it('should keep the description visually hidden', () => {
+        mountWithDescriber();
+
+        cy.get('vl-input-field').shadow().find('span#description').should('have.class', 'vl-visually-hidden');
+    });
+
+    it('should hide the original describer from the accessibility tree to avoid a double announcement', () => {
+        mountWithDescriber();
+
+        cy.get('span#eenheid').should('have.attr', 'aria-hidden', 'true');
+    });
+
+    it('should not set aria-describedby when describedby is absent', () => {
+        cy.mount(html`<vl-input-field label="Lengte"></vl-input-field>`);
+
+        cy.get('vl-input-field').shadow().find('input').should('not.have.attr', 'aria-describedby');
+        cy.get('vl-input-field').shadow().find('span#description').should('not.exist');
+    });
+
+    it('should not set aria-describedby when the describer element does not exist', () => {
+        cy.mount(html`<vl-input-field label="Lengte" describedby="onbestaand"></vl-input-field>`);
+
+        cy.get('vl-input-field').shadow().find('input').should('not.have.attr', 'aria-describedby');
+        cy.get('vl-input-field').shadow().find('span#description').should('not.exist');
+    });
+
+    it('should reactively update the description when the describer text changes', () => {
+        mountWithDescriber();
+
+        cy.get('vl-input-field').shadow().find('span#description').should('have.text', 'meter');
+
+        cy.get('span#eenheid').then(($el) => $el.text('centimeter'));
+
+        cy.get('vl-input-field').shadow().find('span#description').should('have.text', 'centimeter');
+    });
+
+    it('should be accessible', () => {
+        mountWithDescriber();
+        cy.injectAxe();
+
+        cy.checkA11y('vl-input-field');
+    });
+});

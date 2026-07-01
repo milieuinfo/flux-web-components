@@ -1,13 +1,16 @@
-import { webComponent } from '@domg-wc/common';
+import { findDeepestElementThroughShadowRoot, webComponent } from '@domg-wc/common';
+import { vlAccessibilityStyles } from '@domg-wc/styles';
 import { maxLengthValidator, minLengthValidator } from '@open-wc/form-control';
 import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
 import { FormControl } from '../form-control';
 import { maxValueValidator, minValueValidator, patternValidator } from './validators';
 import { inputFieldStyles } from './vl-input-field.css';
 import { inputFieldDefaults } from './vl-input-field.defaults';
+
+const DESCRIPTION_ID = 'description';
 
 @webComponent('vl-input-field')
 export class VlInputFieldComponent extends FormControl {
@@ -29,10 +32,14 @@ export class VlInputFieldComponent extends FormControl {
     private maxExclusive = inputFieldDefaults.maxExclusive; // Wordt enkel gebruikt in de max validator
     private pattern = inputFieldDefaults.pattern;
     private inputGroup = inputFieldDefaults.inputGroup;
+    private describedby = inputFieldDefaults.describedby;
 
     // Variables
     protected initialValue = '';
     protected dispatchInput = false;
+    private description = '';
+    private describerObserver?: MutationObserver;
+    private hiddenDescriber?: HTMLElement;
 
     static formControlValidators = [
         ...FormControl.formControlValidators,
@@ -44,7 +51,7 @@ export class VlInputFieldComponent extends FormControl {
     ];
 
     static get styles(): CSSResult[] {
-        return [inputFieldStyles];
+        return [inputFieldStyles, vlAccessibilityStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -65,6 +72,8 @@ export class VlInputFieldComponent extends FormControl {
             pattern: { type: String },
             inputGroup: { type: Boolean, attribute: 'input-group' },
             regex: { type: Object },
+            describedby: { type: String },
+            description: { type: String, state: true },
         };
     }
 
@@ -74,6 +83,13 @@ export class VlInputFieldComponent extends FormControl {
         if (!this.initialValue) {
             this.initialValue = this.value;
         }
+    }
+
+    disconnectedCallback() {
+        this.describerObserver?.disconnect();
+        this.restoreDescriber();
+
+        super.disconnectedCallback();
     }
 
     updated(changedProperties: Map<string, unknown>) {
@@ -112,6 +128,7 @@ export class VlInputFieldComponent extends FormControl {
                 class=${classMap(classes)}
                 type=${this.type}
                 aria-label=${this.label || nothing}
+                aria-describedby=${this.description ? DESCRIPTION_ID : nothing}
                 aria-invalid=${this.isInvalid || nothing}
                 ?required=${this.required}
                 ?disabled=${this.disabled}
@@ -128,6 +145,9 @@ export class VlInputFieldComponent extends FormControl {
                 inputmode=${this.inputMode}
                 @input=${this.onInput}
             />
+            ${this.description
+                ? html`<span id=${DESCRIPTION_ID} class="vl-visually-hidden">${this.description}</span>`
+                : nothing}
         `;
     }
 
@@ -147,6 +167,10 @@ export class VlInputFieldComponent extends FormControl {
     }
 
     protected onUpdated(changedProperties: Map<string, unknown>) {
+        if (changedProperties.has('describedby')) {
+            this.syncDescriber();
+        }
+
         if (changedProperties.has('value')) {
             const detail = { value: this.value };
 
@@ -158,6 +182,34 @@ export class VlInputFieldComponent extends FormControl {
             }
             this.dispatchEventIfValid(detail);
         }
+    }
+
+    private syncDescriber() {
+        this.describerObserver?.disconnect();
+        this.restoreDescriber();
+
+        const describer = this.describedby
+            ? (findDeepestElementThroughShadowRoot(this.parentElement, `#${this.describedby}`) as HTMLElement | null)
+            : null;
+
+        this.description = describer?.textContent?.trim() ?? '';
+
+        if (describer) {
+            if (!describer.hasAttribute('aria-hidden')) {
+                describer.setAttribute('aria-hidden', 'true');
+                this.hiddenDescriber = describer;
+            }
+
+            this.describerObserver = new MutationObserver(() => {
+                this.description = describer.textContent?.trim() ?? '';
+            });
+            this.describerObserver.observe(describer, { characterData: true, childList: true, subtree: true });
+        }
+    }
+
+    private restoreDescriber() {
+        this.hiddenDescriber?.removeAttribute('aria-hidden');
+        this.hiddenDescriber = undefined;
     }
 }
 
