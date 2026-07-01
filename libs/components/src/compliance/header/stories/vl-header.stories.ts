@@ -37,6 +37,7 @@ export const HeaderDefault = story(
         simple,
         switchCapacityUrl,
         rejectLogout,
+        skipToContentId,
         logoutCallback,
         applicationLinks,
         onReady,
@@ -53,6 +54,7 @@ export const HeaderDefault = story(
                 ?skeleton=${skeleton}
                 switch-capacity-url=${switchCapacityUrl}
                 ?reject-logout=${rejectLogout}
+                skip-to-content-id=${skipToContentId}
                 .logoutCallback=${logoutCallback}
                 .applicationLinks=${applicationLinks}
                 @ready=${onReady}

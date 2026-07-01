@@ -96,6 +96,17 @@ export const headerArgTypes: ArgTypes<HeaderArgs> = {
             defaultValue: { summary: headerArgs.switchCapacityUrl },
         },
     },
+    skipToContentId: {
+        name: 'skip-to-content-id',
+        description:
+            'De id van het content-element waarnaar de skip-link de focus verplaatst (WCAG 2.4.1). Zonder waarde' +
+            ' wordt er geen skip-link gerenderd. Gebruik de id van de eerste heading van de pagina-inhoud.',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: headerArgs.skipToContentId },
+        },
+    },
     applicationLinks: {
         name: 'applicationLinks',
         description: 'De links die getoond worden in de header.<br/>Zie de documentatie pagina voor meer informatie.',
