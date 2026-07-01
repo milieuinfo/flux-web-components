@@ -7,7 +7,12 @@ registerWebComponents([VlButtonComponent]);
 
 @webComponent('vl-table')
 export class VlTableComponent extends LitElement {
+    private static captionIdCounter = 0;
+
     private observer: MutationObserver | undefined;
+    private generatedLabelledby: string | undefined;
+    private fallbackLabel: string | undefined;
+    private hasWarnedMissingName = false;
 
     constructor() {
         super();
@@ -54,8 +59,15 @@ export class VlTableComponent extends LitElement {
 
         // scrollable element moet focusbaar zijn voor a11y
         this.setAttribute('tabindex', '0');
+        // zonder expliciete rol is de host "generic", waarop aria-label/aria-labelledby genegeerd worden
+        if (!this.hasAttribute('role')) {
+            this.setAttribute('role', 'group');
+        }
 
-        this.observer = this.observeHeaderElements(() => this.processScopeAttributes());
+        this.observer = this.observeHeaderElements(() => {
+            this.processScopeAttributes();
+            this.processAccessibleName();
+        });
     }
 
     disconnectedCallback() {
@@ -125,6 +137,48 @@ export class VlTableComponent extends LitElement {
         }
 
         this.caption?.classList.add('vl-table__caption');
+
+        this.processAccessibleName();
+    }
+
+    // De host krijgt tabindex="0" (connectedCallback), waardoor VoiceOver de host als "group"
+    // behandelt. Zonder toegankelijke naam blokkeert dat de navigatie naar de tabelinhoud.
+    private processAccessibleName(): void {
+        // Een attribuut is enkel van ons zolang het nog de waarde heeft die wij zetten;
+        // een door de consumer aangeleverde naam wordt nooit overschreven.
+        if (this.generatedLabelledby && this.getAttribute('aria-labelledby') === this.generatedLabelledby) {
+            this.removeAttribute('aria-labelledby');
+        }
+        if (this.fallbackLabel && this.getAttribute('aria-label') === this.fallbackLabel) {
+            this.removeAttribute('aria-label');
+        }
+        this.generatedLabelledby = undefined;
+        this.fallbackLabel = undefined;
+
+        if (this.hasAttribute('aria-label') || this.hasAttribute('aria-labelledby')) {
+            return;
+        }
+
+        // Een caption zonder tekst levert een lege naam op en telt daarom als afwezig.
+        const caption = this.caption?.textContent?.trim() ? this.caption : null;
+        if (caption) {
+            if (!caption.id) {
+                caption.id = `vl-table-caption-${++VlTableComponent.captionIdCounter}`;
+            }
+            this.generatedLabelledby = caption.id;
+            this.setAttribute('aria-labelledby', caption.id);
+            return;
+        }
+
+        this.fallbackLabel = 'Naamloze tabel';
+        this.setAttribute('aria-label', this.fallbackLabel);
+
+        if (!this.hasWarnedMissingName) {
+            this.hasWarnedMissingName = true;
+            console.warn(
+                'vl-table: geef de tabel een toegankelijke naam via een <caption> of een aria-label op <vl-table>.'
+            );
+        }
     }
 
     private detailsToggleButtonElement(id: string): VlButtonComponent | null {
