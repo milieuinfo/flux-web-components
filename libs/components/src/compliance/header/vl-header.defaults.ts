@@ -10,6 +10,7 @@ export const headerDefaults = {
     switchCapacityUrl: '/sso/wissel_organisatie' as string,
     simple: false as boolean,
     skeleton: false as boolean,
+    skipToContentId: '' as string,
     rejectLogout: false as boolean,
     logoutCallback: null as ((reason: string) => Promise<boolean>) | null,
     applicationLinks: [] as ApplicationLink[],

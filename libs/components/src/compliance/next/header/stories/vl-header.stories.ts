@@ -34,6 +34,7 @@ export const HeaderDefault = story(
         skeleton,
         simple,
         switchCapacityUrl,
+        skipToContentId,
         applicationLinks,
         profileTokenUrl,
         idpDataUrl,
@@ -51,6 +52,7 @@ export const HeaderDefault = story(
                 ?simple=${simple}
                 ?skeleton=${skeleton}
                 switch-capacity-url=${switchCapacityUrl}
+                skip-to-content-id=${skipToContentId}
                 profile-token-url=${profileTokenUrl}
                 idp-data-url=${idpDataUrl}
                 .applicationLinks=${applicationLinks}

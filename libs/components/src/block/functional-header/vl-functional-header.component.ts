@@ -1,9 +1,11 @@
 import {
     BaseHTMLElement,
+    createSkipToContentLink,
     findDeepestElementThroughShadowRoot,
     GlobalStyles,
     MARGINS,
     registerWebComponents,
+    SKIP_TO_CONTENT_MISSING_ID_WARNING,
     webComponent,
 } from '@domg-wc/common';
 import { VlLinkComponent } from '@domg-wc/components/atom';
@@ -205,35 +207,9 @@ export class VlFunctionalHeaderComponent extends BaseHTMLElement {
         }
 
         if (this.hasAttribute('skip-to-content-id')) {
-            const skipToContentId = this.getAttribute('skip-to-content-id')!;
-            const targetId = `${skipToContentId.startsWith('#') ? '' : '#'}${skipToContentId}`;
-
-            const skipLink = document.createElement('a');
-            skipLink.setAttribute('href', targetId);
-            skipLink.classList.add('vl-skip-link');
-            skipLink.textContent = 'Ga meteen naar de inhoud';
-
-            skipLink.addEventListener('click', (e: MouseEvent) => {
-                e.preventDefault();
-                const target =
-                    document.querySelector<HTMLElement>(targetId) ||
-                    (findDeepestElementThroughShadowRoot(document.body, targetId) as HTMLElement);
-                const hasTabIndex = target.hasAttribute('tabindex');
-                if (!hasTabIndex) {
-                    target.setAttribute('tabindex', '-1');
-                }
-                target.focus();
-                target.scrollIntoView();
-            });
-
-            this._headerElement?.prepend(skipLink);
+            this._headerElement?.prepend(createSkipToContentLink(this.getAttribute('skip-to-content-id')!));
         } else {
-            console.warn(
-                'vl-functional-header -',
-                'Denk eraan om een skip-to-content-id mee te geven zodat er een skip-link kan gerenderd worden.',
-                'Gebruik hiervoor de ID van de eerste heading van de content.',
-                '(WCAG 2.4.1: https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks.html)'
-            );
+            console.warn('vl-functional-header -', ...SKIP_TO_CONTENT_MISSING_ID_WARNING);
         }
 
         this._updateStickyOffsetTop();

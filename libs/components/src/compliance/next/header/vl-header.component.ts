@@ -1,11 +1,14 @@
 import {
     awaitScript,
     BaseLitElement,
+    createSkipToContentLink,
     legacyBreakpoint,
     legacyCore,
     registerWebComponents,
+    SKIP_TO_CONTENT_MISSING_ID_WARNING,
     webComponent,
 } from '@domg-wc/common';
+import { vlAccessibilityStyles } from '@domg-wc/styles';
 import {
     ApplicationMenuLink,
     GlobalHeaderClient,
@@ -40,6 +43,7 @@ export class VlHeader extends BaseLitElement {
     private switchCapacityUrl = headerDefaults.switchCapacityUrl;
     private simple = headerDefaults.simple;
     private skeleton = headerDefaults.skeleton;
+    private skipToContentId = headerDefaults.skipToContentId;
     private profileTokenUrl = headerDefaults.profileTokenUrl;
     private idpDataUrl = headerDefaults.idpDataUrl;
     private initialSessionConfigured = false;
@@ -60,6 +64,7 @@ export class VlHeader extends BaseLitElement {
             logoutUrl: { type: String, attribute: 'logout-url' },
             simple: { type: Boolean, attribute: 'simple' },
             skeleton: { type: Boolean, attribute: 'skeleton' },
+            skipToContentId: { type: String, attribute: 'skip-to-content-id' },
             switchCapacityUrl: { type: String, attribute: 'switch-capacity-url' },
             applicationLinks: { type: Array },
             profileTokenUrl: { type: String, attribute: 'profile-token-url' },
@@ -81,6 +86,7 @@ export class VlHeader extends BaseLitElement {
         super.connectedCallback();
 
         this.injectHeaderContainer();
+        this.injectSkipToContentLink();
 
         if (this.skeleton) {
             this.injectHeaderContainerSkeleton();
@@ -138,6 +144,24 @@ export class VlHeader extends BaseLitElement {
     private injectHeaderContainerSkeleton() {
         this.headerContainer?.insertAdjacentHTML('afterend', '<div id="header__skeleton"></div>');
         document.adoptedStyleSheets = [...document.adoptedStyleSheets, headerSkeletonStyles.styleSheet!];
+    }
+
+    private injectSkipToContentLink() {
+        if (!this.skipToContentId) {
+            console.warn('vl-header-next -', ...SKIP_TO_CONTENT_MISSING_ID_WARNING);
+            return;
+        }
+
+        if (this.headerContainer?.querySelector('.vl-skip-link')) {
+            return;
+        }
+
+        const styleSheet = vlAccessibilityStyles.styleSheet!;
+        if (!document.adoptedStyleSheets.includes(styleSheet)) {
+            document.adoptedStyleSheets = [...document.adoptedStyleSheets, styleSheet];
+        }
+
+        this.headerContainer?.prepend(createSkipToContentLink(this.skipToContentId));
     }
 
     private async isUserAuthenticated(): Promise<boolean> {

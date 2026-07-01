@@ -1,11 +1,14 @@
 import {
     awaitScript,
     BaseLitElement,
+    createSkipToContentLink,
     legacyBreakpoint,
     legacyCore,
     registerWebComponents,
+    SKIP_TO_CONTENT_MISSING_ID_WARNING,
     webComponentCustom,
 } from '@domg-wc/common';
+import { vlAccessibilityStyles } from '@domg-wc/styles';
 import { PropertyDeclarations } from 'lit';
 import { headerContainerStyles, headerSkeletonStyles } from './vl-header.component.flux-css';
 import { headerDefaults } from './vl-header.defaults';
@@ -51,6 +54,7 @@ export class VlHeader extends BaseLitElement {
     private switchCapacityUrl = headerDefaults.switchCapacityUrl;
     private simple = headerDefaults.simple;
     private skeleton = headerDefaults.skeleton;
+    private skipToContentId = headerDefaults.skipToContentId;
     private rejectLogout = headerDefaults.rejectLogout;
     // Variables
     private observer: MutationObserver | null = null;
@@ -73,6 +77,7 @@ export class VlHeader extends BaseLitElement {
             logoutUrl: { type: String, attribute: 'logout-url' },
             simple: { type: Boolean, attribute: 'simple' },
             skeleton: { type: Boolean, attribute: 'skeleton' },
+            skipToContentId: { type: String, attribute: 'skip-to-content-id' },
             switchCapacityUrl: { type: String, attribute: 'switch-capacity-url' },
             rejectLogout: { type: Boolean, attribute: 'reject-logout' },
             logoutCallback: { type: Function },
@@ -92,6 +97,7 @@ export class VlHeader extends BaseLitElement {
         super.connectedCallback();
 
         this.injectHeaderContainer();
+        this.injectSkipToContentLink();
 
         if (this.skeleton) {
             this.injectHeaderContainerSkeleton();
@@ -160,6 +166,24 @@ export class VlHeader extends BaseLitElement {
     private injectHeaderContainerSkeleton() {
         this.headerContainer?.insertAdjacentHTML('afterend', '<div id="header__skeleton"></div>');
         document.adoptedStyleSheets = [...document.adoptedStyleSheets, headerSkeletonStyles.styleSheet!];
+    }
+
+    private injectSkipToContentLink() {
+        if (!this.skipToContentId) {
+            console.warn('vl-header -', ...SKIP_TO_CONTENT_MISSING_ID_WARNING);
+            return;
+        }
+
+        if (this.headerContainer?.querySelector('.vl-skip-link')) {
+            return;
+        }
+
+        const styleSheet = vlAccessibilityStyles.styleSheet!;
+        if (!document.adoptedStyleSheets.includes(styleSheet)) {
+            document.adoptedStyleSheets = [...document.adoptedStyleSheets, styleSheet];
+        }
+
+        this.headerContainer?.prepend(createSkipToContentLink(this.skipToContentId));
     }
 
     private observeWidgetIsAdded() {
