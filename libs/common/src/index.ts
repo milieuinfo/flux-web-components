@@ -29,6 +29,11 @@ export { type VL } from './models/vl.model';
 export { GlobalStyles } from './styles/global-styles';
 export { onChildListChange } from './util/mutation-utils';
 export {
+    SKIP_TO_CONTENT_LINK_TEXT,
+    SKIP_TO_CONTENT_MISSING_ID_WARNING,
+    createSkipToContentLink,
+} from './util/skip-link';
+export {
     awaitScript,
     awaitUntil,
     debounce,

@@ -144,6 +144,83 @@ describe('cypress-component - compliance components - vl-header - skeleton', () 
     });
 });
 
+describe('cypress-component - compliance components - vl-header - skip-to-content-id', () => {
+    const identifier = '59188ff6-662b-45b9-b23a-964ad48c2bfb';
+
+    it('should not create a skip-link when skip-to-content-id is not set', () => {
+        cy.mount(html`
+            <body>
+                <vl-header development identifier="${identifier}"></vl-header>
+            </body>
+        `);
+
+        cy.get('#header__container').find('a.vl-skip-link').should('not.exist');
+    });
+
+    it('should warn the user when skip-to-content-id is not set', () => {
+        cy.spy(console, 'warn').as('warn');
+
+        cy.mount(html`
+            <body>
+                <vl-header development identifier="${identifier}"></vl-header>
+            </body>
+        `);
+
+        cy.get('@warn').should(
+            'have.been.calledWith',
+            'vl-header -',
+            'Denk eraan om een skip-to-content-id mee te geven zodat er een skip-link kan gerenderd worden.',
+            'Gebruik hiervoor de ID van de eerste heading van de content.',
+            '(WCAG 2.4.1: https://www.w3.org/WAI/WCAG21/Understanding/bypass-blocks.html)'
+        );
+    });
+
+    it('should create the skip-link as the first focusable element in the header', () => {
+        cy.mount(html`
+            <body>
+                <vl-header development identifier="${identifier}" skip-to-content-id="main-content"></vl-header>
+            </body>
+        `);
+
+        cy.get('#header__container')
+            .children()
+            .first()
+            .should('match', 'a[href="#main-content"].vl-skip-link')
+            .and('contain.text', 'Ga meteen naar de inhoud');
+    });
+
+    it('should show the skip-link on focus', () => {
+        cy.mount(html`
+            <body>
+                <vl-header development identifier="${identifier}" skip-to-content-id="main-content"></vl-header>
+            </body>
+        `);
+
+        cy.get('#header__container')
+            .find('a.vl-skip-link')
+            .then(([skipLink]) => {
+                expect(skipLink.getBoundingClientRect().width).to.equal(1);
+                expect(skipLink.getBoundingClientRect().height).to.equal(1);
+                skipLink.focus();
+                expect(skipLink.getBoundingClientRect().width).to.be.greaterThan(1);
+                expect(skipLink.getBoundingClientRect().height).to.be.greaterThan(1);
+            });
+    });
+
+    it('should move focus to the target element when the skip-link is activated', () => {
+        cy.mount(html`
+            <body>
+                <vl-header development identifier="${identifier}" skip-to-content-id="main-content"></vl-header>
+                <main id="main-content">Inhoud</main>
+            </body>
+        `);
+
+        cy.get('#header__container').find('a.vl-skip-link').click({ force: true });
+
+        cy.get('#main-content').should('have.attr', 'tabindex', '-1').and('have.focus');
+    });
+});
+
 describe('cypress-component - compliance components - vl-header - applicationLinks', () => {
     const mockApplicationLinks: ApplicationLink[] = [
         {

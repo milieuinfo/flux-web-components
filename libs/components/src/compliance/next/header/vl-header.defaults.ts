@@ -9,6 +9,7 @@ export const headerDefaults = {
     switchCapacityUrl: '/sso/wissel_organisatie' as string,
     simple: false as boolean,
     skeleton: false as boolean,
+    skipToContentId: '' as string,
     applicationLinks: [] as ApplicationMenuLink[],
     profileTokenUrl: '/sso/papi_token' as string,
     idpDataUrl: '' as string,
