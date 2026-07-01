@@ -2,6 +2,7 @@ import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../vl-loader.component';
 import { loaderArgs, loaderArgTypes } from './vl-loader.stories-arg';
+import loaderDoc from './vl-loader.stories-doc.mdx';
 
 export default {
     id: 'components-block-loader',
@@ -9,6 +10,11 @@ export default {
     tags: ['autodocs'],
     args: loaderArgs,
     argTypes: loaderArgTypes,
+    parameters: {
+        docs: {
+            page: loaderDoc,
+        },
+    },
 } as Meta<typeof loaderArgs>;
 
 export const loaderDefault = ({ light, text, single }: typeof loaderArgs) => html`
