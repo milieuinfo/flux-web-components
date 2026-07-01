@@ -63,4 +63,11 @@ describe('cypress-component - block components - vl-loader', () => {
         cy.mount(html`<vl-loader single></vl-loader>`);
         cy.get('vl-loader').shadow().find('#text').should('have.class', 'vl-u-visually-hidden');
     });
+
+    it('should announce loading status politely with role="status" on the text element and no aria-busy', () => {
+        cy.mount(html`<vl-loader></vl-loader>`);
+        cy.get('vl-loader').shadow().find('#text').should('have.attr', 'role', 'status');
+        cy.get('vl-loader').shadow().find('.vl-loader').should('not.have.attr', 'role');
+        cy.get('vl-loader').shadow().find('.vl-loader').should('not.have.attr', 'aria-busy');
+    });
 });
