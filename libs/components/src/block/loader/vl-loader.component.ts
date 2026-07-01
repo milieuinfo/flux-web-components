@@ -11,7 +11,7 @@ export class VlLoaderComponent extends BaseHTMLElement {
     constructor() {
         const html = `
             <div class="vl-u-align-center">
-                <div class="vl-loader" role="alert" aria-busy="true"></div>
+                <div class="vl-loader" role="status"></div>
                 <p id="text">
                     <slot>
                         Pagina is aan het laden
