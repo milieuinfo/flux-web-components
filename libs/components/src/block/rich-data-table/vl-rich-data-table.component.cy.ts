@@ -288,6 +288,71 @@ describe('cypress-component - block components - vl-rich-data-table - default', 
 });
 
 // ============================================================
+// Accessible name tests
+// ============================================================
+
+describe('cypress-component - block components - vl-rich-data-table - accessible name', () => {
+    const data = [{ id: 0, name: 'Project #1' }];
+
+    const mountWithCaption = () =>
+        cy.mount(html`
+            <vl-rich-data-table data="${JSON.stringify({ data })}" caption="Tabel met projectgegevens">
+                <vl-rich-data-field name="id" label="ID" selector="id"></vl-rich-data-field>
+            </vl-rich-data-table>
+        `);
+
+    const mountWithLabel = () =>
+        cy.mount(html`
+            <vl-rich-data-table data="${JSON.stringify({ data })}" label="Tabel met projectgegevens">
+                <vl-rich-data-field name="id" label="ID" selector="id"></vl-rich-data-field>
+            </vl-rich-data-table>
+        `);
+
+    it('should name the table host with the caption', () => {
+        mountWithCaption();
+
+        cy.get('vl-rich-data-table')
+            .shadow()
+            .find('vl-table')
+            .should('have.attr', 'aria-label', 'Tabel met projectgegevens');
+        cy.get('vl-rich-data-table').shadow().find('caption').should('have.text', 'Tabel met projectgegevens');
+    });
+
+    it('should name the table host with the label', () => {
+        mountWithLabel();
+
+        cy.get('vl-rich-data-table')
+            .shadow()
+            .find('vl-table')
+            .should('have.attr', 'aria-label', 'Tabel met projectgegevens');
+        cy.get('vl-rich-data-table')
+            .shadow()
+            .find('table')
+            .should('have.attr', 'aria-label', 'Tabel met projectgegevens');
+    });
+
+    it('should not render a caption without a caption attribute', () => {
+        mountWithLabel();
+
+        cy.get('vl-rich-data-table').shadow().find('caption').should('not.exist');
+    });
+
+    it('should remove the caption when the caption attribute is removed', () => {
+        mountWithCaption();
+
+        cy.get('vl-rich-data-table').shadow().find('caption').should('exist');
+        cy.get('vl-rich-data-table').invoke('attr', 'label', 'Tabel met projectgegevens');
+        cy.get('vl-rich-data-table').invoke('removeAttr', 'caption');
+
+        cy.get('vl-rich-data-table').shadow().find('caption').should('not.exist');
+        cy.get('vl-rich-data-table')
+            .shadow()
+            .find('vl-table')
+            .should('have.attr', 'aria-label', 'Tabel met projectgegevens');
+    });
+});
+
+// ============================================================
 // Sorting tests
 // ============================================================
 

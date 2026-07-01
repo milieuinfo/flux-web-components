@@ -22,7 +22,6 @@ export class VlRichDataTable extends VlRichData {
         const content = `
             <vl-table slot="content">
                 <table>
-                    <caption></caption>
                     <thead>
                         <tr></tr>
                     </thead>
@@ -175,12 +174,35 @@ export class VlRichDataTable extends VlRichData {
         return Boolean(this._data && this._data.data && this._data.data.length > 0);
     }
 
-    get __captionElement(): HTMLTableCaptionElement | null | undefined {
-        return this.__table?.querySelector<HTMLTableCaptionElement>('caption');
-    }
-
     get __label(): string | null {
         return this.getAttribute('label') || this.getAttribute('caption') || 'Tabel';
+    }
+
+    // De caption wordt enkel gerenderd wanneer er een caption attribuut is: een lege caption neemt
+    // ruimte in en de toegankelijke naam van de vl-table host zou leeg zijn.
+    __processName(): void {
+        const caption = this.getAttribute('caption');
+        const label = this.getAttribute('label');
+
+        if (caption) {
+            this.__tableElement?.createCaption().replaceChildren(caption);
+        } else {
+            this.__tableElement?.deleteCaption();
+        }
+
+        if (label && !caption) {
+            this.__tableElement?.setAttribute('aria-label', label);
+        } else {
+            this.__tableElement?.removeAttribute('aria-label');
+        }
+
+        // De vl-table host is focusbaar en krijgt de rol group: die heeft een eigen naam nodig.
+        const name = label || caption;
+        if (name) {
+            this.__table?.setAttribute('aria-label', name);
+        } else {
+            this.__table?.removeAttribute('aria-label');
+        }
     }
 
     connectedCallback() {
@@ -188,13 +210,7 @@ export class VlRichDataTable extends VlRichData {
         this._render();
         this.__observeFields();
 
-        if (this.hasAttribute('caption') && this.__captionElement) {
-            this.__captionElement.textContent = this.getAttribute('caption');
-        }
-
-        if (this.hasAttribute('label') && !this.hasAttribute('caption')) {
-            this.__tableElement?.setAttribute('aria-label', this.getAttribute('label')!);
-        }
+        this.__processName();
 
         if (this.shadowRoot) {
             this.shadowRoot.adoptedStyleSheets = [
@@ -289,8 +305,8 @@ export class VlRichDataTable extends VlRichData {
         if (!this.hasAttribute('label') && !this.hasAttribute('caption')) {
             console.warn('vl-rich-data-table vereist een label of caption attribuut.');
         }
-        if (!this.hasAttribute('caption') && newValue !== oldValue) {
-            this.__tableElement?.setAttribute('aria-label', newValue);
+        if (newValue !== oldValue) {
+            this.__processName();
         }
     }
 
@@ -298,8 +314,8 @@ export class VlRichDataTable extends VlRichData {
         if (!this.hasAttribute('label') && !this.hasAttribute('caption')) {
             console.warn('vl-rich-data-table vereist een label of caption attribuut.');
         }
-        if (this.__captionElement && newValue !== oldValue) {
-            this.__captionElement.textContent = newValue;
+        if (newValue !== oldValue) {
+            this.__processName();
         }
     }
 
