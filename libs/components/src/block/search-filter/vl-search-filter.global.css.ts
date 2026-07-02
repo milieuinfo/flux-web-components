@@ -7,7 +7,7 @@ export const searchFilterGlobalStyles: CSSResult = css`
         background-color: #e8ebee;
 
         /* enkel niet-geneste sections krijgen de scheidingslijn - een geneste section-in-section krijgt 1 lijn */
-        section:not(section section) {
+        & section:not(& section section) {
             padding-bottom: 2rem;
             margin-bottom: 2rem;
             border-bottom: 1px solid #cbd2da;
