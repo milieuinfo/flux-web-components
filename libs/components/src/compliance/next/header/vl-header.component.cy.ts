@@ -123,6 +123,7 @@ describe('cypress-component - compliance components - vl-header-next', () => {
                 'widgetScript'
             );
             cy.intercept('GET', '/sso/ingelogde_gebruiker', { statusCode: 200, body: '' }).as('authActive');
+            cy.intercept('GET', '/sso/papi_token', { statusCode: 401, body: '' }).as('defaultTokenUnset');
         });
 
         const lastSetProfileCall = (): Cypress.Chainable<Record<string, unknown> | undefined> =>
