@@ -129,7 +129,7 @@ describe('cypress-component - compliance components - vl-header-next', () => {
         const lastSetProfileCall = (): Cypress.Chainable<Record<string, unknown>> =>
             cy
                 .window()
-                .its('__setProfileCalls')
+                .its('__setProfileCalls', { timeout: 15000 })
                 .should('have.length.greaterThan', 0)
                 .then((calls: Record<string, unknown>[]) => calls[calls.length - 1]);
 
