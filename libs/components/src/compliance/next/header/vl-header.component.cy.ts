@@ -126,11 +126,12 @@ describe('cypress-component - compliance components - vl-header-next', () => {
             cy.intercept('GET', '/sso/papi_token', { statusCode: 401, body: '' }).as('defaultTokenUnset');
         });
 
-        const lastSetProfileCall = (): Cypress.Chainable<Record<string, unknown> | undefined> =>
-            cy.window().then((win) => {
-                const calls = (win as unknown as { __setProfileCalls: Record<string, unknown>[] }).__setProfileCalls;
-                return calls?.[calls.length - 1];
-            });
+        const lastSetProfileCall = (): Cypress.Chainable<Record<string, unknown>> =>
+            cy
+                .window()
+                .its('__setProfileCalls')
+                .should('have.length.greaterThan', 0)
+                .then((calls: Record<string, unknown>[]) => calls[calls.length - 1]);
 
         it('should pass idpProfileToken via JS property when set', () => {
             cy.mount(html`
