@@ -3,6 +3,7 @@ import { registerWebComponents } from '@domg-wc/common';
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import '../vl-side-navigation.component';
+import '../vl-side-navigation-section.component';
 import { VlButtonComponent } from '../../../../atom/button';
 import { VlIconComponent } from '../../../../atom/icon';
 import { VlLinkComponent } from '../../../../atom/link';
@@ -383,3 +384,167 @@ export const SideNavigationWithCustomToc = story(
     },
 );
 SideNavigationWithCustomToc.storyName = 'vl-side-navigation-next - custom table of contents';
+
+export const SideNavigationWithSections = story(
+    sideNavigationArgs,
+    ({ closed, compact, headingRootSelector, navigationTitle, maxDepth, childSpacing, multiActive }) => {
+        return html`
+            <div class="vl-grid vl-content-block">
+                <vl-side-navigation-next
+                    class="vl-column vl-column--3 vl-column--start-10 vl-column--m-3 vl-column--s-12 vl-side-navigation--order-1"
+                    ?closed=${closed}
+                    ?compact=${compact}
+                    child-spacing=${childSpacing}
+                    max-depth=${maxDepth}
+                    heading-root-selector=${headingRootSelector}
+                    navigation-title=${navigationTitle}
+                    ?multi-active=${multiActive}
+                >
+                    <vl-side-navigation-section-next type="auto" section-title="Op deze pagina">
+                    </vl-side-navigation-section-next>
+
+                    <vl-side-navigation-section-next section-title="Bijlagen">
+                        <ul>
+                            <li>
+                                <div class="nav-item-wrapper">
+                                    <vl-link href="#bijlage-plannen">Bijlage: plannen</vl-link>
+                                    <vl-button
+                                        ghost
+                                        icon="arrow-right-fat"
+                                        class="toggle-button"
+                                        @click=${toggleCustomTocChildren}
+                                    ></vl-button>
+                                </div>
+                                <ul>
+                                    <li><vl-link href="#bijlage-plannen-grondplan">Grondplan</vl-link></li>
+                                    <li><vl-link href="#bijlage-plannen-situering">Situeringsplan</vl-link></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div class="nav-item-wrapper">
+                                    <vl-link href="#bijlage-fotos">Bijlage: foto's</vl-link>
+                                </div>
+                            </li>
+                        </ul>
+                    </vl-side-navigation-section-next>
+
+                    <vl-side-navigation-section-next section-title="Acties">
+                        <ul class="acties">
+                            <li>
+                                <div class="nav-item-wrapper">
+                                    <vl-link href="/voortoetsen">Mijn voortoetsen</vl-link>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="nav-item-wrapper">
+                                    <vl-link href="https://www.vlaanderen.be" external>vlaanderen.be</vl-link>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="nav-item-wrapper">
+                                    <vl-button tertiary icon="print" @click=${() => window.print()}>
+                                        Pagina afdrukken
+                                    </vl-button>
+                                </div>
+                            </li>
+                        </ul>
+                    </vl-side-navigation-section-next>
+                </vl-side-navigation-next>
+
+                <div class="vl-column vl-column--8 vl-column--m-9 vl-column--s-12">
+                    <div id="sections-hoofdstukken">
+                        <section style="min-height: 400px;">
+                            <vl-title type="h2" id="sections-intro">Inleiding</vl-title>
+                            <vl-paragraph>
+                                Dit voorbeeld toont de side-navigation in <strong>sections-mode</strong> met drie
+                                soorten secties in één nav: (1) een <strong>automatisch gegenereerde</strong> inhoudstafel
+                                van de hoofdstukken hieronder, (2) een <strong>custom inhoudstafel</strong> die zelf naar
+                                andere pagina-onderdelen linkt (de bijlagen), en (3) een sectie met
+                                <strong>acties</strong> die niet naar een heading verwijzen (een link naar een andere
+                                pagina, een print-knop en een externe link). Eén <code>vl-side-navigation-next</code>,
+                                dus ook in compact / mobile één drawer.
+                            </vl-paragraph>
+                        </section>
+                        <section style="min-height: 400px;">
+                            <vl-title type="h2" id="sections-vereisten">Vereisten</vl-title>
+                            <vl-paragraph>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
+                                unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate
+                                numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
+                            </vl-paragraph>
+                            <vl-title type="h3" id="sections-vereisten-documenten">Documenten</vl-title>
+                            <vl-paragraph>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
+                                unde suscipit, quam beatae rerum inventore consectetur.
+                            </vl-paragraph>
+                            <vl-title type="h3" id="sections-vereisten-termijn">Termijn</vl-title>
+                            <vl-paragraph>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
+                                unde suscipit, quam beatae rerum inventore consectetur.
+                            </vl-paragraph>
+                        </section>
+                        <section style="min-height: 400px;">
+                            <vl-title type="h2" id="sections-aanvraag">Aanvraag indienen</vl-title>
+                            <vl-paragraph>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
+                                unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate
+                                numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
+                            </vl-paragraph>
+                            <vl-title type="h3" id="sections-aanvraag-online">Online indienen</vl-title>
+                            <vl-paragraph>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
+                                unde suscipit, quam beatae rerum inventore consectetur.
+                            </vl-paragraph>
+                            <vl-title type="h3" id="sections-aanvraag-post">Per post indienen</vl-title>
+                            <vl-paragraph>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
+                                unde suscipit, quam beatae rerum inventore consectetur.
+                            </vl-paragraph>
+                        </section>
+                        <section style="min-height: 400px;">
+                            <vl-title type="h2" id="sections-resultaat">Resultaat</vl-title>
+                            <vl-paragraph>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
+                                unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate
+                                numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
+                            </vl-paragraph>
+                        </section>
+                    </div>
+
+                    <div id="sections-bijlagen">
+                        <section style="min-height: 400px;">
+                            <vl-title type="h2" id="bijlage-plannen">Bijlage: plannen</vl-title>
+                            <vl-paragraph>
+                                Deze hoofding zit buiten de auto-scope (#sections-hoofdstukken) en verschijnt enkel
+                                via de custom "Bijlagen"-sectie, niet in de automatische inhoudstafel.
+                            </vl-paragraph>
+                            <vl-title type="h3" id="bijlage-plannen-grondplan">Grondplan</vl-title>
+                            <vl-paragraph>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
+                                unde suscipit, quam beatae rerum inventore consectetur.
+                            </vl-paragraph>
+                            <vl-title type="h3" id="bijlage-plannen-situering">Situeringsplan</vl-title>
+                            <vl-paragraph>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
+                                unde suscipit, quam beatae rerum inventore consectetur.
+                            </vl-paragraph>
+                        </section>
+                        <section style="min-height: 400px;">
+                            <vl-title type="h2" id="bijlage-fotos">Bijlage: foto's</vl-title>
+                            <vl-paragraph>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
+                                unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate
+                                numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.
+                            </vl-paragraph>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+);
+SideNavigationWithSections.storyName = 'vl-side-navigation-next - sections';
+SideNavigationWithSections.args = {
+    headingRootSelector: '#sections-hoofdstukken',
+    navigationTitle: '',
+};

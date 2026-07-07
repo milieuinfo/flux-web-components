@@ -183,7 +183,10 @@ const renderHeadingNode = (node: HeadingTreeNode, config: RenderConfig): Templat
               aria-label=${shouldShowChildren ? 'Inklappen' : 'Uitklappen'}
               @click=${handleToggleClick}
           >
-              <i class="vl-icon vl-icon--arrow-right-fat ${shouldShowChildren ? 'showing-children' : ''}"></i>
+              <vl-icon
+                  icon="arrow-right-fat"
+                  class=${shouldShowChildren ? 'showing-children' : ''}
+              ></vl-icon>
           </button>`
             : nothing;
 
@@ -210,6 +213,62 @@ export const isAnyChildActive = (nodes: HeadingTreeNode[], activeHeadingIds?: Se
         }
     }
     return false;
+};
+
+/**
+ * Toggles the manual expand/collapse state for a heading. Returns a new Set so the
+ * caller can assign it back to a reactive property to trigger re-render.
+ *
+ * The 4-case rule (delete-manual-expand, swap-collapse-to-expand, add-manual-collapse,
+ * add-manual-expand) is shared between the auto-TOC and sections-mode auto-secties.
+ */
+export const toggleHeadingExpandState = (
+    current: Set<string>,
+    headingId: string,
+    tree: HeadingTreeNode[],
+    activeHeadingIds: Set<string>
+): Set<string> => {
+    const next = new Set(current);
+    const hasManualToggle = next.has(headingId);
+    const hasManualCollapse = next.has(`-${headingId}`);
+    const node = findNodeById(tree, headingId);
+    const isActive = activeHeadingIds.has(headingId);
+    const isChildActive = node ? isAnyChildActive(node.children, activeHeadingIds) : false;
+    const wouldBeAutoExpanded = isActive || isChildActive;
+
+    if (hasManualToggle) {
+        next.delete(headingId);
+        if (wouldBeAutoExpanded) next.add(`-${headingId}`);
+    } else if (hasManualCollapse) {
+        next.delete(`-${headingId}`);
+        next.add(headingId);
+    } else if (wouldBeAutoExpanded) {
+        next.add(`-${headingId}`);
+    } else {
+        next.add(headingId);
+    }
+    return next;
+};
+
+/**
+ * Drops manual collapses (negative IDs) whose section is no longer active or child-active,
+ * so a section the user scrolled away from auto-expands again next time. Manual expands
+ * (positive IDs) are always kept. Returns the same Set if nothing changed, else a new Set.
+ */
+export const pruneStaleManualCollapses = (
+    current: Set<string>,
+    tree: HeadingTreeNode[],
+    activeHeadingIds: Set<string>
+): Set<string> => {
+    const kept = Array.from(current).filter((id) => {
+        if (!id.startsWith('-')) return true;
+        const realId = id.substring(1);
+        const node = findNodeById(tree, realId);
+        const isActive = activeHeadingIds.has(realId);
+        const isChildActive = node ? isAnyChildActive(node.children, activeHeadingIds) : false;
+        return isActive || isChildActive;
+    });
+    return kept.length === current.size ? current : new Set(kept);
 };
 
 /**

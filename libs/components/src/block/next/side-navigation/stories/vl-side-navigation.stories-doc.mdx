@@ -93,6 +93,32 @@ componenten die verwijzen naar headings met bestaande id's.
 
 <Canvas of={SideNavigationStories.SideNavigationWithCustomToc} inline={false} />
 
+### Multi-sectie (auto + custom in één nav)
+
+Plaats meerdere `vl-side-navigation-section-next` in één `vl-side-navigation-next`: combineer een
+**auto-gegenereerde** sectie (gescoped op een gekozen container-id) met een **custom-TOC** sectie, in één nav en
+één drawer op mobile.
+
+```html
+<vl-side-navigation-next>
+  <vl-side-navigation-section-next type="auto" heading-root-selector="#hoofdstukken" section-title="Op deze pagina">
+  </vl-side-navigation-section-next>
+
+  <vl-side-navigation-section-next section-title="Bijlagen">
+    <ul>
+      <li><vl-link href="#bijlage-a">Bijlage A</vl-link></li>
+      <li><vl-link href="#bijlage-b">Bijlage B</vl-link></li>
+    </ul>
+  </vl-side-navigation-section-next>
+</vl-side-navigation-next>
+```
+
+- **Auto-sectie**: `type="auto"` scant de headings binnen `heading-root-selector` (hier `#hoofdstukken`). Scan-props
+  (`min-level`, `max-level`, `max-depth`, `exclude-selectors`) mogen op de parent of per sectie als override.
+- **Custom-sectie** (zonder `type="auto"`): lever zelf een `<ul>` met `vl-link`s naar bestaande heading-id's.
+
+<Canvas of={SideNavigationStories.SideNavigationWithSections} inline={false} />
+
 
 ## Referenties
 

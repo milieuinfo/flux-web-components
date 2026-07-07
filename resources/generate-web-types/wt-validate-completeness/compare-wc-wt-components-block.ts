@@ -8,11 +8,13 @@ const componentsBlockWCIgnore = [
 ];
 const componentsBlockWCMismatch = [
     'vl-side-navigation-layout', // in next folder - naam komt niet overeen met bestandsnaam (WT is vl-side-navigation-layout-next)
+    'vl-side-navigation-section',
     'vl-tab-link', // in next folder - naam komt niet overeen met bestandsnaam (WT is vl-tab-link-next)
     'vl-tab-panel', // in next folder - naam komt niet overeen met bestandsnaam (WT is vl-tab-panel-next)
 ];
 const componentsBlockWTMismatch = [
     'vl-side-navigation-next', // in next folder - naam komt niet overeen met bestandsnaam
+    'vl-side-navigation-section-next', // in next folder - naam komt niet overeen met bestandsnaam (WC is vl-side-navigation-section)
     'vl-side-navigation-layout-next', // in next folder - naam komt niet overeen met bestandsnaam (WC is vl-side-navigation-layout)
     'vl-side-navigation-h1', // in vl-side-navigation-title.componentsBlock.ts
     'vl-side-navigation-h2', // in vl-side-navigation-title.componentsBlock.ts

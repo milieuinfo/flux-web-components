@@ -182,6 +182,69 @@ export const vlSideNavigationLightDomStyles = css`
             }
         }
     }
+
+    /* ---- Sections-mode (vl-side-navigation-section-next) ---- */
+
+    vl-side-navigation-next vl-side-navigation-section-next {
+        display: block;
+
+        /* Verticale ruimte tussen secties; eerste sectie heeft geen top-margin. */
+        & + vl-side-navigation-section-next {
+            margin-top: var(--vl-spacing--medium);
+        }
+    }
+
+    /* Auto-sectie container is een lichte wrapper; geen extra layout/margin nodig. */
+    vl-side-navigation-next .vl-side-navigation-section-next__list {
+        display: block;
+    }
+
+    vl-side-navigation-next .vl-side-navigation-section-next__title {
+        display: block;
+        margin-bottom: var(--vl-spacing--normal);
+        font-size: var(--vl-font-size--small);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--vl-color--text-subtle);
+        font-weight: 500;
+    }
+
+    /* Native button styling voor gegenereerde auto-sectie toggle (matcht shadow-nav). */
+    vl-side-navigation-next vl-side-navigation-section-next button.toggle-button {
+        flex-shrink: 0;
+        width: 2.4rem;
+        height: 2.4rem;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        border-radius: 0.3rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--vl-color--action-400);
+        font-family: inherit;
+
+        &:hover {
+            background-color: transparent;
+            color: var(--vl-color--text);
+            text-decoration: none;
+        }
+
+        &:focus {
+            ${vlFocusOutlineMixin()}
+            background-color: transparent;
+        }
+
+        vl-icon {
+            transition: transform 0.1s ease-in-out;
+
+            &.showing-children {
+                transform: rotate(90deg);
+            }
+        }
+    }
 `;
 
 const mobileStyles = css`
@@ -394,12 +457,10 @@ export const vlSideNavigationStyles = css`
                         background-color: transparent;
                     }
 
-                    i.vl-icon {
-                        &::before {
-                            transition: transform 0.1s ease-in-out;
-                        }
+                    vl-icon {
+                        transition: transform 0.1s ease-in-out;
 
-                        &.showing-children::before {
+                        &.showing-children {
                             transform: rotate(90deg);
                         }
                     }
@@ -429,7 +490,11 @@ export const vlSideNavigationStyles = css`
         display: none;
     }
 
-    /* Multi-active replaces the stepped per-item bars with the single far-left line. */
+    nav .active-indicator-line-extras {
+        display: contents;
+    }
+
+    /* Multi-active replaces the stepped per-item bars with the far-left line. */
     :host([multi-active]) nav a.active::before,
     :host([multi-active]) nav button.active::before {
         display: none;
