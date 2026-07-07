@@ -5,9 +5,11 @@ import { VlIconComponent } from '../../../atom/icon';
 import { VlLinkComponent } from '../../../atom/link';
 import { VlTitleComponent } from '../../../atom/title';
 import { VlSideNavigationComponent } from './vl-side-navigation.component';
+import { VlSideNavigationSectionComponent } from './vl-side-navigation-section.component';
 
 registerWebComponents([
     VlSideNavigationComponent,
+    VlSideNavigationSectionComponent,
     VlTitleComponent,
     VlLinkComponent,
     VlButtonComponent,
@@ -1530,5 +1532,455 @@ describe('cypress-component - block components - vl-side-navigation-next - multi
         cy.get('#content-2-heading').scrollIntoView();
         cy.get('vl-side-navigation-next').shadow().find('nav a.active').should('exist');
         cy.get('vl-side-navigation-next').shadow().find('nav .active-indicator-line').should('not.be.visible');
+    });
+});
+
+describe('cypress-component - block components - vl-side-navigation-next - sections-mode', () => {
+    beforeEach(() => {
+        cy.viewport(1440, 900);
+    });
+
+    const sectionsSampleContent = html`
+        <div id="sections-content-container">
+            <section style="min-height: 400px; margin-top: 100px;">
+                <vl-title type="h2" id="sec-a">Sectie A</vl-title>
+            </section>
+            <section style="min-height: 400px;">
+                <vl-title type="h2" id="sec-b">Sectie B</vl-title>
+            </section>
+            <section style="min-height: 400px;">
+                <vl-title type="h2" id="sec-c">Sectie C</vl-title>
+            </section>
+        </div>
+    `;
+
+    const mountThreeSections = () =>
+        cy.mount(html`
+            <div class="vl-grid">
+                <vl-side-navigation-next
+                    class="${NAVIGATION_COLUMN_CLASSES}"
+                    heading-root-selector="#sections-content-container"
+                >
+                    <vl-side-navigation-section-next type="auto" section-title="Op deze pagina">
+                    </vl-side-navigation-section-next>
+                    <vl-side-navigation-section-next section-title="Acties">
+                        <ul>
+                            <li><a href="#sec-b">Naar sectie B</a></li>
+                            <li><a href="https://www.vlaanderen.be">Externe link</a></li>
+                        </ul>
+                    </vl-side-navigation-section-next>
+                    <vl-side-navigation-section-next section-title="Info">
+                        <ul>
+                            <li><a href="#sec-c">Naar sectie C</a></li>
+                        </ul>
+                    </vl-side-navigation-section-next>
+                </vl-side-navigation-next>
+                <div class="${CONTENT_COLUMN_CLASSES}">${sectionsSampleContent}</div>
+            </div>
+        `);
+
+    it('rendert sections-mode in DOM-volgorde (1 auto + 2 custom)', () => {
+        mountThreeSections();
+
+        // Wacht eerst tot de gegenereerde auto-sectie lijst beschikbaar is (rAF-defer).
+        cy.get('vl-side-navigation-section-next[type="auto"] .vl-side-navigation-section-next__list ul a[href="#sec-a"]')
+            .should('exist');
+
+        cy.get('vl-side-navigation-next > vl-side-navigation-section-next').then(($sections) => {
+            expect($sections, 'verwacht 3 secties als directe children').to.have.length(3);
+            // Lit reflect default-waarden niet naar attributen — check de property.
+            expect(($sections[0] as VlSideNavigationSectionComponent).type).to.equal('auto');
+            expect(($sections[1] as VlSideNavigationSectionComponent).type).to.equal('custom');
+            expect(($sections[2] as VlSideNavigationSectionComponent).type).to.equal('custom');
+        });
+
+        // De custom-secties tonen hun door-de-auteur geleverde links.
+        cy.get('vl-side-navigation-section-next:not([type="auto"]) ul a[href="#sec-b"]').should('exist');
+        cy.get('vl-side-navigation-section-next:not([type="auto"]) ul a[href="#sec-c"]').should('exist');
+    });
+
+    it('wiret aria-labelledby per sectie naar het gegenereerde titel-label', () => {
+        mountThreeSections();
+
+        // Wacht tot de auto-sectie zijn gegenereerde ul heeft (rAF-defer).
+        cy.get('vl-side-navigation-section-next[type="auto"] ul').should('exist');
+
+        cy.get('vl-side-navigation-section-next').each(($section) => {
+            const titleEl = $section[0].querySelector('.vl-side-navigation-section-next__title') as HTMLElement | null;
+            const ul = $section[0].querySelector('ul');
+            expect(titleEl, 'sectie heeft een titel-element').to.exist;
+            expect(ul, 'sectie heeft een ul').to.exist;
+            const titleId = titleEl!.getAttribute('id');
+            expect(titleId, 'titel-element heeft een id (gegenereerd indien afwezig)').to.be.a('string').and.not.empty;
+            expect(ul!.getAttribute('aria-labelledby')).to.equal(titleId);
+        });
+    });
+
+    it('aria-labelledby idref bereikt de zichtbare titel-tekst', () => {
+        mountThreeSections();
+        cy.get('vl-side-navigation-section-next[type="auto"] ul').should('exist');
+
+        const expectedTitles = ['Op deze pagina', 'Acties', 'Info'];
+
+        cy.get('vl-side-navigation-section-next').each(($section, index) => {
+            const ul = $section[0].querySelector('ul')!;
+            const labelId = ul.getAttribute('aria-labelledby')!;
+            const labelEl = $section[0].ownerDocument!.getElementById(labelId);
+            expect(labelEl, `aria-labelledby="${labelId}" verwijst naar een bestaand element`).to.exist;
+            expect(labelEl!.textContent?.trim()).to.equal(expectedTitles[index]);
+        });
+    });
+
+    it('houdt één nav-landmark voor de hele side-navigation (geen extra landmarks per sectie)', () => {
+        mountThreeSections();
+
+        cy.get('vl-side-navigation-next').shadow().find('nav[aria-label]').should('have.length', 1);
+        // sectie-elementen zelf bevatten GEEN extra <nav>
+        cy.get('vl-side-navigation-section-next nav').should('not.exist');
+    });
+
+    it('past actieve link toe over secties heen (één aria-current per keer)', () => {
+        mountThreeSections();
+
+        // Scroll naar sectie B (in de custom-sectie "Acties" is er een link naar #sec-b)
+        cy.get('#sec-b').scrollIntoView({ duration: 0 });
+
+        // Wacht tot de IntersectionObserver geactiveerd is.
+        cy.get('vl-side-navigation-section-next:not([type="auto"]) a[href="#sec-b"]')
+            .should('have.attr', 'aria-current', 'location');
+
+        // De auto-sectie's link naar #sec-b moet eveneens aria-current dragen (zelfde activeHeadingId).
+        cy.get('vl-side-navigation-section-next[type="auto"] a[href="#sec-b"]')
+            .should('have.attr', 'aria-current', 'location');
+
+        // Hoogstens één link per "groep" mag actief zijn — controleer aantal aria-current binnen elke sectie-subtree.
+        cy.document().then((doc) => {
+            doc.querySelectorAll('vl-side-navigation-section-next').forEach((section) => {
+                const active = section.querySelectorAll('a[aria-current="location"], vl-link[aria-current="location"]');
+                expect(active.length, 'maximaal 1 aria-current per sectie').to.be.at.most(1);
+            });
+        });
+    });
+
+    it('staat mixen toe: losse <ul> tussen secties wordt impliciete titelloze sectie', () => {
+        cy.mount(html`
+            <div class="vl-grid">
+                <vl-side-navigation-next
+                    class="${NAVIGATION_COLUMN_CLASSES}"
+                    heading-root-selector="#sections-content-container"
+                >
+                    <vl-side-navigation-section-next section-title="Eerst">
+                        <ul><li><a href="#sec-a">A</a></li></ul>
+                    </vl-side-navigation-section-next>
+                    <ul>
+                        <li><a href="#sec-b">Losse link naar B</a></li>
+                    </ul>
+                    <vl-side-navigation-section-next section-title="Laatst">
+                        <ul><li><a href="#sec-c">C</a></li></ul>
+                    </vl-side-navigation-section-next>
+                </vl-side-navigation-next>
+                <div class="${CONTENT_COLUMN_CLASSES}">${sectionsSampleContent}</div>
+            </div>
+        `);
+
+        // De losse <ul> blijft staan tussen de secties (DOM-volgorde behouden) en zijn link werkt.
+        cy.get('vl-side-navigation-next > ul a[href="#sec-b"]').should('exist');
+        cy.get('#sec-b').scrollIntoView({ duration: 0 });
+        cy.get('vl-side-navigation-next > ul a[href="#sec-b"]').should('have.attr', 'aria-current', 'location');
+    });
+
+    it('blijft 1 drawer tonen in compact-mode (geen 3 stacked drawers)', () => {
+        cy.mount(html`
+            <div class="vl-grid">
+                <vl-side-navigation-next
+                    compact
+                    class="${NAVIGATION_COLUMN_CLASSES}"
+                    heading-root-selector="#sections-content-container"
+                >
+                    <vl-side-navigation-section-next type="auto" section-title="Op deze pagina">
+                    </vl-side-navigation-section-next>
+                    <vl-side-navigation-section-next section-title="Acties">
+                        <ul><li><a href="#sec-b">B</a></li></ul>
+                    </vl-side-navigation-section-next>
+                </vl-side-navigation-next>
+                <div class="${CONTENT_COLUMN_CLASSES}">${sectionsSampleContent}</div>
+            </div>
+        `);
+
+        // Eén drawer (één show-toc-button), niet één per sectie.
+        cy.get('vl-side-navigation-next').shadow().find('#show-toc-button').should('have.length', 1);
+        cy.get('vl-side-navigation-next').shadow().find('table-of-contents').should('have.length', 1);
+    });
+
+    it('ruimt auto-sectie state op bij slot-wissel van sections naar custom TOC', () => {
+        mountThreeSections();
+
+        // wacht tot de auto-sectie zijn gegenereerde lijst heeft (rAF-defer)
+        cy.get(
+            'vl-side-navigation-section-next[type="auto"] .vl-side-navigation-section-next__list ul a[href="#sec-a"]'
+        ).should('exist');
+
+        // bewaar referentie naar de auto-sectie en wissel de slot-inhoud naar een kale custom TOC
+        cy.get('vl-side-navigation-next').then(($nav) => {
+            const nav = $nav[0];
+            const autoSection = nav.querySelector('vl-side-navigation-section-next[type="auto"]') as HTMLElement;
+            cy.wrap(autoSection).as('detachedAutoSection');
+
+            nav.querySelectorAll('vl-side-navigation-section-next').forEach((el) => el.remove());
+            const ul = nav.ownerDocument.createElement('ul');
+            ul.innerHTML = '<li><a href="#sec-b">Naar sectie B</a></li>';
+            nav.appendChild(ul);
+        });
+
+        // custom TOC werkt na de wissel: actieve state bij scroll
+        cy.get('#sec-b').scrollIntoView({ duration: 0 });
+        cy.get('vl-side-navigation-next > ul a[href="#sec-b"]').should('have.attr', 'aria-current', 'location');
+
+        // de gegenereerde lijst van de (losgekoppelde) auto-sectie is leeggemaakt
+        cy.get('@detachedAutoSection').then(($section) => {
+            const container = $section[0].querySelector('.vl-side-navigation-section-next__list');
+            expect(container?.children.length ?? 0, 'auto-sectie container is leeggemaakt').to.equal(0);
+        });
+    });
+
+    it('navigeert naar een heading in shadow DOM bij klik op een gegenereerde auto-sectie link', () => {
+        mountThreeSections();
+
+        cy.window().then((win) => {
+            const initialScroll = win.scrollY;
+            cy.get('vl-side-navigation-section-next[type="auto"] a[href="#sec-c"]')
+                .click()
+                .then(() => {
+                    cy.window().its('scrollY').should('be.greaterThan', initialScroll);
+                });
+        });
+    });
+
+    const nestedAutoContent = html`
+        <div id="nested-sections-content">
+            <section style="min-height: 600px; margin-top: 100px;">
+                <vl-title type="h2" id="np-a">Parent A</vl-title>
+            </section>
+            <section style="min-height: 600px;">
+                <vl-title type="h3" id="np-a-1">Child A1</vl-title>
+            </section>
+            <section style="min-height: 600px;">
+                <vl-title type="h2" id="np-b">Parent B</vl-title>
+            </section>
+            <section style="min-height: 600px;">
+                <vl-title type="h2" id="np-c">Parent C</vl-title>
+            </section>
+        </div>
+    `;
+
+    it('vergeet manuele inklap van auto-sectie na wegscrollen (collapse-pruning, parity met auto-TOC)', () => {
+        cy.mount(html`
+            <div class="vl-grid">
+                <vl-side-navigation-next
+                    class="${NAVIGATION_COLUMN_CLASSES}"
+                    heading-root-selector="#nested-sections-content"
+                >
+                    <vl-side-navigation-section-next type="auto" section-title="Op deze pagina">
+                    </vl-side-navigation-section-next>
+                </vl-side-navigation-next>
+                <div class="${CONTENT_COLUMN_CLASSES}">${nestedAutoContent}</div>
+            </div>
+        `);
+
+        const childUl = 'vl-side-navigation-section-next[type="auto"] li ul';
+
+        // auto-sectie gerendeerd: parent A met child A1 (dus een toggle-knop)
+        cy.get('vl-side-navigation-section-next[type="auto"] a[href="#np-a-1"]').should('exist');
+
+        // scroll naar A → A actief → children auto-expand
+        cy.get('#np-a').scrollIntoView({ duration: 0 });
+        cy.get(childUl).should('not.have.attr', 'hidden');
+
+        // manueel inklappen → children verborgen
+        cy.get('vl-side-navigation-section-next[type="auto"] button.toggle-button').first().click();
+        cy.get(childUl).should('have.attr', 'hidden');
+
+        // wegscrollen naar B (midden-sectie, bereikt de active-zone) → A niet meer actief
+        cy.get('#np-b').scrollIntoView({ duration: 0 });
+        cy.get('vl-side-navigation-section-next[type="auto"] a[href="#np-b"]').should(
+            'have.attr',
+            'aria-current',
+            'location'
+        );
+
+        // terugscrollen naar A → manuele inklap is vergeten, children weer auto-expanded
+        cy.get('#np-a').scrollIntoView({ duration: 0 });
+        cy.get('vl-side-navigation-section-next[type="auto"] a[href="#np-a"]').should(
+            'have.attr',
+            'aria-current',
+            'location'
+        );
+        cy.get(childUl).should('not.have.attr', 'hidden');
+    });
+
+    it('toont en roteert het toggle-icoon van de auto-sectie (vl-icon, geen document-level icon-styles)', () => {
+        cy.mount(html`
+            <div class="vl-grid">
+                <vl-side-navigation-next
+                    class="${NAVIGATION_COLUMN_CLASSES}"
+                    heading-root-selector="#nested-sections-content"
+                >
+                    <vl-side-navigation-section-next type="auto" section-title="Op deze pagina">
+                    </vl-side-navigation-section-next>
+                </vl-side-navigation-next>
+                <div class="${CONTENT_COLUMN_CLASSES}">${nestedAutoContent}</div>
+            </div>
+        `);
+
+        const toggleIcon = 'vl-side-navigation-section-next[type="auto"] button.toggle-button vl-icon';
+        cy.get(toggleIcon).should('exist');
+
+        // glyph aanwezig: de ::before content zit in de eigen shadow root van vl-icon,
+        // dus zonder dat er icon-styles in document.adoptedStyleSheets nodig zijn
+        cy.get(toggleIcon)
+            .first()
+            .then(($icon) => {
+                cy.window().then((win) => {
+                    const glyphSpan = $icon[0].shadowRoot?.querySelector('.vl-icon');
+                    expect(glyphSpan, 'vl-icon rendert zijn glyph-span in eigen shadow root').to.exist;
+                    const content = win.getComputedStyle(glyphSpan as Element, '::before').content;
+                    expect(content, 'toggle-icoon heeft een glyph in light DOM').to.not.be.oneOf([
+                        'none',
+                        'normal',
+                        '',
+                    ]);
+                });
+            });
+
+        // rotatie-trigger: zodra de sectie actief is en uitklapt, krijgt de icon showing-children
+        cy.get('#np-a').scrollIntoView({ duration: 0 });
+        cy.get(toggleIcon).first().should('have.class', 'showing-children');
+    });
+
+    it('auto-sectie scant binnen de shadow root van de host als er geen heading-root is (getRootNode fallback)', () => {
+        // stray heading in light DOM die NIET in de toc mag belanden zodra de scan correct gescoped is
+        cy.mount(html`
+            <div>
+                <vl-title type="h2" id="stray-light">Stray light heading</vl-title>
+                <div id="shadow-host"></div>
+            </div>
+        `);
+
+        cy.get('#shadow-host').then(($host) => {
+            const shadow = $host[0].attachShadow({ mode: 'open' });
+            shadow.innerHTML = `
+                <vl-side-navigation-next>
+                    <vl-side-navigation-section-next type="auto" section-title="Op deze pagina">
+                    </vl-side-navigation-section-next>
+                </vl-side-navigation-next>
+                <div>
+                    <section><vl-title type="h2" id="shadow-h-a">Shadow A</vl-title></section>
+                    <section><vl-title type="h2" id="shadow-h-b">Shadow B</vl-title></section>
+                </div>
+            `;
+        });
+
+        // headings binnen de shadow root worden gevonden zonder expliciete heading-root
+        cy.get('#shadow-host')
+            .shadow()
+            .find('vl-side-navigation-section-next[type="auto"] a[href="#shadow-h-a"]')
+            .should('exist');
+        cy.get('#shadow-host')
+            .shadow()
+            .find('vl-side-navigation-section-next[type="auto"] a[href="#shadow-h-b"]')
+            .should('exist');
+
+        // de light-DOM stray heading valt buiten de scope en mag niet in de toc staan
+        cy.get('#shadow-host')
+            .shadow()
+            .find('vl-side-navigation-section-next[type="auto"] a[href="#stray-light"]')
+            .should('not.exist');
+    });
+});
+
+describe('cypress-component - block components - vl-side-navigation-next - sections-mode multi-active', () => {
+    beforeEach(() => cy.viewport(1440, 900));
+
+    const multiActiveSectionsContent = html`
+        <div id="ms-content">
+            <section style="min-height: 200px; margin-top: 40px;">
+                <vl-title type="h2" id="ms-a1">Hoofdstuk 1</vl-title>
+            </section>
+            <section style="min-height: 200px;">
+                <vl-title type="h2" id="ms-a2">Hoofdstuk 2</vl-title>
+            </section>
+        </div>
+        <div id="ms-bijlage">
+            <section style="min-height: 200px;">
+                <vl-title type="h2" id="ms-bx">Bijlage X</vl-title>
+            </section>
+        </div>
+    `;
+
+    const mountMultiActiveSections = () =>
+        cy.mount(html`
+            <div class="vl-grid">
+                <vl-side-navigation-next
+                    class="${NAVIGATION_COLUMN_CLASSES}"
+                    heading-root-selector="#ms-content"
+                    multi-active
+                >
+                    <vl-side-navigation-section-next type="auto" section-title="Op deze pagina">
+                    </vl-side-navigation-section-next>
+                    <vl-side-navigation-section-next section-title="Bijlagen">
+                        <ul>
+                            <li><a href="#ms-bx">Bijlage X</a></li>
+                        </ul>
+                    </vl-side-navigation-section-next>
+                </vl-side-navigation-next>
+                <div class="${CONTENT_COLUMN_CLASSES}">${multiActiveSectionsContent}</div>
+            </div>
+        `);
+
+    it('markeert meerdere links actief over de auto- en custom-sectie heen', () => {
+        mountMultiActiveSections();
+
+        cy.get('#ms-a1').scrollIntoView();
+
+        cy.get('vl-side-navigation-next')
+            .find('vl-side-navigation-section-next[type="auto"] a.active')
+            .should('have.length.greaterThan', 1);
+        cy.get('vl-side-navigation-next').find('a[href="#ms-bx"].active').should('exist');
+    });
+
+    it('tekent aparte lijn-segmenten per nav-sectie i.p.v. één lijn over de sectietitels', () => {
+        mountMultiActiveSections();
+
+        cy.get('#ms-a1').scrollIntoView();
+
+        cy.get('vl-side-navigation-next')
+            .shadow()
+            .find('nav .active-indicator-line')
+            .filter(':visible')
+            .should('have.length.greaterThan', 1);
+
+        cy.get('vl-side-navigation-next')
+            .shadow()
+            .find('nav')
+            .then(($nav) => {
+                const navHeight = $nav[0].getBoundingClientRect().height;
+                cy.get('vl-side-navigation-next')
+                    .shadow()
+                    .find('nav .active-indicator-line')
+                    .filter(':visible')
+                    .each(($seg) => {
+                        expect($seg[0].getBoundingClientRect().height).to.be.lessThan(navHeight);
+                    });
+            });
+    });
+
+    it('is toegankelijk met meerdere actieve secties', () => {
+        mountMultiActiveSections();
+
+        cy.get('#ms-a1').scrollIntoView();
+        cy.get('vl-side-navigation-next').find('a.active').should('have.length.greaterThan', 1);
+
+        cy.injectAxe();
+        cy.checkA11y('vl-side-navigation-next');
     });
 });

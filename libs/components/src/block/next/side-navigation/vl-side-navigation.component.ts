@@ -1,7 +1,7 @@
 import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import {
     VlButtonComponent,
-    vlIconStyles,
+    VlIconComponent,
     VlLinkComponent,
     vlLinkStyles,
     VlTitleComponent,
@@ -21,11 +21,33 @@ import { findHeadings, determineHeadingRootElement } from './vl-side-navigation-
 import {
     headingTableOfContentsTemplate,
     buildHeadingTree,
-    findNodeById,
-    isAnyChildActive,
+    pruneStaleManualCollapses,
+    RenderConfig,
+    toggleHeadingExpandState,
 } from './vl-side-navigation-renderer.utils';
+import { VlSideNavigationSectionComponent } from './vl-side-navigation-section.component';
+import {
+    AutoSectionScan,
+    detectSideNavigationMode,
+    ensureAutoSectionListContainer,
+    ensureSectionTitleElement,
+    isSectionElement,
+    ParentScanConfig,
+    renderAutoSection,
+    resolveScanConfigForSection,
+    scanAutoSection,
+    SideNavigationMode,
+    warnOnDuplicateAutoSectionHeadings,
+    wireSectionLabel,
+} from './vl-side-navigation-sections.utils';
 
-registerWebComponents([VlButtonComponent, VlLinkComponent, VlTitleComponent]);
+registerWebComponents([
+    VlButtonComponent,
+    VlIconComponent,
+    VlLinkComponent,
+    VlTitleComponent,
+    VlSideNavigationSectionComponent,
+]);
 
 @webComponent('vl-side-navigation-next')
 export class VlSideNavigationComponent extends BaseLitElement {
@@ -76,6 +98,9 @@ export class VlSideNavigationComponent extends BaseLitElement {
     @state() private hasCustomToc = false;
     @state() private expandedHeadingIds: Set<string> = new Set();
     @state() private isMobileView = false;
+    @state() private mode: SideNavigationMode = 'auto';
+    private autoSectionScans: AutoSectionScan[] = [];
+    private sectionsRescanRafHandle?: number;
 
     private intersectionObserver?: IntersectionObserver;
     private headingObserverMap = new Map<string, HTMLElement>();
@@ -91,7 +116,7 @@ export class VlSideNavigationComponent extends BaseLitElement {
     private navResizeObserver?: ResizeObserver;
 
     static get styles(): CSSResult[] {
-        return [vlResetStyles, vlSideNavigationStyles, vlLinkStyles(), vlIconStyles];
+        return [vlResetStyles, vlSideNavigationStyles, vlLinkStyles()];
     }
 
     override firstUpdated(): void {
@@ -101,7 +126,22 @@ export class VlSideNavigationComponent extends BaseLitElement {
         const tocSlot = this.shadowRoot?.querySelector('slot') as HTMLSlotElement;
         const slottedElements = tocSlot?.assignedElements() ?? [];
 
-        if (slottedElements.length > 0) {
+        this.mode = detectSideNavigationMode(slottedElements);
+
+        if (this.mode === 'sections') {
+            this.initializeSections(slottedElements);
+            // Auto-secties kunnen pas correct scannen wanneer de heading-root in de DOM
+            // beschikbaar is (siblings zijn er niet altijd op firstUpdated-tijd).
+            const hasAutoSection = slottedElements.some(
+                (el) => isSectionElement(el) && el.type === 'auto'
+            );
+            if (hasAutoSection) {
+                this.sectionsRescanRafHandle = requestAnimationFrame(() => {
+                    this.sectionsRescanRafHandle = undefined;
+                    this.refreshSections(slottedElements);
+                });
+            }
+        } else if (this.mode === 'custom') {
             this.initializeCustomToc(slottedElements);
         } else {
             const insideLayout = this.closest?.('vl-side-navigation-layout-next');
@@ -120,6 +160,22 @@ export class VlSideNavigationComponent extends BaseLitElement {
     }
 
     updated(changedProperties: Map<string, unknown>) {
+        // Sections-mode: bij een parent-config wijziging herscannen en alle auto-secties opnieuw renderen.
+        if (
+            this.mode === 'sections' &&
+            (changedProperties.has('headingRoot') ||
+                changedProperties.has('minLevel') ||
+                changedProperties.has('maxLevel') ||
+                changedProperties.has('headingRootSelector') ||
+                changedProperties.has('maxDepth') ||
+                changedProperties.has('excludeSelectors'))
+        ) {
+            const tocSlot = this.shadowRoot?.querySelector('slot') as HTMLSlotElement;
+            const slottedElements = tocSlot?.assignedElements() ?? [];
+            this.refreshSections(slottedElements);
+            return;
+        }
+
         // Custom TOC: when headingRoot changes, only re-resolve heading elements by ID; no scan.
         if (changedProperties.has('headingRoot') && this.hasCustomToc) {
             const tocSlot = this.shadowRoot?.querySelector('slot') as HTMLSlotElement;
@@ -208,6 +264,10 @@ export class VlSideNavigationComponent extends BaseLitElement {
 
     override disconnectedCallback(): void {
         super.disconnectedCallback();
+        if (this.sectionsRescanRafHandle !== undefined) {
+            cancelAnimationFrame(this.sectionsRescanRafHandle);
+            this.sectionsRescanRafHandle = undefined;
+        }
         this.cleanupIntersectionObserver();
         this.cleanupMediaQueryListener();
         this.cleanupFocusRecoveryObserver();
@@ -542,7 +602,9 @@ export class VlSideNavigationComponent extends BaseLitElement {
     }
 
     private updateActiveLinks(): void {
-        if (this.hasCustomToc) {
+        if (this.mode === 'sections') {
+            this.updateSectionsActiveStates();
+        } else if (this.hasCustomToc) {
             this.updateManualTocActiveStates();
         } else {
             this.updateTableOfContents();
@@ -561,58 +623,64 @@ export class VlSideNavigationComponent extends BaseLitElement {
         // The continuous multi-active line is repositioned from updated() when activeHeadingIds changes.
     }
 
-    /**
-     * Multi-active alternative to the per-item indicator: draws a single uninterrupted line at the far
-     * left of the nav, spanning the whole run of active items. Because the active set is always a
-     * contiguous range in document order, one vertical line from the first active link's top to the last
-     * active link's bottom exactly covers the active items - without the per-level indentation that made
-     * the per-item bars step inward.
-     */
     private updateActiveIndicatorLine(): void {
         const nav = this.shadowRoot?.querySelector('nav');
-        const line = nav?.querySelector('.active-indicator-line') as HTMLElement | null;
-        if (!nav || !line) return;
+        const primary = nav?.querySelector('.active-indicator-line') as HTMLElement | null;
+        const extras = nav?.querySelector('.active-indicator-line-extras') as HTMLElement | null;
+        if (!nav || !primary || !extras) return;
+
+        extras.replaceChildren();
 
         if (!this.multiActive || this.activeHeadingIds.size === 0 || this.isTocEffectivelyHidden) {
-            line.style.display = 'none';
-            return;
-        }
-
-        const rects = this.getActiveLinkElements()
-            .map((el) => el.getBoundingClientRect())
-            .filter((rect) => rect.height > 0);
-        if (rects.length === 0) {
-            line.style.display = 'none';
+            primary.style.display = 'none';
             return;
         }
 
         const navRect = nav.getBoundingClientRect();
-        const top = Math.min(...rects.map((rect) => rect.top));
-        const bottom = Math.max(...rects.map((rect) => rect.bottom));
+        const segments = this.getActiveLinkRuns()
+            .map((run) => {
+                const rects = run.map((el) => el.getBoundingClientRect()).filter((rect) => rect.height > 0);
+                if (rects.length === 0) return null;
+                const top = Math.min(...rects.map((rect) => rect.top));
+                const bottom = Math.max(...rects.map((rect) => rect.bottom));
+                return { top: top - navRect.top + nav.scrollTop, height: bottom - top };
+            })
+            .filter((segment): segment is { top: number; height: number } => segment !== null);
 
-        line.style.top = `${top - navRect.top + nav.scrollTop}px`;
-        line.style.height = `${bottom - top}px`;
-        line.style.display = 'block';
+        if (segments.length === 0) {
+            primary.style.display = 'none';
+            return;
+        }
+
+        this.positionIndicatorSegment(primary, segments[0]);
+        for (const segment of segments.slice(1)) {
+            const extra = document.createElement('div');
+            extra.className = 'active-indicator-line';
+            extra.setAttribute('aria-hidden', 'true');
+            this.positionIndicatorSegment(extra, segment);
+            extras.appendChild(extra);
+        }
     }
 
-    /**
-     * Resolves the link elements (shadow <a> for the auto TOC, slotted <a>/<vl-link> for a custom TOC)
-     * of the currently active headings. Used to measure the span of the continuous multi-active line.
-     */
-    private getActiveLinkElements(): HTMLElement[] {
-        const slot = this.shadowRoot?.querySelector('slot') as HTMLSlotElement | null;
-        const customRoots = this.hasCustomToc ? (slot?.assignedElements() ?? []) : [];
-        const nav = this.shadowRoot?.querySelector('nav');
+    private positionIndicatorSegment(el: HTMLElement, segment: { top: number; height: number }): void {
+        el.style.top = `${segment.top}px`;
+        el.style.height = `${segment.height}px`;
+        el.style.display = 'block';
+    }
 
-        const links: HTMLElement[] = [];
-        this.activeHeadingIds.forEach((id) => {
-            const selector = `a[href="#${CSS.escape(id)}"], vl-link[href="#${CSS.escape(id)}"]`;
-            const link =
-                customRoots.map((root) => root.querySelector(selector)).find(Boolean) ??
-                nav?.querySelector(selector);
-            if (link instanceof HTMLElement) links.push(link);
-        });
-        return links;
+    private getActiveLinkRuns(): HTMLElement[][] {
+        return this.getNavSectionRoots()
+            .map((root) => Array.from(root.querySelectorAll<HTMLElement>('a.active, vl-link.active')))
+            .filter((links) => links.length > 0);
+    }
+
+    private getNavSectionRoots(): Element[] {
+        if (this.hasCustomToc) {
+            const slot = this.shadowRoot?.querySelector('slot') as HTMLSlotElement | null;
+            return slot?.assignedElements() ?? [];
+        }
+        const nav = this.shadowRoot?.querySelector('nav');
+        return nav ? [nav] : [];
     }
 
     private cleanupIntersectionObserver(): void {
@@ -650,6 +718,7 @@ export class VlSideNavigationComponent extends BaseLitElement {
                 ></vl-button>
                 <nav aria-label="inhoudstafel navigatie">
                     <div class="active-indicator-line" aria-hidden="true"></div>
+                    <div class="active-indicator-line-extras" aria-hidden="true"></div>
                     <slot @slotchange=${this.handleTocSlotChange}></slot>
                     ${!this.hasCustomToc ? this.tocTemplate || nothing : nothing}
                 </nav>
@@ -670,11 +739,22 @@ export class VlSideNavigationComponent extends BaseLitElement {
         const slot = event.target as HTMLSlotElement;
         const slottedElements = slot.assignedElements();
 
-        if (slottedElements.length > 0) {
-            this.initializeCustomToc(slottedElements);
+        const previousMode = this.mode;
+        this.mode = detectSideNavigationMode(slottedElements);
+
+        if (this.mode === 'sections') {
+            this.initializeSections(slottedElements);
         } else {
-            this.hasCustomToc = false;
-            this.refreshTableOfContents();
+            // Weg uit sections-mode (naar custom of auto): auto-sectie state opruimen vóór rebuild.
+            if (previousMode === 'sections') {
+                this.cleanupSectionsState();
+            }
+            if (this.mode === 'custom') {
+                this.initializeCustomToc(slottedElements);
+            } else {
+                this.hasCustomToc = false;
+                this.refreshTableOfContents();
+            }
         }
     }
 
@@ -737,6 +817,172 @@ export class VlSideNavigationComponent extends BaseLitElement {
         applyExpandCollapseToCustomToc(slottedElements, this.activeHeadingIds);
     }
 
+    // ---------- Sections-mode (auto + custom interleaved) ----------
+
+    // Hergebruikt `hasCustomToc=true` om de auto-TOC template te onderdrukken;
+    // de visuele rendering komt uit de slotted secties (light DOM) + gegenereerde
+    // lijsten per auto-sectie.
+    private initializeSections(slottedElements: Element[]): void {
+        this.hasCustomToc = true;
+        this.adoptLightDomStyles();
+        this.refreshSections(slottedElements);
+    }
+
+    private refreshSections(slottedElements: Element[]): void {
+        this.autoSectionScans = [];
+
+        const customContainers = slottedElements.filter(
+            (el) => !isSectionElement(el) || el.type !== 'auto'
+        );
+        initializeCustomTocHiddenState(customContainers);
+
+        const scrollRoot = this.headingRoot ?? (this.getRootNode() as Document | ShadowRoot);
+        this.cleanupCustomTocLinkHandlers();
+        this.customTocAbortController = new AbortController();
+        setupCustomTocLinkHandlers(
+            customContainers,
+            this.effectiveScrollBehavior,
+            scrollRoot,
+            this.maxDepth,
+            this.customTocAbortController.signal
+        );
+
+        for (const el of slottedElements) {
+            if (isSectionElement(el)) {
+                ensureSectionTitleElement(el);
+                if (el.type === 'auto') this.scanAndRenderAutoSection(el);
+                wireSectionLabel(el);
+            }
+        }
+
+        warnOnDuplicateAutoSectionHeadings(this.autoSectionScans);
+
+        this.headingElements = this.collectAllSectionHeadingElements(slottedElements);
+        this.setupIntersectionObserver();
+    }
+
+    private scanAndRenderAutoSection(section: VlSideNavigationSectionComponent): void {
+        const parentConfig = this.getParentScanConfig();
+        const result = scanAutoSection(section, parentConfig);
+        const renderConfig = this.buildSectionRenderConfig(section, parentConfig);
+        renderAutoSection(section, result.headings, renderConfig);
+        this.autoSectionScans.push({ section, result });
+    }
+
+    private buildSectionRenderConfig(
+        section: VlSideNavigationSectionComponent,
+        parentConfig: ReturnType<VlSideNavigationComponent['getParentScanConfig']>
+    ): RenderConfig {
+        const resolved = resolveScanConfigForSection(section, parentConfig);
+        return {
+            scroll: {
+                scrollRoot: resolved.rootElement,
+                scrollBehavior: this.effectiveScrollBehavior,
+                maxDepth: resolved.maxDepth,
+            },
+            state: {
+                activeHeadingIds: this.activeHeadingIds,
+                expandedHeadingIds: this.expandedHeadingIds,
+            },
+            callbacks: {
+                onActiveHeadingChange: (headingId: string, isToggleOnly?: boolean) =>
+                    this.handleAutoSectionToggle(headingId, isToggleOnly),
+            },
+        };
+    }
+
+    private handleAutoSectionToggle(headingId: string, isToggleOnly?: boolean): void {
+        if (!isToggleOnly) return;
+        // Combineer trees van alle auto-secties om de actief-status van children te bepalen.
+        const combinedHeadings = this.autoSectionScans.flatMap((scan) => scan.result.headings);
+        const tree = buildHeadingTree(combinedHeadings);
+        this.expandedHeadingIds = toggleHeadingExpandState(
+            this.expandedHeadingIds,
+            headingId,
+            tree,
+            this.activeHeadingIds
+        );
+        this.rerenderAutoSections();
+    }
+
+    private updateSectionsActiveStates(): void {
+        const slot = this.shadowRoot?.querySelector('slot') as HTMLSlotElement;
+        if (!slot) return;
+        // Auto-secties beheren active/expand via hun Lit-render (rerenderAutoSections); de
+        // custom-toc helpers gelden enkel voor custom-secties en losse content.
+        const customContainers = slot
+            .assignedElements()
+            .filter((el) => !isSectionElement(el) || el.type !== 'auto');
+        applyActiveStateToCustomTocLinks(customContainers, this.activeHeadingIds);
+        applyExpandCollapseToCustomToc(customContainers, this.activeHeadingIds);
+        this.rerenderAutoSections();
+    }
+
+    /** Re-render zonder herscan; voor herscan: `refreshSections`. */
+    private rerenderAutoSections(): void {
+        const combinedTree = buildHeadingTree(this.autoSectionScans.flatMap((scan) => scan.result.headings));
+        this.expandedHeadingIds = pruneStaleManualCollapses(this.expandedHeadingIds, combinedTree, this.activeHeadingIds);
+
+        const parentConfig = this.getParentScanConfig();
+        for (const scan of this.autoSectionScans) {
+            const renderConfig = this.buildSectionRenderConfig(scan.section, parentConfig);
+            renderAutoSection(scan.section, scan.result.headings, renderConfig);
+        }
+    }
+
+    /**
+     * Aggregeert de elementen die door de IntersectionObserver gevolgd worden:
+     * gescande headings uit auto-secties + via link-href IDs geresolved headings
+     * uit custom-secties en losse content.
+     */
+    private collectAllSectionHeadingElements(slottedElements: Element[]): HTMLElement[] {
+        const seen = new Set<HTMLElement>();
+        const ordered: HTMLElement[] = [];
+
+        for (const scan of this.autoSectionScans) {
+            for (const el of scan.result.elements) {
+                if (!seen.has(el)) {
+                    seen.add(el);
+                    ordered.push(el);
+                }
+            }
+        }
+
+        const rootElement = this.headingRoot ?? (this.getRootNode() as Document | ShadowRoot);
+        const customContainers: Element[] = slottedElements.filter(
+            (el) => !isSectionElement(el) || (el as VlSideNavigationSectionComponent).type !== 'auto'
+        );
+        const fromCustom = resolveHeadingElementsFromCustomToc(customContainers, rootElement, this.maxDepth);
+        for (const el of fromCustom) {
+            if (!seen.has(el)) {
+                seen.add(el);
+                ordered.push(el);
+            }
+        }
+        return ordered;
+    }
+
+    private getParentScanConfig(): ParentScanConfig {
+        return {
+            minLevel: this.minLevel,
+            maxLevel: this.maxLevel,
+            headingRoot: this.headingRoot,
+            headingRootSelector: this.headingRootSelector,
+            maxDepth: this.maxDepth,
+            excludeSelectors: this.excludeSelectors,
+            fallbackRoot: this.getRootNode() as Document | ShadowRoot,
+        };
+    }
+
+    /** Bij mode-switch weg uit sections-mode: leeg de auto-sectie containers. */
+    private cleanupSectionsState(): void {
+        for (const scan of this.autoSectionScans) {
+            const container = ensureAutoSectionListContainer(scan.section);
+            container.replaceChildren();
+        }
+        this.autoSectionScans = [];
+    }
+
     private get tableOfContents() {
         return this.shadowRoot?.querySelector('table-of-contents');
     }
@@ -785,21 +1031,7 @@ export class VlSideNavigationComponent extends BaseLitElement {
         const rootElement = this.headingRoot ?? (this.getRootNode() as Document | ShadowRoot);
         const tree = buildHeadingTree(this.tableOfContentsStructure.headings);
 
-        // Clean up manual collapses for sections that are no longer active so they auto-expand on next scroll.
-        // We only want to keep negative IDs (manual collapses) if their section or a child is still active.
-        // If a user scrolls away from a manually collapsed section, we forget the manual collapse
-        // so that it will auto-expand the next time the user scrolls back to it. Positive IDs (manual expands) are always kept.
-        const stillManualCollapsed = Array.from(this.expandedHeadingIds).filter((id) => {
-            if (!id.startsWith('-')) return true;
-            const realId = id.substring(1);
-            const node = findNodeById(tree, realId);
-            const isActive = this.activeHeadingIds.has(realId);
-            const isChildActive = node ? isAnyChildActive(node.children, this.activeHeadingIds) : false;
-            return isActive || isChildActive;
-        });
-        if (stillManualCollapsed.length !== this.expandedHeadingIds.size) {
-            this.expandedHeadingIds = new Set(stillManualCollapsed);
-        }
+        this.expandedHeadingIds = pruneStaleManualCollapses(this.expandedHeadingIds, tree, this.activeHeadingIds);
 
         this.tocTemplate = headingTableOfContentsTemplate(tree, {
             scroll: {
@@ -813,43 +1045,15 @@ export class VlSideNavigationComponent extends BaseLitElement {
             },
             callbacks: {
                 onActiveHeadingChange: (headingId: string, isToggleOnly?: boolean) => {
-                    // toggle children visibility using separate expanded state
-                    // active state is managed by IntersectionObserver
+                    // active state wordt gestuurd door de IntersectionObserver; deze callback
+                    // is enkel voor de manuele toggle-knop.
                     if (isToggleOnly && this.tableOfContentsStructure) {
-                        // determine current visibility state
-                        const hasManualToggle = this.expandedHeadingIds.has(headingId);
-                        const hasManualCollapse = this.expandedHeadingIds.has(`-${headingId}`);
-
-                        // check if children would be auto-expanded (active or child-active)
-                        const isActive = this.activeHeadingIds.has(headingId);
-
-                        // build tree and find the node to check if any children are active
-                        const node = findNodeById(tree, headingId);
-                        const isChildActive = node ? isAnyChildActive(node.children, this.activeHeadingIds) : false;
-
-                        const wouldBeAutoExpanded = isActive || isChildActive;
-
-                        // toggle logic:
-                        // - if manually expanded: remove manual expand (and add manual collapse if active so it closes immediately)
-                        // - if manually collapsed: remove manual collapse and add manual expand
-                        // - if auto-expanded: add manual collapse (negative ID)
-                        // - if not showing: add manual expand (positive ID)
-                        if (hasManualToggle) {
-                            this.expandedHeadingIds.delete(headingId);
-                            if (wouldBeAutoExpanded) {
-                                this.expandedHeadingIds.add(`-${headingId}`);
-                            }
-                        } else if (hasManualCollapse) {
-                            this.expandedHeadingIds.delete(`-${headingId}`);
-                            this.expandedHeadingIds.add(headingId);
-                        } else if (wouldBeAutoExpanded) {
-                            this.expandedHeadingIds.add(`-${headingId}`);
-                        } else {
-                            this.expandedHeadingIds.add(headingId);
-                        }
-
-                        // create new Set to trigger reactivity
-                        this.expandedHeadingIds = new Set(this.expandedHeadingIds);
+                        this.expandedHeadingIds = toggleHeadingExpandState(
+                            this.expandedHeadingIds,
+                            headingId,
+                            tree,
+                            this.activeHeadingIds
+                        );
                         this.updateTableOfContents();
                     }
                 },
