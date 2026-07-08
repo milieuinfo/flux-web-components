@@ -291,6 +291,55 @@ describe('cypress-component - compliance components - vl-header-next', () => {
                 expect(config).to.not.have.property('idpData');
             });
         });
+
+        it('should not fetch or include idpData when the user is not authenticated', () => {
+            cy.intercept('GET', '/sso/ingelogde_gebruiker', { statusCode: 401, body: '' }).as('authInactive');
+            cy.intercept('GET', '/api/idp-data', {
+                statusCode: 200,
+                body: { user: { firstName: 'Jane', name: 'Smith' } },
+            }).as('idpDataFetch');
+
+            cy.mount(html`
+                <body>
+                    <vl-header-next development identifier="${identifier}" idp-data-url="/api/idp-data"></vl-header-next>
+                </body>
+            `);
+            cy.wait('@widgetScript');
+            cy.wait('@authInactive');
+
+            lastSetProfileCall().should((config) => {
+                expect(config).to.have.property('active', false);
+                expect(config).to.not.have.property('idpData');
+            });
+            cy.get('@idpDataFetch.all').should('have.length', 0);
+        });
+
+        it('should configure the session only once on initial load', () => {
+            cy.intercept('GET', '/api/papi-token', {
+                statusCode: 200,
+                headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+                body: 'token-from-url',
+            }).as('tokenFetch');
+
+            cy.mount(html`
+                <body>
+                    <vl-header-next
+                        development
+                        identifier="${identifier}"
+                        profile-token-url="/api/papi-token"
+                    ></vl-header-next>
+                </body>
+            `);
+            cy.wait('@widgetScript');
+            cy.wait('@authActive');
+            cy.wait('@tokenFetch');
+
+            lastSetProfileCall().should((config) => {
+                expect(config).to.include({ active: true, idpProfileToken: 'token-from-url' });
+            });
+            cy.get('@authActive.all').should('have.length', 1);
+            cy.get('@tokenFetch.all').should('have.length', 1);
+        });
     });
 });
 

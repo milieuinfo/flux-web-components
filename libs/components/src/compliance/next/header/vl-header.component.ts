@@ -42,6 +42,7 @@ export class VlHeader extends BaseLitElement {
     private skeleton = headerDefaults.skeleton;
     private profileTokenUrl = headerDefaults.profileTokenUrl;
     private idpDataUrl = headerDefaults.idpDataUrl;
+    private initialSessionConfigured = false;
 
     constructor() {
         super();
@@ -100,6 +101,10 @@ export class VlHeader extends BaseLitElement {
     }
 
     protected willUpdate(changedProperties: Map<string, unknown>) {
+        if (!this.initialSessionConfigured) {
+            return;
+        }
+
         const sessionProperties = [
             'loginUrl',
             'logoutUrl',
@@ -171,6 +176,7 @@ export class VlHeader extends BaseLitElement {
             }
 
             this.configureSession();
+            this.initialSessionConfigured = true;
         } catch (error) {
             console.error('De global header werd niet geladen.', error);
         }
@@ -214,13 +220,15 @@ export class VlHeader extends BaseLitElement {
             switchCapacityUrl: this.switchCapacityUrl,
         };
 
-        const token = active ? await this.resolveProfileToken() : undefined;
+        if (active) {
+            const token = await this.resolveProfileToken();
 
-        if (token) {
-            config.idpProfileToken = token;
-        } else {
-            const idpData = await this.resolveIdpData();
-            if (idpData) config.idpData = idpData;
+            if (token) {
+                config.idpProfileToken = token;
+            } else {
+                const idpData = await this.resolveIdpData();
+                if (idpData) config.idpData = idpData;
+            }
         }
 
         window.globalHeaderClient?.accessMenu?.setProfile(config);
