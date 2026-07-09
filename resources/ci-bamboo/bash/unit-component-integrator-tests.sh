@@ -67,6 +67,30 @@ if [[ $CYPRESS_EXIT -eq 0 ]]
 fi
 set -e
 
+echo "run datepicker anchor-positioning tests in Firefox (cypress) - start"
+set +e
+
+( while true; do sleep 60; echo "run datepicker anchor-positioning tests in Firefox (cypress) - in progress"; done ) &
+PROGRESS_PID=$!
+
+npm run libs:component-tests:run-firefox-anchor 2> buffer-stderr.txt 1> buffer-stdout.txt
+CYPRESS_FIREFOX_EXIT=$?
+
+kill $PROGRESS_PID 2>/dev/null
+wait $PROGRESS_PID 2>/dev/null
+
+if [[ $CYPRESS_FIREFOX_EXIT -eq 0 ]]
+  then
+    echo "run datepicker anchor-positioning tests in Firefox (cypress) - success"
+  else
+    echo "run datepicker anchor-positioning tests in Firefox (cypress) - error - buffer-stderr.txt" >&2
+    cat buffer-stderr.txt >&2
+    cat buffer-stdout.txt >&2
+    set -e
+    exit 1
+fi
+set -e
+
 echo "run the integrator e2e tests (cypress)"
 set +e
 npm run apps:integrator:serve-and-e2e 2> buffer-stderr.txt 1> buffer-stdout.txt
