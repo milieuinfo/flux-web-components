@@ -340,6 +340,37 @@ describe('cypress-component - compliance components - vl-header-next', () => {
             cy.get('@authActive.all').should('have.length', 1);
             cy.get('@tokenFetch.all').should('have.length', 1);
         });
+
+        it('should discard a stale overlapping configureSession call and keep the newest value', () => {
+            cy.intercept('GET', '/api/slow-token', {
+                statusCode: 200,
+                headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+                body: 'stale-token',
+                delay: 500,
+            }).as('slowToken');
+
+            cy.mount(html`
+                <body>
+                    <vl-header-next
+                        development
+                        identifier="${identifier}"
+                        profile-token-url="/api/slow-token"
+                    ></vl-header-next>
+                </body>
+            `);
+            cy.wait('@widgetScript');
+            cy.wait('@authActive');
+
+            cy.get('vl-header-next').then(($el) => {
+                ($el[0] as VlHeader).idpProfileToken = 'fresh-token';
+            });
+
+            cy.wait('@slowToken');
+
+            lastSetProfileCall().should((config) => {
+                expect(config).to.include({ idpProfileToken: 'fresh-token' });
+            });
+        });
     });
 });
 

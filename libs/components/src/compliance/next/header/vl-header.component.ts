@@ -43,6 +43,7 @@ export class VlHeader extends BaseLitElement {
     private profileTokenUrl = headerDefaults.profileTokenUrl;
     private idpDataUrl = headerDefaults.idpDataUrl;
     private initialSessionConfigured = false;
+    private configureSessionGeneration = 0;
 
     constructor() {
         super();
@@ -212,7 +213,11 @@ export class VlHeader extends BaseLitElement {
     }
 
     private async configureSession(): Promise<void> {
+        const generation = ++this.configureSessionGeneration;
+
         const active = await this.isUserAuthenticated();
+        if (generation !== this.configureSessionGeneration) return;
+
         const config: Partial<ProfileConfig> = {
             active,
             loginUrl: this.loginUrl,
@@ -222,15 +227,18 @@ export class VlHeader extends BaseLitElement {
 
         if (active) {
             const token = await this.resolveProfileToken();
+            if (generation !== this.configureSessionGeneration) return;
 
             if (token) {
                 config.idpProfileToken = token;
             } else {
                 const idpData = await this.resolveIdpData();
+                if (generation !== this.configureSessionGeneration) return;
                 if (idpData) config.idpData = idpData;
             }
         }
 
+        if (generation !== this.configureSessionGeneration) return;
         window.globalHeaderClient?.accessMenu?.setProfile(config);
     }
 
