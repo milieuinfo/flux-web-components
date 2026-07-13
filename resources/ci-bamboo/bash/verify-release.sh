@@ -6,6 +6,9 @@ set -e
 echo 'RUNNING SCRIPT: verify-release.sh'
 cd flux-web-components
 
+# pnpm beschikbaar maken via corepack (gepind via het packageManager-veld in package.json)
+corepack enable
+
 # Branchnaam bepalen via BAMBOO_BRANCH_NAME (bamboo.planRepository.branchName).
 # Bamboo's checkout-task zet de werkdir in detached HEAD op de trigger-SHA, waardoor
 # git rev-parse na de chore(release) [skip ci] commit niet meer de echte branchnaam
@@ -28,18 +31,18 @@ echo "Branch verificatie OK: ${CURRENT_BRANCH}"
 # versie bepalen uit de components package.json — afkomstig uit het 'artifact-release-and-publish'
 # artifact (zie artifact-download task in bamboo.yml, destination: build)
 cd ./build/dist/libs/components
-NEXT_RELEASE_VERSION=$(npm pkg get version | sed 's/"//g')
+NEXT_RELEASE_VERSION=$(pnpm pkg get version | sed 's/"//g')
 echo "Using ${NEXT_RELEASE_VERSION} as NEXT_RELEASE_VERSION"
 cd ../../../..
 
-echo "npm ci - to force the clean"
+echo "pnpm install - to force the clean"
 set +e
-npm ci --maxsockets 5 2> buffer-stderr.txt 1> buffer-stdout.txt
+pnpm install --frozen-lockfile 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
-    echo "npm ci - success"
+    echo "pnpm install - success"
   else
-    echo "npm ci - error - buffer-stderr.txt" >&2
+    echo "pnpm install - error - buffer-stderr.txt" >&2
     cat buffer-stderr.txt >&2
     cat buffer-stdout.txt >&2
     set -e
@@ -50,8 +53,9 @@ set -e
 # consumer app dependencies updaten naar de ge-releaste versie
 echo "update consumer-app dependencies to version ${NEXT_RELEASE_VERSION}"
 cd apps/consumer
-npm pkg set "dependencies.@domg-wc/components=${NEXT_RELEASE_VERSION}"
-npm pkg set "dependencies.@domg-wc/map=${NEXT_RELEASE_VERSION}"
+pnpm pkg set "dependencies.@domg-wc/common=${NEXT_RELEASE_VERSION}"
+pnpm pkg set "dependencies.@domg-wc/components=${NEXT_RELEASE_VERSION}"
+pnpm pkg set "dependencies.@domg-wc/map=${NEXT_RELEASE_VERSION}"
 
 # Controleer of de placeholder nog aanwezig is
 if grep -q "DOMG-WC-VERSION" package.json; then
@@ -59,14 +63,15 @@ if grep -q "DOMG-WC-VERSION" package.json; then
   exit 1
 fi
 
-echo "npm install in consumer-app"
+echo "pnpm install in consumer-app"
 set +e
-npm install 2> buffer-stderr.txt 1> buffer-stdout.txt
+# geen --frozen-lockfile: de 'pnpm pkg set' hierboven wijzigt de dependency-versie, dus de lockfile moet bijwerken
+pnpm install --no-frozen-lockfile 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
-    echo "consumer npm install - success"
+    echo "consumer pnpm install - success"
   else
-    echo "consumer npm install - error" >&2
+    echo "consumer pnpm install - error" >&2
     cat buffer-stderr.txt >&2
     cat buffer-stdout.txt >&2
     set -e
@@ -77,7 +82,7 @@ set -e
 # consumer-named app builden
 echo "build consumer-named app"
 set +e
-npm run consumer:named:build 2> buffer-stderr.txt 1> buffer-stdout.txt
+pnpm run consumer:named:build 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
     echo "build consumer-named - success"
@@ -93,7 +98,7 @@ set -e
 # consumer-side-effect app builden
 echo "build consumer-side-effect app"
 set +e
-npm run consumer:side-effect:build 2> buffer-stderr.txt 1> buffer-stdout.txt
+pnpm run consumer:side-effect:build 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
     echo "build consumer-side-effect - success"
@@ -124,7 +129,7 @@ echo "copy fat-lib to consumer-fat-lib - success"
 echo "running consumer-named serve-and-e2e"
 set +e
 cd apps/consumer
-npm run consumer:named:serve-and-e2e 2> ../../buffer-stderr.txt 1> ../../buffer-stdout.txt
+pnpm run consumer:named:serve-and-e2e 2> ../../buffer-stderr.txt 1> ../../buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
     echo "consumer named serve-and-e2e - success"
@@ -142,7 +147,7 @@ set -e
 echo "running consumer-side-effect serve-and-e2e"
 set +e
 cd apps/consumer
-npm run consumer:side-effect:serve-and-e2e 2> ../../buffer-stderr.txt 1> ../../buffer-stdout.txt
+pnpm run consumer:side-effect:serve-and-e2e 2> ../../buffer-stderr.txt 1> ../../buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
     echo "consumer side-effect serve-and-e2e - success"
@@ -160,7 +165,7 @@ set -e
 echo "running consumer-fat-lib serve-and-e2e"
 set +e
 cd apps/consumer
-npm run consumer:fat-lib:serve-and-e2e 2> ../../buffer-stderr.txt 1> ../../buffer-stdout.txt
+pnpm run consumer:fat-lib:serve-and-e2e 2> ../../buffer-stderr.txt 1> ../../buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
     echo "consumer fat-lib serve-and-e2e - success"
