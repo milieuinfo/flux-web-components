@@ -136,8 +136,8 @@ set +e
 if [[ ${RELEASE_BRANCH} == true ]];
   then
     echo "publiceren van de npm packages naar de DOMG 'local-npm' repository"
-    pnpm run libs:pack:release -- ${NEXT_RELEASE_VERSION}
-    pnpm run libs:publish -- ${NEXT_RELEASE_VERSION}
+    pnpm run libs:pack:release ${NEXT_RELEASE_VERSION}
+    pnpm run libs:publish ${NEXT_RELEASE_VERSION}
 fi
 if [[ $? -eq 0 ]]
   then
@@ -155,8 +155,8 @@ set +e
 if [[ ${DEVELOP_BRANCH} == true ]];
   then
     echo "publiceren van de npm packages naar de DOMG 'snapshot-npm' repository"
-    pnpm run libs:pack:develop -- ${NEXT_RELEASE_VERSION}
-    pnpm run libs:publish -- ${NEXT_RELEASE_VERSION}
+    pnpm run libs:pack:develop ${NEXT_RELEASE_VERSION}
+    pnpm run libs:publish ${NEXT_RELEASE_VERSION}
 fi
 if [[ $? -eq 0 ]]
   then
