@@ -2,7 +2,7 @@ import { registerWebComponents } from '@domg-wc/common';
 import { vlGroupStyles } from '@domg-wc/styles';
 import { VlTextComponent, VlTitleComponent } from '@domg-wc/components/atom';
 import { Meta } from '@storybook/web-components-vite';
-import { html } from 'lit-html';
+import { html } from 'lit';
 
 registerWebComponents([VlTitleComponent, VlTextComponent]);
 

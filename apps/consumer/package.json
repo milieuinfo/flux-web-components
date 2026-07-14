@@ -11,9 +11,12 @@
         "consumer-e2e:watch": "cd ../consumer-e2e && npx cypress open --e2e"
     },
     "devDependencies": {
-        "http-server": "14.1.1"
+        "html-webpack-plugin": "5.6.3",
+        "http-server": "14.1.1",
+        "terser-webpack-plugin": "5.3.11"
     },
     "dependencies": {
+        "@domg-wc/common": "2.12.1",
         "@domg-wc/components": "2.12.1",
         "@domg-wc/map": "2.12.1"
     }
