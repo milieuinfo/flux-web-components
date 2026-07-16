@@ -13,7 +13,7 @@ interface ErrorCode {
 const errorCodes: ErrorCode = {
     '400': {
         title: 'Oeps, dat ging fout',
-        image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
+        image: 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
         imageAlt: 'Verkeerd verzoek',
         errorText: html` <p>
             <a href="mailto:help@omgevingvlaanderen.be?subject=HTTP-code 400">Mail de helpdesk</a> en vermeld daarbij de
@@ -25,7 +25,7 @@ const errorCodes: ErrorCode = {
     },
     '401': {
         title: 'Meld u eerst aan',
-        image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
+        image: 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
         imageAlt: 'Niet aangemeld',
         errorText: html` <p>
             Om toegang te krijgen tot deze pagina, moet u eerst aangemeld zijn.
@@ -38,7 +38,7 @@ const errorCodes: ErrorCode = {
     },
     '403': {
         title: 'Geen toegang tot deze pagina',
-        image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
+        image: 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
         imageAlt: 'Onvoldoende rechten',
         errorText: html` <p>
             U heeft daarvoor onvoldoende rechten.
@@ -51,7 +51,7 @@ const errorCodes: ErrorCode = {
     },
     '404': {
         title: 'Pagina niet gevonden',
-        image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/page-not-found.svg',
+        image: 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/page-not-found.svg',
         imageAlt: 'Pagina niet gevonden',
         errorText: html` <p>
             We vonden de pagina niet terug. Controleer even of u een tikfout heeft gemaakt. Bent u via een link of
@@ -65,7 +65,7 @@ const errorCodes: ErrorCode = {
     },
     '405': {
         title: 'Niet toegelaten',
-        image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
+        image: 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
         imageAlt: 'Niet toegelaten',
         errorText: html` <p>
             Er ging iets fout.
@@ -78,7 +78,7 @@ const errorCodes: ErrorCode = {
     },
     '408': {
         title: 'Oeps, dat duurde te lang',
-        image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
+        image: 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
         imageAlt: 'Verzoek duurt te lang',
         errorText: html` <p>
             Het laden van de pagina duurde te lang. Probeer het opnieuw en als het nog niet lukt:
@@ -91,7 +91,7 @@ const errorCodes: ErrorCode = {
     },
     '410': {
         title: 'Pagina bestaat niet meer',
-        image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/page-not-found.svg',
+        image: 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/page-not-found.svg',
         imageAlt: 'Verzoek bestaat niet meer',
         errorText: html` <p>
             Deze pagina bestaat niet meer.
@@ -104,7 +104,7 @@ const errorCodes: ErrorCode = {
     },
     '411': {
         title: 'Onvolledig verzoek',
-        image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
+        image: 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
         imageAlt: 'Verzoek onvolledig',
         errorText: html` <p>
             Er ontbreekt blijkbaar iets.
@@ -117,7 +117,7 @@ const errorCodes: ErrorCode = {
     },
     '412': {
         title: 'Voorwaarden voldoen niet',
-        image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
+        image: 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
         imageAlt: 'Voorwaarden niet voldaan',
         errorText: html` <p>
             Er ging iets fout.
@@ -130,7 +130,7 @@ const errorCodes: ErrorCode = {
     },
     '413': {
         title: 'Limiet overschreden',
-        image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
+        image: 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
         imageAlt: 'Verzoek te groot',
         errorText: html` <p>
             Er ging iets fout.
@@ -143,7 +143,7 @@ const errorCodes: ErrorCode = {
     },
     '414': {
         title: 'URL te groot',
-        image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
+        image: 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
         imageAlt: 'URI te groot',
         errorText: html` <p>
             Er ging iets fout.
@@ -156,7 +156,7 @@ const errorCodes: ErrorCode = {
     },
     '415': {
         title: 'Mediatype niet ondersteund',
-        image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
+        image: 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
         imageAlt: 'Media type niet ondersteund',
         errorText: html` <p>
             Het mediatype van de gevraagde gegevens wordt niet ondersteund door de server.
@@ -169,7 +169,7 @@ const errorCodes: ErrorCode = {
     },
     '500': {
         title: 'Interne fout',
-        image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
+        image: 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
         imageAlt: 'Onverwachte fout',
         errorText: html` <p>
             Er ging iets fout. Probeer het nog eens. Lukt het nog niet,
@@ -182,7 +182,7 @@ const errorCodes: ErrorCode = {
     },
     '501': {
         title: 'Verzoek niet ondersteund',
-        image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
+        image: 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
         imageAlt: 'Niet ondersteund',
         errorText: html` <p>
             Er ging iets fout.
@@ -195,7 +195,7 @@ const errorCodes: ErrorCode = {
     },
     '502': {
         title: 'Tijdelijk niet bereikbaar',
-        image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
+        image: 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
         imageAlt: 'Tijdelijk niet bereikbaar',
         errorText: html` <p>
             De website is tijdelijk niet bereikbaar. Probeer later opnieuw. Heb je vragen:
@@ -208,7 +208,7 @@ const errorCodes: ErrorCode = {
     },
     '503': {
         title: 'De website is tijdelijk niet beschikbaar',
-        image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
+        image: 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
         imageAlt: 'Tijdelijk niet bereikbaar',
         errorText: html` <p>
             Probeer later opnieuw. Heb je vragen:
@@ -221,7 +221,7 @@ const errorCodes: ErrorCode = {
     },
     '504': {
         title: 'Tijdelijk niet bereikbaar',
-        image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
+        image: 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
         imageAlt: 'Tijdelijk niet bereikbaar',
         errorText: html` <p>
             De website is tijdelijk niet bereikbaar. Probeer later opnieuw. Heb je vragen:
@@ -234,7 +234,7 @@ const errorCodes: ErrorCode = {
     },
     '505': {
         title: 'HTTP-versie niet ondersteund',
-        image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
+        image: 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
         imageAlt: 'Niet ondersteunde HTTP versie',
         errorText: html` <p>
             De HTTP-versie van uw verzoek wordt niet ondersteund door onze server.
@@ -247,7 +247,7 @@ const errorCodes: ErrorCode = {
     },
     '506': {
         title: 'Interne configuratiefout',
-        image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
+        image: 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
         imageAlt: 'Interne configuratiefout',
         errorText: html` <p>
             Er ging iets fout.
