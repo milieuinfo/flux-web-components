@@ -30,7 +30,7 @@ describe('cypress-component - block components - vl-http-error-message - default
     beforeEach(() => {
         mountDefault({
             title: 'Error title',
-            image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
+            image: 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
             imageAlt: 'image url alt',
             textSlot: '<p slot="text">Sorry, er liep iets onverwachts mis.</p>',
             actionsSlot: '<div slot="actions"><a href="#">Opnieuw opstarten</a></div>',
@@ -56,7 +56,7 @@ describe('cypress-component - block components - vl-http-error-message - default
             .shadow()
             .find('img[id="image-normal"]')
             .should('have.attr', 'src')
-            .and('equal', 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg');
+            .and('equal', 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/unexpected-error.svg');
     });
 
     it('should contain text', () => {
@@ -166,7 +166,7 @@ describe('cypress-component - block components - vl-http-error-message - error-c
             .shadow()
             .find('img[id="image-normal"]')
             .should('have.attr', 'src')
-            .and('equal', 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/page-not-found.svg');
+            .and('equal', 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/page-not-found.svg');
     });
 
     it('should contain text', () => {
@@ -228,7 +228,7 @@ describe('cypress-component - block components - vl-http-error-message - error-c
     beforeEach(() => {
         mountDefault({
             title: 'Error title',
-            image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
+            image: 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
             imageAlt: 'image url alt',
             textSlot: '<p slot="text">Sorry, er liep iets onverwachts mis.</p>',
             actionsSlot: '<div slot="actions"><a href="#">Opnieuw opstarten</a></div>',
@@ -264,7 +264,7 @@ describe('cypress-component - block components - vl-http-error-message - error-c
             .shadow()
             .find('img[id="image-normal"]')
             .should('have.attr', 'src')
-            .and('equal', 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg');
+            .and('equal', 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/unexpected-error.svg');
     });
 
     it('should contain text from the slot', () => {
