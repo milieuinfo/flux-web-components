@@ -642,7 +642,7 @@ export const privacyContentSection = () => html`
                             </div>
                             <div>
                                 <vl-document
-                                    href="https://cdn.milieuinfo.be/footer-assets/LATEST/docx/privacybeleid-v0.2.docx"
+                                    href="https://cdn.omgeving.vlaanderen.be/footer-assets/LATEST/docx/privacybeleid-v0.2.docx"
                                 >
                                     <span slot="type">DOCX</span>
                                     <span slot="title">Lijst van aangiften en machtigingen</span>
