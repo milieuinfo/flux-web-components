@@ -36,7 +36,7 @@ export const httpErrorMessageDefault = httpErrorMessageTemplate.bind({});
 httpErrorMessageDefault.storyName = 'vl-http-error-message - default';
 httpErrorMessageDefault.args = {
     title: 'Niets gevonden hiervoor.',
-    image: 'https://cdn.omgeving.vlaanderen.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
+    image: 'https://cdn.milieuinfo.be/http-error-message-assets/LATEST/img/unexpected-error.svg',
     alt: 'Niets gevonden',
     textSlot: `<p slot="text">Sorry, er liep iets onverwachts mis.</p>`,
     actionsSlot: `<div slot="actions">
