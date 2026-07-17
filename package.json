@@ -146,14 +146,6 @@
         "./libs/components/src/form/form.web-types.json",
         "./libs/map/map.web-types.json"
     ],
-    "pnpm": {
-        "overrides": {
-            "color-parse>color-name": "2.0.0"
-        },
-        "onlyBuiltDependencies": [
-            "cypress"
-        ]
-    },
     "volta": {
         "node": "22.20.0"
     },
