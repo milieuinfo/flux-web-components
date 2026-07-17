@@ -298,6 +298,41 @@ importers:
         specifier: 5.2.0
         version: 5.2.0(tslib@2.8.1)(webpack-cli@5.1.4)(webpack@5.105.3)
 
+  libs/common:
+    dependencies:
+      '@domg-wc/styles':
+        specifier: workspace:*
+        version: link:../../build/dist/libs/styles
+    publishDirectory: ../../build/dist/libs/common
+
+  libs/components:
+    dependencies:
+      '@domg-wc/common':
+        specifier: workspace:*
+        version: link:../../build/dist/libs/common
+      '@domg-wc/styles':
+        specifier: workspace:*
+        version: link:../../build/dist/libs/styles
+    publishDirectory: ../../build/dist/libs/components
+
+  libs/integrations: {}
+
+  libs/map:
+    dependencies:
+      '@domg-wc/common':
+        specifier: workspace:*
+        version: link:../../build/dist/libs/common
+      '@domg-wc/components':
+        specifier: workspace:*
+        version: link:../../build/dist/libs/components
+      '@domg-wc/styles':
+        specifier: workspace:*
+        version: link:../../build/dist/libs/styles
+    publishDirectory: ../../build/dist/libs/map
+
+  libs/styles:
+    publishDirectory: ../../build/dist/libs/styles
+
 packages:
 
   '@adobe/css-tools@4.5.0':

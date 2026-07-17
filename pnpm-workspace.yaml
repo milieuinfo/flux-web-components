@@ -1,3 +1,6 @@
+packages:
+  - 'libs/*'
+
 overrides:
   color-parse>color-name: 2.0.0
 

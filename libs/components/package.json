@@ -3,12 +3,16 @@
     "version": "DOMG-WC-VERSION",
     "author": "Flux <domg_flux@groepen.vlaanderen.be>",
     "type": "node",
-    "publishConfig": {
-        "registry": "https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/"
-    },
+    "sideEffects": [
+        "./*/*/**"
+    ],
     "dependencies": {
-        "@domg-wc/styles": "DOMG-WC-VERSION",
-        "@domg-wc/common": "DOMG-WC-VERSION"
+        "@domg-wc/common": "workspace:*",
+        "@domg-wc/styles": "workspace:*"
+    },
+    "publishConfig": {
+        "registry": "https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/",
+        "directory": "../../build/dist/libs/components"
     },
     "web-types": [
         "./atom/atom.web-types.json",

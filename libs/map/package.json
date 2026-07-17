@@ -1,0 +1,19 @@
+{
+    "name": "@domg-wc/map",
+    "version": "DOMG-WC-VERSION",
+    "author": "Flux <domg_flux@groepen.vlaanderen.be>",
+    "sideEffects": [
+        "./*/**",
+        "./vl-map.*"
+    ],
+    "dependencies": {
+        "@domg-wc/common": "workspace:*",
+        "@domg-wc/components": "workspace:*",
+        "@domg-wc/styles": "workspace:*"
+    },
+    "publishConfig": {
+        "registry": "https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/",
+        "directory": "../../build/dist/libs/map"
+    },
+    "web-types": "./map.web-types.json"
+}

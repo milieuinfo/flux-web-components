@@ -1,0 +1,15 @@
+{
+    "name": "@domg-wc/common",
+    "version": "DOMG-WC-VERSION",
+    "author": "Flux <domg_flux@groepen.vlaanderen.be>",
+    "sideEffects": [
+        "./*/**"
+    ],
+    "dependencies": {
+        "@domg-wc/styles": "workspace:*"
+    },
+    "publishConfig": {
+        "registry": "https://repo.omgeving.vlaanderen.be/artifactory/api/npm/local-npm/",
+        "directory": "../../build/dist/libs/common"
+    }
+}
