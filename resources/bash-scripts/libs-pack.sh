@@ -28,14 +28,12 @@ for lib in $LIBS; do
 done
 
 TO_REPLACE=DOMG-WC-VERSION
-cd ./build/dist/libs
 if [[ "$(uname)" == "Darwin" ]]; then
-    sed -i '' "s,${TO_REPLACE},${RELEASE_VERSION}," ./**/*.web-types.json
+    find ./build/dist/libs -name '*.web-types.json' -exec sed -i '' "s,${TO_REPLACE},${RELEASE_VERSION}," {} +
 else
-    sed -i "s,${TO_REPLACE},${RELEASE_VERSION}," ./**/*.web-types.json
+    find ./build/dist/libs -name '*.web-types.json' -exec sed -i "s,${TO_REPLACE},${RELEASE_VERSION}," {} +
 fi
 echo "RELEASE_VERSION gezet in de *.web-types.json bestanden"
-cd ../../..
 
 for lib in $LIBS; do
     cp "libs/$lib/package.json" "build/dist/libs/$lib/package.json"
