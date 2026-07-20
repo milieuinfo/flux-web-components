@@ -29,9 +29,10 @@ witte rij
 
 ### Datepicker
 
-In v2 is het `anchor-positioning` attribuut toegevoegd. In v3 wordt deze codepath de default
-en wordt de oude positionering verwijderd. Apps die `anchor-positioning` in v2 niet hebben gezet
-moeten na de v3 upgrade verifiëren dat hun datepicker correct rendert.
+In v2 is de anchor-positioning codepath (Popover API + CSS Anchor Positioning) de default geworden.
+Wie het oude gedrag nodig heeft kan terugvallen via het `inline-positioning` attribuut. In v3 wordt
+de oude positionering én het `inline-positioning` attribuut volledig verwijderd. Apps moeten na de
+upgrade verifiëren dat hun datepicker correct rendert.
 
 <table  style={{width: 100 + '%'}}>
     <tr>
@@ -44,9 +45,9 @@ moeten na de v3 upgrade verifiëren dat hun datepicker correct rendert.
     <tr>
         <td>[Datepicker](/docs/components-form-datepicker--documentatie)</td>
         <td>release v2.14.0</td>
-        <td>flatpickr getBoundingClientRect positionering</td>
         <td>Popover API + CSS Anchor Positioning</td>
-        <td><code>{`<vl-datepicker anchor-positioning>`}</code></td>
+        <td>Popover API + CSS Anchor Positioning (opt-out verwijderd)</td>
+        <td><code>{`<vl-datepicker inline-positioning>`}</code></td>
     </tr>
 </table>
 

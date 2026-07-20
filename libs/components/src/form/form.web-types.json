@@ -249,8 +249,8 @@
                             "default": "false"
                         },
                         {
-                            "name": "anchor-positioning",
-                            "description": "Activeert CSS Anchor Positioning + Popover API voor de kalender positionering. Dit zorgt ervoor dat de kalender correct wordt gepositioneerd in scrollbare containers en niet wordt afgekapt door overflow of transform op ancestor-elementen (bijv. in een modal).",
+                            "name": "inline-positioning",
+                            "description": "Schakelt terug naar de klassieke flatpickr-positionering: de kalender rendert inline in de shadow DOM in plaats van de top-layer. Standaard (zonder dit attribuut) gebruikt de datepicker CSS Anchor Positioning + Popover API, zodat de kalender niet wordt afgekapt door overflow of transform op ancestor-elementen (bijv. in een modal).",
                             "default": "false"
                         }
                     ],

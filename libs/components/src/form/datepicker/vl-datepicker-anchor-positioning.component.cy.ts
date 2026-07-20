@@ -16,23 +16,58 @@ describe('vl-datepicker - anchor-positioning (polyfill)', () => {
         return cy.get('vl-datepicker').shadow().find('.flatpickr-calendar');
     };
 
-    it('should render the calendar in the top-layer popover when anchor-positioning is set', () => {
-        cy.mount(html`<vl-datepicker anchor-positioning></vl-datepicker>`);
+    it('should render the calendar in the top-layer popover by default', () => {
+        cy.mount(html`<vl-datepicker></vl-datepicker>`);
 
         openCalendar().should('have.class', 'open').should('have.attr', 'popover', 'manual');
     });
 
-    it('should not use popover when anchor-positioning is not set', () => {
-        cy.mount(html`<vl-datepicker></vl-datepicker>`);
+    it('should not use popover when inline-positioning is set', () => {
+        cy.mount(html`<vl-datepicker inline-positioning></vl-datepicker>`);
 
         openCalendar().should('have.class', 'open').should('not.have.attr', 'popover');
     });
 
     positions.forEach((position) => {
-        it(`should activate the popover with anchor-positioning and position="${position}"`, () => {
-            cy.mount(html`<vl-datepicker anchor-positioning position=${position}></vl-datepicker>`);
+        it(`should activate the popover by default with position="${position}"`, () => {
+            cy.mount(html`<vl-datepicker position=${position}></vl-datepicker>`);
 
             openCalendar().should('have.class', 'open').should('have.attr', 'popover', 'manual');
+        });
+    });
+
+    describe('static heeft voorrang op de anchor-modus', () => {
+        it('should render a static calendar without popover under the default (anchor) mode', () => {
+            cy.mount(html`<vl-datepicker static value="2024-04-15"></vl-datepicker>`);
+
+            openCalendar().should(($cal) => {
+                expect($cal).to.have.class('open');
+                expect($cal).to.have.class('static');
+                expect($cal[0].hasAttribute('popover'), 'geen popover').to.be.false;
+                expect($cal[0].hasAttribute('style'), 'geen inline style').to.be.false;
+            });
+        });
+
+        it('should render a static calendar without popover when inline-positioning is also set', () => {
+            cy.mount(html`<vl-datepicker static inline-positioning value="2024-04-15"></vl-datepicker>`);
+
+            openCalendar().should(($cal) => {
+                expect($cal).to.have.class('open');
+                expect($cal).to.have.class('static');
+                expect($cal[0].hasAttribute('popover'), 'geen popover').to.be.false;
+                expect($cal[0].hasAttribute('style'), 'geen inline style').to.be.false;
+            });
+        });
+
+        ['above', 'below center', 'auto right'].forEach((position) => {
+            it(`should stay static and ignore position="${position}" (no popover)`, () => {
+                cy.mount(html`<vl-datepicker static position=${position} value="2024-04-15"></vl-datepicker>`);
+
+                openCalendar()
+                    .should('have.class', 'open')
+                    .should('have.class', 'static')
+                    .should('not.have.attr', 'popover');
+            });
         });
     });
 
@@ -43,7 +78,7 @@ describe('vl-datepicker - anchor-positioning (polyfill)', () => {
         it('should activate the popover when ancestor has transform', () => {
             cy.mount(html`
                 <div style="transform: translateX(0); padding: 100px;">
-                    <vl-datepicker anchor-positioning></vl-datepicker>
+                    <vl-datepicker></vl-datepicker>
                 </div>
             `);
 
@@ -54,7 +89,7 @@ describe('vl-datepicker - anchor-positioning (polyfill)', () => {
             cy.mount(html`
                 <div style="overflow: auto; max-height: 300px; padding: 80px;">
                     <div style="height: 100px;"></div>
-                    <vl-datepicker anchor-positioning></vl-datepicker>
+                    <vl-datepicker></vl-datepicker>
                     <div style="height: 400px;"></div>
                 </div>
             `);
@@ -69,7 +104,7 @@ describe('vl-datepicker - anchor-positioning (polyfill)', () => {
                            padding: 80px; margin: 50px;"
                 >
                     <div style="height: 100px;"></div>
-                    <vl-datepicker anchor-positioning></vl-datepicker>
+                    <vl-datepicker></vl-datepicker>
                     <div style="height: 400px;"></div>
                 </div>
             `);
@@ -92,7 +127,7 @@ describe('vl-datepicker - anchor-positioning (polyfill)', () => {
             cy.mount(html`
                 <vl-modal id="test-modal" title="Modal" size=${size} position=${modalPosition}>
                     <span slot="content">
-                        <vl-datepicker anchor-positioning></vl-datepicker>
+                        <vl-datepicker></vl-datepicker>
                     </span>
                 </vl-modal>
             `);

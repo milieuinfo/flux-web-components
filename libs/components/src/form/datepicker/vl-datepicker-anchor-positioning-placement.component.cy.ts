@@ -52,7 +52,7 @@ describe('vl-datepicker - anchor-positioning placement', () => {
         it(`positioneert onder de knop bij position="${position}"`, () => {
             cy.mount(html`
                 <div style="margin-top: 200px; margin-left: 300px;">
-                    <vl-datepicker anchor-positioning position=${position}></vl-datepicker>
+                    <vl-datepicker position=${position}></vl-datepicker>
                 </div>
             `);
             openAndAssert((b, c) => {
@@ -73,7 +73,7 @@ describe('vl-datepicker - anchor-positioning placement', () => {
         it(`positioneert boven de knop bij position="${position}"`, () => {
             cy.mount(html`
                 <div style="margin-top: 400px; margin-left: 300px;">
-                    <vl-datepicker anchor-positioning position=${position}></vl-datepicker>
+                    <vl-datepicker position=${position}></vl-datepicker>
                 </div>
             `);
             openAndAssert((b, c) => {
@@ -87,7 +87,7 @@ describe('vl-datepicker - anchor-positioning placement', () => {
     it('flipt naar boven bij position="auto" met weinig ruimte onder', () => {
         cy.mount(html`
             <div style="margin-top: 620px; margin-left: 300px;">
-                <vl-datepicker anchor-positioning position="auto"></vl-datepicker>
+                <vl-datepicker position="auto"></vl-datepicker>
             </div>
         `);
         openAndAssert((b, c) => above(b, c));
@@ -98,7 +98,7 @@ describe('vl-datepicker - anchor-positioning placement', () => {
         cy.mount(html`
             <div style="transform: translateX(0); overflow: auto; max-height: 300px; padding: 80px; margin: 50px;">
                 <div style="height: 100px;"></div>
-                <vl-datepicker anchor-positioning></vl-datepicker>
+                <vl-datepicker></vl-datepicker>
                 <div style="height: 400px;"></div>
             </div>
         `);

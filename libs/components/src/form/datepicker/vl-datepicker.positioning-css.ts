@@ -18,22 +18,22 @@ export const vlDatepickerPositioningStyles: CSSResult = css`
     /* Anchor-regels in @supports: browsers zonder CSS Anchor Positioning negeren ze en vallen terug
        op de default hierboven (de useAnchorPositioning getter in JS spiegelt deze detect). */
     @supports (anchor-name: --x) {
-    :host([anchor-positioning]) {
+    :host(:not([inline-positioning])) {
         anchor-scope: --datepicker-btn;
     }
 
-    :host([anchor-positioning]) button#toggle-calendar {
+    :host(:not([inline-positioning])) button#toggle-calendar {
         anchor-name: --datepicker-btn;
     }
 
-    :host([anchor-positioning]) #datepicker-calendar-placeholder {
+    :host(:not([inline-positioning])) #datepicker-calendar-placeholder {
         position: static;
         width: auto;
         z-index: auto;
     }
 
     /* Default: onder de button, links uitgelijnd, 2px gap. */
-    :host([anchor-positioning]) .flatpickr-calendar:not(.static) {
+    :host(:not([inline-positioning])) .flatpickr-calendar:not(.static) {
         position: fixed;
         position-anchor: --datepicker-btn;
         top: calc(anchor(bottom) + 2px);
@@ -61,27 +61,27 @@ export const vlDatepickerPositioningStyles: CSSResult = css`
         right: 0;
     }
 
-    :host([anchor-positioning]) .flatpickr-calendar:not(.static) {
+    :host(:not([inline-positioning])) .flatpickr-calendar:not(.static) {
         position-try-fallbacks: --align-right-below, --flip-above, --align-right-above;
     }
 
     /* Position mapping per position attribuut */
 
     /* auto varianten — met flip */
-    :host([anchor-positioning][position='auto']) .flatpickr-calendar:not(.static),
-    :host([anchor-positioning]:not([position])) .flatpickr-calendar:not(.static),
-    :host([anchor-positioning][position='auto left']) .flatpickr-calendar:not(.static) {
+    :host(:not([inline-positioning])[position='auto']) .flatpickr-calendar:not(.static),
+    :host(:not([inline-positioning]):not([position])) .flatpickr-calendar:not(.static),
+    :host(:not([inline-positioning])[position='auto left']) .flatpickr-calendar:not(.static) {
         top: calc(anchor(bottom) + 2px);
         left: anchor(left);
         position-try-fallbacks: --align-right-below, --flip-above, --align-right-above;
     }
-    :host([anchor-positioning][position='auto center']) .flatpickr-calendar:not(.static) {
+    :host(:not([inline-positioning])[position='auto center']) .flatpickr-calendar:not(.static) {
         top: calc(anchor(bottom) + 2px);
         left: anchor(center);
         translate: -50% 0;
         position-try-fallbacks: --flip-above;
     }
-    :host([anchor-positioning][position='auto right']) .flatpickr-calendar:not(.static) {
+    :host(:not([inline-positioning])[position='auto right']) .flatpickr-calendar:not(.static) {
         top: calc(anchor(bottom) + 2px);
         right: anchor(right);
         left: auto;
@@ -89,21 +89,21 @@ export const vlDatepickerPositioningStyles: CSSResult = css`
     }
 
     /* above varianten — zonder flip */
-    :host([anchor-positioning][position='above']) .flatpickr-calendar:not(.static),
-    :host([anchor-positioning][position='above left']) .flatpickr-calendar:not(.static) {
+    :host(:not([inline-positioning])[position='above']) .flatpickr-calendar:not(.static),
+    :host(:not([inline-positioning])[position='above left']) .flatpickr-calendar:not(.static) {
         top: auto;
         bottom: calc(anchor(top) + 2px);
         left: anchor(left);
         position-try-fallbacks: none;
     }
-    :host([anchor-positioning][position='above center']) .flatpickr-calendar:not(.static) {
+    :host(:not([inline-positioning])[position='above center']) .flatpickr-calendar:not(.static) {
         top: auto;
         bottom: calc(anchor(top) + 2px);
         left: anchor(center);
         translate: -50% 0;
         position-try-fallbacks: none;
     }
-    :host([anchor-positioning][position='above right']) .flatpickr-calendar:not(.static) {
+    :host(:not([inline-positioning])[position='above right']) .flatpickr-calendar:not(.static) {
         top: auto;
         bottom: calc(anchor(top) + 2px);
         right: anchor(right);
@@ -112,19 +112,19 @@ export const vlDatepickerPositioningStyles: CSSResult = css`
     }
 
     /* below varianten — zonder flip */
-    :host([anchor-positioning][position='below']) .flatpickr-calendar:not(.static),
-    :host([anchor-positioning][position='below left']) .flatpickr-calendar:not(.static) {
+    :host(:not([inline-positioning])[position='below']) .flatpickr-calendar:not(.static),
+    :host(:not([inline-positioning])[position='below left']) .flatpickr-calendar:not(.static) {
         top: calc(anchor(bottom) + 2px);
         left: anchor(left);
         position-try-fallbacks: none;
     }
-    :host([anchor-positioning][position='below center']) .flatpickr-calendar:not(.static) {
+    :host(:not([inline-positioning])[position='below center']) .flatpickr-calendar:not(.static) {
         top: calc(anchor(bottom) + 2px);
         left: anchor(center);
         translate: -50% 0;
         position-try-fallbacks: none;
     }
-    :host([anchor-positioning][position='below right']) .flatpickr-calendar:not(.static) {
+    :host(:not([inline-positioning])[position='below right']) .flatpickr-calendar:not(.static) {
         top: calc(anchor(bottom) + 2px);
         right: anchor(right);
         left: auto;
