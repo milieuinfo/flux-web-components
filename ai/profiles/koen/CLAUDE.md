@@ -127,6 +127,8 @@ Referentie: `libs/components/src/atom/button/stories/`.
 
 Lokale **Figma Dev Mode MCP server** op `http://127.0.0.1:3845/mcp` — levert design-context (gegenereerde code, design tokens/variabelen, afbeeldingen, node-metadata) rechtstreeks uit Figma.
 
+**Meerwaarde t.o.v. de cloud-server (beperkt):** de lokale server werkt op de **live desktop-selectie** (geen URL/`node-id` nodig) en geeft Dev Mode-output (codegen, measurements, tokens) — **read-only**, zonder seat/OAuth. Voor alle overige taken is de cloud-server gelijkwaardig of beter (die leest óók elke node via URL/`node-id`, én schrijft). Gebruik de lokale server dus enkel voor een **snelle inspectie van wat je op dat moment in de desktop-app geselecteerd hebt**; verder is de cloud-server de standaard.
+
 **Vereisten:**
 - Figma desktop-app open met Dev Mode MCP server ingeschakeld (Preferences → "Enable Dev Mode MCP Server")
 - Een **selectie of node** actief in Figma (of een Figma-link met `node-id`) — de tools werken op wat geselecteerd/aangeduid is
@@ -138,6 +140,81 @@ Lokale **Figma Dev Mode MCP server** op `http://127.0.0.1:3845/mcp` — levert d
 - Match altijd eerst een bestaand sibling-component; Figma is de bron voor het *ontwerp*, niet voor de component-structuur
 
 > De MCP-tools laden on-demand. Is de server onbereikbaar, controleer dan of de Figma desktop-app draait met Dev Mode MCP aan en of er iets geselecteerd is.
+
+### Cloud MCP-server (claude.ai Figma)
+
+Naast de lokale Dev Mode server is er de **cloud Figma MCP-server** (`claude.ai Figma`) — de officiële remote server die code en design in **beide richtingen** brugt: designs lezen én designs schrijven/bewerken in Figma vanuit code of intentie.
+
+**Vereisten:**
+- Een Figma-account met **write-access (Full/Dev seat)** — nodig om te kunnen creëren/bewerken, niet enkel lezen.
+- Geauthenticeerd via claude.ai (OAuth). De verbinding is interactief; in headless/cron-runs kan de server afwezig zijn.
+- Werkt op **remote Figma-content**: een `figma.com`-URL of `node-id`, géén lokale desktop-selectie nodig (in tegenstelling tot de Dev Mode server).
+- Vóór `use_figma` verplicht eerst de `/figma-use` skill laden; voor design-generatie de bijhorende skill (`/figma-generate-design`, `/figma-generate-library`, `/figma-code-connect`).
+- **Screenshots maken en bekijken = altijd toegestaan.** `get_screenshot` (en het downloaden ervan via `curl` + inlezen met Read) mag je vrij gebruiken zonder te vragen — beschouw dit als "allowed". Het is puur lezend/verifiërend.
+
+**Werkverdeling:**
+- **Cloud-server = standaard/workhorse:** zowel lezen (elke node via `figma.com`-URL of `node-id`) als schrijven/creëren.
+- **Lokale Dev Mode server:** enkel wanneer je snel de **huidige desktop-selectie** wil inspecteren (Dev Mode codegen/tokens/measurements) zonder URL of seat. Read-only.
+
+### Designs maken (code → design)
+
+- Bouw designs **altijd met de FLUX Web Componenten library** in Figma. Vind je die library niet in het bestand/de beschikbare libraries, **meld het** en ga niet verder met losse/ad-hoc componenten.
+- Bouw pagina's **altijd op met `vl-template` of `vl-dashboard`** als basis-layout.
+- In de **main content** van zowel `vl-template` als `vl-dashboard` bouw je een pagina gewoonlijk op met **`vl-section`**, en daarbinnen **`vl-content-block`**. Verwijder dus de meegeleverde `.vl-section`-slots niet om er zelf iets te verzinnen — vul ze in.
+- Heeft de pagina een **zijnavigatie** nodig (TOC / anchor-navigatie van de pagina)? Die komt **rond de content**, binnen de `vl-content-block`, opgebouwd met **`vl-side-navigation`** op een **`vl-grid`**-layout — niet als los paneel ernaast. In code is dit `vl-side-navigation-layout-next` (`content-block heading-root-selector="#..."`), dat de TOC automatisch uit de heading-ids genereert. Voorbeeld: [`page-layout-example.component.ts`](libs/integrations/src/page-layout/page-layout-example.component.ts) en Figma-node `563-51452` in het FLUX-bestand.
+
+**Layout-keuze: `vl-template` vs `vl-dashboard`**
+- **`vl-template` is de standaardkeuze.** De meeste applicaties zijn web-page-gebaseerd en passen daardoor het best bij de `vl-template`-stijl.
+- **`vl-dashboard`** gebruik je sporadisch, voor grote applicaties die eerder als "dashboard" of "desktop app" te beschouwen zijn.
+- Jij beslist welk van de twee past en **stelt gerichte vragen om die beslissing te valideren** vóór je begint.
+- Bij `vl-template`: geef de voorkeur aan een **full-width functional header** en **full-width content-blokken** wanneer de content uit grote tabellen of paginavullende componenten (zoals een kaart) bestaat.
+
+**Best practices & correctheid**
+- De **Storybook-documentatie** bevat tal van best practices (zowel design als accessibility) — neem die in acht wanneer je designs in Figma voorstelt.
+- **Meld onvolkomenheden** in zowel code als Figma-componenten en stel fixes/verbeteringen voor waar nodig.
+- De **codebase is de single source of truth**. Wijkt Figma daarvan af, meld het dan.
+
+**Maak het werk van de frontend developer makkelijk**
+- Maak designs die het latere werk zo eenvoudig mogelijk maken. **Bedenk geen eigen layouts** (geen eigen frames, backgrounds, borders, spacing, …) — gebruik wat de library biedt.
+- **Spacing-vuistregel:** een component mag niet weten in welke parent hij zit — de **parent bepaalt de spacing**. Verkies hiervoor gewoonlijk `.vl-stacked` voor verticale layouts en `.vl-group` voor horizontale blokken.
+- Gebruik altijd vl-titles met no-space-bottom in een vl-stacked layout
+- Bestaat er een variant met **native Figma slots**, geef daar dan de voorkeur aan.
+
+**Nooit een component verzinnen — eerst uitputtend zoeken**
+- **Bouw nooit zelf een "card", "tegel", "blok", "select", … na** met losse frames + borders + eigen tekst. Elk UI-patroon dat op een component lijkt, ís bijna altijd een FLUX-component. Verzin er geen namaak van.
+- **Zoek uitputtend** in de Figma-library (`search_design_system`) vóór je concludeert dat iets niet bestaat: `search_design_system` geeft enkel de top-matches, dus varieer met **meerdere synoniemen én korte losse termen** — NL én EN. Bv. zoek óók op `tile` apart (niet enkel `data tile`), op `select`, `infoblock`, `spotlight`, … Één smalle zoekterm mist componenten.
+- **Zoek ook buiten `libs/components`.** Componenten leven niet alleen daar: `vl-map` en z'n kaartlagen zitten in **`libs/integrations/src/map/`**. Grep breed over de hele repo vóór je "bestaat niet" concludeert.
+- **Code ≠ Figma-library.** Sommige componenten bestaan in de codebase maar (nog) niet in de Figma-library, en omgekeerd. Alleen **in Figma gepubliceerde** componenten zijn bruikbaar in een design — controleer altijd met `get_libraries` + `search_design_system`, en meld het als een code-component in Figma ontbreekt (bv. `vl-map` bestaat in code, is in Figma nog niet volwaardig).
+- Pas **na** een brede zoektocht zonder match: gebruik een **duidelijk gemarkeerde placeholder** (laagnaam `PLACEHOLDER … — geen FLUX-component`) en **meld het**. Typische echte placeholders: grafieken/charts.
+
+**Component-mapping (UI-patroon → FLUX-component in Figma)** — startpunt; verifieer namen/keys altijd live met `search_design_system`:
+
+| Wat je zoekt | FLUX-component |
+|---|---|
+| Pagina-layout (standaard / dashboard) | `vl-template` / `vl-dashboard` |
+| App-/titelbalk bovenaan | `vl-functional-header` |
+| Footer | `vl-footer` |
+| Knop | `vl-button` |
+| Link (met/zonder icoon) | `vl-link` |
+| Tekst-/zoekinput | `vl-input-field` |
+| Filterpaneel (meerdere filters) | `vl-search-filter` |
+| Dropdown / (multi)select / segmented keuze (bv. tijdsresolutie, weergave) | `vl-select-rich` |
+| Tabbladen-navigatie | `vl-tabs` (+ `vl-tab`) |
+| Statistiek-/KPI-kaart ("card", "tile") | `vl-info-tile` |
+| Uitleg-/infoblok (titel + tekst + link) | `vl-infoblock` |
+| Korte inline-uitleg | `vl-infotext` |
+| Uitgelicht contentblok (met illustratie) | `vl-spotlight` |
+| Proza / rich text | `vl-proza-message` |
+| Label/waarde-lijst (metadata) | `vl-properties` (verkozen boven `vl-description-data`) |
+| Kaart / GIS-laag | `vl-map` (+ `vl-map-*` lagen, in `libs/integrations`) |
+| Overlay-detailpaneel | `vl-side-sheet` |
+| Datatabel (filters/paginatie) | `vl-rich-data` / `vl-rich-data-table` |
+| Contactgegevens | `vl-contact-card` |
+| Heading / body-tekst | `vl-title` / `vl-text` |
+| Popover / tooltip | `vl-popover` / `vl-tooltip` |
+| Kolommenraster / groepering | `.vl-grid` / `.vl-group` · `.vl-stacked` |
+
+**Kleurgebruik & datavisualisatie (a11y):** volg bij kaarten, grafieken en gekleurde labels steeds de projectrichtlijnen — [`h_opmaak/2_kleurenpalet.mdx`](apps/storybook/docs/h_opmaak/2_kleurenpalet.mdx) (o.a. "Kleurgebruik in grafieken" + kleurenblindheid) en [`.../1_waarneembaar/1.4-onderscheidbaar.mdx`](apps/storybook/docs/e_richtlijnen/a_toegankelijkheid-aanpak/1_waarneembaar/1.4-onderscheidbaar.mdx). Nooit kleur als enig onderscheid.
 
 ## Git Workflow
 
