@@ -10,7 +10,7 @@ type DatepickerArgs = typeof formControlArgs &
         onVlChange: () => void;
         onVlInput: () => void;
         onVlValid: () => void;
-        anchorPositioning: boolean;
+        inlinePositioning: boolean;
     };
 
 export const datepickerArgs: DatepickerArgs & { helperText?: string } = {
@@ -19,7 +19,7 @@ export const datepickerArgs: DatepickerArgs & { helperText?: string } = {
     onVlChange: action('vl-change'),
     onVlInput: action('vl-input'),
     onVlValid: action('vl-valid'),
-    anchorPositioning: false,
+    inlinePositioning: false,
     helperText: '',
 };
 
@@ -219,12 +219,13 @@ export const datepickerArgTypes: ArgTypes<DatepickerArgs> = {
         },
         control: false,
     },
-    anchorPositioning: {
-        name: 'anchor-positioning',
+    inlinePositioning: {
+        name: 'inline-positioning',
         description:
-            'Activeert CSS Anchor Positioning + Popover API voor de kalender positionering. ' +
-            'Dit zorgt ervoor dat de kalender correct wordt gepositioneerd in scrollbare containers ' +
-            'en niet wordt afgekapt door overflow of transform op ancestor-elementen (bijv. in een modal).',
+            'Schakelt terug naar de klassieke flatpickr-positionering: de kalender rendert inline in de ' +
+            'shadow DOM in plaats van de top-layer. Standaard (zonder dit attribuut) gebruikt de datepicker ' +
+            'CSS Anchor Positioning + Popover API, zodat de kalender niet wordt afgekapt door overflow of ' +
+            'transform op ancestor-elementen (bijv. in een modal).',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,

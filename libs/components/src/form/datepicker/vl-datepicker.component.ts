@@ -51,7 +51,7 @@ export class VlDatepickerComponent extends FormControl {
     private pattern = datepickerDefaults.pattern; // Wordt enkel gebruikt in de mask validator
     private position = datepickerDefaults.position;
     private isStatic = datepickerDefaults.isStatic;
-    private anchorPositioning = false;
+    private inlinePositioning = false;
     private polyfillReady = AnchorPositioningController.isNativelySupported();
     // Controllers
     private anchorController = new AnchorPositioningController(this);
@@ -99,7 +99,7 @@ export class VlDatepickerComponent extends FormControl {
             isOpen: { type: Boolean, state: true },
             position: { type: String },
             isStatic: { type: Boolean, attribute: 'static' },
-            anchorPositioning: { type: Boolean, attribute: 'anchor-positioning' },
+            inlinePositioning: { type: Boolean, attribute: 'inline-positioning' },
             polyfillReady: { type: Boolean, state: true },
         };
     }
@@ -108,9 +108,9 @@ export class VlDatepickerComponent extends FormControl {
         return this.shadowRoot?.querySelector('input');
     }
 
-    /** Anchor-modus enkel als het attribuut gezet is én de polyfills geladen zijn (anders default positionering). */
+    /** Anchor-modus is default; enkel uit als `inline-positioning` gezet is. Vereist geladen polyfills. */
     private get useAnchorPositioning(): boolean {
-        return this.anchorPositioning && this.polyfillReady;
+        return !this.inlinePositioning && this.polyfillReady;
     }
 
     connectedCallback() {
@@ -160,7 +160,7 @@ export class VlDatepickerComponent extends FormControl {
             this.cleaveInstance = new Cleave(this.validationTarget!, this.maskOptions);
         }
 
-        if (this.anchorPositioning && !this.polyfillReady && this.shadowRoot) {
+        if (!this.inlinePositioning && !this.polyfillReady && this.shadowRoot) {
             this.polyfillReady = await AnchorPositioningController.ensureSupport();
         }
 
@@ -171,13 +171,13 @@ export class VlDatepickerComponent extends FormControl {
     updated(changedProperties: Map<string, unknown>) {
         super.updated(changedProperties);
 
-        if (changedProperties.has('anchorPositioning') && this.anchorPositioning && !this.polyfillReady && this.shadowRoot) {
+        if (changedProperties.has('inlinePositioning') && !this.inlinePositioning && !this.polyfillReady && this.shadowRoot) {
             AnchorPositioningController.ensureSupport().then((ok) => {
                 this.polyfillReady = ok;
             });
         }
         if (
-            (changedProperties.has('anchorPositioning') || changedProperties.has('polyfillReady')) &&
+            (changedProperties.has('inlinePositioning') || changedProperties.has('polyfillReady')) &&
             this.flatpickrInstance &&
             !this.isStatic
         ) {

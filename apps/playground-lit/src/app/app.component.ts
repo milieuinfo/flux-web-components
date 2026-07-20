@@ -121,7 +121,7 @@ export class AppComponent extends LitElement {
                             </p>
                             <div style="display: flex; gap: 20px; margin-top: 16px;">
                                 <div style="flex: 1; border: 2px dashed crimson; padding: 12px; background: #fffbe6;">
-                                    <strong style="color: crimson;">A — default mode (bug)</strong>
+                                    <strong style="color: crimson;">A — inline-positioning (oude hack, bug)</strong>
                                     <p style="margin: 4px 0 8px; font-size: 13px; color: #666;">
                                         getBoundingClientRect-hack — calendar landt op verkeerde plek / clipt door overflow.
                                     </p>
@@ -130,12 +130,12 @@ export class AppComponent extends LitElement {
                                                border: 1px solid #ccc; padding: 10px;"
                                     >
                                         <div style="height: 60px;"></div>
-                                        <vl-datepicker label="Vanaf"></vl-datepicker>
+                                        <vl-datepicker label="Vanaf" inline-positioning></vl-datepicker>
                                         <div style="height: 400px;"></div>
                                     </div>
                                 </div>
                                 <div style="flex: 1; border: 2px dashed green; padding: 12px; background: #f0fff0;">
-                                    <strong style="color: green;">B — anchor-positioning opt-in (fix)</strong>
+                                    <strong style="color: green;">B — default (anchor-positioning, fix)</strong>
                                     <p style="margin: 4px 0 8px; font-size: 13px; color: #666;">
                                         Popover top-layer + CSS Anchor Positioning — ontsnapt aan ancestor context.
                                     </p>
@@ -144,7 +144,7 @@ export class AppComponent extends LitElement {
                                                border: 1px solid #ccc; padding: 10px;"
                                     >
                                         <div style="height: 60px;"></div>
-                                        <vl-datepicker label="Vanaf" anchor-positioning></vl-datepicker>
+                                        <vl-datepicker label="Vanaf"></vl-datepicker>
                                         <div style="height: 400px;"></div>
                                     </div>
                                 </div>

@@ -38,22 +38,25 @@ import { VlDatepickerComponent } from '@domg-wc/components/form';
 
 ## Positionering
 
-De datepicker kalender positioneert zichzelf automatisch. Indien de automatische positionering niet het gewenste
-resultaat oplevert, kan dit op drie manieren aangepast worden:
+De datepicker kalender positioneert zichzelf automatisch. Standaard rendert de kalender in de browser top-layer
+(via CSS Anchor Positioning + Popover API), zodat ancestor `transform`, `overflow` of `sticky` de positionering
+niet kan breken. Indien de automatische positionering niet het gewenste resultaat oplevert, kan dit op drie
+manieren aangepast worden:
 
 -   Het `position` attribuut: mogelijke waarden zijn: "auto" (default), "above", "below", "auto left", "auto center",
     "auto right", "above left", "above center", "above right", "below left", "below center", "below right".
 -   Het `static` attribuut: indien aanwezig wordt andere positionering genegeerd en wordt de kalender
     op een vaste plaats onder het datum invulveld getoond.
--   Het `anchor-positioning` attribuut: indien aanwezig rendert de kalender in de browser top-layer,
-    zodat ancestor `transform`, `overflow` of `sticky` de positionering niet kan breken.
+-   Het `inline-positioning` attribuut: schakelt terug naar de klassieke flatpickr-positionering, waarbij de
+    kalender inline in de shadow DOM rendert in plaats van de top-layer.
 
 ```html
-<vl-datepicker anchor-positioning></vl-datepicker>
+<vl-datepicker inline-positioning></vl-datepicker>
 ```
 
-> ⚠️ `anchor-positioning` wijzigt het render-model (top-layer ipv shadow DOM). Test grondig als
-> je app afhankelijk is van de huidige DOM-positie of stacking volgorde van de kalender.
+> ⚠️ `inline-positioning` valt terug op het oude render-model (shadow DOM ipv top-layer) en kan opnieuw
+> afgekapt worden door ancestor `overflow` of `transform`. Gebruik dit enkel als je app afhankelijk is van
+> de huidige DOM-positie of stacking volgorde van de kalender.
 
 
 ## Formaat
