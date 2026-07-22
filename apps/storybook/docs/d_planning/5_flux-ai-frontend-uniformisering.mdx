@@ -1,0 +1,429 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import fluxAiDoel from '../../resources/planning/flux-ai-doel.png';
+import fluxAiConcept from '../../resources/planning/flux-ai-concept.png';
+import fluxAiModeltoepassingA from '../../resources/planning/flux-ai-modeltoepassing-a.png';
+import fluxAiModeltoepassingB from '../../resources/planning/flux-ai-modeltoepassing-b.png';
+import fluxAiUxUniformisering from '../../resources/planning/flux-ai-ux-uniformisering.png';
+
+<Meta title="Planning/Flux-AI - Frontend Uniformisering" />
+
+# Flux-AI - Frontend Uniformisering via AI
+
+## 0. Inhoudstafel
+
+- [1. Doel](#1-doel)
+- [2. Concept](#2-concept)
+- [3. Kennislaag](#3-kennislaag)
+- [4. AI-Workflows](#4-ai-workflows)
+- [5. Modeltoepassingen als Voorbeeld](#5-modeltoepassingen-als-voorbeeld)
+  - [A. Technisch Fundament](#a-technisch-fundament)
+  - [B. Uniforme UI/UX](#b-uniforme-uiux)
+  - [C. Uniformisering - van A. naar B.](#c-uniformisering---van-a-naar-b)
+- [6. Ontsluiting: MCP als Toegangspoort](#6-ontsluiting-mcp-als-toegangspoort)
+- [7. Fasering](#7-fasering)
+- [8. Randvoorwaarden en Risico's](#8-randvoorwaarden-en-risicos)
+- [9. Conclusie](#9-conclusie)
+- [10. FAQ](#10-faq)
+  - [10.1 Is de afnemer het stuur?](#101-is-de-afnemer-het-stuur)
+  - [10.2 Evolueren ook de UI/UX-patronen niet?](#102-evolueren-ook-de-uiux-patronen-niet)
+  - [10.3 Zijn het in het begin niet eerder kandidaat-modeltoepassingen?](#103-zijn-het-in-het-begin-niet-eerder-kandidaat-modeltoepassingen)
+  - [10.4 Updaten we onze documentatie bij elke migratie?](#104-updaten-we-onze-documentatie-bij-elke-migratie)
+  - [10.5 Wat zijn few-shot voorbeelden?](#105-wat-zijn-few-shot-voorbeelden)
+  - [10.6 Migreren we naar Custom Elements Manifest?](#106-migreren-we-naar-custom-elements-manifest)
+  - [10.7 Is er vendor lock-in?](#107-is-er-vendor-lock-in)
+  - [10.8 WCAG 2.1 of WCAG 2.2?](#108-wcag-21-of-wcag-22)
+
+## 1. Doel
+
+<div style={{textAlign: 'center'}}>
+    <img
+        src={fluxAiDoel}
+        alt="Flux-AI - niet-uniforme toepassingen"
+        width="700"
+    />
+</div>
+
+
+## 2. Concept
+
+Flux heeft als doel frontend-ontwikkeling te ondersteunen en te vergemakkelijken via de web-componenten-bibliotheek. AI
+ kan die ondersteuning **fel verbeteren, de ontwikkeling versnellen, routinetaken automatiseren en de kwaliteit
+ verhogen**. Om dit door te voeren moeten we de kennis over de bibliotheek **centraal, machineleesbaar, betrouwbaar en
+ consistent** beschikbaar stellen.
+
+<div style={{textAlign: 'center'}}>
+    <img
+        src={fluxAiConcept}
+        alt="Flux-AI - de kennislaag voedt via de MCP-server de AI-workflows"
+        width="750"
+    />
+</div>
+
+De toekomstige strategie steunt daarom op het principe: **alle AI-workflows putten uit dezelfde kennislaag** - Figma
+designs,  web-types / Custom Elements Manifest per versie, release notes, en een set uniforme modeltoepassingen. AI is
+de motor, de kennislaag is de brandstof. Verbeteringen in die laag renderen in alle workflows.
+
+De kennislaag voedt via de MCP-ontsluiting de AI-workflows. De opmerking onderaan het schema verwoordt het vliegwiel:
+ toepassingen die uit de workflows voortkomen, worden na uniformisering zelf nieuwe modeltoepassingen en versterken zo
+ de kennislaag.
+
+
+## 3. Kennislaag
+
+4 bronnen vormen samen de kennislaag:
+
+**Figma designs:** ontwerpen, redesigns en uitbreidingen ontstaan in Figma. Voor AI-verwerking is het belangrijk dat de
+ Figma-bibliotheek gestructureerd is: componenten in Figma corresponderen 1-op-1 met componenten in de bibliotheek
+ (`vl`-prefix), met consistente naamgeving en waardes die overeenkomen met component-attributen. Hoe kwalitatiever die
+ mapping, hoe beter design-naar-code werkt.
+
+**Web-types / CEM per versie:** dit is de single source of truth voor de API van elke component: attributen, properties,
+ events, slots, CSS custom properties. Doordat deze per versie beschikbaar zijn, kan AI exact weten wat een component in
+ versie X kan - en wat er in versie Y veranderd is. Dit is de meest waardevolle bron van de hele strategie: hij is al
+ machineleesbaar en wordt automatisch gegenereerd.
+
+**Release notes:** Waar de CEM het 'wat' per versie beschrijft, beschrijven de release notes het 'waarom' en het 'hoe'
+ van veranderingen: breaking changes, deprecations, migratie-instructies, ... Voor AI-gestuurde versie-migratie zijn
+ gestructureerde release notes cruciaal. Naast de menselijke release notes gaan we per versie (vertrekkend van v2.0.0)
+ een machineleesbaar migratiebestand genereren (bv. per (breaking) change: component, oud patroon, nieuw patroon,
+ code-modificatiehints, ...).
+
+**Modeltoepassingen:** documentatie beschrijft componenten in isolatie; modeltoepassingen tonen hoe ze samen een echte
+ toepassing vormen: projectstructuur, state management, routing, formulier-patronen, foutafhandeling. Voor AI zijn dit
+ waardevolle voorbeelden: "bouw het zoals dit". Zie ook sectie 5.
+
+
+## 4. AI-Workflows
+
+### 4.1 Design naar basisimplementatie (Figma → code)
+
+Een ontwerper levert een Figma-design op; AI zet dit om naar een basisimplementatie met de web-componenten.
+
+- Input: het Figma-bestand (via de Figma API of MCP), plus de CEM van de doelversie.
+- De AI mapt Figma-componenten op `vl`-componenten en Figma-variants op attributen.
+- Output: een werkende basisimplementatie - bewust "basis": layout, componentkeuze en attributen kloppen; businesslogica
+  en data-aansluiting zijn een vervolgstap.
+- Randvoorwaarde: design tokens en componentnamen in Figma en in de bibliotheek moeten gealigneerd zijn. Dit is vooral
+  een inspanning aan de Figma-kant.
+
+### 4.2 Versiemigratie (vN → vN+1)
+
+Toepassingen die op een oudere versie van de bibliotheek zitten, worden met AI naar een hogere versie gebracht.
+
+- Input: de codebase, de web-types/CEM van bron- en doel-versie, en de release notes van alle tussenliggende versies.
+- De AI berekent de delta tussen de 2 manifests (verwijderde attributen, hernoemde events, gewijzigde slots) en past
+  de code systematisch aan.
+- Verificatie: de bestaande testen van de toepassing - en bij modeltoepassingen de e2e-suite - bevestigen dat het
+  gedrag ongewijzigd is. Zonder testen is migratie giswerk; met testen is het een gesloten lus.
+- Best in kleine stappen: per minor/major versie migreren en verifiëren, niet in 1 sprong over 4 versies. Korte,
+  verifieerbare cycli zijn precies waar AI-agents vandaag betrouwbaar in zijn.
+
+### 4.3 Nieuwe toepassingen bouwen op basis van modeltoepassingen
+
+Met een groeiende set modeltoepassingen kan AI nieuwe toepassingen opzetten naar het evenbeeld van bestaande: "bouw een
+ toepassing zoals modeltoepassing X, maar voor domein Y". De modeltoepassing levert de conventies (structuur, patronen,
+ teststrategie), de CEM levert de component-API, en het design (workflow 4.1) levert de vormgeving. Hier komen alle
+ bronnen samen - daarom staat deze workflow bewust als laatste in de fasering.
+
+
+## 5. Modeltoepassingen als Voorbeeld
+
+Een modeltoepassing moet aan eisen op **2 niveaus** voldoen:
+
+- **A. Technisch fundament** (4 eisen) - dit maakt de toepassing bruikbaar als *werkomgeving* voor een AI-agent. Deze
+  eisen zitten volledig binnen de codebase: ze veranderen niets aan wat de eindgebruiker ziet of doet.
+- **B. Uniforme UI/UX** (5e eis) - dit maakt de toepassing bruikbaar als *voorbeeld* van hoe een toepassing eruit hoort
+  te zien en hoort te werken. Dit is het eigenlijke doel uit sectie 1.
+
+Het onderscheid is bewust. A. kan gewoon doorgevoerd worden: er is geen zichtbare impact, er is dus geen afstemming
+ nodig. B. heeft per definitie visuele en mogelijks functionele impact op een bestaande toepassing - dit vraagt overleg
+ met team en business. Door beide apart op te nemen brengt A. ons al een flink stuk in de juiste richting. B. is
+ nadien de stap die het einddoel effectief bereikt. Onder C. wordt verduidelijkt hoe we de uniformisering (van A.
+ naar B.) doorvoeren.
+
+
+### A. Technisch Fundament
+
+**4 eisen. Elke eis heeft naast een menselijke ook een expliciete AI-rationale:**
+
+<div style={{textAlign: 'center'}}>
+    <img
+        src={fluxAiModeltoepassingA}
+        alt="Flux-AI - modeltoepassing - technisch fundament"
+        width="770"
+    />
+</div>
+
+**Specifieke versie van de web-componenten.** De applicatie pint 1 versie. Dit maakt hem eenduidig als voorbeeld ("zo
+ werkt het in v3.2") en bruikbaar voor de migratie-workflow: migreer de modeltoepassing, draai de e2e-testen, en je hebt
+ een gevalideerd migratiepad dat als voorbeeld dient voor andere toepassingen op dezelfde versie.
+
+**Frontend standalone opstartbaar.** 1 commando (`npm install && npm start`) en de app draait. Voor een AI-agent is
+ dit essentieel: de agent moet de app zelfstandig kunnen starten, bekijken en testen zonder toegang tot interne
+ infrastructuur, VPN's of credentials.
+
+**Backend uitgemockt, puur Node.** Geen Java-runtime, geen databank, geen externe afhankelijkheden. Mocks (bv. MSW of
+ een lichte Node-mockserver) maken het gedrag deterministisch: dezelfde input geeft altijd dezelfde output. Dat is de
+ voorwaarde voor betrouwbare, herhaalbare verificatie - en het houdt de drempel laag voor zowel ontwikkelaars als
+ agents.
+
+**Uitgebreide e2e-testen.** De e2e-suite is het gedragscontract van de toepassing. Voor AI-werk is dit de belangrijkste
+ eis van de 4: het is de feedbackloop die AI-output verifieerbaar maakt. Na een migratie of een generatiestap geldt:
+ testen groen = gedrag behouden. Zonder deze lus blijft elke AI-wijziging een manuele review-last; met deze lus kan een
+ agent zelfstandig itereren tot het resultaat klopt.
+
+<vl-alert icon="info-circle" title="Samengevat" type="success" size="small">
+  Deze 4 eisen zijn geen documentatie eisen maar **agent-enablement-eisen**. Ze maken van elke
+  modeltoepassing een omgeving waarin een AI-agent autonoom en veilig kan werken.
+</vl-alert>
+
+**Opmerking**: de term `modeltoepassing` is iets anders dan 'de referentie-app': `Een modeltoepassing is elke echte
+toepassing die aan alle vereisten (A en B) voldoet voor hoe toekomstige toepassingen gebouwd worden.`
+
+
+### B. Uniforme UI/UX
+
+Waar A. bepaalt **of** een agent er aan kan werken, bepaalt B **waarnaar** hij zich moet richten. Een toepassing die
+ aan A. voldoet maar eigen navigatie, een eigen formulier-patronen en eigen foutafhandeling heeft, is een uitstekende
+ werkomgeving voor een agent - maar tegelijk een slecht voorbeeld. "Bouw een toepassing zoals modeltoepassing X"
+ reproduceert dan precies de versnippering die we willen wegwerken.
+
+<div style={{textAlign: 'center'}}>
+    <img
+        src={fluxAiModeltoepassingB}
+        alt="Flux-AI - modeltoepassing - uniforme ui/ux"
+        width="770"
+    />
+</div>
+
+Concreet betekent uniforme UI/UX:
+
+- **Uniforme paginastructuur en navigatie** - dezelfde layout, dezelfde plaats voor titel, acties, filters en inhoud.
+- **Uniforme interactiepatronen** - formulieren, validatie en foutmeldingen, laad- en lege toestanden, bevestigingen,
+  tabellen en paginering volgen 1 patroon.
+- **Componenten uit de bibliotheek in plaats van lokale varianten** - geen eigen knop, eigen modal of eigen datumveld
+  naast de `vl`-component.
+- **Consistente terminologie en 'tone-of-voice'** in labels, meldingen en hulpteksten.
+- **Toegankelijkheid (minimaal WCAG 2.2 AA, zie 10.8)** als onderdeel van het patroon, niet als losse controle
+  achteraf.
+
+AI-rationale: few-shot voorbeelden werken enkel als de voorbeelden onderling consistent zijn. 5 modeltoepassingen met 5
+ verschillende formulier-patronen leren een agent geen patroon aan maar ruis; 5 modeltoepassingen met hetzelfde patroon
+ maken van dat patroon de vanzelfsprekende output. B is dus niet enkel een UX-doel, het is wat de generatie-workflow
+ (4.3) waardevol maakt.
+
+**Waarom dit apart gepland wordt.** Een bestaande toepassing aligneren op het uniforme patroon wijzigt schermen die
+ mensen dagelijks gebruiken - soms ook de manier waarop een taak verloopt. Dat is geen puur technische beslissing. De
+ aanpak is daarom gefaseerd:
+
+1. **Norm vastleggen** - welke layout en welke patronen gelden als de standaard. Dit is één beslissing op
+   bibliotheek-niveau, niet per toepassing.
+2. **Gap-analyse per toepassing** - waar wijkt de toepassing af van de norm. Hier is AI goed in: afwijkingen
+   detecteren en het aanpassingsvoorstel opstellen.
+3. **Afstemmen met team en business** - impact, prioriteit en timing per toepassing.
+4. **Doorvoeren na akkoord** - de e2e-suite uit A. bewijst daarbij welk gedrag ongewijzigd blijft en welk gedrag
+   bewust verandert. A. maakt B. dus behapbaar.
+
+<vl-alert icon="alert-circle" title="Aandachtspunt" type="warning" size="small">
+  A. zonder B. levert een uitstekend platform voor AI-agents op, maar nog geen uniforme toepassingen. B. zonder A. is
+  niet verifieerbaar en dus niet veilig door te voeren. De volgorde is A. eerst, B. daarna - op voorwaarde dat B. niet
+  uit beeld verdwijnt, daar zit het doel.
+</vl-alert>
+
+<br/>
+
+
+### C. Uniformisering - van A. naar B.
+
+Bestaande toepassingen worden op een uniforme manier omgezet naar modeltoepassingen. Dit is deels handwerk, deels
+ AI-ondersteund (backend uit-mocken, testen genereren, structuur aligneren op de conventies van de modeltoepassingen).
+ Elke omgezette toepassing vergroot de voorbeeldenset.
+
+Om (initieel) een uniform design te krijgen (waarbij de Vlaamse huisstijl de basis is) volgen we onderstaande opzet.
+ We gaan telkens zorgen dat het design in Figma up-to-date is, dat gaan we aanpassen (uniformiseren) en nadien
+ doorvoeren in de applicatie. Op deze manier hebben we op 1 plaats (Figma) alle designs, dat maakt uniformisering
+ veel behapbaarder.<br/>
+ Dezelfde aanpak wordt gevolgd bij aanpassingen of uitbreidingen aan de frontends.
+
+<div style={{textAlign: 'center'}}>
+    <img
+        src={fluxAiUxUniformisering}
+        alt="Flux-AI - modeltoepassing - uniformisering"
+        width="800"
+    />
+</div>
+
+
+## 6. Ontsluiting: MCP als toegangspoort
+
+De kennislaag wordt aan AI-tooling ontsloten via een MCP-server. Typische vragen zijn: componentinformatie opvragen
+ per versie, de delta tussen 2 versies berekenen, migratie-instructies per versie leveren, fragmenten uit
+ modeltoepassingen aanreiken als voorbeeld, .... Hiermee werkt dezelfde kennislaag in elke AI-omgeving (Claude Code,
+ IDE-integraties, agents) zonder dat kennis per tool gedupliceerd wordt.
+
+<vl-alert icon="alert-circle" title="Belangrijk" type="warning" size="small">
+    De AI-workflows uit 4. worden niet volledig afgehandeld door de MCP server. De MCP server ontsluit
+    alle technische informatie om bvb. Claude Code een workflow uit te laten voeren.
+</vl-alert>
+
+
+## 7. Fasering
+
+**Fase 1 - Fundament.** CEM/web-types per versie publiceren en ontsluiten via de MCP-server. Release notes structureren
+ (machineleesbaar migratiebestand naast de menselijke notes). Het modeltoepassing-contract formeel vastleggen
+ (template-repo met de 4 technische eisen uit 5.A. ingebouwd). Parallel en zonder afhankelijkheid: de UI/UX-norm uit
+ 5.B. beschrijven, zodat er iets is om later tegen af te toetsen.
+
+**Fase 2 - Eerste bewijzen.** Een bestaande toepassing omzetten naar modeltoepassing op niveau 5.A. Daarop de
+ versie-migratie-workflow activeren (vN → vN+1 met e2e-verificatie). Parallel: Figma-bibliotheek aligneren op de
+ componentbibliotheek en een eerste design-naar-code-experiment draaien op 1 scherm.
+
+**Fase 3 - Opschalen.** Meer toepassingen uniformiseren op niveau 5.A.; migratie-workflow uitrollen naar teams die op
+ oudere versies zitten; design-naar-code opnemen in het standaard ontwerpproces. Vanaf hier start ook 5.B.: gap-analyse
+ tegenover de UI/UX-norm en, per toepassing en na afstemming met team en business, de effectieve uniformisering van de
+ UI/UX.
+
+**Fase 4 - Genereren.** Nieuwe toepassingen opzetten op basis van modeltoepassingen + design + CEM. Deze fase komt
+ bewust laatst: ze heeft de output van alle vorige fasen nodig.
+
+
+## 8. Randvoorwaarden en Risico's
+
+- **Kwaliteit van de kennislaag is bepalend.** Onvolledige CEM-documentatie of vage release notes vertalen zich direct
+  in slechte AI-output. Documentatie-discipline wordt een productie-eis, niet een nice-to-have.
+- **Figma-governance.** Design-naar-code staat of valt met een strak beheerde Figma-bibliotheek. Zonder 1-op-1 mapping
+  tussen Figma-componenten en `vl`-componenten levert AI generieke HTML in plaats van componentgebruik.
+- **Onderhoud van modeltoepassingen.** Elke modeltoepassing is een asset die mee moet evolueren. De migratie-workflow
+  zelf is hiervoor het antwoord: modeltoepassingen zijn de eerste kandidaten voor elke versie-migratie, wat het
+  onderhoud grotendeels automatiseert.
+- **Review blijft nodig.** AI-output (zeker gegenereerde toepassingen) gaat door dezelfde review- en kwaliteitspoorten
+  als menselijke code. De e2e-testen verlagen de review last, maar vervangen hem niet - zeker niet voor
+  toegankelijkheid (WCAG 2.2 AA), waar automatische verificatie tekortschiet.
+- **Versnippering vermijden.** Alle AI-workflows via dezelfde MCP-ontsluiting laten lopen voorkomt dat elke tool zijn
+  eigen (verouderende) kopie van de componentkennis meesleept.
+- **Draagvlak voor UI/UX-wijzigingen (5.B.).** Dit is het enige deel met zichtbare impact op de eindgebruiker. Het
+  risico is niet technisch maar organisatorisch: wordt 5.B. niet doorgevoerd, dan stopt het traject op een uitstekend
+  agent-platform met nog steeds een niet-uniforme toepassing - het probleem uit sectie 1.
+
+
+## 9. Conclusie
+
+De 4 ideeën - design-naar-code, versiemigratie, uniformisering en voorbeeldgedreven generatie: zijn geen losse
+ experimenten maar 1 systeem met een gedeelde kern. De volgorde van aanpak volgt daaruit vanzelf: eerst de
+ kennislaag (CEM, release notes, modeltoepassing-contract), dan de ontsluiting (MCP), dan de workflows in oplopende
+ volgorde. De modeltoepassingen vormen daarbij het vliegwiel: elke toepassing die uniform wordt opgeleverd, maakt de
+ AI-ondersteuning voor de volgende beter.
+
+Het onderscheid tussen 5.A. en 5.B. bepaalt het tempo. 5.A. - het technisch fundament - kan meteen starten; het levert
+ op zichzelf al een grote sprong: verifieerbare, migreerbare, agent-vriendelijke toepassingen. 5.B - de uniforme
+ UI/UX - is het eigenlijke doel uit sectie 1. en vraagt afstemming met team en business, per toepassing. Het is dus
+ een aparte beslissing en geen automatisch gevolg van 5.A. Het traject is pas geslaagd wanneer beide zijn doorgevoerd.
+
+
+## 10. FAQ
+
+Deze sectie bundelt de vragen / antwoorden die bij reviews van dit document gesteld werden.
+
+### 10.1 Is de afnemer het stuur?
+
+Nee. "AI is de motor, de kennislaag is de brandstof" klopt, maar de afnemer stuurt niet: het doel is de uitkomst **zo
+ deterministisch als mogelijk** te maken. De use-case bepaalt het resultaat, niet wie hem uitvoert:
+
+ - bij een migratie van v2.19 naar v2.33 mag het niet uitmaken wie die migratie doet
+ - bij de andere use-cases zijn er een design en een functionele analyse, die moeten de uitkomst bepalen - opnieuw
+   niet wie ze uitvoert
+
+Om dat te bereiken willen we bewust **geen MCP-server aan de afnemer** aanbieden. MCP is de ontsluiting van de
+ kennislaag naar onze eigen AI-workflows (sectie 6), geen vrij te bedienen product. Idealiter bieden we een service aan
+ waar je acties kan initiëren en waarachter een specifieke AI (Claude Code) zit, met de juiste integraties en een
+ specifiek model per use-case.
+
+<vl-alert icon="alert-circle" title="Randvoorwaarde" type="warning" size="small">
+    Er is vandaag geen business-account voor Claude. Zolang dat zo is, moet iemand zijn persoonlijk account achter zo een
+    service steken - dat staat een gedeelde service in de weg.
+</vl-alert>
+
+De Flux-Agents opzet lost ditzelfde probleem op door een Electron-App met een TUI aan te bieden. Daarin kan je vooraf
+ bepaalde acties uitvoeren, met daarnaast redelijk uitgebreide configuratiemogelijkheden (model, effort, ...) - maar
+ je gebruikt je eigen account. De afnemer is daar dus wel de initiator, maar heeft daar geen vrije input (prompting)
+ mogelijkheden.
+
+### 10.2 Evolueren ook de UI/UX-patronen niet?
+
+UI/UX conventies zullen inderdaad ook wijzigen met verloop van tijd. Net daarom is **Figma de driver** en niet de
+ toepassing zelf. Merk op dat Storybook nergens in de kennislaag (sectie 3.) staat: dat is bewust. Alle UI/UX-kennis
+ komt uit de modeltoepassingen en uit Figma. Bij een versie van onze bibliotheek hoort dus ook een eenduidig
+ Figma-bestand waarin de designpatronen zitten.
+
+Het gevolg is belangrijk: het stroomlijnen van UI/UX gebeurt **niet in de toepassing** maar in Figma. Een 'technische
+ modeltoepassing' vormen we dus niet binnen de toepassing om naar een volwaardige modeltoepassing. Van die toepassing
+ wordt (met AI) een as-is Figma-design getrokken, en over verschillende toepassingen heen wordt in Figma een consistent
+ to-be design gemaakt. Eens dat afgestemd is - ook met de menselijke stakeholders - voeren we het door via het
+ AI-gebeuren, en volgt het dus gewoon de use-case 'Design naar code' (4.1). Het schema in 5.C. toont die lus.
+
+Leidt een 2e toepassing door een nieuwe use-case tot een andere beslissing, dan gebeurt die discussie dus in Figma, op
+ het niveau van het patroon. De eerder aangepakte toepassing volgt daarna langs dezelfde weg (Figma → code), niet via
+ een aparte manuele correctieronde.
+
+### 10.3 Zijn het in het begin niet eerder kandidaat-modeltoepassingen?
+
+Dat klopt: in het begin zijn het kandidaat-modeltoepassingen, tot we er verschillende gedaan hebben, over verschillende
+ toepassingen heen de oefening gemaakt hebben en er patronen uit gedistilleerd zijn. Het plan van aanpak is:
+
+ 1. Idealiter nemen we van elk team 1 toepassing uit **categorie B** (te verbeteren, maar geen tijd of budget). Net door
+    die categorie hebben we marge in tijd: er werkt niemand aan, dus er is geen drift.
+ 2. Praktisch: 1 toepassing van 3 verschillende teams = 3 toepassingen. Daar maken we 3 technische modeltoepassingen
+    van (niveau 5.A.). Dat afgestemd krijgen met 3 teams kan al lastig zijn, maar moet wel lukken.
+ 3. Nadien die 3 toepassingen in Figma steken, ze daar stroomlijnen tot een uniform design, en dat doorvoeren in de
+    toepassingen (niveau 5.B.).
+
+Nadien betrekken we andere teams en andere projecten en itereren we verder.
+
+### 10.4 Updaten we onze documentatie bij elke migratie?
+
+Bij elke release krijgen we een eerder technisch, AI-gegenereerd document op basis van de commits en de release notes,
+ met het verschil tussen 2 opeenvolgende versies: hoe ga je van v2.20 naar v2.21, van v2.21 naar v2.22, van v2.22 naar
+ v2.23, ... .
+
+We kunnen dat telkens omzetten naar een menselijker leesbaar document in Storybook, maar:
+ - het is niet de bedoeling zo een migratie dan nog menselijk te doen
+ - het zou bij elke release een extra migratiedocument opleveren
+
+AI-gewijs is de bedoeling anders. Fable maakt bv. een analyse van hoe te migreren van v2.20 naar v2.27 voor een concrete
+ toepassing. Fable houdt daarbij rekening met alle vX → vX+1 informatie, maar schrijft 1 migratiedocument. De feitelijke
+ migratie laat je dan bv. door Opus doen.
+
+Expliciet al die tussenliggende versies laten bouwen duurt langer, is duurder en heeft quasi geen meerwaarde. Enkel bij
+ een grote sprong - bv. van v2.7 naar v3.2 - doen we 1 of 2 tussenstappen (met AI), om de overstap van v2 naar v3 beter
+ te kunnen controleren. Dit verfijnt het item "best in kleine stappen" uit 4.2: klein slaat op de analyse- en
+ verificatie-cycli, niet op het effectief bouwen van elke tussenversie.
+
+### 10.5 Wat zijn few-shot voorbeelden?
+
+Few-shot betekent letterlijk "met een paar voorbeelden": meer dan 1 voorbeeld, in tegenstelling tot one-shot waar het
+ model 1 voorbeeld krijgt. Concreet: bv. 3 modeltoepassingen die hetzelfde patroon tonen. Dat verklaart meteen het
+ belang van eis B. (uniforme UI/UX): bij few-shot 'afwijkende voorbeelden' leert een agent geen patroon aan, maar ruis.
+
+### 10.6 Migreren we naar Custom Elements Manifest?
+
+Ja, dat zal moeten. Vandaag genereren wij web-types, terwijl DV een CEM levert. Zodra we hun componenten beginnen te
+ integreren, moeten we kiezen - en CEM is dan de logische keuze. De kennislaag (sectie 3.) is daar al op voorzien: ze
+ spreekt bewust over "web-types / CEM per versie". Dus: momenteel is het web-types, op termijn CEM.
+
+### 10.7 Is er vendor lock-in?
+
+De 2 vendor afhankelijkheden zijn **Anthropic (Claude) en Figma**. Beide zijn een bewuste keuze, beide zijn vervangbaar.
+
+Op zich is een MCP-server AI-tool-agnostisch, voor onze initiële opzet zullen we Claude Code gebruiken en om het
+ niet te moeilijk te maken zullen we keuzes maken specifiek voor die tooling. Met beperkte aanpassingen kunnen
+ we echter alles bruikbaar maken voor andere AI-agents.
+
+Figma is de plaats waar onze designs samen komen en waar nieuwe of aangepaste designs ontstaan. Een volwaardig
+ alternatief is er momenteel niet. Ook hier maken we specifieke keuzes die initieel enkel binnen Figma zullen werken.
+ Figma wordt - voor designs - onze source-of-truth. Eens we voldoende modeltoepassingen hebben kunnen we - op basis
+ van al het geproduceerde - via AI, die nieuwe design-basis opnieuw produceren in een andere tool.<br/>
+ In het begin, voordat er voldoende kwaliteit werd opgebouwd, is er inderdaad wel een Figma lock-in.
+
+### 10.8 WCAG 2.1 of WCAG 2.2?
+
+Wettelijk is WCAG 2.1 AA het minimum. Praktisch hanteren we minimaal **WCAG 2.2 AA**.
