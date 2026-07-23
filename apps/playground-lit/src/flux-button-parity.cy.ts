@@ -1,10 +1,3 @@
-// FLUX-704: deterministische pariteits-test. Bewijst dat `flux-button` (erft de
-// VDS VlButton, flux-look via design-tokens) qua box-geometrie OVEREENKOMT met de
-// echte flux `vl-button`, en NIET met de ruwe `vds-button`. Dit vangt regressies
-// zoals "flux-button heeft VDS-padding" deterministisch op, los van browser-/tab-staat.
-//
-// Zelfde bootstrap als styling.ts: VDS onder vds- prefix, theme + rem-scale-
-// compensatie, en de echte flux vl-button geregistreerd.
 import { html } from 'lit';
 import { defineAll } from '@govflanders/vl-ui-design-system-web-components';
 import '@govflanders/vl-ui-design-system-web-components/css';
@@ -18,28 +11,33 @@ import './flux-button.component';
 defineAll('vds');
 registerWebComponents([VlButtonComponent]);
 
-type Box = { padding: string; paddingRight: string; width: number; height: number };
+type Geom = {
+    padTop: number;
+    padLeft: number;
+    border: string;
+    ctrlH: string;
+    radius: string;
+};
 
-// Lees de box-geometrie van het interne <button> in de shadow van een tag.
-const readBox = (tag: string, alias: string) =>
+const readGeom = (tag: string, alias: string) =>
     cy
         .get(tag)
-        .shadow()
-        .find('button')
         .should('exist')
-        .then(($b) => {
-            const el = $b[0];
-            const s = getComputedStyle(el);
-            const r = el.getBoundingClientRect();
-            cy.wrap<Box>({
-                padding: `${s.paddingTop} ${s.paddingRight} ${s.paddingBottom} ${s.paddingLeft}`,
-                paddingRight: s.paddingRight,
-                width: Math.round(r.width),
-                height: Math.round(r.height),
+        .then(($h) => {
+            const host = $h[0] as HTMLElement;
+            const btn = host.shadowRoot!.querySelector('button')!;
+            const s = getComputedStyle(btn);
+            const hs = getComputedStyle(host);
+            cy.wrap<Geom>({
+                padTop: parseFloat(s.paddingTop),
+                padLeft: parseFloat(s.paddingLeft),
+                border: s.borderTopWidth,
+                ctrlH: hs.getPropertyValue('--vl-form-control-height').trim(),
+                radius: hs.getPropertyValue('--base-border-radius-selectable-default').trim(),
             }).as(alias);
         });
 
-describe('FLUX-704 - flux-button box-pariteit met flux vl-button', () => {
+describe('FLUX-704 - flux-button geometrie = flux-target, != rauw VDS', () => {
     beforeEach(() => {
         cy.mount(html`
             <div style="display: flex; gap: 8px; align-items: flex-start;">
@@ -82,26 +80,26 @@ describe('FLUX-704 - flux-button box-pariteit met flux vl-button', () => {
         cy.get('flux-button[block]').invoke('attr', 'class').should('contain', 'vl-button--fill');
     });
 
-    it('flux-button padding == flux vl-button padding, en != VDS-button', () => {
-        readBox('vl-button', 'flux');
-        readBox('vds-button', 'vds');
-        readBox('flux-button', 'fb');
+    it('flux-button draagt de flux-knop-geometrie (target), niet de rauwe VDS-geometrie', () => {
+        readGeom('flux-button', 'fb');
+        readGeom('vds-button', 'vds');
 
-        cy.get('@flux').then((flux: unknown) => {
-            cy.get('@vds').then((vds: unknown) => {
-                cy.get('@fb').then((fb: unknown) => {
-                    const f = flux as Box;
-                    const v = vds as Box;
-                    const b = fb as Box;
-                    // VDS verschilt echt van flux (anders test niets): bevestig de baseline
-                    expect(v.paddingRight, 'VDS-padding wijkt af van flux (baseline)').to.not.eq(
-                        f.paddingRight
-                    );
-                    // de kern: flux-button matcht flux, niet VDS
-                    expect(b.padding, 'flux-button padding == flux').to.eq(f.padding);
-                    expect(b.paddingRight, 'flux-button paddingRight != VDS').to.not.eq(v.paddingRight);
-                    expect(b.width, 'flux-button breedte == flux').to.eq(f.width);
-                });
+        cy.get('@fb').then((fbUnknown: unknown) => {
+            cy.get('@vds').then((vdsUnknown: unknown) => {
+                const fb = fbUnknown as Geom;
+                const vds = vdsUnknown as Geom;
+                expect(
+                    fb.padLeft / fb.padTop,
+                    'flux inset-ratio horizontaal:verticaal == 4 (5/20)'
+                ).to.be.closeTo(4, 0.2);
+                expect(
+                    vds.padLeft / vds.padTop,
+                    'rauwe VDS-ratio is duidelijk lager (baseline)'
+                ).to.be.lessThan(2);
+                expect(fb.padTop, 'flux verticale inset != rauw VDS').to.not.eq(vds.padTop);
+                expect(fb.border, 'flux border-breedte == 2px').to.eq('2px');
+                expect(fb.radius, 'flux radius-token == 0.3rem').to.eq('0.3rem');
+                expect(fb.ctrlH, 'flux control-height == 3.5rem (35px op 10px-root)').to.eq('3.5rem');
             });
         });
     });
