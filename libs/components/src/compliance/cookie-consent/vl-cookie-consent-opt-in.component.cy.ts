@@ -10,6 +10,7 @@ type MountDefaultProps = {
     checked?: boolean;
     mandatory?: boolean;
     disabled?: boolean;
+    error?: boolean;
 };
 
 const mountDefault = (props: MountDefaultProps) => {
@@ -20,6 +21,7 @@ const mountDefault = (props: MountDefaultProps) => {
             checked=${props.checked}
             mandatory=${props.mandatory}
             disabled=${props.disabled}
+            error=${props.error}
         ></vl-cookie-consent-opt-in>`
     );
 };
@@ -30,6 +32,7 @@ const props = {
     checked: true,
     mandatory: true,
     disabled: true,
+    error: true,
 };
 
 describe('cypress-component - compliance components - vl-cookie-consent-opt-in', () => {
@@ -75,5 +78,10 @@ describe('cypress-component - compliance components - vl-cookie-consent-opt-in -
         mountDefault({ ...props });
         cy.get('vl-cookie-consent-opt-in').shadow().find('vl-checkbox').should('have.attr', 'checked');
         cy.get('vl-cookie-consent-opt-in').shadow().find('vl-checkbox').should('have.attr', 'disabled');
+    });
+
+    it('should reflect the error state on the inner checkbox when the <error> attribute is set', () => {
+        mountDefault({ ...props });
+        cy.get('vl-cookie-consent-opt-in').shadow().find('vl-checkbox').should('have.attr', 'error');
     });
 });

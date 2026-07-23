@@ -10,7 +10,7 @@ export class VlCookieConsentOptIn extends BaseHTMLElement {
     }
 
     static get _observedAttributes() {
-        return ['label', 'description', 'checked', 'mandatory'];
+        return ['label', 'description', 'checked', 'mandatory', 'error'];
     }
 
     constructor() {
@@ -66,6 +66,12 @@ export class VlCookieConsentOptIn extends BaseHTMLElement {
         if (newValue != undefined) {
             this._checkboxElement.setAttribute('checked', '');
             this._checkboxElement.setAttribute('disabled', '');
+        }
+    }
+
+    _errorChangedCallback(oldValue: string, newValue: string) {
+        if (newValue != undefined) {
+            this._checkboxElement.setAttribute('error', '');
         }
     }
 }
