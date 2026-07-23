@@ -20,8 +20,9 @@ export default {
 
 export const VideoPlayerDefault = story<VideoPlayerArgs>(
     videoPlayerArgs,
-    ({ source, subtitles, poster, title }) => html`
-        <vl-video-player title=${title} source=${source} subtitles=${subtitles} poster=${poster}> </vl-video-player>
+    ({ source, subtitles, poster, title, type }) => html`
+        <vl-video-player title=${title} source=${source} subtitles=${subtitles} poster=${poster} type=${type}>
+        </vl-video-player>
     `
 );
 VideoPlayerDefault.storyName = 'vl-video-player - default';

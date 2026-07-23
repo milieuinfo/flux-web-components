@@ -27,6 +27,20 @@ import { VlVideoPlayerComponent } from '@domg-wc/components/block';
 <Canvas of={VlVideoPlayerStories.VideoPlayerDefault} />
 
 
+## Mediatype instellen
+
+Standaard leidt de speler het mediatype af uit de bestandsextensie in de `source`-URL (bv. `.mp4`).
+Wanneer de bron-URL geen extensie bevat - bijvoorbeeld een download- of API-link zoals
+`https://.../stukken/123/download` - kan het type niet afgeleid worden. Zet het `type`-attribuut in dat geval
+expliciet:
+
+```html
+<vl-video-player source="https://.../stukken/123/download" type="video/mp4"></vl-video-player>
+```
+
+Ondersteunde waarden zijn de video-mimetypes van de speler, o.a. `video/mp4`, `video/webm`, `video/ogg`.
+
+
 ## Configuratie
 
 <ArgTypes of={VlVideoPlayerStories.VideoPlayerDefault} />

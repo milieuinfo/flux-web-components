@@ -54,6 +54,18 @@ describe('cypress-component - block components - vl-video-player', () => {
             .should('have.attr', 'aria-label', `Afspelen, ${title}`);
     });
 
+    it('should set source with an explicit type via a source element', () => {
+        cy.mount(html`<vl-video-player source=${source} type="video/mp4"></vl-video-player>`);
+
+        cy.get('vl-video-player')
+            .shadow()
+            .find('media-provider')
+            .find('video')
+            .find('source')
+            .should('have.attr', 'src', source)
+            .and('have.attr', 'type', 'video/mp4');
+    });
+
     it('should set poster', () => {
         cy.mount(html`<vl-video-player source=${source} poster=${poster}></vl-video-player>`);
 
