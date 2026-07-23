@@ -1,6 +1,6 @@
 import { BaseLitElement, webComponent } from '@domg-wc/common';
 import { CSSResult, html, PropertyDeclarations, PropertyValues } from 'lit';
-import { TextTrackInit } from 'vidstack';
+import { TextTrackInit, VideoMimeType } from 'vidstack';
 import { MediaPlayerElement } from 'vidstack/elements';
 import { PlyrLayout, VidstackPlayer } from 'vidstack/global/player';
 import videoPlayerStyles from './vl-video-player.css';
@@ -12,6 +12,7 @@ export class VlVideoPlayerComponent extends BaseLitElement {
     private poster: string | undefined;
     private source: string | undefined;
     private subtitles: string | undefined;
+    private type: string | undefined;
 
     static get styles(): (CSSResult | CSSResult[])[] {
         return [...videoPlayerStyles];
@@ -23,6 +24,7 @@ export class VlVideoPlayerComponent extends BaseLitElement {
             poster: { type: String },
             source: { type: String },
             subtitles: { type: String },
+            type: { type: String },
         };
     }
 
@@ -43,7 +45,10 @@ export class VlVideoPlayerComponent extends BaseLitElement {
         this.playerInstance = await VidstackPlayer.create({
             target: video,
             title: this.title,
-            src: this.source,
+            src:
+                this.type && this.source
+                    ? [{ src: this.source, type: this.type as VideoMimeType }]
+                    : this.source,
             poster: this.poster,
             layout: new PlyrLayout({ translations: plyrTranslations, clickToPlay: true }),
         });

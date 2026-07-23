@@ -47,4 +47,15 @@ export const videoPlayerArgTypes: ArgTypes<VideoPlayerArgs> = {
             defaultValue: { summary: videoPlayerArgs.poster },
         },
     },
+    type: {
+        name: 'type',
+        description:
+            'Stelt het mediatype (mimetype) van de bron in, bv. "video/mp4". Nodig wanneer de source-URL geen' +
+            ' bestandsextensie bevat; anders wordt het type uit de extensie afgeleid.',
+        table: {
+            type: { summary: TYPES.STRING },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: videoPlayerArgs.type },
+        },
+    },
 };
