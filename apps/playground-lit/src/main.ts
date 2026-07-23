@@ -1,6 +1,6 @@
 import './preferences';
-import './vds-prefix-aware';
-import './vds-form.component';
-import './flux-form-demo.component';
+import './vds/bootstrap/vds-prefix-aware';
+import './vds/demos/vds-form.component';
+import './vds/demos/flux-form-demo.component';
 import './app/app.component';
-import './flux-iconfont';
+import './vds/bootstrap/flux-iconfont';

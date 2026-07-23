@@ -3,7 +3,7 @@ import { defineAll } from '@govflanders/vl-ui-design-system-web-components';
 import '@govflanders/vl-ui-design-system-web-components/css';
 import '@govflanders/vl-ui-design-system-web-components/assets/fonts/iconfont/vlaanderen-icon.css';
 import '@govflanders/vl-ui-design-system-web-components/themes/light.css';
-import './vds-scale-compensation.css';
+import '../bootstrap/vds-scale-compensation.css';
 import './flux-link.component';
 
 defineAll('vds');
