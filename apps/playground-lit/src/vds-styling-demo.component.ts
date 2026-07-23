@@ -51,55 +51,6 @@ export class VdsStylingDemo extends LitElement {
             margin: 4px 0 20px;
         }
 
-        /* Rem-schaal wordt globaal gecompenseerd via vds-scale-compensation.css
-           (puur rem, geen zoom). Geen per-kolom zoom meer nodig. */
-
-        /* ---- flux-skin: VDS naar de oude flux-look, ENKEL via tokens + ::part ----
-           Doel: VDS' eigen treatment matchen met hoe het er vroeger uitzag, niet
-           flux-CSS erbovenop mengen. */
-        .flux-skin {
-            /* TOKEN-override: flux gebruikt 0.3rem radius. */
-            --base-border-radius-selectable-default: 0.3rem;
-            /* Link: underline-KLEUR naar flux-blauw (VDS default = lichtblauw).
-               Offset/thickness zitten hardcoded in de encapsulated .vl-link__slot
-               en zijn NIET via token/::part bereikbaar -> blijven afwijken. */
-            --base-color-underline-action-default: #0055cc;
-            --base-color-underline-action-hover: #0048ad;
-            --base-color-underline-action-active: #002f70;
-            /* Input: de zichtbare border zit op .vl-input__input-wrapper (GEEN part),
-               maar die leest tokens -> radius/width/kleur via token, niet via ::part. */
-            --base-color-border-default: #8695a8;
-        }
-        /* Button: ::part(button) is de echte button -> dit is een schone override
-           (geen mix), border/radius/weight matchen flux. */
-        .flux-skin vlds-button::part(button) {
-            border-width: 2px;
-            font-weight: 500;
-            border-radius: 0.3rem;
-        }
-        /* Button padding: VDS heeft 14px horizontaal, flux 10px. Override de
-           inset-token (scale-aware), enkel in button-scope zodat de input-scope
-           niet meegesleurd wordt (button + input delen de vertical-token). */
-        .flux-skin vlds-button {
-            --base-space-selectable-inset-horizontal-l: calc(0.625rem * var(--vl-wc-rem-scale, 1));
-        }
-        /* Input: flux-input ~35px hoog (hoogte uit min-height/line-height), VDS uit
-           padding. 0 verticaal maakt VDS te laag (22px), dus mik op flux-HOOGTE
-           i.p.v. flux' padding-waarde: ~6px verticaal -> ~34px. Horizontaal naar
-           flux' 10px. Finding: hoogte van flux is intrinsiek, van VDS padding-gedreven. */
-        .flux-skin vlds-input {
-            --base-space-container-inset-vertical-s: calc(0.375rem * var(--vl-wc-rem-scale, 1));
-            --base-space-container-inset-horizontal-l: calc(0.625rem * var(--vl-wc-rem-scale, 1));
-        }
-        /* Input: GEEN ::part(input) voor de border. De zichtbare border zit op een
-           interne wrapper (geen part); die leest tokens, dus radius/width/kleur
-           gaan via de tokens op .flux-skin hierboven. ::part(input) = enkel het
-           kale input-element (geen border). */
-        /* GEEN ::part(link) underline meer: VDS onderstreept de interne
-           .vl-link__slot, niet de <a>. Een underline op part(link) zou een
-           TWEEDE lijn toevoegen (de bug die je zag). We laten VDS' eigen
-           underline staan en sturen enkel de kleur via token hierboven. */
-
         .findings {
             max-width: 1100px;
             margin: 4px 0 24px;
@@ -133,18 +84,19 @@ export class VdsStylingDemo extends LitElement {
         return html`
             <h1>FLUX-704 - VDS-componenten herstijlen naar flux-look</h1>
             <p class="note">
-                Per rij: links de echte flux-component, midden VDS-default, rechts VDS met een
-                "flux-skin" (token-override + <code>::part()</code>). VDS-kolommen zijn op schaal
-                gezet (zoom 1.6) wegens de 10px/16px rem-basis.
+                Per rij: links de echte flux-component, midden VDS-default, rechts het doelproduct dat
+                de VDS-klasse ERFT en de flux-look via design-tokens op <code>:host</code> zet. De
+                rem-basis (10px/16px) wordt globaal gecompenseerd via
+                <code>vds-scale-compensation.css</code>, geen zoom meer.
             </p>
 
             <table>
                 <caption>vl-button</caption>
                 <thead>
                     <tr>
-                        <th>flux (vl-button)</th>
-                        <th>VDS default (vlds-button)</th>
-                        <th>VDS flux-skin</th>
+                        <th>flux vandaag (vl-button)</th>
+                        <th>VDS ruw (vlds-button)</th>
+                        <th>ons doelproduct: erft VlButton, flux-look via tokens (flux-button)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -153,22 +105,30 @@ export class VdsStylingDemo extends LitElement {
                             <vl-button>Primair</vl-button>
                             <vl-button secondary>Secundair</vl-button>
                         </td>
-                        <td class="vds">
+                        <td>
                             <vlds-button variant="primary">Primair</vlds-button>
                             <vlds-button variant="secondary">Secundair</vlds-button>
                         </td>
-                        <td class="vds flux-skin">
-                            <vlds-button variant="primary">Primair</vlds-button>
-                            <vlds-button variant="secondary">Secundair</vlds-button>
+                        <td>
+                            <flux-button>Primair</flux-button>
+                            <flux-button secondary>Secundair</flux-button>
+                            <flux-button tertiary>Tertiair</flux-button>
+                            <flux-button ghost>Ghost</flux-button>
                         </td>
                     </tr>
                 </tbody>
             </table>
             <p class="findings">
-                <b>button:</b> <span class="ok">volledig matchbaar</span> (1-op-1 met flux: 10px padding,
-                44px hoog, 74px breed). Radius via token, border-width + font-weight via
-                <code>::part(button)</code>, horizontale padding via de inset-token
-                (<code>--base-space-selectable-inset-horizontal-l</code>, scope vlds-button).
+                <b>button:</b> kolom 3 is het <b>doelproduct</b> (<code>flux-button</code>) via
+                <b>inheritance</b>: het ERFT de VDS <code>VlButton</code> (VDS-code intact, geen extra
+                shadow-laag, dus formAssociated/<code>::part</code>/events blijven native). De flux-look
+                komt PUUR uit hun design-tokens op <code>:host</code> (radius, border-width, padding).
+                <span class="ok">Volledig matchbaar</span> met flux vandaag (10px padding, 44px hoog,
+                74px breed). De knoppen hierboven gebruiken de <b>oude flux boolean-API</b>
+                (<code>secondary</code>/<code>tertiary</code>/<code>ghost</code>): een
+                <code>willUpdate</code>-laag mapt die op de VDS <code>variant</code>-enum, zodat afnemers
+                niets moeten wijzigen. Ook <code>large</code> naar <code>size</code> en
+                <code>block</code> naar <code>grow="fill"</code>.
             </p>
 
             <table>
@@ -177,8 +137,8 @@ export class VdsStylingDemo extends LitElement {
                     <tr>
                         <th></th>
                         <th>flux (vl-input-field)</th>
-                        <th>VDS default (vlds-input)</th>
-                        <th>VDS flux-skin</th>
+                        <th>VDS ruw (vlds-input)</th>
+                        <th>doelproduct: erft VlInput, flux-look via tokens (flux-input)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -190,8 +150,8 @@ export class VdsStylingDemo extends LitElement {
                         <td>
                             <vlds-input placeholder="VDS" aria-label="VDS input"></vlds-input>
                         </td>
-                        <td class="flux-skin">
-                            <vlds-input placeholder="VDS flux-skin" aria-label="VDS flux-skin"></vlds-input>
+                        <td>
+                            <flux-input placeholder="flux-input" aria-label="flux-input"></flux-input>
                         </td>
                     </tr>
                     <tr>
@@ -205,15 +165,19 @@ export class VdsStylingDemo extends LitElement {
                         <td>
                             <vlds-input label="Naam" placeholder="VDS input"></vlds-input>
                         </td>
-                        <td class="flux-skin">
-                            <vlds-input label="Naam" placeholder="VDS flux-skin"></vlds-input>
+                        <td>
+                            <flux-input label="Naam" placeholder="flux-input"></flux-input>
                         </td>
                     </tr>
                 </tbody>
             </table>
             <p class="findings">
-                <b>input:</b> <span class="ok">matchbaar via tokens</span> (radius, border, padding en
-                box-hoogte ~flux: 34 vs 35px). Border zit op interne
+                <b>input:</b> kolom 3 is het <b>doelproduct</b> (<code>flux-input</code>) via
+                <b>inheritance</b>: het ERFT de VDS <code>VlInput</code> (VDS-code intact, geen extra
+                shadow-laag, formAssociated/validatie/<code>::part</code> blijven native). De flux-look
+                komt PUUR uit hun design-tokens op <code>:host</code>.
+                <span class="ok">Matchbaar via tokens</span> (radius, border, padding en box-hoogte
+                ~flux: 34 vs 35px). Border zit op interne
                 <code>.vl-input__input-wrapper</code> (geen part) die tokens leest: radius
                 (<code>--base-border-radius-selectable-default</code>, 4px→3px), kleur
                 (<code>--base-color-border-default</code>), padding (inset-tokens). Nuance: flux haalt
@@ -234,8 +198,8 @@ export class VdsStylingDemo extends LitElement {
                 <thead>
                     <tr>
                         <th>flux (vl-link)</th>
-                        <th>VDS default (vlds-link)</th>
-                        <th>VDS flux-skin</th>
+                        <th>VDS ruw (vlds-link)</th>
+                        <th>doelproduct: erft VlLink, flux-look via tokens (flux-link)</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -244,20 +208,27 @@ export class VdsStylingDemo extends LitElement {
                         <td class="vds">
                             <vlds-link href="https://www.vlaanderen.be">VDS link</vlds-link>
                         </td>
-                        <td class="vds flux-skin">
-                            <vlds-link href="https://www.vlaanderen.be">VDS flux-skin link</vlds-link>
+                        <td>
+                            <flux-link href="https://www.vlaanderen.be">flux-link</flux-link>
+                            <flux-link href="https://www.vlaanderen.be" external>extern (oude API)</flux-link>
+                            <flux-link href="https://www.vlaanderen.be" error>fout (oude API)</flux-link>
                         </td>
                     </tr>
                 </tbody>
             </table>
             <p class="findings">
-                <b>link:</b> <span class="nok">deels matchbaar</span>. Underline-KLEUR via token
+                <b>link:</b> kolom 3 is het <b>doelproduct</b> (<code>flux-link</code>) via
+                <b>inheritance</b> (erft <code>VlLink</code>, flux-look via tokens op <code>:host</code>).
+                <span class="nok">Deels matchbaar</span>: underline-KLEUR via token
                 (<code>--base-color-underline-action-*</code>) ✓. Maar underline <b>offset</b> (0.25rem)
                 en <b>thickness</b> (0.125rem) zitten hardcoded in de encapsulated
-                <code>.vl-link__slot</code> (geen token, geen part) → de VDS-underline blijft dikker en
-                verder van de tekst dan flux. Niet oplosbaar via tokens/::part; vergt upstream
-                (tokeniseren of part exposen). De eerdere dubbele lijn was mijn fout (underline op
-                <code>part(link)</code> bovenop de slot-underline), nu verwijderd.
+                <code>.vl-link__slot</code> (geen token, geen part), dus de VDS-underline blijft dikker en
+                verder van de tekst dan flux. Niet oplosbaar via tokens; vergt upstream (tokeniseren of
+                part exposen), zelfde soort upstream-afhankelijkheid als de input-form-layout-chrome.
+                <br /><b>Oude API:</b> de <code>external</code>/<code>error</code>-voorbeelden gebruiken de
+                oude flux boolean-API; <code>willUpdate</code> mapt <code>external</code> naar VDS
+                <code>newWindow</code>, <code>error</code> naar <code>danger</code> en
+                <code>small</code>/<code>large</code> naar <code>size</code>.
             </p>
 
             <table>

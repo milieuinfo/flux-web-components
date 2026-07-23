@@ -21,7 +21,12 @@ const fillValid = () => {
     field('vlds-input[name="email"]').shadow().find('input').type('jan@voorbeeld.be');
     field('vlds-input[name="leeftijd"]').shadow().find('input').type('42');
     field('vlds-select[name="provincie"]').shadow().find('select').select('limburg');
-    field('vlds-radio-group[name="contact"]').find('vlds-radio[value="email"]').click();
+    field('vlds-radio-group[name="contact"]')
+        .find('vlds-radio[value="email"]')
+        .then(($r) => $r[0].click());
+    field('vlds-radio-group[name="contact"]')
+        .find('vlds-radio[value="email"]')
+        .should('have.prop', 'checked', true);
     field('vlds-checkbox[value="sport"]').shadow().find('input[type="checkbox"]').check({ force: true });
     field('vlds-checkbox[value="wetenschap"]').shadow().find('input[type="checkbox"]').check({ force: true });
     field('vlds-checkbox[name="akkoord"]').shadow().find('input[type="checkbox"]').check({ force: true });

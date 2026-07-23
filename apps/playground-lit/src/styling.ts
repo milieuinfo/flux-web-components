@@ -15,6 +15,9 @@ import { registerWebComponents } from '@domg-wc/common';
 import { VlButtonComponent, VlLinkComponent, VlTitleComponent } from '@domg-wc/components/atom';
 import { VlInputFieldComponent } from '@domg-wc/components/form';
 
+import './flux-button.component';
+import './flux-input.component';
+import './flux-link.component';
 import './vds-styling-demo.component';
 
 // VDS onder de eigen vlds- prefix (geen collision met flux vl-*).

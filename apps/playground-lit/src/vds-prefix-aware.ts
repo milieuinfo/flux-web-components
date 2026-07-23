@@ -18,10 +18,6 @@ import '@govflanders/vl-ui-design-system-web-components/assets/fonts/iconfont/vl
 // but the skin is unstyled (transparent button, etc). Tokens are on
 // `:root`, so they inherit through the shadow boundary.
 import '@govflanders/vl-ui-design-system-web-components/themes/light.css';
-// FLUX-704: compenseer flux' 62.5% root-font-size (1rem=10px) voor de VDS-
-// componenten (die 16px verwachten), PUUR via rem i.p.v. zoom. Bootst de
-// VDS-PR na (--global-font-size-scaled-base). MOET na de theme-import staan
-// zodat de calc-overrides de rauwe rem-tokens overschrijven.
 import './vds-scale-compensation.css';
 
 defineAll('vlds');

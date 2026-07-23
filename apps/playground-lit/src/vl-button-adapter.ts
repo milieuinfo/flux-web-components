@@ -31,7 +31,7 @@
 import { html, LitElement, TemplateResult } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
-class VlButtonVdsAdapter extends LitElement {
+export class VlButtonVdsAdapter extends LitElement {
     declare secondary: boolean;
     declare tertiary: boolean;
     declare ghost: boolean;
