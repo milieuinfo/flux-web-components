@@ -1,9 +1,9 @@
 import { html, LitElement, TemplateResult } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 
-import './flux-button.component';
-import './flux-input.component';
-import './flux-form-controls.component';
+import '../adapters/flux-button.component';
+import '../adapters/flux-input.component';
+import '../adapters/flux-form-controls.component';
 import { setFormValue } from './form-value-utils';
 
 type FormField = HTMLElement & {

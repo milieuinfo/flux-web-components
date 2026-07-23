@@ -7,7 +7,7 @@ const config = {
     mode: 'development',
     entry: {
         main: './src/main.ts',
-        vdsFrame: './src/vds-frame.ts',
+        vdsFrame: './src/vds/frame/vds-frame.ts',
     },
     devServer: {
         port: 8090,
@@ -87,7 +87,7 @@ const config = {
             chunks: ['main'],
         }),
         new HtmlWebpackPlugin({
-            template: 'src/vds-frame.html',
+            template: 'src/vds/frame/vds-frame.html',
             filename: 'vds-frame.html',
             chunks: ['vdsFrame'],
         }),

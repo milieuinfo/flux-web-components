@@ -7,7 +7,7 @@ import {
     VlSelect,
     VlTextarea,
 } from '@govflanders/vl-ui-design-system-web-components';
-import { aliasVdsIcon } from './vds-iconfont-alias';
+import { aliasVdsIcon } from '../bootstrap/vds-iconfont-alias';
 
 const superUpdated = (self: object, changed: Map<PropertyKey, unknown>): void => {
     const base = Object.getPrototypeOf(Object.getPrototypeOf(self)) as {

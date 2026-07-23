@@ -1,6 +1,6 @@
 import { css } from 'lit';
 import { VlIcon } from '@govflanders/vl-ui-design-system-web-components';
-import './vds-iconfont-alias';
+import '../bootstrap/vds-iconfont-alias';
 
 export class FluxIcon extends VlIcon {
     static properties = {
