@@ -3,10 +3,14 @@ import { VlButtonComponent, VlLinkComponent, VlTitleComponent } from '@domg-wc/c
 import {
     VlCheckboxComponent,
     VlDatepickerComponent,
+    VlFieldsetComponent,
+    VlFormLabelComponent,
+    VlFormMessageComponent,
     VlInputFieldComponent,
     VlRadioComponent,
     VlRadioGroupComponent,
     VlSelectComponent,
+    VlTextareaComponent,
 } from '@domg-wc/components/form';
 import { html, LitElement, TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
@@ -16,6 +20,7 @@ import '../flux-input.component';
 import '../flux-link.component';
 import '../flux-form-controls.component';
 import '../flux-icon.component';
+import '../vl-form-demo.component';
 
 type OverrideRow = { c: string; o: string; v: string; cat: 'token' | 'workaround' | 'rem'; up: string };
 
@@ -42,10 +47,15 @@ const OVERRIDE_ROWS: OverrideRow[] = [
     { c: 'flux-select', o: 'focus-outline (box-shadow → outline)', v: '3px / 2px', cat: 'workaround', up: '#3' },
     { c: 'flux-select', o: 'tekst + opties grootte (size-modifiers = rauwe rem)', v: 'calc(scaled-base * .875 / 1 / 1.125)', cat: 'rem', up: '#4a' },
     { c: 'flux-checkbox', o: '--base-border-radius-container-2xs', v: '0.3rem', cat: 'token', up: '' },
+    { c: 'flux-checkbox', o: 'check + indeterminate kleur wit (VDS-selector vl-icon niet prefix-aware → check bleef donker/onzichtbaar)', v: '#fff', cat: 'workaround', up: '#6' },
+    { c: 'flux-checkbox', o: 'check centreren (absoluut inset 0 + flex-center + line-height 1, na box-schaal)', v: 'gecentreerd (dx/dy 0)', cat: 'workaround', up: '#6' },
+    { c: 'flux-checkbox', o: 'box-grootte (--checkbox-box-width = rauwe rem, te klein)', v: 'calc(scaled-base * 1) ≈18px', cat: 'rem', up: '#6' },
     { c: 'flux-checkbox', o: 'focus-outline (volle VDS-selector)', v: '3px / 2px', cat: 'workaround', up: '#3' },
+    { c: 'flux-radio-group', o: 'radio-box-grootte (.vl-radio__box = hardcoded rem, geen var → adopted-injectie in updated())', v: 'calc(scaled-base * 1.125) ≈18px', cat: 'rem', up: '#6' },
     { c: 'flux-textarea', o: 'focus-outline', v: '3px / 2px', cat: 'workaround', up: '#3' },
     { c: 'flux-datepicker', o: '--base-border-radius-container-xl (popover)', v: '0.3rem', cat: 'token', up: '' },
     { c: 'flux-datepicker', o: 'focus-outline (box-shadow → outline)', v: '3px / 2px', cat: 'workaround', up: '#3' },
+    { c: 'flux-datepicker', o: 'kalender-icoon font-alias (aliasVdsIcon + MutationObserver in updated(), omzeilt font-collision)', v: "font-family: 'vds-vlaanderen-icon'", cat: 'workaround', up: '#4b' },
     { c: 'flux-datepicker', o: 'kalender dagcel: ronde radius + grootte', v: '50% + calc(scaled-base * 2.25)', cat: 'workaround', up: '#4a' },
     { c: 'flux-datepicker', o: 'kalender-header select + opties grootte (::part + adopted-injectie)', v: 'calc(scaled-base * .875)', cat: 'rem', up: '#4a' },
     { c: 'flux-icon', o: 'glyph font-alias (omzeilt font-collision)', v: "font-family: 'vds-vlaanderen-icon' + @font-face", cat: 'workaround', up: '#4b' },
@@ -146,6 +156,10 @@ export class AppComponent extends LitElement {
             VlSelectComponent,
             VlRadioGroupComponent,
             VlRadioComponent,
+            VlFieldsetComponent,
+            VlFormLabelComponent,
+            VlFormMessageComponent,
+            VlTextareaComponent,
         ]);
     }
 
@@ -573,10 +587,12 @@ export class AppComponent extends LitElement {
                             'input',
                             html`<vds-input label="Naam" placeholder="VDS"></vds-input>`,
                             html`<flux-input label="Naam" placeholder="flux-input"></flux-input>`,
-                            html`<vl-input-field
-                                aria-label="Naam"
-                                placeholder="flux"
-                            ></vl-input-field>`,
+                            html`<vl-form-label block for="cmp-vl-input" label="Naam"></vl-form-label
+                                ><vl-input-field
+                                    id="cmp-vl-input"
+                                    aria-label="Naam"
+                                    placeholder="flux"
+                                ></vl-input-field>`,
                             patchesFor('fluxLook', 'flux-input')
                         )}
                         ${this.renderVariantRow(
@@ -590,14 +606,15 @@ export class AppComponent extends LitElement {
                             'datepicker',
                             html`<vds-datepicker label="Datum"></vds-datepicker>`,
                             html`<flux-datepicker label="Datum"></flux-datepicker>`,
-                            html`<vl-datepicker label="Datum"></vl-datepicker>`,
+                            html`<vl-form-label block for="cmp-vl-dp" label="Datum"></vl-form-label
+                                ><vl-datepicker id="cmp-vl-dp" label="Datum"></vl-datepicker>`,
                             patchesFor('fluxLook', 'flux-datepicker')
                         )}
                         ${this.renderVariantRow(
                             'checkbox',
                             html`<vds-checkbox label="Ik ga akkoord" checked></vds-checkbox>`,
                             html`<flux-checkbox label="Ik ga akkoord" checked></flux-checkbox>`,
-                            html`<vl-checkbox label="Ik ga akkoord" checked></vl-checkbox>`,
+                            html`<vl-checkbox checked>Ik ga akkoord</vl-checkbox>`,
                             patchesFor('fluxLook', 'flux-checkbox')
                         )}
                         ${this.renderVariantRow(
@@ -612,14 +629,16 @@ export class AppComponent extends LitElement {
                                 <option value="limburg">Limburg</option>
                                 <option value="oost-vlaanderen">Oost-Vlaanderen</option>
                             </flux-select>`,
-                            html`<vl-select
-                                label="Provincie"
-                                .options=${[
-                                    { value: 'antwerpen', label: 'Antwerpen' },
-                                    { value: 'limburg', label: 'Limburg' },
-                                    { value: 'oost-vlaanderen', label: 'Oost-Vlaanderen' },
-                                ]}
-                            ></vl-select>`,
+                            html`<vl-form-label block for="cmp-vl-select" label="Provincie"></vl-form-label
+                                ><vl-select
+                                    id="cmp-vl-select"
+                                    label="Provincie"
+                                    .options=${[
+                                        { value: 'antwerpen', label: 'Antwerpen' },
+                                        { value: 'limburg', label: 'Limburg' },
+                                        { value: 'oost-vlaanderen', label: 'Oost-Vlaanderen' },
+                                    ]}
+                                ></vl-select>`,
                             patchesFor('fluxLook', 'flux-select')
                         )}
                         ${this.renderVariantRow(
@@ -632,10 +651,11 @@ export class AppComponent extends LitElement {
                                 <vds-radio value="email" label="E-mail"></vds-radio>
                                 <vds-radio value="post" label="Post"></vds-radio>
                             </flux-radio-group>`,
-                            html`<vl-radio-group label="Contactvoorkeur">
-                                <vl-radio value="email" label="E-mail">E-mail</vl-radio>
-                                <vl-radio value="post" label="Post">Post</vl-radio>
-                            </vl-radio-group>`,
+                            html`<vl-form-label block for="cmp-vl-radio" label="Contactvoorkeur"></vl-form-label
+                                ><vl-radio-group id="cmp-vl-radio" label="Contactvoorkeur">
+                                    <vl-radio value="email" label="E-mail">E-mail</vl-radio>
+                                    <vl-radio value="post" label="Post">Post</vl-radio>
+                                </vl-radio-group>`,
                             patchesFor('fluxLook', 'flux-radio-group')
                         )}
                     </div>
@@ -759,12 +779,12 @@ export class AppComponent extends LitElement {
                             style="max-width: 900px; margin: 0 0 12px; padding: 8px 12px; font-size: 12px;
                                    border-left: 3px solid #d9a441; background: #fffdf5; color: #6b5a1e;"
                         >
-                            <b>Bekend verschil:</b> in <code>vl-stacked</code> rekken de
-                            <code>flux-button</code>s full-width, de <code>vds-button</code>s en
-                            <code>vl-button</code>s niet. Oorzaak: de host van de VDS-knop (die
-                            <code>flux-button</code> erft) is <code>display: block</code>, terwijl de
-                            echte flux <code>vl-button</code> <code>inline-block</code> is. Bewust zo
-                            gelaten om het verschil te tonen; niet weggestyled.
+                            <b>Noot:</b> <code>vl-stacked</code> is
+                            <code>display: flex; flex-direction: column</code>, dus met de flex-default
+                            <code>align-items: stretch</code> rekken ALLE kinderen (zowel
+                            <code>flux-button</code> als de echte <code>vl-button</code>) full-width, identiek.
+                            Om ze te laten huggen zet je op de stack <code>align-items: flex-start</code>, wat
+                            hier gebeurt zodat flux en vl gelijk staan (knoppen op natuurlijke breedte).
                         </p>
                         <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; align-items: start; margin-bottom: 8px;">
                             <div>
@@ -785,7 +805,7 @@ export class AppComponent extends LitElement {
                                     flux · vl-stacked + flux-button
                                 </div>
                                 <div style="padding: 12px; border: 1px dashed #d0d7de; border-radius: 6px;">
-                                    <div class="vl-stacked vl-stacked-small">
+                                    <div class="vl-stacked vl-stacked-small" style="align-items: flex-start;">
                                         <flux-button>Eén</flux-button>
                                         <flux-button secondary>Twee</flux-button>
                                         <flux-button tertiary>Drie</flux-button>
@@ -798,7 +818,7 @@ export class AppComponent extends LitElement {
                                     vl · vl-stacked + vl-button (echte flux)
                                 </div>
                                 <div style="padding: 12px; border: 1px dashed #d0d7de; border-radius: 6px;">
-                                    <div class="vl-stacked vl-stacked-small">
+                                    <div class="vl-stacked vl-stacked-small" style="align-items: flex-start;">
                                         <vl-button>Eén</vl-button>
                                         <vl-button secondary>Twee</vl-button>
                                         <vl-button tertiary>Drie</vl-button>
@@ -811,20 +831,23 @@ export class AppComponent extends LitElement {
                     </div>
                 </section>
 
-                <section class="vl-section" aria-label="Form in twee varianten">
+                <section class="vl-section" aria-label="Form in drie varianten">
                     <div class="vl-content-block vl-content-block--full-width">
-                        <vl-title type="h2">Form in twee varianten (vds · flux)</vl-title>
+                        <vl-title type="h2">Form in drie varianten (vds · flux · vl)</vl-title>
                         <p>
-                            Dezelfde rijke form, links met rauwe <code>vds-*</code> velden, rechts met de
-                            <code>flux-*</code> doelproducten (erven de VDS-klasse + flux-tokens). Beide
-                            zijn een echte native <code>&lt;form&gt;</code>: de velden zijn
-                            <code>formAssociated</code>, dus <code>new FormData(form)</code> leest de
-                            waarden via <code>name</code>. Let op het verschil: de vds-velden zijn ronder
-                            (8px), de flux-velden matchen onze look (3px). Onze echte <code>vl-*</code>
-                            web-componenten laten we hier weg. Vul in en klik Verzenden.
+                            Dezelfde rijke form in drie smaken: links rauwe <code>vds-*</code> velden, in het
+                            midden de <code>flux-*</code> doelproducten (erven de VDS-klasse + flux-tokens),
+                            rechts de echte <code>vl-*</code> flux-web-componenten (<code>libs/components</code>).
+                            Alle drie zijn een echte native <code>&lt;form&gt;</code>: de velden zijn
+                            <code>formAssociated</code>, dus <code>new FormData(form)</code> leest de waarden via
+                            <code>name</code>. Let op de structurele verschillen: vds/flux zetten label + melding
+                            als props op het veld, terwijl de echte <code>vl-*</code> ze als aparte componenten
+                            componeert (<code>vl-form-label for="id"</code>, <code>vl-form-message</code>). Vullen
+                            en Verzenden gebeurt via de gedeelde <code>getFormValue</code>/<code>setFormValue</code>
+                            utils die over de drie tag-families heen werken.
                         </p>
                         <div
-                            style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; max-width: 1100px;"
+                            style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; align-items: start; max-width: 1200px;"
                         >
                             <div>
                                 <div style="font-weight: 600; margin-bottom: 8px; color: #0055cc;">
@@ -837,6 +860,12 @@ export class AppComponent extends LitElement {
                                     flux-form · erft VDS + tokens
                                 </div>
                                 <flux-form-demo></flux-form-demo>
+                            </div>
+                            <div>
+                                <div style="font-weight: 600; margin-bottom: 8px; color: #0055cc;">
+                                    vl-form · echte flux
+                                </div>
+                                <vl-form-demo></vl-form-demo>
                             </div>
                         </div>
                         ${renderPatchNotes(
