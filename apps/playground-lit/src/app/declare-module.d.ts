@@ -10,5 +10,23 @@ declare module '*.css?raw' {
 // Proper fix for a real consumer: set `moduleResolution: "bundler"`.
 declare module '@govflanders/vl-ui-design-system-web-components' {
     export function defineAll(prefix?: string): void;
+    // VlButton wordt overerfd door flux-button.component.ts. Los getypeerd
+    // (de echte types zitten in de package maar moduleResolution: node leest de
+    // exports-map niet). LitElement-achtig genoeg om `extends` + static styles.
+    export class VlButton extends HTMLElement {
+        static styles: unknown;
+        static elementName: string;
+        protected willUpdate(changed: Map<PropertyKey, unknown>): void;
+    }
+    export class VlInput extends HTMLElement {
+        static styles: unknown;
+        static elementName: string;
+        protected willUpdate(changed: Map<PropertyKey, unknown>): void;
+    }
+    export class VlLink extends HTMLElement {
+        static styles: unknown;
+        static elementName: string;
+        protected willUpdate(changed: Map<PropertyKey, unknown>): void;
+    }
 }
 declare module '@govflanders/vl-ui-design-system-web-components/css';

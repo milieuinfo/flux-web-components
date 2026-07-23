@@ -18,8 +18,11 @@ en de oude look. Dit is de strategie die in de PoC is gevalideerd.
 2. **Bundler-config** voor de Vite-georiënteerde VDS-package: webpack-loaders voor de
    `?inline`-CSS, fonts (`asset/resource`) en een TS-module-shim voor de exports-map.
 3. **Rem-basis overbruggen.** Flux zet de root op 62.5% (1rem=10px), VDS verwacht 16px.
-   Compenseren met een rem-scale-token (`--vl-wc-rem-scale`), die de aankomende VDS-PR
-   upstream vervangt door `--global-font-size-scaled-base`.
+   De VDS-PR (geland in 0.6.0) maakt de font-size-tokens runtime-schaalbaar via
+   `--global-font-size-scaled-base` (op 1.6rem zetten volstaat voor fonts). De overige
+   maat-tokens (dimension/space/shadow) zijn upstream nog rauwe rem-literals; die
+   compenseren we met een gegenereerd override-bestand dat hetzelfde calc-patroon op
+   dezelfde basisvariabele toepast, tot VDS dit ook upstream dekt.
 4. **Adapter per component (optioneel, voor API-compat).** Een flux-tag (bijvoorbeeld
    `vl-button`) registreren met een wrapper die de oude flux-API mapt op de VDS-component
    eronder. First-wins registratie: de adapter claimt de tag voor flux z'n eigen

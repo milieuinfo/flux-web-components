@@ -98,8 +98,10 @@ blijven.
     zitten hardcoded in encapsulated CSS (geen token, geen part), dus vergen upstream.
   - title: geen VDS title-component, enkel typografie-tokens.
 - **Rem-basis**: flux zet de document-root op 62.5% (1rem=10px), VDS verwacht de
-  16px-default. Te overbruggen met een rem-scale-compensatie (de aankomende VDS-PR doet
-  dit upstream via `--global-font-size-scaled-base`).
+  16px-default. De VDS-PR is geland (0.6.0): de font-size-tokens schalen runtime via
+  `--global-font-size-scaled-base` (1.6rem zetten volstaat). De overige maat-tokens
+  (dimension/space/shadow) zijn upstream nog rauwe rem-literals; die krijgen hetzelfde
+  calc-patroon via een gegenereerd override-bestand, tot VDS ze ook upstream dekt.
 
 ## Grenzen / open vragen
 
