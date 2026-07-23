@@ -151,6 +151,99 @@ asserteert (root-onafhankelijk: inset-ratio h:v == 4, border 2px, radius-token 0
 `--vl-form-control-height` == 3.5rem) én dat die verschilt van de rauwe vds-button. De echte 1:1-pariteit
 met vl-button is in de browser geverifieerd, niet in de harness.
 
+## 14. flux-datepicker geïntegreerd + integratie-status-accordion
+**Beslissing:** `flux-datepicker` erft `VlDatepicker` en krijgt de gedeelde `fluxLook`-tokens (radius,
+border-kleur, padding, hover) + een focus-override analoog aan flux-input
+(`.vl-datepicker__input-wrapper:has(.vl-datepicker__input:focus) { outline 3px/2px }`). Toegevoegd aan
+het gedeelde `flux-form-controls.component.ts`-registry en getoond als 3-tier rij (vds · flux · vl) in
+de atoom-sectie.
+**Waarom:** de VDS-datepicker gebruikt exact dezelfde `--base-*` tokens als de andere form-controls, dus
+`fluxLook` volstond; de focus zit op hetzelfde `__input-wrapper:has(input:focus)`-patroon als vl-input.
+Browser-meting: flux-datepicker radius 3px + border-kleur #8695a8 (= flux), i.p.v. rauw VDS (8px). De
+echte flux `vl-datepicker` is een aparte flatpickr-implementatie (andere shadow-structuur), maar de
+zichtbare box matcht (3px, #8695a8, ~35px).
+
+**Accordion samengevoegd:** de integratie-status is nu één gesloten `<details>` met alle 16 componenten
+in één gesorteerde tabel (geïntegreerd, dan onrechtstreeks, dan nog niet). `vl-box`/`vl-inline`/`vl-stack`
+staan als ➖ "onrechtstreeks" (ze worden getoond/gebruikt in de layout-sectie; flux gebruikt de
+`vl-padding`/`vl-group`/`vl-stacked`-STYLE i.p.v. een wrapper-component), niet als ❌. Stand: 9 ✅ · 4 ➖ · 3 ❌.
+
+## 15. flux-icon geïntegreerd + datepicker-kalender via tokens gelijkgetrokken
+**flux-icon:** `flux-icon` erft `VlIcon` (dunne subclass, geen extra tokens). Iconen zijn glyphs uit de
+gedeelde `vlaanderen-icon`-font, dus visueel identiek aan `vds-icon` / de echte flux `vl-icon`; de
+integratie is puur de tag-registratie. In de playground een selectie-grid (12 iconen) + de drie
+`size`-varianten. Accordion-stand: 10 ✅ · 4 ➖ · 2 ❌.
+
+**Datepicker-focus (correctie):** eerst per abuis een outline-override gezet (zoals flux-input), maar dat
+deed niks. De datepicker gebruikt de `styles/common/focusMixin` (box-shadow-ring + een TRANSPARANTE
+outline), niet de outline-mixin. De zichtbare ring is dus de box-shadow. Fix (zoals flux-select):
+`.vl-datepicker__input-wrapper:has(.vl-datepicker__input:focus) { box-shadow: 0 0 0 2px white, 0 0 0 5px var(--base-color-focus-400) }`.
+Valkuil bij verificatie: `:focus` matcht niet in een headless tab zonder document-focus (activeElement wél,
+maar `:has(:focus)` niet); een ECHTE muisklik was nodig om de ring te zien/meten.
+
+**Datepicker-kalender (Cally) via tokens naar flux-look:** de echte flux `vl-datepicker` is flatpickr
+(andere engine), dus 1:1 kan niet, maar de token-adresseerbare verschillen zijn weggewerkt. Referentie
+uit de flatpickr-kalender (computed): kalender-hoek 3px, dagen rond. Aanpassingen op `FluxDatepicker`:
+- `:host { --base-border-radius-container-xl: 0.3rem }` → popover-hoek van 20px naar 3px.
+- `calendar-month { --base-border-radius-selectable-default: 50% }` → dag-cellen rond i.p.v. 3px-vierkant
+  (scoped op calendar-month, zodat de input + nav-knoppen hun 3px houden).
+De geselecteerde dag was al flux-blauw (`--color-accent: var(--base-color-background-surface-action-default)`).
+Resultaat geverifieerd in de browser: dag 15 = blauwe ronde cirkel, today onderstreept, 3px hoeken.
+
+**Kalender-grootte (consument-side override, op vraag):** de kalender rendert te klein op flux'
+10px-root omdat de dag-cel een hardgecodeerde `2.25rem`-literal is (geen token), die de
+rem-scale-compensatie niet raakt; de cel-paddings lopen wél via tokens en worden wél geschaald, dus
+je krijgt geschaalde paddings rond te kleine 22.5px-cellen (gedrongen, 16px-tekst in mini-vakjes). De
+font zelf is correct 16px. Fix via `::part`:
+`calendar-month::part(button) { width/height: calc(var(--global-font-size-scaled-base,1rem) * 2.25) }`
+= 36px op de 10px-root. Bewuste VDS-CSS-override (geen token voor de celgrootte), upstream-request
+toegevoegd aan VDS-UPSTREAM-REQUESTS 4a. Geverifieerd: cel 22.5px naar 36px, proper proportie.
+
+## 16. Focus-ring: systematisch gelijkgetrokken over ALLE componenten (correctie)
+Aanleiding: de focus was inconsistent gedaan (sommige componenten niet, en button/select/datepicker
+via box-shadow terwijl de ECHTE flux overal een outline gebruikt). Systematisch gemeten op de echte
+`vl-*`: de flux focus-ring is overal `outline: 3px solid rgba(0,85,204,0.65)` + `outline-offset: 2px`
+(button, link, input, datepicker identiek gemeten). Alle flux-componenten daarnaartoe gebracht:
+- outline-mixin-componenten (input, link, textarea, checkbox): `outline-width: 3px; outline-offset: 2px`.
+  Checkbox vergde de VOLLE VDS-selector (`:host(:focus) .vl-checkbox:not(.vl-checkbox--tile) .vl-checkbox__box`),
+  anders won de specifiekere VDS-regel.
+- box-shadow-mixin-componenten (button, select, datepicker): de VDS-outline is TRANSPARENT, dus een
+  width/offset-override alleen is onzichtbaar. Fix = outline zichtbaar maken (`outline-color` zetten) +
+  `box-shadow: none`. Dit verving mijn eerdere (foute) box-shadow-override.
+- kleur: `--base-border-focus-spacing-color: rgba(0,85,204,0.65)` op elke flux-`:host` (VDS-default was #5990de).
+- `flux-radio` niet fixbaar (vds-radio encapsulated shadow, VlRadio niet geexporteerd) → blijft VDS-default.
+Geverifieerd met ECHTE focus (headless `:focus` matcht niet zonder venster-focus, dus een echte muisklik
+eerst): flux == vl (3px/2px + `rgba(0,85,204,0.65)`) voor button/link/input/datepicker; checkbox/select/textarea
+op dezelfde flux-waarde. Zie VDS-UPSTREAM-REQUESTS 3 voor het volledige verhaal.
+
+## 17. Icon-vergelijking legt een glyph-collision bloot (correctie op #15)
+De 3-tier icon-vergelijking (vds-icon · flux-icon · vl-icon) toonde dat mijn eerdere aanname
+("glyphs identiek, integratie triviaal") FOUT was. Op de playground tonen `vds-icon`/`flux-icon`
+andere en kleinere glyphs dan de echte `vl-icon`. Oorzaak (gemeten): flux en VDS delen de
+font-familienaam `vlaanderen-icon` maar met verschillende codepoint-KLASSEN (VDS `vl-vi-*`,
+flux `vl-icon--*`). Er is maar 1 font-bestand geladen (dat van flux, want vl-icon rendert correct),
+dus de VDS-klassen mappen op verkeerde glyphs. Daarnaast is de VDS-icon-grootte een rem-literal
+(`vl-icon--large` = 12px op de 10px-root vs 18px bij vl-icon). Gevolg: `vl-icon` in de accordion
+van ✅ naar ➖ gezet (flux-icon is wel geregistreerd, maar rendert niet matchend op een mixed page).
+Belangrijk: dit is grotendeels een PLAYGROUND-artefact (we laden flux' font naast VDS voor de
+vergelijking); in een echte flux-op-VDS build is er enkel VDS' font en geen `vl-icon`, dus dan
+speelt de glyph-collision niet. De rem-size blijft wel een aandachtspunt (zie 4a).
+
+## 18. Master-toggle "Rauw VDS tonen" + oplijsting van alle lokale overrides
+Op vraag: één schakelaar die ALLE consument-side overrides tegelijk aan/uit zet (flux-look ↔ rauw VDS),
+plus een volledige lijst van wat we lokaal wijzigden.
+- **Mechanisme:** elk override-blok in de flux-componenten staat achter `:host(:not([bare]))`. Er zijn
+  GEEN property-declaraties nodig: enkel de aanwezigheid van het `[bare]`-attribuut stuurt de CSS.
+  De app zet `bare` imperatief in `updated()` op alle flux-* (light DOM + de flux-form-demo-shadow),
+  gedreven door één `@state overridesOff` + een checkbox. Geverifieerd: met `bare` AAN wordt flux-button
+  pixel-identiek aan de rauwe vds-button (radius 8px, pad 10/14, h42), en het attribuut bereikt ook de
+  form-controls in de form-shadow.
+- **Oplijsting:** sectie "Lokale overrides" met een tabel (24 rijen), gecategoriseerd als
+  token (12, idiomatisch publiek `--base-*`), workaround (9, VDS-CSS overschreven want geen token) en
+  rem-brug (3, scale-compensatie). De workarounds verwijzen naar VDS-UPSTREAM-REQUESTS. Dit is de
+  consument-side "kost" van de flux-look zichtbaar gemaakt; de token-rijen zijn het bedoelde mechanisme,
+  de workaround-rijen zijn wat upstream hoort.
+
 ## Terugkerende valkuilen / lessen
 - **Preview-tool onbetrouwbaar:** de webpack-devServer bindt de default-poort (8080/volgende vrije),
   niet de 8084 uit launch.json → de preview-browser is vaak onbereikbaar (chrome-error). We

@@ -19,13 +19,21 @@ export class FluxButton extends VlButton {
     static styles = [
         (VlButton as unknown as { styles: unknown }).styles,
         css`
-            :host {
+            :host(:not([bare])) {
                 --vl-form-control-height: 3.5rem;
                 --base-border-radius-selectable-default: 0.3rem;
                 --base-border-width-default: 2px;
+                --base-border-focus-spacing-color: rgba(0, 85, 204, 0.65);
                 --base-space-selectable-inset-vertical-s: 0.5rem;
                 --base-space-selectable-inset-horizontal-l: 2rem;
                 --base-typography-desktop-body-medium-compact-s-line-height: normal;
+            }
+            :host(:not([bare]):focus-visible),
+            :host(:not([bare]):focus) {
+                outline-color: var(--base-border-focus-spacing-color);
+                outline-width: 3px;
+                outline-offset: 2px;
+                box-shadow: none;
             }
         `,
     ];

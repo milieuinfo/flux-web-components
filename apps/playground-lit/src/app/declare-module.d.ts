@@ -48,5 +48,13 @@ declare module '@govflanders/vl-ui-design-system-web-components' {
         static styles: unknown;
         static elementName: string;
     }
+    export class VlDatepicker extends HTMLElement {
+        static styles: unknown;
+        static elementName: string;
+    }
+    export class VlIcon extends HTMLElement {
+        static styles: unknown;
+        static elementName: string;
+    }
 }
 declare module '@govflanders/vl-ui-design-system-web-components/css';

@@ -17,15 +17,22 @@ export class FluxLink extends VlLink {
     static styles = [
         (VlLink as unknown as { styles: unknown }).styles,
         css`
-            :host {
+            :host(:not([bare])) {
+                --base-border-focus-spacing-color: rgba(0, 85, 204, 0.65);
                 --base-color-underline-action-default: #0055cc;
                 --base-color-underline-action-hover: #0048ad;
                 --base-color-underline-action-active: #002f70;
             }
 
-            .vl-link .vl-link__slot {
+            :host(:not([bare])) .vl-link .vl-link__slot {
                 text-underline-offset: auto;
                 text-decoration-thickness: auto;
+            }
+
+            :host(:not([bare])) .vl-link:focus,
+            :host(:not([bare])) .vl-link:focus-visible {
+                outline-width: 3px;
+                outline-offset: 2px;
             }
         `,
     ];
