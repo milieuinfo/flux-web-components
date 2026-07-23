@@ -29,6 +29,10 @@ export class FluxLink extends VlLink {
                 text-decoration-thickness: auto;
             }
 
+            :host(:not([bare])) .vl-link:hover .vl-link__slot {
+                text-decoration-line: none;
+            }
+
             :host(:not([bare])) .vl-link:focus,
             :host(:not([bare])) .vl-link:focus-visible {
                 outline-width: 3px;

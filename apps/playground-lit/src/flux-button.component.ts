@@ -35,6 +35,16 @@ export class FluxButton extends VlButton {
                 outline-offset: 2px;
                 box-shadow: none;
             }
+            @media screen and (max-width: 767px) {
+                :host(:not([bare])) {
+                    --base-space-selectable-inset-vertical-s: 1rem;
+                    --base-space-selectable-inset-horizontal-l: 1rem;
+                }
+                :host(:not([bare])) .vl-button {
+                    height: auto;
+                    min-height: 3.5rem;
+                }
+            }
         `,
     ];
 

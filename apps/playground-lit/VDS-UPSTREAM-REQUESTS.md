@@ -191,6 +191,36 @@ te klein/groot renderen en NIET door de tokencompensatie geraakt worden. Concree
   op `flux-icon` (`:host([scaled])`) zodat het verschil 12px vs ~19px zichtbaar is. LET OP: dit fixt enkel
   de GROOTTE, niet het glyph-verschil (dat is een aparte font-familienaam-collision, geen rem-issue).
 
+- `vl-select`: de size-modifiers (`.vl-formfield__container--{small,medium,large} .vl-select`) én de
+  dropdown-`option`s gebruiken RAUWE rem-literals (`0.875rem / 1rem / 1.125rem`), terwijl de basis
+  `.vl-select` het scale-token (`--base-font-size-desktop-s`) WEL gebruikt. De modifier is specifieker en
+  wint, dus op de 10px-root rendert de default (medium) select-tekst 10px en de opties 10px; in de
+  datepicker-kalender-header (size small) zelfs 8.75px. Idealiter gebruiken die modifiers ook
+  `calc(var(--global-font-size-scaled-base) * ...)`. Consument-side gepatcht (de opties via `!important`,
+  want de `::picker(select)` top-layer wordt bewust via een geïnjecteerde `<style>` gestyled i.p.v.
+  adoptedStyleSheets). De datepicker-header-select is een GENESTE `vds-select`; z'n `::part(select)`-grootte
+  gaat via een `::part`-override, en z'n dropdown-`option`s (die we van buitenaf niet via CSS bereiken) via
+  een runtime-injectie: `flux-datepicker.updated()` voegt een geconstrueerde stylesheet toe aan de
+  `adoptedStyleSheets` van elke geneste `vds-select` (die komt na VDS' eigen sheets, dus wint). Zo is ook de
+  maand/jaar-picker leesbaar (14px i.p.v. 10px).
+
+### 4b. Icon-font naam-collision (`vlaanderen-icon`) — coexistentie
+
+Flux en VDS shippen allebei een icon-font met dezelfde `font-family`-naam `vlaanderen-icon`, maar met
+verschillende codepoint-maps (VDS spant `f101–f316`). Op een pagina waar beide laden (zoals deze playground,
+die flux' legacy-font laadt voor de `vl-*`-referentie) zijn er meerdere full-range `@font-face`'s met dezelfde
+naam → de browser kiest één winnaar en de andere z'n codepoints renderen verkeerde glyphs. Dit raakt
+`vds-icon`, `flux-icon` én het checkbox-vinkje (intern een `<vds-icon icon="check">`).
+
+**Niet consument-side fixbaar** (getest): beide hardcoden `font-family: vlaanderen-icon !important` in de
+shadow, de ranges overlappen (geen `unicode-range`-splitsing), en een extra `@font-face` toevoegen wint de
+cascade niet. Het is een PLAYGROUND-artefact: in een echte flux-op-VDS build (enkel VDS' font) speelt het niet.
+
+**Verzoek (voor robuuste coexistentie tijdens de migratie):** geef de VDS-icon-font een **versie-/namespace-
+specifieke `font-family`-naam** (bv. `vlaanderen-icon-vds` of met een versietag) i.p.v. het generieke
+`vlaanderen-icon`, zodat hij niet botst met een gelijknamige font van de consument. Analoog aan hoe de
+componenten al prefix-aware zijn, zou de font dat ook moeten zijn.
+
 **Verzoek:** neem deze component-interne maat-rems mee in dezelfde rem-scale-aanpak (of expose
 ze als `--base-*`-token / CSS-var), zodat de radius wél maar de GROOTTE nu niet consument-side
 matchbaar is. De radius zelf is wel getokeniseerd (`--base-border-radius-container-2xs` voor de
@@ -201,6 +231,30 @@ kalender-dag-cel opschaalt naar de bedoelde grootte:
 `calendar-month::part(button) { width/height: calc(var(--global-font-size-scaled-base,1rem) * 2.25) }`
 (= 36px op de 10px-root). Bewust een afwijking van het "geen VDS-styling overriden"-principe, op
 expliciete vraag. Kan weg zodra VDS deze rem-literals mee schaalt of tokeniseert.
+
+---
+
+## 5. Mobile-maten (767px-breakpoint) niet consument-side te mirroren
+
+**Componenten:** o.a. `vl-select`, `vl-checkbox` (en `vl-button`, dat WEL lukte)
+**Bron:** de `@media screen and (max-width: 767px)`-regels in de flux-component-CSS
+
+De echte flux-componenten passen op mobile (`< 767px`) enkele maten aan (grotere touch-targets,
+andere line-heights/margins). Om de flux-look ook op mobile op VDS te reproduceren moet de
+VDS-gebaseerde flux die deltas mirroren. Dat lukt enkel waar de maat aan een publiek token of
+een publieke klasse hangt:
+
+- **button: WEL** matchbaar. De mobile-padding en -height hangen aan `--base-space-selectable-inset-*`
+  en de publieke `.vl-button`-klasse, dus consument-side te overschrijven (gedaan in de playground).
+- **select / checkbox: NIET** netjes matchbaar. De mobile-deltas (`.vl-select` height/line-height/font,
+  `.vl-checkbox__box` margin-top, `.vl-checkbox__label` line-height) zitten hardgecodeerd in
+  encapsulated shadow-CSS zonder token of `::part`. Ze consument-side forceren botst bovendien met
+  VDS' eigen interne uitlijning.
+
+**Verzoek:** expose de mobile-relevante maten als `--base-*`-token (of `::part`), of laat VDS de
+mobile-breakpoint-maten zelf tokeniseren, zodat de consument de flux-look ook op mobile kan sturen
+zonder in de encapsulated CSS te moeten grijpen. (De deltas zijn klein — vaak sub-2px — dus lage
+prioriteit, maar wel dezelfde structurele grens als bij de rem-literals in punt 4a.)
 
 ---
 
