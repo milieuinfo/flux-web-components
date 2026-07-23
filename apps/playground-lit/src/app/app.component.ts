@@ -1,28 +1,36 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { VlButtonComponent } from '@domg-wc/components/atom';
+import { VlButtonComponent, VlLinkComponent, VlTitleComponent } from '@domg-wc/components/atom';
 import {
     VlInfoTile,
     VlPopoverActionComponent,
     VlPopoverActionListComponent,
     VlPopoverComponent,
-    VlModalComponent,
     VlPropertiesComponent,
-    VlWizard,
-    VlWizardPane,
 } from '@domg-wc/components/block';
 import { VlHeader } from '@domg-wc/components/compliance';
 import { VlFooter as VlFooterNext } from '@domg-wc/components/compliance/next';
-import { VlDatepickerComponent } from '@domg-wc/components/form';
 import { VlFormCrossValidationComponent } from '@domg-wc/integrations/form';
-import { html, LitElement } from 'lit';
+import {
+    VlDatepickerComponent,
+    VlFormLabelComponent,
+    VlInputFieldComponent,
+} from '@domg-wc/components/form';
+import { html, LitElement, TemplateResult } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import './composite-input-showcase.component';
+
+import '../flux-button.component';
+import '../flux-input.component';
+import '../flux-link.component';
 
 @customElement('app-component')
 export class AppComponent extends LitElement {
     static {
         registerWebComponents([
             VlButtonComponent,
+            VlLinkComponent,
+            VlTitleComponent,
+            VlInputFieldComponent,
             VlHeader,
             VlPopoverComponent,
             VlPopoverActionListComponent,
@@ -32,53 +40,69 @@ export class AppComponent extends LitElement {
             VlPropertiesComponent,
             VlFooterNext,
             VlFormCrossValidationComponent,
-            VlWizard,
-            VlWizardPane,
-            VlModalComponent,
         ]);
     }
 
-    private openWizardModal() {
-        this.querySelector<VlModalComponent>('#wizard-modal')?.open();
-    }
-
-    private showHiddenWizard() {
-        const container = this.querySelector<HTMLDivElement>('#hidden-wizard-container');
-        if (container) {
-            container.style.display = 'block';
-        }
-    }
-
-    private setWizardStep(wizardId: string, step: number) {
-        const wizard = this.querySelector<HTMLElement & { activeStep: number }>(`#${wizardId}`);
-        if (wizard) {
-            wizard.activeStep = step;
-        }
-    }
-
-    private renderWizardPanes(wizardId: string) {
+    private renderVariantRow(
+        name: string,
+        vds: TemplateResult,
+        flux: TemplateResult,
+        vl: TemplateResult
+    ): TemplateResult {
+        const cell = (label: string, color: string, content: TemplateResult) => html`
+            <div style="border: 1px dashed #d0d7de; border-radius: 6px; padding: 12px;">
+                <div style="font-size: 12px; color: ${color}; margin-bottom: 8px; font-weight: 600;">
+                    ${label}
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 6px; align-items: flex-start;">
+                    ${content}
+                </div>
+            </div>
+        `;
         return html`
-            <vl-wizard-pane name="Type onderdeel">
-                <vl-title type="h3">Type onderdeel</vl-title>
-                <vl-button @click=${() => this.setWizardStep(wizardId, 2)} type="button">Volgende stap</vl-button>
-            </vl-wizard-pane>
-            <vl-wizard-pane name="Gegevens">
-                <vl-title type="h3">Gegevens</vl-title>
-                <vl-button @click=${() => this.setWizardStep(wizardId, 1)} secondary type="button"
-                    >Vorige stap</vl-button
-                >
-                <vl-button @click=${() => this.setWizardStep(wizardId, 3)} type="button">Volgende stap</vl-button>
-            </vl-wizard-pane>
-            <vl-wizard-pane name="Verbindingen">
-                <vl-title type="h3">Verbindingen</vl-title>
-                <vl-button @click=${() => this.setWizardStep(wizardId, 2)} secondary type="button"
-                    >Vorige stap</vl-button
-                >
-            </vl-wizard-pane>
+            <div style="font-weight: 600; margin: 6px 0;">${name}</div>
+            <div
+                style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; max-width: 900px; margin-bottom: 16px;"
+            >
+                ${cell('vds · rauw VDS', '#0055cc', vds)}
+                ${cell('flux · erft VDS + tokens', '#0055cc', flux)}
+                ${cell('vl · echte flux', '#6b7280', vl)}
+            </div>
         `;
     }
 
     render() {
+        const boxVds = `<vds-box padding="l" background-color="subtle"
+          border-color="default" border-radius="m" as="section">
+  <strong>Kaart-titel</strong>
+  <p>Padding, achtergrond, border en radius via tokens.</p>
+</vds-box>`;
+        const boxFlux = `<!-- flux heeft geen surface-component: padding via de vl-padding-utility,
+     achtergrond/border/radius blijven eigen CSS (flux kent enkel padding-styles). -->
+<div class="vl-padding--medium"
+     style="background: #eef1f5; border: 1px solid #cbd2d9; border-radius: 6px;">
+  <strong>Kaart-titel</strong>
+  <p>Padding via flux' vl-padding, rest via CSS.</p>
+</div>`;
+        const inlineVds = `<vds-inline gap="m" align-block="center">
+  <vds-button variant="primary">Opslaan</vds-button>
+  <vds-button variant="secondary">Annuleren</vds-button>
+</vds-inline>`;
+        const inlineFlux = `<div class="vl-group vl-group--align-center">
+  <vl-button>Opslaan</vl-button>
+  <vl-button secondary>Annuleren</vl-button>
+</div>`;
+        const stackVds = `<vds-stack gap="s">
+  <vds-button variant="primary">Eén</vds-button>
+  <vds-button variant="secondary">Twee</vds-button>
+  <vds-button variant="tertiary">Drie</vds-button>
+</vds-stack>`;
+        const stackFlux = `<div class="vl-stacked vl-stacked-small">
+  <vl-button>Eén</vl-button>
+  <vl-button secondary>Twee</vl-button>
+  <vl-button tertiary>Drie</vl-button>
+</div>`;
+
         return html`
             <vl-template>
                 <vl-header
@@ -211,66 +235,6 @@ export class AppComponent extends LitElement {
 
                     <section class="vl-section">
                         <div class="vl-content-block vl-content-block--full-width">
-                            <vl-title type="h2">FLUX-780: vl-wizard rendert te groot vanuit verborgen container</vl-title>
-                            <p>
-                                Wizard B start in een <code>display:none</code> container (zoals een nog niet geopende
-                                modal). Bij het tonen is de progress-indicator te breed: label "Verbindingen" valt
-                                buiten de rand. Na "Volgende stap" corrigeert hij zichzelf. Wizard A (controle, altijd
-                                zichtbaar) rendert meteen correct.
-                            </p>
-                            <div style="margin-top: 16px;">
-                                <strong style="color: green;">A — controle, altijd zichtbaar</strong>
-                                <div style="max-width: 780px; border: 2px dashed green; padding: 12px;">
-                                    <vl-wizard id="wizard-visible" active-step="1">
-                                        <vl-title slot="title" type="h2">Onderdeel toevoegen</vl-title>
-                                        ${this.renderWizardPanes('wizard-visible')}
-                                    </vl-wizard>
-                                </div>
-                            </div>
-                            <div style="margin-top: 16px;">
-                                <strong style="color: crimson;">B — start verborgen (modal-scenario, bug)</strong>
-                                <div>
-                                    <vl-button @click=${this.showHiddenWizard} type="button">
-                                        Toon wizard B (simuleert modal open)
-                                    </vl-button>
-                                </div>
-                                <div id="hidden-wizard-container" style="display: none; max-width: 780px; border: 2px dashed crimson; padding: 12px; margin-top: 8px;">
-                                    <vl-wizard id="wizard-hidden" active-step="1">
-                                        <vl-title slot="title" type="h2">Rapporteringsplichtig onderdeel toevoegen</vl-title>
-                                        ${this.renderWizardPanes('wizard-hidden')}
-                                    </vl-wizard>
-                                </div>
-                            </div>
-                            <div style="margin-top: 32px;">
-                                <strong>C — wizard in een vl-modal (streepjes-issue)</strong>
-                                <div>
-                                    <vl-button @click=${this.openWizardModal} type="button">
-                                        Open modal met wizard
-                                    </vl-button>
-                                </div>
-                                <vl-modal id="wizard-modal" title="Rapporteringsplichtig onderdeel toevoegen">
-                                    <div slot="content">
-                                        <vl-wizard id="wizard-in-modal" active-step="1">
-                                            ${this.renderWizardPanes('wizard-in-modal')}
-                                        </vl-wizard>
-                                    </div>
-                                </vl-modal>
-                            </div>
-                            <div style="margin-top: 32px;">
-                                <strong>D — stacking context + ondoorzichtige achtergrond erboven</strong>
-                                <div id="stacking-context" style="isolation: isolate; max-width: 780px;">
-                                    <div style="background: #ffffff; padding: 12px; border: 2px dashed crimson;">
-                                        <vl-wizard id="wizard-in-stacking-context" active-step="1">
-                                            ${this.renderWizardPanes('wizard-in-stacking-context')}
-                                        </vl-wizard>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section class="vl-section">
-                        <div class="vl-content-block vl-content-block--full-width">
                             <vl-title type="h2">FLUX-710: vl-button cta-link met download attribuut</vl-title>
                             <p>
                                 Drie varianten: zonder download (navigeert), download zonder waarde (browser kiest
@@ -298,68 +262,212 @@ export class AppComponent extends LitElement {
                     <section class="vl-section">
                         <div class="vl-content-block vl-content-block--full-width">
                             <vl-title type="h2">
-                                FLUX-704 — prefix-aware VDS components (vlds-*) naast flux vl-*
+                                FLUX-704 — drie varianten naast elkaar (vds · flux · vl)
                             </vl-title>
                             <p>
                                 Upstream <code>@govflanders/vl-ui-design-system-web-components</code> via
-                                <code>defineAll('vlds')</code>. Coexistence-test: flux <code>vl-*</code> en VDS
-                                <code>vlds-*</code> op dezelfde pagina, zonder registry-collision.
+                                <code>defineAll('vds')</code>. flux <code>vl-*</code> en VDS
+                                <code>vds-*</code> leven samen op één pagina zonder registry-collision.
+                                Elke component in drie varianten; de diepere styling-analyse per component
+                                staat op <a href="/styling.html">/styling.html</a>.
                             </p>
 
                             <div
-                                style="display: flex; flex-direction: column; gap: 8px; margin: 12px 0; max-width: 480px;
-                                       border: 2px dashed #b8860b; padding: 16px; border-radius: 4px;"
+                                style="max-width: 900px; margin: 12px 0 16px; padding: 12px 16px;
+                                       border: 1px solid #cbd2d9; border-radius: 6px; background: #fafbfc; font-size: 13px;"
                             >
-                                <strong style="color: #b8860b;">
-                                    vl-button via VDS-adapter (oude flux-API, VDS onderliggend)
-                                </strong>
-                                <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
-                                    <vl-button>default</vl-button>
-                                    <vl-button secondary>secondary</vl-button>
-                                    <vl-button tertiary>tertiary</vl-button>
-                                    <vl-button ghost>ghost</vl-button>
+                                <strong>Legende</strong>
+                                <ul style="margin: 8px 0 0; padding-left: 18px; line-height: 1.6;">
+                                    <li>
+                                        <code style="color: #0055cc;">vds-*</code> — <b>rauw VDS</b>: exact zoals
+                                        VDS het vandaag definieert, geen aanpassing.
+                                    </li>
+                                    <li>
+                                        <code style="color: #0055cc;">flux-*</code> — <b>ons doelproduct</b>: erft
+                                        de VDS-klasse en zet de flux-look via design-tokens op
+                                        <code>:host</code> (geen extra shadow-laag).
+                                    </li>
+                                    <li>
+                                        <code style="color: #0055cc;">vl-*</code> — <b>onze echte flux
+                                        web-component</b>, ongewijzigd, zoals vóór FLUX-704.
+                                    </li>
+                                </ul>
+                            </div>
+
+                            ${this.renderVariantRow(
+                                'button',
+                                html`<vds-button variant="primary">Primair</vds-button
+                                    ><vds-button variant="secondary">Secundair</vds-button>`,
+                                html`<flux-button>Primair</flux-button
+                                    ><flux-button secondary>Secundair</flux-button>`,
+                                html`<vl-button>Primair</vl-button
+                                    ><vl-button secondary>Secundair</vl-button>`
+                            )}
+                            ${this.renderVariantRow(
+                                'input',
+                                html`<vds-input label="Naam" placeholder="VDS"></vds-input>`,
+                                html`<flux-input label="Naam" placeholder="flux-input"></flux-input>`,
+                                html`<vl-input-field
+                                    aria-label="Naam"
+                                    placeholder="flux"
+                                ></vl-input-field>`
+                            )}
+                            ${this.renderVariantRow(
+                                'link',
+                                html`<vds-link href="https://www.vlaanderen.be">VDS link</vds-link>`,
+                                html`<flux-link href="https://www.vlaanderen.be">flux-link</flux-link>`,
+                                html`<vl-link href="https://www.vlaanderen.be">flux link</vl-link>`
+                            )}
+                        </div>
+                    </section>
+
+                    <section class="vl-section">
+                        <div class="vl-content-block vl-content-block--full-width">
+                            <vl-title type="h2">
+                                FLUX-704 — VDS layout-primitieven (box · inline · stack)
+                            </vl-title>
+                            <p>
+                                VDS levert drie declaratieve layout-web-<b>componenten</b>. flux heeft die
+                                niet als component, maar wél een eigen set layout-<b>styles</b>
+                                (<code>vl-group</code>, <code>vl-stacked</code>, <code>vl-padding</code>,
+                                globaal geladen via <code>autoRegisterStyles</code>). Per primitief
+                                hieronder: links het VDS-component, rechts exact hetzelfde met onze eigen
+                                flux layout-styles (geen ad-hoc CSS).
+                            </p>
+
+                            <vl-title type="h3">vl-box — surface / padding-primitief</vl-title>
+                            <p style="color: #555; font-size: 13px; margin: 4px 0 10px;">
+                                Padded/surfaced container. Props: <code>padding</code> (+
+                                <code>-inline</code>/<code>-block</code>/<code>-start</code>/<code>-end</code>),
+                                <code>background-color</code>, <code>border-color</code>,
+                                <code>border-radius</code>, <code>as</code> (semantisch element zoals
+                                section/article). Alle waarden mappen op design-tokens. Voor kaarten,
+                                panelen en semantische secties.
+                            </p>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; margin-bottom: 24px;">
+                                <div>
+                                    <div style="font-weight: 600; margin-bottom: 6px; color: #0055cc;">
+                                        VDS · vds-box
+                                    </div>
+                                    <vds-box
+                                        padding="l"
+                                        background-color="subtle"
+                                        border-color="default"
+                                        border-radius="m"
+                                        as="section"
+                                    >
+                                        <strong>Kaart-titel</strong>
+                                        <p style="margin: 6px 0 0;">
+                                            Padding, achtergrond, border en radius via tokens.
+                                        </p>
+                                    </vds-box>
+                                    <pre style="margin: 8px 0 0; padding: 10px 12px; background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 12px; line-height: 1.5; overflow: auto;">${boxVds}</pre>
                                 </div>
-                                <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
-                                    <vl-button error>error</vl-button>
-                                    <vl-button large>large</vl-button>
-                                    <vl-button loading>loading</vl-button>
-                                    <vl-button disabled>disabled</vl-button>
-                                </div>
-                                <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
-                                    <vl-button icon="search">icon before</vl-button>
-                                    <vl-button icon="search" icon-placement="after">icon after</vl-button>
-                                    <vl-button cta-link="https://www.vlaanderen.be">cta-link</vl-button>
+                                <div>
+                                    <div style="font-weight: 600; margin-bottom: 6px; color: #6b7280;">
+                                        flux · vl-padding (geen surface-component)
+                                    </div>
+                                    <div
+                                        class="vl-padding--medium"
+                                        style="background: #eef1f5; border: 1px solid #cbd2d9; border-radius: 6px;"
+                                    >
+                                        <strong>Kaart-titel</strong>
+                                        <p style="margin: 6px 0 0;">
+                                            Padding via flux' <code>vl-padding</code>; achtergrond/border/radius
+                                            blijven eigen CSS (flux kent geen surface-component).
+                                        </p>
+                                    </div>
+                                    <pre style="margin: 8px 0 0; padding: 10px 12px; background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 12px; line-height: 1.5; overflow: auto;">${boxFlux}</pre>
                                 </div>
                             </div>
 
-                            <div
-                                style="display: flex; flex-direction: column; gap: 12px; max-width: 480px;
-                                       border: 2px dashed #0055cc; padding: 16px; border-radius: 4px;"
-                            >
-                                <strong style="color: #0055cc;">VDS vlds-* (custom prefix)</strong>
-                                <vlds-button variant="primary" icon-before="search">Search</vlds-button>
-                                <vlds-input label="Name" name="name"></vlds-input>
-                                <vlds-link href="https://www.vlaanderen.be" new-window>Open</vlds-link>
-                                <vlds-checkbox label="Confirm"></vlds-checkbox>
-                                <vlds-radio-group label="Pick one">
-                                    <vlds-radio value="a" label="A"></vlds-radio>
-                                    <vlds-radio value="b" label="B"></vlds-radio>
-                                </vlds-radio-group>
-                                <vlds-box>Box content</vlds-box>
-                                <vlds-inline>Inline content</vlds-inline>
-                                <vlds-stack>Stack content</vlds-stack>
-                                <vlds-select label="Choose"></vlds-select>
+                            <vl-title type="h3">vl-inline — horizontale flex met token-gap</vl-title>
+                            <p style="color: #555; font-size: 13px; margin: 4px 0 10px;">
+                                Legt kinderen op een rij. Props: <code>gap</code> (token-schaal),
+                                <code>align-block</code> (verticaal uitlijnen), <code>align-inline</code>
+                                (horizontaal verdelen, bv. space-between), <code>wrap</code>,
+                                <code>grow</code>, <code>reverse-order</code>. Voor knoppenrijen,
+                                tag-lijsten en toolbars.
+                            </p>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; margin-bottom: 24px;">
+                                <div>
+                                    <div style="font-weight: 600; margin-bottom: 6px; color: #0055cc;">
+                                        VDS · vds-inline
+                                    </div>
+                                    <div style="padding: 12px; border: 1px dashed #d0d7de; border-radius: 6px;">
+                                        <vds-inline gap="m" align-block="center">
+                                            <vds-button variant="primary">Opslaan</vds-button>
+                                            <vds-button variant="secondary">Annuleren</vds-button>
+                                        </vds-inline>
+                                    </div>
+                                    <pre style="margin: 8px 0 0; padding: 10px 12px; background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 12px; line-height: 1.5; overflow: auto;">${inlineVds}</pre>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; margin-bottom: 6px; color: #6b7280;">
+                                        flux · vl-group
+                                    </div>
+                                    <div style="padding: 12px; border: 1px dashed #d0d7de; border-radius: 6px;">
+                                        <div class="vl-group vl-group--align-center">
+                                            <vl-button>Opslaan</vl-button>
+                                            <vl-button secondary>Annuleren</vl-button>
+                                        </div>
+                                    </div>
+                                    <pre style="margin: 8px 0 0; padding: 10px 12px; background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 12px; line-height: 1.5; overflow: auto;">${inlineFlux}</pre>
+                                </div>
+                            </div>
+
+                            <vl-title type="h3">vl-stack — verticale flex met token-gap</vl-title>
+                            <p style="color: #555; font-size: 13px; margin: 4px 0 10px;">
+                                Stapelt kinderen verticaal. Props: <code>gap</code>,
+                                <code>align-block</code> (verticaal verdelen), <code>align-inline</code>
+                                (horizontaal uitlijnen), <code>grow</code>, <code>as</code>. Voor
+                                form-rijen, kaartinhoud en verticale lijsten.
+                            </p>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; margin-bottom: 8px;">
+                                <div>
+                                    <div style="font-weight: 600; margin-bottom: 6px; color: #0055cc;">
+                                        VDS · vds-stack
+                                    </div>
+                                    <div style="padding: 12px; border: 1px dashed #d0d7de; border-radius: 6px;">
+                                        <vds-stack gap="s">
+                                            <vds-button variant="primary">Eén</vds-button>
+                                            <vds-button variant="secondary">Twee</vds-button>
+                                            <vds-button variant="tertiary">Drie</vds-button>
+                                        </vds-stack>
+                                    </div>
+                                    <pre style="margin: 8px 0 0; padding: 10px 12px; background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 12px; line-height: 1.5; overflow: auto;">${stackVds}</pre>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; margin-bottom: 6px; color: #6b7280;">
+                                        flux · vl-stacked
+                                    </div>
+                                    <div style="padding: 12px; border: 1px dashed #d0d7de; border-radius: 6px;">
+                                        <div class="vl-stacked vl-stacked-small">
+                                            <vl-button>Eén</vl-button>
+                                            <vl-button secondary>Twee</vl-button>
+                                            <vl-button tertiary>Drie</vl-button>
+                                        </div>
+                                    </div>
+                                    <pre style="margin: 8px 0 0; padding: 10px 12px; background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 12px; line-height: 1.5; overflow: auto;">${stackFlux}</pre>
+                                </div>
                             </div>
                         </div>
                     </section>
 
                     <section class="vl-section">
                         <div class="vl-content-block vl-content-block--full-width">
-                            <vl-title type="h2">FLUX-704 — VDS-form (formAssociated via FormData)</vl-title>
+                            <vl-title type="h2">
+                                FLUX-704 — VDS-form: rauw VDS (formAssociated via FormData)
+                            </vl-title>
                             <p>
-                                Echte native <code>&lt;form&gt;</code> met <code>vlds-*</code> velden. Alle velden
-                                erven <code>formAssociated</code>, dus <code>new FormData(form)</code> leest de
-                                waarden via <code>name</code>, ook onder de custom prefix. Vul in en klik Verzenden.
+                                <b>Let op:</b> dit is bewust de <b>rauwe <code>vds-*</code></b> variant
+                                (dus de VDS-look met o.a. 8px-afronding), niet de flux-look. Doel hier is
+                                puur het <code>formAssociated</code>-gedrag tonen: een echte native
+                                <code>&lt;form&gt;</code> waar <code>new FormData(form)</code> de waarden via
+                                <code>name</code> leest, ook onder de custom prefix. De flux-look zou via de
+                                <code>flux-*</code> doelproducten komen (zie de vergelijking bovenaan);
+                                <code>flux-input</code> erft dezelfde <code>formAssociated</code>, dus dit
+                                blijft werken. Vul in en klik Verzenden.
                             </p>
                             <div style="max-width: 520px;">
                                 <vds-form-demo></vds-form-demo>

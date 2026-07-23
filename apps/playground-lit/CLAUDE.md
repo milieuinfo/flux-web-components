@@ -49,7 +49,7 @@ doorheen de codebase.
 ### 3. VDS onder een eigen prefix, flux blijft `vl-` (gevalideerd in de PoC)
 
 We laten flux ongemoeid op `vl-` en registreren de VDS components onder een eigen
-prefix met hun ingebouwde feature: `defineAll('vlds')`. Optioneel komt er een dunne
+prefix met hun ingebouwde feature: `defineAll('vds')`. Optioneel komt er een dunne
 adapter zodat een flux-tag (bijvoorbeeld `vl-button`) intern een VDS-component rendert,
 waardoor afnemers hun `vl-*`-markup én de oude look behouden.
 
@@ -63,7 +63,7 @@ waardoor afnemers hun `vl-*`-markup én de oude look behouden.
 ### 4. Gefaseerd: v3 (strategie 3) dan v4 (namespace-flip)
 
 Een tijdlijn over twee majors i.p.v. een losse keuze:
-- **v3**: VDS onder eigen prefix (`vlds-`), flux blijft `vl-`, sommige flux-componenten
+- **v3**: VDS onder eigen prefix (`vds-`), flux blijft `vl-`, sommige flux-componenten
   gebruiken VDS onderliggend. Geen breaking change.
 - **v4**: alle flux-tags worden `flux-`, VDS krijgt de default `vl-` (en hoeft dan zelf
   geen prefix-aware meer te zijn). Breaking change voor afnemers, major release.
@@ -83,7 +83,7 @@ blijven.
 
 ## PoC-bevindingen (zie `.claude/plans/prefix-aware-poc.md` voor detail)
 
-- **Coexistentie werkt**: 14 VDS-componenten geregistreerd als `vlds-*` naast flux
+- **Coexistentie werkt**: 14 VDS-componenten geregistreerd als `vds-*` naast flux
   `vl-*`, geen registry-collision. Zelfs een verkeerde `defineAll('vl')` is een
   onschadelijke no-op (twee guards, flux wordt niet overschreven).
 - **Adapter werkt**: `vl-button` met de oude flux-API rendert een VDS-button

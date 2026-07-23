@@ -9,62 +9,62 @@ import '@govflanders/vl-ui-design-system-web-components/css';
 import '@govflanders/vl-ui-design-system-web-components/themes/light.css';
 import './vds-form.component';
 
-// Registreer de VDS-componenten onder de vlds- prefix (eenmalig).
-defineAll('vlds');
+// Registreer de VDS-componenten onder de vds- prefix (eenmalig).
+defineAll('vds');
 
 const root = () => cy.get('vds-form-demo').shadow();
 const field = (sel: string) => root().find(sel);
 
 const fillValid = () => {
-    field('vlds-input[name="voornaam"]').shadow().find('input').type('Jan');
-    field('vlds-input[name="achternaam"]').shadow().find('input').type('Janssens');
-    field('vlds-input[name="email"]').shadow().find('input').type('jan@voorbeeld.be');
-    field('vlds-input[name="leeftijd"]').shadow().find('input').type('42');
-    field('vlds-select[name="provincie"]').shadow().find('select').select('limburg');
-    field('vlds-radio-group[name="contact"]')
-        .find('vlds-radio[value="email"]')
+    field('vds-input[name="voornaam"]').shadow().find('input').type('Jan');
+    field('vds-input[name="achternaam"]').shadow().find('input').type('Janssens');
+    field('vds-input[name="email"]').shadow().find('input').type('jan@voorbeeld.be');
+    field('vds-input[name="leeftijd"]').shadow().find('input').type('42');
+    field('vds-select[name="provincie"]').shadow().find('select').select('limburg');
+    field('vds-radio-group[name="contact"]')
+        .find('vds-radio[value="email"]')
         .then(($r) => $r[0].click());
-    field('vlds-radio-group[name="contact"]')
-        .find('vlds-radio[value="email"]')
+    field('vds-radio-group[name="contact"]')
+        .find('vds-radio[value="email"]')
         .should('have.prop', 'checked', true);
-    field('vlds-checkbox[value="sport"]').shadow().find('input[type="checkbox"]').check({ force: true });
-    field('vlds-checkbox[value="wetenschap"]').shadow().find('input[type="checkbox"]').check({ force: true });
-    field('vlds-checkbox[name="akkoord"]').shadow().find('input[type="checkbox"]').check({ force: true });
+    field('vds-checkbox[value="sport"]').shadow().find('input[type="checkbox"]').check({ force: true });
+    field('vds-checkbox[value="wetenschap"]').shadow().find('input[type="checkbox"]').check({ force: true });
+    field('vds-checkbox[name="akkoord"]').shadow().find('input[type="checkbox"]').check({ force: true });
 };
 
-const submit = () => field('vlds-button[type="submit"]').click();
+const submit = () => field('vds-button[type="submit"]').click();
 
 describe('FLUX-704 - prefix-aware VDS form', () => {
     beforeEach(() => {
         cy.mount(html`<vds-form-demo></vds-form-demo>`);
         // wacht tot de velden ge-upgrade zijn
-        field('vlds-input[name="voornaam"]').should('exist');
+        field('vds-input[name="voornaam"]').should('exist');
     });
 
-    it('mount alle VDS form-controls onder de vlds- prefix', () => {
-        ['vlds-input', 'vlds-select', 'vlds-radio-group', 'vlds-radio', 'vlds-checkbox', 'vlds-textarea', 'vlds-fieldset', 'vlds-button'].forEach(
+    it('mount alle VDS form-controls onder de vds- prefix', () => {
+        ['vds-input', 'vds-select', 'vds-radio-group', 'vds-radio', 'vds-checkbox', 'vds-textarea', 'vds-fieldset', 'vds-button'].forEach(
             (tag) => field(tag).should('exist')
         );
-        // bevestig dat ze echt als vlds-* geregistreerd zijn (custom prefix)
+        // bevestig dat ze echt als vds-* geregistreerd zijn (custom prefix)
         cy.window().then((win) => {
-            expect(win.customElements.get('vlds-input'), 'vlds-input registered').to.exist;
-            expect(win.customElements.get('vlds-button'), 'vlds-button registered').to.exist;
+            expect(win.customElements.get('vds-input'), 'vds-input registered').to.exist;
+            expect(win.customElements.get('vds-button'), 'vds-button registered').to.exist;
         });
     });
 
     it('lege submit toont verplichte-veld fouten en verzendt NIET', () => {
         submit();
         // zichtbare foutmelding op een verplicht veld
-        field('vlds-input[name="voornaam"]')
+        field('vds-input[name="voornaam"]')
             .shadow()
             .find('[part~="message"]')
             .should('contain.text', 'Dit veld is verplicht.');
         // error-prop staat aan
-        field('vlds-input[name="email"]').then(($el) => {
+        field('vds-input[name="email"]').then(($el) => {
             expect(($el[0] as unknown as { error: boolean }).error).to.eq(true);
         });
         // checkbox-akkoord heeft eigen melding
-        field('vlds-checkbox[name="akkoord"]').then(($el) => {
+        field('vds-checkbox[name="akkoord"]').then(($el) => {
             expect(($el[0] as unknown as { error: boolean }).error).to.eq(true);
         });
         // geen FormData-resultaat geprint
@@ -99,7 +99,7 @@ describe('FLUX-704 - prefix-aware VDS form', () => {
     });
 
     it('"Vul demo-data in"-knop vult alle velden en submit lukt', () => {
-        field('vlds-button').contains('Vul demo-data').click();
+        field('vds-button').contains('Vul demo-data').click();
         submit();
         root()
             .find('pre')
@@ -115,9 +115,9 @@ describe('FLUX-704 - prefix-aware VDS form', () => {
     });
 
     it('toont formaat-validatie voor een ongeldig e-mailadres', () => {
-        field('vlds-input[name="email"]').shadow().find('input').type('geen-email');
+        field('vds-input[name="email"]').shadow().find('input').type('geen-email');
         submit();
-        field('vlds-input[name="email"]')
+        field('vds-input[name="email"]')
             .shadow()
             .find('[part~="message"]')
             .should('contain.text', 'geldig e-mailadres');
@@ -125,19 +125,19 @@ describe('FLUX-704 - prefix-aware VDS form', () => {
 
     it('wist de fout live zodra het veld gecorrigeerd wordt', () => {
         submit(); // forceer fouten
-        field('vlds-input[name="voornaam"]').then(($el) => {
+        field('vds-input[name="voornaam"]').then(($el) => {
             expect(($el[0] as unknown as { error: boolean }).error).to.eq(true);
         });
-        field('vlds-input[name="voornaam"]').shadow().find('input').type('Jan');
-        field('vlds-input[name="voornaam"]').then(($el) => {
+        field('vds-input[name="voornaam"]').shadow().find('input').type('Jan');
+        field('vds-input[name="voornaam"]').then(($el) => {
             expect(($el[0] as unknown as { error: boolean }).error).to.eq(false);
         });
     });
 
-    it('flux vl-* blijft naast vlds-* registreerbaar (geen collision)', () => {
+    it('flux vl-* blijft naast vds-* registreerbaar (geen collision)', () => {
         cy.window().then((win) => {
-            // vlds- prefix bezet vlds-button; de default vl- namespace blijft vrij voor flux
-            expect(win.customElements.get('vlds-button')).to.exist;
+            // vds- prefix bezet vds-button; de default vl- namespace blijft vrij voor flux
+            expect(win.customElements.get('vds-button')).to.exist;
         });
     });
 
