@@ -75,21 +75,3 @@ export function setFormValue(host: FormControlLike, value: string | boolean): vo
         host.value = str;
     }
 }
-
-export type FormValues = Record<string, string | boolean>;
-
-export function setFormValues(root: ParentNode, values: FormValues): void {
-    for (const [name, value] of Object.entries(values)) {
-        const host = root.querySelector<FormControlLike>(`[name="${name}"]`);
-        if (host) setFormValue(host, value);
-    }
-}
-
-export function getFormValues(root: ParentNode): Record<string, string | boolean | null> {
-    const out: Record<string, string | boolean | null> = {};
-    root.querySelectorAll<FormControlLike>('[name]').forEach((host) => {
-        const name = host.getAttribute('name');
-        if (name) out[name] = getFormValue(host);
-    });
-    return out;
-}

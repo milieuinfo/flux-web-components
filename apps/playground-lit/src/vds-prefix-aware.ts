@@ -16,14 +16,3 @@ import '@govflanders/vl-ui-design-system-web-components/themes/light.css';
 import './vds-scale-compensation.css';
 
 defineAll('vds');
-
-// Sanity-check that the B5 prefix guard reaches consumers: a hyphenated
-// prefix must throw. Logged, not thrown, so it cannot break the page.
-try {
-    defineAll('foo-bar');
-    // eslint-disable-next-line no-console
-    console.error('[FLUX-704] B5 guard FAILED: defineAll("foo-bar") did not throw');
-} catch (e) {
-    // eslint-disable-next-line no-console
-    console.info('[FLUX-704] B5 guard OK:', (e as Error).message);
-}
