@@ -6,7 +6,7 @@ import '@govflanders/vl-ui-design-system-web-components/themes/light.css';
 import './vds-scale-compensation.css';
 import './flux-input.component';
 
-defineAll('vlds');
+defineAll('vds');
 
 type Box = { radius: string; borderColor: string; height: number };
 
@@ -31,7 +31,7 @@ describe('FLUX-704 - flux-input erft VlInput (inheritance)', () => {
     beforeEach(() => {
         cy.mount(html`
             <div style="display: flex; gap: 8px; align-items: flex-start;">
-                <vlds-input placeholder="VDS" aria-label="VDS"></vlds-input>
+                <vds-input placeholder="VDS" aria-label="VDS"></vds-input>
                 <flux-input placeholder="flux" aria-label="flux"></flux-input>
             </div>
         `);
@@ -41,17 +41,17 @@ describe('FLUX-704 - flux-input erft VlInput (inheritance)', () => {
     it('is een subclass van VlInput, geen extra shadow-laag', () => {
         cy.window().then((win) => {
             const FI = win.customElements.get('flux-input');
-            const VlInput = win.customElements.get('vlds-input');
+            const VlInput = win.customElements.get('vds-input');
             expect(FI, 'flux-input geregistreerd').to.exist;
             expect(FI!.name, 'klasse heet FluxInput').to.eq('FluxInput');
             const fi = win.document.querySelector('flux-input')!;
             expect(fi instanceof VlInput!, 'flux-input IS een VlInput').to.eq(true);
-            expect(fi.shadowRoot!.querySelector('vlds-input'), 'geen geneste vlds-input').to.be.null;
+            expect(fi.shadowRoot!.querySelector('vds-input'), 'geen geneste vds-input').to.be.null;
         });
     });
 
     it('flux-look via tokens: radius/border wijken af van VDS-default', () => {
-        readBox('vlds-input', 'vds');
+        readBox('vds-input', 'vds');
         readBox('flux-input', 'fi');
 
         cy.get('@vds').then((vds: unknown) => {

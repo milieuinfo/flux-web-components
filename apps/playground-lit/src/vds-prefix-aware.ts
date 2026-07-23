@@ -1,8 +1,8 @@
 // FLUX-704 PoC: consume the prefix-aware VDS web-components under a
 // non-`vl-` prefix so they coexist with flux's own `vl-*` components.
 //
-// `defineAll('vlds')` registers every upstream component as `vlds-*`
-// (e.g. `vlds-button`, `vlds-icon`). The prefix MUST be a single
+// `defineAll('vds')` registers every upstream component as `vds-*`
+// (e.g. `vds-button`, `vds-icon`). The prefix MUST be a single
 // lowercase identifier with no hyphens; defineAll() throws otherwise
 // (upstream B5 guard).
 import { defineAll } from '@govflanders/vl-ui-design-system-web-components';
@@ -20,7 +20,7 @@ import '@govflanders/vl-ui-design-system-web-components/assets/fonts/iconfont/vl
 import '@govflanders/vl-ui-design-system-web-components/themes/light.css';
 import './vds-scale-compensation.css';
 
-defineAll('vlds');
+defineAll('vds');
 
 // Sanity-check that the B5 prefix guard reaches consumers: a hyphenated
 // prefix must throw. Logged, not thrown, so it cannot break the page.

@@ -6,7 +6,7 @@ import '@govflanders/vl-ui-design-system-web-components/themes/light.css';
 import './vds-scale-compensation.css';
 import './flux-link.component';
 
-defineAll('vlds');
+defineAll('vds');
 
 const underlineColor = (tag: string, alias: string) =>
     cy
@@ -22,7 +22,7 @@ describe('FLUX-704 - flux-link erft VlLink (inheritance)', () => {
     beforeEach(() => {
         cy.mount(html`
             <div style="display: flex; gap: 12px;">
-                <vlds-link href="https://www.vlaanderen.be">VDS</vlds-link>
+                <vds-link href="https://www.vlaanderen.be">VDS</vds-link>
                 <flux-link href="https://www.vlaanderen.be">flux</flux-link>
             </div>
         `);
@@ -32,12 +32,12 @@ describe('FLUX-704 - flux-link erft VlLink (inheritance)', () => {
     it('is een subclass van VlLink, geen extra shadow-laag', () => {
         cy.window().then((win) => {
             const FL = win.customElements.get('flux-link');
-            const VlLink = win.customElements.get('vlds-link');
+            const VlLink = win.customElements.get('vds-link');
             expect(FL, 'flux-link geregistreerd').to.exist;
             expect(FL!.name, 'klasse heet FluxLink').to.eq('FluxLink');
             const fl = win.document.querySelector('flux-link')!;
             expect(fl instanceof VlLink!, 'flux-link IS een VlLink').to.eq(true);
-            expect(fl.shadowRoot!.querySelector('vlds-link'), 'geen geneste vlds-link').to.be.null;
+            expect(fl.shadowRoot!.querySelector('vds-link'), 'geen geneste vds-link').to.be.null;
         });
     });
 
@@ -53,7 +53,7 @@ describe('FLUX-704 - flux-link erft VlLink (inheritance)', () => {
     });
 
     it('underline-kleur = flux-blauw via token, != VDS-default', () => {
-        underlineColor('vlds-link', 'vds');
+        underlineColor('vds-link', 'vds');
         underlineColor('flux-link', 'fl');
 
         cy.get('@vds').then((vds) => {

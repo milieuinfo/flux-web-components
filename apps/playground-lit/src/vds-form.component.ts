@@ -1,18 +1,18 @@
 // FLUX-704 PoC: rijke form met ALLE prefix-aware VDS form-controls,
 // zichtbare validatie en een FormData-print op submit.
 //
-// Waarom dit werkt onder de custom `vlds-` prefix:
+// Waarom dit werkt onder de custom `vds-` prefix:
 // - Alle VDS form-velden (vl-input, vl-select, vl-checkbox, vl-textarea,
 //   vl-radio-group) erven van VlFormAssociatedElement, dat
 //   `static formAssociated = true` zet en via ElementInternals
 //   `setFormValue()` doet. Daardoor leest `new FormData(form)` hun waarden
-//   via het `name`-attribuut, ook als ze als `vlds-*` geregistreerd zijn.
+//   via het `name`-attribuut, ook als ze als `vds-*` geregistreerd zijn.
 // - Validatie: `validateInput()` spiegelt de validity van de inner native
 //   input naar de host-ElementInternals. We roepen dit expliciet aan op
 //   submit (en bij wijziging) en tonen de fout via de `error` + `message`
 //   props (de standaard VDS-manier om een validatietekst te tonen).
 //
-// De vlds-* tags worden geregistreerd door vds-prefix-aware.ts (defineAll).
+// De vds-* tags worden geregistreerd door vds-prefix-aware.ts (defineAll).
 import { html, LitElement, TemplateResult } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 
@@ -51,7 +51,7 @@ export class VdsFormDemo extends LitElement {
     // uniforme required-check (werkt voor elk control-type) met de echte
     // VDS-validity voor formaat (e-mail, getal-bereik, ...).
     private validateField(el: FormField): string | null {
-        const isCheckbox = el.localName === 'vlds-checkbox';
+        const isCheckbox = el.localName === 'vds-checkbox';
         if (el.hasAttribute('required')) {
             const empty = isCheckbox ? !el.checked : !(el.value && String(el.value).trim());
             if (empty) {
@@ -153,23 +153,23 @@ export class VdsFormDemo extends LitElement {
             el.dispatchEvent(new Event('input', { bubbles: true }));
             el.dispatchEvent(new Event('change', { bubbles: true }));
         };
-        setNative(rootEl.querySelector('vlds-input[name="voornaam"]'), 'Jan');
-        setNative(rootEl.querySelector('vlds-input[name="achternaam"]'), 'Janssens');
-        setNative(rootEl.querySelector('vlds-input[name="email"]'), 'jan@voorbeeld.be');
-        setNative(rootEl.querySelector('vlds-input[name="leeftijd"]'), '42');
-        setNative(rootEl.querySelector('vlds-input[name="telefoon"]'), '+32 477 11 22 33');
-        setNative(rootEl.querySelector('vlds-select[name="provincie"]'), 'limburg');
-        setNative(rootEl.querySelector('vlds-textarea[name="bericht"]'), 'Graag info over het aanbod.');
-        (rootEl.querySelector('vlds-radio[value="email"]') as HTMLElement | null)?.click();
+        setNative(rootEl.querySelector('vds-input[name="voornaam"]'), 'Jan');
+        setNative(rootEl.querySelector('vds-input[name="achternaam"]'), 'Janssens');
+        setNative(rootEl.querySelector('vds-input[name="email"]'), 'jan@voorbeeld.be');
+        setNative(rootEl.querySelector('vds-input[name="leeftijd"]'), '42');
+        setNative(rootEl.querySelector('vds-input[name="telefoon"]'), '+32 477 11 22 33');
+        setNative(rootEl.querySelector('vds-select[name="provincie"]'), 'limburg');
+        setNative(rootEl.querySelector('vds-textarea[name="bericht"]'), 'Graag info over het aanbod.');
+        (rootEl.querySelector('vds-radio[value="email"]') as HTMLElement | null)?.click();
         const check = (sel: string) => {
             const cb = rootEl.querySelector(sel);
             const input = cb?.shadowRoot?.querySelector<HTMLInputElement>('input[type="checkbox"]');
             if (input && !input.checked) input.click();
         };
-        check('vlds-checkbox[value="sport"]');
-        check('vlds-checkbox[value="wetenschap"]');
-        check('vlds-checkbox[name="nieuwsbrief"]');
-        check('vlds-checkbox[name="akkoord"]');
+        check('vds-checkbox[value="sport"]');
+        check('vds-checkbox[value="wetenschap"]');
+        check('vds-checkbox[name="nieuwsbrief"]');
+        check('vds-checkbox[name="akkoord"]');
     }
 
     private handleReset() {
@@ -188,24 +188,24 @@ export class VdsFormDemo extends LitElement {
                 @vl-change=${this.handleFieldChange}
                 novalidate
             >
-                <vlds-fieldset label="Persoonsgegevens">
-                    <vlds-input
+                <vds-fieldset label="Persoonsgegevens">
+                    <vds-input
                         label="Voornaam"
                         name="voornaam"
                         required
                         indicator="verplicht"
                         placeholder="bv. Jan"
-                    ></vlds-input>
+                    ></vds-input>
 
-                    <vlds-input
+                    <vds-input
                         label="Achternaam"
                         name="achternaam"
                         required
                         indicator="verplicht"
                         placeholder="bv. Janssens"
-                    ></vlds-input>
+                    ></vds-input>
 
-                    <vlds-input
+                    <vds-input
                         label="E-mail"
                         name="email"
                         type="email"
@@ -213,74 +213,74 @@ export class VdsFormDemo extends LitElement {
                         indicator="verplicht"
                         annotation="We gebruiken dit enkel om te antwoorden."
                         placeholder="naam@voorbeeld.be"
-                    ></vlds-input>
+                    ></vds-input>
 
-                    <vlds-input
+                    <vds-input
                         label="Leeftijd"
                         name="leeftijd"
                         type="number"
                         min="0"
                         max="120"
                         annotation="In jaren."
-                    ></vlds-input>
+                    ></vds-input>
 
-                    <vlds-input
+                    <vds-input
                         label="Telefoon"
                         name="telefoon"
                         type="tel"
                         clearable
                         placeholder="+32 ..."
-                    ></vlds-input>
-                </vlds-fieldset>
+                    ></vds-input>
+                </vds-fieldset>
 
-                <vlds-fieldset label="Voorkeuren">
-                    <vlds-select label="Provincie" name="provincie" required indicator="verplicht">
+                <vds-fieldset label="Voorkeuren">
+                    <vds-select label="Provincie" name="provincie" required indicator="verplicht">
                         <option value="">Kies een provincie</option>
                         <option value="antwerpen">Antwerpen</option>
                         <option value="oost-vlaanderen">Oost-Vlaanderen</option>
                         <option value="west-vlaanderen">West-Vlaanderen</option>
                         <option value="limburg">Limburg</option>
                         <option value="vlaams-brabant">Vlaams-Brabant</option>
-                    </vlds-select>
+                    </vds-select>
 
-                    <vlds-radio-group label="Contactvoorkeur" name="contact" required indicator="verplicht">
-                        <vlds-radio value="email" label="E-mail"></vlds-radio>
-                        <vlds-radio value="telefoon" label="Telefoon"></vlds-radio>
-                        <vlds-radio value="post" label="Post"></vlds-radio>
-                    </vlds-radio-group>
+                    <vds-radio-group label="Contactvoorkeur" name="contact" required indicator="verplicht">
+                        <vds-radio value="email" label="E-mail"></vds-radio>
+                        <vds-radio value="telefoon" label="Telefoon"></vds-radio>
+                        <vds-radio value="post" label="Post"></vds-radio>
+                    </vds-radio-group>
 
-                    <vlds-fieldset label="Interesses">
-                        <vlds-checkbox label="Sport" name="interesses" value="sport"></vlds-checkbox>
-                        <vlds-checkbox label="Cultuur" name="interesses" value="cultuur"></vlds-checkbox>
-                        <vlds-checkbox label="Wetenschap" name="interesses" value="wetenschap"></vlds-checkbox>
-                    </vlds-fieldset>
+                    <vds-fieldset label="Interesses">
+                        <vds-checkbox label="Sport" name="interesses" value="sport"></vds-checkbox>
+                        <vds-checkbox label="Cultuur" name="interesses" value="cultuur"></vds-checkbox>
+                        <vds-checkbox label="Wetenschap" name="interesses" value="wetenschap"></vds-checkbox>
+                    </vds-fieldset>
 
-                    <vlds-checkbox
+                    <vds-checkbox
                         label="Schrijf me in op de nieuwsbrief"
                         name="nieuwsbrief"
                         value="ja"
-                    ></vlds-checkbox>
+                    ></vds-checkbox>
 
-                    <vlds-textarea
+                    <vds-textarea
                         label="Bericht"
                         name="bericht"
                         placeholder="Optioneel bericht"
-                    ></vlds-textarea>
-                </vlds-fieldset>
+                    ></vds-textarea>
+                </vds-fieldset>
 
-                <vlds-checkbox
+                <vds-checkbox
                     label="Ik verklaar dit waarheidsgetrouw in te vullen"
                     name="akkoord"
                     value="ja"
                     required
-                ></vlds-checkbox>
+                ></vds-checkbox>
 
                 <div style="display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap;">
-                    <vlds-button variant="primary" type="submit">Verzenden</vlds-button>
-                    <vlds-button variant="secondary" type="reset">Reset</vlds-button>
-                    <vlds-button variant="tertiary" type="button" @click=${this.fillDemo}>
+                    <vds-button variant="primary" type="submit">Verzenden</vds-button>
+                    <vds-button variant="secondary" type="reset">Reset</vds-button>
+                    <vds-button variant="tertiary" type="button" @click=${this.fillDemo}>
                         Vul demo-data in
-                    </vlds-button>
+                    </vds-button>
                 </div>
             </form>
 

@@ -1,7 +1,7 @@
 # Strategie 3: VDS onder een eigen prefix, flux blijft `vl-`
 
 Flux blijft volledig op `vl-`. We registreren de VDS-componenten onder een eigen prefix
-(`vlds-`) met hun ingebouwde prefix-feature, en gebruiken optioneel een dunne adapter
+(`vds-`) met hun ingebouwde prefix-feature, en gebruiken optioneel een dunne adapter
 zodat een flux-tag intern een VDS-component rendert. Afnemers behouden hun `vl-*`-markup
 en de oude look. Dit is de strategie die in de PoC is gevalideerd.
 
@@ -9,11 +9,11 @@ en de oude look. Dit is de strategie die in de PoC is gevalideerd.
 
 - De prefix-vrijheid ligt bij **VDS** (de consument kiest de VDS-prefix), niet bij flux.
 - Geen wijziging aan flux z'n 83 registraties, 115 template-tags of 40 DOM-queries.
-- De clash verdwijnt omdat flux `vl-button` en VDS `vlds-button` verschillende tags zijn.
+- De clash verdwijnt omdat flux `vl-button` en VDS `vds-button` verschillende tags zijn.
 
 ## Implementatieplan
 
-1. **VDS consumeren onder prefix.** Bootstrap met `defineAll('vlds')` + de VDS-CSS,
+1. **VDS consumeren onder prefix.** Bootstrap met `defineAll('vds')` + de VDS-CSS,
    iconfont en theme importeren. (In de PoC: `vds-prefix-aware.ts`.)
 2. **Bundler-config** voor de Vite-georiënteerde VDS-package: webpack-loaders voor de
    `?inline`-CSS, fonts (`asset/resource`) en een TS-module-shim voor de exports-map.
@@ -68,6 +68,6 @@ prefix-aware te maken.
 ## PoC-bewijs
 
 Gevalideerd in `apps/playground-lit` (zie `.claude/plans/prefix-aware-poc.md`):
-coexistentie van 14 `vlds-*` naast flux `vl-*` zonder collision, een werkende
+coexistentie van 14 `vds-*` naast flux `vl-*` zonder collision, een werkende
 `vl-button`-adapter op een VDS-button, een formAssociated VDS-form via `FormData`, en een
 styling-experiment dat per component toont wat wel/niet naar flux-look te brengen is.

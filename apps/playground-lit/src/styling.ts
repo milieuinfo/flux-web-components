@@ -20,8 +20,8 @@ import './flux-input.component';
 import './flux-link.component';
 import './vds-styling-demo.component';
 
-// VDS onder de eigen vlds- prefix (geen collision met flux vl-*).
-defineAll('vlds');
+// VDS onder de eigen vds- prefix (geen collision met flux vl-*).
+defineAll('vds');
 
 // Echte flux-componenten registreren (vl-button hier NIET via adapter).
 registerWebComponents([VlButtonComponent, VlLinkComponent, VlTitleComponent, VlInputFieldComponent]);

@@ -1,9 +1,9 @@
 // FLUX-704: deterministische pariteits-test. Bewijst dat `flux-button` (erft de
 // VDS VlButton, flux-look via design-tokens) qua box-geometrie OVEREENKOMT met de
-// echte flux `vl-button`, en NIET met de ruwe `vlds-button`. Dit vangt regressies
+// echte flux `vl-button`, en NIET met de ruwe `vds-button`. Dit vangt regressies
 // zoals "flux-button heeft VDS-padding" deterministisch op, los van browser-/tab-staat.
 //
-// Zelfde bootstrap als styling.ts: VDS onder vlds- prefix, theme + rem-scale-
+// Zelfde bootstrap als styling.ts: VDS onder vds- prefix, theme + rem-scale-
 // compensatie, en de echte flux vl-button geregistreerd.
 import { html } from 'lit';
 import { defineAll } from '@govflanders/vl-ui-design-system-web-components';
@@ -15,7 +15,7 @@ import { registerWebComponents } from '@domg-wc/common';
 import { VlButtonComponent } from '@domg-wc/components/atom';
 import './flux-button.component';
 
-defineAll('vlds');
+defineAll('vds');
 registerWebComponents([VlButtonComponent]);
 
 type Box = { padding: string; paddingRight: string; width: number; height: number };
@@ -44,7 +44,7 @@ describe('FLUX-704 - flux-button box-pariteit met flux vl-button', () => {
         cy.mount(html`
             <div style="display: flex; gap: 8px; align-items: flex-start;">
                 <vl-button>Test</vl-button>
-                <vlds-button variant="primary">Test</vlds-button>
+                <vds-button variant="primary">Test</vds-button>
                 <flux-button variant="primary">Test</flux-button>
             </div>
         `);
@@ -57,9 +57,9 @@ describe('FLUX-704 - flux-button box-pariteit met flux vl-button', () => {
             const VlBtn = win.customElements.get('vl-button');
             expect(FB, 'flux-button geregistreerd').to.exist;
             expect(FB!.name, 'klasse heet FluxButton').to.eq('FluxButton');
-            // geen geneste vlds-button in de shadow => geen extra shadow-laag
+            // geen geneste vds-button in de shadow => geen extra shadow-laag
             const fb = win.document.querySelector('flux-button')!;
-            expect(fb.shadowRoot!.querySelector('vlds-button'), 'geen geneste vlds-button').to.be.null;
+            expect(fb.shadowRoot!.querySelector('vds-button'), 'geen geneste vds-button').to.be.null;
             // het is een ECHTE flux vl-button-klasse, niet dezelfde als flux-button
             expect(VlBtn, 'vl-button geregistreerd').to.exist;
         });
@@ -84,7 +84,7 @@ describe('FLUX-704 - flux-button box-pariteit met flux vl-button', () => {
 
     it('flux-button padding == flux vl-button padding, en != VDS-button', () => {
         readBox('vl-button', 'flux');
-        readBox('vlds-button', 'vds');
+        readBox('vds-button', 'vds');
         readBox('flux-button', 'fb');
 
         cy.get('@flux').then((flux: unknown) => {

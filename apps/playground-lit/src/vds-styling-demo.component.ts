@@ -82,32 +82,49 @@ export class VdsStylingDemo extends LitElement {
 
     render(): TemplateResult {
         return html`
-            <h1>FLUX-704 - VDS-componenten herstijlen naar flux-look</h1>
+            <h1>FLUX-704 - drie varianten per component (vds · flux · vl)</h1>
             <p class="note">
-                Per rij: links de echte flux-component, midden VDS-default, rechts het doelproduct dat
-                de VDS-klasse ERFT en de flux-look via design-tokens op <code>:host</code> zet. De
-                rem-basis (10px/16px) wordt globaal gecompenseerd via
-                <code>vds-scale-compensation.css</code>, geen zoom meer.
+                Elke component in drie varianten naast elkaar, in vaste kolomvolgorde. De rem-basis
+                (10px/16px) wordt globaal gecompenseerd via <code>vds-scale-compensation.css</code>,
+                geen zoom meer.
             </p>
+            <div
+                style="max-width: 1100px; margin: 0 0 20px; padding: 12px 16px; border: 1px solid #cbd2d9;
+                       border-radius: 6px; background: #fafbfc; font-size: 13px;"
+            >
+                <strong>Legende</strong>
+                <ul style="margin: 8px 0 0; padding-left: 18px; line-height: 1.6;">
+                    <li>
+                        <code style="color: #0055cc;">vds-*</code> — <b>rauw VDS</b>: exact zoals VDS het
+                        vandaag definieert, geen aanpassing (geregistreerd via
+                        <code>defineAll('vds')</code>).
+                    </li>
+                    <li>
+                        <code style="color: #0055cc;">flux-*</code> — <b>ons doelproduct</b>: erft de VDS-klasse
+                        (<code>VlButton</code>/<code>VlInput</code>/<code>VlLink</code>) en zet de flux-look via
+                        design-tokens op <code>:host</code>. Geen extra shadow-laag.
+                    </li>
+                    <li>
+                        <code style="color: #0055cc;">vl-*</code> — <b>onze echte flux web-component</b>,
+                        ongewijzigd, zoals vóór FLUX-704.
+                    </li>
+                </ul>
+            </div>
 
             <table>
-                <caption>vl-button</caption>
+                <caption>button</caption>
                 <thead>
                     <tr>
-                        <th>flux vandaag (vl-button)</th>
-                        <th>VDS ruw (vlds-button)</th>
-                        <th>ons doelproduct: erft VlButton, flux-look via tokens (flux-button)</th>
+                        <th>vds-button (rauw VDS)</th>
+                        <th>flux-button (erft VlButton + flux-tokens)</th>
+                        <th>vl-button (echte flux, ongewijzigd)</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>
-                            <vl-button>Primair</vl-button>
-                            <vl-button secondary>Secundair</vl-button>
-                        </td>
-                        <td>
-                            <vlds-button variant="primary">Primair</vlds-button>
-                            <vlds-button variant="secondary">Secundair</vlds-button>
+                            <vds-button variant="primary">Primair</vds-button>
+                            <vds-button variant="secondary">Secundair</vds-button>
                         </td>
                         <td>
                             <flux-button>Primair</flux-button>
@@ -115,11 +132,15 @@ export class VdsStylingDemo extends LitElement {
                             <flux-button tertiary>Tertiair</flux-button>
                             <flux-button ghost>Ghost</flux-button>
                         </td>
+                        <td>
+                            <vl-button>Primair</vl-button>
+                            <vl-button secondary>Secundair</vl-button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
             <p class="findings">
-                <b>button:</b> kolom 3 is het <b>doelproduct</b> (<code>flux-button</code>) via
+                <b>button:</b> de <code>flux-button</code>-kolom is het <b>doelproduct</b> via
                 <b>inheritance</b>: het ERFT de VDS <code>VlButton</code> (VDS-code intact, geen extra
                 shadow-laag, dus formAssociated/<code>::part</code>/events blijven native). De flux-look
                 komt PUUR uit hun design-tokens op <code>:host</code> (radius, border-width, padding).
@@ -132,92 +153,92 @@ export class VdsStylingDemo extends LitElement {
             </p>
 
             <table>
-                <caption>vl-input</caption>
+                <caption>input</caption>
                 <thead>
                     <tr>
                         <th></th>
-                        <th>flux (vl-input-field)</th>
-                        <th>VDS ruw (vlds-input)</th>
-                        <th>doelproduct: erft VlInput, flux-look via tokens (flux-input)</th>
+                        <th>vds-input (rauw VDS)</th>
+                        <th>flux-input (erft VlInput + flux-tokens)</th>
+                        <th>vl-input-field (echte flux)</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <th>zonder label (enkel veld)</th>
                         <td>
-                            <vl-input-field placeholder="flux" aria-label="flux input"></vl-input-field>
-                        </td>
-                        <td>
-                            <vlds-input placeholder="VDS" aria-label="VDS input"></vlds-input>
+                            <vds-input placeholder="VDS" aria-label="VDS input"></vds-input>
                         </td>
                         <td>
                             <flux-input placeholder="flux-input" aria-label="flux-input"></flux-input>
                         </td>
+                        <td>
+                            <vl-input-field placeholder="flux" aria-label="flux input"></vl-input-field>
+                        </td>
                     </tr>
                     <tr>
                         <th>met label</th>
+                        <td>
+                            <vds-input label="Naam" placeholder="VDS input"></vds-input>
+                        </td>
+                        <td>
+                            <flux-input label="Naam" placeholder="flux-input"></flux-input>
+                        </td>
                         <td>
                             <span class="note"
                                 >flux <code>vl-input-field</code> heeft GEEN ingebouwd label (label is een
                                 apart <code>vl-form-label</code>-component). Structureel verschil.</span
                             >
                         </td>
-                        <td>
-                            <vlds-input label="Naam" placeholder="VDS input"></vlds-input>
-                        </td>
-                        <td>
-                            <flux-input label="Naam" placeholder="flux-input"></flux-input>
-                        </td>
                     </tr>
                 </tbody>
             </table>
             <p class="findings">
-                <b>input:</b> kolom 3 is het <b>doelproduct</b> (<code>flux-input</code>) via
+                <b>input:</b> de <code>flux-input</code>-kolom is het <b>doelproduct</b> via
                 <b>inheritance</b>: het ERFT de VDS <code>VlInput</code> (VDS-code intact, geen extra
                 shadow-laag, formAssociated/validatie/<code>::part</code> blijven native). De flux-look
                 komt PUUR uit hun design-tokens op <code>:host</code>.
                 <span class="ok">Matchbaar via tokens</span> (radius, border, padding en box-hoogte
                 ~flux: 34 vs 35px). Border zit op interne
-                <code>.vl-input__input-wrapper</code> (geen part) die tokens leest: radius
+                <code>.vl-input__wrapper</code> (geen part) die tokens leest: radius
                 (<code>--base-border-radius-selectable-default</code>, 4px→3px), kleur
                 (<code>--base-color-border-default</code>), padding (inset-tokens). Nuance: flux haalt
                 z'n hoogte intrinsiek (min-height/line-height), VDS uit padding, dus ik mik op de
                 box-HOOGTE i.p.v. flux' padding-waarde te kopieren. <code>::part(input)</code> is enkel
                 het kale input-element (geen border).
                 <br /><b>Label-verschil:</b> flux <code>vl-input-field</code> is enkel het veld (label =
-                apart <code>vl-form-label</code>); VDS <code>vlds-input</code> heeft label/message/annotation
+                apart <code>vl-form-label</code>); VDS <code>vds-input</code> heeft label/message/annotation
                 ingebouwd. Daardoor is een VDS-input MET label hoger (label-blok erboven). Vergelijk dus
                 "zonder label" voor een eerlijke veld-tot-veld-match. Zelfs zonder label is de VDS-host
-                hoger: <code>vlds-input</code> is een grid-container (label/veld/message-rijen) die ruimte
+                hoger: <code>vds-input</code> is een grid-container (label/veld/message-rijen) die ruimte
                 reserveert, terwijl flux' veld kaal is. Het veld-BOX zelf matcht wel (~34 vs 35px); het
                 verschil is de form-layout-chrome eromheen (niet via tokens weg te krijgen).
             </p>
 
             <table>
-                <caption>vl-link</caption>
+                <caption>link</caption>
                 <thead>
                     <tr>
-                        <th>flux (vl-link)</th>
-                        <th>VDS ruw (vlds-link)</th>
-                        <th>doelproduct: erft VlLink, flux-look via tokens (flux-link)</th>
+                        <th>vds-link (rauw VDS)</th>
+                        <th>flux-link (erft VlLink + flux-tokens)</th>
+                        <th>vl-link (echte flux)</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><vl-link href="https://www.vlaanderen.be">flux link</vl-link></td>
                         <td class="vds">
-                            <vlds-link href="https://www.vlaanderen.be">VDS link</vlds-link>
+                            <vds-link href="https://www.vlaanderen.be">VDS link</vds-link>
                         </td>
                         <td>
                             <flux-link href="https://www.vlaanderen.be">flux-link</flux-link>
                             <flux-link href="https://www.vlaanderen.be" external>extern (oude API)</flux-link>
                             <flux-link href="https://www.vlaanderen.be" error>fout (oude API)</flux-link>
                         </td>
+                        <td><vl-link href="https://www.vlaanderen.be">flux link</vl-link></td>
                     </tr>
                 </tbody>
             </table>
             <p class="findings">
-                <b>link:</b> kolom 3 is het <b>doelproduct</b> (<code>flux-link</code>) via
+                <b>link:</b> de <code>flux-link</code>-kolom is het <b>doelproduct</b> via
                 <b>inheritance</b> (erft <code>VlLink</code>, flux-look via tokens op <code>:host</code>).
                 <span class="nok">Deels matchbaar</span>: underline-KLEUR via token
                 (<code>--base-color-underline-action-*</code>) ✓. Maar underline <b>offset</b> (0.25rem)
@@ -232,22 +253,22 @@ export class VdsStylingDemo extends LitElement {
             </p>
 
             <table>
-                <caption>vl-title (VDS heeft geen title-component)</caption>
+                <caption>title (VDS heeft geen title-component: geen vds-title / flux-title)</caption>
                 <thead>
                     <tr>
-                        <th>flux (vl-title)</th>
                         <th>native heading + VDS-typografie-tokens</th>
+                        <th>vl-title (echte flux)</th>
                         <th>-</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><vl-title>flux titel</vl-title></td>
                         <td class="vds"><h2 class="vds-title">VDS-typografie titel</h2></td>
+                        <td><vl-title>flux titel</vl-title></td>
                         <td>
                             <span class="note"
                                 >VDS levert geen title-component; enkel typografie-tokens om een
-                                eigen heading te stijlen.</span
+                                eigen heading te stijlen. Daarom hier maar twee varianten.</span
                             >
                         </td>
                     </tr>

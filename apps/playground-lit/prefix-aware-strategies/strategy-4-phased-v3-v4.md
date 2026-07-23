@@ -8,7 +8,7 @@ namespace-flip.
 
 Dit is strategie 3.
 
-- We gebruiken de prefix-aware feature van VDS met een ANDERE tag (bijvoorbeeld `vlds-`).
+- We gebruiken de prefix-aware feature van VDS met een ANDERE tag (bijvoorbeeld `vds-`).
 - Onze componenten behouden de `vl-`-prefix.
 - Sommige van onze componenten gebruiken achterliggend een custom VDS-tag (via een
   adapter: flux-API buiten, VDS-component binnen).
@@ -61,7 +61,7 @@ Eigenschappen:
 
 Kanttekening: `flux-` (v4) is enkel nodig als het doel is dat VDS de canonieke `vl-`
 default inneemt (Vlaanderen-namespace) en flux een eigen `flux-`-identiteit krijgt. Als
-permanente coexistentie met VDS op `vlds-` aanvaardbaar is, kan v4 in principe
+permanente coexistentie met VDS op `vds-` aanvaardbaar is, kan v4 in principe
 achterwege blijven en blijft v3 het eindstation. v4 is dus een strategische/branding-keuze,
 geen technische noodzaak.
 
@@ -70,7 +70,7 @@ geen technische noodzaak.
 | | v3 | v4 |
 |---|---|---|
 | flux-tags | `vl-` (ongewijzigd) | `flux-` |
-| VDS-tags | `vlds-` (prefix-aware) | `vl-` (default, geen prefix-aware nodig) |
+| VDS-tags | `vds-` (prefix-aware) | `vl-` (default, geen prefix-aware nodig) |
 | Breaking voor afnemers | nee | ja (major + codemod) |
 | Effort | middelgroot, consumer-side | groot, flux-core (strategie 1) |
 | Doel | VDS adopteren zonder impact | namespace-flip, VDS als canonieke `vl-` |
