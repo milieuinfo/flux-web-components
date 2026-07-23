@@ -22,6 +22,12 @@ const DEMOS: Record<string, string> = {
         '<vl-radio value="email" label="E-mail"></vl-radio>' +
         '<vl-radio value="post" label="Post"></vl-radio>' +
         '</vl-radio-group>',
+    textarea: '<vl-textarea label="Bericht" placeholder="VDS"></vl-textarea>',
+    fieldset:
+        '<vl-fieldset label="Voorkeuren">' +
+        '<vl-checkbox label="Sport" checked></vl-checkbox>' +
+        '<vl-checkbox label="Cultuur"></vl-checkbox>' +
+        '</vl-fieldset>',
 };
 
 const params = new URLSearchParams(window.location.search);
