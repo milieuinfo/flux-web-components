@@ -353,6 +353,20 @@ export class AppComponent extends LitElement {
                         </div>
                     </section>
 
+                    <section class="vl-section">
+                        <div class="vl-content-block vl-content-block--full-width">
+                            <vl-title type="h2">FLUX-704 — VDS-form (formAssociated via FormData)</vl-title>
+                            <p>
+                                Echte native <code>&lt;form&gt;</code> met <code>vlds-*</code> velden. Alle velden
+                                erven <code>formAssociated</code>, dus <code>new FormData(form)</code> leest de
+                                waarden via <code>name</code>, ook onder de custom prefix. Vul in en klik Verzenden.
+                            </p>
+                            <div style="max-width: 520px;">
+                                <vds-form-demo></vds-form-demo>
+                            </div>
+                        </div>
+                    </section>
+
                     <section class="vl-section" style="padding-bottom: 0;">
                         <div class="vl-content-block vl-content-block--full-width" style="margin-bottom: 0;">
                             <vl-title type="h2">Sticky footer overlap repro</vl-title>
