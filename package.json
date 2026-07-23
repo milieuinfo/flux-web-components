@@ -3,19 +3,20 @@
     "version": "1.49.9",
     "author": "Flux <domg_flux@groepen.vlaanderen.be>",
     "license": "MIT",
+    "packageManager": "pnpm@10.18.0",
     "scripts": {
         "apps:consumer:build": "",
         "apps:consumer:dev": "",
-        "apps:consumer-e2e:run": "cd ./apps/consumer-e2e && npx cypress run --e2e",
-        "apps:consumer-e2e:watch": "cd ./apps/consumer-e2e && npx cypress open --e2e",
+        "apps:consumer-e2e:run": "cd ./apps/consumer-e2e && ../../node_modules/.bin/cypress run --e2e",
+        "apps:consumer-e2e:watch": "cd ./apps/consumer-e2e && ../../node_modules/.bin/cypress open --e2e",
         "apps:consumer:fat-js:dev": "cd apps/consumer && npm run consumer:fat-js:dev",
         "apps:consumer:named:dev": "cd ./apps/consumer && npm run consumer:named:dev",
         "apps:consumer:side-effect:dev": "cd ./apps/consumer && npm run consumer:side-effect:dev",
         "apps:integrator:build": "cd ./apps/integrator && webpack --mode production",
         "apps:integrator:dev": "cd ./apps/integrator && webpack serve --progress --profile --mode development",
-        "apps:integrator:serve-and-e2e": "start-server-and-test 'npm run apps:integrator:dev' http://localhost:4204 'npm run apps:integrator-e2e:run'",
-        "apps:integrator-e2e:run": "cd ./apps/integrator-e2e && npx cypress run --e2e",
-        "apps:integrator-e2e:watch": "cd ./apps/integrator-e2e && npx cypress open --e2e",
+        "apps:integrator:serve-and-e2e": "start-server-and-test 'pnpm run apps:integrator:dev' http://localhost:4204 'pnpm run apps:integrator-e2e:run'",
+        "apps:integrator-e2e:run": "cd ./apps/integrator-e2e && ../../node_modules/.bin/cypress run --e2e",
+        "apps:integrator-e2e:watch": "cd ./apps/integrator-e2e && ../../node_modules/.bin/cypress open --e2e",
         "apps:playground-lit:build": "cd ./apps/playground-lit && webpack --mode production",
         "apps:playground-lit:dev": "cd ./apps/playground-lit && webpack serve --progress --profile --mode development",
         "apps:playground-native:build": "cd ./apps/playground-native && webpack --mode production",
@@ -24,15 +25,15 @@
         "apps:playground-react:dev": "cd ./apps/playground-react && webpack serve --progress --profile --mode development",
         "apps:storybook:build": "cd ./apps/storybook && storybook build -o ../../build/dist/apps/storybook",
         "apps:storybook:dev": "cd ./apps/storybook && storybook dev -p 8080",
-        "apps:storybook:serve-and-e2e": "start-server-and-test 'npm run apps:storybook:dev' http://localhost:8080 'npm run apps:storybook-e2e:run'",
-        "apps:storybook-e2e:run": "cd ./apps/storybook-e2e && npx cypress run --e2e",
-        "apps:storybook-e2e:watch": "cd ./apps/storybook-e2e && npx cypress open --e2e",
+        "apps:storybook:serve-and-e2e": "start-server-and-test 'pnpm run apps:storybook:dev' http://localhost:8080 'pnpm run apps:storybook-e2e:run'",
+        "apps:storybook-e2e:run": "cd ./apps/storybook-e2e && ../../node_modules/.bin/cypress run --e2e",
+        "apps:storybook-e2e:watch": "cd ./apps/storybook-e2e && ../../node_modules/.bin/cypress open --e2e",
         "fat-lib:build": "cd ./resources/utils-fat-lib && webpack --mode production --config fat-lib-webpack.config.cjs",
         "fat-lib:build-min": "cd ./resources/utils-fat-lib && webpack --mode production --config fat-lib-webpack-min.config.cjs",
         "libs:add-dependencies": "cd ./resources/bash-scripts && bash ./libs-add-dependencies.sh",
         "libs:build": "cd ./resources/bash-scripts && bash ./libs-build.sh",
-        "libs:component-tests:run": "cd ./resources/cypress-component && npx cypress run --component",
-        "libs:component-tests:watch": "cd ./resources/cypress-component && npx cypress open --component",
+        "libs:component-tests:run": "cd ./resources/cypress-component && ../../node_modules/.bin/cypress run --component",
+        "libs:component-tests:watch": "cd ./resources/cypress-component && ../../node_modules/.bin/cypress open --component",
         "libs:eslint": "cd ./resources/bash-scripts && bash ./libs-eslint.sh",
         "libs:icons:generate": "cd ./resources/bash-scripts && bash ./libs-icons-generate.sh",
         "libs:jest": "cd ./resources/bash-scripts && bash ./libs-jest.sh",
@@ -54,12 +55,19 @@
         "@semantic-release/exec": "7.1.0",
         "@semantic-release/git": "10.0.1",
         "@semantic-release/github": "11.0.6",
+        "@storybook/addon-actions": "7.6.17",
+        "@storybook/addon-docs": "7.6.17",
         "@storybook/addon-essentials": "7.6.17",
         "@storybook/addon-interactions": "7.6.17",
+        "@storybook/addons": "7.6.17",
+        "@storybook/blocks": "7.6.17",
         "@storybook/core-server": "7.6.17",
         "@storybook/jest": "0.2.3",
         "@storybook/test-runner": "0.16.0",
         "@storybook/testing-library": "0.2.2",
+        "@storybook/theming": "7.6.17",
+        "@storybook/types": "7.6.17",
+        "@storybook/web-components": "7.6.20",
         "@storybook/web-components-webpack5": "7.6.20",
         "@swc-node/register": "1.10.9",
         "@swc/cli": "0.4.0",
@@ -84,6 +92,7 @@
         "fetch-mock": "9.11.0",
         "fs-extra": "11.2.0",
         "globals": "15.9.0",
+        "html-webpack-plugin": "5.6.3",
         "jest": "29.7.0",
         "jest-environment-jsdom": "29.7.0",
         "jest-environment-node": "29.7.0",
@@ -143,6 +152,7 @@
         "flatpickr": "4.6.13",
         "jsts": "2.11.0",
         "lit": "3.1.0",
+        "lit-html": "3.1.1",
         "prettier": "2.8.8",
         "proj4": "2.10.0",
         "prop-types": "15.8.1",
@@ -161,10 +171,13 @@
         "./libs/map/map.web-types.json",
         "./libs/sections/sections.web-types.json"
     ],
-    "overrides": {
-        "color-parse": {
-            "color-name": "2.0.0"
-        }
+    "pnpm": {
+        "overrides": {
+            "color-parse>color-name": "2.0.0"
+        },
+        "onlyBuiltDependencies": [
+            "cypress"
+        ]
     },
     "volta": {
         "node": "22.20.0"

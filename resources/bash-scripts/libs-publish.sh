@@ -15,29 +15,29 @@ else
 fi
 
 cd ./common-utilities
-npm publish domg-wc-common-utilities-${RELEASE_VERSION}.tgz
+pnpm publish domg-wc-common-utilities-${RELEASE_VERSION}.tgz --no-git-checks
 echo "[done] - publish - @domg-wc/common-utilities-${RELEASE_VERSION}"
 
 cd ../common-storybook
-npm publish domg-wc-common-storybook-${RELEASE_VERSION}.tgz
+pnpm publish domg-wc-common-storybook-${RELEASE_VERSION}.tgz --no-git-checks
 echo "[done] - publish - @domg-wc/common-storybook"
 
 cd ../elements
-npm publish domg-wc-elements-${RELEASE_VERSION}.tgz
+pnpm publish domg-wc-elements-${RELEASE_VERSION}.tgz --no-git-checks
 echo "[done] - publish - @domg-wc/elements-${RELEASE_VERSION}"
 
 cd ../components
-npm publish domg-wc-components-${RELEASE_VERSION}.tgz
+pnpm publish domg-wc-components-${RELEASE_VERSION}.tgz --no-git-checks
 echo "[done] - publish - @domg-wc/components-${RELEASE_VERSION}"
 
 cd ../form
-npm publish domg-wc-form-${RELEASE_VERSION}.tgz
+pnpm publish domg-wc-form-${RELEASE_VERSION}.tgz --no-git-checks
 echo "[done] - publish - @domg-wc/form-${RELEASE_VERSION}"
 
 cd ../sections
-npm publish domg-wc-sections-${RELEASE_VERSION}.tgz
+pnpm publish domg-wc-sections-${RELEASE_VERSION}.tgz --no-git-checks
 echo "[done] - publish - @domg-wc/sections-${RELEASE_VERSION}"
 
 cd ../map
-npm publish domg-wc-map-${RELEASE_VERSION}.tgz
+pnpm publish domg-wc-map-${RELEASE_VERSION}.tgz --no-git-checks
 echo "[done] - publish - @domg-wc/map-${RELEASE_VERSION}"

@@ -31,73 +31,73 @@ echo "RELEASE_VERSION gezet in de package.json en *.web-types.json bestanden"
 #  -> het lijkt niet mogelijk om dit via een exclude te doen - dit werkt niet: ["!(./index.js)"]
 #  -> dus expliciet specifieren van alle files in minimum 1 subfolder + eventueel de 'andere' root-files
 cd ./common-utilities
-npm pkg set sideEffects='["./*/**"]' --json >/dev/null
+pnpm pkg set sideEffects='["./*/**"]' --json >/dev/null
 echo '[done] - set sideEffects - common-utilities'
 if [[ $1 == "develop" ]]; then
-    npm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'
+    pnpm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'
     echo '[done] - set publishConfig to snapshot-npm - common-utilities'
 fi
-npm pack &> /dev/null
+pnpm pack &> /dev/null
 echo '[done] - pack - common-utilities'
 
 cd ../common-storybook
-npm pkg set sideEffects='["./*/**", "./stories.helper.*"]' --json >/dev/null
+pnpm pkg set sideEffects='["./*/**", "./stories.helper.*"]' --json >/dev/null
 echo '[done] - set sideEffects - common-storybook'
 if [[ $1 == "develop" ]]; then
-    npm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'
+    pnpm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'
     echo '[done] - set publishConfig to snapshot-npm - common-storybook'
 fi
-npm pack &> /dev/null
+pnpm pack &> /dev/null
 echo '[done] - pack - common-storybook'
 
 cd ../elements
-npm pkg set sideEffects='["./*/**"]' --json >/dev/null
+pnpm pkg set sideEffects='["./*/**"]' --json >/dev/null
 echo '[done] - set sideEffects - elements'
 if [[ $1 == "develop" ]]; then
-    npm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'
+    pnpm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'
     echo '[done] - set publishConfig to snapshot-npm - elements'
 fi
-npm pack &> /dev/null
+pnpm pack &> /dev/null
 echo '[done] - pack - elements'
 
 cd ../components
-npm pkg set sideEffects='["./*/**"]' --json >/dev/null
+pnpm pkg set sideEffects='["./*/**"]' --json >/dev/null
 echo '[done] - set sideEffects - components'
 if [[ $1 == "develop" ]]; then
-    npm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'
+    pnpm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'
     echo '[done] - set publishConfig to snapshot-npm - components'
 fi
-npm pack &> /dev/null
+pnpm pack &> /dev/null
 echo '[done] - pack - components'
 
 cd ../form
-npm pkg set sideEffects='["./*/**"]' --json >/dev/null
+pnpm pkg set sideEffects='["./*/**"]' --json >/dev/null
 echo '[done] - set sideEffects - form'
 if [[ $1 == "develop" ]]; then
-    npm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'
+    pnpm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'
     echo '[done] - set publishConfig to snapshot-npm - form'
 fi
-npm pack &> /dev/null
+pnpm pack &> /dev/null
 echo '[done] - pack - form'
 
 cd ../sections
-npm pkg set sideEffects='["./*/**"]' --json >/dev/null
+pnpm pkg set sideEffects='["./*/**"]' --json >/dev/null
 echo '[done] - set sideEffects - sections'
 if [[ $1 == "develop" ]]; then
-    npm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'
+    pnpm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'
     echo '[done] - set publishConfig to snapshot-npm - sections'
 fi
-npm pack &> /dev/null
+pnpm pack &> /dev/null
 echo '[done] - pack - sections'
 
 cd ../map
-npm pkg set sideEffects='["./*/**", "./vl-map.*"]' --json >/dev/null
+pnpm pkg set sideEffects='["./*/**", "./vl-map.*"]' --json >/dev/null
 echo '[done] - set sideEffects - map'
 if [[ $1 == "develop" ]]; then
-    npm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'
+    pnpm pkg set publishConfig.registry='https://repo.omgeving.vlaanderen.be/artifactory/api/npm/snapshot-npm/'
     echo '[done] - set publishConfig to snapshot-npm - map'
 fi
-npm pack &> /dev/null
+pnpm pack &> /dev/null
 echo '[done] - pack - map'
 
 cd ..

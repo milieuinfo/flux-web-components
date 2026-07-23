@@ -9,14 +9,16 @@ cd flux-web-components
 # jq moet beschikbaar zijn om libs-add-dependencies.sh correct uit te kunnen voeren
 apt-get -y update; apt-get -y install jq
 
-echo "npm install - no 'ci' to avoid the clean"
+corepack enable
+
+echo "pnpm install"
 set +e
-npm install --save-exact 2> buffer-stderr.txt 1> buffer-stdout.txt
+pnpm install --frozen-lockfile 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
-    echo "npm install - success"
+    echo "pnpm install - success"
   else
-    echo "npm install - error - buffer-stderr.txt" >&2
+    echo "pnpm install - error - buffer-stderr.txt" >&2
     cat buffer-stderr.txt >&2
     cat buffer-stdout.txt >&2
     set -e
@@ -28,7 +30,7 @@ echo 'BUILDING - BEGIN'
 
 echo "generate web-types"
 set +e
-npm run libs:web-types:generate 2> buffer-stderr.txt 1> buffer-stdout.txt
+pnpm run libs:web-types:generate 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
     echo "generate web-types - success"
@@ -42,11 +44,11 @@ fi
 set -e
 
 echo "validate the generated web-types"
-npm run libs:web-types:validate
+pnpm run libs:web-types:validate
 
 echo "build libraries"
 set +e
-npm run libs:build 2> buffer-stderr.txt 1> buffer-stdout.txt
+pnpm run libs:build 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
     echo "build libraries - success"
@@ -61,7 +63,7 @@ set -e
 
 echo "add library dependencies"
 set +e
-npm run libs:add-dependencies 2> buffer-stderr.txt 1> buffer-stdout.txt
+pnpm run libs:add-dependencies 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
     echo "add library dependencies - success"
@@ -76,7 +78,7 @@ set -e
 
 echo "build storybook"
 set +e
-npm run apps:storybook:build 2> buffer-stderr.txt 1> buffer-stdout.txt
+pnpm run apps:storybook:build 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
     echo "build storybook - success"
@@ -91,7 +93,7 @@ set -e
 
 echo "build integrator"
 set +e
-npm run apps:integrator:build 2> buffer-stderr.txt 1> buffer-stdout.txt
+pnpm run apps:integrator:build 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
     echo "build integrator - success"
@@ -106,7 +108,7 @@ set -e
 
 echo "build playground-lit"
 set +e
-npm run apps:playground-lit:build 2> buffer-stderr.txt 1> buffer-stdout.txt
+pnpm run apps:playground-lit:build 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
     echo "build playground-lit - success"
@@ -121,7 +123,7 @@ set -e
 
 echo "build playground-native"
 set +e
-npm run apps:playground-native:build 2> buffer-stderr.txt 1> buffer-stdout.txt
+pnpm run apps:playground-native:build 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
     echo "build playground-native - success"
@@ -136,7 +138,7 @@ set -e
 
 echo "build playground-react"
 set +e
-npm run apps:playground-react:build 2> buffer-stderr.txt 1> buffer-stdout.txt
+pnpm run apps:playground-react:build 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
     echo "build playground-react - success"
@@ -151,7 +153,7 @@ set -e
 
 echo "build fat-lib"
 set +e
-npm run fat-lib:build 2> buffer-stderr.txt 1> buffer-stdout.txt
+pnpm run fat-lib:build 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
     echo "build fat-lib - success"
@@ -166,7 +168,7 @@ set -e
 
 echo "build fat-lib-min"
 set +e
-npm run fat-lib:build-min 2> buffer-stderr.txt 1> buffer-stdout.txt
+pnpm run fat-lib:build-min 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
     echo "build fat-lib-min - success"

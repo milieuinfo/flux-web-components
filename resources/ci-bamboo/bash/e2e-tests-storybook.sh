@@ -6,14 +6,16 @@ set -e
 echo 'RUNNING SCRIPT: e2e-tests-storybook.sh'
 cd flux-web-components
 
-echo "npm install - no 'ci' to avoid the clean"
+corepack enable
+
+echo "pnpm install"
 set +e
-npm install --save-exact 2> buffer-stderr.txt 1> buffer-stdout.txt
+pnpm install --frozen-lockfile 2> buffer-stderr.txt 1> buffer-stdout.txt
 if [[ $? -eq 0 ]]
   then
-    echo "npm install - success"
+    echo "pnpm install - success"
   else
-    echo "npm install - error - buffer-stderr.txt" >&2
+    echo "pnpm install - error - buffer-stderr.txt" >&2
     cat buffer-stderr.txt >&2
     cat buffer-stdout.txt >&2
     set -e
@@ -26,4 +28,4 @@ mkdir build
 touch build/dummy.txt
 
 echo "serve storybook and run the e2e tests"
-npm run apps:storybook:serve-and-e2e
+pnpm run apps:storybook:serve-and-e2e

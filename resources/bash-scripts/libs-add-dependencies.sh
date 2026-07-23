@@ -13,13 +13,13 @@ rm -rf ./build/dep-to-add
 mkdir -p ./build/dep-to-add
 
 # maak de dependency bestanden voor elke bibliotheek
-npm list $(npx depcheck ./build/dist/libs/common-storybook --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/common-storybook-dta.json
-npm list $(npx depcheck ./build/dist/libs/common-utilities --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/common-utilities-dta.json
-npm list $(npx depcheck ./build/dist/libs/elements --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/elements-dta.json
-npm list $(npx depcheck ./build/dist/libs/components --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/components-dta.json
-npm list $(npx depcheck ./build/dist/libs/form --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/form-dta.json
-npm list $(npx depcheck ./build/dist/libs/map --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/map-dta.json
-npm list $(npx depcheck ./build/dist/libs/sections --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/sections-dta.json
+npm list $(pnpm exec depcheck ./build/dist/libs/common-storybook --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/common-storybook-dta.json
+npm list $(pnpm exec depcheck ./build/dist/libs/common-utilities --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/common-utilities-dta.json
+npm list $(pnpm exec depcheck ./build/dist/libs/elements --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/elements-dta.json
+npm list $(pnpm exec depcheck ./build/dist/libs/components --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/components-dta.json
+npm list $(pnpm exec depcheck ./build/dist/libs/form --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/form-dta.json
+npm list $(pnpm exec depcheck ./build/dist/libs/map --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/map-dta.json
+npm list $(pnpm exec depcheck ./build/dist/libs/sections --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/sections-dta.json
 
 # breidt de package.json's van de libraries uit met de ontbrekende dependencies
 cd ./build/dist/libs/common-storybook
