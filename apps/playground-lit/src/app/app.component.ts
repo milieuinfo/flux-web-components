@@ -1,6 +1,13 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { VlButtonComponent, VlLinkComponent, VlTitleComponent } from '@domg-wc/components/atom';
-import { VlDatepickerComponent, VlInputFieldComponent } from '@domg-wc/components/form';
+import {
+    VlCheckboxComponent,
+    VlDatepickerComponent,
+    VlInputFieldComponent,
+    VlRadioComponent,
+    VlRadioGroupComponent,
+    VlSelectComponent,
+} from '@domg-wc/components/form';
 import { html, LitElement, TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
@@ -10,10 +17,120 @@ import '../flux-link.component';
 import '../flux-form-controls.component';
 import '../flux-icon.component';
 
+type OverrideRow = { c: string; o: string; v: string; cat: 'token' | 'workaround' | 'rem'; up: string };
+
+// Alle consument-side overrides die we op de flux-* componenten zetten om de
+// flux-look (== de echte vl-*) te bereiken, afwijkend van rauw VDS. Gedeeld door
+// de globale lijst (één accordion) én de per-voorbeeld patch-notities.
+const OVERRIDE_ROWS: OverrideRow[] = [
+    { c: 'alle form-controls (fluxLook)', o: '--base-border-radius-selectable-default', v: '0.3rem', cat: 'token', up: '' },
+    { c: 'alle form-controls', o: '--base-color-border-default', v: '#8695a8', cat: 'token', up: '' },
+    { c: 'alle form-controls', o: '--base-border-focus-spacing-color', v: 'rgba(0,85,204,.65)', cat: 'token', up: '#3' },
+    { c: 'alle form-controls', o: 'inset-vertical-s / horizontal-l', v: 'calc(scaled-base * .375 / .625)', cat: 'rem', up: '#4a' },
+    { c: 'alle form-controls', o: '--base-color-background-surface-form-element-hover', v: '= enabled (geen grijs)', cat: 'token', up: '' },
+    { c: 'flux-button', o: '--vl-form-control-height', v: '3.5rem (35px)', cat: 'token', up: '' },
+    { c: 'flux-button', o: '--base-border-width-default', v: '2px', cat: 'token', up: '' },
+    { c: 'flux-button', o: 'inset-vertical-s / horizontal-l', v: '0.5rem / 2rem', cat: 'token', up: '' },
+    { c: 'flux-button', o: 'line-height (typografie-token)', v: 'normal', cat: 'token', up: '' },
+    { c: 'flux-button', o: 'focus-outline (box-shadow → outline)', v: '3px / 2px', cat: 'workaround', up: '#3' },
+    { c: 'flux-input', o: 'radius / border / focus-kleur / insets / hover', v: 'zie fluxLook', cat: 'token', up: '' },
+    { c: 'flux-input', o: 'focus-outline', v: '3px / 2px', cat: 'workaround', up: '#3' },
+    { c: 'flux-link', o: '--base-color-underline-action-*', v: '#0055cc / #0048ad / #002f70', cat: 'token', up: '' },
+    { c: 'flux-link', o: 'underline offset + thickness', v: 'auto / auto', cat: 'workaround', up: '#1' },
+    { c: 'flux-link', o: 'underline verdwijnt op hover (zoals FWC)', v: 'text-decoration-line: none', cat: 'workaround', up: '#1' },
+    { c: 'flux-link', o: 'focus-outline', v: '3px / 2px', cat: 'workaround', up: '#3' },
+    { c: 'flux-select', o: 'focus-outline (box-shadow → outline)', v: '3px / 2px', cat: 'workaround', up: '#3' },
+    { c: 'flux-select', o: 'tekst + opties grootte (size-modifiers = rauwe rem)', v: 'calc(scaled-base * .875 / 1 / 1.125)', cat: 'rem', up: '#4a' },
+    { c: 'flux-checkbox', o: '--base-border-radius-container-2xs', v: '0.3rem', cat: 'token', up: '' },
+    { c: 'flux-checkbox', o: 'focus-outline (volle VDS-selector)', v: '3px / 2px', cat: 'workaround', up: '#3' },
+    { c: 'flux-textarea', o: 'focus-outline', v: '3px / 2px', cat: 'workaround', up: '#3' },
+    { c: 'flux-datepicker', o: '--base-border-radius-container-xl (popover)', v: '0.3rem', cat: 'token', up: '' },
+    { c: 'flux-datepicker', o: 'focus-outline (box-shadow → outline)', v: '3px / 2px', cat: 'workaround', up: '#3' },
+    { c: 'flux-datepicker', o: 'kalender dagcel: ronde radius + grootte', v: '50% + calc(scaled-base * 2.25)', cat: 'workaround', up: '#4a' },
+    { c: 'flux-datepicker', o: 'kalender-header select + opties grootte (::part + adopted-injectie)', v: 'calc(scaled-base * .875)', cat: 'rem', up: '#4a' },
+    { c: 'flux-icon', o: 'glyph font-alias (omzeilt font-collision)', v: "font-family: 'vds-vlaanderen-icon' + @font-face", cat: 'workaround', up: '#4b' },
+    { c: 'flux-icon', o: 'grootte (achter [scaled])', v: 'calc(scaled-base * 1.2)', cat: 'rem', up: '#4a' },
+    { c: 'globaal', o: 'vds-scale-compensation.css (~215 tokens)', v: 'calc-brug op --base-*', cat: 'rem', up: '#4a' },
+];
+
+const overrideBadge = (cat: OverrideRow['cat']): TemplateResult => {
+    const map = {
+        token: ['#1a7f37', '#e6f6ec', 'token'],
+        workaround: ['#9a6700', '#fff8e1', 'workaround'],
+        rem: ['#0055cc', '#eef6ff', 'rem-brug'],
+    } as const;
+    const [fg, bg, label] = map[cat];
+    return html`<span
+        style="color: ${fg}; background: ${bg}; padding: 1px 7px; border-radius: 10px; font-size: 11px; font-weight: 600;"
+        >${label}</span
+    >`;
+};
+
+const catCountLabel = (rs: OverrideRow[]): string => {
+    const t = rs.filter((r) => r.cat === 'token').length;
+    const w = rs.filter((r) => r.cat === 'workaround').length;
+    const m = rs.filter((r) => r.cat === 'rem').length;
+    const parts: string[] = [];
+    if (t) parts.push(`${t} token`);
+    if (w) parts.push(`${w} workaround`);
+    if (m) parts.push(`${m} rem-brug`);
+    return parts.join(' · ');
+};
+
+// Selecteer de patches die op een bepaald voorbeeld van toepassing zijn. 'fluxLook'
+// matcht de gedeelde form-control-regels (alle form-controls).
+const patchesFor = (...keys: string[]): OverrideRow[] =>
+    OVERRIDE_ROWS.filter((r) =>
+        keys.some((k) => (k === 'fluxLook' ? r.c.startsWith('alle form-controls') : r.c === k))
+    );
+
+// Compacte, herhaalbare patch-lijst onder een visueel voorbeeld: wat we op de
+// flux-variant zetten om ze op de echte vl-* te doen lijken (afwijkend van rauw VDS).
+const renderPatchNotes = (rows: OverrideRow[], subject: TemplateResult | string): TemplateResult => {
+    const th = 'text-align: left; padding: 5px 10px; border-bottom: 2px solid #cbd2d9; font-size: 11px;';
+    const td = 'padding: 5px 10px; border-bottom: 1px solid #eaecef; font-size: 12px; vertical-align: top;';
+    return html`
+        <details
+            style="border: 1px solid #e1e4e8; border-radius: 6px; margin: 0 0 20px; padding: 0 12px; max-width: 900px; background: #fbfcfd;"
+        >
+            <summary
+                style="cursor: pointer; font-weight: 600; padding: 8px 4px; font-size: 13px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap;"
+            >
+                <span>Patches om ${subject} op <code>vl-</code> te doen lijken (afwijkend van rauw VDS)</span>
+                <span style="font-weight: 400; color: #6b7280; font-size: 12px;">
+                    ${rows.length} ${rows.length === 1 ? 'wijziging' : 'wijzigingen'} — ${catCountLabel(rows)}
+                </span>
+            </summary>
+            <table style="border-collapse: collapse; width: 100%; margin: 4px 0 12px;">
+                <thead>
+                    <tr>
+                        <th scope="col" style="${th}">Component</th>
+                        <th scope="col" style="${th}">Override</th>
+                        <th scope="col" style="${th}">Flux-waarde</th>
+                        <th scope="col" style="${th}">Categorie</th>
+                        <th scope="col" style="${th}">VDS-req</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${rows.map(
+                        (r) => html`<tr>
+                            <td style="${td}"><code>${r.c}</code></td>
+                            <td style="${td}">${r.o}</td>
+                            <td style="${td}"><code>${r.v}</code></td>
+                            <td style="${td}">${overrideBadge(r.cat)}</td>
+                            <td style="${td}">${r.up || '—'}</td>
+                        </tr>`
+                    )}
+                </tbody>
+            </table>
+        </details>
+    `;
+};
+
 @customElement('app-component')
 export class AppComponent extends LitElement {
     @state()
-    private iconScaled = false;
+    private iconScaled = true;
 
     @state()
     private overridesOff = false;
@@ -25,6 +142,10 @@ export class AppComponent extends LitElement {
             VlTitleComponent,
             VlInputFieldComponent,
             VlDatepickerComponent,
+            VlCheckboxComponent,
+            VlSelectComponent,
+            VlRadioGroupComponent,
+            VlRadioComponent,
         ]);
     }
 
@@ -32,7 +153,8 @@ export class AppComponent extends LitElement {
         name: string,
         vds: TemplateResult,
         flux: TemplateResult,
-        vl: TemplateResult
+        vl: TemplateResult,
+        patches?: OverrideRow[]
     ): TemplateResult {
         const cell = (label: string, color: string, content: TemplateResult) => html`
             <div style="border: 1px dashed #d0d7de; border-radius: 6px; padding: 12px;">
@@ -47,12 +169,13 @@ export class AppComponent extends LitElement {
         return html`
             <div style="font-weight: 600; margin: 6px 0;">${name}</div>
             <div
-                style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; max-width: 900px; margin-bottom: 16px;"
+                style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; max-width: 900px; margin-bottom: 8px;"
             >
                 ${cell('vds · rauw VDS', '#0055cc', vds)}
                 ${cell('flux · erft VDS + tokens', '#0055cc', flux)}
                 ${cell('vl · echte flux', '#6b7280', vl)}
             </div>
+            ${patches && patches.length ? renderPatchNotes(patches, html`<code>flux-${name}</code>`) : ''}
         `;
     }
 
@@ -63,7 +186,12 @@ export class AppComponent extends LitElement {
             { tag: 'vl-input', flux: 'flux-input', state: 'done', note: 'erft VlInput' },
             { tag: 'vl-link', flux: 'flux-link', state: 'done', note: 'erft VlLink' },
             { tag: 'vl-select', flux: 'flux-select', state: 'done', note: 'erft VlSelect' },
-            { tag: 'vl-checkbox', flux: 'flux-checkbox', state: 'done', note: 'erft VlCheckbox' },
+            {
+                tag: 'vl-checkbox',
+                flux: 'flux-checkbox',
+                state: 'done',
+                note: 'erft VlCheckbox. Let op: het vinkje is intern een vds-icon, dus het lijdt op deze mixed-page onder dezelfde vlaanderen-icon font-collision als de iconen (kan ontbreken); in een echte flux-op-VDS build toont het wel',
+            },
             { tag: 'vl-textarea', flux: 'flux-textarea', state: 'done', note: 'erft VlTextarea' },
             { tag: 'vl-fieldset', flux: 'flux-fieldset', state: 'done', note: 'erft VlFieldset' },
             { tag: 'vl-radio-group', flux: 'flux-radio-group', state: 'done', note: 'erft VlRadioGroup' },
@@ -100,8 +228,8 @@ export class AppComponent extends LitElement {
             {
                 tag: 'vl-icon',
                 flux: 'flux-icon',
-                state: 'partial',
-                note: 'flux-icon erft VlIcon en is geregistreerd, maar glyphs + grootte matchen de echte vl-icon niet op een mixed page (font-naam-collision vlaanderen-icon: VDS vl-vi-* vs flux vl-icon--*, + rem-size). In een echte flux-op-VDS build (enkel VDS-font) wel ok',
+                state: 'done',
+                note: 'erft VlIcon. Glyphs renderen correct via een font-alias (VDS-font onder unieke naam vds-vlaanderen-icon + !important-override), zodat de vlaanderen-icon-collision met flux omzeild wordt en beide fonts coexisteren. Grootte blijft rem-literal (zie [scaled]-toggle)',
             },
             { tag: 'vl-input-group', flux: null, state: 'todo', note: 'nog geen flux-integratie' },
             { tag: 'vl-markdown', flux: null, state: 'todo', note: 'nog geen flux-integratie' },
@@ -166,42 +294,7 @@ export class AppComponent extends LitElement {
     }
 
     private renderOverridesList(): TemplateResult {
-        type Row = { c: string; o: string; v: string; cat: 'token' | 'workaround' | 'rem'; up: string };
-        const rows: Row[] = [
-            { c: 'alle form-controls (fluxLook)', o: '--base-border-radius-selectable-default', v: '0.3rem', cat: 'token', up: '' },
-            { c: 'alle form-controls', o: '--base-color-border-default', v: '#8695a8', cat: 'token', up: '' },
-            { c: 'alle form-controls', o: '--base-border-focus-spacing-color', v: 'rgba(0,85,204,.65)', cat: 'token', up: '#3' },
-            { c: 'alle form-controls', o: 'inset-vertical-s / horizontal-l', v: 'calc(scaled-base * .375 / .625)', cat: 'rem', up: '#4a' },
-            { c: 'alle form-controls', o: '--base-color-background-surface-form-element-hover', v: '= enabled (geen grijs)', cat: 'token', up: '' },
-            { c: 'flux-button', o: '--vl-form-control-height', v: '3.5rem (35px)', cat: 'token', up: '' },
-            { c: 'flux-button', o: '--base-border-width-default', v: '2px', cat: 'token', up: '' },
-            { c: 'flux-button', o: 'inset-vertical-s / horizontal-l', v: '0.5rem / 2rem', cat: 'token', up: '' },
-            { c: 'flux-button', o: 'line-height (typografie-token)', v: 'normal', cat: 'token', up: '' },
-            { c: 'flux-button', o: 'focus-outline (box-shadow → outline)', v: '3px / 2px', cat: 'workaround', up: '#3' },
-            { c: 'flux-input', o: 'radius / border / focus-kleur / insets / hover', v: 'zie fluxLook', cat: 'token', up: '' },
-            { c: 'flux-input', o: 'focus-outline', v: '3px / 2px', cat: 'workaround', up: '#3' },
-            { c: 'flux-link', o: '--base-color-underline-action-*', v: '#0055cc / #0048ad / #002f70', cat: 'token', up: '' },
-            { c: 'flux-link', o: 'underline offset + thickness', v: 'auto / auto', cat: 'workaround', up: '#1' },
-            { c: 'flux-link', o: 'focus-outline', v: '3px / 2px', cat: 'workaround', up: '#3' },
-            { c: 'flux-select', o: 'focus-outline (box-shadow → outline)', v: '3px / 2px', cat: 'workaround', up: '#3' },
-            { c: 'flux-checkbox', o: '--base-border-radius-container-2xs', v: '0.3rem', cat: 'token', up: '' },
-            { c: 'flux-checkbox', o: 'focus-outline (volle VDS-selector)', v: '3px / 2px', cat: 'workaround', up: '#3' },
-            { c: 'flux-textarea', o: 'focus-outline', v: '3px / 2px', cat: 'workaround', up: '#3' },
-            { c: 'flux-datepicker', o: '--base-border-radius-container-xl (popover)', v: '0.3rem', cat: 'token', up: '' },
-            { c: 'flux-datepicker', o: 'focus-outline (box-shadow → outline)', v: '3px / 2px', cat: 'workaround', up: '#3' },
-            { c: 'flux-datepicker', o: 'kalender dagcel: ronde radius + grootte', v: '50% + calc(scaled-base * 2.25)', cat: 'workaround', up: '#4a' },
-            { c: 'flux-icon', o: 'grootte (achter [scaled])', v: 'calc(scaled-base * 1.2)', cat: 'rem', up: '#4a' },
-            { c: 'globaal', o: 'vds-scale-compensation.css (~215 tokens)', v: 'calc-brug op --base-*', cat: 'rem', up: '#4a' },
-        ];
-        const badge = (cat: Row['cat']) => {
-            const map = {
-                token: ['#1a7f37', '#e6f6ec', 'token'],
-                workaround: ['#9a6700', '#fff8e1', 'workaround'],
-                rem: ['#0055cc', '#eef6ff', 'rem-brug'],
-            } as const;
-            const [fg, bg, label] = map[cat];
-            return html`<span style="color: ${fg}; background: ${bg}; padding: 1px 7px; border-radius: 10px; font-size: 11px; font-weight: 600;">${label}</span>`;
-        };
+        const rows = OVERRIDE_ROWS;
         const nToken = rows.filter((r) => r.cat === 'token').length;
         const nWork = rows.filter((r) => r.cat === 'workaround').length;
         const nRem = rows.filter((r) => r.cat === 'rem').length;
@@ -219,7 +312,8 @@ export class AppComponent extends LitElement {
                         <b style="color: #0055cc;">rem-brug</b> (scale-compensatie voor de 10px-root). De
                         <b>workarounds</b> horen upstream (kolom "VDS-req", zie
                         <code>VDS-UPSTREAM-REQUESTS.md</code>). De <code>Rauw VDS tonen</code>-knop (floating,
-                        rechtsonder) schakelt al deze overrides in één keer uit.
+                        rechtsonder) schakelt al deze overrides in één keer uit. Dezelfde patches staan — per
+                        component herhaald — ook onder elk visueel voorbeeld hieronder.
                         Totaal: ${rows.length} (${nToken} token · ${nWork} workaround · ${nRem} rem-brug).
                     </p>
                     <details>
@@ -242,7 +336,7 @@ export class AppComponent extends LitElement {
                                         <td style="${td}"><code>${r.c}</code></td>
                                         <td style="${td}">${r.o}</td>
                                         <td style="${td}"><code>${r.v}</code></td>
-                                        <td style="${td}">${badge(r.cat)}</td>
+                                        <td style="${td}">${overrideBadge(r.cat)}</td>
                                         <td style="${td}">${r.up || '—'}</td>
                                     </tr>`
                                 )}
@@ -282,18 +376,41 @@ export class AppComponent extends LitElement {
                         selectie iconen, elk in <code>vds-icon</code> · <code>flux-icon</code> · de echte flux
                         <code>vl-icon</code> (grootte <code>large</code>):
                     </p>
-                    <p
-                        style="max-width: 620px; margin: 0 0 12px; padding: 8px 12px; font-size: 12px;
-                               border-left: 3px solid #d9a441; background: #fffdf5; color: #6b5a1e;"
+                    <details
+                        style="max-width: 620px; margin: 0 0 12px; border-left: 3px solid #d9a441;
+                               background: #fffdf5; color: #6b5a1e; border-radius: 4px;"
                     >
-                        <b>Bekend verschil:</b> op deze playground tonen <code>vds-icon</code>/<code>flux-icon</code>
-                        andere en kleinere glyphs dan de echte <code>vl-icon</code>. Oorzaak: flux en VDS delen de
-                        font-familienaam <code>vlaanderen-icon</code> maar met verschillende codepoint-conventies
-                        (VDS <code>vl-vi-*</code>, flux <code>vl-icon--*</code>); op een pagina met beide wint één
-                        font-bestand (hier dat van flux), dus de VDS-klassen mappen op verkeerde glyphs. Plus: de
-                        VDS-icon-grootte is een rem-literal (12px op de 10px-root vs 18px bij vl-icon). In een echte
-                        flux-op-VDS build (enkel VDS' font, geen <code>vl-icon</code>) speelt de glyph-collision niet.
-                    </p>
+                        <summary style="cursor: pointer; font-weight: 600; padding: 8px 12px; font-size: 12px;">
+                            Waarom zien de iconen er (deels) anders uit? (font-collision + alias-fix)
+                        </summary>
+                        <div style="padding: 0 12px 10px; font-size: 12px; line-height: 1.55;">
+                        <b>Font-collision, opgelost via een alias:</b> flux en VDS shippen allebei een font met
+                        dezelfde naam <code>vlaanderen-icon</code> maar met verschillende codepoint-maps (VDS
+                        <code>f101–f316</code>, flux overlapt). Beide full-range → er wint er één (die van flux), dus de
+                        VDS-codepoints (die <code>flux-icon</code> gebruikt) mappen op verkeerde glyphs. <b>Fix op
+                        <code>flux-icon</code>:</b> we laden VDS' font onder een UNIEKE naam
+                        <code>vds-vlaanderen-icon</code> (document-niveau, geen collision) en overrulen op flux-icon
+                        de <code>font-family</code> van de glyph naar die alias (met <code>:host</code>-specificiteit
+                        + <code>!important</code>, om VDS' eigen <code>!important</code> te verslaan). Zo rendert
+                        <code>flux-icon</code> correct én blijft <code>vl-icon</code> (flux' font) correct: <b>beide
+                        fonts bestaan naast elkaar</b>. De <b>rauwe <code>vds-icon</code>-kolom</b> en het
+                        <b>checkbox-vinkje</b> (intern een <code>&lt;vds-icon icon="check"&gt;</code>) tonen nog de
+                        collision: dat is de VDS-icon-tag zelf, waarvan de glyph in een geneste shadow zit die we van
+                        buitenaf niet bereiken (in een flux-op-VDS build speelt dat niet). Los hiervan blijft de
+                        VDS-icon-GROOTTE een rem-literal (zie de grootte-toggle).
+                        <br /><b>Waarom staat de fix op <code>flux-icon</code> en niet op de rauwe
+                        <code>vds-icon</code> — lijkt dat niet omgekeerd?</b> Nee: we kunnen enkel de componenten
+                        bijsturen die we <b>zélf definiëren</b> (<code>flux-icon</code> erft <code>VlIcon</code>, dus
+                        we voegen een regel toe aan zíjn shadow); de rauwe <code>vds-icon</code> en de echte
+                        <code>vl-icon</code> subclassen we niet, dus die houden wat de cascade kiest. Bovendien is dit
+                        <b>puur een playground-artefact</b>: enkel hier laden we naast VDS' font óók flux' legacy
+                        <code>vlaanderen-icon</code>-font (voor de <code>vl-icon</code>-referentiekolom), waardoor twee
+                        gelijknamige fonts botsen. In een echte flux-op-VDS build is er maar één
+                        <code>vlaanderen-icon</code> (die van VDS), dus rendert <code>flux-icon</code> daar
+                        <b>standaard correct, zonder enige override</b> — de alias is louter steiger om de twee fonts
+                        hier naast elkaar te tonen.
+                        </div>
+                    </details>
                     <label
                         style="display: inline-flex; align-items: center; gap: 8px; margin: 0 0 12px;
                                padding: 8px 12px; border: 1px solid #cbd2d9; border-radius: 6px;
@@ -301,15 +418,15 @@ export class AppComponent extends LitElement {
                     >
                         <input
                             type="checkbox"
-                            .checked=${this.iconScaled}
-                            @change=${(e: Event) => (this.iconScaled = (e.target as HTMLInputElement).checked)}
+                            .checked=${!this.iconScaled}
+                            @change=${(e: Event) => (this.iconScaled = !(e.target as HTMLInputElement).checked)}
                         />
                         <span>
-                            <b>grootte-fix aan/uit</b> (scale-compensatie op de <code>flux-icon</code>-kolom):
+                            <b>Toon rauwe VDS-grootte</b> op de <code>flux-icon</code>-kolom:
                             ${this.iconScaled
-                                ? 'AAN — font-size via calc(scaled-base) ≈ 19px (matcht vl-icon)'
-                                : 'UIT — rauwe VDS-rem 1.2rem = 12px'}. Enkel de GROOTTE; de glyph-collision
-                            blijft.
+                                ? 'UIT — grootte-fix actief, font-size via calc(scaled-base) ≈ 19px (matcht vl-icon).'
+                                : 'AAN — rauwe VDS-rem 1.2rem = 12px (het probleem).'}
+                            Enkel de GROOTTE; de glyphs zijn standaard al correct via de alias.
                         </span>
                     </label>
                     <div
@@ -336,6 +453,7 @@ export class AppComponent extends LitElement {
                         <flux-icon icon="calendar" size="medium"></flux-icon> medium ·
                         <flux-icon icon="calendar" size="large"></flux-icon> large
                     </p>
+                    ${renderPatchNotes(patchesFor('flux-icon'), html`<code>flux-icon</code>`)}
                 </div>
             </section>
         `;
@@ -448,7 +566,8 @@ export class AppComponent extends LitElement {
                             html`<flux-button>Primair</flux-button
                                 ><flux-button secondary>Secundair</flux-button>`,
                             html`<vl-button>Primair</vl-button
-                                ><vl-button secondary>Secundair</vl-button>`
+                                ><vl-button secondary>Secundair</vl-button>`,
+                            patchesFor('flux-button')
                         )}
                         ${this.renderVariantRow(
                             'input',
@@ -457,19 +576,67 @@ export class AppComponent extends LitElement {
                             html`<vl-input-field
                                 aria-label="Naam"
                                 placeholder="flux"
-                            ></vl-input-field>`
+                            ></vl-input-field>`,
+                            patchesFor('fluxLook', 'flux-input')
                         )}
                         ${this.renderVariantRow(
                             'link',
                             html`<vds-link href="https://www.vlaanderen.be">VDS link</vds-link>`,
                             html`<flux-link href="https://www.vlaanderen.be">flux-link</flux-link>`,
-                            html`<vl-link href="https://www.vlaanderen.be">flux link</vl-link>`
+                            html`<vl-link href="https://www.vlaanderen.be">flux link</vl-link>`,
+                            patchesFor('flux-link')
                         )}
                         ${this.renderVariantRow(
                             'datepicker',
                             html`<vds-datepicker label="Datum"></vds-datepicker>`,
                             html`<flux-datepicker label="Datum"></flux-datepicker>`,
-                            html`<vl-datepicker label="Datum"></vl-datepicker>`
+                            html`<vl-datepicker label="Datum"></vl-datepicker>`,
+                            patchesFor('fluxLook', 'flux-datepicker')
+                        )}
+                        ${this.renderVariantRow(
+                            'checkbox',
+                            html`<vds-checkbox label="Ik ga akkoord" checked></vds-checkbox>`,
+                            html`<flux-checkbox label="Ik ga akkoord" checked></flux-checkbox>`,
+                            html`<vl-checkbox label="Ik ga akkoord" checked></vl-checkbox>`,
+                            patchesFor('fluxLook', 'flux-checkbox')
+                        )}
+                        ${this.renderVariantRow(
+                            'select',
+                            html`<vds-select label="Provincie">
+                                <option value="antwerpen">Antwerpen</option>
+                                <option value="limburg">Limburg</option>
+                                <option value="oost-vlaanderen">Oost-Vlaanderen</option>
+                            </vds-select>`,
+                            html`<flux-select label="Provincie">
+                                <option value="antwerpen">Antwerpen</option>
+                                <option value="limburg">Limburg</option>
+                                <option value="oost-vlaanderen">Oost-Vlaanderen</option>
+                            </flux-select>`,
+                            html`<vl-select
+                                label="Provincie"
+                                .options=${[
+                                    { value: 'antwerpen', label: 'Antwerpen' },
+                                    { value: 'limburg', label: 'Limburg' },
+                                    { value: 'oost-vlaanderen', label: 'Oost-Vlaanderen' },
+                                ]}
+                            ></vl-select>`,
+                            patchesFor('fluxLook', 'flux-select')
+                        )}
+                        ${this.renderVariantRow(
+                            'radio-group',
+                            html`<vds-radio-group label="Contactvoorkeur">
+                                <vds-radio value="email" label="E-mail"></vds-radio>
+                                <vds-radio value="post" label="Post"></vds-radio>
+                            </vds-radio-group>`,
+                            html`<flux-radio-group label="Contactvoorkeur">
+                                <vds-radio value="email" label="E-mail"></vds-radio>
+                                <vds-radio value="post" label="Post"></vds-radio>
+                            </flux-radio-group>`,
+                            html`<vl-radio-group label="Contactvoorkeur">
+                                <vl-radio value="email" label="E-mail">E-mail</vl-radio>
+                                <vl-radio value="post" label="Post">Post</vl-radio>
+                            </vl-radio-group>`,
+                            patchesFor('fluxLook', 'flux-radio-group')
                         )}
                     </div>
                 </section>
@@ -640,6 +807,7 @@ export class AppComponent extends LitElement {
                                 <pre style="margin: 8px 0 0; padding: 10px 12px; background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 12px; line-height: 1.5; overflow: auto;">${stackFlux}</pre>
                             </div>
                         </div>
+                        ${renderPatchNotes(patchesFor('flux-button'), html`de <code>flux-button</code> in deze layout`)}
                     </div>
                 </section>
 
@@ -671,6 +839,18 @@ export class AppComponent extends LitElement {
                                 <flux-form-demo></flux-form-demo>
                             </div>
                         </div>
+                        ${renderPatchNotes(
+                            patchesFor(
+                                'fluxLook',
+                                'flux-button',
+                                'flux-input',
+                                'flux-select',
+                                'flux-checkbox',
+                                'flux-textarea',
+                                'flux-datepicker'
+                            ),
+                            html`de <code>flux-*</code> formvelden`
+                        )}
                     </div>
                 </section>
 

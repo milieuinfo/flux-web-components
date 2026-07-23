@@ -7,6 +7,14 @@ import {
     VlSelect,
     VlTextarea,
 } from '@govflanders/vl-ui-design-system-web-components';
+import { aliasVdsIcon } from './vds-iconfont-alias';
+
+const superUpdated = (self: object, changed: Map<PropertyKey, unknown>): void => {
+    const base = Object.getPrototypeOf(Object.getPrototypeOf(self)) as {
+        updated?: (c: Map<PropertyKey, unknown>) => void;
+    };
+    base.updated?.call(self, changed);
+};
 
 const fluxLook = css`
     :host(:not([bare])) {
@@ -32,6 +40,18 @@ export class FluxSelect extends VlSelect {
                 outline-offset: 2px;
                 box-shadow: none;
             }
+            :host(:not([bare])) .vl-formfield__container--small .vl-select {
+                font-size: calc(var(--global-font-size-scaled-base, 1rem) * 0.875);
+            }
+            :host(:not([bare])) .vl-formfield__container--medium .vl-select {
+                font-size: calc(var(--global-font-size-scaled-base, 1rem) * 1);
+            }
+            :host(:not([bare])) .vl-formfield__container--large .vl-select {
+                font-size: calc(var(--global-font-size-scaled-base, 1rem) * 1.125);
+            }
+            :host(:not([bare])) .vl-select option {
+                font-size: calc(var(--global-font-size-scaled-base, 1rem) * 1) !important;
+            }
         `,
     ];
 }
@@ -50,6 +70,11 @@ export class FluxCheckbox extends VlCheckbox {
             }
         `,
     ];
+
+    protected updated(changed: Map<PropertyKey, unknown>): void {
+        superUpdated(this, changed);
+        this.shadowRoot?.querySelectorAll('vds-icon').forEach((el) => aliasVdsIcon(el));
+    }
 }
 export class FluxTextarea extends VlTextarea {
     static styles = [
@@ -91,8 +116,27 @@ export class FluxDatepicker extends VlDatepicker {
                 width: calc(var(--global-font-size-scaled-base, 1rem) * 2.25);
                 height: calc(var(--global-font-size-scaled-base, 1rem) * 2.25);
             }
+            :host(:not([bare])) calendar-date vds-select::part(select) {
+                font-size: calc(var(--global-font-size-scaled-base, 1rem) * 0.875) !important;
+            }
         `,
     ];
+
+    protected updated(changed: Map<PropertyKey, unknown>): void {
+        superUpdated(this, changed);
+        if (this.hasAttribute('bare')) return;
+        this.shadowRoot?.querySelectorAll('vds-select').forEach((sel) => {
+            const sr = (sel as HTMLElement).shadowRoot as (ShadowRoot & { __fluxSelSized?: boolean }) | null;
+            if (sr && !sr.__fluxSelSized) {
+                const sheet = new CSSStyleSheet();
+                sheet.replaceSync(
+                    ".vl-select option{font-size:calc(var(--global-font-size-scaled-base,1rem)*0.875) !important;}"
+                );
+                sr.adoptedStyleSheets = [...sr.adoptedStyleSheets, sheet];
+                sr.__fluxSelSized = true;
+            }
+        });
+    }
 }
 
 const registry: [string, CustomElementConstructor][] = [

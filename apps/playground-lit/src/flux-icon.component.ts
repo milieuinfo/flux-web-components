@@ -1,5 +1,6 @@
 import { css } from 'lit';
 import { VlIcon } from '@govflanders/vl-ui-design-system-web-components';
+import './vds-iconfont-alias';
 
 export class FluxIcon extends VlIcon {
     static properties = {
@@ -11,6 +12,9 @@ export class FluxIcon extends VlIcon {
     static styles = [
         (VlIcon as unknown as { styles: unknown }).styles,
         css`
+            :host [class*='vl-vi-']::before {
+                font-family: 'vds-vlaanderen-icon' !important;
+            }
             :host([scaled]) .vl-icon {
                 font-size: calc(var(--global-font-size-scaled-base, 1rem) * 1);
             }

@@ -244,6 +244,113 @@ plus een volledige lijst van wat we lokaal wijzigden.
   consument-side "kost" van de flux-look zichtbaar gemaakt; de token-rijen zijn het bedoelde mechanisme,
   de workaround-rijen zijn wat upstream hoort.
 
+## 19. vlaanderen-icon font-collision (iconen + checkbox-vinkje) — bewezen niet consument-side fixbaar
+De 3-tier icon-vergelijking legde bloot dat `vds-icon`/`flux-icon` verkeerde glyphs tonen. Volledig
+uitgezocht: flux én VDS shippen allebei een font met dezelfde naam `vlaanderen-icon` maar met
+VERSCHILLENDE codepoint-maps (VDS spant `f101–f316`, flux overlapt). Beide `@font-face`'s zijn
+full-range, dus de browser kiest één winnaar (die van flux); de VDS-codepoints renderen dan verkeerde
+glyphs. **Het checkbox-vinkje heeft exact dezelfde oorzaak:** dat is intern een `<vds-icon icon="check">`.
+Dus "geen vinkje" en "verkeerde iconen" zijn één en hetzelfde probleem.
+
+**Waarom niet consument-side fixbaar (getest):**
+- Beide libraries hardcoden `font-family: vlaanderen-icon !important` in hun encapsulated shadow → het
+  gebruik is aan geen van beide kanten te hernoemen.
+- De codepoint-ranges overlappen volledig → geen `unicode-range`-splitsing mogelijk.
+- Een extra document-`@font-face` met VDS' font als LAATSTE toegevoegd: die laadde wel (5e face, HTTP 200)
+  maar won de cascade NIET (bij 5 identieke full-range faces bepaalt de browser de winnaar op een manier
+  die niet consument-side te forceren is). Poging teruggedraaid.
+
+**Beslissing (op vraag):** laten staan en documenteren, geen fragiele hacks. Het is een PLAYGROUND-artefact:
+het treedt enkel op omdat we flux' legacy-icon-font laden voor de `vl-*`-referentiekolom náást VDS. In een
+echte flux-op-VDS build (enkel VDS' font, geen `vl-icon`) is er geen collision en renderen zowel de iconen
+als het checkbox-vinkje correct. Enige losstaande, wél-fixbare deelkwestie: de VDS-icon-GROOTTE (rem-literal,
+achter de `[scaled]`-toggle, zie 4a).
+
+## 20. Font-collision opgelost via een ALIAS (flux-icon), beide fonts coexisteren
+Vervolg op #19. De collision is voor ONZE eigen `flux-icon` wél weg te werken met een alias, zodat
+flux' en VDS' icon-font naast elkaar bestaan:
+- We laden VDS' font onder een UNIEKE `font-family`-naam `vds-vlaanderen-icon` via een `@font-face` op
+  DOCUMENT-niveau (in `flux-icon.component.ts` als module-side-effect). Belangrijk: het `@font-face` MOET
+  document-niveau zijn, niet in Lit's `static styles` (constructed/adopted stylesheets laden een `@font-face`
+  niet betrouwbaar in Chrome). Unieke naam = geen collision, laadt gewoon.
+- Op `flux-icon` overrulen we de glyph-`font-family` naar die alias:
+  `:host [class*='vl-vi-']::before { font-family: 'vds-vlaanderen-icon' !important }`. De `:host`-prefix is
+  nodig om de specificiteit van VDS' eigen regel (`:host [class*='vl-vi-']::before ... !important`) te
+  evenaren; met een latere, even-specifieke `!important` wint de onze.
+Resultaat: `flux-icon` rendert de juiste VDS-glyphs (via VDS' font onder de alias), terwijl `vl-icon` flux'
+font blijft gebruiken. Gemeten/gezien: flux-icon glyph-font = `vds-vlaanderen-icon`, vl-icon = `vlaanderen-icon`,
+beide correct.
+
+**Grens:** dit werkt enkel op elementen die WIJ stylen. De rauwe `vds-icon`-kolom en het checkbox-vinkje
+(intern een `<vds-icon icon="check">`) blijven de collision tonen, want dat is de `vds-icon`-TAG zelf en z'n
+glyph zit in een geneste shadow die we van buitenaf niet bereiken. Om die ook te fixen zou je de `vds-icon`-tag
+zelf als aliased subclass moeten registreren (vóór `defineAll`), wat de "rauwe VDS"-referentiekolom overschrijft;
+open beslissing. Dit is de consument-side variant van upstream-request 4b (namespace de VDS-icon-font).
+
+## 21. Select-tekst te klein (rem-literal in de size-modifiers)
+Breed gemeten op de 10px-root: alle flux-tekst was 16/18px (correct via scale-token), BEHALVE de select:
+`flux-select`-tekst = 10px, de datepicker-kalender-header-select = 8.75px, en de dropdown-`option`s = 10px.
+Oorzaak: VDS' `.vl-select` gebruikt op de basis wél `--base-font-size-desktop-s` (scaled), maar de
+size-modifiers (`.vl-formfield__container--{small,medium,large} .vl-select`) én de `option`s overschrijven
+dat met RAUWE rem (`0.875rem / 1rem / 1.125rem`). Medium is default → `1rem` = 10px. Zelfde klasse als de
+icon-rem-literal (4a).
+Fix (consument-side, gated met `[bare]`): op `flux-select` de drie size-modifiers naar
+`calc(scaled-base * ...)`, en de `option`s met `!important` (de `::picker(select)` top-layer wordt via een
+geïnjecteerde `<style>` gestyled, niet via adoptedStyleSheets, dus een gewone regel verliest). De
+datepicker-header-select (geneste `vds-select`, size small) via `calendar-date vds-select::part(select)` +
+`!important`. Gemeten na fix: select 16px, header-select 14px, opties 16px. De datepicker z'n GENESTE
+vds-select dropdown-`option`s (aanvankelijk 10px, onbereikbaar via CSS) zijn later WEL gefixt via dezelfde
+adoptedStyleSheets-injectie als het checkbox-vinkje: `flux-datepicker.updated()` voegt een geconstrueerde
+`.vl-select option{font-size:...}`-sheet toe aan elke geneste `vds-select`. Eindresultaat: geen enkele
+te kleine tekst meer in de flux-componenten (paginabrede scan leeg, ook met open kalender).
+
+## 22. Extra vergelijkingsrijen (checkbox/select/radio-group), icon-defaults, link-hover
+Batch op vraag:
+- **Eigen 3-tier-rijen** voor checkbox, select en radio-group (naast de form-demo), in de "drie varianten"-sectie
+  zoals button/input/link. De echte `vl-*` form-componenten (`VlCheckboxComponent`, `VlSelectComponent`,
+  `VlRadioGroupComponent`, `VlRadioComponent`) uit `@domg-wc/components/form` (= repo's eigen `libs/`) geregistreerd.
+  LET OP: de flux-API wijkt af van VDS: `vl-select` neemt een `.options`-array (geen `<option>`-children), en
+  `vl-radio` toont z'n label via een `<slot>` (tekst-child), niet via het `label`-attribuut (dat enkel `aria-label`
+  zet). vds/flux gebruiken wél option-children resp. `label`-attribuut.
+- **Iconen standaard correct**: `iconScaled` default `true` (glyphs al correct via de alias, grootte via
+  scale-comp ≈ 19px). De grootte-checkbox is omgekeerd: default UIT = correct, aanvinken = "toon rauwe VDS-grootte"
+  (12px, het probleem).
+- **Icon-uitleg in een accordion** (`<details>`, dicht by default) i.p.v. een grote altijd-zichtbare note.
+- **flux-link hover**: underline verdwijnt op hover (zoals FWC/de echte flux), via
+  `:host(:not([bare])) .vl-link:hover .vl-link__slot { text-decoration-line: none }`. Geverifieerd met echte hover
+  (`anchorHovered: true`, slot-decoration `none`).
+
+## 23. Mobile-pariteit: echte flux heeft 767px-breakpoints die de VDS-flux miste
+Bevinding: de look-pariteit was enkel op DESKTOP gevalideerd. De echte flux-componenten (`libs/components`,
+`vl-*`) hebben `@media screen and (max-width: 767px)`-regels (`vlMediaScreenSmall = 767`) die op mobile andere
+maten zetten. Onze VDS-gebaseerde flux-* mirrorden die niet, dus flux week op klein scherm af van de echte flux.
+
+Audit van de geïntegreerde componenten (welke hebben een 767px-delta in echte flux):
+- **button**: WEL, en zichtbaar (9px). Desktop is de knop 35px (`padding 5px 20px`), op mobile schakelt echte flux
+  naar uniforme `--vl-spacing--xsmall`-padding (1rem) en laat de vaste height los (`min-height 3.5rem`, groeit met
+  padding naar ~44px voor een groter touch-target). Onze flux-button hield z'n vaste `--vl-form-control-height: 3.5rem`
+  (= `height: 35px`, border-box → padding groeide niet mee). GEFIXT met een mobile-tak: inset-tokens naar 1rem +
+  `.vl-button { height: auto; min-height: 3.5rem }`. Gemeten: desktop flux=vl=35px, mobile flux=vl=44px, vds rauw
+  blijft 42px (toont het verschil). Dit ging via PUBLIEKE tokens + een height-lever die VDS honoreert.
+- **select**: WEL, maar verwaarloosbaar. Echte flux zet op mobile `font-size: small` + `line-height = height`; gemeten
+  is het font gelijk (16px) en het hoogteverschil 1px (34 vs 35). Niet gefixt.
+- **checkbox**: WEL, maar sub-2px: label `line-height` 2.4rem→2.2rem, box `margin-top` 0.3rem→0.2rem. Bovendien zit dit
+  in VDS-INTERNE layout-klassen (`.vl-checkbox__box/__label`) waar VDS z'n eigen uitlijning heeft; de echte-flux-waarden
+  daar blind op plakken is riskant (kan juist MISlijnen) voor onzichtbare winst. Niet gefixt.
+- **link**: enkel de `.small`/`.large`-varianten (-0.1rem / -0.2rem font op mobile); de basis-link is ongewijzigd. Niet
+  in de demo zichtbaar. Niet gefixt.
+- **radio-group / textarea / datepicker**: GEEN 767px-breakpoint. De datepicker-kalender is een vaste ~307px-popover die
+  op mobile past.
+
+Les: de knop was fixbaar omdat z'n maten aan publieke `--base-*`-tokens + een override op de publieke `.vl-button`-klasse
+hangen. Voor componenten waar de mobile-delta in VDS-interne layout zit, geldt dezelfde grens als bij de rem-literals:
+consument-side niet netjes te mirroren, hoort upstream (VDS zou de mobile-maten ook moeten tokeniseren). De componenten
+zelf breken niet op mobile; de VDS web-componenten hebben geen eigen width-breakpoints, dus de flux-look houdt stand.
+
+Los hiervan: de PLAYGROUND-PAGINA is niet mobile-proof (547px horizontale overflow door de 3-koloms vergelijkingsgrids
+en brede tabellen, plus de zwevende toggle die daardoor buiten beeld valt). Dat is een layout-kwestie van de demo, geen
+component-pariteit, en staat los open.
+
 ## Terugkerende valkuilen / lessen
 - **Preview-tool onbetrouwbaar:** de webpack-devServer bindt de default-poort (8080/volgende vrije),
   niet de 8084 uit launch.json → de preview-browser is vaak onbereikbaar (chrome-error). We
