@@ -5,7 +5,11 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 const config = {
     mode: 'development',
-    entry: './src/main.ts',
+    entry: {
+        main: './src/main.ts',
+        // FLUX-704: aparte pagina/bundle voor het VDS herstijl-experiment.
+        styling: './src/styling.ts',
+    },
     devServer: {
         static: {
             directory: path.resolve(__dirname, '../../build/dist/apps/playground-lit'),
@@ -79,6 +83,13 @@ const config = {
     plugins: [
         new HtmlWebpackPlugin({
             template: 'src/index.html',
+            filename: 'index.html',
+            chunks: ['main'],
+        }),
+        new HtmlWebpackPlugin({
+            template: 'src/styling.html',
+            filename: 'styling.html',
+            chunks: ['styling'],
         }),
     ],
 };
