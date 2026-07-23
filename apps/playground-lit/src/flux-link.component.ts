@@ -22,6 +22,11 @@ export class FluxLink extends VlLink {
                 --base-color-underline-action-hover: #0048ad;
                 --base-color-underline-action-active: #002f70;
             }
+
+            .vl-link .vl-link__slot {
+                text-underline-offset: auto;
+                text-decoration-thickness: auto;
+            }
         `,
     ];
 

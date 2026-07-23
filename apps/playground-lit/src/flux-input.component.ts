@@ -10,6 +10,14 @@ export class FluxInput extends VlInput {
                 --base-color-border-default: #8695a8;
                 --base-space-container-inset-vertical-s: calc(var(--global-font-size-scaled-base, 1rem) * 0.375);
                 --base-space-container-inset-horizontal-l: calc(var(--global-font-size-scaled-base, 1rem) * 0.625);
+                --base-color-background-surface-form-element-hover: var(
+                    --base-color-background-surface-form-element-enabled
+                );
+            }
+
+            .vl-input__wrapper:has(.vl-input:focus) {
+                outline-width: 3px;
+                outline-offset: 2px;
             }
         `,
     ];

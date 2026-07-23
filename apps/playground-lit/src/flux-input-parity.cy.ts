@@ -63,4 +63,40 @@ describe('FLUX-704 - flux-input erft VlInput (inheritance)', () => {
             });
         });
     });
+
+    it('geen hover-grijs: flux-input hover-surface == enabled (VDS greyt wel)', () => {
+        cy.window().then((win) => {
+            const read = (tag: string) => {
+                const wrap = win.document.querySelector(tag)!.shadowRoot!.querySelector('.vl-input__wrapper')!;
+                const cs = win.getComputedStyle(wrap);
+                return {
+                    enabled: cs.getPropertyValue('--base-color-background-surface-form-element-enabled').trim(),
+                    hover: cs.getPropertyValue('--base-color-background-surface-form-element-hover').trim(),
+                };
+            };
+            const flux = read('flux-input');
+            const vds = read('vds-input');
+            expect(flux.hover, 'flux-input: geen achtergrond-wijziging op hover').to.eq(flux.enabled);
+            expect(vds.hover, 'VDS greyt wel op hover (baseline)').to.not.eq(vds.enabled);
+        });
+    });
+
+    it('focus-outline: flux-input offset 2px + width 3px, VDS wijkt af', () => {
+        cy.get('flux-input').shadow().find('input.vl-input').focus();
+        cy.get('flux-input')
+            .shadow()
+            .find('.vl-input__wrapper')
+            .then(($w) => {
+                const cs = getComputedStyle($w[0]);
+                expect(cs.outlineOffset, 'flux focus-offset = 2px').to.eq('2px');
+                expect(cs.outlineWidth, 'flux focus-breedte = 3px').to.eq('3px');
+            });
+        cy.get('vds-input').shadow().find('input.vl-input').focus();
+        cy.get('vds-input')
+            .shadow()
+            .find('.vl-input__wrapper')
+            .then(($w) => {
+                expect(getComputedStyle($w[0]).outlineWidth, 'VDS focus-breedte wijkt af (0.25rem, niet flux 3px)').to.not.eq('3px');
+            });
+    });
 });

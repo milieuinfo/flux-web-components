@@ -63,4 +63,26 @@ describe('FLUX-704 - flux-link erft VlLink (inheritance)', () => {
             });
         });
     });
+
+    it('underline offset/thickness naar flux-default, wijkt af van VDS (0.25rem/0.125rem)', () => {
+        const read = (tag: string, alias: string) =>
+            cy
+                .get(tag)
+                .shadow()
+                .find('.vl-link__slot')
+                .then(($s) => {
+                    const cs = getComputedStyle($s[0]);
+                    cy.wrap({ offset: cs.textUnderlineOffset, thickness: cs.textDecorationThickness }).as(alias);
+                });
+        read('vds-link', 'vds');
+        read('flux-link', 'fl');
+        cy.get('@vds').then((vds: unknown) => {
+            cy.get('@fl').then((fl: unknown) => {
+                const v = vds as { offset: string; thickness: string };
+                const f = fl as { offset: string; thickness: string };
+                expect(f.offset, 'flux-link offset wijkt af van VDS 0.25rem').to.not.eq(v.offset);
+                expect(f.thickness, 'flux-link thickness wijkt af van VDS 0.125rem').to.not.eq(v.thickness);
+            });
+        });
+    });
 });

@@ -457,20 +457,32 @@ export class AppComponent extends LitElement {
                     <section class="vl-section">
                         <div class="vl-content-block vl-content-block--full-width">
                             <vl-title type="h2">
-                                FLUX-704 — VDS-form: rauw VDS (formAssociated via FormData)
+                                FLUX-704 — form in twee varianten (vds · flux)
                             </vl-title>
                             <p>
-                                <b>Let op:</b> dit is bewust de <b>rauwe <code>vds-*</code></b> variant
-                                (dus de VDS-look met o.a. 8px-afronding), niet de flux-look. Doel hier is
-                                puur het <code>formAssociated</code>-gedrag tonen: een echte native
-                                <code>&lt;form&gt;</code> waar <code>new FormData(form)</code> de waarden via
-                                <code>name</code> leest, ook onder de custom prefix. De flux-look zou via de
-                                <code>flux-*</code> doelproducten komen (zie de vergelijking bovenaan);
-                                <code>flux-input</code> erft dezelfde <code>formAssociated</code>, dus dit
-                                blijft werken. Vul in en klik Verzenden.
+                                Dezelfde rijke form, links met rauwe <code>vds-*</code> velden, rechts met de
+                                <code>flux-*</code> doelproducten (erven de VDS-klasse + flux-tokens). Beide
+                                zijn een echte native <code>&lt;form&gt;</code>: de velden zijn
+                                <code>formAssociated</code>, dus <code>new FormData(form)</code> leest de
+                                waarden via <code>name</code>. Let op het verschil: de vds-velden zijn ronder
+                                (8px), de flux-velden matchen onze look (3px). Onze echte <code>vl-*</code>
+                                web-componenten laten we hier weg. Vul in en klik Verzenden.
                             </p>
-                            <div style="max-width: 520px;">
-                                <vds-form-demo></vds-form-demo>
+                            <div
+                                style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; max-width: 1100px;"
+                            >
+                                <div>
+                                    <div style="font-weight: 600; margin-bottom: 8px; color: #0055cc;">
+                                        vds-form · rauw VDS
+                                    </div>
+                                    <vds-form-demo></vds-form-demo>
+                                </div>
+                                <div>
+                                    <div style="font-weight: 600; margin-bottom: 8px; color: #0055cc;">
+                                        flux-form · erft VDS + tokens
+                                    </div>
+                                    <flux-form-demo></flux-form-demo>
+                                </div>
                             </div>
                         </div>
                     </section>

@@ -28,5 +28,25 @@ declare module '@govflanders/vl-ui-design-system-web-components' {
         static elementName: string;
         protected willUpdate(changed: Map<PropertyKey, unknown>): void;
     }
+    export class VlSelect extends HTMLElement {
+        static styles: unknown;
+        static elementName: string;
+    }
+    export class VlCheckbox extends HTMLElement {
+        static styles: unknown;
+        static elementName: string;
+    }
+    export class VlTextarea extends HTMLElement {
+        static styles: unknown;
+        static elementName: string;
+    }
+    export class VlFieldset extends HTMLElement {
+        static styles: unknown;
+        static elementName: string;
+    }
+    export class VlRadioGroup extends HTMLElement {
+        static styles: unknown;
+        static elementName: string;
+    }
 }
 declare module '@govflanders/vl-ui-design-system-web-components/css';

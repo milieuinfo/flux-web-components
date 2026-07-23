@@ -45,6 +45,12 @@ verder van de tekst dan de flux-look vereist.
   (of de bestaande naamgevingsconventie van VDS), of
 - expose `.vl-link__slot` als `::part` (bijv. `part="underline"` of `part="slot"`).
 
+**Status (workaround actief):** op `flux-link` staat een consument-side override
+(`.vl-link .vl-link__slot { text-underline-offset: auto; text-decoration-thickness: auto }`)
+die de underline naar de flux-default (dicht bij de tekst, dun) zet. Bewust een afwijking van
+het "geen VDS-styling overriden"-principe, op expliciete vraag. Kan weg zodra de tokens/part
+landen.
+
 ---
 
 ## 2. Input: form-layout-chrome rond het veld (geen bare-veld-modus)
@@ -89,9 +95,49 @@ expose de knop als `::part`.
 
 ---
 
-## 3. Reeds bekend bij VDS (geen actie gevraagd, ter volledigheid)
+## 3. Focus-outline: breedte + offset niet (bruikbaar) getokeniseerd
 
-### 3a. Rem-schaalbaarheid van de maat-tokens
+**Betreft:** alle form-controls (de gedeelde `focusMixin`, gebruikt door ~9 componenten).
+**Bron:** `src/styles/mixins/focus.styles.ts`
+
+```css
+/* focusMixin */
+outline: 0.25rem solid var(--base-border-focus-spacing-color); /* breedte hardcoded */
+outline-offset: 0.125rem;                                      /* offset hardcoded, geen token */
+```
+
+Enkel de KLEUR is een token. Twee problemen:
+- **Breedte:** er BESTAAT een token `--base-border-focus-spacing-width: 3px` (gelijk aan de
+  flux-focus-breedte), maar de mixin gebruikt het niet en hardcodeert `0.25rem`. Waarschijnlijk
+  een vergetelheid: de mixin zou dit token moeten gebruiken.
+- **Offset:** er is GEEN token; `outline-offset: 0.125rem` is hardgecodeerd.
+
+**Gevolg voor de consument:** de afstand tussen het veld en de focus-rand (en de rand-breedte)
+wijkt af van de flux-look (flux = `outline: 3px` / `outline-offset: 2px`), en is consument-side
+niet te corrigeren zonder de VDS-focus-CSS te overschrijven (wat we bewust niet doen). Extra:
+omdat het rem-literals zijn, renderen ze op flux' 62.5%-root ook nog eens te klein
+(zie 4a, rem-scale).
+
+**Verzoek (één van beide):**
+- Laat de `focusMixin` het bestaande `--base-border-focus-spacing-width` token gebruiken i.p.v.
+  `0.25rem`, en voeg een `--base-border-focus-spacing-offset` token toe (px-gebaseerd, zoals de
+  width) dat de mixin gebruikt i.p.v. `0.125rem`, of
+- expose het focusbare element als `::part` zodat de consument outline/offset zelf kan zetten.
+
+**Status (workaround actief):** omdat dit niet via token kon, staan er consument-side
+overrides op de flux-form-controls die de VDS-focus-CSS overschrijven (bewust een afwijking
+van het "geen VDS-styling overriden"-principe, op expliciete vraag). Kan weg zodra de tokens
+landen. Concreet:
+- `flux-input` en `flux-textarea`: `outline-width: 3px; outline-offset: 2px` (VDS-mechanisme = outline).
+- `flux-select`: VDS gebruikt hier een box-shadow-ring i.p.v. outline; override naar vaste px
+  (`box-shadow: 0 0 0 2px white, 0 0 0 5px var(--base-color-focus-400)`) = 2px offset, 3px ring.
+- Nog niet op checkbox/radio (die hebben nog een ander focus-mechanisme).
+
+---
+
+## 4. Reeds bekend bij VDS (geen actie gevraagd, ter volledigheid)
+
+### 4a. Rem-schaalbaarheid van de maat-tokens
 
 De gelande rem-scale-aanpak maakt enkel de **font-size-tokens** runtime-schaalbaar via
 `--global-font-size-scaled-base` (calc-patroon). De overige **maat-tokens**
@@ -104,6 +150,21 @@ niet zonder workaround.
 alle maat-tokens). Flux werkt intussen met een gegenereerd compensatiebestand als
 workaround. Geen apart verzoek nodig; hier enkel vermeld voor de volledigheid van het
 overzicht.
+
+**Belangrijke uitbreiding (component-INTERNE rem-literals):** het compensatiebestand dekt
+enkel de `--base-*`/`--global-*` tokens uit het theme. Sommige componenten gebruiken
+daarnaast **hardgecodeerde rem-literals in hun eigen shadow-CSS**, die op een niet-16px-root
+te klein/groot renderen en NIET door de tokencompensatie geraakt worden. Concreet gevonden:
+- `vl-checkbox`: `--checkbox-box-width: 1.125rem` (de box-grootte). Op flux' 62.5%-root rendert
+  de checkbox-box te klein. Consument-side forceren (de var overschrijven) breekt de layout,
+  want de checkmark heeft een aparte vaste `font-size: 0.5rem` en de box-grid gaat mee schuiven.
+- `vl-radio`: de box is een hardgecodeerde `width/height: 1.125rem` **literal** (geen var,
+  geen token), dus zelfs niet overschrijfbaar.
+
+**Verzoek:** neem deze component-interne maat-rems mee in dezelfde rem-scale-aanpak (of expose
+ze als `--base-*`-token / CSS-var), zodat de radius wél maar de GROOTTE nu niet consument-side
+matchbaar is. De radius zelf is wel getokeniseerd (`--base-border-radius-container-2xs` voor de
+checkbox-box) en dus matchbaar; enkel de grootte hangt aan deze rem-literals.
 
 ---
 
