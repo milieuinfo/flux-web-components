@@ -119,6 +119,7 @@
     "dependencies": {
         "@domg/govflanders-style": "21.3.0",
         "@floating-ui/dom": "1.7.6",
+        "@govflanders/vl-ui-design-system-web-components": "file:../../../bitbucket/vl-design-system-build-review/.claude/worktrees/flux704-develop/packages/web-components/govflanders-vl-ui-design-system-web-components-0.1.7.tgz",
         "@govflanders/vl-widget-global-footer-types": "1.0.28",
         "@govflanders/vl-widget-global-header-types": "2.0.39",
         "@lit/react": "1.0.8",

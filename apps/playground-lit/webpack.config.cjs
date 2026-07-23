@@ -21,6 +21,27 @@ const config = {
                 type: 'asset/source', // geeft de file-inhoud als string
             },
             {
+                // FLUX-704: de VDS-package is voor Vite gebouwd en importeert
+                // component-CSS met de Vite-specifieke `?inline`-query (bv.
+                // vl-icon.styles.js -> vlaanderen-icon.css?inline). Webpack kent
+                // `?inline` niet; lever de CSS als string voor `unsafeCSS`.
+                test: /\.css$/i,
+                resourceQuery: /inline/,
+                type: 'asset/source',
+            },
+            {
+                // FLUX-704: globale VDS-stylesheet (`/css` export) injecteren.
+                // css-loader lost de @import-keten + url()-verwijzingen op.
+                test: /\.css$/i,
+                resourceQuery: { not: [/raw/, /inline/] },
+                use: ['style-loader', 'css-loader'],
+            },
+            {
+                // FLUX-704: fonts waarnaar de VDS-CSS via url() verwijst.
+                test: /\.(woff2?|ttf|eot|svg)$/i,
+                type: 'asset/resource',
+            },
+            {
                 test: /\.(js|ts)$/,
                 use: 'ts-loader',
                 exclude: /node_modules/,

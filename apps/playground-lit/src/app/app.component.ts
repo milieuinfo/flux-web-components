@@ -295,6 +295,64 @@ export class AppComponent extends LitElement {
                         </div>
                     </section>
 
+                    <section class="vl-section">
+                        <div class="vl-content-block vl-content-block--full-width">
+                            <vl-title type="h2">
+                                FLUX-704 — prefix-aware VDS components (vlds-*) naast flux vl-*
+                            </vl-title>
+                            <p>
+                                Upstream <code>@govflanders/vl-ui-design-system-web-components</code> via
+                                <code>defineAll('vlds')</code>. Coexistence-test: flux <code>vl-*</code> en VDS
+                                <code>vlds-*</code> op dezelfde pagina, zonder registry-collision.
+                            </p>
+
+                            <div
+                                style="display: flex; flex-direction: column; gap: 8px; margin: 12px 0; max-width: 480px;
+                                       border: 2px dashed #b8860b; padding: 16px; border-radius: 4px;"
+                            >
+                                <strong style="color: #b8860b;">
+                                    vl-button via VDS-adapter (oude flux-API, VDS onderliggend)
+                                </strong>
+                                <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+                                    <vl-button>default</vl-button>
+                                    <vl-button secondary>secondary</vl-button>
+                                    <vl-button tertiary>tertiary</vl-button>
+                                    <vl-button ghost>ghost</vl-button>
+                                </div>
+                                <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+                                    <vl-button error>error</vl-button>
+                                    <vl-button large>large</vl-button>
+                                    <vl-button loading>loading</vl-button>
+                                    <vl-button disabled>disabled</vl-button>
+                                </div>
+                                <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+                                    <vl-button icon="search">icon before</vl-button>
+                                    <vl-button icon="search" icon-placement="after">icon after</vl-button>
+                                    <vl-button cta-link="https://www.vlaanderen.be">cta-link</vl-button>
+                                </div>
+                            </div>
+
+                            <div
+                                style="display: flex; flex-direction: column; gap: 12px; max-width: 480px;
+                                       border: 2px dashed #0055cc; padding: 16px; border-radius: 4px;"
+                            >
+                                <strong style="color: #0055cc;">VDS vlds-* (custom prefix)</strong>
+                                <vlds-button variant="primary" icon-before="search">Search</vlds-button>
+                                <vlds-input label="Name" name="name"></vlds-input>
+                                <vlds-link href="https://www.vlaanderen.be" new-window>Open</vlds-link>
+                                <vlds-checkbox label="Confirm"></vlds-checkbox>
+                                <vlds-radio-group label="Pick one">
+                                    <vlds-radio value="a" label="A"></vlds-radio>
+                                    <vlds-radio value="b" label="B"></vlds-radio>
+                                </vlds-radio-group>
+                                <vlds-box>Box content</vlds-box>
+                                <vlds-inline>Inline content</vlds-inline>
+                                <vlds-stack>Stack content</vlds-stack>
+                                <vlds-select label="Choose"></vlds-select>
+                            </div>
+                        </div>
+                    </section>
+
                     <section class="vl-section" style="padding-bottom: 0;">
                         <div class="vl-content-block vl-content-block--full-width" style="margin-bottom: 0;">
                             <vl-title type="h2">Sticky footer overlap repro</vl-title>
