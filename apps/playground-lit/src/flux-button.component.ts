@@ -20,9 +20,12 @@ export class FluxButton extends VlButton {
         (VlButton as unknown as { styles: unknown }).styles,
         css`
             :host {
+                --vl-form-control-height: 3.5rem;
                 --base-border-radius-selectable-default: 0.3rem;
                 --base-border-width-default: 2px;
-                --base-space-selectable-inset-horizontal-l: calc(var(--global-font-size-scaled-base, 1rem) * 0.625);
+                --base-space-selectable-inset-vertical-s: 0.5rem;
+                --base-space-selectable-inset-horizontal-l: 2rem;
+                --base-typography-desktop-body-medium-compact-s-line-height: normal;
             }
         `,
     ];
