@@ -1,6 +1,6 @@
 import fontUrl from '@govflanders/vl-ui-design-system-web-components/assets/fonts/iconfont/vlaanderen-icon.woff2';
 
-export const VDS_ICON_ALIAS = 'vds-vlaanderen-icon';
+const VDS_ICON_ALIAS = 'vds-vlaanderen-icon';
 
 if (!document.querySelector('style[data-flux704="vds-iconfont-alias"]')) {
     const style = document.createElement('style');
@@ -21,10 +21,6 @@ const getAliasSheet = (): CSSStyleSheet => {
 
 type FluxAliasedRoot = ShadowRoot & { __fluxAliased?: boolean };
 
-// Laat een (geneste) vds-icon z'n glyph uit de alias-font halen i.p.v. de botsende
-// vlaanderen-icon. Nodig waar we de vds-icon niet via CSS bereiken (geneste shadow):
-// een geconstrueerde stylesheet achteraan de adoptedStyleSheets wint van VDS' eigen
-// !important-regel (adopted stylesheets komen na de shadow-<style>-elementen).
 export const aliasVdsIcon = (icon: Element): void => {
     const sr = (icon as HTMLElement).shadowRoot as FluxAliasedRoot | null;
     if (sr && !sr.__fluxAliased) {

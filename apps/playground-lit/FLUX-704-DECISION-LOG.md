@@ -482,6 +482,30 @@ geïsoleerde kalender-icoon rendert correct (`vl-vi-calendar` U+f2c4 in VDS' `vl
 is nog steeds impliciet zichtbaar zolang je bedenkt dat de niet-geïsoleerde flux-host precies dit brak; wie de rauwe
 breuk live wil zien, zet de iframe-isolatie tijdelijk af.
 
+## 30. Datepicker-toggle-knop gefixt (sluit het open punt uit #26) + iframes hoger
+Vraag: "maak beide iframes langer, en confirm of het flux-datepicker-icoon nog niet goed oogt."
+
+Bevestigd: het icoon-GLYPH was al correct (juiste kalender via de alias), maar de PRESENTATIE niet. VDS' toggle is een
+`vds-button` zonder `variant`-attribuut (dus default `variant="primary"`: blauwe achtergrond, wit icoon van 12px). De
+echte `vl-datepicker` toont een witte/subtiele knop (rand `#8695a8`) met een blauw icoon (`#0055cc`) van 18px. Dat is
+exact het "open punt" uit #26 ("datepicker-toggle-knop-stijl") — nu opgelost.
+
+Uitzoekwerk (niet vanzelfsprekend): de interne native `<button>` van de geneste `vds-button` krijgt z'n `part`-
+attribuutwaarde NIET van vds-button's eigen `partName`-getter (die "button" teruggeeft), maar van het `part="toggle-
+button"`-attribuut dat de DATEPICKER zelf op de `<vds-button>`-tag zet in z'n eigen template. Dat attribuut wordt
+door vds-button intern doorgezet naar de native button. Dus de juiste hook vanuit `FluxDatepicker`'s eigen
+shadow-scoped CSS (dezelfde shadow als `VlDatepicker`, want `extends`) is `.vl-datepicker__toggle::part(toggle-
+button)`, NIET `::part(button)` (leverde eerst geen enkel effect op — leek in eerste instantie te bewijzen dat ::part
+niet werkte, bleek gewoon de verkeerde naam). VDS' interne `.vl-button--primary`-regel (geen token, geen `::part`)
+wint zonder `!important`, dus geforceerd met `!important` op de `::part()`-regel (de enige robuuste manier om via
+`::part` een interne class-gebaseerde regel te verslaan). Icoon-kleur/-grootte volgen via een simpele descendant-
+selector (`.vl-datepicker__toggle vds-icon`) omdat `vds-icon` als lichte-DOM-kind van de vds-button in DEZELFDE
+shadow van de datepicker zit (geen extra shadow-grens voor de kleur-cascade; wel voor de grootte via de icon's eigen
+`::part(icon)`). Gemeten na fix: bg/border/icon-kleur/icon-grootte exact gelijk aan `vl-datepicker` (wit / `#8695a8` /
+`#0055cc` / 18px); toggle-knop-afmeting nagenoeg gelijk (36×36 vs 40×35, verwaarloosbaar).
+
+**Iframes hoger op vraag**: datepicker 430→520px, select 200→300px (extra lucht rond de popover/dropdown).
+
 ## Terugkerende valkuilen / lessen
 - **Preview-tool onbetrouwbaar:** de webpack-devServer bindt de default-poort (8080/volgende vrije),
   niet de 8084 uit launch.json → de preview-browser is vaak onbereikbaar (chrome-error). We

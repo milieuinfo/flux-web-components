@@ -7,8 +7,6 @@ const config = {
     mode: 'development',
     entry: {
         main: './src/main.ts',
-        // FLUX-704: aparte pagina/bundle voor het VDS herstijl-experiment.
-        styling: './src/styling.ts',
         vdsFrame: './src/vds-frame.ts',
     },
     devServer: {
@@ -87,11 +85,6 @@ const config = {
             template: 'src/index.html',
             filename: 'index.html',
             chunks: ['main'],
-        }),
-        new HtmlWebpackPlugin({
-            template: 'src/styling.html',
-            filename: 'styling.html',
-            chunks: ['styling'],
         }),
         new HtmlWebpackPlugin({
             template: 'src/vds-frame.html',

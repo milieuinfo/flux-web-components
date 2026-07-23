@@ -146,6 +146,20 @@ export class FluxDatepicker extends VlDatepicker {
                 outline-offset: 2px;
                 box-shadow: none;
             }
+            :host(:not([bare])) .vl-datepicker__toggle::part(toggle-button) {
+                background: #fff !important;
+                border-color: #8695a8 !important;
+            }
+            :host(:not([bare])) .vl-datepicker__toggle::part(toggle-button):hover {
+                background: rgba(179, 207, 245, 0.3) !important;
+                border-color: rgba(0, 85, 204, 0.65) !important;
+            }
+            :host(:not([bare])) .vl-datepicker__toggle vds-icon {
+                color: #0055cc;
+            }
+            :host(:not([bare])) .vl-datepicker__toggle vds-icon::part(icon) {
+                font-size: calc(var(--global-font-size-scaled-base, 1rem) * 1.125);
+            }
             :host(:not([bare])) calendar-month {
                 --base-border-radius-selectable-default: 50%;
             }

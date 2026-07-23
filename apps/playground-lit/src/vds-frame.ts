@@ -22,7 +22,6 @@ const DEMOS: Record<string, string> = {
         '<vl-radio value="email" label="E-mail"></vl-radio>' +
         '<vl-radio value="post" label="Post"></vl-radio>' +
         '</vl-radio-group>',
-    icon: '<vl-icon icon="calendar"></vl-icon><vl-icon icon="check"></vl-icon><vl-icon icon="location"></vl-icon>',
 };
 
 const params = new URLSearchParams(window.location.search);

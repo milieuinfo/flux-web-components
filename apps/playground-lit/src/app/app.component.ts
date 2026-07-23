@@ -56,6 +56,8 @@ const OVERRIDE_ROWS: OverrideRow[] = [
     { c: 'flux-datepicker', o: '--base-border-radius-container-xl (popover)', v: '0.3rem', cat: 'token', up: '' },
     { c: 'flux-datepicker', o: 'focus-outline (box-shadow → outline)', v: '3px / 2px', cat: 'workaround', up: '#3' },
     { c: 'flux-datepicker', o: 'kalender-icoon font-alias (aliasVdsIcon + MutationObserver in updated(), omzeilt font-collision)', v: "font-family: 'vds-vlaanderen-icon'", cat: 'workaround', up: '#4b' },
+    { c: 'flux-datepicker', o: 'toggle-knop: bg/rand wit i.p.v. blauw (::part(toggle-button) + !important)', v: '#fff / #8695a8', cat: 'workaround', up: '#3' },
+    { c: 'flux-datepicker', o: 'toggle-icoon kleur + grootte (rauwe rem/kleur → flux-look)', v: '#0055cc / calc(scaled-base * 1.125)', cat: 'rem', up: '#4a' },
     { c: 'flux-datepicker', o: 'kalender dagcel: ronde radius + grootte', v: '50% + calc(scaled-base * 2.25)', cat: 'workaround', up: '#4a' },
     { c: 'flux-datepicker', o: 'kalender-header select + opties grootte (::part + adopted-injectie)', v: 'calc(scaled-base * .875)', cat: 'rem', up: '#4a' },
     { c: 'flux-icon', o: 'glyph font-alias (omzeilt font-collision)', v: "font-family: 'vds-vlaanderen-icon' + @font-face", cat: 'workaround', up: '#4b' },
@@ -87,10 +89,10 @@ const catCountLabel = (rs: OverrideRow[]): string => {
     return parts.join(' · ');
 };
 
-const vdsFrame = (demo: string, height: number): TemplateResult =>
+const vdsFrame = (demo: string, height: number, width: string = '100%'): TemplateResult =>
     html`<iframe
         src="/vds-frame.html?demo=${demo}"
-        style="border: 0; width: 100%; height: ${height}px;"
+        style="border: 0; width: ${width}; height: ${height}px;"
         title="rauw VDS ${demo}, geïsoleerd in een eigen document (16px-root, eigen font, default vl-prefix)"
     ></iframe>`;
 
@@ -175,7 +177,8 @@ export class AppComponent extends LitElement {
         vds: TemplateResult,
         flux: TemplateResult,
         vl: TemplateResult,
-        patches?: OverrideRow[]
+        patches?: OverrideRow[],
+        colRatio = 'repeat(3, minmax(0, 1fr))'
     ): TemplateResult {
         const cell = (label: string, color: string, content: TemplateResult) => html`
             <div style="border: 1px dashed #d0d7de; border-radius: 6px; padding: 12px;">
@@ -190,7 +193,7 @@ export class AppComponent extends LitElement {
         return html`
             <div style="font-weight: 600; margin: 6px 0;">${name}</div>
             <div
-                style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 960px; margin-bottom: 8px;"
+                style="display: grid; grid-template-columns: ${colRatio}; gap: 12px; max-width: 960px; margin-bottom: 8px;"
             >
                 ${cell('vds · rauw VDS', '#0055cc', vds)}
                 ${cell('flux · erft VDS + tokens', '#0055cc', flux)}
@@ -400,6 +403,103 @@ export class AppComponent extends LitElement {
                         de flux-host-collision. Zo tonen alle drie de kolommen de juiste glyphs; de accordion
                         hieronder legt uit waaróm dat in de gedeelde flux-host nodig is.
                     </p>
+                    <details open style="max-width: 900px; margin: 0 0 12px;">
+                        <summary style="cursor: pointer; font-weight: 600; font-size: 13px; margin-bottom: 8px;">
+                            Hoe laadt elke kolom z'n icon-font? (3 mechanismen)
+                        </summary>
+                        <div style="overflow-x: auto;">
+                            <table
+                                style="border-collapse: collapse; font-size: 12px; line-height: 1.5; min-width: 720px;"
+                            >
+                                <thead>
+                                    <tr style="background: #f6f8fa; text-align: left;">
+                                        <th style="border: 1px solid #e1e4e8; padding: 6px 10px;">kolom</th>
+                                        <th style="border: 1px solid #e1e4e8; padding: 6px 10px;">
+                                            waar/hoe geladen
+                                        </th>
+                                        <th style="border: 1px solid #e1e4e8; padding: 6px 10px;">
+                                            <code>@font-face</code>-naam
+                                        </th>
+                                        <th style="border: 1px solid #e1e4e8; padding: 6px 10px;">
+                                            codepoint (calendar)
+                                        </th>
+                                        <th style="border: 1px solid #e1e4e8; padding: 6px 10px;">
+                                            override op de glyph
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="border: 1px solid #e1e4e8; padding: 6px 10px;">
+                                            <b><code>vds-icon</code></b><br />(rauw, in iframe)
+                                        </td>
+                                        <td style="border: 1px solid #e1e4e8; padding: 6px 10px;">
+                                            apart document (<code>vds-frame.ts</code>): <code>defineAll()</code>
+                                            met default <code>vl-</code>-prefix + VDS' font-CSS
+                                            (<code>…/iconfont/vlaanderen-icon.css</code>), 16px-root, geen flux
+                                        </td>
+                                        <td style="border: 1px solid #e1e4e8; padding: 6px 10px;">
+                                            <code>vlaanderen-icon</code><br />(= VDS' font)
+                                        </td>
+                                        <td style="border: 1px solid #e1e4e8; padding: 6px 10px;">
+                                            <code>.vl-vi-calendar</code> = <code>U+f2c4</code>
+                                        </td>
+                                        <td style="border: 1px solid #e1e4e8; padding: 6px 10px;">
+                                            geen — geïsoleerd, dus geen collision
+                                        </td>
+                                    </tr>
+                                    <tr style="background: #fbfcfd;">
+                                        <td style="border: 1px solid #e1e4e8; padding: 6px 10px;">
+                                            <b><code>flux-icon</code></b><br />(erft <code>VlIcon</code>)
+                                        </td>
+                                        <td style="border: 1px solid #e1e4e8; padding: 6px 10px;">
+                                            VDS' font, maar op documentniveau geladen onder een UNIEKE naam
+                                            (<code>vds-iconfont-alias.ts</code>) om de naam-collision te ontwijken
+                                        </td>
+                                        <td style="border: 1px solid #e1e4e8; padding: 6px 10px;">
+                                            <code>vds-vlaanderen-icon</code><br />(= VDS' font, hernoemd)
+                                        </td>
+                                        <td style="border: 1px solid #e1e4e8; padding: 6px 10px;">
+                                            <code>.vl-vi-calendar</code> = <code>U+f2c4</code><br />(erft VDS'
+                                            codepoint-map)
+                                        </td>
+                                        <td style="border: 1px solid #e1e4e8; padding: 6px 10px;">
+                                            in flux-icon's shadow:
+                                            <code>:host [class*='vl-vi-']::before { font-family:
+                                            'vds-vlaanderen-icon' !important }</code>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="border: 1px solid #e1e4e8; padding: 6px 10px;">
+                                            <b><code>vl-icon</code></b><br />(echte flux)
+                                        </td>
+                                        <td style="border: 1px solid #e1e4e8; padding: 6px 10px;">
+                                            flux' eigen font op documentniveau (<code>flux-iconfont.ts</code>, CDN),
+                                            geïnjecteerd als LAATSTE <code>@font-face</code> zodat het bij gelijke
+                                            naam de collision wint
+                                        </td>
+                                        <td style="border: 1px solid #e1e4e8; padding: 6px 10px;">
+                                            <code>vlaanderen-icon</code><br />(= flux' eigen font)
+                                        </td>
+                                        <td style="border: 1px solid #e1e4e8; padding: 6px 10px;">
+                                            <code>.vl-icon--calendar</code> = <code>U+f14b</code><br />(flux' eigen
+                                            codepoint-map)
+                                        </td>
+                                        <td style="border: 1px solid #e1e4e8; padding: 6px 10px;">
+                                            geen — gebruikt de documentbrede <code>vlaanderen-icon</code> die flux wint
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p style="font-size: 12px; color: #555; margin: 8px 0 0;">
+                            Kern: er zijn twee gelijknamige <code>vlaanderen-icon</code>-fonts (flux + VDS) met
+                            verschillende codepoint-maps. Op de gedeelde pagina laten we ze coexisteren door VDS'
+                            font onder de alias <code>vds-vlaanderen-icon</code> te zetten (voor <code>flux-icon</code>)
+                            en flux' font de plain naam te laten winnen (voor <code>vl-icon</code>); de rauwe
+                            <code>vds-icon</code> ontwijkt de collision door isolatie in een iframe.
+                        </p>
+                    </details>
                     <details
                         style="max-width: 620px; margin: 0 0 12px; border-left: 3px solid #d9a441;
                                background: #fffdf5; color: #6b5a1e; border-radius: 4px;"
@@ -555,9 +655,7 @@ export class AppComponent extends LitElement {
                     <p>
                         Upstream <code>@govflanders/vl-ui-design-system-web-components</code> via
                         <code>defineAll('vds')</code>. flux <code>vl-*</code> en VDS
-                        <code>vds-*</code> leven samen op één pagina zonder registry-collision. De
-                        diepere styling-analyse per component staat op
-                        <a href="/styling.html">/styling.html</a>.
+                        <code>vds-*</code> leven samen op één pagina zonder registry-collision.
                     </p>
                 </div>
 
@@ -593,6 +691,40 @@ export class AppComponent extends LitElement {
                             </ul>
                         </div>
 
+                        <details
+                            style="max-width: 900px; margin: 0 0 16px; border-left: 3px solid #99c2ff;
+                                   background: #f4f9ff; border-radius: 4px;"
+                        >
+                            <summary style="cursor: pointer; font-weight: 600; padding: 8px 12px; font-size: 12px;">
+                                De iframe-tactiek: waarom &amp; hoe de <code>vds-*</code>-kolommen geïsoleerd staan
+                            </summary>
+                            <div style="padding: 0 12px 10px; font-size: 12px; line-height: 1.55;">
+                                <b>Probleem:</b> op déze pagina draaien flux en VDS samen. Rauw VDS oogt daardoor
+                                gebroken door <b>drie host-artefacten</b> die van ONZE omgeving komen, niet van VDS
+                                zelf: (1) de <b>font-collision</b> (flux en VDS shippen allebei een
+                                <code>vlaanderen-icon</code>-font met verschillende codepoint-maps), (2) de
+                                <b>10px-root</b> (flux zet de root op 62.5%, VDS is voor 16px ontworpen → alles te
+                                klein), en (3) de <b>prefix-selector-bug</b> (interne VDS-CSS die
+                                <code>vl-icon</code> hardcodeert matcht niet onder de <code>vds-</code>-prefix).
+                                <br /><br />
+                                <b>Tactiek:</b> elke <code>vds-*</code>-cel is een <code>&lt;iframe&gt;</code> naar een
+                                aparte mini-pagina (<code>vds-frame.html</code>, eigen webpack-entry
+                                <code>vds-frame.ts</code>). Dat is een <b>volledig apart document</b> met een eigen
+                                DOM, CSS-scope en font-registratie. Daarin doen we <code>defineAll()</code> met de
+                                <b>default <code>vl-</code>-prefix</b>, laden we <b>VDS' eigen font + thema</b>, en
+                                laten we de root op de <b>browser-default 16px</b> — <b>zonder flux erbij</b>. Zo
+                                vallen alle drie de artefacten weg en toont VDS zich <b>zoals bedoeld</b>, terwijl de
+                                kolom eerlijk "rauw VDS" blijft.
+                                <br /><br />
+                                <b>Trade-off / kanttekening:</b> het is puur een <b>demonstratie-truc</b> voor déze
+                                gemengde playground. Een echte flux-op-VDS build (enkel VDS, zonder flux' legacy font
+                                en op een 16px-root) heeft de iframe níét nodig. Omdat het een los document is, is er
+                                ook geen live token-/styling-interactie met de flux-pagina eromheen, en popovers
+                                (bv. de datepicker-kalender) worden begrensd door de iframe-rand — vandaar dat die
+                                cel hoger/breder staat.
+                            </div>
+                        </details>
+
                         ${this.renderVariantRow(
                             'button',
                             vdsFrame('button', 65),
@@ -623,11 +755,12 @@ export class AppComponent extends LitElement {
                         )}
                         ${this.renderVariantRow(
                             'datepicker',
-                            vdsFrame('datepicker', 105),
+                            vdsFrame('datepicker', 520),
                             html`<flux-datepicker label="Datum"></flux-datepicker>`,
                             html`<vl-form-label block for="cmp-vl-dp" label="Datum"></vl-form-label
                                 ><vl-datepicker id="cmp-vl-dp" label="Datum"></vl-datepicker>`,
-                            patchesFor('fluxLook', 'flux-datepicker')
+                            patchesFor('fluxLook', 'flux-datepicker'),
+                            'minmax(0, 1.8fr) minmax(0, 1fr) minmax(0, 1fr)'
                         )}
                         ${this.renderVariantRow(
                             'checkbox',
@@ -638,7 +771,7 @@ export class AppComponent extends LitElement {
                         )}
                         ${this.renderVariantRow(
                             'select',
-                            vdsFrame('select', 105),
+                            vdsFrame('select', 300),
                             html`<flux-select label="Provincie">
                                 <option value="antwerpen">Antwerpen</option>
                                 <option value="limburg">Limburg</option>
