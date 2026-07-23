@@ -10,7 +10,6 @@ type MountDefaultProps = {
     checked?: boolean;
     mandatory?: boolean;
     disabled?: boolean;
-    error?: boolean;
 };
 
 const mountDefault = (props: MountDefaultProps) => {
@@ -21,7 +20,6 @@ const mountDefault = (props: MountDefaultProps) => {
             checked=${props.checked}
             mandatory=${props.mandatory}
             disabled=${props.disabled}
-            checked=${props.error}
         ></vl-cookie-consent-opt-in>`
     );
 };
@@ -32,7 +30,6 @@ const props = {
     checked: true,
     mandatory: true,
     disabled: true,
-    error: true,
 };
 
 describe('cypress-component - compliance components - vl-cookie-consent-opt-in', () => {
