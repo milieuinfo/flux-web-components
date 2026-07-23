@@ -6,7 +6,7 @@
 - remove `--quiet` to see logs
 - try changing port in `apps/storybook/project.json` to another port, e.g. `8081`
 e.g. `"command": "start-storybook -p 8081 -c apps/storybook/.storybook"`
-- you can also run `npm run killstart:storybook`
+- you can also run `pnpm run killstart:storybook`
   - this will search for any processes running on 8080 & kill them
   - then start storybook on port 8080
 
@@ -38,7 +38,7 @@ registry=https://registry.npmjs.org/
 
 of door volgende 3 commando's uit te voeren in commandline:
 
-- `npm config set registry https://registry.npmjs.org`
-- `npm config set @govflanders:registry https://repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm/`
-- `npm config set @domg:registry https://repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm/`
+- `pnpm config set registry https://registry.npmjs.org`
+- `pnpm config set @govflanders:registry https://repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm/`
+- `pnpm config set @domg:registry https://repo.omgeving.vlaanderen.be/artifactory/api/npm/acd-npm/`
 

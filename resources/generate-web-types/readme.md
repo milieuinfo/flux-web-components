@@ -2,7 +2,7 @@
 
 ## genereren
 
-    npm run generate-web-types
+    pnpm run generate-web-types
 
 
 ## testen

@@ -80,8 +80,11 @@ echo 'git config user.email'
 git config user.email ${GITHUB_EMAIL}
 git config user.email
 
+# pnpm beschikbaar maken via corepack (gepind via het packageManager-veld in package.json)
 corepack enable
 
+# --frozen-lockfile faalt hard bij lock-drift maar wist node_modules niet, dus de bestaande
+# intentie van "geen clean install" blijft behouden
 echo "pnpm install"
 set +e
 pnpm install --frozen-lockfile 2> buffer-stderr.txt 1> buffer-stdout.txt

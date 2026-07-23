@@ -9,8 +9,11 @@ cd flux-web-components
 # jq moet beschikbaar zijn om libs-add-dependencies.sh correct uit te kunnen voeren
 apt-get -y update; apt-get -y install jq
 
+# pnpm beschikbaar maken via corepack (gepind via het packageManager-veld in package.json)
 corepack enable
 
+# --frozen-lockfile faalt hard bij lock-drift maar wist node_modules niet, dus de bestaande
+# intentie van "geen clean install" blijft behouden
 echo "pnpm install"
 set +e
 pnpm install --frozen-lockfile 2> buffer-stderr.txt 1> buffer-stdout.txt

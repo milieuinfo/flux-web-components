@@ -98,15 +98,15 @@ sudo lsof -ti:4600
 
 <sub>de dist folder statisch serven</sub>
 ```
-npx http-server ./dist -p9090 --cors
+pnpm exec http-server ./dist -p9090 --cors
 ```
 
 
 ## SCSS verwerking
 
 uit te voeren vanuit de folder waar de scss staan, de node_modules folder moet relatief kloppen !!!
-npx sass vl-elements.scss > vl-elements.css --load-path ../../../../node_modules
-npx sass ./libs/elements/src/vl-elements.scss > ./dist/libs/elements/src/lib/vl-elements.css --load-path ./node_modules
+pnpm exec sass vl-elements.scss > vl-elements.css --load-path ../../../../node_modules
+pnpm exec sass ./libs/elements/src/vl-elements.scss > ./dist/libs/elements/src/lib/vl-elements.css --load-path ./node_modules
 
 
 ## Nuttige links
