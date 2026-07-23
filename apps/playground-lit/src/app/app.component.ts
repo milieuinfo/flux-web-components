@@ -87,6 +87,13 @@ const catCountLabel = (rs: OverrideRow[]): string => {
     return parts.join(' · ');
 };
 
+const vdsFrame = (demo: string, height: number): TemplateResult =>
+    html`<iframe
+        src="/vds-frame.html?demo=${demo}"
+        style="border: 0; width: 100%; height: ${height}px;"
+        title="rauw VDS ${demo}, geïsoleerd in een eigen document (16px-root, eigen font, default vl-prefix)"
+    ></iframe>`;
+
 // Selecteer de patches die op een bepaald voorbeeld van toepassing zijn. 'fluxLook'
 // matcht de gedeelde form-control-regels (alle form-controls).
 const patchesFor = (...keys: string[]): OverrideRow[] =>
@@ -183,7 +190,7 @@ export class AppComponent extends LitElement {
         return html`
             <div style="font-weight: 600; margin: 6px 0;">${name}</div>
             <div
-                style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; max-width: 900px; margin-bottom: 8px;"
+                style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 960px; margin-bottom: 8px;"
             >
                 ${cell('vds · rauw VDS', '#0055cc', vds)}
                 ${cell('flux · erft VDS + tokens', '#0055cc', flux)}
@@ -385,10 +392,13 @@ export class AppComponent extends LitElement {
                 <div class="vl-content-block vl-content-block--full-width">
                     <vl-title type="h2">icon (vds · flux · vl)</vl-title>
                     <p>
-                        <code>flux-icon</code> erft <code>VlIcon</code>. De glyphs komen uit de gedeelde
-                        <code>vlaanderen-icon</code>-font, dus visueel identiek over de drie varianten. Een
-                        selectie iconen, elk in <code>vds-icon</code> · <code>flux-icon</code> · de echte flux
-                        <code>vl-icon</code> (grootte <code>large</code>):
+                        <code>flux-icon</code> erft <code>VlIcon</code>. Een selectie iconen, elk in
+                        <code>vds-icon</code> · <code>flux-icon</code> · de echte flux <code>vl-icon</code>
+                        (grootte <code>large</code>). De <code>vds-icon</code>-kolom staat, net als de andere
+                        vds-rijen, in een <b>geïsoleerd iframe</b> (16px-root, VDS' eigen font, default
+                        <code>vl-</code>-prefix), zodat VDS z'n iconen toont zoals bedoeld i.p.v. gebroken door
+                        de flux-host-collision. Zo tonen alle drie de kolommen de juiste glyphs; de accordion
+                        hieronder legt uit waaróm dat in de gedeelde flux-host nodig is.
                     </p>
                     <details
                         style="max-width: 620px; margin: 0 0 12px; border-left: 3px solid #d9a441;
@@ -453,7 +463,13 @@ export class AppComponent extends LitElement {
                         ${icons.map(
                             (name) => html`
                                 <code style="font-size: 11px; color: #555;">${name}</code>
-                                <div style="${iconCell}"><vds-icon icon="${name}" size="large"></vds-icon></div>
+                                <div style="${iconCell}">
+                                    <iframe
+                                        src="/vds-frame.html?demo=icon&name=${name}"
+                                        style="border: 0; width: 100%; height: 34px;"
+                                        title="rauw VDS ${name}, geïsoleerd (16px-root, VDS-font, default vl-prefix)"
+                                    ></iframe>
+                                </div>
                                 <div style="${iconCell}">
                                     <flux-icon icon="${name}" size="large" ?scaled=${this.iconScaled}></flux-icon>
                                 </div>
@@ -559,7 +575,11 @@ export class AppComponent extends LitElement {
                             <ul style="margin: 8px 0 0; padding-left: 18px; line-height: 1.6;">
                                 <li>
                                     <code style="color: #0055cc;">vds-*</code> — <b>rauw VDS</b>: exact zoals
-                                    VDS het vandaag definieert, geen aanpassing.
+                                    VDS het vandaag definieert, geen aanpassing. Getoond in een
+                                    <b>geïsoleerd iframe</b> (eigen document: 16px-root, VDS' eigen
+                                    icon-font, default <code>vl-</code>-prefix), want in de flux-host
+                                    zou rauw VDS gebroken ogen door de flux-omgeving (font-collision,
+                                    10px-root, prefix-bug) en niet door VDS zelf.
                                 </li>
                                 <li>
                                     <code style="color: #0055cc;">flux-*</code> — <b>ons doelproduct</b>: erft
@@ -575,8 +595,7 @@ export class AppComponent extends LitElement {
 
                         ${this.renderVariantRow(
                             'button',
-                            html`<vds-button variant="primary">Primair</vds-button
-                                ><vds-button variant="secondary">Secundair</vds-button>`,
+                            vdsFrame('button', 65),
                             html`<flux-button>Primair</flux-button
                                 ><flux-button secondary>Secundair</flux-button>`,
                             html`<vl-button>Primair</vl-button
@@ -585,7 +604,7 @@ export class AppComponent extends LitElement {
                         )}
                         ${this.renderVariantRow(
                             'input',
-                            html`<vds-input label="Naam" placeholder="VDS"></vds-input>`,
+                            vdsFrame('input', 105),
                             html`<flux-input label="Naam" placeholder="flux-input"></flux-input>`,
                             html`<vl-form-label block for="cmp-vl-input" label="Naam"></vl-form-label
                                 ><vl-input-field
@@ -597,14 +616,14 @@ export class AppComponent extends LitElement {
                         )}
                         ${this.renderVariantRow(
                             'link',
-                            html`<vds-link href="https://www.vlaanderen.be">VDS link</vds-link>`,
+                            vdsFrame('link', 50),
                             html`<flux-link href="https://www.vlaanderen.be">flux-link</flux-link>`,
                             html`<vl-link href="https://www.vlaanderen.be">flux link</vl-link>`,
                             patchesFor('flux-link')
                         )}
                         ${this.renderVariantRow(
                             'datepicker',
-                            html`<vds-datepicker label="Datum"></vds-datepicker>`,
+                            vdsFrame('datepicker', 105),
                             html`<flux-datepicker label="Datum"></flux-datepicker>`,
                             html`<vl-form-label block for="cmp-vl-dp" label="Datum"></vl-form-label
                                 ><vl-datepicker id="cmp-vl-dp" label="Datum"></vl-datepicker>`,
@@ -612,18 +631,14 @@ export class AppComponent extends LitElement {
                         )}
                         ${this.renderVariantRow(
                             'checkbox',
-                            html`<vds-checkbox label="Ik ga akkoord" checked></vds-checkbox>`,
+                            vdsFrame('checkbox', 50),
                             html`<flux-checkbox label="Ik ga akkoord" checked></flux-checkbox>`,
                             html`<vl-checkbox checked>Ik ga akkoord</vl-checkbox>`,
                             patchesFor('fluxLook', 'flux-checkbox')
                         )}
                         ${this.renderVariantRow(
                             'select',
-                            html`<vds-select label="Provincie">
-                                <option value="antwerpen">Antwerpen</option>
-                                <option value="limburg">Limburg</option>
-                                <option value="oost-vlaanderen">Oost-Vlaanderen</option>
-                            </vds-select>`,
+                            vdsFrame('select', 105),
                             html`<flux-select label="Provincie">
                                 <option value="antwerpen">Antwerpen</option>
                                 <option value="limburg">Limburg</option>
@@ -643,10 +658,7 @@ export class AppComponent extends LitElement {
                         )}
                         ${this.renderVariantRow(
                             'radio-group',
-                            html`<vds-radio-group label="Contactvoorkeur">
-                                <vds-radio value="email" label="E-mail"></vds-radio>
-                                <vds-radio value="post" label="Post"></vds-radio>
-                            </vds-radio-group>`,
+                            vdsFrame('radio-group', 120),
                             html`<flux-radio-group label="Contactvoorkeur">
                                 <vds-radio value="email" label="E-mail"></vds-radio>
                                 <vds-radio value="post" label="Post"></vds-radio>

@@ -430,6 +430,58 @@ Vervolg op #25, na "iconen nog steeds kapot: positie, grootte, correcte weergave
 de echte vl-datepicker heeft een witte/subtiele knop + blauw icoon (SVG). Dat is een aparte override op de geneste
 vds-button (achtergrond + icoonkleur), niet het icoon; nog niet aangepast.
 
+## 27. Rauwe vds-kolom geïsoleerd in iframe: VDS tonen zoals bedoeld
+Vraag: "hoe komt dat de VDS-componenten er zo kapot uitzien, en wat is er nodig om ze te tonen zoals bedoeld?"
+Antwoord: het was grotendeels ONZE hostomgeving, niet VDS. Drie oorzaken: (1) de font-collision (flux' gelijknamige
+`vlaanderen-icon`-font wint → verkeerde glyphs), (2) de flux-10px-root (rauwe rem-literals renderen op 62.5% → alles
+te klein), (3) de prefix-selector-bug (upstream #6, enkel onder custom prefix). In een schone VDS-app spelen 1 en 2
+niet, en met de default `vl-`-prefix ook 3 niet.
+
+Gekozen oplossing (boven "compensaties ook op vds" en "laten + note"): de vds-cellen van de 7 vergelijkingsrijen
+renderen in een **geïsoleerd iframe** met een eigen document: 16px-root, VDS' eigen icon-font, default `vl-`-prefix,
+geen flux. Nieuwe webpack-entry `vds-frame.html` + `vds-frame.ts` (`?demo=button|input|link|datepicker|checkbox|
+select|radio-group|icon`); de kolom blijft zo eerlijk "rauw VDS", maar dan zoals VDS het bedoelt. Gemeten in de
+frames: kalender-icoon correct (`vlaanderen-icon`, 19.2px), checkbox-vinkje wit (de `vl-icon.…`-selector matcht weer
+onder de default prefix), box 20px, geen clipping op desktop-breedte. Binnen de frame heten de tags gewoon `vl-*`
+(VDS' default), wat meteen demonstreert dat de collision-problematiek pas ontstaat zodra flux en VDS één document
+delen. Rollback-punt: commit 9c9a7d6b (alles vóór de iframe-stap gecommit).
+
+Bewust NIET mee geïsoleerd: de vds-form-demo-kolom (zou een vl-*-getagde herbouw van de form vergen) en de
+icon-showcase (die demonstreert de collision juist). Eventueel vervolg op vraag.
+
+## 28. vl-icon (echte flux) toonde verkeerde glyphs: de OMGEKEERDE font-collision
+Vraag: "de icons bij vl-icon helemaal onderaan tonen nog altijd verkeerde icons."
+
+De font-collision heeft TWEE kanten. Tot nu fixten we de flux-op-VDS-kant (flux-icon/checkbox/datepicker → alias
+`vds-vlaanderen-icon`). Maar de echte flux `vl-icon` had het spiegelbeeld-probleem: hij gebruikt class
+`vl-icon--calendar` met flux' eigen codepoint (calendar = U+f14b) in font `vlaanderen-icon`. Op DOCUMENTNIVEAU was
+`vlaanderen-icon` echter VDS' font: `vds-prefix-aware.ts` importeerde `@govflanders/.../vlaanderen-icon.css`, en flux'
+eigen `vlaanderen-icon`-@font-face (CDN, uit `vlFontStyles`) zit enkel op adopted-niveau (dat laadt niet betrouwbaar,
+zie #20). Dus vl-icon vroeg U+f14b maar kreeg VDS' glyph op U+f14b = verkeerd icoon.
+
+Fix: `flux-iconfont.ts` injecteert flux' `vlaanderen-icon` (CDN-woff2, via de `iconFontLocation`-export van
+`@domg-wc/styles`) op documentniveau, en wordt in `main.ts` ALS LAATSTE geïmporteerd. Bij meerdere gelijknamige
+@font-face wint de laatst gedeclareerde voor het hele bereik, dus `vlaanderen-icon` = flux' font. De expliciete VDS-
+`vlaanderen-icon.css`-import is uit `vds-prefix-aware.ts` verwijderd (VDS blijft bereikbaar via de aparte alias
+`vds-vlaanderen-icon`). Gemeten/gezien: vl-icon toont nu calendar/user/mail/search correct; flux-icon + checkbox +
+datepicker ongewijzigd (alias); de vds-iframes ongewijzigd (eigen font intern). De rauwe vds-icon-showcase op de
+hoofdpagina toont nu flux' glyphs op VDS-codepoints = nog steeds "fout", wat exact de collision demonstreert.
+
+Les: bij een naam-collision op `vlaanderen-icon` moet je BEIDE kanten regelen. Één kant (VDS→alias) volstaat niet;
+de andere kant (flux' eigen font moet op documentniveau de plain naam winnen) is even nodig. Structureel lost upstream
+#4b (VDS z'n font namespacen) dit in één klap op.
+
+## 29. Icon-showcase: vds-icon-kolom alsnog geïsoleerd (supersedes #27-noot)
+De gebruiker bedoelde met "VDS-iconen nog steeds kapot" specifiek de **icon-showcase** (`icon (vds · flux · vl)`),
+niet de losse vergelijkingsrijen. In #27 lieten we die kolom bewust rauw "om de collision te demonstreren"; dat is nu
+teruggedraaid op vraag. De `vds-icon`-cel is nu, net als de andere vds-kolommen, een **geïsoleerd iframe** per icoon:
+`vds-frame.ts` kreeg een enkel-icoon-modus (`?demo=icon&name=<icon>` → één `vl-icon size="large"` in het geïsoleerde
+16px/eigen-font/default-`vl`-prefix-document). Alle drie de kolommen tonen nu correcte glyphs (vds via iframe, flux via
+de alias, vl via flux' eigen font uit #28). De accordion blijft de host-collision uitleggen. Geverifieerd: het
+geïsoleerde kalender-icoon rendert correct (`vl-vi-calendar` U+f2c4 in VDS' `vlaanderen-icon`, 19.2px). De collision zelf
+is nog steeds impliciet zichtbaar zolang je bedenkt dat de niet-geïsoleerde flux-host precies dit brak; wie de rauwe
+breuk live wil zien, zet de iframe-isolatie tijdelijk af.
+
 ## Terugkerende valkuilen / lessen
 - **Preview-tool onbetrouwbaar:** de webpack-devServer bindt de default-poort (8080/volgende vrije),
   niet de 8084 uit launch.json → de preview-browser is vaak onbereikbaar (chrome-error). We
