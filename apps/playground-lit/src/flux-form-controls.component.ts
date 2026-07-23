@@ -62,6 +62,26 @@ export class FluxCheckbox extends VlCheckbox {
         css`
             :host(:not([bare])) {
                 --base-border-radius-container-2xs: 0.3rem;
+                --checkbox-box-width: calc(var(--global-font-size-scaled-base, 1rem) * 1);
+            }
+            :host(:not([bare])) .vl-checkbox__box {
+                position: relative;
+            }
+            :host(:not([bare])) .vl-checkbox__check,
+            :host(:not([bare])) .vl-checkbox__indeterminate {
+                color: #fff;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: auto;
+                height: auto;
+                line-height: 1;
+                font-size: calc(var(--global-font-size-scaled-base, 1rem) * 0.625);
             }
             :host(:not([bare]):focus) .vl-checkbox:not(.vl-checkbox--tile) .vl-checkbox__box,
             :host(:not([bare]):focus-visible) .vl-checkbox:not(.vl-checkbox--tile) .vl-checkbox__box {
@@ -94,6 +114,23 @@ export class FluxFieldset extends VlFieldset {
 }
 export class FluxRadioGroup extends VlRadioGroup {
     static styles = [(VlRadioGroup as unknown as { styles: unknown }).styles, fluxLook];
+
+    protected updated(changed: Map<PropertyKey, unknown>): void {
+        superUpdated(this, changed);
+        if (this.hasAttribute('bare')) return;
+        this.querySelectorAll('vds-radio').forEach((radio) => {
+            const sr = (radio as HTMLElement).shadowRoot as (ShadowRoot & { __fluxRadioSized?: boolean }) | null;
+            if (sr && !sr.__fluxRadioSized) {
+                const sheet = new CSSStyleSheet();
+                sheet.replaceSync(
+                    '.vl-radio__box{width:calc(var(--global-font-size-scaled-base,1rem)*1.125);height:calc(var(--global-font-size-scaled-base,1rem)*1.125);}' +
+                        '.vl-radio__box::after{width:calc(var(--global-font-size-scaled-base,1rem)*0.375);height:calc(var(--global-font-size-scaled-base,1rem)*0.375);}'
+                );
+                sr.adoptedStyleSheets = [...sr.adoptedStyleSheets, sheet];
+                sr.__fluxRadioSized = true;
+            }
+        });
+    }
 }
 export class FluxDatepicker extends VlDatepicker {
     static styles = [
@@ -122,9 +159,19 @@ export class FluxDatepicker extends VlDatepicker {
         `,
     ];
 
+    private aliasAllIcons(): void {
+        this.shadowRoot?.querySelectorAll('vds-icon').forEach((el) => aliasVdsIcon(el));
+    }
+
     protected updated(changed: Map<PropertyKey, unknown>): void {
         superUpdated(this, changed);
         if (this.hasAttribute('bare')) return;
+        this.aliasAllIcons();
+        const root = this.shadowRoot as (ShadowRoot & { __fluxDpObserved?: boolean }) | null;
+        if (root && !root.__fluxDpObserved) {
+            new MutationObserver(() => this.aliasAllIcons()).observe(root, { childList: true, subtree: true });
+            root.__fluxDpObserved = true;
+        }
         this.shadowRoot?.querySelectorAll('vds-select').forEach((sel) => {
             const sr = (sel as HTMLElement).shadowRoot as (ShadowRoot & { __fluxSelSized?: boolean }) | null;
             if (sr && !sr.__fluxSelSized) {

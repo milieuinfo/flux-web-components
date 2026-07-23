@@ -258,6 +258,33 @@ prioriteit, maar wel dezelfde structurele grens als bij de rem-literals in punt 
 
 ---
 
+## 6. Checkbox/radio: check-kleur-selector niet prefix-aware + box-grootte hardcoded rem
+
+**Componenten:** `vl-checkbox`, `vl-radio`
+**Bron:** `vl-checkbox.styles` / `vl-radio.styles`
+
+Twee samenhangende problemen als de VDS-componenten onder een custom prefix (`vds-`) draaien:
+
+1. **Check-kleur onzichtbaar (prefix-bug).** De checkbox zet de vinkje-kleur via de selector
+   `vl-icon.vl-checkbox__check { color: var(--base-color-icon-on-action) }`. Maar onder de
+   `vds-`-prefix is het icoon-element `vds-icon`, dus die selector matcht NIET en de check valt terug
+   op de default donkergrijze tekstkleur, onzichtbaar op de blauwe (checked) box. De VDS-interne CSS
+   moet prefix-aware zijn (bv. via `::part` of een class-selector i.p.v. de tag `vl-icon`), anders werkt
+   de checked-check-kleur enkel onder de default `vl-`-prefix. (De radio-dot gebruikt
+   `.vl-radio__box::after`, een class-selector, en heeft dit probleem niet.)
+
+2. **Box-grootte hardcoded rem.** `.vl-checkbox__box` (`--checkbox-box-width: 1.125rem`) en
+   `.vl-radio__box` (`width/height: 1.125rem`, geen var) staan als rauwe rem in de encapsulated CSS. Op
+   de flux-10px-root rendert dat te klein (≈13px i.p.v. de bedoelde ≈18px). Zelfde soort gap als de
+   rem-literals in punt 4a. Voor de radio is er niet eens een var, dus enkel via een
+   `.vl-radio__box`-override (in de playground via adoptedStyleSheets-injectie) bij te sturen.
+
+**Verzoek:** maak de check-kleur-selector prefix-aware (of expose de check als `::part`), en tokeniseer de
+box-grootte (of laat ze meeschalen via `--global-font-size-scaled-base`), zodat een consument onder een
+custom prefix zowel het zichtbare vinkje als de correcte grootte krijgt.
+
+---
+
 ## Niet van toepassing: vl-title
 
 VDS levert (nog) geen title/heading-component. Dit is een **component-gap**, geen

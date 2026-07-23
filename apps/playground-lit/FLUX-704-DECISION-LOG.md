@@ -351,6 +351,85 @@ Los hiervan: de PLAYGROUND-PAGINA is niet mobile-proof (547px horizontale overfl
 en brede tabellen, plus de zwevende toggle die daardoor buiten beeld valt). Dat is een layout-kwestie van de demo, geen
 component-pariteit, en staat los open.
 
+## 24. Form-demo 3-weg (vds · flux · vl) + gedeelde getFormValue/setFormValue-utils
+Op vraag: naast vds-form en flux-form nu ook een **echte vl-form** (de flux-web-componenten uit `libs/components`),
+zodat de form-demo dezelfde 3-weg-vergelijking heeft als de losse componenten.
+
+Structurele bevinding (belangrijk voor de migratie): de echte `vl-*` form-velden componeren hun form-chrome
+ANDERS dan vds/flux. Waar vds/flux `label` + `message` als PROPS op het veld zetten, rendert een echte
+`vl-input-field` enkel de `<input>` met `aria-label` (geen zichtbaar label). De echte flux verwacht dat de
+consument label en melding als APARTE componenten plaatst en via `for=id` koppelt:
+- zichtbaar label: `vl-form-label for="id" label="..."` (met `block` voor gestapeld i.p.v. inline);
+- validatie-melding: `vl-form-message for="id" state="valueMissing|typeMismatch|..."`, default verborgen
+  (`show=false`), getoond zodra de bijhorende validity-flag actief is; `variant="annotation"` toont altijd;
+- checkbox toont z'n label via een slotted tekst-child (`<vl-checkbox>Sport</vl-checkbox>`), niet via `label`;
+- radio-group verbergt z'n `label` in een visually-hidden legend, dus ook daar een `vl-form-label`;
+- fieldset gebruikt een `legend`-slot (`<span slot="legend">...</span>`).
+Alle vl-velden erven van `FormControl` (`@open-wc/form-control`), dus formAssociated: `new FormData(form)`
+leest ze via `name`, net als vds/flux. `blur-validation` op de `<form>` cascadeert naar alle controls en
+stelt de eager-validatie uit tot blur/submit (anders tonen de required-meldingen al bij load).
+
+**Gedeelde utils** (`form-value-utils.ts`): `getFormValue`/`setFormValue` (+ `getFormValues`/`setFormValues`)
+die over de drie tag-families (`vds-`/`flux-`/`vl-`) heen werken. Ze vervangen de brittle native-proto-hack die
+in elke form-demo gedupliceerd stond. Twee bevindingen zaten in de weg:
+- **VDS form-value updatet niet op host-`.value`**: enkel de host-property zetten laat de FormData-waarde leeg;
+  de form-associated waarde (ElementInternals) updatet pas als de INNER native control een `input`/`change`
+  krijgt. Daarom zet de util de inner control via de prototype-value-setter + dispatcht events (dat drijft
+  meteen ook de component z'n eigen `onInput` → `setValue` bij de echte flux). Host-`.value` + inner samen in
+  één tick gaf een validity-refresh-timingbug, dus inner-only is de robuuste weg (host-`.value` enkel als er
+  geen inner control is).
+- **Host `checkValidity()` kan stale zijn** bij de echte flux na een error-state + programmatische fill; daarom
+  leest de vl-form-demo de INNER native control z'n `validity` (altijd actueel) i.p.v. de host.
+Gemeten eindresultaat: de drie form-demo's leveren via "Vul demo-data in" + "Verzenden" **identieke FormData-JSON**,
+en de vl-form toont per-validity NL-meldingen (verplicht / geldig e-mailadres) zoals vds/flux.
+
+## 25. Checkbox-vinkje zichtbaar + checkbox/radio-grootte + vl-form-label in vergelijkingsrijen + vl-stacked
+Batch op vraag:
+- **Checkbox-vinkje (eindelijk de echte oorzaak).** Het vinkje was er wel, maar DONKERGRIJS op de blauwe box =
+  onzichtbaar. VDS' checkbox-CSS zet de check-kleur via `vl-icon.vl-checkbox__check { color: --base-color-icon-on-action }`;
+  onder de `vds-`-prefix is het element `vds-icon`, dus die selector matcht niet en de kleur valt terug op donker. Fix
+  consument-side: `:host(:not([bare])) .vl-checkbox__check/__indeterminate { color: #fff }`. (Upstream punt 6: de
+  interne selector moet prefix-aware zijn.) Het alias-font-werk uit #20/#21 was correct; de kleur was het echte probleem.
+- **Checkbox/radio te klein.** VDS checkbox-box `--checkbox-box-width: 1.125rem` en radio-box `1.125rem` (rauwe rem)
+  renderen ≈13px op de 10px-root i.p.v. de echte-vl ≈18px. Checkbox: `--checkbox-box-width` naar
+  `calc(scaled-base * 1)`. Radio: de radios zijn `vds-radio` (slotted, andere shadow) en de box-grootte is een
+  hardcoded rem zonder var, dus via adoptedStyleSheets-injectie in `FluxRadioGroup.updated()` (zoals het
+  checkbox-vinkje/datepicker) `.vl-radio__box` + dot geschaald. Gemeten flux checkbox+radio = 18px = echte vl.
+- **vl-form-label in de vergelijkingsrijen.** De echte `vl-*` velden tonen hun `label` enkel als `aria-label`, dus de
+  vl-kolom stond zonder zichtbaar label t.o.v. vds/flux. Per rij een `vl-form-label for="id"` toegevoegd
+  (input/datepicker/select/radio-group); de checkbox-label via slot-tekst i.p.v. het `label`-attribuut.
+- **vl-stacked full-width.** `.vl-stacked` is `flex; column`, dus met de flex-default `align-items: stretch` rekken
+  ALLE kinderen full-width, identiek voor flux en vl (de oude note die beweerde dat enkel flux rekte, klopte niet:
+  beide zijn `display:block` en rekken). Om ze te laten huggen: `align-items: flex-start` op de demo-stacks. Flux en
+  vl staan nu gelijk (beide op natuurlijke breedte).
+- **Utils-bevestiging.** Alle drie de form-demo's (vds/flux/vl) importeren én gebruiken `setFormValue` in hun
+  `fillDemo` (niet enkel de vl-demo).
+
+## 26. Datepicker-icoon niet aliased + checkbox-vinkje niet gecentreerd (positie/grootte/display)
+Vervolg op #25, na "iconen nog steeds kapot: positie, grootte, correcte weergave".
+
+- **Datepicker-kalendericoon (font-collision).** De checkbox-check kreeg de vlaanderen-icon-alias wel (via
+  `aliasVdsIcon` in `FluxCheckbox.updated()`), maar de datepicker NIET: z'n toggle-icoon (`vds-icon.vl-vi-calendar`)
+  gebruikte de rauwe `vlaanderen-icon`-font → collision → verkeerde glyph. Fix: `FluxDatepicker.updated()` aliaset nu
+  z'n `vds-icon`(en) + een `MutationObserver` op de shadowRoot vangt de dynamisch bijkomende kalender-popover-iconen.
+  Gemeten: toggle-icoon nu font `vds-vlaanderen-icon` (U+f2c4 = kalender), geen enkele rauwe `vlaanderen-icon` meer.
+  De kalender-nav ‹ › zijn geen icon-font-glyphs (chevrons), dus geen collision daar.
+- **Checkbox-vinkje niet gecentreerd (5px te laag).** Het opschalen van de box (13→18px via `--checkbox-box-width`,
+  zie #25) brak de centrering: de geneste `vds-icon.vl-checkbox__check` is `position: static; display: inline-block`
+  met een `line-height` van ~21px (hoger dan de 16px-box) → de check zakte onderaan (dy +5, dx −2.5). VDS' positionering
+  was op de 13px-box afgestemd. Fix: check + indeterminate `position: absolute; inset: 0; display: flex; align-items/
+  justify-content: center; line-height: 1` → glyph exact gecentreerd (gemeten dx/dy 0, = echte vl). Bevestigd: geen
+  minus-overlap (indeterminate-glyph leeg bij checked).
+- **Meta-valkuil: meerdere dev-servers, verschuivende poort.** Er draaien parallel meerdere webpack-dev-servers uit
+  verschillende worktrees, allemaal met titel "Playground Lit". webpack negeert de launch.json-poort (8084) en bindt
+  de eerste vrije vanaf 8080; bezette poorten schuiven mijn server naar 8083/8084/... Gevolg: makkelijk de VERKEERDE
+  pagina bekijken (een andere branch/worktree, of stale). Verifieer altijd de bound-poort via `preview_logs` ("Loopback:
+  http://localhost:PORT") en check een branch-specifieke marker (bv. `vl-form-demo` aanwezig).
+
+**Open (op gebruikersvraag te beslissen):** de datepicker-TOGGLE-KNOP zelf is nog de VDS-default (blauw blok + wit icoon);
+de echte vl-datepicker heeft een witte/subtiele knop + blauw icoon (SVG). Dat is een aparte override op de geneste
+vds-button (achtergrond + icoonkleur), niet het icoon; nog niet aangepast.
+
 ## Terugkerende valkuilen / lessen
 - **Preview-tool onbetrouwbaar:** de webpack-devServer bindt de default-poort (8080/volgende vrije),
   niet de 8084 uit launch.json → de preview-browser is vaak onbereikbaar (chrome-error). We

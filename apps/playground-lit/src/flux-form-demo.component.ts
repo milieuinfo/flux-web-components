@@ -4,6 +4,7 @@ import { customElement, query, state } from 'lit/decorators.js';
 import './flux-button.component';
 import './flux-input.component';
 import './flux-form-controls.component';
+import { setFormValue } from './form-value-utils';
 
 type FormField = HTMLElement & {
     name?: string;
@@ -111,39 +112,23 @@ export class FluxFormDemo extends LitElement {
     }
 
     private fillDemo() {
-        const rootEl = this.renderRoot as ParentNode;
-        const setNative = (host: Element | null, val: string) => {
-            const el = host?.shadowRoot?.querySelector<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(
-                'input, textarea, select'
-            );
-            if (!el) return;
-            const proto =
-                el instanceof HTMLSelectElement
-                    ? HTMLSelectElement.prototype
-                    : el instanceof HTMLTextAreaElement
-                      ? HTMLTextAreaElement.prototype
-                      : HTMLInputElement.prototype;
-            Object.getOwnPropertyDescriptor(proto, 'value')?.set?.call(el, val);
-            el.dispatchEvent(new Event('input', { bubbles: true }));
-            el.dispatchEvent(new Event('change', { bubbles: true }));
+        const root = this.renderRoot as ParentNode;
+        const set = (sel: string, val: string | boolean) => {
+            const el = root.querySelector<FormField>(sel);
+            if (el) setFormValue(el, val);
         };
-        setNative(rootEl.querySelector('flux-input[name="voornaam"]'), 'Jan');
-        setNative(rootEl.querySelector('flux-input[name="achternaam"]'), 'Janssens');
-        setNative(rootEl.querySelector('flux-input[name="email"]'), 'jan@voorbeeld.be');
-        setNative(rootEl.querySelector('flux-input[name="leeftijd"]'), '42');
-        setNative(rootEl.querySelector('flux-input[name="telefoon"]'), '+32 477 11 22 33');
-        setNative(rootEl.querySelector('flux-select[name="provincie"]'), 'limburg');
-        setNative(rootEl.querySelector('flux-textarea[name="bericht"]'), 'Graag info over het aanbod.');
-        (rootEl.querySelector('vds-radio[value="email"]') as HTMLElement | null)?.click();
-        const check = (sel: string) => {
-            const cb = rootEl.querySelector(sel);
-            const input = cb?.shadowRoot?.querySelector<HTMLInputElement>('input[type="checkbox"]');
-            if (input && !input.checked) input.click();
-        };
-        check('flux-checkbox[value="sport"]');
-        check('flux-checkbox[value="wetenschap"]');
-        check('flux-checkbox[name="nieuwsbrief"]');
-        check('flux-checkbox[name="akkoord"]');
+        set('flux-input[name="voornaam"]', 'Jan');
+        set('flux-input[name="achternaam"]', 'Janssens');
+        set('flux-input[name="email"]', 'jan@voorbeeld.be');
+        set('flux-input[name="leeftijd"]', '42');
+        set('flux-input[name="telefoon"]', '+32 477 11 22 33');
+        set('flux-select[name="provincie"]', 'limburg');
+        set('flux-textarea[name="bericht"]', 'Graag info over het aanbod.');
+        set('flux-radio-group[name="contact"]', 'email');
+        set('flux-checkbox[value="sport"]', true);
+        set('flux-checkbox[value="wetenschap"]', true);
+        set('flux-checkbox[name="nieuwsbrief"]', true);
+        set('flux-checkbox[name="akkoord"]', true);
     }
 
     private handleReset() {

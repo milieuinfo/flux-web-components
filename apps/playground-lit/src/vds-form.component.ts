@@ -16,6 +16,8 @@
 import { html, LitElement, TemplateResult } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 
+import { setFormValue } from './form-value-utils';
+
 type FormField = HTMLElement & {
     name?: string;
     value?: string | null;
@@ -134,42 +136,24 @@ export class VdsFormDemo extends LitElement {
         this.result = JSON.stringify(obj, null, 2);
     }
 
-    // Demo-knop: vult alle velden via de inner native controls (met input/change
-    // events) zodat de formAssociated VDS-velden hun form-value bijwerken.
     private fillDemo() {
-        const rootEl = this.renderRoot as ParentNode;
-        const setNative = (host: Element | null, val: string) => {
-            const el = host?.shadowRoot?.querySelector<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(
-                'input, textarea, select'
-            );
-            if (!el) return;
-            const proto =
-                el instanceof HTMLSelectElement
-                    ? HTMLSelectElement.prototype
-                    : el instanceof HTMLTextAreaElement
-                      ? HTMLTextAreaElement.prototype
-                      : HTMLInputElement.prototype;
-            Object.getOwnPropertyDescriptor(proto, 'value')?.set?.call(el, val);
-            el.dispatchEvent(new Event('input', { bubbles: true }));
-            el.dispatchEvent(new Event('change', { bubbles: true }));
+        const root = this.renderRoot as ParentNode;
+        const set = (sel: string, val: string | boolean) => {
+            const el = root.querySelector<FormField>(sel);
+            if (el) setFormValue(el, val);
         };
-        setNative(rootEl.querySelector('vds-input[name="voornaam"]'), 'Jan');
-        setNative(rootEl.querySelector('vds-input[name="achternaam"]'), 'Janssens');
-        setNative(rootEl.querySelector('vds-input[name="email"]'), 'jan@voorbeeld.be');
-        setNative(rootEl.querySelector('vds-input[name="leeftijd"]'), '42');
-        setNative(rootEl.querySelector('vds-input[name="telefoon"]'), '+32 477 11 22 33');
-        setNative(rootEl.querySelector('vds-select[name="provincie"]'), 'limburg');
-        setNative(rootEl.querySelector('vds-textarea[name="bericht"]'), 'Graag info over het aanbod.');
-        (rootEl.querySelector('vds-radio[value="email"]') as HTMLElement | null)?.click();
-        const check = (sel: string) => {
-            const cb = rootEl.querySelector(sel);
-            const input = cb?.shadowRoot?.querySelector<HTMLInputElement>('input[type="checkbox"]');
-            if (input && !input.checked) input.click();
-        };
-        check('vds-checkbox[value="sport"]');
-        check('vds-checkbox[value="wetenschap"]');
-        check('vds-checkbox[name="nieuwsbrief"]');
-        check('vds-checkbox[name="akkoord"]');
+        set('vds-input[name="voornaam"]', 'Jan');
+        set('vds-input[name="achternaam"]', 'Janssens');
+        set('vds-input[name="email"]', 'jan@voorbeeld.be');
+        set('vds-input[name="leeftijd"]', '42');
+        set('vds-input[name="telefoon"]', '+32 477 11 22 33');
+        set('vds-select[name="provincie"]', 'limburg');
+        set('vds-textarea[name="bericht"]', 'Graag info over het aanbod.');
+        set('vds-radio-group[name="contact"]', 'email');
+        set('vds-checkbox[value="sport"]', true);
+        set('vds-checkbox[value="wetenschap"]', true);
+        set('vds-checkbox[name="nieuwsbrief"]', true);
+        set('vds-checkbox[name="akkoord"]', true);
     }
 
     private handleReset() {
