@@ -124,14 +124,30 @@ omdat het rem-literals zijn, renderen ze op flux' 62.5%-root ook nog eens te kle
   width) dat de mixin gebruikt i.p.v. `0.125rem`, of
 - expose het focusbare element als `::part` zodat de consument outline/offset zelf kan zetten.
 
-**Status (workaround actief):** omdat dit niet via token kon, staan er consument-side
-overrides op de flux-form-controls die de VDS-focus-CSS overschrijven (bewust een afwijking
-van het "geen VDS-styling overriden"-principe, op expliciete vraag). Kan weg zodra de tokens
-landen. Concreet:
-- `flux-input` en `flux-textarea`: `outline-width: 3px; outline-offset: 2px` (VDS-mechanisme = outline).
-- `flux-select`: VDS gebruikt hier een box-shadow-ring i.p.v. outline; override naar vaste px
-  (`box-shadow: 0 0 0 2px white, 0 0 0 5px var(--base-color-focus-400)`) = 2px offset, 3px ring.
-- Nog niet op checkbox/radio (die hebben nog een ander focus-mechanisme).
+**Flux-doelwaarde (gemeten op de echte vl-\*):** de echte flux focus-ring is overal
+`outline: 3px solid rgba(0, 85, 204, 0.65)` met `outline-offset: 2px`. Gemeten op de echte
+`vl-button`, `vl-link`, `vl-input-field` en `vl-datepicker`: alle vier identiek (3px/2px, kleur
+`rgba(0,85,204,0.65)` = flux-blauw #0055cc op 65%). VDS gebruikt daarentegen twee eigen mixins met
+rem-literals + een afwijkende kleur (`--base-border-focus-spacing-color` = #5990de).
+
+**Status (workaround actief):** consument-side overrides op alle flux-componenten die de VDS-focus-CSS
+naar de flux-doelwaarde brengen (bewust een afwijking van het "geen VDS-styling overriden"-principe,
+op expliciete vraag; geverifieerd met echte focus dat flux == vl voor button/link/input/datepicker).
+Kan weg zodra VDS de breedte/offset tokeniseert en de mixin de flux-kleur laat toe. TWEE VDS-mechanismen:
+- **outline-mixin** (`styles/mixins/focus`, gebruikt door input, link, textarea, checkbox, radio):
+  zichtbare gekleurde outline. Override = `outline-width: 3px; outline-offset: 2px`. Bij `flux-checkbox`
+  moest de VOLLE VDS-selector-specificiteit gematcht worden
+  (`:host(:focus) .vl-checkbox:not(.vl-checkbox--tile) .vl-checkbox__box`), anders won de VDS-regel.
+- **box-shadow-mixin** (`styles/common/focusMixin`, gebruikt door button, select, datepicker):
+  `box-shadow`-ring + een TRANSPARANTE outline. Een pure `outline-width/offset`-override doet hier NIKS
+  (de outline is transparent). Override = de outline zichtbaar maken én de box-shadow uit:
+  `outline-color: var(--base-border-focus-spacing-color); outline-width: 3px; outline-offset: 2px; box-shadow: none`.
+- **Kleur:** op elke flux-`:host` staat `--base-border-focus-spacing-color: rgba(0, 85, 204, 0.65)` zodat
+  de outline-kleur de flux-focus-kleur is i.p.v. de VDS-#5990de.
+- **NIET fixbaar: `flux-radio`.** De radios zijn `vds-radio`-kinderen in `flux-radio-group`; hun focus-CSS
+  zit in de encapsulated shadow van `vds-radio` en `VlRadio` wordt niet los geexporteerd, dus geen
+  `flux-radio` om te stylen en de group kan niet in de radio-shadow reiken. Blijft VDS-default (2px/0px).
+  Vergt upstream (tokeniseren of `VlRadio` exposen).
 
 ---
 
@@ -160,11 +176,31 @@ te klein/groot renderen en NIET door de tokencompensatie geraakt worden. Concree
   want de checkmark heeft een aparte vaste `font-size: 0.5rem` en de box-grid gaat mee schuiven.
 - `vl-radio`: de box is een hardgecodeerde `width/height: 1.125rem` **literal** (geen var,
   geen token), dus zelfs niet overschrijfbaar.
+- `vl-datepicker` (Cally-kalender): de dag-cel is een hardgecodeerde
+  `calendar-month::part(button) { width/height: 2.25rem }` **literal**, en de toggle-knop
+  `.vl-datepicker__toggle::part(toggle-button) { min-height: 2.5rem }`. De cel-PADDINGS eromheen
+  lopen wél via `--base-space-*` tokens (dus die worden wél gecompenseerd), waardoor je op de
+  62.5%-root geschaalde paddings rond te kleine 22.5px-cellen krijgt: een gedrongen kalender met
+  normaal-grote (16px) tekst in te kleine vakjes. Omdat de cel via `::part(button)` bereikbaar is,
+  is hier wél een consument-side override mogelijk (zie status).
+- `vl-icon`: de icoon-GROOTTE is een rauwe rem-literal die het scale-token NIET gebruikt:
+  `.vl-icon { font-size: 1rem }`, `.vl-icon--small { 0.8rem }`, `.vl-icon--large { 1.2rem }`.
+  Op de 10px-root rendert `--large` dus 12px i.p.v. de bedoelde ~19px. Dit is net het soort plek waar
+  de scale-aanpak zou moeten grijpen: idealiter `font-size: calc(var(--global-font-size-scaled-base) * 1.2)`.
+  Consument-side patchbaar (override met dezelfde calc); in de playground zit dat achter een aan/uit-toggle
+  op `flux-icon` (`:host([scaled])`) zodat het verschil 12px vs ~19px zichtbaar is. LET OP: dit fixt enkel
+  de GROOTTE, niet het glyph-verschil (dat is een aparte font-familienaam-collision, geen rem-issue).
 
 **Verzoek:** neem deze component-interne maat-rems mee in dezelfde rem-scale-aanpak (of expose
 ze als `--base-*`-token / CSS-var), zodat de radius wél maar de GROOTTE nu niet consument-side
 matchbaar is. De radius zelf is wel getokeniseerd (`--base-border-radius-container-2xs` voor de
 checkbox-box) en dus matchbaar; enkel de grootte hangt aan deze rem-literals.
+
+**Status (workaround actief):** op `flux-datepicker` staat een consument-side override die de
+kalender-dag-cel opschaalt naar de bedoelde grootte:
+`calendar-month::part(button) { width/height: calc(var(--global-font-size-scaled-base,1rem) * 2.25) }`
+(= 36px op de 10px-root). Bewust een afwijking van het "geen VDS-styling overriden"-principe, op
+expliciete vraag. Kan weg zodra VDS deze rem-literals mee schaalt of tokeniseert.
 
 ---
 
