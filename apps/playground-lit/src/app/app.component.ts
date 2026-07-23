@@ -12,7 +12,7 @@ import {
     VlSelectComponent,
     VlTextareaComponent,
 } from '@domg-wc/components/form';
-import { html, LitElement, TemplateResult } from 'lit';
+import { html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
 import '../flux-button.component';
@@ -89,6 +89,321 @@ const catCountLabel = (rs: OverrideRow[]): string => {
     return parts.join(' · ');
 };
 
+type GapLevel = 'none' | 'low' | 'mid' | 'high' | 'na';
+
+type GapDirection = { lvl: GapLevel; note: string };
+
+type ApiGapRow = {
+    vds: string;
+    flux: string | null;
+    base: string;
+    toFlux: GapDirection;
+    toVds: GapDirection;
+};
+
+const API_GAP_ROWS: ApiGapRow[] = [
+    {
+        vds: 'vl-button',
+        flux: 'flux-button',
+        base: 'VlElementWithAria / BaseLitElement',
+        toFlux: { lvl: 'mid', note: 'danger, success, size=small, loading-slots/parts, icon-slots, click(), delegatesFocus; variant/size/grow als enum' },
+        toVds: { lvl: 'mid', note: 'wide/narrow, toggle (on/controlled + vl-toggle), download, external, input-group' },
+    },
+    {
+        vds: 'vl-input',
+        flux: 'flux-input',
+        base: 'VlFormLayoutElement / FormControl',
+        toFlux: { lvl: 'high', note: 'hele layout-chrome (label, size, grow, annotation, indicator, message), clearable, loading, prefix/suffix-slots+parts' },
+        toVds: { lvl: 'low', note: 'min/max-exclusive, regex-validators, input-group (grotendeels consument-side)' },
+    },
+    {
+        vds: 'vl-textarea',
+        flux: 'flux-textarea',
+        base: 'VlFormLayoutElement / FormControl',
+        toFlux: { lvl: 'high', note: 'layout-chrome (zoals input) plus resize en footnote-slot' },
+        toVds: { lvl: 'mid', note: 'character-count (ingebouwde teller), rows, cols' },
+    },
+    {
+        vds: 'vl-select',
+        flux: 'flux-select',
+        base: 'VlFormLayoutElement / FormControl',
+        toFlux: { lvl: 'high', note: 'layout-chrome, selectedIndex, setCustomValidity, clear-button, data-alt-label, hug-width' },
+        toVds: { lvl: 'low', note: 'programmatisch options-model, not-deletable (inverse van VDS clearable)' },
+    },
+    {
+        vds: 'vl-datepicker',
+        flux: 'flux-datepicker',
+        base: 'VlFormLayoutElement / FormControl',
+        toFlux: { lvl: 'high', note: 'imperatieve API (open/close/goToDate), vl-open/close/focus/blur, locale, months, disabledDates, today/outside-days' },
+        toVds: { lvl: 'high', note: 'type=range, type=time, input-masking, am-pm, position, static, anchor-positioning' },
+    },
+    {
+        vds: 'vl-checkbox',
+        flux: 'flux-checkbox',
+        base: 'VlFormAssociatedElement / FormControl',
+        toFlux: { lvl: 'mid', note: 'readonly, loading, tile, default-checked, label-hidden, prefix/suffix/content-slots+parts' },
+        toVds: { lvl: 'mid', note: 'switch-variant (role=switch), block' },
+    },
+    {
+        vds: 'vl-radio-group',
+        flux: 'flux-radio-group',
+        base: 'VlFormLayoutElement / FormControl',
+        toFlux: { lvl: 'high', note: 'layout-chrome, tiles, roving-tabindex, group-vl-change, focus-routing, container/radios-parts' },
+        toVds: { lvl: 'low', note: 'block (concept = VDS grow=fill)' },
+    },
+    {
+        vds: 'vl-fieldset',
+        flux: 'flux-fieldset',
+        base: 'WithFormLayout(VlFormControlElement) / BaseLitElement',
+        toFlux: { lvl: 'high', note: 'flux mist de FormControl-laag volledig; plus state-propagatie naar kinderen, layout-chrome, parts' },
+        toVds: { lvl: 'mid', note: 'border, horizontal (grid), legend-classes, legende-klik-focust-eerste-control' },
+    },
+    {
+        vds: 'vl-icon',
+        flux: 'flux-icon',
+        base: 'VlElementWithAria / BaseLitElement',
+        toFlux: { lvl: 'mid', note: 'tag (wrapper), rotate, inline-SVG-slot, dev-warn, size als enum' },
+        toVds: { lvl: 'mid', note: 'left/right-margin, light (clickable is gedeprecieerd, niet naar VDS)' },
+    },
+    {
+        vds: 'vl-title',
+        flux: 'flux-title',
+        base: 'geen VDS-component / BaseLitElement',
+        toFlux: { lvl: 'na', note: 'geen VDS-title-component' },
+        toVds: { lvl: 'na', note: 'VDS levert enkel typografie-tokens; flux-title blijft een eigen component' },
+    },
+];
+
+const gapLevelBadge = (dir: GapDirection): TemplateResult => {
+    const map: Record<GapLevel, readonly [string, string, string]> = {
+        none: ['#57606a', '#eef1f4', 'geen'],
+        low: ['#1a7f37', '#e6f6ec', 'laag'],
+        mid: ['#9a6700', '#fff8e1', 'midden'],
+        high: ['#b3261e', '#fdecea', 'hoog'],
+        na: ['#6b7280', '#f0f1f2', 'n.v.t.'],
+    };
+    const [fg, bg, label] = map[dir.lvl];
+    return html`<span
+            style="color: ${fg}; background: ${bg}; padding: 1px 7px; border-radius: 10px; font-size: 11px; font-weight: 600; white-space: nowrap;"
+            >${label}</span
+        >${dir.note ? html`<div style="margin-top: 3px; color: #555;">${dir.note}</div>` : nothing}`;
+};
+
+type DetailStatus = 'vds' | 'flux' | 'shape';
+
+type ApiDetailCat = 'prop' | 'event' | 'method' | 'slot' | 'part' | 'gedrag';
+
+type ApiDetailRow = {
+    comp: string;
+    cat: ApiDetailCat;
+    feat: string;
+    vds: string;
+    flux: string;
+    status: DetailStatus;
+};
+
+const API_DETAIL_ROWS: ApiDetailRow[] = [
+    { comp: 'vl-button', cat: 'prop', feat: 'link-rendering als <a>', vds: 'href', flux: 'cta-link', status: 'shape' },
+    { comp: 'vl-button', cat: 'prop', feat: 'icoon voor/na label', vds: 'icon-before / icon-after', flux: 'icon + icon-placement', status: 'shape' },
+    { comp: 'vl-button', cat: 'prop', feat: 'variant', vds: 'variant enum (primary/secondary/tertiary/ghost)', flux: 'booleans secondary/tertiary/ghost', status: 'shape' },
+    { comp: 'vl-button', cat: 'prop', feat: 'size', vds: 'size enum (small/medium/large)', flux: 'large (geen small/medium)', status: 'shape' },
+    { comp: 'vl-button', cat: 'prop', feat: 'danger-styling', vds: 'danger', flux: 'nee (enkel error)', status: 'vds' },
+    { comp: 'vl-button', cat: 'prop', feat: 'success-styling', vds: 'success', flux: 'nee', status: 'vds' },
+    { comp: 'vl-button', cat: 'prop', feat: 'icon-only knop', vds: 'icon-button', flux: 'leeg slot + label', status: 'shape' },
+    { comp: 'vl-button', cat: 'prop', feat: 'grow', vds: 'grow enum (hug/fill)', flux: 'block (~fill)', status: 'shape' },
+    { comp: 'vl-button', cat: 'prop', feat: 'wide / narrow', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-button', cat: 'prop', feat: 'toggle-knop', vds: 'nee', flux: 'toggle / on / controlled', status: 'flux' },
+    { comp: 'vl-button', cat: 'prop', feat: 'download (op link)', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-button', cat: 'prop', feat: 'external (target + rel + icoon)', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-button', cat: 'prop', feat: 'input-group positionering', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-button', cat: 'event', feat: 'vl-click payload', vds: 'detail { originalEvent }', flux: 'geen detail', status: 'shape' },
+    { comp: 'vl-button', cat: 'event', feat: 'vl-toggle', vds: 'nee', flux: 'detail { on }', status: 'flux' },
+    { comp: 'vl-button', cat: 'method', feat: 'click()', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-button', cat: 'slot', feat: 'icon-before / icon-after', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-button', cat: 'slot', feat: 'loading-icon / loading-text', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-button', cat: 'part', feat: 'link', vds: 'nee (link is ook part=button)', flux: 'ja', status: 'flux' },
+    { comp: 'vl-button', cat: 'part', feat: 'icon', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-button', cat: 'part', feat: 'danger / success / loading', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-button', cat: 'gedrag', feat: 'delegatesFocus', vds: 'ja', flux: 'nee', status: 'vds' },
+
+    { comp: 'vl-input', cat: 'prop', feat: 'id-koppeling', vds: 'input-id', flux: 'id', status: 'shape' },
+    { comp: 'vl-input', cat: 'prop', feat: 'clearable (wis-knop)', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-input', cat: 'prop', feat: 'loading', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-input', cat: 'prop', feat: 'layout-chrome (size, annotation, indicator, metadata-hidden, label-hidden)', vds: 'ja (VlFormLayoutElement)', flux: 'nee', status: 'vds' },
+    { comp: 'vl-input', cat: 'prop', feat: 'grow (hug/fill)', vds: 'ja', flux: 'block', status: 'shape' },
+    { comp: 'vl-input', cat: 'prop', feat: 'melding-mechanisme', vds: 'intern (message-prop/slot)', flux: 'los vl-form-message (for + state)', status: 'shape' },
+    { comp: 'vl-input', cat: 'prop', feat: 'extra validators', vds: 'nee', flux: 'min-exclusive / max-exclusive / regex', status: 'flux' },
+    { comp: 'vl-input', cat: 'prop', feat: 'input-group', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-input', cat: 'prop', feat: 'blur-validation', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-input', cat: 'event', feat: 'vl-valid / vl-reset', vds: 'nee (native validity)', flux: 'ja', status: 'flux' },
+    { comp: 'vl-input', cat: 'method', feat: 'validity-getters + formResetCallback', vds: 'ja', flux: 'nee (deels, via mixin)', status: 'vds' },
+    { comp: 'vl-input', cat: 'slot', feat: 'prefix / suffix', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-input', cat: 'slot', feat: 'label / message / annotation / indicator', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-input', cat: 'part', feat: 'prefix / suffix / clear-button', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-input', cat: 'part', feat: 'container + chrome-parts', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-input', cat: 'gedrag', feat: 'wis-knop (leegt, herfocust, vl-change)', vds: 'ja', flux: 'nee', status: 'vds' },
+
+    { comp: 'vl-textarea', cat: 'prop', feat: 'resize (none/vertical/horizontal/both)', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-textarea', cat: 'prop', feat: 'loading + layout-chrome (size, annotation, indicator, metadata/label-hidden)', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-textarea', cat: 'prop', feat: 'grow (hug/fill)', vds: 'ja', flux: 'block', status: 'shape' },
+    { comp: 'vl-textarea', cat: 'prop', feat: 'character-count (ingebouwde teller)', vds: 'nee (footnote-slot)', flux: 'ja', status: 'flux' },
+    { comp: 'vl-textarea', cat: 'prop', feat: 'rows / cols', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-textarea', cat: 'prop', feat: 'blur-validation', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-textarea', cat: 'event', feat: 'vl-input', vds: 'nee (enkel vl-change)', flux: 'ja', status: 'flux' },
+    { comp: 'vl-textarea', cat: 'event', feat: 'vl-valid / vl-reset', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-textarea', cat: 'slot', feat: 'footnote', vds: 'ja', flux: 'nee (ingebouwde teller)', status: 'vds' },
+    { comp: 'vl-textarea', cat: 'slot', feat: 'label / message / annotation / indicator', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-textarea', cat: 'part', feat: 'footnote + chrome-parts', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-textarea', cat: 'gedrag', feat: 'tekentelling met aria-live', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-textarea', cat: 'gedrag', feat: 'Enter submit uitgezet (submitFormOnEnter=false)', vds: 'n.v.t.', flux: 'ja', status: 'flux' },
+
+    { comp: 'vl-select', cat: 'prop', feat: 'id-koppeling', vds: 'input-id', flux: 'id', status: 'shape' },
+    { comp: 'vl-select', cat: 'prop', feat: 'loading + layout-chrome', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-select', cat: 'prop', feat: 'zichtbaar label', vds: 'label-prop + slot', flux: 'enkel aria-label', status: 'shape' },
+    { comp: 'vl-select', cat: 'prop', feat: 'grow (hug/fill)', vds: 'ja', flux: 'block', status: 'shape' },
+    { comp: 'vl-select', cat: 'prop', feat: 'wisbaar', vds: 'clearable (opt-in)', flux: 'not-deletable (opt-out)', status: 'shape' },
+    { comp: 'vl-select', cat: 'prop', feat: 'options programmatisch', vds: 'nee (geslotte <option>)', flux: 'options / initial-options', status: 'flux' },
+    { comp: 'vl-select', cat: 'prop', feat: 'blur-validation', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-select', cat: 'event', feat: 'per-toets event', vds: 'native input re-dispatch', flux: 'vl-input', status: 'shape' },
+    { comp: 'vl-select', cat: 'event', feat: 'vl-valid / vl-reset', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-select', cat: 'method', feat: 'setCustomValidity', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-select', cat: 'method', feat: 'selectedValue / selectedIndex / selectedOptions', vds: 'ja', flux: 'nee (options-model)', status: 'vds' },
+    { comp: 'vl-select', cat: 'slot', feat: 'label / message / annotation / indicator', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-select', cat: 'part', feat: 'select / clear-button', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-select', cat: 'part', feat: 'container + chrome-parts', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-select', cat: 'gedrag', feat: 'data-alt-label (korte label in trigger)', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-select', cat: 'gedrag', feat: 'hug-width (auto-breedte naar langste optie)', vds: 'ja', flux: 'nee', status: 'vds' },
+
+    { comp: 'vl-datepicker', cat: 'prop', feat: 'id-koppeling', vds: 'input-id', flux: 'id', status: 'shape' },
+    { comp: 'vl-datepicker', cat: 'prop', feat: 'loading + layout-chrome', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-datepicker', cat: 'prop', feat: 'grow (hug/fill)', vds: 'ja', flux: 'block', status: 'shape' },
+    { comp: 'vl-datepicker', cat: 'prop', feat: 'min/max grens', vds: 'min / max', flux: 'min-date / max-date', status: 'shape' },
+    { comp: 'vl-datepicker', cat: 'prop', feat: 'type (range / time / date-time)', vds: 'nee (single date)', flux: 'ja', status: 'flux' },
+    { comp: 'vl-datepicker', cat: 'prop', feat: 'min-time / max-time / am-pm', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-datepicker', cat: 'prop', feat: 'display-format', vds: 'locale-gedreven Intl', flux: 'format-tokens (flatpickr)', status: 'shape' },
+    { comp: 'vl-datepicker', cat: 'prop', feat: 'locale / first-day-of-week', vds: 'ja', flux: 'nee (hardcoded nl)', status: 'vds' },
+    { comp: 'vl-datepicker', cat: 'prop', feat: 'months (meerdere naast elkaar)', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-datepicker', cat: 'prop', feat: 'disabledDates', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-datepicker', cat: 'prop', feat: 'outside-days-hidden / today-button-hidden', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-datepicker', cat: 'prop', feat: 'position / static / anchor-positioning', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-datepicker', cat: 'prop', feat: 'pattern / raw-value / disable-mask-validation', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-datepicker', cat: 'event', feat: 'vl-change payload', vds: 'detail { value: Date, formattedValue }', flux: 'detail { value: ISO }', status: 'shape' },
+    { comp: 'vl-datepicker', cat: 'event', feat: 'vl-open / vl-close / vl-focus / vl-blur', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-datepicker', cat: 'event', feat: 'vl-valid / vl-reset', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-datepicker', cat: 'method', feat: 'open() / close() / clear()', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-datepicker', cat: 'method', feat: 'goToDate / goToToday / goToPrevious/NextMonth', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-datepicker', cat: 'method', feat: 'setCustomValidity', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-datepicker', cat: 'method', feat: 'getRawValue / getDates', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-datepicker', cat: 'slot', feat: 'label / message / annotation / indicator', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-datepicker', cat: 'slot', feat: 'error-message / suffix', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-datepicker', cat: 'part', feat: 'input / toggle-button / calendar / input-wrapper', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-datepicker', cat: 'gedrag', feat: 'kalender-lib', vds: 'Cally', flux: 'flatpickr', status: 'shape' },
+    { comp: 'vl-datepicker', cat: 'gedrag', feat: 'input-masking tijdens typen', vds: 'nee', flux: 'ja (cleave.js)', status: 'flux' },
+    { comp: 'vl-datepicker', cat: 'gedrag', feat: '"Vandaag"-shortcut + meerdere maanden', vds: 'ja', flux: 'nee', status: 'vds' },
+
+    { comp: 'vl-checkbox', cat: 'prop', feat: 'value', vds: 'defaultValue (attr value)', flux: 'value', status: 'shape' },
+    { comp: 'vl-checkbox', cat: 'prop', feat: 'label-mechanisme', vds: 'prop in shadow gerenderd', flux: 'default-slot (prop = aria-label)', status: 'shape' },
+    { comp: 'vl-checkbox', cat: 'prop', feat: 'id-koppeling', vds: 'input-id', flux: 'id (auto)', status: 'shape' },
+    { comp: 'vl-checkbox', cat: 'prop', feat: 'readonly', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-checkbox', cat: 'prop', feat: 'loading', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-checkbox', cat: 'prop', feat: 'tile (kaart-layout)', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-checkbox', cat: 'prop', feat: 'label-hidden', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-checkbox', cat: 'prop', feat: 'default-checked (reset-waarde)', vds: 'ja', flux: 'nee (intern snapshot)', status: 'vds' },
+    { comp: 'vl-checkbox', cat: 'prop', feat: 'grow (hug/fill)', vds: 'ja', flux: 'block', status: 'shape' },
+    { comp: 'vl-checkbox', cat: 'prop', feat: 'switch-variant (role=switch)', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-checkbox', cat: 'prop', feat: 'blur-validation', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-checkbox', cat: 'event', feat: 'vl-change payload', vds: 'detail { value, checked }', flux: 'detail { checked, value?, currentTarget }', status: 'shape' },
+    { comp: 'vl-checkbox', cat: 'event', feat: 'vl-input', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-checkbox', cat: 'event', feat: 'vl-valid', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-checkbox', cat: 'slot', feat: 'prefix / suffix / content', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-checkbox', cat: 'part', feat: 'input / checkbox / label / tile / prefix / suffix / content', vds: 'ja', flux: 'nee', status: 'vds' },
+
+    { comp: 'vl-radio-group', cat: 'prop', feat: 'id-koppeling', vds: 'input-id', flux: 'id', status: 'shape' },
+    { comp: 'vl-radio-group', cat: 'prop', feat: 'label-render', vds: 'zichtbaar', flux: 'visually-hidden legend', status: 'shape' },
+    { comp: 'vl-radio-group', cat: 'prop', feat: 'loading + layout-chrome (annotation, indicator, size, metadata/label-hidden)', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-radio-group', cat: 'prop', feat: 'grow (hug/fill)', vds: 'ja', flux: 'block', status: 'shape' },
+    { comp: 'vl-radio-group', cat: 'prop', feat: 'tiles', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-radio-group', cat: 'prop', feat: 'blur-validation', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-radio-group', cat: 'event', feat: 'vl-change op groepsniveau', vds: 'ja', flux: 'nee (niet her-dispatcht)', status: 'vds' },
+    { comp: 'vl-radio-group', cat: 'event', feat: 'native input (form-compatibel)', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-radio-group', cat: 'event', feat: 'vl-valid / vl-reset', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-radio-group', cat: 'method', feat: 'focus() (routeert naar checked/eerste enabled)', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-radio-group', cat: 'slot', feat: 'label / message / annotation / indicator', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-radio-group', cat: 'part', feat: 'container / radios', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-radio-group', cat: 'gedrag', feat: 'roving tabindex (expliciet 0/-1)', vds: 'ja', flux: 'nee (delegatesFocus)', status: 'vds' },
+    { comp: 'vl-radio-group', cat: 'gedrag', feat: 'state-propagatie met author-override-tracking', vds: 'ja (grondig)', flux: 'ja (simpeler)', status: 'shape' },
+    { comp: 'vl-radio-group', cat: 'gedrag', feat: 'vl-radio: event-model', vds: 'group dispatcht change', flux: 'radio dispatcht zelf', status: 'shape' },
+    { comp: 'vl-radio-group', cat: 'gedrag', feat: 'vl-radio: a11y-model', vds: 'custom role=radio', flux: 'native <input type=radio>', status: 'shape' },
+    { comp: 'vl-radio-group', cat: 'prop', feat: 'vl-radio: tile / grow', vds: 'ja / enum', flux: 'nee / block', status: 'shape' },
+    { comp: 'vl-radio-group', cat: 'prop', feat: 'vl-radio: readonly', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-radio-group', cat: 'slot', feat: 'vl-radio: prefix / suffix / content', vds: 'ja', flux: 'nee', status: 'vds' },
+
+    { comp: 'vl-fieldset', cat: 'gedrag', feat: 'base-laag', vds: 'WithFormLayout(VlFormControlElement)', flux: 'BaseLitElement (geen FormControl)', status: 'shape' },
+    { comp: 'vl-fieldset', cat: 'prop', feat: 'groepslabel', vds: 'label-prop + slot label', flux: 'slot legend + legend-classes', status: 'shape' },
+    { comp: 'vl-fieldset', cat: 'prop', feat: 'disabled/error/success/readonly/loading (+ propagatie)', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-fieldset', cat: 'prop', feat: 'layout-chrome (annotation, indicator, message, size, grow, metadata/label-hidden)', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-fieldset', cat: 'prop', feat: 'validation-/disabled-propagation-blocked', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-fieldset', cat: 'prop', feat: 'border (kader)', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-fieldset', cat: 'prop', feat: 'horizontal (grid-layout)', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-fieldset', cat: 'prop', feat: 'legend-classes', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-fieldset', cat: 'method', feat: 'propagateStateToChildren / slottedElements', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-fieldset', cat: 'slot', feat: 'message / annotation / indicator', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-fieldset', cat: 'part', feat: 'fieldset / label / content / message / annotation / indicator', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-fieldset', cat: 'gedrag', feat: 'state-propagatie naar slotted kinderen', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-fieldset', cat: 'gedrag', feat: 'legende-klik focust eerste control', vds: 'nee', flux: 'ja', status: 'flux' },
+
+    { comp: 'vl-icon', cat: 'prop', feat: 'icon-validatie', vds: 'reflect + dev-warn tegen enum', flux: 'getypeerd, geen runtime-check', status: 'shape' },
+    { comp: 'vl-icon', cat: 'prop', feat: 'size', vds: 'enum (small/medium/large)', flux: 'booleans small / large', status: 'shape' },
+    { comp: 'vl-icon', cat: 'prop', feat: 'tag (wrapper i/span/div/p)', vds: 'ja', flux: 'nee (altijd span)', status: 'vds' },
+    { comp: 'vl-icon', cat: 'prop', feat: 'rotated-half / rotated-full', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-icon', cat: 'prop', feat: 'toegankelijk label', vds: 'native aria-label (delegatie)', flux: 'label-prop naar aria-label', status: 'shape' },
+    { comp: 'vl-icon', cat: 'prop', feat: 'left-margin / right-margin', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-icon', cat: 'prop', feat: 'light (kleurvariant)', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-icon', cat: 'prop', feat: 'clickable (gedeprecieerd)', vds: 'nee', flux: 'ja', status: 'flux' },
+    { comp: 'vl-icon', cat: 'slot', feat: 'default (inline SVG custom icoon)', vds: 'ja', flux: 'nee (enkel font-glyph)', status: 'vds' },
+    { comp: 'vl-icon', cat: 'gedrag', feat: 'dev-warn bij ongeldige icon', vds: 'ja', flux: 'nee', status: 'vds' },
+    { comp: 'vl-icon', cat: 'gedrag', feat: 'wrapper-tag-validatie', vds: 'ja', flux: 'nee', status: 'vds' },
+
+    { comp: 'vl-title', cat: 'prop', feat: 'volledige component (type, appearance, underline, alt, no-space-bottom)', vds: 'geen VDS-component (enkel typografie-tokens)', flux: 'ja', status: 'flux' },
+];
+
+const detailStatusBadge = (status: DetailStatus): TemplateResult => {
+    const map: Record<DetailStatus, readonly [string, string, string]> = {
+        vds: ['#0055cc', '#eef6ff', 'enkel VDS'],
+        flux: ['#9a6700', '#fff8e1', 'enkel flux'],
+        shape: ['#8250df', '#f3eefb', 'andere shape/naam'],
+    };
+    const [fg, bg, label] = map[status];
+    return html`<span
+        style="color: ${fg}; background: ${bg}; padding: 1px 7px; border-radius: 10px; font-size: 11px; font-weight: 600; white-space: nowrap;"
+        >${label}</span
+    >`;
+};
+
+const detailCatLabel: Record<ApiDetailCat, string> = {
+    prop: 'property',
+    event: 'event',
+    method: 'method',
+    slot: 'slot',
+    part: 'part',
+    gedrag: 'gedrag',
+};
+
+// Zet een aanwezigheids-cel ('ja' / 'nee', eventueel met toelichting tussen haakjes)
+// om naar een groene checkmark of rode kruis-icon, met de resterende tekst ernaast.
+const renderPresence = (value: string): TemplateResult => {
+    const trimmed = value.trim();
+    const check = html`<span role="img" aria-label="ja" style="color: #1a7f37; font-weight: 700;">✓</span>`;
+    const cross = html`<span role="img" aria-label="nee" style="color: #b3261e; font-weight: 700;">✗</span>`;
+    const lead = trimmed.match(/^(ja|nee)(?![a-z])/i);
+    if (lead) {
+        const icon = lead[1].toLowerCase() === 'ja' ? check : cross;
+        const rest = trimmed.slice(lead[1].length).trim();
+        return rest ? html`${icon} <span style="color: #555;">${rest}</span>` : icon;
+    }
+    return html`<span style="color: #555;">${trimmed}</span>`;
+};
+
 const vdsFrame = (demo: string, height: number, width: string = '100%'): TemplateResult =>
     html`<iframe
         src="/vds-frame.html?demo=${demo}"
@@ -146,6 +461,61 @@ const renderPatchNotes = (rows: OverrideRow[], subject: TemplateResult | string)
     `;
 };
 
+const API_DETAIL_INLINED_TAGS = ['vl-button', 'vl-input', 'vl-datepicker', 'vl-checkbox', 'vl-select', 'vl-radio-group', 'vl-icon', 'vl-textarea', 'vl-fieldset', 'vl-title'];
+
+const renderApiDetailAccordion = (vdsTag: string): TemplateResult => {
+    const rows = API_DETAIL_ROWS.filter((r) => r.comp === vdsTag);
+    if (!rows.length) {
+        return html``;
+    }
+    const fluxTag = API_GAP_ROWS.find((c) => c.vds === vdsTag)?.flux ?? null;
+    const v = rows.filter((r) => r.status === 'vds').length;
+    const f = rows.filter((r) => r.status === 'flux').length;
+    const s = rows.filter((r) => r.status === 'shape').length;
+    const th = 'text-align: left; padding: 5px 10px; border-bottom: 2px solid #cbd2d9; font-size: 11px;';
+    const td = 'padding: 5px 10px; border-bottom: 1px solid #eaecef; font-size: 12px; vertical-align: top;';
+    return html`
+        <details
+            style="border: 1px solid #e1e4e8; border-radius: 6px; margin: 0 0 20px; padding: 0 12px; max-width: 900px; background: #fbfcfd;"
+        >
+            <summary
+                style="cursor: pointer; font-weight: 600; padding: 8px 4px; font-size: 13px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap;"
+            >
+                <span
+                    >API-gap: welke publieke API wijkt af tussen <code>${vdsTag}</code> en
+                    ${fluxTag ? html`<code>${fluxTag}</code>` : 'flux'}</span
+                >
+                <span style="font-weight: 400; color: #6b7280; font-size: 12px;">
+                    ${rows.length} ${rows.length === 1 ? 'afwijking' : 'afwijkingen'} (${v} enkel-VDS ·
+                    ${f} enkel-flux · ${s} andere shape/naam)
+                </span>
+            </summary>
+            <table style="border-collapse: collapse; width: 100%; margin: 4px 0 12px;">
+                <thead>
+                    <tr>
+                        <th scope="col" style="${th}">Type</th>
+                        <th scope="col" style="${th}">Functionaliteit</th>
+                        <th scope="col" style="${th}">VDS</th>
+                        <th scope="col" style="${th}">flux</th>
+                        <th scope="col" style="${th}">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${rows.map(
+                        (r) => html`<tr>
+                            <td style="${td} color: #6b7280;">${detailCatLabel[r.cat]}</td>
+                            <td style="${td}">${r.feat}</td>
+                            <td style="${td}">${renderPresence(r.vds)}</td>
+                            <td style="${td}">${renderPresence(r.flux)}</td>
+                            <td style="${td}">${detailStatusBadge(r.status)}</td>
+                        </tr>`
+                    )}
+                </tbody>
+            </table>
+        </details>
+    `;
+};
+
 @customElement('app-component')
 export class AppComponent extends LitElement {
     @state()
@@ -153,6 +523,9 @@ export class AppComponent extends LitElement {
 
     @state()
     private overridesOff = false;
+
+    @state()
+    private gapsOff = false;
 
     static {
         registerWebComponents([
@@ -199,7 +572,49 @@ export class AppComponent extends LitElement {
                 ${cell('flux · erft VDS + tokens', '#0055cc', flux)}
                 ${cell('vl · echte flux', '#6b7280', vl)}
             </div>
-            ${patches && patches.length ? renderPatchNotes(patches, html`<code>flux-${name}</code>`) : ''}
+            ${this.gapsOff
+                ? nothing
+                : html`${patches && patches.length
+                      ? renderPatchNotes(patches, html`<code>flux-${name}</code>`)
+                      : ''}
+                  ${renderApiDetailAccordion(`vl-${name}`)}`}
+        `;
+    }
+
+    private renderTitleVariant(): TemplateResult {
+        const cell = (label: string, color: string, content: TemplateResult) => html`
+            <div style="border: 1px dashed #d0d7de; border-radius: 6px; padding: 12px;">
+                <div style="font-size: 12px; color: ${color}; margin-bottom: 8px; font-weight: 600;">
+                    ${label}
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 6px; align-items: flex-start;">
+                    ${content}
+                </div>
+            </div>
+        `;
+        const note = (text: string) => html`<span style="font-size: 12px; color: #6b7280;">${text}</span>`;
+        return html`
+            <div style="font-weight: 600; margin: 6px 0;">title</div>
+            <div
+                style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 960px; margin-bottom: 8px;"
+            >
+                ${cell(
+                    'vds · rauw VDS',
+                    '#0055cc',
+                    note('Geen VDS title-component: VDS levert enkel typografie-tokens, geen web-component.')
+                )}
+                ${cell(
+                    'flux · erft VDS + tokens',
+                    '#0055cc',
+                    note('Geen flux-title-adapter: er is geen VDS-component om onderliggend te erven.')
+                )}
+                ${cell(
+                    'vl · echte flux',
+                    '#6b7280',
+                    html`<vl-title type="h3">Titel h3</vl-title><vl-title type="h4">Titel h4</vl-title>`
+                )}
+            </div>
+            ${this.gapsOff ? nothing : renderApiDetailAccordion('vl-title')}
         `;
     }
 
@@ -367,6 +782,127 @@ export class AppComponent extends LitElement {
                             </tbody>
                         </table>
                     </details>
+                </div>
+            </section>
+        `;
+    }
+
+    private renderApiGaps(): TemplateResult {
+        const rows = API_GAP_ROWS;
+        const th = 'text-align: left; padding: 6px 10px; border-bottom: 2px solid #cbd2d9; font-size: 12px;';
+        const td = 'padding: 6px 10px; border-bottom: 1px solid #eaecef; font-size: 12px; vertical-align: top;';
+        const summaryStyle = 'cursor: pointer; font-weight: 600; padding: 8px 4px; font-size: 14px;';
+        return html`
+            <section class="vl-section" aria-label="API en functionaliteit gap-analyse VDS flux">
+                <div class="vl-content-block vl-content-block--full-width">
+                    <vl-title type="h2">API-gap: functionaliteit (los van styling)</vl-title>
+                    <p>
+                        Per-component vergelijking van de <b>publieke API en het gedrag</b> (properties,
+                        events, methods, slots, parts) tussen de VDS-componenten en onze flux-componenten.
+                        Dit staat los van de styling/token-pariteit (die zit in de
+                        <code>Lokale overrides</code>-sectie hierboven en in
+                        <code>VDS-UPSTREAM-REQUESTS.md</code>). De volledige rij-per-rij tabellen staan in
+                        <code>FLUX-704-API-GAPS.md</code>; dit is de samenvatting per component.
+                    </p>
+                    <p style="font-size: 13px;">
+                        <b>Kernpatroon:</b> de flux form-velden erven van <code>FormControl</code>
+                        (<code>@open-wc/form-control</code>), de VDS form-velden van
+                        <code>VlFormLayoutElement</code>. Die VDS-keten bundelt label, annotation, indicator,
+                        message, size en grow met hun slots en parts. Zodra een <code>flux-*</code> component
+                        effectief van de VDS-klasse erft, valt dat hele pakket
+                        <b>grotendeels gratis</b> binnen. De echte keuzes zitten in de rijen met een andere
+                        shape/naam (bv. enum <code>size</code> vs losse booleans, <code>grow=fill</code> vs
+                        <code>block</code>, <code>input-id</code> vs <code>id</code>) en in de
+                        <code>enkel-flux</code>-functionaliteit (upstream-request of in de derivative houden).
+                    </p>
+                    <p style="font-size: 12px; color: #57606a;">
+                        De twee richting-kolommen tonen per component <b>in welke mate</b> er een gap is, en
+                        naar welke kant. <b>flux moet overnemen</b> = functionaliteit die enkel in VDS zit
+                        (via overerving/derivative of flux-API uitbreiden). <b>upstream vragen bij VDS</b> =
+                        functionaliteit die enkel bij flux zit (feature-request bij VDS, of bewust in onze
+                        derivative houden). Niveau-legende: ${gapLevelBadge({ lvl: 'none', note: '' })}
+                        ${gapLevelBadge({ lvl: 'low', note: '' })} ${gapLevelBadge({ lvl: 'mid', note: '' })}
+                        ${gapLevelBadge({ lvl: 'high', note: '' })} ${gapLevelBadge({ lvl: 'na', note: '' })}
+                    </p>
+                    <details>
+                        <summary style="${summaryStyle}">Samenvatting per component (${rows.length})</summary>
+                        <div style="overflow-x: auto;">
+                            <table style="border-collapse: collapse; width: 100%; max-width: 1040px;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="${th}">VDS-component</th>
+                                        <th scope="col" style="${th}">flux-component</th>
+                                        <th scope="col" style="${th}">Base-klasse (VDS / flux)</th>
+                                        <th scope="col" style="${th}">
+                                            flux moet overnemen<br /><span style="font-weight: 400; color: #6b7280;"
+                                                >enkel in VDS</span
+                                            >
+                                        </th>
+                                        <th scope="col" style="${th}">
+                                            upstream vragen bij VDS<br /><span
+                                                style="font-weight: 400; color: #6b7280;"
+                                                >enkel in flux</span
+                                            >
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${rows.map(
+                                        (r) => html`<tr>
+                                            <td style="${td}"><code>${r.vds}</code></td>
+                                            <td style="${td}">
+                                                ${r.flux ? html`<code>${r.flux}</code>` : '—'}
+                                            </td>
+                                            <td style="${td} color: #555;">${r.base}</td>
+                                            <td style="${td} width: 27%;">${gapLevelBadge(r.toFlux)}</td>
+                                            <td style="${td} width: 27%;">${gapLevelBadge(r.toVds)}</td>
+                                        </tr>`
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                </div>
+            </section>
+        `;
+    }
+
+    private renderApiGapDetails(): TemplateResult {
+        const total = API_DETAIL_ROWS.length;
+        const nVds = API_DETAIL_ROWS.filter((r) => r.status === 'vds').length;
+        const nFlux = API_DETAIL_ROWS.filter((r) => r.status === 'flux').length;
+        const nShape = API_DETAIL_ROWS.filter((r) => r.status === 'shape').length;
+        const orphans = API_GAP_ROWS.filter(
+            (c) => !API_DETAIL_INLINED_TAGS.includes(c.vds) && API_DETAIL_ROWS.some((r) => r.comp === c.vds)
+        );
+        return html`
+            <section class="vl-section" aria-label="API-gap detail legende en overige componenten">
+                <div class="vl-content-block vl-content-block--full-width">
+                    <vl-title type="h2">API-gap: detail per component (welke API wijkt af)</vl-title>
+                    <p>
+                        Per component een uitklapbare lijst van elke publieke API die <b>niet 1-op-1
+                        overeenkomt</b> tussen VDS en flux (rijen die volledig gelijk zijn, staan er bewust
+                        niet in). De detail-accordions staan <b>inline onder hun component-voorbeeld</b> in de
+                        sectie "Drie varianten naast elkaar" hieronder (net als de token-patch-lijsten). Hier
+                        staat de legende plus de totalen. Volledige onderbouwing (ook de overlap-rijen) staat
+                        in <code>FLUX-704-API-GAPS.md</code>.
+                    </p>
+                    <p style="font-size: 12px; color: #57606a;">
+                        Status: ${detailStatusBadge('vds')} = zit enkel in VDS (flux moet overnemen via
+                        overerving/derivative) · ${detailStatusBadge('flux')} = zit enkel in flux
+                        (upstream-request bij VDS, of in onze derivative houden) · ${detailStatusBadge('shape')}
+                        = in beide aanwezig maar met een andere attribuut-naam, API-shape of mechanisme (af te
+                        stemmen). Totaal ${total} afwijkingen over alle componenten: ${nVds} enkel-VDS ·
+                        ${nFlux} enkel-flux · ${nShape} andere shape/naam.
+                    </p>
+                    ${orphans.length
+                        ? html`
+                              <p style="font-size: 13px; font-weight: 600; margin-top: 12px;">
+                                  Componenten zonder los voorbeeld
+                              </p>
+                              ${orphans.map((c) => renderApiDetailAccordion(c.vds))}
+                          `
+                        : nothing}
                 </div>
             </section>
         `;
@@ -583,7 +1119,10 @@ export class AppComponent extends LitElement {
                         <flux-icon icon="calendar" size="medium"></flux-icon> medium ·
                         <flux-icon icon="calendar" size="large"></flux-icon> large
                     </p>
-                    ${renderPatchNotes(patchesFor('flux-icon'), html`<code>flux-icon</code>`)}
+                    ${this.gapsOff
+                        ? nothing
+                        : html`${renderPatchNotes(patchesFor('flux-icon'), html`<code>flux-icon</code>`)}
+                          ${renderApiDetailAccordion('vl-icon')}`}
                 </div>
             </section>
         `;
@@ -657,9 +1196,29 @@ export class AppComponent extends LitElement {
                         <code>defineAll('vds')</code>. flux <code>vl-*</code> en VDS
                         <code>vds-*</code> leven samen op één pagina zonder registry-collision.
                     </p>
+                    <label
+                        title="Toon of verberg alle gap-analyse (token-overrides + API-gaps), globaal en inline onder elk voorbeeld"
+                        style="display: inline-flex; align-items: center; gap: 8px;
+                               padding: 8px 14px; border-radius: 999px; cursor: pointer;
+                               font-size: 13px; font-weight: 600; user-select: none;
+                               border: 1px solid ${this.gapsOff ? '#cbd2d9' : '#99c2ff'};
+                               background: ${this.gapsOff ? '#f4f6f8' : '#ffffff'};
+                               color: ${this.gapsOff ? '#57606a' : '#0055cc'};"
+                    >
+                        <input
+                            type="checkbox"
+                            .checked=${!this.gapsOff}
+                            @change=${(e: Event) => (this.gapsOff = !(e.target as HTMLInputElement).checked)}
+                        />
+                        ${this.gapsOff ? 'Gap-analyse: uit' : 'Gap-analyse tonen (token + API)'}
+                    </label>
                 </div>
 
-                ${this.renderIntegrationStatus()} ${this.renderOverridesList()}
+                ${this.renderIntegrationStatus()}
+                ${this.gapsOff
+                    ? nothing
+                    : html`${this.renderOverridesList()} ${this.renderApiGaps()}
+                      ${this.renderApiGapDetails()}`}
 
                 <section class="vl-section" aria-label="Componenten in drie varianten">
                     <div class="vl-content-block vl-content-block--full-width">
@@ -803,6 +1362,32 @@ export class AppComponent extends LitElement {
                                 </vl-radio-group>`,
                             patchesFor('fluxLook', 'flux-radio-group')
                         )}
+                        ${this.renderVariantRow(
+                            'textarea',
+                            vdsFrame('textarea', 130),
+                            html`<flux-textarea label="Bericht" placeholder="flux-textarea"></flux-textarea>`,
+                            html`<vl-form-label block for="cmp-vl-textarea" label="Bericht"></vl-form-label
+                                ><vl-textarea
+                                    id="cmp-vl-textarea"
+                                    aria-label="Bericht"
+                                    placeholder="flux"
+                                ></vl-textarea>`,
+                            patchesFor('fluxLook', 'flux-textarea')
+                        )}
+                        ${this.renderVariantRow(
+                            'fieldset',
+                            vdsFrame('fieldset', 150),
+                            html`<flux-fieldset label="Voorkeuren">
+                                <flux-checkbox label="Sport" checked></flux-checkbox>
+                                <flux-checkbox label="Cultuur"></flux-checkbox>
+                            </flux-fieldset>`,
+                            html`<vl-fieldset>
+                                <span slot="legend">Voorkeuren</span>
+                                <vl-checkbox checked>Sport</vl-checkbox>
+                                <vl-checkbox>Cultuur</vl-checkbox>
+                            </vl-fieldset>`
+                        )}
+                        ${this.renderTitleVariant()}
                     </div>
                 </section>
 
@@ -972,7 +1557,9 @@ export class AppComponent extends LitElement {
                                 <pre style="margin: 8px 0 0; padding: 10px 12px; background: #f6f8fa; border: 1px solid #e1e4e8; border-radius: 6px; font-size: 12px; line-height: 1.5; overflow: auto;">${stackFlux}</pre>
                             </div>
                         </div>
-                        ${renderPatchNotes(patchesFor('flux-button'), html`de <code>flux-button</code> in deze layout`)}
+                        ${this.gapsOff
+                            ? nothing
+                            : renderPatchNotes(patchesFor('flux-button'), html`de <code>flux-button</code> in deze layout`)}
                     </div>
                 </section>
 
@@ -1013,18 +1600,20 @@ export class AppComponent extends LitElement {
                                 <vl-form-demo></vl-form-demo>
                             </div>
                         </div>
-                        ${renderPatchNotes(
-                            patchesFor(
-                                'fluxLook',
-                                'flux-button',
-                                'flux-input',
-                                'flux-select',
-                                'flux-checkbox',
-                                'flux-textarea',
-                                'flux-datepicker'
-                            ),
-                            html`de <code>flux-*</code> formvelden`
-                        )}
+                        ${this.gapsOff
+                            ? nothing
+                            : renderPatchNotes(
+                                  patchesFor(
+                                      'fluxLook',
+                                      'flux-button',
+                                      'flux-input',
+                                      'flux-select',
+                                      'flux-checkbox',
+                                      'flux-textarea',
+                                      'flux-datepicker'
+                                  ),
+                                  html`de <code>flux-*</code> formvelden`
+                              )}
                     </div>
                 </section>
 
