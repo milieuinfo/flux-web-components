@@ -59,10 +59,11 @@ pipeline {
                 stage('Build & test') {
                     steps {
                         container('cypress') {
-                            sh 'npm ci'
-                            sh 'npm run libs:build'
-                            // CI=true laat de jest-configs ook JUnit XML schrijven naar test-results/
-                            sh 'CI=true npm run libs:jest'
+                            sh './resources/ci-bamboo/bash/build-apps-and-libs.sh'
+                            // sh 'npm ci'
+                            // sh 'npm run libs:build'
+                            // // CI=true laat de jest-configs ook JUnit XML schrijven naar test-results/
+                            // sh 'CI=true npm run libs:jest'
                         }
                     }
                     post {
@@ -71,26 +72,26 @@ pipeline {
                         }
                     }
                 }
-                stage('GitHub publish PoC') {
-                    steps {
-                        container('cypress') {
-                            withCredentials([usernamePassword(
-                                    credentialsId: 'github',
-                                    usernameVariable: 'GH_USER',
-                                    passwordVariable: 'GITHUB_TOKEN'
-                            )]) {
-                                sh '''
-                                    git config --global --add safe.directory "$WORKSPACE"
-                                    git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@${GIT_URL#https://}"
-                                    git fetch --unshallow || git fetch --prune
-                                    git fetch --tags --force
-                                '''
-                                // --dry-run !
-                                sh 'npx semantic-release --dry-run --no-ci --extends ./resources/ci-jenkins/github-publish-poc.releaserc.cjs'
-                            }
-                        }
-                    }
-                }
+//                stage('GitHub publish PoC') {
+//                    steps {
+//                        container('cypress') {
+//                            withCredentials([usernamePassword(
+//                                    credentialsId: 'github',
+//                                    usernameVariable: 'GH_USER',
+//                                    passwordVariable: 'GITHUB_TOKEN'
+//                            )]) {
+//                                sh '''
+//                                    git config --global --add safe.directory "$WORKSPACE"
+//                                    git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@${GIT_URL#https://}"
+//                                    git fetch --unshallow || git fetch --prune
+//                                    git fetch --tags --force
+//                                '''
+//                                // --dry-run !
+//                                sh 'npx semantic-release --dry-run --no-ci --extends ./resources/ci-jenkins/github-publish-poc.releaserc.cjs'
+//                            }
+//                        }
+//                    }
+//                }
             }
         }
     }
