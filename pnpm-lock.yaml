@@ -309,6 +309,9 @@ importers:
       storybook-addon-swc:
         specifier: 1.2.0
         version: 1.2.0(@swc/core@1.7.11(@swc/helpers@0.5.12))(terser-webpack-plugin@5.3.11(@swc/core@1.7.11(@swc/helpers@0.5.12))(esbuild@0.18.20)(webpack@5.97.1))(webpack@5.97.1)
+      style-loader:
+        specifier: 3.3.4
+        version: 3.3.4(webpack@5.97.1)
       swc-loader:
         specifier: 0.2.6
         version: 0.2.6(@swc/core@1.7.11(@swc/helpers@0.5.12))(webpack@5.97.1)
