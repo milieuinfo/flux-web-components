@@ -1,6 +1,6 @@
 {
     "name": "@domg-wc/common",
-    "version": "DOMG-WC-VERSION",
+    "version": "0.0.0",
     "author": "Flux <domg_flux@groepen.vlaanderen.be>",
     "sideEffects": [
         "./*/**"
