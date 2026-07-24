@@ -18,7 +18,11 @@ const cypressConfig: any = {
     component: {
         supportFile: './support/component.ts',
         indexHtmlFile: './support/component-index.html',
-        specPattern: '../../libs/**/*.cy.{js,jsx,ts,tsx}',
+        // FLUX-704: ook playground-lit specs meenemen (VDS prefix-aware PoC).
+        specPattern: [
+            '../../libs/**/*.cy.{js,jsx,ts,tsx}',
+            '../../apps/playground-lit/**/*.cy.{js,jsx,ts,tsx}',
+        ],
         setupNodeEvents(on, config) {
             addMatchImageSnapshotPlugin(on);
             return config;
@@ -33,10 +37,24 @@ const cypressConfig: any = {
                         {
                             oneOf: [
                                 { test: /\.css$/i, resourceQuery: /raw/, type: 'asset/source' },
+                                // FLUX-704: VDS-package importeert component-CSS met de
+                                // Vite-specifieke ?inline-query (bv. vl-icon). Lever als string.
+                                { test: /\.css$/i, resourceQuery: /inline/, type: 'asset/source' },
                                 { test: /\.css$/i, use: ['style-loader', 'css-loader'] },
                             ],
                         },
-                        { exclude: /(node_modules)/, loader: 'ts-loader', test: /\.[t]sx?$/ },
+                        // FLUX-704: fonts waarnaar de VDS-CSS via url() verwijst.
+                        { test: /\.(woff2?|ttf|eot|svg)$/i, type: 'asset/resource' },
+                        // FLUX-704: transpileOnly -> Cypress-CT draait op gedrag, niet op
+                        // types (standaard voor CT). Omzeilt een pre-existing TS2769 in
+                        // support/component.ts (matchImageSnapshot-typing) die anders alle
+                        // component-tests op deze checkout blokkeert.
+                        {
+                            exclude: /(node_modules)/,
+                            loader: 'ts-loader',
+                            options: { transpileOnly: true },
+                            test: /\.[t]sx?$/,
+                        },
                     ],
                 },
                 resolve: {
