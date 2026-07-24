@@ -848,10 +848,7 @@ describe('vl-checkbox - blur-validation', () => {
         });
         cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
 
-        cy.get('vl-checkbox').then(($el) => {
-            const cb = $el[0] as VlCheckboxComponent;
-            cb.checked = true;
-        });
+        cy.get('vl-checkbox').invoke('attr', 'checked', true);
         cy.waitForLitUpdate('vl-checkbox');
         cy.get('vl-checkbox').then(($el) => {
             const cb = $el[0] as VlCheckboxComponent;
