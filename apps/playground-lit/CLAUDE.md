@@ -16,70 +16,38 @@ Het achterliggende doel: flux z'n atomic components op termijn onderliggend late
 bouwen op de VDS components, zonder dat er voor de **afnemers** iets verandert (zelfde
 tags, zelfde look).
 
-## Strategieën
+## Strategie
 
-Elke strategie heeft een eigen doc met implementatieplan en effort-inschatting in
-[`prefix-aware-strategies/`](prefix-aware-strategies/):
-- [Strategie 1: flux prefix-aware maken](prefix-aware-strategies/strategy-1-flux-prefix-aware.md)
-- [Strategie 2: flux-tags hernoemen (`vl-` naar `flux-`)](prefix-aware-strategies/strategy-2-rename-flux-prefix.md)
-- [Strategie 3: VDS onder eigen prefix, flux blijft `vl-`](prefix-aware-strategies/strategy-3-vds-custom-prefix.md)
-- [Strategie 4: gefaseerd (v3 = strategie 3, v4 = namespace-flip naar `flux-`)](prefix-aware-strategies/strategy-4-phased-v3-v4.md)
+De strategie-documenten staan niet op deze branch. Ze leven op de aparte branch
+`lab/FLUX-704-afnemen-VDS-artifacts-2026-07-24-strategy`, in
+`apps/playground-lit/prefix-aware-strategies/` (`strategie.md` en
+`open-beslissingen.md`). Deze branch houdt enkel de PoC-code en de bevindingen die
+daaruit volgen.
 
-### 1. Flux zelf prefix-aware maken en hernoemen naar `flux-`
+Samengevat, twee fases:
 
-Flux implementeert een eigen prefix-aware registratie en verschuift al z'n tags naar
-`flux-` (`flux-button`, `flux-input`, ...). VDS mag dan `vl-` houden.
+- **Fase 1 (minor, additief)**: nieuwe flux-componenten erven van de VDS-klasse en
+  zetten de flux-look via design-tokens op `:host`. VDS draait onder een eigen prefix
+  (`vds-`), strikt intern. De bestaande `vl-*` blijven ongemoeid, dus geen breaking
+  change.
+- **Fase 2 (major)**: alle flux-tags worden `flux-`, VDS gaat terug naar zijn default
+  `vl-` en hoeft dan niet meer prefix-aware te zijn. Codemod plus migratiegids. Enkel
+  de tags; de `.vl-`-CSS-klassen blijven (die komen uit `@domg/govflanders-style`).
 
-- Voordeel: propere namespace-scheiding, flux bezit z'n eigen prefix.
-- Nadeel: breaking change voor alle flux-afnemers (elke `vl-*` in hun markup moet
-  `flux-*` worden). Grote migratie, en alle interne flux-referenties (templates,
-  selectors, tests) moeten mee.
+Twee dingen die daarbij vaak verkeerd begrepen worden:
 
-### 2. Find & replace `vl-` naar `flux-`
+1. **De aparte VDS-prefix blijft nodig, ook al erf je enkel van de VDS-klassen en breng
+   je nooit een VDS-tag naar buiten.** VDS-componenten bouwen zichzelf intern op uit
+   echte custom-element-tags (het checkbox-vinkje is een `vds-icon`, de datepicker
+   bevat een `vds-select`). Die sub-componenten moeten geregistreerd zijn, en dat kan
+   niet onder `vl-` zolang flux die namespace bezet.
+2. **Die prefix kost ons wel iets.** VDS' eigen interne CSS hardcodeert de
+   default-tagnamen, wat workarounds vergt (zie upstream-verzoek 6 en de
+   icon-font-alias). Die vervallen zodra flux `vl-` loslaat, wat fase 2 ook technisch
+   de moeite maakt en niet enkel een branding-keuze.
 
-De botte variant van strategie 1: een tekstuele vervanging van `vl-` naar `flux-`
-doorheen de codebase.
-
-- Voordeel: in opzet simpel.
-- Nadeel: zelfde breaking change voor afnemers als strategie 1, plus broos. `vl-`
-  komt niet enkel in tags voor maar ook in CSS-klassen (`vl-button`), attributen en
-  tekst, dus een blinde replace raakt te veel. Lost bovendien de coexistentie met VDS
-  niet structureel op.
-
-### 3. VDS onder een eigen prefix, flux blijft `vl-` (gevalideerd in de PoC)
-
-We laten flux ongemoeid op `vl-` en registreren de VDS components onder een eigen
-prefix met hun ingebouwde feature: `defineAll('vds')`. Optioneel komt er een dunne
-adapter zodat een flux-tag (bijvoorbeeld `vl-button`) intern een VDS-component rendert,
-waardoor afnemers hun `vl-*`-markup én de oude look behouden.
-
-- Voordeel: geen breaking change voor afnemers. Geleidelijke migratie per component
-  mogelijk (first-wins registratie: wie eerst `define`t wint, de ander skipt zonder
-  crash). De flux-look blijft behouden via design-tokens en `::part`.
-- Nadeel: twee componentensets en twee Lit-instanties in de bundle. Styling-pariteit
-  heeft grenzen (zie bevindingen). VDS is Vite-georiënteerd, dus de consumer-bundler
-  vraagt wat configuratie.
-
-### 4. Gefaseerd: v3 (strategie 3) dan v4 (namespace-flip)
-
-Een tijdlijn over twee majors i.p.v. een losse keuze:
-- **v3**: VDS onder eigen prefix (`vds-`), flux blijft `vl-`, sommige flux-componenten
-  gebruiken VDS onderliggend. Geen breaking change.
-- **v4**: alle flux-tags worden `flux-`, VDS krijgt de default `vl-` (en hoeft dan zelf
-  geen prefix-aware meer te zijn). Breaking change voor afnemers, major release.
-
-Detail in [strategy-4](prefix-aware-strategies/strategy-4-phased-v3-v4.md).
-
-## Aanbeveling
-
-**Strategie 4 (gefaseerd), startend met v3.** v3 (= strategie 3) legt de wijziging bij
-ons i.p.v. de afnemers, gebruikt de VDS-prefix-feature waarvoor hij bedoeld is, en laat
-een component-per-component overgang toe zonder big-bang.
-
-De `flux-` rename hoort in **v4**, niet v3: v3's hele waarde is "geen breaking change",
-en de rename is intrinsiek een major. v4 (en dus `flux-`) is bovendien enkel nodig als
-het doel is dat VDS de canonieke `vl-`-default inneemt; anders kan v3 het eindstation
-blijven.
+De naamgeving van de nieuwe generatie in fase 1 (`-next`-suffix versus meteen `flux-`)
+staat nog open.
 
 ## PoC-bevindingen (zie `.claude/plans/prefix-aware-poc.md` voor detail)
 
