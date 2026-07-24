@@ -15,6 +15,63 @@ const stubWidget = () => {
     cy.intercept('GET', '/sso/ingelogde_gebruiker', { statusCode: 401, body: '' }).as('authenticatedUser');
 };
 
+// Diagnostische tests voor de externe domeinen waarvan vl-header afhangt.
+// Deze staan bewust eerst: als de header tests falen op een CI omgeving (bvb. door een firewall of
+// proxy die een domein blokkeert), tonen deze tests meteen welk domein of endpoint niet bereikbaar is.
+// Opgelet: het widget bootstrap endpoint op tni bleek tijdens het schrijven van deze tests zelf
+// intermitterend 400 terug te geven; daarom wordt dat endpoint apart getest van de statische content.
+describe('cypress-component - compliance components - vl-header - external domains', () => {
+    it('should reach prod.widgets.burgerprofiel.vlaanderen.be (polyfill & widget client scripts)', () => {
+        cy.request(
+            'https://prod.widgets.burgerprofiel.vlaanderen.be/api/v1/node_modules/@govflanders/vl-widget-polyfill/dist/index.js'
+        )
+            .its('status')
+            .should('equal', 200);
+        cy.request(
+            'https://prod.widgets.burgerprofiel.vlaanderen.be/api/v1/node_modules/@govflanders/vl-widget-client/dist/index.js'
+        )
+            .its('status')
+            .should('equal', 200);
+    });
+
+    it('should reach tni.widgets.burgerprofiel.dev-vlaanderen.be (statische widget modules & config)', () => {
+        cy.request(
+            'https://tni.widgets.burgerprofiel.dev-vlaanderen.be/api/v1/node_modules/@govflanders/vl-widget-platform-browser/dist/index.min.js'
+        )
+            .its('status')
+            .should('equal', 200);
+        cy.request('https://tni.widgets.burgerprofiel.dev-vlaanderen.be/api/v1/system/config')
+            .its('status')
+            .should('equal', 200);
+    });
+
+    it('should reach the widget bootstrap endpoint on tni.widgets.burgerprofiel.dev-vlaanderen.be', () => {
+        // Dit endpoint geeft af en toe een 400 terug; de runMode retries vangen dat op.
+        // Faalt deze test consequent terwijl de statische content test slaagt, dan ligt het aan het
+        // endpoint (of een WAF die het CI IP-adres blokkeert), niet aan de bereikbaarheid van het domein.
+        cy.request(`https://tni.widgets.burgerprofiel.dev-vlaanderen.be/api/v1/widget/${identifier}`)
+            .its('status')
+            .should('equal', 200);
+    });
+
+    it('should reach cdn.omgeving.vlaanderen.be (FlandersArtSans font uit vl-font styles)', () => {
+        cy.request(
+            'https://cdn.omgeving.vlaanderen.be/domg/govflanders-font/22.0.2/flanders/sans/FlandersArtSans-Regular.woff2'
+        )
+            .its('status')
+            .should('equal', 200);
+    });
+
+    it('should reach ui.vlaanderen.be (fonts geladen door de widget CSS)', () => {
+        cy.request('https://ui.vlaanderen.be/2.latest/fonts/flanders-sans-regular.woff')
+            .its('status')
+            .should('equal', 200);
+        cy.request('https://ui.vlaanderen.be/2.latest/fonts/flanders-sans-medium.woff')
+            .its('status')
+            .should('equal', 200);
+    });
+});
+
 describe('cypress-component - compliance components - vl-header', () => {
     beforeEach(() => {
         stubWidget();

@@ -4,7 +4,7 @@
 set -e
 
 echo 'RUNNING SCRIPT: finalise-release.sh'
-cd flux-web-components
+cd "$(dirname "$0")/../../.."
 
 # Branchnaam bepalen via BAMBOO_BRANCH_NAME (bamboo.planRepository.branchName).
 # Bamboo's checkout-task zet de werkdir in detached HEAD op de trigger-SHA, en na de

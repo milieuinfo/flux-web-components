@@ -32,10 +32,20 @@ spec:
     - name: cypress-dshm
       emptyDir:
         medium: Memory
+        # Een emptyDir met medium: Memory is een tmpfs die meetelt tegen de
+        # memory limit van de container. Zonder sizeLimit kan Cypress /dev/shm
+        # stilletjes laten vollopen tot de pod OOM-killed wordt - dan sterft de
+        # hele pod en zie je enkel dat de stage "niet start". Met sizeLimit
+        # faalt de schrijfactie met ENOSPC, wat wel een leesbare fout geeft.
+        sizeLimit: 4Gi
     - name: js-settings
       secret:
         secretName: jenkins-secrets
 '''
+}
+
+String screenshotsGlob() {
+    'build/cypress/**/screenshots/**/*.png'
 }
 
 pipeline {
@@ -56,19 +66,74 @@ pipeline {
                         }
                     }
                 }
-                stage('Build & test') {
-                    steps {
-                        container('cypress') {
-                            sh './resources/ci-bamboo/bash/build-apps-and-libs.sh'
-                            // sh 'npm ci'
-                            // sh 'npm run libs:build'
-                            // // CI=true laat de jest-configs ook JUnit XML schrijven naar test-results/
-                            // sh 'CI=true npm run libs:jest'
+                // De drie onderstaande stages draaien parallel en delen geen state.
+                //
+                // Elke branch declareert een eigen agent, dus elke branch krijgt een
+                // eigen pod met een eigen workspace. Dat is hier geen luxe maar een
+                // vereiste: elk script doet zijn eigen `npm ci` op node_modules en
+                // libs-build.sh doet `rm -rf ./build/dist`. In een gedeelde workspace
+                // zouden die elkaars bestanden onder de voeten wegtrekken.
+                //
+                // Er is geen artifact-overdracht nodig: alle module-resolutie loopt via
+                // de paths in tsconfig.base.json en de vite-/webpack-aliassen, en die
+                // wijzen naar libs/*/src - nooit naar build/dist. Elke branch bouwt dus
+                // zelf wat ze nodig heeft, vertrekkend van de checkout.
+                stage('build-en-tests') {
+                    parallel {
+                        stage('build-apps-and-libs') {
+                            agent {
+                                kubernetes {
+                                    inheritFrom 'jenkins-jenkins-agent'
+                                    yaml podBuilder.from([buildPod()])
+                                }
+                            }
+                            steps {
+                                container('cypress') {
+                                    sh './resources/ci-bamboo/bash/build-apps-and-libs.sh'
+                                }
+                            }
                         }
-                    }
-                    post {
-                        always {
-                            junit allowEmptyResults: true, testResults: 'test-results/*.xml'
+                        stage('unit-component-integrator-tests') {
+                            agent {
+                                kubernetes {
+                                    inheritFrom 'jenkins-jenkins-agent'
+                                    yaml podBuilder.from([buildPod()])
+                                }
+                            }
+                            steps {
+                                container('cypress') {
+                                    sh './resources/ci-bamboo/bash/unit-component-integrator-tests.sh'
+                                }
+                            }
+                            post {
+                                always {
+                                    // Hoort bij deze stage: libs:jest draait hier, niet in
+                                    // build-apps-and-libs. Nu de workspaces gescheiden zijn,
+                                    // staat test-results/ ook alleen nog in deze pod.
+                                    junit allowEmptyResults: true, testResults: 'test-results/*.xml'
+                                    archiveArtifacts artifacts: screenshotsGlob(),
+                                            allowEmptyArchive: true, fingerprint: false
+                                }
+                            }
+                        }
+                        stage('e2e-tests-storybook') {
+                            agent {
+                                kubernetes {
+                                    inheritFrom 'jenkins-jenkins-agent'
+                                    yaml podBuilder.from([buildPod()])
+                                }
+                            }
+                            steps {
+                                container('cypress') {
+                                    sh './resources/ci-bamboo/bash/e2e-tests-storybook.sh'
+                                }
+                            }
+                            post {
+                                always {
+                                    archiveArtifacts artifacts: screenshotsGlob(),
+                                            allowEmptyArchive: true, fingerprint: false
+                                }
+                            }
                         }
                     }
                 }

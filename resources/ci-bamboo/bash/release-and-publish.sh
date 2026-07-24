@@ -4,7 +4,7 @@
 set -e
 
 echo 'RUNNING SCRIPT: release-and-publish.sh'
-cd flux-web-components
+cd "$(dirname "$0")/../../.."
 
 # get branch name
 GIT_REF_NAME=$(git rev-parse --abbrev-ref HEAD)
