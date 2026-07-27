@@ -16,6 +16,18 @@ registerWebComponents([
     VlIconComponent,
 ]);
 
+// Bij component-testen wordt de iframe waarin de component rendert één keer geladen per spec-bestand en daarna
+// niet meer ververst: cy.mount() vervangt enkel de DOM erin. Daardoor blijven de scrollpositie en de location.hash
+// van de vorige test staan.
+// Dus een gelekte scroll laat een test starten in een andere state dan wanneer hij alleen draait. Elke test start
+// daarom bovenaan de pagina, zonder location.hash uit een vorige test.
+beforeEach(() => {
+    cy.window().then((win) => {
+        win.history.replaceState(null, '', win.location.pathname + win.location.search);
+        win.scrollTo(0, 0);
+    });
+});
+
 // Column class constants for grid layout
 const NAVIGATION_COLUMN_CLASSES =
     'vl-column vl-column--3 vl-column--start-10 vl-column--m-4 vl-column--m-start-9 vl-column--s-12 vl-column--s-start-1 vl-side-navigation--order-1';
