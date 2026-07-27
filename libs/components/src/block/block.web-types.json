@@ -1320,6 +1320,10 @@
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-side-navigation-next--documentatie"
                 },
                 {
+                    "name": "vl-side-navigation-section-next",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-side-navigation-next--documentatie"
+                },
+                {
                     "name": "vl-side-navigation-layout-next",
                     "description": "<span style=\"color: rgb(25,140,25)\">[next-component]</span><br/>De side navigation layout bouwt automatisch een inhoudstafel op voor een gestructureerde tekst met behulp van de\n[side navigation](/docs/components-next-side-navigation-side-navigation--documentatie).",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-next-side-navigation-layout--documentatie",
@@ -2743,6 +2747,11 @@
                         {
                             "name": "poster",
                             "description": "Stelt een afbeelding in die wordt weergegeven totdat de video wordt afgespeeld.",
+                            "default": ""
+                        },
+                        {
+                            "name": "type",
+                            "description": "Stelt het mediatype (mimetype) van de bron in, bv. \"video/mp4\". Nodig wanneer de source-URL geen bestandsextensie bevat; anders wordt het type uit de extensie afgeleid.",
                             "default": ""
                         }
                     ]
