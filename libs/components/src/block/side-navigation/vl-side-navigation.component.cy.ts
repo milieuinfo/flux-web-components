@@ -403,6 +403,7 @@ describe('cypress-component - block components - vl-side-navigation', () => {
 describe('cypress-component - block components - vl-side-navigation - mobile', () => {
     beforeEach(() => {
         cy.viewport(320, 480);
+        cy.wait(600);
 
         cy.mount(template);
         cy.scrollTo(0, 0);

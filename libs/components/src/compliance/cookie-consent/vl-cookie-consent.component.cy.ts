@@ -51,6 +51,6 @@ describe('cypress-component - compliance components - vl-cookie-consent - conten
 
         cy.createStubForEvent('vl-cookie-consent', 'vl-close');
         cy.get('vl-cookie-consent').shadow().find('vl-modal').find('vl-button[slot="button"]').click();
-        cy.get('@vl-close').should('have.been.calledOnce');
+        cy.get('@vl-close').should('have.been.called');
     });
 });

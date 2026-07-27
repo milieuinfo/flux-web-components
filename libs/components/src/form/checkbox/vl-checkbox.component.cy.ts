@@ -215,12 +215,12 @@ describe('vl-checkbox - properties & states', () => {
             .shouldHaveComputedStyle({ pseudo: ':after', style: 'background-color', value: 'rgb(255, 255, 255)' })
             .shouldHaveComputedStyle({ pseudo: ':after', style: 'border-color', value: 'rgb(210, 55, 60)' });
         cy.get('vl-checkbox').shadow().find('.vl-checkbox__toggle').click({ force: true });
-        cy.wait(100);
-        cy.get('.snapshot-wrapper').matchImageSnapshot('checkbox-error-checked');
         cy.get('vl-checkbox')
             .shadow()
             .find('i.vl-checkbox__box')
             .shouldHaveComputedStyle({ pseudo: ':before', style: 'color', value: 'rgb(210, 55, 60)' });
+        cy.wait(400);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('checkbox-error-checked');
     });
 
     it('should have success state', () => {
