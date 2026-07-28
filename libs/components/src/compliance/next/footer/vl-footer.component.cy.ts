@@ -11,7 +11,7 @@ type MountDefaultProps = {
 };
 
 const mountDefault = (props: MountDefaultProps) => {
-    return cy.mount(html`
+    cy.mount(html`
         <body>
             <vl-footer-next
                 ?development=${props.development}
@@ -20,6 +20,11 @@ const mountDefault = (props: MountDefaultProps) => {
             ></vl-footer-next>
         </body>
     `);
+
+    // elke test moet wachten tot het widget-script uitgevoerd is
+    cy.wait('@widgetScript');
+
+    return cy.window().its('globalFooterClient').should('exist');
 };
 
 const props: MountDefaultProps = {
@@ -29,10 +34,21 @@ const props: MountDefaultProps = {
 };
 
 describe('cypress-component - compliance components - vl-footer-next', () => {
+    beforeEach(() => {
+        // zonder deze intercept haalt elke test het echte widget-script op bij widgets.(tni-)vlaanderen.be: traag,
+        // buiten onze controle en dus regelmatig falend
+        cy.intercept('GET', /widgets.*vlaanderen\.be.*entry/, stubWidgetScript()).as('widgetScript');
+    });
+
     afterEach(() => {
-        cy.get('script#vl-footer-widget').then(([script]) => {
-            script.remove();
-        });
+        // awaitScript slaat het laden over als er al een script met dit id staat, dus zonder opkuis krijgt de volgende
+        // test geen widget meer. Via document i.p.v. cy.get: het script hoeft er niet te zijn als een test vroeg faalt.
+        document.querySelector('script#vl-footer-widget')?.remove();
+        // De component ruimt zijn container zelf op bij disconnect; deze regel vangt de gevallen op waarin dat niet
+        // gebeurde, zodat een volgende test nooit twee #footer__container-elementen ziet.
+        document.querySelector('#footer__container')?.remove();
+        // Weg met de client van deze test, anders is de wachtvoorwaarde in mountDefault meteen voldaan.
+        delete (window as unknown as Record<string, unknown>).globalFooterClient;
     });
 
     describe('default', () => {
@@ -77,9 +93,15 @@ describe('cypress-component - compliance components - vl-footer-next', () => {
 
     describe('events', () => {
         it('should emit ready event', () => {
+            // De component luistert op window naar het mounted-event van de widget en vuurt van daaruit 'ready' af.
+            // Die handler is niet gebonden, dus de dispatcher is window - vandaar de listener op window en niet op het
+            // element. Hij moet geregistreerd zijn voor er gemount wordt, want het event volgt meteen op het script.
+            cy.window().then((win) => {
+                win.addEventListener('ready', cy.stub().as('ready'));
+            });
+
             mountDefault({ ...props, development: true });
 
-            window.addEventListener('ready', cy.stub().as('ready'));
             cy.get('@ready').should('have.been.calledOnce');
         });
     });
@@ -111,4 +133,19 @@ describe('cypress-component - compliance components - vl-footer-next', () => {
             cy.get('#footer__container').should('have.css', 'min-height', '0px');
         });
     });
+});
+
+/**
+ * Vervangt het widget-script: het echte script zet window.globalFooterClient klaar en meldt via een window-event dat de
+ * widget gemount is. Meer heeft de component niet nodig.
+ */
+const stubWidgetScript = () => ({
+    statusCode: 200,
+    headers: { 'Content-Type': 'application/javascript' },
+    body: `
+        window.globalFooterClient = {
+            mount: () => Promise.resolve(),
+        };
+        window.dispatchEvent(new Event('widget.global_footer.mounted'));
+    `,
 });

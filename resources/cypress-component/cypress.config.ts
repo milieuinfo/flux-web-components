@@ -13,7 +13,7 @@ const cypressConfig: any = {
     modifyObstructiveCode: false,
     screenshotsFolder: '../../build/cypress/components/screenshots',
     chromeWebSecurity: false,
-    retries: { runMode: 4, openMode: 2 },
+    retries: { runMode: 4, openMode: 0 },
     env: { RP_ACTIVE: process.env.RP_ACTIVE },
     component: {
         supportFile: './support/component.ts',
