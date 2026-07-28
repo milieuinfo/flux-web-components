@@ -1,14 +1,27 @@
+// deze import moet voor die van de component staan: hij blokkeert de widget-scripts die de component al bij het laden van zijn module ophaalt
+import { BurgerprofielWidgetMock, stubBurgerprofielWidgetClient } from '../burgerprofiel-widget.mock';
 import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import { ApplicationLink, VlHeader } from './index';
 
 registerWebComponents([VlHeader]);
 
+const identifier = '59188ff6-662b-45b9-b23a-964ad48c2bfb';
+
+let widgetMock: BurgerprofielWidgetMock;
+
+const stubWidget = () => {
+    widgetMock = stubBurgerprofielWidgetClient();
+    cy.intercept('GET', '/sso/ingelogde_gebruiker', { statusCode: 401, body: '' }).as('authenticatedUser');
+};
+
 describe('cypress-component - compliance components - vl-header', () => {
     beforeEach(() => {
+        stubWidget();
+
         cy.mount(html`
             <body>
-                <vl-header development identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb"></vl-header>
+                <vl-header development identifier="${identifier}"></vl-header>
             </body>
         `);
     });
@@ -35,18 +48,38 @@ describe('cypress-component - compliance components - vl-header', () => {
         cy.get('header[id="header__container"]').should('have.length', 1);
     });
 
+    it('should bootstrap the widget of the development environment', () => {
+        cy.wrap(widgetMock)
+            .its('bootstrapUrls')
+            .should('deep.equal', [
+                `https://tni.widgets.burgerprofiel.dev-vlaanderen.be/api/v1/widget/${identifier}`,
+            ]);
+    });
+});
+
+describe('cypress-component - compliance components - vl-header - ready event', () => {
     it('should dispatch ready event when ready', () => {
-        // Mogelijke flaky test aangezien het event afgevuurd kan worden vooraleer de eventListener is toegevoegd.
-        cy.createStubForEvent('vl-header', 'ready');
+        stubWidget();
+
+        const onReady = cy.stub().as('ready');
+
+        cy.mount(html`
+            <body>
+                <vl-header development identifier="${identifier}" @ready=${onReady}></vl-header>
+            </body>
+        `);
+
         cy.get('@ready').should('have.been.calledOnce');
     });
 });
 
 describe('cypress-component - compliance components - vl-header - skeleton', () => {
     it('should render the skeleton container', () => {
+        stubWidget();
+
         cy.mount(html`
             <body>
-                <vl-header development identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb" skeleton></vl-header>
+                <vl-header development identifier="${identifier}" skeleton></vl-header>
             </body>
         `);
 
@@ -67,12 +100,14 @@ describe('cypress-component - compliance components - vl-header - applicationLin
     ];
 
     it('should render the application links', () => {
+        stubWidget();
+
         cy.viewport(1280, 800);
         cy.mount(html`
             <body>
                 <vl-header
                     development
-                    identifier="59188ff6-662b-45b9-b23a-964ad48c2bfb"
+                    identifier="${identifier}"
                     .applicationLinks=${mockApplicationLinks}
                 ></vl-header>
             </body>

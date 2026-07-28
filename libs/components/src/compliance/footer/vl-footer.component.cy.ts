@@ -1,3 +1,5 @@
+// deze import moet voor die van de component staan: hij blokkeert de widget-scripts die de component al bij het laden van zijn module ophaalt
+import { stubBurgerprofielWidgetClient } from '../burgerprofiel-widget.mock';
 import { html } from 'lit';
 import { registerWebComponents } from '@domg-wc/common';
 import { VlFooter } from './vl-footer.component';
@@ -11,6 +13,8 @@ type MountDefaultProps = {
 };
 
 const mountDefault = (props: MountDefaultProps) => {
+    stubBurgerprofielWidgetClient();
+
     return cy.mount(html`
         <body>
             <vl-footer
@@ -70,9 +74,9 @@ describe('cypress-component - compliance components - vl-footer - properties ref
 
 describe('cypress-component - compliance components - vl-footer - events', () => {
     it('should emit ready event', () => {
-        mountDefault({ ...props, development: true });
+        const onReady = cy.stub().as('ready');
+        mountDefault({ ...props, development: true, onReady });
 
-        cy.createStubForEvent('vl-footer', 'ready');
         cy.get('@ready').should('have.been.calledOnce');
     });
 });
