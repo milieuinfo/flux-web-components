@@ -24,8 +24,8 @@ spec:
           name: js-settings
       resources:
         requests:
-          memory: "1Gi"
-          cpu: "500m"
+          memory: "3500Mi"
+          cpu: "2"
         limits:
           memory: "8Gi"
   volumes:
