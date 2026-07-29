@@ -1,13 +1,63 @@
 const headerDefaultUrl = 'http://localhost:8080/iframe.html?id=components-compliance-header--header-default&viewMode=story';
 
 describe('cypress-e2e - compliance components - vl-header - default story', () => {
+    beforeEach(() => {
+        // zelfde aanpak als bij de next-variant: zonder deze intercepts haalt de test het echte polyfill- en
+        // client-script op bij prod.widgets.burgerprofiel.vlaanderen.be, waarna de client de widget bootstrapt bij
+        // tni.widgets.burgerprofiel.dev-vlaanderen.be - dat endpoint is traag, buiten onze controle en dus regelmatig
+        // falend. Met een gestubde client vertrekt die bootstrap-call zelfs niet meer.
+        cy.intercept('GET', /burgerprofiel.*vl-widget-polyfill/, stubPolyfillScript()).as('polyfillScript');
+        cy.intercept('GET', /burgerprofiel.*vl-widget-client/, stubWidgetClientScript('header')).as(
+            'widgetClientScript'
+        );
+    });
+
     it('should render', () => {
         cy.visit(headerDefaultUrl);
 
         cy.get('vl-header');
-        cy.get('#header__container')
-            .find('header')
-            .find('.vlw__primary-bar__brand__host')
-            .contains('Departement Omgeving (test)');
+        cy.wait('@widgetClientScript');
+        cy.get('#header__container').find('header').contains('Global header (mock)');
     });
+});
+
+const stubPolyfillScript = () => ({
+    statusCode: 200,
+    headers: { 'Content-Type': 'application/javascript' },
+    body: '/* polyfill stub */',
+});
+
+/**
+ * Vervangt het widget client-script: het echte script zet window.vl.widget.client klaar, waarna de component via
+ * bootstrap(widgetUrl) een widget krijgt die hij met setMountElement/mount in het #header element rendert. De stub
+ * bootst dat na met stabiele mock-inhoud (een <header> element, zoals de echte widget), zodat de test de volledige
+ * keten (script laden -> bootstrap -> mount in het juiste element) blijft afdekken. getExtension/on dekken de
+ * niet-simple flow af, mocht de story ooit zonder 'simple' draaien.
+ */
+const stubWidgetClientScript = (elementTag: 'header' | 'footer') => ({
+    statusCode: 200,
+    headers: { 'Content-Type': 'application/javascript' },
+    body: `
+        window.vl = window.vl || {};
+        window.vl.widget = window.vl.widget || {};
+        window.vl.widget.client = {
+            bootstrap: () => {
+                let mountElement = null;
+                return Promise.resolve({
+                    setMountElement: (element) => { mountElement = element; },
+                    mount: () => {
+                        const rendered = document.createElement('${elementTag}');
+                        rendered.textContent = 'Global ${elementTag} (mock)';
+                        mountElement.appendChild(rendered);
+                        return Promise.resolve();
+                    },
+                    getExtension: () => Promise.resolve({
+                        getMenu: () => ({ getGroup: () => ({ addMultiple: () => {} }) }),
+                        configure: () => {},
+                    }),
+                    on: () => {},
+                });
+            },
+        };
+    `,
 });
