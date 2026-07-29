@@ -91,6 +91,13 @@ pipeline {
                                 container('cypress') {
                                     sh './resources/ci-bamboo/bash/build-apps-and-libs.sh'
                                 }
+                                // De release-and-publish stage draait in een andere pod
+                                // en heeft de hier gebouwde libs en fat-lib nodig
+                                // (pack/publish + tgz-upload). Enkel die subset stashen:
+                                // storybook wordt in de release stage toch opnieuw
+                                // gebouwd (pas dan is de CHANGELOG up-to-date).
+                                stash name: 'build-dist-libs-en-fat-lib',
+                                        includes: 'build/dist/libs/**,build/dist/fat-lib/**'
                             }
                         }
                         stage('unit-component-integrator-tests') {
@@ -133,6 +140,73 @@ pipeline {
                                     archiveArtifacts artifacts: screenshotsGlob(),
                                             allowEmptyArchive: true, fingerprint: false
                                 }
+                            }
+                        }
+                    }
+                }
+                // De drie release stages draaien sequentieel op de top-level agent en
+                // delen dus één workspace en checkout: verify-release heeft de
+                // build/dist output van release-and-publish nodig (op Bamboo geregeld
+                // via artifact-download) en finalise-release werkt op dezelfde git
+                // checkout verder.
+                //
+                // De scripts beslissen zelf of ze effectief iets doen op basis van de
+                // branchnaam (zelfde gedrag als op Bamboo, waar elke stage altijd
+                // draait). De when-conditie hieronder is een superset van die guards
+                // en vermijdt enkel dat op feature branches de stages nodeloos
+                // opstarten en credentials vereisen.
+                stage('release-and-publish') {
+                    when { expression { env.BRANCH_NAME ==~ /.*(develop|bugfix|release).*/ } }
+                    environment {
+                        // niet geheim: de artifactory root URL
+                        // (op Bamboo: ${bamboo.acd_repository_url})
+                        ACD_REPOSITORY_URL = 'https://repo.omgeving.vlaanderen.be/artifactory'
+                    }
+                    steps {
+                        container('cypress') {
+                            unstash 'build-dist-libs-en-fat-lib'
+                            withCredentials([
+                                    usernamePassword(
+                                            credentialsId: 'github',
+                                            usernameVariable: 'GH_USER',
+                                            passwordVariable: 'GITHUB_TOKEN'),
+                                    // credential voor de artifactory upload van de
+                                    // fat-lib tgz (op Bamboo: acd_repository_debian_login
+                                    // + acd_repository_bamboo_password) - moet met dit id
+                                    // in Jenkins bestaan
+                                    usernamePassword(
+                                            credentialsId: 'acd-repository',
+                                            usernameVariable: 'ACD_REPOSITORY_DEBIAN_LOGIN',
+                                            passwordVariable: 'ACD_REPOSITORY_BAMBOO_PASSWORD')
+                            ]) {
+                                sh './resources/ci-bamboo/bash/release-and-publish.sh'
+                            }
+                        }
+                    }
+                }
+                stage('verify-release') {
+                    when { expression { env.BRANCH_NAME ==~ /.*(develop|bugfix|release).*/ } }
+                    steps {
+                        container('cypress') {
+                            sh './resources/ci-bamboo/bash/verify-release.sh'
+                        }
+                    }
+                    post {
+                        always {
+                            archiveArtifacts artifacts: screenshotsGlob(),
+                                    allowEmptyArchive: true, fingerprint: false
+                        }
+                    }
+                }
+                stage('finalise-release') {
+                    when { expression { env.BRANCH_NAME ==~ /.*(develop|bugfix|release).*/ } }
+                    steps {
+                        container('cypress') {
+                            withCredentials([usernamePassword(
+                                    credentialsId: 'github',
+                                    usernameVariable: 'GH_USER',
+                                    passwordVariable: 'GITHUB_TOKEN')]) {
+                                sh './resources/ci-bamboo/bash/finalise-release.sh'
                             }
                         }
                     }
