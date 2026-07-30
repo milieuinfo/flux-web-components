@@ -16,6 +16,13 @@ spec:
           value: "true"
         - name: NO_COLOR
           value: "1"
+        # wachtwoord voor de artifactory upload in release-and-publish.sh
+        # (op Bamboo: ${bamboo.acd_repository_bamboo_password})
+        - name: ACD_REPOSITORY_BAMBOO_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: jenkins-secrets
+              key: artifactory_password
       volumeMounts:
         - mountPath: /dev/shm
           name: cypress-dshm
@@ -175,24 +182,18 @@ pipeline {
                         // niet geheim: de artifactory root URL
                         // (op Bamboo: ${bamboo.acd_repository_url})
                         ACD_REPOSITORY_URL = 'https://repo.omgeving.vlaanderen.be/artifactory'
+                        // niet geheim: de artifactory login; het bijhorende wachtwoord
+                        // komt via de podSpec uit het jenkins-secrets secret
+                        // (op Bamboo: ${bamboo.acd_repository_debian_login})
+                        ACD_REPOSITORY_DEBIAN_LOGIN = 'jenkins-systeemgebruiker'
                     }
                     steps {
                         container('cypress') {
                             unstash 'build-dist-libs-en-fat-lib'
-                            withCredentials([
-                                    usernamePassword(
-                                            credentialsId: 'github',
-                                            usernameVariable: 'GH_USER',
-                                            passwordVariable: 'GITHUB_TOKEN'),
-                                    // credential voor de artifactory upload van de
-                                    // fat-lib tgz (op Bamboo: acd_repository_debian_login
-                                    // + acd_repository_bamboo_password) - moet met dit id
-                                    // in Jenkins bestaan
-                                    usernamePassword(
-                                            credentialsId: 'acd-repository',
-                                            usernameVariable: 'ACD_REPOSITORY_DEBIAN_LOGIN',
-                                            passwordVariable: 'ACD_REPOSITORY_BAMBOO_PASSWORD')
-                            ]) {
+                            withCredentials([usernamePassword(
+                                    credentialsId: 'github',
+                                    usernameVariable: 'GH_USER',
+                                    passwordVariable: 'GITHUB_TOKEN')]) {
                                 sh './resources/ci-bamboo/bash/release-and-publish.sh'
                             }
                         }
