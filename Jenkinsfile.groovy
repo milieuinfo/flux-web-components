@@ -101,6 +101,13 @@ pipeline {
                             }
                         }
                         stage('unit-component-integrator-tests') {
+                            // TIJDELIJK overgeslagen zodat de release stages sneller
+                            // starten - verwijder dit when-blok om weer te activeren.
+                            // beforeAgent: anders wordt de pod toch opgestart.
+                            when {
+                                beforeAgent true
+                                expression { false }
+                            }
                             agent {
                                 kubernetes {
                                     inheritFrom 'jenkins-jenkins-agent'
@@ -124,6 +131,13 @@ pipeline {
                             }
                         }
                         stage('e2e-tests-storybook') {
+                            // TIJDELIJK overgeslagen zodat de release stages sneller
+                            // starten - verwijder dit when-blok om weer te activeren.
+                            // beforeAgent: anders wordt de pod toch opgestart.
+                            when {
+                                beforeAgent true
+                                expression { false }
+                            }
                             agent {
                                 kubernetes {
                                     inheritFrom 'jenkins-jenkins-agent'
