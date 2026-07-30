@@ -1,6 +1,10 @@
 import { Meta } from '@storybook/addon-docs/blocks';
+import fluxAiDoel from '../../resources/planning/flux-ai-doel.png';
+import fluxAiConcept from '../../resources/planning/flux-ai-concept.png';
+import fluxAiModeltoepassingA from '../../resources/planning/flux-ai-modeltoepassing-a.png';
+import fluxAiModeltoepassingB from '../../resources/planning/flux-ai-modeltoepassing-b.png';
 
-<Meta title="Planning/Flux-AI" />
+<Meta title="Planning/Flux-AI - Frontend Uniformisering" />
 
 # Flux-AI - Frontend Uniformisering via AI
 
@@ -11,6 +15,8 @@ import { Meta } from '@storybook/addon-docs/blocks';
 - [3. Kennislaag](#3-kennislaag)
 - [4. AI-Workflows](#4-ai-workflows)
 - [5. Modeltoepassingen als Voorbeeld](#5-modeltoepassingen-als-voorbeeld)
+  - [A. Technisch Fundament](#a-technisch-fundament)
+  - [B. Uniforme UI/UX](#b-uniforme-uiux)
 - [6. Ontsluiting: MCP als Toegangspoort](#6-ontsluiting-mcp-als-toegangspoort)
 - [7. Fasering](#7-fasering)
 - [8. Randvoorwaarden en Risico's](#8-randvoorwaarden-en-risicos)
@@ -20,7 +26,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 <div style={{textAlign: 'center'}}>
     <img
-        src="../../resources/planning/flux-ai-doel.png"
+        src={fluxAiDoel}
         alt="Flux-AI - niet-uniforme toepassingen"
         width="700"
     />
@@ -36,7 +42,7 @@ Flux heeft als doel frontend-ontwikkeling te ondersteunen en te vergemakkelijken
 
 <div style={{textAlign: 'center'}}>
     <img
-        src="../../resources/planning/flux-ai-concept.png"
+        src={fluxAiConcept}
         alt="Flux-AI - de kennislaag voedt via de MCP-server de AI-workflows"
         width="750"
     />
@@ -107,6 +113,10 @@ Bestaande toepassingen worden op een uniforme manier omgezet naar modeltoepassin
  AI-ondersteund (backend uit-mocken, testen genereren, structuur aligneren op de conventies van de modeltoepassingen).
  Elke omgezette toepassing vergroot de voorbeelden set.
 
+De omzetting verloopt in 2 stappen, conform het onderscheid in sectie 5: eerst het technisch fundament (5.A.), zonder
+ zichtbare impact en dus zonder externe afstemming; daarna de UI/UX-uniformisering (5.B.), in overleg met team en
+ business.
+
 ### 4.4 Nieuwe toepassingen bouwen op basis van modeltoepassingen
 
 Met een groeiende set modeltoepassingen kan AI nieuwe toepassingen opzetten naar het evenbeeld van bestaande: "bouw een
@@ -117,12 +127,27 @@ Met een groeiende set modeltoepassingen kan AI nieuwe toepassingen opzetten naar
 
 ## 5. Modeltoepassingen als Voorbeeld
 
-**Een modeltoepassing voldoet aan 4 eisen. Elke eis heeft naast een menselijke ook een expliciete AI-rationale:**
+Een modeltoepassing moet aan eisen op **2 niveaus** voldoen:
+
+- **A. Technisch fundament** (4 eisen) - dit maakt de toepassing bruikbaar als *werkomgeving* voor een AI-agent. Deze
+  eisen zitten volledig binnen de codebase: ze veranderen niets aan wat de eindgebruiker ziet of doet.
+- **B. Uniforme UI/UX** (5e eis) - dit maakt de toepassing bruikbaar als *voorbeeld* van hoe een toepassing eruit hoort
+  te zien en hoort te werken. Dit is het eigenlijke doel uit sectie 1.
+
+Het onderscheid is bewust. **A. kan gewoon doorgevoerd worden**: er is geen zichtbare impact, er is dus geen afstemming
+ nodig. B. heeft per definitie visuele en mogelijks functionele impact op een bestaande toepassing - dit vraagt overleg
+ met team en business. Door beide apart op te nemen brengt A. ons al een flink stuk in de  juiste richting, B. is
+ nadien de stap die het einddoel effectief bereikt.
+
+
+### A. Technisch Fundament
+
+**4 eisen. Elke eis heeft naast een menselijke ook een expliciete AI-rationale:**
 
 <div style={{textAlign: 'center'}}>
     <img
-        src="../../resources/planning/flux-ai-modeltoepassing.png"
-        alt="Flux-AI - modeltoepassing kwaliteitseisen"
+        src={fluxAiModeltoepassingA}
+        alt="Flux-AI - modeltoepassing - technisch fundament"
         width="770"
     />
 </div>
@@ -146,14 +171,63 @@ Met een groeiende set modeltoepassingen kan AI nieuwe toepassingen opzetten naar
  agent zelfstandig itereren tot het resultaat klopt.
 
 <vl-alert icon="info-circle" title="Samengevat" type="success" size="small">
-  De 4 eisen zijn geen documentatie eisen maar **agent-enablement-eisen**. Ze maken van elke
+  Deze 4 eisen zijn geen documentatie eisen maar **agent-enablement-eisen**. Ze maken van elke
   modeltoepassing een omgeving waarin een AI-agent autonoom en veilig kan werken.
 </vl-alert>
 
-<br/>
-
 **Opmerking**: de term `modeltoepassing` is iets anders dan 'de referentie-app': `Een modeltoepassing is elke echte
-toepassing die aan alle vereisten voldoet voor hoe toekomstige toepassingen gebouwd worden.`
+toepassing die aan alle vereisten (A én B) voldoet voor hoe toekomstige toepassingen gebouwd worden.`
+
+
+### B. Uniforme UI/UX
+
+Waar A. bepaalt **of** een agent er aan kan werken, bepaalt B **waarnaar** hij zich moet richten. Een toepassing die
+ aan A. voldoet maar eigen navigatie, een eigen formulier-patronen en eigen foutafhandeling heeft, is een uitstekende
+ werkomgeving voor een agent - maar tegelijk een slecht voorbeeld. "Bouw een toepassing zoals modeltoepassing X"
+ reproduceert dan precies de versnippering die we willen wegwerken.
+
+<div style={{textAlign: 'center'}}>
+    <img
+        src={fluxAiModeltoepassingB}
+        alt="Flux-AI - modeltoepassing - uniforme ui/ux"
+        width="770"
+    />
+</div>
+
+Concreet betekent uniforme UI/UX:
+
+- **Uniforme paginastructuur en navigatie** - dezelfde layout, dezelfde plaats voor titel, acties, filters en inhoud.
+- **Uniforme interactiepatronen** - formulieren, validatie en foutmeldingen, laad- en lege toestanden, bevestigingen,
+  tabellen en paginering volgen 1 patroon.
+- **Componenten uit de bibliotheek in plaats van lokale varianten** - geen eigen knop, eigen modal of eigen datumveld
+  naast de `vl`-component.
+- **Consistente terminologie en 'tone-of-voice'** in labels, meldingen en hulpteksten.
+- **Toegankelijkheid (WCAG 2.1 AA)** als onderdeel van het patroon, niet als losse controle achteraf.
+
+AI-rationale: few-shot voorbeelden werken enkel als de voorbeelden onderling consistent zijn. 5 modeltoepassingen met 5
+ verschillende formulier-patronen leren een agent geen patroon aan maar ruis; 5 modeltoepassingen met hetzelfde patroon
+ maken van dat patroon de vanzelfsprekende output. B is dus niet enkel een UX-doel, het is wat de generatie-workflow
+ (4.4) waardevol maakt.
+
+**Waarom dit apart gepland wordt.** Een bestaande toepassing aligneren op het uniforme patroon wijzigt schermen die
+ mensen dagelijks gebruiken - soms ook de manier waarop een taak verloopt. Dat is geen puur technische beslissing. De
+ aanpak is daarom gefaseerd:
+
+1. **Norm vastleggen** - welke layout en welke patronen gelden als de standaard. Dit is 1 beslissing op
+   bibliotheek-niveau, niet per toepassing.
+2. **Gap-analyse per toepassing** - waar wijkt de toepassing af van de norm. Hier is AI goed in: afwijkingen
+   detecteren en het aanpassingsvoorstel opstellen.
+3. **Afstemmen met team en business** - impact, prioriteit en timing per toepassing.
+4. **Doorvoeren na akkoord** - de e2e-suite uit A. bewijst daarbij welk gedrag ongewijzigd blijft en welk gedrag
+   bewust verandert. A. maakt B. dus behapbaar.
+
+<vl-alert icon="alert-circle" title="Aandachtspunt" type="warning" size="small">
+  A. zonder B. levert een uitstekend platform voor AI-agents op, maar nog geen uniforme toepassingen. B. zonder A. is
+  niet verifieerbaar en dus niet veilig door te voeren. De volgorde is A. eerst, B. daarna - op voorwaarde dat B. niet
+  uit beeld verdwijnt, daar zit het doel.
+</vl-alert>
+
+<br/>
 
 
 ## 6. Ontsluiting: MCP als toegangspoort
@@ -168,14 +242,17 @@ De kennislaag wordt aan AI-tooling ontsloten via een MCP-server bovenop de CEM/w
 
 **Fase 1 - Fundament.** CEM/web-types per versie publiceren en ontsluiten via de MCP-server. Release notes structureren
  (machineleesbaar migratiebestand naast de menselijke notes). Het modeltoepassing-contract formeel vastleggen
- (template-repo met de 4 eisen ingebouwd).
+ (template-repo met de 4 technische eisen uit 5.A. ingebouwd). Parallel en zonder afhankelijkheid: de UI/UX-norm uit
+ 5.B. beschrijven, zodat er iets is om later tegen af te toetsen.
 
-**Fase 2 - Eerste bewijzen.** Een bestaande toepassing omzetten naar modeltoepassing. Daarop de versie-migratie-workflow
- activeren (vN → vN+1 met e2e-verificatie). Parallel: Figma-bibliotheek aligneren op de componentbibliotheek en een
- eerste design-naar-code-experiment draaien op 1 scherm.
+**Fase 2 - Eerste bewijzen.** Een bestaande toepassing omzetten naar modeltoepassing op niveau 5.A. Daarop de
+ versie-migratie-workflow activeren (vN → vN+1 met e2e-verificatie). Parallel: Figma-bibliotheek aligneren op de
+ componentbibliotheek en een eerste design-naar-code-experiment draaien op 1 scherm.
 
-**Fase 3 - Opschalen.** Meer toepassingen uniformiseren; migratie-workflow uitrollen naar teams die op oudere versies
- zitten; design-naar-code opnemen in het standaard ontwerpproces.
+**Fase 3 - Opschalen.** Meer toepassingen uniformiseren op niveau 5.A.; migratie-workflow uitrollen naar teams die op
+ oudere versies zitten; design-naar-code opnemen in het standaard ontwerpproces. Vanaf hier start ook 5.B.: gap-analyse
+ tegenover de UI/UX-norm en, per toepassing en na afstemming met team en business, de effectieve uniformisering van de
+ UI/UX.
 
 **Fase 4 - Genereren.** Nieuwe toepassingen opzetten op basis van modeltoepassingen + design + CEM. Deze fase komt
  bewust laatst: ze heeft de output van alle vorige fasen nodig.
@@ -195,6 +272,9 @@ De kennislaag wordt aan AI-tooling ontsloten via een MCP-server bovenop de CEM/w
   toegankelijkheid (WCAG 2.1 AA), waar automatische verificatie tekortschiet.
 - **Versnippering vermijden.** Alle AI-workflows via dezelfde MCP-ontsluiting laten lopen voorkomt dat elke tool zijn
   eigen (verouderende) kopie van de componentkennis meesleept.
+- **Draagvlak voor UI/UX-wijzigingen (5.B.).** Dit is het enige deel met zichtbare impact op de eindgebruiker. Het
+  risico is niet technisch maar organisatorisch: wordt 5.B. niet doorgevoerd, dan stopt het traject op een uitstekend
+  agent-platform met nog steeds een niet-uniforme toepassing - het probleem uit sectie 1.
 
 
 ## 9. Conclusie
@@ -204,3 +284,8 @@ De 4 ideeën - design-naar-code, versie-migratie, uniformisering en voorbeeld ge
  kennislaag (CEM, release notes, modeltoepassing-contract), dan de ontsluiting (MCP), dan de workflows in oplopende
  volgorde. De modeltoepassingen vormen daarbij het vliegwiel: elke toepassing die uniform wordt opgeleverd, maakt de
  AI-ondersteuning voor de volgende beter.
+
+Het onderscheid tussen 5.A. en 5.B. bepaalt het tempo. 5.A. - het technisch fundament - kan meteen starten; het levert
+ op zichzelf al een grote sprong: verifieerbare, migreerbare, agent-vriendelijke toepassingen. 5.B - de uniforme
+ UI/UX - is het eigenlijke doel uit sectie 1. en vraagt afstemming met team en business, per toepassing. Het is dus
+ een aparte beslissing en geen automatisch gevolg van 5.A. Het traject is pas geslaagd wanneer beide zijn doorgevoerd.
