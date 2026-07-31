@@ -8,17 +8,13 @@ cd "$(dirname "$0")/../../.."
 
 # op Jenkins is de checkout gedaan door een andere user (jnlp container) dan de user
 # die dit script draait (root in de cypress container) - zonder safe.directory weigert
-# git dan elke operatie; op Bamboo is dit een onschuldige extra config entry
+# git dan elke operatie
 git config --global --add safe.directory "$(pwd)"
 
-# branchnaam bepalen:
-# - Bamboo: BAMBOO_BRANCH_NAME (indien doorgegeven; compose.yaml default is
-#   'not-specified'), anders via git rev-parse zoals voorheen
-# - Jenkins: BRANCH_NAME (multibranch) of GIT_BRANCH - de checkout staat daar in
-#   detached HEAD, dus git rev-parse zou enkel 'HEAD' teruggeven
-if [[ -n "${BAMBOO_BRANCH_NAME:-}" && "${BAMBOO_BRANCH_NAME}" != "not-specified" ]]; then
-    GIT_REF_NAME="${BAMBOO_BRANCH_NAME}"
-elif [[ -n "${BRANCH_NAME:-}" ]]; then
+# branchnaam bepalen: BRANCH_NAME (multibranch) of GIT_BRANCH - de Jenkins checkout
+# staat in detached HEAD, dus git rev-parse zou enkel 'HEAD' teruggeven. De
+# rev-parse fallback is er voor een lokale run.
+if [[ -n "${BRANCH_NAME:-}" ]]; then
     GIT_REF_NAME="${BRANCH_NAME}"
 elif [[ -n "${GIT_BRANCH:-}" ]]; then
     GIT_REF_NAME="${GIT_BRANCH#origin/}"
@@ -53,18 +49,7 @@ if [[ ${DEVELOP_BRANCH} == false ]] && [[ ${RELEASE_BRANCH} == false ]];
     exit 0
 fi
 
-# op Bamboo bevat SECRET_GITHUB_TOKEN het GitHub PAT met de juiste rechten
-# (compose.yaml default is 'not-specified'); op Jenkins wordt GITHUB_TOKEN
-# rechtstreeks gezet via withCredentials
-if [[ -z ${SECRET_GITHUB_TOKEN+x} || "${SECRET_GITHUB_TOKEN}" == "not-specified" ]];
-  then
-    echo "SECRET_GITHUB_TOKEN is NIET gezet"
-  else
-    export GITHUB_TOKEN=${SECRET_GITHUB_TOKEN}
-    echo "SECRET_GITHUB_TOKEN als GITHUB_TOKEN gezet, OK"
-fi
-
-# het GITHUB_TOKEN is nodig, ofwel rechtstreeks gezet ofwel via bamboo.SECRET_GITHUB_TOKEN
+# op Jenkins wordt GITHUB_TOKEN gezet via withCredentials (credentialsId 'github')
 if [[ -z ${GITHUB_TOKEN+x} ]];
   then
     echo "GITHUB_TOKEN is NIET gezet, NOK - stop"
@@ -74,7 +59,7 @@ if [[ -z ${GITHUB_TOKEN+x} ]];
 fi
 
 # the remote set by the CI server is not authenticated, so remove the remote and add one with authentication
-# de 'x-access-token' username werkt zowel met een PAT (Bamboo) als met een GitHub App token (Jenkins)
+# de 'x-access-token' username werkt met het GitHub App token dat Jenkins aanlevert
 echo 'git remote rm origin'
 git remote rm origin &> /dev/null
 echo 'git remote add origin https://x-access-token:${GITHUB_TOKEN}@github.com/milieuinfo/flux-web-components.git'
@@ -82,14 +67,14 @@ git remote add origin https://x-access-token:${GITHUB_TOKEN}@github.com/milieuin
 echo 'git fetch --prune origin'
 git fetch --prune origin &> /dev/null
 # Jenkins kan een shallow clone maken; semantic-release heeft de volledige historiek
-# nodig om de vorige versie te bepalen - op Bamboo is de clone niet shallow (no-op)
+# nodig om de vorige versie te bepalen
 if [[ "$(git rev-parse --is-shallow-repository)" == "true" ]];
   then
     echo 'git fetch --unshallow origin'
     git fetch --unshallow origin &> /dev/null
 fi
 # op Jenkins staat de checkout in detached HEAD - de branch expliciet uitchecken,
-# want semantic-release moet op de branch zelf draaien; op Bamboo is dit een no-op
+# want semantic-release moet op de branch zelf draaien
 echo "git checkout ${GIT_REF_NAME}"
 git checkout ${GIT_REF_NAME}
 echo 'git pull origin ${GIT_REF_NAME}'
@@ -149,13 +134,13 @@ set -e
 if [[ ${RELEASE_BRANCH} == true ]];
   then
     echo "semantic-release - '.releaserc-release' script wordt gebruikt"
-    cp ./resources/ci-bamboo/release/.releaserc-release .releaserc
+    cp ./resources/ci-jenkins/release/.releaserc-release .releaserc
 fi
 
 if [[ ${DEVELOP_BRANCH} == true ]];
   then
     echo "semantic-release - '.releaserc-develop' script wordt gebruikt"
-    cp ./resources/ci-bamboo/release/.releaserc-develop .releaserc
+    cp ./resources/ci-jenkins/release/.releaserc-develop .releaserc
 fi
 
 echo "semantic-release - uitvoering"
@@ -233,7 +218,7 @@ if [[ ${RELEASE_BRANCH} == true ]];
         const fs = require("fs");
         const [file, url] = process.argv.slice(1);
         const auth = Buffer.from(
-            `${process.env.ACD_REPOSITORY_DEBIAN_LOGIN}:${process.env.ACD_REPOSITORY_BAMBOO_PASSWORD}`
+            `${process.env.ACD_REPOSITORY_DEBIAN_LOGIN}:${process.env.ACD_REPOSITORY_PASSWORD}`
         ).toString("base64");
         fetch(url, {
             method: "PUT",
