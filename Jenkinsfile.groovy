@@ -38,11 +38,9 @@ spec:
     - name: cypress-dshm
       emptyDir:
         medium: Memory
-        # Een emptyDir met medium: Memory is een tmpfs die meetelt tegen de
-        # memory limit van de container. Zonder sizeLimit kan Cypress /dev/shm
-        # stilletjes laten vollopen tot de pod OOM-killed wordt - dan sterft de
-        # hele pod en zie je enkel dat de stage "niet start". Met sizeLimit
-        # faalt de schrijfactie met ENOSPC, wat wel een leesbare fout geeft.
+        # Een emptyDir met medium: Memory is een tmpfs die meetelt tegen de memory limit van de container. Zonder sizeLimit
+        # kan Cypress /dev/shm stilletjes laten vollopen tot de pod OOM gaat - dan sterft de hele pod en zie je enkel
+        # dat de stage "niet start". Met sizeLimit faalt de schrijfactie met ENOSPC, wat wel een leesbare fout geeft.
         sizeLimit: 4Gi
     - name: js-settings
       secret:
@@ -72,18 +70,8 @@ pipeline {
                         }
                     }
                 }
-                // De drie onderstaande stages draaien parallel en delen geen state.
-                //
-                // Elke branch declareert een eigen agent, dus elke branch krijgt een
-                // eigen pod met een eigen workspace. Dat is hier geen luxe maar een
-                // vereiste: elk script doet zijn eigen `npm ci` op node_modules en
-                // libs-build.sh doet `rm -rf ./build/dist`. In een gedeelde workspace
-                // zouden die elkaars bestanden onder de voeten wegtrekken.
-                //
-                // Er is geen artifact-overdracht nodig: alle module-resolutie loopt via
-                // de paths in tsconfig.base.json en de vite-/webpack-aliassen, en die
-                // wijzen naar libs/*/src - nooit naar build/dist. Elke branch bouwt dus
-                // zelf wat ze nodig heeft, vertrekkend van de checkout.
+                // De drie onderstaande stages draaien parallel en delen geen state. Elke branch declareert
+                // een eigen agent, dus elke branch krijgt een eigen pod met een eigen workspace.
                 stage('build-en-tests') {
                     parallel {
                         stage('build-apps-and-libs') {
@@ -97,23 +85,17 @@ pipeline {
                                 container('cypress') {
                                     sh './resources/ci-jenkins/bash/build-apps-and-libs.sh'
                                 }
-                                // De release-and-publish stage draait in een andere pod
-                                // en heeft de hier gebouwde libs en fat-lib nodig
-                                // (pack/publish + tgz-upload). Enkel die subset stashen:
-                                // storybook wordt in de release stage toch opnieuw
-                                // gebouwd (pas dan is de CHANGELOG up-to-date).
-                                stash name: 'build-dist-libs-en-fat-lib',
-                                        includes: 'build/dist/libs/**,build/dist/fat-lib/**'
+                                // De release-and-publish stage draait in een andere pod en heeft de hier gebouwde libs en fat-lib nodig.
+                                stash name: 'build-dist-libs-en-fat-lib', includes: 'build/dist/libs/**,build/dist/fat-lib/**'
                             }
                         }
                         stage('unit-component-integrator-tests') {
-                            // TIJDELIJK overgeslagen zodat de release stages sneller
-                            // starten - verwijder dit when-blok om weer te activeren.
+                            // haal dit uit commentaar om deze test stage tijdelijk over te slagen
                             // beforeAgent: anders wordt de pod toch opgestart.
-                            when {
-                                beforeAgent true
-                                expression { false }
-                            }
+                            // when {
+                            //    beforeAgent true
+                            //    expression { false }
+                            // }
                             agent {
                                 kubernetes {
                                     inheritFrom 'jenkins-jenkins-agent'
@@ -127,23 +109,19 @@ pipeline {
                             }
                             post {
                                 always {
-                                    // Hoort bij deze stage: libs:jest draait hier, niet in
-                                    // build-apps-and-libs. Nu de workspaces gescheiden zijn,
-                                    // staat test-results/ ook alleen nog in deze pod.
+                                    // toon de JUnit resultaten in Jenkins
                                     junit allowEmptyResults: true, testResults: 'test-results/*.xml'
-                                    archiveArtifacts artifacts: screenshotsGlob(),
-                                            allowEmptyArchive: true, fingerprint: false
+                                    archiveArtifacts artifacts: screenshotsGlob(), allowEmptyArchive: true, fingerprint: false
                                 }
                             }
                         }
                         stage('e2e-tests-storybook') {
-                            // TIJDELIJK overgeslagen zodat de release stages sneller
-                            // starten - verwijder dit when-blok om weer te activeren.
+                            // haal dit uit commentaar om deze test stage tijdelijk over te slagen
                             // beforeAgent: anders wordt de pod toch opgestart.
-                            when {
-                                beforeAgent true
-                                expression { false }
-                            }
+                            // when {
+                            //    beforeAgent true
+                            //    expression { false }
+                            // }
                             agent {
                                 kubernetes {
                                     inheritFrom 'jenkins-jenkins-agent'
@@ -164,22 +142,14 @@ pipeline {
                         }
                     }
                 }
-                // De drie release stages draaien sequentieel op de top-level agent en
-                // delen dus één workspace en checkout: verify-release heeft de
-                // build/dist output van release-and-publish nodig en finalise-release
-                // werkt op dezelfde git checkout verder.
-                //
-                // De scripts beslissen zelf of ze effectief iets doen op basis van de
-                // branchnaam. De when-conditie hieronder is een superset van die guards
-                // en vermijdt enkel dat op feature branches de stages nodeloos
-                // opstarten en credentials vereisen.
+                // Onderstaande scripts beslissen zelf of ze effectief iets doen op basis van de branch naam. De
+                // when-conditie hieronder vermijdt enkel dat op feature branches de stages nodeloos opstarten.
                 stage('release-and-publish') {
                     when { expression { env.BRANCH_NAME ==~ /.*(develop|bugfix|release).*/ } }
                     environment {
                         // niet geheim: de artifactory root URL
                         ACD_REPOSITORY_URL = 'https://repo.omgeving.vlaanderen.be/artifactory'
-                        // niet geheim: de artifactory login; het bijhorende wachtwoord
-                        // komt via de podSpec uit het jenkins-secrets secret
+                        // geheim: het bijhorende wachtwoord komt via de podSpec uit de jenkins-secrets
                         ACD_REPOSITORY_DEBIAN_LOGIN = 'jenkins-systeemgebruiker'
                     }
                     steps {
@@ -191,6 +161,12 @@ pipeline {
                                     passwordVariable: 'GITHUB_TOKEN')]) {
                                 sh './resources/ci-jenkins/bash/release-and-publish.sh'
                             }
+                        }
+                    }
+                    post {
+                        always {
+                            // voorziet in Jenkins een link naar de storybook tgz
+                            archiveArtifacts artifacts: 'build/dist/apps/storybook-*.tgz', allowEmptyArchive: true, fingerprint: false
                         }
                     }
                 }
@@ -221,26 +197,6 @@ pipeline {
                         }
                     }
                 }
-//                stage('GitHub publish PoC') {
-//                    steps {
-//                        container('cypress') {
-//                            withCredentials([usernamePassword(
-//                                    credentialsId: 'github',
-//                                    usernameVariable: 'GH_USER',
-//                                    passwordVariable: 'GITHUB_TOKEN'
-//                            )]) {
-//                                sh '''
-//                                    git config --global --add safe.directory "$WORKSPACE"
-//                                    git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@${GIT_URL#https://}"
-//                                    git fetch --unshallow || git fetch --prune
-//                                    git fetch --tags --force
-//                                '''
-//                                // --dry-run !
-//                                sh 'npx semantic-release --dry-run --no-ci --extends ./resources/ci-jenkins/github-publish-poc.releaserc.cjs'
-//                            }
-//                        }
-//                    }
-//                }
             }
         }
     }
