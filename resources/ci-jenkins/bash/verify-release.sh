@@ -11,4 +11,3 @@ echo 'RUNNING SCRIPT: verify-release.sh'
 #echo "TODO - run the consumer e2e tests"
 #npm run consumer:install
 #npm run consumer:run
-
