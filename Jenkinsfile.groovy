@@ -92,10 +92,10 @@ pipeline {
                         stage('unit-component-integrator-tests') {
                             // haal dit uit commentaar om deze test stage tijdelijk over te slagen
                             // beforeAgent: anders wordt de pod toch opgestart.
-                            // when {
-                            //    beforeAgent true
-                            //    expression { false }
-                            // }
+                             when {
+                                beforeAgent true
+                                expression { false }
+                             }
                             agent {
                                 kubernetes {
                                     inheritFrom 'jenkins-jenkins-agent'
@@ -118,10 +118,10 @@ pipeline {
                         stage('e2e-tests-storybook') {
                             // haal dit uit commentaar om deze test stage tijdelijk over te slagen
                             // beforeAgent: anders wordt de pod toch opgestart.
-                            // when {
-                            //    beforeAgent true
-                            //    expression { false }
-                            // }
+                             when {
+                                beforeAgent true
+                                expression { false }
+                             }
                             agent {
                                 kubernetes {
                                     inheritFrom 'jenkins-jenkins-agent'
