@@ -6,23 +6,18 @@ set -e
 echo 'RUNNING SCRIPT: verify-release.sh'
 cd "$(dirname "$0")/../../.."
 
-# Branchnaam bepalen via de CI omgeving:
-# - Bamboo: BAMBOO_BRANCH_NAME (bamboo.planRepository.branchName). Bamboo's
-#   checkout-task zet de werkdir in detached HEAD op de trigger-SHA, waardoor
-#   git rev-parse na de chore(release) [skip ci] commit niet meer de echte
-#   branchnaam teruggeeft.
-# - Jenkins: BRANCH_NAME (multibranch) of GIT_BRANCH.
+# Branchnaam bepalen via de CI omgeving: BRANCH_NAME (multibranch) of GIT_BRANCH.
+# De Jenkins checkout staat in detached HEAD, waardoor git rev-parse na de
+# chore(release) [skip ci] commit niet meer de echte branchnaam teruggeeft.
 # Geen fallback op git rev-parse: zo faalt het script hard als er geen branchnaam
 # wordt doorgegeven, in plaats van stilletjes het oude (falende) gedrag te herhalen
 # op de release branch.
-if [[ -n "${BAMBOO_BRANCH_NAME:-}" && "${BAMBOO_BRANCH_NAME}" != "not-specified" ]]; then
-    CURRENT_BRANCH="${BAMBOO_BRANCH_NAME}"
-elif [[ -n "${BRANCH_NAME:-}" ]]; then
+if [[ -n "${BRANCH_NAME:-}" ]]; then
     CURRENT_BRANCH="${BRANCH_NAME}"
 elif [[ -n "${GIT_BRANCH:-}" ]]; then
     CURRENT_BRANCH="${GIT_BRANCH#origin/}"
 else
-    echo "ERROR: geen branchnaam gevonden (BAMBOO_BRANCH_NAME/BRANCH_NAME/GIT_BRANCH) - controleer bamboo.yml en compose.yaml, of de Jenkins omgeving" >&2
+    echo "ERROR: geen branchnaam gevonden (BRANCH_NAME/GIT_BRANCH) - controleer de Jenkins omgeving" >&2
     exit 1
 fi
 
@@ -33,10 +28,8 @@ if [[ "${CURRENT_BRANCH}" != *"release-v"* && "${CURRENT_BRANCH}" != "develop-v"
 fi
 echo "Branch verificatie OK: ${CURRENT_BRANCH}"
 
-# versie bepalen uit de components package.json — op Bamboo afkomstig uit het
-# 'artifact-release-and-publish' artifact (zie artifact-download task in bamboo.yml,
-# destination: build), op Jenkins uit de gedeelde workspace waarin release-and-publish
-# net gedraaid heeft
+# versie bepalen uit de components package.json — uit de gedeelde workspace waarin
+# release-and-publish net gedraaid heeft
 cd ./build/dist/libs/components
 NEXT_RELEASE_VERSION=$(npm pkg get version | sed 's/"//g')
 echo "Using ${NEXT_RELEASE_VERSION} as NEXT_RELEASE_VERSION"
