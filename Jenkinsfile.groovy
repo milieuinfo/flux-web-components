@@ -17,8 +17,7 @@ spec:
         - name: NO_COLOR
           value: "1"
         # wachtwoord voor de artifactory upload in release-and-publish.sh
-        # (op Bamboo: ${bamboo.acd_repository_bamboo_password})
-        - name: ACD_REPOSITORY_BAMBOO_PASSWORD
+        - name: ACD_REPOSITORY_PASSWORD
           valueFrom:
             secretKeyRef:
               name: jenkins-secrets
@@ -96,7 +95,7 @@ pipeline {
                             }
                             steps {
                                 container('cypress') {
-                                    sh './resources/ci-bamboo/bash/build-apps-and-libs.sh'
+                                    sh './resources/ci-jenkins/bash/build-apps-and-libs.sh'
                                 }
                                 // De release-and-publish stage draait in een andere pod
                                 // en heeft de hier gebouwde libs en fat-lib nodig
@@ -123,7 +122,7 @@ pipeline {
                             }
                             steps {
                                 container('cypress') {
-                                    sh './resources/ci-bamboo/bash/unit-component-integrator-tests.sh'
+                                    sh './resources/ci-jenkins/bash/unit-component-integrator-tests.sh'
                                 }
                             }
                             post {
@@ -153,7 +152,7 @@ pipeline {
                             }
                             steps {
                                 container('cypress') {
-                                    sh './resources/ci-bamboo/bash/e2e-tests-storybook.sh'
+                                    sh './resources/ci-jenkins/bash/e2e-tests-storybook.sh'
                                 }
                             }
                             post {
@@ -167,24 +166,20 @@ pipeline {
                 }
                 // De drie release stages draaien sequentieel op de top-level agent en
                 // delen dus één workspace en checkout: verify-release heeft de
-                // build/dist output van release-and-publish nodig (op Bamboo geregeld
-                // via artifact-download) en finalise-release werkt op dezelfde git
-                // checkout verder.
+                // build/dist output van release-and-publish nodig en finalise-release
+                // werkt op dezelfde git checkout verder.
                 //
                 // De scripts beslissen zelf of ze effectief iets doen op basis van de
-                // branchnaam (zelfde gedrag als op Bamboo, waar elke stage altijd
-                // draait). De when-conditie hieronder is een superset van die guards
+                // branchnaam. De when-conditie hieronder is een superset van die guards
                 // en vermijdt enkel dat op feature branches de stages nodeloos
                 // opstarten en credentials vereisen.
                 stage('release-and-publish') {
                     when { expression { env.BRANCH_NAME ==~ /.*(develop|bugfix|release).*/ } }
                     environment {
                         // niet geheim: de artifactory root URL
-                        // (op Bamboo: ${bamboo.acd_repository_url})
                         ACD_REPOSITORY_URL = 'https://repo.omgeving.vlaanderen.be/artifactory'
                         // niet geheim: de artifactory login; het bijhorende wachtwoord
                         // komt via de podSpec uit het jenkins-secrets secret
-                        // (op Bamboo: ${bamboo.acd_repository_debian_login})
                         ACD_REPOSITORY_DEBIAN_LOGIN = 'jenkins-systeemgebruiker'
                     }
                     steps {
@@ -194,7 +189,7 @@ pipeline {
                                     credentialsId: 'github',
                                     usernameVariable: 'GH_USER',
                                     passwordVariable: 'GITHUB_TOKEN')]) {
-                                sh './resources/ci-bamboo/bash/release-and-publish.sh'
+                                sh './resources/ci-jenkins/bash/release-and-publish.sh'
                             }
                         }
                     }
@@ -203,7 +198,7 @@ pipeline {
                     when { expression { env.BRANCH_NAME ==~ /.*(develop|bugfix|release).*/ } }
                     steps {
                         container('cypress') {
-                            sh './resources/ci-bamboo/bash/verify-release.sh'
+                            sh './resources/ci-jenkins/bash/verify-release.sh'
                         }
                     }
                     post {
@@ -221,7 +216,7 @@ pipeline {
                                     credentialsId: 'github',
                                     usernameVariable: 'GH_USER',
                                     passwordVariable: 'GITHUB_TOKEN')]) {
-                                sh './resources/ci-bamboo/bash/finalise-release.sh'
+                                sh './resources/ci-jenkins/bash/finalise-release.sh'
                             }
                         }
                     }
