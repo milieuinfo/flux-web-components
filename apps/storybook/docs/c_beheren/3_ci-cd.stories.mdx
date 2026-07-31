@@ -8,13 +8,13 @@ import buildGitHubActions from '../../resources/beheren/build-github-actions.png
 ## Inhoudstafel
 
 - [Beschrijving](#beschrijving)
-- [Bamboo Configuratie](#bamboo-configuratie)
-- [Bamboo Release](#bamboo-release)
+- [Jenkins Configuratie](#jenkins-configuratie)
+- [Jenkins Release](#jenkins-release)
 
 
 ## Beschrijving
 
-De build loopt via [Bamboo](https://www.milieuinfo.be/bamboo/chain/viewChain.action?planKey=flux-CUWC).
+De build loopt via Jenkins. De Bamboo build wordt niet meer ondersteund.
 
 Om de versionering te sturen en een changelog te genereren wordt de
 [semantic-release](https://github.com/semantic-release/semantic-release) plugin gebruikt.
@@ -23,32 +23,36 @@ De verschillende releases zijn terug te vinden op de
 [release pagina](https://github.com/milieuinfo/flux-web-components/releases) van de GitHub repository.
 
 
-## Bamboo Configuratie
+## Jenkins Configuratie
 
-De build configuratie zit in het `bamboo.yml` bestand in de root folder `bamboo-specs`. In Bamboo bestaat een
-build-plan uit stages die sequentieel lopen, de volgende stage start pas als de vorige stage succesvol gelopen heeft.
-Een stage bestaat zelf uit 1 of meerdere jobs, de jobs binnen een stage kunnen parallel lopen. Volgende stages en jobs
-zijn gedefinieerd:
+De build configuratie zit in het `Jenkinsfile.groovy` bestand in de root van de repository. De bijhorende bash-scripts
+staan in `resources/ci-jenkins/bash`, de semantic-release configuratie in `resources/ci-jenkins/release`.
 
-1. __Checkout, Install and Cache Stage__ - met de job
-    * __checkout-install-and-cache__: checkout van de repo, npm installatie, caching van de node_modules en Cypress
-2. __Build and Test Stage__ - met de volgende jobs die parallel lopen:
-    * __build-apps-and-libs__ (de build),
+Het is een declaratieve multibranch pipeline die op Kubernetes draait: elke stage die een eigen `agent` declareert
+krijgt een eigen pod met een eigen workspace. De volledige pijplijn wordt overgeslagen als de commit een `[skip ci]`
+bevat. Volgende stages zijn gedefinieerd:
+
+1. __Trivy scan__ - security scan van `package-lock.json`
+2. __build-en-tests__ - met de volgende stages die parallel lopen, elk in een eigen pod:
+    * __build-apps-and-libs__ (de build) - stasht de gebouwde libs en fat-lib voor de release stage
     * __unit-component-integrator-tests__ (verschillende testen)
-    * __e2e-tests-storybook__ (Stroybook e2e-testen)
-3. __Release and Publish Stage__ - met de jobs
-    * __release-and-publish__: deze loopt niet voor feature branches, er is een licht verschillende flow voor release
-      en pre-release branches
-4. __Verify Release Stage__ - met de job
-    * __verify-release__: verifieert dat de ge-releaste artifacts afneembaar zijn
+    * __e2e-tests-storybook__ (Storybook e2e-testen)
+3. __release-and-publish__ - loopt enkel voor develop-, bugfix- en release-branches; er is een licht verschillende
+   flow voor release en pre-release branches
+4. __verify-release__ - verifieert dat de ge-releaste artifacts afneembaar zijn
+
+De twee release stages draaien sequentieel op de top-level agent en delen dus één workspace en checkout:
+__verify-release__ heeft de `build/dist` output van __release-and-publish__ nodig. De scripts beslissen zelf op
+basis van de branchnaam of ze effectief iets doen.
 
 
-## Bamboo Release
+## Jenkins Release
 
-Een release vindt plaats in de __release-and-publish__ job en wordt gestuurd door
-[semantic-release](https://github.com/semantic-release/semantic-release). De configuratie van die plugin is te vinden
-in de root folder en zit in 2 bestanden: `.releaserc-develop` en `.releaserc-release`. De develop variant loopt voor de
-pre-release branches ('develop' en 'develop-xyz'), de release variant voor de 'release' en 'release-x.y' branches.
+Een release vindt plaats in de __release-and-publish__ stage en wordt gestuurd door
+[semantic-release](https://github.com/semantic-release/semantic-release). De configuratie van die plugin zit in 2
+bestanden onder `resources/ci-jenkins/release`: `.releaserc-develop` en `.releaserc-release`. Het script kopieert de
+juiste variant naar `.releaserc` in de root: de develop variant voor de pre-release branches (branchnaam bevat
+'develop' of 'bugfix'), de release variant voor de release branches (branchnaam bevat 'release').
 
 In die __release-and-publish__ stap gebeurd het volgende:
 
@@ -57,5 +61,8 @@ In die __release-and-publish__ stap gebeurd het volgende:
 - de te publiceren artifacts krijgen het versie nummer
 - er wordt een tag gelegd met het versie nummer
 - de artifacts worden gepushed naar [Artifactory](https://repo.omgeving.vlaanderen.be/ui/packages)
+- de fat-lib wordt als tgz naar Artifactory ge-upload (om op de CDN te geraken)
+- Storybook wordt opnieuw gebouwd - pas dan is de `CHANGELOG.md` up-to-date - en als
+  `storybook-<versie>.tgz` build-artifact gearchiveerd
 - in het geval van een release wordt er een changelog aangemaakt en een
 [GitHub release](https://github.com/milieuinfo/flux-web-components/releases) uitgevoerd
