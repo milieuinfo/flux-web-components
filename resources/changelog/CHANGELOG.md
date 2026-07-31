@@ -1,3 +1,9 @@
+## [2.17.2](https://github.com/milieuinfo/flux-web-components/compare/v2.17.1...v2.17.2) (2026-07-31)
+
+### Documentation
+
+* FLUX-776 - Flux-AI - een apart 'technisch' en 'ui/ux' traject ([413f3ff](https://github.com/milieuinfo/flux-web-components/commit/413f3ffd001efb90c651a81f2d1512a8b4b6b72d))
+
 ## [2.17.1](https://github.com/milieuinfo/flux-web-components/compare/v2.17.0...v2.17.1) (2026-07-30)
 
 ### Bug Fixes
