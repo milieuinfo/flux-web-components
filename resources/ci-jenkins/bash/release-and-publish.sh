@@ -4,7 +4,9 @@
 set -e
 
 echo 'RUNNING SCRIPT: release-and-publish.sh'
-cd "$(dirname "$0")/../../.."
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "${SCRIPT_DIR}/../../.."
+source "${SCRIPT_DIR}/lib/quiet-step.sh"
 
 # op Jenkins is de checkout gedaan door een andere user (jnlp container) dan de user
 # die dit script draait (root in de cypress container) - zonder safe.directory weigert
@@ -101,35 +103,10 @@ echo 'git config user.email'
 git config user.email ${GITHUB_EMAIL}
 git config user.email
 
-echo "npm ci - to force the clean"
-set +e
-npm ci --maxsockets 5 2> buffer-stderr.txt 1> buffer-stdout.txt
-if [[ $? -eq 0 ]]
-  then
-    echo "npm ci - success"
-  else
-    echo "npm ci - error - buffer-stderr.txt" >&2
-    cat buffer-stderr.txt >&2
-    cat buffer-stdout.txt >&2
-    set -e
-    exit 1
-fi
-set -e
+quiet_step "npm ci" npm ci --maxsockets 5
 
-echo "generate web-types - bring them up-to-date, semantic-release will commit them"
-set +e
-npm run libs:web-types:generate 2> buffer-stderr.txt 1> buffer-stdout.txt
-if [[ $? -eq 0 ]]
-  then
-    echo "generate web-types - success"
-  else
-    echo "generate web-types - error - buffer-stderr.txt" >&2
-    cat buffer-stderr.txt >&2
-    cat buffer-stdout.txt >&2
-    set -e
-    exit 1
-fi
-set -e
+# web-types up-to-date brengen, semantic-release commit ze mee
+quiet_step "generate web-types" npm run libs:web-types:generate
 
 if [[ ${RELEASE_BRANCH} == true ]];
   then
@@ -151,44 +128,23 @@ NEXT_RELEASE_VERSION=$(npm pkg get version | sed 's/"//g')
 echo using ${NEXT_RELEASE_VERSION} as NEXT_RELEASE_VERSION
 
 # de feitelijke release actie is afhankelijk van de branch
+# (output streamt live, en set -e breekt af zodra pack of publish faalt)
 
-set +e
 if [[ ${RELEASE_BRANCH} == true ]];
   then
     echo "publiceren van de npm packages naar de DOMG 'local-npm' repository"
     npm run libs:pack:release -- ${NEXT_RELEASE_VERSION}
     npm run libs:publish -- ${NEXT_RELEASE_VERSION}
-fi
-if [[ $? -eq 0 ]]
-  then
     echo "publiceren van de npm packages naar de DOMG 'local-npm' repository - success"
-  else
-    echo "publiceren van de npm packages naar de DOMG 'local-npm' repository - error - buffer-stderr.txt" >&2
-    cat buffer-stderr.txt >&2
-    cat buffer-stdout.txt >&2
-    set -e
-    exit 1
 fi
-set -e
 
-set +e
 if [[ ${DEVELOP_BRANCH} == true ]];
   then
     echo "publiceren van de npm packages naar de DOMG 'snapshot-npm' repository"
     npm run libs:pack:develop -- ${NEXT_RELEASE_VERSION}
     npm run libs:publish -- ${NEXT_RELEASE_VERSION}
-fi
-if [[ $? -eq 0 ]]
-  then
     echo "publiceren van de npm packages naar de DOMG 'snapshot-npm' repository - success"
-  else
-    echo "publiceren van de npm packages naar de DOMG 'snapshot-npm' repository - error - buffer-stderr.txt" >&2
-    cat buffer-stderr.txt >&2
-    cat buffer-stdout.txt >&2
-    set -e
-    exit 1
 fi
-set -e
 
 echo "update domg-wc met versie nummer en maak er een tgz van"
 # het versie nummer toevoegen aan de 'fat-lib'
@@ -202,70 +158,22 @@ cd ..
 
 if [[ ${RELEASE_BRANCH} == true ]];
   then
-    # De tar uploaden naar artifactory (om het op de cdn te krijgen) - een PUT
-    # omdat er geen package.json is, dus geen 'npm publish'.
-    #
-    # Dit gebeurt via node en niet via curl: curl zit niet meer in de cypress
-    # docker-image, en 'apt-get install curl' werkt op de Jenkins-pod niet omdat
-    # die geen egress heeft naar deb.debian.org (apt-get update haalt dan geen
-    # enkele package-index op en apt kan de naam 'curl' niet resolven).
-    # Node is er sowieso - het is een cypress-image en npm ci draait hierboven -
-    # en heeft fetch() globaal sinds Node 18.
+    # De tar uploaden naar artifactory, om het op de cdn te krijgen.
+    # Zie lib/upload-to-artifactory.mjs voor waarom dat via node gebeurt.
+    # De login komt uit de stage-environment, het wachtwoord uit de podSpec.
     TGZ="domg-wc-compliance-${NEXT_RELEASE_VERSION}.tgz"
-    TARGET="${ACD_REPOSITORY_URL}/local-generic/domg/${TGZ}"
     echo "upload-file '${TGZ}' naar artifactory"
-    node -e '
-        const fs = require("fs");
-        const [file, url] = process.argv.slice(1);
-        const auth = Buffer.from(
-            `${process.env.ACD_REPOSITORY_DEBIAN_LOGIN}:${process.env.ACD_REPOSITORY_PASSWORD}`
-        ).toString("base64");
-        fetch(url, {
-            method: "PUT",
-            headers: { Authorization: `Basic ${auth}` },
-            body: fs.readFileSync(file),
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`upload faalde: HTTP ${response.status} ${response.statusText}`);
-                }
-                console.log(`upload OK: HTTP ${response.status}`);
-            })
-            .catch((error) => {
-                console.error(error.message);
-                process.exit(1);
-            });
-    ' "${TGZ}" "${TARGET}"
+    node "${SCRIPT_DIR}/lib/upload-to-artifactory.mjs" \
+        "${TGZ}" "${ACD_REPOSITORY_URL}/local-generic/domg/${TGZ}"
 fi
 
 cd ..
 
 echo "rebuild storybook - because only now CHANGELOG.md is up-to-date"
-set +e
-npm run apps:storybook:build 2> buffer-stderr.txt 1> buffer-stdout.txt
-if [[ $? -eq 0 ]]
-  then
-    echo "build storybook - success"
-  else
-    echo "build storybook - error - buffer-stderr.txt" >&2
-    cat buffer-stderr.txt >&2
-    cat buffer-stdout.txt >&2
-    set -e
-    exit 1
-fi
-set -e
+npm run apps:storybook:build
 
 # tgz van Storybook maken
 echo "tgz''en van Storybook"
-set +e
 cd ./dist/apps/storybook
 tar cfz ../storybook-${NEXT_RELEASE_VERSION}.tgz .
-if [[ $? -eq 0 ]]
-  then
-    echo "Storybook succesvol in een tgz gestoken"
-  else
-    echo "fout bij het tgz''en van Storybook" >&2
-    set -e
-    exit 1
-fi
-set -e
+echo "Storybook succesvol in een tgz gestoken"

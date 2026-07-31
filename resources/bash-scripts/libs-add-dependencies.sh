@@ -12,21 +12,27 @@ rm -rf ./build/dep-to-add
 # creëer een folder voor de json bestanden met de dependencies
 mkdir -p ./build/dep-to-add
 
-# maak de dependency bestanden voor elke bibliotheek
-npm list $(npx depcheck ./build/dist/libs/common --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/common-dta.json
-npm list $(npx depcheck ./build/dist/libs/styles --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/styles-dta.json
-npm list $(npx depcheck ./build/dist/libs/components --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/components-dta.json
-npm list $(npx depcheck ./build/dist/libs/map --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/map-dta.json
+for LIB in common styles components map; do
+    # depcheck lijst de packages op die de gebouwde library importeert maar die nog niet in zijn package.json staan:
+    # regel 1 is de titel 'Missing dependencies', regel 2 zijn de namen
+    MISSING=$(npx depcheck ./build/dist/libs/${LIB} --oneline | tail -n +2)
 
-# breidt de package.json's van de libraries uit met de ontbrekende dependencies
-cd ./build/dist/libs/common
-jq -r '.dependencies | to_entries[] | "jq '\''.dependencies[\"\(.key)\"]=\"\(.value.version)\"'\'' package.json > tmp.json && mv tmp.json package.json"' ../../../dep-to-add/common-dta.json | bash
-cd ../styles
-jq -r '.dependencies | to_entries[] | "jq '\''.dependencies[\"\(.key)\"]=\"\(.value.version)\"'\'' package.json > tmp.json && mv tmp.json package.json"' ../../../dep-to-add/styles-dta.json | bash
-cd ../components
-jq -r '.dependencies | to_entries[] | "jq '\''.dependencies[\"\(.key)\"]=\"\(.value.version)\"'\'' package.json > tmp.json && mv tmp.json package.json"' ../../../dep-to-add/components-dta.json | bash
-cd ../map
-jq -r '.dependencies | to_entries[] | "jq '\''.dependencies[\"\(.key)\"]=\"\(.value.version)\"'\'' package.json > tmp.json && mv tmp.json package.json"' ../../../dep-to-add/map-dta.json | bash
+    # zonder deze controle draait 'npm list' hieronder zonder packages, en dat geeft alle dependencies van de root
+    # package.json terug - die zouden dan stuk voor stuk in het artifact geïnjecteerd worden
+    if [[ -z ${MISSING} ]]; then
+        echo "[FOUT] - depcheck vond geen ontbrekende dependencies voor '${LIB}' - is deze stap al gedraaid sinds de laatste 'npm run libs:build'?" >&2
+        exit 1
+    fi
 
-# back to the root folder
-cd ../../../..
+    # maak het dta (dependencies-to-add) bestand met de versies waarmee in deze repo gebouwd is - dat bestand blijft
+    # staan, zodat achteraf te controleren is wat er precies geïnjecteerd werd
+    npm list ${MISSING} --json --depth 0 > ./build/dep-to-add/${LIB}-dta.json
+
+    # breidt de package.json van de library uit met de ontbrekende dependencies
+    node ./resources/utils-build/add-dependencies.mjs \
+        ./build/dep-to-add/${LIB}-dta.json \
+        ./build/dist/libs/${LIB}/package.json
+done
+
+# back to the initial folder
+cd ./resources/bash-scripts
