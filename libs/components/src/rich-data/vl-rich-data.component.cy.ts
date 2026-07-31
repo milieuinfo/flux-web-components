@@ -146,6 +146,12 @@ describe('component - vl-rich-data with vl-search-filter-next', () => {
     it('should not close the search filter using the escape key when not closable', () => {
         cy.viewport(1024, 768);
         cy.get('vl-search-filter-next').should('not.have.attr', 'hidden');
+        // vl-search-filter-next schakelt tussen desktop en mobiel via een ResizeObserver op de body. Die
+        // callback wordt pas bij de volgende rendering-cyclus geleverd, wat op een zwaar belaste machine
+        // (bv. parallelle CI-stages) merkbaar later kan zijn dan het volgende Cypress-commando. De
+        // escape-toets is eenmalig: als ze te vroeg vertrekt, kan geen enkele retry dat nog rechttrekken.
+        // Daarom eerst wachten tot de omschakeling effectief gebeurd is.
+        cy.get('vl-search-filter-next').should('not.have.attr', 'mobile-modal');
         cy.get('vl-rich-data').invoke('removeAttr', 'data-vl-filter-closable');
         cy.get('#filterOpId').shadow().find('input').type('{esc}', { force: true });
         cy.get('vl-search-filter-next').should('not.have.attr', 'hidden');
@@ -154,6 +160,9 @@ describe('component - vl-rich-data with vl-search-filter-next', () => {
     it('should close the search filter using the escape key without closable attribute in mobile', () => {
         cy.viewport(375, 667);
         cy.get('vl-search-filter-next').should('not.have.attr', 'hidden');
+        // Zie de opmerking hierboven: wachten tot de ResizeObserver de mobiele modus heeft toegepast,
+        // want zonder mobile-modal negeert vl-rich-data de escape-toets als filter-closable ontbreekt.
+        cy.get('vl-search-filter-next').should('have.attr', 'mobile-modal');
         cy.get('vl-rich-data').invoke('removeAttr', 'data-vl-filter-closable');
         cy.get('#filterOpId').shadow().find('input').type('{esc}', { force: true });
         cy.get('vl-search-filter-next').should('have.attr', 'hidden');
