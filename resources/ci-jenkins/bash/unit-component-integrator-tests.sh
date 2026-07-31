@@ -4,108 +4,26 @@
 set -e
 
 echo 'RUNNING SCRIPT: unit-component-integrator-tests.sh'
-cd "$(dirname "$0")/../../.."
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "${SCRIPT_DIR}/../../.."
+source "${SCRIPT_DIR}/lib/quiet-step.sh"
 
-echo "npm ci - to force the clean"
-set +e
-npm ci --maxsockets 5 2> buffer-stderr.txt 1> buffer-stdout.txt
-if [[ $? -eq 0 ]]
-  then
-    echo "npm ci - success"
-  else
-    echo "npm ci - error - buffer-stderr.txt" >&2
-    cat buffer-stderr.txt >&2
-    cat buffer-stdout.txt >&2
-    set -e
-    exit 1
-fi
-set -e
+quiet_step "npm ci" npm ci --maxsockets 5
 
 echo "create build folder with dummy text file - when everything goes well there is no build folder which fails the build"
-# -p: deze stage draait in een eigen workspace, maar -p houdt het script ook
-# bruikbaar bij een lokale herhaalde run waar build/ al bestaat
+# -p: deze stage draait in een eigen workspace, maar -p houdt het script ook bruikbaar bij een lokale herhaalde run waar build/ al bestaat
 mkdir -p build
 touch build/dummy.txt
 
-echo "run all jest (unit) tests"
-set +e
-# CI=true laat de jest-configs ook JUnit XML schrijven naar test-results/,
-# waar de junit-step van deze stage ze oppikt (zie jest.config.ts in libs/*)
-CI=true npm run libs:jest 2> buffer-stderr.txt 1> buffer-stdout.txt
-if [[ $? -eq 0 ]]
-  then
-    echo "run all jest (unit) tests - success"
-  else
-    echo "run all jest (unit) tests - error - buffer-stderr.txt" >&2
-    cat buffer-stderr.txt >&2
-    cat buffer-stdout.txt >&2
-    set -e
-    exit 1
-fi
-set -e
+# CI=true laat de jest-configs ook JUnit XML schrijven naar test-results, waar de junit-step van deze stage ze oppikt (zie jest.config.ts in libs/*)
+quiet_step "run all jest (unit) tests" env CI=true npm run libs:jest
 
-echo "run all web component tests (cypress) - start"
-set +e
+# de 'npm run' hieronder streamt de output naar de console (zie lib/quiet-step.sh): ze duren lang, bij een crash of OOM wil je zien hoe ver hij geraakt was
+echo "run all web component tests (cypress)"
+npm run libs:component-tests:run
 
-# Log elke minuut "in progress" zodat de CI-omgeving weet dat het proces nog loopt
-# (cypress-tests kunnen lang duren en sommige CI-tools killen jobs zonder output)
-( while true; do sleep 60; echo "run all web component tests (cypress) - in progress"; done ) &
-PROGRESS_PID=$!
-
-npm run libs:component-tests:run 2> buffer-stderr.txt 1> buffer-stdout.txt
-CYPRESS_EXIT=$?
-
-# Stop de progress-logger zodra de tests klaar zijn
-kill $PROGRESS_PID 2>/dev/null
-wait $PROGRESS_PID 2>/dev/null
-
-if [[ $CYPRESS_EXIT -eq 0 ]]
-  then
-    echo "run all web component tests (cypress) - success"
-  else
-    echo "run all web component tests (cypress) - error - buffer-stderr.txt" >&2
-    cat buffer-stderr.txt >&2
-    cat buffer-stdout.txt >&2
-    set -e
-    exit 1
-fi
-set -e
-
-echo "run datepicker anchor-positioning tests in Firefox (cypress) - start"
-set +e
-
-( while true; do sleep 60; echo "run datepicker anchor-positioning tests in Firefox (cypress) - in progress"; done ) &
-PROGRESS_PID=$!
-
-npm run libs:component-tests:run-firefox-anchor 2> buffer-stderr.txt 1> buffer-stdout.txt
-CYPRESS_FIREFOX_EXIT=$?
-
-kill $PROGRESS_PID 2>/dev/null
-wait $PROGRESS_PID 2>/dev/null
-
-if [[ $CYPRESS_FIREFOX_EXIT -eq 0 ]]
-  then
-    echo "run datepicker anchor-positioning tests in Firefox (cypress) - success"
-  else
-    echo "run datepicker anchor-positioning tests in Firefox (cypress) - error - buffer-stderr.txt" >&2
-    cat buffer-stderr.txt >&2
-    cat buffer-stdout.txt >&2
-    set -e
-    exit 1
-fi
-set -e
+echo "run datepicker anchor-positioning tests in Firefox (cypress)"
+npm run libs:component-tests:run-firefox-anchor
 
 echo "run the integrator e2e tests (cypress)"
-set +e
-npm run apps:integrator:serve-and-e2e 2> buffer-stderr.txt 1> buffer-stdout.txt
-if [[ $? -eq 0 ]]
-  then
-    echo "run the integrator e2e tests (cypress) - success"
-  else
-    echo "run the integrator e2e tests (cypress) - error - buffer-stderr.txt" >&2
-    cat buffer-stderr.txt >&2
-    cat buffer-stdout.txt >&2
-    set -e
-    exit 1
-fi
-set -e
+npm run apps:integrator:serve-and-e2e
