@@ -215,25 +215,25 @@ export class VlFormDemo extends LitElement {
 
                     <vl-form-label block for="vlf-contact" label="Contactvoorkeur"></vl-form-label>
                     <vl-radio-group id="vlf-contact" name="contact" required>
-                        <vl-radio value="email" label="E-mail">E-mail</vl-radio>
-                        <vl-radio value="telefoon" label="Telefoon">Telefoon</vl-radio>
-                        <vl-radio value="post" label="Post">Post</vl-radio>
+                        <vl-radio block value="email" label="E-mail">E-mail</vl-radio>
+                        <vl-radio block value="telefoon" label="Telefoon">Telefoon</vl-radio>
+                        <vl-radio block value="post" label="Post">Post</vl-radio>
                     </vl-radio-group>
 
                     <fieldset style="border: 0; padding: 0; margin: 0;">
                         <legend style="font-weight: 500; margin-bottom: 4px;">Interesses</legend>
-                        <vl-checkbox name="interesses" value="sport">Sport</vl-checkbox>
-                        <vl-checkbox name="interesses" value="cultuur">Cultuur</vl-checkbox>
-                        <vl-checkbox name="interesses" value="wetenschap">Wetenschap</vl-checkbox>
+                        <vl-checkbox block name="interesses" value="sport">Sport</vl-checkbox>
+                        <vl-checkbox block name="interesses" value="cultuur">Cultuur</vl-checkbox>
+                        <vl-checkbox block name="interesses" value="wetenschap">Wetenschap</vl-checkbox>
                     </fieldset>
 
-                    <vl-checkbox name="nieuwsbrief" value="ja">Schrijf me in op de nieuwsbrief</vl-checkbox>
+                    <vl-checkbox block name="nieuwsbrief" value="ja">Schrijf me in op de nieuwsbrief</vl-checkbox>
 
                     <vl-form-label block for="vlf-bericht" label="Bericht"></vl-form-label>
                     <vl-textarea id="vlf-bericht" name="bericht" placeholder="Optioneel bericht"></vl-textarea>
                 </vl-fieldset>
 
-                <vl-checkbox name="akkoord" value="ja" required>
+                <vl-checkbox block name="akkoord" value="ja" required>
                     Ik verklaar dit waarheidsgetrouw in te vullen
                 </vl-checkbox>
 

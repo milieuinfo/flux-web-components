@@ -231,8 +231,8 @@ export class PgVariants extends LitElement {
                             </flux-radio-group>`,
                             html`<vl-form-label block for="cmp-vl-radio" label="Contactvoorkeur"></vl-form-label
                                 ><vl-radio-group id="cmp-vl-radio" label="Contactvoorkeur">
-                                    <vl-radio value="email" label="E-mail">E-mail</vl-radio>
-                                    <vl-radio value="post" label="Post">Post</vl-radio>
+                                    <vl-radio block value="email" label="E-mail">E-mail</vl-radio>
+                                    <vl-radio block value="post" label="Post">Post</vl-radio>
                                 </vl-radio-group>`,
                             patchesFor('fluxLook', 'flux-radio-group')
                         )}
@@ -257,8 +257,8 @@ export class PgVariants extends LitElement {
                             </flux-fieldset>`,
                             html`<vl-fieldset>
                                 <span slot="legend">Voorkeuren</span>
-                                <vl-checkbox checked>Sport</vl-checkbox>
-                                <vl-checkbox>Cultuur</vl-checkbox>
+                                <vl-checkbox block checked>Sport</vl-checkbox>
+                                <vl-checkbox block>Cultuur</vl-checkbox>
                             </vl-fieldset>`
                         )}
                         ${this.renderTitleVariant()}
