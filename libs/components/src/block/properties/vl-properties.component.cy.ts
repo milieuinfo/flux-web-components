@@ -291,6 +291,87 @@ describe('cypress-component - block components - vl-properties', () => {
 
         cy.get('vl-properties').shadow().find('dl').should('have.css', 'padding-bottom', '20px');
     });
+
+    it('should render the data in bold when value-bold attribute is set', () => {
+        cy.mount(html`
+            <vl-properties value-bold>
+                <vl-property>Woonplaats</vl-property>
+                <vl-property-data>Brussel</vl-property-data>
+            </vl-properties>
+        `);
+
+        cy.get('vl-properties').shadow().find('dd').should('have.css', 'font-weight', '500');
+        cy.get('vl-properties').shadow().find('dt').should('have.css', 'font-weight', '400');
+    });
+
+    it('should render the data with default font-weight when value-bold attribute is not set', () => {
+        cy.mount(defaultPropertiesTemplate);
+
+        cy.get('vl-properties').shadow().find('dd').eq(0).should('have.css', 'font-weight', '400');
+    });
+
+    it('should render the data in bold when value-bold is combined with the stacked layout', () => {
+        cy.mount(html`
+            <vl-properties value-bold>
+                <div class="stacked">
+                    <vl-property>Woonplaats</vl-property>
+                    <vl-property-data>Brussel</vl-property-data>
+                </div>
+            </vl-properties>
+        `);
+
+        cy.get('vl-properties').shadow().find('dd').should('have.css', 'font-weight', '500');
+        cy.get('vl-properties').shadow().find('dt').should('have.css', 'font-weight', '400');
+    });
+
+    it('should render the data in bold when value-bold is combined with the column layout', () => {
+        cy.mount(html`
+            <vl-properties value-bold>
+                <div class="column">
+                    <vl-property>Woonplaats</vl-property>
+                    <vl-property-data>Brussel</vl-property-data>
+                </div>
+                <div class="column column--full-width">
+                    <vl-property>Gewest</vl-property>
+                    <vl-property-data>Brussel</vl-property-data>
+                </div>
+            </vl-properties>
+        `);
+
+        cy.get('vl-properties').shadow().find('dd').eq(0).should('have.css', 'font-weight', '500');
+        cy.get('vl-properties').shadow().find('dd').eq(1).should('have.css', 'font-weight', '500');
+    });
+
+    it('should render the data in bold on a small screen when value-bold attribute is set', () => {
+        cy.viewport(375, 667);
+        cy.mount(html`
+            <vl-properties value-bold>
+                <vl-property>Woonplaats</vl-property>
+                <vl-property-data>Brussel</vl-property-data>
+            </vl-properties>
+        `);
+
+        cy.get('vl-properties').shadow().find('dd').should('have.css', 'font-size', '16px');
+        cy.get('vl-properties').shadow().find('dd').should('have.css', 'font-weight', '500');
+    });
+
+    it('should update the data font-weight when the value-bold attribute is toggled', () => {
+        cy.mount(defaultPropertiesTemplate);
+
+        cy.get('vl-properties').shadow().find('dd').eq(0).should('have.css', 'font-weight', '400');
+
+        cy.runTestFor<VlPropertiesComponent>('vl-properties', (component) => {
+            component.setAttribute('value-bold', '');
+        });
+
+        cy.get('vl-properties').shadow().find('dd').eq(0).should('have.css', 'font-weight', '500');
+
+        cy.runTestFor<VlPropertiesComponent>('vl-properties', (component) => {
+            component.removeAttribute('value-bold');
+        });
+
+        cy.get('vl-properties').shadow().find('dd').eq(0).should('have.css', 'font-weight', '400');
+    });
 });
 
 describe('cypress-component - block components - vl-properties - deprecated no-clone attribute', () => {
