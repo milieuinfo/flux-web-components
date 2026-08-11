@@ -39,6 +39,24 @@ import { VlFooter } from '@domg-wc/components/compliance/next';
 <FluxCanvasIframe height="166"/>
 
 
+## Plaatsing
+
+`vl-footer-next` rendert niets op de plaats van de tag zelf: de widget wordt altijd onderaan in het
+`<body>` element geïnjecteerd. De tag stuurt enkel de injectie en de configuratie aan.
+
+Plaats de tag daarom als sibling van `<vl-template>`, niet in de `footer` slot. Een plaatsing in de
+slot breekt technisch niets (de injectie gebeurt sowieso in `<body>`), maar zet een leeg element in
+de slot en wekt onterecht de indruk dat de footer binnen de template rendert.
+
+```html
+<vl-header-next identifier="..."></vl-header-next>
+<vl-template>
+    <div slot="main">...</div>
+</vl-template>
+<vl-footer-next identifier="..."></vl-footer-next>
+```
+
+
 ## Configuratie
 
 <ArgTypes of={VlFooterStories.FooterDefault}/>
