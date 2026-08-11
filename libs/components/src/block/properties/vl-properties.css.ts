@@ -80,6 +80,11 @@ export const propertiesStyles: CSSResult = css`
             padding-bottom: 0;
         }
     }
+    :host([value-bold]) {
+        dd {
+            font-weight: 500;
+        }
+    }
 
     dt,
     dd {

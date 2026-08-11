@@ -8,6 +8,8 @@ const propertiesStackedUrl =
     'http://localhost:8080/iframe.html?args=&id=components-block-properties--properties-stacked&viewMode=story';
 const propertiesColumnsUrl =
     'http://localhost:8080/iframe.html?args=&id=components-block-properties--properties-columns&viewMode=story';
+const propertiesValueBoldUrl =
+    'http://localhost:8080/iframe.html?args=&id=components-block-properties--properties-value-bold&viewMode=story';
 
 describe('cypress-e2e - block components - vl-properties - default story', () => {
     it('should render', () => {
@@ -44,6 +46,14 @@ describe('cypress-e2e - block components - vl-properties - stacked story', () =>
 describe('cypress-e2e - block components - vl-properties - columns story', () => {
     it('should render', () => {
         cy.visit(propertiesColumnsUrl);
+
+        cy.get('vl-properties').shadow().find('dl');
+    });
+});
+
+describe('cypress-e2e - block components - vl-properties - value bold story', () => {
+    it('should render', () => {
+        cy.visit(propertiesValueBoldUrl);
 
         cy.get('vl-properties').shadow().find('dl');
     });
