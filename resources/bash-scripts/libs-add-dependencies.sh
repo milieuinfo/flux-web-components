@@ -19,14 +19,8 @@ npm list $(npx depcheck ./build/dist/libs/components --oneline | tail -n +2) --j
 npm list $(npx depcheck ./build/dist/libs/map --oneline | tail -n +2) --json --depth 0 > ./build/dep-to-add/map-dta.json
 
 # breidt de package.json's van de libraries uit met de ontbrekende dependencies
-cd ./build/dist/libs/common
-jq -r '.dependencies | to_entries[] | "jq '\''.dependencies[\"\(.key)\"]=\"\(.value.version)\"'\'' package.json > tmp.json && mv tmp.json package.json"' ../../../dep-to-add/common-dta.json | bash
-cd ../styles
-jq -r '.dependencies | to_entries[] | "jq '\''.dependencies[\"\(.key)\"]=\"\(.value.version)\"'\'' package.json > tmp.json && mv tmp.json package.json"' ../../../dep-to-add/styles-dta.json | bash
-cd ../components
-jq -r '.dependencies | to_entries[] | "jq '\''.dependencies[\"\(.key)\"]=\"\(.value.version)\"'\'' package.json > tmp.json && mv tmp.json package.json"' ../../../dep-to-add/components-dta.json | bash
-cd ../map
-jq -r '.dependencies | to_entries[] | "jq '\''.dependencies[\"\(.key)\"]=\"\(.value.version)\"'\'' package.json > tmp.json && mv tmp.json package.json"' ../../../dep-to-add/map-dta.json | bash
-
-# back to the root folder
-cd ../../../..
+for LIB in common styles components map; do
+    node ./resources/utils-build/add-dependencies.mjs \
+        ./build/dep-to-add/${LIB}-dta.json \
+        ./build/dist/libs/${LIB}/package.json
+done
