@@ -25,8 +25,13 @@ export default {
 
 const PropertiesTemplate = story(
     propertiesArgs,
-    ({ labelWidth, props, noPaddingBottom }) => html`
-        <vl-properties label-width=${labelWidth} .props=${props} ?no-padding-bottom=${noPaddingBottom}>
+    ({ labelWidth, props, noPaddingBottom, valueBold }) => html`
+        <vl-properties
+            label-width=${labelWidth}
+            .props=${props}
+            ?no-padding-bottom=${noPaddingBottom}
+            ?value-bold=${valueBold}
+        >
             <vl-property>Woonplaats</vl-property>
             <vl-property-data>Brussel</vl-property-data>
             <vl-property>Postcode</vl-property>
@@ -37,8 +42,13 @@ const PropertiesTemplate = story(
 
 const PropertiesEmptyTemplate = story(
     propertiesArgs,
-    ({ labelWidth, props, noPaddingBottom }) => html`
-        <vl-properties label-width=${labelWidth} .props=${props} ?no-padding-bottom=${noPaddingBottom}></vl-properties>
+    ({ labelWidth, props, noPaddingBottom, valueBold }) => html`
+        <vl-properties
+            label-width=${labelWidth}
+            .props=${props}
+            ?no-padding-bottom=${noPaddingBottom}
+            ?value-bold=${valueBold}
+        ></vl-properties>
     `,
 );
 
@@ -53,8 +63,13 @@ PropertiesWithProps.args = {
 
 export const PropertiesHtmlEnriched = story(
     propertiesArgs,
-    ({ labelWidth, props, noPaddingBottom }) => html`
-        <vl-properties label-width=${labelWidth} .props=${props} ?no-padding-bottom=${noPaddingBottom}>
+    ({ labelWidth, props, noPaddingBottom, valueBold }) => html`
+        <vl-properties
+            label-width=${labelWidth}
+            .props=${props}
+            ?no-padding-bottom=${noPaddingBottom}
+            ?value-bold=${valueBold}
+        >
             <vl-property>
                 <vl-icon icon="location" small right-margin=""></vl-icon>
                 Woonplaats
@@ -72,8 +87,13 @@ PropertiesHtmlEnriched.storyName = 'vl-properties - html enriched';
 
 export const PropertiesStacked = story(
     propertiesArgs,
-    ({ labelWidth, props, noPaddingBottom }) => html`
-        <vl-properties label-width=${labelWidth} .props=${props} ?no-padding-bottom=${noPaddingBottom}>
+    ({ labelWidth, props, noPaddingBottom, valueBold }) => html`
+        <vl-properties
+            label-width=${labelWidth}
+            .props=${props}
+            ?no-padding-bottom=${noPaddingBottom}
+            ?value-bold=${valueBold}
+        >
             <div class="stacked">
                 <vl-property>Woonplaats</vl-property>
                 <vl-property-data>Brussel</vl-property-data>
@@ -87,8 +107,13 @@ PropertiesStacked.storyName = 'vl-properties - stacked';
 
 export const PropertiesColumns = story(
     propertiesArgs,
-    ({ labelWidth, props, noPaddingBottom }) => html`
-        <vl-properties label-width=${labelWidth} .props=${props} ?no-padding-bottom=${noPaddingBottom}>
+    ({ labelWidth, props, noPaddingBottom, valueBold }) => html`
+        <vl-properties
+            label-width=${labelWidth}
+            .props=${props}
+            ?no-padding-bottom=${noPaddingBottom}
+            ?value-bold=${valueBold}
+        >
             <div class="column">
                 <vl-property>Woonplaats</vl-property>
                 <vl-property-data>Brussel</vl-property-data>
@@ -114,3 +139,9 @@ export const PropertiesColumns = story(
     `,
 );
 PropertiesColumns.storyName = 'vl-properties - columns';
+
+export const PropertiesValueBold = PropertiesTemplate.bind({});
+PropertiesValueBold.storyName = 'vl-properties - value bold';
+PropertiesValueBold.args = {
+    valueBold: true,
+};

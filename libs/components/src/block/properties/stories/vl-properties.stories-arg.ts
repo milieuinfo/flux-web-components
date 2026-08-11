@@ -40,4 +40,13 @@ export const propertiesArgTypes: ArgTypes<PropertiesArgs> = {
             defaultValue: { summary: String(propertiesArgs.noPaddingBottom) },
         },
     },
+    valueBold: {
+        name: 'value-bold',
+        description: 'Toont de data in bold zodat deze visueel meer opvalt.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(propertiesArgs.valueBold) },
+        },
+    },
 };
