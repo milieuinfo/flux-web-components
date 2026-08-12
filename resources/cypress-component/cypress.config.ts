@@ -73,6 +73,21 @@ if (process.env.RP_ACTIVE === '1') {
         registerReportPortalPlugin(on, updatedConfig);
         return updatedConfig;
     };
+} else if (process.env.CI === 'true') {
+    // CI=true: schrijf JUnit XML naar test-results op de repo-root, waar de junit-step van de Jenkins
+    // stage ze oppikt (zie Jenkinsfile.groovy). De 'junit' reporter zit gebundeld in de Cypress binary.
+    // [hash] in de bestandsnaam is nodig: Cypress start per spec-bestand een eigen reporter, zonder
+    // [hash] overschrijft elke spec het XML-bestand van de vorige.
+    // JUNIT_VARIANT (bv. 'firefox') houdt runs die dezelfde specs nogmaals draaien uit elkaar in het
+    // Jenkins testrapport: zonder onderscheid staan die tests er dubbel in, zonder browser-attributie.
+    const variant = process.env.JUNIT_VARIANT;
+    cypressConfig.reporter = 'junit';
+    cypressConfig.reporterOptions = {
+        mochaFile: `../../test-results/cypress-component${variant ? '-' + variant : ''}.[hash].xml`,
+        jenkinsMode: true,
+        rootSuiteTitle: `Cypress component tests${variant ? ' - ' + variant : ''}`,
+        ...(variant ? { jenkinsClassnamePrefix: variant } : {}),
+    };
 }
 
 export default defineConfig(cypressConfig);
