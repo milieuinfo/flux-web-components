@@ -88,6 +88,12 @@ pipeline {
                                 // De release-and-publish stage draait in een andere pod en heeft de hier gebouwde libs en fat-lib nodig.
                                 stash name: 'build-dist-libs-en-fat-lib', includes: 'build/dist/libs/**,build/dist/fat-lib/**'
                             }
+                            post {
+                                always {
+                                    archiveArtifacts artifacts: 'build/*.*',
+                                            allowEmptyArchive: true, fingerprint: false
+                                }
+                            }
                         }
                         stage('unit-component-integrator-tests') {
                             // haal dit uit commentaar om deze test stage tijdelijk over te slagen
