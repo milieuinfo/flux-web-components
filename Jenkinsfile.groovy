@@ -1,4 +1,4 @@
-@Library('Cumulus@1.2-stable') _
+@Library('Cumulus@1.3-stable') _
 
 String buildPod() {
     '''
@@ -141,6 +141,8 @@ pipeline {
                             }
                             post {
                                 always {
+                                    // toon de JUnit resultaten in Jenkins
+                                    junit allowEmptyResults: true, testResults: 'test-results/*.xml'
                                     archiveArtifacts artifacts: screenshotsGlob(),
                                             allowEmptyArchive: true, fingerprint: false
                                 }

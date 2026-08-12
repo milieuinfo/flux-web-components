@@ -1,7 +1,7 @@
 import { defineConfig } from 'cypress';
 import * as path from 'path';
 
-export default defineConfig({
+const cypressConfig = defineConfig({
     fileServerFolder: '.',
     fixturesFolder: './fixtures',
     modifyObstructiveCode: false,
@@ -43,3 +43,18 @@ export default defineConfig({
         },
     },
 });
+
+if (process.env.CI === 'true') {
+    // CI=true: schrijf JUnit XML naar test-results op de repo-root, waar de junit-step van de Jenkins
+    // stage ze oppikt (zie Jenkinsfile.groovy). De 'junit' reporter zit gebundeld in de Cypress binary.
+    // [hash] in de bestandsnaam is nodig: Cypress start per spec-bestand een eigen reporter, zonder
+    // [hash] overschrijft elke spec het XML-bestand van de vorige.
+    cypressConfig.reporter = 'junit';
+    cypressConfig.reporterOptions = {
+        mochaFile: '../../test-results/cypress-component.[hash].xml',
+        jenkinsMode: true,
+        rootSuiteTitle: 'Cypress component tests',
+    };
+}
+
+export default cypressConfig;
