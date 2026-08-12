@@ -73,14 +73,16 @@ echo "copy fat-lib to consumer-fat-lib - success"
 # e2e testen draaien via serve-and-e2e scripts
 cd apps/consumer
 
+# CI=true laat de cypress-config ook JUnit XML schrijven naar test-results, waar de junit-step
+# van deze stage ze oppikt (zie apps/consumer-e2e/cypress.config.ts)
 echo "running consumer-named serve-and-e2e"
-npm run consumer:named:serve-and-e2e
+env CI=true npm run consumer:named:serve-and-e2e
 
 echo "running consumer-side-effect serve-and-e2e"
-npm run consumer:side-effect:serve-and-e2e
+env CI=true npm run consumer:side-effect:serve-and-e2e
 
 echo "running consumer-fat-lib serve-and-e2e"
-npm run consumer:fat-lib:serve-and-e2e
+env CI=true npm run consumer:fat-lib:serve-and-e2e
 
 cd ../..
 

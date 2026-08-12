@@ -5,6 +5,9 @@
 /tmp
 /out-tsc
 
+# JUnit XML van jest en cypress (CI=true), zie Jenkinsfile.groovy
+/test-results
+
 # dependencies
 node_modules
 
