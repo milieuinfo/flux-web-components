@@ -15,15 +15,18 @@ echo "create build folder with dummy text file - when everything goes well there
 mkdir -p build
 touch build/dummy.txt
 
-# CI=true laat de jest-configs ook JUnit XML schrijven naar test-results, waar de junit-step van deze stage ze oppikt (zie jest.config.ts in libs/*)
+# CI=true laat de jest- en cypress-configs ook JUnit XML schrijven naar test-results, waar de junit-step
+# van deze stage ze oppikt (zie jest.config.ts in libs/* en de cypress.config.ts bestanden)
 quiet_step "run all jest (unit) tests" env CI=true npm run libs:jest
 
 # de 'npm run' hieronder streamt de output naar de console (zie lib/quiet-step.sh): ze duren lang, bij een crash of OOM wil je zien hoe ver hij geraakt was
 echo "run all web component tests (cypress)"
-npm run libs:component-tests:run
+env CI=true npm run libs:component-tests:run
 
+# JUNIT_VARIANT=firefox: deze specs draaien hierboven ook al mee in de volledige component-run;
+# zonder eigen label staan ze dubbel en niet-herleidbaar in het Jenkins testrapport (zie cypress.config.ts)
 echo "run datepicker anchor-positioning tests in Firefox (cypress)"
-npm run libs:component-tests:run-firefox-anchor
+env CI=true JUNIT_VARIANT=firefox npm run libs:component-tests:run-firefox-anchor
 
 echo "run the integrator e2e tests (cypress)"
-npm run apps:integrator:serve-and-e2e
+env CI=true npm run apps:integrator:serve-and-e2e

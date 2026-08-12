@@ -15,5 +15,7 @@ echo "create build folder with dummy text file - when everything goes well there
 mkdir -p build
 touch build/dummy.txt
 
+# CI=true laat de cypress-config ook JUnit XML schrijven naar test-results, waar de junit-step
+# van deze stage ze oppikt (zie apps/storybook-e2e/cypress.config.ts)
 echo "serve storybook and run the e2e tests"
-npm run apps:storybook:serve-and-e2e
+env CI=true npm run apps:storybook:serve-and-e2e
