@@ -91,6 +91,20 @@ M.b.v. de `column` (en `column--full-width`) class kunnen er 2 kolommen gespecif
 <Canvas of={VlPropertiesStories.PropertiesColumns}/>
 
 
+## Spacing aanpassen
+
+De verticale ruimte tussen properties staat in de custom property `--vl-properties--row-gap` (standaard `2rem`).
+Meerdere data-waardes onder eenzelfde label horen bij elkaar en krijgen die ruimte niet, ze blijven in de
+column-layout tegen elkaar staan. Wie een compactere of ruimere weergave nodig heeft, zet de property van buitenaf
+op de component:
+
+```css
+vl-properties {
+    --vl-properties--row-gap: 1rem;
+}
+```
+
+
 ## Gekende beperkingen
 
 Er is ondersteuning om meerdere labels en data op te geven in de lijst. 1 label met meerdere data waardes en

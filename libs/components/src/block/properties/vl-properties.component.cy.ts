@@ -43,6 +43,17 @@ const propertiesColumnsTemplate = html`
     </vl-properties>
 `;
 
+const propertiesColumnWithTwoPropertiesTemplate = html`
+    <vl-properties>
+        <div class="column">
+            <vl-property>Woonplaats</vl-property>
+            <vl-property-data>Brussel</vl-property-data>
+            <vl-property>Postcode</vl-property>
+            <vl-property-data>1000</vl-property-data>
+        </div>
+    </vl-properties>
+`;
+
 const propertiesWithPropsTemplate = ({ props = [] }: PropertiesDefaultTypes = {}) => html`
     <vl-properties .props=${props}>
         <vl-property>Woonplaats</vl-property>
@@ -178,6 +189,36 @@ describe('cypress-component - block components - vl-properties', () => {
                         cy.get('dd').should('contain.text', 'Brussel');
                     });
             });
+    });
+
+    it('should have the same spacing between properties inside a column as between columns', () => {
+        cy.mount(propertiesColumnWithTwoPropertiesTemplate);
+
+        cy.get('vl-properties').shadow().find('dl').should('have.css', 'row-gap', '20px');
+        cy.get('vl-properties').shadow().find('.column dt').eq(0).should('have.css', 'margin-top', '0px');
+        cy.get('vl-properties').shadow().find('.column dt').eq(1).should('have.css', 'margin-top', '20px');
+    });
+
+    it('should not add spacing between multiple data values of one property', () => {
+        cy.mount(propertiesWithPropsTemplate({ props: dummyProps }));
+
+        cy.get('vl-properties').shadow().find('.column').find('dd').eq(1).should('have.css', 'margin-top', '0px');
+    });
+
+    it('should use the --vl-properties--row-gap custom property for the spacing between properties', () => {
+        cy.mount(html`
+            <vl-properties style="--vl-properties--row-gap: 4rem">
+                <div class="column">
+                    <vl-property>Woonplaats</vl-property>
+                    <vl-property-data>Brussel</vl-property-data>
+                    <vl-property>Postcode</vl-property>
+                    <vl-property-data>1000</vl-property-data>
+                </div>
+            </vl-properties>
+        `);
+
+        cy.get('vl-properties').shadow().find('dl').should('have.css', 'row-gap', '40px');
+        cy.get('vl-properties').shadow().find('.column dt').eq(1).should('have.css', 'margin-top', '40px');
     });
 
     it("should contain a shadow DOM with dl, dt's and dd's specified through props", () => {
