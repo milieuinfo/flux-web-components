@@ -1,6 +1,6 @@
 const consumerSideEffectUrl = 'http://localhost:4213';
 
-describe('consumer-side-effect application', () => {
+describe('cypress-e2e - consumer app - side-effect', () => {
     it('should be accessible', () => {
         cy.visitWithA11y(consumerSideEffectUrl);
         cy.configureAxe({

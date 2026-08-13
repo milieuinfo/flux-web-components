@@ -6,370 +6,360 @@ registerWebComponents([VlHeader]);
 
 const identifier = '59188ff6-662b-45b9-b23a-964ad48c2bfb';
 
-describe('cypress-component - compliance components - vl-header-next', () => {
+// root-niveau hooks: mocha draait deze voor/na elke test van elke suite in dit bestand, net zoals ze
+// eerder als hooks van de omhullende describe deden
+beforeEach(() => {
+    cy.intercept('GET', /widgets.*vlaanderen\.be.*entry/, stubWidgetScriptMinimal()).as('widgetScript');
+});
+
+afterEach(() => {
+    document.querySelector('script#vl-header-widget')?.remove();
+    document.querySelector('#header__container')?.remove();
+});
+
+describe('cypress-component - compliance components - vl-header-next - default', () => {
     beforeEach(() => {
-        cy.intercept('GET', /widgets.*vlaanderen\.be.*entry/, stubWidgetScriptMinimal()).as('widgetScript');
+        cy.mount(html`
+            <body>
+                <vl-header-next development identifier="${identifier}"></vl-header-next>
+            </body>
+        `);
     });
 
-    afterEach(() => {
-        document.querySelector('script#vl-header-widget')?.remove();
-        document.querySelector('#header__container')?.remove();
+    it('should mount', () => {
+        cy.get('vl-header-next');
+        cy.get('#header__container');
     });
 
-    describe('default', () => {
-        beforeEach(() => {
-            cy.mount(html`
-                <body>
-                    <vl-header-next development identifier="${identifier}"></vl-header-next>
-                </body>
-            `);
+    it('should be accessible', () => {
+        cy.injectAxe();
+
+        cy.get('vl-header-next');
+        cy.checkA11y('vl-header-next');
+        cy.checkA11y('#header__container');
+    });
+
+    it('should render with fixed height', () => {
+        cy.get('#header__container').should('have.css', 'min-height', '43px');
+    });
+
+    it('should wrap the global header in a <header> element so screenreaders pick it up as banner landmark', () => {
+        cy.get('#header__container').should('have.prop', 'tagName', 'HEADER');
+        cy.get('header[id="header__container"]').should('have.length', 1);
+    });
+});
+
+describe('cypress-component - compliance components - vl-header-next - ready event', () => {
+    it('should dispatch ready event when ready', () => {
+        cy.window().then((win) => {
+            win.addEventListener('ready', cy.stub().as('ready'));
         });
+        cy.mount(html`
+            <body>
+                <vl-header-next development identifier="${identifier}"></vl-header-next>
+            </body>
+        `);
+        cy.wait('@widgetScript');
+        cy.get('@ready').should('have.been.calledOnce');
+    });
+});
 
-        it('should mount', () => {
-            cy.get('vl-header-next');
-            cy.get('#header__container');
-        });
+describe('cypress-component - compliance components - vl-header-next - applicationLinks', () => {
+    const mockApplicationLinks: ApplicationLink[] = [
+        {
+            label: 'Link 1',
+            href: '#link1',
+        },
+        {
+            label: 'Link 2',
+            href: '#link2',
+        },
+    ];
 
-        it('should be accessible', () => {
-            cy.injectAxe();
+    it('should render the application links', () => {
+        cy.viewport(1280, 800);
 
-            cy.get('vl-header-next');
-            cy.checkA11y('vl-header-next');
-            cy.checkA11y('#header__container');
-        });
+        cy.intercept('GET', /widgets.*vlaanderen\.be.*entry/, stubWidgetScriptWithApplicationLinks()).as(
+            'widgetScript',
+        );
 
-        it('should render with fixed height', () => {
-            cy.get('#header__container').should('have.css', 'min-height', '43px');
-        });
+        cy.mount(html`
+            <body>
+                <vl-header-next
+                    development
+                    identifier="${identifier}"
+                    .applicationLinks=${mockApplicationLinks}
+                ></vl-header-next>
+            </body>
+        `);
 
-        it('should wrap the global header in a <header> element so screenreaders pick it up as banner landmark', () => {
-            cy.get('#header__container').should('have.prop', 'tagName', 'HEADER');
-            cy.get('header[id="header__container"]').should('have.length', 1);
+        cy.wait('@widgetScript');
+        cy.get('#header__container > div').shadow().find('button.access-menu-toggle__button').click();
+        cy.get('#header__container > div')
+            .shadow()
+            .find(`a[href="${mockApplicationLinks[0].href}"]`)
+            .contains(mockApplicationLinks[0].label);
+        cy.get('#header__container > div')
+            .shadow()
+            .find(`a[href="${mockApplicationLinks[1].href}"]`)
+            .contains(mockApplicationLinks[1].label);
+    });
+});
+
+describe('cypress-component - compliance components - vl-header-next - skeleton', () => {
+    it('should render the skeleton container', () => {
+        cy.mount(html`
+            <body>
+                <vl-header-next development identifier="${identifier}" skeleton></vl-header-next>
+            </body>
+        `);
+
+        cy.get('#header__skeleton').should('have.css', 'height', '43px');
+    });
+});
+
+describe('cypress-component - compliance components - vl-header-next - PAPI profile token + idpData', () => {
+    beforeEach(() => {
+        cy.intercept('GET', /widgets.*vlaanderen\.be.*entry/, stubWidgetScriptCapturingSetProfile()).as('widgetScript');
+        cy.intercept('GET', '/sso/ingelogde_gebruiker', { statusCode: 200, body: '' }).as('authActive');
+        cy.intercept('GET', '/sso/papi_token', { statusCode: 401, body: '' }).as('defaultTokenUnset');
+    });
+
+    const lastSetProfileCall = (): Cypress.Chainable<Record<string, unknown>> =>
+        cy
+            .window()
+            .its('__setProfileCalls', { timeout: 15000 })
+            .should('have.length.greaterThan', 0)
+            .then((calls: Record<string, unknown>[]) => calls[calls.length - 1]);
+
+    it('should pass idpProfileToken via JS property when set', () => {
+        cy.mount(html`
+            <body>
+                <vl-header-next
+                    development
+                    identifier="${identifier}"
+                    .idpProfileToken=${'token-via-property'}
+                ></vl-header-next>
+            </body>
+        `);
+        cy.wait('@widgetScript');
+        cy.wait('@authActive');
+
+        lastSetProfileCall().should((config) => {
+            expect(config).to.include({ active: true, idpProfileToken: 'token-via-property' });
         });
     });
 
-    describe('ready event', () => {
-        it('should dispatch ready event when ready', () => {
-            cy.window().then((win) => {
-                win.addEventListener('ready', cy.stub().as('ready'));
-            });
-            cy.mount(html`
-                <body>
-                    <vl-header-next development identifier="${identifier}"></vl-header-next>
-                </body>
-            `);
-            cy.wait('@widgetScript');
-            cy.get('@ready').should('have.been.calledOnce');
+    it('should fetch and pass idpProfileToken via profile-token-url', () => {
+        cy.intercept('GET', '/api/papi-token', {
+            statusCode: 200,
+            headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+            body: 'token-from-url',
+        }).as('tokenFetch');
+
+        cy.mount(html`
+            <body>
+                <vl-header-next
+                    development
+                    identifier="${identifier}"
+                    profile-token-url="/api/papi-token"
+                ></vl-header-next>
+            </body>
+        `);
+        cy.wait('@widgetScript');
+        cy.wait('@authActive');
+        cy.wait('@tokenFetch');
+
+        lastSetProfileCall().should((config) => {
+            expect(config).to.include({ active: true, idpProfileToken: 'token-from-url' });
         });
     });
 
-    describe('applicationLinks', () => {
-        const mockApplicationLinks: ApplicationLink[] = [
-            {
-                label: 'Link 1',
-                href: '#link1',
-            },
-            {
-                label: 'Link 2',
-                href: '#link2',
-            },
-        ];
+    it('should let JS property win over profile-token-url', () => {
+        cy.intercept('GET', '/api/papi-token', {
+            statusCode: 200,
+            headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+            body: 'token-from-url',
+        }).as('tokenFetch');
 
-        it('should render the application links', () => {
-            cy.viewport(1280, 800);
+        cy.mount(html`
+            <body>
+                <vl-header-next
+                    development
+                    identifier="${identifier}"
+                    profile-token-url="/api/papi-token"
+                    .idpProfileToken=${'token-via-property'}
+                ></vl-header-next>
+            </body>
+        `);
+        cy.wait('@widgetScript');
+        cy.wait('@authActive');
 
-            cy.intercept('GET', /widgets.*vlaanderen\.be.*entry/, stubWidgetScriptWithApplicationLinks()).as(
-                'widgetScript'
-            );
-
-            cy.mount(html`
-                <body>
-                    <vl-header-next
-                        development
-                        identifier="${identifier}"
-                        .applicationLinks=${mockApplicationLinks}
-                    ></vl-header-next>
-                </body>
-            `);
-
-            cy.wait('@widgetScript');
-            cy.get('#header__container > div').shadow().find('button.access-menu-toggle__button').click();
-            cy.get('#header__container > div')
-                .shadow()
-                .find(`a[href="${mockApplicationLinks[0].href}"]`)
-                .contains(mockApplicationLinks[0].label);
-            cy.get('#header__container > div')
-                .shadow()
-                .find(`a[href="${mockApplicationLinks[1].href}"]`)
-                .contains(mockApplicationLinks[1].label);
+        lastSetProfileCall().should((config) => {
+            expect(config).to.include({ idpProfileToken: 'token-via-property' });
         });
     });
 
-    describe('skeleton', () => {
-        it('should render the skeleton container', () => {
-            cy.mount(html`
-                <body>
-                    <vl-header-next development identifier="${identifier}" skeleton></vl-header-next>
-                </body>
-            `);
+    it('should not include idpProfileToken when user is not authenticated', () => {
+        cy.intercept('GET', '/sso/ingelogde_gebruiker', { statusCode: 401, body: '' }).as('authInactive');
 
-            cy.get('#header__skeleton').should('have.css', 'height', '43px');
+        cy.mount(html`
+            <body>
+                <vl-header-next
+                    development
+                    identifier="${identifier}"
+                    .idpProfileToken=${'token-via-property'}
+                ></vl-header-next>
+            </body>
+        `);
+        cy.wait('@widgetScript');
+        cy.wait('@authInactive');
+
+        lastSetProfileCall().should((config) => {
+            expect(config).to.have.property('active', false);
+            expect(config).to.not.have.property('idpProfileToken');
         });
     });
 
-    describe('PAPI profile token + idpData', () => {
-        beforeEach(() => {
-            cy.intercept('GET', /widgets.*vlaanderen\.be.*entry/, stubWidgetScriptCapturingSetProfile()).as(
-                'widgetScript'
-            );
-            cy.intercept('GET', '/sso/ingelogde_gebruiker', { statusCode: 200, body: '' }).as('authActive');
-            cy.intercept('GET', '/sso/papi_token', { statusCode: 401, body: '' }).as('defaultTokenUnset');
+    it('should pass idpData via JS property when set', () => {
+        const mockIdpData = {
+            user: { firstName: 'John', name: 'Doe' },
+        };
+
+        cy.mount(html`
+            <body>
+                <vl-header-next development identifier="${identifier}" .idpData=${mockIdpData}></vl-header-next>
+            </body>
+        `);
+        cy.wait('@widgetScript');
+        cy.wait('@authActive');
+
+        lastSetProfileCall().should((config) => {
+            expect(config).to.have.nested.property('idpData.user.firstName', 'John');
+        });
+    });
+
+    it('should fetch and pass idpData via idp-data-url', () => {
+        cy.intercept('GET', '/api/idp-data', {
+            statusCode: 200,
+            body: { user: { firstName: 'Jane', name: 'Smith' } },
+        }).as('idpDataFetch');
+
+        cy.mount(html`
+            <body>
+                <vl-header-next development identifier="${identifier}" idp-data-url="/api/idp-data"></vl-header-next>
+            </body>
+        `);
+        cy.wait('@widgetScript');
+        cy.wait('@authActive');
+        cy.wait('@idpDataFetch');
+
+        lastSetProfileCall().should((config) => {
+            expect(config).to.have.nested.property('idpData.user.firstName', 'Jane');
+        });
+    });
+
+    it('should not include idpData when a papi token is present', () => {
+        const mockIdpData = {
+            user: { firstName: 'John', name: 'Doe' },
+        };
+
+        cy.mount(html`
+            <body>
+                <vl-header-next
+                    development
+                    identifier="${identifier}"
+                    .idpProfileToken=${'token-via-property'}
+                    .idpData=${mockIdpData}
+                ></vl-header-next>
+            </body>
+        `);
+        cy.wait('@widgetScript');
+        cy.wait('@authActive');
+
+        lastSetProfileCall().should((config) => {
+            expect(config).to.include({ active: true, idpProfileToken: 'token-via-property' });
+            expect(config).to.not.have.property('idpData');
+        });
+    });
+
+    it('should not fetch or include idpData when the user is not authenticated', () => {
+        cy.intercept('GET', '/sso/ingelogde_gebruiker', { statusCode: 401, body: '' }).as('authInactive');
+        cy.intercept('GET', '/api/idp-data', {
+            statusCode: 200,
+            body: { user: { firstName: 'Jane', name: 'Smith' } },
+        }).as('idpDataFetch');
+
+        cy.mount(html`
+            <body>
+                <vl-header-next development identifier="${identifier}" idp-data-url="/api/idp-data"></vl-header-next>
+            </body>
+        `);
+        cy.wait('@widgetScript');
+        cy.wait('@authInactive');
+
+        lastSetProfileCall().should((config) => {
+            expect(config).to.have.property('active', false);
+            expect(config).to.not.have.property('idpData');
+        });
+        cy.get('@idpDataFetch.all').should('have.length', 0);
+    });
+
+    it('should configure the session only once on initial load', () => {
+        cy.intercept('GET', '/api/papi-token', {
+            statusCode: 200,
+            headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+            body: 'token-from-url',
+        }).as('tokenFetch');
+
+        cy.mount(html`
+            <body>
+                <vl-header-next
+                    development
+                    identifier="${identifier}"
+                    profile-token-url="/api/papi-token"
+                ></vl-header-next>
+            </body>
+        `);
+        cy.wait('@widgetScript');
+        cy.wait('@authActive');
+        cy.wait('@tokenFetch');
+
+        lastSetProfileCall().should((config) => {
+            expect(config).to.include({ active: true, idpProfileToken: 'token-from-url' });
+        });
+        cy.get('@authActive.all').should('have.length', 1);
+        cy.get('@tokenFetch.all').should('have.length', 1);
+    });
+
+    it('should discard a stale overlapping configureSession call and keep the newest value', () => {
+        cy.intercept('GET', '/api/slow-token', {
+            statusCode: 200,
+            headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+            body: 'stale-token',
+            delay: 500,
+        }).as('slowToken');
+
+        cy.mount(html`
+            <body>
+                <vl-header-next
+                    development
+                    identifier="${identifier}"
+                    profile-token-url="/api/slow-token"
+                ></vl-header-next>
+            </body>
+        `);
+        cy.wait('@widgetScript');
+        cy.wait('@authActive');
+
+        cy.get('vl-header-next').then(($el) => {
+            ($el[0] as VlHeader).idpProfileToken = 'fresh-token';
         });
 
-        const lastSetProfileCall = (): Cypress.Chainable<Record<string, unknown>> =>
-            cy
-                .window()
-                .its('__setProfileCalls', { timeout: 15000 })
-                .should('have.length.greaterThan', 0)
-                .then((calls: Record<string, unknown>[]) => calls[calls.length - 1]);
+        cy.wait('@slowToken');
 
-        it('should pass idpProfileToken via JS property when set', () => {
-            cy.mount(html`
-                <body>
-                    <vl-header-next
-                        development
-                        identifier="${identifier}"
-                        .idpProfileToken=${'token-via-property'}
-                    ></vl-header-next>
-                </body>
-            `);
-            cy.wait('@widgetScript');
-            cy.wait('@authActive');
-
-            lastSetProfileCall().should((config) => {
-                expect(config).to.include({ active: true, idpProfileToken: 'token-via-property' });
-            });
-        });
-
-        it('should fetch and pass idpProfileToken via profile-token-url', () => {
-            cy.intercept('GET', '/api/papi-token', {
-                statusCode: 200,
-                headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
-                body: 'token-from-url',
-            }).as('tokenFetch');
-
-            cy.mount(html`
-                <body>
-                    <vl-header-next
-                        development
-                        identifier="${identifier}"
-                        profile-token-url="/api/papi-token"
-                    ></vl-header-next>
-                </body>
-            `);
-            cy.wait('@widgetScript');
-            cy.wait('@authActive');
-            cy.wait('@tokenFetch');
-
-            lastSetProfileCall().should((config) => {
-                expect(config).to.include({ active: true, idpProfileToken: 'token-from-url' });
-            });
-        });
-
-        it('should let JS property win over profile-token-url', () => {
-            cy.intercept('GET', '/api/papi-token', {
-                statusCode: 200,
-                headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
-                body: 'token-from-url',
-            }).as('tokenFetch');
-
-            cy.mount(html`
-                <body>
-                    <vl-header-next
-                        development
-                        identifier="${identifier}"
-                        profile-token-url="/api/papi-token"
-                        .idpProfileToken=${'token-via-property'}
-                    ></vl-header-next>
-                </body>
-            `);
-            cy.wait('@widgetScript');
-            cy.wait('@authActive');
-
-            lastSetProfileCall().should((config) => {
-                expect(config).to.include({ idpProfileToken: 'token-via-property' });
-            });
-        });
-
-        it('should not include idpProfileToken when user is not authenticated', () => {
-            cy.intercept('GET', '/sso/ingelogde_gebruiker', { statusCode: 401, body: '' }).as('authInactive');
-
-            cy.mount(html`
-                <body>
-                    <vl-header-next
-                        development
-                        identifier="${identifier}"
-                        .idpProfileToken=${'token-via-property'}
-                    ></vl-header-next>
-                </body>
-            `);
-            cy.wait('@widgetScript');
-            cy.wait('@authInactive');
-
-            lastSetProfileCall().should((config) => {
-                expect(config).to.have.property('active', false);
-                expect(config).to.not.have.property('idpProfileToken');
-            });
-        });
-
-        it('should pass idpData via JS property when set', () => {
-            const mockIdpData = {
-                user: { firstName: 'John', name: 'Doe' },
-            };
-
-            cy.mount(html`
-                <body>
-                    <vl-header-next
-                        development
-                        identifier="${identifier}"
-                        .idpData=${mockIdpData}
-                    ></vl-header-next>
-                </body>
-            `);
-            cy.wait('@widgetScript');
-            cy.wait('@authActive');
-
-            lastSetProfileCall().should((config) => {
-                expect(config).to.have.nested.property('idpData.user.firstName', 'John');
-            });
-        });
-
-        it('should fetch and pass idpData via idp-data-url', () => {
-            cy.intercept('GET', '/api/idp-data', {
-                statusCode: 200,
-                body: { user: { firstName: 'Jane', name: 'Smith' } },
-            }).as('idpDataFetch');
-
-            cy.mount(html`
-                <body>
-                    <vl-header-next
-                        development
-                        identifier="${identifier}"
-                        idp-data-url="/api/idp-data"
-                    ></vl-header-next>
-                </body>
-            `);
-            cy.wait('@widgetScript');
-            cy.wait('@authActive');
-            cy.wait('@idpDataFetch');
-
-            lastSetProfileCall().should((config) => {
-                expect(config).to.have.nested.property('idpData.user.firstName', 'Jane');
-            });
-        });
-
-        it('should not include idpData when a papi token is present', () => {
-            const mockIdpData = {
-                user: { firstName: 'John', name: 'Doe' },
-            };
-
-            cy.mount(html`
-                <body>
-                    <vl-header-next
-                        development
-                        identifier="${identifier}"
-                        .idpProfileToken=${'token-via-property'}
-                        .idpData=${mockIdpData}
-                    ></vl-header-next>
-                </body>
-            `);
-            cy.wait('@widgetScript');
-            cy.wait('@authActive');
-
-            lastSetProfileCall().should((config) => {
-                expect(config).to.include({ active: true, idpProfileToken: 'token-via-property' });
-                expect(config).to.not.have.property('idpData');
-            });
-        });
-
-        it('should not fetch or include idpData when the user is not authenticated', () => {
-            cy.intercept('GET', '/sso/ingelogde_gebruiker', { statusCode: 401, body: '' }).as('authInactive');
-            cy.intercept('GET', '/api/idp-data', {
-                statusCode: 200,
-                body: { user: { firstName: 'Jane', name: 'Smith' } },
-            }).as('idpDataFetch');
-
-            cy.mount(html`
-                <body>
-                    <vl-header-next development identifier="${identifier}" idp-data-url="/api/idp-data"></vl-header-next>
-                </body>
-            `);
-            cy.wait('@widgetScript');
-            cy.wait('@authInactive');
-
-            lastSetProfileCall().should((config) => {
-                expect(config).to.have.property('active', false);
-                expect(config).to.not.have.property('idpData');
-            });
-            cy.get('@idpDataFetch.all').should('have.length', 0);
-        });
-
-        it('should configure the session only once on initial load', () => {
-            cy.intercept('GET', '/api/papi-token', {
-                statusCode: 200,
-                headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
-                body: 'token-from-url',
-            }).as('tokenFetch');
-
-            cy.mount(html`
-                <body>
-                    <vl-header-next
-                        development
-                        identifier="${identifier}"
-                        profile-token-url="/api/papi-token"
-                    ></vl-header-next>
-                </body>
-            `);
-            cy.wait('@widgetScript');
-            cy.wait('@authActive');
-            cy.wait('@tokenFetch');
-
-            lastSetProfileCall().should((config) => {
-                expect(config).to.include({ active: true, idpProfileToken: 'token-from-url' });
-            });
-            cy.get('@authActive.all').should('have.length', 1);
-            cy.get('@tokenFetch.all').should('have.length', 1);
-        });
-
-        it('should discard a stale overlapping configureSession call and keep the newest value', () => {
-            cy.intercept('GET', '/api/slow-token', {
-                statusCode: 200,
-                headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
-                body: 'stale-token',
-                delay: 500,
-            }).as('slowToken');
-
-            cy.mount(html`
-                <body>
-                    <vl-header-next
-                        development
-                        identifier="${identifier}"
-                        profile-token-url="/api/slow-token"
-                    ></vl-header-next>
-                </body>
-            `);
-            cy.wait('@widgetScript');
-            cy.wait('@authActive');
-
-            cy.get('vl-header-next').then(($el) => {
-                ($el[0] as VlHeader).idpProfileToken = 'fresh-token';
-            });
-
-            cy.wait('@slowToken');
-
-            lastSetProfileCall().should((config) => {
-                expect(config).to.include({ idpProfileToken: 'fresh-token' });
-            });
+        lastSetProfileCall().should((config) => {
+            expect(config).to.include({ idpProfileToken: 'fresh-token' });
         });
     });
 });

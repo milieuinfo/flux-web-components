@@ -25,132 +25,131 @@ const generateContent = (headingCount: number) => {
     return html`<div id="benchmark-content">${sections}</div>`;
 };
 
-describe('vl-side-navigation-next - Performance Benchmarks', () => {
-    beforeEach(() => {
-        cy.viewport(1440, 900);
-    });
+const scenarios = [
+    { name: 'Small', count: 10, nodes: 100 },
+    { name: 'Medium', count: 50, nodes: 500 },
+    { name: 'Large', count: 100, nodes: 1000 },
+    { name: 'XLarge', count: 500, nodes: 5000 },
+    { name: 'XXLarge', count: 1000, nodes: 10000 },
+];
 
-    const scenarios = [
-        { name: 'Small', count: 10, nodes: 100 },
-        { name: 'Medium', count: 50, nodes: 500 },
-        { name: 'Large', count: 100, nodes: 1000 },
-        { name: 'XLarge', count: 500, nodes: 5000 },
-        { name: 'XXLarge', count: 1000, nodes: 10000 },
-    ];
+// root-niveau hooks: gelden voor elke suite in dit bestand
+beforeEach(() => {
+    cy.viewport(1440, 900);
+});
 
-    scenarios.forEach(({ name, count, nodes }) => {
-        describe(`${name} (${count} headings, ~${nodes} nodes)`, () => {
-            it('should benchmark with full shadow DOM scan', () => {
-                const startTime = performance.now();
+scenarios.forEach(({ name, count, nodes }) => {
+    describe(`cypress-component - block components - vl-side-navigation-next - Performance Benchmarks - ${name} (${count} headings, ~${nodes} nodes)`, () => {
+        it('should benchmark with full shadow DOM scan', () => {
+            const startTime = performance.now();
 
-                cy.mount(html`
-                    <div class="vl-grid">
-                        <vl-side-navigation-next
-                            class="vl-column vl-column--4"
-                            heading-root-selector="#benchmark-content"
-                        ></vl-side-navigation-next>
-                        <div class="vl-column vl-column--8">${generateContent(count)}</div>
-                    </div>
-                `);
+            cy.mount(html`
+                <div class="vl-grid">
+                    <vl-side-navigation-next
+                        class="vl-column vl-column--4"
+                        heading-root-selector="#benchmark-content"
+                    ></vl-side-navigation-next>
+                    <div class="vl-column vl-column--8">${generateContent(count)}</div>
+                </div>
+            `);
 
-                cy.get('vl-side-navigation-next')
-                    .should('exist')
-                    .then(() => {
-                        const endTime = performance.now();
-                        const duration = endTime - startTime;
-                        cy.log(`Full scan (${count} headings, ~${nodes} nodes): ${duration.toFixed(2)}ms`);
+            cy.get('vl-side-navigation-next')
+                .should('exist')
+                .then(() => {
+                    const endTime = performance.now();
+                    const duration = endTime - startTime;
+                    cy.log(`Full scan (${count} headings, ~${nodes} nodes): ${duration.toFixed(2)}ms`);
 
-                        // Store result for report
-                        const scenarioKey = `${name} (${count} headings, ~${nodes} nodes)`;
-                        if (!benchmarkResults[scenarioKey]) benchmarkResults[scenarioKey] = {};
-                        benchmarkResults[scenarioKey]['Full Scan'] = duration;
+                    // Store result for report
+                    const scenarioKey = `${name} (${count} headings, ~${nodes} nodes)`;
+                    if (!benchmarkResults[scenarioKey]) benchmarkResults[scenarioKey] = {};
+                    benchmarkResults[scenarioKey]['Full Scan'] = duration;
 
-                        // Assert reasonable performance (5ms per heading max + 50ms overhead)
-                        expect(duration).to.be.lessThan(count * 5 + 50);
-                    });
-            });
+                    // Assert reasonable performance (5ms per heading max + 50ms overhead)
+                    expect(duration).to.be.lessThan(count * 5 + 50);
+                });
+        });
 
-            it('should benchmark with max-depth=0', () => {
-                const startTime = performance.now();
+        it('should benchmark with max-depth=0', () => {
+            const startTime = performance.now();
 
-                cy.mount(html`
-                    <div class="vl-grid">
-                        <vl-side-navigation-next
-                            class="vl-column vl-column--4"
-                            max-depth="0"
-                            heading-root-selector="#benchmark-content"
-                        ></vl-side-navigation-next>
-                        <div class="vl-column vl-column--8">${generateContent(count)}</div>
-                    </div>
-                `);
+            cy.mount(html`
+                <div class="vl-grid">
+                    <vl-side-navigation-next
+                        class="vl-column vl-column--4"
+                        max-depth="0"
+                        heading-root-selector="#benchmark-content"
+                    ></vl-side-navigation-next>
+                    <div class="vl-column vl-column--8">${generateContent(count)}</div>
+                </div>
+            `);
 
-                cy.get('vl-side-navigation-next')
-                    .should('exist')
-                    .then(() => {
-                        const endTime = performance.now();
-                        const duration = endTime - startTime;
-                        cy.log(`Max depth 0 (${count} headings, ~${nodes} nodes): ${duration.toFixed(2)}ms`);
+            cy.get('vl-side-navigation-next')
+                .should('exist')
+                .then(() => {
+                    const endTime = performance.now();
+                    const duration = endTime - startTime;
+                    cy.log(`Max depth 0 (${count} headings, ~${nodes} nodes): ${duration.toFixed(2)}ms`);
 
-                        // Store result for report
-                        const scenarioKey = `${name} (${count} headings, ~${nodes} nodes)`;
-                        if (!benchmarkResults[scenarioKey]) benchmarkResults[scenarioKey] = {};
-                        benchmarkResults[scenarioKey]['Max Depth 0'] = duration;
+                    // Store result for report
+                    const scenarioKey = `${name} (${count} headings, ~${nodes} nodes)`;
+                    if (!benchmarkResults[scenarioKey]) benchmarkResults[scenarioKey] = {};
+                    benchmarkResults[scenarioKey]['Max Depth 0'] = duration;
 
-                        // Light DOM only: will be fast (2ms per heading max + 50ms overhead)
-                        expect(duration).to.be.lessThan(count * 2 + 50);
-                    });
-            });
+                    // Light DOM only: will be fast (2ms per heading max + 50ms overhead)
+                    expect(duration).to.be.lessThan(count * 2 + 50);
+                });
+        });
 
-            it('should benchmark with max-depth=1', () => {
-                const startTime = performance.now();
+        it('should benchmark with max-depth=1', () => {
+            const startTime = performance.now();
 
-                cy.mount(html`
-                    <div class="vl-grid">
-                        <vl-side-navigation-next
-                            class="vl-column vl-column--4"
-                            max-depth="1"
-                            heading-root-selector="#benchmark-content"
-                        ></vl-side-navigation-next>
-                        <div class="vl-column vl-column--8">${generateContent(count)}</div>
-                    </div>
-                `);
+            cy.mount(html`
+                <div class="vl-grid">
+                    <vl-side-navigation-next
+                        class="vl-column vl-column--4"
+                        max-depth="1"
+                        heading-root-selector="#benchmark-content"
+                    ></vl-side-navigation-next>
+                    <div class="vl-column vl-column--8">${generateContent(count)}</div>
+                </div>
+            `);
 
-                cy.get('vl-side-navigation-next')
-                    .should('exist')
-                    .then(() => {
-                        const endTime = performance.now();
-                        const duration = endTime - startTime;
-                        cy.log(`Max depth 1 (${count} headings, ~${nodes} nodes): ${duration.toFixed(2)}ms`);
+            cy.get('vl-side-navigation-next')
+                .should('exist')
+                .then(() => {
+                    const endTime = performance.now();
+                    const duration = endTime - startTime;
+                    cy.log(`Max depth 1 (${count} headings, ~${nodes} nodes): ${duration.toFixed(2)}ms`);
 
-                        // Store result for report
-                        const scenarioKey = `${name} (${count} headings, ~${nodes} nodes)`;
-                        if (!benchmarkResults[scenarioKey]) benchmarkResults[scenarioKey] = {};
-                        benchmarkResults[scenarioKey]['Max Depth 1'] = duration;
+                    // Store result for report
+                    const scenarioKey = `${name} (${count} headings, ~${nodes} nodes)`;
+                    if (!benchmarkResults[scenarioKey]) benchmarkResults[scenarioKey] = {};
+                    benchmarkResults[scenarioKey]['Max Depth 1'] = duration;
 
-                        // Should be between max-depth=0 and full scan (3ms per heading max + 50ms overhead)
-                        expect(duration).to.be.lessThan(count * 3 + 50);
-                    });
-            });
+                    // Should be between max-depth=0 and full scan (3ms per heading max + 50ms overhead)
+                    expect(duration).to.be.lessThan(count * 3 + 50);
+                });
         });
     });
+});
 
+describe('cypress-component - block components - vl-side-navigation-next - Performance Benchmarks', () => {
     it('should compare all methods side-by-side (100 headings)', () => {
         const headingCount = 100;
         const content = generateContent(headingCount);
         const results: Record<string, number> = {};
 
         // Test 1: Full scan
-        cy.mount(
-            html`
-                <div class="vl-grid">
-                    <vl-side-navigation-next
-                        class="vl-column vl-column--4"
-                        heading-root-selector="#benchmark-content"
-                    ></vl-side-navigation-next>
-                    <div class="vl-column vl-column--8">${content}</div>
-                </div>
-            `
-        ).then(() => {
+        cy.mount(html`
+            <div class="vl-grid">
+                <vl-side-navigation-next
+                    class="vl-column vl-column--4"
+                    heading-root-selector="#benchmark-content"
+                ></vl-side-navigation-next>
+                <div class="vl-column vl-column--8">${content}</div>
+            </div>
+        `).then(() => {
             cy.wait(100);
             cy.window().then((win) => {
                 const start = win.performance.now();
@@ -168,18 +167,16 @@ describe('vl-side-navigation-next - Performance Benchmarks', () => {
         });
 
         // Test 2: Max depth 0
-        cy.mount(
-            html`
-                <div class="vl-grid">
-                    <vl-side-navigation-next
-                        class="vl-column vl-column--4"
-                        max-depth="0"
-                        heading-root-selector="#benchmark-content"
-                    ></vl-side-navigation-next>
-                    <div class="vl-column vl-column--8">${content}</div>
-                </div>
-            `
-        ).then(() => {
+        cy.mount(html`
+            <div class="vl-grid">
+                <vl-side-navigation-next
+                    class="vl-column vl-column--4"
+                    max-depth="0"
+                    heading-root-selector="#benchmark-content"
+                ></vl-side-navigation-next>
+                <div class="vl-column vl-column--8">${content}</div>
+            </div>
+        `).then(() => {
             cy.wait(100);
             cy.window().then((win) => {
                 const start = win.performance.now();
@@ -264,36 +261,80 @@ describe('vl-side-navigation-next - Performance Benchmarks', () => {
             });
         });
     });
+});
 
-    // Generate comprehensive report after all tests
-    after(() => {
-        cy.log('\n' + '='.repeat(80));
-        cy.log('PERFORMANCE BENCHMARK REPORT');
-        cy.log('='.repeat(80) + '\n');
+// Generate comprehensive report after all tests
+after(() => {
+    cy.log('\n' + '='.repeat(80));
+    cy.log('PERFORMANCE BENCHMARK REPORT');
+    cy.log('='.repeat(80) + '\n');
 
-        // Print results table
-        cy.log('Results by Scenario:');
-        cy.log('-'.repeat(80));
+    // Print results table
+    cy.log('Results by Scenario:');
+    cy.log('-'.repeat(80));
+
+    Object.entries(benchmarkResults).forEach(([scenario, methods]) => {
+        cy.log(`\n${scenario}:`);
+        Object.entries(methods).forEach(([method, duration]) => {
+            cy.log(`  ${method.padEnd(20)}: ${duration.toFixed(2).padStart(8)}ms`);
+        });
+
+        // Calculate speedups
+        if (methods['Full Scan'] && methods['Light DOM Only']) {
+            const speedup = methods['Full Scan'] / methods['Light DOM Only'];
+            cy.log(`  ${'Speedup (Light DOM)'.padEnd(20)}: ${speedup.toFixed(2).padStart(8)}x`);
+        }
+    });
+
+    // Print summary statistics
+    cy.log('\n' + '-'.repeat(80));
+    cy.log('Summary Statistics:');
+    cy.log('-'.repeat(80) + '\n');
+
+    const methods = ['Full Scan', 'Light DOM Only', 'Max Depth 0', 'Max Depth 1'];
+    methods.forEach((method) => {
+        const durations = Object.values(benchmarkResults)
+            .map((scenario) => scenario[method])
+            .filter((d) => d !== undefined);
+
+        if (durations.length > 0) {
+            const avg = durations.reduce((a, b) => a + b, 0) / durations.length;
+            const min = Math.min(...durations);
+            const max = Math.max(...durations);
+
+            cy.log(`${method}:`);
+            cy.log(`  Average: ${avg.toFixed(2)}ms`);
+            cy.log(`  Min: ${min.toFixed(2)}ms`);
+            cy.log(`  Max: ${max.toFixed(2)}ms\n`);
+        }
+    });
+
+    cy.log('='.repeat(80));
+
+    // Also log to console for easier viewing
+    cy.window().then((win) => {
+        win.console.log('\n' + '='.repeat(80));
+        win.console.log('PERFORMANCE BENCHMARK REPORT');
+        win.console.log('='.repeat(80) + '\n');
+        win.console.log('Results by Scenario:');
+        win.console.log('-'.repeat(80));
 
         Object.entries(benchmarkResults).forEach(([scenario, methods]) => {
-            cy.log(`\n${scenario}:`);
+            win.console.log(`\n${scenario}:`);
             Object.entries(methods).forEach(([method, duration]) => {
-                cy.log(`  ${method.padEnd(20)}: ${duration.toFixed(2).padStart(8)}ms`);
+                win.console.log(`  ${method.padEnd(20)}: ${duration.toFixed(2).padStart(8)}ms`);
             });
 
-            // Calculate speedups
             if (methods['Full Scan'] && methods['Light DOM Only']) {
                 const speedup = methods['Full Scan'] / methods['Light DOM Only'];
-                cy.log(`  ${'Speedup (Light DOM)'.padEnd(20)}: ${speedup.toFixed(2).padStart(8)}x`);
+                win.console.log(`  ${'Speedup (Light DOM)'.padEnd(20)}: ${speedup.toFixed(2).padStart(8)}x`);
             }
         });
 
-        // Print summary statistics
-        cy.log('\n' + '-'.repeat(80));
-        cy.log('Summary Statistics:');
-        cy.log('-'.repeat(80) + '\n');
+        win.console.log('\n' + '-'.repeat(80));
+        win.console.log('Summary Statistics:');
+        win.console.log('-'.repeat(80) + '\n');
 
-        const methods = ['Full Scan', 'Light DOM Only', 'Max Depth 0', 'Max Depth 1'];
         methods.forEach((method) => {
             const durations = Object.values(benchmarkResults)
                 .map((scenario) => scenario[method])
@@ -304,57 +345,13 @@ describe('vl-side-navigation-next - Performance Benchmarks', () => {
                 const min = Math.min(...durations);
                 const max = Math.max(...durations);
 
-                cy.log(`${method}:`);
-                cy.log(`  Average: ${avg.toFixed(2)}ms`);
-                cy.log(`  Min: ${min.toFixed(2)}ms`);
-                cy.log(`  Max: ${max.toFixed(2)}ms\n`);
+                win.console.log(`${method}:`);
+                win.console.log(`  Average: ${avg.toFixed(2)}ms`);
+                win.console.log(`  Min: ${min.toFixed(2)}ms`);
+                win.console.log(`  Max: ${max.toFixed(2)}ms\n`);
             }
         });
 
-        cy.log('='.repeat(80));
-
-        // Also log to console for easier viewing
-        cy.window().then((win) => {
-            win.console.log('\n' + '='.repeat(80));
-            win.console.log('PERFORMANCE BENCHMARK REPORT');
-            win.console.log('='.repeat(80) + '\n');
-            win.console.log('Results by Scenario:');
-            win.console.log('-'.repeat(80));
-
-            Object.entries(benchmarkResults).forEach(([scenario, methods]) => {
-                win.console.log(`\n${scenario}:`);
-                Object.entries(methods).forEach(([method, duration]) => {
-                    win.console.log(`  ${method.padEnd(20)}: ${duration.toFixed(2).padStart(8)}ms`);
-                });
-
-                if (methods['Full Scan'] && methods['Light DOM Only']) {
-                    const speedup = methods['Full Scan'] / methods['Light DOM Only'];
-                    win.console.log(`  ${'Speedup (Light DOM)'.padEnd(20)}: ${speedup.toFixed(2).padStart(8)}x`);
-                }
-            });
-
-            win.console.log('\n' + '-'.repeat(80));
-            win.console.log('Summary Statistics:');
-            win.console.log('-'.repeat(80) + '\n');
-
-            methods.forEach((method) => {
-                const durations = Object.values(benchmarkResults)
-                    .map((scenario) => scenario[method])
-                    .filter((d) => d !== undefined);
-
-                if (durations.length > 0) {
-                    const avg = durations.reduce((a, b) => a + b, 0) / durations.length;
-                    const min = Math.min(...durations);
-                    const max = Math.max(...durations);
-
-                    win.console.log(`${method}:`);
-                    win.console.log(`  Average: ${avg.toFixed(2)}ms`);
-                    win.console.log(`  Min: ${min.toFixed(2)}ms`);
-                    win.console.log(`  Max: ${max.toFixed(2)}ms\n`);
-                }
-            });
-
-            win.console.log('='.repeat(80));
-        });
+        win.console.log('='.repeat(80));
     });
 });

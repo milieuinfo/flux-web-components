@@ -7,7 +7,7 @@ import {
     navigateToAnchor,
 } from './anchor-navigation';
 
-describe('anchor-navigation utility', () => {
+describe('cypress-component - common - anchor-navigation utility', () => {
     beforeEach(() => {
         cy.viewport(800, 600);
         cy.window().then((win) => {
@@ -88,7 +88,8 @@ describe('anchor-navigation utility', () => {
         `);
 
         cy.document().then((doc) =>
-            doc.addEventListener('click', ((event: MouseEvent) => handleAnchorClick(event, { updateHash: true })) as EventListener)
+            doc.addEventListener('click', ((event: MouseEvent) =>
+                handleAnchorClick(event, { updateHash: true })) as EventListener),
         );
         cy.then(() => enableAnchorNavigation());
 

@@ -1,6 +1,6 @@
 const consumerFatLibUrl = 'http://localhost:8080';
 
-describe('consumer-fat-lib application', () => {
+describe('cypress-e2e - consumer app - fat-lib', () => {
     it('should be accessible', () => {
         cy.visitWithA11y(consumerFatLibUrl);
         cy.configureAxe({

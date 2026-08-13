@@ -5,7 +5,7 @@ import { VlFormMessageComponent } from '../form-message/vl-form-message.componen
 
 registerWebComponents([VlTextareaComponent, VlFormMessageComponent]);
 
-describe('vl-textarea - properties & states', () => {
+describe('cypress-component - form components - vl-textarea - properties & states', () => {
     beforeEach(() => {
         cy.viewport(1200, 800);
     });
@@ -150,7 +150,7 @@ describe('vl-textarea - properties & states', () => {
     });
 });
 
-describe('vl-textarea - character count', () => {
+describe('cypress-component - form components - vl-textarea - character count', () => {
     it('should not render a counter without the character-count attribute', () => {
         cy.mount(html`<vl-textarea max-length="50"></vl-textarea>`);
 
@@ -244,7 +244,7 @@ describe('vl-textarea - character count', () => {
     });
 });
 
-describe('vl-textarea - events', () => {
+describe('cypress-component - form components - vl-textarea - events', () => {
     it('should dispatch both vl-input & vl-change events on input', () => {
         cy.mount(html`<vl-textarea></vl-textarea>`);
         cy.createStubForEvent('vl-textarea', 'vl-input');
@@ -297,7 +297,7 @@ describe('vl-textarea - events', () => {
     });
 });
 
-describe('vl-textarea - form integration', () => {
+describe('cypress-component - form components - vl-textarea - form integration', () => {
     it('should reset form', () => {
         cy.mount(html`
             <form>
@@ -313,7 +313,7 @@ describe('vl-textarea - form integration', () => {
     });
 });
 
-describe('vl-textarea - blur-validation', () => {
+describe('cypress-component - form components - vl-textarea - blur-validation', () => {
     const mountWithValidation = () => {
         cy.mount(html`
             <form>

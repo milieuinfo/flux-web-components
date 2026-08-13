@@ -114,7 +114,7 @@ const shouldHaveErrorStyleSwitch = () => {
         .shouldHaveComputedStyle({ pseudo: 'after', style: 'color', value: 'rgb(210, 55, 60)' });
 };
 
-describe('vl-checkbox - properties & states', () => {
+describe('cypress-component - form components - vl-checkbox - properties & states', () => {
     beforeEach(() => {
         cy.viewport(1200, 800);
     });
@@ -258,7 +258,7 @@ describe('vl-checkbox - properties & states', () => {
     });
 });
 
-describe('vl-checkbox - events', () => {
+describe('cypress-component - form components - vl-checkbox - events', () => {
     it('should dispatch vl-change & vl-input event on check and uncheck', () => {
         cy.mount(html` <vl-checkbox value=${value}>Bevestig.</vl-checkbox> `);
         cy.createStubForEvent('vl-checkbox', 'vl-change');
@@ -328,7 +328,7 @@ describe('vl-checkbox - events', () => {
     });
 });
 
-describe('vl-checkbox - form integration', () => {
+describe('cypress-component - form components - vl-checkbox - form integration', () => {
     it('should mount in form', () => {
         mountCheckboxInForm();
 
@@ -408,20 +408,18 @@ describe('vl-checkbox - form integration', () => {
     it('should submit form data with correct name and value', () => {
         let formData: FormData | null = null;
 
-        cy.mount(
-            html`
-                <form
-                    id="test-form"
-                    @submit=${(e: Event) => {
-                        e.preventDefault();
-                        formData = new FormData(e.target as HTMLFormElement);
-                    }}
-                >
-                    <vl-checkbox name="terms" value="accepted" checked>Accept terms</vl-checkbox>
-                    <button type="submit">Submit</button>
-                </form>
-            `
-        ).then(() => {
+        cy.mount(html`
+            <form
+                id="test-form"
+                @submit=${(e: Event) => {
+                    e.preventDefault();
+                    formData = new FormData(e.target as HTMLFormElement);
+                }}
+            >
+                <vl-checkbox name="terms" value="accepted" checked>Accept terms</vl-checkbox>
+                <button type="submit">Submit</button>
+            </form>
+        `).then(() => {
             cy.get('button[type="submit"]')
                 .click()
                 .then(() => {
@@ -434,20 +432,18 @@ describe('vl-checkbox - form integration', () => {
     it('should not include unchecked checkbox in form data', () => {
         let formData: FormData | null = null;
 
-        cy.mount(
-            html`
-                <form
-                    id="test-form"
-                    @submit=${(e: Event) => {
-                        e.preventDefault();
-                        formData = new FormData(e.target as HTMLFormElement);
-                    }}
-                >
-                    <vl-checkbox name="terms" value="accepted">Accept terms</vl-checkbox>
-                    <button type="submit">Submit</button>
-                </form>
-            `
-        ).then(() => {
+        cy.mount(html`
+            <form
+                id="test-form"
+                @submit=${(e: Event) => {
+                    e.preventDefault();
+                    formData = new FormData(e.target as HTMLFormElement);
+                }}
+            >
+                <vl-checkbox name="terms" value="accepted">Accept terms</vl-checkbox>
+                <button type="submit">Submit</button>
+            </form>
+        `).then(() => {
             cy.get('button[type="submit"]')
                 .click()
                 .then(() => {
@@ -460,20 +456,18 @@ describe('vl-checkbox - form integration', () => {
     it('should use default value "on" when no value is specified', () => {
         let formData: FormData | null = null;
 
-        cy.mount(
-            html`
-                <form
-                    id="test-form"
-                    @submit=${(e: Event) => {
-                        e.preventDefault();
-                        formData = new FormData(e.target as HTMLFormElement);
-                    }}
-                >
-                    <vl-checkbox name="test" checked>Test</vl-checkbox>
-                    <button type="submit">Submit</button>
-                </form>
-            `
-        ).then(() => {
+        cy.mount(html`
+            <form
+                id="test-form"
+                @submit=${(e: Event) => {
+                    e.preventDefault();
+                    formData = new FormData(e.target as HTMLFormElement);
+                }}
+            >
+                <vl-checkbox name="test" checked>Test</vl-checkbox>
+                <button type="submit">Submit</button>
+            </form>
+        `).then(() => {
             cy.get('button[type="submit"]')
                 .click()
                 .then(() => {
@@ -486,22 +480,20 @@ describe('vl-checkbox - form integration', () => {
     it('should handle multiple checkboxes in one form', () => {
         let formData: FormData | null = null;
 
-        cy.mount(
-            html`
-                <form
-                    id="test-form"
-                    @submit=${(e: Event) => {
-                        e.preventDefault();
-                        formData = new FormData(e.target as HTMLFormElement);
-                    }}
-                >
-                    <vl-checkbox name="option1" value="value1" checked>Option 1</vl-checkbox>
-                    <vl-checkbox name="option2" value="value2">Option 2</vl-checkbox>
-                    <vl-checkbox name="option3" value="value3" checked>Option 3</vl-checkbox>
-                    <button type="submit">Submit</button>
-                </form>
-            `
-        ).then(() => {
+        cy.mount(html`
+            <form
+                id="test-form"
+                @submit=${(e: Event) => {
+                    e.preventDefault();
+                    formData = new FormData(e.target as HTMLFormElement);
+                }}
+            >
+                <vl-checkbox name="option1" value="value1" checked>Option 1</vl-checkbox>
+                <vl-checkbox name="option2" value="value2">Option 2</vl-checkbox>
+                <vl-checkbox name="option3" value="value3" checked>Option 3</vl-checkbox>
+                <button type="submit">Submit</button>
+            </form>
+        `).then(() => {
             cy.get('button[type="submit"]')
                 .click()
                 .then(() => {
@@ -514,7 +506,7 @@ describe('vl-checkbox - form integration', () => {
     });
 });
 
-describe('vl-checkbox - accessibility & keyboard', () => {
+describe('cypress-component - form components - vl-checkbox - accessibility & keyboard', () => {
     it('should be accessible', () => {
         cy.mount(html` <vl-checkbox value=${value}>Bevestig.</vl-checkbox> `);
         cy.injectAxe();
@@ -574,7 +566,7 @@ describe('vl-checkbox - accessibility & keyboard', () => {
     });
 });
 
-describe('vl-checkbox - switch variant', () => {
+describe('cypress-component - form components - vl-checkbox - switch variant', () => {
     it('should mount switch', () => {
         cy.mount(html`
             <div class="snapshot-wrapper" style="width: 300px; padding: 20px; background: white;">
@@ -627,7 +619,6 @@ describe('vl-checkbox - switch variant', () => {
         cy.get('vl-checkbox').should('have.attr', 'checked');
         cy.get('vl-checkbox').should('have.attr', 'value', value);
     });
-
 
     it('should be disabled', () => {
         cy.mount(html`
@@ -684,10 +675,7 @@ describe('vl-checkbox - switch variant', () => {
         cy.wait(100);
         cy.get('.snapshot-wrapper').matchImageSnapshot('checkbox-switch-block');
         cy.get('vl-checkbox').should('have.attr', 'block');
-        cy.get('vl-checkbox')
-            .shadow()
-            .find('.vl-checkbox--switch__wrapper')
-            .should('have.class', 'vl-checkbox--block');
+        cy.get('vl-checkbox').shadow().find('.vl-checkbox--switch__wrapper').should('have.class', 'vl-checkbox--block');
     });
 
     it('should not apply indeterminate state to switch', () => {
@@ -804,7 +792,7 @@ describe('vl-checkbox - switch variant', () => {
 });
 
 // Base-class isolation tests dispatch events on the host directly; Cypress's click sim does not reliably deliver vl-input.
-describe('vl-checkbox - blur-validation', () => {
+describe('cypress-component - form components - vl-checkbox - blur-validation', () => {
     const mountWithValidation = () => {
         cy.mount(html`
             <form>

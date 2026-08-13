@@ -10,7 +10,7 @@ const clickRadioWithValue = (value: string) => {
     cy.get(`vl-radio[value="${value}"]`).shadow().find('input').click({ force: true });
 };
 
-describe('vl-radio-group - properties & states', () => {
+describe('cypress-component - form components - vl-radio-group - properties & states', () => {
     beforeEach(() => {
         cy.viewport(1200, 800);
     });
@@ -207,7 +207,7 @@ describe('vl-radio-group - properties & states', () => {
     });
 });
 
-describe('vl-radio-group - keyboard navigation', () => {
+describe('cypress-component - form components - vl-radio-group - keyboard navigation', () => {
     it('should navigate between radio inputs with the keyboard arrow keys', () => {
         cy.mount(html`
             <vl-radio-group>
@@ -383,7 +383,7 @@ describe('vl-radio-group - keyboard navigation', () => {
     });
 });
 
-describe('vl-radio-group - events', () => {
+describe('cypress-component - form components - vl-radio-group - events', () => {
     it('should dispatch vl-input & vl-change event on check', () => {
         cy.mount(html`
             <vl-radio-group id="land-zee" name="land-zee">
@@ -451,7 +451,7 @@ describe('vl-radio-group - events', () => {
     });
 });
 
-describe('vl-radio-group - in form', () => {
+describe('cypress-component - form components - vl-radio-group - in form', () => {
     it('should work inside a form', () => {
         cy.mount(html`
             <form>
@@ -560,7 +560,7 @@ describe('vl-radio-group - in form', () => {
     });
 });
 
-describe('vl-radio-group - blur-validation', () => {
+describe('cypress-component - form components - vl-radio-group - blur-validation', () => {
     const mount = () => {
         cy.mount(html`
             <form>
