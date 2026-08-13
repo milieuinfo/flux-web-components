@@ -5,7 +5,7 @@ import { VlFormMessageComponent } from '../form-message/vl-form-message.componen
 
 registerWebComponents([VlTextareaRichComponent, VlFormMessageComponent]);
 
-describe('vl-textarea-rich - vl-input event', () => {
+describe('cypress-component - form components - vl-textarea-rich - vl-input event', () => {
     beforeEach(() => {
         cy.viewport(1280, 720);
     });
@@ -51,7 +51,7 @@ describe('vl-textarea-rich - vl-input event', () => {
     });
 });
 
-describe('vl-textarea-rich - properties & states', () => {
+describe('cypress-component - form components - vl-textarea-rich - properties & states', () => {
     beforeEach(() => {
         cy.viewport(1280, 720);
     });
@@ -187,7 +187,7 @@ describe('vl-textarea-rich - properties & states', () => {
     });
 });
 
-describe('vl-textarea-rich - blur-validation', () => {
+describe('cypress-component - form components - vl-textarea-rich - blur-validation', () => {
     const mount = () => {
         cy.mount(html`
             <form>

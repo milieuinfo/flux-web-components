@@ -33,105 +33,105 @@ const props: MountDefaultProps = {
     onReady: () => console.log('ready'),
 };
 
-describe('cypress-component - compliance components - vl-footer-next', () => {
+// root-niveau hooks: mocha draait deze voor/na elke test van elke suite in dit bestand, net zoals ze
+// eerder als hooks van de omhullende describe deden
+beforeEach(() => {
+    // zonder deze intercept haalt elke test het echte widget-script op bij widgets.(tni-)vlaanderen.be: traag,
+    // buiten onze controle en dus regelmatig falend
+    cy.intercept('GET', /widgets.*vlaanderen\.be.*entry/, stubWidgetScript()).as('widgetScript');
+});
+
+afterEach(() => {
+    // awaitScript slaat het laden over als er al een script met dit id staat, dus zonder opkuis krijgt de volgende
+    // test geen widget meer. Via document i.p.v. cy.get: het script hoeft er niet te zijn als een test vroeg faalt.
+    document.querySelector('script#vl-footer-widget')?.remove();
+    // De component ruimt zijn container zelf op bij disconnect; deze regel vangt de gevallen op waarin dat niet
+    // gebeurde, zodat een volgende test nooit twee #footer__container-elementen ziet.
+    document.querySelector('#footer__container')?.remove();
+    // Weg met de client van deze test, anders is de wachtvoorwaarde in mountDefault meteen voldaan.
+    delete (window as unknown as Record<string, unknown>).globalFooterClient;
+});
+
+describe('cypress-component - compliance components - vl-footer-next - default', () => {
     beforeEach(() => {
-        // zonder deze intercept haalt elke test het echte widget-script op bij widgets.(tni-)vlaanderen.be: traag,
-        // buiten onze controle en dus regelmatig falend
-        cy.intercept('GET', /widgets.*vlaanderen\.be.*entry/, stubWidgetScript()).as('widgetScript');
+        mountDefault(props);
     });
+
+    it('should mount', () => {
+        cy.get('vl-footer-next');
+    });
+
+    it('should be accessible', () => {
+        cy.get('vl-footer-next');
+
+        cy.injectAxe();
+        cy.checkA11y('vl-footer-next');
+    });
+});
+
+describe('cypress-component - compliance components - vl-footer-next - properties default', () => {
+    it('should have default values properties', () => {
+        mountDefault(props);
+
+        cy.get('vl-footer-next').should('not.have.attr', 'development', props.development);
+        cy.get('vl-footer-next').should('have.attr', 'identifier', props.identifier);
+    });
+});
+
+describe('cypress-component - compliance components - vl-footer-next - properties reflect', () => {
+    it('should reflect the <development> attribute', () => {
+        mountDefault({ ...props, development: true });
+
+        cy.get('vl-footer-next').should('have.attr', 'development', '');
+    });
+
+    it('should reflect the <identifier> attribute', () => {
+        mountDefault({ ...props, identifier: 'TEST_IDENTIFIER' });
+
+        cy.get('vl-footer-next').should('have.attr', 'identifier', 'TEST_IDENTIFIER');
+    });
+});
+
+describe('cypress-component - compliance components - vl-footer-next - events', () => {
+    it('should emit ready event', () => {
+        // De component luistert op window naar het mounted-event van de widget en vuurt van daaruit 'ready' af.
+        // Die handler is niet gebonden, dus de dispatcher is window - vandaar de listener op window en niet op het
+        // element. Hij moet geregistreerd zijn voor er gemount wordt, want het event volgt meteen op het script.
+        cy.window().then((win) => {
+            win.addEventListener('ready', cy.stub().as('ready'));
+        });
+
+        mountDefault({ ...props, development: true });
+
+        cy.get('@ready').should('have.been.calledOnce');
+    });
+});
+
+describe('cypress-component - compliance components - vl-footer-next - sticky footer spacer', () => {
+    const RESERVED_HEIGHT_VAR = '--vl-footer--bar-reserved-height';
 
     afterEach(() => {
-        // awaitScript slaat het laden over als er al een script met dit id staat, dus zonder opkuis krijgt de volgende
-        // test geen widget meer. Via document i.p.v. cy.get: het script hoeft er niet te zijn als een test vroeg faalt.
-        document.querySelector('script#vl-footer-widget')?.remove();
-        // De component ruimt zijn container zelf op bij disconnect; deze regel vangt de gevallen op waarin dat niet
-        // gebeurde, zodat een volgende test nooit twee #footer__container-elementen ziet.
-        document.querySelector('#footer__container')?.remove();
-        // Weg met de client van deze test, anders is de wachtvoorwaarde in mountDefault meteen voldaan.
-        delete (window as unknown as Record<string, unknown>).globalFooterClient;
+        document.documentElement.style.removeProperty(RESERVED_HEIGHT_VAR);
     });
 
-    describe('default', () => {
-        beforeEach(() => {
-            mountDefault(props);
-        });
+    it('should reserve space for the fixed footer bar on the container', () => {
+        mountDefault({ ...props, development: true, identifier: 'TEST_IDENTIFIER' });
 
-        it('should mount', () => {
-            cy.get('vl-footer-next');
-        });
-
-        it('should be accessible', () => {
-            cy.get('vl-footer-next');
-
-            cy.injectAxe();
-            cy.checkA11y('vl-footer-next');
-        });
+        cy.get('#footer__container').should('have.css', 'min-height', '48px');
     });
 
-    describe('properties default ', () => {
-        it('should have default values properties', () => {
-            mountDefault(props);
+    it('should let consumers override the reserved height via CSS variable', () => {
+        document.documentElement.style.setProperty(RESERVED_HEIGHT_VAR, '60px');
+        mountDefault({ ...props, development: true, identifier: 'TEST_IDENTIFIER' });
 
-            cy.get('vl-footer-next').should('not.have.attr', 'development', props.development);
-            cy.get('vl-footer-next').should('have.attr', 'identifier', props.identifier);
-        });
+        cy.get('#footer__container').should('have.css', 'min-height', '60px');
     });
 
-    describe('properties reflect ', () => {
-        it('should reflect the <development> attribute', () => {
-            mountDefault({ ...props, development: true });
+    it('should let consumers disable the reservation via CSS variable', () => {
+        document.documentElement.style.setProperty(RESERVED_HEIGHT_VAR, '0px');
+        mountDefault({ ...props, development: true, identifier: 'TEST_IDENTIFIER' });
 
-            cy.get('vl-footer-next').should('have.attr', 'development', '');
-        });
-
-        it('should reflect the <identifier> attribute', () => {
-            mountDefault({ ...props, identifier: 'TEST_IDENTIFIER' });
-
-            cy.get('vl-footer-next').should('have.attr', 'identifier', 'TEST_IDENTIFIER');
-        });
-    });
-
-    describe('events', () => {
-        it('should emit ready event', () => {
-            // De component luistert op window naar het mounted-event van de widget en vuurt van daaruit 'ready' af.
-            // Die handler is niet gebonden, dus de dispatcher is window - vandaar de listener op window en niet op het
-            // element. Hij moet geregistreerd zijn voor er gemount wordt, want het event volgt meteen op het script.
-            cy.window().then((win) => {
-                win.addEventListener('ready', cy.stub().as('ready'));
-            });
-
-            mountDefault({ ...props, development: true });
-
-            cy.get('@ready').should('have.been.calledOnce');
-        });
-    });
-
-    describe('sticky footer spacer', () => {
-        const RESERVED_HEIGHT_VAR = '--vl-footer--bar-reserved-height';
-
-        afterEach(() => {
-            document.documentElement.style.removeProperty(RESERVED_HEIGHT_VAR);
-        });
-
-        it('should reserve space for the fixed footer bar on the container', () => {
-            mountDefault({ ...props, development: true, identifier: 'TEST_IDENTIFIER' });
-
-            cy.get('#footer__container').should('have.css', 'min-height', '48px');
-        });
-
-        it('should let consumers override the reserved height via CSS variable', () => {
-            document.documentElement.style.setProperty(RESERVED_HEIGHT_VAR, '60px');
-            mountDefault({ ...props, development: true, identifier: 'TEST_IDENTIFIER' });
-
-            cy.get('#footer__container').should('have.css', 'min-height', '60px');
-        });
-
-        it('should let consumers disable the reservation via CSS variable', () => {
-            document.documentElement.style.setProperty(RESERVED_HEIGHT_VAR, '0px');
-            mountDefault({ ...props, development: true, identifier: 'TEST_IDENTIFIER' });
-
-            cy.get('#footer__container').should('have.css', 'min-height', '0px');
-        });
+        cy.get('#footer__container').should('have.css', 'min-height', '0px');
     });
 });
 

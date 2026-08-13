@@ -25,7 +25,7 @@ const optionsGrouped: SelectOption[] = ['België', 'België', 'België', 'Belgi�
     (group, i) => ({ ...options[i], group })
 );
 
-describe('vl-select - properties & states', () => {
+describe('cypress-component - form components - vl-select - properties & states', () => {
     beforeEach(() => {
         cy.viewport(1200, 800);
     });
@@ -139,7 +139,7 @@ describe('vl-select - properties & states', () => {
                 label="geboorteplaats"
                 placeholder="Selecteer je geboorteplaats"
                 .options=${options}
-            ></vl-select>`
+            ></vl-select>`,
         );
         cy.injectAxe();
 
@@ -206,7 +206,7 @@ describe('vl-select - properties & states', () => {
     });
 });
 
-describe('vl-select - events', () => {
+describe('cypress-component - form components - vl-select - events', () => {
     it('should dispatch vl-change event on select and delete option', () => {
         cy.mount(html`<vl-select label="geboorteplaats" .options=${options}></vl-select>`);
         cy.injectAxe();
@@ -294,7 +294,7 @@ describe('vl-select - events', () => {
     });
 });
 
-describe('vl-select - options', () => {
+describe('cypress-component - form components - vl-select - options', () => {
     it('should select option', () => {
         cy.mount(html`<vl-select label="geboorteplaats" .options=${options}></vl-select>`);
         cy.injectAxe();
@@ -381,7 +381,8 @@ describe('vl-select - options', () => {
             .shadow()
             .find('select')
             .then(
-                ($select) => expect($select.children(`option[value="${String(selectedValue)}"]`)[0]).not.to.be.undefined
+                ($select) =>
+                    expect($select.children(`option[value="${String(selectedValue)}"]`)[0]).not.to.be.undefined,
             );
     });
 
@@ -406,7 +407,7 @@ describe('vl-select - options', () => {
             .then(
                 ($select) =>
                     expect($select.children(`option[value="${String(selectedValue)}"]`)[0]?.getAttribute('selected'))
-                        .not.to.be.undefined
+                        .not.to.be.undefined,
             );
     });
 
@@ -415,7 +416,7 @@ describe('vl-select - options', () => {
             html`<vl-select placeholder="Selecteer">
                 <option value="hasselt">Hasselt</option>
                 <option value="turnhout" selected>Turnhout</option>
-            </vl-select>`
+            </vl-select>`,
         );
 
         cy.get('vl-select').should(($vlSelect) => {
@@ -437,7 +438,7 @@ describe('vl-select - options', () => {
     });
 });
 
-describe('vl-select - in form', () => {
+describe('cypress-component - form components - vl-select - in form', () => {
     beforeEach(() => {
         cy.mount(html`
             <form
@@ -563,7 +564,7 @@ describe('vl-select - in form', () => {
     });
 });
 
-describe('vl-select - declarative options', () => {
+describe('cypress-component - form components - vl-select - declarative options', () => {
     it('should mount with declarative options', () => {
         cy.mount(html`
             <vl-select label="geboorteplaats">
@@ -741,7 +742,7 @@ describe('vl-select - declarative options', () => {
     });
 });
 
-describe('vl-select - blur-validation', () => {
+describe('cypress-component - form components - vl-select - blur-validation', () => {
     const mount = () => {
         cy.mount(html`
             <form>

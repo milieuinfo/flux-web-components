@@ -57,7 +57,7 @@ describe('cypress-e2e - block components - vl-functional-header - slots story', 
     });
 });
 
-describe('story - vl-functional-header - full width', () => {
+describe('cypress-e2e - block components - vl-functional-header - full width', () => {
     it('should render', () => {
         cy.visit(functionalHeaderFullWidthUrl);
 
@@ -65,7 +65,7 @@ describe('story - vl-functional-header - full width', () => {
     });
 });
 
-describe('story - vl-functional-header - disable back link', () => {
+describe('cypress-e2e - block components - vl-functional-header - disable back link', () => {
     it('should render', () => {
         cy.visit(functionalHeaderDisableBackLinkUrl);
 
@@ -73,7 +73,7 @@ describe('story - vl-functional-header - disable back link', () => {
     });
 });
 
-describe('story - vl-functional-header - hide back link', () => {
+describe('cypress-e2e - block components - vl-functional-header - hide back link', () => {
     it('should render', () => {
         cy.visit(functionalHeaderHideBackLinkUrl);
 
@@ -81,7 +81,7 @@ describe('story - vl-functional-header - hide back link', () => {
     });
 });
 
-describe('story - vl-functional-header - hide sub header', () => {
+describe('cypress-e2e - block components - vl-functional-header - hide sub header', () => {
     it('should render', () => {
         cy.visit(functionalHeaderHideSubHeaderUrl);
 

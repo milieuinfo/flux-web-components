@@ -3,7 +3,7 @@ const buttonStyleDefaultUrl =
 const buttonStyleLinkUrl =
     'http://localhost:8080/iframe.html?id=components-atom-button-style--button-style-link&viewMode=story';
 
-describe('story - button - default', () => {
+describe('cypress-e2e - atom components - vl-button-style - default story', () => {
     it('should render', () => {
         cy.visit(buttonStyleDefaultUrl);
 
@@ -11,7 +11,7 @@ describe('story - button - default', () => {
     });
 });
 
-describe('story - button - link', () => {
+describe('cypress-e2e - atom components - vl-button-style - link', () => {
     it('should render', () => {
         cy.visit(buttonStyleLinkUrl);
 

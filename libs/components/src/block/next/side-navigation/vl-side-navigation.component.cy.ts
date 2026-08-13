@@ -1329,16 +1329,12 @@ describe('cypress-component - block components - vl-side-navigation-next - exclu
     });
 });
 
-describe('child-spacing attribuut', () => {
+describe('cypress-component - block components - vl-side-navigation-next - child-spacing attribuut', () => {
     it('child-links krijgen 1.3rem verticale marge wanneer child-spacing op medium staat', () => {
         mountSideNavigationMediumSpacing();
 
         // expand a parent by clicking the toggle button
-        cy.get('vl-side-navigation-next')
-            .shadow()
-            .find('button.toggle-button')
-            .first()
-            .click();
+        cy.get('vl-side-navigation-next').shadow().find('button.toggle-button').first().click();
 
         // The .nav-item-wrapper gets the spacing (the a/button inside it is reset to margin: 0)
         cy.get('vl-side-navigation-next')
@@ -1351,11 +1347,7 @@ describe('child-spacing attribuut', () => {
     it('child-links hebben geen extra marge wanneer child-spacing op small staat', () => {
         mountSideNavigation();
 
-        cy.get('vl-side-navigation-next')
-            .shadow()
-            .find('button.toggle-button')
-            .first()
-            .click();
+        cy.get('vl-side-navigation-next').shadow().find('button.toggle-button').first().click();
 
         cy.get('vl-side-navigation-next')
             .shadow()

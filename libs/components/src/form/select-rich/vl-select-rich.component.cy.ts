@@ -2265,7 +2265,7 @@ describe('cypress-component - form components - vl-select-rich - search strategi
     });
 });
 
-describe('vl-select-rich - blur-validation', () => {
+describe('cypress-component - form components - vl-select-rich - blur-validation', () => {
     const mount = () => {
         cy.mount(html`
             <form>

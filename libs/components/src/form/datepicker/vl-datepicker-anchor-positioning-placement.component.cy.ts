@@ -7,7 +7,7 @@ registerWebComponents([VlDatepickerComponent]);
 // Verifieert de ECHTE positionering (niet enkel het popover-attribuut). Op native browsers doen de
 // CSS-regels het werk; op non-native (bv. Firefox 143) doet @floating-ui/dom het via de controller.
 // Deze relatieve asserties (kalender t.o.v. toggle-button) gelden in beide gevallen.
-describe('vl-datepicker - anchor-positioning placement', () => {
+describe('cypress-component - form components - vl-datepicker - anchor-positioning placement', () => {
     const TOL = 16;
 
     const openAndAssert = (assert: (button: DOMRect, calendar: DOMRect) => void) => {

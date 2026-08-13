@@ -1,6 +1,6 @@
 const formDemoUrl = 'http://localhost:4204';
 
-describe('integrator - form demo', () => {
+describe('cypress-e2e - integrator app - form demo', () => {
     it('should be accessible', () => {
         cy.visitWithA11y(formDemoUrl);
 
