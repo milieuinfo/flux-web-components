@@ -28,6 +28,7 @@ export const vlProgressIndicatorFluxStyles: CSSResult = css`
     .vl-progress-indicator__segment {
         position: relative;
         pointer-events: none;
+        isolation: isolate;
 
         /* track */
         &::before {

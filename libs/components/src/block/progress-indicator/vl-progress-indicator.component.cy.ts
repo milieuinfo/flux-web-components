@@ -216,3 +216,28 @@ describe('cypress-component - block components - vl-progress-indicator - labels 
         shouldHaveLastLabelWithinContainer();
     });
 });
+
+describe('cypress-component - block components - vl-progress-indicator - track achter een ondoorzichtige voorouder', () => {
+    const steps = ['Type onderdeel', 'Gegevens', 'Verbindingen'];
+
+    it('should render the track inside its own stacking context', () => {
+        cy.mount(
+            html` <div style="isolation: isolate;">
+                <div style="background: #ffffff;">
+                    <vl-progress-indicator active-step="1" show-labels .steps=${steps}></vl-progress-indicator>
+                </div>
+            </div>`
+        );
+
+        cy.get('vl-progress-indicator')
+            .shadow()
+            .find('.vl-progress-indicator__segment')
+            .first()
+            .should(($segment) => {
+                const segment = $segment[0];
+
+                expect(getComputedStyle(segment, '::before').zIndex).to.equal('-1');
+                expect(getComputedStyle(segment).isolation).to.equal('isolate');
+            });
+    });
+});
