@@ -67,9 +67,8 @@ if [[ "$(git rev-parse --is-shallow-repository)" == "true" ]]; then
     git fetch --unshallow origin
 fi
 
-# op Jenkins delen de release stages één workspace: release-and-publish en verify-release laten gewijzigde
-# tracked files achter (o.a. apps/consumer/package.json met de ingevulde versie) en die zouden de
-# checkout/rebase hieronder blokkeren.
+# op Jenkins deelt deze stage één workspace met release-and-publish, en die laat gewijzigde tracked files achter
+# die de checkout/rebase hieronder zouden blokkeren. Vangnet, dus ook zinvol als daar later iets bijkomt.
 echo 'git reset --hard'
 git reset --hard
 
