@@ -13,11 +13,16 @@
     "devDependencies": {
         "html-webpack-plugin": "5.6.3",
         "http-server": "14.1.1",
-        "terser-webpack-plugin": "5.3.11"
+        "start-server-and-test": "2.0.3",
+        "terser-webpack-plugin": "5.3.11",
+        "ts-loader": "9.5.1",
+        "typescript": "5.4.2",
+        "webpack": "5.105.3",
+        "webpack-cli": "5.1.4"
     },
     "dependencies": {
-        "@domg-wc/common": "2.12.1",
-        "@domg-wc/components": "2.12.1",
-        "@domg-wc/map": "2.12.1"
+        "@domg-wc/common": "2.17.0",
+        "@domg-wc/components": "2.17.0",
+        "@domg-wc/map": "2.17.0"
     }
 }

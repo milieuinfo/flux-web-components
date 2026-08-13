@@ -268,6 +268,12 @@ pipeline {
                                     passwordVariable: 'GITHUB_TOKEN')]) {
                                 sh './resources/ci-jenkins/bash/release-and-publish.sh'
                             }
+                            // Opnieuw stashen, want verify-release draait in een eigen pod en heeft de build/dist
+                            // nodig zoals die er na deze stage uitziet: 'libs:pack' schrijft het versienummer in de
+                            // libs package.json en de fat-lib is hernoemd naar domg-wc-compliance-<versie>.min.js.
+                            // De stash uit build-apps-and-libs dateert van voor semantic-release en heeft dus nog de
+                            // oude versie en de naam zonder suffix.
+                            stash name: 'build-dist-released', includes: 'build/dist/libs/**,build/dist/fat-lib/**'
                         }
                     }
                     post {
@@ -279,9 +285,24 @@ pipeline {
                     }
                 }
                 stage('Verify release') {
-                    when { expression { env.BRANCH_NAME ==~ /.*(develop|bugfix|release).*/ } }
+                    // beforeAgent: anders wordt de pod toch opgestart op branches waar deze stage niets doet.
+                    when {
+                        beforeAgent true
+                        expression { env.BRANCH_NAME ==~ /.*(develop|bugfix|release).*/ }
+                    }
+                    // Een eigen agent, en dus een eigen pod met een verse workspace.
+                    // Doel: verify-release moet aantonen dat de gepubliceerde packages werken zoals bij een externe afnemer.
+                    // Zorgen: dat de root node_modules niet aanwezig zijn, anders pikt de app die dependencies op
+                    // (phantom dependencies) en de stage slaagt dan ook als de package.json's in de artifacts fout zijn.
+                    agent {
+                        kubernetes {
+                            inheritFrom 'jenkins-jenkins-agent'
+                            yaml podBuilder.from([buildPod()])
+                        }
+                    }
                     steps {
                         container('cypress') {
+                            unstash 'build-dist-released'
                             sh './resources/ci-jenkins/bash/verify-release.sh'
                         }
                     }
