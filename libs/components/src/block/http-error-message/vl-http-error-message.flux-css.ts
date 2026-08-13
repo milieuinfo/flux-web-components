@@ -5,11 +5,16 @@ export const vlHttpErrorMessageFluxStyles: CSSResult = css`
     #info {
         font-size: small;
     }
-    td {
-        padding-right: 15px;
-    }
-    table {
+
+    dl {
+        display: grid;
+        grid-template-columns: max-content auto;
         color: dimgray;
+    }
+
+    dt,
+    dd {
+        padding-right: 15px;
     }
 
     @media screen and (max-width: ${vlMediaScreenSmall}px) {

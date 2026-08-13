@@ -87,7 +87,7 @@ describe('cypress-component - block components - vl-http-error-message - default
             .find('div[id="info"]')
             .then(($info) => {
                 cy.wrap($info)
-                    .find('tr > td#url')
+                    .find('dl > dd#url')
                     .invoke('text')
                     .then((url) => {
                         const urlPattern = /(http[s]?:\/\/)?([^\s(["<,>]*\.[^\s[",><]*)?(:\d+)?(\/\S*)?/;
@@ -95,7 +95,7 @@ describe('cypress-component - block components - vl-http-error-message - default
                         expect(urlPattern.test(url)).to.be.true;
                     });
                 cy.wrap($info)
-                    .find('tr > td#time')
+                    .find('dl > dd#time')
                     .invoke('text')
                     .then((time) => {
                         const timePattern =
@@ -104,11 +104,29 @@ describe('cypress-component - block components - vl-http-error-message - default
                         expect(timePattern.test(time)).to.be.true;
                     });
                 cy.wrap($info)
-                    .find('tr > td#user-agent')
+                    .find('dl > dd#user-agent')
                     .invoke('text')
                     .then((text) => {
                         assert.isNotEmpty(text, 'User-agent info element should contain text');
                     });
+            });
+    });
+
+    it('should render the debugging info as a description list', () => {
+        cy.get('vl-http-error-message').shadow().find('div[id="info"] table').should('not.exist');
+
+        cy.get('vl-http-error-message')
+            .shadow()
+            .find('div[id="info"] dl')
+            .then(($list) => {
+                const children = $list.children().toArray();
+                const tagNames = children.map((child) => child.tagName.toLowerCase());
+                const labels = children
+                    .filter((child) => child.tagName === 'DT')
+                    .map((term) => term.textContent?.trim());
+
+                expect(tagNames).to.deep.equal(['dt', 'dd', 'dt', 'dd', 'dt', 'dd']);
+                expect(labels).to.deep.equal(['URL:', 'Tijd:', 'User-agent:']);
             });
     });
 });
@@ -182,7 +200,7 @@ describe('cypress-component - block components - vl-http-error-message - error-c
                 'contain',
                 'We vonden de pagina niet terug. Controleer even of u een tikfout heeft gemaakt. Bent u via een link of\n            website op deze pagina gekomen.'
             )
-            .and('contain', 'en vermeld\n            daarbij de URL hierboven en de foutcode 404.');
+            .and('contain', 'en vermeld\n            daarbij de URL in de adresbalk en de foutcode 404.');
     });
 
     it('should contain an action button', () => {
@@ -198,7 +216,7 @@ describe('cypress-component - block components - vl-http-error-message - error-c
             .find('div[id="info"]')
             .then(($info) => {
                 cy.wrap($info)
-                    .find('tr > td#url')
+                    .find('dl > dd#url')
                     .invoke('text')
                     .then((url) => {
                         const urlPattern = /(http[s]?:\/\/)?([^\s(["<,>]*\.[^\s[",><]*)?(:\d+)?(\/\S*)?/;
@@ -206,7 +224,7 @@ describe('cypress-component - block components - vl-http-error-message - error-c
                         expect(urlPattern.test(url)).to.be.true;
                     });
                 cy.wrap($info)
-                    .find('tr > td#time')
+                    .find('dl > dd#time')
                     .invoke('text')
                     .then((time) => {
                         const timePattern =
@@ -215,7 +233,7 @@ describe('cypress-component - block components - vl-http-error-message - error-c
                         expect(timePattern.test(time)).to.be.true;
                     });
                 cy.wrap($info)
-                    .find('tr > td#user-agent')
+                    .find('dl > dd#user-agent')
                     .invoke('text')
                     .then((text) => {
                         assert.isNotEmpty(text, 'User-agent info element should contain text');

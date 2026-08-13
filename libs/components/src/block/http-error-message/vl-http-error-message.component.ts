@@ -16,7 +16,7 @@ export class VlHttpErrorMessage extends BaseHTMLElement {
     constructor() {
         const html = `
           <div class="vl-form-message-container vl-grid vl-stacked-small">
-            <div class="vl-column vl-column--justify-self-center vl-column--6  vl-column--m-6  vl-column--s-8 vl-column--xs-12">
+            <div class="vl-column vl-column--6 vl-column--m-6 vl-column--s-8 vl-column--xs-12">
               <div class="vl-grid vl-stacked-small">
                 <div class="vl-column vl-column--12">
                   <h2 id="title"></h2>
@@ -24,20 +24,14 @@ export class VlHttpErrorMessage extends BaseHTMLElement {
                   <vl-typography id="error-text"></vl-typography>
                 </div>
                 <div id="info" class="vl-column vl-column--12">
-                  <table>
-                    <tr>
-                      <td>URL:</td>
-                      <td id="url"></td>
-                    </tr>
-                    <tr>
-                      <td>Tijd:</td>
-                      <td id="time"></td>
-                    </tr>
-                    <tr>
-                      <td>User-agent:</td>
-                      <td id="user-agent"></td>
-                    </tr>
-                  </table>
+                  <dl>
+                    <dt>URL:</dt>
+                    <dd id="url"></dd>
+                    <dt>Tijd:</dt>
+                    <dd id="time"></dd>
+                    <dt>User-agent:</dt>
+                    <dd id="user-agent"></dd>
+                  </dl>
                 </div>
                 <div id="actions" class="vl-column vl-column--12"><div id="error-actions"><slot name="actions"></slot></div></div>
               </div>

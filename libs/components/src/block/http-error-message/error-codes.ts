@@ -17,7 +17,7 @@ const errorCodes: ErrorCode = {
         imageAlt: 'Verkeerd verzoek',
         errorText: html` <p>
             <a href="mailto:help@omgevingvlaanderen.be?subject=HTTP-code 400">Mail de helpdesk</a> en vermeld daarbij de
-            URL hierboven en de foutcode 400.
+            URL in de adresbalk en de foutcode 400.
         </p>`,
         errorActions: html` <div>
             <vl-link href="/">Terug naar de startpagina</vl-link>
@@ -30,7 +30,7 @@ const errorCodes: ErrorCode = {
         errorText: html` <p>
             Om toegang te krijgen tot deze pagina, moet u eerst aangemeld zijn.
             <a href="mailto:help@omgevingvlaanderen.be?subject=HTTP-code 401">Mail de helpdesk</a> en vermeld daarbij de
-            URL hierboven en de foutcode 401.
+            URL in de adresbalk en de foutcode 401.
         </p>`,
         errorActions: html` <div>
             <vl-link href="/">Terug naar de startpagina</vl-link>
@@ -43,7 +43,7 @@ const errorCodes: ErrorCode = {
         errorText: html` <p>
             U heeft daarvoor onvoldoende rechten.
             <a href="mailto:help@omgevingvlaanderen.be?subject=HTTP-code 403">Mail de helpdesk</a> en vermeld daarbij de
-            URL hierboven en de foutcode 403.
+            URL in de adresbalk en de foutcode 403.
         </p>`,
         errorActions: html` <div>
             <vl-link href="/">Terug naar de startpagina</vl-link>
@@ -57,7 +57,7 @@ const errorCodes: ErrorCode = {
             We vonden de pagina niet terug. Controleer even of u een tikfout heeft gemaakt. Bent u via een link of
             website op deze pagina gekomen.
             <a href="mailto:help@omgevingvlaanderen.be?subject=HTTP-code 404">Mail dan de helpdesk</a> en vermeld
-            daarbij de URL hierboven en de foutcode 404.
+            daarbij de URL in de adresbalk en de foutcode 404.
         </p>`,
         errorActions: html` <div>
             <vl-link href="/">Terug naar de startpagina</vl-link>
@@ -70,7 +70,7 @@ const errorCodes: ErrorCode = {
         errorText: html` <p>
             Er ging iets fout.
             <a href="mailto:help@omgevingvlaanderen.be?subject=HTTP-code 405">Mail de helpdesk</a> en vermeld daarbij de
-            URL hierboven en de foutcode 405.
+            URL in de adresbalk en de foutcode 405.
         </p>`,
         errorActions: html` <div>
             <vl-link href="/">Terug naar de startpagina</vl-link>
@@ -83,7 +83,7 @@ const errorCodes: ErrorCode = {
         errorText: html` <p>
             Het laden van de pagina duurde te lang. Probeer het opnieuw en als het nog niet lukt:
             <a href="mailto:help@omgevingvlaanderen.be?subject=HTTP-code 408">mail dan de helpdesk</a> en vermeld
-            daarbij de URL hierboven en de foutcode 408.
+            daarbij de URL in de adresbalk en de foutcode 408.
         </p>`,
         errorActions: html` <div>
             <vl-link href="/">Terug naar de startpagina</vl-link>
@@ -96,7 +96,7 @@ const errorCodes: ErrorCode = {
         errorText: html` <p>
             Deze pagina bestaat niet meer.
             <a href="mailto:help@omgevingvlaanderen.be?subject=HTTP-code 410">Mail de helpdesk</a> en vermeld daarbij de
-            URL hierboven en de foutcode 410.
+            URL in de adresbalk en de foutcode 410.
         </p>`,
         errorActions: html` <div>
             <vl-link href="/">Terug naar de startpagina</vl-link>
@@ -109,7 +109,7 @@ const errorCodes: ErrorCode = {
         errorText: html` <p>
             Er ontbreekt blijkbaar iets.
             <a href="mailto:help@omgevingvlaanderen.be?subject=HTTP-code 411">Mail de helpdesk</a> en vermeld daarbij de
-            URL hierboven en de foutcode 411.
+            URL in de adresbalk en de foutcode 411.
         </p>`,
         errorActions: html` <div>
             <vl-link href="/">Terug naar de startpagina</vl-link>
@@ -122,7 +122,7 @@ const errorCodes: ErrorCode = {
         errorText: html` <p>
             Er ging iets fout.
             <a href="mailto:help@omgevingvlaanderen.be?subject=HTTP-code 412">Mail de helpdesk</a> en vermeld daarbij de
-            URL hierboven en de foutcode 412.
+            URL in de adresbalk en de foutcode 412.
         </p>`,
         errorActions: html` <div>
             <vl-link href="/">Terug naar de startpagina</vl-link>
@@ -135,7 +135,7 @@ const errorCodes: ErrorCode = {
         errorText: html` <p>
             Er ging iets fout.
             <a href="mailto:help@omgevingvlaanderen.be?subject=HTTP-code 413">Mail de helpdesk</a> en vermeld daarbij de
-            URL hierboven en de foutcode 413.
+            URL in de adresbalk en de foutcode 413.
         </p>`,
         errorActions: html` <div>
             <vl-link href="/">Terug naar de startpagina</vl-link>
@@ -148,7 +148,7 @@ const errorCodes: ErrorCode = {
         errorText: html` <p>
             Er ging iets fout.
             <a href="mailto:help@omgevingvlaanderen.be?subject=HTTP-code 414">Mail de helpdesk</a> en vermeld daarbij de
-            URL hierboven en de foutcode 414.
+            URL in de adresbalk en de foutcode 414.
         </p>`,
         errorActions: html` <div>
             <vl-link href="/">Terug naar de startpagina</vl-link>
@@ -161,7 +161,7 @@ const errorCodes: ErrorCode = {
         errorText: html` <p>
             Het mediatype van de gevraagde gegevens wordt niet ondersteund door de server.
             <a href="mailto:help@omgevingvlaanderen.be?subject=HTTP-code 415">Mail de helpdesk</a> en vermeld daarbij de
-            URL hierboven en de foutcode 415.
+            URL in de adresbalk en de foutcode 415.
         </p>`,
         errorActions: html` <div>
             <vl-link href="/">Terug naar de startpagina</vl-link>
@@ -174,7 +174,7 @@ const errorCodes: ErrorCode = {
         errorText: html` <p>
             Er ging iets fout. Probeer het nog eens. Lukt het nog niet,
             <a href="mailto:help@omgevingvlaanderen.be?subject=HTTP-code 500">mail dan de helpdesk</a> en vermeld
-            daarbij de URL hierboven en de foutcode 500.
+            daarbij de URL in de adresbalk en de foutcode 500.
         </p>`,
         errorActions: html` <div>
             <vl-link href="/">Terug naar de startpagina</vl-link>
@@ -187,7 +187,7 @@ const errorCodes: ErrorCode = {
         errorText: html` <p>
             Er ging iets fout.
             <a href="mailto:help@omgevingvlaanderen.be?subject=HTTP-code 501">Mail de helpdesk</a> en vermeld daarbij de
-            URL hierboven en de foutcode 501.
+            URL in de adresbalk en de foutcode 501.
         </p>`,
         errorActions: html` <div>
             <vl-link href="/">Terug naar de startpagina</vl-link>
@@ -200,7 +200,7 @@ const errorCodes: ErrorCode = {
         errorText: html` <p>
             De website is tijdelijk niet bereikbaar. Probeer later opnieuw. Heb je vragen:
             <a href="mailto:help@omgevingvlaanderen.be?subject=HTTP-code 502">mail dan de helpdesk</a> en vermeld
-            daarbij de URL hierboven en de foutcode 502.
+            daarbij de URL in de adresbalk en de foutcode 502.
         </p>`,
         errorActions: html` <div>
             <vl-link href="/">Terug naar de startpagina</vl-link>
@@ -213,7 +213,7 @@ const errorCodes: ErrorCode = {
         errorText: html` <p>
             Probeer later opnieuw. Heb je vragen:
             <a href="mailto:help@omgevingvlaanderen.be?subject=HTTP-code 503">mail dan de helpdesk</a> en vermeld
-            daarbij de URL hierboven en de foutcode 503.
+            daarbij de URL in de adresbalk en de foutcode 503.
         </p>`,
         errorActions: html` <div>
             <vl-link href="/">Terug naar de startpagina</vl-link>
@@ -226,7 +226,7 @@ const errorCodes: ErrorCode = {
         errorText: html` <p>
             De website is tijdelijk niet bereikbaar. Probeer later opnieuw. Heb je vragen:
             <a href="mailto:help@omgevingvlaanderen.be?subject=HTTP-code 504">mail dan de helpdesk</a> en vermeld
-            daarbij de URL hierboven en de foutcode 504.
+            daarbij de URL in de adresbalk en de foutcode 504.
         </p>`,
         errorActions: html` <div>
             <vl-link href="/">Terug naar de startpagina</vl-link>
@@ -239,7 +239,7 @@ const errorCodes: ErrorCode = {
         errorText: html` <p>
             De HTTP-versie van uw verzoek wordt niet ondersteund door onze server.
             <a href="mailto:help@omgevingvlaanderen.be?subject=HTTP-code 505">Mail de helpdesk</a> en vermeld daarbij de
-            URL hierboven en de foutcode 505.
+            URL in de adresbalk en de foutcode 505.
         </p>`,
         errorActions: html` <div>
             <vl-link href="/">Terug naar de startpagina</vl-link>
@@ -252,7 +252,7 @@ const errorCodes: ErrorCode = {
         errorText: html` <p>
             Er ging iets fout.
             <a href="mailto:help@omgevingvlaanderen.be?subject=HTTP-code 506">Mail de helpdesk</a> en vermeld daarbij de
-            URL hierboven en de foutcode 506.
+            URL in de adresbalk en de foutcode 506.
         </p>`,
         errorActions: html` <div>
             <vl-link href="/">Terug naar de startpagina</vl-link>
