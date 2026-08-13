@@ -74,17 +74,38 @@ export class VlProgressIndicatorComponent extends BaseLitElement {
         };
     }
 
-    private updatePadding = async () => {
+    private updatePadding = () => {
         this.style.setProperty(
             '--vl-progress-indicator--padding-right',
             `${this.showLabels ? this.lastLabelWidth / 2 : 0}px`
         );
     };
 
+    private resizeObserver?: ResizeObserver;
+
+    private observePaddingSources() {
+        if (!this.resizeObserver) {
+            if (typeof ResizeObserver === 'undefined') return;
+
+            this.resizeObserver = new ResizeObserver(() => this.updatePadding());
+        }
+
+        this.resizeObserver.disconnect();
+        this.resizeObserver.observe(this);
+
+        const lastLabel = this.shadowRoot?.querySelector(
+            '.vl-progress-indicator__segment:last-child .vl-progress-indicator__label'
+        );
+        if (lastLabel) {
+            this.resizeObserver.observe(lastLabel);
+        }
+    }
+
     async updated(changedProps: Map<string, unknown>) {
         this.progressIndicator.updateStep(this.shadowRoot, this.activeStep, this.focusOnChange);
 
         if (changedProps.has('showLabels') || changedProps.has('steps')) {
+            this.observePaddingSources();
             this.updatePadding();
         }
     }
@@ -92,13 +113,13 @@ export class VlProgressIndicatorComponent extends BaseLitElement {
     connectedCallback(): void {
         super.connectedCallback();
 
-        window.addEventListener('resize', this.updatePadding);
+        this.observePaddingSources();
     }
 
     disconnectedCallback(): void {
         super.disconnectedCallback();
 
-        window.removeEventListener('resize', this.updatePadding);
+        this.resizeObserver?.disconnect();
     }
 
     render() {

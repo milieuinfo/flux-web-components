@@ -6,6 +6,8 @@ import {
     VlPopoverActionListComponent,
     VlPopoverComponent,
     VlPropertiesComponent,
+    VlWizard,
+    VlWizardPane,
 } from '@domg-wc/components/block';
 import { VlHeader } from '@domg-wc/components/compliance';
 import { VlFooter as VlFooterNext } from '@domg-wc/components/compliance/next';
@@ -28,7 +30,45 @@ export class AppComponent extends LitElement {
             VlPropertiesComponent,
             VlFooterNext,
             VlFormCrossValidationComponent,
+            VlWizard,
+            VlWizardPane,
         ]);
+    }
+
+    private showFlux780Wizard() {
+        const container = this.querySelector<HTMLDivElement>('#flux780-container');
+        if (container) {
+            container.style.display = 'block';
+        }
+    }
+
+    private setFlux780Step(wizardId: string, step: number) {
+        const wizard = this.querySelector<HTMLElement & { activeStep: number }>(`#${wizardId}`);
+        if (wizard) {
+            wizard.activeStep = step;
+        }
+    }
+
+    private renderFlux780Panes(wizardId: string) {
+        return html`
+            <vl-wizard-pane name="Type onderdeel">
+                <vl-title type="h3">Type onderdeel</vl-title>
+                <vl-button @click=${() => this.setFlux780Step(wizardId, 2)} type="button">Volgende stap</vl-button>
+            </vl-wizard-pane>
+            <vl-wizard-pane name="Gegevens">
+                <vl-title type="h3">Gegevens</vl-title>
+                <vl-button @click=${() => this.setFlux780Step(wizardId, 1)} secondary type="button"
+                    >Vorige stap</vl-button
+                >
+                <vl-button @click=${() => this.setFlux780Step(wizardId, 3)} type="button">Volgende stap</vl-button>
+            </vl-wizard-pane>
+            <vl-wizard-pane name="Verbindingen">
+                <vl-title type="h3">Verbindingen</vl-title>
+                <vl-button @click=${() => this.setFlux780Step(wizardId, 2)} secondary type="button"
+                    >Vorige stap</vl-button
+                >
+            </vl-wizard-pane>
+        `;
     }
 
     render() {
@@ -156,6 +196,41 @@ export class AppComponent extends LitElement {
                                         <vl-datepicker label="Vanaf"></vl-datepicker>
                                         <div style="height: 400px;"></div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="vl-section">
+                        <div class="vl-content-block vl-content-block--full-width">
+                            <vl-title type="h2">FLUX-780: vl-wizard rendert te groot vanuit verborgen container</vl-title>
+                            <p>
+                                Wizard B start in een <code>display:none</code> container (zoals een nog niet geopende
+                                modal). Bij het tonen is de progress-indicator te breed: label "Verbindingen" valt
+                                buiten de rand. Na "Volgende stap" corrigeert hij zichzelf. Wizard A (controle, altijd
+                                zichtbaar) rendert meteen correct.
+                            </p>
+                            <div style="margin-top: 16px;">
+                                <strong style="color: green;">A — controle, altijd zichtbaar</strong>
+                                <div style="max-width: 780px; border: 2px dashed green; padding: 12px;">
+                                    <vl-wizard id="flux780-wizard-control" active-step="1">
+                                        <vl-title slot="title" type="h2">Onderdeel toevoegen</vl-title>
+                                        ${this.renderFlux780Panes('flux780-wizard-control')}
+                                    </vl-wizard>
+                                </div>
+                            </div>
+                            <div style="margin-top: 16px;">
+                                <strong style="color: crimson;">B — start verborgen (modal-scenario, bug)</strong>
+                                <div>
+                                    <vl-button @click=${this.showFlux780Wizard} type="button">
+                                        Toon wizard B (simuleert modal open)
+                                    </vl-button>
+                                </div>
+                                <div id="flux780-container" style="display: none; max-width: 780px; border: 2px dashed crimson; padding: 12px; margin-top: 8px;">
+                                    <vl-wizard id="flux780-wizard-hidden" active-step="1">
+                                        <vl-title slot="title" type="h2">Rapporteringsplichtig onderdeel toevoegen</vl-title>
+                                        ${this.renderFlux780Panes('flux780-wizard-hidden')}
+                                    </vl-wizard>
                                 </div>
                             </div>
                         </div>
