@@ -173,3 +173,46 @@ describe('cypress-component - block components - vl-progress-indicator - propert
         cy.get('@vl-click-step').should('have.been.calledWithMatch', { detail: { step: steps[0], number: 1 } });
     });
 });
+
+describe('cypress-component - block components - vl-progress-indicator - labels binnen de container', () => {
+    const steps = ['Type onderdeel', 'Gegevens', 'Verbindingen'];
+
+    const mountInContainer = (display: string) =>
+        cy.mount(
+            html` <div id="container" style="display: ${display}; width: 600px;">
+                <vl-progress-indicator active-step="1" show-labels .steps=${steps}></vl-progress-indicator>
+            </div>`
+        );
+
+    const waitForFirstRender = () =>
+        cy.get('vl-progress-indicator').then(($host) =>
+            cy.wrap(($host[0] as VlProgressIndicatorComponent).updateComplete)
+        );
+
+    const shouldHaveLastLabelWithinContainer = () => {
+        cy.get('vl-progress-indicator')
+            .shadow()
+            .find('.vl-progress-indicator__segment:last-child .vl-progress-indicator__label')
+            .should(($label) => {
+                const containerRight = Cypress.$('#container')[0].getBoundingClientRect().right;
+
+                expect($label[0].getBoundingClientRect().right).to.be.closeTo(containerRight, 1);
+            });
+    };
+
+    it('should keep the last label within the container when rendered in a visible container', () => {
+        mountInContainer('block');
+        waitForFirstRender();
+
+        shouldHaveLastLabelWithinContainer();
+    });
+
+    it('should keep the last label within the container when the container becomes visible after rendering', () => {
+        mountInContainer('none');
+        waitForFirstRender();
+
+        cy.get('#container').invoke('css', 'display', 'block');
+
+        shouldHaveLastLabelWithinContainer();
+    });
+});
