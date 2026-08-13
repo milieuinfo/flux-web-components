@@ -10,7 +10,7 @@ const txtFileFixturePath = 'fixtures/upload/file.txt';
 const mockedResponseFixturePath = 'upload/upload-mock-response-200.json';
 const uploadTargetUrl = 'fake-url';
 
-describe('vl-upload - properties & states', () => {
+describe('cypress-component - form components - vl-upload - properties & states', () => {
     beforeEach(() => {
         cy.viewport(1280, 720);
     });
@@ -157,7 +157,7 @@ describe('vl-upload - properties & states', () => {
     });
 });
 
-describe('vl-upload - dropzone options', () => {
+describe('cypress-component - form components - vl-upload - dropzone options', () => {
     it('should set parallel uploads', () => {
         cy.mount(html` <vl-upload parallel-uploads="3"></vl-upload>`);
 
@@ -183,7 +183,7 @@ describe('vl-upload - dropzone options', () => {
     });
 });
 
-describe('vl-upload - file operations', () => {
+describe('cypress-component - form components - vl-upload - file operations', () => {
     beforeEach(() => {
         cy.viewport(1280, 720);
     });
@@ -327,7 +327,7 @@ describe('vl-upload - file operations', () => {
     });
 });
 
-describe('vl-upload - events', () => {
+describe('cypress-component - form components - vl-upload - events', () => {
     it('should dispatch vl-change events when adding file', () => {
         cy.mount(html` <vl-upload max-files="4"></vl-upload>`);
 
@@ -419,7 +419,7 @@ describe('vl-upload - events', () => {
     it('should handle upload events when error occurs', () => {
         const errorMessage = 'Dit bestandstype is niet toegestaan';
         cy.mount(
-            html` <vl-upload chunking accepted-files="txt" error-message-accepted-files=${errorMessage}></vl-upload>`
+            html` <vl-upload chunking accepted-files="txt" error-message-accepted-files=${errorMessage}></vl-upload>`,
         );
 
         cy.createStubForEvent('vl-upload', 'vl-error');
@@ -469,7 +469,7 @@ describe('vl-upload - events', () => {
     });
 });
 
-describe('vl-upload - upload', () => {
+describe('cypress-component - form components - vl-upload - upload', () => {
     beforeEach(() => {
         cy.viewport(1280, 720);
     });
@@ -622,7 +622,7 @@ describe('vl-upload - upload', () => {
     });
 });
 
-describe('vl-upload - blur-validation', () => {
+describe('cypress-component - form components - vl-upload - blur-validation', () => {
     const mount = () => {
         cy.mount(html`
             <form>

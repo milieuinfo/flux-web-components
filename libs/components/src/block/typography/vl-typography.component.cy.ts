@@ -98,7 +98,7 @@ describe('cypress-component - block components - vl-typography', () => {
     });
 });
 
-describe('vl-typography - anchor navigation', () => {
+describe('cypress-component - block components - vl-typography - anchor navigation', () => {
     beforeEach(() => {
         cy.viewport(800, 600);
         cy.window().then((win) => {
@@ -149,11 +149,7 @@ describe('vl-typography - anchor navigation', () => {
         `);
 
         cy.get('vl-typography').shadow().find('[data-cy=link]').click();
-        cy.get('vl-typography')
-            .shadow()
-            .find('#doel')
-            .should('have.attr', 'tabindex', '-1')
-            .and('have.focus');
+        cy.get('vl-typography').shadow().find('#doel').should('have.attr', 'tabindex', '-1').and('have.focus');
     });
 
     it('should scroll to a target located in another vl-typography instance', () => {

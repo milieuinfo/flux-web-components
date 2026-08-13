@@ -239,28 +239,28 @@ describe('cypress-component - form components - vl-input-field-masked', () => {
         cy.get('@vl-valid').its('firstCall.args.0.detail').should('deep.equal', { value: '+32 12 34 56 78' });
         cy.checkA11y('vl-input-field-masked');
     });
+});
 
-    describe('blur-validation', () => {
-        const mount = () => {
-            cy.mount(html`
-                <form>
-                    <vl-input-field-masked id="ifm" name="ifm" required mask="rrn" blur-validation></vl-input-field-masked>
-                    <vl-form-message for="ifm" state="valueMissing">Verplicht.</vl-form-message>
-                    <vl-form-message for="ifm" state="patternMismatch">Ongeldig.</vl-form-message>
-                </form>
-            `);
-        };
+describe('cypress-component - form components - vl-input-field-masked - blur-validation', () => {
+    const mount = () => {
+        cy.mount(html`
+            <form>
+                <vl-input-field-masked id="ifm" name="ifm" required mask="rrn" blur-validation></vl-input-field-masked>
+                <vl-form-message for="ifm" state="valueMissing">Verplicht.</vl-form-message>
+                <vl-form-message for="ifm" state="patternMismatch">Ongeldig.</vl-form-message>
+            </form>
+        `);
+    };
 
-        it('should show error on blur after focus, even without mutation', () => {
-            mount();
-            cy.get('vl-input-field-masked').shadow().find('input').focus().blur();
-            cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
-        });
+    it('should show error on blur after focus, even without mutation', () => {
+        mount();
+        cy.get('vl-input-field-masked').shadow().find('input').focus().blur();
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+    });
 
-        it('should show error after typing invalid + blur', () => {
-            mount();
-            cy.get('vl-input-field-masked').shadow().find('input').type('1').blur();
-            cy.get('vl-form-message[show]').should('have.length.gte', 1);
-        });
+    it('should show error after typing invalid + blur', () => {
+        mount();
+        cy.get('vl-input-field-masked').shadow().find('input').type('1').blur();
+        cy.get('vl-form-message[show]').should('have.length.gte', 1);
     });
 });

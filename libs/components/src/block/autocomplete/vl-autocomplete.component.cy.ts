@@ -4,7 +4,7 @@ import { VlAutocomplete } from './vl-autocomplete.component';
 
 registerWebComponents([VlAutocomplete]);
 
-describe('component vl-autocomplete', () => {
+describe('cypress-component - block components - vl-autocomplete', () => {
     it('should set placeholder', () => {
         cy.mount(html`
             <vl-autocomplete
@@ -60,9 +60,9 @@ describe('component vl-autocomplete', () => {
     });
 
     it('should not show loading animation when typing without suggestions when disabled', () => {
-        cy.mount(
-            html` <vl-autocomplete min-chars="1" placeholder="Hint: typ Gent" disable-loading></vl-autocomplete> `
-        );
+        cy.mount(html`
+            <vl-autocomplete min-chars="1" placeholder="Hint: typ Gent" disable-loading></vl-autocomplete>
+        `);
 
         cy.get('vl-autocomplete').shadow().find('input').type('g');
         cy.get('vl-autocomplete').shadow().find('div.vl-autocomplete__loader').should('have.attr', 'hidden');

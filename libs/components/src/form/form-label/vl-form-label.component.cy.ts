@@ -7,7 +7,7 @@ import { VlFormLabelComponent } from './vl-form-label.component';
 
 registerWebComponents([VlFormLabelComponent, VlInputFieldComponent, VlTextComponent]);
 
-describe('vl-form-label - properties & states', () => {
+describe('cypress-component - form components - vl-form-label - properties & states', () => {
     beforeEach(() => {
         cy.viewport(1200, 800);
     });
@@ -64,10 +64,7 @@ describe('vl-form-label - properties & states', () => {
         cy.mount(html` <vl-form-label block>Naam</vl-form-label>`);
 
         cy.get('vl-form-label').shadow().find('label').should('have.class', 'vl-form__label--block');
-        cy.get('vl-form-label')
-            .shadow()
-            .find('label')
-            .shouldHaveComputedStyle({ style: 'display', value: 'block' });
+        cy.get('vl-form-label').shadow().find('label').shouldHaveComputedStyle({ style: 'display', value: 'block' });
     });
 
     it('should set light', () => {
@@ -95,7 +92,7 @@ describe('vl-form-label - properties & states', () => {
     });
 });
 
-describe('vl-form-label - in form', () => {
+describe('cypress-component - form components - vl-form-label - in form', () => {
     beforeEach(() => {
         cy.mount(html`
             <style>

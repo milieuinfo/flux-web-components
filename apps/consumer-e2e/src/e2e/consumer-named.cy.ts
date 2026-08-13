@@ -1,6 +1,6 @@
 const consumerNamedUrl = 'http://localhost:4212';
 
-describe('consumer-named application', () => {
+describe('cypress-e2e - consumer app - named', () => {
     it('should be accessible', () => {
         cy.visitWithA11y(consumerNamedUrl);
         cy.configureAxe({

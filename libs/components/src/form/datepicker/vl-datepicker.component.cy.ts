@@ -158,7 +158,7 @@ const shouldOpenCalendar = () => {
     cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').should('be.visible');
 };
 
-describe('vl-datepicker - basic functionality', () => {
+describe('cypress-component - form components - vl-datepicker - basic functionality', () => {
     it('should mount', () => {
         cy.mount(html`
             <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
@@ -202,7 +202,7 @@ describe('vl-datepicker - basic functionality', () => {
     });
 });
 
-describe('vl-datepicker - properties & states', () => {
+describe('cypress-component - form components - vl-datepicker - properties & states', () => {
     beforeEach(() => {
         cy.viewport(1200, 800);
     });
@@ -296,7 +296,7 @@ describe('vl-datepicker - properties & states', () => {
     });
 });
 
-describe('vl-datepicker - date types & formats', () => {
+describe('cypress-component - form components - vl-datepicker - date types & formats', () => {
     it('should set date in custom format', () => {
         const format = 'd-m-Y';
         cy.mount(html`<vl-datepicker format=${format} value="2024-04-01" label="date"></vl-datepicker>`);
@@ -304,7 +304,10 @@ describe('vl-datepicker - date types & formats', () => {
 
         shouldOpenCalendar();
         cy.wait(100);
-        cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').matchImageSnapshot('datepicker-custom-format-calendar', calendarSnapshotOptions);
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .matchImageSnapshot('datepicker-custom-format-calendar', calendarSnapshotOptions);
         cy.get('vl-datepicker')
             .shadow()
             .find('.flatpickr-calendar')
@@ -422,7 +425,7 @@ describe('vl-datepicker - date types & formats', () => {
     });
 });
 
-describe('vl-datepicker - constraints', () => {
+describe('cypress-component - form components - vl-datepicker - constraints', () => {
     beforeEach(() => {
         cy.viewport(1200, 800);
     });
@@ -432,7 +435,10 @@ describe('vl-datepicker - constraints', () => {
 
         shouldOpenCalendar();
         cy.wait(100);
-        cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').matchImageSnapshot('datepicker-min-date-constraint', calendarSnapshotOptions);
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .matchImageSnapshot('datepicker-min-date-constraint', calendarSnapshotOptions);
         cy.get('vl-datepicker')
             .shadow()
             .find('.flatpickr-calendar')
@@ -446,7 +452,10 @@ describe('vl-datepicker - constraints', () => {
 
         shouldOpenCalendar();
         cy.wait(100);
-        cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').matchImageSnapshot('datepicker-max-date-constraint', calendarSnapshotOptions);
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .matchImageSnapshot('datepicker-max-date-constraint', calendarSnapshotOptions);
         cy.get('vl-datepicker')
             .shadow()
             .find('.flatpickr-calendar')
@@ -463,7 +472,10 @@ describe('vl-datepicker - constraints', () => {
         shouldOpenCalendar();
         cy.focused().blur();
         cy.wait(100);
-        cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').matchImageSnapshot('datepicker-min-time-constraint', calendarSnapshotOptions);
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .matchImageSnapshot('datepicker-min-time-constraint', calendarSnapshotOptions);
         cy.get('vl-datepicker')
             .shadow()
             .find('.flatpickr-calendar')
@@ -509,7 +521,10 @@ describe('vl-datepicker - constraints', () => {
         shouldOpenCalendar();
         cy.focused().blur();
         cy.wait(100);
-        cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').matchImageSnapshot('datepicker-max-time-constraint', calendarSnapshotOptions);
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .matchImageSnapshot('datepicker-max-time-constraint', calendarSnapshotOptions);
         cy.get('vl-datepicker')
             .shadow()
             .find('.flatpickr-calendar')
@@ -548,7 +563,7 @@ describe('vl-datepicker - constraints', () => {
     });
 });
 
-describe('vl-datepicker - calendar interaction', () => {
+describe('cypress-component - form components - vl-datepicker - calendar interaction', () => {
     beforeEach(() => {
         cy.viewport(1200, 800);
     });
@@ -558,7 +573,10 @@ describe('vl-datepicker - calendar interaction', () => {
 
         shouldOpenCalendar();
         cy.wait(100);
-        cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').matchImageSnapshot('datepicker-calendar-open', calendarSnapshotOptions);
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .matchImageSnapshot('datepicker-calendar-open', calendarSnapshotOptions);
     });
 
     it('should open time picker', () => {
@@ -568,7 +586,10 @@ describe('vl-datepicker - calendar interaction', () => {
         shouldOpenCalendar();
         cy.focused().blur();
         cy.wait(100);
-        cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').matchImageSnapshot('datepicker-time-picker-open', calendarSnapshotOptions);
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .matchImageSnapshot('datepicker-time-picker-open', calendarSnapshotOptions);
         cy.checkA11y('vl-datepicker');
     });
 
@@ -577,7 +598,10 @@ describe('vl-datepicker - calendar interaction', () => {
 
         shouldOpenCalendar();
         cy.wait(100);
-        cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').matchImageSnapshot('datepicker-error-calendar-open', calendarSnapshotOptions);
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .matchImageSnapshot('datepicker-error-calendar-open', calendarSnapshotOptions);
     });
 
     it('should open date-time picker', () => {
@@ -586,11 +610,16 @@ describe('vl-datepicker - calendar interaction', () => {
         shouldOpenCalendar();
         cy.focused().blur();
         cy.wait(100);
-        cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').matchImageSnapshot('datepicker-date-time-picker-open', calendarSnapshotOptions);
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .matchImageSnapshot('datepicker-date-time-picker-open', calendarSnapshotOptions);
     });
 
     it('should set range', () => {
-        cy.mount(html`<vl-datepicker type="range" min-date="01.04.2024" max-date="30.04.2024" label="date"></vl-datepicker>`);
+        cy.mount(
+            html`<vl-datepicker type="range" min-date="01.04.2024" max-date="30.04.2024" label="date"></vl-datepicker>`,
+        );
         cy.injectAxe();
 
         shouldOpenCalendar();
@@ -636,19 +665,17 @@ describe('vl-datepicker - calendar interaction', () => {
             .should('have.value', `${startDate} tot en met ${endDate}`);
         cy.get('vl-datepicker').should(
             'have.value',
-            `${createIsoDateString({ day: 15 })}/${createIsoDateString({ day: 25 })}`
+            `${createIsoDateString({ day: 15 })}/${createIsoDateString({ day: 25 })}`,
         );
         cy.checkA11y('vl-datepicker');
     });
 
     it('should open the calendar above when there is not enough space below', () => {
-        cy.mount(
-            html`
-                <div style="margin-top: calc(100vh - 50px); margin-left: calc(100vw - 250px)">
-                    <vl-datepicker label="date"></vl-datepicker>
-                </div>
-            `
-        );
+        cy.mount(html`
+            <div style="margin-top: calc(100vh - 50px); margin-left: calc(100vw - 250px)">
+                <vl-datepicker label="date"></vl-datepicker>
+            </div>
+        `);
         shouldOpenCalendar();
 
         cy.get('vl-datepicker')
@@ -678,7 +705,10 @@ describe('vl-datepicker - calendar interaction', () => {
         cy.mount(html`<vl-datepicker static value="2024-04-15" label="date"></vl-datepicker>`);
         shouldOpenCalendar();
         cy.wait(100);
-        cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').matchImageSnapshot('datepicker-static-calendar', calendarSnapshotOptions);
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .matchImageSnapshot('datepicker-static-calendar', calendarSnapshotOptions);
 
         cy.get('vl-datepicker')
             .shadow()
@@ -745,7 +775,14 @@ describe('vl-datepicker - calendar interaction', () => {
 
     // Test alle 12 position varianten (default flatpickr positionering)
     const positionsBelowButton = [
-        'auto', 'below', 'auto left', 'below left', 'auto center', 'below center', 'auto right', 'below right',
+        'auto',
+        'below',
+        'auto left',
+        'below left',
+        'auto center',
+        'below center',
+        'auto right',
+        'below right',
     ];
     const positionsAboveButton = ['above', 'above left', 'above center', 'above right'];
 
@@ -833,10 +870,7 @@ describe('vl-datepicker - calendar interaction', () => {
             cy.get('vl-modal').then(($modal) => ($modal[0] as any).open());
 
             cy.get('vl-datepicker').shadow().find('button#toggle-calendar').click();
-            cy.get('vl-datepicker')
-                .shadow()
-                .find('.flatpickr-calendar')
-                .should('have.class', 'open');
+            cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').should('have.class', 'open');
         });
     });
 
@@ -855,7 +889,7 @@ describe('vl-datepicker - calendar interaction', () => {
                 >
                     add line</button
                 ><vl-datepicker position="below left"></vl-datepicker>
-            </div>`
+            </div>`,
         );
         cy.get('vl-datepicker')
             .shadow()
@@ -1142,7 +1176,7 @@ describe('cypress-component - form components - vl-datepicker - native input on 
     });
 });
 
-describe('vl-datepicker - events', () => {
+describe('cypress-component - form components - vl-datepicker - events', () => {
     // deze test slaagt in Electron/Firefox, maar niet in Chromium browsers gezien verschil in event werking
     it('should dispatch vl-input event on user input', () => {
         cy.mount(html`<vl-datepicker label="date"></vl-datepicker>`);
@@ -1207,7 +1241,7 @@ describe('vl-datepicker - events', () => {
     });
 });
 
-describe('vl-datepicker - form integration', () => {
+describe('cypress-component - form components - vl-datepicker - form integration', () => {
     it('should reset datepicker with initial value', () => {
         const initialValue = createIsoDateString({ day: 2, month: 12, year: 2021 });
 
@@ -1255,7 +1289,10 @@ describe('vl-datepicker - form integration', () => {
             .contains('15')
             .click();
         cy.get('vl-datepicker').should('have.value', createIsoDateString({ day: 15 }));
-        cy.get('vl-datepicker').shadow().find('input').should('have.value', createDateString({ day: 15 }));
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('input')
+            .should('have.value', createDateString({ day: 15 }));
 
         cy.get('button[type="submit"]').click();
         cy.get('vl-datepicker').shadow().find('input').should('not.have.class', 'vl-input-field--error');
@@ -1623,7 +1660,13 @@ describe('vl-datepicker - form integration', () => {
         const tomorrow = new Date(today);
         tomorrow.setDate(today.getDate() + 1);
 
-        mountDatepickerInForm({ ...datepickerDefaults, minDate: 'today', maxDate: 'today', format: 'd.m.Y', type: 'date' });
+        mountDatepickerInForm({
+            ...datepickerDefaults,
+            minDate: 'today',
+            maxDate: 'today',
+            format: 'd.m.Y',
+            type: 'date',
+        });
         cy.get('form').then((form$) => {
             form$.on('submit', (e) => {
                 e.preventDefault();
@@ -1631,7 +1674,10 @@ describe('vl-datepicker - form integration', () => {
         });
 
         // vandaag wordt geaccepteerd
-        cy.get('vl-datepicker').shadow().find('input.vl-input-field').type(createDateString({ date: today }));
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('input.vl-input-field')
+            .type(createDateString({ date: today }));
         cy.get('button[type="submit"]').click({ force: true });
         cy.get('vl-form-message[state="rangeOverflow"]').shadow().find('p').should('have.attr', 'hidden');
         cy.get('vl-form-message[state="rangeUnderflow"]').shadow().find('p').should('have.attr', 'hidden');
@@ -1639,7 +1685,10 @@ describe('vl-datepicker - form integration', () => {
         cy.get('button[type="reset"]').click();
 
         // gisteren triggert rangeUnderflow
-        cy.get('vl-datepicker').shadow().find('input.vl-input-field').type(createDateString({ date: yesterday }));
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('input.vl-input-field')
+            .type(createDateString({ date: yesterday }));
         cy.get('button[type="submit"]').click();
         cy.get('vl-form-message[state="rangeUnderflow"]').should('have.attr', 'show');
         cy.get('vl-form-message[state="rangeOverflow"]').shadow().find('p').should('have.attr', 'hidden');
@@ -1647,7 +1696,10 @@ describe('vl-datepicker - form integration', () => {
         cy.get('button[type="reset"]').click();
 
         // morgen triggert rangeOverflow
-        cy.get('vl-datepicker').shadow().find('input.vl-input-field').type(createDateString({ date: tomorrow }));
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('input.vl-input-field')
+            .type(createDateString({ date: tomorrow }));
         cy.get('button[type="submit"]').click();
         cy.get('vl-form-message[state="rangeOverflow"]').should('have.attr', 'show');
         cy.get('vl-form-message[state="rangeUnderflow"]').shadow().find('p').should('have.attr', 'hidden');
@@ -1679,7 +1731,7 @@ describe('vl-datepicker - form integration', () => {
     });
 });
 
-describe('vl-datepicker - accessibility', () => {
+describe('cypress-component - form components - vl-datepicker - accessibility', () => {
     it('should be accessible', () => {
         cy.mount(html` <vl-datepicker id="date" name="date" label="date"></vl-datepicker> `);
         cy.injectAxe();
@@ -1728,7 +1780,7 @@ describe('vl-datepicker - accessibility', () => {
     });
 });
 
-describe('vl-datepicker - keyboard navigation', () => {
+describe('cypress-component - form components - vl-datepicker - keyboard navigation', () => {
     it('should be focusable', () => {
         cy.mount(html`<vl-datepicker label="date"></vl-datepicker>`);
         cy.injectAxe();
@@ -1776,24 +1828,22 @@ describe('vl-datepicker - keyboard navigation', () => {
     });
 });
 
-describe('vl-datepicker - form data submission', () => {
+describe('cypress-component - form components - vl-datepicker - form data submission', () => {
     it('should submit form data with correct name and value', () => {
         let formData: FormData | null = null;
 
-        cy.mount(
-            html`
-                <form
-                    id="test-form"
-                    @submit=${(e: Event) => {
-                        e.preventDefault();
-                        formData = new FormData(e.target as HTMLFormElement);
-                    }}
-                >
-                    <vl-datepicker name="birthdate" value="2024-04-15" label="date"></vl-datepicker>
-                    <button type="submit">Submit</button>
-                </form>
-            `
-        );
+        cy.mount(html`
+            <form
+                id="test-form"
+                @submit=${(e: Event) => {
+                    e.preventDefault();
+                    formData = new FormData(e.target as HTMLFormElement);
+                }}
+            >
+                <vl-datepicker name="birthdate" value="2024-04-15" label="date"></vl-datepicker>
+                <button type="submit">Submit</button>
+            </form>
+        `);
         cy.injectAxe();
         cy.checkA11y('vl-datepicker');
         cy.then(() => {
@@ -1809,20 +1859,18 @@ describe('vl-datepicker - form data submission', () => {
     it('should not include empty datepicker in form data', () => {
         let formData: FormData | null = null;
 
-        cy.mount(
-            html`
-                <form
-                    id="test-form"
-                    @submit=${(e: Event) => {
-                        e.preventDefault();
-                        formData = new FormData(e.target as HTMLFormElement);
-                    }}
-                >
-                    <vl-datepicker name="birthdate" label="date"></vl-datepicker>
-                    <button type="submit">Submit</button>
-                </form>
-            `
-        );
+        cy.mount(html`
+            <form
+                id="test-form"
+                @submit=${(e: Event) => {
+                    e.preventDefault();
+                    formData = new FormData(e.target as HTMLFormElement);
+                }}
+            >
+                <vl-datepicker name="birthdate" label="date"></vl-datepicker>
+                <button type="submit">Submit</button>
+            </form>
+        `);
         cy.injectAxe();
         cy.checkA11y('vl-datepicker');
         cy.then(() => {
@@ -1838,22 +1886,20 @@ describe('vl-datepicker - form data submission', () => {
     it('should handle multiple datepickers in one form', () => {
         let formData: FormData | null = null;
 
-        cy.mount(
-            html`
-                <form
-                    id="test-form"
-                    @submit=${(e: Event) => {
-                        e.preventDefault();
-                        formData = new FormData(e.target as HTMLFormElement);
-                    }}
-                >
-                    <vl-datepicker name="startdate" value="2024-04-15" label="start"></vl-datepicker>
-                    <vl-datepicker name="enddate" value="2024-04-20" label="end"></vl-datepicker>
-                    <vl-datepicker name="optionaldate" label="optional"></vl-datepicker>
-                    <button type="submit">Submit</button>
-                </form>
-            `
-        );
+        cy.mount(html`
+            <form
+                id="test-form"
+                @submit=${(e: Event) => {
+                    e.preventDefault();
+                    formData = new FormData(e.target as HTMLFormElement);
+                }}
+            >
+                <vl-datepicker name="startdate" value="2024-04-15" label="start"></vl-datepicker>
+                <vl-datepicker name="enddate" value="2024-04-20" label="end"></vl-datepicker>
+                <vl-datepicker name="optionaldate" label="optional"></vl-datepicker>
+                <button type="submit">Submit</button>
+            </form>
+        `);
         cy.injectAxe();
         cy.checkA11y('vl-datepicker');
         cy.then(() => {
@@ -1871,20 +1917,18 @@ describe('vl-datepicker - form data submission', () => {
     it('should submit time format correctly', () => {
         let formData: FormData | null = null;
 
-        cy.mount(
-            html`
-                <form
-                    id="test-form"
-                    @submit=${(e: Event) => {
-                        e.preventDefault();
-                        formData = new FormData(e.target as HTMLFormElement);
-                    }}
-                >
-                    <vl-datepicker name="time" type="time" value="14:30" label="time"></vl-datepicker>
-                    <button type="submit">Submit</button>
-                </form>
-            `
-        );
+        cy.mount(html`
+            <form
+                id="test-form"
+                @submit=${(e: Event) => {
+                    e.preventDefault();
+                    formData = new FormData(e.target as HTMLFormElement);
+                }}
+            >
+                <vl-datepicker name="time" type="time" value="14:30" label="time"></vl-datepicker>
+                <button type="submit">Submit</button>
+            </form>
+        `);
         cy.injectAxe();
         cy.checkA11y('vl-datepicker');
         cy.then(() => {
@@ -1900,25 +1944,23 @@ describe('vl-datepicker - form data submission', () => {
     it('should submit range format correctly', () => {
         let formData: FormData | null = null;
 
-        cy.mount(
-            html`
-                <form
-                    id="test-form"
-                    @submit=${(e: Event) => {
-                        e.preventDefault();
-                        formData = new FormData(e.target as HTMLFormElement);
-                    }}
-                >
-                    <vl-datepicker
-                        name="daterange"
-                        type="range"
-                        value="2024-04-15/2024-04-20"
-                        label="range"
-                    ></vl-datepicker>
-                    <button type="submit">Submit</button>
-                </form>
-            `
-        );
+        cy.mount(html`
+            <form
+                id="test-form"
+                @submit=${(e: Event) => {
+                    e.preventDefault();
+                    formData = new FormData(e.target as HTMLFormElement);
+                }}
+            >
+                <vl-datepicker
+                    name="daterange"
+                    type="range"
+                    value="2024-04-15/2024-04-20"
+                    label="range"
+                ></vl-datepicker>
+                <button type="submit">Submit</button>
+            </form>
+        `);
         cy.injectAxe();
         cy.checkA11y('vl-datepicker');
         cy.then(() => {
@@ -1932,7 +1974,7 @@ describe('vl-datepicker - form data submission', () => {
     });
 });
 
-describe('vl-datepicker - edge cases', () => {
+describe('cypress-component - form components - vl-datepicker - edge cases', () => {
     beforeEach(() => {
         cy.viewport(1200, 800);
     });
@@ -1994,15 +2036,17 @@ describe('vl-datepicker - edge cases', () => {
 
         shouldOpenCalendar();
         cy.wait(100);
-        cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').matchImageSnapshot('datepicker-calendar-december', calendarSnapshotOptions);
-
         cy.get('vl-datepicker')
             .shadow()
             .find('.flatpickr-calendar')
-            .find('.flatpickr-next-month')
-            .click();
+            .matchImageSnapshot('datepicker-calendar-december', calendarSnapshotOptions);
+
+        cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').find('.flatpickr-next-month').click();
         cy.wait(100);
-        cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').matchImageSnapshot('datepicker-calendar-january-next-year', calendarSnapshotOptions);
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .matchImageSnapshot('datepicker-calendar-january-next-year', calendarSnapshotOptions);
 
         cy.get('vl-datepicker')
             .shadow()
@@ -2037,7 +2081,7 @@ describe('vl-datepicker - edge cases', () => {
     });
 });
 
-describe('vl-datepicker - interaction', () => {
+describe('cypress-component - form components - vl-datepicker - interaction', () => {
     beforeEach(() => {
         cy.viewport(1200, 800);
     });
@@ -2117,7 +2161,10 @@ describe('vl-datepicker - interaction', () => {
 
         shouldOpenCalendar();
         cy.wait(100);
-        cy.get('vl-datepicker').shadow().find('.flatpickr-calendar').matchImageSnapshot('datepicker-calendar-with-selected-date', calendarSnapshotOptions);
+        cy.get('vl-datepicker')
+            .shadow()
+            .find('.flatpickr-calendar')
+            .matchImageSnapshot('datepicker-calendar-with-selected-date', calendarSnapshotOptions);
         cy.get('vl-datepicker')
             .shadow()
             .find('.flatpickr-calendar')
@@ -2135,7 +2182,7 @@ describe('vl-datepicker - interaction', () => {
     });
 });
 
-describe('vl-datepicker - mobile UA rendering', () => {
+describe('cypress-component - form components - vl-datepicker - mobile UA rendering', () => {
     let originalUserAgent: string;
 
     before(() => {
@@ -2169,7 +2216,7 @@ describe('vl-datepicker - mobile UA rendering', () => {
     });
 });
 
-describe('vl-datepicker - mobile', () => {
+describe('cypress-component - form components - vl-datepicker - mobile', () => {
     beforeEach(() => {
         cy.viewport(320, 480);
     });
@@ -2206,7 +2253,7 @@ describe('vl-datepicker - mobile', () => {
     });
 });
 
-describe('vl-datepicker - blur-validation', () => {
+describe('cypress-component - form components - vl-datepicker - blur-validation', () => {
     it('should show error on blur after focus, even without input', () => {
         cy.mount(html`
             <form>

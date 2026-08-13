@@ -1,6 +1,6 @@
 import { analytics } from './analytics.util';
 
-describe('jest - components - cookie-consent - analytics.util', () => {
+describe('jest - components - cookie-consent - analytics util', () => {
     let mockScript: HTMLScriptElement;
     let mockFirstScript: HTMLScriptElement;
     let mockParentNode: { insertBefore: jest.Mock };

@@ -8,6 +8,12 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "${SCRIPT_DIR}/../../.."
 source "${SCRIPT_DIR}/lib/quiet-step.sh"
 
+# Normaliseer de JUnit classnames tot '<categorie>.<rest>', zodat de junit-step van deze stage op categorie
+# groepeert in plaats van alles in (root) te zetten. Via een EXIT-trap zodat dit ook loopt wanneer een testrun
+# faalt en set -e het script afbreekt - dan wil je het rapport net het meest. '|| true' houdt de exit code van het
+# script intact.
+trap 'node "${SCRIPT_DIR}/../test/normalize-junit-classnames.mjs" || true' EXIT
+
 # Branchnaam bepalen via de CI omgeving: BRANCH_NAME (multibranch) of GIT_BRANCH.
 # De Jenkins checkout staat in detached HEAD, waardoor git rev-parse na de chore(release) [skip ci] commit niet meer
 # de echte branchnaam teruggeeft. Geen fallback op git rev-parse: zo faalt het script hard als er geen branchnaam

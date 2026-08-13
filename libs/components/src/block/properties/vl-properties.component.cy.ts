@@ -250,50 +250,50 @@ describe('cypress-component - block components - vl-properties', () => {
 
         cy.get('vl-properties').shadow().find('dl').should('have.css', 'padding-bottom', '20px');
     });
+});
 
-    describe('deprecated no-clone attribute', () => {
-        beforeEach(() => {
-            // private static enkel op compile-time; reset de "warn once"-vlag voor test-isolatie
-            (
-                VlPropertiesComponent as unknown as { noCloneDeprecationWarningShown: boolean }
-            ).noCloneDeprecationWarningShown = false;
-        });
+describe('cypress-component - block components - vl-properties - deprecated no-clone attribute', () => {
+    beforeEach(() => {
+        // private static enkel op compile-time; reset de "warn once"-vlag voor test-isolatie
+        (
+            VlPropertiesComponent as unknown as { noCloneDeprecationWarningShown: boolean }
+        ).noCloneDeprecationWarningShown = false;
+    });
 
-        it('should warn once that no-clone is deprecated when it is used', () => {
-            cy.spy(console, 'warn').as('warn');
+    it('should warn once that no-clone is deprecated when it is used', () => {
+        cy.spy(console, 'warn').as('warn');
 
-            cy.mount(html`
-                <vl-properties no-clone>
-                    <vl-property>Woonplaats</vl-property>
-                    <vl-property-data>Brussel</vl-property-data>
-                </vl-properties>
-            `);
+        cy.mount(html`
+            <vl-properties no-clone>
+                <vl-property>Woonplaats</vl-property>
+                <vl-property-data>Brussel</vl-property-data>
+            </vl-properties>
+        `);
 
-            cy.get('@warn').should('have.been.calledOnce');
-            cy.get('@warn').should(
-                'have.been.calledWith',
-                'Het no-clone attribuut van vl-properties is niet meer nodig en deprecated, het wordt verwijderd in v3'
-            );
-        });
+        cy.get('@warn').should('have.been.calledOnce');
+        cy.get('@warn').should(
+            'have.been.calledWith',
+            'Het no-clone attribuut van vl-properties is niet meer nodig en deprecated, het wordt verwijderd in v3',
+        );
+    });
 
-        it('should not warn when no-clone is not used', () => {
-            cy.spy(console, 'warn').as('warn');
+    it('should not warn when no-clone is not used', () => {
+        cy.spy(console, 'warn').as('warn');
 
-            cy.mount(defaultPropertiesTemplate);
+        cy.mount(defaultPropertiesTemplate);
 
-            cy.get('@warn').should('not.have.been.called');
-        });
+        cy.get('@warn').should('not.have.been.called');
+    });
 
-        it('should still render content when the deprecated no-clone attribute is used', () => {
-            cy.mount(html`
-                <vl-properties no-clone>
-                    <vl-property>Woonplaats</vl-property>
-                    <vl-property-data>Brussel</vl-property-data>
-                </vl-properties>
-            `);
+    it('should still render content when the deprecated no-clone attribute is used', () => {
+        cy.mount(html`
+            <vl-properties no-clone>
+                <vl-property>Woonplaats</vl-property>
+                <vl-property-data>Brussel</vl-property-data>
+            </vl-properties>
+        `);
 
-            cy.get('vl-properties').shadow().find('dt').should('contain.text', 'Woonplaats');
-            cy.get('vl-properties').shadow().find('dd').should('contain.text', 'Brussel');
-        });
+        cy.get('vl-properties').shadow().find('dt').should('contain.text', 'Woonplaats');
+        cy.get('vl-properties').shadow().find('dd').should('contain.text', 'Brussel');
     });
 });
