@@ -5,6 +5,7 @@ import {
     VlPopoverActionComponent,
     VlPopoverActionListComponent,
     VlPopoverComponent,
+    VlModalComponent,
     VlPropertiesComponent,
     VlWizard,
     VlWizardPane,
@@ -32,39 +33,44 @@ export class AppComponent extends LitElement {
             VlFormCrossValidationComponent,
             VlWizard,
             VlWizardPane,
+            VlModalComponent,
         ]);
     }
 
-    private showFlux780Wizard() {
-        const container = this.querySelector<HTMLDivElement>('#flux780-container');
+    private openWizardModal() {
+        this.querySelector<VlModalComponent>('#wizard-modal')?.open();
+    }
+
+    private showHiddenWizard() {
+        const container = this.querySelector<HTMLDivElement>('#hidden-wizard-container');
         if (container) {
             container.style.display = 'block';
         }
     }
 
-    private setFlux780Step(wizardId: string, step: number) {
+    private setWizardStep(wizardId: string, step: number) {
         const wizard = this.querySelector<HTMLElement & { activeStep: number }>(`#${wizardId}`);
         if (wizard) {
             wizard.activeStep = step;
         }
     }
 
-    private renderFlux780Panes(wizardId: string) {
+    private renderWizardPanes(wizardId: string) {
         return html`
             <vl-wizard-pane name="Type onderdeel">
                 <vl-title type="h3">Type onderdeel</vl-title>
-                <vl-button @click=${() => this.setFlux780Step(wizardId, 2)} type="button">Volgende stap</vl-button>
+                <vl-button @click=${() => this.setWizardStep(wizardId, 2)} type="button">Volgende stap</vl-button>
             </vl-wizard-pane>
             <vl-wizard-pane name="Gegevens">
                 <vl-title type="h3">Gegevens</vl-title>
-                <vl-button @click=${() => this.setFlux780Step(wizardId, 1)} secondary type="button"
+                <vl-button @click=${() => this.setWizardStep(wizardId, 1)} secondary type="button"
                     >Vorige stap</vl-button
                 >
-                <vl-button @click=${() => this.setFlux780Step(wizardId, 3)} type="button">Volgende stap</vl-button>
+                <vl-button @click=${() => this.setWizardStep(wizardId, 3)} type="button">Volgende stap</vl-button>
             </vl-wizard-pane>
             <vl-wizard-pane name="Verbindingen">
                 <vl-title type="h3">Verbindingen</vl-title>
-                <vl-button @click=${() => this.setFlux780Step(wizardId, 2)} secondary type="button"
+                <vl-button @click=${() => this.setWizardStep(wizardId, 2)} secondary type="button"
                     >Vorige stap</vl-button
                 >
             </vl-wizard-pane>
@@ -213,24 +219,49 @@ export class AppComponent extends LitElement {
                             <div style="margin-top: 16px;">
                                 <strong style="color: green;">A — controle, altijd zichtbaar</strong>
                                 <div style="max-width: 780px; border: 2px dashed green; padding: 12px;">
-                                    <vl-wizard id="flux780-wizard-control" active-step="1">
+                                    <vl-wizard id="wizard-visible" active-step="1">
                                         <vl-title slot="title" type="h2">Onderdeel toevoegen</vl-title>
-                                        ${this.renderFlux780Panes('flux780-wizard-control')}
+                                        ${this.renderWizardPanes('wizard-visible')}
                                     </vl-wizard>
                                 </div>
                             </div>
                             <div style="margin-top: 16px;">
                                 <strong style="color: crimson;">B — start verborgen (modal-scenario, bug)</strong>
                                 <div>
-                                    <vl-button @click=${this.showFlux780Wizard} type="button">
+                                    <vl-button @click=${this.showHiddenWizard} type="button">
                                         Toon wizard B (simuleert modal open)
                                     </vl-button>
                                 </div>
-                                <div id="flux780-container" style="display: none; max-width: 780px; border: 2px dashed crimson; padding: 12px; margin-top: 8px;">
-                                    <vl-wizard id="flux780-wizard-hidden" active-step="1">
+                                <div id="hidden-wizard-container" style="display: none; max-width: 780px; border: 2px dashed crimson; padding: 12px; margin-top: 8px;">
+                                    <vl-wizard id="wizard-hidden" active-step="1">
                                         <vl-title slot="title" type="h2">Rapporteringsplichtig onderdeel toevoegen</vl-title>
-                                        ${this.renderFlux780Panes('flux780-wizard-hidden')}
+                                        ${this.renderWizardPanes('wizard-hidden')}
                                     </vl-wizard>
+                                </div>
+                            </div>
+                            <div style="margin-top: 32px;">
+                                <strong>C — wizard in een vl-modal (streepjes-issue)</strong>
+                                <div>
+                                    <vl-button @click=${this.openWizardModal} type="button">
+                                        Open modal met wizard
+                                    </vl-button>
+                                </div>
+                                <vl-modal id="wizard-modal" title="Rapporteringsplichtig onderdeel toevoegen">
+                                    <div slot="content">
+                                        <vl-wizard id="wizard-in-modal" active-step="1">
+                                            ${this.renderWizardPanes('wizard-in-modal')}
+                                        </vl-wizard>
+                                    </div>
+                                </vl-modal>
+                            </div>
+                            <div style="margin-top: 32px;">
+                                <strong>D — stacking context + ondoorzichtige achtergrond erboven</strong>
+                                <div id="stacking-context" style="isolation: isolate; max-width: 780px;">
+                                    <div style="background: #ffffff; padding: 12px; border: 2px dashed crimson;">
+                                        <vl-wizard id="wizard-in-stacking-context" active-step="1">
+                                            ${this.renderWizardPanes('wizard-in-stacking-context')}
+                                        </vl-wizard>
+                                    </div>
                                 </div>
                             </div>
                         </div>
