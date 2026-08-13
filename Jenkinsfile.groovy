@@ -95,7 +95,11 @@ pipeline {
                                 }
                             }
                         }
-                        stage('unit-component-integrator-tests') {
+                        // De component-tests staan verdeeld over drie shards die hier naast elkaar draaien, elk in
+                        // een eigen pod. Welke mappen bij welke shard horen staat in unit-component-integrator-tests.sh;
+                        // dat script controleert ook of de drie shards samen nog alle specs dekken. Shard 3 draagt
+                        // daarnaast jest, de firefox-variant en de integrator e2e, en daarom minder component-specs.
+                        stage('tests-1-block') {
                             // haal dit uit commentaar om deze test stage tijdelijk over te slagen
                             // beforeAgent: anders wordt de pod toch opgestart.
                             // when {
@@ -110,7 +114,7 @@ pipeline {
                             }
                             steps {
                                 container('cypress') {
-                                    sh './resources/ci-jenkins/bash/unit-component-integrator-tests.sh'
+                                    sh './resources/ci-jenkins/bash/unit-component-integrator-tests.sh 1'
                                 }
                             }
                             post {
@@ -121,7 +125,7 @@ pipeline {
                                 }
                             }
                         }
-                        stage('e2e-tests-storybook') {
+                        stage('tests-2-componenten') {
                             // haal dit uit commentaar om deze test stage tijdelijk over te slagen
                             // beforeAgent: anders wordt de pod toch opgestart.
                             // when {
@@ -136,7 +140,90 @@ pipeline {
                             }
                             steps {
                                 container('cypress') {
-                                    sh './resources/ci-jenkins/bash/e2e-tests-storybook.sh'
+                                    sh './resources/ci-jenkins/bash/unit-component-integrator-tests.sh 2'
+                                }
+                            }
+                            post {
+                                always {
+                                    // toon de JUnit resultaten in Jenkins
+                                    junit allowEmptyResults: true, testResults: 'test-results/*.xml'
+                                    archiveArtifacts artifacts: screenshotsGlob(), allowEmptyArchive: true, fingerprint: false
+                                }
+                            }
+                        }
+                        stage('tests-3-overige-en-e2e') {
+                            // haal dit uit commentaar om deze test stage tijdelijk over te slagen
+                            // beforeAgent: anders wordt de pod toch opgestart.
+                            // when {
+                            //    beforeAgent true
+                            //    expression { false }
+                            // }
+                            agent {
+                                kubernetes {
+                                    inheritFrom 'jenkins-jenkins-agent'
+                                    yaml podBuilder.from([buildPod()])
+                                }
+                            }
+                            steps {
+                                container('cypress') {
+                                    sh './resources/ci-jenkins/bash/unit-component-integrator-tests.sh 3'
+                                }
+                            }
+                            post {
+                                always {
+                                    // toon de JUnit resultaten in Jenkins
+                                    junit allowEmptyResults: true, testResults: 'test-results/*.xml'
+                                    archiveArtifacts artifacts: screenshotsGlob(), allowEmptyArchive: true, fingerprint: false
+                                }
+                            }
+                        }
+                        // Ook de storybook e2e-tests staan verdeeld over shards die hier naast elkaar draaien, elk in
+                        // een eigen pod. Welke mappen bij welke shard horen staat in e2e-tests-storybook.sh; dat
+                        // script controleert ook of de shards samen nog alle specs dekken. Elke shard bouwt storybook
+                        // zelf: die builds draaien parallel en kosten dus geen extra doorlooptijd.
+                        stage('e2e-storybook-1-block') {
+                            // haal dit uit commentaar om deze test stage tijdelijk over te slagen
+                            // beforeAgent: anders wordt de pod toch opgestart.
+                            // when {
+                            //    beforeAgent true
+                            //    expression { false }
+                            // }
+                            agent {
+                                kubernetes {
+                                    inheritFrom 'jenkins-jenkins-agent'
+                                    yaml podBuilder.from([buildPod()])
+                                }
+                            }
+                            steps {
+                                container('cypress') {
+                                    sh './resources/ci-jenkins/bash/e2e-tests-storybook.sh 1'
+                                }
+                            }
+                            post {
+                                always {
+                                    // toon de JUnit resultaten in Jenkins
+                                    junit allowEmptyResults: true, testResults: 'test-results/*.xml'
+                                    archiveArtifacts artifacts: screenshotsGlob(),
+                                            allowEmptyArchive: true, fingerprint: false
+                                }
+                            }
+                        }
+                        stage('e2e-storybook-2-overige') {
+                            // haal dit uit commentaar om deze test stage tijdelijk over te slagen
+                            // beforeAgent: anders wordt de pod toch opgestart.
+                            // when {
+                            //    beforeAgent true
+                            //    expression { false }
+                            // }
+                            agent {
+                                kubernetes {
+                                    inheritFrom 'jenkins-jenkins-agent'
+                                    yaml podBuilder.from([buildPod()])
+                                }
+                            }
+                            steps {
+                                container('cypress') {
+                                    sh './resources/ci-jenkins/bash/e2e-tests-storybook.sh 2'
                                 }
                             }
                             post {
