@@ -92,7 +92,7 @@ export const buildWTConfigComponentsBlock: WTConfigArray = [
     buildWTConfig(
         'vl-description-data',
         descriptionDataArgTypes,
-        null,
+        '../../libs/components/src/block/description-data/stories/vl-description-data.stories-doc.mdx',
         '/docs/components-block-description-data-description-data--documentatie'
     ),
     buildWTConfig(

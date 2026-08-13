@@ -124,7 +124,7 @@
             "generation": "legacy",
             "css": "govflanders",
             "tests": ["Component", "Storybook"],
-            "documentation": "template",
+            "documentation": "basis",
             "wcagLevel": "TODO",
             "jiraMeta": "FLUX-220"
         }

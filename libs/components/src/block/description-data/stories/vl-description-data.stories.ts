@@ -2,6 +2,7 @@ import { html } from 'lit';
 import '../vl-description-data-item.component';
 import '../vl-description-data.component';
 import { descriptionDataArgs, descriptionDataArgTypes } from './vl-description-data.stories-arg';
+import descriptionDataDoc from './vl-description-data.stories-doc.mdx';
 import { Meta } from '@storybook/web-components-vite';
 
 export default {
@@ -10,6 +11,11 @@ export default {
     tags: ['autodocs'],
     args: descriptionDataArgs,
     argTypes: descriptionDataArgTypes,
+    parameters: {
+        docs: {
+            page: descriptionDataDoc,
+        },
+    },
 } as Meta<typeof descriptionDataArgs>;
 
 export const descriptionDataDefault = ({

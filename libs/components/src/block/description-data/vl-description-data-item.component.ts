@@ -37,11 +37,10 @@ export class VlDescriptionDataItem extends BaseLitElement {
         const valueClass = 'vl-description-data__value';
         return html`
             ${this.hasSlot('label')
-                ? html` <slot name="label" class=${labelClass}></slot>`
+                ? html`<slot name="label" class=${labelClass}></slot>`
                 : html`<span class=${labelClass}>${this.label}</span>`}
             ${this.hasSlot('value')
-                ? html`
-                    <slot name="value" class=${valueClass}></span>`
+                ? html`<slot name="value" class=${valueClass}></slot>`
                 : html`<span class=${valueClass}>${this.value}</span>`}
         `;
     }
