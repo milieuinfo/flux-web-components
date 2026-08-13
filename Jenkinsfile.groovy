@@ -52,12 +52,30 @@ String screenshotsGlob() {
     'build/cypress/**/screenshots/**/*.png'
 }
 
+// Is deze build door een mens gestart (Build with Parameters, Replay, Rebuild) of automatisch ?
+boolean manualRun() {
+    !currentBuild.getBuildCauses('hudson.model.Cause$UserIdCause').isEmpty()
+}
+
+// De test stages draaien altijd, behalve wanneer iemand de build manueel in Jenkins start en SKIP_TESTS aanvinkt.
+boolean runTests() {
+    !(params.SKIP_TESTS && manualRun())
+}
+
 pipeline {
     agent {
         kubernetes {
             inheritFrom 'jenkins-jenkins-agent'
             yaml podBuilder.from([buildPod(), trivy])
         }
+    }
+    parameters {
+        booleanParam(
+                name: 'SKIP_TESTS',
+                defaultValue: false,
+                description: 'Sla alle test stages over (component tests + storybook e2e). Werkt enkel bij een ' +
+                        'build die je zelf start via "Build with Parameters"; bij een automatische build (push, ' +
+                        'timer, branch indexing) draaien de tests hoe dan ook.')
     }
     stages {
         stage('Pijplijn') {
@@ -70,11 +88,11 @@ pipeline {
                         }
                     }
                 }
-                // De drie onderstaande stages draaien parallel en delen geen state. Elke branch declareert
+                // De onderstaande stages draaien parallel en delen geen state. Elke branch declareert
                 // een eigen agent, dus elke branch krijgt een eigen pod met een eigen workspace.
-                stage('build-en-tests') {
+                stage('Build + Tests') {
                     parallel {
-                        stage('build-apps-and-libs') {
+                        stage('build: apps, libs') {
                             agent {
                                 kubernetes {
                                     inheritFrom 'jenkins-jenkins-agent'
@@ -88,24 +106,22 @@ pipeline {
                                 // De release-and-publish stage draait in een andere pod en heeft de hier gebouwde libs en fat-lib nodig.
                                 stash name: 'build-dist-libs-en-fat-lib', includes: 'build/dist/libs/**,build/dist/fat-lib/**'
                             }
-                            post {
-                                always {
-                                    archiveArtifacts artifacts: 'build/*.*',
-                                            allowEmptyArchive: true, fingerprint: false
-                                }
-                            }
-                        }
-                        // De component-tests staan verdeeld over drie shards die hier naast elkaar draaien, elk in
-                        // een eigen pod. Welke mappen bij welke shard horen staat in unit-component-integrator-tests.sh;
-                        // dat script controleert ook of de drie shards samen nog alle specs dekken. Shard 3 draagt
-                        // daarnaast jest, de firefox-variant en de integrator e2e, en daarom minder component-specs.
-                        stage('tests-1-block') {
-                            // haal dit uit commentaar om deze test stage tijdelijk over te slagen
-                            // beforeAgent: anders wordt de pod toch opgestart.
-                            // when {
-                            //    beforeAgent true
-                            //    expression { false }
+                            // post {
+                            //    always {
+                            //        archiveArtifacts artifacts: 'build/**', allowEmptyArchive: true, fingerprint: false
+                            //    }
                             // }
+                        }
+                        // De component-tests staan verdeeld over drie shards die naast elkaar draaien, elk in een eigen
+                        // pod. Welke mappen bij welke shard horen staat in unit-component-integrator-tests.sh; dat
+                        // script controleert ook of de drie shards samen nog alle specs dekken. De derde stage draagt
+                        // daarnaast: jest, de firefox-variant en de integrator e2e, en daarom minder component-specs.
+                        stage('component tests: block') {
+                            // beforeAgent: anders wordt de pod toch opgestart voor een stage die niets doet.
+                            when {
+                                beforeAgent true
+                                expression { runTests() }
+                            }
                             agent {
                                 kubernetes {
                                     inheritFrom 'jenkins-jenkins-agent'
@@ -125,13 +141,12 @@ pipeline {
                                 }
                             }
                         }
-                        stage('tests-2-componenten') {
-                            // haal dit uit commentaar om deze test stage tijdelijk over te slagen
-                            // beforeAgent: anders wordt de pod toch opgestart.
-                            // when {
-                            //    beforeAgent true
-                            //    expression { false }
-                            // }
+                        stage('component tests: atom, compliance, form') {
+                            // beforeAgent: anders wordt de pod toch opgestart voor een stage die niets doet.
+                            when {
+                                beforeAgent true
+                                expression { runTests() }
+                            }
                             agent {
                                 kubernetes {
                                     inheritFrom 'jenkins-jenkins-agent'
@@ -145,19 +160,18 @@ pipeline {
                             }
                             post {
                                 always {
-                                    // toon de JUnit resultaten in Jenkins
+                                    // toon de test resultaten in Jenkins
                                     junit allowEmptyResults: true, testResults: 'test-results/*.xml'
                                     archiveArtifacts artifacts: screenshotsGlob(), allowEmptyArchive: true, fingerprint: false
                                 }
                             }
                         }
-                        stage('tests-3-overige-en-e2e') {
-                            // haal dit uit commentaar om deze test stage tijdelijk over te slagen
-                            // beforeAgent: anders wordt de pod toch opgestart.
-                            // when {
-                            //    beforeAgent true
-                            //    expression { false }
-                            // }
+                        stage('component tests: common, integrations, map, styles + jest + integrator-e2e') {
+                            // beforeAgent: anders wordt de pod toch opgestart voor een stage die niets doet.
+                            when {
+                                beforeAgent true
+                                expression { runTests() }
+                            }
                             agent {
                                 kubernetes {
                                     inheritFrom 'jenkins-jenkins-agent'
@@ -171,23 +185,22 @@ pipeline {
                             }
                             post {
                                 always {
-                                    // toon de JUnit resultaten in Jenkins
+                                    // toon de test resultaten in Jenkins
                                     junit allowEmptyResults: true, testResults: 'test-results/*.xml'
                                     archiveArtifacts artifacts: screenshotsGlob(), allowEmptyArchive: true, fingerprint: false
                                 }
                             }
                         }
-                        // Ook de storybook e2e-tests staan verdeeld over shards die hier naast elkaar draaien, elk in
-                        // een eigen pod. Welke mappen bij welke shard horen staat in e2e-tests-storybook.sh; dat
-                        // script controleert ook of de shards samen nog alle specs dekken. Elke shard bouwt storybook
-                        // zelf: die builds draaien parallel en kosten dus geen extra doorlooptijd.
-                        stage('e2e-storybook-1-block') {
-                            // haal dit uit commentaar om deze test stage tijdelijk over te slagen
-                            // beforeAgent: anders wordt de pod toch opgestart.
-                            // when {
-                            //    beforeAgent true
-                            //    expression { false }
-                            // }
+                        // Ook de storybook e2e-tests staan verdeeld over shards die naast elkaar draaien, elk in een
+                        // eigen pod. Welke mappen bij welke shard horen staat in e2e-tests-storybook.sh; dat script
+                        // controleert ook of de shards samen nog alle specs dekken. Elke shard bouwt storybook zelf:
+                        // die builds draaien parallel en kosten dus geen extra doorlooptijd.
+                        stage('storybook-e2e tests: block') {
+                            // beforeAgent: anders wordt de pod toch opgestart voor een stage die niets doet.
+                            when {
+                                beforeAgent true
+                                expression { runTests() }
+                            }
                             agent {
                                 kubernetes {
                                     inheritFrom 'jenkins-jenkins-agent'
@@ -201,20 +214,19 @@ pipeline {
                             }
                             post {
                                 always {
-                                    // toon de JUnit resultaten in Jenkins
+                                    // toon de test resultaten in Jenkins
                                     junit allowEmptyResults: true, testResults: 'test-results/*.xml'
                                     archiveArtifacts artifacts: screenshotsGlob(),
                                             allowEmptyArchive: true, fingerprint: false
                                 }
                             }
                         }
-                        stage('e2e-storybook-2-overige') {
-                            // haal dit uit commentaar om deze test stage tijdelijk over te slagen
-                            // beforeAgent: anders wordt de pod toch opgestart.
-                            // when {
-                            //    beforeAgent true
-                            //    expression { false }
-                            // }
+                        stage('storybook-e2e tests: atom, compliance, form, map, patronen, styles') {
+                            // beforeAgent: anders wordt de pod toch opgestart voor een stage die niets doet.
+                            when {
+                                beforeAgent true
+                                expression { runTests() }
+                            }
                             agent {
                                 kubernetes {
                                     inheritFrom 'jenkins-jenkins-agent'
@@ -228,7 +240,7 @@ pipeline {
                             }
                             post {
                                 always {
-                                    // toon de JUnit resultaten in Jenkins
+                                    // toon de test resultaten in Jenkins
                                     junit allowEmptyResults: true, testResults: 'test-results/*.xml'
                                     archiveArtifacts artifacts: screenshotsGlob(),
                                             allowEmptyArchive: true, fingerprint: false
@@ -237,9 +249,9 @@ pipeline {
                         }
                     }
                 }
-                // Onderstaande scripts beslissen zelf of ze effectief iets doen op basis van de branch naam. De
+                // Onderstaande scripts beslissen zelf of ze effectief lopen op basis van de branch naam. De
                 // when-conditie hieronder vermijdt enkel dat op feature branches de stages nodeloos opstarten.
-                stage('release-and-publish') {
+                stage('Release + Publish') {
                     when { expression { env.BRANCH_NAME ==~ /.*(develop|bugfix|release).*/ } }
                     environment {
                         // niet geheim: de artifactory root URL
@@ -261,11 +273,12 @@ pipeline {
                     post {
                         always {
                             // voorziet in Jenkins een link naar de storybook tgz
-                            archiveArtifacts artifacts: 'build/dist/apps/storybook-*.tgz', allowEmptyArchive: true, fingerprint: false
+                            archiveArtifacts artifacts: 'build/dist/apps/storybook-*.tgz',
+                                allowEmptyArchive: true, fingerprint: false
                         }
                     }
                 }
-                stage('verify-release') {
+                stage('Verify release') {
                     when { expression { env.BRANCH_NAME ==~ /.*(develop|bugfix|release).*/ } }
                     steps {
                         container('cypress') {
@@ -281,7 +294,7 @@ pipeline {
                         }
                     }
                 }
-                stage('finalise-release') {
+                stage('Finalise release') {
                     when { expression { env.BRANCH_NAME ==~ /.*(develop|bugfix|release).*/ } }
                     steps {
                         container('cypress') {
