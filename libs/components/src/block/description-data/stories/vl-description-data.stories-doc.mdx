@@ -1,0 +1,98 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlDescriptionDataStories from './vl-description-data.stories';
+
+# Description Data
+
+<FluxComponentMetaData id="components-block-description-data-description-data" />
+
+
+## Doel
+
+Gebruik de `description-data` component om label / waarde-paren als een samenhangende lijst weer te geven, bijvoorbeeld
+de metadata van een publicatie. De paren worden als een `<dl>` met `<dt>` en `<dd>` gerenderd, zodat een schermlezer
+elk paar als term en definitie aankondigt.
+
+
+## Voorbeeld
+
+```js
+import { VlDescriptionData, VlDescriptionDataItem } from '@domg-wc/components/block';
+```
+
+```html
+<vl-description-data>
+    <vl-description-data-item label="Uitgever" value="Kind en Gezin"></vl-description-data-item>
+</vl-description-data>
+```
+
+<Canvas of={VlDescriptionDataStories.descriptionDataDefault} />
+
+
+## Configuratie
+
+<ArgTypes of={VlDescriptionDataStories.descriptionDataDefault} />
+
+
+## Enkel description-data-item als kind
+
+De `vl-description-data` mag als directe kinderen **uitsluitend** `vl-description-data-item` componenten bevatten.
+
+<FluxAlert type="warning">
+{`
+    Elk ander element tussen de items wordt genegeerd: het wordt niet in de beschrijvingslijst opgenomen en is ook
+    niet zichtbaar op de pagina. Tijdens ontwikkeling verschijnt hiervoor een waarschuwing in de console.
+`}
+</FluxAlert>
+
+<br/>
+
+### Correct gebruik
+
+```html
+<vl-description-data>
+    <vl-description-data-item label="Uitgever" value="Kind en Gezin"></vl-description-data-item>
+    <vl-description-data-item label="Publicatiedatum" value="Augustus 2018"></vl-description-data-item>
+</vl-description-data>
+```
+
+### Foutief gebruik
+
+```html
+<vl-description-data>
+    <vl-description-data-item label="Uitgever" value="Kind en Gezin"></vl-description-data-item>
+    <!-- wordt genegeerd: niet gerenderd en niet zichtbaar -->
+    <div>Extra informatie</div>
+    <!-- wordt genegeerd: enkel directe kinderen tellen mee -->
+    <div>
+        <vl-description-data-item label="Publicatiedatum" value="Augustus 2018"></vl-description-data-item>
+    </div>
+</vl-description-data>
+```
+
+## Waarom deze beperking
+
+Een `<dl>` is enkel een geldige beschrijvingslijst als de `<dt>` en `<dd>` er rechtstreeks (of via een wrapper-`div`)
+onder hangen. Als elk item zijn eigen `<dt>`/`<dd>` rendert, dan staat de item-host er in de flattened-tree tussen en
+valt de term / definitie-relatie voor schermlezers weg. Daarom leest de `vl-description-data` het `label` en `value` van
+elk item en rendert ze zelf in 1 `<dl>`. Alles wat geen `vl-description-data-item` is, past niet in dat model en
+wordt overgeslagen.
+
+Gevolgen om rekening mee te houden:
+
+- De inhoud van de `label`- en `value`-slots wordt **gekloond** naar de shadow DOM van de `vl-description-data`.
+  Statische opmaak (bv. een `<a href="...">`) werkt daardoor gewoon, maar event-listeners op die inhoud niet: ze
+  overleven het klonen niet.
+- Een `vl-description-data-item` dat je los gebruikt (buiten een `vl-description-data`) rendert wel zijn eigen
+  label en waarde, maar dan zonder de `<dl>`-structuur.
+- Wijzigingen in de light DOM (items toevoegen, verwijderen, of een `label`/`value` aanpassen) worden
+  automatisch doorgevoerd.
+
+
+## Varianten
+
+### Item over de volledige breedte
+
+Met het `items-size` attribuut op een individueel item overschrijf je de kolombreedte die de `vl-description-data`
+oplegt. Zo laat je bijvoorbeeld 1 item de volledige breedte innemen.
+
+<Canvas of={VlDescriptionDataStories.descriptionDataWithSpanner} />
