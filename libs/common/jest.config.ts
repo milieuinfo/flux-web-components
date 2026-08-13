@@ -35,6 +35,12 @@ if (process.env.CI === 'true') {
             outputDirectory: '<rootDir>/../../test-results',
             uniqueOutputName: 'true',
             suiteName: jestConfig.displayName as string,
+            // De default voor beide templates is '{classname} {title}', waardoor de testtitel mee in de classname
+            // zit. Jenkins splitst de classname op de laatste punt tot pakket + klasse, dus dan verschuift het
+            // splitspunt per test. Zie resources/ci-jenkins/test/test-categories.mjs.
+            classNameTemplate: '{classname}',
+            titleTemplate: '{title}',
+            ancestorSeparator: ' - ',
         },
     ]);
 }

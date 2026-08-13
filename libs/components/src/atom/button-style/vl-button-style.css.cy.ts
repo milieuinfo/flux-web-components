@@ -4,7 +4,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { vlButtonElements, vlButtonStyles } from './vl-button-style.css';
 import { buttonVariants, renderAllButtonVariants } from './vl-button-style.util';
 
-describe('styles - vl-button-style', () => {
+describe('cypress-component - atom components - vl-button-style', () => {
     beforeEach(() => {
         cy.then(() => GlobalStyles.getInstance().register());
         cy.mount(html`
@@ -75,7 +75,7 @@ describe('styles - vl-button-style', () => {
     });
 });
 
-describe('styles - vl-button-style - sizes', () => {
+describe('cypress-component - atom components - vl-button-style - sizes', () => {
     beforeEach(() => {
         cy.then(() => GlobalStyles.getInstance().register());
     });
@@ -159,12 +159,12 @@ describe('styles - vl-button-style - sizes', () => {
                                     // Bij "mobile" en "loading"
                                     (heightVariant === 'mobile' && widthVariant === 'loading'
                                         ? mobileVariantLoadingWidthIncrement
-                                        : 0)
-                            )
+                                        : 0),
+                            ),
                         );
                         expect(Math.round(height)).to.equal(
                             // iconOnly heeft geen large variant
-                            widthVariant === 'iconOnly' ? defaultHeight : expectedHeight
+                            widthVariant === 'iconOnly' ? defaultHeight : expectedHeight,
                         );
                     });
                 });

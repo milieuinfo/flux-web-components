@@ -160,12 +160,12 @@ describe('jest - map - custom-map', () => {
         expect(overlay?.getElement()?.outerHTML).toBe(element);
     });
 
-    it('Als er geen overviewMapLayers zijn, zal er geen overviewMapControl aangemaakt worden.', () => {
+    it('als er geen overviewMapLayers zijn, zal er geen overviewMapControl aangemaakt worden', () => {
         const map = createMapZonderLayers();
         expect(map.overviewMapControl).toBeUndefined();
     });
 
-    it('Wanneer de eerste overviewMapLayer wordt toegevoegd, wordt een overviewMapControl aangemaakt.', () => {
+    it('wanneer de eerste overviewMapLayer wordt toegevoegd, wordt een overviewMapControl aangemaakt', () => {
         const map = createMapZonderLayers();
         const baseLayer = createVisibleBaseLayer();
         const overviewMapLayer = createInvisibleBaseLayer();
@@ -179,7 +179,7 @@ describe('jest - map - custom-map', () => {
         expect(map.overviewMapControl?.getOverviewMap().getLayers().getArray()[0]).toBe(overviewMapLayer);
     });
 
-    it('Er kunnen meerdere base layers en overlayMapLayers toegevoegd worden aan de map ', () => {
+    it('er kunnen meerdere base layers en overlayMapLayers toegevoegd worden aan de map', () => {
         map = createMapZonderLayers();
 
         const baseLayer = createVisibleBaseLayer();
@@ -197,7 +197,7 @@ describe('jest - map - custom-map', () => {
         expect(map.overviewMapControl?.getOverviewMap().getLayers().getArray()[1]).toBe(overviewMapLayer);
     });
 
-    it('Enkel de eerste toegevoegde baselayer is visible en enkel de 2e toegevoegde overlaymaplayer is visible', () => {
+    it('enkel de eerste toegevoegde baselayer is visible en enkel de 2e toegevoegde overlaymaplayer is visible', () => {
         map = createMapZonderLayers();
 
         for (let layerNr = 0; layerNr < 3; layerNr++) {
@@ -213,7 +213,7 @@ describe('jest - map - custom-map', () => {
         expect(map.overviewMapControl?.getOverviewMap().getLayers().getArray()[2].getVisible()).toBe(false);
     });
 
-    it('Na een klik is de volgende toegevoegde baselayer visible', () => {
+    it('na een klik is de volgende toegevoegde baselayer visible', () => {
         map = createMapZonderLayers();
 
         for (let layerNr = 0; layerNr < 3; layerNr++) {

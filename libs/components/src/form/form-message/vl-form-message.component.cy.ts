@@ -4,7 +4,7 @@ import { VlFormMessageComponent } from './vl-form-message.component';
 
 registerWebComponents([VlFormMessageComponent]);
 
-describe('vl-form-message - properties & states', () => {
+describe('cypress-component - form components - vl-form-message - properties & states', () => {
     beforeEach(() => {
         cy.viewport(1200, 800);
     });
@@ -55,7 +55,7 @@ describe('vl-form-message - properties & states', () => {
     it('should set pre-line attribute', () => {
         cy.mount(html`
             <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
-                <vl-form-message pre-line show>Eerste lijn\nTweede lijn</vl-form-message>
+                <vl-form-message pre-line show>Eerste lijn Tweede lijn</vl-form-message>
             </div>
         `);
 
@@ -124,7 +124,7 @@ describe('vl-form-message - properties & states', () => {
     });
 });
 
-describe('vl-form-message - content & validation', () => {
+describe('cypress-component - form components - vl-form-message - content & validation', () => {
     it('should set content', () => {
         cy.mount(html`<vl-form-message>Test form message</vl-form-message>`);
 
@@ -153,13 +153,11 @@ describe('vl-form-message - content & validation', () => {
     });
 
     it('should not show validation message with slotted content', () => {
-        cy.mount(
-            html`
-                <vl-form-message validation-message="Test validation message" show>
-                    custom validation message
-                </vl-form-message>
-            `
-        );
+        cy.mount(html`
+            <vl-form-message validation-message="Test validation message" show>
+                custom validation message
+            </vl-form-message>
+        `);
 
         cy.get('vl-form-message').should('contain.text', 'custom validation message');
 

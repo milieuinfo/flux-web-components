@@ -4,7 +4,7 @@ import { VlRadioComponent } from './vl-radio.component';
 
 registerWebComponents([VlRadioComponent]);
 
-describe('vl-radio - properties & states', () => {
+describe('cypress-component - form components - vl-radio - properties & states', () => {
     beforeEach(() => {
         cy.viewport(1200, 800);
     });
@@ -118,7 +118,7 @@ describe('vl-radio - properties & states', () => {
     });
 });
 
-describe('vl-radio - events', () => {
+describe('cypress-component - form components - vl-radio - events', () => {
     it('should dispatch vl-change & vl-input event on check', () => {
         const value = 'test';
 
