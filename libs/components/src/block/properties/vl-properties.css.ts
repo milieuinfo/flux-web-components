@@ -1,5 +1,6 @@
 import { vlMediaScreenSmall } from '@domg-wc/styles';
-import { css, CSSResult } from 'lit';
+import { css, CSSResult, unsafeCSS } from 'lit';
+import propertiesRawCss from './vl-properties.raw.css?raw';
 
 const collapsedDt = (): CSSResult => {
     return css`
@@ -11,7 +12,7 @@ const collapsedDd = (): CSSResult => {
     return css`
         font-size: 1.6rem;
         &:has(+ dt) {
-            padding-bottom: 2rem;
+            padding-bottom: var(--vl-properties--row-gap);
         }
     `;
 };
@@ -34,13 +35,20 @@ export const sizeQueryStyles = css`
         dl {
             display: flex;
             flex-direction: column;
-            row-gap: 2rem;
+            row-gap: var(--vl-properties--row-gap);
         }
 
         dl:has(> dt),
         .column,
         .column--full-width {
             display: block;
+        }
+
+        .column > dd + dt,
+        .column > dd + dt + dd,
+        .column--full-width > dd + dt,
+        .column--full-width > dd + dt + dd {
+            margin-top: 0;
         }
 
         dt {
@@ -54,6 +62,8 @@ export const sizeQueryStyles = css`
 `;
 
 export const propertiesStyles: CSSResult = css`
+    ${unsafeCSS(propertiesRawCss)}
+
     :host {
         display: block;
     }
@@ -62,7 +72,7 @@ export const propertiesStyles: CSSResult = css`
         display: grid;
         word-break: break-word;
         grid-template-columns: 1fr 1fr;
-        gap: 2rem 0;
+        gap: var(--vl-properties--row-gap) 0;
         padding-bottom: 2rem;
     }
     :host([no-padding-bottom]) {
@@ -100,6 +110,10 @@ export const propertiesStyles: CSSResult = css`
         }
         & > dd {
             grid-column: 2;
+        }
+        & > dd + dt,
+        & > dd + dt + dd {
+            margin-top: var(--vl-properties--row-gap);
         }
     }
 

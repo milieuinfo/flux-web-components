@@ -92,14 +92,23 @@ export const PropertiesColumns = story(
             <div class="column">
                 <vl-property>Woonplaats</vl-property>
                 <vl-property-data>Brussel</vl-property-data>
-            </div>
-            <div class="column">
                 <vl-property>Postcode</vl-property>
                 <vl-property-data>1000</vl-property-data>
             </div>
+            <div class="column">
+                <vl-property>Straat</vl-property>
+                <vl-property-data>Havenlaan</vl-property-data>
+                <vl-property>Huisnummer</vl-property>
+                <vl-property-data>88</vl-property-data>
+            </div>
             <div class="column column--full-width">
                 <vl-property>Gewest</vl-property>
-                <vl-property-data>Brussel</vl-property-data>
+                <vl-property-data>Brussels Hoofdstedelijk Gewest</vl-property-data>
+                <vl-property>Omschrijving</vl-property>
+                <vl-property-data>
+                    Een wat langere omschrijving zodat meteen duidelijk is dat een property over meerdere regels correct
+                    wrapt binnen een column.
+                </vl-property-data>
             </div>
         </vl-properties>
     `,
