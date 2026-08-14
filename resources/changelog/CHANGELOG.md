@@ -1,3 +1,9 @@
+## [2.17.3](https://github.com/milieuinfo/flux-web-components/compare/v2.17.2...v2.17.3) (2026-08-14)
+
+### Bug Fixes
+
+* FLUX-643 - Jenkins build - libs-add-dependencies.sh werkt nu zonder jq ([003c1b7](https://github.com/milieuinfo/flux-web-components/commit/003c1b731b0ef055468cfc3086d1137b666dccc5))
+
 ## [2.17.2](https://github.com/milieuinfo/flux-web-components/compare/v2.17.1...v2.17.2) (2026-07-31)
 
 ### Documentation
