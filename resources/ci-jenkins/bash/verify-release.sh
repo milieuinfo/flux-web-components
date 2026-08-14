@@ -36,7 +36,7 @@ echo "Branch verificatie OK: ${CURRENT_BRANCH}"
 
 # versie bepalen uit de components package.json - uit de gedeelde workspace waarin release-and-publish net gedraaid heeft
 cd ./build/dist/libs/components
-NEXT_RELEASE_VERSION=$(npm pkg get version | sed 's/"//g')
+NEXT_RELEASE_VERSION=$(pnpm pkg get version | sed 's/"//g')
 echo "Using ${NEXT_RELEASE_VERSION} as NEXT_RELEASE_VERSION"
 cd ../../../..
 
@@ -51,8 +51,8 @@ cd ../../../..
 # consumer app dependencies updaten naar de ge-releaste versie
 echo "update consumer-app dependencies to version ${NEXT_RELEASE_VERSION}"
 cd apps/consumer
-npm pkg set "dependencies.@domg-wc/components=${NEXT_RELEASE_VERSION}"
-npm pkg set "dependencies.@domg-wc/map=${NEXT_RELEASE_VERSION}"
+pnpm pkg set "dependencies.@domg-wc/components=${NEXT_RELEASE_VERSION}"
+pnpm pkg set "dependencies.@domg-wc/map=${NEXT_RELEASE_VERSION}"
 
 # Controleer of de placeholder nog aanwezig is
 if grep -q "DOMG-WC-VERSION" package.json; then
@@ -60,13 +60,13 @@ if grep -q "DOMG-WC-VERSION" package.json; then
   exit 1
 fi
 
-quiet_step "consumer npm install" npm install
+quiet_step "consumer pnpm install" pnpm install --no-frozen-lockfile
 
 echo "build consumer-named app"
-npm run consumer:named:build
+pnpm run consumer:named:build
 
 echo "build consumer-side-effect app"
-npm run consumer:side-effect:build
+pnpm run consumer:side-effect:build
 
 # fat-lib klaarzetten voor lokale serve
 cd ../..
@@ -85,10 +85,11 @@ echo "copy fat-lib to consumer-fat-lib - success"
 # consumer-e2e dependencies installeren: cypress, cypress-axe en typescript resolven vanaf apps/consumer-e2e enkel
 # omhoog (apps/consumer-e2e -> apps -> root), nooit zijwaarts naar apps/consumer. Ze moeten dus in deze app zelf staan.
 # Hier wel 'npm ci' en geen 'npm install': hier muteert niets vlak ervoor (anders dan bij apps/consumer, waar
-# 'npm pkg set' de versie invult en de lock dus stale is), dus de lock is hier leidend en reproduceerbaar.
+# 'pnpm pkg set' de versie invult en de lock dus stale is), dus de lock is hier leidend en reproduceerbaar.
 echo "install consumer-e2e dependencies"
 cd apps/consumer-e2e
-quiet_step "consumer-e2e npm ci" npm ci
+corepack enable
+quiet_step "consumer-e2e pnpm install" pnpm install --frozen-lockfile
 cd ../..
 
 # e2e testen draaien via serve-and-e2e scripts
@@ -97,13 +98,13 @@ cd apps/consumer
 # CI=true laat de cypress-config ook JUnit XML schrijven naar test-results, waar de junit-step
 # van deze stage ze oppikt (zie apps/consumer-e2e/cypress.config.ts)
 echo "running consumer-named serve-and-e2e"
-env CI=true npm run consumer:named:serve-and-e2e
+env CI=true pnpm run consumer:named:serve-and-e2e
 
 echo "running consumer-side-effect serve-and-e2e"
-env CI=true npm run consumer:side-effect:serve-and-e2e
+env CI=true pnpm run consumer:side-effect:serve-and-e2e
 
 echo "running consumer-fat-lib serve-and-e2e"
-env CI=true npm run consumer:fat-lib:serve-and-e2e
+env CI=true pnpm run consumer:fat-lib:serve-and-e2e
 
 cd ../..
 
