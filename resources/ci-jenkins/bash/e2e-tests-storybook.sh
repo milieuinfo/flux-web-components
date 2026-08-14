@@ -54,7 +54,8 @@ fi
 # script intact.
 trap 'node "${SCRIPT_DIR}/../test/normalize-junit-classnames.mjs" || true' EXIT
 
-quiet_step "npm ci" npm ci --maxsockets 5
+corepack enable
+quiet_step "pnpm install" pnpm install --frozen-lockfile --network-concurrency 5
 
 echo "create build folder with dummy text file - when everything goes well there is no build folder which fails the build"
 # -p: deze stage draait in een eigen workspace, maar -p houdt het script ook bruikbaar bij een lokale herhaalde run waar build/ al bestaat
@@ -68,9 +69,9 @@ SPECS="${SPECS#,}"
 
 # CI=true laat de cypress-config ook JUnit XML schrijven naar test-results, waar de junit-step
 # van deze stage ze oppikt (zie apps/storybook-e2e/cypress.config.ts).
-# Niet via 'npm run apps:storybook:serve-and-e2e', omdat die de volledige specPattern draait zonder --spec.
+# Niet via 'pnpm run apps:storybook:serve-and-e2e', omdat die de volledige specPattern draait zonder --spec.
 echo "serve storybook and run the e2e tests - shard ${SHARD}: ${SPECS}"
-env CI=true npx start-server-and-test \
-    'npm run apps:storybook:ci' \
+env CI=true pnpm exec start-server-and-test \
+    'pnpm run apps:storybook:ci' \
     http://localhost:8080 \
-    "cd ./${E2E_ROOT} && npx cypress run --e2e --spec '${SPECS}'"
+    "cd ./${E2E_ROOT} && pnpm exec cypress run --e2e --spec '${SPECS}'"

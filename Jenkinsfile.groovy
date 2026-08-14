@@ -84,7 +84,7 @@ pipeline {
                 stage('Trivy scan') {
                     steps {
                         script {
-                            trivy.scanFilesystem([targetPath: 'package-lock.json'])
+                            trivy.scanFilesystem([targetPath: 'pnpm-lock.yaml'])
                         }
                     }
                 }
