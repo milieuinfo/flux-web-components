@@ -1,26 +1,34 @@
-import { webComponent } from '@domg-wc/common';
-import { vlResetStyles } from '@domg-wc/styles';
+import { registerWebComponents, webComponent } from '@domg-wc/common';
+import { VlTextComponent } from '@domg-wc/components/atom';
+import { vlGroupStyles, vlResetStyles, vlStackedStyles } from '@domg-wc/styles';
 import { FormValue } from '@open-wc/form-control/src/types';
 import Choices, { Options } from 'choices.js';
-import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
+import { ChoiceFull } from 'choices.js/src/scripts/interfaces/choice-full';
+import { CSSResult, html, nothing, PropertyDeclarations, render, TemplateResult } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
 import { FormControl } from '../form-control';
 import { vlSelectRichComponentStyles } from './vl-select-rich.component.css';
 import { selectRichDefaults } from './vl-select-rich.defaults';
-import { SelectRichOption } from './vl-select-rich.model';
+import { SelectRichItemTemplateFn, SelectRichOption } from './vl-select-rich.model';
 import { getSearchMatcher, SelectRichSearchMatcher } from './vl-select-rich.search-matchers';
 
 @webComponent('vl-select-rich')
 export class VlSelectRichComponent extends FormControl {
+    static {
+        registerWebComponents([VlTextComponent]);
+    }
+
     // Properties
     options = selectRichDefaults.options;
     initialOptions = selectRichDefaults.initialOptions;
+    itemTemplate?: SelectRichItemTemplateFn;
     protected placeholder = selectRichDefaults.placeholder;
     protected search = selectRichDefaults.search;
     protected searchPlaceholder = selectRichDefaults.searchPlaceholder;
     // Variables
     protected choices: Choices | null = null;
+    private optionsByValue = new Map<string, SelectRichOption>();
     // Attributes
     private notDeletable = selectRichDefaults.notDeletable;
     private multiple = selectRichDefaults.multiple;
@@ -45,7 +53,7 @@ export class VlSelectRichComponent extends FormControl {
     }
 
     static get styles(): CSSResult[] {
-        return [vlResetStyles, vlIconStyles, vlSelectRichComponentStyles];
+        return [vlResetStyles, vlIconStyles, vlGroupStyles, vlStackedStyles, vlSelectRichComponentStyles];
     }
 
     static get properties(): PropertyDeclarations {
@@ -63,6 +71,7 @@ export class VlSelectRichComponent extends FormControl {
                 },
             },
             placeholder: { type: String },
+            itemTemplate: { attribute: false },
             notDeletable: { type: Boolean, attribute: 'not-deletable' },
             multiple: { type: Boolean },
             search: { type: Boolean },
@@ -93,6 +102,7 @@ export class VlSelectRichComponent extends FormControl {
         super.connectedCallback();
 
         if (this.initialised) {
+            this.indexOptions();
             this.choices = new Choices(this.validationTarget!, this.getChoicesConfig());
             this.initialOptions = structuredClone(this.options);
         }
@@ -103,6 +113,7 @@ export class VlSelectRichComponent extends FormControl {
     async firstUpdated(changedProperties: Map<string, unknown>) {
         super.firstUpdated(changedProperties);
 
+        this.indexOptions();
         this.choices = new Choices(this.validationTarget!, this.getChoicesConfig());
         this.initialOptions = structuredClone(this.options);
     }
@@ -149,6 +160,7 @@ export class VlSelectRichComponent extends FormControl {
         }
 
         if (changedProperties.has('options')) {
+            this.indexOptions();
             if (this.choices.initialised) {
                 this.choices.clearStore();
                 this.choices.setChoices(this.options, 'value', 'label', true);
@@ -395,6 +407,21 @@ export class VlSelectRichComponent extends FormControl {
             : null;
     }
 
+    private indexOptions(): void {
+        this.optionsByValue = new Map(
+            this.options
+                .flatMap((option) => (option.choices?.length ? (option.choices as SelectRichOption[]) : [option]))
+                .map((option) => [String(option.value), option])
+        );
+    }
+
+    private renderItemTemplate(itemElement: HTMLElement, contentHost: HTMLElement, data: SelectRichOption): void {
+        const original = this.optionsByValue.get(String(data.value));
+        itemElement.classList.add('vl-select__item--rich');
+        contentHost.replaceChildren();
+        render(this.itemTemplate!(original ? { ...original, ...data } : data), contentHost);
+    }
+
     private getChoicesElement(): HTMLElement | null {
         return this.shadowRoot?.querySelector('.js-vl-select') as HTMLElement | null;
     }
@@ -432,8 +459,9 @@ export class VlSelectRichComponent extends FormControl {
                 group: 'vl-select__group',
                 groupHeading: 'vl-select__heading',
                 button: 'vl-select__button',
+                description: 'vl-select__option-subtitle',
             },
-            callbackOnCreateTemplates: (template) => {
+            callbackOnCreateTemplates: (template, escapeForTemplate) => {
                 return {
                     containerOuter: () => {
                         return template(
@@ -457,8 +485,9 @@ export class VlSelectRichComponent extends FormControl {
                     },
                     item: (_config: Partial<Options>, data: SelectRichOption) => {
                         const isPlaceholder = data.placeholder === true;
+                        const label = escapeForTemplate(false, data.label ?? '');
                         if (this.notDeletable) {
-                            return template(`
+                            const notDeletableElement = template(`
                             <div class="vl-select__item
                                 ${data.highlighted ? 'is-highlighted' : 'vl-select__item--selectable'}
                                 ${this.multiple ? 'vl-pill' : ''}
@@ -469,12 +498,14 @@ export class VlSelectRichComponent extends FormControl {
                                 data-value="${data.value}"
                                 ${data.disabled ? 'aria-disabled="true"' : ''}
                             >
-                                ${data.label}
+                                ${label}
                             </div>
                         `) as HTMLDivElement;
+
+                            return notDeletableElement;
                         }
 
-                        return template(
+                        const element = template(
                             `<div class="
                                     vl-select__item
                                     ${data.highlighted ? 'is-highlighted' : ''}
@@ -487,12 +518,12 @@ export class VlSelectRichComponent extends FormControl {
                                             ${isPlaceholder ? 'role="option"' : ''}
                                     ${data.disabled ? 'aria-disabled="true"' : 'data-deletable'}
                                 >
-                                    <span>${data.label}</span>
+                                    <span>${label}</span>
                                     <button type="button"
                                     ${isPlaceholder ? '' : 'role="option"'}
                                      class="vl-pill__close ${
                                          !this.multiple ? 'vl-icon vl-icon--close' : ''
-                                     }" data-button aria-label="verwijder ${data.label}">
+                                     }" data-button aria-label="verwijder ${label}">
                                         ${
                                             this.multiple
                                                 ? `<span class="vl-pill__close__icon vl-icon vl-icon--close" aria-hidden="true"></span>`
@@ -501,6 +532,27 @@ export class VlSelectRichComponent extends FormControl {
                                     </button>
                                 </div>`
                         ) as HTMLDivElement;
+
+                        return element;
+                    },
+                    choice: (
+                        config: Partial<Options>,
+                        data: ChoiceFull,
+                        selectText: string,
+                        groupName?: string
+                    ) => {
+                        const element = Choices.defaults.templates.choice(
+                            config as Parameters<typeof Choices.defaults.templates.choice>[0],
+                            data,
+                            selectText,
+                            groupName
+                        );
+
+                        if (this.itemTemplate && !data.placeholder) {
+                            this.renderItemTemplate(element, element, data);
+                        }
+
+                        return element;
                     },
                     itemList: () =>
                         template(

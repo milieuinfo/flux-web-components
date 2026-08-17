@@ -1,12 +1,19 @@
 import { CATEGORIES, CONTROLS, getSelectControlOptions, TYPES } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components-vite';
+import { html, nothing } from 'lit';
 import { formControlArgs, formControlArgTypes } from '../../form-control/stories/form-control.stories-arg';
 import { selectRichDefaults } from '../vl-select-rich.defaults';
-import { SelectRichPosition, SelectSearchStrategy } from '../vl-select-rich.model';
+import {
+    SelectRichItemTemplateFn,
+    SelectRichOption,
+    SelectRichPosition,
+    SelectSearchStrategy,
+} from '../vl-select-rich.model';
 import { action } from 'storybook/actions';
 
 type SelectRichArgs = typeof formControlArgs &
     typeof selectRichDefaults & {
+        itemTemplate: SelectRichItemTemplateFn | undefined;
         onVlChange: () => void;
         onVlInput: () => void;
         onVlSelectSearch: () => void;
@@ -16,11 +23,42 @@ type SelectRichArgs = typeof formControlArgs &
 export const selectRichArgs: SelectRichArgs = {
     ...formControlArgs,
     ...selectRichDefaults,
+    itemTemplate: undefined as SelectRichItemTemplateFn | undefined,
     onVlChange: action('vl-change'),
     onVlInput: action('vl-input'),
     onVlSelectSearch: action('vl-select-search'),
     onVlValid: action('vl-valid'),
 };
+
+export const vestigingOptions: SelectRichOption[] = [
+    {
+        label: '0123.456.789',
+        labelDescription: 'Industrieweg 123, 9876 Plaatsnaam',
+        value: '0123456789',
+        vestiging: 'Vestiging Hasselt',
+    },
+    {
+        label: '0987.654.321',
+        labelDescription: 'Nijverheidsstraat 45, 2300 Turnhout',
+        value: '0987654321',
+        vestiging: 'Vestiging Turnhout',
+    },
+    {
+        label: 'Niet van toepassing',
+        labelDescription: 'Er is geen bijhorende vestiging',
+        value: 'geen-vestiging',
+    },
+] as SelectRichOption[];
+
+export const vestigingItemTemplate: SelectRichItemTemplateFn = (option) => html`
+    <div class="vl-stacked">
+        <vl-text bold>${option.label}</vl-text>
+        ${(option as { vestiging?: string }).vestiging
+            ? html`<vl-text annotation>${(option as { vestiging?: string }).vestiging}</vl-text>`
+            : nothing}
+        <vl-text annotation>${option.labelDescription}</vl-text>
+    </div>
+`;
 
 export const selectRichArgTypes: ArgTypes<SelectRichArgs> = {
     ...formControlArgTypes,
@@ -31,6 +69,20 @@ export const selectRichArgTypes: ArgTypes<SelectRichArgs> = {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: selectRichArgs.placeholder },
+        },
+    },
+    itemTemplate: {
+        name: 'itemTemplate',
+        description:
+            'Bepaalt zelf de inhoud van een optie in de dropdown.<br>Niet reactief en niet aanpasbaar in' +
+            ' Storybook.' +
+            '<br>Zie de [documentatie](/docs/components-form-select-rich--documentatie#itemtemplate)' +
+            ' voor meer info.',
+        control: false,
+        table: {
+            category: CATEGORIES.PROPERTIES,
+            type: { summary: TYPES.FUNCTION },
+            defaultValue: { summary: String(selectRichArgs.itemTemplate) },
         },
     },
     notDeletable: {
