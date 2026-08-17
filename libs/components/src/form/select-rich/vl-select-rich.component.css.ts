@@ -601,4 +601,35 @@ export const vlSelectRichComponentStyles: CSSResult = css`
         line-height: 1;
         font-weight: bold;
     }
+
+    .js-vl-select .vl-select__list--dropdown .vl-select__item:has(.vl-select__option-subtitle),
+    .js-vl-select .vl-select__list--dropdown .vl-select__item--rich {
+        display: block;
+        height: auto;
+        min-height: calc(3.5rem - 1.2rem);
+    }
+
+    .js-vl-select .vl-select__list--dropdown .vl-select__item:has(.vl-select__option-subtitle) span,
+    .js-vl-select .vl-select__list--dropdown .vl-select__item--rich span {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+    }
+
+    .js-vl-select[data-type*='select-one']
+        .vl-select__list--dropdown
+        .vl-select__item--selectable:has(.vl-select__option-subtitle),
+    .js-vl-select[data-type*='select-one']
+        .vl-select__list--dropdown
+        .vl-select__item--selectable.vl-select__item--rich {
+        height: auto;
+    }
+
+    .js-vl-select .vl-select__option-subtitle {
+        display: block;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        color: var(--vl-color--text-subtle);
+    }
 `;
