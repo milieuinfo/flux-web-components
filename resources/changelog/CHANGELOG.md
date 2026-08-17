@@ -1,19 +1,3 @@
-## [2.17.2](https://github.com/milieuinfo/flux-web-components/compare/v2.17.1...v2.17.2) (2026-07-31)
-
-### Documentation
-
-* FLUX-776 - Flux-AI - een apart 'technisch' en 'ui/ux' traject ([413f3ff](https://github.com/milieuinfo/flux-web-components/commit/413f3ffd001efb90c651a81f2d1512a8b4b6b72d))
-
-## [2.17.1](https://github.com/milieuinfo/flux-web-components/compare/v2.17.0...v2.17.1) (2026-07-30)
-
-### Bug Fixes
-
-* FLUX-778 - vl-header / vl-footer - test stabiliteit verbeterd via uit-mocken van de widget call naar DV ([bcc3e9c](https://github.com/milieuinfo/flux-web-components/commit/bcc3e9c517959fc7ef1b80c6ebf35c02711d757c))
-
-### Documentation
-
-* FLUX-776 - Flux-AI - Frontend Uniformisering via AI ([4424e0e](https://github.com/milieuinfo/flux-web-components/commit/4424e0e0ce00631895795b9cfb7004ce7f76fd85))
-
 # [2.17.0](https://github.com/milieuinfo/flux-web-components/compare/v2.16.0...v2.17.0) (2026-07-27)
 
 
