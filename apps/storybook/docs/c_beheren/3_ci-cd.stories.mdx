@@ -33,28 +33,37 @@ krijgt een eigen pod met een eigen workspace. De volledige pijplijn wordt overge
 bevat. Volgende stages zijn gedefinieerd:
 
 1. __Trivy scan__ - security scan van `package-lock.json`
-2. __build-en-tests__ - met de volgende stages die parallel lopen, elk in een eigen pod:
-    * __build-apps-and-libs__ (de build) - stasht de gebouwde libs en fat-lib voor de release stage
-    * __unit-component-integrator-tests__ (verschillende testen)
-    * __e2e-tests-storybook__ (Storybook e2e-testen)
-3. __release-and-publish__ - loopt enkel voor develop-, bugfix- en release-branches; er is een licht verschillende
+2. __Build + Tests__ - met de volgende stages die parallel lopen, elk in een eigen pod:
+    * __build: apps, libs__ (de build) - stasht de gebouwde libs en fat-lib voor de release stage
+    * __component tests__ - verdeeld over 3 shards; de derde draait daarnaast ook de jest-testen en de
+      integrator e2e-testen
+    * __storybook-e2e tests__ - verdeeld over 2 shards
+3. __Release + Publish__ - loopt enkel voor develop-, bugfix- en release-branches; er is een licht verschillende
    flow voor release en pre-release branches
-4. __verify-release__ - verifieert dat de ge-releaste artifacts afneembaar zijn
 
-De twee release stages draaien sequentieel op de top-level agent en delen dus één workspace en checkout:
-__verify-release__ heeft de `build/dist` output van __release-and-publish__ nodig. De scripts beslissen zelf op
-basis van de branchnaam of ze effectief iets doen.
+Welke mappen bij welke shard horen staat bovenaan `unit-component-integrator-tests.sh` en `e2e-tests-storybook.sh`.
+Die scripts controleren ook of de shards samen nog alle specs dekken: komt er een nieuwe map bij die in geen enkele
+shard zit, dan faalt de build met de namen van de specs die anders stilletjes niet meer zouden draaien.
+
+De testresultaten (jest en Cypress) verschijnen als JUnit-rapport in Jenkins: bij `CI=true` schrijven de jest- en
+cypress-configuraties XML naar `test-results` op de repo-root, waar de `junit`-stap van elke stage ze oppikt.
+
+De test stages kan je overslaan door de build zelf te starten via _Build with Parameters_ en __SKIP_TESTS__ aan te
+vinken. Bij een automatische build (push, timer, branch indexing) draaien de testen hoe dan ook.
+
+__Release + Publish__ draait op de top-level agent en haalt de `build/dist` output van __build: apps, libs__ op via
+een unstash. Het script beslist zelf op basis van de branchnaam of het effectief iets doet.
 
 
 ## Jenkins Release
 
-Een release vindt plaats in de __release-and-publish__ stage en wordt gestuurd door
+Een release vindt plaats in de __Release + Publish__ stage en wordt gestuurd door
 [semantic-release](https://github.com/semantic-release/semantic-release). De configuratie van die plugin zit in 2
 bestanden onder `resources/ci-jenkins/release`: `.releaserc-develop` en `.releaserc-release`. Het script kopieert de
 juiste variant naar `.releaserc` in de root: de develop variant voor de pre-release branches (branchnaam bevat
 'develop' of 'bugfix'), de release variant voor de release branches (branchnaam bevat 'release').
 
-In die __release-and-publish__ stap gebeurd het volgende:
+In die __Release + Publish__ stap gebeurt het volgende:
 
 - semantic-release bepaalt het nieuwe versie nummer a.d.h.v. de commits (fix / feat / breaking-change) - met een
   `-develop` suffix voor develop branches
