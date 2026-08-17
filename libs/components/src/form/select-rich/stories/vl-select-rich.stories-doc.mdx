@@ -18,6 +18,7 @@ import FormControlPublicMethods from '../../form-control/stories/form-control.pu
  - [Select opties](#select-opties)
  - [Accessibility](#accessibility)
  - [Varianten](#varianten)
+ - [Eigen inhoud per optie](#eigen-inhoud-per-optie)
  - [Zoek strategieën](#zoek-strategieën)
  - [Validatie](#validatie)
  - [Referenties](#referenties)
@@ -307,6 +308,62 @@ Indien de 'required' boolean op true staat, moet je een value programmatorisch s
         { label: 'Rio Piedras', value: 'rio piedras', disabled: true }
 ]`} language="ts" dark={true} />
 </details>
+
+
+## Eigen inhoud per optie
+
+Een optie toont standaard haar `label` als platte tekst op een regel. Voor rijkere opties zijn er twee
+mogelijkheden.
+
+### Beschrijving bij een optie
+
+Voor een titel met een regel eronder volstaat `labelDescription`. De component zet die in een
+`vl-select__option-subtitle` en legt de `aria-describedby` koppeling met het label.
+
+<Canvas of={VlSelectRichStories.SelectRichOptionDescription} />
+
+<details>
+    <summary>options</summary>
+    <Source code={`
+    [
+        {
+            label: '0123.456.789',
+            labelDescription: 'Industrieweg 123, 9876 Plaatsnaam',
+            value: '0123456789',
+        },
+        {
+            label: 'Niet van toepassing',
+            labelDescription: 'Er is geen bijhorende vestiging',
+            value: 'geen-vestiging',
+        }
+]`} language="ts" dark={true} />
+</details>
+
+### itemTemplate
+
+Volstaat `labelDescription` niet, dan stel je de `itemTemplate`-property in. Die functie krijgt de optie
+mee en geeft een lit `TemplateResult` terug, die de inhoud van de optie in de dropdown wordt. De optie
+zelf (rol, klik-afhandeling, data-attributen) blijft in beheer van de component. Eens gekozen toont het
+gesloten veld het `label`, zodat het compact blijft.
+
+```ts
+const itemTemplate = (option) => html`
+    <div class="vl-stacked">
+        <vl-text bold>${option.label}</vl-text>
+        <vl-text annotation>${option.vestiging}</vl-text>
+        <vl-text annotation>${option.labelDescription}</vl-text>
+    </div>
+`;
+
+html`<vl-select-rich .options=${options} .itemTemplate=${itemTemplate}></vl-select-rich>`;
+```
+
+> Zet geen links of knoppen in de template, handel zulke acties af via het `vl-change`-event. Een
+> [`option`](https://www.w3.org/TR/wai-aria-1.2/#childrenArePresentational) verbergt zijn kinderen voor
+> hulptechnologie ([4.1.2](https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html)) en het toetsenbord
+> ([2.1.1](https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html)).
+
+<Canvas of={VlSelectRichStories.SelectRichItemTemplate} />
 
 
 ## Zoek strategieën

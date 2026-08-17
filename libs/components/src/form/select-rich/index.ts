@@ -1,5 +1,10 @@
 export { VlSelectRichComponent } from './vl-select-rich.component';
-export { type SelectRichOption, SelectRichPosition, SelectSearchStrategy } from './vl-select-rich.model';
+export {
+    type SelectRichItemTemplateFn,
+    type SelectRichOption,
+    SelectRichPosition,
+    SelectSearchStrategy,
+} from './vl-select-rich.model';
 export {
     type SelectRichSearchMatcher,
     exactAndMatcher,

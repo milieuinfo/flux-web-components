@@ -1,7 +1,7 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { html } from 'lit';
 import { parseFormData } from '../utils';
-import { SelectRichOption } from './index';
+import { SelectRichItemTemplateFn, SelectRichOption } from './index';
 import { VlSelectRichComponent } from './vl-select-rich.component';
 import { VlFormMessageComponent } from '../form-message/vl-form-message.component';
 
@@ -2308,5 +2308,285 @@ describe('cypress-component - form components - vl-select-rich - blur-validation
         cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
         cy.get('vl-select-rich').shadow().find('.vl-select__list .vl-select__item').first().click();
         cy.get('vl-form-message[state="valueMissing"]').should('not.have.attr', 'show');
+    });
+});
+
+describe('cypress-component - form components - vl-select-rich - option description', () => {
+    const options: SelectRichOption[] = [
+        { label: '0123.456.789', labelDescription: 'Industrieweg 123, 9876 Plaatsnaam', value: '0123456789' },
+        { label: '0987.654.321', labelDescription: 'Nijverheidsstraat 45, 2300 Turnhout', value: '0987654321' },
+        { label: 'Niet van toepassing', labelDescription: 'Er is geen bijhorende vestiging', value: 'geen-vestiging' },
+    ];
+
+    beforeEach(() => {
+        cy.viewport(1200, 800);
+    });
+
+    it('should render the description of an option in the dropdown', () => {
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; height: 420px; padding: 20px; background: white;">
+                <vl-select-rich
+                    label="vestigingsnummer"
+                    placeholder="Selecteer een optie"
+                    .options=${options}
+                ></vl-select-rich>
+            </div>
+        `);
+        cy.injectAxe();
+
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list--dropdown .vl-select__item')
+            .first()
+            .find('.vl-select__option-subtitle')
+            .should('have.text', 'Industrieweg 123, 9876 Plaatsnaam');
+
+        cy.checkA11y('vl-select-rich');
+        cy.document().then((doc) => doc.fonts.ready);
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-rich-option-description');
+    });
+
+    it('should link the description to the option with aria-describedby', () => {
+        cy.mount(
+            html`<vl-select-rich
+                label="vestigingsnummer"
+                placeholder="Selecteer een optie"
+                .options=${options}
+            ></vl-select-rich>`
+        );
+
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list--dropdown .vl-select__item')
+            .first()
+            .then(($item) => {
+                const describedBy = $item.attr('aria-describedby');
+                expect(describedBy).to.match(/\S/);
+                cy.get('vl-select-rich')
+                    .shadow()
+                    .find(`#${describedBy}`)
+                    .should('have.text', 'Industrieweg 123, 9876 Plaatsnaam');
+            });
+    });
+});
+
+describe('cypress-component - form components - vl-select-rich - item template', () => {
+    const options: SelectRichOption[] = [
+        {
+            label: '0123.456.789',
+            labelDescription: 'Industrieweg 123, 9876 Plaatsnaam',
+            value: '0123456789',
+            vestiging: 'Vestiging Hasselt',
+        },
+        {
+            label: '0987.654.321',
+            labelDescription: 'Nijverheidsstraat 45, 2300 Turnhout',
+            value: '0987654321',
+            vestiging: 'Vestiging Turnhout',
+        },
+        {
+            label: 'Niet van toepassing',
+            labelDescription: 'Er is geen bijhorende vestiging',
+            value: 'geen-vestiging',
+        },
+    ] as SelectRichOption[];
+
+    const itemTemplate: SelectRichItemTemplateFn = (option) => html`
+        <div class="vl-stacked">
+            <vl-text bold>${option.label}</vl-text>
+            ${(option as { vestiging?: string }).vestiging
+                ? html`<vl-text annotation>${(option as { vestiging?: string }).vestiging}</vl-text>`
+                : ''}
+            <vl-text annotation>${option.labelDescription}</vl-text>
+        </div>
+    `;
+
+    beforeEach(() => {
+        cy.viewport(1200, 800);
+    });
+
+    it('should render the item template in the dropdown', () => {
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; height: 420px; padding: 20px; background: white;">
+                <vl-select-rich
+                    label="vestigingsnummer"
+                    placeholder="Selecteer een optie"
+                    .options=${options}
+                    .itemTemplate=${itemTemplate}
+                ></vl-select-rich>
+            </div>
+        `);
+        cy.injectAxe();
+
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list--dropdown .vl-select__item')
+            .first()
+            .find('vl-text[bold]')
+            .should('have.text', '0123.456.789');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list--dropdown .vl-select__item')
+            .first()
+            .find('vl-text[annotation]')
+            .should('have.length', 2);
+
+        cy.checkA11y('vl-select-rich');
+        cy.document().then((doc) => doc.fonts.ready);
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-rich-item-template-dropdown');
+    });
+
+    it('should render a template built with vl-text and vl-stacked', () => {
+        const vlTextTemplate: SelectRichItemTemplateFn = (option) => html`
+            <div class="vl-stacked">
+                <vl-text bold>${option.label}</vl-text>
+                <vl-text annotation>${option.labelDescription}</vl-text>
+            </div>
+        `;
+
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; height: 420px; padding: 20px; background: white;">
+                <vl-select-rich
+                    label="vestigingsnummer"
+                    placeholder="Selecteer een optie"
+                    .options=${options}
+                    .itemTemplate=${vlTextTemplate}
+                ></vl-select-rich>
+            </div>
+        `);
+        cy.injectAxe();
+
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list--dropdown .vl-select__item')
+            .first()
+            .find('vl-text')
+            .should('have.length', 2);
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list--dropdown .vl-select__item vl-text[bold]')
+            .first()
+            .should('have.text', '0123.456.789')
+            .shadow()
+            .find('span.vl-text--bold')
+            .should('exist');
+
+        cy.checkA11y('vl-select-rich');
+        cy.document().then((doc) => doc.fonts.ready);
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-rich-item-template-vl-text');
+    });
+
+    it('should keep the data attributes of choices.js on the option', () => {
+        cy.mount(
+            html`<vl-select-rich
+                label="vestigingsnummer"
+                placeholder="Selecteer een optie"
+                .options=${options}
+                .itemTemplate=${itemTemplate}
+            ></vl-select-rich>`
+        );
+
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list--dropdown .vl-select__item')
+            .first()
+            .should('have.attr', 'data-value', '0123456789')
+            .and('have.attr', 'role', 'option')
+            .and('have.class', 'vl-select__item--selectable');
+    });
+
+    it('should not apply the item template to the selected option', () => {
+        cy.mount(html`
+            <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">
+                <vl-select-rich
+                    label="vestigingsnummer"
+                    placeholder="Selecteer een optie"
+                    .options=${options}
+                    .itemTemplate=${itemTemplate}
+                ></vl-select-rich>
+            </div>
+        `);
+        cy.injectAxe();
+
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich').shadow().find('.vl-select__list--dropdown .vl-select__item').first().click();
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__inner .vl-input-field .vl-select__item')
+            .should('contain.text', '0123.456.789')
+            .find('vl-text')
+            .should('not.exist');
+
+        cy.checkA11y('vl-select-rich');
+        cy.document().then((doc) => doc.fonts.ready);
+        cy.wait(100);
+        cy.get('.snapshot-wrapper').matchImageSnapshot('select-rich-item-template-selected');
+    });
+
+    it('should use the plain text label in the aria-label of the remove button', () => {
+        cy.mount(
+            html`<vl-select-rich
+                label="vestigingsnummer"
+                placeholder="Selecteer een optie"
+                .options=${options}
+                .itemTemplate=${itemTemplate}
+            ></vl-select-rich>`
+        );
+
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich').shadow().find('.vl-select__list--dropdown .vl-select__item').first().click();
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__inner .vl-input-field .vl-select__item .vl-pill__close')
+            .should('have.attr', 'aria-label', 'verwijder 0123.456.789');
+    });
+
+    it('should keep searching on the plain text label', () => {
+        cy.mount(
+            html`<vl-select-rich
+                label="vestigingsnummer"
+                placeholder="Selecteer een optie"
+                search
+                search-strategy="exact-and"
+                result-limit="20"
+                .options=${options}
+                .itemTemplate=${itemTemplate}
+            ></vl-select-rich>`
+        );
+
+        cy.get('vl-select-rich').shadow().find('.vl-select__inner').click();
+        cy.get('vl-select-rich').shadow().find('input').type('0987.654.321');
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__list--dropdown .vl-select__item')
+            .should('have.length', 1)
+            .find('vl-text[bold]')
+            .should('have.text', '0987.654.321');
+    });
+
+    it('should not apply the item template to the placeholder', () => {
+        cy.mount(
+            html`<vl-select-rich
+                label="vestigingsnummer"
+                placeholder="Selecteer een optie"
+                .options=${options}
+                .itemTemplate=${itemTemplate}
+            ></vl-select-rich>`
+        );
+
+        cy.get('vl-select-rich')
+            .shadow()
+            .find('.vl-select__inner .vl-select__placeholder')
+            .should('contain.text', 'Selecteer een optie')
+            .find('vl-text[bold]')
+            .should('not.exist');
     });
 });

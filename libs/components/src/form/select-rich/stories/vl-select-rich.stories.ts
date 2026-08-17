@@ -1,5 +1,10 @@
 import { story } from '@resources/utils-storybook';
-import { selectRichArgs, selectRichArgTypes } from './vl-select-rich.stories-arg';
+import {
+    selectRichArgs,
+    selectRichArgTypes,
+    vestigingItemTemplate,
+    vestigingOptions,
+} from './vl-select-rich.stories-arg';
 import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import selectRichDocs from './vl-select-rich.stories-doc.mdx';
@@ -168,6 +173,29 @@ SelectRichNotDeletable.args = {
         { label: 'Rio Piedras', value: 'rio piedras' },
     ],
 };
+
+export const SelectRichOptionDescription = SelectRichTemplate.bind({});
+SelectRichOptionDescription.storyName = 'vl-select-rich - option description';
+SelectRichOptionDescription.args = {
+    id: 'vestigingsnummer',
+    name: 'vestigingsnummer',
+    placeholder: 'Selecteer een optie',
+    options: vestigingOptions,
+};
+
+export const SelectRichItemTemplate = story(
+    selectRichArgs,
+    () =>
+        html`<vl-select-rich
+            id="vestigingsnummer"
+            name="vestigingsnummer"
+            label="vestigingsnummer"
+            placeholder="Selecteer een optie"
+            .options=${vestigingOptions}
+            .itemTemplate=${vestigingItemTemplate}
+        ></vl-select-rich>`
+);
+SelectRichItemTemplate.storyName = 'vl-select-rich - item template';
 
 export const SelectRichGroups = SelectRichTemplate.bind({});
 SelectRichGroups.storyName = 'vl-select-rich - groups';
