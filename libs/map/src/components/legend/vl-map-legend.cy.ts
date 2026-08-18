@@ -431,6 +431,34 @@ describe('component vl-map-legend - wms layer that requires a version', () => {
         </vl-map>
     `;
 
+    // Deze WMS dienst geeft enkel een legenda terug wanneer de version parameter meegestuurd wordt; zonder
+    // version antwoordt ze met een ServiceExceptionReport in plaats van een afbeelding. Dat gedrag bootsen we
+    // hier na in plaats van de dienst echt aan te spreken: wat deze testen horen te bewijzen is dat het
+    // component de version doorgeeft in de GetLegendGraphic URL, niet dat inspirepub.waterinfo.be op dat
+    // moment bereikbaar is. In de Jenkins pods is die host dat niet, waardoor beide varianten een gebroken
+    // afbeelding opleverden en enkel de test die een smalle afbeelding verwacht nog slaagde.
+    const serviceExceptionReport = `<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<ServiceExceptionReport version="1.3.0" xmlns="http://www.opengis.net/ogc">
+  <ServiceException code="InvalidParameterValue" locator="version">Version parameter is required</ServiceException>
+</ServiceExceptionReport>`;
+
+    beforeEach(() => {
+        cy.intercept({ hostname: 'inspirepub.waterinfo.be', query: { request: 'GetLegendGraphic' } }, (req) => {
+            // op de waarde controleren en niet enkel op aanwezigheid: een lege version telt ook voor de
+            // echte dienst niet als een geldige version
+            if (new URL(req.url).searchParams.get('version')) {
+                // dezelfde afmetingen als de echte legenda: 366 px breed
+                req.reply({ fixture: 'map/vl-map-legend.png' });
+            } else {
+                req.reply({
+                    statusCode: 200,
+                    headers: { 'content-type': 'text/xml' },
+                    body: serviceExceptionReport,
+                });
+            }
+        }).as('getLegendGraphic');
+    });
+
     it('should show the legend when a version is provided', () => {
         cy.mount(mapLegendWithVersion('1.3.0'));
         cy.get('vl-map-legend')
