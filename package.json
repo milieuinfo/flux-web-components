@@ -152,7 +152,9 @@
     "overrides": {
         "color-parse": {
             "color-name": "2.0.0"
-        }
+        },
+        "validator": "13.15.35",
+        "@babel/runtime": "7.26.10"
     },
     "volta": {
         "node": "22.20.0"
