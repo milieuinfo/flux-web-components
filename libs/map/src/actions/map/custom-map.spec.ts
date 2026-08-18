@@ -160,12 +160,12 @@ describe('custom map', () => {
         expect(overlay?.getElement()?.outerHTML).toBe(element);
     });
 
-    it('Als er geen overviewMapLayers zijn, zal er geen overviewMapControl aangemaakt worden.', () => {
+    it('Als er geen overviewMapLayers zijn, zal er geen overviewMapControl aangemaakt worden', () => {
         const map = createMapZonderLayers();
         expect(map.overviewMapControl).toBeUndefined();
     });
 
-    it('Wanneer de eerste overviewMapLayer wordt toegevoegd, wordt een overviewMapControl aangemaakt.', () => {
+    it('Wanneer de eerste overviewMapLayer wordt toegevoegd, wordt een overviewMapControl aangemaakt', () => {
         const map = createMapZonderLayers();
         const baseLayer = createVisibleBaseLayer();
         const overviewMapLayer = createInvisibleBaseLayer();

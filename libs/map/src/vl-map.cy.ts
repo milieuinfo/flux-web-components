@@ -478,90 +478,84 @@ describe('vl-map', () => {
         });
     });
 
-    describe('vl-map without lambert2008 attribute', () => {
-        it('the projection is that of Lambert 72', () => {
-            cy.mount(mapFixtureWithoutLambert2008);
-            cy.runTestFor<VlMap>('vl-map', (vlMap) => {
-                cy.wrap(vlMap.ready).then(() => {
-                    expect(vlMap.map.getView().getProjection().getCode()).to.be.equal('EPSG:31370');
-                });
+    it('without lambert2008 attribute - the projection is that of Lambert 72', () => {
+        cy.mount(mapFixtureWithoutLambert2008);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                expect(vlMap.map.getView().getProjection().getCode()).to.be.equal('EPSG:31370');
             });
         });
-        it('feature layers with a Lambert 72 projection-code should not reproject to Lambert 2008 (EPSG:3812)', () => {
-            cy.mount(html`
-                <vl-map>
-                    <vl-map-features-layer
-                        name="Shapes"
-                        features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[153055,203908]},"properties":{"styleId":"style-1"}}]}'
-                        projection-code="EPSG:31370"
-                    >
-                        <vl-map-layer-circle-style
-                            id="style-1"
-                            name="Openbaar onderzoek"
-                            color="#ffe615"
-                            size="5"
-                            border-color="#000"
-                            border-size="1"
-                        ></vl-map-layer-circle-style>
-                    </vl-map-features-layer>
-                </vl-map>
-            `);
-            cy.runTestFor<VlMap>('vl-map', (vlMap) => {
-                cy.wrap(vlMap.ready).then(() => {
-                    const layer = vlMap.nonBaseLayers[0];
-                    const source = layer._layer.getSource();
-                    const features = source.getFeatures();
-                    expect(features).to.have.length(1);
-                    const feature = features.find((feature) => feature.get('styleId') === 'style-1');
-                    expect(feature.getGeometry().getType()).to.be.equal('Point');
-                    expect(feature.getGeometry().getCoordinates()).to.be.deep.equal([153055, 203908]);
-                });
+    });
+    it('without lambert2008 attribute - feature layers with a Lambert 72 projection-code should not reproject to Lambert 2008 (EPSG:3812)', () => {
+        cy.mount(html`
+            <vl-map>
+                <vl-map-features-layer
+                    name="Shapes"
+                    features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[153055,203908]},"properties":{"styleId":"style-1"}}]}'
+                    projection-code="EPSG:31370"
+                >
+                    <vl-map-layer-circle-style
+                        id="style-1"
+                        name="Openbaar onderzoek"
+                        color="#ffe615"
+                        size="5"
+                        border-color="#000"
+                        border-size="1"
+                    ></vl-map-layer-circle-style>
+                </vl-map-features-layer>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                const layer = vlMap.nonBaseLayers[0];
+                const source = layer._layer.getSource();
+                const features = source.getFeatures();
+                expect(features).to.have.length(1);
+                const feature = features.find((feature) => feature.get('styleId') === 'style-1');
+                expect(feature.getGeometry().getType()).to.be.equal('Point');
+                expect(feature.getGeometry().getCoordinates()).to.be.deep.equal([153055, 203908]);
             });
         });
     });
 
     // with lambert2008 attribute
-    describe('vl-map with lambert2008 attribute', () => {
-        it('the projection is that of Lambert 2008', () => {
-            cy.mount(mapFixture);
-            cy.runTestFor<VlMap>('vl-map', (vlMap) => {
-                cy.wrap(vlMap.ready).then(() => {
-                    expect(vlMap.map.getView().getProjection().getCode()).to.be.equal('EPSG:3812');
-                });
+    it('with lambert2008 attribute - the projection is that of Lambert 2008', () => {
+        cy.mount(mapFixture);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                expect(vlMap.map.getView().getProjection().getCode()).to.be.equal('EPSG:3812');
             });
         });
-        it('feature layers with a Lambert 72 projection-code should reproject to Lambert 2008 (EPSG:3812)', () => {
-            cy.mount(html`
-                <vl-map lambert2008>
-                    <vl-map-features-layer
-                        name="Shapes"
-                        features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[153055,203908]},"properties":{"styleId":"style-1"}}]}'
-                        projection-code="EPSG:31370"
-                    >
-                        <vl-map-layer-circle-style
-                            id="style-1"
-                            name="Openbaar onderzoek"
-                            color="#ffe615"
-                            size="5"
-                            border-color="#000"
-                            border-size="1"
-                        ></vl-map-layer-circle-style>
-                    </vl-map-features-layer>
-                </vl-map>
-            `);
-            cy.runTestFor<VlMap>('vl-map', (vlMap) => {
-                cy.wrap(vlMap.ready).then(() => {
-                    const layer = vlMap.nonBaseLayers[0];
-                    const source = layer._layer.getSource();
-                    const features = source.getFeatures();
-                    expect(features).to.have.length(1);
-                    const feature = features.find((feature) => feature.get('styleId') === 'style-1');
-                    expect(feature.getGeometry().getType()).to.be.equal('Point');
-                    // coordinates should be reprojected to EPSG:3812
-                    expect(feature.getGeometry().getCoordinates()).to.be.deep.equal([
-                        653050.623011303, 703908.5023996672,
-                    ]);
-                });
+    });
+    it('with lambert2008 attribute - feature layers with a Lambert 72 projection-code should reproject to Lambert 2008 (EPSG:3812)', () => {
+        cy.mount(html`
+            <vl-map lambert2008>
+                <vl-map-features-layer
+                    name="Shapes"
+                    features='{"type":"FeatureCollection","features":[{"type":"Feature","geometry":{"type":"Point","coordinates":[153055,203908]},"properties":{"styleId":"style-1"}}]}'
+                    projection-code="EPSG:31370"
+                >
+                    <vl-map-layer-circle-style
+                        id="style-1"
+                        name="Openbaar onderzoek"
+                        color="#ffe615"
+                        size="5"
+                        border-color="#000"
+                        border-size="1"
+                    ></vl-map-layer-circle-style>
+                </vl-map-features-layer>
+            </vl-map>
+        `);
+        cy.runTestFor<VlMap>('vl-map', (vlMap) => {
+            cy.wrap(vlMap.ready).then(() => {
+                const layer = vlMap.nonBaseLayers[0];
+                const source = layer._layer.getSource();
+                const features = source.getFeatures();
+                expect(features).to.have.length(1);
+                const feature = features.find((feature) => feature.get('styleId') === 'style-1');
+                expect(feature.getGeometry().getType()).to.be.equal('Point');
+                // coordinates should be reprojected to EPSG:3812
+                expect(feature.getGeometry().getCoordinates()).to.be.deep.equal([653050.623011303, 703908.5023996672]);
             });
         });
     });
