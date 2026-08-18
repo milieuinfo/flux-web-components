@@ -21,6 +21,11 @@ const jestConfig: JestConfigWithTsJest = {
 // CI=true (gezet in unit-component-integrator-tests.sh) laat jest ook JUnit XML schrijven naar
 // test-results/, waar de junit-step van de Jenkins stage ze oppikt
 if (process.env.CI === 'true') {
+    // Jest kiest zijn aantal workers op basis van os.cpus(), en dat is in een Kubernetes pod het CPU-aantal van de
+    // node - niet de 2 CPU die deze pod vraagt. Bij libs/map (23 spec bestanden) werden dat evenveel parallelle
+    // jsdom workers, samen ruim over de 8Gi memory limit, en dan wordt de hele container gekilld.
+    jestConfig.maxWorkers = 2;
+
     jestConfig.reporters = [
         'default',
         [
