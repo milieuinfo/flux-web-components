@@ -1,3 +1,19 @@
+## [1.50.0](https://github.com/milieuinfo/flux-web-components/compare/v1.49.9...v1.50.0) (2026-08-18)
+
+### Features
+
+* FLUX-643 - Jenkins build - ci-bamboo naar ci-jenkins, Bamboo build verwijderd ([a72ea84](https://github.com/milieuinfo/flux-web-components/commit/a72ea84a6b31393b6133b5ab7133f6fd8fcdf0a6))
+* FLUX-643 - Jenkins build - doorlooptijd versneld door parallellisatie ([c2368cf](https://github.com/milieuinfo/flux-web-components/commit/c2368cffe0a540917737dd756da28ea951e948b7))
+* FLUX-643 - Jenkins build - initiële opzet ([55a6aab](https://github.com/milieuinfo/flux-web-components/commit/55a6aab47b153e18ce6c450391223fc550faf289))
+* FLUX-643 - Jenkins build - Jenkinsfile.groovy verbeteringen ([08bac49](https://github.com/milieuinfo/flux-web-components/commit/08bac49003f792bd247bfee0a4c38f7ba56091c4))
+* FLUX-643 - Jenkins build - publicatie van de Cypress testresultaten in Jenkins ([1284ad9](https://github.com/milieuinfo/flux-web-components/commit/1284ad99feabf92be3dc4032255a034c7697c9e4))
+* FLUX-643 - Jenkins build - verbeteringen ([f2c39df](https://github.com/milieuinfo/flux-web-components/commit/f2c39dfd5e4a6cf7be76c32b2c0083fda7a960c8))
+
+### Bug Fixes
+
+* FLUX-643 - Jenkins build - correcties na de eerste runs op Jenkins ([e6dff03](https://github.com/milieuinfo/flux-web-components/commit/e6dff0361e2f91253efc73a80e8263a0d0ee1556))
+* FLUX-643 - Jenkins build - naamgeving van de testen rechtgezet voor het testrapport ([a0948a2](https://github.com/milieuinfo/flux-web-components/commit/a0948a21c16660baa8b27ce03cb762bad92792b9))
+
 ## [1.49.9](https://github.com/milieuinfo/flux-web-components/compare/v1.49.8...v1.49.9) (2026-03-11)
 
 
