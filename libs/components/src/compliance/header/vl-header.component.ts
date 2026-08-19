@@ -85,7 +85,7 @@ export class VlHeader extends BaseLitElement {
     }
 
     private get headerContainerSkeleton(): Element | null {
-        return document.querySelector('#header__container__skeleton');
+        return document.querySelector('#header__skeleton');
     }
 
     connectedCallback() {

@@ -74,7 +74,7 @@ export class VlHeader extends BaseLitElement {
     }
 
     private get headerContainerSkeleton(): HTMLDivElement | null {
-        return document.querySelector<HTMLDivElement>('#header__container__skeleton');
+        return document.querySelector<HTMLDivElement>('#header__skeleton');
     }
 
     connectedCallback() {
@@ -130,7 +130,7 @@ export class VlHeader extends BaseLitElement {
 
         (document.querySelector('body') || document.body).insertAdjacentHTML(
             'afterbegin',
-            '<header id="header__container"><div id="header"></div></header>'
+            '<header id="header__container"><div id="header"></div></header>',
         );
         document.adoptedStyleSheets = [...document.adoptedStyleSheets, headerContainerStyles.styleSheet!];
     }
@@ -146,9 +146,13 @@ export class VlHeader extends BaseLitElement {
         return response.status === 200;
     }
 
-    private onReady() {
+    // class field met pijlfunctie, geen methode !
+    // -> window.addEventListener krijgt hier enkel een functiereferentie mee
+    // -> als gewone methode is 'this' bij het afvuren het window, en dan komt het ready-event op window
+    //    terecht in plaats van op de component - afnemers die op het element luisteren zien het dan nooit
+    private onReady = () => {
         this.dispatchEvent(new CustomEvent('ready'));
-    }
+    };
 
     private async loadWidget() {
         try {
@@ -156,8 +160,10 @@ export class VlHeader extends BaseLitElement {
 
             await awaitScript(
                 'vl-header-widget',
-                `https://widgets.${this.development ? 'tni-' : ''}vlaanderen.be/api/v2/widget/${this.identifier}/entry`
+                `https://widgets.${this.development ? 'tni-' : ''}vlaanderen.be/api/v2/widget/${this.identifier}/entry`,
             );
+
+            if (!this.isConnected) return;
 
             if (!window.globalHeaderClient) {
                 console.error('De global header client werd niet geladen.');
@@ -168,8 +174,14 @@ export class VlHeader extends BaseLitElement {
 
             await window.globalHeaderClient.mount(headerElement);
 
+            if (!this.isConnected) return;
+
             if (this.applicationLinks.length > 0) {
                 await window.globalHeaderClient.accessMenu.setApplicationMenuLinks(this.applicationLinks);
+
+                if (!this.isConnected) {
+                    return;
+                }
             }
 
             if (this.simple) {
@@ -214,9 +226,10 @@ export class VlHeader extends BaseLitElement {
 
     private async configureSession(): Promise<void> {
         const generation = ++this.configureSessionGeneration;
+        const isStale = () => generation !== this.configureSessionGeneration || !this.isConnected;
 
         const active = await this.isUserAuthenticated();
-        if (generation !== this.configureSessionGeneration) return;
+        if (isStale()) return;
 
         const config: Partial<ProfileConfig> = {
             active,
@@ -227,18 +240,18 @@ export class VlHeader extends BaseLitElement {
 
         if (active) {
             const token = await this.resolveProfileToken();
-            if (generation !== this.configureSessionGeneration) return;
+            if (isStale()) return;
 
             if (token) {
                 config.idpProfileToken = token;
             } else {
                 const idpData = await this.resolveIdpData();
-                if (generation !== this.configureSessionGeneration) return;
+                if (isStale()) return;
                 if (idpData) config.idpData = idpData;
             }
         }
 
-        if (generation !== this.configureSessionGeneration) return;
+        if (isStale()) return;
         window.globalHeaderClient?.accessMenu?.setProfile(config);
     }
 

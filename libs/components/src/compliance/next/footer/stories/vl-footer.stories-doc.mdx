@@ -44,6 +44,26 @@ import { VlFooter } from '@domg-wc/components/compliance/next';
 <ArgTypes of={VlFooterStories.FooterDefault}/>
 
 
+## Ready event
+
+De component vuurt het `ready` event af zodra de global footer widget in de DOM gemount is.
+
+Het event wordt afgevuurd **op het `<vl-footer-next>` element zelf**. Het bubbelt niet en gaat niet door shadow
+boundaries, dus registreer de listener op het element:
+
+```js
+document.querySelector('vl-footer-next').addEventListener('ready', () => {
+    // de widget staat in de DOM
+});
+```
+
+In een lit-template:
+
+```js
+html`<vl-footer-next identifier="..." @ready=${onReady}></vl-footer-next>`;
+```
+
+
 ## Sticky footer bar
 
 In collapsible modus toont de widget een `position: fixed` bar onderaan de pagina. Zonder

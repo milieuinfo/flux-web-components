@@ -94,14 +94,9 @@ describe('cypress-component - compliance components - vl-footer-next - propertie
 
 describe('cypress-component - compliance components - vl-footer-next - events', () => {
     it('should emit ready event', () => {
-        // De component luistert op window naar het mounted-event van de widget en vuurt van daaruit 'ready' af.
-        // Die handler is niet gebonden, dus de dispatcher is window - vandaar de listener op window en niet op het
-        // element. Hij moet geregistreerd zijn voor er gemount wordt, want het event volgt meteen op het script.
-        cy.window().then((win) => {
-            win.addEventListener('ready', cy.stub().as('ready'));
-        });
-
-        mountDefault({ ...props, development: true });
+        // mountDefault hangt de listener via @ready op het element zelf;
+        // de component vuurt 'ready' af zodra de widget gemount is
+        mountDefault({ ...props, development: true, onReady: cy.stub().as('ready') });
 
         cy.get('@ready').should('have.been.calledOnce');
     });
