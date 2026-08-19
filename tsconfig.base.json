@@ -3,7 +3,7 @@
         "baseUrl": ".",
         "outDir": "./build/tmp",
         "rootDirs": ["./libs", "./apps", "./resources"],
-        "types": ["cypress", "cypress-axe"],
+        "types": ["cypress", "cypress-axe", "node"],
         "paths": {
             "@domg-wc/common-storybook": ["libs/common/storybook/src/index.ts"],
             "@domg-wc/common-utilities": ["libs/common/utilities/src/index.ts"],

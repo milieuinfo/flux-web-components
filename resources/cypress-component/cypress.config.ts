@@ -15,10 +15,19 @@ const cypressConfig = defineConfig({
         // @ts-ignore: Ignoring missing property 'framework'
         devServer: {
             bundler: 'webpack',
-            headers: {
-                'Cache-Control': 'no-store',
-            },
             webpackConfig: {
+                devServer: {
+                    // Tegen de sporadische "An uncaught error was detected outside of a test" / ChunkLoadError in
+                    // Jenkins (zie https://github.com/cypress-io/cypress/issues/28644). De Cypress-proxy stuurt de
+                    // chunk-requests (/__cypress/src/*) door naar de webpack-dev-server over keep-alive connecties
+                    // die ze zelf nooit sluit en niet opnieuw probeert bij een fout; de Node http-server van
+                    // webpack-dev-server sluit idle connecties standaard na 5s. Valt een request precies in dat
+                    // venster, dan faalt hij (ECONNRESET) en laadt de spec niet. keepAliveTimeout 0 = idle
+                    // connecties nooit sluiten; ze verdwijnen pas wanneer de dev-server stopt.
+                    onListening: (devServer) => {
+                        devServer.server.keepAliveTimeout = 0;
+                    },
+                },
                 module: {
                     rules: [
                         {
