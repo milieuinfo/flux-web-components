@@ -8,10 +8,31 @@
         [
             "@semantic-release/commit-analyzer",
             {
-                "preset": "conventionalcommits"
+                "preset": "conventionalcommits",
+                "releaseRules": [
+                    { "type": "docs", "release": "patch" }
+                ]
             }
         ],
-        "@semantic-release/release-notes-generator",
+        [
+            "@semantic-release/release-notes-generator",
+            {
+                "preset": "conventionalcommits",
+                "presetConfig": {
+                    "types": [
+                        { "type": "fix", "section": "Bug Fixes" },
+                        { "type": "feat", "section": "Features" },
+                        { "type": "docs", "section": "Documentation" }
+                    ]
+                },
+                # de conventionalcommits preset rendert elke versie-heading als '##', waardoor een minor release er in
+                # de Storybook changelog uitziet als een patch release; deze headerPartial herstelt het gedrag van de
+                # standaard (angular) preset: '#' voor major/minor en '##' voor patch releases
+                "writerOpts": {
+                    "headerPartial": "{{#if isPatch}}##{{else}}#{{/if}} {{#if @root.linkCompare}}[{{version}}]({{@root.host}}/{{@root.owner}}/{{@root.repository}}/compare/{{previousTag}}...{{currentTag}}){{else}}{{version}}{{/if}}{{#if title}} \"{{title}}\"{{/if}}{{#if date}} ({{date}}){{/if}}\n"
+                }
+            }
+        ],
         [
             "@semantic-release/changelog",
             {
