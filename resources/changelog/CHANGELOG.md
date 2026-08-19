@@ -1,4 +1,4 @@
-## [2.18.0](https://github.com/milieuinfo/flux-web-components/compare/v2.17.0...v2.18.0) (2026-08-18)
+# [2.18.0](https://github.com/milieuinfo/flux-web-components/compare/v2.17.0...v2.18.0) (2026-08-18)
 
 
 ### Bug Fixes
