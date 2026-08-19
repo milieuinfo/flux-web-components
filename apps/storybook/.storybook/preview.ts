@@ -47,7 +47,7 @@ const cleanupDecorator: Decorator = (Story) => {
             .querySelectorAll(
                 `
                     body > #header__container,
-                    body > #header__container__skeleton,
+                    body > #header__skeleton,
                     body > #footer__container
                 `
             )

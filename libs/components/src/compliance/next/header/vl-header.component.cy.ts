@@ -1,5 +1,5 @@
 import { registerWebComponents } from '@domg-wc/common';
-import { html } from 'lit';
+import { html, TemplateResult } from 'lit';
 import { ApplicationLink, VlHeader } from './index';
 
 registerWebComponents([VlHeader]);
@@ -13,13 +13,34 @@ beforeEach(() => {
 });
 
 afterEach(() => {
+    // awaitScript slaat het laden over als er al een script met dit id staat, dus zonder opkuis krijgt de volgende
+    // test geen widget meer. Via document i.p.v. cy.get: het script hoeft er niet te zijn als een test vroeg faalt.
     document.querySelector('script#vl-header-widget')?.remove();
+    // De component ruimt zijn container zelf op bij disconnect; deze regel vangt de gevallen op waarin dat niet
+    // gebeurde, zodat een volgende test nooit twee #header__container-elementen ziet.
     document.querySelector('#header__container')?.remove();
+    // Weg met de client en de opgevangen setProfile-calls van deze test: anders is de wachtvoorwaarde in
+    // mountHeader meteen voldaan met de widget van de vorige test en lezen we diens configuratie uit.
+    delete (window as unknown as Record<string, unknown>).globalHeaderClient;
+    delete (window as unknown as Record<string, unknown>).__setProfileCalls;
 });
+
+/**
+ * Alle tests van dit bestand delen eenzelfde window. Een test die eindigt terwijl zijn widget-script nog onderweg
+ * is, laat dat script in de volgende test uitvoeren: dat vuurt daar een tweede 'widget.global_header.mounted' af
+ * en overschrijft window.globalHeaderClient (inclusief de opgevangen setProfile-calls). Vandaar dat elke mount
+ * hier wacht tot het script van deze test effectief uitgevoerd is - wachten op de response alleen volstaat niet.
+ */
+const mountHeader = (template: TemplateResult) => {
+    cy.mount(template);
+    cy.wait('@widgetScript');
+
+    return cy.window().its('globalHeaderClient').should('exist');
+};
 
 describe('cypress-component - compliance components - vl-header-next - default', () => {
     beforeEach(() => {
-        cy.mount(html`
+        mountHeader(html`
             <body>
                 <vl-header-next development identifier="${identifier}"></vl-header-next>
             </body>
@@ -51,15 +72,14 @@ describe('cypress-component - compliance components - vl-header-next - default',
 
 describe('cypress-component - compliance components - vl-header-next - ready event', () => {
     it('should dispatch ready event when ready', () => {
-        cy.window().then((win) => {
-            win.addEventListener('ready', cy.stub().as('ready'));
-        });
-        cy.mount(html`
+        const onReady = cy.stub().as('ready');
+
+        mountHeader(html`
             <body>
-                <vl-header-next development identifier="${identifier}"></vl-header-next>
+                <vl-header-next development identifier="${identifier}" @ready=${onReady}></vl-header-next>
             </body>
         `);
-        cy.wait('@widgetScript');
+
         cy.get('@ready').should('have.been.calledOnce');
     });
 });
@@ -83,7 +103,7 @@ describe('cypress-component - compliance components - vl-header-next - applicati
             'widgetScript',
         );
 
-        cy.mount(html`
+        mountHeader(html`
             <body>
                 <vl-header-next
                     development
@@ -93,7 +113,6 @@ describe('cypress-component - compliance components - vl-header-next - applicati
             </body>
         `);
 
-        cy.wait('@widgetScript');
         cy.get('#header__container > div').shadow().find('button.access-menu-toggle__button').click();
         cy.get('#header__container > div')
             .shadow()
@@ -108,7 +127,7 @@ describe('cypress-component - compliance components - vl-header-next - applicati
 
 describe('cypress-component - compliance components - vl-header-next - skeleton', () => {
     it('should render the skeleton container', () => {
-        cy.mount(html`
+        mountHeader(html`
             <body>
                 <vl-header-next development identifier="${identifier}" skeleton></vl-header-next>
             </body>
@@ -133,7 +152,7 @@ describe('cypress-component - compliance components - vl-header-next - PAPI prof
             .then((calls: Record<string, unknown>[]) => calls[calls.length - 1]);
 
     it('should pass idpProfileToken via JS property when set', () => {
-        cy.mount(html`
+        mountHeader(html`
             <body>
                 <vl-header-next
                     development
@@ -142,7 +161,6 @@ describe('cypress-component - compliance components - vl-header-next - PAPI prof
                 ></vl-header-next>
             </body>
         `);
-        cy.wait('@widgetScript');
         cy.wait('@authActive');
 
         lastSetProfileCall().should((config) => {
@@ -157,7 +175,7 @@ describe('cypress-component - compliance components - vl-header-next - PAPI prof
             body: 'token-from-url',
         }).as('tokenFetch');
 
-        cy.mount(html`
+        mountHeader(html`
             <body>
                 <vl-header-next
                     development
@@ -166,7 +184,6 @@ describe('cypress-component - compliance components - vl-header-next - PAPI prof
                 ></vl-header-next>
             </body>
         `);
-        cy.wait('@widgetScript');
         cy.wait('@authActive');
         cy.wait('@tokenFetch');
 
@@ -182,7 +199,7 @@ describe('cypress-component - compliance components - vl-header-next - PAPI prof
             body: 'token-from-url',
         }).as('tokenFetch');
 
-        cy.mount(html`
+        mountHeader(html`
             <body>
                 <vl-header-next
                     development
@@ -192,7 +209,6 @@ describe('cypress-component - compliance components - vl-header-next - PAPI prof
                 ></vl-header-next>
             </body>
         `);
-        cy.wait('@widgetScript');
         cy.wait('@authActive');
 
         lastSetProfileCall().should((config) => {
@@ -203,7 +219,7 @@ describe('cypress-component - compliance components - vl-header-next - PAPI prof
     it('should not include idpProfileToken when user is not authenticated', () => {
         cy.intercept('GET', '/sso/ingelogde_gebruiker', { statusCode: 401, body: '' }).as('authInactive');
 
-        cy.mount(html`
+        mountHeader(html`
             <body>
                 <vl-header-next
                     development
@@ -212,7 +228,6 @@ describe('cypress-component - compliance components - vl-header-next - PAPI prof
                 ></vl-header-next>
             </body>
         `);
-        cy.wait('@widgetScript');
         cy.wait('@authInactive');
 
         lastSetProfileCall().should((config) => {
@@ -226,12 +241,11 @@ describe('cypress-component - compliance components - vl-header-next - PAPI prof
             user: { firstName: 'John', name: 'Doe' },
         };
 
-        cy.mount(html`
+        mountHeader(html`
             <body>
                 <vl-header-next development identifier="${identifier}" .idpData=${mockIdpData}></vl-header-next>
             </body>
         `);
-        cy.wait('@widgetScript');
         cy.wait('@authActive');
 
         lastSetProfileCall().should((config) => {
@@ -245,12 +259,11 @@ describe('cypress-component - compliance components - vl-header-next - PAPI prof
             body: { user: { firstName: 'Jane', name: 'Smith' } },
         }).as('idpDataFetch');
 
-        cy.mount(html`
+        mountHeader(html`
             <body>
                 <vl-header-next development identifier="${identifier}" idp-data-url="/api/idp-data"></vl-header-next>
             </body>
         `);
-        cy.wait('@widgetScript');
         cy.wait('@authActive');
         cy.wait('@idpDataFetch');
 
@@ -264,7 +277,7 @@ describe('cypress-component - compliance components - vl-header-next - PAPI prof
             user: { firstName: 'John', name: 'Doe' },
         };
 
-        cy.mount(html`
+        mountHeader(html`
             <body>
                 <vl-header-next
                     development
@@ -274,7 +287,6 @@ describe('cypress-component - compliance components - vl-header-next - PAPI prof
                 ></vl-header-next>
             </body>
         `);
-        cy.wait('@widgetScript');
         cy.wait('@authActive');
 
         lastSetProfileCall().should((config) => {
@@ -290,12 +302,11 @@ describe('cypress-component - compliance components - vl-header-next - PAPI prof
             body: { user: { firstName: 'Jane', name: 'Smith' } },
         }).as('idpDataFetch');
 
-        cy.mount(html`
+        mountHeader(html`
             <body>
                 <vl-header-next development identifier="${identifier}" idp-data-url="/api/idp-data"></vl-header-next>
             </body>
         `);
-        cy.wait('@widgetScript');
         cy.wait('@authInactive');
 
         lastSetProfileCall().should((config) => {
@@ -312,7 +323,7 @@ describe('cypress-component - compliance components - vl-header-next - PAPI prof
             body: 'token-from-url',
         }).as('tokenFetch');
 
-        cy.mount(html`
+        mountHeader(html`
             <body>
                 <vl-header-next
                     development
@@ -321,7 +332,6 @@ describe('cypress-component - compliance components - vl-header-next - PAPI prof
                 ></vl-header-next>
             </body>
         `);
-        cy.wait('@widgetScript');
         cy.wait('@authActive');
         cy.wait('@tokenFetch');
 
@@ -340,7 +350,7 @@ describe('cypress-component - compliance components - vl-header-next - PAPI prof
             delay: 500,
         }).as('slowToken');
 
-        cy.mount(html`
+        mountHeader(html`
             <body>
                 <vl-header-next
                     development
@@ -349,7 +359,6 @@ describe('cypress-component - compliance components - vl-header-next - PAPI prof
                 ></vl-header-next>
             </body>
         `);
-        cy.wait('@widgetScript');
         cy.wait('@authActive');
 
         cy.get('vl-header-next').then(($el) => {

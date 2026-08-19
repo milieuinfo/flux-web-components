@@ -56,9 +56,13 @@ export class VlFooter extends BaseLitElement {
         );
     }
 
-    private onReady() {
+    // class field met pijlfunctie, geen methode !
+    // -> window.addEventListener krijgt hier enkel een functiereferentie mee
+    // -> als gewone methode is 'this' bij het afvuren het window, en dan komt het ready-event op window
+    //    terecht in plaats van op de component - afnemers die op het element luisteren zien het dan nooit
+    private onReady = () => {
         this.dispatchEvent(new CustomEvent('ready'));
-    }
+    };
 
     private async loadWidget() {
         try {
