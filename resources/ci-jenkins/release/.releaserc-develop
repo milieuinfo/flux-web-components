@@ -8,10 +8,25 @@
         [
             "@semantic-release/commit-analyzer",
             {
-                "preset": "conventionalcommits"
+                "preset": "conventionalcommits",
+                "releaseRules": [
+                    { "type": "docs", "release": "patch" }
+                ]
             }
         ],
-        "@semantic-release/release-notes-generator",
+        [
+            "@semantic-release/release-notes-generator",
+            {
+                "preset": "conventionalcommits",
+                "presetConfig": {
+                    "types": [
+                        { "type": "fix", "section": "Bug Fixes" },
+                        { "type": "feat", "section": "Features" },
+                        { "type": "docs", "section": "Documentation" }
+                    ]
+                }
+            }
+        ],
         [
             "@semantic-release/changelog",
             {
