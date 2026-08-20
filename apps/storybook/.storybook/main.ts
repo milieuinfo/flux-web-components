@@ -155,6 +155,10 @@ const config: StorybookConfig = {
                 __dirname,
                 '../../../libs/components/src/compliance/index.ts',
             ),
+            '@domg-wc/components/form/next': path.resolve(
+                __dirname,
+                '../../../libs/components/src/form/next/index.ts',
+            ),
             '@domg-wc/components/form': path.resolve(__dirname, '../../../libs/components/src/form/index.ts'),
             '@domg-wc/integrations/form': path.resolve(__dirname, '../../../libs/integrations/src/form/index.ts'),
             '@domg-wc/integrations/map': path.resolve(__dirname, '../../../libs/integrations/src/map/index.ts'),

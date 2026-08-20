@@ -280,6 +280,12 @@
                                 "description": "Gebruik deze property wanneer je een statische lijst van items wilt gebruiken.",
                                 "type": "array",
                                 "default": ""
+                            },
+                            {
+                                "name": "itemTemplate",
+                                "description": "Gebruik deze property om zelf te bepalen hoe de inhoud van een suggestie gerenderd wordt. De functie krijgt het volledige item mee en geeft een lit `TemplateResult` terug. Wordt deze property ingesteld, dan valt `caption-format` weg voor de suggesties.\n\nKan niet aangepast worden in Storybook.",
+                                "type": "function",
+                                "default": "undefined"
                             }
                         ],
                         "events": [
@@ -364,6 +370,7 @@
                 },
                 {
                     "name": "vl-description-data",
+                    "description": "Gebruik de `description-data` component om label / waarde-paren als een samenhangende lijst weer te geven, bijvoorbeeld\nde metadata van een publicatie. De paren worden als een `<dl>` met `<dt>` en `<dd>` gerenderd, zodat een schermlezer\nelk paar als term en definitie aankondigt.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-block-description-data-description-data--documentatie",
                     "attributes": [
                         {

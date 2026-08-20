@@ -1,4 +1,5 @@
 import { checkboxArgTypes } from '../../../libs/components/src/form/checkbox/stories/vl-checkbox.stories-arg';
+import { compositeInputArgTypes } from '../../../libs/components/src/form/next/composite-input/stories/vl-composite-input.stories-arg';
 import { datepickerArgTypes } from '../../../libs/components/src/form/datepicker/stories/vl-datepicker.stories-arg';
 import { fieldsetArgTypes } from '../../../libs/components/src/form/fieldset/stories/vl-fieldset.stories-arg';
 import { formLabelArgTypes } from '../../../libs/components/src/form/form-label/stories/vl-form-label.stories-arg';
@@ -21,6 +22,12 @@ export const buildWTConfigComponentsForm: WTConfigArray = [
         checkboxArgTypes,
         '../../libs/components/src/form/checkbox/stories/vl-checkbox.stories-doc.mdx',
         '/docs/components-form-checkbox--documentatie'
+    ),
+    buildWTConfig(
+        'vl-composite-input-next',
+        compositeInputArgTypes,
+        '../../libs/components/src/form/next/composite-input/stories/vl-composite-input.stories-doc.mdx',
+        '/docs/components-form-next-composite-input--documentatie'
     ),
     buildWTConfig(
         'vl-datepicker',

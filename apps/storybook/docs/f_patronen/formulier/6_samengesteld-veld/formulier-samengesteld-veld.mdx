@@ -1,0 +1,121 @@
+import { Canvas, Meta, Source } from '@storybook/addon-docs/blocks';
+import * as formSamengesteldVeldStories from './formulier-samengesteld-veld.stories';
+import formSamengesteldVeldSource from '../../../../../../libs/integrations/src/form/composite-input/vl-form-composite-input.component.ts?raw';
+import formSamengesteldVeldEenheidSource from '../../../../../../libs/integrations/src/form/composite-input/vl-form-composite-input-eenheid.component.ts?raw';
+import formSamengesteldVeldDatumbereikSource from '../../../../../../libs/integrations/src/form/composite-input/vl-form-composite-input-datumbereik.component.ts?raw';
+import formSamengesteldVeldContactSource from '../../../../../../libs/integrations/src/form/composite-input/vl-form-composite-input-contact.component.ts?raw';
+
+<Meta of={formSamengesteldVeldStories} />
+
+# Formulier - Samengesteld veld
+
+> Bouwt verder op [Formulier - Validatie](/docs/patronen-formulier-validatie--documentatie),
+> [Formulier - Aangepaste Validatie](/docs/patronen-formulier-aangepaste-validatie--documentatie) en
+> [Formulier - Form Data](/docs/patronen-formulier-form-data--documentatie). De betekenis van de
+> validiteitsstaten en het koppelen van een `vl-form-message` staan daar beschreven; hier komt enkel
+> het samenstellen van meerdere velden tot één control aan bod.
+
+Soms vormen twee of meer velden **samen** één logische waarde: een coördinaat, een bedrag met
+munteenheid, een van/tot-bereik. Dan wil je dat ze samen als **één control** valideren: één
+gezamenlijke geldigheid en één foutboodschap per staat, terwijl elk veld wél zijn eigen waarde in
+het formulier indient.
+
+`vl-composite-input-next` is een **form-associated control uit de bibliotheek** (`@domg-wc/components/form/next`, via
+`ElementInternals`): hij leest zijn kinderen, controleert ze samen en toont de foutmelding voor het samengestelde veld.
+
+## Gebruik
+
+```js
+import { VlCompositeInputComponent, type CompositeValues } from '@domg-wc/components/form/next';
+```
+
+Je registreert de component zoals elke andere en plaatst je eigen form-controls, elk met een `name`, als kinderen. De
+regel die over de velden samen gaat, schrijf je zelf in de `customValidator`.
+
+Alle attributen, properties en events staan op de componentpagina
+[Form Composite Input](/docs/components-form-next-composite-input--documentatie).
+
+## Patroon
+
+- **N velden**: het patroon is niet beperkt tot twee. Elk bijkomend form-control met een eigen `name` doet automatisch
+  mee.
+- **Doorgeven**: `disabled` en `success` geeft de composite door aan haar kinderen. `error` niet: daarmee zet je de
+  composite zelf op ongeldig.
+- **`required`**: op de composite betekent het dat álle velden ingevuld moeten zijn, met één melding voor het
+  samengestelde veld. Wil je één veld apart verplicht maken, zet `required` dan op dat kind; dat veld toont dan zijn
+  eigen melding.
+
+In het voorbeeld hieronder vormen twee `vl-input-field` velden (longitude + latitude) één `required` control. Elk veld
+draagt zijn eigen `min`/`max`, en een eigen validator controleert of het punt binnen België ligt. Probeer
+`lon=4.35, lat=50.85` (Brussel, geldig), daarna `lon=7.5, lat=48` (buiten België).
+
+<Canvas of={formSamengesteldVeldStories.FormulierSamengesteldVeld} sourceState="none" />
+
+De kern, zonder de demo-omkadering:
+
+```html
+<!-- Elke melding wordt binnen de form opgezocht: composite, velden en meldingen moeten in dezelfde <form> staan,
+     anders verschijnt er niets. De validatie loopt bij het versturen. -->
+<form>
+    <vl-composite-input-next id="coordinaten" label="Coördinaten (lon, lat)" required>
+        <!-- name = sleutel in de FormData en in de validator; id = waar een vl-form-message naar verwijst -->
+        <vl-input-field id="lon" name="coordinaten-lon" label="Longitude" type="number" min="-180" max="180"></vl-input-field>
+        <vl-input-field id="lat" name="coordinaten-lat" label="Latitude" type="number" min="-90" max="90"></vl-input-field>
+    </vl-composite-input-next>
+
+    <!-- meldingen voor het samengestelde veld, op de composite; leeg gelaten = de composite vult de tekst zelf in -->
+    <vl-form-message for="coordinaten" state="valueMissing"></vl-form-message>
+    <vl-form-message for="coordinaten" state="customError"></vl-form-message>
+
+    <!-- melding per veld, op het kind, met eigen tekst per staat -->
+    <vl-form-message for="lon" state="rangeUnderflow">Longitude moet minstens -180 zijn.</vl-form-message>
+    <vl-form-message for="lon" state="rangeOverflow">Longitude mag maximaal 180 zijn.</vl-form-message>
+    <vl-form-message for="lat" state="rangeUnderflow">Latitude moet minstens -90 zijn.</vl-form-message>
+    <vl-form-message for="lat" state="rangeOverflow">Latitude mag maximaal 90 zijn.</vl-form-message>
+
+    <button type="submit">Verstuur</button>
+</form>
+```
+
+Dit levert de FormData-sleutels `coordinaten-lon` en `coordinaten-lat` op.
+
+<details>
+    <summary>Volledige demo-component</summary>
+    <Source code={formSamengesteldVeldSource} language="ts" dark={true} />
+</details>
+
+## Andere voorbeelden
+
+De `customValidator` krijgt de waarden als tekst, dus je zet ze zelf om naar wat je nodig hebt. Zo werkt dit met elk
+veld dat een `value` heeft.
+
+### Getal + eenheid (`vl-input-field` + `vl-select`)
+
+<Canvas of={formSamengesteldVeldStories.FormulierSamengesteldVeldEenheid} sourceState="none" />
+
+<details>
+    <summary>Volledige demo-component</summary>
+    <Source code={formSamengesteldVeldEenheidSource} language="ts" dark={true} />
+</details>
+
+### Datumbereik (twee `vl-datepicker`)
+
+<Canvas of={formSamengesteldVeldStories.FormulierSamengesteldVeldDatumbereik} sourceState="none" />
+
+<details>
+    <summary>Volledige demo-component</summary>
+    <Source code={formSamengesteldVeldDatumbereikSource} language="ts" dark={true} />
+</details>
+
+### Contactmethode (`vl-select` + `vl-input-field`)
+
+<Canvas of={formSamengesteldVeldStories.FormulierSamengesteldVeldContact} sourceState="none" />
+
+<details>
+    <summary>Volledige demo-component</summary>
+    <Source code={formSamengesteldVeldContactSource} language="ts" dark={true} />
+</details>
+
+## Toegankelijkheid
+
+- Zet een `label` op de composite én op elk kind, zodat schermlezers elk veld kunnen benoemen.

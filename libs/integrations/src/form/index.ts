@@ -1,4 +1,10 @@
 export {
+    VlFormCompositeInputComponent,
+    VlFormCompositeInputEenheidComponent,
+    VlFormCompositeInputDatumbereikComponent,
+    VlFormCompositeInputContactComponent,
+} from './composite-input';
+export {
     VlFormCrossValidationComponent,
     VlFormCrossValidationConditionalComponent,
     VlFormCrossValidationMatchComponent,

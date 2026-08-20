@@ -115,6 +115,89 @@
                     }
                 },
                 {
+                    "name": "vl-composite-input-next",
+                    "description": "Gebruik de `vl-composite-input-next` component wanneer twee of meer velden samen één logische waarde vormen: een coördinaat,\neen bedrag met munteenheid, een van/tot-bereik.\n\nDe component leest de velden die je erin plaatst, controleert ze samen en draagt de foutmelding voor het samengestelde\nveld. Elk veld dient wel zijn eigen waarde in onder zijn eigen `name`; de composite heeft zelf geen waarde.\n\nZie [Formulier - Samengesteld veld](/docs/patronen-formulier-samengesteld-veld--documentatie) voor het volledige\npatroon, met uitgewerkte voorbeelden.",
+                    "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-next-composite-input--documentatie",
+                    "attributes": [
+                        {
+                            "name": "custom-css",
+                            "description": "Custom CSS string.<br>Wordt toegevoegd aan de adoptedStyleSheets in de shadow DOM van de component.",
+                            "default": ""
+                        },
+                        {
+                            "name": "id",
+                            "description": "Het id van het veld.",
+                            "default": ""
+                        },
+                        {
+                            "name": "name",
+                            "description": "De naam van het veld.",
+                            "default": ""
+                        },
+                        {
+                            "name": "label",
+                            "description": "Vult het aria-label attribuut van het veld in.<br/>Kan gebruikt worden als er geen bijhorend label element of vl-form-label component is.",
+                            "default": ""
+                        },
+                        {
+                            "name": "required",
+                            "description": "Duidt aan dat het veld verplicht is.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "disabled",
+                            "description": "Beeldt de component in een disabled state af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "error",
+                            "description": "Beeldt de component in een error state af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "success",
+                            "description": "Beeldt de component in een success state af.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "blur-validation",
+                            "description": "Activeert on-blur validatie met live recovery.<br>Wanneer aan: het veld valideert op `focusout` zodra het focus had en weer verlaten wordt (ongeacht of de waarde gewijzigd is). Na de eerste foutmelding schakelt het veld over op live re-validatie tijdens typen, tot de waarde geldig is. Submit blijft de definitieve check.<br>Cascade: je kan dit ook in één keer voor alle form controls onder een form inschakelen door `blur-validation` of `data-blur-validation` op het `<form>` element te zetten. Een veld met het eigen attribuut blijft daarnaast los werken.<br>Default: `false` (gedrag van vóór deze feature, validatie enkel op submit).",
+                            "default": "false"
+                        }
+                    ],
+                    "slots": [
+                        {
+                            "name": "default slot (vereist)",
+                            "description": "De velden die samen het samengestelde veld vormen. Geef elk veld een eigen <code>name</code>.",
+                            "default": ""
+                        }
+                    ],
+                    "js": {
+                        "properties": [
+                            {
+                                "name": "customValidator",
+                                "description": "Functie die de velden samen controleert.<br>Krijgt de waarden per <code>name</code> van elk kind en geeft een string terug om af te keuren, of null wanneer alles in orde is.",
+                                "type": "CompositeCustomValidator",
+                                "default": ""
+                            }
+                        ],
+                        "events": [
+                            {
+                                "name": "vl-reset",
+                                "description": "Event dat afgevuurd wordt wanneer het veld gereset wordt."
+                            },
+                            {
+                                "name": "vl-change",
+                                "description": "Event dat afgevuurd wordt wanneer een van de velden een andere waarde krijgt."
+                            },
+                            {
+                                "name": "vl-valid",
+                                "description": "Event dat afgevuurd wordt wanneer het samengestelde veld geldig is."
+                            }
+                        ]
+                    }
+                },
+                {
                     "name": "vl-datepicker",
                     "description": "Gebruik de `datepicker` component om de gebruiker op een gebruiksvriendelijke manier een datum of tijd te laten selecteren.<br/>\nZie het [form demo](/docs/patronen-formulier-demo--documentatie) voorbeeld voor het gebruik binnen een form.",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-datepicker--documentatie",

@@ -1,0 +1,50 @@
+import { ArgTypes, Canvas } from '@storybook/addon-docs/blocks';
+import * as VlCompositeInputStories from './vl-composite-input.stories';
+
+# Form Composite Input (next)
+
+<FluxComponentMetaData id="components-form-next-composite-input" />
+
+## Doel
+
+Gebruik de `vl-composite-input-next` component wanneer twee of meer velden samen één logische waarde vormen: een coördinaat,
+een bedrag met munteenheid, een van/tot-bereik.
+
+De component leest de velden die je erin plaatst, controleert ze samen en draagt de foutmelding voor het samengestelde
+veld. Elk veld dient wel zijn eigen waarde in onder zijn eigen `name`; de composite heeft zelf geen waarde.
+
+Zie [Formulier - Samengesteld veld](/docs/patronen-formulier-samengesteld-veld--documentatie) voor het volledige
+patroon, met uitgewerkte voorbeelden.
+
+## Voorbeeld
+
+```js
+import { VlCompositeInputComponent } from '@domg-wc/components/form/next';
+```
+
+```html
+<vl-composite-input-next id="coordinaten" label="Coördinaten (lon, lat)" required>
+    <vl-input-field id="lon" name="coordinaten-lon" label="Longitude" type="number"></vl-input-field>
+    <vl-input-field id="lat" name="coordinaten-lat" label="Latitude" type="number"></vl-input-field>
+</vl-composite-input-next>
+```
+
+<Canvas of={VlCompositeInputStories.CompositeInputDefault} />
+
+## Configuratie
+
+<ArgTypes of={VlCompositeInputStories.CompositeInputDefault} />
+
+## Validatie
+
+- `required` geldt over alle velden samen en levert `valueMissing` op.
+- De `customValidator` krijgt de waarden per `name` van elk kind en levert `customError` op. Hij loopt pas wanneer alle
+  velden ingevuld zijn.
+- Laat je een `vl-form-message` leeg, dan vult de composite de tekst zelf in: bij `valueMissing` met een opsomming van
+  de nog lege velden, bij `customError` met de tekst uit je validator.
+- Constraints die maar over één veld gaan (`min`, `max`, `pattern`, ...) horen op dat veld zelf, met een eigen
+  `vl-form-message` die naar het `id` van dat veld verwijst.
+
+## Toegankelijkheid
+
+Zet een `label` op de composite én op elk veld erin, zodat schermlezers elk veld kunnen benoemen.
