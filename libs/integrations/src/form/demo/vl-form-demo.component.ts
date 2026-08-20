@@ -99,7 +99,12 @@ export class VlFormDemoComponent extends LitElement {
 
     override render() {
         return html`
-            <form id="form" class="vl-form" @submit=${this.onSubmit}>
+            <form
+                id="form"
+                class="vl-form"
+                blur-validation
+                @submit=${this.onSubmit}
+            >
                 <div class="vl-grid vl-stacked-small">
                     <div class="vl-column vl-column--4 vl-column--s-12">
                         <vl-form-label for="naam" label="Naam *"></vl-form-label>

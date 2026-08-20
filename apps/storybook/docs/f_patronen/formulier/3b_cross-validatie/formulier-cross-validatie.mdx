@@ -1,0 +1,138 @@
+import { Canvas, Meta, Source } from '@storybook/addon-docs/blocks';
+import * as formCrossValidationStories from './formulier-cross-validatie.stories';
+import formCrossValidationSource from '../../../../../../libs/integrations/src/form/cross-validation/vl-form-cross-validation.component?raw';
+import formCrossValidationMatchSource from '../../../../../../libs/integrations/src/form/cross-validation/vl-form-cross-validation-match.component?raw';
+import formCrossValidationConditionalSource from '../../../../../../libs/integrations/src/form/cross-validation/vl-form-cross-validation-conditional.component?raw';
+
+<Meta of={formCrossValidationStories} />
+
+# Formulier - Cross-Validatie
+
+> Bouwt verder op [Formulier - Validatie](/docs/patronen-formulier-validatie--documentatie) en
+> [Formulier - Aangepaste Validatie](/docs/patronen-formulier-aangepaste-validatie--documentatie). Hoe je een custom
+> validator schrijft en een `vl-form-message` koppelt staat daar beschreven; hier komt enkel de afhankelijkheid van een
+> **ander veld** aan bod.
+
+Soms hangt de geldigheid van een veld af van de waarde van een ander veld in hetzelfde formulier: een code die enkel
+bij een bepaalde procedure geldt, een bevestigingsveld dat moet overeenkomen, een veld dat enkel verplicht is bij een
+bepaalde keuze.
+
+`CrossValidationMixin` is een mixin **uit de bibliotheek** (`@domg-wc/components/form`): hij luistert naar wijzigingen
+op de velden waarvan je validator afhangt, en hervalideert je veld zodra een daarvan verandert.
+
+## Gebruik
+
+```ts
+import { CrossValidationMixin, type ValidatorWithDeps } from '@domg-wc/components/form';
+```
+
+Je schrijft een validator met `dependencySelectors`, en wrapt de form control waarop je hem toepast in de mixin. Het
+`instance` argument in de validator is het host element van die control: via `instance.form` bereik je het native
+`HTMLFormElement`, en dus elk ander veld via `querySelector`.
+
+Als voorbeeld een code-veld dat exact `ABC-123` moet zijn, maar enkel wanneer de procedure **Strikt** is.
+
+### 1. De validator
+
+```ts
+const crossFieldValidator: ValidatorWithDeps = {
+    key: 'customError',
+    message: `Bij de strikte procedure moet de code 'ABC-123' zijn.`,
+    dependencySelectors: ['#procedure'],
+    isValid(instance: HTMLElement, value: string): boolean {
+        if (!value) return true;
+
+        const form = (instance as HTMLElement & { form: HTMLFormElement | null }).form;
+        if (!form) return true;
+
+        const procedure = form.querySelector<HTMLElement & { value: string }>('#procedure')?.value;
+        return procedure !== 'strikt' || value === 'ABC-123';
+    },
+};
+```
+
+`ValidatorWithDeps` is de gewone `Validator` van `@open-wc/form-control`, uitgebreid met `dependencySelectors`. Typeer
+er zowel je validator als de `formControlValidators` array mee. Laat je de annotatie weg, dan leidt TypeScript het
+letterlijke object-type af in plaats van `Validator`, en faalt de override van de statische array met
+`TS2417: Class static side incorrectly extends base class static side`.
+
+### 2. Het component
+
+Net als bij [aangepaste validatie](/docs/patronen-formulier-aangepaste-validatie--documentatie) maak je per validator
+een nieuw component. Wrap de form control daarbij in de `CrossValidationMixin`.
+
+```ts
+import { webComponent } from '@domg-wc/common';
+import { CrossValidationMixin, VlInputFieldComponent, type ValidatorWithDeps } from '@domg-wc/components/form';
+
+@webComponent('vl-input-field-with-cross-validator')
+export class VlInputFieldWithCrossValidatorComponent extends CrossValidationMixin(VlInputFieldComponent) {
+    static override formControlValidators: ValidatorWithDeps[] = [
+        ...VlInputFieldComponent.formControlValidators,
+        crossFieldValidator,
+    ];
+}
+```
+
+### 3. De foutmelding
+
+Gebruik het nieuwe component in plaats van `vl-input-field`, met de foutmelding in een `vl-form-message` met
+`state="customError"`.
+
+```html
+<vl-select id="procedure" name="procedure" ...></vl-select>
+
+<vl-input-field-with-cross-validator id="code" name="code" block required></vl-input-field-with-cross-validator>
+<vl-form-message for="code" state="customError">
+    Bij de strikte procedure moet de code 'ABC-123' zijn.
+</vl-form-message>
+```
+
+## Aandachtspunten
+
+- **Combineer met een gewone custom validatie in één `isValid`.** Er is maar één `customError` per form control
+  beschikbaar, dus twee losse validators op hetzelfde veld gaan niet. Zie
+  [Formulier - Aangepaste Validatie](/docs/patronen-formulier-aangepaste-validatie--documentatie) voor de reden.
+- **Submit-validatie.** De foutmelding verschijnt bij het verzenden en verdwijnt zodra het veld terug geldig wordt, ook
+  wanneer dat door een wijziging in een afhankelijk veld komt. Er wordt bewust geen valid-boodschap getoond. Wil je
+  validatie al tijdens het invullen tonen, combineer dit dan met het `blur-validation` attribuut, zie
+  [Formulier - Blur-validatie](/docs/patronen-formulier-blur-validatie--documentatie).
+
+## Voorbeelden
+
+De componenten hieronder zijn geen bibliotheekcode: het zijn patronen die je overneemt in je eigen project.
+
+Kies **Strikt** en verzend een willekeurige code: je krijgt een foutmelding. Wissel daarna naar **Standaard** en ze
+verdwijnt meteen, zonder opnieuw te verzenden. De ingediende form data wordt onderaan geprint via de
+[parseFormData](/docs/patronen-formulier-form-data--documentatie) helper.
+
+<Canvas of={formCrossValidationStories.FormulierCrossValidatie} sourceState='none' />
+
+<details>
+    <summary>Volledige demo-component</summary>
+    <Source code={formCrossValidationSource} language="ts" dark={true} />
+</details>
+
+### Twee velden die moeten overeenkomen
+
+Een bevestigingsveld dat gelijk moet zijn aan het eerste veld, via `dependencySelectors: ['#email']`.
+
+<Canvas of={formCrossValidationStories.FormulierCrossValidatieMatch} sourceState='none' />
+
+<details>
+    <summary>Volledige demo-component</summary>
+    <Source code={formCrossValidationMatchSource} language="ts" dark={true} />
+</details>
+
+### Conditioneel verplicht veld
+
+**Verduidelijking** is enkel verplicht wanneer de reden **Andere** is. Het veld heeft zelf geen `required` attribuut: de
+validator beslist op basis van het reden-veld en hervalideert via `dependencySelectors: ['#reden']`. Bij **Andere**
+markeert het label het veld als verplicht.
+
+<Canvas of={formCrossValidationStories.FormulierCrossValidatieConditional} sourceState='none' />
+
+<details>
+    <summary>Volledige demo-component</summary>
+    <Source code={formCrossValidationConditionalSource} language="ts" dark={true} />
+</details>
