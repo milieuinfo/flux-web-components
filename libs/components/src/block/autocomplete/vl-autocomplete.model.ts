@@ -1,3 +1,16 @@
+import { TemplateResult } from 'lit';
+
+export interface AutocompleteItem {
+    title?: string;
+    subtitle?: string;
+    value?: string | null;
+    [key: string]: unknown;
+}
+
+export interface AutocompleteItemTemplateFn {
+    (item: AutocompleteItem): TemplateResult;
+}
+
 export const CAPTION_FORMAT = {
     TITLE: 'title-only',
     SUBTITLE: 'subtitle-only',

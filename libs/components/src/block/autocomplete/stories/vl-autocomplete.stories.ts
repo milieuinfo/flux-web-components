@@ -7,7 +7,13 @@ import { VlSideSheet } from '../../side-sheet';
 import { CAPTION_FORMAT, GROUP_BY } from '../vl-autocomplete.model';
 import { fetchDataFromApiCall } from './vl-autocomplete-api.stories-util';
 import { fetchDataFromMockedApiCall } from './vl-autocomplete-mocked-api.stories-util';
-import { autocompleteArgs, autocompleteArgTypes, complexItems } from './vl-autocomplete.stories-arg';
+import {
+    autocompleteArgs,
+    autocompleteArgTypes,
+    complexItems,
+    dossierItems,
+    dossierItemTemplate,
+} from './vl-autocomplete.stories-arg';
 import autocompleteDoc from './vl-autocomplete.stories-doc.mdx';
 
 registerWebComponents([VlSideSheet]);
@@ -100,6 +106,22 @@ export const AutocompleteCustomCaptionFormatter = story(
         `
 );
 AutocompleteCustomCaptionFormatter.storyName = 'vl-autocomplete - custom caption formatter';
+
+export const AutocompleteWithItemTemplate = story(
+    autocompleteArgs,
+    () =>
+        html`
+            <vl-autocomplete
+                min-chars="1"
+                label="Doorzoek PV's"
+                placeholder="Hint: typ ANB"
+                show-clear
+                .items=${dossierItems}
+                .itemTemplate=${dossierItemTemplate}
+            ></vl-autocomplete>
+        `
+);
+AutocompleteWithItemTemplate.storyName = 'vl-autocomplete - item template';
 
 export const AutocompleteInputAndApiCall = story(
     autocompleteArgs,

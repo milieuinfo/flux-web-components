@@ -38,6 +38,35 @@ import { VlAutocomplete } from '@domg-wc/components/block';
 
 <Canvas of={VlAutocompleteStories.AutocompleteGroupBySubtitle} />
 
+### Suggesties met een eigen item-template
+
+Moet een suggestie meer tonen dan `title`, `subtitle` en `value`, dan volstaat `caption-format` niet. Stel dan
+`itemTemplate` in: die functie krijgt het item en levert de inhoud van de `<li>`. De `<li>` zelf (id, klik,
+`role="option"`) blijft van de component.
+
+Vindt de zoekopdracht niets, dan roept de component je `itemTemplate` niet aan. Ze toont dan één suggestie met de
+tekst uit het `no-matches-text`-attribuut, standaard "Geen resultaat".
+
+```ts
+const itemTemplate = (item) => html`
+    <div class="vl-stacked">
+        <vl-text bold>${item.title}</vl-text>
+        <vl-text annotation>Aangemaakt op ${item.createdOn}, eigenaar: ${item.owner}</vl-text>
+    </div>
+`;
+```
+
+```html
+<vl-autocomplete .items="${items}" .itemTemplate="${itemTemplate}"></vl-autocomplete>
+```
+
+> Zet geen links of knoppen in de template, handel zulke acties af via het `selected-autocomplete`-event. Een
+> [`option`](https://www.w3.org/TR/wai-aria-1.2/#childrenArePresentational) verbergt zijn kinderen voor
+> hulptechnologie ([4.1.2](https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html)) en het toetsenbord
+> ([2.1.1](https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html)).
+
+<Canvas of={VlAutocompleteStories.AutocompleteWithItemTemplate} />
+
 ### Voorbeeld met location API
 
 Om te werken met een API, luister je naar het `search`-event dat opgeworpen wordt wanneer de gebruiker begint te typen.
