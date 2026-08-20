@@ -1,4 +1,5 @@
-import { CAPTION_FORMAT, GROUP_BY } from '../vl-autocomplete.model';
+import { html } from 'lit';
+import { AutocompleteItemTemplateFn, CAPTION_FORMAT, GROUP_BY } from '../vl-autocomplete.model';
 import {
     CATEGORIES,
     CONTROLS,
@@ -20,6 +21,37 @@ export const complexItems = [
     { title: 'Buurtshuis Watersportbaan Gent', subtitle: 'Project', value: '7' },
 ];
 
+export const dossierItems = [
+    {
+        title: 'PV.ANB.2026.00412',
+        value: '1',
+        createdOn: '08.05.2026',
+        owner: 'Jane Smith',
+        status: 'Nog niet opnemen',
+    },
+    {
+        title: 'ANB-2026-00412-bis',
+        value: '2',
+        createdOn: '02.04.2026',
+        owner: 'Bob Johnson',
+        status: 'Wel opnemen',
+    },
+    {
+        title: 'ANB 2026 00412',
+        value: '3',
+        createdOn: '15.01.2026',
+        owner: 'Alice Brown',
+        status: 'Niet opnemen',
+    },
+];
+
+export const dossierItemTemplate: AutocompleteItemTemplateFn = (item) => html`
+    <div class="vl-stacked">
+        <vl-text bold>${item.title}</vl-text>
+        <vl-text annotation>Aangemaakt op ${item.createdOn}, eigenaar: ${item.owner}, status: ${item.status}</vl-text>
+    </div>
+`;
+
 export const autocompleteArgs = {
     ...defaultArgs,
     placeholder: '',
@@ -35,6 +67,7 @@ export const autocompleteArgs = {
     clearTooltip: 'Wissen',
     noMatchesText: 'Geen resultaat',
     items: [],
+    itemTemplate: undefined as AutocompleteItemTemplateFn | undefined,
     search: action('search'),
     selectedAutocomplete: action('selected-autocomplete'),
     clear: action('clear'),
@@ -181,6 +214,20 @@ export const autocompleteArgTypes: ArgTypes<typeof autocompleteArgs> = {
             category: CATEGORIES.PROPERTIES,
             type: { summary: TYPES.ARRAY },
             defaultValue: { summary: String(autocompleteArgs.items) },
+        },
+    },
+    itemTemplate: {
+        name: 'itemTemplate',
+        description:
+            'Gebruik deze property om zelf te bepalen hoe de inhoud van een suggestie gerenderd wordt.' +
+            ' De functie krijgt het volledige item mee en geeft een lit `TemplateResult` terug.' +
+            ' Wordt deze property ingesteld, dan valt `caption-format` weg voor de suggesties.' +
+            '\n\nKan niet aangepast worden in Storybook.',
+        control: false,
+        table: {
+            category: CATEGORIES.PROPERTIES,
+            type: { summary: TYPES.FUNCTION },
+            defaultValue: { summary: String(autocompleteArgs.itemTemplate) },
         },
     },
     search: {

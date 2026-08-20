@@ -1,20 +1,34 @@
-import { BaseLitElement } from '@domg-wc/common';
+import { BaseLitElement, registerWebComponents } from '@domg-wc/common';
 import { baseStyle, resetStyle } from '@domg/govflanders-style/common';
 import { autocompleteStyle, inputFieldStyle } from '@domg/govflanders-style/component';
+import { vlStackedStyles } from '@domg-wc/styles';
 import { html, PropertyValues } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import 'reflect-metadata';
 import { DEFAULT_CAPTION_FORMAT, DEFAULT_MAX_MATCHES, DEFAULT_MIN_CHARS } from './vl-autocomplete.defaults';
-import { CAPTION_FORMAT } from './vl-autocomplete.model';
+import { AutocompleteItemTemplateFn, CAPTION_FORMAT } from './vl-autocomplete.model';
 import { vlAutocompleteFluxStyles } from './vl-autocomplete.flux-css';
 import { vlIconStyles } from '../../atom/icon-style/vl-icon-style.css';
+import { VlTextComponent } from '../../atom/text';
 
 @customElement('vl-autocomplete')
 // eslint-disable-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export class VlAutocomplete extends BaseLitElement {
+    static {
+        registerWebComponents([VlTextComponent]);
+    }
+
     static get styles() {
-        return [resetStyle, baseStyle, autocompleteStyle, inputFieldStyle, vlAutocompleteFluxStyles, vlIconStyles];
+        return [
+            resetStyle,
+            baseStyle,
+            autocompleteStyle,
+            inputFieldStyle,
+            vlAutocompleteFluxStyles,
+            vlIconStyles,
+            vlStackedStyles,
+        ];
     }
 
     static get properties() {
@@ -51,8 +65,11 @@ export class VlAutocomplete extends BaseLitElement {
             labelSmall: { type: Boolean, attribute: 'label-small', reflect: true },
             clearTooltip: { type: String, attribute: 'clear-tooltip', reflect: true },
             disableLoading: { type: Boolean, attribute: 'disable-loading', reflect: true },
+            itemTemplate: { attribute: false },
         };
     }
+
+    itemTemplate?: AutocompleteItemTemplateFn;
 
     private initialised: boolean;
     private initialValue: string;
@@ -402,7 +419,7 @@ export class VlAutocomplete extends BaseLitElement {
             role="option"
             aria-selected="${id === this._highlightedEl?.id ? 'true' : 'false'}"
         >
-            ${this.formatCaption(item)}
+            ${this.itemTemplate && item.value != null ? this.itemTemplate(item) : this.formatCaption(item)}
         </li>`;
     }
 
