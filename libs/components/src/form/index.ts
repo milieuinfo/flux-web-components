@@ -11,4 +11,4 @@ export { VlSelectRichComponent, type SelectRichOption, SelectRichPosition } from
 export { VlTextareaComponent } from './textarea';
 export { VlTextareaRichComponent } from './textarea-rich';
 export { VlUploadComponent } from './upload';
-export { parseFormData, setFormData } from './utils';
+export { parseFormData, setFormData, CrossValidationMixin, type ValidatorWithDeps } from './utils';

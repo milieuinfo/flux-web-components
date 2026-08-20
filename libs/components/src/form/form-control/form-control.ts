@@ -34,6 +34,8 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
     // Voorkomt dat er per update-cyclus meerdere message-refreshes ingepland worden.
     private formMessageRefreshScheduled = false;
 
+    private blurValidationTimeout?: ReturnType<typeof setTimeout>;
+
     // Variables
     protected submitFormOnEnter = true;
     protected formMessageText: string | undefined | null;
@@ -99,7 +101,7 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
     updated(changedProperties: Map<string, unknown>) {
         super.updated(changedProperties);
 
-        if (this.blurValidationEnabled) {
+        if (this.retainsValidationState) {
             // update error after programmatic value change (no vl-input fired).
             if (this.isInvalid && !changedProperties.has('isInvalid')) {
                 this.runValidation();
@@ -128,7 +130,18 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
         );
     }
 
+    protected get retainsValidationState(): boolean {
+        return this.blurValidationEnabled;
+    }
+
+    protected revalidate(): void {
+        if (this.hasBeenValidated) {
+            this.runValidation();
+        }
+    }
+
     resetFormControl() {
+        clearTimeout(this.blurValidationTimeout);
         this.isInvalid = false;
         this.erroredOnce = false;
         this.hasBeenValidated = false;
@@ -169,6 +182,7 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
         }
 
         if (this.hasBeenValidated && this.validity.valid) {
+            this.isInvalid = false;
             this.showSuccessMessage();
         }
     }
@@ -194,7 +208,8 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
 
         // Defer to next tick so document.activeElement reflects the new focus target.
         // With delegatesFocus, activeElement is the host on internal shadow focus shifts.
-        setTimeout(() => {
+        clearTimeout(this.blurValidationTimeout);
+        this.blurValidationTimeout = setTimeout(() => {
             if (!this.isConnected) return;
             if (document.activeElement === this) return;
             this.runValidation();
