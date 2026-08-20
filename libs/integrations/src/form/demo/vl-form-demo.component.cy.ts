@@ -123,6 +123,31 @@ describe('cypress-component - integrations - vl-form-demo', () => {
         // */
     });
 
+    it('should validate individual form controls on blur', () => {
+        cy.mount(html`<vl-form-demo></vl-form-demo>`);
+        createStubForSubmitEvent();
+
+        getFormMessages().should('have.length', 0);
+
+        getNaamInput().find('input').focus().blur();
+        getFormMessages({ forAttr: 'naam', state: 'valueMissing' });
+        getFormMessages().should('have.length', 1);
+
+        getNaamInput().find('input').type('a').blur();
+        getFormMessages({ forAttr: 'naam', state: 'tooShort' });
+        getFormMessages().should('have.length', 1);
+
+        getNaamInput().find('input').clear().type('Spaas').blur();
+        getFormMessages({ forAttr: 'naam', state: 'valid' });
+        getFormMessages().should('have.length', 1);
+
+        getInteressesTextarea().find('textarea').focus().blur();
+        getFormMessages({ forAttr: 'interesses', state: 'valueMissing' });
+        getFormMessages().should('have.length', 2);
+
+        cy.get('@submit').should('not.have.been.called');
+    });
+
     it('should reset form', () => {
         cy.mount(html`<vl-form-demo></vl-form-demo>`);
 
