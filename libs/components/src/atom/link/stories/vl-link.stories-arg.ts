@@ -12,7 +12,7 @@ import { ArgTypes } from '@storybook/web-components-vite';
 import { linkDefaults } from '../vl-link.defaults';
 import { action } from 'storybook/actions';
 
-type LinkArgs = typeof defaultArgs & typeof linkDefaults & { defaultSlot: string; onVlClick: () => void; };
+type LinkArgs = typeof defaultArgs & typeof linkDefaults & { defaultSlot: string; onVlClick: () => void };
 
 export const linkArgs: LinkArgs = {
     ...defaultArgs,
@@ -35,7 +35,7 @@ export const linkArgTypes: ArgTypes<LinkArgs> = {
     label: {
         name: 'label',
         description:
-            'Vult het aria-label attribuut van de link in. Geef een duidelijke omschrijving mee van waar de link naartoe leidt. bv "Ga naar Vlaanderen.be (opent in een nieuw venster)',
+            'Vult het aria-label attribuut van de link in en vervangt zo de volledige voorgelezen linktekst. Geef een duidelijke omschrijving mee van waar de link naartoe leidt.<br/>Bij een externe link wordt de automatische melding "(opent in een nieuw venster)" dan niet toegevoegd; neem die vermelding zelf op in het label, bv. "Ga naar Vlaanderen.be (opent in een nieuw venster)".',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
@@ -90,7 +90,8 @@ export const linkArgTypes: ArgTypes<LinkArgs> = {
     },
     external: {
         name: 'external',
-        description: 'Opent de link in een nieuw tabblad.<br/>Werkt niet in combinatie met `button-as-link`-attribuut.',
+        description:
+            'Opent de link in een nieuw tabblad.<br/>Voegt voor schermlezers automatisch de visueel verborgen tekst "(opent in een nieuw venster)" toe, tenzij het `label`-attribuut gezet is.<br/>Werkt niet in combinatie met `button-as-link`-attribuut.',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,

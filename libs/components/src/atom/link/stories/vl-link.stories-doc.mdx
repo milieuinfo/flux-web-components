@@ -49,7 +49,15 @@ import { VlLinkComponent } from '@domg-wc/components/atom';
 
 ### External
 
-Vul steeds het `label` attribuut in om duidelijk te maken dat de link in een nieuw venster opent.
+Een externe link opent in een nieuw tabblad en toont automatisch het external icoon na de linktekst.
+
+Voor schermlezers voegt de component automatisch de visueel verborgen tekst "(opent in een nieuw venster)" toe na de
+linktekst. Je hoeft dit dus niet zelf te voorzien. Het external icoon zelf is decoratief (`aria-hidden`) en wordt niet
+voorgelezen.
+
+Gebruik je het `label` attribuut, dan vervangt dat de volledige voorgelezen linktekst en wordt de automatische melding
+niet toegevoegd. Neem in dat geval zelf de vermelding op, bv.
+`label="Ga naar Vlaanderen.be (opent in een nieuw venster)"`.
 
 <Canvas of={VlLinkStories.LinkExternal} />
 
@@ -116,10 +124,13 @@ Zorg er steeds voor dat de link een duidelijke en beknopte tekstuele beschrijvin
 wordt bij het klikken op de link. Dit is belangrijk voor alle gebruikers, maar vooral voor gebruikers die schermlezers
 gebruiken.
 
-Zorg er bij externe links voor dat gebruikers weten dat de link in een nieuw venster opent. Dit kan je doen adhv het
-`external` attribuut en door dit expliciet te vermelden in de linktekst of door het `label` attribuut te gebruiken om
-een beschrijvende `aria-label` toe te voegen aan de link. Indien `label` gebruikt wordt, is dit de enige linktekst die
-door schermlezers wordt voorgelezen. Dus neem ook de zichtbare linktekst hierin op.
+Bij externe links (het `external` attribuut) meldt de component zelf aan schermlezers dat de link in een nieuw venster
+opent: na de linktekst wordt de visueel verborgen tekst "(opent in een nieuw venster)" voorgelezen. Je hoeft dit dus
+niet zelf te voorzien in de linktekst of via het `label` attribuut.
+
+Indien `label` gebruikt wordt, is dit de enige linktekst die door schermlezers wordt voorgelezen; de automatische
+melding wordt dan niet toegevoegd. Neem in dat geval zowel de zichtbare linktekst als de vermelding "(opent in een
+nieuw venster)" op in het label.
 
 Indien de link enkel een icoon bevat, is het verplicht om het `label` attribuut te gebruiken zodat een beschrijvende
 `aria-label` wordt toegevoegd aan de link.

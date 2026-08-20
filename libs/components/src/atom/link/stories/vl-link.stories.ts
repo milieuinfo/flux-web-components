@@ -38,7 +38,7 @@ const LinkTemplate = story(
         iconPlacement,
         defaultSlot,
         label,
-        onVlClick
+        onVlClick,
     }) => html`
         <vl-link
             href=${href}
@@ -109,7 +109,6 @@ LinkExternal.args = {
     href: 'https://www.vlaanderen.be',
     defaultSlot: 'Vlaanderen',
     external: true,
-    label: 'Ga naar Vlaanderen.be (opent in een nieuw venster)',
 };
 
 export const LinkIcon = LinkTemplate.bind({});
