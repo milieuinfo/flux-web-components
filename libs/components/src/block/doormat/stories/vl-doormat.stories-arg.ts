@@ -26,7 +26,7 @@ export const doormatArgTypes: ArgTypes<DoormatArgs> = {
     linkLabel: {
         name: 'link-label',
         description:
-            'Aria-label voor de link. Aanbevolen voor toegankelijkheid. Let op: `aria-label` vervangt de volledige linktekst, bv. "Bouwen, wonen en energie - opent in nieuw venster" bij external links.',
+            'Aria-label voor de link. Let op: `aria-label` vervangt de volledige voorgelezen linktekst.<br/>Bij een externe link wordt de automatische melding "(opent in een nieuw venster)" dan niet toegevoegd; neem die vermelding zelf op in het label, bv. "Bouwen, wonen en energie (opent in een nieuw venster)".',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,
@@ -35,7 +35,8 @@ export const doormatArgTypes: ArgTypes<DoormatArgs> = {
     },
     external: {
         name: 'external',
-        description: 'Opent de link in een nieuw tabblad.',
+        description:
+            'Opent de link in een nieuw tabblad.<br/>Voegt voor schermlezers automatisch de visueel verborgen tekst "(opent in een nieuw venster)" toe, tenzij het `link-label`-attribuut gezet is.',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,

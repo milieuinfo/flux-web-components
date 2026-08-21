@@ -199,7 +199,7 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
     external: {
         name: 'external',
         description:
-            'Opent de link in een nieuw tabblad. Dit attribuut wordt enkel gebruikt als de `cta-link` is ingesteld.',
+            'Opent de link in een nieuw tabblad. Dit attribuut wordt enkel gebruikt als de `cta-link` is ingesteld.<br/>Voegt voor schermlezers automatisch de visueel verborgen tekst "(opent in een nieuw venster)" toe, tenzij het `label`-attribuut gezet is.',
         table: {
             type: { summary: TYPES.BOOLEAN },
             category: CATEGORIES.ATTRIBUTES,
@@ -218,7 +218,7 @@ export const buttonArgTypes: ArgTypes<ButtonArgs> = {
     label: {
         name: 'label',
         description:
-            'Stelt het aria-label attribuut van de button in. Gebruik je een `cta-link` met `external`, geef dan een duidelijke omschrijving mee van waar de link naartoe leidt, bv. "Ga naar Vlaanderen.be (opent in een nieuw venster)".',
+            'Stelt het aria-label attribuut van de button in en vervangt zo de volledige voorgelezen tekst.<br/>Gebruik je een `cta-link` met `external`, dan wordt de automatische melding "(opent in een nieuw venster)" niet toegevoegd; neem die vermelding zelf op in het label, bv. "Ga naar Vlaanderen.be (opent in een nieuw venster)".',
         table: {
             type: { summary: TYPES.STRING },
             category: CATEGORIES.ATTRIBUTES,

@@ -75,6 +75,65 @@ describe('cypress-component - block components - vl-doormat', () => {
         cy.get('vl-doormat').shadow().find('.vl-doormat__external-icon.vl-icon--external').should('exist');
     });
 
+    it('should announce the new window hint for external links', () => {
+        cy.mount(html`
+            <vl-doormat href="https://www.vlaanderen.be/bouwen-wonen-en-energie" external>
+                <span slot="title">Bouwen, wonen en energie</span>
+            </vl-doormat>
+        `);
+
+        cy.get('vl-doormat')
+            .shadow()
+            .find('a.vl-doormat .vl-doormat__new-window-hint')
+            .should('exist')
+            .should('contain.text', '(opent in een nieuw venster)');
+    });
+
+    it('should keep the external icon decorative next to the new window hint', () => {
+        cy.mount(html`
+            <vl-doormat href="https://www.vlaanderen.be/bouwen-wonen-en-energie" external>
+                <span slot="title">Bouwen, wonen en energie</span>
+            </vl-doormat>
+        `);
+
+        cy.get('vl-doormat').shadow().find('.vl-doormat__external-icon').should('have.attr', 'aria-hidden', 'true');
+    });
+
+    it('should not announce the new window hint for non-external links', () => {
+        cy.mount(html`
+            <vl-doormat href="https://www.vlaanderen.be/bouwen-wonen-en-energie">
+                <span slot="title">Bouwen, wonen en energie</span>
+            </vl-doormat>
+        `);
+
+        cy.get('vl-doormat').shadow().find('.vl-doormat__new-window-hint').should('not.exist');
+    });
+
+    it('should not announce the new window hint when a link-label is set', () => {
+        cy.mount(html`
+            <vl-doormat
+                href="https://www.vlaanderen.be/bouwen-wonen-en-energie"
+                link-label="Bouwen, wonen en energie (opent in een nieuw venster)"
+                external
+            >
+                <span slot="title">Bouwen, wonen en energie</span>
+            </vl-doormat>
+        `);
+
+        cy.get('vl-doormat').shadow().find('.vl-doormat__new-window-hint').should('not.exist');
+    });
+
+    it('should be accessible as an external link', () => {
+        cy.mount(html`
+            <vl-doormat href="https://www.vlaanderen.be/bouwen-wonen-en-energie" external>
+                <span slot="title">Bouwen, wonen en energie</span>
+            </vl-doormat>
+        `);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-doormat');
+    });
+
     it('should set link-label', () => {
         cy.mount(html`
             <vl-doormat
@@ -230,8 +289,9 @@ describe('cypress-component - block components - vl-doormat', () => {
                     <span slot="title">Bouwen, wonen en energie</span>
                     <span slot="text"
                         >De overheid zet zich in om betaalbaar en kwaliteitsvol wonen voor iedereen beschikbaar te
-                        maken. Ze biedt sociale woningen aan, geeft premies aan wie zijn woning verbouwt en energiezuinig
-                        maakt en zoekt oplossingen om de stijging van de vastgoedprijzen onder controle te houden.</span
+                        maken. Ze biedt sociale woningen aan, geeft premies aan wie zijn woning verbouwt en
+                        energiezuinig maakt en zoekt oplossingen om de stijging van de vastgoedprijzen onder controle te
+                        houden.</span
                     >
                 </vl-doormat>
             </div>

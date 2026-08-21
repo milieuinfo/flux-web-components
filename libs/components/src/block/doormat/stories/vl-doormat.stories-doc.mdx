@@ -32,7 +32,13 @@ import { VlDoormatComponent } from '@domg-wc/components/block';
 
 ## Varianten
 
-### Externe link met aria-label
+### Externe link
+
+Een externe doormat opent in een nieuw tabblad en toont automatisch het external icoon na de titel.
+
+Voor schermlezers voegt de component automatisch de visueel verborgen tekst "(opent in een nieuw venster)" toe. Je
+hoeft dit dus niet zelf te voorzien. Gebruik je het `link-label` attribuut, dan vervangt dat de volledige voorgelezen
+linktekst en wordt de automatische melding niet toegevoegd; neem in dat geval zelf de vermelding op in het label.
 
 <Canvas of={VlDoormatStories.DoormatExternal} />
 

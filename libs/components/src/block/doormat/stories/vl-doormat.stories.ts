@@ -75,7 +75,6 @@ DoormatExternal.storyName = 'vl-doormat - external';
 DoormatExternal.args = {
     ...DoormatDefault.args,
     external: true,
-    linkLabel: 'Bouwen, wonen en energie - opent in nieuw venster',
 };
 
 export const DoormatAlt = DoormatTemplate.bind({});

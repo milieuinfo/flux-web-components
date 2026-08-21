@@ -61,5 +61,4 @@ InfotextExternalLink.storyName = 'vl-infotext - external link';
 InfotextExternalLink.args = {
     ...InfotextLink.args,
     external: true,
-    linkLabel: 'Bezoekers per dag - opent in nieuw venster',
 };

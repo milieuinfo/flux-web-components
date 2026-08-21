@@ -203,6 +203,14 @@ ButtonCtaLink.args = {
     ctaLink: 'https://www.vlaanderen.be',
 };
 
+export const ButtonCtaLinkExternal = ButtonTemplate.bind({});
+ButtonCtaLinkExternal.storyName = 'vl-button - cta-link - external';
+ButtonCtaLinkExternal.args = {
+    defaultSlot: 'Registreer op Vlaanderen.be',
+    ctaLink: 'https://www.vlaanderen.be',
+    external: true,
+};
+
 export const ButtonCtaLinkDownload = ButtonTemplate.bind({});
 ButtonCtaLinkDownload.storyName = 'vl-button - cta-link - download';
 ButtonCtaLinkDownload.args = {

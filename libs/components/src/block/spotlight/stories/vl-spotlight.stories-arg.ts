@@ -40,7 +40,7 @@ export const spotlightArgTypes: ArgTypes<typeof spotlightArgs> = {
     linkLabel: {
         name: 'link-label',
         description:
-            'Aria-label voor de link. Aanbevolen voor toegankelijkheid. Let op: `aria-label` vervangt de volledige linktekst, bv. "Premies voor renovatie - opent in nieuw venster" bij external links.',
+            'Aria-label voor de link. Let op: `aria-label` vervangt de volledige voorgelezen linktekst.<br/>Bij een externe link wordt de automatische melding "(opent in een nieuw venster)" dan niet toegevoegd; neem die vermelding zelf op in het label, bv. "Premies voor renovatie (opent in een nieuw venster)".',
         table: {
             type: { summary: TYPES.STRING },
             defaultValue: { summary: spotlightArgs.linkLabel },
@@ -50,7 +50,7 @@ export const spotlightArgTypes: ArgTypes<typeof spotlightArgs> = {
     external: {
         name: 'external',
         description:
-            'Opent de link in een nieuw tabblad. Dit attribuut wordt enkel gebruikt als het attribuut `link` gezet is.',
+            'Opent de link in een nieuw tabblad. Dit attribuut wordt enkel gebruikt als het attribuut `link` gezet is.<br/>Voegt voor schermlezers automatisch de visueel verborgen tekst "(opent in een nieuw venster)" toe, tenzij het `link-label`-attribuut gezet is.',
         table: {
             type: { summary: TYPES.STRING },
             defaultValue: { summary: String(spotlightArgs.external) },

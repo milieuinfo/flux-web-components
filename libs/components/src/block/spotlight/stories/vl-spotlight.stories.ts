@@ -56,11 +56,7 @@ SpotLightDefault.args = { title: 'Premies voor renovatie' };
 export const SpotlightWithLink = story(
     spotlightArgs,
     ({ external, linkLabel }: typeof spotlightArgs) => html`
-        <vl-spotlight
-            link="http://www.google.com"
-            link-label=${linkLabel || (external ? 'Premies voor renovatie - opent in nieuw venster' : 'Premies voor renovatie')}
-            ?external=${external}
-        >
+        <vl-spotlight link="http://www.google.com" link-label=${linkLabel} ?external=${external}>
             <span slot="title">Premies voor renovatie</span>
         </vl-spotlight>
     `
@@ -92,7 +88,7 @@ export const SpotlightWithContent = () => html`
 SpotlightWithContent.storyName = 'vl-spotlight - with content';
 
 export const SpotlightWithText = () => html`
-    <vl-spotlight link="https://google.be" external link-label="Premies voor renovatie - opent in nieuw venster">
+    <vl-spotlight link="https://google.be" external>
         <span slot="title">Premies voor renovatie</span>
         <span slot="text"
             >Gaat u bouwen of verbouwen? Investeer in energiebesparende maatregelen en bespaar heel wat op uw

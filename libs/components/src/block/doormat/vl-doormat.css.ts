@@ -1,3 +1,4 @@
+import { vlVisuallyHiddenMixin } from '@domg-wc/styles';
 import { css, CSSResult, unsafeCSS } from 'lit';
 import { vlHeading5 } from '../../atom/heading-style/vl-heading-style.css';
 
@@ -90,6 +91,11 @@ const styles: CSSResult = css`
 
         .vl-doormat__external-icon {
             color: var(--vl-color--icon-subtle);
+        }
+
+        /* bij externe links: visueel verbergen, maar wel voorlezen door screenreaders */
+        .vl-doormat__new-window-hint {
+            ${vlVisuallyHiddenMixin()};
         }
 
         &.vl-doormat--full-height {

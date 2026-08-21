@@ -1,6 +1,7 @@
 import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { VlIconComponent } from '@domg-wc/components/atom';
-import { CSSResult, html, TemplateResult } from 'lit';
+import { vlVisuallyHiddenMixin } from '@domg-wc/styles';
+import { css, CSSResult, html, TemplateResult } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { when } from 'lit/directives/when.js';
@@ -12,14 +13,22 @@ registerWebComponents([VlIconComponent]);
 /**
  * Tab link voor horizontale navigatie.
  * @property {string} href - Doel-URL van de link.
- * @property {boolean} external - Open de link in een nieuw venster.
+ * @property {boolean} external - Open de link in een nieuw venster. Voegt voor screenreaders automatisch de visueel verborgen melding "(opent in een nieuw venster)" toe.
  * @property {boolean} selected - Of deze tab link geselecteerd is.
  * @fires vl-tab-link-click - Vuurt wanneer de link aangeklikt wordt.
  */
 @webComponent('vl-tab-link-next')
 export class VlTabLinkComponent extends BaseLitElement {
     static get styles(): CSSResult[] {
-        return [vlTabFluxStyles(true)];
+        return [
+            vlTabFluxStyles(true),
+            css`
+                /* bij externe links: visueel verbergen, maar wel voorlezen door screenreaders */
+                .vl-tab__new-window-hint {
+                    ${vlVisuallyHiddenMixin()};
+                }
+            `,
+        ];
     }
 
     @property({ type: String, reflect: true, attribute: 'href' })
@@ -62,7 +71,9 @@ export class VlTabLinkComponent extends BaseLitElement {
             @click=${this.onClick}
             ><slot></slot>${when(
                 !!this.external,
-                () => html` <vl-icon icon="external" label="(opent in een nieuw venster)"></vl-icon> `,
+                () =>
+                    html` <vl-icon icon="external"></vl-icon
+                        ><span class="vl-tab__new-window-hint"> (opent in een nieuw venster)</span>`,
             )}</a
         >`;
     }

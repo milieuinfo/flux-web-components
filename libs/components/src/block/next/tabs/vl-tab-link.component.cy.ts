@@ -7,13 +7,7 @@ registerWebComponents([VlTabLinkComponent]);
 describe('cypress-component - block components - vl-tab-link-next', () => {
     const mountTabLink = ({ selected = false, external = false } = {}) => {
         return cy.mount(html`
-            <vl-tab-link-next 
-                href="#test" 
-                ?selected=${selected} 
-                ?external=${external}
-            >
-                Link tab
-            </vl-tab-link-next>
+            <vl-tab-link-next href="#test" ?selected=${selected} ?external=${external}> Link tab </vl-tab-link-next>
         `);
     };
 
@@ -39,11 +33,38 @@ describe('cypress-component - block components - vl-tab-link-next', () => {
             .and('have.attr', 'rel', 'nofollow noopener noreferrer');
     });
 
+    it('should announce the new window hint for external links', () => {
+        mountTabLink({ external: true });
+
+        cy.get('vl-tab-link-next')
+            .shadow()
+            .find('a .vl-tab__new-window-hint')
+            .should('exist')
+            .should('contain.text', '(opent in een nieuw venster)');
+    });
+
+    it('should keep the external icon decorative next to the new window hint', () => {
+        mountTabLink({ external: true });
+
+        cy.get('vl-tab-link-next')
+            .shadow()
+            .find('vl-icon')
+            .shadow()
+            .find('span')
+            .should('have.attr', 'aria-hidden', 'true');
+    });
+
+    it('should not announce the new window hint for non-external links', () => {
+        mountTabLink();
+
+        cy.get('vl-tab-link-next').shadow().find('.vl-tab__new-window-hint').should('not.exist');
+    });
+
     it('should dispatch vl-tab-link-click on link click', () => {
         mountTabLink();
-        
+
         cy.createStubForEvent('vl-tab-link-next', 'vl-tab-link-click');
-        cy.get('vl-tab-link-next').shadow().find('a').click()
+        cy.get('vl-tab-link-next').shadow().find('a').click();
         cy.get('@vl-tab-link-click').should('have.been.called');
     });
 });

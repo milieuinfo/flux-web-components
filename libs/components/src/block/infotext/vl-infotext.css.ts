@@ -1,4 +1,4 @@
-import { vlMediaScreenSmall } from '@domg-wc/styles';
+import { vlMediaScreenSmall, vlVisuallyHiddenMixin } from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
 
 const styles: CSSResult = css`
@@ -53,6 +53,11 @@ const styles: CSSResult = css`
 
         .vl-infotext__external-icon {
             color: var(--vl-color--icon-subtle);
+        }
+
+        /* bij externe links: visueel verbergen, maar wel voorlezen door screenreaders */
+        .vl-infotext__new-window-hint {
+            ${vlVisuallyHiddenMixin()};
         }
     }
 `;

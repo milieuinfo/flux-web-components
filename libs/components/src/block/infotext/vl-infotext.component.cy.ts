@@ -94,6 +94,58 @@ describe('cypress-component - block components - vl-infotext', () => {
             .should('have.attr', 'aria-label', 'Bezoekers per dag - opent in nieuw venster');
     });
 
+    it('should announce the new window hint for external links', () => {
+        cy.mount(html`
+            <vl-infotext href="https://www.vlaanderen.be" external>
+                <span slot="value">32</span>
+                <span slot="text">Bezoekers per dag</span>
+            </vl-infotext>
+        `);
+
+        cy.get('vl-infotext')
+            .shadow()
+            .find('a .vl-infotext__new-window-hint')
+            .should('exist')
+            .should('contain.text', '(opent in een nieuw venster)');
+    });
+
+    it('should keep the external icon decorative next to the new window hint', () => {
+        cy.mount(html`
+            <vl-infotext href="https://www.vlaanderen.be" external>
+                <span slot="value">32</span>
+                <span slot="text">Bezoekers per dag</span>
+            </vl-infotext>
+        `);
+
+        cy.get('vl-infotext').shadow().find('.vl-infotext__external-icon').should('have.attr', 'aria-hidden', 'true');
+    });
+
+    it('should not announce the new window hint for non-external links', () => {
+        cy.mount(html`
+            <vl-infotext href="https://www.vlaanderen.be">
+                <span slot="value">32</span>
+                <span slot="text">Bezoekers per dag</span>
+            </vl-infotext>
+        `);
+
+        cy.get('vl-infotext').shadow().find('.vl-infotext__new-window-hint').should('not.exist');
+    });
+
+    it('should not announce the new window hint when a link-label is set', () => {
+        cy.mount(html`
+            <vl-infotext
+                href="https://www.vlaanderen.be"
+                link-label="Bezoekers per dag (opent in een nieuw venster)"
+                external
+            >
+                <span slot="value">32</span>
+                <span slot="text">Bezoekers per dag</span>
+            </vl-infotext>
+        `);
+
+        cy.get('vl-infotext').shadow().find('.vl-infotext__new-window-hint').should('not.exist');
+    });
+
     it('should format value', () => {
         cy.mount(html`
             <vl-infotext>

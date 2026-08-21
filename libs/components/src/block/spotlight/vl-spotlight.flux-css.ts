@@ -1,3 +1,4 @@
+import { vlVisuallyHiddenMixin } from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
 
 export const vlSpotlightFluxStyles: CSSResult = css`
@@ -11,5 +12,10 @@ export const vlSpotlightFluxStyles: CSSResult = css`
     }
     a.vl-spotlight .vl-spotlight__external-icon {
         color: var(--vl-color--icon-subtle);
+    }
+
+    /* bij externe links: visueel verbergen, maar wel voorlezen door screenreaders */
+    a.vl-spotlight .vl-spotlight__new-window-hint {
+        ${vlVisuallyHiddenMixin()};
     }
 `;

@@ -111,7 +111,9 @@ export class VlSpotlight extends BaseLitElement {
     }
 
     _getTitleTemplateWithValue(value: any) {
-        return html`<h3 class="vl-spotlight__title">${value}${this.external ? this.__renderExternalIcon() : nothing}</h3>`;
+        return html`<h3 class="vl-spotlight__title">
+            ${value}${this.external ? this.__renderExternalIcon() : nothing}
+        </h3>`;
     }
 
     _getSubTitleTemplateWithValue(value: any) {
@@ -156,6 +158,7 @@ export class VlSpotlight extends BaseLitElement {
                     ${this.__processHeader()} ${this.__processSlotTitle()} ${this.__processSlotSubTitle()}
                     ${this.__processSlotContent()} ${this.__processSlotText()}
                 </article>
+                ${this.__renderNewWindowHint()}
             </a>`;
         }
         return html`
@@ -167,7 +170,18 @@ export class VlSpotlight extends BaseLitElement {
     }
 
     __renderExternalIcon() {
-        return html`<span class="vl-icon vl-icon--external vl-icon--after vl-spotlight__external-icon" aria-hidden="true"></span>`;
+        return html`<span
+            class="vl-icon vl-icon--external vl-icon--after vl-spotlight__external-icon"
+            aria-hidden="true"
+        ></span>`;
+    }
+
+    __renderNewWindowHint() {
+        // een gezet link-label zet ook het aria-label en vervangt de volledige accessible name
+        //  -> de consumer bepaalt in dat geval zelf de bewoording
+        return this.external && !this.linkLabel
+            ? html`<span class="vl-spotlight__new-window-hint"> (opent in een nieuw venster)</span>`
+            : nothing;
     }
 
     __processHeader() {

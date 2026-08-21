@@ -1,5 +1,6 @@
 import { BaseLitElement, ICON_PLACEMENT, isSlotEmpty, webComponent } from '@domg-wc/common';
-import { CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
+import { vlVisuallyHiddenMixin } from '@domg-wc/styles';
+import { css, CSSResult, html, nothing, PropertyDeclarations, TemplateResult } from 'lit';
 import { ClassInfo, classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { vlButtonStyles } from '../button-style/vl-button-style.css';
@@ -32,7 +33,17 @@ export class VlButtonComponent extends BaseLitElement {
     private slotIsEmpty = true;
 
     static get styles(): CSSResult[] {
-        return [vlButtonStyles(), vlButtonStyles('a'), vlIconStyles];
+        return [
+            vlButtonStyles(),
+            vlButtonStyles('a'),
+            vlIconStyles,
+            css`
+                /* bij externe cta-links: visueel verbergen, maar wel voorlezen door screenreaders */
+                .vl-button__new-window-hint {
+                    ${vlVisuallyHiddenMixin()};
+                }
+            `,
+        ];
     }
 
     static get properties(): PropertyDeclarations {
@@ -245,9 +256,17 @@ export class VlButtonComponent extends BaseLitElement {
                 ${!positionIconBefore ? this.renderIcon() : nothing}
                 ${this.external
                     ? html`<span class="vl-icon vl-icon--external vl-icon--after" aria-hidden="true"></span>`
-                    : nothing}
+                    : nothing}${this.renderNewWindowHint()}
             </a>
         `;
+    }
+
+    private renderNewWindowHint(): TemplateResult | typeof nothing {
+        // een gezet label zet ook het aria-label en vervangt de volledige accessible name
+        //  -> de consumer bepaalt in dat geval zelf de bewoording
+        return this.external && !this.label
+            ? html`<span class="vl-button__new-window-hint"> (opent in een nieuw venster)</span>`
+            : nothing;
     }
 
     private renderIcon(): TemplateResult | typeof nothing {

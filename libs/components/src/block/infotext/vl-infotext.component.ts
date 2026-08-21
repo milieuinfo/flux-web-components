@@ -76,7 +76,18 @@ export class VlInfotextComponent extends BaseLitElement {
     }
 
     private renderExternalIcon(): TemplateResult {
-        return html`<span class="vl-icon vl-icon--external vl-icon--after vl-infotext__external-icon" aria-hidden="true"></span>`;
+        return html`<span
+            class="vl-icon vl-icon--external vl-icon--after vl-infotext__external-icon"
+            aria-hidden="true"
+        ></span>`;
+    }
+
+    private renderNewWindowHint(): TemplateResult | typeof nothing {
+        // een gezet link-label zet ook het aria-label en vervangt de volledige accessible name
+        //  -> de consumer bepaalt in dat geval zelf de bewoording
+        return this.external && this.href && !this.linkLabel
+            ? html`<span class="vl-infotext__new-window-hint"> (opent in een nieuw venster)</span>`
+            : nothing;
     }
 
     renderContent(): TemplateResult {
@@ -84,7 +95,7 @@ export class VlInfotextComponent extends BaseLitElement {
             <div class="vl-infotext__value">${this.value}</div>
             <div class="vl-infotext__text">
                 <slot name="text"></slot>
-                ${this.external && this.href ? this.renderExternalIcon() : nothing}
+                ${this.external && this.href ? this.renderExternalIcon() : nothing}${this.renderNewWindowHint()}
             </div>
             <slot name="value" hidden></slot>
         `;

@@ -69,6 +69,7 @@ export class VlDoormatComponent extends BaseLitElement {
                         <slot name="text" @slotchange=${this.onTextSlotChange}></slot>
                     </div>
                 </div>
+                ${this.renderNewWindowHint()}
             </a>
         `;
     }
@@ -79,7 +80,18 @@ export class VlDoormatComponent extends BaseLitElement {
     }
 
     private renderExternalIcon(): TemplateResult {
-        return html`<span class="vl-icon vl-icon--external vl-icon--after vl-doormat__external-icon" aria-hidden="true"></span>`;
+        return html`<span
+            class="vl-icon vl-icon--external vl-icon--after vl-doormat__external-icon"
+            aria-hidden="true"
+        ></span>`;
+    }
+
+    private renderNewWindowHint(): TemplateResult | typeof nothing {
+        // een gezet link-label zet ook het aria-label en vervangt de volledige accessible name
+        //  -> de consumer bepaalt in dat geval zelf de bewoording
+        return this.external && !this.linkLabel
+            ? html`<span class="vl-doormat__new-window-hint"> (opent in een nieuw venster)</span>`
+            : nothing;
     }
 
     renderImage(): TemplateResult {

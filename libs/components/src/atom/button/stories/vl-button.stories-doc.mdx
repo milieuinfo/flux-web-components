@@ -141,6 +141,17 @@ Meer context over wanneer een button of een link te gebruiken kan je vinden in d
 
 <Canvas of={VlButtonStories.ButtonCtaLink}/>
 
+### CTA link als externe link
+
+Gebruik je `cta-link` samen met het `external` attribuut, dan opent de link in een nieuw tabblad en wordt automatisch
+het external icoon getoond.
+
+Voor schermlezers voegt de component automatisch de visueel verborgen tekst "(opent in een nieuw venster)" toe. Je
+hoeft dit dus niet zelf te voorzien. Gebruik je het `label` attribuut, dan vervangt dat de volledige voorgelezen tekst
+en wordt de automatische melding niet toegevoegd; neem in dat geval zelf de vermelding op in het label.
+
+<Canvas of={VlButtonStories.ButtonCtaLinkExternal}/>
+
 ### CTA link als download
 
 Wijst de `cta-link` naar een bestand, gebruik dan het `download` attribuut om aan te geven dat de browser het bestand
@@ -172,6 +183,9 @@ Zorg er steeds voor dat de button een duidelijke en beknopte tekstuele beschrijv
 Indien de button enkel een icoon bevat, is het verplicht om het `label` attribuut te gebruiken zodat een beschrijvende `aria-label` wordt toegevoegd aan de button.
 
 Indien de button een dropdown menu of dialog opent, gebruik dan het `aria-haspopup` attribuut met de juiste waarde (`true`, `menu`, `listbox`, `tree`, `grid`, `dialog`) om aan te geven dat er een popup aanwezig is. Dit helpt schermlezers om de gebruiker correct te informeren over de aanwezigheid van een popup. `aria-haspopup` wordt doorgegeven aan de onderliggende button.
+
+Gebruik je een `cta-link` met het `external` attribuut, dan meldt de component zelf aan schermlezers dat de link in
+een nieuw venster opent. Enkel als je het `label` attribuut zet, moet je die vermelding zelf opnemen in het label.
 
 ## Referenties
 

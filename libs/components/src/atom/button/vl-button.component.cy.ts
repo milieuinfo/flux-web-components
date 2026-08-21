@@ -309,6 +309,41 @@ describe('cypress-component - atom components - vl-button - cta-link', () => {
         cy.get('vl-button').shadow().find('a').should('have.attr', 'rel', 'noopener noreferrer nofollow');
     });
 
+    it('should announce the new window hint for external cta-links', () => {
+        cy.mount(html` <vl-button external cta-link="https://www.vlaanderen.be">Klik op mij</vl-button>`);
+
+        cy.get('vl-button')
+            .shadow()
+            .find('a .vl-button__new-window-hint')
+            .should('exist')
+            .should('contain.text', '(opent in een nieuw venster)');
+    });
+
+    it('should keep the external icon decorative next to the new window hint', () => {
+        cy.mount(html` <vl-button external cta-link="https://www.vlaanderen.be">Klik op mij</vl-button>`);
+
+        cy.get('vl-button').shadow().find('a .vl-icon--external').should('have.attr', 'aria-hidden', 'true');
+    });
+
+    it('should not announce the new window hint for non-external cta-links', () => {
+        cy.mount(html` <vl-button cta-link="https://www.vlaanderen.be">Klik op mij</vl-button>`);
+
+        cy.get('vl-button').shadow().find('.vl-button__new-window-hint').should('not.exist');
+    });
+
+    it('should not announce the new window hint when a label is set', () => {
+        cy.mount(
+            html` <vl-button
+                external
+                cta-link="https://www.vlaanderen.be"
+                label="Ga naar Vlaanderen.be (opent in een nieuw venster)"
+                >Klik op mij</vl-button
+            >`
+        );
+
+        cy.get('vl-button').shadow().find('.vl-button__new-window-hint').should('not.exist');
+    });
+
     it('should not set target and rel when not external', () => {
         cy.mount(html` <vl-button cta-link="https://www.vlaanderen.be">Klik op mij</vl-button>`);
 

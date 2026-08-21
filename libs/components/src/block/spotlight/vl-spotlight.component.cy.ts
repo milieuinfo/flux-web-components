@@ -97,6 +97,57 @@ describe('cypress-component - block components - vl-spotlight', () => {
             </vl-spotlight>
         `);
 
-        cy.get(`vl-spotlight`).shadow().find('a').should('have.attr', 'aria-label', 'Ga naar voorbeeld - opent in nieuw venster');
+        cy.get(`vl-spotlight`)
+            .shadow()
+            .find('a')
+            .should('have.attr', 'aria-label', 'Ga naar voorbeeld - opent in nieuw venster');
+    });
+
+    it('should announce the new window hint for external links', () => {
+        cy.mount(html`
+            <vl-spotlight link="http://www.google.com" external>
+                <span slot="title">Premies voor renovatie</span>
+            </vl-spotlight>
+        `);
+
+        cy.get(`vl-spotlight`)
+            .shadow()
+            .find('a .vl-spotlight__new-window-hint')
+            .should('exist')
+            .should('contain.text', '(opent in een nieuw venster)');
+    });
+
+    it('should keep the external icon decorative next to the new window hint', () => {
+        cy.mount(html`
+            <vl-spotlight link="http://www.google.com" external>
+                <span slot="title">Premies voor renovatie</span>
+            </vl-spotlight>
+        `);
+
+        cy.get(`vl-spotlight`).shadow().find('span.vl-icon--external').should('have.attr', 'aria-hidden', 'true');
+    });
+
+    it('should not announce the new window hint for non-external links', () => {
+        cy.mount(html`
+            <vl-spotlight link="http://www.google.com">
+                <span slot="title">Premies voor renovatie</span>
+            </vl-spotlight>
+        `);
+
+        cy.get(`vl-spotlight`).shadow().find('.vl-spotlight__new-window-hint').should('not.exist');
+    });
+
+    it('should not announce the new window hint when a link-label is set', () => {
+        cy.mount(html`
+            <vl-spotlight
+                link="http://www.google.com"
+                link-label="Premies voor renovatie (opent in een nieuw venster)"
+                external
+            >
+                <span slot="title">Premies voor renovatie</span>
+            </vl-spotlight>
+        `);
+
+        cy.get(`vl-spotlight`).shadow().find('.vl-spotlight__new-window-hint').should('not.exist');
     });
 });
