@@ -192,6 +192,7 @@ describe('cypress-component - block components - vl-properties', () => {
     });
 
     it('should have the same spacing between properties inside a column as between columns', () => {
+        cy.viewport(1280, 800);
         cy.mount(propertiesColumnWithTwoPropertiesTemplate);
 
         cy.get('vl-properties').shadow().find('dl').should('have.css', 'row-gap', '20px');
@@ -200,12 +201,14 @@ describe('cypress-component - block components - vl-properties', () => {
     });
 
     it('should not add spacing between multiple data values of one property', () => {
+        cy.viewport(1280, 800);
         cy.mount(propertiesWithPropsTemplate({ props: dummyProps }));
 
         cy.get('vl-properties').shadow().find('.column').find('dd').eq(1).should('have.css', 'margin-top', '0px');
     });
 
     it('should use the --vl-properties--row-gap custom property for the spacing between properties', () => {
+        cy.viewport(1280, 800);
         cy.mount(html`
             <vl-properties style="--vl-properties--row-gap: 4rem">
                 <div class="column">
@@ -219,6 +222,14 @@ describe('cypress-component - block components - vl-properties', () => {
 
         cy.get('vl-properties').shadow().find('dl').should('have.css', 'row-gap', '40px');
         cy.get('vl-properties').shadow().find('.column dt').eq(1).should('have.css', 'margin-top', '40px');
+    });
+
+    it('should keep the label next to its data in the layout below the small breakpoint', () => {
+        cy.viewport(600, 800);
+        cy.mount(propertiesColumnWithTwoPropertiesTemplate);
+
+        cy.get('vl-properties').shadow().find('.column dt').eq(1).should('have.css', 'margin-top', '0px');
+        cy.get('vl-properties').shadow().find('.column dd').eq(0).should('have.css', 'padding-bottom', '20px');
     });
 
     it("should contain a shadow DOM with dl, dt's and dd's specified through props", () => {
