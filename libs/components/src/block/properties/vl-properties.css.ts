@@ -44,6 +44,13 @@ export const sizeQueryStyles = css`
             display: block;
         }
 
+        .column > dd + dt,
+        .column > dd + dt + dd,
+        .column--full-width > dd + dt,
+        .column--full-width > dd + dt + dd {
+            margin-top: 0;
+        }
+
         dt {
             ${collapsedDt()};
         }
