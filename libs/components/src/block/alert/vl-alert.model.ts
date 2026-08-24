@@ -48,3 +48,10 @@ export interface VlAlertModel {
     multiline?: boolean;
     alertRole?: ALERT_ROLE;
 }
+
+/**
+ * De instellingen van een alert met de attribuutnaam als key, zoals de documentatie ze noemt.
+ */
+export interface VlAlertAttributes extends Omit<VlAlertModel, 'alertRole'> {
+    'alert-role'?: ALERT_ROLE;
+}

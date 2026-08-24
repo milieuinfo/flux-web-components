@@ -1,5 +1,13 @@
 export { VlAccordionComponent } from './accordion';
-export { ALERT_ICON, ALERT_SIZE, ALERT_TYPE, VlAlert, VlAlertClosedEvent } from './alert';
+export {
+    ALERT_ICON,
+    ALERT_ROLE,
+    ALERT_SIZE,
+    ALERT_TYPE,
+    VlAlert,
+    VlAlertClosedEvent,
+    type VlAlertAttributes,
+} from './alert';
 export { VlAutocomplete, type AutocompleteItem, type AutocompleteItemTemplateFn } from './autocomplete';
 export { VlBreadcrumbComponent, VlBreadcrumbItemComponent } from './breadcrumb';
 export {
