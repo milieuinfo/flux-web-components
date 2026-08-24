@@ -21,6 +21,14 @@ export const ALERT_SIZE = {
 
 export type ALERT_SIZE = (typeof ALERT_SIZE)[keyof typeof ALERT_SIZE];
 
+export const ALERT_ROLE = {
+    ALERT: 'alert',
+    ALERT_DIALOG: 'alertdialog',
+    NO_ROLE: 'no-role',
+} as const;
+
+export type ALERT_ROLE = (typeof ALERT_ROLE)[keyof typeof ALERT_ROLE];
+
 export class VlAlertClosedEvent extends Event {
     static eventType = 'vl-alert-closed';
 
@@ -38,4 +46,5 @@ export interface VlAlertModel {
     naked?: boolean;
     closable?: boolean;
     multiline?: boolean;
+    alertRole?: ALERT_ROLE;
 }
