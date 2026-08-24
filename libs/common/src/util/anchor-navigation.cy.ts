@@ -33,6 +33,29 @@ describe('cypress-component - common - anchor-navigation utility', () => {
         cy.window().its('location.hash').should('eq', '');
     });
 
+    it('should scroll the target below a fixed page header instead of behind it', () => {
+        cy.mount(html`
+            <vl-typography>
+                <div style="height: 800px"></div>
+                <h2 id="doel">Doel</h2>
+                <div style="height: 1500px"></div>
+            </vl-typography>
+            <div style="position: fixed; top: 0; left: 0; right: 0; height: 60px; background: #05c"></div>
+        `);
+
+        cy.then(() => {
+            expect(navigateToAnchor('#doel')).to.equal(true);
+        });
+
+        // vl-typography rendert de inhoud in zijn shadow root; dat is de kopie die effectief gescrold wordt.
+        cy.get('vl-typography')
+            .shadow()
+            .find('#doel')
+            .then(([doel]) => {
+                expect(doel.getBoundingClientRect().top).to.be.closeTo(60, 1);
+            });
+    });
+
     it('should update the hash via navigateToAnchor() when updateHash is enabled', () => {
         cy.mount(html`
             <vl-typography>

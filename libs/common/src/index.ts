@@ -33,6 +33,7 @@ export {
     SKIP_TO_CONTENT_MISSING_ID_WARNING,
     createSkipToContentLink,
 } from './util/skip-link';
+export { getStickyOffsetTop, scrollIntoViewBelowSticky } from './util/sticky-scroll';
 export {
     awaitScript,
     awaitUntil,

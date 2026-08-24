@@ -1,3 +1,4 @@
+import { scrollIntoViewBelowSticky } from './sticky-scroll';
 import { findDeepestElementThroughShadowRoot } from './utils';
 
 /**
@@ -17,8 +18,9 @@ declare global {
 
 /**
  * Navigeert naar een same-page anchor en zoekt het doel pagina-breed door alle (open) shadow roots
- * én de light DOM. Bij een treffer wordt er gescrold, de focus mee verplaatst (WCAG 2.4.3) en
- * optioneel de URL-hash bijgewerkt.
+ * én de light DOM. Bij een treffer wordt er gescrold - onder eventuele sticky of fixed page chrome,
+ * zie {@link scrollIntoViewBelowSticky} - de focus mee verplaatst (WCAG 2.4.3) en optioneel de
+ * URL-hash bijgewerkt.
  *
  * @param hash - de hash of het id van het doel (met of zonder leidende `#`)
  * @param options.updateHash - of de URL-hash bijgewerkt mag worden via `history.pushState` (default false).
@@ -37,7 +39,7 @@ export const navigateToAnchor = (hash: string, { updateHash = false }: { updateH
         return false;
     }
 
-    target.scrollIntoView();
+    scrollIntoViewBelowSticky(target);
 
     // Verplaats focus naar het doel zodat toetsenbord-/screenreader-context meeschuift (WCAG 2.4.3).
     if (target.tabIndex < 0) {
