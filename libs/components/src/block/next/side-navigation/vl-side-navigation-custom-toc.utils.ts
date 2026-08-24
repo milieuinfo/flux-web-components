@@ -1,3 +1,4 @@
+import { scrollIntoViewBelowSticky } from '@domg-wc/common';
 import { extractHeadingIdsFromLinks, findHeadingElementById } from './vl-side-navigation-scanner.utils';
 
 /**
@@ -84,8 +85,8 @@ function handleCustomTocLinkClick(
     // Update the URL hash without triggering navigation
     history.pushState(null, '', href);
 
-    // Scroll to the target element
-    targetElement.scrollIntoView({ behavior: scrollBehavior, block: 'start' });
+    // Scroll to the target element, clear of any sticky/fixed header at the top of the viewport
+    scrollIntoViewBelowSticky(targetElement, { behavior: scrollBehavior, block: 'start' });
 
     // Focus remains on the link (no explicit action needed since we prevented default)
 }

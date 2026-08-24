@@ -1,3 +1,4 @@
+import { scrollIntoViewBelowSticky } from '@domg-wc/common';
 import { html, nothing, TemplateResult } from 'lit';
 import { findHeadingElementById } from './vl-side-navigation-scanner.utils';
 import { HeadingItem, HeadingResult, HeadingTreeNode } from './vl-side-navigation.model';
@@ -151,7 +152,8 @@ const renderHeadingNode = (node: HeadingTreeNode, config: RenderConfig): Templat
         const target =
             node.item.element ?? findHeadingElementById(node.item.id, scrollRoot ?? document, config.scroll.maxDepth);
         if (target) {
-            target.scrollIntoView({ behavior: scrollBehavior ?? 'smooth', block: 'start' });
+            // scrollIntoViewBelowSticky houdt de heading vrij van een sticky/fixed header bovenaan
+            scrollIntoViewBelowSticky(target, { behavior: scrollBehavior ?? 'smooth', block: 'start' });
         }
     };
 

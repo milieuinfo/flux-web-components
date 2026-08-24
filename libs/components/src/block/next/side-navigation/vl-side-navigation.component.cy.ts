@@ -1988,3 +1988,67 @@ describe('cypress-component - block components - vl-side-navigation-next - secti
         cy.checkA11y('vl-side-navigation-next');
     });
 });
+
+describe('cypress-component - block components - vl-side-navigation-next - sticky header', () => {
+    const FIXED_HEADER_HEIGHT = 60;
+
+    // Desktop-breedte: bij een smalle viewport rendert de navigatie als drawer en zijn de links niet klikbaar.
+    beforeEach(() => {
+        cy.viewport(1280, 800);
+    });
+
+    // Simuleert de vastgeklikte globale header: zonder correctie scrolt de heading tot erachter.
+    const fixedHeader = html`<div
+        data-cy="fixed-header"
+        style="position: fixed; top: 0; left: 0; right: 0; height: ${FIXED_HEADER_HEIGHT}px; background: #05c; z-index: 10;"
+    ></div>`;
+
+    it('should scroll an auto-TOC heading below a fixed page header', () => {
+        cy.mount(html`
+            <div class="vl-grid">
+                <vl-side-navigation-next
+                    class="${NAVIGATION_COLUMN_CLASSES}"
+                    heading-root-selector="#story-content-container"
+                >
+                </vl-side-navigation-next>
+                <div class="${CONTENT_COLUMN_CLASSES}">${sampleContent}</div>
+                ${fixedHeader}
+            </div>
+        `);
+
+        cy.get('vl-side-navigation-next').shadow().find('nav a[href="#content-2-heading"]').click();
+
+        cy.get('#content-2-heading').should(($heading) => {
+            expect($heading[0].getBoundingClientRect().top).to.be.closeTo(FIXED_HEADER_HEIGHT, 1);
+        });
+    });
+
+    it('should scroll a custom-TOC heading below a fixed page header', () => {
+        cy.mount(html`
+            <div class="vl-grid">
+                <vl-side-navigation-next class="${NAVIGATION_COLUMN_CLASSES}">
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li><a href="#custom-intro">Inleiding</a></li>
+                        <li><a href="#custom-aanvraag">Aanvraag indienen</a></li>
+                    </ul>
+                </vl-side-navigation-next>
+                <div class="${CONTENT_COLUMN_CLASSES}">
+                    <section style="min-height: 800px;">
+                        <vl-title type="h2" id="custom-intro">Inleiding</vl-title>
+                    </section>
+                    <section style="min-height: 800px;">
+                        <vl-title type="h2" id="custom-aanvraag">Aanvraag indienen</vl-title>
+                    </section>
+                    <section style="min-height: 800px;"></section>
+                </div>
+                ${fixedHeader}
+            </div>
+        `);
+
+        cy.get('vl-side-navigation-next').find('a[href="#custom-aanvraag"]').click();
+
+        cy.get('#custom-aanvraag').should(($heading) => {
+            expect($heading[0].getBoundingClientRect().top).to.be.closeTo(FIXED_HEADER_HEIGHT, 1);
+        });
+    });
+});

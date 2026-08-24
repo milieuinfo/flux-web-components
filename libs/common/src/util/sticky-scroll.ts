@@ -97,27 +97,65 @@ export const getStickyOffsetTop = (target: HTMLElement): number => {
     return Math.min(offset, maxOffset);
 };
 
+/** De `scroll-margin-top` die deze utility zelf op een element zette, om die van de consumer te herkennen. */
+const appliedScrollMargins = new WeakMap<HTMLElement, string>();
+
+/**
+ * Zet de gemeten chrome-hoogte als `scroll-margin-top` op het doel. Een `scroll-margin-top` die van de
+ * consumer komt (en dus niet van een vorige correctie) blijft ongemoeid: die keuze is expliciet.
+ *
+ * @return `true` wanneer de marge effectief aangepast werd
+ */
+const applyStickyScrollMargin = (target: HTMLElement, offset: number): boolean => {
+    if (offset <= 0) {
+        return false;
+    }
+
+    const inlineMargin = target.style.scrollMarginTop;
+    const isPreviousCorrection = !!inlineMargin && appliedScrollMargins.get(target) === inlineMargin;
+    if (!isPreviousCorrection && parseFloat(getComputedStyle(target).scrollMarginTop) > 0) {
+        return false;
+    }
+
+    const margin = `${offset}px`;
+    target.style.scrollMarginTop = margin;
+    appliedScrollMargins.set(target, margin);
+
+    return true;
+};
+
 /**
  * Scrolt een element in beeld en houdt daarbij rekening met sticky of fixed page chrome bovenaan de
  * viewport: een gewone `scrollIntoView()` legt het doel tegen de bovenrand en dus achter die chrome.
  *
- * Er wordt eerst gescrold en pas daarna gemeten - zo staat de chrome in zijn definitieve (vastgeklikte)
- * positie. Dekt ze het doel af, dan krijgt het doel een `scroll-margin-top` en wordt er opnieuw
- * gescrold. Die `scroll-margin-top` blijft staan zodat ook latere (native) scrolls naar het element,
- * bv. via de URL-hash, eronder uitkomen.
+ * Het doel krijgt daarvoor een `scroll-margin-top` ter grootte van de gemeten chrome. Die blijft staan
+ * zodat ook latere (native) scrolls naar het element, bv. via de URL-hash, eronder uitkomen.
+ *
+ * Bij een instant scroll wordt er eerst gescrold en pas daarna gemeten - zo staat de chrome in zijn
+ * definitieve (vastgeklikte) positie - en enkel bij effectieve overlap opnieuw gescrold. Bij een smooth
+ * scroll is die eindpositie pas na de animatie bekend, dus wordt er vooraf gemeten en in één beweging
+ * naar de gecorrigeerde positie gescrold.
  *
  * @param target - het element dat in beeld gescrold wordt
+ * @param options - dezelfde opties als `scrollIntoView()` (default: instant, uitgelijnd op de bovenrand)
  */
-export const scrollIntoViewBelowSticky = (target: HTMLElement): void => {
-    target.scrollIntoView();
+export const scrollIntoViewBelowSticky = (target: HTMLElement, options?: ScrollIntoViewOptions): void => {
+    if (options?.behavior === 'smooth') {
+        applyStickyScrollMargin(target, getStickyOffsetTop(target));
+        target.scrollIntoView(options);
+        return;
+    }
+
+    target.scrollIntoView(options);
 
     const offset = getStickyOffsetTop(target);
     // Zit het doel al onder de chrome (bv. omdat de consumer zelf al een scroll-margin-top zette),
     // dan is er niets te corrigeren.
-    if (offset <= 0 || target.getBoundingClientRect().top >= offset) {
+    if (target.getBoundingClientRect().top >= offset) {
         return;
     }
 
-    target.style.scrollMarginTop = `${offset}px`;
-    target.scrollIntoView();
+    if (applyStickyScrollMargin(target, offset)) {
+        target.scrollIntoView(options);
+    }
 };

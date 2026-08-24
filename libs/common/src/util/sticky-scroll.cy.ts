@@ -140,6 +140,39 @@ describe('cypress-component - common - sticky-scroll utility - scrollIntoViewBel
         });
     });
 
+    it('should keep the target clear of the chrome with a smooth scroll too', () => {
+        cy.mount(html`<div>${fixedHeader()}${contentWithTarget()}</div>`);
+
+        cy.then(() => {
+            // Bij een smooth scroll wordt de marge vooraf gezet, want de eindpositie volgt pas na de animatie.
+            scrollIntoViewBelowSticky(getTarget(), { behavior: 'smooth', block: 'start' });
+
+            expect(getTarget().style.scrollMarginTop).to.equal(`${FIXED_HEADER_HEIGHT}px`);
+        });
+
+        cy.wrap(null).should(() => expect(getTargetTop()).to.be.closeTo(FIXED_HEADER_HEIGHT, 1));
+    });
+
+    it('should refresh its own scroll-margin-top when the chrome changes height', () => {
+        cy.mount(html`<div>${fixedHeader()}${contentWithTarget()}</div>`);
+
+        cy.then(() => {
+            scrollIntoViewBelowSticky(getTarget());
+
+            expect(getTarget().style.scrollMarginTop).to.equal(`${FIXED_HEADER_HEIGHT}px`);
+        });
+
+        cy.window().then((win) => win.scrollTo(0, 0));
+        cy.get('[data-cy=fixed-header]').then(([header]) => (header.style.height = '90px'));
+
+        cy.then(() => {
+            scrollIntoViewBelowSticky(getTarget());
+
+            expect(getTarget().style.scrollMarginTop).to.equal('90px');
+            expect(getTargetTop()).to.be.closeTo(90, 1);
+        });
+    });
+
     it('should leave a scroll-margin-top set by the consumer untouched', () => {
         cy.mount(html`
             <div>
@@ -156,5 +189,24 @@ describe('cypress-component - common - sticky-scroll utility - scrollIntoViewBel
             expect(getTargetTop()).to.be.closeTo(100, 1);
             expect(getTarget().style.scrollMarginTop).to.equal('100px');
         });
+    });
+
+    it('should leave a scroll-margin-top set by the consumer untouched with a smooth scroll too', () => {
+        cy.mount(html`
+            <div>
+                ${fixedHeader()}
+                <div style="height: 800px"></div>
+                <h2 data-cy="doel" id="doel" style="scroll-margin-top: 100px">Doel</h2>
+                <div style="height: 1500px"></div>
+            </div>
+        `);
+
+        cy.then(() => {
+            scrollIntoViewBelowSticky(getTarget(), { behavior: 'smooth', block: 'start' });
+
+            expect(getTarget().style.scrollMarginTop).to.equal('100px');
+        });
+
+        cy.wrap(null).should(() => expect(getTargetTop()).to.be.closeTo(100, 1));
     });
 });
