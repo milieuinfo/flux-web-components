@@ -8,7 +8,7 @@ import {
     TYPES,
 } from '@resources/utils-storybook';
 import { ArgTypes } from '@storybook/web-components-vite';
-import { ALERT_ICON, ALERT_SIZE, ALERT_TYPE, VlAlertClosedEvent } from '../vl-alert.model';
+import { ALERT_ICON, ALERT_ROLE, ALERT_SIZE, ALERT_TYPE, VlAlertClosedEvent } from '../vl-alert.model';
 
 export const alertArgs = {
     ...defaultArgs,
@@ -20,6 +20,7 @@ export const alertArgs = {
     size: '',
     type: '',
     message: '',
+    alertRole: ALERT_ROLE.ALERT as ALERT_ROLE,
     defaultSlot: '',
     titleSlot: '',
     actionsSlot: '',
@@ -110,6 +111,20 @@ export const alertArgTypes: ArgTypes<typeof alertArgs> = {
             },
             category: CATEGORIES.ATTRIBUTES,
             defaultValue: { summary: alertArgs.type },
+        },
+    },
+    alertRole: {
+        name: 'alert-role',
+        description:
+            'ARIA rol van de waarschuwing.<br>`alert` voor dynamisch verschijnende beknopte meldingen, ' +
+            '`alertdialog` voor meldingen die een actie vereisen, `no-role` voor meldingen die al bij het ' +
+            'laden van de pagina zichtbaar zijn.<br>Onbekende waarden vallen terug op `alert`.',
+        control: { type: CONTROLS.SELECT },
+        options: Object.values(ALERT_ROLE),
+        table: {
+            type: { summary: getSelectControlOptions(Object.values(ALERT_ROLE)) },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: alertArgs.alertRole },
         },
     },
     titleSlot: {

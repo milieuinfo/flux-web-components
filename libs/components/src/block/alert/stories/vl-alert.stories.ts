@@ -3,7 +3,7 @@ import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import '../vl-alert.component';
-import { ALERT_ICON, ALERT_TYPE } from '../vl-alert.model';
+import { ALERT_ICON, ALERT_ROLE, ALERT_TYPE } from '../vl-alert.model';
 import { alertArgs, alertArgTypes } from './vl-alert.stories-arg';
 import alertDoc from './vl-alert.stories-doc.mdx';
 import { registerWebComponents } from '@domg-wc/common';
@@ -35,6 +35,7 @@ const AlertTemplate = story(
         naked,
         multiline,
         message,
+        alertRole,
         defaultSlot,
         actionsSlot,
         titleSlot,
@@ -49,6 +50,7 @@ const AlertTemplate = story(
             size=${size}
             type=${type}
             message=${message}
+            alert-role=${alertRole}
             @vl-alert-closed="${alertClosed}"
             data-cy="alert"
         >
@@ -163,4 +165,15 @@ AlertMultiline.args = {
     type: ALERT_TYPE.INFO,
     icon: ALERT_ICON.INFO_CIRCLE,
     multiline: true,
+};
+
+export const AlertAlertDialog = AlertTemplate.bind({});
+AlertAlertDialog.storyName = 'vl-alert - alertdialog';
+AlertAlertDialog.args = {
+    title: 'Uw sessie verloopt',
+    type: ALERT_TYPE.WARNING,
+    icon: ALERT_ICON.WARNING,
+    alertRole: ALERT_ROLE.ALERT_DIALOG,
+    defaultSlot: '<span>Over 2 minuten wordt u automatisch afgemeld. Wilt u aangemeld blijven?</span>',
+    actionsSlot: '<vl-button slot="actions">Aangemeld blijven</vl-button>',
 };
