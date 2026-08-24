@@ -1,7 +1,7 @@
 import { registerWebComponents } from '@domg-wc/common';
 import { VlButtonComponent } from '@domg-wc/components/atom';
 import { html } from 'lit';
-import { VlAlert } from '../alert';
+import { ALERT_ROLE, VlAlert } from '../alert';
 import { VlToasterComponent } from './vl-toaster.component';
 
 registerWebComponents([VlToasterComponent, VlButtonComponent, VlAlert]);
@@ -213,6 +213,24 @@ describe('cypress-component - block components - vl-toaster', () => {
                 .then(($message) => {
                     expect(getComputedStyle($message[0]).whiteSpace).to.not.equal('pre-line');
                 });
+        });
+    });
+
+    it('should show a dynamically created alert with a multi-word attribute', () => {
+        cy.mount(html` <vl-toaster></vl-toaster> `);
+        cy.get('vl-toaster').then(($toaster) => {
+            $toaster[0].showAlert({
+                title: 'Gelukt',
+                message: 'Wij hebben uw melding goed ontvangen en nemen deze spoedig in behandeling.',
+                type: 'success',
+                'alert-role': ALERT_ROLE.ALERT_DIALOG,
+            });
+            cy.get('vl-toaster')
+                .shadow()
+                .find('vl-alert')
+                .shadow()
+                .find('#alert')
+                .should('have.attr', 'role', 'alertdialog');
         });
     });
 

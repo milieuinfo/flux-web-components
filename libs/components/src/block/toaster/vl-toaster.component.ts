@@ -1,7 +1,7 @@
 import { BaseLitElement, registerWebComponents, webComponent } from '@domg-wc/common';
 import { CSSResult, html, HTMLTemplateResult, PropertyDeclarations } from 'lit';
 import { VlAlert } from '../alert';
-import { VlAlertModel } from '../alert/vl-alert.model';
+import { VlAlertAttributes } from '../alert/vl-alert.model';
 import { toasterStyles } from './vl-toaster.css';
 import { toasterDefaults } from './vl-toaster.defaults';
 import { Placement } from './vl-toaster.model';
@@ -75,10 +75,10 @@ export class VlToasterComponent extends BaseLitElement {
     }
 
     /**
-     * Toont een vl-alert in de toaster met de opgegeven attributen/properties.
+     * Toont een vl-alert in de toaster met de opgegeven attributen.
      * @param alert
      */
-    showAlert(alert: VlAlertModel) {
+    showAlert(alert: VlAlertAttributes) {
         const vlAlert = document.createElement('vl-alert');
         Object.entries(alert).forEach(([key, value]) => {
             if (value) {
