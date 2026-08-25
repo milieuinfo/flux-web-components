@@ -7,6 +7,7 @@ echo 'RUNNING SCRIPT: build-apps-and-libs.sh'
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "${SCRIPT_DIR}/../../.."
 source "${SCRIPT_DIR}/lib/quiet-step.sh"
+source "${SCRIPT_DIR}/lib/corepack-registry.sh"
 
 corepack enable
 quiet_step "pnpm install" pnpm install --frozen-lockfile --network-concurrency 5

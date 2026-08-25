@@ -7,6 +7,7 @@ echo 'RUNNING SCRIPT: release-and-publish.sh'
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "${SCRIPT_DIR}/../../.."
 source "${SCRIPT_DIR}/lib/quiet-step.sh"
+source "${SCRIPT_DIR}/lib/corepack-registry.sh"
 
 # op Jenkins is de checkout gedaan door een andere user (jnlp container) dan de user
 # die dit script draait (root in de cypress container) - zonder safe.directory weigert

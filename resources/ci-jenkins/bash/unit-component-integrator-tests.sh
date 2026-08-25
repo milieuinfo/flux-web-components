@@ -7,6 +7,7 @@ echo 'RUNNING SCRIPT: unit-component-integrator-tests.sh'
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "${SCRIPT_DIR}/../../.."
 source "${SCRIPT_DIR}/lib/quiet-step.sh"
+source "${SCRIPT_DIR}/lib/corepack-registry.sh"
 
 # De component-tests draaien verdeeld over 3 shards die in Jenkins parallel in een eigen pod staan; samen dekken ze
 # exact dezelfde specs als voorheen. De grens volgt de mappenstructuur, niet een gewichtsberekening:
