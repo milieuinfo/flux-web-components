@@ -72,7 +72,9 @@ SPECS="${SPECS#,}"
 # van deze stage ze oppikt (zie apps/storybook-e2e/cypress.config.ts).
 # Niet via 'pnpm run apps:storybook:serve-and-e2e', omdat die de volledige specPattern draait zonder --spec.
 echo "serve storybook and run the e2e tests - shard ${SHARD}: ${SPECS}"
+# Directe binary, geen 'pnpm exec': storybook-e2e heeft geen package.json, dus pnpm exec reset de cwd naar de
+# repo-root en cypress vindt zijn config niet meer.
 env CI=true pnpm exec start-server-and-test \
     'pnpm run apps:storybook:ci' \
     http://localhost:8080 \
-    "cd ./${E2E_ROOT} && pnpm exec cypress run --e2e --spec '${SPECS}'"
+    "cd ./${E2E_ROOT} && ../../node_modules/.bin/cypress run --e2e --spec '${SPECS}'"

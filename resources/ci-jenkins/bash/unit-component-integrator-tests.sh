@@ -69,7 +69,9 @@ fi
 SPECS=$(printf ',../../%s/**/*.cy.ts' "${SHARD_DIRS[@]}")
 SPECS="${SPECS#,}"
 echo "run web component tests - shard ${SHARD} (cypress): ${SPECS}"
-(cd ./resources/cypress-component && env CI=true pnpm exec cypress run --component --spec "${SPECS}")
+# Directe binary, geen 'pnpm exec': cypress-component heeft geen package.json, dus pnpm exec reset de cwd naar de
+# repo-root en cypress vindt zijn config niet meer.
+(cd ./resources/cypress-component && env CI=true ../../node_modules/.bin/cypress run --component --spec "${SPECS}")
 
 if [[ "${SHARD}" == "3" ]]; then
     # JUNIT_VARIANT=firefox: deze specs draaien ook mee in de component-run van shard 2; zonder eigen label staan ze
