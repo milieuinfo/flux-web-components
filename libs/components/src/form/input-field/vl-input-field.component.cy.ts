@@ -194,6 +194,44 @@ describe('cypress-component - form components - vl-input-field', () => {
         cy.get('@vl-valid').should('have.been.calledOnce');
         cy.get('@vl-valid').its('firstCall.args.0.detail').should('deep.equal', { value: 'test' });
     });
+
+    it('should submit the form on Enter', () => {
+        const onSubmit = cy.stub().as('onSubmit');
+        cy.mount(html`
+            <form
+                @submit=${(e: Event) => {
+                    e.preventDefault();
+                    onSubmit();
+                }}
+            >
+                <vl-input-field id="enter-field" name="enter-field"></vl-input-field>
+            </form>
+        `);
+        cy.get('vl-input-field').shadow().find('input').type('waarde');
+        cy.get('vl-input-field').then(($el) => {
+            $el[0].dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', bubbles: true }));
+        });
+        cy.get('@onSubmit').should('have.been.calledOnce');
+    });
+
+    it('should submit the form on Enter from the numeric keypad', () => {
+        const onSubmit = cy.stub().as('onSubmit');
+        cy.mount(html`
+            <form
+                @submit=${(e: Event) => {
+                    e.preventDefault();
+                    onSubmit();
+                }}
+            >
+                <vl-input-field id="numpad-field" name="numpad-field"></vl-input-field>
+            </form>
+        `);
+        cy.get('vl-input-field').shadow().find('input').type('waarde');
+        cy.get('vl-input-field').then(($el) => {
+            $el[0].dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', code: 'NumpadEnter', bubbles: true }));
+        });
+        cy.get('@onSubmit').should('have.been.calledOnce');
+    });
 });
 
 describe('cypress-component - form components - vl-input-field - blur-validation attribuut', () => {

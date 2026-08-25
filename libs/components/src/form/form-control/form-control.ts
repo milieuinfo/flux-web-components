@@ -156,7 +156,7 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
     }
 
     protected onKeydown(event: KeyboardEvent) {
-        if (event.code === 'Enter') {
+        if (event.key === 'Enter') {
             if (this.form && this.submitFormOnEnter) {
                 submit(this.form);
             }
