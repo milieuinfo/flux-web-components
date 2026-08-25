@@ -138,7 +138,9 @@ export class VlSideNavigationComponent extends BaseLitElement {
             if (hasAutoSection) {
                 this.sectionsRescanRafHandle = requestAnimationFrame(() => {
                     this.sectionsRescanRafHandle = undefined;
-                    this.refreshSections(slottedElements);
+                    if (this.mode !== 'sections') return;
+                    const currentSlot = this.shadowRoot?.querySelector('slot') as HTMLSlotElement;
+                    this.refreshSections(currentSlot?.assignedElements() ?? []);
                 });
             }
         } else if (this.mode === 'custom') {
@@ -736,6 +738,11 @@ export class VlSideNavigationComponent extends BaseLitElement {
     }
 
     private handleTocSlotChange(event: Event): void {
+        if (this.sectionsRescanRafHandle !== undefined) {
+            cancelAnimationFrame(this.sectionsRescanRafHandle);
+            this.sectionsRescanRafHandle = undefined;
+        }
+
         const slot = event.target as HTMLSlotElement;
         const slottedElements = slot.assignedElements();
 
