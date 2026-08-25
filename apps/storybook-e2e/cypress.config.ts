@@ -25,6 +25,7 @@ const cypressConfig = defineConfig({
                 webpackPreprocessor({
                     webpackOptions: {
                         mode: 'development',
+                        ignoreWarnings: [{ module: /cypress-axe/, message: /Critical dependency/ }],
                         resolve: {
                             extensions: ['.ts', '.tsx', '.js'],
                             plugins: [
