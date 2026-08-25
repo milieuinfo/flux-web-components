@@ -54,7 +54,8 @@ ruis voor screenreaders tijdens het invullen.
 De foutmelding staat in een `aria-live="polite"` regio met `role="status"` (via `vl-form-message`), zodat
 screenreaders ze voorlezen zodra ze verschijnt of wijzigt. `aria-atomic="true"` zorgt dat telkens de
 volledige boodschap wordt voorgelezen. De control krijgt `aria-invalid="true"` zodat de ongeldige toestand
-ook los van de melding kenbaar is.
+ook los van de melding kenbaar is. Eén uitzondering: bij `vl-upload` haalt dat attribuut de accessibility
+tree niet, zie [Gekende Beperkingen](/docs/richtlijnen-toegankelijkheid-praktijk-gekende-beperkingen-wip--documentatie).
 
 Blur-validatie verplaatst de focus niet: het veld toont enkel zijn melding. Alleen bij submit springt de
 focus naar het eerste ongeldige veld.
