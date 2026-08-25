@@ -28,6 +28,7 @@ const cypressConfig: any = {
             // @ts-ignore
             headers: { 'Cache-Control': 'no-store' },
             webpackConfig: {
+                ignoreWarnings: [{ module: /cypress-axe/, message: /Critical dependency/ }],
                 module: {
                     rules: [
                         {
