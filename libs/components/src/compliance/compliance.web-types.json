@@ -279,6 +279,11 @@
                             "default": "/sso/wissel_organisatie"
                         },
                         {
+                            "name": "skip-to-content-id",
+                            "description": "De id van het content-element waarnaar de skip-link de focus verplaatst (WCAG 2.4.1). Zonder waarde wordt er geen skip-link gerenderd. Gebruik de id van de eerste heading van de pagina-inhoud.",
+                            "default": ""
+                        },
+                        {
                             "name": "reject-logout",
                             "description": "Geeft aan of het logout request moet worden afgewezen.<br/>Een logout request door de gebruiker wordt nooit afgewezen.",
                             "default": "false"

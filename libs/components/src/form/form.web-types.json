@@ -1040,7 +1040,7 @@
                 },
                 {
                     "name": "vl-select-rich",
-                    "description": "- [Doel](#doel)\n - [Voorbeeld](#voorbeeld)\n - [Configuratie](#configuratie)\n - [Publieke methodes](#publieke-methodes)\n - [Styles](#styles)\n - [Events](#events)\n - [Select opties](#select-opties)\n - [Accessibility](#accessibility)\n - [Varianten](#varianten)\n - [Zoek strategieën](#zoek-strategieën)\n - [Validatie](#validatie)\n - [Referenties](#referenties)",
+                    "description": "- [Doel](#doel)\n - [Voorbeeld](#voorbeeld)\n - [Configuratie](#configuratie)\n - [Publieke methodes](#publieke-methodes)\n - [Styles](#styles)\n - [Events](#events)\n - [Select opties](#select-opties)\n - [Accessibility](#accessibility)\n - [Varianten](#varianten)\n - [Eigen inhoud per optie](#eigen-inhoud-per-optie)\n - [Zoek strategieën](#zoek-strategieën)\n - [Validatie](#validatie)\n - [Referenties](#referenties)",
                     "doc-url": "https://flux.omgeving.vlaanderen.be/release-v2/DOMG-WC-VERSION/storybook/?path=/docs/components-form-select-rich--documentatie",
                     "attributes": [
                         {
@@ -1149,6 +1149,12 @@
                     ],
                     "js": {
                         "properties": [
+                            {
+                                "name": "itemTemplate",
+                                "description": "Bepaalt zelf de inhoud van een optie in de dropdown.<br>Niet reactief en niet aanpasbaar in Storybook.<br>Zie de [documentatie](/docs/components-form-select-rich--documentatie#itemtemplate) voor meer info.",
+                                "type": "function",
+                                "default": "undefined"
+                            },
                             {
                                 "name": "initial-options",
                                 "description": "De standaard opties die geselecteerd kunnen worden. Bij een reset van de form worden deze opties getoond.<br>Niet dynamisch.<br>Zie de documentatie pagina voor meer info.",
