@@ -126,9 +126,7 @@ describe('cypress-component - integrations - vl-composite-input (Mode A)', () =>
         cy.get('vl-input-field#lon').should('have.attr', 'disabled');
         cy.get('vl-input-field#lat').should('have.attr', 'disabled');
 
-        cy.get('vl-composite-input#geo').then(($composite) => {
-            ($composite[0] as CompositeInputComponent).disabled = false;
-        });
+        cy.get('vl-composite-input#geo').then(($composite) => $composite[0].removeAttribute('disabled'));
         cy.get('vl-input-field#lon').should('not.have.attr', 'disabled');
         cy.get('vl-input-field#lat').should('not.have.attr', 'disabled');
     });
