@@ -18,14 +18,13 @@ Wanneer `blur-validation` aanstaat:
 
 - Het veld valideert zodra het focus kreeg en weer verlaten wordt (`focusout`), ongeacht of de gebruiker de
   waarde gewijzigd heeft.
-- Na de eerste foutmelding schakelt het veld over op **live re-validatie tijdens typen**: de foutmelding verdwijnt
-  op het moment dat de waarde geldig wordt, zonder dat de gebruiker opnieuw moet wegklikken.
+- Na de eerste foutmelding verdwijnt die weer zodra de waarde geldig wordt, terwijl de gebruiker nog aan het
+  typen is. Er hoeft niet opnieuw weggeklikt te worden.
 - Submit blijft de definitieve check: bij submit wordt nog steeds alles gevalideerd en springt de focus naar het
   eerste ongeldige veld.
 
 De foutmeldingen lopen via hetzelfde mechanisme als de standaard validatie
-([`vl-form-message`](/docs/components-form-form-message--documentatie) + `ValidityState`). Je hoeft enkel
-het attribuut toe te voegen.
+([`vl-form-message`](/docs/components-form-form-message--documentatie) + `ValidityState`).
 
 ## Per veld
 
@@ -44,22 +43,25 @@ voor **alle** form controls eronder. De velden zelf hebben dan geen attribuut no
 
 <Canvas of={formBlurValidationStories.FormulierBlurValidatieForm} sourceState={'shown'} />
 
-Een veld met een eigen `blur-validation` attribuut blijft daarnaast los werken. Form-niveau en veld-niveau zijn
-beide manieren om hetzelfde gedrag aan te zetten (OR-logica, er is geen per-veld opt-out).
+Een veld met een eigen `blur-validation` attribuut blijft daarnaast los werken. Staat het attribuut op de form,
+dan kan een veld daar niet individueel van afwijken.
 
 ## Toegankelijkheid
 
 `blur-validation` is bewust opt-in. Validatie pas op `focusout` (en niet op elke toetsaanslag) beperkt
 ruis voor screenreaders tijdens het invullen.
 
-De foutmelding wordt gerenderd in een `aria-live="polite"` regio (via `vl-form-message`), zodat screen
-readers ze voorlezen zodra ze verschijnt of wijzigt. `aria-atomic="true"` zorgt dat telkens de volledige
-boodschap wordt voorgelezen. De control zelf krijgt `aria-invalid="true"` zodat de ongeldige toestand
+De foutmelding staat in een `aria-live="polite"` regio met `role="status"` (via `vl-form-message`), zodat
+screenreaders ze voorlezen zodra ze verschijnt of wijzigt. `aria-atomic="true"` zorgt dat telkens de
+volledige boodschap wordt voorgelezen. De control krijgt `aria-invalid="true"` zodat de ongeldige toestand
 ook los van de melding kenbaar is.
 
-## Lijst componenten met `blur-validation`
+Blur-validatie verplaatst de focus niet: het veld toont enkel zijn melding. Alleen bij submit springt de
+focus naar het eerste ongeldige veld.
 
-Het attribuut zit op de gedeelde `FormControl` base class en werkt dus op alle form controls:
+## Ondersteunde componenten
+
+Het attribuut werkt op alle form controls:
 
 - [vl-input-field](/docs/components-form-input-field--documentatie)
 - [vl-input-field-masked](/docs/components-form-input-field-masked--documentatie)
