@@ -87,6 +87,9 @@ Om deze functionaliteit te bekomen wordt er een `dropzoneValidator` gebruikt die
 [ValidityState](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) key.
 Via de `customError` ValidityState key kan je een error message linken aan de `dropzoneValidator`.
 
+De ongeldige toestand van dit veld bereikt een screenreader enkel via de foutmelding, niet via `aria-invalid` op de
+control zelf. Zie [Gekende Beperkingen](/docs/richtlijnen-toegankelijkheid-praktijk-gekende-beperkingen-wip--documentatie).
+
 ### Bestandsgrootte: MiB vs MB
 
 De `max-size`-waarde wordt achterliggend door Dropzone (`maxFilesize`) binair geïnterpreteerd, dus in **MiB**

@@ -188,6 +188,7 @@ export class VlUploadComponent extends FormControl {
 
         if (changedProperties.has('isInvalid')) {
             this.updateInputForAttribute('isInvalid');
+            this.updateAriaInvalid();
         }
 
         if (changedProperties.has('success')) {
@@ -400,6 +401,14 @@ export class VlUploadComponent extends FormControl {
                 </li>
             </template>
         `;
+    }
+
+    private updateAriaInvalid() {
+        if (this.isInvalid) {
+            this.validationTarget?.setAttribute('aria-invalid', 'true');
+        } else {
+            this.validationTarget?.removeAttribute('aria-invalid');
+        }
     }
 
     private updateInputForAttribute(attribute: string) {

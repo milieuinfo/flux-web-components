@@ -358,6 +358,42 @@ describe('cypress-component - form components - vl-upload - events', () => {
         cy.get('vl-form-message[state="valueMissing"]').should('not.have.attr', 'show');
     });
 
+    it('should mark the validation target invalid via aria-invalid when the error shows', () => {
+        cy.mount(html`
+            <form @submit=${(e: Event) => e.preventDefault()}>
+                <vl-upload id="foto" name="foto" required></vl-upload>
+                <vl-form-message for="foto" state="valueMissing">Kies een bestand.</vl-form-message>
+                <button type="submit">Verstuur</button>
+            </form>
+        `);
+
+        cy.get('vl-upload').shadow().find('input').should('not.have.attr', 'aria-invalid');
+
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-upload').shadow().find('input').should('have.attr', 'aria-invalid', 'true');
+
+        shouldAddPdfFiles(1);
+        cy.get('vl-upload').shadow().find('input').should('not.have.attr', 'aria-invalid');
+    });
+
+    it('should announce the error in a polite live region', () => {
+        cy.mount(html`
+            <form @submit=${(e: Event) => e.preventDefault()}>
+                <vl-upload id="foto" name="foto" required></vl-upload>
+                <vl-form-message for="foto" state="valueMissing">Kies een bestand.</vl-form-message>
+                <button type="submit">Verstuur</button>
+            </form>
+        `);
+
+        cy.get('button[type="submit"]').click();
+        cy.get('vl-form-message[state="valueMissing"]').should('have.attr', 'show');
+        cy.get('vl-form-message[state="valueMissing"]')
+            .shadow()
+            .find('[role="status"]')
+            .should('have.attr', 'aria-live', 'polite')
+            .and('have.attr', 'aria-atomic', 'true');
+    });
+
     it('should dispatch vl-change events when removing a file', () => {
         cy.mount(html` <vl-upload max-files="4"></vl-upload>`);
 
