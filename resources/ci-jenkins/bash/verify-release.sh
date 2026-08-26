@@ -9,6 +9,8 @@ cd "${SCRIPT_DIR}/../../.."
 source "${SCRIPT_DIR}/lib/quiet-step.sh"
 source "${SCRIPT_DIR}/lib/corepack-registry.sh"
 
+corepack enable
+
 # Normaliseer de JUnit classnames tot '<categorie>.<rest>', zodat de junit-step van deze stage op categorie
 # groepeert in plaats van alles in (root) te zetten. Via een EXIT-trap zodat dit ook loopt wanneer een testrun
 # faalt en set -e het script afbreekt - dan wil je het rapport net het meest. '|| true' houdt de exit code van het
@@ -89,7 +91,6 @@ echo "copy fat-lib to consumer-fat-lib - success"
 # 'pnpm pkg set' de versie invult en de lock dus stale is), dus de lock is hier leidend en reproduceerbaar.
 echo "install consumer-e2e dependencies"
 cd apps/consumer-e2e
-corepack enable
 quiet_step "consumer-e2e pnpm install" pnpm install --frozen-lockfile
 cd ../..
 
