@@ -24,5 +24,12 @@
         "@domg-wc/common": "2.17.0",
         "@domg-wc/components": "2.17.0",
         "@domg-wc/map": "2.17.0"
+    },
+    "pnpm": {
+        "overrides": {
+            "color-parse>color-name": "2.0.0",
+            "validator": "13.15.35",
+            "@babel/runtime": "7.26.10"
+        }
     }
 }
