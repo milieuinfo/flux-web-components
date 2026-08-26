@@ -57,6 +57,10 @@ uitvoeren (hier enkel `cypress`); alle andere `postinstall`-scripts zijn geblokk
 strikte `node_modules` phantom dependencies zichtbaar: code die een package importeert dat niet in de
 `package.json` staat, faalt onder pnpm in plaats van toevallig te werken via npm's hoisting.
 
+Een gevolg: Playwright (voor de Storybook vitest-browser-tests) staat niet in `onlyBuiltDependencies`, dus zijn
+browsers worden niet automatisch gedownload bij het installeren. Draai je die tests lokaal, doe dan eenmalig
+`pnpm exec playwright install`.
+
 pnpm draait via corepack (bij Node inbegrepen) en is gepind met het `packageManager`-veld in de root
 `package.json`. Corepack activeer je eenmalig:
 
