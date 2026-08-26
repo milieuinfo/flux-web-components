@@ -5,5 +5,10 @@
         "cypress": "15.4.0",
         "cypress-axe": "1.7.0",
         "typescript": "5.4.2"
+    },
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "cypress"
+        ]
     }
 }
