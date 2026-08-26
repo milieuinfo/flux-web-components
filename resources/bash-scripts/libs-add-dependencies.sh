@@ -20,7 +20,7 @@ for LIB in common styles components map; do
     # zonder deze controle draait 'npm list' hieronder zonder packages, en dat geeft alle dependencies van de root
     # package.json terug - die zouden dan stuk voor stuk in het artifact geïnjecteerd worden
     if [[ -z ${MISSING} ]]; then
-        echo "[FOUT] - depcheck vond geen ontbrekende dependencies voor '${LIB}' - is deze stap al gedraaid sinds de laatste 'npm run libs:build'?" >&2
+        echo "[FOUT] - depcheck vond geen ontbrekende dependencies voor '${LIB}' - is deze stap al gedraaid sinds de laatste 'pnpm run libs:build'?" >&2
         exit 1
     fi
 

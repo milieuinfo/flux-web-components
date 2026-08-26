@@ -43,7 +43,7 @@ NEXT_RELEASE_VERSION=$(pnpm pkg get version | sed 's/"//g')
 echo "Using ${NEXT_RELEASE_VERSION} as NEXT_RELEASE_VERSION"
 cd ../../../..
 
-# Bewust GEEN 'npm ci' op de root. Deze stage is een controlestap: ze moet aantonen dat de zonet gepubliceerde packages
+# Bewust GEEN `pnpm install` op de root. Deze stage is een controlestap: ze moet aantonen dat de zonet gepubliceerde packages
 # werken zoals een externe afnemer ze krijgt, dus zonder iets uit deze monorepo. Een root node_modules ondermijnt dat:
 # want node resolutie kijkt vanuit apps/consumer omhoog en pikt daar dependencies op die de gepubliceerde packages zelf
 # niet declareren (phantom dependencies) - de stage slaagt dan op een gebroken gepubliceerde package. De isolatie zit in
@@ -87,7 +87,7 @@ echo "copy fat-lib to consumer-fat-lib - success"
 
 # consumer-e2e dependencies installeren: cypress, cypress-axe en typescript resolven vanaf apps/consumer-e2e enkel
 # omhoog (apps/consumer-e2e -> apps -> root), nooit zijwaarts naar apps/consumer. Ze moeten dus in deze app zelf staan.
-# Hier wel 'npm ci' en geen 'npm install': hier muteert niets vlak ervoor (anders dan bij apps/consumer, waar
+# Hier wel `--frozen-lockfile` en niet `--no-frozen-lockfile`: hier muteert niets vlak ervoor (anders dan bij apps/consumer, waar
 # 'pnpm pkg set' de versie invult en de lock dus stale is), dus de lock is hier leidend en reproduceerbaar.
 echo "install consumer-e2e dependencies"
 cd apps/consumer-e2e
