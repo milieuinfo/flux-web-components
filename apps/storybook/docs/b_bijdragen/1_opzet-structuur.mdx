@@ -54,8 +54,8 @@ automatisch uit, ook de transitieve. Dat is het aanvalsoppervlak voor supply-cha
 gecompromitteerde package voert willekeurige code uit tijdens het installeren. pnpm draait die scripts standaard
 niet. Enkel packages die in `allowBuilds` op `true` staan (in de root `pnpm-workspace.yaml`) mogen build-scripts
 uitvoeren (hier enkel `cypress`); de andere staan op `false` en zijn geblokkeerd. `strictDepBuilds` laat de install
-bovendien falen zodra een build-script niet expliciet erkend is, zodat een nieuw of onverwacht script niet stil kan
-draaien. Daarnaast maakt pnpm's
+bovendien falen zodra een build-script niet expliciet toegelaten of geweigerd is, zodat een nieuw of onverwacht
+script niet stil kan draaien. Daarnaast maakt pnpm's
 strikte `node_modules` phantom dependencies zichtbaar: code die een package importeert dat niet in de
 `package.json` staat, faalt onder pnpm in plaats van toevallig te werken via npm's hoisting.
 
@@ -80,7 +80,7 @@ Cheatsheet voor wie van npm komt (enkel de commando's die anders werken):
 | Script met argument | `npm run <script> -- <arg>` | `pnpm <script> <arg>` |
 | Binary uitvoeren | `npx <bin>` | `pnpm exec <bin>` |
 
-Twee aandachtspunten. Bij "Script met argument" geeft pnpm de `--` letterlijk door als argument, npm strippt
+Twee aandachtspunten. Bij "Script met argument" geeft pnpm de `--` letterlijk door als argument, npm stript
 die. Gebruik in pnpm dus geen `--` voor het argument, anders komt `--` als eerste argument in het script
 terecht. En `pnpm install` gebruikt in CI automatisch `--frozen-lockfile` (pnpm detecteert de CI-omgeving);
 lokaal mag de lockfile wel wijzigen.
