@@ -1,0 +1,20 @@
+overrides:
+  color-parse>color-name: 2.0.0
+  validator: 13.15.35
+  '@babel/runtime': 7.26.10
+
+strictDepBuilds: true
+
+allowBuilds:
+  cypress: true
+  '@ffmpeg-installer/darwin-arm64': false
+  '@ffmpeg-installer/darwin-x64': false
+  '@ffmpeg-installer/linux-x64': false
+  '@ffmpeg-installer/linux-arm64': false
+  '@ffmpeg-installer/win32-x64': false
+  '@parcel/watcher': false
+  core-js: false
+  esbuild: false
+  msw: false
+  playwright-webkit: false
+  vue-demi: false
