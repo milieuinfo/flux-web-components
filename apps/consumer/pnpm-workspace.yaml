@@ -5,5 +5,9 @@ overrides:
 
 strictDepBuilds: true
 
+minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  - '@domg-wc/*'
+
 allowBuilds:
   vue-demi: false

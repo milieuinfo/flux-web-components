@@ -5,6 +5,8 @@ overrides:
 
 strictDepBuilds: true
 
+minimumReleaseAge: 1440
+
 allowBuilds:
   cypress: true
   '@ffmpeg-installer/darwin-arm64': false
