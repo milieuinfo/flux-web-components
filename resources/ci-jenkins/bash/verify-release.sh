@@ -54,8 +54,9 @@ cd ../../../..
 # consumer app dependencies updaten naar de ge-releaste versie
 echo "update consumer-app dependencies to version ${NEXT_RELEASE_VERSION}"
 cd apps/consumer
-pnpm pkg set "dependencies.@domg-wc/components=${NEXT_RELEASE_VERSION}"
-pnpm pkg set "dependencies.@domg-wc/map=${NEXT_RELEASE_VERSION}"
+# Bracket-notatie met quotes rond de scoped naam: pnpm 11's 'pkg set' aanvaardt de '@' niet in een dot-property-path.
+pnpm pkg set "dependencies['@domg-wc/components']=${NEXT_RELEASE_VERSION}"
+pnpm pkg set "dependencies['@domg-wc/map']=${NEXT_RELEASE_VERSION}"
 
 # Controleer of de placeholder nog aanwezig is
 if grep -q "DOMG-WC-VERSION" package.json; then
