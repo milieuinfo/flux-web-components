@@ -52,12 +52,14 @@ We gebruiken **pnpm** in plaats van npm. De reden is **supply-chain security**, 
 Bij het installeren voert npm de lifecycle-scripts (`preinstall`/`install`/`postinstall`) van elke dependency
 automatisch uit, ook de transitieve. Dat is het aanvalsoppervlak voor supply-chain-aanvallen: een
 gecompromitteerde package voert willekeurige code uit tijdens het installeren. pnpm draait die scripts standaard
-niet. Enkel packages in de `onlyBuiltDependencies`-lijst van de root `package.json` mogen build-scripts
-uitvoeren (hier enkel `cypress`); alle andere `postinstall`-scripts zijn geblokkeerd. Daarnaast maakt pnpm's
+niet. Enkel packages die in `allowBuilds` op `true` staan (in de root `pnpm-workspace.yaml`) mogen build-scripts
+uitvoeren (hier enkel `cypress`); de andere staan op `false` en zijn geblokkeerd. `strictDepBuilds` laat de install
+bovendien falen zodra een build-script niet expliciet erkend is, zodat een nieuw of onverwacht script niet stil kan
+draaien. Daarnaast maakt pnpm's
 strikte `node_modules` phantom dependencies zichtbaar: code die een package importeert dat niet in de
 `package.json` staat, faalt onder pnpm in plaats van toevallig te werken via npm's hoisting.
 
-Een gevolg: Playwright (voor de Storybook vitest-browser-tests) staat niet in `onlyBuiltDependencies`, dus zijn
+Een gevolg: Playwright (voor de Storybook vitest-browser-tests) staat niet op `true` in `allowBuilds`, dus zijn
 browsers worden niet automatisch gedownload bij het installeren. Draai je die tests lokaal, doe dan eenmalig
 `pnpm exec playwright install`.
 

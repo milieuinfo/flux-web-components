@@ -19,7 +19,7 @@ De basis van hedendaagse JavaScript ontwikkeling - zowel voor deze componenten b
 is [Node.js](https://nodejs.org/en). Als package manager raden we [pnpm](https://pnpm.io/) aan.
 
 De reden is supply-chain security: pnpm draait de lifecycle-scripts (`preinstall`/`install`/`postinstall`) van
-dependencies standaard niet automatisch. Enkel packages die je expliciet in `onlyBuiltDependencies` toelaat, mogen
+dependencies standaard niet automatisch. Enkel packages die je expliciet toelaat, mogen
 build-scripts draaien. npm en Yarn draaien die scripts wel bij elke install en vergroten zo het aanvalsoppervlak voor
 supply-chain-aanvallen. Onze packages afnemen werkt met elke package manager; voor je eigen project raden we pnpm aan.
 
