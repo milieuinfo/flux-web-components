@@ -69,8 +69,9 @@ fi
 SPECS=$(printf ',../../%s/**/*.cy.ts' "${SHARD_DIRS[@]}")
 SPECS="${SPECS#,}"
 echo "run web component tests - shard ${SHARD} (cypress): ${SPECS}"
-# Directe binary, geen 'pnpm exec': cypress-component heeft geen package.json, dus pnpm exec reset de cwd naar de
-# repo-root en cypress vindt zijn config niet meer.
+# Directe binary i.p.v. 'pnpm exec': werkt robuust ongeacht de cwd. Onder pnpm 10 resette 'pnpm exec' de cwd naar
+# de repo-root in een map zonder package.json (zoals cypress-component), waardoor cypress zijn config niet vond;
+# onder de gepinde pnpm 11 gebeurt dat niet meer, maar de directe binary blijft de veilige keuze.
 (cd ./resources/cypress-component && env CI=true ../../node_modules/.bin/cypress run --component --spec "${SPECS}")
 
 if [[ "${SHARD}" == "3" ]]; then
