@@ -84,7 +84,11 @@ pipeline {
                 stage('Trivy scan') {
                     steps {
                         script {
+                            // Drie lockfiles sinds de consumer-apps elk een eigen pnpm-lock.yaml hebben; alle drie
+                            // scannen zodat geen dependency-lijst buiten de vuln-scan valt.
                             trivy.scanFilesystem([targetPath: 'pnpm-lock.yaml'])
+                            trivy.scanFilesystem([targetPath: 'apps/consumer/pnpm-lock.yaml'])
+                            trivy.scanFilesystem([targetPath: 'apps/consumer-e2e/pnpm-lock.yaml'])
                         }
                     }
                 }
