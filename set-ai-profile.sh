@@ -5,10 +5,9 @@
 #
 # Maakt/vervangt:
 #   - CLAUDE.local.md                  (als profile een CLAUDE.md heeft)
-#   - .claude/settings.local.json      MERGE (als profile een settings.json heeft)
+#   - .claude/settings.local.json      MERGE van de profile-permissies (altijd)
 #   - .claude/skills                   symlink (als profile een skills/ folder heeft)
 #   - AGENTS.md                        symlink (als profile een AGENTS.md heeft, cross-tool)
-#   - SKILLS.md                        symlink (als profile een SKILLS.md heeft, cross-tool)
 #
 # Let op: .claude/settings.json is GECOMMIT (team-wide hook + permissies) en
 # wordt door dit script NIET aangeraakt.
@@ -88,7 +87,6 @@ mkdir -p .claude
 
 remove_existing_symlink .claude/skills
 remove_existing_symlink AGENTS.md
-remove_existing_symlink SKILLS.md
 
 # CLAUDE.local.md is geen symlink maar een gewoon (gitignored) bestand.
 # We schrijven het altijd zodat de aanwezigheid een betrouwbare "profile
@@ -102,15 +100,19 @@ else
     echo "  CLAUDE.local.md             (marker: profile heeft geen CLAUDE.md)"
 fi
 
-if [ -f "$PROFILE_DIR/settings.json" ]; then
+SETTINGS_LOCAL=".claude/settings.local.json"
+MEMO=".claude/.profile-injected.json"
+
+# De merge draait ALTIJD, ook als het nieuwe profile geen settings.json heeft:
+# anders zou de vorige profile-laag blijven staan bij een wissel naar bv. 'no'.
+# Een profile zonder settings.json levert simpelweg lege lijsten op, waardoor
+# enkel de opkuis overblijft.
+if [ -f "$PROFILE_DIR/settings.json" ] || [ -f "$MEMO" ]; then
     if ! command -v jq >/dev/null 2>&1; then
         echo "Fout: 'jq' is nodig om de profile-permissies te mergen, maar niet gevonden." >&2
         echo "Installeer jq (bv. 'brew install jq') en draai dit script opnieuw." >&2
         exit 1
     fi
-
-    SETTINGS_LOCAL=".claude/settings.local.json"
-    MEMO=".claude/.profile-injected.json"
 
     # Migratie van de oude aanpak: was settings.local.json nog een symlink
     # (naar een profile), verwijder die. We starten dan met een lege local en
@@ -137,9 +139,19 @@ if [ -f "$PROFILE_DIR/settings.json" ]; then
         PREV_JSON='[]'
     fi
 
-    PROFILE_ALLOW_JSON="$(jq '.permissions.allow // []' "$PROFILE_DIR/settings.json")"
-    PROFILE_DENY_JSON="$(jq '.permissions.deny // []' "$PROFILE_DIR/settings.json")"
-    PROFILE_ASK_JSON="$(jq '.permissions.ask // []' "$PROFILE_DIR/settings.json")"
+    if [ -f "$PROFILE_DIR/settings.json" ]; then
+        if ! jq empty "$PROFILE_DIR/settings.json" >/dev/null 2>&1; then
+            echo "Fout: '$PROFILE_DIR/settings.json' bevat ongeldige JSON." >&2
+            exit 1
+        fi
+        PROFILE_ALLOW_JSON="$(jq '.permissions.allow // []' "$PROFILE_DIR/settings.json")"
+        PROFILE_DENY_JSON="$(jq '.permissions.deny // []' "$PROFILE_DIR/settings.json")"
+        PROFILE_ASK_JSON="$(jq '.permissions.ask // []' "$PROFILE_DIR/settings.json")"
+    else
+        PROFILE_ALLOW_JSON='[]'
+        PROFILE_DENY_JSON='[]'
+        PROFILE_ASK_JSON='[]'
+    fi
 
     # Merge per lijst: (huidige lijst ZONDER vorige profile-laag) + nieuwe profile-laag.
     # Geldt voor allow, deny en ask. Overige sleutels (env, hooks, ...) blijven ongemoeid.
@@ -171,7 +183,11 @@ if [ -f "$PROFILE_DIR/settings.json" ]; then
 
     printf '%s\n' "$NEW_LOCAL_JSON" > "$SETTINGS_LOCAL"
     printf '%s\n' "$MEMO_JSON" > "$MEMO"
-    echo "  .claude/settings.local.json (merge: bestaande keuzes behouden + profile allow/deny/ask toegevoegd)"
+    if [ -f "$PROFILE_DIR/settings.json" ]; then
+        echo "  .claude/settings.local.json (merge: bestaande keuzes behouden + profile allow/deny/ask toegevoegd)"
+    else
+        echo "  .claude/settings.local.json (opkuis: vorige profile-laag verwijderd, profile heeft geen settings.json)"
+    fi
 fi
 
 if [ -d "$PROFILE_DIR/skills" ]; then
@@ -182,11 +198,6 @@ fi
 if [ -f "$PROFILE_DIR/AGENTS.md" ]; then
     ln -s "$PROFILE_DIR/AGENTS.md" AGENTS.md
     echo "  AGENTS.md                   -> $PROFILE_DIR/AGENTS.md"
-fi
-
-if [ -f "$PROFILE_DIR/SKILLS.md" ]; then
-    ln -s "$PROFILE_DIR/SKILLS.md" SKILLS.md
-    echo "  SKILLS.md                   -> $PROFILE_DIR/SKILLS.md"
 fi
 
 echo ""

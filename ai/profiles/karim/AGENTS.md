@@ -104,7 +104,7 @@ Components extend base classes from `@domg-wc/common`, **not** `LitElement` dire
 
 Always use `@webComponent()` from `@domg-wc/common` (not `@customElement()` from Lit) — it contains important custom registration logic specific to our library.
 
-Use Lit decorators (`@property`, `@state`, `@query`, `@queryAll`) where possible for cleaner code.
+Use Lit decorators (`@property`, `@state`, `@query`, `@queryAll`) for cleaner code. **New code declares reactive properties with `@property`/`@state`**, not with `static get properties()` — the latter is the legacy style still used by the large majority of existing components. Reference for the decorator style: `libs/components/src/block/next/tabs/vl-tab.component.ts`.
 
 All custom events use `vl-` prefix (e.g., `vl-change`, `vl-input`, `vl-click`, `vl-toggle`), dispatched with `bubbles: true, composed: true`.
 
@@ -337,7 +337,7 @@ Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
 ### Creating a New Component
 
-See the "New Component Scaffolding" playbook in `SKILLS.md` for the full step-by-step procedure.
+Use the `/new-component` skill — it holds the full step-by-step procedure.
 
 ### Updating an Existing Component
 
@@ -368,7 +368,7 @@ When working on this project:
    - Check controls work as expected
    - Ensure no console errors
 5. **Follow naming conventions** - Use the established naming patterns (see Coding Conventions above)
-6. **Use TypeScript properly** - Explicit types, no `any`, use `PropertyDeclarations` for reactive properties
+6. **Use TypeScript properly** - Explicit types, no `any`, declare reactive properties with the `@property`/`@state` decorators
 7. **Respect Shadow DOM** - Components use Shadow DOM encapsulation; query shadow roots in tests, use CSS custom properties for styling
 8. **CSS: always use Flux foundation custom properties** - Never use raw color values, hardcoded spacing, or font definitions
 9. **Write proper commit messages** - Follow the conventional commit format with Dutch descriptions

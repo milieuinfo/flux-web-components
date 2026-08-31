@@ -1,15 +1,6 @@
 # `no` — leeg profile (opt-out)
 
-Dit profile bevat **bewust geen `CLAUDE.md` en geen `skills/`**. Het is bedoeld om Claude Code in dit project te draaien zonder project-specifieke AI-instructies of skills te laden.
-
-## Wat zit erin
-
-| Bestand | Doel |
-|---------|------|
-| `README.md` | Dit bestand |
-| `settings.json` | Minimale, gedeelde permissies (target van `.claude/settings.json` symlink, optioneel) |
-
-Geen `CLAUDE.md`, geen `AGENTS.md`, geen `SKILLS.md`, geen `skills/` folder.
+Dit profile bevat **bewust niets**: geen `CLAUDE.md`, geen `skills/`, geen `settings.json`. Het is bedoeld om Claude Code in dit project te draaien zonder project-specifieke AI-instructies, skills of permissies te laden.
 
 ## Activeren
 
@@ -17,11 +8,13 @@ Geen `CLAUDE.md`, geen `AGENTS.md`, geen `SKILLS.md`, geen `skills/` folder.
 ./set-ai-profile.sh no
 ```
 
-Het script regelt alles in één keer:
+Het script:
 
-- **`CLAUDE.local.md`** — wordt geschreven met een marker-commentaar (`# profile: no (geen CLAUDE.md — opt-out)`). Geen `@`-import, want er is niets om te importeren. De aanwezigheid van het bestand dient enkel als signaal voor de bootstrap-check dat een profile bewust gekozen is.
-- **`.claude/settings.json`** → symlink naar deze minimale `settings.json` (kan handig zijn voor gedeelde permissies).
-- **`.claude/skills`** wordt **niet** aangemaakt — er is geen skills-folder om naar te wijzen.
+- schrijft **`CLAUDE.local.md`** met enkel een marker-commentaar (`# profile: no (geen CLAUDE.md — opt-out)`). Geen `@`-import, want er is niets om te importeren. De aanwezigheid van het bestand dient enkel als signaal voor de bootstrap-check dat een profile bewust gekozen is.
+- **ruimt de permissielaag van het vorige profile op** in `.claude/settings.local.json`. Jouw eigen "altijd toelaten"-keuzes blijven staan; enkel wat het script eerder injecteerde verdwijnt.
+- maakt **geen** `.claude/skills`-symlink en **geen** root-`AGENTS.md` — er is geen bron om naar te wijzen. Achtergebleven symlinks van een vorig profile worden verwijderd.
+
+Team-wide config blijft uiteraard gelden: `.claude/settings.json` (gecommit, met de bootstrap-check hook) wordt door het script niet aangeraakt.
 
 ## Wanneer kiezen?
 

@@ -1,10 +1,10 @@
 # Claude Code Configuration
 
-Dit project gebruikt **AI configuratie via profiles**: er zijn verschillende profile-folders onder `ai/profiles/{profile-naam}/`. Inhoudelijk kan elke profile vrij gestructureerd zijn (splitsen via `CLAUDE.md` + `AGENTS.md` + `SKILLS.md` / alles in één `CLAUDE.md`). De volledige uitleg over de structuur staat in [`ai/profiles/README.md`](ai/profiles/README.md).
+Dit project gebruikt **AI configuratie via profiles**: er zijn verschillende profile-folders onder `ai/profiles/{profile-naam}/`. Inhoudelijk kan elke profile vrij gestructureerd zijn (splitsen via `CLAUDE.md` + `AGENTS.md`, of alles in één `CLAUDE.md`). De volledige uitleg over de structuur staat in [`ai/profiles/README.md`](ai/profiles/README.md).
 
 ## Activeer jouw configuratie
 
-1. Kies of maak een profile-folder onder `ai/profiles/`. Bestaande voorbeelden: `karim/`, `kris/`, `no`.
+1. Kies of maak een profile-folder onder `ai/profiles/`. Bestaande voorbeelden: `karim/`, `kris/`, `koen/`, `no/`.
 2. Voer het activatiescript uit met de profile-naam:
 
    ```bash
@@ -15,7 +15,7 @@ Dit project gebruikt **AI configuratie via profiles**: er zijn verschillende pro
    - `CLAUDE.local.md` (gitignored) met de import `@ai/profiles/{profile-naam}/CLAUDE.md`
    - `.claude/settings.local.json` (gitignored) → de profile-permissies worden hierin **gemerged** (geen symlink). Dit bestand wordt door Claude Code zelf beheerd (het schrijft er jouw "altijd toelaten"-keuzes in); het script laat die keuzes staan en voegt enkel de profile-allowlist toe. Bij een profielwissel wordt de vorige profile-laag weer verwijderd. Vergt `jq`.
    - `.claude/skills` (gitignored) → symlink naar `../ai/profiles/{profile-naam}/skills`
-   - `AGENTS.md` / `SKILLS.md` op de project-root — alleen als het profile die bestanden heeft (cross-tool support voor Cursor/Codex/Aider; overslaan als je enkel Claude Code gebruikt)
+   - `AGENTS.md` op de project-root — alleen als het profile dat bestand heeft (cross-tool support voor Cursor/Codex/Aider; overslaan als je enkel Claude Code gebruikt)
 
    Welke permissie-entries het script zelf injecteerde, onthoudt het in `.claude/.profile-injected.json` (gitignored) zodat een profielwissel netjes opruimt zonder jouw eigen keuzes te wissen. Alles blijft per-repo: andere checkouts/worktrees worden nooit geraakt.
 

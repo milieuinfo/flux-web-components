@@ -183,7 +183,10 @@ Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 
 ## Skills
 
-Automatisch ontdekt via `skills/`:
+Ontdekt via de `.claude/skills`-symlink naar `skills/` — elke skill is een map met een `SKILL.md`:
+
 - `/new-component` — scaffold een nieuwe Flux web component (procedure + alle vereiste files)
 - `/run-tests` — Cypress component tests draaien voor één component of voor alle componenten
-- `test-coverage` (auto-invoked) — regels voor wanneer tests of regressietests vereist zijn
+- `test-coverage` (auto-invoked, geen slash-command) — regels voor wanneer tests of regressietests vereist zijn
+
+Skill-inhoud wordt **lazy** geladen: enkel de `description` staat permanent in context. Wat altijd nodig is, hoort dus in dit bestand.

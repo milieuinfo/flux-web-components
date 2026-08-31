@@ -1,15 +1,17 @@
 # Claude Code Configuration — Karim
 
-Karim's persoonlijke Claude Code configuratie voor het Flux Web Components project. Geactiveerd via `CLAUDE.local.md` in de project-root.
+Karim's persoonlijke Claude Code configuratie voor het Flux Web Components project. Geactiveerd via `CLAUDE.local.md` in de project-root (zie [`ai/profiles/README.md`](../README.md)).
+
+Alle projectcontext en conventies staan in `AGENTS.md` — agent-agnostisch, zodat ook andere tools (Cursor, Codex, Aider) ze lezen via de `AGENTS.md`-symlink op de project-root.
 
 @ai/profiles/karim/AGENTS.md
-@ai/profiles/karim/SKILLS.md
 
-## Skill Overrides
+## Skills
 
-- **Plans opslaan in `.claude/plans/`**, NIET in `docs/plans/` — `docs/` is voor projectdocumentatie (Storybook)
+Ontdekt via de `.claude/skills`-symlink naar `skills/` (elke skill is een map met een `SKILL.md`):
 
-## Claude-Specific Settings
+- `/new-component` — scaffold een nieuwe Flux web component (procedure + alle vereiste files)
+- `/run-tests` — Cypress component tests draaien voor één component of voor alle componenten
+- `test-coverage` (auto-invoked) — regels voor wanneer tests of regressietests vereist zijn
 
-- `.claude/settings.json` — symlink naar `ai/profiles/karim/settings.json` (zie `README.md`)
-- `.claude/settings.local.json` — persoonlijke permissies (gitignored)
+Skill-inhoud wordt **lazy** geladen: enkel de `description` staat in context tot de skill effectief draait. Zet er dus geen projectcontext in die altijd nodig is — die hoort in `AGENTS.md`.

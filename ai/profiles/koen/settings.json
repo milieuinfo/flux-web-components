@@ -16,7 +16,6 @@
       "Bash(npm run apps:playground-react:dev*)",
       "Bash(ls *)",
       "Bash(cat package.json)",
-      "mcp__claude-peers__set_summary",
       "mcp__figma__get_design_context",
       "mcp__figma__get_metadata",
       "mcp__figma__get_screenshot",

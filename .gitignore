@@ -54,13 +54,12 @@ storybook-static
 .omc/
 
 # AI Agent profile activation (zie ai/profiles/README.md)
-# .claude/skills, /AGENTS.md en /SKILLS.md zijn symlinks naar het actieve profile.
+# .claude/skills en /AGENTS.md zijn symlinks naar het actieve profile.
 # .claude/settings.local.json wordt door Claude Code zelf beheerd; het script
-# mergt de profile-allowlist erin (geen symlink). Welke entries het script zelf
+# mergt de profile-permissies erin (geen symlink). Welke entries het script zelf
 # injecteerde, staat in .claude/.profile-injected.json (hierboven genegeerd).
 # .claude/settings.json wordt WEL gecommit (team-wide hook + permissies),
 # zie ai/profiles/README.md.
 CLAUDE.local.md
 /AGENTS.md
-/SKILLS.md
 .claude/skills

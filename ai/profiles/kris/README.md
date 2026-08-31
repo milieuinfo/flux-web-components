@@ -14,15 +14,15 @@ Karim splitst projectcontext (`AGENTS.md`) van Claude-specifieke loader-instruct
 - Geen `@`-import-keten nodig
 - Geen `AGENTS.md` aan project-root (en dus geen symlink) — Cursor/Codex/Aider gebruiken we niet
 
-### 2. Geen `SKILLS.md` — echte content in `skills/`
+### 2. Skills met inline content
 
-Karim's `skills/*.md` zijn stubs die naar `SKILLS.md` redirecten. Voor Kris staat de inhoud direct in de skill-bestanden:
+Elke skill is een map met een `SKILL.md` (de structuur die Claude Code vereist — zie [`ai/profiles/README.md`](../README.md#skills-verplichte-structuur)) en bevat zijn volledige inhoud:
 
-- `skills/new-component.md` — volledige scaffolding-procedure
-- `skills/run-tests.md` — test-uitvoering
-- `skills/test-coverage.md` — feature/bugfix test-regels
+- `skills/new-component/SKILL.md` — volledige scaffolding-procedure
+- `skills/run-tests/SKILL.md` — test-uitvoering
+- `skills/test-coverage/SKILL.md` — feature/bugfix test-regels
 
-Resultaat: één plek per skill, geen indirectie, geen `SKILLS.md`-bestand.
+Skill-inhoud wordt lazy geladen: enkel de `description` staat permanent in context. Wat altijd nodig is, hoort dus in `CLAUDE.md`.
 
 ## Bestanden
 
@@ -30,5 +30,5 @@ Resultaat: één plek per skill, geen indirectie, geen `SKILLS.md`-bestand.
 |---------|------|
 | `CLAUDE.md` | Entrypoint — bevat alle projectcontext en conventies |
 | `README.md` | Dit bestand |
-| `settings.json` | Gedeelde permissies (target van `.claude/settings.json` symlink) |
-| `skills/` | Skill-files (target van `.claude/skills/` symlink) |
+| `settings.json` | Permissies, gemerged in `.claude/settings.local.json` |
+| `skills/` | Eén map per skill met een `SKILL.md` (doel van de `.claude/skills`-symlink) |

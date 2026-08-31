@@ -1,123 +1,33 @@
-# AI Agent Configuratie
+# Karim — AI Configuratie
 
-Deze directory bevat Claude Code-specifieke configuratiebestanden.
+Persoonlijke Claude Code configuratie voor Karim. Voor de algemene activatie-flow en profile-structuur: zie [`ai/profiles/README.md`](../README.md).
 
-## Bestandsstructuur
+## Stijl: gesplitst voor cross-tool support
 
-```
-project root/
-├── AGENTS.md                     # Projectcontext en richtlijnen voor alle AI agents
-├── SKILLS.md                     # Agent-agnostische playbooks voor project skills
-├── CLAUDE.md                     # Claude Code-specifieke configuratie
-└── .claude/
-    ├── settings.json             # Gedeelde team-permissies (committed naar git)
-    ├── settings.local.json       # Persoonlijke instellingen (gitignored)
-    ├── skills/                   # Project skills (Claude Code) (git committed)
-    ├── README.md                 # Dit bestand
-    └── worktrees/                # Lokale worktree tracking (gitignored)
-```
+Als enige profile splitst dit de projectcontext van de Claude-specifieke loader:
 
-- `AGENTS.md` — wordt gelezen door alle AI agents (Claude Code, Cursor, Cline, ...) en bevat projectcontext, conventies en patronen.
-- `SKILLS.md` — wordt gebruikt als gedeelde, agent-agnostische playbook voor project skills.
-- `CLAUDE.md` — wordt automatisch ingelezen door Claude Code, verwijst naar `AGENTS.md` en bevat Claude-specifieke commando's.
+- **`AGENTS.md`** bevat alle projectcontext, conventies en de engineering mindset — agent-agnostisch geschreven.
+- **`CLAUDE.md`** is een dunne loader die `AGENTS.md` `@`-importeert.
+- `set-ai-profile.sh` zet daarnaast een `AGENTS.md`-symlink op de project-root, zodat tools die geen `CLAUDE.md` kennen (Cursor, Codex, Aider) dezelfde context lezen.
 
-## Wat wordt gecommit vs. gitignored?
+Wie enkel Claude Code gebruikt, heeft die splitsing niet nodig — zie `kris/` of `koen/` voor de alles-in-`CLAUDE.md` variant.
 
-### Gitignored (persoonlijk/lokaal)
+## Bestanden
 
-- `settings.local.json` — persoonlijke permissies
-- `worktrees/` — lokale worktree tracking
-- API keys of credentials
-- Lokale paden specifiek voor jouw machine
+| Bestand | Doel |
+|---------|------|
+| `CLAUDE.md` | Loader — `@`-import van `AGENTS.md` + overzicht van de skills |
+| `AGENTS.md` | Projectcontext en conventies (bron van de root-`AGENTS.md`-symlink) |
+| `README.md` | Dit bestand |
+| `settings.json` | Permissies, gemerged in `.claude/settings.local.json` |
+| `skills/` | Eén map per skill met een `SKILL.md` (doel van de `.claude/skills`-symlink) |
 
-**Voorbeeld van lokale instellingen:**
-```json
-{
-  "permissions": {
-    "allow": [
-      "Bash(git -C /Users/jouwnaam/pad/naar/project ...)",
-      "Bash(npx cypress run ...)"
-    ]
-  }
-}
-```
+## Skills
 
-### Gecommit (gedeeld)
+De skills bevatten hun volledige inhoud; ze worden **lazy** geladen (enkel de `description` staat permanent in context). Zet er dus geen context in die altijd nodig is — die hoort in `AGENTS.md`.
 
-- `settings.json` — gedeelde team-permissies voor veelgebruikte commando's
-- `AGENTS.md` (project root) — gedeelde richtlijnen, context en patronen
+- `/new-component` — scaffold een nieuwe Flux web component
+- `/run-tests` — Cypress component tests draaien
+- `test-coverage` — auto-invoked bij features en bugfixes, geen slash-command
 
-## Hoe Claude Code deze bestanden gebruikt
-
-1. **Leest `CLAUDE.md`** (project root) voor Claude-specifieke configuratie
-2. **Leest `AGENTS.md`** (project root) voor volledige projectcontext
-3. **Leest `settings.json`** voor gedeelde team-permissies (automatisch goedgekeurde commando's)
-4. **Leest `settings.local.json`** voor persoonlijke permissies (indien aanwezig)
-5. **Merged settings** — lokale instellingen hebben voorrang
-
-## Available skills
-
-Claude Code ontdekt skills automatisch uit `.claude/skills/`. De skill-bestanden zijn discovery stubs die verwijzen naar de volledige playbooks in `SKILLS.md` (project root).
-
-- `/new-component` (`.claude/skills/new-component.md`) — scaffold een nieuwe Flux web component. Playbook: `SKILLS.md` → "New Component Scaffolding".
-- `/run-tests` (`.claude/skills/run-tests.md`) — run Cypress component tests. Playbook: `SKILLS.md` → "Run Component Tests".
-- `test-coverage` (`.claude/skills/test-coverage.md`) — wordt automatisch aangeroepen bij features/fixes (niet user-invocable). Playbook: `SKILLS.md` → "Test Coverage Enforcement".
-
-## Lokale configuratie instellen
-
-1. **Maak `settings.local.json` aan** met je persoonlijke permissies:
-   ```json
-   {
-     "permissions": {
-       "allow": [
-         "Bash(git -C /volledig/pad/naar/project ...)",
-         "Bash(npx cypress run --component ...)"
-       ]
-     }
-   }
-   ```
-
-2. **Commit nooit** `settings.local.json` (staat al in `.gitignore`)
-
-## Best practices
-
-1. **Gebruik relatieve patronen** in gedeelde settings, absolute paden in lokale
-2. **Documenteer waarom** bepaalde commando's zijn toegestaan in gedeelde settings
-3. **Houd credentials buiten** alle settings-bestanden
-4. **Update `AGENTS.md`** bij nieuwe patronen of conventies
-5. **Review gedeelde settings** tijdens team meetings of PR reviews
-
-## Gedeelde settings bijwerken
-
-Wanneer je nuttige patronen of conventies ontdekt:
-
-1. Voeg ze toe aan `settings.json` of `AGENTS.md`
-2. Zorg dat ze geen persoonlijke/lokale informatie bevatten
-3. Commit en push zodat het team ervan profiteert
-4. Deel met het team, als het een belangrijke wijziging is
-
-## Problemen oplossen
-
-### AI agent vraagt herhaaldelijk om permissies
-
-Voeg het commando-patroon toe aan je `settings.local.json`:
-```json
-{
-  "permissions": {
-    "allow": [
-      "Bash(command-pattern:*)"
-    ]
-  }
-}
-```
-
-### Settings worden niet opgepikt
-
-1. Controleer of het bestand geldige JSON is
-2. Herstart Claude Code
-3. Controleer bestandsrechten (moet leesbaar zijn)
-
-## Vragen?
-
-Voor vragen over AI agent configuratie, vraag het team of raadpleeg:
-- Claude Code docs: https://github.com/anthropics/claude-code
+Zie [`ai/profiles/README.md`](../README.md#skills-verplichte-structuur) voor de vereiste `skills/{naam}/SKILL.md`-structuur.

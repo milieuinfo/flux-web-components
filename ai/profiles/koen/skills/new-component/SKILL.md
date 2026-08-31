@@ -28,6 +28,8 @@ Bekijk een bestaand component van hetzelfde type vóór je iets genereert — ma
 - `form`: `libs/components/src/form/checkbox/`
 - `compliance`: `libs/components/src/compliance/privacy/`
 
+> **Reactive properties — let op:** deze siblings declareren properties nog via `static get properties()` (legacy, en veruit de meerderheid van de componenten). Neem die stijl **niet** over. Voor nieuw werk geldt altijd het decorator-patroon uit `libs/components/src/block/next/tabs/vl-tab.component.ts` — ongeacht het type (er is nog geen `atom`-component dat decorators gebruikt). Zie §3.2.
+
 ## 3. Files aanmaken
 
 ### 3.1 Defaults: `vl-{name}.defaults.ts`
@@ -42,7 +44,16 @@ export const {name}Defaults = {
 
 - Extend `BaseLitElement` uit `@domg-wc/common`
 - Decorator `@webComponent('vl-{name}')`
-- Reactive properties via `static get properties(): PropertyDeclarations`
+- Reactive properties via de Lit `@property`/`@state`-decorators (`import { property, state } from 'lit/decorators.js'`) — niet via `static get properties()`. Referentie: `libs/components/src/block/next/tabs/vl-tab.component.ts`
+
+  ```typescript
+  @property({ type: String, reflect: true, attribute: 'panel' })
+  panel = '';
+
+  @property({ type: Boolean, reflect: true, attribute: 'selected' })
+  selected = false;
+  ```
+
 - Slots documenteren: named slots voor optionele content, default slot voor primary content
 - Onderaan: `declare global { interface HTMLElementTagNameMap }`
 
