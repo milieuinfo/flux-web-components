@@ -8,7 +8,7 @@ import {
     buildGenerationCondition,
     buildJiraMetaCondition,
     buildTestsCondition,
-    buildWCAGLevelCondition,
+    buildWCAGCondition,
 } from './builder/flux-condition.builder';
 
 export const FluxComponentCondition = ({ id }) => {
@@ -26,7 +26,7 @@ export const FluxComponentCondition = ({ id }) => {
             &nbsp;
             {buildDocumentationCondition(componentCondition?.documentation, true)}
             &nbsp;
-            {buildWCAGLevelCondition(componentCondition?.wcagLevel, true)}
+            {buildWCAGCondition(componentCondition?.wcag, true)}
             &nbsp;
             {buildJiraMetaCondition(componentCondition?.jiraMeta, true)}
         </div>

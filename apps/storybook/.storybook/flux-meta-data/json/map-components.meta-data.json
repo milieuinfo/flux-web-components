@@ -8,7 +8,7 @@
             "css": "n.v.t.",
             "tests": ["Component", "Storybook"],
             "documentation": "minimaal",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -20,7 +20,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -32,7 +32,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -45,7 +45,7 @@
             "css": "n.v.t.",
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -58,7 +58,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -71,7 +71,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -84,7 +84,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -97,7 +97,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -109,7 +109,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -122,7 +122,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -135,7 +135,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -148,7 +148,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -161,7 +161,7 @@
             "css": "n.v.t.",
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -174,7 +174,7 @@
             "css": "n.v.t.",
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -187,7 +187,7 @@
             "css": "n.v.t.",
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -200,7 +200,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -213,7 +213,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -226,7 +226,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -239,7 +239,7 @@
             "css": "n.v.t.",
             "tests": ["Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -252,7 +252,7 @@
             "css": "n.v.t.",
             "tests": [],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -265,7 +265,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -278,7 +278,7 @@
             "css": "n.v.t.",
             "tests": ["Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -290,7 +290,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -302,7 +302,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -315,7 +315,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -328,7 +328,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -340,7 +340,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -353,7 +353,7 @@
             "css": "n.v.t.",
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -366,7 +366,7 @@
             "css": "n.v.t.",
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -379,7 +379,7 @@
             "css": "n.v.t.",
             "tests": [],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -392,7 +392,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -405,7 +405,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -418,7 +418,7 @@
             "css": "n.v.t.",
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -431,7 +431,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -444,7 +444,7 @@
             "css": "n.v.t.",
             "tests": ["Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -457,7 +457,7 @@
             "css": "n.v.t.",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -470,7 +470,7 @@
             "css": "n.v.t.",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -483,7 +483,7 @@
             "css": "n.v.t.",
             "tests": ["Component", "Storybook"],
             "documentation": "minimaal",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -496,7 +496,7 @@
             "css": "govflanders",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "FLUX-146"
         }
     },
@@ -509,7 +509,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -522,7 +522,7 @@
             "css": "n.v.t.",
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -535,7 +535,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -548,7 +548,7 @@
             "css": "n.v.t.",
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -560,7 +560,7 @@
             "css": "n.v.t.",
             "tests": [],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -573,7 +573,7 @@
             "css": "n.v.t.",
             "tests": ["component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     }

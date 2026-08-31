@@ -8,7 +8,7 @@
             "css": "govflanders",
             "tests": ["Component", "Storybook", "DOM"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-205",
             "jiraMeta": "FLUX-21"
         }
     },
@@ -21,7 +21,7 @@
             "css": "govflanders",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "reviewed",
             "jiraMeta": "FLUX-206"
         }
     },
@@ -34,7 +34,7 @@
             "css": "govflanders",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-208",
             "jiraMeta": "FLUX-200"
         }
     },
@@ -47,12 +47,12 @@
             "css": "govflanders",
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-732",
             "jiraMeta": "FLUX-210"
         }
     },
     "components-block-breadcrumb-item": {
-        "name": "breadcrumb",
+        "name": "breadcrumb-item",
         "docs": "components-block-breadcrumb--documentatie",
         "condition": {
             "base": "LitElement",
@@ -60,7 +60,7 @@
             "css": "govflanders",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-732",
             "jiraMeta": "FLUX-210"
         }
     },
@@ -73,7 +73,7 @@
             "css": "govflanders",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-211",
             "jiraMeta": "FLUX-212"
         }
     },
@@ -86,7 +86,7 @@
             "css": "govflanders",
             "tests": ["Component", "Storybook"],
             "documentation": "template",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-211",
             "jiraMeta": "FLUX-212"
         }
     },
@@ -99,7 +99,7 @@
             "css": "govflanders",
             "tests": ["Storybook"],
             "documentation": "template",
-            "wcagLevel": "TODO",
+            "wcag": "reviewed",
             "jiraMeta": "FLUX-214"
         }
     },
@@ -112,7 +112,7 @@
             "css": "govflanders",
             "tests": ["Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-216",
             "jiraMeta": "FLUX-217"
         }
     },
@@ -125,7 +125,7 @@
             "css": "govflanders",
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "FLUX-220"
         }
     },
@@ -138,7 +138,7 @@
             "css": "govflanders",
             "tests": ["Component", "Storybook"],
             "documentation": "template",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "FLUX-220"
         }
     },
@@ -151,7 +151,7 @@
             "css": "govflanders",
             "tests": ["Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "reviewed",
             "jiraMeta": "FLUX-557"
         }
     },
@@ -164,7 +164,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-221",
             "jiraMeta": "FLUX-222"
         }
     },
@@ -177,7 +177,7 @@
             "css": "govflanders",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-728",
             "jiraMeta": "FLUX-225"
         }
     },
@@ -190,7 +190,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "reviewed",
             "jiraMeta": "FLUX-237"
         }
     },
@@ -203,7 +203,7 @@
             "css": "govflanders",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-731",
             "jiraMeta": "FLUX-97"
         }
     },
@@ -216,7 +216,7 @@
             "css": "govflanders",
             "tests": ["Component", "Storybook"],
             "documentation": "template",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-239",
             "jiraMeta": "FLUX-240"
         }
     },
@@ -229,7 +229,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-734",
             "jiraMeta": "FLUX-23"
         }
     },
@@ -242,7 +242,7 @@
             "css": "govflanders",
             "tests": ["Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-241",
             "jiraMeta": "FLUX-242"
         }
     },
@@ -255,7 +255,7 @@
             "css": "govflanders",
             "tests": ["Storybook"],
             "documentation": "template",
-            "wcagLevel": "TODO",
+            "wcag": "reviewed",
             "jiraMeta": "FLUX-245"
         }
     },
@@ -268,7 +268,7 @@
             "css": "govflanders",
             "tests": ["Component"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-735",
             "jiraMeta": "FLUX-17"
         }
     },
@@ -281,7 +281,7 @@
             "css": "govflanders",
             "tests": ["Storybook"],
             "documentation": "template",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-740",
             "jiraMeta": "FLUX-255"
         }
     },
@@ -294,7 +294,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-741",
             "jiraMeta": "FLUX-259"
         }
     },
@@ -307,7 +307,7 @@
             "css": "govflanders",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-744",
             "jiraMeta": "FLUX-333"
         }
     },
@@ -320,7 +320,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "reviewed",
             "jiraMeta": "FLUX-24"
         }
     },
@@ -333,7 +333,7 @@
             "css": "govflanders",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-748",
             "jiraMeta": "FLUX-261"
         }
     },
@@ -346,7 +346,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "reviewed",
             "jiraMeta": "FLUX-264"
         }
     },
@@ -359,7 +359,7 @@
             "css": "Flux",
             "tests": ["Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-267",
             "jiraMeta": "FLUX-265"
         }
     },
@@ -372,7 +372,7 @@
             "css": "n.v.t.",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-267",
             "jiraMeta": "FLUX-265"
         }
     },
@@ -385,7 +385,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-750",
             "jiraMeta": "FLUX-87"
         }
     },
@@ -398,7 +398,7 @@
             "css": "Flux",
             "tests": ["Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-749",
             "jiraMeta": "FLUX-88"
         }
     },
@@ -411,7 +411,7 @@
             "css": "govflanders",
             "tests": [],
             "documentation": "template",
-            "wcagLevel": "TODO",
+            "wcag": "reviewed",
             "jiraMeta": "FLUX-272"
         }
     },
@@ -424,7 +424,7 @@
             "css": "Flux",
             "tests": ["Component"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-271",
             "jiraMeta": "FLUX-273"
         }
     },
@@ -437,8 +437,8 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "wcag": "reviewed",
+            "jiraMeta": "FLUX-614"
         }
     },
     "components-block-share-buttons-share-button": {
@@ -450,7 +450,7 @@
             "css": "govflanders",
             "tests": [],
             "documentation": "template",
-            "wcagLevel": "TODO",
+            "wcag": "reviewed",
             "jiraMeta": "FLUX-563"
         }
     },
@@ -463,7 +463,7 @@
             "css": "Flux",
             "tests": ["Storybook"],
             "documentation": "template",
-            "wcagLevel": "TODO",
+            "wcag": "reviewed",
             "jiraMeta": "FLUX-563"
         }
     },
@@ -476,7 +476,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "n.v.t.",
             "jiraMeta": "FLUX-18"
         },
         "evolution": {
@@ -487,7 +487,7 @@
         }
     },
     "components-block-next-side-navigation": {
-        "name": "side-navigation",
+        "name": "side-navigation-next",
         "docs": "components-block-next-side-navigation--documentatie",
         "condition": {
             "base": "LitElement",
@@ -495,7 +495,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-737",
             "jiraMeta": "FLUX-18"
         },
         "evolution": {
@@ -505,27 +505,8 @@
             "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#side-navigation)"
         }
     },
-    "components-block-next-tabs": {
-        "name": "tabs",
-        "docs": "components-block-next-tabs--documentatie",
-        "condition": {
-            "base": "LitElement",
-            "generation": "v3-next",
-            "css": "Flux",
-            "tests": ["Component", "Storybook"],
-            "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
-            "jiraMeta": "FLUX-15"
-        },
-        "evolution": {
-            "vStatus": "v3-next",
-            "legacyText": "[vl-tabs](/docs/components-block-tabs-tabs--documentatie)",
-            "nextText": "vl-tabs-next",
-            "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#tabs)"
-        }
-    },
     "components-block-next-side-navigation-layout": {
-        "name": "side-navigation-layout",
+        "name": "side-navigation-layout-next",
         "docs": "components-block-next-side-navigation-layout--documentatie",
         "condition": {
             "base": "LitElement",
@@ -533,7 +514,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-736",
             "jiraMeta": "FLUX-18"
         },
         "evolution": {
@@ -552,7 +533,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-751",
             "jiraMeta": "FLUX-281"
         }
     },
@@ -565,7 +546,7 @@
             "css": "govflanders",
             "tests": ["Component", "Storybook"],
             "documentation": "template",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-283",
             "jiraMeta": "FLUX-284"
         }
     },
@@ -578,7 +559,7 @@
             "css": "govflanders",
             "tests": [],
             "documentation": "template",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-752",
             "jiraMeta": "FLUX-286"
         }
     },
@@ -591,7 +572,7 @@
             "css": "govflanders",
             "tests": ["Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-752",
             "jiraMeta": "FLUX-286"
         }
     },
@@ -604,21 +585,8 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-287",
             "jiraMeta": "FLUX-101"
-        }
-    },
-    "components-block-tabs-tabs-pane": {
-        "name": "tabs-pane",
-        "docs": "components-block-tabs-tabs-pane--documentatie",
-        "condition": {
-            "base": "LitElement",
-            "generation": "legacy",
-            "css": "n.v.t.",
-            "tests": ["Component"],
-            "documentation": "template",
-            "wcagLevel": "TODO",
-            "jiraMeta": "FLUX-16"
         }
     },
     "components-block-tabs-tabs": {
@@ -630,8 +598,40 @@
             "css": "govflanders",
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "n.v.t.",
             "jiraMeta": "FLUX-16"
+        }
+    },
+    "components-block-tabs-tabs-pane": {
+        "name": "tabs-pane",
+        "docs": "components-block-tabs-tabs-pane--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component"],
+            "documentation": "template",
+            "wcag": "n.v.t.",
+            "jiraMeta": "FLUX-16"
+        }
+    },
+    "components-block-next-tabs": {
+        "name": "tabs-next",
+        "docs": "components-block-next-tabs--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "v3-next",
+            "css": "Flux",
+            "tests": ["Component", "Storybook"],
+            "documentation": "uitgebreid",
+            "wcag": "FLUX-739",
+            "jiraMeta": "FLUX-16"
+        },
+        "evolution": {
+            "vStatus": "v3-next",
+            "legacyText": "[vl-tabs](/docs/components-block-tabs-tabs--documentatie)",
+            "nextText": "vl-tabs-next",
+            "planningInfo": "[Van v2 naar v3 - beschikbaar](/docs/planning-van-v2-naar-v3-beschikbaar--documentatie#tabs)"
         }
     },
     "components-block-template": {
@@ -643,7 +643,7 @@
             "css": "govflanders",
             "tests": ["Storybook"],
             "documentation": "template",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-721",
             "jiraMeta": "FLUX-293"
         }
     },
@@ -656,7 +656,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-294",
             "jiraMeta": "FLUX-19"
         }
     },
@@ -669,7 +669,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "reviewed",
             "jiraMeta": "FLUX-20"
         }
     },
@@ -682,7 +682,7 @@
             "css": "govflanders",
             "tests": ["Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "reviewed",
             "jiraMeta": "FLUX-297"
         }
     },
@@ -695,7 +695,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "reviewed",
             "jiraMeta": "FLUX-387"
         }
     },
@@ -708,21 +708,8 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-298",
             "jiraMeta": "FLUX-299"
-        }
-    },
-    "components-block-wizard-wizard-pane": {
-        "name": "wizard-pane",
-        "docs": "components-block-wizard-wizard-pane--documentatie",
-        "condition": {
-            "base": "LitElement",
-            "generation": "legacy",
-            "css": "n.v.t.",
-            "tests": ["Component", "Storybook"],
-            "documentation": "basis",
-            "wcagLevel": "TODO",
-            "jiraMeta": "FLUX-301"
         }
     },
     "components-block-wizard-wizard": {
@@ -734,7 +721,20 @@
             "css": "govflanders",
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-300",
+            "jiraMeta": "FLUX-301"
+        }
+    },
+    "components-block-wizard-wizard-pane": {
+        "name": "wizard-pane",
+        "docs": "components-block-wizard-wizard-pane--documentatie",
+        "condition": {
+            "base": "LitElement",
+            "generation": "legacy",
+            "css": "n.v.t.",
+            "tests": ["Component", "Storybook"],
+            "documentation": "basis",
+            "wcag": "FLUX-300",
             "jiraMeta": "FLUX-301"
         }
     }

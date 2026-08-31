@@ -7,7 +7,7 @@ import {
     buildGenerationCondition,
     buildJiraMetaCondition,
     buildTestsCondition,
-    buildWCAGLevelCondition,
+    buildWCAGCondition,
 } from './builder/flux-condition.builder';
 import {
     componentsAtomMetaData,
@@ -106,7 +106,7 @@ const buildTableRow = (componentId: string, componentMetaData: FluxMetaDataCompo
                 {buildDocumentationCondition(componentMetaData?.condition?.documentation, false)}
             </td>
             <td style={{ position: 'relative', top: '4px', textAlign: 'center', verticalAlign: 'middle' }}>
-                {buildWCAGLevelCondition(componentMetaData?.condition?.wcagLevel, false)}
+                {buildWCAGCondition(componentMetaData?.condition?.wcag, false)}
             </td>
             <td style={{ position: 'relative', top: '4px', textAlign: 'center', verticalAlign: 'middle' }}>
                 {buildJiraMetaCondition(componentMetaData?.condition?.jiraMeta, false)}

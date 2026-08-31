@@ -4,7 +4,7 @@ import {
     DocumentationCondition,
     GenerationCondition,
     TestCondition,
-    WCAGLevelCondition,
+    WCAGCondition,
 } from '../flux-meta-data.model';
 import React from 'react';
 
@@ -17,8 +17,10 @@ const colorGrey = '767676';
 
 // basis: 'htmlElement' | 'litElement' | 'cssResult';
 export const buildBaseCondition = (base: BaseCondition, withLabel: boolean) => {
-    const greenSet = new Set<BaseCondition>(['LitElement', 'CSSResult', 'MapAction', 'n.v.t.']);
-    if (base === BaseCondition.htmlElement) {
+    const greenSet = new Set<BaseCondition>(['LitElement', 'CSSResult', 'MapAction']);
+    if (base === BaseCondition.nvt) {
+        return buildImgTag('Base', base, colorGrey, withLabel);
+    } else if (base === BaseCondition.htmlElement) {
         return buildImgTag('Base', base, colorOrange, withLabel);
     } else if (greenSet.has(base)) {
         return buildImgTag('Base', base, colorGreen, withLabel);
@@ -40,8 +42,10 @@ export const buildGenerationCondition = (generation: GenerationCondition, withLa
 
 // css: 'govflanders' | 'Flux' | 'n.v.t';
 export const buildCSSCondition = (css: CSSCondition, withLabel: boolean) => {
-    if (css) {
-        const cssSet = new Set<CSSCondition>(['Flux', 'n.v.t.']);
+    if (css === CSSCondition.nvt) {
+        return buildImgTag('CSS', css, colorGrey, withLabel);
+    } else if (css) {
+        const cssSet = new Set<CSSCondition>(['Flux']);
         const generationColor = cssSet.has(css) ? colorGreen : colorRed;
         return buildImgTag('CSS', css, generationColor, withLabel);
     } else {
@@ -77,9 +81,11 @@ export const buildTestsCondition = (tests: TestCondition[], withLabel: boolean) 
 
 // storybookDoc: 'auto' | 'minimaal' | 'basis' | 'uitmuntend';
 export const buildDocumentationCondition = (documentation: DocumentationCondition, withLabel: boolean) => {
-    if (documentation) {
+    if (documentation === DocumentationCondition.nvt) {
+        return buildImgTag('Documentatie', documentation, colorGrey, withLabel, 'storybook');
+    } else if (documentation) {
         const orangeSet = new Set<DocumentationCondition>(['minimaal', 'template']);
-        const greenSet = new Set<DocumentationCondition>(['n.v.t.', 'basis', 'uitgebreid']);
+        const greenSet = new Set<DocumentationCondition>(['basis', 'uitgebreid']);
         const storyBookDocColor = greenSet.has(documentation)
             ? colorGreen
             : orangeSet.has(documentation)
@@ -91,18 +97,16 @@ export const buildDocumentationCondition = (documentation: DocumentationConditio
     }
 };
 
-// wcagLevel: '-' | 'brons[basis]' | 'brons[plus]' | 'zilver[basis]' | 'zilver[plus]';
-export const buildWCAGLevelCondition = (wcagLevel: WCAGLevelCondition, withLabel: boolean) => {
-    if (wcagLevel === 'TODO') {
+// wcag: 'n.v.t.' | 'reviewed' | 'TODO' | 'FLUX-726'; ontbrekend of onbekend toont 'TBD'
+export const buildWCAGCondition = (wcag: WCAGCondition, withLabel: boolean) => {
+    if (wcag === 'n.v.t.') {
+        return buildImgTag('WCAG', 'n.v.t.', colorGrey, withLabel);
+    } else if (wcag === 'reviewed') {
+        return buildImgTag('WCAG', 'reviewed', colorGreen, withLabel);
+    } else if (wcag === 'TODO') {
         return buildImgTag('WCAG', 'TODO', colorBlue, withLabel);
-    } else if (wcagLevel) {
-        const orangeSet = new Set<WCAGLevelCondition>(['brons[basis]', 'brons[plus]', 'zilver[basis]']);
-        const wcagLevelColor = orangeSet.has(wcagLevel)
-            ? colorOrange
-            : wcagLevel === 'zilver[plus]'
-            ? colorGreen
-            : colorRed;
-        return buildImgTag('WCAG', wcagLevel, wcagLevelColor, withLabel);
+    } else if (wcag?.startsWith('FLUX-')) {
+        return buildImgTag('WCAG', wcag, colorOrange, withLabel);
     } else {
         return buildImgTag('WCAG', 'TBD', colorRed, withLabel);
     }
@@ -133,7 +137,8 @@ const buildImgTag = (label: string, value: string, color: string, withLabel: boo
 };
 
 const buildScrSnippet = (label: string, value: string, color: string, withLabel?: boolean, logo?: string) => {
-    let scrSnippet = `${value.replace('-', '--')}%20-%20%23${color}?style=flat`;
+    // shields.io leest een enkele '-' als scheiding tussen label en waarde: elke '-' in de waarde moet verdubbeld
+    let scrSnippet = `${encodeURIComponent(value.replace(/-/g, '--'))}%20-%20%23${color}?style=flat`;
     if (withLabel) {
         scrSnippet = `${label}%20-%20` + scrSnippet + '&labelColor=%23363636';
         if (logo) {

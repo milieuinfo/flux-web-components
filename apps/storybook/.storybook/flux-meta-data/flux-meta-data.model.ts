@@ -11,7 +11,7 @@ export interface ComponentCondition {
     css: CSSCondition;
     tests: TestCondition[]; // meerdere mogelijk
     documentation: DocumentationCondition;
-    wcagLevel: WCAGLevelCondition;
+    wcag: WCAGCondition;
     jiraMeta: string; // link naar de Jira Meta pagina
 }
 
@@ -68,13 +68,13 @@ export const DocumentationCondition = {
 
 export type DocumentationCondition = (typeof DocumentationCondition)[keyof typeof DocumentationCondition];
 
-export const WCAGLevelCondition = {
+export const WCAGCondition = {
     todo: 'TODO',
-    insufficient: 'insufficient',
-    bronsBasis: 'brons[basis]',
-    bronsPlus: 'brons[plus]',
-    zilverBasis: 'zilver[basis]',
-    zilverPlus: 'zilver[plus]',
+    nvt: 'n.v.t.',
+    reviewed: 'reviewed',
 } as const;
 
-export type WCAGLevelCondition = (typeof WCAGLevelCondition)[keyof typeof WCAGLevelCondition];
+// naast de vaste niveaus ook een verwijzing naar het openstaande WCAG ticket, bv. 'FLUX-726'
+export type WCAGCondition =
+    | (typeof WCAGCondition)[keyof typeof WCAGCondition]
+    | `FLUX-${string}`;

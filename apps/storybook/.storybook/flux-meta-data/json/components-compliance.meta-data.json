@@ -8,8 +8,8 @@
             "css": "govflanders",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "wcag": "FLUX-753",
+            "jiraMeta": "FLUX-805"
         }
     },
     "components-compliance-cookie-consent": {
@@ -21,7 +21,7 @@
             "css": "govflanders",
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-466",
             "jiraMeta": "FLUX-556"
         }
     },
@@ -34,7 +34,7 @@
             "css": "govflanders",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-754",
             "jiraMeta": "FLUX-95"
         }
     },
@@ -47,8 +47,8 @@
             "css": "n.v.t.",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "wcag": "n.v.t.",
+            "jiraMeta": "FLUX-785"
         },
         "evolution": {
             "vStatus": "v2-replace",
@@ -66,8 +66,8 @@
             "css": "n.v.t.",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "wcag": "reviewed",
+            "jiraMeta": "FLUX-785"
         },
         "evolution": {
             "vStatus": "v3-next",
@@ -85,7 +85,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "n.v.t.",
             "jiraMeta": "FLUX-113"
         },
         "evolution": {
@@ -104,7 +104,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-756",
             "jiraMeta": "FLUX-113"
         },
         "evolution": {
@@ -123,8 +123,8 @@
             "css": "govflanders",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
-            "jiraMeta": "geen"
+            "wcag": "FLUX-755",
+            "jiraMeta": "FLUX-804"
         }
     }
 }
