@@ -8,7 +8,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "reviewed",
             "jiraMeta": "FLUX-555"
         }
     },
@@ -21,7 +21,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-179",
             "jiraMeta": "FLUX-132"
         }
     },
@@ -34,7 +34,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-758",
             "jiraMeta": "FLUX-495"
         }
     },
@@ -47,7 +47,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "basis",
-            "wcagLevel": "TODO",
+            "wcag": "reviewed",
             "jiraMeta": "FLUX-581"
         }
     },
@@ -60,7 +60,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-182",
             "jiraMeta": "FLUX-224"
         }
     },
@@ -73,7 +73,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "FLUX-197"
         }
     },
@@ -86,7 +86,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-256",
             "jiraMeta": "FLUX-257"
         }
     },
@@ -99,7 +99,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "reviewed",
             "jiraMeta": "geen"
         }
     },
@@ -112,7 +112,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-759",
             "jiraMeta": "FLUX-186"
         }
     },
@@ -125,7 +125,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-761",
             "jiraMeta": "FLUX-562"
         }
     },
@@ -138,7 +138,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-188",
             "jiraMeta": "FLUX-86"
         }
     },
@@ -151,7 +151,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-762",
             "jiraMeta": "FLUX-579"
         }
     },
@@ -164,7 +164,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-191",
             "jiraMeta": "FLUX-192"
         }
     },
@@ -177,7 +177,7 @@
             "css": "Flux",
             "tests": ["Component", "Storybook"],
             "documentation": "uitgebreid",
-            "wcagLevel": "TODO",
+            "wcag": "FLUX-196",
             "jiraMeta": "FLUX-193"
         }
     }

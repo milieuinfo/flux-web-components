@@ -7,7 +7,7 @@
             "css": "n.v.t.",
             "tests": ["Jest"],
             "documentation": "n.v.t.",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -19,7 +19,7 @@
             "css": "n.v.t.",
             "tests": ["Jest"],
             "documentation": "n.v.t.",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -31,7 +31,7 @@
             "css": "n.v.t.",
             "tests": ["Jest"],
             "documentation": "n.v.t.",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -43,7 +43,7 @@
             "css": "n.v.t.",
             "tests": ["Jest"],
             "documentation": "n.v.t.",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -55,7 +55,7 @@
             "css": "n.v.t.",
             "tests": ["Jest"],
             "documentation": "n.v.t.",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -67,7 +67,7 @@
             "css": "n.v.t.",
             "tests": ["Jest"],
             "documentation": "n.v.t.",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -79,7 +79,7 @@
             "css": "n.v.t.",
             "tests": ["Jest"],
             "documentation": "n.v.t.",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -91,7 +91,7 @@
             "css": "n.v.t.",
             "tests": ["Jest"],
             "documentation": "n.v.t.",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -103,7 +103,7 @@
             "css": "n.v.t.",
             "tests": ["Jest"],
             "documentation": "n.v.t.",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -115,7 +115,7 @@
             "css": "n.v.t.",
             "tests": ["Jest"],
             "documentation": "n.v.t.",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -127,7 +127,7 @@
             "css": "n.v.t.",
             "tests": ["Jest"],
             "documentation": "n.v.t.",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -139,7 +139,7 @@
             "css": "n.v.t.",
             "tests": ["Jest"],
             "documentation": "n.v.t.",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -151,7 +151,7 @@
             "css": "n.v.t.",
             "tests": ["Jest"],
             "documentation": "n.v.t.",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -163,7 +163,7 @@
             "css": "n.v.t.",
             "tests": ["Jest"],
             "documentation": "n.v.t.",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -175,7 +175,7 @@
             "css": "n.v.t.",
             "tests": ["Jest"],
             "documentation": "n.v.t.",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -187,7 +187,7 @@
             "css": "n.v.t.",
             "tests": [],
             "documentation": "n.v.t.",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -199,7 +199,7 @@
             "css": "n.v.t.",
             "tests": ["Jest"],
             "documentation": "n.v.t.",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -211,7 +211,7 @@
             "css": "n.v.t.",
             "tests": ["Jest"],
             "documentation": "n.v.t.",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -223,7 +223,7 @@
             "css": "n.v.t.",
             "tests": ["Jest"],
             "documentation": "n.v.t.",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -235,7 +235,7 @@
             "css": "n.v.t.",
             "tests": ["Jest"],
             "documentation": "n.v.t.",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -247,7 +247,7 @@
             "css": "n.v.t.",
             "tests": ["Jest"],
             "documentation": "n.v.t.",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     },
@@ -259,7 +259,7 @@
             "css": "n.v.t.",
             "tests": ["Jest"],
             "documentation": "n.v.t.",
-            "wcagLevel": "TODO",
+            "wcag": "TODO",
             "jiraMeta": "geen"
         }
     }
