@@ -7,6 +7,7 @@ echo 'RUNNING SCRIPT: release-and-publish.sh'
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "${SCRIPT_DIR}/../../.."
 source "${SCRIPT_DIR}/lib/quiet-step.sh"
+source "${SCRIPT_DIR}/lib/corepack-registry.sh"
 
 # op Jenkins is de checkout gedaan door een andere user (jnlp container) dan de user
 # die dit script draait (root in de cypress container) - zonder safe.directory weigert
@@ -103,10 +104,11 @@ echo 'git config user.email'
 git config user.email ${GITHUB_EMAIL}
 git config user.email
 
-quiet_step "npm ci" npm ci --maxsockets 5
+corepack enable
+quiet_step "pnpm install" pnpm install --frozen-lockfile --network-concurrency 5
 
 # web-types up-to-date brengen, semantic-release commit ze mee
-quiet_step "generate web-types" npm run libs:web-types:generate
+quiet_step "generate web-types" pnpm run libs:web-types:generate
 
 if [[ ${RELEASE_BRANCH} == true ]];
   then
@@ -121,10 +123,10 @@ if [[ ${DEVELOP_BRANCH} == true ]];
 fi
 
 echo "semantic-release - uitvoering"
-npx semantic-release --no-ci
+pnpm exec semantic-release --no-ci
 
 echo "variabelen bepalen en zetten"
-NEXT_RELEASE_VERSION=$(npm pkg get version | sed 's/"//g')
+NEXT_RELEASE_VERSION=$(pnpm pkg get version | sed 's/"//g')
 echo using ${NEXT_RELEASE_VERSION} as NEXT_RELEASE_VERSION
 
 # de feitelijke release actie is afhankelijk van de branch
@@ -133,16 +135,16 @@ echo using ${NEXT_RELEASE_VERSION} as NEXT_RELEASE_VERSION
 if [[ ${RELEASE_BRANCH} == true ]];
   then
     echo "publiceren van de npm packages naar de DOMG 'local-npm' repository"
-    npm run libs:pack:release -- ${NEXT_RELEASE_VERSION}
-    npm run libs:publish -- ${NEXT_RELEASE_VERSION}
+    pnpm run libs:pack:release ${NEXT_RELEASE_VERSION}
+    pnpm run libs:publish ${NEXT_RELEASE_VERSION}
     echo "publiceren van de npm packages naar de DOMG 'local-npm' repository - success"
 fi
 
 if [[ ${DEVELOP_BRANCH} == true ]];
   then
     echo "publiceren van de npm packages naar de DOMG 'snapshot-npm' repository"
-    npm run libs:pack:develop -- ${NEXT_RELEASE_VERSION}
-    npm run libs:publish -- ${NEXT_RELEASE_VERSION}
+    pnpm run libs:pack:develop ${NEXT_RELEASE_VERSION}
+    pnpm run libs:publish ${NEXT_RELEASE_VERSION}
     echo "publiceren van de npm packages naar de DOMG 'snapshot-npm' repository - success"
 fi
 
@@ -170,7 +172,7 @@ fi
 cd ..
 
 echo "rebuild storybook - because only now CHANGELOG.md is up-to-date"
-npm run apps:storybook:build
+pnpm run apps:storybook:build
 
 # tgz van Storybook maken
 echo "tgz''en van Storybook"

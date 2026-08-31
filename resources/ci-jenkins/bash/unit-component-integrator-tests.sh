@@ -7,6 +7,7 @@ echo 'RUNNING SCRIPT: unit-component-integrator-tests.sh'
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "${SCRIPT_DIR}/../../.."
 source "${SCRIPT_DIR}/lib/quiet-step.sh"
+source "${SCRIPT_DIR}/lib/corepack-registry.sh"
 
 # De component-tests draaien verdeeld over 3 shards die in Jenkins parallel in een eigen pod staan; samen dekken ze
 # exact dezelfde specs als voorheen. De grens volgt de mappenstructuur, niet een gewichtsberekening:
@@ -48,7 +49,8 @@ fi
 # script intact.
 trap 'node "${SCRIPT_DIR}/../test/normalize-junit-classnames.mjs" || true' EXIT
 
-quiet_step "npm ci" npm ci --maxsockets 5
+corepack enable
+quiet_step "pnpm install" pnpm install --frozen-lockfile --network-concurrency 5
 
 echo "create build folder with dummy text file - when everything goes well there is no build folder which fails the build"
 # -p: deze stage draait in een eigen workspace, maar -p houdt het script ook bruikbaar bij een lokale herhaalde run waar build/ al bestaat
@@ -58,23 +60,26 @@ touch build/dummy.txt
 # CI=true laat de jest- en cypress-configs ook JUnit XML schrijven naar test-results, waar de junit-step
 # van deze stage ze oppikt (zie jest.config.ts in libs/* en de cypress.config.ts bestanden)
 if [[ "${SHARD}" == "3" ]]; then
-    quiet_step "run all jest (unit) tests" env CI=true npm run libs:jest
+    quiet_step "run all jest (unit) tests" env CI=true pnpm run libs:jest
 fi
 
 # De cypress-runs hieronder streamen hun output naar de console (zie lib/quiet-step.sh): ze duren lang, bij een crash
 # of OOM wil je zien hoe ver hij geraakt was.
-# --spec en niet 'npm run libs:component-tests:run', omdat die de volledige specPattern uit cypress.config.ts draait.
+# --spec en niet 'pnpm run libs:component-tests:run', omdat die de volledige specPattern uit cypress.config.ts draait.
 SPECS=$(printf ',../../%s/**/*.cy.ts' "${SHARD_DIRS[@]}")
 SPECS="${SPECS#,}"
 echo "run web component tests - shard ${SHARD} (cypress): ${SPECS}"
-(cd ./resources/cypress-component && env CI=true npx cypress run --component --spec "${SPECS}")
+# Directe binary i.p.v. 'pnpm exec': werkt robuust ongeacht de cwd. Onder pnpm 10 resette 'pnpm exec' de cwd naar
+# de repo-root in een map zonder package.json (zoals cypress-component), waardoor cypress zijn config niet vond;
+# onder de gepinde pnpm 11 gebeurt dat niet meer, maar de directe binary blijft de veilige keuze.
+(cd ./resources/cypress-component && env CI=true ../../node_modules/.bin/cypress run --component --spec "${SPECS}")
 
 if [[ "${SHARD}" == "3" ]]; then
     # JUNIT_VARIANT=firefox: deze specs draaien ook mee in de component-run van shard 2; zonder eigen label staan ze
     # dubbel en niet-herleidbaar in het Jenkins testrapport (zie cypress.config.ts)
     echo "run datepicker anchor-positioning tests in Firefox (cypress)"
-    env CI=true JUNIT_VARIANT=firefox npm run libs:component-tests:run-firefox-anchor
+    env CI=true JUNIT_VARIANT=firefox pnpm run libs:component-tests:run-firefox-anchor
 
     echo "run the integrator e2e tests (cypress)"
-    env CI=true npm run apps:integrator:serve-and-e2e
+    env CI=true pnpm run apps:integrator:serve-and-e2e
 fi
