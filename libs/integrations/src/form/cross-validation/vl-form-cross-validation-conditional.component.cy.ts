@@ -55,6 +55,36 @@ describe('cypress-component - integrations - vl-form-cross-validation-conditiona
             .should('have.attr', 'label', 'Verduidelijking *');
     });
 
+    it('should set aria-required on verduidelijking when reden is "andere"', () => {
+        cy.mount(html` <vl-form-cross-validation-conditional></vl-form-cross-validation-conditional>`);
+
+        cy.get('vl-form-cross-validation-conditional')
+            .shadow()
+            .find('vl-select#reden')
+            .shadow()
+            .find('select')
+            .select('verlenging');
+        cy.get('vl-form-cross-validation-conditional')
+            .shadow()
+            .find('vl-input-field-with-conditional-validator')
+            .shadow()
+            .find('input')
+            .should('not.have.attr', 'aria-required');
+
+        cy.get('vl-form-cross-validation-conditional')
+            .shadow()
+            .find('vl-select#reden')
+            .shadow()
+            .find('select')
+            .select('andere');
+        cy.get('vl-form-cross-validation-conditional')
+            .shadow()
+            .find('vl-input-field-with-conditional-validator')
+            .shadow()
+            .find('input')
+            .should('have.attr', 'aria-required', 'true');
+    });
+
     it('should require verduidelijking when reden is "andere"', () => {
         cy.mount(html` <vl-form-cross-validation-conditional></vl-form-cross-validation-conditional>`);
 

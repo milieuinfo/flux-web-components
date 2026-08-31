@@ -12,6 +12,7 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
     protected name = formControlDefaults.name;
     protected label = formControlDefaults.label;
     protected required = formControlDefaults.required;
+    protected requiredHint = formControlDefaults.requiredHint;
     protected disabled = formControlDefaults.disabled;
     protected error = formControlDefaults.error;
     protected success = formControlDefaults.success;
@@ -50,6 +51,7 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
             name: { type: String },
             label: { type: String },
             required: { type: Boolean },
+            requiredHint: { type: Boolean, attribute: 'required-hint' },
             disabled: { type: Boolean },
             error: { type: Boolean },
             success: { type: Boolean },
@@ -101,6 +103,8 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
     updated(changedProperties: Map<string, unknown>) {
         super.updated(changedProperties);
 
+        this.syncRequiredHint();
+
         if (this.retainsValidationState) {
             // update error after programmatic value change (no vl-input fired).
             if (this.isInvalid && !changedProperties.has('isInvalid')) {
@@ -116,6 +120,20 @@ export abstract class FormControl extends FormControlMixin(BaseLitElement) {
     }
 
     abstract get validationTarget(): HTMLElement | undefined | null;
+
+    private syncRequiredHint() {
+        const validationTarget = this.validationTarget;
+
+        if (!validationTarget) {
+            return;
+        }
+
+        if (this.requiredHint) {
+            validationTarget.setAttribute('aria-required', 'true');
+        } else {
+            validationTarget.removeAttribute('aria-required');
+        }
+    }
 
     /**
      * True when `blur-validation` is set on this control, or when the associated

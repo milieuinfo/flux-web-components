@@ -28,6 +28,7 @@ export const TextareaDefault = story(
         name,
         label,
         required,
+        requiredHint,
         disabled,
         error,
         success,
@@ -52,6 +53,7 @@ export const TextareaDefault = story(
             name=${name}
             label=${label}
             ?required=${required}
+            ?required-hint=${requiredHint}
             ?disabled=${disabled}
             ?error=${error}
             ?success=${success}

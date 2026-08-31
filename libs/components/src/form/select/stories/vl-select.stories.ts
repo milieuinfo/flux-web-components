@@ -28,6 +28,7 @@ const SelectTemplate = story(
         name,
         label,
         required,
+        requiredHint,
         disabled,
         error,
         success,
@@ -47,6 +48,7 @@ const SelectTemplate = story(
             name=${name}
             label=${label}
             ?required=${required}
+            ?required-hint=${requiredHint}
             ?disabled=${disabled}
             ?error=${error}
             ?success=${success}
@@ -174,6 +176,7 @@ const SelectDeclarativeOptionsTemplate = story(
         name,
         label,
         required,
+        requiredHint,
         disabled,
         error,
         success,
@@ -191,6 +194,7 @@ const SelectDeclarativeOptionsTemplate = story(
             name=${name}
             label=${label}
             ?required=${required}
+            ?required-hint=${requiredHint}
             ?disabled=${disabled}
             ?error=${error}
             ?success=${success}

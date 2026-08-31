@@ -38,6 +38,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "required-hint",
+                            "description": "Zet `aria-required` op het onderliggende veld, zonder het native `required` attribuut. Bedoeld voor een veld dat enkel in bepaalde gevallen verplicht is, waar de validatie via een eigen validator loopt.",
+                            "default": "false"
+                        },
+                        {
                             "name": "disabled",
                             "description": "Beeldt de component in een disabled state af.",
                             "default": "false"
@@ -142,6 +147,11 @@
                         {
                             "name": "required",
                             "description": "Duidt aan dat het veld verplicht is.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "required-hint",
+                            "description": "Zet `aria-required` op het onderliggende veld, zonder het native `required` attribuut. Bedoeld voor een veld dat enkel in bepaalde gevallen verplicht is, waar de validatie via een eigen validator loopt.",
                             "default": "false"
                         },
                         {
@@ -448,6 +458,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "required-hint",
+                            "description": "Zet `aria-required` op het onderliggende veld, zonder het native `required` attribuut. Bedoeld voor een veld dat enkel in bepaalde gevallen verplicht is, waar de validatie via een eigen validator loopt.",
+                            "default": "false"
+                        },
+                        {
                             "name": "disabled",
                             "description": "Beeldt de component in een disabled state af.",
                             "default": "false"
@@ -603,6 +618,11 @@
                         {
                             "name": "required",
                             "description": "Duidt aan dat het veld verplicht is.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "required-hint",
+                            "description": "Zet `aria-required` op het onderliggende veld, zonder het native `required` attribuut. Bedoeld voor een veld dat enkel in bepaalde gevallen verplicht is, waar de validatie via een eigen validator loopt.",
                             "default": "false"
                         },
                         {
@@ -875,6 +895,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "required-hint",
+                            "description": "Zet `aria-required` op het onderliggende veld, zonder het native `required` attribuut. Bedoeld voor een veld dat enkel in bepaalde gevallen verplicht is, waar de validatie via een eigen validator loopt.",
+                            "default": "false"
+                        },
+                        {
                             "name": "disabled",
                             "description": "Beeldt de component in een disabled state af.",
                             "default": "false"
@@ -957,6 +982,11 @@
                         {
                             "name": "required",
                             "description": "Duidt aan dat het veld verplicht is.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "required-hint",
+                            "description": "Zet `aria-required` op het onderliggende veld, zonder het native `required` attribuut. Bedoeld voor een veld dat enkel in bepaalde gevallen verplicht is, waar de validatie via een eigen validator loopt.",
                             "default": "false"
                         },
                         {
@@ -1066,6 +1096,11 @@
                         {
                             "name": "required",
                             "description": "Duidt aan dat het veld verplicht is.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "required-hint",
+                            "description": "Zet `aria-required` op het onderliggende veld, zonder het native `required` attribuut. Bedoeld voor een veld dat enkel in bepaalde gevallen verplicht is, waar de validatie via een eigen validator loopt.",
                             "default": "false"
                         },
                         {
@@ -1227,6 +1262,11 @@
                             "default": "false"
                         },
                         {
+                            "name": "required-hint",
+                            "description": "Zet `aria-required` op het onderliggende veld, zonder het native `required` attribuut. Bedoeld voor een veld dat enkel in bepaalde gevallen verplicht is, waar de validatie via een eigen validator loopt.",
+                            "default": "false"
+                        },
+                        {
                             "name": "disabled",
                             "description": "Beeldt de component in een disabled state af.",
                             "default": "false"
@@ -1349,6 +1389,11 @@
                         {
                             "name": "required",
                             "description": "Duidt aan dat het veld verplicht is.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "required-hint",
+                            "description": "Zet `aria-required` op het onderliggende veld, zonder het native `required` attribuut. Bedoeld voor een veld dat enkel in bepaalde gevallen verplicht is, waar de validatie via een eigen validator loopt.",
                             "default": "false"
                         },
                         {
@@ -1501,6 +1546,11 @@
                         {
                             "name": "required",
                             "description": "Duidt aan dat het veld verplicht is.",
+                            "default": "false"
+                        },
+                        {
+                            "name": "required-hint",
+                            "description": "Zet `aria-required` op het onderliggende veld, zonder het native `required` attribuut. Bedoeld voor een veld dat enkel in bepaalde gevallen verplicht is, waar de validatie via een eigen validator loopt.",
                             "default": "false"
                         },
                         {

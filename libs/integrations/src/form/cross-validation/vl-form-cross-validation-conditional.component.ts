@@ -111,6 +111,7 @@ export class VlFormCrossValidationConditionalComponent extends LitElement {
                             id="verduidelijking"
                             name="verduidelijking"
                             block
+                            ?required-hint=${this.verduidelijkingVerplicht}
                         ></vl-input-field-with-conditional-validator>
                         <vl-form-message for="verduidelijking" state="customError"
                             >Gelieve de reden te verduidelijken.</vl-form-message

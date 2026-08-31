@@ -29,6 +29,7 @@ const CheckboxTemplate = story(
         name,
         label,
         required,
+        requiredHint,
         disabled,
         error,
         success,
@@ -49,6 +50,7 @@ const CheckboxTemplate = story(
             name=${name}
             label=${label}
             ?required=${required}
+            ?required-hint=${requiredHint}
             ?disabled=${disabled}
             ?error=${error}
             ?success=${success}
@@ -101,6 +103,7 @@ export const CheckboxReadonly = story(
         name,
         label,
         required,
+        requiredHint,
         disabled,
         error,
         success,
@@ -116,6 +119,7 @@ export const CheckboxReadonly = story(
             name=${name}
             label=${label}
             ?required=${required}
+            ?required-hint=${requiredHint}
             ?disabled=${disabled}
             ?error=${error}
             ?success=${success}

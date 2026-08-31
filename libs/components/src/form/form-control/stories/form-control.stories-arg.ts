@@ -50,6 +50,17 @@ export const formControlArgTypes: ArgTypes<FormControlArgs> = {
             defaultValue: { summary: String(formControlArgs.required) },
         },
     },
+    requiredHint: {
+        name: 'required-hint',
+        description:
+            'Zet `aria-required` op het onderliggende veld, zonder het native `required` attribuut. ' +
+            'Bedoeld voor een veld dat enkel in bepaalde gevallen verplicht is, waar de validatie via een eigen validator loopt.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(formControlArgs.requiredHint) },
+        },
+    },
     disabled: {
         name: 'disabled',
         description: 'Beeldt de component in een disabled state af.',

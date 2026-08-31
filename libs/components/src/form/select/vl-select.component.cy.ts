@@ -76,6 +76,20 @@ describe('cypress-component - form components - vl-select - properties & states'
         cy.get('vl-select').shadow().find('select').should('have.attr', 'required');
     });
 
+    it('should not set aria-required by default', () => {
+        cy.mount(html`<vl-select label="geboorteplaats" .options=${options}></vl-select>`);
+
+        cy.get('vl-select').shadow().find('select').should('not.have.attr', 'aria-required');
+    });
+
+    it('should set aria-required via required-hint', () => {
+        cy.mount(html`<vl-select label="geboorteplaats" required-hint .options=${options}></vl-select>`);
+        cy.injectAxe();
+
+        cy.checkA11y('vl-select');
+        cy.get('vl-select').shadow().find('select').should('have.attr', 'aria-required', 'true');
+    });
+
     it('should set disabled', () => {
         cy.mount(html`
             <div class="snapshot-wrapper" style="width: 400px; padding: 20px; background: white;">

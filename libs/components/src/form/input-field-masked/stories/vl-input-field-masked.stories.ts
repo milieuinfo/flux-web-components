@@ -40,6 +40,7 @@ const InputFieldMaskedTemplate = story(
         name,
         label,
         required,
+        requiredHint,
         disabled,
         error,
         success,
@@ -71,6 +72,7 @@ const InputFieldMaskedTemplate = story(
                 name=${name}
                 label=${label}
                 ?required=${required}
+                ?required-hint=${requiredHint}
                 ?disabled=${disabled}
                 ?error=${error}
                 ?success=${success}

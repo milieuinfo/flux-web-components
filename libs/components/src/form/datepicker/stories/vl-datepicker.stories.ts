@@ -52,6 +52,7 @@ const DatepickerTemplate = story(
         error,
         readonly,
         required,
+        requiredHint,
         disableMaskValidation,
         value,
         placeholder,
@@ -85,6 +86,7 @@ const DatepickerTemplate = story(
                             ?success=${success}
                             ?blur-validation=${blurValidation}
                             ?required=${required}
+                            ?required-hint=${requiredHint}
                             ?readonly=${readonly}
                             ?disabled=${disabled}
                             ?block=${block}

@@ -29,6 +29,7 @@ export const UploadDefault = story(
         name,
         label,
         required,
+        requiredHint,
         disabled,
         readonly,
         error,
@@ -81,6 +82,7 @@ export const UploadDefault = story(
                 name=${name}
                 label=${label}
                 ?required=${required}
+                ?required-hint=${requiredHint}
                 ?disabled=${disabled}
                 ?readonly=${readonly}
                 ?error=${error}

@@ -54,6 +54,18 @@ describe('cypress-component - form components - vl-input-field', () => {
         cy.get('vl-input-field').shadow().find('input').should('have.attr', 'required');
     });
 
+    it('should not set aria-required by default', () => {
+        cy.mount(html`<vl-input-field></vl-input-field>`);
+
+        cy.get('vl-input-field').shadow().find('input').should('not.have.attr', 'aria-required');
+    });
+
+    it('should set aria-required via required-hint', () => {
+        cy.mount(html`<vl-input-field required-hint></vl-input-field>`);
+
+        cy.get('vl-input-field').shadow().find('input').should('have.attr', 'aria-required', 'true');
+    });
+
     it('should set disabled', () => {
         cy.mount(html`<vl-input-field disabled></vl-input-field>`);
 

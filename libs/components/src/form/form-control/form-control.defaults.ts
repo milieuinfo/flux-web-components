@@ -3,6 +3,7 @@ export const formControlDefaults = {
     name: '' as string,
     label: '' as string,
     required: false as boolean,
+    requiredHint: false as boolean,
     disabled: false as boolean,
     error: false as boolean,
     success: false as boolean,

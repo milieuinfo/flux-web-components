@@ -27,6 +27,7 @@ export const RadioGroupDefault = story(
     ({
         id,
         required,
+        requiredHint,
         readonly,
         disabled,
         error,
@@ -46,6 +47,7 @@ export const RadioGroupDefault = story(
             label=${label}
             value=${value}
             ?required=${required}
+            ?required-hint=${requiredHint}
             ?readonly=${readonly}
             ?disabled=${disabled}
             ?error=${error}
