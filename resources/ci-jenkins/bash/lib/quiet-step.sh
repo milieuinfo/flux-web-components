@@ -6,7 +6,7 @@
 #   source "${SCRIPT_DIR}/lib/quiet-step.sh"
 #
 # 'quiet_step' voert een stap uit en toont de output enkel als die stap faalt. Bedoeld voor stappen die veel output
-# produceren maar kort zijn (npm ci, generatoren).
+# produceren maar kort zijn (pnpm install, generatoren).
 #
 # Roep lang lopende stappen (builds, cypress) NIET via 'quiet_step' aan maar rechtstreeks, zodat hun output live in de
 # Jenkins console verschijnt:

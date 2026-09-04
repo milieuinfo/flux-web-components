@@ -9,7 +9,7 @@
 // Dit gebeurt via node en niet via curl: curl zit niet meer in de cypress docker-image, en
 // 'apt-get install curl' werkt op de Jenkins-pod niet omdat die geen egress heeft naar
 // deb.debian.org (apt-get update haalt dan geen enkele package-index op en apt kan de naam
-// 'curl' niet resolven). Node is er sowieso - het is een cypress-image en npm ci draait in
+// 'curl' niet resolven). Node is er sowieso - het is een cypress-image en pnpm install draait in
 // de pijplijn - en heeft fetch() globaal sinds Node 18.
 
 import { readFileSync } from 'node:fs';
