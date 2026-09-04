@@ -155,21 +155,21 @@ Add the export to `libs/components/src/{type}/index.ts` (bv. `atom/index.ts`).
 Run the component test:
 
 ```bash
-npm run libs:component-tests:run -- --spec "../../libs/components/src/{type}/{name}/vl-{name}.component.cy.ts"
+pnpm run libs:component-tests:run --spec "../../libs/components/src/{type}/{name}/vl-{name}.component.cy.ts"
 ```
 
 Tell the user to verify Storybook manually:
 
 ```bash
-npm run apps:storybook:dev
+pnpm run apps:storybook:dev
 # Then navigate to http://localhost:8080 and check the new component
 ```
 
 And run the storybook E2E test:
 
 ```bash
-npm run apps:storybook:dev  # Terminal 1
-npm run apps:storybook-e2e:watch  # Terminal 2
+pnpm run apps:storybook:dev  # Terminal 1
+pnpm run apps:storybook-e2e:watch  # Terminal 2
 ```
 
 ## Run Component Tests
@@ -197,13 +197,13 @@ If no component is specified, run all tests.
 **Specific component:**
 
 ```bash
-npm run libs:component-tests:run -- --spec "../../libs/components/src/{type}/{name}/vl-{name}.component.cy.ts"
+pnpm run libs:component-tests:run --spec "../../libs/components/src/{type}/{name}/vl-{name}.component.cy.ts"
 ```
 
 **All components:**
 
 ```bash
-npm run libs:component-tests:run
+pnpm run libs:component-tests:run
 ```
 
 #### 3. Report results
@@ -230,7 +230,7 @@ After implementing a feature, ALWAYS:
 5. Run the tests to verify they pass:
 
 ```bash
-npm run libs:component-tests:run -- --spec "../../libs/components/src/{type}/{name}/vl-{name}.component.cy.ts"
+pnpm run libs:component-tests:run --spec "../../libs/components/src/{type}/{name}/vl-{name}.component.cy.ts"
 ```
 
 ### When fixing a bug

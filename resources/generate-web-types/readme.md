@@ -2,24 +2,25 @@
 
 ## genereren
 
-    npm run generate-web-types
+Vanuit de root:
+
+    pnpm run libs:web-types:generate
+
+Dat draait `web-types.generator.ts` (via `resources/bash-scripts/libs-web-types-generate.sh`) en faalt als er ergens onder
+`libs/` een `*.web-types.errors.log` achterblijft.
 
 
-## testen
+## valideren
 
-De testen zouden als jest testen in de build moeten lopen. Dat lukt echter niet.
-Voorlopig kan je manueel volgende commando's uitvoeren, als die lege lijsten terug geven worden er correct voor alle componenten web-types aangemaakt.
-Rechter klikken in de IDE en op `web-types.spec.ts` en laten lopen lukt, alleen is de folder dan fout.
-In plaats van er verder tijd in te steken: de oorzaak is de Nx verwevenheid, die wordt weggewerkt, in die aanpak ook Jest testen toevoegen voor
-de web-types!
+De validatie loopt als jest-testen, ook in de build:
 
-    tsx ./tools/web-types-generator/tests/compare-wc-wt-components-atom.ts
-    tsx ./tools/web-types-generator/tests/compare-wc-wt-components-basic.ts
-    tsx ./tools/web-types-generator/tests/compare-wc-wt-components-compliance.ts
-    tsx ./tools/web-types-generator/tests/compare-wc-wt-components-form.ts
-    tsx ./tools/web-types-generator/tests/compare-wc-wt-map.ts
+    pnpm run libs:web-types:validate
 
+Dat zijn twee specs (zie `resources/bash-scripts/libs-web-types-validate.sh`):
 
-## schema validatie
+- `wt-validate-completeness/web-types-completeness.spec.ts` - elke web-component heeft een web-type en omgekeerd
+- `wt-validate-schema/web-types-schema.spec.ts` - de gegenereerde web-types voldoen aan `web-types.schema.json`
 
-    tsx ./tools/web-types-generator/schema/validate-schema.ts
+Om de schema-fouten in detail te zien (de spec toont enkel pass/fail), vanuit `resources/generate-web-types`:
+
+    pnpm exec tsx ./wt-validate-schema/validate-schema.ts

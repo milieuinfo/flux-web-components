@@ -13,7 +13,7 @@ Dit profile combineert het beste uit `kris/` en `karim/`.
 
 - **Engineering Mindset** — Denk vóór je codeert / Eenvoud eerst / Chirurgische wijzigingen / Doelgedreven uitvoeren (bovenaan `CLAUDE.md`).
 - **Branch Safety (STRIKT)** — Claude pusht nooit; bij branchen nooit upstream/remote-tracking instellen.
-- **Granulaire `settings.json`** — expliciete npm-allowlist (geen blanket `npm run *` / `cat *`), veiliger dan een brede wildcard.
+- **Granulaire `settings.json`** — expliciete pnpm-allowlist (geen blanket `pnpm run *` / `cat *`), veiliger dan een brede wildcard.
 
 ## Bestanden
 

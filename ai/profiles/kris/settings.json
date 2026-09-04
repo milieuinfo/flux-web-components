@@ -23,7 +23,7 @@
       "Bash(git merge*)",
       "Bash(git restore*)",
       "Bash(git reset*)",
-      "Bash(npm run *)",
+      "Bash(pnpm run *)",
       "Bash(ls *)",
       "Bash(cat *)"
     ]

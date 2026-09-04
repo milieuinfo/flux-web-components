@@ -134,7 +134,7 @@ Voeg export toe in `libs/components/src/{type}/index.ts` (bv. `atom/index.ts`).
 ## 7. Verifiëren
 
 ```bash
-npm run libs:component-tests:run -- --spec "../../libs/components/src/{type}/{name}/vl-{name}.component.cy.ts"
+pnpm run libs:component-tests:run --spec "../../libs/components/src/{type}/{name}/vl-{name}.component.cy.ts"
 ```
 
-Vraag de gebruiker om Storybook visueel te checken (`npm run apps:storybook:dev`, http://localhost:8080) en draai de Storybook E2E test (`npm run apps:storybook-e2e:watch` in tweede terminal).
+Vraag de gebruiker om Storybook visueel te checken (`pnpm run apps:storybook:dev`, http://localhost:8080) en draai de Storybook E2E test (`pnpm run apps:storybook-e2e:watch` in tweede terminal).

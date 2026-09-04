@@ -36,7 +36,7 @@ project root/
   "permissions": {
     "allow": [
       "Bash(git -C /Users/jouwnaam/pad/naar/project ...)",
-      "Bash(npx cypress run ...)"
+      "Bash(pnpm exec cypress run ...)"
     ]
   }
 }
@@ -71,7 +71,7 @@ Claude Code ontdekt skills automatisch uit `.claude/skills/`. De skill-bestanden
      "permissions": {
        "allow": [
          "Bash(git -C /volledig/pad/naar/project ...)",
-         "Bash(npx cypress run --component ...)"
+         "Bash(pnpm exec cypress run --component ...)"
        ]
      }
    }

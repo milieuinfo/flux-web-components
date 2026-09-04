@@ -111,11 +111,16 @@ Hieronder de cheatsheet voor wie van npm komt (enkel de commando's die anders we
     </tbody>
 </table>
 
-Twee aandachtspunten:
+Drie aandachtspunten:
  - Bij "Script met argument" geeft pnpm de `--` letterlijk door als argument, npm stript die. Gebruik in pnpm dus
    geen `--` voor het argument, anders komt `--` als eerste argument in het script terecht.
  - `pnpm install` gebruikt in CI automatisch `--frozen-lockfile` (pnpm detecteert de CI-omgeving); lokaal mag de
    lockfile wel wijzigen.
+ - Een `npm install` uit gewoonte wordt geweigerd door een `preinstall`-guard
+   (`resources/utils-build/only-allow-pnpm.mjs`). npm heeft op dat moment wel al een `node_modules` en een
+   `package-lock.json` weggeschreven: ruim die op met `rm -rf node_modules package-lock.json` en installeer opnieuw
+   met `pnpm install`. `package-lock.json` staat in `.gitignore`, zodat zo'n lockfile nooit per ongeluk mee gecommit
+   raakt.
 
 
 ## Structuur

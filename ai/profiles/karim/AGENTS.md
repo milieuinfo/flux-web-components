@@ -159,17 +159,17 @@ Every component should have Cypress component tests following these guidelines:
 **Running Tests:**
 ```bash
 # Component tests with UI
-npm run libs:component-tests:watch
+pnpm run libs:component-tests:watch
 
 # All component tests
-npm run libs:component-tests:run
+pnpm run libs:component-tests:run
 
 # Specific test
-npm run libs:component-tests:run -- --spec "../../libs/components/src/[type]/vl-name/vl-name.component.cy.ts"
+pnpm run libs:component-tests:run --spec "../../libs/components/src/[type]/vl-name/vl-name.component.cy.ts"
 
 # Storybook E2E tests
-npm run apps:storybook:dev  # Terminal 1
-npm run apps:storybook-e2e:watch  # Terminal 2
+pnpm run apps:storybook:dev  # Terminal 1
+pnpm run apps:storybook-e2e:watch  # Terminal 2
 ```
 
 ## Accessibility (WCAG 2.2)
@@ -250,7 +250,7 @@ Add an entry with the component name, docs reference, and condition fields. See 
 
 1. Start Storybook locally:
    ```bash
-   npm run apps:storybook:dev
+   pnpm run apps:storybook:dev
    ```
 
 2. Navigate to your component (http://localhost:8080)
@@ -362,7 +362,7 @@ When working on this project:
 1. **Study a sibling component first** - Before creating or modifying a component, always read an existing component of the same type (atom, block, form, compliance) to match its exact patterns
 2. **Test your changes** - Run Cypress component tests after every change; never assume a change works without running the test
 3. **Update tests** - When changing component behavior, update the corresponding `.component.cy.ts` file; when fixing bugs, write a regression test first
-4. **Verify in Storybook** - ALWAYS check visual changes in Storybook (`npm run apps:storybook:dev`)
+4. **Verify in Storybook** - ALWAYS check visual changes in Storybook (`pnpm run apps:storybook:dev`)
    - Verify component renders correctly
    - Test all story variants
    - Check controls work as expected

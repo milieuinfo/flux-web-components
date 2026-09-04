@@ -51,7 +51,6 @@
                 [
                     "resources/changelog/CHANGELOG.md",
                     "package.json",
-                    "package-lock.json",
                     "libs/components/src/atom/atom.web-types.json",
                     "libs/components/src/block/block.web-types.json",
                     "libs/components/src/compliance/compliance.web-types.json",
