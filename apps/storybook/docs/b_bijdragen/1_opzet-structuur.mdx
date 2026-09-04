@@ -9,6 +9,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 -   [Opzet](#opzet)
 -   [Structuur](#structuur)
 
+
 ## Opzet
 
 De code van de web-componenten bibliotheek zit in GitHub onder de
@@ -47,43 +48,75 @@ export PATH="/Users/(your user)/.volta/bin:$PATH"
 
 ### Package manager: pnpm
 
-We gebruiken **pnpm** in plaats van npm. De reden is **supply-chain security**, niet snelheid.
+De repo gebruikt **pnpm** in plaats van npm. De reden is **supply-chain security**, niet snelheid.
 
 Bij het installeren voert npm de lifecycle-scripts (`preinstall`/`install`/`postinstall`) van elke dependency
-automatisch uit, ook de transitieve. Dat is het aanvalsoppervlak voor supply-chain-aanvallen: een
-gecompromitteerde package voert willekeurige code uit tijdens het installeren. pnpm draait die scripts standaard
-niet. Enkel packages die in `allowBuilds` op `true` staan (in de root `pnpm-workspace.yaml`) mogen build-scripts
-uitvoeren (hier enkel `cypress`); de andere staan op `false` en zijn geblokkeerd. `strictDepBuilds` laat de install
-bovendien falen zodra een build-script niet expliciet toegelaten of geweigerd is, zodat een nieuw of onverwacht
-script niet stil kan draaien. Daarnaast maakt pnpm's
-strikte `node_modules` phantom dependencies zichtbaar: code die een package importeert dat niet in de
-`package.json` staat, faalt onder pnpm in plaats van toevallig te werken via npm's hoisting.
+automatisch uit, ook de transitieve. Dat is een risico voor supply-chain-aanvallen: een gecompromitteerde package
+voert kwaadaardige code uit tijdens het installeren. Pnpm draait die scripts standaard niet. Enkel packages die in
+`allowBuilds` op `true` staan (in de root `pnpm-workspace.yaml`) mogen build-scripts uitvoeren (in deze repo is dat
+enkel `cypress`); de andere staan op `false` en zijn geblokkeerd. `strictDepBuilds` laat de install bovendien falen
+zodra een build-script niet expliciet toegelaten of geweigerd is, zodat een nieuw of onverwacht script niet ongemerkt
+kan draaien.
 
-Een gevolg: Playwright (voor de Storybook vitest-browser-tests) staat niet op `true` in `allowBuilds`, dus zijn
-browsers worden niet automatisch gedownload bij het installeren. Draai je die tests lokaal, doe dan eenmalig
-`pnpm exec playwright install`.
+Daarnaast is pnpm strenger over afhankelijkheden: een package dat je gebruikt maar niet expliciet in `package.json`
+hebt opgenomen, werkt onder pnpm niet meer. Bij npm werkt dat vaak toevallig wel, waardoor zulke verborgen
+afhankelijkheden onopgemerkt blijven.
 
-pnpm draait via corepack (bij Node inbegrepen) en is gepind met het `packageManager`-veld in de root
-`package.json`. Corepack activeer je eenmalig:
+Je hoeft pnpm niet apart te installeren: Node bevat een hulpmiddel (corepack) dat automatisch de juiste versie van
+pnpm gebruikt. Welke versie dat is, staat vast in de `package.json` van het project, zodat iedereen met dezelfde
+versie werkt. Corepack zet je eenmalig aan met:
 
 ```
 corepack enable
 ```
 
-Cheatsheet voor wie van npm komt (enkel de commando's die anders werken):
+### Pnpm Cheatsheet
 
-| Taak | npm | pnpm |
-| --- | --- | --- |
-| Clean install (CI, reproduceerbaar) | `npm ci` | `pnpm install --frozen-lockfile` |
-| Install (dev) | `npm install` | `pnpm install` |
-| Script draaien | `npm run <script>` | `pnpm run <script>` |
-| Script met argument | `npm run <script> -- <arg>` | `pnpm run <script> <arg>` |
-| Binary uitvoeren | `npx <bin>` | `pnpm exec <bin>` |
+Hieronder de cheatsheet voor wie van npm komt (enkel de commando's die anders werken):
 
-Twee aandachtspunten. Bij "Script met argument" geeft pnpm de `--` letterlijk door als argument, npm stript
-die. Gebruik in pnpm dus geen `--` voor het argument, anders komt `--` als eerste argument in het script
-terecht. En `pnpm install` gebruikt in CI automatisch `--frozen-lockfile` (pnpm detecteert de CI-omgeving);
-lokaal mag de lockfile wel wijzigen.
+<table>
+    <thead>
+        <tr>
+            <th scope="col">Taak</th>
+            <th scope="col">npm</th>
+            <th scope="col">pnpm</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Clean install (CI, reproduceerbaar)</td>
+            <td><code>npm ci</code></td>
+            <td><code>pnpm install --frozen-lockfile</code></td>
+        </tr>
+        <tr>
+            <td>Install (dev)</td>
+            <td><code>npm install</code></td>
+            <td><code>pnpm install</code></td>
+        </tr>
+        <tr>
+            <td>Script draaien</td>
+            <td><code>npm run &lt;script&gt;</code></td>
+            <td><code>pnpm run &lt;script&gt;</code></td>
+        </tr>
+        <tr>
+            <td>Script met argument</td>
+            <td><code>npm run &lt;script&gt; -- &lt;arg&gt;</code></td>
+            <td><code>pnpm run &lt;script&gt; &lt;arg&gt;</code></td>
+        </tr>
+        <tr>
+            <td>Binary uitvoeren</td>
+            <td><code>npx &lt;bin&gt;</code></td>
+            <td><code>pnpm exec &lt;bin&gt;</code></td>
+        </tr>
+    </tbody>
+</table>
+
+Twee aandachtspunten:
+ - Bij "Script met argument" geeft pnpm de `--` letterlijk door als argument, npm stript die. Gebruik in pnpm dus
+   geen `--` voor het argument, anders komt `--` als eerste argument in het script terecht.
+ - `pnpm install` gebruikt in CI automatisch `--frozen-lockfile` (pnpm detecteert de CI-omgeving); lokaal mag de
+   lockfile wel wijzigen.
+
 
 ## Structuur
 

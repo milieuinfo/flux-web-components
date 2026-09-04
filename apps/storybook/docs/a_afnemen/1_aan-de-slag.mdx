@@ -6,22 +6,23 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 ## Inhoudstafel
 
-- [Node en package manager](#node-en-package-manager)
+- [Node en pnpm](#node-en-pnpm)
 - [Dependencies - package.json](#dependencies---packagejson)
 - [Registratie van een web-component](#registratie-van-een-web-component)
 - [Styling](#styling)
 - [Documentatie](#documentatie)
 
 
-## Node en package manager
+## Node en pnpm
 
 De basis van hedendaagse JavaScript ontwikkeling - zowel voor deze componenten bibliotheek als voor eindtoepassingen -
-is [Node.js](https://nodejs.org/en). Als package manager raden we [pnpm](https://pnpm.io/) aan.
+is [Node.js](https://nodejs.org/en). Als package manager gebruik je best [pnpm](https://pnpm.io/).
 
-De reden is supply-chain security: pnpm draait sinds versie 10 de lifecycle-scripts (`preinstall`/`install`/`postinstall`)
-van dependencies standaard niet automatisch. Enkel packages die je expliciet toelaat, mogen
-build-scripts draaien. npm en Yarn draaien die scripts wel bij het installeren en vergroten zo het aanvalsoppervlak
-voor supply-chain-aanvallen. Onze packages afnemen werkt met elke package manager; voor je eigen project raden we pnpm aan.
+De reden is supply-chain security: pnpm draait sinds versie 10 de lifecycle-scripts
+(`preinstall`/`install`/`postinstall`) van dependencies standaard niet automatisch. Enkel packages die je expliciet
+toelaat, mogen build-scripts draaien. Npm (en Yarn) draaien die scripts wel bij het installeren en vergroten zo het
+risico op supply-chain-aanvallen. Onze packages afnemen werkt met elke package manager; als afnemer gebruik je best
+ook wel pnpm.
 
 
 ## Dependencies - package.json
