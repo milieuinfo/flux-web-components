@@ -5,6 +5,18 @@ import { VlAlert } from './vl-alert.component';
 
 registerWebComponents([VlAlert]);
 
+// de paddings staan in rem, de root font-size van de testharness bepaalt de effectieve pixelwaarde
+const rem = (value: number): string => `${value * parseFloat(getComputedStyle(document.documentElement).fontSize)}px`;
+
+const expectPaddingRight = (expected: string) => {
+    cy.get('vl-alert')
+        .shadow()
+        .find('#alert')
+        .then(($alert) => {
+            expect(getComputedStyle($alert[0]).paddingRight).to.equal(expected);
+        });
+};
+
 describe('cypress-component - block components - vl-alert', () => {
     beforeEach(() => {
         cy.mount(html`
@@ -41,6 +53,24 @@ describe('cypress-component - block components - vl-alert', () => {
 
     it('should contain an icon', () => {
         cy.get('vl-alert').shadow().find('.vl-alert__icon > span.vl-icon--warning');
+    });
+
+    it('should reserve room for the close button on the right', () => {
+        expectPaddingRight(rem(4));
+    });
+
+    it('should keep its own padding without a close button', () => {
+        cy.get('vl-alert').invoke('removeAttr', 'closable');
+        cy.waitForLitUpdate('vl-alert');
+
+        cy.get('vl-alert')
+            .shadow()
+            .find('#alert')
+            .then(($alert) => {
+                const style = getComputedStyle($alert[0]);
+
+                expect(style.paddingRight).to.equal(style.paddingLeft);
+            });
     });
 
     it('should contain a close button', () => {
@@ -122,6 +152,10 @@ describe('cypress-component - block components - vl-alert - naked', () => {
         cy.checkA11y('vl-alert');
     });
 
+    it('should reserve room for the close button on the right', () => {
+        expectPaddingRight(rem(4));
+    });
+
     it('should contain a marked title', () => {
         cy.get('vl-alert')
             .shadow()
@@ -181,6 +215,212 @@ describe('cypress-component - block components - vl-alert - naked', () => {
 
     it('should contain an icon', () => {
         cy.get('vl-alert').shadow().find('.vl-alert__icon > span.vl-icon--warning');
+    });
+});
+
+describe('cypress-component - block components - vl-alert - banner', () => {
+    const titleText = 'Juridische waarde';
+    const messageText = 'De door deze toepassing gegenereerde informatie heeft geen juridische waarde.';
+
+    const getShadowRect = ($alert: JQuery<HTMLElement>, selector: string): DOMRect =>
+        ($alert[0].shadowRoot?.querySelector(selector) as HTMLElement).getBoundingClientRect();
+
+    const expectTitleAndMessageOnSameLine = (sameLine: boolean) => {
+        cy.get('vl-alert').then(($alert) => {
+            const title = getShadowRect($alert, '#title');
+            const message = getShadowRect($alert, '#message');
+
+            expect(title.top < message.bottom && message.top < title.bottom).to.equal(sameLine);
+        });
+    };
+
+    beforeEach(() => {
+        cy.mount(html`
+            <vl-alert
+                data-cy="alert"
+                banner
+                closable
+                alert-role="no-role"
+                type="warning"
+                icon="warning"
+                title=${titleText}
+            >
+                <span>${messageText}</span>
+            </vl-alert>
+        `);
+    });
+
+    it('should mount', () => {
+        cy.get('vl-alert').shadow().find('#alert').should('have.class', 'vl-alert--banner');
+    });
+
+    it('should be accessible', () => {
+        cy.injectAxe();
+
+        cy.checkA11y('vl-alert');
+    });
+
+    it('should render without rounded corners', () => {
+        cy.get('vl-alert')
+            .shadow()
+            .find('#alert')
+            .then(($alert) => {
+                expect(getComputedStyle($alert[0]).borderRadius).to.equal('0px');
+            });
+    });
+
+    it('should render the title and the slotted message on the same line', () => {
+        expectTitleAndMessageOnSameLine(true);
+    });
+
+    const expectSeparator = (expected: string) => {
+        cy.get('vl-alert')
+            .shadow()
+            .find('#title')
+            .then(($title) => {
+                expect(getComputedStyle($title[0], '::after').content).to.equal(expected);
+            });
+    };
+
+    it('should render a separator between the title and the message', () => {
+        expectSeparator('" - "');
+    });
+
+    it('should not render a separator without a message', () => {
+        cy.get('vl-alert').then(($alert) => {
+            $alert[0].innerHTML = '';
+        });
+        cy.waitForLitUpdate('vl-alert');
+
+        expectSeparator('none');
+    });
+
+    it('should not render a separator without a title', () => {
+        cy.get('vl-alert').invoke('removeAttr', 'title');
+        cy.waitForLitUpdate('vl-alert');
+
+        expectSeparator('none');
+    });
+
+    it('should not render a separator without the banner attribute', () => {
+        cy.get('vl-alert').invoke('removeAttr', 'banner');
+        cy.waitForLitUpdate('vl-alert');
+
+        expectSeparator('none');
+    });
+
+    it('should render the title and the message attribute on the same line', () => {
+        cy.get('vl-alert').invoke('attr', 'message', messageText);
+        cy.waitForLitUpdate('vl-alert');
+
+        expectTitleAndMessageOnSameLine(true);
+    });
+
+    it('should keep block level slot content on the same line', () => {
+        cy.get('vl-alert').then(($alert) => {
+            $alert[0].innerHTML = `<p>${messageText}</p>`;
+        });
+        cy.waitForLitUpdate('vl-alert');
+
+        expectTitleAndMessageOnSameLine(true);
+    });
+
+    it('should keep the title and the message on separate lines without the banner attribute', () => {
+        cy.get('vl-alert').invoke('removeAttr', 'banner');
+        cy.waitForLitUpdate('vl-alert');
+
+        cy.get('vl-alert').shadow().find('#alert').should('not.have.class', 'vl-alert--banner');
+        expectTitleAndMessageOnSameLine(false);
+    });
+
+    it('should keep the rounded corners without the banner attribute', () => {
+        cy.get('vl-alert').invoke('removeAttr', 'banner');
+        cy.waitForLitUpdate('vl-alert');
+
+        cy.get('vl-alert')
+            .shadow()
+            .find('#alert')
+            .then(($alert) => {
+                expect(getComputedStyle($alert[0]).borderRadius).to.not.equal('0px');
+            });
+    });
+
+    it('should keep the type styling and the icon', () => {
+        cy.get('vl-alert').shadow().find('#alert').should('have.class', 'vl-alert--warning');
+        cy.get('vl-alert').shadow().find('.vl-alert__icon > span.vl-icon--warning');
+    });
+
+    it('should be removed after clicking the close button and send a VlAlertClosedEvent', () => {
+        cy.createStubForEvent('vl-alert', VlAlertClosedEvent.eventType);
+        cy.get('vl-alert').shadow().find('#close').click();
+
+        cy.get('vl-alert').should('not.exist');
+        cy.get('@' + VlAlertClosedEvent.eventType).should('have.been.calledOnce');
+    });
+});
+
+describe('cypress-component - block components - vl-alert - banner small', () => {
+    const expectPadding = (top: string, right: string, bottom: string, left: string) => {
+        cy.get('vl-alert')
+            .shadow()
+            .find('#alert')
+            .then(($alert) => {
+                const style = getComputedStyle($alert[0]);
+
+                expect(style.paddingTop).to.equal(top);
+                expect(style.paddingRight).to.equal(right);
+                expect(style.paddingBottom).to.equal(bottom);
+                expect(style.paddingLeft).to.equal(left);
+            });
+    };
+
+    beforeEach(() => {
+        cy.viewport(1200, 400);
+        cy.mount(html`
+            <vl-alert
+                data-cy="alert"
+                banner
+                size="small"
+                alert-role="no-role"
+                type="warning"
+                icon="warning"
+                title="Juridische waarde"
+            >
+                <span>De door deze toepassing gegenereerde informatie heeft geen juridische waarde.</span>
+            </vl-alert>
+        `);
+    });
+
+    it('should reduce the vertical padding and keep the horizontal padding of the small variant', () => {
+        expectPadding(rem(1), rem(1.5), rem(1), rem(1.5));
+    });
+
+    it('should reserve room for the close button on the right', () => {
+        cy.get('vl-alert').invoke('attr', 'closable', '');
+        cy.waitForLitUpdate('vl-alert');
+
+        expectPadding(rem(1), rem(4), rem(1), rem(1.5));
+    });
+
+    it('should keep the small padding without the banner attribute', () => {
+        cy.get('vl-alert').invoke('removeAttr', 'banner');
+        cy.waitForLitUpdate('vl-alert');
+
+        expectPadding(rem(1.5), rem(1.5), rem(1.5), rem(1.5));
+    });
+
+    it('should keep the banner padding without the size attribute', () => {
+        cy.get('vl-alert').invoke('removeAttr', 'size');
+        cy.waitForLitUpdate('vl-alert');
+
+        expectPadding(rem(1), rem(1.5), rem(1), rem(1.5));
+    });
+
+    it('should render as the small variant without the size attribute', () => {
+        cy.get('vl-alert').invoke('removeAttr', 'size');
+        cy.waitForLitUpdate('vl-alert');
+
+        cy.get('vl-alert').shadow().find('#alert').should('have.class', 'vl-alert--small');
     });
 });
 

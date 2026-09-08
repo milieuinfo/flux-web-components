@@ -3,7 +3,7 @@ import { Meta } from '@storybook/web-components-vite';
 import { html } from 'lit';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import '../vl-alert.component';
-import { ALERT_ICON, ALERT_ROLE, ALERT_TYPE } from '../vl-alert.model';
+import { ALERT_ICON, ALERT_ROLE, ALERT_SIZE, ALERT_TYPE } from '../vl-alert.model';
 import { alertArgs, alertArgTypes } from './vl-alert.stories-arg';
 import alertDoc from './vl-alert.stories-doc.mdx';
 import { registerWebComponents } from '@domg-wc/common';
@@ -33,6 +33,7 @@ const AlertTemplate = story(
         size,
         type,
         naked,
+        banner,
         multiline,
         message,
         alertRole,
@@ -44,6 +45,7 @@ const AlertTemplate = story(
         <vl-alert
             ?closable=${closable}
             ?naked=${naked}
+            ?banner=${banner}
             ?multiline=${multiline}
             icon=${icon}
             title=${title}
@@ -156,6 +158,20 @@ AlertNakedSuccess.args = {
     icon: ALERT_ICON.CHECK,
     naked: true,
     message: 'U heeft geen rechten om deze actie uit te voeren.',
+};
+
+export const AlertBanner = AlertTemplate.bind({});
+AlertBanner.storyName = 'vl-alert - banner';
+AlertBanner.args = {
+    title: 'Juridische waarde',
+    type: ALERT_TYPE.WARNING,
+    icon: ALERT_ICON.WARNING,
+    banner: true,
+    closable: true,
+    alertRole: ALERT_ROLE.NO_ROLE,
+    size: ALERT_SIZE.SMALL,
+    defaultSlot:
+        '<span>De door deze toepassing gegenereerde informatie heeft geen juridische waarde en is louter indicatief.</span>',
 };
 
 export const AlertMultiline = AlertTemplate.bind({});

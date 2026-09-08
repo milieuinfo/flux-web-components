@@ -17,6 +17,7 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
     size = '';
     message = '';
     naked = false;
+    banner = false;
     closable = false;
     multiline = false;
     alertRole: ALERT_ROLE = ALERT_ROLE.ALERT;
@@ -33,6 +34,7 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
             type: { type: String, attribute: 'type' },
             size: { type: String, attribute: 'size' },
             naked: { type: Boolean, attribute: 'naked' },
+            banner: { type: Boolean, attribute: 'banner' },
             message: { type: String, attribute: 'message' },
             multiline: { type: Boolean, attribute: 'multiline', reflect: true },
             alertRole: { type: String, attribute: 'alert-role' },
@@ -43,8 +45,10 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
         const classes = {
             'vl-alert': true,
             [`vl-alert--${this.type}`]: Boolean(this.type),
-            'vl-alert--small': this.size === 'small',
+            // de banner variant is enkel bedoeld in de kleine opmaak, dus die zetten we ook zonder size="small"
+            'vl-alert--small': this.size === 'small' || this.banner,
             'vl-alert--naked': this.naked,
+            'vl-alert--banner': this.banner,
         };
 
         const markClass = this.naked ? `vl-u-mark--${this.type}` : '';
@@ -54,6 +58,10 @@ export class VlAlert extends BaseLitElement implements VlAlertModel {
         // we verwijzen enkel naar een element dat effectief inhoud heeft: de titel benoemt, de boodschap beschrijft
         const hasTitle = Boolean(this.title) || Boolean(findNodesForSlot(this, 'title')?.length);
         const hasMessage = Boolean(this.message) || this.hasDefaultSlotContent();
+        // in de banner variant lopen titel en boodschap door op dezelfde regel: het scheidingsteken ertussen hoort
+        // bij de component, niet bij de aangeleverde boodschap
+        classes['vl-alert--separator'] = this.banner && hasTitle && hasMessage;
+
         const labelledBy = isAlertDialog && hasTitle ? 'title' : undefined;
         const describedBy = isAlertDialog && hasMessage ? 'message' : undefined;
 

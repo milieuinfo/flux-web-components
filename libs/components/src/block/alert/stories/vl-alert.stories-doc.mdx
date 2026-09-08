@@ -71,6 +71,28 @@ import { VlAlert } from '@domg-wc/components/block';
 
 <Canvas of={VlAlertStories.AlertNakedSuccess}/>
 
+### Banner
+
+Toont de melding als een banner over de volledige breedte van de pagina: de afgeronde hoeken verdwijnen zodat de
+melding naadloos aansluit op de rand van haar container, en de titel en de boodschap lopen na elkaar door op dezelfde
+regel. Het streepje tussen de titel en de boodschap wordt door de component zelf gezet, en enkel wanneer er zowel
+een titel als een boodschap is: zet het niet mee in de content. De banner variant is niet bedoeld in combinatie met
+de naked variant.
+
+Een banner gebruikt altijd de `small` opmaak: `size="small"` wordt automatisch toegepast en hoeft niet expliciet
+meegegeven te worden.
+
+Een banner staat meestal al op de pagina bij het laden. Zet in dat geval `alert-role="no-role"`, zodat een schermlezer
+de gebruiker niet onderbreekt met een melding die geen reactie op een actie is.
+
+```html
+<vl-alert banner closable alert-role="no-role" size="small" type="warning" icon="warning" title="Juridische waarde">
+    <span>De door deze toepassing gegenereerde informatie heeft geen juridische waarde.</span>
+</vl-alert>
+```
+
+<Canvas of={VlAlertStories.AlertBanner}/>
+
 ### Multiline
 
 Stelt `white-space: pre-line;` in voor de boodschap zodat nieuwe regels (newline karakters) in rekening worden gebracht.

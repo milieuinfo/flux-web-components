@@ -44,6 +44,7 @@ export interface VlAlertModel {
     size?: string;
     message?: string;
     naked?: boolean;
+    banner?: boolean;
     closable?: boolean;
     multiline?: boolean;
     alertRole?: ALERT_ROLE;

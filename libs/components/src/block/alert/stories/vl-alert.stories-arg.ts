@@ -14,6 +14,7 @@ export const alertArgs = {
     ...defaultArgs,
     closable: false,
     naked: false,
+    banner: false,
     multiline: false,
     title: '',
     icon: '',
@@ -47,6 +48,18 @@ export const alertArgTypes: ArgTypes<typeof alertArgs> = {
             defaultValue: { summary: String(alertArgs.naked) },
         },
     },
+    banner: {
+        name: 'banner',
+        description:
+            'Banner variant van de waarschuwing: zonder afgeronde hoeken, met de titel en de boodschap na elkaar ' +
+            'op dezelfde regel.<br>Bedoeld voor meldingen over de volledige breedte van de pagina. Gebruikt altijd ' +
+            'de `small` opmaak, ook zonder `size="small"`. Combineer niet met de `naked` variant.',
+        table: {
+            type: { summary: TYPES.BOOLEAN },
+            category: CATEGORIES.ATTRIBUTES,
+            defaultValue: { summary: String(alertArgs.banner) },
+        },
+    },
     multiline: {
         name: 'multiline',
         description: 'Behoudt nieuwe regels in de boodschap van de waarschuwing.',
@@ -71,7 +84,7 @@ export const alertArgTypes: ArgTypes<typeof alertArgs> = {
         description:
             'Icon van de waarschuwing.<br>Het icoon kan gekozen worden uit de lijst op https://www.vlaanderen.be/vlaanderen-design-system/componenten/icon.',
         control: { type: CONTROLS.SELECT },
-        options: Object.values(ALERT_ICON),
+        options: ['', ...Object.values(ALERT_ICON)],
         table: {
             type: { summary: getSelectControlOptions(Object.values(ALERT_ICON)) },
             category: CATEGORIES.ATTRIBUTES,
@@ -93,7 +106,7 @@ export const alertArgTypes: ArgTypes<typeof alertArgs> = {
         name: 'size',
         description: 'Kleine variant van de waarschuwing.',
         control: { type: CONTROLS.SELECT },
-        options: [ALERT_SIZE.SMALL],
+        options: ['', ALERT_SIZE.SMALL],
         table: {
             type: { summary: `${ALERT_SIZE.SMALL}` },
             category: CATEGORIES.ATTRIBUTES,
@@ -104,7 +117,7 @@ export const alertArgTypes: ArgTypes<typeof alertArgs> = {
         name: 'type',
         description: 'Soort van de waarschuwing, foutmelding, probleemmelding of succesmelding.',
         control: { type: CONTROLS.SELECT },
-        options: Object.values(ALERT_TYPE),
+        options: ['', ...Object.values(ALERT_TYPE)],
         table: {
             type: {
                 summary: getSelectControlOptions(Object.values(ALERT_TYPE)),
