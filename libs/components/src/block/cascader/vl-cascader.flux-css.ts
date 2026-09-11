@@ -1,3 +1,4 @@
+import { vlFocusOutlineMixin } from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
 
 export const vlCascaderFluxStyles: CSSResult = css`
@@ -31,6 +32,12 @@ export const vlCascaderFluxStyles: CSSResult = css`
         opacity: 1;
         width: 100%;
         padding: 0 1.5rem 0.5rem 1.5rem;
+    }
+
+    /* Negatieve offset: div.content knipt met overflow: hidden een outline buiten de section weg */
+    div.content section:focus-visible {
+        ${vlFocusOutlineMixin()};
+        outline-offset: -3px;
     }
 
     div.content section.slide-in {

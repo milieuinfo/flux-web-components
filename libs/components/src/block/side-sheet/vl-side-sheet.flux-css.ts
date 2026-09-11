@@ -1,4 +1,4 @@
-import { vlFocusOutlineMixin, vlMediaScreenSmall } from '@domg-wc/styles';
+import { vlFocusOutlineMixin, vlMediaScreenSmall, vlVisuallyHiddenMixin } from '@domg-wc/styles';
 import { css, CSSResult } from 'lit';
 
 // deze css is gegenereerd uit de oude custom scss
@@ -43,6 +43,18 @@ export const vlSideSheetFluxStyles: CSSResult = css`
 
     :host #vl-side-sheet-backdrop {
         display: none;
+    }
+
+    /* Enkel focusbaar op een mobiel scherm bij een open side-sheet, waar de side-sheet modaal is */
+    :host .vl-side-sheet__focus-guard {
+        display: none;
+    }
+
+    @media screen and (max-width: ${vlMediaScreenSmall}px) {
+        :host([open]) .vl-side-sheet__focus-guard {
+            display: block;
+            ${vlVisuallyHiddenMixin()};
+        }
     }
 
     :host #vl-side-sheet-toggle-text {
